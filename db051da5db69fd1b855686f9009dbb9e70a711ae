@@ -35,6 +35,63 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9bd552a_22d2021b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-10-26T08:13:07Z",
+      "side": 1,
+      "message": "Replacing constructor + initialization method with a create function that may fail seems like a very good idea.",
+      "revId": "db051da5db69fd1b855686f9009dbb9e70a711ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb56001e_743b9e15",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-10-26T08:13:07Z",
+      "side": 1,
+      "message": "a",
+      "range": {
+        "startLine": 643,
+        "startChar": 30,
+        "endLine": 643,
+        "endChar": 32
+      },
+      "revId": "db051da5db69fd1b855686f9009dbb9e70a711ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aebe3990_8987fcb4",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-10-26T08:13:07Z",
+      "side": 1,
+      "message": "So this function can fail---please document this next to its declaration in the header.",
+      "revId": "db051da5db69fd1b855686f9009dbb9e70a711ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d8e0a3a8_483f3121",
@@ -65,6 +122,23 @@
       "writtenOn": "2020-10-26T08:01:10Z",
       "side": 1,
       "message": "Isn\u0027t changing the sdp_semantics an INVALID_MODIFICATION?",
+      "revId": "db051da5db69fd1b855686f9009dbb9e70a711ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6d80bb9_9d905573",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-10-26T08:13:07Z",
+      "side": 1,
+      "message": "It seems like a bad idea to have tests that do this, but I guess that isn\u0027t the fault of this CL...",
       "revId": "db051da5db69fd1b855686f9009dbb9e70a711ae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

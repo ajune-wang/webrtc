@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fb380a07_ddce56d3",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2020-10-26T09:45:14Z",
+      "side": 1,
+      "message": "What we\u0027re trying to achieve is to postpone the decision of dropping a frame or not to as late as possible. We\u0027ve found that a pragmatic way of making this decision possible in the compositor is to provide the information included in |max_composition_delay_in_frames|. The renderer will take different decisions depending on the total queue size in relation to |max_composition_delay_in_frames|.\n\nI\u0027ll investigate what the consequences would be of refactoring to a |max_render_delay_ms|, for now I would like to keep counting number of frames to enable wider experimentation with this strategy which has shown positive results in local experiments.\n\nI agree that it\u0027s not a per-frame property in a conventional way. However, it\u0027s a per-frame property in the sense that it provides information about how relevant this frame is in a low-latency context. If there are several frames in the decode queue, we would set |max_composition_delay_in_frames| to a lower number and indicate to the compositor that this frame might be dropped because there are several newer frames coming soon.",
+      "parentUuid": "bac680e1_1ac65afa",
+      "range": {
+        "startLine": 189,
+        "startChar": 0,
+        "endLine": 197,
+        "endChar": 0
+      },
+      "revId": "fa0b877ad5098eee73767e01c92b4b984a926101",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "75b59c71_693ae509",
         "filename": "modules/video_coding/generic_decoder.h",
         "patchSetId": 3

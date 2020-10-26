@@ -16,6 +16,57 @@
       "message": "Yours for const-declaring all the constant variables.\n(some of the others are modified in the destructor, so can\u0027t be const)\n",
       "revId": "470d6cc71f3f82ead161d67beddc1cfc9d697ba0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5f2a1ca_03f8d8bf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-10-26T13:55:25Z",
+      "side": 1,
+      "message": "LGTM---const for the win!!!---but see comments.",
+      "revId": "470d6cc71f3f82ead161d67beddc1cfc9d697ba0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a399314f_28b93231",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-10-26T13:55:25Z",
+      "side": 1,
+      "message": "`dependencies` is dereferenced unconditionally, so pass it by mutable reference instead? https://google.github.io/styleguide/cppguide.html#Inputs_and_Outputs",
+      "revId": "470d6cc71f3f82ead161d67beddc1cfc9d697ba0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6407b008_6f170993",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 638,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-10-26T13:55:25Z",
+      "side": 1,
+      "message": "Note: You have the option of putting the `const` first instead; this is more common in this codebase, and occurs at least once in this class (on line 611).",
+      "revId": "470d6cc71f3f82ead161d67beddc1cfc9d697ba0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

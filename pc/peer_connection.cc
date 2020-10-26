@@ -418,7 +418,8 @@ rtc::scoped_refptr<PeerConnection> PeerConnection::Create(
       configuration.sdp_semantics == SdpSemantics::kUnifiedPlan;
   rtc::scoped_refptr<PeerConnection> pc(
       new rtc::RefCountedObject<PeerConnection>(
-          context, is_unified_plan, std::move(event_log), std::move(call)));
+          context, is_unified_plan, std::move(event_log), std::move(call),
+          &dependencies));
   if (!pc->Initialize(configuration, std::move(dependencies))) {
     return nullptr;
   }
@@ -428,11 +429,17 @@ rtc::scoped_refptr<PeerConnection> PeerConnection::Create(
 PeerConnection::PeerConnection(rtc::scoped_refptr<ConnectionContext> context,
                                bool is_unified_plan,
                                std::unique_ptr<RtcEventLog> event_log,
-                               std::unique_ptr<Call> call)
+                               std::unique_ptr<Call> call,
+                               PeerConnectionDependencies* dependencies)
     : context_(context),
+      observer_(dependencies->observer),
       is_unified_plan_(is_unified_plan),
       event_log_(std::move(event_log)),
       event_log_ptr_(event_log_.get()),
+      async_resolver_factory_(std::move(dependencies->async_resolver_factory)),
+      port_allocator_(std::move(dependencies->allocator)),
+      ice_transport_factory_(std::move(dependencies->ice_transport_factory)),
+      tls_cert_verifier_(std::move(dependencies->tls_cert_verifier)),
       call_(std::move(call)),
       call_ptr_(call_.get()),
       sdp_handler_(this),
@@ -490,12 +497,6 @@ bool PeerConnection::Initialize(
   RTC_DCHECK_RUN_ON(signaling_thread());
   TRACE_EVENT0("webrtc", "PeerConnection::Initialize");
 
-  observer_ = dependencies.observer;
-  async_resolver_factory_ = std::move(dependencies.async_resolver_factory);
-  port_allocator_ = std::move(dependencies.allocator);
-  ice_transport_factory_ = std::move(dependencies.ice_transport_factory);
-  tls_cert_verifier_ = std::move(dependencies.tls_cert_verifier);
-
   cricket::ServerAddresses stun_servers;
   std::vector<cricket::RelayServerConfig> turn_servers;
 
@@ -518,8 +519,7 @@ bool PeerConnection::Initialize(
           rtc::Bind(&PeerConnection::InitializePortAllocator_n, this,
                     stun_servers, turn_servers, configuration));
 
-  // If initialization was successful, note if STUN or TURN servers
-  // were supplied.
+  // Note if STUN or TURN servers were supplied.
   if (!stun_servers.empty()) {
     NoteUsageEvent(UsageEvent::STUN_SERVER_ADDED);
   }

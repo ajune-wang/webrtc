@@ -16,6 +16,41 @@
       "message": "Hi, is this a reasonable way to get stats for ssltcp usage?\n\nIdeally, I\u0027d like to also have stats for usage in local description (if that makes sense at all?), as well as stats for actual usage on the network of these candidates, i.e., somewhere on the code paths reaching the class AsyncSSLSocket, https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/rtc_base/socket_adapters.h;l\u003d68",
       "revId": "18148ce89aeb10dc5625426e20c277a2d3ad6460",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3424b7f_eb64c909",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-26T16:45:59Z",
+      "side": 1,
+      "message": "No, this won\u0027t register.\n\nUsage patterns, which are bitfields, are filtered against a \"suspiciousness filter\" before being reported. I\u0027ve had on my \"good ideas we should do\" to do the paperwork for recording all usage patterns, not just the suspicious ones, but haven\u0027t done so yet.\n\nWhat\u0027s the data you want? Whether it is used at all, or which sites use it?\n\nYou should be recording an UMA histogram for the former. The latter may require an UKM metric - either a bit in the usage pattern once we generalize it, or a new UKM metric.",
+      "parentUuid": "d58b36f5_4453f47b",
+      "revId": "18148ce89aeb10dc5625426e20c277a2d3ad6460",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a45de167_d5ca1de4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-26T16:45:59Z",
+      "side": 1,
+      "message": "What stats are you looking to gather?\nThis is probably the wrong answer no matter what the question is.\n",
+      "revId": "18148ce89aeb10dc5625426e20c277a2d3ad6460",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

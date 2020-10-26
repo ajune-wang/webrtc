@@ -122,6 +122,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "14fdbfc4_c0accb3b",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2020-10-26T13:52:04Z",
+      "side": 1,
+      "message": "\u003e \u003e \u003e To postpone decision making, maybe it would be even better to attach the number of decodable frames in the decode buffer?\n\u003e \u003e \n\u003e \u003e Yes, that\u0027s also an option but it would require a hard decision on the threshold to use before dropping frames. If we find a good configuration that always \"work\" that\u0027s worth considering. \n\u003e \n\u003e To me it seems like the logic will be divided into two places: Webrtc, translating size of pre-decode buffer to max_composition_delay_in_frames, and chrome rendering that uses this value together with it\u0027s size of the post-decode buffering and some threshold values to control frame drop logic.\n\u003e \n\u003e Wouldn\u0027t it be easier to tune and experiment with all the logic in one place?\n\nI expect that most of the experimentation will be by testing different playout delays and perhaps adjusting the renderer algorithm in Chrome.\n\nAn alternative would be to add 2 fields to VideoFrame: |max_playout_delay| and |number_of_frames_in_predecode_buffer|. I open for this as well, but was thinking that |max_composition_delay| fits better into VideoFrame than |number_of_frames_in_predecode_buffer|.\nWDYT?\n \n\u003e \u003e There\u0027s an implicit dropping of frames for max playout delay \u003d 0 as described above.\n\u003e \n\u003e I\u0027m afraid I don\u0027t get the details here. In this case, are all frames still passed on to the application, but the application drops them? Or are they discarded somewhere in webrtc?\n\nThe frames are dropped by the application. At the moment, frames are dropped randomly based on when they are submitted to the compositor in relation to the rendering intervals which are unknown to WebRTC. With this change, the idea is to be able to control when the frames are dropped.",
+      "parentUuid": "742effc0_e479df97",
+      "range": {
+        "startLine": 189,
+        "startChar": 0,
+        "endLine": 197,
+        "endChar": 0
+      },
+      "revId": "fa0b877ad5098eee73767e01c92b4b984a926101",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "75b59c71_693ae509",
         "filename": "modules/video_coding/generic_decoder.h",
         "patchSetId": 3

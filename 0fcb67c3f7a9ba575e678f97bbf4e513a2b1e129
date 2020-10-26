@@ -16,6 +16,23 @@
       "message": "Hi Jakob,\nCould you PTAL?\nAlessio",
       "revId": "0fcb67c3f7a9ba575e678f97bbf4e513a2b1e129",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "242b6a20_442befe9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2020-10-26T08:16:49Z",
+      "side": 1,
+      "message": "Can we measure the improvement for this? Do we have a benchmark for AGC2 so that we can compare the changes?\n\nNot sure how much we will save by manually unrolling the loop, maximum 12 multiplications? How often is this function called?",
+      "revId": "0fcb67c3f7a9ba575e678f97bbf4e513a2b1e129",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

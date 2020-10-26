@@ -75,6 +75,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4996eab0_934b2d03",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-26T08:34:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb56001e_743b9e15",
+      "range": {
+        "startLine": 643,
+        "startChar": 30,
+        "endLine": 643,
+        "endChar": 32
+      },
+      "revId": "db051da5db69fd1b855686f9009dbb9e70a711ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aebe3990_8987fcb4",
@@ -92,6 +116,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc171f15_92fedd92",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-26T08:34:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aebe3990_8987fcb4",
+      "revId": "db051da5db69fd1b855686f9009dbb9e70a711ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d8e0a3a8_483f3121",
@@ -105,6 +147,24 @@
       "writtenOn": "2020-10-26T08:01:10Z",
       "side": 1,
       "message": "DCHECK that configuration.sdp_semantics matches is_unified_plan or equivalent.",
+      "revId": "db051da5db69fd1b855686f9009dbb9e70a711ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8a166fd_165f94bf",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-26T08:34:26Z",
+      "side": 1,
+      "message": "Should be unnecessary, since the Initialize method is private. I don\u0027t think it makes sense to do much DCHECKing on private functions that they are called correctly.\n\n(Actually it was protected, but the case I thought I needed it for could be solved in a better way. Now it\u0027s private.)",
+      "parentUuid": "d8e0a3a8_483f3121",
       "revId": "db051da5db69fd1b855686f9009dbb9e70a711ae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -128,6 +188,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "a0efdf1a_88d4a90c",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1296,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-26T08:34:26Z",
+      "side": 1,
+      "message": "Yes, and the code will detect that, because sdp_semantics is not copied from configuration to modified_config, so an attempt to change it will make the !\u003d test fail.",
+      "parentUuid": "2e3fc8ca_2adc1e1d",
+      "revId": "db051da5db69fd1b855686f9009dbb9e70a711ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "a6d80bb9_9d905573",
         "filename": "pc/peer_connection.h",
         "patchSetId": 2
@@ -139,6 +217,24 @@
       "writtenOn": "2020-10-26T08:13:07Z",
       "side": 1,
       "message": "It seems like a bad idea to have tests that do this, but I guess that isn\u0027t the fault of this CL...",
+      "revId": "db051da5db69fd1b855686f9009dbb9e70a711ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b4693b5_0537abf1",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-26T08:34:26Z",
+      "side": 1,
+      "message": "I was able to get around this in a different way, so the Intiialize method is now private. One strike for clean code!",
+      "parentUuid": "a6d80bb9_9d905573",
       "revId": "db051da5db69fd1b855686f9009dbb9e70a711ae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -156,6 +252,24 @@
       "writtenOn": "2020-10-26T08:01:10Z",
       "side": 1,
       "message": "SdpSemantics is an enum. Why pick a bool here instead of const SdpSemantics sdp_semantics?",
+      "revId": "db051da5db69fd1b855686f9009dbb9e70a711ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23d520be_5ae5f23f",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-26T08:34:26Z",
+      "side": 1,
+      "message": "I made SdpSemantics an enum in JS because I wanted string values that were easily readable at the call site. The code down here uses an IsUnifiedPlan() method to distinguish between the two cases, and it returns a bool.\n\nI don\u0027t think we want to introduce a third case, ever.",
+      "parentUuid": "adf792ca_d0e6b0ca",
       "revId": "db051da5db69fd1b855686f9009dbb9e70a711ae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

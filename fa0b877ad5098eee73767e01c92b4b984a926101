@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ade659b4_5a61b246",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2020-10-26T12:58:31Z",
+      "side": 1,
+      "message": "\u003e \u003e What we\u0027re trying to achieve is to postpone the decision of dropping a frame or not to as late as possible.\n\u003e \n\u003e I\u0027m a bit puzzled why there\u0027s any need to buffer frames both before and after decoder, but I guess one reason is that the pre-decode buffer can\u0027t drop any frames (except in special cases like next frame being a key frame).\n\nDue to network jitter it may happen that we get several decodable frames at once. The decode times also varies which is why there will be frames in the pre decode buffer. The reason why there\u0027s a need to buffer frames post-decode is because WebRTC is not synchronized with the rendering. What happens currently with min/max playout delay\u003d\u003d0 is that two or more frames may be submitted during the same rendering interval resulting in that two of the frames are not rendered.\n\n\n\u003e \n\u003e \u003e I\u0027ll investigate what the consequences would be of refactoring to a |max_render_delay_ms|, for now I would like to keep counting number of frames to enable wider experimentation with this strategy which has shown positive results in local experiments.\n\u003e \n\u003e The reason I asked is that (1) ms is a better defined unit, and (2) it would be nice if the relation to render_time_ms was clear (I don\u0027t know if and how the latter is used).\n\nThe current behavior for min/max playout delay\u003d\u003d0 is to not set the render time at all.\n\n\u003e \n\u003e \u003e I agree that it\u0027s not a per-frame property in a conventional way. However, it\u0027s a per-frame property in the sense that it provides information about how relevant this frame is in a low-latency context. If there are several frames in the decode queue, we would set |max_composition_delay_in_frames| to a lower number and indicate to the compositor that this frame might be dropped because there are several newer frames coming soon.\n\u003e \n\u003e To postpone decision making, maybe it would be even better to attach the number of decodable frames in the decode buffer?\n\nYes, that\u0027s also an option but it would require a hard decision on the threshold to use before dropping frames. If we find a good configuration that always \"work\" that\u0027s worth considering. \n\n\u003e \n\u003e Another question: Is there any logic in elsewhere in webrtc to discard frames after decoding? I take it frame dropping with max_delay \u003d 0 happens somewhere in webrtc?\n\nIf I recall correctly the only place where we drop frames in WebRTC post decode is in generic_decoder if we cannot find the corresponding metadata to add back to the decoded video frame. Otherwise all decoded frames should be submitted for rendering. There\u0027s an implicit dropping of frames for max playout delay \u003d 0 as described above.",
+      "parentUuid": "8f1bf6b7_df4ca5f6",
+      "range": {
+        "startLine": 189,
+        "startChar": 0,
+        "endLine": 197,
+        "endChar": 0
+      },
+      "revId": "fa0b877ad5098eee73767e01c92b4b984a926101",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "75b59c71_693ae509",
         "filename": "modules/video_coding/generic_decoder.h",
         "patchSetId": 3

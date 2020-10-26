@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c657dd82_d3f82beb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2020-10-26T12:58:31Z",
+      "side": 1,
+      "message": "Yes, that\u0027s correct. If the experiments are successful I\u0027m happy to take this through another round of design.",
+      "parentUuid": "669dc21f_c7eeb580",
+      "revId": "8b7ac91264fce3379af3e1a823d8f71c6cb61751",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6a9ab2ae_ab7c184f",
@@ -48,6 +66,30 @@
       "writtenOn": "2020-10-26T12:12:13Z",
       "side": 1,
       "message": "I think it\u0027s better to attach the comment to the public accessor methods. It\u0027s good to say clearly that it is an experimental feature. Would be nice with a public bug people can follow to see conclusions of the experiment, and any further plans for graduating the feature.",
+      "range": {
+        "startLine": 266,
+        "startChar": 0,
+        "endLine": 267,
+        "endChar": 46
+      },
+      "revId": "8b7ac91264fce3379af3e1a823d8f71c6cb61751",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1678373_322fc4d4",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2020-10-26T12:58:31Z",
+      "side": 1,
+      "message": "I\u0027ve moved the comment and made the bug public.",
+      "parentUuid": "6a9ab2ae_ab7c184f",
       "range": {
         "startLine": 266,
         "startChar": 0,

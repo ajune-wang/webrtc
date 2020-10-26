@@ -88,14 +88,16 @@ namespace webrtc {
 class SdpOfferAnswerHandler : public SdpStateProvider,
                               public sigslot::has_slots<> {
  public:
+  // This should only be called by std::make_unique<> inside the Create()
+  // function.
   explicit SdpOfferAnswerHandler(PeerConnection* pc);
   ~SdpOfferAnswerHandler();
 
-  // Called from PeerConnection's Initialize() function. Can only be called
-  // once. Modifies dependencies.
-  void Initialize(
+  // Creates an SdpOfferAnswerHandler. Modifies dependencies.
+  static std::unique_ptr<SdpOfferAnswerHandler> Create(
+      PeerConnection* pc,
       const PeerConnectionInterface::RTCConfiguration& configuration,
-      PeerConnectionDependencies* dependencies);
+      PeerConnectionDependencies& dependencies);
 
   void ResetSessionDescFactory() {
     RTC_DCHECK_RUN_ON(signaling_thread());
@@ -214,6 +216,12 @@ class SdpOfferAnswerHandler : public SdpStateProvider,
   // TODO(hbos): When JsepTransportController/JsepTransport supports rollback,
   // move this type of logic to JsepTransportController/JsepTransport.
   class LocalIceCredentialsToReplace;
+
+  // Called from the `Create()` function. Can only be called
+  // once. Modifies dependencies.
+  void Initialize(
+      const PeerConnectionInterface::RTCConfiguration& configuration,
+      PeerConnectionDependencies& dependencies);
 
   rtc::Thread* signaling_thread() const;
   // Non-const versions of local_description()/remote_description(), for use

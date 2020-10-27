@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9eaeecb_e6a06f19",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-10-27T08:31:33Z",
+      "side": 1,
+      "message": "Is this compatible with the behaviour of the `H264SpsPpsTracker` ? For example, if we were to lose an SPS/PPS that had the same ID as a previous one, would the decoder use the old, incorrect, SPS/PPS?",
+      "revId": "556ae2ca0a58e94f1fb3a0405aa625bd0eba974b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

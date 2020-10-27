@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f94f2919_4d659946",
+        "filename": "api/uma_metrics.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-10-27T16:38:10Z",
+      "side": 0,
+      "message": "should I add a line \"please, do not copy legacy style from above but do \u003cnew style\u003e\" here?",
+      "revId": "f8b5bfeaf2471c79744605fca5851839fda726df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

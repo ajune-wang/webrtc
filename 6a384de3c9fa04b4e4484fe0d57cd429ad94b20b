@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "616ad23e_d5f0b956",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-10-27T16:38:10Z",
+      "side": 1,
+      "message": "not changing for kMaxValue which iiuc would require code changes while all of the current ones are just style changes.",
+      "revId": "6a384de3c9fa04b4e4484fe0d57cd429ad94b20b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

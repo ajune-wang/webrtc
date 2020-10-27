@@ -545,6 +545,8 @@ SEncParamExt H264EncoderImpl::CreateEncoderParams(size_t i) const {
   // |uiIntraPeriod|    - multiple of GOP size
   // |keyFrameInterval| - number of frames
   encoder_params.uiIntraPeriod = configurations_[i].key_frame_interval;
+  // Reuse SPS/PPS ids if possible (do not update them on each IDR).
+  encoder_params.eSpsPpsIdStrategy = SPS_LISTING;
   encoder_params.uiMaxNalSize = 0;
   // Threading model: use auto.
   //  0: auto (dynamic imp. internal encoder)

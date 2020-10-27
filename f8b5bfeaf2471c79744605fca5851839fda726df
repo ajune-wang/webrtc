@@ -16,6 +16,24 @@
       "message": "should I add a line \"please, do not copy legacy style from above but do \u003cnew style\u003e\" here?",
       "revId": "f8b5bfeaf2471c79744605fca5851839fda726df",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d96aa21_11425b2a",
+        "filename": "api/uma_metrics.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-10-27T17:04:14Z",
+      "side": 0,
+      "message": "Yes, I think it is good to have such comment.",
+      "parentUuid": "f94f2919_4d659946",
+      "revId": "f8b5bfeaf2471c79744605fca5851839fda726df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -86,6 +86,24 @@
       "message": "Wez, \n\nThe design doc for this project has some of the background information covered by Jan.\n\nhttps://docs.google.com/document/d/1DTO1GzA1Iwdhw4KQPYSW9iRwA0QRi0Bsobbq6YCK77g/edit?usp\u003dsharing\n\n",
       "revId": "a5685075bdea023492090bec83a6064b71b20b84",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f97233e1_7bb7f080",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-10-27T20:43:45Z",
+      "side": 1,
+      "message": "This was the very first proposal where we didn\u0027t want the Chromium dialog to show up, which was not allowed in the end, but it should help to understand how it works with portals.",
+      "parentUuid": "86abc448_6c204e66",
+      "revId": "a5685075bdea023492090bec83a6064b71b20b84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -62,6 +62,30 @@
       },
       "revId": "6a384de3c9fa04b4e4484fe0d57cd429ad94b20b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f273c432_a9f84198",
+        "filename": "api/uma_metrics.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-10-27T17:29:24Z",
+      "side": 1,
+      "message": "I thought so at first but that is only using the new kMaxValue semantics while we\u0027re still legacy enums.",
+      "parentUuid": "eb3a8464_7f6ca8a3",
+      "range": {
+        "startLine": 27,
+        "startChar": 2,
+        "endLine": 27,
+        "endChar": 41
+      },
+      "revId": "6a384de3c9fa04b4e4484fe0d57cd429ad94b20b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

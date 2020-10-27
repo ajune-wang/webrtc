@@ -51,6 +51,24 @@
       "message": "What stats are you looking to gather?\nThis is probably the wrong answer no matter what the question is.\n",
       "revId": "18148ce89aeb10dc5625426e20c277a2d3ad6460",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac200296_be755b1d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-27T08:23:02Z",
+      "side": 1,
+      "message": "I would like stats for at least two things:\n\n1. How often does ssltcp appear in sdp negotiation?\n\n2. How often is an ssltcp candidate actually used to make a successful connection?\n\nI was hoping for some really simple way to get to that.\n\nWhat I\u0027d really like to know (but that seems kind-of difficult to measure) is how often does ssltcp improve connectivity, compared to a plain tcp candidate for port 443. My hypothesis is that it makes no or very small difference.",
+      "parentUuid": "a45de167_d5ca1de4",
+      "revId": "18148ce89aeb10dc5625426e20c277a2d3ad6460",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

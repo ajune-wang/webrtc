@@ -34,6 +34,23 @@
       "parentUuid": "d99f0b89_24aebf78",
       "revId": "a5685075bdea023492090bec83a6064b71b20b84",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78403895_b4df492e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5064
+      },
+      "writtenOn": "2020-10-27T18:31:56Z",
+      "side": 1,
+      "message": "Hi Jan,\n\nThanks for your patience. I\u0027m still struggling a little to understand the specifics of the XDG interaction, since I originally misunderstood which picker we plan to show, I think.\n\nWhat is the specific mechanism by which we suppress the XDG picker?\n\nThanks,\n\nWez\n",
+      "revId": "a5685075bdea023492090bec83a6064b71b20b84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

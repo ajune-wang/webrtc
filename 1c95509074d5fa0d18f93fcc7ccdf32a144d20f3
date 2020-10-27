@@ -88,6 +88,24 @@
       "parentUuid": "314f0691_3be3ec97",
       "revId": "1c95509074d5fa0d18f93fcc7ccdf32a144d20f3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfc54e8a_6d0f2fdb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5064
+      },
+      "writtenOn": "2020-10-27T18:31:56Z",
+      "side": 1,
+      "message": "My understanding of this change was that we would:\n\n1. Use the XDG picker instead of a caller-supplied one.\n2. Re-use that same XDG request to perform the actual capture, without re-triggering the picker.\n\nHowever, it sounds like the idea is to:\n1. Let the caller show their own picker.\n2. Provide some way for them to suppress the XDG picker while their own picker is in-use?\n3. Re-use the XDG request to allow the actual capture without triggering a picker?\n\nIs that correct? And if so, what is it that is actually suppressing the XDG picker?",
+      "parentUuid": "b81d9124_2f77fe0c",
+      "revId": "1c95509074d5fa0d18f93fcc7ccdf32a144d20f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

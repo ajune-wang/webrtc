@@ -52,6 +52,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec4e4b85_4001d6f2",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-27T07:11:24Z",
+      "side": 1,
+      "message": "Nope - it\u0027s initialized in Initialize(), rather late, and its initialization needs some other stuff that\u0027s done in Initialize, so making it const would require separation of creation and initialization - the opposite of what I\u0027m aiming for here.\n\nI added a comment saying \"const after initialization\". Not policed by the compiler, but good to know.",
+      "parentUuid": "157a467f_626ec572",
+      "revId": "37a49754f3939248ccd815b6a98c79c2915bb9af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "28a393dc_6170a9f4",
@@ -65,6 +83,24 @@
       "writtenOn": "2020-10-27T05:05:38Z",
       "side": 1,
       "message": "You can make the constructor private if you instead do\n\n  absl::WrapUnique(new SdpOfferAnswerHandler(...))\n\nin the Create function. It\u0027s one of the rare cases where raw `new` is still the least bad solution.",
+      "revId": "37a49754f3939248ccd815b6a98c79c2915bb9af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e80a6e02_df566d25",
+        "filename": "pc/sdp_offer_answer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-27T07:11:24Z",
+      "side": 1,
+      "message": "Thanks! Was wondering whether to do that. Done.",
+      "parentUuid": "28a393dc_6170a9f4",
       "revId": "37a49754f3939248ccd815b6a98c79c2915bb9af",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -16,6 +16,57 @@
       "message": "Not 100% sure this is a good idea. But I wanted to see what happened if I tried to create subclasses for the Plan B / Unified Plan differences rather than doing everything in if statements, and this seems to be a prerequisite for such experimentation.\n\nAlso changes the SdpOfferAnswerHandler::Initialize function to follow style guide on I/O parameters.\n",
       "revId": "37a49754f3939248ccd815b6a98c79c2915bb9af",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1f06e2b_5b290dc3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-10-27T05:05:38Z",
+      "side": 1,
+      "message": "Seems like a good idea to me!",
+      "revId": "37a49754f3939248ccd815b6a98c79c2915bb9af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "157a467f_626ec572",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-10-27T05:05:38Z",
+      "side": 1,
+      "message": "I presume this unique_ptr can\u0027t be `const`?",
+      "revId": "37a49754f3939248ccd815b6a98c79c2915bb9af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28a393dc_6170a9f4",
+        "filename": "pc/sdp_offer_answer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-10-27T05:05:38Z",
+      "side": 1,
+      "message": "You can make the constructor private if you instead do\n\n  absl::WrapUnique(new SdpOfferAnswerHandler(...))\n\nin the Create function. It\u0027s one of the rare cases where raw `new` is still the least bad solution.",
+      "revId": "37a49754f3939248ccd815b6a98c79c2915bb9af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

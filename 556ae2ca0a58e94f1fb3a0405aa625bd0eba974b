@@ -16,6 +16,24 @@
       "message": "Is this compatible with the behaviour of the `H264SpsPpsTracker` ? For example, if we were to lose an SPS/PPS that had the same ID as a previous one, would the decoder use the old, incorrect, SPS/PPS?",
       "revId": "556ae2ca0a58e94f1fb3a0405aa625bd0eba974b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b97431c7_1110322b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2020-10-27T08:59:23Z",
+      "side": 1,
+      "message": "Yes, it will use the old incorrect header after this change.\n\nThis change doesn\u0027t affect bitstream robustness since WebRTC always resets encoder on resolution change (or any other reconfig which causes SPS/PPS change). I.e. headers with different params always have id\u003d0.",
+      "parentUuid": "a9eaeecb_e6a06f19",
+      "revId": "556ae2ca0a58e94f1fb3a0405aa625bd0eba974b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

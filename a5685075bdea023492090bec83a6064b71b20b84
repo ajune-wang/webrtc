@@ -51,6 +51,24 @@
       "message": "Hi Jan,\n\nThanks for your patience. I\u0027m still struggling a little to understand the specifics of the XDG interaction, since I originally misunderstood which picker we plan to show, I think.\n\nWhat is the specific mechanism by which we suppress the XDG picker?\n\nThanks,\n\nWez\n",
       "revId": "a5685075bdea023492090bec83a6064b71b20b84",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42b60dd1_afd0523c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-10-27T19:26:52Z",
+      "side": 1,
+      "message": "Hi,\n\nI will try to explain the concept of xdg-desktop-portal (XDP). XDP is a DBus interface, primarily introduced for sandboxed applications to provide a way how those application can access things outside sandbox. Think of for example a file dialog. In strict sandbox environment apps wouldn\u0027t have access to system files so opening a file dialog inside sandbox would not allow them to open anything useful. That\u0027s where XDP comes on the stage. As I said it\u0027s a DBus interface which is by default accessible by everyone and consists from several portals . In the file dialog scenario it\u0027s a FileChooser portal which lets apps to send a request through XDP and open a file dialog outside the sandbox environment. With screen sharing it\u0027s quite similar, because Wayland is sort of similar to sandboxed environment, because apps on Wayland don\u0027t see each other and because of this we have to go through ScreenSharing portal.\n\nIf you want to share a screen on Wayland, you have to make a ScreenSharing portal request, specifying whether you want to request a screen or a window and then a dialog from XDP is shown where the user has to explicitly allow access to requested content. That\u0027s the only way how we can access screen content or access to some other app window.\n\nIn case of Chromium, we basically want to access screen/window two times, for the first time it\u0027s in the Chromium preview dialog and again on the web page itself, because each uses new webrtc::DesktopCapturer instance. Originally XDP implementation was part of webrtc::DesktopCapturer and deleted together and that was the reason why we did two XDP calls resulting into two XDP dialogs. With this change we no longer keep XDP interface as part of webrtc::DesktopCapturer and it\u0027s left alive so we avoid the second XDP screensharing request where the user would basically pick the same screen/window as before and therefore it was useless and annoying. \n\nDoes this make sense?",
+      "parentUuid": "78403895_b4df492e",
+      "revId": "a5685075bdea023492090bec83a6064b71b20b84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

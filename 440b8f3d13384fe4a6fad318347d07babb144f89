@@ -282,6 +282,30 @@
       },
       "revId": "440b8f3d13384fe4a6fad318347d07babb144f89",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac2577f7_7c6c6bb0",
+        "filename": "call/adaptation/video_stream_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-10-27T08:47:09Z",
+      "side": 1,
+      "message": "Let\u0027s use RTC_CHECK(false) for now. We\u0027ll come back and change it later if necessary.",
+      "parentUuid": "fd0eb221_2dd95266",
+      "range": {
+        "startLine": 607,
+        "startChar": 2,
+        "endLine": 608,
+        "endChar": 29
+      },
+      "revId": "440b8f3d13384fe4a6fad318347d07babb144f89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

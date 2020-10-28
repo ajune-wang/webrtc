@@ -164,14 +164,14 @@ class SdpOfferAnswerHandler : public SdpStateProvider,
   void AddLocalIceCandidate(const JsepIceCandidate* candidate);
   void RemoveLocalIceCandidates(
       const std::vector<cricket::Candidate>& candidates);
-  bool ShouldFireNegotiationNeededEvent(uint32_t event_id);
+  virtual bool ShouldFireNegotiationNeededEvent(uint32_t event_id) = 0;
 
   bool AddStream(MediaStreamInterface* local_stream);
   void RemoveStream(MediaStreamInterface* local_stream);
 
   absl::optional<bool> is_caller();
   bool HasNewIceCredentials();
-  void UpdateNegotiationNeeded();
+  virtual void UpdateNegotiationNeeded() = 0;
   void SetHavePendingRtpDataChannel() {
     RTC_DCHECK_RUN_ON(signaling_thread());
     have_pending_rtp_data_channel_ = true;
@@ -199,6 +199,11 @@ class SdpOfferAnswerHandler : public SdpStateProvider,
   class SetSessionDescriptionObserverAdapter;
 
   friend class SetSessionDescriptionObserverAdapter;
+
+  // For convenience, allow the internal subclasses full access to member
+  // variables and functions.
+  friend class SdpOfferAnswerHandlerPlanB;
+  friend class SdpOfferAnswerHandlerUnifiedPlan;
 
   enum class SessionError {
     kNone,       // No error.
@@ -243,6 +248,27 @@ class SdpOfferAnswerHandler : public SdpStateProvider,
   RTCError ApplyRemoteDescription(
       std::unique_ptr<SessionDescriptionInterface> desc);
 
+  // Implementation of the plan-dependent parts of ApplyLocal/RemoteDescription
+  virtual RTCError ApplyLocalDescriptionByPlan(
+      SdpType type,
+      const SessionDescriptionInterface* old_local_description) = 0;
+  virtual void SetLocalRollbackCompleteByPlan(
+      rtc::scoped_refptr<SetLocalDescriptionObserverInterface> observer,
+      const SessionDescriptionInterface* desc) = 0;
+  // In Unified Plan: Invokes rollback and returns true if the type of desc is
+  // rollback. Invokes implicit rollback if state, configuration and desc type
+  // all allow it (but returns false).
+  virtual bool SetRemoteRollbackCompleteByPlan(
+      rtc::scoped_refptr<SetRemoteDescriptionObserverInterface> observer,
+      const SessionDescriptionInterface* desc) = 0;
+  virtual RTCError ApplyRemoteDescriptionByPlan(SdpType type) = 0;
+  virtual RTCError UpdateChannelsByPlan(
+      SdpType type,
+      const SessionDescriptionInterface* old_local_description) = 0;
+  virtual void CheckIfNegotiationIsNeededByPlan() {
+    // No action needed for Plan B
+  }
+
   // Implementation of the offer/answer exchange operations. These are chained
   // onto the |operations_chain_| when the public CreateOffer(), CreateAnswer(),
   // SetLocalDescription() and SetRemoteDescription() methods are invoked.
@@ -284,8 +310,11 @@ class SdpOfferAnswerHandler : public SdpStateProvider,
       RTC_RUN_ON(signaling_thread());
 
   // | desc_type | is the type of the description that caused the rollback.
-  RTCError Rollback(SdpType desc_type);
-  void OnOperationsChainEmpty();
+  virtual RTCError Rollback(SdpType desc_type) {
+    RTC_NOTREACHED();  // Unified Plan only
+  }
+
+  virtual void OnOperationsChainEmpty() = 0;
 
   // Runs the algorithm **set the associated remote streams** specified in
   // https://w3c.github.io/webrtc-pc/#set-associated-remote-streams.
@@ -301,17 +330,28 @@ class SdpOfferAnswerHandler : public SdpStateProvider,
   RTCError ValidateSessionDescription(const SessionDescriptionInterface* sdesc,
                                       cricket::ContentSource source)
       RTC_RUN_ON(signaling_thread());
+  virtual RTCError ValidateSessionDescriptionByPlan(
+      const SessionDescriptionInterface* sdesc,
+      cricket::ContentSource source) {
+    RTC_DCHECK_RUN_ON(signaling_thread());
+    RTC_DCHECK(!IsUnifiedPlan());  // Has real content in Unified Plan only.
+    return RTCError::OK();
+  }
 
   // Updates the local RtpTransceivers according to the JSEP rules. Called as
   // part of setting the local/remote description.
-  RTCError UpdateTransceiversAndDataChannels(
+  // Only used in Unified Plan.
+  virtual RTCError UpdateTransceiversAndDataChannels(
       cricket::ContentSource source,
       const SessionDescriptionInterface& new_session,
       const SessionDescriptionInterface* old_local_description,
-      const SessionDescriptionInterface* old_remote_description);
+      const SessionDescriptionInterface* old_remote_description) {
+    RTC_NOTREACHED();  // if not Unified Plan
+  }
 
   // Associate the given transceiver according to the JSEP rules.
-  RTCErrorOr<
+  // Only used in Unified Plan.
+  virtual RTCErrorOr<
       rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>>
   AssociateTransceiver(cricket::ContentSource source,
                        SdpType type,
@@ -319,7 +359,9 @@ class SdpOfferAnswerHandler : public SdpStateProvider,
                        const cricket::ContentInfo& content,
                        const cricket::ContentInfo* old_local_content,
                        const cricket::ContentInfo* old_remote_content)
-      RTC_RUN_ON(signaling_thread());
+      RTC_RUN_ON(signaling_thread()) {
+    RTC_NOTREACHED();  // if not Unified Plan
+  }
 
   // If the BUNDLE policy is max-bundle, then we know for sure that all
   // transports will be bundled from the start. This method returns the BUNDLE
@@ -332,11 +374,14 @@ class SdpOfferAnswerHandler : public SdpStateProvider,
 
   // Either creates or destroys the transceiver's BaseChannel according to the
   // given media section.
-  RTCError UpdateTransceiverChannel(
+  virtual RTCError UpdateTransceiverChannel(
       rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
           transceiver,
       const cricket::ContentInfo& content,
-      const cricket::ContentGroup* bundle_group) RTC_RUN_ON(signaling_thread());
+      const cricket::ContentGroup* bundle_group)
+      RTC_RUN_ON(signaling_thread()) {
+    RTC_NOTREACHED();  // if not Unified Plan
+  }
 
   // Either creates or destroys the local data channel according to the given
   // media section.
@@ -359,15 +404,17 @@ class SdpOfferAnswerHandler : public SdpStateProvider,
 
   // Returns an RtpTransciever, if available, that can be used to receive the
   // given media type according to JSEP rules.
-  rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
-  FindAvailableTransceiverToReceive(cricket::MediaType media_type) const;
+  virtual rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
+  FindAvailableTransceiverToReceive(cricket::MediaType media_type) const {
+    RTC_NOTREACHED();  // if not Unified Plan
+  }
 
   // Returns a MediaSessionOptions struct with options decided by |options|,
   // the local MediaStreams and DataChannels.
   void GetOptionsForOffer(const PeerConnectionInterface::RTCOfferAnswerOptions&
                               offer_answer_options,
                           cricket::MediaSessionOptions* session_options);
-  void GetOptionsForPlanBOffer(
+  virtual void GetOptionsForPlanBOffer(
       const PeerConnectionInterface::RTCOfferAnswerOptions&
           offer_answer_options,
       cricket::MediaSessionOptions* session_options)
@@ -403,8 +450,16 @@ class SdpOfferAnswerHandler : public SdpStateProvider,
   }
   const std::string& session_error_desc() const { return session_error_desc_; }
 
-  RTCError HandleLegacyOfferOptions(
-      const PeerConnectionInterface::RTCOfferAnswerOptions& options);
+  // Map internal signaling state name to spec name:
+  //  https://w3c.github.io/webrtc-pc/#rtcsignalingstate-enum
+  static std::string GetSignalingStateString(
+      PeerConnectionInterface::SignalingState state);
+
+  virtual RTCError HandleLegacyOfferOptions(
+      const PeerConnectionInterface::RTCOfferAnswerOptions& options) {
+    // Does something in Unified Plan only
+    return RTCError::OK();
+  }
   void RemoveRecvDirectionFromReceivingTransceiversOfType(
       cricket::MediaType media_type) RTC_RUN_ON(signaling_thread());
   void AddUpToOneReceivingTransceiverOfType(cricket::MediaType media_type);
@@ -467,7 +522,11 @@ class SdpOfferAnswerHandler : public SdpStateProvider,
   RTCError PushdownTransportDescription(cricket::ContentSource source,
                                         SdpType type);
   // Helper function to remove stopped transceivers.
-  void RemoveStoppedTransceivers();
+  virtual void RemoveStoppedTransceivers() {
+    RTC_DCHECK_RUN_ON(signaling_thread());
+    RTC_DCHECK(!IsUnifiedPlan());  // Has effct in Unified Plan only
+  }
+
   // Deletes the corresponding channel of contents that don't exist in |desc|.
   // |desc| can be null. This means that all channels are deleted.
   void RemoveUnusedChannels(const cricket::SessionDescription* desc);

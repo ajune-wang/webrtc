@@ -24,6 +24,7 @@
 #include "api/task_queue/task_queue_base.h"
 #include "api/test/videocodec_test_fixture.h"
 #include "api/video/encoded_image.h"
+#include "api/video/i420_buffer.h"
 #include "api/video/video_bitrate_allocation.h"
 #include "api/video/video_bitrate_allocator.h"
 #include "api/video/video_frame.h"
@@ -58,6 +59,7 @@ class VideoProcessor {
   // TODO(brandtr): Consider changing FrameWriterList to be a FrameWriterMap,
   // to be able to save different TLs separately.
   using FrameWriterList = std::vector<std::unique_ptr<FrameWriter>>;
+  using FrameStatistics = VideoCodecTestStats::FrameStatistics;
 
   VideoProcessor(webrtc::VideoEncoder* encoder,
                  VideoDecoderList* decoders,
@@ -182,8 +184,16 @@ class VideoProcessor {
       size_t simulcast_svc_idx,
       bool inter_layer_predicted) RTC_RUN_ON(sequence_checker_);
 
+  void CalcFrameQuality(const I420BufferInterface& decoded_frame,
+                        FrameStatistics* frame_stat);
+
+  void WriteDecodedFrame(const I420BufferInterface& decoded_frame,
+                         FrameWriter& frame_writer);
+
+  void HandleTailDrops();
+
   // Test input/output.
-  VideoCodecTestFixture::Config config_ RTC_GUARDED_BY(sequence_checker_);
+  const VideoCodecTestFixture::Config config_;
   const size_t num_simulcast_or_spatial_layers_;
   VideoCodecTestStatsImpl* const stats_;
 
@@ -240,7 +250,7 @@ class VideoProcessor {
   // simulcast_svc_idx -> frame_number.
   std::vector<size_t> last_decoded_frame_num_ RTC_GUARDED_BY(sequence_checker_);
   // simulcast_svc_idx -> buffer.
-  std::vector<rtc::Buffer> decoded_frame_buffer_
+  std::vector<rtc::scoped_refptr<I420Buffer>> last_decoded_frame_buffer_
       RTC_GUARDED_BY(sequence_checker_);
 
   // Time spent in frame encode callback. It is accumulated for layers and

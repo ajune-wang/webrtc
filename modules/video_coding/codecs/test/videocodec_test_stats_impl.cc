@@ -252,12 +252,6 @@ VideoStatistics VideoCodecTestStatsImpl::SliceAndCalcVideoStatistic(
       video_stat.height =
           std::max(video_stat.height, frame_stat.decoded_height);
 
-      psnr_y.AddSample(frame_stat.psnr_y);
-      psnr_u.AddSample(frame_stat.psnr_u);
-      psnr_v.AddSample(frame_stat.psnr_v);
-      psnr.AddSample(frame_stat.psnr);
-      ssim.AddSample(frame_stat.ssim);
-
       if (video_stat.num_decoded_frames > 1) {
         if (last_successfully_decoded_frame.decoded_width !=
                 frame_stat.decoded_width ||
@@ -270,6 +264,14 @@ VideoStatistics VideoCodecTestStatsImpl::SliceAndCalcVideoStatistic(
       frame_decoding_time_us.AddSample(frame_stat.decode_time_us);
       last_successfully_decoded_frame = frame_stat;
     }
+
+    // Dropped frames (decoding_successful = false) are still included into
+    // quality evaluation.
+    psnr_y.AddSample(frame_stat.psnr_y);
+    psnr_u.AddSample(frame_stat.psnr_u);
+    psnr_v.AddSample(frame_stat.psnr_v);
+    psnr.AddSample(frame_stat.psnr);
+    ssim.AddSample(frame_stat.ssim);
 
     if (video_stat.num_input_frames > 0) {
       if (video_stat.time_to_reach_target_bitrate_sec == 0.0f) {

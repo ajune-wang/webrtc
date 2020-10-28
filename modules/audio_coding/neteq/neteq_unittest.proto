@@ -18,8 +18,8 @@ message NetEqNetworkStatistics {
   optional int32 clockdrift_ppm = 11;
   reserved 12;  // Was added_zero_samples.
   optional int32 mean_waiting_time_ms = 13;
-  optional int32 median_waiting_time_ms = 14;
-  optional int32 min_waiting_time_ms = 15;
+  reserved 14;  // Was median_waiting_time_ms.
+  reserved 15;  // Was min_waiting_time_ms.
   optional int32 max_waiting_time_ms = 16;
 }
 

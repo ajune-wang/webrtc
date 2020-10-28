@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92465bf8_ad01c138",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-10-28T02:18:04Z",
+      "side": 1,
+      "message": "PTAL.\n\nI\u0027ll work on implementing a mock usrsctp interface after this, like I keep mentioning, so we can have test coverage for things like this.\n\nAny suggestions on how to go about that? My first thought would be to introduce a \"UsrsctpApi\" interface, with a static global default implementation which could be overwritten by a test. It would be convenient if we could just pass this interface into the SctpTransport constructor rather than have a global instance, but currently there are static methods that call usrsctp APIs themselves, so they need something static to refer to.",
+      "revId": "f1931dd68543406c554d2f901cf14213ec9dd6b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

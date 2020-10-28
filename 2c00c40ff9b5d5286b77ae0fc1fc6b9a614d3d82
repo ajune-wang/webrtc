@@ -22,6 +22,30 @@
       },
       "revId": "2c00c40ff9b5d5286b77ae0fc1fc6b9a614d3d82",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7902bb30_35ebce4c",
+        "filename": "modules/video_coding/frame_buffer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-10-28T13:02:25Z",
+      "side": 0,
+      "message": "Yes, in one place it is still required (https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/modules/video_coding/frame_buffer.cc;l\u003d186;drc\u003d2aaf88ba67d2381d2bb4b9cddfba8f9d19604b1a), removed the other.",
+      "parentUuid": "38c04b35_a2ce4176",
+      "range": {
+        "startLine": 268,
+        "startChar": 32,
+        "endLine": 268,
+        "endChar": 43
+      },
+      "revId": "2c00c40ff9b5d5286b77ae0fc1fc6b9a614d3d82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

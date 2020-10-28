@@ -51,8 +51,6 @@ struct NetEqNetworkStatistics {
   // Statistics for packet waiting times, i.e., the time between a packet
   // arrives until it is decoded.
   int mean_waiting_time_ms;
-  int median_waiting_time_ms;
-  int min_waiting_time_ms;
   int max_waiting_time_ms;
 };
 

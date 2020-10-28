@@ -334,21 +334,10 @@ void StatisticsCalculator::GetNetworkStatistics(size_t samples_per_packet,
 
   if (waiting_times_.size() == 0) {
     stats->mean_waiting_time_ms = -1;
-    stats->median_waiting_time_ms = -1;
-    stats->min_waiting_time_ms = -1;
     stats->max_waiting_time_ms = -1;
   } else {
-    std::sort(waiting_times_.begin(), waiting_times_.end());
-    // Find mid-point elements. If the size is odd, the two values
-    // |middle_left| and |middle_right| will both be the one middle element; if
-    // the size is even, they will be the the two neighboring elements at the
-    // middle of the list.
-    const int middle_left = waiting_times_[(waiting_times_.size() - 1) / 2];
-    const int middle_right = waiting_times_[waiting_times_.size() / 2];
-    // Calculate the average of the two. (Works also for odd sizes.)
-    stats->median_waiting_time_ms = (middle_left + middle_right) / 2;
-    stats->min_waiting_time_ms = waiting_times_.front();
-    stats->max_waiting_time_ms = waiting_times_.back();
+    stats->max_waiting_time_ms =
+        *std::max_element(waiting_times_.begin(), waiting_times_.end());
     double sum = 0;
     for (auto time : waiting_times_) {
       sum += time;

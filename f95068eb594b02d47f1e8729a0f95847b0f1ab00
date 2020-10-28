@@ -16,6 +16,23 @@
       "message": "Hi Jakob,\nPTAL at this small fix that can cause an incorrect duration to be printed at the end of a NetEq simulation.",
       "revId": "f95068eb594b02d47f1e8729a0f95847b0f1ab00",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24629d53_3cedb635",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2020-10-28T15:28:50Z",
+      "side": 1,
+      "message": "Sorry I completely missed this one. Good catch!",
+      "revId": "f95068eb594b02d47f1e8729a0f95847b0f1ab00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

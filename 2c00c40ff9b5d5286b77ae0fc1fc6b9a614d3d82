@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38c04b35_a2ce4176",
+        "filename": "modules/video_coding/frame_buffer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-28T12:31:07Z",
+      "side": 0,
+      "message": "This method is called in a few other places in this file. Are those still needed?",
+      "range": {
+        "startLine": 268,
+        "startChar": 32,
+        "endLine": 268,
+        "endChar": 43
+      },
+      "revId": "2c00c40ff9b5d5286b77ae0fc1fc6b9a614d3d82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

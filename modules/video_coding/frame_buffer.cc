@@ -265,7 +265,6 @@ void VCMFrameBuffer::PrepareForDecode(bool continuous) {
   // Transfer frame information to EncodedFrame and create any codec
   // specific information.
   _frameType = _sessionInfo.FrameType();
-  _completeFrame = _sessionInfo.complete();
   _missingFrame = !continuous;
 }
 

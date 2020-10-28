@@ -51,6 +51,24 @@
       "parentUuid": "f4226ac0_4e3ee9c2",
       "revId": "2adcf1448a0308379db0edb5b648d922fbe09510",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a9ebb39_de02ec70",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-10-28T10:50:30Z",
+      "side": 1,
+      "message": "A trick to that is you should always use landscape resolution and use the VideoFrame rotation field to represent portrait. This way it would work. Anyway I think 80x45 is already a very low resolution.\n\nPlease note that you can already inject your own HW codecs if you want to make a HW codec that scales to a different resolution. I think it is a bad idea to magically align to 16 without any clear reason here just because thats what some HW codec requires.\n\nIf you want to go against this advice, you can set your own VideoProcessor on the VideoSource that does something different than applyFrameAdaptationParameters (and aligns to 16). I think it will work for now but I can\u0027t promise that scaling to a different resolution that requested by WebRTC will work forever.",
+      "parentUuid": "e9848769_e6b45681",
+      "revId": "2adcf1448a0308379db0edb5b648d922fbe09510",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

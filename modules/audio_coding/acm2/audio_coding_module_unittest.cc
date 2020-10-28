@@ -942,7 +942,7 @@ TEST_F(AcmReceiverBitExactnessOldApi, 8kHzOutput) {
       GetCPUInfo(kAVX2) != 0 ? "1d7b784031599e2c01a3f575f8439f2f"
                              : "c119fda4ea2c119ff2a720fd0c289071";
   std::string win64_checksum_reference =
-      GetCPUInfo(kAVX2) != 0 ? "405a50f0bcb8827e20aa944299fc59f6"
+      GetCPUInfo(kAVX2) != 0 ? "3dd0d01cb54b8f357c8f90e6fb41a028"
                              : "38e70d4e186f8e1a56b929fafcb7c379";
   Run(8000,
       PlatformChecksum(others_checksum_reference, win64_checksum_reference,
@@ -956,7 +956,7 @@ TEST_F(AcmReceiverBitExactnessOldApi, 16kHzOutput) {
       GetCPUInfo(kAVX2) != 0 ? "8884d910e443c244d8593c2e3cef5e63"
                              : "36dc8c0532ba0efa099e2b6a689cde40";
   std::string win64_checksum_reference =
-      GetCPUInfo(kAVX2) != 0 ? "58fd62a5c49ee513f9fa6fe7dbf62c97"
+      GetCPUInfo(kAVX2) != 0 ? "8744534360eb71a3b2745db85cf259d1"
                              : "07e4b388168e273fa19da0a167aff782";
   Run(16000,
       PlatformChecksum(others_checksum_reference, win64_checksum_reference,
@@ -970,7 +970,7 @@ TEST_F(AcmReceiverBitExactnessOldApi, 32kHzOutput) {
       GetCPUInfo(kAVX2) != 0 ? "73f4fe21996c0af495e2c47e3708e519"
                              : "c848ce9002d3825056a1eac2a067c0d3";
   std::string win64_checksum_reference =
-      GetCPUInfo(kAVX2) != 0 ? "04ce6a1dac5ffdd8438d804623d0132f"
+      GetCPUInfo(kAVX2) != 0 ? "fd34424662b1a5e2dcf9dff225a16e62"
                              : "0e705f6844c75fd57a84734f7c30af87";
   Run(32000,
       PlatformChecksum(others_checksum_reference, win64_checksum_reference,
@@ -984,7 +984,7 @@ TEST_F(AcmReceiverBitExactnessOldApi, 48kHzOutput) {
       GetCPUInfo(kAVX2) != 0 ? "884243f7e1476931e93eda5de88d1326"
                              : "ba0f66d538487bba377e721cfac62d1e";
   std::string win64_checksum_reference =
-      GetCPUInfo(kAVX2) != 0 ? "f59833d9b0924f4b0704707dd3589f80"
+      GetCPUInfo(kAVX2) != 0 ? "87f50cfbaf1b1f1d4f960806e5e4f2a0"
                              : "6a480541fb86faa95c7563b9de08104d";
   Run(48000,
       PlatformChecksum(others_checksum_reference, win64_checksum_reference,
@@ -1072,7 +1072,7 @@ TEST_F(AcmReceiverBitExactnessOldApi, 48kHzOutputExternalDecoder) {
       GetCPUInfo(kAVX2) != 0 ? "884243f7e1476931e93eda5de88d1326"
                              : "ba0f66d538487bba377e721cfac62d1e";
   std::string win64_checksum_reference =
-      GetCPUInfo(kAVX2) != 0 ? "f59833d9b0924f4b0704707dd3589f80"
+      GetCPUInfo(kAVX2) != 0 ? "87f50cfbaf1b1f1d4f960806e5e4f2a0"
                              : "6a480541fb86faa95c7563b9de08104d";
   Run(48000,
       PlatformChecksum(others_checksum_reference, win64_checksum_reference,

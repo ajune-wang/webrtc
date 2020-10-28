@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c5bf1e8_539ee15c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-28T16:45:46Z",
+      "side": 1,
+      "message": "PTAL. A reduced version of https://webrtc-review.googlesource.com/c/src/+/190661, leaving neteq unchanged.",
+      "revId": "2a057913ffc90c7161e5ee4a6c0ef37ded8afea6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

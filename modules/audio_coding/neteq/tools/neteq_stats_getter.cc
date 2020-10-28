@@ -110,9 +110,6 @@ NetEqStatsGetter::Stats NetEqStatsGetter::AverageStats() const {
         a.secondary_decoded_rate += b.secondary_decoded_rate / 16384.0;
         a.secondary_discarded_rate += b.secondary_discarded_rate / 16384.0;
         a.mean_waiting_time_ms += b.mean_waiting_time_ms;
-        a.median_waiting_time_ms += b.median_waiting_time_ms;
-        a.min_waiting_time_ms = std::min(
-            a.min_waiting_time_ms, static_cast<double>(b.min_waiting_time_ms));
         a.max_waiting_time_ms = std::max(
             a.max_waiting_time_ms, static_cast<double>(b.max_waiting_time_ms));
         return a;

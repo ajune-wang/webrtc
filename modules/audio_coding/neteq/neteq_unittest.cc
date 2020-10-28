@@ -190,15 +190,11 @@ TEST_F(NetEqDecodingTestFaxMode, TestFrameWaitingTimeStatistics) {
   // each packet. Thus, we are calculating the statistics for a series from 10
   // to 300, in steps of 10 ms.
   EXPECT_EQ(155, stats.mean_waiting_time_ms);
-  EXPECT_EQ(155, stats.median_waiting_time_ms);
-  EXPECT_EQ(10, stats.min_waiting_time_ms);
   EXPECT_EQ(300, stats.max_waiting_time_ms);
 
   // Check statistics again and make sure it's been reset.
   EXPECT_EQ(0, neteq_->NetworkStatistics(&stats));
   EXPECT_EQ(-1, stats.mean_waiting_time_ms);
-  EXPECT_EQ(-1, stats.median_waiting_time_ms);
-  EXPECT_EQ(-1, stats.min_waiting_time_ms);
   EXPECT_EQ(-1, stats.max_waiting_time_ms);
 }
 
@@ -1228,10 +1224,6 @@ TEST(NetEqOutputDelayTest, RunTest) {
             result_delay.network_stats.preferred_buffer_size_ms);
   EXPECT_EQ(result_no_delay.network_stats.mean_waiting_time_ms + kDelayMs,
             result_delay.network_stats.mean_waiting_time_ms);
-  EXPECT_EQ(result_no_delay.network_stats.median_waiting_time_ms + kDelayMs,
-            result_delay.network_stats.median_waiting_time_ms);
-  EXPECT_EQ(result_no_delay.network_stats.min_waiting_time_ms + kDelayMs,
-            result_delay.network_stats.min_waiting_time_ms);
   EXPECT_EQ(result_no_delay.network_stats.max_waiting_time_ms + kDelayMs,
             result_delay.network_stats.max_waiting_time_ms);
 

@@ -33,6 +33,24 @@
       "message": "The median waiting time is a useful metric during testing/development. Could we keep that one around, at least in api/neteq/neteq.h?",
       "revId": "65abe8e4987b85726b73cf856fadcf61fade9fc8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "624a9d5b_1685476b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2020-10-28T15:16:10Z",
+      "side": 1,
+      "message": "Yes, please don\u0027t remove any metrics from NetEq. Removing from acm_receiver and above layers is fine though.",
+      "parentUuid": "295ccedb_51c124ac",
+      "revId": "65abe8e4987b85726b73cf856fadcf61fade9fc8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

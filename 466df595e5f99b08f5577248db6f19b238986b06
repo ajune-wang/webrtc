@@ -16,6 +16,23 @@
       "message": "sdk/objc lgtm",
       "revId": "466df595e5f99b08f5577248db6f19b238986b06",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf99e75d_0d5ca8ec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-10-28T15:23:18Z",
+      "side": 1,
+      "message": "sdk/android lgtm",
+      "revId": "466df595e5f99b08f5577248db6f19b238986b06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

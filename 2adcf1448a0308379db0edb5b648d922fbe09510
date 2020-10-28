@@ -69,6 +69,24 @@
       "parentUuid": "e9848769_e6b45681",
       "revId": "2adcf1448a0308379db0edb5b648d922fbe09510",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92b52593_26cd7343",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14589
+      },
+      "writtenOn": "2020-10-28T10:57:10Z",
+      "side": 1,
+      "message": "It will never scale to \"80x45\" with proposed code with you example.\n\nUnderstood, thanks!",
+      "parentUuid": "9a9ebb39_de02ec70",
+      "revId": "2adcf1448a0308379db0edb5b648d922fbe09510",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

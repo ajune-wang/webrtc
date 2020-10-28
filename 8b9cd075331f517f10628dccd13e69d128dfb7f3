@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d1cc2f1_6f8b6a4b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-28T21:54:54Z",
+      "side": 1,
+      "message": "Please tell me if this is a reasonable idea or just dumb.\nI\u0027m more-or-less mechanically replacing every \"if (IsUnifiedPlan())\" with a virtual function that is defined in a subclass of SdpOfferAnswerHandler. This allows us to see how much code is Plan B specific and how much is Unified Plan only vs how much is common.\n\nNot sure it makes sense, but I got at least half the way there, so I\u0027m asking.\n",
+      "revId": "8b9cd075331f517f10628dccd13e69d128dfb7f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

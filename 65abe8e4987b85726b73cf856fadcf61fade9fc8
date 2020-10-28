@@ -16,6 +16,23 @@
       "message": "PTAL. I have a cl for review to drop downstream usage (corresponding mean and max values needs some more work to get rid of).",
       "revId": "65abe8e4987b85726b73cf856fadcf61fade9fc8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "295ccedb_51c124ac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-10-28T15:09:33Z",
+      "side": 1,
+      "message": "The median waiting time is a useful metric during testing/development. Could we keep that one around, at least in api/neteq/neteq.h?",
+      "revId": "65abe8e4987b85726b73cf856fadcf61fade9fc8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

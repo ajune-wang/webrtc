@@ -886,10 +886,17 @@ bool LibvpxVp8Encoder::UpdateVpxConfiguration(size_t stream_index) {
   return changes_made;
 }
 
+int g_pics = -1;
+
 int LibvpxVp8Encoder::Encode(const VideoFrame& frame,
                              const std::vector<VideoFrameType>* frame_types) {
   RTC_DCHECK_EQ(frame.width(), codec_.width);
   RTC_DCHECK_EQ(frame.height(), codec_.height);
+
+  ++g_pics;
+  if (g_pics & 1) {
+    return WEBRTC_VIDEO_CODEC_OK;
+  }
 
   if (!inited_)
     return WEBRTC_VIDEO_CODEC_UNINITIALIZED;

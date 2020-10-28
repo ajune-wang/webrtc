@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9eb3e89a_5dfd7093",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-10-28T14:26:09Z",
+      "side": 1,
+      "message": "Sami, PTAL at sdk/android/*\nKári, PTAL at sdk/objc/*",
+      "revId": "9a6d2e6a2a116c348f8aeac9cc2ea587072766f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

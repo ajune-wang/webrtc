@@ -154,8 +154,8 @@ def _CreateOutputHeader():
   output = ('// This file is the root certificates in C form that are needed to'
             ' connect to\n// Google.\n\n'
             '// It was generated with the following command line:\n'
-            '// > python tools/certs/generate_sslroots.py'
-            '\n//    https://pki.google.com/roots.pem\n\n')
+            '// > python tools_webrtc/certs/generate_sslroots.py'
+            '\n//    https://pki.goog/roots.pem\n\n')
   return output
 
 

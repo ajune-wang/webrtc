@@ -33,6 +33,24 @@
       "message": "This should have been caught by MSan, are we missing a test?",
       "revId": "f1931dd68543406c554d2f901cf14213ec9dd6b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4472308d_6c3116b9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-10-28T18:56:30Z",
+      "side": 1,
+      "message": "We don\u0027t have test coverage for the usrsctp callbacks being invoked after transport closure, because that\u0027s only happening due to races that can\u0027t be repeatably reproduced. That\u0027s why adding a mock usrsctp interface should be a priority, see the comment above.",
+      "parentUuid": "dccc485b_4aba9cad",
+      "revId": "f1931dd68543406c554d2f901cf14213ec9dd6b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

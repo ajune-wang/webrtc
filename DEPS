@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '3201204fb69e26744eb57659f13e2d8b026c9280',
+  'chromium_revision': 'ece2ca38713f21f2340620d8215f8f7a2593418f',
 
   # This can be overridden, e.g. with custom_vars, to download a nonstandard
   # Xcode version in build/mac_toolchain.py
@@ -22,9 +22,9 @@ deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@335957bbb3dc245484bc63126e7076ffd98e342c',
+    'https://chromium.googlesource.com/chromium/src/base@d639c3150dfe3fa65cdd19b38fc8a17a2bcb6f5e',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@899545e432451d168713126c4c4238ba3c80baa9',
+    'https://chromium.googlesource.com/chromium/src/build@9159a15273e30c8fd52b3d794cd9379fe7c5b878',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@98881a1297863de584fad20fb671e8c44ad1a7d0',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -39,7 +39,7 @@ deps = {
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@4979d554b6638d7212cad43358ff32870dcc2a8b',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@d755bfe775175f4357bdeee83c84b2a8f72db565',
+    'https://chromium.googlesource.com/chromium/src/third_party@bea206e2d39268ddde37558078cd52771611e614',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -150,7 +150,7 @@ deps = {
       'condition': 'checkout_linux',
   },
   'src/third_party/freetype/src':
-    'https://chromium.googlesource.com/chromium/src/third_party/freetype2.git@40c5681ab92e7db1298273ccf3c816e6a1498260',
+    'https://chromium.googlesource.com/chromium/src/third_party/freetype2.git@804e625def2cfb64ef2f4c8877cd3fa11e86e208',
   'src/third_party/harfbuzz-ng/src':
     'https://chromium.googlesource.com/external/github.com/harfbuzz/harfbuzz.git@c39ab82c90479341dcf28eaa8174af6f08c0d7ae',
   'src/third_party/google_benchmark/src': {

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a63e6e76_4c6772bb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-10-28T21:21:05Z",
+      "side": 1,
+      "message": "Harald and Mirko, can you take a look?",
+      "revId": "c204021a7da3a7b462b5e6bf23cc248b4c66a18a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

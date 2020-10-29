@@ -69,6 +69,41 @@
       "parentUuid": "a45de167_d5ca1de4",
       "revId": "18148ce89aeb10dc5625426e20c277a2d3ad6460",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4392e3aa_adf72f61",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-29T13:56:25Z",
+      "side": 1,
+      "message": "An UMA histogram (look for the one that implements RTC_HISTOGRAM_ENUMERATION(\"WebRTC.PeerConnection.SdpFormatReceived\" in pc/peer_connection.cc for an example) should give you what you want. Note that this requires a corresponding CL in Chromium to actually record the histogram.\n\nFor figuring out whether or not it makes a difference, it requires measuring some metric for the two cases - it\u0027s possible, but I haven\u0027t tried it myself.",
+      "parentUuid": "ac200296_be755b1d",
+      "revId": "18148ce89aeb10dc5625426e20c277a2d3ad6460",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "407bf879_39bd4fd7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-29T13:56:25Z",
+      "side": 1,
+      "message": "More pointers...\n",
+      "revId": "18148ce89aeb10dc5625426e20c277a2d3ad6460",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

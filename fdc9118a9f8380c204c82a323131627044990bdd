@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3914098_1cd83293",
+        "filename": "modules/audio_processing/agc2/rnn_vad/features_extraction_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-10-29T16:34:13Z",
+      "side": 1,
+      "message": "checked_cast?\n\nIn general, there are seldom reasons to not use checked_cast (in tests) and dchecked_cast (elsewhere) when converting between integer types in a way that isn\u0027t supposed to overflow. Just in case I missed other instances in this CL...",
+      "range": {
+        "startLine": 82,
+        "startChar": 32,
+        "endLine": 82,
+        "endChar": 43
+      },
+      "revId": "fdc9118a9f8380c204c82a323131627044990bdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ada04cb_4c5bf05e",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-10-29T16:34:13Z",
+      "side": 1,
+      "message": "dchecked_cast",
+      "range": {
+        "startLine": 86,
+        "startChar": 27,
+        "endLine": 86,
+        "endChar": 38
+      },
+      "revId": "fdc9118a9f8380c204c82a323131627044990bdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e166a308_65ec57f3",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-10-29T16:34:13Z",
+      "side": 1,
+      "message": "dchecked_cast",
+      "range": {
+        "startLine": 108,
+        "startChar": 37,
+        "endLine": 108,
+        "endChar": 48
+      },
+      "revId": "fdc9118a9f8380c204c82a323131627044990bdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

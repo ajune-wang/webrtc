@@ -16,13 +16,21 @@
 
 namespace webrtc {
 
+struct IngressStatistics {
+  // Stats included from api/neteq/neteq.h.
+  NetEqLifetimeStatistics neteq_stats;
+
+  // https://w3c.github.io/webrtc-stats/#dom-rtcinboundrtpstreamstats-totalsamplesduration
+  double total_duration;
+};
+
 // VoipStatistics interface provides the interfaces for querying metrics around
 // the jitter buffer (NetEq) performance.
 class VoipStatistics {
  public:
-  // Gets the statistics from NetEq. Returns absl::nullopt when channel_id is
+  // Gets the audio ingress statistics. Returns absl::nullopt when channel_id is
   // invalid.
-  virtual absl::optional<NetEqLifetimeStatistics> GetNetEqStatistics(
+  virtual absl::optional<IngressStatistics> GetIngressStatistics(
       ChannelId channel_id) = 0;
 
  protected:

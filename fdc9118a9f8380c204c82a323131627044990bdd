@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7d0fe1b_d6ffa5bf",
+        "filename": "modules/audio_processing/agc2/rnn_vad/features_extraction_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-10-29T19:42:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3914098_1cd83293",
+      "range": {
+        "startLine": 82,
+        "startChar": 32,
+        "endLine": 82,
+        "endChar": 43
+      },
+      "revId": "fdc9118a9f8380c204c82a323131627044990bdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9ada04cb_4c5bf05e",
@@ -47,6 +71,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c78a959c_c9b57b7a",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-10-29T19:42:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ada04cb_4c5bf05e",
+      "range": {
+        "startLine": 86,
+        "startChar": 27,
+        "endLine": 86,
+        "endChar": 38
+      },
+      "revId": "fdc9118a9f8380c204c82a323131627044990bdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e166a308_65ec57f3",
@@ -60,6 +108,30 @@
       "writtenOn": "2020-10-29T16:34:13Z",
       "side": 1,
       "message": "dchecked_cast",
+      "range": {
+        "startLine": 108,
+        "startChar": 37,
+        "endLine": 108,
+        "endChar": 48
+      },
+      "revId": "fdc9118a9f8380c204c82a323131627044990bdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70188884_bfc540e1",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-10-29T19:42:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e166a308_65ec57f3",
       "range": {
         "startLine": 108,
         "startChar": 37,

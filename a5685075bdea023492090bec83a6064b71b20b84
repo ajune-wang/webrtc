@@ -140,6 +140,41 @@
       "parentUuid": "87126abf_3b191607",
       "revId": "a5685075bdea023492090bec83a6064b71b20b84",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f29ff183_1a06ffd4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5064
+      },
+      "writtenOn": "2020-10-29T11:18:46Z",
+      "side": 1,
+      "message": "\u003e \u003e Thanks Jan.\n\u003e \u003e \n\u003e \u003e Reading through the document that Mark linked, if I understand correctly, the current situation is actually that we show _three_ pickers, not two - one XDG screen picker, then the Chromium picker, and then another XDG picker - and we want to reduce that to just the initial XDG ScreenSharing picker \u0026 the Chromium picker.  That\u0027s the detail I was confused about. 😊\n\u003e \n\u003e Yes.\n\u003e \n\u003e \u003e But to suppress the second XDG ScreenSharing picker when we actually start the capture do we need just to create the capturer over the same XDG ScreenSharing portal connection, or is there a picker per-request-Id even over a single XDG connection?\n\u003e \n\u003e It needs to be a capturer over the same XDG ScreenSharing portal connection, we don\u0027t want to make a new on or any additional XDG call. We already have what we need from the previous one which is PipeWire stream file descriptor we use to open PipeWire connection on our side.\n\nGreat, thanks for confirming.\n\n\u003e \u003e Either way, we need to convey sufficient information in the DesktopCaptureOptions of the CreateCapturer request used for the actual capture to link it back to the CreateCapturer call used for the picker.  With the current implementation in the matching Chromium CL I\u0027m not sure how the request-Id is getting preserved between the picker capture operation, and the one used for the actual capture?\n\u003e \n\u003e Each capturer provides list of sources (with IDs) by \"webrtc::DesktopCapture:GetSourceList(SourceList *list)\" method and Chromium internally saves the one we picked and uses it later in the actual capturer with \"webrtc::DesktopCapture::SelectSource(SourceId id)\". That\u0027s what we use as an ID for the XDG ScreenSharing request.\n\nThe GetSourceList() / SelectSource() APIs are intended to enumerate or select one of the actual sources that a particular type of capturer can provide imagery from, e.g. the set of available windows, available monitors, etc. Using it to correlate the picker operations doesn\u0027t quite fit that model, but I see why that seems the most straightforward approach.\n\nThe problem with using the SourceId to correlate picker \u0026 capture requests is that you\u0027ve no idea when a SourceId ceases to be valid, unless the client explicitly informs you of that.  The problem with having clients explicitly inform you of these things, though, is that they may forget to do so.  It\u0027s also strange to have the client specify the Id in the DesktopCaptureOptions, for the PipeWire implementation to spit back out via GetSourceList().\n\nWhat makes this difficult is that there both WebRTC and Chromium use _identifiers_ to refer to the capture source, rather than treating them as _resources_ - there\u0027s no notion of the \"lifetime\" of e.g. a content::DesktopMediaId, as such. Ideally the SourceId would be a resource, e.g. a refptr\u003c\u003e to an opaque WebRTC-internal resource type that each capturer implementation could use to retain state of this sort.  That would be a much more involved refactoring. 😞\n\nLooking inside the Chromium implementation, I see that every DisplayMediaAccessHandler::PendingAccessRequest owns the DesktopMediaPicker instance - so we _do_ have a resource in Chromium which has the right scope.  Does that mean that the DesktopCapturer instance created for the picker is only destroyed _after_ the DesktopCapturer instance for the actual capture is created?\n\nWould the following flow work:\n1. When the PipeWire capturer is created for the picker, and GetSourceList() is called, allocate and return a new unique SourceId. Store details of the media picked by that Id in the singleton XDG portal object.\n2. If a capturer is created and SelectSource() is called with a SourceId then look that up and create a new reference to that request-Id in the XDG portal object.\n3. When a capturer is destroyed, dereference the request data for its Id, if any.\n\ni.e. so long as the picker and capturer instances have overlapping lifetimes, the picker\u0027s SourceId will remain valid and we\u0027ll be able to skip re-showing the XDG picker dialog.  But all the magic of maintaining that state remains hidden behind the capturer interface.",
+      "parentUuid": "3862880b_483e1284",
+      "revId": "a5685075bdea023492090bec83a6064b71b20b84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ddef10d_4efcfc4c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5064
+      },
+      "writtenOn": "2020-10-29T11:18:46Z",
+      "side": 1,
+      "message": "tl;dr: The fundamental problem here seems to be that SourceIds are plain _identifiers_, whereas we want to use them more like _resources_, scoped to a particular capture activity.\n\nBesides making optimizations like this one painful to implement, that creates a risk of things getting out-of-sync, if the sources returned do not have stable Ids, e.g. a ScreenCapturer\u0027s SourceIds may presumably change if monitors are added, removed, or even reconfigured, potentially?\n\nMark \u0026 Tommi: WDYT? Would making SourceIds \"resources\" rather than identifiers actually be straightforward? And if not then do you have any concerns with using SourceIds identifiers to refer to XDG state across multiple capturer instances?\n",
+      "revId": "a5685075bdea023492090bec83a6064b71b20b84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

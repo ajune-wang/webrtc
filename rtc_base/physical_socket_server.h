@@ -102,6 +102,9 @@ class RTC_EXPORT PhysicalSocketServer : public SocketServer {
   std::array<epoll_event, kNumEpollEvents> epoll_events_;
   const int epoll_fd_ = INVALID_SOCKET;
 #endif  // WEBRTC_USE_EPOLL
+#if defined(WEBRTC_WIN)
+  bool WaitWSA(int cms, bool process_io);
+#endif  // WEBRTC_WIN
   // uint64_t keys are used to uniquely identify a dispatcher in order to avoid
   // the ABA problem during the epoll loop (a dispatcher being destroyed and
   // replaced by one with the same address).
@@ -111,22 +114,16 @@ class RTC_EXPORT PhysicalSocketServer : public SocketServer {
   // Reverse lookup necessary for removals/updates.
   std::unordered_map<Dispatcher*, uint64_t> key_by_dispatcher_
       RTC_GUARDED_BY(crit_);
-  // A list of dispatcher keys that we're interested in for the current
-  // select() or WSAWaitForMultipleEvents() loop. Again, used to avoid the ABA
-  // problem (a socket being destroyed and a new one created with the same
-  // handle, erroneously receiving the events from the destroyed socket).
-  //
-  // Kept as a member variable just for efficiency.
-  std::vector<uint64_t> current_dispatcher_keys_;
   Signaler* signal_wakeup_;  // Assigned in constructor only
   RecursiveCriticalSection crit_;
 #if defined(WEBRTC_WIN)
   const WSAEVENT socket_ev_;
 #endif
   bool fWait_;
-  // Are we currently in a select()/epoll()/WSAWaitForMultipleEvents loop?
-  // Used for a DCHECK, because we don't support reentrant waiting.
-  bool waiting_ = false;
+  // Are we currently in a select()/epoll()/WSAWaitForMultipleEvents loop that's
+  // processing I/O? If so we don't allow Wait to be called recursively with
+  // process_io=true.
+  bool processing_io_ = false;
 };
 
 class PhysicalSocket : public AsyncSocket, public sigslot::has_slots<> {

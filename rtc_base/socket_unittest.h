@@ -48,6 +48,10 @@ class SocketTest : public ::testing::Test {
   void TestCloseInClosedCallbackIPv6();
   void TestDeleteInReadCallbackIPv4();
   void TestDeleteInReadCallbackIPv6();
+  void TestInvokeInReadCallbackIPv4();
+  void TestInvokeInReadCallbackIPv6();
+  void TestWaitInReadCallbackIPv4();
+  void TestWaitInReadCallbackIPv6();
   void TestSocketServerWaitIPv4();
   void TestSocketServerWaitIPv6();
   void TestTcpIPv4();
@@ -86,6 +90,8 @@ class SocketTest : public ::testing::Test {
   void ServerCloseInternal(const IPAddress& loopback);
   void CloseInClosedCallbackInternal(const IPAddress& loopback);
   void DeleteInReadCallbackInternal(const IPAddress& loopback);
+  void InvokeInReadCallbackInternal(const IPAddress& loopback);
+  void WaitInReadCallbackInternal(const IPAddress& loopback);
   void SocketServerWaitInternal(const IPAddress& loopback);
   void SingleFlowControlCallbackInternal(const IPAddress& loopback);
   void UdpInternal(const IPAddress& loopback);

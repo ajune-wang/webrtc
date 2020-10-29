@@ -140,7 +140,7 @@ TEST_F(AudioChannelTest, VerifyLocalSsrcAsAssigned) {
 }
 
 // Check metrics after processing an RTP packet.
-TEST_F(AudioChannelTest, TestAudioStatistics) {
+TEST_F(AudioChannelTest, TestIngressStatistics) {
   rtc::Event event;
   auto loop_rtp = [&](const uint8_t* packet, size_t length, Unused) {
     audio_channel_->ReceivedRTPPacket(
@@ -158,16 +158,23 @@ TEST_F(AudioChannelTest, TestAudioStatistics) {
 
   AudioFrame audio_frame;
   audio_mixer_->Mix(/*number_of_channels=*/1, &audio_frame);
+  audio_mixer_->Mix(/*number_of_channels=*/1, &audio_frame);
 
-  // Check a few fields as we wouldn't have enough samples verify most of them
-  // here.
-  absl::optional<NetEqLifetimeStatistics> neteq_stats =
-      audio_channel_->GetNetEqStatistics();
-  EXPECT_TRUE(neteq_stats);
-  EXPECT_EQ(neteq_stats->total_samples_received, 80ULL);
-  EXPECT_EQ(neteq_stats->concealed_samples, 0ULL);
-  EXPECT_EQ(neteq_stats->jitter_buffer_delay_ms, 1600ULL);
-  EXPECT_EQ(neteq_stats->interruption_count, 0);
+  absl::optional<IngressStatistics> ingress_stats =
+      audio_channel_->GetIngressStatistics();
+  EXPECT_TRUE(ingress_stats);
+  EXPECT_EQ(ingress_stats->neteq_stats.total_samples_received, 160ULL);
+  EXPECT_EQ(ingress_stats->neteq_stats.concealed_samples, 0ULL);
+  EXPECT_EQ(ingress_stats->neteq_stats.concealment_events, 0ULL);
+  EXPECT_EQ(ingress_stats->neteq_stats.inserted_samples_for_deceleration, 0ULL);
+  EXPECT_EQ(ingress_stats->neteq_stats.removed_samples_for_acceleration, 0ULL);
+  EXPECT_EQ(ingress_stats->neteq_stats.silent_concealed_samples, 0ULL);
+  EXPECT_EQ(ingress_stats->neteq_stats.jitter_buffer_delay_ms, 1600ULL);
+  EXPECT_EQ(ingress_stats->neteq_stats.jitter_buffer_emitted_count, 160ULL);
+  EXPECT_EQ(ingress_stats->neteq_stats.jitter_buffer_target_delay_ms, 12800ULL);
+  EXPECT_EQ(ingress_stats->neteq_stats.interruption_count, 0);
+  EXPECT_EQ(ingress_stats->neteq_stats.total_interruption_duration_ms, 0);
+  EXPECT_EQ(ingress_stats->total_duration * 1000, 20);
 }
 
 }  // namespace

@@ -69,6 +69,23 @@
       "parentUuid": "4472308d_6c3116b9",
       "revId": "f1931dd68543406c554d2f901cf14213ec9dd6b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72a0fbfa_9c99e576",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-29T13:57:24Z",
+      "side": 1,
+      "message": "Strange that none of the tests covered this case... go for it.\n",
+      "revId": "f1931dd68543406c554d2f901cf14213ec9dd6b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

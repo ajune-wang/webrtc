@@ -104,6 +104,24 @@
       "parentUuid": "86abc448_6c204e66",
       "revId": "a5685075bdea023492090bec83a6064b71b20b84",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87126abf_3b191607",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5064
+      },
+      "writtenOn": "2020-10-29T01:01:39Z",
+      "side": 1,
+      "message": "Thanks Jan.\n\nReading through the document that Mark linked, if I understand correctly, the current situation is actually that we show _three_ pickers, not two - one XDG screen picker, then the Chromium picker, and then another XDG picker - and we want to reduce that to just the initial XDG ScreenSharing picker \u0026 the Chromium picker.  That\u0027s the detail I was confused about. 😊\n\nBut to suppress the second XDG ScreenSharing picker when we actually start the capture do we need just to create the capturer over the same XDG ScreenSharing portal connection, or is there a picker per-request-Id even over a single XDG connection?\n\nEither way, we need to convey sufficient information in the DesktopCaptureOptions of the CreateCapturer request used for the actual capture to link it back to the CreateCapturer call used for the picker.  With the current implementation in the matching Chromium CL I\u0027m not sure how the request-Id is getting preserved between the picker capture operation, and the one used for the actual capture?",
+      "parentUuid": "42b60dd1_afd0523c",
+      "revId": "a5685075bdea023492090bec83a6064b71b20b84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

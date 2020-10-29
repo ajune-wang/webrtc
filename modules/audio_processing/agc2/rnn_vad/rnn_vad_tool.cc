@@ -56,7 +56,7 @@ int main(int argc, char* argv[]) {
   }
 
   // Initialize.
-  const size_t frame_size_10ms =
+  const int frame_size_10ms =
       rtc::CheckedDivExact(wav_reader.sample_rate(), 100);
   std::vector<float> samples_10ms;
   samples_10ms.resize(frame_size_10ms);

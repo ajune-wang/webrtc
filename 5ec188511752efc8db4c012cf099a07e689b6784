@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af1e5ba5_a8e59b26",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-10-29T21:32:19Z",
+      "side": 1,
+      "message": "Looks good C++ wise.",
+      "revId": "5ec188511752efc8db4c012cf099a07e689b6784",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c78c7af0_a8d9cedd",
+        "filename": "api/voip/voip_statistics.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-10-29T21:32:19Z",
+      "side": 1,
+      "message": "Maybe also quote this: \"Represents the total duration in seconds of all samples that have been received\". For the lazy among us...",
+      "revId": "5ec188511752efc8db4c012cf099a07e689b6784",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

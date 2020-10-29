@@ -146,7 +146,7 @@
 - (void)testCropAndScaleToSmallFormat_NV12 {
   [self cropAndScaleTestWithNV12InputFormat:kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange
                                outputFormat:kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange
-                                 outputSize:CGSizeMake(148, 320)];
+                                 outputSize:CGSizeMake(180, 320)];
 }
 
 - (void)testCropAndScaleToOddFormat_NV12 {
@@ -214,17 +214,7 @@
   CVPixelBufferCreate(
       NULL, outputSize.width, outputSize.height, outputFormat, NULL, &outputPixelBufferRef);
 
-  std::vector<uint8_t> frameScaleBuffer;
-  if ([buffer requiresScalingToWidth:outputSize.width height:outputSize.height]) {
-    int size =
-        [buffer bufferSizeForCroppingAndScalingToWidth:outputSize.width height:outputSize.height];
-    frameScaleBuffer.resize(size);
-  } else {
-    frameScaleBuffer.clear();
-  }
-  frameScaleBuffer.shrink_to_fit();
-
-  [buffer cropAndScaleTo:outputPixelBufferRef withTempBuffer:frameScaleBuffer.data()];
+  [buffer cropAndScaleTo:outputPixelBufferRef];
 
   RTC_OBJC_TYPE(RTCCVPixelBuffer) *scaledBuffer =
       [[RTC_OBJC_TYPE(RTCCVPixelBuffer) alloc] initWithPixelBuffer:outputPixelBufferRef];
@@ -266,7 +256,7 @@
 
   CVPixelBufferRef outputPixelBufferRef = NULL;
   CVPixelBufferCreate(NULL, 360, 640, pixelFormat, NULL, &outputPixelBufferRef);
-  [buffer cropAndScaleTo:outputPixelBufferRef withTempBuffer:NULL];
+  [buffer cropAndScaleTo:outputPixelBufferRef];
 
   RTC_OBJC_TYPE(RTCCVPixelBuffer) *scaledBuffer =
       [[RTC_OBJC_TYPE(RTCCVPixelBuffer) alloc] initWithPixelBuffer:outputPixelBufferRef];

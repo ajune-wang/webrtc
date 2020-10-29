@@ -13,6 +13,11 @@
 
 #include <comdef.h>
 
+<<<<<<< HEAD   (8f9b44 Remove unused SignalConnectionCreated)
+=======
+#include "rtc_base/logging.h"
+
+>>>>>>> CHANGE (0bb354 Add and refactor functionality into rtc_base/win)
 namespace webrtc {
 
 // Initializes COM in the constructor (STA or MTA), and uninitializes COM in the

@@ -40,10 +40,15 @@ HRESULT GetActivationFactory(InterfaceType** factory) {
     return hr;
 
   hr = RoGetActivationFactoryProxy(class_id_hstring, IID_PPV_ARGS(factory));
+<<<<<<< HEAD   (8f9b44 Remove unused SignalConnectionCreated)
   if (FAILED(hr)) {
     DeleteHstring(class_id_hstring);
     return hr;
   }
+=======
+  if (FAILED(hr))
+    return hr;
+>>>>>>> CHANGE (0bb354 Add and refactor functionality into rtc_base/win)
 
   return DeleteHstring(class_id_hstring);
 }

@@ -394,7 +394,11 @@ AudioDeviceWindowsCore::AudioDeviceWindowsCore()
       _outputDevice(AudioDeviceModule::kDefaultCommunicationDevice),
       _inputDeviceIndex(0),
       _outputDeviceIndex(0) {
+<<<<<<< HEAD   (8f9b44 Remove unused SignalConnectionCreated)
   RTC_DLOG(LS_INFO) << __FUNCTION__ << " created";
+=======
+  RTC_LOG(LS_INFO) << __FUNCTION__ << " created";
+>>>>>>> CHANGE (0bb354 Add and refactor functionality into rtc_base/win)
   RTC_DCHECK(_comInit.Succeeded());
 
   // Try to load the Avrt DLL

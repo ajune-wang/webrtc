@@ -16,6 +16,24 @@
       "message": "I can\u0027t use a member variable for this because the reentrant Wait call would modify current_dispatcher_keys_ while the initial call is iterating over it. If you think this will cause too much of a performance hit, I can work around that problem (by using a different vector if process_io\u003dfalse or something like that).",
       "revId": "842b675304ad9f4854ae3decdf654bd380169e19",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7fa49ae1_78162c1d",
+        "filename": "rtc_base/physical_socket_server.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-10-30T09:17:54Z",
+      "side": 0,
+      "message": "You could have a vector of these vectors as a member variable, and pop one and put it on the stack when you need it, then push it back when you\u0027re done.\n\nDepending on how often this is called, of course...",
+      "parentUuid": "3e63850f_35d55e6f",
+      "revId": "842b675304ad9f4854ae3decdf654bd380169e19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2bd4b14_c68f606c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-10-30T09:39:04Z",
+      "side": 1,
+      "message": "Karl, WDYT?\n\nThis issue with the linter is causing some confusion and I guess the only way to fix it is just reformat everything.",
+      "revId": "bf9a8c261945d8fed768859a6dd96bfb847ae644",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

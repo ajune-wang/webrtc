@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a81deba_d6da453d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-10-30T17:49:03Z",
+      "side": 1,
+      "message": "Thanks, Karl. Ivo, PTAL! ",
+      "revId": "793858bacdc36da56ce9ac500deca938c7854e7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

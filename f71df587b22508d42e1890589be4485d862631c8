@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "159fc1cb_f569b814",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-30T10:46:32Z",
+      "side": 1,
+      "message": "PTAL. Do you know when usage of master_timing disappeared?",
+      "revId": "f71df587b22508d42e1890589be4485d862631c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ea2ad80_753db89c",
+        "filename": "modules/video_coding/timing.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-30T10:46:32Z",
+      "side": 1,
+      "message": "I found out when I tried to make ts_extrapolator_ a direct member instead of a pointer to an owned object. And it might be surprising to callers of this const method that it modifies the state.",
+      "range": {
+        "startLine": 181,
+        "startChar": 0,
+        "endLine": 182,
+        "endChar": 54
+      },
+      "revId": "f71df587b22508d42e1890589be4485d862631c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

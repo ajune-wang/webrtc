@@ -34,6 +34,24 @@
       "parentUuid": "3e63850f_35d55e6f",
       "revId": "842b675304ad9f4854ae3decdf654bd380169e19",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01e06ab5_e0dafd3a",
+        "filename": "rtc_base/physical_socket_server.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-10-30T22:10:32Z",
+      "side": 0,
+      "message": "It should only be possible to have one nested Wait call (Wait with process_io\u003dfalse can\u0027t generate any callbacks), so that would be a little overkill.\n\nGiven that a WebRTC client should only end up with a few sockets, and servers should be using epoll (which doesn\u0027t use this vector), I\u0027m just not sure if it\u0027s worth complicating things for a small optimization.",
+      "parentUuid": "7fa49ae1_78162c1d",
+      "revId": "842b675304ad9f4854ae3decdf654bd380169e19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "111a47b8_338c7319",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1556,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-10-30T22:10:32Z",
+      "side": 1,
+      "message": "It\u0027s already handled in Wait. Previously there were two versions of Wait, for POSIX and Windows, and the POSIX one would conditionally call WaitSelect or WaitEpoll. Now there is just one version of Wait, which will conditionally call WaitSelect, WaitEpoll or WaitWSA.\n\nSo it\u0027s just a minor restructuring so I can deal with processing_io_ in one place instead of two.",
+      "parentUuid": "fac53da0_ab00bf9b",
+      "revId": "77e608eaee378145a847294a90b0bc80945d3b2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "93e338cc_1e5f2ac6",
         "filename": "rtc_base/physical_socket_server.h",
         "patchSetId": 1
@@ -65,6 +83,24 @@
       "writtenOn": "2020-10-30T09:17:54Z",
       "side": 1,
       "message": "Hmm... I don\u0027t understand the acronym in the function name---I presume it\u0027s some Windows thing? And can I haz some docs, please?",
+      "revId": "77e608eaee378145a847294a90b0bc80945d3b2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a915859_4e2fd29b",
+        "filename": "rtc_base/physical_socket_server.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-10-30T22:10:32Z",
+      "side": 1,
+      "message": "WSA \u003d Windows Socket API. I can just call it WaitWindows.",
+      "parentUuid": "93e338cc_1e5f2ac6",
       "revId": "77e608eaee378145a847294a90b0bc80945d3b2e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

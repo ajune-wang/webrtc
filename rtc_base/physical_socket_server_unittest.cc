@@ -390,6 +390,24 @@ TEST_F(PhysicalSocketTest, TestDeleteInReadCallbackIPv6) {
   SocketTest::TestDeleteInReadCallbackIPv6();
 }
 
+TEST_F(PhysicalSocketTest, TestInvokeInReadCallbackIPv4) {
+  MAYBE_SKIP_IPV4;
+  SocketTest::TestInvokeInReadCallbackIPv4();
+}
+
+TEST_F(PhysicalSocketTest, TestInvokeInReadCallbackIPv6) {
+  SocketTest::TestInvokeInReadCallbackIPv6();
+}
+
+TEST_F(PhysicalSocketTest, TestWaitInReadCallbackIPv4) {
+  MAYBE_SKIP_IPV4;
+  SocketTest::TestWaitInReadCallbackIPv4();
+}
+
+TEST_F(PhysicalSocketTest, TestWaitInReadCallbackIPv6) {
+  SocketTest::TestWaitInReadCallbackIPv6();
+}
+
 TEST_F(PhysicalSocketTest, TestSocketServerWaitIPv4) {
   MAYBE_SKIP_IPV4;
   SocketTest::TestSocketServerWaitIPv4();

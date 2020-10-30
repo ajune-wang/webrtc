@@ -158,6 +158,24 @@ void SocketTest::TestDeleteInReadCallbackIPv6() {
   DeleteInReadCallbackInternal(kIPv6Loopback);
 }
 
+void SocketTest::TestWaitInReadCallbackIPv4() {
+  WaitInReadCallbackInternal(kIPv4Loopback);
+}
+
+void SocketTest::TestWaitInReadCallbackIPv6() {
+  MAYBE_SKIP_IPV6;
+  WaitInReadCallbackInternal(kIPv6Loopback);
+}
+
+void SocketTest::TestInvokeInReadCallbackIPv4() {
+  InvokeInReadCallbackInternal(kIPv4Loopback);
+}
+
+void SocketTest::TestInvokeInReadCallbackIPv6() {
+  MAYBE_SKIP_IPV6;
+  InvokeInReadCallbackInternal(kIPv6Loopback);
+}
+
 void SocketTest::TestSocketServerWaitIPv4() {
   SocketServerWaitInternal(kIPv4Loopback);
 }
@@ -674,7 +692,7 @@ class SocketDeleter : public sigslot::has_slots<> {
   std::unique_ptr<AsyncSocket> socket_;
 };
 
-// Tested deleting a socket within another socket's read callback. A previous
+// Test deleting a socket within another socket's read callback. A previous
 // iteration of the select loop failed in this situation, if both sockets
 // became readable at the same time.
 void SocketTest::DeleteInReadCallbackInternal(const IPAddress& loopback) {
@@ -684,7 +702,7 @@ void SocketTest::DeleteInReadCallbackInternal(const IPAddress& loopback) {
       ss_->CreateAsyncSocket(loopback.family(), SOCK_DGRAM));
   EXPECT_EQ(0, socket1->Bind(SocketAddress(loopback, 0)));
   EXPECT_EQ(0, socket2->Bind(SocketAddress(loopback, 0)));
-  EXPECT_EQ(3, socket1->SendTo("foo", 3, socket1->GetLocalAddress()));
+  EXPECT_EQ(3, socket1->SendTo("foo", 3, socket2->GetLocalAddress()));
   EXPECT_EQ(3, socket2->SendTo("bar", 3, socket1->GetLocalAddress()));
   // Sleep a while to ensure sends are both completed at the same time.
   Thread::SleepMs(1000);
@@ -694,6 +712,77 @@ void SocketTest::DeleteInReadCallbackInternal(const IPAddress& loopback) {
   SocketDeleter deleter(std::move(socket2));
   socket1->SignalReadEvent.connect(&deleter, &SocketDeleter::Delete);
   EXPECT_TRUE_WAIT(deleter.deleted(), kTimeout);
+}
+
+// Helper class specifically for the test below.
+class SocketInvoker : public sigslot::has_slots<> {
+ public:
+  explicit SocketInvoker(AsyncSocket* socket) : thread_(Thread::Create()) {
+    socket->SignalReadEvent.connect(this, &SocketInvoker::Invoke);
+    thread_->Start();
+  }
+
+  bool invoked() const { return invoked_; }
+
+ private:
+  void Invoke(AsyncSocket* socket) {
+    thread_->Invoke<void>(RTC_FROM_HERE,
+                          [] { RTC_LOG(LS_INFO) << "In Invoke."; });
+    invoked_ = true;
+  }
+
+  std::unique_ptr<rtc::Thread> thread_;
+  bool invoked_ = false;
+};
+
+// Test using Thread::Invoke from within a read callback, which will cause
+// Wait to be called recursively (with process_io set to false).
+void SocketTest::InvokeInReadCallbackInternal(const IPAddress& loopback) {
+  std::unique_ptr<AsyncSocket> socket1(
+      ss_->CreateAsyncSocket(loopback.family(), SOCK_DGRAM));
+  std::unique_ptr<AsyncSocket> socket2(
+      ss_->CreateAsyncSocket(loopback.family(), SOCK_DGRAM));
+  // Configure a helper class to use Thread::Invoke when there is a read event.
+  SocketInvoker invoker(socket2.get());
+  EXPECT_EQ(0, socket1->Bind(SocketAddress(loopback, 0)));
+  EXPECT_EQ(0, socket2->Bind(SocketAddress(loopback, 0)));
+  EXPECT_EQ(3, socket1->SendTo("foo", 3, socket2->GetLocalAddress()));
+  EXPECT_TRUE_WAIT(invoker.invoked(), kTimeout);
+}
+
+// Helper class specifically for the test below.
+class SocketWaiter : public sigslot::has_slots<> {
+ public:
+  explicit SocketWaiter(AsyncSocket* socket) {
+    socket->SignalReadEvent.connect(this, &SocketWaiter::Wait);
+  }
+
+  absl::optional<bool> wait_result() const { return wait_result_; }
+
+ private:
+  void Wait(AsyncSocket* socket) {
+    wait_result_.emplace(rtc::Thread::Current()->socketserver()->Wait(
+        /*cmsWait=*/0, /*process_io=*/true));
+  }
+
+  absl::optional<bool> wait_result_;
+};
+
+// Test calling Wait with process_io=true from within a read callback, which
+// should return false as reentrant waiting is not supported.
+void SocketTest::WaitInReadCallbackInternal(const IPAddress& loopback) {
+  std::unique_ptr<AsyncSocket> socket1(
+      ss_->CreateAsyncSocket(loopback.family(), SOCK_DGRAM));
+  std::unique_ptr<AsyncSocket> socket2(
+      ss_->CreateAsyncSocket(loopback.family(), SOCK_DGRAM));
+  // Configure a helper class to use SocketServer::Wait when there is a read
+  // event.
+  SocketWaiter waiter(socket2.get());
+  EXPECT_EQ(0, socket1->Bind(SocketAddress(loopback, 0)));
+  EXPECT_EQ(0, socket2->Bind(SocketAddress(loopback, 0)));
+  EXPECT_EQ(3, socket1->SendTo("foo", 3, socket2->GetLocalAddress()));
+  EXPECT_TRUE_WAIT(waiter.wait_result().has_value(), kTimeout);
+  EXPECT_FALSE(waiter.wait_result().value());
 }
 
 class Sleeper : public MessageHandlerAutoCleanup {

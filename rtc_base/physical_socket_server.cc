@@ -103,20 +103,6 @@ typedef char* SockOptArg;
 #endif
 #endif
 
-namespace {
-class ScopedSetTrue {
- public:
-  ScopedSetTrue(bool* value) : value_(value) {
-    RTC_DCHECK(!*value_);
-    *value_ = true;
-  }
-  ~ScopedSetTrue() { *value_ = false; }
-
- private:
-  bool* value_;
-};
-}  // namespace
-
 namespace rtc {
 
 std::unique_ptr<SocketServer> SocketServer::CreateDefault() {
@@ -1164,24 +1150,37 @@ void PhysicalSocketServer::Update(Dispatcher* pdispatcher) {
 #endif
 }
 
-#if defined(WEBRTC_POSIX)
-
 bool PhysicalSocketServer::Wait(int cmsWait, bool process_io) {
-  // We don't support reentrant waiting.
-  RTC_DCHECK(!waiting_);
-  ScopedSetTrue s(&waiting_);
+  if (process_io) {
+    // We don't support reentrant processing of I/O (e.g., a socket event that
+    // triggers another Wait, which triggers another socket event, etc.).
+    if (processing_io_) {
+      return false;
+    }
+    processing_io_ = true;
+  }
+  bool ret = false;
 #if defined(WEBRTC_USE_EPOLL)
   // We don't keep a dedicated "epoll" descriptor containing only the non-IO
   // (i.e. signaling) dispatcher, so "poll" will be used instead of the default
   // "select" to support sockets larger than FD_SETSIZE.
   if (!process_io) {
-    return WaitPoll(cmsWait, signal_wakeup_);
+    ret = WaitPoll(cmsWait, signal_wakeup_);
   } else if (epoll_fd_ != INVALID_SOCKET) {
-    return WaitEpoll(cmsWait);
+    ret = WaitEpoll(cmsWait);
+  } else {
+    ret = WaitSelect(cmsWait, process_io);
   }
+#elif defined(WEBRTC_POSIX)
+  ret = WaitSelect(cmsWait, process_io);
+#elif defined(WEBRTC_WIN)
+  ret = WaitWindows(cmsWait, process_io);
 #endif
-  return WaitSelect(cmsWait, process_io);
+  processing_io_ = false;
+  return ret;
 }
+
+#if defined(WEBRTC_POSIX)
 
 static void ProcessEvents(Dispatcher* dispatcher,
                           bool readable,
@@ -1263,7 +1262,10 @@ bool PhysicalSocketServer::WaitSelect(int cmsWait, bool process_io) {
 #endif
 
   fWait_ = true;
-
+  // List of dispatcher identifiers we're interested in for the current select()
+  // loop; used to avoid the ABA problem (a socket being removed and a new one
+  // added with the same FD while calling select()).
+  std::vector<uint64_t> dispatcher_keys;
   while (fWait_) {
     // Zero all fd_sets. Although select() zeros the descriptors not signaled,
     // we may need to do this for dispatchers that were deleted while
@@ -1273,14 +1275,14 @@ bool PhysicalSocketServer::WaitSelect(int cmsWait, bool process_io) {
     int fdmax = -1;
     {
       CritScope cr(&crit_);
-      current_dispatcher_keys_.clear();
+      dispatcher_keys.clear();
       for (auto const& kv : dispatcher_by_key_) {
         uint64_t key = kv.first;
         Dispatcher* pdispatcher = kv.second;
         // Query dispatchers for read and write wait state
         if (!process_io && (pdispatcher != signal_wakeup_))
           continue;
-        current_dispatcher_keys_.push_back(key);
+        dispatcher_keys.push_back(key);
         int fd = pdispatcher->GetDescriptor();
         // "select"ing a file descriptor that is equal to or larger than
         // FD_SETSIZE will result in undefined behavior.
@@ -1321,7 +1323,7 @@ bool PhysicalSocketServer::WaitSelect(int cmsWait, bool process_io) {
       // Iterate only on the dispatchers whose sockets were passed into
       // WSAEventSelect; this avoids the ABA problem (a socket being
       // destroyed and a new one created with the same file descriptor).
-      for (uint64_t key : current_dispatcher_keys_) {
+      for (uint64_t key : dispatcher_keys) {
         if (!dispatcher_by_key_.count(key))
           continue;
         Dispatcher* pdispatcher = dispatcher_by_key_.at(key);
@@ -1551,16 +1553,13 @@ bool PhysicalSocketServer::WaitPoll(int cmsWait, Dispatcher* dispatcher) {
 #endif  // WEBRTC_POSIX
 
 #if defined(WEBRTC_WIN)
-bool PhysicalSocketServer::Wait(int cmsWait, bool process_io) {
-  // We don't support reentrant waiting.
-  RTC_DCHECK(!waiting_);
-  ScopedSetTrue s(&waiting_);
-
+bool PhysicalSocketServer::WaitWindows(int cmsWait, bool process_io) {
   int64_t cmsTotal = cmsWait;
   int64_t cmsElapsed = 0;
   int64_t msStart = Time();
 
   fWait_ = true;
+  std::vector<uint64_t> dispatcher_keys;
   while (fWait_) {
     std::vector<WSAEVENT> events;
     std::vector<uint64_t> event_owners;
@@ -1573,11 +1572,11 @@ bool PhysicalSocketServer::Wait(int cmsWait, bool process_io) {
       // ABA problem (see later comment) and avoids the dispatcher_by_key_
       // iterator being invalidated by calling CheckSignalClose, which may
       // remove the dispatcher from the list.
-      current_dispatcher_keys_.clear();
+      dispatcher_keys.clear();
       for (auto const& kv : dispatcher_by_key_) {
-        current_dispatcher_keys_.push_back(kv.first);
+        dispatcher_keys.push_back(kv.first);
       }
-      for (uint64_t key : current_dispatcher_keys_) {
+      for (uint64_t key : dispatcher_keys) {
         if (!dispatcher_by_key_.count(key)) {
           continue;
         }
@@ -1640,7 +1639,7 @@ bool PhysicalSocketServer::Wait(int cmsWait, bool process_io) {
         // Iterate only on the dispatchers whose sockets were passed into
         // WSAEventSelect; this avoids the ABA problem (a socket being
         // destroyed and a new one created with the same SOCKET handle).
-        for (uint64_t key : current_dispatcher_keys_) {
+        for (uint64_t key : dispatcher_keys) {
           if (!dispatcher_by_key_.count(key)) {
             continue;
           }

@@ -33,6 +33,40 @@
       "message": "https://chromium-review.googlesource.com/c/chromium/src/+/2460888/5#message-502e1930c5183c592d126b6083a7e01db6cdf839\n-- lets wait to see if the metric folks would like to review too before landing. More eyes, might need  some per-file owner magic.",
       "revId": "edc7be08a1990d42ca69e8a4ae5fbef3441761d1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b82217d4_43398ce9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-10-30T06:41:05Z",
+      "side": 1,
+      "message": "Ilya (can\u0027t cc caitlin or chromium-metrics-review) can you take an (informal) look please? Chore but... it was necessary :-)\n",
+      "revId": "edc7be08a1990d42ca69e8a4ae5fbef3441761d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce478ee9_439af178",
+        "filename": "api/uma_metrics.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-10-30T06:41:05Z",
+      "side": 1,
+      "message": "Might be sufficient to say something along the lines of \"please ping chromium-metrics-review@google.com when adding new metrics\" here",
+      "revId": "edc7be08a1990d42ca69e8a4ae5fbef3441761d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

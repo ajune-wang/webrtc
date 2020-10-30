@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "6068533b_4d5bf99e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-10-30T10:01:21Z",
+      "side": 1,
+      "message": "Yes, \"git cl format\" only looks at changed files in the current branch so this adds a newline at the beginning of all these files. Then it looks like \"git cl format\" itself undoes that change while re-formatting.",
+      "parentUuid": "03c0696c_ec5a85e2",
+      "revId": "bf9a8c261945d8fed768859a6dd96bfb847ae644",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "a2bd4b14_c68f606c",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3

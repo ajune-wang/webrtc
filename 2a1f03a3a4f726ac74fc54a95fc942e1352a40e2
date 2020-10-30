@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "efabba66_ba66f163",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-10-30T12:27:38Z",
+      "side": 1,
+      "message": "PTAL, this can\u0027t land until https://chromium-review.googlesource.com/c/chromium/src/+/2510130 does though.",
+      "revId": "2a1f03a3a4f726ac74fc54a95fc942e1352a40e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

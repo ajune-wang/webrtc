@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "03c0696c_ec5a85e2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-10-30T09:59:06Z",
+      "side": 1,
+      "message": "Does this make some innocuous change to the first line of each file, so that the next command will find them because they\u0027ve been modified?",
+      "revId": "bf9a8c261945d8fed768859a6dd96bfb847ae644",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "a2bd4b14_c68f606c",
@@ -14,6 +31,24 @@
       "writtenOn": "2020-10-30T09:39:04Z",
       "side": 1,
       "message": "Karl, WDYT?\n\nThis issue with the linter is causing some confusion and I guess the only way to fix it is just reformat everything.",
+      "revId": "bf9a8c261945d8fed768859a6dd96bfb847ae644",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec80b168_4568146d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-10-30T09:59:06Z",
+      "side": 1,
+      "message": "I agree that just reformatting everything seems best.",
+      "parentUuid": "a2bd4b14_c68f606c",
       "revId": "bf9a8c261945d8fed768859a6dd96bfb847ae644",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

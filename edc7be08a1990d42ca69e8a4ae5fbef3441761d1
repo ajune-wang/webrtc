@@ -52,6 +52,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf885d34_5e42d8b0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-30T06:56:49Z",
+      "side": 1,
+      "message": "It\u0027s a chore, but someone\u0027s got to do it (said not so many people in this codebase...) thanks!\n",
+      "revId": "edc7be08a1990d42ca69e8a4ae5fbef3441761d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ce478ee9_439af178",
@@ -65,6 +82,23 @@
       "writtenOn": "2020-10-30T06:41:05Z",
       "side": 1,
       "message": "Might be sufficient to say something along the lines of \"please ping chromium-metrics-review@google.com when adding new metrics\" here",
+      "revId": "edc7be08a1990d42ca69e8a4ae5fbef3441761d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10589513_19f6f253",
+        "filename": "api/uma_metrics.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-30T06:56:49Z",
+      "side": 1,
+      "message": "I\u0027d like to insert \", which uses \"enum class\"\" here, to call out the most important distinction (the other twist is that they use kMaxValue, which non-class enums can\u0027t use).",
       "revId": "edc7be08a1990d42ca69e8a4ae5fbef3441761d1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04d294da_f1016b91",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-10-30T10:01:50Z",
+      "side": 1,
+      "message": "Skipping Presubmit, that will be fixed in part 2/2.",
+      "revId": "89d4bd1f1acf8dfd8b9f66119068e3f5daeab9b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

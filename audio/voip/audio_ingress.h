@@ -75,6 +75,11 @@ class AudioIngress : public AudioMixer::Source {
   int GetSpeechOutputLevelFullRange() const {
     return output_audio_level_.LevelFullRange();
   }
+  // See the comment on relevant interface defined in VoipVolumeControl.
+  double GetSpeechOutputEnergy() { return output_audio_level_.TotalEnergy(); }
+  double GetSpeechOutputDuration() {
+    return output_audio_level_.TotalDuration();
+  }
 
   // Returns network round trip time (RTT) measued by RTCP exchange with
   // remote media endpoint. RTT value -1 indicates that it's not initialized.

@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3485131c_32256052",
+        "filename": "api/uma_metrics.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-10-30T07:41:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c770d0a0_4f5b8451",
+      "range": {
+        "startLine": 12,
+        "startChar": 3,
+        "endLine": 12,
+        "endChar": 5
+      },
+      "revId": "6a384de3c9fa04b4e4484fe0d57cd429ad94b20b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eb3a8464_7f6ca8a3",

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "354d0ec7_88c4e098",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-11-01T19:55:15Z",
+      "side": 1,
+      "message": "improving the shift was actually easier than I expected and the new version is much easier to read!\n\nNow ideally this would use some kind of ring buffer to avoid the SetData calls but I didn\u0027t see a data structure that would fit?",
+      "revId": "9848c201414e6706684c783abdf8a86e847b4ee4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

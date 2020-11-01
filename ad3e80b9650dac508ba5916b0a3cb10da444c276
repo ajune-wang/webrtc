@@ -60,6 +60,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "19e34917_73d6717a",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-11-01T19:55:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5476ce95_58f02ebf",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 59
+      },
+      "revId": "ad3e80b9650dac508ba5916b0a3cb10da444c276",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "6159151e_a6eccef3",
         "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
         "patchSetId": 2
@@ -127,6 +151,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf11d823_400be9f8",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-11-01T19:55:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56799625_ffa8e982",
+      "range": {
+        "startLine": 138,
+        "startChar": 2,
+        "endLine": 138,
+        "endChar": 44
+      },
+      "revId": "ad3e80b9650dac508ba5916b0a3cb10da444c276",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5de52897_843852bf",
@@ -140,6 +188,30 @@
       "writtenOn": "2020-10-27T12:50:01Z",
       "side": 1,
       "message": "it looks like using std::list and push_front will trigger a memory allocations that will make the code slower. I will suggest to not use a list and use an array or a vector (which size is preallocated at construction time).",
+      "range": {
+        "startLine": 139,
+        "startChar": 23,
+        "endLine": 139,
+        "endChar": 34
+      },
+      "revId": "ad3e80b9650dac508ba5916b0a3cb10da444c276",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8b7f97b_c6622ade",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-11-01T19:55:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5de52897_843852bf",
       "range": {
         "startLine": 139,
         "startChar": 23,
@@ -173,6 +245,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "113baea3_406833cd",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-11-01T19:55:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad087043_a5c1ca51",
+      "range": {
+        "startLine": 30,
+        "startChar": 1,
+        "endLine": 33,
+        "endChar": 73
+      },
+      "revId": "ad3e80b9650dac508ba5916b0a3cb10da444c276",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "06eb94ae_33137f4d",
@@ -186,6 +282,24 @@
       "writtenOn": "2020-10-27T12:50:01Z",
       "side": 1,
       "message": "Unintentional line break?",
+      "revId": "ad3e80b9650dac508ba5916b0a3cb10da444c276",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "058e4c55_2faf36f4",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-11-01T19:55:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06eb94ae_33137f4d",
       "revId": "ad3e80b9650dac508ba5916b0a3cb10da444c276",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

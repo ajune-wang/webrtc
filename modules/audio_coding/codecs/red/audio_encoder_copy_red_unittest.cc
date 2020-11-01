@@ -192,9 +192,9 @@ TEST_F(AudioEncoderCopyRedTest, CheckPayloadSizes) {
   for (size_t i = 3; i <= kNumPackets; ++i) {
     Encode();
     ASSERT_EQ(3u, encoded_info_.redundant.size());
-    EXPECT_EQ(i, encoded_info_.redundant[0].encoded_bytes);
+    EXPECT_EQ(i, encoded_info_.redundant[2].encoded_bytes);
     EXPECT_EQ(i - 1, encoded_info_.redundant[1].encoded_bytes);
-    EXPECT_EQ(i - 2, encoded_info_.redundant[2].encoded_bytes);
+    EXPECT_EQ(i - 2, encoded_info_.redundant[0].encoded_bytes);
     EXPECT_EQ(9 + i + (i - 1) + (i - 2), encoded_info_.encoded_bytes);
   }
 }
@@ -222,8 +222,8 @@ TEST_F(AudioEncoderCopyRedTest, CheckTimestamps) {
 
   Encode();
   ASSERT_EQ(2u, encoded_info_.redundant.size());
-  EXPECT_EQ(primary_timestamp, encoded_info_.redundant[0].encoded_timestamp);
-  EXPECT_EQ(secondary_timestamp, encoded_info_.redundant[1].encoded_timestamp);
+  EXPECT_EQ(primary_timestamp, encoded_info_.redundant[1].encoded_timestamp);
+  EXPECT_EQ(secondary_timestamp, encoded_info_.redundant[0].encoded_timestamp);
   EXPECT_EQ(primary_timestamp, encoded_info_.encoded_timestamp);
 }
 
@@ -291,8 +291,8 @@ TEST_F(AudioEncoderCopyRedTest, CheckPayloadType) {
 
   Encode();
   ASSERT_EQ(2u, encoded_info_.redundant.size());
-  EXPECT_EQ(secondary_payload_type, encoded_info_.redundant[0].payload_type);
-  EXPECT_EQ(primary_payload_type, encoded_info_.redundant[1].payload_type);
+  EXPECT_EQ(secondary_payload_type, encoded_info_.redundant[1].payload_type);
+  EXPECT_EQ(primary_payload_type, encoded_info_.redundant[0].payload_type);
   EXPECT_EQ(red_payload_type_, encoded_info_.payload_type);
 }
 
@@ -316,7 +316,7 @@ TEST_F(AudioEncoderCopyRedTest, CheckRFC2198Header) {
   EXPECT_EQ(encoded_[0], primary_payload_type | 0x80);
 
   uint32_t timestamp_delta = encoded_info_.encoded_timestamp -
-                             encoded_info_.redundant[1].encoded_timestamp;
+                             encoded_info_.redundant[0].encoded_timestamp;
   // Timestamp delta is encoded as a 14 bit value.
   EXPECT_EQ(encoded_[1], timestamp_delta >> 6);
   EXPECT_EQ(static_cast<uint8_t>(encoded_[2] >> 2), timestamp_delta & 0x3f);
@@ -335,13 +335,13 @@ TEST_F(AudioEncoderCopyRedTest, CheckRFC2198Header) {
   EXPECT_EQ(encoded_[0], primary_payload_type | 0x80);
 
   timestamp_delta = encoded_info_.encoded_timestamp -
-                    encoded_info_.redundant[2].encoded_timestamp;
+                    encoded_info_.redundant[0].encoded_timestamp;
   // Timestamp delta is encoded as a 14 bit value.
   EXPECT_EQ(encoded_[1], timestamp_delta >> 6);
   EXPECT_EQ(static_cast<uint8_t>(encoded_[2] >> 2), timestamp_delta & 0x3f);
   // Redundant length is encoded as 10 bit value.
-  EXPECT_EQ(encoded_[2] & 0x3u, encoded_info_.redundant[2].encoded_bytes >> 8);
-  EXPECT_EQ(encoded_[3], encoded_info_.redundant[2].encoded_bytes & 0xff);
+  EXPECT_EQ(encoded_[2] & 0x3u, encoded_info_.redundant[1].encoded_bytes >> 8);
+  EXPECT_EQ(encoded_[3], encoded_info_.redundant[1].encoded_bytes & 0xff);
 
   EXPECT_EQ(encoded_[4], primary_payload_type | 0x80);
   timestamp_delta = encoded_info_.encoded_timestamp -
@@ -350,8 +350,8 @@ TEST_F(AudioEncoderCopyRedTest, CheckRFC2198Header) {
   EXPECT_EQ(encoded_[5], timestamp_delta >> 6);
   EXPECT_EQ(static_cast<uint8_t>(encoded_[6] >> 2), timestamp_delta & 0x3f);
   // Redundant length is encoded as 10 bit value.
-  EXPECT_EQ(encoded_[6] & 0x3u, encoded_info_.redundant[2].encoded_bytes >> 8);
-  EXPECT_EQ(encoded_[7], encoded_info_.redundant[2].encoded_bytes & 0xff);
+  EXPECT_EQ(encoded_[6] & 0x3u, encoded_info_.redundant[1].encoded_bytes >> 8);
+  EXPECT_EQ(encoded_[7], encoded_info_.redundant[1].encoded_bytes & 0xff);
   EXPECT_EQ(encoded_[8], primary_payload_type);
 }
 

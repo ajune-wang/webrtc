@@ -193,6 +193,24 @@
       "parentUuid": "f29ff183_1a06ffd4",
       "revId": "a5685075bdea023492090bec83a6064b71b20b84",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "22f3b36f_3fb31aff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-11-01T15:10:46Z",
+      "side": 1,
+      "message": "Hi,\n\nMark \u0026 Tommi: can you please respond? I would just add that I don\u0027t use SourceIds to refer to XDG portal state, it\u0027s reference to a portal call (DBus call) associated to it and respond/result from this call is basically a source (either a screen or a window).",
+      "parentUuid": "9ddef10d_4efcfc4c",
+      "revId": "a5685075bdea023492090bec83a6064b71b20b84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

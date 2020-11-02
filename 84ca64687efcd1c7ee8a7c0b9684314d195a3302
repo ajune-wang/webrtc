@@ -87,6 +87,54 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "80a2f0ff_61a66a15",
+        "filename": "system_wrappers/include/clock.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-11-02T14:58:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90f7f676_fcb72949",
+      "range": {
+        "startLine": 88,
+        "startChar": 66,
+        "endLine": 88,
+        "endChar": 78
+      },
+      "revId": "84ca64687efcd1c7ee8a7c0b9684314d195a3302",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb7672d1_117374c4",
+        "filename": "system_wrappers/include/clock.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-11-02T14:58:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7580fb35_b66b7e23",
+      "range": {
+        "startLine": 88,
+        "startChar": 54,
+        "endLine": 88,
+        "endChar": 65
+      },
+      "revId": "84ca64687efcd1c7ee8a7c0b9684314d195a3302",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "24cc3f61_b4aa61e5",
@@ -136,6 +184,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5330cbc3_a92564a0",
+        "filename": "system_wrappers/source/clock.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-11-02T14:58:16Z",
+      "side": 1,
+      "message": "Compiler error says that this needs a default constructor for the Timestamp() class. As far as I understand, this is with GNU g++, but with the atomic template defined by clang\u0027s libc++, not the GNU libstdc++.",
+      "range": {
+        "startLine": 248,
+        "startChar": 0,
+        "endLine": 248,
+        "endChar": 47
+      },
+      "revId": "84ca64687efcd1c7ee8a7c0b9684314d195a3302",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ed2d830e_f59b4fea",
         "filename": "system_wrappers/source/clock.cc",
         "patchSetId": 1
@@ -147,6 +218,24 @@
       "writtenOn": "2020-11-02T14:51:17Z",
       "side": 1,
       "message": "Why is it not sufficient to do a relaxed atomic increment?",
+      "revId": "84ca64687efcd1c7ee8a7c0b9684314d195a3302",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5cf6c59b_66022916",
+        "filename": "system_wrappers/source/clock.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-11-02T14:58:16Z",
+      "side": 1,
+      "message": "I tried .fetch_add, and it failed because the compiler didn\u0027t think the Timestamp type was Integral enough. So no such method.\n\nIs there any other way to do atomic increment?\n\nThis (as well as the compile error) could be fixed by making the member an atomic\u003cint64_t\u003e, and converting to and from Timestamp for all public methods. But it would be nicer if we didn\u0027t have to.",
+      "parentUuid": "ed2d830e_f59b4fea",
       "revId": "84ca64687efcd1c7ee8a7c0b9684314d195a3302",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

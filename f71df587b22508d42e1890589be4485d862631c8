@@ -39,6 +39,30 @@
       },
       "revId": "f71df587b22508d42e1890589be4485d862631c8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57c89928_fb5f98d8",
+        "filename": "modules/video_coding/timing.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-11-02T10:32:46Z",
+      "side": 1,
+      "message": "Resolving.",
+      "parentUuid": "5ea2ad80_753db89c",
+      "range": {
+        "startLine": 181,
+        "startChar": 0,
+        "endLine": 182,
+        "endChar": 54
+      },
+      "revId": "f71df587b22508d42e1890589be4485d862631c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

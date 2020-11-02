@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bf0c3f8_65920be2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2020-11-02T14:39:20Z",
+      "side": 1,
+      "message": "Could the description be expanded?",
+      "revId": "b553646658f42a5246edff54a090acc67478c3d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2ded3da_c623c186",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2020-11-02T14:39:20Z",
+      "side": 1,
+      "message": "Judging by line #87, that should always evaluate to true, right?",
+      "range": {
+        "startLine": 110,
+        "startChar": 4,
+        "endLine": 110,
+        "endChar": 24
+      },
+      "revId": "b553646658f42a5246edff54a090acc67478c3d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

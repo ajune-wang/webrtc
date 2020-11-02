@@ -53,6 +53,7 @@
 @synthesize activeResetSrtpParams = _activeResetSrtpParams;
 @synthesize allowCodecSwitching = _allowCodecSwitching;
 @synthesize cryptoOptions = _cryptoOptions;
+@synthesize turnLoggingId = _turnLoggingId;
 @synthesize rtcpAudioReportIntervalMs = _rtcpAudioReportIntervalMs;
 @synthesize rtcpVideoReportIntervalMs = _rtcpVideoReportIntervalMs;
 
@@ -128,6 +129,9 @@
                                                      .enable_encrypted_rtp_header_extensions
                     sframeRequireFrameEncryption:config.crypto_options->sframe
                                                      .require_frame_encryption];
+    }
+    if (config.turn_logging_id) {
+      _turnLoggingId = [NSString stringWithUTF8String:config.turn_logging_id.c_str()];
     }
     _rtcpAudioReportIntervalMs = config.audio_rtcp_report_interval_ms();
     _rtcpVideoReportIntervalMs = config.video_rtcp_report_interval_ms();
@@ -258,6 +262,7 @@
         _cryptoOptions.sframeRequireFrameEncryption ? true : false;
     nativeConfig->crypto_options = absl::optional<webrtc::CryptoOptions>(nativeCryptoOptions);
   }
+  nativeConfig->turn_logging_id = [_turnLoggingId UTF8String];
   nativeConfig->set_audio_rtcp_report_interval_ms(_rtcpAudioReportIntervalMs);
   nativeConfig->set_video_rtcp_report_interval_ms(_rtcpVideoReportIntervalMs);
   nativeConfig->allow_codec_switching = _allowCodecSwitching;

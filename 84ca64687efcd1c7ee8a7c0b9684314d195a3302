@@ -43,6 +43,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7580fb35_b66b7e23",
+        "filename": "system_wrappers/include/clock.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-02T14:51:17Z",
+      "side": 1,
+      "message": "corresponds to",
+      "range": {
+        "startLine": 88,
+        "startChar": 54,
+        "endLine": 88,
+        "endChar": 65
+      },
+      "revId": "84ca64687efcd1c7ee8a7c0b9684314d195a3302",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90f7f676_fcb72949",
+        "filename": "system_wrappers/include/clock.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-02T14:51:17Z",
+      "side": 1,
+      "message": "monotonically",
+      "range": {
+        "startLine": 88,
+        "startChar": 66,
+        "endLine": 88,
+        "endChar": 78
+      },
+      "revId": "84ca64687efcd1c7ee8a7c0b9684314d195a3302",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "24cc3f61_b4aa61e5",
         "filename": "system_wrappers/include/clock.h",
         "patchSetId": 1
@@ -60,6 +106,47 @@
         "endLine": 90,
         "endChar": 31
       },
+      "revId": "84ca64687efcd1c7ee8a7c0b9684314d195a3302",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30e8cd15_fc96a320",
+        "filename": "system_wrappers/include/clock.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-02T14:51:17Z",
+      "side": 1,
+      "message": "You can probably use the system\u0027s support for RW locks make a mutex class whose read lock method is a no-op, if you want this enough...",
+      "parentUuid": "24cc3f61_b4aa61e5",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 31
+      },
+      "revId": "84ca64687efcd1c7ee8a7c0b9684314d195a3302",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed2d830e_f59b4fea",
+        "filename": "system_wrappers/source/clock.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-02T14:51:17Z",
+      "side": 1,
+      "message": "Why is it not sufficient to do a relaxed atomic increment?",
       "revId": "84ca64687efcd1c7ee8a7c0b9684314d195a3302",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -16,6 +16,29 @@
       "message": "Thanks, Karl. Ivo, PTAL! ",
       "revId": "793858bacdc36da56ce9ac500deca938c7854e7b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b9a7457_ae469fc7",
+        "filename": "audio/voip/test/audio_channel_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-11-02T13:48:07Z",
+      "side": 1,
+      "message": "Note that this is something of an implementation detail, and it could be changed at some point in the future. You could consider changing this to something like EXPECT_GT(ingress_stats-\u003eneteq_stats.jitter_buffer_target_delay_ms, 0);",
+      "range": {
+        "startLine": 175,
+        "startChar": 2,
+        "endLine": 175,
+        "endChar": 80
+      },
+      "revId": "793858bacdc36da56ce9ac500deca938c7854e7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -26,7 +26,6 @@
 #endif  // defined(WEBRTC_POSIX)
 
 #include "rtc_base/synchronization/mutex.h"
-#include "rtc_base/synchronization/rw_lock_wrapper.h"
 #include "rtc_base/time_utils.h"
 
 namespace webrtc {
@@ -241,14 +240,12 @@ Clock* Clock::GetRealTimeClock() {
 SimulatedClock::SimulatedClock(int64_t initial_time_us)
     : SimulatedClock(Timestamp::Micros(initial_time_us)) {}
 
-SimulatedClock::SimulatedClock(Timestamp initial_time)
-    : time_(initial_time), lock_(RWLockWrapper::CreateRWLock()) {}
+SimulatedClock::SimulatedClock(Timestamp initial_time) : time_(initial_time) {}
 
 SimulatedClock::~SimulatedClock() {}
 
 Timestamp SimulatedClock::CurrentTime() {
-  ReadLockScoped synchronize(*lock_);
-  return time_;
+  return time_.load(std::memory_order_relaxed);
 }
 
 NtpTime SimulatedClock::CurrentNtpTime() {
@@ -272,8 +269,8 @@ void SimulatedClock::AdvanceTimeMicroseconds(int64_t microseconds) {
 }
 
 void SimulatedClock::AdvanceTime(TimeDelta delta) {
-  WriteLockScoped synchronize(*lock_);
-  time_ += delta;
+  RTC_DCHECK_RUN_ON(&advance_checker_);
+  time_.store(CurrentTime() + delta, std::memory_order_relaxed);
 }
 
 }  // namespace webrtc

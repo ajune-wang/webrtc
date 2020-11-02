@@ -13,10 +13,11 @@
 
 #include <stdint.h>
 
+#include <atomic>
 #include <memory>
 
 #include "api/units/timestamp.h"
-#include "rtc_base/synchronization/rw_lock_wrapper.h"
+#include "rtc_base/synchronization/sequence_checker.h"
 #include "rtc_base/system/rtc_export.h"
 #include "system_wrappers/include/ntp_time.h"
 
@@ -72,14 +73,20 @@ class SimulatedClock : public Clock {
   int64_t CurrentNtpInMilliseconds() override;
 
   // Advance the simulated clock with a given number of milliseconds or
-  // microseconds.
+  // microseconds. A single thread should own the simulation, other threads must
+  // not call these methods.
   void AdvanceTimeMilliseconds(int64_t milliseconds);
   void AdvanceTimeMicroseconds(int64_t microseconds);
   void AdvanceTime(TimeDelta delta);
 
  private:
-  Timestamp time_;
-  std::unique_ptr<RWLockWrapper> lock_;
+  SequenceChecker advance_checker_;
+  // The time is read with relaxed order. Each thread will see monotonically
+  // increasing time, and when threads post task or messages to one another, the
+  // synchronization done as part of the message passing should ensure that any
+  // causual chain of events on multiple threads also corresponds to
+  // monotonically increasing time.
+  std::atomic<Timestamp> time_;
 };
 
 }  // namespace webrtc

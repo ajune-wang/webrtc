@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd76fff3_0f3e3aad",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-02T08:14:50Z",
+      "side": 1,
+      "message": "Thanks for the CL!",
+      "revId": "71915b9c1ffa4df5b3fd25a23af278f80e0f8457",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c72bdf56_ee6ceef5",
@@ -84,6 +101,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c7e53856_15d06160",
+        "filename": "audio/voip/voip_core.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-02T08:14:50Z",
+      "side": 1,
+      "message": "The name process is quite ambiguous. In its use in the previous code (stop_process_thread) I think refers to the processing thread.\n\nHere, the naming indicates different though (the comment mentions a cleanup process, and the variable naming is not to me entirely clear).\n\nCould the comment and the variable name be made more clear?\nFor instance, could the variable instead be named\nno_channels_active_after_release\nor (prefferrably to avoid activate a double negation)\nchannels_active_after_release",
+      "range": {
+        "startLine": 165,
+        "startChar": 7,
+        "endLine": 165,
+        "endChar": 22
+      },
+      "revId": "71915b9c1ffa4df5b3fd25a23af278f80e0f8457",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e9246ec6_8b94f863",
         "filename": "audio/voip/voip_core.cc",
         "patchSetId": 2
@@ -119,6 +159,29 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "e9246ec6_8b94f863",
+      "range": {
+        "startLine": 191,
+        "startChar": 6,
+        "endLine": 192,
+        "endChar": 50
+      },
+      "revId": "71915b9c1ffa4df5b3fd25a23af278f80e0f8457",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88814efb_fcfb0b67",
+        "filename": "audio/voip/voip_core.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-02T08:14:50Z",
+      "side": 1,
+      "message": "This comment is not clear to me. Could it be clarified?\nFor instance, does the example below explain what is done?\n\n// It\u0027s pointless to return this error since the call is ending but we should\n// indicate ADM failure for logging purpose.",
       "range": {
         "startLine": 191,
         "startChar": 6,

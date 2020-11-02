@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1cb72619_e9363e1c",
+        "filename": "system_wrappers/include/clock.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-11-02T16:18:31Z",
+      "side": 1,
+      "message": "nit: maybe the name could indicate the usage, eg. update_mutex_ or so?",
+      "range": {
+        "startLine": 84,
+        "startChar": 8,
+        "endLine": 84,
+        "endChar": 14
+      },
+      "revId": "d1492316ebbed6a867f097ae823270eaea17cb0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

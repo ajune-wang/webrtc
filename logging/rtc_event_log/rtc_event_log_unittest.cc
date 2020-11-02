@@ -9,6 +9,7 @@
  */
 
 #include <algorithm>
+#include <fstream>
 #include <limits>
 #include <map>
 #include <memory>
@@ -960,6 +961,39 @@ TEST_P(RtcEventLogCircularBufferTest, KeepsMostRecentEvents) {
         RtcEventProbeResultSuccess(first_id + i, first_bitrate_bps + i * 1000),
         probe_success_events[i]);
   }
+
+  // Clean up temporary file - can be pretty slow.
+  remove(temp_filename.c_str());
+}
+
+TEST_P(RtcEventLogCircularBufferTest, FileEmptyIfLogStartAboveLimit) {
+  auto test_info = ::testing::UnitTest::GetInstance()->current_test_info();
+  std::string test_name =
+      std::string(test_info->test_case_name()) + "_" + test_info->name();
+  std::replace(test_name.begin(), test_name.end(), '/', '_');
+  const std::string temp_filename = test::OutputPath() + test_name;
+
+  auto task_queue_factory = CreateDefaultTaskQueueFactory();
+  RtcEventLogFactory rtc_event_log_factory(task_queue_factory.get());
+
+  // When `log` goes out of scope, it causes the log file to be flushed
+  // to disk.
+  std::unique_ptr<RtcEventLog> log =
+      rtc_event_log_factory.CreateRtcEventLog(encoding_type_);
+  log->StartLogging(std::make_unique<RtcEventLogOutputFile>(
+                        temp_filename, 1 /*byte file limit*/),
+                    RtcEventLog::kImmediateOutput);
+  log->StopLogging();
+  log.reset();
+
+  std::ifstream file(  // no-presubmit-check TODO(webrtc:8982)
+      temp_filename, std::ios_base::in | std::ios_base::binary);
+  ASSERT_TRUE(file.good());
+  ASSERT_TRUE(file.is_open());
+  EXPECT_EQ(file.peek(), std::ifstream::traits_type::eof());
+
+  // Clean up temporary file - can be pretty slow.
+  remove(temp_filename.c_str());
 }
 
 INSTANTIATE_TEST_SUITE_P(

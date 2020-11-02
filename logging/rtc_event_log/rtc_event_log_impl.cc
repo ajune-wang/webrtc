@@ -107,7 +107,9 @@ bool RtcEventLogImpl::StartLogging(std::unique_ptr<RtcEventLogOutput> output,
     event_output_ = std::move(output);
     num_config_events_written_ = 0;
     WriteToOutput(event_encoder_->EncodeLogStart(timestamp_us, utc_time_us));
-    LogEventsFromMemoryToOutput();
+    if (event_output_) {
+      LogEventsFromMemoryToOutput();
+    }
   });
 
   return true;

@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21d050a5_dc54b750",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-11-02T14:36:10Z",
+      "side": 1,
+      "message": "PTAL. Is this a sensible use of atomics?",
+      "revId": "84ca64687efcd1c7ee8a7c0b9684314d195a3302",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30a1e9f9_19ea3252",
+        "filename": "system_wrappers/include/clock.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-11-02T14:36:10Z",
+      "side": 1,
+      "message": "Can this be replaced with a sequence checker?",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 15
+      },
+      "revId": "84ca64687efcd1c7ee8a7c0b9684314d195a3302",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24cc3f61_b4aa61e5",
+        "filename": "system_wrappers/include/clock.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-11-02T14:36:10Z",
+      "side": 1,
+      "message": "I wish there were something similar to guarded_by that only requires locking for modification, but there seems to be nothing like that.",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 31
+      },
+      "revId": "84ca64687efcd1c7ee8a7c0b9684314d195a3302",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

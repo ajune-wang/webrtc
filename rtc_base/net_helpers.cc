@@ -151,7 +151,7 @@ void AsyncResolver::ResolveDone(std::vector<IPAddress> addresses, int error) {
   addresses_ = addresses;
   error_ = error;
   recursion_check_ = true;
-  SignalDone(this);
+  SignalDone.Send(this);
   MaybeSelfDestruct();
 }
 

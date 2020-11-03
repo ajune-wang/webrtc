@@ -11,6 +11,7 @@
 #ifndef RTC_BASE_ASYNC_RESOLVER_INTERFACE_H_
 #define RTC_BASE_ASYNC_RESOLVER_INTERFACE_H_
 
+#include "rtc_base/callback_list.h"
 #include "rtc_base/socket_address.h"
 #include "rtc_base/system/rtc_export.h"
 #include "rtc_base/third_party/sigslot/sigslot.h"
@@ -43,7 +44,7 @@ class RTC_EXPORT AsyncResolverInterface {
   }
 
   // This signal is fired when address resolve process is completed.
-  sigslot::signal1<AsyncResolverInterface*> SignalDone;
+  webrtc::CallbackList<AsyncResolverInterface*> SignalDone;
 };
 
 }  // namespace rtc

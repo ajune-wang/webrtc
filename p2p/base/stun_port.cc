@@ -137,8 +137,10 @@ void UDPPort::AddressResolver::Resolve(const rtc::SocketAddress& address) {
   resolvers_.insert(std::pair<rtc::SocketAddress, rtc::AsyncResolverInterface*>(
       address, resolver));
 
-  resolver->SignalDone.connect(this,
-                               &UDPPort::AddressResolver::OnResolveResult);
+  resolver->SignalDone.AddReceiver(
+      [this](rtc::AsyncResolverInterface* resolver) {
+        OnResolveResult(resolver);
+      });
 
   resolver->Start(address);
 }

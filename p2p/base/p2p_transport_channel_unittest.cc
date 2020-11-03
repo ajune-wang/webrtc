@@ -4997,7 +4997,7 @@ TEST_F(P2PTransportChannelTest,
             ep2_ch1()->selected_connection()->remote_candidate().type());
   // ep2 should also be able resolve the hostname candidate. The resolved remote
   // host candidate should be merged with the prflx remote candidate.
-  mock_async_resolver->SignalDone(mock_async_resolver);
+  mock_async_resolver->SignalDone.Send(mock_async_resolver);
   EXPECT_EQ_WAIT(LOCAL_PORT_TYPE,
                  ep2_ch1()->selected_connection()->remote_candidate().type(),
                  kMediumTimeout);

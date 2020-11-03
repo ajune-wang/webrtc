@@ -1159,7 +1159,10 @@ void P2PTransportChannel::ResolveHostnameCandidate(const Candidate& candidate) {
 
   rtc::AsyncResolverInterface* resolver = async_resolver_factory_->Create();
   resolvers_.emplace_back(candidate, resolver);
-  resolver->SignalDone.connect(this, &P2PTransportChannel::OnCandidateResolved);
+  resolver->SignalDone.AddReceiver(
+      [this](rtc::AsyncResolverInterface* resolver) {
+        OnCandidateResolved(resolver);
+      });
   resolver->Start(candidate.address());
   RTC_LOG(LS_INFO) << "Asynchronously resolving ICE candidate hostname "
                    << candidate.address().HostAsSensitiveURIString();

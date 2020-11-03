@@ -26,7 +26,7 @@
 
 namespace cricket {
 
-class RTC_EXPORT BasicPortAllocator : public PortAllocator {
+class RTC_EXPORT BasicPortAllocator : public PortAllocator, public sigslot::has_slots<> {
  public:
   // note: The (optional) relay_port_factory is owned by caller
   // and must have a life time that exceeds that of BasicPortAllocator.
@@ -108,6 +108,7 @@ enum class SessionState {
 
 class RTC_EXPORT BasicPortAllocatorSession
     : public PortAllocatorSession,
+      public sigslot::has_slots<>,
       public rtc::MessageHandlerAutoCleanup {
  public:
   BasicPortAllocatorSession(BasicPortAllocator* allocator,

@@ -272,16 +272,29 @@ class BasicPortAllocatorTestBase : public ::testing::Test,
       const std::string& ice_pwd) {
     std::unique_ptr<PortAllocatorSession> session =
         allocator_->CreateSession(content_name, component, ice_ufrag, ice_pwd);
-    session->SignalPortReady.connect(this,
-                                     &BasicPortAllocatorTestBase::OnPortReady);
-    session->SignalPortsPruned.connect(
-        this, &BasicPortAllocatorTestBase::OnPortsPruned);
-    session->SignalCandidatesReady.connect(
-        this, &BasicPortAllocatorTestBase::OnCandidatesReady);
-    session->SignalCandidatesRemoved.connect(
-        this, &BasicPortAllocatorTestBase::OnCandidatesRemoved);
-    session->SignalCandidatesAllocationDone.connect(
-        this, &BasicPortAllocatorTestBase::OnCandidatesAllocationDone);
+    session->SignalPortReady.AddReceiver(
+        [this](PortAllocatorSession* session, PortInterface* port) {
+          OnPortReady(session, port);
+        });
+    session->SignalPortsPruned.AddReceiver(
+        [this](PortAllocatorSession* session,
+               const std::vector<PortInterface*>& ports) {
+          OnPortsPruned(session, ports);
+        });
+    session->SignalCandidatesReady.AddReceiver(
+        [this](PortAllocatorSession* session,
+               const std::vector<Candidate>& candidates) {
+          OnCandidatesReady(session, candidates);
+        });
+    session->SignalCandidatesRemoved.AddReceiver(
+        [this](PortAllocatorSession* session,
+               const std::vector<Candidate>& candidates) {
+          OnCandidatesRemoved(session, candidates);
+        });
+    session->SignalCandidatesAllocationDone.AddReceiver(
+        [this](PortAllocatorSession* session) {
+          OnCandidatesAllocationDone(session);
+        });
     return session;
   }
 

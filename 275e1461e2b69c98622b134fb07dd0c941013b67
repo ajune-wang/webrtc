@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c470f08f_b0aba899",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-11-03T13:14:06Z",
+      "side": 1,
+      "message": "PTAL. Can we remove this objc class? The corresponding C++ class was deleted in cl https://webrtc-review.googlesource.com/c/src/+/183041.",
+      "revId": "275e1461e2b69c98622b134fb07dd0c941013b67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

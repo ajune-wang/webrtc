@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be40ce62_e4044189",
+        "filename": "sdk/objc/base/RTCVideoEncoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-11-03T13:14:06Z",
+      "side": 0,
+      "message": "I take it removal of this argument is a change of the advertised api. What process is needed to get that through?",
+      "range": {
+        "startLine": 25,
+        "startChar": 84,
+        "endLine": 26,
+        "endChar": 91
+      },
+      "revId": "42cafa5696f516712bbe6709fedeedffac61544c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

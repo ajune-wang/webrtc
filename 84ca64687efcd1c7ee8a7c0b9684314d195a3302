@@ -262,6 +262,24 @@
       "parentUuid": "ed2d830e_f59b4fea",
       "revId": "84ca64687efcd1c7ee8a7c0b9684314d195a3302",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6df6c56_7bc33119",
+        "filename": "system_wrappers/source/clock.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-03T09:46:37Z",
+      "side": 1,
+      "message": "You can use std::atomic_compare_exchange_weak_explicit; that will likely result in worse code than if you used std::atomic_fetch_add_explicit, but (1) the latter appears to only be usable with built-in and standard library integer types, and (2) it wouldn\u0027t work with TimeStamp\u0027s saturating arithmetic anyway.",
+      "parentUuid": "5cf6c59b_66022916",
+      "revId": "84ca64687efcd1c7ee8a7c0b9684314d195a3302",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

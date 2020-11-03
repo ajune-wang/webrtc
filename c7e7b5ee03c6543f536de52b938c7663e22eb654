@@ -63,6 +63,30 @@
       },
       "revId": "c7e7b5ee03c6543f536de52b938c7663e22eb654",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "274a294f_058e1f62",
+        "filename": "system_wrappers/source/clock.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-11-03T12:00:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52c2ebb7_68faaf29",
+      "range": {
+        "startLine": 248,
+        "startChar": 0,
+        "endLine": 248,
+        "endChar": 47
+      },
+      "revId": "c7e7b5ee03c6543f536de52b938c7663e22eb654",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

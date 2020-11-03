@@ -22,6 +22,30 @@
       },
       "revId": "e1d4a8a5cdb7f668ddf61f519267eaa0057ba784",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58915e0a_745b4519",
+        "filename": "config.star",
+        "patchSetId": 4
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-11-03T13:02:40Z",
+      "side": 1,
+      "message": "I probably first need to update there configuration and then update them here",
+      "parentUuid": "1aca044f_939616d8",
+      "range": {
+        "startLine": 667,
+        "startChar": 0,
+        "endLine": 670,
+        "endChar": 37
+      },
+      "revId": "e1d4a8a5cdb7f668ddf61f519267eaa0057ba784",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

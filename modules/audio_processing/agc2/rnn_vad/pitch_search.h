@@ -32,15 +32,17 @@ class PitchEstimator {
   ~PitchEstimator();
   // Estimates the pitch period and gain. Returns the pitch estimation data for
   // 48 kHz.
-  PitchInfo Estimate(rtc::ArrayView<const float, kBufSize24kHz> pitch_buf);
+  PitchInfo Estimate(rtc::ArrayView<const float, kBufSize24kHz> pitch_buffer);
 
  private:
   PitchInfo last_pitch_48kHz_;
   AutoCorrelationCalculator auto_corr_calculator_;
-  std::vector<float> pitch_buf_decimated_;
-  rtc::ArrayView<float, kBufSize12kHz> pitch_buf_decimated_view_;
-  std::vector<float> auto_corr_;
-  rtc::ArrayView<float, kNumInvertedLags12kHz> auto_corr_view_;
+  std::vector<float> y_energy_;
+  rtc::ArrayView<float, kMaxPitch24kHz + 1> y_energy_view_;
+  std::vector<float> pitch_buffer_decimated_;
+  rtc::ArrayView<float, kBufSize12kHz> pitch_buffer_decimated_view_;
+  std::vector<float> auto_correlation_;
+  rtc::ArrayView<float, kNumInvertedLags12kHz> auto_correlation_view_;
 };
 
 }  // namespace rnn_vad

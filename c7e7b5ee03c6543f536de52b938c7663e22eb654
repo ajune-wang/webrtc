@@ -39,6 +39,30 @@
       },
       "revId": "c7e7b5ee03c6543f536de52b938c7663e22eb654",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52c2ebb7_68faaf29",
+        "filename": "system_wrappers/source/clock.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-03T10:43:08Z",
+      "side": 1,
+      "message": "I suspect we have just these two options: (1) add such a constructor, or (2) use atomic\u003cint64_t\u003e instead. The docs at cppreference [https://en.cppreference.com/w/cpp/atomic/atomic] don\u0027t mention this requirement, but I doubt that will help us...\n\nGiven the problems with increment in addition to this, I\u0027m personally leaning towards using an int64 as internal storage for this class and converting to and from TimeStamp at the boundaries. Handling stuff manually feels better than using an abstraction for things it doesn\u0027t really support. But I can definitely go along with the other solution too.",
+      "parentUuid": "c0ad8d17_0b3db587",
+      "range": {
+        "startLine": 248,
+        "startChar": 0,
+        "endLine": 248,
+        "endChar": 47
+      },
+      "revId": "c7e7b5ee03c6543f536de52b938c7663e22eb654",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

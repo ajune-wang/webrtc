@@ -24,6 +24,7 @@
 #include "p2p/base/tcp_port.h"
 #include "p2p/base/turn_port.h"
 #include "p2p/base/udp_port.h"
+#include "rtc_base/callback_list.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/helpers.h"
 #include "rtc_base/logging.h"
@@ -226,8 +227,10 @@ PortAllocatorSession* BasicPortAllocator::CreateSessionInternal(
   CheckRunOnValidThreadAndInitialized();
   PortAllocatorSession* session = new BasicPortAllocatorSession(
       this, content_name, component, ice_ufrag, ice_pwd);
-  session->SignalIceRegathering.connect(this,
-                                        &BasicPortAllocator::OnIceRegathering);
+  session->SignalIceRegathering.AddReceiver(
+      [this](PortAllocatorSession* session, IceRegatheringReason reason) {
+        OnIceRegathering(session, reason);
+      });
   return session;
 }
 
@@ -477,7 +480,7 @@ void BasicPortAllocatorSession::Regather(
   }
 
   if (allocation_started_ && network_manager_started_ && !IsStopped()) {
-    SignalIceRegathering(this, reason);
+    SignalIceRegathering.Send(this, reason);
 
     DoAllocate(disable_equivalent_phases);
   }
@@ -851,7 +854,7 @@ void BasicPortAllocatorSession::OnNetworksChanged() {
   if (allocation_started_ && !IsStopped()) {
     if (network_manager_started_) {
       // If the network manager has started, it must be regathering.
-      SignalIceRegathering(this, IceRegatheringReason::NETWORK_CHANGE);
+      SignalIceRegathering.Send(this, IceRegatheringReason::NETWORK_CHANGE);
     }
     bool disable_equivalent_phases = true;
     DoAllocate(disable_equivalent_phases);
@@ -903,6 +906,21 @@ void BasicPortAllocatorSession::AddAllocatedPort(Port* port,
   port->SignalDestroyed.connect(this,
                                 &BasicPortAllocatorSession::OnPortDestroyed);
   port->SignalPortError.connect(this, &BasicPortAllocatorSession::OnPortError);
+  /*
+  port->SignalCandidateReady.AddReceiver(
+      [this](Port* port, const Candidate& c) { OnCandidateReady(port, c); });
+  port->SignalCandidateError.AddReceiver(
+      [this](Port* port, const IceCandidateErrorEvent& event) {
+        OnCandidateError(port, event);
+      });
+  port->SignalPortComplete.AddReceiver(
+      [this](PortInterface* port) { OnPortComplete(port); });
+  port->SignalDestroyed.AddReceiver(
+      [this](PortInterface* port) { OnPortDestroyed(port); });
+  port->SignalPortError.AddReceiver(
+      [this](PortInterface* port) { OnPortError(port); });
+  */
+
   RTC_LOG(LS_INFO) << port->ToString() << ": Added port to allocator";
 
   if (prepare_address)
@@ -955,7 +973,7 @@ void BasicPortAllocatorSession::OnCandidateReady(Port* port,
     // If the current port is not pruned yet, SignalPortReady.
     if (!data->pruned()) {
       RTC_LOG(LS_INFO) << port->ToString() << ": Port ready.";
-      SignalPortReady(this, port);
+      SignalPortReady.Send(this, port);
       port->KeepAliveUntilPruned();
     }
   }
@@ -963,7 +981,7 @@ void BasicPortAllocatorSession::OnCandidateReady(Port* port,
   if (data->ready() && CheckCandidateFilter(c)) {
     std::vector<Candidate> candidates;
     candidates.push_back(allocator_->SanitizeCandidate(c));
-    SignalCandidatesReady(this, candidates);
+    SignalCandidatesReady.Send(this, candidates);
   } else {
     RTC_LOG(LS_INFO) << "Discarding candidate because it doesn't match filter.";
   }
@@ -982,7 +1000,7 @@ void BasicPortAllocatorSession::OnCandidateError(
   if (event.address.empty()) {
     candidate_error_events_.push_back(event);
   } else {
-    SignalCandidateError(this, event);
+    SignalCandidateError.Send(this, event);
   }
 }
 
@@ -1144,10 +1162,10 @@ void BasicPortAllocatorSession::MaybeSignalCandidatesAllocationDone() {
                        << ":" << component() << ":" << generation();
     }
     for (const auto& event : candidate_error_events_) {
-      SignalCandidateError(this, event);
+      SignalCandidateError.Send(this, event);
     }
     candidate_error_events_.clear();
-    SignalCandidatesAllocationDone(this);
+    SignalCandidatesAllocationDone.Send(this);
   }
 }
 
@@ -1208,12 +1226,12 @@ void BasicPortAllocatorSession::PrunePortsAndRemoveCandidates(
     }
   }
   if (!pruned_ports.empty()) {
-    SignalPortsPruned(this, pruned_ports);
+    SignalPortsPruned.Send(this, pruned_ports);
   }
   if (!removed_candidates.empty()) {
     RTC_LOG(LS_INFO) << "Removed " << removed_candidates.size()
                      << " candidates";
-    SignalCandidatesRemoved(this, removed_candidates);
+    SignalCandidatesRemoved.Send(this, removed_candidates);
   }
 }
 
@@ -1238,8 +1256,12 @@ void AllocationSequence::Init() {
         rtc::SocketAddress(network_->GetBestIP(), 0),
         session_->allocator()->min_port(), session_->allocator()->max_port()));
     if (udp_socket_) {
-      udp_socket_->SignalReadPacket.connect(this,
-                                            &AllocationSequence::OnReadPacket);
+      /*udp_socket_->SignalReadPacket.AddReceiver(
+          [this](rtc::AsyncPacketSocket* socket, const char* data, size_t size,
+                 const rtc::SocketAddress& remote_addr,
+                 const int64_t& packet_time_us) {
+            OnReadPacket(socket, data, size, remote_addr, packet_time_us);
+          });*/
     }
     // Continuing if |udp_socket_| is NULL, as local TCP and RelayPort using TCP
     // are next available options to setup a communication channel.
@@ -1424,7 +1446,9 @@ void AllocationSequence::CreateUDPPorts() {
     if (IsFlagSet(PORTALLOCATOR_ENABLE_SHARED_SOCKET)) {
       udp_port_ = port.get();
       port->SignalDestroyed.connect(this, &AllocationSequence::OnPortDestroyed);
-
+      /*port->SignalDestroyed.AddReceiver(
+          [this](PortInterface* port) { OnPortDestroyed(port); });
+      */
       // If STUN is not disabled, setting stun server address to port.
       if (!IsFlagSet(PORTALLOCATOR_DISABLE_STUN)) {
         if (config_ && !config_->StunServers().empty()) {
@@ -1563,6 +1587,9 @@ void AllocationSequence::CreateTurnPort(const RelayServerConfig& config) {
       // Listen to the port destroyed signal, to allow AllocationSequence to
       // remove entrt from it's map.
       port->SignalDestroyed.connect(this, &AllocationSequence::OnPortDestroyed);
+      /*port->SignalDestroyed.AddReceiver(
+          [this](PortInterface* port) { OnPortDestroyed(port); });*/
+
     } else {
       port = session_->allocator()->relay_port_factory()->Create(
           args, session_->allocator()->min_port(),

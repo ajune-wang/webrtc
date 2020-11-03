@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e1f4ff2_e602a47d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-03T12:41:36Z",
+      "side": 1,
+      "message": "reads and increments",
+      "revId": "c389b4c5509a9a5884b1b1c258ee27a6236dca98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f866d47f_98899bce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-03T12:41:36Z",
+      "side": 1,
+      "message": "LGTM! Converting to and from int64_t was less ugly than I feared, and seems to definitely be the right choice.",
+      "revId": "c389b4c5509a9a5884b1b1c258ee27a6236dca98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c694223_653bf8cc",
+        "filename": "system_wrappers/include/clock.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-03T12:41:36Z",
+      "side": 1,
+      "message": "read and incremented",
+      "revId": "c389b4c5509a9a5884b1b1c258ee27a6236dca98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

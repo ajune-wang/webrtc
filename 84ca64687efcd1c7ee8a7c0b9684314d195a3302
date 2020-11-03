@@ -182,6 +182,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d23f762_184b590b",
+        "filename": "system_wrappers/include/clock.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-11-03T09:23:05Z",
+      "side": 1,
+      "message": "Not now. Maybe later, if we end up with this access pattern in more places.",
+      "parentUuid": "30e8cd15_fc96a320",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 31
+      },
+      "revId": "84ca64687efcd1c7ee8a7c0b9684314d195a3302",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5330cbc3_a92564a0",

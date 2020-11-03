@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52a1ad3a_6d9d27ec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-11-03T09:23:05Z",
+      "side": 1,
+      "message": "Deleting the mutex requires a couple of test updates, and I\u0027d prefer to not do that in this cl.",
+      "revId": "c7e7b5ee03c6543f536de52b938c7663e22eb654",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

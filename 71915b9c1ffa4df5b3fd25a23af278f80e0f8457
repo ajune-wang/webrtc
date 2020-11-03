@@ -122,6 +122,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "76f1bea7_5e2315d1",
+        "filename": "audio/voip/voip_core.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-11-03T06:37:41Z",
+      "side": 1,
+      "message": "Thanks. I changed to no_channel_after_release to be more clear.",
+      "parentUuid": "c7e53856_15d06160",
+      "range": {
+        "startLine": 165,
+        "startChar": 7,
+        "endLine": 165,
+        "endChar": 22
+      },
+      "revId": "71915b9c1ffa4df5b3fd25a23af278f80e0f8457",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e9246ec6_8b94f863",
@@ -182,6 +206,30 @@
       "writtenOn": "2020-11-02T08:14:50Z",
       "side": 1,
       "message": "This comment is not clear to me. Could it be clarified?\nFor instance, does the example below explain what is done?\n\n// It\u0027s pointless to return this error since the call is ending but we should\n// indicate ADM failure for logging purpose.",
+      "range": {
+        "startLine": 191,
+        "startChar": 6,
+        "endLine": 192,
+        "endChar": 50
+      },
+      "revId": "71915b9c1ffa4df5b3fd25a23af278f80e0f8457",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0fcf5c97_4184b8f4",
+        "filename": "audio/voip/voip_core.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-11-03T06:37:41Z",
+      "side": 1,
+      "message": "I think the comment made it more confusing. It was due to movement of the code. I will remove it.",
+      "parentUuid": "88814efb_fcfb0b67",
       "range": {
         "startLine": 191,
         "startChar": 6,

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82ef412f_e1518b2c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-11-03T15:37:51Z",
+      "side": 1,
+      "message": "Hi Henrik, PTAL at this small fix.",
+      "revId": "4a34fe8934dc2533ce0eb582d3e859c00d53f8ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

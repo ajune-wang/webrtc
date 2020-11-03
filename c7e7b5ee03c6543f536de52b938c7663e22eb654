@@ -16,6 +16,29 @@
       "message": "Deleting the mutex requires a couple of test updates, and I\u0027d prefer to not do that in this cl.",
       "revId": "c7e7b5ee03c6543f536de52b938c7663e22eb654",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0ad8d17_0b3db587",
+        "filename": "system_wrappers/source/clock.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-11-03T10:32:32Z",
+      "side": 1,
+      "message": "Still fails with the combination of g++ compiler and clang libc++. Error message says that we need a default constructor for Timestamp. Suggestions?",
+      "range": {
+        "startLine": 248,
+        "startChar": 0,
+        "endLine": 248,
+        "endChar": 47
+      },
+      "revId": "c7e7b5ee03c6543f536de52b938c7663e22eb654",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

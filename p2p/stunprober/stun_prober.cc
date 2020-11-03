@@ -334,7 +334,10 @@ bool StunProber::ResolveServerName(const rtc::SocketAddress& addr) {
   if (!resolver) {
     return false;
   }
-  resolver->SignalDone.connect(this, &StunProber::OnServerResolved);
+  resolver->SignalDone.AddReceiver(
+      [this](rtc::AsyncResolverInterface* resolver) {
+        OnServerResolved(resolver);
+      });
   resolver->Start(addr);
   return true;
 }

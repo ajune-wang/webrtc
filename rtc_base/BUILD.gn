@@ -818,6 +818,7 @@ rtc_library("rtc_base") {
   libs = []
   defines = []
   deps = [
+    ":callback_list",
     ":checks",
     ":deprecation",
     ":rtc_task_queue",

@@ -248,7 +248,9 @@ int PhysicalSocket::Connect(const SocketAddress& addr) {
   if (addr.IsUnresolvedIP()) {
     RTC_LOG(LS_VERBOSE) << "Resolving addr in PhysicalSocket::Connect";
     resolver_ = new AsyncResolver();
-    resolver_->SignalDone.connect(this, &PhysicalSocket::OnResolveResult);
+    resolver_->SignalDone.AddReceiver([this](AsyncResolverInterface* resolver) {
+      OnResolveResult(resolver);
+    });
     resolver_->Start(addr);
     state_ = CS_CONNECTING;
     return 0;

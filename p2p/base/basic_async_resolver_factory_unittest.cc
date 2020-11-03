@@ -12,20 +12,20 @@
 
 #include "rtc_base/gunit.h"
 #include "rtc_base/socket_address.h"
-#include "rtc_base/third_party/sigslot/sigslot.h"
 #include "test/gtest.h"
 
 namespace webrtc {
 
-class BasicAsyncResolverFactoryTest : public ::testing::Test,
-                                      public sigslot::has_slots<> {
+class BasicAsyncResolverFactoryTest : public ::testing::Test {
  public:
   void TestCreate() {
     BasicAsyncResolverFactory factory;
     rtc::AsyncResolverInterface* resolver = factory.Create();
     ASSERT_TRUE(resolver);
-    resolver->SignalDone.connect(
-        this, &BasicAsyncResolverFactoryTest::SetAddressResolved);
+    resolver->SignalDone.AddReceiver(
+        [this](rtc::AsyncResolverInterface* resolver) {
+          SetAddressResolved(resolver);
+        });
 
     rtc::SocketAddress address("", 0);
     resolver->Start(address);

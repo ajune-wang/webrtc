@@ -24,7 +24,7 @@ class MockAsyncResolver : public AsyncResolverInterface {
  public:
   MockAsyncResolver() {
     ON_CALL(*this, Start(_)).WillByDefault(InvokeWithoutArgs([this] {
-      SignalDone(this);
+      SignalDone.Send(this);
     }));
   }
   ~MockAsyncResolver() = default;

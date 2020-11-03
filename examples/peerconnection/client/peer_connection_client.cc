@@ -110,7 +110,10 @@ void PeerConnectionClient::Connect(const std::string& server,
   if (server_address_.IsUnresolvedIP()) {
     state_ = RESOLVING;
     resolver_ = new rtc::AsyncResolver();
-    resolver_->SignalDone.connect(this, &PeerConnectionClient::OnResolveResult);
+    resolver_->SignalDone.AddReceiver(
+        [this](rtc::AsyncResolverInterface* resolver) {
+          OnResolveResult(resolver);
+        });
     resolver_->Start(server_address_);
   } else {
     DoConnect();

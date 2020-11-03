@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1aca044f_939616d8",
+        "filename": "config.star",
+        "patchSetId": 4
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-11-03T13:01:29Z",
+      "side": 1,
+      "message": "Can you just rename them and update them to use the new simulators?",
+      "range": {
+        "startLine": 667,
+        "startChar": 0,
+        "endLine": 670,
+        "endChar": 37
+      },
+      "revId": "e1d4a8a5cdb7f668ddf61f519267eaa0057ba784",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

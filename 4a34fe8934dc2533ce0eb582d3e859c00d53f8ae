@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "a405ca22_1d5f4f9a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2020-11-03T15:47:38Z",
+      "side": 1,
+      "message": "Missing a word here?",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 31
+      },
+      "revId": "4a34fe8934dc2533ce0eb582d3e859c00d53f8ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "82ef412f_e1518b2c",
@@ -14,6 +37,23 @@
       "writtenOn": "2020-11-03T15:37:51Z",
       "side": 1,
       "message": "Hi Henrik, PTAL at this small fix.",
+      "revId": "4a34fe8934dc2533ce0eb582d3e859c00d53f8ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ee8864d_19608c51",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2020-11-03T15:47:38Z",
+      "side": 1,
+      "message": "Good! LGTM with one comment (in the CL description).\n",
       "revId": "4a34fe8934dc2533ce0eb582d3e859c00d53f8ae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

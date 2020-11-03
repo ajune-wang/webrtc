@@ -2045,7 +2045,7 @@ class AudioProcessingTest
   double expected_reverse_snr_;
 };
 
-TEST_P(AudioProcessingTest, Formats) {
+TEST_P(AudioProcessingTest, DISABLED_Formats) {
   struct ChannelFormat {
     int num_input;
     int num_output;

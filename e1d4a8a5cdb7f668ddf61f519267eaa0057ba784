@@ -46,6 +46,30 @@
       },
       "revId": "e1d4a8a5cdb7f668ddf61f519267eaa0057ba784",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ac4fbf1_5f054781",
+        "filename": "config.star",
+        "patchSetId": 4
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-11-03T13:31:57Z",
+      "side": 1,
+      "message": "SG, does it need to happen in 3 steps or can we just land the Chromium CL and then this one?",
+      "parentUuid": "58915e0a_745b4519",
+      "range": {
+        "startLine": 667,
+        "startChar": 0,
+        "endLine": 670,
+        "endChar": 37
+      },
+      "revId": "e1d4a8a5cdb7f668ddf61f519267eaa0057ba784",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

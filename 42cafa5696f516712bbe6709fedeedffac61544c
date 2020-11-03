@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4c5c6ae_a8ba063d",
+        "filename": "modules/audio_coding/neteq/statistics_calculator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-11-03T12:51:17Z",
+      "side": 0,
+      "message": "I\u0027ve rebased this cl, to see what\u0027s left after the metrics were removed from acm receiver.\n\nI understand additional metrics are useful for development, but it\u0027s a bit unfortunate that production calls to GetStats implies an otherwise unneeded sort on a std::deque with 100 elements. As far as I understand, it affects only applications using legacy GetStats or applications using the acm interfaces. W3C standard GetStats no longer calls this method.\n\nDo you see any easy and reasonable way to avoid that?",
+      "range": {
+        "startLine": 341,
+        "startChar": 0,
+        "endLine": 341,
+        "endChar": 60
+      },
+      "revId": "42cafa5696f516712bbe6709fedeedffac61544c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

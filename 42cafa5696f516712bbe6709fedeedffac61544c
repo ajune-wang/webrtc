@@ -22,6 +22,30 @@
       },
       "revId": "42cafa5696f516712bbe6709fedeedffac61544c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd1ab807_3f5da0c0",
+        "filename": "sdk/objc/base/RTCVideoEncoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2020-11-03T13:42:10Z",
+      "side": 0,
+      "message": "You could maybe change this to an `id` (roughly void*) for now to prevent breaking older clients, then add a new callback type without the parameter and update clients to use that?",
+      "parentUuid": "be40ce62_e4044189",
+      "range": {
+        "startLine": 25,
+        "startChar": 84,
+        "endLine": 26,
+        "endChar": 91
+      },
+      "revId": "42cafa5696f516712bbe6709fedeedffac61544c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

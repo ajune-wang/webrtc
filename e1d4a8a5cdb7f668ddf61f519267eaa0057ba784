@@ -70,6 +70,30 @@
       },
       "revId": "e1d4a8a5cdb7f668ddf61f519267eaa0057ba784",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac7a8072_8163bd4e",
+        "filename": "config.star",
+        "patchSetId": 4
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-11-03T13:43:56Z",
+      "side": 1,
+      "message": "Let\u0027s try",
+      "parentUuid": "6ac4fbf1_5f054781",
+      "range": {
+        "startLine": 667,
+        "startChar": 0,
+        "endLine": 670,
+        "endChar": 37
+      },
+      "revId": "e1d4a8a5cdb7f668ddf61f519267eaa0057ba784",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

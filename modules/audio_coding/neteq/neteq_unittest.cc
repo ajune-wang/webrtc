@@ -90,10 +90,10 @@ TEST_F(NetEqDecodingTest, MAYBE_TestBitExactness) {
                        "f68c546a43bb25743297c9c0c9027e8424b8e10b");
 
   const std::string network_stats_checksum =
-      PlatformChecksum("2a5516cdc1c6af9f1d9d3c2f95ed292f509311c7",
-                       "e96a7f081ebc111f49c7373d3728274057012ae9", "not used",
-                       "2a5516cdc1c6af9f1d9d3c2f95ed292f509311c7",
-                       "2a5516cdc1c6af9f1d9d3c2f95ed292f509311c7");
+      PlatformChecksum("86df99928b361775e66373214befb77d218a87a2",
+                       "1315379234e4c0a54628e4d94151014dd1a797a0", "not used",
+                       "86df99928b361775e66373214befb77d218a87a2",
+                       "86df99928b361775e66373214befb77d218a87a2");
 
   DecodeAndCompare(input_rtp_file, output_checksum, network_stats_checksum,
                    absl::GetFlag(FLAGS_gen_ref));
@@ -117,11 +117,11 @@ TEST_F(NetEqDecodingTest, MAYBE_TestOpusBitExactness) {
       "373ccd99c147cd3fcef0e7dcad6f87d0f8e5a1c0", maybe_sse, maybe_sse);
 
   const std::string network_stats_checksum =
-      PlatformChecksum("ec29e047b019a86ec06e2c40643143dc1975c69f",
-                       "ce6f519bc1220b003944ac5d9db077665a06834e",
-                       "abb686d3ac6fac0001ca8d45a6ca6f5aefb2f9d6",
-                       "ec29e047b019a86ec06e2c40643143dc1975c69f",
-                       "ec29e047b019a86ec06e2c40643143dc1975c69f");
+      PlatformChecksum("3e1d1a90ef0b01cc6ebbae1edb5e5114c906b1a5",
+                       "cafb8506e4a8ab0ede1692c2dff66112fa3d0f9f",
+                       "7e7a1e14b98ce8293a0e2810bf0d15a5bbbf2fc7",
+                       "3e1d1a90ef0b01cc6ebbae1edb5e5114c906b1a5",
+                       "3e1d1a90ef0b01cc6ebbae1edb5e5114c906b1a5");
 
   DecodeAndCompare(input_rtp_file, output_checksum, network_stats_checksum,
                    absl::GetFlag(FLAGS_gen_ref));
@@ -145,7 +145,7 @@ TEST_F(NetEqDecodingTest, MAYBE_TestOpusDtxBitExactness) {
       "f890b9eb9bc5ab8313489230726b297f6a0825af", maybe_sse, maybe_sse);
 
   const std::string network_stats_checksum =
-      "18983bb67a57628c604dbdefa99574c6e0c5bb48";
+      "cd8ecaa7ee91a50ae1ab28569c14b3f5c18e41e5";
 
   DecodeAndCompare(input_rtp_file, output_checksum, network_stats_checksum,
                    absl::GetFlag(FLAGS_gen_ref));
@@ -190,15 +190,11 @@ TEST_F(NetEqDecodingTestFaxMode, TestFrameWaitingTimeStatistics) {
   // each packet. Thus, we are calculating the statistics for a series from 10
   // to 300, in steps of 10 ms.
   EXPECT_EQ(155, stats.mean_waiting_time_ms);
-  EXPECT_EQ(155, stats.median_waiting_time_ms);
-  EXPECT_EQ(10, stats.min_waiting_time_ms);
   EXPECT_EQ(300, stats.max_waiting_time_ms);
 
   // Check statistics again and make sure it's been reset.
   EXPECT_EQ(0, neteq_->NetworkStatistics(&stats));
   EXPECT_EQ(-1, stats.mean_waiting_time_ms);
-  EXPECT_EQ(-1, stats.median_waiting_time_ms);
-  EXPECT_EQ(-1, stats.min_waiting_time_ms);
   EXPECT_EQ(-1, stats.max_waiting_time_ms);
 }
 
@@ -1228,10 +1224,6 @@ TEST(NetEqOutputDelayTest, RunTest) {
             result_delay.network_stats.preferred_buffer_size_ms);
   EXPECT_EQ(result_no_delay.network_stats.mean_waiting_time_ms + kDelayMs,
             result_delay.network_stats.mean_waiting_time_ms);
-  EXPECT_EQ(result_no_delay.network_stats.median_waiting_time_ms + kDelayMs,
-            result_delay.network_stats.median_waiting_time_ms);
-  EXPECT_EQ(result_no_delay.network_stats.min_waiting_time_ms + kDelayMs,
-            result_delay.network_stats.min_waiting_time_ms);
   EXPECT_EQ(result_no_delay.network_stats.max_waiting_time_ms + kDelayMs,
             result_delay.network_stats.max_waiting_time_ms);
 

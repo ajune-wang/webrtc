@@ -391,8 +391,6 @@ int NetEqImpl::NetworkStatistics(NetEqNetworkStatistics* stats) {
   stats_->GetNetworkStatistics(decoder_frame_length_, stats);
   // Compensate for output delay chain.
   stats->mean_waiting_time_ms += output_delay_chain_ms_;
-  stats->median_waiting_time_ms += output_delay_chain_ms_;
-  stats->min_waiting_time_ms += output_delay_chain_ms_;
   stats->max_waiting_time_ms += output_delay_chain_ms_;
   return 0;
 }

@@ -42,8 +42,6 @@ void Convert(const webrtc::NetEqNetworkStatistics& stats_raw,
   stats->set_secondary_decoded_rate(stats_raw.secondary_decoded_rate);
   stats->set_secondary_discarded_rate(stats_raw.secondary_discarded_rate);
   stats->set_mean_waiting_time_ms(stats_raw.mean_waiting_time_ms);
-  stats->set_median_waiting_time_ms(stats_raw.median_waiting_time_ms);
-  stats->set_min_waiting_time_ms(stats_raw.min_waiting_time_ms);
   stats->set_max_waiting_time_ms(stats_raw.max_waiting_time_ms);
 }
 

@@ -13,10 +13,11 @@
 
 #include <stdint.h>
 
+#include <atomic>
 #include <memory>
 
 #include "api/units/timestamp.h"
-#include "rtc_base/synchronization/rw_lock_wrapper.h"
+#include "rtc_base/synchronization/mutex.h"
 #include "rtc_base/system/rtc_export.h"
 #include "system_wrappers/include/ntp_time.h"
 
@@ -78,8 +79,18 @@ class SimulatedClock : public Clock {
   void AdvanceTime(TimeDelta delta);
 
  private:
-  Timestamp time_;
-  std::unique_ptr<RWLockWrapper> lock_;
+  // This mutex is used to synchronize updates of the current time.
+  // TODO(bugs.webrtc.org(12102): It's desirable to let a single thread own
+  // advancement of the clock. We could then replace this lock with just a
+  // thread checker. But currently, that breaks a couple of tests,
+  // RepeatingTaskTest.ClockIntegration and CallStatsTest.LastProcessedRtt.
+  Mutex advance_mutex_;
+  // The time is read with relaxed order. Each thread will see monotonically
+  // increasing time, and when threads post task or messages to one another, the
+  // synchronization done as part of the message passing should ensure that any
+  // causual chain of events on multiple threads also corresponds to
+  // monotonically increasing time.
+  std::atomic<Timestamp> time_;
 };
 
 }  // namespace webrtc

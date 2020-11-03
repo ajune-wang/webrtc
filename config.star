@@ -25,7 +25,7 @@ GOMA_BACKEND_WEBRTC_IOS_RBE_PROD = {
         "server_host": "goma.chromium.org",
         "use_luci_auth": True,
     },
-    "$depot_tools/osx_sdk": {"sdk_version": "11c29"},
+    "$depot_tools/osx_sdk": {"sdk_version": "12a7209"},
 }
 
 GOMA_BACKEND_RBE_ATS_PROD = {
@@ -621,7 +621,7 @@ ios_builder, ios_try_job = normal_builder_factory(
 ios_builder_no_goma, ios_try_job_no_goma = normal_builder_factory(
     dimensions = {"os": "Mac-10.15"},
     recipe = "ios",
-    properties = {"$depot_tools/osx_sdk": {"sdk_version": "11c29"}},
+    properties = {"$depot_tools/osx_sdk": {"sdk_version": "12a7209"}},
     caches = [swarming.cache("osx_sdk")],
 )
 

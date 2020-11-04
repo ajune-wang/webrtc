@@ -46,6 +46,30 @@
       },
       "revId": "42cafa5696f516712bbe6709fedeedffac61544c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f42d7bca_a57481eb",
+        "filename": "modules/audio_coding/neteq/statistics_calculator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-11-04T09:29:29Z",
+      "side": 0,
+      "message": "Maybe not worth spending much time on now. Longer term, we should disable legacy GetStats, and at that point, it would be best if standard GetStats included what\u0027s needed for debugging, and if not, maybe we can have a separate NetEq::DebugStats method.\n\nI\u0027ve found some downstream code logging mean_waiting_time_ms and max_waiting_time_ms. If/when that\u0027s migrated off legacy stats, we could revisit deletion of the waiting_times_ array and related code.",
+      "parentUuid": "85af2f5b_ba9ec001",
+      "range": {
+        "startLine": 341,
+        "startChar": 0,
+        "endLine": 341,
+        "endChar": 60
+      },
+      "revId": "42cafa5696f516712bbe6709fedeedffac61544c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -119,12 +119,16 @@ TEST(RnnVadTest, FindBestPitchPeriodsBitExactness) {
 // Checks that the refined pitch period is bit-exact given test input data.
 TEST(RnnVadTest, RefinePitchPeriod48kHzBitExactness) {
   PitchTestData test_data;
+  std::vector<float> y_energy(kMaxPitch24kHz + 1);
+  rtc::ArrayView<float, kMaxPitch24kHz + 1> y_energy_view(y_energy.data(),
+                                                          kMaxPitch24kHz + 1);
+  ComputeSlidingFrameSquareEnergies(test_data.GetPitchBufView(), y_energy_view);
   // TODO(bugs.webrtc.org/8948): Add when the issue is fixed.
   // FloatingPointExceptionObserver fpe_observer;
-  EXPECT_EQ(RefinePitchPeriod48kHz(test_data.GetPitchBufView(),
+  EXPECT_EQ(RefinePitchPeriod48kHz(test_data.GetPitchBufView(), y_energy_view,
                                    /*pitch_candidates=*/{280, 284}),
             560);
-  EXPECT_EQ(RefinePitchPeriod48kHz(test_data.GetPitchBufView(),
+  EXPECT_EQ(RefinePitchPeriod48kHz(test_data.GetPitchBufView(), y_energy_view,
                                    /*pitch_candidates=*/{260, 284}),
             568);
 }
@@ -148,12 +152,17 @@ TEST_P(CheckLowerPitchPeriodsAndComputePitchGainTest,
   const float prev_pitch_gain = std::get<2>(params);
   const int expected_pitch_period = std::get<3>(params);
   const float expected_pitch_gain = std::get<4>(params);
+
   PitchTestData test_data;
+  std::vector<float> y_energy(kMaxPitch24kHz + 1);
+  rtc::ArrayView<float, kMaxPitch24kHz + 1> y_energy_view(y_energy.data(),
+                                                          kMaxPitch24kHz + 1);
+  ComputeSlidingFrameSquareEnergies(test_data.GetPitchBufView(), y_energy_view);
   {
     // TODO(bugs.webrtc.org/8948): Add when the issue is fixed.
     // FloatingPointExceptionObserver fpe_observer;
     const auto computed_output = CheckLowerPitchPeriodsAndComputePitchGain(
-        test_data.GetPitchBufView(), initial_pitch_period,
+        test_data.GetPitchBufView(), y_energy_view, initial_pitch_period,
         {prev_pitch_period, prev_pitch_gain});
     EXPECT_EQ(expected_pitch_period, computed_output.period);
     EXPECT_NEAR(expected_pitch_gain, computed_output.gain, 1e-6f);

@@ -53,17 +53,20 @@ CandidatePitchPeriods FindBestPitchPeriods12kHz(
     rtc::ArrayView<const float, kNumInvertedLags12kHz> auto_correlation,
     rtc::ArrayView<const float, kBufSize12kHz> pitch_buffer);
 
-// Refines the pitch period estimation given the pitch buffer |pitch_buffer| and
-// the initial pitch period estimation |pitch_candidates| (inverted lags).
-// Returns an inverted lag at 48 kHz.
+// Refines the pitch period estimation given the pitch buffer |pitch_buffer|,
+// the energies for the sliding frames |y_energy| and the initial pitch period
+// estimation |pitch_candidates| (inverted lags). Returns an inverted lag at
+// 48 kHz.
 int RefinePitchPeriod48kHz(
     rtc::ArrayView<const float, kBufSize24kHz> pitch_buffer,
+    rtc::ArrayView<const float, kMaxPitch24kHz + 1> y_energy,
     CandidatePitchPeriods pitch_candidates);
 
 // Refines the pitch period estimation and compute the pitch gain. Returns the
 // refined pitch estimation data at 48 kHz.
 PitchInfo CheckLowerPitchPeriodsAndComputePitchGain(
     rtc::ArrayView<const float, kBufSize24kHz> pitch_buffer,
+    rtc::ArrayView<const float, kMaxPitch24kHz + 1> y_energy,
     int initial_pitch_period_48kHz,
     PitchInfo last_pitch_48kHz);
 

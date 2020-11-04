@@ -16,6 +16,69 @@
       "message": "Thanks! PTAL!",
       "revId": "1b8341639b3fafae59828e1c161b9a4b796fd9a7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88da71c7_3fcaa89d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-04T08:24:03Z",
+      "side": 1,
+      "message": "Lgtm, but please look at the additional comments",
+      "revId": "1b8341639b3fafae59828e1c161b9a4b796fd9a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b01e5bb_d57d6b69",
+        "filename": "audio/voip/voip_core.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-04T08:24:03Z",
+      "side": 1,
+      "message": "To me this is still vague and it is a bit confusing since there is no mentioning of cleanup anywhere below.\n\nI would suggest skipping the comment, or changing the comment.",
+      "range": {
+        "startLine": 164,
+        "startChar": 48,
+        "endLine": 164,
+        "endChar": 75
+      },
+      "revId": "1b8341639b3fafae59828e1c161b9a4b796fd9a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c264f9f0_d6da1ff8",
+        "filename": "audio/voip/voip_core.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-04T08:24:03Z",
+      "side": 1,
+      "message": "Nit:\n no_channel_after_release\n-\u003e\n no_channels_after_release",
+      "range": {
+        "startLine": 165,
+        "startChar": 6,
+        "endLine": 165,
+        "endChar": 31
+      },
+      "revId": "1b8341639b3fafae59828e1c161b9a4b796fd9a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

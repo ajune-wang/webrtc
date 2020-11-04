@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "369f6f41_5caacd93",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-11-04T06:56:52Z",
+      "side": 1,
+      "message": "Cleaning up stuff, whether it matters or not.\n",
+      "revId": "ac64bda8b0d178071987e167937ed04c0d68237c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

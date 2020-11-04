@@ -16,6 +16,23 @@
       "message": "PTAL. I overlooked these deps in previous cls.",
       "revId": "aa668a25f2497147b0774bdc4bfaf4fa5d6d71c1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddb22db7_3ce3b1be",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-11-04T10:20:37Z",
+      "side": 1,
+      "message": "FYI, I\u0027m considering extending this cl to delete all of RWLockWrapper, should be possible as soon as https://webrtc-review.googlesource.com/c/src/+/190722 is landed.",
+      "revId": "aa668a25f2497147b0774bdc4bfaf4fa5d6d71c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

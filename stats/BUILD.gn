@@ -14,7 +14,9 @@ group("stats") {
 
 rtc_library("rtc_stats") {
   visibility = [ "*" ]
-  cflags = []
+  if (use_xcode_clang) {
+    cflags = [ "-Wno-range-loop-analysis" ]
+  }
   sources = [
     "rtc_stats.cc",
     "rtc_stats_report.cc",

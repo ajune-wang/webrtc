@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "64f1717b_fba47c7e",
+        "filename": "audio/voip/voip_core.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-11-04T18:43:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b01e5bb_d57d6b69",
+      "range": {
+        "startLine": 164,
+        "startChar": 48,
+        "endLine": 164,
+        "endChar": 75
+      },
+      "revId": "1b8341639b3fafae59828e1c161b9a4b796fd9a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c264f9f0_d6da1ff8",
@@ -71,6 +95,30 @@
       "writtenOn": "2020-11-04T08:24:03Z",
       "side": 1,
       "message": "Nit:\n no_channel_after_release\n-\u003e\n no_channels_after_release",
+      "range": {
+        "startLine": 165,
+        "startChar": 6,
+        "endLine": 165,
+        "endChar": 31
+      },
+      "revId": "1b8341639b3fafae59828e1c161b9a4b796fd9a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8eabf45d_7f3d877c",
+        "filename": "audio/voip/voip_core.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-11-04T18:43:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c264f9f0_d6da1ff8",
       "range": {
         "startLine": 165,
         "startChar": 6,

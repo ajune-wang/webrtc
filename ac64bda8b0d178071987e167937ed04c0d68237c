@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a07e160_8fe41bef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-11-04T09:41:37Z",
+      "side": 1,
+      "message": "Not sure I want to change the result of the accessor. Do you think it\u0027s clear what\u0027s best?\n",
+      "revId": "ac64bda8b0d178071987e167937ed04c0d68237c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6814332e_4686887e",
@@ -52,6 +69,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "80d8d66c_1db0217d",
+        "filename": "pc/connection_context.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-11-04T09:41:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6814332e_4686887e",
+      "revId": "ac64bda8b0d178071987e167937ed04c0d68237c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f37aa48a_e152aec5",
@@ -65,6 +100,30 @@
       "writtenOn": "2020-11-04T08:30:38Z",
       "side": 1,
       "message": "Return a const reference instead, since this is never null?",
+      "range": {
+        "startLine": 375,
+        "startChar": 47,
+        "endLine": 375,
+        "endChar": 48
+      },
+      "revId": "ac64bda8b0d178071987e167937ed04c0d68237c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aeb616f1_60a407c6",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-11-04T09:41:37Z",
+      "side": 1,
+      "message": "I\u0027ve found it irritating to have call sites oscillate between function()-\u003eoperation and function().operation depending on function(), so I\u0027ve taken to letting all accessors in this class return pointers.\n\nI couldn\u0027t find any definitive guidance in the C++ style guide on this point, so would like to just leave it this way and rather do a sweeping update (including letting const scoped_refptr members\u0027 accessors return references) if we want to change it.",
+      "parentUuid": "f37aa48a_e152aec5",
       "range": {
         "startLine": 375,
         "startChar": 47,

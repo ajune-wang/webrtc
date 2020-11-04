@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3592576e_a34a8f70",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-11-04T22:28:25Z",
+      "side": 1,
+      "message": "Hmm, there are other issues. Maybe I need to suppress this diagnostic when xcode-clang is used.",
+      "revId": "6d9b8b9f3469b76d92a93c46c12f541022148884",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -75,9 +75,9 @@ class AudioIngress : public AudioMixer::Source {
   int GetSpeechOutputLevelFullRange() const {
     return output_audio_level_.LevelFullRange();
   }
-  // Retrieves the total duration for all samples played so far as explained in
-  // audio/AudioLevel.h.
-  double GetTotalDuration() const {
+  // See the comment on relevant interface defined in VoipVolumeControl.
+  double GetSpeechOutputEnergy() { return output_audio_level_.TotalEnergy(); }
+  double GetSpeechOutputDuration() {
     return output_audio_level_.TotalDuration();
   }
 

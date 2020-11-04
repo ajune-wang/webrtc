@@ -1,0 +1,205 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "55196723_a77fbece",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-04T07:22:44Z",
+      "side": 1,
+      "message": "Nice!!!\nThanks for the CL!\n",
+      "revId": "97586eeb3a32d22c44324363ce2c5fda96bb573d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c30d5ae2_ce691133",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-04T07:22:44Z",
+      "side": 1,
+      "message": "The context for this comment seems unclear. It is not clear how it ties to the following lines, which has their own comments.\n\nWould it be possible to make this comment more clear, or clarify the context somehow?",
+      "range": {
+        "startLine": 45,
+        "startChar": 1,
+        "endLine": 45,
+        "endChar": 40
+      },
+      "revId": "97586eeb3a32d22c44324363ce2c5fda96bb573d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76a3e0c4_52c7cac9",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-04T07:22:44Z",
+      "side": 1,
+      "message": "This seems like a leftover? Should it be removed?",
+      "range": {
+        "startLine": 49,
+        "startChar": 2,
+        "endLine": 50,
+        "endChar": 22
+      },
+      "revId": "97586eeb3a32d22c44324363ce2c5fda96bb573d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a14fe646_0245fd51",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-04T07:22:44Z",
+      "side": 1,
+      "message": "Why is this heap allocated on the state? Since the arrayview does not allocate any data, the normal use-pattern it o put it on the stack as a local variable.",
+      "range": {
+        "startLine": 41,
+        "startChar": 3,
+        "endLine": 41,
+        "endChar": 59
+      },
+      "revId": "97586eeb3a32d22c44324363ce2c5fda96bb573d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8578982d_14ea90ae",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-04T07:22:44Z",
+      "side": 1,
+      "message": "I would prefer a naming of the form\ndecimated_pitch_buffer. That matches ordinary speech. Having the suffix decimated makes this a bit more like Yoda notation",
+      "range": {
+        "startLine": 42,
+        "startChar": 21,
+        "endLine": 42,
+        "endChar": 44
+      },
+      "revId": "97586eeb3a32d22c44324363ce2c5fda96bb573d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b64445ab_320e0699",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-04T07:22:44Z",
+      "side": 1,
+      "message": "As above",
+      "range": {
+        "startLine": 43,
+        "startChar": 2,
+        "endLine": 43,
+        "endChar": 68
+      },
+      "revId": "97586eeb3a32d22c44324363ce2c5fda96bb573d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da6ede18_38d1cbe2",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-04T07:22:44Z",
+      "side": 1,
+      "message": "As above",
+      "range": {
+        "startLine": 45,
+        "startChar": 2,
+        "endLine": 45,
+        "endChar": 70
+      },
+      "revId": "97586eeb3a32d22c44324363ce2c5fda96bb573d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "698bb11a_244aeb70",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-04T07:22:44Z",
+      "side": 1,
+      "message": "Here \npitch_buffer is renamed to pitch_buf\nHowever, some of the renamings in the other files do the opposite to this, e.g., \npitch_buf is there renamed to pitch_buffer\n\n\nI would prefer a common naming within AGC2 for the data passed. (In this case I definitely would prefer pitch_buffer).",
+      "range": {
+        "startLine": 245,
+        "startChar": 47,
+        "endLine": 245,
+        "endChar": 56
+      },
+      "revId": "97586eeb3a32d22c44324363ce2c5fda96bb573d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de40ecf4_274d54cf",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-04T07:22:44Z",
+      "side": 1,
+      "message": "This changes from 0.f to 1.f\nIs that intentional? \nI guess this is a non-bitexact change? What is the impact?",
+      "range": {
+        "startLine": 259,
+        "startChar": 18,
+        "endLine": 259,
+        "endChar": 21
+      },
+      "revId": "97586eeb3a32d22c44324363ce2c5fda96bb573d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

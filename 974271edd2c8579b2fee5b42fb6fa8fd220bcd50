@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "12e4d5cd_ef4fbed8",
+        "filename": "api/voip/voip_volume_control.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-11-05T18:57:21Z",
+      "side": 1,
+      "message": "As far as I remember, this has been 100 ms for a long time and hasn\u0027t changed. This is an optional API that not every caller is interested to call.  I think it\u0027s better for caller to set the frequency of polling as it would be more work and complex to enable callback with caller preference on frequency.",
+      "parentUuid": "2dca216f_080053ce",
+      "range": {
+        "startLine": 30,
+        "startChar": 1,
+        "endLine": 31,
+        "endChar": 28
+      },
+      "revId": "974271edd2c8579b2fee5b42fb6fa8fd220bcd50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dff52109_52f1e464",
@@ -37,6 +61,30 @@
       "writtenOn": "2020-11-05T15:12:44Z",
       "side": 1,
       "message": "Please define a small struct and return it instead.",
+      "range": {
+        "startLine": 42,
+        "startChar": 47,
+        "endLine": 43,
+        "endChar": 63
+      },
+      "revId": "974271edd2c8579b2fee5b42fb6fa8fd220bcd50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4958583_edb2d0c1",
+        "filename": "api/voip/voip_volume_control.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-11-05T18:57:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dff52109_52f1e464",
       "range": {
         "startLine": 42,
         "startChar": 47,
@@ -64,6 +112,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "583a813a_f0673d54",
+        "filename": "audio/voip/voip_core.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-11-05T18:57:21Z",
+      "side": 1,
+      "message": "Thanks. I added comment on interface document. This was discussed earlier with initial check-in where we decided to return void with comment around the usage and error logging for the use of invalid channel id usage. I will make sure to include them.",
+      "parentUuid": "bf4ae7d9_b609a343",
+      "revId": "974271edd2c8579b2fee5b42fb6fa8fd220bcd50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a4012fdb_631c5059",
@@ -77,6 +143,24 @@
       "writtenOn": "2020-11-05T15:12:44Z",
       "side": 1,
       "message": "CHECK, or return optional\u003cint\u003e?",
+      "revId": "974271edd2c8579b2fee5b42fb6fa8fd220bcd50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0f65b6b_9bfc65cb",
+        "filename": "audio/voip/voip_core.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-11-05T18:57:21Z",
+      "side": 1,
+      "message": "Same as previous comment.",
+      "parentUuid": "a4012fdb_631c5059",
       "revId": "974271edd2c8579b2fee5b42fb6fa8fd220bcd50",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -98,6 +182,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a4a3d1e_17f7ccc3",
+        "filename": "audio/voip/voip_core.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-11-05T18:57:21Z",
+      "side": 1,
+      "message": "Same as previous comment.",
+      "parentUuid": "6952080e_a03b387a",
+      "revId": "974271edd2c8579b2fee5b42fb6fa8fd220bcd50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "26c5f645_22561e95",
@@ -115,6 +217,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ec5834f_2ee43378",
+        "filename": "audio/voip/voip_core.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-11-05T18:57:21Z",
+      "side": 1,
+      "message": "Same as previous comment.",
+      "parentUuid": "26c5f645_22561e95",
+      "revId": "974271edd2c8579b2fee5b42fb6fa8fd220bcd50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "343946a9_39a7df74",
@@ -128,6 +248,24 @@
       "writtenOn": "2020-11-05T15:12:44Z",
       "side": 1,
       "message": "CHECK, or return optional\u003cstruct\u003e?",
+      "revId": "974271edd2c8579b2fee5b42fb6fa8fd220bcd50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14f6229b_18058850",
+        "filename": "audio/voip/voip_core.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-11-05T18:57:21Z",
+      "side": 1,
+      "message": "Same as previous comment.",
+      "parentUuid": "343946a9_39a7df74",
       "revId": "974271edd2c8579b2fee5b42fb6fa8fd220bcd50",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

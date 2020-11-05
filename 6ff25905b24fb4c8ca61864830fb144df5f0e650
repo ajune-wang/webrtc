@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21cfb289_34df4202",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-05T18:24:47Z",
+      "side": 1,
+      "message": "1. Why do these two lines use different names for the max size?\n\n2. You should not handle DCHECK failures; they cannot occur (if they could occur, using DCHECK would have been wrong).\nhttps://chromium.googlesource.com/chromium/src/+/HEAD/styleguide/c++/c++.md#check_dcheck_and-notreached\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/rtc_base/checks.h;l\u003d82-87;drc\u003d55afe3885b9bbffce470f76af599d0deebd52eaa",
+      "range": {
+        "startLine": 142,
+        "startChar": 4,
+        "endLine": 143,
+        "endChar": 48
+      },
+      "revId": "6ff25905b24fb4c8ca61864830fb144df5f0e650",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e34295b5_e9a5f8ac",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-05T18:24:47Z",
+      "side": 1,
+      "message": "If you have .size() and .data() members, you will get implicit conversion to ArrayView for free.",
+      "revId": "6ff25905b24fb4c8ca61864830fb144df5f0e650",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b32a1d0_a2f751dd",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-05T18:24:47Z",
+      "side": 1,
+      "message": "This looks like a tiny reimplementation of third_party/webrtc/rtc_base/bounded_inline_vector.h. Feel free to keep as-is, or use the existing one.",
+      "revId": "6ff25905b24fb4c8ca61864830fb144df5f0e650",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

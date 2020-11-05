@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b50b427_9c6a8e41",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-11-05T09:04:16Z",
+      "side": 1,
+      "message": "Ah, I forgot about this and created a similar CL yesterday.\n\nThere is a conflict here now, I am creating a new one to fix trybots\u0027s MB generation.",
+      "revId": "9d9a236d3fc7f55f71c10b93ad8b128df10a5f01",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "70e06b2a_8462064f",
+        "filename": "stats/rtc_stats.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-11-05T15:10:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "45c7f252_49fe9a40",
+      "revId": "0f8601dde0b13ce2cfcfca43eb0d31147a31b83f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0a3fd296_1e518754",
@@ -31,6 +49,24 @@
       "writtenOn": "2020-11-05T14:16:40Z",
       "side": 1,
       "message": "Add a comment explaining why this specialization (or overload; see my other comment) is needed?",
+      "revId": "0f8601dde0b13ce2cfcfca43eb0d31147a31b83f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ecb358a_9263f807",
+        "filename": "stats/rtc_stats.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-11-05T15:10:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a3fd296_1e518754",
       "revId": "0f8601dde0b13ce2cfcfca43eb0d31147a31b83f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

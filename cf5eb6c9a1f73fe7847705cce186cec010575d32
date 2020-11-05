@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8fd4787_3ad2c7e4",
+        "filename": "modules/video_coding/svc/svc_rate_allocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-11-05T16:27:54Z",
+      "side": 1,
+      "message": "Only use int if not for particular reasons? Otherwise this should be uint8_t right?",
+      "range": {
+        "startLine": 30,
+        "startChar": 2,
+        "endLine": 30,
+        "endChar": 8
+      },
+      "revId": "cf5eb6c9a1f73fe7847705cce186cec010575d32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a29825b_a61494ac",
+        "filename": "modules/video_coding/svc/svc_rate_allocator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-11-05T16:27:54Z",
+      "side": 1,
+      "message": "WDYT about:\n\n  struct ActiveLayers {\n    std::bitset\u003c8\u003e spatial;\n    std::bitset\u003c8\u003e temporal;\n  }\n\nThen you can merge this and ActiveLayers in the .cc file.",
+      "range": {
+        "startLine": 39,
+        "startChar": 9,
+        "endLine": 39,
+        "endChar": 18
+      },
+      "revId": "cf5eb6c9a1f73fe7847705cce186cec010575d32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

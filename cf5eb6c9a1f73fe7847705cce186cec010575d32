@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9cc4a70c_e2112f30",
+        "filename": "modules/video_coding/svc/svc_rate_allocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-11-05T16:48:34Z",
+      "side": 1,
+      "message": "I\u0027m using size_t to keep code similar to what it was before.\nI did consider to change it to int, but then much more variables should be changed to int. That felt like helpful, but an offtopic change.\nIf you do not mind, I can redo that change: replace most of size_t with int in this class.\n\nIn this case size_t looks acceptable, while uint8_t not really:\nhttps://google.github.io/styleguide/cppguide.html#Integer_Types\n\"When appropriate, you are welcome to use standard types like size_t\"\n\n\"You should not use the unsigned integer types such as uint32_t, unless there is a valid reason such as representing a bit pattern rather than a number, or you need defined overflow modulo 2^N.\"",
+      "parentUuid": "a8fd4787_3ad2c7e4",
+      "range": {
+        "startLine": 30,
+        "startChar": 2,
+        "endLine": 30,
+        "endChar": 8
+      },
+      "revId": "cf5eb6c9a1f73fe7847705cce186cec010575d32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a29825b_a61494ac",
@@ -37,6 +61,30 @@
       "writtenOn": "2020-11-05T16:27:54Z",
       "side": 1,
       "message": "WDYT about:\n\n  struct ActiveLayers {\n    std::bitset\u003c8\u003e spatial;\n    std::bitset\u003c8\u003e temporal;\n  }\n\nThen you can merge this and ActiveLayers in the .cc file.",
+      "range": {
+        "startLine": 39,
+        "startChar": 9,
+        "endLine": 39,
+        "endChar": 18
+      },
+      "revId": "cf5eb6c9a1f73fe7847705cce186cec010575d32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9154a09_275354b8",
+        "filename": "modules/video_coding/svc/svc_rate_allocator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-11-05T16:48:34Z",
+      "side": 1,
+      "message": "I can guess what spatial mean in this structure.\nnot really sure what does \"bitset\u003c8\u003e temporal\" mean.\n\nchanging active spatial layers from range to bitmask would also require change in logic.\nPrefer to keep logic changes to minimum.\n\nI can merge it with another structure into something like\nstruct Layers {\n  size_t num_spatial;\n  size_t num_temporal;\n\n  size_t first_active_spatial;\n  size_t num_active_spatial;\n};\n\nbut I do not see why that would be better (names will become longer. Calculating active spatial layers is different to calculating total layers, thus mixing it into same function may be more confusing).",
+      "parentUuid": "8a29825b_a61494ac",
       "range": {
         "startLine": 39,
         "startChar": 9,

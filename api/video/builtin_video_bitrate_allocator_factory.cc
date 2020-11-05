@@ -15,7 +15,7 @@
 #include "absl/base/macros.h"
 #include "api/video/video_bitrate_allocator.h"
 #include "api/video_codecs/video_codec.h"
-#include "modules/video_coding/codecs/vp9/svc_rate_allocator.h"
+#include "modules/video_coding/svc/svc_rate_allocator.h"
 #include "modules/video_coding/utility/simulcast_rate_allocator.h"
 
 namespace webrtc {
@@ -32,6 +32,7 @@ class BuiltinVideoBitrateAllocatorFactory
       const VideoCodec& codec) override {
     std::unique_ptr<VideoBitrateAllocator> rate_allocator;
     switch (codec.codecType) {
+      case kVideoCodecAV1:
       case kVideoCodecVP9:
         rate_allocator.reset(new SvcRateAllocator(codec));
         break;

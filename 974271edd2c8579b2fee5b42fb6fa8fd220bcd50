@@ -1,0 +1,135 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2dca216f_080053ce",
+        "filename": "api/voip/voip_volume_control.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-05T15:12:44Z",
+      "side": 1,
+      "message": "I wonder if this is the sort of thing that should be promised in an API like this. Maybe\n\n  \"The update frequency is typically limited to a few times per second; polling more often than this will just return the same number over and over.\"\n\nOr is the 100 ms number very unlikely to change?\n\nThinking of this from an API user\u0027s perspective, I would hate to write the code to poll this number, because there\u0027s nothing that ensures I don\u0027t poll either too often or too seldom. Registering a callback would be *so* much nicer.\n\nOr will typical callers not be interested in getting all updates, just occasionally the current number? In that case, this method would be fine as-is.",
+      "range": {
+        "startLine": 30,
+        "startChar": 1,
+        "endLine": 31,
+        "endChar": 28
+      },
+      "revId": "974271edd2c8579b2fee5b42fb6fa8fd220bcd50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dff52109_52f1e464",
+        "filename": "api/voip/voip_volume_control.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-05T15:12:44Z",
+      "side": 1,
+      "message": "Please define a small struct and return it instead.",
+      "range": {
+        "startLine": 42,
+        "startChar": 47,
+        "endLine": 43,
+        "endChar": 63
+      },
+      "revId": "974271edd2c8579b2fee5b42fb6fa8fd220bcd50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf4ae7d9_b609a343",
+        "filename": "audio/voip/voip_core.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-05T15:12:44Z",
+      "side": 1,
+      "message": "Can we CHECK that the channel was valid? Otherwise, please either document in the interface that this may be a no-op, or return a bool.",
+      "revId": "974271edd2c8579b2fee5b42fb6fa8fd220bcd50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4012fdb_631c5059",
+        "filename": "audio/voip/voip_core.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-05T15:12:44Z",
+      "side": 1,
+      "message": "CHECK, or return optional\u003cint\u003e?",
+      "revId": "974271edd2c8579b2fee5b42fb6fa8fd220bcd50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6952080e_a03b387a",
+        "filename": "audio/voip/voip_core.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-05T15:12:44Z",
+      "side": 1,
+      "message": "CHECK, or return optional\u003cint\u003e?",
+      "revId": "974271edd2c8579b2fee5b42fb6fa8fd220bcd50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26c5f645_22561e95",
+        "filename": "audio/voip/voip_core.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-05T15:12:44Z",
+      "side": 1,
+      "message": "CHECK, or return optional\u003cstruct\u003e?",
+      "revId": "974271edd2c8579b2fee5b42fb6fa8fd220bcd50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "343946a9_39a7df74",
+        "filename": "audio/voip/voip_core.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-05T15:12:44Z",
+      "side": 1,
+      "message": "CHECK, or return optional\u003cstruct\u003e?",
+      "revId": "974271edd2c8579b2fee5b42fb6fa8fd220bcd50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

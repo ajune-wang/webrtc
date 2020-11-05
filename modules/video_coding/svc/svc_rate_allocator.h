@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_VIDEO_CODING_CODECS_VP9_SVC_RATE_ALLOCATOR_H_
-#define MODULES_VIDEO_CODING_CODECS_VP9_SVC_RATE_ALLOCATOR_H_
+#ifndef MODULES_VIDEO_CODING_SVC_SVC_RATE_ALLOCATOR_H_
+#define MODULES_VIDEO_CODING_SVC_SVC_RATE_ALLOCATOR_H_
 
 #include <stddef.h>
 #include <stdint.h>
@@ -36,6 +36,12 @@ class SvcRateAllocator : public VideoBitrateAllocator {
       const VideoCodec& codec);
 
  private:
+  struct NumLayers {
+    size_t spatial = 1;
+    size_t temporal = 1;
+  };
+
+  static NumLayers GetNumLayers(const VideoCodec& codec);
   VideoBitrateAllocation GetAllocationNormalVideo(
       DataRate total_bitrate,
       size_t first_active_layer,
@@ -51,6 +57,7 @@ class SvcRateAllocator : public VideoBitrateAllocator {
   size_t FindNumEnabledLayers(DataRate target_rate) const;
 
   const VideoCodec codec_;
+  const NumLayers num_layers_;
   const StableTargetRateExperiment experiment_settings_;
   const absl::InlinedVector<DataRate, kMaxSpatialLayers>
       cumulative_layer_start_bitrates_;
@@ -59,4 +66,4 @@ class SvcRateAllocator : public VideoBitrateAllocator {
 
 }  // namespace webrtc
 
-#endif  // MODULES_VIDEO_CODING_CODECS_VP9_SVC_RATE_ALLOCATOR_H_
+#endif  // MODULES_VIDEO_CODING_SVC_SVC_RATE_ALLOCATOR_H_

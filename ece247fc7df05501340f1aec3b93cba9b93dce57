@@ -16,6 +16,52 @@
       "message": "Updating the (all new!) attention-set to add Tommi. 😊",
       "revId": "ece247fc7df05501340f1aec3b93cba9b93dce57",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40aa16bd_baa757d5",
+        "filename": "modules/desktop_capture/linux/base_capturer_pipewire.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5064
+      },
+      "writtenOn": "2020-11-05T17:23:02Z",
+      "side": 1,
+      "message": "Why does this API need to be public, if it is called from the constructor, or from SelectSource?",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 14
+      },
+      "revId": "ece247fc7df05501340f1aec3b93cba9b93dce57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4272f99_c9309dff",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 5064
+      },
+      "writtenOn": "2020-11-05T17:23:02Z",
+      "side": 1,
+      "message": "Here *\u0026 elsewhere in this file, why bounce through GetInstance()?",
+      "range": {
+        "startLine": 641,
+        "startChar": 4,
+        "endLine": 641,
+        "endChar": 40
+      },
+      "revId": "ece247fc7df05501340f1aec3b93cba9b93dce57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -71,6 +71,7 @@ class WebRtcAudioTrack {
 
   private ByteBuffer byteBuffer;
 
+  private @Nullable final AudioAttributes audioAttributes;
   private @Nullable AudioTrack audioTrack;
   private @Nullable AudioTrackThread audioThread;
   private final VolumeLogger volumeLogger;
@@ -162,15 +163,17 @@ class WebRtcAudioTrack {
 
   @CalledByNative
   WebRtcAudioTrack(Context context, AudioManager audioManager) {
-    this(context, audioManager, null /* errorCallback */, null /* stateCallback */);
+    this(context, audioManager, null /* audioAttributes */, null /* errorCallback */,
+        null /* stateCallback */);
   }
 
   WebRtcAudioTrack(Context context, AudioManager audioManager,
-      @Nullable AudioTrackErrorCallback errorCallback,
+      @Nullable AudioAttributes audioAttributes, @Nullable AudioTrackErrorCallback errorCallback,
       @Nullable AudioTrackStateCallback stateCallback) {
     threadChecker.detachThread();
     this.context = context;
     this.audioManager = audioManager;
+    this.audioAttributes = audioAttributes;
     this.errorCallback = errorCallback;
     this.stateCallback = stateCallback;
     this.volumeLogger = new VolumeLogger(audioManager);
@@ -231,8 +234,8 @@ class WebRtcAudioTrack {
         // supersede the notion of stream types for defining the behavior of audio playback,
         // and to allow certain platforms or routing policies to use this information for more
         // refined volume or routing decisions.
-        audioTrack =
-            createAudioTrackOnLollipopOrHigher(sampleRate, channelConfig, minBufferSizeInBytes);
+        audioTrack = createAudioTrackOnLollipopOrHigher(
+            sampleRate, channelConfig, minBufferSizeInBytes, audioAttributes);
       } else {
         // Use default constructor for API levels below 21.
         audioTrack =
@@ -383,8 +386,8 @@ class WebRtcAudioTrack {
   // It allows certain platforms or routing policies to use this information for more
   // refined volume or routing decisions.
   @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-  private static AudioTrack createAudioTrackOnLollipopOrHigher(
-      int sampleRateInHz, int channelConfig, int bufferSizeInBytes) {
+  private static AudioTrack createAudioTrackOnLollipopOrHigher(int sampleRateInHz,
+      int channelConfig, int bufferSizeInBytes, @Nullable AudioAttributes overrideAttributes) {
     Logging.d(TAG, "createAudioTrackOnLollipopOrHigher");
     // TODO(henrika): use setPerformanceMode(int) with PERFORMANCE_MODE_LOW_LATENCY to control
     // performance when Android O is supported. Add some logging in the mean time.
@@ -394,6 +397,19 @@ class WebRtcAudioTrack {
     if (sampleRateInHz != nativeOutputSampleRate) {
       Logging.w(TAG, "Unable to use fast mode since requested sample rate is not native");
     }
+
+    AudioAttributes.Builder attributesBuilder = new AudioAttributes.Builder();
+    if (overrideAttributes != null) {
+      setUsage(attributesBuilder, overrideAttributes.getUsage());
+      setContentType(attributesBuilder, overrideAttributes.getContentType());
+
+      attributesBuilder.setAllowedCapturePolicy(overrideAttributes.getAllowedCapturePolicy())
+          .setFlags(overrideAttributes.getFlags());
+    } else {
+      setUsage(attributesBuilder, DEFAULT_USAGE);
+      setContentType(attributesBuilder, AudioAttributes.CONTENT_TYPE_SPEECH);
+    }
+
     // Create an audio track where the audio usage is for VoIP and the content type is speech.
     return new AudioTrack(new AudioAttributes.Builder()
                               .setUsage(DEFAULT_USAGE)
@@ -405,6 +421,16 @@ class WebRtcAudioTrack {
             .setChannelMask(channelConfig)
             .build(),
         bufferSizeInBytes, AudioTrack.MODE_STREAM, AudioManager.AUDIO_SESSION_ID_GENERATE);
+  }
+
+  private static void setContentType(AudioAttributes.Builder attributesBuilder, int contentType) {
+    attributesBuilder.setContentType(contentType != AudioAttributes.CONTENT_TYPE_UNKNOWN
+            ? contentType
+            : AudioAttributes.CONTENT_TYPE_SPEECH);
+  }
+
+  private static void setUsage(AudioAttributes.Builder attributesBuilder, int usage) {
+    attributesBuilder.setUsage(usage != AudioAttributes.USAGE_UNKNOWN ? usage : DEFAULT_USAGE);
   }
 
   @SuppressWarnings("deprecation") // Deprecated in API level 25.

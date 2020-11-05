@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45c7f252_49fe9a40",
+        "filename": "stats/rtc_stats.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-05T14:16:40Z",
+      "side": 1,
+      "message": "You can remove this line, turning the specialization into an overload instead. Most programmers are more familiar with those than with specializations.",
+      "revId": "0f8601dde0b13ce2cfcfca43eb0d31147a31b83f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a3fd296_1e518754",
+        "filename": "stats/rtc_stats.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-05T14:16:40Z",
+      "side": 1,
+      "message": "Add a comment explaining why this specialization (or overload; see my other comment) is needed?",
+      "revId": "0f8601dde0b13ce2cfcfca43eb0d31147a31b83f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

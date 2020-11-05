@@ -22,6 +22,30 @@
       },
       "revId": "97d0a9fe437abd0356178a84db805b025cbab5c7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8743f712_27880743",
+        "filename": "stats/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-05T09:19:31Z",
+      "side": 1,
+      "message": "Is it possible to remove the use of std::vector\u003cbool\u003e instead? It doesn\u0027t behave like other std::vectors, which is a trap for the unwary: https://en.cppreference.com/w/cpp/container/vector_bool",
+      "parentUuid": "ccce691e_8f828ab0",
+      "range": {
+        "startLine": 16,
+        "startChar": 2,
+        "endLine": 18,
+        "endChar": 3
+      },
+      "revId": "97d0a9fe437abd0356178a84db805b025cbab5c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

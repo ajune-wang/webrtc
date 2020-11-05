@@ -12,9 +12,15 @@ group("stats") {
   deps = [ ":rtc_stats" ]
 }
 
+config("rtc_stats_config") {
+  if (use_xcode_clang) {
+    cflags_cc = [ "-Wno-range-loop-analysis" ]
+  }
+}
+
 rtc_library("rtc_stats") {
   visibility = [ "*" ]
-  cflags = []
+  configs += [ ":rtc_stats_config" ]
   sources = [
     "rtc_stats.cc",
     "rtc_stats_report.cc",

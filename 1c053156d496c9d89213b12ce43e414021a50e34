@@ -16,6 +16,75 @@
       "message": "Karl and Per, please take a look! Thanks!",
       "revId": "1c053156d496c9d89213b12ce43e414021a50e34",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df734f1e_44de23d7",
+        "filename": "api/voip/voip_engine.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-05T22:25:50Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 94,
+        "startChar": 32,
+        "endLine": 94,
+        "endChar": 38
+      },
+      "revId": "1c053156d496c9d89213b12ce43e414021a50e34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e1fd9d1_ba2c9174",
+        "filename": "api/voip/voip_volume_control.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-05T22:25:50Z",
+      "side": 1,
+      "message": "Please add a period (\".\")",
+      "range": {
+        "startLine": 18,
+        "startChar": 21,
+        "endLine": 18,
+        "endChar": 30
+      },
+      "revId": "1c053156d496c9d89213b12ce43e414021a50e34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db2dd971_d5379e84",
+        "filename": "api/voip/voip_volume_control.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-05T22:25:50Z",
+      "side": 1,
+      "message": "The term \"functions\" already has a specific meaning in programming (and I suspect the intended meaning is different here).\n\nWhat about changing this to \"functionalities\"?",
+      "range": {
+        "startLine": 20,
+        "startChar": 25,
+        "endLine": 20,
+        "endChar": 34
+      },
+      "revId": "1c053156d496c9d89213b12ce43e414021a50e34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -33,6 +33,483 @@
       "message": "Per, I moved you to CC as not required. Please feel free to review if you started it. Thanks!",
       "revId": "71614d2567baf639f5ad8e0a8c987a06a0417e08",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2e980c6_2e537e23",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-05T22:25:50Z",
+      "side": 1,
+      "message": "Thanks for the CL!\n\nA general concern I have, which I\u0027ve stated in a number of comments, is that the added code states that the volume information is for speech. However, I see nothing in the code that restricts this to only relate to speech. Rather from what I can see the volume information relates to any type of audio content.",
+      "revId": "71614d2567baf639f5ad8e0a8c987a06a0417e08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5865962b_c981cd80",
+        "filename": "api/voip/voip_engine.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-05T22:25:50Z",
+      "side": 1,
+      "message": "various",
+      "range": {
+        "startLine": 94,
+        "startChar": 32,
+        "endLine": 94,
+        "endChar": 38
+      },
+      "revId": "71614d2567baf639f5ad8e0a8c987a06a0417e08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43c9fc84_380b38b2",
+        "filename": "api/voip/voip_volume_control.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-05T22:25:50Z",
+      "side": 1,
+      "message": "Is it possible to describe this level a bit further.\nFor instance, I guess that this is mapping to sample values that are normalized to the range -32768:32767?\n\nAlso, how is this level computed?",
+      "range": {
+        "startLine": 19,
+        "startChar": 2,
+        "endLine": 19,
+        "endChar": 63
+      },
+      "revId": "71614d2567baf639f5ad8e0a8c987a06a0417e08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2c2fe0f_e6060404",
+        "filename": "api/voip/voip_volume_control.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-05T22:25:50Z",
+      "side": 1,
+      "message": "How is this related to the speech level? The added reference does not mention speech at all.",
+      "range": {
+        "startLine": 21,
+        "startChar": 2,
+        "endLine": 22,
+        "endChar": 22
+      },
+      "revId": "71614d2567baf639f5ad8e0a8c987a06a0417e08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6ac907d_f644329a",
+        "filename": "api/voip/voip_volume_control.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-05T22:25:50Z",
+      "side": 1,
+      "message": "How is this related to the speechlevel?",
+      "range": {
+        "startLine": 23,
+        "startChar": 3,
+        "endLine": 24,
+        "endChar": 24
+      },
+      "revId": "71614d2567baf639f5ad8e0a8c987a06a0417e08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0acaf0cc_96db8a28",
+        "filename": "api/voip/voip_volume_control.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-05T22:25:50Z",
+      "side": 1,
+      "message": "Please add ending period\n(\"interface.\")",
+      "range": {
+        "startLine": 27,
+        "startChar": 21,
+        "endLine": 27,
+        "endChar": 30
+      },
+      "revId": "71614d2567baf639f5ad8e0a8c987a06a0417e08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "035d9237_fb17a653",
+        "filename": "api/voip/voip_volume_control.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-05T22:25:50Z",
+      "side": 1,
+      "message": "What does this mean? Does it mean that it sets the audio to playout to zero, but maintains the volume?",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 29
+      },
+      "revId": "71614d2567baf639f5ad8e0a8c987a06a0417e08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6ce5caa_e9070924",
+        "filename": "audio/voip/audio_channel.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-05T22:25:50Z",
+      "side": 1,
+      "message": "This does not seem correct.\ntotal_duration sounds very different from Speech...Duration.",
+      "range": {
+        "startLine": 158,
+        "startChar": 2,
+        "endLine": 158,
+        "endChar": 69
+      },
+      "revId": "71614d2567baf639f5ad8e0a8c987a06a0417e08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bd2f341_05846a68",
+        "filename": "audio/voip/audio_channel.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-05T22:25:50Z",
+      "side": 1,
+      "message": "To me, it is far from obvious what is returned here. Would it make sense to add a comment, for instance describing what FullRange means?",
+      "range": {
+        "startLine": 74,
+        "startChar": 1,
+        "endLine": 76,
+        "endChar": 3
+      },
+      "revId": "71614d2567baf639f5ad8e0a8c987a06a0417e08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c0cf5cc_a53813e9",
+        "filename": "audio/voip/audio_channel.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-05T22:25:50Z",
+      "side": 1,
+      "message": "What does Input mean here? Is it related to microphone input?\n\nSince this is the first mentioning of \"input\" in this header, that concept needs to be clarified and explained.",
+      "range": {
+        "startLine": 74,
+        "startChar": 2,
+        "endLine": 78,
+        "endChar": 79
+      },
+      "revId": "71614d2567baf639f5ad8e0a8c987a06a0417e08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c63fbbb_21e6d0c2",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-05T22:25:50Z",
+      "side": 1,
+      "message": "duration\n-\u003e\nduration_seconds",
+      "range": {
+        "startLine": 83,
+        "startChar": 15,
+        "endLine": 83,
+        "endChar": 23
+      },
+      "revId": "71614d2567baf639f5ad8e0a8c987a06a0417e08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d6543dc_0d11d779",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-05T22:25:50Z",
+      "side": 1,
+      "message": "Looking at the implementation of LevelFullRange() I don\u0027t think this claim is really correct. The level seems to have an exponentially decaying behavior, and I don\u0027t see that it is a strict max operation over the last 100 ms\n\n(please correct me if Ḯ\u0027m wrong though)",
+      "range": {
+        "startLine": 93,
+        "startChar": 50,
+        "endLine": 93,
+        "endChar": 53
+      },
+      "revId": "71614d2567baf639f5ad8e0a8c987a06a0417e08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d7f27ee_20bb4e06",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-05T22:25:50Z",
+      "side": 1,
+      "message": "in\n-\u003e\nduring the",
+      "range": {
+        "startLine": 93,
+        "startChar": 42,
+        "endLine": 93,
+        "endChar": 44
+      },
+      "revId": "71614d2567baf639f5ad8e0a8c987a06a0417e08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47f22dd8_f3fb0f40",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-05T22:25:50Z",
+      "side": 1,
+      "message": "Not sure that this needs to be in the comment.",
+      "range": {
+        "startLine": 94,
+        "startChar": 15,
+        "endLine": 94,
+        "endChar": 79
+      },
+      "revId": "71614d2567baf639f5ad8e0a8c987a06a0417e08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "319d573c_971b8ce4",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-05T22:25:50Z",
+      "side": 1,
+      "message": "Some things seem unclear here.\nFor instance, both the method naming and the comment mentions that speech is measured. How is it determined that it is speech and not some other audio?\n\nAlso, I\u0027d prefer a more thorough explanation of what the linear range is. (I guess it is related to the range of 16 bit integer samples, but that is then good to explain).",
+      "range": {
+        "startLine": 93,
+        "startChar": 3,
+        "endLine": 94,
+        "endChar": 79
+      },
+      "revId": "71614d2567baf639f5ad8e0a8c987a06a0417e08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7cdd3712_f46f3ea8",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-05T22:25:50Z",
+      "side": 1,
+      "message": "Similar comment as above. How is this related specifically to speech?",
+      "range": {
+        "startLine": 98,
+        "startChar": 2,
+        "endLine": 100,
+        "endChar": 80
+      },
+      "revId": "71614d2567baf639f5ad8e0a8c987a06a0417e08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8eba4de5_9c6256cf",
+        "filename": "audio/voip/audio_ingress.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-05T22:25:50Z",
+      "side": 1,
+      "message": "This comment too seems incorrect.\nFrom what I can see, this is not at all related to speech-only.\nAlso, the duration is not 100ms.",
+      "range": {
+        "startLine": 71,
+        "startChar": 2,
+        "endLine": 71,
+        "endChar": 57
+      },
+      "revId": "71614d2567baf639f5ad8e0a8c987a06a0417e08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d050e4c_3e8a189e",
+        "filename": "audio/voip/audio_ingress.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-05T22:25:50Z",
+      "side": 1,
+      "message": "I think this explanation of the returned level can be reused in the new code.",
+      "range": {
+        "startLine": 72,
+        "startChar": 3,
+        "endLine": 73,
+        "endChar": 62
+      },
+      "revId": "71614d2567baf639f5ad8e0a8c987a06a0417e08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96558377_01c085b4",
+        "filename": "audio/voip/audio_ingress.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-05T22:25:50Z",
+      "side": 1,
+      "message": "I neither see this to only relate to speech.",
+      "range": {
+        "startLine": 75,
+        "startChar": 6,
+        "endLine": 75,
+        "endChar": 35
+      },
+      "revId": "71614d2567baf639f5ad8e0a8c987a06a0417e08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8cc187c_e15824d7",
+        "filename": "audio/voip/audio_ingress.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-05T22:25:50Z",
+      "side": 1,
+      "message": "As mentioned elsewhere, this does not at all relate to speech-only.",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 3
+      },
+      "revId": "71614d2567baf639f5ad8e0a8c987a06a0417e08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf3f9e50_3b84b504",
+        "filename": "audio/voip/voip_core.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-05T22:25:50Z",
+      "side": 1,
+      "message": "As mentioned elsewhere. I don\u0027t think the data here only relates to speech.\n\nTherefore I think it is misleading, and not really needed, to state that these are for speech.\n\nSame below.",
+      "range": {
+        "startLine": 403,
+        "startChar": 2,
+        "endLine": 407,
+        "endChar": 3
+      },
+      "revId": "71614d2567baf639f5ad8e0a8c987a06a0417e08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

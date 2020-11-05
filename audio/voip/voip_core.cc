@@ -385,4 +385,43 @@ absl::optional<IngressStatistics> VoipCore::GetIngressStatistics(
   return absl::nullopt;
 }
 
+void VoipCore::SetInputMute(ChannelId channel_id, bool enable) {
+  rtc::scoped_refptr<AudioChannel> channel = GetChannel(channel_id);
+  RTC_DCHECK(channel);
+
+  if (channel) {
+    channel->SetMute(enable);
+  }
+}
+
+SpeechLevel VoipCore::GetSpeechInputLevel(ChannelId channel_id) {
+  rtc::scoped_refptr<AudioChannel> channel = GetChannel(channel_id);
+  RTC_DCHECK(channel);
+
+  SpeechLevel input_level;
+
+  if (channel) {
+    input_level.level = channel->GetSpeechInputLevelFullRange();
+    input_level.energy = channel->GetSpeechInputEnergy();
+    input_level.duration = channel->GetSpeechInputDuration();
+  }
+
+  return input_level;
+}
+
+SpeechLevel VoipCore::GetSpeechOutputLevel(ChannelId channel_id) {
+  rtc::scoped_refptr<AudioChannel> channel = GetChannel(channel_id);
+  RTC_DCHECK(channel);
+
+  SpeechLevel output_level;
+
+  if (channel) {
+    output_level.level = channel->GetSpeechOutputLevelFullRange();
+    output_level.energy = channel->GetSpeechOutputEnergy();
+    output_level.duration = channel->GetSpeechOutputDuration();
+  }
+
+  return output_level;
+}
+
 }  // namespace webrtc

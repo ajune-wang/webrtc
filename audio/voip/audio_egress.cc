@@ -80,6 +80,12 @@ void AudioEgress::SendAudioData(std::unique_ptr<AudioFrame> audio_frame) {
           return;
         }
 
+        double duration =
+            static_cast<double>(audio_frame->samples_per_channel_) /
+            audio_frame->sample_rate_hz_;
+
+        input_audio_level_.ComputeLevel(*audio_frame, duration);
+
         AudioFrameOperations::Mute(audio_frame.get(),
                                    encoder_context_.previously_muted_,
                                    encoder_context_.mute_);

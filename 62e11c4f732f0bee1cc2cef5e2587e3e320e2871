@@ -16,6 +16,24 @@
       "message": "Is there a way for the caller to ensure that the ID is valid? If yes, why not require the caller to have done so, and not handle the other case (e.g. with DCHECK)? If no, these functions may fail even if the caller does everything right, and having them silently fail to do their job is rather mean.",
       "revId": "62e11c4f732f0bee1cc2cef5e2587e3e320e2871",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3023c2f4_5ad005ae",
+        "filename": "api/voip/voip_volume_control.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-11-05T21:16:49Z",
+      "side": 1,
+      "message": "I see what you mean. Yeah, caller has the onus to ensure it validity. I think it\u0027s fair to add DCHECK here as you suggested. I will add here and will add another CL that does the similar check on other APIs. Thanks.",
+      "parentUuid": "d8c9c1c0_a24c8a6e",
+      "revId": "62e11c4f732f0bee1cc2cef5e2587e3e320e2871",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -16,6 +16,7 @@
 
 #include "api/audio_codecs/audio_format.h"
 #include "api/task_queue/task_queue_factory.h"
+#include "audio/audio_level.h"
 #include "audio/utility/audio_frame_operations.h"
 #include "call/audio_sender.h"
 #include "modules/audio_coding/include/audio_coding_module.h"
@@ -89,6 +90,15 @@ class AudioEgress : public AudioSender, public AudioPacketizationCallback {
   // otherwise false when the dtmf queue reached maximum of 20 events.
   bool SendTelephoneEvent(int dtmf_event, int duration_ms);
 
+  // Retrieves highest speech input level in last 100 ms with in linear range
+  // [0,32767] which may be useful to be used for measuring active input gauge.
+  int GetSpeechInputLevelFullRange() const {
+    return input_audio_level_.LevelFullRange();
+  }
+  // See the comment on relevant interface defined in VoipVolumeControl.
+  double GetSpeechInputEnergy() { return input_audio_level_.TotalEnergy(); }
+  double GetSpeechInputDuration() { return input_audio_level_.TotalDuration(); }
+
   // Implementation of AudioSender interface.
   void SendAudioData(std::unique_ptr<AudioFrame> audio_frame) override;
 
@@ -137,6 +147,9 @@ class AudioEgress : public AudioSender, public AudioPacketizationCallback {
   // Defined last to ensure that there are no running tasks when the other
   // members are destroyed.
   rtc::TaskQueue encoder_queue_;
+
+  // Synchronizaton is handled internally by voe::AudioLevel.
+  voe::AudioLevel input_audio_level_;
 };
 
 }  // namespace webrtc

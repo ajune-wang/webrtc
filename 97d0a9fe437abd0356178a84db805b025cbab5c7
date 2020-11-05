@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ccce691e_8f828ab0",
+        "filename": "stats/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-11-05T08:43:58Z",
+      "side": 1,
+      "message": "Karl, here is why I am suppressing this diagnostic: https://logs.chromium.org/logs/webrtc/buildbucket/cr-buildbucket.appspot.com/8864522855937729200/+/steps/build/0/stdout.\n\nSince it is a template, I think this should not trigger. WDYT?",
+      "range": {
+        "startLine": 16,
+        "startChar": 2,
+        "endLine": 18,
+        "endChar": 3
+      },
+      "revId": "97d0a9fe437abd0356178a84db805b025cbab5c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

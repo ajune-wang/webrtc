@@ -70,6 +70,12 @@ class AudioChannel : public rtc::RefCountInterface {
   bool SendTelephoneEvent(int dtmf_event, int duration_ms) {
     return egress_->SendTelephoneEvent(dtmf_event, duration_ms);
   }
+  void SetMute(bool enable) { egress_->SetMute(enable); }
+  int GetSpeechInputLevelFullRange() {
+    return egress_->GetSpeechInputLevelFullRange();
+  }
+  double GetSpeechInputEnergy() { return egress_->GetSpeechInputEnergy(); }
+  double GetSpeechInputDuration() { return egress_->GetSpeechInputDuration(); }
 
   // APIs relayed to AudioIngress.
   bool IsPlaying() const { return ingress_->IsPlaying(); }
@@ -83,6 +89,13 @@ class AudioChannel : public rtc::RefCountInterface {
     ingress_->SetReceiveCodecs(codecs);
   }
   IngressStatistics GetIngressStatistics();
+  int GetSpeechOutputLevelFullRange() {
+    return ingress_->GetSpeechOutputLevelFullRange();
+  }
+  double GetSpeechOutputEnergy() { return ingress_->GetSpeechOutputEnergy(); }
+  double GetSpeechOutputDuration() {
+    return ingress_->GetSpeechOutputDuration();
+  }
 
  private:
   // ChannelId that this audio channel belongs for logging purpose.

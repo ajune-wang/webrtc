@@ -19,6 +19,7 @@
 
 #include "modules/audio_processing/agc2/rnn_vad/common.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_compare.h"
 #include "rtc_base/numerics/safe_conversions.h"
 
@@ -77,24 +78,6 @@ int PitchPseudoInterpolationLagPitchBuf(
   return 2 * lag + offset;
 }
 
-// Refines a pitch period |inverted_lag| encoded as inverted lag with
-// pseudo-interpolation. The output sample rate is twice as that of
-// |inverted_lag|.
-int PitchPseudoInterpolationInvLagAutoCorr(
-    int inverted_lag,
-    rtc::ArrayView<const float, kNumInvertedLags24kHz> auto_correlation) {
-  int offset = 0;
-  // Cannot apply pseudo-interpolation at the boundaries.
-  if (inverted_lag > 0 && inverted_lag < kNumInvertedLags24kHz - 1) {
-    offset = GetPitchPseudoInterpolationOffset(
-        auto_correlation[inverted_lag + 1], auto_correlation[inverted_lag],
-        auto_correlation[inverted_lag - 1]);
-  }
-  // TODO(bugs.webrtc.org/9076): When retraining, check if |offset| below should
-  // be subtracted since |inverted_lag| is an inverted lag but offset is a lag.
-  return 2 * inverted_lag + offset;
-}
-
 // Integer multipliers used in CheckLowerPitchPeriodsAndComputePitchGain() when
 // looking for sub-harmonics.
 // The values have been chosen to serve the following algorithm. Given the
@@ -132,32 +115,76 @@ struct Range {
   int max;
 };
 
+// Number of analyzed pitches to the left(right) of a pitch candidate.
+constexpr int kPitchNeighborhoodRadius = 2;
+
 // Creates a pitch period interval centered in `inverted_lag` with hard-coded
 // radius. Clipping is applied so that the interval is always valid for a 24 kHz
 // pitch buffer.
 Range CreateInvertedLagRange(int inverted_lag) {
-  constexpr int kRadius = 2;
-  return {std::max(inverted_lag - kRadius, 0),
-          std::min(inverted_lag + kRadius, kNumInvertedLags24kHz - 1)};
+  return {std::max(inverted_lag - kPitchNeighborhoodRadius, 0),
+          std::min(inverted_lag + kPitchNeighborhoodRadius,
+                   kNumInvertedLags24kHz - 1)};
 }
 
+constexpr int kNumPitchCandidates = 2;  // Best and second best.
+// Maximum number of analyzed pitch periods.
+constexpr int kMaxPitchPeriods24kHz =
+    kNumPitchCandidates * (2 * kPitchNeighborhoodRadius + 1);
+
+// Collection of inverted lags.
+class InvertedLagsIndex {
+ public:
+  InvertedLagsIndex() : num_entries_(0) {}
+  // Adds an inverted lag to the index. Cannot add more than
+  // `kMaxPitchPeriods24kHz` values.
+  void Append(int inverted_lag) {
+    RTC_DCHECK_LT(num_entries_, inverted_lags_.size());
+    if (num_entries_ == kMaxPitchPeriods24kHz) {
+      RTC_LOG(LS_ERROR) << "Full sparse auto correlation collection.";
+      return;
+    }
+    inverted_lags_[num_entries_++] = inverted_lag;
+  }
+  int size() const { return num_entries_; }
+  rtc::ArrayView<const int> View() const {
+    return {inverted_lags_.data(), static_cast<size_t>(num_entries_)};
+  }
+
+ private:
+  std::array<int, kMaxPitchPeriods24kHz> inverted_lags_;
+  int num_entries_;
+};
+
 // Computes the auto correlation coefficients for the inverted lags in the
-// closed interval `inverted_lags`.
+// closed interval `inverted_lags`. Updates `inverted_lags_index` by appending
+// the inverted lags for the computed auto correlation values.
 void ComputeAutoCorrelation(
     Range inverted_lags,
     rtc::ArrayView<const float, kBufSize24kHz> pitch_buffer,
-    rtc::ArrayView<float, kNumInvertedLags24kHz> auto_correlation) {
-  RTC_DCHECK_GE(inverted_lags.min, 0);
-  RTC_DCHECK_LT(inverted_lags.max, auto_correlation.size());
+    rtc::ArrayView<float, kNumInvertedLags24kHz> auto_correlation,
+    InvertedLagsIndex& inverted_lags_index) {
+  // Trick to avoid zero initialization of `auto_correlation`.
+  // Needed by the pseudo-interpolation.
+  if (inverted_lags.min > 0) {
+    auto_correlation[inverted_lags.min - 1] = 0.f;
+  }
+  if (inverted_lags.max < kNumInvertedLags24kHz - 1) {
+    auto_correlation[inverted_lags.max + 1] = 0.f;
+  }
   for (int inverted_lag = inverted_lags.min; inverted_lag <= inverted_lags.max;
        ++inverted_lag) {
     auto_correlation[inverted_lag] =
         ComputeAutoCorrelation(inverted_lag, pitch_buffer);
+    inverted_lags_index.Append(inverted_lag);
   }
 }
 
-int FindBestPitchPeriods24kHz(
+// Searches the best pitch period at 24 kHz and returns its inverted lag at 48
+// kHz.
+int FindBestPitchPeriod48kHz(
     rtc::ArrayView<const float, kNumInvertedLags24kHz> auto_correlation,
+    rtc::ArrayView<const int> inverted_lags,
     rtc::ArrayView<const float, kMaxPitch24kHz + 1> y_energy,
     rtc::ArrayView<const float, kBufSize24kHz> pitch_buffer) {
   static_assert(kMaxPitch24kHz > kNumInvertedLags24kHz, "");
@@ -165,9 +192,7 @@ int FindBestPitchPeriods24kHz(
   int best_inverted_lag = 0;     // Pitch period.
   float best_numerator = -1.f;   // Pitch strength numerator.
   float best_denominator = 0.f;  // Pitch strength denominator.
-  for (int inverted_lag = 0; inverted_lag < kNumInvertedLags24kHz;
-       ++inverted_lag) {
-    // A pitch candidate must have positive correlation.
+  for (int inverted_lag : inverted_lags) {
     if (auto_correlation[inverted_lag] > 0.f) {
       // Auto-correlation energy normalized by frame energy.
       const float numerator =
@@ -181,7 +206,20 @@ int FindBestPitchPeriods24kHz(
       }
     }
   }
-  return best_inverted_lag;
+  // Pseudo-interpolation to transform `best_inverted_lag` (24 kHz pitch) to a
+  // 48 kHz pitch period.
+  if (best_inverted_lag == 0 ||
+      best_inverted_lag >= kNumInvertedLags24kHz - 1) {
+    // Cannot apply pseudo-interpolation at the boundaries.
+    return best_inverted_lag * 2;
+  }
+  int offset = GetPitchPseudoInterpolationOffset(
+      auto_correlation[best_inverted_lag + 1],
+      auto_correlation[best_inverted_lag],
+      auto_correlation[best_inverted_lag - 1]);
+  // TODO(bugs.webrtc.org/9076): When retraining, check if |offset| below should
+  // be subtracted since |inverted_lag| is an inverted lag but offset is a lag.
+  return 2 * best_inverted_lag + offset;
 }
 
 }  // namespace
@@ -319,33 +357,33 @@ int RefinePitchPeriod48kHz(
     rtc::ArrayView<const float, kBufSize24kHz> pitch_buffer,
     rtc::ArrayView<const float, kMaxPitch24kHz + 1> y_energy,
     CandidatePitchPeriods pitch_candidates) {
-  // Compute the auto-correlation terms only for neighbors of the given pitch
-  // candidates (similar to what is done in ComputePitchAutoCorrelation(), but
-  // for a few lag values).
-  std::array<float, kNumInvertedLags24kHz> auto_correlation{};
+  // Compute the auto-correlation terms only for neighbors of the two pitch
+  // candidates (best and second best).
+  std::array<float, kNumInvertedLags24kHz> auto_correlation;
+  InvertedLagsIndex inverted_lags_index;
   const Range i1 = CreateInvertedLagRange(pitch_candidates.best);
   const Range i2 = CreateInvertedLagRange(pitch_candidates.second_best);
   RTC_DCHECK_LE(i1.min, i1.max);
   RTC_DCHECK_LE(i2.min, i2.max);
-  if (i1.min <= i2.min && i1.max >= i2.min) {
-    // Overlapping intervals (`i1` precedes `i2`).
+  if (i1.min <= i2.min && i1.max + 1 >= i2.min) {
+    // Overlapping or adjacent intervals (`i1` precedes `i2`).
     RTC_DCHECK_LE(i1.max, i2.max);
-    ComputeAutoCorrelation({i1.min, i2.max}, pitch_buffer, auto_correlation);
-  } else if (i1.min > i2.min && i2.max >= i1.min) {
-    // Overlapping intervals (`i2` precedes `i1`).
+    ComputeAutoCorrelation({i1.min, i2.max}, pitch_buffer, auto_correlation,
+                           inverted_lags_index);
+  } else if (i1.min > i2.min && i2.max + 1 >= i1.min) {
+    // Overlapping or adjacent intervals (`i2` precedes `i1`).
     RTC_DCHECK_LE(i2.max, i1.max);
-    ComputeAutoCorrelation({i2.min, i1.max}, pitch_buffer, auto_correlation);
+    ComputeAutoCorrelation({i2.min, i1.max}, pitch_buffer, auto_correlation,
+                           inverted_lags_index);
   } else {
     // Disjoint intervals.
-    ComputeAutoCorrelation(i1, pitch_buffer, auto_correlation);
-    ComputeAutoCorrelation(i2, pitch_buffer, auto_correlation);
+    ComputeAutoCorrelation(i1, pitch_buffer, auto_correlation,
+                           inverted_lags_index);
+    ComputeAutoCorrelation(i2, pitch_buffer, auto_correlation,
+                           inverted_lags_index);
   }
-  // Find best pitch at 24 kHz.
-  const int pitch_candidate_24kHz =
-      FindBestPitchPeriods24kHz(auto_correlation, y_energy, pitch_buffer);
-  // Pseudo-interpolation.
-  return PitchPseudoInterpolationInvLagAutoCorr(pitch_candidate_24kHz,
-                                                auto_correlation);
+  return FindBestPitchPeriod48kHz(auto_correlation, inverted_lags_index.View(),
+                                  y_energy, pitch_buffer);
 }
 
 PitchInfo CheckLowerPitchPeriodsAndComputePitchGain(

@@ -141,6 +141,30 @@
       },
       "revId": "cf5eb6c9a1f73fe7847705cce186cec010575d32",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94471e14_16f03ef3",
+        "filename": "modules/video_coding/svc/svc_rate_allocator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-11-05T17:09:18Z",
+      "side": 1,
+      "message": "Yep, ActiveLayers is not good name. renamed according to suggestion.\n\nThis allocator doesn\u0027t support disabling T1 without disabling T2. (and none of the currently implemented scalability structure support that either).\nLet\u0027s use temporal layer bitmask when we have a practical usecase for it.",
+      "parentUuid": "4b9d2253_86833b9a",
+      "range": {
+        "startLine": 39,
+        "startChar": 9,
+        "endLine": 39,
+        "endChar": 18
+      },
+      "revId": "cf5eb6c9a1f73fe7847705cce186cec010575d32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

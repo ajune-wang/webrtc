@@ -270,7 +270,7 @@ void NoOp(const Ts&...) {}
         macro_invocation;                                            \
         break;                                                       \
       default:                                                       \
-        RTC_NOTREACHED();                                            \
+        RTC_CHECK_NOTREACHED();                                      \
     }                                                                \
   } while (0)
 

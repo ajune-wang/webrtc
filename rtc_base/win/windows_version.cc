@@ -211,7 +211,7 @@ Version MajorMinorBuildToVersion(int major, int minor, int build) {
       return VERSION_WIN10_19H1;
     }
   } else if (major > 6) {
-    RTC_NOTREACHED();
+    RTC_CHECK_NOTREACHED();
     return VERSION_WIN_LAST;
   }
 

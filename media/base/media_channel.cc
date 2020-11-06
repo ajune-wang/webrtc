@@ -115,14 +115,14 @@ DataMediaChannel::~DataMediaChannel() = default;
 webrtc::RtpParameters DataMediaChannel::GetRtpSendParameters(
     uint32_t ssrc) const {
   // GetRtpSendParameters is not supported for DataMediaChannel.
-  RTC_NOTREACHED();
+  RTC_CHECK_NOTREACHED();
   return webrtc::RtpParameters();
 }
 webrtc::RTCError DataMediaChannel::SetRtpSendParameters(
     uint32_t ssrc,
     const webrtc::RtpParameters& parameters) {
   // SetRtpSendParameters is not supported for DataMediaChannel.
-  RTC_NOTREACHED();
+  RTC_CHECK_NOTREACHED();
   return webrtc::RTCError(webrtc::RTCErrorType::UNSUPPORTED_OPERATION);
 }
 

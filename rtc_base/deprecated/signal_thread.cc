@@ -53,7 +53,7 @@ void DEPRECATED_SignalThread::Start() {
     OnWorkStart();
     worker_.Start();
   } else {
-    RTC_NOTREACHED();
+    RTC_CHECK_NOTREACHED();
   }
 }
 
@@ -80,7 +80,7 @@ void DEPRECATED_SignalThread::Destroy(bool wait) {
       refcount_--;
     }
   } else {
-    RTC_NOTREACHED();
+    RTC_CHECK_NOTREACHED();
   }
 }
 
@@ -94,7 +94,7 @@ void DEPRECATED_SignalThread::Release() {
     state_ = kReleasing;
   } else {
     // if (kInit == state_) use Destroy()
-    RTC_NOTREACHED();
+    RTC_CHECK_NOTREACHED();
   }
 }
 

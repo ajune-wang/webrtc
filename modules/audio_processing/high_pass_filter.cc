@@ -44,9 +44,9 @@ const CascadedBiQuadFilter::BiQuadCoefficients& ChooseCoefficients(
     case 48000:
       return kHighPassFilterCoefficients48kHz;
     default:
-      RTC_NOTREACHED();
+      RTC_CHECK_NOTREACHED();
   }
-  RTC_NOTREACHED();
+  RTC_CHECK_NOTREACHED();
   return kHighPassFilterCoefficients16kHz;
 }
 

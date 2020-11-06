@@ -443,7 +443,7 @@ EventGenerator::NewRtcpPacketIncoming() {
       return std::make_unique<RtcEventRtcpPacketIncoming>(buffer);
     }
     default:
-      RTC_NOTREACHED();
+      RTC_CHECK_NOTREACHED();
       rtc::Buffer buffer;
       return std::make_unique<RtcEventRtcpPacketIncoming>(buffer);
   }
@@ -506,7 +506,7 @@ EventGenerator::NewRtcpPacketOutgoing() {
       return std::make_unique<RtcEventRtcpPacketOutgoing>(buffer);
     }
     default:
-      RTC_NOTREACHED();
+      RTC_CHECK_NOTREACHED();
       rtc::Buffer buffer;
       return std::make_unique<RtcEventRtcpPacketOutgoing>(buffer);
   }

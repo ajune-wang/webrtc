@@ -63,7 +63,7 @@ void UpdateAbsSendTimeExtensionValue(uint8_t* extension_data,
   //   |  ID   | len=2 |              absolute send time               |
   //   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   if (length != kAbsSendTimeExtensionLen) {
-    RTC_NOTREACHED();
+    RTC_CHECK_NOTREACHED();
     return;
   }
 
@@ -89,7 +89,7 @@ void UpdateRtpAuthTag(uint8_t* rtp,
   // ROC (rollover counter) is at the beginning of the auth tag.
   const size_t kRocLength = 4;
   if (tag_length < kRocLength || tag_length > length) {
-    RTC_NOTREACHED();
+    RTC_CHECK_NOTREACHED();
     return;
   }
 
@@ -110,7 +110,7 @@ void UpdateRtpAuthTag(uint8_t* rtp,
                        auth_required_length, output, sizeof(output));
 
   if (result < tag_length) {
-    RTC_NOTREACHED();
+    RTC_CHECK_NOTREACHED();
     return;
   }
 
@@ -526,7 +526,7 @@ bool ApplyPacketOptions(uint8_t* data,
   size_t rtp_start_pos;
   size_t rtp_length;
   if (!UnwrapTurnPacket(data, length, &rtp_start_pos, &rtp_length)) {
-    RTC_NOTREACHED();
+    RTC_CHECK_NOTREACHED();
     return false;
   }
 
@@ -534,7 +534,7 @@ bool ApplyPacketOptions(uint8_t* data,
   auto packet = rtc::MakeArrayView(data + rtp_start_pos, rtp_length);
   if (!IsRtpPacket(rtc::reinterpret_array_view<const char>(packet)) ||
       !ValidateRtpHeader(data + rtp_start_pos, rtp_length, nullptr)) {
-    RTC_NOTREACHED();
+    RTC_CHECK_NOTREACHED();
     return false;
   }
 

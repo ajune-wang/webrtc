@@ -113,7 +113,7 @@ void EchoRemoverMetrics::Update(
         ResetMetrics();
         break;
       default:
-        RTC_NOTREACHED();
+        RTC_CHECK_NOTREACHED();
         break;
     }
   }

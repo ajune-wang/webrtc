@@ -212,7 +212,7 @@ Vp8FrameConfig ScreenshareLayers::NextFrameConfig(size_t stream_index,
       ++stats_.num_dropped_frames_;
       break;
     default:
-      RTC_NOTREACHED();
+      RTC_CHECK_NOTREACHED();
   }
 
   DependencyInfo dependency_info;
@@ -443,7 +443,7 @@ FrameDependencyStructure ScreenshareLayers::GetTemplateStructure(
       return template_structure;
     }
     default:
-      RTC_NOTREACHED();
+      RTC_CHECK_NOTREACHED();
       // To make the compiler happy!
       return template_structure;
   }

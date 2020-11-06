@@ -217,7 +217,7 @@ ScalabilityStructureKeySvc::NextFrameConfig(bool restart) {
       last_pattern_ = kDeltaT0;
       return T0Config();
   }
-  RTC_NOTREACHED();
+  RTC_CHECK_NOTREACHED();
   return {};
 }
 

@@ -252,7 +252,7 @@ DataMessageType ToWebrtcDataMessageType(cricket::DataMessageType type) {
       return DataMessageType::kControl;
     case cricket::DMT_NONE:
     default:
-      RTC_NOTREACHED();
+      RTC_CHECK_NOTREACHED();
   }
   return DataMessageType::kControl;
 }

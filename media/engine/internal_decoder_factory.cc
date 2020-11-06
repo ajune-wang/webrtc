@@ -70,7 +70,7 @@ std::unique_ptr<VideoDecoder> InternalDecoderFactory::CreateVideoDecoder(
       absl::EqualsIgnoreCase(format.name, cricket::kAv1CodecName))
     return CreateLibaomAv1Decoder();
 
-  RTC_NOTREACHED();
+  RTC_CHECK_NOTREACHED();
   return nullptr;
 }
 

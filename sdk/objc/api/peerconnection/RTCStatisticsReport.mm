@@ -92,7 +92,7 @@ NSObject *ValueFromStatsMember(const RTCStatsMemberInterface *member) {
         return [array copy];
       }
       default:
-        RTC_NOTREACHED();
+        RTC_CHECK_NOTREACHED();
     }
   }
 

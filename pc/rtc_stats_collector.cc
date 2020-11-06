@@ -124,7 +124,7 @@ const char* CandidateTypeToRTCIceCandidateType(const std::string& type) {
     return RTCIceCandidateType::kPrflx;
   if (type == cricket::RELAY_PORT_TYPE)
     return RTCIceCandidateType::kRelay;
-  RTC_NOTREACHED();
+  RTC_CHECK_NOTREACHED();
   return nullptr;
 }
 
@@ -140,7 +140,7 @@ const char* DataStateToRTCDataChannelState(
     case DataChannelInterface::kClosed:
       return RTCDataChannelState::kClosed;
     default:
-      RTC_NOTREACHED();
+      RTC_CHECK_NOTREACHED();
       return nullptr;
   }
 }
@@ -157,7 +157,7 @@ const char* IceCandidatePairStateToRTCStatsIceCandidatePairState(
     case cricket::IceCandidatePairState::FAILED:
       return RTCStatsIceCandidatePairState::kFailed;
     default:
-      RTC_NOTREACHED();
+      RTC_CHECK_NOTREACHED();
       return nullptr;
   }
 }
@@ -176,7 +176,7 @@ const char* DtlsTransportStateToRTCDtlsTransportState(
     case cricket::DTLS_TRANSPORT_FAILED:
       return RTCDtlsTransportState::kFailed;
     default:
-      RTC_NOTREACHED();
+      RTC_CHECK_NOTREACHED();
       return nullptr;
   }
 }
@@ -200,7 +200,7 @@ const char* NetworkAdapterTypeToStatsType(rtc::AdapterType type) {
     case rtc::ADAPTER_TYPE_ANY:
       return RTCNetworkType::kUnknown;
   }
-  RTC_NOTREACHED();
+  RTC_CHECK_NOTREACHED();
   return nullptr;
 }
 
@@ -862,7 +862,7 @@ void ProduceSenderMediaTrackStats(
               timestamp_us, *track, *video_sender_info, sender->AttachmentId());
       report->AddStats(std::move(video_track_stats));
     } else {
-      RTC_NOTREACHED();
+      RTC_CHECK_NOTREACHED();
     }
   }
 }
@@ -901,7 +901,7 @@ void ProduceReceiverMediaTrackStats(
               receiver->AttachmentId());
       report->AddStats(std::move(video_track_stats));
     } else {
-      RTC_NOTREACHED();
+      RTC_CHECK_NOTREACHED();
     }
   }
 }
@@ -1602,7 +1602,7 @@ void RTCStatsCollector::ProduceRTPStreamStats_n(
     } else if (stats.media_type == cricket::MEDIA_TYPE_VIDEO) {
       ProduceVideoRTPStreamStats_n(timestamp_us, stats, report);
     } else {
-      RTC_NOTREACHED();
+      RTC_CHECK_NOTREACHED();
     }
   }
 }
@@ -1947,7 +1947,7 @@ RTCStatsCollector::PrepareTransceiverStatsInfos_s_w() const {
         video_stats[video_channel->media_channel()] =
             std::make_unique<cricket::VideoMediaInfo>();
       } else {
-        RTC_NOTREACHED();
+        RTC_CHECK_NOTREACHED();
       }
     }
   }

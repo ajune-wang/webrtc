@@ -60,7 +60,7 @@ const char* GetUmaPrefix(VideoEncoderConfig::ContentType content_type) {
     case VideoEncoderConfig::ContentType::kScreen:
       return kScreenPrefix;
   }
-  RTC_NOTREACHED();
+  RTC_CHECK_NOTREACHED();
   return nullptr;
 }
 
@@ -784,7 +784,7 @@ VideoSendStream::StreamStats* SendStatisticsProxy::GetStatsEntry(
   } else if (is_flexfec) {
     entry->type = VideoSendStream::StreamStats::StreamType::kFlexfec;
   } else {
-    RTC_NOTREACHED();
+    RTC_CHECK_NOTREACHED();
   }
   switch (entry->type) {
     case VideoSendStream::StreamStats::StreamType::kMedia:

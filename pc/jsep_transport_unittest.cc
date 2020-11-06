@@ -111,7 +111,7 @@ class JsepTransport2Test : public ::testing::Test, public sigslot::has_slots<> {
             rtp_dtls_transport.get(), rtcp_dtls_transport.get());
         break;
       default:
-        RTC_NOTREACHED();
+        RTC_CHECK_NOTREACHED();
     }
 
     auto jsep_transport = std::make_unique<JsepTransport>(

@@ -114,7 +114,7 @@ void InterpolatedGainCurve::RegionLogger::LogRegionStats(
       break;
     }
     default: {
-      RTC_NOTREACHED();
+      RTC_CHECK_NOTREACHED();
     }
   }
 }

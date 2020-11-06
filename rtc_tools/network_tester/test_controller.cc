@@ -124,7 +124,7 @@ void TestController::OnReadPacket(rtc::AsyncPacketSocket* socket,
       break;
     }
     default: {
-      RTC_NOTREACHED();
+      RTC_CHECK_NOTREACHED();
     }
   }
 }

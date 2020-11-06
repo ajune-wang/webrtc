@@ -1129,7 +1129,7 @@ void Call::SignalChannelNetworkState(MediaType media, NetworkState state) {
       break;
     case MediaType::ANY:
     case MediaType::DATA:
-      RTC_NOTREACHED();
+      RTC_CHECK_NOTREACHED();
       break;
   }
 

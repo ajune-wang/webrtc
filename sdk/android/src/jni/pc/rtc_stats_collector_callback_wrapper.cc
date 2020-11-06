@@ -95,7 +95,7 @@ ScopedJavaLocalRef<jobject> MemberToJava(
       return NativeToJavaStringArray(
           env, *member.cast_to<RTCStatsMember<std::vector<std::string>>>());
   }
-  RTC_NOTREACHED();
+  RTC_CHECK_NOTREACHED();
   return nullptr;
 }
 

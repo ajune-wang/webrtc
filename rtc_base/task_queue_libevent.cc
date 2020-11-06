@@ -99,7 +99,7 @@ rtc::ThreadPriority TaskQueuePriorityToThreadPriority(Priority priority) {
     case Priority::NORMAL:
       return rtc::kNormalPriority;
     default:
-      RTC_NOTREACHED();
+      RTC_CHECK_NOTREACHED();
       break;
   }
   return rtc::kNormalPriority;
@@ -297,7 +297,7 @@ void TaskQueueLibevent::OnWakeup(int socket,
       break;
     }
     default:
-      RTC_NOTREACHED();
+      RTC_CHECK_NOTREACHED();
       break;
   }
 }

@@ -145,7 +145,7 @@ void MdnsSectionEntry::SetType(SectionEntryType type) {
       type_ = 28;
       return;
     default:
-      RTC_NOTREACHED();
+      RTC_CHECK_NOTREACHED();
   }
 }
 
@@ -166,7 +166,7 @@ void MdnsSectionEntry::SetClass(SectionEntryClass cls) {
       class_ = 1;
       return;
     default:
-      RTC_NOTREACHED();
+      RTC_CHECK_NOTREACHED();
   }
 }
 
@@ -236,7 +236,7 @@ bool MdnsResourceRecord::Read(MessageBufferReader* buf) {
     case SectionEntryType::kUnsupported:
       return false;
     default:
-      RTC_NOTREACHED();
+      RTC_CHECK_NOTREACHED();
   }
   return false;
 }
@@ -266,7 +266,7 @@ bool MdnsResourceRecord::Write(rtc::ByteBufferWriter* buf) const {
     case SectionEntryType::kUnsupported:
       return false;
     default:
-      RTC_NOTREACHED();
+      RTC_CHECK_NOTREACHED();
   }
   return true;
 }

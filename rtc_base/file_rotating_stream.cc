@@ -202,7 +202,7 @@ StreamResult FileRotatingStream::Read(void* buffer,
                                       size_t* read,
                                       int* error) {
   RTC_DCHECK(buffer);
-  RTC_NOTREACHED();
+  RTC_CHECK_NOTREACHED();
   return SR_EOS;
 }
 

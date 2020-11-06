@@ -429,7 +429,7 @@ void VirtualSocket::OnMessage(Message* pmsg) {
       SignalReadEvent(this);
     }
   } else {
-    RTC_NOTREACHED();
+    RTC_CHECK_NOTREACHED();
   }
 }
 
@@ -692,7 +692,7 @@ int VirtualSocketServer::Bind(VirtualSocket* socket, SocketAddress* addr) {
   if (!IPIsUnspec(addr->ipaddr())) {
     addr->SetIP(addr->ipaddr().Normalized());
   } else {
-    RTC_NOTREACHED();
+    RTC_CHECK_NOTREACHED();
   }
 
   // If the IP appears in |alternative_address_mapping_|, meaning the test has

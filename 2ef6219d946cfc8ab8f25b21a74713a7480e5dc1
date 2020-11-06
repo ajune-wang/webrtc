@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11393d05_35b43795",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-11-06T23:16:20Z",
+      "side": 1,
+      "message": "Thanks, it has been really helpful reviews so far. PTAL!",
+      "revId": "2ef6219d946cfc8ab8f25b21a74713a7480e5dc1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

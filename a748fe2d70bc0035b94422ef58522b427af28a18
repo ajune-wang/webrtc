@@ -16,6 +16,24 @@
       "message": "What is the motivation for this change?\nIs there a bug? (would http://bugs.webrtc.org/11340 fit?)\nDo you think unit test would be helpful to protect the behaviour?\n\nErik, it seems you\u0027ve introduce both the RtpPacketToSend::is_key_frame property and usage of it by the UlpfecGenerator.\nWas setting the property overlooked?",
       "revId": "a748fe2d70bc0035b94422ef58522b427af28a18",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05394db1_87d2d5e2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-11-06T15:41:30Z",
+      "side": 1,
+      "message": "Thanks for finding this!\nI don\u0027t know who the setting got lost. I definitely had it in a rather large CL that was then split into many smaller ones. I must have bodged that split somehow 😞\n\nThis seems like it could actually affect performance of fec, since we know set fec levels the same for keyframes as intended for delta frames.\nI would file bug separately for this. Not sure how the potential impact is in practice.\n\nSince tests evidently haven\u0027t caught this I also agree adding a unit test would be great!",
+      "parentUuid": "ce5a115b_205e17ac",
+      "revId": "a748fe2d70bc0035b94422ef58522b427af28a18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

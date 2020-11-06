@@ -768,7 +768,7 @@ void EchoCanceller3::ProcessCapture(AudioBuffer* capture,
   if (linear_output && !linear_output_framer_) {
     RTC_LOG(LS_ERROR) << "Trying to retrieve the linear AEC output without "
                          "properly configuring AEC3.";
-    RTC_NOTREACHED();
+    RTC_CHECK_NOTREACHED();
   }
 
   // Report capture call in the metrics and periodically update API call

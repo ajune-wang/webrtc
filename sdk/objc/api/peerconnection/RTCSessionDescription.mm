@@ -97,7 +97,7 @@
   } else if (string == webrtc::SessionDescriptionInterface::kRollback) {
     return RTCSdpTypeRollback;
   } else {
-    RTC_NOTREACHED();
+    RTC_CHECK_NOTREACHED();
     return RTCSdpTypeOffer;
   }
 }

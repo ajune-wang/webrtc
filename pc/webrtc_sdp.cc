@@ -741,7 +741,7 @@ static int GetCandidatePreferenceFromType(const std::string& type) {
   } else if (type == cricket::RELAY_PORT_TYPE) {
     preference = kPreferenceRelayed;
   } else {
-    RTC_NOTREACHED();
+    RTC_CHECK_NOTREACHED();
   }
   return preference;
 }
@@ -1388,7 +1388,7 @@ void BuildMediaDescription(const ContentInfo* content_info,
         media_desc->as_unsupported();
     type = unsupported_desc->media_type();
   } else {
-    RTC_NOTREACHED();
+    RTC_CHECK_NOTREACHED();
   }
   // The fmt must never be empty. If no codecs are found, set the fmt attribute
   // to 0.
@@ -1584,7 +1584,7 @@ void BuildRtpContentAttributes(const MediaContentDescription* media_desc,
       InitAttrLine(kAttributeSendRecv, &os);
       break;
     default:
-      RTC_NOTREACHED();
+      RTC_CHECK_NOTREACHED();
       InitAttrLine(kAttributeSendRecv, &os);
       break;
   }
@@ -1972,7 +1972,7 @@ void BuildCandidate(const std::vector<Candidate>& candidates,
       type = kCandidatePrflx;
       // Peer reflexive candidate may be signaled for being removed.
     } else {
-      RTC_NOTREACHED();
+      RTC_CHECK_NOTREACHED();
       // Never write out candidates if we don't know the type.
       continue;
     }

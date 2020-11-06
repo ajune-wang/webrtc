@@ -148,7 +148,7 @@ FakeRecordingDevice::FakeRecordingDevice(int initial_mic_level,
       worker_ = std::make_unique<FakeRecordingDeviceAgc1>(initial_mic_level);
       break;
     default:
-      RTC_NOTREACHED();
+      RTC_CHECK_NOTREACHED();
       break;
   }
 }

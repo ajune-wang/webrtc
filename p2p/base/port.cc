@@ -690,7 +690,7 @@ bool Port::MaybeIceRoleConflict(const rtc::SocketAddress& addr,
       }
       break;
     default:
-      RTC_NOTREACHED();
+      RTC_CHECK_NOTREACHED();
   }
   return ret;
 }
@@ -708,7 +708,7 @@ bool Port::HandleIncomingPacket(rtc::AsyncPacketSocket* socket,
                                 size_t size,
                                 const rtc::SocketAddress& remote_addr,
                                 int64_t packet_time_us) {
-  RTC_NOTREACHED();
+  RTC_CHECK_NOTREACHED();
   return false;
 }
 

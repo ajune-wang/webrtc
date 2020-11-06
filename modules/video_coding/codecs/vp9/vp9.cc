@@ -65,7 +65,7 @@ std::unique_ptr<VP9Encoder> VP9Encoder::Create() {
 #ifdef RTC_ENABLE_VP9
   return std::make_unique<VP9EncoderImpl>(cricket::VideoCodec());
 #else
-  RTC_NOTREACHED();
+  RTC_CHECK_NOTREACHED();
   return nullptr;
 #endif
 }
@@ -75,7 +75,7 @@ std::unique_ptr<VP9Encoder> VP9Encoder::Create(
 #ifdef RTC_ENABLE_VP9
   return std::make_unique<VP9EncoderImpl>(codec);
 #else
-  RTC_NOTREACHED();
+  RTC_CHECK_NOTREACHED();
   return nullptr;
 #endif
 }
@@ -84,7 +84,7 @@ std::unique_ptr<VP9Decoder> VP9Decoder::Create() {
 #ifdef RTC_ENABLE_VP9
   return std::make_unique<VP9DecoderImpl>();
 #else
-  RTC_NOTREACHED();
+  RTC_CHECK_NOTREACHED();
   return nullptr;
 #endif
 }

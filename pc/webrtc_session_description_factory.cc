@@ -321,7 +321,7 @@ void WebRtcSessionDescriptionFactory::OnMessage(rtc::Message* msg) {
       break;
     }
     default:
-      RTC_NOTREACHED();
+      RTC_CHECK_NOTREACHED();
       break;
   }
 }

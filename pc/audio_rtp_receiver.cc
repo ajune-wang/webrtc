@@ -96,7 +96,7 @@ void AudioRtpReceiver::OnSetVolume(double volume) {
   // setting the volume to the source when the track is disabled.
   if (!stopped_ && track_->enabled()) {
     if (!SetOutputVolume(cached_volume_)) {
-      RTC_NOTREACHED();
+      RTC_CHECK_NOTREACHED();
     }
   }
 }
@@ -251,7 +251,7 @@ void AudioRtpReceiver::Reconfigure() {
     return;
   }
   if (!SetOutputVolume(track_->enabled() ? cached_volume_ : 0)) {
-    RTC_NOTREACHED();
+    RTC_CHECK_NOTREACHED();
   }
   // Reattach the frame decryptor if we were reconfigured.
   MaybeAttachFrameDecryptorToMediaChannel(

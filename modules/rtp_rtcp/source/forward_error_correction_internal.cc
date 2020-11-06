@@ -266,7 +266,7 @@ void RemainingPacketProtection(int num_media_packets,
       }
     }
   } else {
-    RTC_NOTREACHED();
+    RTC_CHECK_NOTREACHED();
   }
 }
 

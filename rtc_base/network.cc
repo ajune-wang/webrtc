@@ -123,7 +123,7 @@ uint16_t ComputeNetworkCostByType(int type,
       return kNetworkCostMax;
     case rtc::ADAPTER_TYPE_VPN:
       // The cost of a VPN should be computed using its underlying network type.
-      RTC_NOTREACHED();
+      RTC_CHECK_NOTREACHED();
       return kNetworkCostUnknown;
     default:
       return kNetworkCostUnknown;
@@ -496,7 +496,7 @@ void BasicNetworkManager::OnNetworksChanged() {
 
 bool BasicNetworkManager::CreateNetworks(bool include_ignored,
                                          NetworkList* networks) const {
-  RTC_NOTREACHED();
+  RTC_CHECK_NOTREACHED();
   RTC_LOG(LS_WARNING) << "BasicNetworkManager doesn't work on NaCl yet";
   return false;
 }
@@ -883,7 +883,7 @@ void BasicNetworkManager::OnMessage(Message* msg) {
       break;
     }
     default:
-      RTC_NOTREACHED();
+      RTC_CHECK_NOTREACHED();
   }
 }
 

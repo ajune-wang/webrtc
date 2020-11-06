@@ -956,7 +956,7 @@ void EventLogAnalyzer::CreateTotalOutgoingBitrateGraph(Plot* plot,
           last_series = &overusing_series;
           break;
         case BandwidthUsage::kLast:
-          RTC_NOTREACHED();
+          RTC_CHECK_NOTREACHED();
       }
     }
 

@@ -62,7 +62,7 @@ rtc::ThreadPriority TaskQueuePriorityToThreadPriority(
     case TaskQueueFactory::Priority::NORMAL:
       return rtc::kNormalPriority;
     default:
-      RTC_NOTREACHED();
+      RTC_CHECK_NOTREACHED();
       break;
   }
   return rtc::kNormalPriority;
@@ -351,7 +351,7 @@ bool TaskQueueWin::ProcessQueuedMessages() {
           break;
         }
         default:
-          RTC_NOTREACHED();
+          RTC_CHECK_NOTREACHED();
           break;
       }
     } else {

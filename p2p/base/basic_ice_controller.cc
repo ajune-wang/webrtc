@@ -821,7 +821,7 @@ bool BasicIceController::GetUseCandidateAttr(const Connection* conn,
       return selected || better_than_selected;
     }
     default:
-      RTC_NOTREACHED();
+      RTC_CHECK_NOTREACHED();
       return false;
   }
 }

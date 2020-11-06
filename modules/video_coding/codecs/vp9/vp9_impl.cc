@@ -113,7 +113,7 @@ ColorSpace ExtractVP9ColorSpace(vpx_color_space_t space_t,
           transfer = ColorSpace::TransferID::kBT2020_10;
           break;
         default:
-          RTC_NOTREACHED();
+          RTC_CHECK_NOTREACHED();
           break;
       }
       matrix = ColorSpace::MatrixID::kBT2020_NCL;
@@ -607,7 +607,7 @@ int VP9EncoderImpl::InitEncode(const VideoCodec* inst,
     case VP9Profile::kProfile1:
       // Encoding of profile 1 is not implemented. It would require extended
       // support for I444, I422, and I440 buffers.
-      RTC_NOTREACHED();
+      RTC_CHECK_NOTREACHED();
       break;
     case VP9Profile::kProfile2:
       img_fmt = VPX_IMG_FMT_I42016;
@@ -868,7 +868,7 @@ int VP9EncoderImpl::InitAndSetControlSettings(const VideoCodec* inst) {
         vpx_codec_control(encoder_, VP9E_SET_SVC_INTER_LAYER_PRED, 2);
         break;
       default:
-        RTC_NOTREACHED();
+        RTC_CHECK_NOTREACHED();
     }
 
     memset(&svc_drop_frame_, 0, sizeof(svc_drop_frame_));
@@ -1128,7 +1128,7 @@ int VP9EncoderImpl::Encode(const VideoFrame& input_image,
       break;
     }
     case VP9Profile::kProfile1: {
-      RTC_NOTREACHED();
+      RTC_CHECK_NOTREACHED();
       break;
     }
     case VP9Profile::kProfile2: {

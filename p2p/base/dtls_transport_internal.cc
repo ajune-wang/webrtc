@@ -30,7 +30,7 @@ webrtc::DtlsTransportState ConvertDtlsTransportState(
     case DtlsTransportState::DTLS_TRANSPORT_FAILED:
       return webrtc::DtlsTransportState::kFailed;
   }
-  RTC_NOTREACHED();
+  RTC_CHECK_NOTREACHED();
   return webrtc::DtlsTransportState::kNew;
 }
 

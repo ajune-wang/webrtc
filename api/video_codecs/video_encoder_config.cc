@@ -102,17 +102,17 @@ void VideoEncoderConfig::EncoderSpecificSettings::FillEncoderSpecificSettings(
 
 void VideoEncoderConfig::EncoderSpecificSettings::FillVideoCodecH264(
     VideoCodecH264* h264_settings) const {
-  RTC_NOTREACHED();
+  RTC_CHECK_NOTREACHED();
 }
 
 void VideoEncoderConfig::EncoderSpecificSettings::FillVideoCodecVp8(
     VideoCodecVP8* vp8_settings) const {
-  RTC_NOTREACHED();
+  RTC_CHECK_NOTREACHED();
 }
 
 void VideoEncoderConfig::EncoderSpecificSettings::FillVideoCodecVp9(
     VideoCodecVP9* vp9_settings) const {
-  RTC_NOTREACHED();
+  RTC_CHECK_NOTREACHED();
 }
 
 VideoEncoderConfig::H264EncoderSpecificSettings::H264EncoderSpecificSettings(

@@ -42,7 +42,7 @@ uint8_t PayloadNameToPayloadType(const std::string& payload_name) {
   } else if (payload_name == "H264") {
     return test::CallTest::kPayloadTypeH264;
   } else {
-    RTC_NOTREACHED();
+    RTC_CHECK_NOTREACHED();
     return 0;
   }
 }

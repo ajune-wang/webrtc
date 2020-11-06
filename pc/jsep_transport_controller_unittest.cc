@@ -79,7 +79,9 @@ class JsepTransportControllerTest : public JsepTransportController::Observer,
       cricket::PortAllocator* port_allocator = nullptr) {
     config.transport_observer = this;
     config.rtcp_handler = [](const rtc::CopyOnWriteBuffer& packet,
-                             int64_t packet_time_us) { RTC_NOTREACHED(); };
+                             int64_t packet_time_us) {
+      RTC_CHECK_NOTREACHED();
+    };
     config.ice_transport_factory = fake_ice_transport_factory_.get();
     config.dtls_transport_factory = fake_dtls_transport_factory_.get();
     transport_controller_ = std::make_unique<JsepTransportController>(

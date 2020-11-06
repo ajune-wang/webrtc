@@ -82,7 +82,7 @@ bool RtpHeaderExtensionMap::RegisterByType(int id, RTPExtensionType type) {
   for (const ExtensionInfo& extension : kExtensions)
     if (type == extension.type)
       return Register(id, extension.type, extension.uri);
-  RTC_NOTREACHED();
+  RTC_CHECK_NOTREACHED();
   return false;
 }
 

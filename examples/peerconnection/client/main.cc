@@ -103,7 +103,7 @@ int PASCAL wWinMain(HINSTANCE instance,
   MainWnd wnd(server.c_str(), absl::GetFlag(FLAGS_port),
               absl::GetFlag(FLAGS_autoconnect), absl::GetFlag(FLAGS_autocall));
   if (!wnd.Create()) {
-    RTC_NOTREACHED();
+    RTC_CHECK_NOTREACHED();
     return -1;
   }
 

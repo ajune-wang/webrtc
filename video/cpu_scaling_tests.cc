@@ -96,7 +96,7 @@ void CpuOveruseTest::RunTestAndCheckForAdaptation(
           observation_complete_.Set();
           break;
         default:
-          RTC_NOTREACHED();
+          RTC_CHECK_NOTREACHED();
       }
     }
 

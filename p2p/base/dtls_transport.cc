@@ -448,7 +448,7 @@ int DtlsTransport::SendPacket(const char* data,
           << ": Couldn't send packet due to DTLS_TRANSPORT_CLOSED.";
       return -1;
     default:
-      RTC_NOTREACHED();
+      RTC_CHECK_NOTREACHED();
       return -1;
   }
 }

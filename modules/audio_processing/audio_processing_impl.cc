@@ -63,7 +63,7 @@ static bool LayoutHasKeyboard(AudioProcessing::ChannelLayout layout) {
       return true;
   }
 
-  RTC_NOTREACHED();
+  RTC_CHECK_NOTREACHED();
   return false;
 }
 
@@ -99,7 +99,7 @@ int SuitableProcessRate(int minimum_rate,
       return rate;
     }
   }
-  RTC_NOTREACHED();
+  RTC_CHECK_NOTREACHED();
   return uppermost_native_rate;
 }
 
@@ -689,12 +689,12 @@ void AudioProcessingImpl::SetRuntimeSetting(RuntimeSetting setting) {
       render_runtime_settings_enqueuer_.Enqueue(setting);
       return;
     case RuntimeSetting::Type::kNotSpecified:
-      RTC_NOTREACHED();
+      RTC_CHECK_NOTREACHED();
       return;
   }
   // The language allows the enum to have a non-enumerator
   // value. Check that this doesn't happen.
-  RTC_NOTREACHED();
+  RTC_CHECK_NOTREACHED();
 }
 
 AudioProcessingImpl::RuntimeSettingEnqueuer::RuntimeSettingEnqueuer(
@@ -837,13 +837,13 @@ void AudioProcessingImpl::HandleCaptureRuntimeSettings() {
         break;
       }
       case RuntimeSetting::Type::kPlayoutAudioDeviceChange:
-        RTC_NOTREACHED();
+        RTC_CHECK_NOTREACHED();
         break;
       case RuntimeSetting::Type::kCustomRenderProcessingRuntimeSetting:
-        RTC_NOTREACHED();
+        RTC_CHECK_NOTREACHED();
         break;
       case RuntimeSetting::Type::kNotSpecified:
-        RTC_NOTREACHED();
+        RTC_CHECK_NOTREACHED();
         break;
       case RuntimeSetting::Type::kCaptureOutputUsed:
         // TODO(b/154437967): Add support for reducing complexity when it is
@@ -872,7 +872,7 @@ void AudioProcessingImpl::HandleRenderRuntimeSettings() {
       case RuntimeSetting::Type::kCaptureFixedPostGain:    // fall-through
       case RuntimeSetting::Type::kCaptureOutputUsed:       // fall-through
       case RuntimeSetting::Type::kNotSpecified:
-        RTC_NOTREACHED();
+        RTC_CHECK_NOTREACHED();
         break;
     }
   }
@@ -1482,7 +1482,7 @@ bool AudioProcessingImpl::GetLinearAecOutput(
     return true;
   }
   RTC_LOG(LS_ERROR) << "No linear AEC output available";
-  RTC_NOTREACHED();
+  RTC_CHECK_NOTREACHED();
   return false;
 }
 

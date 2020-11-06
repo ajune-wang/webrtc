@@ -41,7 +41,7 @@ class FunctionAudioDecoderFactory : public AudioDecoderFactory {
 
   // Unused by tests.
   std::vector<AudioCodecSpec> GetSupportedDecoders() override {
-    RTC_NOTREACHED();
+    RTC_CHECK_NOTREACHED();
     return {};
   }
 

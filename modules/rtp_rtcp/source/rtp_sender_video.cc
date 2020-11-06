@@ -655,6 +655,9 @@ bool RTPSenderVideo::SendVideo(
       packet->set_packetization_finish_time_ms(clock_->TimeInMilliseconds());
     }
 
+    packet->set_is_key_frame(video_header.frame_type ==
+                             VideoFrameType::kVideoFrameKey);
+
     packet->set_fec_protect_packet(use_fec);
 
     if (red_enabled()) {

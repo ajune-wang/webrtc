@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac5f793b_1b6533c3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2020-11-06T09:08:15Z",
+      "side": 1,
+      "message": "More work is needed to ensure that this change does not affect the current implementation. I want this change to be orthogonal to the existing code and the existing behavior must not be affected at all.",
+      "revId": "1ccbcdb75618aa7c2d69531873be78b466b98935",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d3a5dda_f14e87f6",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioTrack.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2020-11-06T09:08:15Z",
+      "side": 1,
+      "message": "I am not convinced that this is correct. Did you compare with how it works on the AudioRecord side (DEFAULT_AUDIO_SOURCE \u003d AudioSource.VOICE_COMMUNICATION)?\n\nThe idea is that existing clients shall NOT be affected AT ALL by this change and I am not convinced that this is the case.\n\nWhere did you get AudioAttributes.CONTENT_TYPE_SPEECH from in the default case? How do you know that this is used today? Should you even use a builder for the old case?",
+      "revId": "1ccbcdb75618aa7c2d69531873be78b466b98935",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

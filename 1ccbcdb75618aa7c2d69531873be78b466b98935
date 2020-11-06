@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "218f1b5c_990052a9",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioTrack.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2020-11-06T09:52:57Z",
+      "side": 1,
+      "message": "It looks like this attributes builder is not actually used, it needs to be passed in to the AudioTrack constructor at the end of this method.",
+      "range": {
+        "startLine": 401,
+        "startChar": 28,
+        "endLine": 401,
+        "endChar": 45
+      },
+      "revId": "1ccbcdb75618aa7c2d69531873be78b466b98935",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2d3a5dda_f14e87f6",
         "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioTrack.java",
         "patchSetId": 2
@@ -31,6 +54,47 @@
       "writtenOn": "2020-11-06T09:08:15Z",
       "side": 1,
       "message": "I am not convinced that this is correct. Did you compare with how it works on the AudioRecord side (DEFAULT_AUDIO_SOURCE \u003d AudioSource.VOICE_COMMUNICATION)?\n\nThe idea is that existing clients shall NOT be affected AT ALL by this change and I am not convinced that this is the case.\n\nWhere did you get AudioAttributes.CONTENT_TYPE_SPEECH from in the default case? How do you know that this is used today? Should you even use a builder for the old case?",
+      "revId": "1ccbcdb75618aa7c2d69531873be78b466b98935",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1bc0d6ca_da1afb6c",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioTrack.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2020-11-06T09:52:57Z",
+      "side": 1,
+      "message": "It is the defaults set in the constructor just a few lines down, which should be replaced by this.",
+      "parentUuid": "2d3a5dda_f14e87f6",
+      "revId": "1ccbcdb75618aa7c2d69531873be78b466b98935",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83f43770_4745acf6",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioTrack.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2020-11-06T09:52:57Z",
+      "side": 1,
+      "message": "To avoid duplication of the default constants, could you instead start by creating a builder and setting the defaults, and then only override them if not UNKNOWN?\n\n  AudioAttributes.Builder attributesBuilder \u003d new AudioAttributes.Builder()                              \n      .setUsage(DEFAULT_USAGE)                              \n      .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH);\n\n  if (overrideAttributes !\u003d null) {\n    if (contentType !\u003d AudioAttributes.CONTENT_TYPE_UNKNOWN) {\n      attributesBuilder.setContentType(contentType);\n    }\n    // same for the other attributes\n  }\n\nMaybe you can have a combined method like applyOverrides(AudioAttributes.Builder defaultAttrs, AudioAttributes overrideAttributes) to handle applying all the overrides, instead of the many small methods. I\u0027ll leave it up to you.\n\nAnd again, remember to actually pass it to the constructor in the end :)",
+      "range": {
+        "startLine": 427,
+        "startChar": 4,
+        "endLine": 428,
+        "endChar": 25
+      },
       "revId": "1ccbcdb75618aa7c2d69531873be78b466b98935",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

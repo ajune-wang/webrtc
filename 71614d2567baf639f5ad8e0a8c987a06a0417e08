@@ -997,6 +997,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "64aab1b8_7f92cb2a",
+        "filename": "audio/voip/voip_core.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-11-06T23:30:05Z",
+      "side": 1,
+      "message": "I just saw your comment on https://webrtc-review.googlesource.com/c/src/+/192000. I think we can work that out from there. Thanks!",
+      "parentUuid": "3f495fb3_36d17af8",
+      "revId": "71614d2567baf639f5ad8e0a8c987a06a0417e08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cf3f9e50_3b84b504",

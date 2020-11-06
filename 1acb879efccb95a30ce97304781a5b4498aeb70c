@@ -34,6 +34,24 @@
       "parentUuid": "49f8ab0f_ca0d2558",
       "revId": "1acb879efccb95a30ce97304781a5b4498aeb70c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d10bff5_93fc8351",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2020-11-06T13:55:42Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b9ecb01b_7917ce64",
+      "revId": "1acb879efccb95a30ce97304781a5b4498aeb70c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

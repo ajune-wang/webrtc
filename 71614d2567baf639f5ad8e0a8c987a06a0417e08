@@ -508,6 +508,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e1282518_48215b18",
+        "filename": "audio/voip/voip_core.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-06T00:59:59Z",
+      "side": 1,
+      "message": "You DCHECKed channel on the previous line. That means that channel can\u0027t be false here, so the condition is unnecessary. (If channel *can* be false, there\u0027s a bug in your code, because you shouldn\u0027t DCHECK things that aren\u0027t true.)\n\nhttps://chromium.googlesource.com/chromium/src/+/HEAD/styleguide/c++/c++.md#check_dcheck_and-notreached\n\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/rtc_base/checks.h;l\u003d78-87;drc\u003d55afe3885b9bbffce470f76af599d0deebd52eaa",
+      "revId": "71614d2567baf639f5ad8e0a8c987a06a0417e08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cf3f9e50_3b84b504",
         "filename": "audio/voip/voip_core.cc",
         "patchSetId": 6

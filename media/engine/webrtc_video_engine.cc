@@ -101,8 +101,22 @@ void AddDefaultFeedbackParams(VideoCodec* codec,
   }
 }
 
+// Currently, video FlexFEC feature is not optimally implemented
+// and is disabled by default for the video sender.
+void AddFlexFecFormat(std::vector<webrtc::SdpVideoFormat>* input_formats) {
+  if (input_formats) {
+    webrtc::SdpVideoFormat flexfec_format(kFlexfecCodecName);
+    // This value is currently arbitrarily set to 10 seconds. (The unit
+    // is microseconds.) This parameter MUST be present in the SDP, but
+    // we never use the actual value anywhere in our code however.
+    // TODO(brandtr): Consider honouring this value in the sender and receiver.
+    flexfec_format.parameters = {{kFlexfecFmtpRepairWindow, "10000000"}};
+    input_formats->push_back(flexfec_format);
+  }
+}
+
 // This function will assign dynamic payload types (in the range [96, 127]) to
-// the input codecs, and also add ULPFEC, RED, FlexFEC, and associated RTX
+// the input codecs, and also add ULPFEC, RED, and associated RTX
 // codecs for recognized codecs (VP8, VP9, H264, and RED). It will also add
 // default feedback params to the codecs.
 std::vector<VideoCodec> AssignPayloadTypesAndDefaultCodecs(
@@ -116,16 +130,6 @@ std::vector<VideoCodec> AssignPayloadTypesAndDefaultCodecs(
 
   input_formats.push_back(webrtc::SdpVideoFormat(kRedCodecName));
   input_formats.push_back(webrtc::SdpVideoFormat(kUlpfecCodecName));
-
-  if (IsEnabled(trials, "WebRTC-FlexFEC-03-Advertised")) {
-    webrtc::SdpVideoFormat flexfec_format(kFlexfecCodecName);
-    // This value is currently arbitrarily set to 10 seconds. (The unit
-    // is microseconds.) This parameter MUST be present in the SDP, but
-    // we never use the actual value anywhere in our code however.
-    // TODO(brandtr): Consider honouring this value in the sender and receiver.
-    flexfec_format.parameters = {{kFlexfecFmtpRepairWindow, "10000000"}};
-    input_formats.push_back(flexfec_format);
-  }
 
   std::vector<VideoCodec> output_codecs;
   for (const webrtc::SdpVideoFormat& format : input_formats) {
@@ -160,6 +164,8 @@ std::vector<VideoCodec> AssignPayloadTypesAndDefaultCodecs(
 
 // is_decoder_factory is needed to keep track of the implict assumption that any
 // H264 decoder also supports constrained base line profile.
+// Also, is_decoder_factory is used to decide whether FlexFEC video format
+// should be advertised as supported.
 // TODO(kron): Perhaps it better to move the implcit knowledge to the place
 // where codecs are negotiated.
 template <class T>
@@ -175,6 +181,7 @@ std::vector<VideoCodec> GetPayloadTypesAndDefaultCodecs(
       factory->GetSupportedFormats();
   if (is_decoder_factory) {
     AddH264ConstrainedBaselineProfileToSupportedFormats(&supported_formats);
+    AddFlexFecFormat(&supported_formats);
   }
 
   return AssignPayloadTypesAndDefaultCodecs(std::move(supported_formats),
@@ -771,13 +778,6 @@ bool WebRtcVideoChannel::GetChangedSendParameters(
   if (params.is_stream_active && negotiated_codecs.empty()) {
     RTC_LOG(LS_ERROR) << "No video codecs supported.";
     return false;
-  }
-
-  // Never enable sending FlexFEC, unless we are in the experiment.
-  if (!IsEnabled(call_->trials(), "WebRTC-FlexFEC-03")) {
-    RTC_LOG(LS_INFO) << "WebRTC-FlexFEC-03 field trial is not enabled.";
-    for (VideoCodecSettings& codec : negotiated_codecs)
-      codec.flexfec_payload_type = -1;
   }
 
   if (negotiated_codecs_ != negotiated_codecs) {
@@ -1499,8 +1499,7 @@ void WebRtcVideoChannel::ConfigureReceiverRtp(
 
   // TODO(brandtr): Generalize when we add support for multistream protection.
   flexfec_config->payload_type = recv_flexfec_payload_type_;
-  if (IsEnabled(call_->trials(), "WebRTC-FlexFEC-03-Advertised") &&
-      sp.GetFecFrSsrc(ssrc, &flexfec_config->remote_ssrc)) {
+  if (sp.GetFecFrSsrc(ssrc, &flexfec_config->remote_ssrc)) {
     flexfec_config->protected_media_ssrcs = {ssrc};
     flexfec_config->local_ssrc = config->rtp.local_ssrc;
     flexfec_config->rtcp_mode = config->rtp.rtcp_mode;
@@ -2013,25 +2012,22 @@ WebRtcVideoChannel::WebRtcVideoSendStream::WebRtcVideoSendStream(
   // FlexFEC SSRCs.
   // TODO(brandtr): This code needs to be generalized when we add support for
   // multistream protection.
-  if (IsEnabled(call_->trials(), "WebRTC-FlexFEC-03")) {
-    uint32_t flexfec_ssrc;
-    bool flexfec_enabled = false;
-    for (uint32_t primary_ssrc : parameters_.config.rtp.ssrcs) {
-      if (sp.GetFecFrSsrc(primary_ssrc, &flexfec_ssrc)) {
-        if (flexfec_enabled) {
-          RTC_LOG(LS_INFO)
-              << "Multiple FlexFEC streams in local SDP, but "
-                 "our implementation only supports a single FlexFEC "
-                 "stream. Will not enable FlexFEC for proposed "
-                 "stream with SSRC: "
-              << flexfec_ssrc << ".";
-          continue;
-        }
-
-        flexfec_enabled = true;
-        parameters_.config.rtp.flexfec.ssrc = flexfec_ssrc;
-        parameters_.config.rtp.flexfec.protected_media_ssrcs = {primary_ssrc};
+  uint32_t flexfec_ssrc;
+  bool flexfec_enabled = false;
+  for (uint32_t primary_ssrc : parameters_.config.rtp.ssrcs) {
+    if (sp.GetFecFrSsrc(primary_ssrc, &flexfec_ssrc)) {
+      if (flexfec_enabled) {
+        RTC_LOG(LS_INFO) << "Multiple FlexFEC streams in local SDP, but "
+                            "our implementation only supports a single FlexFEC "
+                            "stream. Will not enable FlexFEC for proposed "
+                            "stream with SSRC: "
+                         << flexfec_ssrc << ".";
+        continue;
       }
+
+      flexfec_enabled = true;
+      parameters_.config.rtp.flexfec.ssrc = flexfec_ssrc;
+      parameters_.config.rtp.flexfec.protected_media_ssrcs = {primary_ssrc};
     }
   }
 

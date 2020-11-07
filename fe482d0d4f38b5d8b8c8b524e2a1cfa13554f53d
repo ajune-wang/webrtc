@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4abed86_e44435a2",
+        "filename": "rtc_base/callback_list.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-11-07T08:50:54Z",
+      "side": 1,
+      "message": "Not sure about these 3 \"-\", should this be a: \"must have. For example...\"?",
+      "range": {
+        "startLine": 62,
+        "startChar": 36,
+        "endLine": 62,
+        "endChar": 40
+      },
+      "revId": "fe482d0d4f38b5d8b8c8b524e2a1cfa13554f53d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

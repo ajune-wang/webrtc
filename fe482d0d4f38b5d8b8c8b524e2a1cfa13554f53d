@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "74f8ad6a_e1e31e13",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-11-07T10:24:51Z",
+      "side": 1,
+      "message": "some naive comments from a potential user....\n",
+      "revId": "fe482d0d4f38b5d8b8c8b524e2a1cfa13554f53d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b4abed86_e44435a2",
@@ -20,6 +37,40 @@
         "endLine": 62,
         "endChar": 40
       },
+      "revId": "fe482d0d4f38b5d8b8c8b524e2a1cfa13554f53d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f734b3d9_e61061f5",
+        "filename": "rtc_base/callback_list.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-11-07T10:24:51Z",
+      "side": 1,
+      "message": "Can we have one example with a lambda and one example with a non-lambda?\n\nThe various Bind functions seem to have specializations for the class member case, not sure if that is possible here, or if we need to use lambdas for calling class.member with a capturing of \"this\".",
+      "revId": "fe482d0d4f38b5d8b8c8b524e2a1cfa13554f53d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0040ca0f_787d88bb",
+        "filename": "rtc_base/callback_list.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-11-07T10:24:51Z",
+      "side": 1,
+      "message": "Should we mention that if the callback captures a scoped_refptr, this reference will keep the captured object alive until the CallbackList is destroyed?\nI fear that it will be easy to create refptr loops this way.",
       "revId": "fe482d0d4f38b5d8b8c8b524e2a1cfa13554f53d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

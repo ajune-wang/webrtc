@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9c990f76_dbd5a716",
+        "filename": "rtc_base/callback_list.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-11-08T12:39:34Z",
+      "side": 1,
+      "message": "Since most viewers won\u0027t be formatting this as an em dash (and since it needs space around it anywyay), I think a semicolon is better.",
+      "parentUuid": "49487b55_ecfce342",
+      "range": {
+        "startLine": 62,
+        "startChar": 36,
+        "endLine": 62,
+        "endChar": 40
+      },
+      "revId": "fe482d0d4f38b5d8b8c8b524e2a1cfa13554f53d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f734b3d9_e61061f5",
         "filename": "rtc_base/callback_list.h",
         "patchSetId": 2

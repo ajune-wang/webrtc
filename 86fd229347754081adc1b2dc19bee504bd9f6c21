@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f41ced4_5898261a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-11-08T12:39:34Z",
+      "side": 1,
+      "message": "This is Good Enough (modulo a semicolon).\n",
+      "revId": "86fd229347754081adc1b2dc19bee504bd9f6c21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

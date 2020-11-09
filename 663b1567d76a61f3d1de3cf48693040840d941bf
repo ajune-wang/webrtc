@@ -16,6 +16,29 @@
       "message": "I\u0027m a bit surprised this change only saves 224 bytes.\n",
       "revId": "663b1567d76a61f3d1de3cf48693040840d941bf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25519d8b_4d1a3f5f",
+        "filename": "pc/sdp_offer_answer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-11-09T14:25:31Z",
+      "side": 1,
+      "message": "I think savings are not bigger because most of the binary size comes from this.",
+      "range": {
+        "startLine": 89,
+        "startChar": 30,
+        "endLine": 89,
+        "endChar": 57
+      },
+      "revId": "663b1567d76a61f3d1de3cf48693040840d941bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

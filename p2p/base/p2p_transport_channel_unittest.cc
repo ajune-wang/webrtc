@@ -23,6 +23,7 @@
 #include "p2p/base/test_stun_server.h"
 #include "p2p/base/test_turn_server.h"
 #include "p2p/client/basic_port_allocator.h"
+#include "p2p/client/basic_port_allocator_session.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/dscp.h"
 #include "rtc_base/fake_clock.h"

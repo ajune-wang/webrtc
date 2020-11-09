@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6de388a_3309ffc4",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1158,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-11-09T09:27:15Z",
+      "side": 1,
+      "message": "Is this part needed?",
+      "range": {
+        "startLine": 1158,
+        "startChar": 28,
+        "endLine": 1158,
+        "endChar": 59
+      },
+      "revId": "173eac589b8b828ce82a129a64c77386d615c63c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d3640d8_5ecf5b6f",
+        "filename": "pc/jsep_transport_controller.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-11-09T09:27:15Z",
+      "side": 1,
+      "message": "Karl, should we move these data members into private data members right away?\n\nI think it is a good idea to do it now (even if this CL seems to be landable as is, we should avoid to keep these in the public interface).",
+      "range": {
+        "startLine": 203,
+        "startChar": 2,
+        "endLine": 224,
+        "endChar": 36
+      },
+      "revId": "173eac589b8b828ce82a129a64c77386d615c63c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d18009b_0da5d9f9",
+        "filename": "pc/jsep_transport_controller_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-11-09T09:27:15Z",
+      "side": 1,
+      "message": "Remove?",
+      "range": {
+        "startLine": 98,
+        "startChar": 10,
+        "endLine": 98,
+        "endChar": 39
+      },
+      "revId": "173eac589b8b828ce82a129a64c77386d615c63c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

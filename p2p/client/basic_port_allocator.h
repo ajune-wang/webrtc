@@ -17,8 +17,11 @@
 
 #include "api/turn_customizer.h"
 #include "p2p/base/port_allocator.h"
+#include "p2p/client/basic_port_allocation_configuration.h"
+#include "p2p/client/basic_port_allocation_sequence.h"
 #include "p2p/client/relay_port_factory_interface.h"
 #include "p2p/client/turn_port_factory.h"
+#include "rtc_base/callback_list.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/network.h"
 #include "rtc_base/system/rtc_export.h"
@@ -278,137 +281,5 @@ class RTC_EXPORT BasicPortAllocatorSession
 
   friend class AllocationSequence;
 };
-
-// Records configuration information useful in creating ports.
-// TODO(deadbeef): Rename "relay" to "turn_server" in this struct.
-struct RTC_EXPORT PortConfiguration : public rtc::MessageData {
-  // TODO(jiayl): remove |stun_address| when Chrome is updated.
-  rtc::SocketAddress stun_address;
-  ServerAddresses stun_servers;
-  std::string username;
-  std::string password;
-  bool use_turn_server_as_stun_server_disabled = false;
-
-  typedef std::vector<RelayServerConfig> RelayList;
-  RelayList relays;
-
-  // TODO(jiayl): remove this ctor when Chrome is updated.
-  PortConfiguration(const rtc::SocketAddress& stun_address,
-                    const std::string& username,
-                    const std::string& password);
-
-  PortConfiguration(const ServerAddresses& stun_servers,
-                    const std::string& username,
-                    const std::string& password);
-
-  ~PortConfiguration() override;
-
-  // Returns addresses of both the explicitly configured STUN servers,
-  // and TURN servers that should be used as STUN servers.
-  ServerAddresses StunServers();
-
-  // Adds another relay server, with the given ports and modifier, to the list.
-  void AddRelay(const RelayServerConfig& config);
-
-  // Determines whether the given relay server supports the given protocol.
-  bool SupportsProtocol(const RelayServerConfig& relay,
-                        ProtocolType type) const;
-  bool SupportsProtocol(ProtocolType type) const;
-  // Helper method returns the server addresses for the matching RelayType and
-  // Protocol type.
-  ServerAddresses GetRelayServerAddresses(ProtocolType type) const;
-};
-
-class UDPPort;
-class TurnPort;
-
-// Performs the allocation of ports, in a sequenced (timed) manner, for a given
-// network and IP address.
-class AllocationSequence : public rtc::MessageHandlerAutoCleanup,
-                           public sigslot::has_slots<> {
- public:
-  enum State {
-    kInit,       // Initial state.
-    kRunning,    // Started allocating ports.
-    kStopped,    // Stopped from running.
-    kCompleted,  // All ports are allocated.
-
-    // kInit --> kRunning --> {kCompleted|kStopped}
-  };
-  AllocationSequence(BasicPortAllocatorSession* session,
-                     rtc::Network* network,
-                     PortConfiguration* config,
-                     uint32_t flags);
-  ~AllocationSequence() override;
-  void Init();
-  void Clear();
-  void OnNetworkFailed();
-
-  State state() const { return state_; }
-  rtc::Network* network() const { return network_; }
-
-  bool network_failed() const { return network_failed_; }
-  void set_network_failed() { network_failed_ = true; }
-
-  // Disables the phases for a new sequence that this one already covers for an
-  // equivalent network setup.
-  void DisableEquivalentPhases(rtc::Network* network,
-                               PortConfiguration* config,
-                               uint32_t* flags);
-
-  // Starts and stops the sequence.  When started, it will continue allocating
-  // new ports on its own timed schedule.
-  void Start();
-  void Stop();
-
-  // MessageHandler
-  void OnMessage(rtc::Message* msg) override;
-
-  // Signal from AllocationSequence, when it's done with allocating ports.
-  // This signal is useful, when port allocation fails which doesn't result
-  // in any candidates. Using this signal BasicPortAllocatorSession can send
-  // its candidate discovery conclusion signal. Without this signal,
-  // BasicPortAllocatorSession doesn't have any event to trigger signal. This
-  // can also be achieved by starting timer in BPAS.
-  sigslot::signal1<AllocationSequence*> SignalPortAllocationComplete;
-
- protected:
-  // For testing.
-  void CreateTurnPort(const RelayServerConfig& config);
-
- private:
-  typedef std::vector<ProtocolType> ProtocolList;
-
-  bool IsFlagSet(uint32_t flag) { return ((flags_ & flag) != 0); }
-  void CreateUDPPorts();
-  void CreateTCPPorts();
-  void CreateStunPorts();
-  void CreateRelayPorts();
-
-  void OnReadPacket(rtc::AsyncPacketSocket* socket,
-                    const char* data,
-                    size_t size,
-                    const rtc::SocketAddress& remote_addr,
-                    const int64_t& packet_time_us);
-
-  void OnPortDestroyed(PortInterface* port);
-
-  BasicPortAllocatorSession* session_;
-  bool network_failed_ = false;
-  rtc::Network* network_;
-  // Compared with the new best IP in DisableEquivalentPhases.
-  rtc::IPAddress previous_best_ip_;
-  PortConfiguration* config_;
-  State state_;
-  uint32_t flags_;
-  ProtocolList protocols_;
-  std::unique_ptr<rtc::AsyncPacketSocket> udp_socket_;
-  // There will be only one udp port per AllocationSequence.
-  UDPPort* udp_port_;
-  std::vector<Port*> relay_ports_;
-  int phase_;
-};
-
-}  // namespace cricket
 
 #endif  // P2P_CLIENT_BASIC_PORT_ALLOCATOR_H_

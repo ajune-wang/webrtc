@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ec42c47_d319b06f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-09T21:29:13Z",
+      "side": 1,
+      "message": "Great CL!\nlgtm % comments.",
+      "revId": "0ef17d114da44ba9dc4806ff4e34e9347a34b71a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77fe5b31_f08fdd2f",
+        "filename": "audio/voip/audio_channel.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-09T21:29:13Z",
+      "side": 1,
+      "message": "Missing space",
+      "range": {
+        "startLine": 88,
+        "startChar": 43,
+        "endLine": 88,
+        "endChar": 57
+      },
+      "revId": "0ef17d114da44ba9dc4806ff4e34e9347a34b71a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36137560_186a6a78",
+        "filename": "audio/voip/audio_channel.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-09T21:29:13Z",
+      "side": 1,
+      "message": "following\n-\u003e\nfollowing what is done in",
+      "range": {
+        "startLine": 89,
+        "startChar": 29,
+        "endLine": 89,
+        "endChar": 38
+      },
+      "revId": "0ef17d114da44ba9dc4806ff4e34e9347a34b71a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49cf7c40_53d1869f",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-09T21:29:13Z",
+      "side": 1,
+      "message": "duration_second\n-\u003e\nduration_seconds",
+      "range": {
+        "startLine": 83,
+        "startChar": 15,
+        "endLine": 83,
+        "endChar": 30
+      },
+      "revId": "0ef17d114da44ba9dc4806ff4e34e9347a34b71a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

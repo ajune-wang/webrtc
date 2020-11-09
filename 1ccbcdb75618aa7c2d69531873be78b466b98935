@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1191b399_5392061f",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioTrack.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 14869
+      },
+      "writtenOn": "2020-11-09T19:14:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "218f1b5c_990052a9",
+      "range": {
+        "startLine": 401,
+        "startChar": 28,
+        "endLine": 401,
+        "endChar": 45
+      },
+      "revId": "1ccbcdb75618aa7c2d69531873be78b466b98935",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2d3a5dda_f14e87f6",
@@ -72,6 +96,24 @@
       "side": 1,
       "message": "It is the defaults set in the constructor just a few lines down, which should be replaced by this.",
       "parentUuid": "2d3a5dda_f14e87f6",
+      "revId": "1ccbcdb75618aa7c2d69531873be78b466b98935",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6df01c1_ed35cfed",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioTrack.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 14869
+      },
+      "writtenOn": "2020-11-09T19:14:24Z",
+      "side": 1,
+      "message": "Where did you get AudioAttributes.CONTENT_TYPE_SPEECH from in the default case? How do you know that this is used today? Should you even use a builder for the old case?\n\n\u003e\u003e https://chromium.googlesource.com/external/webrtc/+/refs/heads/master/sdk/android/src/java/org/webrtc/audio/WebRtcAudioTrack.java#400",
+      "parentUuid": "1bc0d6ca_da1afb6c",
       "revId": "1ccbcdb75618aa7c2d69531873be78b466b98935",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -136,6 +178,30 @@
       "side": 1,
       "message": "Sounds a fair \"contained\" approach:\n\n1. Apply defaults\n2. Apply overrides\n\nThe only reason I did it modular like this was to avoid multiple settings.\n\nLet me update the code",
       "parentUuid": "83f43770_4745acf6",
+      "range": {
+        "startLine": 427,
+        "startChar": 4,
+        "endLine": 428,
+        "endChar": 25
+      },
+      "revId": "1ccbcdb75618aa7c2d69531873be78b466b98935",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df6ccb7e_e5a00037",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioTrack.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 14869
+      },
+      "writtenOn": "2020-11-09T19:14:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42e24010_a9417af4",
       "range": {
         "startLine": 427,
         "startChar": 4,

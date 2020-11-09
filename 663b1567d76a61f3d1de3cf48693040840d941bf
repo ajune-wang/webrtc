@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "07bcabf7_1ddfafff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-11-09T16:10:19Z",
+      "side": 1,
+      "message": "Understanding now.\n",
+      "revId": "663b1567d76a61f3d1de3cf48693040840d941bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "25519d8b_4d1a3f5f",
@@ -31,6 +48,30 @@
       "writtenOn": "2020-11-09T14:25:31Z",
       "side": 1,
       "message": "I think savings are not bigger because most of the binary size comes from this.",
+      "range": {
+        "startLine": 89,
+        "startChar": 30,
+        "endLine": 89,
+        "endChar": 57
+      },
+      "revId": "663b1567d76a61f3d1de3cf48693040840d941bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35a24151_5249af87",
+        "filename": "pc/sdp_offer_answer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-11-09T16:10:19Z",
+      "side": 1,
+      "message": "And it turns out that this declaration is needed whenever the object is setting itself as the destination of a signal, not when it contains a signal. So getting rid of this requires getting rid of all the signals that it points itself at. Oh well.",
+      "parentUuid": "25519d8b_4d1a3f5f",
       "range": {
         "startLine": 89,
         "startChar": 30,

@@ -16,6 +16,23 @@
       "message": "LGTM, but please wait also for Rasmus and Christoffer\u0027s reviews.",
       "revId": "d4c1d62e2212136d3d1d29336cf78210efe42100",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "940cdc01_991b0144",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2020-11-09T09:51:06Z",
+      "side": 1,
+      "message": "This will enable Flexfec by default, is that intended?",
+      "revId": "d4c1d62e2212136d3d1d29336cf78210efe42100",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

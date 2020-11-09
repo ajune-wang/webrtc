@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24ea04c0_05907e1f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2020-11-09T09:28:19Z",
+      "side": 1,
+      "message": "LGTM, but please wait also for Rasmus and Christoffer\u0027s reviews.",
+      "revId": "d4c1d62e2212136d3d1d29336cf78210efe42100",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

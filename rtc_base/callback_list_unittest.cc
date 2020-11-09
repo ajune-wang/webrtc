@@ -19,7 +19,7 @@ namespace webrtc {
 namespace {
 
 TEST(CallbackList, NoRecieverSingleMessageTest) {
-  CallbackList<std::string> c;
+  RoboCaller<std::string> c;
 
   c.Send("message");
 }

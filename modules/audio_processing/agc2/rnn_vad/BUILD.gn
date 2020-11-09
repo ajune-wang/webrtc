@@ -94,6 +94,7 @@ rtc_library("rnn_vad_pitch") {
     "../../../../api:array_view",
     "../../../../rtc_base:checks",
     "../../../../rtc_base:gtest_prod",
+    "../../../../rtc_base:logging",
     "../../../../rtc_base:safe_compare",
     "../../../../rtc_base:safe_conversions",
   ]

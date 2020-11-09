@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "13ab6657_fd3ce9aa",
+        "filename": "rtc_base/callback_list.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-09T09:39:53Z",
+      "side": 1,
+      "message": "The rest of the text in this paragraph is an attempt to address exactly this. It seems like I failed?",
+      "parentUuid": "13f1584c_d08cf7f4",
+      "range": {
+        "startLine": 105,
+        "startChar": 25,
+        "endLine": 106,
+        "endChar": 16
+      },
+      "revId": "86fd229347754081adc1b2dc19bee504bd9f6c21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f452da28_d67fbd60",
         "filename": "rtc_base/callback_list.h",
         "patchSetId": 4
@@ -54,6 +78,30 @@
       "writtenOn": "2020-11-09T07:50:10Z",
       "side": 1,
       "message": "Maybe this part can be removed. Yes removal support is probably easily implemented.",
+      "range": {
+        "startLine": 129,
+        "startChar": 56,
+        "endLine": 139,
+        "endChar": 60
+      },
+      "revId": "86fd229347754081adc1b2dc19bee504bd9f6c21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "918e2c61_f4ba7e86",
+        "filename": "rtc_base/callback_list.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-09T09:39:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f452da28_d67fbd60",
       "range": {
         "startLine": 129,
         "startChar": 56,

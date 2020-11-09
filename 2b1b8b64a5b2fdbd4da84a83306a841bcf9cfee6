@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5251933_36968f82",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-11-09T20:48:34Z",
+      "side": 1,
+      "message": "Removing a completely unnecessary inheritance saved up to Kbytes in binary size. Seems like a net win.\n",
+      "revId": "2b1b8b64a5b2fdbd4da84a83306a841bcf9cfee6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

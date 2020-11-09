@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1a6a242c_735b9cf3",
+        "filename": "pc/jsep_transport_controller.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-09T09:31:02Z",
+      "side": 1,
+      "message": "Yes, I suspect that\u0027s a good idea. See the new docs being added in https://webrtc-review.googlesource.com/c/src/+/191966; they explicitly address how to do this.",
+      "parentUuid": "2d3640d8_5ecf5b6f",
+      "range": {
+        "startLine": 203,
+        "startChar": 2,
+        "endLine": 224,
+        "endChar": 36
+      },
+      "revId": "173eac589b8b828ce82a129a64c77386d615c63c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3d18009b_0da5d9f9",
         "filename": "pc/jsep_transport_controller_unittest.cc",
         "patchSetId": 4

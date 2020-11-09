@@ -101,7 +101,7 @@ uint32_t ConvertIceTransportTypeToCandidateFilter(
     case PeerConnectionInterface::kAll:
       return cricket::CF_ALL;
     default:
-      RTC_NOTREACHED();
+      RTC_CHECK_NOTREACHED();
   }
   return cricket::CF_NONE;
 }
@@ -220,7 +220,7 @@ cricket::IceConfig ParseIceConfig(
       gathering_policy = cricket::GATHER_CONTINUALLY;
       break;
     default:
-      RTC_NOTREACHED();
+      RTC_CHECK_NOTREACHED();
       gathering_policy = cricket::GATHER_ONCE;
   }
 
@@ -2109,7 +2109,7 @@ void PeerConnection::OnTransportControllerConnectionState(
       ReportTransportStats();
       break;
     default:
-      RTC_NOTREACHED();
+      RTC_CHECK_NOTREACHED();
   }
 }
 
@@ -2345,7 +2345,7 @@ void PeerConnection::OnTransportControllerGatheringState(
     OnIceGatheringChange(PeerConnectionInterface::kIceGatheringNew);
   } else {
     RTC_LOG(LS_ERROR) << "Unknown state received: " << state;
-    RTC_NOTREACHED();
+    RTC_CHECK_NOTREACHED();
   }
 }
 
@@ -2463,7 +2463,7 @@ void PeerConnection::ReportNegotiatedCiphers(
               rtc::SRTP_CRYPTO_SUITE_MAX_VALUE);
           break;
         default:
-          RTC_NOTREACHED();
+          RTC_CHECK_NOTREACHED();
           continue;
       }
     }
@@ -2488,7 +2488,7 @@ void PeerConnection::ReportNegotiatedCiphers(
               rtc::SSL_CIPHER_SUITE_MAX_VALUE);
           break;
         default:
-          RTC_NOTREACHED();
+          RTC_CHECK_NOTREACHED();
           continue;
       }
     }

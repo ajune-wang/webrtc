@@ -359,7 +359,7 @@ class MediaTypesEnum : public IEnumMediaTypes {
         media_type->subtype = MEDIASUBTYPE_MJPG;
         break;
       default:
-        RTC_NOTREACHED();
+        RTC_CHECK_NOTREACHED();
     }
   }
 

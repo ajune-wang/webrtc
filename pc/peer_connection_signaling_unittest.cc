@@ -81,7 +81,7 @@ class ExecuteFunctionOnCreateSessionDescriptionObserver
     function_(desc);
   }
 
-  void OnFailure(RTCError error) override { RTC_NOTREACHED(); }
+  void OnFailure(RTCError error) override { RTC_CHECK_NOTREACHED(); }
 
  private:
   bool was_called_ = false;

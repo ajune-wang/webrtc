@@ -224,7 +224,7 @@ void AecDumpImpl::WriteRuntimeSetting(
       break;
     }
     case AudioProcessing::RuntimeSetting::Type::kNotSpecified:
-      RTC_NOTREACHED();
+      RTC_CHECK_NOTREACHED();
       break;
   }
   worker_queue_->PostTask(std::move(task));

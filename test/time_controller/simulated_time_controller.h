@@ -109,13 +109,13 @@ class TokenTaskQueue : public TaskQueueBase {
   // Promoted to public
   using CurrentTaskQueueSetter = TaskQueueBase::CurrentTaskQueueSetter;
 
-  void Delete() override { RTC_NOTREACHED(); }
+  void Delete() override { RTC_CHECK_NOTREACHED(); }
   void PostTask(std::unique_ptr<QueuedTask> /*task*/) override {
-    RTC_NOTREACHED();
+    RTC_CHECK_NOTREACHED();
   }
   void PostDelayedTask(std::unique_ptr<QueuedTask> /*task*/,
                        uint32_t /*milliseconds*/) override {
-    RTC_NOTREACHED();
+    RTC_CHECK_NOTREACHED();
   }
 };
 

@@ -49,7 +49,7 @@ class SimulatedProcessThread : public ProcessThread,
  private:
   void Delete() override {
     // ProcessThread shouldn't be deleted as a TaskQueue.
-    RTC_NOTREACHED();
+    RTC_CHECK_NOTREACHED();
   }
   Timestamp GetNextTime(Module* module, Timestamp at_time);
 

@@ -222,7 +222,7 @@ ScalabilityStructureFullSvc::NextFrameConfig(bool restart) {
       }
       break;
     case kNone:
-      RTC_NOTREACHED();
+      RTC_CHECK_NOTREACHED();
       break;
   }
 

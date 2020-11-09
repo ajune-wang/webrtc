@@ -61,7 +61,7 @@ int GetProtocolPriority(cricket::ProtocolType protocol) {
     case cricket::PROTO_TLS:
       return 0;
     default:
-      RTC_NOTREACHED();
+      RTC_CHECK_NOTREACHED();
       return 0;
   }
 }
@@ -73,7 +73,7 @@ int GetAddressFamilyPriority(int ip_family) {
     case AF_INET:
       return 1;
     default:
-      RTC_NOTREACHED();
+      RTC_CHECK_NOTREACHED();
       return 0;
   }
 }
@@ -592,7 +592,7 @@ void BasicPortAllocatorSession::OnMessage(rtc::Message* message) {
       OnConfigStop();
       break;
     default:
-      RTC_NOTREACHED();
+      RTC_CHECK_NOTREACHED();
   }
 }
 
@@ -1162,7 +1162,7 @@ void BasicPortAllocatorSession::OnPortDestroyed(PortInterface* port) {
       return;
     }
   }
-  RTC_NOTREACHED();
+  RTC_CHECK_NOTREACHED();
 }
 
 BasicPortAllocatorSession::PortData* BasicPortAllocatorSession::FindPort(
@@ -1376,7 +1376,7 @@ void AllocationSequence::OnMessage(rtc::Message* msg) {
       break;
 
     default:
-      RTC_NOTREACHED();
+      RTC_CHECK_NOTREACHED();
   }
 
   if (state() == kRunning) {
@@ -1629,7 +1629,7 @@ void AllocationSequence::OnPortDestroyed(PortInterface* port) {
     relay_ports_.erase(it);
   } else {
     RTC_LOG(LS_ERROR) << "Unexpected OnPortDestroyed for nonexistent port.";
-    RTC_NOTREACHED();
+    RTC_CHECK_NOTREACHED();
   }
 }
 

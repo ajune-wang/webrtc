@@ -26,7 +26,7 @@ const char* FrameGeneratorInterface::OutputTypeToString(
     case OutputType::kNV12:
       return "NV12";
     default:
-      RTC_NOTREACHED();
+      RTC_CHECK_NOTREACHED();
   }
 }
 

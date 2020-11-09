@@ -36,7 +36,7 @@ class CallbackWithSeverityLogSink : public rtc::LogSink {
   CallbackWithSeverityLogSink(RTCCallbackLoggerMessageAndSeverityHandler callbackHandler)
       : callback_handler_(callbackHandler) {}
 
-  void OnLogMessage(const std::string& message) override { RTC_NOTREACHED(); }
+  void OnLogMessage(const std::string& message) override { RTC_CHECK_NOTREACHED(); }
 
   void OnLogMessage(const std::string& message, rtc::LoggingSeverity severity) override {
     if (callback_handler_) {

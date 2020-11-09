@@ -104,7 +104,7 @@ static NetworkType GetNetworkTypeFromJava(
   if (enum_name == "CONNECTION_NONE") {
     return NetworkType::NETWORK_NONE;
   }
-  RTC_NOTREACHED();
+  RTC_CHECK_NOTREACHED();
   return NetworkType::NETWORK_UNKNOWN;
 }
 

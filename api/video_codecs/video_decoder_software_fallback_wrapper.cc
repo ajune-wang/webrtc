@@ -229,7 +229,7 @@ int32_t VideoDecoderSoftwareFallbackWrapper::Decode(
       return fallback_decoder_->Decode(input_image, missing_frames,
                                        render_time_ms);
     default:
-      RTC_NOTREACHED();
+      RTC_CHECK_NOTREACHED();
       return WEBRTC_VIDEO_CODEC_ERROR;
   }
 }
@@ -254,7 +254,7 @@ int32_t VideoDecoderSoftwareFallbackWrapper::Release() {
       status = WEBRTC_VIDEO_CODEC_OK;
       break;
     default:
-      RTC_NOTREACHED();
+      RTC_CHECK_NOTREACHED();
       status = WEBRTC_VIDEO_CODEC_ERROR;
   }
 

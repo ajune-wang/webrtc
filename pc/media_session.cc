@@ -1567,7 +1567,7 @@ std::unique_ptr<SessionDescription> MediaSessionDescriptionFactory::CreateOffer(
         }
         break;
       default:
-        RTC_NOTREACHED();
+        RTC_CHECK_NOTREACHED();
     }
     ++msection_index;
   }
@@ -1729,7 +1729,7 @@ MediaSessionDescriptionFactory::CreateAnswer(
         }
         break;
       default:
-        RTC_NOTREACHED();
+        RTC_CHECK_NOTREACHED();
     }
     ++msection_index;
     // See if we can add the newly generated m= section to the BUNDLE group in

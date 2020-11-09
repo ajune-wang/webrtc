@@ -373,7 +373,7 @@ static void AttachSenderToMediaDescriptionOptions(
       it->AddRtpDataChannel(track_id, stream_ids[0]);
       break;
     default:
-      RTC_NOTREACHED();
+      RTC_CHECK_NOTREACHED();
   }
 }
 
@@ -4865,7 +4865,7 @@ void TestAudioCodecsAnswer(RtpTransceiverDirection offer_direction,
         break;
       case RtpTransceiverDirection::kStopped:
         // This does not happen in any current test.
-        RTC_NOTREACHED();
+        RTC_CHECK_NOTREACHED();
     }
 
     auto format_codecs = [](const std::vector<AudioCodec>& codecs) {

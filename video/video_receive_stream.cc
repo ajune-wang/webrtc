@@ -603,14 +603,14 @@ absl::optional<Syncable::Info> VideoReceiveStream::GetInfo() const {
 
 bool VideoReceiveStream::GetPlayoutRtpTimestamp(uint32_t* rtp_timestamp,
                                                 int64_t* time_ms) const {
-  RTC_NOTREACHED();
+  RTC_CHECK_NOTREACHED();
   return 0;
 }
 
 void VideoReceiveStream::SetEstimatedPlayoutNtpTimestampMs(
     int64_t ntp_timestamp_ms,
     int64_t time_ms) {
-  RTC_NOTREACHED();
+  RTC_CHECK_NOTREACHED();
 }
 
 bool VideoReceiveStream::SetMinimumPlayoutDelay(int delay_ms) {

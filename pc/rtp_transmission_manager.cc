@@ -337,7 +337,7 @@ RtpTransmissionManager::GetAudioTransceiver() const {
       return transceiver;
     }
   }
-  RTC_NOTREACHED();
+  RTC_CHECK_NOTREACHED();
   return nullptr;
 }
 
@@ -352,7 +352,7 @@ RtpTransmissionManager::GetVideoTransceiver() const {
       return transceiver;
     }
   }
-  RTC_NOTREACHED();
+  RTC_CHECK_NOTREACHED();
   return nullptr;
 }
 

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15d78fe6_469da1fc",
+        "filename": "rtc_base/callback_list.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-11-09T12:45:57Z",
+      "side": 1,
+      "message": "Can you add a similar check to the destructor too? With sigslots, I\u0027ve seen one case of a signal triggering the destruction of the signalling object, which was bad (but might have worked with a plain callback).",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 34
+      },
+      "revId": "fff9baae6ae7b3fb95a78d19281c86c3aaf07d89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

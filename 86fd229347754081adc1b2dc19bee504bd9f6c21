@@ -89,6 +89,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8de17742_5d8bd237",
+        "filename": "rtc_base/callback_list.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-09T11:42:09Z",
+      "side": 1,
+      "message": "Yes, that doesn\u0027t seem like a bad idea; modifying the set of receivers or doing a Send while a Send is already in progress seems like a bad idea, even if the current implementation probably doesn\u0027t break.\n\nWill make a separate CL for that.",
+      "parentUuid": "1b2baf66_bfa72ef4",
+      "range": {
+        "startLine": 105,
+        "startChar": 25,
+        "endLine": 106,
+        "endChar": 16
+      },
+      "revId": "86fd229347754081adc1b2dc19bee504bd9f6c21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f452da28_d67fbd60",

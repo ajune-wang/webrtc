@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "624d8be5_19f4bc7a",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-11-09T11:49:17Z",
+      "side": 1,
+      "message": "Not possible, lhs is std::vector",
+      "parentUuid": "42412199_7d416e91",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 52
+      },
+      "revId": "b0f07fe0e9231fad83af62b6e1f490b83cbd3ff7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "54eab6e9_dc1c3564",
@@ -37,6 +61,30 @@
       "writtenOn": "2020-11-05T23:26:54Z",
       "side": 1,
       "message": "Change to static assert?",
+      "range": {
+        "startLine": 41,
+        "startChar": 2,
+        "endLine": 41,
+        "endChar": 72
+      },
+      "revId": "b0f07fe0e9231fad83af62b6e1f490b83cbd3ff7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e90245b_055be884",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-11-09T11:49:17Z",
+      "side": 1,
+      "message": "same as above",
+      "parentUuid": "54eab6e9_dc1c3564",
       "range": {
         "startLine": 41,
         "startChar": 2,
@@ -70,6 +118,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb408944_a226d727",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-11-09T11:49:17Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f0f6fd1e_45f6c4bf",
+      "range": {
+        "startLine": 53,
+        "startChar": 24,
+        "endLine": 53,
+        "endChar": 36
+      },
+      "revId": "b0f07fe0e9231fad83af62b6e1f490b83cbd3ff7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b26822cf_8bb414d6",
@@ -83,6 +155,30 @@
       "writtenOn": "2020-11-05T23:26:54Z",
       "side": 1,
       "message": "Change to static assert?",
+      "range": {
+        "startLine": 55,
+        "startChar": 2,
+        "endLine": 55,
+        "endChar": 56
+      },
+      "revId": "b0f07fe0e9231fad83af62b6e1f490b83cbd3ff7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "302f4659_1da55cae",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-11-09T11:49:17Z",
+      "side": 1,
+      "message": "same as above",
+      "parentUuid": "b26822cf_8bb414d6",
       "range": {
         "startLine": 55,
         "startChar": 2,
@@ -116,6 +212,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "46714c67_2a6e05cf",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-11-09T11:49:17Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d4f6929c_e6494ce8",
+      "range": {
+        "startLine": 252,
+        "startChar": 18,
+        "endLine": 252,
+        "endChar": 50
+      },
+      "revId": "b0f07fe0e9231fad83af62b6e1f490b83cbd3ff7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "19ed2017_c2a232c3",
@@ -129,6 +249,30 @@
       "writtenOn": "2020-11-05T23:26:54Z",
       "side": 1,
       "message": "This seems incorrect. If this is an auto-correlation, the assignment on, for instance, line 386 seems very strange.",
+      "range": {
+        "startLine": 370,
+        "startChar": 4,
+        "endLine": 370,
+        "endChar": 35
+      },
+      "revId": "b0f07fe0e9231fad83af62b6e1f490b83cbd3ff7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "55e3c329_1bc637e9",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-11-09T11:49:17Z",
+      "side": 1,
+      "message": "Right, that\u0027s the energy for the sliding frame in the pitch buffer (aka `y` frame).\nActually the same holds for the line above and line 384-385 (mismatch: cross- vs auto-correlation). Fixed both.",
+      "parentUuid": "19ed2017_c2a232c3",
       "range": {
         "startLine": 370,
         "startChar": 4,
@@ -162,6 +306,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "04be92ac_f8c98f45",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-11-09T11:49:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8dd26201_da4ce77d",
+      "range": {
+        "startLine": 375,
+        "startChar": 2,
+        "endLine": 375,
+        "endChar": 13
+      },
+      "revId": "b0f07fe0e9231fad83af62b6e1f490b83cbd3ff7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e40df0e2_7598afcb",
@@ -185,6 +353,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bc7d8c8_97e261c9",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-11-09T11:49:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e40df0e2_7598afcb",
+      "range": {
+        "startLine": 386,
+        "startChar": 13,
+        "endLine": 386,
+        "endChar": 15
+      },
+      "revId": "b0f07fe0e9231fad83af62b6e1f490b83cbd3ff7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0b120613_51f287be",
@@ -198,6 +390,30 @@
       "writtenOn": "2020-11-05T23:26:54Z",
       "side": 1,
       "message": "Why the prefix y_? (same question for line 69)\ny is only used in these two places and is never defined anywhere.\nCan\u0027t this be renamed to energy instead?",
+      "range": {
+        "startLine": 62,
+        "startChar": 52,
+        "endLine": 62,
+        "endChar": 60
+      },
+      "revId": "b0f07fe0e9231fad83af62b6e1f490b83cbd3ff7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20a17dd7_4cd2caba",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-11-09T11:49:17Z",
+      "side": 1,
+      "message": "I now added details about the pitch buffer in lines 29-62.\n`y` clarifies that we refer to the sliding frame in the pitch buffer.\n\n`energy` works as well, but with `y` I can just refer to the sliding frame.\n\nWDYT?\n\nPS: note that the long comment above has been added in the parent CL",
+      "parentUuid": "0b120613_51f287be",
       "range": {
         "startLine": 62,
         "startChar": 52,

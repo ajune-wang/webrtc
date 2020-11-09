@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1b2baf66_bfa72ef4",
+        "filename": "rtc_base/callback_list.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-11-09T10:27:31Z",
+      "side": 1,
+      "message": "I wrote this comment before realizing that our use of sigslot::signal is single threaded, so this is not a concern if callbacklist is meant to be a drop in replacement.\n\nWould you consider adding a reentrancy checker to AddReceiver and Send?",
+      "parentUuid": "13ab6657_fd3ce9aa",
+      "range": {
+        "startLine": 105,
+        "startChar": 25,
+        "endLine": 106,
+        "endChar": 16
+      },
+      "revId": "86fd229347754081adc1b2dc19bee504bd9f6c21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f452da28_d67fbd60",
         "filename": "rtc_base/callback_list.h",
         "patchSetId": 4

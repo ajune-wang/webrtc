@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a87df499_86cdd277",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-11-09T14:19:46Z",
+      "side": 1,
+      "message": "I\u0027m a bit surprised this change only saves 224 bytes.\n",
+      "revId": "663b1567d76a61f3d1de3cf48693040840d941bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

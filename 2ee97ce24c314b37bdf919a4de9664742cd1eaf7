@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e07c48a5_c46bae9b",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-09T14:30:52Z",
+      "side": 1,
+      "message": "Why the extra nested scope?",
+      "range": {
+        "startLine": 107,
+        "startChar": 3,
+        "endLine": 115,
+        "endChar": 3
+      },
+      "revId": "2ee97ce24c314b37bdf919a4de9664742cd1eaf7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

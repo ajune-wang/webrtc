@@ -60,6 +60,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "59762b6a_16010e45",
+        "filename": "modules/congestion_controller/goog_cc/send_side_bandwidth_estimation.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-11-09T07:26:07Z",
+      "side": 1,
+      "message": "I dont think there is a setter, that is why",
+      "parentUuid": "ce17928f_2e30e154",
+      "range": {
+        "startLine": 160,
+        "startChar": 6,
+        "endLine": 160,
+        "endChar": 56
+      },
+      "revId": "603bbdf8c04aee698345deb0366491ae7fa24b2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "82912d9b_a2c34103",
         "filename": "modules/congestion_controller/goog_cc/send_side_bandwidth_estimation.h",
         "patchSetId": 1
@@ -95,6 +119,30 @@
       "side": 1,
       "message": "Ah, test obviously. Getter with TestOnly in name? Just follow WebRTC tradition. Feel fee to just ack.",
       "parentUuid": "82912d9b_a2c34103",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 23
+      },
+      "revId": "603bbdf8c04aee698345deb0366491ae7fa24b2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33baffeb_0fc40dca",
+        "filename": "modules/congestion_controller/goog_cc/send_side_bandwidth_estimation.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-11-09T07:26:07Z",
+      "side": 1,
+      "message": "THis whole class is public - all members are accessed by SendSideBandwidthEstimation.",
+      "parentUuid": "868b70b0_9ee0353e",
       "range": {
         "startLine": 70,
         "startChar": 0,

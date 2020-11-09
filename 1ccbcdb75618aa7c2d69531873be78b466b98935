@@ -76,6 +76,29 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "db230135_cc7db210",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioTrack.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 14869
+      },
+      "writtenOn": "2020-11-09T18:15:00Z",
+      "side": 1,
+      "message": "Eeks. This should have used `attributesBuilder.build()`. For some reasons, it did not make it to the patch.",
+      "range": {
+        "startLine": 414,
+        "startChar": 26,
+        "endLine": 417,
+        "endChar": 38
+      },
+      "revId": "1ccbcdb75618aa7c2d69531873be78b466b98935",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "83f43770_4745acf6",
@@ -89,6 +112,30 @@
       "writtenOn": "2020-11-06T09:52:57Z",
       "side": 1,
       "message": "To avoid duplication of the default constants, could you instead start by creating a builder and setting the defaults, and then only override them if not UNKNOWN?\n\n  AudioAttributes.Builder attributesBuilder \u003d new AudioAttributes.Builder()                              \n      .setUsage(DEFAULT_USAGE)                              \n      .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH);\n\n  if (overrideAttributes !\u003d null) {\n    if (contentType !\u003d AudioAttributes.CONTENT_TYPE_UNKNOWN) {\n      attributesBuilder.setContentType(contentType);\n    }\n    // same for the other attributes\n  }\n\nMaybe you can have a combined method like applyOverrides(AudioAttributes.Builder defaultAttrs, AudioAttributes overrideAttributes) to handle applying all the overrides, instead of the many small methods. I\u0027ll leave it up to you.\n\nAnd again, remember to actually pass it to the constructor in the end :)",
+      "range": {
+        "startLine": 427,
+        "startChar": 4,
+        "endLine": 428,
+        "endChar": 25
+      },
+      "revId": "1ccbcdb75618aa7c2d69531873be78b466b98935",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42e24010_a9417af4",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioTrack.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 14869
+      },
+      "writtenOn": "2020-11-09T18:15:00Z",
+      "side": 1,
+      "message": "Sounds a fair \"contained\" approach:\n\n1. Apply defaults\n2. Apply overrides\n\nThe only reason I did it modular like this was to avoid multiple settings.\n\nLet me update the code",
+      "parentUuid": "83f43770_4745acf6",
       "range": {
         "startLine": 427,
         "startChar": 4,

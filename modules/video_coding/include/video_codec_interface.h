@@ -78,8 +78,6 @@ struct CodecSpecificInfoVP9 {
   // Frame reference data.
   uint8_t num_ref_pics;
   uint8_t p_diff[kMaxVp9RefPics];
-
-  bool end_of_picture;
 };
 static_assert(std::is_pod<CodecSpecificInfoVP9>::value, "");
 
@@ -109,6 +107,7 @@ struct RTC_EXPORT CodecSpecificInfo {
 
   VideoCodecType codecType;
   CodecSpecificInfoUnion codecSpecific;
+  bool end_of_picture = true;
   absl::optional<GenericFrameInfo> generic_frame_info;
   absl::optional<FrameDependencyStructure> template_structure;
 };

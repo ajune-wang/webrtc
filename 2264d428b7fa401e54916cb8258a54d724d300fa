@@ -16,6 +16,92 @@
       "message": "Not much code size saving on this one.\n",
       "revId": "2264d428b7fa401e54916cb8258a54d724d300fa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5e28bf4_bb385ba1",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-10T13:06:06Z",
+      "side": 1,
+      "message": "std::move here; not required, but good for efficiency",
+      "range": {
+        "startLine": 129,
+        "startChar": 29,
+        "endLine": 129,
+        "endChar": 50
+      },
+      "revId": "2264d428b7fa401e54916cb8258a54d724d300fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d976387_689cced0",
+        "filename": "pc/rtp_transceiver_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-10T13:06:06Z",
+      "side": 1,
+      "message": "Maybe something like this instead?\n\n  /*on_negotiation_needed\u003d*/[] { /* Do nothing. */ }\n\nstd::function objects can also be null, but the code elsewhere in this CL calls it unconditionally, so passing nullptr here wouldn\u0027t work.",
+      "range": {
+        "startLine": 97,
+        "startChar": 21,
+        "endLine": 97,
+        "endChar": 68
+      },
+      "revId": "2264d428b7fa401e54916cb8258a54d724d300fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83a2bcc7_3a8c6da6",
+        "filename": "pc/rtp_transceiver_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-10T13:06:06Z",
+      "side": 1,
+      "message": "same",
+      "revId": "2264d428b7fa401e54916cb8258a54d724d300fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "839c3628_122f0d65",
+        "filename": "pc/rtp_transmission_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-10T13:06:06Z",
+      "side": 1,
+      "message": "if (this_weak_ptr)\n  this_weak_ptr-\u003eOnNegotiationNeeded();",
+      "range": {
+        "startLine": 275,
+        "startChar": 12,
+        "endLine": 277,
+        "endChar": 49
+      },
+      "revId": "2264d428b7fa401e54916cb8258a54d724d300fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

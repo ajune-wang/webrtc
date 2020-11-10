@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f12cf7dc_303cceae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-11-10T17:06:18Z",
+      "side": 1,
+      "message": "Christoffer, PTAL at api/*\nErik, Florent, PTAL",
+      "revId": "d6513f80fdca3234ff6cdde3b2ed1a23e203d845",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

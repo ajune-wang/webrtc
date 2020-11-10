@@ -16,6 +16,24 @@
       "message": "I have checked the old version better this time and now it looks OK. The main thing is to ensure that the current functionality is not affected when the new API is not utilized. And I think it is the case now.\n\nPaulina, please double check. Thanks.",
       "revId": "eff238e24c75ffbdfd2986770732e65ca73eb395",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a93a9af_7598af7d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2020-11-10T08:50:33Z",
+      "side": 1,
+      "message": "Agreed, looks good.",
+      "parentUuid": "ae42aa32_faa91a22",
+      "revId": "eff238e24c75ffbdfd2986770732e65ca73eb395",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

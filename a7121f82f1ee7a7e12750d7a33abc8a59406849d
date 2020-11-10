@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "464d5b71_486ade14",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13776
+      },
+      "writtenOn": "2020-11-10T07:33:09Z",
+      "side": 1,
+      "message": "Hello guys, thanks for taking a look at the review. I have addressed the comments and made the change more conservative and safe, can you please take a look again at the latest revision?",
+      "revId": "a7121f82f1ee7a7e12750d7a33abc8a59406849d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

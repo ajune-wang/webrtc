@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2a2cc25_010710a6",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-11-10T13:13:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e5e28bf4_bb385ba1",
+      "range": {
+        "startLine": 129,
+        "startChar": 29,
+        "endLine": 129,
+        "endChar": 50
+      },
+      "revId": "2264d428b7fa401e54916cb8258a54d724d300fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8d976387_689cced0",
@@ -54,6 +78,30 @@
       "writtenOn": "2020-11-10T13:06:06Z",
       "side": 1,
       "message": "Maybe something like this instead?\n\n  /*on_negotiation_needed\u003d*/[] { /* Do nothing. */ }\n\nstd::function objects can also be null, but the code elsewhere in this CL calls it unconditionally, so passing nullptr here wouldn\u0027t work.",
+      "range": {
+        "startLine": 97,
+        "startChar": 21,
+        "endLine": 97,
+        "endChar": 68
+      },
+      "revId": "2264d428b7fa401e54916cb8258a54d724d300fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "013b4fd2_a69fc40e",
+        "filename": "pc/rtp_transceiver_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-11-10T13:13:24Z",
+      "side": 1,
+      "message": "It seems people recognize []{} as a do-nothing lambda, so only adopting the first half :-)",
+      "parentUuid": "8d976387_689cced0",
       "range": {
         "startLine": 97,
         "startChar": 21,
@@ -81,6 +129,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9addda8_9df0b712",
+        "filename": "pc/rtp_transceiver_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-11-10T13:13:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83a2bcc7_3a8c6da6",
+      "revId": "2264d428b7fa401e54916cb8258a54d724d300fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "839c3628_122f0d65",
@@ -94,6 +160,30 @@
       "writtenOn": "2020-11-10T13:06:06Z",
       "side": 1,
       "message": "if (this_weak_ptr)\n  this_weak_ptr-\u003eOnNegotiationNeeded();",
+      "range": {
+        "startLine": 275,
+        "startChar": 12,
+        "endLine": 277,
+        "endChar": 49
+      },
+      "revId": "2264d428b7fa401e54916cb8258a54d724d300fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c853a758_3279fece",
+        "filename": "pc/rtp_transmission_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-11-10T13:13:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "839c3628_122f0d65",
       "range": {
         "startLine": 275,
         "startChar": 12,

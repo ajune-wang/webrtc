@@ -85,6 +85,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "23751ccc_fd3c799a",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-10T17:37:09Z",
+      "side": 1,
+      "message": "It doesn\u0027t matter how you implement .size() and .data()---as long as they exist and have the right signature, there\u0027s an implicit ArrayView constructor that will accept your type, just like it now accepts e.g. std::vector: https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/api/array_view.h;l\u003d226-248;drc\u003de2c548503beb7d5398acd537dc4cab2d3c4775f7",
+      "parentUuid": "1468e4aa_d830e665",
+      "revId": "6ff25905b24fb4c8ca61864830fb144df5f0e650",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0b32a1d0_a2f751dd",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
         "patchSetId": 5
@@ -114,6 +132,24 @@
       "side": 1,
       "message": "nice to learn about `BoundedInlineVector`; however, it looks like it can\u0027t be used in here since there\u0027s no modifier that behaves as `InvertedLagsIndex::Append()` does",
       "parentUuid": "0b32a1d0_a2f751dd",
+      "revId": "6ff25905b24fb4c8ca61864830fb144df5f0e650",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da234478_ee8ad20e",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-10T17:37:09Z",
+      "side": 1,
+      "message": "You could add one. But as I said, also feel free to go with what you already have.",
+      "parentUuid": "0bb51f7e_59417f4a",
       "revId": "6ff25905b24fb4c8ca61864830fb144df5f0e650",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

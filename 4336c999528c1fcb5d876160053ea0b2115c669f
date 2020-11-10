@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d42d5185_fc60f451",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-10T17:37:09Z",
+      "side": 1,
+      "message": "LGTM, but I would strongly suggest that you remove the View method and enable implicit conversion to ArrayView instead.",
+      "revId": "4336c999528c1fcb5d876160053ea0b2115c669f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

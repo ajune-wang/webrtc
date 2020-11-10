@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '73d177aee96b3ecfab78cb78594ab1b3faa6f798',
+  'chromium_revision': 'b859bb5d6eb6e0632b0df15aade586dd963a29a5',
 
   # This can be overridden, e.g. with custom_vars, to download a nonstandard
   # Xcode version in build/mac_toolchain.py
@@ -39,7 +39,7 @@ deps = {
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@7d4fe53baa12aea6cef02b399ecaf74cce44b9a9',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@76ae2d132e8f12d1aafd1bc0ad01f4c60c698c68',
+    'https://chromium.googlesource.com/chromium/src/third_party@5842704b2fedebc6ab6139c715144764b66e9760',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -137,7 +137,7 @@ deps = {
   'src/third_party/colorama/src':
     'https://chromium.googlesource.com/external/colorama.git@799604a1041e9b3bc5d2789ecbd7e8db2e18e6b8',
   'src/third_party/depot_tools':
-    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@e7a31f42cda3d70b2da66b44634fc0a157dbe347',
+    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@edd94d2b8c50d604e136c1fcb57926a24c6116b7',
   'src/third_party/ffmpeg':
     'https://chromium.googlesource.com/chromium/third_party/ffmpeg.git@6d9096c9e3f7f5d4e6528104ed77987ec9327315',
   'src/third_party/findbugs': {
@@ -208,7 +208,7 @@ deps = {
       'condition': 'checkout_android',
   },
   'src/third_party/perfetto':
-    'https://android.googlesource.com/platform/external/perfetto.git@38f3d771bd8e100b4b8b0acac08b1e457d5f14a7',
+    'https://android.googlesource.com/platform/external/perfetto.git@952ef3e0647215edbae15a45fe4cabc4b33ddd69',
   'src/third_party/libvpx/source/libvpx':
     'https://chromium.googlesource.com/webm/libvpx.git@94384b5c685ad3baac8989f19ee587eb72093a7f',
   'src/third_party/libyuv':
@@ -265,7 +265,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@2fe40683983f3b35df7109311b0a061cbfb5803c',
+    'https://chromium.googlesource.com/chromium/src/tools@c91a25bc759a02f747cbb536264fc617f88e29ae',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@d46ea7635f2911208268170512cb611412488fd8',
 

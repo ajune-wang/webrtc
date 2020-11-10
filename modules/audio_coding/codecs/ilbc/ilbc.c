@@ -260,7 +260,7 @@ size_t WebRtcIlbcfix_DecodePlc(IlbcDecoderInstance* iLBCdec_inst,
   for (i=0;i<noOfLostFrames;i++) {
     // PLC decoding shouldn't fail, because there is no external input data
     // that can be bad.
-    RTC_CHECK(WebRtcIlbcfix_DecodeImpl(
+    RTC_CHECK(!WebRtcIlbcfix_DecodeImpl(
         &decoded[i * ((IlbcDecoder*)iLBCdec_inst)->blockl], &dummy,
         (IlbcDecoder*)iLBCdec_inst, 0));
   }

@@ -63,6 +63,30 @@
       },
       "revId": "b632f10d570f6e160139a7e3f731be81a8723e47",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39383f77_63b4cca1",
+        "filename": "rtc_base/callback_list.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-11-10T16:32:38Z",
+      "side": 1,
+      "message": "On the other hand we\u0027re putting new behavior in... I don\u0027t think we CHECK this with sigslot atm right?",
+      "parentUuid": "9fb80790_28b304ed",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 13
+      },
+      "revId": "b632f10d570f6e160139a7e3f731be81a8723e47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

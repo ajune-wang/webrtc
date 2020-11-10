@@ -39,6 +39,30 @@
       },
       "revId": "b632f10d570f6e160139a7e3f731be81a8723e47",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fb80790_28b304ed",
+        "filename": "rtc_base/callback_list.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-11-10T14:52:07Z",
+      "side": 1,
+      "message": "I\u0027d prefer RTC_CHECK. If it happens in production, we\u0027ll get scary undefined behavior (invalidating an iterator that is in use, if I understand it correctly). And the function shouldn\u0027t be called often enough that it matters for performance.",
+      "parentUuid": "8e576a5c_a51b8213",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 13
+      },
+      "revId": "b632f10d570f6e160139a7e3f731be81a8723e47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

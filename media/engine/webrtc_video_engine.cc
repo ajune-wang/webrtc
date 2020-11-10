@@ -67,6 +67,11 @@ bool IsEnabled(const webrtc::WebRtcKeyValueConfig& trials,
   return absl::StartsWith(trials.Lookup(name), "Enabled");
 }
 
+bool IsDisabled(const webrtc::WebRtcKeyValueConfig& trials,
+                absl::string_view name) {
+  return absl::StartsWith(trials.Lookup(name), "Disabled");
+}
+
 bool PowerOfTwo(int value) {
   return (value > 0) && ((value & (value - 1)) == 0);
 }
@@ -101,8 +106,22 @@ void AddDefaultFeedbackParams(VideoCodec* codec,
   }
 }
 
+// Currently, video FlexFEC feature is not optimally implemented
+// and is disabled by default for the video sender.
+void AddFlexFecFormat(std::vector<webrtc::SdpVideoFormat>* input_formats) {
+  if (input_formats) {
+    webrtc::SdpVideoFormat flexfec_format(kFlexfecCodecName);
+    // This value is currently arbitrarily set to 10 seconds. (The unit
+    // is microseconds.) This parameter MUST be present in the SDP, but
+    // we never use the actual value anywhere in our code however.
+    // TODO(brandtr): Consider honouring this value in the sender and receiver.
+    flexfec_format.parameters = {{kFlexfecFmtpRepairWindow, "10000000"}};
+    input_formats->push_back(flexfec_format);
+  }
+}
+
 // This function will assign dynamic payload types (in the range [96, 127]) to
-// the input codecs, and also add ULPFEC, RED, FlexFEC, and associated RTX
+// the input codecs, and also add ULPFEC, RED, and associated RTX
 // codecs for recognized codecs (VP8, VP9, H264, and RED). It will also add
 // default feedback params to the codecs.
 std::vector<VideoCodec> AssignPayloadTypesAndDefaultCodecs(
@@ -116,16 +135,6 @@ std::vector<VideoCodec> AssignPayloadTypesAndDefaultCodecs(
 
   input_formats.push_back(webrtc::SdpVideoFormat(kRedCodecName));
   input_formats.push_back(webrtc::SdpVideoFormat(kUlpfecCodecName));
-
-  if (IsEnabled(trials, "WebRTC-FlexFEC-03-Advertised")) {
-    webrtc::SdpVideoFormat flexfec_format(kFlexfecCodecName);
-    // This value is currently arbitrarily set to 10 seconds. (The unit
-    // is microseconds.) This parameter MUST be present in the SDP, but
-    // we never use the actual value anywhere in our code however.
-    // TODO(brandtr): Consider honouring this value in the sender and receiver.
-    flexfec_format.parameters = {{kFlexfecFmtpRepairWindow, "10000000"}};
-    input_formats.push_back(flexfec_format);
-  }
 
   std::vector<VideoCodec> output_codecs;
   for (const webrtc::SdpVideoFormat& format : input_formats) {
@@ -160,6 +169,8 @@ std::vector<VideoCodec> AssignPayloadTypesAndDefaultCodecs(
 
 // is_decoder_factory is needed to keep track of the implict assumption that any
 // H264 decoder also supports constrained base line profile.
+// Also, is_decoder_factory is used to decide whether FlexFEC video format
+// should be advertised as supported.
 // TODO(kron): Perhaps it better to move the implcit knowledge to the place
 // where codecs are negotiated.
 template <class T>
@@ -175,6 +186,9 @@ std::vector<VideoCodec> GetPayloadTypesAndDefaultCodecs(
       factory->GetSupportedFormats();
   if (is_decoder_factory) {
     AddH264ConstrainedBaselineProfileToSupportedFormats(&supported_formats);
+    if (!IsDisabled(trials, "WebRTC-FlexFEC-03-Advertised")) {
+      AddFlexFecFormat(&supported_formats);
+    }
   }
 
   return AssignPayloadTypesAndDefaultCodecs(std::move(supported_formats),

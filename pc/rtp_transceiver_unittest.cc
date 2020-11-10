@@ -93,7 +93,8 @@ class RtpTransceiverUnifiedPlanTest : public ::testing::Test {
                          rtc::Thread::Current(),
                          new rtc::RefCountedObject<MockRtpReceiverInternal>()),
                      &channel_manager_,
-                     channel_manager_.GetSupportedAudioRtpHeaderExtensions()) {}
+                     channel_manager_.GetSupportedAudioRtpHeaderExtensions(),
+                     /* null onNegotiationNeeded callback */ []() {}) {}
 
   cricket::ChannelManager channel_manager_;
   RtpTransceiver transceiver_;
@@ -140,7 +141,8 @@ class RtpTransceiverTestForHeaderExtensions : public ::testing::Test {
                          rtc::Thread::Current(),
                          new rtc::RefCountedObject<MockRtpReceiverInternal>()),
                      &channel_manager_,
-                     extensions_) {}
+                     extensions_,
+                     /* null onNegotiationNeeded callback */ []() {}) {}
 
   cricket::ChannelManager channel_manager_;
   std::vector<RtpHeaderExtensionCapability> extensions_;

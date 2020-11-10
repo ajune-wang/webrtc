@@ -87,6 +87,30 @@
       },
       "revId": "b632f10d570f6e160139a7e3f731be81a8723e47",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5b0eebf_b41d12ad",
+        "filename": "rtc_base/callback_list.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-10T17:08:32Z",
+      "side": 1,
+      "message": "No, we probably don\u0027t.\n\nMy thinking is that these deserve to be CHECKs precisely because it\u0027s new code, and we want to be sure that new usage of it is valid. At some later point we could demote it to DCHECKs, if we felt the need.\n\n(Not that (1) since we test a simple boolean, the CHECKs are very cheap at run time, and (2) the binary size cost is low, since none of them is in inlined code that gets duplicated.)",
+      "parentUuid": "39383f77_63b4cca1",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 13
+      },
+      "revId": "b632f10d570f6e160139a7e3f731be81a8723e47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

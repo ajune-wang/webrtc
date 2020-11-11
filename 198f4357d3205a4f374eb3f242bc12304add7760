@@ -39,6 +39,30 @@
       },
       "revId": "198f4357d3205a4f374eb3f242bc12304add7760",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2f9382e_fba5b4f4",
+        "filename": "docs/release-notes.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-11-11T05:11:18Z",
+      "side": 1,
+      "message": "yay whitespite linter :-)\nOdd that the action-required-by doesn\u0027t take new versions into account...",
+      "parentUuid": "fd3863fd_f0764dac",
+      "range": {
+        "startLine": 3,
+        "startChar": 96,
+        "endLine": 3,
+        "endChar": 98
+      },
+      "revId": "198f4357d3205a4f374eb3f242bc12304add7760",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

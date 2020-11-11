@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05140464_d7a2cb9d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2020-11-11T03:05:24Z",
+      "side": 1,
+      "message": "Hello, I made a CL for migrating from android.support.annotation to androidx.annotation. PTAL.",
+      "revId": "ae5f6eff7a055d5331aac5f903aa7736ebf0a2c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

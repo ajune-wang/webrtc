@@ -22,9 +22,8 @@ namespace rnn_vad {
 namespace {
 
 Optimization GetOptimization(bool avx2_enabled) {
-  // TODO(bugs.webrtc.org/10480): Add AVX2 once supported.
   return GetBestOptimization(
-      /*supported_mask=*/Optimization::kNone,
+      /*supported_mask=*/Optimization::kAvx2,
       /*disabled_mask=*/avx2_enabled ? 0 : Optimization::kAvx2);
 }
 

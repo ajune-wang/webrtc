@@ -10,12 +10,19 @@
 
 #include "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.h"
 
+// Defines WEBRTC_ARCH_X86_FAMILY, used below.
+#include "rtc_base/system/arch.h"
+
 #include <stdlib.h>
 
 #include <algorithm>
 #include <cmath>
 #include <cstddef>
 #include <numeric>
+
+#if defined(WEBRTC_ARCH_X86_FAMILY)
+#include <immintrin.h>
+#endif
 
 #include "modules/audio_processing/agc2/rnn_vad/common.h"
 #include "rtc_base/checks.h"
@@ -26,10 +33,43 @@ namespace webrtc {
 namespace rnn_vad {
 namespace {
 
+#if defined(WEBRTC_ARCH_X86_FAMILY)
+
+float ComputeAutoCorrelationAvx2(
+    int inverted_lag,
+    rtc::ArrayView<const float, kBufSize24kHz> pitch_buffer) {
+  RTC_DCHECK_GE(inverted_lag, 0);
+  RTC_DCHECK_LE(inverted_lag, kMaxPitch24kHz);
+  static_assert(kMaxPitch24kHz + kFrameSize20ms24kHz - 1 < kBufSize24kHz, "");
+  static_assert(kFrameSize20ms24kHz % 8 == 0, "");
+  __m256 auto_correlation = _mm256_setzero_ps();
+  for (int i = 0; i < kFrameSize20ms24kHz; i += 8) {
+    const __m256 x_i = _mm256_loadu_ps(&pitch_buffer[inverted_lag + i]);
+    const __m256 y_i = _mm256_loadu_ps(&pitch_buffer[kMaxPitch24kHz + i]);
+    auto_correlation = _mm256_fmadd_ps(x_i, y_i, auto_correlation);
+  }
+  // Reduce `auto_correlation` by addition.
+  __m128 high = _mm256_extractf128_ps(auto_correlation, 1);
+  __m128 low = _mm256_extractf128_ps(auto_correlation, 0);
+  low = _mm_add_ps(high, low);
+  high = _mm_movehl_ps(high, low);
+  low = _mm_add_ps(high, low);
+  high = _mm_shuffle_ps(low, low, 1);
+  low = _mm_add_ss(high, low);
+  return _mm_cvtss_f32(low);
+}
+
+#endif
+
 float ComputeAutoCorrelation(
     int inverted_lag,
     rtc::ArrayView<const float, kBufSize24kHz> pitch_buffer,
     Optimization optimization) {
+#if defined(WEBRTC_ARCH_X86_FAMILY)
+  if (optimization == Optimization::kAvx2) {
+    return ComputeAutoCorrelationAvx2(inverted_lag, pitch_buffer);
+  }
+#endif
   RTC_DCHECK_LT(inverted_lag, kBufSize24kHz);
   RTC_DCHECK_LT(inverted_lag, kRefineNumLags24kHz);
   static_assert(kMaxPitch24kHz < kBufSize24kHz, "");

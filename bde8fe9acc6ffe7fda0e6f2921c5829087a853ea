@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88652193_e085af67",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8239
+      },
+      "writtenOn": "2020-11-11T18:12:33Z",
+      "side": 1,
+      "message": "Adding Magnus (reported by \"git cl owners\" to be the code owner).\n\nAdding Carolina and Xavier since they\u0027re both CC\u0027d to the bugtracker issue.",
+      "revId": "bde8fe9acc6ffe7fda0e6f2921c5829087a853ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

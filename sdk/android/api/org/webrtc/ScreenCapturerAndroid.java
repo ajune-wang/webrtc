@@ -175,7 +175,7 @@ public class ScreenCapturerAndroid implements VideoCapturer, VideoSink {
     this.height = height;
 
     if (virtualDisplay == null) {
-      // Capturer is stopped, the virtual display will be created in startCaptuer().
+      // Capturer is stopped, the virtual display will be created in startCapture().
       return;
     }
 
@@ -189,6 +189,12 @@ public class ScreenCapturerAndroid implements VideoCapturer, VideoSink {
         createVirtualDisplay();
       }
     });
+  }
+
+  @Override
+  public boolean isCapturing() {
+    // The virtual display is created in startCapture() and set to null in stopCapture()
+    return virtualDisplay != null;
   }
 
   private void createVirtualDisplay() {

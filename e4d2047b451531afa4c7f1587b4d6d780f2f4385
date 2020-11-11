@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "95fdfdde_042bcf70",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14935
+      },
+      "writtenOn": "2020-11-11T19:24:59Z",
+      "side": 1,
+      "message": "Hi Karl. I believe we already have signed this document. Can you please check under 8x8 Inc?\nWe\u0027re already listed in the organizations section of the AUTHORS file (first line!)",
+      "parentUuid": "13e017bb_7c1734f1",
+      "revId": "e4d2047b451531afa4c7f1587b4d6d780f2f4385",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "577a99e9_473006eb",
@@ -31,6 +49,24 @@
       "writtenOn": "2020-11-10T17:28:47Z",
       "side": 1,
       "message": "The docs say\n\n  // Returns 0 on success, -1 on error.\n\nso the return value is an integer, not a boolean, and for good readability we should treat it as such (messing this up is what allowed the bug to sneak in in the first place---that, and the fact that we apparently don\u0027t test this...). Can you change this to do `RTC_CHECK_EQ(WebRtcIlbcfix_DecodeImpl(...), 0)` instead? Or for extra readability bonus points,\n\n  int result \u003d WebRtcIlbcfix_DecodeImpl(...);\n  RTC_CHECK_EQ(result, 0);",
+      "revId": "e4d2047b451531afa4c7f1587b4d6d780f2f4385",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8a56b65_c1c03b1b",
+        "filename": "modules/audio_coding/codecs/ilbc/ilbc.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 14935
+      },
+      "writtenOn": "2020-11-11T19:24:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "577a99e9_473006eb",
       "revId": "e4d2047b451531afa4c7f1587b4d6d780f2f4385",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

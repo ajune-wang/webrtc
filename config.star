@@ -263,6 +263,7 @@ recipe("webrtc/ios_api_framework")
 recipe("webrtc/libfuzzer")
 recipe("webrtc/more_configs")
 recipe("webrtc/standalone")
+recipe("webrtc/update_webrtc_binary_version")
 recipe("lkgr_finder", pkg = "infra/recipe_bundles/chromium.googlesource.com/infra/infra")
 
 # Console definitions:
@@ -773,6 +774,12 @@ cron_builder(
     "Auto-roll - WebRTC DEPS",
     recipe = "auto_roll_webrtc_deps",
     schedule = "0 */2 * * *",  # Every 2 hours.
+)
+
+cron_builder(
+    "Update WebRTC Version",
+    recipe = "update_webrtc_binary_version",
+    schedule = "0 4 * * *",  # Every day at 4am.
 )
 
 # TODO(bugs.webrtc.org/12134): Re-Enable

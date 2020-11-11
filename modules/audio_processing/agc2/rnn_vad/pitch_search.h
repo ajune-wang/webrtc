@@ -26,7 +26,7 @@ namespace rnn_vad {
 // Pitch estimator.
 class PitchEstimator {
  public:
-  PitchEstimator();
+  explicit PitchEstimator(bool avx2_enabled = true);
   PitchEstimator(const PitchEstimator&) = delete;
   PitchEstimator& operator=(const PitchEstimator&) = delete;
   ~PitchEstimator();
@@ -39,6 +39,7 @@ class PitchEstimator {
     return last_pitch_48kHz_.strength;
   }
 
+  const Optimization optimization_;
   PitchInfo last_pitch_48kHz_{};
   AutoCorrelationCalculator auto_corr_calculator_;
   std::vector<float> y_energy_24kHz_;

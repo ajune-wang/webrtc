@@ -28,11 +28,14 @@ namespace {
 
 using VoiceActivityDetector = VadLevelAnalyzer::VoiceActivityDetector;
 
+constexpr bool kDefaultAvx2Enabled = true;
+
 // Default VAD that combines a resampler and the RNN VAD.
 // Computes the speech probability on the first channel.
 class Vad : public VoiceActivityDetector {
  public:
-  Vad() = default;
+  explicit Vad(bool avx2_enabled)
+      : features_extractor_(avx2_enabled), rnn_vad_(avx2_enabled) {}
   Vad(const Vad&) = delete;
   Vad& operator=(const Vad&) = delete;
   ~Vad() = default;
@@ -80,10 +83,12 @@ float SmoothedVadProbability(float p_old, float p_new, float attack) {
 
 VadLevelAnalyzer::VadLevelAnalyzer()
     : VadLevelAnalyzer(kDefaultSmoothedVadProbabilityAttack,
-                       std::make_unique<Vad>()) {}
+                       std::make_unique<Vad>(kDefaultAvx2Enabled)) {}
 
-VadLevelAnalyzer::VadLevelAnalyzer(float vad_probability_attack)
-    : VadLevelAnalyzer(vad_probability_attack, std::make_unique<Vad>()) {}
+VadLevelAnalyzer::VadLevelAnalyzer(float vad_probability_attack,
+                                   bool avx2_enabled)
+    : VadLevelAnalyzer(vad_probability_attack,
+                       std::make_unique<Vad>(avx2_enabled)) {}
 
 VadLevelAnalyzer::VadLevelAnalyzer(float vad_probability_attack,
                                    std::unique_ptr<VoiceActivityDetector> vad)

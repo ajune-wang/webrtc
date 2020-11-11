@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7da0dd25_282e33c0",
+        "filename": "sdk/android/src/jni/video_encoder_wrapper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-11-11T11:36:20Z",
+      "side": 0,
+      "message": "Who are the consumers of this information, is it safe to immediately stop setting it? Or should it be left until the consumers are modified as well?",
+      "range": {
+        "startLine": 350,
+        "startChar": 6,
+        "endLine": 350,
+        "endChar": 51
+      },
+      "revId": "280054f2e63a50cb56a79172f15fccabb09ec986",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f094d536_dd50ef4e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-11-11T11:36:20Z",
+      "side": 1,
+      "message": "nit: I think it would be useful to mention what is really being done in this CL. i.e. end_of_picture is being made non-codec specific",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 69
+      },
+      "revId": "5c322b3bb530629b77be56ae25e2133f6c3e7c6e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "821365aa_3a9b2780",
+        "filename": "sdk/android/src/jni/video_encoder_wrapper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-11-11T11:36:20Z",
+      "side": 1,
+      "message": "It actually looks like it is set by default? So I guess this could just be completely removed?",
+      "range": {
+        "startLine": 350,
+        "startChar": 6,
+        "endLine": 350,
+        "endChar": 33
+      },
+      "revId": "5c322b3bb530629b77be56ae25e2133f6c3e7c6e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

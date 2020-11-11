@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46b1b53d_187a358f",
+        "filename": "modules/audio_coding/neteq/delay_manager.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-11-11T15:58:12Z",
+      "side": 1,
+      "message": "The double parsing looks a bit fishy, but I guess you\u0027ve tested that this does the right thing for both the old and new format, right?",
+      "range": {
+        "startLine": 82,
+        "startChar": 4,
+        "endLine": 84,
+        "endChar": 38
+      },
+      "revId": "3cf1af092827d3955e648348088a2e5580269df8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

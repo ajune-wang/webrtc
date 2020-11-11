@@ -85,6 +85,24 @@
       "parentUuid": "225ad06f_15f6f579",
       "revId": "ae5f6eff7a055d5331aac5f903aa7736ebf0a2c1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e484a7c_bfd959f7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-11-11T12:56:49Z",
+      "side": 1,
+      "message": "The change looks good to me right now. However we have no continuous integration for AAR / AppRTCMobile Android Studio project. I\u0027ll have to test this manually but can\u0027t promise to do it right away.",
+      "parentUuid": "c5cedf8b_a13afae0",
+      "revId": "ae5f6eff7a055d5331aac5f903aa7736ebf0a2c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

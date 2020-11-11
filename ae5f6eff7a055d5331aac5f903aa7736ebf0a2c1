@@ -33,6 +33,23 @@
       "message": "I don\u0027t know this area well enough to judge if this change is worth landing or not. I can\u0027t see the benefit of adding this new dependency.",
       "revId": "ae5f6eff7a055d5331aac5f903aa7736ebf0a2c1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6889b79_6a128f86",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-11-11T09:02:04Z",
+      "side": 1,
+      "message": "This is fine from a build config point of view (just switching a dep).\n\nLeaving the final review to sakal@.",
+      "revId": "ae5f6eff7a055d5331aac5f903aa7736ebf0a2c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

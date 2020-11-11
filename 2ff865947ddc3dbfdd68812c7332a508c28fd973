@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03ca0f4e_f61e01b4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-11-11T13:36:28Z",
+      "side": 1,
+      "message": "PTAL. This will be landed only when both the WebRTC and the recipe CL linked in the CL description will land.",
+      "revId": "2ff865947ddc3dbfdd68812c7332a508c28fd973",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -101,6 +101,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8e0017c_cb455954",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-11-11T14:08:28Z",
+      "side": 1,
+      "message": "Ah sorry, I misunderstood your suggestion.\nGreat point!",
+      "parentUuid": "23751ccc_fd3c799a",
+      "revId": "6ff25905b24fb4c8ca61864830fb144df5f0e650",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0b32a1d0_a2f751dd",

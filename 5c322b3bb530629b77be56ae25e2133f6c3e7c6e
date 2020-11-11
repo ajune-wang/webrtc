@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "73b461bd_ea42578d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-11-11T11:53:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f094d536_dd50ef4e",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 69
+      },
+      "revId": "5c322b3bb530629b77be56ae25e2133f6c3e7c6e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "821365aa_3a9b2780",
@@ -37,6 +61,30 @@
       "writtenOn": "2020-11-11T11:36:20Z",
       "side": 1,
       "message": "It actually looks like it is set by default? So I guess this could just be completely removed?",
+      "range": {
+        "startLine": 350,
+        "startChar": 6,
+        "endLine": 350,
+        "endChar": 33
+      },
+      "revId": "5c322b3bb530629b77be56ae25e2133f6c3e7c6e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b251188c_bc8e57f2",
+        "filename": "sdk/android/src/jni/video_encoder_wrapper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-11-11T11:53:27Z",
+      "side": 1,
+      "message": "yes, you right. as long as encoder wrapper doesn\u0027t use spatial scalability, it doesn\u0027t need to touch this variable.",
+      "parentUuid": "821365aa_3a9b2780",
       "range": {
         "startLine": 350,
         "startChar": 6,

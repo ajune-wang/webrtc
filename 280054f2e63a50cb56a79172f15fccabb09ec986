@@ -22,6 +22,30 @@
       },
       "revId": "280054f2e63a50cb56a79172f15fccabb09ec986",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d5cec9b_2fe488af",
+        "filename": "sdk/android/src/jni/video_encoder_wrapper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-11-11T11:53:27Z",
+      "side": 0,
+      "message": "end consumer is rtp packetizer. (Marker bit in rtp header is derived from this flag)\nintermediate consumer is call/rtp_payload_params.cc that is modified within this change.\nI didn\u0027t found nor expect any other consumers.",
+      "parentUuid": "7da0dd25_282e33c0",
+      "range": {
+        "startLine": 350,
+        "startChar": 6,
+        "endLine": 350,
+        "endChar": 51
+      },
+      "revId": "280054f2e63a50cb56a79172f15fccabb09ec986",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

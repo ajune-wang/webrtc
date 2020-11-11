@@ -67,6 +67,24 @@
       "message": "I think at the very least we would need to update:\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/examples/aarproject/app/build.gradle;l\u003d47\n\nIs there a tangible benefit? I think this will force downstream apps to change dependencies because AAR does not ship with support libraries included.",
       "revId": "ae5f6eff7a055d5331aac5f903aa7736ebf0a2c1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5cedf8b_a13afae0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2020-11-11T12:01:47Z",
+      "side": 1,
+      "message": "Currently, AAR has no dependency on android.support.annotations even though android.support.annotation.Nullable annotation is exported to JAVA class files.\n( We can check that https://dl.bintray.com/google/webrtc/org/webrtc/google-webrtc/1.0.32006/google-webrtc-1.0.32006.pom has no dependencies defined.)\nIntellij Idea/Android Studio can handle this annotation according to its project settings. (Example: Gives a hint to the Kotlin compiler.) Using a library compiled using androidx.annotation in an app using android.support.annotation is completely okay.\n\nAlso, the Android version of AppRTCMobile does not use the Android support library nor androidx, except for Nullable annotations. So I want to fix the dependency of android.support:appcompat in examples/aarproject/app/build.gradle .\n\nThe reason I suggested this change is simple. This annotation will no longer be updated and there is a drop-in replacement for this.",
+      "parentUuid": "225ad06f_15f6f579",
+      "revId": "ae5f6eff7a055d5331aac5f903aa7736ebf0a2c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

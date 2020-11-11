@@ -71,10 +71,10 @@ static_assert(kCepstralCoeffsHistorySize > 2,
 
 constexpr int kFeatureVectorSize = 42;
 
-enum class Optimization { kNone, kSse2, kNeon };
+enum class Optimization { kNone, kSse2, kNeon, kAvx2 };
 
-// Detects what kind of optimizations to use for the code.
-Optimization DetectOptimization();
+// Returns true if the given optimization is available.
+bool IsOptimizationAvailable(Optimization optimization);
 
 }  // namespace rnn_vad
 }  // namespace webrtc

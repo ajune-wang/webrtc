@@ -136,6 +136,8 @@ constexpr std::array<float, 16> kGruExpectedOutputSequence = {
 
 std::string GetOptimizationName(Optimization optimization) {
   switch (optimization) {
+    case Optimization::kAvx2:
+      return "AVX2";
     case Optimization::kSse2:
       return "SSE2";
     case Optimization::kNeon:

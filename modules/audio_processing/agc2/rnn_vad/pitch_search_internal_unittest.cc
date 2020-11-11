@@ -39,7 +39,7 @@ TEST(RnnVadTest, ComputeSlidingFrameSquareEnergies24kHzWithinTolerance) {
   // TODO(bugs.webrtc.org/8948): Add when the issue is fixed.
   // FloatingPointExceptionObserver fpe_observer;
   ComputeSlidingFrameSquareEnergies24kHz(test_data.GetPitchBufView(),
-                                         computed_output);
+                                         computed_output, Optimization::kNone);
   auto square_energies_view = test_data.GetPitchBufSquareEnergiesView();
   ExpectNearAbsolute({square_energies_view.data(), square_energies_view.size()},
                      computed_output, 1e-3f);
@@ -54,8 +54,8 @@ TEST(RnnVadTest, ComputePitchPeriod12kHzBitExactness) {
   // TODO(bugs.webrtc.org/8948): Add when the issue is fixed.
   // FloatingPointExceptionObserver fpe_observer;
   auto auto_corr_view = test_data.GetPitchBufAutoCorrCoeffsView();
-  pitch_candidates =
-      ComputePitchPeriod12kHz(pitch_buf_decimated, auto_corr_view);
+  pitch_candidates = ComputePitchPeriod12kHz(
+      pitch_buf_decimated, auto_corr_view, Optimization::kNone);
   EXPECT_EQ(pitch_candidates.best, 140);
   EXPECT_EQ(pitch_candidates.second_best, 142);
 }
@@ -67,14 +67,16 @@ TEST(RnnVadTest, ComputePitchPeriod48kHzBitExactness) {
   rtc::ArrayView<float, kRefineNumLags24kHz> y_energy_view(y_energy.data(),
                                                            kRefineNumLags24kHz);
   ComputeSlidingFrameSquareEnergies24kHz(test_data.GetPitchBufView(),
-                                         y_energy_view);
+                                         y_energy_view, Optimization::kNone);
   // TODO(bugs.webrtc.org/8948): Add when the issue is fixed.
   // FloatingPointExceptionObserver fpe_observer;
   EXPECT_EQ(ComputePitchPeriod48kHz(test_data.GetPitchBufView(), y_energy_view,
-                                    /*pitch_candidates=*/{280, 284}),
+                                    /*pitch_candidates=*/{280, 284},
+                                    Optimization::kNone),
             560);
   EXPECT_EQ(ComputePitchPeriod48kHz(test_data.GetPitchBufView(), y_energy_view,
-                                    /*pitch_candidates=*/{260, 284}),
+                                    /*pitch_candidates=*/{260, 284},
+                                    Optimization::kNone),
             568);
 }
 
@@ -97,11 +99,12 @@ TEST_P(PitchCandidatesParametrization,
   rtc::ArrayView<float, kRefineNumLags24kHz> y_energy_view(y_energy.data(),
                                                            kRefineNumLags24kHz);
   ComputeSlidingFrameSquareEnergies24kHz(test_data.GetPitchBufView(),
-                                         y_energy_view);
+                                         y_energy_view, Optimization::kNone);
   EXPECT_EQ(ComputePitchPeriod48kHz(test_data.GetPitchBufView(), y_energy_view,
-                                    GetPitchCandidates()),
+                                    GetPitchCandidates(), Optimization::kNone),
             ComputePitchPeriod48kHz(test_data.GetPitchBufView(), y_energy_view,
-                                    GetSwappedPitchCandidates()));
+                                    GetSwappedPitchCandidates(),
+                                    Optimization::kNone));
 }
 
 INSTANTIATE_TEST_SUITE_P(RnnVadTest,
@@ -132,12 +135,12 @@ TEST_P(ExtendedPitchPeriodSearchParametrizaion,
   rtc::ArrayView<float, kRefineNumLags24kHz> y_energy_view(y_energy.data(),
                                                            kRefineNumLags24kHz);
   ComputeSlidingFrameSquareEnergies24kHz(test_data.GetPitchBufView(),
-                                         y_energy_view);
+                                         y_energy_view, Optimization::kNone);
   // TODO(bugs.webrtc.org/8948): Add when the issue is fixed.
   // FloatingPointExceptionObserver fpe_observer;
   const auto computed_output = ComputeExtendedPitchPeriod48kHz(
       test_data.GetPitchBufView(), y_energy_view, GetInitialPitchPeriod(),
-      {GetLastPitchPeriod(), GetLastPitchStrength()});
+      {GetLastPitchPeriod(), GetLastPitchStrength()}, Optimization::kNone);
   EXPECT_EQ(GetExpectedPitchPeriod(), computed_output.period);
   EXPECT_NEAR(GetExpectedPitchStrength(), computed_output.strength, 1e-6f);
 }

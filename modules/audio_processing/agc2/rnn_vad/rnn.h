@@ -104,7 +104,7 @@ class GatedRecurrentLayer {
 // Recurrent network based VAD.
 class RnnBasedVad {
  public:
-  RnnBasedVad();
+  explicit RnnBasedVad(bool avx2_enabled = true);
   RnnBasedVad(const RnnBasedVad&) = delete;
   RnnBasedVad& operator=(const RnnBasedVad&) = delete;
   ~RnnBasedVad();
@@ -115,6 +115,7 @@ class RnnBasedVad {
       bool is_silence);
 
  private:
+  const Optimization optimization_;
   FullyConnectedLayer input_layer_;
   GatedRecurrentLayer hidden_layer_;
   FullyConnectedLayer output_layer_;

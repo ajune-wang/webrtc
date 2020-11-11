@@ -16,6 +16,23 @@
       "message": "Hi Karl,\nCould you PTAL?\nAlessio",
       "revId": "0ad847aa76d25a0bf9668c6d508d6f6efe01d2d5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7192c1d4_8c43d451",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-11T11:57:04Z",
+      "side": 1,
+      "message": "LGTM, assuming no changes were made to this CL (except rebasing) since it landed originally?",
+      "revId": "0ad847aa76d25a0bf9668c6d508d6f6efe01d2d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

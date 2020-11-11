@@ -24,6 +24,7 @@
 #include <cmath>
 #include <numeric>
 
+#include "modules/audio_processing/agc2/rnn_vad/common.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_conversions.h"
@@ -33,6 +34,17 @@
 namespace webrtc {
 namespace rnn_vad {
 namespace {
+
+// Returns the preferred (available) optimization.
+Optimization DetectOptimization() {
+  // Pick the first available optimization.
+  for (Optimization optimization : {Optimization::kSse2, Optimization::kNeon}) {
+    if (IsOptimizationAvailable(optimization)) {
+      return optimization;
+    }
+  }
+  return Optimization::kNone;
+}
 
 using rnnoise::kWeightsScale;
 

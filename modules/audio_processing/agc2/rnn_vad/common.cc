@@ -16,18 +16,29 @@
 namespace webrtc {
 namespace rnn_vad {
 
-Optimization DetectOptimization() {
+bool IsOptimizationAvailable(Optimization optimization) {
+  switch (optimization) {
+    case Optimization::kAvx2:
 #if defined(WEBRTC_ARCH_X86_FAMILY)
-  if (GetCPUInfo(kSSE2) != 0) {
-    return Optimization::kSse2;
-  }
+      return GetCPUInfo(kAVX2) != 0;
+#else
+      return false;
 #endif
-
+    case Optimization::kSse2:
+#if defined(WEBRTC_ARCH_X86_FAMILY)
+      return GetCPUInfo(kSSE2) != 0;
+#else
+      return false;
+#endif
+    case Optimization::kNeon:
 #if defined(WEBRTC_HAS_NEON)
-  return Optimization::kNeon;
+      return true;
+#else
+      return false;
 #endif
-
-  return Optimization::kNone;
+    case Optimization::kNone:
+      return true;
+  }
 }
 
 }  // namespace rnn_vad

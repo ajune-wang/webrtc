@@ -16,6 +16,29 @@
       "message": "Adding Magnus (reported by \"git cl owners\" to be the code owner).\n\nAdding Carolina and Xavier since they\u0027re both CC\u0027d to the bugtracker issue.",
       "revId": "bde8fe9acc6ffe7fda0e6f2921c5829087a853ea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd028b76_be7aa3f9",
+        "filename": "sdk/android/api/org/webrtc/VideoCapturer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 8239
+      },
+      "writtenOn": "2020-11-11T18:14:46Z",
+      "side": 1,
+      "message": "This is a breaking change for third party capturer implementations.\n\nAs an alternative to an interface method, the method could also be added to the implementations without adding it to the interface. It would require downcasting in the user application.",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 24
+      },
+      "revId": "bde8fe9acc6ffe7fda0e6f2921c5829087a853ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -22,8 +22,10 @@
 #include <algorithm>
 #include <array>
 #include <cmath>
+#include <cstdint>
 #include <numeric>
 
+#include "modules/audio_processing/agc2/rnn_vad/common.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_conversions.h"
@@ -33,6 +35,11 @@
 namespace webrtc {
 namespace rnn_vad {
 namespace {
+
+Optimization GetOptimization() {
+  return GetBestOptimization(/*supported_mask=*/Optimization::kSse2,
+                             /*disabled_mask=*/0);
+}
 
 using rnnoise::kWeightsScale;
 
@@ -383,19 +390,19 @@ RnnBasedVad::RnnBasedVad()
                    kInputDenseBias,
                    kInputDenseWeights,
                    TansigApproximated,
-                   DetectOptimization()),
+                   GetOptimization()),
       hidden_layer_(kInputLayerOutputSize,
                     kHiddenLayerOutputSize,
                     kHiddenGruBias,
                     kHiddenGruWeights,
                     kHiddenGruRecurrentWeights,
-                    DetectOptimization()),
+                    GetOptimization()),
       output_layer_(kHiddenLayerOutputSize,
                     kOutputLayerOutputSize,
                     kOutputDenseBias,
                     kOutputDenseWeights,
                     SigmoidApproximated,
-                    DetectOptimization()) {
+                    GetOptimization()) {
   // Input-output chaining size checks.
   RTC_DCHECK_EQ(input_layer_.output_size(), hidden_layer_.input_size())
       << "The input and the hidden layers sizes do not match.";

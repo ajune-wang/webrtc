@@ -184,6 +184,7 @@ if (rtc_include_tests) {
     testonly = true
     sources = [
       "auto_correlation_unittest.cc",
+      "common_unittest.cc",
       "features_extraction_unittest.cc",
       "lp_residual_unittest.cc",
       "pitch_search_internal_unittest.cc",

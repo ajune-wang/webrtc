@@ -16,6 +16,23 @@
       "message": "Christoffer, PTAL at api/*\nErik, Florent, PTAL",
       "revId": "d6513f80fdca3234ff6cdde3b2ed1a23e203d845",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ab9b67b_128242e7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-11-11T10:18:03Z",
+      "side": 1,
+      "message": "In general lgtm. Any chance you could add an integration test for this?\nAlso, please refer to a bug.",
+      "revId": "d6513f80fdca3234ff6cdde3b2ed1a23e203d845",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

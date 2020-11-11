@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b229144_dac56c4f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-11-11T11:08:39Z",
+      "side": 1,
+      "message": "Hi Per,\nThis is a reland of a CL you recently reviewed.\nYou can see the diff from the initial version here: https://webrtc-review.googlesource.com/c/src/+/192780/1..2\nCould you PTAL?\nAlessio",
+      "revId": "efaef5c32a69f127feb27cc6afcc33e28d050dcf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46e72e3e_9bfb34a1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-11-11T13:15:43Z",
+      "side": 1,
+      "message": "done. Also another excuse to link to the dashboard ;-)",
+      "revId": "fc81883904cb13988b60ae0f033a602d154d142c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

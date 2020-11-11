@@ -22,8 +22,10 @@
 #include <algorithm>
 #include <array>
 #include <cmath>
+#include <cstdint>
 #include <numeric>
 
+#include "modules/audio_processing/agc2/rnn_vad/common.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_conversions.h"
@@ -33,6 +35,13 @@
 namespace webrtc {
 namespace rnn_vad {
 namespace {
+
+Optimization GetOptimization(bool avx2_enabled) {
+  // TODO(bugs.webrtc.org/10480): Add AVX2 once supported.
+  return GetBestOptimization(
+      /*supported_mask=*/Optimization::kSse2,
+      /*disabled_mask=*/avx2_enabled ? 0 : Optimization::kAvx2);
+}
 
 using rnnoise::kWeightsScale;
 
@@ -230,6 +239,7 @@ void ComputeFullyConnectedLayerOutput(
 }
 
 #if defined(WEBRTC_ARCH_X86_FAMILY)
+// TODO(bugs.webrtc.org/10480): Add AVX2 alternative.
 // Fully connected layer SSE2 implementation.
 void ComputeFullyConnectedLayerOutputSse2(
     int input_size,
@@ -359,6 +369,7 @@ void GatedRecurrentLayer::ComputeOutput(rtc::ArrayView<const float> input) {
   switch (optimization_) {
 #if defined(WEBRTC_ARCH_X86_FAMILY)
     case Optimization::kSse2:
+      // TODO(bugs.webrtc.org/10480): Add AVX2 alternative.
       // TODO(bugs.chromium.org/10480): Handle Optimization::kSse2.
       ComputeGruLayerOutput(input_size_, output_size_, input, weights_,
                             recurrent_weights_, bias_, state_);
@@ -377,30 +388,32 @@ void GatedRecurrentLayer::ComputeOutput(rtc::ArrayView<const float> input) {
   }
 }
 
-RnnBasedVad::RnnBasedVad()
-    : input_layer_(kInputLayerInputSize,
+RnnBasedVad::RnnBasedVad(bool avx2_enabled)
+    : optimization_(GetOptimization(avx2_enabled)),
+      input_layer_(kInputLayerInputSize,
                    kInputLayerOutputSize,
                    kInputDenseBias,
                    kInputDenseWeights,
                    TansigApproximated,
-                   DetectOptimization()),
+                   optimization_),
       hidden_layer_(kInputLayerOutputSize,
                     kHiddenLayerOutputSize,
                     kHiddenGruBias,
                     kHiddenGruWeights,
                     kHiddenGruRecurrentWeights,
-                    DetectOptimization()),
+                    optimization_),
       output_layer_(kHiddenLayerOutputSize,
                     kOutputLayerOutputSize,
                     kOutputDenseBias,
                     kOutputDenseWeights,
                     SigmoidApproximated,
-                    DetectOptimization()) {
+                    optimization_) {
   // Input-output chaining size checks.
   RTC_DCHECK_EQ(input_layer_.output_size(), hidden_layer_.input_size())
       << "The input and the hidden layers sizes do not match.";
   RTC_DCHECK_EQ(hidden_layer_.output_size(), output_layer_.input_size())
       << "The hidden and the output layers sizes do not match.";
+  RTC_LOG(LS_INFO) << "Used optimization: " << optimization_;
 }
 
 RnnBasedVad::~RnnBasedVad() = default;

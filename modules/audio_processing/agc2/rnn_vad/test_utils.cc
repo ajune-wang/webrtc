@@ -111,25 +111,6 @@ PitchTestData::GetPitchBufAutoCorrCoeffsView() const {
           kNumPitchBufAutoCorrCoeffs};
 }
 
-bool IsOptimizationAvailable(Optimization optimization) {
-  switch (optimization) {
-    case Optimization::kSse2:
-#if defined(WEBRTC_ARCH_X86_FAMILY)
-      return GetCPUInfo(kSSE2) != 0;
-#else
-      return false;
-#endif
-    case Optimization::kNeon:
-#if defined(WEBRTC_HAS_NEON)
-      return true;
-#else
-      return false;
-#endif
-    case Optimization::kNone:
-      return true;
-  }
-}
-
 }  // namespace test
 }  // namespace rnn_vad
 }  // namespace webrtc

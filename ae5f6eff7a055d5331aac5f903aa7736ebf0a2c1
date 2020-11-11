@@ -50,6 +50,23 @@
       "message": "This is fine from a build config point of view (just switching a dep).\n\nLeaving the final review to sakal@.",
       "revId": "ae5f6eff7a055d5331aac5f903aa7736ebf0a2c1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "225ad06f_15f6f579",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-11-11T09:10:56Z",
+      "side": 1,
+      "message": "I think at the very least we would need to update:\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/examples/aarproject/app/build.gradle;l\u003d47\n\nIs there a tangible benefit? I think this will force downstream apps to change dependencies because AAR does not ship with support libraries included.",
+      "revId": "ae5f6eff7a055d5331aac5f903aa7736ebf0a2c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

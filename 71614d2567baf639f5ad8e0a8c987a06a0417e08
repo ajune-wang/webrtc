@@ -1057,6 +1057,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecd2113c_281f418e",
+        "filename": "audio/voip/voip_core.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-11-11T21:39:38Z",
+      "side": 1,
+      "message": "I am leaving VoipVolumeControl interface to have current approach here to be consistent. Let\u0027s work out the detail in other CL to change the approach in agreement.",
+      "parentUuid": "b6b46149_654a30af",
+      "revId": "71614d2567baf639f5ad8e0a8c987a06a0417e08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cf3f9e50_3b84b504",

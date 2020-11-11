@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c96f158_a89c670a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-11-11T21:39:38Z",
+      "side": 1,
+      "message": "Karl, PTAL! Thanks.",
+      "revId": "2b2dcfab65d441ee995402daa55b671cdaecdc36",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

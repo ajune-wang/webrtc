@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3753c5f2_a28b4951",
+        "filename": "audio/voip/audio_channel.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-11-11T21:39:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77fe5b31_f08fdd2f",
+      "range": {
+        "startLine": 88,
+        "startChar": 43,
+        "endLine": 88,
+        "endChar": 57
+      },
+      "revId": "0ef17d114da44ba9dc4806ff4e34e9347a34b71a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "36137560_186a6a78",
@@ -64,6 +88,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd4f6e30_30981a9f",
+        "filename": "audio/voip/audio_channel.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-11-11T21:39:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36137560_186a6a78",
+      "range": {
+        "startLine": 89,
+        "startChar": 29,
+        "endLine": 89,
+        "endChar": 38
+      },
+      "revId": "0ef17d114da44ba9dc4806ff4e34e9347a34b71a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "49cf7c40_53d1869f",
@@ -77,6 +125,30 @@
       "writtenOn": "2020-11-09T21:29:13Z",
       "side": 1,
       "message": "duration_second\n-\u003e\nduration_seconds",
+      "range": {
+        "startLine": 83,
+        "startChar": 15,
+        "endLine": 83,
+        "endChar": 30
+      },
+      "revId": "0ef17d114da44ba9dc4806ff4e34e9347a34b71a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3455bc4d_494f008b",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-11-11T21:39:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49cf7c40_53d1869f",
       "range": {
         "startLine": 83,
         "startChar": 15,

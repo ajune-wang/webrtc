@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97a5600e_e0f97757",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13776
+      },
+      "writtenOn": "2020-11-12T22:26:40Z",
+      "side": 1,
+      "message": "Hello all, I have fixed the failing test cases. Can you please CQ+1 this? Thanks.",
+      "revId": "0e8d6bee234c5e71362a52ea3c125de0bf1e93b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

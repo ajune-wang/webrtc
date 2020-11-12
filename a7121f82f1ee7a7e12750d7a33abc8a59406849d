@@ -33,6 +33,24 @@
       "message": "Looks like some tests are failing:\n```\n../../media/engine/webrtc_video_engine_unittest.cc:2471: Failure\nFailed\nUnrecognized codec name: flexfec-03\n```",
       "revId": "a7121f82f1ee7a7e12750d7a33abc8a59406849d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f3a7b6a_2923bbd0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13776
+      },
+      "writtenOn": "2020-11-12T22:26:40Z",
+      "side": 1,
+      "message": "As it turns out, the unittests are not clean enough to allow asymmetric receive video codecs (at least for FlexFEC). For example, `WebRtcVideoChannelTest::GetEngineCodec` checks video engine\u0027s `send_codecs()`, but `WebRtcVideoChannelTest::TestReceiveUnsignaledSsrcPacket` is for testing receive stream creation and checks `recv_codecs()`. Refactored the change to maintain the same order of codec insertion as before for recv codecs to satisfy all failing `rtc_media_unittests` tests.\n\nI also noticed some `peerconnection_unittests` failures in the build, but those don\u0027t reproduce on my Windows machine. Let\u0027s check if the change reordering fixed those failures as well.",
+      "parentUuid": "97c0f2e4_d8181a06",
+      "revId": "a7121f82f1ee7a7e12750d7a33abc8a59406849d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -10,12 +10,19 @@
 
 #include "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.h"
 
+// Defines WEBRTC_ARCH_X86_FAMILY, used below.
+#include "rtc_base/system/arch.h"
+
 #include <stdlib.h>
 
 #include <algorithm>
 #include <cmath>
 #include <cstddef>
 #include <numeric>
+
+#if defined(WEBRTC_ARCH_X86_FAMILY)
+#include <immintrin.h>
+#endif
 
 #include "modules/audio_processing/agc2/rnn_vad/common.h"
 #include "rtc_base/checks.h"
@@ -26,17 +33,55 @@ namespace webrtc {
 namespace rnn_vad {
 namespace {
 
+#if defined(WEBRTC_ARCH_X86_FAMILY)
+
+float InnerProductAvx2(rtc::ArrayView<const float> x,
+                       rtc::ArrayView<const float> y) {
+  constexpr int kBlockSize = 8;
+  RTC_DCHECK_EQ(x.size(), y.size());
+  RTC_DCHECK_EQ(x.size() % kBlockSize, 0)
+      << "Only exact block sizes are supported.";
+  __m256 accumulator = _mm256_setzero_ps();
+  for (int i = 0; rtc::SafeLt(i, x.size()); i += kBlockSize) {
+    const __m256 x_i = _mm256_loadu_ps(&x[i]);
+    const __m256 y_i = _mm256_loadu_ps(&y[i]);
+    accumulator = _mm256_fmadd_ps(x_i, y_i, accumulator);
+  }
+  // Reduce `accumulator` by addition.
+  __m128 high = _mm256_extractf128_ps(accumulator, 1);
+  __m128 low = _mm256_extractf128_ps(accumulator, 0);
+  low = _mm_add_ps(high, low);
+  high = _mm_movehl_ps(high, low);
+  low = _mm_add_ps(high, low);
+  high = _mm_shuffle_ps(low, low, 1);
+  low = _mm_add_ss(high, low);
+  return _mm_cvtss_f32(low);
+}
+
+#endif
+
+float InnerProduct(rtc::ArrayView<const float> x,
+                   rtc::ArrayView<const float> y,
+                   Optimization optimization) {
+#if defined(WEBRTC_ARCH_X86_FAMILY)
+  if (optimization == Optimization::kAvx2) {
+    return InnerProductAvx2(x, y);
+  }
+#endif
+  RTC_DCHECK_EQ(x.size(), y.size());
+  return std::inner_product(x.begin(), x.end(), y.begin(), 0.f);
+}
+
 float ComputeAutoCorrelation(
     int inverted_lag,
     rtc::ArrayView<const float, kBufSize24kHz> pitch_buffer,
     Optimization optimization) {
-  RTC_DCHECK_LT(inverted_lag, kBufSize24kHz);
-  RTC_DCHECK_LT(inverted_lag, kRefineNumLags24kHz);
-  static_assert(kMaxPitch24kHz < kBufSize24kHz, "");
-  // TODO(bugs.webrtc.org/10480): Optimize with SIMD.
-  return std::inner_product(pitch_buffer.begin() + kMaxPitch24kHz,
-                            pitch_buffer.end(),
-                            pitch_buffer.begin() + inverted_lag, 0.f);
+  RTC_DCHECK_GE(inverted_lag, 0);
+  RTC_DCHECK_LE(inverted_lag + kFrameSize20ms24kHz, kBufSize24kHz);
+  static_assert(kMaxPitch24kHz + kFrameSize20ms24kHz <= kBufSize24kHz, "");
+  return InnerProduct(pitch_buffer.subview(inverted_lag, kFrameSize20ms24kHz),
+                      pitch_buffer.subview(kMaxPitch24kHz, kFrameSize20ms24kHz),
+                      optimization);
 }
 
 // Given an auto-correlation coefficient `curr_auto_correlation` and its
@@ -295,10 +340,9 @@ void ComputeSlidingFrameSquareEnergies24kHz(
     rtc::ArrayView<const float, kBufSize24kHz> pitch_buffer,
     rtc::ArrayView<float, kRefineNumLags24kHz> y_energy,
     Optimization optimization) {
-  // TODO(bugs.webrtc.org/10480): Optimize with SIMD.
-  float yy = std::inner_product(pitch_buffer.begin(),
-                                pitch_buffer.begin() + kFrameSize20ms24kHz,
-                                pitch_buffer.begin(), 0.f);
+  float yy = InnerProduct(
+      /*x=*/pitch_buffer.subview(0, kFrameSize20ms24kHz),
+      /*y=*/pitch_buffer.subview(0, kFrameSize20ms24kHz), optimization);
   y_energy[0] = yy;
   static_assert(kMaxPitch24kHz - 1 + kFrameSize20ms24kHz < kBufSize24kHz, "");
   static_assert(kMaxPitch24kHz < kRefineNumLags24kHz, "");
@@ -333,10 +377,11 @@ CandidatePitchPeriods ComputePitchPeriod12kHz(
     }
   };
 
-  // TODO(bugs.webrtc.org/10480): Optimize with SIMD.
-  float denominator = std::inner_product(
-      pitch_buffer.begin(), pitch_buffer.begin() + kFrameSize20ms12kHz + 1,
-      pitch_buffer.begin(), 1.f);
+  float denominator = InnerProduct(
+      /*x=*/pitch_buffer.subview(0, kFrameSize20ms12kHz),
+      /*y=*/pitch_buffer.subview(0, kFrameSize20ms12kHz), optimization);
+  denominator += 1.f + pitch_buffer[kFrameSize20ms12kHz] *
+                           pitch_buffer[kFrameSize20ms12kHz];
   // Search best and second best pitches by looking at the scaled
   // auto-correlation.
   PitchCandidate best;

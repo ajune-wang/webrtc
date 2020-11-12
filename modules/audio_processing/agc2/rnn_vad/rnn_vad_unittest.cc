@@ -13,6 +13,7 @@
 #include <vector>
 
 #include "common_audio/resampler/push_sinc_resampler.h"
+#include "modules/audio_processing/agc2/rnn_vad/common.h"
 #include "modules/audio_processing/agc2/rnn_vad/features_extraction.h"
 #include "modules/audio_processing/agc2/rnn_vad/rnn.h"
 #include "modules/audio_processing/agc2/rnn_vad/test_utils.h"
@@ -57,13 +58,27 @@ TEST(RnnVadTest, CheckWriteComputedOutputIsFalse) {
       << "Cannot land if kWriteComputedOutput is true.";
 }
 
+struct RnnVadProbabilityParameters {
+  Optimization features_extractor_optimization;
+  Optimization rnn_optimization;
+};
+
+class RnnVadProbabilityParametrization
+    : public ::testing::TestWithParam<RnnVadProbabilityParameters> {};
+
 // Checks that the computed VAD probability for a test input sequence sampled at
 // 48 kHz is within tolerance.
-TEST(RnnVadTest, RnnVadProbabilityWithinTolerance) {
+TEST_P(RnnVadProbabilityParametrization, RnnVadProbabilityWithinTolerance) {
+  const RnnVadProbabilityParameters params = GetParam();
+  if (!IsOptimizationAvailable(params.features_extractor_optimization) ||
+      !IsOptimizationAvailable(params.rnn_optimization)) {
+    return;
+  }
+
   // Init resampler, feature extractor and RNN.
   PushSincResampler decimator(kFrameSize10ms48kHz, kFrameSize10ms24kHz);
-  FeaturesExtractor features_extractor;
-  RnnBasedVad rnn_vad;
+  FeaturesExtractor features_extractor(params.features_extractor_optimization);
+  RnnBasedVad rnn_vad(params.rnn_optimization);
 
   // Init input samples and expected output readers.
   auto samples_reader = CreatePcmSamplesReader(kFrameSize10ms48kHz);
@@ -111,7 +126,13 @@ TEST(RnnVadTest, RnnVadProbabilityWithinTolerance) {
 // follows:
 // - on desktop: run the this unit test adding "--logs";
 // - on android: run the this unit test adding "--logcat-output-file".
-TEST(RnnVadTest, DISABLED_RnnVadPerformance) {
+TEST_P(RnnVadProbabilityParametrization, DISABLED_RnnVadPerformance) {
+  const RnnVadProbabilityParameters params = GetParam();
+  if (!IsOptimizationAvailable(params.features_extractor_optimization) ||
+      !IsOptimizationAvailable(params.rnn_optimization)) {
+    return;
+  }
+
   // PCM samples reader and buffers.
   auto samples_reader = CreatePcmSamplesReader(kFrameSize10ms48kHz);
   const int num_frames = samples_reader.second;
@@ -127,9 +148,10 @@ TEST(RnnVadTest, DISABLED_RnnVadPerformance) {
                        kFrameSize10ms24kHz);
   }
   // Initialize.
-  FeaturesExtractor features_extractor;
+  FeaturesExtractor features_extractor(params.features_extractor_optimization);
   std::array<float, kFeatureVectorSize> feature_vector;
-  RnnBasedVad rnn_vad;
+  // RnnBasedVad rnn_vad(optimization);
+  RnnBasedVad rnn_vad(params.rnn_optimization);
   constexpr int number_of_tests = 100;
   ::webrtc::test::PerformanceTimer perf_timer(number_of_tests);
   for (int k = 0; k < number_of_tests; ++k) {
@@ -151,6 +173,13 @@ TEST(RnnVadTest, DISABLED_RnnVadPerformance) {
                 perf_timer.GetDurationAverage(),
                 perf_timer.GetDurationStandardDeviation());
 }
+
+INSTANTIATE_TEST_SUITE_P(
+    RnnVadTest,
+    RnnVadProbabilityParametrization,
+    ::testing::Values(
+        RnnVadProbabilityParameters{Optimization::kNone, Optimization::kNone},
+        RnnVadProbabilityParameters{Optimization::kAvx2, Optimization::kSse2}));
 
 }  // namespace test
 }  // namespace rnn_vad

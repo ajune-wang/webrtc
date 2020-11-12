@@ -89,18 +89,28 @@ class JsepTransportControllerTest : public JsepTransportController::Observer,
   }
 
   void ConnectTransportControllerSignals() {
-    transport_controller_->SignalIceConnectionState.AddReceiver(
+    transport_controller_->SubscribeIceConnectionState(
         [this](cricket::IceConnectionState s) {
           JsepTransportControllerTest::OnConnectionState(s);
         });
-    transport_controller_->SignalStandardizedIceConnectionState.connect(
-        this, &JsepTransportControllerTest::OnStandardizedIceConnectionState);
-    transport_controller_->SignalConnectionState.connect(
-        this, &JsepTransportControllerTest::OnCombinedConnectionState);
-    transport_controller_->SignalIceGatheringState.connect(
-        this, &JsepTransportControllerTest::OnGatheringState);
-    transport_controller_->SignalIceCandidatesGathered.connect(
-        this, &JsepTransportControllerTest::OnCandidatesGathered);
+    transport_controller_->SubscribeConnectionState(
+        [this](PeerConnectionInterface::PeerConnectionState s) {
+          JsepTransportControllerTest::OnCombinedConnectionState(s);
+        });
+    transport_controller_->SubscribeStandardizedIceConnectionState(
+        [this](PeerConnectionInterface::IceConnectionState s) {
+          JsepTransportControllerTest::OnStandardizedIceConnectionState(s);
+        });
+    transport_controller_->SubscribeIceGatheringState(
+        [this](cricket::IceGatheringState s) {
+          JsepTransportControllerTest::OnGatheringState(s);
+        });
+    transport_controller_->SubscribeIceCandidateGathered(
+        [this](const std::string& transport,
+               const std::vector<cricket::Candidate>& candidates) {
+          JsepTransportControllerTest::OnCandidatesGathered(transport,
+                                                            candidates);
+        });
   }
 
   std::unique_ptr<cricket::SessionDescription>
@@ -764,7 +774,7 @@ TEST_F(JsepTransportControllerTest, SignalConnectionStateComplete) {
   EXPECT_EQ(3, combined_connection_state_signal_count_);
 }
 
-TEST_F(JsepTransportControllerTest, SignalIceGatheringStateGathering) {
+TEST_F(JsepTransportControllerTest, signalIceGatheringState_Gathering) {
   CreateJsepTransportController(JsepTransportController::Config());
   auto description = CreateSessionDescriptionWithoutBundle();
   EXPECT_TRUE(transport_controller_
@@ -779,7 +789,7 @@ TEST_F(JsepTransportControllerTest, SignalIceGatheringStateGathering) {
   EXPECT_EQ(1, gathering_state_signal_count_);
 }
 
-TEST_F(JsepTransportControllerTest, SignalIceGatheringStateComplete) {
+TEST_F(JsepTransportControllerTest, signalIceGatheringState_Complete) {
   CreateJsepTransportController(JsepTransportController::Config());
   auto description = CreateSessionDescriptionWithoutBundle();
   EXPECT_TRUE(transport_controller_

@@ -67,6 +67,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "8515e874_07da3d0b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-12T15:30:42Z",
+      "side": 1,
+      "message": "Good work on this, by the way! It\u0027s shaping up to become much more of a clean-up than I had originally thought it would, with moving data members to `private:` where they belong...",
+      "revId": "370dc3ee091387e8b1d791921b96e6f92933c9db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "4bc8417f_ab27f144",
         "filename": "pc/jsep_transport_controller.cc",
         "patchSetId": 6

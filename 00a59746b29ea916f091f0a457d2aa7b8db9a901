@@ -16,6 +16,23 @@
       "message": "Not sure if it is a right way to do it, but lets try.",
       "revId": "00a59746b29ea916f091f0a457d2aa7b8db9a901",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e119b92b_18aa8f05",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-11-12T11:29:31Z",
+      "side": 1,
+      "message": "Artem has removed the iOS simulator tryjobs from CQ, so we need to add them manually (see the \"CHOOSE TRYJOBS\"), I am triggering them.",
+      "revId": "00a59746b29ea916f091f0a457d2aa7b8db9a901",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

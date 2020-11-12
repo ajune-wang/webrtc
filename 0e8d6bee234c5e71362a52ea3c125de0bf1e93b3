@@ -16,6 +16,57 @@
       "message": "Hello all, I have fixed the failing test cases. Can you please CQ+1 this? Thanks.",
       "revId": "0e8d6bee234c5e71362a52ea3c125de0bf1e93b3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42a8ffce_100deeaa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2020-11-12T22:46:18Z",
+      "side": 1,
+      "message": "I can\u0027t reproduce the peerconnection_unittests failures locally either.\n\nAnd I don\u0027t understand them since PeerConnectionEndToEndTest.CallWithCustomCodec seems to deal with audio encoders/decoders (sparkling rainbows!) which is unrelated to video engine changes?",
+      "revId": "0e8d6bee234c5e71362a52ea3c125de0bf1e93b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0c19aae_97daedd7",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2020-11-12T22:46:18Z",
+      "side": 1,
+      "message": "moving this here and after red+ulpfec retains the ids and the (not so great) assumptions the tests make about those codecs.\n\nstyle-wise I\u0027d prefer to merge AssignPayloadTypesAndDefaultCodecs into GetPayloadTypesAndDefaultCodecs which will increase readability.\nNot doing this yet for the sake of easy review, let us know if you agree.",
+      "revId": "0e8d6bee234c5e71362a52ea3c125de0bf1e93b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a20741e_42531602",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1516,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2020-11-12T22:46:18Z",
+      "side": 1,
+      "message": "I think using WebRTC-FlexFEC-03 (\"do we support flexfec-03\") as the killswitch instead of the -advertised (\"do we put flexfec-03 into sdp offers\") would be more correct.\n(also above)",
+      "revId": "0e8d6bee234c5e71362a52ea3c125de0bf1e93b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

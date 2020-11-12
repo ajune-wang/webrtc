@@ -104,7 +104,12 @@ class GatedRecurrentLayer {
 // Recurrent network based VAD.
 class RnnBasedVad {
  public:
-  RnnBasedVad();
+  // Ctor. Automatically chooses the best available optimization.
+  // If `avx2_enabled` is false, AVX2 is never used even if available.
+  explicit RnnBasedVad(bool avx2_enabled = true);
+  // Ctor. Uses `optimization` if available, otherwise it falls back to
+  // `Optimization::kNone`.
+  explicit RnnBasedVad(Optimization optimization);
   RnnBasedVad(const RnnBasedVad&) = delete;
   RnnBasedVad& operator=(const RnnBasedVad&) = delete;
   ~RnnBasedVad();

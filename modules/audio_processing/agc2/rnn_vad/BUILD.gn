@@ -94,6 +94,7 @@ rtc_library("rnn_vad_pitch") {
     "../../../../api:array_view",
     "../../../../rtc_base:checks",
     "../../../../rtc_base:gtest_prod",
+    "../../../../rtc_base:logging",
     "../../../../rtc_base:safe_compare",
     "../../../../rtc_base:safe_conversions",
   ]
@@ -184,6 +185,7 @@ if (rtc_include_tests) {
     testonly = true
     sources = [
       "auto_correlation_unittest.cc",
+      "common_unittest.cc",
       "features_extraction_unittest.cc",
       "lp_residual_unittest.cc",
       "pitch_search_internal_unittest.cc",

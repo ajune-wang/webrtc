@@ -36,7 +36,7 @@ class VadLevelAnalyzer {
 
   // Ctor. Uses the default VAD.
   VadLevelAnalyzer();
-  explicit VadLevelAnalyzer(float vad_probability_attack);
+  VadLevelAnalyzer(float vad_probability_attack, bool avx2_enabled);
   // Ctor. Uses a custom `vad`.
   VadLevelAnalyzer(float vad_probability_attack,
                    std::unique_ptr<VoiceActivityDetector> vad);

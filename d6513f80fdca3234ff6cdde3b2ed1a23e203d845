@@ -50,6 +50,24 @@
       "message": "Why are you only assigning to index 0? What about the other simulcast layers?\nAlso, you may have conflicting instructions between num_temporal_layers and this, so we should probably throw an error if both are set, end goal could be removing num_temporal_layers in favor of the scalability_mode string.",
       "revId": "d6513f80fdca3234ff6cdde3b2ed1a23e203d845",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0452bb3d_4fb1b807",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2452,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-11-12T10:44:26Z",
+      "side": 1,
+      "message": "Inter layer dependent or independent layers can be configured with this one string.\n\nI started to implement some logic to kind of verify that settings are consistent, but it quickly turned very complex.",
+      "parentUuid": "4bdb4568_ab5da90a",
+      "revId": "d6513f80fdca3234ff6cdde3b2ed1a23e203d845",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

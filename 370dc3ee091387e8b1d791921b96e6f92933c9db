@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "586d588d_b4686be2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-11-12T14:23:26Z",
+      "side": 1,
+      "message": "Let\u0027s remove the first \"Reland\" and the second \" at the end.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 8
+      },
+      "revId": "370dc3ee091387e8b1d791921b96e6f92933c9db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3200da07_d1e5b36d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-11-12T14:23:26Z",
+      "side": 1,
+      "message": "A couple of nits. Let\u0027s trigger tests.\n\nI think hta@ is a good reviewer for this one.",
+      "revId": "370dc3ee091387e8b1d791921b96e6f92933c9db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d91856f_63ebe20c",
+        "filename": "pc/jsep_transport_controller.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-11-12T14:23:26Z",
+      "side": 1,
+      "message": "Nit: remove the second set of //",
+      "range": {
+        "startLine": 252,
+        "startChar": 5,
+        "endLine": 252,
+        "endChar": 8
+      },
+      "revId": "370dc3ee091387e8b1d791921b96e6f92933c9db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

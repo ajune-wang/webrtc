@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c1558cf_4f741b1b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-12T15:29:05Z",
+      "side": 1,
+      "message": "Actually, I\u0027d say that the changes relative to the original are large enough that labeling it as a \"reland\" is misleading. Just treat it as a new CL, perhaps with a pointer to the original one at the end of the commit message.",
+      "parentUuid": "586d588d_b4686be2",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 8
+      },
+      "revId": "370dc3ee091387e8b1d791921b96e6f92933c9db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "3200da07_d1e5b36d",
@@ -37,6 +61,103 @@
       "writtenOn": "2020-11-12T14:23:26Z",
       "side": 1,
       "message": "A couple of nits. Let\u0027s trigger tests.\n\nI think hta@ is a good reviewer for this one.",
+      "revId": "370dc3ee091387e8b1d791921b96e6f92933c9db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bc8417f_ab27f144",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1158,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-12T15:29:05Z",
+      "side": 1,
+      "message": "Note: It would be much more efficient to construct a temp ArrayView here, instead of a temp std::vector. I don\u0027t know if changing that in this CL is a good idea, but it may be a good idea to keep an eye out for more-expensive-than-necessary types being used in the callback signatures.",
+      "revId": "370dc3ee091387e8b1d791921b96e6f92933c9db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e631686c_2a779bf5",
+        "filename": "pc/jsep_transport_controller.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-12T15:29:05Z",
+      "side": 1,
+      "message": "Consider adding a comment on this function saying what the signature of F should be. The type of the CallbackList indicates that it is `void(const std::string\u0026, const std::vector\u003ccricket::Candidate\u003e\u0026)`, but it will be nice for readers to see this at a glance, without having to detour into the implementation details in the private section.",
+      "revId": "370dc3ee091387e8b1d791921b96e6f92933c9db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc9593f2_7850c276",
+        "filename": "pc/jsep_transport_controller.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-12T15:29:05Z",
+      "side": 1,
+      "message": "std::forward\u003cF\u003e(callback)\n\nSee https://en.cppreference.com/w/cpp/utility/forward. If you don\u0027t do this, you may end up copying the callback without meaning to.\n\nMore cases of this below.",
+      "range": {
+        "startLine": 199,
+        "startChar": 45,
+        "endLine": 199,
+        "endChar": 53
+      },
+      "revId": "370dc3ee091387e8b1d791921b96e6f92933c9db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d71eaf6_ae5b0394",
+        "filename": "pc/jsep_transport_controller.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-12T15:29:05Z",
+      "side": 1,
+      "message": "Put a copy of this comment up with the sole remaining sigslot?",
+      "revId": "370dc3ee091387e8b1d791921b96e6f92933c9db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57d01d19_a1511f6a",
+        "filename": "pc/jsep_transport_controller.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-12T15:29:05Z",
+      "side": 1,
+      "message": "The style guide says that class data members should use snake_case_with_trailing_underscore_. https://google.github.io/styleguide/cppguide.html#Variable_Names",
+      "range": {
+        "startLine": 244,
+        "startChar": 44,
+        "endLine": 244,
+        "endChar": 69
+      },
       "revId": "370dc3ee091387e8b1d791921b96e6f92933c9db",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

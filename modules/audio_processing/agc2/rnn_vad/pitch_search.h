@@ -26,7 +26,12 @@ namespace rnn_vad {
 // Pitch estimator.
 class PitchEstimator {
  public:
-  PitchEstimator();
+  // Ctor. Automatically chooses the best available optimization.
+  // If `avx2_enabled` is false, AVX2 is never used even if available.
+  explicit PitchEstimator(bool avx2_enabled = true);
+  // Ctor. Uses `optimization` if available, otherwise it falls back to
+  // `Optimization::kNone`.
+  explicit PitchEstimator(Optimization optimization);
   PitchEstimator(const PitchEstimator&) = delete;
   PitchEstimator& operator=(const PitchEstimator&) = delete;
   ~PitchEstimator();
@@ -39,6 +44,7 @@ class PitchEstimator {
     return last_pitch_48kHz_.strength;
   }
 
+  const Optimization optimization_;
   PitchInfo last_pitch_48kHz_{};
   AutoCorrelationCalculator auto_corr_calculator_;
   std::vector<float> y_energy_24kHz_;

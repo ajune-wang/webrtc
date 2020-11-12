@@ -11,7 +11,7 @@
 #ifndef MODULES_AUDIO_PROCESSING_AGC2_RNN_VAD_COMMON_H_
 #define MODULES_AUDIO_PROCESSING_AGC2_RNN_VAD_COMMON_H_
 
-#include <stddef.h>
+#include <cstdint>
 
 namespace webrtc {
 namespace rnn_vad {
@@ -71,10 +71,20 @@ static_assert(kCepstralCoeffsHistorySize > 2,
 
 constexpr int kFeatureVectorSize = 42;
 
-enum class Optimization { kNone, kSse2, kNeon };
+enum Optimization : uint32_t {
+  kNone = 1 << 0,
+  kSse2 = 1 << 1,
+  kNeon = 1 << 2,
+  kAvx2 = 1 << 3
+};
 
-// Detects what kind of optimizations to use for the code.
-Optimization DetectOptimization();
+// Returns true if `optimization` is available.
+bool IsOptimizationAvailable(Optimization optimization);
+
+// Returns the best available optimization that is supported and not disabled.
+// Both arguments are bitmasks for `Optimization`.
+Optimization GetBestOptimization(uint32_t supported_mask,
+                                 uint32_t disabled_mask);
 
 }  // namespace rnn_vad
 }  // namespace webrtc

@@ -33,6 +33,7 @@
 #include "p2p/base/port_interface.h"
 #include "p2p/base/stun_request.h"
 #include "rtc_base/async_packet_socket.h"
+#include "rtc_base/callback_list.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/net_helper.h"
 #include "rtc_base/network.h"
@@ -247,6 +248,31 @@ class Port : public PortInterface,
   void SetIceParameters(int component,
                         const std::string& username_fragment,
                         const std::string& password);
+
+  template <typename F>
+  void SubscribeToCandidateReady(F&& callback) {
+    candidateReadyCallbacks_.AddReceiver(std::forward<F>(callback));
+  }
+
+  template <typename F>
+  void SubscribeToCandidateError(F&& callback) {
+    candidateErrorCallbacks_.AddReceiver(std::forward<F>(callback));
+  }
+
+  template <typename F>
+  void SubscribeToPortComplete(F&& callback) {
+    portCompleteCallbacks_.AddReceiver(std::forward<F>(callback));
+  }
+
+  template <typename F>
+  void SubscribeToPortError(F&& callback) {
+    portErrorCallbacks_.AddReceiver(std::forward<F>(callback));
+  }
+
+  template <typename F>
+  void SubscribeToConnectionCreated(F&& callback) {
+    connectionCreatedCallbacks_.AddReceiver(std::forward<F>(callback));
+  }
 
   // Fired when candidates are discovered by the port. When all candidates
   // are discovered that belong to port SignalAddressReady is fired.
@@ -482,6 +508,28 @@ class Port : public PortInterface,
   bool MaybeObfuscateAddress(Candidate* c,
                              const std::string& type,
                              bool is_final);
+
+  // Callbacks invoked when candidates are discovered by the port.
+  // When all candidates are discovered that belong to port SignalAddressReady
+  // is fired.
+  webrtc::CallbackList<Port*, const Candidate&> candidateReadyCallbacks_;
+
+  // Callbacks invoked when candidate discovery failed using certain server.
+  webrtc::CallbackList<Port*, const IceCandidateErrorEvent&>
+      candidateErrorCallbacks_;
+
+  // Callbacks invoked when port completes the task of candidates allocation.
+  webrtc::CallbackList<Port*> portCompleteCallbacks_;
+
+  // Callbacks invoked when port fails to allocate candidates and this port
+  // can't be used in establishing the connections. When port is in shared mode
+  // and port fails to allocate one of the candidates, port shouldn't send
+  // this signal as other candidates might be usefull in establishing the
+  // connection.
+  webrtc::CallbackList<Port*> portErrorCallbacks_;
+
+  // Callbacks invoked when a connection is created.
+  webrtc::CallbackList<Port*, Connection*> connectionCreatedCallbacks_;
 
   friend class Connection;
 };

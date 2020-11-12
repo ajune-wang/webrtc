@@ -192,41 +192,80 @@ class JsepTransportController : public sigslot::has_slots<> {
   // and deletes unused transports, but doesn't consider anything more complex.
   void RollbackTransports();
 
+  sigslot::signal1<rtc::SSLHandshakeError> SignalDtlsHandshakeError;
+
+  template <typename F>
+  void SubscribeIceCandidateGathered(F&& callback) {
+    signalIceCandidatesGathered_.AddReceiver(callback);
+  }
+
+  template <typename F>
+  void SubscribeIceConnectionState(F&& callback) {
+    signalIceConnectionState_.AddReceiver(callback);
+  }
+
+  template <typename F>
+  void SubscribeConnectionState(F&& callback) {
+    signalConnectionState_.AddReceiver(callback);
+  }
+
+  template <typename F>
+  void SubscribeStandardizedIceConnectionState(F&& callback) {
+    signalStandardizedIceConnectionState_.AddReceiver(callback);
+  }
+
+  template <typename F>
+  void SubscribeIceGatheringState(F&& callback) {
+    signalIceGatheringState_.AddReceiver(callback);
+  }
+
+  template <typename F>
+  void SubscribeIceCandidateError(F&& callback) {
+    signalIceCandidateError_.AddReceiver(callback);
+  }
+
+  template <typename F>
+  void SubscribeIceCandidatesRemoved(F&& callback) {
+    signalIceCandidatesRemoved_.AddReceiver(callback);
+  }
+
+  template <typename F>
+  void SubscribeIceCandidatePairChanged(F&& callback) {
+    signalIceCandidatePairChanged_.AddReceiver(callback);
+  }
+
+ private:
   // All of these signals are fired on the signaling thread.
 
   // If any transport failed => failed,
   // Else if all completed => completed,
   // Else if all connected => connected,
   // Else => connecting
-  CallbackList<cricket::IceConnectionState> SignalIceConnectionState;
+  CallbackList<cricket::IceConnectionState> signalIceConnectionState_;
 
-  sigslot::signal1<PeerConnectionInterface::PeerConnectionState>
-      SignalConnectionState;
+  CallbackList<PeerConnectionInterface::PeerConnectionState>
+      signalConnectionState_;
 
-  sigslot::signal1<PeerConnectionInterface::IceConnectionState>
-      SignalStandardizedIceConnectionState;
+  CallbackList<PeerConnectionInterface::IceConnectionState>
+      signalStandardizedIceConnectionState_;
 
-  // If all transports done gathering => complete,
-  // Else if any are gathering => gathering,
-  // Else => new
-  sigslot::signal1<cricket::IceGatheringState> SignalIceGatheringState;
+  // // If all transports done gathering => complete,
+  // // Else if any are gathering => gathering,
+  // // Else => new
+  CallbackList<cricket::IceGatheringState> signalIceGatheringState_;
 
-  // (mid, candidates)
-  sigslot::signal2<const std::string&, const std::vector<cricket::Candidate>&>
-      SignalIceCandidatesGathered;
+  // [mid, candidates]
+  CallbackList<const std::string&, const std::vector<cricket::Candidate>&>
+      signalIceCandidatesGathered_;
 
-  sigslot::signal1<const cricket::IceCandidateErrorEvent&>
-      SignalIceCandidateError;
+  CallbackList<const cricket::IceCandidateErrorEvent&> signalIceCandidateError_;
 
-  sigslot::signal1<const std::vector<cricket::Candidate>&>
-      SignalIceCandidatesRemoved;
+  CallbackList<const std::vector<cricket::Candidate>&>
+      signalIceCandidatesRemoved_;
 
-  sigslot::signal1<const cricket::CandidatePairChangeEvent&>
-      SignalIceCandidatePairChanged;
+  CallbackList<const cricket::CandidatePairChangeEvent&>
+      signalIceCandidatePairChanged_;
 
-  sigslot::signal1<rtc::SSLHandshakeError> SignalDtlsHandshakeError;
-
- private:
   RTCError ApplyDescription_n(bool local,
                               SdpType type,
                               const cricket::SessionDescription* description);

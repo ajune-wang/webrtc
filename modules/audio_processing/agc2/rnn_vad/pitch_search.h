@@ -26,7 +26,12 @@ namespace rnn_vad {
 // Pitch estimator.
 class PitchEstimator {
  public:
+  // Ctor. Automatically chooses the best available optimization.
+  // If `avx2_enabled` is false, AVX2 is never used even if available.
   explicit PitchEstimator(bool avx2_enabled = true);
+  // Ctor. Uses `optimization` if available, otherwise it falls back to
+  // `Optimization::kNone`.
+  explicit PitchEstimator(Optimization optimization);
   PitchEstimator(const PitchEstimator&) = delete;
   PitchEstimator& operator=(const PitchEstimator&) = delete;
   ~PitchEstimator();
@@ -34,7 +39,8 @@ class PitchEstimator {
   int Estimate(rtc::ArrayView<const float, kBufSize24kHz> pitch_buffer);
 
  private:
-  FRIEND_TEST_ALL_PREFIXES(RnnVadTest, PitchSearchWithinTolerance);
+  FRIEND_TEST_ALL_PREFIXES(PitchSearchParametrization,
+                           PitchSearchWithinTolerance);
   float GetLastPitchStrengthForTesting() const {
     return last_pitch_48kHz_.strength;
   }

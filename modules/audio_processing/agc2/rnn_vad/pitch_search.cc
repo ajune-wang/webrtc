@@ -22,16 +22,18 @@ namespace rnn_vad {
 namespace {
 
 Optimization GetOptimization(bool avx2_enabled) {
-  // TODO(bugs.webrtc.org/10480): Add AVX2 once supported.
   return GetBestOptimization(
-      /*supported_mask=*/Optimization::kNone,
+      /*supported_mask=*/Optimization::kAvx2,
       /*disabled_mask=*/avx2_enabled ? 0 : Optimization::kAvx2);
 }
 
 }  // namespace
 
 PitchEstimator::PitchEstimator(bool avx2_enabled)
-    : optimization_(GetOptimization(avx2_enabled)),
+    : PitchEstimator(GetOptimization(avx2_enabled)) {}
+
+PitchEstimator::PitchEstimator(Optimization optimization)
+    : optimization_(optimization),
       y_energy_24kHz_(kRefineNumLags24kHz, 0.f),
       pitch_buffer_12kHz_(kBufSize12kHz),
       auto_correlation_12kHz_(kNumLags12kHz) {

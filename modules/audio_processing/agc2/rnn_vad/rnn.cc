@@ -389,31 +389,33 @@ void GatedRecurrentLayer::ComputeOutput(rtc::ArrayView<const float> input) {
 }
 
 RnnBasedVad::RnnBasedVad(bool avx2_enabled)
-    : optimization_(GetOptimization(avx2_enabled)),
-      input_layer_(kInputLayerInputSize,
+    : RnnBasedVad(GetOptimization(avx2_enabled)) {}
+
+RnnBasedVad::RnnBasedVad(Optimization optimization)
+    : input_layer_(kInputLayerInputSize,
                    kInputLayerOutputSize,
                    kInputDenseBias,
                    kInputDenseWeights,
                    TansigApproximated,
-                   optimization_),
+                   optimization),
       hidden_layer_(kInputLayerOutputSize,
                     kHiddenLayerOutputSize,
                     kHiddenGruBias,
                     kHiddenGruWeights,
                     kHiddenGruRecurrentWeights,
-                    optimization_),
+                    optimization),
       output_layer_(kHiddenLayerOutputSize,
                     kOutputLayerOutputSize,
                     kOutputDenseBias,
                     kOutputDenseWeights,
                     SigmoidApproximated,
-                    optimization_) {
+                    optimization) {
   // Input-output chaining size checks.
   RTC_DCHECK_EQ(input_layer_.output_size(), hidden_layer_.input_size())
       << "The input and the hidden layers sizes do not match.";
   RTC_DCHECK_EQ(hidden_layer_.output_size(), output_layer_.input_size())
       << "The hidden and the output layers sizes do not match.";
-  RTC_LOG(LS_INFO) << "Used optimization: " << optimization_;
+  RTC_LOG(LS_INFO) << "Used optimization: " << optimization;
 }
 
 RnnBasedVad::~RnnBasedVad() = default;

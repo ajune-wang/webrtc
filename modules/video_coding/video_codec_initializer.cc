@@ -128,6 +128,10 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
     max_framerate = std::max(max_framerate, streams[i].max_framerate);
   }
 
+  if (config.scalability_mode.has_value()) {
+    video_codec.SetScalabilityMode(*config.scalability_mode);
+  }
+
   if (video_codec.maxBitrate == 0) {
     // Unset max bitrate -> cap to one bit per pixel.
     video_codec.maxBitrate =

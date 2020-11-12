@@ -179,6 +179,8 @@ class VideoEncoderConfig {
   // Legacy Google conference mode flag for simulcast screenshare
   bool legacy_conference_mode;
 
+  absl::optional<std::string> scalability_mode;
+
  private:
   // Access to the copy constructor is private to force use of the Copy()
   // method for those exceptional cases where we do use it.

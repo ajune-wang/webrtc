@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9bd354b9_b3a979eb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-11-12T21:02:02Z",
+      "side": 1,
+      "message": "+Mirko\n\nHi Mirko,\nCould you also PTAL, in particular at BUILD.gn?\nCheers,\nAlessio",
+      "revId": "d2184141a0f908ab4cfe67e854be27cc8795724e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

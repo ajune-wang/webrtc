@@ -13,6 +13,7 @@
 #include <cmath>
 #include <vector>
 
+#include "modules/audio_processing/agc2/rnn_vad/common.h"
 #include "modules/audio_processing/agc2/rnn_vad/test_utils.h"
 #include "rtc_base/numerics/safe_compare.h"
 #include "rtc_base/numerics/safe_conversions.h"
@@ -68,16 +69,24 @@ bool FeedTestData(FeaturesExtractor* features_extractor,
 
 }  // namespace
 
+class FeatureExtractionParametrization
+    : public ::testing::TestWithParam<Optimization> {};
+
 // Extracts the features for two pure tones and verifies that the pitch field
 // values reflect the known tone frequencies.
-TEST(RnnVadTest, FeatureExtractionLowHighPitch) {
+TEST_P(FeatureExtractionParametrization, FeatureExtractionLowHighPitch) {
+  const Optimization optimization = GetParam();
+  if (!IsOptimizationAvailable(optimization)) {
+    return;
+  }
+
   constexpr float amplitude = 1000.f;
   constexpr float low_pitch_hz = 150.f;
   constexpr float high_pitch_hz = 250.f;
   ASSERT_TRUE(PitchIsValid(low_pitch_hz));
   ASSERT_TRUE(PitchIsValid(high_pitch_hz));
 
-  FeaturesExtractor features_extractor;
+  FeaturesExtractor features_extractor(optimization);
   std::vector<float> samples(kNumTestDataSize);
   std::vector<float> feature_vector(kFeatureVectorSize);
   ASSERT_EQ(kFeatureVectorSize, rtc::dchecked_cast<int>(feature_vector.size()));
@@ -99,6 +108,11 @@ TEST(RnnVadTest, FeatureExtractionLowHighPitch) {
   // Check.
   EXPECT_LT(low_pitch_period, high_pitch_period);
 }
+
+INSTANTIATE_TEST_SUITE_P(RnnVadTest,
+                         FeatureExtractionParametrization,
+                         ::testing::Values(Optimization::kNone,
+                                           Optimization::kAvx2));
 
 }  // namespace test
 }  // namespace rnn_vad

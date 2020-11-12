@@ -39,7 +39,8 @@ class PitchEstimator {
   int Estimate(rtc::ArrayView<const float, kBufSize24kHz> pitch_buffer);
 
  private:
-  FRIEND_TEST_ALL_PREFIXES(RnnVadTest, PitchSearchWithinTolerance);
+  FRIEND_TEST_ALL_PREFIXES(PitchSearchParametrization,
+                           PitchSearchWithinTolerance);
   float GetLastPitchStrengthForTesting() const {
     return last_pitch_48kHz_.strength;
   }

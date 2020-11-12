@@ -13,6 +13,7 @@
 #include <algorithm>
 #include <vector>
 
+#include "modules/audio_processing/agc2/rnn_vad/common.h"
 #include "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.h"
 #include "modules/audio_processing/agc2/rnn_vad/test_utils.h"
 // TODO(bugs.webrtc.org/8948): Add when the issue is fixed.
@@ -22,14 +23,20 @@
 namespace webrtc {
 namespace rnn_vad {
 
+class PitchSearchParametrization : public ::testing::TestWithParam<bool> {};
+
 // Checks that the computed pitch period is bit-exact and that the computed
 // pitch gain is within tolerance given test input data.
-TEST(RnnVadTest, PitchSearchWithinTolerance) {
+TEST_P(PitchSearchParametrization, PitchSearchWithinTolerance) {
+  const bool avx2_enabled = GetParam();
+  if (avx2_enabled && !IsOptimizationAvailable(Optimization::kAvx2)) {
+    return;
+  }
   auto lp_residual_reader = test::CreateLpResidualAndPitchPeriodGainReader();
   const int num_frames = std::min(lp_residual_reader.second, 300);  // Max 3 s.
   std::vector<float> lp_residual(kBufSize24kHz);
   float expected_pitch_period, expected_pitch_strength;
-  PitchEstimator pitch_estimator;
+  PitchEstimator pitch_estimator(avx2_enabled);
   {
     // TODO(bugs.webrtc.org/8948): Add when the issue is fixed.
     // FloatingPointExceptionObserver fpe_observer;
@@ -46,6 +53,10 @@ TEST(RnnVadTest, PitchSearchWithinTolerance) {
     }
   }
 }
+
+INSTANTIATE_TEST_SUITE_P(RnnVadTest,
+                         PitchSearchParametrization,
+                         ::testing::Values(false, true));
 
 }  // namespace rnn_vad
 }  // namespace webrtc

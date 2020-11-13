@@ -1,0 +1,205 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a33156d_a8555223",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-13T10:25:40Z",
+      "side": 1,
+      "message": "Thanks for the CL.\n\nI\u0027ve added some comments so far but a general one on the use of bitmasks. Is it really worth using bitmasks for specifying what optimizations are to be used? It makes the code quite hard to read.\n\nAs I see it bitmasks are very good for either saving memory or doing computations efficiently but for this purpose I\u0027d much prefer a standard enum class type for the optimization with a usage that does not rely on the underlying data type.",
+      "revId": "57ebc4772560666fc90f0165ec39b739c3df44c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fde25326_8242a3bd",
+        "filename": "modules/audio_processing/agc2/rnn_vad/common.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-13T10:25:40Z",
+      "side": 1,
+      "message": "I have a feeling that this is more complicated than it needs.\n\n\nFor code A, it should be sufficient if it once asks whether it\u0027s optimization is available. Then it should cache it on its state.",
+      "range": {
+        "startLine": 44,
+        "startChar": 10,
+        "endLine": 45,
+        "endChar": 58
+      },
+      "revId": "57ebc4772560666fc90f0165ec39b739c3df44c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d597860d_178482cb",
+        "filename": "modules/audio_processing/agc2/rnn_vad/common.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-13T10:25:40Z",
+      "side": 1,
+      "message": "I don\u0027t doubt that this works, but it is very hard to read and understand since how it works is so tied to the bitmask implementation.",
+      "range": {
+        "startLine": 48,
+        "startChar": 2,
+        "endLine": 51,
+        "endChar": 4
+      },
+      "revId": "57ebc4772560666fc90f0165ec39b739c3df44c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24aeba9e_a9351116",
+        "filename": "modules/audio_processing/agc2/rnn_vad/common.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-13T10:25:40Z",
+      "side": 1,
+      "message": "I too think this is overgeneralizing this. Since there are only two optimizations to choose from, a simple if-statement is more efficient, easier to read and produces less code.\n\nIf there is need to in the future, it can be generalized.",
+      "range": {
+        "startLine": 53,
+        "startChar": 2,
+        "endLine": 59,
+        "endChar": 3
+      },
+      "revId": "57ebc4772560666fc90f0165ec39b739c3df44c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3069126_922b53fc",
+        "filename": "modules/audio_processing/agc2/rnn_vad/common.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-13T10:25:40Z",
+      "side": 1,
+      "message": "This seems fancy, but is also fairly hacky. First-of all I think this is kind of abusing the idea with an enum. I have the feeling that the idea is to use the underlying enum type to cast the unum to and uint32_t and use as a mask.\n\nWhat I have against it is that it will make the code harder to understand, and I really doubt that the savings in complexity achieved by that is worth the effort.\n\n\nMy suggestion instead is to instead just select what optimization to go for in one place. I\u0027ll make more commens in the code.",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 2
+      },
+      "revId": "57ebc4772560666fc90f0165ec39b739c3df44c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4288662_943a9cee",
+        "filename": "modules/audio_processing/agc2/rnn_vad/common.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-13T10:25:40Z",
+      "side": 1,
+      "message": "This comment must extensively document what the bitmasks are.",
+      "range": {
+        "startLine": 85,
+        "startChar": 22,
+        "endLine": 85,
+        "endChar": 30
+      },
+      "revId": "57ebc4772560666fc90f0165ec39b739c3df44c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "883e3a1a_a4683b82",
+        "filename": "modules/audio_processing/agc2/rnn_vad/common.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-13T10:25:40Z",
+      "side": 1,
+      "message": "Does this need to be called in real-time critical code? If not, then I don\u0027t think a bitmask is the right way to do this.",
+      "range": {
+        "startLine": 86,
+        "startChar": 13,
+        "endLine": 86,
+        "endChar": 32
+      },
+      "revId": "57ebc4772560666fc90f0165ec39b739c3df44c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d83cc851_f6180ea7",
+        "filename": "modules/audio_processing/agc2/rnn_vad/features_extraction.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-13T10:25:40Z",
+      "side": 1,
+      "message": "Are two constructors needed. Can\u0027t this constructor call the other constructor?",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 55
+      },
+      "revId": "57ebc4772560666fc90f0165ec39b739c3df44c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e417508_51f94291",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-13T10:25:40Z",
+      "side": 1,
+      "message": "Here, and elsewhere. Why does this method need to know about the optimization? It is not used here.",
+      "range": {
+        "startLine": 32,
+        "startChar": 4,
+        "endLine": 32,
+        "endChar": 29
+      },
+      "revId": "57ebc4772560666fc90f0165ec39b739c3df44c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

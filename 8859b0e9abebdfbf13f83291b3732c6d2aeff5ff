@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5dac8585_042d6b3c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2020-11-13T12:39:58Z",
+      "side": 1,
+      "message": "Thanks Karl and Mirko.",
+      "revId": "8859b0e9abebdfbf13f83291b3732c6d2aeff5ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

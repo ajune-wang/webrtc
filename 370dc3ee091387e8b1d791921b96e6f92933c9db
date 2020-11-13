@@ -50,6 +50,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "b5be3498_8626e3cb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2020-11-13T12:39:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c1558cf_4f741b1b",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 8
+      },
+      "revId": "370dc3ee091387e8b1d791921b96e6f92933c9db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "3200da07_d1e5b36d",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 6
@@ -99,6 +123,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9abbf11_a927a96a",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1158,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2020-11-13T12:39:58Z",
+      "side": 1,
+      "message": "Noted, will do it in a separate CL.",
+      "parentUuid": "4bc8417f_ab27f144",
+      "revId": "370dc3ee091387e8b1d791921b96e6f92933c9db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e631686c_2a779bf5",
@@ -112,6 +154,24 @@
       "writtenOn": "2020-11-12T15:29:05Z",
       "side": 1,
       "message": "Consider adding a comment on this function saying what the signature of F should be. The type of the CallbackList indicates that it is `void(const std::string\u0026, const std::vector\u003ccricket::Candidate\u003e\u0026)`, but it will be nice for readers to see this at a glance, without having to detour into the implementation details in the private section.",
+      "revId": "370dc3ee091387e8b1d791921b96e6f92933c9db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "591b4acd_b828ed71",
+        "filename": "pc/jsep_transport_controller.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2020-11-13T12:39:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e631686c_2a779bf5",
       "revId": "370dc3ee091387e8b1d791921b96e6f92933c9db",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -139,6 +199,54 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "217bc02e_fe5f913d",
+        "filename": "pc/jsep_transport_controller.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2020-11-13T12:39:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc9593f2_7850c276",
+      "range": {
+        "startLine": 199,
+        "startChar": 45,
+        "endLine": 199,
+        "endChar": 53
+      },
+      "revId": "370dc3ee091387e8b1d791921b96e6f92933c9db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9c31e8b_4f12a7ce",
+        "filename": "pc/jsep_transport_controller.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2020-11-13T12:39:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc9593f2_7850c276",
+      "range": {
+        "startLine": 199,
+        "startChar": 45,
+        "endLine": 199,
+        "endChar": 53
+      },
+      "revId": "370dc3ee091387e8b1d791921b96e6f92933c9db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1d71eaf6_ae5b0394",
@@ -152,6 +260,24 @@
       "writtenOn": "2020-11-12T15:29:05Z",
       "side": 1,
       "message": "Put a copy of this comment up with the sole remaining sigslot?",
+      "revId": "370dc3ee091387e8b1d791921b96e6f92933c9db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e59e3cd8_7810c8cf",
+        "filename": "pc/jsep_transport_controller.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2020-11-13T12:39:58Z",
+      "side": 1,
+      "message": "There\u0027s only one remaining and it iw not called in signaling thread, I\u0027ll be next working on fixing that.",
+      "parentUuid": "1d71eaf6_ae5b0394",
       "revId": "370dc3ee091387e8b1d791921b96e6f92933c9db",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -179,6 +305,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "276eb5b9_6a7052d7",
+        "filename": "pc/jsep_transport_controller.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2020-11-13T12:39:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57d01d19_a1511f6a",
+      "range": {
+        "startLine": 244,
+        "startChar": 44,
+        "endLine": 244,
+        "endChar": 69
+      },
+      "revId": "370dc3ee091387e8b1d791921b96e6f92933c9db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0d91856f_63ebe20c",
@@ -192,6 +342,30 @@
       "writtenOn": "2020-11-12T14:23:26Z",
       "side": 1,
       "message": "Nit: remove the second set of //",
+      "range": {
+        "startLine": 252,
+        "startChar": 5,
+        "endLine": 252,
+        "endChar": 8
+      },
+      "revId": "370dc3ee091387e8b1d791921b96e6f92933c9db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8694e514_ff7f0315",
+        "filename": "pc/jsep_transport_controller.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2020-11-13T12:39:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d91856f_63ebe20c",
       "range": {
         "startLine": 252,
         "startChar": 5,

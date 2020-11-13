@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9db42b0_9ada939d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-13T11:41:40Z",
+      "side": 1,
+      "message": "LGTM, but see comments.",
+      "revId": "6d4aa04c4adbe9d72916a808224766a411929a47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e82f8a7_79d0f51c",
+        "filename": "api/voip/voip_volume_control.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-13T11:41:40Z",
+      "side": 1,
+      "message": "Call this `muted` or similar instead, to prevent confusion around whether it\u0027s muting or sound that\u0027s being enabled? (More cases elsewhere in this CL.)",
+      "range": {
+        "startLine": 39,
+        "startChar": 55,
+        "endLine": 39,
+        "endChar": 61
+      },
+      "revId": "6d4aa04c4adbe9d72916a808224766a411929a47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0326e4f2_ad89690e",
+        "filename": "api/voip/voip_volume_control.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-13T11:41:40Z",
+      "side": 1,
+      "message": "When will the return value be nullopt?",
+      "revId": "6d4aa04c4adbe9d72916a808224766a411929a47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82f80e73_6bf6b958",
+        "filename": "api/voip/voip_volume_control.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-13T11:41:40Z",
+      "side": 1,
+      "message": "When will the return value be nullopt?",
+      "revId": "6d4aa04c4adbe9d72916a808224766a411929a47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

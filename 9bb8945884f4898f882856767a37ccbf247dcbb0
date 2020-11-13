@@ -50,6 +50,24 @@
       "message": "Hm. transceiver_stats_infos_ and call_stats don\u0027t have RTC_GUARDED_BY clauses; this CL moves writing transceiver_stats_infos_ from one thread to another thread. This feels unsafe.\n\nCan you add RTC_GUARDED_BY and either have the variables be consistent or guard them with a mutex?\n(I don\u0027t think the performance hit of grabbing a mutex matters here, while producing garbage values because of thread confusion could be quite costly.)\n",
       "revId": "9bb8945884f4898f882856767a37ccbf247dcbb0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d25dccf6_19838684",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-11-13T08:44:23Z",
+      "side": 1,
+      "message": "Actually, the way it works is we have a \"prepare phase\" and a \"collection phase\". In the prepare phase we set transceiver_stats_infos_ and call_stats_ then in the collection phase we use these (read-only) on multiple threads.\n\nThis is needed because different pieces of information is stored on different threads and we do not want to have to do any blocking invokes during the stats collection phase for performance reasons and to avoid possible deadlocks.\n\nSo how is this safe? We only do one stats collection at a time. So writing while reading is not possible. This is already ensured by having a queue of requests.\n\nThis design is old and not changing with this CL, so I would like not to do anything about that here. But this is why I can\u0027t use RTC_GUARDED_BY.\n\nI could add RTC_GUARDED_BY to a lot of other members in these classes that aren\u0027t \"prepared + collected on\", but that seems like a separate CL.",
+      "parentUuid": "b9ed46c2_29165e3c",
+      "revId": "9bb8945884f4898f882856767a37ccbf247dcbb0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

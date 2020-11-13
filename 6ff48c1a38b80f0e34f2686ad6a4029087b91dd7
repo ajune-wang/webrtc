@@ -16,6 +16,74 @@
       "message": "Changing to my webrtc account for the review.",
       "revId": "6ff48c1a38b80f0e34f2686ad6a4029087b91dd7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1396c3bf_92a80308",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-11-13T15:25:41Z",
+      "side": 1,
+      "message": "I think you can do even better than this.\nNote that the callbacks are only instantiated once - you don\u0027t need the multi-firing capability offered by CallbackList. And they are only instantiated in one place - right after the object is created.\n\nSo I think you can actually get things to be even simpler (and faster, smaller and more readable) by simply passing a set of std::function\u003c\u003e arguments to the constructor of JsepTransportController.\n\nRemaining comments are \"if you want to use CallbackList anyway\".",
+      "revId": "6ff48c1a38b80f0e34f2686ad6a4029087b91dd7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39f42527_075f14ae",
+        "filename": "pc/jsep_transport_controller.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-11-13T15:25:41Z",
+      "side": 1,
+      "message": "Please don\u0027t template when you don\u0027t have to. You make the job of both the compiler and the code reader harder.\nYou know the only possible argument here is a std::function\u003cvoid(const std::string\u0026, const std::vector\u003ccricket::Candidate\u003e\u0026)\u003e, so please just write that.\n\nRepeat for all the functions below.",
+      "revId": "6ff48c1a38b80f0e34f2686ad6a4029087b91dd7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "357f3884_004ce3b1",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-11-13T15:25:41Z",
+      "side": 1,
+      "message": "English: \"The following RTC_DCHECKS...\"\nEnglish grammar is important, and is in fact more important for non-native English speakers than for those for who English is the native language.",
+      "revId": "6ff48c1a38b80f0e34f2686ad6a4029087b91dd7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a5b8389_e496107d",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-11-13T15:25:41Z",
+      "side": 1,
+      "message": "This is all one long sentence, and is hard to decipher. Please rephrase into short sentences.",
+      "revId": "6ff48c1a38b80f0e34f2686ad6a4029087b91dd7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

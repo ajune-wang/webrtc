@@ -16,6 +16,23 @@
       "message": "Please take a look, Harald and Philipp",
       "revId": "9bb8945884f4898f882856767a37ccbf247dcbb0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97368810_50d4ef6a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-11-13T08:26:58Z",
+      "side": 1,
+      "message": "nice!",
+      "revId": "9bb8945884f4898f882856767a37ccbf247dcbb0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

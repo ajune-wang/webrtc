@@ -68,6 +68,24 @@
       "parentUuid": "b9ed46c2_29165e3c",
       "revId": "9bb8945884f4898f882856767a37ccbf247dcbb0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0fe7d4ac_04effe7a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-11-13T08:55:39Z",
+      "side": 1,
+      "message": "I filed https://crbug.com/webrtc/12183",
+      "parentUuid": "d25dccf6_19838684",
+      "revId": "9bb8945884f4898f882856767a37ccbf247dcbb0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

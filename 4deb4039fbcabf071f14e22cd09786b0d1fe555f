@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d31fe9a1_ddad918e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-11-13T15:02:52Z",
+      "side": 1,
+      "message": "Hi Per,\n\nAfter our offline discussion, I wrote a new CL from scratch that replaces https://webrtc-review.googlesource.com/c/src/+/192790.\nUsing a struct with flags for each available CPU feature (as you suggested) turned out to be a much cleaner and simple option :) Thanks!\n\nI also tried to reduce the CL size.\n\nAlessio",
+      "revId": "4deb4039fbcabf071f14e22cd09786b0d1fe555f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

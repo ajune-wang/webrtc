@@ -68,6 +68,24 @@
       "parentUuid": "4bdb4568_ab5da90a",
       "revId": "d6513f80fdca3234ff6cdde3b2ed1a23e203d845",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f38bb887_9364df4e",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2452,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2020-11-13T16:39:37Z",
+      "side": 1,
+      "message": "You should still assign it to all simulcast layers or make sure it\u0027s not used for anything than the first layer and return some error then. In that case, add comments explaining what happens and a TODO.",
+      "parentUuid": "0452bb3d_4fb1b807",
+      "revId": "d6513f80fdca3234ff6cdde3b2ed1a23e203d845",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

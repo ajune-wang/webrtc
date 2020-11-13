@@ -16,6 +16,23 @@
       "message": "Hi, \n\nI\u0027m looking to get a change in which is the ios version of this:\n\nhttps://webrtc.googlesource.com/src/+/228900f8b1e0f091daa4a2a55301fb4216354781\n\nI\u0027m adding TURN_LOGGING_ID support to the webrtc ios sdk in order to allow backend logs to correlate with frontend logs. \n\nPlease let me know if there\u0027s anyone else I should add to this reviewer set. \n\nThanks!\n-Brad",
       "revId": "fabd1a4caa6d5af913762b58540f6e6e6e7a9a6d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51da96c8_647659e6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-13T11:33:20Z",
+      "side": 1,
+      "message": "Removing myself from the reviewer set.",
+      "revId": "fabd1a4caa6d5af913762b58540f6e6e6e7a9a6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

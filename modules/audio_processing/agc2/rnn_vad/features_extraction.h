@@ -26,7 +26,7 @@ namespace rnn_vad {
 // Feature extractor to feed the VAD RNN.
 class FeaturesExtractor {
  public:
-  FeaturesExtractor();
+  explicit FeaturesExtractor(AvailableCpuFeatures cpu_features);
   FeaturesExtractor(const FeaturesExtractor&) = delete;
   FeaturesExtractor& operator=(const FeaturesExtractor&) = delete;
   ~FeaturesExtractor();

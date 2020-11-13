@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '5cee6c65d752be01e78c56df4db9562e5e10ab2f',
+  'chromium_revision': '68ae1beb98402f886d9aacee7c535bf9d07954ea',
 
   # This can be overridden, e.g. with custom_vars, to download a nonstandard
   # Xcode version in build/mac_toolchain.py
@@ -24,7 +24,7 @@ deps = {
   'src/base':
     'https://chromium.googlesource.com/chromium/src/base@8e78faaf4070eba5067e820c902f91f9872f5f66',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@995f47015c810cfdb9ad29ece51b7e7c64ebf95f',
+    'https://chromium.googlesource.com/chromium/src/build@623a15dc557d5949fa19873cfc2599d455b5c284',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@6302c1175607a436e18947a5abe9df2209e845fc',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -37,9 +37,9 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@877595b888dc9764e9296be2e1496f4024b6a854',
+    'https://chromium.googlesource.com/chromium/src/testing@895b78fe81940b35189d0c9c06648b3e0fe365d1',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@93fad31f3361b96f7ffb67be6185c002f796b645',
+    'https://chromium.googlesource.com/chromium/src/third_party@f0986ce797b4d0ecac5e657cf01ae0d5cd070d4b',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -265,7 +265,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@6824f17b76ef725f17a85b9583adba9a8b388006',
+    'https://chromium.googlesource.com/chromium/src/tools@38dcab32178302fd7d3b912069c68cd44009675a',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@d46ea7635f2911208268170512cb611412488fd8',
 

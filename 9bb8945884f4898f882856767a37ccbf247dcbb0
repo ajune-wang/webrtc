@@ -33,6 +33,23 @@
       "message": "nice!",
       "revId": "9bb8945884f4898f882856767a37ccbf247dcbb0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9ed46c2_29165e3c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-11-13T08:35:06Z",
+      "side": 1,
+      "message": "Hm. transceiver_stats_infos_ and call_stats don\u0027t have RTC_GUARDED_BY clauses; this CL moves writing transceiver_stats_infos_ from one thread to another thread. This feels unsafe.\n\nCan you add RTC_GUARDED_BY and either have the variables be consistent or guard them with a mutex?\n(I don\u0027t think the performance hit of grabbing a mutex matters here, while producing garbage values because of thread confusion could be quite costly.)\n",
+      "revId": "9bb8945884f4898f882856767a37ccbf247dcbb0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

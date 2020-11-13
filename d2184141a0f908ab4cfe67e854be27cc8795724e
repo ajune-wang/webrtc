@@ -16,6 +16,97 @@
       "message": "+Mirko\n\nHi Mirko,\nCould you also PTAL, in particular at BUILD.gn?\nCheers,\nAlessio",
       "revId": "d2184141a0f908ab4cfe67e854be27cc8795724e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1bf80ca_baf599db",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2020-11-13T08:45:21Z",
+      "side": 1,
+      "message": "Great Alessio,\nThe AVX2 code looks good to me, but please fix the build issues mentioned below.",
+      "revId": "d2184141a0f908ab4cfe67e854be27cc8795724e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5a0f918_05632621",
+        "filename": "modules/audio_processing/agc2/rnn_vad/BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2020-11-13T08:45:21Z",
+      "side": 1,
+      "message": "This will enable AVX2 for both pitch_search.cc and pitch_search_internal.cc.\nThis means that even code where you don\u0027t use explicit AVX2 intrinsics might be compiled to AVX2 instructions (and crash on computer not supporting it).\nPlease check aec3/BUILD to see how it is done there, with a specific target for AVX2 code.",
+      "revId": "d2184141a0f908ab4cfe67e854be27cc8795724e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "388a7ca8_a23c7e92",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2020-11-13T08:45:21Z",
+      "side": 1,
+      "message": "I don\u0027t fully get why the AVX2 is put in the supported mask. Does it mean that AVX2 is supported by the machine or by the code?",
+      "revId": "d2184141a0f908ab4cfe67e854be27cc8795724e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2930eff3_4dac955f",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2020-11-13T08:45:21Z",
+      "side": 1,
+      "message": "This took me ~15 minutes and a piece of paper to decipher, but it\u0027s correct! 😊\nMaybe variable names shouldn\u0027t be reused like this, but on the other hand it\u0027s hard to come up with meaningful names.",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 0
+      },
+      "revId": "d2184141a0f908ab4cfe67e854be27cc8795724e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62598448_6b9e927a",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2020-11-13T08:45:21Z",
+      "side": 1,
+      "message": "Just to clarify my comment on the BUILD file...\nThis \"non-optimized\" inner_product will be compiled with AVX2 instructions.\nSo remove -mavx2 for this file, and then move InnerProductAvx2 to a new file which is compiled with -mavx2.",
+      "revId": "d2184141a0f908ab4cfe67e854be27cc8795724e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

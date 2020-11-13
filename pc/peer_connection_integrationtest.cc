@@ -5460,6 +5460,113 @@ TEST_F(PeerConnectionIntegrationTestUnifiedPlan,
   caller()->CreateOfferAndWait();
 }
 
+TEST_P(PeerConnectionIntegrationTest, OneHundredAudioTracks) {
+  ASSERT_TRUE(CreatePeerConnectionWrappers());
+  ConnectFakeSignaling();
+  caller()->AddAudioTrack();
+
+  caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  // Add 99 more audio tracks. (Reduced for testing)
+  for (int i = 2; i <= 100; i++) {
+    caller()->AddAudioTrack();
+    RTC_LOG(LS_ERROR) << "Renegotiating with " << i << " tracks";
+    auto start_time = rtc::TimeMillis();
+    caller()->CreateAndSetAndSignalOffer();
+    // We want to stop when the time exceeds one second.
+    ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+    auto elapsed_time = rtc::TimeMillis() - start_time;
+    RTC_LOG(LS_ERROR) << "Audio tracks: Renegotiating took " << elapsed_time
+                      << " ms";
+    // For some reason ASSERT_TRUE_WAIT doesn't break the loop.
+    ASSERT_GT(1000, elapsed_time)
+        << "Audio tracks: Negotiation took too long after " << i
+        << " tracks added";
+    MediaExpectations media_expectations;
+    media_expectations.CalleeExpectsSomeAudio();
+    ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  }
+}
+
+TEST_F(PeerConnectionIntegrationTestUnifiedPlan, OneHundredAudioTransceivers) {
+  PeerConnectionInterface::RTCConfiguration config;
+  config.sdp_semantics = SdpSemantics::kUnifiedPlan;
+  ASSERT_TRUE(CreatePeerConnectionWrappersWithConfig(config, config));
+  ConnectFakeSignaling();
+  caller()->pc()->AddTransceiver(cricket::MEDIA_TYPE_AUDIO);
+
+  caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  // Add 99 more audio tracks. (Reduced for testing)
+  for (int i = 2; i <= 100; i++) {
+    caller()->pc()->AddTransceiver(cricket::MEDIA_TYPE_AUDIO);
+    RTC_LOG(LS_ERROR) << "Renegotiating with " << i << " tracks";
+    auto start_time = rtc::TimeMillis();
+    caller()->CreateAndSetAndSignalOffer();
+    // We want to stop when the time exceeds one second.
+    ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+    auto elapsed_time = rtc::TimeMillis() - start_time;
+    RTC_LOG(LS_ERROR) << "Renegotiating took " << elapsed_time << " ms";
+    // For some reason ASSERT_TRUE_WAIT doesn't break the loop.
+    ASSERT_GT(1000, elapsed_time)
+        << "Audio transceivers: Negotiation took too long after " << i
+        << " tracks added";
+  }
+}
+
+TEST_P(PeerConnectionIntegrationTest, OneHundredVideoTracks) {
+  ASSERT_TRUE(CreatePeerConnectionWrappers());
+  ConnectFakeSignaling();
+  caller()->AddVideoTrack();
+
+  caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  // Add 99 more audio tracks. (Reduced for testing)
+  for (int i = 2; i <= 100; i++) {
+    caller()->AddVideoTrack();
+    RTC_LOG(LS_ERROR) << "Renegotiating with " << i << " tracks";
+    auto start_time = rtc::TimeMillis();
+    caller()->CreateAndSetAndSignalOffer();
+    // We want to stop when the time exceeds one second.
+    ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+    auto elapsed_time = rtc::TimeMillis() - start_time;
+    RTC_LOG(LS_ERROR) << "Renegotiating took " << elapsed_time << " ms";
+    // For some reason ASSERT_TRUE_WAIT doesn't break the loop.
+    ASSERT_GT(1000, elapsed_time)
+        << "Video tracks: Negotiation took too long after " << i
+        << " tracks added";
+    MediaExpectations media_expectations;
+    media_expectations.CalleeExpectsSomeVideo();
+    ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  }
+}
+
+TEST_F(PeerConnectionIntegrationTestUnifiedPlan, OneHundredVideoTransceivers) {
+  PeerConnectionInterface::RTCConfiguration config;
+  config.sdp_semantics = SdpSemantics::kUnifiedPlan;
+  ASSERT_TRUE(CreatePeerConnectionWrappersWithConfig(config, config));
+  ConnectFakeSignaling();
+  caller()->pc()->AddTransceiver(cricket::MEDIA_TYPE_VIDEO);
+
+  caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  // Add 99 more audio tracks. (Reduced for testing)
+  for (int i = 2; i <= 100; i++) {
+    caller()->pc()->AddTransceiver(cricket::MEDIA_TYPE_VIDEO);
+    RTC_LOG(LS_ERROR) << "Renegotiating with " << i << " tracks";
+    auto start_time = rtc::TimeMillis();
+    caller()->CreateAndSetAndSignalOffer();
+    // We want to stop when the time exceeds one second.
+    ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+    auto elapsed_time = rtc::TimeMillis() - start_time;
+    RTC_LOG(LS_ERROR) << "Renegotiating took " << elapsed_time << " ms";
+    // For some reason ASSERT_TRUE_WAIT doesn't break the loop.
+    ASSERT_GT(1000, elapsed_time)
+        << "Video transceivers: Negotiation took too long after " << i
+        << " tracks added";
+  }
+}
+
 INSTANTIATE_TEST_SUITE_P(PeerConnectionIntegrationTest,
                          PeerConnectionIntegrationTest,
                          Values(SdpSemantics::kPlanB,

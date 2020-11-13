@@ -525,27 +525,54 @@ bool PeerConnection::Initialize(
   transport_controller_.reset(new JsepTransportController(
       signaling_thread(), network_thread(), port_allocator_.get(),
       async_resolver_factory_.get(), config));
-  transport_controller_->SignalStandardizedIceConnectionState.connect(
-      this, &PeerConnection::SetStandardizedIceConnectionState);
-  transport_controller_->SignalConnectionState.connect(
-      this, &PeerConnection::SetConnectionState);
-  transport_controller_->SignalIceGatheringState.connect(
-      this, &PeerConnection::OnTransportControllerGatheringState);
-  transport_controller_->SignalIceCandidatesGathered.connect(
-      this, &PeerConnection::OnTransportControllerCandidatesGathered);
-  transport_controller_->SignalIceCandidateError.connect(
-      this, &PeerConnection::OnTransportControllerCandidateError);
-  transport_controller_->SignalIceCandidatesRemoved.connect(
-      this, &PeerConnection::OnTransportControllerCandidatesRemoved);
+
   transport_controller_->SignalDtlsHandshakeError.connect(
       this, &PeerConnection::OnTransportControllerDtlsHandshakeError);
-  transport_controller_->SignalIceCandidatePairChanged.connect(
-      this, &PeerConnection::OnTransportControllerCandidateChanged);
 
-  transport_controller_->SignalIceConnectionState.AddReceiver(
+  // Following RTC_DCHECKs are added by carefully looking at the caller
+  // thread and if this is incorrect there might not be failures which
+  // will not be tested in unit tests in webrtc but caught
+  // during the chromium roll until webrtc:186946 is fixed.
+  transport_controller_->SubscribeIceConnectionState(
       [this](cricket::IceConnectionState s) {
         RTC_DCHECK_RUN_ON(signaling_thread());
         OnTransportControllerConnectionState(s);
+      });
+  transport_controller_->SubscribeConnectionState(
+      [this](PeerConnectionInterface::PeerConnectionState s) {
+        RTC_DCHECK_RUN_ON(signaling_thread());
+        SetConnectionState(s);
+      });
+  transport_controller_->SubscribeStandardizedIceConnectionState(
+      [this](PeerConnectionInterface::IceConnectionState s) {
+        RTC_DCHECK_RUN_ON(signaling_thread());
+        SetStandardizedIceConnectionState(s);
+      });
+  transport_controller_->SubscribeIceGatheringState(
+      [this](cricket::IceGatheringState s) {
+        RTC_DCHECK_RUN_ON(signaling_thread());
+        OnTransportControllerGatheringState(s);
+      });
+  transport_controller_->SubscribeIceCandidateGathered(
+      [this](const std::string& transport,
+             const std::vector<cricket::Candidate>& candidates) {
+        RTC_DCHECK_RUN_ON(signaling_thread());
+        OnTransportControllerCandidatesGathered(transport, candidates);
+      });
+  transport_controller_->SubscribeIceCandidateError(
+      [this](const cricket::IceCandidateErrorEvent& event) {
+        RTC_DCHECK_RUN_ON(signaling_thread());
+        OnTransportControllerCandidateError(event);
+      });
+  transport_controller_->SubscribeIceCandidatesRemoved(
+      [this](const std::vector<cricket::Candidate>& c) {
+        RTC_DCHECK_RUN_ON(signaling_thread());
+        OnTransportControllerCandidatesRemoved(c);
+      });
+  transport_controller_->SubscribeIceCandidatePairChanged(
+      [this](const cricket::CandidatePairChangeEvent& event) {
+        RTC_DCHECK_RUN_ON(signaling_thread());
+        OnTransportControllerCandidateChanged(event);
       });
 
   configuration_ = configuration;

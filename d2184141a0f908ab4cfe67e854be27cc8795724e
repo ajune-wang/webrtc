@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "159202a6_d1b32ac8",
+        "filename": "modules/audio_processing/agc2/rnn_vad/BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-11-13T09:14:11Z",
+      "side": 1,
+      "message": "Yes, you probably need a \"rnn_vad_pitch_avx2\" target and only have the avx2 flags on that one.",
+      "parentUuid": "f5a0f918_05632621",
+      "revId": "d2184141a0f908ab4cfe67e854be27cc8795724e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "388a7ca8_a23c7e92",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.cc",
         "patchSetId": 8

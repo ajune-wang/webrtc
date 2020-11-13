@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a48de277_00e85743",
+        "filename": "modules/audio_processing/agc2/rnn_vad/common.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-11-13T09:28:53Z",
+      "side": 1,
+      "message": "Are these #if/#else needed?\n\nGetCPUInfo should take care of this: https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/system_wrappers/source/cpu_features.cc;l\u003d107-112;drc\u003da43178c871cbb05f02b1b1d419c7a2520366763b.",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 35
+      },
+      "revId": "48fc643c74bc0e23878228b05dd1233f52773a9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72a3ca52_efd4ed33",
+        "filename": "modules/audio_processing/agc2/rnn_vad/common.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-11-13T09:28:53Z",
+      "side": 1,
+      "message": "RTC_CHECK_NOTREACHED() before the end of the function?\n\nIn case a value not part of the enum is passed to the function.",
+      "revId": "48fc643c74bc0e23878228b05dd1233f52773a9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "667e8390_f953d943",
+        "filename": "modules/audio_processing/agc2/rnn_vad/common.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-11-13T09:28:53Z",
+      "side": 1,
+      "message": "Is this disabled by the code (e.g. something like https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/system_wrappers/source/cpu_features.cc;l\u003d82;drc\u003da43178c871cbb05f02b1b1d419c7a2520366763b), when for example you want to disable an optimization on a release?",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 4
+      },
+      "revId": "48fc643c74bc0e23878228b05dd1233f52773a9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7944e15e_6a29d274",
+        "filename": "modules/audio_processing/agc2/rnn_vad/common.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-11-13T09:28:53Z",
+      "side": 1,
+      "message": "I wonder if this should be made available more broadly inside WebRTC in order to unify how optimizations are selected. Maybe around https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/system_wrappers/include/cpu_features_wrapper.h?",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 57
+      },
+      "revId": "48fc643c74bc0e23878228b05dd1233f52773a9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

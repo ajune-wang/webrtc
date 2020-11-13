@@ -86,6 +86,23 @@
       "parentUuid": "d25dccf6_19838684",
       "revId": "9bb8945884f4898f882856767a37ccbf247dcbb0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f16ad18f_b859fdc0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-11-13T08:56:21Z",
+      "side": 1,
+      "message": "Now that https://crbug.com/webrtc/12183 is filed to give voice to my concern, I think I\u0027m OK with this particular CL.\n",
+      "revId": "9bb8945884f4898f882856767a37ccbf247dcbb0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -366,6 +366,7 @@ VideoStreamEncoder::VideoStreamEncoder(
       rate_control_settings_(RateControlSettings::ParseFromFieldTrials()),
       encoder_selector_(settings.encoder_factory->GetEncoderSelector()),
       encoder_stats_observer_(encoder_stats_observer),
+      stop_called_(false),
       encoder_initialized_(false),
       max_framerate_(-1),
       pending_encoder_reconfiguration_(false),
@@ -485,6 +486,7 @@ void VideoStreamEncoder::Stop() {
       resource_adaptation_processor_.reset();
     }
     rate_allocator_ = nullptr;
+    stop_called_ = true;
     ReleaseEncoder();
     shutdown_event.Set();
   });
@@ -1174,7 +1176,7 @@ void VideoStreamEncoder::SetEncoderRates(
     last_encoder_rate_settings_ = rate_settings;
   }
 
-  if (!encoder_) {
+  if (!encoder_ || stop_called_) {
     return;
   }
 

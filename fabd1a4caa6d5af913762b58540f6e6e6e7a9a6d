@@ -33,6 +33,23 @@
       "message": "Removing myself from the reviewer set.",
       "revId": "fabd1a4caa6d5af913762b58540f6e6e6e7a9a6d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5be34cb_3c17edb7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14780
+      },
+      "writtenOn": "2020-11-16T21:01:05Z",
+      "side": 1,
+      "message": "I added the null check after I built this in my other workspace. figures that broke things. I didn\u0027t realize strings in c++ can\u0027t be null, so things like the c_str() func won\u0027t break without a null check. ",
+      "revId": "fabd1a4caa6d5af913762b58540f6e6e6e7a9a6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

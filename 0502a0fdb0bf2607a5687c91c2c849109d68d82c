@@ -33,6 +33,24 @@
       "message": "Use TestMemberIsIDReference instead of TestMemberIsDefined and it will verify that the value of transport_id can be used for a valid lookup of an existing RTCTransportStats object :)",
       "revId": "0502a0fdb0bf2607a5687c91c2c849109d68d82c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f15d8cf_0d4c278f",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-11-16T21:05:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "27caf4aa_68800561",
+      "revId": "0502a0fdb0bf2607a5687c91c2c849109d68d82c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

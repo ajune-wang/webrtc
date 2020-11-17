@@ -191,6 +191,8 @@ void ThreadManager::Clear(MessageHandler* handler) {
   return Instance()->ClearInternal(handler);
 }
 void ThreadManager::ClearInternal(MessageHandler* handler) {
+  // RTC_LOG(LS_ERROR) << __FUNCTION__;
+  // RTC_NOTREACHED();
   // Deleted objects may cause re-entrant calls to ClearInternal. This is
   // allowed as the list of message queues does not change while queues are
   // cleared.
@@ -891,6 +893,8 @@ void Thread::Send(const Location& posted_from,
     msg.phandler->OnMessage(&msg);
     return;
   }
+
+  // RTC_LOG(LS_ERROR) << __FUNCTION__;
 
   AssertBlockingIsAllowedOnCurrentThread();
 

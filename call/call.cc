@@ -1063,7 +1063,6 @@ FlexfecReceiveStream* Call::CreateFlexfecReceiveStream(
 void Call::DestroyFlexfecReceiveStream(FlexfecReceiveStream* receive_stream) {
   TRACE_EVENT0("webrtc", "Call::DestroyFlexfecReceiveStream");
   RTC_DCHECK_RUN_ON(worker_thread_);
-
   RTC_DCHECK(receive_stream != nullptr);
   const FlexfecReceiveStream::Config& config = receive_stream->GetConfig();
   uint32_t ssrc = config.remote_ssrc;
@@ -1148,7 +1147,6 @@ void Call::OnAudioTransportOverheadChanged(int transport_overhead_per_packet) {
 
 void Call::UpdateAggregateNetworkState() {
   RTC_DCHECK_RUN_ON(worker_thread_);
-
   bool have_audio =
       !audio_send_ssrcs_.empty() || !audio_receive_streams_.empty();
   bool have_video =
@@ -1406,9 +1404,12 @@ PacketReceiver::DeliveryStatus Call::DeliverPacket(
     int64_t packet_time_us) {
   RTC_DCHECK_RUN_ON(worker_thread_);
 
-  if (IsRtcp(packet.cdata(), packet.size()))
+  if (IsRtcp(packet.cdata(), packet.size())) {
+    //RTC_LOG(LS_ERROR) << "Call::DeliverRtcp";
     return DeliverRtcp(media_type, packet.cdata(), packet.size());
+  }
 
+  //RTC_LOG(LS_ERROR) << "Call::DeliverRtp";
   return DeliverRtp(media_type, std::move(packet), packet_time_us);
 }
 

@@ -2261,9 +2261,11 @@ webrtc::RTCError WebRtcVideoChannel::WebRtcVideoSendStream::SetRtpParameters(
   // TODO(bugs.webrtc.org/8807): The bitrate priority really doesn't require an
   // entire encoder reconfiguration, it just needs to update the bitrate
   // allocator.
-  bool reconfigure_encoder =
-      new_param || (new_parameters.encodings[0].bitrate_priority !=
-                    rtp_parameters_.encodings[0].bitrate_priority);
+  bool reconfigure_encoder = new_param ||
+                             (new_parameters.encodings[0].bitrate_priority !=
+                              rtp_parameters_.encodings[0].bitrate_priority) ||
+                             new_parameters.encodings[0].scalability_mode !=
+                                 rtp_parameters_.encodings[0].scalability_mode;
 
   // TODO(bugs.webrtc.org/8807): The active field as well should not require
   // a full encoder reconfiguration, but it needs to update both the bitrate
@@ -2445,6 +2447,26 @@ WebRtcVideoChannel::WebRtcVideoSendStream::CreateVideoEncoderConfig(
   }
 
   encoder_config.legacy_conference_mode = parameters_.conference_mode;
+
+  absl::optional<std::string> scalability_mode =
+      rtp_parameters_.encodings[0].scalability_mode;
+  if (scalability_mode.has_value() && rtp_parameters_.encodings.size() > 1) {
+    // Scalability modes are at least four character long where the second
+    // character describes the number of spatial layers.
+    if (scalability_mode->size() < 4 || scalability_mode->at(1) != '1') {
+      scalability_mode.reset();
+    }
+
+    for (size_t i = 0;
+         scalability_mode.has_value() && i < rtp_parameters_.encodings.size();
+         ++i) {
+      if (rtp_parameters_.encodings[0].scalability_mode !=
+          rtp_parameters_.encodings[i].scalability_mode) {
+        scalability_mode.reset();
+      }
+    }
+  }
+  encoder_config.scalability_mode = scalability_mode;
 
   int max_qp = kDefaultQpMax;
   codec.GetParam(kCodecParamMaxQuantization, &max_qp);

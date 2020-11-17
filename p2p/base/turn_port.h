@@ -282,20 +282,14 @@ class TurnPort : public Port {
 
   rtc::DiffServCodePoint StunDscpValue() const override;
 
- private:
-  enum {
-    MSG_ALLOCATE_ERROR = MSG_FIRST_AVAILABLE,
-    MSG_ALLOCATE_MISMATCH,
-    MSG_TRY_ALTERNATE_SERVER,
-    MSG_REFRESH_ERROR,
-    MSG_ALLOCATION_RELEASED
-  };
+  void OnAllocateMismatchAsync();
+  void TryAlternateServerAsync();
+  void CloseAsync();
 
+ private:
   typedef std::list<TurnEntry*> EntryList;
   typedef std::map<rtc::Socket::Option, int> SocketOptionsMap;
   typedef std::set<rtc::SocketAddress> AttemptedServerSet;
-
-  void OnMessage(rtc::Message* pmsg) override;
 
   bool CreateTurnClientSocket();
 

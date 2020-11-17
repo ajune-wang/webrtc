@@ -28,6 +28,7 @@
 #include "rtc_base/net_helpers.h"
 #include "rtc_base/socket_address.h"
 #include "rtc_base/strings/string_builder.h"
+#include "rtc_base/task_utils/to_queued_task.h"
 #include "system_wrappers/include/field_trial.h"
 
 namespace cricket {
@@ -882,7 +883,8 @@ void TurnPort::OnAllocateError(int error_code, const std::string& reason) {
   // We will send SignalPortError asynchronously as this can be sent during
   // port initialization. This way it will not be blocking other port
   // creation.
-  thread()->Post(RTC_FROM_HERE, this, MSG_ALLOCATE_ERROR);
+  thread()->PostTask(
+      ToQueuedTask(task_safety_, [this]() { SignalPortError(this); }));
   std::string address = GetLocalAddress().HostAsSensitiveURIString();
   int port = GetLocalAddress().port();
   if (server_address_.proto == PROTO_TCP &&
@@ -900,7 +902,8 @@ void TurnPort::OnRefreshError() {
   // Need to clear the requests asynchronously because otherwise, the refresh
   // request may be deleted twice: once at the end of the message processing
   // and the other in HandleRefreshError().
-  thread()->Post(RTC_FROM_HERE, this, MSG_REFRESH_ERROR);
+  thread()->PostTask(
+      ToQueuedTask(task_safety_, [this]() { HandleRefreshError(); }));
 }
 
 void TurnPort::HandleRefreshError() {
@@ -943,40 +946,33 @@ rtc::DiffServCodePoint TurnPort::StunDscpValue() const {
   return stun_dscp_value_;
 }
 
-void TurnPort::OnMessage(rtc::Message* message) {
-  switch (message->message_id) {
-    case MSG_ALLOCATE_ERROR:
-      SignalPortError(this);
-      break;
-    case MSG_ALLOCATE_MISMATCH:
-      OnAllocateMismatch();
-      break;
-    case MSG_REFRESH_ERROR:
-      HandleRefreshError();
-      break;
-    case MSG_TRY_ALTERNATE_SERVER:
-      if (server_address().proto == PROTO_UDP) {
-        // Send another allocate request to alternate server, with the received
-        // realm and nonce values.
-        SendRequest(new TurnAllocateRequest(this), 0);
-      } else {
-        // Since it's TCP, we have to delete the connected socket and reconnect
-        // with the alternate server. PrepareAddress will send stun binding once
-        // the new socket is connected.
-        RTC_DCHECK(server_address().proto == PROTO_TCP ||
-                   server_address().proto == PROTO_TLS);
-        RTC_DCHECK(!SharedSocket());
-        delete socket_;
-        socket_ = NULL;
-        PrepareAddress();
-      }
-      break;
-    case MSG_ALLOCATION_RELEASED:
-      Close();
-      break;
-    default:
-      Port::OnMessage(message);
-  }
+void TurnPort::OnAllocateMismatchAsync() {
+  thread()->PostTask(
+      ToQueuedTask(task_safety_, [this]() { OnAllocateMismatch(); }));
+}
+
+void TurnPort::CloseAsync() {
+  thread()->PostTask(ToQueuedTask(task_safety_, [this]() { Close(); }));
+}
+
+void TurnPort::TryAlternateServerAsync() {
+  thread()->PostTask(ToQueuedTask(task_safety_, [this]() {
+    if (server_address().proto == PROTO_UDP) {
+      // Send another allocate request to alternate server, with the received
+      // realm and nonce values.
+      SendRequest(new TurnAllocateRequest(this), 0);
+    } else {
+      // Since it's TCP, we have to delete the connected socket and reconnect
+      // with the alternate server. PrepareAddress will send stun binding once
+      // the new socket is connected.
+      RTC_DCHECK(server_address().proto == PROTO_TCP ||
+                 server_address().proto == PROTO_TLS);
+      RTC_DCHECK(!SharedSocket());
+      delete socket_;
+      socket_ = nullptr;
+      PrepareAddress();
+    }
+  }));
 }
 
 void TurnPort::OnAllocateRequestTimeout() {
@@ -1431,8 +1427,7 @@ void TurnAllocateRequest::OnErrorResponse(StunMessage* response) {
     case STUN_ERROR_ALLOCATION_MISMATCH:
       // We must handle this error async because trying to delete the socket in
       // OnErrorResponse will cause a deadlock on the socket.
-      port_->thread()->Post(RTC_FROM_HERE, port_,
-                            TurnPort::MSG_ALLOCATE_MISMATCH);
+      port_->OnAllocateMismatchAsync();
       break;
     default:
       RTC_LOG(LS_WARNING) << port_->ToString()
@@ -1530,8 +1525,7 @@ void TurnAllocateRequest::OnTryAlternate(StunMessage* response, int code) {
   // For TCP, we can't close the original Tcp socket during handling a 300 as
   // we're still inside that socket's event handler. Doing so will cause
   // deadlock.
-  port_->thread()->Post(RTC_FROM_HERE, port_,
-                        TurnPort::MSG_TRY_ALTERNATE_SERVER);
+  port_->TryAlternateServerAsync();
 }
 
 TurnRefreshRequest::TurnRefreshRequest(TurnPort* port)
@@ -1580,8 +1574,7 @@ void TurnRefreshRequest::OnResponse(StunMessage* response) {
   } else {
     // If we scheduled a refresh with lifetime 0, we're releasing this
     // allocation; see TurnPort::Release.
-    port_->thread()->Post(RTC_FROM_HERE, port_,
-                          TurnPort::MSG_ALLOCATION_RELEASED);
+    port_->CloseAsync();
   }
 
   port_->SignalTurnRefreshResult(port_, TURN_SUCCESS_RESULT_CODE);

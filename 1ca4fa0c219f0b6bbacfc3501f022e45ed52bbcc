@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60c348d9_a930a9e2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-11-17T20:10:14Z",
+      "side": 1,
+      "message": "bonus: we have marked another place where we can remove code soon",
+      "revId": "1ca4fa0c219f0b6bbacfc3501f022e45ed52bbcc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

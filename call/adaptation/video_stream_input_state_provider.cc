@@ -10,7 +10,22 @@
 
 #include "call/adaptation/video_stream_input_state_provider.h"
 
+#include <algorithm>
+
 namespace webrtc {
+
+namespace {
+int GetHighestActiveStreamPixels(const VideoCodec& codec) {
+  int max_pixels = 0;
+  for (int i = 0; i < codec.numberOfSimulcastStreams; ++i) {
+    if (codec.simulcastStream[i].active) {
+      max_pixels = std::max(max_pixels, codec.simulcastStream[i].width *
+                                            codec.simulcastStream[i].height);
+    }
+  }
+  return max_pixels;
+}
+}  // namespace
 
 VideoStreamInputStateProvider::VideoStreamInputStateProvider(
     VideoStreamEncoderObserver* frame_rate_provider)
@@ -36,6 +51,8 @@ void VideoStreamInputStateProvider::OnEncoderSettingsChanged(
       encoder_settings.encoder_config().codec_type);
   input_state_.set_min_pixels_per_frame(
       encoder_settings.encoder_info().scaling_settings.min_pixels_per_frame);
+  input_state_.set_highest_active_stream_pixels(
+      GetHighestActiveStreamPixels(encoder_settings.video_codec()));
 }
 
 VideoStreamInputState VideoStreamInputStateProvider::InputState() {

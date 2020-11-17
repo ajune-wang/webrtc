@@ -27,12 +27,14 @@ class VideoStreamInputState {
   void set_frames_per_second(int frames_per_second);
   void set_video_codec_type(VideoCodecType video_codec_type);
   void set_min_pixels_per_frame(int min_pixels_per_frame);
+  void set_highest_active_stream_pixels(int highest_active_stream_pixels);
 
   bool has_input() const;
   absl::optional<int> frame_size_pixels() const;
   int frames_per_second() const;
   VideoCodecType video_codec_type() const;
   int min_pixels_per_frame() const;
+  int highest_active_stream_pixels() const;
 
   bool HasInputFrameSizeAndFramesPerSecond() const;
 
@@ -42,6 +44,7 @@ class VideoStreamInputState {
   int frames_per_second_;
   VideoCodecType video_codec_type_;
   int min_pixels_per_frame_;
+  int highest_active_stream_pixels_;
 };
 
 }  // namespace webrtc

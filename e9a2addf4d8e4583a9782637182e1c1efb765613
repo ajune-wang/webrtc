@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d846ff99_8fa24c23",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2020-11-17T20:31:42Z",
+      "side": 1,
+      "message": "the problem turned out to be that the dynamic payload type range 96-127 is exhausted when adding FlexFEC. https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d12194 has details.\nNot a blocker imo but yay for exposing this.",
+      "revId": "e9a2addf4d8e4583a9782637182e1c1efb765613",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

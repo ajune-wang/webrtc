@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82d8f9b4_f30ae5a3",
+        "filename": "tools_webrtc/perf/catapult_uploader.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-11-18T21:54:53Z",
+      "side": 1,
+      "message": "Should we check the response status code to be 200 before this (and eventually return False after printing that we weren\u0027t able to contact the dashboard)?",
+      "range": {
+        "startLine": 142,
+        "startChar": 27,
+        "endLine": 142,
+        "endChar": 34
+      },
+      "revId": "5312ae91e47d7c2ef5fdefce4bdc2f5ce6416178",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0cd0e096_e6b0d446",
+        "filename": "tools_webrtc/perf/catapult_uploader.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-11-18T22:47:53Z",
+      "side": 1,
+      "message": "What if total amount of histograms in the source file was less than 100?",
+      "range": {
+        "startLine": 154,
+        "startChar": 12,
+        "endLine": 154,
+        "endChar": 55
+      },
+      "revId": "844125cc483ea8c18393dd4b4e91af2d7cbf5669",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "832b4ef7_c7f93500",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-11-18T12:30:15Z",
+      "side": 1,
+      "message": "great - looking forward to seeing the impact of this",
+      "revId": "3a1f93f55d4bdfc44293ae0ff57b4adb533f1ec6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89007a00_f413ec60",
+        "filename": "pc/channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-11-18T12:30:15Z",
+      "side": 1,
+      "message": "I assume these will be removed?",
+      "revId": "3a1f93f55d4bdfc44293ae0ff57b4adb533f1ec6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70f0f334_88d7603f",
+        "filename": "pc/channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-11-18T12:30:15Z",
+      "side": 1,
+      "message": "remove the \u0027else\u0027 since there\u0027s an early return",
+      "revId": "3a1f93f55d4bdfc44293ae0ff57b4adb533f1ec6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e249d9b1_5b2c1e6e",
+        "filename": "pc/channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-11-18T12:30:15Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "3a1f93f55d4bdfc44293ae0ff57b4adb533f1ec6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1825a644_424e07f8",
+        "filename": "pc/session_description.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-11-18T12:30:15Z",
+      "side": 1,
+      "message": "remove ()",
+      "revId": "3a1f93f55d4bdfc44293ae0ff57b4adb533f1ec6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0766860a_b2746c81",
+        "filename": "pc/session_description.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-11-18T12:30:15Z",
+      "side": 1,
+      "message": "will this be uncommented? (or add a comment on why we don\u0027t compare it?)",
+      "revId": "3a1f93f55d4bdfc44293ae0ff57b4adb533f1ec6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

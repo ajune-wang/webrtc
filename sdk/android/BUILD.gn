@@ -190,6 +190,21 @@ if (is_android) {
     ]
   }
 
+  rtc_android_library("network_monitor_java") {
+    visibility = [ "*" ]
+    sources = [
+      "api/org/webrtc/NetworkChangeDetector.java",
+      "api/org/webrtc/NetworkChangeDetectorFactory.java",
+      "api/org/webrtc/NetworkMonitor.java",
+      "api/org/webrtc/NetworkMonitorAutoDetect.java",
+    ]
+    deps = [
+      ":base_java",
+      ":network_change_detector_java",
+    ]
+    srcjar_deps = [ "//rtc_base:network_monitor_enums" ]
+  }
+
   rtc_android_library("video_api_java") {
     visibility = [ "*" ]
     sources = [
@@ -276,13 +291,7 @@ if (is_android) {
       "api/org/webrtc/NativeLibraryLoader.java",
       "api/org/webrtc/NativePeerConnectionFactory.java",
       "api/org/webrtc/NetEqFactoryFactory.java",
-      "api/org/webrtc/NetworkChangeDetector.java",
-      "api/org/webrtc/NetworkChangeDetectorFactory.java",
       "api/org/webrtc/NetworkControllerFactoryFactory.java",
-
-      # TODO(sakal): Break dependencies and move to base_java.
-      "api/org/webrtc/NetworkMonitor.java",
-      "api/org/webrtc/NetworkMonitorAutoDetect.java",
       "api/org/webrtc/NetworkStatePredictorFactoryFactory.java",
       "api/org/webrtc/PeerConnection.java",
       "api/org/webrtc/PeerConnectionDependencies.java",
@@ -318,6 +327,7 @@ if (is_android) {
       #TODO(bugs.webrtc.org/7452): Make injection mandatory and remove this dep.
       ":java_audio_device_module_java",
       ":logging_java",
+      ":network_monitor_java",
       ":swcodecs_java",
       ":video_api_java",
       ":video_java",
@@ -329,7 +339,6 @@ if (is_android) {
     srcjar_deps = [
       "//api:priority_enums",
       "//api/video:video_frame_enums",
-      "//rtc_base:network_monitor_enums",
     ]
   }
 

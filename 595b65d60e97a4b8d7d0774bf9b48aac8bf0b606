@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0089ce97_b0778326",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2020-11-18T15:00:30Z",
+      "side": 1,
+      "message": "I am not certain, but I do not think PatchSet 11 is required now that https://webrtc-review.googlesource.com/c/src/+/193862 is landed? ",
+      "revId": "595b65d60e97a4b8d7d0774bf9b48aac8bf0b606",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bb9ebf3_428cc6fb",
+        "filename": "pc/peer_connection_end_to_end_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2020-11-18T15:00:30Z",
+      "side": 1,
+      "message": "After https://webrtc-review.googlesource.com/c/src/+/193862 was landed, I do not think this is necessary for test to pass?",
+      "range": {
+        "startLine": 432,
+        "startChar": 1,
+        "endLine": 436,
+        "endChar": 0
+      },
+      "revId": "595b65d60e97a4b8d7d0774bf9b48aac8bf0b606",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd4341e2_bf46b28d",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 2027,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2020-11-18T15:00:30Z",
+      "side": 1,
+      "message": "No longer necessary after https://webrtc-review.googlesource.com/c/src/+/193862?",
+      "range": {
+        "startLine": 2024,
+        "startChar": 1,
+        "endLine": 2027,
+        "endChar": 48
+      },
+      "revId": "595b65d60e97a4b8d7d0774bf9b48aac8bf0b606",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

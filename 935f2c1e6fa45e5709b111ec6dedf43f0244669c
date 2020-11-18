@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8312151a_a043216a",
+        "filename": "modules/rtp_rtcp/source/rtp_video_layers_allocation_extension.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-11-18T12:49:52Z",
+      "side": 1,
+      "message": "I think you should remove this todo.",
+      "range": {
+        "startLine": 154,
+        "startChar": 7,
+        "endLine": 154,
+        "endChar": 8
+      },
+      "revId": "935f2c1e6fa45e5709b111ec6dedf43f0244669c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5537121_a2554154",
+        "filename": "modules/rtp_rtcp/source/rtp_video_layers_allocation_extension.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-11-18T12:49:52Z",
+      "side": 1,
+      "message": "That is a pretty high resolution for this to matter. 😊",
+      "range": {
+        "startLine": 203,
+        "startChar": 16,
+        "endLine": 203,
+        "endChar": 21
+      },
+      "revId": "935f2c1e6fa45e5709b111ec6dedf43f0244669c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74e9dcfc_6de9e300",
+        "filename": "modules/rtp_rtcp/source/rtp_video_layers_allocation_extension.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-11-18T12:49:52Z",
+      "side": 1,
+      "message": "Suggest // RID",
+      "range": {
+        "startLine": 219,
+        "startChar": 3,
+        "endLine": 219,
+        "endChar": 12
+      },
+      "revId": "935f2c1e6fa45e5709b111ec6dedf43f0244669c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3769de1_6cc24ae3",
+        "filename": "modules/rtp_rtcp/source/rtp_video_layers_allocation_extension.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-11-18T12:49:52Z",
+      "side": 1,
+      "message": "// NS etc",
+      "range": {
+        "startLine": 220,
+        "startChar": 3,
+        "endLine": 220,
+        "endChar": 12
+      },
+      "revId": "935f2c1e6fa45e5709b111ec6dedf43f0244669c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46933ebd_b64e6265",
+        "filename": "modules/rtp_rtcp/source/rtp_video_layers_allocation_extension_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-11-18T12:49:52Z",
+      "side": 1,
+      "message": "For disabling a random rtp stream- we rely on remapping rtp stream index?",
+      "revId": "935f2c1e6fa45e5709b111ec6dedf43f0244669c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

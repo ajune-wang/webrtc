@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95bf8e81_90d0beb4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-11-18T08:00:02Z",
+      "side": 1,
+      "message": "Hi\nCan you please approve this cherry pick for Chrome M88? \n\nApproved in https://bugs.chromium.org/p/chromium/issues/detail?id\u003d1143311",
+      "revId": "786a81519d7d73aa8257cba38e4e762e488b5316",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

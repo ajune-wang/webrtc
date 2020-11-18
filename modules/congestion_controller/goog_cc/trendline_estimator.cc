@@ -206,6 +206,7 @@ void TrendlineEstimator::UpdateTrendline(double recv_delta_ms,
   accumulated_delay_ += delta_ms;
   BWE_TEST_LOGGING_PLOT(1, "accumulated_delay_ms", arrival_time_ms,
                         accumulated_delay_);
+  //  RTC_LOG(LS_WARNING) << "accumulated_delay_ms  " << accumulated_delay_;
   smoothed_delay_ = smoothing_coef_ * smoothed_delay_ +
                     (1 - smoothing_coef_) * accumulated_delay_;
   BWE_TEST_LOGGING_PLOT(1, "smoothed_delay_ms", arrival_time_ms,

@@ -271,7 +271,7 @@ void StatisticsCalculator::SecondaryDecodedSamples(int num_samples) {
   secondary_decoded_samples_ += num_samples;
 }
 
-void StatisticsCalculator::FlushedPacketBuffer() {
+void StatisticsCalculator::FlushedPacketBuffer(int num_packets) {
   operations_and_state_.packet_buffer_flushes++;
   buffer_full_counter_.RegisterSample();
 }

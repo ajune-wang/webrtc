@@ -746,13 +746,22 @@ int NetEqImpl::InsertPacketInternal(const RTPHeader& rtp_header,
   }
 
   // Insert packets in buffer.
+  int target_level_ms = controller_->TargetLevelMs();
+  int target_level_packets =
+      (target_level_ms * fs_hz_) / (1000 * decoder_frame_length_);
   const int ret = packet_buffer_->InsertPacketList(
       &parsed_packet_list, *decoder_database_, &current_rtp_payload_type_,
-      &current_cng_rtp_payload_type_, stats_.get());
+      &current_cng_rtp_payload_type_, stats_.get(), target_level_packets,
+      target_level_ms);
   if (ret == PacketBuffer::kFlushed) {
     // Reset DSP timestamp etc. if packet buffer flushed.
     new_codec_ = true;
     update_sample_rate_and_channels = true;
+  } else if (ret == PacketBuffer::kPartialFlush) {
+    // Forward sync buffer timestamp
+    timestamp_ = packet_buffer_->PeekNextPacket()->timestamp;
+    sync_buffer_->IncreaseEndTimestamp(timestamp_ -
+                                       sync_buffer_->end_timestamp());
   } else if (ret != PacketBuffer::kOK) {
     return kOtherError;
   }

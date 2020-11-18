@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47ec1e1d_55766592",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-11-18T14:58:28Z",
+      "side": 1,
+      "message": "Hi Jakob, PTAL!",
+      "revId": "f0daf94db00e4405db471a8533a3fd8fb7c6d29f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

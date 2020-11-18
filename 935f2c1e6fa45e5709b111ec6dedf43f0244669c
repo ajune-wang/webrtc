@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "e59cd7ae_c6d03a6c",
+        "filename": "modules/rtp_rtcp/source/rtp_video_layers_allocation_extension.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-11-18T18:05:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8312151a_a043216a",
+      "range": {
+        "startLine": 154,
+        "startChar": 7,
+        "endLine": 154,
+        "endChar": 8
+      },
+      "revId": "935f2c1e6fa45e5709b111ec6dedf43f0244669c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "e5537121_a2554154",
         "filename": "modules/rtp_rtcp/source/rtp_video_layers_allocation_extension.cc",
         "patchSetId": 3
@@ -37,6 +61,30 @@
       "writtenOn": "2020-11-18T12:49:52Z",
       "side": 1,
       "message": "That is a pretty high resolution for this to matter. 😊",
+      "range": {
+        "startLine": 203,
+        "startChar": 16,
+        "endLine": 203,
+        "endChar": 21
+      },
+      "revId": "935f2c1e6fa45e5709b111ec6dedf43f0244669c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "29518e0c_b98ca635",
+        "filename": "modules/rtp_rtcp/source/rtp_video_layers_allocation_extension.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-11-18T18:05:49Z",
+      "side": 1,
+      "message": "for consistency with av1 and dd that use the same trick.\n(and av1 has a good reason to)",
+      "parentUuid": "e5537121_a2554154",
       "range": {
         "startLine": 203,
         "startChar": 16,
@@ -70,6 +118,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a9ada08_ae5a7ef2",
+        "filename": "modules/rtp_rtcp/source/rtp_video_layers_allocation_extension.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-11-18T18:05:49Z",
+      "side": 1,
+      "message": "isn\u0027t \"rtp_stream_index\" more descriptive than RID?",
+      "parentUuid": "74e9dcfc_6de9e300",
+      "range": {
+        "startLine": 219,
+        "startChar": 3,
+        "endLine": 219,
+        "endChar": 12
+      },
+      "revId": "935f2c1e6fa45e5709b111ec6dedf43f0244669c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a3769de1_6cc24ae3",
@@ -93,6 +165,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c0aeef5_2e0c5c1f",
+        "filename": "modules/rtp_rtcp/source/rtp_video_layers_allocation_extension.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-11-18T18:05:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3769de1_6cc24ae3",
+      "range": {
+        "startLine": 220,
+        "startChar": 3,
+        "endLine": 220,
+        "endChar": 12
+      },
+      "revId": "935f2c1e6fa45e5709b111ec6dedf43f0244669c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "46933ebd_b64e6265",
@@ -106,6 +202,24 @@
       "writtenOn": "2020-11-18T12:49:52Z",
       "side": 1,
       "message": "For disabling a random rtp stream- we rely on remapping rtp stream index?",
+      "revId": "935f2c1e6fa45e5709b111ec6dedf43f0244669c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "01de199d_01dceffe",
+        "filename": "modules/rtp_rtcp/source/rtp_video_layers_allocation_extension_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-11-18T18:05:49Z",
+      "side": 1,
+      "message": "we do not have to. Added a test where rtp_stream_index\u003d2 is present, but rtp_stream_index\u003d1 is not. (spatial layers bitmask for rtp_stream_index\u003d1 would be all zeroes).",
+      "parentUuid": "46933ebd_b64e6265",
       "revId": "935f2c1e6fa45e5709b111ec6dedf43f0244669c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

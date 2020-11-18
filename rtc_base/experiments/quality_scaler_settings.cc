@@ -27,11 +27,12 @@ QualityScalerSettings::QualityScalerSettings(
       initial_scale_factor_("initial_scale_factor"),
       scale_factor_("scale_factor"),
       initial_bitrate_interval_ms_("initial_bitrate_interval_ms"),
-      initial_bitrate_factor_("initial_bitrate_factor") {
+      initial_bitrate_factor_("initial_bitrate_factor"),
+      initial_min_pixels_("initial_min_pixels") {
   ParseFieldTrial(
       {&sampling_period_ms_, &average_qp_window_, &min_frames_,
        &initial_scale_factor_, &scale_factor_, &initial_bitrate_interval_ms_,
-       &initial_bitrate_factor_},
+       &initial_bitrate_factor_, &initial_min_pixels_},
       key_value_config->Lookup("WebRTC-Video-QualityScalerSettings"));
 }
 
@@ -97,6 +98,10 @@ absl::optional<double> QualityScalerSettings::InitialBitrateFactor() const {
     return absl::nullopt;
   }
   return initial_bitrate_factor_.GetOptional();
+}
+
+absl::optional<int> QualityScalerSettings::InitialMinPixels() const {
+  return initial_min_pixels_.GetOptional();
 }
 
 }  // namespace webrtc

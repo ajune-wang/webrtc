@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c012d6bb_136f8117",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5064
+      },
+      "writtenOn": "2020-11-18T20:08:59Z",
+      "side": 1,
+      "message": "Jan, I\u0027m sorry that the process has been so drawn out, and can certainly appreciate that being stressful. :(\n\nThanks again for the effort you\u0027ve put into this.",
+      "revId": "ece247fc7df05501340f1aec3b93cba9b93dce57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "40aa16bd_baa757d5",

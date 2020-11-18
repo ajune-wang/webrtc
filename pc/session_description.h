@@ -67,6 +67,8 @@ class MediaContentDescription {
   MediaContentDescription() = default;
   virtual ~MediaContentDescription() = default;
 
+  virtual bool operator==(const MediaContentDescription& other) const = 0;
+
   virtual MediaType type() const = 0;
 
   // Try to cast this media description to an AudioContentDescription. Returns
@@ -258,6 +260,9 @@ class MediaContentDescription {
   }
 
  protected:
+  // Function for subclasses to build operator== from
+  bool BaseClassEquals(const MediaContentDescription& o) const;
+
   bool rtcp_mux_ = false;
   bool rtcp_reduced_size_ = false;
   bool remote_estimate_ = false;
@@ -330,7 +335,7 @@ class MediaContentDescriptionImpl : public MediaContentDescription {
     }
   }
 
- private:
+ protected:
   std::vector<C> codecs_;
 };
 
@@ -338,24 +343,30 @@ class AudioContentDescription : public MediaContentDescriptionImpl<AudioCodec> {
  public:
   AudioContentDescription() {}
 
-  virtual MediaType type() const { return MEDIA_TYPE_AUDIO; }
-  virtual AudioContentDescription* as_audio() { return this; }
-  virtual const AudioContentDescription* as_audio() const { return this; }
+  MediaType type() const override { return MEDIA_TYPE_AUDIO; }
+  AudioContentDescription* as_audio() override { return this; }
+  const AudioContentDescription* as_audio() const override { return this; }
+  bool operator==(const MediaContentDescription& o) const override {
+    return BaseClassEquals(o) && codecs_ == o.as_audio()->codecs_;
+  }
 
  private:
-  virtual AudioContentDescription* CloneInternal() const {
+  AudioContentDescription* CloneInternal() const override {
     return new AudioContentDescription(*this);
   }
 };
 
 class VideoContentDescription : public MediaContentDescriptionImpl<VideoCodec> {
  public:
-  virtual MediaType type() const { return MEDIA_TYPE_VIDEO; }
-  virtual VideoContentDescription* as_video() { return this; }
-  virtual const VideoContentDescription* as_video() const { return this; }
+  MediaType type() const override { return MEDIA_TYPE_VIDEO; }
+  VideoContentDescription* as_video() override { return this; }
+  const VideoContentDescription* as_video() const override { return this; }
+  bool operator==(const MediaContentDescription& o) const override {
+    return BaseClassEquals(o) && codecs_ == o.as_video()->codecs_;
+  }
 
  private:
-  virtual VideoContentDescription* CloneInternal() const {
+  VideoContentDescription* CloneInternal() const override {
     return new VideoContentDescription(*this);
   }
 };
@@ -367,6 +378,9 @@ class RtpDataContentDescription
   MediaType type() const override { return MEDIA_TYPE_DATA; }
   RtpDataContentDescription* as_rtp_data() override { return this; }
   const RtpDataContentDescription* as_rtp_data() const override { return this; }
+  bool operator==(const MediaContentDescription& o) const override {
+    return BaseClassEquals(o) && codecs_ == o.as_rtp_data()->codecs_;
+  }
 
  private:
   RtpDataContentDescription* CloneInternal() const override {
@@ -382,6 +396,11 @@ class SctpDataContentDescription : public MediaContentDescription {
         use_sctpmap_(o.use_sctpmap_),
         port_(o.port_),
         max_message_size_(o.max_message_size_) {}
+  bool operator==(const MediaContentDescription& o) const override {
+    return BaseClassEquals(o) && use_sctpmap_ == o.as_sctp()->use_sctpmap_ &&
+           port_ == o.as_sctp()->port_ &&
+           max_message_size_ == o.as_sctp()->max_message_size_;
+  }
   MediaType type() const override { return MEDIA_TYPE_DATA; }
   SctpDataContentDescription* as_sctp() override { return this; }
   const SctpDataContentDescription* as_sctp() const override { return this; }
@@ -417,7 +436,9 @@ class UnsupportedContentDescription : public MediaContentDescription {
   explicit UnsupportedContentDescription(const std::string& media_type)
       : media_type_(media_type) {}
   MediaType type() const override { return MEDIA_TYPE_UNSUPPORTED; }
-
+  bool operator==(const MediaContentDescription& o) const override {
+    return BaseClassEquals(o) && media_type_ == o.as_unsupported()->media_type_;
+  }
   UnsupportedContentDescription* as_unsupported() override { return this; }
   const UnsupportedContentDescription* as_unsupported() const override {
     return this;

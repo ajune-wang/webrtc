@@ -330,6 +330,10 @@ class BaseChannel : public ChannelInterface,
   // like in Simulcast.
   // This object is not owned by the channel so it must outlive it.
   rtc::UniqueRandomIdGenerator* const ssrc_generator_;
+  std::unique_ptr<MediaContentDescription> last_local_content_
+      RTC_GUARDED_BY(signaling_thread());
+  std::unique_ptr<MediaContentDescription> last_remote_content_
+      RTC_GUARDED_BY(signaling_thread());
 };
 
 // VoiceChannel is a specialization that adds support for early media, DTMF,

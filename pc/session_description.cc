@@ -34,6 +34,23 @@ ContentInfo* FindContentInfoByName(ContentInfos* contents,
 
 }  // namespace
 
+bool MediaContentDescription::BaseClassEquals(
+    const MediaContentDescription& o) const {
+  return (
+      rtcp_mux_ == o.rtcp_mux_ && rtcp_reduced_size_ == o.rtcp_reduced_size_ &&
+      remote_estimate_ == o.remote_estimate_ && bandwidth_ == o.bandwidth_ &&
+      bandwidth_type_ == o.bandwidth_type_ && protocol_ == o.protocol_ &&
+      // cryptos_ == o.cryptos_ &&
+      rtp_header_extensions_ == o.rtp_header_extensions_ &&
+      rtp_header_extensions_set_ == o.rtp_header_extensions_set_ &&
+      send_streams_ == o.send_streams_ &&
+      conference_mode_ == o.conference_mode_ && direction_ == o.direction_ &&
+      connection_address_ == o.connection_address_ &&
+      extmap_allow_mixed_enum_ == o.extmap_allow_mixed_enum_ &&
+      // simulcast_ == o.simulcast_ &&
+      receive_rids_ == o.receive_rids_);
+}
+
 const ContentInfo* FindContentInfoByName(const ContentInfos& contents,
                                          const std::string& name) {
   for (ContentInfos::const_iterator content = contents.begin();

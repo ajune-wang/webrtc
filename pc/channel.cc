@@ -276,18 +276,32 @@ bool BaseChannel::SetLocalContent(const MediaContentDescription* content,
                                   SdpType type,
                                   std::string* error_desc) {
   TRACE_EVENT0("webrtc", "BaseChannel::SetLocalContent");
-  return InvokeOnWorker<bool>(
-      RTC_FROM_HERE,
-      Bind(&BaseChannel::SetLocalContent_w, this, content, type, error_desc));
+  RTC_DCHECK_RUN_ON(signaling_thread());
+  if (last_local_content_ && *content == *last_local_content_) {
+    RTC_LOG(LS_ERROR) << "DEBUG: SetLocalContent skipping update";
+    return true;
+  } else {
+    last_local_content_ = content->Clone();
+    return InvokeOnWorker<bool>(
+        RTC_FROM_HERE,
+        Bind(&BaseChannel::SetLocalContent_w, this, content, type, error_desc));
+  }
 }
 
 bool BaseChannel::SetRemoteContent(const MediaContentDescription* content,
                                    SdpType type,
                                    std::string* error_desc) {
   TRACE_EVENT0("webrtc", "BaseChannel::SetRemoteContent");
-  return InvokeOnWorker<bool>(
-      RTC_FROM_HERE,
-      Bind(&BaseChannel::SetRemoteContent_w, this, content, type, error_desc));
+  RTC_DCHECK_RUN_ON(signaling_thread());
+  if (last_remote_content_ && *content == *last_remote_content_) {
+    RTC_LOG(LS_ERROR) << "DEBUG: SetRemoteContent skipping update";
+    return true;
+  } else {
+    last_remote_content_ = content->Clone();
+    return InvokeOnWorker<bool>(
+        RTC_FROM_HERE, Bind(&BaseChannel::SetRemoteContent_w, this, content,
+                            type, error_desc));
+  }
 }
 
 bool BaseChannel::SetPayloadTypeDemuxingEnabled(bool enabled) {

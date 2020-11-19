@@ -87,8 +87,9 @@ class StatisticsCalculator {
   // Reports that |num_samples| samples were decoded from secondary packets.
   void SecondaryDecodedSamples(int num_samples);
 
-  // Reports that the packet buffer was flushed.
-  void FlushedPacketBuffer();
+  // Reports that the packet buffer was flushed and |num_packets| packets were
+  // discarded.
+  void FlushedPacketBuffer(int num_packets);
 
   // Reports that the jitter buffer received a packet.
   void ReceivedPacket();

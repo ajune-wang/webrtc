@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2922c2d9_a0f98fbc",
+        "filename": "api/neteq/neteq_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2020-11-19T19:34:32Z",
+      "side": 1,
+      "message": "How about void PacketBufferUpdated(PacketBufferInfo info)?\n\nOr\n\nAdd variable in PacketBufferInfo (which is passed in PacketArrived) which indicates that there was a large change (i.e. flush) and we should do a \"reset\" to that buffer level.",
+      "range": {
+        "startLine": 178,
+        "startChar": 0,
+        "endLine": 180,
+        "endChar": 0
+      },
+      "revId": "c4dc79cb8d7a0d019bc4b817028f244773f9b021",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

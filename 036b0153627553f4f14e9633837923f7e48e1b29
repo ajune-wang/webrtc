@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f79c2a47_3a1854fd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-11-19T21:30:24Z",
+      "side": 1,
+      "message": "do you mean RTC_DCHECK_RUN_ON(worker_thread_) vs RTC_DCHECK_RUN_ON(\u0026worker_thread_checker_)?\n\nThe difference is marginal. If you already have the thread pointer, this will mean smaller code in dcheck enabled builds and (currently) smaller binary size by a byte or so in official builds. It also means fewer potential includes, dependencies and member variables in terms of text of maintaining.\n\nPersonally I\u0027m used to using both, so I find them equally readable.",
+      "parentUuid": "ce1648ea_f1182c8e",
+      "revId": "036b0153627553f4f14e9633837923f7e48e1b29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0009acbf_82e54a1d",
@@ -48,6 +66,24 @@
       "writtenOn": "2020-11-19T14:59:06Z",
       "side": 1,
       "message": "Is this exactly the same effect as taking a weak pointer to the transport object and checking that before accessing the object?",
+      "revId": "036b0153627553f4f14e9633837923f7e48e1b29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94385d73_ff7a2601",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-11-19T21:30:24Z",
+      "side": 1,
+      "message": "Assuming you\u0027re thinking of the task_safety_ variable, yes, it\u0027s functionally equivalent to what a chromium\u0027s weakptr does (which doesn\u0027t exist in webrtc). I think that it\u0027s simpler and smaller in terms of implementation though.",
+      "parentUuid": "0009acbf_82e54a1d",
       "revId": "036b0153627553f4f14e9633837923f7e48e1b29",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

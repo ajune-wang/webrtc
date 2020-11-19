@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1e46be3_1d818990",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2020-11-19T16:39:16Z",
+      "side": 1,
+      "message": "The reset can only be triggered once, the min frame size was added to avoid triggering on an already low resolution if the frame size is initially low and then later increased.",
+      "parentUuid": "f63c6278_7d63b8d5",
+      "revId": "9120df441c450f22a45da366abd0c3583b9ea5b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d20f6804_77dd5029",
@@ -31,6 +49,24 @@
       "writtenOn": "2020-11-19T14:43:12Z",
       "side": 1,
       "message": "I believe a separate code path for VP9 is needed. It should check codec.spatialLayers in the same way.",
+      "revId": "9120df441c450f22a45da366abd0c3583b9ea5b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32e3ea73_b943f64a",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2020-11-19T16:39:16Z",
+      "side": 1,
+      "message": "This CL only handles simulcast. Perhaps svc could be handled in a separate CL?",
+      "parentUuid": "d20f6804_77dd5029",
       "revId": "9120df441c450f22a45da366abd0c3583b9ea5b4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

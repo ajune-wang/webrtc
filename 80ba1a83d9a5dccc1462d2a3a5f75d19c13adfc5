@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34ce61ae_f5739480",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-11-19T15:24:36Z",
+      "side": 1,
+      "message": "I am not 100% this is the fix but I suspect that on the bot we use a different protobuf library compared to the one used to compile the py proto (and we were just lucky they were compatible).",
+      "revId": "80ba1a83d9a5dccc1462d2a3a5f75d19c13adfc5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

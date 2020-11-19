@@ -34,6 +34,23 @@
       "parentUuid": "44de590e_89d7c714",
       "revId": "3e1f6571673e25226c7cbcd989c43de263e6be41",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "685a5507_8578d13b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-11-19T13:05:38Z",
+      "side": 1,
+      "message": "Karl, OWNER\u0027s approval needed for sdk/BUILD.gn.",
+      "revId": "3e1f6571673e25226c7cbcd989c43de263e6be41",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

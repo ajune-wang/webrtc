@@ -4560,6 +4560,54 @@ TEST_F(VideoStreamEncoderTest,
   video_stream_encoder_->Stop();
 }
 
+TEST_F(VideoStreamEncoderTest,
+       InitialFrameDropActivatesWhenBweDropsAndFrameFulfillsMinPixels) {
+  webrtc::test::ScopedFieldTrials field_trials(
+      "WebRTC-Video-QualityScalerSettings/"
+      "initial_bitrate_interval_ms:1000,initial_bitrate_factor:0.2,"
+      "initial_min_pixels:230400/");
+  // Reset encoder for field trials to take effect.
+  ConfigureEncoder(video_encoder_config_.Copy());
+  const int kTooLowBitrateForFrameSizeBps = kTargetBitrateBps * 0.19;
+  const int kMinWidth = 640;
+  const int kMinHeight = 360;
+
+  video_stream_encoder_->OnBitrateUpdatedAndWaitForManagedResources(
+      DataRate::BitsPerSec(kTargetBitrateBps),
+      DataRate::BitsPerSec(kTargetBitrateBps),
+      DataRate::BitsPerSec(kTargetBitrateBps), 0, 0, 0);
+  video_source_.IncomingCapturedFrame(
+      CreateFrame(1, kMinWidth - 1, kMinHeight - 1));
+  // Frame should not be dropped.
+  WaitForEncodedFrame(1);
+
+  video_stream_encoder_->OnBitrateUpdatedAndWaitForManagedResources(
+      DataRate::BitsPerSec(kTooLowBitrateForFrameSizeBps),
+      DataRate::BitsPerSec(kTooLowBitrateForFrameSizeBps),
+      DataRate::BitsPerSec(kTooLowBitrateForFrameSizeBps), 0, 0, 0);
+  video_source_.IncomingCapturedFrame(
+      CreateFrame(2, kMinWidth - 1, kMinHeight - 1));
+  // Frame should not be dropped. Resolution below initial_min_pixels.
+  WaitForEncodedFrame(2);
+
+  // Resolution equal to initial_min_pixels.
+  video_source_.IncomingCapturedFrame(CreateFrame(3, kMinWidth, kMinHeight));
+  WaitForEncodedFrame(3);
+  video_stream_encoder_->OnBitrateUpdatedAndWaitForManagedResources(
+      DataRate::BitsPerSec(kTooLowBitrateForFrameSizeBps),
+      DataRate::BitsPerSec(kTooLowBitrateForFrameSizeBps),
+      DataRate::BitsPerSec(kTooLowBitrateForFrameSizeBps), 0, 0, 0);
+  video_source_.IncomingCapturedFrame(CreateFrame(4, kMinWidth, kMinHeight));
+  // Expect to drop this frame.
+  ExpectDroppedFrame();
+
+  // Expect the sink_wants to specify a scaled frame.
+  EXPECT_TRUE_WAIT(
+      video_source_.sink_wants().max_pixel_count < kMinWidth * kMinHeight,
+      5000);
+  video_stream_encoder_->Stop();
+}
+
 TEST_F(VideoStreamEncoderTest, RampsUpInQualityWhenBwIsHigh) {
   webrtc::test::ScopedFieldTrials field_trials(
       "WebRTC-Video-QualityRampupSettings/min_pixels:1,min_duration_ms:2000/");

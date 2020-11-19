@@ -23,6 +23,7 @@ TEST(QualityScalerSettingsTest, ValuesNotSetByDefault) {
   EXPECT_FALSE(settings.ScaleFactor());
   EXPECT_FALSE(settings.InitialBitrateIntervalMs());
   EXPECT_FALSE(settings.InitialBitrateFactor());
+  EXPECT_FALSE(settings.InitialMinPixels());
 }
 
 TEST(QualityScalerSettingsTest, ParseMinFrames) {
@@ -64,13 +65,15 @@ TEST(QualityScalerSettingsTest, ParseAll) {
   test::ScopedFieldTrials field_trials(
       "WebRTC-Video-QualityScalerSettings/"
       "min_frames:100,initial_scale_factor:1.5,scale_factor:0.9,"
-      "initial_bitrate_interval_ms:5500,initial_bitrate_factor:0.7/");
+      "initial_bitrate_interval_ms:5500,initial_bitrate_factor:0.7,"
+      "initial_min_pixels:123/");
   const auto settings = QualityScalerSettings::ParseFromFieldTrials();
   EXPECT_EQ(100, settings.MinFrames());
   EXPECT_EQ(1.5, settings.InitialScaleFactor());
   EXPECT_EQ(0.9, settings.ScaleFactor());
   EXPECT_EQ(5500, settings.InitialBitrateIntervalMs());
   EXPECT_EQ(0.7, settings.InitialBitrateFactor());
+  EXPECT_EQ(123, settings.InitialMinPixels());
 }
 
 TEST(QualityScalerSettingsTest, DoesNotParseIncorrectValue) {

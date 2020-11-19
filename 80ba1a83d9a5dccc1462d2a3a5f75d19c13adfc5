@@ -16,6 +16,23 @@
       "message": "I am not 100% this is the fix but I suspect that on the bot we use a different protobuf library compared to the one used to compile the py proto (and we were just lucky they were compatible).",
       "revId": "80ba1a83d9a5dccc1462d2a3a5f75d19c13adfc5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c264f8dc_35662a80",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-11-19T15:39:59Z",
+      "side": 1,
+      "message": "Not sure what is happening with the GCC bot (not officially maintained) so I am going to skip it.",
+      "revId": "80ba1a83d9a5dccc1462d2a3a5f75d19c13adfc5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

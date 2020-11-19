@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffd67f79_5305c219",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-11-19T14:29:22Z",
+      "side": 1,
+      "message": "Thanks",
+      "revId": "f0daf94db00e4405db471a8533a3fd8fb7c6d29f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9a4d3145_82f5cad7",
@@ -43,6 +60,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1b74a2ca_a78cbe79",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 761,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-11-19T14:29:22Z",
+      "side": 1,
+      "message": "I based this code on what happens when new_codec_ is true (which is what happens for a normal flush), see line 1217 below, although that would normally happen on the next getAudio call instead of here. Compared to the code on line 1217 I don\u0027t reset the controller or stats here. I guess the fact that the buffer won\u0027t be empty after the flush is different from the full flush. \n\nI\u0027ll do some more testing to see if I can find glitches (although if we don\u0027t get glitches for vSSRC switches I doubt we will get them here)\n\nUpdating the buffer level filter sounds like a good idea, I\u0027ve added it to the CL.",
+      "parentUuid": "9a4d3145_82f5cad7",
+      "range": {
+        "startLine": 761,
+        "startChar": 0,
+        "endLine": 761,
+        "endChar": 36
+      },
+      "revId": "f0daf94db00e4405db471a8533a3fd8fb7c6d29f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c794cb0f_7600944d",
         "filename": "modules/audio_coding/neteq/packet_buffer.cc",
         "patchSetId": 1
@@ -54,6 +95,30 @@
       "writtenOn": "2020-11-18T16:30:20Z",
       "side": 1,
       "message": "hmm....I don\u0027t really follow this. How can we get stuck?",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 0
+      },
+      "revId": "f0daf94db00e4405db471a8533a3fd8fb7c6d29f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c22c063d_a10d972d",
+        "filename": "modules/audio_coding/neteq/packet_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-11-19T14:29:22Z",
+      "side": 1,
+      "message": "If the target level is higher than max_number_of_packets_ we would end up not flushing anything (pretty unlikely to happen in practice). Also if the target level is below but close to the max, we would end up flushing very little data and could hit another flush soon afterwards.",
+      "parentUuid": "c794cb0f_7600944d",
       "range": {
         "startLine": 108,
         "startChar": 0,
@@ -89,6 +154,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "54cd58cc_81f65db7",
+        "filename": "modules/audio_coding/neteq/packet_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-11-19T14:29:22Z",
+      "side": 1,
+      "message": "It\u0027s possible but a little awkward to get the span in here. We either need to pass the sample rate and last decoded frame size to this function, or have the buffer span as input to the function (so it would be called from NeteqImpl before calling InsertPacketList()). Which option do you think would be better?",
+      "parentUuid": "1a735e36_f9611905",
+      "range": {
+        "startLine": 142,
+        "startChar": 70,
+        "endLine": 143,
+        "endChar": 26
+      },
+      "revId": "f0daf94db00e4405db471a8533a3fd8fb7c6d29f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "58c32d4a_bbf28111",
         "filename": "modules/audio_coding/neteq/packet_buffer.cc",
         "patchSetId": 1
@@ -100,6 +189,30 @@
       "writtenOn": "2020-11-18T16:30:20Z",
       "side": 1,
       "message": "How about putting a minimum requirement on the buffer size instead of the target level?",
+      "range": {
+        "startLine": 146,
+        "startChar": 6,
+        "endLine": 146,
+        "endChar": 73
+      },
+      "revId": "f0daf94db00e4405db471a8533a3fd8fb7c6d29f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7db87255_f836ec29",
+        "filename": "modules/audio_coding/neteq/packet_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-11-19T14:29:22Z",
+      "side": 1,
+      "message": "Right now there is a requirement on both, the check for the buffer size starts below (buffer size \u003e\u003d target level * multiplier). So if the target level threshold is \u003e\u003d500ms, and the multiplier\u003d3 this feature will only trigger if the buffer level \u003e\u003d 1500ms.\n\nI thought it didn\u0027t make much sense to have this feature for very small target levels. For example, if the target is 50ms, should we really do a flush when the buffer reaches 150ms? Or maybe we should just use a much higher threshold when the target level is low?",
+      "parentUuid": "58c32d4a_bbf28111",
       "range": {
         "startLine": 146,
         "startChar": 6,
@@ -133,6 +246,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "80239c25_aeb138f8",
+        "filename": "modules/audio_coding/neteq/packet_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-11-19T14:29:22Z",
+      "side": 1,
+      "message": "According to my simulations this should happen 0.4 times per call on average, so I don\u0027t think we need to be worried about spamming the log. I\u0027ll add the number of packets.",
+      "parentUuid": "179956cf_c5ea2208",
+      "range": {
+        "startLine": 164,
+        "startChar": 4,
+        "endLine": 164,
+        "endChar": 51
+      },
+      "revId": "f0daf94db00e4405db471a8533a3fd8fb7c6d29f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dbaa2ff3_26ede2ba",
@@ -146,6 +283,30 @@
       "writtenOn": "2020-11-18T16:30:20Z",
       "side": 1,
       "message": "This does not seem to be used. But I think we should think about how we can measure this. Packets discarded seems like a good fit, but maybe we should count full flushes there as well. Feel free to do this in a separate cl.",
+      "range": {
+        "startLine": 274,
+        "startChar": 27,
+        "endLine": 274,
+        "endChar": 64
+      },
+      "revId": "f0daf94db00e4405db471a8533a3fd8fb7c6d29f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ee55f3f_4f9abc8f",
+        "filename": "modules/audio_coding/neteq/statistics_calculator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-11-19T14:29:22Z",
+      "side": 1,
+      "message": "Yeah, good point. I was planning to use this at least for simulations in a follow-up CL, but we can also consider other ways of exposing this (UMA? getStats?)",
+      "parentUuid": "dbaa2ff3_26ede2ba",
       "range": {
         "startLine": 274,
         "startChar": 27,

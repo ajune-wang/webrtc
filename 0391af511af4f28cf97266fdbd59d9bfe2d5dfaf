@@ -16,6 +16,24 @@
       "message": "Doesn\u0027t compile?",
       "revId": "0391af511af4f28cf97266fdbd59d9bfe2d5dfaf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fff50744_2911182f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-11-19T10:45:27Z",
+      "side": 1,
+      "message": "Yes, there is a missing dependency. Let me update the CL.",
+      "parentUuid": "d8c0f15b_917299b0",
+      "revId": "0391af511af4f28cf97266fdbd59d9bfe2d5dfaf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

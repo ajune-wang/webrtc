@@ -72,6 +72,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4eb14cae_41f67b29",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2020-11-19T12:10:24Z",
+      "side": 1,
+      "message": "As discussions are down to the level of a code comment, feel free to go ahead and submit this. (That is assuming you can actually do that - I have not dealt with external contributions before so not sure.) ",
+      "revId": "595b65d60e97a4b8d7d0774bf9b48aac8bf0b606",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4bb9ebf3_428cc6fb",

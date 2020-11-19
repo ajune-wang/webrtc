@@ -16,6 +16,40 @@
       "message": "ping",
       "revId": "036b0153627553f4f14e9633837923f7e48e1b29",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce1648ea_f1182c8e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-11-19T14:59:06Z",
+      "side": 1,
+      "message": "I\u0027m not quite sure I like the thread guard construct - it seems somewhat less obvious what it does than a weak pointer\n\nDo you have a measurement saying \"this matters\", or is it just the impression?\n\nBut LGTMing it anyway.\n(was wondering why you didn\u0027t reply to my comment. Turns out I never sent it. Sorry.)",
+      "revId": "036b0153627553f4f14e9633837923f7e48e1b29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0009acbf_82e54a1d",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-11-19T14:59:06Z",
+      "side": 1,
+      "message": "Is this exactly the same effect as taking a weak pointer to the transport object and checking that before accessing the object?",
+      "revId": "036b0153627553f4f14e9633837923f7e48e1b29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

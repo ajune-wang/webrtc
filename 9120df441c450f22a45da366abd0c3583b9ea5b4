@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f63c6278_7d63b8d5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-11-19T14:43:12Z",
+      "side": 1,
+      "message": "My may concern is that SVC is ignored in this change.\n\nAlso, I believe it could be simplified.\n\nThen, This Cl could be simplified. I don\u0027t believe newly added min frame size is needed. \n\nInitial frame drop would already never trigger for low enough resolutions. See https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/video/video_stream_encoder.cc;l\u003d1864;drc\u003d8a5de62dd01360cfe3d150640d3ff4d974bbe842\n\nOr am I missing something?\n\nWithout it, all changes could be contained inside VideoStreamEncoder::DropDueSize(). Or separate GetHighestActiveStreamResolution() and GetNumActiveStreams() may be added to split the logic in more readable blocks.\n\nAdding this logic to VideoStreamEncoderResourceManager seems a bit excessive.\n",
+      "revId": "9120df441c450f22a45da366abd0c3583b9ea5b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d20f6804_77dd5029",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-11-19T14:43:12Z",
+      "side": 1,
+      "message": "I believe a separate code path for VP9 is needed. It should check codec.spatialLayers in the same way.",
+      "revId": "9120df441c450f22a45da366abd0c3583b9ea5b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acbb1f36_8f4a8991",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1849,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-11-19T14:43:12Z",
+      "side": 1,
+      "message": "This shouldn\u0027t be enabled only for simulcast. The same issues are there for SVC. Move the new part outside of \"(simulcast || svc)\" condition.",
+      "revId": "9120df441c450f22a45da366abd0c3583b9ea5b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "884f9e45_7dc43c42",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1856,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-11-19T14:43:12Z",
+      "side": 1,
+      "message": "remove this condition, so that if it\u0027s indeed simulcast or svc and only one layer is active, pixel_count would be overriden. Or extend this condition to also include SVC streams.",
+      "range": {
+        "startLine": 1856,
+        "startChar": 6,
+        "endLine": 1856,
+        "endChar": 49
+      },
+      "revId": "9120df441c450f22a45da366abd0c3583b9ea5b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

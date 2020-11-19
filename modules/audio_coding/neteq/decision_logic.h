@@ -85,6 +85,9 @@ class DecisionLogic : public NetEqController {
 
   void NotifyMutedState() override {}
 
+  void NotifyBufferShortened(int buffer_size_samples,
+                             int nr_samples_removed) override;
+
   bool SetMaximumDelay(int delay_ms) override {
     return delay_manager_->SetMaximumDelay(delay_ms);
   }

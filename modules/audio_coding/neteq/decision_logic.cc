@@ -229,6 +229,11 @@ absl::optional<int> DecisionLogic::PacketArrived(
   return relative_delay;
 }
 
+void DecisionLogic::NotifyBufferShortened(int buffer_size_samples,
+                                          int nr_samples_removed) {
+  buffer_level_filter_->Update(buffer_size_samples, nr_samples_removed);
+}
+
 void DecisionLogic::FilterBufferLevel(size_t buffer_size_samples) {
   buffer_level_filter_->SetTargetBufferLevel(delay_manager_->TargetDelayMs());
 

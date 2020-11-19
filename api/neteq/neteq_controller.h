@@ -172,6 +172,12 @@ class NetEqController {
   // TODO(ivoc): Make pure virtual when downstream is updated.
   virtual void NotifyMutedState() {}
 
+  // Inform the controller that the packet buffer was shortened. This can be due
+  // to a buffer flush, lost packets or DTX.
+  // TODO(ivoc): Make pure virtual when downstream is updated.
+  virtual void NotifyBufferShortened(int buffer_size_samples,
+                                     int nr_samples_removed) {}
+
   // Returns true if a peak was found.
   virtual bool PeakFound() const = 0;
 

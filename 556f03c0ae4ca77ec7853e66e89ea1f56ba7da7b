@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db0ba8a5_30f7c05f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-11-19T15:57:44Z",
+      "side": 1,
+      "message": "Looks like .vpython is under root owners. :) +Karl FYI.",
+      "revId": "556f03c0ae4ca77ec7853e66e89ea1f56ba7da7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

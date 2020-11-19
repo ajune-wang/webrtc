@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a80a021_93d2f4d5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2020-11-19T18:27:40Z",
+      "side": 1,
+      "message": "I think this one is a bit easier to read but I only spent five minutes on it so no hard feelings if you don\u0027t agree :-)",
+      "revId": "f44c5c97db5643b4bc55a649eaeb842499f36de0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

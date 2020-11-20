@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bb044f7_bb299ccd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-11-20T10:03:47Z",
+      "side": 1,
+      "message": "Hi Henrik, PTAL at this 3-in-1 CL.",
+      "revId": "a9c182b3788dd7e817765b34f78b6e0fd99f9811",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

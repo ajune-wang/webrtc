@@ -2928,6 +2928,34 @@ TEST_P(PeerConnectionIntegrationTest, GetAudioOutputLevelStatsWithOldStatsApi) {
                    kMaxWaitForFramesMs);
 }
 
+TEST_P(PeerConnectionIntegrationTest, Taylor) {
+  rtc::LogMessage::LogToDebug(rtc::LS_ERROR);
+  ASSERT_TRUE(CreatePeerConnectionWrappers());
+  ConnectFakeSignaling();
+  caller()->AddVideoTrack();
+
+  caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  // Add 99 more audio tracks. (Reduced for testing)
+  for (int i = 2; i <= 100; i++) {
+    caller()->AddVideoTrack();
+    RTC_LOG(LS_ERROR) << "Renegotiating with " << i << " tracks";
+    auto start_time = rtc::TimeMillis();
+    caller()->CreateAndSetAndSignalOffer();
+    // We want to stop when the time exceeds one second.
+    ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+    auto elapsed_time = rtc::TimeMillis() - start_time;
+    RTC_LOG(LS_ERROR) << "Renegotiating took " << elapsed_time << " ms";
+    // For some reason ASSERT_TRUE_WAIT doesn't break the loop.
+    ASSERT_GT(1000, elapsed_time)
+        << "Video tracks: Negotiation took too long after " << i
+        << " tracks added";
+    MediaExpectations media_expectations;
+    media_expectations.CalleeExpectsSomeVideo();
+    ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  }
+}
+
 // Test that an audio input level is reported.
 // TODO(deadbeef): Use a fake audio source and verify that the input level is
 // exactly what the source was configured with.

@@ -119,7 +119,8 @@ class BaseChannel : public ChannelInterface,
 
   webrtc::RtpTransportInternal* rtp_transport() const { return rtp_transport_; }
 
-  // Channel control
+  // Channel control. Must call UpdateRtpTransport afterwords to apply any
+  // changes to the RtpTransport on the network thread.
   bool SetLocalContent(const MediaContentDescription* content,
                        webrtc::SdpType type,
                        std::string* error_desc) override;
@@ -134,7 +135,11 @@ class BaseChannel : public ChannelInterface,
   // This method will also remove any existing streams that were bound to this
   // channel on the basis of payload type, since one of these streams might
   // actually belong to a new channel. See: crbug.com/webrtc/11477
-  bool SetPayloadTypeDemuxingEnabled(bool enabled) override;
+  //
+  // As with SetLocalContent/SetRemoteContent, must call UpdateRtpTransport
+  // afterwards to apply changes to the RtpTransport on the network thread.
+  void SetPayloadTypeDemuxingEnabled(bool enabled) override;
+  bool UpdateRtpTransport(std::string* error_desc) override;
 
   bool Enable(bool enable) override;
 
@@ -224,7 +229,7 @@ class BaseChannel : public ChannelInterface,
   bool AddRecvStream_w(const StreamParams& sp);
   bool RemoveRecvStream_w(uint32_t ssrc);
   void ResetUnsignaledRecvStream_w();
-  bool SetPayloadTypeDemuxingEnabled_w(bool enabled);
+  void SetPayloadTypeDemuxingEnabled_w(bool enabled);
   bool AddSendStream_w(const StreamParams& sp);
   bool RemoveSendStream_w(uint32_t ssrc);
 
@@ -251,6 +256,9 @@ class BaseChannel : public ChannelInterface,
   // non-encrypted and encrypted extension is present for the same URI.
   RtpHeaderExtensions GetFilteredRtpHeaderExtensions(
       const RtpHeaderExtensions& extensions);
+  // Set a list of RTP extensions we should prepare to receive on the next
+  // UpdateRtpTransport call.
+  void SetReceiveExtensions(const RtpHeaderExtensions& extensions);
 
   // From MessageHandler
   void OnMessage(rtc::Message* pmsg) override;
@@ -267,11 +275,6 @@ class BaseChannel : public ChannelInterface,
   void MaybeAddHandledPayloadType(int payload_type) RTC_RUN_ON(worker_thread());
 
   void ClearHandledPayloadTypes() RTC_RUN_ON(worker_thread());
-
-  void UpdateRtpHeaderExtensionMap(
-      const RtpHeaderExtensions& header_extensions);
-
-  bool RegisterRtpDemuxerSink();
 
   // Return description of media channel to facilitate logging
   std::string ToString() const;
@@ -325,6 +328,7 @@ class BaseChannel : public ChannelInterface,
   // Cached list of payload types, used if payload type demuxing is re-enabled.
   std::set<uint8_t> payload_types_ RTC_GUARDED_BY(worker_thread());
   webrtc::RtpDemuxerCriteria demuxer_criteria_;
+  RtpHeaderExtensions receive_rtp_header_extensions_;
   // This generator is used to generate SSRCs for local streams.
   // This is needed in cases where SSRCs are not negotiated or set explicitly
   // like in Simulcast.

@@ -82,6 +82,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "31dca65b_85c0d1a0",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 761,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-11-20T18:58:16Z",
+      "side": 1,
+      "message": "I haven\u0027t been able to produce any glitches in my testing (although I can only listen to so many event logs). I\u0027ll mark this as resolved for now (although feel free to reopen if you disagree)",
+      "parentUuid": "1b74a2ca_a78cbe79",
+      "range": {
+        "startLine": 761,
+        "startChar": 0,
+        "endLine": 761,
+        "endChar": 36
+      },
+      "revId": "f0daf94db00e4405db471a8533a3fd8fb7c6d29f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c794cb0f_7600944d",
@@ -224,6 +248,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d66c940_a770393c",
+        "filename": "modules/audio_coding/neteq/packet_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-11-20T18:58:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ffc55d1b_c360e9de",
+      "range": {
+        "startLine": 142,
+        "startChar": 70,
+        "endLine": 143,
+        "endChar": 26
+      },
+      "revId": "f0daf94db00e4405db471a8533a3fd8fb7c6d29f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "58c32d4a_bbf28111",
@@ -285,6 +333,30 @@
       "side": 1,
       "message": "Yeah I was thinking along the lines of having a minimum number of packets we should keep and a large minimum threshold for when we should initiate a flush.\n\nTo me it\u0027s a bit weird to allow the buffer to grow larger when the target delay is low compared to when it\u0027s over the threshold.",
       "parentUuid": "7db87255_f836ec29",
+      "range": {
+        "startLine": 146,
+        "startChar": 6,
+        "endLine": 146,
+        "endChar": 73
+      },
+      "revId": "f0daf94db00e4405db471a8533a3fd8fb7c6d29f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "137d3a58_e0bf6f1b",
+        "filename": "modules/audio_coding/neteq/packet_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-11-20T18:58:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1cf9d42b_07778883",
       "range": {
         "startLine": 146,
         "startChar": 6,
@@ -403,6 +475,30 @@
       "side": 1,
       "message": "I think actually that we should use discarded_primary_packets. I believe it\u0027s currently hooked up to packetsDiscarded in getStats.",
       "parentUuid": "0ee55f3f_4f9abc8f",
+      "range": {
+        "startLine": 274,
+        "startChar": 27,
+        "endLine": 274,
+        "endChar": 64
+      },
+      "revId": "f0daf94db00e4405db471a8533a3fd8fb7c6d29f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "569ac13c_3f354f74",
+        "filename": "modules/audio_coding/neteq/statistics_calculator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-11-20T18:58:16Z",
+      "side": 1,
+      "message": "Thanks, I rewrote this code to use PacketsDiscarded instead.",
+      "parentUuid": "c19cc38d_0d82cde7",
       "range": {
         "startLine": 274,
         "startChar": 27,

@@ -22,6 +22,30 @@
       },
       "revId": "c4dc79cb8d7a0d019bc4b817028f244773f9b021",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6bccf775_48da1772",
+        "filename": "api/neteq/neteq_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-11-20T18:58:16Z",
+      "side": 1,
+      "message": "Thanks for the suggestion, I went for the second option.",
+      "parentUuid": "2922c2d9_a0f98fbc",
+      "range": {
+        "startLine": 178,
+        "startChar": 0,
+        "endLine": 180,
+        "endChar": 0
+      },
+      "revId": "c4dc79cb8d7a0d019bc4b817028f244773f9b021",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

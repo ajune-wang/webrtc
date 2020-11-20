@@ -16,6 +16,24 @@
       "message": "The implication of this is that if we get a local connection, we will still gather STUN and TURN candidates (normally I believe those are gathered with a slight delay) - which means that the load on the TURN/STUN servers will increase.\n\nIs that an intended and tolerable consequence?\nCan we measure how big it will be?\n",
       "revId": "715d02334bc0ad1fb60da1f0ca920e658a83852b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "886ce177_fc4167d3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-11-20T13:35:26Z",
+      "side": 1,
+      "message": "\u003e Is that an intended and tolerable consequence?\nYes\n- the likelihood of this actually happening is very low\n- the new behavior is optionally enabled using field trial\n- the likelihood of this happening in an single-process integration test is almost 100%\n\n\u003e Can we measure how big it will be?\nYes,\n- but I\u0027m very certain that the effect will be so low,\nthat it is not measurable...at least not on google TURN\nservers.\n- this change, like all others, will be enabled using an controlled A/B\nexperiment.",
+      "parentUuid": "d17c77b9_65278d43",
+      "revId": "715d02334bc0ad1fb60da1f0ca920e658a83852b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

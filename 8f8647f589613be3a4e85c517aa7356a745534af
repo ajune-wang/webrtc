@@ -16,6 +16,41 @@
       "message": "Looks good. Did you find a situation where this causes problems, or are you planning on changing it as a precaution?\n\nOne actual scenario I can imagine: if you have multiple types of TURN servers, isn\u0027t there a chance the TCP/TURN candidate forms a connection before the UDP/TURN candidate is gathered?",
       "revId": "8f8647f589613be3a4e85c517aa7356a745534af",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b73e13d_242686ab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-11-20T06:05:28Z",
+      "side": 1,
+      "message": "I added EmulatedTurnServer some days ago...and then added TURN to my\ntestcase for nicer...but it failed, cause it had assertions about number of candidates that would be created e.g during ice restart and such.",
+      "parentUuid": "b862f5a4_ebc413e6",
+      "revId": "8f8647f589613be3a4e85c517aa7356a745534af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d791816_6216f80d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-11-20T06:05:28Z",
+      "side": 1,
+      "message": "thanks",
+      "revId": "8f8647f589613be3a4e85c517aa7356a745534af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

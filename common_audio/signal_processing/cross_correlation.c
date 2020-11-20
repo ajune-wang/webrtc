@@ -10,6 +10,8 @@
 
 #include "common_audio/signal_processing/include/signal_processing_library.h"
 
+#include <limits.h>
+
 /* C version of WebRtcSpl_CrossCorrelation() for generic platforms. */
 void WebRtcSpl_CrossCorrelationC(int32_t* cross_correlation,
                                  const int16_t* seq1,
@@ -19,12 +21,11 @@ void WebRtcSpl_CrossCorrelationC(int32_t* cross_correlation,
                                  int right_shifts,
                                  int step_seq2) {
   size_t i = 0, j = 0;
-
   for (i = 0; i < dim_cross_correlation; i++) {
-    int32_t corr = 0;
+    uint32_t corr = 0;
     for (j = 0; j < dim_seq; j++)
       corr += (seq1[j] * seq2[j]) >> right_shifts;
     seq2 += step_seq2;
-    *cross_correlation++ = corr;
+    *cross_correlation++ = corr > INT_MAX ? INT_MAX : (int)corr;
   }
 }

@@ -33,6 +33,23 @@
       "message": "webrtc_perf_tests seems to flake...",
       "revId": "1ca4fa0c219f0b6bbacfc3501f022e45ed52bbcc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72ecdb98_54156d6d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-11-20T07:28:02Z",
+      "side": 1,
+      "message": "This is a hack - it would be more elegant if rtp_data_codecs_ was empty when SCTP is in use, in which case the merging to an empty set would affect nothing.\n\nBut we only expect this code to live for another 6 months, so I suppose a hack isn\u0027t that harmful.\n(famous last words)\n",
+      "revId": "1ca4fa0c219f0b6bbacfc3501f022e45ed52bbcc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

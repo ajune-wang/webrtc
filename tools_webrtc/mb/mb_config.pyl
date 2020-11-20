@@ -416,7 +416,7 @@
       'ios_code_signing_identity_description',
     ],
     'ios_debug_bot_x64': [
-      'ios', 'debug_bot', 'x64', 'ios_use_goma_rbe'
+      'ios', 'debug_bot', 'x64', 'ios_use_goma_rbe', 'tolerate_warnings',
     ],
 
     # More configs
@@ -631,6 +631,10 @@
 
     'win_undef_unicode': {
       'gn_args': 'rtc_win_undef_unicode=true',
+    },
+
+    'tolerate_warnings': {
+      'gn_args': 'treat_warnings_as_errors=false',
     },
   },
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35d38412_20644107",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-11-20T17:27:53Z",
+      "side": 1,
+      "message": "LGTM, but confirm that |first.picture_id| uses the same id space as frame descriptor.",
+      "revId": "b385edbd0be884bbd27863af01b91dd372319cc1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

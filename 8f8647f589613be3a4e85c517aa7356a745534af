@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b862f5a4_ebc413e6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-11-20T02:26:57Z",
+      "side": 1,
+      "message": "Looks good. Did you find a situation where this causes problems, or are you planning on changing it as a precaution?\n\nOne actual scenario I can imagine: if you have multiple types of TURN servers, isn\u0027t there a chance the TCP/TURN candidate forms a connection before the UDP/TURN candidate is gathered?",
+      "revId": "8f8647f589613be3a4e85c517aa7356a745534af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

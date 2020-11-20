@@ -16,6 +16,322 @@
       "message": "friendly ping 😊",
       "revId": "7eb3e63531c6473272c0b75bcd8de8cd4f47b906",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a81c44f4_d5fc362f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-20T15:48:44Z",
+      "side": 1,
+      "message": "Thanks for the CL!\n\nIt looks great but I have some comments.\n",
+      "revId": "7eb3e63531c6473272c0b75bcd8de8cd4f47b906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c2bf3c9_f4e6dd8b",
+        "filename": "modules/audio_processing/agc2/cpu_features.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-20T15:48:44Z",
+      "side": 1,
+      "message": "One aspect of this that makes the functionality a bit unclear is the way it is default initialized to false.\n\nThat enforces a usage pattern of the type \nAvailableCpuFeatures features;\nfeatures.sse2 \u003d true;\n\nThe issues I see with this are that \n-it leaves the reader wondering what the default values for avx2 and neon are, and forces the reader to check that.\n-There is a minimum of two lines for using the struct.\n\nI would instead suggest creating a constructor that all initialize the three elements, thereby forcing the user to explicitly initialize the struct. I.e.,\nAvaliableCpuFeatures::AvaliableCpuFeatures(bool sse2, bool avx2, bool neon) \n\nI believe that that would work quite well with all the use of that in this CL.",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 2
+      },
+      "revId": "7eb3e63531c6473272c0b75bcd8de8cd4f47b906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d0a260c_b20614bf",
+        "filename": "modules/audio_processing/agc2/rnn_vad/features_extraction.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-20T15:48:44Z",
+      "side": 1,
+      "message": "Is logging of this hear needed? Isn\u0027t it sufficient to log at the place where the features are originally set?",
+      "range": {
+        "startLine": 41,
+        "startChar": 2,
+        "endLine": 41,
+        "endChar": 66
+      },
+      "revId": "7eb3e63531c6473272c0b75bcd8de8cd4f47b906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b52d8b06_6254a729",
+        "filename": "modules/audio_processing/agc2/rnn_vad/features_extraction.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-20T15:48:44Z",
+      "side": 1,
+      "message": "This is a 3 element struct but I\u0027d anyway suggest making this a const-ref to avoid the copy.",
+      "range": {
+        "startLine": 29,
+        "startChar": 29,
+        "endLine": 29,
+        "endChar": 62
+      },
+      "revId": "7eb3e63531c6473272c0b75bcd8de8cd4f47b906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfd68098_7914d837",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-20T15:48:44Z",
+      "side": 1,
+      "message": "const ref",
+      "range": {
+        "startLine": 30,
+        "startChar": 25,
+        "endLine": 30,
+        "endChar": 59
+      },
+      "revId": "7eb3e63531c6473272c0b75bcd8de8cd4f47b906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07acbd9c_87eb549d",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-20T15:48:44Z",
+      "side": 1,
+      "message": "const ref",
+      "range": {
+        "startLine": 276,
+        "startChar": 4,
+        "endLine": 276,
+        "endChar": 37
+      },
+      "revId": "7eb3e63531c6473272c0b75bcd8de8cd4f47b906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3ecc2ea_f1a237e9",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-20T15:48:44Z",
+      "side": 1,
+      "message": "Is the logging here needed? Isn\u0027t it sufficient to log when the CPU features are selected initially?",
+      "range": {
+        "startLine": 379,
+        "startChar": 2,
+        "endLine": 379,
+        "endChar": 66
+      },
+      "revId": "7eb3e63531c6473272c0b75bcd8de8cd4f47b906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97b6d636_51b92801",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-20T15:48:44Z",
+      "side": 1,
+      "message": "const ref",
+      "range": {
+        "startLine": 49,
+        "startChar": 22,
+        "endLine": 49,
+        "endChar": 55
+      },
+      "revId": "7eb3e63531c6473272c0b75bcd8de8cd4f47b906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48db9eac_f7c1285c",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-20T15:48:44Z",
+      "side": 1,
+      "message": "const ref",
+      "range": {
+        "startLine": 104,
+        "startChar": 23,
+        "endLine": 104,
+        "endChar": 56
+      },
+      "revId": "7eb3e63531c6473272c0b75bcd8de8cd4f47b906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d6640b0_710bc21d",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-20T15:48:44Z",
+      "side": 1,
+      "message": "Nit\nFrom a readability perspective I definitely would suggest writing 1000 instead 1e3. \nAlso, another aspect is consistency: Line 189 says\nconstexpr int kNumTests \u003d 10000;\nand not\nconstexpr int kNumTests \u003d 1e4;\n\n(Also elsewhere in this file).",
+      "range": {
+        "startLine": 163,
+        "startChar": 57,
+        "endLine": 163,
+        "endChar": 60
+      },
+      "revId": "7eb3e63531c6473272c0b75bcd8de8cd4f47b906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80872943_bab42a8e",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-20T15:48:44Z",
+      "side": 1,
+      "message": "Same as above.",
+      "range": {
+        "startLine": 197,
+        "startChar": 57,
+        "endLine": 197,
+        "endChar": 60
+      },
+      "revId": "7eb3e63531c6473272c0b75bcd8de8cd4f47b906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dcc66b42_91de3f49",
+        "filename": "modules/audio_processing/agc2/vad_with_level.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-20T15:48:44Z",
+      "side": 1,
+      "message": "const ref",
+      "range": {
+        "startLine": 35,
+        "startChar": 15,
+        "endLine": 35,
+        "endChar": 49
+      },
+      "revId": "7eb3e63531c6473272c0b75bcd8de8cd4f47b906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31da85a0_76aa27ca",
+        "filename": "modules/audio_processing/agc2/vad_with_level.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-20T15:48:44Z",
+      "side": 1,
+      "message": "const ref",
+      "range": {
+        "startLine": 87,
+        "startChar": 35,
+        "endLine": 87,
+        "endChar": 68
+      },
+      "revId": "7eb3e63531c6473272c0b75bcd8de8cd4f47b906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e28d2cf3_0cd1889b",
+        "filename": "modules/audio_processing/agc2/vad_with_level.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-20T15:48:44Z",
+      "side": 1,
+      "message": "const ref",
+      "range": {
+        "startLine": 41,
+        "startChar": 19,
+        "endLine": 41,
+        "endChar": 51
+      },
+      "revId": "7eb3e63531c6473272c0b75bcd8de8cd4f47b906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

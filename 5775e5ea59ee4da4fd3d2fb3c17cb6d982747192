@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e15c1349_726fad29",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-11-20T16:29:19Z",
+      "side": 1,
+      "message": "But references[i] here points to B, right?\n\nThen, you compare picture_id, which is equal for A, B, and the frame below them.\n\nInter-frame references have lower picture_id, inte-layer - the same. Because here you compare not |VideoLayerFrameId| but int64_t picture_id.\n\nThe only way you could get references[i] \u003e frame_it-\u003efirst.picture_id is if next_frame_it points to some frame with a higher picture_id, which should never happen since we break few times above if timestamps are different (assuming frames with the same pid has the same timestamp).",
+      "parentUuid": "4fe45442_dfbec326",
+      "range": {
+        "startLine": 183,
+        "startChar": 57,
+        "endLine": 183,
+        "endChar": 59
+      },
+      "revId": "5775e5ea59ee4da4fd3d2fb3c17cb6d982747192",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c1ae3112_22532ee0",
         "filename": "modules/video_coding/frame_buffer2.cc",
         "patchSetId": 1
@@ -96,6 +120,24 @@
       "side": 1,
       "message": "This happens all the time, it is the equivalent of:\n      // Check if the next frame has some undecoded references other than\n      // the previous frame in the same superframe.\n      size_t num_allowed_undecoded_refs \u003d\n          (next_frame_it-\u003esecond.frame-\u003einter_layer_predicted) ? 1 : 0;\n      if (next_frame_it-\u003esecond.num_missing_decodable \u003e\n          num_allowed_undecoded_refs) {\n        break;\n      }\n\nThis is basically saying \"if you have an inter_layer_dependency, then it\u0027s ok to have just one undecoded dependency.",
       "parentUuid": "c1ae3112_22532ee0",
+      "revId": "5775e5ea59ee4da4fd3d2fb3c17cb6d982747192",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba9a85c9_0b126278",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-11-20T16:29:19Z",
+      "side": 1,
+      "message": "I may be missing something, but the check below doesn\u0027t look equivalent to that at all.\n\nIf the frame has no inter-layer dependencies the check below would always break (because it\u0027s equivalent to \"true || num_missing_decodable \u003e 1\"). Even if num_missing_decodable is 0.",
+      "parentUuid": "609e87da_0e82d8b4",
       "revId": "5775e5ea59ee4da4fd3d2fb3c17cb6d982747192",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -16,6 +16,23 @@
       "message": "drive-by from reading the code, no functional change.",
       "revId": "532c03ac9c5bb4903efe33864d357a147fd4906f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8364a368_e2d0c603",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2020-11-20T12:50:02Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "532c03ac9c5bb4903efe33864d357a147fd4906f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

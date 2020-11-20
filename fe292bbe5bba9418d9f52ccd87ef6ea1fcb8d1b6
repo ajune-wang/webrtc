@@ -16,6 +16,75 @@
       "message": "Hi Per,\nCould you PTAL?\nAlessio",
       "revId": "fe292bbe5bba9418d9f52ccd87ef6ea1fcb8d1b6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3729b1df_870454ff",
+        "filename": "modules/audio_processing/agc2/rnn_vad/vector_math.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-20T15:29:31Z",
+      "side": 1,
+      "message": "Since this is optimized for speed, just to be 100% sure that there is no division I\u0027d suggest changing this to:\nconstexpr int kBlockSizeLog2 \u003d 2;\nconst int num_blocks \u003d x.size() \u003e\u003e kBlockSizeLog2;",
+      "range": {
+        "startLine": 46,
+        "startChar": 6,
+        "endLine": 47,
+        "endChar": 51
+      },
+      "revId": "fe292bbe5bba9418d9f52ccd87ef6ea1fcb8d1b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82a3c8f6_3668efcb",
+        "filename": "modules/audio_processing/agc2/rnn_vad/vector_math.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-20T15:29:31Z",
+      "side": 1,
+      "message": "Nit:\nI\u0027d suggest skipping using the SafeLt. Having these methods in optimized code always makes scared that they actually add some cost.\n\nI also think that the limited extra protection added by these SafeLt is not at all worth the resulting reduction in terms of code readability.",
+      "range": {
+        "startLine": 62,
+        "startChar": 44,
+        "endLine": 62,
+        "endChar": 68
+      },
+      "revId": "fe292bbe5bba9418d9f52ccd87ef6ea1fcb8d1b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "912eab52_7354a0cc",
+        "filename": "modules/audio_processing/agc2/rnn_vad/vector_math_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-20T15:29:31Z",
+      "side": 1,
+      "message": "This seems a bit more complicated than what it actually is.\n\nWhat about\n\n\n  if (!GetAvailableCpuFeatures().sse2) {\n    return;\n  }\n  AvailableCpuFeatures cpu_features;\n  cpu_features_sse2.sse2 \u003d true;",
+      "range": {
+        "startLine": 43,
+        "startChar": 2,
+        "endLine": 48,
+        "endChar": 32
+      },
+      "revId": "fe292bbe5bba9418d9f52ccd87ef6ea1fcb8d1b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -13,7 +13,6 @@ legacy API directories&mdash;but see the
 
 Legacy API directory                       | Including subdirectories?
 -------------------------------------------|--------------------------
-`common_audio/include`                     | No
 `media/base`                               | No
 `media/engine`                             | No
 `modules/audio_coding/include`             | No

@@ -16,6 +16,29 @@
       "message": "Hi Gustaf,\nCould you PTAL?\nAlessio",
       "revId": "30dffcacf8afdbc29fdf0c210ac9b4a9bf690ceb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "962434f8_88921c57",
+        "filename": "modules/audio_processing/agc2/rnn_vad/vector_math_avx2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-20T14:44:57Z",
+      "side": 1,
+      "message": "Runby comment:\nSince block-size is 8, and the intention of this is to optimize for CPU I\u0027d suggest changing this to \n\nconstexpr int kBlockSizeLog2 \u003d 3;\nconst int num_blocks \u003d x.size() \u003e\u003e kBlockSizeLog2;",
+      "range": {
+        "startLine": 28,
+        "startChar": 25,
+        "endLine": 28,
+        "endChar": 47
+      },
+      "revId": "30dffcacf8afdbc29fdf0c210ac9b4a9bf690ceb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

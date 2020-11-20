@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d17c77b9_65278d43",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-11-20T06:59:37Z",
+      "side": 1,
+      "message": "The implication of this is that if we get a local connection, we will still gather STUN and TURN candidates (normally I believe those are gathered with a slight delay) - which means that the load on the TURN/STUN servers will increase.\n\nIs that an intended and tolerable consequence?\nCan we measure how big it will be?\n",
+      "revId": "715d02334bc0ad1fb60da1f0ca920e658a83852b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

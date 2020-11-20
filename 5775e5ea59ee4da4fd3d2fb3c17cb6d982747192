@@ -91,6 +91,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8870cb58_8d324900",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-11-20T16:39:17Z",
+      "side": 1,
+      "message": "Ah, sorry I I didn\u0027t provide good context in the description :)\n\nThe dependency descriptor use different frame IDs for every frame, so spatial layer frames at the same time instant would all have different frame ids.",
+      "parentUuid": "e15c1349_726fad29",
+      "range": {
+        "startLine": 183,
+        "startChar": 57,
+        "endLine": 183,
+        "endChar": 59
+      },
+      "revId": "5775e5ea59ee4da4fd3d2fb3c17cb6d982747192",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c1ae3112_22532ee0",
         "filename": "modules/video_coding/frame_buffer2.cc",
         "patchSetId": 1
@@ -155,6 +179,24 @@
       "writtenOn": "2020-11-20T16:38:08Z",
       "side": 1,
       "message": "Ok, I missed that this all lies inside |if (next_frame_it-\u003esecond.num_missing_decodable \u003e 0)|\n\nThen it\u0027s equivalent. Could you add a comment here reminding the reader that \"next_frame_it-\u003esecond.num_missing_decodable \u003e 0\".",
+      "parentUuid": "ba9a85c9_0b126278",
+      "revId": "5775e5ea59ee4da4fd3d2fb3c17cb6d982747192",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bde3f06_da345840",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-11-20T16:39:17Z",
+      "side": 1,
+      "message": "When has_inter_layer_dependency is true and we have an undecoded dependency it means that the undecoded dependency is at an earlier time instant. That means that this superframe is not ready to be decoded yet.",
       "parentUuid": "ba9a85c9_0b126278",
       "revId": "5775e5ea59ee4da4fd3d2fb3c17cb6d982747192",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"

@@ -16,6 +16,23 @@
       "message": "I think this one is a bit easier to read but I only spent five minutes on it so no hard feelings if you don\u0027t agree :-)",
       "revId": "f44c5c97db5643b4bc55a649eaeb842499f36de0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a23d36d_c23da35f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2020-11-20T12:42:34Z",
+      "side": 1,
+      "message": "LGTM, but strangely, this account is not cleared for CLA?!\n",
+      "revId": "f44c5c97db5643b4bc55a649eaeb842499f36de0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

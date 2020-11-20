@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4fe45442_dfbec326",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-11-20T16:17:38Z",
+      "side": 1,
+      "message": "With \"\u003d\u003d\" A would not be considered to have an inter layer dependency on B:\n\n   [ ]\u003c----[A]\u003c----\n    |       |\n    v       v\n   [ ]\u003c----[B]\u003c----\n    |       |\n    v       v\n   [ ]\u003c----[ ]\u003c----",
+      "parentUuid": "5cc59cdd_93b03a85",
+      "range": {
+        "startLine": 183,
+        "startChar": 57,
+        "endLine": 183,
+        "endChar": 59
+      },
+      "revId": "5775e5ea59ee4da4fd3d2fb3c17cb6d982747192",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c1ae3112_22532ee0",
@@ -54,6 +78,24 @@
       "writtenOn": "2020-11-20T15:56:28Z",
       "side": 1,
       "message": "How can this happen?\nWe started from some |frame_it|, jumped to some following frame, which happened to still have the same timestamp.\n\n|!has_inter_layer_dependency| means that it\u0027s e.g. k-svc delta-frame. Frame buffer is supposed to return whole superframes, right? Why do we need to break here?",
+      "revId": "5775e5ea59ee4da4fd3d2fb3c17cb6d982747192",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "609e87da_0e82d8b4",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-11-20T16:17:38Z",
+      "side": 1,
+      "message": "This happens all the time, it is the equivalent of:\n      // Check if the next frame has some undecoded references other than\n      // the previous frame in the same superframe.\n      size_t num_allowed_undecoded_refs \u003d\n          (next_frame_it-\u003esecond.frame-\u003einter_layer_predicted) ? 1 : 0;\n      if (next_frame_it-\u003esecond.num_missing_decodable \u003e\n          num_allowed_undecoded_refs) {\n        break;\n      }\n\nThis is basically saying \"if you have an inter_layer_dependency, then it\u0027s ok to have just one undecoded dependency.",
+      "parentUuid": "c1ae3112_22532ee0",
       "revId": "5775e5ea59ee4da4fd3d2fb3c17cb6d982747192",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

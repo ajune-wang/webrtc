@@ -137,6 +137,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee5680d2_810eb981",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-11-20T17:42:36Z",
+      "side": 1,
+      "message": "Yes, they use the same id space.",
+      "parentUuid": "e7696125_db836807",
+      "range": {
+        "startLine": 183,
+        "startChar": 57,
+        "endLine": 183,
+        "endChar": 59
+      },
+      "revId": "5775e5ea59ee4da4fd3d2fb3c17cb6d982747192",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c1ae3112_22532ee0",

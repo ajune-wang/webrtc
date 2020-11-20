@@ -140,6 +140,24 @@
       "parentUuid": "609e87da_0e82d8b4",
       "revId": "5775e5ea59ee4da4fd3d2fb3c17cb6d982747192",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "890aecd8_d53dec4d",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-11-20T16:38:08Z",
+      "side": 1,
+      "message": "Ok, I missed that this all lies inside |if (next_frame_it-\u003esecond.num_missing_decodable \u003e 0)|\n\nThen it\u0027s equivalent. Could you add a comment here reminding the reader that \"next_frame_it-\u003esecond.num_missing_decodable \u003e 0\".",
+      "parentUuid": "ba9a85c9_0b126278",
+      "revId": "5775e5ea59ee4da4fd3d2fb3c17cb6d982747192",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

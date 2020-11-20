@@ -33,6 +33,24 @@
       "message": "LGTM, but strangely, this account is not cleared for CLA?!\n",
       "revId": "f44c5c97db5643b4bc55a649eaeb842499f36de0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5d97ea2_0ba704c7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2020-11-20T13:22:41Z",
+      "side": 1,
+      "message": "haha, that did not stop the *other* change though. I was wondering if I needed to update our internal docs about joining the group. Will come back after that!",
+      "parentUuid": "4a23d36d_c23da35f",
+      "revId": "f44c5c97db5643b4bc55a649eaeb842499f36de0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

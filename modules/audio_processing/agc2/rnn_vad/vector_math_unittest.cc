@@ -39,6 +39,21 @@ TEST(RnnVadTest, TestDotProduct) {
 
 #if defined(WEBRTC_ARCH_X86_FAMILY)
 
+TEST(RnnVadTest, TestDotProductSse2) {
+  const AvailableCpuFeatures cpu_features = GetAvailableCpuFeatures();
+  if (!cpu_features.sse2) {
+    return;
+  }
+  AvailableCpuFeatures cpu_features_sse2;
+  cpu_features_sse2.sse2 = true;
+
+  VectorMath vector_math(cpu_features_sse2);
+  EXPECT_FLOAT_EQ(vector_math.DotProduct(kX, kX), kEnergyOfX);
+  EXPECT_FLOAT_EQ(
+      vector_math.DotProduct({kX, kSizeOfXSubSpan}, {kX, kSizeOfXSubSpan}),
+      kEnergyOfXSubspan);
+}
+
 TEST(RnnVadTest, TestDotProductAvx2) {
   const AvailableCpuFeatures cpu_features = GetAvailableCpuFeatures();
   if (!cpu_features.avx2) {

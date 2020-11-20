@@ -16,6 +16,69 @@
       "message": "Hi Henrik, PTAL at this 3-in-1 CL.",
       "revId": "a9c182b3788dd7e817765b34f78b6e0fd99f9811",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e992488d_c1e9114c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2020-11-20T10:45:05Z",
+      "side": 1,
+      "message": "Thanks. See comment inline.",
+      "revId": "a9c182b3788dd7e817765b34f78b6e0fd99f9811",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59443557_47487051",
+        "filename": "common_audio/signal_processing/cross_correlation.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2020-11-20T10:45:05Z",
+      "side": 1,
+      "message": "I\u0027m not sure this is the way to solve this issue. I\u0027m worried that the introduction of branches inside of the (outer) for loop will hit performance. The pattern for this function is that the calling function will estimate the worst case, and provide a scaling factor (right_shifts) to avoid overflow. Can you modify that instead?",
+      "range": {
+        "startLine": 29,
+        "startChar": 31,
+        "endLine": 29,
+        "endChar": 63
+      },
+      "revId": "a9c182b3788dd7e817765b34f78b6e0fd99f9811",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a421289_ddc0f088",
+        "filename": "modules/audio_coding/neteq/merge.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2020-11-20T10:45:05Z",
+      "side": 1,
+      "message": "I guess we end up here because we thought we could decode a first packet after expand and merge the new audio with the expanded, but the decoding of the new packet failed. In theory, another action would be to fail over to continuing the expand, but I\u0027m not sure I like that any better. Just putting it here anyway...",
+      "range": {
+        "startLine": 53,
+        "startChar": 2,
+        "endLine": 55,
+        "endChar": 3
+      },
+      "revId": "a9c182b3788dd7e817765b34f78b6e0fd99f9811",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

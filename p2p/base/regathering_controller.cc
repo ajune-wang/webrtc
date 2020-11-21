@@ -9,6 +9,7 @@
  */
 
 #include "p2p/base/regathering_controller.h"
+#include "rtc_base/task_utils/to_queued_task.h"
 
 namespace webrtc {
 
@@ -17,8 +18,8 @@ BasicRegatheringController::BasicRegatheringController(
     cricket::IceTransportInternal* ice_transport,
     rtc::Thread* thread)
     : config_(config), ice_transport_(ice_transport), thread_(thread) {
+  RTC_DCHECK_RUN_ON(thread_);
   RTC_DCHECK(ice_transport_);
-  RTC_DCHECK(thread_);
   ice_transport_->SignalStateChanged.connect(
       this, &BasicRegatheringController::OnIceTransportStateChanged);
   ice_transport->SignalWritableState.connect(
@@ -29,13 +30,17 @@ BasicRegatheringController::BasicRegatheringController(
       this, &BasicRegatheringController::OnIceTransportNetworkRouteChanged);
 }
 
-BasicRegatheringController::~BasicRegatheringController() = default;
+BasicRegatheringController::~BasicRegatheringController() {
+  RTC_DCHECK_RUN_ON(thread_);
+}
 
 void BasicRegatheringController::Start() {
+  RTC_DCHECK_RUN_ON(thread_);
   ScheduleRecurringRegatheringOnFailedNetworks();
 }
 
 void BasicRegatheringController::SetConfig(const Config& config) {
+  RTC_DCHECK_RUN_ON(thread_);
   bool need_cancel_and_reschedule_on_failed_networks =
       has_recurring_schedule_on_failed_networks_ &&
       (config_.regather_on_failed_networks_interval !=
@@ -49,30 +54,35 @@ void BasicRegatheringController::SetConfig(const Config& config) {
 
 void BasicRegatheringController::
     ScheduleRecurringRegatheringOnFailedNetworks() {
+  RTC_DCHECK_RUN_ON(thread_);
   RTC_DCHECK(config_.regather_on_failed_networks_interval >= 0);
   CancelScheduledRecurringRegatheringOnFailedNetworks();
   has_recurring_schedule_on_failed_networks_ = true;
-  invoker_for_failed_networks_.AsyncInvokeDelayed<void>(
-      RTC_FROM_HERE, thread_,
-      rtc::Bind(
-          &BasicRegatheringController::RegatherOnFailedNetworksIfDoneGathering,
-          this),
-      config_.regather_on_failed_networks_interval);
-}
+  if (!task_safety_)
+    task_safety_.reset(new ScopedTaskSafety());
 
-void BasicRegatheringController::RegatherOnFailedNetworksIfDoneGathering() {
-  // Only regather when the current session is in the CLEARED state (i.e., not
-  // running or stopped). It is only possible to enter this state when we gather
-  // continually, so there is an implicit check on continual gathering here.
-  if (allocator_session_ && allocator_session_->IsCleared()) {
-    allocator_session_->RegatherOnFailedNetworks();
-  }
-  ScheduleRecurringRegatheringOnFailedNetworks();
+  thread_->PostDelayedTask(
+      ToQueuedTask(*task_safety_.get(),
+                   [this]() {
+                     RTC_DCHECK_RUN_ON(thread_);
+                     // Only regather when the current session is in the CLEARED
+                     // state (i.e., not running or stopped). It is only
+                     // possible to enter this state when we gather continually,
+                     // so there is an implicit check on continual gathering
+                     // here.
+                     if (allocator_session_ &&
+                         allocator_session_->IsCleared()) {
+                       allocator_session_->RegatherOnFailedNetworks();
+                     }
+                     ScheduleRecurringRegatheringOnFailedNetworks();
+                   }),
+      config_.regather_on_failed_networks_interval);
 }
 
 void BasicRegatheringController::
     CancelScheduledRecurringRegatheringOnFailedNetworks() {
-  invoker_for_failed_networks_.Clear();
+  RTC_DCHECK_RUN_ON(thread_);
+  task_safety_ = nullptr;
   has_recurring_schedule_on_failed_networks_ = false;
 }
 

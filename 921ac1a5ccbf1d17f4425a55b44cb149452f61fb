@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "975dd3c5_10a6606a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-11-21T15:39:32Z",
+      "side": 1,
+      "message": "I looked at the weak ptr option. I think it could be a good fit moving forward but right now it\u0027s not a neat fit with the queued tasks since I\u0027d have to add an additional check for the weak pointer inside the lambdas before implicitly accessing \u0027this\u0027. That\u0027s the same as what is done automatically by ToQueuedTask already for the flag, so similar utilities would need to be written for weak ptr. At the moment I\u0027m not sure what those would look like though since we\u0027d ideally need to somehow allow the caller to use the capture section of the lambdas and yet run the check before invoking the lambda.",
+      "revId": "921ac1a5ccbf1d17f4425a55b44cb149452f61fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -16,6 +16,41 @@
       "message": "It looks a bit strange that this change doesn\u0027t change behavior, given the number of rearranged functions.\n\nAdding jonaso@ to the review to verify that there isn\u0027t a corner case where behavior is changed.\n",
       "revId": "a617fad73951ae7e0df46b9b03bbb09145bbf7e6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc10ebff_3939fbf8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-11-21T20:24:07Z",
+      "side": 1,
+      "message": "Added some more context to explain the changes in case that helps.",
+      "parentUuid": "f7b13c90_4925a281",
+      "revId": "a617fad73951ae7e0df46b9b03bbb09145bbf7e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf9e919e_48d9215d",
+        "filename": "p2p/base/regathering_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-11-21T20:24:07Z",
+      "side": 1,
+      "message": "the content of the lambda is what RegatherOnFailedNetworksIfDoneGathering did before.\nThe difference is using a lambda instead of rtc::Bind + member function.",
+      "revId": "a617fad73951ae7e0df46b9b03bbb09145bbf7e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

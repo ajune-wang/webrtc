@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b672037_e074a6e0",
+        "filename": "p2p/base/regathering_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-11-21T20:24:07Z",
+      "side": 0,
+      "message": "based on the below explanation, has_recurring_schedule_on_failed_networks_ was always set when a task was pending and never set when a task wasn\u0027t pending. So removing it and just using the task_safety_ flag instead, retains the behavior.",
+      "revId": "b223cb60e9974638d4401bd668ce87672eb8ed21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d500d0d3_b123fd7e",
+        "filename": "p2p/base/regathering_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-11-21T20:24:07Z",
+      "side": 0,
+      "message": "This call wasn\u0027t necessary since it\u0027s the first thing that ScheduleRecurringRegatheringOnFailedNetworks did anyway.\nRemoving this call site, left only one place where the function was called.",
+      "revId": "b223cb60e9974638d4401bd668ce87672eb8ed21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83110364_160362ee",
+        "filename": "p2p/base/regathering_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-11-21T20:24:07Z",
+      "side": 0,
+      "message": "Due to this call, invoker_for_failed_networks_ would always be \"clear\" and has_recurring_schedule_on_failed_networks_ always false, when we get to the next line.\n\nEstablishing that state and doing the equivalent of setting the has_recurring_schedule_on_failed_networks_ flag, is now done in one line, by deleting the current task_safety_ flag (if set), and allocating a new flag.",
+      "revId": "b223cb60e9974638d4401bd668ce87672eb8ed21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

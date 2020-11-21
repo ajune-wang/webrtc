@@ -40,6 +40,7 @@
 #include "rtc_base/rate_tracker.h"
 #include "rtc_base/socket_address.h"
 #include "rtc_base/system/rtc_export.h"
+#include "rtc_base/task_utils/pending_task_safety_flag.h"
 #include "rtc_base/third_party/sigslot/sigslot.h"
 #include "rtc_base/thread.h"
 #include "rtc_base/weak_ptr.h"
@@ -160,7 +161,6 @@ typedef std::set<rtc::SocketAddress> ServerAddresses;
 // connections to similar mechanisms of the other client.  Subclasses of this
 // one add support for specific mechanisms like local UDP ports.
 class Port : public PortInterface,
-             public rtc::MessageHandlerAutoCleanup,
              public sigslot::has_slots<> {
  public:
   // INIT: The state when a port is just created.
@@ -314,7 +314,7 @@ class Port : public PortInterface,
   // Called if the port has no connections and is no longer useful.
   void Destroy();
 
-  void OnMessage(rtc::Message* pmsg) override;
+  void DestroyIfDead();
 
   // Debugging description of this port
   std::string ToString() const override;
@@ -322,7 +322,7 @@ class Port : public PortInterface,
   uint16_t max_port() { return max_port_; }
 
   // Timeout shortening function to speed up unit tests.
-  void set_timeout_delay(int delay) { timeout_delay_ = delay; }
+  void SetTimeoutDelayForTesting(int delay);
 
   // This method will return local and remote username fragements from the
   // stun username attribute if present.
@@ -366,8 +366,6 @@ class Port : public PortInterface,
                                        const rtc::SocketAddress& base_address);
 
  protected:
-  enum { MSG_DESTROY_IF_DEAD = 0, MSG_FIRST_AVAILABLE };
-
   virtual void UpdateNetworkCost();
 
   void set_type(const std::string& type) { type_ = type; }
@@ -430,6 +428,8 @@ class Port : public PortInterface,
     mdns_name_registration_status_ = status;
   }
 
+  webrtc::ScopedTaskSafety task_safety_;
+
  private:
   void Construct();
   // Called when one of our connections deletes itself.
@@ -437,7 +437,7 @@ class Port : public PortInterface,
 
   void OnNetworkTypeChanged(const rtc::Network* network);
 
-  rtc::Thread* thread_;
+  rtc::Thread* const thread_;
   rtc::PacketSocketFactory* factory_;
   std::string type_;
   bool send_retransmit_count_attribute_;

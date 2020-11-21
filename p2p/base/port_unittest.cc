@@ -3374,13 +3374,13 @@ TEST_F(PortTest, TestPortTimeoutIfNotKeptAlive) {
   int timeout_delay = 100;
   auto port1 = CreateUdpPort(kLocalAddr1);
   ConnectToSignalDestroyed(port1.get());
-  port1->set_timeout_delay(timeout_delay);  // milliseconds
+  port1->SetTimeoutDelayForTesting(timeout_delay);  // milliseconds
   port1->SetIceRole(cricket::ICEROLE_CONTROLLING);
   port1->SetIceTiebreaker(kTiebreaker1);
 
   auto port2 = CreateUdpPort(kLocalAddr2);
   ConnectToSignalDestroyed(port2.get());
-  port2->set_timeout_delay(timeout_delay);  // milliseconds
+  port2->SetTimeoutDelayForTesting(timeout_delay);  // milliseconds
   port2->SetIceRole(cricket::ICEROLE_CONTROLLED);
   port2->SetIceTiebreaker(kTiebreaker2);
 
@@ -3403,13 +3403,13 @@ TEST_F(PortTest, TestPortTimeoutAfterNewConnectionCreatedAndDestroyed) {
   int timeout_delay = 100;
   auto port1 = CreateUdpPort(kLocalAddr1);
   ConnectToSignalDestroyed(port1.get());
-  port1->set_timeout_delay(timeout_delay);  // milliseconds
+  port1->SetTimeoutDelayForTesting(timeout_delay);  // milliseconds
   port1->SetIceRole(cricket::ICEROLE_CONTROLLING);
   port1->SetIceTiebreaker(kTiebreaker1);
 
   auto port2 = CreateUdpPort(kLocalAddr2);
   ConnectToSignalDestroyed(port2.get());
-  port2->set_timeout_delay(timeout_delay);  // milliseconds
+  port2->SetTimeoutDelayForTesting(timeout_delay);  // milliseconds
 
   port2->SetIceRole(cricket::ICEROLE_CONTROLLED);
   port2->SetIceTiebreaker(kTiebreaker2);
@@ -3444,13 +3444,13 @@ TEST_F(PortTest, TestPortNotTimeoutUntilPruned) {
   int timeout_delay = 100;
   auto port1 = CreateUdpPort(kLocalAddr1);
   ConnectToSignalDestroyed(port1.get());
-  port1->set_timeout_delay(timeout_delay);  // milliseconds
+  port1->SetTimeoutDelayForTesting(timeout_delay);  // milliseconds
   port1->SetIceRole(cricket::ICEROLE_CONTROLLING);
   port1->SetIceTiebreaker(kTiebreaker1);
 
   auto port2 = CreateUdpPort(kLocalAddr2);
   ConnectToSignalDestroyed(port2.get());
-  port2->set_timeout_delay(timeout_delay);  // milliseconds
+  port2->SetTimeoutDelayForTesting(timeout_delay);  // milliseconds
   port2->SetIceRole(cricket::ICEROLE_CONTROLLED);
   port2->SetIceTiebreaker(kTiebreaker2);
   // The connection must not be destroyed before a connection is attempted.

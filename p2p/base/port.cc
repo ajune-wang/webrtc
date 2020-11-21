@@ -32,6 +32,7 @@
 #include "rtc_base/string_encode.h"
 #include "rtc_base/string_utils.h"
 #include "rtc_base/strings/string_builder.h"
+#include "rtc_base/task_utils/to_queued_task.h"
 #include "rtc_base/third_party/base64/base64.h"
 #include "system_wrappers/include/field_trial.h"
 
@@ -63,6 +64,7 @@ namespace cricket {
 
 using webrtc::RTCError;
 using webrtc::RTCErrorType;
+using webrtc::ToQueuedTask;
 
 // TODO(ronghuawu): Use "local", "srflx", "prflx" and "relay". But this requires
 // the signaling part be updated correspondingly as well.
@@ -170,6 +172,7 @@ Port::Port(rtc::Thread* thread,
 }
 
 void Port::Construct() {
+  RTC_DCHECK_RUN_ON(thread_);
   // TODO(pthatcher): Remove this old behavior once we're sure no one
   // relies on it.  If the username_fragment and password are empty,
   // we should just create one.
@@ -181,13 +184,16 @@ void Port::Construct() {
   network_->SignalTypeChanged.connect(this, &Port::OnNetworkTypeChanged);
   network_cost_ = network_->GetCost();
 
-  thread_->PostDelayed(RTC_FROM_HERE, timeout_delay_, this,
-                       MSG_DESTROY_IF_DEAD);
+  thread_->PostDelayedTask(
+      ToQueuedTask(task_safety_, [this]() { DestroyIfDead(); }),
+      timeout_delay_);
   RTC_LOG(LS_INFO) << ToString() << ": Port created with network cost "
                    << network_cost_;
 }
 
 Port::~Port() {
+  RTC_DCHECK_RUN_ON(thread_);
+
   // Delete all of the remaining connections.  We copy the list up front
   // because each deletion will cause it to be modified.
 
@@ -609,6 +615,12 @@ rtc::DiffServCodePoint Port::StunDscpValue() const {
   return rtc::DSCP_NO_CHANGE;
 }
 
+// Timeout shortening function to speed up unit tests.
+void Port::SetTimeoutDelayForTesting(int delay) {
+  RTC_DCHECK_RUN_ON(thread_);
+  timeout_delay_ = delay;
+}
+
 bool Port::ParseStunUsername(const StunMessage* stun_msg,
                              std::string* local_ufrag,
                              std::string* remote_ufrag) const {
@@ -815,11 +827,11 @@ void Port::KeepAliveUntilPruned() {
 
 void Port::Prune() {
   state_ = State::PRUNED;
-  thread_->Post(RTC_FROM_HERE, this, MSG_DESTROY_IF_DEAD);
+  thread_->PostTask(ToQueuedTask(task_safety_, [this]() { DestroyIfDead(); }));
 }
 
-void Port::OnMessage(rtc::Message* pmsg) {
-  RTC_DCHECK(pmsg->message_id == MSG_DESTROY_IF_DEAD);
+void Port::DestroyIfDead() {
+  RTC_DCHECK_RUN_ON(thread_);
   bool dead =
       (state_ == State::INIT || state_ == State::PRUNED) &&
       connections_.empty() &&
@@ -885,8 +897,9 @@ void Port::OnConnectionDestroyed(Connection* conn) {
   // not cause the Port to be destroyed.
   if (connections_.empty()) {
     last_time_all_connections_removed_ = rtc::TimeMillis();
-    thread_->PostDelayed(RTC_FROM_HERE, timeout_delay_, this,
-                         MSG_DESTROY_IF_DEAD);
+    thread_->PostDelayedTask(
+        ToQueuedTask(task_safety_, [this]() { DestroyIfDead(); }),
+        timeout_delay_);
   }
 }
 

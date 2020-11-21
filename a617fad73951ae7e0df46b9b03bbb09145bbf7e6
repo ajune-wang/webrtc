@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7b13c90_4925a281",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-11-21T18:14:35Z",
+      "side": 1,
+      "message": "It looks a bit strange that this change doesn\u0027t change behavior, given the number of rearranged functions.\n\nAdding jonaso@ to the review to verify that there isn\u0027t a corner case where behavior is changed.\n",
+      "revId": "a617fad73951ae7e0df46b9b03bbb09145bbf7e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

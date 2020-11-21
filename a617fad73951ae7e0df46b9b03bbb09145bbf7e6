@@ -36,6 +36,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "64eb0a09_a5635eb1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-11-21T22:29:51Z",
+      "side": 1,
+      "message": "Those comments helped. They also make it clear that ScopedTaskSafety is a more subtle and more powerful construct than its documentation currently makes it look like.\n",
+      "revId": "a617fad73951ae7e0df46b9b03bbb09145bbf7e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cf9e919e_48d9215d",

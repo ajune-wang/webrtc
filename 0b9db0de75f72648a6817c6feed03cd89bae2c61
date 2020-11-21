@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12075c27_3e0748dc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-11-21T15:32:50Z",
+      "side": 1,
+      "message": "fixed a bug in the Close() method that had been masked by the AutoCleanup step.",
+      "revId": "0b9db0de75f72648a6817c6feed03cd89bae2c61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

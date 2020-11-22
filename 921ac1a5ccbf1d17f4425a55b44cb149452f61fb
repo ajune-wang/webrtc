@@ -16,6 +16,41 @@
       "message": "I looked at the weak ptr option. I think it could be a good fit moving forward but right now it\u0027s not a neat fit with the queued tasks since I\u0027d have to add an additional check for the weak pointer inside the lambdas before implicitly accessing \u0027this\u0027. That\u0027s the same as what is done automatically by ToQueuedTask already for the flag, so similar utilities would need to be written for weak ptr. At the moment I\u0027m not sure what those would look like though since we\u0027d ideally need to somehow allow the caller to use the capture section of the lambdas and yet run the check before invoking the lambda.",
       "revId": "921ac1a5ccbf1d17f4425a55b44cb149452f61fb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0cc9e32_a0bc0251",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-11-22T06:33:59Z",
+      "side": 1,
+      "message": "Approved as part of the drive to remove AsyncInvoker.\nBut I do think we need to improve documentation.\n",
+      "revId": "921ac1a5ccbf1d17f4425a55b44cb149452f61fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbcc9612_553038fe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-11-22T06:33:59Z",
+      "side": 1,
+      "message": "The good thing (to me) about the weak pointer is that I think I understand it; it\u0027s easy to explain as \"it\u0027s a pointer that\u0027s null when what it points to is deallocated\". I wouldn\u0027t recommend writing \"automatic\" utilities on top of it; that\u0027s just more concepts to explain.\n\nThe utility functions here (ToQueuedTask and its ScopedTaskSafety argument) are much less obvious. We probably need a g3doc that summarizes recommended tasking, queueing and invoking practice that explains how to use these efficiently.\n\n(I note also that this CL makes binaries bigger, not smaller)",
+      "parentUuid": "975dd3c5_10a6606a",
+      "revId": "921ac1a5ccbf1d17f4425a55b44cb149452f61fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -66,6 +66,10 @@ class ThreeBandFilterBank final {
                  rtc::ArrayView<float, kFullBandSize> out);
 
  private:
+  inline void OpimizedMultiply(float* __restrict__ out,
+                               float* __restrict__ out_subsampled,
+                               float dct_modulation);
+
   std::array<std::array<float, kMemorySize>, kNumNonZeroFilters>
       state_analysis_;
   std::array<std::array<float, kMemorySize>, kNumNonZeroFilters>

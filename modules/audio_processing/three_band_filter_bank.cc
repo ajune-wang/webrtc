@@ -212,10 +212,19 @@ void ThreeBandFilterBank::Analysis(
       // Band and modulate the output.
       for (int band = 0; band < ThreeBandFilterBank::kNumBands; ++band) {
         for (int n = 0; n < kSplitBandSize; ++n) {
-          out[band][n] += dct_modulation[band] * out_subsampled[n];
+          OpimizedMultiply(out[band].data(), out_subsampled.data(),
+                           dct_modulation[band]);
         }
       }
     }
+  }
+}
+
+void ThreeBandFilterBank::OpimizedMultiply(float* __restrict__ out,
+                                           float* __restrict__ out_subsampled,
+                                           float dct_modulation) {
+  for (int n = 0; n < kSplitBandSize; ++n) {
+    out[n] += dct_modulation * out_subsampled[n];
   }
 }
 

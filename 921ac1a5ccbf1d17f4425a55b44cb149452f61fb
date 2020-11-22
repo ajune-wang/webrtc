@@ -51,6 +51,42 @@
       "parentUuid": "975dd3c5_10a6606a",
       "revId": "921ac1a5ccbf1d17f4425a55b44cb149452f61fb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dae7eafe_48984c9a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-11-22T13:43:26Z",
+      "side": 1,
+      "message": "fixed the binary size issue. I\u0027m not too worried about the previous patch set though (84 bytes) since we currently also have AsyncInvoker in the binary and depending on the code layout, the size may also go down. The bigger impact is that the code path for cleaning up the cancelled tasks is lock free and involves no additional operations besides raising a flag.",
+      "parentUuid": "bbcc9612_553038fe",
+      "revId": "921ac1a5ccbf1d17f4425a55b44cb149452f61fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "994501a5_661ae927",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-11-22T13:43:26Z",
+      "side": 1,
+      "message": "Since these utilities are relatively new to the code base, I can understand that it takes some time. How to use WeakPtr has also been surprising to many that haven\u0027t been familiar with it and I ended up digging through the implementation back in the day to also understand why it works the way it does (and the benefits of that design). I\u0027d give ScopedTaskSafety and PendingTaskSafetyFlag a shot at understanding, take a look at the documentation that does exist (pending_task_safety_flag.h + the unit tests). They seem to match well with lambdas since lambdas are their own construct, but it would be good to hear how you\u0027d use weak_ptr in a way that would be simpler to understand",
+      "parentUuid": "c0cc9e32_a0bc0251",
+      "revId": "921ac1a5ccbf1d17f4425a55b44cb149452f61fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

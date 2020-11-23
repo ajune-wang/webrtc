@@ -81,6 +81,7 @@ class VideoStreamEncoderResourceManager::InitialFrameDropper {
       : quality_scaler_resource_(quality_scaler_resource),
         quality_scaler_settings_(QualityScalerSettings::ParseFromFieldTrials()),
         has_seen_first_bwe_drop_(false),
+        has_seen_first_resolution_increase_(false),
         set_start_bitrate_(DataRate::Zero()),
         set_start_bitrate_time_ms_(0),
         initial_framedrop_(0) {
@@ -103,13 +104,16 @@ class VideoStreamEncoderResourceManager::InitialFrameDropper {
   }
 
   void SetTargetBitrate(DataRate target_bitrate, int64_t now_ms) {
-    if (set_start_bitrate_ > DataRate::Zero() && !has_seen_first_bwe_drop_ &&
+    if (set_start_bitrate_ > DataRate::Zero() &&
         quality_scaler_resource_->is_started() &&
-        quality_scaler_settings_.InitialBitrateIntervalMs() &&
-        quality_scaler_settings_.InitialBitrateFactor()) {
+        quality_scaler_settings_.InitialBitrateIntervalMs()) {
       int64_t diff_ms = now_ms - set_start_bitrate_time_ms_;
-      if (diff_ms <
-              quality_scaler_settings_.InitialBitrateIntervalMs().value() &&
+      if (diff_ms >
+          quality_scaler_settings_.InitialBitrateIntervalMs().value()) {
+        return;
+      }
+      if (!has_seen_first_bwe_drop_ &&
+          quality_scaler_settings_.InitialBitrateFactor() &&
           (target_bitrate <
            (set_start_bitrate_ *
             quality_scaler_settings_.InitialBitrateFactor().value()))) {
@@ -119,11 +123,26 @@ class VideoStreamEncoderResourceManager::InitialFrameDropper {
         initial_framedrop_ = 0;
         has_seen_first_bwe_drop_ = true;
       }
+      if (!has_seen_first_resolution_increase_ &&
+          single_active_stream_pixels_ &&
+          initial_single_active_stream_pixels_ &&
+          (*single_active_stream_pixels_ >
+           *initial_single_active_stream_pixels_)) {
+        RTC_LOG(LS_INFO) << "Reset initial_framedrop_. Initial pixels: "
+                         << *initial_single_active_stream_pixels_
+                         << ", pixels: " << *single_active_stream_pixels_;
+        initial_framedrop_ = 0;
+        has_seen_first_resolution_increase_ = true;
+      }
     }
   }
 
   void OnEncoderSettingsUpdated(const VideoCodec& codec) {
     single_active_stream_pixels_ = GetSingleActiveStreamPixels(codec);
+    if (!initial_single_active_stream_pixels_)
+      initial_single_active_stream_pixels_ = single_active_stream_pixels_;
+    if (!single_active_stream_pixels_)
+      initial_single_active_stream_pixels_ = absl::nullopt;
   }
 
   void OnFrameDroppedDueToSize() { ++initial_framedrop_; }
@@ -148,11 +167,13 @@ class VideoStreamEncoderResourceManager::InitialFrameDropper {
   const rtc::scoped_refptr<QualityScalerResource> quality_scaler_resource_;
   const QualityScalerSettings quality_scaler_settings_;
   bool has_seen_first_bwe_drop_;
+  bool has_seen_first_resolution_increase_;
   DataRate set_start_bitrate_;
   int64_t set_start_bitrate_time_ms_;
   // Counts how many frames we've dropped in the initial framedrop phase.
   int initial_framedrop_;
   absl::optional<uint32_t> single_active_stream_pixels_;
+  absl::optional<uint32_t> initial_single_active_stream_pixels_;
 };
 
 VideoStreamEncoderResourceManager::VideoStreamEncoderResourceManager(
@@ -298,7 +319,7 @@ void VideoStreamEncoderResourceManager::SetStartBitrate(
         encoder_target_bitrate_bps_);
   }
   initial_frame_dropper_->SetStartBitrate(start_bitrate,
-                                          clock_->TimeInMicroseconds());
+                                          clock_->TimeInMilliseconds());
 }
 
 void VideoStreamEncoderResourceManager::SetTargetBitrate(

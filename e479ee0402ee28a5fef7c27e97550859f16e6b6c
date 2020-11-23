@@ -34,6 +34,24 @@
       "parentUuid": "6d600b93_80786937",
       "revId": "e479ee0402ee28a5fef7c27e97550859f16e6b6c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2055ad64_533f7da1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2020-11-23T09:39:27Z",
+      "side": 1,
+      "message": "*sigh* this is the payload type exhaustion issue from https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d12194\nUnfortunately the fix I made there does not help since the test uses datachannels.\n\nCan I disable the test on windows (where that happens due to the number of H264 variants)?",
+      "parentUuid": "05b5efbc_708eeaa0",
+      "revId": "e479ee0402ee28a5fef7c27e97550859f16e6b6c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

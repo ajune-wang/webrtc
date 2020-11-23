@@ -16,6 +16,23 @@
       "message": "Please? ",
       "revId": "7762c5a1fde170b251a22196820197d73ffec03b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7caeddb_7f9b9847",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-11-23T13:34:30Z",
+      "side": 1,
+      "message": "LGTM (but let\u0027s wait Danil since I don\u0027t have real knowledge about the extension itself).",
+      "revId": "7762c5a1fde170b251a22196820197d73ffec03b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

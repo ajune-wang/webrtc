@@ -16,6 +16,24 @@
       "message": "We\u0027ll have to sort this out somehow.... reverting is OK until we have done so.\n\n",
       "revId": "ce4be1e64050943f47d5944dc0dead3875615184",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0eba15b0_ca32ace1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2020-11-23T11:39:19Z",
+      "side": 1,
+      "message": "The question was whether it is ok to reland after disabling the test (which uses RTP data channels so https://chromium.googlesource.com/external/webrtc/+/766a32c28d3fd26cb8deb1549042550f1ab2e224 does not help while it does in practice) disabled on Windows.\nI don\u0027t think this should be blocked by the PT mess (which will take time to solve)",
+      "parentUuid": "8b60caaa_6f9ffb78",
+      "revId": "ce4be1e64050943f47d5944dc0dead3875615184",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

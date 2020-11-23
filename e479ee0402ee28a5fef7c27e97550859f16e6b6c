@@ -52,6 +52,24 @@
       "parentUuid": "05b5efbc_708eeaa0",
       "revId": "e479ee0402ee28a5fef7c27e97550859f16e6b6c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2aa2699_ab6147cd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-11-23T10:09:29Z",
+      "side": 1,
+      "message": "I pass this decision to hta@ since I lack context on that. But if the test will be skipped, a plan to re-enable it should be in place.",
+      "parentUuid": "2055ad64_533f7da1",
+      "revId": "e479ee0402ee28a5fef7c27e97550859f16e6b6c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

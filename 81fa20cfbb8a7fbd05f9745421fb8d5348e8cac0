@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "829c556f_04f7b1e7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-11-23T23:17:05Z",
+      "side": 1,
+      "message": "Jonas, can you take a look?\n\nUnfortunately this isn\u0027t really testable since the issue doesn\u0027t occur when connecting to localhost sockets.\n\nBut I think we can rest easy that this works since it\u0027s what chromium is doing (the option is set by SetDefaultOptionsForClient, which is called right after opening, before connecting). Worked in my local testing too of course.",
+      "revId": "81fa20cfbb8a7fbd05f9745421fb8d5348e8cac0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82aefadd_96b51b41",
+        "filename": "p2p/base/basic_packet_socket_factory.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-11-23T23:17:05Z",
+      "side": 1,
+      "message": "I\u0027d like to link to documentation here, but I couldn\u0027t find any. MSDN says \"The setsockopt function sets the current value for a socket option associated with a socket of any type, in any state\", which implies that the connecting state should be valid.",
+      "revId": "81fa20cfbb8a7fbd05f9745421fb8d5348e8cac0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

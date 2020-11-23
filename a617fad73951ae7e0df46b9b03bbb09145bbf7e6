@@ -132,6 +132,30 @@
       },
       "revId": "a617fad73951ae7e0df46b9b03bbb09145bbf7e6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "032bd64d_f8d3c860",
+        "filename": "p2p/base/regathering_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-11-23T08:44:35Z",
+      "side": 1,
+      "message": "SGTM",
+      "parentUuid": "9d3fb3b4_7452e724",
+      "range": {
+        "startLine": 86,
+        "startChar": 36,
+        "endLine": 86,
+        "endChar": 48
+      },
+      "revId": "a617fad73951ae7e0df46b9b03bbb09145bbf7e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

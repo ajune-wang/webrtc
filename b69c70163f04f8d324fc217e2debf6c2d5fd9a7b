@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb85981f_4131f62d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-11-23T10:37:23Z",
+      "side": 1,
+      "message": "Sorry for the delay, have been OOO",
+      "revId": "b69c70163f04f8d324fc217e2debf6c2d5fd9a7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

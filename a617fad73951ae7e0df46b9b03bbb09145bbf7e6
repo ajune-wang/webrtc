@@ -53,6 +53,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc3a0bc4_2754e206",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-11-23T06:55:44Z",
+      "side": 1,
+      "message": "LGTM,\nexcept that I propose a more descriptive name than \"task_safety_\"",
+      "revId": "a617fad73951ae7e0df46b9b03bbb09145bbf7e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cf9e919e_48d9215d",
@@ -66,6 +83,29 @@
       "writtenOn": "2020-11-21T20:24:07Z",
       "side": 1,
       "message": "the content of the lambda is what RegatherOnFailedNetworksIfDoneGathering did before.\nThe difference is using a lambda instead of rtc::Bind + member function.",
+      "revId": "a617fad73951ae7e0df46b9b03bbb09145bbf7e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8820f86_e9e57f97",
+        "filename": "p2p/base/regathering_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-11-23T06:55:44Z",
+      "side": 1,
+      "message": "How about a more descriptive name?\ne.g has_pending_regathering_\n\nAnd a comment that it it has a value, there is a pending lambda,\nand that lambda can be cancelled by deleteing the object...",
+      "range": {
+        "startLine": 86,
+        "startChar": 36,
+        "endLine": 86,
+        "endChar": 48
+      },
       "revId": "a617fad73951ae7e0df46b9b03bbb09145bbf7e6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

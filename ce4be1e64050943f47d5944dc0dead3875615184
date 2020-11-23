@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b60caaa_6f9ffb78",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-11-23T10:36:58Z",
+      "side": 1,
+      "message": "We\u0027ll have to sort this out somehow.... reverting is OK until we have done so.\n\n",
+      "revId": "ce4be1e64050943f47d5944dc0dead3875615184",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

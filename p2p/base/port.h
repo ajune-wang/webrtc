@@ -160,7 +160,7 @@ typedef std::set<rtc::SocketAddress> ServerAddresses;
 // connections to similar mechanisms of the other client.  Subclasses of this
 // one add support for specific mechanisms like local UDP ports.
 class Port : public PortInterface,
-             public rtc::MessageHandlerAutoCleanup,
+             public rtc::MessageHandler,
              public sigslot::has_slots<> {
  public:
   // INIT: The state when a port is just created.
@@ -208,6 +208,9 @@ class Port : public PortInterface,
   void KeepAliveUntilPruned();
   // Allows a port to be destroyed if no connection is using it.
   void Prune();
+
+  // Call to stop any currently pending operations from running.
+  void CancelPendingTasks();
 
   // The thread on which this port performs its I/O.
   rtc::Thread* thread() { return thread_; }
@@ -322,7 +325,7 @@ class Port : public PortInterface,
   uint16_t max_port() { return max_port_; }
 
   // Timeout shortening function to speed up unit tests.
-  void set_timeout_delay(int delay) { timeout_delay_ = delay; }
+  void SetTimeoutDelayForTesting(int delay);
 
   // This method will return local and remote username fragements from the
   // stun username attribute if present.
@@ -437,7 +440,7 @@ class Port : public PortInterface,
 
   void OnNetworkTypeChanged(const rtc::Network* network);
 
-  rtc::Thread* thread_;
+  rtc::Thread* const thread_;
   rtc::PacketSocketFactory* factory_;
   std::string type_;
   bool send_retransmit_count_attribute_;
@@ -459,6 +462,9 @@ class Port : public PortInterface,
   std::string password_;
   std::vector<Candidate> candidates_;
   AddressMap connections_;
+  // Provided only for tests. We should consider fixing the tests to use a
+  // testing harness that allows control of the clock and just use
+  // kPortTimeoutDelay instead of this variable.
   int timeout_delay_;
   bool enable_port_packets_;
   IceRole ice_role_;

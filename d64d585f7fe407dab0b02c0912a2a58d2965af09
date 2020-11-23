@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d750146_2b245c22",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2020-11-23T08:31:29Z",
+      "side": 1,
+      "message": "Great work, Alessio!\nI left a suggestion in a comment below. But it\u0027s up to you if you want to implement that or not.",
+      "revId": "d64d585f7fe407dab0b02c0912a2a58d2965af09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ba3f59a_78135e65",
+        "filename": "modules/audio_processing/agc2/rnn_vad/vector_math_avx2.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2020-11-23T08:31:29Z",
+      "side": 1,
+      "message": "If you\u0027d like to save a couple of cycles you could get rid of the \"b\" counter and instead of computing \"num_blocks\" you could compute a \"i_max\" (or whatever you want to call it). Then you only have to increment one counter per loop iteration.\n\nSomething like:\n\nconst size_t max_i \u003d x.size() / kBlockSize * kBlockSize;\nfor (size_t i \u003d 0; i \u003c max_i; i +\u003d kBlockSize) {\n\n(In the loop at the bottom of the function you then of course have to loop from max_i to x.size().)",
+      "range": {
+        "startLine": 28,
+        "startChar": 2,
+        "endLine": 29,
+        "endChar": 64
+      },
+      "revId": "d64d585f7fe407dab0b02c0912a2a58d2965af09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

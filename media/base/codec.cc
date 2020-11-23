@@ -143,7 +143,8 @@ bool Codec::operator==(const Codec& c) const {
 bool Codec::Matches(const Codec& codec) const {
   // Match the codec id/name based on the typical static/dynamic name rules.
   // Matching is case-insensitive.
-  const int kMaxStaticPayloadId = 95;
+  // https://www.iana.org/assignments/rtp-parameters/rtp-parameters.xhtml#rtp-parameters-1
+  const int kMaxStaticPayloadId = 34;
   return (id <= kMaxStaticPayloadId || codec.id <= kMaxStaticPayloadId)
              ? (id == codec.id)
              : (absl::EqualsIgnoreCase(name, codec.name));

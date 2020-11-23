@@ -34,6 +34,24 @@
       "parentUuid": "8b60caaa_6f9ffb78",
       "revId": "ce4be1e64050943f47d5944dc0dead3875615184",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "249e8c5c_f4641604",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2020-11-23T12:49:01Z",
+      "side": 1,
+      "message": "to clarify, this test would (if landed) blow up https://chromium-review.googlesource.com/c/chromium/src/+/2550806\nThe not yet written equivalent WPT with SCTP datachannels would not blow up since we currently have one spare payload type when not using rtp data channels.\n\nNote that once a video track is added that removes codecs like VP profile-level\u003d1 from the offer (since they\u0027re decode-only)",
+      "parentUuid": "0eba15b0_ca32ace1",
+      "revId": "ce4be1e64050943f47d5944dc0dead3875615184",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

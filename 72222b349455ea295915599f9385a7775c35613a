@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "619cf801_012c616a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2020-11-23T15:44:54Z",
+      "side": 1,
+      "message": "Woho! I never thought I\u0027d see the day... LGTM! :)",
+      "revId": "72222b349455ea295915599f9385a7775c35613a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

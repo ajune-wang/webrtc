@@ -167,6 +167,11 @@ AsyncPacketSocket* BasicPacketSocketFactory::CreateClientTcpSocket(
     socket = new AsyncSSLSocket(socket);
   }
 
+  // Set TCP_NODELAY (via OPT_NODELAY) for improved performance.
+  // See http://go/gtalktcpnodelayexperiment
+  // Must be done before calling Connect, otherwise it may fail.
+  socket->SetOption(Socket::OPT_NODELAY, 1);
+
   if (socket->Connect(remote_address) < 0) {
     RTC_LOG(LS_ERROR) << "TCP connect failed with error " << socket->GetError();
     delete socket;
@@ -180,10 +185,6 @@ AsyncPacketSocket* BasicPacketSocketFactory::CreateClientTcpSocket(
   } else {
     tcp_socket = new AsyncTCPSocket(socket, false);
   }
-
-  // Set TCP_NODELAY (via OPT_NODELAY) for improved performance.
-  // See http://go/gtalktcpnodelayexperiment
-  tcp_socket->SetOption(Socket::OPT_NODELAY, 1);
 
   return tcp_socket;
 }

@@ -7,14 +7,14 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'acfa5a011340807afa2896c096223b2994bf078c',
+  'chromium_revision': '4517f6db74c15b1f20e811c3f5c2a8e7c7c6f5e9',
 }
 
 deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@67efd05620681f217f8ad5f92504253bf905dafe',
+    'https://chromium.googlesource.com/chromium/src/base@4421be7eae68ebb7ed2b97ef53cd838a6e24a890',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@356ef25e240c8a55a8fb486455365491ed225a65',
   'src/buildtools':
@@ -25,13 +25,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@feae45c075073f4adc4c68fba09e5bc0232bb150',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@232cce732659c999807e9b1b991f25ee0d1a4f86',
     'condition': 'checkout_ios',
   },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@ae656081dc9d0d3b41a31a1515f3f3c9e9d88110',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@9b8961da57c8e0d57c78ec8213eb22be5362ceb3',
+    'https://chromium.googlesource.com/chromium/src/third_party@98f8ec195a0219d786bf647beab50ea73ab38fb7',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -257,7 +257,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@d28bf829ec934dd149a1a2c1ea0b661e7ae513af',
+    'https://chromium.googlesource.com/chromium/src/tools@ea607b11686f20789de5aa4491421680532b9d9e',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@d46ea7635f2911208268170512cb611412488fd8',
 
@@ -479,15 +479,15 @@ deps = {
       'packages': [
         {
           'package': 'infra/tools/luci/isolate/${{platform}}',
-          'version': 'git_revision:6cbe3f56e9f00b8f65eae21f01838a8b58191a47',
+          'version': 'git_revision:1a022d3a4c50be4207ee93451255d71896416596',
         },
         {
           'package': 'infra/tools/luci/isolated/${{platform}}',
-          'version': 'git_revision:6cbe3f56e9f00b8f65eae21f01838a8b58191a47',
+          'version': 'git_revision:1a022d3a4c50be4207ee93451255d71896416596',
         },
         {
           'package': 'infra/tools/luci/swarming/${{platform}}',
-          'version': 'git_revision:6cbe3f56e9f00b8f65eae21f01838a8b58191a47',
+          'version': 'git_revision:1a022d3a4c50be4207ee93451255d71896416596',
         },
       ],
       'dep_type': 'cipd',

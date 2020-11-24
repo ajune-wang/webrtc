@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1764a139_c1fa9666",
+        "filename": "api/neteq/neteq.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-11-24T16:02:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "89e306f4_39e55024",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 31
+      },
+      "revId": "a45abf4e823ad24dce90883582b4bd8576eee611",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ee605295_0c3fcc9f",
@@ -71,6 +95,30 @@
       "writtenOn": "2020-11-23T08:15:00Z",
       "side": 1,
       "message": "No need to declare these, you can pass in \u0026result-\u003etarget_level_threshold_ms below.",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 0
+      },
+      "revId": "a45abf4e823ad24dce90883582b4bd8576eee611",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "68804314_a978d66c",
+        "filename": "modules/audio_coding/neteq/packet_buffer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-11-24T16:02:39Z",
+      "side": 1,
+      "message": "I rewrote this code and got rid of these (except for enabled, which is needed).",
+      "parentUuid": "ee605295_0c3fcc9f",
       "range": {
         "startLine": 70,
         "startChar": 0,
@@ -104,6 +152,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f7745e5_b381d4f9",
+        "filename": "modules/audio_coding/neteq/packet_buffer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-11-24T16:02:39Z",
+      "side": 1,
+      "message": "Good idea, done.",
+      "parentUuid": "09e5d7b4_740281ee",
+      "range": {
+        "startLine": 122,
+        "startChar": 4,
+        "endLine": 122,
+        "endChar": 22
+      },
+      "revId": "a45abf4e823ad24dce90883582b4bd8576eee611",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f46ffdb0_ff15220a",
@@ -117,6 +189,30 @@
       "writtenOn": "2020-11-23T08:15:00Z",
       "side": 1,
       "message": "We are evaluating this in two places now, how about always calling PartialFlush (if there is a config) and return a bool if anything was flushed?",
+      "range": {
+        "startLine": 151,
+        "startChar": 0,
+        "endLine": 161,
+        "endChar": 0
+      },
+      "revId": "a45abf4e823ad24dce90883582b4bd8576eee611",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe19f3b2_b15ce148",
+        "filename": "modules/audio_coding/neteq/packet_buffer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-11-24T16:02:39Z",
+      "side": 1,
+      "message": "We\u0027re not really doing the same thing here and in PartialFlush. Here we check the conditions for triggering a smart flush, and in the PartialFlush function we simply flush down to the target level. I don\u0027t think there is much overlap that can be removed.",
+      "parentUuid": "f46ffdb0_ff15220a",
       "range": {
         "startLine": 151,
         "startChar": 0,
@@ -150,6 +246,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1751b19_d704483d",
+        "filename": "modules/audio_coding/neteq/packet_buffer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-11-24T16:02:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff4ba1e6_b070cbad",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 0
+      },
+      "revId": "a45abf4e823ad24dce90883582b4bd8576eee611",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "07455daa_acb9c474",
@@ -163,6 +283,30 @@
       "writtenOn": "2020-11-23T08:15:00Z",
       "side": 1,
       "message": "Add some unittests triggering partial flush?",
+      "range": {
+        "startLine": 114,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 0
+      },
+      "revId": "a45abf4e823ad24dce90883582b4bd8576eee611",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1dd25d80_8f9f11a3",
+        "filename": "modules/audio_coding/neteq/packet_buffer_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-11-24T16:02:39Z",
+      "side": 1,
+      "message": "Done, PTAL.",
+      "parentUuid": "07455daa_acb9c474",
       "range": {
         "startLine": 114,
         "startChar": 0,

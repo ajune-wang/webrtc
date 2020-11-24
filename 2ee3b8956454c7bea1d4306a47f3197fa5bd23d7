@@ -16,6 +16,52 @@
       "message": "\u003e Patch Set 1:\n\u003e \n\u003e \u003e Patch Set 1:\n\u003e \u003e \n\u003e \u003e \u003e Patch Set 1:\n\u003e \u003e \u003e \n\u003e \u003e \u003e \u003e Patch Set 1:\n\u003e \u003e \u003e \u003e \n\u003e \u003e \u003e \u003e \u003e Patch Set 1:\n\u003e \u003e \u003e \u003e \u003e \n\u003e \u003e \u003e \u003e \u003e Not sure how to do this correctly, but we already have the resolution available here: https://cs.chromium.org/chromium/src/third_party/webrtc/modules/rtp_rtcp/source/rtp_sender_video.cc?l\u003d177\u0026rcl\u003d1282babe6621d3a2084bbd24e77652e0b3a4eb93\n\u003e \u003e \u003e \u003e \n\u003e \u003e \u003e \u003e that one is not exactly the same: it is a resolution of the current frame/current spatial layer only,\n\u003e \u003e \u003e \u003e where dependency descriptor might contain resolution for multiple spatial layers.\n\u003e \u003e \u003e \u003e Also it might be better to keep this logic codec dependent since other codec might have single spatial layer, use one resolution at a key frame and larger resolution on following delta frames.\n\u003e \u003e \u003e \n\u003e \u003e \u003e It is still possible to get it from RTPVideoHeader, but will need to switch on codec type. Do you think that would be better?\n\u003e \u003e \n\u003e \u003e I can\u0027t see how you would get it from the RTPVideoHeader? Also, I don\u0027t see how you would get the resolution for multiple spatial layers into one descriptor in this case? I think I might be misunderstanding the goal of this CL.\n\u003e \n\u003e The goal of this CL is to \"fill resolution\" ... \"so that it will be filled in the dependency descriptor rtp header extension\"\n\u003e \n\u003e you pointed to code that copies resolution from the RTPVideoHeader into generic frame descriptor.\n\u003e It is possible to reuse that code for dependency descriptor, but then it has to be codec specific:\n\u003e if (rtp_video_header.codec_type() \u003d\u003d kVp8) {\n\u003e   dependency_descriptor.structure.resuloutions \u003d {{rtp_video_header.width, rtp_video_header.height}}\n\u003e } else if (rtp_video_header.codec_type() \u003d\u003d kVp9) {\n\u003e   const auto\u0026 vp9_header \u003d get\u003cRtpVideoHeaderVp9\u003e(rtp_video_header.video_type_header);\n\u003e   CHECK(vp9_header.ss_present); // has to be present on a key frame\n\u003e   // copy vp9_header.num_spatial_layers resolutions.\n\u003e }\n\u003e \n\u003e my suggestion (with this CL) is to put codec-specific code into ... codec-specific code.\n\u003e that\u0027s why I\u0027m proposing to modify the codec wrapper instead of reading resolution from the RTPVideoHeader in a codec-specific way.\n\nIIRC we had an offline discussion where I mentioned that the libvpx VP8 encoder encodes multiple spatial layers at once, and this CL did not account for that.",
       "revId": "2ee3b8956454c7bea1d4306a47f3197fa5bd23d7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63d6bb0b_a209cc3c",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1137,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-11-24T17:25:51Z",
+      "side": 1,
+      "message": "This check doesn\u0027t hurt, but given that we can\u0027t skip spatial or temporal layers it might not be required. Not sure what happens in the writer if we skip layers though, do we just insert dummy templates?",
+      "range": {
+        "startLine": 1136,
+        "startChar": 0,
+        "endLine": 1137,
+        "endChar": 76
+      },
+      "revId": "2ee3b8956454c7bea1d4306a47f3197fa5bd23d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec4a5e4f_31e31cda",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1138,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-11-24T17:25:51Z",
+      "side": 1,
+      "message": "Just add a comment saying that for now only completely independent SSRC simulcast is supported.",
+      "range": {
+        "startLine": 1138,
+        "startChar": 4,
+        "endLine": 1138,
+        "endChar": 51
+      },
+      "revId": "2ee3b8956454c7bea1d4306a47f3197fa5bd23d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

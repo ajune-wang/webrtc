@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "225a90c1_2cc9d01d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-11-24T10:47:49Z",
+      "side": 1,
+      "message": "Thanks for your comments.\n\nPlease note that I slightly changed scheme from that of AEC3.\nDotProductAvx2() is now a private member and it\u0027s called by DotProduct() (which is public) if AVX2 is available. In this way, the caller doesn\u0027t need to choose which function to call and VectorMath is responsible for choosing the fastest supported implementation.",
+      "revId": "11e15c83743c844ef44dc635acc7ca5bdaffd1cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

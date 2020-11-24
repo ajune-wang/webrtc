@@ -39,6 +39,30 @@
       },
       "revId": "30dffcacf8afdbc29fdf0c210ac9b4a9bf690ceb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6098be1a_adf2f6ee",
+        "filename": "modules/audio_processing/agc2/rnn_vad/vector_math_avx2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-11-24T10:47:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "962434f8_88921c57",
+      "range": {
+        "startLine": 28,
+        "startChar": 25,
+        "endLine": 28,
+        "endChar": 47
+      },
+      "revId": "30dffcacf8afdbc29fdf0c210ac9b4a9bf690ceb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

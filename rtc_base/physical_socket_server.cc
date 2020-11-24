@@ -338,7 +338,11 @@ int PhysicalSocket::SetOption(Option opt, int value) {
     ::setsockopt(s_, IPPROTO_IP, IP_TOS, (SockOptArg)&value, sizeof(value));
   }
 #endif
-  return ::setsockopt(s_, slevel, sopt, (SockOptArg)&value, sizeof(value));
+  int ret = ::setsockopt(s_, slevel, sopt, (SockOptArg)&value, sizeof(value));
+  if (ret != 0) {
+    UpdateLastError();
+  }
+  return ret;
 }
 
 int PhysicalSocket::Send(const void* pv, size_t cb) {

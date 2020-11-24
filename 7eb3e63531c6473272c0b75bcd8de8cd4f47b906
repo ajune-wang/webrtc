@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "61fef7c2_988f6484",
+        "filename": "modules/audio_processing/agc2/cpu_features.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-11-24T10:27:03Z",
+      "side": 1,
+      "message": "very good point! done",
+      "parentUuid": "5c2bf3c9_f4e6dd8b",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 2
+      },
+      "revId": "7eb3e63531c6473272c0b75bcd8de8cd4f47b906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6d0a260c_b20614bf",
@@ -71,6 +95,30 @@
       "writtenOn": "2020-11-20T15:48:44Z",
       "side": 1,
       "message": "Is logging of this hear needed? Isn\u0027t it sufficient to log at the place where the features are originally set?",
+      "range": {
+        "startLine": 41,
+        "startChar": 2,
+        "endLine": 41,
+        "endChar": 66
+      },
+      "revId": "7eb3e63531c6473272c0b75bcd8de8cd4f47b906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b86c130b_01c2997f",
+        "filename": "modules/audio_processing/agc2/rnn_vad/features_extraction.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-11-24T10:27:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d0a260c_b20614bf",
       "range": {
         "startLine": 41,
         "startChar": 2,
@@ -104,6 +152,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "426a5b4d_f8a8f1c4",
+        "filename": "modules/audio_processing/agc2/rnn_vad/features_extraction.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-11-24T10:27:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b52d8b06_6254a729",
+      "range": {
+        "startLine": 29,
+        "startChar": 29,
+        "endLine": 29,
+        "endChar": 62
+      },
+      "revId": "7eb3e63531c6473272c0b75bcd8de8cd4f47b906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cfd68098_7914d837",
@@ -117,6 +189,30 @@
       "writtenOn": "2020-11-20T15:48:44Z",
       "side": 1,
       "message": "const ref",
+      "range": {
+        "startLine": 30,
+        "startChar": 25,
+        "endLine": 30,
+        "endChar": 59
+      },
+      "revId": "7eb3e63531c6473272c0b75bcd8de8cd4f47b906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6248c0fe_a368627e",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-11-24T10:27:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cfd68098_7914d837",
       "range": {
         "startLine": 30,
         "startChar": 25,
@@ -150,6 +246,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ed07cbb_1042b102",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-11-24T10:27:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "07acbd9c_87eb549d",
+      "range": {
+        "startLine": 276,
+        "startChar": 4,
+        "endLine": 276,
+        "endChar": 37
+      },
+      "revId": "7eb3e63531c6473272c0b75bcd8de8cd4f47b906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e3ecc2ea_f1a237e9",
@@ -163,6 +283,30 @@
       "writtenOn": "2020-11-20T15:48:44Z",
       "side": 1,
       "message": "Is the logging here needed? Isn\u0027t it sufficient to log when the CPU features are selected initially?",
+      "range": {
+        "startLine": 379,
+        "startChar": 2,
+        "endLine": 379,
+        "endChar": 66
+      },
+      "revId": "7eb3e63531c6473272c0b75bcd8de8cd4f47b906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad846b67_c2d29baa",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-11-24T10:27:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3ecc2ea_f1a237e9",
       "range": {
         "startLine": 379,
         "startChar": 2,
@@ -196,6 +340,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e156b6d6_3f3b31c4",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-11-24T10:27:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97b6d636_51b92801",
+      "range": {
+        "startLine": 49,
+        "startChar": 22,
+        "endLine": 49,
+        "endChar": 55
+      },
+      "revId": "7eb3e63531c6473272c0b75bcd8de8cd4f47b906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "48db9eac_f7c1285c",
@@ -209,6 +377,30 @@
       "writtenOn": "2020-11-20T15:48:44Z",
       "side": 1,
       "message": "const ref",
+      "range": {
+        "startLine": 104,
+        "startChar": 23,
+        "endLine": 104,
+        "endChar": 56
+      },
+      "revId": "7eb3e63531c6473272c0b75bcd8de8cd4f47b906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e30ebc5_5774c559",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-11-24T10:27:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48db9eac_f7c1285c",
       "range": {
         "startLine": 104,
         "startChar": 23,
@@ -242,6 +434,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "86e4e284_eb751368",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-11-24T10:27:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d6640b0_710bc21d",
+      "range": {
+        "startLine": 163,
+        "startChar": 57,
+        "endLine": 163,
+        "endChar": 60
+      },
+      "revId": "7eb3e63531c6473272c0b75bcd8de8cd4f47b906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "80872943_bab42a8e",
@@ -255,6 +471,30 @@
       "writtenOn": "2020-11-20T15:48:44Z",
       "side": 1,
       "message": "Same as above.",
+      "range": {
+        "startLine": 197,
+        "startChar": 57,
+        "endLine": 197,
+        "endChar": 60
+      },
+      "revId": "7eb3e63531c6473272c0b75bcd8de8cd4f47b906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9be2658e_da0db2cf",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-11-24T10:27:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "80872943_bab42a8e",
       "range": {
         "startLine": 197,
         "startChar": 57,
@@ -288,6 +528,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b66cdd9_4bac9f7a",
+        "filename": "modules/audio_processing/agc2/vad_with_level.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-11-24T10:27:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dcc66b42_91de3f49",
+      "range": {
+        "startLine": 35,
+        "startChar": 15,
+        "endLine": 35,
+        "endChar": 49
+      },
+      "revId": "7eb3e63531c6473272c0b75bcd8de8cd4f47b906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "31da85a0_76aa27ca",
@@ -311,6 +575,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "618517d1_ac9be7ab",
+        "filename": "modules/audio_processing/agc2/vad_with_level.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-11-24T10:27:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "31da85a0_76aa27ca",
+      "range": {
+        "startLine": 87,
+        "startChar": 35,
+        "endLine": 87,
+        "endChar": 68
+      },
+      "revId": "7eb3e63531c6473272c0b75bcd8de8cd4f47b906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e28d2cf3_0cd1889b",
@@ -324,6 +612,30 @@
       "writtenOn": "2020-11-20T15:48:44Z",
       "side": 1,
       "message": "const ref",
+      "range": {
+        "startLine": 41,
+        "startChar": 19,
+        "endLine": 41,
+        "endChar": 51
+      },
+      "revId": "7eb3e63531c6473272c0b75bcd8de8cd4f47b906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4f262ff_311cc2e3",
+        "filename": "modules/audio_processing/agc2/vad_with_level.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-11-24T10:27:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e28d2cf3_0cd1889b",
       "range": {
         "startLine": 41,
         "startChar": 19,

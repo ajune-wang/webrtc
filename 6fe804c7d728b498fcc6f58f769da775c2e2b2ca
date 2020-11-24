@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "987a7e1f_80262ef5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-11-24T22:07:45Z",
+      "side": 1,
+      "message": "Thought it would be a good idea to start logging errors.\n\nKarl, can you take a look at physical_socket_server.cc?",
+      "revId": "6fe804c7d728b498fcc6f58f769da775c2e2b2ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

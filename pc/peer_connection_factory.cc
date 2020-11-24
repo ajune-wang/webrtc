@@ -180,12 +180,16 @@ PeerConnectionFactory::CreateAudioSource(const cricket::AudioOptions& options) {
 
 bool PeerConnectionFactory::StartAecDump(FILE* file, int64_t max_size_bytes) {
   RTC_DCHECK(signaling_thread()->IsCurrent());
-  return channel_manager()->StartAecDump(FileWrapper(file), max_size_bytes);
+  return worker_thread()->Invoke<bool>(RTC_FROM_HERE, [this, file,
+                                                       max_size_bytes]() {
+    return channel_manager()->StartAecDump(FileWrapper(file), max_size_bytes);
+  });
 }
 
 void PeerConnectionFactory::StopAecDump() {
   RTC_DCHECK(signaling_thread()->IsCurrent());
-  channel_manager()->StopAecDump();
+  worker_thread()->Invoke<void>(RTC_FROM_HERE,
+                                [this]() { channel_manager()->StopAecDump(); });
 }
 
 rtc::scoped_refptr<PeerConnectionInterface>

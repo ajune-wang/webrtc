@@ -20,6 +20,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "3ff68d4c_e5d8d560",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-11-24T08:57:12Z",
+      "side": 1,
+      "message": "LGTM, with optional suggestion.",
+      "revId": "81fa20cfbb8a7fbd05f9745421fb8d5348e8cac0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "82aefadd_96b51b41",
         "filename": "p2p/base/basic_packet_socket_factory.cc",
         "patchSetId": 1
@@ -31,6 +48,24 @@
       "writtenOn": "2020-11-23T23:17:05Z",
       "side": 1,
       "message": "I\u0027d like to link to documentation here, but I couldn\u0027t find any. MSDN says \"The setsockopt function sets the current value for a socket option associated with a socket of any type, in any state\", which implies that the connecting state should be valid.",
+      "revId": "81fa20cfbb8a7fbd05f9745421fb8d5348e8cac0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f09f09f_a670c662",
+        "filename": "p2p/base/basic_packet_socket_factory.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-11-24T08:57:12Z",
+      "side": 1,
+      "message": "how about moving it even further up ? (e.g line 111)\non line 173, the socket might already have been wrapped in proxy and/or ssl.\n\nwouldn\u0027t it be more clear to put it on the \"raw\" socket ?",
+      "parentUuid": "82aefadd_96b51b41",
       "revId": "81fa20cfbb8a7fbd05f9745421fb8d5348e8cac0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

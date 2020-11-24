@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe6ccbff_9136c1b5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-11-24T15:53:00Z",
+      "side": 1,
+      "message": "PTAL. (I\u0027m aware of one usage downstream. That\u0027s temporarily added to a separate whitelist, and should hopefully be deleted in a few months).",
+      "revId": "cc133d81f55ed0b99ea2edacf617ae8b4f0d6d67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

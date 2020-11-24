@@ -7,7 +7,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'fed88f41edfe00024aaf1a0816fc62dabaea06f0',
+  'chromium_revision': 'eca462b83a9b1e6b8686d2dc9f77f81b4add7deb',
 }
 
 deps = {
@@ -16,7 +16,7 @@ deps = {
   'src/base':
     'https://chromium.googlesource.com/chromium/src/base@df7d1bcfe2b5b8aef2d0bfd04ef06eee50765c1d',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@0b7bec4032cf65d27bae9df1e8301386abb80bfe',
+    'https://chromium.googlesource.com/chromium/src/build@35162a2228def2e107d0927ab507ef89cf68076f',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@6302c1175607a436e18947a5abe9df2209e845fc',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -25,13 +25,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@c22e99448ee13393540b1ed830540144bc54ff59',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@b50b60599b774f66f350e3306be256ac6be84b80',
     'condition': 'checkout_ios',
   },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@ae656081dc9d0d3b41a31a1515f3f3c9e9d88110',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@1f137efbc116a7c19ff1f112358ec6c42a7c1adc',
+    'https://chromium.googlesource.com/chromium/src/third_party@99d9fc7f5b29d483cb417ceb32a81d8fde286f9a',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -257,7 +257,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@880674d483afef6f256c4cebf4ce5c36a008835d',
+    'https://chromium.googlesource.com/chromium/src/tools@54c67d103e0b457addc2bc676a0a4bf6169c472d',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@d46ea7635f2911208268170512cb611412488fd8',
 

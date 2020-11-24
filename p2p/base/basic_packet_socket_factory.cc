@@ -75,6 +75,13 @@ AsyncPacketSocket* BasicPacketSocketFactory::CreateServerTcpSocket(
     return NULL;
   }
 
+  // Set TCP_NODELAY (via OPT_NODELAY) for improved performance.
+  // See http://go/gtalktcpnodelayexperiment
+  if (socket->SetOption(Socket::OPT_NODELAY, 1) != 0) {
+    RTC_LOG(LS_ERROR) << "Setting TCP_NODELAY option failed with error "
+                      << socket->GetError();
+  }
+
   if (BindSocket(socket, local_address, min_port, max_port) < 0) {
     RTC_LOG(LS_ERROR) << "TCP bind failed with error " << socket->GetError();
     delete socket;
@@ -86,10 +93,6 @@ AsyncPacketSocket* BasicPacketSocketFactory::CreateServerTcpSocket(
     RTC_DCHECK(!(opts & PacketSocketFactory::OPT_TLS));
     socket = new AsyncSSLSocket(socket);
   }
-
-  // Set TCP_NODELAY (via OPT_NODELAY) for improved performance.
-  // See http://go/gtalktcpnodelayexperiment
-  socket->SetOption(Socket::OPT_NODELAY, 1);
 
   if (opts & PacketSocketFactory::OPT_STUN)
     return new cricket::AsyncStunTCPSocket(socket, true);
@@ -107,6 +110,14 @@ AsyncPacketSocket* BasicPacketSocketFactory::CreateClientTcpSocket(
       socket_factory()->CreateAsyncSocket(local_address.family(), SOCK_STREAM);
   if (!socket) {
     return NULL;
+  }
+
+  // Set TCP_NODELAY (via OPT_NODELAY) for improved performance.
+  // See http://go/gtalktcpnodelayexperiment
+  // Must be done before calling Connect, otherwise it may fail.
+  if (socket->SetOption(Socket::OPT_NODELAY, 1) != 0) {
+    RTC_LOG(LS_ERROR) << "Setting TCP_NODELAY option failed with error "
+                      << socket->GetError();
   }
 
   if (BindSocket(socket, local_address, 0, 0) < 0) {
@@ -180,10 +191,6 @@ AsyncPacketSocket* BasicPacketSocketFactory::CreateClientTcpSocket(
   } else {
     tcp_socket = new AsyncTCPSocket(socket, false);
   }
-
-  // Set TCP_NODELAY (via OPT_NODELAY) for improved performance.
-  // See http://go/gtalktcpnodelayexperiment
-  tcp_socket->SetOption(Socket::OPT_NODELAY, 1);
 
   return tcp_socket;
 }

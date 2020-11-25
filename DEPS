@@ -7,7 +7,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '8f4e430afece9499105d018607b14c8c45b166fd',
+  'chromium_revision': '1290fee2b75477570d8cb9a33b3bef6b840b1be2',
 }
 
 deps = {
@@ -25,13 +25,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@6b6c35d642c9b778e8861bdb1130d889ce46d807',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@e4c4cc18aa51d8ed7b907778b46d9bf77179029e',
     'condition': 'checkout_ios',
   },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@70017627a07f2190c16d2b791c42ec52e56cde95',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@c2e20c407349762c2a5e68dbd751d3e71ff4b249',
+    'https://chromium.googlesource.com/chromium/src/third_party@54300ec0b1d53ce4ed8ee0864ee89fdce1aedbe5',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -257,7 +257,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@9419fdea06b93c669edf849da64f5d8ce6f1f7a6',
+    'https://chromium.googlesource.com/chromium/src/tools@0b22d7cdc60cd7e2767a57d56df98f5d05aa961f',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@d46ea7635f2911208268170512cb611412488fd8',
 
@@ -1061,7 +1061,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/android_deps/libs/androidx_recyclerview_recyclerview',
-              'version': 'version:1.1.0-cr0',
+              'version': 'version:1.2.0-alpha06-cr0',
           },
       ],
       'condition': 'checkout_android',
@@ -1303,7 +1303,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/android_deps/libs/androidx_viewpager2_viewpager2',
-              'version': 'version:1.0.0-cr0',
+              'version': 'version:1.1.0-SNAPSHOT-cr0',
           },
       ],
       'condition': 'checkout_android',
@@ -1314,7 +1314,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/android_deps/libs/androidx_viewpager_viewpager',
-              'version': 'version:1.0.0-cr0',
+              'version': 'version:1.1.0-SNAPSHOT-cr0',
           },
       ],
       'condition': 'checkout_android',

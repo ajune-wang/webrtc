@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a93aa70f_2e6f00b1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2020-11-25T08:43:00Z",
+      "side": 1,
+      "message": "Awesome!",
+      "revId": "2e3a9776b4135de702f7fde1b348628274a2c83c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e52166f9_613de5f3",
+        "filename": "modules/audio_coding/neteq/packet_buffer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2020-11-25T08:43:00Z",
+      "side": 1,
+      "message": "Is there any risk we could let the buffer grow beyond max_number_of_packets_ here? For example if frame length is mixed. Maybe add a second condition to the loop below for max_number_of_packets_/2 to be sure.",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 119,
+        "endChar": 0
+      },
+      "revId": "2e3a9776b4135de702f7fde1b348628274a2c83c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

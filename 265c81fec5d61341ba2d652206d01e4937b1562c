@@ -16,6 +16,91 @@
       "message": "Since the RTP demux filters pass through this class, I wanted to look at its thread safety.\nThe result is a strong argument in favor of *always* using thread annotations, I think.\n",
       "revId": "265c81fec5d61341ba2d652206d01e4937b1562c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31a28386_9f606e0c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-11-25T21:06:12Z",
+      "side": 1,
+      "message": "great! makes understanding the flow a lot easier.",
+      "revId": "265c81fec5d61341ba2d652206d01e4937b1562c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f61983f5_4b98d945",
+        "filename": "pc/channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-11-25T21:06:12Z",
+      "side": 1,
+      "message": "nice - would it even be ok to do this for all but the worker thread? (fine to put a todo for that this time around if it makes sense)",
+      "revId": "265c81fec5d61341ba2d652206d01e4937b1562c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f89c27c_b9e66550",
+        "filename": "pc/channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-11-25T21:06:12Z",
+      "side": 1,
+      "message": "nit: skip dcheck since we deref the pointer anyway",
+      "revId": "265c81fec5d61341ba2d652206d01e4937b1562c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "295e6c28_5a96033f",
+        "filename": "pc/channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-11-25T21:06:12Z",
+      "side": 1,
+      "message": "I wonder if we can know if the demuxer_criteria_ will cause the RegisterRtpDemuxerSink() call below to fail, before we jump threads?  If that\u0027s possible, then we could possibly change this to be an async hop, change the return type to void and assume it will succeed?",
+      "revId": "265c81fec5d61341ba2d652206d01e4937b1562c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7900600_28b83ecc",
+        "filename": "pc/channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-11-25T21:06:12Z",
+      "side": 1,
+      "message": "nit: move this out of the if/else sinc it\u0027s done in both cases?",
+      "revId": "265c81fec5d61341ba2d652206d01e4937b1562c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

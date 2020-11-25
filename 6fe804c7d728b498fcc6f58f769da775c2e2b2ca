@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "f796c8f5_21c74364",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-25T12:58:57Z",
+      "side": 1,
+      "message": "Is there a reasonably self-contained piece of code that we can link to from this CL message?",
+      "range": {
+        "startLine": 11,
+        "startChar": 35,
+        "endLine": 11,
+        "endChar": 63
+      },
+      "revId": "6fe804c7d728b498fcc6f58f769da775c2e2b2ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "987a7e1f_80262ef5",
@@ -14,6 +37,109 @@
       "writtenOn": "2020-11-24T22:07:45Z",
       "side": 1,
       "message": "Thought it would be a good idea to start logging errors.\n\nKarl, can you take a look at physical_socket_server.cc?",
+      "revId": "6fe804c7d728b498fcc6f58f769da775c2e2b2ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8be9bd6_518d0b47",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-25T12:58:57Z",
+      "side": 1,
+      "message": "LGTM, but see comments.",
+      "revId": "6fe804c7d728b498fcc6f58f769da775c2e2b2ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f76d923_41f7d542",
+        "filename": "p2p/base/basic_packet_socket_factory.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-25T12:58:57Z",
+      "side": 1,
+      "message": "This hyperlink only works for Googlers. Is there something public you can link to?\n(I see that you only moved this comment. Feel free to just leave it in if there\u0027s nothing reasonable you can do, and the linked info is still relevant.)",
+      "range": {
+        "startLine": 79,
+        "startChar": 9,
+        "endLine": 79,
+        "endChar": 44
+      },
+      "revId": "6fe804c7d728b498fcc6f58f769da775c2e2b2ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2bc502e3_8127fe51",
+        "filename": "p2p/base/basic_packet_socket_factory.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-25T12:58:57Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 116,
+        "startChar": 9,
+        "endLine": 116,
+        "endChar": 44
+      },
+      "revId": "6fe804c7d728b498fcc6f58f769da775c2e2b2ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26c2fcb8_fe84053e",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-25T12:58:57Z",
+      "side": 1,
+      "message": "Should we test for errors here too, for symmetry?",
+      "revId": "6fe804c7d728b498fcc6f58f769da775c2e2b2ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3422d6a0_a62d0771",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-25T12:58:57Z",
+      "side": 1,
+      "message": "Consider \"result\". It may be more descriptive.",
+      "range": {
+        "startLine": 341,
+        "startChar": 6,
+        "endLine": 341,
+        "endChar": 9
+      },
       "revId": "6fe804c7d728b498fcc6f58f769da775c2e2b2ca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -22,6 +22,30 @@
       },
       "revId": "5a927643016dd42ecffe6f85aa2156acfd8b425c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3379f3b6_c9cd125e",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3628,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-11-25T14:10:36Z",
+      "side": 1,
+      "message": "The layers are listed in decreasing priority order. So the very first layer would be always active. If the user has not the smallest min bitrate there, a lot of things would be broken all the time, even without the |active| flags in the picture.\n\nAdded the test.",
+      "parentUuid": "cf095f70_8c1ea340",
+      "range": {
+        "startLine": 3628,
+        "startChar": 7,
+        "endLine": 3628,
+        "endChar": 16
+      },
+      "revId": "5a927643016dd42ecffe6f85aa2156acfd8b425c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

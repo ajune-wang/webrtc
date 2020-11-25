@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce0ab822_b925ea5d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-11-25T11:11:39Z",
+      "side": 1,
+      "message": "This seems so obviously right, I feel like submitting it rather than spending time writing a test for it. Unusual for me...\n",
+      "revId": "c9a00f8dfa7ab3de48b65e721eb0755809ac75af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

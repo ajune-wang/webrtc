@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf095f70_8c1ea340",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3628,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2020-11-25T12:32:52Z",
+      "side": 1,
+      "message": "The layers may not be in increasing order here depending on the scale down resolution factor, right?\nPerhaps also add a test.",
+      "range": {
+        "startLine": 3628,
+        "startChar": 7,
+        "endLine": 3628,
+        "endChar": 16
+      },
+      "revId": "5a927643016dd42ecffe6f85aa2156acfd8b425c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

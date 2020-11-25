@@ -65,6 +65,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "87746642_926c09f3",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1137,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-11-25T12:05:04Z",
+      "side": 1,
+      "message": "Right, I realize now I read this check as \"...templates.front().spatial_id\" and not \"...templates.back().spatial_id\"",
+      "parentUuid": "27fe0538_46deebab",
+      "range": {
+        "startLine": 1136,
+        "startChar": 0,
+        "endLine": 1137,
+        "endChar": 76
+      },
+      "revId": "2ee3b8956454c7bea1d4306a47f3197fa5bd23d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ec4a5e4f_31e31cda",

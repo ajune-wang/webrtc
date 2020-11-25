@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "27fe0538_46deebab",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1137,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-11-25T11:29:57Z",
+      "side": 1,
+      "message": "this is really just a check that single spatial id is used, i.e. template_structure is not shared across multiple streams. I\u0027ve mentioned that in the expanded comment.",
+      "parentUuid": "63d6bb0b_a209cc3c",
+      "range": {
+        "startLine": 1136,
+        "startChar": 0,
+        "endLine": 1137,
+        "endChar": 76
+      },
+      "revId": "2ee3b8956454c7bea1d4306a47f3197fa5bd23d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ec4a5e4f_31e31cda",
@@ -54,6 +78,30 @@
       "writtenOn": "2020-11-24T17:25:51Z",
       "side": 1,
       "message": "Just add a comment saying that for now only completely independent SSRC simulcast is supported.",
+      "range": {
+        "startLine": 1138,
+        "startChar": 4,
+        "endLine": 1138,
+        "endChar": 51
+      },
+      "revId": "2ee3b8956454c7bea1d4306a47f3197fa5bd23d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf93275c_fca35734",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1138,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-11-25T11:29:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec4a5e4f_31e31cda",
       "range": {
         "startLine": 1138,
         "startChar": 4,

@@ -7,14 +7,14 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '8f4e430afece9499105d018607b14c8c45b166fd',
+  'chromium_revision': '00edfc95dc8df5d72c5c359df6ef9ba7e745901a',
 }
 
 deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@b97e8e9f675d46f028888afdcdd5a545cecb098d',
+    'https://chromium.googlesource.com/chromium/src/base@0ef1ee9158f9888be4182edf838a8b8bdec4556d',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@66f22dbb618de8c9392959fcc93540af833cc7eb',
   'src/buildtools':
@@ -25,13 +25,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@6b6c35d642c9b778e8861bdb1130d889ce46d807',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@81de1d102e468bf4a35c5b1a740f937c94882689',
     'condition': 'checkout_ios',
   },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@70017627a07f2190c16d2b791c42ec52e56cde95',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@c2e20c407349762c2a5e68dbd751d3e71ff4b249',
+    'https://chromium.googlesource.com/chromium/src/third_party@4785c7242b121ce652a9e94db7bcd5b857c7a15a',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -129,7 +129,7 @@ deps = {
   'src/third_party/colorama/src':
     'https://chromium.googlesource.com/external/colorama.git@799604a1041e9b3bc5d2789ecbd7e8db2e18e6b8',
   'src/third_party/depot_tools':
-    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@8820ab859bea6cf5ed2751c9373098a688ad1a03',
+    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@a3762a907c027cebe689598d4eed2953dfba4614',
   'src/third_party/ffmpeg':
     'https://chromium.googlesource.com/chromium/third_party/ffmpeg.git@6d9096c9e3f7f5d4e6528104ed77987ec9327315',
   'src/third_party/findbugs': {
@@ -142,7 +142,7 @@ deps = {
       'condition': 'checkout_linux',
   },
   'src/third_party/freetype/src':
-    'https://chromium.googlesource.com/chromium/src/third_party/freetype2.git@5abd252a0a26a878c6b7830f10e0611f1d6c0425',
+    'https://chromium.googlesource.com/chromium/src/third_party/freetype2.git@3facafa44e2ac49ac15359bf6c83110614a6cbf7',
   'src/third_party/harfbuzz-ng/src':
     'https://chromium.googlesource.com/external/github.com/harfbuzz/harfbuzz.git@c39ab82c90479341dcf28eaa8174af6f08c0d7ae',
   'src/third_party/google_benchmark/src': {
@@ -257,7 +257,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@9419fdea06b93c669edf849da64f5d8ce6f1f7a6',
+    'https://chromium.googlesource.com/chromium/src/tools@36f0ac31dde216b7a3af45953e6384e3fcc8e14a',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@d46ea7635f2911208268170512cb611412488fd8',
 
@@ -1061,7 +1061,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/android_deps/libs/androidx_recyclerview_recyclerview',
-              'version': 'version:1.1.0-cr0',
+              'version': 'version:1.2.0-alpha06-cr0',
           },
       ],
       'condition': 'checkout_android',
@@ -1303,7 +1303,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/android_deps/libs/androidx_viewpager2_viewpager2',
-              'version': 'version:1.0.0-cr0',
+              'version': 'version:1.1.0-SNAPSHOT-cr0',
           },
       ],
       'condition': 'checkout_android',
@@ -1314,7 +1314,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/android_deps/libs/androidx_viewpager_viewpager',
-              'version': 'version:1.0.0-cr0',
+              'version': 'version:1.1.0-SNAPSHOT-cr0',
           },
       ],
       'condition': 'checkout_android',

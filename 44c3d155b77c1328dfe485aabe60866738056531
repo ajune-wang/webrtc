@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d50a4cfc_faea5c66",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-11-25T16:05:27Z",
+      "side": 1,
+      "message": "I only did manual testing this is one of the missed features to enable scalable av1.",
+      "revId": "44c3d155b77c1328dfe485aabe60866738056531",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "060dd682_6da85c8a",
+        "filename": "modules/video_coding/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-11-25T16:05:27Z",
+      "side": 1,
+      "message": "this line is added,\nother green lines are just a merge of dep \u003d [] with unconditional deps +\u003d []",
+      "revId": "44c3d155b77c1328dfe485aabe60866738056531",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

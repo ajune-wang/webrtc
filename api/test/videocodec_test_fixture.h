@@ -88,6 +88,12 @@ class VideoCodecTestFixture {
 
     // Plain name of YUV file to process without file extension.
     std::string filename;
+    int clip_width = -1;
+    int clip_height = -1;
+    int clip_fps = 30;
+
+    int reference_width = -1;
+    int reference_height = -1;
 
     // File to process. This must be a video file in the YUV format.
     std::string filepath;

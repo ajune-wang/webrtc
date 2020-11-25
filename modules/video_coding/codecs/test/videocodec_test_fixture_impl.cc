@@ -647,9 +647,24 @@ void VideoCodecTestFixtureImpl::SetUpAndInitObjects(
   config_.codec_settings.maxFramerate = std::ceil(initial_framerate_fps);
 
   // Create file objects for quality analysis.
-  source_frame_reader_.reset(
-      new YuvFrameReaderImpl(config_.filepath, config_.codec_settings.width,
-                             config_.codec_settings.height));
+  if (config_.clip_width == -1) {
+    config_.clip_width = config_.codec_settings.width;
+  }
+  if (config_.clip_height == -1) {
+    config_.clip_height = config_.codec_settings.height;
+  }
+
+  if (config_.reference_width == -1) {
+    config_.reference_width = config_.codec_settings.width;
+  }
+  if (config_.reference_height == -1) {
+    config_.reference_height = config_.codec_settings.height;
+  }
+  source_frame_reader_.reset(new YuvFrameReaderImpl(
+      config_.filepath, config_.clip_width, config_.clip_height,
+      config_.reference_width, config_.reference_height,
+      YuvFrameReaderImpl::RepeatMode::kPingPong, config_.clip_fps,
+      config_.codec_settings.maxFramerate));
   EXPECT_TRUE(source_frame_reader_->Init());
 
   RTC_DCHECK(encoded_frame_writers_.empty());

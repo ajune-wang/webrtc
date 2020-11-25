@@ -16,6 +16,40 @@
       "message": "This seems so obviously right, I feel like submitting it rather than spending time writing a test for it. Unusual for me...\n",
       "revId": "c9a00f8dfa7ab3de48b65e721eb0755809ac75af",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fbb1a39_588080e3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-11-25T21:57:42Z",
+      "side": 1,
+      "message": "LGTM, but can you create a bug for adding tests for SignalNetworkRouteChanged and SignalWritableState?",
+      "revId": "c9a00f8dfa7ab3de48b65e721eb0755809ac75af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06226652_dd57323a",
+        "filename": "pc/srtp_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-11-25T21:57:42Z",
+      "side": 1,
+      "message": "Could just call MaybeUpdateWritableState, that would also avoid duplicate signals of the same state.",
+      "revId": "c9a00f8dfa7ab3de48b65e721eb0755809ac75af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

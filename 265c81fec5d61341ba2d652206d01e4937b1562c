@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7ac6aee_2ff57498",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-11-25T20:08:20Z",
+      "side": 1,
+      "message": "Since the RTP demux filters pass through this class, I wanted to look at its thread safety.\nThe result is a strong argument in favor of *always* using thread annotations, I think.\n",
+      "revId": "265c81fec5d61341ba2d652206d01e4937b1562c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

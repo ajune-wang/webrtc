@@ -7,7 +7,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '8f4e430afece9499105d018607b14c8c45b166fd',
+  'chromium_revision': 'b31f107d4e094d43a61aa549ca42c976d0ed39ce',
 }
 
 deps = {
@@ -31,7 +31,7 @@ deps = {
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@70017627a07f2190c16d2b791c42ec52e56cde95',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@c2e20c407349762c2a5e68dbd751d3e71ff4b249',
+    'https://chromium.googlesource.com/chromium/src/third_party@9e5ec062c54ae7141eccff7542ebccc9c1658b1c',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -257,7 +257,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@9419fdea06b93c669edf849da64f5d8ce6f1f7a6',
+    'https://chromium.googlesource.com/chromium/src/tools@706c2d5884e9588dc90599ba2db1b5ffc762a709',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@d46ea7635f2911208268170512cb611412488fd8',
 
@@ -1061,7 +1061,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/android_deps/libs/androidx_recyclerview_recyclerview',
-              'version': 'version:1.1.0-cr0',
+              'version': 'version:1.2.0-alpha06-cr0',
           },
       ],
       'condition': 'checkout_android',
@@ -1303,7 +1303,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/android_deps/libs/androidx_viewpager2_viewpager2',
-              'version': 'version:1.0.0-cr0',
+              'version': 'version:1.1.0-SNAPSHOT-cr0',
           },
       ],
       'condition': 'checkout_android',
@@ -1314,7 +1314,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/android_deps/libs/androidx_viewpager_viewpager',
-              'version': 'version:1.0.0-cr0',
+              'version': 'version:1.1.0-SNAPSHOT-cr0',
           },
       ],
       'condition': 'checkout_android',

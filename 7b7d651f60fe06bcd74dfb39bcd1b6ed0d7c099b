@@ -39,6 +39,30 @@
       },
       "revId": "7b7d651f60fe06bcd74dfb39bcd1b6ed0d7c099b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b02ca99d_eb76b1c8",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-11-26T13:14:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "afb5c917_c18baa83",
+      "range": {
+        "startLine": 44,
+        "startChar": 14,
+        "endLine": 44,
+        "endChar": 54
+      },
+      "revId": "7b7d651f60fe06bcd74dfb39bcd1b6ed0d7c099b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

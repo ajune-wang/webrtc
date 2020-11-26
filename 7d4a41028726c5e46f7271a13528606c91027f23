@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd795191_6635d810",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-11-26T09:39:22Z",
+      "side": 1,
+      "message": "chromium:1146942",
+      "range": {
+        "startLine": 14,
+        "startChar": 5,
+        "endLine": 14,
+        "endChar": 12
+      },
+      "revId": "7d4a41028726c5e46f7271a13528606c91027f23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3c045e3_d2c293a0",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-11-26T09:39:22Z",
+      "side": 1,
+      "message": "I suggest to assert on rtc_pipewire_version.\n\nSomething like:\n\n  assert(rtc_pipewire_version \u003d\u003d \"0.2\" || rtc_pipewire_version \u003d\u003d \"0.3\", \"ERROR MESSAGE\")\n\n\nExample: https://source.chromium.org/chromium/chromium/src/+/master:base/BUILD.gn;l\u003d74-75;drc\u003db42b6094265ef9b9a536b922e12080a2019088da",
+      "revId": "7d4a41028726c5e46f7271a13528606c91027f23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

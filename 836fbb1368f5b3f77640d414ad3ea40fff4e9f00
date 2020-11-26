@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10e0938f_4ab041e5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15144
+      },
+      "writtenOn": "2020-11-26T11:07:30Z",
+      "side": 1,
+      "message": "I adopted the name EnsureCanConnect rather than EnsureCannotConnect, because \u0027not\u0027 should be in the name of the function returning boolean.\n\nPTAL",
+      "revId": "836fbb1368f5b3f77640d414ad3ea40fff4e9f00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

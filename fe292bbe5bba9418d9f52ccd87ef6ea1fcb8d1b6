@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2afd5578_4350c916",
+        "filename": "modules/audio_processing/agc2/rnn_vad/vector_math.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-11-26T13:30:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3729b1df_870454ff",
+      "range": {
+        "startLine": 46,
+        "startChar": 6,
+        "endLine": 47,
+        "endChar": 51
+      },
+      "revId": "fe292bbe5bba9418d9f52ccd87ef6ea1fcb8d1b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "82a3c8f6_3668efcb",
@@ -64,6 +88,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "007db07c_18430f1b",
+        "filename": "modules/audio_processing/agc2/rnn_vad/vector_math.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-11-26T13:30:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "82a3c8f6_3668efcb",
+      "range": {
+        "startLine": 62,
+        "startChar": 44,
+        "endLine": 62,
+        "endChar": 68
+      },
+      "revId": "fe292bbe5bba9418d9f52ccd87ef6ea1fcb8d1b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "912eab52_7354a0cc",
@@ -77,6 +125,30 @@
       "writtenOn": "2020-11-20T15:29:31Z",
       "side": 1,
       "message": "This seems a bit more complicated than what it actually is.\n\nWhat about\n\n\n  if (!GetAvailableCpuFeatures().sse2) {\n    return;\n  }\n  AvailableCpuFeatures cpu_features;\n  cpu_features_sse2.sse2 \u003d true;",
+      "range": {
+        "startLine": 43,
+        "startChar": 2,
+        "endLine": 48,
+        "endChar": 32
+      },
+      "revId": "fe292bbe5bba9418d9f52ccd87ef6ea1fcb8d1b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c930fac8_c826f63a",
+        "filename": "modules/audio_processing/agc2/rnn_vad/vector_math_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-11-26T13:30:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "912eab52_7354a0cc",
       "range": {
         "startLine": 43,
         "startChar": 2,

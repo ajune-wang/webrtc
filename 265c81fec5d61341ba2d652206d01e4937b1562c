@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "950b931c_e567f6fe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-11-26T07:25:18Z",
+      "side": 1,
+      "message": "Thanks! Replied to comments; suggestion for functional realignment added to the \"many-threads\" doc.\n",
+      "revId": "265c81fec5d61341ba2d652206d01e4937b1562c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f61983f5_4b98d945",
@@ -48,6 +65,24 @@
       "writtenOn": "2020-11-25T21:06:12Z",
       "side": 1,
       "message": "nice - would it even be ok to do this for all but the worker thread? (fine to put a todo for that this time around if it makes sense)",
+      "revId": "265c81fec5d61341ba2d652206d01e4937b1562c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0efaab08_36dbe188",
+        "filename": "pc/channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-11-26T07:25:18Z",
+      "side": 1,
+      "message": "Since I had to leave media_channel_ unguarded for this round, I could drop the guard and jump altogether :-) Replaced it with a TODO.",
+      "parentUuid": "f61983f5_4b98d945",
       "revId": "265c81fec5d61341ba2d652206d01e4937b1562c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -69,6 +104,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f354099_43a7119c",
+        "filename": "pc/channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-11-26T07:25:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f89c27c_b9e66550",
+      "revId": "265c81fec5d61341ba2d652206d01e4937b1562c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "295e6c28_5a96033f",
@@ -86,6 +139,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3d999d9_afa635b8",
+        "filename": "pc/channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-11-26T07:25:18Z",
+      "side": 1,
+      "message": "That would be nice - but I think I\u0027m adding this to my \"design doc\" on many-tracks mitigations, and not attempting it in this CL. It would be nice if we could just make RegisterRtpDemuxerSink async (not return an error, instead perhaps offering a ConflictsDetected signal); I don\u0027t think there\u0027s any place that thread-hops and handles a failure gracefully.",
+      "parentUuid": "295e6c28_5a96033f",
+      "revId": "265c81fec5d61341ba2d652206d01e4937b1562c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d7900600_28b83ecc",
@@ -99,6 +170,24 @@
       "writtenOn": "2020-11-25T21:06:12Z",
       "side": 1,
       "message": "nit: move this out of the if/else sinc it\u0027s done in both cases?",
+      "revId": "265c81fec5d61341ba2d652206d01e4937b1562c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1295cb4_74921a4a",
+        "filename": "pc/channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-11-26T07:25:18Z",
+      "side": 1,
+      "message": "the second branch modifies demuxer_criteria_ before calling RegisterRtpDemuxerSink_w., so no.",
+      "parentUuid": "d7900600_28b83ecc",
       "revId": "265c81fec5d61341ba2d652206d01e4937b1562c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

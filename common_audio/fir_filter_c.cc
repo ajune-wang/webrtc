@@ -31,7 +31,9 @@ FIRFilterC::FIRFilterC(const float* coefficients, size_t coefficients_length)
   memset(state_.get(), 0, state_length_ * sizeof(state_[0]));
 }
 
-void FIRFilterC::Filter(const float* in, size_t length, float* out) {
+void FIRFilterC::Filter(const float* __restrict__ in,
+                        size_t length,
+                        float* __restrict__ out) {
   RTC_DCHECK_GT(length, 0);
 
   // Convolves the input signal |in| with the filter kernel |coefficients_|

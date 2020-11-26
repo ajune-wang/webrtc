@@ -22,7 +22,9 @@ class FIRFilter {
 
   // Filters the |in| data supplied.
   // |out| must be previously allocated and it must be at least of |length|.
-  virtual void Filter(const float* in, size_t length, float* out) = 0;
+  virtual void Filter(const float* __restrict__ in,
+                      size_t length,
+                      float* __restrict__ out) = 0;
 };
 
 }  // namespace webrtc

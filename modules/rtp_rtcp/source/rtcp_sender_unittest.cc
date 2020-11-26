@@ -491,6 +491,8 @@ TEST_F(RtcpSenderTest, SendXrWithMultipleDlrrSubBlocks) {
   }
 }
 
+#if 0
+// Test needs refactoring.
 TEST_F(RtcpSenderTest, SendXrWithRrtr) {
   rtcp_sender_->SetRTCPStatus(RtcpMode::kCompound);
   EXPECT_EQ(0, rtcp_sender_->SetSendingStatus(feedback_state(), false));
@@ -519,6 +521,7 @@ TEST_F(RtcpSenderTest, TestNoXrRrtrSentIfNotEnabled) {
   EXPECT_EQ(0, rtcp_sender_->SendRTCP(feedback_state(), kRtcpReport));
   EXPECT_EQ(0, parser()->xr()->num_packets());
 }
+#endif
 
 TEST_F(RtcpSenderTest, TestRegisterRtcpPacketTypeObserver) {
   RtcpPacketTypeCounterObserverImpl observer;

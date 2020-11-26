@@ -1154,6 +1154,9 @@ class RTC_EXPORT PeerConnectionInterface : public rtc::RefCountInterface {
   // thus the observer object can be safely destroyed.
   virtual void Close() = 0;
 
+  // Returns true if there can be a network connection, otherwise false.
+  virtual bool EnsureCanConnect() = 0;
+
   // The thread on which all PeerConnectionObserver callbacks will be invoked,
   // as well as callbacks for other classes such as DataChannelObserver.
   //

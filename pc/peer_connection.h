@@ -259,6 +259,7 @@ class PeerConnection : public PeerConnectionInternal,
   void StopRtcEventLog() override;
 
   void Close() override;
+  bool EnsureCanConnect() override;
 
   rtc::Thread* signaling_thread() const final {
     return context_->signaling_thread();

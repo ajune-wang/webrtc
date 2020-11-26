@@ -225,9 +225,9 @@ int TransientSuppressorImpl::Suppress(float* data,
 // This should only be called when detection is enabled. UpdateBuffers() must
 // have been called. At return, |out_buffer_| will be filled with the
 // processed output.
-void TransientSuppressorImpl::Suppress(float* in_ptr,
-                                       float* spectral_mean,
-                                       float* out_ptr) {
+void TransientSuppressorImpl::Suppress(float* __restrict__ in_ptr,
+                                       float* __restrict__ spectral_mean,
+                                       float* __restrict__ out_ptr) {
   // Go to frequency domain.
   for (size_t i = 0; i < analysis_length_; ++i) {
     // TODO(aluebs): Rename windows

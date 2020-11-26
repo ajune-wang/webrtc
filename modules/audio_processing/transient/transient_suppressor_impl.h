@@ -64,7 +64,9 @@ class TransientSuppressorImpl : public TransientSuppressor {
  private:
   FRIEND_TEST_ALL_PREFIXES(TransientSuppressorImplTest,
                            TypingDetectionLogicWorksAsExpectedForMono);
-  void Suppress(float* in_ptr, float* spectral_mean, float* out_ptr);
+  void Suppress(float* __restrict__ in_ptr,
+                float* __restrict__ spectral_mean,
+                float* __restrict__ out_ptr);
 
   void UpdateKeypress(bool key_pressed);
   void UpdateRestoration(float voice_probability);

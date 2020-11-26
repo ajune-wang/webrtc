@@ -111,6 +111,12 @@ void UlpfecGenerator::AddPacketAndGenerateFec(const RtpPacketToSend& packet) {
   RTC_DCHECK_RUNS_SERIALIZED(&race_checker_);
   RTC_DCHECK(generated_fec_packets_.empty());
 
+  // Frame type switch, drop FEC generation for pending packets.
+  if (!media_packets_.empty() &&
+      keyframe_in_process_ != packet.is_key_frame()) {
+    ResetState();
+  }
+
   if (media_packets_.empty()) {
     MutexLock lock(&mutex_);
     if (pending_params_) {

@@ -59,6 +59,23 @@ class UlpfecGeneratorTest : public ::testing::Test {
   AugmentedPacketGenerator packet_generator_;
 };
 
+class UlpfecGeneratorTwoFrameTest
+    : public ::testing::TestWithParam<::testing::tuple<bool, bool>> {
+ protected:
+  UlpfecGeneratorTwoFrameTest()
+      : fake_clock_(1),
+        ulpfec_generator_(kRedPayloadType, kFecPayloadType, &fake_clock_),
+        packet_generator_(kMediaSsrc),
+        first_frame_key_(::testing::get<0>(GetParam())),
+        second_frame_key_(::testing::get<1>(GetParam())) {}
+
+  SimulatedClock fake_clock_;
+  UlpfecGenerator ulpfec_generator_;
+  AugmentedPacketGenerator packet_generator_;
+  bool first_frame_key_;
+  bool second_frame_key_;
+};
+
 // Verifies bug found via fuzzing, where a gap in the packet sequence caused us
 // to move past the end of the current FEC packet mask byte without moving to
 // the next byte. That likely caused us to repeatedly read from the same byte,
@@ -136,7 +153,7 @@ TEST_F(UlpfecGeneratorTest, OneFrameFec) {
                fec_packets[0]->Buffer());
 }
 
-TEST_F(UlpfecGeneratorTest, TwoFrameFec) {
+TEST_P(UlpfecGeneratorTwoFrameTest, TwoFrameFec) {
   // The number of media packets/frame (|kNumPackets|), the number of frames
   // (|kNumFrames|), and the protection factor (|params->fec_rate|) are set to
   // make sure the conditions for generating FEC are satisfied. This means:
@@ -147,9 +164,12 @@ TEST_F(UlpfecGeneratorTest, TwoFrameFec) {
   constexpr size_t kNumPackets = 2;
   constexpr size_t kNumFrames = 2;
 
-  FecProtectionParams params = {15, 3, kFecMaskRandom};
+  size_t fec_packets_num = 0;
+
+  FecProtectionParams delta_params = {15, 3, kFecMaskRandom};
+  FecProtectionParams key_params = {15, 1, kFecMaskRandom};
   // Expecting one FEC packet.
-  ulpfec_generator_.SetProtectionParameters(params, params);
+  ulpfec_generator_.SetProtectionParameters(delta_params, key_params);
   uint32_t last_timestamp = 0;
   for (size_t i = 0; i < kNumFrames; ++i) {
     packet_generator_.NewFrame(kNumPackets);
@@ -158,17 +178,23 @@ TEST_F(UlpfecGeneratorTest, TwoFrameFec) {
           packet_generator_.NextPacket(i * kNumPackets + j, 10);
       RtpPacketToSend rtp_packet(nullptr);
       EXPECT_TRUE(rtp_packet.Parse(packet->data.data(), packet->data.size()));
+      i == 0 ? rtp_packet.set_is_key_frame(first_frame_key_)
+             : rtp_packet.set_is_key_frame(second_frame_key_);
       ulpfec_generator_.AddPacketAndGenerateFec(rtp_packet);
       last_timestamp = packet->header.timestamp;
+
+      std::vector<std::unique_ptr<RtpPacketToSend>> fec_packets =
+          ulpfec_generator_.GetFecPackets();
+      if (!fec_packets.empty()) {
+        fec_packets_num++;
+        const uint16_t seq_num = packet_generator_.NextPacketSeqNum();
+        fec_packets[0]->SetSequenceNumber(seq_num);
+        VerifyHeader(seq_num, last_timestamp, kRedPayloadType, kFecPayloadType,
+                     false, fec_packets[0]->Buffer());
+      }
     }
   }
-  std::vector<std::unique_ptr<RtpPacketToSend>> fec_packets =
-      ulpfec_generator_.GetFecPackets();
-  EXPECT_EQ(fec_packets.size(), 1u);
-  const uint16_t seq_num = packet_generator_.NextPacketSeqNum();
-  fec_packets[0]->SetSequenceNumber(seq_num);
-  VerifyHeader(seq_num, last_timestamp, kRedPayloadType, kFecPayloadType, false,
-               fec_packets[0]->Buffer());
+  EXPECT_EQ(fec_packets_num, 1u);
 }
 
 TEST_F(UlpfecGeneratorTest, MixedMediaRtpHeaderLengths) {
@@ -216,5 +242,11 @@ TEST_F(UlpfecGeneratorTest, MixedMediaRtpHeaderLengths) {
     EXPECT_EQ(kFecPayloadType, fec_packet->data()[kShortRtpHeaderLength]);
   }
 }
+
+INSTANTIATE_TEST_SUITE_P(UlpfecGeneratorTwoFrameTest,
+                         UlpfecGeneratorTwoFrameTest,
+                         ::testing::Values(std::make_tuple(false, false),
+                                           std::make_tuple(true, false),
+                                           std::make_tuple(false, true)));
 
 }  // namespace webrtc

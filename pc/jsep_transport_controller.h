@@ -192,6 +192,11 @@ class JsepTransportController : public sigslot::has_slots<> {
   // and deletes unused transports, but doesn't consider anything more complex.
   void RollbackTransports();
 
+  PeerConnectionInterface::PeerConnectionState combined_connection_state()
+      const {
+    return combined_connection_state_;
+  }
+
   // All of these signals are fired on the signaling thread.
 
   // If any transport failed => failed,

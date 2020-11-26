@@ -237,6 +237,8 @@ class DummyPeerConnection : public PeerConnectionInterface {
 
   void Close() override {}
 
+  bool EnsureCanConnect() { return false; }
+
   rtc::Thread* signaling_thread() const override {
     return rtc::Thread::Current();
   }

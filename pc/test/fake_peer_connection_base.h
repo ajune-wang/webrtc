@@ -232,6 +232,8 @@ class FakePeerConnectionBase : public PeerConnectionInternal {
 
   void Close() override {}
 
+  bool EnsureCanConnect() override { return false; }
+
   // PeerConnectionInternal implementation.
 
   rtc::Thread* network_thread() const override { return nullptr; }

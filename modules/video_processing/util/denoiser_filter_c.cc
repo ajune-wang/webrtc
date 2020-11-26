@@ -15,9 +15,9 @@
 
 namespace webrtc {
 
-void DenoiserFilterC::CopyMem16x16(const uint8_t* src,
+void DenoiserFilterC::CopyMem16x16(const uint8_t* __restrict__ src,
                                    int src_stride,
-                                   uint8_t* dst,
+                                   uint8_t* __restrict__ dst,
                                    int dst_stride) {
   for (int i = 0; i < 16; i++) {
     memcpy(dst, src, 16);
@@ -49,11 +49,11 @@ uint32_t DenoiserFilterC::Variance16x8(const uint8_t* a,
   return *sse - ((static_cast<int64_t>(sum) * sum) >> 7);
 }
 
-DenoiserDecision DenoiserFilterC::MbDenoise(const uint8_t* mc_running_avg_y,
+DenoiserDecision DenoiserFilterC::MbDenoise(const uint8_t* __restrict__ mc_running_avg_y,
                                             int mc_avg_y_stride,
-                                            uint8_t* running_avg_y,
+                                            uint8_t* __restrict__ running_avg_y,
                                             int avg_y_stride,
-                                            const uint8_t* sig,
+                                            const uint8_t* __restrict__ sig,
                                             int sig_stride,
                                             uint8_t motion_magnitude,
                                             int increase_denoising) {

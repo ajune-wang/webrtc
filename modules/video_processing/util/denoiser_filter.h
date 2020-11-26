@@ -31,20 +31,20 @@ class DenoiserFilter {
 
   virtual ~DenoiserFilter() {}
 
-  virtual void CopyMem16x16(const uint8_t* src,
+  virtual void CopyMem16x16(const uint8_t* __restrict__ src,
                             int src_stride,
-                            uint8_t* dst,
+                            uint8_t* __restrict__ dst,
                             int dst_stride) = 0;
   virtual uint32_t Variance16x8(const uint8_t* a,
                                 int a_stride,
                                 const uint8_t* b,
                                 int b_stride,
                                 unsigned int* sse) = 0;
-  virtual DenoiserDecision MbDenoise(const uint8_t* mc_running_avg_y,
+  virtual DenoiserDecision MbDenoise(const uint8_t* __restrict__ mc_running_avg_y,
                                      int mc_avg_y_stride,
-                                     uint8_t* running_avg_y,
+                                     uint8_t* __restrict__ running_avg_y,
                                      int avg_y_stride,
-                                     const uint8_t* sig,
+                                     const uint8_t* __restrict__ sig,
                                      int sig_stride,
                                      uint8_t motion_magnitude,
                                      int increase_denoising) = 0;

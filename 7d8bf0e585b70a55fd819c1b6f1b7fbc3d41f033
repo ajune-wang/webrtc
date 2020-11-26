@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b59c6dd_65a21be2",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-11-26T13:54:23Z",
+      "side": 0,
+      "message": "This comment did not come along for the move. Do you deem it unnecessary?",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 54
+      },
+      "revId": "7d8bf0e585b70a55fd819c1b6f1b7fbc3d41f033",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

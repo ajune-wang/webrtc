@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82c5fce1_134e3d6a",
+        "filename": "modules/audio_processing/agc2/rnn_vad/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-11-26T13:54:23Z",
+      "side": 1,
+      "message": "This is a pretty broad name for the target, since it only has one (of two) layer type in it. Do you intend to move the GRU layer here, as well?",
+      "range": {
+        "startLine": 82,
+        "startChar": 16,
+        "endLine": 82,
+        "endChar": 30
+      },
+      "revId": "4930e12c87c64998ac11d9f507fc545a4fe9bedc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

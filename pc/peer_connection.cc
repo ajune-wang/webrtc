@@ -2588,4 +2588,28 @@ PeerConnection::InitializeRtcpCallback() {
   };
 }
 
+bool PeerConnection::EnsureCanConnect() {
+  RTC_DCHECK_RUN_ON(signaling_thread());
+
+  if (!transport_controller_)
+    return false;
+
+  PeerConnectionInterface::PeerConnectionState state =
+      network_thread()->Invoke<PeerConnectionInterface::PeerConnectionState>(
+          RTC_FROM_HERE, [this] {
+            return transport_controller_->combined_connection_state();
+          });
+
+  switch (state) {
+    case PeerConnectionInterface::PeerConnectionState::kNew:
+    case PeerConnectionInterface::PeerConnectionState::kClosed:
+      return false;
+    case PeerConnectionInterface::PeerConnectionState::kConnecting:
+    case PeerConnectionInterface::PeerConnectionState::kConnected:
+    case PeerConnectionInterface::PeerConnectionState::kDisconnected:
+    case PeerConnectionInterface::PeerConnectionState::kFailed:
+      return true;
+  }
+}
+
 }  // namespace webrtc

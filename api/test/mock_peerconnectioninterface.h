@@ -192,6 +192,7 @@ class MockPeerConnectionInterface
               (override));
   MOCK_METHOD(void, StopRtcEventLog, (), (override));
   MOCK_METHOD(void, Close, (), (override));
+  MOCK_METHOD(bool, EnsureCanConnect, (), (override));
 };
 
 static_assert(!std::is_abstract<MockPeerConnectionInterface>::value, "");

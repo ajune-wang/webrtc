@@ -30,24 +30,14 @@ namespace rnn_vad {
 namespace test {
 namespace {
 
-void TestFullyConnectedLayer(FullyConnectedLayer* fc,
-                             rtc::ArrayView<const float> input_vector,
-                             rtc::ArrayView<const float> expected_output) {
-  RTC_CHECK(fc);
-  fc->ComputeOutput(input_vector);
-  ExpectNearAbsolute(expected_output, fc->GetOutput(), 1e-5f);
-}
-
 void TestGatedRecurrentLayer(
     GatedRecurrentLayer& gru,
     rtc::ArrayView<const float> input_sequence,
     rtc::ArrayView<const float> expected_output_sequence) {
-  auto gru_output_view = gru.GetOutput();
   const int input_sequence_length = rtc::CheckedDivExact(
       rtc::dchecked_cast<int>(input_sequence.size()), gru.input_size());
   const int output_sequence_length = rtc::CheckedDivExact(
-      rtc::dchecked_cast<int>(expected_output_sequence.size()),
-      gru.output_size());
+      rtc::dchecked_cast<int>(expected_output_sequence.size()), gru.size());
   ASSERT_EQ(input_sequence_length, output_sequence_length)
       << "The test data length is invalid.";
   // Feed the GRU layer and check the output at every step.
@@ -56,9 +46,9 @@ void TestGatedRecurrentLayer(
     SCOPED_TRACE(i);
     gru.ComputeOutput(
         input_sequence.subview(i * gru.input_size(), gru.input_size()));
-    const auto expected_output = expected_output_sequence.subview(
-        i * gru.output_size(), gru.output_size());
-    ExpectNearAbsolute(expected_output, gru_output_view, 3e-6f);
+    const auto expected_output =
+        expected_output_sequence.subview(i * gru.size(), gru.size());
+    ExpectNearAbsolute(expected_output, gru, 3e-6f);
   }
 }
 
@@ -175,8 +165,8 @@ TEST_P(RnnParametrization, CheckFullyConnectedLayerOutput) {
       rnnoise::kInputLayerInputSize, rnnoise::kInputLayerOutputSize,
       rnnoise::kInputDenseBias, rnnoise::kInputDenseWeights,
       rnnoise::TansigApproximated, /*cpu_features=*/GetParam());
-  TestFullyConnectedLayer(&fc, kFullyConnectedInputVector,
-                          kFullyConnectedExpectedOutput);
+  fc.ComputeOutput(kFullyConnectedInputVector);
+  ExpectNearAbsolute(kFullyConnectedExpectedOutput, fc, 1e-5f);
 }
 
 TEST_P(RnnParametrization, DISABLED_BenchmarkFullyConnectedLayer) {

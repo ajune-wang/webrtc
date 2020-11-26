@@ -65,6 +65,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4d4a0fd_00efc641",
+        "filename": "modules/audio_processing/agc2/rnn_vad/vector_math.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-26T14:05:05Z",
+      "side": 1,
+      "message": "The compiler also knows that division is slow, so it will ~never actually use division in cases like these, even if the divisor isn\u0027t a power of two. It will invert the compile-time constant divisor and use one multiplication and some cheap arithmetic like adds and shifts instead: https://godbolt.org/z/x8ffPE\n\nMaking the code more complicated in order to avoid division by a compile-time constant is usually not a good trade-off.",
+      "parentUuid": "2afd5578_4350c916",
+      "range": {
+        "startLine": 46,
+        "startChar": 6,
+        "endLine": 47,
+        "endChar": 51
+      },
+      "revId": "fe292bbe5bba9418d9f52ccd87ef6ea1fcb8d1b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "82a3c8f6_3668efcb",

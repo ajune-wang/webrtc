@@ -35,6 +35,41 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "340d34ff_a9e1b7fd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-11-26T05:23:26Z",
+      "side": 1,
+      "message": "OK, added https://crbug.com/webrtc/12234",
+      "parentUuid": "3fbb1a39_588080e3",
+      "revId": "c9a00f8dfa7ab3de48b65e721eb0755809ac75af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13a1fb88_cbb543f2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-11-26T05:23:26Z",
+      "side": 1,
+      "message": "Thanks!\nBug filed.\n",
+      "revId": "c9a00f8dfa7ab3de48b65e721eb0755809ac75af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "06226652_dd57323a",
@@ -48,6 +83,24 @@
       "writtenOn": "2020-11-25T21:57:42Z",
       "side": 1,
       "message": "Could just call MaybeUpdateWritableState, that would also avoid duplicate signals of the same state.",
+      "revId": "c9a00f8dfa7ab3de48b65e721eb0755809ac75af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b8823cd_37110dfd",
+        "filename": "pc/srtp_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-11-26T05:23:26Z",
+      "side": 1,
+      "message": "Made a note in https://crbug.com/webrtc/12234 - it could lead to behavioral change, so I\u0027m not going to touch that here.",
+      "parentUuid": "06226652_dd57323a",
       "revId": "c9a00f8dfa7ab3de48b65e721eb0755809ac75af",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

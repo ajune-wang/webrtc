@@ -84,16 +84,16 @@ TEST_F(NetEqDecodingTest, MAYBE_TestBitExactness) {
       webrtc::test::ResourcePath("audio_coding/neteq_universal_new", "rtp");
 
   const std::string output_checksum =
-      PlatformChecksum("68ec266d2d152dfc0d938484e7936f6af4f803e3",
+      PlatformChecksum("bc2ae8909e46c845bcc16e59ad92a41fb6a21300",
                        "1c243feb35e3e9ab37039eddf5b3c3ecfca3c60c", "not used",
-                       "68ec266d2d152dfc0d938484e7936f6af4f803e3",
+                       "bc2ae8909e46c845bcc16e59ad92a41fb6a21300",
                        "f68c546a43bb25743297c9c0c9027e8424b8e10b");
 
   const std::string network_stats_checksum =
-      PlatformChecksum("2a5516cdc1c6af9f1d9d3c2f95ed292f509311c7",
+      PlatformChecksum("4361a0ff6e7820b6693f872c13197b8f58aa1cc8",
                        "e96a7f081ebc111f49c7373d3728274057012ae9", "not used",
-                       "2a5516cdc1c6af9f1d9d3c2f95ed292f509311c7",
-                       "2a5516cdc1c6af9f1d9d3c2f95ed292f509311c7");
+                       "4361a0ff6e7820b6693f872c13197b8f58aa1cc8",
+                       "4361a0ff6e7820b6693f872c13197b8f58aa1cc8");
 
   DecodeAndCompare(input_rtp_file, output_checksum, network_stats_checksum,
                    absl::GetFlag(FLAGS_gen_ref));
@@ -110,18 +110,18 @@ TEST_F(NetEqDecodingTest, MAYBE_TestOpusBitExactness) {
       webrtc::test::ResourcePath("audio_coding/neteq_opus", "rtp");
 
   const std::string maybe_sse =
-      "554ad4133934e3920f97575579a46f674683d77c"
-      "|de316e2bfb15192edb820fe5fb579d11ff5a524b";
+      "252b8f659efa446f771ecfe8256348fa8ff2aed6"
+      "|unknown";
   const std::string output_checksum = PlatformChecksum(
       maybe_sse, "b3fac4ad4f6ea384aff676ee1ea816bd70415490",
       "373ccd99c147cd3fcef0e7dcad6f87d0f8e5a1c0", maybe_sse, maybe_sse);
 
   const std::string network_stats_checksum =
-      PlatformChecksum("ec29e047b019a86ec06e2c40643143dc1975c69f",
+      PlatformChecksum("4923eaa3b368e1a376579cf5b7cf1b8b83611505",
                        "ce6f519bc1220b003944ac5d9db077665a06834e",
                        "abb686d3ac6fac0001ca8d45a6ca6f5aefb2f9d6",
-                       "ec29e047b019a86ec06e2c40643143dc1975c69f",
-                       "ec29e047b019a86ec06e2c40643143dc1975c69f");
+                       "4923eaa3b368e1a376579cf5b7cf1b8b83611505",
+                       "4923eaa3b368e1a376579cf5b7cf1b8b83611505");
 
   DecodeAndCompare(input_rtp_file, output_checksum, network_stats_checksum,
                    absl::GetFlag(FLAGS_gen_ref));
@@ -1269,7 +1269,7 @@ TEST(NetEqOutputDelayTest, RunTestWithFieldTrial) {
   // The base delay values are taken from the resuts of the non-delayed case in
   // NetEqOutputDelayTest.RunTest above.
   EXPECT_EQ(20 + kExpectedDelayMs, result.target_delay_ms);
-  EXPECT_EQ(24 + kExpectedDelayMs, result.filtered_current_delay_ms);
+  EXPECT_EQ(30 + kExpectedDelayMs, result.filtered_current_delay_ms);
 }
 
 // Set a non-multiple-of-10 value in the field trial, and verify that we don't
@@ -1284,7 +1284,7 @@ TEST(NetEqOutputDelayTest, RunTestWithFieldTrialOddValue) {
   // The base delay values are taken from the resuts of the non-delayed case in
   // NetEqOutputDelayTest.RunTest above.
   EXPECT_EQ(20 + kRoundedDelayMs, result.target_delay_ms);
-  EXPECT_EQ(24 + kRoundedDelayMs, result.filtered_current_delay_ms);
+  EXPECT_EQ(30 + kRoundedDelayMs, result.filtered_current_delay_ms);
 }
 
 }  // namespace test

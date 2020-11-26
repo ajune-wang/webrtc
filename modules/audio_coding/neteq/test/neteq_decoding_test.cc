@@ -144,7 +144,6 @@ void NetEqDecodingTest::DecodeAndCompare(
   std::string stat_out_file =
       gen_ref ? webrtc::test::OutputPath() + "neteq_network_stats.dat" : "";
   ResultSink network_stats(stat_out_file);
-
   packet_ = rtp_source_->NextPacket();
   int i = 0;
   uint64_t last_concealed_samples = 0;

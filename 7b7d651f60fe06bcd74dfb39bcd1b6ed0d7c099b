@@ -16,6 +16,29 @@
       "message": "Hi Karl,\nCould you PTAL?\nAlessio",
       "revId": "7b7d651f60fe06bcd74dfb39bcd1b6ed0d7c099b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afb5c917_c18baa83",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-11-26T12:05:36Z",
+      "side": 1,
+      "message": "The string here doesn\u0027t contribute much. Consider having just \"\" instead. (2 more cases below.)",
+      "range": {
+        "startLine": 44,
+        "startChar": 14,
+        "endLine": 44,
+        "endChar": 54
+      },
+      "revId": "7b7d651f60fe06bcd74dfb39bcd1b6ed0d7c099b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

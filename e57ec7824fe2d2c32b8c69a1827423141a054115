@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db25476c_f4c3023d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-11-26T11:00:21Z",
+      "side": 1,
+      "message": "BUILD.gn looks good to me.",
+      "revId": "e57ec7824fe2d2c32b8c69a1827423141a054115",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3b97d80_6452e6d1",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-11-26T11:00:21Z",
+      "side": 1,
+      "message": "Nit: Can you run \"gn format modules/desktop_capture/BUILD.gn\"?\n\nI think this should be on two lines since the line is longer than 80 characters.",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 104
+      },
+      "revId": "e57ec7824fe2d2c32b8c69a1827423141a054115",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

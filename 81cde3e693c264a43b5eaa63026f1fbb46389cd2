@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "908bd55b_b48f2df0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-11-26T07:56:33Z",
+      "side": 1,
+      "message": "Since you approved the original CL...\n",
+      "revId": "81cde3e693c264a43b5eaa63026f1fbb46389cd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

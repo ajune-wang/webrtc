@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4cc6920_2dc66750",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2020-11-26T02:02:37Z",
+      "side": 1,
+      "message": "Hi Joe,\n\nPTAL at this CL which fixes a deadlock when enumerating windows for desktop capture, when you get a chance. No rush during this holiday week. Thanks and Happy Thanksgiving!",
+      "revId": "3b5e3f260544d5d0a8073449bafdd1b50837884d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

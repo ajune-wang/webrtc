@@ -16,6 +16,29 @@
       "message": "Hi Jakob,\nCould you PTAL?\nAlessio",
       "revId": "6e7913ed748b2040df768448ff99c1cb4869e665",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "584a60eb_629c1fce",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2020-11-27T10:24:27Z",
+      "side": 1,
+      "message": "For my interest, what are the features? :D",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 0
+      },
+      "revId": "6e7913ed748b2040df768448ff99c1cb4869e665",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

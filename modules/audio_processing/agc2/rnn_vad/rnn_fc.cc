@@ -16,7 +16,6 @@
 #endif
 
 #include <algorithm>
-#include <numeric>
 
 #include "modules/audio_processing/agc2/rnn_vad/rnn_fc.h"
 #include "rtc_base/checks.h"
@@ -101,7 +100,6 @@ FullyConnectedLayer::~FullyConnectedLayer() = default;
 void FullyConnectedLayer::ComputeOutput(rtc::ArrayView<const float> input) {
   RTC_DCHECK_EQ(input.size(), input_size_);
 #if defined(WEBRTC_ARCH_X86_FAMILY)
-  // TODO(bugs.chromium.org/10480): Add AVX2.
   if (cpu_features_.sse2) {
     ComputeOutputSse2(input);
     return;
@@ -125,24 +123,26 @@ void FullyConnectedLayer::ComputeOutput(rtc::ArrayView<const float> input) {
 void FullyConnectedLayer::ComputeOutputSse2(rtc::ArrayView<const float> input) {
   const int input_size_by_4 = input_size_ >> 2;
   const int offset = input_size_ & ~3;
-  // TODO(bugs.chromium.org/10480): Check if reinterpret_cast below is ok.
   __m128 sum_wx_128;
-  const float* v = reinterpret_cast<const float*>(&sum_wx_128);
   for (int o = 0; o < output_size_; ++o) {
-    // Perform 128 bit vector operations.
-    sum_wx_128 = _mm_set1_ps(0);
+    sum_wx_128 = _mm_setzero_ps();
     const float* x_p = input.data();
     const float* w_p = weights_.data() + o * input.size();
     for (int i = 0; i < input_size_by_4; ++i, x_p += 4, w_p += 4) {
       sum_wx_128 = _mm_add_ps(sum_wx_128,
                               _mm_mul_ps(_mm_loadu_ps(x_p), _mm_loadu_ps(w_p)));
     }
-    // Perform non-vector operations for any remaining items, sum up bias term
-    // and results from the vectorized code, and apply the activation function.
-    output_[o] = activation_function_(
-        std::inner_product(input.begin() + offset, input.end(),
-                           weights_.begin() + o * input.size() + offset,
-                           bias_[o] + v[0] + v[1] + v[2] + v[3]));
+    // Reduce `sum_wx_128` by addition.
+    __m128 high = _mm_movehl_ps(sum_wx_128, sum_wx_128);
+    sum_wx_128 = _mm_add_ps(sum_wx_128, high);
+    high = _mm_shuffle_ps(sum_wx_128, sum_wx_128, 1);
+    sum_wx_128 = _mm_add_ps(sum_wx_128, high);
+    float output = _mm_cvtss_f32(sum_wx_128);
+    // Perform non-vector operations for any remaining items.
+    for (int i = offset; i < input_size_; ++i) {
+      output += input[i] * weights_[o * input_size_ + i];
+    }
+    output_[o] = activation_function_(bias_[o] + output);
   }
 }
 #endif  // defined(WEBRTC_ARCH_X86_FAMILY)

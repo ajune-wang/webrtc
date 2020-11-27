@@ -7,7 +7,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '3e0e8c532b14e94ed106e621af7df1a13edc9b61',
+  'chromium_revision': 'b44e3ca23ccf97674debbfeed83b7695f31e9b8a',
 }
 
 deps = {
@@ -25,13 +25,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@d13be651655f086062b9020e0ccd71cf132e9298',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@8c93ef6904405560ed57ea4979e98d7a1c0926d6',
     'condition': 'checkout_ios',
   },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@913fc377e50cd7474655aaa31038b3cc59c72010',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@2336f7db95657537c22dd453addbe26c1bbd7742',
+    'https://chromium.googlesource.com/chromium/src/third_party@bd0db58e2e2332d18602cfb57c5e922f828812c6',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -122,7 +122,7 @@ deps = {
   'src/third_party/breakpad/breakpad':
     'https://chromium.googlesource.com/breakpad/breakpad.git@9c4671f2e3a63c0f155d9b2511192d0b5fa7f760',
   'src/third_party/catapult':
-    'https://chromium.googlesource.com/catapult.git@ae003f552e4e16247758303d671076690c405c45',
+    'https://chromium.googlesource.com/catapult.git@8af176b981616fbb696ad31d725ee08f18e0ee12',
   'src/third_party/ced/src': {
     'url': 'https://chromium.googlesource.com/external/github.com/google/compact_enc_det.git@ba412eaaacd3186085babcd901679a48863c7dd5',
   },
@@ -257,7 +257,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@920424e54d9eda8e755d342070a098c0c385abd3',
+    'https://chromium.googlesource.com/chromium/src/tools@0efa035c5aacfb3b73bae1e85ed2cc87546a872b',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@d46ea7635f2911208268170512cb611412488fd8',
 

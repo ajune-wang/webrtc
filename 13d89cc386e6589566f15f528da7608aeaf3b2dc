@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "800c0be3_f16e1ad9",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1854,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-11-27T13:06:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2d38816_dbc71997",
+      "range": {
+        "startLine": 1850,
+        "startChar": 0,
+        "endLine": 1854,
+        "endChar": 52
+      },
+      "revId": "13d89cc386e6589566f15f528da7608aeaf3b2dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "01d72477_c47930f6",
@@ -37,6 +61,30 @@
       "writtenOn": "2020-11-27T12:33:54Z",
       "side": 1,
       "message": "Is this needed?",
+      "range": {
+        "startLine": 4649,
+        "startChar": 0,
+        "endLine": 4652,
+        "endChar": 3
+      },
+      "revId": "13d89cc386e6589566f15f528da7608aeaf3b2dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9c6730e_04e474b8",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 4652,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-11-27T13:06:30Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "01d72477_c47930f6",
       "range": {
         "startLine": 4649,
         "startChar": 0,

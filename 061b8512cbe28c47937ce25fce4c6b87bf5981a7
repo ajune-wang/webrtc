@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3176d94b_31f4a3ae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-27T09:22:51Z",
+      "side": 1,
+      "message": "lgtm!\nGreat CL!",
+      "revId": "061b8512cbe28c47937ce25fce4c6b87bf5981a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0404f07_5497d0ce",
+        "filename": "modules/audio_processing/agc2/rnn_vad/vector_math_avx2.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-27T09:22:51Z",
+      "side": 1,
+      "message": "Maybe slightly faster to do\n for (int i \u003d incomplete_block_index,x_size\u003dx.size(); i\u003cx_size; ++i) {\n\nFully ok to keep like this though",
+      "range": {
+        "startLine": 46,
+        "startChar": 1,
+        "endLine": 46,
+        "endChar": 80
+      },
+      "revId": "061b8512cbe28c47937ce25fce4c6b87bf5981a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

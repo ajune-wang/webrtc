@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "afd0242f_56aa4bd0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-11-27T13:08:35Z",
+      "side": 1,
+      "message": "I agree it make sense to move more to construction time.\nThis setting in particular.\n\nI do not see an easy way to update the tests. see more details in another comment.",
+      "parentUuid": "2c76e5d8_8edf145d",
+      "revId": "9935f8e59e3bcf4ca602643547b78e0c0b3969d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ed8c2cba_3f283dc8",
@@ -31,6 +49,30 @@
       "writtenOn": "2020-11-26T15:31:09Z",
       "side": 1,
       "message": "The way the test fixture is used makes it difficult to have test-specific construction-time settings. Not sure how to move forward, I don\u0027t want to refactor all tests.",
+      "range": {
+        "startLine": 495,
+        "startChar": 0,
+        "endLine": 495,
+        "endChar": 26
+      },
+      "revId": "9935f8e59e3bcf4ca602643547b78e0c0b3969d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78767c48_5a095cd6",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-11-27T13:08:35Z",
+      "side": 1,
+      "message": "Personally I think that refactoring all test by moving rtcp_sender_ out of the fixture and create it in every test is a good thing. Helpers might make it not too verbose:\n\nstd::unique_ptr\u003cRtcpSender\u003e rtcp_sender \u003d CreateRtcpSender(GetDefaultConfig());\n\nThen these test would be easier to refactor:\nauto config \u003d GetDefaultConfig();\nconfig.enable_rrtr \u003d true;\nauto rtcp_sender \u003d CreateRtcpSender(config);\n\n\nBut I guess that test refactoring would be larger than all the other changes.\n\nThere other ways to adjust the tests with smaller changes, but I feel they\u0027ll make tests less readable and thus less useful.\n(\noption that may be okeish: recreate rtcp_sender_ in these tests. That can be a step towards refactor where rtcp_sender_ no longer member of the fixture\n\noptions I find bad: make GetDefaultConfig() virtual, move creation of the rtcp_sender_ from constructor to SetUp() function [to allow to use virtual function], create an extra fixture that override GetDefaultConfig and sets enable_rrtr to true.\n\n)\n\nrelevant article: https://abseil.io/tips/122",
+      "parentUuid": "ed8c2cba_3f283dc8",
       "range": {
         "startLine": 495,
         "startChar": 0,
@@ -66,6 +108,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dff6e59a_71fac4b5",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-11-27T13:08:35Z",
+      "side": 1,
+      "message": "in RtcpTransceiver I\u0027ve called it non_sender_rtt_measurement\nhttps://webrtc.googlesource.com/src/+/refs/heads/master/modules/rtp_rtcp/source/rtcp_transceiver_config.h#99\n\n(for consistency might good to name it the same, even if the name is far from perfect)",
+      "parentUuid": "1e0c6d51_c329a150",
+      "range": {
+        "startLine": 147,
+        "startChar": 9,
+        "endLine": 147,
+        "endChar": 23
+      },
+      "revId": "9935f8e59e3bcf4ca602643547b78e0c0b3969d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "aa414eda_1973897a",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 1
@@ -77,6 +143,30 @@
       "writtenOn": "2020-11-26T15:31:09Z",
       "side": 1,
       "message": "Maybe better to pass a reference to config_.rtp as a single argument?",
+      "range": {
+        "startLine": 267,
+        "startChar": 0,
+        "endLine": 268,
+        "endChar": 33
+      },
+      "revId": "9935f8e59e3bcf4ca602643547b78e0c0b3969d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36f9f207_3de3fa41",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-11-27T13:08:35Z",
+      "side": 1,
+      "message": "or inline the CreateRtpRtcpModule:\nrtp_rtcp_([\u0026] {\n  \u003cbody of the CreateRtpRtcpModule\u003e\n}()),  // \u003c- note lambda is called immediately after creation, once.",
+      "parentUuid": "aa414eda_1973897a",
       "range": {
         "startLine": 267,
         "startChar": 0,

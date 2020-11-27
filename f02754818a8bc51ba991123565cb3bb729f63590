@@ -93,6 +93,30 @@
       },
       "revId": "f02754818a8bc51ba991123565cb3bb729f63590",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0339268_07e2a8d5",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-11-27T15:03:37Z",
+      "side": 1,
+      "message": "Agreed offline on keeping the kill switch as part of the config. It\u0027ll be cleaned up when the time comes.",
+      "parentUuid": "ba0187e5_e70d5c1e",
+      "range": {
+        "startLine": 368,
+        "startChar": 8,
+        "endLine": 368,
+        "endChar": 33
+      },
+      "revId": "f02754818a8bc51ba991123565cb3bb729f63590",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

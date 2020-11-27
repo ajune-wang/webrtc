@@ -113,17 +113,6 @@ class MockAudioDecoder final : public AudioDecoder {
 
   bool fec_enabled() const { return fec_enabled_; }
 
- protected:
-  int DecodeInternal(const uint8_t* encoded,
-                     size_t encoded_len,
-                     int sample_rate_hz,
-                     int16_t* decoded,
-                     SpeechType* speech_type) override {
-    ADD_FAILURE() << "Since going through ParsePayload, DecodeInternal should "
-                     "never get called.";
-    return -1;
-  }
-
  private:
   const int sample_rate_hz_;
   const size_t num_channels_;

@@ -30,17 +30,17 @@ class AudioDecoderIsacT final : public AudioDecoder {
   explicit AudioDecoderIsacT(const Config& config);
   virtual ~AudioDecoderIsacT() override;
 
+  std::vector<ParseResult> ParsePayload(rtc::Buffer&& payload,
+                                        uint32_t timestamp) override {
+    return {};
+  }
+
   bool HasDecodePlc() const override;
   size_t DecodePlc(size_t num_frames, int16_t* decoded) override;
   void Reset() override;
   int ErrorCode() override;
   int SampleRateHz() const override;
   size_t Channels() const override;
-  int DecodeInternal(const uint8_t* encoded,
-                     size_t encoded_len,
-                     int sample_rate_hz,
-                     int16_t* decoded,
-                     SpeechType* speech_type) override;
 
  private:
   typename T::instance_type* isac_state_;

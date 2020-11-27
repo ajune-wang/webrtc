@@ -46,12 +46,6 @@ class FakeDecodeFromFile : public AudioDecoder {
 
   size_t Channels() const override { return stereo_ ? 2 : 1; }
 
-  int DecodeInternal(const uint8_t* encoded,
-                     size_t encoded_len,
-                     int sample_rate_hz,
-                     int16_t* decoded,
-                     SpeechType* speech_type) override;
-
   int PacketDuration(const uint8_t* encoded, size_t encoded_len) const override;
 
   // Helper method. Writes |timestamp|, |samples| and

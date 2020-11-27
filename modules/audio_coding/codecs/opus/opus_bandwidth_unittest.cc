@@ -86,6 +86,8 @@ float EncodedPowerRatio(AudioEncoder* encoder,
     AudioEncoder::EncodedInfo encoder_info =
         encoder->Encode(rtp_timestamp, audio_loop->GetNextBlock(), &encoded);
     rtp_timestamp += kInputBlockSizeSamples;
+    (void)speech_type;
+#if 0
     if (encoded.size() > 0) {
       int decoder_info = decoder->Decode(
           encoded.data(), encoded.size(), kSampleRateHz,
@@ -95,6 +97,7 @@ float EncodedPowerRatio(AudioEncoder* encoder,
         power_ratio_estimator.ProcessBlock(decoded_float.data());
       }
     }
+#endif
   }
   return power_ratio_estimator.PowerRatio();
 }

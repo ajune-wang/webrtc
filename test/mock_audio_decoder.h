@@ -21,9 +21,9 @@ class MockAudioDecoder : public AudioDecoder {
   MockAudioDecoder();
   ~MockAudioDecoder();
   MOCK_METHOD(void, Die, ());
-  MOCK_METHOD(int,
-              DecodeInternal,
-              (const uint8_t*, size_t, int, int16_t*, SpeechType*),
+  MOCK_METHOD(std::vector<ParseResult>,
+              ParsePayload,
+              (rtc::Buffer&&, uint32_t),
               (override));
   MOCK_METHOD(bool, HasDecodePlc, (), (const, override));
   MOCK_METHOD(size_t, DecodePlc, (size_t, int16_t*), (override));

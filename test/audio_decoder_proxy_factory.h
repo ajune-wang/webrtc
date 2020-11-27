@@ -68,20 +68,6 @@ class AudioDecoderProxyFactory : public AudioDecoderFactory {
 
     size_t Channels() const override { return decoder_->Channels(); }
 
-    int DecodeInternal(const uint8_t* encoded,
-                       size_t encoded_len,
-                       int sample_rate_hz,
-                       int16_t* decoded,
-                       SpeechType* speech_type) override {
-      // Needed for tests of NetEqImpl::DecodeCng, which calls the deprecated
-      // Decode method.
-      size_t max_decoded_bytes =
-          decoder_->PacketDuration(encoded, encoded_len) *
-          decoder_->Channels() * sizeof(int16_t);
-      return decoder_->Decode(encoded, encoded_len, sample_rate_hz,
-                              max_decoded_bytes, decoded, speech_type);
-    }
-
     void GeneratePlc(size_t requested_samples_per_channel,
                      rtc::BufferT<int16_t>* concealment_audio) override {
       decoder_->GeneratePlc(requested_samples_per_channel, concealment_audio);

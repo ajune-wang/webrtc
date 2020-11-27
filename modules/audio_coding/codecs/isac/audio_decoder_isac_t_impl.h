@@ -36,20 +36,6 @@ AudioDecoderIsacT<T>::~AudioDecoderIsacT() {
 }
 
 template <typename T>
-int AudioDecoderIsacT<T>::DecodeInternal(const uint8_t* encoded,
-                                         size_t encoded_len,
-                                         int sample_rate_hz,
-                                         int16_t* decoded,
-                                         SpeechType* speech_type) {
-  RTC_CHECK_EQ(sample_rate_hz_, sample_rate_hz);
-  int16_t temp_type = 1;  // Default is speech.
-  int ret =
-      T::DecodeInternal(isac_state_, encoded, encoded_len, decoded, &temp_type);
-  *speech_type = ConvertSpeechType(temp_type);
-  return ret;
-}
-
-template <typename T>
 bool AudioDecoderIsacT<T>::HasDecodePlc() const {
   return false;
 }

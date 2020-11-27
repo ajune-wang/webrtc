@@ -462,19 +462,10 @@ TEST_F(NetEqImplTest, VerifyTimestampPropagation) {
    public:
     CountingSamplesDecoder() : next_value_(1) {}
 
-    // Produce as many samples as input bytes (|encoded_len|).
-    int DecodeInternal(const uint8_t* encoded,
-                       size_t encoded_len,
-                       int /* sample_rate_hz */,
-                       int16_t* decoded,
-                       SpeechType* speech_type) override {
-      for (size_t i = 0; i < encoded_len; ++i) {
-        decoded[i] = next_value_++;
-      }
-      *speech_type = kSpeech;
-      return rtc::checked_cast<int>(encoded_len);
+    std::vector<ParseResult> ParsePayload(rtc::Buffer&& payload,
+                                          uint32_t timestamp) override {
+      return {};
     }
-
     void Reset() override { next_value_ = 1; }
 
     int SampleRateHz() const override { return kSampleRateHz; }
@@ -578,14 +569,9 @@ TEST_F(NetEqImplTest, ReorderedPacket) {
   EXPECT_CALL(mock_decoder, PacketDuration(_, kPayloadLengthBytes))
       .WillRepeatedly(Return(rtc::checked_cast<int>(kPayloadLengthSamples)));
   int16_t dummy_output[kPayloadLengthSamples] = {0};
+  (void)dummy_output;
   // The below expectation will make the mock decoder write
   // |kPayloadLengthSamples| zeros to the output array, and mark it as speech.
-  EXPECT_CALL(mock_decoder, DecodeInternal(Pointee(0), kPayloadLengthBytes,
-                                           kSampleRateHz, _, _))
-      .WillOnce(DoAll(SetArrayArgument<3>(dummy_output,
-                                          dummy_output + kPayloadLengthSamples),
-                      SetArgPointee<4>(AudioDecoder::kSpeech),
-                      Return(rtc::checked_cast<int>(kPayloadLengthSamples))));
   EXPECT_TRUE(neteq_->RegisterPayloadType(kPayloadType,
                                           SdpAudioFormat("L16", 8000, 1)));
 
@@ -632,12 +618,6 @@ TEST_F(NetEqImplTest, ReorderedPacket) {
 
   // Expect only the second packet to be decoded (the one with "2" as the first
   // payload byte).
-  EXPECT_CALL(mock_decoder, DecodeInternal(Pointee(2), kPayloadLengthBytes,
-                                           kSampleRateHz, _, _))
-      .WillOnce(DoAll(SetArrayArgument<3>(dummy_output,
-                                          dummy_output + kPayloadLengthSamples),
-                      SetArgPointee<4>(AudioDecoder::kSpeech),
-                      Return(rtc::checked_cast<int>(kPayloadLengthSamples))));
 
   // Pull audio once.
   EXPECT_EQ(NetEq::kOK, neteq_->GetAudio(&output, &muted));
@@ -936,7 +916,7 @@ TEST_F(NetEqImplTest, CodecInternalCng) {
   const size_t kPayloadLengthBytes = 10;
   uint8_t payload[kPayloadLengthBytes] = {0};
   int16_t dummy_output[kPayloadLengthSamples] = {0};
-
+  (void)dummy_output;
   RTPHeader rtp_header;
   rtp_header.payloadType = kPayloadType;
   rtp_header.sequenceNumber = 0x1234;
@@ -956,34 +936,6 @@ TEST_F(NetEqImplTest, CodecInternalCng) {
 
   // Pointee(x) verifies that first byte of the payload equals x, this makes it
   // possible to verify that the correct payload is fed to Decode().
-  EXPECT_CALL(mock_decoder, DecodeInternal(Pointee(0), kPayloadLengthBytes,
-                                           kSampleRateKhz * 1000, _, _))
-      .WillOnce(DoAll(SetArrayArgument<3>(dummy_output,
-                                          dummy_output + kPayloadLengthSamples),
-                      SetArgPointee<4>(AudioDecoder::kSpeech),
-                      Return(rtc::checked_cast<int>(kPayloadLengthSamples))));
-
-  EXPECT_CALL(mock_decoder, DecodeInternal(Pointee(1), kPayloadLengthBytes,
-                                           kSampleRateKhz * 1000, _, _))
-      .WillOnce(DoAll(SetArrayArgument<3>(dummy_output,
-                                          dummy_output + kPayloadLengthSamples),
-                      SetArgPointee<4>(AudioDecoder::kComfortNoise),
-                      Return(rtc::checked_cast<int>(kPayloadLengthSamples))));
-
-  EXPECT_CALL(mock_decoder,
-              DecodeInternal(IsNull(), 0, kSampleRateKhz * 1000, _, _))
-      .WillOnce(DoAll(SetArrayArgument<3>(dummy_output,
-                                          dummy_output + kPayloadLengthSamples),
-                      SetArgPointee<4>(AudioDecoder::kComfortNoise),
-                      Return(rtc::checked_cast<int>(kPayloadLengthSamples))));
-
-  EXPECT_CALL(mock_decoder, DecodeInternal(Pointee(2), kPayloadLengthBytes,
-                                           kSampleRateKhz * 1000, _, _))
-      .WillOnce(DoAll(SetArrayArgument<3>(dummy_output,
-                                          dummy_output + kPayloadLengthSamples),
-                      SetArgPointee<4>(AudioDecoder::kSpeech),
-                      Return(rtc::checked_cast<int>(kPayloadLengthSamples))));
-
   EXPECT_TRUE(neteq_->RegisterPayloadType(kPayloadType,
                                           SdpAudioFormat("opus", 48000, 2)));
 
@@ -1078,6 +1030,7 @@ TEST_F(NetEqImplTest, UnsupportedDecoder) {
   const size_t kPayloadLengthBytes = 1;
   uint8_t payload[kPayloadLengthBytes] = {0};
   int16_t dummy_output[kPayloadLengthSamples * kChannels] = {0};
+  (void)dummy_output;
   RTPHeader rtp_header;
   rtp_header.payloadType = kPayloadType;
   rtp_header.sequenceNumber = 0x1234;
@@ -1091,18 +1044,6 @@ TEST_F(NetEqImplTest, UnsupportedDecoder) {
               PacketDuration(Pointee(kFirstPayloadValue), kPayloadLengthBytes))
       .Times(AtLeast(1))
       .WillRepeatedly(Return(rtc::checked_cast<int>(kNetEqMaxFrameSize + 1)));
-
-  EXPECT_CALL(decoder, DecodeInternal(Pointee(kFirstPayloadValue), _, _, _, _))
-      .Times(0);
-
-  EXPECT_CALL(decoder, DecodeInternal(Pointee(kSecondPayloadValue),
-                                      kPayloadLengthBytes, kSampleRateHz, _, _))
-      .Times(1)
-      .WillOnce(DoAll(
-          SetArrayArgument<3>(dummy_output,
-                              dummy_output + kPayloadLengthSamples * kChannels),
-          SetArgPointee<4>(AudioDecoder::kSpeech),
-          Return(static_cast<int>(kPayloadLengthSamples * kChannels))));
 
   EXPECT_CALL(decoder,
               PacketDuration(Pointee(kSecondPayloadValue), kPayloadLengthBytes))
@@ -1214,16 +1155,10 @@ TEST_F(NetEqImplTest, DecodedPayloadTooShort) {
   EXPECT_CALL(mock_decoder, PacketDuration(_, _))
       .WillRepeatedly(Return(rtc::checked_cast<int>(kPayloadLengthSamples)));
   int16_t dummy_output[kPayloadLengthSamples] = {0};
+  (void)dummy_output;
   // The below expectation will make the mock decoder write
   // |kPayloadLengthSamples| - 5 zeros to the output array, and mark it as
   // speech. That is, the decoded length is 5 samples shorter than the expected.
-  EXPECT_CALL(mock_decoder,
-              DecodeInternal(_, kPayloadLengthBytes, kSampleRateHz, _, _))
-      .WillOnce(
-          DoAll(SetArrayArgument<3>(dummy_output,
-                                    dummy_output + kPayloadLengthSamples - 5),
-                SetArgPointee<4>(AudioDecoder::kSpeech),
-                Return(rtc::checked_cast<int>(kPayloadLengthSamples - 5))));
   EXPECT_TRUE(neteq_->RegisterPayloadType(kPayloadType,
                                           SdpAudioFormat("L16", 8000, 1)));
 
@@ -1281,36 +1216,16 @@ TEST_F(NetEqImplTest, DecodingError) {
   EXPECT_CALL(mock_decoder, ErrorCode()).WillOnce(Return(kDecoderErrorCode));
   EXPECT_CALL(mock_decoder, HasDecodePlc()).WillOnce(Return(false));
   int16_t dummy_output[kFrameLengthSamples] = {0};
+  (void)dummy_output;
 
   {
     InSequence sequence;  // Dummy variable.
     // Mock decoder works normally the first time.
-    EXPECT_CALL(mock_decoder,
-                DecodeInternal(_, kPayloadLengthBytes, kSampleRateHz, _, _))
-        .Times(3)
-        .WillRepeatedly(
-            DoAll(SetArrayArgument<3>(dummy_output,
-                                      dummy_output + kFrameLengthSamples),
-                  SetArgPointee<4>(AudioDecoder::kSpeech),
-                  Return(rtc::checked_cast<int>(kFrameLengthSamples))))
-        .RetiresOnSaturation();
 
     // Then mock decoder fails. A common reason for failure can be buffer being
     // too short
-    EXPECT_CALL(mock_decoder,
-                DecodeInternal(_, kPayloadLengthBytes, kSampleRateHz, _, _))
-        .WillOnce(Return(-1))
-        .RetiresOnSaturation();
 
     // Mock decoder finally returns to normal.
-    EXPECT_CALL(mock_decoder,
-                DecodeInternal(_, kPayloadLengthBytes, kSampleRateHz, _, _))
-        .Times(2)
-        .WillRepeatedly(
-            DoAll(SetArrayArgument<3>(dummy_output,
-                                      dummy_output + kFrameLengthSamples),
-                  SetArgPointee<4>(AudioDecoder::kSpeech),
-                  Return(rtc::checked_cast<int>(kFrameLengthSamples))));
   }
 
   EXPECT_TRUE(neteq_->RegisterPayloadType(kPayloadType,
@@ -1392,36 +1307,16 @@ TEST_F(NetEqImplTest, DecodingErrorDuringInternalCng) {
       .WillRepeatedly(Return(rtc::checked_cast<int>(kFrameLengthSamples)));
   EXPECT_CALL(mock_decoder, ErrorCode()).WillOnce(Return(kDecoderErrorCode));
   int16_t dummy_output[kFrameLengthSamples] = {0};
-
+  (void)dummy_output;
   {
     InSequence sequence;  // Dummy variable.
     // Mock decoder works normally the first 2 times.
-    EXPECT_CALL(mock_decoder,
-                DecodeInternal(_, kPayloadLengthBytes, kSampleRateHz, _, _))
-        .Times(2)
-        .WillRepeatedly(
-            DoAll(SetArrayArgument<3>(dummy_output,
-                                      dummy_output + kFrameLengthSamples),
-                  SetArgPointee<4>(AudioDecoder::kComfortNoise),
-                  Return(rtc::checked_cast<int>(kFrameLengthSamples))))
-        .RetiresOnSaturation();
 
     // Then mock decoder fails. A common reason for failure can be buffer being
     // too short
-    EXPECT_CALL(mock_decoder, DecodeInternal(nullptr, 0, kSampleRateHz, _, _))
-        .WillOnce(Return(-1))
-        .RetiresOnSaturation();
 
     // Mock decoder finally returns to normal.
-    EXPECT_CALL(mock_decoder, DecodeInternal(nullptr, 0, kSampleRateHz, _, _))
-        .Times(2)
-        .WillRepeatedly(
-            DoAll(SetArrayArgument<3>(dummy_output,
-                                      dummy_output + kFrameLengthSamples),
-                  SetArgPointee<4>(AudioDecoder::kComfortNoise),
-                  Return(rtc::checked_cast<int>(kFrameLengthSamples))));
   }
-
   EXPECT_TRUE(neteq_->RegisterPayloadType(kPayloadType,
                                           SdpAudioFormat("l16", 8000, 1)));
 
@@ -1585,19 +1480,10 @@ class Decoder120ms : public AudioDecoder {
         next_value_(1),
         speech_type_(speech_type) {}
 
-  int DecodeInternal(const uint8_t* encoded,
-                     size_t encoded_len,
-                     int sample_rate_hz,
-                     int16_t* decoded,
-                     SpeechType* speech_type) override {
-    EXPECT_EQ(sample_rate_hz_, sample_rate_hz);
-    size_t decoded_len =
-        rtc::CheckedDivExact(sample_rate_hz, 1000) * 120 * Channels();
-    for (size_t i = 0; i < decoded_len; ++i) {
-      decoded[i] = next_value_++;
-    }
-    *speech_type = speech_type_;
-    return rtc::checked_cast<int>(decoded_len);
+  std::vector<ParseResult> ParsePayload(rtc::Buffer&& payload,
+                                        uint32_t timestamp) override {
+    (void)speech_type_;
+    return {};
   }
 
   void Reset() override { next_value_ = 1; }

@@ -33,19 +33,6 @@ bool AudioDecoderIlbcImpl::HasDecodePlc() const {
   return true;
 }
 
-int AudioDecoderIlbcImpl::DecodeInternal(const uint8_t* encoded,
-                                         size_t encoded_len,
-                                         int sample_rate_hz,
-                                         int16_t* decoded,
-                                         SpeechType* speech_type) {
-  RTC_DCHECK_EQ(sample_rate_hz, 8000);
-  int16_t temp_type = 1;  // Default is speech.
-  int ret = WebRtcIlbcfix_Decode(dec_state_, encoded, encoded_len, decoded,
-                                 &temp_type);
-  *speech_type = ConvertSpeechType(temp_type);
-  return ret;
-}
-
 size_t AudioDecoderIlbcImpl::DecodePlc(size_t num_frames, int16_t* decoded) {
   return WebRtcIlbcfix_NetEqPlc(dec_state_, decoded, num_frames);
 }

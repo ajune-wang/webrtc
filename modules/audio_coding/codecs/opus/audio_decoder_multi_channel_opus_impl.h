@@ -45,18 +45,6 @@ class AudioDecoderMultiChannelOpusImpl final : public AudioDecoder {
   static absl::optional<AudioDecoderMultiChannelOpusConfig> SdpToConfig(
       const SdpAudioFormat& format);
 
- protected:
-  int DecodeInternal(const uint8_t* encoded,
-                     size_t encoded_len,
-                     int sample_rate_hz,
-                     int16_t* decoded,
-                     SpeechType* speech_type) override;
-  int DecodeRedundantInternal(const uint8_t* encoded,
-                              size_t encoded_len,
-                              int sample_rate_hz,
-                              int16_t* decoded,
-                              SpeechType* speech_type) override;
-
  private:
   AudioDecoderMultiChannelOpusImpl(OpusDecInst* dec_state,
                                    AudioDecoderMultiChannelOpusConfig config);

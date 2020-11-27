@@ -55,42 +55,6 @@ std::vector<AudioDecoder::ParseResult> AudioDecoderOpusImpl::ParsePayload(
   return results;
 }
 
-int AudioDecoderOpusImpl::DecodeInternal(const uint8_t* encoded,
-                                         size_t encoded_len,
-                                         int sample_rate_hz,
-                                         int16_t* decoded,
-                                         SpeechType* speech_type) {
-  RTC_DCHECK_EQ(sample_rate_hz, sample_rate_hz_);
-  int16_t temp_type = 1;  // Default is speech.
-  int ret =
-      WebRtcOpus_Decode(dec_state_, encoded, encoded_len, decoded, &temp_type);
-  if (ret > 0)
-    ret *= static_cast<int>(channels_);  // Return total number of samples.
-  *speech_type = ConvertSpeechType(temp_type);
-  return ret;
-}
-
-int AudioDecoderOpusImpl::DecodeRedundantInternal(const uint8_t* encoded,
-                                                  size_t encoded_len,
-                                                  int sample_rate_hz,
-                                                  int16_t* decoded,
-                                                  SpeechType* speech_type) {
-  if (!PacketHasFec(encoded, encoded_len)) {
-    // This packet is a RED packet.
-    return DecodeInternal(encoded, encoded_len, sample_rate_hz, decoded,
-                          speech_type);
-  }
-
-  RTC_DCHECK_EQ(sample_rate_hz, sample_rate_hz_);
-  int16_t temp_type = 1;  // Default is speech.
-  int ret = WebRtcOpus_DecodeFec(dec_state_, encoded, encoded_len, decoded,
-                                 &temp_type);
-  if (ret > 0)
-    ret *= static_cast<int>(channels_);  // Return total number of samples.
-  *speech_type = ConvertSpeechType(temp_type);
-  return ret;
-}
-
 void AudioDecoderOpusImpl::Reset() {
   WebRtcOpus_DecoderInit(dec_state_);
 }

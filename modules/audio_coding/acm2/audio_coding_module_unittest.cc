@@ -1010,9 +1010,6 @@ TEST_F(AcmReceiverBitExactnessOldApi, 48kHzOutputExternalDecoder) {
       EXPECT_CALL(*mock_decoder_, Channels())
           .Times(AtLeast(1))
           .WillRepeatedly(Invoke(&pcmu_decoder_, &AudioDecoderPcmU::Channels));
-      EXPECT_CALL(*mock_decoder_, DecodeInternal(_, _, _, _, _))
-          .Times(AtLeast(1))
-          .WillRepeatedly(Invoke(&decode_forwarder_, &DecodeForwarder::Decode));
       EXPECT_CALL(*mock_decoder_, HasDecodePlc())
           .Times(AtLeast(1))
           .WillRepeatedly(
@@ -1044,16 +1041,8 @@ TEST_F(AcmReceiverBitExactnessOldApi, 48kHzOutputExternalDecoder) {
     // public.
     class DecodeForwarder {
      public:
-      explicit DecodeForwarder(AudioDecoder* decoder) : decoder_(decoder) {}
-      int Decode(const uint8_t* encoded,
-                 size_t encoded_len,
-                 int sample_rate_hz,
-                 int16_t* decoded,
-                 AudioDecoder::SpeechType* speech_type) {
-        return decoder_->Decode(encoded, encoded_len, sample_rate_hz,
-                                decoder_->PacketDuration(encoded, encoded_len) *
-                                    decoder_->Channels() * sizeof(int16_t),
-                                decoded, speech_type);
+      explicit DecodeForwarder(AudioDecoder* decoder) : decoder_(decoder) {
+        (void)decoder_;
       }
 
      private:

@@ -33,19 +33,6 @@ bool AudioDecoderG722Impl::HasDecodePlc() const {
   return false;
 }
 
-int AudioDecoderG722Impl::DecodeInternal(const uint8_t* encoded,
-                                         size_t encoded_len,
-                                         int sample_rate_hz,
-                                         int16_t* decoded,
-                                         SpeechType* speech_type) {
-  RTC_DCHECK_EQ(SampleRateHz(), sample_rate_hz);
-  int16_t temp_type = 1;  // Default is speech.
-  size_t ret =
-      WebRtcG722_Decode(dec_state_, encoded, encoded_len, decoded, &temp_type);
-  *speech_type = ConvertSpeechType(temp_type);
-  return static_cast<int>(ret);
-}
-
 void AudioDecoderG722Impl::Reset() {
   WebRtcG722_DecoderInit(dec_state_);
 }
@@ -81,37 +68,6 @@ AudioDecoderG722StereoImpl::AudioDecoderG722StereoImpl() {
 AudioDecoderG722StereoImpl::~AudioDecoderG722StereoImpl() {
   WebRtcG722_FreeDecoder(dec_state_left_);
   WebRtcG722_FreeDecoder(dec_state_right_);
-}
-
-int AudioDecoderG722StereoImpl::DecodeInternal(const uint8_t* encoded,
-                                               size_t encoded_len,
-                                               int sample_rate_hz,
-                                               int16_t* decoded,
-                                               SpeechType* speech_type) {
-  RTC_DCHECK_EQ(SampleRateHz(), sample_rate_hz);
-  int16_t temp_type = 1;  // Default is speech.
-  // De-interleave the bit-stream into two separate payloads.
-  uint8_t* encoded_deinterleaved = new uint8_t[encoded_len];
-  SplitStereoPacket(encoded, encoded_len, encoded_deinterleaved);
-  // Decode left and right.
-  size_t decoded_len = WebRtcG722_Decode(dec_state_left_, encoded_deinterleaved,
-                                         encoded_len / 2, decoded, &temp_type);
-  size_t ret = WebRtcG722_Decode(
-      dec_state_right_, &encoded_deinterleaved[encoded_len / 2],
-      encoded_len / 2, &decoded[decoded_len], &temp_type);
-  if (ret == decoded_len) {
-    ret += decoded_len;  // Return total number of samples.
-    // Interleave output.
-    for (size_t k = ret / 2; k < ret; k++) {
-      int16_t temp = decoded[k];
-      memmove(&decoded[2 * k - ret + 2], &decoded[2 * k - ret + 1],
-              (ret - k - 1) * sizeof(int16_t));
-      decoded[2 * k - ret + 1] = temp;
-    }
-  }
-  *speech_type = ConvertSpeechType(temp_type);
-  delete[] encoded_deinterleaved;
-  return static_cast<int>(ret);
 }
 
 int AudioDecoderG722StereoImpl::SampleRateHz() const {

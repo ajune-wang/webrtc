@@ -40,23 +40,13 @@ class AudioDecoderPlc : public AudioDecoder {
   AudioDecoderPlc(std::unique_ptr<InputAudioFile> input, int sample_rate_hz)
       : input_(std::move(input)), sample_rate_hz_(sample_rate_hz) {}
 
+  std::vector<ParseResult> ParsePayload(rtc::Buffer&& payload,
+                                        uint32_t timestamp) override {
+    return {};
+  }
   void Reset() override {}
   int SampleRateHz() const override { return sample_rate_hz_; }
   size_t Channels() const override { return 1; }
-  int DecodeInternal(const uint8_t* /*encoded*/,
-                     size_t encoded_len,
-                     int sample_rate_hz,
-                     int16_t* decoded,
-                     SpeechType* speech_type) override {
-    RTC_CHECK_EQ(encoded_len / 2, 20 * sample_rate_hz_ / 1000);
-    RTC_CHECK_EQ(sample_rate_hz, sample_rate_hz_);
-    RTC_CHECK(decoded);
-    RTC_CHECK(speech_type);
-    RTC_CHECK(input_->Read(encoded_len / 2, decoded));
-    *speech_type = kSpeech;
-    last_was_plc_ = false;
-    return encoded_len / 2;
-  }
 
   void GeneratePlc(size_t requested_samples_per_channel,
                    rtc::BufferT<int16_t>* concealment_audio) override {
@@ -64,6 +54,9 @@ class AudioDecoderPlc : public AudioDecoder {
     const bool last_was_plc = last_was_plc_;
     SpeechType speech_type;
     std::vector<int16_t> decoded(5760);
+    (void)last_was_plc;
+    (void)speech_type;
+#if 0
     int dec_len = DecodeInternal(nullptr, 2 * 20 * sample_rate_hz_ / 1000,
                                  sample_rate_hz_, decoded.data(), &speech_type);
     // This fake decoder can only generate 20 ms of PLC data each time. Make
@@ -74,6 +67,7 @@ class AudioDecoderPlc : public AudioDecoder {
     if (!last_was_plc) {
       ++concealment_events_;
     }
+#endif
     last_was_plc_ = true;
   }
 

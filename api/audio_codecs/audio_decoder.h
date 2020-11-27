@@ -89,34 +89,7 @@ class AudioDecoder {
   // buffer. |timestamp| is the input timestamp, in samples, corresponding to
   // the start of the payload.
   virtual std::vector<ParseResult> ParsePayload(rtc::Buffer&& payload,
-                                                uint32_t timestamp);
-
-  // TODO(bugs.webrtc.org/10098): The Decode and DecodeRedundant methods are
-  // obsolete; callers should call ParsePayload instead. For now, subclasses
-  // must still implement DecodeInternal.
-
-  // Decodes |encode_len| bytes from |encoded| and writes the result in
-  // |decoded|. The maximum bytes allowed to be written into |decoded| is
-  // |max_decoded_bytes|. Returns the total number of samples across all
-  // channels. If the decoder produced comfort noise, |speech_type|
-  // is set to kComfortNoise, otherwise it is kSpeech. The desired output
-  // sample rate is provided in |sample_rate_hz|, which must be valid for the
-  // codec at hand.
-  int Decode(const uint8_t* encoded,
-             size_t encoded_len,
-             int sample_rate_hz,
-             size_t max_decoded_bytes,
-             int16_t* decoded,
-             SpeechType* speech_type);
-
-  // Same as Decode(), but interfaces to the decoders redundant decode function.
-  // The default implementation simply calls the regular Decode() method.
-  int DecodeRedundant(const uint8_t* encoded,
-                      size_t encoded_len,
-                      int sample_rate_hz,
-                      size_t max_decoded_bytes,
-                      int16_t* decoded,
-                      SpeechType* speech_type);
+                                                uint32_t timestamp) = 0;
 
   // Indicates if the decoder implements the DecodePlc method.
   virtual bool HasDecodePlc() const;
@@ -172,18 +145,6 @@ class AudioDecoder {
 
  protected:
   static SpeechType ConvertSpeechType(int16_t type);
-
-  virtual int DecodeInternal(const uint8_t* encoded,
-                             size_t encoded_len,
-                             int sample_rate_hz,
-                             int16_t* decoded,
-                             SpeechType* speech_type) = 0;
-
-  virtual int DecodeRedundantInternal(const uint8_t* encoded,
-                                      size_t encoded_len,
-                                      int sample_rate_hz,
-                                      int16_t* decoded,
-                                      SpeechType* speech_type);
 
  private:
   RTC_DISALLOW_COPY_AND_ASSIGN(AudioDecoder);

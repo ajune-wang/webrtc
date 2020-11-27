@@ -36,17 +36,6 @@ size_t AudioDecoderPcm16B::Channels() const {
   return num_channels_;
 }
 
-int AudioDecoderPcm16B::DecodeInternal(const uint8_t* encoded,
-                                       size_t encoded_len,
-                                       int sample_rate_hz,
-                                       int16_t* decoded,
-                                       SpeechType* speech_type) {
-  RTC_DCHECK_EQ(sample_rate_hz_, sample_rate_hz);
-  size_t ret = WebRtcPcm16b_Decode(encoded, encoded_len, decoded);
-  *speech_type = ConvertSpeechType(1);
-  return static_cast<int>(ret);
-}
-
 std::vector<AudioDecoder::ParseResult> AudioDecoderPcm16B::ParsePayload(
     rtc::Buffer&& payload,
     uint32_t timestamp) {

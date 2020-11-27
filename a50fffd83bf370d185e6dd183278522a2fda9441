@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32f028b0_66018436",
+        "filename": "modules/desktop_capture/linux/base_capturer_pipewire.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 9816
+      },
+      "writtenOn": "2020-11-27T07:29:16Z",
+      "side": 1,
+      "message": "I think spa/support/type-map.h was removed in 0.3 as well.",
+      "revId": "a50fffd83bf370d185e6dd183278522a2fda9441",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

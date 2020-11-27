@@ -16,6 +16,138 @@
       "message": "Erik, if you think this is too much to review in one CL I can certainly break it up, but if it could be done without that overhead it would be much appreciated :)\n\nI think only rtp_frame_reference_finder.{h,cc} needs to be reviewed in detail, all other classes are just copy pasted.\n\nPTAL.",
       "revId": "d2574790116725f6d1801620995648098d1ba19c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10cf683d_13818f53",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-11-27T13:57:38Z",
+      "side": 1,
+      "message": "Loots of code in here, I\u0027m gonna trust you (and the test coverage) that it\u0027s simple moves and everything is fine 😊\nlgtm % some nits",
+      "revId": "d2574790116725f6d1801620995648098d1ba19c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4ed86b0_71de3eee",
+        "filename": "modules/video_coding/rtp_frame_reference_finder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-11-27T13:57:38Z",
+      "side": 1,
+      "message": "This seems to be used in a number of places. Should there be a common definition?\nComment on why the number three?",
+      "range": {
+        "startLine": 59,
+        "startChar": 2,
+        "endLine": 59,
+        "endChar": 79
+      },
+      "revId": "d2574790116725f6d1801620995648098d1ba19c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7195ecb5_8b183b56",
+        "filename": "modules/video_coding/rtp_frame_reference_finder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-11-27T13:57:38Z",
+      "side": 1,
+      "message": "This isn\u0027t the unwrapped sequence number, right? (If so it should be int64_t instead)\nComment on which seq it contains?",
+      "range": {
+        "startLine": 72,
+        "startChar": 6,
+        "endLine": 72,
+        "endChar": 25
+      },
+      "revId": "d2574790116725f6d1801620995648098d1ba19c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "757593cd_cac08ddf",
+        "filename": "modules/video_coding/rtp_generic_ref_finder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-11-27T13:57:38Z",
+      "side": 1,
+      "message": "nit: If it\u0027s something you think should actually (eventually) be done, prefer creating a bug about it instead.",
+      "range": {
+        "startLine": 24,
+        "startChar": 2,
+        "endLine": 25,
+        "endChar": 44
+      },
+      "revId": "d2574790116725f6d1801620995648098d1ba19c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "778a402a_4db121d2",
+        "filename": "modules/video_coding/rtp_seq_num_only_ref_finder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-11-27T13:57:38Z",
+      "side": 1,
+      "message": "enum class?\nSeems to be defined in a few places, but perhaps it doesn\u0027t make sense to have a common definition?",
+      "range": {
+        "startLine": 41,
+        "startChar": 2,
+        "endLine": 41,
+        "endChar": 21
+      },
+      "revId": "d2574790116725f6d1801620995648098d1ba19c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd569229_a9b2665f",
+        "filename": "modules/video_coding/rtp_seq_num_only_ref_finder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-11-27T13:57:38Z",
+      "side": 1,
+      "message": "I see few of the ref finders store this value, but none seem to actually read it? Eg. you could just use the parameter in e.g. RtpSeqNumOnlyRefFinder::ClearTo().",
+      "range": {
+        "startLine": 69,
+        "startChar": 2,
+        "endLine": 69,
+        "endChar": 31
+      },
+      "revId": "d2574790116725f6d1801620995648098d1ba19c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

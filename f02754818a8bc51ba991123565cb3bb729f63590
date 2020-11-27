@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4704e96a_fc7d9f17",
+        "filename": "modules/audio_processing/agc2/cpu_features.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-11-27T09:24:43Z",
+      "side": 1,
+      "message": "these names are used to name the parametric tests (TEST_P)\ncomma is not allowed",
+      "parentUuid": "6a79d457_4a25f40f",
+      "range": {
+        "startLine": 24,
+        "startChar": 34,
+        "endLine": 24,
+        "endChar": 35
+      },
+      "revId": "f02754818a8bc51ba991123565cb3bb729f63590",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "993bfbaf_e5e44c8e",
@@ -37,6 +61,30 @@
       "writtenOn": "2020-11-27T09:18:18Z",
       "side": 1,
       "message": "To me, this setting is strange.\nIt basically states that avx2 should be enabled, but clearly this won\u0027t be true for non-avx2-capable platforms.\n\nWhat is the intended use of this setting?",
+      "range": {
+        "startLine": 368,
+        "startChar": 8,
+        "endLine": 368,
+        "endChar": 33
+      },
+      "revId": "f02754818a8bc51ba991123565cb3bb729f63590",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba0187e5_e70d5c1e",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-11-27T09:24:43Z",
+      "side": 1,
+      "message": "good point about the name\nthis is a kill switch\n\nwhat about `avx2_allowed`?",
+      "parentUuid": "993bfbaf_e5e44c8e",
       "range": {
         "startLine": 368,
         "startChar": 8,

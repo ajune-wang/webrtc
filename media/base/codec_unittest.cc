@@ -123,7 +123,11 @@ TEST(CodecTest, TestAudioCodecMatches) {
   EXPECT_TRUE(c1.Matches(AudioCodec(97, "A", 0, 0, 0)));
   EXPECT_TRUE(c1.Matches(AudioCodec(96, "a", 0, 0, 0)));
   EXPECT_TRUE(c1.Matches(AudioCodec(97, "a", 0, 0, 0)));
+  EXPECT_TRUE(c1.Matches(AudioCodec(35, "a", 0, 0, 0)));
+  EXPECT_TRUE(c1.Matches(AudioCodec(42, "a", 0, 0, 0)));
+  EXPECT_TRUE(c1.Matches(AudioCodec(65, "a", 0, 0, 0)));
   EXPECT_FALSE(c1.Matches(AudioCodec(95, "A", 0, 0, 0)));
+  EXPECT_FALSE(c1.Matches(AudioCodec(34, "A", 0, 0, 0)));
   EXPECT_FALSE(c1.Matches(AudioCodec(96, "", 44100, 20000, 2)));
   EXPECT_FALSE(c1.Matches(AudioCodec(96, "A", 55100, 30000, 1)));
 
@@ -211,8 +215,12 @@ TEST(CodecTest, TestVideoCodecMatches) {
   EXPECT_TRUE(c1.Matches(VideoCodec(97, "V")));
   EXPECT_TRUE(c1.Matches(VideoCodec(96, "v")));
   EXPECT_TRUE(c1.Matches(VideoCodec(97, "v")));
+  EXPECT_TRUE(c1.Matches(VideoCodec(35, "v")));
+  EXPECT_TRUE(c1.Matches(VideoCodec(42, "v")));
+  EXPECT_TRUE(c1.Matches(VideoCodec(65, "v")));
   EXPECT_FALSE(c1.Matches(VideoCodec(96, "")));
   EXPECT_FALSE(c1.Matches(VideoCodec(95, "V")));
+  EXPECT_FALSE(c1.Matches(VideoCodec(34, "V")));
 }
 
 TEST(CodecTest, TestVideoCodecMatchesWithDifferentPacketization) {
@@ -305,8 +313,12 @@ TEST(CodecTest, TestDataCodecMatches) {
   EXPECT_TRUE(c1.Matches(DataCodec(97, "D")));
   EXPECT_TRUE(c1.Matches(DataCodec(96, "d")));
   EXPECT_TRUE(c1.Matches(DataCodec(97, "d")));
+  EXPECT_TRUE(c1.Matches(DataCodec(35, "d")));
+  EXPECT_TRUE(c1.Matches(DataCodec(42, "d")));
+  EXPECT_TRUE(c1.Matches(DataCodec(63, "d")));
   EXPECT_FALSE(c1.Matches(DataCodec(96, "")));
   EXPECT_FALSE(c1.Matches(DataCodec(95, "D")));
+  EXPECT_FALSE(c1.Matches(DataCodec(34, "D")));
 }
 
 TEST(CodecTest, TestSetParamGetParamAndRemoveParam) {

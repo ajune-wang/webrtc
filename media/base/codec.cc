@@ -18,6 +18,7 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/string_encode.h"
 #include "rtc_base/strings/string_builder.h"
+#include "system_wrappers/include/field_trial.h"
 
 namespace cricket {
 namespace {
@@ -143,10 +144,30 @@ bool Codec::operator==(const Codec& c) const {
 bool Codec::Matches(const Codec& codec) const {
   // Match the codec id/name based on the typical static/dynamic name rules.
   // Matching is case-insensitive.
-  const int kMaxStaticPayloadId = 95;
-  return (id <= kMaxStaticPayloadId || codec.id <= kMaxStaticPayloadId)
-             ? (id == codec.id)
-             : (absl::EqualsIgnoreCase(name, codec.name));
+
+  // Legacy behaviour with killswitch.
+  if (webrtc::field_trial::IsDisabled(
+          "WebRTC-PayloadTypes-Lower-Dynamic-Range")) {
+    const int kMaxStaticPayloadId = 95;
+    return (id <= kMaxStaticPayloadId || codec.id <= kMaxStaticPayloadId)
+               ? (id == codec.id)
+               : (absl::EqualsIgnoreCase(name, codec.name));
+  }
+  // We support the ranges [96, 127] and more recently [35, 65].
+  // https://www.iana.org/assignments/rtp-parameters/rtp-parameters.xhtml#rtp-parameters-1
+  // Within those ranges we match by codec name, outside by codec id.
+  const int kLowerStaticRangeMin = 35;
+  const int kLowerStaticRangeMax = 65;
+  const int kUpperStaticRangeMin = 96;
+  const int kUpperStaticRangeMax = 127;
+  return (((id >= kLowerStaticRangeMin && id <= kLowerStaticRangeMax) ||
+           (codec.id >= kLowerStaticRangeMin &&
+            codec.id <= kLowerStaticRangeMax)) ||
+          ((id >= kUpperStaticRangeMin && id <= kUpperStaticRangeMax) &&
+           (codec.id >= kUpperStaticRangeMin &&
+            codec.id <= kUpperStaticRangeMax)))
+             ? (absl::EqualsIgnoreCase(name, codec.name))
+             : (id == codec.id);
 }
 
 bool Codec::MatchesCapability(

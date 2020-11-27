@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35b19108_0382faac",
+        "filename": "modules/audio_processing/agc2/rnn_vad/test_utils.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-11-27T15:01:49Z",
+      "side": 1,
+      "message": "I will change this ugly return types in a separate CL.\n@reviewer: be merciful for now.",
+      "range": {
+        "startLine": 121,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 80
+      },
+      "revId": "756074890b6df353ec0ad5753591d08a9311134e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

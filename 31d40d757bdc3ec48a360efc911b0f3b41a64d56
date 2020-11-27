@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d61744d1_605cfd08",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-11-27T16:40:03Z",
+      "side": 1,
+      "message": "LGTM % some comments",
+      "revId": "31d40d757bdc3ec48a360efc911b0f3b41a64d56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64a4d63a_64f172ca",
+        "filename": "api/test/videocodec_test_fixture.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-11-27T16:40:03Z",
+      "side": 1,
+      "message": "Maybe use absl::optional instead, and if clip_fps is not specified assume kDefaultClipFps.",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 30
+      },
+      "revId": "31d40d757bdc3ec48a360efc911b0f3b41a64d56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2554a720_0661bdbb",
+        "filename": "test/testsupport/yuv_frame_reader.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-11-27T16:40:03Z",
+      "side": 1,
+      "message": "why -1, looks like `Init` just overrides it to 0.",
+      "range": {
+        "startLine": 78,
+        "startChar": 27,
+        "endLine": 78,
+        "endChar": 29
+      },
+      "revId": "31d40d757bdc3ec48a360efc911b0f3b41a64d56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4a516ac_d67042e4",
+        "filename": "test/testsupport/yuv_frame_reader.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-11-27T16:40:03Z",
+      "side": 1,
+      "message": "Move this after the loop",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 145,
+        "endChar": 39
+      },
+      "revId": "31d40d757bdc3ec48a360efc911b0f3b41a64d56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -22,6 +22,30 @@
       },
       "revId": "4e2f48e3cd54dfb1ecd2a8775b42b8efff53232a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47708fee_6a96d721",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2020-11-27T09:04:52Z",
+      "side": 1,
+      "message": "I am still working on that -- sadly one can not create a reland and mark it as ready for review while *trying* the upstream bots.",
+      "parentUuid": "676fb900_8a444f41",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 18
+      },
+      "revId": "4e2f48e3cd54dfb1ecd2a8775b42b8efff53232a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

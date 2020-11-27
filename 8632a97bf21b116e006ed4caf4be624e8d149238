@@ -16,6 +16,46 @@
       "message": "Hi reviewers, unittest added, PTAL",
       "revId": "8632a97bf21b116e006ed4caf4be624e8d149238",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a83f0f5_057b5d60",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-11-27T17:57:18Z",
+      "side": 1,
+      "message": "I think there are two separate issues here: the missing keyframe bit and the improvement you want to make to the fec generator.\n\nI made a separate CL for the former:\nhttps://webrtc-review.googlesource.com/c/src/+/195620\nSo you can drop that part of your CL.\n\nI would suggest you create a new bug for your improvement and describe what the intent is (i.e. don\u0027t waste bitrate sending FEC covering packets that will likely not be interesting due to the pending keyframe, if I understand you correctly).\n",
+      "revId": "8632a97bf21b116e006ed4caf4be624e8d149238",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b554b096_bf92a4da",
+        "filename": "modules/rtp_rtcp/source/ulpfec_generator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-11-27T17:57:18Z",
+      "side": 1,
+      "message": "I\u0027m not sure this is what you want. As it\u0027s written now, on the first packet of a delta-frame after the key-frame this change might cause us to drop the fec covering the key-frame.\nI can see that happening either if the protection params for keyframes requires more than one frame (strange, but that\u0027s beside the point), or if the pacer thread has not yet run and polled the fec generator for pending packets.\n\nI suggest changing this to \n\nif (!media_packets_.empty() \u0026\u0026\n    !keyframe_in_process_ \u0026\u0026 packet.is_key_frame()) { \n  ResetState();\n}",
+      "range": {
+        "startLine": 116,
+        "startChar": 6,
+        "endLine": 116,
+        "endChar": 51
+      },
+      "revId": "8632a97bf21b116e006ed4caf4be624e8d149238",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

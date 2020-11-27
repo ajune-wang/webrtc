@@ -1932,11 +1932,11 @@ void MediaSessionDescriptionFactory::GetCodecsForOffer(
 
   // Add our codecs that are not in the current description.
   MergeCodecs<AudioCodec>(all_audio_codecs_, audio_codecs, &used_pltypes);
-  MergeCodecs<VideoCodec>(all_video_codecs_, video_codecs, &used_pltypes);
   // Only allocate a payload type for rtp datachannels when using rtp data
   // channels.
   if (rtp_data_codecs)
     MergeCodecs<DataCodec>(rtp_data_codecs_, rtp_data_codecs, &used_pltypes);
+  MergeCodecs<VideoCodec>(all_video_codecs_, video_codecs, &used_pltypes);
 }
 
 // Getting codecs for an answer involves these steps:

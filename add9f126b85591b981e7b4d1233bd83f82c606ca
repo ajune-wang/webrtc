@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7268f6c0_3487cdc1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-11-27T09:47:04Z",
+      "side": 1,
+      "message": "Thanks!\nAs argued below, I think I\u0027ll keep the code the way it is for now.\n",
+      "revId": "add9f126b85591b981e7b4d1233bd83f82c606ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c97c9326_9bdc4c9b",
@@ -48,6 +65,30 @@
       "writtenOn": "2020-11-27T09:23:06Z",
       "side": 1,
       "message": "Alternatively, do\n\n  RTC_CHECK_NOTREACHED();\n\ninstead of returning, since reaching this code is a bug and not a failure that we expect callers to want to handle.\n\nHowever, when adding a new flavor of an existing interface method, we usually want to have their default implementations call each other. That way, callers can call whichever method they want, and callees can implement either method, and it will still work.",
+      "range": {
+        "startLine": 94,
+        "startChar": 2,
+        "endLine": 94,
+        "endChar": 48
+      },
+      "revId": "add9f126b85591b981e7b4d1233bd83f82c606ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1009eadd_b8e32605",
+        "filename": "api/peer_connection_interface.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-11-27T09:47:04Z",
+      "side": 1,
+      "message": "I did wonder about that (the only time we should reach this code is mocks that aren\u0027t updated but still used in tests that call the new method, so it\u0027s a programmer error), but I thought I\u0027d stay with the current paradigm of returning something.\nWe could do RTC_CHECK_NOTREACHED on all these \"default\" implementations that only exist to avoid linker errors, but doing that consistently is a different pass.",
+      "parentUuid": "c97c9326_9bdc4c9b",
       "range": {
         "startLine": 94,
         "startChar": 2,

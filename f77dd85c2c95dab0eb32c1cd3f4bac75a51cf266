@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "08b279c2_b419aa48",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-11-27T11:31:32Z",
+      "side": 1,
+      "message": "Seems I forgot to push this change when submitting the previous CL :-(\n",
+      "revId": "f77dd85c2c95dab0eb32c1cd3f4bac75a51cf266",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

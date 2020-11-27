@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e83aed7a_0850d7b2",
+        "filename": "modules/video_coding/rtp_frame_reference_finder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-11-27T17:03:17Z",
+      "side": 1,
+      "message": "Added common definition",
+      "parentUuid": "a4ed86b0_71de3eee",
+      "range": {
+        "startLine": 59,
+        "startChar": 2,
+        "endLine": 59,
+        "endChar": 79
+      },
+      "revId": "d2574790116725f6d1801620995648098d1ba19c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7195ecb5_8b183b56",
@@ -71,6 +95,30 @@
       "writtenOn": "2020-11-27T13:57:38Z",
       "side": 1,
       "message": "This isn\u0027t the unwrapped sequence number, right? (If so it should be int64_t instead)\nComment on which seq it contains?",
+      "range": {
+        "startLine": 72,
+        "startChar": 6,
+        "endLine": 72,
+        "endChar": 25
+      },
+      "revId": "d2574790116725f6d1801620995648098d1ba19c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5aa629ac_07d8eeeb",
+        "filename": "modules/video_coding/rtp_frame_reference_finder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-11-27T17:03:17Z",
+      "side": 1,
+      "message": "Added comment.\n\nCorrect, this is not an unwrapped number, and the only reason it is an `int` instead of an `uint16_t` is because of -1 meaning not initialized. Not great, but I want to avoid making detailed changes in this CL, just focusing on splitting the logic into separate classes.",
+      "parentUuid": "7195ecb5_8b183b56",
       "range": {
         "startLine": 72,
         "startChar": 6,
@@ -104,6 +152,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "89fee821_16e8b449",
+        "filename": "modules/video_coding/rtp_generic_ref_finder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-11-27T17:03:17Z",
+      "side": 1,
+      "message": "Added this comment as a heads-up that `frame_id`s are unwrapped somewhere else (not true for  other descriptors).\n\nUpdated the comment.",
+      "parentUuid": "757593cd_cac08ddf",
+      "range": {
+        "startLine": 24,
+        "startChar": 2,
+        "endLine": 25,
+        "endChar": 44
+      },
+      "revId": "d2574790116725f6d1801620995648098d1ba19c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "778a402a_4db121d2",
@@ -127,6 +199,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d762030_dda7b85d",
+        "filename": "modules/video_coding/rtp_seq_num_only_ref_finder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-11-27T17:03:17Z",
+      "side": 1,
+      "message": "Avoiding detailed changes to focus the purpose of this CL (separate descriptor logic into separate classes). After this CL other cleanup/improvements can be made.\n\nI think this is an implementation detail of this class (that just happens to be the same as for other classes), so it does not need a common definition.",
+      "parentUuid": "778a402a_4db121d2",
+      "range": {
+        "startLine": 41,
+        "startChar": 2,
+        "endLine": 41,
+        "endChar": 21
+      },
+      "revId": "d2574790116725f6d1801620995648098d1ba19c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cd569229_a9b2665f",
@@ -140,6 +236,30 @@
       "writtenOn": "2020-11-27T13:57:38Z",
       "side": 1,
       "message": "I see few of the ref finders store this value, but none seem to actually read it? Eg. you could just use the parameter in e.g. RtpSeqNumOnlyRefFinder::ClearTo().",
+      "range": {
+        "startLine": 69,
+        "startChar": 2,
+        "endLine": 69,
+        "endChar": 31
+      },
+      "revId": "d2574790116725f6d1801620995648098d1ba19c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8198d330_3aabbb18",
+        "filename": "modules/video_coding/rtp_seq_num_only_ref_finder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-11-27T17:03:17Z",
+      "side": 1,
+      "message": "Oops, this field slipped in during the copy-paste process for this ref finder. Removed.\n\nFor other classes, it was needed for ClearTo, so I copied it, but as you said it is not used in a meaningful way. Also removed, good catch!",
+      "parentUuid": "cd569229_a9b2665f",
       "range": {
         "startLine": 69,
         "startChar": 2,

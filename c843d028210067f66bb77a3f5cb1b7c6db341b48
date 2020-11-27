@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a22c7bde_df31201b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-27T09:25:27Z",
+      "side": 1,
+      "message": "Thanks for the CL!",
+      "revId": "c843d028210067f66bb77a3f5cb1b7c6db341b48",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c1e45a1_aa0564da",
+        "filename": "modules/audio_processing/agc2/rnn_vad/vector_math.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-27T09:25:27Z",
+      "side": 1,
+      "message": "This is a matter of taste but an option here is also to do\n\nint i \u003d 0;\nfor (; i \u003c incomplete_block_index; i +\u003d kBlockSize) {\n...\n}\n\n...\n\nfor (; static_cast\u003csize_t\u003e(i) \u003c x.size(); ++i) {\n}",
+      "range": {
+        "startLine": 51,
+        "startChar": 6,
+        "endLine": 51,
+        "endChar": 68
+      },
+      "revId": "c843d028210067f66bb77a3f5cb1b7c6db341b48",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

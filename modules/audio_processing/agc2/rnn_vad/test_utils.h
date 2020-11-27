@@ -118,18 +118,19 @@ class BinaryFileWriter {
 // pointer and the second the number of chunks that can be read from the file.
 // Creates a reader for the PCM samples that casts from S16 to float and reads
 // chunks with length |frame_length|.
-std::pair<std::unique_ptr<BinaryFileReader<int16_t, float>>, const int>
+std::pair<std::unique_ptr<BinaryFileReader<int16_t, float>>, int>
 CreatePcmSamplesReader(const int frame_length);
 // Creates a reader for the pitch buffer content at 24 kHz.
-std::pair<std::unique_ptr<BinaryFileReader<float>>, const int>
+std::pair<std::unique_ptr<BinaryFileReader<float>>, int>
 CreatePitchBuffer24kHzReader();
 // Creates a reader for the the LP residual coefficients and the pitch period
 // and gain values.
-std::pair<std::unique_ptr<BinaryFileReader<float>>, const int>
+std::pair<std::unique_ptr<BinaryFileReader<float>>, int>
 CreateLpResidualAndPitchPeriodGainReader();
+// Creates a reader for the sequence of GRU input vectors.
+std::pair<std::unique_ptr<BinaryFileReader<float>>, int> CreateGruInputReader();
 // Creates a reader for the VAD probabilities.
-std::pair<std::unique_ptr<BinaryFileReader<float>>, const int>
-CreateVadProbsReader();
+std::pair<std::unique_ptr<BinaryFileReader<float>>, int> CreateVadProbsReader();
 
 constexpr int kNumPitchBufAutoCorrCoeffs = 147;
 constexpr int kNumPitchBufSquareEnergies = 385;

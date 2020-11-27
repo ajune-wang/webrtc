@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a79d457_4a25f40f",
+        "filename": "modules/audio_processing/agc2/cpu_features.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-27T09:18:18Z",
+      "side": 1,
+      "message": "Wouldn\u0027t it be better to concatenate the items using a comma rather than an underscore?",
+      "range": {
+        "startLine": 24,
+        "startChar": 34,
+        "endLine": 24,
+        "endChar": 35
+      },
+      "revId": "f02754818a8bc51ba991123565cb3bb729f63590",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "993bfbaf_e5e44c8e",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-11-27T09:18:18Z",
+      "side": 1,
+      "message": "To me, this setting is strange.\nIt basically states that avx2 should be enabled, but clearly this won\u0027t be true for non-avx2-capable platforms.\n\nWhat is the intended use of this setting?",
+      "range": {
+        "startLine": 368,
+        "startChar": 8,
+        "endLine": 368,
+        "endChar": 33
+      },
+      "revId": "f02754818a8bc51ba991123565cb3bb729f63590",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

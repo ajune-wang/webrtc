@@ -23,8 +23,7 @@ namespace rnn_vad {
 namespace test {
 namespace {
 
-using ReaderPairType =
-    std::pair<std::unique_ptr<BinaryFileReader<float>>, const int>;
+using ReaderPairType = std::pair<std::unique_ptr<BinaryFileReader<float>>, int>;
 
 }  // namespace
 
@@ -49,7 +48,7 @@ void ExpectNearAbsolute(rtc::ArrayView<const float> expected,
   }
 }
 
-std::pair<std::unique_ptr<BinaryFileReader<int16_t, float>>, const int>
+std::pair<std::unique_ptr<BinaryFileReader<int16_t, float>>, int>
 CreatePcmSamplesReader(const int frame_length) {
   auto ptr = std::make_unique<BinaryFileReader<int16_t, float>>(
       test::ResourcePath("audio_processing/agc2/rnn_vad/samples", "pcm"),
@@ -72,6 +71,12 @@ ReaderPairType CreateLpResidualAndPitchPeriodGainReader() {
       num_lp_residual_coeffs);
   return {std::move(ptr),
           rtc::CheckedDivExact(ptr->data_length(), 2 + num_lp_residual_coeffs)};
+}
+
+ReaderPairType CreateGruInputReader() {
+  auto ptr = std::make_unique<BinaryFileReader<float>>(
+      test::ResourcePath("audio_processing/agc2/rnn_vad/gru_in", "dat"));
+  return {std::move(ptr), ptr->data_length()};
 }
 
 ReaderPairType CreateVadProbsReader() {

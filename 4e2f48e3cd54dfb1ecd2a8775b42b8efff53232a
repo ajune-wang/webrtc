@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "676fb900_8a444f41",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2020-11-27T09:02:58Z",
+      "side": 1,
+      "message": "Please comment on resolution of problem that required this to be reverted. E.g. the specific CL.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 18
+      },
+      "revId": "4e2f48e3cd54dfb1ecd2a8775b42b8efff53232a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

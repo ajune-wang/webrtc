@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39f9a27e_5c838ae8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2020-11-28T15:23:23Z",
+      "side": 1,
+      "message": "I say OK even if my comment is not a nit comment. Some more work can be done in a followup as well.",
+      "revId": "869846535dae14ad07be333653b0a965e33a5f63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3146da1f_22a55e2b",
+        "filename": "sdk/objc/native/src/audio/voice_processing_audio_unit.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2020-11-28T15:23:23Z",
+      "side": 1,
+      "message": "Do we need a mechanism to store and later query this state to avoid that a client then enables WebRTC APM cascaded with built-in?\n\nAlternatively, create UMA and track how often it fails.",
+      "revId": "869846535dae14ad07be333653b0a965e33a5f63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

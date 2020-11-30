@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6798897_d0d6e693",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10010
+      },
+      "writtenOn": "2020-11-30T18:11:32Z",
+      "side": 1,
+      "message": "LGTM, but i don\u0027t have permission to put +1.",
+      "revId": "a9e588cd2ceec0afbadbeb6b76aee710de92024f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

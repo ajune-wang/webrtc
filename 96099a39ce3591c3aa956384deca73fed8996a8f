@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eafd4645_488d6559",
+        "filename": "modules/desktop_capture/linux/base_capturer_pipewire.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5166
+      },
+      "writtenOn": "2020-11-30T23:07:06Z",
+      "side": 1,
+      "message": "This change doesn\u0027t look right. Was it intentional?",
+      "revId": "96099a39ce3591c3aa956384deca73fed8996a8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab9db8cf_40e315b6",
+        "filename": "modules/desktop_capture/linux/base_capturer_pipewire.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 5166
+      },
+      "writtenOn": "2020-11-30T23:07:06Z",
+      "side": 1,
+      "message": "This is adding new code for 0.2; was that what you intended? Most of the other changes are either \"ifdef 0.2...\u003cold code\u003e\" or \"ifdef 0.3...\u003cnew code\u003e\".",
+      "revId": "96099a39ce3591c3aa956384deca73fed8996a8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

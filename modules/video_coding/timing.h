@@ -26,6 +26,7 @@ namespace webrtc {
 class Clock;
 class TimestampExtrapolator;
 
+// 计算当前延迟(googCurrentDelayMs)，用于计算渲染时间
 class VCMTiming {
  public:
   explicit VCMTiming(Clock* clock);

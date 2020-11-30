@@ -29,6 +29,9 @@ class OnCompleteFrameCallback {
   virtual void OnCompleteFrame(std::unique_ptr<EncodedFrame> frame) = 0;
 };
 
+// 负责给每个帧设置好参考帧，同时兼顾GOP内各帧的连续性
+// PID(Picture ID)是每帧图像的唯一标识，VPX定义了PID，
+// 但是H264没有这个概念，RtpFrameReferenceFinder使用每帧的最后一个包的序列号作为H264帧的PID
 class RtpFrameReferenceFinder {
  public:
   using ReturnVector = absl::InlinedVector<std::unique_ptr<RtpFrameObject>, 3>;
@@ -46,6 +49,8 @@ class RtpFrameReferenceFinder {
   //  - It gets cleared by ClearTo, which also means we drop it.
   void ManageFrame(std::unique_ptr<RtpFrameObject> frame);
 
+  // 发送端可能在编码器输出码率不足的情况下为保证发送码率填充空包，
+  // 空包不会进入排序缓存和数据缓存，但是会触发丢包检测和完整帧的检测
   // Notifies that padding has been received, which the reference finder
   // might need to calculate the references of a frame.
   void PaddingReceived(uint16_t seq_num);

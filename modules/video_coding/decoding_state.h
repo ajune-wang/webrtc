@@ -22,6 +22,7 @@ struct NaluInfo;
 class VCMFrameBuffer;
 class VCMPacket;
 
+// 记录当前已经解码帧的最后seq和tiemstamp等信息
 class VCMDecodingState {
  public:
   // The max number of bits used to reference back

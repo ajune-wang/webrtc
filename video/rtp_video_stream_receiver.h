@@ -360,7 +360,7 @@ class RtpVideoStreamReceiver : public LossNotificationSender,
 
   Mutex last_seq_num_mutex_;
   std::map<int64_t, uint16_t> last_seq_num_for_pic_id_
-      RTC_GUARDED_BY(last_seq_num_mutex_);
+      RTC_GUARDED_BY(last_seq_num_mutex_); // <picture_id, seq_num>
   video_coding::H264SpsPpsTracker tracker_;
 
   // Maps payload id to the depacketizer.

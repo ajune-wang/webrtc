@@ -48,6 +48,7 @@ void VCMCodecTimer::AddTiming(int64_t decode_time_ms, int64_t now_ms) {
   }
 }
 
+// 使用KalmanFilter算法，计算每帧视频解码时间
 // Get the 95th percentile observed decode time within a time window.
 int64_t VCMCodecTimer::RequiredDecodeTimeMs() const {
   return filter_.GetPercentileValue();

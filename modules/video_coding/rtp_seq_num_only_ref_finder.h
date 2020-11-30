@@ -44,6 +44,11 @@ class RtpSeqNumOnlyRefFinder {
   void RetryStashedFrames(RtpFrameReferenceFinder::ReturnVector& res);
   void UpdateLastPictureIdWithPadding(uint16_t seq_num);
 
+  // key: last_seq_num：I帧最后一个包序列号，PID
+  // value:
+  //   last_picture_id_gop：GOP内最新一个帧的最后一个包的序列号，用于设置为下一个帧的参考帧
+  //   last_picture_id_with_padding_gop：GOP内最新一个包的序列号，有可能是last_picture_id_gop，也有可能是填充包，用于检查帧的连续性
+
   // For every group of pictures, hold two sequence numbers. The first being
   // the sequence number of the last packet of the last completed frame, and
   // the second being the sequence number of the last packet of the last

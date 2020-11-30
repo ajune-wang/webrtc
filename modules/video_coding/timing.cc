@@ -168,6 +168,11 @@ int64_t VCMTiming::RenderTimeMs(uint32_t frame_timestamp,
   return RenderTimeMsInternal(frame_timestamp, now_ms);
 }
 
+// 一帧视频的预期渲染时间是发送端发送时间+网络延时时间+解码时间+渲染模块耗时时间
+// 发送端发送时间：可以根据发送报文的时间戳+接收第一帧视频的系统时间推算出来。
+// 网络延时时间：可以参考《webrtc代码走读十六（Jitter延时的计算）》
+// 解码时间：使用KalmanFilter算法，计算每帧视频解码时间。
+// 渲染时间：根据硬件配置，是固定值。
 int64_t VCMTiming::RenderTimeMsInternal(uint32_t frame_timestamp,
                                         int64_t now_ms) const {
   constexpr int kLowLatencyRendererMaxPlayoutDelayMs = 500;
@@ -199,6 +204,9 @@ int VCMTiming::RequiredDecodeTimeMs() const {
   return decode_time_ms;
 }
 
+// 计算当前帧解码时间是否到，到就出帧，否则就等待
+// 等待时间=当前帧预计渲染时间-解码消耗时间-渲染模块耗时
+// 因为这里是解码前，所以要把后面的解码+渲染时间扣除
 int64_t VCMTiming::MaxWaitingTime(int64_t render_time_ms,
                                   int64_t now_ms) const {
   MutexLock lock(&mutex_);

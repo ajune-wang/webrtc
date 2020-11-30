@@ -48,13 +48,13 @@ VCMPacket::VCMPacket(const uint8_t* ptr,
                       videoHeader.is_first_packet_in_frame),
       video_header(videoHeader),
       packet_info(rtp_header, receive_time_ms) {
-  if (is_first_packet_in_frame() && markerBit) {
+  if (is_first_packet_in_frame() && markerBit) { //single
     completeNALU = kNaluComplete;
-  } else if (is_first_packet_in_frame()) {
+  } else if (is_first_packet_in_frame()) { //fua第一个包
     completeNALU = kNaluStart;
-  } else if (markerBit) {
+  } else if (markerBit) { //fua最后一个包
     completeNALU = kNaluEnd;
-  } else {
+  } else { //fua中间包
     completeNALU = kNaluIncomplete;
   }
 

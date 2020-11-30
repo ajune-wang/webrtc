@@ -376,6 +376,7 @@ void VCMJitterEstimator::UpdateRtt(int64_t rttMs) {
   _rttFilter.Update(rttMs);
 }
 
+// 网络延时时间计算
 // Returns the current filtered estimate if available,
 // otherwise tries to calculate an estimate.
 int VCMJitterEstimator::GetJitterEstimate(

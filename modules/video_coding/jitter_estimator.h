@@ -18,6 +18,7 @@ namespace webrtc {
 
 class Clock;
 
+// 计算抖动(googJitterbufferMS)，用于计算目标延迟(googTargetDelayMs)，用于音视频同步
 class VCMJitterEstimator {
  public:
   explicit VCMJitterEstimator(Clock* clock);

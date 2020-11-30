@@ -69,6 +69,10 @@ class FrameList
   void Reset(UnorderedFrameList* free_frames);
 };
 
+// https://www.jianshu.com/p/78a1d80c1ae1
+// https://www.jianshu.com/p/bd10d60cebcd
+// https://www.xiaoheidiannao.com/18999.html
+// 在网络拥塞时，可以根据未接收到包的重要程度来优先发送nack请求，尽可能使靠近关键帧的包接收完整。必要情况下可以丢弃重要程度低的nack请求
 class VCMJitterBuffer {
  public:
   VCMJitterBuffer(Clock* clock, std::unique_ptr<EventWrapper> event);
@@ -234,7 +238,9 @@ class VCMJitterBuffer {
   // Number of allocated frames.
   int max_number_of_frames_;
   UnorderedFrameList free_frames_ RTC_GUARDED_BY(mutex_);
+  // 存储可以解码的帧（比如关键帧或者前序完整的P帧）
   FrameList decodable_frames_ RTC_GUARDED_BY(mutex_);
+  // 存储暂时不能解码的帧：（1）本身rtp包不完整的帧（2）依赖的参考帧不完整的帧
   FrameList incomplete_frames_ RTC_GUARDED_BY(mutex_);
   VCMDecodingState last_decoded_state_ RTC_GUARDED_BY(mutex_);
   bool first_packet_since_reset_;

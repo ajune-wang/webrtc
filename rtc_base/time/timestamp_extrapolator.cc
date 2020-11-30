@@ -123,6 +123,7 @@ void TimestampExtrapolator::Update(int64_t tMs, uint32_t ts90khz) {
   }
 }
 
+// 发送端发送时间计算
 int64_t TimestampExtrapolator::ExtrapolateLocalTime(uint32_t timestamp90khz) {
   int64_t localTimeMs = 0;
   CheckForWrapArounds(timestamp90khz);

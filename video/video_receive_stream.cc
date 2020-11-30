@@ -245,6 +245,7 @@ VideoReceiveStream::VideoReceiveStream(
     decoder_payload_types.insert(decoder.payload_type);
   }
 
+  // 渲染时间,根据硬件配置,是固定值
   timing_->set_render_delay(config_.render_delay_ms);
 
   frame_buffer_.reset(

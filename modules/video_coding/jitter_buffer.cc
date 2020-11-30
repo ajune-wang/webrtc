@@ -755,6 +755,8 @@ void VCMJitterBuffer::DropPacketsFromNackList(
       missing_sequence_numbers_.upper_bound(last_decoded_sequence_number));
 }
 
+// free_frames_队列有初始size，为空时，会增加队列size，但有最大值，
+// 也会定期从incompleteframes和decodable队列中清除一些过时的frame，push到free_frames_队列
 VCMFrameBuffer* VCMJitterBuffer::GetEmptyFrame() {
   if (free_frames_.empty()) {
     if (!TryToIncreaseJitterBufferSize()) {

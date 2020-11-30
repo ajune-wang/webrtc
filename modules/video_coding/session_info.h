@@ -30,6 +30,7 @@ struct FrameData {
   float rolling_average_packets_per_frame;
 };
 
+// 将rtp packet组装成可解码的frame
 class VCMSessionInfo {
  public:
   VCMSessionInfo();

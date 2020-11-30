@@ -30,6 +30,7 @@
 namespace webrtc {
 namespace video_coding {
 
+// 负责帧的完整性，保证组成帧的每个包序列号连续，并且有一个包标识帧的开始，有一个包标识帧的结束
 class PacketBuffer {
  public:
   struct Packet {

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0bcd78a0_bd7fc161",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14869
+      },
+      "writtenOn": "2020-11-30T18:50:26Z",
+      "side": 1,
+      "message": "Current code crashes on API Level \u003c 29 (Q).",
+      "revId": "221b40490353e257acec08c31a9d68241352d9cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

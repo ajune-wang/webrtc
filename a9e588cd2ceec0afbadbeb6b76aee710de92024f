@@ -69,6 +69,98 @@
       "parentUuid": "aa836535_c99f3681",
       "revId": "a9e588cd2ceec0afbadbeb6b76aee710de92024f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80b33d12_1bc67824",
+        "filename": "modules/desktop_capture/win/window_capture_utils.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 13849
+      },
+      "writtenOn": "2020-11-30T21:56:07Z",
+      "side": 1,
+      "message": "If you include the units in the var name then you can remove the comment (e.g. uTimeoutMs)/",
+      "range": {
+        "startLine": 269,
+        "startChar": 13,
+        "endLine": 269,
+        "endChar": 22
+      },
+      "revId": "a9e588cd2ceec0afbadbeb6b76aee710de92024f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d982cd99_2f019076",
+        "filename": "modules/desktop_capture/win/window_capture_utils_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 13849
+      },
+      "writtenOn": "2020-11-30T21:56:07Z",
+      "side": 1,
+      "message": "Can you switch to WCHAR here (and other TCHAR usages in the file)?  The desktop_capture code (save for one line) uses WCHAR throughout so I don\u0027t think we need to be flexible in terms of whether the A or W functions are going to be used.",
+      "range": {
+        "startLine": 26,
+        "startChar": 6,
+        "endLine": 27,
+        "endChar": 10
+      },
+      "revId": "a9e588cd2ceec0afbadbeb6b76aee710de92024f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87603c0d_a6af7d6a",
+        "filename": "modules/desktop_capture/win/window_capture_utils_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 13849
+      },
+      "writtenOn": "2020-11-30T21:56:07Z",
+      "side": 1,
+      "message": "You might consider splitting this up into separate tests (one for including unresponsive windows and the other for filtering them).  There is shared setup code but it\u0027s useful to scope a test down so you can see what is failing by the test title (if a failure occurs in this test as it is written, you have to also know the line# to know what is broken, if the test title tells you what is being tested, then it is easier to understand what might be broken if all you have is the test output)",
+      "range": {
+        "startLine": 118,
+        "startChar": 1,
+        "endLine": 121,
+        "endChar": 64
+      },
+      "revId": "a9e588cd2ceec0afbadbeb6b76aee710de92024f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86fa978d_851df2e1",
+        "filename": "modules/desktop_capture/win/window_capture_utils_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 13849
+      },
+      "writtenOn": "2020-11-30T21:56:07Z",
+      "side": 1,
+      "message": "Perhaps split this one up too",
+      "range": {
+        "startLine": 134,
+        "startChar": 29,
+        "endLine": 134,
+        "endChar": 50
+      },
+      "revId": "a9e588cd2ceec0afbadbeb6b76aee710de92024f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

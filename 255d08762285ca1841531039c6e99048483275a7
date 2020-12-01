@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf2bd7ce_01f60fe2",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 727,
+      "author": {
+        "id": 11540
+      },
+      "writtenOn": "2020-12-01T17:29:40Z",
+      "side": 1,
+      "message": "Yea, I mostly follow the way it is done in the file :).",
+      "parentUuid": "7a6a9d58_6524be3c",
+      "range": {
+        "startLine": 726,
+        "startChar": 52,
+        "endLine": 727,
+        "endChar": 28
+      },
+      "revId": "255d08762285ca1841531039c6e99048483275a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "765b36e5_172f2016",
@@ -37,6 +61,30 @@
       "writtenOn": "2020-12-01T15:04:24Z",
       "side": 1,
       "message": "Is this a known issue?\n\nLooks like we might have something wrong here: https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/rtc_base/cpu_time.cc;l\u003d56-68;drc\u003d10542f21c8e4e2d60b136fab45338f2b1e132dde.\n\nBut tests are not disabled on Windows so I suggest we investigate a bit (maybe a separate CL with a unit test) or open a bug.",
+      "range": {
+        "startLine": 732,
+        "startChar": 2,
+        "endLine": 734,
+        "endChar": 13
+      },
+      "revId": "255d08762285ca1841531039c6e99048483275a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a69a73db_f0914e5a",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 734,
+      "author": {
+        "id": 11540
+      },
+      "writtenOn": "2020-12-01T17:29:40Z",
+      "side": 1,
+      "message": "I don\u0027t think it is known.\n\nCreated https://crbug.com/webrtc/12249 to follow up on it. \n\nGetProcessTimes(GetCurrentProcess(), \u0026createTime, \u0026exitTime, \u0026kernelTime, \u0026userTime) doesn\u0027t work as I would expect.",
+      "parentUuid": "765b36e5_172f2016",
       "range": {
         "startLine": 732,
         "startChar": 2,

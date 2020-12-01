@@ -83,6 +83,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7947bae_92af9f32",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-12-01T10:52:25Z",
+      "side": 1,
+      "message": "Fixed.",
+      "parentUuid": "78767c48_5a095cd6",
+      "range": {
+        "startLine": 495,
+        "startChar": 0,
+        "endLine": 495,
+        "endChar": 26
+      },
+      "revId": "9935f8e59e3bcf4ca602643547b78e0c0b3969d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1e0c6d51_c329a150",
@@ -120,6 +144,30 @@
       "side": 1,
       "message": "in RtcpTransceiver I\u0027ve called it non_sender_rtt_measurement\nhttps://webrtc.googlesource.com/src/+/refs/heads/master/modules/rtp_rtcp/source/rtcp_transceiver_config.h#99\n\n(for consistency might good to name it the same, even if the name is far from perfect)",
       "parentUuid": "1e0c6d51_c329a150",
+      "range": {
+        "startLine": 147,
+        "startChar": 9,
+        "endLine": 147,
+        "endChar": 23
+      },
+      "revId": "9935f8e59e3bcf4ca602643547b78e0c0b3969d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b02e012_7779bd21",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-12-01T10:52:25Z",
+      "side": 1,
+      "message": "Renamed.",
+      "parentUuid": "dff6e59a_71fac4b5",
       "range": {
         "startLine": 147,
         "startChar": 9,

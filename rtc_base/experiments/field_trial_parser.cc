@@ -23,8 +23,8 @@
 namespace webrtc {
 namespace {
 
-int FindOrEnd(std::string str, size_t start, char delimiter) {
-  size_t pos = str.find(delimiter, start);
+int FindOrEnd(std::string str, size_t start, std::string delimiter) {
+  size_t pos = str.find_first_of(delimiter, start);
   pos = (pos == std::string::npos) ? str.length() : pos;
   return static_cast<int>(pos);
 }
@@ -63,10 +63,12 @@ void ParseFieldTrial(
 
   size_t i = 0;
   while (i < trial_string.length()) {
-    int val_end = FindOrEnd(trial_string, i, ',');
-    int colon_pos = FindOrEnd(trial_string, i, ':');
-    int key_end = std::min(val_end, colon_pos);
+    int comma_pos = FindOrEnd(trial_string, i, ",");
+    int colon_pos = FindOrEnd(trial_string, i, ":");
+    int suffix_pos = FindOrEnd(trial_string, colon_pos, "_");
+    int key_end = std::min(comma_pos, colon_pos);
     int val_begin = key_end + 1;
+    int val_end = std::min(comma_pos, suffix_pos);
     std::string key = trial_string.substr(i, key_end - i);
     absl::optional<std::string> opt_value;
     if (val_end >= val_begin)

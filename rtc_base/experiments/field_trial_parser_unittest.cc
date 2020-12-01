@@ -56,11 +56,33 @@ TEST(FieldTrialParserTest, ParsesValidParameters) {
   EXPECT_EQ(exp.ping.Get(), true);
   EXPECT_EQ(exp.hash.Get(), "x7c");
 }
+TEST(FieldTrialParserTest, ParsesValidParametersWithSuffix) {
+  DummyExperiment exp("Enabled,f:-1.7,r:2,s:10,p:1,h:x7c_20201201");
+  EXPECT_TRUE(exp.enabled.Get());
+  EXPECT_EQ(exp.factor.Get(), -1.7);
+  EXPECT_EQ(exp.retries.Get(), 2);
+  EXPECT_EQ(exp.size.Get(), 10u);
+  EXPECT_EQ(exp.ping.Get(), true);
+  EXPECT_EQ(exp.hash.Get(), "x7c");
+}
 TEST(FieldTrialParserTest, InitializesFromFieldTrial) {
   test::ScopedFieldTrials field_trials(
       "WebRTC-OtherExperiment/Disabled/"
       "WebRTC-DummyExperiment/Enabled,f:-1.7,r:2,s:10,p:1,h:x7c/"
       "WebRTC-AnotherExperiment/Enabled,f:-3.1,otherstuff:beef/");
+  DummyExperiment exp;
+  EXPECT_TRUE(exp.enabled.Get());
+  EXPECT_EQ(exp.factor.Get(), -1.7);
+  EXPECT_EQ(exp.retries.Get(), 2);
+  EXPECT_EQ(exp.size.Get(), 10u);
+  EXPECT_EQ(exp.ping.Get(), true);
+  EXPECT_EQ(exp.hash.Get(), "x7c");
+}
+TEST(FieldTrialParserTest, InitializesFromFieldTrialWithSuffix) {
+  test::ScopedFieldTrials field_trials(
+      "WebRTC-OtherExperiment/Disabled_20201201/"
+      "WebRTC-DummyExperiment/Enabled,f:-1.7,r:2,s:10,p:1,h:x7c_20201201/"
+      "WebRTC-AnotherExperiment/Enabled,f:-3.1,otherstuff:beef_20201201/");
   DummyExperiment exp;
   EXPECT_TRUE(exp.enabled.Get());
   EXPECT_EQ(exp.factor.Get(), -1.7);

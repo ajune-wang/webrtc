@@ -16,6 +16,69 @@
       "message": "PTAL.",
       "revId": "ddc0b06d3203e899138d66a58d24f8a81021caec",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b19dd2c1_d5a3ace5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-12-01T09:36:05Z",
+      "side": 1,
+      "message": "Thank you!",
+      "revId": "ddc0b06d3203e899138d66a58d24f8a81021caec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5813b6c8_8c8dc790",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-12-01T09:36:05Z",
+      "side": 1,
+      "message": "nit: the `config` is not modified, consider passing it by const reference.",
+      "range": {
+        "startLine": 73,
+        "startChar": 4,
+        "endLine": 73,
+        "endChar": 35
+      },
+      "revId": "ddc0b06d3203e899138d66a58d24f8a81021caec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "200acf22_e154a754",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-12-01T09:36:05Z",
+      "side": 1,
+      "message": "looking how the parameter is used, it might be clearer to name it something like\n\u0027simulate_sent_rtp_packet\u0027\n\nThough with that name it would only SetLastRtpTime \nwith SetTimestampOffset moved to unconditional section, similar to real code.\n\n(but that can also be done later)",
+      "range": {
+        "startLine": 237,
+        "startChar": 44,
+        "endLine": 237,
+        "endChar": 58
+      },
+      "revId": "ddc0b06d3203e899138d66a58d24f8a81021caec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

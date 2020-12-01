@@ -65,6 +65,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0dd0797_4e17bd83",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-12-01T19:24:53Z",
+      "side": 1,
+      "message": "Thanks.\n\nYes, another option was to return 0 but that might be a good value so it is a bit tricky. I looked a bit into this, because I was worried about breaking the system but according to https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/api/video/video_frame.h;l\u003d137-142;drc\u003d111e9814665c2aadc19ec3b2d31f36883c1508b6, having a VideoFrame without ID is defined behavior.\n\nI agree about the API but luckily this is part of the test framework so it is fine to avoid to send out a PSA. :)",
+      "parentUuid": "038d2160_a442d6de",
+      "range": {
+        "startLine": 171,
+        "startChar": 6,
+        "endLine": 171,
+        "endChar": 22
+      },
+      "revId": "71f6eef9e564632f9b2f4cf4c5478b5a7597e1b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "66134075_8509a0a6",

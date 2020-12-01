@@ -14,6 +14,8 @@
 #include <memory>
 
 #include "modules/audio_processing/echo_control_mobile_impl.h"
+#include "modules/audio_processing/logging/apm_data_dumper.h"
+#include "modules/audio_processing/test/aec_dump_based_simulator.h"
 #include "modules/audio_processing/test/protobuf_utils.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
@@ -227,35 +229,114 @@ void AecDumpBasedSimulator::Process() {
   }
 
   webrtc::audioproc::Event event_msg;
-  int num_forward_chunks_processed = 0;
+  int capture_frames_since_init = 0;
+  int init_index = 0;
   if (settings_.aec_dump_input_string.has_value()) {
     std::stringstream input;
     input << settings_.aec_dump_input_string.value();
-    while (ReadMessageFromString(&input, &event_msg))
-      HandleEvent(event_msg, &num_forward_chunks_processed);
+    while (ReadMessageFromString(&input, &event_msg)) {
+      SelectivelyToggleDataDumping(init_index, capture_frames_since_init);
+      HandleEvent(event_msg, capture_frames_since_init, init_index);
+    }
   } else {
     dump_input_file_ =
         OpenFile(settings_.aec_dump_input_filename->c_str(), "rb");
-    while (ReadMessageFromFile(dump_input_file_, &event_msg))
-      HandleEvent(event_msg, &num_forward_chunks_processed);
+    while (ReadMessageFromFile(dump_input_file_, &event_msg)) {
+      SelectivelyToggleDataDumping(init_index, capture_frames_since_init);
+      HandleEvent(event_msg, capture_frames_since_init, init_index);
+    }
     fclose(dump_input_file_);
   }
 
   DetachAecDump();
 }
 
+// Update counters
+void UpdateEventSpecificCounters(const webrtc::audioproc::Event& event_msg,
+                                 int& num_capture_frames,
+                                 int& num_render_frames,
+                                 int& init_index) {
+  switch (event_msg.type()) {
+    case webrtc::audioproc::Event::INIT:
+      ++init_index;
+      break;
+    case webrtc::audioproc::Event::STREAM:
+      ++num_capture_frames;
+      break;
+    case webrtc::audioproc::Event::REVERSE_STREAM:
+      ++num_render_frames;
+      break;
+    case webrtc::audioproc::Event::CONFIG:
+      break;
+    case webrtc::audioproc::Event::RUNTIME_SETTING:
+      break;
+    case webrtc::audioproc::Event::UNKNOWN_EVENT:
+      RTC_CHECK_NOTREACHED();
+  }
+}
+
+void AecDumpBasedSimulator::Analyze() {
+  const bool use_dump_file = !settings_.aec_dump_input_string.has_value();
+  std::stringstream input;
+  if (use_dump_file) {
+    dump_input_file_ =
+        OpenFile(settings_.aec_dump_input_filename->c_str(), "rb");
+  } else {
+    input << settings_.aec_dump_input_string.value();
+  }
+
+  webrtc::audioproc::Event event_msg;
+  bool message_available =
+      use_dump_file ? ReadMessageFromFile(dump_input_file_, &event_msg)
+                    : ReadMessageFromString(&input, &event_msg);
+  int num_capture_frames = 0;
+  int num_render_frames = 0;
+  int init_index = 0;
+  while (ReadMessageFromString(&input, &event_msg)) {
+    if (event_msg.type() == webrtc::audioproc::Event::INIT) {
+      ++init_index;
+      constexpr float kNumFramesPerSecond = 100.f;
+      float capture_time_seconds = num_capture_frames / kNumFramesPerSecond;
+      float render_time_seconds = num_render_frames / kNumFramesPerSecond;
+
+      std::cout << "Inits:" << std::endl;
+      std::cout << init_index << ": -->" << std::endl;
+      std::cout << " Time:" << std::endl;
+      std::cout << "  Capture: " << capture_time_seconds << " s ("
+                << num_capture_frames << " frames) " << std::endl;
+      std::cout << "  Render: " << render_time_seconds << " s ("
+                << num_render_frames << " frames) " << std::endl;
+    } else if (event_msg.type() == webrtc::audioproc::Event::STREAM) {
+      ++num_capture_frames;
+    } else if (event_msg.type() == webrtc::audioproc::Event::REVERSE_STREAM) {
+      ++num_render_frames;
+    }
+
+    message_available = use_dump_file
+                            ? ReadMessageFromFile(dump_input_file_, &event_msg)
+                            : ReadMessageFromString(&input, &event_msg);
+  }
+
+  if (use_dump_file) {
+    fclose(dump_input_file_);
+  }
+}
+
 void AecDumpBasedSimulator::HandleEvent(
     const webrtc::audioproc::Event& event_msg,
-    int* num_forward_chunks_processed) {
+    int& capture_frames_since_init,
+    int& init_index) {
   switch (event_msg.type()) {
     case webrtc::audioproc::Event::INIT:
       RTC_CHECK(event_msg.has_init());
       HandleMessage(event_msg.init());
+      ++init_index;
+      capture_frames_since_init = 0;
       break;
     case webrtc::audioproc::Event::STREAM:
       RTC_CHECK(event_msg.has_stream());
       HandleMessage(event_msg.stream());
-      ++num_forward_chunks_processed;
+      ++capture_frames_since_init;
       break;
     case webrtc::audioproc::Event::REVERSE_STREAM:
       RTC_CHECK(event_msg.has_reverse_stream());

@@ -152,14 +152,20 @@ static NSString *const loopbackLaunchProcessArgument = @"loopback";
 #pragma mark - ARDVideoCallViewControllerDelegate
 
 - (void)viewControllerDidFinish:(ARDVideoCallViewController *)viewController {
-  if (![viewController isBeingDismissed]) {
-    RTCLog(@"Dismissing VC");
-    [self dismissViewControllerAnimated:YES completion:^{
-      [self restartAudioPlayerIfNeeded];
-    }];
-  }
-  RTC_OBJC_TYPE(RTCAudioSession) *session = [RTC_OBJC_TYPE(RTCAudioSession) sharedInstance];
-  session.isAudioEnabled = NO;
+  [RTC_OBJC_TYPE(RTCDispatcher)
+      dispatchAsyncOnType:RTCDispatcherTypeMain
+                    block:^{
+                      if (![viewController isBeingDismissed]) {
+                        RTCLog(@"Dismissing VC");
+                        [self dismissViewControllerAnimated:YES
+                                                 completion:^{
+                                                   [self restartAudioPlayerIfNeeded];
+                                                 }];
+                      }
+                      RTC_OBJC_TYPE(RTCAudioSession) *session =
+                          [RTC_OBJC_TYPE(RTCAudioSession) sharedInstance];
+                      session.isAudioEnabled = NO;
+                    }];
 }
 
 #pragma mark - RTC_OBJC_TYPE(RTCAudioSessionDelegate)

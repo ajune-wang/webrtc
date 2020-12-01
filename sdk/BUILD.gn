@@ -641,6 +641,7 @@ if (is_ios || is_mac) {
         ":native_video",
         ":videocodec_objc",
         ":videotoolbox_objc",
+        ":videotoolbox_vp9",
         ":vp8",
         ":vp9",
         ":vpx_codec_constants",
@@ -692,6 +693,26 @@ if (is_ios || is_mac) {
         ":wrapped_native_codec_objc",
         "../media:rtc_media_base",
         "../modules/video_coding:webrtc_vp9",
+      ]
+    }
+
+    rtc_library("videotoolbox_vp9") {
+      visibility = [ "*" ]
+      sources = [
+        "objc/components/video_codec/RTCVideoDecoderVP9HW.h",
+        "objc/components/video_codec/RTCVideoDecoderVP9HW.mm",
+      ]
+
+      deps = [
+        ":base_objc",
+        ":helpers_objc",
+        ":video_toolbox_cc",
+        ":videoframebuffer_objc",
+        ":wrapped_native_codec_objc",
+        "../media:rtc_media_base",
+        "../modules/video_coding:video_codec_interface",
+        "../rtc_base:checks",
+        "../rtc_base:logging",
       ]
     }
 
@@ -1575,6 +1596,7 @@ if (is_ios || is_mac) {
       visibility = [
         ":sdk_unittests_sources",
         ":videotoolbox_objc",
+        ":videotoolbox_vp9",
       ]
       sources = [
         "objc/components/video_codec/helpers.cc",

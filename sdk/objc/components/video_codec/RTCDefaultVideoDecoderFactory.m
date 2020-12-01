@@ -10,10 +10,14 @@
 
 #import "RTCDefaultVideoDecoderFactory.h"
 
+#import <VideoToolbox/VideoToolbox.h>
+
 #import "RTCH264ProfileLevelId.h"
 #import "RTCVideoDecoderH264.h"
+#import "RTCVideoDecoderVP9HW.h"
 #import "api/video_codec/RTCVideoCodecConstants.h"
 #import "api/video_codec/RTCVideoDecoderVP8.h"
+#import "base/RTCLogging.h"
 #import "base/RTCVideoCodecInfo.h"
 #if defined(RTC_ENABLE_VP9)
 #import "api/video_codec/RTCVideoDecoderVP9.h"
@@ -65,6 +69,12 @@
     return [RTC_OBJC_TYPE(RTCVideoDecoderVP8) vp8Decoder];
 #if defined(RTC_ENABLE_VP9)
   } else if ([info.name isEqualToString:kRTCVideoCodecVp9Name]) {
+    if (@available(ios 11.0, *)) {
+      if (VTIsHardwareDecodeSupported(kCMVideoCodecType_VP9)) {
+        return [[RTC_OBJC_TYPE(RTCVideoDecoderVP9HW) alloc] init];
+      }
+    }
+    // Fall back to software if no HW support available.
     return [RTC_OBJC_TYPE(RTCVideoDecoderVP9) vp9Decoder];
 #endif
   }

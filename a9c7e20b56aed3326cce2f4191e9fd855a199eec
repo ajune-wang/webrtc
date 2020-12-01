@@ -62,6 +62,30 @@
       },
       "revId": "a9c7e20b56aed3326cce2f4191e9fd855a199eec",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "198a2377_85299968",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-12-01T13:04:06Z",
+      "side": 1,
+      "message": "Not so much. SetRtcpXrRrtrStatus, SendRTCP and SendRTCP (called via the test\u0027s SendFrame method) all call one or a few methods on RTCPSender. The SendFrame method also exercises some code in RtpSenderVideo, but that\u0027s maybe also out of the proper scope for these tests?\n\nDo we have coverage for the same behavior in the RTCPSender tests?",
+      "parentUuid": "bc29082c_e5920ad3",
+      "range": {
+        "startLine": 312,
+        "startChar": 3,
+        "endLine": 312,
+        "endChar": 26
+      },
+      "revId": "a9c7e20b56aed3326cce2f4191e9fd855a199eec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -60,6 +60,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "ccee3ed9_a651126c",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-12-01T09:44:58Z",
+      "side": 1,
+      "message": "Done. I think I tried something similar earlier, but for some reason failed with passing on GetDefaultconfig(). But const ref seems to work fine, and I can them remove a couple of std::move.",
+      "parentUuid": "5813b6c8_8c8dc790",
+      "range": {
+        "startLine": 73,
+        "startChar": 4,
+        "endLine": 73,
+        "endChar": 35
+      },
+      "revId": "ddc0b06d3203e899138d66a58d24f8a81021caec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "200acf22_e154a754",
         "filename": "modules/rtp_rtcp/source/rtcp_sender_unittest.cc",
         "patchSetId": 2
@@ -71,6 +95,30 @@
       "writtenOn": "2020-12-01T09:36:05Z",
       "side": 1,
       "message": "looking how the parameter is used, it might be clearer to name it something like\n\u0027simulate_sent_rtp_packet\u0027\n\nThough with that name it would only SetLastRtpTime \nwith SetTimestampOffset moved to unconditional section, similar to real code.\n\n(but that can also be done later)",
+      "range": {
+        "startLine": 237,
+        "startChar": 44,
+        "endLine": 237,
+        "endChar": 58
+      },
+      "revId": "ddc0b06d3203e899138d66a58d24f8a81021caec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3bab30f_ec35f842",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-12-01T09:44:58Z",
+      "side": 1,
+      "message": "I\u0027m leaving that for later.",
+      "parentUuid": "200acf22_e154a754",
       "range": {
         "startLine": 237,
         "startChar": 44,

@@ -16,6 +16,23 @@
       "message": "Harald, Taylor, can you take a look?\nI reused the existing stuff from the sctp parts of the code (which dumps SCTP packets at LS_VERBOSE without field trial?). In terms of build (h/t Mirko) that feels super awkward. If you have suggestions where to put a more centralized packet dumper I\u0027m all ears.\n\nTogether with video_replay such dumps remain super useful though and if we can ship it in Chrome we might even get rid of the beta/canary \"allow unencrypted rtp\" flag.",
       "revId": "72b6ca440fb3c99176c35972388a4a5f2a268f2a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79eb1476_9aaf8262",
+        "filename": "pc/srtp_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-12-01T23:09:46Z",
+      "side": 1,
+      "message": "I\u0027d really prefer not depending on usrsctp when we don\u0027t have to. It should be fairly simple to reimplement the method, using TimeUTCMicros to get the wall clock time (converting to hour/minute/second with localtime_r/s), and using hex_encode_with_delimiter to encode the bytes.",
+      "revId": "72b6ca440fb3c99176c35972388a4a5f2a268f2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

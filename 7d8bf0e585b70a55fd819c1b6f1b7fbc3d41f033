@@ -22,6 +22,30 @@
       },
       "revId": "7d8bf0e585b70a55fd819c1b6f1b7fbc3d41f033",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb278c90_dddc0cfe",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-12-01T08:29:16Z",
+      "side": 0,
+      "message": "Thanks for pointing that out. I decided to simplify the docstring in both the FC and GRU layers since implementation details in a header file usually add clutter.",
+      "parentUuid": "8b59c6dd_65a21be2",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 54
+      },
+      "revId": "7d8bf0e585b70a55fd819c1b6f1b7fbc3d41f033",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

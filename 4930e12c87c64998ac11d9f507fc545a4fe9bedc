@@ -22,6 +22,30 @@
       },
       "revId": "4930e12c87c64998ac11d9f507fc545a4fe9bedc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f02ec5b6_6e211075",
+        "filename": "modules/audio_processing/agc2/rnn_vad/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-12-01T08:29:16Z",
+      "side": 1,
+      "message": "Yes, the GRU layer is moved into `:rnn_vad_layers` in the child CL modules/audio_processing/agc2/rnn_vad/BUILD.gn",
+      "parentUuid": "82c5fce1_134e3d6a",
+      "range": {
+        "startLine": 82,
+        "startChar": 16,
+        "endLine": 82,
+        "endChar": 30
+      },
+      "revId": "4930e12c87c64998ac11d9f507fc545a4fe9bedc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

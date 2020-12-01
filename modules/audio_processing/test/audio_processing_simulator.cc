@@ -23,7 +23,6 @@
 #include "modules/audio_processing/aec_dump/aec_dump_factory.h"
 #include "modules/audio_processing/echo_control_mobile_impl.h"
 #include "modules/audio_processing/include/audio_processing.h"
-#include "modules/audio_processing/logging/apm_data_dumper.h"
 #include "modules/audio_processing/test/fake_recording_device.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"

@@ -44,6 +44,9 @@ class AecDumpBasedSimulator final : public AudioProcessingSimulator {
   // Processes the messages in the aecdump file.
   void Process() override;
 
+  // Analyzes the data in the aecdump file.
+  void AnalyzeOnly() override;
+
  private:
   void HandleEvent(const webrtc::audioproc::Event& event_msg,
                    int* num_forward_chunks_processed);

@@ -253,6 +253,31 @@ ABSL_FLAG(std::string,
           "",
           "Internal data dump output directory");
 ABSL_FLAG(bool,
+          analyze,
+          false,
+          "Only analyze the call setup behavior (no processing)");
+ABSL_FLAG(float,
+          dump_start_seconds,
+          kParameterNotSpecifiedValue,
+          "Start of when to dump data (seconds).");
+ABSL_FLAG(float,
+          dump_end_seconds,
+          kParameterNotSpecifiedValue,
+          "End of when to dump data (seconds).");
+ABSL_FLAG(int,
+          dump_start_frame,
+          kParameterNotSpecifiedValue,
+          "Start of when to dump data (frames).");
+ABSL_FLAG(int,
+          dump_end_frame,
+          kParameterNotSpecifiedValue,
+          "End of when to dump data (frames).");
+ABSL_FLAG(int,
+          init_to_process,
+          kParameterNotSpecifiedValue,
+          "Init index to process.");
+
+ABSL_FLAG(bool,
           float_wav_output,
           false,
           "Produce floating point wav output files.");
@@ -398,6 +423,7 @@ SimulationSettings CreateSettings() {
                         &settings.agc_compression_gain);
   SetSettingIfFlagSet(absl::GetFlag(FLAGS_agc2_enable_adaptive_gain),
                       &settings.agc2_use_adaptive_gain);
+
   SetSettingIfSpecified(absl::GetFlag(FLAGS_agc2_fixed_gain_db),
                         &settings.agc2_fixed_gain_db);
   settings.agc2_adaptive_level_estimator = MapAgc2AdaptiveLevelEstimator(
@@ -446,6 +472,14 @@ SimulationSettings CreateSettings() {
   settings.wav_output_format = absl::GetFlag(FLAGS_float_wav_output)
                                    ? WavFile::SampleFormat::kFloat
                                    : WavFile::SampleFormat::kInt16;
+
+  settings.analysis_only = FLAG_analyze;
+
+  SetSettingIfSpecified(FLAG_dump_start_seconds, &settings.dump_start_seconds);
+  SetSettingIfSpecified(FLAG_dump_end_seconds, &settings.dump_end_seconds);
+  SetSettingIfSpecified(FLAG_dump_start_frame, &settings.dump_start_frame);
+  SetSettingIfSpecified(FLAG_dump_end_frame, &settings.dump_end_frame);
+  SetSettingIfSpecified(FLAG_init_to_process, &settings.init_to_process);
 
   return settings;
 }
@@ -613,6 +647,22 @@ void PerformBasicParameterSanityChecks(
       "Error: --dump_data cannot be set without proper build support.\n");
 
   ReportConditionalErrorAndExit(
+      settings.dump_start_seconds && settings.dump_start_frame,
+      "Error: --dump_start_seconds cannot be specified at the same time as "
+      "--dump_start_frame.\n");
+
+  ReportConditionalErrorAndExit(
+      settings.dump_end_seconds && settings.dump_end_frame,
+      "Error: --dump_end_seconds cannot be specified at the same time as "
+      "--dump_end_frame.\n");
+
+  ReportConditionalErrorAndExit(settings.init_to_process &&
+                                    *settings.init_to_process != 1 &&
+                                    !settings.aec_dump_input_filename,
+                                "Error: --init_to_process must be set to 1 for "
+                                "wav-file based simulations.\n");
+
+  ReportConditionalErrorAndExit(
       !settings.dump_internal_data &&
           settings.dump_internal_data_output_dir.has_value(),
       "Error: --dump_data_output_dir cannot be set without --dump_data.\n");
@@ -684,7 +734,11 @@ int RunSimulation(rtc::scoped_refptr<AudioProcessing> audio_processing,
                                           std::move(ap_builder)));
   }
 
-  processor->Process();
+  if (settings.analysis_only) {
+    processor->Analyze();
+  } else {
+    processor->Process();
+  }
 
   if (settings.report_performance) {
     processor->GetApiCallStatistics().PrintReport();

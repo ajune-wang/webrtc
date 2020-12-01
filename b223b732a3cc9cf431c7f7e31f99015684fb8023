@@ -57,6 +57,24 @@
       "parentUuid": "05605a2f_df5091a6",
       "revId": "b223b732a3cc9cf431c7f7e31f99015684fb8023",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70016f2a_546ea3e3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-12-01T15:37:43Z",
+      "side": 1,
+      "message": "I think \u0027_\u0027 could very well be used in the values in some cases, it\u0027s not only enable/disable or unit types. For instance field_trial_list.h delimits a list with | and FrameDumpingVideoDecoder uses a ;-separated path to the file system...",
+      "parentUuid": "7f283e53_d291e797",
+      "revId": "b223b732a3cc9cf431c7f7e31f99015684fb8023",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

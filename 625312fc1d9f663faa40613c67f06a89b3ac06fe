@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "41889685_a84d6347",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1850,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-12-01T12:51:44Z",
+      "side": 1,
+      "message": "EncoderConfig is already too overloaded in opinion.\nRenamed to PreformanceFlags to indicate that the intent is for these flags to affect the\nspeed vs quality tradeoff. \"flags\" also in my mind fit better with how they are used.\nok?",
+      "parentUuid": "28b3d89b_af5d5a39",
+      "range": {
+        "startLine": 1850,
+        "startChar": 49,
+        "endLine": 1850,
+        "endChar": 71
+      },
+      "revId": "625312fc1d9f663faa40613c67f06a89b3ac06fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dc6b3803_2d2d4db9",
@@ -37,6 +61,30 @@
       "writtenOn": "2020-12-01T10:55:36Z",
       "side": 1,
       "message": "EncoderConfig (or something like that)?",
+      "range": {
+        "startLine": 196,
+        "startChar": 9,
+        "endLine": 196,
+        "endChar": 20
+      },
+      "revId": "625312fc1d9f663faa40613c67f06a89b3ac06fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "007e2a97_fa25f433",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-12-01T12:51:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc6b3803_2d2d4db9",
       "range": {
         "startLine": 196,
         "startChar": 9,

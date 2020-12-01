@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23eb0ac4_8b0568b1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-12-01T14:50:35Z",
+      "side": 1,
+      "message": "Two comments, but only one nit.",
+      "revId": "71f6eef9e564632f9b2f4cf4c5478b5a7597e1b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93231580_e648f53c",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-12-01T14:50:35Z",
+      "side": 1,
+      "message": "I am not sure about this.\n\nIt doesn\u0027t sound like a problem but I would expect the analyzer to just ignore the OnFrameCaptured and maybe return an absl::optional\u003cuint16_t\u003e and absl::nullopt if it has ignored the frame because it is stopped.\n\nIt is probably more invasive though, so this is more pragmatic.",
+      "range": {
+        "startLine": 171,
+        "startChar": 6,
+        "endLine": 171,
+        "endChar": 22
+      },
+      "revId": "71f6eef9e564632f9b2f4cf4c5478b5a7597e1b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66134075_8509a0a6",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-12-01T14:50:35Z",
+      "side": 1,
+      "message": "Remove one \"m\".",
+      "range": {
+        "startLine": 567,
+        "startChar": 46,
+        "endLine": 567,
+        "endChar": 47
+      },
+      "revId": "71f6eef9e564632f9b2f4cf4c5478b5a7597e1b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b5d8fad_430086a0",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-12-01T14:50:35Z",
+      "side": 1,
+      "message": "Can we poll analyzer.GetGlobalCounters() until the counters show that frames have been processed (and fail after a few seconds, like for timeout exceeded)?\n\n\nHmm, I see this is how it is done in the file. So maybe it is fine for now.",
+      "range": {
+        "startLine": 602,
+        "startChar": 2,
+        "endLine": 605,
+        "endChar": 15
+      },
+      "revId": "71f6eef9e564632f9b2f4cf4c5478b5a7597e1b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

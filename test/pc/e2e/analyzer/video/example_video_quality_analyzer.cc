@@ -24,7 +24,7 @@ void ExampleVideoQualityAnalyzer::Start(
     rtc::ArrayView<const std::string> peer_names,
     int max_threads_count) {}
 
-uint16_t ExampleVideoQualityAnalyzer::OnFrameCaptured(
+absl::optional<uint16_t> ExampleVideoQualityAnalyzer::OnFrameCaptured(
     absl::string_view peer_name,
     const std::string& stream_label,
     const webrtc::VideoFrame& frame) {

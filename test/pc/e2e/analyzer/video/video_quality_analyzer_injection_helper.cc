@@ -58,9 +58,11 @@ class AnalyzingFramePreprocessor
   VideoFrame Preprocess(const VideoFrame& source_frame) override {
     // Copy VideoFrame to be able to set id on it.
     VideoFrame frame = source_frame;
-    uint16_t frame_id =
+    absl::optional<uint16_t> frame_id =
         analyzer_->OnFrameCaptured(peer_name_, stream_label_, frame);
-    frame.set_id(frame_id);
+    if (frame_id.has_value()) {
+      frame.set_id(frame_id.value());
+    }
 
     for (auto& sink : sinks_) {
       sink->OnFrame(frame);

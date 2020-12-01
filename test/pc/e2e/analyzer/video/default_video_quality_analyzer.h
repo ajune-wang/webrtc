@@ -196,9 +196,9 @@ class DefaultVideoQualityAnalyzer : public VideoQualityAnalyzerInterface {
   void Start(std::string test_case_name,
              rtc::ArrayView<const std::string> peer_names,
              int max_threads_count) override;
-  uint16_t OnFrameCaptured(absl::string_view peer_name,
-                           const std::string& stream_label,
-                           const VideoFrame& frame) override;
+  absl::optional<uint16_t> OnFrameCaptured(absl::string_view peer_name,
+                                           const std::string& stream_label,
+                                           const VideoFrame& frame) override;
   void OnFramePreEncode(absl::string_view peer_name,
                         const VideoFrame& frame) override;
   void OnFrameEncoded(absl::string_view peer_name,

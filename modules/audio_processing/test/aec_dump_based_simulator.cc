@@ -14,6 +14,8 @@
 #include <memory>
 
 #include "modules/audio_processing/echo_control_mobile_impl.h"
+#include "modules/audio_processing/logging/apm_data_dumper.h"
+#include "modules/audio_processing/test/aec_dump_based_simulator.h"
 #include "modules/audio_processing/test/protobuf_utils.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"

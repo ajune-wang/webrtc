@@ -253,6 +253,31 @@ ABSL_FLAG(std::string,
           "",
           "Internal data dump output directory");
 ABSL_FLAG(bool,
+          analyze,
+          false,
+          "Only analyze the call setup behavior (no processing)");
+ABSL_FLAG(float,
+          dump_start_seconds,
+          kParameterNotSpecifiedValue,
+          "Start of when to dump data (seconds).");
+ABSL_FLAG(float,
+          dump_end_seconds,
+          kParameterNotSpecifiedValue,
+          "End of when to dump data (seconds).");
+ABSL_FLAG(int,
+          dump_start_frame,
+          kParameterNotSpecifiedValue,
+          "Start of when to dump data (frames).");
+ABSL_FLAG(int,
+          dump_end_frame,
+          kParameterNotSpecifiedValue,
+          "End of when to dump data (frames).");
+ABSL_FLAG(int,
+          init_to_process,
+          kParameterNotSpecifiedValue,
+          "Init index to process.");
+
+ABSL_FLAG(bool,
           float_wav_output,
           false,
           "Produce floating point wav output files.");
@@ -398,54 +423,14 @@ SimulationSettings CreateSettings() {
                         &settings.agc_compression_gain);
   SetSettingIfFlagSet(absl::GetFlag(FLAGS_agc2_enable_adaptive_gain),
                       &settings.agc2_use_adaptive_gain);
-  SetSettingIfSpecified(absl::GetFlag(FLAGS_agc2_fixed_gain_db),
-                        &settings.agc2_fixed_gain_db);
-  settings.agc2_adaptive_level_estimator = MapAgc2AdaptiveLevelEstimator(
-      absl::GetFlag(FLAGS_agc2_adaptive_level_estimator));
-  SetSettingIfSpecified(absl::GetFlag(FLAGS_pre_amplifier_gain_factor),
-                        &settings.pre_amplifier_gain_factor);
-  SetSettingIfSpecified(absl::GetFlag(FLAGS_ns_level), &settings.ns_level);
-  SetSettingIfFlagSet(absl::GetFlag(FLAGS_ns_analysis_on_linear_aec_output),
-                      &settings.ns_analysis_on_linear_aec_output);
-  SetSettingIfSpecified(absl::GetFlag(FLAGS_maximum_internal_processing_rate),
-                        &settings.maximum_internal_processing_rate);
-  SetSettingIfSpecified(absl::GetFlag(FLAGS_stream_delay),
-                        &settings.stream_delay);
-  SetSettingIfFlagSet(absl::GetFlag(FLAGS_use_stream_delay),
-                      &settings.use_stream_delay);
-  SetSettingIfSpecified(absl::GetFlag(FLAGS_custom_call_order_file),
-                        &settings.call_order_input_filename);
-  SetSettingIfSpecified(absl::GetFlag(FLAGS_output_custom_call_order_file),
-                        &settings.call_order_output_filename);
-  SetSettingIfSpecified(absl::GetFlag(FLAGS_aec_settings),
-                        &settings.aec_settings_filename);
-  settings.initial_mic_level = absl::GetFlag(FLAGS_initial_mic_level);
-  SetSettingIfFlagSet(absl::GetFlag(FLAGS_multi_channel_render),
-                      &settings.multi_channel_render);
-  SetSettingIfFlagSet(absl::GetFlag(FLAGS_multi_channel_capture),
-                      &settings.multi_channel_capture);
-  settings.simulate_mic_gain = absl::GetFlag(FLAGS_simulate_mic_gain);
-  SetSettingIfSpecified(absl::GetFlag(FLAGS_simulated_mic_kind),
-                        &settings.simulated_mic_kind);
-  settings.report_performance = absl::GetFlag(FLAGS_performance_report);
-  SetSettingIfSpecified(absl::GetFlag(FLAGS_performance_report_output_file),
-                        &settings.performance_report_output_filename);
-  settings.use_verbose_logging = absl::GetFlag(FLAGS_verbose);
-  settings.use_quiet_output = absl::GetFlag(FLAGS_quiet);
-  settings.report_bitexactness = absl::GetFlag(FLAGS_bitexactness_report);
-  settings.discard_all_settings_in_aecdump =
-      absl::GetFlag(FLAGS_discard_settings_in_aecdump);
-  settings.fixed_interface = absl::GetFlag(FLAGS_fixed_interface);
-  settings.store_intermediate_output =
-      absl::GetFlag(FLAGS_store_intermediate_output);
-  settings.print_aec_parameter_values =
-      absl::GetFlag(FLAGS_print_aec_parameter_values);
-  settings.dump_internal_data = absl::GetFlag(FLAGS_dump_data);
-  SetSettingIfSpecified(absl::GetFlag(FLAGS_dump_data_output_dir),
-                        &settings.dump_internal_data_output_dir);
-  settings.wav_output_format = absl::GetFlag(FLAGS_float_wav_output)
-                                   ? WavFile::SampleFormat::kFloat
-                                   : WavFile::SampleFormat::kInt16;
+
+  settings.analysis_only = FLAG_analyze;
+
+  SetSettingIfSpecified(FLAG_dump_start_seconds, &settings.dump_start_seconds);
+  SetSettingIfSpecified(FLAG_dump_end_seconds, &settings.dump_end_seconds);
+  SetSettingIfSpecified(FLAG_dump_start_frame, &settings.dump_start_frame);
+  SetSettingIfSpecified(FLAG_dump_end_frame, &settings.dump_end_frame);
+  SetSettingIfSpecified(FLAG_init_to_process, &settings.init_to_process);
 
   return settings;
 }
@@ -613,6 +598,22 @@ void PerformBasicParameterSanityChecks(
       "Error: --dump_data cannot be set without proper build support.\n");
 
   ReportConditionalErrorAndExit(
+      settings.dump_start_seconds && settings.dump_start_frame,
+      "Error: --dump_start_seconds cannot be specified at the same time as "
+      "--dump_start_frame.\n");
+
+  ReportConditionalErrorAndExit(
+      settings.dump_end_seconds && settings.dump_end_frame,
+      "Error: --dump_end_seconds cannot be specified at the same time as "
+      "--dump_end_frame.\n");
+
+  ReportConditionalErrorAndExit(settings.init_to_process &&
+                                    *settings.init_to_process != 1 &&
+                                    !settings.aec_dump_input_filename,
+                                "Error: --init_to_process must be set to 1 for "
+                                "wav-file based simulations.\n");
+
+  ReportConditionalErrorAndExit(
       !settings.dump_internal_data &&
           settings.dump_internal_data_output_dir.has_value(),
       "Error: --dump_data_output_dir cannot be set without --dump_data.\n");
@@ -684,7 +685,11 @@ int RunSimulation(rtc::scoped_refptr<AudioProcessing> audio_processing,
                                           std::move(ap_builder)));
   }
 
-  processor->Process();
+  if (settings.analysis_only) {
+    processor->Analyze();
+  } else {
+    processor->Process();
+  }
 
   if (settings.report_performance) {
     processor->GetApiCallStatistics().PrintReport();

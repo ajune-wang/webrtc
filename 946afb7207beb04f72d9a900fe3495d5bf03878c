@@ -16,6 +16,23 @@
       "message": "mbonadei@ can you please take a look?",
       "revId": "946afb7207beb04f72d9a900fe3495d5bf03878c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d2d66db_08b8b4b9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15123
+      },
+      "writtenOn": "2020-12-01T23:19:27Z",
+      "side": 1,
+      "message": "mbonadei@ can you please take a look? This CL renames the code sites that I missed in my previous CL",
+      "revId": "946afb7207beb04f72d9a900fe3495d5bf03878c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

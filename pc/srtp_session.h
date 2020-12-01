@@ -109,6 +109,9 @@ class SrtpSession {
   // Returns send stream current packet index from srtp db.
   bool GetSendStreamPacketIndex(void* data, int in_len, int64_t* index);
 
+  // Writes unencrypted packets to the log file for debugging.
+  void DumpPacket(const void* buf, int len, int outbound);
+
   // These methods are responsible for initializing libsrtp (if the usage count
   // is incremented from 0 to 1) or deinitializing it (when decremented from 1
   // to 0).
@@ -130,6 +133,7 @@ class SrtpSession {
   bool external_auth_active_ = false;
   bool external_auth_enabled_ = false;
   int decryption_failure_count_ = 0;
+  bool dump_plain_rtp_ = false;
   RTC_DISALLOW_COPY_AND_ASSIGN(SrtpSession);
 };
 

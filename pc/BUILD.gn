@@ -135,6 +135,9 @@ rtc_library("rtc_pc_base") {
   if (rtc_build_libsrtp) {
     deps += [ "//third_party/libsrtp" ]
   }
+  if (rtc_enable_sctp && rtc_build_usrsctp) {
+    deps += [ "//third_party/usrsctp" ]
+  }
 
   public_configs = [ ":rtc_pc_config" ]
 }

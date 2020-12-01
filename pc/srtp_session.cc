@@ -10,11 +10,17 @@
 
 #include "pc/srtp_session.h"
 
+#ifdef HAVE_SCTP
+#include <string.h>
+#include <usrsctp.h>
+#endif  // HAVE_SCTP
+
 #include "absl/base/attributes.h"
 #include "media/base/rtp_utils.h"
 #include "pc/external_hmac.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/ssl_stream_adapter.h"
+#include "system_wrappers/include/field_trial.h"
 #include "system_wrappers/include/metrics.h"
 #include "third_party/libsrtp/include/srtp.h"
 #include "third_party/libsrtp/include/srtp_priv.h"
@@ -26,7 +32,9 @@ namespace cricket {
 // in srtp.h.
 constexpr int kSrtpErrorCodeBoundary = 28;
 
-SrtpSession::SrtpSession() {}
+SrtpSession::SrtpSession() {
+  dump_plain_rtp_ = webrtc::field_trial::IsEnabled("WebRTC-Debugging-RtpDump");
+}
 
 SrtpSession::~SrtpSession() {
   if (session_) {
@@ -79,6 +87,9 @@ bool SrtpSession::ProtectRtp(void* p, int in_len, int max_len, int* out_len) {
                         << max_len << " is less than the needed " << need_len;
     return false;
   }
+  if (dump_plain_rtp_) {
+    DumpPacket(p, in_len, /*outbound=*/1);
+  }
 
   *out_len = in_len;
   int err = srtp_protect(session_, p, out_len);
@@ -118,6 +129,9 @@ bool SrtpSession::ProtectRtcp(void* p, int in_len, int max_len, int* out_len) {
                         << max_len << " is less than the needed " << need_len;
     return false;
   }
+  if (dump_plain_rtp_) {
+    DumpPacket(p, in_len, /*outbound=*/1);
+  }
 
   *out_len = in_len;
   int err = srtp_protect_rtcp(session_, p, out_len);
@@ -151,6 +165,9 @@ bool SrtpSession::UnprotectRtp(void* p, int in_len, int* out_len) {
                               static_cast<int>(err), kSrtpErrorCodeBoundary);
     return false;
   }
+  if (dump_plain_rtp_) {
+    DumpPacket(p, *out_len, /*outbound=*/0);
+  }
   return true;
 }
 
@@ -168,6 +185,9 @@ bool SrtpSession::UnprotectRtcp(void* p, int in_len, int* out_len) {
     RTC_HISTOGRAM_ENUMERATION("WebRTC.PeerConnection.SrtcpUnprotectError",
                               static_cast<int>(err), kSrtpErrorCodeBoundary);
     return false;
+  }
+  if (dump_plain_rtp_) {
+    DumpPacket(p, *out_len, /*outbound=*/0);
   }
   return true;
 }
@@ -443,5 +463,19 @@ void SrtpSession::HandleEventThunk(srtp_event_data_t* ev) {
     session->HandleEvent(ev);
   }
 }
+
+void SrtpSession::DumpPacket(const void* buf, int len, int outbound) {
+#ifdef HAVE_SCTP
+  char* dump_buf;
+  if ((dump_buf = usrsctp_dumppacket(buf, len, outbound)) != NULL) {
+    char *trailer = strrchr(dump_buf, '#');
+    if (trailer)
+      *trailer = 0;
+    RTC_LOG(LS_VERBOSE) << dump_buf << "# RTPDUMP";
+    usrsctp_freedumpbuffer(dump_buf);
+  }
+#endif
+}
+
 
 }  // namespace cricket

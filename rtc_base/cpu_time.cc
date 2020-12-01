@@ -54,12 +54,14 @@ int64_t GetProcessCpuTimeNanos() {
     RTC_LOG_ERR(LS_ERROR) << "getrusage() failed.";
   }
 #elif defined(WEBRTC_WIN)
+  RTC_LOG_ERR(LS_ERROR) << "+++++++++++++++++++++++++ WEBRTC_WIN.";
   FILETIME createTime;
   FILETIME exitTime;
   FILETIME kernelTime;
   FILETIME userTime;
   if (GetProcessTimes(GetCurrentProcess(), &createTime, &exitTime, &kernelTime,
                       &userTime) != 0) {
+    RTC_LOG_ERR(LS_ERROR) << "+++++++++++++++++++++++++ IF PASSED .  " << userTime.dwHighDateTime << "  " << userTime.dwLowDateTime;
     return ((static_cast<uint64_t>(userTime.dwHighDateTime) << 32) +
             userTime.dwLowDateTime) *
            kNanosecsPerFiletime;

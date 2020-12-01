@@ -14,11 +14,11 @@
 #include <memory>
 
 #include "audio_device_ios.h"
-
 #include "api/task_queue/task_queue_factory.h"
 #include "modules/audio_device/audio_device_buffer.h"
 #include "modules/audio_device/include/audio_device.h"
 #include "rtc_base/checks.h"
+#include "sdk/objc/native/src/audio/audio_device_ios_factory.h"
 
 namespace webrtc {
 
@@ -31,6 +31,8 @@ class AudioDeviceModuleIOS : public AudioDeviceModule {
   int32_t AttachAudioBuffer();
 
   AudioDeviceModuleIOS();
+  // Used for injecting a custom AudioDeviceIOS.
+  AudioDeviceModuleIOS(AudioDeviceIOSFactory* audioDeviceFactory);
   ~AudioDeviceModuleIOS() override;
 
   // Retrieve the currently utilized audio layer
@@ -135,6 +137,7 @@ class AudioDeviceModuleIOS : public AudioDeviceModule {
   const std::unique_ptr<TaskQueueFactory> task_queue_factory_;
   std::unique_ptr<AudioDeviceIOS> audio_device_;
   std::unique_ptr<AudioDeviceBuffer> audio_device_buffer_;
+  const std::unique_ptr<AudioDeviceIOSFactory> audio_device_factory_;
 };
 }  // namespace ios_adm
 }  // namespace webrtc

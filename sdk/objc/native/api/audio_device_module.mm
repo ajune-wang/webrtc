@@ -27,4 +27,17 @@ rtc::scoped_refptr<AudioDeviceModule> CreateAudioDeviceModule() {
   return nullptr;
 #endif
 }
+
+rtc::scoped_refptr<AudioDeviceModule> CreateAudioDeviceModule(
+    ios_adm::AudioDeviceIOSFactory *audioDeviceFactory) {
+  RTC_LOG(INFO) << __FUNCTION__;
+
+#if defined(WEBRTC_IOS)
+  return new rtc::RefCountedObject<ios_adm::AudioDeviceModuleIOS>(audioDeviceFactory);
+#else
+  RTC_LOG(LERROR) << "current platform is not supported => this module will self destruct!";
+  return nullptr;
+#endif
+}
+
 }

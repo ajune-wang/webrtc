@@ -14,10 +14,15 @@
 #include <memory>
 
 #include "modules/audio_device/include/audio_device.h"
+#include "sdk/objc/native/src/audio/audio_device_ios_factory.h"
 
 namespace webrtc {
 
 rtc::scoped_refptr<AudioDeviceModule> CreateAudioDeviceModule();
+
+// Provides a way to inject a custom AudioDeviceIOS
+rtc::scoped_refptr<AudioDeviceModule> CreateAudioDeviceModule(
+    ios_adm::AudioDeviceIOSFactory *audioDeviceFactory);
 
 }  // namespace webrtc
 

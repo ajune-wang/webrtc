@@ -19,10 +19,6 @@
 #include "rtc_base/ref_counted_object.h"
 #include "system_wrappers/include/metrics.h"
 
-#if defined(WEBRTC_IOS)
-#include "audio_device_ios.h"
-#endif
-
 #define CHECKinitialized_() \
   {                         \
     if (!initialized_) {    \
@@ -46,11 +42,18 @@ AudioDeviceModuleIOS::AudioDeviceModuleIOS()
   RTC_LOG(INFO) << "iPhone Audio APIs will be utilized.";
 }
 
-  int32_t AudioDeviceModuleIOS::AttachAudioBuffer() {
-    RTC_LOG(INFO) << __FUNCTION__;
-    audio_device_->AttachAudioBuffer(audio_device_buffer_.get());
-    return 0;
-  }
+AudioDeviceModuleIOS::AudioDeviceModuleIOS(ios_adm::AudioDeviceIOSFactory* audioDeviceFactory)
+    : task_queue_factory_(CreateDefaultTaskQueueFactory()),
+      audio_device_factory_(audioDeviceFactory) {
+  RTC_LOG(INFO) << "current platform is IOS";
+  RTC_LOG(INFO) << "iPhone Audio APIs will be utilized.";
+}
+
+int32_t AudioDeviceModuleIOS::AttachAudioBuffer() {
+  RTC_LOG(INFO) << __FUNCTION__;
+  audio_device_->AttachAudioBuffer(audio_device_buffer_.get());
+  return 0;
+}
 
   AudioDeviceModuleIOS::~AudioDeviceModuleIOS() {
     RTC_LOG(INFO) << __FUNCTION__;
@@ -72,7 +75,11 @@ AudioDeviceModuleIOS::AudioDeviceModuleIOS()
       return 0;
 
     audio_device_buffer_.reset(new webrtc::AudioDeviceBuffer(task_queue_factory_.get()));
-    audio_device_.reset(new ios_adm::AudioDeviceIOS());
+    if (audio_device_factory_) {
+      audio_device_.reset(audio_device_factory_->CreateAudioDeviceModule());
+    } else {
+      audio_device_.reset(new ios_adm::AudioDeviceIOS());
+    }
     RTC_CHECK(audio_device_);
 
     this->AttachAudioBuffer();

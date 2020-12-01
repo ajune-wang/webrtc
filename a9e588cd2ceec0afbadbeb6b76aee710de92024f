@@ -94,6 +94,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "508a7f97_ff79595a",
+        "filename": "modules/desktop_capture/win/window_capture_utils.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2020-12-01T01:36:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "80b33d12_1bc67824",
+      "range": {
+        "startLine": 269,
+        "startChar": 13,
+        "endLine": 269,
+        "endChar": 22
+      },
+      "revId": "a9e588cd2ceec0afbadbeb6b76aee710de92024f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d982cd99_2f019076",
@@ -107,6 +131,30 @@
       "writtenOn": "2020-11-30T21:56:07Z",
       "side": 1,
       "message": "Can you switch to WCHAR here (and other TCHAR usages in the file)?  The desktop_capture code (save for one line) uses WCHAR throughout so I don\u0027t think we need to be flexible in terms of whether the A or W functions are going to be used.",
+      "range": {
+        "startLine": 26,
+        "startChar": 6,
+        "endLine": 27,
+        "endChar": 10
+      },
+      "revId": "a9e588cd2ceec0afbadbeb6b76aee710de92024f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52b1b4aa_33df7f3d",
+        "filename": "modules/desktop_capture/win/window_capture_utils_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2020-12-01T01:36:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d982cd99_2f019076",
       "range": {
         "startLine": 26,
         "startChar": 6,
@@ -140,6 +188,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "462daadd_19ed0559",
+        "filename": "modules/desktop_capture/win/window_capture_utils_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2020-12-01T01:36:36Z",
+      "side": 1,
+      "message": "This is great feedback, I\u0027ve split the test in two like you suggested and added a helper to create the deadlocked window.",
+      "parentUuid": "87603c0d_a6af7d6a",
+      "range": {
+        "startLine": 118,
+        "startChar": 1,
+        "endLine": 121,
+        "endChar": 64
+      },
+      "revId": "a9e588cd2ceec0afbadbeb6b76aee710de92024f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "86fa978d_851df2e1",
@@ -153,6 +225,30 @@
       "writtenOn": "2020-11-30T21:56:07Z",
       "side": 1,
       "message": "Perhaps split this one up too",
+      "range": {
+        "startLine": 134,
+        "startChar": 29,
+        "endLine": 134,
+        "endChar": 50
+      },
+      "revId": "a9e588cd2ceec0afbadbeb6b76aee710de92024f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1aeb4d43_aba0bc39",
+        "filename": "modules/desktop_capture/win/window_capture_utils_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2020-12-01T01:36:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86fa978d_851df2e1",
       "range": {
         "startLine": 134,
         "startChar": 29,

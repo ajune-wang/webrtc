@@ -144,6 +144,8 @@ class RtpRtcpInterface : public RtcpFeedbackSenderInterface {
     // overhead.
     bool enable_rtx_padding_prioritization = true;
 
+    bool enable_xr_rrtr = false;
+
    private:
     RTC_DISALLOW_COPY_AND_ASSIGN(Configuration);
   };
@@ -368,9 +370,6 @@ class RtpRtcpInterface : public RtcpFeedbackSenderInterface {
   // ReportBlockData represents the latest Report Block that was received for
   // that pair.
   virtual std::vector<ReportBlockData> GetLatestReportBlockData() const = 0;
-
-  // (XR) Sets Receiver Reference Time Report (RTTR) status.
-  virtual void SetRtcpXrRrtrStatus(bool enable) = 0;
 
   // (REMB) Receiver Estimated Max Bitrate.
   // Schedules sending REMB on next and following sender/receiver reports.

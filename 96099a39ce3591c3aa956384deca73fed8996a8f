@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "81ce6ae3_1cd5d940",
+        "filename": "modules/desktop_capture/linux/base_capturer_pipewire.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-12-01T06:49:34Z",
+      "side": 1,
+      "message": "No, it was not intentional. It is probably because I did not rebase this change on top of the depending one where I fixed it already.",
+      "parentUuid": "eafd4645_488d6559",
+      "revId": "96099a39ce3591c3aa956384deca73fed8996a8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ab9db8cf_40e315b6",
@@ -31,6 +49,24 @@
       "writtenOn": "2020-11-30T23:07:06Z",
       "side": 1,
       "message": "This is adding new code for 0.2; was that what you intended? Most of the other changes are either \"ifdef 0.2...\u003cold code\u003e\" or \"ifdef 0.3...\u003cnew code\u003e\".",
+      "revId": "96099a39ce3591c3aa956384deca73fed8996a8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f77ea135_ff7e2b3c",
+        "filename": "modules/desktop_capture/linux/base_capturer_pipewire.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-12-01T06:49:34Z",
+      "side": 1,
+      "message": "Yes, it is intentional. I changed CreateReceivingStream() to return pw_stream* and we initialize it now at the beginning. If you look above into OnStreamChanged() slot, we were calling the initialization there only if the state was \"PW_REMOTE_STATE_CONNECTED\". Therefore I added this additional check for PW 0.2 here, since we initialize it somewhere else.",
+      "parentUuid": "ab9db8cf_40e315b6",
       "revId": "96099a39ce3591c3aa956384deca73fed8996a8f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

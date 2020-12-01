@@ -81,6 +81,10 @@ ABSL_FLAG(bool,
           text,
           false,
           "Write non-audio files as text files instead of binary files.");
+ABSL_FLAG(bool,
+          float_wav_output,
+          false,
+          "Store the wav files in floating point.");
 
 #define PRINT_CONFIG(field_name)                                         \
   if (msg.has_##field_name()) {                                          \
@@ -493,22 +497,30 @@ int do_main(int argc, char* argv[]) {
           static_cast<size_t>(output_sample_rate / 100);
 
       if (!absl::GetFlag(FLAGS_raw)) {
+        WavFile::SampleFormat wav_output_format =
+            absl::GetFlag(FLAGS_float_wav_output)
+                ? WavFile::SampleFormat::kFloat
+                : WavFile::SampleFormat::kInt16;
+
         // The WAV files need to be reset every time, because they cant change
         // their sample rate or number of channels.
         rtc::StringBuilder reverse_name;
         reverse_name << absl::GetFlag(FLAGS_reverse_file) << frame_count
                      << ".wav";
-        reverse_wav_file.reset(new WavWriter(
-            reverse_name.str(), reverse_sample_rate, num_reverse_channels));
+        reverse_wav_file.reset(
+            new WavWriter(reverse_name.str(), reverse_sample_rate,
+                          num_reverse_channels, wav_output_format));
         rtc::StringBuilder input_name;
         input_name << absl::GetFlag(FLAGS_input_file) << frame_count << ".wav";
         input_wav_file.reset(new WavWriter(input_name.str(), input_sample_rate,
-                                           num_input_channels));
+                                           num_input_channels,
+                                           wav_output_format));
         rtc::StringBuilder output_name;
         output_name << absl::GetFlag(FLAGS_output_file) << frame_count
                     << ".wav";
-        output_wav_file.reset(new WavWriter(
-            output_name.str(), output_sample_rate, num_output_channels));
+        output_wav_file.reset(
+            new WavWriter(output_name.str(), output_sample_rate,
+                          num_output_channels, wav_output_format));
 
         if (WritingCallOrderFile()) {
           rtc::StringBuilder callorder_name;

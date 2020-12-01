@@ -16,6 +16,23 @@
       "message": "Thanks for fixing this and adding tests!",
       "revId": "15ac996a762332aee3ab01b808250fe7faa10eea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d848822_4497d775",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13849
+      },
+      "writtenOn": "2020-12-01T03:41:26Z",
+      "side": 1,
+      "message": "lgtm but I don\u0027t have permission to lgtm either, adding Jamie who should be able to help with that.",
+      "revId": "15ac996a762332aee3ab01b808250fe7faa10eea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

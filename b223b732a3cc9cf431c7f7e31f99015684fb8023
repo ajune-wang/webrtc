@@ -39,6 +39,24 @@
       "message": "This means that we restrict string and enum parameters to not allow \u0027_\u0027 which seems less than ideal to me. I wonder if we could solve this some other way? If we can\u0027t control the suffix that\u0027s added ourself, maybe we could either to a preprocessing step before calling the field trial parser where we explicitly remove \"_\\w+\" suffixes coming from finch, or even simpler, add a trailing comma to the parameters string?\n\nEg. \"SomeParam/Enabled,a:4,b:fish,\" -\u003e \"SomeParam/Enabled,a:4,b:fish,_2342342\"",
       "revId": "b223b732a3cc9cf431c7f7e31f99015684fb8023",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f283e53_d291e797",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2020-12-01T12:25:55Z",
+      "side": 1,
+      "message": "this change still allows string param name contains \"_\", but not the values, but afaik we only use \"enable/disable\" in string values?\nI agree there are alternatives not use \"_\" as delimter, but suffix \"_yyyymmdd\" is widely used in Finch experiment currently and experiment owners may easily just follow the pattern, which end up cause last params not parsed correctly.",
+      "parentUuid": "05605a2f_df5091a6",
+      "revId": "b223b732a3cc9cf431c7f7e31f99015684fb8023",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

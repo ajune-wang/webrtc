@@ -243,6 +243,7 @@ int do_main(int argc, char* argv[]) {
 
   Event event_msg;
   int frame_count = 0;
+  int init_count = 0;
   size_t reverse_samples_per_channel = 0;
   size_t input_samples_per_channel = 0;
   size_t output_samples_per_channel = 0;
@@ -452,9 +453,11 @@ int do_main(int argc, char* argv[]) {
         return 1;
       }
 
+      ++init_count;
       const Init msg = event_msg.init();
       // These should print out zeros if they're missing.
-      fprintf(settings_file, "Init at frame: %d\n", frame_count);
+      fprintf(settings_file, "Init #%d at frame: %d\n", init_count,
+              frame_count);
       int input_sample_rate = msg.sample_rate();
       fprintf(settings_file, "  Input sample rate: %d\n", input_sample_rate);
       int output_sample_rate = msg.output_sample_rate();

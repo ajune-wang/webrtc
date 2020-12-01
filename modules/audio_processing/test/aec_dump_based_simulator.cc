@@ -14,6 +14,8 @@
 #include <memory>
 
 #include "modules/audio_processing/echo_control_mobile_impl.h"
+#include "modules/audio_processing/logging/apm_data_dumper.h"
+#include "modules/audio_processing/test/aec_dump_based_simulator.h"
 #include "modules/audio_processing/test/protobuf_utils.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
@@ -211,6 +213,63 @@ void AecDumpBasedSimulator::PrepareReverseProcessStreamCall(
 void AecDumpBasedSimulator::Process() {
   ConfigureAudioProcessor();
 
+  webrtc::audioproc::Event event_msg;
+  const bool timed_data_dump =
+      settings_.dump_start_seconds || settings_.dump_end_seconds ||
+      settings_.dump_start_frame || settings_.dump_end_frame;
+
+  // Initialize the frames and inits for which to control the dumping of data.
+  int init_for_data_dump_control = -1;
+  // int frame_to_activate_data_dumping = -1;
+  // int frame_to_deactivate_data_dumping = -1;
+  RTC_CHECK(!settings_.dump_internal_data || WEBRTC_APM_DEBUG_DUMP == 1);
+  if (timed_data_dump) {
+    // Set the init for which to control the dumping of data.
+    if (settings_.init_to_process) {
+      init_for_data_dump_control = *settings_.init_to_process;
+    } else {
+      // Set the init for which to control the dumping of data to the last
+      // init in the recording.
+      int num_inits = 0;
+      dump_input_file_ =
+          OpenFile(settings_.aec_dump_input_filename->c_str(), "rb");
+      while (ReadMessageFromFile(dump_input_file_, &event_msg)) {
+        if (event_msg.type() == webrtc::audioproc::Event::INIT) {
+          ++num_inits;
+        }
+      }
+      fclose(dump_input_file_);
+
+      init_for_data_dump_control = num_inits;
+    }
+
+    // Set the frame for which to activate data dumping.
+    ApmDataDumper::SetActivated(
+        !(settings_.dump_start_frame || settings_.dump_start_seconds));
+    int frame_to_activate_data_dumping = -1;
+    if (settings_.dump_start_frame) {
+      RTC_CHECK(!settings_.dump_start_seconds);
+      frame_to_activate_data_dumping = *settings_.dump_start_frame;
+    } else if (settings_.dump_start_seconds) {
+      RTC_CHECK(!settings_.dump_start_frame);
+      frame_to_activate_data_dumping =
+          static_cast<int>(floor((*settings_.dump_start_seconds) * 100));
+    }
+
+    // Set the frame for which to deactivate data dumping.
+    int frame_to_deactivate_data_dumping = -1;
+    if (settings_.dump_end_frame) {
+      RTC_CHECK(!settings_.dump_end_seconds);
+      frame_to_deactivate_data_dumping = *settings_.dump_end_frame;
+    } else if (settings_.dump_end_seconds) {
+      RTC_CHECK(!settings_.dump_end_frame);
+      frame_to_deactivate_data_dumping =
+          static_cast<int>(floor((*settings_.dump_end_seconds) * 100));
+    }
+  } else {
+    ApmDataDumper::SetActivated(settings_.dump_internal_data);
+  }
+
   if (settings_.artificial_nearend_filename) {
     std::unique_ptr<WavReader> artificial_nearend_file(
         new WavReader(settings_.artificial_nearend_filename->c_str()));
@@ -226,7 +285,7 @@ void AecDumpBasedSimulator::Process() {
         rtc::CheckedDivExact(sample_rate_hz, kChunksPerSecond), 1));
   }
 
-  webrtc::audioproc::Event event_msg;
+  // webrtc::audioproc::Event event_msg;
   int num_forward_chunks_processed = 0;
   if (settings_.aec_dump_input_string.has_value()) {
     std::stringstream input;

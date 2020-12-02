@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04e7612f_beaca62f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-12-02T09:18:51Z",
+      "side": 1,
+      "message": "Adding No-Try to skip the iOS simulator that need an infra CL to be cherry picked on M88 but we usually don\u0027t do that. Everything else is green.",
+      "revId": "081312194a03f4d0c22be55ab8ab5a1cc9caf982",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

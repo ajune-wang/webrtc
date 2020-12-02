@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fbcd22e5_a56816c4",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 805,
+      "author": {
+        "id": 6680
+      },
+      "writtenOn": "2020-12-02T04:07:26Z",
+      "side": 1,
+      "message": "Would it make sense to put checks on parameter values?  If yes, also consider adding a check for performance_flags_by_spatial_index_[0].base_layer_speed below (line 828).",
+      "revId": "7de898018a9784797d241c3ca9ac5c940c1dda50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97c051e2_3f90178d",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 810,
+      "author": {
+        "id": 6680
+      },
+      "writtenOn": "2020-12-02T04:07:26Z",
+      "side": 1,
+      "message": "Should the high_layer_speed values be used here in addition to base_layer_speed as in the Encode() method (starting at line 1043)?",
+      "revId": "7de898018a9784797d241c3ca9ac5c940c1dda50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b580e55_8919ebf8",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1043,
+      "author": {
+        "id": 6680
+      },
+      "writtenOn": "2020-12-02T04:07:26Z",
+      "side": 1,
+      "message": "IIUC, before this CL svc_params were not set on a frame-by-frame basis. Do you think there will be a CPU performance impact to calling vpx_codec_control() for every frame?",
+      "revId": "7de898018a9784797d241c3ca9ac5c940c1dda50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd0102be_d7f109c6",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1870,
+      "author": {
+        "id": 6680
+      },
+      "writtenOn": "2020-12-02T04:07:26Z",
+      "side": 1,
+      "message": "These default values look correct (i.e., I double checked them).",
+      "revId": "7de898018a9784797d241c3ca9ac5c940c1dda50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -16,6 +16,7 @@
 #include <type_traits>
 #include <utility>
 
+#include "base/logging.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_conversions.h"
@@ -74,11 +75,17 @@ void ParseFieldTrial(
     i = val_end + 1;
     auto field = field_map.find(key);
     if (field != field_map.end()) {
+      RTC_DCHECK(field->second->Parse(std::move(opt_value)))
+          << "Failed to read field with key: '" << key << "' in trial: \""
+          << trial_string << "\"";
       if (!field->second->Parse(std::move(opt_value))) {
         RTC_LOG(LS_WARNING) << "Failed to read field with key: '" << key
                             << "' in trial: \"" << trial_string << "\"";
       }
     } else if (!opt_value && keyless_field && !key.empty()) {
+      RTC_DCHECK(keyless_field->Parse(key))
+          << "Failed to read empty key field with value '" << key
+          << "' in trial: \"" << trial_string << "\"";
       if (!keyless_field->Parse(key)) {
         RTC_LOG(LS_WARNING) << "Failed to read empty key field with value '"
                             << key << "' in trial: \"" << trial_string << "\"";

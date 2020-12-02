@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c6e5c28_c858f39b",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 805,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-12-02T16:59:00Z",
+      "side": 1,
+      "message": "Good point. I\u0027ll add validation to where we parse the flags from the field trials.\nThe hard-coded constants matching the current behavior should be fine, and I don\u0027t want to\nredo the validation each time we change layout.",
+      "parentUuid": "fbcd22e5_a56816c4",
+      "revId": "7de898018a9784797d241c3ca9ac5c940c1dda50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "97c051e2_3f90178d",
@@ -31,6 +49,24 @@
       "writtenOn": "2020-12-02T04:07:26Z",
       "side": 1,
       "message": "Should the high_layer_speed values be used here in addition to base_layer_speed as in the Encode() method (starting at line 1043)?",
+      "revId": "7de898018a9784797d241c3ca9ac5c940c1dda50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a8394e1_f386f441",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 810,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-12-02T16:59:00Z",
+      "side": 1,
+      "message": "No, at this point we don\u0027t know which temporal layer we\u0027ll be encoding. This mostly populates the fields with a valid and expected number. It\u0027s also only picked up here in the non-svc case.",
+      "parentUuid": "97c051e2_3f90178d",
       "revId": "7de898018a9784797d241c3ca9ac5c940c1dda50",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -52,6 +88,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc4fe97a_06fc5401",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1043,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-12-02T16:59:00Z",
+      "side": 1,
+      "message": "I looked at the implementation and it\u0027s a pretty straight-forward setter. I don\u0027t expect any\nmajor impact, but let\u0027s add a dirty-check anyway.",
+      "parentUuid": "4b580e55_8919ebf8",
+      "revId": "7de898018a9784797d241c3ca9ac5c940c1dda50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dd0102be_d7f109c6",
@@ -65,6 +119,24 @@
       "writtenOn": "2020-12-02T04:07:26Z",
       "side": 1,
       "message": "These default values look correct (i.e., I double checked them).",
+      "revId": "7de898018a9784797d241c3ca9ac5c940c1dda50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb9fab79_d0ce4532",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1870,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-12-02T16:59:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "dd0102be_d7f109c6",
       "revId": "7de898018a9784797d241c3ca9ac5c940c1dda50",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

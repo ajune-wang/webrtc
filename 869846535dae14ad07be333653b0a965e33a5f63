@@ -33,6 +33,24 @@
       "message": "Do we need a mechanism to store and later query this state to avoid that a client then enables WebRTC APM cascaded with built-in?\n\nAlternatively, create UMA and track how often it fails.",
       "revId": "869846535dae14ad07be333653b0a965e33a5f63",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef0823fe_d7847b46",
+        "filename": "sdk/objc/native/src/audio/voice_processing_audio_unit.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-12-02T14:44:43Z",
+      "side": 1,
+      "message": "It should be fine not to act on failures: If it does fail, at worst the WebRTC client will have both software and hardware processing. That is (not great, but) better than accidentally disabling both. On Android, we reason similarly and trust the OS.\n\nFor tracking the error, I\u0027ll have a look at surfacing it in a similar way to AudioDeviceModule::GetPlayoutUnderrunCount() [1] in a followup.\n\n[1] http://google3/third_party/webrtc/files/stable/webrtc/modules/audio_device/include/audio_device.h?l\u003d151\u0026rcl\u003d344733207",
+      "parentUuid": "3146da1f_22a55e2b",
+      "revId": "869846535dae14ad07be333653b0a965e33a5f63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

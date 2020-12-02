@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34cf0d1c_125540b0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-12-02T16:39:28Z",
+      "side": 1,
+      "message": "I decided to use a different solution in cross_correlation.cc. Could you have another look? This approach has no changes to bitexactness.",
+      "revId": "2645c29a6f76f48464e44b545713fa2f30a98a50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

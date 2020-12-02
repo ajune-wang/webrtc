@@ -46,6 +46,30 @@
       },
       "revId": "7d8bf0e585b70a55fd819c1b6f1b7fbc3d41f033",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea8f7fb0_3e8e6ae8",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-12-02T08:39:11Z",
+      "side": 0,
+      "message": "Ok! Since everything after the `private` access modifier is more implementation than API, I don\u0027t mind having comments there if it is the most relevant place for the comment. either way lgtm.",
+      "parentUuid": "bb278c90_dddc0cfe",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 54
+      },
+      "revId": "7d8bf0e585b70a55fd819c1b6f1b7fbc3d41f033",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

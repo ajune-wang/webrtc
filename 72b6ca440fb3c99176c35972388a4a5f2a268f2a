@@ -33,6 +33,24 @@
       "message": "I\u0027d really prefer not depending on usrsctp when we don\u0027t have to. It should be fairly simple to reimplement the method, using TimeUTCMicros to get the wall clock time (converting to hour/minute/second with localtime_r/s), and using hex_encode_with_delimiter to encode the bytes.",
       "revId": "72b6ca440fb3c99176c35972388a4a5f2a268f2a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b9899c6_d07a7810",
+        "filename": "pc/srtp_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2020-12-02T09:07:01Z",
+      "side": 1,
+      "message": "This was less bad than I expected, thanks for pointing to hex_encode_with_delimiter.\nShall I do the same in sctp_transport.cc where we currently use sctp_dumppacket (which is the reason I used it here; but there it is not awkward to include usrsctp)",
+      "parentUuid": "79eb1476_9aaf8262",
+      "revId": "72b6ca440fb3c99176c35972388a4a5f2a268f2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

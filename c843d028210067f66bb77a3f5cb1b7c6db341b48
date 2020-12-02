@@ -39,6 +39,30 @@
       },
       "revId": "c843d028210067f66bb77a3f5cb1b7c6db341b48",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f26bdb8c_f23d43f8",
+        "filename": "modules/audio_processing/agc2/rnn_vad/vector_math.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-12-02T10:28:19Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4c1e45a1_aa0564da",
+      "range": {
+        "startLine": 51,
+        "startChar": 6,
+        "endLine": 51,
+        "endChar": 68
+      },
+      "revId": "c843d028210067f66bb77a3f5cb1b7c6db341b48",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

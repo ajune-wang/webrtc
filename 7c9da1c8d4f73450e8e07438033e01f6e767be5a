@@ -16,6 +16,24 @@
       "message": "Jonas, this seems related to your recent change?",
       "revId": "7c9da1c8d4f73450e8e07438033e01f6e767be5a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "acdd9e89_452124ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-12-02T13:02:41Z",
+      "side": 1,
+      "message": "indeed!\n\nI don\u0027t have this code in memory currently...but \na testcase that fails before patch and succeeds after patch is always nice.",
+      "parentUuid": "6798f3d9_1b1c2c8c",
+      "revId": "7c9da1c8d4f73450e8e07438033e01f6e767be5a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62a0fbb5_988b763c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5064
+      },
+      "writtenOn": "2020-12-02T14:23:08Z",
+      "side": 1,
+      "message": "Recusing myself from this review since Jamie is on the case, and has already LGTM\u0027d.\n\nThanks again for these improvements, Jan!",
+      "revId": "6004b1c891b4f1b880e07805f563ebeef8070e95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19bdca5a_69c1acab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-12-03T13:51:58Z",
+      "side": 1,
+      "message": "To minimize the diff I just moved tests into a separate file, will do some cleanup in subsequent CLs.\n\nIlya, PTAL",
+      "revId": "39f75baa572523d882dea69790163486c639d1fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

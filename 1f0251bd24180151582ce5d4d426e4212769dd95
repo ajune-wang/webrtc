@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6aeb6de3_52053510",
+        "filename": "pc/srtp_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2020-12-03T13:43:29Z",
+      "side": 1,
+      "message": "localtime is platform dependent, see chromium\u0027s base/logging",
+      "parentUuid": "e3f2447c_d0da3f3e",
+      "revId": "1f0251bd24180151582ce5d4d426e4212769dd95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f8e89208_1e95ec1e",
         "filename": "pc/srtp_session.cc",
         "patchSetId": 2
@@ -31,6 +49,24 @@
       "writtenOn": "2020-12-03T02:05:54Z",
       "side": 1,
       "message": "Looks like the unit after the . is \"fractions of a second\", so you need to include leading zeros, otherwise 1 millisecond (X.1) will be equivalent to 10 (X.10). And you don\u0027t need the 6 trailing zeros.",
+      "revId": "1f0251bd24180151582ce5d4d426e4212769dd95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "645a4ffc_26384403",
+        "filename": "pc/srtp_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2020-12-03T13:43:29Z",
+      "side": 1,
+      "message": "good catch, I missed that in the past!\nAFAIK the six zeros are still required by text2pcap though, even if they are part of the multiline format that isn\u0027t used.",
+      "parentUuid": "f8e89208_1e95ec1e",
       "revId": "1f0251bd24180151582ce5d4d426e4212769dd95",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -101,8 +101,8 @@ void StructParametersParser::Parse(absl::string_view src) {
       if (key == member.key) {
         found = true;
         if (!member.parser.parse(opt_value, member.member_ptr)) {
-          RTC_LOG(LS_WARNING) << "Failed to read field with key: '" << key
-                              << "' in trial: \"" << src << "\"";
+          RTC_LOG(LS_ERROR) << "Failed to read field with key: '" << key
+                            << "' in trial: \"" << src << "\"";
         }
         break;
       }

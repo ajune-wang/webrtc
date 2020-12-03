@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6f0f161_ac60653b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-12-03T08:40:48Z",
+      "side": 1,
+      "message": "Åsa, PTAL. Owners review needed for video/.\n",
+      "revId": "495b47515d7e8b5e67849c4107bbce83f637042c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

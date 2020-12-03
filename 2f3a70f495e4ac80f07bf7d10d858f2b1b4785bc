@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1f4198a_5abca546",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15296
+      },
+      "writtenOn": "2020-12-03T19:23:58Z",
+      "side": 1,
+      "message": "Please let me know if this should go to a different reviewer. I\u0027m not familiar with Gerrit or the WebRTC review process.",
+      "revId": "2f3a70f495e4ac80f07bf7d10d858f2b1b4785bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

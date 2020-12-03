@@ -48,6 +48,7 @@ using ::testing::Field;
 using ::testing::InSequence;
 using ::testing::Invoke;
 using ::testing::Ne;
+using ::testing::NiceMock;
 using ::testing::Return;
 using ::testing::StrEq;
 
@@ -144,8 +145,7 @@ rtc::scoped_refptr<MockAudioEncoderFactory> SetupEncoderFactoryMock() {
 }
 
 struct ConfigHelper {
-  ConfigHelper(bool audio_bwe_enabled,
-               bool expect_set_encoder_call,
+  ConfigHelper(bool audio_bwe_enabled, bool expect_set_encoder_call,
                bool use_null_audio_processing)
       : clock_(1000000),
         task_queue_factory_(CreateDefaultTaskQueueFactory()),
@@ -153,11 +153,10 @@ struct ConfigHelper {
         audio_processing_(
             use_null_audio_processing
                 ? nullptr
-                : new rtc::RefCountedObject<MockAudioProcessing>()),
+                : new rtc::RefCountedObject<NiceMock<MockAudioProcessing>>()),
         bitrate_allocator_(&limit_observer_),
         worker_queue_(task_queue_factory_->CreateTaskQueue(
-            "ConfigHelper_worker_queue",
-            TaskQueueFactory::Priority::NORMAL)),
+            "ConfigHelper_worker_queue", TaskQueueFactory::Priority::NORMAL)),
         audio_encoder_(nullptr) {
     using ::testing::Invoke;
 

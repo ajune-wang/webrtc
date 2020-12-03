@@ -82,6 +82,8 @@ class VideoQualityAnalyzerInterface : public StatsObserverInterface {
                      rtc::ArrayView<const std::string> peer_names,
                      int max_threads_count) {}
 
+  virtual void AddPeerToCall(std::string peer_name) {}
+
   // Will be called when frame was generated from the input stream.
   // |peer_name| is name of the peer on which side frame was captured.
   // Returns frame id, that will be set by framework to the frame.

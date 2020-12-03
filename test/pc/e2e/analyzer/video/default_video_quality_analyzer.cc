@@ -159,6 +159,24 @@ void DefaultVideoQualityAnalyzer::Start(
   StartMeasuringCpuProcessTime();
 }
 
+void DefaultVideoQualityAnalyzer::AddPeerToCall(std::string peer_name) {
+  MutexLock lock(&lock_);
+  peers_->AddIfAbsent(peer_name);
+
+  for (auto it = stream_states_.begin(); it != stream_states_.end(); ++it) {
+    it->second.AddPeer();
+  }
+
+  for (auto it = captured_frames_in_flight_.begin(); it != captured_frames_in_flight_.end(); ++it) {
+    it->second.SetNewPeersCount(peers_->size());
+  }
+
+  for (auto it = stream_to_sender_.begin(); it != stream_to_sender_.end(); ++it) {
+    InternalStatsKey key(it->first, it->second, peers_->index(peer_name));
+    stream_frame_counters_[key].captured++;
+  }
+}
+
 uint16_t DefaultVideoQualityAnalyzer::OnFrameCaptured(
     absl::string_view peer_name,
     const std::string& stream_label,

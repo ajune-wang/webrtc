@@ -35,6 +35,14 @@ class MultiHeadQueue {
     }
   }
 
+  void AddHead(absl::optional<size_t> copy_index = absl::nullopt) {
+    if (copy_index.has_value()) {
+      queues_.push_back(queues_[copy_index.value()]);
+    } else {
+      queues_.push_back(std::deque<T>());
+    }
+  }
+
   // Add value to the end of the queue. Complexity O(readers_count).
   void PushBack(T value) {
     for (auto& queue : queues_) {

@@ -221,6 +221,7 @@ class DefaultVideoQualityAnalyzer : public VideoQualityAnalyzerInterface {
   void OnDecoderError(absl::string_view peer_name,
                       uint16_t frame_id,
                       int32_t error_code) override;
+  void AddPeerToCall(std::string peer_name) override;
   void Stop() override;
   std::string GetStreamLabel(uint16_t frame_id) override;
   void OnStatsReports(
@@ -237,7 +238,6 @@ class DefaultVideoQualityAnalyzer : public VideoQualityAnalyzerInterface {
   // obtained by calling GetKnownVideoStreams()
   std::map<StatsKey, StreamStats> GetStats() const;
   AnalyzerStats GetAnalyzerStats() const;
-  double GetCpuUsagePercent();
 
  private:
   struct FrameStats {
@@ -314,6 +314,8 @@ class DefaultVideoQualityAnalyzer : public VideoQualityAnalyzerInterface {
     bool IsEmpty(size_t peer) const { return frame_ids_.IsEmpty(peer); }
     // Crash if state is empty.
     uint16_t Front(size_t peer) const { return frame_ids_.Front(peer).value(); }
+
+    void AddPeer() { frame_ids_.AddHead(owner_); }
 
     size_t GetAliveFramesCount() { return frame_ids_.size(owner_); }
     uint16_t MarkNextAliveFrameAsDead();
@@ -416,6 +418,8 @@ class DefaultVideoQualityAnalyzer : public VideoQualityAnalyzerInterface {
 
     void MarkDropped(size_t peer) { receiver_stats_[peer].dropped = true; }
 
+    void SetNewPeersCount(size_t count) { peers_count_ = count; }
+
     void SetPrevFrameRenderedTime(size_t peer, webrtc::Timestamp time) {
       receiver_stats_[peer].prev_frame_rendered_time = time;
     }
@@ -425,7 +429,7 @@ class DefaultVideoQualityAnalyzer : public VideoQualityAnalyzerInterface {
    private:
     const size_t stream_;
     const size_t owner_;
-    const size_t peers_count_;
+    size_t peers_count_;
     absl::optional<VideoFrame> frame_;
 
     // Frame events timestamp.
@@ -501,6 +505,7 @@ class DefaultVideoQualityAnalyzer : public VideoQualityAnalyzerInterface {
   void StopMeasuringCpuProcessTime();
   void StartExcludingCpuThreadTime();
   void StopExcludingCpuThreadTime();
+  double GetCpuUsagePercent();
 
   // TODO(titovartem) restore const when old constructor will be removed.
   DefaultVideoQualityAnalyzerOptions options_;

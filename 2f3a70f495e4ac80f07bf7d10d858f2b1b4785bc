@@ -16,6 +16,23 @@
       "message": "Please let me know if this should go to a different reviewer. I\u0027m not familiar with Gerrit or the WebRTC review process.",
       "revId": "2f3a70f495e4ac80f07bf7d10d858f2b1b4785bc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c6dd868_6e7e2e6c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-12-03T19:28:30Z",
+      "side": 1,
+      "message": "Thanks for fixing WebRTC!\n\nLGTM but I am not a root-OWNER, adding henrika@ to approve.",
+      "revId": "2f3a70f495e4ac80f07bf7d10d858f2b1b4785bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

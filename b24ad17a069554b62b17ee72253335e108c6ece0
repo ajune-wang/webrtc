@@ -60,6 +60,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1b5b001d_8fd75dda",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn_gru.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-12-03T16:29:39Z",
+      "side": 1,
+      "message": "if you have a strong opinion on that, I\u0027ll change\nbut my view is that auto fits perfectly here:\n- easy to guess the return type of `subview()` for an `ArrayView` variable\n- the type for bias, weigths, recurrent_weights is just a bunch of lines away (everything packed into a bit more than 20 lines)\nWDYT?",
+      "parentUuid": "002302d8_66932cf7",
+      "range": {
+        "startLine": 98,
+        "startChar": 2,
+        "endLine": 98,
+        "endChar": 6
+      },
+      "revId": "b24ad17a069554b62b17ee72253335e108c6ece0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4292dece_17ff2a43",
         "filename": "modules/audio_processing/agc2/rnn_vad/test_utils.cc",
         "patchSetId": 3

@@ -94,6 +94,30 @@
       },
       "revId": "7d8bf0e585b70a55fd819c1b6f1b7fbc3d41f033",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca331a96_a599f2af",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-12-03T16:19:10Z",
+      "side": 0,
+      "message": "which -\u003e with fixed in the child CL",
+      "parentUuid": "3b1cacff_df084409",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 54
+      },
+      "revId": "7d8bf0e585b70a55fd819c1b6f1b7fbc3d41f033",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

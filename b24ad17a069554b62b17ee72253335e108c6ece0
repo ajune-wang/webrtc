@@ -16,6 +16,92 @@
       "message": "Hi Per,\nCould you PTAL?\nAlessio",
       "revId": "b24ad17a069554b62b17ee72253335e108c6ece0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3906f95e_844e75bb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-12-03T11:21:23Z",
+      "side": 1,
+      "message": "Thanks for the CL!",
+      "revId": "b24ad17a069554b62b17ee72253335e108c6ece0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "002302d8_66932cf7",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn_gru.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-12-03T11:21:23Z",
+      "side": 1,
+      "message": "Please explicitly add the type here since it is not obvious for the reader.\nAlso, in more places below",
+      "range": {
+        "startLine": 98,
+        "startChar": 2,
+        "endLine": 98,
+        "endChar": 6
+      },
+      "revId": "b24ad17a069554b62b17ee72253335e108c6ece0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4292dece_17ff2a43",
+        "filename": "modules/audio_processing/agc2/rnn_vad/test_utils.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-12-03T11:21:23Z",
+      "side": 1,
+      "message": "I would prefer not to have this using statement. How these methods work is so tied to the specifics of the type and abstracting that away to a place far away from the code using it makes the code more difficult to read.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 80
+      },
+      "revId": "b24ad17a069554b62b17ee72253335e108c6ece0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b91e1a89_3b5929b5",
+        "filename": "modules/audio_processing/agc2/rnn_vad/test_utils.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-12-03T11:21:23Z",
+      "side": 1,
+      "message": "I don\u0027t see how this wrapping of data_length() adds any value.\nWhy not instead just return the unique pointer, and have the caller call data_length() directly instead of accessing the second item in the pair?",
+      "range": {
+        "startLine": 79,
+        "startChar": 9,
+        "endLine": 79,
+        "endChar": 46
+      },
+      "revId": "b24ad17a069554b62b17ee72253335e108c6ece0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

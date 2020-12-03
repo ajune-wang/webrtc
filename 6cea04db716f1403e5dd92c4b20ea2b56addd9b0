@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "158dbee3_0b18b71d",
+        "filename": "modules/audio_processing/agc2/rnn_vad/test_utils.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-12-03T11:21:23Z",
+      "side": 0,
+      "message": "Why are these consts removed? The number of chunks that can be read from the file should be possible to have as a constant.\n\nA general comment here is also that I think the code using this would be much easier to read if std::pair was not used. As it is now the reader needs to remember what the `first` and `second` items point to, and the naming of those does not help.\n\nSome alternatives are\n1. Putting the number of chunks that can be read as part of the BinaryFileReader object, allowing it to be accessed via a getter.\n2. Instead letting the Creators return a struct with two elements that are named to clearly signal what is stored.",
+      "range": {
+        "startLine": 121,
+        "startChar": 60,
+        "endLine": 121,
+        "endChar": 71
+      },
+      "revId": "6cea04db716f1403e5dd92c4b20ea2b56addd9b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

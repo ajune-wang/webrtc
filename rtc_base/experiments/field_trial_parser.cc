@@ -75,13 +75,13 @@ void ParseFieldTrial(
     auto field = field_map.find(key);
     if (field != field_map.end()) {
       if (!field->second->Parse(std::move(opt_value))) {
-        RTC_LOG(LS_WARNING) << "Failed to read field with key: '" << key
-                            << "' in trial: \"" << trial_string << "\"";
+        RTC_LOG(LS_ERROR) << "Failed to read field with key: '" << key
+                          << "' in trial: \"" << trial_string << "\"";
       }
     } else if (!opt_value && keyless_field && !key.empty()) {
       if (!keyless_field->Parse(key)) {
-        RTC_LOG(LS_WARNING) << "Failed to read empty key field with value '"
-                            << key << "' in trial: \"" << trial_string << "\"";
+        RTC_LOG(LS_ERROR) << "Failed to read empty key field with value '"
+                          << key << "' in trial: \"" << trial_string << "\"";
       }
     } else {
       RTC_LOG(LS_INFO) << "No field with key: '" << key

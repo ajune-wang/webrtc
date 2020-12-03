@@ -805,11 +805,13 @@ int VP9EncoderImpl::InitAndSetControlSettings(const VideoCodec* inst) {
   UpdatePerformanceFlags();
   RTC_DCHECK_EQ(performance_flags_by_spatial_index_.size(),
                 static_cast<size_t>(num_spatial_layers_));
-  for (int si = 0; si < std::min<int>(num_spatial_layers_, 1); ++si) {
-    svc_params_.speed_per_layer[si] =
-        performance_flags_by_spatial_index_[si].base_layer_speed;
-    svc_params_.loopfilter_ctrl[si] =
-        performance_flags_by_spatial_index_[si].deblock_mode;
+  if (performance_flags_.use_per_layer_speed) {
+    for (int si = 0; si < num_spatial_layers_; ++si) {
+      svc_params_.speed_per_layer[si] =
+          performance_flags_by_spatial_index_[si].base_layer_speed;
+      svc_params_.loopfilter_ctrl[si] =
+          performance_flags_by_spatial_index_[si].deblock_mode;
+    }
   }
 
   vpx_codec_control(encoder_, VP8E_SET_MAX_INTRA_BITRATE_PCT,
@@ -823,9 +825,11 @@ int VP9EncoderImpl::InitAndSetControlSettings(const VideoCodec* inst) {
   if (is_svc_) {
     vpx_codec_control(encoder_, VP9E_SET_SVC, 1);
     vpx_codec_control(encoder_, VP9E_SET_SVC_PARAMETERS, &svc_params_);
-  } else {
-    vpx_codec_control(encoder_, VP8E_SET_CPUUSED,
-                      performance_flags_by_spatial_index_[0].base_layer_speed);
+  }
+  if (!performance_flags_.use_per_layer_speed) {
+    vpx_codec_control(
+        encoder_, VP8E_SET_CPUUSED,
+        performance_flags_by_spatial_index_.rbegin()->base_layer_speed);
   }
 
   if (num_spatial_layers_ > 1) {
@@ -1040,7 +1044,7 @@ int VP9EncoderImpl::Encode(const VideoFrame& input_image,
     }
   }
 
-  if (is_svc_) {
+  if (is_svc_ && performance_flags_.use_per_layer_speed) {
     // Update speed settings that might depend on temporal index.
     bool speed_updated = false;
     for (int sl_idx = 0; sl_idx < num_spatial_layers_; ++sl_idx) {
@@ -1069,6 +1073,25 @@ int VP9EncoderImpl::Encode(const VideoFrame& input_image,
   if (config_changed_) {
     if (vpx_codec_enc_config_set(encoder_, config_)) {
       return WEBRTC_VIDEO_CODEC_ERROR;
+    }
+
+    if (!performance_flags_.use_per_layer_speed) {
+      // Not setting individual speeds per layer, find the highest active
+      // resolution instead and base the speed on that.
+      for (int i = num_spatial_layers_ - 1; i >= 0; --i) {
+        if (config_->ss_target_bitrate[i] > 0) {
+          int width = (svc_params_.scaling_factor_num[i] * config_->g_w) /
+                      svc_params_.scaling_factor_den[i];
+          int height = (svc_params_.scaling_factor_num[i] * config_->g_h) /
+                       svc_params_.scaling_factor_den[i];
+          int speed =
+              std::prev(performance_flags_.settings_by_resolution.lower_bound(
+                            width * height))
+                  ->second.base_layer_speed;
+          vpx_codec_control(encoder_, VP8E_SET_CPUUSED, speed);
+          break;
+        }
+      }
     }
     config_changed_ = false;
   }
@@ -1817,12 +1840,10 @@ VP9EncoderImpl::ParseQualityScalerConfig(const WebRtcKeyValueConfig& trials) {
 
 void VP9EncoderImpl::UpdatePerformanceFlags() {
   const auto find_speed = [&](int min_pixel_count) {
-    auto it = std::lower_bound(
-        performance_flags_.begin(), performance_flags_.end(), min_pixel_count,
-        [](const PerformanceFlags& lhs, int min_pixel_count) {
-          return lhs.min_pixel_count < min_pixel_count;
-        });
-    return it == performance_flags_.begin() ? *it : *std::prev(it);
+    RTC_DCHECK(!performance_flags_.settings_by_resolution.empty());
+    auto it =
+        performance_flags_.settings_by_resolution.upper_bound(min_pixel_count);
+    return std::prev(it)->second;
   };
 
   performance_flags_by_spatial_index_.clear();
@@ -1838,26 +1859,32 @@ void VP9EncoderImpl::UpdatePerformanceFlags() {
 }
 
 // static
-std::vector<VP9EncoderImpl::PerformanceFlags>
+VP9EncoderImpl::PerformanceFlags
 VP9EncoderImpl::ParsePerformanceFlagsFromTrials(
     const WebRtcKeyValueConfig& trials) {
-  FieldTrialStructList<PerformanceFlags> trials_list(
-      {FieldTrialStructMember(
-           "min_pixel_count",
-           [](PerformanceFlags* c) { return &c->min_pixel_count; }),
-       FieldTrialStructMember(
-           "high_layer_speed",
-           [](PerformanceFlags* c) { return &c->high_layer_speed; }),
-       FieldTrialStructMember(
-           "base_layer_speed",
-           [](PerformanceFlags* c) { return &c->base_layer_speed; }),
-       FieldTrialStructMember(
-           "deblock_mode",
-           [](PerformanceFlags* c) { return &c->deblock_mode; })},
+  struct Params : public PerformanceFlags::ParameterSet {
+    int min_pixel_count = 0;
+  };
+
+  FieldTrialStructList<Params> trials_list(
+      {FieldTrialStructMember("min_pixel_count",
+                              [](Params* p) { return &p->min_pixel_count; }),
+       FieldTrialStructMember("high_layer_speed",
+                              [](Params* p) { return &p->high_layer_speed; }),
+       FieldTrialStructMember("base_layer_speed",
+                              [](Params* p) { return &p->base_layer_speed; }),
+       FieldTrialStructMember("deblock_mode",
+                              [](Params* p) { return &p->deblock_mode; })},
       {});
 
-  ParseFieldTrial({&trials_list}, trials.Lookup("WebRTC-VP9-PerformanceFlags"));
-  std::vector<VP9EncoderImpl::PerformanceFlags> configs;
+  FieldTrialFlag per_layer_speed("use_per_layer_speed");
+
+  ParseFieldTrial({&trials_list, &per_layer_speed},
+                  trials.Lookup("WebRTC-VP9-PerformanceFlags"));
+
+  PerformanceFlags flags;
+  flags.use_per_layer_speed = per_layer_speed.Get();
+
   constexpr int kMinSpeed = 1;
   constexpr int kMaxSpeed = 9;
   for (auto& f : trials_list.Get()) {
@@ -1871,36 +1898,32 @@ VP9EncoderImpl::ParsePerformanceFlagsFromTrials(
                           << ", deblock_mode = " << f.deblock_mode;
       continue;
     }
-    configs.push_back(f);
+    flags.settings_by_resolution[f.min_pixel_count] = f;
   }
 
-  if (configs.empty()) {
+  if (flags.settings_by_resolution.empty()) {
     return GetDefaultPerformanceFlags();
   }
 
-  std::sort(configs.begin(), configs.end(),
-            [](const PerformanceFlags& lhs, const PerformanceFlags& rhs) {
-              return lhs.min_pixel_count < rhs.min_pixel_count;
-            });
-  return configs;
+  return flags;
 }
 
 // static
-std::vector<VP9EncoderImpl::PerformanceFlags>
-VP9EncoderImpl::GetDefaultPerformanceFlags() {
-  std::vector<VP9EncoderImpl::PerformanceFlags> default_config;
+VP9EncoderImpl::PerformanceFlags VP9EncoderImpl::GetDefaultPerformanceFlags() {
+  PerformanceFlags flags;
+  flags.use_per_layer_speed = false;
 #if defined(WEBRTC_ARCH_ARM) || defined(WEBRTC_ARCH_ARM64) || defined(ANDROID)
   // Speed 8 on all layers for all resolutions.
-  default_config.push_back({0, 8, 8, 0});
+  flags.settings_by_resolution[0] = {8, 8, 0};
 #else
   // For smaller resolutions, use lower speed setting (get some coding gain at
   // the cost of increased encoding complexity).
-  default_config.push_back({0, 5, 5, 0});
+  flags.settings_by_resolution[0] = {5, 5, 0};
 
   // Use speed 7 for QCIF and above.
-  default_config.push_back({352 * 288, 7, 7, 0});
+  flags.settings_by_resolution[352 * 288] = {7, 7, 0};
 #endif
-  return default_config;
+  return flags;
 }
 
 void VP9EncoderImpl::MaybeRewrapRawWithFormat(const vpx_img_fmt fmt) {

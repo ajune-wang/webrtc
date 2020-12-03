@@ -16,6 +16,23 @@
       "message": "Looks like the tests are finally passing on all platforms now. PTAL.",
       "revId": "793adb099066dfa59386dda66fe2087c338512ef",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "68d9d745_9dff0dcc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2020-12-03T13:21:38Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "793adb099066dfa59386dda66fe2087c338512ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -8,69 +8,60 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_PROCESSING_AGC2_RNN_VAD_RNN_FC_H_
-#define MODULES_AUDIO_PROCESSING_AGC2_RNN_VAD_RNN_FC_H_
+#ifndef MODULES_AUDIO_PROCESSING_AGC2_RNN_VAD_RNN_GRU_H_
+#define MODULES_AUDIO_PROCESSING_AGC2_RNN_VAD_RNN_GRU_H_
 
 #include <array>
 #include <vector>
 
 #include "absl/strings/string_view.h"
 #include "api/array_view.h"
-#include "api/function_view.h"
 #include "modules/audio_processing/agc2/cpu_features.h"
-#include "rtc_base/system/arch.h"
 
 namespace webrtc {
 namespace rnn_vad {
 
-// Activation function for a neural network cell.
-enum class ActivationFunction { kTansigApproximated, kSigmoidApproximated };
+// Maximum number of units for a GRU layer.
+constexpr int kGruLayerMaxUnits = 24;
 
-// Maximum number of units for an FC layer.
-constexpr int kFullyConnectedLayerMaxUnits = 24;
-
-// Fully-connected layer with a custom activation function which owns the output
-// buffer.
-class FullyConnectedLayer {
+// Recurrent layer with gated recurrent units (GRUs) with sigmoid and ReLU as
+// activation functions for the update/reset and output gates respectively.
+class GatedRecurrentLayer {
  public:
-  // Ctor. `output_size` cannot be greater than `kFullyConnectedLayerMaxUnits`.
-  FullyConnectedLayer(int input_size,
+  // Ctor. `output_size` cannot be greater than `kGruLayerMaxUnits`.
+  GatedRecurrentLayer(int input_size,
                       int output_size,
                       rtc::ArrayView<const int8_t> bias,
                       rtc::ArrayView<const int8_t> weights,
-                      ActivationFunction activation_function,
-                      const AvailableCpuFeatures& cpu_features,
+                      rtc::ArrayView<const int8_t> recurrent_weights,
                       absl::string_view layer_name);
-  FullyConnectedLayer(const FullyConnectedLayer&) = delete;
-  FullyConnectedLayer& operator=(const FullyConnectedLayer&) = delete;
-  ~FullyConnectedLayer();
+  GatedRecurrentLayer(const GatedRecurrentLayer&) = delete;
+  GatedRecurrentLayer& operator=(const GatedRecurrentLayer&) = delete;
+  ~GatedRecurrentLayer();
 
   // Returns the size of the input vector.
   int input_size() const { return input_size_; }
   // Returns the pointer to the first element of the output buffer.
-  const float* data() const { return output_.data(); }
+  const float* data() const { return state_.data(); }
   // Returns the size of the output buffer.
   int size() const { return output_size_; }
 
-  // Computes the fully-connected layer output.
+  // Resets the GRU state.
+  void Reset();
+  // Computes the recurrent layer output and updates the status.
   void ComputeOutput(rtc::ArrayView<const float> input);
 
  private:
-#if defined(WEBRTC_ARCH_X86_FAMILY)
-  void ComputeOutputSse2(rtc::ArrayView<const float> input);
-#endif
-
   const int input_size_;
   const int output_size_;
   const std::vector<float> bias_;
   const std::vector<float> weights_;
-  const AvailableCpuFeatures cpu_features_;
-  rtc::FunctionView<float(float)> activation_function_;
+  const std::vector<float> recurrent_weights_;
   // Over-allocated array with size equal to `output_size_`.
-  std::array<float, kFullyConnectedLayerMaxUnits> output_;
+  std::array<float, kGruLayerMaxUnits> state_;
 };
 
 }  // namespace rnn_vad
 }  // namespace webrtc
 
-#endif  // MODULES_AUDIO_PROCESSING_AGC2_RNN_VAD_RNN_FC_H_
+#endif  // MODULES_AUDIO_PROCESSING_AGC2_RNN_VAD_RNN_GRU_H_

@@ -84,6 +84,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "581b27d5_d9c6f703",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn_gru.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-12-03T19:24:26Z",
+      "side": 1,
+      "message": "As you point out, the auto\u0027s probably should count as quite obvious. So I think it is ok to keep those-\n\nI think my probably my main concerns is that this code is quite difficult code to follow and it would be nice to improve on that in some way.\n\nFor instance there are subviews of subviews such as\nauto recurrent_weights_update \u003d recurrent_weights.subview(0, stride_out);\n...\nrecurrent_weights_update.subview(o * output_size_, output_size_)\n\nand there is very sparse commenting on what us being done. Before this CL, there were at least the Method names that described what was done, but here the bare maths are instead inlined.",
+      "parentUuid": "1b5b001d_8fd75dda",
+      "range": {
+        "startLine": 98,
+        "startChar": 2,
+        "endLine": 98,
+        "endChar": 6
+      },
+      "revId": "b24ad17a069554b62b17ee72253335e108c6ece0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4292dece_17ff2a43",
         "filename": "modules/audio_processing/agc2/rnn_vad/test_utils.cc",
         "patchSetId": 3

@@ -16,6 +16,23 @@
       "message": "Should be fixed now, ptal",
       "revId": "2dc1cfb62bb03a942ab6eadf6bf640a75ece4ab4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "316988cd_79278307",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 808,
+      "author": {
+        "id": 6680
+      },
+      "writtenOn": "2020-12-03T20:04:19Z",
+      "side": 1,
+      "message": "In the case where use_svc_ is true and performance_flags_.use_per_layer_speed is false, won\u0027t skipping the assignment of svc_params_.speed_per_layer[] values be problematic (i.e., the call to vpx_codec_control(encoder_, VP9E_SET_SVC_PARAMETERS, \u0026svc_params_); at line 827 may contain svc_params_ values have not been assigned)?\n\nAlso in this use_svc_ is true and performance_flags_.use_per_layer_speed is false case, the conditions at lines 825 and 829 will both be true, which will result in 2 vpx_codec_control() calls.  Is this what you intended?",
+      "revId": "2dc1cfb62bb03a942ab6eadf6bf640a75ece4ab4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

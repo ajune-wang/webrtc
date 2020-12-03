@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3f2447c_d0da3f3e",
+        "filename": "pc/srtp_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-12-03T02:05:54Z",
+      "side": 1,
+      "message": "nit: Could use localtime to convert this to the user\u0027s time zone etc., but I guess it doesn\u0027t matter if, for the purposes of the packet capture, we only care about relative time.",
+      "revId": "1f0251bd24180151582ce5d4d426e4212769dd95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8e89208_1e95ec1e",
+        "filename": "pc/srtp_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-12-03T02:05:54Z",
+      "side": 1,
+      "message": "Looks like the unit after the . is \"fractions of a second\", so you need to include leading zeros, otherwise 1 millisecond (X.1) will be equivalent to 10 (X.10). And you don\u0027t need the 6 trailing zeros.",
+      "revId": "1f0251bd24180151582ce5d4d426e4212769dd95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

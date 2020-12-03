@@ -51,6 +51,24 @@
       "parentUuid": "79eb1476_9aaf8262",
       "revId": "72b6ca440fb3c99176c35972388a4a5f2a268f2a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8cadd424_c7a15a89",
+        "filename": "pc/srtp_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-12-03T02:05:54Z",
+      "side": 1,
+      "message": "I\u0027d leave sctp_transport.cc alone, as long as the dump function is convenient might as well use it",
+      "parentUuid": "1b9899c6_d07a7810",
+      "revId": "72b6ca440fb3c99176c35972388a4a5f2a268f2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

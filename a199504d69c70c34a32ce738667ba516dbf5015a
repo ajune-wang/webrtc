@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28ce3e8d_931ba7f9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-12-03T09:08:05Z",
+      "side": 1,
+      "message": "I am fixing the CQ failures in a separate CL, feel free to review this one assuming all is green.",
+      "revId": "a199504d69c70c34a32ce738667ba516dbf5015a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

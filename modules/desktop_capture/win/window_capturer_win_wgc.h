@@ -19,6 +19,7 @@
 #include "modules/desktop_capture/desktop_capture_options.h"
 #include "modules/desktop_capture/desktop_capturer.h"
 #include "modules/desktop_capture/win/wgc_capture_session.h"
+#include "modules/desktop_capture/win/wgc_capture_source.h"
 #include "modules/desktop_capture/win/window_capture_utils.h"
 
 namespace webrtc {
@@ -46,14 +47,6 @@ class WindowCapturerWinWgc final : public DesktopCapturer {
   // returns.
   Callback* callback_ = nullptr;
 
-  // HWND for the currently selected window or nullptr if a window is not
-  // selected. We may be capturing many other windows, but this is the window
-  // that we will return a frame for when CaptureFrame is called.
-  HWND window_ = nullptr;
-
-  // This helps us enumerate the list of windows that we can capture.
-  WindowCaptureHelperWin window_capture_helper_;
-
   // A Direct3D11 device that is shared amongst the WgcCaptureSessions, who
   // require one to perform the capture.
   Microsoft::WRL::ComPtr<::ID3D11Device> d3d11_device_;
@@ -61,7 +54,12 @@ class WindowCapturerWinWgc final : public DesktopCapturer {
   // A map of all the windows we are capturing and the associated
   // WgcCaptureSession. This is where we will get the frames for the window
   // from, when requested.
-  std::map<HWND, WgcCaptureSession> ongoing_captures_;
+  std::map<SourceId, WgcCaptureSession> ongoing_captures_;
+
+  // The WgcCaptureSource represents the window we are capturing, and
+  // creates the GraphicsCaptureItem for us.
+  std::unique_ptr<WgcCaptureSource> capture_source_;
+  WgcWindowSourceEnumerator source_enumerator_;
 };
 
 }  // namespace webrtc

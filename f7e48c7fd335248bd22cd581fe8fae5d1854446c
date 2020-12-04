@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63b00a35_679994bb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2020-12-04T13:46:02Z",
+      "side": 1,
+      "message": "Great work!\nI have a couple of comments below.",
+      "revId": "f7e48c7fd335248bd22cd581fe8fae5d1854446c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "171ec038_067c85e5",
+        "filename": "modules/audio_processing/test/aec_dump_based_simulator.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2020-12-04T13:46:02Z",
+      "side": 1,
+      "message": "Code duplication (same as lines 241-243).\nIs it possible to make a ReadMessage that in turn calls ReadMessageFromFile or ReadMessageFromString and call it like:\nwhile(ReadMessage(..)) {\n    HandleEvent()\n}\n?",
+      "range": {
+        "startLine": 258,
+        "startChar": 0,
+        "endLine": 260,
+        "endChar": 72
+      },
+      "revId": "f7e48c7fd335248bd22cd581fe8fae5d1854446c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbf13838_6ad04bc9",
+        "filename": "modules/audio_processing/test/aec_dump_based_simulator.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2020-12-04T13:46:02Z",
+      "side": 1,
+      "message": "Code duplication duplication ;-)",
+      "range": {
+        "startLine": 307,
+        "startChar": 0,
+        "endLine": 309,
+        "endChar": 72
+      },
+      "revId": "f7e48c7fd335248bd22cd581fe8fae5d1854446c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e81d181_896958d1",
+        "filename": "rtc_tools/unpack_aecdump/unpack.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2020-12-04T13:46:02Z",
+      "side": 1,
+      "message": "When I see GetWavSuffix i think of a function that returns \".wav\".\nCould we call it something like GetWavIndex or GetFileIndex?",
+      "range": {
+        "startLine": 231,
+        "startChar": 12,
+        "endLine": 231,
+        "endChar": 24
+      },
+      "revId": "f7e48c7fd335248bd22cd581fe8fae5d1854446c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -20,6 +20,7 @@
 #include "absl/types/optional.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/string_to_number.h"
+#include "rtc_base/system/rtc_export.h"
 
 namespace rtc {
 
@@ -29,9 +30,9 @@ namespace rtc {
 
 std::string hex_encode(const std::string& str);
 std::string hex_encode(const char* source, size_t srclen);
-std::string hex_encode_with_delimiter(const char* source,
-                                      size_t srclen,
-                                      char delimiter);
+RTC_EXPORT std::string hex_encode_with_delimiter(const char* source,
+                                                 size_t srclen,
+                                                 char delimiter);
 
 // hex_decode converts ascii hex to binary.
 size_t hex_decode(char* buffer,

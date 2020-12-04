@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "30b76b34_e83885f2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2020-12-04T09:11:43Z",
+      "side": 1,
+      "message": "A bit scared to approve such a large change without proper unit test coverage.",
+      "revId": "2dc1cfb62bb03a942ab6eadf6bf640a75ece4ab4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "316988cd_79278307",

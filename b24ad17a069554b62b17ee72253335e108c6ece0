@@ -129,6 +129,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "438c540b_fa17e319",
+        "filename": "modules/audio_processing/agc2/rnn_vad/test_utils.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-12-04T15:08:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4292dece_17ff2a43",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 80
+      },
+      "revId": "b24ad17a069554b62b17ee72253335e108c6ece0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b91e1a89_3b5929b5",
@@ -142,6 +166,30 @@
       "writtenOn": "2020-12-03T11:21:23Z",
       "side": 1,
       "message": "I don\u0027t see how this wrapping of data_length() adds any value.\nWhy not instead just return the unique pointer, and have the caller call data_length() directly instead of accessing the second item in the pair?",
+      "range": {
+        "startLine": 79,
+        "startChar": 9,
+        "endLine": 79,
+        "endChar": 46
+      },
+      "revId": "b24ad17a069554b62b17ee72253335e108c6ece0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24881629_60aaa63a",
+        "filename": "modules/audio_processing/agc2/rnn_vad/test_utils.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-12-04T15:08:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b91e1a89_3b5929b5",
       "range": {
         "startLine": 79,
         "startChar": 9,

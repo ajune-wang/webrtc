@@ -16,6 +16,23 @@
       "message": "Hi,\nCould you please take a look at this CL?",
       "revId": "1938e098c1a19ac9918bf69ff63c1603479aefee",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2faa9fa4_3973424e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2020-12-04T12:00:37Z",
+      "side": 1,
+      "message": "Great!",
+      "revId": "1938e098c1a19ac9918bf69ff63c1603479aefee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

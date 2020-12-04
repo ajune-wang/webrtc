@@ -539,6 +539,10 @@ rtc_library("desktop_capture_generic") {
     sources += [
       "win/wgc_capture_session.cc",
       "win/wgc_capture_session.h",
+      "win/wgc_capture_source.cc",
+      "win/wgc_capture_source.h",
+      "win/wgc_desktop_frame.cc",
+      "win/wgc_desktop_frame.h",
       "win/window_capturer_win_wgc.cc",
       "win/window_capturer_win_wgc.h",
     ]

@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a04b1d1_537cc3d8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-12-04T07:01:05Z",
+      "side": 1,
+      "message": "Wonderful - very compact!\n",
+      "revId": "8e1a70687b3d1d9fafe48bab11a80dc2b51a7193",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "073b6c4c_7fc9e123",
+        "filename": "pc/srtp_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-12-04T07:01:05Z",
+      "side": 1,
+      "message": "Nit: \"The resulting\" -\u003e \"The resulting file\"",
+      "revId": "8e1a70687b3d1d9fafe48bab11a80dc2b51a7193",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08cdf97a_d04f7ae2",
+        "filename": "pc/srtp_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-12-04T07:01:05Z",
+      "side": 1,
+      "message": "I assume one has an RTP dissector available too that one needs to use?",
+      "revId": "8e1a70687b3d1d9fafe48bab11a80dc2b51a7193",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

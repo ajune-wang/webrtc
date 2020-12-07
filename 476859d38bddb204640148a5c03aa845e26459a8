@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0aecea1b_91d8651e",
+        "filename": "pc/channel.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-12-07T23:44:21Z",
+      "side": 0,
+      "message": "Got rid of this method since it\u0027s one line only called in one place.",
+      "revId": "476859d38bddb204640148a5c03aa845e26459a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b6656b7_4caa24c4",
+        "filename": "pc/channel.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-12-07T23:44:21Z",
+      "side": 1,
+      "message": "This will be even harder to fix now. Have any ideas? This is currently thread-safe because it\u0027s always called from a network_thread-\u003eInvoke *while on the worker thread*, but there\u0027s no way to enforce that.\n\nI could call a method \"GetRtpDemuxerCriteria\" on the worker thread, and then pass that as an argument to UpdateRtpTransport on the network thread. Though that breaks encapsulation even more.\n\nAnother idea: SetLocalContent/SetRemoteContent could return an std::function\u003cRTCError()\u003e representing the work still remaining to be done on the network thread.",
+      "revId": "ff7b2344725f7407eddcdbc447aae3ca60dac91a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9263d56_fead1685",
+        "filename": "pc/sdp_offer_answer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-12-07T23:44:21Z",
+      "side": 1,
+      "message": "If you don\u0027t like passing these vectors of pairs around, I could use std::vector\u003cstd::function\u003cRTCError()\u003e\u003e instead, representing the list of operations to be performed on the worker thread. I like that the more I think about it.",
+      "revId": "ff7b2344725f7407eddcdbc447aae3ca60dac91a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

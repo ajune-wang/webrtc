@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c241c87f_5cfd34a0",
+        "filename": "pc/channel.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-12-07T23:44:21Z",
+      "side": 0,
+      "message": "Wasn\u0027t actually used for anything besides logging.",
+      "revId": "a6f61c52fcb801cb626a37fef2e6355a56078171",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

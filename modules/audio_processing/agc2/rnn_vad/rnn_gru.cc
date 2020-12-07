@@ -43,50 +43,6 @@ std::vector<float> PreprocessGruTensor(rtc::ArrayView<const int8_t> tensor_src,
   return tensor_dst;
 }
 
-void ComputeGruUpdateResetGates(int input_size,
-                                int output_size,
-                                rtc::ArrayView<const float> weights,
-                                rtc::ArrayView<const float> recurrent_weights,
-                                rtc::ArrayView<const float> bias,
-                                rtc::ArrayView<const float> input,
-                                rtc::ArrayView<const float> state,
-                                rtc::ArrayView<float> gate) {
-  for (int o = 0; o < output_size; ++o) {
-    gate[o] = bias[o];
-    for (int i = 0; i < input_size; ++i) {
-      gate[o] += input[i] * weights[o * input_size + i];
-    }
-    for (int s = 0; s < output_size; ++s) {
-      gate[o] += state[s] * recurrent_weights[o * output_size + s];
-    }
-    gate[o] = ::rnnoise::SigmoidApproximated(gate[o]);
-  }
-}
-
-void ComputeGruOutputGate(int input_size,
-                          int output_size,
-                          rtc::ArrayView<const float> weights,
-                          rtc::ArrayView<const float> recurrent_weights,
-                          rtc::ArrayView<const float> bias,
-                          rtc::ArrayView<const float> input,
-                          rtc::ArrayView<const float> state,
-                          rtc::ArrayView<const float> reset,
-                          rtc::ArrayView<float> gate) {
-  for (int o = 0; o < output_size; ++o) {
-    gate[o] = bias[o];
-    for (int i = 0; i < input_size; ++i) {
-      gate[o] += input[i] * weights[o * input_size + i];
-    }
-    for (int s = 0; s < output_size; ++s) {
-      gate[o] += state[s] * recurrent_weights[o * output_size + s] * reset[s];
-    }
-    // Rectified linear unit.
-    if (gate[o] < 0.f) {
-      gate[o] = 0.f;
-    }
-  }
-}
-
 }  // namespace
 
 GatedRecurrentLayer::GatedRecurrentLayer(
@@ -95,12 +51,14 @@ GatedRecurrentLayer::GatedRecurrentLayer(
     const rtc::ArrayView<const int8_t> bias,
     const rtc::ArrayView<const int8_t> weights,
     const rtc::ArrayView<const int8_t> recurrent_weights,
+    const AvailableCpuFeatures& cpu_features,
     absl::string_view layer_name)
     : input_size_(input_size),
       output_size_(output_size),
       bias_(PreprocessGruTensor(bias, output_size)),
       weights_(PreprocessGruTensor(weights, output_size)),
-      recurrent_weights_(PreprocessGruTensor(recurrent_weights, output_size)) {
+      recurrent_weights_(PreprocessGruTensor(recurrent_weights, output_size)),
+      vector_math_(cpu_features) {
   RTC_DCHECK_LE(output_size_, kGruLayerMaxUnits)
       << "Insufficient GRU layer over-allocation (" << layer_name << ").";
   RTC_DCHECK_EQ(kNumGruGates * output_size_, bias_.size())
@@ -125,13 +83,11 @@ void GatedRecurrentLayer::Reset() {
 
 void GatedRecurrentLayer::ComputeOutput(rtc::ArrayView<const float> input) {
   RTC_DCHECK_EQ(input.size(), input_size_);
-
-  // TODO(bugs.chromium.org/10480): Add AVX2.
-  // TODO(bugs.chromium.org/10480): Add Neon.
-
   // Stride and offset used to read parameter arrays.
   const int stride_in = input_size_ * output_size_;
   const int stride_out = output_size_ * output_size_;
+
+  rtc::ArrayView<const float> state(state_.data(), output_size_);
 
   rtc::ArrayView<const float> bias(bias_);
   rtc::ArrayView<const float> weights(weights_);
@@ -139,30 +95,51 @@ void GatedRecurrentLayer::ComputeOutput(rtc::ArrayView<const float> input) {
 
   // Update gate.
   std::array<float, kGruLayerMaxUnits> update;
-  ComputeGruUpdateResetGates(
-      input_size_, output_size_, weights.subview(0, stride_in),
-      recurrent_weights.subview(0, stride_out), bias.subview(0, output_size_),
-      input, state_, update);
+  auto bias_update = bias.subview(0, output_size_);
+  auto weights_update = weights.subview(0, stride_in);
+  auto recurrent_weights_update = recurrent_weights.subview(0, stride_out);
+  for (int o = 0; o < output_size_; ++o) {
+    float x = bias_update[o];
+    x += vector_math_.DotProduct(
+        input, weights_update.subview(o * input_size_, input_size_));
+    x += vector_math_.DotProduct(state, recurrent_weights_update.subview(
+                                            o * output_size_, output_size_));
+    update[o] = ::rnnoise::SigmoidApproximated(x);
+  }
 
   // Reset gate.
   std::array<float, kGruLayerMaxUnits> reset;
-  ComputeGruUpdateResetGates(
-      input_size_, output_size_, weights.subview(stride_in, stride_in),
-      recurrent_weights.subview(stride_out, stride_out),
-      bias.subview(output_size_, output_size_), input, state_, reset);
-
-  // Output gate.
-  std::array<float, kGruLayerMaxUnits> output;
-  ComputeGruOutputGate(input_size_, output_size_,
-                       weights.subview(2 * stride_in, stride_in),
-                       recurrent_weights.subview(2 * stride_out, stride_out),
-                       bias.subview(2 * output_size_, output_size_), input,
-                       state_, reset, output);
-
-  // Update output through the update gates and update the state.
+  auto bias_reset = bias.subview(output_size_, output_size_);
+  auto weights_reset = weights.subview(stride_in, stride_in);
+  auto recurrent_weights_reset =
+      recurrent_weights.subview(stride_out, stride_out);
   for (int o = 0; o < output_size_; ++o) {
-    output[o] = update[o] * state_[o] + (1.f - update[o]) * output[o];
-    state_[o] = output[o];
+    float x = bias_reset[o];
+    x += vector_math_.DotProduct(
+        input, weights_reset.subview(o * input_size_, input_size_));
+    x += vector_math_.DotProduct(
+        state, recurrent_weights_reset.subview(o * output_size_, output_size_));
+    reset[o] = ::rnnoise::SigmoidApproximated(x);
+  }
+
+  std::array<float, kGruLayerMaxUnits> reset_x_state;
+  for (int o = 0; o < output_size_; ++o) {
+    reset_x_state[o] = state[o] * reset[o];
+  }
+
+  // State gate.
+  auto bias_output = bias.subview(2 * output_size_, output_size_);
+  auto weights_output = weights.subview(2 * stride_in, stride_in);
+  auto recurrent_weights_output =
+      recurrent_weights.subview(2 * stride_out, stride_out);
+  for (int o = 0; o < output_size_; ++o) {
+    float x = bias_output[o];
+    x += vector_math_.DotProduct(
+        input, weights_output.subview(o * input_size_, input_size_));
+    x += vector_math_.DotProduct(
+        {reset_x_state.data(), static_cast<size_t>(output_size_)},
+        recurrent_weights_output.subview(o * output_size_, output_size_));
+    state_[o] = update[o] * state[o] + (1.f - update[o]) * std::max(0.f, x);
   }
 }
 

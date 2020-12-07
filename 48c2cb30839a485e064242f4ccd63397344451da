@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43572368_388e9ff7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-12-07T15:56:28Z",
+      "side": 1,
+      "message": "Henrik A, can you file a bug and mention where we get SDP wherein it happens frequently enough that it is a problem?\n\nI might prefer lowering it to LS_VERBOSE; it\u0027s the only diagnostic we ever get if we spell an attribute name wrong.\n",
+      "revId": "48c2cb30839a485e064242f4ccd63397344451da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

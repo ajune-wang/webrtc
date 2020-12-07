@@ -455,14 +455,20 @@ class SdpOfferAnswerHandler : public SdpStateProvider,
       cricket::MediaType media_type,
       StreamCollection* new_streams);
 
-  // Enables media channels to allow sending of media.
-  // This enables media to flow on all configured audio/video channels and the
-  // RtpDataChannel.
-  void EnableSending();
   // Push the media parts of the local or remote session description
-  // down to all of the channels.
+  // down to all of the channels, and enable sending if applicable.
   RTCError PushdownMediaDescription(SdpType type,
                                     cricket::ContentSource source);
+  // Helper method to apply a batch of updates to BaseChannels on the worker
+  // thread.
+  RTCError ApplyChannelUpdates(
+      SdpType type,
+      cricket::ContentSource source,
+      std::vector<std::pair<cricket::ChannelInterface*, bool>>
+          payload_type_demuxing_updates,
+      std::vector<std::pair<cricket::ChannelInterface*,
+                            const cricket::MediaContentDescription*>>
+          content_updates);
 
   RTCError PushdownTransportDescription(cricket::ContentSource source,
                                         SdpType type);
@@ -550,9 +556,13 @@ class SdpOfferAnswerHandler : public SdpStateProvider,
       const std::string& mid) const;
 
   const std::string GetTransportName(const std::string& content_name);
-  // Based on number of transceivers per media type, enabled or disable
-  // payload type based demuxing in the affected channels.
-  bool UpdatePayloadTypeDemuxingState(cricket::ContentSource source);
+  // Based on number of transceivers per media type, and their bundle status and
+  // payload typese, determine whether payload type based demuxing should be
+  // enabled or disabled. Returns a list of channels and the corresponding
+  // value to be passed into SetPayloadTypeDemuxingEnabled, so that this action
+  // can be combined with other operations on the worker thread.
+  std::vector<std::pair<cricket::ChannelInterface*, bool>>
+  GetPayloadTypeDemuxingUpdates(cricket::ContentSource source);
 
   // ==================================================================
   // Access to pc_ variables

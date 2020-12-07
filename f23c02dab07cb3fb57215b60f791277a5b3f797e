@@ -16,6 +16,23 @@
       "message": "Updated. Now changed INFO to VERBOSE instead.",
       "revId": "f23c02dab07cb3fb57215b60f791277a5b3f797e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6907af7a_1b86c47d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-12-07T17:10:27Z",
+      "side": 1,
+      "message": "LGTM as far as I am concerned.",
+      "revId": "f23c02dab07cb3fb57215b60f791277a5b3f797e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

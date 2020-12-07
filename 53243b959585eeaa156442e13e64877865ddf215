@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "abed6043_38e34785",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-12-07T11:47:15Z",
+      "side": 1,
+      "message": "Much simpler. The comment I edited was from CL #1, in 2013. I suspect it\u0027s a classic outdated comment.\n",
+      "revId": "53243b959585eeaa156442e13e64877865ddf215",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

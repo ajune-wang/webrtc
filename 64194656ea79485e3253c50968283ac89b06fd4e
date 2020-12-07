@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "274b59e7_b86e4a30",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-12-07T14:20:16Z",
+      "side": 1,
+      "message": "+hta for a second opinion",
+      "revId": "64194656ea79485e3253c50968283ac89b06fd4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ac52cd2_80039290",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3074,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-12-07T14:20:16Z",
+      "side": 1,
+      "message": "This does sound like a useful thing to log about. Is this log being triggered even for sensible SDP or is the application in question setting something weird?",
+      "revId": "64194656ea79485e3253c50968283ac89b06fd4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -66,6 +66,8 @@
 #include "rtc_base/numerics/safe_conversions.h"
 #include "rtc_base/test_certificate_verifier.h"
 #include "rtc_base/time_utils.h"
+
+#include "rtc_base/event_tracer.h"
 #include "rtc_base/virtual_socket_server.h"
 #include "system_wrappers/include/metrics.h"
 #include "test/field_trial.h"

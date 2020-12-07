@@ -16,6 +16,24 @@
       "message": "Henrik A, can you file a bug and mention where we get SDP wherein it happens frequently enough that it is a problem?\n\nI might prefer lowering it to LS_VERBOSE; it\u0027s the only diagnostic we ever get if we spell an attribute name wrong.\n",
       "revId": "48c2cb30839a485e064242f4ccd63397344451da",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31aa02b1_5c8109af",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-12-07T16:25:38Z",
+      "side": 1,
+      "message": "Even AppRTC spams, from henrika:\n\n[5408:29376:1207/164217.102:INFO:webrtc_sdp.cc(3278)] Ignored line: a\u003drtcp:9 IN IP4 0.0.0.0\n[5408:29376:1207/164217.121:INFO:webrtc_sdp.cc(3283)] Ignored line: a\u003dsctpmap:5000 webrtc-datachannel 1024\n[5408:29376:1207/164217.122:INFO:webrtc_sdp.cc(3278)] Ignored line: a\u003drtcp:9 IN IP4 0.0.0.0\n[5408:29376:1207/164217.123:INFO:webrtc_sdp.cc(3278)] Ignored line: a\u003drtcp:9 IN IP4 0.0.0.0\n[5408:29376:1207/164217.132:INFO:webrtc_sdp.cc(3283)] Ignored line: a\u003dsctpmap:5000 webrtc-datachannel 1024\n[5408:29376:1207/164217.139:INFO:webrtc_sdp.cc(3278)] Ignored line: a\u003drtcp:9 IN IP4 0.0.0.0\n[5408:29376:1207/164217.141:INFO:webrtc_sdp.cc(3278)] Ignored line: a\u003drtcp:9 IN IP4 0.0.0.0\n[5408:29376:1207/164217.142:INFO:webrtc_sdp.cc(3283)] Ignored line: a\u003dsctpmap:5000 webrtc-datachannel 1024\n[5408:13396:1207/164217.252:WARNING:libvpx_vp8_encoder.cc(351)] Error configuring codec, error code: 8, details: ts_target_bitrate entries are not strictly increasing\n[5408:21756:1207/164217.278:INFO:webrtc_sdp.cc(3278)] Ignored line: a\u003drtcp:9 IN IP6 ::\n[5408:21756:1207/164217.279:INFO:webrtc_sdp.cc(3278)] Ignored line: a\u003drtcp:9 IN IP6 ::\n[5408:21756:1207/164217.280:INFO:webrtc_sdp.cc(3283)] Ignored line: a\u003drtcp:9 IN IP6 ::\n[5408:21756:1207/164217.280:INFO:webrtc_sdp.cc(3283)] Ignored line: a\u003drtcp-mux\n[5408:21756:1207/164217.280:INFO:webrtc_sdp.cc(3283)] Ignored line: a\u003dsendrecv\n[5408:21756:1207/164217.280:INFO:webrtc_sdp.cc(3283)] Ignored line: a\u003dx-google-flag:conference\n[5408:21756:1207/164217.280:INFO:webrtc_sdp.cc(3283)] Ignored line: a\u003dsctpmap:5000 webrtc-datachannel 256\n[5408:21756:1207/164217.281:INFO:webrtc_sdp.cc(3278)] Ignored line: a\u003drtcp:9 IN IP6 ::\n[5408:21756:1207/164217.281:INFO:webrtc_sdp.cc(3278)] Ignored line: a\u003drtcp:9 IN IP6 ::\n[5408:21756:1207/164217.283:INFO:webrtc_sdp.cc(3283)] Ignored line: a\u003drtcp:9 IN IP6 ::\n[5408:21756:1207/164217.283:INFO:webrtc_sdp.cc(3283)] Ignored line: a\u003drtcp-mux\n[5408:21756:1207/164217.283:INFO:webrtc_sdp.cc(3283)] Ignored line: a\u003dsendrecv\n[5408:21756:1207/164217.283:INFO:webrtc_sdp.cc(3283)] Ignored line: a\u003dx-google-flag:conference\n[5408:21756:1207/164217.283:INFO:webrtc_sdp.cc(3283)] Ignored line: a\u003dsctpmap:5000 webrtc-datachannel 256\n[5408:21756:1207/164217.283:INFO:webrtc_sdp.cc(3278)] Ignored line: a\u003drtcp:9 IN IP6 ::\n[5408:21756:1207/164217.284:INFO:webrtc_sdp.cc(3278)] Ignored line: a\u003drtcp:9 IN IP6 ::\n[5408:21756:1207/164217.285:INFO:webrtc_sdp.cc(3283)] Ignored line: a\u003drtcp:9 IN IP6 ::\n[5408:21756:1207/164217.286:INFO:webrtc_sdp.cc(3283)] Ignored line: a\u003drtcp-mux\n[5408:21756:1207/164217.286:INFO:webrtc_sdp.cc(3283)] Ignored line: a\u003dsendrecv\n[5408:21756:1207/164217.286:INFO:webrtc_sdp.cc(3283)] Ignored line: a\u003dx-google-flag:conference",
+      "parentUuid": "43572368_388e9ff7",
+      "revId": "48c2cb30839a485e064242f4ccd63397344451da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

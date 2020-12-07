@@ -22,6 +22,23 @@
       },
       "revId": "a458c3db7a98e5d20258fccd8fa192a1fe2c8232",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bc0a13d_f0adb98c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-12-07T10:48:23Z",
+      "side": 1,
+      "message": "I am fine with this CL, but wasn\u0027t the original idea to use DCHECKs to crash debug builds with malformed field trials? In this case we will just log an error which might go undetected.\n\nAnyway, this is a tricky problem to fix and this is an improvement so +1.",
+      "revId": "a458c3db7a98e5d20258fccd8fa192a1fe2c8232",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

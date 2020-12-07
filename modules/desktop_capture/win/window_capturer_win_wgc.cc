@@ -13,6 +13,10 @@
 #include <utility>
 
 #include "rtc_base/logging.h"
+#include "rtc_base/win/get_activation_factory.h"
+
+namespace WGC = ABI::Windows::Graphics::Capture;
+using Microsoft::WRL::ComPtr;
 
 namespace webrtc {
 
@@ -20,16 +24,12 @@ WindowCapturerWinWgc::WindowCapturerWinWgc() = default;
 WindowCapturerWinWgc::~WindowCapturerWinWgc() = default;
 
 bool WindowCapturerWinWgc::GetSourceList(SourceList* sources) {
-  return window_capture_helper_.EnumerateCapturableWindows(sources);
+  return source_enumerator_.FindAllWindows(sources);
 }
 
-bool WindowCapturerWinWgc::SelectSource(SourceId id) {
-  HWND window = reinterpret_cast<HWND>(id);
-  if (!IsWindowValidAndVisible(window))
-    return false;
-
-  window_ = window;
-  return true;
+bool WindowCapturerWinWgc::SelectSource(DesktopCapturer::SourceId id) {
+  capture_source_ = WgcCaptureSource::Create(id);
+  return capture_source_->IsCapturable();
 }
 
 void WindowCapturerWinWgc::Start(Callback* callback) {
@@ -65,8 +65,8 @@ void WindowCapturerWinWgc::Start(Callback* callback) {
 void WindowCapturerWinWgc::CaptureFrame() {
   RTC_DCHECK(callback_);
 
-  if (!window_) {
-    RTC_LOG(LS_ERROR) << "Window hasn't been selected";
+  if (!capture_source_) {
+    RTC_LOG(LS_ERROR) << "Source hasn't been selected";
     callback_->OnCaptureResult(DesktopCapturer::Result::ERROR_PERMANENT,
                                /*frame=*/nullptr);
     return;
@@ -79,29 +79,34 @@ void WindowCapturerWinWgc::CaptureFrame() {
     return;
   }
 
+  HRESULT hr;
   WgcCaptureSession* capture_session = nullptr;
-  auto iter = ongoing_captures_.find(window_);
+  auto iter = ongoing_captures_.find(capture_source_->GetId());
   if (iter == ongoing_captures_.end()) {
-    auto iter_success_pair = ongoing_captures_.emplace(
-        std::piecewise_construct, std::forward_as_tuple(window_),
-        std::forward_as_tuple(d3d11_device_, window_));
-    if (iter_success_pair.second) {
-      capture_session = &iter_success_pair.first->second;
-    } else {
-      RTC_LOG(LS_ERROR) << "Failed to create new WgcCaptureSession.";
+    ComPtr<WGC::IGraphicsCaptureItem> item;
+    hr = capture_source_->GetCaptureItem(&item);
+    if (FAILED(hr)) {
+      RTC_LOG(LS_ERROR) << "Failed to create a GraphicsCaptureItem: " << hr;
       callback_->OnCaptureResult(DesktopCapturer::Result::ERROR_PERMANENT,
                                  /*frame=*/nullptr);
       return;
     }
+
+    auto iter_success_pair = ongoing_captures_.emplace(
+        std::piecewise_construct,
+        std::forward_as_tuple(capture_source_->GetId()),
+        std::forward_as_tuple(d3d11_device_, item));
+    RTC_DCHECK(iter_success_pair.second);
+    capture_session = &iter_success_pair.first->second;
   } else {
     capture_session = &iter->second;
   }
 
-  HRESULT hr;
   if (!capture_session->IsCaptureStarted()) {
     hr = capture_session->StartCapture();
     if (FAILED(hr)) {
       RTC_LOG(LS_ERROR) << "Failed to start capture: " << hr;
+      ongoing_captures_.erase(capture_source_->GetId());
       callback_->OnCaptureResult(DesktopCapturer::Result::ERROR_PERMANENT,
                                  /*frame=*/nullptr);
       return;
@@ -109,16 +114,16 @@ void WindowCapturerWinWgc::CaptureFrame() {
   }
 
   std::unique_ptr<DesktopFrame> frame;
-  hr = capture_session->GetMostRecentFrame(&frame);
+  hr = capture_session->GetFrame(&frame);
   if (FAILED(hr)) {
-    RTC_LOG(LS_ERROR) << "GetMostRecentFrame failed: " << hr;
+    RTC_LOG(LS_ERROR) << "GetFrame failed: " << hr;
+    ongoing_captures_.erase(capture_source_->GetId());
     callback_->OnCaptureResult(DesktopCapturer::Result::ERROR_PERMANENT,
                                /*frame=*/nullptr);
     return;
   }
 
   if (!frame) {
-    RTC_LOG(LS_WARNING) << "GetMostRecentFrame returned an empty frame.";
     callback_->OnCaptureResult(DesktopCapturer::Result::ERROR_TEMPORARY,
                                /*frame=*/nullptr);
     return;

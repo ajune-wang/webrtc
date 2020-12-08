@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7fd97d36_0b0c57e5",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 11540
+      },
+      "writtenOn": "2020-12-08T10:46:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f56d1c88_bbbb40bf",
+      "range": {
+        "startLine": 498,
+        "startChar": 34,
+        "endLine": 498,
+        "endChar": 54
+      },
+      "revId": "e496fa1c66503d8823ca88f0db565f317e0b541e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b286bae2_68e7a3c6",
@@ -47,6 +71,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "054716f5_5cbcea66",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 11540
+      },
+      "writtenOn": "2020-12-08T10:46:02Z",
+      "side": 1,
+      "message": "Hm, I don\u0027t think so. stream_to_sender_ requires lock_, while stream_last_freeze_end_time_ comparison_lock_. So the only way is to fully copy stream_to_sender_ which I don\u0027t like.\n\nWe actually use this double lock in other places in this file (in ReportResults, GetStats and GetKnownVideoStreams).",
+      "parentUuid": "b286bae2_68e7a3c6",
+      "range": {
+        "startLine": 499,
+        "startChar": 0,
+        "endLine": 500,
+        "endChar": 37
+      },
+      "revId": "e496fa1c66503d8823ca88f0db565f317e0b541e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8929e594_638600cb",
@@ -60,6 +108,30 @@
       "writtenOn": "2020-12-08T10:13:15Z",
       "side": 1,
       "message": "Split in two functions add/copy",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 67
+      },
+      "revId": "e496fa1c66503d8823ca88f0db565f317e0b541e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb437574_d2668bd3",
+        "filename": "test/pc/e2e/analyzer/video/multi_head_queue.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 11540
+      },
+      "writtenOn": "2020-12-08T10:46:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8929e594_638600cb",
       "range": {
         "startLine": 40,
         "startChar": 0,

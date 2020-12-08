@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5482902_984be527",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3162,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-12-08T13:51:48Z",
+      "side": 1,
+      "message": "notice how here not having a continue is consistent with the surrounding code but not with the general style? I\u0027m a bit torn whether I want it or not...\n\nCurrently it makes no different since we continue the \"Handle attributes common to SCTP and RTP\" block by else-ifing into SCTP and then RTP specific blocks. Which is a bit ugly but the alternative is to continue after every valid value we parse (e.g. every candidate)",
+      "revId": "85228177de28c8734de9c88f2bd6b59920868e71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43505568_ca116a19",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3164,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-12-08T13:51:48Z",
+      "side": 1,
+      "message": "given the large amount of if-else here would we make things faster if we moved the RTP handling first? Think of handling hundreds of rtp m\u003d lines!",
+      "revId": "85228177de28c8734de9c88f2bd6b59920868e71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

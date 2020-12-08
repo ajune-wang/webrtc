@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e788387b_90b91f44",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-12-08T14:34:53Z",
+      "side": 1,
+      "message": "Thanks for raising this issue!\nHowever I think the problems you were trying to addressed are now fixed as of\nhttps://webrtc-review.googlesource.com/c/src/+/195620\n\nSo feel free to either abandon this CL or change it to include any other issues you want to address.",
+      "revId": "8632a97bf21b116e006ed4caf4be624e8d149238",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b554b096_bf92a4da",

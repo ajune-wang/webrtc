@@ -35,6 +35,16 @@ class MultiHeadQueue {
     }
   }
 
+  // Adds new head to the queue. Complexity O(1).
+  void AddHead() { queues_.push_back(std::deque<T>()); }
+
+  // Makes head a copy of another one. Complexity O(MultiHeadQueue::size()).
+  void CopyHead(size_t from, size_t to) {
+    RTC_CHECK_LT(from, queues_.size());
+    RTC_CHECK_LT(to, queues_.size());
+    queues_[to] = queues_[from];
+  }
+
   // Add value to the end of the queue. Complexity O(readers_count).
   void PushBack(T value) {
     for (auto& queue : queues_) {

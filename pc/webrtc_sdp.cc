@@ -3164,6 +3164,8 @@ bool ParseContent(const std::string& message,
         media_desc->set_rtcp_mux(true);
       } else if (HasAttribute(line, kAttributeRtcpReducedSize)) {
         media_desc->set_rtcp_reduced_size(true);
+      } else if (HasAttribute(line, kAttributeRtcp)) {
+        continue;  // ignore a=rtcp:<port> from RFC 3605.
       } else if (HasAttribute(line, kAttributeRtcpRemoteEstimate)) {
         media_desc->set_remote_estimate(true);
       } else if (HasAttribute(line, kAttributeSsrcGroup)) {
@@ -3276,12 +3278,12 @@ bool ParseContent(const std::string& message,
         simulcast = error_or_simulcast.value();
       } else {
         // Unrecognized attribute in RTP protocol.
-        RTC_LOG(LS_INFO) << "Ignored line: " << line;
+        RTC_LOG(LS_VERBOSE) << "Ignored line: " << line;
         continue;
       }
     } else {
       // Only parse lines that we are interested of.
-      RTC_LOG(LS_INFO) << "Ignored line: " << line;
+      RTC_LOG(LS_VERBOSE) << "Ignored line: " << line;
       continue;
     }
   }

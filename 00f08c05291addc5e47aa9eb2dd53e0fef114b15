@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0085b032_f9e20879",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13776
+      },
+      "writtenOn": "2020-12-08T20:13:14Z",
+      "side": 1,
+      "message": "The original change had to be reverted as it exposed webrtc:12194. After https://webrtc.googlesource.com/src.git/+/5c4c836ac4daf51c389ba8bb88e95223fb2228b0, FlexFEC should be assigned the payload type from lower dynamic range, thereby avoiding contention in the 96-127 range. The reland has been rebased on top of that change.",
+      "revId": "00f08c05291addc5e47aa9eb2dd53e0fef114b15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

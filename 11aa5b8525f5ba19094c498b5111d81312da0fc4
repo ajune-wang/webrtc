@@ -187,6 +187,30 @@
       },
       "revId": "11aa5b8525f5ba19094c498b5111d81312da0fc4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53a302cd_862f2485",
+        "filename": "test/pc/e2e/analyzer/video/multi_head_queue.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-12-08T14:41:01Z",
+      "side": 1,
+      "message": "Sorry, I was not clear with my initial comment. It\u0027s fine to have one function call that adds a copy, what I meant was that if you need a version that handles the case with no argument, it should be a separate definition rather than conditional on has_value. In this case, it seems like you don\u0027t need it though, so simply making the argument non-optional should be enough. If you later on need to add a version that does not take an argument you can add a separate one for that.",
+      "parentUuid": "40245ddf_24c0eccc",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 41
+      },
+      "revId": "11aa5b8525f5ba19094c498b5111d81312da0fc4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

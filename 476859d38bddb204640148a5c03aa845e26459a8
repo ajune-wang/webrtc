@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e98f92b7_5d49e1f8",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-12-08T15:19:18Z",
+      "side": 0,
+      "message": "Nit: Maybe better to land this and the Init change in another CL? (they look unrelated from the unused change).",
+      "range": {
+        "startLine": 309,
+        "startChar": 2,
+        "endLine": 314,
+        "endChar": 3
+      },
+      "revId": "476859d38bddb204640148a5c03aa845e26459a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -16,6 +16,52 @@
       "message": "Please take a look! Thanks.",
       "revId": "4f9b118debb6c24f2f49f3b2f690447523e0bc42",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d95fe59_2457dcea",
+        "filename": "api/voip/voip_base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-12-08T15:19:18Z",
+      "side": 1,
+      "message": "I was not aware it was possible to annotate the type itself. This is nice.",
+      "range": {
+        "startLine": 39,
+        "startChar": 11,
+        "endLine": 39,
+        "endChar": 33
+      },
+      "revId": "4f9b118debb6c24f2f49f3b2f690447523e0bc42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ad721f6_24a26f7b",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-12-08T15:19:18Z",
+      "side": 1,
+      "message": "Why changed from \"return\" to \"break\"?",
+      "range": {
+        "startLine": 221,
+        "startChar": 6,
+        "endLine": 221,
+        "endChar": 12
+      },
+      "revId": "4f9b118debb6c24f2f49f3b2f690447523e0bc42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23e727a8_d458da11",
+        "filename": "modules/video_coding/encoded_frame.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-12-08T16:44:17Z",
+      "side": 1,
+      "message": "To implement the SpatialIndex this needs to be public. EncodedImage has not been an implementation detail for years now, so making it public is fine.",
+      "range": {
+        "startLine": 24,
+        "startChar": 35,
+        "endLine": 24,
+        "endChar": 41
+      },
+      "revId": "36b2e7fc2facf9dc662bf2b0a684ad279c6db5fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

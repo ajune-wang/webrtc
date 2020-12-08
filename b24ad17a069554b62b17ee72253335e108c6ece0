@@ -106,6 +106,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e050c87_0fbc71e9",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn_gru.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-12-08T10:28:33Z",
+      "side": 1,
+      "message": "Good point. I switched back to keeping two functions in the anon ns. Plus, I clarified how the tensors are organized and add details on the math op that is implemented. I hope that helps, feel free to reopen the comment and give suggestions.",
+      "parentUuid": "581b27d5_d9c6f703",
+      "range": {
+        "startLine": 98,
+        "startChar": 2,
+        "endLine": 98,
+        "endChar": 6
+      },
+      "revId": "b24ad17a069554b62b17ee72253335e108c6ece0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4292dece_17ff2a43",

@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9dcd30b8_ef1277c5",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1032,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-12-08T12:36:49Z",
+      "side": 1,
+      "message": "I guess it\u0027s somewhat out of scope for this CL but I really think we should consider refining the API for the queue to return a proxy object for each peer that hides the ID. It\u0027s a bit hard to confirm correctness as a reviewer when we are juggling indexes and assuming side effects like this. (Eg. here we assume that calling addpeer has the implication that new_head_index is a valid head index.)",
+      "range": {
+        "startLine": 1032,
+        "startChar": 2,
+        "endLine": 1032,
+        "endChar": 23
+      },
+      "revId": "11aa5b8525f5ba19094c498b5111d81312da0fc4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e20379c_9c8f426b",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1033,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-12-08T12:36:49Z",
+      "side": 1,
+      "message": "I suggest that we skip this, see reasoning below.",
+      "range": {
+        "startLine": 1033,
+        "startChar": 0,
+        "endLine": 1033,
+        "endChar": 46
+      },
+      "revId": "11aa5b8525f5ba19094c498b5111d81312da0fc4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b4d152c_7a65332a",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-12-08T12:36:49Z",
+      "side": 1,
+      "message": "Register",
+      "range": {
+        "startLine": 224,
+        "startChar": 7,
+        "endLine": 224,
+        "endChar": 14
+      },
+      "revId": "11aa5b8525f5ba19094c498b5111d81312da0fc4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f644816_0a712d7b",
+        "filename": "test/pc/e2e/analyzer/video/multi_head_queue.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-12-08T12:36:49Z",
+      "side": 1,
+      "message": "I think this is rather questionable, it can lead to unexpected behavior if you copy over an existing head, eg, popping from the same head could end up providing the same entry twice or miss an entry. It\u0027s also not clear to me what use case motivates such low level control of the internals. It seems like the high level behavior would suggest either guaranteeing that all entries from the start are provided or only new entries are provided, to the new head.",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 41
+      },
+      "revId": "11aa5b8525f5ba19094c498b5111d81312da0fc4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

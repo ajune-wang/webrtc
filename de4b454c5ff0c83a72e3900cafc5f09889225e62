@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36c6fd5d_c5494206",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-12-08T13:05:50Z",
+      "side": 1,
+      "message": "Update description?",
+      "revId": "de4b454c5ff0c83a72e3900cafc5f09889225e62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ec7de5f_0eda1ca8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-12-08T13:05:50Z",
+      "side": 1,
+      "message": "Consistency is the hobgoblin of small minds - but let\u0027s continue to strive for it!\n",
+      "revId": "de4b454c5ff0c83a72e3900cafc5f09889225e62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

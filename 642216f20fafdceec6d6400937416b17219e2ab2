@@ -16,6 +16,23 @@
       "message": "hta, I think this is ready for review.",
       "revId": "642216f20fafdceec6d6400937416b17219e2ab2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c0b3ae3_57b0fc1c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-12-08T08:05:03Z",
+      "side": 1,
+      "message": "Seems like a great solution to this particuar too-many-jumps thing!\n\nLots of nits, but in general I like it.\n",
+      "revId": "642216f20fafdceec6d6400937416b17219e2ab2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

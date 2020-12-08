@@ -20,6 +20,143 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a3132996_466889f5",
+        "filename": "pc/channel.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-12-08T08:05:03Z",
+      "side": 1,
+      "message": "The standard solution to this kind of issue is to install a copy on the other thread, but that doesn\u0027t work in this case.\n\nThe complication with demuxer_criteria_ isn\u0027t really the installation, it\u0027s that the criteria are modified based on incoming RTP data when we register non-negotiated tracks, so the data we should start changing when updating isn\u0027t the same data as when we installed it.\nShows what happens when you don\u0027t start off with thread annotations, and people make ad-hoc changes that work \"nearly all the time\".\n\nSuggest to leave in the TODO for now.",
+      "parentUuid": "5b6656b7_4caa24c4",
+      "revId": "ff7b2344725f7407eddcdbc447aae3ca60dac91a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3280615c_63f48f3b",
+        "filename": "pc/channel.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-12-08T08:05:03Z",
+      "side": 1,
+      "message": "Apparently AsyncInvoker is not a Good Thing (see https://docs.google.com/document/d/1XM5JnI9ypQA1SSgGXEpmYfpxVmr2E5iTMkqj8J55mCE/edit#heading\u003dh.r0c0dd7omzj8). Can you do this using PostTask?\n\nAlso - I don\u0027t understand what prevents this from being entered again before the task finishes - will that throw things into confusion, or will it Just Work?",
+      "revId": "ff7b2344725f7407eddcdbc447aae3ca60dac91a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "197951ff_29537d85",
+        "filename": "pc/channel.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-12-08T08:05:03Z",
+      "side": 1,
+      "message": "Nit: afterwords -\u003e afterwards.",
+      "revId": "ff7b2344725f7407eddcdbc447aae3ca60dac91a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77b6c467_fbd1470e",
+        "filename": "pc/channel.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-12-08T08:05:03Z",
+      "side": 1,
+      "message": "Can you add an RTC_GUARDED_BY on this variable?",
+      "revId": "ff7b2344725f7407eddcdbc447aae3ca60dac91a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e713cb21_82d2c3f3",
+        "filename": "pc/channel_interface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-12-08T08:05:03Z",
+      "side": 1,
+      "message": "Is this ever called from out-of-class? If not, can we make it private and an implementation matter?\nI see that you have calls in the unittests, always with a nullptr arg - can you add an UpdateRtpTransportForTesting method?",
+      "revId": "ff7b2344725f7407eddcdbc447aae3ca60dac91a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "316a6b2a_a24773b7",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1296,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-12-08T08:05:03Z",
+      "side": 1,
+      "message": "I don\u0027t think you should have the exact same text in two different TRACE_EVENT0 calls.",
+      "revId": "ff7b2344725f7407eddcdbc447aae3ca60dac91a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41e234be_ac5dd46e",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 4230,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-12-08T08:05:03Z",
+      "side": 1,
+      "message": "any particular reason to use emplace_back rather than push_back?\nemplace_back constructs its argument before copying it in, but when it\u0027s a simple pointer, I don\u0027t think it makes a difference.\n\n(repeat comment for other usages below)",
+      "revId": "ff7b2344725f7407eddcdbc447aae3ca60dac91a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b702235_a69f1815",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 5030,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-12-08T08:05:03Z",
+      "side": 1,
+      "message": "Here using emplace_back makes sense, since it\u0027s  complex type being constructed.",
+      "revId": "ff7b2344725f7407eddcdbc447aae3ca60dac91a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e9263d56_fead1685",
         "filename": "pc/sdp_offer_answer.h",
         "patchSetId": 5
@@ -31,6 +168,41 @@
       "writtenOn": "2020-12-07T23:44:21Z",
       "side": 1,
       "message": "If you don\u0027t like passing these vectors of pairs around, I could use std::vector\u003cstd::function\u003cRTCError()\u003e\u003e instead, representing the list of operations to be performed on the worker thread. I like that the more I think about it.",
+      "revId": "ff7b2344725f7407eddcdbc447aae3ca60dac91a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25c76fc3_c04e8c07",
+        "filename": "pc/sdp_offer_answer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-12-08T08:05:03Z",
+      "side": 1,
+      "message": "I think I prefer the current approach - passing a std::function gives the caller the power to do *anything*, while just passing the data gives a particular set of instructions to the callee.",
+      "parentUuid": "e9263d56_fead1685",
+      "revId": "ff7b2344725f7407eddcdbc447aae3ca60dac91a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4ce22da_2bab2612",
+        "filename": "pc/sdp_offer_answer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-12-08T08:05:03Z",
+      "side": 1,
+      "message": "The double template is a bit concerning here. Can you either typedef this or make it a struct?\n\nI\u0027m a bit confused about the bool, though - the idea that you can enable payload type demuxing on some channels and not other channels would seem to only make sense if the channels are on different transports. Is this a flag giving \"payload type demux is OK/ot OK for this channel, please look at all channels for this transport before deciding if it\u0027s allowed\"?",
       "revId": "ff7b2344725f7407eddcdbc447aae3ca60dac91a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

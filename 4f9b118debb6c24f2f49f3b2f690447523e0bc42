@@ -79,6 +79,30 @@
       },
       "revId": "4f9b118debb6c24f2f49f3b2f690447523e0bc42",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51aa4204_c72660fc",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-12-08T18:26:56Z",
+      "side": 1,
+      "message": "It was my preference but it looks unnecessary.  I will change back. Thanks.",
+      "parentUuid": "5ad721f6_24a26f7b",
+      "range": {
+        "startLine": 221,
+        "startChar": 6,
+        "endLine": 221,
+        "endChar": 12
+      },
+      "revId": "4f9b118debb6c24f2f49f3b2f690447523e0bc42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

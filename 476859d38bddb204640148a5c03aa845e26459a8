@@ -22,6 +22,30 @@
       },
       "revId": "476859d38bddb204640148a5c03aa845e26459a8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "745edc82_0fa9c90f",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-12-08T18:26:56Z",
+      "side": 0,
+      "message": "As part of return type work, CreateChannel now has non-optional return type that now it guarantees to return a valid channel id.  I will put more comment. Thanks.",
+      "parentUuid": "e98f92b7_5d49e1f8",
+      "range": {
+        "startLine": 309,
+        "startChar": 2,
+        "endLine": 314,
+        "endChar": 3
+      },
+      "revId": "476859d38bddb204640148a5c03aa845e26459a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

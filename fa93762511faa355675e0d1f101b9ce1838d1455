@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40b8eb58_a17ad064",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-12-09T07:28:36Z",
+      "side": 1,
+      "message": "This whole block is copy-pasted from vp9_impl.cc, which I guess is fine. Please update this comment, maybe explain that we always try to use less threads than number of cores, hence the\n\n  if (... number_of_cores \u003e 4) {\n    return 4;\n  } ...\n\ntype of logic going on.\n\nOr just delete the comment all together.",
+      "range": {
+        "startLine": 316,
+        "startChar": 0,
+        "endLine": 317,
+        "endChar": 78
+      },
+      "revId": "fa93762511faa355675e0d1f101b9ce1838d1455",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

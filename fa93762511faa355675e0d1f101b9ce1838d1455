@@ -22,6 +22,29 @@
       },
       "revId": "fa93762511faa355675e0d1f101b9ce1838d1455",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "571ffaa1_e3111bd5",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2020-12-09T07:47:05Z",
+      "side": 1,
+      "message": "We have laptops with arm CPUs coming out now. Is it true that we want to treat them the same way as android mobile devices?",
+      "range": {
+        "startLine": 324,
+        "startChar": 0,
+        "endLine": 324,
+        "endChar": 63
+      },
+      "revId": "fa93762511faa355675e0d1f101b9ce1838d1455",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

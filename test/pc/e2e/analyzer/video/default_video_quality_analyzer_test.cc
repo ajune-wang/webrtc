@@ -24,6 +24,7 @@
 #include "system_wrappers/include/sleep.h"
 #include "test/gtest.h"
 #include "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h"
+#include "rtc_base/cpu_time.h"
 
 namespace webrtc {
 namespace webrtc_pc_e2e {
@@ -712,6 +713,24 @@ TEST(DefaultVideoQualityAnalyzerTest, CpuUsage) {
                             VideoQualityAnalyzerInterface::EncoderStats());
   }
 
+  // Simulate additional load so the cpu time can be measured on windows
+  // platforms. It has 100ns resolution on windows.
+
+
+  rtc::GetProcessCpuTimeNanos();
+
+  float number = 1.5;
+  for (size_t i = 0; i < 10000; ++i) {
+    number *= number;
+    if (i % 100 == 0) {
+      SleepMs(1);
+    }
+  }
+  (void)number;
+  std::cout << number;
+
+  rtc::GetProcessCpuTimeNanos();
+
   for (size_t i = 1; i < frames_order.size(); i += 2) {
     uint16_t frame_id = frames_order.at(i);
     VideoFrame received_frame = DeepCopy(captured_frames.at(frame_id));
@@ -729,17 +748,9 @@ TEST(DefaultVideoQualityAnalyzerTest, CpuUsage) {
   analyzer.Stop();
 
   double cpu_usage = analyzer.GetCpuUsagePercent();
-  // On windows bots GetProcessCpuTimeNanos doesn't work properly (returns the
-  // same number over the whole run). Adhoc solution to prevent them from
-  // failing.
-  // TODO(12249): remove it after issue is fixed.
-#if defined(WEBRTC_WIN)
-  ASSERT_GE(cpu_usage, 0);
-#else
   ASSERT_GT(cpu_usage, 0);
-#endif
 
-  SleepMs(100);
+  SleepMs(10);
   analyzer.Stop();
 
   EXPECT_EQ(analyzer.GetCpuUsagePercent(), cpu_usage);

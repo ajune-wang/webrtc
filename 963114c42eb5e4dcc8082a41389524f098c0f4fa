@@ -89,6 +89,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "67d24dbf_78561741",
+        "filename": "api/voip/voip_base.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-12-09T19:32:26Z",
+      "side": 1,
+      "message": "According to C11 standard (ISO/IEC 9899:2011): \n(internally @ go/c++11pdf page 157~158)\n\n7.2 Enumeration declarations [dcl.enum]\n\nenum-head:\nenum-key attribute-specifier-seq(opt) identifier(opt) enum-base(opt)\n\nThe optional attribute-specifier-seq in the enum-head and the opaque-enum-declaration appertains to the\nenumeration; the attributes in that attribute-specifier-seq are thereafter considered attributes of the enumeration whenever it is named.",
+      "parentUuid": "3c8af1ee_ad368ed7",
+      "range": {
+        "startLine": 39,
+        "startChar": 11,
+        "endLine": 39,
+        "endChar": 33
+      },
+      "revId": "963114c42eb5e4dcc8082a41389524f098c0f4fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a5bb34ca_8c63f408",
@@ -112,6 +136,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca7bb945_a8b281b9",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-12-09T19:32:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a5bb34ca_8c63f408",
+      "range": {
+        "startLine": 217,
+        "startChar": 6,
+        "endLine": 217,
+        "endChar": 10
+      },
+      "revId": "963114c42eb5e4dcc8082a41389524f098c0f4fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8f8d61e9_d51368f2",
@@ -125,6 +173,30 @@
       "writtenOn": "2020-12-09T07:43:37Z",
       "side": 1,
       "message": "This does not seem related to what is described in the CL description.\nPlease update the CL with a description that also includes this.",
+      "range": {
+        "startLine": 144,
+        "startChar": 2,
+        "endLine": 144,
+        "endChar": 6
+      },
+      "revId": "963114c42eb5e4dcc8082a41389524f098c0f4fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9093ac17_8dd97d63",
+        "filename": "examples/androidvoip/jni/android_voip_client.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-12-09T19:32:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f8d61e9_d51368f2",
       "range": {
         "startLine": 144,
         "startChar": 2,

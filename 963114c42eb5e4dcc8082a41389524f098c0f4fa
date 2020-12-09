@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5c8ba21f_ae740c68",
+        "filename": "api/voip/voip_base.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-12-09T08:50:35Z",
+      "side": 1,
+      "message": "Per is correct, according to GCC\u0027s documentation:\n\n\"The warn_unused_result attribute causes a warning to be emitted if a caller of the function with this attribute does not use its return value. This is useful for functions where not checking the result is either a security problem or always a bug, such as realloc.\"\n\nAlso from clang (https://clang.llvm.org/docs/AttributeReference.html#nodiscard-warn-unused-result):\n\n\"A diagnostic is generated when a function or its return type is marked with [[nodiscard]] (or __attribute__((warn_unused_result))) and the function call appears as a potentially-evaluated discarded-value expression that is not explicitly cast to void.\"\n\nI wonder if this is a bug that might get fixed later on, so to be on the safe side I would mark the functions instead of the type.",
+      "parentUuid": "b5bdc68c_38a31a51",
+      "range": {
+        "startLine": 39,
+        "startChar": 11,
+        "endLine": 39,
+        "endChar": 33
+      },
+      "revId": "963114c42eb5e4dcc8082a41389524f098c0f4fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a5bb34ca_8c63f408",
         "filename": "examples/androidvoip/jni/android_voip_client.cc",
         "patchSetId": 2

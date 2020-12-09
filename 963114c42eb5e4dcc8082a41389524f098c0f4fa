@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3c8af1ee_ad368ed7",
+        "filename": "api/voip/voip_base.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-12-09T18:48:03Z",
+      "side": 1,
+      "message": "It does work. This was suggested from Karl (https://webrtc-review.googlesource.com/c/src/+/193720/comment/fa353eec_5bfd69c1/). I found relevant article where enum type and a few others that can be decorated to work like this. Let me dig them up.",
+      "parentUuid": "5c8ba21f_ae740c68",
+      "range": {
+        "startLine": 39,
+        "startChar": 11,
+        "endLine": 39,
+        "endChar": 33
+      },
+      "revId": "963114c42eb5e4dcc8082a41389524f098c0f4fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a5bb34ca_8c63f408",
         "filename": "examples/androidvoip/jni/android_voip_client.cc",
         "patchSetId": 2

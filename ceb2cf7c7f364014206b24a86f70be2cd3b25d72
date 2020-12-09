@@ -33,6 +33,23 @@
       "message": "Harald, could you approve the usage of rtc_base/system/unused.h? Thanks!",
       "revId": "ceb2cf7c7f364014206b24a86f70be2cd3b25d72",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a5fbbca_1bd8fa00",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-12-09T20:06:57Z",
+      "side": 1,
+      "message": "Thanks a lot for the follow-up Tim.",
+      "revId": "ceb2cf7c7f364014206b24a86f70be2cd3b25d72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

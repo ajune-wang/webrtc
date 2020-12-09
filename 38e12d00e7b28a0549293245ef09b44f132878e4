@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f32137da_de860481",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-12-09T17:11:28Z",
+      "side": 1,
+      "message": "Hi Henrik, PTAL at this CL to add support for low latency mode on Android O+.",
+      "revId": "38e12d00e7b28a0549293245ef09b44f132878e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

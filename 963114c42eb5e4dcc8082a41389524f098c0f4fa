@@ -16,6 +16,75 @@
       "message": "Please take a look. Thanks!",
       "revId": "963114c42eb5e4dcc8082a41389524f098c0f4fa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5bdc68c_38a31a51",
+        "filename": "api/voip/voip_base.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-12-09T07:43:37Z",
+      "side": 1,
+      "message": "Is this the proper way of using this? I thought this macro was intended for annotating a function rather than annotating a type.\n\nDoes this work?",
+      "range": {
+        "startLine": 39,
+        "startChar": 11,
+        "endLine": 39,
+        "endChar": 33
+      },
+      "revId": "963114c42eb5e4dcc8082a41389524f098c0f4fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5bb34ca_8c63f408",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-12-09T07:43:37Z",
+      "side": 1,
+      "message": "Please use the type explicitly instead of using auto since the return type is not obvious. (also elsewhere)",
+      "range": {
+        "startLine": 217,
+        "startChar": 6,
+        "endLine": 217,
+        "endChar": 10
+      },
+      "revId": "963114c42eb5e4dcc8082a41389524f098c0f4fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f8d61e9_d51368f2",
+        "filename": "examples/androidvoip/jni/android_voip_client.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-12-09T07:43:37Z",
+      "side": 1,
+      "message": "This does not seem related to what is described in the CL description.\nPlease update the CL with a description that also includes this.",
+      "range": {
+        "startLine": 144,
+        "startChar": 2,
+        "endLine": 144,
+        "endChar": 6
+      },
+      "revId": "963114c42eb5e4dcc8082a41389524f098c0f4fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

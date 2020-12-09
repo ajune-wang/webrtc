@@ -16,6 +16,23 @@
       "message": "Thanks, PTAL!",
       "revId": "ceb2cf7c7f364014206b24a86f70be2cd3b25d72",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e2de056_d89ae0a5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-12-09T19:34:29Z",
+      "side": 1,
+      "message": "Harald, could you approve the usage of rtc_base/system/unused.h? Thanks!",
+      "revId": "ceb2cf7c7f364014206b24a86f70be2cd3b25d72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

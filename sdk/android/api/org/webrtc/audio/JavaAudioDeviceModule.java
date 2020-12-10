@@ -49,6 +49,7 @@ public class JavaAudioDeviceModule implements AudioDeviceModule {
     private boolean useStereoInput;
     private boolean useStereoOutput;
     private AudioAttributes audioAttributes;
+    private boolean useLowLatency = false;
 
     private Builder(Context context) {
       this.context = context;
@@ -196,6 +197,14 @@ public class JavaAudioDeviceModule implements AudioDeviceModule {
     }
 
     /**
+     * Control if the low-latency mode should be used. The default is disabled.
+     */
+    public Builder setUseLowLatency(boolean useLowLatency) {
+      this.useLowLatency = useLowLatency;
+      return this;
+    }
+
+    /**
      * Set custom {@link AudioAttributes} to use.
      */
     public Builder setAudioAttributes(AudioAttributes audioAttributes) {
@@ -225,6 +234,9 @@ public class JavaAudioDeviceModule implements AudioDeviceModule {
         }
         Logging.d(TAG, "HW AEC will not be used.");
       }
+      if (useLowLatency && Build.VERSION.SDK_INT >= 26) {
+        Logging.d(TAG, "Low latency mode will be used.");
+      }
       ScheduledExecutorService executor = this.scheduler;
       if (executor == null) {
         executor = WebRtcAudioRecord.newDefaultScheduler();
@@ -232,8 +244,8 @@ public class JavaAudioDeviceModule implements AudioDeviceModule {
       final WebRtcAudioRecord audioInput = new WebRtcAudioRecord(context, executor, audioManager,
           audioSource, audioFormat, audioRecordErrorCallback, audioRecordStateCallback,
           samplesReadyCallback, useHardwareAcousticEchoCanceler, useHardwareNoiseSuppressor);
-      final WebRtcAudioTrack audioOutput = new WebRtcAudioTrack(
-          context, audioManager, audioAttributes, audioTrackErrorCallback, audioTrackStateCallback);
+      final WebRtcAudioTrack audioOutput = new WebRtcAudioTrack(context, audioManager,
+          audioAttributes, audioTrackErrorCallback, audioTrackStateCallback, useLowLatency);
       return new JavaAudioDeviceModule(context, audioManager, audioInput, audioOutput,
           inputSampleRate, outputSampleRate, useStereoInput, useStereoOutput);
     }

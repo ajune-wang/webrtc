@@ -33,6 +33,29 @@
       "message": "Nisse, PTAL api/video/encoded_frame.h",
       "revId": "5a9b750462125f29d1890617d126e8e924e44f52",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7c21d4f_d1b22aae",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-12-10T09:37:42Z",
+      "side": 1,
+      "message": "instead of having it here in the loop condition, break inside when setting it to true.\nNow it\u0027s a little confusing.",
+      "range": {
+        "startLine": 175,
+        "startChar": 28,
+        "endLine": 175,
+        "endChar": 54
+      },
+      "revId": "5a9b750462125f29d1890617d126e8e924e44f52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

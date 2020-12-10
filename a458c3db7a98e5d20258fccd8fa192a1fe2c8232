@@ -39,6 +39,24 @@
       "message": "I am fine with this CL, but wasn\u0027t the original idea to use DCHECKs to crash debug builds with malformed field trials? In this case we will just log an error which might go undetected.\n\nAnyway, this is a tricky problem to fix and this is an improvement so +1.",
       "revId": "a458c3db7a98e5d20258fccd8fa192a1fe2c8232",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "784fbd4f_254ff7cd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2020-12-10T19:56:17Z",
+      "side": 1,
+      "message": "Danil raised some concern that the DCHECK usage is not compliant with chromium style\nhttps://chromium.googlesource.com/chromium/src/+/HEAD/styleguide/c++/c++.md#check_dcheck_and-notreached\nI agree this is not a sufficient fix we still need to look into other ways to address the issue.",
+      "parentUuid": "4bc0a13d_f0adb98c",
+      "revId": "a458c3db7a98e5d20258fccd8fa192a1fe2c8232",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

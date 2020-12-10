@@ -16,6 +16,115 @@
       "message": "Hi Henrik, PTAL at this CL to add support for low latency mode on Android O+.",
       "revId": "38e12d00e7b28a0549293245ef09b44f132878e4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4efd7c9_abf65f7c",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioTrack.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2020-12-10T09:59:36Z",
+      "side": 1,
+      "message": "Add short general comment about what this method does and how much activity is expected.",
+      "revId": "38e12d00e7b28a0549293245ef09b44f132878e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f32079cf_996a4e21",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioTrack.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2020-12-10T09:59:36Z",
+      "side": 1,
+      "message": "const int",
+      "range": {
+        "startLine": 166,
+        "startChar": 8,
+        "endLine": 166,
+        "endChar": 12
+      },
+      "revId": "38e12d00e7b28a0549293245ef09b44f132878e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1fc36706_f9d6fbc6",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioTrack.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2020-12-10T09:59:36Z",
+      "side": 1,
+      "message": "because....?",
+      "range": {
+        "startLine": 168,
+        "startChar": 85,
+        "endLine": 168,
+        "endChar": 86
+      },
+      "revId": "38e12d00e7b28a0549293245ef09b44f132878e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1da412b_9b2d9aaf",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioTrack.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2020-12-10T09:59:36Z",
+      "side": 1,
+      "message": "Might be very spammy, or?",
+      "range": {
+        "startLine": 172,
+        "startChar": 12,
+        "endLine": 172,
+        "endChar": 19
+      },
+      "revId": "38e12d00e7b28a0549293245ef09b44f132878e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "965d262d_f4fb57ea",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioTrack.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2020-12-10T09:59:36Z",
+      "side": 1,
+      "message": "Some more comments about possible side effects.",
+      "range": {
+        "startLine": 486,
+        "startChar": 3,
+        "endLine": 486,
+        "endChar": 5
+      },
+      "revId": "38e12d00e7b28a0549293245ef09b44f132878e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

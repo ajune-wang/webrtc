@@ -50,6 +50,23 @@
       "message": "Adding Sami as owner of audio_track_jni.cc. PTAL.",
       "revId": "1af949231f1bb46c9d5495eac96254d5e3081b2f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aaa82371_b547f123",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2020-12-10T16:52:18Z",
+      "side": 1,
+      "message": "Forgot. Did you ensure that there is no scaling with the extra buffer factor?",
+      "revId": "1af949231f1bb46c9d5495eac96254d5e3081b2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

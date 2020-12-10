@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "580d2ba6_a122140d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-12-10T17:42:52Z",
+      "side": 1,
+      "message": "that looks like what I suspected going wrong but I didn\u0027t find any other test (it is a bit odd this behaves like a test) that was using a similar pattern.\n\nThank you!",
+      "revId": "2d48ed0edb9d404615dbefea18561af0f7915679",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

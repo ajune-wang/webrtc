@@ -69,6 +69,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c871337a_e19cb27a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-12-10T22:09:09Z",
+      "side": 1,
+      "message": "Thanks, Harald. PTAL!",
+      "revId": "ceb2cf7c7f364014206b24a86f70be2cd3b25d72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a4dd5dca_1548eacb",
@@ -82,6 +99,24 @@
       "writtenOn": "2020-12-10T21:36:03Z",
       "side": 1,
       "message": "Dues this usage of RTC_WARN_UNUSED_RESULT make sense? I can\u0027t tell from the declaration and commentary in unused.h that it would have any effect.",
+      "revId": "ceb2cf7c7f364014206b24a86f70be2cd3b25d72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d469cef_a6ee24db",
+        "filename": "api/voip/voip_base.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-12-10T22:09:09Z",
+      "side": 1,
+      "message": "It allows compiler to enforce VoipResult return type usage for the caller like absl::Status. It\u0027s the suggestion from Karl before and other reviewers here asked similar thing. https://webrtc-review.googlesource.com/c/src/+/196625/comment/b5bdc68c_38a31a51/\n\nFrom C++ spec, it applies to enum type and is perfect usage in this case as VoipResult is used mainly as return type here.",
+      "parentUuid": "a4dd5dca_1548eacb",
       "revId": "ceb2cf7c7f364014206b24a86f70be2cd3b25d72",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -103,6 +138,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ddfc96b_b312981b",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-12-10T22:09:09Z",
+      "side": 1,
+      "message": "Yes, it would fail only for OOM case now. Previous CL moved initialization logic later that we no longer have failure case due to device failure.\n\nhttps://webrtc-review.googlesource.com/c/src/+/191100\n\nspecifically here;\nhttps://webrtc-review.googlesource.com/c/src/+/191100/8/audio/voip/voip_core.cc",
+      "parentUuid": "7641aac6_20a11f17",
+      "revId": "ceb2cf7c7f364014206b24a86f70be2cd3b25d72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0195757a_69e3964d",
@@ -116,6 +169,24 @@
       "writtenOn": "2020-12-10T21:36:03Z",
       "side": 1,
       "message": "I don\u0027t like this construct. It means that if SetSendCodec ever fails in production, you will continue executing without raising an error, and with the engine in an undefined state.\nEither the failure doesn\u0027t matter, and you should allow it to continue executing in debug too (possibly with a logged warning), so that tests in debug mode can exercise the failure path and see what happens, or you should do RTC_CHECK, which removes the need for RTC_UNUSED.",
+      "revId": "ceb2cf7c7f364014206b24a86f70be2cd3b25d72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fe4b428_868acdd0",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-12-10T22:09:09Z",
+      "side": 1,
+      "message": "The intention here was to catch any developer error on debug build while production can still run with developer error in some extend. The only error case here is for developer to mis-manage the ChannelID (channel_) which is application\u0027s responsibility.  It can fail here by using invalid channel id after caller releasing it. Since this is demo app, I think using RTC_CHECK makes better sense. Thanks.",
+      "parentUuid": "0195757a_69e3964d",
       "revId": "ceb2cf7c7f364014206b24a86f70be2cd3b25d72",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -137,6 +208,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "194f5623_68c7faf7",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-12-10T22:09:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec1b8ac3_a23ca195",
+      "revId": "ceb2cf7c7f364014206b24a86f70be2cd3b25d72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3ddf628a_f4b40393",
@@ -150,6 +239,24 @@
       "writtenOn": "2020-12-10T21:36:03Z",
       "side": 1,
       "message": "And here.",
+      "revId": "ceb2cf7c7f364014206b24a86f70be2cd3b25d72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e64faad_627ccbb9",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-12-10T22:09:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ddf628a_f4b40393",
       "revId": "ceb2cf7c7f364014206b24a86f70be2cd3b25d72",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -171,6 +278,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a029257_2f27c985",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-12-10T22:09:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "45117979_1bf7a54d",
+      "revId": "ceb2cf7c7f364014206b24a86f70be2cd3b25d72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ea13757c_48509a72",
@@ -184,6 +309,24 @@
       "writtenOn": "2020-12-10T21:36:03Z",
       "side": 1,
       "message": "And here.",
+      "revId": "ceb2cf7c7f364014206b24a86f70be2cd3b25d72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "192e179e_600f1f9a",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-12-10T22:09:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea13757c_48509a72",
       "revId": "ceb2cf7c7f364014206b24a86f70be2cd3b25d72",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

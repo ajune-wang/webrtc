@@ -33,6 +33,23 @@
       "message": "Ship it.",
       "revId": "1af949231f1bb46c9d5495eac96254d5e3081b2f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6dacc14c_ee0f6d0b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-12-10T16:47:53Z",
+      "side": 1,
+      "message": "Adding Sami as owner of audio_track_jni.cc. PTAL.",
+      "revId": "1af949231f1bb46c9d5495eac96254d5e3081b2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

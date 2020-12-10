@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5727cca_c830c13a",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioTrack.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-12-10T16:44:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f4efd7c9_abf65f7c",
+      "revId": "38e12d00e7b28a0549293245ef09b44f132878e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f32079cf_996a4e21",
@@ -48,6 +66,30 @@
       "writtenOn": "2020-12-10T09:59:36Z",
       "side": 1,
       "message": "const int",
+      "range": {
+        "startLine": 166,
+        "startChar": 8,
+        "endLine": 166,
+        "endChar": 12
+      },
+      "revId": "38e12d00e7b28a0549293245ef09b44f132878e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7786df1_97054c03",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioTrack.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-12-10T16:44:48Z",
+      "side": 1,
+      "message": "Since this is java I sprinkled some \u0027final\u0027s around. PTAL.",
+      "parentUuid": "f32079cf_996a4e21",
       "range": {
         "startLine": 166,
         "startChar": 8,
@@ -81,6 +123,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6782b7bd_254b938d",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioTrack.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-12-10T16:44:48Z",
+      "side": 1,
+      "message": "I\u0027m worried about under-powered devices that have underruns under normal conditions. If we don\u0027t have a limit here, the buffer can keep increasing until it\u0027s incredibly large on those devices.",
+      "parentUuid": "1fc36706_f9d6fbc6",
+      "range": {
+        "startLine": 168,
+        "startChar": 85,
+        "endLine": 168,
+        "endChar": 86
+      },
+      "revId": "38e12d00e7b28a0549293245ef09b44f132878e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b1da412b_9b2d9aaf",
@@ -104,6 +170,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "02ddd0ea_5e535d39",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioTrack.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-12-10T16:44:48Z",
+      "side": 1,
+      "message": "Since we will only increase the buffer at most 5 times, there will never be more than 5 of these log lines.",
+      "parentUuid": "b1da412b_9b2d9aaf",
+      "range": {
+        "startLine": 172,
+        "startChar": 12,
+        "endLine": 172,
+        "endChar": 19
+      },
+      "revId": "38e12d00e7b28a0549293245ef09b44f132878e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "965d262d_f4fb57ea",
@@ -117,6 +207,30 @@
       "writtenOn": "2020-12-10T09:59:36Z",
       "side": 1,
       "message": "Some more comments about possible side effects.",
+      "range": {
+        "startLine": 486,
+        "startChar": 3,
+        "endLine": 486,
+        "endChar": 5
+      },
+      "revId": "38e12d00e7b28a0549293245ef09b44f132878e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1f18dd5_9b3ae04b",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioTrack.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-12-10T16:44:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "965d262d_f4fb57ea",
       "range": {
         "startLine": 486,
         "startChar": 3,

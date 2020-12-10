@@ -225,6 +225,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7ce83eb_a39d3079",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-12-10T22:24:00Z",
+      "side": 1,
+      "message": "Thanks for the info. I thought RTC_DCHECK was failing but as you said it works with DCHECK.",
+      "parentUuid": "51dfa361_a9373eff",
+      "revId": "ceb2cf7c7f364014206b24a86f70be2cd3b25d72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ec1b8ac3_a23ca195",

@@ -67,6 +67,24 @@
       "message": "Forgot. Did you ensure that there is no scaling with the extra buffer factor?",
       "revId": "1af949231f1bb46c9d5495eac96254d5e3081b2f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "701cb4d5_c71f43ea",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-12-10T17:17:11Z",
+      "side": 1,
+      "message": "Thanks, good catch. I updated the code to not use low-latency mode if the buffer factor \u003e 1.",
+      "parentUuid": "aaa82371_b547f123",
+      "revId": "1af949231f1bb46c9d5495eac96254d5e3081b2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

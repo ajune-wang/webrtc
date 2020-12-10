@@ -8,6 +8,11 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#if defined(WEBRTC_WIN)
+#include <mmsystem.h>
+#include <windows.h>  // Must come first.
+#endif
+
 #include <map>
 #include <memory>
 #include <vector>
@@ -19,6 +24,8 @@
 #include "api/video/i420_buffer.h"
 #include "api/video/video_frame.h"
 #include "common_video/libyuv/include/webrtc_libyuv.h"
+#include "rtc_base/cpu_time.h"
+#include "rtc_base/logging.h"
 #include "rtc_base/strings/string_builder.h"
 #include "rtc_tools/frame_analyzer/video_geometry_aligner.h"
 #include "system_wrappers/include/sleep.h"
@@ -688,61 +695,30 @@ TEST(DefaultVideoQualityAnalyzerTest,
 }
 
 TEST(DefaultVideoQualityAnalyzerTest, CpuUsage) {
-  std::unique_ptr<test::FrameGeneratorInterface> frame_generator =
-      test::CreateSquareFrameGenerator(kFrameWidth, kFrameHeight,
-                                       /*type=*/absl::nullopt,
-                                       /*num_squares=*/absl::nullopt);
+  // Set timer accuracy to 1 ms.
+//#if defined(WEBRTC_WIN)
+  timeBeginPeriod(1);
+//#endif
+  auto time1 = rtc::GetProcessCpuTimeNanos();
 
-  DefaultVideoQualityAnalyzer analyzer(Clock::GetRealTimeClock(),
-                                       AnalyzerOptionsForTest());
-  analyzer.Start("test_case",
-                 std::vector<std::string>{kSenderPeerName, kReceiverPeerName},
-                 kAnalyzerMaxThreadsCount);
-
-  std::map<uint16_t, VideoFrame> captured_frames;
-  std::vector<uint16_t> frames_order;
-  for (int i = 0; i < kMaxFramesInFlightPerStream; ++i) {
-    VideoFrame frame = NextFrame(frame_generator.get(), i);
-    frame.set_id(
-        analyzer.OnFrameCaptured(kSenderPeerName, kStreamLabel, frame));
-    frames_order.push_back(frame.id());
-    captured_frames.insert({frame.id(), frame});
-    analyzer.OnFramePreEncode(kSenderPeerName, frame);
-    analyzer.OnFrameEncoded(kSenderPeerName, frame.id(), FakeEncode(frame),
-                            VideoQualityAnalyzerInterface::EncoderStats());
+  float number = 1.5;
+  for (size_t i = 0; i < 10000; ++i) {
+    number *= number;
+    // RTC_LOG(INFO) << "Iteration number: " << i << " ; number = " << number;
+    if (i % 100 == 0) {
+      SleepMs(1);
+    }
   }
+  (void)number;
+  std::cout << number;
+  auto time2 = rtc::GetProcessCpuTimeNanos();
 
-  for (size_t i = 1; i < frames_order.size(); i += 2) {
-    uint16_t frame_id = frames_order.at(i);
-    VideoFrame received_frame = DeepCopy(captured_frames.at(frame_id));
-    analyzer.OnFramePreDecode(kReceiverPeerName, received_frame.id(),
-                              FakeEncode(received_frame));
-    analyzer.OnFrameDecoded(kReceiverPeerName, received_frame,
-                            VideoQualityAnalyzerInterface::DecoderStats());
-    analyzer.OnFrameRendered(kReceiverPeerName, received_frame);
-  }
+  EXPECT_NE(time1, time2);
+  EXPECT_NE(time2, 0);
 
-  // Give analyzer some time to process frames on async thread. The computations
-  // have to be fast (heavy metrics are disabled!), so if doesn't fit 100ms it
-  // means we have an issue!
-  SleepMs(100);
-  analyzer.Stop();
-
-  double cpu_usage = analyzer.GetCpuUsagePercent();
-  // On windows bots GetProcessCpuTimeNanos doesn't work properly (returns the
-  // same number over the whole run). Adhoc solution to prevent them from
-  // failing.
-  // TODO(12249): remove it after issue is fixed.
-#if defined(WEBRTC_WIN)
-  ASSERT_GE(cpu_usage, 0);
-#else
-  ASSERT_GT(cpu_usage, 0);
-#endif
-
-  SleepMs(100);
-  analyzer.Stop();
-
-  EXPECT_EQ(analyzer.GetCpuUsagePercent(), cpu_usage);
+//#if defined(WEBRTC_WIN)
+  timeEndPeriod(1);
+//#endif
 }
 
 TEST(DefaultVideoQualityAnalyzerTest, RuntimeParticipantsAdding) {

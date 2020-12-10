@@ -50,6 +50,24 @@
       "message": "Nit: I think emplace_back is the right paradigm when you\u0027re constructing an object that is to be placed at the end of the vector - push_back will first construct then copy.",
       "revId": "e9a3836ffc3e7a93e51d4b8804aa9d8e61152df9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "157626aa_265a26af",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 4225,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-12-10T23:35:00Z",
+      "side": 1,
+      "message": "Done; I was just lazy and didn\u0027t want to declare constructors for the structs",
+      "parentUuid": "1c5e2523_fa02ee49",
+      "revId": "e9a3836ffc3e7a93e51d4b8804aa9d8e61152df9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

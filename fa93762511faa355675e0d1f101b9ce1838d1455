@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d5e9476_64768dff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-12-10T19:53:32Z",
+      "side": 1,
+      "message": "Since it appears to be a copy from vp9, I think this is fine as a first step.\nI think we should follow up with more fine-tuning, e.g. arm flags as mentioned.\nPerhaps webrtc peeps should be on top of that though?",
+      "revId": "fa93762511faa355675e0d1f101b9ce1838d1455",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "40b8eb58_a17ad064",

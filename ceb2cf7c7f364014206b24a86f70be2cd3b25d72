@@ -50,6 +50,142 @@
       "message": "Thanks a lot for the follow-up Tim.",
       "revId": "ceb2cf7c7f364014206b24a86f70be2cd3b25d72",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6515afc_890846a9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-12-10T21:36:03Z",
+      "side": 1,
+      "message": "I think this particular CL is a Bad Idea.\n\n- It doesn\u0027t do what it says on the label. There\u0027s nothing being enforced here.\n- It creates situations where debug and release builds have dramatically differing behavior.\n- It makes assumptions about functions that I can\u0027t tell from the API surface whether they are true or not.\n\nThis worries me.\n",
+      "revId": "ceb2cf7c7f364014206b24a86f70be2cd3b25d72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4dd5dca_1548eacb",
+        "filename": "api/voip/voip_base.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-12-10T21:36:03Z",
+      "side": 1,
+      "message": "Dues this usage of RTC_WARN_UNUSED_RESULT make sense? I can\u0027t tell from the declaration and commentary in unused.h that it would have any effect.",
+      "revId": "ceb2cf7c7f364014206b24a86f70be2cd3b25d72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7641aac6_20a11f17",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-12-10T21:36:03Z",
+      "side": 1,
+      "message": "Is it now impossible for this function to fail? What change caused it to be infallible?",
+      "revId": "ceb2cf7c7f364014206b24a86f70be2cd3b25d72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0195757a_69e3964d",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-12-10T21:36:03Z",
+      "side": 1,
+      "message": "I don\u0027t like this construct. It means that if SetSendCodec ever fails in production, you will continue executing without raising an error, and with the engine in an undefined state.\nEither the failure doesn\u0027t matter, and you should allow it to continue executing in debug too (possibly with a logged warning), so that tests in debug mode can exercise the failure path and see what happens, or you should do RTC_CHECK, which removes the need for RTC_UNUSED.",
+      "revId": "ceb2cf7c7f364014206b24a86f70be2cd3b25d72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec1b8ac3_a23ca195",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-12-10T21:36:03Z",
+      "side": 1,
+      "message": "As above.",
+      "revId": "ceb2cf7c7f364014206b24a86f70be2cd3b25d72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ddf628a_f4b40393",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-12-10T21:36:03Z",
+      "side": 1,
+      "message": "And here.",
+      "revId": "ceb2cf7c7f364014206b24a86f70be2cd3b25d72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45117979_1bf7a54d",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-12-10T21:36:03Z",
+      "side": 1,
+      "message": "And here.",
+      "revId": "ceb2cf7c7f364014206b24a86f70be2cd3b25d72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea13757c_48509a72",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-12-10T21:36:03Z",
+      "side": 1,
+      "message": "And here.",
+      "revId": "ceb2cf7c7f364014206b24a86f70be2cd3b25d72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

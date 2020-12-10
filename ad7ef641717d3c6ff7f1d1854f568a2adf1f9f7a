@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8235c55_56b9af90",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-12-10T22:18:10Z",
+      "side": 1,
+      "message": "Thanks - this makes me less unhappy, and I learned a new C++ trick today.\n",
+      "revId": "ad7ef641717d3c6ff7f1d1854f568a2adf1f9f7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95ed641c_01d5df27",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-12-10T22:18:10Z",
+      "side": 1,
+      "message": "If you want slightly shorter code, you can write\n\nRTC_CHECK_EQ(webrtc::VoipResult::kOk, voip_engine_-\u003eCodec().SetReceiveCodecs(*channel_, decoder_specs)\n\nbut some might find that harder to read.",
+      "revId": "ad7ef641717d3c6ff7f1d1854f568a2adf1f9f7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

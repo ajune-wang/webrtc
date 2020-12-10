@@ -86,6 +86,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b82880a_7c404531",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-12-10T22:14:33Z",
+      "side": 1,
+      "message": "I verified - setting RTC_WARN_UNUSED on the return type should work according to Clang documentation. It just doesn\u0027t say so in the unused.h documentation.\n\nFound one more while I was looking around....",
+      "revId": "ceb2cf7c7f364014206b24a86f70be2cd3b25d72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a4dd5dca_1548eacb",
@@ -187,6 +204,23 @@
       "side": 1,
       "message": "The intention here was to catch any developer error on debug build while production can still run with developer error in some extend. The only error case here is for developer to mis-manage the ChannelID (channel_) which is application\u0027s responsibility.  It can fail here by using invalid channel id after caller releasing it. Since this is demo app, I think using RTC_CHECK makes better sense. Thanks.",
       "parentUuid": "0195757a_69e3964d",
+      "revId": "ceb2cf7c7f364014206b24a86f70be2cd3b25d72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51dfa361_a9373eff",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-12-10T22:14:33Z",
+      "side": 1,
+      "message": "Note: The RTC_UNUSED is not necessary; RTC_DCHECK will reference its argument even in release builds, according to its documentation.",
       "revId": "ceb2cf7c7f364014206b24a86f70be2cd3b25d72",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

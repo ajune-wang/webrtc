@@ -520,10 +520,14 @@ if (!build_with_chromium) {
         "../../../api/video:video_frame",
         "../../../common_video",
         "../../../modules/rtp_rtcp:rtp_rtcp_format",
+        "../../../rtc_base:logging",
+        "../../../rtc_base:rtc_base_tests_utils",
         "../../../rtc_base:stringutils",
         "../../../rtc_tools:video_quality_analysis",
         "../../../system_wrappers",
       ]
+      suppressed_configs += [ "//build/config/compiler:default_optimization" ]
+      configs += [ "//build/config/compiler:no_optimize" ]
     }
 
     rtc_library("multi_head_queue_test") {

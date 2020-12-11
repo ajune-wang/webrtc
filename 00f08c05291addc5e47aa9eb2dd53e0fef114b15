@@ -33,6 +33,23 @@
       "message": "PTAL, this is ready for review.\n\nthe FYI bot failures are unrelated. I\u0027m surprised that the linux-blink-rel shows green despite failing on\n  external/wpt/webrtc/protocol/rtp-payloadtypes.html\nI\u0027m deactivating that test to unblock the webrtc-\u003echrome roll and then we should wait until it is reactivated before submitting this.",
       "revId": "00f08c05291addc5e47aa9eb2dd53e0fef114b15",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0bcc5b3c_768d098f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2020-12-11T10:17:34Z",
+      "side": 1,
+      "message": "linux-blink-rel passed which suggests the test for running out of payload types did not trigger.\nCan you land this? I\u0027ll watch https://ci.chromium.org/p/chromium/builders/webrtc.fyi/WebRTC%20Chromium%20FYI%20Win10%20Tester",
+      "revId": "00f08c05291addc5e47aa9eb2dd53e0fef114b15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

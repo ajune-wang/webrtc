@@ -33,6 +33,24 @@
       "message": "Can\u0027t we move all code into the tasks and thereby avoid the sync events? Here we would then instead post the task below at line 286, etc.",
       "revId": "2d48ed0edb9d404615dbefea18561af0f7915679",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58f7a2e5_38cb51ad",
+        "filename": "rtc_tools/video_replay.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-12-11T10:07:54Z",
+      "side": 1,
+      "message": "It\u0027s not easy to do it in one task, because ReplayPackets() simulates packet arrivals, so it can\u0027t be inside the task queue, it will hold the queue until it\u0027s done.\n\nI\u0027ve reduced it from 4 to 2 postings. In theory, it\u0027s possible to use PostDelayedTasks inside RelayPackets() and post all the packets from the beginning, but this would change threading model of the tool and requires more work - something has to keep the task queue alive until all packets have arrived, some instance would be needed to hold all the local stats variables inside ReplayPackets()... and a synchronisation event still would be needed at the end.\n\nDo you think it\u0027s necessary?",
+      "parentUuid": "eeafff94_4b22366d",
+      "revId": "2d48ed0edb9d404615dbefea18561af0f7915679",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

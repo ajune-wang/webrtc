@@ -5460,6 +5460,74 @@ TEST_F(PeerConnectionIntegrationTestUnifiedPlan,
   caller()->CreateOfferAndWait();
 }
 
+TEST_F(PeerConnectionIntegrationTestUnifiedPlan, OneHundredAudioTransceivers) {
+  PeerConnectionInterface::RTCConfiguration config;
+  config.sdp_semantics = SdpSemantics::kUnifiedPlan;
+  ASSERT_TRUE(CreatePeerConnectionWrappersWithConfig(config, config));
+  ConnectFakeSignaling();
+  caller()->pc()->AddTransceiver(cricket::MEDIA_TYPE_AUDIO);
+
+  caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  int current_size = caller()->pc()->GetTransceivers().size();
+  // Add more tracks until we get close to having issues.
+  // Issues have been seen at:
+  // - 32 tracks on android_arm64_rel and android_arm_dbg bots
+  while (current_size < 16) {
+    // Double the number of tracks
+    for (int i = 0; i < current_size; i++) {
+      caller()->pc()->AddTransceiver(cricket::MEDIA_TYPE_AUDIO);
+    }
+    current_size = caller()->pc()->GetTransceivers().size();
+    RTC_LOG(LS_ERROR) << "Renegotiating with " << current_size << " tracks";
+    auto start_time = rtc::TimeMillis();
+    caller()->CreateAndSetAndSignalOffer();
+    // We want to stop when the time exceeds one second.
+    ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+    auto elapsed_time = rtc::TimeMillis() - start_time;
+    RTC_LOG(LS_ERROR) << "Renegotiating took " << elapsed_time << " ms";
+    // For some reason ASSERT_TRUE_WAIT doesn't break the loop.
+    ASSERT_GT(1000, elapsed_time)
+        << "Audio transceivers: Negotiation took too long after "
+        << current_size << " tracks added";
+  }
+}
+
+TEST_F(PeerConnectionIntegrationTestUnifiedPlan, OneHundredVideoTransceivers) {
+  PeerConnectionInterface::RTCConfiguration config;
+  config.sdp_semantics = SdpSemantics::kUnifiedPlan;
+  ASSERT_TRUE(CreatePeerConnectionWrappersWithConfig(config, config));
+  ConnectFakeSignaling();
+  caller()->pc()->AddTransceiver(cricket::MEDIA_TYPE_VIDEO);
+
+  caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  int current_size = caller()->pc()->GetTransceivers().size();
+  // Add more tracks until we get close to having issues.
+  // Issues have been seen at:
+  // - 96 on a Linux workstation
+  // - 64 at win_x86_more_configs and win_x64_msvc_dbg
+  // - 32 on android_arm64_rel and linux_dbg bots
+  while (current_size < 16) {
+    // Double the number of tracks
+    for (int i = 0; i < current_size; i++) {
+      caller()->pc()->AddTransceiver(cricket::MEDIA_TYPE_VIDEO);
+    }
+    current_size = caller()->pc()->GetTransceivers().size();
+    RTC_LOG(LS_ERROR) << "Renegotiating with " << current_size << " tracks";
+    auto start_time = rtc::TimeMillis();
+    caller()->CreateAndSetAndSignalOffer();
+    // We want to stop when the time exceeds one second.
+    ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+    auto elapsed_time = rtc::TimeMillis() - start_time;
+    RTC_LOG(LS_ERROR) << "Renegotiating took " << elapsed_time << " ms";
+    // For some reason ASSERT_TRUE_WAIT doesn't break the loop.
+    ASSERT_GT(1000, elapsed_time)
+        << "Video transceivers: Negotiation took too long after "
+        << current_size << " tracks added";
+  }
+}
+
 INSTANTIATE_TEST_SUITE_P(PeerConnectionIntegrationTest,
                          PeerConnectionIntegrationTest,
                          Values(SdpSemantics::kPlanB,

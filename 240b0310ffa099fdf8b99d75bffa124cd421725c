@@ -16,6 +16,144 @@
       "message": "Thanks again!",
       "revId": "240b0310ffa099fdf8b99d75bffa124cd421725c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6a7c06f_d09ca76c",
+        "filename": "sdk/android/api/org/webrtc/audio/JavaAudioDeviceModule.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-12-11T12:51:26Z",
+      "side": 1,
+      "message": "It would probably good to have this as a constant with an explanation why this is the minimum version supported.",
+      "range": {
+        "startLine": 237,
+        "startChar": 52,
+        "endLine": 237,
+        "endChar": 54
+      },
+      "revId": "240b0310ffa099fdf8b99d75bffa124cd421725c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c88439da_a6dcfcea",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioTrack.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-12-11T12:51:26Z",
+      "side": 1,
+      "message": "It would be nice if there were some comments what these fields signify",
+      "range": {
+        "startLine": 96,
+        "startChar": 4,
+        "endLine": 100,
+        "endChar": 0
+      },
+      "revId": "240b0310ffa099fdf8b99d75bffa124cd421725c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8a7a5b1_188b1188",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioTrack.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-12-11T12:51:26Z",
+      "side": 1,
+      "message": "The logic for maintaining the buffer size is non-trivial. Would it be possible to extract it to a separate class that would be unit testable?",
+      "range": {
+        "startLine": 173,
+        "startChar": 0,
+        "endLine": 187,
+        "endChar": 41
+      },
+      "revId": "240b0310ffa099fdf8b99d75bffa124cd421725c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f9f308c_86c46c31",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioTrack.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-12-11T12:51:26Z",
+      "side": 1,
+      "message": "nit: would be useful to have a comment why",
+      "range": {
+        "startLine": 276,
+        "startChar": 7,
+        "endLine": 276,
+        "endChar": 70
+      },
+      "revId": "240b0310ffa099fdf8b99d75bffa124cd421725c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0efad22e_77b188d7",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioTrack.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-12-11T12:51:26Z",
+      "side": 1,
+      "message": "There is a lot of code duplication across the methods, could we avoid that?",
+      "range": {
+        "startLine": 504,
+        "startChar": 28,
+        "endLine": 504,
+        "endChar": 58
+      },
+      "revId": "240b0310ffa099fdf8b99d75bffa124cd421725c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61002776_f595f4fb",
+        "filename": "sdk/android/src/jni/audio_device/audio_track_jni.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-12-11T12:51:26Z",
+      "side": 1,
+      "message": "nit: these min/max value seem maybe a little conservative to me.",
+      "range": {
+        "startLine": 161,
+        "startChar": 63,
+        "endLine": 161,
+        "endChar": 73
+      },
+      "revId": "240b0310ffa099fdf8b99d75bffa124cd421725c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

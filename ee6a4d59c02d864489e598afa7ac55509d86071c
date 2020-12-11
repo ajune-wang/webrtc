@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b62d5ec2_397759a9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-12-11T07:33:20Z",
+      "side": 1,
+      "message": "LGTM.\nI do recommend tools_webrtc/iwyu/apply-iwyu for when includes get too convoluted.\n",
+      "revId": "ee6a4d59c02d864489e598afa7ac55509d86071c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -79,8 +79,8 @@ class AudioIngress : public AudioMixer::Source {
   }
 
   // Returns network round trip time (RTT) measued by RTCP exchange with
-  // remote media endpoint. RTT value -1 indicates that it's not initialized.
-  int64_t GetRoundTripTime();
+  // remote media endpoint. Returns absl::nullopt when it's not initialized.
+  absl::optional<int64_t> GetRoundTripTime();
 
   NetworkStatistics GetNetworkStatistics() const {
     NetworkStatistics stats;

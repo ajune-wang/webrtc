@@ -16,6 +16,159 @@
       "message": "Should be OK to check this in now. I hope the margin for \"adequate performance\" is high enough.\n",
       "revId": "a3d0d5bb1b2d237cf3d35c7970db78e6ca081099",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aad13508_75ba7da6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-12-11T14:26:00Z",
+      "side": 1,
+      "message": "LGTM % comments. This will help us catch large regressions in the CQ but not small ones over time - I wonder if we could create a browser perf test that produces performance graphs and alerts us if it suddenly changes.\n\nWould it be possible to add more ScopedDisallowBlocking inside of subsets of the negotiation methods?\n",
+      "revId": "a3d0d5bb1b2d237cf3d35c7970db78e6ca081099",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e25892a_99ec681f",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 5463,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-12-11T14:26:00Z",
+      "side": 1,
+      "message": "We\u0027re stopping at 16 so either call it SixteenAudioTransceivers or perhaps something more descriptive to its purpose. Maybe RenegotiateManyAudioTransceiversQuickly?",
+      "revId": "a3d0d5bb1b2d237cf3d35c7970db78e6ca081099",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f4c8262_18a010d2",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 5483,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-12-11T14:26:00Z",
+      "side": 1,
+      "message": "nit: start_time_ms",
+      "revId": "a3d0d5bb1b2d237cf3d35c7970db78e6ca081099",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "018bf1b1_a2480d4a",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 5487,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-12-11T14:26:00Z",
+      "side": 1,
+      "message": "nit: elapsed_time_ms",
+      "revId": "a3d0d5bb1b2d237cf3d35c7970db78e6ca081099",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9d0e0c3_0b77f991",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 5489,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-12-11T14:26:00Z",
+      "side": 1,
+      "message": "Remove this comment?",
+      "revId": "a3d0d5bb1b2d237cf3d35c7970db78e6ca081099",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef1eff42_12066ff5",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 5496,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-12-11T14:26:00Z",
+      "side": 1,
+      "message": "RenegotiateManyVideoTransceiversQuickly ?",
+      "revId": "a3d0d5bb1b2d237cf3d35c7970db78e6ca081099",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2bcf6d0_7703432a",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 5518,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-12-11T14:26:00Z",
+      "side": 1,
+      "message": "nit: start_time_ms",
+      "revId": "a3d0d5bb1b2d237cf3d35c7970db78e6ca081099",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbd5024b_e18e12df",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 5522,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-12-11T14:26:00Z",
+      "side": 1,
+      "message": "nit: elapsed_time_ms",
+      "revId": "a3d0d5bb1b2d237cf3d35c7970db78e6ca081099",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16a1ba66_1d7abaad",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 5524,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-12-11T14:26:00Z",
+      "side": 1,
+      "message": "Remove this comment?",
+      "revId": "a3d0d5bb1b2d237cf3d35c7970db78e6ca081099",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

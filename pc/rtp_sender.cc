@@ -10,6 +10,7 @@
 
 #include "pc/rtp_sender.h"
 
+#include <algorithm>
 #include <atomic>
 #include <utility>
 #include <vector>
@@ -405,6 +406,7 @@ void LocalAudioSinkAdapter::OnData(
   if (sink_) {
     sink_->OnData(audio_data, bits_per_sample, sample_rate, number_of_channels,
                   number_of_frames, absolute_capture_timestamp_ms);
+    num_processed_channels_ = sink_->NumProcessedChannels();
   }
 }
 

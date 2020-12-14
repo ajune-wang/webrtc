@@ -33,6 +33,7 @@ class CallStats {
   // Time interval for updating the observers.
   static constexpr TimeDelta kUpdateInterval = TimeDelta::Millis(1000);
 
+  // Must be created and destroyed on the same task_queue.
   CallStats(Clock* clock, TaskQueueBase* task_queue);
   ~CallStats();
 
@@ -106,25 +107,24 @@ class CallStats {
   Clock* const clock_;
 
   // Used to regularly call UpdateAndReport().
-  RepeatingTaskHandle repeating_task_
-      RTC_GUARDED_BY(construction_thread_checker_);
+  RepeatingTaskHandle repeating_task_ RTC_GUARDED_BY(task_queue_);
 
   // The last RTT in the statistics update (zero if there is no valid estimate).
-  int64_t max_rtt_ms_ RTC_GUARDED_BY(construction_thread_checker_);
+  int64_t max_rtt_ms_ RTC_GUARDED_BY(task_queue_);
 
   // Last reported average RTT value.
-  int64_t avg_rtt_ms_ RTC_GUARDED_BY(construction_thread_checker_);
+  int64_t avg_rtt_ms_ RTC_GUARDED_BY(task_queue_);
 
   // |sum_avg_rtt_ms_|, |num_avg_rtt_| and |time_of_first_rtt_ms_| are only used
   // on the ProcessThread when running. When the Process Thread is not running,
   // (and only then) they can be used in UpdateHistograms(), usually called from
   // the dtor.
-  int64_t sum_avg_rtt_ms_ RTC_GUARDED_BY(construction_thread_checker_);
-  int64_t num_avg_rtt_ RTC_GUARDED_BY(construction_thread_checker_);
-  int64_t time_of_first_rtt_ms_ RTC_GUARDED_BY(construction_thread_checker_);
+  int64_t sum_avg_rtt_ms_ RTC_GUARDED_BY(task_queue_);
+  int64_t num_avg_rtt_ RTC_GUARDED_BY(task_queue_);
+  int64_t time_of_first_rtt_ms_ RTC_GUARDED_BY(task_queue_);
 
   // All Rtt reports within valid time interval, oldest first.
-  std::list<RttTime> reports_ RTC_GUARDED_BY(construction_thread_checker_);
+  std::list<RttTime> reports_ RTC_GUARDED_BY(task_queue_);
 
   // Observers getting stats reports.
   // When attached to ProcessThread, this is read-only. In order to allow
@@ -133,7 +133,6 @@ class CallStats {
   // for the observers_ list, which makes the most common case lock free.
   std::list<CallStatsObserver*> observers_;
 
-  RTC_NO_UNIQUE_ADDRESS SequenceChecker construction_thread_checker_;
   RTC_NO_UNIQUE_ADDRESS SequenceChecker process_thread_checker_;
   TaskQueueBase* const task_queue_;
 

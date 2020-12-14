@@ -16,6 +16,24 @@
       "message": "It would be great to get rid of this method actually. I think that all callers to it have a way to get the rttt reported in the right context, so polling via this method (and the current caching) may not be necessary at all.",
       "revId": "cc02721090369ee06735f8efe73996d00f59cf5d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75dd7e82_f63b7a30",
+        "filename": "video/call_stats2.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-12-14T14:10:15Z",
+      "side": 0,
+      "message": "Looks like only non-test caller is Call::GetStats. And that\u0027s all direct use of the CallStats object in Call (rest is passing it around for other objects to use).",
+      "parentUuid": "abb328d1_c93a53d6",
+      "revId": "cc02721090369ee06735f8efe73996d00f59cf5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

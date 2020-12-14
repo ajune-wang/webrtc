@@ -16,6 +16,23 @@
       "message": "Thanks Bjorn!",
       "revId": "1b4534722559bade2a0498e7d655b6cbb6067b6b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35d780da_91f8df3d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-12-14T16:51:56Z",
+      "side": 1,
+      "message": "We\u0027re having some issues with the ios_sim_* bots. I\u0027m hoping to have that fixed shortly.\n\nRegarding the presubmit error; I think you can lgtm from your chromium.org account.",
+      "revId": "1b4534722559bade2a0498e7d655b6cbb6067b6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

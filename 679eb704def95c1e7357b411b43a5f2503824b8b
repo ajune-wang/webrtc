@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2eb6225d_5f99c625",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-12-14T10:59:23Z",
+      "side": 1,
+      "message": "Hi, does this describe intended thread usage accurately?\n\nRelated to the failures I got on https://webrtc-review.googlesource.com/c/src/+/196904\n",
+      "revId": "679eb704def95c1e7357b411b43a5f2503824b8b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b81dddd_a43e8fd8",
+        "filename": "video/call_stats2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-12-14T10:59:23Z",
+      "side": 1,
+      "message": "To fails at construction time, if the given tq isn\u0027t the current one.",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 33
+      },
+      "revId": "679eb704def95c1e7357b411b43a5f2503824b8b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -16,6 +16,29 @@
       "message": "LGTM",
       "revId": "d3071af3629e013e98db0223919a062411f70f83",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "776f16ab_48415aef",
+        "filename": "tools_webrtc/version_updater/update_version.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-12-15T08:49:55Z",
+      "side": 1,
+      "message": "What user is this expected to be? Would it make sense to instead hardcode some bot user? (And pass the same user with git commit --author\u003d...).\n\nHow do the automated chromium --\u003e webrtc rolls work? It would be good to commit, upload and submit in the same way.",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 64
+      },
+      "revId": "d3071af3629e013e98db0223919a062411f70f83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

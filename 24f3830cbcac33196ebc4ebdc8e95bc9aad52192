@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95de518c_84476824",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-12-15T10:41:54Z",
+      "side": 1,
+      "message": "Skipping broken ios_sim_x64_dbg_ios12.",
+      "revId": "24f3830cbcac33196ebc4ebdc8e95bc9aad52192",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -63,6 +63,30 @@
       },
       "revId": "d3071af3629e013e98db0223919a062411f70f83",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64b0c6f5_9cab4c4b",
+        "filename": "tools_webrtc/version_updater/update_version.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-12-15T09:18:42Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1bafea6e_1ca7ed9a",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 64
+      },
+      "revId": "d3071af3629e013e98db0223919a062411f70f83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

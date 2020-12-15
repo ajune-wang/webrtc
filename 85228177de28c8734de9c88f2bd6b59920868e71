@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ec5b6c15_edecb45b",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3135,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-12-15T11:44:44Z",
+      "side": 1,
+      "message": "I thought this is guaranteed by the surrounding code in ParseMediaDescription so imo the  check could be removed. The bots disagreed with that on PS3 since WebRtcSdpTest.DeserializeSctpPortInVideoDescription passes m\u003dvideo with a dtls protocol and expects to fail on the sctp-port line. \nBut this should fail on the media type not matching the protocol. Follow-up change.",
+      "parentUuid": "beda12ac_79dd7530",
+      "revId": "85228177de28c8734de9c88f2bd6b59920868e71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e5482902_984be527",
         "filename": "pc/webrtc_sdp.cc",
         "patchSetId": 2
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "I would continue after every successful branch, just for consistency.",
       "parentUuid": "e5482902_984be527",
+      "revId": "85228177de28c8734de9c88f2bd6b59920868e71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90b49383_4a534652",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3162,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-12-15T11:44:44Z",
+      "side": 1,
+      "message": "rest of the code is more along the lines of \"do not do anything for lines that are processed, continue when ignoring values\", went with that.",
+      "parentUuid": "71c26bb9_cea6df58",
       "revId": "85228177de28c8734de9c88f2bd6b59920868e71",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -101,6 +137,24 @@
       "side": 1,
       "message": "If we care about speed, we\u0027ll use a HashMap\u003cstd::string\u003e on the attribute name, not an if-then-else. So far, I don\u0027t think we care *that* much about speed - there are bigger fish frying over that fire.",
       "parentUuid": "43505568_ca116a19",
+      "revId": "85228177de28c8734de9c88f2bd6b59920868e71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0d0fd86_f74ecebe",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3164,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-12-15T11:44:44Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "edf41327_0346267a",
       "revId": "85228177de28c8734de9c88f2bd6b59920868e71",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

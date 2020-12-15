@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64ede01d_554e302a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2020-12-15T08:49:43Z",
+      "side": 1,
+      "message": "Per and Magnus, could you please take a look at this CL?",
+      "revId": "5ae034540ce2d1b39c0400e584ef342c31694dd6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

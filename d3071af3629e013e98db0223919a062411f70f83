@@ -39,6 +39,30 @@
       },
       "revId": "d3071af3629e013e98db0223919a062411f70f83",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1bafea6e_1ca7ed9a",
+        "filename": "tools_webrtc/version_updater/update_version.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-12-15T08:54:04Z",
+      "side": 1,
+      "message": "\u003e What user is this expected to be? Would it make sense to instead hardcode some bot user? (And pass the same user with git commit --author\u003d...).\n\nIt is the bot user doing the roll.\n\n\u003e How do the automated chromium --\u003e webrtc rolls work? It would be good to commit, upload and submit in the same way.\n\nYes, I took inspiration from it (see https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/tools_webrtc/autoroller/roll_deps.py;l\u003d505-512;drc\u003d8cc6695652307929edfc877cd64b75cd9ec2d615).",
+      "parentUuid": "776f16ab_48415aef",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 64
+      },
+      "revId": "d3071af3629e013e98db0223919a062411f70f83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

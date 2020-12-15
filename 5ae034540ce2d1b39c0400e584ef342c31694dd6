@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fe4800c_d0215266",
+        "filename": "media/base/audio_source.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2020-12-15T14:29:29Z",
+      "side": 1,
+      "message": "See below.",
+      "parentUuid": "e0179bf9_ff305cba",
+      "range": {
+        "startLine": 42,
+        "startChar": 16,
+        "endLine": 42,
+        "endChar": 36
+      },
+      "revId": "5ae034540ce2d1b39c0400e584ef342c31694dd6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "74d72831_e3366bf2",
@@ -71,6 +95,30 @@
       "writtenOn": "2020-12-15T11:32:59Z",
       "side": 1,
       "message": "Would it make sense to name this in a way that does not mention \"processed\".\nTo me that part is a bit unclear since this code does not process the audio in any way.\n\nWhat about something like\nnum_channels_to_send_\ninstead?",
+      "range": {
+        "startLine": 1121,
+        "startChar": 5,
+        "endLine": 1121,
+        "endChar": 29
+      },
+      "revId": "5ae034540ce2d1b39c0400e584ef342c31694dd6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28927fa6_90c87d7a",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1121,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2020-12-15T14:29:29Z",
+      "side": 1,
+      "message": "Thanks for the feedback on the naming. I like your proposal of NumPreferredChannels. It\u0027s a name that can be used throughout the different layers without becoming misleading (some layers don\u0027t encode but perform wasm processing, etc).\nInternally in WebRtcAudioSendStream I use num_encoded_channels_.",
+      "parentUuid": "74d72831_e3366bf2",
       "range": {
         "startLine": 1121,
         "startChar": 5,

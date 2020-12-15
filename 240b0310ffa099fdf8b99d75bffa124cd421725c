@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "56b88018_3482706a",
+        "filename": "sdk/android/api/org/webrtc/audio/JavaAudioDeviceModule.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-12-15T19:46:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6a7c06f_d09ca76c",
+      "range": {
+        "startLine": 237,
+        "startChar": 52,
+        "endLine": 237,
+        "endChar": 54
+      },
+      "revId": "240b0310ffa099fdf8b99d75bffa124cd421725c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c88439da_a6dcfcea",
@@ -54,6 +78,30 @@
       "writtenOn": "2020-12-11T12:51:26Z",
       "side": 1,
       "message": "It would be nice if there were some comments what these fields signify",
+      "range": {
+        "startLine": 96,
+        "startChar": 4,
+        "endLine": 100,
+        "endChar": 0
+      },
+      "revId": "240b0310ffa099fdf8b99d75bffa124cd421725c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25bd03d3_f2667fa0",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioTrack.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-12-15T19:46:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c88439da_a6dcfcea",
       "range": {
         "startLine": 96,
         "startChar": 4,
@@ -87,6 +135,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7975812e_811d96de",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioTrack.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-12-15T19:46:32Z",
+      "side": 1,
+      "message": "I\u0027ve moved this into it\u0027s own class and added unittests. PTAL.",
+      "parentUuid": "e8a7a5b1_188b1188",
+      "range": {
+        "startLine": 173,
+        "startChar": 0,
+        "endLine": 187,
+        "endChar": 41
+      },
+      "revId": "240b0310ffa099fdf8b99d75bffa124cd421725c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3f9f308c_86c46c31",
@@ -100,6 +172,30 @@
       "writtenOn": "2020-12-11T12:51:26Z",
       "side": 1,
       "message": "nit: would be useful to have a comment why",
+      "range": {
+        "startLine": 276,
+        "startChar": 7,
+        "endLine": 276,
+        "endChar": 70
+      },
+      "revId": "240b0310ffa099fdf8b99d75bffa124cd421725c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f7ed3e6_33c75320",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioTrack.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-12-15T19:46:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f9f308c_86c46c31",
       "range": {
         "startLine": 276,
         "startChar": 7,
@@ -133,6 +229,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b1cce7f_7c8a8b85",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioTrack.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-12-15T19:46:32Z",
+      "side": 1,
+      "message": "I\u0027ve refactored this into 2 helper methods. PTAL.",
+      "parentUuid": "0efad22e_77b188d7",
+      "range": {
+        "startLine": 504,
+        "startChar": 28,
+        "endLine": 504,
+        "endChar": 58
+      },
+      "revId": "240b0310ffa099fdf8b99d75bffa124cd421725c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "61002776_f595f4fb",
@@ -146,6 +266,30 @@
       "writtenOn": "2020-12-11T12:51:26Z",
       "side": 1,
       "message": "nit: these min/max value seem maybe a little conservative to me.",
+      "range": {
+        "startLine": 161,
+        "startChar": 63,
+        "endLine": 161,
+        "endChar": 73
+      },
+      "revId": "240b0310ffa099fdf8b99d75bffa124cd421725c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2da4a8eb_6a9d6eb8",
+        "filename": "sdk/android/src/jni/audio_device/audio_track_jni.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-12-15T19:46:32Z",
+      "side": 1,
+      "message": "Sorry, my intention was to log the metric in terms of ms, but I forgot to do the conversion from frames to ms. I\u0027ve fixed that in the latest revision, the range should be appropriate now, considering that nearly all users have an audio buffer size of 300ms or less. PTAL.",
+      "parentUuid": "61002776_f595f4fb",
       "range": {
         "startLine": 161,
         "startChar": 63,

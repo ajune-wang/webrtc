@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c0514fc_5640b178",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-12-15T08:21:49Z",
+      "side": 1,
+      "message": "No-Try to sidestep: https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d12300.",
+      "revId": "5724b36f4eb80fcb8e8bcc548527380de4adb37c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,6 +1,40 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "afb491b7_8f0063f5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-12-15T07:41:27Z",
+      "side": 1,
+      "message": "I think we should land this.\n",
+      "revId": "85228177de28c8734de9c88f2bd6b59920868e71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "beda12ac_79dd7530",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3135,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-12-15T07:41:27Z",
+      "side": 1,
+      "message": "You can bail earlier in this case - if cricket::IsDtlsSctp is true, then finding media type !\u003d MEDIA_TYPE_DATA is an error.",
+      "revId": "85228177de28c8734de9c88f2bd6b59920868e71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e5482902_984be527",
@@ -20,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "71c26bb9_cea6df58",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3162,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-12-15T07:41:27Z",
+      "side": 1,
+      "message": "I would continue after every successful branch, just for consistency.",
+      "parentUuid": "e5482902_984be527",
+      "revId": "85228177de28c8734de9c88f2bd6b59920868e71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "43505568_ca116a19",
         "filename": "pc/webrtc_sdp.cc",
         "patchSetId": 2
@@ -31,6 +83,24 @@
       "writtenOn": "2020-12-08T13:51:48Z",
       "side": 1,
       "message": "given the large amount of if-else here would we make things faster if we moved the RTP handling first? Think of handling hundreds of rtp m\u003d lines!",
+      "revId": "85228177de28c8734de9c88f2bd6b59920868e71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edf41327_0346267a",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3164,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-12-15T07:41:27Z",
+      "side": 1,
+      "message": "If we care about speed, we\u0027ll use a HashMap\u003cstd::string\u003e on the attribute name, not an if-then-else. So far, I don\u0027t think we care *that* much about speed - there are bigger fish frying over that fire.",
+      "parentUuid": "43505568_ca116a19",
       "revId": "85228177de28c8734de9c88f2bd6b59920868e71",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

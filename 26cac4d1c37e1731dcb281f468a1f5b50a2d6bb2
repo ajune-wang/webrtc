@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "81c6fefe_a523603d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-12-16T23:45:55Z",
+      "side": 1,
+      "message": "Seems good, but I think the enum thing you found should be changed as well. Let\u0027s go all in.\n",
+      "revId": "26cac4d1c37e1731dcb281f468a1f5b50a2d6bb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3f74159a_674e5c01",
@@ -61,6 +78,30 @@
       "writtenOn": "2020-12-16T15:15:08Z",
       "side": 1,
       "message": "Not sure if this should be changed to kSession as well?",
+      "range": {
+        "startLine": 278,
+        "startChar": 46,
+        "endLine": 278,
+        "endChar": 49
+      },
+      "revId": "26cac4d1c37e1731dcb281f468a1f5b50a2d6bb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd8ed541_13db4b43",
+        "filename": "pc/session_description.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-12-16T23:45:55Z",
+      "side": 1,
+      "message": "I think it should be, and the comment above amended.",
+      "parentUuid": "c036615f_921bcd73",
       "range": {
         "startLine": 278,
         "startChar": 46,

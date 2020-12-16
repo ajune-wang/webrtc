@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3f74159a_674e5c01",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 625,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2020-12-16T15:34:20Z",
+      "side": 1,
+      "message": "Please note that this is overridden here:\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/blink/renderer/modules/peerconnection/rtc_peer_connection.cc;drc\u003d2565475c8d30c7fc57e307fa2cf1357c2db5a905;l\u003d348\n\nI think that here is where you want to change at first:\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/blink/common/features.cc;drc\u003d3397c26de7a55dd3c5b827b149898a89b881f14c;l\u003d223\n\nThis way it\u0027s possible to override from JavaScript.\n\nOnce that has been out for a while we can remove the configuration parameter and always offer extmap-allow-mixed.",
+      "range": {
+        "startLine": 625,
+        "startChar": 4,
+        "endLine": 625,
+        "endChar": 37
+      },
+      "revId": "26cac4d1c37e1731dcb281f468a1f5b50a2d6bb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c036615f_921bcd73",
         "filename": "pc/session_description.h",
         "patchSetId": 3

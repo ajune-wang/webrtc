@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "45b82cf1_8072031a",
+        "filename": "sdk/android/src/java/org/webrtc/audio/LowLatencyAudioBufferManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-12-16T13:31:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8342e699_40a2716f",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 6
+      },
+      "revId": "208b818e8aab1ff53be8294b12b853775261095b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3ad1809b_329a07c8",
@@ -54,6 +78,30 @@
       "writtenOn": "2020-12-16T11:32:29Z",
       "side": 1,
       "message": "Hmm, why is this needed? It looks dangerous because we could accidentally end up skipping the test. Can we instead pass in the SDK in the @Config so that this is not needed?",
+      "range": {
+        "startLine": 49,
+        "startChar": 4,
+        "endLine": 49,
+        "endChar": 38
+      },
+      "revId": "208b818e8aab1ff53be8294b12b853775261095b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8df8b365_fd6d6946",
+        "filename": "sdk/android/tests/src/org/webrtc/LowLatencyAudioBufferManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-12-16T13:31:43Z",
+      "side": 1,
+      "message": "The getUnderrunCount() method was introduced in API level 24, so when running the test with older SDK versions, there is a crash on the when() line (line 50 in this patchset) that sets the behavior for getUnderrunCount(). \n\nI removed these if-statements and updated the @Config clause, thanks for the suggestion.",
+      "parentUuid": "3ad1809b_329a07c8",
       "range": {
         "startLine": 49,
         "startChar": 4,

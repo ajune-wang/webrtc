@@ -17,6 +17,7 @@
 #include "absl/memory/memory.h"
 #include "pc/media_protocol_names.h"
 #include "rtc_base/checks.h"
+#include "system_wrappers/include/field_trial.h"
 
 namespace cricket {
 namespace {
@@ -87,7 +88,9 @@ bool ContentGroup::RemoveContentName(const std::string& content_name) {
   return true;
 }
 
-SessionDescription::SessionDescription() = default;
+SessionDescription::SessionDescription()
+    : extmap_allow_mixed_(
+          !webrtc::field_trial::IsDisabled("WebRTC-DefaultExtmapAllowMixed")) {}
 SessionDescription::SessionDescription(const SessionDescription&) = default;
 
 SessionDescription::~SessionDescription() {}

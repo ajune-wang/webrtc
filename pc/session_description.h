@@ -633,12 +633,7 @@ class SessionDescription {
   // Default to what Plan B would do.
   // TODO(bugs.webrtc.org/8530): Change default to kMsidSignalingMediaSection.
   int msid_signaling_ = kMsidSignalingSsrcAttribute;
-  // TODO(webrtc:9985): Activate mixed one- and two-byte header extension in
-  // offer at session level. It's currently not included in offer by default
-  // because clients prior to https://bugs.webrtc.org/9712 cannot parse this
-  // correctly. If it's included in offer to us we will respond that we support
-  // it.
-  bool extmap_allow_mixed_ = false;
+  bool extmap_allow_mixed_ = true;
 };
 
 // Indicates whether a session description was sent by the local client or

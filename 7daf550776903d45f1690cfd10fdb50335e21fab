@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17aa1073_29309ed5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-12-16T15:20:41Z",
+      "side": 1,
+      "message": "Hi, this class was added more than a year ago, but appears unused. Is it really needed?",
+      "revId": "7daf550776903d45f1690cfd10fdb50335e21fab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

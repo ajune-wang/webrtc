@@ -16,6 +16,52 @@
       "message": "Thanks!",
       "revId": "208b818e8aab1ff53be8294b12b853775261095b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8342e699_40a2716f",
+        "filename": "sdk/android/src/java/org/webrtc/audio/LowLatencyAudioBufferManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-12-16T11:32:29Z",
+      "side": 1,
+      "message": "nit: Probably does not need to public?",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 6
+      },
+      "revId": "208b818e8aab1ff53be8294b12b853775261095b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ad1809b_329a07c8",
+        "filename": "sdk/android/tests/src/org/webrtc/LowLatencyAudioBufferManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-12-16T11:32:29Z",
+      "side": 1,
+      "message": "Hmm, why is this needed? It looks dangerous because we could accidentally end up skipping the test. Can we instead pass in the SDK in the @Config so that this is not needed?",
+      "range": {
+        "startLine": 49,
+        "startChar": 4,
+        "endLine": 49,
+        "endChar": 38
+      },
+      "revId": "208b818e8aab1ff53be8294b12b853775261095b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

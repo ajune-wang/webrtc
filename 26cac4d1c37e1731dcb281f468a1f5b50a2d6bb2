@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c036615f_921bcd73",
+        "filename": "pc/session_description.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2020-12-16T15:15:08Z",
+      "side": 1,
+      "message": "Not sure if this should be changed to kSession as well?",
+      "range": {
+        "startLine": 278,
+        "startChar": 46,
+        "endLine": 278,
+        "endChar": 49
+      },
+      "revId": "26cac4d1c37e1731dcb281f468a1f5b50a2d6bb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

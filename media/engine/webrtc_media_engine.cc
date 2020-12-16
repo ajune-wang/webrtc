@@ -27,8 +27,7 @@ namespace cricket {
 
 std::unique_ptr<MediaEngineInterface> CreateMediaEngine(
     MediaEngineDependencies dependencies) {
-  // TODO(sprang): Make populating |dependencies.trials| mandatory and remove
-  // these fallbacks.
+  RTC_CHECK(dependencies.trials);  // Will it explode?
   std::unique_ptr<webrtc::WebRtcKeyValueConfig> fallback_trials(
       dependencies.trials ? nullptr : new webrtc::FieldTrialBasedConfig());
   const webrtc::WebRtcKeyValueConfig& trials =

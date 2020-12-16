@@ -11,6 +11,7 @@
 
 #include <memory>
 
+#include "test/field_trial.h"
 #include "test/gtest.h"
 
 namespace cricket {
@@ -54,6 +55,18 @@ TEST(MediaContentDescriptionTest, MixedOneTwoByteHeaderSupported) {
   EXPECT_TRUE(video_desc.extmap_allow_mixed());
   video_desc.set_extmap_allow_mixed_enum(MediaContentDescription::kSession);
   EXPECT_TRUE(video_desc.extmap_allow_mixed());
+}
+
+TEST(SessionDescriptionTest, ExtmapAllowMixedDefaultValue) {
+  SessionDescription session_desc;
+  EXPECT_TRUE(session_desc.extmap_allow_mixed());
+}
+
+TEST(SessionDescriptionTest, ExtmapAllowMixedDefaultWhenFieldTrialDisabled) {
+  webrtc::test::ScopedFieldTrials trial(
+      "WebRTC-DefaultExtmapAllowMixed/Disabled/");
+  SessionDescription session_desc;
+  EXPECT_FALSE(session_desc.extmap_allow_mixed());
 }
 
 TEST(SessionDescriptionTest, SetExtmapAllowMixed) {

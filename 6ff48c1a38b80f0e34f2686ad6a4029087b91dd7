@@ -70,6 +70,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "33a31f75_67eee712",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2020-12-17T13:21:20Z",
+      "side": 1,
+      "message": "Yes, I looked at how to complete remove sigslot usage and try to use the same approach like https://webrtc-review.googlesource.com/c/src/+/192540.\nBut there are about 10 signals in this class and it would not look good if we pass them in the constructor. So I\u0027d like to continue working on this to use Callbacklist instead.\nAm I missing anything here ?",
+      "parentUuid": "6ed1cd9b_2a499da8",
+      "revId": "6ff48c1a38b80f0e34f2686ad6a4029087b91dd7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "39f42527_075f14ae",
@@ -105,6 +123,42 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8eea2134_9721541d",
+        "filename": "pc/jsep_transport_controller.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2020-12-17T13:21:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "28e752ae_fc4d8ead",
+      "revId": "6ff48c1a38b80f0e34f2686ad6a4029087b91dd7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5876ee0_036c626c",
+        "filename": "pc/jsep_transport_controller.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2020-12-17T13:21:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "28e752ae_fc4d8ead",
+      "revId": "6ff48c1a38b80f0e34f2686ad6a4029087b91dd7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "357f3884_004ce3b1",
@@ -122,6 +176,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb2f3694_718f8373",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2020-12-17T13:21:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "357f3884_004ce3b1",
+      "revId": "6ff48c1a38b80f0e34f2686ad6a4029087b91dd7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0a5b8389_e496107d",
@@ -135,6 +207,24 @@
       "writtenOn": "2020-11-13T15:25:41Z",
       "side": 1,
       "message": "This is all one long sentence, and is hard to decipher. Please rephrase into short sentences.",
+      "revId": "6ff48c1a38b80f0e34f2686ad6a4029087b91dd7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2457e2d3_42978915",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2020-12-17T13:21:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a5b8389_e496107d",
       "revId": "6ff48c1a38b80f0e34f2686ad6a4029087b91dd7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

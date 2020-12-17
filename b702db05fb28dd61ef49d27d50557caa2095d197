@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db1b3842_382bf221",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-12-17T08:35:41Z",
+      "side": 1,
+      "message": "maybe you know or have an opinion?",
+      "revId": "b702db05fb28dd61ef49d27d50557caa2095d197",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6bba3e3b_2aa45711",
+        "filename": "test/fuzzers/corpora/sdp.tokens",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-12-17T08:35:41Z",
+      "side": 1,
+      "message": "does having the different attribute types in this help or will it just confuse because it adds too many tokens? Maybe the fuzzer would find \"\\r\\na\u003d\" more helpful since that will construct new lines starting with the attributes?",
+      "revId": "b702db05fb28dd61ef49d27d50557caa2095d197",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

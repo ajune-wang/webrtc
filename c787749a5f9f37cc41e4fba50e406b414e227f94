@@ -90,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "00baee7c_b1033a77",
+        "filename": "pc/channel.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-12-17T21:12:49Z",
+      "side": 1,
+      "message": "There\u0027s no guarantee of that. It\u0027s RTP, and has to have the MID extension, so should really reflect the same set of extensions as the others (the extensions are really a transport thing, not a channel thing).\n\n(that said, I hope that RTP data channels die in Q1\u002721, so this may become moot)",
+      "parentUuid": "222914e2_824b58aa",
+      "revId": "c787749a5f9f37cc41e4fba50e406b414e227f94",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e534fee3_6934e1d7",
         "filename": "pc/channel.h",
         "patchSetId": 1

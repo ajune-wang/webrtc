@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44b51007_4d53099a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-12-17T21:12:49Z",
+      "side": 1,
+      "message": "Still discussing the extra level of class....\n",
+      "revId": "f6325cf4a05f209cd3be61a0a6cb590d0aa17f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

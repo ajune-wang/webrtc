@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20945169_daee9111",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-12-17T15:45:24Z",
+      "side": 1,
+      "message": "First step to be able to land https://webrtc-review.googlesource.com/c/src/+/196904",
+      "revId": "34beddd750af8e6830e292a0f59280ab0f3de5a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddd4ddd7_17ba02bc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-12-17T10:44:07Z",
+      "side": 1,
+      "message": "The presubmit error is unrelated and an issue we are fixing in a separate effort (iOS are just flaky after the switch to macOS 11).",
+      "revId": "5c347d432e28bc36ea2d596b9e9d11e96fcbfae3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4faf3140_726370ce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-12-17T06:03:46Z",
+      "side": 1,
+      "message": "i known, consistency is for the small minds but... ;-)",
+      "revId": "f4999cdd25575d304fbc46b798b496849980eca1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

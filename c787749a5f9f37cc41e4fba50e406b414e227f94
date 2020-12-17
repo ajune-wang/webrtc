@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c5f1bec_9521dd52",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-12-17T20:32:01Z",
+      "side": 1,
+      "message": "A few questions.....\n",
+      "revId": "c787749a5f9f37cc41e4fba50e406b414e227f94",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "720b04ad_4d793abc",
+        "filename": "pc/channel.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-12-17T20:32:01Z",
+      "side": 1,
+      "message": "for some reason, AsyncInvoker is unpopular with a few people. Is it the right tool for this case?",
+      "revId": "c787749a5f9f37cc41e4fba50e406b414e227f94",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5fc8e59_129500ac",
+        "filename": "pc/channel.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-12-17T20:32:01Z",
+      "side": 1,
+      "message": "Is there an example of a BaseChannel that isn\u0027t a MediaBaseChannel?\nIf not - can we simply add more features on BaseChannel?\n(In particular, I think all BaseChannels are RTP, and RTP header extensions are applicable to all RTP channels)\n\n(gsearch claims that the subclasses are VoiceChannel, VideoChannel and RtpDataChannel)",
+      "revId": "c787749a5f9f37cc41e4fba50e406b414e227f94",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e534fee3_6934e1d7",
+        "filename": "pc/channel.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-12-17T20:32:01Z",
+      "side": 1,
+      "message": "Can you mark this with the appropriate RTC_GUARDED_BY() paragraph?\nI see that the setter does an async invoke to the signaling thread, so I assume that this is the expected one.\n\nOnce you have that, the compile will tell you when you need to add RTC_DCHECK_RUN_ON.",
+      "revId": "c787749a5f9f37cc41e4fba50e406b414e227f94",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78bea0e3_1933f5c2",
+        "filename": "pc/rtp_transceiver_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-12-17T20:32:01Z",
+      "side": 1,
+      "message": "Do you want a test for an extension being negotiated away too, so that you\u0027re sure the HeaderExtensionsNegotiated() isn\u0027t returning a list of what you asked for?",
+      "revId": "c787749a5f9f37cc41e4fba50e406b414e227f94",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

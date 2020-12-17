@@ -110,6 +110,30 @@
       },
       "revId": "26cac4d1c37e1731dcb281f468a1f5b50a2d6bb2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27f81c96_2db46f6e",
+        "filename": "pc/session_description.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2020-12-17T15:19:05Z",
+      "side": 1,
+      "message": "There seems to be some logic [1] to not allow downgrading to media level if session level is already set. This makes some test setups not work. For example, in [2] extmap_allow_mixed_enum() would still be kSession.\n\nDo we want to modify this behavior now that signaling this on session level will be the default?\n\n[1] https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/pc/session_description.h;drc\u003d4e8c1159608ef44460edfa8fabb8e705f4490fc7;l\u003d229-233\n[2] https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/pc/session_description_unittest.cc;drc\u003d317a1f09ed232bc16e67f6588ecf1b5deabbf928;l\u003d112",
+      "parentUuid": "dd8ed541_13db4b43",
+      "range": {
+        "startLine": 278,
+        "startChar": 46,
+        "endLine": 278,
+        "endChar": 49
+      },
+      "revId": "26cac4d1c37e1731dcb281f468a1f5b50a2d6bb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

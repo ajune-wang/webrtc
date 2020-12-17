@@ -66,6 +66,9 @@ class ChannelInterface {
   //   * A DtlsSrtpTransport for DTLS-SRTP.
   virtual bool SetRtpTransport(webrtc::RtpTransportInternal* rtp_transport) = 0;
 
+  // Returns the last negotiated header extensions, or absl::nullopt.
+  virtual RtpHeaderExtensions GetNegotiatedRtpHeaderExtensions() const = 0;
+
  protected:
   virtual ~ChannelInterface() = default;
 };

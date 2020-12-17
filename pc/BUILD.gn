@@ -1093,6 +1093,7 @@ if (rtc_include_tests) {
       "../api:rtc_event_log_output_file",
       "../api:rtc_stats_api",
       "../api:rtp_parameters",
+      "../api:rtp_transceiver_direction",
       "../api/audio_codecs:audio_codecs_api",
       "../api/audio_codecs:builtin_audio_decoder_factory",
       "../api/audio_codecs:builtin_audio_encoder_factory",

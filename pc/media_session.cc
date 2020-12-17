@@ -15,10 +15,10 @@
 #include <map>
 #include <memory>
 #include <set>
-#include <unordered_map>
 #include <utility>
 
 #include "absl/algorithm/container.h"
+#include "absl/container/node_hash_map.h"
 #include "absl/strings/match.h"
 #include "absl/types/optional.h"
 #include "api/crypto_params.h"
@@ -805,7 +805,7 @@ static void NegotiateCodecs(const std::vector<C>& local_codecs,
     // specific reason, the answerer list formats in the same relative order
     // they were present in the offer.
     // This can be skipped when the transceiver has any codec preferences.
-    std::unordered_map<int, int> payload_type_preferences;
+    absl::node_hash_map<int, int> payload_type_preferences;
     int preference = static_cast<int>(offered_codecs.size() + 1);
     for (const C& codec : offered_codecs) {
       payload_type_preferences[codec.id] = preference--;

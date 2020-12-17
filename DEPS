@@ -3196,6 +3196,7 @@ include_rules = [
   "+absl/base/const_init.h",
   "+absl/base/macros.h",
   "+absl/container/inlined_vector.h",
+  "+absl/container/node_hash_map.h",
   "+absl/memory/memory.h",
   "+absl/meta/type_traits.h",
   "+absl/strings/ascii.h",

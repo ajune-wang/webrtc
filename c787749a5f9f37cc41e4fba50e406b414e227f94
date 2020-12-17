@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8436082_823baf73",
+        "filename": "pc/channel.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-12-17T20:49:24Z",
+      "side": 1,
+      "message": "I know, and I considered it. But the rest of the class uses the invoker_ so I don\u0027t want to add an alien method in it all. I\u0027m also not sure how I can guarantee the receiver being still around if using the task queue in this class, the thread safety primitive has some gnarly requirements.",
+      "parentUuid": "720b04ad_4d793abc",
+      "revId": "c787749a5f9f37cc41e4fba50e406b414e227f94",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b5fc8e59_129500ac",
@@ -48,6 +66,24 @@
       "writtenOn": "2020-12-17T20:32:01Z",
       "side": 1,
       "message": "Is there an example of a BaseChannel that isn\u0027t a MediaBaseChannel?\nIf not - can we simply add more features on BaseChannel?\n(In particular, I think all BaseChannels are RTP, and RTP header extensions are applicable to all RTP channels)\n\n(gsearch claims that the subclasses are VoiceChannel, VideoChannel and RtpDataChannel)",
+      "revId": "c787749a5f9f37cc41e4fba50e406b414e227f94",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "222914e2_824b58aa",
+        "filename": "pc/channel.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-12-17T20:49:24Z",
+      "side": 1,
+      "message": "I think the data channel shouldn\u0027t be a media base channel because it doesn\u0027t deal with extensions.",
+      "parentUuid": "b5fc8e59_129500ac",
       "revId": "c787749a5f9f37cc41e4fba50e406b414e227f94",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -69,6 +105,42 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3523bfc_4ee46840",
+        "filename": "pc/channel.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-12-17T20:49:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e534fee3_6934e1d7",
+      "revId": "c787749a5f9f37cc41e4fba50e406b414e227f94",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b49e77b_e6f75619",
+        "filename": "pc/channel.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-12-17T20:49:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e534fee3_6934e1d7",
+      "revId": "c787749a5f9f37cc41e4fba50e406b414e227f94",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "78bea0e3_1933f5c2",
@@ -82,6 +154,24 @@
       "writtenOn": "2020-12-17T20:32:01Z",
       "side": 1,
       "message": "Do you want a test for an extension being negotiated away too, so that you\u0027re sure the HeaderExtensionsNegotiated() isn\u0027t returning a list of what you asked for?",
+      "revId": "c787749a5f9f37cc41e4fba50e406b414e227f94",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2cd559b4_7b27bb3b",
+        "filename": "pc/rtp_transceiver_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-12-17T20:49:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78bea0e3_1933f5c2",
       "revId": "c787749a5f9f37cc41e4fba50e406b414e227f94",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

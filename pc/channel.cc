@@ -836,6 +836,23 @@ void BaseChannel::SignalSentPacket_n(const rtc::SentPacket& sent_packet) {
                              });
 }
 
+void MediaBaseChannel::SetNegotiatedHeaderExtensions_w(
+    const RtpHeaderExtensions& extensions) {
+  TRACE_EVENT0("webrtc", __func__);
+  RtpHeaderExtensions extensions_copy = extensions;
+  invoker().AsyncInvoke<void>(
+      RTC_FROM_HERE, signaling_thread(),
+      [this, extensions_copy = std::move(extensions_copy)] {
+        RTC_DCHECK_RUN_ON(signaling_thread());
+        negotiated_header_extensions_ = std::move(extensions_copy);
+      });
+}
+
+RtpHeaderExtensions MediaBaseChannel::GetNegotiatedRtpHeaderExtensions() const {
+  RTC_DCHECK_RUN_ON(signaling_thread());
+  return negotiated_header_extensions_;
+}
+
 VoiceChannel::VoiceChannel(rtc::Thread* worker_thread,
                            rtc::Thread* network_thread,
                            rtc::Thread* signaling_thread,
@@ -844,14 +861,14 @@ VoiceChannel::VoiceChannel(rtc::Thread* worker_thread,
                            bool srtp_required,
                            webrtc::CryptoOptions crypto_options,
                            UniqueRandomIdGenerator* ssrc_generator)
-    : BaseChannel(worker_thread,
-                  network_thread,
-                  signaling_thread,
-                  std::move(media_channel),
-                  content_name,
-                  srtp_required,
-                  crypto_options,
-                  ssrc_generator) {}
+    : MediaBaseChannel(worker_thread,
+                       network_thread,
+                       signaling_thread,
+                       std::move(media_channel),
+                       content_name,
+                       srtp_required,
+                       crypto_options,
+                       ssrc_generator) {}
 
 VoiceChannel::~VoiceChannel() {
   TRACE_EVENT0("webrtc", "VoiceChannel::~VoiceChannel");
@@ -894,6 +911,9 @@ bool VoiceChannel::SetLocalContent_w(const MediaContentDescription* content,
   }
 
   const AudioContentDescription* audio = content->as_audio();
+
+  if (type == SdpType::kAnswer)
+    SetNegotiatedHeaderExtensions_w(audio->rtp_header_extensions());
 
   RtpHeaderExtensions rtp_header_extensions =
       GetFilteredRtpHeaderExtensions(audio->rtp_header_extensions());
@@ -954,6 +974,9 @@ bool VoiceChannel::SetRemoteContent_w(const MediaContentDescription* content,
 
   const AudioContentDescription* audio = content->as_audio();
 
+  if (type == SdpType::kAnswer)
+    SetNegotiatedHeaderExtensions_w(audio->rtp_header_extensions());
+
   RtpHeaderExtensions rtp_header_extensions =
       GetFilteredRtpHeaderExtensions(audio->rtp_header_extensions());
 
@@ -1007,14 +1030,14 @@ VideoChannel::VideoChannel(rtc::Thread* worker_thread,
                            bool srtp_required,
                            webrtc::CryptoOptions crypto_options,
                            UniqueRandomIdGenerator* ssrc_generator)
-    : BaseChannel(worker_thread,
-                  network_thread,
-                  signaling_thread,
-                  std::move(media_channel),
-                  content_name,
-                  srtp_required,
-                  crypto_options,
-                  ssrc_generator) {}
+    : MediaBaseChannel(worker_thread,
+                       network_thread,
+                       signaling_thread,
+                       std::move(media_channel),
+                       content_name,
+                       srtp_required,
+                       crypto_options,
+                       ssrc_generator) {}
 
 VideoChannel::~VideoChannel() {
   TRACE_EVENT0("webrtc", "VideoChannel::~VideoChannel");
@@ -1056,6 +1079,9 @@ bool VideoChannel::SetLocalContent_w(const MediaContentDescription* content,
   }
 
   const VideoContentDescription* video = content->as_video();
+
+  if (type == SdpType::kAnswer)
+    SetNegotiatedHeaderExtensions_w(video->rtp_header_extensions());
 
   RtpHeaderExtensions rtp_header_extensions =
       GetFilteredRtpHeaderExtensions(video->rtp_header_extensions());
@@ -1148,6 +1174,9 @@ bool VideoChannel::SetRemoteContent_w(const MediaContentDescription* content,
   }
 
   const VideoContentDescription* video = content->as_video();
+
+  if (type == SdpType::kAnswer)
+    SetNegotiatedHeaderExtensions_w(video->rtp_header_extensions());
 
   RtpHeaderExtensions rtp_header_extensions =
       GetFilteredRtpHeaderExtensions(video->rtp_header_extensions());

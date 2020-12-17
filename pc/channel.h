@@ -223,7 +223,8 @@ class BaseChannel : public ChannelInterface,
   // called.
   bool IsReadyToReceiveMedia_w() const RTC_RUN_ON(worker_thread());
   bool IsReadyToSendMedia_w() const RTC_RUN_ON(worker_thread());
-  rtc::Thread* signaling_thread() { return signaling_thread_; }
+  rtc::Thread* signaling_thread() const { return signaling_thread_; }
+  rtc::AsyncInvoker& invoker() { return invoker_; }
 
   void FlushRtcpMessages_n() RTC_RUN_ON(network_thread());
 
@@ -377,9 +378,27 @@ class BaseChannel : public ChannelInterface,
   rtc::UniqueRandomIdGenerator* const ssrc_generator_;
 };
 
+// MediaBaseChannel is a specialization that adds support for picking out
+// negotiated header extensions. It's meant to be a mixin for VoiceChannel
+// and VideoChannel.
+class MediaBaseChannel : public BaseChannel {
+ public:
+  using BaseChannel::BaseChannel;
+
+ protected:
+  void SetNegotiatedHeaderExtensions_w(const RtpHeaderExtensions& extensions);
+
+  // ChannelInterface overrides
+  RtpHeaderExtensions GetNegotiatedRtpHeaderExtensions() const override;
+
+ private:
+  RtpHeaderExtensions negotiated_header_extensions_
+      RTC_GUARDED_BY(signaling_thread());
+};
+
 // VoiceChannel is a specialization that adds support for early media, DTMF,
 // and input/output level monitoring.
-class VoiceChannel : public BaseChannel {
+class VoiceChannel : public MediaBaseChannel {
  public:
   VoiceChannel(rtc::Thread* worker_thread,
                rtc::Thread* network_thread,
@@ -420,7 +439,7 @@ class VoiceChannel : public BaseChannel {
 };
 
 // VideoChannel is a specialization for video.
-class VideoChannel : public BaseChannel {
+class VideoChannel : public MediaBaseChannel {
  public:
   VideoChannel(rtc::Thread* worker_thread,
                rtc::Thread* network_thread,
@@ -496,6 +515,9 @@ class RtpDataChannel : public BaseChannel {
   sigslot::signal1<bool> SignalReadyToSendData;
   cricket::MediaType media_type() const override {
     return cricket::MEDIA_TYPE_DATA;
+  }
+  RtpHeaderExtensions GetNegotiatedRtpHeaderExtensions() const override {
+    return {};
   }
 
  protected:

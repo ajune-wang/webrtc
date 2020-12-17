@@ -50,6 +50,24 @@
       "message": "nit: `__has_attribute(visibility)` is true for all objc compilers in common use, no need to check for that",
       "revId": "5c347d432e28bc36ea2d596b9e9d11e96fcbfae3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "103e8a99_6a8cab4d",
+        "filename": "sdk/objc/base/RTCMacros.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-12-17T14:56:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6bc4d51b_d38aa163",
+      "revId": "5c347d432e28bc36ea2d596b9e9d11e96fcbfae3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

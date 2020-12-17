@@ -16,6 +16,40 @@
       "message": "The presubmit error is unrelated and an issue we are fixing in a separate effort (iOS are just flaky after the switch to macOS 11).",
       "revId": "5c347d432e28bc36ea2d596b9e9d11e96fcbfae3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93c9aa98_3cd0e8ca",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5509
+      },
+      "writtenOn": "2020-12-17T13:59:30Z",
+      "side": 1,
+      "message": "Looks great :) If this works for you, hooray.",
+      "revId": "5c347d432e28bc36ea2d596b9e9d11e96fcbfae3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6bc4d51b_d38aa163",
+        "filename": "sdk/objc/base/RTCMacros.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5509
+      },
+      "writtenOn": "2020-12-17T13:59:30Z",
+      "side": 1,
+      "message": "nit: `__has_attribute(visibility)` is true for all objc compilers in common use, no need to check for that",
+      "revId": "5c347d432e28bc36ea2d596b9e9d11e96fcbfae3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

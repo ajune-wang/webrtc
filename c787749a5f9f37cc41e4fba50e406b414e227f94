@@ -106,6 +106,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7974553e_c2504107",
+        "filename": "pc/channel.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-12-17T21:18:19Z",
+      "side": 1,
+      "message": "Moved to base class instead.",
+      "parentUuid": "222914e2_824b58aa",
+      "revId": "c787749a5f9f37cc41e4fba50e406b414e227f94",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e534fee3_6934e1d7",

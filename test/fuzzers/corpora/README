@@ -15,7 +15,8 @@ sources:
 
 The SDP tokens come from:
 
- -  grep "^static const " webrtc/api/webrtcsdp.cc | cut -d'=' -f2 | cut -d ';' -f1 | tr -d '"' | tr -d "'" | tr -d ' ' | sort -u | grep -v '^(\n|\r|\r\n)$|^$' | sed -e 's/^/"/' -e 's/$/"/' | tail -n +2
+ -  grep "^static const char " pc/webrtc_sdp.cc | cut -d'=' -f2 | cut -d ';' -f1 | tr -d '"' | tr -d "'" | tr -d ' ' | sort -u | grep -v '^(\n|\r|\r\n)$|^$' | sed -e 's/^/"/' -e 's/$/"/' | tail -n +2
+ - grep "^const char " media/base/media_constants.cc  | cut -d'=' -f2 | cut -d ';' -f1 | tr -d '"' | tr -d "'" | tr -d ' ' | sort -u | grep -v '^(\n|\r|\r\n)$|^$' | sed -e 's/^/"/' -e 's/$/"/' | tail -n +2
 
 ### STUN ###
 This corpus was initially assembled from the STUN unit tests, together

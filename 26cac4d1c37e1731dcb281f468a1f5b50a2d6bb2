@@ -134,6 +134,30 @@
       },
       "revId": "26cac4d1c37e1731dcb281f468a1f5b50a2d6bb2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8eeed1c_9d820ed4",
+        "filename": "pc/session_description.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2020-12-18T09:55:08Z",
+      "side": 1,
+      "message": "The two use cases that we should respond to correctly are:\n\nAn offer is given with extmap-allow-mixed on session level \u003d\u003e respond on session level.\nAn offer is given with extmap-allow-mixed on media level \u003d\u003e respond on media level.\n\nIt can very well be that the logic needs to be changed to handle the second case correctly now.\n\nStill, I don\u0027t see any reason why someone would have this on media level instead of session level. 😊",
+      "parentUuid": "27f81c96_2db46f6e",
+      "range": {
+        "startLine": 278,
+        "startChar": 46,
+        "endLine": 278,
+        "endChar": 49
+      },
+      "revId": "26cac4d1c37e1731dcb281f468a1f5b50a2d6bb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -16,6 +16,46 @@
       "message": "I was having a look to see if it\u0027s easy to move this code to taskqueue (still unclear to me), and then I stumbled on these wrap-around conditions. PTAL.",
       "revId": "d9c494fc77047a645f70187900d014ad02c7f38e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed492815_32907ca0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-12-21T10:40:26Z",
+      "side": 1,
+      "message": "Nice finding!",
+      "revId": "d9c494fc77047a645f70187900d014ad02c7f38e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ccec9f33_6c39fc03",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-12-21T10:40:26Z",
+      "side": 1,
+      "message": "https://google.github.io/styleguide/cppguide.html#Return_Values\n\n\"Do not needlessly surround the return expression with parentheses.\"",
+      "range": {
+        "startLine": 438,
+        "startChar": 9,
+        "endLine": 438,
+        "endChar": 10
+      },
+      "revId": "d9c494fc77047a645f70187900d014ad02c7f38e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

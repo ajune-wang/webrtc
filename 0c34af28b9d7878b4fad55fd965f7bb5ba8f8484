@@ -33,6 +33,23 @@
       "message": "Hang on. Just need to check a few things...",
       "revId": "0c34af28b9d7878b4fad55fd965f7bb5ba8f8484",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d578a7d_b72deabf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2020-12-21T08:34:21Z",
+      "side": 1,
+      "message": "We\u0027re good to go. Thanks!",
+      "revId": "0c34af28b9d7878b4fad55fd965f7bb5ba8f8484",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

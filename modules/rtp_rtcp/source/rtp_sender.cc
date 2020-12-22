@@ -176,6 +176,8 @@ RTPSender::RTPSender(const RtpRtcpInterface::Configuration& config,
       max_padding_fec_packet_header_(kRtpHeaderSize),
       // RTP variables
       sequence_number_forced_(false),
+      rid_(config.rid),
+      mid_(config.mid),
       always_send_mid_and_rid_(config.always_send_mid_and_rid),
       ssrc_has_acked_(false),
       rtx_ssrc_has_acked_(false),
@@ -195,6 +197,10 @@ RTPSender::RTPSender(const RtpRtcpInterface::Configuration& config,
 
   RTC_DCHECK(paced_sender_);
   RTC_DCHECK(packet_history_);
+  RTC_DCHECK_LE(rid_.length(), RtpStreamId::kMaxValueSizeBytes);
+  RTC_DCHECK_LE(mid_.length(), RtpMid::kMaxValueSizeBytes);
+
+  UpdateHeaderSizes();
 }
 
 RTPSender::~RTPSender() {
@@ -651,22 +657,6 @@ void RTPSender::SetTimestampOffset(uint32_t timestamp) {
 uint32_t RTPSender::TimestampOffset() const {
   MutexLock lock(&send_mutex_);
   return timestamp_offset_;
-}
-
-void RTPSender::SetRid(const std::string& rid) {
-  // RID is used in simulcast scenario when multiple layers share the same mid.
-  MutexLock lock(&send_mutex_);
-  RTC_DCHECK_LE(rid.length(), RtpStreamId::kMaxValueSizeBytes);
-  rid_ = rid;
-  UpdateHeaderSizes();
-}
-
-void RTPSender::SetMid(const std::string& mid) {
-  // This is configured via the API.
-  MutexLock lock(&send_mutex_);
-  RTC_DCHECK_LE(mid.length(), RtpMid::kMaxValueSizeBytes);
-  mid_ = mid;
-  UpdateHeaderSizes();
 }
 
 void RTPSender::SetCsrcs(const std::vector<uint32_t>& csrcs) {

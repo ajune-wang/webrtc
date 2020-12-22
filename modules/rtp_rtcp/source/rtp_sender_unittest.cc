@@ -72,6 +72,8 @@ const uint64_t kStartTime = 123456789;
 const size_t kMaxPaddingSize = 224u;
 const uint8_t kPayloadData[] = {47, 11, 32, 93, 89};
 const int64_t kDefaultExpectedRetransmissionTimeMs = 125;
+const char kMid[] = "mid";
+const char kRid[] = "f";
 const char kNoRid[] = "";
 const char kNoMid[] = "";
 
@@ -362,6 +364,10 @@ class RtpSenderTest : public ::testing::TestWithParam<TestConfig> {
     config.rtp_stats_callback = &rtp_stats_callback_;
     config.always_send_mid_and_rid = always_send_mid_and_rid;
     config.field_trials = &field_trials_;
+    // Configure rid and mid unconditionally, they have effect only if
+    // corresponding header extension is enabled.
+    config.rid = kRid;
+    config.mid = kMid;
 
     rtp_sender_context_ =
         std::make_unique<RtpSenderContext>(config, &time_controller_);
@@ -444,19 +450,17 @@ class RtpSenderTest : public ::testing::TestWithParam<TestConfig> {
 
   // Enable sending of the MID header extension for both the primary SSRC and
   // the RTX SSRC.
-  void EnableMidSending(const std::string& mid) {
+  void EnableMidSending() {
     rtp_sender()->RegisterRtpHeaderExtension(kRtpExtensionMid, kMidExtensionId);
-    rtp_sender()->SetMid(mid);
   }
 
   // Enable sending of the RSID header extension for the primary SSRC and the
   // RRSID header extension for the RTX SSRC.
-  void EnableRidSending(const std::string& rid) {
+  void EnableRidSending() {
     rtp_sender()->RegisterRtpHeaderExtension(kRtpExtensionRtpStreamId,
                                              kRidExtensionId);
     rtp_sender()->RegisterRtpHeaderExtension(kRtpExtensionRepairedRtpStreamId,
                                              kRepairedRidExtensionId);
-    rtp_sender()->SetRid(rid);
   }
 };
 
@@ -1462,9 +1466,7 @@ TEST_P(RtpSenderTestWithoutPacer, SendFlexfecPackets) {
 // Test that the MID header extension is included on sent packets when
 // configured.
 TEST_P(RtpSenderTestWithoutPacer, MidIncludedOnSentPackets) {
-  const char kMid[] = "mid";
-
-  EnableMidSending(kMid);
+  EnableMidSending();
 
   // Send a couple packets.
   SendGenericPacket();
@@ -1480,9 +1482,7 @@ TEST_P(RtpSenderTestWithoutPacer, MidIncludedOnSentPackets) {
 }
 
 TEST_P(RtpSenderTestWithoutPacer, RidIncludedOnSentPackets) {
-  const char kRid[] = "f";
-
-  EnableRidSending(kRid);
+  EnableRidSending();
 
   SendGenericPacket();
 
@@ -1494,10 +1494,8 @@ TEST_P(RtpSenderTestWithoutPacer, RidIncludedOnSentPackets) {
 }
 
 TEST_P(RtpSenderTestWithoutPacer, RidIncludedOnRtxSentPackets) {
-  const char kRid[] = "f";
-
   EnableRtx();
-  EnableRidSending(kRid);
+  EnableRidSending();
 
   SendGenericPacket();
   ASSERT_EQ(1u, transport_.sent_packets_.size());
@@ -1518,11 +1516,8 @@ TEST_P(RtpSenderTestWithoutPacer, RidIncludedOnRtxSentPackets) {
 }
 
 TEST_P(RtpSenderTestWithoutPacer, MidAndRidNotIncludedOnSentPacketsAfterAck) {
-  const char kMid[] = "mid";
-  const char kRid[] = "f";
-
-  EnableMidSending(kMid);
-  EnableRidSending(kRid);
+  EnableMidSending();
+  EnableRidSending();
 
   // This first packet should include both MID and RID.
   auto first_built_packet = SendGenericPacket();
@@ -1549,10 +1544,8 @@ TEST_P(RtpSenderTestWithoutPacer, MidAndRidNotIncludedOnSentPacketsAfterAck) {
 TEST_P(RtpSenderTestWithoutPacer,
        MidAndRidAlwaysIncludedOnSentPacketsWhenConfigured) {
   SetUpRtpSender(false, false, /*always_send_mid_and_rid=*/true);
-  const char kMid[] = "mid";
-  const char kRid[] = "f";
-  EnableMidSending(kMid);
-  EnableRidSending(kRid);
+  EnableMidSending();
+  EnableRidSending();
 
   // Send two media packets: one before and one after the ack.
   auto first_packet = SendGenericPacket();
@@ -1572,12 +1565,9 @@ TEST_P(RtpSenderTestWithoutPacer,
 // the first packets for a given SSRC, and RTX packets are sent on a separate
 // SSRC.
 TEST_P(RtpSenderTestWithoutPacer, MidAndRidIncludedOnFirstRtxPacket) {
-  const char kMid[] = "mid";
-  const char kRid[] = "f";
-
   EnableRtx();
-  EnableMidSending(kMid);
-  EnableRidSending(kRid);
+  EnableMidSending();
+  EnableRidSending();
 
   // This first packet will include both MID and RID.
   auto first_built_packet = SendGenericPacket();
@@ -1604,12 +1594,9 @@ TEST_P(RtpSenderTestWithoutPacer, MidAndRidIncludedOnFirstRtxPacket) {
 // not include either MID or RRID even if the packet being retransmitted did
 // had a MID or RID.
 TEST_P(RtpSenderTestWithoutPacer, MidAndRidNotIncludedOnRtxPacketsAfterAck) {
-  const char kMid[] = "mid";
-  const char kRid[] = "f";
-
   EnableRtx();
-  EnableMidSending(kMid);
-  EnableRidSending(kRid);
+  EnableMidSending();
+  EnableRidSending();
 
   // This first packet will include both MID and RID.
   auto first_built_packet = SendGenericPacket();
@@ -1647,11 +1634,9 @@ TEST_P(RtpSenderTestWithoutPacer, MidAndRidNotIncludedOnRtxPacketsAfterAck) {
 TEST_P(RtpSenderTestWithoutPacer,
        MidAndRidAlwaysIncludedOnRtxPacketsWhenConfigured) {
   SetUpRtpSender(false, false, /*always_send_mid_and_rid=*/true);
-  const char kMid[] = "mid";
-  const char kRid[] = "f";
   EnableRtx();
-  EnableMidSending(kMid);
-  EnableRidSending(kRid);
+  EnableMidSending();
+  EnableRidSending();
 
   // Send two media packets: one before and one after the ack.
   auto media_packet1 = SendGenericPacket();
@@ -1687,11 +1672,8 @@ TEST_P(RtpSenderTestWithoutPacer,
 // then neither the MID nor RID header extensions will be sent.
 TEST_P(RtpSenderTestWithoutPacer,
        MidAndRidNotIncludedOnSentPacketsAfterRtpStateRestored) {
-  const char kMid[] = "mid";
-  const char kRid[] = "f";
-
-  EnableMidSending(kMid);
-  EnableRidSending(kRid);
+  EnableMidSending();
+  EnableRidSending();
 
   RtpState state = rtp_sender()->GetRtpState();
   EXPECT_FALSE(state.ssrc_has_acked);
@@ -1711,12 +1693,9 @@ TEST_P(RtpSenderTestWithoutPacer,
 // RTX packets.
 TEST_P(RtpSenderTestWithoutPacer,
        MidAndRridNotIncludedOnRtxPacketsAfterRtpStateRestored) {
-  const char kMid[] = "mid";
-  const char kRid[] = "f";
-
   EnableRtx();
-  EnableMidSending(kMid);
-  EnableRidSending(kRid);
+  EnableMidSending();
+  EnableRidSending();
 
   RtpState rtx_state = rtp_sender()->GetRtxRtpState();
   EXPECT_FALSE(rtx_state.ssrc_has_acked);
@@ -2088,15 +2067,10 @@ TEST_P(RtpSenderTest, CountMidOnlyUntilAcked) {
   EXPECT_EQ(rtp_sender()->ExpectedPerPacketOverhead(), 12u);
 
   rtp_sender()->RegisterRtpHeaderExtension(kRtpExtensionMid, kMidExtensionId);
+  EXPECT_EQ(rtp_sender()->ExpectedPerPacketOverhead(), 36u);
   rtp_sender()->RegisterRtpHeaderExtension(kRtpExtensionRtpStreamId,
                                            kRidExtensionId);
-
-  // Counted only if set.
-  EXPECT_EQ(rtp_sender()->ExpectedPerPacketOverhead(), 12u);
-  rtp_sender()->SetMid("foo");
-  EXPECT_EQ(rtp_sender()->ExpectedPerPacketOverhead(), 36u);
-  rtp_sender()->SetRid("bar");
-  EXPECT_EQ(rtp_sender()->ExpectedPerPacketOverhead(), 52u);
+  EXPECT_EQ(rtp_sender()->ExpectedPerPacketOverhead(), 50u);
 
   // Ack received, mid/rid no longer sent.
   rtp_sender()->OnReceivedAckOnSsrc(0);

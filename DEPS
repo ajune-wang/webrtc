@@ -7,7 +7,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'cc24057378dd01cd8dfaf0c1fe6bea8ab275e0fa',
+  'chromium_revision': '952be16fdea8b06f3e682ca426da43c23bbbe949',
 }
 
 deps = {
@@ -16,7 +16,7 @@ deps = {
   'src/base':
     'https://chromium.googlesource.com/chromium/src/base@5153369929c608fd26d5163b1aec43e4892cd8cf',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@9fd8d42cde04f619ecdcb47d2c268798760878be',
+    'https://chromium.googlesource.com/chromium/src/build@389e01c5aed7f74dccad817039ef20b91a7ec74d',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@ea9f1f737564cdf5e51b63103de081f5772a6339',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -29,9 +29,9 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@36d8b4b88328e9e41489cc31c7a3a0ec9167d1a4',
+    'https://chromium.googlesource.com/chromium/src/testing@f9f9a7c26edfd94751706372fcf8099f0c7411aa',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@77af6f4d13d8d0b6103f4961c639e42ed8510376',
+    'https://chromium.googlesource.com/chromium/src/third_party@e737bd898519051fe832588774f546915a624f91',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -200,7 +200,7 @@ deps = {
       'condition': 'checkout_android',
   },
   'src/third_party/perfetto':
-    'https://android.googlesource.com/platform/external/perfetto.git@61cbb8911dcc959b1064be057e68fa6ba2b940d5',
+    'https://android.googlesource.com/platform/external/perfetto.git@815ee4029d9e4804c5950bc73d4b5a53679ae53d',
   'src/third_party/libvpx/source/libvpx':
     'https://chromium.googlesource.com/webm/libvpx.git@b5d77a48d740e211a130c8e45d9353ef8c154a47',
   'src/third_party/libyuv':
@@ -257,7 +257,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@b2c26290ee5f1ceb1f005206e57602a162b95065',
+    'https://chromium.googlesource.com/chromium/src/tools@0525ac22dcfeab06b48a1417f64202011de577de',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@1a072711d4388c62e02480fabc26c68c24494be9',
 

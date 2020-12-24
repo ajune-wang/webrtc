@@ -34,13 +34,16 @@ AudioChannel::AudioChannel(
     TaskQueueFactory* task_queue_factory,
     ProcessThread* process_thread,
     AudioMixer* audio_mixer,
-    rtc::scoped_refptr<AudioDecoderFactory> decoder_factory)
+    rtc::scoped_refptr<AudioDecoderFactory> decoder_factory,
+    Clock* clock)
     : audio_mixer_(audio_mixer), process_thread_(process_thread) {
   RTC_DCHECK(task_queue_factory);
   RTC_DCHECK(process_thread);
   RTC_DCHECK(audio_mixer);
 
-  Clock* clock = Clock::GetRealTimeClock();
+  if (!clock) {
+    clock = Clock::GetRealTimeClock();
+  }
   receive_statistics_ = ReceiveStatistics::Create(clock);
 
   RtpRtcpInterface::Configuration rtp_config;
@@ -129,34 +132,17 @@ void AudioChannel::StopPlay() {
   }
 }
 
-IngressStatistics AudioChannel::GetIngressStatistics() {
-  IngressStatistics ingress_stats;
-  NetworkStatistics stats = ingress_->GetNetworkStatistics();
-  ingress_stats.neteq_stats.total_samples_received = stats.totalSamplesReceived;
-  ingress_stats.neteq_stats.concealed_samples = stats.concealedSamples;
-  ingress_stats.neteq_stats.concealment_events = stats.concealmentEvents;
-  ingress_stats.neteq_stats.jitter_buffer_delay_ms = stats.jitterBufferDelayMs;
-  ingress_stats.neteq_stats.jitter_buffer_emitted_count =
-      stats.jitterBufferEmittedCount;
-  ingress_stats.neteq_stats.jitter_buffer_target_delay_ms =
-      stats.jitterBufferTargetDelayMs;
-  ingress_stats.neteq_stats.inserted_samples_for_deceleration =
-      stats.insertedSamplesForDeceleration;
-  ingress_stats.neteq_stats.removed_samples_for_acceleration =
-      stats.removedSamplesForAcceleration;
-  ingress_stats.neteq_stats.silent_concealed_samples =
-      stats.silentConcealedSamples;
-  ingress_stats.neteq_stats.fec_packets_received = stats.fecPacketsReceived;
-  ingress_stats.neteq_stats.fec_packets_discarded = stats.fecPacketsDiscarded;
-  ingress_stats.neteq_stats.delayed_packet_outage_samples =
-      stats.delayedPacketOutageSamples;
-  ingress_stats.neteq_stats.relative_packet_arrival_delay_ms =
-      stats.relativePacketArrivalDelayMs;
-  ingress_stats.neteq_stats.interruption_count = stats.interruptionCount;
-  ingress_stats.neteq_stats.total_interruption_duration_ms =
-      stats.totalInterruptionDurationMs;
-  ingress_stats.total_duration = ingress_->GetOutputTotalDuration();
-  return ingress_stats;
+ChannelStatistics AudioChannel::GetChannelStatistics() {
+  ChannelStatistics channel_stat = ingress_->GetChannelStatistics();
+
+  StreamDataCounters rtp_stats, rtx_stats;
+  rtp_rtcp_->GetSendStreamDataCounters(&rtp_stats, &rtx_stats);
+  channel_stat.bytes_sent =
+      rtp_stats.transmitted.payload_bytes + rtx_stats.transmitted.payload_bytes;
+  channel_stat.packets_sent =
+      rtp_stats.transmitted.packets + rtx_stats.transmitted.packets;
+
+  return channel_stat;
 }
 
 }  // namespace webrtc

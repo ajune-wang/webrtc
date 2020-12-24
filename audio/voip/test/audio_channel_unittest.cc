@@ -51,7 +51,8 @@ class AudioChannelTest : public ::testing::Test {
   void SetUp() override {
     audio_channel_ = new rtc::RefCountedObject<AudioChannel>(
         &transport_, kLocalSsrc, task_queue_factory_.get(),
-        process_thread_.get(), audio_mixer_.get(), decoder_factory_);
+        process_thread_.get(), audio_mixer_.get(), decoder_factory_,
+        &fake_clock_);
 
     audio_channel_->SetEncoder(kPcmuPayload, kPcmuFormat,
                                encoder_factory_->MakeAudioEncoder(
@@ -220,6 +221,63 @@ TEST_F(AudioChannelTest, TestIngressStatistics) {
   EXPECT_EQ(ingress_stats->neteq_stats.interruption_count, 0);
   EXPECT_EQ(ingress_stats->neteq_stats.total_interruption_duration_ms, 0);
   EXPECT_DOUBLE_EQ(ingress_stats->total_duration, 0.06);
+}
+
+// Check ChannelStatistics metric after processing RTP and RTCP packets.
+TEST_F(AudioChannelTest, TestChannelStatistics) {
+  auto event = std::make_unique<rtc::Event>();
+  auto loop_rtp = [&](const uint8_t* packet, size_t length, Unused) {
+    audio_channel_->ReceivedRTPPacket(
+        rtc::ArrayView<const uint8_t>(packet, length));
+    event->Set();
+    return true;
+  };
+  auto loop_rtcp = [&](const uint8_t* packet, size_t length) {
+    audio_channel_->ReceivedRTCPPacket(
+        rtc::ArrayView<const uint8_t>(packet, length));
+    event->Set();
+    return true;
+  };
+  EXPECT_CALL(transport_, SendRtp).WillRepeatedly(Invoke(loop_rtp));
+  EXPECT_CALL(transport_, SendRtcp).WillRepeatedly(Invoke(loop_rtcp));
+
+  auto audio_sender = audio_channel_->GetAudioSender();
+  audio_sender->SendAudioData(GetAudioFrame(0));
+  audio_sender->SendAudioData(GetAudioFrame(1));
+  event->Wait(/*give_up_after_ms=*/1000);
+
+  AudioFrame audio_frame;
+  audio_mixer_->Mix(/*number_of_channels=*/1, &audio_frame);
+  audio_mixer_->Mix(/*number_of_channels=*/1, &audio_frame);
+
+  event = std::make_unique<rtc::Event>();
+  audio_channel_->SendRTCPReport(kRtcpSr);
+  event->Wait(/*give_up_after_ms=*/1000);
+
+  absl::optional<ChannelStatistics> channel_stats =
+      audio_channel_->GetChannelStatistics();
+  EXPECT_TRUE(channel_stats);
+
+  // These are updated asynchronously that it will still be 0 at this point.
+  EXPECT_EQ(channel_stats->packets_sent, 0ULL);
+  EXPECT_EQ(channel_stats->bytes_sent, 0ULL);
+
+  EXPECT_EQ(channel_stats->packets_received, 1ULL);
+  EXPECT_EQ(channel_stats->bytes_received, 160ULL);
+  EXPECT_EQ(channel_stats->jitter, 0);
+  EXPECT_EQ(channel_stats->packets_lost, 0);
+  EXPECT_EQ(channel_stats->remote_ssrc.value(), kLocalSsrc);
+
+  EXPECT_TRUE(channel_stats->remote_rtcp.has_value());
+
+  EXPECT_EQ(channel_stats->remote_rtcp->jitter, 0);
+  EXPECT_EQ(channel_stats->remote_rtcp->packets_lost, 0);
+  EXPECT_EQ(channel_stats->remote_rtcp->fraction_lost, 0);
+  EXPECT_NE(channel_stats->remote_rtcp->last_report_received_timestamp_ms, 0);
+  EXPECT_FALSE(channel_stats->remote_rtcp->round_trip_time.has_value());
+
+  // Handle RTCP BYE without rtc::Event.
+  EXPECT_CALL(transport_, SendRtcp);
 }
 
 }  // namespace

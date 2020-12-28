@@ -194,9 +194,7 @@ class BaseChannel : public ChannelInterface,
     transport_name_ = transport_name;
   }
 
-  MediaChannel* media_channel() const override {
-    return media_channel_.get();
-  }
+  MediaChannel* media_channel() const override { return media_channel_.get(); }
 
  protected:
   bool was_ever_writable() const {

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "67ae0d7d_978602a3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-12-28T21:39:33Z",
+      "side": 1,
+      "message": "i\u0027ll rubberstamp that one :-)",
+      "revId": "221ece50cb5100ae991c40e2c008a4f88d300c96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

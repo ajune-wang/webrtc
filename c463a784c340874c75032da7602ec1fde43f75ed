@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8ae6ec9_7be1efb5",
+        "filename": "api/video/video_stream_encoder_settings.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-12-28T16:27:26Z",
+      "side": 0,
+      "message": "There appears to be at least one usage of this in a downstream project, so you\u0027ll need some sort of backwards compatibility fix.",
+      "range": {
+        "startLine": 69,
+        "startChar": 2,
+        "endLine": 72,
+        "endChar": 77
+      },
+      "revId": "c463a784c340874c75032da7602ec1fde43f75ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

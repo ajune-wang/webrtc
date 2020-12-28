@@ -16,6 +16,52 @@
       "message": "Please",
       "revId": "91b8f910ebafc31ab333469a1db6ca0472b76d7b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "844f51aa_cf9bb098",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-12-28T16:41:12Z",
+      "side": 1,
+      "message": "So how does it work if we have three spatial layers and the middle one is disabled? Have the inactive layers been culled from the config at this point?",
+      "range": {
+        "startLine": 281,
+        "startChar": 8,
+        "endLine": 281,
+        "endChar": 13
+      },
+      "revId": "91b8f910ebafc31ab333469a1db6ca0472b76d7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86fff22f_d774d3ad",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-12-28T16:41:12Z",
+      "side": 1,
+      "message": "nit: I think that if you use std::min\u003cuint8_t\u003e() you can omit these casts.",
+      "range": {
+        "startLine": 332,
+        "startChar": 10,
+        "endLine": 332,
+        "endChar": 30
+      },
+      "revId": "91b8f910ebafc31ab333469a1db6ca0472b76d7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

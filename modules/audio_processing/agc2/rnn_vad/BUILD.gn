@@ -17,6 +17,7 @@ rtc_library("rnn_vad") {
     "rnn.h",
   ]
 
+  defines = []
   if (rtc_build_with_neon && current_cpu != "arm64") {
     suppressed_configs += [ "//build/config/compiler:compiler_arm_fpu" ]
     cflags = [ "-mfpu=neon" ]
@@ -253,6 +254,13 @@ if (rtc_include_tests) {
       "symmetric_matrix_buffer_unittest.cc",
       "vector_math_unittest.cc",
     ]
+
+    defines = []
+    if (rtc_build_with_neon && current_cpu != "arm64") {
+      suppressed_configs += [ "//build/config/compiler:compiler_arm_fpu" ]
+      cflags = [ "-mfpu=neon" ]
+    }
+
     deps = [
       ":rnn_vad",
       ":rnn_vad_auto_correlation",

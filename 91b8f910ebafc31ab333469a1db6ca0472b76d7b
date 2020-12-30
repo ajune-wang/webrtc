@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f49be3c8_d32fff61",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-12-30T15:03:25Z",
+      "side": 1,
+      "message": "Seems like it is not supported in the SVC allocator either.\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/modules/video_coding/svc/svc_rate_allocator.cc;drc\u003d649648e72266227a2b5e7c3cf34951cb89385877;l\u003d237 \nSeems like it would not work in GetActiveSpatialLayers, I filed https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d12325 (assigned to you?)",
+      "parentUuid": "844f51aa_cf9bb098",
+      "range": {
+        "startLine": 281,
+        "startChar": 8,
+        "endLine": 281,
+        "endChar": 13
+      },
+      "revId": "91b8f910ebafc31ab333469a1db6ca0472b76d7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "86fff22f_d774d3ad",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 2
@@ -54,6 +78,30 @@
       "writtenOn": "2020-12-28T16:41:12Z",
       "side": 1,
       "message": "nit: I think that if you use std::min\u003cuint8_t\u003e() you can omit these casts.",
+      "range": {
+        "startLine": 332,
+        "startChar": 10,
+        "endLine": 332,
+        "endChar": 30
+      },
+      "revId": "91b8f910ebafc31ab333469a1db6ca0472b76d7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c89920b_603877ec",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-12-30T15:03:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86fff22f_d774d3ad",
       "range": {
         "startLine": 332,
         "startChar": 10,

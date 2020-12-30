@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f28a26db_39fdef1b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5509
+      },
+      "writtenOn": "2020-12-30T15:53:10Z",
+      "side": 1,
+      "message": "lg assuming your gn_revision is new enough (see bug -- maybe say \"chromium:XXX\" in bug line?)\n\nAs mentioned in the other cl desc, this is a no-op until cipd is built with a go that has mac/arm support (1.16, currently in beta)",
+      "revId": "ddc8430850a8cb1b30b7e6318face98086a70638",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

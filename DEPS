@@ -2947,6 +2947,19 @@ hooks = [
     ],
   },
   {
+    # Verify that we have the right GN binary and force-install it if we
+    # don't, in order to work around crbug.com/944367.
+    # TODO(crbug.com/944667) Get rid of this when cipd is ensuring we
+    # have the right binary more carefully and we no longer need this.
+    'name': 'ensure_gn_version',
+    'pattern': '.',
+    'action': [
+      'python',
+      'src/buildtools/ensure_gn_version.py',
+      'git_revision:0d67e272bdb8145f87d238bc0b2cb8bf80ccec90'
+    ],
+  },
+  {
     'name': 'sysroot_arm',
     'pattern': '.',
     'condition': 'checkout_linux and checkout_arm',

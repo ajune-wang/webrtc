@@ -1174,7 +1174,8 @@ bool WebRtcVideoChannel::GetChangedRecvParameters(
   const std::vector<VideoCodecSettings> mapped_codecs =
       MapCodecs(params.codecs);
   if (mapped_codecs.empty()) {
-    RTC_LOG(LS_ERROR) << "SetRecvParameters called without any video codecs.";
+    RTC_LOG(LS_ERROR)
+        << "GetChangedRecvParameters called without any video codecs.";
     return false;
   }
 
@@ -1187,7 +1188,7 @@ bool WebRtcVideoChannel::GetChangedRecvParameters(
     for (const VideoCodecSettings& mapped_codec : mapped_codecs) {
       if (!FindMatchingCodec(local_supported_codecs, mapped_codec.codec)) {
         RTC_LOG(LS_ERROR)
-            << "SetRecvParameters called with unsupported video codec: "
+            << "GetChangedRecvParameters called with unsupported video codec: "
             << mapped_codec.codec.ToString();
         return false;
       }

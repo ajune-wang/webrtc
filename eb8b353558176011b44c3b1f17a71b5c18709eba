@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39ba894d_4025c855",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-12-30T15:26:45Z",
+      "side": 1,
+      "message": "PTAL- downstream usage will be reverted.",
+      "revId": "eb8b353558176011b44c3b1f17a71b5c18709eba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

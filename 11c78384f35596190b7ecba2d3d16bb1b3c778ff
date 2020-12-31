@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70f42cce_007533f1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-12-31T11:09:55Z",
+      "side": 1,
+      "message": "trivial log fix -- sadly gerrit will require you to expand the common lines above which doubles the review effort ;-)",
+      "revId": "11c78384f35596190b7ecba2d3d16bb1b3c778ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

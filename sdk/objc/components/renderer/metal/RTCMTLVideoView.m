@@ -189,6 +189,7 @@
   }
 
   renderer.rotationOverride = self.rotationOverride;
+  renderer.horizontalFlipped = self.horizontalFlipped;
 
   [renderer drawFrame:videoFrame];
   self.lastFrameTimeNs = videoFrame.timeStampNs;

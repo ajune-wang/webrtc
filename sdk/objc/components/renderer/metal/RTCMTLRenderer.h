@@ -56,6 +56,10 @@ NS_AVAILABLE(10_11, 9_0)
  */
 @property(atomic, nullable) NSValue *rotationOverride;
 
+/** @abstract   Enables/disables horizontal flipping (mirroring).
+ */
+@property(atomic, assign) BOOL horizontalFlipped;
+
 @end
 
 NS_ASSUME_NONNULL_END

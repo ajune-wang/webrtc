@@ -41,6 +41,10 @@ RTC_OBJC_EXPORT
  */
 @property(nonatomic, nullable) NSValue* rotationOverride;
 
+/** @abstract Enables/disables horizontal flipping (mirroring).
+ */
+@property(nonatomic, getter=isHorizontalFlipped) BOOL horizontalFlipped;
+
 @end
 
 NS_ASSUME_NONNULL_END

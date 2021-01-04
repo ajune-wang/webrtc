@@ -189,6 +189,7 @@
   }
 
   renderer.rotationOverride = self.rotationOverride;
+  renderer.horizontalFlipped = self.horizontalFlipped;
 
   [renderer drawFrame:videoFrame];
   self.lastFrameTimeNs = videoFrame.timeStampNs;
@@ -205,6 +206,12 @@
   self.metalView.drawableSize = [self drawableSize];
   [self setNeedsLayout];
 }
+
+//- (void)setHorizontalFlipped:(BOOL *)horizontalFlipped {
+//  _horizontalFlipped = horizontalFlipped;
+//
+//  [self setNeedsLayout];
+//}
 
 - (RTCVideoRotation)frameRotation {
   if (self.rotationOverride) {

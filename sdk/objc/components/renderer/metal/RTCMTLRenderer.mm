@@ -37,6 +37,7 @@ static inline void getCubeVertexData(int cropX,
                                      size_t frameWidth,
                                      size_t frameHeight,
                                      RTCVideoRotation rotation,
+                                     BOOL isHorizontallyFlipped,
                                      float *buffer) {
   // The computed values are the adjusted texture coordinates, in [0..1].
   // For the left and top, 0.0 means no cropping and e.g. 0.2 means we're skipping 20% of the
@@ -50,35 +51,68 @@ static inline void getCubeVertexData(int cropX,
 
   // These arrays map the view coordinates to texture coordinates, taking cropping and rotation
   // into account. The first two columns are view coordinates, the last two are texture coordinates.
-  switch (rotation) {
-    case RTCVideoRotation_0: {
-      float values[16] = {-1.0, -1.0, cropLeft, cropBottom,
-                           1.0, -1.0, cropRight, cropBottom,
-                          -1.0,  1.0, cropLeft, cropTop,
-                           1.0,  1.0, cropRight, cropTop};
-      memcpy(buffer, &values, sizeof(values));
-    } break;
-    case RTCVideoRotation_90: {
-      float values[16] = {-1.0, -1.0, cropRight, cropBottom,
-                           1.0, -1.0, cropRight, cropTop,
-                          -1.0,  1.0, cropLeft, cropBottom,
-                           1.0,  1.0, cropLeft, cropTop};
-      memcpy(buffer, &values, sizeof(values));
-    } break;
-    case RTCVideoRotation_180: {
-      float values[16] = {-1.0, -1.0, cropRight, cropTop,
-                           1.0, -1.0, cropLeft, cropTop,
-                          -1.0,  1.0, cropRight, cropBottom,
-                           1.0,  1.0, cropLeft, cropBottom};
-      memcpy(buffer, &values, sizeof(values));
-    } break;
-    case RTCVideoRotation_270: {
-      float values[16] = {-1.0, -1.0, cropLeft, cropTop,
-                           1.0, -1.0, cropLeft, cropBottom,
-                          -1.0, 1.0, cropRight, cropTop,
-                           1.0, 1.0, cropRight, cropBottom};
-      memcpy(buffer, &values, sizeof(values));
-    } break;
+  if (isHorizontallyFlipped) {
+      switch (rotation) {
+          case RTCVideoRotation_0: {
+              float values[16] = {-1.0, -1.0, cropRight, cropBottom,
+                                   1.0, -1.0, cropLeft, cropBottom,
+                                  -1.0,  1.0, cropRight, cropTop,
+                                   1.0,  1.0, cropLeft, cropTop};
+              memcpy(buffer, &values, sizeof(values));
+          } break;
+          case RTCVideoRotation_90: {
+              float values[16] = {-1.0, -1.0, cropRight, cropTop,
+                                   1.0, -1.0, cropRight, cropBottom,
+                                  -1.0, 1.0, cropLeft, cropTop,
+                                   1.0, 1.0, cropLeft, cropBottom};
+              memcpy(buffer, &values, sizeof(values));
+          } break;
+          case RTCVideoRotation_180: {
+              float values[16] = {-1.0, -1.0, cropLeft, cropTop,
+                                   1.0, -1.0, cropRight, cropTop,
+                                  -1.0,  1.0, cropLeft, cropBottom,
+                                   1.0,  1.0, cropRight, cropBottom};
+              memcpy(buffer, &values, sizeof(values));
+          } break;
+          case RTCVideoRotation_270: {
+              float values[16] = {-1.0, -1.0, cropLeft, cropBottom,
+                                   1.0, -1.0, cropLeft, cropTop,
+                                  -1.0, 1.0, cropRight, cropBottom,
+                                   1.0, 1.0, cropRight, cropTop};
+              memcpy(buffer, &values, sizeof(values));
+          } break;
+      }
+  } else {
+      switch (rotation) {
+          case RTCVideoRotation_0: {
+              float values[16] = {-1.0, -1.0, cropLeft, cropBottom,
+                                   1.0, -1.0, cropRight, cropBottom,
+                                  -1.0,  1.0, cropLeft, cropTop,
+                                   1.0,  1.0, cropRight, cropTop};
+              memcpy(buffer, &values, sizeof(values));
+          } break;
+          case RTCVideoRotation_90: {
+              float values[16] = {-1.0, -1.0, cropRight, cropBottom,
+                                   1.0, -1.0, cropRight, cropTop,
+                                  -1.0,  1.0, cropLeft, cropBottom,
+                                   1.0,  1.0, cropLeft, cropTop};
+              memcpy(buffer, &values, sizeof(values));
+          } break;
+          case RTCVideoRotation_180: {
+              float values[16] = {-1.0, -1.0, cropRight, cropTop,
+                                   1.0, -1.0, cropLeft, cropTop,
+                                  -1.0,  1.0, cropRight, cropBottom,
+                                   1.0,  1.0, cropLeft, cropBottom};
+              memcpy(buffer, &values, sizeof(values));
+          } break;
+          case RTCVideoRotation_270: {
+              float values[16] = {-1.0, -1.0, cropLeft, cropTop,
+                                   1.0, -1.0, cropLeft, cropBottom,
+                                  -1.0, 1.0, cropRight, cropTop,
+                                   1.0, 1.0, cropRight, cropBottom};
+              memcpy(buffer, &values, sizeof(values));
+          } break;
+      }
   }
 }
 
@@ -110,6 +144,7 @@ static const NSInteger kMaxInflightBuffers = 1;
   int _oldCropX;
   int _oldCropY;
   RTCVideoRotation _oldRotation;
+  BOOL _oldHorizontalFlipped;
 }
 
 @synthesize rotationOverride = _rotationOverride;
@@ -201,7 +236,7 @@ static const NSInteger kMaxInflightBuffers = 1;
   // Recompute the texture cropping and recreate vertexBuffer if necessary.
   if (cropX != _oldCropX || cropY != _oldCropY || cropWidth != _oldCropWidth ||
       cropHeight != _oldCropHeight || rotation != _oldRotation || frameWidth != _oldFrameWidth ||
-      frameHeight != _oldFrameHeight) {
+      frameHeight != _oldFrameHeight || _horizontalFlipped != _oldHorizontalFlipped) {
     getCubeVertexData(cropX,
                       cropY,
                       cropWidth,
@@ -209,6 +244,7 @@ static const NSInteger kMaxInflightBuffers = 1;
                       frameWidth,
                       frameHeight,
                       rotation,
+                      _horizontalFlipped,
                       (float *)_vertexBuffer.contents);
     _oldCropX = cropX;
     _oldCropY = cropY;
@@ -217,6 +253,7 @@ static const NSInteger kMaxInflightBuffers = 1;
     _oldRotation = rotation;
     _oldFrameWidth = frameWidth;
     _oldFrameHeight = frameHeight;
+    _oldHorizontalFlipped = _horizontalFlipped;
   }
 
   return YES;

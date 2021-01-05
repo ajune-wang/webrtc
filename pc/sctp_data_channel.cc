@@ -567,9 +567,9 @@ void SctpDataChannel::SetState(DataState state) {
     observer_->OnStateChange();
   }
   if (state_ == kOpen) {
-    SignalOpened(this);
+    channel_opened_callbacks_.Send(this);
   } else if (state_ == kClosed) {
-    SignalClosed(this);
+    channel_closed_callbacks_.Send(this);
   }
 }
 

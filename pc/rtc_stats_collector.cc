@@ -2029,8 +2029,12 @@ void RTCStatsCollector::OnRtpDataChannelCreated(RtpDataChannel* channel) {
 }
 
 void RTCStatsCollector::OnSctpDataChannelCreated(SctpDataChannel* channel) {
-  channel->SignalOpened.connect(this, &RTCStatsCollector::OnDataChannelOpened);
-  channel->SignalClosed.connect(this, &RTCStatsCollector::OnDataChannelClosed);
+  channel->SubscribeToChannelOpened([this](DataChannelInterface* data_channel) {
+    OnDataChannelOpened(data_channel);
+  });
+  channel->SubscribeToChannelClosed([this](DataChannelInterface* data_channel) {
+    OnDataChannelClosed(data_channel);
+  });
 }
 
 void RTCStatsCollector::OnDataChannelOpened(DataChannelInterface* channel) {

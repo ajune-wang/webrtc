@@ -343,7 +343,9 @@ DataChannelController::InternalCreateSctpDataChannel(
     return nullptr;
   }
   sctp_data_channels_.push_back(channel);
-  channel->SignalClosed.connect(pc_, &PeerConnection::OnSctpDataChannelClosed);
+  channel->SubscribeToChannelClosed([this](DataChannelInterface* data_channel) {
+    pc_->OnSctpDataChannelClosed(data_channel);
+  });
   SignalSctpDataChannelCreated_(channel.get());
   return channel;
 }

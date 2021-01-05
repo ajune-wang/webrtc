@@ -139,10 +139,14 @@ TEST_F(SctpDataChannelTest, ConnectedAfterTransportBecomesAvailable) {
 // Tests the state of the data channel.
 TEST_F(SctpDataChannelTest, StateTransition) {
   StateSignalsListener state_signals_listener;
-  webrtc_data_channel_->SignalOpened.connect(
-      &state_signals_listener, &StateSignalsListener::OnSignalOpened);
-  webrtc_data_channel_->SignalClosed.connect(
-      &state_signals_listener, &StateSignalsListener::OnSignalClosed);
+  webrtc_data_channel_->SubscribeToChannelOpened(
+      [&state_signals_listener](DataChannelInterface* data_channel) {
+        state_signals_listener.OnSignalOpened(data_channel);
+      });
+  webrtc_data_channel_->SubscribeToChannelClosed(
+      [&state_signals_listener](DataChannelInterface* data_channel) {
+        state_signals_listener.OnSignalClosed(data_channel);
+      });
   EXPECT_EQ(webrtc::DataChannelInterface::kConnecting,
             webrtc_data_channel_->state());
   EXPECT_EQ(state_signals_listener.opened_count(), 0);

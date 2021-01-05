@@ -14,6 +14,7 @@
 #include <memory>
 #include <set>
 #include <string>
+#include <utility>
 
 #include "api/data_channel_interface.h"
 #include "api/priority.h"
@@ -21,8 +22,8 @@
 #include "api/transport/data_channel_transport_interface.h"
 #include "media/base/media_channel.h"
 #include "pc/data_channel_utils.h"
+#include "rtc_base/callback_list.h"
 #include "rtc_base/ssl_stream_adapter.h"  // For SSLRole
-#include "rtc_base/third_party/sigslot/sigslot.h"
 
 namespace webrtc {
 
@@ -162,6 +163,7 @@ class SctpDataChannel : public DataChannelInterface,
   uint32_t messages_received() const override;
   uint64_t bytes_received() const override;
   bool Send(const DataBuffer& buffer) override;
+  void SetState(DataState state);
 
   // Close immediately, ignoring any queued data or closing procedure.
   // This is called when the underlying SctpTransport is being destroyed.
@@ -205,11 +207,15 @@ class SctpDataChannel : public DataChannelInterface,
 
   DataChannelStats GetStats() const;
 
-  // Emitted when state transitions to kOpen.
-  sigslot::signal1<DataChannelInterface*> SignalOpened;
-  // Emitted when state transitions to kClosed.
-  // This signal can be used to tell when the channel's sid is free.
-  sigslot::signal1<DataChannelInterface*> SignalClosed;
+  template <typename F>
+  void SubscribeToChannelOpened(F&& callback) {
+    channel_opened_callbacks_.AddReceiver(std::forward<F>(callback));
+  }
+
+  template <typename F>
+  void SubscribeToChannelClosed(F&& callback) {
+    channel_closed_callbacks_.AddReceiver(std::forward<F>(callback));
+  }
 
   // Reset the allocator for internal ID values for testing, so that
   // the internal IDs generated are predictable. Test only.
@@ -235,7 +241,6 @@ class SctpDataChannel : public DataChannelInterface,
 
   bool Init();
   void UpdateState();
-  void SetState(DataState state);
   void DisconnectFromProvider();
 
   void DeliverQueuedReceivedData();
@@ -276,6 +281,12 @@ class SctpDataChannel : public DataChannelInterface,
   PacketQueue queued_control_data_ RTC_GUARDED_BY(signaling_thread_);
   PacketQueue queued_received_data_ RTC_GUARDED_BY(signaling_thread_);
   PacketQueue queued_send_data_ RTC_GUARDED_BY(signaling_thread_);
+
+  // Invoked when state transitions to kOpen.
+  CallbackList<DataChannelInterface*> channel_opened_callbacks_;
+  // Invoked when state transitions to kClosed.
+  // This signal can be used to tell when the channel's sid is free.
+  CallbackList<DataChannelInterface*> channel_closed_callbacks_;
 };
 
 }  // namespace webrtc

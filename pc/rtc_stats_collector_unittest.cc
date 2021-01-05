@@ -1416,9 +1416,9 @@ TEST_F(RTCStatsCollectorTest, CollectRTCPeerConnectionStats) {
       rtc::Thread::Current(), rtc::Thread::Current());
   pc_->SignalSctpDataChannelCreated()(dummy_channel_b.get());
 
-  dummy_channel_a->SignalOpened(dummy_channel_a.get());
+  dummy_channel_a->SetState(DataChannelInterface::kOpen);
   // Closing a channel that is not opened should not affect the counts.
-  dummy_channel_b->SignalClosed(dummy_channel_b.get());
+  dummy_channel_b->SetState(DataChannelInterface::kClosed);
 
   {
     rtc::scoped_refptr<const RTCStatsReport> report =
@@ -1433,8 +1433,8 @@ TEST_F(RTCStatsCollectorTest, CollectRTCPeerConnectionStats) {
         report->Get("RTCPeerConnection")->cast_to<RTCPeerConnectionStats>());
   }
 
-  dummy_channel_b->SignalOpened(dummy_channel_b.get());
-  dummy_channel_b->SignalClosed(dummy_channel_b.get());
+  dummy_channel_b->SetState(DataChannelInterface::kOpen);
+  dummy_channel_b->SetState(DataChannelInterface::kClosed);
 
   {
     rtc::scoped_refptr<const RTCStatsReport> report =
@@ -1451,7 +1451,7 @@ TEST_F(RTCStatsCollectorTest, CollectRTCPeerConnectionStats) {
 
   // Re-opening a data channel (or opening a new data channel that is re-using
   // the same address in memory) should increase the opened count.
-  dummy_channel_b->SignalOpened(dummy_channel_b.get());
+  dummy_channel_b->SetState(DataChannelInterface::kOpen);
 
   {
     rtc::scoped_refptr<const RTCStatsReport> report =
@@ -1466,8 +1466,8 @@ TEST_F(RTCStatsCollectorTest, CollectRTCPeerConnectionStats) {
         report->Get("RTCPeerConnection")->cast_to<RTCPeerConnectionStats>());
   }
 
-  dummy_channel_a->SignalClosed(dummy_channel_a.get());
-  dummy_channel_b->SignalClosed(dummy_channel_b.get());
+  dummy_channel_a->SetState(DataChannelInterface::kClosed);
+  dummy_channel_b->SetState(DataChannelInterface::kClosed);
 
   {
     rtc::scoped_refptr<const RTCStatsReport> report =

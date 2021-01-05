@@ -131,7 +131,8 @@ std::unique_ptr<ModuleRtpRtcpImpl2> CreateRtpRtcpModule(
   configuration.outgoing_transport = config.rtcp_send_transport;
   configuration.rtt_stats = rtt_stats;
   configuration.local_media_ssrc = config.local_ssrc;
-  return ModuleRtpRtcpImpl2::Create(configuration);
+  return std::make_unique<ModuleRtpRtcpImpl2>(configuration,
+                                              TaskQueueBase::Current());
 }
 
 }  // namespace

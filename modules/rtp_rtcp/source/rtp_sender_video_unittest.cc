@@ -176,15 +176,18 @@ class RtpSenderVideoTest : public ::testing::TestWithParam<bool> {
       : field_trials_(GetParam()),
         fake_clock_(kStartTime),
         retransmission_rate_limiter_(&fake_clock_, 1000),
-        rtp_module_(ModuleRtpRtcpImpl2::Create([&] {
-          RtpRtcpInterface::Configuration config;
-          config.clock = &fake_clock_;
-          config.outgoing_transport = &transport_;
-          config.retransmission_rate_limiter = &retransmission_rate_limiter_;
-          config.field_trials = &field_trials_;
-          config.local_media_ssrc = kSsrc;
-          return config;
-        }())),
+        rtp_module_(std::make_unique<ModuleRtpRtcpImpl2>(
+            [&] {
+              RtpRtcpInterface::Configuration config;
+              config.clock = &fake_clock_;
+              config.outgoing_transport = &transport_;
+              config.retransmission_rate_limiter =
+                  &retransmission_rate_limiter_;
+              config.field_trials = &field_trials_;
+              config.local_media_ssrc = kSsrc;
+              return config;
+            }(),
+            TaskQueueBase::Current())),
         rtp_sender_video_(
             std::make_unique<TestRtpSenderVideo>(&fake_clock_,
                                                  rtp_module_->RtpSender(),
@@ -1167,15 +1170,18 @@ class RtpSenderVideoWithFrameTransformerTest : public ::testing::Test {
   RtpSenderVideoWithFrameTransformerTest()
       : fake_clock_(kStartTime),
         retransmission_rate_limiter_(&fake_clock_, 1000),
-        rtp_module_(ModuleRtpRtcpImpl2::Create([&] {
-          RtpRtcpInterface::Configuration config;
-          config.clock = &fake_clock_;
-          config.outgoing_transport = &transport_;
-          config.retransmission_rate_limiter = &retransmission_rate_limiter_;
-          config.field_trials = &field_trials_;
-          config.local_media_ssrc = kSsrc;
-          return config;
-        }())) {
+        rtp_module_(std::make_unique<ModuleRtpRtcpImpl2>(
+            [&] {
+              RtpRtcpInterface::Configuration config;
+              config.clock = &fake_clock_;
+              config.outgoing_transport = &transport_;
+              config.retransmission_rate_limiter =
+                  &retransmission_rate_limiter_;
+              config.field_trials = &field_trials_;
+              config.local_media_ssrc = kSsrc;
+              return config;
+            }(),
+            TaskQueueBase::Current())) {
     rtp_module_->SetSequenceNumber(kSeqNum);
     rtp_module_->SetStartTimestamp(0);
   }

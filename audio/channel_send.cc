@@ -495,7 +495,8 @@ ChannelSend::ChannelSend(
 
   configuration.local_media_ssrc = ssrc;
 
-  rtp_rtcp_ = ModuleRtpRtcpImpl2::Create(configuration);
+  rtp_rtcp_ = std::make_unique<ModuleRtpRtcpImpl2>(configuration,
+                                                   TaskQueueBase::Current());
   rtp_rtcp_->SetSendingMediaStatus(false);
 
   rtp_sender_audio_ = std::make_unique<RTPSenderAudio>(configuration.clock,

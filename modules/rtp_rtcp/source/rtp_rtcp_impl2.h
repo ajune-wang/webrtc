@@ -51,16 +51,11 @@ class ModuleRtpRtcpImpl2 final : public RtpRtcpInterface,
                                  public Module,
                                  public RTCPReceiver::ModuleRtpRtcp {
  public:
-  explicit ModuleRtpRtcpImpl2(
-      const RtpRtcpInterface::Configuration& configuration);
+  // The worker_queue is used for rtt updates. This object may be created on
+  // some other thread, but destructor must be called on the worker_queue.
+  ModuleRtpRtcpImpl2(const RtpRtcpInterface::Configuration& configuration,
+                     TaskQueueBase* worker_queue);
   ~ModuleRtpRtcpImpl2() override;
-
-  // This method is provided to easy with migrating away from the
-  // RtpRtcp::Create factory method. Since this is an internal implementation
-  // detail though, creating an instance of ModuleRtpRtcpImpl2 directly should
-  // be fine.
-  static std::unique_ptr<ModuleRtpRtcpImpl2> Create(
-      const Configuration& configuration);
 
   // Returns the number of milliseconds until the module want a worker thread to
   // call Process.

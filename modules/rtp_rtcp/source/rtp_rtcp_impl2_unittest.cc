@@ -162,7 +162,8 @@ class RtpRtcpModule : public RtcpPacketTypeCounterObserver {
     config.need_rtp_packet_infos = true;
     config.non_sender_rtt_measurement = true;
 
-    impl_.reset(new ModuleRtpRtcpImpl2(config));
+    impl_ =
+        std::make_unique<ModuleRtpRtcpImpl2>(config, TaskQueueBase::Current());
     impl_->SetRemoteSSRC(is_sender_ ? kReceiverSsrc : kSenderSsrc);
     impl_->SetRTCPStatus(RtcpMode::kCompound);
   }

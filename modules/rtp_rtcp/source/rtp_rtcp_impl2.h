@@ -110,10 +110,6 @@ class ModuleRtpRtcpImpl2 final : public RtpRtcpInterface,
 
   uint32_t SSRC() const override { return rtcp_sender_.SSRC(); }
 
-  void SetRid(const std::string& rid) override;
-
-  void SetMid(const std::string& mid) override;
-
   void SetCsrcs(const std::vector<uint32_t>& csrcs) override;
 
   RTCPSender::FeedbackState GetFeedbackState();

@@ -1503,7 +1503,8 @@ TEST_F(VideoSendStreamTest, MinTransmitBitrateRespectsRemb) {
       config.clock = Clock::GetRealTimeClock();
       config.outgoing_transport = feedback_transport_.get();
       config.retransmission_rate_limiter = &retranmission_rate_limiter_;
-      rtp_rtcp_ = ModuleRtpRtcpImpl2::Create(config);
+      rtp_rtcp_ = std::make_unique<ModuleRtpRtcpImpl2>(
+          config, TaskQueueBase::Current());
       rtp_rtcp_->SetRTCPStatus(RtcpMode::kReducedSize);
     }
 

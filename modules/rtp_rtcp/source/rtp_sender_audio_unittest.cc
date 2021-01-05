@@ -69,14 +69,16 @@ class RtpSenderAudioTest : public ::testing::Test {
  public:
   RtpSenderAudioTest()
       : fake_clock_(kStartTime),
-        rtp_module_(ModuleRtpRtcpImpl2::Create([&] {
-          RtpRtcpInterface::Configuration config;
-          config.audio = true;
-          config.clock = &fake_clock_;
-          config.outgoing_transport = &transport_;
-          config.local_media_ssrc = kSsrc;
-          return config;
-        }())),
+        rtp_module_(std::make_unique<ModuleRtpRtcpImpl2>(
+            [&] {
+              RtpRtcpInterface::Configuration config;
+              config.audio = true;
+              config.clock = &fake_clock_;
+              config.outgoing_transport = &transport_;
+              config.local_media_ssrc = kSsrc;
+              return config;
+            }(),
+            TaskQueueBase::Current())),
         rtp_sender_audio_(
             std::make_unique<RTPSenderAudio>(&fake_clock_,
                                              rtp_module_->RtpSender())) {

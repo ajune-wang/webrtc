@@ -18,6 +18,19 @@
 
 namespace webrtc {
 
+JsepIceCandidate::JsepIceCandidate(const std::string& sdp_mid,
+                                   int sdp_mline_index)
+    : sdp_mid_(sdp_mid), sdp_mline_index_(sdp_mline_index) {}
+
+JsepIceCandidate::JsepIceCandidate(const std::string& sdp_mid,
+                                   int sdp_mline_index,
+                                   const cricket::Candidate& candidate)
+    : sdp_mid_(sdp_mid),
+      sdp_mline_index_(sdp_mline_index),
+      candidate_(candidate) {}
+
+JsepIceCandidate::~JsepIceCandidate() {}
+
 std::string JsepIceCandidate::sdp_mid() const {
   return sdp_mid_;
 }

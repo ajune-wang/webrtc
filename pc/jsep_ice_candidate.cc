@@ -49,6 +49,16 @@ JsepIceCandidate::JsepIceCandidate(const std::string& sdp_mid,
 
 JsepIceCandidate::~JsepIceCandidate() {}
 
+JsepCandidateCollection JsepCandidateCollection::Clone() const {
+  JsepCandidateCollection new_collection;
+  for (const auto& candidate : candidates_) {
+    new_collection.candidates_.push_back(std::make_unique<JsepIceCandidate>(
+        candidate->sdp_mid(), candidate->sdp_mline_index(),
+        candidate->candidate()));
+  }
+  return new_collection;
+}
+
 bool JsepIceCandidate::Initialize(const std::string& sdp, SdpParseError* err) {
   return SdpDeserializeCandidate(sdp, this, err);
 }

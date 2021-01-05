@@ -22,6 +22,30 @@
       },
       "revId": "92d8ee9b37c07b5e198e6915bc466e86663cfe1d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a29e83d2_eb4f5121",
+        "filename": "pc/jsep_ice_candidate.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-05T10:51:28Z",
+      "side": 0,
+      "message": "Can be addressed at the same time as merging the .cc files.",
+      "parentUuid": "b9219eb6_d8335c6b",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 1
+      },
+      "revId": "92d8ee9b37c07b5e198e6915bc466e86663cfe1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

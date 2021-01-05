@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d99801d3_d2fb6788",
+        "filename": "api/jsep_ice_candidate.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-05T10:51:28Z",
+      "side": 1,
+      "message": "Thought about that (it is why I changed RTC_DISALLOW_COPY_AND_ASSIGN to explicit function delete), but since it was totally disallowed before, I want to make that a separate CL.\n\nGiven the growth of Clone()-like methods, we may want to have a discussion about possibly-excessive usage of DISALLOW_COPY_AND_ASSIGN.",
+      "parentUuid": "2fc42471_7cbddeb9",
+      "range": {
+        "startLine": 45,
+        "startChar": 75,
+        "endLine": 47,
+        "endChar": 32
+      },
+      "revId": "2d03f408d90dc60e45a6d079eb08013786719373",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f692b4a2_6eadb482",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-01-05T09:21:48Z",
       "side": 1,
       "message": "Could use iterator-style loop, for (const auto\u0026 collection : candidate_collection_) {...}",
+      "range": {
+        "startLine": 224,
+        "startChar": 7,
+        "endLine": 224,
+        "endChar": 58
+      },
+      "revId": "2d03f408d90dc60e45a6d079eb08013786719373",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8cebf80c_74161b64",
+        "filename": "pc/jsep_session_description.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-05T10:51:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f692b4a2_6eadb482",
       "range": {
         "startLine": 224,
         "startChar": 7,

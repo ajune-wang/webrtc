@@ -86,13 +86,22 @@ class RTC_EXPORT CopyOnWriteBuffer {
   template <typename T = uint8_t,
             typename std::enable_if<
                 internal::BufferCompat<uint8_t, T>::value>::type* = nullptr>
-  T* data() {
+  T* MutableData() {
     RTC_DCHECK(IsConsistent());
     if (!buffer_) {
       return nullptr;
     }
     UnshareAndEnsureCapacity(capacity());
     return buffer_->data<T>() + offset_;
+  }
+
+  // Deprecated, prefer to use MutableData() to confirm potential fork of the
+  // underlying data is intended.
+  template <typename T = uint8_t,
+            typename std::enable_if<
+                internal::BufferCompat<uint8_t, T>::value>::type* = nullptr>
+  T* data() {
+    return MutableData<T>();
   }
 
   // Get const pointer to the data. This will not create a copy of the
@@ -146,9 +155,11 @@ class RTC_EXPORT CopyOnWriteBuffer {
     return !(*this == buf);
   }
 
+  // Deprecated, prefer to use MutableData() to confirm potential fork of the
+  // underlying data is intended.
   uint8_t& operator[](size_t index) {
     RTC_DCHECK_LT(index, size());
-    return data()[index];
+    return MutableData()[index];
   }
 
   uint8_t operator[](size_t index) const {

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9587cdeb_bb71470d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-05T09:05:54Z",
+      "side": 1,
+      "message": "Needed for a performance improvement in Chrome.\n",
+      "revId": "2d03f408d90dc60e45a6d079eb08013786719373",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

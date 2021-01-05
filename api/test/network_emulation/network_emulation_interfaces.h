@@ -42,7 +42,7 @@ struct EmulatedIpPacket {
   EmulatedIpPacket& operator=(EmulatedIpPacket&&) = default;
 
   size_t size() const { return data.size(); }
-  const uint8_t* cdata() const { return data.cdata(); }
+  const uint8_t* cdata() const { return data.data(); }
 
   size_t ip_packet_size() const { return size() + headers_size; }
   rtc::SocketAddress from;

@@ -114,7 +114,7 @@ TEST(UnsignaledStreamTest, ReplacesUnsignaledStreamOnCompletedSignaling) {
                     first_ssrc &&
                 !got_unsignaled_packet) {
               rtc::CopyOnWriteBuffer updated_buffer = packet.data;
-              ByteWriter<uint32_t>::WriteBigEndian(&updated_buffer.data()[8],
+              ByteWriter<uint32_t>::WriteBigEndian(&updated_buffer.Data()[8],
                                                    second_ssrc);
               EmulatedIpPacket updated_packet(
                   packet.from, packet.to, updated_buffer, packet.arrival_time);

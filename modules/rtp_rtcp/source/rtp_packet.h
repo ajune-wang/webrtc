@@ -79,7 +79,7 @@ class RtpPacket {
   size_t size() const {
     return payload_offset_ + payload_size_ + padding_size_;
   }
-  const uint8_t* data() const { return buffer_.cdata(); }
+  const uint8_t* data() const { return buffer_.data(); }
   size_t FreeCapacity() const { return capacity() - size(); }
   size_t MaxPayloadSize() const { return capacity() - headers_size(); }
 
@@ -180,8 +180,8 @@ class RtpPacket {
 
   uint16_t SetExtensionLengthMaybeAddZeroPadding(size_t extensions_offset);
 
-  uint8_t* WriteAt(size_t offset) { return buffer_.data() + offset; }
-  void WriteAt(size_t offset, uint8_t byte) { buffer_.data()[offset] = byte; }
+  uint8_t* WriteAt(size_t offset) { return buffer_.Data() + offset; }
+  void WriteAt(size_t offset, uint8_t byte) { buffer_.Data()[offset] = byte; }
   const uint8_t* ReadAt(size_t offset) const { return buffer_.data() + offset; }
 
   // Header.

@@ -197,13 +197,13 @@ TEST(CopyOnWriteBufferTest, TestEnsureCapacity) {
 
 TEST(CopyOnWriteBufferTest, SetSizeDoesntChangeOriginal) {
   CopyOnWriteBuffer buf1(kTestData, 3, 10);
-  const uint8_t* const original_allocation = buf1.cdata();
+  const uint8_t* const original_allocation = buf1.data();
   CopyOnWriteBuffer buf2(buf1);
 
   buf2.SetSize(16);
 
   EnsureBuffersDontShareData(buf1, buf2);
-  EXPECT_EQ(original_allocation, buf1.cdata());
+  EXPECT_EQ(original_allocation, buf1.data());
   EXPECT_EQ(3u, buf1.size());
   EXPECT_EQ(10u, buf1.capacity());
 }
@@ -239,7 +239,7 @@ TEST(CopyOnWriteBufferTest, SetSizeDoesntDecreaseCapacity) {
 
 TEST(CopyOnWriteBufferTest, ClearDoesntChangeOriginal) {
   CopyOnWriteBuffer buf1(kTestData, 3, 10);
-  const uint8_t* const original_allocation = buf1.cdata();
+  const uint8_t* const original_allocation = buf1.data();
   CopyOnWriteBuffer buf2(buf1);
 
   buf2.Clear();
@@ -247,7 +247,7 @@ TEST(CopyOnWriteBufferTest, ClearDoesntChangeOriginal) {
   EnsureBuffersDontShareData(buf1, buf2);
   EXPECT_EQ(3u, buf1.size());
   EXPECT_EQ(10u, buf1.capacity());
-  EXPECT_EQ(original_allocation, buf1.cdata());
+  EXPECT_EQ(original_allocation, buf1.data());
   EXPECT_EQ(0u, buf2.size());
 }
 
@@ -265,19 +265,8 @@ TEST(CopyOnWriteBufferTest, TestConstDataAccessor) {
   CopyOnWriteBuffer buf1(kTestData, 3, 10);
   CopyOnWriteBuffer buf2(buf1);
 
-  // .cdata() doesn't clone data.
-  const uint8_t* cdata1 = buf1.cdata();
-  const uint8_t* cdata2 = buf2.cdata();
-  EXPECT_EQ(cdata1, cdata2);
-
-  // Non-const .data() clones data if shared.
-  const uint8_t* data1 = buf1.data();
-  const uint8_t* data2 = buf2.data();
-  EXPECT_NE(data1, data2);
-  // buf1 was cloned above.
-  EXPECT_NE(data1, cdata1);
-  // Therefore buf2 was no longer sharing data and was not cloned.
-  EXPECT_EQ(data2, cdata1);
+  // .data() doesn't clone data.
+  EXPECT_EQ(buf1.data(), buf2.data());
 }
 
 TEST(CopyOnWriteBufferTest, TestBacketRead) {
@@ -285,11 +274,11 @@ TEST(CopyOnWriteBufferTest, TestBacketRead) {
   CopyOnWriteBuffer buf2(buf1);
 
   EnsureBuffersShareData(buf1, buf2);
-  // Non-const reads clone the data if shared.
+  // All reads treated as const and thus don't clone the data.
   for (size_t i = 0; i != 3u; ++i) {
     EXPECT_EQ(buf1[i], kTestData[i]);
   }
-  EnsureBuffersDontShareData(buf1, buf2);
+  EnsureBuffersShareData(buf1, buf2);
 }
 
 TEST(CopyOnWriteBufferTest, TestBacketReadConst) {
@@ -304,48 +293,33 @@ TEST(CopyOnWriteBufferTest, TestBacketReadConst) {
   EnsureBuffersShareData(buf1, buf2);
 }
 
-TEST(CopyOnWriteBufferTest, TestBacketWrite) {
-  CopyOnWriteBuffer buf1(kTestData, 3, 10);
-  CopyOnWriteBuffer buf2(buf1);
-
-  EnsureBuffersShareData(buf1, buf2);
-  for (size_t i = 0; i != 3u; ++i) {
-    buf1[i] = kTestData[i] + 1;
-  }
-  EXPECT_EQ(buf1.size(), 3u);
-  EXPECT_EQ(buf1.capacity(), 10u);
-  EXPECT_EQ(buf2.size(), 3u);
-  EXPECT_EQ(buf2.capacity(), 10u);
-  EXPECT_EQ(0, memcmp(buf2.cdata(), kTestData, 3));
-}
-
 TEST(CopyOnWriteBufferTest, CreateSlice) {
   CopyOnWriteBuffer buf(kTestData, 10, 10);
   CopyOnWriteBuffer slice = buf.Slice(3, 4);
   EXPECT_EQ(slice.size(), 4u);
-  EXPECT_EQ(0, memcmp(buf.cdata() + 3, slice.cdata(), 4));
+  EXPECT_EQ(0, memcmp(buf.data() + 3, slice.data(), 4));
 }
 
 TEST(CopyOnWriteBufferTest, NoCopyDataOnSlice) {
   CopyOnWriteBuffer buf(kTestData, 10, 10);
   CopyOnWriteBuffer slice = buf.Slice(3, 4);
-  EXPECT_EQ(buf.cdata() + 3, slice.cdata());
+  EXPECT_EQ(buf.data() + 3, slice.data());
 }
 
 TEST(CopyOnWriteBufferTest, WritingCopiesData) {
   CopyOnWriteBuffer buf(kTestData, 10, 10);
   CopyOnWriteBuffer slice = buf.Slice(3, 4);
-  slice[0] = 0xaa;
-  EXPECT_NE(buf.cdata() + 3, slice.cdata());
-  EXPECT_EQ(0, memcmp(buf.cdata(), kTestData, 10));
+  slice.Data()[0] = 0xaa;
+  EXPECT_NE(buf.data() + 3, slice.data());
+  EXPECT_EQ(0, memcmp(buf.data(), kTestData, 10));
 }
 
 TEST(CopyOnWriteBufferTest, WritingToBufferDoesntAffectsSlice) {
   CopyOnWriteBuffer buf(kTestData, 10, 10);
   CopyOnWriteBuffer slice = buf.Slice(3, 4);
-  buf[0] = 0xaa;
-  EXPECT_NE(buf.cdata() + 3, slice.cdata());
-  EXPECT_EQ(0, memcmp(slice.cdata(), kTestData + 3, 4));
+  buf.Data()[0] = 0xaa;
+  EXPECT_NE(buf.data() + 3, slice.data());
+  EXPECT_EQ(0, memcmp(slice.data(), kTestData + 3, 4));
 }
 
 TEST(CopyOnWriteBufferTest, SliceOfASlice) {
@@ -353,16 +327,16 @@ TEST(CopyOnWriteBufferTest, SliceOfASlice) {
   CopyOnWriteBuffer slice = buf.Slice(3, 7);
   CopyOnWriteBuffer slice2 = slice.Slice(2, 3);
   EXPECT_EQ(slice2.size(), 3u);
-  EXPECT_EQ(slice.cdata() + 2, slice2.cdata());
-  EXPECT_EQ(buf.cdata() + 5, slice2.cdata());
+  EXPECT_EQ(slice.data() + 2, slice2.data());
+  EXPECT_EQ(buf.data() + 5, slice2.data());
 }
 
 TEST(CopyOnWriteBufferTest, SlicesAreIndependent) {
   CopyOnWriteBuffer buf(kTestData, 10, 10);
   CopyOnWriteBuffer slice = buf.Slice(3, 7);
   CopyOnWriteBuffer slice2 = buf.Slice(3, 7);
-  slice2[0] = 0xaa;
-  EXPECT_EQ(buf.cdata() + 3, slice.cdata());
+  slice2.Data()[0] = 0xaa;
+  EXPECT_EQ(buf.data() + 3, slice.data());
 }
 
 }  // namespace rtc

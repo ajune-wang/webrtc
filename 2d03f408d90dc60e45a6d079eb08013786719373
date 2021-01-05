@@ -16,6 +16,52 @@
       "message": "Needed for a performance improvement in Chrome.\n",
       "revId": "2d03f408d90dc60e45a6d079eb08013786719373",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fc42471_7cbddeb9",
+        "filename": "api/jsep_ice_candidate.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-01-05T09:21:48Z",
+      "side": 1,
+      "message": "Since this is essentially copy-constructing the object, maybe clearer to use the default copy constructor (instead of deleting it?). Could be a separate cl, though.",
+      "range": {
+        "startLine": 45,
+        "startChar": 75,
+        "endLine": 47,
+        "endChar": 32
+      },
+      "revId": "2d03f408d90dc60e45a6d079eb08013786719373",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f692b4a2_6eadb482",
+        "filename": "pc/jsep_session_description.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-01-05T09:21:48Z",
+      "side": 1,
+      "message": "Could use iterator-style loop, for (const auto\u0026 collection : candidate_collection_) {...}",
+      "range": {
+        "startLine": 224,
+        "startChar": 7,
+        "endLine": 224,
+        "endChar": 58
+      },
+      "revId": "2d03f408d90dc60e45a6d079eb08013786719373",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

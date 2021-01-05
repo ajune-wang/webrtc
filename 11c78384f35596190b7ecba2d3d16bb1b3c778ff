@@ -16,6 +16,23 @@
       "message": "trivial log fix -- sadly gerrit will require you to expand the common lines above which doubles the review effort ;-)",
       "revId": "11c78384f35596190b7ecba2d3d16bb1b3c778ff",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4d5d214_0c110bbc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-01-05T07:49:46Z",
+      "side": 1,
+      "message": "I think the current message is kind-of accurate, since SetRecvParameters is the only caller of the helper method GetChangedRecvParameters. So not sure the change makes logging clearer. I\u0027d like to see a second opinion before lgtm.",
+      "revId": "11c78384f35596190b7ecba2d3d16bb1b3c778ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

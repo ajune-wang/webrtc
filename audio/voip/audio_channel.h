@@ -84,6 +84,7 @@ class AudioChannel : public rtc::RefCountInterface {
     ingress_->SetReceiveCodecs(codecs);
   }
   IngressStatistics GetIngressStatistics();
+  ChannelStatistics GetChannelStatistics();
 
   // See comments on the methods used from AudioEgress and AudioIngress.
   // Conversion to double is following what is done in
@@ -104,6 +105,11 @@ class AudioChannel : public rtc::RefCountInterface {
   }
   double GetOutputTotalDuration() const {
     return ingress_->GetOutputTotalDuration();
+  }
+
+  // Internal API for testing purpose.
+  void SendRTCPReport(RTCPPacketType type) {
+    RTC_DCHECK(rtp_rtcp_->SendRTCP(type) == 0);
   }
 
  private:

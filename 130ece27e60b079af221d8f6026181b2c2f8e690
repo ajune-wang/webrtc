@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf5012d9_3145141b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2021-01-05T00:56:06Z",
+      "side": 1,
+      "message": "Hi edgecapabilitiesdev@,\n\nPTAL at this CL for the WGC based window and screen capturer.",
+      "revId": "130ece27e60b079af221d8f6026181b2c2f8e690",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

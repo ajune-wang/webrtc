@@ -36,19 +36,6 @@ std::unique_ptr<IceCandidateInterface> CreateIceCandidate(
                                             candidate);
 }
 
-JsepIceCandidate::JsepIceCandidate(const std::string& sdp_mid,
-                                   int sdp_mline_index)
-    : sdp_mid_(sdp_mid), sdp_mline_index_(sdp_mline_index) {}
-
-JsepIceCandidate::JsepIceCandidate(const std::string& sdp_mid,
-                                   int sdp_mline_index,
-                                   const cricket::Candidate& candidate)
-    : sdp_mid_(sdp_mid),
-      sdp_mline_index_(sdp_mline_index),
-      candidate_(candidate) {}
-
-JsepIceCandidate::~JsepIceCandidate() {}
-
 bool JsepIceCandidate::Initialize(const std::string& sdp, SdpParseError* err) {
   return SdpDeserializeCandidate(sdp, this, err);
 }

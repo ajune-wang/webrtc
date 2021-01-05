@@ -18,6 +18,19 @@
 
 namespace webrtc {
 
+JsepIceCandidate::JsepIceCandidate(const std::string& sdp_mid,
+                                   int sdp_mline_index)
+    : sdp_mid_(sdp_mid), sdp_mline_index_(sdp_mline_index) {}
+
+JsepIceCandidate::JsepIceCandidate(const std::string& sdp_mid,
+                                   int sdp_mline_index,
+                                   const cricket::Candidate& candidate)
+    : sdp_mid_(sdp_mid),
+      sdp_mline_index_(sdp_mline_index),
+      candidate_(candidate) {}
+
+JsepIceCandidate::~JsepIceCandidate() {}
+
 std::string JsepIceCandidate::sdp_mid() const {
   return sdp_mid_;
 }
@@ -38,6 +51,16 @@ JsepCandidateCollection::JsepCandidateCollection() = default;
 
 JsepCandidateCollection::JsepCandidateCollection(JsepCandidateCollection&& o)
     : candidates_(std::move(o.candidates_)) {}
+
+JsepCandidateCollection JsepCandidateCollection::Clone() const {
+  JsepCandidateCollection new_collection;
+  for (const auto& candidate : candidates_) {
+    new_collection.candidates_.push_back(std::make_unique<JsepIceCandidate>(
+        candidate->sdp_mid(), candidate->sdp_mline_index(),
+        candidate->candidate()));
+  }
+  return new_collection;
+}
 
 size_t JsepCandidateCollection::count() const {
   return candidates_.size();

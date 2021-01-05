@@ -218,8 +218,13 @@ bool JsepSessionDescription::Initialize(
 std::unique_ptr<SessionDescriptionInterface> JsepSessionDescription::Clone()
     const {
   auto new_description = std::make_unique<JsepSessionDescription>(type_);
-  new_description->Initialize(description_->Clone(), session_id_,
-                              session_version_);
+  new_description->session_id_ = session_id_;
+  new_description->session_version_ = session_version_;
+  new_description->description_ = description_->Clone();
+  for (size_t i = 0; i < candidate_collection_.size(); ++i) {
+    new_description->candidate_collection_.push_back(
+        candidate_collection_[i].Clone());
+  }
   return new_description;
 }
 

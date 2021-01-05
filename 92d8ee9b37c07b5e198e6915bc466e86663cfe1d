@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9219eb6_d8335c6b",
+        "filename": "pc/jsep_ice_candidate.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-01-05T09:52:09Z",
+      "side": 0,
+      "message": "If these are declared in the ip header file, they\u0027re also in the wrong place here. Need to be moved, or if intended to be internal-only, maybe just delete and change callers to use the Sdp* functions directly.",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 1
+      },
+      "revId": "92d8ee9b37c07b5e198e6915bc466e86663cfe1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

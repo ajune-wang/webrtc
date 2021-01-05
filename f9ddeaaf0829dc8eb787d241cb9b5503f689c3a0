@@ -16,6 +16,23 @@
       "message": "lgtm % for loop style in one place.",
       "revId": "f9ddeaaf0829dc8eb787d241cb9b5503f689c3a0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83e851f9_b4a4e2a0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-01-05T09:52:09Z",
+      "side": 1,
+      "message": "Some things still violate the .cc and .h pairs rule. But doesn\u0027t have to be fixed in this cl.",
+      "revId": "f9ddeaaf0829dc8eb787d241cb9b5503f689c3a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

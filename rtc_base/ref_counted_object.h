@@ -13,7 +13,6 @@
 #include <type_traits>
 #include <utility>
 
-#include "rtc_base/constructor_magic.h"
 #include "rtc_base/ref_count.h"
 #include "rtc_base/ref_counter.h"
 
@@ -32,6 +31,8 @@ class RefCountedObject : public T {
       : T(std::forward<P0>(p0),
           std::forward<P1>(p1),
           std::forward<Args>(args)...) {}
+  RefCountedObject(const RefCountedObject&) = delete;
+  RefCountedObject& operator=(const RefCountedObject&) = delete;
 
   virtual void AddRef() const { ref_count_.IncRef(); }
 
@@ -52,11 +53,32 @@ class RefCountedObject : public T {
   virtual bool HasOneRef() const { return ref_count_.HasOneRef(); }
 
  protected:
-  virtual ~RefCountedObject() {}
+  virtual ~RefCountedObject() = default;
 
   mutable webrtc::webrtc_impl::RefCounter ref_count_{0};
+};
 
-  RTC_DISALLOW_COPY_AND_ASSIGN(RefCountedObject);
+template <class T>
+class FinalRefCountedObject final : public T {
+ public:
+  template <typename... Args>
+  explicit FinalRefCountedObject(Args&&... args)
+      : T(std::forward<Args>(args)...) {}
+  FinalRefCountedObject(const FinalRefCountedObject&) = delete;
+  FinalRefCountedObject& operator=(const FinalRefCountedObject&) = delete;
+
+  void AddRef() const { ref_count_.IncRef(); }
+  void Release() const {
+    if (ref_count_.DecRef() == RefCountReleaseStatus::kDroppedLastRef) {
+      delete this;
+    }
+  }
+  bool HasOneRef() const { return ref_count_.HasOneRef(); }
+
+ private:
+  ~FinalRefCountedObject() = default;
+
+  mutable webrtc::webrtc_impl::RefCounter ref_count_{0};
 };
 
 }  // namespace rtc

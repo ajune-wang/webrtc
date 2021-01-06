@@ -403,6 +403,7 @@ webrtc_fuzzer_test("sdp_parser_fuzzer") {
     "../../pc:libjingle_peerconnection",
   ]
   seed_corpus = "corpora/sdp-corpus"
+  dict = "corpora/sdp.tokens"
 }
 
 webrtc_fuzzer_test("stun_parser_fuzzer") {

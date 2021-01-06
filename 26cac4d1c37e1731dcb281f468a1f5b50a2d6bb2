@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "294ab473_c4775183",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-06T12:44:41Z",
+      "side": 1,
+      "message": "Followup...",
+      "revId": "26cac4d1c37e1731dcb281f468a1f5b50a2d6bb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3f74159a_674e5c01",
@@ -150,6 +167,30 @@
       "side": 1,
       "message": "The two use cases that we should respond to correctly are:\n\nAn offer is given with extmap-allow-mixed on session level \u003d\u003e respond on session level.\nAn offer is given with extmap-allow-mixed on media level \u003d\u003e respond on media level.\n\nIt can very well be that the logic needs to be changed to handle the second case correctly now.\n\nStill, I don\u0027t see any reason why someone would have this on media level instead of session level. 😊",
       "parentUuid": "27f81c96_2db46f6e",
+      "range": {
+        "startLine": 278,
+        "startChar": 46,
+        "endLine": 278,
+        "endChar": 49
+      },
+      "revId": "26cac4d1c37e1731dcb281f468a1f5b50a2d6bb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6dfd25ad_0b365245",
+        "filename": "pc/session_description.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-06T12:44:41Z",
+      "side": 1,
+      "message": "The one case where someone would want this on media level is if they have multiple transports (unbundled or multi-bundle) where one of the transports goes to a different system than the other (for instance video to one system and audio to another), and one of them doesn\u0027t handle extmap-allow-mixed.\n\nIt\u0027s an extreme edge case of an edge case; systems like this have been built (think of Duo with a display on a TV and audio on a Jabra), but imagining that only one of them would handle extmap-allow-mixed is a stretch. But formally, it\u0027s allowed.\n\nIf we want to handle this case, we need to add tests for it.",
+      "parentUuid": "a8eeed1c_9d820ed4",
       "range": {
         "startLine": 278,
         "startChar": 46,

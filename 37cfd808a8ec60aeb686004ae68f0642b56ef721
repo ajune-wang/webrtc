@@ -35,6 +35,41 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0669376_71a5d4d3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2021-01-06T20:03:56Z",
+      "side": 1,
+      "message": "VoipEngine is specifically designed for voice only application that it will not carry video related code. If you can suggest better organization on statistical structure, I will be happy to accommodate them.",
+      "parentUuid": "6a8bdf12_ae5fb755",
+      "revId": "37cfd808a8ec60aeb686004ae68f0642b56ef721",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f074d80a_69cb7c6f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2021-01-06T20:03:56Z",
+      "side": 1,
+      "message": "Thank you for detailed review. I have changed per your comment accordingly. Please take another look. Thanks.",
+      "revId": "37cfd808a8ec60aeb686004ae68f0642b56ef721",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "12319be8_07bd520d",
@@ -48,6 +83,24 @@
       "writtenOn": "2021-01-06T09:33:45Z",
       "side": 1,
       "message": "\"obtained from a remote RTCP SR or RR report\" (I think that\u0027s what you mean).",
+      "revId": "37cfd808a8ec60aeb686004ae68f0642b56ef721",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8659a807_1ec764ff",
+        "filename": "api/voip/voip_statistics.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2021-01-06T20:03:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12319be8_07bd520d",
       "revId": "37cfd808a8ec60aeb686004ae68f0642b56ef721",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -69,6 +122,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "27d9b812_2d440fca",
+        "filename": "api/voip/voip_statistics.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2021-01-06T20:03:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "133a3350_d76c35ff",
+      "revId": "37cfd808a8ec60aeb686004ae68f0642b56ef721",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "53a2bc63_d092d27e",
@@ -82,6 +153,24 @@
       "writtenOn": "2021-01-06T09:33:45Z",
       "side": 1,
       "message": "What does \"converted from Q8\" mean? Rather say \"expressed as a floating point number\".",
+      "revId": "37cfd808a8ec60aeb686004ae68f0642b56ef721",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64b485a3_725589e9",
+        "filename": "api/voip/voip_statistics.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2021-01-06T20:03:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "53a2bc63_d092d27e",
       "revId": "37cfd808a8ec60aeb686004ae68f0642b56ef721",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -103,6 +192,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec540c8b_202f115e",
+        "filename": "api/voip/voip_statistics.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2021-01-06T20:03:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4520d956_b0939a51",
+      "revId": "37cfd808a8ec60aeb686004ae68f0642b56ef721",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "01fcdfc9_e357f499",
@@ -116,6 +223,24 @@
       "writtenOn": "2021-01-06T09:33:45Z",
       "side": 1,
       "message": "Nit: channe_id -\u003e channel_id",
+      "revId": "37cfd808a8ec60aeb686004ae68f0642b56ef721",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e184c59_1ec573b4",
+        "filename": "api/voip/voip_statistics.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2021-01-06T20:03:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01fcdfc9_e357f499",
       "revId": "37cfd808a8ec60aeb686004ae68f0642b56ef721",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -137,6 +262,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c71f66d1_e5ed9e9d",
+        "filename": "audio/voip/audio_channel.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2021-01-06T20:03:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11495b18_12a0fb52",
+      "revId": "37cfd808a8ec60aeb686004ae68f0642b56ef721",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "95120cfe_d82b806b",
@@ -150,6 +293,24 @@
       "writtenOn": "2021-01-06T09:33:45Z",
       "side": 1,
       "message": "This won\u0027t send anything in optimized mode, since RTC_DCHECK doesn\u0027t evaluate its condition if RTC_DCHECK_IS_ON is false. Please rewrite as \"send, then DCHECK\".",
+      "revId": "37cfd808a8ec60aeb686004ae68f0642b56ef721",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f334dee7_deb356a2",
+        "filename": "audio/voip/audio_channel.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2021-01-06T20:03:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "95120cfe_d82b806b",
       "revId": "37cfd808a8ec60aeb686004ae68f0642b56ef721",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -171,6 +332,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "716c3fcf_da3c6686",
+        "filename": "audio/voip/audio_ingress.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2021-01-06T20:03:56Z",
+      "side": 1,
+      "message": "Done. Thanks for the info.",
+      "parentUuid": "229b699d_4ecca698",
+      "revId": "37cfd808a8ec60aeb686004ae68f0642b56ef721",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5adc1d3e_4317e78a",
@@ -184,6 +363,24 @@
       "writtenOn": "2021-01-06T09:33:45Z",
       "side": 1,
       "message": "Why is this test still correct after deleting the event handling?\nAlternatively - why should this test change based on ChannelStatistics changes?\n(it may be appropriate, I don\u0027t know this code)",
+      "revId": "37cfd808a8ec60aeb686004ae68f0642b56ef721",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18ceae55_8deb36d1",
+        "filename": "audio/voip/test/audio_channel_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2021-01-06T20:03:56Z",
+      "side": 1,
+      "message": "The main issue is that bytes_sent and packets_sent stats in RTP stack is updated asynchronously by a TaskQueueBase and there wasn\u0027t an easy way to detect when those stats are updated.\n\nIn order to make sure that sending stats are updated, custom MockTaskQueue was added that handles RTP stat update logic with the same main thread. Since one thread is used, there is no more need for rtc::Event to wait for another thread to execute for testing.",
+      "parentUuid": "5adc1d3e_4317e78a",
       "revId": "37cfd808a8ec60aeb686004ae68f0642b56ef721",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

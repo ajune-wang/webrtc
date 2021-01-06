@@ -16,6 +16,176 @@
       "message": "Harald, could you review the change? Thanks.",
       "revId": "37cfd808a8ec60aeb686004ae68f0642b56ef721",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a8bdf12_ae5fb755",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-06T09:33:45Z",
+      "side": 1,
+      "message": "A lot of nittery, but my biggest question is whether this code is all at the appropriate level.\nRTCP SR/RR doesnt have anything in it that is voice specific, but a lot of the code here seems to link by namespace into the Voip code only.\n\nThat means either that voice and video have different functionalities, that we\u0027re replicating stuff that already exists for video, or that we\u0027re going to have to do it all over again for video.\n\nIs it possible to move the parts that aren\u0027t voice specific to the generic RTP layer?\n",
+      "revId": "37cfd808a8ec60aeb686004ae68f0642b56ef721",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12319be8_07bd520d",
+        "filename": "api/voip/voip_statistics.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-06T09:33:45Z",
+      "side": 1,
+      "message": "\"obtained from a remote RTCP SR or RR report\" (I think that\u0027s what you mean).",
+      "revId": "37cfd808a8ec60aeb686004ae68f0642b56ef721",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "133a3350_d76c35ff",
+        "filename": "api/voip/voip_statistics.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-06T09:33:45Z",
+      "side": 1,
+      "message": "Nit: seconds.",
+      "revId": "37cfd808a8ec60aeb686004ae68f0642b56ef721",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53a2bc63_d092d27e",
+        "filename": "api/voip/voip_statistics.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-06T09:33:45Z",
+      "side": 1,
+      "message": "What does \"converted from Q8\" mean? Rather say \"expressed as a floating point number\".",
+      "revId": "37cfd808a8ec60aeb686004ae68f0642b56ef721",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4520d956_b0939a51",
+        "filename": "api/voip/voip_statistics.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-06T09:33:45Z",
+      "side": 1,
+      "message": "An SR has far too many SSRCs for comfort, so need to be precise here. Do you mean \"SSRC of report sender\" (from the RFC 3550 6.4.1 header) or \"SSRC of the source reported on\" (from the report block)?",
+      "revId": "37cfd808a8ec60aeb686004ae68f0642b56ef721",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01fcdfc9_e357f499",
+        "filename": "api/voip/voip_statistics.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-06T09:33:45Z",
+      "side": 1,
+      "message": "Nit: channe_id -\u003e channel_id",
+      "revId": "37cfd808a8ec60aeb686004ae68f0642b56ef721",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11495b18_12a0fb52",
+        "filename": "audio/voip/audio_channel.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-06T09:33:45Z",
+      "side": 1,
+      "message": "If an API is only for testing, it\u0027s better to call it SendRTCPReportForTesting.",
+      "revId": "37cfd808a8ec60aeb686004ae68f0642b56ef721",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95120cfe_d82b806b",
+        "filename": "audio/voip/audio_channel.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-06T09:33:45Z",
+      "side": 1,
+      "message": "This won\u0027t send anything in optimized mode, since RTC_DCHECK doesn\u0027t evaluate its condition if RTC_DCHECK_IS_ON is false. Please rewrite as \"send, then DCHECK\".",
+      "revId": "37cfd808a8ec60aeb686004ae68f0642b56ef721",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "229b699d_4ecca698",
+        "filename": "audio/voip/audio_ingress.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-06T09:33:45Z",
+      "side": 1,
+      "message": "Note that the value operator of a std::atomic with no argument is the same as the default argument of atomic::load, so when you have no argument to load, the .load operator is just clutter.",
+      "revId": "37cfd808a8ec60aeb686004ae68f0642b56ef721",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5adc1d3e_4317e78a",
+        "filename": "audio/voip/test/audio_channel_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-06T09:33:45Z",
+      "side": 1,
+      "message": "Why is this test still correct after deleting the event handling?\nAlternatively - why should this test change based on ChannelStatistics changes?\n(it may be appropriate, I don\u0027t know this code)",
+      "revId": "37cfd808a8ec60aeb686004ae68f0642b56ef721",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

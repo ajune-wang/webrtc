@@ -15,11 +15,11 @@
 
 #include <algorithm>
 #include <cstring>
+#include <memory>
 #include <string>
 #include <type_traits>
 #include <utility>
 
-#include "api/scoped_refptr.h"
 #include "rtc_base/buffer.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/ref_counted_object.h"
@@ -173,9 +173,9 @@ class RTC_EXPORT CopyOnWriteBuffer {
   void SetData(const T* data, size_t size) {
     RTC_DCHECK(IsConsistent());
     if (!buffer_) {
-      buffer_ = size > 0 ? new RefCountedObject<Buffer>(data, size) : nullptr;
-    } else if (!buffer_->HasOneRef()) {
-      buffer_ = new RefCountedObject<Buffer>(data, size, capacity());
+      buffer_ = size > 0 ? std::make_shared<Buffer>(data, size) : nullptr;
+    } else if (buffer_.use_count() > 1) {
+      buffer_ = std::make_shared<Buffer>(data, size, capacity());
     } else {
       buffer_->SetData(data, size);
     }
@@ -210,7 +210,7 @@ class RTC_EXPORT CopyOnWriteBuffer {
   void AppendData(const T* data, size_t size) {
     RTC_DCHECK(IsConsistent());
     if (!buffer_) {
-      buffer_ = new RefCountedObject<Buffer>(data, size);
+      buffer_ = std::make_shared<Buffer>(data, size);
       offset_ = 0;
       size_ = size;
       RTC_DCHECK(IsConsistent());
@@ -286,7 +286,7 @@ class RTC_EXPORT CopyOnWriteBuffer {
   }
 
   // buffer_ is either null, or points to an rtc::Buffer with capacity > 0.
-  scoped_refptr<RefCountedObject<Buffer>> buffer_;
+  std::shared_ptr<Buffer> buffer_;
   // This buffer may represent a slice of a original data.
   size_t offset_;  // Offset of a current slice in the original data in buffer_.
                    // Should be 0 if the buffer_ is empty.

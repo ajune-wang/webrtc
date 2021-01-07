@@ -35,6 +35,47 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "33456de1_12cf1268",
+        "filename": "modules/rtp_rtcp/source/flexfec_receiver_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-07T15:47:29Z",
+      "side": 1,
+      "message": "If this has been production code, I would rewrite it.",
+      "parentUuid": "b4b240b0_f9288717",
+      "revId": "9f2e3453d68cd6f8ed01304d8df1ef477e172007",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "334c382c_1f9942ea",
+        "filename": "modules/rtp_rtcp/source/ulpfec_receiver_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-07T15:47:29Z",
+      "side": 1,
+      "message": "here I wouldn\u0027t use pointer arithmetic since this code access single element/byte.",
+      "range": {
+        "startLine": 138,
+        "startChar": 73,
+        "endLine": 138,
+        "endChar": 76
+      },
+      "revId": "9f2e3453d68cd6f8ed01304d8df1ef477e172007",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3305ffec_712d13d7",
@@ -54,6 +95,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2c6cd129_20c203a0",
+        "filename": "modules/rtp_rtcp/source/ulpfec_receiver_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-07T15:47:29Z",
+      "side": 1,
+      "message": "what is wrong with pointer arithmetic except for the personal preference?\n\nI dislike rewriting it using [] because it is conceptually incorrect:\nin c pointer to single element and pointer to array of elements are represent with the same type, though conceptually they are different types.\nexpression `\u0026somearray[offset]` is conceptually a pointer to a single element,\nbut here a pointer to array of two bytes is expected.\nthat why I prefer pointer arithemetic `somearray + offset`, i.e. take pointer to array of bytes, then offset it. This way it is still a pointer to array of bytes.\n\nSimilarly `somevector.data() + 5` I would read as pointer to array starting with the 5th element, where expressions `somevector.begin() + 5` and `\u0026somevector[5]` I would read as iterator or pointer to a single element at position 5.\n\nfor a type that doesn\u0027t use continuous storage, e.g. std::map\u003cint, T\u003e, expression `\u0026somemap[0]` can point to a single element only.\n\n\nLonger safer solution might be to add an extra method to the COWBuffer:\nrtc::ArrayView\u003cuint8_t\u003e MutableView() { return rtc::MakeArrayView(MutableData(), capacity()); }\n\nThen code like this one could use.\n`cow_buffer.MutableView().subview(2).data()`",
+      "parentUuid": "3305ffec_712d13d7",
+      "revId": "9f2e3453d68cd6f8ed01304d8df1ef477e172007",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "08b628b0_595abdb3",
         "filename": "modules/rtp_rtcp/test/testFec/test_fec.cc",
         "patchSetId": 5
@@ -65,6 +124,24 @@
       "writtenOn": "2021-01-07T14:41:08Z",
       "side": 1,
       "message": "Here too.... (pointer arithmetic).",
+      "revId": "9f2e3453d68cd6f8ed01304d8df1ef477e172007",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5127f9cc_9196cbdb",
+        "filename": "modules/rtp_rtcp/test/testFec/test_fec.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-07T15:47:29Z",
+      "side": 1,
+      "message": "yes, here also array of two elements/bytes is expected.",
+      "parentUuid": "08b628b0_595abdb3",
       "revId": "9f2e3453d68cd6f8ed01304d8df1ef477e172007",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

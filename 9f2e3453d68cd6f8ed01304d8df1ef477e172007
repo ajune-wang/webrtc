@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b733570_22c9b7e8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-07T14:41:08Z",
+      "side": 1,
+      "message": "LGTM.\nThere are a couple of places where you go from using array indexing to pointer arithmetic - given that I find pointer arithmetic *really* hard to read, I wonder if you can make it more sensible?\n\n(Passing pointers to bytes in the middle of arrays in order to write to the following bytes is another readability antipattern, but that can wait for another time.)",
+      "revId": "9f2e3453d68cd6f8ed01304d8df1ef477e172007",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4b240b0_f9288717",
+        "filename": "modules/rtp_rtcp/source/flexfec_receiver_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-07T14:41:08Z",
+      "side": 1,
+      "message": "If this had been production code, I\u0027d say \"rewrite it\", but it illustrates nicely that we\u0027ve been using expensive calls when we didn\u0027t need to, because they \"looked cheap\"....",
+      "revId": "9f2e3453d68cd6f8ed01304d8df1ef477e172007",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3305ffec_712d13d7",
+        "filename": "modules/rtp_rtcp/source/ulpfec_receiver_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-07T14:41:08Z",
+      "side": 1,
+      "message": "I hate doing pointer arithmetic for array indexing .... can you write it using []?",
+      "revId": "9f2e3453d68cd6f8ed01304d8df1ef477e172007",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08b628b0_595abdb3",
+        "filename": "modules/rtp_rtcp/test/testFec/test_fec.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-07T14:41:08Z",
+      "side": 1,
+      "message": "Here too.... (pointer arithmetic).",
+      "revId": "9f2e3453d68cd6f8ed01304d8df1ef477e172007",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

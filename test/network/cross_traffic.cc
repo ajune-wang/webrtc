@@ -37,6 +37,9 @@ void RandomWalkCrossTraffic::Process(Timestamp at_time) {
   if (last_process_time_.IsMinusInfinity()) {
     last_process_time_ = at_time;
   }
+  if (last_update_time_.IsMinusInfinity()) {
+    last_update_time_ = at_time;
+  }
   TimeDelta delta = at_time - last_process_time_;
   last_process_time_ = at_time;
 

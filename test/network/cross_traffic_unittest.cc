@@ -120,6 +120,32 @@ TEST(CrossTrafficTest, RandomWalkCrossTraffic) {
               kExpectedDataSent.bytes() * 0.1);
 }
 
+TEST(CrossTrafficTest, RandomWalkCrossTraffic_LowRate) {
+  TrafficCounterFixture fixture;
+  TrafficRoute traffic(&fixture.clock, &fixture.counter, &fixture.endpoint);
+
+  RandomWalkConfig config;
+  config.peak_rate = DataRate::KilobitsPerSec(1000);
+  config.min_packet_size = DataSize::Bytes(1);
+  config.min_packet_interval = TimeDelta::Millis(25);
+  config.update_interval = TimeDelta::Millis(500);
+  config.variance = 0.0;
+  config.bias = 0.1;
+
+  RandomWalkCrossTraffic random_walk(config, &traffic);
+  const auto kRunTime = TimeDelta::Seconds(1);
+  while (fixture.clock.TimeInMilliseconds() < kRunTime.ms()) {
+    random_walk.Process(Timestamp::Millis(fixture.clock.TimeInMilliseconds()));
+    fixture.clock.AdvanceTimeMilliseconds(1);
+  }
+
+  RTC_LOG(INFO) << fixture.counter.packets_count_ << " packets; "
+                << fixture.counter.total_packets_size_ << " bytes";
+  const auto kExpectedDataSent = kRunTime * config.peak_rate * 0.1;
+  EXPECT_NEAR(fixture.counter.total_packets_size_, kExpectedDataSent.bytes(),
+              kExpectedDataSent.bytes() * 0.1);
+}
+
 TEST(TcpMessageRouteTest, DeliveredOnLossyNetwork) {
   NetworkEmulationManagerImpl net(TimeMode::kSimulated);
   BuiltInNetworkBehaviorConfig send;

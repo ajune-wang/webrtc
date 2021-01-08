@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "730f6002_85430329",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2021-01-08T10:35:51Z",
+      "side": 1,
+      "message": "The svc mode is not correctly wired from the rtp encoding parameters when a single stream is used, which seems the only way to enable it from the peerconnection side:\n\n    webrtc::RtpTransceiverInit video_init;\n    video_init.stream_ids.push_back(kStreamId);\n    video_init.direction \u003d webrtc::RtpTransceiverDirection::kSendRecv;\n    webrtc::RtpEncodingParameters svc;\n    if (!scalability_mode_.empty()) {\n      svc.scalability_mode \u003d scalability_mode_;\n    }\n    video_init.send_encodings.push_back(svc);\n    auto result_or_error_video \u003d\n        peer_connection_-\u003eAddTransceiver(video_track_, video_init);",
+      "revId": "e108a6b4b9ce24038eed14ba5585b8988a739aa7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

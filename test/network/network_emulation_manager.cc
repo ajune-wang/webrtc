@@ -18,6 +18,7 @@
 #include "call/simulated_network.h"
 #include "rtc_base/fake_network.h"
 #include "test/network/emulated_turn_server.h"
+#include "test/network/traffic_route.h"
 #include "test/time_controller/real_time_controller.h"
 #include "test/time_controller/simulated_time_controller.h"
 
@@ -188,7 +189,7 @@ TrafficRoute* NetworkEmulationManagerImpl::CreateTrafficRoute(
   cur_node->router()->SetReceiver(endpoint->GetPeerLocalAddress(), endpoint);
 
   std::unique_ptr<TrafficRoute> traffic_route =
-      std::make_unique<TrafficRoute>(clock_, via_nodes[0], endpoint);
+      std::make_unique<TrafficRouteImpl>(clock_, via_nodes[0], endpoint);
   TrafficRoute* out = traffic_route.get();
   traffic_routes_.push_back(std::move(traffic_route));
   return out;

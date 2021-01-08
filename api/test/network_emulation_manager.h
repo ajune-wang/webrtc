@@ -45,6 +45,37 @@ class EmulatedNetworkNode;
 // peer device to another network interface on another peer device.
 class EmulatedRoute;
 
+class RandomWalkCrossTraffic;
+
+class PulsedPeaksCrossTraffic;
+
+class FakeTcpCrossTraffic;
+
+struct RandomWalkConfig {
+  int random_seed = 1;
+  DataRate peak_rate = DataRate::KilobitsPerSec(100);
+  DataSize min_packet_size = DataSize::Bytes(200);
+  TimeDelta min_packet_interval = TimeDelta::Millis(1);
+  TimeDelta update_interval = TimeDelta::Millis(200);
+  double variance = 0.6;
+  double bias = -0.1;
+};
+
+struct PulsedPeaksConfig {
+  DataRate peak_rate = DataRate::KilobitsPerSec(100);
+  DataSize min_packet_size = DataSize::Bytes(200);
+  TimeDelta min_packet_interval = TimeDelta::Millis(1);
+  TimeDelta send_duration = TimeDelta::Millis(100);
+  TimeDelta hold_duration = TimeDelta::Millis(2000);
+};
+
+struct FakeTcpConfig {
+  DataSize packet_size = DataSize::Bytes(1200);
+  DataSize send_limit = DataSize::PlusInfinity();
+  TimeDelta process_interval = TimeDelta::Millis(200);
+  TimeDelta packet_timeout = TimeDelta::Seconds(1);
+};
+
 struct EmulatedEndpointConfig {
   enum class IpAddressFamily { kIpv4, kIpv6 };
   enum class StatsGatheringMode {
@@ -225,6 +256,24 @@ class NetworkEmulationManager {
   // TODO(srte): Handle clearing of the routes involved.
   virtual TcpMessageRoute* CreateTcpRoute(EmulatedRoute* send_route,
                                           EmulatedRoute* ret_route) = 0;
+
+  virtual TrafficRoute* CreateTrafficRoute(
+      const std::vector<EmulatedNetworkNode*>& via_nodes) = 0;
+
+  virtual RandomWalkCrossTraffic* CreateRandomWalkCrossTraffic(
+      TrafficRoute* traffic_route,
+      RandomWalkConfig config) = 0;
+
+  virtual PulsedPeaksCrossTraffic* CreatePulsedPeaksCrossTraffic(
+      TrafficRoute* traffic_route,
+      PulsedPeaksConfig config) = 0;
+
+  virtual FakeTcpCrossTraffic* StartFakeTcpCrossTraffic(
+      std::vector<EmulatedNetworkNode*> send_link,
+      std::vector<EmulatedNetworkNode*> ret_link,
+      FakeTcpConfig config) = 0;
+
+  virtual void StopCrossTraffic(FakeTcpCrossTraffic* traffic) = 0;
 
   // Creates EmulatedNetworkManagerInterface which can be used then to inject
   // network emulation layer into PeerConnection. |endpoints| - are available

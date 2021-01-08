@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "733ac78e_007503d2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-08T10:53:25Z",
+      "side": 1,
+      "message": "I did the digging to find out where the new structs replicate old structs. Please either figure out a way to merge them or argue convincingly why the replication is good.\n\nOtherwise, code looks reasonable.\n",
+      "revId": "be21f74a04e196a24df25089b99ae9c411788c46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4540f2c6_98fd81e7",
+        "filename": "api/voip/voip_statistics.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-08T10:53:25Z",
+      "side": 1,
+      "message": "Thus struct almost exactly replicates webrtc::RtcpStatistics from rtp_rtcp/include/rtcp_statitsics.h (but is better documented). We should declare this only once.",
+      "revId": "be21f74a04e196a24df25089b99ae9c411788c46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71f83e6c_95b13cb9",
+        "filename": "api/voip/voip_statistics.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-08T10:53:25Z",
+      "side": 1,
+      "message": "This struct\u0027s data are replicated in webrtc::AudioSendStream::Stats (outgoing) and webrtc::AudioReceiveStream::Stats (incoming); those records also have a lot of stats that these structs do not have.\n\nPlease argue why this struct shouldn\u0027t have two members, one for each direction, with the types from the call/ classes. (Alternatively, if the resulting include spaghetti is abhorrent, move the Stats structs from AudioSender and AudioReceiver to a less objectionable place.)",
+      "revId": "be21f74a04e196a24df25089b99ae9c411788c46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

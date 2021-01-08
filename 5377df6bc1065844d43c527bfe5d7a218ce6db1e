@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "232bcd91_ad7104ed",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-01-08T14:35:27Z",
+      "side": 1,
+      "message": "Consider to which extent we want to do this, an option would be to only expose the TrafficRoute API or even use existing API and copy whatever logic you need from the cross traffic generators you might want.\n\nThe risk with exposing them like this is that downstream tests will start to rely on the exact behavior of the generators. Such a dependency means that if someone changes the behavior slightly, downstream unit tests might start failing which in turn can lead to significant maintenance overhead if that is to be avoided.",
+      "revId": "5377df6bc1065844d43c527bfe5d7a218ce6db1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e94a087c_6abc3b63",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-01-08T14:35:27Z",
+      "side": 1,
+      "message": "Remove.",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 50
+      },
+      "revId": "5377df6bc1065844d43c527bfe5d7a218ce6db1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd500cfe_4479690a",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-01-08T14:35:27Z",
+      "side": 1,
+      "message": "Skip or add one comment per struct.",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 48
+      },
+      "revId": "5377df6bc1065844d43c527bfe5d7a218ce6db1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5e82c67_942b0b18",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-01-08T14:35:27Z",
+      "side": 1,
+      "message": "This is not true, the traffic behaves like a random walk.",
+      "range": {
+        "startLine": 262,
+        "startChar": 58,
+        "endLine": 263,
+        "endChar": 27
+      },
+      "revId": "5377df6bc1065844d43c527bfe5d7a218ce6db1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

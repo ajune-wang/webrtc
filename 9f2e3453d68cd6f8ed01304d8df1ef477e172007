@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f08e1caf_1aa51b03",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-08T14:13:04Z",
+      "side": 1,
+      "message": "Erik, ptal at media/ and test/ as an owner.",
+      "revId": "9f2e3453d68cd6f8ed01304d8df1ef477e172007",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b4b240b0_f9288717",

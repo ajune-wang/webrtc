@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6bea630_2145d2b1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2021-01-08T19:18:25Z",
+      "side": 1,
+      "message": "Thank you. I have added my arguments as requested. Please consider them for your review.",
+      "revId": "be21f74a04e196a24df25089b99ae9c411788c46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4540f2c6_98fd81e7",
@@ -37,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "89245d75_3b381273",
+        "filename": "api/voip/voip_statistics.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2021-01-08T19:18:25Z",
+      "side": 1,
+      "message": "webrtc::RtcpStatistics struct is missing RTT and last report timestamp and looks to have the purpose as internal housekeeping struct. I also wanted keep as much resemblance as possible with webrtc-stats standard description and its types as they have been already discussed and thought out by the authors. In a way, I envisioned this struct be somewhat like the webrtc-stats to reduce complexity for developers by leveraging previously defined spec. RtcpStatistics struct not being in api directory also discouraged me to use as it could be intrusive to force current code to align with new types that webrtc-stats defined.",
+      "parentUuid": "4540f2c6_98fd81e7",
+      "revId": "be21f74a04e196a24df25089b99ae9c411788c46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "71f83e6c_95b13cb9",
         "filename": "api/voip/voip_statistics.h",
         "patchSetId": 7
@@ -48,6 +83,24 @@
       "writtenOn": "2021-01-08T10:53:25Z",
       "side": 1,
       "message": "This struct\u0027s data are replicated in webrtc::AudioSendStream::Stats (outgoing) and webrtc::AudioReceiveStream::Stats (incoming); those records also have a lot of stats that these structs do not have.\n\nPlease argue why this struct shouldn\u0027t have two members, one for each direction, with the types from the call/ classes. (Alternatively, if the resulting include spaghetti is abhorrent, move the Stats structs from AudioSender and AudioReceiver to a less objectionable place.)",
+      "revId": "be21f74a04e196a24df25089b99ae9c411788c46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dfa86e97_2a201ad5",
+        "filename": "api/voip/voip_statistics.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2021-01-08T19:18:25Z",
+      "side": 1,
+      "message": "Since ChannelStatistics is external API to application, I thought it would be better to limit the scope of exposure on what\u0027s essential and minimum for application statistics. Also similar argument from previous comment on type usage defined as in webrtc-stats spec applies here.\n\nRegarding directions, I envisioned ChannelStatistics as local statistics that local client is able to calculate and observe whereas RemoteRtcpStatistics as what remote client calculated and providing. I see other developers often getting confused on the direction of stats and somehow think we are able to calculate remote stats locally which I wanted to clarify the confusion here.\n\nIMHO, I considered AudioSend/ReceiveStream::Stats structs as internal proxy object which are meant to create somewhat an abstraction from webrtc-stats. I believe the ChannelStatistics needs to be a representative as external API in terms of its understandability and digestiveness to application whereas AudioSendStream::Stats seems created for internal housekeeping fields to track its various working pieces within. If I were to expose AudioSendStream::Stats, I would have to put more detailed/lengthy descriptions on how to extract right ReportBlockData which will add more confusion and complexity to the developers. It also contains redundant fields from webrtc::VoipVolumeControl which focuses on audio energy level (due to application\u0027s desire on polling such APIs to be more frequent than RTP - e.g. displaying microphone energy gauge to user). Also ANAStats is not part of VoipEngine function and APM stats has been advised to expose via IngressStatistics before.",
+      "parentUuid": "71f83e6c_95b13cb9",
       "revId": "be21f74a04e196a24df25089b99ae9c411788c46",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

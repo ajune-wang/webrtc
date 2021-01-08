@@ -34,7 +34,6 @@
 #include "test/network/emulated_turn_server.h"
 #include "test/network/fake_network_socket_server.h"
 #include "test/network/network_emulation.h"
-#include "test/network/traffic_route.h"
 
 namespace webrtc {
 namespace test {
@@ -64,23 +63,23 @@ class NetworkEmulationManagerImpl : public NetworkEmulationManager {
 
   void ClearRoute(EmulatedRoute* route) override;
 
-  TrafficRoute* CreateTrafficRoute(
-      const std::vector<EmulatedNetworkNode*>& via_nodes);
-  RandomWalkCrossTraffic* CreateRandomWalkCrossTraffic(
-      TrafficRoute* traffic_route,
-      RandomWalkConfig config);
-  PulsedPeaksCrossTraffic* CreatePulsedPeaksCrossTraffic(
-      TrafficRoute* traffic_route,
-      PulsedPeaksConfig config);
-  FakeTcpCrossTraffic* StartFakeTcpCrossTraffic(
-      std::vector<EmulatedNetworkNode*> send_link,
-      std::vector<EmulatedNetworkNode*> ret_link,
-      FakeTcpConfig config);
-
   TcpMessageRoute* CreateTcpRoute(EmulatedRoute* send_route,
                                   EmulatedRoute* ret_route) override;
 
-  void StopCrossTraffic(FakeTcpCrossTraffic* traffic);
+  TrafficRoute* CreateTrafficRoute(
+      const std::vector<EmulatedNetworkNode*>& via_nodes) override;
+  RandomWalkCrossTraffic* CreateRandomWalkCrossTraffic(
+      TrafficRoute* traffic_route,
+      RandomWalkConfig config) override;
+  PulsedPeaksCrossTraffic* CreatePulsedPeaksCrossTraffic(
+      TrafficRoute* traffic_route,
+      PulsedPeaksConfig config) override;
+
+  FakeTcpCrossTraffic* StartFakeTcpCrossTraffic(
+      std::vector<EmulatedNetworkNode*> send_link,
+      std::vector<EmulatedNetworkNode*> ret_link,
+      FakeTcpConfig config) override;
+  void StopCrossTraffic(FakeTcpCrossTraffic* traffic) override;
 
   EmulatedNetworkManagerInterface* CreateEmulatedNetworkManagerInterface(
       const std::vector<EmulatedEndpoint*>& endpoints) override;

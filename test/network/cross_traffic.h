@@ -15,82 +15,18 @@
 #include <map>
 #include <memory>
 
+#include "api/test/network_emulation_manager.h"
 #include "api/units/data_rate.h"
 #include "api/units/data_size.h"
 #include "api/units/time_delta.h"
 #include "api/units/timestamp.h"
 #include "rtc_base/random.h"
 #include "rtc_base/synchronization/sequence_checker.h"
-#include "test/network/traffic_route.h"
+#include "test/network/network_emulation.h"
 #include "test/scenario/column_printer.h"
 
 namespace webrtc {
 namespace test {
-
-struct RandomWalkConfig {
-  int random_seed = 1;
-  DataRate peak_rate = DataRate::KilobitsPerSec(100);
-  DataSize min_packet_size = DataSize::Bytes(200);
-  TimeDelta min_packet_interval = TimeDelta::Millis(1);
-  TimeDelta update_interval = TimeDelta::Millis(200);
-  double variance = 0.6;
-  double bias = -0.1;
-};
-
-class RandomWalkCrossTraffic {
- public:
-  RandomWalkCrossTraffic(RandomWalkConfig config, TrafficRoute* traffic_route);
-  ~RandomWalkCrossTraffic();
-
-  void Process(Timestamp at_time);
-  DataRate TrafficRate() const;
-  ColumnPrinter StatsPrinter();
-
- private:
-  SequenceChecker sequence_checker_;
-  const RandomWalkConfig config_;
-  TrafficRoute* const traffic_route_ RTC_PT_GUARDED_BY(sequence_checker_);
-  webrtc::Random random_ RTC_GUARDED_BY(sequence_checker_);
-
-  Timestamp last_process_time_ RTC_GUARDED_BY(sequence_checker_) =
-      Timestamp::MinusInfinity();
-  Timestamp last_update_time_ RTC_GUARDED_BY(sequence_checker_) =
-      Timestamp::MinusInfinity();
-  Timestamp last_send_time_ RTC_GUARDED_BY(sequence_checker_) =
-      Timestamp::MinusInfinity();
-  double intensity_ RTC_GUARDED_BY(sequence_checker_) = 0;
-  DataSize pending_size_ RTC_GUARDED_BY(sequence_checker_) = DataSize::Zero();
-};
-
-struct PulsedPeaksConfig {
-  DataRate peak_rate = DataRate::KilobitsPerSec(100);
-  DataSize min_packet_size = DataSize::Bytes(200);
-  TimeDelta min_packet_interval = TimeDelta::Millis(1);
-  TimeDelta send_duration = TimeDelta::Millis(100);
-  TimeDelta hold_duration = TimeDelta::Millis(2000);
-};
-
-class PulsedPeaksCrossTraffic {
- public:
-  PulsedPeaksCrossTraffic(PulsedPeaksConfig config,
-                          TrafficRoute* traffic_route);
-  ~PulsedPeaksCrossTraffic();
-
-  void Process(Timestamp at_time);
-  DataRate TrafficRate() const;
-  ColumnPrinter StatsPrinter();
-
- private:
-  SequenceChecker sequence_checker_;
-  const PulsedPeaksConfig config_;
-  TrafficRoute* const traffic_route_ RTC_PT_GUARDED_BY(sequence_checker_);
-
-  Timestamp last_update_time_ RTC_GUARDED_BY(sequence_checker_) =
-      Timestamp::MinusInfinity();
-  Timestamp last_send_time_ RTC_GUARDED_BY(sequence_checker_) =
-      Timestamp::MinusInfinity();
-  bool sending_ RTC_GUARDED_BY(sequence_checker_) = false;
-};
 
 class TcpMessageRouteImpl final : public TcpMessageRoute {
  public:
@@ -148,12 +84,53 @@ class TcpMessageRouteImpl final : public TcpMessageRoute {
   Timestamp last_reduction_time_ = Timestamp::MinusInfinity();
   TimeDelta last_rtt_ = TimeDelta::Zero();
 };
+}  // namespace test
 
-struct FakeTcpConfig {
-  DataSize packet_size = DataSize::Bytes(1200);
-  DataSize send_limit = DataSize::PlusInfinity();
-  TimeDelta process_interval = TimeDelta::Millis(200);
-  TimeDelta packet_timeout = TimeDelta::Seconds(1);
+class RandomWalkCrossTraffic {
+ public:
+  RandomWalkCrossTraffic(RandomWalkConfig config, TrafficRoute* traffic_route);
+  ~RandomWalkCrossTraffic();
+
+  void Process(Timestamp at_time);
+  DataRate TrafficRate() const;
+  test::ColumnPrinter StatsPrinter();
+
+ private:
+  SequenceChecker sequence_checker_;
+  const RandomWalkConfig config_;
+  TrafficRoute* const traffic_route_ RTC_PT_GUARDED_BY(sequence_checker_);
+  webrtc::Random random_ RTC_GUARDED_BY(sequence_checker_);
+
+  Timestamp last_process_time_ RTC_GUARDED_BY(sequence_checker_) =
+      Timestamp::MinusInfinity();
+  Timestamp last_update_time_ RTC_GUARDED_BY(sequence_checker_) =
+      Timestamp::MinusInfinity();
+  Timestamp last_send_time_ RTC_GUARDED_BY(sequence_checker_) =
+      Timestamp::MinusInfinity();
+  double intensity_ RTC_GUARDED_BY(sequence_checker_) = 0;
+  DataSize pending_size_ RTC_GUARDED_BY(sequence_checker_) = DataSize::Zero();
+};
+
+class PulsedPeaksCrossTraffic {
+ public:
+  PulsedPeaksCrossTraffic(PulsedPeaksConfig config,
+                          TrafficRoute* traffic_route);
+  ~PulsedPeaksCrossTraffic();
+
+  void Process(Timestamp at_time);
+  DataRate TrafficRate() const;
+  test::ColumnPrinter StatsPrinter();
+
+ private:
+  SequenceChecker sequence_checker_;
+  const PulsedPeaksConfig config_;
+  TrafficRoute* const traffic_route_ RTC_PT_GUARDED_BY(sequence_checker_);
+
+  Timestamp last_update_time_ RTC_GUARDED_BY(sequence_checker_) =
+      Timestamp::MinusInfinity();
+  Timestamp last_send_time_ RTC_GUARDED_BY(sequence_checker_) =
+      Timestamp::MinusInfinity();
+  bool sending_ RTC_GUARDED_BY(sequence_checker_) = false;
 };
 
 class FakeTcpCrossTraffic
@@ -190,7 +167,6 @@ class FakeTcpCrossTraffic
   RepeatingTaskHandle repeating_task_handle_;
 };
 
-}  // namespace test
 }  // namespace webrtc
 
 #endif  // TEST_NETWORK_CROSS_TRAFFIC_H_

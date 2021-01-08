@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a9155a46_70c9e4ee",
+        "filename": "api/test/network_emulation/network_emulation_interfaces.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-01-08T14:40:44Z",
+      "side": 1,
+      "message": "Please add documentation about packet content here",
+      "range": {
+        "startLine": 267,
+        "startChar": 15,
+        "endLine": 267,
+        "endChar": 25
+      },
+      "revId": "5377df6bc1065844d43c527bfe5d7a218ce6db1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e94a087c_6abc3b63",
         "filename": "api/test/network_emulation_manager.h",
         "patchSetId": 4
@@ -66,6 +89,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c7ceb7d4_40a22c43",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-01-08T14:40:44Z",
+      "side": 1,
+      "message": "Please add documentation about what is RandomWalk, PulsedPeaks and FakeTcp",
+      "range": {
+        "startLine": 54,
+        "startChar": 7,
+        "endLine": 54,
+        "endChar": 23
+      },
+      "revId": "5377df6bc1065844d43c527bfe5d7a218ce6db1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5827958d_ce28f455",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-01-08T14:40:44Z",
+      "side": 1,
+      "message": "We need to define a difference between EmulatedRoute and TrafficRoute. Otherwise it\u0027s better to use EmulatedRoute and TcpMessageRoute everywhere",
+      "range": {
+        "startLine": 259,
+        "startChar": 24,
+        "endLine": 259,
+        "endChar": 42
+      },
+      "revId": "5377df6bc1065844d43c527bfe5d7a218ce6db1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e5e82c67_942b0b18",
         "filename": "api/test/network_emulation_manager.h",
         "patchSetId": 4
@@ -82,6 +151,52 @@
         "startChar": 58,
         "endLine": 263,
         "endChar": 27
+      },
+      "revId": "5377df6bc1065844d43c527bfe5d7a218ce6db1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ae40d34_14ae6e8b",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-01-08T14:40:44Z",
+      "side": 1,
+      "message": "I\u0027m curious will it be better to utilize TrafficRoute here for similarity?",
+      "range": {
+        "startLine": 276,
+        "startChar": 2,
+        "endLine": 279,
+        "endChar": 27
+      },
+      "revId": "5377df6bc1065844d43c527bfe5d7a218ce6db1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b14fbaf_68a045a3",
+        "filename": "test/network/cross_traffic.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-01-08T14:40:44Z",
+      "side": 1,
+      "message": "Why do we want to move these out from test namespace?",
+      "range": {
+        "startLine": 89,
+        "startChar": 6,
+        "endLine": 89,
+        "endChar": 28
       },
       "revId": "5377df6bc1065844d43c527bfe5d7a218ce6db1e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"

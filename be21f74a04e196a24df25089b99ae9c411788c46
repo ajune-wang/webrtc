@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c82b1634_dde04165",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-09T08:56:28Z",
+      "side": 1,
+      "message": "Thanks for taking the time.\n\nConsidering these arguments, I think the long term solution is to push something like the new classes into the lower-layer API, not to expose the existing ones - and that means your CL should go ahead for now.\n\nApproved.\n",
+      "revId": "be21f74a04e196a24df25089b99ae9c411788c46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4540f2c6_98fd81e7",

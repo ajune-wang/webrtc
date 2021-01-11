@@ -16,6 +16,24 @@
       "message": "Not sure if this is a good idea, what do ýou think? The idea is to allow construction of the RtpRtcp object from any thread, e.g., on demand as packets are received on the network thread. Destruction must still happen on the appropriate TQ, to avoid use-after-free races.",
       "revId": "af8f00fc93a86da3e2c40910ba3442b4cdff3e81",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9dc9338b_9920190b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-11T10:50:26Z",
+      "side": 1,
+      "message": "I would support adding flexability of creating the RtpRtcp object of any thread/tq. That can easility save an extra thread-hop during initialization.\n\nwhy you want an extra parameter instead of adding an extra field to the configuration struct?\n(default value in the struct can be set to TaskQueue::Current(), or left at nullptr with RtpRtcp constructor (D)CHECKing it is not nullptr)\n\n[and I\u0027m still worried how you can guarantee destruction on a specific TaskQueue, but that is out of scope of this change]",
+      "parentUuid": "8f79488b_a64e88d6",
+      "revId": "af8f00fc93a86da3e2c40910ba3442b4cdff3e81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

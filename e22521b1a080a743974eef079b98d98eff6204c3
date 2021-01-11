@@ -39,6 +39,30 @@
       },
       "revId": "e22521b1a080a743974eef079b98d98eff6204c3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b426484e_f93eb0ec",
+        "filename": "video/video_send_stream_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2021-01-11T10:24:18Z",
+      "side": 1,
+      "message": "No, this is the same as VideoSendStreamImpl::OnEncodedImage. - Since that has been moved off the worker queue, so should this.",
+      "parentUuid": "b1d26e06_ef95b09b",
+      "range": {
+        "startLine": 484,
+        "startChar": 36,
+        "endLine": 484,
+        "endChar": 72
+      },
+      "revId": "e22521b1a080a743974eef079b98d98eff6204c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

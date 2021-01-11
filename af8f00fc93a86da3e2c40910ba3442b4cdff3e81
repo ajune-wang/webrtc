@@ -52,6 +52,24 @@
       "parentUuid": "9dc9338b_9920190b",
       "revId": "af8f00fc93a86da3e2c40910ba3442b4cdff3e81",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae673384_63e1f817",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-11T11:10:51Z",
+      "side": 1,
+      "message": "RtpRtcpImpl is sort-of deprecated, so do not worry that it doesn\u0027t need TaskQueue.\n\ndefault \u0027nullptr\u0027 would work.\n(so there will be a DCHECK(config.rtt_stats \u003d\u003d nullptr || config.task_queue !\u003d nullptr); Right?)",
+      "parentUuid": "508f63c2_29563a48",
+      "revId": "af8f00fc93a86da3e2c40910ba3442b4cdff3e81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -428,6 +428,30 @@
       },
       "revId": "5377df6bc1065844d43c527bfe5d7a218ce6db1e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19006539_780f4164",
+        "filename": "test/network/cross_traffic.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-01-11T16:03:14Z",
+      "side": 1,
+      "message": "I think I prefer to keep implementations in test namespace. For example implementation of NetworkEmulationManager itself is inside test namespace.",
+      "parentUuid": "a3dfb653_a32f8bb6",
+      "range": {
+        "startLine": 89,
+        "startChar": 6,
+        "endLine": 89,
+        "endChar": 28
+      },
+      "revId": "5377df6bc1065844d43c527bfe5d7a218ce6db1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

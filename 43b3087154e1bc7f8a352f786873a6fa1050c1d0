@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "552161ff_d087d9cb",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-01-11T16:03:14Z",
+      "side": 1,
+      "message": "I meant what is random walk? The same applies for other classes. For API client it might be unclear.",
+      "range": {
+        "startLine": 52,
+        "startChar": 72,
+        "endLine": 53,
+        "endChar": 7
+      },
+      "revId": "43b3087154e1bc7f8a352f786873a6fa1050c1d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

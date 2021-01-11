@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad9651d2_573d6325",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 11540
+      },
+      "writtenOn": "2021-01-11T13:57:48Z",
+      "side": 1,
+      "message": "Thats a good point. But what is the chance for the generators to be changed often? They seem pretty stable to me.",
+      "parentUuid": "232bcd91_ad7104ed",
+      "revId": "5377df6bc1065844d43c527bfe5d7a218ce6db1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a9155a46_70c9e4ee",
@@ -31,6 +49,30 @@
       "writtenOn": "2021-01-08T14:40:44Z",
       "side": 1,
       "message": "Please add documentation about packet content here",
+      "range": {
+        "startLine": 267,
+        "startChar": 15,
+        "endLine": 267,
+        "endChar": 25
+      },
+      "revId": "5377df6bc1065844d43c527bfe5d7a218ce6db1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf741d98_b6a433a9",
+        "filename": "api/test/network_emulation/network_emulation_interfaces.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 11540
+      },
+      "writtenOn": "2021-01-11T13:57:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a9155a46_70c9e4ee",
       "range": {
         "startLine": 267,
         "startChar": 15,
@@ -64,6 +106,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "524a4df4_a7391f2f",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 11540
+      },
+      "writtenOn": "2021-01-11T13:57:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e94a087c_6abc3b63",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 50
+      },
+      "revId": "5377df6bc1065844d43c527bfe5d7a218ce6db1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bd500cfe_4479690a",
@@ -77,6 +143,30 @@
       "writtenOn": "2021-01-08T14:35:27Z",
       "side": 1,
       "message": "Skip or add one comment per struct.",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 48
+      },
+      "revId": "5377df6bc1065844d43c527bfe5d7a218ce6db1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07f7aec8_509e45ae",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 11540
+      },
+      "writtenOn": "2021-01-11T13:57:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd500cfe_4479690a",
       "range": {
         "startLine": 53,
         "startChar": 0,
@@ -110,6 +200,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a91e9a8_e48f0987",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 11540
+      },
+      "writtenOn": "2021-01-11T13:57:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7ceb7d4_40a22c43",
+      "range": {
+        "startLine": 54,
+        "startChar": 7,
+        "endLine": 54,
+        "endChar": 23
+      },
+      "revId": "5377df6bc1065844d43c527bfe5d7a218ce6db1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5827958d_ce28f455",
@@ -123,6 +237,30 @@
       "writtenOn": "2021-01-08T14:40:44Z",
       "side": 1,
       "message": "We need to define a difference between EmulatedRoute and TrafficRoute. Otherwise it\u0027s better to use EmulatedRoute and TcpMessageRoute everywhere",
+      "range": {
+        "startLine": 259,
+        "startChar": 24,
+        "endLine": 259,
+        "endChar": 42
+      },
+      "revId": "5377df6bc1065844d43c527bfe5d7a218ce6db1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac1df47a_36966b5d",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 11540
+      },
+      "writtenOn": "2021-01-11T13:57:48Z",
+      "side": 1,
+      "message": "Yea, I see that it can be confusing.\n\nI\u0027m not sure if I want to create TrafficRoute using the existing EmulatedRoute. Since then the EmulatedRoute can be removed unexpectedly (similarly to StartFakeTcpCrossTraffic).\n\nChanged a comment. Hope its more clear now.",
+      "parentUuid": "5827958d_ce28f455",
       "range": {
         "startLine": 259,
         "startChar": 24,
@@ -156,6 +294,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f83ad746_d05dc610",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 11540
+      },
+      "writtenOn": "2021-01-11T13:57:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e5e82c67_942b0b18",
+      "range": {
+        "startLine": 262,
+        "startChar": 58,
+        "endLine": 263,
+        "endChar": 27
+      },
+      "revId": "5377df6bc1065844d43c527bfe5d7a218ce6db1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9ae40d34_14ae6e8b",
@@ -179,6 +341,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7458273_331f327a",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 11540
+      },
+      "writtenOn": "2021-01-11T13:57:48Z",
+      "side": 1,
+      "message": "I don\u0027t think its possible to replace FakeTcpCrossTraffic with TrafficRoute. They are completely different.\n\nI thought about using EmulatedRoute instead of std::vector\u003cEmulatedNetworkNode*\u003e. But then we would need to make sure that user won\u0027t delete the route before stopping cross traffic. So I decided to keep it as it is.",
+      "parentUuid": "9ae40d34_14ae6e8b",
+      "range": {
+        "startLine": 276,
+        "startChar": 2,
+        "endLine": 279,
+        "endChar": 27
+      },
+      "revId": "5377df6bc1065844d43c527bfe5d7a218ce6db1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8b14fbaf_68a045a3",
@@ -192,6 +378,30 @@
       "writtenOn": "2021-01-08T14:40:44Z",
       "side": 1,
       "message": "Why do we want to move these out from test namespace?",
+      "range": {
+        "startLine": 89,
+        "startChar": 6,
+        "endLine": 89,
+        "endChar": 28
+      },
+      "revId": "5377df6bc1065844d43c527bfe5d7a218ce6db1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3dfb653_a32f8bb6",
+        "filename": "test/network/cross_traffic.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 11540
+      },
+      "writtenOn": "2021-01-11T13:57:48Z",
+      "side": 1,
+      "message": "I have moved them outside of the test namespace because all cross traffic classes, that are part of the api (api/test/network_emulation_manager.h) are not in the test namespace. So I thought we should keep it consistent.\n\nDo you think its better to keep them in test?",
+      "parentUuid": "8b14fbaf_68a045a3",
       "range": {
         "startLine": 89,
         "startChar": 6,

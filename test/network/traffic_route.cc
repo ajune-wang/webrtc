@@ -53,9 +53,9 @@ class ActionReceiver : public EmulatedNetworkReceiverInterface {
 
 }  // namespace
 
-TrafficRoute::TrafficRoute(Clock* clock,
-                           EmulatedNetworkReceiverInterface* receiver,
-                           EmulatedEndpoint* endpoint)
+TrafficRouteImpl::TrafficRouteImpl(Clock* clock,
+                                   EmulatedNetworkReceiverInterface* receiver,
+                                   EmulatedEndpoint* endpoint)
     : clock_(clock), receiver_(receiver), endpoint_(endpoint) {
   null_receiver_ = std::make_unique<NullReceiver>();
   absl::optional<uint16_t> port =
@@ -63,16 +63,17 @@ TrafficRoute::TrafficRoute(Clock* clock,
   RTC_DCHECK(port);
   null_receiver_port_ = port.value();
 }
-TrafficRoute::~TrafficRoute() = default;
+TrafficRouteImpl::~TrafficRouteImpl() = default;
 
-void TrafficRoute::TriggerPacketBurst(size_t num_packets, size_t packet_size) {
+void TrafficRouteImpl::TriggerPacketBurst(size_t num_packets,
+                                          size_t packet_size) {
   for (size_t i = 0; i < num_packets; ++i) {
     SendPacket(packet_size);
   }
 }
 
-void TrafficRoute::NetworkDelayedAction(size_t packet_size,
-                                        std::function<void()> action) {
+void TrafficRouteImpl::NetworkDelayedAction(size_t packet_size,
+                                            std::function<void()> action) {
   auto action_receiver = std::make_unique<ActionReceiver>(action, endpoint_);
   absl::optional<uint16_t> port =
       endpoint_->BindReceiver(0, action_receiver.get());
@@ -82,11 +83,11 @@ void TrafficRoute::NetworkDelayedAction(size_t packet_size,
   SendPacket(packet_size, port.value());
 }
 
-void TrafficRoute::SendPacket(size_t packet_size) {
+void TrafficRouteImpl::SendPacket(size_t packet_size) {
   SendPacket(packet_size, null_receiver_port_);
 }
 
-void TrafficRoute::SendPacket(size_t packet_size, uint16_t dest_port) {
+void TrafficRouteImpl::SendPacket(size_t packet_size, uint16_t dest_port) {
   rtc::CopyOnWriteBuffer data(packet_size);
   std::fill_n(data.data<uint8_t>(), data.size(), 0);
   receiver_->OnPacketReceived(EmulatedIpPacket(

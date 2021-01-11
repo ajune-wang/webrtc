@@ -251,6 +251,22 @@ class TcpMessageRoute {
  protected:
   ~TcpMessageRoute() = default;
 };
+
+// Represents the endpoint for cross traffic that is going through the network.
+// It can be used to emulate unexpected network load.
+class TrafficRoute {
+ public:
+  virtual ~TrafficRoute() = default;
+
+  // Triggers sending of dummy packets with size |packet_size| bytes.
+  virtual void TriggerPacketBurst(size_t num_packets, size_t packet_size) = 0;
+  // Sends a packet over the nodes. The content of the packet is unspecified;
+  // only the size metter for the emulation purposes.
+  virtual void SendPacket(size_t packet_size) = 0;
+  // Sends a packet over the nodes and runs |action| when it has been delivered.
+  virtual void NetworkDelayedAction(size_t packet_size,
+                                    std::function<void()> action) = 0;
+};
 }  // namespace webrtc
 
 #endif  // API_TEST_NETWORK_EMULATION_NETWORK_EMULATION_INTERFACES_H_

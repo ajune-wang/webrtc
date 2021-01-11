@@ -23,99 +23,6 @@
 namespace webrtc {
 namespace test {
 
-RandomWalkCrossTraffic::RandomWalkCrossTraffic(RandomWalkConfig config,
-                                               TrafficRoute* traffic_route)
-    : config_(config),
-      traffic_route_(traffic_route),
-      random_(config_.random_seed) {
-  sequence_checker_.Detach();
-}
-RandomWalkCrossTraffic::~RandomWalkCrossTraffic() = default;
-
-void RandomWalkCrossTraffic::Process(Timestamp at_time) {
-  RTC_DCHECK_RUN_ON(&sequence_checker_);
-  if (last_process_time_.IsMinusInfinity()) {
-    last_process_time_ = at_time;
-  }
-  TimeDelta delta = at_time - last_process_time_;
-  last_process_time_ = at_time;
-
-  if (at_time - last_update_time_ >= config_.update_interval) {
-    intensity_ += random_.Gaussian(config_.bias, config_.variance) *
-                  sqrt((at_time - last_update_time_).seconds<double>());
-    intensity_ = rtc::SafeClamp(intensity_, 0.0, 1.0);
-    last_update_time_ = at_time;
-  }
-  pending_size_ += TrafficRate() * delta;
-
-  if (pending_size_ >= config_.min_packet_size &&
-      at_time >= last_send_time_ + config_.min_packet_interval) {
-    traffic_route_->SendPacket(pending_size_.bytes());
-    pending_size_ = DataSize::Zero();
-    last_send_time_ = at_time;
-  }
-}
-
-DataRate RandomWalkCrossTraffic::TrafficRate() const {
-  RTC_DCHECK_RUN_ON(&sequence_checker_);
-  return config_.peak_rate * intensity_;
-}
-
-ColumnPrinter RandomWalkCrossTraffic::StatsPrinter() {
-  return ColumnPrinter::Lambda(
-      "random_walk_cross_traffic_rate",
-      [this](rtc::SimpleStringBuilder& sb) {
-        sb.AppendFormat("%.0lf", TrafficRate().bps() / 8.0);
-      },
-      32);
-}
-
-PulsedPeaksCrossTraffic::PulsedPeaksCrossTraffic(PulsedPeaksConfig config,
-                                                 TrafficRoute* traffic_route)
-    : config_(config), traffic_route_(traffic_route) {
-  sequence_checker_.Detach();
-}
-PulsedPeaksCrossTraffic::~PulsedPeaksCrossTraffic() = default;
-
-void PulsedPeaksCrossTraffic::Process(Timestamp at_time) {
-  RTC_DCHECK_RUN_ON(&sequence_checker_);
-  TimeDelta time_since_toggle = at_time - last_update_time_;
-  if (time_since_toggle.IsInfinite() ||
-      (sending_ && time_since_toggle >= config_.send_duration)) {
-    sending_ = false;
-    last_update_time_ = at_time;
-  } else if (!sending_ && time_since_toggle >= config_.hold_duration) {
-    sending_ = true;
-    last_update_time_ = at_time;
-    // Start sending period.
-    last_send_time_ = at_time;
-  }
-
-  if (sending_) {
-    DataSize pending_size = config_.peak_rate * (at_time - last_send_time_);
-
-    if (pending_size >= config_.min_packet_size &&
-        at_time >= last_send_time_ + config_.min_packet_interval) {
-      traffic_route_->SendPacket(pending_size.bytes());
-      last_send_time_ = at_time;
-    }
-  }
-}
-
-DataRate PulsedPeaksCrossTraffic::TrafficRate() const {
-  RTC_DCHECK_RUN_ON(&sequence_checker_);
-  return sending_ ? config_.peak_rate : DataRate::Zero();
-}
-
-ColumnPrinter PulsedPeaksCrossTraffic::StatsPrinter() {
-  return ColumnPrinter::Lambda(
-      "pulsed_peaks_cross_traffic_rate",
-      [this](rtc::SimpleStringBuilder& sb) {
-        sb.AppendFormat("%.0lf", TrafficRate().bps() / 8.0);
-      },
-      32);
-}
-
 TcpMessageRouteImpl::TcpMessageRouteImpl(Clock* clock,
                                          TaskQueueBase* task_queue,
                                          EmulatedRoute* send_route,
@@ -240,6 +147,101 @@ void TcpMessageRouteImpl::HandlePacketTimeout(int seq_num, Timestamp at_time) {
   }
 }
 
+}  // namespace test
+
+RandomWalkCrossTraffic::RandomWalkCrossTraffic(RandomWalkConfig config,
+                                               TrafficRoute* traffic_route)
+    : config_(config),
+      traffic_route_(traffic_route),
+      random_(config_.random_seed) {
+  sequence_checker_.Detach();
+}
+RandomWalkCrossTraffic::~RandomWalkCrossTraffic() = default;
+
+void RandomWalkCrossTraffic::Process(Timestamp at_time) {
+  RTC_DCHECK_RUN_ON(&sequence_checker_);
+  if (last_process_time_.IsMinusInfinity()) {
+    last_process_time_ = at_time;
+  }
+  TimeDelta delta = at_time - last_process_time_;
+  last_process_time_ = at_time;
+
+  if (at_time - last_update_time_ >= config_.update_interval) {
+    intensity_ += random_.Gaussian(config_.bias, config_.variance) *
+                  sqrt((at_time - last_update_time_).seconds<double>());
+    intensity_ = rtc::SafeClamp(intensity_, 0.0, 1.0);
+    last_update_time_ = at_time;
+  }
+  pending_size_ += TrafficRate() * delta;
+
+  if (pending_size_ >= config_.min_packet_size &&
+      at_time >= last_send_time_ + config_.min_packet_interval) {
+    traffic_route_->SendPacket(pending_size_.bytes());
+    pending_size_ = DataSize::Zero();
+    last_send_time_ = at_time;
+  }
+}
+
+DataRate RandomWalkCrossTraffic::TrafficRate() const {
+  RTC_DCHECK_RUN_ON(&sequence_checker_);
+  return config_.peak_rate * intensity_;
+}
+
+test::ColumnPrinter RandomWalkCrossTraffic::StatsPrinter() {
+  return test::ColumnPrinter::Lambda(
+      "random_walk_cross_traffic_rate",
+      [this](rtc::SimpleStringBuilder& sb) {
+        sb.AppendFormat("%.0lf", TrafficRate().bps() / 8.0);
+      },
+      32);
+}
+
+PulsedPeaksCrossTraffic::PulsedPeaksCrossTraffic(PulsedPeaksConfig config,
+                                                 TrafficRoute* traffic_route)
+    : config_(config), traffic_route_(traffic_route) {
+  sequence_checker_.Detach();
+}
+PulsedPeaksCrossTraffic::~PulsedPeaksCrossTraffic() = default;
+
+void PulsedPeaksCrossTraffic::Process(Timestamp at_time) {
+  RTC_DCHECK_RUN_ON(&sequence_checker_);
+  TimeDelta time_since_toggle = at_time - last_update_time_;
+  if (time_since_toggle.IsInfinite() ||
+      (sending_ && time_since_toggle >= config_.send_duration)) {
+    sending_ = false;
+    last_update_time_ = at_time;
+  } else if (!sending_ && time_since_toggle >= config_.hold_duration) {
+    sending_ = true;
+    last_update_time_ = at_time;
+    // Start sending period.
+    last_send_time_ = at_time;
+  }
+
+  if (sending_) {
+    DataSize pending_size = config_.peak_rate * (at_time - last_send_time_);
+
+    if (pending_size >= config_.min_packet_size &&
+        at_time >= last_send_time_ + config_.min_packet_interval) {
+      traffic_route_->SendPacket(pending_size.bytes());
+      last_send_time_ = at_time;
+    }
+  }
+}
+
+DataRate PulsedPeaksCrossTraffic::TrafficRate() const {
+  RTC_DCHECK_RUN_ON(&sequence_checker_);
+  return sending_ ? config_.peak_rate : DataRate::Zero();
+}
+
+test::ColumnPrinter PulsedPeaksCrossTraffic::StatsPrinter() {
+  return test::ColumnPrinter::Lambda(
+      "pulsed_peaks_cross_traffic_rate",
+      [this](rtc::SimpleStringBuilder& sb) {
+        sb.AppendFormat("%.0lf", TrafficRate().bps() / 8.0);
+      },
+      32);
+}
+
 FakeTcpCrossTraffic::FakeTcpCrossTraffic(Clock* clock,
                                          FakeTcpConfig config,
                                          EmulatedRoute* send_route,
@@ -317,5 +319,4 @@ void FakeTcpCrossTraffic::SendPackets(Timestamp at_time) {
   }
 }
 
-}  // namespace test
 }  // namespace webrtc

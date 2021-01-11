@@ -58,8 +58,17 @@ int64_t GetProcessCpuTimeNanos() {
   FILETIME exitTime;
   FILETIME kernelTime;
   FILETIME userTime;
+  RTC_LOG_ERR(LS_ERROR) << "GetProcessTimes() win start.";
   if (GetProcessTimes(GetCurrentProcess(), &createTime, &exitTime, &kernelTime,
                       &userTime) != 0) {
+    RTC_LOG_ERR(LS_ERROR) << "GetProcessTimes() userTime.dwHighDateTime: "
+                          << userTime.dwHighDateTime
+                          << " userTime.dwLowDateTime: "
+                          << userTime.dwLowDateTime << "  res:  "
+                          << ((static_cast<uint64_t>(userTime.dwHighDateTime)
+                               << 32) +
+                              userTime.dwLowDateTime) *
+                                 kNanosecsPerFiletime;
     return ((static_cast<uint64_t>(userTime.dwHighDateTime) << 32) +
             userTime.dwLowDateTime) *
            kNanosecsPerFiletime;

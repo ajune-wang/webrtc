@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "41da15c7_7089bbf0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-01-11T14:17:59Z",
+      "side": 1,
+      "message": "Of course it\u0027s nothing that changes monthly or anything, but we have made similar changes before, and it was a real pain to deal with tight dependencies on behavior. Exposing it in the API means that it will be even worse for future work on this area.\n\nOf course the simple solution then will be to simply make an internal fork, eg, keep the code you\u0027re exposing in this CL as is and adding new cross traffic generators such as RandomWalk2, PusledPeaks2, etc. The question is wether this is an improvement over simply exposing the underlying APIs required for forking the implementations in downstream usage.",
+      "parentUuid": "ad9651d2_573d6325",
+      "revId": "5377df6bc1065844d43c527bfe5d7a218ce6db1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a9155a46_70c9e4ee",
         "filename": "api/test/network_emulation/network_emulation_interfaces.h",
         "patchSetId": 4

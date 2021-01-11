@@ -52,6 +52,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "55e17163_9daa6a1b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2021-01-11T20:16:58Z",
+      "side": 1,
+      "message": "Thank you for the review.",
+      "revId": "be21f74a04e196a24df25089b99ae9c411788c46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4540f2c6_98fd81e7",
@@ -87,6 +104,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "399a4d35_2680c99d",
+        "filename": "api/voip/voip_statistics.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2021-01-11T20:16:58Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "89245d75_3b381273",
+      "revId": "be21f74a04e196a24df25089b99ae9c411788c46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "71f83e6c_95b13cb9",
@@ -118,6 +153,24 @@
       "side": 1,
       "message": "Since ChannelStatistics is external API to application, I thought it would be better to limit the scope of exposure on what\u0027s essential and minimum for application statistics. Also similar argument from previous comment on type usage defined as in webrtc-stats spec applies here.\n\nRegarding directions, I envisioned ChannelStatistics as local statistics that local client is able to calculate and observe whereas RemoteRtcpStatistics as what remote client calculated and providing. I see other developers often getting confused on the direction of stats and somehow think we are able to calculate remote stats locally which I wanted to clarify the confusion here.\n\nIMHO, I considered AudioSend/ReceiveStream::Stats structs as internal proxy object which are meant to create somewhat an abstraction from webrtc-stats. I believe the ChannelStatistics needs to be a representative as external API in terms of its understandability and digestiveness to application whereas AudioSendStream::Stats seems created for internal housekeeping fields to track its various working pieces within. If I were to expose AudioSendStream::Stats, I would have to put more detailed/lengthy descriptions on how to extract right ReportBlockData which will add more confusion and complexity to the developers. It also contains redundant fields from webrtc::VoipVolumeControl which focuses on audio energy level (due to application\u0027s desire on polling such APIs to be more frequent than RTP - e.g. displaying microphone energy gauge to user). Also ANAStats is not part of VoipEngine function and APM stats has been advised to expose via IngressStatistics before.",
       "parentUuid": "71f83e6c_95b13cb9",
+      "revId": "be21f74a04e196a24df25089b99ae9c411788c46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "edbcfd93_7e2f4669",
+        "filename": "api/voip/voip_statistics.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2021-01-11T20:16:58Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "dfa86e97_2a201ad5",
       "revId": "be21f74a04e196a24df25089b99ae9c411788c46",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

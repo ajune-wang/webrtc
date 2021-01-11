@@ -14,6 +14,7 @@
 #include <map>
 #include <set>
 #include <string>
+#include <unordered_map>
 #include <utility>
 #include <vector>
 
@@ -185,8 +186,8 @@ class RtpDemuxer {
   // received.
   // This is stored separately from the sink mappings because if a sink is
   // removed we want to still remember these associations.
-  std::map<uint32_t, std::string> mid_by_ssrc_;
-  std::map<uint32_t, std::string> rsid_by_ssrc_;
+  std::unordered_map<uint32_t, std::string> mid_by_ssrc_;
+  std::unordered_map<uint32_t, std::string> rsid_by_ssrc_;
 
   // Adds a binding from the SSRC to the given sink.
   void AddSsrcSinkBinding(uint32_t ssrc, RtpPacketSinkInterface* sink);

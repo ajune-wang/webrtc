@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f79488b_a64e88d6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-01-11T08:48:30Z",
+      "side": 1,
+      "message": "Not sure if this is a good idea, what do ýou think? The idea is to allow construction of the RtpRtcp object from any thread, e.g., on demand as packets are received on the network thread. Destruction must still happen on the appropriate TQ, to avoid use-after-free races.",
+      "revId": "af8f00fc93a86da3e2c40910ba3442b4cdff3e81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -34,6 +34,24 @@
       "parentUuid": "8f79488b_a64e88d6",
       "revId": "af8f00fc93a86da3e2c40910ba3442b4cdff3e81",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "508f63c2_29563a48",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-01-11T11:03:12Z",
+      "side": 1,
+      "message": "\u003e why you want an extra parameter instead of adding an extra field to the configuration struct?\n\nThe same config struct (RtpRtcpInterface::Configuration) is used for both RtpRtcpImpl and RtpRtcpImpl2. Is it right to add a tq field there, even though it makes sense only for the latter?\n\n\u003e (default value in the struct can be set to TaskQueue::Current(), or left at nullptr with RtpRtcp constructor (D)CHECKing it is not nullptr)\n\nDefault value has to be nullptr, for use with the old implementation, I think.\nMaybe it should be optional, required only if configuration.rtt_stats is set?\n\n\u003e [and I\u0027m still worried how you can guarantee destruction on a specific TaskQueue, but that is out of scope of this change]\n\nI don\u0027t quite like that either, but that requirement is inherited from the way RepeatingTaskHandle works.",
+      "parentUuid": "9dc9338b_9920190b",
+      "revId": "af8f00fc93a86da3e2c40910ba3442b4cdff3e81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

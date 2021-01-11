@@ -46,6 +46,30 @@
       },
       "revId": "b54debc350a18a3f9cce696760786c709beacfaf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60e5475b_ee328b14",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-01-11T15:36:49Z",
+      "side": 0,
+      "message": "Nit: Maybe add this to the description. E.g.\n\n\"Also, remove trivial ModuleRtpRtcpImpl2::Create.\"",
+      "parentUuid": "e201b066_49c856de",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 42
+      },
+      "revId": "b54debc350a18a3f9cce696760786c709beacfaf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

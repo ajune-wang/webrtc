@@ -22,6 +22,7 @@
 #include "api/fec_controller_override.h"
 #include "api/video_codecs/sdp_video_format.h"
 #include "api/video_codecs/video_encoder.h"
+#include "api/video_codecs/video_encoder_factory.h"
 #include "modules/video_coding/include/video_codec_interface.h"
 #include "modules/video_coding/utility/framerate_controller.h"
 #include "rtc_base/atomic_ops.h"
@@ -30,9 +31,6 @@
 #include "rtc_base/system/rtc_export.h"
 
 namespace webrtc {
-
-class SimulcastRateAllocator;
-class VideoEncoderFactory;
 
 // SimulcastEncoderAdapter implements simulcast support by creating multiple
 // webrtc::VideoEncoder instances with the given VideoEncoderFactory.
@@ -65,38 +63,54 @@ class RTC_EXPORT SimulcastEncoderAdapter : public VideoEncoder {
   void OnRttUpdate(int64_t rtt_ms) override;
   void OnLossNotification(const LossNotification& loss_notification) override;
 
-  // Eventual handler for the contained encoders' EncodedImageCallbacks, but
-  // called from an internal helper that also knows the correct stream
-  // index.
-  EncodedImageCallback::Result OnEncodedImage(
-      size_t stream_idx,
-      const EncodedImage& encoded_image,
-      const CodecSpecificInfo* codec_specific_info);
-
   EncoderInfo GetEncoderInfo() const override;
 
  private:
-  struct StreamInfo {
-    StreamInfo(std::unique_ptr<VideoEncoder> encoder,
-               std::unique_ptr<EncodedImageCallback> callback,
-               std::unique_ptr<FramerateController> framerate_controller,
-               uint16_t width,
-               uint16_t height,
-               bool send_stream)
-        : encoder(std::move(encoder)),
-          callback(std::move(callback)),
-          framerate_controller(std::move(framerate_controller)),
-          width(width),
-          height(height),
-          key_frame_request(false),
-          send_stream(send_stream) {}
-    std::unique_ptr<VideoEncoder> encoder;
-    std::unique_ptr<EncodedImageCallback> callback;
-    std::unique_ptr<FramerateController> framerate_controller;
-    uint16_t width;
-    uint16_t height;
-    bool key_frame_request;
-    bool send_stream;
+  class EncoderContext : public EncodedImageCallback {
+   public:
+    EncoderContext(SimulcastEncoderAdapter* parent,
+                   std::unique_ptr<VideoEncoder> encoder,
+                   std::unique_ptr<FramerateController> framerate_controller,
+                   uint8_t stream_idx_,
+                   uint16_t width,
+                   uint16_t height,
+                   bool send_stream);
+    EncoderContext(EncoderContext&& rhs);
+    ~EncoderContext() override;
+
+    Result OnEncodedImage(
+        const EncodedImage& encoded_image,
+        const CodecSpecificInfo* codec_specific_info) override;
+    void OnDroppedFrame(DropReason reason) override;
+
+    VideoEncoder* encoder() { return encoder_.get(); }
+    const VideoEncoder* encoder() const { return encoder_.get(); }
+    uint16_t width() const { return width_; }
+    uint16_t height() const { return height_; }
+    bool needs_keyframe() const { return send_stream_ && needs_keyframe_; }
+    void set_keyframe_needed() { needs_keyframe_ = true; }
+    void on_keyframe() { needs_keyframe_ = false; }
+    bool send_stream() const { return send_stream_; }
+    void set_send_stream(bool send_stream) { send_stream_ = send_stream; }
+    absl::optional<float> target_fps() const {
+      return framerate_controller_ == nullptr
+                 ? absl::nullopt
+                 : absl::optional<float>(
+                       framerate_controller_->GetTargetRate());
+    }
+
+    std::unique_ptr<VideoEncoder> Release();
+    bool ShouldDropFrame(uint32_t timestamp_ms);
+
+   private:
+    SimulcastEncoderAdapter* const parent_;
+    std::unique_ptr<VideoEncoder> encoder_;
+    std::unique_ptr<FramerateController> framerate_controller_;
+    const uint8_t stream_idx_;
+    const uint16_t width_;
+    const uint16_t height_;
+    bool needs_keyframe_;
+    bool send_stream_;
   };
 
   enum class StreamResolution {
@@ -116,13 +130,25 @@ class RTC_EXPORT SimulcastEncoderAdapter : public VideoEncoder {
 
   void DestroyStoredEncoders();
 
+  EncodedImageCallback::Result OnEncodedImage(
+      size_t stream_idx,
+      const EncodedImage& encoded_image,
+      const CodecSpecificInfo* codec_specific_info);
+
+  void OnDroppedFrame(size_t spatial_idx);
+
+  absl::optional<EncodedImageCallback::Result> CheckForAndSendCompleteSubframes(
+      uint32_t timestamp);
+
   volatile int inited_;  // Accessed atomically.
   VideoEncoderFactory* const primary_encoder_factory_;
   VideoEncoderFactory* const fallback_encoder_factory_;
   const SdpVideoFormat video_format_;
   VideoCodec codec_;
-  std::vector<StreamInfo> streaminfos_;
+  std::vector<EncoderContext> encoder_contexts_;
   EncodedImageCallback* encoded_complete_callback_;
+  size_t first_active_layer_;
+  size_t num_active_layers_;
 
   // Used for checking the single-threaded access of the encoder interface.
   RTC_NO_UNIQUE_ADDRESS SequenceChecker encoder_queue_;

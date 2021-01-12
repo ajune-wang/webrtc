@@ -54,6 +54,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "28eab4af_8d65e528",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 11540
+      },
+      "writtenOn": "2021-01-12T16:08:48Z",
+      "side": 1,
+      "message": "I see. I have reconsidered my approach to exposing the cross traffic generators.\n\nI have separated the generators from the emulated network manager and gathered under the same interface. So from one hand it is still possible to use existing generators without copying but from the other hand - it should be easy to create custom generator if fork is necessary.",
+      "parentUuid": "41da15c7_7089bbf0",
+      "revId": "5377df6bc1065844d43c527bfe5d7a218ce6db1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a9155a46_70c9e4ee",
@@ -444,6 +462,30 @@
       "side": 1,
       "message": "I think I prefer to keep implementations in test namespace. For example implementation of NetworkEmulationManager itself is inside test namespace.",
       "parentUuid": "a3dfb653_a32f8bb6",
+      "range": {
+        "startLine": 89,
+        "startChar": 6,
+        "endLine": 89,
+        "endChar": 28
+      },
+      "revId": "5377df6bc1065844d43c527bfe5d7a218ce6db1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "faece70f_034565f3",
+        "filename": "test/network/cross_traffic.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 11540
+      },
+      "writtenOn": "2021-01-12T16:08:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19006539_780f4164",
       "range": {
         "startLine": 89,
         "startChar": 6,

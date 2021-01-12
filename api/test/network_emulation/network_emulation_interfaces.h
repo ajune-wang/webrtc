@@ -26,6 +26,24 @@
 
 namespace webrtc {
 
+// This API is still in development and can be changed without prior notice.
+
+// These classes are forward declared here, because they used as handles, to
+// make it possible for client code to operate with these abstractions and build
+// required network configuration. With forward declaration here implementation
+// is more readable, than with interfaces approach and cause user needn't any
+// API methods on these abstractions it is acceptable here.
+
+// EmulatedNetworkNode is an abstraction for some network in the real world,
+// like 3G network between peers, or Wi-Fi for one peer and LTE for another.
+// Multiple networks can be joined into chain emulating a network path from
+// one peer to another.
+class EmulatedNetworkNode;
+
+// EmulatedRoute is handle for single route from one network interface on one
+// peer device to another network interface on another peer device.
+class EmulatedRoute;
+
 struct EmulatedIpPacket {
  public:
   EmulatedIpPacket(const rtc::SocketAddress& from,

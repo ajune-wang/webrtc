@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a60aa952_dcba2550",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-01-12T15:04:26Z",
+      "side": 1,
+      "message": "I\u0027m concerned that we may have a regression here in terms of not catching changes or downstream dependency changes. Can we revert and discuss the need for this change before relanding? Would also be good to have a bug for tracking the need for the feature being enabled with this.",
+      "revId": "f23e2144e86400e2d68097345d4b3dc7a4b7f8a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e850458f_31c4be30",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-01-12T15:04:26Z",
+      "side": 1,
+      "message": "task_queue is a very generic name.\nIf this is supposed to be potentially different construct than the well known worker thread, it would be good to have a more descriptive name.\n\nAlso it seems that this variable is relevant only when rtt_stats is set. Is that true? If so, is this the right factoring?",
+      "revId": "f23e2144e86400e2d68097345d4b3dc7a4b7f8a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5331c347_e11feb36",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-01-12T15:04:26Z",
+      "side": 1,
+      "message": "seems like based on the comment that the stats object and this queue should be grouped together and add code to make it impossible to set the variables incorrectly.",
+      "revId": "f23e2144e86400e2d68097345d4b3dc7a4b7f8a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

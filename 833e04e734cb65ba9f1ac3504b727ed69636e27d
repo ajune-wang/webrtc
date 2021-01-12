@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa891073_4045ff4a",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-01-12T15:04:26Z",
+      "side": 0,
+      "message": "worker_queue_ was not optional before. Is this a regression?\nI\u0027m worried about three things, which are not documented in the CL description:\n* The class now either has a task queue or not - before there was 1 state.\n* The class no longer is guaranteed to be constructed on a task queue.\n* The class no longer has guarantees on thread conformity (creation/destruction is consistent in terms of threading).",
+      "revId": "833e04e734cb65ba9f1ac3504b727ed69636e27d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -7,7 +7,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'cbaaf9e4b2e38ef837831c07d3f25fc1e7276e96',
+  'chromium_revision': 'aa4dc039a055d93d5efc4c8d425d506ea77d4bd4',
 }
 
 deps = {
@@ -31,7 +31,7 @@ deps = {
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@6e80dc5c14a827fea81020d16bef33e91c3fedf1',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@aefe63d058d26cf184d030d9c751ac3c4dad3345',
+    'https://chromium.googlesource.com/chromium/src/third_party@b8f05e4aa9682f85bfaa214438c350c939eb43d9',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -257,7 +257,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@26df04a9d4830ac269501c8035fd843e46493415',
+    'https://chromium.googlesource.com/chromium/src/tools@7494166a956ec212263dce753ed81be6d53b6bc4',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@1a072711d4388c62e02480fabc26c68c24494be9',
 

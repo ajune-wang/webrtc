@@ -24,7 +24,7 @@ namespace webrtc {
 namespace test {
 
 RandomWalkCrossTraffic::RandomWalkCrossTraffic(RandomWalkConfig config,
-                                               TrafficRoute* traffic_route)
+                                               CrossTrafficRoute* traffic_route)
     : config_(config),
       traffic_route_(traffic_route),
       random_(config_.random_seed) {
@@ -56,13 +56,17 @@ void RandomWalkCrossTraffic::Process(Timestamp at_time) {
   }
 }
 
+TimeDelta RandomWalkCrossTraffic::GetProcessInterval() const {
+  return config_.min_packet_interval;
+}
+
 DataRate RandomWalkCrossTraffic::TrafficRate() const {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
   return config_.peak_rate * intensity_;
 }
 
-ColumnPrinter RandomWalkCrossTraffic::StatsPrinter() {
-  return ColumnPrinter::Lambda(
+test::ColumnPrinter RandomWalkCrossTraffic::StatsPrinter() {
+  return test::ColumnPrinter::Lambda(
       "random_walk_cross_traffic_rate",
       [this](rtc::SimpleStringBuilder& sb) {
         sb.AppendFormat("%.0lf", TrafficRate().bps() / 8.0);
@@ -70,8 +74,9 @@ ColumnPrinter RandomWalkCrossTraffic::StatsPrinter() {
       32);
 }
 
-PulsedPeaksCrossTraffic::PulsedPeaksCrossTraffic(PulsedPeaksConfig config,
-                                                 TrafficRoute* traffic_route)
+PulsedPeaksCrossTraffic::PulsedPeaksCrossTraffic(
+    PulsedPeaksConfig config,
+    CrossTrafficRoute* traffic_route)
     : config_(config), traffic_route_(traffic_route) {
   sequence_checker_.Detach();
 }
@@ -102,13 +107,17 @@ void PulsedPeaksCrossTraffic::Process(Timestamp at_time) {
   }
 }
 
+TimeDelta PulsedPeaksCrossTraffic::GetProcessInterval() const {
+  return config_.min_packet_interval;
+}
+
 DataRate PulsedPeaksCrossTraffic::TrafficRate() const {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
   return sending_ ? config_.peak_rate : DataRate::Zero();
 }
 
-ColumnPrinter PulsedPeaksCrossTraffic::StatsPrinter() {
-  return ColumnPrinter::Lambda(
+test::ColumnPrinter PulsedPeaksCrossTraffic::StatsPrinter() {
+  return test::ColumnPrinter::Lambda(
       "pulsed_peaks_cross_traffic_rate",
       [this](rtc::SimpleStringBuilder& sb) {
         sb.AppendFormat("%.0lf", TrafficRate().bps() / 8.0);
@@ -240,21 +249,13 @@ void TcpMessageRouteImpl::HandlePacketTimeout(int seq_num, Timestamp at_time) {
   }
 }
 
-FakeTcpCrossTraffic::FakeTcpCrossTraffic(Clock* clock,
-                                         FakeTcpConfig config,
+FakeTcpCrossTraffic::FakeTcpCrossTraffic(FakeTcpConfig config,
                                          EmulatedRoute* send_route,
                                          EmulatedRoute* ret_route)
-    : clock_(clock), conf_(config), route_(this, send_route, ret_route) {}
+    : conf_(config), route_(this, send_route, ret_route) {}
 
-void FakeTcpCrossTraffic::Start(TaskQueueBase* task_queue) {
-  repeating_task_handle_ = RepeatingTaskHandle::Start(task_queue, [this] {
-    Process(clock_->CurrentTime());
-    return conf_.process_interval;
-  });
-}
-
-void FakeTcpCrossTraffic::Stop() {
-  repeating_task_handle_.Stop();
+TimeDelta FakeTcpCrossTraffic::GetProcessInterval() const {
+  return conf_.process_interval;
 }
 
 void FakeTcpCrossTraffic::Process(Timestamp at_time) {

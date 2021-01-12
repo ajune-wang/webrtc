@@ -17,6 +17,7 @@
 #include <vector>
 
 #include "api/array_view.h"
+#include "api/test/network_emulation/cross_traffic.h"
 #include "api/test/network_emulation/network_emulation_interfaces.h"
 #include "api/test/simulated_network.h"
 #include "api/test/time_controller.h"
@@ -28,22 +29,6 @@
 namespace webrtc {
 
 // This API is still in development and can be changed without prior notice.
-
-// These classes are forward declared here, because they used as handles, to
-// make it possible for client code to operate with these abstractions and build
-// required network configuration. With forward declaration here implementation
-// is more readable, than with interfaces approach and cause user needn't any
-// API methods on these abstractions it is acceptable here.
-
-// EmulatedNetworkNode is an abstraction for some network in the real world,
-// like 3G network between peers, or Wi-Fi for one peer and LTE for another.
-// Multiple networks can be joined into chain emulating a network path from
-// one peer to another.
-class EmulatedNetworkNode;
-
-// EmulatedRoute is handle for single route from one network interface on one
-// peer device to another network interface on another peer device.
-class EmulatedRoute;
 
 struct EmulatedEndpointConfig {
   enum class IpAddressFamily { kIpv4, kIpv6 };
@@ -216,7 +201,8 @@ class NetworkEmulationManager {
 
   // Removes route previously created by CreateRoute(...).
   // Caller mustn't call this function with route, that have been already
-  // removed earlier.
+  // removed earlier. Removing a route that is currently in use will lead to
+  // packets being dropped.
   virtual void ClearRoute(EmulatedRoute* route) = 0;
 
   // Creates a simulated TCP connection using |send_route| for traffic and
@@ -225,6 +211,19 @@ class NetworkEmulationManager {
   // TODO(srte): Handle clearing of the routes involved.
   virtual TcpMessageRoute* CreateTcpRoute(EmulatedRoute* send_route,
                                           EmulatedRoute* ret_route) = 0;
+
+  // Creates a route over the given |via_nodes|. Returns an object that can be
+  // used to emulate network load with cross traffic over the created route.
+  virtual CrossTrafficRoute* CreateCrossTrafficRoute(
+      const std::vector<EmulatedNetworkNode*>& via_nodes) = 0;
+
+  // Starts generating cross traffic using given |generator|. Takes ownership
+  // over the generator.
+  virtual CrossTrafficGenerator* StartCrossTraffic(
+      std::unique_ptr<CrossTrafficGenerator> generator) = 0;
+
+  // Stops generating cross traffic that was started using given |generator|.
+  virtual void StopCrossTraffic(CrossTrafficGenerator* generator) = 0;
 
   // Creates EmulatedNetworkManagerInterface which can be used then to inject
   // network emulation layer into PeerConnection. |endpoints| - are available

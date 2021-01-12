@@ -69,6 +69,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0209ddb8_ab5fba91",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-12T12:31:37Z",
+      "side": 1,
+      "message": "LGTM but I am not an owner. I let this one to Sam.",
+      "revId": "be21f74a04e196a24df25089b99ae9c411788c46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4540f2c6_98fd81e7",

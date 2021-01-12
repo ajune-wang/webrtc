@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3857c97_1dd018d3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2021-01-12T07:17:19Z",
+      "side": 1,
+      "message": "The profile and level-idx is missing from the encoder factory and the AV1 codec is not present on the sdp offer.\n\nThis fixes it:\n\n media/engine/internal_encoder_factory.cc | 3 ++-\n 1 file changed, 2 insertions(+), 1 deletion(-)\n\ndiff --git a/media/engine/internal_encoder_factory.cc b/media/engine/internal_encoder_factory.cc\nindex 738516eafc..1f2be1cd93 100644\n--- a/media/engine/internal_encoder_factory.cc\n+++ b/media/engine/internal_encoder_factory.cc\n@@ -32,7 +32,8 @@ std::vector\u003cSdpVideoFormat\u003e InternalEncoderFactory::SupportedFormats() {\n   for (const webrtc::SdpVideoFormat\u0026 format : webrtc::SupportedH264Codecs())\n     supported_codecs.push_back(format);\n   if (kIsLibaomAv1EncoderSupported)\n-    supported_codecs.push_back(SdpVideoFormat(cricket::kAv1CodecName));\n+    supported_codecs.push_back(SdpVideoFormat(\n+        cricket::kAv1CodecName, {{\"profile\", \"0\"}, {\"level-idx\", \"5\"}}));\n   return supported_codecs;\n }\n \n",
+      "revId": "4df69733717647a80310a976d9bdc2d216146bb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

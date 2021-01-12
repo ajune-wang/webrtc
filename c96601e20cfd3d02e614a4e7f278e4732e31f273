@@ -22,6 +22,30 @@
       },
       "revId": "c96601e20cfd3d02e614a4e7f278e4732e31f273",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fbb8f860_94d4c969",
+        "filename": "api/video/video_stream_encoder_create.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2021-01-12T08:00:48Z",
+      "side": 0,
+      "message": "I never found any use of this, or anyway to inject a VideoStreamEncoderInterface to a peerconnection- so  I never under stood the purpose of this? Is there a planned usage or a usage for it? Since I wanted to add a parameter, it was easier to just remove it.",
+      "parentUuid": "4bb9aeee_bfc4041e",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 48
+      },
+      "revId": "c96601e20cfd3d02e614a4e7f278e4732e31f273",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

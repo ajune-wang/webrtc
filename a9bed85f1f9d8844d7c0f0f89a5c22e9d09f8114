@@ -16,6 +16,74 @@
       "message": "Hi Jamie, Tommi,\n\nCan you PTAL at this CL that finishes the new capturer implementation based on the Windows.Graphics.Capture APIs?\n\nThank you!",
       "revId": "a9bed85f1f9d8844d7c0f0f89a5c22e9d09f8114",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f5ba53f_91224046",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5166
+      },
+      "writtenOn": "2021-01-12T21:03:21Z",
+      "side": 1,
+      "message": "For future reference, can you try to split up large CLs like this? It\u0027s a lot easier to review small CLs thoroughly, and you\u0027ll get a faster turnaround.\n\nI\u0027m not an expert in the technology being used here (although the detailed comments were helpful--thanks!) but I didn\u0027t see any obvious mistakes. If Tommi is more knowledgeable than I am then I\u0027d appreciate a second review from them, but otherwise LGTM once my comments are addressed.",
+      "revId": "a9bed85f1f9d8844d7c0f0f89a5c22e9d09f8114",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bdd04d42_ea4b7f6c",
+        "filename": "modules/desktop_capture/desktop_capturer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5166
+      },
+      "writtenOn": "2021-01-12T21:03:21Z",
+      "side": 1,
+      "message": "I realize you haven\u0027t added this, so feel free to ignore, but it\u0027s nor clear to me why we need both the constant and the ifdef. Under what circumstances would you want RTC_ENABLE_WIN_WGC to be defined but kUseWinWgcCapturer \u003d false?",
+      "revId": "a9bed85f1f9d8844d7c0f0f89a5c22e9d09f8114",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7de2c8af_012f7e09",
+        "filename": "modules/desktop_capture/desktop_capturer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5166
+      },
+      "writtenOn": "2021-01-12T21:03:21Z",
+      "side": 1,
+      "message": "I think this comment (and the one it\u0027s copied from) might be better placed at the definition of kUseWinWgcCapturer, rather than where it\u0027s used.",
+      "revId": "a9bed85f1f9d8844d7c0f0f89a5c22e9d09f8114",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd173326_9b57e6f0",
+        "filename": "modules/desktop_capture/win/screen_capture_utils_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5166
+      },
+      "writtenOn": "2021-01-12T21:03:21Z",
+      "side": 1,
+      "message": "Is this necessarily true? What if the system is headless?",
+      "revId": "a9bed85f1f9d8844d7c0f0f89a5c22e9d09f8114",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

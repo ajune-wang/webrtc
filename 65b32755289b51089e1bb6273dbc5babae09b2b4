@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f57e36e_463c16f3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-12T13:42:56Z",
+      "side": 1,
+      "message": "Dirk, I am going to send you a couple of CLs in the context of crbug.com/1117773. This one is just a clean up of a method that is not needed.",
+      "revId": "65b32755289b51089e1bb6273dbc5babae09b2b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

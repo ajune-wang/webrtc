@@ -153,6 +153,11 @@ SimulcastEncoderAdapter::SimulcastEncoderAdapter(
           "WebRTC-Video-PreferTemporalSupportOnBaseLayer")) {
   RTC_DCHECK(primary_factory);
 
+  ParseFieldTrial({&requested_resolution_alignment_override_,
+                   &apply_alignment_to_all_simulcast_layers_override_},
+                  field_trial::FindFullName(
+                      "WebRTC-SimulcastEncoderAdapter-GetEncoderInfoOverride"));
+
   // The adapter is typically created on the worker thread, but operated on
   // the encoder task queue.
   encoder_queue_.Detach();
@@ -349,6 +354,20 @@ int SimulcastEncoderAdapter::Encode(
   }
   if (encoded_complete_callback_ == nullptr) {
     return WEBRTC_VIDEO_CODEC_UNINITIALIZED;
+  }
+
+  if (apply_alignment_to_all_simulcast_layers_override_ &&
+      apply_alignment_to_all_simulcast_layers_override_.Value()) {
+    int alignment = 1;
+    if (requested_resolution_alignment_override_)
+      alignment = *requested_resolution_alignment_override_;
+    for (const auto& info : streaminfos_) {
+      if (info.width % alignment != 0 || info.height % alignment != 0) {
+        RTC_LOG(LS_WARNING) << "Codec " << info.width << "x" << info.height
+                            << " not divisible by " << alignment;
+        return WEBRTC_VIDEO_CODEC_ERROR;
+      }
+    }
   }
 
   // All active streams should generate a key frame if
@@ -629,10 +648,24 @@ void SimulcastEncoderAdapter::DestroyStoredEncoders() {
   }
 }
 
+void SimulcastEncoderAdapter::OverrideFromFieldTrial(
+    VideoEncoder::EncoderInfo* info) const {
+  if (requested_resolution_alignment_override_) {
+    info->requested_resolution_alignment =
+        *requested_resolution_alignment_override_;
+  }
+  if (apply_alignment_to_all_simulcast_layers_override_) {
+    info->apply_alignment_to_all_simulcast_layers =
+        *apply_alignment_to_all_simulcast_layers_override_;
+  }
+}
+
 VideoEncoder::EncoderInfo SimulcastEncoderAdapter::GetEncoderInfo() const {
   if (streaminfos_.size() == 1) {
     // Not using simulcast adapting functionality, just pass through.
-    return streaminfos_[0].encoder->GetEncoderInfo();
+    VideoEncoder::EncoderInfo info = streaminfos_[0].encoder->GetEncoderInfo();
+    OverrideFromFieldTrial(&info);
+    return info;
   }
 
   VideoEncoder::EncoderInfo encoder_info;
@@ -642,6 +675,7 @@ VideoEncoder::EncoderInfo SimulcastEncoderAdapter::GetEncoderInfo() const {
   encoder_info.supports_native_handle = true;
   encoder_info.scaling_settings.thresholds = absl::nullopt;
   if (streaminfos_.empty()) {
+    OverrideFromFieldTrial(&encoder_info);
     return encoder_info;
   }
 
@@ -698,6 +732,8 @@ VideoEncoder::EncoderInfo SimulcastEncoderAdapter::GetEncoderInfo() const {
     }
   }
   encoder_info.implementation_name += ")";
+
+  OverrideFromFieldTrial(&encoder_info);
 
   return encoder_info;
 }

@@ -16,6 +16,41 @@
       "message": "Hi, could you clarify why this is needed now? Is this a regression related to some other change? I see this moves the code behind an if-statement but will the crash still be observed when tracing is enabled then?",
       "revId": "8dd2ef6522dec1e51fdf6120b029d16fd73359a6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d24fe50f_919329c3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15839
+      },
+      "writtenOn": "2021-01-13T13:15:06Z",
+      "side": 1,
+      "message": "In `PeerConnectionClient.java`\nThe configuration item `peerConnectionParameters.tracing` controls `PeerConnectionFactory.startInternalTracingCapture` and `PeerConnectionFactory.stopInternalTracingCapture/shutdownInternalTracer`, and they appear in pairs when they are created and destroyed respectively.",
+      "parentUuid": "04c53858_42c16f92",
+      "revId": "8dd2ef6522dec1e51fdf6120b029d16fd73359a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2de065b7_568038c2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15839
+      },
+      "writtenOn": "2021-01-13T13:15:06Z",
+      "side": 1,
+      "message": "In `PeerConnectionClient.java`\nThe configuration item `peerConnectionParameters.tracing` controls `PeerConnectionFactory.startInternalTracingCapture` and `PeerConnectionFactory.stopInternalTracingCapture/shutdownInternalTracer`, and they appear in pairs when they are created and destroyed respectively.",
+      "revId": "8dd2ef6522dec1e51fdf6120b029d16fd73359a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -291,7 +291,11 @@ int32_t VCMGenericDecoder::Decode(const VCMEncodedFrame& frame, Timestamp now) {
 int32_t VCMGenericDecoder::RegisterDecodeCompleteCallback(
     VCMDecodedFrameCallback* callback) {
   _callback = callback;
-  return decoder_->RegisterDecodeCompleteCallback(callback);
+  int32_t ret = decoder_->RegisterDecodeCompleteCallback(callback);
+  if (callback) {
+    callback->OnDecoderImplementationName(implementation_name_.c_str());
+  }
+  return ret;
 }
 
 bool VCMGenericDecoder::PrefersLateDecoding() const {

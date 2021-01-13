@@ -7,7 +7,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'b24f1beceae87a7340e5e3fc7ca1593d37c04ba0',
+  'chromium_revision': '37a480ae30d5dfb270a58130a15c61809a4517ee',
 }
 
 deps = {
@@ -16,7 +16,7 @@ deps = {
   'src/base':
     'https://chromium.googlesource.com/chromium/src/base@e981b96f032f7706147a44890b09d4ae713f474b',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@e65a0d701ea17e5a0185b4214e8ee2f05d1216ba',
+    'https://chromium.googlesource.com/chromium/src/build@787a10df3c95cead7393babc90e3ab225c10f738',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@235cfe435ca5a9826569ee4ef603e226216bd768',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -29,9 +29,9 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@e309a917fd4a4dea6cb979290885c7bbadcd1bd2',
+    'https://chromium.googlesource.com/chromium/src/testing@c5ec1c622ccdb08bd5dca8ac5e2ad68f1ad075fc',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@a9ee88795bc09773fc50be7736132110bbb00314',
+    'https://chromium.googlesource.com/chromium/src/third_party@a5b20cee7299fac659a8dac5d4fae4902a561c71',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -129,7 +129,7 @@ deps = {
   'src/third_party/colorama/src':
     'https://chromium.googlesource.com/external/colorama.git@799604a1041e9b3bc5d2789ecbd7e8db2e18e6b8',
   'src/third_party/depot_tools':
-    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@9ce03f80a4b507d4b6424c1706069c0d26335b92',
+    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@8149a9615c1b2293f7071a6b7ae9ca44826330c3',
   'src/third_party/ffmpeg':
     'https://chromium.googlesource.com/chromium/third_party/ffmpeg.git@841aa72c9e153ae5f952e31e4b6406870555922d',
   'src/third_party/findbugs': {
@@ -257,7 +257,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@210e25872e740a61e7699de1d11f1843d4723c50',
+    'https://chromium.googlesource.com/chromium/src/tools@786358ae492ffb188a22c2fa8f8abe2926e35b15',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@1a072711d4388c62e02480fabc26c68c24494be9',
 

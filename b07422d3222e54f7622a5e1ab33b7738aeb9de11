@@ -52,6 +52,24 @@
       "parentUuid": "3b54c853_ba30c6c3",
       "revId": "b07422d3222e54f7622a5e1ab33b7738aeb9de11",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64f2b53a_5e896c7d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-13T08:17:47Z",
+      "side": 1,
+      "message": "I am waiting for the review because if I understand correctly we need more changes?",
+      "parentUuid": "df9d15d9_15edb292",
+      "revId": "b07422d3222e54f7622a5e1ab33b7738aeb9de11",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

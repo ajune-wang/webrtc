@@ -88,6 +88,24 @@
       "parentUuid": "64f2b53a_5e896c7d",
       "revId": "b07422d3222e54f7622a5e1ab33b7738aeb9de11",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f02cb44a_e6ad9e80",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2021-01-13T16:47:34Z",
+      "side": 1,
+      "message": "Yes, I am doing it in a separate CL after this one is pushed in.",
+      "parentUuid": "3c28e836_89798af2",
+      "revId": "b07422d3222e54f7622a5e1ab33b7738aeb9de11",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

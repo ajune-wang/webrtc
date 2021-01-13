@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f165761_db5ac56b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2021-01-13T18:50:27Z",
+      "side": 1,
+      "message": "From Marco: \"The error_resilient_mode can be set at the frame level, before encoding each frame/layer, via the control AV1E_SET_ERROR_RESILIENT_MODE. It needs to be 1 for the temporal enhancement layer frames (T1, T2), but it could be set to 0 for the base temporal layer (TL0), which gives some overall compression gain.\"",
+      "revId": "780b5986d490d354a0df51539d28653dc8e1db39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

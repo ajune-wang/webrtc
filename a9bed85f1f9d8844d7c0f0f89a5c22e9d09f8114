@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a530ef5d_bcb77f86",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15369
+      },
+      "writtenOn": "2021-01-13T04:32:58Z",
+      "side": 1,
+      "message": "LGTM. A few minor questions/comments.\n",
+      "revId": "a9bed85f1f9d8844d7c0f0f89a5c22e9d09f8114",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bdd04d42_ea4b7f6c",
@@ -71,6 +88,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5f4b130c_f54ab7a0",
+        "filename": "modules/desktop_capture/win/screen_capture_utils.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 15369
+      },
+      "writtenOn": "2021-01-13T04:32:58Z",
+      "side": 1,
+      "message": "Question: Returning FALSE here would stop the enumeration. Do we want that ?\nMaybe we do not add it to monitor_list but should continue the enumeration.",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 0
+      },
+      "revId": "a9bed85f1f9d8844d7c0f0f89a5c22e9d09f8114",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3361d2c7_b41943e7",
+        "filename": "modules/desktop_capture/win/screen_capture_utils.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 15369
+      },
+      "writtenOn": "2021-01-13T04:32:58Z",
+      "side": 1,
+      "message": "nit. \"Outputs\".",
+      "range": {
+        "startLine": 22,
+        "startChar": 3,
+        "endLine": 22,
+        "endChar": 10
+      },
+      "revId": "a9bed85f1f9d8844d7c0f0f89a5c22e9d09f8114",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fd173326_9b57e6f0",
         "filename": "modules/desktop_capture/win/screen_capture_utils_unittest.cc",
         "patchSetId": 8
@@ -82,6 +145,75 @@
       "writtenOn": "2021-01-12T21:03:21Z",
       "side": 1,
       "message": "Is this necessarily true? What if the system is headless?",
+      "revId": "a9bed85f1f9d8844d7c0f0f89a5c22e9d09f8114",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91046cd9_3c476897",
+        "filename": "modules/desktop_capture/win/screen_capture_utils_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 15369
+      },
+      "writtenOn": "2021-01-13T04:32:58Z",
+      "side": 1,
+      "message": "Can we compare it to the actual value rather than \u003e 0ULL ?",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 35
+      },
+      "revId": "a9bed85f1f9d8844d7c0f0f89a5c22e9d09f8114",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10802bea_fe5a2ac2",
+        "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 15369
+      },
+      "writtenOn": "2021-01-13T04:32:58Z",
+      "side": 1,
+      "message": "nit. we can rename it to kMaxBuffers to denote that we do not want to exceed that.",
+      "range": {
+        "startLine": 40,
+        "startChar": 10,
+        "endLine": 40,
+        "endChar": 22
+      },
+      "revId": "a9bed85f1f9d8844d7c0f0f89a5c22e9d09f8114",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4112a069_22785e65",
+        "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 15369
+      },
+      "writtenOn": "2021-01-13T04:32:58Z",
+      "side": 1,
+      "message": "Should we do RTC_LOG(LS_ERROR) in other cases too ?",
+      "range": {
+        "startLine": 120,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 67
+      },
       "revId": "a9bed85f1f9d8844d7c0f0f89a5c22e9d09f8114",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

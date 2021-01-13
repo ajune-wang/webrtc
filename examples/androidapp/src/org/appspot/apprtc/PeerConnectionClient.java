@@ -736,8 +736,10 @@ public class PeerConnectionClient {
     rootEglBase.release();
     Log.d(TAG, "Closing peer connection done.");
     events.onPeerConnectionClosed();
-    PeerConnectionFactory.stopInternalTracingCapture();
-    PeerConnectionFactory.shutdownInternalTracer();
+    if (peerConnectionParameters.tracing) {
+      PeerConnectionFactory.stopInternalTracingCapture();
+      PeerConnectionFactory.shutdownInternalTracer();
+    }
   }
 
   public boolean isHDVideo() {

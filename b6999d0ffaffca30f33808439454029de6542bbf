@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f79a53fa_cbea468d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2021-01-13T11:07:45Z",
+      "side": 1,
+      "message": "ilya: can you take a look please? Compared to the M84 branch I originally created this for I do get videos which are way (90x, see using_capture_timestamps_?) too fast but that seems more like an issue \n with the writer than this code.\nmirko: this will need an owner lgtm later. And there are build changes ;-)",
+      "revId": "b6999d0ffaffca30f33808439454029de6542bbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

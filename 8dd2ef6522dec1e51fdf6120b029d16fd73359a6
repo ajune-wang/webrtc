@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04c53858_42c16f92",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2021-01-13T12:52:21Z",
+      "side": 1,
+      "message": "Hi, could you clarify why this is needed now? Is this a regression related to some other change? I see this moves the code behind an if-statement but will the crash still be observed when tracing is enabled then?",
+      "revId": "8dd2ef6522dec1e51fdf6120b029d16fd73359a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

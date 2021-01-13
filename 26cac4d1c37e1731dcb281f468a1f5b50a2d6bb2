@@ -199,6 +199,30 @@
       },
       "revId": "26cac4d1c37e1731dcb281f468a1f5b50a2d6bb2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "760916e5_2e3c22eb",
+        "filename": "pc/session_description.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2021-01-13T13:52:05Z",
+      "side": 1,
+      "message": "Turns out simply changing the default to kMedia here fixes the downgrading problem I mentioned initially. I think that\u0027s resonable since [1] will effectively change it to either kNo or kSession when the offer is created.\n\nI also expanded the tests to make sure we have coverage for all combinations of offers, including the edge-case with different media level attributes.\n\n[1] https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/pc/media_session.cc;l\u003d1628;drc\u003d766a32c28d3fd26cb8deb1549042550f1ab2e224",
+      "parentUuid": "6dfd25ad_0b365245",
+      "range": {
+        "startLine": 278,
+        "startChar": 46,
+        "endLine": 278,
+        "endChar": 49
+      },
+      "revId": "26cac4d1c37e1731dcb281f468a1f5b50a2d6bb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

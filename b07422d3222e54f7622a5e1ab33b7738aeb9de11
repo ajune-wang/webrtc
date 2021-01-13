@@ -70,6 +70,24 @@
       "parentUuid": "df9d15d9_15edb292",
       "revId": "b07422d3222e54f7622a5e1ab33b7738aeb9de11",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c28e836_89798af2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-13T08:38:37Z",
+      "side": 1,
+      "message": "If the needed changes have been done in g3 to accomodate this CL, the moving of the mock can be done in a separate CL.",
+      "parentUuid": "64f2b53a_5e896c7d",
+      "revId": "b07422d3222e54f7622a5e1ab33b7738aeb9de11",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

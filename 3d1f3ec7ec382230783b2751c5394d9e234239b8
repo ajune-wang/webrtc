@@ -1,0 +1,412 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be796c2a_dcd9c8e6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-13T15:15:35Z",
+      "side": 1,
+      "message": "1st pass catching small simple things,\nI still haven\u0027t look at the overall refactoring.",
+      "revId": "3d1f3ec7ec382230783b2751c5394d9e234239b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23c7839d_a22a6d29",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-13T15:15:35Z",
+      "side": 1,
+      "message": "https://google.github.io/styleguide/cppguide.html#Structs_vs._Tuples\n\n\"Prefer to use a struct instead of a pair or a tuple whenever the elements can have meaningful names.\"\n\n(e.g. https://webrtc.googlesource.com/src/+/refs/heads/master/modules/video_coding/svc/svc_rate_allocator.cc#34 )",
+      "range": {
+        "startLine": 74,
+        "startChar": 3,
+        "endLine": 75,
+        "endChar": 25
+      },
+      "revId": "3d1f3ec7ec382230783b2751c5394d9e234239b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7393da78_db375d35",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-13T15:15:35Z",
+      "side": 1,
+      "message": "personally I do not bother commenting out parameter names when function body is empty.",
+      "range": {
+        "startLine": 238,
+        "startChar": 27,
+        "endLine": 238,
+        "endChar": 54
+      },
+      "revId": "3d1f3ec7ec382230783b2751c5394d9e234239b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fa141bc_b3abfdee",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-13T15:15:35Z",
+      "side": 1,
+      "message": "what does \u0027vec\u0027 mean? (if it is short for vector, then do not cut words, and also this variable is not a vector).\n\nwould `spatial_layers` or `simulcast_streams` be more appropriate names for this variable?",
+      "range": {
+        "startLine": 302,
+        "startChar": 7,
+        "endLine": 302,
+        "endChar": 16
+      },
+      "revId": "3d1f3ec7ec382230783b2751c5394d9e234239b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23a51a4e_9a2dfbf2",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-13T15:15:35Z",
+      "side": 1,
+      "message": "it might be cleaner to write it\nrtc::ArrayView\u003cSpatialLayer\u003e layer_vec(codec_.simulcastStream).\n\n(i.e instead of `auto v \u003d T(params);` write `T v(params);`)\n\nEven clearer is to capture number of streams too (otherwise, why do you want ArrayView in the first place?):\nrtc::ArrayView\u003cSpatialLayer\u003e layer_vec(codec_.simulcastStream, number_of_streams).",
+      "range": {
+        "startLine": 302,
+        "startChar": 2,
+        "endLine": 302,
+        "endChar": 72
+      },
+      "revId": "3d1f3ec7ec382230783b2751c5394d9e234239b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69ffd0cb_7ea030da",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-13T15:15:35Z",
+      "side": 1,
+      "message": "if std::end(layer_vec) \u003d\u003d std::begin(layer_vec) + number_of_streams, you may use container version:\n\nconst auto minmax \u003d absl::c_minmax_element(layer_vec);",
+      "range": {
+        "startLine": 304,
+        "startChar": 29,
+        "endLine": 304,
+        "endChar": 71
+      },
+      "revId": "3d1f3ec7ec382230783b2751c5394d9e234239b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f03e883_d8d09171",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-13T15:15:35Z",
+      "side": 1,
+      "message": "or\nlowest_resolution_stream_index \u003d minmax.first - layer_vec.begin();",
+      "range": {
+        "startLine": 307,
+        "startChar": 6,
+        "endLine": 307,
+        "endChar": 56
+      },
+      "revId": "3d1f3ec7ec382230783b2751c5394d9e234239b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b8a47f8_eb864092",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-13T15:15:35Z",
+      "side": 1,
+      "message": "you do not need else after break.",
+      "range": {
+        "startLine": 397,
+        "startChar": 6,
+        "endLine": 397,
+        "endChar": 10
+      },
+      "revId": "3d1f3ec7ec382230783b2751c5394d9e234239b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "312c28e3_d3149398",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-13T15:15:35Z",
+      "side": 1,
+      "message": "it seems si is not used for anything other than taking element from encoder_context_,\nso may be use ranged-based for loop.",
+      "range": {
+        "startLine": 450,
+        "startChar": 7,
+        "endLine": 450,
+        "endChar": 16
+      },
+      "revId": "3d1f3ec7ec382230783b2751c5394d9e234239b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff3f6490_6206cc72",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-13T15:15:35Z",
+      "side": 1,
+      "message": "the body of the loop looks large enough to motivate longer, more descriptive name.",
+      "range": {
+        "startLine": 451,
+        "startChar": 10,
+        "endLine": 451,
+        "endChar": 11
+      },
+      "revId": "3d1f3ec7ec382230783b2751c5394d9e234239b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24984098_202b4331",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-13T15:15:35Z",
+      "side": 1,
+      "message": "ditto, prefer longer name.",
+      "range": {
+        "startLine": 560,
+        "startChar": 20,
+        "endLine": 560,
+        "endChar": 21
+      },
+      "revId": "3d1f3ec7ec382230783b2751c5394d9e234239b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf85cd33_73661662",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-13T15:15:35Z",
+      "side": 1,
+      "message": "Here body is small enough, so `c` looks good.",
+      "range": {
+        "startLine": 612,
+        "startChar": 4,
+        "endLine": 612,
+        "endChar": 5
+      },
+      "revId": "3d1f3ec7ec382230783b2751c5394d9e234239b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ef40129_574f4085",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 657,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-13T15:15:35Z",
+      "side": 1,
+      "message": "why introduce this alias? (it\u0027s name doesn\u0027t look clearer than the original variable)",
+      "range": {
+        "startLine": 657,
+        "startChar": 22,
+        "endLine": 657,
+        "endChar": 31
+      },
+      "revId": "3d1f3ec7ec382230783b2751c5394d9e234239b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db27678c_5c4ccdd4",
+        "filename": "media/engine/simulcast_encoder_adapter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-13T15:15:35Z",
+      "side": 1,
+      "message": "prefer int over uint8_t\n\nhttps://google.github.io/styleguide/cppguide.html#Integer_Types\n\n\"You should not use the unsigned integer types such as uint32_t, unless there is a valid reason such as representing a bit pattern rather than a number, or you need defined overflow modulo 2^N.\"",
+      "range": {
+        "startLine": 74,
+        "startChar": 19,
+        "endLine": 74,
+        "endChar": 26
+      },
+      "revId": "3d1f3ec7ec382230783b2751c5394d9e234239b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e1f633f_12a5fa34",
+        "filename": "media/engine/simulcast_encoder_adapter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-13T15:15:35Z",
+      "side": 1,
+      "message": "remove trailing _",
+      "range": {
+        "startLine": 74,
+        "startChar": 37,
+        "endLine": 74,
+        "endChar": 38
+      },
+      "revId": "3d1f3ec7ec382230783b2751c5394d9e234239b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e63364eb_cd1bbe01",
+        "filename": "media/engine/simulcast_encoder_adapter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-13T15:15:35Z",
+      "side": 1,
+      "message": "does this class support assignment?\nIf yes, declare the operator explicitly (I suspect it might also need explicit implementation because move constructor has one).\n\nIf not, delete it:\nEncoderContext\u0026 operator\u003d(EncoderContext\u0026\u0026) \u003d delete;\n(no need to delete both copy and move assignment, deleting one is enough)",
+      "range": {
+        "startLine": 78,
+        "startChar": 4,
+        "endLine": 79,
+        "endChar": 19
+      },
+      "revId": "3d1f3ec7ec382230783b2751c5394d9e234239b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "906e0130_1579da05",
+        "filename": "media/engine/simulcast_encoder_adapter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-13T15:15:35Z",
+      "side": 1,
+      "message": "can encoder be nullptr? (if not - prefer to return reference)",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 66
+      },
+      "revId": "3d1f3ec7ec382230783b2751c5394d9e234239b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ed5e3a8_9d7fcc98",
+        "filename": "media/engine/simulcast_encoder_adapter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-13T15:15:35Z",
+      "side": 1,
+      "message": "is it valid to use the EncoderContext after Release is called?\nif not, you may annotate it:\nstd::unique_ptr\u003cVideoEncoder\u003e Release() \u0026\u0026;\n\nthat would force user to move context before encoder is released:\nauto encoder \u003d std::move(context).Release();\n\nand would generate a compiler warning if context is used after such move.\n\nhttps://google.github.io/styleguide/cppguide.html#Forwarding_references\n\"You may use them to define \u0026\u0026-qualified methods that logically \"consume\" *this, leaving it in an unusable or empty state.\"",
+      "range": {
+        "startLine": 101,
+        "startChar": 35,
+        "endLine": 101,
+        "endChar": 43
+      },
+      "revId": "3d1f3ec7ec382230783b2751c5394d9e234239b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

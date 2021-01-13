@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7d00715_ae52b79f",
+        "filename": "api/test/network_emulation/cross_traffic.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 11540
+      },
+      "writtenOn": "2021-01-13T12:10:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "825d2a02_26d08894",
+      "range": {
+        "startLine": 49,
+        "startChar": 5,
+        "endLine": 49,
+        "endChar": 34
+      },
+      "revId": "e007c014255c615e64fba4e0557340846bd59628",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "306547e9_11efad3b",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-01-13T11:48:27Z",
       "side": 1,
       "message": "Why do we want to move it here?",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 20
+      },
+      "revId": "e007c014255c615e64fba4e0557340846bd59628",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "429ce6d9_ec89eb31",
+        "filename": "api/test/network_emulation/network_emulation_interfaces.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 11540
+      },
+      "writtenOn": "2021-01-13T12:10:53Z",
+      "side": 1,
+      "message": "Yea, we don\u0027t need it. My fault. It slipped from my previous version of the changes.",
+      "parentUuid": "306547e9_11efad3b",
       "range": {
         "startLine": 29,
         "startChar": 0,

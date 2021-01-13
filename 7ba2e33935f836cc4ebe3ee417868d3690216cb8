@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b3422b2_ec40605b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-13T10:55:24Z",
+      "side": 1,
+      "message": "Nice workaround! 😊\n\nMaybe add a comment in the code for ourselves in the future? It is easy to retrieve from the CL but maybe in a few years it will be more difficult. Just a link to the bugs.webrtc.org/ bug is enough (in a separate CL is fine as well).",
+      "revId": "7ba2e33935f836cc4ebe3ee417868d3690216cb8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

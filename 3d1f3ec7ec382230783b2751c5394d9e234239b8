@@ -60,6 +60,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "9eab6d14_c9004a3f",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-01-13T20:30:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23c7839d_a22a6d29",
+      "range": {
+        "startLine": 74,
+        "startChar": 3,
+        "endLine": 75,
+        "endChar": 25
+      },
+      "revId": "3d1f3ec7ec382230783b2751c5394d9e234239b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "d0851a2e_820f4ec2",
         "filename": "media/engine/simulcast_encoder_adapter.cc",
         "patchSetId": 3
@@ -94,6 +118,30 @@
       "writtenOn": "2021-01-13T15:15:35Z",
       "side": 1,
       "message": "personally I do not bother commenting out parameter names when function body is empty.",
+      "range": {
+        "startLine": 238,
+        "startChar": 27,
+        "endLine": 238,
+        "endChar": 54
+      },
+      "revId": "3d1f3ec7ec382230783b2751c5394d9e234239b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "834eecf2_fa097b8f",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-01-13T20:30:49Z",
+      "side": 1,
+      "message": "I get nagged by the ide, so I do that to avoid the squiggly line :p",
+      "parentUuid": "7393da78_db375d35",
       "range": {
         "startLine": 238,
         "startChar": 27,
@@ -198,6 +246,54 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "5d32a8ec_70c148e6",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-01-13T20:30:49Z",
+      "side": 1,
+      "message": "Not vector as in std::vector, no. Changed to spatial layers, since that can sort of be applied to both simulcast streams and svc spatial layers.",
+      "parentUuid": "3fa141bc_b3abfdee",
+      "range": {
+        "startLine": 302,
+        "startChar": 7,
+        "endLine": 302,
+        "endChar": 16
+      },
+      "revId": "3d1f3ec7ec382230783b2751c5394d9e234239b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab319ec3_e18ef455",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-01-13T20:30:49Z",
+      "side": 1,
+      "message": "It\u0027s this way since it\u0027s going to be updated to\nauto layer_vec \u003d is_vp9 ? rtc::ArrayView\u003cSpatialLayer\u003e(codec_.spatialLayers) : rtc::ArrayView\u003cSpatialLayer\u003e(codec_.simulcastStream);\n\nI can change it, but I\u0027ll just change it back again later..?\n\nGood point about the size though, but it should be kMaxSimulcastStreams (and kMaxSpatialLayers for vp9 when that\u0027s added).",
+      "parentUuid": "23a51a4e_9a2dfbf2",
+      "range": {
+        "startLine": 302,
+        "startChar": 2,
+        "endLine": 302,
+        "endChar": 72
+      },
+      "revId": "3d1f3ec7ec382230783b2751c5394d9e234239b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "69ffd0cb_7ea030da",
         "filename": "media/engine/simulcast_encoder_adapter.cc",
         "patchSetId": 3
@@ -221,6 +317,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "40e085a9_2c409160",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-01-13T20:30:49Z",
+      "side": 1,
+      "message": "Ah, cool!",
+      "parentUuid": "69ffd0cb_7ea030da",
+      "range": {
+        "startLine": 304,
+        "startChar": 29,
+        "endLine": 304,
+        "endChar": 71
+      },
+      "revId": "3d1f3ec7ec382230783b2751c5394d9e234239b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "2f03e883_d8d09171",
         "filename": "media/engine/simulcast_encoder_adapter.cc",
         "patchSetId": 3
@@ -232,6 +352,30 @@
       "writtenOn": "2021-01-13T15:15:35Z",
       "side": 1,
       "message": "or\nlowest_resolution_stream_index \u003d minmax.first - layer_vec.begin();",
+      "range": {
+        "startLine": 307,
+        "startChar": 6,
+        "endLine": 307,
+        "endChar": 56
+      },
+      "revId": "3d1f3ec7ec382230783b2751c5394d9e234239b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eaa5a825_af0203e5",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-01-13T20:30:49Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "2f03e883_d8d09171",
       "range": {
         "startLine": 307,
         "startChar": 6,
@@ -288,6 +432,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca89fba9_44ecb9b5",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-01-13T20:30:49Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "7b8a47f8_eb864092",
+      "range": {
+        "startLine": 397,
+        "startChar": 6,
+        "endLine": 397,
+        "endChar": 10
+      },
+      "revId": "3d1f3ec7ec382230783b2751c5394d9e234239b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "312c28e3_d3149398",
@@ -301,6 +469,30 @@
       "writtenOn": "2021-01-13T15:15:35Z",
       "side": 1,
       "message": "it seems si is not used for anything other than taking element from encoder_context_,\nso may be use ranged-based for loop.",
+      "range": {
+        "startLine": 450,
+        "startChar": 7,
+        "endLine": 450,
+        "endChar": 16
+      },
+      "revId": "3d1f3ec7ec382230783b2751c5394d9e234239b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d94539f_66b4d60d",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-01-13T20:30:49Z",
+      "side": 1,
+      "message": "Done. Though I\u0027ll change it back later ;)",
+      "parentUuid": "312c28e3_d3149398",
       "range": {
         "startLine": 450,
         "startChar": 7,
@@ -334,6 +526,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "47421f40_8c9f605e",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-01-13T20:30:49Z",
+      "side": 1,
+      "message": "Alright, changed it to \u0027layer\u0027 since that\u0027s how it\u0027s conceptually used here.",
+      "parentUuid": "ff3f6490_6206cc72",
+      "range": {
+        "startLine": 451,
+        "startChar": 10,
+        "endLine": 451,
+        "endChar": 11
+      },
+      "revId": "3d1f3ec7ec382230783b2751c5394d9e234239b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "24984098_202b4331",
@@ -347,6 +563,30 @@
       "writtenOn": "2021-01-13T15:15:35Z",
       "side": 1,
       "message": "ditto, prefer longer name.",
+      "range": {
+        "startLine": 560,
+        "startChar": 20,
+        "endLine": 560,
+        "endChar": 21
+      },
+      "revId": "3d1f3ec7ec382230783b2751c5394d9e234239b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "153b2cd3_b5d29a56",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-01-13T20:30:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24984098_202b4331",
       "range": {
         "startLine": 560,
         "startChar": 20,
@@ -403,6 +643,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "84fede04_ff2cccf2",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 657,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-01-13T20:30:49Z",
+      "side": 1,
+      "message": "Because in a follow-up it could be an alias for inst.spatialLayers instead.\nChanged name from layer_vec to spatial_layers btw.",
+      "parentUuid": "7ef40129_574f4085",
+      "range": {
+        "startLine": 657,
+        "startChar": 22,
+        "endLine": 657,
+        "endChar": 31
+      },
+      "revId": "3d1f3ec7ec382230783b2751c5394d9e234239b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "db27678c_5c4ccdd4",
@@ -449,6 +713,54 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac72d5c3_a218a40e",
+        "filename": "media/engine/simulcast_encoder_adapter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-01-13T20:30:49Z",
+      "side": 1,
+      "message": "Done. This was just a lazy copy-paste.",
+      "parentUuid": "db27678c_5c4ccdd4",
+      "range": {
+        "startLine": 74,
+        "startChar": 19,
+        "endLine": 74,
+        "endChar": 26
+      },
+      "revId": "3d1f3ec7ec382230783b2751c5394d9e234239b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82bea8ad_426a3672",
+        "filename": "media/engine/simulcast_encoder_adapter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-01-13T20:30:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e1f633f_12a5fa34",
+      "range": {
+        "startLine": 74,
+        "startChar": 37,
+        "endLine": 74,
+        "endChar": 38
+      },
+      "revId": "3d1f3ec7ec382230783b2751c5394d9e234239b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e63364eb_cd1bbe01",
@@ -462,6 +774,30 @@
       "writtenOn": "2021-01-13T15:15:35Z",
       "side": 1,
       "message": "does this class support assignment?\nIf yes, declare the operator explicitly (I suspect it might also need explicit implementation because move constructor has one).\n\nIf not, delete it:\nEncoderContext\u0026 operator\u003d(EncoderContext\u0026\u0026) \u003d delete;\n(no need to delete both copy and move assignment, deleting one is enough)",
+      "range": {
+        "startLine": 78,
+        "startChar": 4,
+        "endLine": 79,
+        "endChar": 19
+      },
+      "revId": "3d1f3ec7ec382230783b2751c5394d9e234239b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3696ea75_bc4a749c",
+        "filename": "media/engine/simulcast_encoder_adapter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-01-13T20:30:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e63364eb_cd1bbe01",
       "range": {
         "startLine": 78,
         "startChar": 4,
@@ -497,6 +833,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "de2d53bf_417ffcf9",
+        "filename": "media/engine/simulcast_encoder_adapter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-01-13T20:30:49Z",
+      "side": 1,
+      "message": "It could, after Release - but since that\u0027s no longer possible let\u0027s change it.",
+      "parentUuid": "906e0130_1579da05",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 66
+      },
+      "revId": "3d1f3ec7ec382230783b2751c5394d9e234239b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "6ed5e3a8_9d7fcc98",
         "filename": "media/engine/simulcast_encoder_adapter.h",
         "patchSetId": 3
@@ -508,6 +868,30 @@
       "writtenOn": "2021-01-13T15:15:35Z",
       "side": 1,
       "message": "is it valid to use the EncoderContext after Release is called?\nif not, you may annotate it:\nstd::unique_ptr\u003cVideoEncoder\u003e Release() \u0026\u0026;\n\nthat would force user to move context before encoder is released:\nauto encoder \u003d std::move(context).Release();\n\nand would generate a compiler warning if context is used after such move.\n\nhttps://google.github.io/styleguide/cppguide.html#Forwarding_references\n\"You may use them to define \u0026\u0026-qualified methods that logically \"consume\" *this, leaving it in an unusable or empty state.\"",
+      "range": {
+        "startLine": 101,
+        "startChar": 35,
+        "endLine": 101,
+        "endChar": 43
+      },
+      "revId": "3d1f3ec7ec382230783b2751c5394d9e234239b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab40ac77_e379ba56",
+        "filename": "media/engine/simulcast_encoder_adapter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-01-13T20:30:49Z",
+      "side": 1,
+      "message": "That\u0027s neat! Didn\u0027t know you could do that, thanks for the tip",
+      "parentUuid": "6ed5e3a8_9d7fcc98",
       "range": {
         "startLine": 101,
         "startChar": 35,

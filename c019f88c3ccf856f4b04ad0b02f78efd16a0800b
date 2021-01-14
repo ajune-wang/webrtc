@@ -43,6 +43,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "2d8e66de_75c41b22",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2021-01-14T11:57:34Z",
+      "side": 1,
+      "message": "removed comment",
+      "parentUuid": "8289925d_6f3ac473",
+      "range": {
+        "startLine": 516,
+        "startChar": 6,
+        "endLine": 517,
+        "endChar": 58
+      },
+      "revId": "c019f88c3ccf856f4b04ad0b02f78efd16a0800b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "e06390ec_3533768c",
         "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
         "patchSetId": 2
@@ -54,6 +78,30 @@
       "writtenOn": "2021-01-14T10:31:40Z",
       "side": 1,
       "message": "return type is actually aom_codec_err_t",
+      "range": {
+        "startLine": 518,
+        "startChar": 6,
+        "endLine": 518,
+        "endChar": 9
+      },
+      "revId": "c019f88c3ccf856f4b04ad0b02f78efd16a0800b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "510fef18_afd6d1cf",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2021-01-14T11:57:34Z",
+      "side": 1,
+      "message": "changed",
+      "parentUuid": "e06390ec_3533768c",
       "range": {
         "startLine": 518,
         "startChar": 6,

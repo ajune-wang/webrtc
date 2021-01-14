@@ -16,6 +16,23 @@
       "message": "Hi Gustaf,\nCould you PTAL?\nAlessio",
       "revId": "fa7d9892b061ba90b3ab9c9a87ec68272e5e6c26",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a32dbd55_58fca72c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2021-01-14T07:37:21Z",
+      "side": 1,
+      "message": "LGTM!",
+      "revId": "fa7d9892b061ba90b3ab9c9a87ec68272e5e6c26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -46,6 +46,30 @@
       },
       "revId": "3e2a964a59a978169b4e9f6af76e6a176b033b62",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d99d2f73_16e848cb",
+        "filename": "api/voip/voip_base.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-14T16:19:58Z",
+      "side": 1,
+      "message": "Got it, that makes sense.",
+      "parentUuid": "db7df403_4a3fb46a",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 35
+      },
+      "revId": "3e2a964a59a978169b4e9f6af76e6a176b033b62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

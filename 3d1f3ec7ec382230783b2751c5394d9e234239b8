@@ -175,6 +175,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "03fc3623_50df38b3",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-01-14T13:04:56Z",
+      "side": 1,
+      "message": "Order in stored_encoders_ doesn\u0027t matter. It\u0027s also an std::stack, so there\u0027s not much choice 😊 \nCan add a comment though.",
+      "parentUuid": "9db9b195_df43c12a",
+      "range": {
+        "startLine": 247,
+        "startChar": 22,
+        "endLine": 247,
+        "endChar": 30
+      },
+      "revId": "3d1f3ec7ec382230783b2751c5394d9e234239b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "565ccc83_cff673c5",
@@ -188,6 +212,30 @@
       "writtenOn": "2021-01-13T17:31:34Z",
       "side": 1,
       "message": "why create rate_allocator on heap instead on stack like it was before?\nhttps://abseil.io/tips/187",
+      "range": {
+        "startLine": 289,
+        "startChar": 41,
+        "endLine": 289,
+        "endChar": 55
+      },
+      "revId": "3d1f3ec7ec382230783b2751c5394d9e234239b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a943be7_687e767b",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-01-14T13:04:56Z",
+      "side": 1,
+      "message": "Because it will soon possibly be an SvcRateAllocator instead.",
+      "parentUuid": "565ccc83_cff673c5",
       "range": {
         "startLine": 289,
         "startChar": 41,
@@ -447,6 +495,30 @@
       "writtenOn": "2021-01-13T17:31:34Z",
       "side": 1,
       "message": "This function is very large, so prefer to keep scope of each variable smaller\n(i.e. why increase scope of the encoder_info variable?)",
+      "range": {
+        "startLine": 336,
+        "startChar": 9,
+        "endLine": 336,
+        "endChar": 27
+      },
+      "revId": "3d1f3ec7ec382230783b2751c5394d9e234239b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00560301_07f098b0",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-01-14T13:04:56Z",
+      "side": 1,
+      "message": "The instance will be reused in a follow-up, and native_scalability will not look only the the current encoder_info.supports_simulcast. I can postpone that change till then though.",
+      "parentUuid": "19b3c6f8_29253389",
       "range": {
         "startLine": 336,
         "startChar": 9,
@@ -997,6 +1069,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "383b0076_08582678",
+        "filename": "media/engine/simulcast_encoder_adapter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-01-14T13:04:56Z",
+      "side": 1,
+      "message": "Yeah, I _think_ timestamp_us should work here, so let\u0027s change to Timestamp",
+      "parentUuid": "83dda30b_df1f7d8a",
+      "range": {
+        "startLine": 102,
+        "startChar": 20,
+        "endLine": 102,
+        "endChar": 28
+      },
+      "revId": "3d1f3ec7ec382230783b2751c5394d9e234239b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a96455a6_bed4e083",
@@ -1010,6 +1106,30 @@
       "writtenOn": "2021-01-13T17:31:34Z",
       "side": 1,
       "message": "previous function uses `stream_idx` as 1st parameter. Does it has the same meaning?",
+      "range": {
+        "startLine": 138,
+        "startChar": 29,
+        "endLine": 138,
+        "endChar": 40
+      },
+      "revId": "3d1f3ec7ec382230783b2751c5394d9e234239b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10cde11a_40d61177",
+        "filename": "media/engine/simulcast_encoder_adapter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-01-14T13:04:56Z",
+      "side": 1,
+      "message": "Yes, renamed.",
+      "parentUuid": "a96455a6_bed4e083",
       "range": {
         "startLine": 138,
         "startChar": 29,
@@ -1043,6 +1163,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e3805ea_cbd2e9dd",
+        "filename": "media/engine/simulcast_encoder_adapter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-01-14T13:04:56Z",
+      "side": 1,
+      "message": "This method shouldn\u0027t even be in this cl, removed. :)\nAnd yes, it\u0027s the rtp timestamp - it\u0027s used as an id to match a VideoFrame objects to resulting EncodedImages.",
+      "parentUuid": "4cf80677_a8c901fa",
+      "range": {
+        "startLine": 141,
+        "startChar": 6,
+        "endLine": 141,
+        "endChar": 24
+      },
+      "revId": "3d1f3ec7ec382230783b2751c5394d9e234239b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7ecec57c_82eefda7",
@@ -1056,6 +1200,30 @@
       "writtenOn": "2021-01-13T17:31:34Z",
       "side": 1,
       "message": "For me a layer is set of frames (or anything else) associated with a particular spatial_id and temporal_id pair. (e.g. go/av1-spec defines it like that)\n\nDo you mind to renaming these two variables to first_active_stream_[index_]/num_active_streams_\nor first_active_encoder_/num_active_encoders_.",
+      "range": {
+        "startLine": 150,
+        "startChar": 22,
+        "endLine": 150,
+        "endChar": 27
+      },
+      "revId": "3d1f3ec7ec382230783b2751c5394d9e234239b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d015ae8a_293ab804",
+        "filename": "media/engine/simulcast_encoder_adapter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-01-14T13:04:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ecec57c_82eefda7",
       "range": {
         "startLine": 150,
         "startChar": 22,

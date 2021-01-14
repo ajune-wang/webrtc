@@ -22,6 +22,30 @@
       },
       "revId": "93b54e310ad58e1c669acf001079d31ae69fe75b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ae18792_1570a2a5",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-01-14T13:04:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "775ceb5d_1869bc96",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 69
+      },
+      "revId": "93b54e310ad58e1c669acf001079d31ae69fe75b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c70193a_19e7ed01",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-14T10:31:40Z",
+      "side": 1,
+      "message": "two minor nits. \nBut I\u0027m ok with landing this as is.",
+      "revId": "c019f88c3ccf856f4b04ad0b02f78efd16a0800b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8289925d_6f3ac473",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-14T10:31:40Z",
+      "side": 1,
+      "message": "https://testing.googleblog.com/2017/07/code-health-to-comment-or-not-to-comment.html\n\"avoid comments that just repeat what the code does\"\n\nIf you can explain why it need to be like that - great. If not - might be better to remove the comment.\n\n[Side note about terminology: AV1 spec defines term \"base layer\" differently: S0T0.]",
+      "range": {
+        "startLine": 516,
+        "startChar": 6,
+        "endLine": 517,
+        "endChar": 58
+      },
+      "revId": "c019f88c3ccf856f4b04ad0b02f78efd16a0800b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e06390ec_3533768c",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-14T10:31:40Z",
+      "side": 1,
+      "message": "return type is actually aom_codec_err_t",
+      "range": {
+        "startLine": 518,
+        "startChar": 6,
+        "endLine": 518,
+        "endChar": 9
+      },
+      "revId": "c019f88c3ccf856f4b04ad0b02f78efd16a0800b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49916230_a622c0df",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-01-14T12:37:08Z",
+      "side": 1,
+      "message": "PTAL.",
+      "revId": "896acd1894970cb54a67079c5e698446bbb27b3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c32846e7_307cf0be",
+        "filename": "p2p/base/turn_port.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1280,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-01-14T12:37:08Z",
+      "side": 1,
+      "message": "Handling of lifetime isn\u0027t crystal clear to me. Is the idea that nothing else can destroy the TurnEntry, and that\u0027s why we can capture the raw pointer and use it later?",
+      "range": {
+        "startLine": 1280,
+        "startChar": 35,
+        "endLine": 1280,
+        "endChar": 40
+      },
+      "revId": "896acd1894970cb54a67079c5e698446bbb27b3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5dc8fd1d_c09f3fa2",
+        "filename": "p2p/stunprober/stun_prober.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-01-14T12:37:08Z",
+      "side": 1,
+      "message": "ditto.",
+      "range": {
+        "startLine": 361,
+        "startChar": 42,
+        "endLine": 361,
+        "endChar": 50
+      },
+      "revId": "896acd1894970cb54a67079c5e698446bbb27b3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

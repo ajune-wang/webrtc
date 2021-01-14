@@ -9,6 +9,16 @@
 import("../../../webrtc.gni")
 
 if (rtc_include_tests) {
+  rtc_source_set("mock_voip_engine") {
+    testonly = true
+    visibility = [ "*" ]
+    sources = [ "mock_voip_engine.h" ]
+    deps = [
+      "../../../api/voip:voip_api",
+      "../../../test:test_support",
+    ]
+  }
+
   rtc_source_set("mock_task_queue") {
     testonly = true
     visibility = [ "*" ]

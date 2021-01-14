@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "775ceb5d_1869bc96",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-14T11:42:09Z",
+      "side": 1,
+      "message": "Remove this comment as no longer accurate. (struct describes it better)",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 69
+      },
+      "revId": "93b54e310ad58e1c669acf001079d31ae69fe75b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

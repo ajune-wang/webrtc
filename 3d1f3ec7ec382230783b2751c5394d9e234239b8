@@ -292,6 +292,54 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "490b2f6b_83194df4",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-14T11:42:09Z",
+      "side": 1,
+      "message": "why size should be kMaxStreams?\ncode below only used to search up to number_of_streams elements.\n\n(e.g. minmax_element would now search through all kMaxStreams instead of just number_of_streams)",
+      "parentUuid": "ab319ec3_e18ef455",
+      "range": {
+        "startLine": 302,
+        "startChar": 2,
+        "endLine": 302,
+        "endChar": 72
+      },
+      "revId": "3d1f3ec7ec382230783b2751c5394d9e234239b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88bd4344_2e10d774",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-14T11:42:09Z",
+      "side": 1,
+      "message": "I think we need to somehow agree on meaning of terms\n\"layer\", \"simulcast\", \"svc\"\nWe keep using same words meaning different concepts.\n(and it doesn\u0027t help that webrtc glossary and wikipedia use different meanings for  \"svc\":\nhttps://webrtcglossary.com/svc/\nhttps://en.wikipedia.org/wiki/Scalable_Video_Coding )",
+      "parentUuid": "5d32a8ec_70c148e6",
+      "range": {
+        "startLine": 302,
+        "startChar": 7,
+        "endLine": 302,
+        "endChar": 16
+      },
+      "revId": "3d1f3ec7ec382230783b2751c5394d9e234239b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "69ffd0cb_7ea030da",
@@ -892,6 +940,30 @@
       "side": 1,
       "message": "That\u0027s neat! Didn\u0027t know you could do that, thanks for the tip",
       "parentUuid": "6ed5e3a8_9d7fcc98",
+      "range": {
+        "startLine": 101,
+        "startChar": 35,
+        "endLine": 101,
+        "endChar": 43
+      },
+      "revId": "3d1f3ec7ec382230783b2751c5394d9e234239b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a227ef9_bcdedf66",
+        "filename": "media/engine/simulcast_encoder_adapter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-14T11:42:09Z",
+      "side": 1,
+      "message": "This feature exists since c++11, but became allowed by style guide only recently (~half a year ago)",
+      "parentUuid": "ab40ac77_e379ba56",
       "range": {
         "startLine": 101,
         "startChar": 35,

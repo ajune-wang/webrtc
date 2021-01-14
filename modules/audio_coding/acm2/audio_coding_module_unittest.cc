@@ -939,7 +939,7 @@ class AcmReceiverBitExactnessOldApi : public ::testing::Test {
     defined(WEBRTC_CODEC_ILBC)
 TEST_F(AcmReceiverBitExactnessOldApi, 8kHzOutput) {
   std::string others_checksum_reference =
-      GetCPUInfo(kAVX2) != 0 ? "1d7b784031599e2c01a3f575f8439f2f"
+      GetCPUInfo(kAVX2) != 0 ? "e0c966d7b8c36ff60167988fa35d33e0"
                              : "c119fda4ea2c119ff2a720fd0c289071";
   std::string win64_checksum_reference =
       GetCPUInfo(kAVX2) != 0 ? "405a50f0bcb8827e20aa944299fc59f6"
@@ -953,7 +953,7 @@ TEST_F(AcmReceiverBitExactnessOldApi, 8kHzOutput) {
 
 TEST_F(AcmReceiverBitExactnessOldApi, 16kHzOutput) {
   std::string others_checksum_reference =
-      GetCPUInfo(kAVX2) != 0 ? "8884d910e443c244d8593c2e3cef5e63"
+      GetCPUInfo(kAVX2) != 0 ? "a63c578e1195c8420f453962c6d8519c"
                              : "36dc8c0532ba0efa099e2b6a689cde40";
   std::string win64_checksum_reference =
       GetCPUInfo(kAVX2) != 0 ? "58fd62a5c49ee513f9fa6fe7dbf62c97"
@@ -967,7 +967,7 @@ TEST_F(AcmReceiverBitExactnessOldApi, 16kHzOutput) {
 
 TEST_F(AcmReceiverBitExactnessOldApi, 32kHzOutput) {
   std::string others_checksum_reference =
-      GetCPUInfo(kAVX2) != 0 ? "73f4fe21996c0af495e2c47e3708e519"
+      GetCPUInfo(kAVX2) != 0 ? "8775ce387f44dc5ff4a26da295d5ee7c"
                              : "c848ce9002d3825056a1eac2a067c0d3";
   std::string win64_checksum_reference =
       GetCPUInfo(kAVX2) != 0 ? "04ce6a1dac5ffdd8438d804623d0132f"
@@ -981,7 +981,7 @@ TEST_F(AcmReceiverBitExactnessOldApi, 32kHzOutput) {
 
 TEST_F(AcmReceiverBitExactnessOldApi, 48kHzOutput) {
   std::string others_checksum_reference =
-      GetCPUInfo(kAVX2) != 0 ? "884243f7e1476931e93eda5de88d1326"
+      GetCPUInfo(kAVX2) != 0 ? "7a55700b7ca9aa60237db58b33e55606"
                              : "ba0f66d538487bba377e721cfac62d1e";
   std::string win64_checksum_reference =
       GetCPUInfo(kAVX2) != 0 ? "f59833d9b0924f4b0704707dd3589f80"
@@ -1069,7 +1069,7 @@ TEST_F(AcmReceiverBitExactnessOldApi, 48kHzOutputExternalDecoder) {
   rtc::scoped_refptr<rtc::RefCountedObject<ADFactory>> factory(
       new rtc::RefCountedObject<ADFactory>);
   std::string others_checksum_reference =
-      GetCPUInfo(kAVX2) != 0 ? "884243f7e1476931e93eda5de88d1326"
+      GetCPUInfo(kAVX2) != 0 ? "7a55700b7ca9aa60237db58b33e55606"
                              : "ba0f66d538487bba377e721cfac62d1e";
   std::string win64_checksum_reference =
       GetCPUInfo(kAVX2) != 0 ? "f59833d9b0924f4b0704707dd3589f80"

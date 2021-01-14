@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1b9e03c_34fdf9d7",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 11540
+      },
+      "writtenOn": "2021-01-14T09:52:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8327544b_1240df63",
+      "range": {
+        "startLine": 249,
+        "startChar": 15,
+        "endLine": 249,
+        "endChar": 31
+      },
+      "revId": "2c9147e1cb0425c4c17f301d15095e70d9e84e14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ce8dd02c_a16747ea",
@@ -47,6 +71,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ca1634f_c0496ee9",
+        "filename": "test/network/cross_traffic.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 11540
+      },
+      "writtenOn": "2021-01-14T09:52:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce8dd02c_a16747ea",
+      "range": {
+        "startLine": 40,
+        "startChar": 2,
+        "endLine": 40,
+        "endChar": 8
+      },
+      "revId": "2c9147e1cb0425c4c17f301d15095e70d9e84e14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7fef7dac_ed493a5c",
@@ -60,6 +108,30 @@
       "writtenOn": "2021-01-14T09:38:27Z",
       "side": 1,
       "message": "remove?",
+      "range": {
+        "startLine": 67,
+        "startChar": 2,
+        "endLine": 67,
+        "endChar": 8
+      },
+      "revId": "2c9147e1cb0425c4c17f301d15095e70d9e84e14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5de21a8b_e443129e",
+        "filename": "test/network/cross_traffic.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 11540
+      },
+      "writtenOn": "2021-01-14T09:52:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7fef7dac_ed493a5c",
       "range": {
         "startLine": 67,
         "startChar": 2,

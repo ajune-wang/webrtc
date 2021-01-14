@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e8b5290_71ec8e95",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-01-14T12:00:40Z",
+      "side": 1,
+      "message": "is \"apply_alignment_to_all_simulcast_layers\" really needed? it seems that \"requested_resolution_alignment\" is enough.",
+      "range": {
+        "startLine": 359,
+        "startChar": 2,
+        "endLine": 371,
+        "endChar": 3
+      },
+      "revId": "4cb4062bacabb665cd97f72684f819e50e28cb05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

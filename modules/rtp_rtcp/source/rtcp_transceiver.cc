@@ -18,12 +18,13 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/event.h"
 #include "rtc_base/task_utils/to_queued_task.h"
-#include "rtc_base/time_utils.h"
+#include "system_wrappers/include/clock.h"
 
 namespace webrtc {
 
 RtcpTransceiver::RtcpTransceiver(const RtcpTransceiverConfig& config)
-    : task_queue_(config.task_queue),
+    : clock_(*config.clock),
+      task_queue_(config.task_queue),
       rtcp_transceiver_(std::make_unique<RtcpTransceiverImpl>(config)) {
   RTC_DCHECK(task_queue_);
 }
@@ -82,7 +83,7 @@ void RtcpTransceiver::SetReadyToSend(bool ready) {
 void RtcpTransceiver::ReceivePacket(rtc::CopyOnWriteBuffer packet) {
   RTC_CHECK(rtcp_transceiver_);
   RtcpTransceiverImpl* ptr = rtcp_transceiver_.get();
-  int64_t now_us = rtc::TimeMicros();
+  int64_t now_us = clock_.TimeInMicroseconds();
   task_queue_->PostTask(ToQueuedTask(
       [ptr, packet, now_us] { ptr->ReceivePacket(packet, now_us); }));
 }

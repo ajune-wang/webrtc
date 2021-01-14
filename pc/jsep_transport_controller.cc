@@ -93,9 +93,8 @@ JsepTransportController::JsepTransportController(
 JsepTransportController::~JsepTransportController() {
   // Channel destructors may try to send packets, so this needs to happen on
   // the network thread.
-  network_thread_->Invoke<void>(
-      RTC_FROM_HERE,
-      rtc::Bind(&JsepTransportController::DestroyAllJsepTransports_n, this));
+  network_thread_->Invoke<void>(RTC_FROM_HERE,
+                                [this] { DestroyAllJsepTransports_n(); });
 }
 
 RTCError JsepTransportController::SetLocalDescription(

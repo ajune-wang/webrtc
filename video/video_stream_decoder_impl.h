@@ -22,6 +22,7 @@
 #include "rtc_base/platform_thread.h"
 #include "rtc_base/synchronization/mutex.h"
 #include "rtc_base/task_queue.h"
+#include "rtc_base/task_utils/cancelable_task_factory.h"
 #include "rtc_base/thread_checker.h"
 #include "system_wrappers/include/clock.h"
 
@@ -105,16 +106,12 @@ class VideoStreamDecoderImpl : public VideoStreamDecoderInterface {
   std::map<int, std::pair<SdpVideoFormat, int>> decoder_settings_
       RTC_GUARDED_BY(decode_queue_);
 
-  // The |bookkeeping_queue_| use the |frame_buffer_| and also posts tasks to
-  // the |decode_queue_|. The |decode_queue_| in turn use the |decoder_| to
-  // decode frames. When the |decoder_| is done it will post back to the
-  // |bookkeeping_queue_| with the decoded frame. During shutdown we start by
-  // isolating the |bookkeeping_queue_| from the |decode_queue_|, so now it's
-  // safe for the |decode_queue_| to be destructed. After that the |decoder_|
-  // can be destructed, and then the |bookkeeping_queue_|. Finally the
-  // |frame_buffer_| can be destructed.
-  Mutex shut_down_mutex_;
-  bool shut_down_ RTC_GUARDED_BY(shut_down_mutex_);
+  // The `bookkeeping_queue_` and `decode_queue` may posts tasks to each other
+  // thus need to be stopped together. This tasks touched other `this` members,
+  // in particular `frame_buffer_` and `decoder_`. Thus ensure no tasks are
+  // running on both of these queue using cancalable tasks before those other
+  // members can be destroyed.
+  CancelableTaskFactory task_factory_;
   video_coding::FrameBuffer frame_buffer_ RTC_GUARDED_BY(bookkeeping_queue_);
   rtc::TaskQueue bookkeeping_queue_;
   std::unique_ptr<VideoDecoder> decoder_ RTC_GUARDED_BY(decode_queue_);

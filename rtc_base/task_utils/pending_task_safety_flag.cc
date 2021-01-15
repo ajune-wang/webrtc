@@ -10,23 +10,24 @@
 
 #include "rtc_base/task_utils/pending_task_safety_flag.h"
 
-#include "rtc_base/ref_counted_object.h"
+#include "rtc_base/checks.h"
 
 namespace webrtc {
 
 // static
 rtc::scoped_refptr<PendingTaskSafetyFlag> PendingTaskSafetyFlag::Create() {
-  return new rtc::RefCountedObject<PendingTaskSafetyFlag>();
+  return new PendingTaskSafetyFlag();
+}
+
+void PendingTaskSafetyFlag::Release() const {
+  if (ref_count_.DecRef() == rtc::RefCountReleaseStatus::kDroppedLastRef) {
+    delete this;
+  }
 }
 
 void PendingTaskSafetyFlag::SetNotAlive() {
   RTC_DCHECK_RUN_ON(&main_sequence_);
   alive_ = false;
-}
-
-bool PendingTaskSafetyFlag::alive() const {
-  RTC_DCHECK_RUN_ON(&main_sequence_);
-  return alive_;
 }
 
 }  // namespace webrtc

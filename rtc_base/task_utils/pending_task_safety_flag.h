@@ -13,7 +13,7 @@
 
 #include "api/scoped_refptr.h"
 #include "rtc_base/checks.h"
-#include "rtc_base/ref_count.h"
+#include "rtc_base/ref_counter.h"
 #include "rtc_base/synchronization/sequence_checker.h"
 #include "rtc_base/system/no_unique_address.h"
 
@@ -45,20 +45,28 @@ namespace webrtc {
 //
 // Note that checking the state only works on the construction/destruction
 // thread of the ReceiveStatisticsProxy instance.
-class PendingTaskSafetyFlag : public rtc::RefCountInterface {
+class PendingTaskSafetyFlag final {
  public:
   static rtc::scoped_refptr<PendingTaskSafetyFlag> Create();
 
-  ~PendingTaskSafetyFlag() = default;
+  PendingTaskSafetyFlag(const PendingTaskSafetyFlag&) = delete;
+  PendingTaskSafetyFlag& operator=(const PendingTaskSafetyFlag&) = delete;
 
   void SetNotAlive();
-  bool alive() const;
+  bool alive() const {
+    RTC_DCHECK_RUN_ON(&main_sequence_);
+    return alive_;
+  }
 
- protected:
-  PendingTaskSafetyFlag() = default;
+  void AddRef() const { ref_count_.IncRef(); }
+  void Release() const;
 
  private:
-  bool alive_ = true;
+  PendingTaskSafetyFlag() = default;
+  ~PendingTaskSafetyFlag() = default;
+
+  mutable webrtc::webrtc_impl::RefCounter ref_count_{0};
+  bool alive_ RTC_GUARDED_BY(main_sequence_) = true;
   RTC_NO_UNIQUE_ADDRESS SequenceChecker main_sequence_;
 };
 

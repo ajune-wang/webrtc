@@ -328,6 +328,7 @@ class MetaBuildWrapper(object):
       return self._RunLocallyIsolated(build_dir, target)
 
   def _RunUnderSwarming(self, build_dir, target):
+    cas_instance = 'chromium-swarm'
     # TODO(dpranke): Look up the information for the target in
     # the //testing/buildbot.json file, if possible, so that we
     # can determine the isolate target, command line, and additional
@@ -345,10 +346,10 @@ class MetaBuildWrapper(object):
         'archive',
         '-i',
         self.ToSrcRelPath('%s/%s.isolate' % (build_dir, target)),
-        '-s',
-        self.ToSrcRelPath('%s/%s.isolated' % (build_dir, target)),
-        '-I', 'isolateserver.appspot.com',
-        '-dump-json', archive_json_path,
+        '-cas-instance',
+        cas_instance,
+        '-dump-json',
+        archive_json_path,
       ]
     ret, _, _ = self.Run(cmd, force_verbose=False)
     if ret:
@@ -361,7 +362,7 @@ class MetaBuildWrapper(object):
           'Failed to read JSON file "%s"' % archive_json_path, file=sys.stderr)
       return 1
     try:
-      isolated_hash = archive_hashes[target]
+      cas_digest = archive_hashes[target]
     except Exception:
       self.Print(
           'Cannot find hash for "%s" in "%s", file content: %s' %

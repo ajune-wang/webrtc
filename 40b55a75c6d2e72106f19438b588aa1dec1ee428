@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc7a89e7_5895c151",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-01-15T13:01:05Z",
+      "side": 1,
+      "message": "nit: This is called from 3 places within the func. Would be nice to eliminate this duplication if possible.",
+      "range": {
+        "startLine": 671,
+        "startChar": 4,
+        "endLine": 671,
+        "endChar": 26
+      },
+      "revId": "40b55a75c6d2e72106f19438b588aa1dec1ee428",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

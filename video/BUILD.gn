@@ -192,6 +192,7 @@ rtc_library("video_stream_decoder_impl") {
     "../rtc_base:rtc_base_approved",
     "../rtc_base:rtc_task_queue",
     "../rtc_base/synchronization:mutex",
+    "../rtc_base/task_utils:cancelable_task_factory",
     "../system_wrappers",
   ]
   absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]

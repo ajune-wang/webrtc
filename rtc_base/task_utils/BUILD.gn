@@ -42,6 +42,22 @@ rtc_library("pending_task_safety_flag") {
   ]
 }
 
+rtc_library("cancelable_task_factory") {
+  sources = [
+    "cancelable_task_factory.cc",
+    "cancelable_task_factory.h",
+  ]
+  deps = [
+    "..:checks",
+    "..:refcount",
+    "..:rtc_event",
+    "../../api:scoped_refptr",
+    "../../api/task_queue",
+    "../synchronization:mutex",
+  ]
+  absl_deps = [ "//third_party/abseil-cpp/absl/memory" ]
+}
+
 rtc_source_set("to_queued_task") {
   sources = [ "to_queued_task.h" ]
   deps = [

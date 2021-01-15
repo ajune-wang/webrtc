@@ -28,6 +28,7 @@ namespace {
 
 using ::testing::Invoke;
 using ::testing::NiceMock;
+using ::testing::Return;
 using ::testing::Unused;
 
 constexpr uint64_t kStartTime = 123456789;
@@ -53,23 +54,29 @@ class AudioChannelTest : public ::testing::Test {
             Invoke([&](std::unique_ptr<QueuedTask> task) { task->Run(); }));
   }
 
-  void SetUp() override {
-    audio_channel_ = new rtc::RefCountedObject<AudioChannel>(
-        &transport_, kLocalSsrc, task_queue_factory_.get(),
-        process_thread_.get(), audio_mixer_.get(), decoder_factory_);
-
-    audio_channel_->SetEncoder(kPcmuPayload, kPcmuFormat,
-                               encoder_factory_->MakeAudioEncoder(
-                                   kPcmuPayload, kPcmuFormat, absl::nullopt));
-    audio_channel_->SetReceiveCodecs({{kPcmuPayload, kPcmuFormat}});
-    audio_channel_->StartSend();
-    audio_channel_->StartPlay();
-  }
+  void SetUp() override { audio_channel_ = CreateAudioChannel(kLocalSsrc); }
 
   void TearDown() override {
     audio_channel_->StopSend();
     audio_channel_->StopPlay();
     audio_channel_ = nullptr;
+  }
+
+  rtc::scoped_refptr<AudioChannel> CreateAudioChannel(uint32_t ssrc) {
+    // Use same audio mixer here for simplicity sake as we are not checking
+    // audio activity of RTP in our testcases. If we need to do test on audio
+    // signal activity then we need to assign audio mixer for each channel.
+    rtc::scoped_refptr<AudioChannel> audio_channel =
+        new rtc::RefCountedObject<AudioChannel>(
+            &transport_, ssrc, task_queue_factory_.get(), process_thread_.get(),
+            audio_mixer_.get(), decoder_factory_);
+    audio_channel->SetEncoder(kPcmuPayload, kPcmuFormat,
+                              encoder_factory_->MakeAudioEncoder(
+                                  kPcmuPayload, kPcmuFormat, absl::nullopt));
+    audio_channel->SetReceiveCodecs({{kPcmuPayload, kPcmuFormat}});
+    audio_channel->StartSend();
+    audio_channel->StartPlay();
+    return audio_channel;
   }
 
   std::unique_ptr<AudioFrame> GetAudioFrame(int order) {
@@ -267,6 +274,84 @@ TEST_F(AudioChannelTest, TestChannelStatistics) {
   EXPECT_EQ(channel_stats->remote_rtcp->fraction_lost, 0);
   EXPECT_GT(channel_stats->remote_rtcp->last_report_received_timestamp_ms, 0);
   EXPECT_FALSE(channel_stats->remote_rtcp->round_trip_time.has_value());
+}
+
+// Check ChannelStatistics RTT metric after processing RTP and RTCP packets
+// using three audio channels where each represents media endpoint.
+//
+//  1) AC1 <- RTP/RTCP -> AC2
+//  2) AC1 <- RTP/RTCP -> AC3
+//
+// During step 1), AC1 should be able to check RTT from AC2's SSRC.
+// During step 2), AC1 should be able to check RTT from AC3's SSRC.
+TEST_F(AudioChannelTest, RttIsAvailableAfterChangeOfRemoteSsrc) {
+  // Create AC2 and AC3
+  constexpr uint32_t kAc2Ssrc = 0xdeadbeef;
+  constexpr uint32_t kAc3Ssrc = 0xdeafbeef;
+
+  auto ac_2 = CreateAudioChannel(kAc2Ssrc);
+  auto ac_3 = CreateAudioChannel(kAc3Ssrc);
+
+  // Set up receiver to handle incoming RTP/RTCP.
+  rtc::scoped_refptr<AudioChannel> receiver;
+  auto route_rtp = [&](const uint8_t* packet, size_t length, Unused) {
+    receiver->ReceivedRTPPacket(rtc::MakeArrayView(packet, length));
+    return true;
+  };
+  auto route_rtcp = [&](const uint8_t* packet, size_t length) {
+    receiver->ReceivedRTCPPacket(rtc::MakeArrayView(packet, length));
+    return true;
+  };
+  // Same transport is used for all audio channels and will need to route the
+  // packets to correct audio channel receiver by using receiver variable.
+  // EXPECT_CALL(transport_, SendRtp).WillRepeatedly(Invoke(route_rtp));
+  ON_CALL(transport_, SendRtp).WillByDefault(route_rtp);
+  ON_CALL(transport_, SendRtcp).WillByDefault(route_rtcp);
+
+  auto send_recv_rtp = [&](rtc::scoped_refptr<AudioChannel> rtp_sender,
+                           rtc::scoped_refptr<AudioChannel> rtp_receiver) {
+    receiver = rtp_receiver;
+    rtp_sender->GetAudioSender()->SendAudioData(GetAudioFrame(0));
+    rtp_sender->GetAudioSender()->SendAudioData(GetAudioFrame(1));
+    // Process received RTP in receiver.
+    AudioFrame audio_frame;
+    audio_mixer_->Mix(/*number_of_channels=*/1, &audio_frame);
+    audio_mixer_->Mix(/*number_of_channels=*/1, &audio_frame);
+  };
+
+  auto send_recv_rtcp = [&](rtc::scoped_refptr<AudioChannel> rtcp_sender,
+                            rtc::scoped_refptr<AudioChannel> rtcp_receiver) {
+    receiver = rtcp_receiver;
+    rtcp_sender->SendRTCPReportForTesting(kRtcpSr);
+  };
+
+  // AC1 <-- RTP/RTCP --> AC2
+  send_recv_rtp(audio_channel_, ac_2);
+  send_recv_rtp(ac_2, audio_channel_);
+  send_recv_rtcp(audio_channel_, ac_2);
+  send_recv_rtcp(ac_2, audio_channel_);
+
+  absl::optional<ChannelStatistics> channel_stats =
+      audio_channel_->GetChannelStatistics();
+  ASSERT_TRUE(channel_stats);
+  EXPECT_EQ(channel_stats->remote_ssrc, kAc2Ssrc);
+  ASSERT_TRUE(channel_stats->remote_rtcp);
+  EXPECT_GT(channel_stats->remote_rtcp->round_trip_time, 0.0);
+
+  // AC1 <-- RTP/RTCP --> AC3
+  send_recv_rtp(audio_channel_, ac_3);
+  send_recv_rtp(ac_3, audio_channel_);
+  send_recv_rtcp(audio_channel_, ac_3);
+  send_recv_rtcp(ac_3, audio_channel_);
+
+  channel_stats = audio_channel_->GetChannelStatistics();
+  ASSERT_TRUE(channel_stats);
+  EXPECT_EQ(channel_stats->remote_ssrc, kAc3Ssrc);
+  ASSERT_TRUE(channel_stats->remote_rtcp);
+  EXPECT_GT(channel_stats->remote_rtcp->round_trip_time, 0.0);
+
+  // Handle RTCP BYE in the end.
+  ON_CALL(transport_, SendRtcp).WillByDefault(Return(true));
 }
 
 }  // namespace

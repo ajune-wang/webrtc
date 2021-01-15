@@ -70,6 +70,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0377619e_274ac7dc",
+        "filename": "audio/voip/test/audio_channel_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-15T22:35:26Z",
+      "side": 1,
+      "message": "that is not needed\nif round_trip_time is nullopt, then expectation would just fail, no crash.\noperator\u003e(optional\u003cT\u003e, T) is well-defined, in particular  \n(absl::nullopt \u003e 0.0) \u003d\u003d false.\n\nhttps://en.cppreference.com/w/cpp/utility/optional/operator_cmp",
+      "parentUuid": "3e158056_bd533b1c",
+      "range": {
+        "startLine": 337,
+        "startChar": 0,
+        "endLine": 337,
+        "endChar": 42
+      },
+      "revId": "9e935e801098637df23355aeed1b71ae3e9813da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bddde8ab_8bdc1fa8",
@@ -83,6 +107,30 @@
       "writtenOn": "2021-01-15T21:52:35Z",
       "side": 1,
       "message": "Should we ASSERT_TRUE(channel_stats-\u003eremote_rtcp-\u003eround_trip_time) as well?",
+      "range": {
+        "startLine": 349,
+        "startChar": 0,
+        "endLine": 349,
+        "endChar": 42
+      },
+      "revId": "9e935e801098637df23355aeed1b71ae3e9813da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e7bc4bf_051ff8cd",
+        "filename": "audio/voip/test/audio_channel_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-15T22:35:26Z",
+      "side": 1,
+      "message": "I asked not to.",
+      "parentUuid": "bddde8ab_8bdc1fa8",
       "range": {
         "startLine": 349,
         "startChar": 0,

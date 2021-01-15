@@ -82,6 +82,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5e9da68_a3d003cc",
+        "filename": "p2p/base/turn_port.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1280,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-01-15T08:30:33Z",
+      "side": 1,
+      "message": "I think it\u0027s somewhat common to rely on destruction order like this, but it usually makes my head spin. I don\u0027t think this cl changes lifetimes, though.\n\nIs the thread invoking the destructor different from thread() ?",
+      "parentUuid": "7de90f5a_f8b54e6c",
+      "range": {
+        "startLine": 1280,
+        "startChar": 35,
+        "endLine": 1280,
+        "endChar": 40
+      },
+      "revId": "896acd1894970cb54a67079c5e698446bbb27b3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5dc8fd1d_c09f3fa2",

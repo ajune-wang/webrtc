@@ -48,6 +48,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5ebf83c_3d675c79",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-01-15T12:46:34Z",
+      "side": 1,
+      "message": "Ah I see. Alright then.",
+      "parentUuid": "2349952c_7d0017d3",
+      "range": {
+        "startLine": 159,
+        "startChar": 54,
+        "endLine": 159,
+        "endChar": 76
+      },
+      "revId": "4cb4062bacabb665cd97f72684f819e50e28cb05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2e8b5290_71ec8e95",

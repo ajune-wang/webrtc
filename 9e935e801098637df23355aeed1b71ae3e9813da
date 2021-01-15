@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33f4dfbe_ac89f671",
+        "filename": "audio/voip/test/audio_channel_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2021-01-15T21:52:35Z",
+      "side": 1,
+      "message": "Changing the value of receiver may be a bit convoluted. What do you think about instead defining these lambdas, and calling ON_CALL(transport_, ..), within send_recv_rtp?\nThat way, the right receiver is used each time and the variable |receiver| is never needed.",
+      "range": {
+        "startLine": 294,
+        "startChar": 0,
+        "endLine": 304,
+        "endChar": 4
+      },
+      "revId": "9e935e801098637df23355aeed1b71ae3e9813da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb98373f_7879ffe1",
+        "filename": "audio/voip/test/audio_channel_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2021-01-15T21:52:35Z",
+      "side": 1,
+      "message": "This reuse of transport_ and audio_mixer_ makes the test rather complicated, is there any way to avoid this reuse?\n\nE.g. not using a test fixture, instead creating 3 instances of AudioChannelTest and friending this test?\n\nIf it is too messy, let\u0027s go with the current solution. Just want to make sure.",
+      "range": {
+        "startLine": 305,
+        "startChar": 0,
+        "endLine": 319,
+        "endChar": 4
+      },
+      "revId": "9e935e801098637df23355aeed1b71ae3e9813da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e158056_bd533b1c",
+        "filename": "audio/voip/test/audio_channel_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2021-01-15T21:52:35Z",
+      "side": 1,
+      "message": "Should we ASSERT_TRUE(channel_stats-\u003eremote_rtcp-\u003eround_trip_time) as well?",
+      "range": {
+        "startLine": 337,
+        "startChar": 0,
+        "endLine": 337,
+        "endChar": 42
+      },
+      "revId": "9e935e801098637df23355aeed1b71ae3e9813da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bddde8ab_8bdc1fa8",
+        "filename": "audio/voip/test/audio_channel_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2021-01-15T21:52:35Z",
+      "side": 1,
+      "message": "Should we ASSERT_TRUE(channel_stats-\u003eremote_rtcp-\u003eround_trip_time) as well?",
+      "range": {
+        "startLine": 349,
+        "startChar": 0,
+        "endLine": 349,
+        "endChar": 42
+      },
+      "revId": "9e935e801098637df23355aeed1b71ae3e9813da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

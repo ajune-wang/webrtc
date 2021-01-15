@@ -1,0 +1,228 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0151235_d0443995",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-15T13:11:33Z",
+      "side": 1,
+      "message": "I\u0027m not familiar with the audio part, but rtp part lgtm.\n\n(and I have bunch of small style comments)",
+      "revId": "03e5c05d6c2782b83fbcc9e4538336d90a479aff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f352e081_50acfaf6",
+        "filename": "audio/voip/test/audio_channel_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-15T13:11:33Z",
+      "side": 1,
+      "message": "nit: auto*\nhttps://chromium.googlesource.com/chromium/src/+/HEAD/styleguide/c++/c++-dos-and-donts.md#do-not-use-to-deduce-a-raw-pointer\n\nbetter yet - create smart pointer right away, i.e. replace auto with rtc::scoped_refptr\u003cAudioChannel\u003e",
+      "range": {
+        "startLine": 69,
+        "startChar": 4,
+        "endLine": 69,
+        "endChar": 8
+      },
+      "revId": "03e5c05d6c2782b83fbcc9e4538336d90a479aff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e88d9d2a_8b42ce4b",
+        "filename": "audio/voip/test/audio_channel_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-15T13:11:33Z",
+      "side": 1,
+      "message": "May be it would help to be more detailed about the test scenario, something like\nRttIsAvailableAfterChangeOfRemoteSsrc\n\nhttps://testing.googleblog.com/2014/10/testing-on-toilet-writing-descriptive.html",
+      "range": {
+        "startLine": 286,
+        "startChar": 25,
+        "endLine": 286,
+        "endChar": 51
+      },
+      "revId": "03e5c05d6c2782b83fbcc9e4538336d90a479aff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a16bab30_882d0530",
+        "filename": "audio/voip/test/audio_channel_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-15T13:11:33Z",
+      "side": 1,
+      "message": "or rtc::MakeArrayView(packet, length)",
+      "range": {
+        "startLine": 297,
+        "startChar": 32,
+        "endLine": 297,
+        "endChar": 61
+      },
+      "revId": "03e5c05d6c2782b83fbcc9e4538336d90a479aff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86aa928c_d4c4144a",
+        "filename": "audio/voip/test/audio_channel_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-15T13:11:33Z",
+      "side": 1,
+      "message": "you probably mean ON_CALL(transport_, SendRtp).WillByDefault(route_rtp);\nhttps://github.com/google/googletest/blob/master/docs/gmock_cook_book.md#setting-expectations\n\n(and Invoke can be omitted: both WillRepeatedly and WillByDefault accept lambdas directly)",
+      "range": {
+        "startLine": 306,
+        "startChar": 2,
+        "endLine": 306,
+        "endChar": 13
+      },
+      "revId": "03e5c05d6c2782b83fbcc9e4538336d90a479aff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "556e7d5c_88c46229",
+        "filename": "audio/voip/test/audio_channel_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-15T13:11:33Z",
+      "side": 1,
+      "message": "ASSERT_TRUE\n(to avoid crashing test next line if this expectation won\u0027t be true)",
+      "range": {
+        "startLine": 334,
+        "startChar": 2,
+        "endLine": 334,
+        "endChar": 13
+      },
+      "revId": "03e5c05d6c2782b83fbcc9e4538336d90a479aff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6bf2a67_2be54dff",
+        "filename": "audio/voip/test/audio_channel_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-15T13:11:33Z",
+      "side": 1,
+      "message": "EXPECT_EQ(channel_stats-\u003eremote_ssrc, kAc2Ssrc);\n\nwhen comparing optional, it might be safer to avoid implicit assumption it contains value.\noperator\u003d\u003d(optional\u003cT\u003e, T) is well defined and returns false when 1st argument is nullopt.\naccessing .value() or a nullopt would crash the test.",
+      "range": {
+        "startLine": 335,
+        "startChar": 2,
+        "endLine": 335,
+        "endChar": 58
+      },
+      "revId": "03e5c05d6c2782b83fbcc9e4538336d90a479aff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8abf7115_c9ffbd1f",
+        "filename": "audio/voip/test/audio_channel_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-15T13:11:33Z",
+      "side": 1,
+      "message": "ASSERT_TRUE",
+      "range": {
+        "startLine": 336,
+        "startChar": 2,
+        "endLine": 336,
+        "endChar": 13
+      },
+      "revId": "03e5c05d6c2782b83fbcc9e4538336d90a479aff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8c9aa2c_3570a1b8",
+        "filename": "audio/voip/test/audio_channel_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-15T13:11:33Z",
+      "side": 1,
+      "message": "These two expectation can be merged into single one:\nEXPECT_GT(channel_stats-\u003eremote_rtcp-\u003eround_trip_time, 0.0);\noperator\u003e(optional\u003cT\u003e, T\u003e) is well defined: nullopt is smaller than any value of T.\n\nplus nit about the floating-point constant:\n\"Floating-point literals should always have a radix point, with digits on both sides\"\nhttps://google.github.io/styleguide/cppguide.html#Floating_Literals",
+      "range": {
+        "startLine": 337,
+        "startChar": 2,
+        "endLine": 338,
+        "endChar": 69
+      },
+      "revId": "03e5c05d6c2782b83fbcc9e4538336d90a479aff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd6e80ab_fecf1ae0",
+        "filename": "audio/voip/test/audio_channel_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-15T13:11:33Z",
+      "side": 1,
+      "message": "Why is it needed?\nYou probably mean \"consume all remaining rtcp packets without passing them to the receiver\",\n...\nright I guess you need it because receiver would be destroyed before transport_, so you need to avoid calling into it.\n\nbut again, it should be ON_CALL(transport, SendRtcp).WillByDefault(Return(true));\nbecause it doesn\u0027t matter for this test if there will be any remaining rtcp packets.",
+      "range": {
+        "startLine": 353,
+        "startChar": 0,
+        "endLine": 354,
+        "endChar": 65
+      },
+      "revId": "03e5c05d6c2782b83fbcc9e4538336d90a479aff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a3d3ef8_8cafab24",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2021-01-15T07:44:51Z",
+      "side": 1,
+      "message": "yay, great that this is now allowed!",
+      "revId": "896acd1894970cb54a67079c5e698446bbb27b3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c32846e7_307cf0be",
@@ -41,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7de90f5a_f8b54e6c",
+        "filename": "p2p/base/turn_port.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1280,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2021-01-15T07:44:51Z",
+      "side": 1,
+      "message": "I checked the code. The handling of TurnEntry seems ok.\nThough, I don\u0027t find anything preventing TurnPort from being destroyed before\nthe AsyncInvokeDelayed is scheduled.\n\nIs this ok since the invoker_ is (almost) the last member of TurnPort\nand will be destructed (almost) first ? (e.g atleast before the has of TurnEntries) ?",
+      "parentUuid": "c32846e7_307cf0be",
+      "range": {
+        "startLine": 1280,
+        "startChar": 35,
+        "endLine": 1280,
+        "endChar": 40
+      },
+      "revId": "896acd1894970cb54a67079c5e698446bbb27b3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5dc8fd1d_c09f3fa2",
@@ -54,6 +95,30 @@
       "writtenOn": "2021-01-14T12:37:08Z",
       "side": 1,
       "message": "ditto.",
+      "range": {
+        "startLine": 361,
+        "startChar": 42,
+        "endLine": 361,
+        "endChar": 50
+      },
+      "revId": "896acd1894970cb54a67079c5e698446bbb27b3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d24259c1_883bc108",
+        "filename": "p2p/stunprober/stun_prober.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2021-01-15T07:44:51Z",
+      "side": 1,
+      "message": "looked ok",
+      "parentUuid": "5dc8fd1d_c09f3fa2",
       "range": {
         "startLine": 361,
         "startChar": 42,

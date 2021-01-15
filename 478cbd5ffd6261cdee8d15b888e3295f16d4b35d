@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5cb1bd6c_4fef98e3",
+        "filename": "tools_webrtc/mb/mb.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-15T14:48:09Z",
+      "side": 1,
+      "message": "Here it looks like Chromium is using the go client instead of the python one. This is probably a requirement for CAS if I remember correctly. Is the go client a drop in replacement?",
+      "range": {
+        "startLine": 373,
+        "startChar": 0,
+        "endLine": 380,
+        "endChar": 20
+      },
+      "revId": "478cbd5ffd6261cdee8d15b888e3295f16d4b35d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

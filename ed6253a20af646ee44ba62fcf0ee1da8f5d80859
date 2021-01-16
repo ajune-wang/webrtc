@@ -87,6 +87,30 @@
       },
       "revId": "ed6253a20af646ee44ba62fcf0ee1da8f5d80859",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a98fea0_a1e6935b",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1081,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-01-16T10:51:47Z",
+      "side": 1,
+      "message": "Yes good catch. LGTM",
+      "parentUuid": "f3cb7c32_dca8e8ce",
+      "range": {
+        "startLine": 1081,
+        "startChar": 6,
+        "endLine": 1081,
+        "endChar": 24
+      },
+      "revId": "ed6253a20af646ee44ba62fcf0ee1da8f5d80859",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

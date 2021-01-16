@@ -314,7 +314,11 @@ class BaseChannel : public ChannelInterface,
   // ChannelInterface overrides
   RtpHeaderExtensions GetNegotiatedRtpHeaderExtensions() const override;
 
-  bool has_received_packet_ = false;
+ protected:
+  rtc::Thread* const worker_thread_;
+  rtc::Thread* const network_thread_;
+  rtc::Thread* const signaling_thread_;
+  rtc::scoped_refptr<webrtc::PendingTaskSafetyFlag> alive_;
 
  private:
   bool ConnectToRtpTransport();
@@ -322,16 +326,14 @@ class BaseChannel : public ChannelInterface,
   void SignalSentPacket_n(const rtc::SentPacket& sent_packet)
       RTC_RUN_ON(network_thread());
 
-  rtc::Thread* const worker_thread_;
-  rtc::Thread* const network_thread_;
-  rtc::Thread* const signaling_thread_;
-  rtc::scoped_refptr<webrtc::PendingTaskSafetyFlag> alive_;
   sigslot::signal1<ChannelInterface*> SignalFirstPacketReceived_
       RTC_GUARDED_BY(signaling_thread_);
   sigslot::signal1<const rtc::SentPacket&> SignalSentPacket_
       RTC_GUARDED_BY(worker_thread_);
 
   const std::string content_name_;
+
+  bool has_received_packet_ = false;
 
   // Won't be set when using raw packet transports. SDP-specific thing.
   // TODO(bugs.webrtc.org/12230): Written on network thread, read on

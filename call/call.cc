@@ -321,6 +321,7 @@ class Call final : public webrtc::Call,
   Clock* const clock_;
   TaskQueueFactory* const task_queue_factory_;
   TaskQueueBase* const worker_thread_;
+  TaskQueueBase* const network_thread_;
 
   const int num_cpu_cores_;
   const rtc::scoped_refptr<SharedModuleThread> module_process_thread_;
@@ -597,6 +598,8 @@ Call::Call(Clock* clock,
     : clock_(clock),
       task_queue_factory_(task_queue_factory),
       worker_thread_(GetCurrentTaskQueueOrThread()),
+      network_thread_(config.network_task_queue_ ? config.network_task_queue_
+                                                 : worker_thread_),
       num_cpu_cores_(CpuInfo::DetectNumberOfCores()),
       module_process_thread_(std::move(module_process_thread)),
       call_stats_(new CallStats(clock_, worker_thread_)),
@@ -762,6 +765,7 @@ void Call::UpdateReceiveHistograms() {
 
 PacketReceiver* Call::Receiver() {
   RTC_DCHECK_RUN_ON(worker_thread_);
+  RTC_DCHECK(network_thread_);
   return this;
 }
 
@@ -1410,6 +1414,14 @@ PacketReceiver::DeliveryStatus Call::DeliverPacket(
     MediaType media_type,
     rtc::CopyOnWriteBuffer packet,
     int64_t packet_time_us) {
+  // TODO(tommi):
+  // * Make the expectation be that this call arrives on the network thread.
+  // * As an interim step, post from here to the worker for rtp/rtcp packets.
+  // * Update callers to not Post/Invoke to the worker.
+  // * Move state over to the network thread as much as possible so that the
+  //   most critical path always runs on the network thread.
+  RTC_DCHECK(network_thread_);
+
   RTC_DCHECK_RUN_ON(worker_thread_);
 
   if (IsRtcp(packet.cdata(), packet.size()))

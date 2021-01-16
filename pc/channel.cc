@@ -526,11 +526,15 @@ void BaseChannel::OnRtpPacket(const webrtc::RtpPacketReceived& parsed_packet) {
 
   auto packet_buffer = parsed_packet.Buffer();
 
+#if 0
   invoker_.AsyncInvoke<void>(
       RTC_FROM_HERE, worker_thread_, [this, packet_buffer, packet_time_us] {
         RTC_DCHECK_RUN_ON(worker_thread());
         media_channel_->OnPacketReceived(packet_buffer, packet_time_us);
       });
+#else
+  media_channel_->OnPacketReceived(packet_buffer, packet_time_us);
+#endif
 }
 
 void BaseChannel::EnableMedia_w() {

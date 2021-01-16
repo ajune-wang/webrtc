@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f129c1c0_749f0971",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-01-16T01:29:14Z",
+      "side": 1,
+      "message": "I wrote a patch for build XCFramework for iOS. It is required to support the Simulator for M1 (Arm) Mac. PTAL.",
+      "revId": "b4caa79fc3f2410bb6d0c4c8c189048471659736",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

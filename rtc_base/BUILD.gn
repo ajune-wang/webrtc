@@ -667,12 +667,6 @@ rtc_library("rtc_json") {
   }
 }
 
-rtc_source_set("async_resolver") {
-  # TODO(bugs.webrtc.org/9987): Remove when downstream clients have
-  # been redirected on //rtc_base:threading.
-  sources = []
-}
-
 rtc_library("net_helpers") {
   sources = [
     "net_helpers.cc",
@@ -768,6 +762,8 @@ rtc_library("threading") {
   sources = [
     "async_resolver.cc",
     "async_resolver.h",
+    "deprecated/signal_thread.cc",
+    "deprecated/signal_thread.h",
     "internal/default_socket_server.cc",
     "internal/default_socket_server.h",
     "message_handler.cc",
@@ -778,9 +774,7 @@ rtc_library("threading") {
     "network_monitor_factory.h",
     "physical_socket_server.cc",
     "physical_socket_server.h",
-
-    #   "signal_thread.cc",
-    #   "signal_thread.h",
+    "signal_thread.h",
     "thread.cc",
     "thread.h",
     "thread_message.h",
@@ -791,6 +785,7 @@ rtc_library("threading") {
     ":atomicops",
     ":checks",
     ":criticalsection",
+    ":deprecation",
     ":ip_address",
     ":logging",
     ":macromagic",
@@ -971,8 +966,6 @@ rtc_library("rtc_base") {
     "crypt_string.h",
     "data_rate_limiter.cc",
     "data_rate_limiter.h",
-    "deprecated/signal_thread.cc",
-    "deprecated/signal_thread.h",
     "dscp.h",
     "file_rotating_stream.cc",
     "file_rotating_stream.h",
@@ -1009,7 +1002,6 @@ rtc_library("rtc_base") {
     "rtc_certificate.h",
     "rtc_certificate_generator.cc",
     "rtc_certificate_generator.h",
-    "signal_thread.h",
     "sigslot_repeater.h",
     "socket_adapters.cc",
     "socket_adapters.h",

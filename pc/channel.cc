@@ -157,7 +157,7 @@ BaseChannel::~BaseChannel() {
 
   // Eats any outstanding messages or packets.
   alive_->SetNotAlive();
-  worker_thread_->Clear(this);
+  signaling_thread_->Clear(this);
   // The media channel is destroyed at the end of the destructor, since it
   // is a std::unique_ptr. The transport channel (rtp_transport) must outlive
   // the media channel.
@@ -531,11 +531,15 @@ void BaseChannel::OnRtpPacket(const webrtc::RtpPacketReceived& parsed_packet) {
 
   auto packet_buffer = parsed_packet.Buffer();
 
+#if 0
   worker_thread_->PostTask(
       ToQueuedTask(alive_, [this, packet_buffer, packet_time_us] {
         RTC_DCHECK_RUN_ON(worker_thread());
         media_channel_->OnPacketReceived(packet_buffer, packet_time_us);
       }));
+#else
+  media_channel_->OnPacketReceived(packet_buffer, packet_time_us);
+#endif
 }
 
 void BaseChannel::EnableMedia_w() {

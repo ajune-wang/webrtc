@@ -1419,6 +1419,10 @@ PacketReceiver::DeliveryStatus Call::DeliverPacket(
 }
 
 void Call::OnRecoveredPacket(const uint8_t* packet, size_t length) {
+  // This is called via e.g. UlpfecReceiverImpl::ProcessReceivedFec or
+  // FlexfecReceiver::ProcessReceivedPacket which get called via
+  // Call::DeliverRtp, so ends up being on the same thread as
+  // receive_rtp_config_ is used on.
   RTC_DCHECK_RUN_ON(worker_thread_);
   RtpPacketReceived parsed_packet;
   if (!parsed_packet.Parse(packet, length))

@@ -63,6 +63,9 @@ class RtpStreamReceiverController
   // to be called on the same thread, and OnRtpPacket to be called
   // by a single, but possibly distinct, thread. But applications not
   // using Call may have use threads differently.
+  // TODO(tommi): See if methods that use the demuxer_ consistently are called
+  // on the same thread. If so, we could dynamically construct the demuxer
+  // and via sequence checkers, assume it's always used on the same thread.
   rtc::RecursiveCriticalSection lock_;
   RtpDemuxer demuxer_ RTC_GUARDED_BY(&lock_);
 };

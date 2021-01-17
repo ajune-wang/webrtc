@@ -52,6 +52,8 @@ RtpStreamReceiverController::CreateReceiver(uint32_t ssrc,
 }
 
 bool RtpStreamReceiverController::OnRtpPacket(const RtpPacketReceived& packet) {
+  // TODO(tommi): Expect this to be called on the network thread (currently
+  // worker.)
   rtc::CritScope cs(&lock_);
   return demuxer_.OnRtpPacket(packet);
 }

@@ -42,6 +42,8 @@ UlpfecReceiverImpl::~UlpfecReceiverImpl() {
 }
 
 FecPacketCounter UlpfecReceiverImpl::GetPacketCounter() const {
+  // TODO(tommi): We should be able to avoid a lock here if all methods are
+  // called on the same thread.
   MutexLock lock(&mutex_);
   return packet_counter_;
 }
@@ -77,6 +79,9 @@ FecPacketCounter UlpfecReceiverImpl::GetPacketCounter() const {
 bool UlpfecReceiverImpl::AddReceivedRedPacket(
     const RtpPacketReceived& rtp_packet,
     uint8_t ulpfec_payload_type) {
+  // TODO(tommi): We get here via Call::DeliverRtp, so should be moved to the
+  // network thread.
+
   if (rtp_packet.Ssrc() != ssrc_) {
     RTC_LOG(LS_WARNING)
         << "Received RED packet with different SSRC than expected; dropping.";
@@ -151,6 +156,8 @@ bool UlpfecReceiverImpl::AddReceivedRedPacket(
 
 // TODO(nisse): Drop always-zero return value.
 int32_t UlpfecReceiverImpl::ProcessReceivedFec() {
+  // TODO(tommi): We get here via Call::DeliverRtp, so should be moved to the
+  // network thread.
   mutex_.Lock();
 
   // If we iterate over |received_packets_| and it contains a packet that cause

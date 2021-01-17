@@ -52,18 +52,23 @@ RtpStreamReceiverController::CreateReceiver(uint32_t ssrc,
 }
 
 bool RtpStreamReceiverController::OnRtpPacket(const RtpPacketReceived& packet) {
+  RTC_DCHECK_RUN_ON(&demuxer_sequence_);
+  // TODO(tommi): Expect this to be called on the network thread (currently
+  // worker.)
   rtc::CritScope cs(&lock_);
   return demuxer_.OnRtpPacket(packet);
 }
 
 bool RtpStreamReceiverController::AddSink(uint32_t ssrc,
                                           RtpPacketSinkInterface* sink) {
+  RTC_DCHECK_RUN_ON(&demuxer_sequence_);
   rtc::CritScope cs(&lock_);
   return demuxer_.AddSink(ssrc, sink);
 }
 
 size_t RtpStreamReceiverController::RemoveSink(
     const RtpPacketSinkInterface* sink) {
+  RTC_DCHECK_RUN_ON(&demuxer_sequence_);
   rtc::CritScope cs(&lock_);
   return demuxer_.RemoveSink(sink);
 }

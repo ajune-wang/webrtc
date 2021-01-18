@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95a0ef11_ce6ef82c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-18T10:53:00Z",
+      "side": 1,
+      "message": "Let\u0027s change this to be \"callback list\".",
+      "range": {
+        "startLine": 7,
+        "startChar": 29,
+        "endLine": 7,
+        "endChar": 39
+      },
+      "revId": "a70bf7257d0d7e00915c65c6c01a946a5a49ef88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "54280523_0193ef74",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-18T10:53:00Z",
+      "side": 1,
+      "message": "Nice work. Just a few comments but overall this looks fine.",
+      "revId": "a70bf7257d0d7e00915c65c6c01a946a5a49ef88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a33230a1_bd575a47",
+        "filename": "p2p/BUILD.gn",
+        "patchSetId": 13
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-18T10:53:00Z",
+      "side": 1,
+      "message": "Why do we need this here?\n\nThe CL only changes code in pc/ so I would expect a change to pc/BUILD.gn but it is probably already there: https://source.chromium.org/search?q\u003d%22callback_list%22%20f:pc%2FBUILD.gn\u0026sq\u003d\u0026ss\u003dchromium.",
+      "range": {
+        "startLine": 99,
+        "startChar": 4,
+        "endLine": 99,
+        "endChar": 32
+      },
+      "revId": "a70bf7257d0d7e00915c65c6c01a946a5a49ef88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3140885_95b47979",
+        "filename": "pc/jsep_transport_controller.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-18T10:53:00Z",
+      "side": 1,
+      "message": "The style for comments in WebRTC is //, let\u0027s change this to be:\n\n// F: void(const std::string\u0026, const std::vector\u003ccricket::Candidate\u003e\u0026)",
+      "range": {
+        "startLine": 197,
+        "startChar": 2,
+        "endLine": 199,
+        "endChar": 5
+      },
+      "revId": "a70bf7257d0d7e00915c65c6c01a946a5a49ef88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43bd666b_87410adf",
+        "filename": "pc/jsep_transport_controller.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-18T10:53:00Z",
+      "side": 1,
+      "message": "We might even change this to \"callbacks\".",
+      "range": {
+        "startLine": 263,
+        "startChar": 18,
+        "endLine": 263,
+        "endChar": 25
+      },
+      "revId": "a70bf7257d0d7e00915c65c6c01a946a5a49ef88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52b94315_157b7cc0",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-18T10:53:00Z",
+      "side": 1,
+      "message": "remove \"not\"?",
+      "range": {
+        "startLine": 614,
+        "startChar": 49,
+        "endLine": 614,
+        "endChar": 52
+      },
+      "revId": "a70bf7257d0d7e00915c65c6c01a946a5a49ef88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2065ac1_28a978f6",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-18T10:53:00Z",
+      "side": 1,
+      "message": "This bug doesn\u0027t exits, wrong number?\n\nI suggest we do something like:\n\n  // TODO(bugs.webrtc.org/XXX): ...\n\nWhere XXX is the bug number.",
+      "range": {
+        "startLine": 616,
+        "startChar": 36,
+        "endLine": 616,
+        "endChar": 49
+      },
+      "revId": "a70bf7257d0d7e00915c65c6c01a946a5a49ef88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

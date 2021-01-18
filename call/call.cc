@@ -265,9 +265,10 @@ class Call final : public webrtc::Call,
   const WebRtcKeyValueConfig& trials() const override;
 
   // Implements PacketReceiver.
-  DeliveryStatus DeliverPacket(MediaType media_type,
-                               rtc::CopyOnWriteBuffer packet,
-                               int64_t packet_time_us) override;
+  void DeliverPacket(MediaType media_type,
+                     rtc::CopyOnWriteBuffer packet,
+                     int64_t packet_time_us,
+                     PacketReceiver::PacketCallback callback) override;
 
   // Implements RecoveredPacketReceiver.
   void OnRecoveredPacket(const uint8_t* packet, size_t length) override;
@@ -1406,16 +1407,19 @@ PacketReceiver::DeliveryStatus Call::DeliverRtp(MediaType media_type,
   return DELIVERY_UNKNOWN_SSRC;
 }
 
-PacketReceiver::DeliveryStatus Call::DeliverPacket(
-    MediaType media_type,
-    rtc::CopyOnWriteBuffer packet,
-    int64_t packet_time_us) {
+void Call::DeliverPacket(MediaType media_type,
+                         rtc::CopyOnWriteBuffer packet,
+                         int64_t packet_time_us,
+                         PacketReceiver::PacketCallback callback) {
   RTC_DCHECK_RUN_ON(worker_thread_);
 
-  if (IsRtcp(packet.cdata(), packet.size()))
-    return DeliverRtcp(media_type, packet.cdata(), packet.size());
+  PacketReceiver::DeliveryStatus status =
+      IsRtcp(packet.cdata(), packet.size())
+          ? DeliverRtcp(media_type, packet.cdata(), packet.size())
+          : DeliverRtp(media_type, packet, packet_time_us);
 
-  return DeliverRtp(media_type, std::move(packet), packet_time_us);
+  if (callback)
+    callback(status, media_type, std::move(packet), packet_time_us);
 }
 
 void Call::OnRecoveredPacket(const uint8_t* packet, size_t length) {

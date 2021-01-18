@@ -2589,7 +2589,8 @@ PeerConnection::InitializeRtcpCallback() {
     worker_thread()->PostTask(ToQueuedTask(flag, [this, packet,
                                                   packet_time_us] {
       RTC_DCHECK_RUN_ON(worker_thread());
-      call_->Receiver()->DeliverPacket(MediaType::ANY, packet, packet_time_us);
+      call_->Receiver()->DeliverPacket(MediaType::ANY, packet, packet_time_us,
+                                       nullptr);
     }));
   };
 }

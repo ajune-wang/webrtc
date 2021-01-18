@@ -82,7 +82,7 @@ void DirectTransport::SendPacket(const uint8_t* data, size_t length) {
   MediaType media_type = demuxer_.GetMediaType(data, length);
   int64_t send_time_us = rtc::TimeMicros();
   fake_network_->DeliverPacket(media_type, rtc::CopyOnWriteBuffer(data, length),
-                               send_time_us);
+                               send_time_us, nullptr);
   MutexLock lock(&process_lock_);
   if (!next_process_task_.Running())
     ProcessPackets();

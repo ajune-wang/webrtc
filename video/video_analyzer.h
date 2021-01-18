@@ -67,9 +67,10 @@ class VideoAnalyzer : public PacketReceiver,
   rtc::VideoSinkInterface<VideoFrame>* InputInterface();
   rtc::VideoSourceInterface<VideoFrame>* OutputInterface();
 
-  DeliveryStatus DeliverPacket(MediaType media_type,
-                               rtc::CopyOnWriteBuffer packet,
-                               int64_t packet_time_us) override;
+  void DeliverPacket(MediaType media_type,
+                     rtc::CopyOnWriteBuffer packet,
+                     int64_t packet_time_us,
+                     PacketReceiver::PacketCallback callback) override;
 
   void PreEncodeOnFrame(const VideoFrame& video_frame);
   void PostEncodeOnFrame(size_t stream_id, uint32_t timestamp);

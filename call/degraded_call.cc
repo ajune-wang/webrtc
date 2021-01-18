@@ -290,12 +290,12 @@ void DegradedCall::OnSentPacket(const rtc::SentPacket& sent_packet) {
   call_->OnSentPacket(sent_packet);
 }
 
-PacketReceiver::DeliveryStatus DegradedCall::DeliverPacket(
-    MediaType media_type,
-    rtc::CopyOnWriteBuffer packet,
-    int64_t packet_time_us) {
-  PacketReceiver::DeliveryStatus status = receive_pipe_->DeliverPacket(
-      media_type, std::move(packet), packet_time_us);
+void DegradedCall::DeliverPacket(MediaType media_type,
+                                 rtc::CopyOnWriteBuffer packet,
+                                 int64_t packet_time_us,
+                                 PacketReceiver::PacketCallback callback) {
+  receive_pipe_->DeliverPacket(media_type, std::move(packet), packet_time_us,
+                               std::move(callback));
   // This is not optimal, but there are many places where there are thread
   // checks that fail if we're not using the worker thread call into this
   // method. If we want to fix this we probably need a task queue to do handover
@@ -305,6 +305,5 @@ PacketReceiver::DeliveryStatus DegradedCall::DeliverPacket(
   // that, with the tradeoff that a non-zero delay may become a little larger
   // than anticipated at very low packet rates.
   receive_pipe_->Process();
-  return status;
 }
 }  // namespace webrtc

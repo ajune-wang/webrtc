@@ -1417,7 +1417,7 @@ class WebRtcVideoChannelEncodedFrameCallbackTest : public ::testing::Test {
     memset(buf_ptr, 0, 11);  // Pass MSAN (don't care about bytes 1-9)
     buf_ptr[0] = 0x10;       // Partition ID 0 + beginning of partition.
     call_->Receiver()->DeliverPacket(webrtc::MediaType::VIDEO, packet.Buffer(),
-                                     /*packet_time_us=*/0);
+                                     /*packet_time_us=*/0, nullptr);
   }
 
   void DeliverKeyFrameAndWait(uint32_t ssrc) {

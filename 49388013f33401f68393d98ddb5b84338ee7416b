@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "657e13cb_053790b1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-18T10:51:06Z",
+      "side": 1,
+      "message": "Follow up of the https://webrtc-review.googlesource.com/c/src/+/201731\n(downstream project updated not to rely on the internal header,\nnow would like to remove leaking that header from the api before anyone else started using it)",
+      "revId": "49388013f33401f68393d98ddb5b84338ee7416b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

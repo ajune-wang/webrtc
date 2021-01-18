@@ -61,6 +61,10 @@ RTC_POP_IGNORING_WUNDEF()
 #endif
 
 namespace cricket {
+
+using rtc::CopyOnWriteBuffer;
+using webrtc::PacketReceiver;
+
 namespace {
 
 constexpr size_t kMaxUnsignaledRecvStreams = 4;
@@ -2208,67 +2212,74 @@ bool WebRtcVoiceMediaChannel::InsertDtmf(uint32_t ssrc,
                                         event, duration);
 }
 
-void WebRtcVoiceMediaChannel::OnPacketReceived(rtc::CopyOnWriteBuffer packet,
+void WebRtcVoiceMediaChannel::OnPacketReceived(CopyOnWriteBuffer packet,
                                                int64_t packet_time_us) {
   RTC_DCHECK(worker_thread_checker_.IsCurrent());
 
-  webrtc::PacketReceiver::DeliveryStatus delivery_result =
-      call_->Receiver()->DeliverPacket(webrtc::MediaType::AUDIO, packet,
-                                       packet_time_us);
+  call_->Receiver()->DeliverPacket(
+      webrtc::MediaType::AUDIO, packet, packet_time_us,
+      [this](PacketReceiver::DeliveryStatus status,
+             webrtc::MediaType media_type, CopyOnWriteBuffer packet,
+             int64_t packet_time_us) {
+        // TODO(tommi): Use 'alive' flag to avoid uaf.
+        RTC_DCHECK(worker_thread_checker_.IsCurrent());
+        if (status != PacketReceiver::DELIVERY_UNKNOWN_SSRC)
+          return;
 
-  if (delivery_result != webrtc::PacketReceiver::DELIVERY_UNKNOWN_SSRC) {
-    return;
-  }
+        // Create an unsignaled receive stream for this previously not received
+        // ssrc. If there already is N unsignaled receive streams, delete the
+        // oldest. See: https://bugs.chromium.org/p/webrtc/issues/detail?id=5208
+        uint32_t ssrc = 0;
+        if (!GetRtpSsrc(packet.cdata(), packet.size(), &ssrc))
+          return;
 
-  // Create an unsignaled receive stream for this previously not received ssrc.
-  // If there already is N unsignaled receive streams, delete the oldest.
-  // See: https://bugs.chromium.org/p/webrtc/issues/detail?id=5208
-  uint32_t ssrc = 0;
-  if (!GetRtpSsrc(packet.cdata(), packet.size(), &ssrc)) {
-    return;
-  }
-  RTC_DCHECK(!absl::c_linear_search(unsignaled_recv_ssrcs_, ssrc));
+        RTC_DCHECK(!absl::c_linear_search(unsignaled_recv_ssrcs_, ssrc));
 
-  // Add new stream.
-  StreamParams sp = unsignaled_stream_params_;
-  sp.ssrcs.push_back(ssrc);
-  RTC_LOG(LS_INFO) << "Creating unsignaled receive stream for SSRC=" << ssrc;
-  if (!AddRecvStream(sp)) {
-    RTC_LOG(LS_WARNING) << "Could not create unsignaled receive stream.";
-    return;
-  }
-  unsignaled_recv_ssrcs_.push_back(ssrc);
-  RTC_HISTOGRAM_COUNTS_LINEAR("WebRTC.Audio.NumOfUnsignaledStreams",
-                              unsignaled_recv_ssrcs_.size(), 1, 100, 101);
+        // Add new stream.
+        StreamParams sp = unsignaled_stream_params_;
+        sp.ssrcs.push_back(ssrc);
+        RTC_LOG(LS_INFO) << "Creating unsignaled receive stream for SSRC="
+                         << ssrc;
+        if (!AddRecvStream(sp)) {
+          RTC_LOG(LS_WARNING) << "Could not create unsignaled receive stream.";
+          return;
+        }
+        unsignaled_recv_ssrcs_.push_back(ssrc);
+        RTC_HISTOGRAM_COUNTS_LINEAR("WebRTC.Audio.NumOfUnsignaledStreams",
+                                    unsignaled_recv_ssrcs_.size(), 1, 100, 101);
 
-  // Remove oldest unsignaled stream, if we have too many.
-  if (unsignaled_recv_ssrcs_.size() > kMaxUnsignaledRecvStreams) {
-    uint32_t remove_ssrc = unsignaled_recv_ssrcs_.front();
-    RTC_DLOG(LS_INFO) << "Removing unsignaled receive stream with SSRC="
-                      << remove_ssrc;
-    RemoveRecvStream(remove_ssrc);
-  }
-  RTC_DCHECK_GE(kMaxUnsignaledRecvStreams, unsignaled_recv_ssrcs_.size());
+        // Remove oldest unsignaled stream, if we have too many.
+        if (unsignaled_recv_ssrcs_.size() > kMaxUnsignaledRecvStreams) {
+          uint32_t remove_ssrc = unsignaled_recv_ssrcs_.front();
+          RTC_DLOG(LS_INFO)
+              << "Removing unsignaled receive stream with SSRC=" << remove_ssrc;
+          RemoveRecvStream(remove_ssrc);
+        }
+        RTC_DCHECK_GE(kMaxUnsignaledRecvStreams, unsignaled_recv_ssrcs_.size());
 
-  SetOutputVolume(ssrc, default_recv_volume_);
-  SetBaseMinimumPlayoutDelayMs(ssrc, default_recv_base_minimum_delay_ms_);
+        SetOutputVolume(ssrc, default_recv_volume_);
+        SetBaseMinimumPlayoutDelayMs(ssrc, default_recv_base_minimum_delay_ms_);
 
-  // The default sink can only be attached to one stream at a time, so we hook
-  // it up to the *latest* unsignaled stream we've seen, in order to support the
-  // case where the SSRC of one unsignaled stream changes.
-  if (default_sink_) {
-    for (uint32_t drop_ssrc : unsignaled_recv_ssrcs_) {
-      auto it = recv_streams_.find(drop_ssrc);
-      it->second->SetRawAudioSink(nullptr);
-    }
-    std::unique_ptr<webrtc::AudioSinkInterface> proxy_sink(
-        new ProxySink(default_sink_.get()));
-    SetRawAudioSink(ssrc, std::move(proxy_sink));
-  }
+        // The default sink can only be attached to one stream at a time, so we
+        // hook it up to the *latest* unsignaled stream we've seen, in order to
+        // support the case where the SSRC of one unsignaled stream changes.
+        if (default_sink_) {
+          for (uint32_t drop_ssrc : unsignaled_recv_ssrcs_) {
+            auto it = recv_streams_.find(drop_ssrc);
+            it->second->SetRawAudioSink(nullptr);
+          }
+          std::unique_ptr<webrtc::AudioSinkInterface> proxy_sink(
+              new ProxySink(default_sink_.get()));
+          SetRawAudioSink(ssrc, std::move(proxy_sink));
+        }
 
-  delivery_result = call_->Receiver()->DeliverPacket(webrtc::MediaType::AUDIO,
-                                                     packet, packet_time_us);
-  RTC_DCHECK_NE(webrtc::PacketReceiver::DELIVERY_UNKNOWN_SSRC, delivery_result);
+        call_->Receiver()->DeliverPacket(
+            webrtc::MediaType::AUDIO, packet, packet_time_us,
+            [](PacketReceiver::DeliveryStatus status, webrtc::MediaType,
+               CopyOnWriteBuffer, int64_t) {
+              RTC_DCHECK_NE(PacketReceiver::DELIVERY_UNKNOWN_SSRC, status);
+            });
+      });
 }
 
 void WebRtcVoiceMediaChannel::OnNetworkRouteChanged(

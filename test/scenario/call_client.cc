@@ -301,7 +301,7 @@ void CallClient::OnPacketReceived(EmulatedIpPacket packet) {
   task_queue_.PostTask(
       [call = call_.get(), media_type, packet = std::move(packet)]() mutable {
         call->Receiver()->DeliverPacket(media_type, packet.data,
-                                        packet.arrival_time.us());
+                                        packet.arrival_time.us(), nullptr);
       });
 }
 

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc25be7b_fcb1907e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-01-18T15:46:18Z",
+      "side": 1,
+      "message": "Nice! Discussed this just the other day, in the context of https://webrtc-review.googlesource.com/c/src/+/201722",
+      "revId": "5836efae1fd3cc703fa8024ee1b52567c6009a50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

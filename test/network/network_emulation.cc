@@ -16,7 +16,6 @@
 
 #include "api/numerics/samples_stats_counter.h"
 #include "api/units/data_size.h"
-#include "rtc_base/bind.h"
 #include "rtc_base/logging.h"
 
 namespace webrtc {

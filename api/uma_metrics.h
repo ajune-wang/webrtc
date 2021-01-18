@@ -167,6 +167,23 @@ enum SimulcastApiVersion {
   kSimulcastApiVersionMax
 };
 
+// Metrics for reporting usage of BUNDLE. There are five cases:
+// 1/ bundle is not negotiated,
+// 2/ bundle is not negotiated and there are multiple m-lines per media type,
+// 3/ bundle is negotiated but there is only a single m-lines per media type,
+// 4/ bundle is negotiated and there are multiple m-lines per media type,
+// 5/ only a data channel is negotiated. BUNDLE is not relevant.
+// These values are persisted to logs. Entries should not be renumbered and
+// numeric values should never be reused.
+enum BundleUsage {
+  kBundleUsageNoBundle = 0,
+  kBundleUsageNoBundleComplex = 1,
+  kBundleUsageBundleSimple = 2,
+  kBundleUsageBundleComplex = 3,
+  kBundleUsageDatachannelOnly = 4,
+  kBundleUsageMax
+};
+
 // When adding new metrics please consider using the style described in
 // https://chromium.googlesource.com/chromium/src.git/+/HEAD/tools/metrics/histograms/README.md#usage
 // instead of the legacy enums used above.

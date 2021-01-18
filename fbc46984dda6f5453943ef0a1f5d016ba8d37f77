@@ -16,6 +16,40 @@
       "message": "LGTM % testing works fine. :) ",
       "revId": "fbc46984dda6f5453943ef0a1f5d016ba8d37f77",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbd390ca_9e3c6915",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-18T14:20:21Z",
+      "side": 1,
+      "message": "LGTM, only grammar nits.\n",
+      "revId": "fbc46984dda6f5453943ef0a1f5d016ba8d37f77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c16abf15_32184102",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-18T14:20:21Z",
+      "side": 1,
+      "message": "Grammar nits: \"The following DCHECKs are added by looking at the caller thread.\nIf this is incorrect, there might still not be test failures.....\"",
+      "revId": "fbc46984dda6f5453943ef0a1f5d016ba8d37f77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

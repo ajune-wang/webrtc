@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41e08189_445c843d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-18T12:40:27Z",
+      "side": 1,
+      "message": "LGTM % testing works fine. :) ",
+      "revId": "fbc46984dda6f5453943ef0a1f5d016ba8d37f77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

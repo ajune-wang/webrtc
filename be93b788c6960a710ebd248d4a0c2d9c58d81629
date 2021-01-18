@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83b97e90_ff9d2c2c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 11540
+      },
+      "writtenOn": "2021-01-18T08:20:10Z",
+      "side": 1,
+      "message": "Bug: https://crbug.com/webrtc/12360",
+      "revId": "be93b788c6960a710ebd248d4a0c2d9c58d81629",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

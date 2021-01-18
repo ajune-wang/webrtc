@@ -12,6 +12,8 @@
 #define SDK_ANDROID_SRC_JNI_ANDROID_NETWORK_MONITOR_H_
 
 #include <stdint.h>
+
+#include <functional>
 #include <map>
 #include <string>
 #include <vector>
@@ -67,7 +69,8 @@ class AndroidNetworkMonitor : public rtc::NetworkMonitorInterface,
                               public rtc::NetworkBinderInterface {
  public:
   AndroidNetworkMonitor(JNIEnv* env,
-                        const JavaRef<jobject>& j_application_context);
+                        const JavaRef<jobject>& j_application_context,
+                        std::function<void()> on_networks_changed);
   ~AndroidNetworkMonitor() override;
 
   // TODO(sakal): Remove once down stream dependencies have been updated.
@@ -115,6 +118,7 @@ class AndroidNetworkMonitor : public rtc::NetworkMonitorInterface,
                              rtc::NetworkPreference preference);
 
   const int android_sdk_int_;
+  const std::function<void()> on_networks_changed_;
   ScopedJavaGlobalRef<jobject> j_application_context_;
   ScopedJavaGlobalRef<jobject> j_network_monitor_;
   rtc::Thread* network_thread_;
@@ -145,7 +149,8 @@ class AndroidNetworkMonitorFactory : public rtc::NetworkMonitorFactory {
 
   ~AndroidNetworkMonitorFactory() override;
 
-  rtc::NetworkMonitorInterface* CreateNetworkMonitor() override;
+  std::unique_ptr<rtc::NetworkMonitorInterface> CreateNetworkMonitor(
+      std::function<void()> on_networks_changed) override;
 
  private:
   ScopedJavaGlobalRef<jobject> j_application_context_;

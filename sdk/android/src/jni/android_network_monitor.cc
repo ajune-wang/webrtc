@@ -224,8 +224,10 @@ std::string NetworkInformation::ToString() const {
 
 AndroidNetworkMonitor::AndroidNetworkMonitor(
     JNIEnv* env,
-    const JavaRef<jobject>& j_application_context)
+    const JavaRef<jobject>& j_application_context,
+    std::function<void()> on_networks_changed)
     : android_sdk_int_(Java_NetworkMonitor_androidSdkInt(env)),
+      on_networks_changed_(std::move(on_networks_changed)),
       j_application_context_(env, j_application_context),
       j_network_monitor_(env, Java_NetworkMonitor_getInstance(env)),
       network_thread_(rtc::Thread::Current()) {}
@@ -393,7 +395,7 @@ void AndroidNetworkMonitor::OnNetworkConnected_n(
   for (const rtc::IPAddress& address : network_info.ip_addresses) {
     network_handle_by_address_[address] = network_info.handle;
   }
-  SignalNetworksChanged();
+  on_networks_changed_();
 }
 
 absl::optional<NetworkHandle>
@@ -443,7 +445,7 @@ void AndroidNetworkMonitor::OnNetworkPreference_n(
                    << rtc::NetworkPreferenceToString(preference);
   auto adapter_type = AdapterTypeFromNetworkType(type, surface_cellular_types_);
   network_preference_by_adapter_type_[adapter_type] = preference;
-  SignalNetworksChanged();
+  on_networks_changed_();
 }
 
 void AndroidNetworkMonitor::SetNetworkInfos(
@@ -515,10 +517,12 @@ AndroidNetworkMonitorFactory::AndroidNetworkMonitorFactory(
 
 AndroidNetworkMonitorFactory::~AndroidNetworkMonitorFactory() = default;
 
-rtc::NetworkMonitorInterface*
-AndroidNetworkMonitorFactory::CreateNetworkMonitor() {
-  return new AndroidNetworkMonitor(AttachCurrentThreadIfNeeded(),
-                                   j_application_context_);
+std::unique_ptr<rtc::NetworkMonitorInterface>
+AndroidNetworkMonitorFactory::CreateNetworkMonitor(
+    std::function<void()> on_networks_changed) {
+  return std::make_unique<AndroidNetworkMonitor>(
+      AttachCurrentThreadIfNeeded(), j_application_context_,
+      std::move(on_networks_changed));
 }
 
 void AndroidNetworkMonitor::NotifyConnectionTypeChanged(
@@ -527,7 +531,7 @@ void AndroidNetworkMonitor::NotifyConnectionTypeChanged(
   invoker_.AsyncInvoke<void>(RTC_FROM_HERE, network_thread_, [this] {
     RTC_LOG(LS_INFO)
         << "Android network monitor detected connection type change.";
-    SignalNetworksChanged();
+    on_networks_changed_();
   });
 }
 

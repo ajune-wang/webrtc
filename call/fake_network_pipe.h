@@ -143,9 +143,10 @@ class FakeNetworkPipe : public SimulatedPacketReceiverInterface {
   // SetReceiver(), without passing through a Demuxer. The receive time
   // will be increased by the amount of time the packet spent in the
   // fake network pipe.
-  PacketReceiver::DeliveryStatus DeliverPacket(MediaType media_type,
-                                               rtc::CopyOnWriteBuffer packet,
-                                               int64_t packet_time_us) override;
+  void DeliverPacket(MediaType media_type,
+                     rtc::CopyOnWriteBuffer packet,
+                     int64_t packet_time_us,
+                     PacketCallback callback) override;
 
   // TODO(bugs.webrtc.org/9584): Needed to inherit the alternative signature for
   // this method.

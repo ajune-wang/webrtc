@@ -28,9 +28,29 @@ class PacketReceiver {
     DELIVERY_PACKET_ERROR,
   };
 
-  virtual DeliveryStatus DeliverPacket(MediaType media_type,
-                                       rtc::CopyOnWriteBuffer packet,
-                                       int64_t packet_time_us) = 0;
+  // Definition of the callback to execute when packet delivery is complete.
+  // The callback will be issued on the same thread as called DeliverPacket.
+  typedef std::function<void(DeliveryStatus,
+                             MediaType media_type,
+                             rtc::CopyOnWriteBuffer packet,
+                             int64_t packet_time_us)>
+      PacketCallback;
+
+  // Asynchronously handle packet delivery and report back to the caller when
+  // delivery of the packet has completed.
+  // Note that if the packet is invalid or can be processed without the need of
+  // asynchronous operations that the |callback| may have been called before
+  // the function returns.
+  // TODO(bugs.webrtc.org/11993): This function is meant to be called on the
+  // network thread exclusively but while the code is being updated to align
+  // with those goals, it may be called either on the worker or network threads.
+  // Update docs etc when the work has been completed. Once we're done with the
+  // updates, we might be able to go back to returning the status from this
+  // function instead of having to report it via a callback.
+  virtual void DeliverPacket(MediaType media_type,
+                             rtc::CopyOnWriteBuffer packet,
+                             int64_t packet_time_us,
+                             PacketCallback callback) = 0;
 
  protected:
   virtual ~PacketReceiver() {}

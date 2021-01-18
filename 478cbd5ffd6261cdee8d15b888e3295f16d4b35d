@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6bfcab1e_cf5e6481",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15909
+      },
+      "writtenOn": "2021-01-18T00:12:41Z",
+      "side": 1,
+      "message": "Thank you for working on this.",
+      "revId": "478cbd5ffd6261cdee8d15b888e3295f16d4b35d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5cb1bd6c_4fef98e3",
@@ -62,6 +79,30 @@
       "side": 1,
       "message": "I am working on it, just some tests failing... I will upload on Monday.",
       "parentUuid": "82eef17a_1036dd13",
+      "range": {
+        "startLine": 373,
+        "startChar": 0,
+        "endLine": 380,
+        "endChar": 20
+      },
+      "revId": "478cbd5ffd6261cdee8d15b888e3295f16d4b35d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46249d36_d2ca2108",
+        "filename": "tools_webrtc/mb/mb.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 15909
+      },
+      "writtenOn": "2021-01-18T00:12:41Z",
+      "side": 1,
+      "message": "Yes, you need to use the Go swarming, which has CAS support.\nLet me know if you have questions.",
+      "parentUuid": "d4879904_a4f73a58",
       "range": {
         "startLine": 373,
         "startChar": 0,

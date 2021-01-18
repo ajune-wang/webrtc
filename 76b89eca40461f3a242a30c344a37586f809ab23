@@ -16,6 +16,24 @@
       "message": "Looks good.\n\nImplementing this in SEA leaves other wrappers out of scope. What is used on Web, SEA or libvpx-multires?",
       "revId": "76b89eca40461f3a242a30c344a37586f809ab23",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d1bea11_020de0e5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-01-18T18:22:11Z",
+      "side": 1,
+      "message": "In Chrome SEA is used, but if no hardware codecs are available then it will just pass through to libvpx. So that should be covered by the fix on l757.",
+      "parentUuid": "9e395048_511937fa",
+      "revId": "76b89eca40461f3a242a30c344a37586f809ab23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

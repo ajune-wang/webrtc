@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "73dc1d45_5c312abc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-01-18T10:42:46Z",
+      "side": 1,
+      "message": "re-reading code after a while always shows so many things...",
+      "revId": "c0135fecbf3af8564a14e2714963d2ffe6a04b1c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

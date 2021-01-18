@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46c9b55f_eadc0024",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-18T12:26:52Z",
+      "side": 1,
+      "message": "Probably (hopefully) a no-op CL but internally defined macros should be prefixed.",
+      "revId": "9ad0f4112ce72dfb9672e2d2315f451bd27e5f04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

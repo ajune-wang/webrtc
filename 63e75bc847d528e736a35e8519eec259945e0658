@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b04f8d4_eb44ceaa",
+        "filename": "api/uma_metrics.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5603
+      },
+      "writtenOn": "2021-01-18T19:18:08Z",
+      "side": 1,
+      "message": "should we have no-bundle simple as well (and no-bundle datachannel only)?",
+      "revId": "63e75bc847d528e736a35e8519eec259945e0658",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

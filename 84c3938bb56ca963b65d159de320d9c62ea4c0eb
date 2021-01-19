@@ -16,6 +16,23 @@
       "message": "Changing into a switch to enable the feature.",
       "revId": "84c3938bb56ca963b65d159de320d9c62ea4c0eb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e67b096_b4c96dd4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-01-19T14:56:10Z",
+      "side": 1,
+      "message": "lgtm",
+      "revId": "84c3938bb56ca963b65d159de320d9c62ea4c0eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

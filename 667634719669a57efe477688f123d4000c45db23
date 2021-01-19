@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05cfe90b_dcf74f11",
+        "filename": "call/call.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1448,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-01-19T08:52:04Z",
+      "side": 1,
+      "message": "Longer term, I would like to handle unsignalled ssrcs as a callback from the RtpDemuxer. VideoEngine should somehow register video payload types it is willing to handle, and get a callback for packets matching those payload types but not matching any other registered demux criteria, in particular no known ssrc. \n\nAnd Call ideally shouldn\u0027t be on the per-packet path at all.",
+      "range": {
+        "startLine": 1442,
+        "startChar": 0,
+        "endLine": 1448,
+        "endChar": 9
+      },
+      "revId": "667634719669a57efe477688f123d4000c45db23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb732a07_5860004d",
+        "filename": "call/packet_receiver.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-01-19T08:52:04Z",
+      "side": 1,
+      "message": "Do we have to expose this convenience alias in the public interface of this class? See totw/137. \n\nI would expect users to just pass in a lambda, and rely on implicit conversion to the appropriate std::function type?",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 21
+      },
+      "revId": "667634719669a57efe477688f123d4000c45db23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

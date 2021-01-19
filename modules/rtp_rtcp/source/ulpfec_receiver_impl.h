@@ -23,6 +23,8 @@
 #include "modules/rtp_rtcp/source/forward_error_correction.h"
 #include "modules/rtp_rtcp/source/rtp_packet_received.h"
 #include "rtc_base/synchronization/mutex.h"
+#include "rtc_base/synchronization/sequence_checker.h"
+#include "rtc_base/system/no_unique_address.h"
 
 namespace webrtc {
 
@@ -44,6 +46,7 @@ class UlpfecReceiverImpl : public UlpfecReceiver {
   const uint32_t ssrc_;
   const RtpHeaderExtensionMap extensions_;
 
+  RTC_NO_UNIQUE_ADDRESS SequenceChecker sequence_checker_;
   mutable Mutex mutex_;
   RecoveredPacketReceiver* recovered_packet_callback_;
   std::unique_ptr<ForwardErrorCorrection> fec_;

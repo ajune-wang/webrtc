@@ -141,6 +141,30 @@
       },
       "revId": "667634719669a57efe477688f123d4000c45db23",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf97108b_58a1c6e7",
+        "filename": "call/packet_receiver.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-01-19T11:29:47Z",
+      "side": 1,
+      "message": "It\u0027s in internal lambdas too unfortunately. However I hope that this won\u0027t be how things will look long term so chances are that we\u0027ll be able to get rid of the callback and the type eventually.",
+      "parentUuid": "018b3253_6d715cd9",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 21
+      },
+      "revId": "667634719669a57efe477688f123d4000c45db23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

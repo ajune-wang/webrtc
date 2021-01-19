@@ -50,6 +50,24 @@
       "message": "why does it make sense to process messages for the current thread here?\nNot sure what the test setup is - this would only make sense if the test has the current thread as the channel_-\u003e\u0026thread_checker_; even if so, we should process those messages via that thread reference for clarity.",
       "revId": "817d74f913c13901e92da3caaeaaae3c753cc41e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "003313b0_06cffba6",
+        "filename": "media/engine/webrtc_video_engine_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 6137,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-01-19T13:23:12Z",
+      "side": 1,
+      "message": "These tests use the current thread for both the network and worker thread (and \"current\" is used for both). So whatever gets posted asynchronously to either needs to be specifically flushed since the test runs on that thread and there\u0027s no loop to take care of things.",
+      "parentUuid": "cb634a44_d28efbf9",
+      "revId": "817d74f913c13901e92da3caaeaaae3c753cc41e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

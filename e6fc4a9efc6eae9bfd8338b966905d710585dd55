@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ae7f964_f7e7ed75",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15935
+      },
+      "writtenOn": "2021-01-19T21:36:59Z",
+      "side": 1,
+      "message": "Hello Kári,\n\nWould you mind reviewing this addition to the list of Apple devices? I saw you\u0027d reviewed similar requests over the past couple years. Thank you!",
+      "revId": "e6fc4a9efc6eae9bfd8338b966905d710585dd55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

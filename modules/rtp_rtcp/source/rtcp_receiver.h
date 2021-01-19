@@ -16,6 +16,7 @@
 #include <set>
 #include <string>
 #include <vector>
+#include <unordered_map>
 
 #include "api/array_view.h"
 #include "modules/rtp_rtcp/include/report_block_data.h"
@@ -247,7 +248,7 @@ class RTCPReceiver final {
   std::list<RrtrInformation> received_rrtrs_
       RTC_GUARDED_BY(rtcp_receiver_lock_);
   // Received RRTR information mapped by remote ssrc.
-  std::map<uint32_t, std::list<RrtrInformation>::iterator>
+  std::unordered_map<uint32_t, std::list<RrtrInformation>::iterator>
       received_rrtrs_ssrc_it_ RTC_GUARDED_BY(rtcp_receiver_lock_);
 
   // Estimated rtt, zero when there is no valid estimate.
@@ -260,9 +261,9 @@ class RTCPReceiver final {
       RTC_GUARDED_BY(rtcp_receiver_lock_);
 
   ReportBlockMap received_report_blocks_ RTC_GUARDED_BY(rtcp_receiver_lock_);
-  std::map<uint32_t, LastFirStatus> last_fir_
+  std::unordered_map<uint32_t, LastFirStatus> last_fir_
       RTC_GUARDED_BY(rtcp_receiver_lock_);
-  std::map<uint32_t, std::string> received_cnames_
+  std::unordered_map<uint32_t, std::string> received_cnames_
       RTC_GUARDED_BY(rtcp_receiver_lock_);
 
   // The last time we received an RTCP Report block for this module.

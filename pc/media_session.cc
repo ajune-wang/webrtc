@@ -794,6 +794,12 @@ static void NegotiateCodecs(const std::vector<C>& local_codecs,
         webrtc::H264::GenerateProfileLevelIdForAnswer(
             ours.params, theirs.params, &negotiated.params);
       }
+      if (absl::EqualsIgnoreCase(ours.name, kAv1CodecName)) {
+        if (theirs.params["profile"] != "0" ||
+            theirs.params["level-idx"] != "5") {
+          continue;
+        }
+      }
       negotiated.id = theirs.id;
       negotiated.name = theirs.name;
       negotiated_codecs->push_back(std::move(negotiated));

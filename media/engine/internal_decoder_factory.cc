@@ -49,7 +49,8 @@ std::vector<SdpVideoFormat> InternalDecoderFactory::GetSupportedFormats()
   for (const SdpVideoFormat& h264_format : SupportedH264Codecs())
     formats.push_back(h264_format);
   if (kIsLibaomAv1DecoderSupported)
-    formats.push_back(SdpVideoFormat(cricket::kAv1CodecName));
+    formats.push_back(SdpVideoFormat(cricket::kAv1CodecName,
+                                     {{"profile", "0"}, {"level-idx", "5"}}));
   return formats;
 }
 

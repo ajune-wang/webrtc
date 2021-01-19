@@ -69,6 +69,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3c92966_69799522",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5706
+      },
+      "writtenOn": "2021-01-19T20:43:02Z",
+      "side": 1,
+      "message": "lgtm",
+      "revId": "a9bed85f1f9d8844d7c0f0f89a5c22e9d09f8114",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bdd04d42_ea4b7f6c",
@@ -225,6 +242,30 @@
       "writtenOn": "2021-01-13T04:32:58Z",
       "side": 1,
       "message": "Should we do RTC_LOG(LS_ERROR) in other cases too ?",
+      "range": {
+        "startLine": 120,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 67
+      },
+      "revId": "a9bed85f1f9d8844d7c0f0f89a5c22e9d09f8114",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9c59864_281e1660",
+        "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5706
+      },
+      "writtenOn": "2021-01-19T20:43:02Z",
+      "side": 1,
+      "message": "Or, alternatively, remove this log statement and let the call site do the logging.",
+      "parentUuid": "4112a069_22785e65",
       "range": {
         "startLine": 120,
         "startChar": 0,

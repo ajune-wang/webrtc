@@ -7,16 +7,16 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '18311e2720c3027c11321a8b5fa6ab0fdf30bd08',
+  'chromium_revision': '19b8c3be0d291b2369a5fabd8d8904352181a15a',
 }
 
 deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@f7f5bac81fdf7acfaecc2cd99a06ff090565ac91',
+    'https://chromium.googlesource.com/chromium/src/base@b420871cb3bd513e46bb63bfb62542bf4d5570b5',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@43dd2496951592fa103e98c29e69e1d3d1da18b7',
+    'https://chromium.googlesource.com/chromium/src/build@01753971c856b9911c2640ab24553641b93839a9',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@c38b5ab1c6f5a4913afe49709f7acde15229f400',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -25,13 +25,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@ad2e59ea457e25076ee99e851cf8e48eef57ca76',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@d716b26c4b2dcff852d6db7bb66fffc4fc94c844',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@ca81cc1c2148cc6fb62dd4139f2dc7a19301d66a',
+    'https://chromium.googlesource.com/chromium/src/testing@a15d824d77175418780e8cb0a334c5cdb7facf8a',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@3ee03ddfde253208e6ae8b2e8debc459cd7d5393',
+    'https://chromium.googlesource.com/chromium/src/third_party@d3a550407bd26b5ca2c9931a0a2aebb84e5303fd',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -122,14 +122,14 @@ deps = {
   'src/third_party/breakpad/breakpad':
     'https://chromium.googlesource.com/breakpad/breakpad.git@e3d485f73f5836fdd6fb287ab96973c4f63175e1',
   'src/third_party/catapult':
-    'https://chromium.googlesource.com/catapult.git@cf567b6b961687e00cdc2ded7bcb4fc72379fa59',
+    'https://chromium.googlesource.com/catapult.git@d1684427cdca83934f3ba973d40cea71a851f2c7',
   'src/third_party/ced/src': {
     'url': 'https://chromium.googlesource.com/external/github.com/google/compact_enc_det.git@ba412eaaacd3186085babcd901679a48863c7dd5',
   },
   'src/third_party/colorama/src':
     'https://chromium.googlesource.com/external/colorama.git@799604a1041e9b3bc5d2789ecbd7e8db2e18e6b8',
   'src/third_party/depot_tools':
-    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@dabd9655278a9ba3ce753496cd4f6c4b17f5d779',
+    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@0489cc12af57e3384c8789f8b12ac5cfb0f48ad0',
   'src/third_party/ffmpeg':
     'https://chromium.googlesource.com/chromium/third_party/ffmpeg.git@841aa72c9e153ae5f952e31e4b6406870555922d',
   'src/third_party/findbugs': {
@@ -250,14 +250,14 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/third_party/usrsctp/usrsctplib':
-    'https://chromium.googlesource.com/external/github.com/sctplab/usrsctp@a3c3ef666b7a5e4c93ebae5a7462add6f86f5cf2',
+    'https://chromium.googlesource.com/external/github.com/sctplab/usrsctp@4191ca1784d8774dbf62d48ab9426c7311a91bc5',
   # Dependency used by libjpeg-turbo.
   'src/third_party/yasm/binaries': {
     'url': 'https://chromium.googlesource.com/chromium/deps/yasm/binaries.git@52f9b3f4b0aa06da24ef8b123058bb61ee468881',
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@c952341d24772111b9985c60a27fde13f89b7152',
+    'https://chromium.googlesource.com/chromium/src/tools@47ee32b419b8fb34b0a2d8bc825c1b7da722f94d',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@1a072711d4388c62e02480fabc26c68c24494be9',
 
@@ -577,7 +577,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/android_deps/libs/androidx_activity_activity',
-              'version': 'version:1.1.0-cr0',
+              'version': 'version:1.3.0-SNAPSHOT-cr0',
           },
       ],
       'condition': 'checkout_android',
@@ -588,7 +588,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/android_deps/libs/androidx_annotation_annotation',
-              'version': 'version:1.2.0-alpha01-cr0',
+              'version': 'version:1.2.0-SNAPSHOT-cr0',
           },
       ],
       'condition': 'checkout_android',
@@ -610,7 +610,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/android_deps/libs/androidx_appcompat_appcompat',
-              'version': 'version:1.2.0-beta01-cr0',
+              'version': 'version:1.3.0-SNAPSHOT-cr0',
           },
       ],
       'condition': 'checkout_android',
@@ -621,7 +621,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/android_deps/libs/androidx_appcompat_appcompat_resources',
-              'version': 'version:1.2.0-cr0',
+              'version': 'version:1.3.0-SNAPSHOT-cr0',
           },
       ],
       'condition': 'checkout_android',
@@ -786,7 +786,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/android_deps/libs/androidx_fragment_fragment',
-              'version': 'version:1.2.5-cr0',
+              'version': 'version:1.4.0-SNAPSHOT-cr0',
           },
       ],
       'condition': 'checkout_android',
@@ -797,7 +797,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/android_deps/libs/androidx_gridlayout_gridlayout',
-              'version': 'version:1.0.0-cr0',
+              'version': 'version:1.1.0-SNAPSHOT-cr0',
           },
       ],
       'condition': 'checkout_android',
@@ -819,7 +819,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/android_deps/libs/androidx_leanback_leanback',
-              'version': 'version:1.0.0-cr0',
+              'version': 'version:1.1.0-beta01-cr0',
           },
       ],
       'condition': 'checkout_android',
@@ -830,18 +830,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/android_deps/libs/androidx_leanback_leanback_preference',
-              'version': 'version:1.0.0-cr0',
-          },
-      ],
-      'condition': 'checkout_android',
-      'dep_type': 'cipd',
-  },
-
-  'src/third_party/android_deps/libs/androidx_legacy_legacy_preference_v14': {
-      'packages': [
-          {
-              'package': 'chromium/third_party/android_deps/libs/androidx_legacy_legacy_preference_v14',
-              'version': 'version:1.0.0-cr0',
+              'version': 'version:1.1.0-SNAPSHOT-cr0',
           },
       ],
       'condition': 'checkout_android',
@@ -885,7 +874,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/android_deps/libs/androidx_lifecycle_lifecycle_common',
-              'version': 'version:2.2.0-cr0',
+              'version': 'version:2.4.0-SNAPSHOT-cr0',
           },
       ],
       'condition': 'checkout_android',
@@ -896,7 +885,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/android_deps/libs/androidx_lifecycle_lifecycle_common_java8',
-              'version': 'version:2.0.0-cr0',
+              'version': 'version:2.4.0-SNAPSHOT-cr0',
           },
       ],
       'condition': 'checkout_android',
@@ -907,7 +896,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/android_deps/libs/androidx_lifecycle_lifecycle_livedata',
-              'version': 'version:2.0.0-cr0',
+              'version': 'version:2.4.0-SNAPSHOT-cr0',
           },
       ],
       'condition': 'checkout_android',
@@ -918,7 +907,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/android_deps/libs/androidx_lifecycle_lifecycle_livedata_core',
-              'version': 'version:2.2.0-cr0',
+              'version': 'version:2.4.0-SNAPSHOT-cr0',
           },
       ],
       'condition': 'checkout_android',
@@ -929,7 +918,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/android_deps/libs/androidx_lifecycle_lifecycle_runtime',
-              'version': 'version:2.2.0-cr0',
+              'version': 'version:2.4.0-SNAPSHOT-cr0',
           },
       ],
       'condition': 'checkout_android',
@@ -940,7 +929,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/android_deps/libs/androidx_lifecycle_lifecycle_viewmodel',
-              'version': 'version:2.2.0-cr0',
+              'version': 'version:2.4.0-SNAPSHOT-cr0',
           },
       ],
       'condition': 'checkout_android',
@@ -951,7 +940,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/android_deps/libs/androidx_lifecycle_lifecycle_viewmodel_savedstate',
-              'version': 'version:2.2.0-cr0',
+              'version': 'version:2.4.0-SNAPSHOT-cr0',
           },
       ],
       'condition': 'checkout_android',
@@ -1028,7 +1017,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/android_deps/libs/androidx_preference_preference',
-              'version': 'version:1.1.1-cr0',
+              'version': 'version:1.2.0-SNAPSHOT-cr0',
           },
       ],
       'condition': 'checkout_android',
@@ -1050,7 +1039,18 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/android_deps/libs/androidx_recyclerview_recyclerview',
-              'version': 'version:1.2.0-alpha06-cr0',
+              'version': 'version:1.2.0-beta01-cr0',
+          },
+      ],
+      'condition': 'checkout_android',
+      'dep_type': 'cipd',
+  },
+
+  'src/third_party/android_deps/libs/androidx_remotecallback_remotecallback': {
+      'packages': [
+          {
+              'package': 'chromium/third_party/android_deps/libs/androidx_remotecallback_remotecallback',
+              'version': 'version:1.0.0-SNAPSHOT-cr0',
           },
       ],
       'condition': 'checkout_android',
@@ -1061,7 +1061,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/android_deps/libs/androidx_savedstate_savedstate',
-              'version': 'version:1.0.0-cr0',
+              'version': 'version:1.2.0-SNAPSHOT-cr0',
           },
       ],
       'condition': 'checkout_android',
@@ -1072,7 +1072,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/android_deps/libs/androidx_slice_slice_builders',
-              'version': 'version:1.0.0-cr0',
+              'version': 'version:1.1.0-SNAPSHOT-cr0',
           },
       ],
       'condition': 'checkout_android',
@@ -1083,7 +1083,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/android_deps/libs/androidx_slice_slice_core',
-              'version': 'version:1.0.0-cr0',
+              'version': 'version:1.1.0-SNAPSHOT-cr0',
           },
       ],
       'condition': 'checkout_android',
@@ -1233,11 +1233,22 @@ deps = {
       'dep_type': 'cipd',
   },
 
+  'src/third_party/android_deps/libs/androidx_tracing_tracing': {
+      'packages': [
+          {
+              'package': 'chromium/third_party/android_deps/libs/androidx_tracing_tracing',
+              'version': 'version:1.0.0-cr0',
+          },
+      ],
+      'condition': 'checkout_android',
+      'dep_type': 'cipd',
+  },
+
   'src/third_party/android_deps/libs/androidx_transition_transition': {
       'packages': [
           {
               'package': 'chromium/third_party/android_deps/libs/androidx_transition_transition',
-              'version': 'version:1.4.0-SNAPSHOT-cr0',
+              'version': 'version:1.5.0-SNAPSHOT-cr0',
           },
       ],
       'condition': 'checkout_android',

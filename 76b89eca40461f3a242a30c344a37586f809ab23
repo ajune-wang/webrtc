@@ -34,6 +34,41 @@
       "parentUuid": "9e395048_511937fa",
       "revId": "76b89eca40461f3a242a30c344a37586f809ab23",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "55605143_2794f7fc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-01-19T09:18:34Z",
+      "side": 1,
+      "message": "Discussed with Asa and we found two issues to address:\n1. To override the bitrate limits we need to bypass this aggregation - https://source.corp.google.com/piper///depot/google3/third_party/webrtc/files/stable/webrtc/video/video_stream_encoder.cc;rcl\u003d352175231;l\u003d772.\n2. We need to distinguish between singlecast and simulcast with view request \u003d180p (only 180p layer is active) to not override the simulcast bitrate limits.\n",
+      "revId": "76b89eca40461f3a242a30c344a37586f809ab23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3788f5bf_918ac36e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-01-19T09:18:34Z",
+      "side": 1,
+      "message": "Ah, I see. SEA is used for all codecs except VP9/AV1 - https://source.chromium.org/chromium/chromium/src/+/master:third_party/blink/renderer/platform/peerconnection/video_codec_factory.cc;drc\u003d5f5d9967a593d3fd75852a5968196d7276502a8f;l\u003d135",
+      "parentUuid": "8d1bea11_020de0e5",
+      "revId": "76b89eca40461f3a242a30c344a37586f809ab23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

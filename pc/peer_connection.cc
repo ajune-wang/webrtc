@@ -607,13 +607,15 @@ RTCError PeerConnection::Initialize(
       signaling_thread(), network_thread(), port_allocator_.get(),
       async_resolver_factory_.get(), config));
 
-  transport_controller_->SignalDtlsHandshakeError.connect(
-      this, &PeerConnection::OnTransportControllerDtlsHandshakeError);
-
   // Following RTC_DCHECKs are added by looking at the caller thread.
   // If this is incorrect there might not be test failures
   // due to lack of unit tests which trigger these scenarios.
   // TODO(bugs.webrtc.org/12160): Remove above comments.
+  transport_controller_->SubscribeDtlsHandshakeError(
+      [this](rtc::SSLHandshakeError s) {
+        RTC_DCHECK_RUN_ON(signaling_thread());
+        OnTransportControllerDtlsHandshakeError(s);
+      });
   transport_controller_->SubscribeIceConnectionState(
       [this](cricket::IceConnectionState s) {
         RTC_DCHECK_RUN_ON(signaling_thread());

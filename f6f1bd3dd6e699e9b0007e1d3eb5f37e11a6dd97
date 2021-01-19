@@ -16,6 +16,125 @@
       "message": "PTAL.",
       "revId": "f6f1bd3dd6e699e9b0007e1d3eb5f37e11a6dd97",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1c4deee_6249937a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-19T06:15:23Z",
+      "side": 1,
+      "message": "I think we can polish this a little. Not quite happy with it (it seems that it shouldn\u0027t have to be this complex), but I think it solves the given problem, so will approve it once it looks better.\n",
+      "revId": "f6f1bd3dd6e699e9b0007e1d3eb5f37e11a6dd97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5bfde414_89b263bd",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-19T06:15:23Z",
+      "side": 1,
+      "message": "Add to class comment: \"It also provides a facility to guarantee one-at-a-time execution of libwebrtc operations that access the set of usrsctp transports.\" (And probably delete the TODO, since you now have a purpose of this class that isn\u0027t going to go away any time soon).",
+      "revId": "f6f1bd3dd6e699e9b0007e1d3eb5f37e11a6dd97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "078a168a_f1d04d2e",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-19T06:15:23Z",
+      "side": 1,
+      "message": "Can you formulate this requirement as an RTC_GUARDED_BY?",
+      "revId": "f6f1bd3dd6e699e9b0007e1d3eb5f37e11a6dd97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8c39e05_fa5e8f1d",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-19T06:15:23Z",
+      "side": 1,
+      "message": "void* and cast before doing the lookup?",
+      "revId": "f6f1bd3dd6e699e9b0007e1d3eb5f37e11a6dd97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e679801_0f58c447",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-19T06:15:23Z",
+      "side": 1,
+      "message": "Can you merge these two instances into RetrieveWhileHoldingLock, which should have an RTC_EXCLUSIVE_LOCKS_REQUIRED(lock_) annotation?",
+      "revId": "f6f1bd3dd6e699e9b0007e1d3eb5f37e11a6dd97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4c7e21a_61d6e877",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-19T06:15:23Z",
+      "side": 1,
+      "message": "I\u0027m a bit miffed at the number of indirections here - this is a lock protecting a lambda that does a PostTask of a lambda. But given the fact that we don\u0027t control SCTP threads, I suppose it\u0027s a reasonable thing to do.",
+      "revId": "f6f1bd3dd6e699e9b0007e1d3eb5f37e11a6dd97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34bfd1d6_f411f336",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-19T06:15:23Z",
+      "side": 1,
+      "message": "if addr is a void* in general, you should do the cast at the lowest possible level (I suggest inside RetrieveWhileHoldingLock), and pass this as a void*.",
+      "revId": "f6f1bd3dd6e699e9b0007e1d3eb5f37e11a6dd97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

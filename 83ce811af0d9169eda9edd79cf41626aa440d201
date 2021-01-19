@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6491bd24_1ac76648",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-01-19T18:01:12Z",
+      "side": 1,
+      "message": "nit: e.g.?",
+      "range": {
+        "startLine": 307,
+        "startChar": 3,
+        "endLine": 307,
+        "endChar": 7
+      },
+      "revId": "83ce811af0d9169eda9edd79cf41626aa440d201",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "067c7666_505a69c7",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-01-19T18:01:12Z",
+      "side": 1,
+      "message": "I\u0027m assuming it would be non-trivial to reverse that?",
+      "range": {
+        "startLine": 319,
+        "startChar": 7,
+        "endLine": 319,
+        "endChar": 35
+      },
+      "revId": "83ce811af0d9169eda9edd79cf41626aa440d201",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

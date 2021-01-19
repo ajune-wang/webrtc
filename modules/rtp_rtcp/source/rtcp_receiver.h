@@ -17,6 +17,7 @@
 #include <string>
 #include <vector>
 
+#include "absl/container/flat_hash_map.h"
 #include "api/array_view.h"
 #include "modules/rtp_rtcp/include/report_block_data.h"
 #include "modules/rtp_rtcp/include/rtcp_statistics.h"
@@ -124,9 +125,9 @@ class RTCPReceiver final {
   struct RrtrInformation;
   struct LastFirStatus;
   // RTCP report blocks mapped by remote SSRC.
-  using ReportBlockDataMap = std::map<uint32_t, ReportBlockData>;
+  using ReportBlockDataMap = absl::flat_hash_map<uint32_t, ReportBlockData>;
   // RTCP report blocks map mapped by source SSRC.
-  using ReportBlockMap = std::map<uint32_t, ReportBlockDataMap>;
+  using ReportBlockMap = absl::flat_hash_map<uint32_t, ReportBlockDataMap>;
 
   bool ParseCompoundPacket(rtc::ArrayView<const uint8_t> packet,
                            PacketInformation* packet_information);
@@ -247,7 +248,7 @@ class RTCPReceiver final {
   std::list<RrtrInformation> received_rrtrs_
       RTC_GUARDED_BY(rtcp_receiver_lock_);
   // Received RRTR information mapped by remote ssrc.
-  std::map<uint32_t, std::list<RrtrInformation>::iterator>
+  absl::flat_hash_map<uint32_t, std::list<RrtrInformation>::iterator>
       received_rrtrs_ssrc_it_ RTC_GUARDED_BY(rtcp_receiver_lock_);
 
   // Estimated rtt, zero when there is no valid estimate.
@@ -256,13 +257,13 @@ class RTCPReceiver final {
 
   int64_t oldest_tmmbr_info_ms_ RTC_GUARDED_BY(rtcp_receiver_lock_);
   // Mapped by remote ssrc.
-  std::map<uint32_t, TmmbrInformation> tmmbr_infos_
+  absl::flat_hash_map<uint32_t, TmmbrInformation> tmmbr_infos_
       RTC_GUARDED_BY(rtcp_receiver_lock_);
 
   ReportBlockMap received_report_blocks_ RTC_GUARDED_BY(rtcp_receiver_lock_);
-  std::map<uint32_t, LastFirStatus> last_fir_
+  absl::flat_hash_map<uint32_t, LastFirStatus> last_fir_
       RTC_GUARDED_BY(rtcp_receiver_lock_);
-  std::map<uint32_t, std::string> received_cnames_
+  absl::flat_hash_map<uint32_t, std::string> received_cnames_
       RTC_GUARDED_BY(rtcp_receiver_lock_);
 
   // The last time we received an RTCP Report block for this module.

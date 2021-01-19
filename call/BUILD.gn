@@ -137,7 +137,11 @@ rtc_library("rtp_receiver") {
     "../rtc_base:checks",
     "../rtc_base:rtc_base_approved",
   ]
-  absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
+  absl_deps = [
+    "//third_party/abseil-cpp/absl/container:flat_hash_map",
+    "//third_party/abseil-cpp/absl/container:flat_hash_set",
+    "//third_party/abseil-cpp/absl/types:optional",
+  ]
 }
 
 rtc_library("rtp_sender") {

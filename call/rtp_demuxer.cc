@@ -39,7 +39,7 @@ size_t RemoveFromMapByValue(Map* map, const Value& value) {
   size_t count = 0;
   for (auto it = map->begin(); it != map->end();) {
     if (it->second == value) {
-      it = map->erase(it);
+      map->erase(it++);
       ++count;
     } else {
       ++it;

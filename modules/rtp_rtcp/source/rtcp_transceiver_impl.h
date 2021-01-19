@@ -16,6 +16,7 @@
 #include <string>
 #include <vector>
 
+#include "absl/container/flat_hash_map.h"
 #include "absl/types/optional.h"
 #include "api/array_view.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/common_header.h"
@@ -105,7 +106,7 @@ class RtcpTransceiverImpl {
   absl::optional<rtcp::Remb> remb_;
   // TODO(danilchap): Remove entries from remote_senders_ that are no longer
   // needed.
-  std::map<uint32_t, RemoteSenderState> remote_senders_;
+  absl::flat_hash_map<uint32_t, RemoteSenderState> remote_senders_;
   RepeatingTaskHandle periodic_task_handle_;
 };
 

@@ -126,6 +126,9 @@ class ReceiveStatisticsImpl : public ReceiveStatistics {
   mutable Mutex receive_statistics_lock_;
   uint32_t last_returned_ssrc_;
   int max_reordering_threshold_ RTC_GUARDED_BY(receive_statistics_lock_);
+
+  // TODO(mbonadei): Remove before landing. It seems to rely on std::map
+  // implicit order.
   std::map<uint32_t, StreamStatisticianImpl*> statisticians_
       RTC_GUARDED_BY(receive_statistics_lock_);
 };

@@ -687,7 +687,7 @@ bool RTCPReceiver::UpdateTmmbrTimers() {
     } else if (tmmbr_info->ready_for_delete) {
       // When we dont have a last_time_received_ms and the object is marked
       // ready_for_delete it's removed from the map.
-      tmmbr_it = tmmbr_infos_.erase(tmmbr_it);
+      tmmbr_infos_.erase(tmmbr_it++);
     } else {
       ++tmmbr_it;
     }

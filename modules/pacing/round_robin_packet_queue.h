@@ -20,6 +20,7 @@
 #include <queue>
 #include <set>
 
+#include "absl/container/flat_hash_map.h"
 #include "absl/types/optional.h"
 #include "api/transport/webrtc_key_value_config.h"
 #include "api/units/data_size.h"
@@ -163,7 +164,7 @@ class RoundRobinPacketQueue {
   std::multimap<StreamPrioKey, uint32_t> stream_priorities_;
 
   // A map of SSRCs to Streams.
-  std::map<uint32_t, Stream> streams_;
+  absl::flat_hash_map<uint32_t, Stream> streams_;
 
   // The enqueue time of every packet currently in the queue. Used to figure out
   // the age of the oldest packet in the queue.

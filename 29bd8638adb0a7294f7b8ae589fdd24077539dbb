@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d84c7a9b_b299271d",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-01-19T03:45:45Z",
+      "side": 0,
+      "message": "This method is still used by SendThresholdCallback, which is only ever called on the network thread from within a usrsctp_conninput call.",
+      "revId": "29bd8638adb0a7294f7b8ae589fdd24077539dbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

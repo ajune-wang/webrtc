@@ -11,9 +11,9 @@
 #ifndef MODULES_RTP_RTCP_SOURCE_RTCP_TRANSCEIVER_IMPL_H_
 #define MODULES_RTP_RTCP_SOURCE_RTCP_TRANSCEIVER_IMPL_H_
 
-#include <map>
 #include <memory>
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 #include "absl/types/optional.h"
@@ -105,7 +105,7 @@ class RtcpTransceiverImpl {
   absl::optional<rtcp::Remb> remb_;
   // TODO(danilchap): Remove entries from remote_senders_ that are no longer
   // needed.
-  std::map<uint32_t, RemoteSenderState> remote_senders_;
+  std::unordered_map<uint32_t, RemoteSenderState> remote_senders_;
   RepeatingTaskHandle periodic_task_handle_;
 };
 

@@ -574,6 +574,7 @@ void DefaultTemporalLayers::OnEncodeDone(size_t stream_index,
         frame.dependency_info.decode_target_indications;
     generic_frame_info.temporal_id = frame_config.packetizer_temporal_idx;
   }
+  generic_frame_info.part_of_chain = {generic_frame_info.temporal_id == 0};
 
   if (!frame.expired) {
     for (Vp8BufferReference buffer : kAllBuffers) {
@@ -607,6 +608,8 @@ FrameDependencyStructure DefaultTemporalLayers::GetTemplateStructure(
 
   FrameDependencyStructure template_structure;
   template_structure.num_decode_targets = num_layers;
+  template_structure.num_chains = 1;
+  template_strucutre.decode_target_protected_by.resize(num_layers, 0);
 
   switch (num_layers) {
     case 1: {

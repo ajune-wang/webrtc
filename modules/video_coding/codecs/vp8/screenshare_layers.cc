@@ -323,6 +323,7 @@ void ScreenshareLayers::OnEncodeDone(size_t stream_index,
     generic_frame_info.decode_target_indications = {kSwitch};
     generic_frame_info.encoder_buffers.emplace_back(
         0, /*referenced=*/!is_keyframe, /*updated=*/true);
+    generic_frame_info.part_of_chain = {true};
   } else {
     int64_t unwrapped_timestamp = time_wrap_handler_.Unwrap(rtp_timestamp);
     if (dependency_info) {
@@ -331,6 +332,7 @@ void ScreenshareLayers::OnEncodeDone(size_t stream_index,
       vp8_info.layerSync = dependency_info->frame_config.layer_sync;
       generic_frame_info.decode_target_indications =
           dependency_info->decode_target_indications;
+      generic_frame_info.part_of_chain = {vp8_info.temporalIdx == 0};
     } else {
       RTC_DCHECK(is_keyframe);
     }
@@ -427,6 +429,8 @@ FrameDependencyStructure ScreenshareLayers::GetTemplateStructure(
 
   FrameDependencyStructure template_structure;
   template_structure.num_decode_targets = num_layers;
+  template_structure.num_chains = 1;
+  template_structure.decode_target_protected_by.assign(num_layers, 0);
 
   switch (num_layers) {
     case 1: {

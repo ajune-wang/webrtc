@@ -101,6 +101,9 @@ class RemoteEstimatorProxy : public RemoteBitrateEstimator {
   SeqNumUnwrapper<uint16_t> unwrapper_ RTC_GUARDED_BY(&lock_);
   absl::optional<int64_t> periodic_window_start_seq_ RTC_GUARDED_BY(&lock_);
   // Map unwrapped seq -> time.
+
+  // TODO(mbonadei): Remove before landing. This uses lower_bound, so it
+  // requires std::map.
   std::map<int64_t, int64_t> packet_arrival_times_ RTC_GUARDED_BY(&lock_);
   int64_t send_interval_ms_ RTC_GUARDED_BY(&lock_);
   bool send_periodic_feedback_ RTC_GUARDED_BY(&lock_);

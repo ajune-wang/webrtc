@@ -10,6 +10,7 @@
 
 #include "modules/rtp_rtcp/source/rtcp_receiver.h"
 
+#include <algorithm>
 #include <memory>
 #include <utility>
 
@@ -1308,6 +1309,12 @@ TEST(RtcpReceiverTest, TmmbrThreeConstraintsTimeOut) {
   // seconds, timing out the first packet.
   mocks.clock.AdvanceTimeMilliseconds(12000);
   candidate_set = receiver.TmmbrReceived();
+
+  std::sort(candidate_set.begin(), candidate_set.end(),
+            [](const rtcp::TmmbItem& i1, const rtcp::TmmbItem& i2) {
+              return i1.ssrc() < i2.ssrc();
+            });
+
   ASSERT_EQ(2u, candidate_set.size());
   EXPECT_EQ(kSenderSsrc + 1, candidate_set[0].ssrc());
 }
@@ -1550,6 +1557,11 @@ TEST(RtcpReceiverTest, GetReportBlockDataAfterTwoReportBlocksOfDifferentSsrcs) {
 
   // Both report blocks should be returned.
   auto report_block_datas = receiver.GetLatestReportBlockData();
+  std::sort(report_block_datas.begin(), report_block_datas.end(),
+            [](const ReportBlockData& rb1, const ReportBlockData& rb2) {
+              return rb1.report_block().source_ssrc <
+                     rb2.report_block().source_ssrc;
+            });
   ASSERT_THAT(report_block_datas, SizeIs(2));
   EXPECT_EQ(kReceiverMainSsrc,
             report_block_datas[0].report_block().source_ssrc);

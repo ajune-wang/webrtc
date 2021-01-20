@@ -27,6 +27,7 @@ constexpr int kSctpSuccessReturn = 1;
 #include <stdio.h>
 #include <usrsctp.h>
 
+#include <functional>
 #include <memory>
 #include <unordered_map>
 
@@ -82,9 +83,9 @@ enum {
 };
 
 // Maps SCTP transport ID to SctpTransport object, necessary in send threshold
-// callback and outgoing packet callback.
-// TODO(crbug.com/1076703): Remove once the underlying problem is fixed or
-// workaround is provided in usrsctp.
+// callback and outgoing packet callback. It also provides a facility to
+// guarantee one-at-a-time execution of libwebrtc operations that access the set
+// of usrsctp transports.
 class SctpTransportMap {
  public:
   SctpTransportMap() = default;
@@ -114,8 +115,36 @@ class SctpTransportMap {
     return map_.erase(id) > 0;
   }
 
+  // Must be called on the transport's network thread to protect against
+  // simultaneous deletion/deregistration of the transport; if that's not
+  // guaranteed, use ExecuteWithLock.
   cricket::SctpTransport* Retrieve(uintptr_t id) const {
     webrtc::MutexLock lock(&lock_);
+    cricket::SctpTransport* transport = RetrieveWhileHoldingLock(id);
+    if (transport) {
+      RTC_DCHECK_RUN_ON(transport->network_thread());
+    }
+    return transport;
+  }
+
+  // Executes |action| with the transport identified by |id| and returns true if
+  // found, all while holding a lock to protect against the transport being
+  // simultaneously deleted/deregistered, or returns false if not found.
+  bool ExecuteWithLock(
+      uintptr_t id,
+      std::function<void(cricket::SctpTransport*)> action) const {
+    webrtc::MutexLock lock(&lock_);
+    cricket::SctpTransport* transport = RetrieveWhileHoldingLock(id);
+    if (!transport) {
+      return false;
+    }
+    action(transport);
+    return true;
+  }
+
+ private:
+  cricket::SctpTransport* RetrieveWhileHoldingLock(uintptr_t id) const
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(lock_) {
     auto it = map_.find(id);
     if (it == map_.end()) {
       return nullptr;
@@ -123,7 +152,6 @@ class SctpTransportMap {
     return it->second;
   }
 
- private:
   mutable webrtc::Mutex lock_;
 
   uintptr_t next_id_ RTC_GUARDED_BY(lock_) = 0;
@@ -370,14 +398,6 @@ class SctpTransport::UsrSctpWrapper {
           << "OnSctpOutboundPacket called after usrsctp uninitialized?";
       return EINVAL;
     }
-    SctpTransport* transport =
-        g_transport_map_->Retrieve(reinterpret_cast<uintptr_t>(addr));
-    if (!transport) {
-      RTC_LOG(LS_ERROR)
-          << "OnSctpOutboundPacket: Failed to get transport for socket ID "
-          << addr;
-      return EINVAL;
-    }
     RTC_LOG(LS_VERBOSE) << "global OnSctpOutboundPacket():"
                            "addr: "
                         << addr << "; length: " << length
@@ -385,13 +405,26 @@ class SctpTransport::UsrSctpWrapper {
                         << "; set_df: " << rtc::ToHex(set_df);
 
     VerboseLogPacket(data, length, SCTP_DUMP_OUTBOUND);
-    // Note: We have to copy the data; the caller will delete it.
-    rtc::CopyOnWriteBuffer buf(reinterpret_cast<uint8_t*>(data), length);
 
-    transport->network_thread_->PostTask(ToQueuedTask(
-        transport->task_safety_, [transport, buf = std::move(buf)]() {
-          transport->OnPacketFromSctpToNetwork(buf);
-        }));
+    // ExecuteWithLock protects against the transport being simultaneously
+    // deregistered/deleted, since this callback may come from the SCTP timer
+    // thread and thus race with the network thread.
+    bool found = g_transport_map_->ExecuteWithLock(
+        reinterpret_cast<uintptr_t>(addr),
+        [data, length](SctpTransport* transport) {
+          // Note: We have to copy the data; the caller will delete it.
+          rtc::CopyOnWriteBuffer buf(reinterpret_cast<uint8_t*>(data), length);
+          transport->network_thread_->PostTask(ToQueuedTask(
+              transport->task_safety_, [transport, buf = std::move(buf)]() {
+                transport->OnPacketFromSctpToNetwork(buf);
+              }));
+        });
+    if (!found) {
+      RTC_LOG(LS_ERROR)
+          << "OnSctpOutboundPacket: Failed to get transport for socket ID "
+          << addr;
+      return EINVAL;
+    }
 
     return 0;
   }

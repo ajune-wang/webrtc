@@ -1306,20 +1306,16 @@ PacketReceiver::DeliveryStatus Call::DeliverRtcp(MediaType media_type,
       if (stream->DeliverRtcp(packet, length))
         rtcp_delivered = true;
     }
-  }
-  if (media_type == MediaType::ANY || media_type == MediaType::AUDIO) {
-    for (AudioReceiveStream* stream : audio_receive_streams_) {
-      stream->DeliverRtcp(packet, length);
-      rtcp_delivered = true;
-    }
-  }
-  if (media_type == MediaType::ANY || media_type == MediaType::VIDEO) {
     for (VideoSendStream* stream : video_send_streams_) {
       stream->DeliverRtcp(packet, length);
       rtcp_delivered = true;
     }
   }
   if (media_type == MediaType::ANY || media_type == MediaType::AUDIO) {
+    for (AudioReceiveStream* stream : audio_receive_streams_) {
+      stream->DeliverRtcp(packet, length);
+      rtcp_delivered = true;
+    }
     for (auto& kv : audio_send_ssrcs_) {
       kv.second->DeliverRtcp(packet, length);
       rtcp_delivered = true;
@@ -1450,6 +1446,10 @@ void Call::DeliverPacketAsync(MediaType media_type,
 }
 
 void Call::OnRecoveredPacket(const uint8_t* packet, size_t length) {
+  // This is called via e.g. UlpfecReceiverImpl::ProcessReceivedFec or
+  // FlexfecReceiver::ProcessReceivedPacket which get called via
+  // Call::DeliverRtp, so ends up being on the same thread as
+  // receive_rtp_config_ is used on.
   RTC_DCHECK_RUN_ON(worker_thread_);
   RtpPacketReceived parsed_packet;
   if (!parsed_packet.Parse(packet, length))

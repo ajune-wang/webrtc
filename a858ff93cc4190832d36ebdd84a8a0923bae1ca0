@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e59f2a3_afb57c6f",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-01-20T12:48:20Z",
+      "side": 1,
+      "message": "not a blocker, but why/when number of active streams can be different in streams[] and encoder_config_layers[]? It seems \"active\" is copied from encoder_config_layers to streams in https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/media/engine/webrtc_video_engine.cc;drc\u003d753ccbc44ac217736f1713011908fd4ee15b643a;l\u003d3580",
+      "range": {
+        "startLine": 355,
+        "startChar": 6,
+        "endLine": 356,
+        "endChar": 79
+      },
+      "revId": "a858ff93cc4190832d36ebdd84a8a0923bae1ca0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

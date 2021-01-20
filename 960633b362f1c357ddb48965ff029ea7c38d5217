@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7242d591_ad3278e9",
+        "filename": "modules/audio_processing/logging/apm_data_dumper.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-01-20T14:42:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e2a875ec_abc5c619",
+      "range": {
+        "startLine": 64,
+        "startChar": 52,
+        "endLine": 64,
+        "endChar": 76
+      },
+      "revId": "960633b362f1c357ddb48965ff029ea7c38d5217",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "da316fb9_35a5a7ef",
@@ -54,6 +78,30 @@
       "writtenOn": "2020-12-04T12:11:26Z",
       "side": 1,
       "message": "Nit: Why not let the default start at 0, and the let the specialized dump sets be 1, 2, 3.. ?",
+      "range": {
+        "startLine": 69,
+        "startChar": 41,
+        "endLine": 69,
+        "endChar": 46
+      },
+      "revId": "960633b362f1c357ddb48965ff029ea7c38d5217",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac453bc4_2b8edd3e",
+        "filename": "modules/audio_processing/logging/apm_data_dumper.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-01-20T14:42:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da316fb9_35a5a7ef",
       "range": {
         "startLine": 69,
         "startChar": 41,

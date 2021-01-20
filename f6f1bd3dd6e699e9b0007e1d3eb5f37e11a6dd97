@@ -152,6 +152,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "32ae107d_5e21a707",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-20T07:12:29Z",
+      "side": 1,
+      "message": "Ack. the RTC_DCHECK_RUN_ON seems sufficient.",
+      "parentUuid": "61d74b05_b2a4cbc5",
+      "revId": "f6f1bd3dd6e699e9b0007e1d3eb5f37e11a6dd97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f8c39e05_fa5e8f1d",
@@ -183,6 +201,24 @@
       "side": 1,
       "message": "I personally think the cast makes sense where it is. uintptr_t is the type of the ID as used by SctpTransportMap and SctpTransport::id_, void* is how it\u0027s stored in usrsctp. Should id_ change to void*? Either way, I could do this in a separate CL since its an orthogonal change.",
       "parentUuid": "f8c39e05_fa5e8f1d",
+      "revId": "f6f1bd3dd6e699e9b0007e1d3eb5f37e11a6dd97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb51c06d_47604060",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-20T07:12:29Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1420dfbb_117c9da7",
       "revId": "f6f1bd3dd6e699e9b0007e1d3eb5f37e11a6dd97",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

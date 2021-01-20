@@ -20,6 +20,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "7a27ed44_441fa8f8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-20T07:12:29Z",
+      "side": 1,
+      "message": "I approve of this CL.\n",
+      "revId": "615845866622df124a64eb21bb825a8b4840527e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "d385a119_51a696b5",
         "filename": "media/sctp/sctp_transport.cc",
         "patchSetId": 6

@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b8c7745_0b16f0d0",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-20T11:12:23Z",
+      "side": 1,
+      "message": "yep, I guess e.g. reads a bit better. the definition below is fuzzy for svc case, and, there are corner cases where it is inaccurate (though the code is similarly inaccurate in such corner cases. We are not using such weird structures, for now.)",
+      "parentUuid": "6491bd24_1ac76648",
+      "range": {
+        "startLine": 307,
+        "startChar": 3,
+        "endLine": 307,
+        "endChar": 7
+      },
+      "revId": "83ce811af0d9169eda9edd79cf41626aa440d201",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "067c7666_505a69c7",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-01-19T18:01:12Z",
       "side": 1,
       "message": "I\u0027m assuming it would be non-trivial to reverse that?",
+      "range": {
+        "startLine": 319,
+        "startChar": 7,
+        "endLine": 319,
+        "endChar": 35
+      },
+      "revId": "83ce811af0d9169eda9edd79cf41626aa440d201",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c3ab016_be54b20d",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-20T11:12:23Z",
+      "side": 1,
+      "message": "yep, probably not too hard, but non-trivial:\nit is filled by call\n\"params_[stream_index].GetRtpVideoHeader(encoded_image, codec_specific_info, shared_frame_id_)\"\nwhile calling SendEncodedImage.\n\nthe result is a large structure RTPVideoHeader.\nwith call done inline copy-elision can easily avoid making copy of this structure, but if that call is moved before this function is used, then suddenly that copy will be introduced.\n\nProper solution would probably need to split GetRtpVideoHeader into two subfunctions: one that completes filling codec_specific_info, another one - generates RTPVideoHeader.\nThat might be not too hard, but non-trivial.",
+      "parentUuid": "067c7666_505a69c7",
       "range": {
         "startLine": 319,
         "startChar": 7,

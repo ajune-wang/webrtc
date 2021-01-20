@@ -16,6 +16,23 @@
       "message": "Hello Kári,\n\nWould you mind reviewing this addition to the list of Apple devices? I saw you\u0027d reviewed similar requests over the past couple years. Thank you!",
       "revId": "e6fc4a9efc6eae9bfd8338b966905d710585dd55",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f24bf926_20674d3c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2021-01-20T13:45:54Z",
+      "side": 1,
+      "message": "Great, thanks for this!",
+      "revId": "e6fc4a9efc6eae9bfd8338b966905d710585dd55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

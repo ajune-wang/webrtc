@@ -22,6 +22,30 @@
       },
       "revId": "a858ff93cc4190832d36ebdd84a8a0923bae1ca0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fe15351_bac04c24",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2021-01-20T13:19:18Z",
+      "side": 1,
+      "message": "Number of active streams should not differ but number of streams can be less than number of layers in encoder_config if reduced based on resolution.",
+      "parentUuid": "6e59f2a3_afb57c6f",
+      "range": {
+        "startLine": 355,
+        "startChar": 6,
+        "endLine": 356,
+        "endChar": 79
+      },
+      "revId": "a858ff93cc4190832d36ebdd84a8a0923bae1ca0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

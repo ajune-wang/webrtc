@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c49525d4_23e1d2e3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-01-20T11:34:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e5776979_9f61dc82",
+      "range": {
+        "startLine": 10,
+        "startChar": 53,
+        "endLine": 10,
+        "endChar": 57
+      },
+      "revId": "fd4e90b975e09c3fc06fc96508ade4dc918050d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e96c23d5_c81e66f7",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-01-20T09:08:04Z",
       "side": 1,
       "message": "btw, while changing this block, would it make sense to increase the version here?",
+      "range": {
+        "startLine": 765,
+        "startChar": 20,
+        "endLine": 765,
+        "endChar": 21
+      },
+      "revId": "fd4e90b975e09c3fc06fc96508ade4dc918050d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a393119_6676f2c4",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-01-20T11:34:48Z",
+      "side": 1,
+      "message": "If you\u0027re looking for a VP9E_SET_CPUUSED, there isn\u0027t one. Unintuitively, this flag is the one used with vp9 as well (unless svc is used, in which case svc_paramas_.speed_per_layer can be used.)\n https://source.chromium.org/chromium/chromium/src/+/master:third_party/libvpx/source/libvpx/vpx/vp8cx.h;l\u003d156",
+      "parentUuid": "e96c23d5_c81e66f7",
       "range": {
         "startLine": 765,
         "startChar": 20,
@@ -70,6 +118,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e814506_6c3b2178",
+        "filename": "modules/video_coding/codecs/vp9/test/vp9_impl_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-01-20T11:34:48Z",
+      "side": 1,
+      "message": "Done. Yeah, I added and then removed a usage, forgot to clean this up.",
+      "parentUuid": "4ef8c416_0ab2c6c5",
+      "range": {
+        "startLine": 42,
+        "startChar": 17,
+        "endLine": 42,
+        "endChar": 23
+      },
+      "revId": "fd4e90b975e09c3fc06fc96508ade4dc918050d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1c78a02f_5c211d7a",
@@ -83,6 +155,30 @@
       "writtenOn": "2021-01-20T09:08:04Z",
       "side": 1,
       "message": "This double doesn\u0027t look like mock, look like fake\nhttps://testing.googleblog.com/2013/07/testing-on-toilet-know-your-test-doubles.html",
+      "range": {
+        "startLine": 2075,
+        "startChar": 10,
+        "endLine": 2075,
+        "endChar": 14
+      },
+      "revId": "fd4e90b975e09c3fc06fc96508ade4dc918050d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99a594be_a6f40287",
+        "filename": "modules/video_coding/codecs/vp9/test/vp9_impl_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2075,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-01-20T11:34:48Z",
+      "side": 1,
+      "message": "Yes, badly worded - I just set up MockEncodedImageCallback to call it.",
+      "parentUuid": "1c78a02f_5c211d7a",
       "range": {
         "startLine": 2075,
         "startChar": 10,
@@ -118,6 +214,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "88a8a309_deffab7f",
+        "filename": "modules/video_coding/codecs/vp9/test/vp9_impl_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2083,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-01-20T11:34:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8e59227_b497ad05",
+      "range": {
+        "startLine": 2083,
+        "startChar": 0,
+        "endLine": 2083,
+        "endChar": 8
+      },
+      "revId": "fd4e90b975e09c3fc06fc96508ade4dc918050d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "d6fde8da_9fc2db43",
         "filename": "modules/video_coding/codecs/vp9/test/vp9_impl_unittest.cc",
         "patchSetId": 1
@@ -129,6 +249,30 @@
       "writtenOn": "2021-01-20T09:08:04Z",
       "side": 1,
       "message": "to avoid manual memory management, may be do other way around: assert first, then do arrange:\n\nauto vpx \u003d std::make_unique\u003cNiceMock\u003cMockLibvpxInterface\u003e\u003e();\n// Assert\nvpx_image_t img \u003d {};\nON_CALL(*vpx, img_wrap).WillByDefault(img_wrap(\u0026img));\nEXPECT_CALL(*vpx, codec_control(...);\n// Arrange\nLibvpxVp9Encoder encoder({}, std::move(vpx), tirals);\n...\n// Act\nencoder.InitEncode(...);",
+      "range": {
+        "startLine": 2097,
+        "startChar": 0,
+        "endLine": 2097,
+        "endChar": 56
+      },
+      "revId": "fd4e90b975e09c3fc06fc96508ade4dc918050d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bad752df_7d06283a",
+        "filename": "modules/video_coding/codecs/vp9/test/vp9_impl_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2097,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-01-20T11:34:48Z",
+      "side": 1,
+      "message": "For this test that would work, but not the ones below. I\u0027d like the keep the structure similar. Can change if you disagree.",
+      "parentUuid": "d6fde8da_9fc2db43",
       "range": {
         "startLine": 2097,
         "startChar": 0,
@@ -164,6 +308,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "b7138d9c_0702264e",
+        "filename": "modules/video_coding/codecs/vp9/test/vp9_impl_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2110,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-01-20T11:34:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5ffc849_4b04445c",
+      "range": {
+        "startLine": 2110,
+        "startChar": 2,
+        "endLine": 2110,
+        "endChar": 13
+      },
+      "revId": "fd4e90b975e09c3fc06fc96508ade4dc918050d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "3e0d545e_de8ac03b",
         "filename": "modules/video_coding/codecs/vp9/test/vp9_impl_unittest.cc",
         "patchSetId": 1
@@ -175,6 +343,30 @@
       "writtenOn": "2021-01-20T09:08:04Z",
       "side": 1,
       "message": "Would it work to add an extra matcher An\u003cvpx_svc_extra_cfg_t*\u003e to the AllOf?\nIf not, may be use MatcherCast or SafeMatcherCast.\nhttps://github.com/google/googletest/blob/master/docs/gmock_cheat_sheet.md#adapters-for-matchers",
+      "range": {
+        "startLine": 2113,
+        "startChar": 26,
+        "endLine": 2113,
+        "endChar": 55
+      },
+      "revId": "fd4e90b975e09c3fc06fc96508ade4dc918050d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a398225_4c52411b",
+        "filename": "modules/video_coding/codecs/vp9/test/vp9_impl_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2113,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-01-20T11:34:48Z",
+      "side": 1,
+      "message": "Just adding an An\u003c\u003e-matcher did not work. Changed to SafeMatcherCast.",
+      "parentUuid": "3e0d545e_de8ac03b",
       "range": {
         "startLine": 2113,
         "startChar": 26,
@@ -208,6 +400,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "06905f35_d3c2bbfc",
+        "filename": "modules/video_coding/codecs/vp9/test/vp9_impl_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2115,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-01-20T11:34:48Z",
+      "side": 1,
+      "message": "Each(0) looks good here!\nI tried using ElementsAre and ElementsAreArray with just the values I was interested in, but test failed because of the difference in length compared to vpx_svc_extra_cfg_t::speed_per_layer. I couldn\u0027t find a neat way to compare the first N elements. If you of one please let me know! :)",
+      "parentUuid": "1d1f9fe7_9f50baf9",
+      "range": {
+        "startLine": 2115,
+        "startChar": 36,
+        "endLine": 2115,
+        "endChar": 68
+      },
+      "revId": "fd4e90b975e09c3fc06fc96508ade4dc918050d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ced4476f_58bfeeb9",
@@ -221,6 +437,30 @@
       "writtenOn": "2021-01-20T09:08:04Z",
       "side": 1,
       "message": "Theres is matcher A\u003cvpx_svc_extra_cfg_t*\u003e() for this use case\n(or An\u003cvpx_svc_extra_cfg_t*\u003e() - if you think that reads better)\n\nhttps://github.com/google/googletest/blob/master/docs/gmock_cheat_sheet.md#wildcard",
+      "range": {
+        "startLine": 2146,
+        "startChar": 34,
+        "endLine": 2146,
+        "endChar": 63
+      },
+      "revId": "fd4e90b975e09c3fc06fc96508ade4dc918050d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f828154d_74778672",
+        "filename": "modules/video_coding/codecs/vp9/test/vp9_impl_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2146,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-01-20T11:34:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ced4476f_58bfeeb9",
       "range": {
         "startLine": 2146,
         "startChar": 34,
@@ -277,6 +517,54 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9e2d400_7eed5d1f",
+        "filename": "modules/video_coding/codecs/vp9/test/vp9_impl_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2149,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-01-20T11:34:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea3a9e17_bcf2a9ed",
+      "range": {
+        "startLine": 2149,
+        "startChar": 55,
+        "endLine": 2149,
+        "endChar": 70
+      },
+      "revId": "fd4e90b975e09c3fc06fc96508ade4dc918050d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8a6f448_708dcabe",
+        "filename": "modules/video_coding/codecs/vp9/test/vp9_impl_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2149,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-01-20T11:34:48Z",
+      "side": 1,
+      "message": "The flag is still called VP8E_SET_CPUUSED, even for VP9.",
+      "parentUuid": "1373480e_c19ec908",
+      "range": {
+        "startLine": 2149,
+        "startChar": 37,
+        "endLine": 2149,
+        "endChar": 40
+      },
+      "revId": "fd4e90b975e09c3fc06fc96508ade4dc918050d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "793f7216_cd4afd5c",
@@ -290,6 +578,30 @@
       "writtenOn": "2021-01-20T09:08:04Z",
       "side": 1,
       "message": "that reads to me as \"expect nothing\", why do you have this line?\n\n(vpx already wrapped into NiceMock not bother by the \"Uninteresting mock function call\" messages)",
+      "range": {
+        "startLine": 2181,
+        "startChar": 0,
+        "endLine": 2182,
+        "endChar": 37
+      },
+      "revId": "fd4e90b975e09c3fc06fc96508ade4dc918050d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "203e06f5_380ba21d",
+        "filename": "modules/video_coding/codecs/vp9/test/vp9_impl_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2182,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-01-20T11:34:48Z",
+      "side": 1,
+      "message": "Since I add this expectation below:\nEXPECT_CALL(*vpx, codec_control(_, VP8E_SET_CPUUSED, Matcher\u003cint\u003e(8)));\nOther calls to codec_control using an int type but ctrl_id (e.g. VP9E_SET_SVC) will be seen as unexpected rather than uninteresting, and will cause the test to fail. An example here uses this solution: https://github.com/google/googletest/blob/master/docs/gmock_cook_book.md#understanding-uninteresting-vs-unexpected-calls-uninteresting-vs-unexpected\n\nftr, I also tried using ON_CALL, but that does not seem to work either for some reason:\nON_CALL(*vpx, codec_control(_, _, An\u003cint\u003e())).WillByDefault(Return(VPX_CODEC_OK));",
+      "parentUuid": "793f7216_cd4afd5c",
       "range": {
         "startLine": 2181,
         "startChar": 0,
@@ -323,6 +635,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6cfa4789_fed56a56",
+        "filename": "modules/video_coding/codecs/vp9/test/vp9_impl_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2287,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-01-20T11:34:48Z",
+      "side": 1,
+      "message": "Nice!",
+      "parentUuid": "72bf1447_2ec2d487",
+      "range": {
+        "startLine": 2287,
+        "startChar": 26,
+        "endLine": 2287,
+        "endChar": 63
+      },
+      "revId": "fd4e90b975e09c3fc06fc96508ade4dc918050d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3f66dad8_2eb1cb08",
@@ -346,6 +682,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ceeacdbd_719e6700",
+        "filename": "modules/video_coding/codecs/vp9/test/vp9_impl_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2296,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-01-20T11:34:48Z",
+      "side": 1,
+      "message": "The enum vp8e_enc_control_id is used for both vp8 and vp9, there\u0027s not separate one for vp9 :(",
+      "parentUuid": "3f66dad8_2eb1cb08",
+      "range": {
+        "startLine": 2296,
+        "startChar": 44,
+        "endLine": 2296,
+        "endChar": 47
+      },
+      "revId": "fd4e90b975e09c3fc06fc96508ade4dc918050d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c28bbb8b_1d2ee33b",
@@ -359,6 +719,30 @@
       "writtenOn": "2021-01-20T09:08:04Z",
       "side": 1,
       "message": "would you find it cleaner to rewrite it into two ON_CALL instead?\nON_CALL(*vpx, codec_control(_, VP9E_SET_SVC_REF_FRAME_CONFIG, A\u003cvpx_svc_ref_frame_config_t*\u003e())).WillByDefault(SaveArgPointee\u003c2\u003e(*stored_ref));\n// SetArgPointee\u003cN\u003e(value) probably won\u0027t work, as is, since it takes parameter by value,\n// but may work if you write SetArgPointee\u003c2\u003e(std::ref(stored_refs))\nON_CALL(*vpx, codec_control(_, VP9E_GET_SVC_REF_FRAME_CONFIG, A\u003cvpx_svc_ref_frame_config_t*\u003e())).WillByDefault(WithArg\u003c2\u003e([](vpx_svc_ref_frame_config_t* ref) { *ref \u003d *stored_ref; return VPX_CODEC_OK));\n\nhttps://github.com/google/googletest/blob/master/docs/gmock_cheat_sheet.md#side-effects",
+      "range": {
+        "startLine": 2294,
+        "startChar": 2,
+        "endLine": 2312,
+        "endChar": 0
+      },
+      "revId": "fd4e90b975e09c3fc06fc96508ade4dc918050d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0429927_6e40efe2",
+        "filename": "modules/video_coding/codecs/vp9/test/vp9_impl_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2312,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-01-20T11:34:48Z",
+      "side": 1,
+      "message": "Yeah, that is nicer. Using ::testing::ByRef(stored_refs) worked.",
+      "parentUuid": "c28bbb8b_1d2ee33b",
       "range": {
         "startLine": 2294,
         "startChar": 2,

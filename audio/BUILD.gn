@@ -192,7 +192,7 @@ if (rtc_include_tests) {
     ]
   }
 
-  if (rtc_enable_protobuf) {
+  if (rtc_enable_protobuf && !build_with_chromium) {
     rtc_test("low_bandwidth_audio_test") {
       testonly = true
 
@@ -220,8 +220,8 @@ if (rtc_include_tests) {
         "../test:test_support",
         "../test/pc/e2e:network_quality_metrics_reporter",
         "//testing/gtest",
-        "//third_party/abseil-cpp/absl/flags:flag",
       ]
+      absl_deps = [ "//third_party/abseil-cpp/absl/flags:flag" ]
       if (is_android) {
         deps += [ "//testing/android/native_test:native_test_native_code" ]
       }

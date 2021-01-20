@@ -73,36 +73,6 @@ rtc_library("yield_policy") {
 }
 
 if (rtc_include_tests) {
-  rtc_library("synchronization_unittests") {
-    testonly = true
-    sources = [
-      "mutex_unittest.cc",
-      "yield_policy_unittest.cc",
-    ]
-    deps = [
-      ":mutex",
-      ":yield",
-      ":yield_policy",
-      "..:checks",
-      "..:macromagic",
-      "..:rtc_base",
-      "..:rtc_event",
-      "..:threading",
-      "../../test:test_support",
-      "//third_party/google_benchmark",
-    ]
-  }
-
-  rtc_library("mutex_benchmark") {
-    testonly = true
-    sources = [ "mutex_benchmark.cc" ]
-    deps = [
-      ":mutex",
-      "../system:unused",
-      "//third_party/google_benchmark",
-    ]
-  }
-
   rtc_library("sequence_checker_unittests") {
     testonly = true
 
@@ -116,5 +86,37 @@ if (rtc_include_tests) {
       "../../test:test_main",
       "../../test:test_support",
     ]
+  }
+
+  if (defined(enable_google_benchmarks) && enable_google_benchmarks) {
+    rtc_library("synchronization_unittests") {
+      testonly = true
+      sources = [
+        "mutex_unittest.cc",
+        "yield_policy_unittest.cc",
+      ]
+      deps = [
+        ":mutex",
+        ":yield",
+        ":yield_policy",
+        "..:checks",
+        "..:macromagic",
+        "..:rtc_base",
+        "..:rtc_event",
+        "..:threading",
+        "../../test:test_support",
+        "//third_party/google_benchmark",
+      ]
+    }
+
+    rtc_library("mutex_benchmark") {
+      testonly = true
+      sources = [ "mutex_benchmark.cc" ]
+      deps = [
+        ":mutex",
+        "../system:unused",
+        "//third_party/google_benchmark",
+      ]
+    }
   }
 }

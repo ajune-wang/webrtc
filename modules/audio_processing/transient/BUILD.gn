@@ -14,10 +14,10 @@ rtc_source_set("transient_suppressor_api") {
 
 rtc_library("transient_suppressor_impl") {
   visibility = [
-    "..:optionally_built_submodule_creators",
+    ":click_annotate",
     ":transient_suppression_test",
     ":transient_suppression_unittests",
-    ":click_annotate",
+    "..:optionally_built_submodule_creators",
   ]
   sources = [
     "common.h",
@@ -82,6 +82,8 @@ if (rtc_include_tests) {
       "../../../test:test_support",
       "../agc:level_estimation",
       "//testing/gtest",
+    ]
+    absl_deps = [
       "//third_party/abseil-cpp/absl/flags:flag",
       "//third_party/abseil-cpp/absl/flags:parse",
     ]

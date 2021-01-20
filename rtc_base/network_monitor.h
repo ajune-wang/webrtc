@@ -12,7 +12,6 @@
 #define RTC_BASE_NETWORK_MONITOR_H_
 
 #include "rtc_base/network_constants.h"
-#include "rtc_base/third_party/sigslot/sigslot.h"
 
 namespace rtc {
 
@@ -70,8 +69,6 @@ class NetworkMonitorInterface {
  public:
   NetworkMonitorInterface();
   virtual ~NetworkMonitorInterface();
-
-  sigslot::signal0<> SignalNetworksChanged;
 
   virtual void Start() = 0;
   virtual void Stop() = 0;

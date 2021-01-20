@@ -46,6 +46,9 @@ namespace {
 
 class FakeNetworkMonitor : public NetworkMonitorInterface {
  public:
+  explicit FakeNetworkMonitor(std::function<void()> on_networks_changed)
+      : on_networks_changed_(std::move(on_networks_changed)) {}
+
   void Start() override { started_ = true; }
   void Stop() override { started_ = false; }
   bool started() { return started_; }
@@ -76,7 +79,10 @@ class FakeNetworkMonitor : public NetworkMonitorInterface {
     unavailable_adapters_ = unavailable_adapters;
   }
 
+  void SignalNetworksChanged() { on_networks_changed_(); }
+
  private:
+  std::function<void()> on_networks_changed_;
   bool started_ = false;
   std::vector<std::string> unavailable_adapters_;
 };
@@ -84,8 +90,9 @@ class FakeNetworkMonitor : public NetworkMonitorInterface {
 class FakeNetworkMonitorFactory : public NetworkMonitorFactory {
  public:
   FakeNetworkMonitorFactory() {}
-  NetworkMonitorInterface* CreateNetworkMonitor() override {
-    return new FakeNetworkMonitor();
+  std::unique_ptr<NetworkMonitorInterface> CreateNetworkMonitor(
+      std::function<void()> on_networks_changed) override {
+    return std::make_unique<FakeNetworkMonitor>(std::move(on_networks_changed));
   }
 };
 

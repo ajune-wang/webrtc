@@ -48,7 +48,7 @@ class AndroidNetworkMonitorTest : public ::testing::Test {
     JNIEnv* env = AttachCurrentThreadIfNeeded();
     ScopedJavaLocalRef<jobject> context = test::GetAppContextForTest(env);
     network_monitor_ =
-        std::make_unique<jni::AndroidNetworkMonitor>(env, context);
+        std::make_unique<jni::AndroidNetworkMonitor>(env, context, [] {});
   }
 
   void SetUp() {

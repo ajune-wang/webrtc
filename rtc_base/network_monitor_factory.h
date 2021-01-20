@@ -11,6 +11,9 @@
 #ifndef RTC_BASE_NETWORK_MONITOR_FACTORY_H_
 #define RTC_BASE_NETWORK_MONITOR_FACTORY_H_
 
+#include <functional>
+#include <memory>
+
 namespace rtc {
 
 // Forward declaring this so it's not part of the API surface; it's only
@@ -24,7 +27,8 @@ class NetworkMonitorInterface;
  */
 class NetworkMonitorFactory {
  public:
-  virtual NetworkMonitorInterface* CreateNetworkMonitor() = 0;
+  virtual std::unique_ptr<NetworkMonitorInterface> CreateNetworkMonitor(
+      std::function<void()> on_networks_changed) = 0;
 
   virtual ~NetworkMonitorFactory();
 

@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "8d5c51c2_12513920",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-01-20T03:17:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "264109d9_1c8aa5c3",
+      "range": {
+        "startLine": 15,
+        "startChar": 5,
+        "endLine": 15,
+        "endChar": 11
+      },
+      "revId": "f6f1bd3dd6e699e9b0007e1d3eb5f37e11a6dd97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "ec32912f_2a122583",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
@@ -75,6 +99,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "01f1b83b_60500db9",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-01-20T03:17:59Z",
+      "side": 1,
+      "message": "Done. As for the TODO, this functionality could be moved to UsrSctpWrapper but I\u0027ll delete it for now.",
+      "parentUuid": "5bfde414_89b263bd",
+      "revId": "f6f1bd3dd6e699e9b0007e1d3eb5f37e11a6dd97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "078a168a_f1d04d2e",
@@ -88,6 +130,24 @@
       "writtenOn": "2021-01-19T06:15:23Z",
       "side": 1,
       "message": "Can you formulate this requirement as an RTC_GUARDED_BY?",
+      "revId": "f6f1bd3dd6e699e9b0007e1d3eb5f37e11a6dd97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61d74b05_b2a4cbc5",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-01-20T03:17:59Z",
+      "side": 1,
+      "message": "No, since the network thread could theoretically be different between different SctpTransports...",
+      "parentUuid": "078a168a_f1d04d2e",
       "revId": "f6f1bd3dd6e699e9b0007e1d3eb5f37e11a6dd97",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -111,6 +171,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1420dfbb_117c9da7",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-01-20T03:17:59Z",
+      "side": 1,
+      "message": "I personally think the cast makes sense where it is. uintptr_t is the type of the ID as used by SctpTransportMap and SctpTransport::id_, void* is how it\u0027s stored in usrsctp. Should id_ change to void*? Either way, I could do this in a separate CL since its an orthogonal change.",
+      "parentUuid": "f8c39e05_fa5e8f1d",
+      "revId": "f6f1bd3dd6e699e9b0007e1d3eb5f37e11a6dd97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4e679801_0f58c447",
         "filename": "media/sctp/sctp_transport.cc",
         "patchSetId": 3
@@ -122,6 +200,24 @@
       "writtenOn": "2021-01-19T06:15:23Z",
       "side": 1,
       "message": "Can you merge these two instances into RetrieveWhileHoldingLock, which should have an RTC_EXCLUSIVE_LOCKS_REQUIRED(lock_) annotation?",
+      "revId": "f6f1bd3dd6e699e9b0007e1d3eb5f37e11a6dd97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8901688b_d8753699",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-01-20T03:17:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e679801_0f58c447",
       "revId": "f6f1bd3dd6e699e9b0007e1d3eb5f37e11a6dd97",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -145,6 +241,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "17c48159_afc5f860",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-01-20T03:17:59Z",
+      "side": 1,
+      "message": "How about changing \"ExecuteWithLock\" to \"PostToTransportThread\"? See latest patch set.",
+      "parentUuid": "c4c7e21a_61d6e877",
+      "revId": "f6f1bd3dd6e699e9b0007e1d3eb5f37e11a6dd97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "34bfd1d6_f411f336",
         "filename": "media/sctp/sctp_transport.cc",
         "patchSetId": 3
@@ -156,6 +270,24 @@
       "writtenOn": "2021-01-19T06:15:23Z",
       "side": 1,
       "message": "if addr is a void* in general, you should do the cast at the lowest possible level (I suggest inside RetrieveWhileHoldingLock), and pass this as a void*.",
+      "revId": "f6f1bd3dd6e699e9b0007e1d3eb5f37e11a6dd97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab8a9ffc_34416402",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-01-20T03:17:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "34bfd1d6_f411f336",
       "revId": "f6f1bd3dd6e699e9b0007e1d3eb5f37e11a6dd97",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

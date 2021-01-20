@@ -11,6 +11,8 @@
 #ifndef SDK_OBJC_NATIVE_SRC_OBJC_NETWORK_MONITOR_H_
 #define SDK_OBJC_NATIVE_SRC_OBJC_NETWORK_MONITOR_H_
 
+#include <functional>
+#include <memory>
 #include <vector>
 
 #include "sdk/objc/components/network/RTCNetworkMonitor+Private.h"
@@ -30,13 +32,15 @@ class ObjCNetworkMonitorFactory : public rtc::NetworkMonitorFactory {
   ObjCNetworkMonitorFactory() = default;
   ~ObjCNetworkMonitorFactory() override = default;
 
-  rtc::NetworkMonitorInterface* CreateNetworkMonitor() override;
+  std::unique_ptr<rtc::NetworkMonitorInterface> CreateNetworkMonitor(
+      std::function<void()> on_networks_changed) override;
 };
 
 class ObjCNetworkMonitor : public rtc::NetworkMonitorInterface,
                            public NetworkMonitorObserver {
  public:
-  ObjCNetworkMonitor() = default;
+  explicit ObjCNetworkMonitor(std::function<void()> on_networks_changed)
+      : on_networks_changed_(std::move(on_networks_changed)) {}
   ~ObjCNetworkMonitor() override;
 
   void Start() override;
@@ -55,6 +59,7 @@ class ObjCNetworkMonitor : public rtc::NetworkMonitorInterface,
       std::map<std::string, rtc::AdapterType> adapter_type_by_name) override;
 
  private:
+  const std::function<void()> on_networks_changed_;
   rtc::Thread* thread_ = nullptr;
   bool started_ = false;
   std::map<std::string, rtc::AdapterType> adapter_type_by_name_

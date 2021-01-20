@@ -11,13 +11,17 @@
 #include "sdk/objc/native/src/objc_network_monitor.h"
 
 #include <algorithm>
+#include <functional>
+#include <memory>
+#include <utility>
 
 #include "rtc_base/logging.h"
 
 namespace webrtc {
 
-rtc::NetworkMonitorInterface* ObjCNetworkMonitorFactory::CreateNetworkMonitor() {
-  return new ObjCNetworkMonitor();
+std::unique_ptr<rtc::NetworkMonitorInterface> ObjCNetworkMonitorFactory::CreateNetworkMonitor(
+    std::function<void()> on_networks_changed) {
+  return std::make_unique<ObjCNetworkMonitor>(std::move(on_networks_changed));
 }
 
 ObjCNetworkMonitor::~ObjCNetworkMonitor() {
@@ -79,7 +83,7 @@ void ObjCNetworkMonitor::OnPathUpdate(
   invoker_.AsyncInvoke<void>(RTC_FROM_HERE, thread_, [this, adapter_type_by_name] {
     RTC_DCHECK_RUN_ON(thread_);
     adapter_type_by_name_ = adapter_type_by_name;
-    SignalNetworksChanged();
+    on_networks_changed_();
   });
 }
 

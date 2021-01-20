@@ -858,12 +858,11 @@ void BasicNetworkManager::StartNetworkMonitor() {
     return;
   }
   if (!network_monitor_) {
-    network_monitor_.reset(network_monitor_factory_->CreateNetworkMonitor());
+    network_monitor_ = network_monitor_factory_->CreateNetworkMonitor(
+        [this] { OnNetworksChanged(); });
     if (!network_monitor_) {
       return;
     }
-    network_monitor_->SignalNetworksChanged.connect(
-        this, &BasicNetworkManager::OnNetworksChanged);
   }
   network_monitor_->Start();
 }

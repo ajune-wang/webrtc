@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "517ef9cb_1fac4eba",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15969
+      },
+      "writtenOn": "2021-01-20T20:37:56Z",
+      "side": 1,
+      "message": "Git listed you as an owner for this file, please feel free to add other reviewers and feedback :) . Thanks!",
+      "revId": "70d2cf6a51e28c5a0ad1cb0a85e72cb20b9a2a24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

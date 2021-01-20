@@ -33,8 +33,9 @@ QualityAnalyzingVideoDecoder::QualityAnalyzingVideoDecoder(
     VideoQualityAnalyzerInterface* analyzer)
     : id_(id),
       peer_name_(peer_name),
-      implementation_name_("AnalyzingDecoder-" +
-                           std::string(delegate->ImplementationName())),
+      implementation_name_(
+          "AnalyzingDecoder-" +
+          std::string(delegate->GetDecoderInfo().implementation_name)),
       delegate_(std::move(delegate)),
       extractor_(extractor),
       analyzer_(analyzer) {
@@ -127,10 +128,6 @@ VideoDecoder::DecoderInfo QualityAnalyzingVideoDecoder::GetDecoderInfo() const {
   DecoderInfo info = delegate_->GetDecoderInfo();
   info.implementation_name = implementation_name_;
   return info;
-}
-
-const char* QualityAnalyzingVideoDecoder::ImplementationName() const {
-  return implementation_name_.c_str();
 }
 
 QualityAnalyzingVideoDecoder::DecoderCallback::DecoderCallback(

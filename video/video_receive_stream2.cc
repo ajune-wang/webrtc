@@ -176,7 +176,11 @@ class NullVideoDecoder : public webrtc::VideoDecoder {
 
   int32_t Release() override { return WEBRTC_VIDEO_CODEC_OK; }
 
-  const char* ImplementationName() const override { return "NullVideoDecoder"; }
+  DecoderInfo GetDecoderInfo() const override {
+    DecoderInfo info;
+    info.implementation_name = "NullVideoDecoder";
+    return info;
+  }
 };
 
 // TODO(https://bugs.webrtc.org/9974): Consider removing this workaround.

@@ -39,7 +39,6 @@ class FakeVp8Decoder : public VideoDecoder {
   int32_t Release() override;
 
   DecoderInfo GetDecoderInfo() const override;
-  const char* ImplementationName() const override;
   static const char* kImplementationName;
 
  private:

@@ -85,10 +85,5 @@ VideoDecoder::DecoderInfo FakeVp8Decoder::GetDecoderInfo() const {
   info.is_hardware_accelerated = false;
   return info;
 }
-
-const char* FakeVp8Decoder::ImplementationName() const {
-  return kImplementationName;
-}
-
 }  // namespace test
 }  // namespace webrtc

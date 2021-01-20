@@ -52,7 +52,6 @@ class VideoDecoderSoftwareFallbackWrapper final : public VideoDecoder {
   int32_t Release() override;
 
   DecoderInfo GetDecoderInfo() const override;
-  const char* ImplementationName() const override;
 
  private:
   bool InitFallbackDecoder();
@@ -86,8 +85,9 @@ VideoDecoderSoftwareFallbackWrapper::VideoDecoderSoftwareFallbackWrapper(
       hw_decoder_(std::move(hw_decoder)),
       fallback_decoder_(std::move(sw_fallback_decoder)),
       fallback_implementation_name_(
-          std::string(fallback_decoder_->ImplementationName()) +
-          " (fallback from: " + hw_decoder_->ImplementationName() + ")"),
+          std::string(fallback_decoder_->GetDecoderInfo().implementation_name) +
+          " (fallback from: " +
+          hw_decoder_->GetDecoderInfo().implementation_name + ")"),
       callback_(nullptr),
       hw_decoded_frames_since_last_fallback_(0),
       hw_consequtive_generic_errors_(0) {}
@@ -270,15 +270,6 @@ VideoDecoder::DecoderInfo VideoDecoderSoftwareFallbackWrapper::GetDecoderInfo()
     info.implementation_name = fallback_implementation_name_;
   }
   return info;
-}
-
-const char* VideoDecoderSoftwareFallbackWrapper::ImplementationName() const {
-  if (decoder_type_ == DecoderType::kFallback) {
-    // Cached "A (fallback from B)" string.
-    return fallback_implementation_name_.c_str();
-  } else {
-    return hw_decoder_->ImplementationName();
-  }
 }
 
 VideoDecoder& VideoDecoderSoftwareFallbackWrapper::active_decoder() const {

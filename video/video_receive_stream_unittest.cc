@@ -73,7 +73,11 @@ class MockVideoDecoder : public VideoDecoder {
               (override));
   MOCK_METHOD(int32_t, Release, (), (override));
   MOCK_METHOD(VideoDecoder::DecoderInfo, GetDetcoderInfo, (), (const override));
-  const char* ImplementationName() const { return "MockVideoDecoder"; }
+  DecoderInfo DecoderInfo() const {
+    struct DecoderInfo info;
+    info.implementation_name = "MockVideoDecoder";
+    return info;
+  }
 };
 
 class FrameObjectFake : public video_coding::EncodedFrame {

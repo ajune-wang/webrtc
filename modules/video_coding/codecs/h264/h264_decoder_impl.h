@@ -74,7 +74,7 @@ class H264DecoderImpl : public H264Decoder {
                  bool /*missing_frames*/,
                  int64_t render_time_ms = -1) override;
 
-  const char* ImplementationName() const override;
+  DecoderInfo GetDecoderInfo() const override;
 
  private:
   // Called by FFmpeg when it needs a frame buffer to store decoded frames in.

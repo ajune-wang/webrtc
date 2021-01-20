@@ -398,10 +398,6 @@ VideoDecoder::DecoderInfo LibvpxVp9Decoder::GetDecoderInfo() const {
   return info;
 }
 
-const char* LibvpxVp9Decoder::ImplementationName() const {
-  return "libvpx";
-}
-
 }  // namespace webrtc
 
 #endif  // RTC_ENABLE_VP9

@@ -39,7 +39,6 @@ class LibvpxVp8Decoder : public VideoDecoder {
   int Release() override;
 
   DecoderInfo GetDecoderInfo() const override;
-  const char* ImplementationName() const override;
 
   struct DeblockParams {
     int max_level = 6;   // Deblocking strength: [0, 16].

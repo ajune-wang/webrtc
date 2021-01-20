@@ -64,9 +64,6 @@ class VideoDecoderProxyFactory final : public VideoDecoderFactory {
     DecoderInfo GetDecoderInfo() const override {
       return decoder_->GetDecoderInfo();
     }
-    const char* ImplementationName() const override {
-      return decoder_->ImplementationName();
-    }
 
     VideoDecoder* const decoder_;
   };

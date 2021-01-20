@@ -54,7 +54,6 @@ class LibaomAv1Decoder final : public VideoDecoder {
   int32_t Release() override;
 
   DecoderInfo GetDecoderInfo() const override;
-  const char* ImplementationName() const override;
 
  private:
   aom_codec_ctx_t context_;
@@ -188,10 +187,6 @@ VideoDecoder::DecoderInfo LibaomAv1Decoder::GetDecoderInfo() const {
   info.implementation_name = "libaom";
   info.is_hardware_accelerated = false;
   return info;
-}
-
-const char* LibaomAv1Decoder::ImplementationName() const {
-  return "libaom";
 }
 
 }  // namespace

@@ -403,8 +403,4 @@ VideoDecoder::DecoderInfo LibvpxVp8Decoder::GetDecoderInfo() const {
   info.is_hardware_accelerated = false;
   return info;
 }
-
-const char* LibvpxVp8Decoder::ImplementationName() const {
-  return "libvpx";
-}
 }  // namespace webrtc

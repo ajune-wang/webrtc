@@ -368,8 +368,11 @@ int32_t H264DecoderImpl::Decode(const EncodedImage& input_image,
   return WEBRTC_VIDEO_CODEC_OK;
 }
 
-const char* H264DecoderImpl::ImplementationName() const {
-  return "FFmpeg";
+VideoDecoder::DecoderInfo H264DecoderImpl::GetDecoderInfo() const {
+  DecoderInfo info;
+  info.implementation_name = "FFmpeg";
+  info.is_hardware_accelerated = false;
+  return info;
 }
 
 bool H264DecoderImpl::IsInitialized() const {

@@ -105,9 +105,6 @@ VideoDecoder::DecoderInfo FakeDecoder::GetDecoderInfo() const {
   info.is_hardware_accelerated = false;
   return info;
 }
-const char* FakeDecoder::ImplementationName() const {
-  return kImplementationName;
-}
 
 int32_t FakeH264Decoder::Decode(const EncodedImage& input,
                                 bool missing_frames,

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b921e809_65683f79",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-01-20T17:18:19Z",
+      "side": 1,
+      "message": "Remove it from:\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/api/video_codecs/video_decoder.h;l\u003d74;drc\u003d25b8235f037ecaa1887c16dbdec641c0eb5e3461\nand\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/sdk/android/api/org/webrtc/VideoDecoder.java;l\u003d93;drc\u003d25b8235f037ecaa1887c16dbdec641c0eb5e3461\nas well?",
+      "revId": "58194fb2ad4f33ca6a269e4788e567bcfc65f064",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

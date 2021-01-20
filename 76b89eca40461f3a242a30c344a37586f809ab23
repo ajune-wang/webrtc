@@ -69,6 +69,24 @@
       "parentUuid": "8d1bea11_020de0e5",
       "revId": "76b89eca40461f3a242a30c344a37586f809ab23",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "054a9632_4edb5631",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2021-01-20T09:56:16Z",
+      "side": 1,
+      "message": "Updated cl, ptal.",
+      "parentUuid": "55605143_2794f7fc",
+      "revId": "76b89eca40461f3a242a30c344a37586f809ab23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

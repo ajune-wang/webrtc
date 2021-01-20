@@ -88,7 +88,7 @@ typedef NS_ENUM(NSInteger, RTCDeviceType) {
   RTCDeviceTypeIPadMini5Gen,
   RTCDeviceTypeIPadAir3Gen,
   RTCDeviceTypeIPad8,
-  RTCDeviceTypeIPadAir4Gen
+  RTCDeviceTypeIPadAir4Gen,
   RTCDeviceTypeSimulatori386,
   RTCDeviceTypeSimulatorx86_64,
 };

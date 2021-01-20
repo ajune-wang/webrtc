@@ -16,6 +16,23 @@
       "message": "Nice! Discussed this just the other day, in the context of https://webrtc-review.googlesource.com/c/src/+/201722",
       "revId": "5836efae1fd3cc703fa8024ee1b52567c6009a50",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "585e8aac_054c820e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-01-20T10:40:34Z",
+      "side": 1,
+      "message": "As nisse@ already mentioned, we actually discussed this a few days ago and agreed that something like this would be preferable. :)\n\nThanks for fixing!",
+      "revId": "5836efae1fd3cc703fa8024ee1b52567c6009a50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

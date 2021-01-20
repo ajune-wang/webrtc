@@ -424,6 +424,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4523874_5564d9de",
+        "filename": "modules/video_coding/codecs/vp9/test/vp9_impl_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2115,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-20T15:30:55Z",
+      "side": 1,
+      "message": "No, I do not know a neat way to do that check.\nOne way I can think about is to add helper that cut array to N elements:\n\ntemplate\u003ctypename T\u003e\nauto FirstN(int n) {\n  return [n](rtc::ArrayView\u003cconst T\u003e container) {\n    return container.subview(0, n);\n  }\n}\n\n...\nEXPECT_THAT(.... Field(\u0026vpx_svc_extra_cfg_t::speed_per_layer, ResultOf(FirstN\u003cint\u003e(3), ElementsAre(0, 0, 0))) ... );\n\nBut with this kind of helper it can be easy to get lost in template meta-programming.",
+      "parentUuid": "06905f35_d3c2bbfc",
+      "range": {
+        "startLine": 2115,
+        "startChar": 36,
+        "endLine": 2115,
+        "endChar": 68
+      },
+      "revId": "fd4e90b975e09c3fc06fc96508ade4dc918050d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ced4476f_58bfeeb9",

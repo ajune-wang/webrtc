@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "180de11a_72c99a62",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-20T15:30:55Z",
+      "side": 1,
+      "message": "I do not want to hold this fix with testing nits.",
+      "revId": "ff843bf92de38af7209dbbf5d9ef144dbb3d8d79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f854e888_6904c65f",
+        "filename": "modules/video_coding/codecs/vp9/test/vp9_impl_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2109,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-20T15:30:55Z",
+      "side": 1,
+      "message": "may be then use absl::WrapUnique\nto stress something fishy is going on with memory management here.",
+      "range": {
+        "startLine": 2109,
+        "startChar": 27,
+        "endLine": 2109,
+        "endChar": 59
+      },
+      "revId": "ff843bf92de38af7209dbbf5d9ef144dbb3d8d79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34a047d4_40701d33",
+        "filename": "modules/video_coding/codecs/vp9/test/vp9_impl_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2186,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-20T15:30:55Z",
+      "side": 1,
+      "message": "Remove ::testing::",
+      "range": {
+        "startLine": 2186,
+        "startChar": 13,
+        "endLine": 2186,
+        "endChar": 24
+      },
+      "revId": "ff843bf92de38af7209dbbf5d9ef144dbb3d8d79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15ae21f9_cdf97eb7",
+        "filename": "modules/video_coding/codecs/vp9/test/vp9_impl_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2234,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-20T15:30:55Z",
+      "side": 1,
+      "message": "these constanst are used just once, right?\nThen it might be cleaner and safer to annotate them with a comment:\nConfigureSvc(settings, /*num_spatial_layers\u003d*/3, /*num_temporal_layers\u003d*/3);\n\n(And hope that clang plugin that produce a warning when comment and parameter name are mismatched would be integrated sooner)",
+      "range": {
+        "startLine": 2234,
+        "startChar": 25,
+        "endLine": 2234,
+        "endChar": 62
+      },
+      "revId": "ff843bf92de38af7209dbbf5d9ef144dbb3d8d79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6c5ddc5_913f644d",
+        "filename": "modules/video_coding/codecs/vp9/test/vp9_impl_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2238,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-20T15:30:55Z",
+      "side": 1,
+      "message": "I think this is the neatest way to check elements that matter\n\n(it still implicitly checks that other elements are 0, but I think it is a minor issue compared to other potential solutions)",
+      "range": {
+        "startLine": 2238,
+        "startChar": 2,
+        "endLine": 2238,
+        "endChar": 53
+      },
+      "revId": "ff843bf92de38af7209dbbf5d9ef144dbb3d8d79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

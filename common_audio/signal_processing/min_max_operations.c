@@ -33,49 +33,36 @@
 //   WebRtcSpl_MaxAbsValueW16C and WebRtcSpl_MaxAbsIndexW16 into a single one.)
 // TODO(kma): Move the next six functions into min_max_operations_c.c.
 
-// Maximum absolute value of word16 vector. C version for generic platforms.
-int16_t WebRtcSpl_MaxAbsValueW16C(const int16_t* vector, size_t length) {
-  size_t i = 0;
-  int absolute = 0, maximum = 0;
-
-  RTC_DCHECK_GT(length, 0);
-
-  for (i = 0; i < length; i++) {
-    absolute = abs((int)vector[i]);
-
-    if (absolute > maximum) {
-      maximum = absolute;
-    }
+// Maximum absolute value of word16 vector.
+int16_t WebRtcSpl_MaxAbsValueW16(const int16_t* vector, size_t length) {
+#if defined(MIPS32_LE)
+  return WebRtcSpl_MaxAbsValueW16_mips(vector, length);
+#endif
+  int16_t min_val, max_val;
+  WebRtcSpl_MinMaxW16(vector, length, &min_val, &max_val);
+  if (min_val == WEBRTC_SPL_WORD16_MIN) {
+    return WEBRTC_SPL_WORD16_MAX;
   }
-
-  // Guard the case for abs(-32768).
-  if (maximum > WEBRTC_SPL_WORD16_MAX) {
-    maximum = WEBRTC_SPL_WORD16_MAX;
+  if (min_val < -max_val) {
+    return -min_val;
   }
-
-  return (int16_t)maximum;
+  return max_val;
 }
 
-// Maximum absolute value of word32 vector. C version for generic platforms.
-int32_t WebRtcSpl_MaxAbsValueW32C(const int32_t* vector, size_t length) {
-  // Use uint32_t for the local variables, to accommodate the return value
-  // of abs(0x80000000), which is 0x80000000.
-
-  uint32_t absolute = 0, maximum = 0;
-  size_t i = 0;
-
-  RTC_DCHECK_GT(length, 0);
-
-  for (i = 0; i < length; i++) {
-    absolute = abs((int)vector[i]);
-    if (absolute > maximum) {
-      maximum = absolute;
-    }
+// Maximum absolute value of word32 vector.
+int32_t WebRtcSpl_MaxAbsValueW32(const int32_t* vector, size_t length) {
+#if defined(MIPS_DSP_R1_LE)
+  return WebRtcSpl_MaxAbsValueW32_mips(vector, length);
+#endif
+  int32_t min_val, max_val;
+  WebRtcSpl_MinMaxW32(vector, length, &min_val, &max_val);
+  if (min_val == WEBRTC_SPL_WORD32_MIN) {
+    return WEBRTC_SPL_WORD32_MAX;
   }
-
-  maximum = WEBRTC_SPL_MIN(maximum, WEBRTC_SPL_WORD32_MAX);
-
-  return (int32_t)maximum;
+  if (min_val < -max_val) {
+    return -min_val;
+  }
+  return max_val;
 }
 
 // Maximum value of word16 vector. C version for generic platforms.
@@ -240,6 +227,28 @@ void WebRtcSpl_MinMaxW16(const int16_t* vector, size_t length,
 #else
   int16_t minimum = WEBRTC_SPL_WORD16_MAX;
   int16_t maximum = WEBRTC_SPL_WORD16_MIN;
+  size_t i = 0;
+
+  RTC_DCHECK_GT(length, 0);
+
+  for (i = 0; i < length; i++) {
+    if (vector[i] < minimum)
+      minimum = vector[i];
+    if (vector[i] > maximum)
+      maximum = vector[i];
+  }
+  *min_val = minimum;
+  *max_val = maximum;
+#endif
+}
+
+void WebRtcSpl_MinMaxW32(const int32_t* vector, size_t length, int32_t* min_val,
+                         int32_t* max_val) {
+#if defined(WEBRTC_HAS_NEON)
+  return WebRtcSpl_MinMaxW32Neon(vector, length, min_val, max_val);
+#else
+  int32_t minimum = WEBRTC_SPL_WORD32_MAX;
+  int32_t maximum = WEBRTC_SPL_WORD32_MIN;
   size_t i = 0;
 
   RTC_DCHECK_GT(length, 0);

@@ -8,6 +8,7 @@
 
 import("//build/config/crypto.gni")
 import("//build/config/ui.gni")
+import("//third_party/google_benchmark/buildconfig.gni")
 import("../webrtc.gni")
 
 if (is_android) {
@@ -1483,92 +1484,94 @@ if (rtc_include_tests) {
     ]
   }
 
-  rtc_library("rtc_base_unittests") {
-    testonly = true
-    defines = []
+  if (enable_google_benchmarks) {
+    rtc_library("rtc_base_unittests") {
+      testonly = true
+      defines = []
 
-    sources = [
-      "callback_unittest.cc",
-      "crc32_unittest.cc",
-      "data_rate_limiter_unittest.cc",
-      "deprecated/signal_thread_unittest.cc",
-      "fake_clock_unittest.cc",
-      "helpers_unittest.cc",
-      "ip_address_unittest.cc",
-      "memory_usage_unittest.cc",
-      "message_digest_unittest.cc",
-      "nat_unittest.cc",
-      "network_route_unittest.cc",
-      "network_unittest.cc",
-      "proxy_unittest.cc",
-      "rolling_accumulator_unittest.cc",
-      "rtc_certificate_generator_unittest.cc",
-      "rtc_certificate_unittest.cc",
-      "sigslot_tester_unittest.cc",
-      "test_client_unittest.cc",
-      "thread_unittest.cc",
-      "unique_id_generator_unittest.cc",
-    ]
-    deps = [
-      ":async_socket",
-      ":checks",
-      ":gunit_helpers",
-      ":ip_address",
-      ":net_helpers",
-      ":null_socket_server",
-      ":rtc_base_tests_utils",
-      ":socket_address",
-      ":socket_factory",
-      ":socket_server",
-      ":stringutils",
-      ":testclient",
-      ":threading",
-      "../api:array_view",
-      "../api/task_queue",
-      "../api/task_queue:task_queue_test",
-      "../test:field_trial",
-      "../test:fileutils",
-      "../test:rtc_expect_death",
-      "../test:test_main",
-      "../test:test_support",
-      "memory:fifo_buffer",
-      "synchronization:mutex",
-      "synchronization:synchronization_unittests",
-      "task_utils:pending_task_safety_flag",
-      "task_utils:to_queued_task",
-      "third_party/sigslot",
-    ]
-    if (is_win) {
-      sources += [
-        "win32_unittest.cc",
-        "win32_window_unittest.cc",
+      sources = [
+        "callback_unittest.cc",
+        "crc32_unittest.cc",
+        "data_rate_limiter_unittest.cc",
+        "deprecated/signal_thread_unittest.cc",
+        "fake_clock_unittest.cc",
+        "helpers_unittest.cc",
+        "ip_address_unittest.cc",
+        "memory_usage_unittest.cc",
+        "message_digest_unittest.cc",
+        "nat_unittest.cc",
+        "network_route_unittest.cc",
+        "network_unittest.cc",
+        "proxy_unittest.cc",
+        "rolling_accumulator_unittest.cc",
+        "rtc_certificate_generator_unittest.cc",
+        "rtc_certificate_unittest.cc",
+        "sigslot_tester_unittest.cc",
+        "test_client_unittest.cc",
+        "thread_unittest.cc",
+        "unique_id_generator_unittest.cc",
       ]
-      deps += [ ":win32" ]
-    }
-    if (is_posix || is_fuchsia) {
-      sources += [
-        "openssl_adapter_unittest.cc",
-        "openssl_session_cache_unittest.cc",
-        "openssl_utility_unittest.cc",
-        "ssl_adapter_unittest.cc",
-        "ssl_identity_unittest.cc",
-        "ssl_stream_adapter_unittest.cc",
+      deps = [
+        ":async_socket",
+        ":checks",
+        ":gunit_helpers",
+        ":ip_address",
+        ":net_helpers",
+        ":null_socket_server",
+        ":rtc_base_tests_utils",
+        ":socket_address",
+        ":socket_factory",
+        ":socket_server",
+        ":stringutils",
+        ":testclient",
+        ":threading",
+        "../api:array_view",
+        "../api/task_queue",
+        "../api/task_queue:task_queue_test",
+        "../test:field_trial",
+        "../test:fileutils",
+        "../test:rtc_expect_death",
+        "../test:test_main",
+        "../test:test_support",
+        "memory:fifo_buffer",
+        "synchronization:mutex",
+        "synchronization:synchronization_unittests",
+        "task_utils:pending_task_safety_flag",
+        "task_utils:to_queued_task",
+        "third_party/sigslot",
       ]
-    }
-    absl_deps = [
-      "//third_party/abseil-cpp/absl/algorithm:container",
-      "//third_party/abseil-cpp/absl/memory",
-      "//third_party/abseil-cpp/absl/strings",
-      "//third_party/abseil-cpp/absl/types:optional",
-    ]
-    public_deps = [ ":rtc_base" ]  # no-presubmit-check TODO(webrtc:8603)
-    if (build_with_chromium) {
-      include_dirs = [ "../../boringssl/src/include" ]
-    }
-    if (rtc_build_ssl) {
-      deps += [ "//third_party/boringssl" ]
-    } else {
-      configs += [ ":external_ssl_library" ]
+      if (is_win) {
+        sources += [
+          "win32_unittest.cc",
+          "win32_window_unittest.cc",
+        ]
+        deps += [ ":win32" ]
+      }
+      if (is_posix || is_fuchsia) {
+        sources += [
+          "openssl_adapter_unittest.cc",
+          "openssl_session_cache_unittest.cc",
+          "openssl_utility_unittest.cc",
+          "ssl_adapter_unittest.cc",
+          "ssl_identity_unittest.cc",
+          "ssl_stream_adapter_unittest.cc",
+        ]
+      }
+      absl_deps = [
+        "//third_party/abseil-cpp/absl/algorithm:container",
+        "//third_party/abseil-cpp/absl/memory",
+        "//third_party/abseil-cpp/absl/strings",
+        "//third_party/abseil-cpp/absl/types:optional",
+      ]
+      public_deps = [ ":rtc_base" ]  # no-presubmit-check TODO(webrtc:8603)
+      if (build_with_chromium) {
+        include_dirs = [ "../../boringssl/src/include" ]
+      }
+      if (rtc_build_ssl) {
+        deps += [ "//third_party/boringssl" ]
+      } else {
+        configs += [ ":external_ssl_library" ]
+      }
     }
   }
 }

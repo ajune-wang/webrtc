@@ -321,8 +321,11 @@ if (rtc_include_tests) {
         ":audioproc_unittest_proto",
         "aec_dump:aec_dump_unittests",
         "test/conversational_speech",
-        "test/py_quality_assessment",
       ]
+    }
+
+    if (rtc_enable_protobuf && !build_with_chromium) {
+      deps += [ "test/py_quality_assessment" ]
     }
   }
 

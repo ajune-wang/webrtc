@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0966478d_41df810c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-21T14:59:03Z",
+      "side": 1,
+      "message": "I\u0027m unsure what is better to do when scalability mode is not set.\none option (suggested) - produce an explicit error.\nanother option - use no scalability.",
+      "revId": "39acb10e8a43c67ba2c3fd8fe3883d722dc23a7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -16,6 +16,23 @@
       "message": "Not sure how risky this change is? I guess it makes sense to reset the overuse detection when the underlying encoder changes but maybe it happens often and would make the detection ineffective?",
       "revId": "fbf9c4f99cb20045e730559fe9dd935a76a3f3fe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc8a0006_71923440",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-01-21T21:00:27Z",
+      "side": 1,
+      "message": "lgtm, but I\u0027d like hbos@ to have a go too as expert in this area",
+      "revId": "fbf9c4f99cb20045e730559fe9dd935a76a3f3fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

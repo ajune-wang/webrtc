@@ -16,6 +16,23 @@
       "message": "I\u0027m assuming the next CL in line is the one defining the histogram in Chrome.\n",
       "revId": "e3f3bc82db2348ef8006dc3c4303bde7918ebf40",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13390b13_52592cc1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-01-21T15:51:07Z",
+      "side": 1,
+      "message": "chromium CL for cross-reference: https://chromium-review.googlesource.com/c/chromium/src/+/2637480",
+      "revId": "e3f3bc82db2348ef8006dc3c4303bde7918ebf40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

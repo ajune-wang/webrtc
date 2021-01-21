@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7385a292_b2306887",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-21T15:19:12Z",
+      "side": 1,
+      "message": "Can I have your opinion if an extra template to wrap classed into scoped_refptr is low enough price for slightly better performance and slightly lower binary size",
+      "revId": "9276d3dee3ed2835646984a4ee165ff83b35c097",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

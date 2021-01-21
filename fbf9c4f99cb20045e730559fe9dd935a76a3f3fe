@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "369c9a29_8a0de7bc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2021-01-21T19:48:54Z",
+      "side": 1,
+      "message": "Not sure how risky this change is? I guess it makes sense to reset the overuse detection when the underlying encoder changes but maybe it happens often and would make the detection ineffective?",
+      "revId": "fbf9c4f99cb20045e730559fe9dd935a76a3f3fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

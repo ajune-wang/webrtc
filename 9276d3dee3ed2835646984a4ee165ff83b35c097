@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "11ba9729_e36c33b9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-21T15:48:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "717cda03_5c721a8b",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 52
+      },
+      "revId": "9276d3dee3ed2835646984a4ee165ff83b35c097",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "7385a292_b2306887",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 6
@@ -64,6 +88,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4ce6e62_121b674e",
+        "filename": "rtc_base/copy_on_write_buffer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-21T15:48:45Z",
+      "side": 1,
+      "message": "Not exactly:\nif you have RefCountedBase, you are still forced to have virtual distructor and thus virtual table.\nWhen refcounting is done in top-most class, that can be avoided.\n(note static_assert(!std::is_polymorphic\u003cWrappedTyped\u003e::value) in the test)\n\nPlus yes. This way Buffer can also be used without ref counting (and is used like that)",
+      "parentUuid": "413e228e_ec2396a6",
+      "range": {
+        "startLine": 265,
+        "startChar": 1,
+        "endLine": 265,
+        "endChar": 57
+      },
+      "revId": "9276d3dee3ed2835646984a4ee165ff83b35c097",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5764cbf0_90eecf9f",
@@ -77,6 +125,30 @@
       "writtenOn": "2021-01-21T15:36:43Z",
       "side": 1,
       "message": "I\u0027ve tried earlier to make this class final, but couldn\u0027t solve all the obstacles (and didn\u0027t try to make methods non-virtual).",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 35
+      },
+      "revId": "9276d3dee3ed2835646984a4ee165ff83b35c097",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e44ea8e2_e1ff2b6b",
+        "filename": "rtc_base/ref_counted_object.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-21T15:48:45Z",
+      "side": 1,
+      "message": "Yes, there are classes that are derived from this one,\nthere are classes that exploit forwarding constructor to expose protected constructor.\nremoving unused return type from Release when base class is RefCountInterface is also require some effort.\n\nTrying to solve of it all at the same time is too much for single CL.",
+      "parentUuid": "5764cbf0_90eecf9f",
       "range": {
         "startLine": 23,
         "startChar": 0,

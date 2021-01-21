@@ -794,6 +794,7 @@ void VideoStreamEncoder::ReconfigureEncoder() {
         encoder_config_.video_format);
 
     encoder_reset_required = true;
+    pending_encoder_creation_ = false;
   }
 
   // Possibly adjusts scale_resolution_down_by in |encoder_config_| to limit the
@@ -1041,11 +1042,6 @@ void VideoStreamEncoder::ReconfigureEncoder() {
   } else {
     RTC_LOG(LS_ERROR) << "Failed to configure encoder.";
     rate_allocator_ = nullptr;
-  }
-
-  if (pending_encoder_creation_) {
-    stream_resource_manager_.EnsureEncodeUsageResourceStarted();
-    pending_encoder_creation_ = false;
   }
 
   int num_layers;
@@ -1532,6 +1528,7 @@ void VideoStreamEncoder::EncodeVideoFrame(const VideoFrame& video_frame,
     OnEncoderSettingsChanged();
     RTC_LOG(LS_INFO) << "Encoder settings changed from "
                      << encoder_info_.ToString() << " to " << info.ToString();
+    stream_resource_manager_.EnsureEncodeUsageResourceStarted();
   }
 
   if (bitrate_adjuster_) {

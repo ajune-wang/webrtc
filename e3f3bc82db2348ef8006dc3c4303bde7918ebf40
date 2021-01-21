@@ -33,6 +33,57 @@
       "message": "chromium CL for cross-reference: https://chromium-review.googlesource.com/c/chromium/src/+/2637480",
       "revId": "e3f3bc82db2348ef8006dc3c4303bde7918ebf40",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e1b9254_61168f25",
+        "filename": "api/uma_metrics.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5603
+      },
+      "writtenOn": "2021-01-21T17:56:50Z",
+      "side": 1,
+      "message": "would be nice if we could also have a counter to track which bundlepolicies are being used",
+      "revId": "e3f3bc82db2348ef8006dc3c4303bde7918ebf40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd5702d1_3d61961e",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2318,
+      "author": {
+        "id": 5603
+      },
+      "writtenOn": "2021-01-21T17:56:50Z",
+      "side": 1,
+      "message": "Do we have a counter for unified vs non-unified?",
+      "revId": "e3f3bc82db2348ef8006dc3c4303bde7918ebf40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7ab98e0_e7cd09a4",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2340,
+      "author": {
+        "id": 5603
+      },
+      "writtenOn": "2021-01-21T17:56:50Z",
+      "side": 1,
+      "message": "this needs to consider bundle vs non-bundle. Should this also have a sanity check to ensure there is a datachannel line?",
+      "revId": "e3f3bc82db2348ef8006dc3c4303bde7918ebf40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

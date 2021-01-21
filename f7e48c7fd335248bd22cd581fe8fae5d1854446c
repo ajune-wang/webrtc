@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d4e577bf_c7ca3813",
+        "filename": "modules/audio_processing/test/aec_dump_based_simulator.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-01-21T09:08:34Z",
+      "side": 1,
+      "message": "Good point! \nDone",
+      "parentUuid": "171ec038_067c85e5",
+      "range": {
+        "startLine": 258,
+        "startChar": 0,
+        "endLine": 260,
+        "endChar": 72
+      },
+      "revId": "f7e48c7fd335248bd22cd581fe8fae5d1854446c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cbf13838_6ad04bc9",
         "filename": "modules/audio_processing/test/aec_dump_based_simulator.cc",
         "patchSetId": 10
@@ -54,6 +78,30 @@
       "writtenOn": "2020-12-04T13:46:02Z",
       "side": 1,
       "message": "Code duplication duplication ;-)",
+      "range": {
+        "startLine": 307,
+        "startChar": 0,
+        "endLine": 309,
+        "endChar": 72
+      },
+      "revId": "f7e48c7fd335248bd22cd581fe8fae5d1854446c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cdb7d615_c4bb73a8",
+        "filename": "modules/audio_processing/test/aec_dump_based_simulator.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-01-21T09:08:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cbf13838_6ad04bc9",
       "range": {
         "startLine": 307,
         "startChar": 0,
@@ -77,6 +125,30 @@
       "writtenOn": "2020-12-04T13:46:02Z",
       "side": 1,
       "message": "When I see GetWavSuffix i think of a function that returns \".wav\".\nCould we call it something like GetWavIndex or GetFileIndex?",
+      "range": {
+        "startLine": 231,
+        "startChar": 12,
+        "endLine": 231,
+        "endChar": 24
+      },
+      "revId": "f7e48c7fd335248bd22cd581fe8fae5d1854446c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1702a8e_16b25aa1",
+        "filename": "rtc_tools/unpack_aecdump/unpack.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-01-21T09:08:34Z",
+      "side": 1,
+      "message": "Good point!",
+      "parentUuid": "1e81d181_896958d1",
       "range": {
         "startLine": 231,
         "startChar": 12,

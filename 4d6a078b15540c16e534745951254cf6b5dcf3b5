@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a1980ff_6c2d4907",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-21T21:22:24Z",
+      "side": 1,
+      "message": "gcc and msvc bots were red, so I\u0027ve added two hacks.\n\nI believe code was correct without them though.\n\nhttps://en.cppreference.com/w/cpp/language/using_declaration#Inheriting_constructors\n\"members of Derived are initialized as if by the defaulted default constructor (default member initializers are used if provided, otherwise default initialization takes place).\"\n\nDo you want to take another look how ugly are those hacks? (patchset#9 for gcc and msvc, then an extra patchset#10 just for msvc)\n",
+      "revId": "4d6a078b15540c16e534745951254cf6b5dcf3b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

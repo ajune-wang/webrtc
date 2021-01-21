@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db68cbbf_cdebbd7c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-21T08:29:05Z",
+      "side": 1,
+      "message": "I\u0027m assuming the next CL in line is the one defining the histogram in Chrome.\n",
+      "revId": "e3f3bc82db2348ef8006dc3c4303bde7918ebf40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

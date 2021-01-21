@@ -321,6 +321,9 @@ class WebRtcVideoChannel : public VideoMediaChannel,
   static std::string CodecSettingsVectorToString(
       const std::vector<VideoCodecSettings>& codecs);
 
+  void RetryPacketDelivery(rtc::CopyOnWriteBuffer packet,
+                           int64_t packet_time_us);
+
   // Wrapper for the sender part.
   class WebRtcVideoSendStream {
    public:

@@ -14,6 +14,7 @@
 #include <limits>
 #include <memory>
 
+#include "absl/types/optional.h"
 #include "api/numerics/samples_stats_counter.h"
 #include "api/units/data_size.h"
 #include "rtc_base/bind.h"
@@ -417,6 +418,7 @@ EmulatedNetworkNode::~EmulatedNetworkNode() = default;
 
 EmulatedEndpointImpl::EmulatedEndpointImpl(
     uint64_t id,
+    absl::optional<std::string> name,
     const rtc::IPAddress& ip,
     EmulatedEndpointConfig::StatsGatheringMode stats_gathering_mode,
     bool is_enabled,
@@ -424,7 +426,8 @@ EmulatedEndpointImpl::EmulatedEndpointImpl(
     rtc::TaskQueue* task_queue,
     Clock* clock)
     : id_(id),
-      peer_local_addr_(ip),
+      name_(name.has_value() ? name + "(" + ip.ToString() + ")" : ip.ToString())
+          peer_local_addr_(ip),
       stats_gathering_mode_(stats_gathering_mode),
       is_enabled_(is_enabled),
       type_(type),

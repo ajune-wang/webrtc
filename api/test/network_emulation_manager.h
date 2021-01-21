@@ -56,6 +56,8 @@ struct EmulatedEndpointConfig {
     kDebug
   };
 
+  // If set will be used to name endpoint in logs.
+  absl::optional<std::string> name = absl::nullopt;
   IpAddressFamily generated_ip_family = IpAddressFamily::kIpv4;
   // If specified will be used as IP address for endpoint node. Must be unique
   // among all created nodes.

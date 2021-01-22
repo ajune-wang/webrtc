@@ -38,6 +38,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e3f2d077_35e4e444",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-01-22T11:12:11Z",
+      "side": 1,
+      "message": "Should we first stop the task?",
+      "range": {
+        "startLine": 388,
+        "startChar": 8,
+        "endLine": 388,
+        "endChar": 44
+      },
+      "revId": "6451576345a2801d77a4f39da97671557f0c56a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3846e5b4_79597951",
         "filename": "media/sctp/sctp_transport.h",
         "patchSetId": 2

@@ -89,6 +89,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e5761fe8_7c59a0d9",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1533,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2021-01-22T09:48:50Z",
+      "side": 1,
+      "message": "Yes, this can happen when using the simulcast encoder adapter where sub-encoders are created on the fly and thus changes the settings.\n\nWhen manually checking, it seems like ReconfigureEncoder is called the same amount as the encoder settings are changing when using simulcast encoder adapter (one leads to another). However, some tests started failing when I tried restarting in OnEncoderSettingsChanged, see Patchset 2: https://webrtc-review.googlesource.com/c/src/+/203140/2\n\nBut maybe the tests are wrong and they should be re-written :) I can give it a try.",
+      "parentUuid": "5d58ae7a_83933021",
+      "revId": "fbf9c4f99cb20045e730559fe9dd935a76a3f3fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9b93cf10_facb677f",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 6

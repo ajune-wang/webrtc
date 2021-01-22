@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8eee000e_d2f9f45c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-01-22T06:12:53Z",
+      "side": 1,
+      "message": "This isn\u0027t ready for review quite yet, still need to clean some stuff up and add tests. Just wanted to gather feedback on the concept first.\n\nI think it\u0027s a very good idea to make usrsctp operate on a single thread to insulate us against further race condition bugs. There are a few options I can think of each with some downside:\n\n1. Use network thread as usrsctp timer thread (this CL)\n\n   Cons: Doesn\u0027t work if two PeerConnectionFactories use different network threads, but that should only happen in a test environment anyway (right?). Should work at least for chromium and every user of the mobile SDKs.\n\n2. Use new standalone thread for timer operations, wrapping usrsctp_handle_timers in a global mutex.\n\n   Cons: Introduces yet another mutex, on top of the ones that usrsctp uses internally. Also, would we use this mutex for every method or just usrsctp_handle_timers/usrsctp_close?\n\n3. Use new standalone thread, piping *all* usrsctp operations (including usrsctp_sendv, usrsctp_conninput) through it.\n\n   Cons: Additional threading complexity; makes every send operation even more delayed because it must go from the network thread to the usrsctp thread and back again.\n\n\n\nThoughts? Any other options I may be overlooking?",
+      "revId": "6451576345a2801d77a4f39da97671557f0c56a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

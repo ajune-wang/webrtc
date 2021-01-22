@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87f3561d_4c433c5a",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-01-22T06:12:53Z",
+      "side": 1,
+      "message": "Having this many global variables is really ugly; if I go forward with this I\u0027ll make UsrSctpWrapper a singleton and have it own all these things.",
+      "revId": "78d35a03eedd4d811ae3b19a2627adf0fce59874",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

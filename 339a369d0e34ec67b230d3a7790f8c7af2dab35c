@@ -34,6 +34,24 @@
       "parentUuid": "2f7911f5_1b995c4b",
       "revId": "339a369d0e34ec67b230d3a7790f8c7af2dab35c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "16e6d441_5769d5c0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15969
+      },
+      "writtenOn": "2021-01-22T18:55:54Z",
+      "side": 1,
+      "message": "Hmm, looks like there was an issue with the iOS build? Will look into it and report back",
+      "parentUuid": "7906ff5d_116ae7f2",
+      "revId": "339a369d0e34ec67b230d3a7790f8c7af2dab35c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

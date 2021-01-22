@@ -170,9 +170,10 @@ class SctpTransportTest : public ::testing::Test, public sigslot::has_slots<> {
   }
 
   SctpTransport* CreateTransport(FakeDtlsTransport* fake_dtls,
-                                 SctpFakeDataReceiver* recv) {
-    SctpTransport* transport =
-        new SctpTransport(rtc::Thread::Current(), fake_dtls);
+                                 SctpFakeDataReceiver* recv,
+                                 bool single_threaded_mode = false) {
+    SctpTransport* transport = new SctpTransport(
+        rtc::Thread::Current(), fake_dtls, single_threaded_mode);
     // When data is received, pass it to the SctpFakeDataReceiver.
     transport->SignalDataReceived.connect(
         recv, &SctpFakeDataReceiver::OnDataReceived);
@@ -837,6 +838,42 @@ TEST_F(SctpTransportTest, SctpRestartWithPendingDataDoesNotDeadlock) {
   // received that means the restart must have been successful.
   EXPECT_TRUE(SendData(transport3.get(), 1, "baz", &result));
   EXPECT_TRUE_WAIT(ReceivedData(&recv1, 1, "baz"), kDefaultTimeout);
+}
+
+TEST_F(SctpTransportTest, SctpSingleThreadedMode) {
+  FakeDtlsTransport fake_dtls1("fake dtls 1", 0);
+  FakeDtlsTransport fake_dtls2("fake dtls 2", 0);
+  SctpFakeDataReceiver recv1;
+  SctpFakeDataReceiver recv2;
+
+  std::unique_ptr<SctpTransport> transport1(
+      CreateTransport(&fake_dtls1, &recv1, /*single_threaded_mode=*/true));
+  std::unique_ptr<SctpTransport> transport2(
+      CreateTransport(&fake_dtls2, &recv2, /*single_threaded_mode=*/true));
+
+  // Connect the first two transports.
+  fake_dtls1.SetDestination(&fake_dtls2, /*asymmetric=*/false);
+  transport1->OpenStream(1);
+  transport2->OpenStream(1);
+  transport1->Start(5000, 5000, kSctpSendBufferSize);
+  transport2->Start(5000, 5000, kSctpSendBufferSize);
+
+  // Make sure we can send data.
+  SendDataResult result;
+  EXPECT_TRUE(SendData(transport1.get(), 1, "foo", &result, /*ordered=*/true));
+  EXPECT_TRUE_WAIT(ReceivedData(&recv2, 1, "foo"), kDefaultTimeout);
+
+  // Disconnect the transports and attempt to send a message, which will then
+  // need to be retransmitted. This verifies that we're actually processing
+  // usrsctp timers in single threaded mode.
+  fake_dtls1.SetDestination(nullptr, /*asymmetric=*/false);
+  EXPECT_TRUE(SendData(transport1.get(), 1, "bar", &result, /*ordered=*/true));
+  // Process messages to make sure the send attempt went through.
+  rtc::Thread::Current()->ProcessMessages(0);
+
+  // Reconnect transport and wait for the retransmission to go through.
+  fake_dtls1.SetDestination(&fake_dtls2, /*asymmetric=*/false);
+  EXPECT_TRUE_WAIT(ReceivedData(&recv2, 1, "bar"), kDefaultTimeout);
 }
 
 }  // namespace cricket

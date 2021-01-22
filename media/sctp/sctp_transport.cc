@@ -47,6 +47,7 @@ constexpr int kSctpSuccessReturn = 1;
 #include "rtc_base/numerics/safe_conversions.h"
 #include "rtc_base/string_utils.h"
 #include "rtc_base/synchronization/mutex.h"
+#include "rtc_base/task_utils/repeating_task.h"
 #include "rtc_base/task_utils/to_queued_task.h"
 #include "rtc_base/thread_annotations.h"
 #include "rtc_base/thread_checker.h"
@@ -58,10 +59,17 @@ namespace {
 // take off 80 bytes for DTLS/TURN/TCP/IP overhead.
 static constexpr size_t kSctpMtu = 1200;
 
+// Interval at which to check usrsctp timers, if using single threaded mode.
+// Same duration that usrsctp would be using internally.
+constexpr webrtc::TimeDelta kSctpTimerThreadInterval =
+    webrtc::TimeDelta::Millis(10);
+
 // Set the initial value of the static SCTP Data Engines reference count.
 ABSL_CONST_INIT int g_usrsctp_usage_count = 0;
 ABSL_CONST_INIT bool g_usrsctp_initialized_ = false;
 ABSL_CONST_INIT webrtc::GlobalMutex g_usrsctp_lock_(absl::kConstInit);
+ABSL_CONST_INIT rtc::Thread* g_usrsctp_timer_thread_ = nullptr;
+ABSL_CONST_INIT webrtc::RepeatingTaskHandle g_usrsctp_timer_thread_task_;
 
 // DataMessageType is used for the SCTP "Payload Protocol Identifier", as
 // defined in http://tools.ietf.org/html/rfc4960#section-14.4
@@ -289,7 +297,9 @@ class SctpTransportMap {
 // SctpTransport calls.
 class SctpTransport::UsrSctpWrapper {
  public:
-  static void InitializeUsrSctp() {
+  // |sctp_timer_thread|, if non-null, will be used to process usrsctp timers
+  // instead of letting usrsctp use its own thread.
+  static void InitializeUsrSctp(rtc::Thread* sctp_timer_thread) {
     RTC_LOG(LS_INFO) << __FUNCTION__;
     // UninitializeUsrSctp tries to call usrsctp_finish in a loop for three
     // seconds; if that failed and we were left in a still-initialized state, we
@@ -299,10 +309,26 @@ class SctpTransport::UsrSctpWrapper {
       RTC_LOG(LS_WARNING) << "Not reinitializing usrsctp since last attempt at "
                              "usrsctp_finish failed.";
     } else {
-      // First argument is udp_encapsulation_port, which is not releveant for
-      // our AF_CONN use of sctp.
-      usrsctp_init(0, &UsrSctpWrapper::OnSctpOutboundPacket, &DebugSctpPrintf);
+      if (sctp_timer_thread) {
+        RTC_DCHECK_RUN_ON(sctp_timer_thread);
+        // First argument is udp_encapsulation_port, which is not releveant for
+        // our AF_CONN use of sctp.
+        usrsctp_init_nothreads(0, &UsrSctpWrapper::OnSctpOutboundPacket,
+                               &DebugSctpPrintf);
+      } else {
+        usrsctp_init(0, &UsrSctpWrapper::OnSctpOutboundPacket,
+                     &DebugSctpPrintf);
+      }
       g_usrsctp_initialized_ = true;
+    }
+
+    if (sctp_timer_thread) {
+      g_usrsctp_timer_thread_ = sctp_timer_thread;
+      g_usrsctp_timer_thread_task_ = webrtc::RepeatingTaskHandle::DelayedStart(
+          sctp_timer_thread, kSctpTimerThreadInterval, [] {
+            usrsctp_handle_timers(kSctpTimerThreadInterval.ms());
+            return kSctpTimerThreadInterval;
+          });
     }
 
     // To turn on/off detailed SCTP debugging. You will also need to have the
@@ -352,29 +378,38 @@ class SctpTransport::UsrSctpWrapper {
   static void UninitializeUsrSctp() {
     RTC_LOG(LS_INFO) << __FUNCTION__;
     // usrsctp_finish() may fail if it's called too soon after the transports
-    // are
-    // closed. Wait and try again until it succeeds for up to 3 seconds.
+    // are closed. Wait and try again until it succeeds for up to 3 seconds.
     for (size_t i = 0; i < 300; ++i) {
       if (usrsctp_finish() == 0) {
         g_usrsctp_initialized_ = false;
         delete g_transport_map_;
         g_transport_map_ = nullptr;
+        g_usrsctp_timer_thread_ = nullptr;
+        g_usrsctp_timer_thread_task_.Stop();
         return;
       }
-
       rtc::Thread::SleepMs(10);
     }
     delete g_transport_map_;
     g_transport_map_ = nullptr;
+    g_usrsctp_timer_thread_ = nullptr;
+    g_usrsctp_timer_thread_task_.Stop();
     RTC_LOG(LS_ERROR) << "Failed to shutdown usrsctp.";
   }
 
-  static void IncrementUsrSctpUsageCount() {
+  static bool IncrementUsrSctpUsageCount(rtc::Thread* sctp_timer_thread) {
     webrtc::GlobalMutexLock lock(&g_usrsctp_lock_);
     if (!g_usrsctp_usage_count) {
-      InitializeUsrSctp();
+      InitializeUsrSctp(sctp_timer_thread);
+    } else if (sctp_timer_thread != g_usrsctp_timer_thread_) {
+      RTC_LOG(LS_ERROR) << "Initializing usrsctp with thread "
+                        << sctp_timer_thread
+                        << " after previously initializing with "
+                        << g_usrsctp_timer_thread_;
+      return false;
     }
     ++g_usrsctp_usage_count;
+    return true;
   }
 
   static void DecrementUsrSctpUsageCount() {
@@ -501,7 +536,7 @@ class SctpTransport::UsrSctpWrapper {
                                    void* ulp_info) {
     // Fired on our I/O thread. SctpTransport::OnPacketReceived() gets
     // a packet containing acknowledgments, which goes into usrsctp_conninput,
-    // and then back here.
+    // and then1 back here.
     SctpTransport* transport = GetTransportFromSocket(sock);
     if (!transport) {
       RTC_LOG(LS_ERROR)
@@ -518,9 +553,11 @@ class SctpTransport::UsrSctpWrapper {
 };
 
 SctpTransport::SctpTransport(rtc::Thread* network_thread,
-                             rtc::PacketTransportInternal* transport)
+                             rtc::PacketTransportInternal* transport,
+                             bool single_threaded_mode)
     : network_thread_(network_thread),
       transport_(transport),
+      single_threaded_mode_(single_threaded_mode),
       was_ever_writable_(transport ? transport->writable() : false) {
   RTC_DCHECK(network_thread_);
   RTC_DCHECK_RUN_ON(network_thread_);
@@ -852,7 +889,10 @@ bool SctpTransport::OpenSctpSocket() {
     return false;
   }
 
-  UsrSctpWrapper::IncrementUsrSctpUsageCount();
+  if (!UsrSctpWrapper::IncrementUsrSctpUsageCount(
+          single_threaded_mode_ ? network_thread_ : nullptr)) {
+    return false;
+  }
 
   // If kSctpSendBufferSize isn't reflective of reality, we log an error, but we
   // still have to do something reasonable here.  Look up what the buffer's real

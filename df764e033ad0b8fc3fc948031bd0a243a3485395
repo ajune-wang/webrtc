@@ -16,6 +16,29 @@
       "message": "PTAL",
       "revId": "df764e033ad0b8fc3fc948031bd0a243a3485395",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "673867e3_8ccf0e3a",
+        "filename": "video/adaptation/bitrate_constraint_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2021-01-22T17:27:17Z",
+      "side": 1,
+      "message": "or maybe\n\nVideoEncoder::EncoderInfo MakeEncoderInfo() {\n  VideoEncoder::EncoderInfo encoder_info;\n  std::vector\u003cVideoEncoder::ResolutionBitrateLimits\u003e bitrate_limits(\n      {VideoEncoder::ResolutionBitrateLimits(640*360, 500000, 0, max),\n       VideoEncoder::ResolutionBitrateLimits(1280* 20, 1000000, 0, max),\n       VideoEncoder::ResolutionBitrateLimits(1920*1080, 2000000, 0, max)});\n  encoder_info.resolution_bitrate_limits \u003d bitrate_limits;\n  return encoder_info;\n}",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 76
+      },
+      "revId": "df764e033ad0b8fc3fc948031bd0a243a3485395",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

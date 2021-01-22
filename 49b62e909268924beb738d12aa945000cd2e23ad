@@ -142,6 +142,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "92b7f61b_e3e56fc9",
+        "filename": "video/adaptation/bitrate_constraint.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2021-01-22T17:27:17Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3a836b56_9b2f9752",
+      "range": {
+        "startLine": 60,
+        "startChar": 4,
+        "endLine": 60,
+        "endChar": 44
+      },
+      "revId": "49b62e909268924beb738d12aa945000cd2e23ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1e4d4615_d9d81a05",

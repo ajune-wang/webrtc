@@ -161,6 +161,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "078dc835_d6a6f65c",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1533,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-01-22T15:01:16Z",
+      "side": 1,
+      "message": "Yeah I think so, Patchset 6 + method rename SGTM :) and add a test if possible",
+      "parentUuid": "da3eff88_4f559d7d",
+      "revId": "fbf9c4f99cb20045e730559fe9dd935a76a3f3fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9b93cf10_facb677f",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 6

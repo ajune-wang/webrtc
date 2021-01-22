@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "8816adce_18156df4",
+        "filename": "video/adaptation/bitrate_constraint.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 14379
+      },
+      "writtenOn": "2021-01-22T20:40:23Z",
+      "side": 1,
+      "message": "or maybe the first part clearer as..?\n\nif (simulcast_layers.size() \u003d\u003d 1) {\n  // Not simulcast.\n  return false;\n}",
+      "parentUuid": "63bd98c6_a6284d82",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 50
+      },
+      "revId": "0aca1cf0baab2dc5be1e4c54600b0635f0a32474",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "c42d16dd_b80bb260",

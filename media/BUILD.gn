@@ -418,6 +418,7 @@ rtc_library("rtc_data") {
     "../rtc_base:threading",
     "../rtc_base/synchronization:mutex",
     "../rtc_base/task_utils:pending_task_safety_flag",
+    "../rtc_base/task_utils:repeating_task",
     "../rtc_base/task_utils:to_queued_task",
     "../rtc_base/third_party/sigslot",
     "../system_wrappers",

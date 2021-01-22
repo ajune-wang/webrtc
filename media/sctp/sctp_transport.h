@@ -73,8 +73,14 @@ class SctpTransport : public SctpTransportInternal,
   // this transport will be posted, and is the only thread on which public
   // methods can be called.
   // |transport| is not required (can be null).
+  // |single_threaded_mode|, if true, will use |network_thread| to process
+  // usrsctp timers rather than letting usrsctp use its own thread, protecting
+  // against the introduction of race conditions. However, if this option is
+  // used, all SctpTransports in the process must use it, and also use the same
+  // network thread.
   SctpTransport(rtc::Thread* network_thread,
-                rtc::PacketTransportInternal* transport);
+                rtc::PacketTransportInternal* transport,
+                bool single_threaded_mode = false);
   ~SctpTransport() override;
 
   // SctpTransportInternal overrides (see sctptransportinternal.h for comments).
@@ -202,6 +208,9 @@ class SctpTransport : public SctpTransportInternal,
   webrtc::ScopedTaskSafety task_safety_;
   // Underlying DTLS transport.
   rtc::PacketTransportInternal* transport_ = nullptr;
+  // If true, uses network_thread_ to process usrsctp timers. See comment above
+  // constructor.
+  bool single_threaded_mode_;
 
   // Track the data received from usrsctp between callbacks until the EOR bit
   // arrives.
@@ -288,17 +297,21 @@ class SctpTransport : public SctpTransportInternal,
 
 class SctpTransportFactory : public webrtc::SctpTransportFactoryInterface {
  public:
-  explicit SctpTransportFactory(rtc::Thread* network_thread)
-      : network_thread_(network_thread) {}
+  // See SctpTransport constructor for description of arguments.
+  explicit SctpTransportFactory(rtc::Thread* network_thread,
+                                bool single_threaded_mode = false)
+      : network_thread_(network_thread),
+        single_threaded_mode_(single_threaded_mode) {}
 
   std::unique_ptr<SctpTransportInternal> CreateSctpTransport(
       rtc::PacketTransportInternal* transport) override {
     return std::unique_ptr<SctpTransportInternal>(
-        new SctpTransport(network_thread_, transport));
+        new SctpTransport(network_thread_, transport, single_threaded_mode_));
   }
 
  private:
   rtc::Thread* network_thread_;
+  bool single_threaded_mode_;
 };
 
 class SctpTransportMap;

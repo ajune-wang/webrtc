@@ -125,6 +125,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9d6d3cd3_585f6da2",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1533,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-01-22T14:45:38Z",
+      "side": 1,
+      "message": "I don\u0027t know, that sounds a bit aggressive. What if we only trigger reconfiguring the encode usage resource when info.is_hardware_accelerated changes instead of in response to any info change? That would allow you to get rid of that usage_ hack and have a minimal amount of side-effects.",
+      "parentUuid": "96cc0987_c2293f78",
+      "revId": "fbf9c4f99cb20045e730559fe9dd935a76a3f3fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9b93cf10_facb677f",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 6

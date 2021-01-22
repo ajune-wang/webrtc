@@ -98,6 +98,30 @@
       },
       "revId": "4d6a078b15540c16e534745951254cf6b5dcf3b5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e97166f9_620bcdc9",
+        "filename": "rtc_base/ref_counted_object.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-22T10:35:14Z",
+      "side": 1,
+      "message": "https://godbolt.org/z/aes1aY\n\nFor gcc: it compiles with 7.2, but fails to compile with 7.1 (I failed to find which version our bot is using)\n\nFor msvc it fails on all versions I\u0027ve tried, including the latest v19.28.\n\nI can now better see there are actually two distinct issues there:\ngcc had the problem with member variable without default constructor,\nmsvc has the problem with not inheriting default constructor.\n\nI\u0027ve updated the comments near the hacks.",
+      "parentUuid": "9d93e59a_72fb29f1",
+      "range": {
+        "startLine": 81,
+        "startChar": 5,
+        "endLine": 81,
+        "endChar": 34
+      },
+      "revId": "4d6a078b15540c16e534745951254cf6b5dcf3b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

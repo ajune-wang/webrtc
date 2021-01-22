@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d58750c6_69a9bde9",
+        "filename": "video/adaptation/bitrate_constraint.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2021-01-22T15:39:36Z",
+      "side": 1,
+      "message": "move to unnamed namespace",
+      "range": {
+        "startLine": 40,
+        "startChar": 5,
+        "endLine": 40,
+        "endChar": 16
+      },
+      "revId": "49b62e909268924beb738d12aa945000cd2e23ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f99aa4d_946ae212",
+        "filename": "video/adaptation/bitrate_constraint.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2021-01-22T15:39:36Z",
+      "side": 1,
+      "message": "could be removed",
+      "range": {
+        "startLine": 60,
+        "startChar": 4,
+        "endLine": 60,
+        "endChar": 44
+      },
+      "revId": "49b62e909268924beb738d12aa945000cd2e23ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e4d4615_d9d81a05",
+        "filename": "video/adaptation/bitrate_constraint_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2021-01-22T15:39:36Z",
+      "side": 1,
+      "message": "2021",
+      "range": {
+        "startLine": 2,
+        "startChar": 14,
+        "endLine": 2,
+        "endChar": 18
+      },
+      "revId": "49b62e909268924beb738d12aa945000cd2e23ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18031cac_dbb3806a",
+        "filename": "video/adaptation/bitrate_constraint_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2021-01-22T15:39:36Z",
+      "side": 1,
+      "message": "width",
+      "range": {
+        "startLine": 29,
+        "startChar": 25,
+        "endLine": 29,
+        "endChar": 30
+      },
+      "revId": "49b62e909268924beb738d12aa945000cd2e23ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eea2e3f4_4ae2408e",
+        "filename": "video/adaptation/bitrate_constraint_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2021-01-22T15:39:36Z",
+      "side": 1,
+      "message": "width (and in tests below)",
+      "range": {
+        "startLine": 70,
+        "startChar": 20,
+        "endLine": 70,
+        "endChar": 25
+      },
+      "revId": "49b62e909268924beb738d12aa945000cd2e23ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25f72e4b_c7130307",
+        "filename": "video/adaptation/bitrate_constraint_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2021-01-22T15:39:36Z",
+      "side": 1,
+      "message": "maybe add a limit for 640x360 to make sure the 1280x720 limit is used (and similar for tests below)",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 45
+      },
+      "revId": "49b62e909268924beb738d12aa945000cd2e23ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86a7f007_934c7067",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2021-01-22T15:39:36Z",
+      "side": 1,
+      "message": "maybe do not move method",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 15
+      },
+      "revId": "49b62e909268924beb738d12aa945000cd2e23ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

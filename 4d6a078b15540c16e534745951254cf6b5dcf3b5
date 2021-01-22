@@ -74,6 +74,30 @@
       },
       "revId": "4d6a078b15540c16e534745951254cf6b5dcf3b5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d93e59a_72fb29f1",
+        "filename": "rtc_base/ref_counted_object.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-22T08:28:14Z",
+      "side": 1,
+      "message": "\u003e Could you mention with which versions of those compilers the problem was observed?\n\u003e \n\u003e It would be nice with minimal example, to check if it\u0027s fixed in later gcc versions, or if not, file a bug.\n\nAh, nice idea nisse@! Maybe a quick repro on https://godbolt.org/.",
+      "parentUuid": "a0965a97_fef4a745",
+      "range": {
+        "startLine": 81,
+        "startChar": 5,
+        "endLine": 81,
+        "endChar": 34
+      },
+      "revId": "4d6a078b15540c16e534745951254cf6b5dcf3b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

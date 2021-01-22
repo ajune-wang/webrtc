@@ -178,6 +178,7 @@ void DEPRECATED_RtpSenderEgress::SendPacket(
 
   options.application_data.assign(packet->application_data().begin(),
                                   packet->application_data().end());
+  options.user_data = packet->user_data();
 
   if (packet->packet_type() != RtpPacketMediaType::kPadding &&
       packet->packet_type() != RtpPacketMediaType::kRetransmission) {

@@ -811,6 +811,7 @@ std::unique_ptr<RtpPacketToSend> RTPSender::BuildRtxPacket(
 
   // Add original application data.
   rtx_packet->set_application_data(packet.application_data());
+  rtx_packet->set_user_data(packet.user_data());
 
   // Copy capture time so e.g. TransmissionOffset is correctly set.
   rtx_packet->set_capture_time_ms(packet.capture_time_ms());

@@ -794,6 +794,7 @@ void VideoStreamEncoder::ReconfigureEncoder() {
         encoder_config_.video_format);
 
     encoder_reset_required = true;
+    pending_encoder_creation_ = false;
   }
 
   // Possibly adjusts scale_resolution_down_by in |encoder_config_| to limit the
@@ -1043,11 +1044,6 @@ void VideoStreamEncoder::ReconfigureEncoder() {
     rate_allocator_ = nullptr;
   }
 
-  if (pending_encoder_creation_) {
-    stream_resource_manager_.EnsureEncodeUsageResourceStarted();
-    pending_encoder_creation_ = false;
-  }
-
   int num_layers;
   if (codec.codecType == kVideoCodecVP8) {
     num_layers = codec.VP8()->numberOfTemporalLayers;
@@ -1124,6 +1120,7 @@ void VideoStreamEncoder::OnEncoderSettingsChanged() {
   EncoderSettings encoder_settings(encoder_->GetEncoderInfo(),
                                    encoder_config_.Copy(), send_codec_);
   stream_resource_manager_.SetEncoderSettings(encoder_settings);
+  stream_resource_manager_.ConfigureEncodeUsageResource();
   input_state_provider_.OnEncoderSettingsChanged(encoder_settings);
   bool is_screenshare = encoder_settings.encoder_config().content_type ==
                         VideoEncoderConfig::ContentType::kScreen;

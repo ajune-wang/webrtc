@@ -691,7 +691,9 @@ void OveruseFrameDetector::SetOptions(const CpuOveruseOptions& options) {
   }
   // Force reset with next frame.
   num_pixels_ = 0;
-  usage_ = CreateProcessingUsage(options);
+  if (!usage_) {
+    usage_ = CreateProcessingUsage(options);
+  }
 }
 
 bool OveruseFrameDetector::IsOverusing(int usage_percent) {

@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecbaeac2_857135a6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-01-22T10:46:30Z",
+      "side": 1,
+      "message": "Some comment comments, code lgtm.",
+      "revId": "23a3d0b6db5cc8d7b55c7efe42a740bc51b281fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4527f35b_c24bb9b2",
+        "filename": "rtc_base/ref_counted_object.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-01-22T10:46:30Z",
+      "side": 1,
+      "message": "Spelling (\"fails\", \"explicitly\"). \n\nAlso, I don\u0027t quite understand the problem description, maybe rephrase? I take it we want to construct this class using the same constructors as the base class T, with the same access (public/private/protected), and that according to the spec, using T::T should be enough. But for some reason, that doesn\u0027t work in msvc for the special case of the default constructor? And then this hack has the side effect of making the default constructor public if it weren\u0027t already?",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 77
+      },
+      "revId": "23a3d0b6db5cc8d7b55c7efe42a740bc51b281fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -39,6 +39,30 @@
       },
       "revId": "23a3d0b6db5cc8d7b55c7efe42a740bc51b281fb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0aa88fdf_586d1554",
+        "filename": "rtc_base/ref_counted_object.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-22T15:12:52Z",
+      "side": 1,
+      "message": "Yes, your understanding is correct.\n\nThough, I search a bit more and found that technically it is not a bug.\nSee https://stackoverflow.com/questions/54929218/msvc-19-deletes-inherited-constructors\n\nOur out curiosity I went back to godbolt and added flag \"/std:c++17\". Starting with v19.15 msvc accepts the code in c++17 mode. v19.14 still refuses to compile it.\n\nAnyway, rephrased the comment and took one more look at speling.",
+      "parentUuid": "4527f35b_c24bb9b2",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 77
+      },
+      "revId": "23a3d0b6db5cc8d7b55c7efe42a740bc51b281fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

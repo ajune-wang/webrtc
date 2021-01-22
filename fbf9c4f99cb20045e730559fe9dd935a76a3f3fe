@@ -177,6 +177,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e66e498e_f2d9904f",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1533,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2021-01-22T15:28:33Z",
+      "side": 1,
+      "message": "Added unittest :)",
+      "parentUuid": "078dc835_d6a6f65c",
+      "revId": "fbf9c4f99cb20045e730559fe9dd935a76a3f3fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9b93cf10_facb677f",

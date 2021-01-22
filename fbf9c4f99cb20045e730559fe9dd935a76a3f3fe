@@ -33,6 +33,40 @@
       "message": "lgtm, but I\u0027d like hbos@ to have a go too as expert in this area",
       "revId": "fbf9c4f99cb20045e730559fe9dd935a76a3f3fe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b2124d8_cbd925cf",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1533,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-01-22T08:34:17Z",
+      "side": 1,
+      "message": "We already do this at VideoStreamEncoder::ReconfigureEncoder() if the encoder is recreated, but in this case the underlying encoder changes from HW to SW on the fly?\n\nWhat if we called this function inside of OnEncoderSettingsChanged() instead? This function is called from both this place and from ReconfigureEncoder() so perhaps we can do all encode usage resource restarts at a single place (and then remove the call from ReconfigureEncoder)?\n\nIt is my understanding that it is OK to restart the EncodeUsageResource as long as it is allowed to live long enough to have enough samples to be able to detect overuse or underuse (e.g. it would break if restarted every frame) but as long as this is not too frequent it should be fine. Can you ensure that info is never spammed?",
+      "revId": "fbf9c4f99cb20045e730559fe9dd935a76a3f3fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b93cf10_facb677f",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1534,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-01-22T08:34:17Z",
+      "side": 1,
+      "message": "Also EnsureEncodeUsageResourceStarted() seems like a bad name for something that reconfigures it if it is already started - can we rename this method to ConfigureEncodeUsageResource()?",
+      "revId": "fbf9c4f99cb20045e730559fe9dd935a76a3f3fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

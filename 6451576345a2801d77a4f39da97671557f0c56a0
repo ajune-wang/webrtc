@@ -59,6 +59,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7667b70c_29b38f10",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-01-22T20:45:44Z",
+      "side": 1,
+      "message": "Not necessary here, especially since we should be on the thread the task runs on, but the code does looks safer that way.",
+      "parentUuid": "e3f2d077_35e4e444",
+      "range": {
+        "startLine": 388,
+        "startChar": 8,
+        "endLine": 388,
+        "endChar": 44
+      },
+      "revId": "6451576345a2801d77a4f39da97671557f0c56a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3846e5b4_79597951",
@@ -72,6 +96,30 @@
       "writtenOn": "2021-01-22T09:09:37Z",
       "side": 1,
       "message": "Should this be an \"also\"?",
+      "range": {
+        "startLine": 79,
+        "startChar": 62,
+        "endLine": 79,
+        "endChar": 68
+      },
+      "revId": "6451576345a2801d77a4f39da97671557f0c56a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92ccbfbd_090c4066",
+        "filename": "media/sctp/sctp_transport.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-01-22T20:45:44Z",
+      "side": 1,
+      "message": "Yep, thanks",
+      "parentUuid": "3846e5b4_79597951",
       "range": {
         "startLine": 79,
         "startChar": 62,

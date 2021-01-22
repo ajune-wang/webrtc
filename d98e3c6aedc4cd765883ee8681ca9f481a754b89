@@ -16,6 +16,24 @@
       "message": "I don\u0027t think this is a safe hack.\n\nThe options contains thresholds, including thresholds that are different depending on if HW or SW settings are used[1][2], and HW/SW changing is one of the reasons why we might want to call this function. I would hate to have bugs that only appear the second time the encoder is reconfigured etc. So please continue to always set usage_.\n\n[1] https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/video/adaptation/video_stream_encoder_resource_manager.cc;l\u003d572;drc\u003d0c74444bcb5c0dea8fed57b49413b18b9ca54b5d;bpv\u003d1;bpt\u003d1\n[2] https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/video/adaptation/video_stream_encoder_resource_manager.cc;l\u003d304;drc\u003d0c74444bcb5c0dea8fed57b49413b18b9ca54b5d;bpv\u003d1;bpt\u003d1",
       "revId": "d98e3c6aedc4cd765883ee8681ca9f481a754b89",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68e082ef_419ccc2d",
+        "filename": "video/adaptation/overuse_frame_detector.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 695,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2021-01-22T14:56:09Z",
+      "side": 1,
+      "message": "Yeah sure, note that those thresholds are only used in ProcessUsage to initialize the state and not to check for overuse.",
+      "parentUuid": "c2126bc7_2d654976",
+      "revId": "d98e3c6aedc4cd765883ee8681ca9f481a754b89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

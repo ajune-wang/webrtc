@@ -143,6 +143,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "da3eff88_4f559d7d",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1533,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2021-01-22T14:56:09Z",
+      "side": 1,
+      "message": "Then we are back to where we started and check for if the encoder settings changed  (Patchset 6) :D Or do you have something else in mind?",
+      "parentUuid": "9d6d3cd3_585f6da2",
+      "revId": "fbf9c4f99cb20045e730559fe9dd935a76a3f3fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9b93cf10_facb677f",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 6

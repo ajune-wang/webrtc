@@ -26,6 +26,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c01fa2c3_d2ef3cbf",
+        "filename": "video/adaptation/bitrate_constraint.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 14379
+      },
+      "writtenOn": "2021-01-22T15:49:33Z",
+      "side": 1,
+      "message": "nit: how about just:\n\nreturn (is_simulcast \u0026\u0026 (num_active_layers \u003e 1 || is_lowest_layer_active));",
+      "range": {
+        "startLine": 50,
+        "startChar": 2,
+        "endLine": 54,
+        "endChar": 3
+      },
+      "revId": "49b62e909268924beb738d12aa945000cd2e23ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8f99aa4d_946ae212",
         "filename": "video/adaptation/bitrate_constraint.cc",
         "patchSetId": 7

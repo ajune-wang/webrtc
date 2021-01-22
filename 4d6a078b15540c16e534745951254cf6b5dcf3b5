@@ -16,6 +16,41 @@
       "message": "gcc and msvc bots were red, so I\u0027ve added two hacks.\n\nI believe code was correct without them though.\n\nhttps://en.cppreference.com/w/cpp/language/using_declaration#Inheriting_constructors\n\"members of Derived are initialized as if by the defaulted default constructor (default member initializers are used if provided, otherwise default initialization takes place).\"\n\nDo you want to take another look how ugly are those hacks? (patchset#9 for gcc and msvc, then an extra patchset#10 just for msvc)\n",
       "revId": "4d6a078b15540c16e534745951254cf6b5dcf3b5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c52e63da_85fa66c1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-22T08:13:46Z",
+      "side": 1,
+      "message": "I wonder if the GCC issue is just caused by the fact that the compiler is on an old version.\n\nAnyway, it is not a bad workaround. :)",
+      "parentUuid": "6a1980ff_6c2d4907",
+      "revId": "4d6a078b15540c16e534745951254cf6b5dcf3b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c78028c2_adb03031",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-22T08:13:46Z",
+      "side": 1,
+      "message": "Still +1.",
+      "revId": "4d6a078b15540c16e534745951254cf6b5dcf3b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

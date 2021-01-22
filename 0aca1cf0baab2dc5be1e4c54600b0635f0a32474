@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63bd98c6_a6284d82",
+        "filename": "video/adaptation/bitrate_constraint.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 14379
+      },
+      "writtenOn": "2021-01-22T20:38:25Z",
+      "side": 1,
+      "message": "this could be clarified as something like:\n\nif (!simulcast_layers.size() \u003e 1) {\n  // Not simulcast.\n  return false;\n}\n\n// We can\u0027t distinguish between simulcast and singlecast when only the\n// lowest spatial layer is active. Treat either as simulcast:\nif (simulcast_layers[0].active) {\n  return true;\n}\n\nint num_active_layers \u003d\n      std::count_if(simulcast_layers.begin(), simulcast_layers.end(),\n                    [](const VideoStream\u0026 layer) { return layer.active; });\n\n// Simulcast.\nreturn num_active_layers \u003e 1;",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 50
+      },
+      "revId": "0aca1cf0baab2dc5be1e4c54600b0635f0a32474",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c42d16dd_b80bb260",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 706,
+      "author": {
+        "id": 14379
+      },
+      "writtenOn": "2021-01-22T20:38:25Z",
+      "side": 1,
+      "message": "nit:\nreturn num_active \u003e 1 ? absl::nullopt : pixels;",
+      "range": {
+        "startLine": 704,
+        "startChar": 2,
+        "endLine": 706,
+        "endChar": 16
+      },
+      "revId": "0aca1cf0baab2dc5be1e4c54600b0635f0a32474",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

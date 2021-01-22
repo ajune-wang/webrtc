@@ -1411,7 +1411,7 @@ void JsepTransportController::OnRtcpPacketReceived_n(
 
 void JsepTransportController::OnDtlsHandshakeError(
     rtc::SSLHandshakeError error) {
-  SignalDtlsHandshakeError(error);
+  signal_dtls_handshake_error_.Send(error);
 }
 
 }  // namespace webrtc

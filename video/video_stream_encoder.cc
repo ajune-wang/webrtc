@@ -1530,6 +1530,7 @@ void VideoStreamEncoder::EncodeVideoFrame(const VideoFrame& video_frame,
 
   if (encoder_info_ != info) {
     OnEncoderSettingsChanged();
+    stream_resource_manager_.ConfigureEncodeUsageResource();
     RTC_LOG(LS_INFO) << "Encoder settings changed from "
                      << encoder_info_.ToString() << " to " << info.ToString();
   }

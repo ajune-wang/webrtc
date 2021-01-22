@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fcd2659f_2536e196",
+        "filename": "video/adaptation/bitrate_constraint.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-01-22T16:40:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d58750c6_69a9bde9",
+      "range": {
+        "startLine": 40,
+        "startChar": 5,
+        "endLine": 40,
+        "endChar": 16
+      },
+      "revId": "49b62e909268924beb738d12aa945000cd2e23ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c01fa2c3_d2ef3cbf",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-01-22T15:49:33Z",
       "side": 1,
       "message": "nit: how about just:\n\nreturn (is_simulcast \u0026\u0026 (num_active_layers \u003e 1 || is_lowest_layer_active));",
+      "range": {
+        "startLine": 50,
+        "startChar": 2,
+        "endLine": 54,
+        "endChar": 3
+      },
+      "revId": "49b62e909268924beb738d12aa945000cd2e23ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1096e02_f5bdd997",
+        "filename": "video/adaptation/bitrate_constraint.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-01-22T16:40:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c01fa2c3_d2ef3cbf",
       "range": {
         "startLine": 50,
         "startChar": 2,
@@ -70,6 +118,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a836b56_9b2f9752",
+        "filename": "video/adaptation/bitrate_constraint.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-01-22T16:40:00Z",
+      "side": 1,
+      "message": "this comes from AdaptationConstraint - parent of BitrateConstraint. used in https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/video/adaptation/balanced_constraint.cc;drc\u003dd174d370fe8c7c36c068e130c841a6f87ef9f7d2;l\u003d44, for example",
+      "parentUuid": "8f99aa4d_946ae212",
+      "range": {
+        "startLine": 60,
+        "startChar": 4,
+        "endLine": 60,
+        "endChar": 44
+      },
+      "revId": "49b62e909268924beb738d12aa945000cd2e23ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1e4d4615_d9d81a05",
@@ -83,6 +155,30 @@
       "writtenOn": "2021-01-22T15:39:36Z",
       "side": 1,
       "message": "2021",
+      "range": {
+        "startLine": 2,
+        "startChar": 14,
+        "endLine": 2,
+        "endChar": 18
+      },
+      "revId": "49b62e909268924beb738d12aa945000cd2e23ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e4533e7_84cc9b00",
+        "filename": "video/adaptation/bitrate_constraint_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-01-22T16:40:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e4d4615_d9d81a05",
       "range": {
         "startLine": 2,
         "startChar": 14,
@@ -116,6 +212,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac4d3099_aca9d435",
+        "filename": "video/adaptation/bitrate_constraint_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-01-22T16:40:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "18031cac_dbb3806a",
+      "range": {
+        "startLine": 29,
+        "startChar": 25,
+        "endLine": 29,
+        "endChar": 30
+      },
+      "revId": "49b62e909268924beb738d12aa945000cd2e23ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eea2e3f4_4ae2408e",
@@ -129,6 +249,30 @@
       "writtenOn": "2021-01-22T15:39:36Z",
       "side": 1,
       "message": "width (and in tests below)",
+      "range": {
+        "startLine": 70,
+        "startChar": 20,
+        "endLine": 70,
+        "endChar": 25
+      },
+      "revId": "49b62e909268924beb738d12aa945000cd2e23ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e9ba46c_a1ea5fd1",
+        "filename": "video/adaptation/bitrate_constraint_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-01-22T16:40:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eea2e3f4_4ae2408e",
       "range": {
         "startLine": 70,
         "startChar": 20,
@@ -162,6 +306,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d51fad0_c7903031",
+        "filename": "video/adaptation/bitrate_constraint_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-01-22T16:40:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25f72e4b_c7130307",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 45
+      },
+      "revId": "49b62e909268924beb738d12aa945000cd2e23ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "86a7f007_934c7067",
@@ -175,6 +343,30 @@
       "writtenOn": "2021-01-22T15:39:36Z",
       "side": 1,
       "message": "maybe do not move method",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 15
+      },
+      "revId": "49b62e909268924beb738d12aa945000cd2e23ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de7f0503_95ef7b60",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-01-22T16:40:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86a7f007_934c7067",
       "range": {
         "startLine": 67,
         "startChar": 0,

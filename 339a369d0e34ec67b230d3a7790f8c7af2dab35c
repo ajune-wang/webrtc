@@ -70,6 +70,24 @@
       "parentUuid": "16e6d441_5769d5c0",
       "revId": "339a369d0e34ec67b230d3a7790f8c7af2dab35c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdf98b25_083641b7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-23T10:06:14Z",
+      "side": 1,
+      "message": "Yes, this looked like a transient failure.\n\nI retried an it is now green.",
+      "parentUuid": "ca0c5b25_74b763e2",
+      "revId": "339a369d0e34ec67b230d3a7790f8c7af2dab35c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

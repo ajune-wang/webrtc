@@ -34,7 +34,7 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/task_utils/repeating_task.h"
 #include "rtc_base/task_utils/to_queued_task.h"
-#include "rtc_base/time_utils.h"
+#include "system_wrappers/include/clock.h"
 
 namespace webrtc {
 namespace {
@@ -353,7 +353,7 @@ void RtcpTransceiverImpl::SchedulePeriodicCompoundPackets(int64_t delay_ms) {
 void RtcpTransceiverImpl::CreateCompoundPacket(PacketSender* sender) {
   RTC_DCHECK(sender->IsEmpty());
   const uint32_t sender_ssrc = config_.feedback_ssrc;
-  int64_t now_us = rtc::TimeMicros();
+  int64_t now_us = config_.clock->TimeInMicroseconds();
   rtcp::ReceiverReport receiver_report;
   receiver_report.SetSenderSsrc(sender_ssrc);
   receiver_report.SetReportBlocks(CreateReportBlocks(now_us));

@@ -93,6 +93,7 @@ class RtcpTransceiver : public RtcpFeedbackSenderInterface {
   void SendFullIntraRequest(std::vector<uint32_t> ssrcs, bool new_request);
 
  private:
+  Clock& clock_;
   TaskQueueBase* const task_queue_;
   std::unique_ptr<RtcpTransceiverImpl> rtcp_transceiver_;
 };

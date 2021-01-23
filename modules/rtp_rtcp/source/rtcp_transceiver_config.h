@@ -17,6 +17,7 @@
 #include "api/task_queue/task_queue_base.h"
 #include "api/video/video_bitrate_allocation.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
+#include "system_wrappers/include/clock.h"
 #include "system_wrappers/include/ntp_time.h"
 
 namespace webrtc {
@@ -63,6 +64,9 @@ struct RtcpTransceiverConfig {
 
   // Transport to send rtcp packets to. Should be set.
   Transport* outgoing_transport = nullptr;
+
+  // Clock `task_queue` relies on for delayed tasks. Should be set.
+  Clock* clock = Clock::GetRealTimeClock();
 
   // Queue for scheduling delayed tasks, e.g. sending periodic compound packets.
   TaskQueueBase* task_queue = nullptr;

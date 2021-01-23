@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3b4b0b4_4ea58136",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-23T09:10:09Z",
+      "side": 1,
+      "message": "Thoughts:\n1) Using more than one PC is very normal. All mesh conferencing applications do it, and some even do it instead of multiple tracks per PC. If Chrome uses different threads for different PCs (I don\u0027t know if it does), the result will not make us happy.\n\nIt would be interesting to think about what it would take to make the network thread a singleton, but that is a lot more invasive than an SCTP-based solution.\n\n2) Having to support both single-process and multi-process modes of SCTP is the worst of all possible worlds. The idea behind switching to single-process is to make support simpler; supporting two modes will make it harder.\n\n3) In Chrome, the ultimate thread hop is the one that passes the UDP packets to the network process. So we\u0027re switching threads (AND sending packets over mojo) below the SCTP thread anyway. So we can\u0027t get to zero thread jumps - we should look to minimize, but be realistic.\n",
+      "revId": "f42b8feea04a063bf08a4569638ad7c43e4d4b9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

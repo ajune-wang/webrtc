@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e25b06bc_537c7e68",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_to_send.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2021-01-25T10:20:39Z",
+      "side": 1,
+      "message": "Instead of this TODO, consider adding RTC_DEPRECATED annotations to the {set_,}application_data functions in both RtpPacketToSend and RtpPacketReceived",
+      "revId": "efec322fd5922ed65695836e247d6aea49b79a8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

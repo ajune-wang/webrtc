@@ -34,6 +34,24 @@
       "parentUuid": "303474f4_93c8d298",
       "revId": "cad3ab0f210986f35fb984cf651e63e399b5fadb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe691a06_f33720f7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-01-25T11:08:25Z",
+      "side": 1,
+      "message": "Gah, I was logged out of gerrit while I was typing it and now it seems to be gone 😞\n\nThe comment was about the SendLossNotification() method. It bugs me a bit that it behaves differently from the rest. The main problem is the allow_buffering flag which means it can act either as one of the \"normal\" messages or it should send immediately like TransportFeedback.\n\nMy suggestion was to make the code for it more like the transport feedback case:\n* build the rtcp::LossNotification instance directly in SendLossNotification() \n* if allow_buffering \u003d\u003d false, send it immediately using SendCombinedRtcpPacket\n* if not, store the packet instance and use it at the next scheduled send time (and thus removing the need for the LossNotificationState struct)\n\nThen we don\u0027t need to duplicated the send callbacks and stuff in this method.\n\nwdyt?",
+      "parentUuid": "b5d5d25d_ef77a7cd",
+      "revId": "cad3ab0f210986f35fb984cf651e63e399b5fadb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

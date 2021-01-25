@@ -3,6 +3,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "c27f0aaf_102079b6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-25T11:16:49Z",
+      "side": 1,
+      "message": "Some comments on documenting your APIs.\n\nIt is important to make it clear to the API reader that these calls do not affect the bits sent over the wire.\n",
+      "revId": "3916124a2ec5b78efad6354315bd35835b8fb9a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "54c321c0_50d363dc",
         "filename": "modules/rtp_rtcp/source/rtp_packet_received.h",
         "patchSetId": 3
@@ -68,6 +85,40 @@
         "endLine": 67,
         "endChar": 57
       },
+      "revId": "3916124a2ec5b78efad6354315bd35835b8fb9a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9958d387_6f13b536",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_to_send.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-25T11:16:49Z",
+      "side": 1,
+      "message": "As a matter of open source documentation, this needs more text.\nI suggest something like:\n\n\"An application can attach arbitrary data to an RTP packet using additional_data. The additional data will not affect WebRTC processing. It must be a RefCounted object.\"",
+      "revId": "3916124a2ec5b78efad6354315bd35835b8fb9a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92466ff4_234e7395",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_to_send.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-25T11:16:49Z",
+      "side": 1,
+      "message": "I would suggest defining an AdditionalData class that is a RefCountedBase, and has no methods. This makes the API easier to read, and gives an additional point on which to hang documentation of the class properties.",
       "revId": "3916124a2ec5b78efad6354315bd35835b8fb9a0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

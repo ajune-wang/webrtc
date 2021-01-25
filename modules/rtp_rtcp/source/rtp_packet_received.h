@@ -12,11 +12,15 @@
 
 #include <stdint.h>
 
+#include <utility>
 #include <vector>
 
 #include "api/array_view.h"
+#include "api/ref_counted_base.h"
 #include "api/rtp_headers.h"
+#include "api/scoped_refptr.h"
 #include "modules/rtp_rtcp/source/rtp_packet.h"
+#include "rtc_base/deprecation.h"
 
 namespace webrtc {
 // Class to hold rtp packet with metadata for receiver side.
@@ -52,17 +56,26 @@ class RtpPacketReceived : public RtpPacket {
 
   // Additional data bound to the RTP packet for use in application code,
   // outside of WebRTC.
+  RTC_DEPRECATED
   rtc::ArrayView<const uint8_t> application_data() const {
     return application_data_;
   }
+  RTC_DEPRECATED
   void set_application_data(rtc::ArrayView<const uint8_t> data) {
     application_data_.assign(data.begin(), data.end());
+  }
+  rtc::scoped_refptr<rtc::RefCountedBase> additional_data() const {
+    return additional_data_;
+  }
+  void set_additional_data(rtc::scoped_refptr<rtc::RefCountedBase> data) {
+    additional_data_ = std::move(data);
   }
 
  private:
   int64_t arrival_time_ms_ = 0;
   int payload_type_frequency_ = 0;
   bool recovered_ = false;
+  rtc::scoped_refptr<rtc::RefCountedBase> additional_data_;
   std::vector<uint8_t> application_data_;
 };
 

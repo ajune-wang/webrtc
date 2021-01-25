@@ -16,6 +16,23 @@
       "message": "Thoughts:\n1) Using more than one PC is very normal. All mesh conferencing applications do it, and some even do it instead of multiple tracks per PC. If Chrome uses different threads for different PCs (I don\u0027t know if it does), the result will not make us happy.\n\nIt would be interesting to think about what it would take to make the network thread a singleton, but that is a lot more invasive than an SCTP-based solution.\n\n2) Having to support both single-process and multi-process modes of SCTP is the worst of all possible worlds. The idea behind switching to single-process is to make support simpler; supporting two modes will make it harder.\n\n3) In Chrome, the ultimate thread hop is the one that passes the UDP packets to the network process. So we\u0027re switching threads (AND sending packets over mojo) below the SCTP thread anyway. So we can\u0027t get to zero thread jumps - we should look to minimize, but be realistic.\n",
       "revId": "f42b8feea04a063bf08a4569638ad7c43e4d4b9c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c70cdd24_4033cb75",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2021-01-25T13:34:50Z",
+      "side": 1,
+      "message": "Hi Taylor. I believe it also important to take into account inherent inaccuracy of timer calling the lambda as well as execution time of `usrsctp_handle_timers`. Maybe it make sense to calculate elapsed duration to not to collect timer errors just by adding `10ms`? Just a reminder (maybe you will find it interesting): I\u0027ve tried migrate to single threaded usrsctp (https://webrtc-review.googlesource.com/c/src/+/175657), but stuck with overcoming issues with multiple PeerConnectionFactories having different network threads.",
+      "revId": "f42b8feea04a063bf08a4569638ad7c43e4d4b9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

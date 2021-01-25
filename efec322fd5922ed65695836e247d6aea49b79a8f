@@ -16,6 +16,24 @@
       "message": "Instead of this TODO, consider adding RTC_DEPRECATED annotations to the {set_,}application_data functions in both RtpPacketToSend and RtpPacketReceived",
       "revId": "efec322fd5922ed65695836e247d6aea49b79a8f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e33e0b1f_c0283a19",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_to_send.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-25T10:50:09Z",
+      "side": 1,
+      "message": "adding to all of the won\u0027t work since RTC_DEPRECATED disallows usage of that function inside webrtc, and these accessors are used by RtpPacketToSend to propagate it, e.g. rtp_sender.cc uses both of them in the same line.",
+      "parentUuid": "e25b06bc_537c7e68",
+      "revId": "efec322fd5922ed65695836e247d6aea49b79a8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

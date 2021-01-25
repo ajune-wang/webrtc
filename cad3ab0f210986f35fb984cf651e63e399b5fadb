@@ -52,6 +52,24 @@
       "parentUuid": "b5d5d25d_ef77a7cd",
       "revId": "cad3ab0f210986f35fb984cf651e63e399b5fadb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4189be24_97ecd40c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-25T11:43:09Z",
+      "side": 1,
+      "message": "Yes, it bugs me too, but it wasn\u0027t introduced with this change: \nSendLossNotification was the only user of the function SendCompoundRTCPLocked\nSendRTCP was the only user of the function SendCompoundRTCP\nDispite similar names SendCompoundRTCP and SendCompoundRTCPLocked didn\u0027t reuse each other, but duplicate the code.\n\nThe idea is to avoid an extra lock when calling SendLossNotification.\n\nSimplest solution is to abandon that idea, then SendLossNotification can easily use SendRTCP function.\n\nSlightly more complicated solution is to do a bit of template magic (or use rtc::FunctionView) to do extra work while mutex is locked just before rtcp packet is computed. \n\nSolution you\u0027re suggesting would also abandon idea of avoiding extra lock since SendCombinedRtcpPacket expects the mutex not to be locked, but, it would send loss notification rtcp packet on it\u0027s own, without attaching it to SR/RR/other rtcp.\n\nI\u0027m leaning to explore removing the duplication in a separate change.\nIf mutex_rtcp_sender_ is removed, then removing this duplication would be trivial.\n\nThe idea to remove LossNotificationState struct seems orthogonal to the duplication code issue and seems to have almost no downsiders. Let me do it.\n(the only downside I see is that rtcp_sender_ objects becomes slightly bigger.)",
+      "parentUuid": "fe691a06_f33720f7",
+      "revId": "cad3ab0f210986f35fb984cf651e63e399b5fadb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

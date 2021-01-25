@@ -70,6 +70,24 @@
       "parentUuid": "fe691a06_f33720f7",
       "revId": "cad3ab0f210986f35fb984cf651e63e399b5fadb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51d3af6b_9a8aef17",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-01-25T12:56:30Z",
+      "side": 1,
+      "message": "Ack, I see. Yeah, let\u0027s punt removing duplication to later.\nSince the main rtcp send path is now driver by a task queue, I wonder if it would be worth it be more task-queue-y in general here in the future, e.g. posting at task to send the loss notification rather than grabbing a lock and actually doing it.",
+      "parentUuid": "4189be24_97ecd40c",
+      "revId": "cad3ab0f210986f35fb984cf651e63e399b5fadb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

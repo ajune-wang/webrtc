@@ -88,6 +88,24 @@
       "parentUuid": "4189be24_97ecd40c",
       "revId": "cad3ab0f210986f35fb984cf651e63e399b5fadb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f06381a_9e12620b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-25T13:07:51Z",
+      "side": 1,
+      "message": "Yep, I agree making it task queue friendly is a way to go.\nThe idea is likely to require rtcp sender to be called from the same queue.\n\nBigger idea is to deprecicate RtcpReceiver/RtcpSender in favor of RtcpTransceiver.\nRtcpTransiver was created task-queue friendly: inner Impl class assumes it is always called on the same queue, and outer optional class provides that property)",
+      "parentUuid": "51d3af6b_9a8aef17",
+      "revId": "cad3ab0f210986f35fb984cf651e63e399b5fadb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

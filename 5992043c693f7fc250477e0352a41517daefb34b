@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c50b4c2_dbe13b93",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-01-25T21:47:57Z",
+      "side": 1,
+      "message": "hta, do I have your approval to revert this? I plan to upload another CL shortly to reland the parts of this we still want.",
+      "revId": "5992043c693f7fc250477e0352a41517daefb34b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

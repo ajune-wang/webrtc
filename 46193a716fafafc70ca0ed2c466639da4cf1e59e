@@ -16,6 +16,23 @@
       "message": "Hello Kári and Peter,\n\nCan I ask you for review of this request? \nI add this option, because CGAffineTransform in combination with Metal producing artefacts and app freezes in some cases.\n\nThanks a lot in advance!",
       "revId": "46193a716fafafc70ca0ed2c466639da4cf1e59e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa72d032_a31b3068",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5670
+      },
+      "writtenOn": "2021-01-25T12:55:45Z",
+      "side": 1,
+      "message": "Hi Siarhei, can you please provide some details on the artifacts you\u0027re seeing and how/why your patchset solves the issue? Thanks.",
+      "revId": "46193a716fafafc70ca0ed2c466639da4cf1e59e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

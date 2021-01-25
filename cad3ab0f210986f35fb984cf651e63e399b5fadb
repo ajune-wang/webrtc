@@ -16,6 +16,24 @@
       "message": "lg, just a small comment",
       "revId": "cad3ab0f210986f35fb984cf651e63e399b5fadb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5d5d25d_ef77a7cd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-25T10:21:08Z",
+      "side": 1,
+      "message": "Since you didn\u0027t write that small comment, I took a guess. \nDid I guess correctly and addressed your small comment?",
+      "parentUuid": "303474f4_93c8d298",
+      "revId": "cad3ab0f210986f35fb984cf651e63e399b5fadb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

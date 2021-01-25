@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "21c52fce_21c85847",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-01-25T23:39:58Z",
+      "side": 1,
+      "message": "1) Two PeerConnections is fine, it\u0027s two PeerConnectionFactories (with different network threads) that isn\u0027t. I suspect this is much more rare, and it isn\u0027t an issue for chromium.\n\n2) The main goal isn\u0027t to make support simpler, it\u0027s to insulate us against new security bugs due to race conditions between the application thread and usrsctp timer thread. I think this is worth a little extra complexity.\n\n3) Agreed, that\u0027s why I like reusing the network thread instead of a new dedicated thread.",
+      "parentUuid": "a3b4b0b4_4ea58136",
+      "revId": "f42b8feea04a063bf08a4569638ad7c43e4d4b9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c70cdd24_4033cb75",
         "filename": "media/sctp/sctp_transport.cc",
         "patchSetId": 3
@@ -31,6 +49,24 @@
       "writtenOn": "2021-01-25T13:34:50Z",
       "side": 1,
       "message": "Hi Taylor. I believe it also important to take into account inherent inaccuracy of timer calling the lambda as well as execution time of `usrsctp_handle_timers`. Maybe it make sense to calculate elapsed duration to not to collect timer errors just by adding `10ms`? Just a reminder (maybe you will find it interesting): I\u0027ve tried migrate to single threaded usrsctp (https://webrtc-review.googlesource.com/c/src/+/175657), but stuck with overcoming issues with multiple PeerConnectionFactories having different network threads.",
+      "revId": "f42b8feea04a063bf08a4569638ad7c43e4d4b9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9ef3af7_d6e73728",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-01-25T23:39:58Z",
+      "side": 1,
+      "message": "I definitely agree, I plan to fix this if I clean the CL up.",
+      "parentUuid": "c70cdd24_4033cb75",
       "revId": "f42b8feea04a063bf08a4569638ad7c43e4d4b9c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

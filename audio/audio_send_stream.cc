@@ -364,6 +364,8 @@ void AudioSendStream::ConfigureStream(
   if (sending_) {
     ReconfigureBitrateObserver(new_config);
   }
+
+  RTC_DCHECK_RUN_ON(&worker_thread_checker_);
   config_ = new_config;
 }
 
@@ -890,6 +892,7 @@ void AudioSendStream::RemoveBitrateObserver() {
 
 AudioSendStream::TargetAudioBitrateConstraints
 AudioSendStream::GetMinMaxBitrateConstraints() const {
+  RTC_DCHECK_RUN_ON(&worker_thread_checker_);
   TargetAudioBitrateConstraints constraints{
       DataRate::BitsPerSec(config_.min_bitrate_bps),
       DataRate::BitsPerSec(config_.max_bitrate_bps)};

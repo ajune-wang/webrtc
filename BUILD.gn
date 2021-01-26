@@ -244,6 +244,7 @@ config("common_config") {
   cflags_c = []
   cflags_cc = []
   cflags_objc = []
+
   defines = []
 
   if (rtc_enable_protobuf) {

@@ -16,6 +16,23 @@
       "message": "Probably not the best way of solving this, but at least the seg fault is prevented. I think it should be handled cleanly inside libaom encoder. ",
       "revId": "cae8cec60d33165e600b460c4f2fe2ed715cb29a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb381143_3253abe6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-26T13:34:10Z",
+      "side": 1,
+      "message": "Do you mind also adding a unit test to cover this scenario (e.g. similar to LibaomAv1EncoderTest.SetsEndOfPictureForLastFrameInTemporalUnit\nIt should be enough to expect number of frames produced with a comment that the main expectation is that encoder doesn\u0027t crash).\n\nIt might be good to also add scenario when (num_spatial_layers \u003d\u003d 3) \u0026\u0026 ((width % 4 \u003d\u003d 2) || (height % 4 \u003d\u003d 2))\n",
+      "revId": "cae8cec60d33165e600b460c4f2fe2ed715cb29a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

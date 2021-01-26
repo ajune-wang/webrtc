@@ -193,8 +193,12 @@ int LibaomAv1Encoder::InitEncode(const VideoCodec* codec_settings,
   }
 
   // Overwrite default config with input encoder settings & RTC-relevant values.
-  cfg_.g_w = encoder_settings_.width;
-  cfg_.g_h = encoder_settings_.height;
+  cfg_.g_w = svc_controller_->StreamConfig().num_spatial_layers > 1
+                 ? encoder_settings_.width & ~1
+                 : encoder_settings_.width;
+  cfg_.g_h = svc_controller_->StreamConfig().num_spatial_layers > 1
+                 ? encoder_settings_.height & ~1
+                 : encoder_settings_.height;
   cfg_.g_threads =
       NumberOfThreads(cfg_.g_w, cfg_.g_h, settings.number_of_cores);
   cfg_.g_timebase.num = 1;

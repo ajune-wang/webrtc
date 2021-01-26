@@ -16,6 +16,24 @@
       "message": "Would be interesting to see the asan tests, because while I don\u0027t get any issue running the tests without extra arguments, I get some random failures when running the test with:\n\nout\\Release\\modules_unittests --gtest_filter\u003d*aom* --verbose --logs\n[ RUN      ] LibaomAv1EncoderTest.CheckOddDimensionsWithSpatialLayers\nunknown file: error: SEH exception with code 0xc0000005 thrown in the test body.\n[  FAILED  ] LibaomAv1EncoderTest.CheckOddDimensionsWithSpatialLayers (12 ms)",
       "revId": "81d1c2b23ce1f54958d7dbd564e59634b164a56e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d44eedb_4e5ba2b7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-26T15:54:16Z",
+      "side": 1,
+      "message": "Yep, asan shows there is some problem:\n\n[ RUN      ] LibaomAv1EncoderTest.CheckOddDimensionsWithSpatialLayers\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n\u003d\u003d25082\u003d\u003dERROR: AddressSanitizer: heap-buffer-overflow on address 0x6320000159c7 at pc 0x564d842e8eb7 bp 0x7ffffb6a3940 sp 0x7ffffb6a3108\nREAD of size 622 at 0x6320000159c7 thread T0\n    #0 0x564d842e8eb6 in __asan_memcpy /b/s/w/ir/cache/builder/src/third_party/llvm/compiler-rt/lib/asan/asan_interceptors_memintrinsics.cpp:22:3\n    #1 0x564d89300b94 in copy_and_extend_plane third_party/libaom/source/libaom/av1/encoder/extend.c:33:5\n    #2 0x564d89300b94 in av1_copy_and_extend_frame third_party/libaom/source/libaom/av1/encoder/extend.c:136:3\n    #3 0x564d892ffc64 in av1_lookahead_push third_party/libaom/source/libaom/av1/encoder/lookahead.c:135:3\n    #4 0x564d892dcf04 in av1_receive_raw_frame third_party/libaom/source/libaom/av1/encoder/encoder.c:3307:7\n    #5 0x564d8949674f in encoder_encode third_party/libaom/source/libaom/av1/av1_cx_iface.c:2240:11\n    #6 0x564d892e42e0 in aom_codec_encode third_party/libaom/source/libaom/aom/src/aom_encoder.c:155:11\n    #7 0x564d894909d5 in webrtc::(anonymous namespace)::LibaomAv1Encoder::Encode(webrtc::VideoFrame const\u0026, std::__1",
+      "parentUuid": "1f4888ee_e341f59b",
+      "revId": "81d1c2b23ce1f54958d7dbd564e59634b164a56e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

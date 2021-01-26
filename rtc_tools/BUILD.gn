@@ -113,6 +113,11 @@ rtc_library("video_quality_analysis") {
   absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
 }
 
+# abseil-cpp are not moved to the absl_deps field deliberately.
+# If build_with_chromium is true - the absl_deps replaces the dependencies with
+# "//third_party/abseil-cpp:absl" target. This target doesn't include test only
+# code like flags. Special exception for the "frame_analyzer" target
+# in "third_party/abseil-cpp/absl.gni" allows it to be build in chromium.
 rtc_executable("frame_analyzer") {
   visibility = [ "*" ]
   testonly = true
@@ -148,6 +153,12 @@ if (!is_component_build) {
   # This target can be built from Chromium but it doesn't support
   # is_component_build=true because it depends on WebRTC testonly code
   # which is not part of //third_party/webrtc_overrides:webrtc_component.
+
+  # abseil-cpp are not moved to the absl_deps field deliberately.
+  # If build_with_chromium is true - the absl_deps replaces the dependencies with
+  # "//third_party/abseil-cpp:absl" target. This target doesn't include test only
+  # code like flags. Special exception for the "rtp_generator" target
+  # in "third_party/abseil-cpp/absl.gni" allows it to be build in chromium.
   rtc_executable("rtp_generator") {
     visibility = [ "*" ]
     testonly = true
@@ -201,6 +212,12 @@ if (!is_component_build) {
   # This target can be built from Chromium but it doesn't support
   # is_component_build=true because it depends on WebRTC testonly code
   # which is not part of //third_party/webrtc_overrides:webrtc_component.
+
+  # abseil-cpp are not moved to the absl_deps field deliberately.
+  # If build_with_chromium is true - the absl_deps replaces the dependencies with
+  # "//third_party/abseil-cpp:absl" target. This target doesn't include test only
+  # code like flags. Special exception for the "rtp_generator" target
+  # in "third_party/abseil-cpp/absl.gni" allows it to be build in chromium.
   rtc_executable("video_replay") {
     visibility = [ "*" ]
     testonly = true
@@ -256,6 +273,9 @@ if (!build_with_chromium) {
       "../api:scoped_refptr",
       "../api/video:video_frame",
       "../api/video:video_rtp_headers",
+    ]
+
+    absl_deps = [
       "//third_party/abseil-cpp/absl/flags:flag",
       "//third_party/abseil-cpp/absl/flags:parse",
       "//third_party/abseil-cpp/absl/flags:usage",
@@ -282,8 +302,9 @@ if (!build_with_chromium) {
     testonly = true
     sources = [ "frame_analyzer/reference_less_video_analysis.cc" ]
 
-    deps = [
-      ":reference_less_video_analysis_lib",
+    deps = [ ":reference_less_video_analysis_lib" ]
+
+    absl_deps = [
       "//third_party/abseil-cpp/absl/flags:flag",
       "//third_party/abseil-cpp/absl/flags:parse",
       "//third_party/abseil-cpp/absl/flags:usage",
@@ -301,10 +322,13 @@ if (!build_with_chromium) {
 
     deps = [
       "../common_video",
+      "//third_party/libyuv",
+    ]
+
+    absl_deps = [
       "//third_party/abseil-cpp/absl/flags:flag",
       "//third_party/abseil-cpp/absl/flags:parse",
       "//third_party/abseil-cpp/absl/flags:usage",
-      "//third_party/libyuv",
     ]
   }
 
@@ -408,6 +432,9 @@ if (rtc_include_tests) {
       "../rtc_base/system:file_wrapper",
       "../test:video_test_common",
       "../test:video_test_support",
+    ]
+
+    absl_deps = [
       "//third_party/abseil-cpp/absl/debugging:failure_signal_handler",
       "//third_party/abseil-cpp/absl/debugging:symbolize",
       "//third_party/abseil-cpp/absl/flags:flag",
@@ -441,6 +468,8 @@ if (rtc_include_tests) {
         "../test:field_trial",
         "../test:fileutils",
         "../test:test_support",
+      ]
+      absl_deps = [
         "//third_party/abseil-cpp/absl/algorithm:container",
         "//third_party/abseil-cpp/absl/flags:config",
         "//third_party/abseil-cpp/absl/flags:flag",
@@ -556,6 +585,9 @@ if (rtc_include_tests) {
         "../rtc_base:ignore_wundef",
         "../rtc_base:protobuf_utils",
         "../rtc_base:rtc_base_approved",
+      ]
+
+      absl_deps = [
         "//third_party/abseil-cpp/absl/flags:flag",
         "//third_party/abseil-cpp/absl/flags:parse",
       ]

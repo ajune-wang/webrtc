@@ -20,6 +20,9 @@ rtc_executable("conversational_speech_generator") {
     ":lib",
     "../../../../test:fileutils",
     "../../../../test:test_support",
+  ]
+
+  absl_deps = [
     "//third_party/abseil-cpp/absl/flags:flag",
     "//third_party/abseil-cpp/absl/flags:parse",
   ]

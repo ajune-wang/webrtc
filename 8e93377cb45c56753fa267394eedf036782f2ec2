@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2a90927f_523175d3",
+        "filename": "pc/jsep_transport_controller.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2021-01-26T10:49:19Z",
+      "side": 1,
+      "message": "Is it really what we want, I thought what we want is the make sure the callback is invoked in networking_thread.",
+      "parentUuid": "db2f3b63_8d22a95c",
+      "revId": "8e93377cb45c56753fa267394eedf036782f2ec2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8a567d20_c6c92131",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 6
@@ -48,6 +66,24 @@
       "writtenOn": "2021-01-26T08:53:19Z",
       "side": 1,
       "message": "Drive-by nitpick: \"Following\" -\u003e \"The following\"",
+      "revId": "8e93377cb45c56753fa267394eedf036782f2ec2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbbaeafd_335f0108",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2021-01-26T10:49:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a567d20_c6c92131",
       "revId": "8e93377cb45c56753fa267394eedf036782f2ec2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

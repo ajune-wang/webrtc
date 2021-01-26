@@ -52,6 +52,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2de9d043_eedbd5e3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-01-26T10:00:16Z",
+      "side": 1,
+      "message": "Higher playback rate sounds like some issue in video_replay timestamp processing.\nCould you check what is written in the log here please:\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/modules/video_coding/utility/ivf_file_writer.cc;l\u003d135;drc\u003d91c0477b4332b9e7880ce48332b1f77d5255a839\n\nAlso, dumping frames\u0027 capture_timestamp and Timestamp() to stderr in IvfFileWriter could help to debug this issue.\n\nEither way, it\u0027s not an issue with your change itself, so lgtm.",
+      "parentUuid": "17b65ef4_f7fb6383",
+      "revId": "b6999d0ffaffca30f33808439454029de6542bbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b2b4075e_9d1be808",

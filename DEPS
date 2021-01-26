@@ -65,7 +65,7 @@ deps = {
   },
 
   'src/buildtools/clang_format/script':
-    'https://chromium.googlesource.com/chromium/llvm-project/cfe/tools/clang-format.git@96636aa0e9f047f17447f2d45a094d0b59ed7917',
+    'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/clang/tools/clang-format.git@23f18eb6f7b4edee5d127ff25effa07e9c53e5a7',
   'src/buildtools/third_party/libc++/trunk':
     'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxx.git@d9040c75cfea5928c804ab7c235fed06a63f743a',
   'src/buildtools/third_party/libc++abi/trunk':

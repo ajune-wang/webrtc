@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "111efa9b_69d807b5",
+        "filename": "pc/dtls_srtp_transport.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-26T09:42:29Z",
+      "side": 1,
+      "message": "I think, the registration token should be returned by the SubscribeDtlsState() and stored into this class in order to be passed to the UnsubscribeDtlsState().\n\nAt the moment, multiple calls to DtlsTransportInternal::SubscribeDtlsState will override the registration token since it is stored inside the DtlsTransportInternal class while we need to register the client (in this case the DtlsSrtpTransport instance), give the client its own registration token so they can use it to unregister later on.\n\nSo I think DtlsTransportInternal new functions should be updated for that, and the token be stored inside the instance of the classes that are invoking SubscribeDtlsState().",
+      "range": {
+        "startLine": 281,
+        "startChar": 4,
+        "endLine": 281,
+        "endChar": 50
+      },
+      "revId": "df2f088eebe6ea5e02874006c9b076a05b50dc01",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

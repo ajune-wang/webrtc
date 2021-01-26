@@ -402,50 +402,52 @@ if (rtc_include_tests) {
     absl_deps = [ "//third_party/abseil-cpp/absl/flags:flag" ]
   }
 
-  rtc_library("test_main_lib") {
-    visibility = [ "*" ]
-    testonly = true
-    sources = [
-      "test_main_lib.cc",
-      "test_main_lib.h",
-    ]
+  if (!build_with_chromium) {
+    rtc_library("test_main_lib") {
+      visibility = [ "*" ]
+      testonly = true
+      sources = [
+        "test_main_lib.cc",
+        "test_main_lib.h",
+      ]
 
-    deps = [
-      ":field_trial",
-      ":perf_test",
-      ":resources_dir_flag",
-      ":test_support",
-      "../rtc_base",
-      "../rtc_base:checks",
-      "../rtc_base:logging",
-      "../rtc_base:rtc_base_approved",
-      "../rtc_base:threading",
-      "../system_wrappers:field_trial",
-      "../system_wrappers:metrics",
-    ]
-    absl_deps = [
-      "//third_party/abseil-cpp/absl/flags:flag",
-      "//third_party/abseil-cpp/absl/memory",
-      "//third_party/abseil-cpp/absl/strings:strings",
-      "//third_party/abseil-cpp/absl/types:optional",
-    ]
-  }
+      deps = [
+        ":field_trial",
+        ":perf_test",
+        ":resources_dir_flag",
+        ":test_support",
+        "../rtc_base",
+        "../rtc_base:checks",
+        "../rtc_base:logging",
+        "../rtc_base:rtc_base_approved",
+        "../rtc_base:threading",
+        "../system_wrappers:field_trial",
+        "../system_wrappers:metrics",
+      ]
+      absl_deps = [
+        "//third_party/abseil-cpp/absl/flags:flag",
+        "//third_party/abseil-cpp/absl/memory",
+        "//third_party/abseil-cpp/absl/strings:strings",
+        "//third_party/abseil-cpp/absl/types:optional",
+      ]
+    }
 
-  rtc_library("test_main") {
-    visibility = [ "*" ]
-    testonly = true
-    sources = [ "test_main.cc" ]
+    rtc_library("test_main") {
+      visibility = [ "*" ]
+      testonly = true
+      sources = [ "test_main.cc" ]
 
-    deps = [
-      ":test_main_lib",
-      ":test_support",
-    ]
+      deps = [
+        ":test_main_lib",
+        ":test_support",
+      ]
 
-    absl_deps = [
-      "//third_party/abseil-cpp/absl/debugging:failure_signal_handler",
-      "//third_party/abseil-cpp/absl/debugging:symbolize",
-      "//third_party/abseil-cpp/absl/flags:parse",
-    ]
+      absl_deps = [
+        "//third_party/abseil-cpp/absl/debugging:failure_signal_handler",
+        "//third_party/abseil-cpp/absl/debugging:symbolize",
+        "//third_party/abseil-cpp/absl/flags:parse",
+      ]
+    }
   }
 
   if (enable_google_benchmarks) {

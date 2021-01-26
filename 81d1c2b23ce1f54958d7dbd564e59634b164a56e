@@ -34,6 +34,23 @@
       "parentUuid": "1f4888ee_e341f59b",
       "revId": "81d1c2b23ce1f54958d7dbd564e59634b164a56e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ed70d81_fcf10524",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5366
+      },
+      "writtenOn": "2021-01-26T17:57:47Z",
+      "side": 1,
+      "message": "I think libaom should be able to handle odd width/height with padding the frame size. If not it should be fixed upstream instead of here.",
+      "revId": "81d1c2b23ce1f54958d7dbd564e59634b164a56e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

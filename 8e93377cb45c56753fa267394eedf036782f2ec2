@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a4deea4c_2784123d",
+        "filename": "pc/jsep_transport_controller.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2021-01-26T14:44:34Z",
+      "side": 1,
+      "message": "Hi Harald,\n\nThanks for the response. Why does the object has to be in the network_thread ?\nWhen I tried to add this check it showed lot of failures and chrome tests started failing so reverted it back.",
+      "parentUuid": "9bf22c51_94124f4f",
+      "revId": "8e93377cb45c56753fa267394eedf036782f2ec2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8a567d20_c6c92131",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 6

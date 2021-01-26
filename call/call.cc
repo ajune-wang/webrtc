@@ -768,7 +768,6 @@ void Call::UpdateReceiveHistograms() {
 }
 
 PacketReceiver* Call::Receiver() {
-  RTC_DCHECK_RUN_ON(worker_thread_);
   return this;
 }
 
@@ -1419,10 +1418,9 @@ PacketReceiver::DeliveryStatus Call::DeliverPacket(
     int64_t packet_time_us) {
   RTC_DCHECK_RUN_ON(worker_thread_);
 
-  if (IsRtcp(packet.cdata(), packet.size()))
-    return DeliverRtcp(media_type, packet.cdata(), packet.size());
-
-  return DeliverRtp(media_type, std::move(packet), packet_time_us);
+  return IsRtcp(packet.cdata(), packet.size())
+             ? DeliverRtcp(media_type, packet.cdata(), packet.size())
+             : DeliverRtp(media_type, std::move(packet), packet_time_us);
 }
 
 void Call::DeliverPacketAsync(MediaType media_type,

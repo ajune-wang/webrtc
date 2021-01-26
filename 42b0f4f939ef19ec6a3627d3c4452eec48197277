@@ -16,6 +16,23 @@
       "message": "Only point about thread safety to address.\n",
       "revId": "42b0f4f939ef19ec6a3627d3c4452eec48197277",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b7ad6a5_6546eb04",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-26T16:24:24Z",
+      "side": 1,
+      "message": "You have just shown that you\u0027re accessing the CallbackList in a thread-unsafe manner; it is possible for applciations to call Subscribe.... from one thread at the same time as processing the callback list on another thread. If this is ever done, crashes will result.\n\nThis doesn\u0027t happen today, because Subscribe.... is called before the object starts being active, so the racy handling of the object doesn\u0027t cause a collision.\n\nYou don\u0027t have to do it this way. Subscribe... is called in exactly one place, which is 4 lines after the creation of the object you subscribe to. If you instead pass the lambda to the object\u0027s constructor, and store it in a function pointer (which can be const), you will have a thread-safe solution that is impossible to abuse.\n\n",
+      "revId": "42b0f4f939ef19ec6a3627d3c4452eec48197277",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

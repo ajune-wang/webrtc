@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c815e30c_215055b9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-26T16:12:50Z",
+      "side": 1,
+      "message": "Hans, this is related to crbug.com/1166977. We\u0027ve added the data dependency to all our test() targets if is a linux sanitizer build. Does this make sense?",
+      "revId": "5b2cfa00b22398fd2c4e5b9798a035383e5c254e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

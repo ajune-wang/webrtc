@@ -33,6 +33,46 @@
       "message": "(somehow I did not actually request review so here we go...)\n\nilya: can you take a look please? Compared to the M84 branch I originally created this for I do get videos which are way (90x, see using_capture_timestamps_?) too fast but that seems more like an issue \nwith the writer than this code.\nmirko: this will need an owner lgtm later. And there are build changes ;-)",
       "revId": "b6999d0ffaffca30f33808439454029de6542bbf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93c56a3c_b8c4681e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-26T08:16:32Z",
+      "side": 1,
+      "message": "Ok, let\u0027s wait for Ilya\u0027s review, after that I can stamp the owners approval.",
+      "revId": "b6999d0ffaffca30f33808439454029de6542bbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2b4075e_9d1be808",
+        "filename": "rtc_tools/video_replay.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-26T08:16:32Z",
+      "side": 1,
+      "message": "This can probably be a \"const std::string\u0026\".",
+      "range": {
+        "startLine": 271,
+        "startChar": 54,
+        "endLine": 271,
+        "endChar": 65
+      },
+      "revId": "b6999d0ffaffca30f33808439454029de6542bbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

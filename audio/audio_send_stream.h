@@ -152,6 +152,7 @@ class AudioSendStream final : public webrtc::AudioSendStream,
 
   rtc::ThreadChecker worker_thread_checker_;
   rtc::ThreadChecker pacer_thread_checker_;
+  rtc::ThreadChecker config_access_checker_;
   rtc::RaceChecker audio_capture_race_checker_;
   rtc::TaskQueue* worker_queue_;
 

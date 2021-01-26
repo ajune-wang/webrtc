@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8be5ce5_9e0c9ff0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-26T08:53:19Z",
+      "side": 1,
+      "message": "Basically looks nice, but I\u0027m eager to make sure we don\u0027t compromise thread safety.\n",
+      "revId": "8e93377cb45c56753fa267394eedf036782f2ec2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db2f3b63_8d22a95c",
+        "filename": "pc/jsep_transport_controller.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-26T08:53:19Z",
+      "side": 1,
+      "message": "Can you make this RTC_GUARDED_BY(network_thread())? (See comment on thread safety in callback_list.h)",
+      "revId": "8e93377cb45c56753fa267394eedf036782f2ec2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a567d20_c6c92131",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-26T08:53:19Z",
+      "side": 1,
+      "message": "Drive-by nitpick: \"Following\" -\u003e \"The following\"",
+      "revId": "8e93377cb45c56753fa267394eedf036782f2ec2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18887c4d_a7767405",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-26T08:53:19Z",
+      "side": 1,
+      "message": "This is allocation-safe because the transport_controller_ is owned by the PeerConnection.",
+      "revId": "8e93377cb45c56753fa267394eedf036782f2ec2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

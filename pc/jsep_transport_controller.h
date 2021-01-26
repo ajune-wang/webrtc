@@ -192,7 +192,12 @@ class JsepTransportController : public sigslot::has_slots<> {
   // and deletes unused transports, but doesn't consider anything more complex.
   void RollbackTransports();
 
-  sigslot::signal1<rtc::SSLHandshakeError> SignalDtlsHandshakeError;
+  // F: void(const std::vector<rtc:SSLHandshakeError>)
+  template <typename F>
+  void SubscribeDtlsHandshakeError(F&& callback) {
+    RTC_DCHECK_RUN_ON(network_thread_);
+    dtls_handshake_error_callback_list_.AddReceiver(std::forward<F>(callback));
+  }
 
   // F: void(const std::string&, const std::vector<cricket::Candidate>&)
   template <typename F>
@@ -275,6 +280,8 @@ class JsepTransportController : public sigslot::has_slots<> {
 
   CallbackList<const cricket::CandidatePairChangeEvent&>
       signal_ice_candidate_pair_changed_;
+  CallbackList<const rtc::SSLHandshakeError> dtls_handshake_error_callback_list_
+      RTC_GUARDED_BY(network_thread_);
 
   RTCError ApplyDescription_n(bool local,
                               SdpType type,

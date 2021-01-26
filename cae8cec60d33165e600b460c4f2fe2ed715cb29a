@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0c50ac0_2a9678de",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2021-01-26T13:22:27Z",
+      "side": 1,
+      "message": "Probably not the best way of solving this, but at least the seg fault is prevented. I think it should be handled cleanly inside libaom encoder. ",
+      "revId": "cae8cec60d33165e600b460c4f2fe2ed715cb29a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

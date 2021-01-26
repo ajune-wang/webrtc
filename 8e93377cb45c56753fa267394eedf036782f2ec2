@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9bf22c51_94124f4f",
+        "filename": "pc/jsep_transport_controller.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-26T13:07:28Z",
+      "side": 1,
+      "message": "You have the lambda RTC_DCHECK that it is run on network_thread(), and the thread safety comment says that you need to make the object either guarded or single-threaded. Since you\u0027ve started asserting that it\u0027s used on network_thread(), and it\u0027s not otherwise guarded, then all access should be on network_thread().",
+      "parentUuid": "2a90927f_523175d3",
+      "revId": "8e93377cb45c56753fa267394eedf036782f2ec2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8a567d20_c6c92131",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 6

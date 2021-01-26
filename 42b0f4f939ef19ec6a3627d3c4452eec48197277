@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13465c9e_f94cde4f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-26T13:07:28Z",
+      "side": 1,
+      "message": "Only point about thread safety to address.\n",
+      "revId": "42b0f4f939ef19ec6a3627d3c4452eec48197277",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

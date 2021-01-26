@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69affad3_570fda8d",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-26T10:33:46Z",
+      "side": 1,
+      "message": "This is a unique_ptr so there is no need to ensure \"this\" is valid. (writing here as part of the CL review/checking I do on these CLs, no action needed).\n\n(ah, I just seen hta@\u0027s comment on this, so two +1s on this) 😊",
+      "range": {
+        "startLine": 615,
+        "startChar": 2,
+        "endLine": 615,
+        "endChar": 23
+      },
+      "revId": "716ed8682718c73fe614712c3e0e457f657b7b01",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

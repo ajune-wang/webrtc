@@ -34,6 +34,24 @@
       "parentUuid": "361a5f8e_c97d0298",
       "revId": "ae4c1fc3443cde0d6849c27773bf18b89bb3691e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d52c7c0_c0a8ad63",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5366
+      },
+      "writtenOn": "2021-01-26T17:36:30Z",
+      "side": 1,
+      "message": "Hi Sergio,\n\nyes let\u0027s get the other one in. It disables more useless tools in rtc.",
+      "parentUuid": "bd41adca_2f2e464f",
+      "revId": "ae4c1fc3443cde0d6849c27773bf18b89bb3691e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

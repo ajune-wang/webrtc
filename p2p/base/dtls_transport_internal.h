@@ -115,6 +115,20 @@ class DtlsTransportInternal : public rtc::PacketTransportInternal {
   virtual IceTransportInternal* ice_transport() = 0;
 
   sigslot::signal2<DtlsTransportInternal*, DtlsTransportState> SignalDtlsState;
+  // F: void(DtlsTransportInternal*, const DtlsTransportState)
+  template <typename F>
+  void SubscribeDtlsState(F&& callback) {
+    dtls_state_callback_list_.AddReceiver(&dtls_state_tag_,
+                                          std::forward<F>(callback));
+  }
+  // Unsubscribe the last subscription only.
+  void UnsubscribeDtlsState() {
+    dtls_state_callback_list_.RemoveReceivers(&dtls_state_tag_);
+  }
+  void SendDtlsState(DtlsTransportInternal* transport,
+                     DtlsTransportState state) {
+    dtls_state_callback_list_.Send(transport, state);
+  }
 
   // Emitted whenever the Dtls handshake failed on some transport channel.
   sigslot::signal1<rtc::SSLHandshakeError> SignalDtlsHandshakeError;
@@ -135,6 +149,9 @@ class DtlsTransportInternal : public rtc::PacketTransportInternal {
   RTC_DISALLOW_COPY_AND_ASSIGN(DtlsTransportInternal);
   webrtc::CallbackList<const rtc::SSLHandshakeError>
       dtls_handshake_error_callback_list_;
+  webrtc::CallbackList<DtlsTransportInternal*, const DtlsTransportState>
+      dtls_state_callback_list_;
+  int dtls_state_tag_;
 };
 
 }  // namespace cricket

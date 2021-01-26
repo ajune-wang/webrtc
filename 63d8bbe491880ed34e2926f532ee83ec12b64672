@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35a46deb_a5b94afa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-01-26T11:47:29Z",
+      "side": 1,
+      "message": "Hi Jakob and Harald,\n\nPlease take a look.",
+      "revId": "63d8bbe491880ed34e2926f532ee83ec12b64672",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

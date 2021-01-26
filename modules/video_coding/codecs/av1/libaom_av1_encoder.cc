@@ -262,6 +262,12 @@ int LibaomAv1Encoder::InitEncode(const VideoCodec* codec_settings,
                         << " on control AV1E_SET_ENABLE_ORDER_HINT.";
     return WEBRTC_VIDEO_CODEC_ERROR;
   }
+  ret = aom_codec_control(&ctx_, AV1E_SET_ENABLE_OBMC, 0);
+  if (ret != AOM_CODEC_OK) {
+    RTC_LOG(LS_WARNING) << "LibaomAv1Encoder::EncodeInit returned " << ret
+                        << " on control AV1E_SET_ENABLE_OBMC.";
+    return WEBRTC_VIDEO_CODEC_ERROR;
+  }
   ret = aom_codec_control(&ctx_, AV1E_SET_AQ_MODE, 3);
   if (ret != AOM_CODEC_OK) {
     RTC_LOG(LS_WARNING) << "LibaomAv1Encoder::EncodeInit returned " << ret

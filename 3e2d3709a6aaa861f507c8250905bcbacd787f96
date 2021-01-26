@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5447cc14_f984f867",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2021-01-26T08:50:22Z",
+      "side": 1,
+      "message": "Speed 6 is set for low-resolutionn in webrtc-wrapper and OBMC is on by default, so speed 6 (rd path) will cause a seg fault unless it is explicitly turned off.",
+      "revId": "3e2d3709a6aaa861f507c8250905bcbacd787f96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

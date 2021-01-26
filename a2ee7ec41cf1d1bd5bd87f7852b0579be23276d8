@@ -16,6 +16,23 @@
       "message": "Nice! Can you add a test as well? 😊",
       "revId": "a2ee7ec41cf1d1bd5bd87f7852b0579be23276d8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "77d8655b_130d21c8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2021-01-26T12:37:46Z",
+      "side": 1,
+      "message": "Also, I assume this only works in Chrome? I believe that APM is stopped in audio send stream as well which means no audio samples will be produced.",
+      "revId": "a2ee7ec41cf1d1bd5bd87f7852b0579be23276d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

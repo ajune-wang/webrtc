@@ -159,6 +159,30 @@
       },
       "revId": "478cbd5ffd6261cdee8d15b888e3295f16d4b35d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "313a80f3_510dafd4",
+        "filename": "tools_webrtc/mb/mb.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-27T12:34:30Z",
+      "side": 1,
+      "message": "Ok, after syncing with the V8 team it looks like this is not used by WebRTC\u0027s recipes (see https://source.chromium.org/search?q\u003d%22self.m.chromium.mb%22\u0026sq\u003d\u0026ss\u003dchromium%2Finfra%2Finfra:parent%2Fbuild%2Frecipes%2Frecipe_modules%2Fwebrtc%2F for the MB usage from WebRTC\u0027s recipe_module).\n\nI wonder if we should just delete this code from WebRTC but this will break usage of:\n\n  $ tools_webrtc/mb/mb.py run ...\n\nThe tests fail with:\n\n./mb_unittest.py\nvpython ./mb_unittest.py (0.76s) failed\n.....................F.\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nFAIL: test_run_swarmed (__main__.UnitTest)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"./mb_unittest.py\", line 769, in test_run_swarmed\n    \u0027base_unittests\u0027], mbw\u003dmbw, ret\u003d0)\n  File \"./mb_unittest.py\", line 185, in check\n    self.assertEqual(actual_ret, ret)\nAssertionError: 1 !\u003d 0\n\nI suspect our mb.py is quite outdated so some update of the code should fix.",
+      "parentUuid": "41279a7a_ce2f5a2f",
+      "range": {
+        "startLine": 373,
+        "startChar": 0,
+        "endLine": 380,
+        "endChar": 20
+      },
+      "revId": "478cbd5ffd6261cdee8d15b888e3295f16d4b35d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0e0be2c_81cbc332",
+        "filename": "api/uma_metrics.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-01-27T11:37:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "097633f6_7a439b32",
+      "revId": "8879d38cb722be9473ce58539f36e034d93b078a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7c6d8de0_182b853e",
@@ -35,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f98e9492_58036fe0",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 2335,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-01-27T11:37:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c6d8de0_182b853e",
+      "revId": "8879d38cb722be9473ce58539f36e034d93b078a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5dfe50f5_14248a1e",
@@ -48,6 +84,24 @@
       "writtenOn": "2021-01-27T01:36:40Z",
       "side": 1,
       "message": "personal preference for me would be to have the if (simple) check on the outside, so the inner check for all cases can be usage \u003d using_bundle ? A : B.",
+      "revId": "8879d38cb722be9473ce58539f36e034d93b078a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "efeb580a_3c21331c",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 2348,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-01-27T11:37:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5dfe50f5_14248a1e",
       "revId": "8879d38cb722be9473ce58539f36e034d93b078a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -83,6 +137,24 @@
       "side": 1,
       "message": "We should record both. There are apps that start off by negotiating only a datachannel, or only the initial video/audio channels, and depend on renegotiation to add the many video/audio channels in the conferencing scenario.",
       "parentUuid": "fb161bbe_42d7296e",
+      "revId": "8879d38cb722be9473ce58539f36e034d93b078a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fed8ac1_b0b8ae48",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 2160,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-01-27T11:37:52Z",
+      "side": 1,
+      "message": "just to clarify: we are measuring both -- if not the unified plan metrics slightly above would be wrong. And we see a lot of unified plan metrics so that should be good.",
+      "parentUuid": "6dfa461f_05ee98dc",
       "revId": "8879d38cb722be9473ce58539f36e034d93b078a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -51,6 +51,24 @@
       "message": "I think libaom should be able to handle odd width/height with padding the frame size. If not it should be fixed upstream instead of here.",
       "revId": "81d1c2b23ce1f54958d7dbd564e59634b164a56e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "493bf6a3_5368d230",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2021-01-27T08:18:37Z",
+      "side": 1,
+      "message": "Sounds good, is there any place to create the issue for the libaom encoder?\n\nIf not, how would we be able to track progress on this topic and decide if we should fixed it in here?",
+      "parentUuid": "3ed70d81_fcf10524",
+      "revId": "81d1c2b23ce1f54958d7dbd564e59634b164a56e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

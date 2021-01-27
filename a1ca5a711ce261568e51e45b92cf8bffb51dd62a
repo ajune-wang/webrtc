@@ -16,6 +16,23 @@
       "message": "i was reading the code, had a question and thought I might fix the comments while I am at it.\n\nIs the purpose of that id the same as the VP8 picture id (https://tools.ietf.org/html/rfc7741#section-4.2 -- has a random offset though)? I was pondering putting the picture id (which is accessible at VCMEncodedFrame/EncodedFrame level) into this field at the receiving side (and maybe expose it via the requestVideoFrameCallback API)",
       "revId": "a1ca5a711ce261568e51e45b92cf8bffb51dd62a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43309118_32aed853",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-01-27T17:23:29Z",
+      "side": 1,
+      "message": "Thank you for fixing this!",
+      "revId": "a1ca5a711ce261568e51e45b92cf8bffb51dd62a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

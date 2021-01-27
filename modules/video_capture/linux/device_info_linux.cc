@@ -42,7 +42,7 @@ int32_t DeviceInfoLinux::Init() {
 DeviceInfoLinux::~DeviceInfoLinux() {}
 
 uint32_t DeviceInfoLinux::NumberOfDevices() {
-  RTC_LOG(LS_INFO) << __FUNCTION__;
+  RTC_DLOG(LS_INFO) << __FUNCTION__;
 
   uint32_t count = 0;
   char device[20];
@@ -75,7 +75,7 @@ int32_t DeviceInfoLinux::GetDeviceName(uint32_t deviceNumber,
                                        uint32_t deviceUniqueIdUTF8Length,
                                        char* /*productUniqueIdUTF8*/,
                                        uint32_t /*productUniqueIdUTF8Length*/) {
-  RTC_LOG(LS_INFO) << __FUNCTION__;
+  RTC_DLOG(LS_INFO) << __FUNCTION__;
 
   // Travel through /dev/video [0-63]
   uint32_t count = 0;

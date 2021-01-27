@@ -18,6 +18,69 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "00cd7e59_4bca08ab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2021-01-27T09:47:48Z",
+      "side": 1,
+      "message": "only looked and video_capture. lgtm % comments.",
+      "revId": "3c1ff346d618ee74f31f0b457b1f3cc937e80e7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1940b8da_138f8967",
+        "filename": "modules/video_capture/linux/device_info_linux.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2021-01-27T09:47:48Z",
+      "side": 1,
+      "message": "I think you can just remove these logs.",
+      "range": {
+        "startLine": 45,
+        "startChar": 2,
+        "endLine": 45,
+        "endChar": 10
+      },
+      "revId": "3c1ff346d618ee74f31f0b457b1f3cc937e80e7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d09a4367_0c007cde",
+        "filename": "modules/video_capture/linux/device_info_linux.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2021-01-27T09:47:48Z",
+      "side": 1,
+      "message": "dito- just remove.",
+      "range": {
+        "startLine": 78,
+        "startChar": 23,
+        "endLine": 78,
+        "endChar": 35
+      },
+      "revId": "3c1ff346d618ee74f31f0b457b1f3cc937e80e7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "268d2fcd_91477a59",

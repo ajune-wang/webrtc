@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "befa07b8_43653fe4",
+        "filename": "modules/video_capture/linux/device_info_linux.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-27T10:52:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1940b8da_138f8967",
+      "range": {
+        "startLine": 45,
+        "startChar": 2,
+        "endLine": 45,
+        "endChar": 10
+      },
+      "revId": "3c1ff346d618ee74f31f0b457b1f3cc937e80e7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d09a4367_0c007cde",
@@ -81,6 +105,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "60488478_0c6cbbbf",
+        "filename": "modules/video_capture/linux/device_info_linux.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-27T10:52:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d09a4367_0c007cde",
+      "range": {
+        "startLine": 78,
+        "startChar": 23,
+        "endLine": 78,
+        "endChar": 35
+      },
+      "revId": "3c1ff346d618ee74f31f0b457b1f3cc937e80e7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "268d2fcd_91477a59",
@@ -94,6 +142,30 @@
       "writtenOn": "2021-01-27T09:41:32Z",
       "side": 1,
       "message": "nit: Is this useful? Combine with the line above/remove?\n\nI see similar instances elsewhere in the file. It probably only makes sense to log the output when we also log the function name. I would guess what would make the most sense is combining the DLOG lines.",
+      "range": {
+        "startLine": 147,
+        "startChar": 4,
+        "endLine": 147,
+        "endChar": 37
+      },
+      "revId": "3c1ff346d618ee74f31f0b457b1f3cc937e80e7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11f603b8_599ce3f9",
+        "filename": "sdk/android/src/jni/audio_device/audio_device_module.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-27T10:52:32Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "268d2fcd_91477a59",
       "range": {
         "startLine": 147,
         "startChar": 4,

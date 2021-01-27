@@ -69,6 +69,42 @@
       "parentUuid": "84ecbe6a_3f289031",
       "revId": "a2ee7ec41cf1d1bd5bd87f7852b0579be23276d8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc40ba2c_5614d0ed",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-01-27T09:14:04Z",
+      "side": 1,
+      "message": "It turns out that adding unittest is not easy as there are no unittests on ChannelSend.\n\nSince the logic in this CL is very simple, it might not be necessary to add a unittest.",
+      "parentUuid": "c23a65dc_c69e53e2",
+      "revId": "a2ee7ec41cf1d1bd5bd87f7852b0579be23276d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2aebc14b_a3704be3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-01-27T09:14:04Z",
+      "side": 1,
+      "message": "If you allow me, I think we can continue investigation as follow-up. This CL in itself should only do a right thing on ChannelSend.",
+      "parentUuid": "ca85ca86_8f991d1e",
+      "revId": "a2ee7ec41cf1d1bd5bd87f7852b0579be23276d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

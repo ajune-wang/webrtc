@@ -69,6 +69,24 @@
       "parentUuid": "3ed70d81_fcf10524",
       "revId": "81d1c2b23ce1f54958d7dbd564e59634b164a56e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e789a7e8_57090ada",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5366
+      },
+      "writtenOn": "2021-01-27T08:25:09Z",
+      "side": 1,
+      "message": "Please open a bug at crbug.com/webm/new\n\nThanks!",
+      "parentUuid": "493bf6a3_5368d230",
+      "revId": "81d1c2b23ce1f54958d7dbd564e59634b164a56e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

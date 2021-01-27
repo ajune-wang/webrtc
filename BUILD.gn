@@ -529,7 +529,7 @@ if (use_libfuzzer || use_afl) {
   }
 }
 
-if (rtc_include_tests) {
+if (rtc_include_tests && !build_with_chromium) {
   if (enable_google_benchmarks) {
     rtc_test("rtc_unittests") {
       testonly = true
@@ -646,48 +646,50 @@ if (rtc_include_tests) {
     }
   }
 
-  webrtc_perf_tests_resources = [
-    "resources/ConferenceMotion_1280_720_50.yuv",
-    "resources/audio_coding/speech_mono_16kHz.pcm",
-    "resources/audio_coding/speech_mono_32_48kHz.pcm",
-    "resources/audio_coding/testfile32kHz.pcm",
-    "resources/difficult_photo_1850_1110.yuv",
-    "resources/foreman_cif.yuv",
-    "resources/paris_qcif.yuv",
-    "resources/photo_1850_1110.yuv",
-    "resources/presentation_1850_1110.yuv",
-    "resources/voice_engine/audio_long16.pcm",
-    "resources/web_screenshot_1850_1110.yuv",
-  ]
-
-  if (is_ios) {
-    bundle_data("webrtc_perf_tests_bundle_data") {
-      testonly = true
-      sources = webrtc_perf_tests_resources
-      outputs = [ "{{bundle_resources_dir}}/{{source_file_part}}" ]
-    }
-  }
-
-  rtc_test("webrtc_perf_tests") {
-    testonly = true
-    deps = [
-      "audio:audio_perf_tests",
-      "call:call_perf_tests",
-      "modules/audio_coding:audio_coding_perf_tests",
-      "modules/audio_processing:audio_processing_perf_tests",
-      "pc:peerconnection_perf_tests",
-      "test:test_main",
-      "video:video_full_stack_tests",
-      "video:video_pc_full_stack_tests",
+  if (!build_with_chromium) {
+    webrtc_perf_tests_resources = [
+      "resources/ConferenceMotion_1280_720_50.yuv",
+      "resources/audio_coding/speech_mono_16kHz.pcm",
+      "resources/audio_coding/speech_mono_32_48kHz.pcm",
+      "resources/audio_coding/testfile32kHz.pcm",
+      "resources/difficult_photo_1850_1110.yuv",
+      "resources/foreman_cif.yuv",
+      "resources/paris_qcif.yuv",
+      "resources/photo_1850_1110.yuv",
+      "resources/presentation_1850_1110.yuv",
+      "resources/voice_engine/audio_long16.pcm",
+      "resources/web_screenshot_1850_1110.yuv",
     ]
 
-    data = webrtc_perf_tests_resources
-    if (is_android) {
-      deps += [ "//testing/android/native_test:native_test_native_code" ]
-      shard_timeout = 4500
-    }
     if (is_ios) {
-      deps += [ ":webrtc_perf_tests_bundle_data" ]
+      bundle_data("webrtc_perf_tests_bundle_data") {
+        testonly = true
+        sources = webrtc_perf_tests_resources
+        outputs = [ "{{bundle_resources_dir}}/{{source_file_part}}" ]
+      }
+    }
+
+    rtc_test("webrtc_perf_tests") {
+      testonly = true
+      deps = [
+        "audio:audio_perf_tests",
+        "call:call_perf_tests",
+        "modules/audio_coding:audio_coding_perf_tests",
+        "modules/audio_processing:audio_processing_perf_tests",
+        "pc:peerconnection_perf_tests",
+        "test:test_main",
+        "video:video_full_stack_tests",
+        "video:video_pc_full_stack_tests",
+      ]
+
+      data = webrtc_perf_tests_resources
+      if (is_android) {
+        deps += [ "//testing/android/native_test:native_test_native_code" ]
+        shard_timeout = 4500
+      }
+      if (is_ios) {
+        deps += [ ":webrtc_perf_tests_bundle_data" ]
+      }
     }
   }
 

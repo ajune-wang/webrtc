@@ -579,7 +579,8 @@ TEST_F(TestSimulcastEncoderAdapterFake, EncodedCallbackForDifferentEncoders) {
   EXPECT_TRUE(GetLastEncodedImageInfo(&width, &height, &simulcast_index));
   EXPECT_EQ(1152, width);
   EXPECT_EQ(704, height);
-  EXPECT_EQ(0, simulcast_index);
+  // SEA doesn't intercept frame encode complete callback for the lowest stream.
+  EXPECT_EQ(-1, simulcast_index);
 
   encoders[1]->SendEncodedImage(300, 620);
   EXPECT_TRUE(GetLastEncodedImageInfo(&width, &height, &simulcast_index));
@@ -795,7 +796,8 @@ TEST_F(TestSimulcastEncoderAdapterFake, ReinitDoesNotReorderFrameSimulcastIdx) {
   int height;
   int simulcast_index;
   EXPECT_TRUE(GetLastEncodedImageInfo(&width, &height, &simulcast_index));
-  EXPECT_EQ(0, simulcast_index);
+  // SEA doesn't intercept frame encode complete callback for the lowest stream.
+  EXPECT_EQ(-1, simulcast_index);
 
   encoders[1]->SendEncodedImage(300, 620);
   EXPECT_TRUE(GetLastEncodedImageInfo(&width, &height, &simulcast_index));
@@ -815,7 +817,7 @@ TEST_F(TestSimulcastEncoderAdapterFake, ReinitDoesNotReorderFrameSimulcastIdx) {
   // Verify that the same encoder sends out frames on the same simulcast index.
   encoders[0]->SendEncodedImage(1152, 704);
   EXPECT_TRUE(GetLastEncodedImageInfo(&width, &height, &simulcast_index));
-  EXPECT_EQ(0, simulcast_index);
+  EXPECT_EQ(-1, simulcast_index);
 
   encoders[1]->SendEncodedImage(300, 620);
   EXPECT_TRUE(GetLastEncodedImageInfo(&width, &height, &simulcast_index));

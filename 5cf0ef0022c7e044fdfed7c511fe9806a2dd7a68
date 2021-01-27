@@ -16,6 +16,24 @@
       "message": "If this is only the place you use swarming_client, consider to remove this from DEPS too.\nWe won\u0027t support Python client.",
       "revId": "5cf0ef0022c7e044fdfed7c511fe9806a2dd7a68",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b2cf893_069e1885",
+        "filename": "tools_webrtc/mb/mb.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-27T15:54:09Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "ac14ea8e_e2b1028c",
+      "revId": "5cf0ef0022c7e044fdfed7c511fe9806a2dd7a68",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "861f4b81_799df3d4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-27T16:16:30Z",
+      "side": 1,
+      "message": "Here is a task triggered via \"mb run\": https://chromium-swarm.appspot.com/task?id\u003d515d70559e0aa810.\n\nLet me know if this is what you would expect from it (I have saved the whole output from the command if you want to look it as well).",
+      "revId": "415779ae96666ed6534ac5d12de01d1108ee91fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

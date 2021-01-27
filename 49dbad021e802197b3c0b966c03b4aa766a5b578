@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3de7741_629bd79c",
+        "filename": "DEPS",
+        "patchSetId": 5
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-27T16:12:40Z",
+      "side": 0,
+      "message": "tikuta@: Did you mean this one?\n\nLooks like it is still needed https://ci.chromium.org/ui/p/webrtc/builders/try/android_arm_rel/26798/overview but probably after bugs.webrtc.org/12072 is completed this will go away by itself.",
+      "range": {
+        "startLine": 261,
+        "startChar": 2,
+        "endLine": 262,
+        "endChar": 106
+      },
+      "revId": "49dbad021e802197b3c0b966c03b4aa766a5b578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

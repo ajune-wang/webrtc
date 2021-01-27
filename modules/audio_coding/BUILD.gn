@@ -1454,7 +1454,6 @@ if (rtc_include_tests) {
     defines = audio_coding_defines
 
     deps = audio_coding_deps + [
-             "//third_party/abseil-cpp/absl/strings",
              "../../api/audio:audio_frame_api",
              "../../rtc_base:checks",
              ":audio_coding",
@@ -1466,6 +1465,8 @@ if (rtc_include_tests) {
              "../../test:test_support",
              "//testing/gtest",
            ]
+
+    absl_deps = [ "//third_party/abseil-cpp/absl/strings" ]
   }
 
   audio_decoder_unittests_resources =
@@ -1550,6 +1551,8 @@ if (rtc_include_tests) {
         "../../rtc_base:stringutils",
         "../../system_wrappers:field_trial",
         "../../test:field_trial",
+      ]
+      absl_deps = [
         "//third_party/abseil-cpp/absl/flags:flag",
         "//third_party/abseil-cpp/absl/flags:parse",
         "//third_party/abseil-cpp/absl/strings",
@@ -1657,8 +1660,6 @@ if (rtc_include_tests) {
     testonly = true
 
     deps = audio_coding_deps + [
-             "//third_party/abseil-cpp/absl/flags:flag",
-             "//third_party/abseil-cpp/absl/flags:parse",
              ":audio_coding",
              ":audio_encoder_cng",
              ":neteq_input_audio_tools",
@@ -1670,8 +1671,13 @@ if (rtc_include_tests) {
              "../../api/audio_codecs/isac:audio_encoder_isac",
              "../../api/audio_codecs/opus:audio_encoder_opus",
              "../../rtc_base:safe_conversions",
-             "//third_party/abseil-cpp/absl/memory",
            ]
+
+    absl_deps = [
+      "//third_party/abseil-cpp/absl/flags:flag",
+      "//third_party/abseil-cpp/absl/flags:parse",
+      "//third_party/abseil-cpp/absl/memory",
+    ]
 
     sources = [ "neteq/tools/rtp_encode.cc" ]
 
@@ -1715,6 +1721,9 @@ if (rtc_include_tests) {
       ":neteq_test_tools",
       ":pcm16b",
       "//testing/gtest",
+    ]
+
+    absl_deps = [
       "//third_party/abseil-cpp/absl/flags:flag",
       "//third_party/abseil-cpp/absl/flags:parse",
     ]
@@ -1733,8 +1742,9 @@ if (rtc_include_tests) {
       "../../rtc_base:rtc_base_approved",
       "../../test:test_main",
       "//testing/gtest",
-      "//third_party/abseil-cpp/absl/flags:flag",
     ]
+
+    absl_deps = [ "//third_party/abseil-cpp/absl/flags:flag" ]
   }
 
   rtc_executable("neteq_speed_test") {
@@ -1747,6 +1757,9 @@ if (rtc_include_tests) {
       ":neteq_test_support",
       "../../rtc_base:checks",
       "../../test:test_support",
+    ]
+
+    absl_deps = [
       "//third_party/abseil-cpp/absl/flags:flag",
       "//third_party/abseil-cpp/absl/flags:parse",
     ]
@@ -1767,8 +1780,9 @@ if (rtc_include_tests) {
       "../../test:fileutils",
       "../../test:test_main",
       "//testing/gtest",
-      "//third_party/abseil-cpp/absl/flags:flag",
     ]
+
+    absl_deps = [ "//third_party/abseil-cpp/absl/flags:flag" ]
   }
 
   rtc_executable("neteq_isac_quality_test") {
@@ -1783,8 +1797,9 @@ if (rtc_include_tests) {
       "../../rtc_base:rtc_base_approved",
       "../../test:test_main",
       "//testing/gtest",
-      "//third_party/abseil-cpp/absl/flags:flag",
     ]
+
+    absl_deps = [ "//third_party/abseil-cpp/absl/flags:flag" ]
   }
 
   rtc_executable("neteq_pcmu_quality_test") {
@@ -1801,8 +1816,9 @@ if (rtc_include_tests) {
       "../../test:fileutils",
       "../../test:test_main",
       "//testing/gtest",
-      "//third_party/abseil-cpp/absl/flags:flag",
     ]
+
+    absl_deps = [ "//third_party/abseil-cpp/absl/flags:flag" ]
   }
 
   rtc_executable("neteq_pcm16b_quality_test") {
@@ -1819,8 +1835,9 @@ if (rtc_include_tests) {
       "../../test:fileutils",
       "../../test:test_main",
       "//testing/gtest",
-      "//third_party/abseil-cpp/absl/flags:flag",
     ]
+
+    absl_deps = [ "//third_party/abseil-cpp/absl/flags:flag" ]
   }
 
   rtc_executable("isac_fix_test") {

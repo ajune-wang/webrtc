@@ -547,15 +547,17 @@ if (rtc_include_tests) {
   }
 
   if (rtc_enable_protobuf) {
-    rtc_executable("audioproc_f") {
-      testonly = true
-      sources = [ "audioproc_f/audioproc_float_main.cc" ]
-      deps = [
-        "../api:audioproc_f_api",
-        "../modules/audio_processing",
-        "../modules/audio_processing:api",
-        "../rtc_base:rtc_base_approved",
-      ]
+    if (!build_with_chromium) {
+      rtc_executable("audioproc_f") {
+        testonly = true
+        sources = [ "audioproc_f/audioproc_float_main.cc" ]
+        deps = [
+          "../api:audioproc_f_api",
+          "../modules/audio_processing",
+          "../modules/audio_processing:api",
+          "../rtc_base:rtc_base_approved",
+        ]
+      }
     }
 
     copy("rtp_analyzer") {

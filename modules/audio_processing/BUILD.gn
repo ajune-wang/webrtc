@@ -309,24 +309,26 @@ if (rtc_include_tests) {
     ]
   }
 
-  group("audio_processing_tests") {
-    testonly = true
-    deps = [
-      ":audioproc_test_utils",
-      "transient:click_annotate",
-      "transient:transient_suppression_test",
-    ]
-
-    if (rtc_enable_protobuf) {
-      deps += [
-        ":audioproc_unittest_proto",
-        "aec_dump:aec_dump_unittests",
-        "test/conversational_speech",
+  if (!build_with_chromium) {
+    group("audio_processing_tests") {
+      testonly = true
+      deps = [
+        ":audioproc_test_utils",
+        "transient:click_annotate",
+        "transient:transient_suppression_test",
       ]
-    }
 
-    if (rtc_enable_protobuf && !build_with_chromium) {
-      deps += [ "test/py_quality_assessment" ]
+      if (rtc_enable_protobuf) {
+        deps += [
+          ":audioproc_unittest_proto",
+          "aec_dump:aec_dump_unittests",
+          "test/conversational_speech",
+        ]
+      }
+
+      if (rtc_enable_protobuf && !build_with_chromium) {
+        deps += [ "test/py_quality_assessment" ]
+      }
     }
   }
 
@@ -485,7 +487,7 @@ if (rtc_include_tests) {
     absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
   }
 
-  if (rtc_enable_protobuf) {
+  if (rtc_enable_protobuf && !build_with_chromium) {
     rtc_library("audioproc_f_impl") {
       testonly = true
       configs += [ ":apm_debug_dump" ]

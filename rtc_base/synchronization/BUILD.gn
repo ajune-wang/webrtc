@@ -74,21 +74,6 @@ rtc_library("yield_policy") {
 }
 
 if (rtc_include_tests) {
-  rtc_library("sequence_checker_unittests") {
-    testonly = true
-
-    sources = [ "sequence_checker_unittest.cc" ]
-    deps = [
-      ":sequence_checker",
-      "..:checks",
-      "..:rtc_base_approved",
-      "..:task_queue_for_test",
-      "../../api:function_view",
-      "../../test:test_main",
-      "../../test:test_support",
-    ]
-  }
-
   if (enable_google_benchmarks) {
     rtc_library("synchronization_unittests") {
       testonly = true
@@ -117,6 +102,23 @@ if (rtc_include_tests) {
         ":mutex",
         "../system:unused",
         "//third_party/google_benchmark",
+      ]
+    }
+  }
+
+  if (!build_with_chromium) {
+    rtc_library("sequence_checker_unittests") {
+      testonly = true
+
+      sources = [ "sequence_checker_unittest.cc" ]
+      deps = [
+        ":sequence_checker",
+        "..:checks",
+        "..:rtc_base_approved",
+        "..:task_queue_for_test",
+        "../../api:function_view",
+        "../../test:test_main",
+        "../../test:test_support",
       ]
     }
   }

@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15f2a86d_26fb0732",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2021-01-27T09:41:32Z",
+      "side": 1,
+      "message": "only looked under sdk/android",
+      "revId": "3c1ff346d618ee74f31f0b457b1f3cc937e80e7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "268d2fcd_91477a59",
+        "filename": "sdk/android/src/jni/audio_device/audio_device_module.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2021-01-27T09:41:32Z",
+      "side": 1,
+      "message": "nit: Is this useful? Combine with the line above/remove?\n\nI see similar instances elsewhere in the file. It probably only makes sense to log the output when we also log the function name. I would guess what would make the most sense is combining the DLOG lines.",
+      "range": {
+        "startLine": 147,
+        "startChar": 4,
+        "endLine": 147,
+        "endChar": 37
+      },
+      "revId": "3c1ff346d618ee74f31f0b457b1f3cc937e80e7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

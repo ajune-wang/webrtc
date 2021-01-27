@@ -103,6 +103,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e853c75_625516c8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2021-01-27T19:34:16Z",
+      "side": 1,
+      "message": "Thanks for your comments and patience everyone. I\u0027ve addressed your feedback, and since it was mostly minor I\u0027ll proceed with the check in.",
+      "revId": "a9bed85f1f9d8844d7c0f0f89a5c22e9d09f8114",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bdd04d42_ea4b7f6c",
@@ -116,6 +133,24 @@
       "writtenOn": "2021-01-12T21:03:21Z",
       "side": 1,
       "message": "I realize you haven\u0027t added this, so feel free to ignore, but it\u0027s nor clear to me why we need both the constant and the ifdef. Under what circumstances would you want RTC_ENABLE_WIN_WGC to be defined but kUseWinWgcCapturer \u003d false?",
+      "revId": "a9bed85f1f9d8844d7c0f0f89a5c22e9d09f8114",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4171e167_f0cd867e",
+        "filename": "modules/desktop_capture/desktop_capturer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2021-01-27T19:34:16Z",
+      "side": 1,
+      "message": "Great question, it serves no purpose, I added it before the buildflag and haven\u0027t bothered to remove it. I\u0027ll do so now.",
+      "parentUuid": "bdd04d42_ea4b7f6c",
       "revId": "a9bed85f1f9d8844d7c0f0f89a5c22e9d09f8114",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -137,6 +172,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef524a03_b98106af",
+        "filename": "modules/desktop_capture/desktop_capturer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2021-01-27T19:34:16Z",
+      "side": 1,
+      "message": "I\u0027ll leave these here since I removed the constant.",
+      "parentUuid": "7de2c8af_012f7e09",
+      "revId": "a9bed85f1f9d8844d7c0f0f89a5c22e9d09f8114",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5f4b130c_f54ab7a0",
@@ -150,6 +203,30 @@
       "writtenOn": "2021-01-13T04:32:58Z",
       "side": 1,
       "message": "Question: Returning FALSE here would stop the enumeration. Do we want that ?\nMaybe we do not add it to monitor_list but should continue the enumeration.",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 0
+      },
+      "revId": "a9bed85f1f9d8844d7c0f0f89a5c22e9d09f8114",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86345584_776c7e2e",
+        "filename": "modules/desktop_capture/win/screen_capture_utils.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2021-01-27T19:34:16Z",
+      "side": 1,
+      "message": "You\u0027re right, we should return TRUE and just not add it to monitor_list. Good catch!",
+      "parentUuid": "5f4b130c_f54ab7a0",
       "range": {
         "startLine": 35,
         "startChar": 0,
@@ -183,6 +260,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "058b4c28_087ee051",
+        "filename": "modules/desktop_capture/win/screen_capture_utils.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2021-01-27T19:34:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3361d2c7_b41943e7",
+      "range": {
+        "startLine": 22,
+        "startChar": 3,
+        "endLine": 22,
+        "endChar": 10
+      },
+      "revId": "a9bed85f1f9d8844d7c0f0f89a5c22e9d09f8114",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fd173326_9b57e6f0",
@@ -196,6 +297,24 @@
       "writtenOn": "2021-01-12T21:03:21Z",
       "side": 1,
       "message": "Is this necessarily true? What if the system is headless?",
+      "revId": "a9bed85f1f9d8844d7c0f0f89a5c22e9d09f8114",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f54f9633_2f292852",
+        "filename": "modules/desktop_capture/win/screen_capture_utils_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2021-01-27T19:34:16Z",
+      "side": 1,
+      "message": "Excellent point, we can skip the test in this case. I also added an info log to document why.",
+      "parentUuid": "fd173326_9b57e6f0",
       "revId": "a9bed85f1f9d8844d7c0f0f89a5c22e9d09f8114",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -223,6 +342,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c32fb795_165d4848",
+        "filename": "modules/desktop_capture/win/screen_capture_utils_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2021-01-27T19:34:16Z",
+      "side": 1,
+      "message": "This check was removed as it wasn\u0027t a valid assertion. We could run this test on headless systems and it would fail.",
+      "parentUuid": "91046cd9_3c476897",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 35
+      },
+      "revId": "a9bed85f1f9d8844d7c0f0f89a5c22e9d09f8114",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "10802bea_fe5a2ac2",
@@ -236,6 +379,30 @@
       "writtenOn": "2021-01-13T04:32:58Z",
       "side": 1,
       "message": "nit. we can rename it to kMaxBuffers to denote that we do not want to exceed that.",
+      "range": {
+        "startLine": 40,
+        "startChar": 10,
+        "endLine": 40,
+        "endChar": 22
+      },
+      "revId": "a9bed85f1f9d8844d7c0f0f89a5c22e9d09f8114",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ceab387e_45b597ca",
+        "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2021-01-27T19:34:16Z",
+      "side": 1,
+      "message": "I\u0027d rather leave it as kNumBuffers, since it  defines the number of buffers that will exist in the frame pool. Max makes it sound like we could have 0, but we will always have 1. The only thing that changes is whether it\u0027s checked out of the frame pool or checked in, but it\u0027s never destroyed.\n\nThe parameter name for the CreateFreeThreaded function where this is used is also documented as numberOfBuffers.",
+      "parentUuid": "10802bea_fe5a2ac2",
       "range": {
         "startLine": 40,
         "startChar": 10,
@@ -283,6 +450,30 @@
       "side": 1,
       "message": "Or, alternatively, remove this log statement and let the call site do the logging.",
       "parentUuid": "4112a069_22785e65",
+      "range": {
+        "startLine": 120,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 67
+      },
+      "revId": "a9bed85f1f9d8844d7c0f0f89a5c22e9d09f8114",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3255c2d7_6b635405",
+        "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2021-01-27T19:34:16Z",
+      "side": 1,
+      "message": "I\u0027ll remove this log statement (and the one in GetFrame) since they are in response to API failures. I\u0027ll leave in the ones that happen when we abort, i.e. when the target is closed.",
+      "parentUuid": "d9c59864_281e1660",
       "range": {
         "startLine": 120,
         "startChar": 0,

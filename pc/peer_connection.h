@@ -567,7 +567,6 @@ class PeerConnection : public PeerConnectionInternal,
       const cricket::CandidatePairChangeEvent& event)
       RTC_RUN_ON(signaling_thread());
   void OnTransportControllerDtlsHandshakeError(rtc::SSLHandshakeError error);
-
   // Invoked when TransportController connection completion is signaled.
   // Reports stats for all transports in use.
   void ReportTransportStats() RTC_RUN_ON(signaling_thread());
@@ -692,6 +691,7 @@ class PeerConnection : public PeerConnectionInternal,
   // Administration of senders, receivers and transceivers
   // Accessed on both signaling and network thread. Const after Initialize().
   std::unique_ptr<RtpTransmissionManager> rtp_manager_;
+  rtc::WeakPtrFactory<PeerConnection> weak_factory_;
 };
 
 }  // namespace webrtc

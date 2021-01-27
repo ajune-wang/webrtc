@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "097633f6_7a439b32",
+        "filename": "api/uma_metrics.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5603
+      },
+      "writtenOn": "2021-01-27T01:36:40Z",
+      "side": 1,
+      "message": "suggest having this be the zero value, as the default state.",
+      "revId": "8879d38cb722be9473ce58539f36e034d93b078a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c6d8de0_182b853e",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 2335,
+      "author": {
+        "id": 5603
+      },
+      "writtenOn": "2021-01-27T01:36:40Z",
+      "side": 1,
+      "message": "shouldn\u0027t this be \u0026\u0026?",
+      "revId": "8879d38cb722be9473ce58539f36e034d93b078a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5dfe50f5_14248a1e",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 2348,
+      "author": {
+        "id": 5603
+      },
+      "writtenOn": "2021-01-27T01:36:40Z",
+      "side": 1,
+      "message": "personal preference for me would be to have the if (simple) check on the outside, so the inner check for all cases can be usage \u003d using_bundle ? A : B.",
+      "revId": "8879d38cb722be9473ce58539f36e034d93b078a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb161bbe_42d7296e",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 2160,
+      "author": {
+        "id": 5603
+      },
+      "writtenOn": "2021-01-27T01:36:40Z",
+      "side": 1,
+      "message": "What will happen here if we get a datachannel-only offer followed later by a a/v offer? Do we want to report both as their own UMA records? Or should we just record the initial offer to focus on that particular scenario? I lean toward the latter.",
+      "revId": "8879d38cb722be9473ce58539f36e034d93b078a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

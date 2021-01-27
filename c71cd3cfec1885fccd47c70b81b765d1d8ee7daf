@@ -34,6 +34,24 @@
       "parentUuid": "dc2a0060_fdaab66c",
       "revId": "c71cd3cfec1885fccd47c70b81b765d1d8ee7daf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e34f7ece_d96ac783",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-01-27T22:53:44Z",
+      "side": 1,
+      "message": "I\u0027d say it is, for example in the past there been issues with duplicate initialization and races with shutdown.",
+      "parentUuid": "f9ea4cdf_5bc18d2b",
+      "revId": "c71cd3cfec1885fccd47c70b81b765d1d8ee7daf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

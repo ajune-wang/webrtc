@@ -14,6 +14,7 @@
 
 import("//build/config/linux/pkg_config.gni")
 import("//build/config/sanitizers/sanitizers.gni")
+import("//third_party/google_benchmark/buildconfig.gni")
 import("webrtc.gni")
 if (rtc_enable_protobuf) {
   import("//third_party/protobuf/proto_library.gni")
@@ -37,7 +38,6 @@ if (!build_with_chromium) {
     }
     if (rtc_include_tests) {
       deps += [
-        ":rtc_unittests",
         ":slow_tests",
         ":video_engine_tests",
         ":voip_unittests",
@@ -65,6 +65,9 @@ if (!build_with_chromium) {
         "video:sv_loopback",
         "video:video_loopback",
       ]
+      if (enable_google_benchmarks) {
+        deps += [ ":rtc_unittests" ]
+      }
       if (!is_asan) {
         # Do not build :webrtc_lib_link_test because lld complains on some OS
         # (e.g. when target_os = "mac") when is_asan=true. For more details,
@@ -527,68 +530,70 @@ if (use_libfuzzer || use_afl) {
 }
 
 if (rtc_include_tests) {
-  rtc_test("rtc_unittests") {
-    testonly = true
+  if (enable_google_benchmarks) {
+    rtc_test("rtc_unittests") {
+      testonly = true
 
-    deps = [
-      "api:compile_all_headers",
-      "api:rtc_api_unittests",
-      "api/audio/test:audio_api_unittests",
-      "api/audio_codecs/test:audio_codecs_api_unittests",
-      "api/numerics:numerics_unittests",
-      "api/transport:stun_unittest",
-      "api/video/test:rtc_api_video_unittests",
-      "api/video_codecs/test:video_codecs_api_unittests",
-      "call:fake_network_pipe_unittests",
-      "p2p:libstunprober_unittests",
-      "p2p:rtc_p2p_unittests",
-      "rtc_base:callback_list_unittests",
-      "rtc_base:rtc_base_approved_unittests",
-      "rtc_base:rtc_base_unittests",
-      "rtc_base:rtc_json_unittests",
-      "rtc_base:rtc_numerics_unittests",
-      "rtc_base:rtc_operations_chain_unittests",
-      "rtc_base:rtc_task_queue_unittests",
-      "rtc_base:sigslot_unittest",
-      "rtc_base:untyped_function_unittest",
-      "rtc_base:weak_ptr_unittests",
-      "rtc_base/experiments:experiments_unittests",
-      "rtc_base/synchronization:sequence_checker_unittests",
-      "rtc_base/task_utils:pending_task_safety_flag_unittests",
-      "rtc_base/task_utils:to_queued_task_unittests",
-      "sdk:sdk_tests",
-      "test:rtp_test_utils",
-      "test:test_main",
-      "test/network:network_emulation_unittests",
-    ]
-
-    if (rtc_enable_protobuf) {
-      deps += [ "logging:rtc_event_log_tests" ]
-    }
-
-    if (is_android) {
-      # Do not use Chromium's launcher. native_unittests defines its own JNI_OnLoad.
-      use_default_launcher = false
-
-      deps += [
-        "sdk/android:native_unittests",
-        "sdk/android:native_unittests_java",
-        "//testing/android/native_test:native_test_support",
+      deps = [
+        "api:compile_all_headers",
+        "api:rtc_api_unittests",
+        "api/audio/test:audio_api_unittests",
+        "api/audio_codecs/test:audio_codecs_api_unittests",
+        "api/numerics:numerics_unittests",
+        "api/transport:stun_unittest",
+        "api/video/test:rtc_api_video_unittests",
+        "api/video_codecs/test:video_codecs_api_unittests",
+        "call:fake_network_pipe_unittests",
+        "p2p:libstunprober_unittests",
+        "p2p:rtc_p2p_unittests",
+        "rtc_base:callback_list_unittests",
+        "rtc_base:rtc_base_approved_unittests",
+        "rtc_base:rtc_base_unittests",
+        "rtc_base:rtc_json_unittests",
+        "rtc_base:rtc_numerics_unittests",
+        "rtc_base:rtc_operations_chain_unittests",
+        "rtc_base:rtc_task_queue_unittests",
+        "rtc_base:sigslot_unittest",
+        "rtc_base:untyped_function_unittest",
+        "rtc_base:weak_ptr_unittests",
+        "rtc_base/experiments:experiments_unittests",
+        "rtc_base/synchronization:sequence_checker_unittests",
+        "rtc_base/task_utils:pending_task_safety_flag_unittests",
+        "rtc_base/task_utils:to_queued_task_unittests",
+        "sdk:sdk_tests",
+        "test:rtp_test_utils",
+        "test:test_main",
+        "test/network:network_emulation_unittests",
       ]
-      shard_timeout = 900
+
+      if (rtc_enable_protobuf) {
+        deps += [ "logging:rtc_event_log_tests" ]
+      }
+
+      if (is_android) {
+        # Do not use Chromium's launcher. native_unittests defines its own JNI_OnLoad.
+        use_default_launcher = false
+
+        deps += [
+          "sdk/android:native_unittests",
+          "sdk/android:native_unittests_java",
+          "//testing/android/native_test:native_test_support",
+        ]
+        shard_timeout = 900
+      }
+
+      if (is_ios || is_mac) {
+        deps += [ "sdk:rtc_unittests_objc" ]
+      }
     }
 
-    if (is_ios || is_mac) {
-      deps += [ "sdk:rtc_unittests_objc" ]
+    rtc_test("benchmarks") {
+      testonly = true
+      deps = [
+        "rtc_base/synchronization:mutex_benchmark",
+        "test:benchmark_main",
+      ]
     }
-  }
-
-  rtc_test("benchmarks") {
-    testonly = true
-    deps = [
-      "rtc_base/synchronization:mutex_benchmark",
-      "test:benchmark_main",
-    ]
   }
 
   # This runs tests that must run in real time and therefore can take some

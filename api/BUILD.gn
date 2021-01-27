@@ -704,19 +704,21 @@ rtc_source_set("function_view") {
 
 if (rtc_include_tests) {
   if (rtc_enable_protobuf) {
-    rtc_library("audioproc_f_api") {
-      visibility = [ "*" ]
-      testonly = true
-      sources = [
-        "test/audioproc_float.cc",
-        "test/audioproc_float.h",
-      ]
+    if (!build_with_chromium) {
+      rtc_library("audioproc_f_api") {
+        visibility = [ "*" ]
+        testonly = true
+        sources = [
+          "test/audioproc_float.cc",
+          "test/audioproc_float.h",
+        ]
 
-      deps = [
-        "../modules/audio_processing",
-        "../modules/audio_processing:api",
-        "../modules/audio_processing:audioproc_f_impl",
-      ]
+        deps = [
+          "../modules/audio_processing",
+          "../modules/audio_processing:api",
+          "../modules/audio_processing:audioproc_f_impl",
+        ]
+      }
     }
 
     rtc_library("neteq_simulator_factory") {

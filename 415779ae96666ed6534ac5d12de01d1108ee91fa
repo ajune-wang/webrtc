@@ -16,6 +16,24 @@
       "message": "Here is a task triggered via \"mb run\": https://chromium-swarm.appspot.com/task?id\u003d515d70559e0aa810.\n\nLet me know if this is what you would expect from it (I have saved the whole output from the command if you want to look it as well).",
       "revId": "415779ae96666ed6534ac5d12de01d1108ee91fa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e13bf75_f4928404",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-27T16:19:30Z",
+      "side": 1,
+      "message": "Ah, a bit too early.\n\nSee the task link above for the error:\n\nFailed to start [\u0027./webrtc_perf_tests\u0027]\nTraceback (most recent call last):\n  File \"../../testing/test_env.py\", line 392, in \u003cmodule\u003e\n    sys.exit(main())\n  File \"../../testing/test_env.py\", line 388, in main\n    return run_executable(sys.argv[1:], os.environ.copy())\n  File \"../../testing/test_env.py\", line 373, in run_executable\n    return run_command(cmd, env\u003denv, log\u003dFalse)\n  File \"../../testing/test_env.py\", line 218, in run_command\n    process \u003d _popen(argv, env\u003denv, cwd\u003dcwd, stderr\u003dsubprocess.STDOUT)\n  File \"../../testing/test_env.py\", line 384, in _popen\n    return subprocess.Popen(*args, **kwargs)\n  File \"/b/s/w/ir/.task_template_packages/cpython/lib/python2.7/subprocess.py\", line 394, in __init__\n    errread, errwrite)\n  File \"/b/s/w/ir/.task_template_packages/cpython/lib/python2.7/subprocess.py\", line 1047, in _execute_child\n    raise child_exception\nOSError: [Errno 8] Exec format error\n\nDo you have any pointers?",
+      "parentUuid": "861f4b81_799df3d4",
+      "revId": "415779ae96666ed6534ac5d12de01d1108ee91fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -67,6 +67,24 @@
       "message": "What will happen here if we get a datachannel-only offer followed later by a a/v offer? Do we want to report both as their own UMA records? Or should we just record the initial offer to focus on that particular scenario? I lean toward the latter.",
       "revId": "8879d38cb722be9473ce58539f36e034d93b078a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6dfa461f_05ee98dc",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 2160,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-27T11:09:27Z",
+      "side": 1,
+      "message": "We should record both. There are apps that start off by negotiating only a datachannel, or only the initial video/audio channels, and depend on renegotiation to add the many video/audio channels in the conferencing scenario.",
+      "parentUuid": "fb161bbe_42d7296e",
+      "revId": "8879d38cb722be9473ce58539f36e034d93b078a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

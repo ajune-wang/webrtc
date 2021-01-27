@@ -16,6 +16,23 @@
       "message": "Just replying to the last question.\n",
       "revId": "355d14cab83b4c9dbaa6a79d56af7ef1c2269d4c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5e3d865_edfd9184",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 2326,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-01-27T13:30:04Z",
+      "side": 1,
+      "message": "content has a bundle-only flag so we could differentiate further here:\ncomplex, setting bundle-only on some.\n\nHowever, it seems that firefox does max-bundle of audio,video,data with video and data set bundle-only so I am not sure how useful this is.",
+      "revId": "355d14cab83b4c9dbaa6a79d56af7ef1c2269d4c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

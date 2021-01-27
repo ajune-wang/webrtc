@@ -350,7 +350,7 @@ class SctpTransport::UsrSctpWrapper {
   }
 
   static void UninitializeUsrSctp() {
-    RTC_LOG(LS_INFO) << __FUNCTION__;
+    RTC_DLOG(LS_INFO) << __FUNCTION__;
     // usrsctp_finish() may fail if it's called too soon after the transports
     // are
     // closed. Wait and try again until it succeeds for up to 3 seconds.

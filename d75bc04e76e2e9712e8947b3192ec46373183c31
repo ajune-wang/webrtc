@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5786ae21_b19c1ad7",
+        "filename": "BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-28T08:55:18Z",
+      "side": 1,
+      "message": "See my other comment to probably being able to avoid this one on rtc_unittests and move it only around benchmarks.",
+      "range": {
+        "startLine": 533,
+        "startChar": 2,
+        "endLine": 533,
+        "endChar": 33
+      },
+      "revId": "d75bc04e76e2e9712e8947b3192ec46373183c31",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f45d2347_74c2d6f7",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 1546,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-28T08:55:18Z",
+      "side": 1,
+      "message": "If I understand correctly this is the only target that needs google_benchmark.\n\nWhat about not adding the \"if (enable_google_benchmarks)\" on the whole target but only after line 1550:\n\nif (enable_google_benchmarks) {\n  deps +\u003d [ \"synchronization:synchronization_unittests\" ]\n}\n\nAnother option is to cut the dependency from synchronization:synchronization_unittests to google_benchmark since it is only using https://source.chromium.org/chromium/chromium/src/+/master:buildtools/third_party/libc++/trunk/utils/google-benchmark/include/benchmark/benchmark.h;l\u003d316;drc\u003d632ac298af5ac2888702437bfaf2cc43929c8c94 which we can inline but maybe that is too much.",
+      "range": {
+        "startLine": 1546,
+        "startChar": 8,
+        "endLine": 1546,
+        "endChar": 52
+      },
+      "revId": "d75bc04e76e2e9712e8947b3192ec46373183c31",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

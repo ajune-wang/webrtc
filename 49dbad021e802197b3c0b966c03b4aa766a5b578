@@ -22,6 +22,30 @@
       },
       "revId": "49dbad021e802197b3c0b966c03b4aa766a5b578",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fffb5b94_b3160d42",
+        "filename": "DEPS",
+        "patchSetId": 5
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 5106
+      },
+      "writtenOn": "2021-01-28T01:24:08Z",
+      "side": 0,
+      "message": "why you need to isolate files under this directory?",
+      "parentUuid": "f3de7741_629bd79c",
+      "range": {
+        "startLine": 261,
+        "startChar": 2,
+        "endLine": 262,
+        "endChar": 106
+      },
+      "revId": "49dbad021e802197b3c0b966c03b4aa766a5b578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

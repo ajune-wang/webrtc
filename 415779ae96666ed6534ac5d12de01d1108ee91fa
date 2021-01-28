@@ -34,6 +34,23 @@
       "parentUuid": "861f4b81_799df3d4",
       "revId": "415779ae96666ed6534ac5d12de01d1108ee91fa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "438abcb1_e63a9499",
+        "filename": "tools_webrtc/mb/mb_unittest.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 5106
+      },
+      "writtenOn": "2021-01-28T01:24:08Z",
+      "side": 1,
+      "message": "I think you can use mock for this?\nhttps://docs.python.org/3/library/unittest.mock.html#unittest.mock.patch.dict",
+      "revId": "415779ae96666ed6534ac5d12de01d1108ee91fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -72,6 +72,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff42cacf_1f8deece",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-28T18:50:21Z",
+      "side": 1,
+      "message": "Aha, this was my fault. I ended up triggering a binary build on macOs on Linux (copy pasted a command).\n\nIt works! \n\ntools_webrtc/mb/mb.py run -s -d pool WebRTC-perf -d os \"Mac-10.12\" out/LinuxPerf/ isac_fix_test\n\n[...]\n\ngtest-parallel-wrapper: Executing command /b/s/w/ir/.task_template_vpython_cache/vpython/5d63b9/bin/python /b/s/w/ir/third_party/gtest-parallel/gtest-parallel --shard_index\u003d0 --shard_count\u003d1 --output_dir\u003d/b/s/w/iooJwDLq/test_logs --retry_failed\u003d3 --gtest_color\u003dno --timeout\u003d900 ./isac_fix_test -- 32000 ../../resources/speech_and_misc_wb.pcm isac_speech_and_misc_wb.pcm\nDirectory /Users/chrome-bot/.cache does not exist[0/1] Running tests...\n[1/1] IsacFixTest.Kenny (636 ms)\n\nTask link: https://chromium-swarm.appspot.com/task?id\u003d5162ab755a3d6010",
+      "parentUuid": "b84b2f9f_09509807",
+      "revId": "415779ae96666ed6534ac5d12de01d1108ee91fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "438abcb1_e63a9499",
@@ -85,6 +103,24 @@
       "writtenOn": "2021-01-28T01:24:08Z",
       "side": 1,
       "message": "I think you can use mock for this?\nhttps://docs.python.org/3/library/unittest.mock.html#unittest.mock.patch.dict",
+      "revId": "415779ae96666ed6534ac5d12de01d1108ee91fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2db795c_5cf2815a",
+        "filename": "tools_webrtc/mb/mb_unittest.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-28T18:50:21Z",
+      "side": 1,
+      "message": "Yes, but at the moment I am just \"syncing the code\" with the Chromium\u0027s MB (see https://source.chromium.org/chromium/chromium/src/+/master:tools/mb/mb_unittest.py;l\u003d317;drc\u003df74debdff1b26ebd3dbc260233bf4ac3fbafabc2) even if it is possible we will not be able to unfork (there is a talk with V8 about this as well).",
+      "parentUuid": "438abcb1_e63a9499",
       "revId": "415779ae96666ed6534ac5d12de01d1108ee91fa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

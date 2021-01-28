@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": false,
       "key": {
         "uuid": "5dd316f2_9ed71c42",
         "filename": "/PATCHSET_LEVEL",
@@ -14,10 +15,27 @@
       "side": 1,
       "message": "CHECK for paranoia only, I hope.\n",
       "revId": "822283dbb73662b8e340c928c9589a38fbe858a9",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": false
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4886b756_2ad915b3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6610
+      },
+      "writtenOn": "2021-01-28T04:49:01Z",
+      "side": 1,
+      "message": "Taylor, I\u0027m looking to cherry-pick this change to refs/branch-heads/4240 (86-LTS), but I get the following error:\nAn error occurred\nCould not perform action: invalid author:\n  email address deadbeef@webrtc.org is not registered in your account, and you lack \u0027forge author\u0027 permission.\nThe following addresses are currently registered:\n   achuith@google.com\n   achuith@googlers.com\nTo register an email address, visit:\nhttps://webrtc-review.googlesource.com/settings#EmailAddresses\n\nThis is in reference to https://chromium-review.googlesource.com/c/chromium/src/+/2651436\n\nThanks in advance!",
+      "revId": "822283dbb73662b8e340c928c9589a38fbe858a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "cb467f6e_0e0b5ebd",
         "filename": "media/sctp/sctp_transport.cc",
@@ -31,10 +49,10 @@
       "side": 1,
       "message": "Is this intentionally a CHECK and not DCHECK?\nThis runs code in all builds solely for the purposes of checking a pointer and we don\u0027t return an error but rather kill the process if it doesn\u0027t match.\n\nIn line 440, we return an error instead for example.",
       "revId": "822283dbb73662b8e340c928c9589a38fbe858a9",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "3fb83b83_f4df9d6f",
         "filename": "media/sctp/sctp_transport.cc",
@@ -49,10 +67,10 @@
       "message": "I asked for a CHECK here because the GetTransportFromSocket mechanism was added to get around a rather nasty vulnerability, and I want to be sure we\u0027re not reintroducing anything like it again.\n\nOnce SCTP has rolled, I think we can and should delete the entire GetTransportFromSocket mechanism; this is an interim CHECK in case someone\u0027s performing an actual attack and our defense isn\u0027t defeating it.",
       "parentUuid": "cb467f6e_0e0b5ebd",
       "revId": "822283dbb73662b8e340c928c9589a38fbe858a9",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "4c4144ce_d53cad20",
         "filename": "media/sctp/sctp_transport.cc",
@@ -67,8 +85,7 @@
       "message": "ok, since there\u0027s no comment around it, it looks like an oversight right now.\nFor these sort of things, we could have a \"TODO(\u003cbug link): Remove once ...\" type comment that explains why it\u0027s a CHECK and not DCHECK.",
       "parentUuid": "3fb83b83_f4df9d6f",
       "revId": "822283dbb73662b8e340c928c9589a38fbe858a9",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

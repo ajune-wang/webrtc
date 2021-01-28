@@ -16,6 +16,23 @@
       "message": "hta, do I have your approval to revert this? I plan to upload another CL shortly to reland the parts of this we still want.",
       "revId": "5992043c693f7fc250477e0352a41517daefb34b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b18af24a_69bac7a2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-28T06:48:50Z",
+      "side": 1,
+      "message": "Can you run my new fancy demo page with a Chrome compiled with the change and see if the change makes a difference for the audio glitch impact of large negotiations?\nIf it doesn\u0027t make a difference, don\u0027t do it; if it makes a difference, let\u0027s do it.\n\nI\u0027m reluctant to add (back) more overhead to SLD/SRD given that we\u0027re still 10x slower than Firefox in this area.\n\nhttps://webrtc.github.io/samples/src/content/peerconnection/negotiate-timing/ - watch the \"audio impairment\" number. You probably need to push the \"sections after\" number to 50 to see an effect.",
+      "revId": "5992043c693f7fc250477e0352a41517daefb34b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

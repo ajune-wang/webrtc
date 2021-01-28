@@ -1,0 +1,228 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15258cbd_b80db758",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-28T13:11:46Z",
+      "side": 1,
+      "message": "Almost LGTM, but let me know about the proposal to scope this down to rtc_test and keep rtc_executable as is (I am concerned some absl_deps on flags without exceptions might result in linker errors on some bots that try to build all).",
+      "revId": "17fe3f2aa12ba2cc29b72ec02ff17deb1b7cb391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "244cd888_f6dbbf54",
+        "filename": "modules/audio_processing/transient/BUILD.gn",
+        "patchSetId": 11
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-28T13:11:46Z",
+      "side": 1,
+      "message": "Hmm, so this is not wrapped inside a !build_with_chromium. I wonder if this is a linker error ready to happen at some point in time in the future.\n\nOn this note, I wonder if we can reduce the scope of the CL to rtc_test and let rtc_executable sidestep the Chromium restriction. Or did we have issues with that approach?",
+      "range": {
+        "startLine": 67,
+        "startChar": 2,
+        "endLine": 90,
+        "endChar": 3
+      },
+      "revId": "17fe3f2aa12ba2cc29b72ec02ff17deb1b7cb391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78685526_4f48e2b5",
+        "filename": "rtc_tools/BUILD.gn",
+        "patchSetId": 11
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-28T13:11:46Z",
+      "side": 1,
+      "message": "Let\u0027s change this with \"Abseil dependencies are not...\".",
+      "range": {
+        "startLine": 116,
+        "startChar": 2,
+        "endLine": 116,
+        "endChar": 13
+      },
+      "revId": "17fe3f2aa12ba2cc29b72ec02ff17deb1b7cb391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8f38255_3d999f8d",
+        "filename": "rtc_tools/BUILD.gn",
+        "patchSetId": 11
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-28T13:11:46Z",
+      "side": 1,
+      "message": "Nit: Probably better to use a \",\".",
+      "range": {
+        "startLine": 117,
+        "startChar": 32,
+        "endLine": 117,
+        "endChar": 34
+      },
+      "revId": "17fe3f2aa12ba2cc29b72ec02ff17deb1b7cb391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f583b057_fae7093e",
+        "filename": "rtc_tools/BUILD.gn",
+        "patchSetId": 11
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-28T13:11:46Z",
+      "side": 1,
+      "message": "Nit: \"with the\"",
+      "range": {
+        "startLine": 117,
+        "startChar": 75,
+        "endLine": 117,
+        "endChar": 79
+      },
+      "revId": "17fe3f2aa12ba2cc29b72ec02ff17deb1b7cb391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e972e1d_42e15be7",
+        "filename": "rtc_tools/BUILD.gn",
+        "patchSetId": 11
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-28T13:11:46Z",
+      "side": 1,
+      "message": "Nit: \"which\"",
+      "range": {
+        "startLine": 118,
+        "startChar": 40,
+        "endLine": 118,
+        "endChar": 53
+      },
+      "revId": "17fe3f2aa12ba2cc29b72ec02ff17deb1b7cb391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7f5e9e2_558ed389",
+        "filename": "rtc_tools/BUILD.gn",
+        "patchSetId": 11
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-28T13:11:46Z",
+      "side": 1,
+      "message": "Let\u0027s remove the mention to test code (I have remove the comment in absl as well).\n\nLet\u0027s say: \"doesn\u0027t include absl/flags because they cannot be used in Chromium\".",
+      "range": {
+        "startLine": 118,
+        "startChar": 70,
+        "endLine": 119,
+        "endChar": 17
+      },
+      "revId": "17fe3f2aa12ba2cc29b72ec02ff17deb1b7cb391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a594e2c5_e9f7d86e",
+        "filename": "rtc_tools/BUILD.gn",
+        "patchSetId": 11
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-28T13:11:46Z",
+      "side": 1,
+      "message": "See previous comments on the similar comment.",
+      "range": {
+        "startLine": 157,
+        "startChar": 2,
+        "endLine": 161,
+        "endChar": 75
+      },
+      "revId": "17fe3f2aa12ba2cc29b72ec02ff17deb1b7cb391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45485631_e945d10c",
+        "filename": "rtc_tools/BUILD.gn",
+        "patchSetId": 11
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-28T13:11:46Z",
+      "side": 1,
+      "message": "See previous comments on the similar comment.",
+      "range": {
+        "startLine": 216,
+        "startChar": 2,
+        "endLine": 220,
+        "endChar": 75
+      },
+      "revId": "17fe3f2aa12ba2cc29b72ec02ff17deb1b7cb391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc7cdba1_8b87e285",
+        "filename": "rtc_tools/BUILD.gn",
+        "patchSetId": 11
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-28T13:11:46Z",
+      "side": 1,
+      "message": "Yes, even if this will result in a link time error in case we want to move outside of the \"if\", it is good so we will have to decide if an exception is needed like with the other 3 executables.",
+      "range": {
+        "startLine": 280,
+        "startChar": 4,
+        "endLine": 284,
+        "endChar": 5
+      },
+      "revId": "17fe3f2aa12ba2cc29b72ec02ff17deb1b7cb391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

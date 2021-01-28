@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84de3fcb_754fbb7d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-28T12:55:22Z",
+      "side": 1,
+      "message": "LGTM % one last comment.",
+      "revId": "84649f457f53ff2e4a34bf2a149d97adb5af3060",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c357117_553429e9",
+        "filename": "BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-28T12:55:22Z",
+      "side": 1,
+      "message": "This one can be undone I think (and just add the line back to 547) since we take care of the problematic dependency \"later\" in the graph.",
+      "range": {
+        "startLine": 565,
+        "startChar": 4,
+        "endLine": 567,
+        "endChar": 5
+      },
+      "revId": "84649f457f53ff2e4a34bf2a149d97adb5af3060",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

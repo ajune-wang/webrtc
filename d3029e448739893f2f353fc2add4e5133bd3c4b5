@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ebea90e7_72a0ed69",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-28T20:10:44Z",
+      "side": 1,
+      "message": "Fairly mechanical cleanup. Deleted a lot of lines too, but mostly adding them.\n",
+      "revId": "d3029e448739893f2f353fc2add4e5133bd3c4b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

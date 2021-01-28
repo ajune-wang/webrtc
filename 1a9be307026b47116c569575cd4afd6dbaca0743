@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be9b0ab0_ade1aa8c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-28T07:29:26Z",
+      "side": 1,
+      "message": "Adding a comment to remove myself from the attention set.\n",
+      "revId": "1a9be307026b47116c569575cd4afd6dbaca0743",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

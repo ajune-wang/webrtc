@@ -14,6 +14,7 @@
 
 import("//build/config/linux/pkg_config.gni")
 import("//build/config/sanitizers/sanitizers.gni")
+import("//third_party/google_benchmark/buildconfig.gni")
 import("webrtc.gni")
 if (rtc_enable_protobuf) {
   import("//third_party/protobuf/proto_library.gni")
@@ -544,7 +545,6 @@ if (rtc_include_tests) {
       "p2p:rtc_p2p_unittests",
       "rtc_base:callback_list_unittests",
       "rtc_base:rtc_base_approved_unittests",
-      "rtc_base:rtc_base_unittests",
       "rtc_base:rtc_json_unittests",
       "rtc_base:rtc_numerics_unittests",
       "rtc_base:rtc_operations_chain_unittests",
@@ -561,6 +561,10 @@ if (rtc_include_tests) {
       "test:test_main",
       "test/network:network_emulation_unittests",
     ]
+
+    if (enable_google_benchmarks) {
+      deps += [ "rtc_base:rtc_base_unittests" ]
+    }
 
     if (rtc_enable_protobuf) {
       deps += [ "logging:rtc_event_log_tests" ]
@@ -583,12 +587,14 @@ if (rtc_include_tests) {
     }
   }
 
-  rtc_test("benchmarks") {
-    testonly = true
-    deps = [
-      "rtc_base/synchronization:mutex_benchmark",
-      "test:benchmark_main",
-    ]
+  if (enable_google_benchmarks) {
+    rtc_test("benchmarks") {
+      testonly = true
+      deps = [
+        "rtc_base/synchronization:mutex_benchmark",
+        "test:benchmark_main",
+      ]
+    }
   }
 
   # This runs tests that must run in real time and therefore can take some

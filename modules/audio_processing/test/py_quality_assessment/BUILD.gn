@@ -114,6 +114,9 @@ rtc_executable("vad") {
   deps = [
     "../../../../common_audio",
     "../../../../rtc_base:rtc_base_approved",
+  ]
+
+  absl_deps = [
     "//third_party/abseil-cpp/absl/flags:flag",
     "//third_party/abseil-cpp/absl/flags:parse",
   ]
@@ -127,6 +130,9 @@ rtc_executable("apm_vad") {
     "../../../../common_audio",
     "../../../../rtc_base:rtc_base_approved",
     "../../vad",
+  ]
+
+  absl_deps = [
     "//third_party/abseil-cpp/absl/flags:flag",
     "//third_party/abseil-cpp/absl/flags:parse",
   ]
@@ -139,6 +145,9 @@ rtc_executable("sound_level") {
     "../..",
     "../../../../common_audio",
     "../../../../rtc_base:rtc_base_approved",
+  ]
+
+  absl_deps = [
     "//third_party/abseil-cpp/absl/flags:flag",
     "//third_party/abseil-cpp/absl/flags:parse",
   ]

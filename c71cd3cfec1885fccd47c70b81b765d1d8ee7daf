@@ -70,6 +70,24 @@
       "parentUuid": "e34f7ece_d96ac783",
       "revId": "c71cd3cfec1885fccd47c70b81b765d1d8ee7daf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab259b93_61ca8ad0",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-28T08:21:30Z",
+      "side": 1,
+      "message": "I have also restored the previous behavior for UninitializeUsrSctp.",
+      "parentUuid": "0f0b4eef_7831f35f",
+      "revId": "c71cd3cfec1885fccd47c70b81b765d1d8ee7daf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

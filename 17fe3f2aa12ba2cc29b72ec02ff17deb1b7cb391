@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4deca650_680c0880",
+        "filename": "modules/audio_processing/transient/BUILD.gn",
+        "patchSetId": 11
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 11540
+      },
+      "writtenOn": "2021-01-28T13:30:58Z",
+      "side": 1,
+      "message": "Oh, right. With all those changes it completely slipped under my radars. It\u0027s not failing because I exclude them in the next CL \u003dD. So yes, we can just change the rtc_test, since rtc_executables always depend on flag that is forbidden in chromium.\n\nBut that kinda contradicts your comment about psnr_ssim_analyzer. So, is it a good or bad thing to add absl_deps to rtc_executables? :)",
+      "parentUuid": "244cd888_f6dbbf54",
+      "range": {
+        "startLine": 67,
+        "startChar": 2,
+        "endLine": 90,
+        "endChar": 3
+      },
+      "revId": "17fe3f2aa12ba2cc29b72ec02ff17deb1b7cb391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "78685526_4f48e2b5",
         "filename": "rtc_tools/BUILD.gn",
         "patchSetId": 11

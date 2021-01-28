@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84a7d480_c6c0c2bb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-28T07:05:35Z",
+      "side": 1,
+      "message": "I like this much better than the CallbackList solution. Less opportunity for confusion!\n\nThanks!\n",
+      "revId": "923ddd5d0fb6aa211851e8e9591d347d7a3fe550",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2bdccbdf_86c74890",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-28T07:05:35Z",
+      "side": 1,
+      "message": "I think we should accept a null pointer here, given that the current code is just a more fancy way of saying \"I\u0027m ignoring this\".\n\nKeeping the current code is good, though; it\u0027s on my list of things to expand on.",
+      "revId": "923ddd5d0fb6aa211851e8e9591d347d7a3fe550",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4fbc8a1_6f3323f0",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 695,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-28T07:05:35Z",
+      "side": 1,
+      "message": "A blank line above here would be nice, since this doesn\u0027t have anything to do with the previous comment.",
+      "revId": "923ddd5d0fb6aa211851e8e9591d347d7a3fe550",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -87,12 +87,15 @@ class RTC_EXPORT SimulcastEncoderAdapter : public VideoEncoder {
 
     VideoEncoder& encoder() { return *encoder_; }
     const VideoEncoder& encoder() const { return *encoder_; }
+    int stream_idx() const { return stream_idx_; }
     uint16_t width() const { return width_; }
     uint16_t height() const { return height_; }
-    bool needs_keyframe() const { return send_stream_ && needs_keyframe_; }
-    void set_keyframe_needed() { needs_keyframe_ = true; }
-    bool send_stream() const { return send_stream_; }
-    void set_send_stream(bool send_stream) { send_stream_ = send_stream; }
+    bool is_keyframe_needed() const {
+      return !is_paused_ && is_keyframe_needed_;
+    }
+    void set_is_keyframe_needed() { is_keyframe_needed_ = true; }
+    bool is_paused() const { return is_paused_; }
+    void set_is_paused(bool is_paused) { is_paused_ = is_paused; }
     absl::optional<float> target_fps() const {
       return framerate_controller_ == nullptr
                  ? absl::nullopt
@@ -111,26 +114,22 @@ class RTC_EXPORT SimulcastEncoderAdapter : public VideoEncoder {
     const int stream_idx_;
     const uint16_t width_;
     const uint16_t height_;
-    bool needs_keyframe_;
-    bool send_stream_;
+    bool is_keyframe_needed_;
+    bool is_paused_;
   };
-
-  enum class StreamResolution {
-    OTHER,
-    HIGHEST,
-    LOWEST,
-  };
-
-  // Populate the codec settings for each simulcast stream.
-  void PopulateStreamCodec(const webrtc::VideoCodec& inst,
-                           int stream_index,
-                           uint32_t start_bitrate_kbps,
-                           StreamResolution stream_resolution,
-                           webrtc::VideoCodec* stream_codec);
 
   bool Initialized() const;
 
   void DestroyStoredEncoders();
+
+  std::unique_ptr<VideoEncoder> FetchOrCreateEncoder(
+      bool is_lowest_quality_stream);
+
+  webrtc::VideoCodec MakeStreamCodec(const webrtc::VideoCodec& codec,
+                                     int stream_idx,
+                                     uint32_t start_bitrate_kbps,
+                                     bool is_lowest_quality_stream,
+                                     bool is_highest_quality_stream);
 
   EncodedImageCallback::Result OnEncodedImage(
       size_t stream_idx,
@@ -146,10 +145,10 @@ class RTC_EXPORT SimulcastEncoderAdapter : public VideoEncoder {
   VideoEncoderFactory* const fallback_encoder_factory_;
   const SdpVideoFormat video_format_;
   VideoCodec codec_;
+  int total_streams_count_;
+  bool bypass_mode_;
   std::vector<EncoderContext> encoder_contexts_;
   EncodedImageCallback* encoded_complete_callback_;
-  size_t first_active_stream_idx_;
-  size_t num_active_streams_;
 
   // Used for checking the single-threaded access of the encoder interface.
   RTC_NO_UNIQUE_ADDRESS SequenceChecker encoder_queue_;

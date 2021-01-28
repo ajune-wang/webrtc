@@ -157,6 +157,24 @@
       "parentUuid": "6dfa461f_05ee98dc",
       "revId": "8879d38cb722be9473ce58539f36e034d93b078a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b23be10f_67300988",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 2160,
+      "author": {
+        "id": 5603
+      },
+      "writtenOn": "2021-01-28T01:33:50Z",
+      "side": 1,
+      "message": "right, but I wonder if that will tilt the metrics towards apps that do a lot of renegotiation. Regardless, I don\u0027t feel super strongly here, better to have something than nothing.",
+      "parentUuid": "3fed8ac1_b0b8ae48",
+      "revId": "8879d38cb722be9473ce58539f36e034d93b078a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e91f7bbd_a45d46f2",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 5603
+      },
+      "writtenOn": "2021-01-28T01:33:50Z",
+      "side": 1,
+      "message": "would also be good to measure the policies in use by apps",
+      "revId": "355d14cab83b4c9dbaa6a79d56af7ef1c2269d4c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b5e3d865_edfd9184",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 12
@@ -31,6 +48,41 @@
       "writtenOn": "2021-01-27T13:30:04Z",
       "side": 1,
       "message": "content has a bundle-only flag so we could differentiate further here:\ncomplex, setting bundle-only on some.\n\nHowever, it seems that firefox does max-bundle of audio,video,data with video and data set bundle-only so I am not sure how useful this is.",
+      "revId": "355d14cab83b4c9dbaa6a79d56af7ef1c2269d4c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "462a2732_0ed4f907",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 2326,
+      "author": {
+        "id": 5603
+      },
+      "writtenOn": "2021-01-28T01:33:50Z",
+      "side": 1,
+      "message": "yeah, I tend to think we should roll this out and use that data to figure out what else we need to measure.",
+      "parentUuid": "b5e3d865_edfd9184",
+      "revId": "355d14cab83b4c9dbaa6a79d56af7ef1c2269d4c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9cbe7800_a9c6ec5d",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 2160,
+      "author": {
+        "id": 5603
+      },
+      "writtenOn": "2021-01-28T01:33:50Z",
+      "side": 1,
+      "message": "should this also go into the if (offer || answer) block above (i.e., not triggered on rollback?)",
       "revId": "355d14cab83b4c9dbaa6a79d56af7ef1c2269d4c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

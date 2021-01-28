@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "353868c9_b39dc3f9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-01-28T13:18:48Z",
+      "side": 1,
+      "message": "PTAL on attempt to fix race. Other option that I see was proposed by Harald to have two copies of config for each thread.",
+      "revId": "5526c62dbeef95074f3de097d19eb392bf3d3519",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

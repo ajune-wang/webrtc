@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f81e5c6_e9a9948c",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-01-28T10:56:57Z",
+      "side": 1,
+      "message": "Shouldn\u0027t it be |codec.active ? 1 : 0| in this case?",
+      "range": {
+        "startLine": 77,
+        "startChar": 11,
+        "endLine": 77,
+        "endChar": 12
+      },
+      "revId": "f97d0ca89116b66cf713221f4367ea2b96d829b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8328f828_12114dfd",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-01-28T10:56:57Z",
+      "side": 1,
+      "message": "/*is_lowest_quality_stream\u003d*/stream_idx \u003d\u003d lowest_quality_stream_idx.\n\nAdd \"\u003d\" in comment and no space. IIRC, this way automatic tools would trigger a warning if the order of parameters is mistaken.",
+      "range": {
+        "startLine": 380,
+        "startChar": 10,
+        "endLine": 380,
+        "endChar": 34
+      },
+      "revId": "f97d0ca89116b66cf713221f4367ea2b96d829b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5d57beb_d208bcd7",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-01-28T10:56:57Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 381,
+        "startChar": 10,
+        "endLine": 381,
+        "endChar": 35
+      },
+      "revId": "f97d0ca89116b66cf713221f4367ea2b96d829b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6bf9b28_2eb844d2",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-01-28T10:56:57Z",
+      "side": 1,
+      "message": "|bypass_mode_| would be clearer here.",
+      "range": {
+        "startLine": 483,
+        "startChar": 8,
+        "endLine": 483,
+        "endChar": 37
+      },
+      "revId": "f97d0ca89116b66cf713221f4367ea2b96d829b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f95b1251_17245d72",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-01-28T10:56:57Z",
+      "side": 1,
+      "message": "This is currently ignored if there\u0027s a stored encoder present.\n\nI see two ways around it: in stored_encoders_ also store creation parameters and compare that.\nOr make it a map\u003cbool, unique_ptr\u003cVideoEncoder\u003e\u003e.\n\nAlternatively don\u0027t store |is_lowest_quality_stream\u003d\u003dtrue| as stored encoders and don\u0027t look there if |is_lowest_quality_stream \u003d\u003d true|",
+      "range": {
+        "startLine": 671,
+        "startChar": 9,
+        "endLine": 671,
+        "endChar": 33
+      },
+      "revId": "f97d0ca89116b66cf713221f4367ea2b96d829b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9bf70380_cd862455",
+        "filename": "media/engine/simulcast_encoder_adapter_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-01-28T10:56:57Z",
+      "side": 1,
+      "message": "Please update this to keep track of number of created encoders.\n\nAdd a test which have some inactive streams and checks that only, say, 2 out of 3 encoders were actually created by querying the factory().",
+      "range": {
+        "startLine": 164,
+        "startChar": 6,
+        "endLine": 164,
+        "endChar": 29
+      },
+      "revId": "f97d0ca89116b66cf713221f4367ea2b96d829b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

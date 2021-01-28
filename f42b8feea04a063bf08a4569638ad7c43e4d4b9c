@@ -36,6 +36,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a28f528e_151297c5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-28T06:51:15Z",
+      "side": 1,
+      "message": "After staring at the Chromium factory code for a while, I\u0027m thinking that we should make the network thread a global singleton in WebRTC.\nThat will make it safe to use that for the usrsctp thread. (IF the usrsctp thread respects the timing constraints that the network thread has.)\n\n",
+      "revId": "f42b8feea04a063bf08a4569638ad7c43e4d4b9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c70cdd24_4033cb75",

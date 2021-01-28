@@ -12,13 +12,14 @@
 #define PC_CHANNEL_MANAGER_H_
 
 #include <stdint.h>
-
 #include <memory>
 #include <string>
 #include <vector>
 
 #include "api/audio_options.h"
 #include "api/crypto/crypto_options.h"
+#include "api/rtp_parameters.h"
+#include "api/video/video_bitrate_allocator_factory.h"
 #include "call/call.h"
 #include "media/base/codec.h"
 #include "media/base/media_channel.h"
@@ -29,6 +30,7 @@
 #include "pc/session_description.h"
 #include "rtc_base/system/file_wrapper.h"
 #include "rtc_base/thread.h"
+#include "rtc_base/unique_id_generator.h"
 
 namespace cricket {
 

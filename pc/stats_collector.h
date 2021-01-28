@@ -15,7 +15,8 @@
 #define PC_STATS_COLLECTOR_H_
 
 #include <stdint.h>
-
+#include <algorithm>
+#include <cstdint>
 #include <map>
 #include <memory>
 #include <string>
@@ -25,6 +26,7 @@
 #include "api/media_stream_interface.h"
 #include "api/peer_connection_interface.h"
 #include "api/stats_types.h"
+#include "p2p/base/connection_info.h"
 #include "p2p/base/port.h"
 #include "pc/peer_connection_internal.h"
 #include "pc/stats_collector_interface.h"

@@ -11,8 +11,9 @@
 #include "pc/ice_server_parsing.h"
 
 #include <stddef.h>
-
+#include <algorithm>
 #include <cctype>  // For std::isdigit.
+#include <memory>
 #include <string>
 
 #include "p2p/base/port_interface.h"
@@ -21,6 +22,7 @@
 #include "rtc_base/ip_address.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/socket_address.h"
+#include "rtc_base/string_encode.h"
 
 namespace webrtc {
 

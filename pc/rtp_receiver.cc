@@ -11,17 +11,12 @@
 #include "pc/rtp_receiver.h"
 
 #include <stddef.h>
-
 #include <utility>
 #include <vector>
 
 #include "api/media_stream_proxy.h"
-#include "api/media_stream_track_proxy.h"
 #include "pc/media_stream.h"
-#include "rtc_base/checks.h"
 #include "rtc_base/location.h"
-#include "rtc_base/logging.h"
-#include "rtc_base/trace_event.h"
 
 namespace webrtc {
 

@@ -31,7 +31,9 @@
 #include "absl/algorithm/container.h"
 #include "rtc_base/atomic_ops.h"
 #include "rtc_base/checks.h"
-#include "rtc_base/critical_section.h"
+#include "rtc_base/deprecated/recursive_critical_section.h"
+#include "rtc_base/event.h"
+#include "rtc_base/internal/default_socket_server.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/null_socket_server.h"
 #include "rtc_base/synchronization/sequence_checker.h"
@@ -73,7 +75,7 @@ const int kSlowDispatchLoggingThreshold = 50;  // 50 ms
 
 class MessageHandlerWithTask final : public MessageHandler {
  public:
-  MessageHandlerWithTask() = default;
+  MessageHandlerWithTask() {}
 
   void OnMessage(Message* msg) override {
     static_cast<rtc_thread_internal::MessageLikeTask*>(msg->pdata)->Run();
@@ -88,8 +90,8 @@ class MessageHandlerWithTask final : public MessageHandler {
 
 class RTC_SCOPED_LOCKABLE MarkProcessingCritScope {
  public:
-  MarkProcessingCritScope(const CriticalSection* cs, size_t* processing)
-      RTC_EXCLUSIVE_LOCK_FUNCTION(cs)
+  MarkProcessingCritScope(const RecursiveCriticalSection* cs,
+                          size_t* processing) RTC_EXCLUSIVE_LOCK_FUNCTION(cs)
       : cs_(cs), processing_(processing) {
     cs_->Enter();
     *processing_ += 1;
@@ -101,7 +103,7 @@ class RTC_SCOPED_LOCKABLE MarkProcessingCritScope {
   }
 
  private:
-  const CriticalSection* const cs_;
+  const RecursiveCriticalSection* const cs_;
   size_t* processing_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(MarkProcessingCritScope);
@@ -164,6 +166,9 @@ void ThreadManager::RemoveFromSendGraph(Thread* thread) {
 
 void ThreadManager::RegisterSendAndCheckForCycles(Thread* source,
                                                   Thread* target) {
+  RTC_DCHECK(source);
+  RTC_DCHECK(target);
+
   CritScope cs(&crit_);
   std::deque<Thread*> all_targets({target});
   // We check the pre-existing who-sends-to-who graph for any path from target
@@ -253,7 +258,7 @@ Thread* Thread::Current() {
 #ifndef NO_MAIN_THREAD_WRAPPING
   // Only autowrap the thread which instantiated the ThreadManager.
   if (!thread && manager->IsMainThread()) {
-    thread = new Thread(SocketServer::CreateDefault());
+    thread = new Thread(CreateDefaultSocketServer());
     thread->WrapCurrentWithThreadManager(manager, true);
   }
 #endif
@@ -322,7 +327,7 @@ void rtc::ThreadManager::ChangeCurrentThreadForTest(rtc::Thread* thread) {
 Thread* ThreadManager::WrapCurrentThread() {
   Thread* result = CurrentThread();
   if (nullptr == result) {
-    result = new Thread(SocketServer::CreateDefault());
+    result = new Thread(CreateDefaultSocketServer());
     result->WrapCurrentWithThreadManager(this, true);
   }
   return result;
@@ -692,7 +697,7 @@ bool Thread::IsCurrent() const {
 }
 
 std::unique_ptr<Thread> Thread::CreateWithSocketServer() {
-  return std::unique_ptr<Thread>(new Thread(SocketServer::CreateDefault()));
+  return std::unique_ptr<Thread>(new Thread(CreateDefaultSocketServer()));
 }
 
 std::unique_ptr<Thread> Thread::Create() {
@@ -890,46 +895,62 @@ void Thread::Send(const Location& posted_from,
 
   AssertBlockingIsAllowedOnCurrentThread();
 
-  AutoThread thread;
   Thread* current_thread = Thread::Current();
-  RTC_DCHECK(current_thread != nullptr);  // AutoThread ensures this
-  RTC_DCHECK(current_thread->IsInvokeToThreadAllowed(this));
+
 #if RTC_DCHECK_IS_ON
-  ThreadManager::Instance()->RegisterSendAndCheckForCycles(current_thread,
-                                                           this);
-#endif
-  bool ready = false;
-  PostTask(
-      webrtc::ToQueuedTask([msg]() mutable { msg.phandler->OnMessage(&msg); },
-                           [this, &ready, current_thread] {
-                             CritScope cs(&crit_);
-                             ready = true;
-                             current_thread->socketserver()->WakeUp();
-                           }));
-
-  bool waited = false;
-  crit_.Enter();
-  while (!ready) {
-    crit_.Leave();
-    current_thread->socketserver()->Wait(kForever, false);
-    waited = true;
-    crit_.Enter();
+  if (current_thread) {
+    RTC_DCHECK(current_thread->IsInvokeToThreadAllowed(this));
+    ThreadManager::Instance()->RegisterSendAndCheckForCycles(current_thread,
+                                                             this);
   }
-  crit_.Leave();
+#endif
 
-  // Our Wait loop above may have consumed some WakeUp events for this
-  // Thread, that weren't relevant to this Send.  Losing these WakeUps can
-  // cause problems for some SocketServers.
-  //
-  // Concrete example:
-  // Win32SocketServer on thread A calls Send on thread B.  While processing the
-  // message, thread B Posts a message to A.  We consume the wakeup for that
-  // Post while waiting for the Send to complete, which means that when we exit
-  // this loop, we need to issue another WakeUp, or else the Posted message
-  // won't be processed in a timely manner.
+  // Perhaps down the line we can get rid of this workaround and always require
+  // current_thread to be valid when Send() is called.
+  std::unique_ptr<rtc::Event> done_event;
+  if (!current_thread)
+    done_event.reset(new rtc::Event());
 
-  if (waited) {
-    current_thread->socketserver()->WakeUp();
+  bool ready = false;
+  PostTask(webrtc::ToQueuedTask(
+      [&msg]() mutable { msg.phandler->OnMessage(&msg); },
+      [this, &ready, current_thread, done = done_event.get()] {
+        if (current_thread) {
+          CritScope cs(&crit_);
+          ready = true;
+          current_thread->socketserver()->WakeUp();
+        } else {
+          done->Set();
+        }
+      }));
+
+  if (current_thread) {
+    bool waited = false;
+    crit_.Enter();
+    while (!ready) {
+      crit_.Leave();
+      current_thread->socketserver()->Wait(kForever, false);
+      waited = true;
+      crit_.Enter();
+    }
+    crit_.Leave();
+
+    // Our Wait loop above may have consumed some WakeUp events for this
+    // Thread, that weren't relevant to this Send.  Losing these WakeUps can
+    // cause problems for some SocketServers.
+    //
+    // Concrete example:
+    // Win32SocketServer on thread A calls Send on thread B.  While processing
+    // the message, thread B Posts a message to A.  We consume the wakeup for
+    // that Post while waiting for the Send to complete, which means that when
+    // we exit this loop, we need to issue another WakeUp, or else the Posted
+    // message won't be processed in a timely manner.
+
+    if (waited) {
+      current_thread->socketserver()->WakeUp();
+    }
+  } else {
+    done_event->Wait(rtc::Event::kForever);
   }
 }
 
@@ -1117,7 +1138,7 @@ MessageHandler* Thread::GetPostTaskMessageHandler() {
 }
 
 AutoThread::AutoThread()
-    : Thread(SocketServer::CreateDefault(), /*do_init=*/false) {
+    : Thread(CreateDefaultSocketServer(), /*do_init=*/false) {
   if (!ThreadManager::Instance()->CurrentThread()) {
     // DoInit registers with ThreadManager. Do that only if we intend to
     // be rtc::Thread::Current(), otherwise ProcessAllMessageQueuesInternal will

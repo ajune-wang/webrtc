@@ -36,29 +36,10 @@ rtc_library("mutex") {
     "..:checks",
     "..:macromagic",
     "..:platform_thread_types",
-    "../system:unused",
   ]
   absl_deps = [ "//third_party/abseil-cpp/absl/base:core_headers" ]
   if (rtc_use_absl_mutex) {
     absl_deps += [ "//third_party/abseil-cpp/absl/synchronization" ]
-  }
-}
-
-rtc_library("rw_lock_wrapper") {
-  public = [ "rw_lock_wrapper.h" ]
-  sources = [ "rw_lock_wrapper.cc" ]
-  deps = [ "..:macromagic" ]
-  if (is_win) {
-    sources += [
-      "rw_lock_win.cc",
-      "rw_lock_win.h",
-    ]
-    deps += [ "..:logging" ]
-  } else {
-    sources += [
-      "rw_lock_posix.cc",
-      "rw_lock_posix.h",
-    ]
   }
 }
 
@@ -68,6 +49,7 @@ rtc_library("sequence_checker") {
     "sequence_checker.h",
   ]
   deps = [
+    ":mutex",
     "..:checks",
     "..:criticalsection",
     "..:macromagic",
@@ -105,6 +87,7 @@ if (rtc_include_tests) {
       "..:macromagic",
       "..:rtc_base",
       "..:rtc_event",
+      "..:threading",
       "../../test:test_support",
       "//third_party/google_benchmark",
     ]

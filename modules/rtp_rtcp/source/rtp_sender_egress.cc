@@ -30,11 +30,12 @@ constexpr size_t kRtpSequenceNumberMapMaxEntries = 1 << 13;
 constexpr TimeDelta kUpdateInterval =
     TimeDelta::Millis(kBitrateStatisticsWindowMs);
 
-bool IsEnabled(absl::string_view name,
-               const WebRtcKeyValueConfig* field_trials) {
+bool IsTrialSetTo(const WebRtcKeyValueConfig* field_trials,
+                  absl::string_view name,
+                  absl::string_view value) {
   FieldTrialBasedConfig default_trials;
   auto& trials = field_trials ? *field_trials : default_trials;
-  return absl::StartsWith(trials.Lookup(name), "Enabled");
+  return absl::StartsWith(trials.Lookup(name), value);
 }
 }  // namespace
 
@@ -89,7 +90,9 @@ RtpSenderEgress::RtpSenderEgress(const RtpRtcpInterface::Configuration& config,
                                          : absl::nullopt),
       populate_network2_timestamp_(config.populate_network2_timestamp),
       send_side_bwe_with_overhead_(
-          IsEnabled("WebRTC-SendSideBwe-WithOverhead", config.field_trials)),
+          !IsTrialSetTo(config.field_trials,
+                        "WebRTC-SendSideBwe-WithOverhead",
+                        "Disabled")),
       clock_(config.clock),
       packet_history_(packet_history),
       transport_(config.outgoing_transport),
@@ -98,10 +101,7 @@ RtpSenderEgress::RtpSenderEgress(const RtpRtcpInterface::Configuration& config,
       is_audio_(config.audio),
 #endif
       need_rtp_packet_infos_(config.need_rtp_packet_infos),
-      fec_generator_(
-          IsEnabled("WebRTC-DeferredFecGeneration", config.field_trials)
-              ? config.fec_generator
-              : nullptr),
+      fec_generator_(config.fec_generator),
       transport_feedback_observer_(config.transport_feedback_callback),
       send_side_delay_observer_(config.send_side_delay_observer),
       send_packet_observer_(config.send_packet_observer),
@@ -172,13 +172,13 @@ void RtpSenderEgress::SendPacket(RtpPacketToSend* packet,
   }
 
   if (fec_generator_ && packet->fec_protect_packet()) {
-    // Deferred fec generation is used, add packet to generator.
+    // This packet should be protected by FEC, add it to packet generator.
     RTC_DCHECK(fec_generator_);
     RTC_DCHECK(packet->packet_type() == RtpPacketMediaType::kVideo);
     absl::optional<std::pair<FecProtectionParams, FecProtectionParams>>
         new_fec_params;
     {
-      rtc::CritScope lock(&lock_);
+      MutexLock lock(&lock_);
       new_fec_params.swap(pending_fec_params_);
     }
     if (new_fec_params) {
@@ -236,7 +236,7 @@ void RtpSenderEgress::SendPacket(RtpPacketToSend* packet,
 
   PacketOptions options;
   {
-    rtc::CritScope lock(&lock_);
+    MutexLock lock(&lock_);
     options.included_in_allocation = force_part_of_allocation_;
   }
 
@@ -252,6 +252,7 @@ void RtpSenderEgress::SendPacket(RtpPacketToSend* packet,
 
   options.application_data.assign(packet->application_data().begin(),
                                   packet->application_data().end());
+  options.additional_data = packet->additional_data();
 
   if (packet->packet_type() != RtpPacketMediaType::kPadding &&
       packet->packet_type() != RtpPacketMediaType::kRetransmission) {
@@ -295,7 +296,7 @@ void RtpSenderEgress::SendPacket(RtpPacketToSend* packet,
 }
 
 RtpSendRates RtpSenderEgress::GetSendRates() const {
-  rtc::CritScope lock(&lock_);
+  MutexLock lock(&lock_);
   const int64_t now_ms = clock_->TimeInMilliseconds();
   return GetSendRatesLocked(now_ms);
 }
@@ -314,14 +315,14 @@ void RtpSenderEgress::GetDataCounters(StreamDataCounters* rtp_stats,
                                       StreamDataCounters* rtx_stats) const {
   // TODO(bugs.webrtc.org/11581): make sure rtx_rtp_stats_ and rtp_stats_ are
   // only touched on the worker thread.
-  rtc::CritScope lock(&lock_);
+  MutexLock lock(&lock_);
   *rtp_stats = rtp_stats_;
   *rtx_stats = rtx_rtp_stats_;
 }
 
 void RtpSenderEgress::ForceIncludeSendPacketsInAllocation(
     bool part_of_allocation) {
-  rtc::CritScope lock(&lock_);
+  MutexLock lock(&lock_);
   force_part_of_allocation_ = part_of_allocation;
 }
 
@@ -369,7 +370,7 @@ void RtpSenderEgress::SetFecProtectionParameters(
     const FecProtectionParams& key_params) {
   // TODO(sprang): Post task to pacer queue instead, one pacer is fully
   // migrated to a task queue.
-  rtc::CritScope lock(&lock_);
+  MutexLock lock(&lock_);
   pending_fec_params_.emplace(delta_params, key_params);
 }
 
@@ -430,7 +431,7 @@ void RtpSenderEgress::UpdateDelayStatistics(int64_t capture_time_ms,
   int max_delay_ms = 0;
   uint64_t total_packet_send_delay_ms = 0;
   {
-    rtc::CritScope cs(&lock_);
+    MutexLock lock(&lock_);
     // Compute the max and average of the recent capture-to-send delays.
     // The time complexity of the current approach depends on the distribution
     // of the delay values. This could be done more efficiently.
@@ -547,7 +548,7 @@ void RtpSenderEgress::UpdateRtpStats(int64_t now_ms,
   // worker thread.
   RtpSendRates send_rates;
   {
-    rtc::CritScope lock(&lock_);
+    MutexLock lock(&lock_);
 
     // TODO(bugs.webrtc.org/11581): make sure rtx_rtp_stats_ and rtp_stats_ are
     // only touched on the worker thread.

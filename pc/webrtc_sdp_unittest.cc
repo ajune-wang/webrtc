@@ -153,6 +153,7 @@ static const char kSdpFullString[] =
     "o=- 18446744069414584320 18446462598732840960 IN IP4 127.0.0.1\r\n"
     "s=-\r\n"
     "t=0 0\r\n"
+    "a=extmap-allow-mixed\r\n"
     "a=msid-semantic: WMS local_stream_1\r\n"
     "m=audio 2345 RTP/SAVPF 111 103 104\r\n"
     "c=IN IP4 74.125.127.126\r\n"
@@ -223,6 +224,7 @@ static const char kSdpString[] =
     "o=- 18446744069414584320 18446462598732840960 IN IP4 127.0.0.1\r\n"
     "s=-\r\n"
     "t=0 0\r\n"
+    "a=extmap-allow-mixed\r\n"
     "a=msid-semantic: WMS local_stream_1\r\n"
     "m=audio 9 RTP/SAVPF 111 103 104\r\n"
     "c=IN IP4 0.0.0.0\r\n"
@@ -373,6 +375,7 @@ static const char kBundleOnlySdpFullString[] =
     "o=- 18446744069414584320 18446462598732840960 IN IP4 127.0.0.1\r\n"
     "s=-\r\n"
     "t=0 0\r\n"
+    "a=extmap-allow-mixed\r\n"
     "a=group:BUNDLE audio_content_name video_content_name\r\n"
     "a=msid-semantic: WMS local_stream_1\r\n"
     "m=audio 2345 RTP/SAVPF 111 103 104\r\n"
@@ -433,6 +436,7 @@ static const char kPlanBSdpFullString[] =
     "o=- 18446744069414584320 18446462598732840960 IN IP4 127.0.0.1\r\n"
     "s=-\r\n"
     "t=0 0\r\n"
+    "a=extmap-allow-mixed\r\n"
     "a=msid-semantic: WMS local_stream_1 local_stream_2\r\n"
     "m=audio 2345 RTP/SAVPF 111 103 104\r\n"
     "c=IN IP4 74.125.127.126\r\n"
@@ -516,6 +520,7 @@ static const char kUnifiedPlanSdpFullString[] =
     "o=- 18446744069414584320 18446462598732840960 IN IP4 127.0.0.1\r\n"
     "s=-\r\n"
     "t=0 0\r\n"
+    "a=extmap-allow-mixed\r\n"
     "a=msid-semantic: WMS local_stream_1\r\n"
     // Audio track 1, stream 1 (with candidates).
     "m=audio 2345 RTP/SAVPF 111 103 104\r\n"
@@ -628,6 +633,7 @@ static const char kUnifiedPlanSdpFullStringWithSpecialMsid[] =
     "o=- 18446744069414584320 18446462598732840960 IN IP4 127.0.0.1\r\n"
     "s=-\r\n"
     "t=0 0\r\n"
+    "a=extmap-allow-mixed\r\n"
     "a=msid-semantic: WMS local_stream_1\r\n"
     // Audio track 1, with 1 stream id.
     "m=audio 2345 RTP/SAVPF 111 103 104\r\n"
@@ -938,8 +944,8 @@ static void Replace(const std::string& line,
   absl::StrReplaceAll({{line, newlines}}, message);
 }
 
-// Expect fail to parase |bad_sdp| and expect |bad_part| be part of the error
-// message.
+// Expect a parse failure on the line containing |bad_part| when attempting to
+// parse |bad_sdp|.
 static void ExpectParseFailure(const std::string& bad_sdp,
                                const std::string& bad_part) {
   JsepSessionDescription desc(kDummyType);
@@ -2189,16 +2195,31 @@ TEST_F(WebRtcSdpTest, SerializeSessionDescriptionWithBundle) {
 
 TEST_F(WebRtcSdpTest, SerializeSessionDescriptionWithBandwidth) {
   VideoContentDescription* vcd = GetFirstVideoContentDescription(&desc_);
-  vcd->set_bandwidth(100 * 1000);
+  vcd->set_bandwidth(100 * 1000 + 755);  // Integer division will drop the 755.
+  vcd->set_bandwidth_type("AS");
   AudioContentDescription* acd = GetFirstAudioContentDescription(&desc_);
-  acd->set_bandwidth(50 * 1000);
+  acd->set_bandwidth(555);
+  acd->set_bandwidth_type("TIAS");
   ASSERT_TRUE(jdesc_.Initialize(desc_.Clone(), jdesc_.session_id(),
                                 jdesc_.session_version()));
   std::string message = webrtc::SdpSerialize(jdesc_);
   std::string sdp_with_bandwidth = kSdpFullString;
   InjectAfter("c=IN IP4 74.125.224.39\r\n", "b=AS:100\r\n",
               &sdp_with_bandwidth);
-  InjectAfter("c=IN IP4 74.125.127.126\r\n", "b=AS:50\r\n",
+  InjectAfter("c=IN IP4 74.125.127.126\r\n", "b=TIAS:555\r\n",
+              &sdp_with_bandwidth);
+  EXPECT_EQ(sdp_with_bandwidth, message);
+}
+
+// Should default to b=AS if bandwidth_type isn't set.
+TEST_F(WebRtcSdpTest, SerializeSessionDescriptionWithMissingBandwidthType) {
+  VideoContentDescription* vcd = GetFirstVideoContentDescription(&desc_);
+  vcd->set_bandwidth(100 * 1000);
+  ASSERT_TRUE(jdesc_.Initialize(desc_.Clone(), jdesc_.session_id(),
+                                jdesc_.session_version()));
+  std::string message = webrtc::SdpSerialize(jdesc_);
+  std::string sdp_with_bandwidth = kSdpFullString;
+  InjectAfter("c=IN IP4 74.125.224.39\r\n", "b=AS:100\r\n",
               &sdp_with_bandwidth);
   EXPECT_EQ(sdp_with_bandwidth, message);
 }
@@ -2309,6 +2330,7 @@ TEST_F(WebRtcSdpTest, SerializeSessionDescriptionWithDataChannelAndBandwidth) {
   JsepSessionDescription jsep_desc(kDummyType);
   AddRtpDataChannel();
   data_desc_->set_bandwidth(100 * 1000);
+  data_desc_->set_bandwidth_type("AS");
   MakeDescriptionWithoutCandidates(&jsep_desc);
   std::string message = webrtc::SdpSerialize(jsep_desc);
 
@@ -2612,6 +2634,41 @@ TEST_F(WebRtcSdpTest, DeserializeSessionDescriptionWithBandwidth) {
   EXPECT_TRUE(CompareSessionDescription(jdesc_, jdesc_with_bandwidth));
 }
 
+TEST_F(WebRtcSdpTest, DeserializeSessionDescriptionWithTiasBandwidth) {
+  JsepSessionDescription jdesc_with_bandwidth(kDummyType);
+  std::string sdp_with_bandwidth = kSdpFullString;
+  InjectAfter("a=mid:video_content_name\r\na=sendrecv\r\n", "b=TIAS:100000\r\n",
+              &sdp_with_bandwidth);
+  InjectAfter("a=mid:audio_content_name\r\na=sendrecv\r\n", "b=TIAS:50000\r\n",
+              &sdp_with_bandwidth);
+  EXPECT_TRUE(SdpDeserialize(sdp_with_bandwidth, &jdesc_with_bandwidth));
+  VideoContentDescription* vcd = GetFirstVideoContentDescription(&desc_);
+  vcd->set_bandwidth(100 * 1000);
+  AudioContentDescription* acd = GetFirstAudioContentDescription(&desc_);
+  acd->set_bandwidth(50 * 1000);
+  ASSERT_TRUE(jdesc_.Initialize(desc_.Clone(), jdesc_.session_id(),
+                                jdesc_.session_version()));
+  EXPECT_TRUE(CompareSessionDescription(jdesc_, jdesc_with_bandwidth));
+}
+
+TEST_F(WebRtcSdpTest,
+       DeserializeSessionDescriptionWithUnknownBandwidthModifier) {
+  JsepSessionDescription jdesc_with_bandwidth(kDummyType);
+  std::string sdp_with_bandwidth = kSdpFullString;
+  InjectAfter("a=mid:video_content_name\r\na=sendrecv\r\n",
+              "b=unknown:100000\r\n", &sdp_with_bandwidth);
+  InjectAfter("a=mid:audio_content_name\r\na=sendrecv\r\n",
+              "b=unknown:50000\r\n", &sdp_with_bandwidth);
+  EXPECT_TRUE(SdpDeserialize(sdp_with_bandwidth, &jdesc_with_bandwidth));
+  VideoContentDescription* vcd = GetFirstVideoContentDescription(&desc_);
+  vcd->set_bandwidth(-1);
+  AudioContentDescription* acd = GetFirstAudioContentDescription(&desc_);
+  acd->set_bandwidth(-1);
+  ASSERT_TRUE(jdesc_.Initialize(desc_.Clone(), jdesc_.session_id(),
+                                jdesc_.session_version()));
+  EXPECT_TRUE(CompareSessionDescription(jdesc_, jdesc_with_bandwidth));
+}
+
 TEST_F(WebRtcSdpTest, DeserializeSessionDescriptionWithIceOptions) {
   JsepSessionDescription jdesc_with_ice_options(kDummyType);
   std::string sdp_with_ice_options = kSdpFullString;
@@ -2701,10 +2758,9 @@ TEST_F(WebRtcSdpTest, DeserializeSessionDescriptionWithoutMsid) {
 TEST_F(WebRtcSdpTest, DeserializeSessionDescriptionWithExtmapAllowMixed) {
   jdesc_.description()->set_extmap_allow_mixed(true);
   std::string sdp_with_extmap_allow_mixed = kSdpFullString;
-  InjectAfter("t=0 0\r\n", kExtmapAllowMixed, &sdp_with_extmap_allow_mixed);
   // Deserialize
   JsepSessionDescription jdesc_deserialized(kDummyType);
-  EXPECT_TRUE(SdpDeserialize(sdp_with_extmap_allow_mixed, &jdesc_deserialized));
+  ASSERT_TRUE(SdpDeserialize(sdp_with_extmap_allow_mixed, &jdesc_deserialized));
   // Verify
   EXPECT_TRUE(CompareSessionDescription(jdesc_, jdesc_deserialized));
 }
@@ -2712,9 +2768,10 @@ TEST_F(WebRtcSdpTest, DeserializeSessionDescriptionWithExtmapAllowMixed) {
 TEST_F(WebRtcSdpTest, DeserializeSessionDescriptionWithoutExtmapAllowMixed) {
   jdesc_.description()->set_extmap_allow_mixed(false);
   std::string sdp_without_extmap_allow_mixed = kSdpFullString;
+  Replace(kExtmapAllowMixed, "", &sdp_without_extmap_allow_mixed);
   // Deserialize
   JsepSessionDescription jdesc_deserialized(kDummyType);
-  EXPECT_TRUE(
+  ASSERT_TRUE(
       SdpDeserialize(sdp_without_extmap_allow_mixed, &jdesc_deserialized));
   // Verify
   EXPECT_TRUE(CompareSessionDescription(jdesc_, jdesc_deserialized));
@@ -2940,7 +2997,8 @@ TEST_F(WebRtcSdpTest, DeserializeSdpWithSctpDataChannelsButWrongMediaType) {
   JsepSessionDescription jdesc_output(kDummyType);
   EXPECT_TRUE(SdpDeserialize(sdp, &jdesc_output));
 
-  EXPECT_EQ(0u, jdesc_output.description()->contents().size());
+  EXPECT_EQ(1u, jdesc_output.description()->contents().size());
+  EXPECT_TRUE(jdesc_output.description()->contents()[0].rejected);
 }
 
 // Helper function to set the max-message-size parameter in the
@@ -3336,6 +3394,13 @@ TEST_F(WebRtcSdpTest, DeserializeSdpWithInvalidAttributeValue) {
   // bandwidth
   ExpectParseFailureWithNewLines("a=mid:video_content_name\r\n",
                                  "b=AS:badvalue\r\n", "b=AS:badvalue");
+  ExpectParseFailureWithNewLines("a=mid:video_content_name\r\n", "b=AS\r\n",
+                                 "b=AS");
+  ExpectParseFailureWithNewLines("a=mid:video_content_name\r\n", "b=AS:\r\n",
+                                 "b=AS:");
+  ExpectParseFailureWithNewLines("a=mid:video_content_name\r\n",
+                                 "b=AS:12:34\r\n", "b=AS:12:34");
+
   // rtcp-fb
   ExpectParseFailureWithNewLines("a=mid:video_content_name\r\n",
                                  "a=rtcp-fb:badvalue nack\r\n",
@@ -3991,24 +4056,6 @@ TEST_F(WebRtcSdpTest, SerializeBothMediaSectionAndSsrcAttributeMsid) {
 
   EXPECT_NE(std::string::npos, sdp.find(kMediaSectionMsidLine));
   EXPECT_NE(std::string::npos, sdp.find(kSsrcAttributeMsidLine));
-}
-
-// Regression test for heap overflow bug:
-// https://bugs.chromium.org/p/chromium/issues/detail?id=647916
-TEST_F(WebRtcSdpTest, DeserializeSctpPortInVideoDescription) {
-  // The issue occurs when the sctp-port attribute is found in a video
-  // description. The actual heap overflow occurs when parsing the fmtp line.
-  static const char kSdpWithSctpPortInVideoDescription[] =
-      "v=0\r\n"
-      "o=- 18446744069414584320 18446462598732840960 IN IP4 127.0.0.1\r\n"
-      "s=-\r\n"
-      "t=0 0\r\n"
-      "m=video 9 UDP/DTLS/SCTP 120\r\n"
-      "a=sctp-port 5000\r\n"
-      "a=fmtp:108 foo=10\r\n";
-
-  ExpectParseFailure(std::string(kSdpWithSctpPortInVideoDescription),
-                     "sctp-port");
 }
 
 // Regression test for integer overflow bug:
@@ -4667,21 +4714,49 @@ TEST_F(WebRtcSdpTest, DeserializeSessionDescriptionWithoutCname) {
 }
 
 TEST_F(WebRtcSdpTest, DeserializeSdpWithUnsupportedMediaType) {
-  bool use_sctpmap = true;
-  AddSctpDataChannel(use_sctpmap);
-  JsepSessionDescription jdesc(kDummyType);
-  ASSERT_TRUE(jdesc.Initialize(desc_.Clone(), kSessionId, kSessionVersion));
-
   std::string sdp = kSdpSessionString;
   sdp +=
       "m=bogus 9 RTP/SAVPF 0 8\r\n"
-      "c=IN IP4 0.0.0.0\r\n";
+      "c=IN IP4 0.0.0.0\r\n"
+      "a=mid:bogusmid\r\n";
   sdp +=
       "m=audio/something 9 RTP/SAVPF 0 8\r\n"
-      "c=IN IP4 0.0.0.0\r\n";
+      "c=IN IP4 0.0.0.0\r\n"
+      "a=mid:somethingmid\r\n";
 
   JsepSessionDescription jdesc_output(kDummyType);
   EXPECT_TRUE(SdpDeserialize(sdp, &jdesc_output));
 
-  EXPECT_EQ(0u, jdesc_output.description()->contents().size());
+  ASSERT_EQ(2u, jdesc_output.description()->contents().size());
+  ASSERT_NE(nullptr, jdesc_output.description()
+                         ->contents()[0]
+                         .media_description()
+                         ->as_unsupported());
+  ASSERT_NE(nullptr, jdesc_output.description()
+                         ->contents()[1]
+                         .media_description()
+                         ->as_unsupported());
+
+  EXPECT_TRUE(jdesc_output.description()->contents()[0].rejected);
+  EXPECT_TRUE(jdesc_output.description()->contents()[1].rejected);
+
+  EXPECT_EQ(jdesc_output.description()->contents()[0].name, "bogusmid");
+  EXPECT_EQ(jdesc_output.description()->contents()[1].name, "somethingmid");
+}
+
+TEST_F(WebRtcSdpTest, MediaTypeProtocolMismatch) {
+  std::string sdp =
+      "v=0\r\n"
+      "o=- 18446744069414584320 18446462598732840960 IN IP4 127.0.0.1\r\n"
+      "s=-\r\n"
+      "t=0 0\r\n";
+
+  ExpectParseFailure(std::string(sdp + "m=audio 9 UDP/DTLS/SCTP 120\r\n"),
+                     "m=audio");
+  ExpectParseFailure(std::string(sdp + "m=video 9 UDP/DTLS/SCTP 120\r\n"),
+                     "m=video");
+  ExpectParseFailure(std::string(sdp + "m=video 9 SOMETHING 120\r\n"),
+                     "m=video");
+  ExpectParseFailure(std::string(sdp + "m=application 9 SOMETHING 120\r\n"),
+                     "m=application");
 }

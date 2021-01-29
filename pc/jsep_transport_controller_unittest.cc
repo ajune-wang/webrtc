@@ -82,6 +82,7 @@ class JsepTransportControllerTest : public JsepTransportController::Observer,
                              int64_t packet_time_us) { RTC_NOTREACHED(); };
     config.ice_transport_factory = fake_ice_transport_factory_.get();
     config.dtls_transport_factory = fake_dtls_transport_factory_.get();
+    config.on_dtls_handshake_error_ = [](rtc::SSLHandshakeError s) {};
     transport_controller_ = std::make_unique<JsepTransportController>(
         signaling_thread, network_thread, port_allocator,
         nullptr /* async_resolver_factory */, config);
@@ -89,16 +90,28 @@ class JsepTransportControllerTest : public JsepTransportController::Observer,
   }
 
   void ConnectTransportControllerSignals() {
-    transport_controller_->SignalIceConnectionState.connect(
-        this, &JsepTransportControllerTest::OnConnectionState);
-    transport_controller_->SignalStandardizedIceConnectionState.connect(
-        this, &JsepTransportControllerTest::OnStandardizedIceConnectionState);
-    transport_controller_->SignalConnectionState.connect(
-        this, &JsepTransportControllerTest::OnCombinedConnectionState);
-    transport_controller_->SignalIceGatheringState.connect(
-        this, &JsepTransportControllerTest::OnGatheringState);
-    transport_controller_->SignalIceCandidatesGathered.connect(
-        this, &JsepTransportControllerTest::OnCandidatesGathered);
+    transport_controller_->SubscribeIceConnectionState(
+        [this](cricket::IceConnectionState s) {
+          JsepTransportControllerTest::OnConnectionState(s);
+        });
+    transport_controller_->SubscribeConnectionState(
+        [this](PeerConnectionInterface::PeerConnectionState s) {
+          JsepTransportControllerTest::OnCombinedConnectionState(s);
+        });
+    transport_controller_->SubscribeStandardizedIceConnectionState(
+        [this](PeerConnectionInterface::IceConnectionState s) {
+          JsepTransportControllerTest::OnStandardizedIceConnectionState(s);
+        });
+    transport_controller_->SubscribeIceGatheringState(
+        [this](cricket::IceGatheringState s) {
+          JsepTransportControllerTest::OnGatheringState(s);
+        });
+    transport_controller_->SubscribeIceCandidateGathered(
+        [this](const std::string& transport,
+               const std::vector<cricket::Candidate>& candidates) {
+          JsepTransportControllerTest::OnCandidatesGathered(transport,
+                                                            candidates);
+        });
   }
 
   std::unique_ptr<cricket::SessionDescription>

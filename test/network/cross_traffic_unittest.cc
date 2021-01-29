@@ -16,6 +16,8 @@
 #include <vector>
 
 #include "absl/memory/memory.h"
+#include "absl/types/optional.h"
+#include "api/test/network_emulation_manager.h"
 #include "api/test/simulated_network.h"
 #include "call/simulated_network.h"
 #include "rtc_base/event.h"
@@ -24,6 +26,7 @@
 #include "test/gmock.h"
 #include "test/gtest.h"
 #include "test/network/network_emulation_manager.h"
+#include "test/network/traffic_route.h"
 #include "test/time_controller/simulated_time_controller.h"
 
 namespace webrtc {
@@ -46,19 +49,23 @@ struct TrafficCounterFixture {
   SimulatedClock clock{0};
   CountingReceiver counter;
   TaskQueueForTest task_queue_;
-  EmulatedEndpointImpl endpoint{/*id=*/1,
-                                rtc::IPAddress(kTestIpAddress),
-                                /*is_enabled=*/true,
-                                /*type=*/rtc::AdapterType::ADAPTER_TYPE_UNKNOWN,
-                                &task_queue_,
-                                &clock};
+  EmulatedEndpointImpl endpoint{
+      /*id=*/1,
+      absl::nullopt,
+      rtc::IPAddress(kTestIpAddress),
+      EmulatedEndpointConfig::StatsGatheringMode::kDefault,
+      /*is_enabled=*/true,
+      /*type=*/rtc::AdapterType::ADAPTER_TYPE_UNKNOWN,
+      &task_queue_,
+      &clock};
 };
 
 }  // namespace
 
 TEST(CrossTrafficTest, TriggerPacketBurst) {
   TrafficCounterFixture fixture;
-  TrafficRoute traffic(&fixture.clock, &fixture.counter, &fixture.endpoint);
+  CrossTrafficRouteImpl traffic(&fixture.clock, &fixture.counter,
+                                &fixture.endpoint);
   traffic.TriggerPacketBurst(100, 1000);
 
   EXPECT_EQ(fixture.counter.packets_count_, 100);
@@ -67,7 +74,8 @@ TEST(CrossTrafficTest, TriggerPacketBurst) {
 
 TEST(CrossTrafficTest, PulsedPeaksCrossTraffic) {
   TrafficCounterFixture fixture;
-  TrafficRoute traffic(&fixture.clock, &fixture.counter, &fixture.endpoint);
+  CrossTrafficRouteImpl traffic(&fixture.clock, &fixture.counter,
+                                &fixture.endpoint);
 
   PulsedPeaksConfig config;
   config.peak_rate = DataRate::KilobitsPerSec(1000);
@@ -92,7 +100,8 @@ TEST(CrossTrafficTest, PulsedPeaksCrossTraffic) {
 
 TEST(CrossTrafficTest, RandomWalkCrossTraffic) {
   TrafficCounterFixture fixture;
-  TrafficRoute traffic(&fixture.clock, &fixture.counter, &fixture.endpoint);
+  CrossTrafficRouteImpl traffic(&fixture.clock, &fixture.counter,
+                                &fixture.endpoint);
 
   RandomWalkConfig config;
   config.peak_rate = DataRate::KilobitsPerSec(1000);

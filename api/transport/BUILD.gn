@@ -93,6 +93,11 @@ rtc_library("goog_cc") {
   ]
 }
 
+rtc_source_set("sctp_transport_factory_interface") {
+  visibility = [ "*" ]
+  sources = [ "sctp_transport_factory_interface.h" ]
+}
+
 rtc_source_set("stun_types") {
   visibility = [ "*" ]
   sources = [
@@ -101,10 +106,14 @@ rtc_source_set("stun_types") {
   ]
 
   deps = [
+    "../../api:array_view",
     "../../rtc_base:checks",
+    "../../rtc_base:ip_address",
     "../../rtc_base:rtc_base",
     "../../rtc_base:rtc_base_approved",
+    "../../rtc_base:socket_address",
   ]
+  absl_deps = [ "//third_party/abseil-cpp/absl/strings" ]
 }
 
 if (rtc_include_tests) {
@@ -139,8 +148,8 @@ if (rtc_include_tests) {
     deps = [
       ":stun_types",
       "../../rtc_base",
-      "../../rtc_base:macromagic",
       "../../rtc_base:rtc_base_approved",
+      "../../rtc_base:socket_address",
       "../../test:test_support",
       "//testing/gtest",
     ]

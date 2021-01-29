@@ -33,6 +33,29 @@
       "message": "Looks good. Questions all answered in chat.\n",
       "revId": "5526c62dbeef95074f3de097d19eb392bf3d3519",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13f2a62f_973fc0b7",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 559,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-01-29T10:56:53Z",
+      "side": 1,
+      "message": "Would it be possible to move this to the caller, and not have to add the `first_time` argument to this method?",
+      "range": {
+        "startLine": 559,
+        "startChar": 0,
+        "endLine": 559,
+        "endChar": 50
+      },
+      "revId": "5526c62dbeef95074f3de097d19eb392bf3d3519",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

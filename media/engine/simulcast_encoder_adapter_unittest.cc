@@ -421,12 +421,22 @@ class TestSimulcastEncoderAdapterFake : public ::testing::Test,
   }
 
   void SetUp() override {
-    helper_ = std::make_unique<TestSimulcastEncoderAdapterFakeHelper>(
-        use_fallback_factory_, SdpVideoFormat("VP8", sdp_video_parameters_));
+    helper_.reset(new TestSimulcastEncoderAdapterFakeHelper(
+        use_fallback_factory_, SdpVideoFormat("VP8", sdp_video_parameters_)));
     adapter_.reset(helper_->CreateMockEncoderAdapter());
     last_encoded_image_width_ = -1;
     last_encoded_image_height_ = -1;
     last_encoded_image_simulcast_index_ = -1;
+  }
+
+  void ReSetUp() {
+    if (adapter_) {
+      adapter_->Release();
+      // helper_ owns factories which adapter_ needs to destroy encoders.
+      // Release adapter_ before helper_ (released in SetUp()).
+      adapter_.reset();
+    }
+    SetUp();
   }
 
   Result OnEncodedImage(const EncodedImage& encoded_image,
@@ -452,9 +462,20 @@ class TestSimulcastEncoderAdapterFake : public ::testing::Test,
   }
 
   void SetupCodec() {
+    SetupCodec(/*active_streams=*/{}, /*streams_count=*/absl::nullopt);
+  }
+
+  void SetupCodec(std::vector<bool> active_streams,
+                  absl::optional<int> streams_count) {
     SimulcastTestFixtureImpl::DefaultSettings(
         &codec_, static_cast<const int*>(kTestTemporalLayerProfile),
         kVideoCodecVP8);
+    codec_.numberOfSimulcastStreams =
+        streams_count.value_or(codec_.numberOfSimulcastStreams);
+    for (size_t stream_idx = 0; stream_idx < active_streams.size();
+         ++stream_idx) {
+      codec_.simulcastStream[stream_idx].active = active_streams[stream_idx];
+    }
     rate_allocator_.reset(new SimulcastRateAllocator(codec_));
     EXPECT_EQ(0, adapter_->InitEncode(&codec_, kSettings));
     adapter_->RegisterEncodeCompleteCallback(this);
@@ -579,7 +600,8 @@ TEST_F(TestSimulcastEncoderAdapterFake, EncodedCallbackForDifferentEncoders) {
   EXPECT_TRUE(GetLastEncodedImageInfo(&width, &height, &simulcast_index));
   EXPECT_EQ(1152, width);
   EXPECT_EQ(704, height);
-  EXPECT_EQ(0, simulcast_index);
+  // SEA doesn't intercept frame encode complete callback for the lowest stream.
+  EXPECT_EQ(-1, simulcast_index);
 
   encoders[1]->SendEncodedImage(300, 620);
   EXPECT_TRUE(GetLastEncodedImageInfo(&width, &height, &simulcast_index));
@@ -795,7 +817,8 @@ TEST_F(TestSimulcastEncoderAdapterFake, ReinitDoesNotReorderFrameSimulcastIdx) {
   int height;
   int simulcast_index;
   EXPECT_TRUE(GetLastEncodedImageInfo(&width, &height, &simulcast_index));
-  EXPECT_EQ(0, simulcast_index);
+  // SEA doesn't intercept frame encode complete callback for the lowest stream.
+  EXPECT_EQ(-1, simulcast_index);
 
   encoders[1]->SendEncodedImage(300, 620);
   EXPECT_TRUE(GetLastEncodedImageInfo(&width, &height, &simulcast_index));
@@ -815,7 +838,7 @@ TEST_F(TestSimulcastEncoderAdapterFake, ReinitDoesNotReorderFrameSimulcastIdx) {
   // Verify that the same encoder sends out frames on the same simulcast index.
   encoders[0]->SendEncodedImage(1152, 704);
   EXPECT_TRUE(GetLastEncodedImageInfo(&width, &height, &simulcast_index));
-  EXPECT_EQ(0, simulcast_index);
+  EXPECT_EQ(-1, simulcast_index);
 
   encoders[1]->SendEncodedImage(300, 620);
   EXPECT_TRUE(GetLastEncodedImageInfo(&width, &height, &simulcast_index));
@@ -1591,6 +1614,31 @@ TEST_F(TestSimulcastEncoderAdapterFake, SupportsPerSimulcastLayerMaxFramerate) {
   EXPECT_EQ(60u, helper_->factory()->encoders()[0]->codec().maxFramerate);
   EXPECT_EQ(30u, helper_->factory()->encoders()[1]->codec().maxFramerate);
   EXPECT_EQ(10u, helper_->factory()->encoders()[2]->codec().maxFramerate);
+}
+
+TEST_F(TestSimulcastEncoderAdapterFake, CreatesEncoderOnlyIfStreamIsActive) {
+  SetupCodec(/*active_streams=*/{}, /*streams_count=*/0);
+  EXPECT_EQ(1u, helper_->factory()->encoders().size());
+
+  ReSetUp();
+  helper_->factory()->set_supports_simulcast(false);
+  SetupCodec(/*active_streams=*/{true, true}, /*streams_count=*/2);
+  EXPECT_EQ(2u, helper_->factory()->encoders().size());
+
+  ReSetUp();
+  helper_->factory()->set_supports_simulcast(true);
+  SetupCodec(/*active_streams=*/{true, true}, /*streams_count=*/2);
+  EXPECT_EQ(1u, helper_->factory()->encoders().size());
+
+  ReSetUp();
+  helper_->factory()->set_supports_simulcast(false);
+  SetupCodec(/*active_streams=*/{true, false}, /*streams_count=*/2);
+  EXPECT_EQ(1u, helper_->factory()->encoders().size());
+
+  ReSetUp();
+  helper_->factory()->set_supports_simulcast(false);
+  SetupCodec(/*active_streams=*/{false, true}, /*streams_count=*/2);
+  EXPECT_EQ(1u, helper_->factory()->encoders().size());
 }
 
 }  // namespace test

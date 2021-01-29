@@ -16,6 +16,23 @@
       "message": "I believe I have the commit message correct now (this is obviously my first patch). Please let me know if there\u0027s anything else I need to do. Thanks!",
       "revId": "56771855a632d1887bcd025560e5abdb2c75e4e5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "953e5de3_2e62df5a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15935
+      },
+      "writtenOn": "2021-01-29T17:10:20Z",
+      "side": 1,
+      "message": "Hi Kári,\n\nIs there anything else I need to do for this? Thanks in advance.",
+      "revId": "56771855a632d1887bcd025560e5abdb2c75e4e5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

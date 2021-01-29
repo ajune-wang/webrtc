@@ -80,6 +80,75 @@
       },
       "revId": "5526c62dbeef95074f3de097d19eb392bf3d3519",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4f17999_baa89df5",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 878,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-29T11:23:48Z",
+      "side": 1,
+      "message": "This is an anti-pattern.\nIt is very nice to see you\u0027ve removed some usages like this, but it is better to avoid adding new ones.\nThis pattern may (and did) lead to a deadlock. E.g. when currently running thread/queue and worker_queue_ are backed up by the same thread pool with limited number of threads.\n\nEven when it doesn\u0027t lead to a deadlock, this pattern may be source of a long delay, since worker_queue_ has to run all previously posted task before even starting the task that was just posted.\n\nDoes this function has to wait for the posted task to complete? can it just pass all parameters by value and return fast?\n\nWhat thread/task_queue this function is running on? If it is a worker thread, then it might be safe for now. But generally this pattern should be avoided.",
+      "range": {
+        "startLine": 878,
+        "startChar": 2,
+        "endLine": 878,
+        "endChar": 47
+      },
+      "revId": "5526c62dbeef95074f3de097d19eb392bf3d3519",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52e879b9_5ef08ce8",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 944,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-29T11:23:48Z",
+      "side": 1,
+      "message": "Declare new_constraints variable outside lambda capture (with type written explicitly)\n\nhttps://google.github.io/styleguide/cppguide.html#Lambda_expressions\n\n\"Use captures only to actually capture variables from the enclosing scope. Do not use captures with initializers to introduce new names\"",
+      "range": {
+        "startLine": 944,
+        "startChar": 13,
+        "endLine": 944,
+        "endChar": 60
+      },
+      "revId": "5526c62dbeef95074f3de097d19eb392bf3d3519",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1e6c090_41f3b2b0",
+        "filename": "audio/audio_send_stream.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-29T11:23:48Z",
+      "side": 1,
+      "message": "this one looks more appropriate to keep on the worker_queue_\n(it\u0027s state de-factor changes on the worker_queue_ \nit is queried once on the worker thread, but seems that can be moved to the queue too, at the price of always posting a task, but as benefits it might allow to make those task asynchronius, removing dangerous rtc::Event::Wait)",
+      "range": {
+        "startLine": 216,
+        "startChar": 7,
+        "endLine": 216,
+        "endChar": 33
+      },
+      "revId": "5526c62dbeef95074f3de097d19eb392bf3d3519",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

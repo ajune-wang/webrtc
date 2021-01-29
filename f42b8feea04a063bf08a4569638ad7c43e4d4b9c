@@ -71,6 +71,41 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3564a561_0384d9b8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-29T09:06:34Z",
+      "side": 1,
+      "message": "I chatted with Tommi about the idea of making the network thread a global singleton (you can initialize it once, but if you try to initialize it to something else, you get an error when creating the PeerConnectionFactory).\n\nHe thought that sounded like a relatively safe way forward (given that Chromium already does this), and would make this CL safe for all cases.\n\nThe best way to resolve edge cases is to not have them.",
+      "parentUuid": "61aac71c_d35a2dae",
+      "revId": "f42b8feea04a063bf08a4569638ad7c43e4d4b9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8be95140_8c3e5acd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-29T09:06:34Z",
+      "side": 1,
+      "message": "Can we make this the right solution for all cases?\n",
+      "revId": "f42b8feea04a063bf08a4569638ad7c43e4d4b9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c70cdd24_4033cb75",

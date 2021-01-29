@@ -106,6 +106,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5db8fba2_9cede092",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-01-29T20:16:27Z",
+      "side": 1,
+      "message": "What is the main downside in your opinion of supporting this edge case? Is it the additional code? Or is it the fact that some users of WebRTC will be vulnerable to race conditions while others aren\u0027t?\n\nMaybe we can discuss this in the next WebRTC core meeting, in the interest of time, since I\u0027d like this to be fixed by M90, optimally merged to M89 as well.",
+      "parentUuid": "3564a561_0384d9b8",
+      "revId": "f42b8feea04a063bf08a4569638ad7c43e4d4b9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c70cdd24_4033cb75",

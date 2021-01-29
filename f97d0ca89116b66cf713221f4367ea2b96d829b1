@@ -286,6 +286,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "00b37427_e8738f3f",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-01-29T11:59:59Z",
+      "side": 1,
+      "message": "I don\u0027t get it.\n\nis_lowest_quality_stream\u003d\u003dtrue in two cases: we are creating a simulcast encoder for bypass mode, or encoder for the lowest active stream.\n\nWe push to stored encoders when re-initializing the encoder.\nAnd, if we succeeded in creating a simulcast encoder, we clear all the encoders.\n\nNote, the libvpx encoder will stop supporting the simulcast if the scaling factors are not standard, for example. Or number of temporal layers per stream is different.\n\nThus, consider the situation: streams were using non-standard scaling factors. We created 3 separate encoders for streams and only one of these has |is_lowest_quality_stream\u003d\u003dtrue|. Then the user has changed scaling factors to standard ones via transcievers API and InitEncode is called. All 3 encoders are stored now.\n\nThen, first FetchOrCreateEncoder() call tries to get the encoder for standard simulcast, however, it may take any of the 3 encoders in stored_encoders_, even one with is_lowest_quality_stream\u003d\u003dfalse. Even though this is the case where we want it to be true (because the lowest stream may be any of the 3 - order is not fixed).\n\nEven if there\u0027s some more complicated logic which may prevent this exact scenario, it\u0027s still dangerous: we cache encoders with different parameters in the same vector regardless of their actual parameters.",
+      "parentUuid": "785ef2bf_d977fbe1",
+      "range": {
+        "startLine": 671,
+        "startChar": 9,
+        "endLine": 671,
+        "endChar": 33
+      },
+      "revId": "f97d0ca89116b66cf713221f4367ea2b96d829b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9bf70380_cd862455",
         "filename": "media/engine/simulcast_encoder_adapter_unittest.cc",
         "patchSetId": 5

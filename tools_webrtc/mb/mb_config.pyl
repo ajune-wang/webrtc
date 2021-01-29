@@ -176,6 +176,7 @@
       'linux_compile_gcc_rel': 'gcc_release_bot_x64',
       'linux_dbg': 'debug_bot_x64',
       'linux_rel': 'release_bot_x64',
+      'coverage': 'coverage_release_bot_x64',
       'linux_x86_rel': 'release_bot_x86',
       'linux_x86_dbg': 'no_h264_debug_bot_x86',
       'linux_asan': 'asan_lsan_clang_release_bot_x64',
@@ -301,6 +302,9 @@
     ],
     'release_bot_x64': [
       'openh264', 'release_bot', 'x64'
+    ],
+    'coverage_release_bot_x64': [
+      'openh264', 'release_bot', 'x64', 'coverage'
     ],
     'pure_release_bot_x86': [
       'openh264', 'pure_release_bot', 'x86'
@@ -478,6 +482,10 @@
     # is_clang=true by default, this is only to guard from upstream changes.
     'clang': {
       'gn_args': 'is_clang=true',
+    },
+
+    'coverage': {
+      'gn_args': 'use_clang_coverage=true',
     },
 
     'dcheck_always_on': {

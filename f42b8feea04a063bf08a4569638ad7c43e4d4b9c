@@ -53,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "61aac71c_d35a2dae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-01-29T00:24:08Z",
+      "side": 1,
+      "message": "It\u0027s already safe though; chromium only has one PeerConnectionFactory per renderer process, no? We can\u0027t force the network thread to be a singleton in general since that would break other applications/tests using separate threads. \n\nPersonally, I don\u0027t think this CL\u0027s approach is that ugly that it warrants greater architectural changes",
+      "parentUuid": "a28f528e_151297c5",
+      "revId": "f42b8feea04a063bf08a4569638ad7c43e4d4b9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c70cdd24_4033cb75",

@@ -221,6 +221,30 @@
       },
       "revId": "5526c62dbeef95074f3de097d19eb392bf3d3519",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81481710_9d2602ec",
+        "filename": "audio/audio_send_stream.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-01-29T12:51:38Z",
+      "side": 1,
+      "message": "The issue is that in one place registered_with_allocator_ is guarding call to the ConfigureBitrateObserver() and in other places ConfigureBitrateObserver() is called without a check to it. So to move it on the queue we need to add bool param to ConfigureBitrateObserver() to distinguish a case where we need to check registered_with_allocator_ before updating the observer and where we needn\u0027t. It is possible, but will be a bit messy. \n\nWDYT about it?",
+      "parentUuid": "c1e6c090_41f3b2b0",
+      "range": {
+        "startLine": 216,
+        "startChar": 7,
+        "endLine": 216,
+        "endChar": 33
+      },
+      "revId": "5526c62dbeef95074f3de097d19eb392bf3d3519",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

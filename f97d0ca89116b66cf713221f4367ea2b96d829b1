@@ -95,6 +95,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f09e9c2d_a969418b",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-01-29T11:32:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8328f828_12114dfd",
+      "range": {
+        "startLine": 380,
+        "startChar": 10,
+        "endLine": 380,
+        "endChar": 34
+      },
+      "revId": "f97d0ca89116b66cf713221f4367ea2b96d829b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e5d57beb_d208bcd7",
@@ -118,6 +142,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f28aadb4_2741050d",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-01-29T11:32:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e5d57beb_d208bcd7",
+      "range": {
+        "startLine": 381,
+        "startChar": 10,
+        "endLine": 381,
+        "endChar": 35
+      },
+      "revId": "f97d0ca89116b66cf713221f4367ea2b96d829b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c6bf9b28_2eb844d2",
@@ -131,6 +179,30 @@
       "writtenOn": "2021-01-28T10:56:57Z",
       "side": 1,
       "message": "|bypass_mode_| would be clearer here.",
+      "range": {
+        "startLine": 483,
+        "startChar": 8,
+        "endLine": 483,
+        "endChar": 37
+      },
+      "revId": "f97d0ca89116b66cf713221f4367ea2b96d829b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "417fc0e0_2ef70fc0",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-01-29T11:32:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c6bf9b28_2eb844d2",
       "range": {
         "startLine": 483,
         "startChar": 8,
@@ -166,6 +238,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a43a9adf_acf545bc",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-01-29T11:32:59Z",
+      "side": 1,
+      "message": "hm, it seems there is an issue with prefer_temporal_support_on_base_layer_: when number of active layers\u003d1 (singlecast) and prefer_temporal_support_on_base_layer_\u003dtrue, SEA always falls back to SW because is_lowest_quality_stream\u003dtrue. I.e., SW will be used to encode HD layer.\n\n+jakobi@",
+      "parentUuid": "f95b1251_17245d72",
+      "range": {
+        "startLine": 671,
+        "startChar": 9,
+        "endLine": 671,
+        "endChar": 33
+      },
+      "revId": "f97d0ca89116b66cf713221f4367ea2b96d829b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9bf70380_cd862455",
         "filename": "media/engine/simulcast_encoder_adapter_unittest.cc",
         "patchSetId": 5
@@ -177,6 +273,30 @@
       "writtenOn": "2021-01-28T10:56:57Z",
       "side": 1,
       "message": "Please update this to keep track of number of created encoders.\n\nAdd a test which have some inactive streams and checks that only, say, 2 out of 3 encoders were actually created by querying the factory().",
+      "range": {
+        "startLine": 164,
+        "startChar": 6,
+        "endLine": 164,
+        "endChar": 29
+      },
+      "revId": "f97d0ca89116b66cf713221f4367ea2b96d829b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ea28349_b30ffe35",
+        "filename": "media/engine/simulcast_encoder_adapter_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-01-29T11:32:59Z",
+      "side": 1,
+      "message": "Added CreatesEncoderOnlyIfStreamIsActive",
+      "parentUuid": "9bf70380_cd862455",
       "range": {
         "startLine": 164,
         "startChar": 6,

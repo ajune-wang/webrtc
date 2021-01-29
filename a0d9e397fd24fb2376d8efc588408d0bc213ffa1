@@ -16,6 +16,23 @@
       "message": "I expect this to go green so feel free to review.",
       "revId": "a0d9e397fd24fb2376d8efc588408d0bc213ffa1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9beacd32_99bca093",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5106
+      },
+      "writtenOn": "2021-01-29T13:50:53Z",
+      "side": 1,
+      "message": "LGTM, but I don\u0027t have right for code review label.",
+      "revId": "a0d9e397fd24fb2376d8efc588408d0bc213ffa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

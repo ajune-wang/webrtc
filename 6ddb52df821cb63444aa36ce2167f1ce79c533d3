@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "53635951_2def0ab0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 11540
+      },
+      "writtenOn": "2021-01-29T14:45:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ee737d1_8f7231fb",
+      "range": {
+        "startLine": 9,
+        "startChar": 65,
+        "endLine": 11,
+        "endChar": 16
+      },
+      "revId": "6ddb52df821cb63444aa36ce2167f1ce79c533d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "1d580fc6_ad2c4f04",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 13
@@ -66,6 +90,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f203e69f_7ececcd5",
+        "filename": "audio/voip/BUILD.gn",
+        "patchSetId": 13
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 11540
+      },
+      "writtenOn": "2021-01-29T14:45:33Z",
+      "side": 1,
+      "message": "It basically can\u0027t find some symbols. But the interesting thing is that when I\u0027ve tried to repro the issue - I couldn\u0027t. So now it builds fine. Idk why. Do you think we should return those targets to the build?\n\nWe use different files for chromium and webrtc: https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/rtc_base/BUILD.gn;l\u003d292 . Those two files have diverged a lot with time. So now they are really different. \n\nWe cant try to put them back in sync as a follow up for this CL. But I\u0027m not sure how important is it.",
+      "parentUuid": "7404d1ab_861b5b8c",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 1
+      },
+      "revId": "6ddb52df821cb63444aa36ce2167f1ce79c533d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "21cd4870_f6fc3f62",
         "filename": "logging/BUILD.gn",
         "patchSetId": 13
@@ -77,6 +125,30 @@
       "writtenOn": "2021-01-29T13:57:01Z",
       "side": 1,
       "message": "This is me trying to understand as much as possible, this is needed because of the absl/flags linker error, is this correct?",
+      "range": {
+        "startLine": 411,
+        "startChar": 4,
+        "endLine": 411,
+        "endChar": 31
+      },
+      "revId": "6ddb52df821cb63444aa36ce2167f1ce79c533d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94a5e401_8774c742",
+        "filename": "logging/BUILD.gn",
+        "patchSetId": 13
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 11540
+      },
+      "writtenOn": "2021-01-29T14:45:33Z",
+      "side": 1,
+      "message": "Yes",
+      "parentUuid": "21cd4870_f6fc3f62",
       "range": {
         "startLine": 411,
         "startChar": 4,

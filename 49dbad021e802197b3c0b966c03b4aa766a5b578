@@ -118,6 +118,30 @@
       },
       "revId": "49dbad021e802197b3c0b966c03b4aa766a5b578",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a995a90_cdbae396",
+        "filename": "DEPS",
+        "patchSetId": 5
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-29T13:17:44Z",
+      "side": 0,
+      "message": "What\u0027s the content of \"AppRTCMobile_test_apk.isolate\"?\n\n$ cat out/Debug/AppRTCMobile_test_apk.isolate | grep swarming\n                         \u0027../../tools/swarming_client/libs/__init__.py\u0027,\n                         \u0027../../tools/swarming_client/libs/logdog/__init__.py\u0027,\n                         \u0027../../tools/swarming_client/libs/logdog/bootstrap.py\u0027,\n                         \u0027../../tools/swarming_client/libs/logdog/stream.py\u0027,\n                         \u0027../../tools/swarming_client/libs/logdog/streamname.py\u0027,\n                         \u0027../../tools/swarming_client/libs/logdog/varint.py\u0027,",
+      "parentUuid": "34b2ae18_925e7df6",
+      "range": {
+        "startLine": 261,
+        "startChar": 2,
+        "endLine": 262,
+        "endChar": 106
+      },
+      "revId": "49dbad021e802197b3c0b966c03b4aa766a5b578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

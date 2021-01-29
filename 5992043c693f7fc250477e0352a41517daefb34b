@@ -33,6 +33,24 @@
       "message": "Can you run my new fancy demo page with a Chrome compiled with the change and see if the change makes a difference for the audio glitch impact of large negotiations?\nIf it doesn\u0027t make a difference, don\u0027t do it; if it makes a difference, let\u0027s do it.\n\nI\u0027m reluctant to add (back) more overhead to SLD/SRD given that we\u0027re still 10x slower than Firefox in this area.\n\nhttps://webrtc.github.io/samples/src/content/peerconnection/negotiate-timing/ - watch the \"audio impairment\" number. You probably need to push the \"sections after\" number to 50 to see an effect.",
       "revId": "5992043c693f7fc250477e0352a41517daefb34b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18c4e960_9fd7fff6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-01-29T00:19:53Z",
+      "side": 1,
+      "message": "Here\u0027s what I got with 50 transceivers: https://docs.google.com/spreadsheets/d/1E9PC04JW0-vgSSiy9XTxtjQM31RKHhIwWPERL70e5pA/edit?usp\u003dsharing\u0026resourcekey\u003d0-hANGIXWVFuEPbWoqOU5TcA\n\nNo statistical difference in negotiation time (granted, the effect is smaller on OS X than on Linux/ChromeOS), but there is a clear difference in concealed samples. Was only non-zero when negotiation took \u003e1s.\n\nI\u0027ll look into what\u0027s causing those spikes later. Unfortunately chrome://tracing messes with the timing way too much so I\u0027ll need another approach.",
+      "parentUuid": "b18af24a_69bac7a2",
+      "revId": "5992043c693f7fc250477e0352a41517daefb34b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

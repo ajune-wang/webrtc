@@ -16,6 +16,24 @@
       "message": "Strange that git cl format is indifferent to those blank lines.... added all the ones you commented on.\n",
       "revId": "b53aabb9a303f665ab92e4cc37cc355d1d3339ab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee6f493b_5c6223af",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-29T14:56:18Z",
+      "side": 1,
+      "message": "Thank you!\n\nYes, that is strange. Maybe we need to change something in https://webrtc.googlesource.com/src/+/refs/heads/master/.clang-format.",
+      "parentUuid": "d4528066_e1a02fb9",
+      "revId": "b53aabb9a303f665ab92e4cc37cc355d1d3339ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

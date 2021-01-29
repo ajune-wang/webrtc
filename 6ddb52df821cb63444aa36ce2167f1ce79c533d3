@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ee737d1_8f7231fb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-29T13:57:01Z",
+      "side": 1,
+      "message": "Feel free to call out that `rtc_include_tests\u003dtrue` has been considered a way to disable targets for the Chromium build, causing an overload on rtc_include_tests while the meaning of the two GN args should be kept separated.",
+      "range": {
+        "startLine": 9,
+        "startChar": 65,
+        "endLine": 11,
+        "endChar": 16
+      },
+      "revId": "6ddb52df821cb63444aa36ce2167f1ce79c533d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d580fc6_ad2c4f04",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-29T13:57:01Z",
+      "side": 1,
+      "message": "Congrats for the work, this was not easy at all!\n\nOverall LGTM, I am just interested in trying to remove the exception for audio/voip (see comment) but after that we can go.",
+      "revId": "6ddb52df821cb63444aa36ce2167f1ce79c533d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7404d1ab_861b5b8c",
+        "filename": "audio/voip/BUILD.gn",
+        "patchSetId": 13
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-29T13:57:01Z",
+      "side": 1,
+      "message": "The common pattern in the CL is that we need to remove tests (because they have runtime deps resources) or rtc_executable (because we don\u0027t need them except for the three that are allowed to statically link absl). These audio/voip targets are kind of an exception and if I remember correctly it is because of a problem with logging.\n\nCan you paste here the error? I wonder if we can avoid these.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 1
+      },
+      "revId": "6ddb52df821cb63444aa36ce2167f1ce79c533d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21cd4870_f6fc3f62",
+        "filename": "logging/BUILD.gn",
+        "patchSetId": 13
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-29T13:57:01Z",
+      "side": 1,
+      "message": "This is me trying to understand as much as possible, this is needed because of the absl/flags linker error, is this correct?",
+      "range": {
+        "startLine": 411,
+        "startChar": 4,
+        "endLine": 411,
+        "endChar": 31
+      },
+      "revId": "6ddb52df821cb63444aa36ce2167f1ce79c533d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

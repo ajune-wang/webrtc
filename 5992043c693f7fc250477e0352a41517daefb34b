@@ -51,6 +51,24 @@
       "parentUuid": "b18af24a_69bac7a2",
       "revId": "5992043c693f7fc250477e0352a41517daefb34b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2b2e1a0_ee6b6d12",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-29T09:38:27Z",
+      "side": 1,
+      "message": "That\u0027s good data. I approve of this revert.",
+      "parentUuid": "18c4e960_9fd7fff6",
+      "revId": "5992043c693f7fc250477e0352a41517daefb34b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

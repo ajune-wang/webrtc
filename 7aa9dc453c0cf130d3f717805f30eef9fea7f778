@@ -119,6 +119,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca944371_38fb637b",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 866,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-01-29T17:19:28Z",
+      "side": 1,
+      "message": "hm, I think this way it would work (and it is much simpler than I imagine):\n\nThe only concern is setting registered_with_allocator_ to false, but that is done synchroniously, so shouldn\u0027t be a problem either.",
+      "parentUuid": "f8f8f1c8_616337fa",
+      "range": {
+        "startLine": 866,
+        "startChar": 0,
+        "endLine": 866,
+        "endChar": 47
+      },
+      "revId": "7aa9dc453c0cf130d3f717805f30eef9fea7f778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a5b5fe03_a7718e96",

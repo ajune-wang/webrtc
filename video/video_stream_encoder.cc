@@ -1547,9 +1547,10 @@ void VideoStreamEncoder::EncodeVideoFrame(const VideoFrame& video_frame,
   last_encode_info_ms_ = clock_->TimeInMilliseconds();
 
   VideoFrame out_frame(video_frame);
+  bool convert_to_nv12buffer = false;
   if (out_frame.video_frame_buffer()->type() ==
           VideoFrameBuffer::Type::kNative &&
-      !info.supports_native_handle) {
+      !info.supports_native_handle && convert_to_nv12buffer) {
     // This module only supports software encoding.
     rtc::scoped_refptr<VideoFrameBuffer> buffer =
         out_frame.video_frame_buffer()->GetMappedFrameBuffer(

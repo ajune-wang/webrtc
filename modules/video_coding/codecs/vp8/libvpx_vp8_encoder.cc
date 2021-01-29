@@ -888,6 +888,7 @@ int LibvpxVp8Encoder::Encode(const VideoFrame& frame,
                              const std::vector<VideoFrameType>* frame_types) {
   RTC_DCHECK_EQ(frame.width(), codec_.width);
   RTC_DCHECK_EQ(frame.height(), codec_.height);
+  TRACE_EVENT0("webrtc", "LibvpxVp8Encoder::Encode");
 
   if (!inited_)
     return WEBRTC_VIDEO_CODEC_UNINITIALIZED;
@@ -956,6 +957,9 @@ int LibvpxVp8Encoder::Encode(const VideoFrame& frame,
       break;
     case VideoFrameBuffer::Type::kNV12:
       PrepareNV12Image(input_image->GetNV12());
+      break;
+    case VideoFrameBuffer::Type::kNative:
+      PrepareNV12ImageOnNativeInput(input_image);
       break;
     default: {
       rtc::scoped_refptr<I420BufferInterface> i420_image =
@@ -1326,6 +1330,72 @@ void LibvpxVp8Encoder::PrepareNV12Image(const NV12BufferInterface* frame) {
         raw_images_[i].stride[VPX_PLANE_U], raw_images_[i].d_w,
         raw_images_[i].d_h, libyuv::kFilterBilinear);
     raw_images_[i].planes[VPX_PLANE_V] = raw_images_[i].planes[VPX_PLANE_U] + 1;
+  }
+}
+
+void LibvpxVp8Encoder::PrepareNV12ImageOnNativeInput(
+    rtc::scoped_refptr<VideoFrameBuffer> frame_buffer) {
+  RTC_DCHECK(!raw_images_.empty());
+  MaybeUpdatePixelFormat(VPX_IMG_FMT_NV12);
+
+  // Image in vpx_image_t format.
+  // Input image is const. VP8's raw image is not defined as const.
+  VideoEncoder::EncoderInfo info = GetEncoderInfo();
+  auto frame = frame_buffer->GetMappedFrameBuffer(info.preferred_pixel_formats)
+                   ->GetNV12();
+  raw_images_[0].planes[VPX_PLANE_Y] = const_cast<uint8_t*>(frame->DataY());
+  raw_images_[0].planes[VPX_PLANE_U] = const_cast<uint8_t*>(frame->DataUV());
+  raw_images_[0].planes[VPX_PLANE_V] = raw_images_[0].planes[VPX_PLANE_U] + 1;
+  raw_images_[0].stride[VPX_PLANE_Y] = frame->StrideY();
+  raw_images_[0].stride[VPX_PLANE_U] = frame->StrideUV();
+  raw_images_[0].stride[VPX_PLANE_V] = frame->StrideUV();
+
+  bool use_mojoIP_scaling = true;
+  for (size_t i = 1; i < encoders_.size(); ++i) {
+    // Scale the image down a number of times by downsampling factor
+    if (use_mojoIP_scaling) {
+      TRACE_EVENT0(
+          "webrtc",
+          "LibvpxVp8Encoder::PrepareNV12ImageOnNativeInput::MojoIPScaling");
+      if (test_flag) {
+        RTC_LOG(LS_ERROR) << __func__ << " zlmatest hw scaling";
+        test_flag = false;
+      }
+      auto scaled_video_frame_buffer = frame_buffer->CropAndScale(
+          0, 0, 0, 0, raw_images_[i].d_w, raw_images_[i].d_h);
+      auto scaled_buffer = static_cast<const NV12BufferInterface*>(
+          scaled_video_frame_buffer.get());
+      raw_images_[i].planes[VPX_PLANE_Y] =
+          const_cast<uint8_t*>(scaled_buffer->DataY());
+      raw_images_[i].planes[VPX_PLANE_U] =
+          const_cast<uint8_t*>(scaled_buffer->DataUV());
+      raw_images_[i].planes[VPX_PLANE_V] =
+          raw_images_[i].planes[VPX_PLANE_U] + 1;
+      raw_images_[i].stride[VPX_PLANE_Y] = scaled_buffer->StrideY();
+      raw_images_[i].stride[VPX_PLANE_U] = scaled_buffer->StrideUV();
+      raw_images_[i].stride[VPX_PLANE_V] = scaled_buffer->StrideUV();
+    } else {
+      TRACE_EVENT0(
+          "webrtc",
+          "LibvpxVp8Encoder::PrepareNV12ImageOnNativeInput::LibyuvScaling");
+      if (test_flag) {
+        RTC_LOG(LS_ERROR) << __func__ << " zlmatest libyuv scaling";
+        test_flag = false;
+      }
+
+      libyuv::NV12Scale(raw_images_[i - 1].planes[VPX_PLANE_Y],
+                        raw_images_[i - 1].stride[VPX_PLANE_Y],
+                        raw_images_[i - 1].planes[VPX_PLANE_U],
+                        raw_images_[i - 1].stride[VPX_PLANE_U],
+                        raw_images_[i - 1].d_w, raw_images_[i - 1].d_h,
+                        raw_images_[i].planes[VPX_PLANE_Y],
+                        raw_images_[i].stride[VPX_PLANE_Y],
+                        raw_images_[i].planes[VPX_PLANE_U],
+                        raw_images_[i].stride[VPX_PLANE_U], raw_images_[i].d_w,
+                        raw_images_[i].d_h, libyuv::kFilterBilinear);
+      raw_images_[i].planes[VPX_PLANE_V] =
+          raw_images_[i].planes[VPX_PLANE_U] + 1;
+    }
   }
 }
 

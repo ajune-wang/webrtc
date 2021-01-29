@@ -96,6 +96,8 @@ class LibvpxVp8Encoder : public VideoEncoder {
   void MaybeUpdatePixelFormat(vpx_img_fmt fmt);
   void PrepareI420Image(const I420BufferInterface* frame);
   void PrepareNV12Image(const NV12BufferInterface* frame);
+  void PrepareNV12ImageOnNativeInput(
+      rtc::scoped_refptr<VideoFrameBuffer> frame_buffer);
 
   const std::unique_ptr<LibvpxInterface> libvpx_;
 
@@ -128,6 +130,7 @@ class LibvpxVp8Encoder : public VideoEncoder {
   std::vector<vpx_codec_enc_cfg_t> vpx_configs_;
   std::vector<Vp8EncoderConfig> config_overrides_;
   std::vector<vpx_rational_t> downsampling_factors_;
+  bool test_flag = true;
 
   // Variable frame-rate screencast related fields and methods.
   const struct VariableFramerateExperiment {

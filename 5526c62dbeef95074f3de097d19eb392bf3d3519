@@ -131,6 +131,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dab9b193_b12af380",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 878,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-01-29T12:49:22Z",
+      "side": 1,
+      "message": "I also worrying, can observer be expected ready after this method call and used in some way on the caller side?",
+      "parentUuid": "e5bd9d7c_ab822252",
+      "range": {
+        "startLine": 878,
+        "startChar": 2,
+        "endLine": 878,
+        "endChar": 47
+      },
+      "revId": "5526c62dbeef95074f3de097d19eb392bf3d3519",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "52e879b9_5ef08ce8",
         "filename": "audio/audio_send_stream.cc",
         "patchSetId": 5
@@ -142,6 +166,30 @@
       "writtenOn": "2021-01-29T11:23:48Z",
       "side": 1,
       "message": "Declare new_constraints variable outside lambda capture (with type written explicitly)\n\nhttps://google.github.io/styleguide/cppguide.html#Lambda_expressions\n\n\"Use captures only to actually capture variables from the enclosing scope. Do not use captures with initializers to introduce new names\"",
+      "range": {
+        "startLine": 944,
+        "startChar": 13,
+        "endLine": 944,
+        "endChar": 60
+      },
+      "revId": "5526c62dbeef95074f3de097d19eb392bf3d3519",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95b61b7c_ca5f60f6",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 944,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-01-29T12:49:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52e879b9_5ef08ce8",
       "range": {
         "startLine": 944,
         "startChar": 13,

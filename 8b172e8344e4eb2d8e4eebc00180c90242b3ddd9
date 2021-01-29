@@ -65,6 +65,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a4087c9_2ba0f7a5",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 682,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-01-29T12:49:22Z",
+      "side": 1,
+      "message": "It was for debugging, thank you for catching this, removed.\nThe right thread is worker_thread_checker_ and it will take this lock here.",
+      "parentUuid": "467f1f71_e4999163",
+      "range": {
+        "startLine": 682,
+        "startChar": 2,
+        "endLine": 682,
+        "endChar": 8
+      },
+      "revId": "8b172e8344e4eb2d8e4eebc00180c90242b3ddd9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6a52d8d6_d6e220c3",
@@ -88,6 +112,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "20aa7c0e_8070233f",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-01-29T12:49:22Z",
+      "side": 1,
+      "message": "Same as above. Fixed.",
+      "parentUuid": "6a52d8d6_d6e220c3",
+      "range": {
+        "startLine": 728,
+        "startChar": 2,
+        "endLine": 728,
+        "endChar": 8
+      },
+      "revId": "8b172e8344e4eb2d8e4eebc00180c90242b3ddd9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7a3beb9d_bde31d4f",
@@ -101,6 +149,30 @@
       "writtenOn": "2021-01-29T11:47:32Z",
       "side": 1,
       "message": "Same here",
+      "range": {
+        "startLine": 762,
+        "startChar": 2,
+        "endLine": 762,
+        "endChar": 8
+      },
+      "revId": "8b172e8344e4eb2d8e4eebc00180c90242b3ddd9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6dd60ed_a43cba83",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 762,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-01-29T12:49:22Z",
+      "side": 1,
+      "message": "Same as above. Fixed.",
+      "parentUuid": "7a3beb9d_bde31d4f",
       "range": {
         "startLine": 762,
         "startChar": 2,

@@ -142,6 +142,30 @@
       },
       "revId": "49dbad021e802197b3c0b966c03b4aa766a5b578",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a99d865e_458a43f2",
+        "filename": "DEPS",
+        "patchSetId": 5
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 5106
+      },
+      "writtenOn": "2021-01-29T13:25:01Z",
+      "side": 0,
+      "message": "does the test fail if you remove those files?",
+      "parentUuid": "2a995a90_cdbae396",
+      "range": {
+        "startLine": 261,
+        "startChar": 2,
+        "endLine": 262,
+        "endChar": 106
+      },
+      "revId": "49dbad021e802197b3c0b966c03b4aa766a5b578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

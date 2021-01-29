@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5556e8cc_435f9e79",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 513,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-01-29T15:00:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "82006fcf_eeeac6f8",
+      "range": {
+        "startLine": 513,
+        "startChar": 2,
+        "endLine": 513,
+        "endChar": 46
+      },
+      "revId": "7aa9dc453c0cf130d3f717805f30eef9fea7f778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2f3f05c8_7e3969d5",
@@ -60,6 +84,30 @@
       "writtenOn": "2021-01-29T14:58:00Z",
       "side": 1,
       "message": "ConfigureBitrateObsever is called from UpdateOverheadForEncoder,\nThat one is called while holding mutex overhead_per_packet_lock_,\ni.e. this Wait happens while holding mutex.\nThat increases chance of a deadlock.\n\nOne potential way to make it asynchronous is inside the task add a \"reply\" task in the end:\nworker_thread_-\u003ePostTask(ToQueuedTask([this] { register_with_allocator_ \u003d true; }));\n\n(but may be it is safer to move register_with_allocator_ to the task_queue and, as you\u0027ve suggested, add an extra parameter to the ConfigureBitrateObserver that tells if register_with_allocator_ needs to be checked.)",
+      "parentUuid": "2f3f05c8_7e3969d5",
+      "range": {
+        "startLine": 866,
+        "startChar": 0,
+        "endLine": 866,
+        "endChar": 47
+      },
+      "revId": "7aa9dc453c0cf130d3f717805f30eef9fea7f778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8f8f1c8_616337fa",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 866,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-01-29T15:00:44Z",
+      "side": 1,
+      "message": "Made it async, let\u0027s see if test will pass.",
       "parentUuid": "2f3f05c8_7e3969d5",
       "range": {
         "startLine": 866,

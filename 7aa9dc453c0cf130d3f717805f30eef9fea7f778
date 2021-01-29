@@ -140,6 +140,30 @@
       },
       "revId": "7aa9dc453c0cf130d3f717805f30eef9fea7f778",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff561e45_11fd3e0f",
+        "filename": "audio/audio_send_stream.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-01-29T15:02:06Z",
+      "side": 1,
+      "message": "To make it explicitly uninitialized before first assign. It will make it easier to spot an issue with access before correct init.",
+      "parentUuid": "a5b5fe03_a7718e96",
+      "range": {
+        "startLine": 194,
+        "startChar": 2,
+        "endLine": 194,
+        "endChar": 16
+      },
+      "revId": "7aa9dc453c0cf130d3f717805f30eef9fea7f778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

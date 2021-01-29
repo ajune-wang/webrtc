@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4794a7a5_ae51d959",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-01-29T08:17:17Z",
+      "side": 1,
+      "message": "the fuzzer found a thing and it was slightly different from what I expected.\nGood fuzzer!",
+      "revId": "1c90f40385e341ca7e362325c72bea840b0e49e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

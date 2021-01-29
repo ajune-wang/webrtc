@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a8c7504_6bc5b9fe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-29T09:09:55Z",
+      "side": 1,
+      "message": "This particular SDP is valid for a rather perverted sense of \"valid\". Good test!\n",
+      "revId": "8b9ff8f2fddd05d6244f0f24243e3721edd643ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7f47f79d_877859c0",
@@ -14,6 +31,23 @@
       "writtenOn": "2021-01-29T08:33:23Z",
       "side": 1,
       "message": "usually this line would be rejected by ParseSctpPort but that doesn\u0027t happen since it will only be interpreted for application data contents. I think that is ok.",
+      "revId": "8b9ff8f2fddd05d6244f0f24243e3721edd643ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9de40bc9_0bcb8462",
+        "filename": "pc/webrtc_sdp_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 4776,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-01-29T09:09:55Z",
+      "side": 1,
+      "message": "So it\u0027s invalid syntax according to the rule for a\u003dsctp-port, but valid because we have no idea what the rules are for the \"o\" content-type? Makes sense to me :-)",
       "revId": "8b9ff8f2fddd05d6244f0f24243e3721edd643ab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

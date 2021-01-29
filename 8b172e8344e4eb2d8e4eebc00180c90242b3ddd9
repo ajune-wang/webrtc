@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bd9cf01_5e9ff0f5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-01-29T11:47:32Z",
+      "side": 1,
+      "message": "Thanks for the CL!\nI have some minor comments.\n\nAdditionally, I think there should be a bug assigned for this in the CL, since this addresses a data race, and furthermore since this is a nontrivial change.\n\n",
+      "revId": "8b172e8344e4eb2d8e4eebc00180c90242b3ddd9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8ceb9ee_7314ef3d",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 682,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-01-29T11:47:32Z",
+      "side": 1,
+      "message": "This should probably be something else?",
+      "range": {
+        "startLine": 682,
+        "startChar": 2,
+        "endLine": 682,
+        "endChar": 8
+      },
+      "revId": "8b172e8344e4eb2d8e4eebc00180c90242b3ddd9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a52d8d6_d6e220c3",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-01-29T11:47:32Z",
+      "side": 1,
+      "message": "And this",
+      "range": {
+        "startLine": 728,
+        "startChar": 2,
+        "endLine": 728,
+        "endChar": 8
+      },
+      "revId": "8b172e8344e4eb2d8e4eebc00180c90242b3ddd9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a3beb9d_bde31d4f",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 762,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-01-29T11:47:32Z",
+      "side": 1,
+      "message": "Same here",
+      "range": {
+        "startLine": 762,
+        "startChar": 2,
+        "endLine": 762,
+        "endChar": 8
+      },
+      "revId": "8b172e8344e4eb2d8e4eebc00180c90242b3ddd9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

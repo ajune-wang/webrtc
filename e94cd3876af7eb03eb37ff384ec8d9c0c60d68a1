@@ -43,6 +43,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "827dd909_7c97a790",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2021-01-29T12:21:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ef2b100_bbdb11c1",
+      "range": {
+        "startLine": 110,
+        "startChar": 11,
+        "endLine": 110,
+        "endChar": 20
+      },
+      "revId": "e94cd3876af7eb03eb37ff384ec8d9c0c60d68a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "3b984b17_325188f6",
         "filename": "media/engine/simulcast.cc",
         "patchSetId": 15
@@ -54,6 +78,30 @@
       "writtenOn": "2021-01-29T10:48:16Z",
       "side": 1,
       "message": "I suggest copy of the penultimate values instead.",
+      "range": {
+        "startLine": 125,
+        "startChar": 28,
+        "endLine": 125,
+        "endChar": 66
+      },
+      "revId": "e94cd3876af7eb03eb37ff384ec8d9c0c60d68a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24a4d483_bd31581c",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2021-01-29T12:21:39Z",
+      "side": 1,
+      "message": "Yes, good idea!",
+      "parentUuid": "3b984b17_325188f6",
       "range": {
         "startLine": 125,
         "startChar": 28,
@@ -77,6 +125,30 @@
       "writtenOn": "2021-01-29T10:48:16Z",
       "side": 1,
       "message": "Why is it needed? I don\u0027t see |formats| being used anywhere.",
+      "range": {
+        "startLine": 306,
+        "startChar": 4,
+        "endLine": 307,
+        "endChar": 65
+      },
+      "revId": "e94cd3876af7eb03eb37ff384ec8d9c0c60d68a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4493f39a_a795d1f3",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2021-01-29T12:21:39Z",
+      "side": 1,
+      "message": "Good catch, this was a copy/paste error. I wonder why the compiler didn\u0027t complain though?",
+      "parentUuid": "e318fa6b_1d379eaf",
       "range": {
         "startLine": 306,
         "startChar": 4,

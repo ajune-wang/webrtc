@@ -107,6 +107,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e5bd9d7c_ab822252",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 878,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-01-29T11:56:26Z",
+      "side": 1,
+      "message": "This is a bit tricky. Adding the observer asynchronously should probably work, while removing it (like below) needs to wait for completion. But then we need to worry about the case that AddBitrateObserver is called, and posts a task, but RemoveBitrateObserver gets called before the task has run. I think this may work fine due to sequence, but I think it deserves a comment.",
+      "parentUuid": "d4f17999_baa89df5",
+      "range": {
+        "startLine": 878,
+        "startChar": 2,
+        "endLine": 878,
+        "endChar": 47
+      },
+      "revId": "5526c62dbeef95074f3de097d19eb392bf3d3519",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "52e879b9_5ef08ce8",
         "filename": "audio/audio_send_stream.cc",
         "patchSetId": 5

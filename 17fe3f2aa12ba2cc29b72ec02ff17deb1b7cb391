@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9730528c_bcb6c850",
+        "filename": "modules/audio_processing/transient/BUILD.gn",
+        "patchSetId": 11
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-29T10:21:15Z",
+      "side": 1,
+      "message": "Ouch, sorry for the mixed signals.\n\nI have replied on the other comment as well. I think trying to remove rtc_executables from the scope is beneficial, can you give it a try?",
+      "parentUuid": "4deca650_680c0880",
+      "range": {
+        "startLine": 67,
+        "startChar": 2,
+        "endLine": 90,
+        "endChar": 3
+      },
+      "revId": "17fe3f2aa12ba2cc29b72ec02ff17deb1b7cb391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "78685526_4f48e2b5",
         "filename": "rtc_tools/BUILD.gn",
         "patchSetId": 11
@@ -407,6 +431,30 @@
       "writtenOn": "2021-01-28T13:11:46Z",
       "side": 1,
       "message": "Yes, even if this will result in a link time error in case we want to move outside of the \"if\", it is good so we will have to decide if an exception is needed like with the other 3 executables.",
+      "range": {
+        "startLine": 280,
+        "startChar": 4,
+        "endLine": 284,
+        "endChar": 5
+      },
+      "revId": "17fe3f2aa12ba2cc29b72ec02ff17deb1b7cb391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbfbbd91_9db9dc72",
+        "filename": "rtc_tools/BUILD.gn",
+        "patchSetId": 11
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-29T10:21:15Z",
+      "side": 1,
+      "message": "Ah, yes this is in conflict with the idea of scope this down to rtc_test.\n\nI think it is better if we can scope this CL to rtc_test (less easter eggs ready to happen).\n\nCan you give it a try?",
+      "parentUuid": "bc7cdba1_8b87e285",
       "range": {
         "startLine": 280,
         "startChar": 4,

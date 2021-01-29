@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f47f79d_877859c0",
+        "filename": "pc/webrtc_sdp_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 4773,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-01-29T08:33:23Z",
+      "side": 1,
+      "message": "usually this line would be rejected by ParseSctpPort but that doesn\u0027t happen since it will only be interpreted for application data contents. I think that is ok.",
+      "revId": "8b9ff8f2fddd05d6244f0f24243e3721edd643ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

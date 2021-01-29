@@ -524,11 +524,11 @@ AndroidNetworkMonitorFactory::CreateNetworkMonitor() {
 void AndroidNetworkMonitor::NotifyConnectionTypeChanged(
     JNIEnv* env,
     const JavaRef<jobject>& j_caller) {
-  invoker_.AsyncInvoke<void>(RTC_FROM_HERE, network_thread_, [this] {
+  network_thread_->PostTask(task_factory_->CreateTask([this] {
     RTC_LOG(LS_INFO)
         << "Android network monitor detected connection type change.";
     SignalNetworksChanged();
-  });
+  }));
 }
 
 void AndroidNetworkMonitor::NotifyOfActiveNetworkList(

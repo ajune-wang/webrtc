@@ -17,9 +17,9 @@
 #include <vector>
 
 #include "absl/types/optional.h"
-#include "rtc_base/async_invoker.h"
 #include "rtc_base/network_monitor.h"
 #include "rtc_base/network_monitor_factory.h"
+#include "rtc_base/task_utils/cancelable_task_factory.h"
 #include "rtc_base/thread.h"
 #include "rtc_base/thread_annotations.h"
 #include "sdk/android/src/jni/jni_helpers.h"
@@ -132,7 +132,7 @@ class AndroidNetworkMonitor : public rtc::NetworkMonitorInterface,
   bool find_network_handle_without_ipv6_temporary_part_
       RTC_GUARDED_BY(network_thread_) = false;
   bool surface_cellular_types_ RTC_GUARDED_BY(network_thread_) = false;
-  rtc::AsyncInvoker invoker_;
+  CancelableTaskFactory task_factory_;
 };
 
 class AndroidNetworkMonitorFactory : public rtc::NetworkMonitorFactory {

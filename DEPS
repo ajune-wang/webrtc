@@ -7,7 +7,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'bbd3f0121d2182f4a72c93dae8c594d9ef86343e',
+  'chromium_revision': '5cf05085b04b75ab9551b0dd68112e6c90049e78',
 }
 
 deps = {
@@ -31,7 +31,7 @@ deps = {
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@c4fefcb6462116dc3a28456c6f58d65b7f6cfbad',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@67b430625dfe76148bce5e007a99a70d98daafdb',
+    'https://chromium.googlesource.com/chromium/src/third_party@a695cb25ea6ccaee347768cfe5562d9efe2833a2',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -200,7 +200,7 @@ deps = {
       'condition': 'checkout_android',
   },
   'src/third_party/perfetto':
-    'https://android.googlesource.com/platform/external/perfetto.git@0f2d499389c5de52c1d42310715bf83835e44c48',
+    'https://android.googlesource.com/platform/external/perfetto.git@709de7fdeb9ccf0ae6ca6a76529e777131a20fc4',
   'src/third_party/libvpx/source/libvpx':
     'https://chromium.googlesource.com/webm/libvpx.git@576e0801f9281fd54e2c69ad5be5fef7af656011',
   'src/third_party/libyuv':
@@ -257,7 +257,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@ebcb191873884188fd8b5de227a0caabe4a7bbdc',
+    'https://chromium.googlesource.com/chromium/src/tools@cdae97ecb0eb31a37b0cc2ae4f5e2e41f904830a',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@a32a1607f6093d338f756c7e7c7b4333b0c50c9c',
 

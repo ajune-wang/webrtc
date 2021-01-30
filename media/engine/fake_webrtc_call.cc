@@ -586,32 +586,38 @@ webrtc::PacketReceiver* FakeCall::Receiver() {
   return this;
 }
 
-FakeCall::DeliveryStatus FakeCall::DeliverPacket(webrtc::MediaType media_type,
-                                                 rtc::CopyOnWriteBuffer packet,
-                                                 int64_t packet_time_us) {
+webrtc::PacketReceiver::DeliveryStatus FakeCall::DeliverPacket(
+    webrtc::MediaType media_type,
+    rtc::CopyOnWriteBuffer packet,
+    int64_t packet_time_us) {
   EXPECT_GE(packet.size(), 12u);
   RTC_DCHECK(media_type == webrtc::MediaType::AUDIO ||
              media_type == webrtc::MediaType::VIDEO);
 
-  uint32_t ssrc;
-  if (!GetRtpSsrc(packet.cdata(), packet.size(), &ssrc))
-    return DELIVERY_PACKET_ERROR;
+  auto status = DELIVERY_UNKNOWN_SSRC;
 
-  if (media_type == webrtc::MediaType::VIDEO) {
-    for (auto receiver : video_receive_streams_) {
-      if (receiver->GetConfig().rtp.remote_ssrc == ssrc)
-        return DELIVERY_OK;
-    }
-  }
-  if (media_type == webrtc::MediaType::AUDIO) {
-    for (auto receiver : audio_receive_streams_) {
-      if (receiver->GetConfig().rtp.remote_ssrc == ssrc) {
-        receiver->DeliverRtp(packet.cdata(), packet.size(), packet_time_us);
-        return DELIVERY_OK;
+  uint32_t ssrc;
+  if (!GetRtpSsrc(packet.cdata(), packet.size(), &ssrc)) {
+    status = DELIVERY_PACKET_ERROR;
+  } else {
+    if (media_type == webrtc::MediaType::VIDEO) {
+      for (auto receiver : video_receive_streams_) {
+        if (receiver->GetConfig().rtp.remote_ssrc == ssrc) {
+          status = DELIVERY_OK;
+          break;
+        }
+      }
+    } else if (media_type == webrtc::MediaType::AUDIO) {
+      for (auto receiver : audio_receive_streams_) {
+        if (receiver->GetConfig().rtp.remote_ssrc == ssrc) {
+          receiver->DeliverRtp(packet.cdata(), packet.size(), packet_time_us);
+          status = DELIVERY_OK;
+          break;
+        }
       }
     }
   }
-  return DELIVERY_UNKNOWN_SSRC;
+  return status;
 }
 
 void FakeCall::SetStats(const webrtc::Call::Stats& stats) {

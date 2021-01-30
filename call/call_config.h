@@ -26,7 +26,8 @@ class AudioProcessing;
 class RtcEventLog;
 
 struct CallConfig {
-  explicit CallConfig(RtcEventLog* event_log);
+  explicit CallConfig(RtcEventLog* event_log,
+                      TaskQueueBase* network_task_queue = nullptr);
   CallConfig(const CallConfig&);
   ~CallConfig();
 
@@ -42,7 +43,7 @@ struct CallConfig {
 
   // RtcEventLog to use for this call. Required.
   // Use webrtc::RtcEventLog::CreateNull() for a null implementation.
-  RtcEventLog* event_log = nullptr;
+  RtcEventLog* const event_log = nullptr;
 
   // FecController to use for this call.
   FecControllerFactoryInterface* fec_controller_factory = nullptr;
@@ -63,6 +64,8 @@ struct CallConfig {
   // Key-value mapping of internal configurations to apply,
   // e.g. field trials.
   const WebRtcKeyValueConfig* trials = nullptr;
+
+  TaskQueueBase* const network_task_queue_ = nullptr;
 };
 
 }  // namespace webrtc

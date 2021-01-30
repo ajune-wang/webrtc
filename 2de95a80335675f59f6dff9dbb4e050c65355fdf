@@ -16,6 +16,24 @@
       "message": "I assume the manual testing showed that it did the Right Thing :-)\n",
       "revId": "2de95a80335675f59f6dff9dbb4e050c65355fdf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f517fb0_4302c264",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-30T09:32:35Z",
+      "side": 1,
+      "message": "Yes, I forgot to paste the example. Here it is:\n\nBefore (all mixed, double \u003cmemory\u003e and \u003cstring.h\u003e in the middle of WebRTC headers):\n\n#include \u003calgorithm\u003e\n#include \u003cmemory\u003e\n#include \u003cstring\u003e\n#include \u003cvector\u003e\n#include \"api/adaptation/resource.h\"\n#include \"api/media_types.h\"\n#include \"call/audio_receive_stream.h\"\n#include \"call/audio_send_stream.h\"\n#include \"call/call_config.h\"\n#include \"call/flexfec_receive_stream.h\"\n#include \"call/packet_receiver.h\"\n#include \u003cstring.h\u003e\n#include \"call/rtp_transport_controller_send_interface.h\"\n#include \"call/video_receive_stream.h\"\n#include \"call/video_send_stream.h\"\n#include \"modules/utility/include/process_thread.h\"\n#include \"rtc_base/copy_on_write_buffer.h\"\n#include \"rtc_base/network/sent_packet.h\"\n#include \"rtc_base/network_route.h\"\n#include \"rtc_base/ref_count.h\"\n#include \u003cmemory\u003e\n\nAfter \"git cl format\":\n\n#include \u003cstring.h\u003e\n\n#include \u003calgorithm\u003e\n#include \u003cmemory\u003e\n#include \u003cstring\u003e\n#include \u003cvector\u003e\n\n#include \"api/adaptation/resource.h\"\n#include \"api/media_types.h\"\n#include \"call/audio_receive_stream.h\"\n#include \"call/audio_send_stream.h\"\n#include \"call/call_config.h\"\n#include \"call/flexfec_receive_stream.h\"\n#include \"call/packet_receiver.h\"\n#include \"call/rtp_transport_controller_send_interface.h\"\n#include \"call/video_receive_stream.h\"\n#include \"call/video_send_stream.h\"\n#include \"modules/utility/include/process_thread.h\"\n#include \"rtc_base/copy_on_write_buffer.h\"\n#include \"rtc_base/network/sent_packet.h\"\n#include \"rtc_base/network_route.h\"\n#include \"rtc_base/ref_count.h\"",
+      "parentUuid": "b4b2dae8_d4adb17f",
+      "revId": "2de95a80335675f59f6dff9dbb4e050c65355fdf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

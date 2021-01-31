@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93daf3a5_01bc81b7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-01-31T10:26:47Z",
+      "side": 1,
+      "message": "LGTM % it is fine with the following 3 places..\n\nThere are 3 places where we keep `network_task_queue_` to nullptr:\n\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/rtc_tools/rtp_generator/rtp_generator.cc;l\u003d166;drc\u003d33f9d2b383c804121d1a98a11a821007995641f1 (rtp_generator tool)\n\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/media/engine/webrtc_video_engine_unittest.cc;l\u003d1377;drc\u003d33c0ab49488d259c2cc40b39c794d4e5a17ab025 (a test)\n\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/test/scenario/call_client.cc;l\u003d61;drc\u003d8649e49d10e6e6efb5a98920f0b19a77abe8f070 (Scenario framework test client)",
+      "revId": "83f277b1dce491d8e07cfdece1f2da86494a2b97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

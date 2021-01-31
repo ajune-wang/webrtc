@@ -538,12 +538,19 @@ class RtpReplayer final {
 
       ++num_packets;
       PacketReceiver::DeliveryStatus result = PacketReceiver::DELIVERY_OK;
+      // Can we skip posting to the worker and act like the current thread is
+      // the network thread?
       worker_thread->PostTask(ToQueuedTask([&]() {
-        result = call->Receiver()->DeliverPacket(
+        call->Receiver()->DeliverPacketAsync(
             webrtc::MediaType::VIDEO,
             rtc::CopyOnWriteBuffer(packet.data, packet.length),
-            /* packet_time_us */ -1);
-        event.Set();
+            /* packet_time_us */ -1,
+            [&result, &event](
+                PacketReceiver::DeliveryStatus status, MediaType media_type,
+                rtc::CopyOnWriteBuffer packet, int64_t packet_time_us) {
+              result = status;
+              event.Set();
+            });
       }));
       event.Wait(/*give_up_after_ms=*/10000);
       switch (result) {

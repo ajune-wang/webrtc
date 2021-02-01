@@ -16,6 +16,23 @@
       "message": "Hi Per, PTAL.",
       "revId": "76e809f1f502bef5dad337b69737b0c3e825ca35",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64874e1e_ca787e17",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-02-01T16:20:30Z",
+      "side": 1,
+      "message": "Friendly ping.",
+      "revId": "76e809f1f502bef5dad337b69737b0c3e825ca35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

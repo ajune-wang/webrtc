@@ -16,6 +16,29 @@
       "message": "PTAL. Noah, do you think this works for your usecase? At least, tests seem to pass.",
       "revId": "907f263478d62f2aea0b585fed5fb1f806f20455",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b62cfdfa_c933c7e5",
+        "filename": "rtc_base/deprecated/signal_thread.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-02-01T09:25:07Z",
+      "side": 1,
+      "message": "Can you add a TODO to add Mutex::AssertHeld with thread annotation so we can hopefully avoid this in the future?",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 9
+      },
+      "revId": "907f263478d62f2aea0b585fed5fb1f806f20455",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

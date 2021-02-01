@@ -190,6 +190,30 @@
       },
       "revId": "49dbad021e802197b3c0b966c03b4aa766a5b578",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da1859c4_f9ea838c",
+        "filename": "DEPS",
+        "patchSetId": 5
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 15909
+      },
+      "writtenOn": "2021-02-01T01:33:57Z",
+      "side": 0,
+      "message": "\u003e I think we need to remove it from the templates first.\nAck and agree",
+      "parentUuid": "9ce82dfd_d12f8bee",
+      "range": {
+        "startLine": 261,
+        "startChar": 2,
+        "endLine": 262,
+        "endChar": 106
+      },
+      "revId": "49dbad021e802197b3c0b966c03b4aa766a5b578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

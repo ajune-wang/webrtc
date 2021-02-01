@@ -63,6 +63,30 @@
       },
       "revId": "907f263478d62f2aea0b585fed5fb1f806f20455",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8d28236_2ca22ad4",
+        "filename": "rtc_base/deprecated/signal_thread.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-02-01T11:32:19Z",
+      "side": 1,
+      "message": "The call will instruct the thread analysis to assume it is held without having to turn it off via an annotation on the Mutex method declaration.",
+      "parentUuid": "8ca54a62_b034bb6f",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 9
+      },
+      "revId": "907f263478d62f2aea0b585fed5fb1f806f20455",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

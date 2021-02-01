@@ -39,6 +39,30 @@
       },
       "revId": "907f263478d62f2aea0b585fed5fb1f806f20455",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ca54a62_b034bb6f",
+        "filename": "rtc_base/deprecated/signal_thread.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-01T09:39:02Z",
+      "side": 1,
+      "message": "Added a TODO item. Not entirely sure what AssertHeld should do, though.",
+      "parentUuid": "b62cfdfa_c933c7e5",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 9
+      },
+      "revId": "907f263478d62f2aea0b585fed5fb1f806f20455",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -278,6 +278,7 @@ void DtlsSrtpTransport::SetDtlsTransport(
 
   if (*old_dtls_transport) {
     (*old_dtls_transport)->SignalDtlsState.disconnect(this);
+    (*old_dtls_transport)->UnsubscribeDtlsState();
   }
 
   *old_dtls_transport = new_dtls_transport;
@@ -285,6 +286,11 @@ void DtlsSrtpTransport::SetDtlsTransport(
   if (new_dtls_transport) {
     new_dtls_transport->SignalDtlsState.connect(
         this, &DtlsSrtpTransport::OnDtlsState);
+    new_dtls_transport->SubscribeDtlsState(
+        [this](cricket::DtlsTransportInternal* transport,
+               cricket::DtlsTransportState state) {
+          OnDtlsState(transport, state);
+        });
   }
 }
 

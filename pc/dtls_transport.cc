@@ -53,6 +53,11 @@ DtlsTransport::DtlsTransport(
   RTC_DCHECK(internal_dtls_transport_.get());
   internal_dtls_transport_->SignalDtlsState.connect(
       this, &DtlsTransport::OnInternalDtlsState);
+  internal_dtls_transport_->SubscribeDtlsState(
+      [this](cricket::DtlsTransportInternal* transport,
+             cricket::DtlsTransportState state) {
+        OnInternalDtlsState(transport, state);
+      });
   UpdateInformation();
 }
 

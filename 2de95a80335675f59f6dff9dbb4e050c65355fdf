@@ -52,6 +52,23 @@
       "parentUuid": "3f517fb0_4302c264",
       "revId": "2de95a80335675f59f6dff9dbb4e050c65355fdf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c527f6a0_65225d8f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-02-02T08:44:37Z",
+      "side": 1,
+      "message": "hta@: Should we add you to the root OWNERS file? :) ",
+      "revId": "2de95a80335675f59f6dff9dbb4e050c65355fdf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

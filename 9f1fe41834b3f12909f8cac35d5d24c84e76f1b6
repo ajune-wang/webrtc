@@ -16,6 +16,149 @@
       "message": "Do you have time to take a quick look at adding visualization of RTCP BYE messages, Elad?",
       "revId": "9f1fe41834b3f12909f8cac35d5d24c84e76f1b6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "775ae4aa_6c5d6787",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1000,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2021-02-02T11:04:27Z",
+      "side": 1,
+      "message": "First pointer for my other comment.",
+      "revId": "9f1fe41834b3f12909f8cac35d5d24c84e76f1b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c34a9d80_56dd62d5",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1038,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2021-02-02T11:04:27Z",
+      "side": 1,
+      "message": "Second pointer for my other comment.",
+      "revId": "9f1fe41834b3f12909f8cac35d5d24c84e76f1b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e114563_ed723b14",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1076,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2021-02-02T11:04:27Z",
+      "side": 1,
+      "message": "Last pointer for my other comment.",
+      "revId": "9f1fe41834b3f12909f8cac35d5d24c84e76f1b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0312e407_1b3fd987",
+        "filename": "logging/rtc_event_log/logged_events.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2021-02-02T11:04:27Z",
+      "side": 1,
+      "message": "Remind me please - was it important that these structs be POD or something? Otherwise, why not use inheritance to avoid this repetition?",
+      "range": {
+        "startLine": 235,
+        "startChar": 0,
+        "endLine": 236,
+        "endChar": 61
+      },
+      "revId": "9f1fe41834b3f12909f8cac35d5d24c84e76f1b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cac572ab_aef1ff93",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 733,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2021-02-02T11:04:27Z",
+      "side": 1,
+      "message": "nit: Move it below the PLI block?",
+      "range": {
+        "startLine": 728,
+        "startChar": 0,
+        "endLine": 733,
+        "endChar": 7
+      },
+      "revId": "9f1fe41834b3f12909f8cac35d5d24c84e76f1b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39e24032_2d5ca1fe",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 862,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2021-02-02T11:04:27Z",
+      "side": 1,
+      "message": "nit: It looks like the relative order between these is not always maintained. That is, same order REMB-PLI-BYE in tests, etc., as it is here. Sometimes it is not possible to introduce BYE in the right place because REMB/PLI/NACK are already ordered differently between them. Maybe fix in a follow-up CL? (Follow-up so as to avoid messing up the diff here.) And when possible, maybe introduce the BYE code right after the PLI section?",
+      "range": {
+        "startLine": 853,
+        "startChar": 0,
+        "endLine": 862,
+        "endChar": 49
+      },
+      "revId": "9f1fe41834b3f12909f8cac35d5d24c84e76f1b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c9e4a49_425336fe",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2021-02-02T11:04:27Z",
+      "side": 1,
+      "message": "nit: Might be easy to randomize a reason using prng_.",
+      "range": {
+        "startLine": 346,
+        "startChar": 16,
+        "endLine": 346,
+        "endChar": 21
+      },
+      "revId": "9f1fe41834b3f12909f8cac35d5d24c84e76f1b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

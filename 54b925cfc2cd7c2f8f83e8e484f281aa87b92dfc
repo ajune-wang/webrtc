@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b4f268e_5170bf11",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 741,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2021-02-02T11:04:27Z",
+      "side": 0,
+      "message": "IIRC, this had a reason in the past. Namely, REMB was a sub-type of PSFB, if my memory is correct. Is this change following some other refactoring, or was this code originally an error?",
+      "range": {
+        "startLine": 741,
+        "startChar": 32,
+        "endLine": 741,
+        "endChar": 55
+      },
+      "revId": "54b925cfc2cd7c2f8f83e8e484f281aa87b92dfc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

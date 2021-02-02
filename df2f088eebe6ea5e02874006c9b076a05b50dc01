@@ -22,6 +22,30 @@
       },
       "revId": "df2f088eebe6ea5e02874006c9b076a05b50dc01",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0eb839ae_7cb945fc",
+        "filename": "pc/dtls_srtp_transport.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2021-02-02T09:45:50Z",
+      "side": 1,
+      "message": "IIUC, in this case it is used to flip the transport listeners and immediately subscribe to the new slot. So there will not be multiple subscribers. I felt this is a good scenario to keep the subscriber Id internally without complicating it by parsing it to the caller.",
+      "parentUuid": "111efa9b_69d807b5",
+      "range": {
+        "startLine": 281,
+        "startChar": 4,
+        "endLine": 281,
+        "endChar": 50
+      },
+      "revId": "df2f088eebe6ea5e02874006c9b076a05b50dc01",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

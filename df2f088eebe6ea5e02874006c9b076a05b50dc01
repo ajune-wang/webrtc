@@ -46,6 +46,30 @@
       },
       "revId": "df2f088eebe6ea5e02874006c9b076a05b50dc01",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2c0ef54_5b53d34f",
+        "filename": "pc/dtls_srtp_transport.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-02-02T10:46:37Z",
+      "side": 1,
+      "message": "The only usage of the disconnect() is to swap the DtlsTransportInternal so we might want to keep it simple and go ahead with this proposal even if I still struggle to see if this is not changing the current behavior.\n\nIn that case, I suggest we at least change the name of UnsubscribeDtlsState into something that clearly states that calling the method will unsubscribe all the callbacks (e.g. UnsubscribeAllFromDtlsState).\n\nOn the other hand, the current behavior is:\n\n  (*old_dtls_transport)-\u003eSignalDtlsState.disconnect(this);\n\nWhich disconnects \"this\" slot from the signal, not all of them and I am worried with this solution we are going to unsubscribe the registration of DtlsTransport and SctpTransport.\n\nHarald, what is your opinion on this?",
+      "parentUuid": "0eb839ae_7cb945fc",
+      "range": {
+        "startLine": 281,
+        "startChar": 4,
+        "endLine": 281,
+        "endChar": 50
+      },
+      "revId": "df2f088eebe6ea5e02874006c9b076a05b50dc01",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

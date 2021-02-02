@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff38c73a_309ff675",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-02-02T12:12:59Z",
+      "side": 1,
+      "message": "Tried to explain in more detail.\n",
+      "revId": "5d1d7ac37f54ef0bf58031d8d1a138b98ef15f2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2adce0a6_1a146794",
@@ -67,6 +84,24 @@
       "side": 1,
       "message": "instead of screenshot link: https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/pc/dtls_srtp_transport.cc;l\u003d64-70",
       "parentUuid": "57634dad_d13c5b83",
+      "revId": "5d1d7ac37f54ef0bf58031d8d1a138b98ef15f2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "209f0295_7aad9c27",
+        "filename": "p2p/base/dtls_transport_internal.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-02-02T12:12:59Z",
+      "side": 1,
+      "message": "There are two DtlsTransport objects: cricket::DtlsTransport and webrtc::DtlsTransport.\nThe webrtc::DtlsTransport is used by webrtc::SctpTransport, and uses cricket::DtlsTransport.\n\nThe cricket::DtlsTransport is replaceable; it can be switched out for a new one.\n\nBoth webrtc::SctpTransport and cricket::DtlsTransport subscribe to SignalDtlsState. The API doesn\u0027t dictate which of them subscribes first.\n\nWhat your change does is that when cricket::DtlsTransport is replaced, it will not unsubscribe the old cricket::DtlsTransport, it will unsubscribe whatever client subscribed last. This is wrong.\n\nIs this detailed enough fto understand?",
+      "parentUuid": "a82063fd_c34933e1",
       "revId": "5d1d7ac37f54ef0bf58031d8d1a138b98ef15f2e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

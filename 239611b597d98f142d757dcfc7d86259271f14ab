@@ -33,6 +33,24 @@
       "message": "Mirko: As an owner of rtc_tools, could you please take a look at the changes in the files below that?",
       "revId": "239611b597d98f142d757dcfc7d86259271f14ab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aad13324_cf2fe4a5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-02-02T22:30:06Z",
+      "side": 1,
+      "message": "Sure, changes to rtc_tools/ LGTM.",
+      "parentUuid": "3583da35_2a411fd1",
+      "revId": "239611b597d98f142d757dcfc7d86259271f14ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

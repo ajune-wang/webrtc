@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "57634dad_d13c5b83",
+        "filename": "p2p/base/dtls_transport_internal.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2021-02-02T11:43:09Z",
+      "side": 1,
+      "message": "I\u0027m having hard time understanding this,\nDtlsSrtpTransport has two private members(https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/pc/dtls_srtp_transport.h;l\u003d92-93) one for RTP and one for RTCP and each one is a DtlsTransportInternal object and each one has it\u0027s own callback_list.\nWhen creating a DtlsSrtpTransport we invoke the both the setter methods(https://screenshot.googleplex.com/7bBYfnR5B372MNC) and each one will invoke it\u0027s own disconnect on it\u0027s own callback_list.\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/pc/dtls_srtp_transport.cc;l\u003d272-299",
+      "parentUuid": "2adce0a6_1a146794",
+      "revId": "5d1d7ac37f54ef0bf58031d8d1a138b98ef15f2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "005bd67b_e79fe853",
         "filename": "pc/dtls_srtp_transport.cc",
         "patchSetId": 12

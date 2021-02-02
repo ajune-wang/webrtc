@@ -72,6 +72,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7f9b555_f1059077",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-02-02T10:22:28Z",
+      "side": 1,
+      "message": "Want to keep as it as. SEA didn\u0027t refer to VideoCodec::active before. I\u0027m not sure I understand why that parameter exists.",
+      "parentUuid": "7da35cd2_3e821e0e",
+      "range": {
+        "startLine": 77,
+        "startChar": 11,
+        "endLine": 77,
+        "endChar": 12
+      },
+      "revId": "f97d0ca89116b66cf713221f4367ea2b96d829b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8328f828_12114dfd",
@@ -322,6 +346,30 @@
       "side": 1,
       "message": "Yes, yes, you are totally right. Fetched encoder can have undesired state. I\u0027m going to fix this.\n\nI\u0027m trying to understand if prefer_temporal_support_on_base_layer_\u003dtrue could force SW for HD (no matter if we always recreate or fetch encoder).",
       "parentUuid": "00b37427_e8738f3f",
+      "range": {
+        "startLine": 671,
+        "startChar": 9,
+        "endLine": 671,
+        "endChar": 33
+      },
+      "revId": "f97d0ca89116b66cf713221f4367ea2b96d829b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f52acccf_636bcc92",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-02-02T10:22:28Z",
+      "side": 1,
+      "message": "Added EncoderContext class that holds encoder and |prefer_temporal_support| it was created with. FetchOrCreateEncoderContext() searches for cached encoder with required value of prefer_temporal_support. If there is no such, it creates new encoder.",
+      "parentUuid": "79b7372d_da800fd6",
       "range": {
         "startLine": 671,
         "startChar": 9,

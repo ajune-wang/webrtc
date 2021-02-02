@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8dc1129d_09492ebc",
+        "filename": "rtc_base/synchronization/sequence_checker.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-02-02T21:39:03Z",
+      "side": 0,
+      "message": "Keep this file, so Mac/iOS compilation will be happy",
+      "revId": "c8421c4c3e84e4a34461cb0628f584b92bf3cd93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

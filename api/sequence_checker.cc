@@ -7,7 +7,9 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#include "rtc_base/synchronization/sequence_checker.h"
+#include "api/sequence_checker.h"
+
+#include <string>
 
 #if defined(WEBRTC_MAC)
 #include <dispatch/dispatch.h>
@@ -35,6 +37,8 @@ std::string ExpectationToString(const webrtc::SequenceChecker* checker) {
 #endif
   return std::string();
 }
+
+namespace webrtc_seq_check_impl {
 
 SequenceCheckerImpl::SequenceCheckerImpl()
     : attached_(true),
@@ -109,4 +113,5 @@ std::string SequenceCheckerImpl::ExpectationToString() const {
 }
 #endif  // RTC_DCHECK_IS_ON
 
+}  // namespace webrtc_seq_check_impl
 }  // namespace webrtc

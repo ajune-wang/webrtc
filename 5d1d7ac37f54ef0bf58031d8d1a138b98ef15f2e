@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8989be75_ee5a7ed4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-02-02T10:58:57Z",
+      "side": 1,
+      "message": "Mirko\u0027s right. This doesn\u0027t work.\n\n(or rather: It\u0027s an accident of current code arrangement that it works. Don\u0027t depend on that.)\n",
+      "revId": "5d1d7ac37f54ef0bf58031d8d1a138b98ef15f2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2adce0a6_1a146794",
+        "filename": "p2p/base/dtls_transport_internal.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-02-02T10:58:57Z",
+      "side": 1,
+      "message": "This does not work. This particular signal has two listeners, and only one of them is replaced when the cricket::DtlsTransport changes; this will work correctly if SctpTransport is initialized before cricket::DtlsTransport (which is probably why the test passes), but if they are initialized in the opposite order, the wrong consumer is deregistered.",
+      "revId": "5d1d7ac37f54ef0bf58031d8d1a138b98ef15f2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "005bd67b_e79fe853",
+        "filename": "pc/dtls_srtp_transport.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-02-02T10:58:57Z",
+      "side": 1,
+      "message": "Is this a leftover? You removed the SignalDtlsState.connect(), so there should be no reason to call SignalDtlsState.disconnect().",
+      "revId": "5d1d7ac37f54ef0bf58031d8d1a138b98ef15f2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

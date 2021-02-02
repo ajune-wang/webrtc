@@ -45,20 +45,8 @@ rtc_library("mutex") {
 }
 
 rtc_library("sequence_checker") {
-  sources = [
-    "sequence_checker.cc",
-    "sequence_checker.h",
-  ]
-  deps = [
-    ":mutex",
-    "..:checks",
-    "..:criticalsection",
-    "..:macromagic",
-    "..:platform_thread_types",
-    "..:stringutils",
-    "../../api/task_queue",
-    "../system:rtc_export",
-  ]
+  sources = [ "sequence_checker.h" ]
+  deps = [ "../../api:sequence_checker_api" ]
 }
 
 rtc_library("yield_policy") {
@@ -102,23 +90,6 @@ if (rtc_include_tests) {
         ":mutex",
         "../system:unused",
         "//third_party/google_benchmark",
-      ]
-    }
-  }
-
-  if (!build_with_chromium) {
-    rtc_library("sequence_checker_unittests") {
-      testonly = true
-
-      sources = [ "sequence_checker_unittest.cc" ]
-      deps = [
-        ":sequence_checker",
-        "..:checks",
-        "..:rtc_base_approved",
-        "..:task_queue_for_test",
-        "../../api:function_view",
-        "../../test:test_main",
-        "../../test:test_support",
       ]
     }
   }

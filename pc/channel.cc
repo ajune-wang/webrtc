@@ -399,6 +399,9 @@ sigslot::signal1<const rtc::SentPacket&>& BaseChannel::SignalSentPacket() {
 }
 
 void BaseChannel::OnTransportReadyToSend(bool ready) {
+  // TODO(tommi): Remove the PostTask and call OnReadyToSend on the network
+  // thread. Downstream code needs to maintain state related to this event
+  // on the network thread.
   worker_thread_->PostTask(ToQueuedTask(alive_, [this, ready] {
     RTC_DCHECK_RUN_ON(worker_thread());
     media_channel_->OnReadyToSend(ready);

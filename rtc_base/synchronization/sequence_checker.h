@@ -12,53 +12,10 @@
 
 #include <type_traits>
 
-#include "api/task_queue/task_queue_base.h"
-#include "rtc_base/platform_thread_types.h"
-#include "rtc_base/synchronization/mutex.h"
-#include "rtc_base/system/rtc_export.h"
+#include "rtc_base/synchronization/sequence_checker_internal.h"
 #include "rtc_base/thread_annotations.h"
 
 namespace webrtc {
-// Real implementation of SequenceChecker, for use in debug mode, or
-// for temporary use in release mode (e.g. to RTC_CHECK on a threading issue
-// seen only in the wild).
-//
-// Note: You should almost always use the SequenceChecker class to get the
-// right version for your build configuration.
-class RTC_EXPORT SequenceCheckerImpl {
- public:
-  SequenceCheckerImpl();
-  ~SequenceCheckerImpl();
-
-  bool IsCurrent() const;
-  // Changes the task queue or thread that is checked for in IsCurrent. This can
-  // be useful when an object may be created on one task queue / thread and then
-  // used exclusively on another thread.
-  void Detach();
-
-  // Returns a string that is formatted to match with the error string printed
-  // by RTC_CHECK() when a condition is not met.
-  // This is used in conjunction with the RTC_DCHECK_RUN_ON() macro.
-  std::string ExpectationToString() const;
-
- private:
-  mutable Mutex lock_;
-  // These are mutable so that IsCurrent can set them.
-  mutable bool attached_ RTC_GUARDED_BY(lock_);
-  mutable rtc::PlatformThreadRef valid_thread_ RTC_GUARDED_BY(lock_);
-  mutable const TaskQueueBase* valid_queue_ RTC_GUARDED_BY(lock_);
-  mutable const void* valid_system_queue_ RTC_GUARDED_BY(lock_);
-};
-
-// Do nothing implementation, for use in release mode.
-//
-// Note: You should almost always use the SequenceChecker class to get the
-// right version for your build configuration.
-class SequenceCheckerDoNothing {
- public:
-  bool IsCurrent() const { return true; }
-  void Detach() {}
-};
 
 // SequenceChecker is a helper class used to help verify that some methods
 // of a class are called on the same task queue or thread. A
@@ -80,9 +37,11 @@ class SequenceCheckerDoNothing {
 //
 // In Release mode, IsCurrent will always return true.
 #if RTC_DCHECK_IS_ON
-class RTC_LOCKABLE SequenceChecker : public SequenceCheckerImpl {};
+class RTC_LOCKABLE SequenceChecker
+    : public webrtc_sequence_checker_internal::SequenceCheckerImpl {};
 #else
-class RTC_LOCKABLE SequenceChecker : public SequenceCheckerDoNothing {};
+class RTC_LOCKABLE SequenceChecker
+    : public webrtc_sequence_checker_internal::SequenceCheckerDoNothing {};
 #endif  // RTC_ENABLE_THREAD_CHECKER
 
 namespace webrtc_seq_check_impl {

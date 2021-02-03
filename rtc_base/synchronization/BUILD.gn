@@ -50,9 +50,18 @@ rtc_library("sequence_checker") {
     "sequence_checker.h",
   ]
   deps = [
+    ":sequence_checker_internal",
+    "..:macromagic",
+  ]
+}
+
+rtc_library("sequence_checker_internal") {
+  sources = [
+    "sequence_checker_internal.cc",
+    "sequence_checker_internal.h",
+  ]
+  deps = [
     ":mutex",
-    "..:checks",
-    "..:criticalsection",
     "..:macromagic",
     "..:platform_thread_types",
     "..:stringutils",

@@ -77,6 +77,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7675bde4_57c73c8f",
+        "filename": "common_audio/signal_processing/min_max_operations.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-02-03T12:32:36Z",
+      "side": 1,
+      "message": "Yes, we have stopped to actively support MIPS in 2018 when we removed trybots with target_os\u003d”android” and target_cpu\u003d”mipsel”. We did that because the Android NDK deprecated MIPS in r16 and removed support in r17. See https://groups.google.com/g/discuss-webrtc/c/E7uhRhut3jY/m/-TfraRdfBAAJ.\n\nIf we can keep the code around in an easy way, we should try to do that (maybe this is useful to someone in the community) but if this is hard and error prone I would say we can drop it and be open to patches from the community.",
+      "parentUuid": "9b890c03_63a90d61",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 6
+      },
+      "revId": "76e809f1f502bef5dad337b69737b0c3e825ca35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "675aebce_63c14cb4",
         "filename": "common_audio/signal_processing/min_max_operations.c",
         "patchSetId": 4

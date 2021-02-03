@@ -33,6 +33,161 @@
       "message": "Friendly ping.",
       "revId": "76e809f1f502bef5dad337b69737b0c3e825ca35",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e634be8a_77b56052",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-02-03T10:19:47Z",
+      "side": 1,
+      "message": "Very nice CL!!!\nI have some comments.\n\nPTAL",
+      "revId": "76e809f1f502bef5dad337b69737b0c3e825ca35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b890c03_63a90d61",
+        "filename": "common_audio/signal_processing/min_max_operations.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-02-03T10:19:47Z",
+      "side": 1,
+      "message": "Is this something that we could drop?\nDo we have any build-bots to test that?\n\nAlso, I doubt that this will compile properly since the compiler may wanr that the code after the return on line 39 is unreachable.",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 6
+      },
+      "revId": "76e809f1f502bef5dad337b69737b0c3e825ca35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "675aebce_63c14cb4",
+        "filename": "common_audio/signal_processing/min_max_operations.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-02-03T10:19:47Z",
+      "side": 1,
+      "message": "Same comment as above",
+      "range": {
+        "startLine": 54,
+        "startChar": 2,
+        "endLine": 55,
+        "endChar": 8
+      },
+      "revId": "76e809f1f502bef5dad337b69737b0c3e825ca35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e02f9f5f_5b788704",
+        "filename": "common_audio/signal_processing/min_max_operations_neon.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-02-03T10:19:47Z",
+      "side": 1,
+      "message": "This naming is a bit misleading since the std::vector kind of has already taken that name. \"array\" is better, but that is still a bit misleading.\n\nWhat about calling it data, or something else?",
+      "range": {
+        "startLine": 229,
+        "startChar": 44,
+        "endLine": 229,
+        "endChar": 50
+      },
+      "revId": "76e809f1f502bef5dad337b69737b0c3e825ca35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b1e2ede_26efa127",
+        "filename": "common_audio/signal_processing/min_max_operations_neon.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-02-03T10:19:47Z",
+      "side": 1,
+      "message": "Could this be implemented with non-const references instead of with pointers? That would eliminate the uncertainty/risk of rouge/null pointer accesses.",
+      "range": {
+        "startLine": 230,
+        "startChar": 29,
+        "endLine": 230,
+        "endChar": 63
+      },
+      "revId": "76e809f1f502bef5dad337b69737b0c3e825ca35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "983d1966_94e685c3",
+        "filename": "common_audio/signal_processing/min_max_operations_neon.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-02-03T10:19:47Z",
+      "side": 1,
+      "message": "I would suggest to use standard array accesses instead of pointer access.\n\nE.e., \nfor (int i \u003d 0; i \u003c length - residual; i +\u003d 4) {\nint32x4_t in32x4_0 \u003d vld1q_s32(\u0026vector[i]);\n...\n}\n...\nfor (int i \u003d residual; i \u003c length; ++i) {\n...\n}",
+      "range": {
+        "startLine": 238,
+        "startChar": 1,
+        "endLine": 238,
+        "endChar": 34
+      },
+      "revId": "76e809f1f502bef5dad337b69737b0c3e825ca35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9877427f_13db6849",
+        "filename": "common_audio/signal_processing/min_max_operations_neon.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-02-03T10:19:47Z",
+      "side": 1,
+      "message": "Why unroll 8 times? From the loop it seems like it should be possible to unroll 4 times.\nI have a feeling that the step to store the data in two separate variables, e.g., min32x4_0 and min32x4_1, would not be needed if the unrolling is done 4 times.",
+      "range": {
+        "startLine": 244,
+        "startChar": 0,
+        "endLine": 244,
+        "endChar": 40
+      },
+      "revId": "76e809f1f502bef5dad337b69737b0c3e825ca35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -22,6 +22,30 @@
       },
       "revId": "54b925cfc2cd7c2f8f83e8e484f281aa87b92dfc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10592f8e_2efc9bb1",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 741,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-02-03T13:40:38Z",
+      "side": 0,
+      "message": "Afaik, rtcp::Remb is a subclass of rtcp::Psfb, but it doesn\u0027t overload the kPacketType. So the two should be equivalent, but the change seems a bit more readable since we\u0027re now not only parsing REMB, but also LossNotification in if-statement body.",
+      "parentUuid": "9b4f268e_5170bf11",
+      "range": {
+        "startLine": 741,
+        "startChar": 32,
+        "endLine": 741,
+        "endChar": 55
+      },
+      "revId": "54b925cfc2cd7c2f8f83e8e484f281aa87b92dfc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

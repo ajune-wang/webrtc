@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7c636a8_10a0f14b",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1000,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-02-03T13:40:38Z",
+      "side": 1,
+      "message": "I assume you mean the ordering? Moved the Bye test up below this one.",
+      "parentUuid": "775ae4aa_6c5d6787",
+      "revId": "9f1fe41834b3f12909f8cac35d5d24c84e76f1b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c34a9d80_56dd62d5",
@@ -48,6 +66,24 @@
       "writtenOn": "2021-02-02T11:04:27Z",
       "side": 1,
       "message": "Second pointer for my other comment.",
+      "revId": "9f1fe41834b3f12909f8cac35d5d24c84e76f1b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b4b94d7_91207f55",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1038,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-02-03T13:40:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c34a9d80_56dd62d5",
       "revId": "9f1fe41834b3f12909f8cac35d5d24c84e76f1b6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -69,6 +105,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ff4f5de_df8d15aa",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1076,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-02-03T13:40:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7e114563_ed723b14",
+      "revId": "9f1fe41834b3f12909f8cac35d5d24c84e76f1b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0312e407_1b3fd987",
@@ -82,6 +136,30 @@
       "writtenOn": "2021-02-02T11:04:27Z",
       "side": 1,
       "message": "Remind me please - was it important that these structs be POD or something? Otherwise, why not use inheritance to avoid this repetition?",
+      "range": {
+        "startLine": 235,
+        "startChar": 0,
+        "endLine": 236,
+        "endChar": 61
+      },
+      "revId": "9f1fe41834b3f12909f8cac35d5d24c84e76f1b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a73c1e00_80ee1055",
+        "filename": "logging/rtc_event_log/logged_events.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-02-03T13:40:38Z",
+      "side": 1,
+      "message": "Yes, for some of them we rely on POD. Technically, I don\u0027t think that\u0027s needed for this type, but I prefer to be consistent. Long term, we should remove the log_time_us accessor and possibly also the other one too.",
+      "parentUuid": "0312e407_1b3fd987",
       "range": {
         "startLine": 235,
         "startChar": 0,
@@ -115,6 +193,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "833b351c_645520c9",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 733,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-02-03T13:40:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cac572ab_aef1ff93",
+      "range": {
+        "startLine": 728,
+        "startChar": 0,
+        "endLine": 733,
+        "endChar": 7
+      },
+      "revId": "9f1fe41834b3f12909f8cac35d5d24c84e76f1b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "39e24032_2d5ca1fe",
@@ -128,6 +230,30 @@
       "writtenOn": "2021-02-02T11:04:27Z",
       "side": 1,
       "message": "nit: It looks like the relative order between these is not always maintained. That is, same order REMB-PLI-BYE in tests, etc., as it is here. Sometimes it is not possible to introduce BYE in the right place because REMB/PLI/NACK are already ordered differently between them. Maybe fix in a follow-up CL? (Follow-up so as to avoid messing up the diff here.) And when possible, maybe introduce the BYE code right after the PLI section?",
+      "range": {
+        "startLine": 853,
+        "startChar": 0,
+        "endLine": 862,
+        "endChar": 49
+      },
+      "revId": "9f1fe41834b3f12909f8cac35d5d24c84e76f1b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a60a269a_8572dfc9",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 862,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-02-03T13:40:38Z",
+      "side": 1,
+      "message": "Yeah, I noticed that the order isn\u0027t entirely consistent. Will do a follow-up CL.",
+      "parentUuid": "39e24032_2d5ca1fe",
       "range": {
         "startLine": 853,
         "startChar": 0,

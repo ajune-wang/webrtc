@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5670198_34f1741c",
+        "filename": "rtc_base/synchronization/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-02-03T13:34:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b65e235_f7937d7b",
+      "range": {
+        "startLine": 58,
+        "startChar": 13,
+        "endLine": 58,
+        "endChar": 38
+      },
+      "revId": "055bbacc1d041863672f7ec7963e766f39abada9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "204ac8f0_196a797a",
@@ -191,6 +215,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a8f3da5_433fe2f8",
+        "filename": "rtc_base/synchronization/sequence_checker.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-02-03T13:34:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef0c7c6a_1424d73b",
+      "range": {
+        "startLine": 47,
+        "startChar": 10,
+        "endLine": 47,
+        "endChar": 31
+      },
+      "revId": "055bbacc1d041863672f7ec7963e766f39abada9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "50ad660c_5e45e0a0",
@@ -214,6 +262,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a7a85c5_35490c15",
+        "filename": "rtc_base/synchronization/sequence_checker.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-02-03T13:34:17Z",
+      "side": 1,
+      "message": "I was thinking to replace macro on the MutexLock-like class that you proposed in different CL and remove both this method and macro, WDYT?",
+      "parentUuid": "50ad660c_5e45e0a0",
+      "range": {
+        "startLine": 132,
+        "startChar": 12,
+        "endLine": 132,
+        "endChar": 31
+      },
+      "revId": "055bbacc1d041863672f7ec7963e766f39abada9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "07e47b65_0e51188b",
@@ -227,6 +299,30 @@
       "writtenOn": "2021-02-03T13:09:58Z",
       "side": 1,
       "message": "nit: may be inline destructor.\nThe only non-trivial thing it does is ~Mutex.",
+      "range": {
+        "startLine": 34,
+        "startChar": 3,
+        "endLine": 34,
+        "endChar": 22
+      },
+      "revId": "055bbacc1d041863672f7ec7963e766f39abada9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d1cb40a_d14bef00",
+        "filename": "rtc_base/synchronization/sequence_checker_internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-02-03T13:34:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "07e47b65_0e51188b",
       "range": {
         "startLine": 34,
         "startChar": 3,

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70a437a1_3162b2d0",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1296,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-02-03T11:19:22Z",
+      "side": 1,
+      "message": "Is this really true? Then it sounds like a bug with libvpx. Or was there just a reconfiguration in between?",
+      "range": {
+        "startLine": 1296,
+        "startChar": 29,
+        "endLine": 1296,
+        "endChar": 50
+      },
+      "revId": "3ec66484b79aab87401631470df306a40d849277",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6ff1631_04edde2a",
+        "filename": "modules/video_coding/codecs/vp9/test/vp9_impl_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-02-03T11:19:22Z",
+      "side": 1,
+      "message": "remove?",
+      "range": {
+        "startLine": 547,
+        "startChar": 2,
+        "endLine": 547,
+        "endChar": 48
+      },
+      "revId": "3ec66484b79aab87401631470df306a40d849277",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

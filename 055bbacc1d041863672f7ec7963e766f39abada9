@@ -169,6 +169,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6c4656d6_4a22cb22",
+        "filename": "rtc_base/synchronization/sequence_checker.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-02-03T13:31:45Z",
+      "side": 1,
+      "message": "I think explicetly listing all symbols is better [i.e. less worse] than aliasing full namespace.\nNamespace aliases in header files is discouraged much more than individual symbol aliasing.\n\nhttps://google.github.io/styleguide/cppguide.html#Namespaces\n\"Do not use Namespace aliases at namespace scope in header files\"\n(though there is also any except in that rule that technically applies here.)",
+      "parentUuid": "ef0c7c6a_1424d73b",
+      "range": {
+        "startLine": 47,
+        "startChar": 10,
+        "endLine": 47,
+        "endChar": 31
+      },
+      "revId": "055bbacc1d041863672f7ec7963e766f39abada9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "50ad660c_5e45e0a0",
         "filename": "rtc_base/synchronization/sequence_checker.h",
         "patchSetId": 1

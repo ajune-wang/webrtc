@@ -2374,6 +2374,45 @@ TEST_P(PeerConnectionIntegrationTest, CallTransferredForCaller) {
   ASSERT_TRUE(ExpectNewFrames(media_expectations));
 }
 
+TEST_P(PeerConnectionIntegrationTest, DtlsHandoverWithDataChannel) {
+  virtual_socket_server()->set_delay_mean(100);
+  virtual_socket_server()->UpdateDelayDistribution();
+  ASSERT_TRUE(CreatePeerConnectionWrappers());
+  ConnectFakeSignaling();
+  caller()->CreateDataChannel();
+  caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  // Make sure the initial channel gets completely established.
+  ASSERT_TRUE_WAIT(callee()->data_channel() != nullptr, kDefaultTimeout);
+  ASSERT_TRUE_WAIT(callee()->data_observer()->IsOpen(), kDefaultTimeout);
+  std::string data = "hello world";
+  callee()->data_channel()->Send(DataBuffer(data));
+  EXPECT_EQ_WAIT(data, caller()->data_observer()->last_message(),
+                 kDefaultTimeout);
+
+  std::unique_ptr<PeerConnectionWrapper> original_peer(
+      SetCalleePcWrapperAndReturnCurrent(
+          CreatePeerConnectionWrapperWithAlternateKey().release()));
+  // Force the SCTP/DTLS closure packets to be dropped.
+  virtual_socket_server()->set_drop_probability(1.0);
+  original_peer->pc()->Close();
+  virtual_socket_server()->set_drop_probability(0.0);
+
+  caller()->data_channel()->Close();
+  ConnectFakeSignaling();
+  caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  ASSERT_TRUE_WAIT(DtlsConnected(), kDefaultTimeout);
+
+  // Try creating a channel right after DTLS gets connected. This will fail.
+  caller()->CreateDataChannel();
+  EXPECT_TRUE_WAIT(callee()->data_channel() != nullptr, kDefaultTimeout);
+
+  // Try again after the previous attempts times out. This will succeed.
+  caller()->CreateDataChannel();
+  EXPECT_TRUE_WAIT(callee()->data_channel() != nullptr, kDefaultTimeout);
+}
+
 // This test sets up a non-bundled call and negotiates bundling at the same
 // time as starting an ICE restart. When bundling is in effect in the restart,
 // the DTLS-SRTP context should be successfully reset.

@@ -145,6 +145,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ef0c7c6a_1424d73b",
+        "filename": "rtc_base/synchronization/sequence_checker.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-02-03T13:19:28Z",
+      "side": 1,
+      "message": "What about:\n\nnamespace webrtc {\n// TODO: Remove when downstream deps are updated\nnamespace webrtc_sequence_checker_internal {}\nnamespace webrtc_seq_check_impl \u003d webrtc_sequence_checker_internal;\n}\n\nAnyway, I agree with Danil we should try to do it now and add the TODO with the trick to make it work and update downstream clients as soon as this lands.",
+      "parentUuid": "e79cba81_f9e50944",
+      "range": {
+        "startLine": 47,
+        "startChar": 10,
+        "endLine": 47,
+        "endChar": 31
+      },
+      "revId": "055bbacc1d041863672f7ec7963e766f39abada9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "50ad660c_5e45e0a0",
         "filename": "rtc_base/synchronization/sequence_checker.h",
         "patchSetId": 1

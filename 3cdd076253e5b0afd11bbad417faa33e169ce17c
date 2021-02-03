@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56560282_cd865297",
+        "filename": "rtc_base/synchronization/sequence_checker.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-02-03T15:15:36Z",
+      "side": 1,
+      "message": "may be mark RTC_DEPRECATED (to be sure there is no usage inside webrtc)",
+      "range": {
+        "startLine": 121,
+        "startChar": 0,
+        "endLine": 121,
+        "endChar": 26
+      },
+      "revId": "3cdd076253e5b0afd11bbad417faa33e169ce17c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

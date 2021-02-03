@@ -170,6 +170,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c8fb5c2_4fc60255",
+        "filename": "logging/rtc_event_log/logged_events.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2021-02-03T13:53:32Z",
+      "side": 1,
+      "message": "Is there a good way to stop us relying on them being POD? Like provide a Serialize() method?",
+      "parentUuid": "a73c1e00_80ee1055",
+      "range": {
+        "startLine": 235,
+        "startChar": 0,
+        "endLine": 236,
+        "endChar": 61
+      },
+      "revId": "9f1fe41834b3f12909f8cac35d5d24c84e76f1b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cac572ab_aef1ff93",

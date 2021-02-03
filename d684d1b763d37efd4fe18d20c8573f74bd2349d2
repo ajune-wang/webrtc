@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9d6304b_b0801a64",
+        "filename": "rtc_base/synchronization/sequence_checker.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-02-03T13:40:16Z",
+      "side": 1,
+      "message": "Also in this file (rtc_base/checks.h).",
+      "range": {
+        "startLine": 17,
+        "startChar": 4,
+        "endLine": 17,
+        "endChar": 20
+      },
+      "revId": "d684d1b763d37efd4fe18d20c8573f74bd2349d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2c75e96_d37a59d2",
+        "filename": "rtc_base/synchronization/sequence_checker.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-02-03T13:40:16Z",
+      "side": 1,
+      "message": "Can you #include rtc_base/checks.h for this?",
+      "range": {
+        "startLine": 39,
+        "startChar": 4,
+        "endLine": 39,
+        "endChar": 20
+      },
+      "revId": "d684d1b763d37efd4fe18d20c8573f74bd2349d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2400a761_c084f757",
+        "filename": "rtc_base/synchronization/sequence_checker_internal.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-02-03T13:40:16Z",
+      "side": 1,
+      "message": "Also here (rtc_base/checks.h).",
+      "range": {
+        "startLine": 69,
+        "startChar": 4,
+        "endLine": 69,
+        "endChar": 20
+      },
+      "revId": "d684d1b763d37efd4fe18d20c8573f74bd2349d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

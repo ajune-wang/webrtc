@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "faea6a5a_c8747abf",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1296,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-02-03T11:34:23Z",
+      "side": 1,
+      "message": "It is not really a bug libvpx, it is a misunderstanding between vp9 wrapper and libvpx, i.e.\nmore like a bug in this wrapper I\u0027m unsure how to fix:\nI\u0027m unaware of clear way to tell libvpx how many layer frames to produce for given picture.\nThere is per-stream configuration (bitrate allocation, number of spatial layers), but I didn\u0027t found per picture configuration.\n\nThus creating this workaround for now: recovering instead of crashing when this happens. It shouldn\u0027t happen often, I\u0027m aware only about unaligned up-switch scenario presented in the test.",
+      "parentUuid": "70a437a1_3162b2d0",
+      "range": {
+        "startLine": 1296,
+        "startChar": 29,
+        "endLine": 1296,
+        "endChar": 50
+      },
+      "revId": "3ec66484b79aab87401631470df306a40d849277",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d6ff1631_04edde2a",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-02-03T11:19:22Z",
       "side": 1,
       "message": "remove?",
+      "range": {
+        "startLine": 547,
+        "startChar": 2,
+        "endLine": 547,
+        "endChar": 48
+      },
+      "revId": "3ec66484b79aab87401631470df306a40d849277",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a56c2eb_4ef11ec1",
+        "filename": "modules/video_coding/codecs/vp9/test/vp9_impl_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-02-03T11:34:23Z",
+      "side": 1,
+      "message": "oops.\n(locally tried both in flexible mode and non-flexible mode - result is the same)",
+      "parentUuid": "d6ff1631_04edde2a",
       "range": {
         "startLine": 547,
         "startChar": 2,

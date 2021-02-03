@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "85f67766_c646416d",
+        "filename": "rtc_base/synchronization/sequence_checker.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-02-03T13:11:10Z",
+      "side": 1,
+      "message": "downstream deps would still be able to use it through transitive include.",
+      "parentUuid": "4efc9e7d_3c16b8b7",
+      "range": {
+        "startLine": 47,
+        "startChar": 10,
+        "endLine": 47,
+        "endChar": 31
+      },
+      "revId": "055bbacc1d041863672f7ec7963e766f39abada9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "50ad660c_5e45e0a0",
         "filename": "rtc_base/synchronization/sequence_checker.h",
         "patchSetId": 1

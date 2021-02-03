@@ -7,14 +7,14 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '415eaa7c56e2a5ae80600db2e697e9dd085d992e',
+  'chromium_revision': '6defb0025d6c4cc2f08ec132a74136584fe608b7',
 }
 
 deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@e37031b5d4edf646757192630b047b6ae24154b5',
+    'https://chromium.googlesource.com/chromium/src/base@a3f27eefc35d1b8ac2fadd189bca7eaebb4e53c4',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@46a0056a44b695a0c1c0d185193ec9008e551644',
   'src/buildtools':
@@ -25,13 +25,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@4919159f1fa0038b57c4387ee9de02dfb3ec4616',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@2c19bdb6df5e577f53b36a1c1f26975181201d1d',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@d2dcdd06918ec3910542605e84a1ebaf186f9443',
+    'https://chromium.googlesource.com/chromium/src/testing@cbb75a59c58c8e9c20009be98be34ee3a83b1d23',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@c24f85f18e8cdd9f69326375816ba3e84f3ce2a7',
+    'https://chromium.googlesource.com/chromium/src/third_party@6618d2538a7c77cd428c583d77cbdb4d3e08044a',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -250,14 +250,14 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/third_party/usrsctp/usrsctplib':
-    'https://chromium.googlesource.com/external/github.com/sctplab/usrsctp@07f871bda23943c43c9e74cc54f25130459de830',
+    'https://chromium.googlesource.com/external/github.com/sctplab/usrsctp@37a9dc3e18bfdcc972946dff0206155cee6b5dd0',
   # Dependency used by libjpeg-turbo.
   'src/third_party/yasm/binaries': {
     'url': 'https://chromium.googlesource.com/chromium/deps/yasm/binaries.git@52f9b3f4b0aa06da24ef8b123058bb61ee468881',
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@fc438b19d04ba457d36ff86c41a55e1fa9735c2f',
+    'https://chromium.googlesource.com/chromium/src/tools@07decee1ccd8b307ee70219f08c840b23baf29af',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@a32a1607f6093d338f756c7e7c7b4333b0c50c9c',
 

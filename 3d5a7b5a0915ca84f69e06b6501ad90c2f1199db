@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86c47de2_7283edd1",
+        "filename": "rtc_base/synchronization/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-02-03T15:01:14Z",
+      "side": 1,
+      "message": "Feel free to use rtc_source_set to work around the mac libtool issue. 😊",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 11
+      },
+      "revId": "3d5a7b5a0915ca84f69e06b6501ad90c2f1199db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

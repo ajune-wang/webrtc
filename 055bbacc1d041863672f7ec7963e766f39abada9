@@ -121,6 +121,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e79cba81_f9e50944",
+        "filename": "rtc_base/synchronization/sequence_checker.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-02-03T13:14:05Z",
+      "side": 1,
+      "message": "for them may be add\nnamespace webrtc_seq_check_impl {\n// TODO: Remove when downstream deps are updated\nusing ::webrtc::webrtc_sequence_checker_internal::SequenceCheckerScope;\n}",
+      "parentUuid": "85f67766_c646416d",
+      "range": {
+        "startLine": 47,
+        "startChar": 10,
+        "endLine": 47,
+        "endChar": 31
+      },
+      "revId": "055bbacc1d041863672f7ec7963e766f39abada9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "50ad660c_5e45e0a0",
         "filename": "rtc_base/synchronization/sequence_checker.h",
         "patchSetId": 1

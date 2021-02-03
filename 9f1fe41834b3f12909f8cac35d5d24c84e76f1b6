@@ -194,6 +194,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3583a7d8_363abda0",
+        "filename": "logging/rtc_event_log/logged_events.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-02-03T14:23:54Z",
+      "side": 1,
+      "message": "It\u0027s not quite that easy. The requirement comes from using offsetof https://en.cppreference.com/w/cpp/types/offsetof\n\nWe probably should move away from offsetof, but I still think that we want\nto use plain data structs. After all, the structs represent plain pieces of data from the event log, we\u0027re not doing any data encapsulation today and I don\u0027t see any reason why we would want to do that in the future. The current accessor methods come from the fact that we used to store microsecond timestamps, but are moving to millisecond precision instead. Assuming everything uses milliseconds, I don\u0027t think there is any need for those accessors.",
+      "parentUuid": "4c8fb5c2_4fc60255",
+      "range": {
+        "startLine": 235,
+        "startChar": 0,
+        "endLine": 236,
+        "endChar": 61
+      },
+      "revId": "9f1fe41834b3f12909f8cac35d5d24c84e76f1b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cac572ab_aef1ff93",

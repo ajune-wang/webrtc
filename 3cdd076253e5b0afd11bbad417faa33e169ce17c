@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dcf21f0e_acf129d7",
+        "filename": "rtc_base/synchronization/sequence_checker.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-02-03T15:24:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56560282_cd865297",
+      "range": {
+        "startLine": 121,
+        "startChar": 0,
+        "endLine": 121,
+        "endChar": 26
+      },
+      "revId": "3cdd076253e5b0afd11bbad417faa33e169ce17c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "491aae4f_479619be",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-02-03T15:18:01Z",
       "side": 1,
       "message": "may be do not update the year because this file is a rename,\nbut if you do, prefer current year.",
+      "range": {
+        "startLine": 2,
+        "startChar": 16,
+        "endLine": 2,
+        "endChar": 18
+      },
+      "revId": "3cdd076253e5b0afd11bbad417faa33e169ce17c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28dca08a_4ebf1124",
+        "filename": "rtc_base/synchronization/sequence_checker_internal.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-02-03T15:24:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "491aae4f_479619be",
       "range": {
         "startLine": 2,
         "startChar": 16,

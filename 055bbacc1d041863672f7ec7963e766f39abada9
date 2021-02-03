@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b65e235_f7937d7b",
+        "filename": "rtc_base/synchronization/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-02-03T13:09:58Z",
+      "side": 1,
+      "message": "is it possible to limit visibility of this target just to sequence_checker?",
+      "range": {
+        "startLine": 58,
+        "startChar": 13,
+        "endLine": 58,
+        "endChar": 38
+      },
+      "revId": "055bbacc1d041863672f7ec7963e766f39abada9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "204ac8f0_196a797a",
@@ -43,6 +66,76 @@
         "startChar": 10,
         "endLine": 47,
         "endChar": 31
+      },
+      "revId": "055bbacc1d041863672f7ec7963e766f39abada9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4efc9e7d_3c16b8b7",
+        "filename": "rtc_base/synchronization/sequence_checker.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-02-03T13:09:58Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "204ac8f0_196a797a",
+      "range": {
+        "startLine": 47,
+        "startChar": 10,
+        "endLine": 47,
+        "endChar": 31
+      },
+      "revId": "055bbacc1d041863672f7ec7963e766f39abada9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50ad660c_5e45e0a0",
+        "filename": "rtc_base/synchronization/sequence_checker.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-02-03T13:09:58Z",
+      "side": 1,
+      "message": "I think this one also should be in the internal namespace.\n\n(may be temporary leave a deprecated version in webrtc namespace to avoid breaking users who use it outside of the RTC_DCHECK_RUN_ON macro)",
+      "range": {
+        "startLine": 132,
+        "startChar": 12,
+        "endLine": 132,
+        "endChar": 31
+      },
+      "revId": "055bbacc1d041863672f7ec7963e766f39abada9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07e47b65_0e51188b",
+        "filename": "rtc_base/synchronization/sequence_checker_internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-02-03T13:09:58Z",
+      "side": 1,
+      "message": "nit: may be inline destructor.\nThe only non-trivial thing it does is ~Mutex.",
+      "range": {
+        "startLine": 34,
+        "startChar": 3,
+        "endLine": 34,
+        "endChar": 22
       },
       "revId": "055bbacc1d041863672f7ec7963e766f39abada9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"

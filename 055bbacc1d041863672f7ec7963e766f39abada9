@@ -286,6 +286,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "f74efc88_18a2f82d",
+        "filename": "rtc_base/synchronization/sequence_checker.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-02-03T13:39:23Z",
+      "side": 1,
+      "message": "Even more reason to avoid exposing it in the non-internal header.",
+      "parentUuid": "5a7a85c5_35490c15",
+      "range": {
+        "startLine": 132,
+        "startChar": 12,
+        "endLine": 132,
+        "endChar": 31
+      },
+      "revId": "055bbacc1d041863672f7ec7963e766f39abada9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "07e47b65_0e51188b",

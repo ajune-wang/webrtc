@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "204ac8f0_196a797a",
+        "filename": "rtc_base/synchronization/sequence_checker.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-02-03T12:52:28Z",
+      "side": 1,
+      "message": "I think this one should also be webrtc_sequence_checker_internal. Should we also move it to the _internal.h header?",
+      "range": {
+        "startLine": 47,
+        "startChar": 10,
+        "endLine": 47,
+        "endChar": 31
+      },
+      "revId": "055bbacc1d041863672f7ec7963e766f39abada9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

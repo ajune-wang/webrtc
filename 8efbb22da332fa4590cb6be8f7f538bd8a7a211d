@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0aa9262f_91d65219",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2021-02-04T08:27:59Z",
+      "side": 1,
+      "message": "Mirko, care to go first here? Not really my area. Thanks!",
+      "revId": "8efbb22da332fa4590cb6be8f7f538bd8a7a211d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

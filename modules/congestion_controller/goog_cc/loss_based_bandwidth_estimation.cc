@@ -14,6 +14,7 @@
 #include <string>
 #include <vector>
 
+#include "absl/strings/match.h"
 #include "api/units/data_rate.h"
 #include "api/units/time_delta.h"
 #include "system_wrappers/include/field_trial.h"
@@ -71,10 +72,16 @@ double ExponentialUpdate(TimeDelta window, TimeDelta interval) {
   return 1.0f - exp(interval / window * -1.0);
 }
 
+bool IsEnabled(const webrtc::WebRtcKeyValueConfig& key_value_config,
+               absl::string_view name) {
+  return absl::StartsWith(key_value_config.Lookup(name), "Enabled");
+}
+
 }  // namespace
 
-LossBasedControlConfig::LossBasedControlConfig()
-    : enabled(field_trial::IsEnabled(kBweLossBasedControl)),
+LossBasedControlConfig::LossBasedControlConfig(
+    const WebRtcKeyValueConfig* key_value_config)
+    : enabled(IsEnabled(*key_value_config, kBweLossBasedControl)),
       min_increase_factor("min_incr", 1.02),
       max_increase_factor("max_incr", 1.08),
       increase_low_rtt("incr_low_rtt", TimeDelta::Millis(200)),
@@ -100,14 +107,15 @@ LossBasedControlConfig::LossBasedControlConfig()
        &loss_bandwidth_balance_increase, &loss_bandwidth_balance_decrease,
        &loss_bandwidth_balance_exponent, &allow_resets, &decrease_interval,
        &loss_report_timeout},
-      trial_string);
+      key_value_config->Lookup(kBweLossBasedControl));
 }
 LossBasedControlConfig::LossBasedControlConfig(const LossBasedControlConfig&) =
     default;
 LossBasedControlConfig::~LossBasedControlConfig() = default;
 
-LossBasedBandwidthEstimation::LossBasedBandwidthEstimation()
-    : config_(LossBasedControlConfig()),
+LossBasedBandwidthEstimation::LossBasedBandwidthEstimation(
+    const WebRtcKeyValueConfig* key_value_config)
+    : config_(key_value_config),
       average_loss_(0),
       average_loss_max_(0),
       loss_based_bitrate_(DataRate::Zero()),

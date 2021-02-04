@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2926dc56_39e3b995",
+        "filename": "DIR_METADATA",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-02-04T08:35:31Z",
+      "side": 1,
+      "message": "WebRTC has its own monorail (bugs.webrtc.org) and this component is probably referring to crbug.com (but it doesn\u0027t exist there, I suspect it used to exist and this line never got updated).\n\nShould we just delete the \"# COMPONENT\" from OWNERS or do you think it is important to have (since this code will be in Chromium\u0027s //third_party/webrtc)? In that case, I think the component is \"Blink\u003eWebRTC\".",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 1
+      },
+      "revId": "610f09ae4a75a0afccc21cc5e8dd535469b16ca8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

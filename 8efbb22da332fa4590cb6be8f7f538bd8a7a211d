@@ -16,6 +16,24 @@
       "message": "Mirko, care to go first here? Not really my area. Thanks!",
       "revId": "8efbb22da332fa4590cb6be8f7f538bd8a7a211d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fd0b9f0_b8b37f34",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-02-04T08:35:31Z",
+      "side": 1,
+      "message": "I have linked the public design doc for this change and updated the bug to have the \"chromium:\" prefix.\n\nBasically it is adding a new file to remove some information from the OWNERS file (which is plain text) into a more structured file in order to make it easy to parse with tools (info like bug component, team email, etc...).\n\nBut before submitting, let\u0027s double check the component because it doesn\u0027t exist in the Chromium tracker. I have added a comment.",
+      "parentUuid": "0aa9262f_91d65219",
+      "revId": "8efbb22da332fa4590cb6be8f7f538bd8a7a211d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

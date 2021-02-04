@@ -52,6 +52,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce975ad8_1f24f77b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-02-04T14:13:06Z",
+      "side": 1,
+      "message": "Thanks for the review! Note that in addition to the comments, I also decided to remove the unused WebRtcSpl_MaxAbsIndexW16 function.",
+      "revId": "76e809f1f502bef5dad337b69737b0c3e825ca35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9b890c03_63a90d61",
@@ -99,6 +116,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2677bf1_ab2868a8",
+        "filename": "common_audio/signal_processing/min_max_operations.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-02-04T14:13:06Z",
+      "side": 1,
+      "message": "I\u0027ve tried to fix the code so that it will likely keep working on Mips (I agree the previous version probably wouldn\u0027t compile). I don\u0027t have access to a Mips device so I cannot verify that it works.",
+      "parentUuid": "7675bde4_57c73c8f",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 6
+      },
+      "revId": "76e809f1f502bef5dad337b69737b0c3e825ca35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "675aebce_63c14cb4",
@@ -112,6 +153,30 @@
       "writtenOn": "2021-02-03T10:19:47Z",
       "side": 1,
       "message": "Same comment as above",
+      "range": {
+        "startLine": 54,
+        "startChar": 2,
+        "endLine": 55,
+        "endChar": 8
+      },
+      "revId": "76e809f1f502bef5dad337b69737b0c3e825ca35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3165061_ac017d27",
+        "filename": "common_audio/signal_processing/min_max_operations.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-02-04T14:13:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "675aebce_63c14cb4",
       "range": {
         "startLine": 54,
         "startChar": 2,
@@ -145,6 +210,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "18dd7ede_c4694312",
+        "filename": "common_audio/signal_processing/min_max_operations_neon.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-02-04T14:13:06Z",
+      "side": 1,
+      "message": "I agree, I used \u0027vector\u0027 because that name is used in most other functions in this file, but you\u0027re right that data is better. I\u0027ll rename to data (also elsewhere in the CL).",
+      "parentUuid": "e02f9f5f_5b788704",
+      "range": {
+        "startLine": 229,
+        "startChar": 44,
+        "endLine": 229,
+        "endChar": 50
+      },
+      "revId": "76e809f1f502bef5dad337b69737b0c3e825ca35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2b1e2ede_26efa127",
@@ -158,6 +247,30 @@
       "writtenOn": "2021-02-03T10:19:47Z",
       "side": 1,
       "message": "Could this be implemented with non-const references instead of with pointers? That would eliminate the uncertainty/risk of rouge/null pointer accesses.",
+      "range": {
+        "startLine": 230,
+        "startChar": 29,
+        "endLine": 230,
+        "endChar": 63
+      },
+      "revId": "76e809f1f502bef5dad337b69737b0c3e825ca35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5b2b141_72c7c07d",
+        "filename": "common_audio/signal_processing/min_max_operations_neon.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-02-04T14:13:06Z",
+      "side": 1,
+      "message": "Although I agree, this file contains C code, and C doesn\u0027t have references.",
+      "parentUuid": "2b1e2ede_26efa127",
       "range": {
         "startLine": 230,
         "startChar": 29,
@@ -193,6 +306,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2b6e9e16_fff6f690",
+        "filename": "common_audio/signal_processing/min_max_operations_neon.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-02-04T14:13:06Z",
+      "side": 1,
+      "message": "This function is a merged version of the existing Min and Max neon functions, which is where this comes from. I wanted to not make any more changes than necessary to it, to avoid accidentally introducing bugs. Do you think it\u0027s worth fixing this?",
+      "parentUuid": "983d1966_94e685c3",
+      "range": {
+        "startLine": 238,
+        "startChar": 1,
+        "endLine": 238,
+        "endChar": 34
+      },
+      "revId": "76e809f1f502bef5dad337b69737b0c3e825ca35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9877427f_13db6849",
         "filename": "common_audio/signal_processing/min_max_operations_neon.c",
         "patchSetId": 4
@@ -204,6 +341,30 @@
       "writtenOn": "2021-02-03T10:19:47Z",
       "side": 1,
       "message": "Why unroll 8 times? From the loop it seems like it should be possible to unroll 4 times.\nI have a feeling that the step to store the data in two separate variables, e.g., min32x4_0 and min32x4_1, would not be needed if the unrolling is done 4 times.",
+      "range": {
+        "startLine": 244,
+        "startChar": 0,
+        "endLine": 244,
+        "endChar": 40
+      },
+      "revId": "76e809f1f502bef5dad337b69737b0c3e825ca35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0f5b6f0_97fcac95",
+        "filename": "common_audio/signal_processing/min_max_operations_neon.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-02-04T14:13:06Z",
+      "side": 1,
+      "message": "This entire function is heavily based on the existing functions that calculate the min and max separately, and I tried to make as little changes as possible since I assumed the original authors had a reason for unrolling 8 times instead of 4. \n\nYou\u0027re right that unrolling 4 times is possible, and that would make it possible to get rid of one of the variables. However, the loop overhead (the overhead of having to check if we need to continue or not) is larger when unrolling 4 times. WDYT, should I spend time to benchmark the 2 options? So far I tried to avoid changing the code more than necessary.",
+      "parentUuid": "9877427f_13db6849",
       "range": {
         "startLine": 244,
         "startChar": 0,

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "004b12d1_04bce046",
+        "filename": "config.star",
+        "patchSetId": 1
+      },
+      "lineNbr": 674,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-02-04T12:56:00Z",
+      "side": 1,
+      "message": "Maybe add a # TODO(crbug.com/1174112): ...\n\nSo if we forget, we will see the TODO later.",
+      "range": {
+        "startLine": 674,
+        "startChar": 0,
+        "endLine": 674,
+        "endChar": 47
+      },
+      "revId": "c538c511fe48b3830ab1aee8600ca9262fd64521",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

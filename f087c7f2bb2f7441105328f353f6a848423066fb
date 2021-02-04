@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbd1d45d_cf147475",
+        "filename": "api/sequence_checker.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-02-04T13:57:34Z",
+      "side": 1,
+      "message": "this const is not needed (references are automatically const)",
+      "range": {
+        "startLine": 90,
+        "startChar": 27,
+        "endLine": 90,
+        "endChar": 32
+      },
+      "revId": "f087c7f2bb2f7441105328f353f6a848423066fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "909c104d_cec15a2d",
+        "filename": "api/sequence_checker.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-02-04T13:57:34Z",
+      "side": 1,
+      "message": "tecnically it won\u0027t work: PostTask require unique_ptr\u003cQueuedTask\u003e and doesn\u0027t accept functors directly, but for the purpose of this example it might be better to keep it concise, rather than correct.",
+      "range": {
+        "startLine": 99,
+        "startChar": 34,
+        "endLine": 99,
+        "endChar": 36
+      },
+      "revId": "f087c7f2bb2f7441105328f353f6a848423066fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b45fba11_8c0a2035",
+        "filename": "api/sequence_checker.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-02-04T13:57:34Z",
+      "side": 1,
+      "message": ".",
+      "range": {
+        "startLine": 99,
+        "startChar": 24,
+        "endLine": 99,
+        "endChar": 26
+      },
+      "revId": "f087c7f2bb2f7441105328f353f6a848423066fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

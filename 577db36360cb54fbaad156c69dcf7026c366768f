@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "822a9428_c9c06414",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-02-04T13:04:56Z",
+      "side": 1,
+      "message": "Hi Henrik, PTAL at this small fix for an issue in Isac.",
+      "revId": "577db36360cb54fbaad156c69dcf7026c366768f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

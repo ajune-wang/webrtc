@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "274f6c75_72ba000b",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 709,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-02-04T13:37:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "970825fc_1da09cd1",
+      "range": {
+        "startLine": 709,
+        "startChar": 32,
+        "endLine": 709,
+        "endChar": 36
+      },
+      "revId": "e0abada9763f17a4fe0578bdde170ce5ba30101f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "792c9704_58ce9028",
@@ -43,6 +67,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "ab75fc3b_57989792",
+        "filename": "api/sequence_checker.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-02-04T13:37:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "792c9704_58ce9028",
+      "revId": "e0abada9763f17a4fe0578bdde170ce5ba30101f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "0056f1fa_5e65d2a9",
         "filename": "api/sequence_checker.h",
         "patchSetId": 5
@@ -54,6 +96,30 @@
       "writtenOn": "2021-02-04T10:47:59Z",
       "side": 1,
       "message": "May be publish the interface:\nclass RTC_LOCKABLE SequenceChecker \n#if RTC_DCHECK_IS_ON\n  : public webrtc_sequence_checker_internal::SequenceCheckerImpl {\n using Impl \u003d webrtc_sequence_checker_internal::SequenceCheckerImpl;\n#else\n  : public webrtc_sequence_checker_internal::SequenceCheckerDoNothing {\n using Impl \u003d webrtc_sequence_checker_internal::SequenceCheckerDoNothing;\n#endif\n public:\n  // Here is a place holder for extra documentation, if you wish.\n  bool IsCurrent() const { return Impl::IsCurrent(); }\n\n  void Detach() { Impl::Detach(); }\n};",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 0
+      },
+      "revId": "e0abada9763f17a4fe0578bdde170ce5ba30101f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eea137c4_3707e3f1",
+        "filename": "api/sequence_checker.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-02-04T13:37:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0056f1fa_5e65d2a9",
       "range": {
         "startLine": 40,
         "startChar": 0,
@@ -87,6 +153,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f8e6a4f_8698c8a5",
+        "filename": "api/sequence_checker.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-02-04T13:37:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a7cef4bd_48375e6f",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 5
+      },
+      "revId": "e0abada9763f17a4fe0578bdde170ce5ba30101f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ad82851b_15973272",
@@ -100,6 +190,30 @@
       "writtenOn": "2021-02-04T10:47:59Z",
       "side": 1,
       "message": "Update this example to TaskQueueBase\n(rtc::TaskQueue is a private class. webrtc::TaskQueueBase is a public interface)\n\n(may also update this example to store/return reference to the queue instead of pointer, in spirit of recent style guide shift)",
+      "range": {
+        "startLine": 95,
+        "startChar": 7,
+        "endLine": 95,
+        "endChar": 28
+      },
+      "revId": "e0abada9763f17a4fe0578bdde170ce5ba30101f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "203b811a_219d5b6b",
+        "filename": "api/sequence_checker.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-02-04T13:37:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad82851b_15973272",
       "range": {
         "startLine": 95,
         "startChar": 7,

@@ -22,6 +22,30 @@
       },
       "revId": "610f09ae4a75a0afccc21cc5e8dd535469b16ca8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f435868c_ecdb52a2",
+        "filename": "DIR_METADATA",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 11168
+      },
+      "writtenOn": "2021-02-04T18:39:42Z",
+      "side": 1,
+      "message": "dir_metadata supports project so I added it. Component is optional and I haven\u0027t found that is generic so I left it out. Let me know if you have a default one.",
+      "parentUuid": "2926dc56_39e3b995",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 1
+      },
+      "revId": "610f09ae4a75a0afccc21cc5e8dd535469b16ca8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

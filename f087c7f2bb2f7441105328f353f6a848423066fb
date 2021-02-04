@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "f7fda51b_3b1401ef",
+        "filename": "api/sequence_checker.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-02-04T14:07:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dbd1d45d_cf147475",
+      "range": {
+        "startLine": 90,
+        "startChar": 27,
+        "endLine": 90,
+        "endChar": 32
+      },
+      "revId": "f087c7f2bb2f7441105328f353f6a848423066fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "909c104d_cec15a2d",
         "filename": "api/sequence_checker.h",
         "patchSetId": 6
@@ -60,6 +84,54 @@
       "writtenOn": "2021-02-04T13:57:34Z",
       "side": 1,
       "message": ".",
+      "range": {
+        "startLine": 99,
+        "startChar": 24,
+        "endLine": 99,
+        "endChar": 26
+      },
+      "revId": "f087c7f2bb2f7441105328f353f6a848423066fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d117056d_d9b3fe4c",
+        "filename": "api/sequence_checker.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-02-04T14:07:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "909c104d_cec15a2d",
+      "range": {
+        "startLine": 99,
+        "startChar": 34,
+        "endLine": 99,
+        "endChar": 36
+      },
+      "revId": "f087c7f2bb2f7441105328f353f6a848423066fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4fd660f3_91a0bc95",
+        "filename": "api/sequence_checker.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-02-04T14:07:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b45fba11_8c0a2035",
       "range": {
         "startLine": 99,
         "startChar": 24,

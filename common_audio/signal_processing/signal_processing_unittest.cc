@@ -309,7 +309,6 @@ TEST(SplTest, MinMaxOperationsTest) {
             WebRtcSpl_MaxAbsValueW32(vector32, kVectorSize));
   EXPECT_EQ(WEBRTC_SPL_WORD32_MAX,
             WebRtcSpl_MaxValueW32(vector32, kVectorSize));
-  EXPECT_EQ(kVectorSize - 1, WebRtcSpl_MaxAbsIndexW16(vector16, kVectorSize));
   EXPECT_EQ(kVectorSize - 1, WebRtcSpl_MaxIndexW16(vector16, kVectorSize));
   EXPECT_EQ(kVectorSize - 1, WebRtcSpl_MaxIndexW32(vector32, kVectorSize));
   EXPECT_EQ(WEBRTC_SPL_WORD16_MAX,
@@ -338,7 +337,6 @@ TEST(SplTest, MinMaxOperationsTest) {
             WebRtcSpl_MaxValueW32(vector32, kVectorSize));
   EXPECT_EQ(WEBRTC_SPL_WORD32_MIN,
             WebRtcSpl_MinValueW32(vector32, kVectorSize));
-  EXPECT_EQ(6u, WebRtcSpl_MaxAbsIndexW16(vector16, kVectorSize));
   EXPECT_EQ(1u, WebRtcSpl_MaxIndexW16(vector16, kVectorSize));
   EXPECT_EQ(1u, WebRtcSpl_MaxIndexW32(vector32, kVectorSize));
   EXPECT_EQ(6u, WebRtcSpl_MinIndexW16(vector16, kVectorSize));
@@ -354,7 +352,6 @@ TEST(SplTest, MinMaxOperationsTest) {
   EXPECT_EQ(0, WebRtcSpl_MaxAbsValueW16(&single_element_vector, 1));
   EXPECT_EQ(0, WebRtcSpl_MaxValueW16(&single_element_vector, 1));
   EXPECT_EQ(0, WebRtcSpl_MinValueW16(&single_element_vector, 1));
-  EXPECT_EQ(0u, WebRtcSpl_MaxAbsIndexW16(&single_element_vector, 1));
   EXPECT_EQ(0u, WebRtcSpl_MaxIndexW16(&single_element_vector, 1));
   EXPECT_EQ(0u, WebRtcSpl_MinIndexW16(&single_element_vector, 1));
   EXPECT_EQ(0, WebRtcSpl_MaxAbsElementW16(&single_element_vector, 1));
@@ -372,7 +369,6 @@ TEST(SplTest, MinMaxOperationsTest) {
             WebRtcSpl_MaxValueW16(two_element_vector, 2));
   EXPECT_EQ(WEBRTC_SPL_WORD16_MIN,
             WebRtcSpl_MinValueW16(two_element_vector, 2));
-  EXPECT_EQ(0u, WebRtcSpl_MaxAbsIndexW16(two_element_vector, 2));
   EXPECT_EQ(1u, WebRtcSpl_MaxIndexW16(two_element_vector, 2));
   EXPECT_EQ(0u, WebRtcSpl_MinIndexW16(two_element_vector, 2));
   EXPECT_EQ(WEBRTC_SPL_WORD16_MIN,

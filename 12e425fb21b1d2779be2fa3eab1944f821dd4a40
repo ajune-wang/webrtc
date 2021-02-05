@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "328bdb3f_4180f613",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-02-05T12:21:38Z",
+      "side": 1,
+      "message": "+henrika@ for //OWNERS LGTM (LGTM from my point of view).",
+      "revId": "12e425fb21b1d2779be2fa3eab1944f821dd4a40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

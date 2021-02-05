@@ -46,6 +46,30 @@
       },
       "revId": "610f09ae4a75a0afccc21cc5e8dd535469b16ca8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b065136b_21d5f717",
+        "filename": "DIR_METADATA",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-02-05T12:20:57Z",
+      "side": 1,
+      "message": "I think this is fine, we will triage the bug and assign the component. Thanks!",
+      "parentUuid": "f435868c_ecdb52a2",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 1
+      },
+      "revId": "610f09ae4a75a0afccc21cc5e8dd535469b16ca8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

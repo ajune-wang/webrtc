@@ -142,6 +142,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d5016b4c_818625ea",
+        "filename": "common_audio/signal_processing/min_max_operations.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-02-05T07:10:05Z",
+      "side": 1,
+      "message": "The I\u0027d definitely argue that we should not support MIPS here.\nWhat about removing it fully?",
+      "parentUuid": "e2677bf1_ab2868a8",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 6
+      },
+      "revId": "76e809f1f502bef5dad337b69737b0c3e825ca35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "675aebce_63c14cb4",
         "filename": "common_audio/signal_processing/min_max_operations.c",
         "patchSetId": 4
@@ -281,6 +305,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "66bfb926_ebb237a4",
+        "filename": "common_audio/signal_processing/min_max_operations_neon.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-02-05T07:10:05Z",
+      "side": 1,
+      "message": "Ah, that I forgot. Thanks!",
+      "parentUuid": "a5b2b141_72c7c07d",
+      "range": {
+        "startLine": 230,
+        "startChar": 29,
+        "endLine": 230,
+        "endChar": 63
+      },
+      "revId": "76e809f1f502bef5dad337b69737b0c3e825ca35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "983d1966_94e685c3",
@@ -330,6 +378,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3220191d_f29b84cf",
+        "filename": "common_audio/signal_processing/min_max_operations_neon.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-02-05T07:10:05Z",
+      "side": 1,
+      "message": "I leave it up to you.\n\nI see the point with not touching changed code. However, the code is actually changed by the CL so maybe that safety is not fully valid.\n\nAnother aspect is that if it is not changed now, it will never be.\n\nThe most important thing I think is that the code has proper unittesting to minimize the risk of this going wrong.",
+      "parentUuid": "2b6e9e16_fff6f690",
+      "range": {
+        "startLine": 238,
+        "startChar": 1,
+        "endLine": 238,
+        "endChar": 34
+      },
+      "revId": "76e809f1f502bef5dad337b69737b0c3e825ca35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9877427f_13db6849",
         "filename": "common_audio/signal_processing/min_max_operations_neon.c",
         "patchSetId": 4
@@ -365,6 +437,30 @@
       "side": 1,
       "message": "This entire function is heavily based on the existing functions that calculate the min and max separately, and I tried to make as little changes as possible since I assumed the original authors had a reason for unrolling 8 times instead of 4. \n\nYou\u0027re right that unrolling 4 times is possible, and that would make it possible to get rid of one of the variables. However, the loop overhead (the overhead of having to check if we need to continue or not) is larger when unrolling 4 times. WDYT, should I spend time to benchmark the 2 options? So far I tried to avoid changing the code more than necessary.",
       "parentUuid": "9877427f_13db6849",
+      "range": {
+        "startLine": 244,
+        "startChar": 0,
+        "endLine": 244,
+        "endChar": 40
+      },
+      "revId": "76e809f1f502bef5dad337b69737b0c3e825ca35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4873598c_413ed7d9",
+        "filename": "common_audio/signal_processing/min_max_operations_neon.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-02-05T07:10:05Z",
+      "side": 1,
+      "message": "I don\u0027t really see why unrolling 4 times would give larger code than doing it 8 times? I place an example below.\n\nMy view is that if we do this, we might as well do it properly. I see the value in not changing the pre-existing code, but I also see the danger in that.\n\nIf we are to change it, I think this is the moment. If this is not corrected, the next person touching this code would end up in the same situation.\n\nWhat do you see as the danger in modifying the code to change this? Since this is a pure function, it should be really easy to unittest.\n\n(my guess for the unrolling is that the original authors copied this from code that did this for a 16 bit vector, and that it for there was possible to use vminq_s16 which uses 8 fields)\n\n\nsize_t residual \u003d length \u0026 0x3;\nfor (i \u003d 0; i \u003c length - residual; i +\u003d 4) {\n    int32x4_t in32x4_0 \u003d vld1q_s32(p_start);\n    p_start +\u003d 4;\n    min32x4_0 \u003d vminq_s32(min32x4_0, in32x4_0);\n    max32x4_0 \u003d vmaxq_s32(max32x4_0, in32x4_0);\n  }",
+      "parentUuid": "d0f5b6f0_97fcac95",
       "range": {
         "startLine": 244,
         "startChar": 0,

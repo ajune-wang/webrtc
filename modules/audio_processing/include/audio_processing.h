@@ -529,11 +529,14 @@ class RTC_EXPORT AudioProcessing : public rtc::RefCountInterface {
   // Set to true when the output of AudioProcessing will be muted or in some
   // other way not used. Ideally, the captured audio would still be processed,
   // but some components may change behavior based on this information.
-  // Default false.
+  // Default false. This method takes a lock. To achieve this in a lock-less
+  // manner the SetRuntimeSetting can instead be used.
+
   virtual void set_output_will_be_muted(bool muted) = 0;
 
-  // Enqueue a runtime setting.
-  virtual void SetRuntimeSetting(RuntimeSetting setting) = 0;
+  // Enqueue a runtime setting. Returns a bool indicating whether the enqueueing
+  // was successfull.
+  virtual bool SetRuntimeSetting(RuntimeSetting setting) = 0;
 
   // Accepts and produces a 10 ms frame interleaved 16 bit integer audio as
   // specified in |input_config| and |output_config|. |src| and |dest| may use

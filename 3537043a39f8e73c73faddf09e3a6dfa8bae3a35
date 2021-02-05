@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78ea3930_747016ce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-02-05T07:47:56Z",
+      "side": 1,
+      "message": "some commentary, to ensure we\u0027re talking about the thing that looks troublesome and not a different problem.\n",
+      "revId": "3537043a39f8e73c73faddf09e3a6dfa8bae3a35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fcdf6a3_0a27e752",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2395,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-02-05T07:47:56Z",
+      "side": 1,
+      "message": "This simulates connecting the caller to a new callee, right?\n\nDoes the same thing happen if you don\u0027t connect to a new callee?\n(I asked specifically if the RPC timeouts involved a handover and got a \"no\" answer earlier in the discussion, which is why I worry if we\u0027re testing the right thing)",
+      "revId": "3537043a39f8e73c73faddf09e3a6dfa8bae3a35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09bdcaf3_409f544f",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2409,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-02-05T07:47:56Z",
+      "side": 1,
+      "message": "Can we know (by RTC_LOG?) if this happens before or after the SCTP_RESET is received?\nI would expect SCTP_RESET to clear existing datachannels, including the pending one, and that this would cause a close event on the pending datachannel. (I will *not* be surprised if it does not.)",
+      "revId": "3537043a39f8e73c73faddf09e3a6dfa8bae3a35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

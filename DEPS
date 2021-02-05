@@ -7,16 +7,16 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '4231e93dbb62ff1c1093aa403e97785600cef53d',
+  'chromium_revision': '62428c20a03b980893c5032b615aeb7db1eadbc2',
 }
 
 deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@459d6e0ed636c365c111497222a403d535ec2c02',
+    'https://chromium.googlesource.com/chromium/src/base@7a3d83bcd0fa199b0754ae25254894842bae68b6',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@923bed7ac7c70cbec9d94ab45af8c421f81a3d5f',
+    'https://chromium.googlesource.com/chromium/src/build@ee7e404f2200a9e7b49899c0f1313ffd4342067e',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@fc5af1ac75d8a249d692fb3cbf707dd9f791ec3c',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.

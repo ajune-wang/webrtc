@@ -16,6 +16,46 @@
       "message": "Hi Henrik, PTAL at this small fix for an issue in Isac.",
       "revId": "577db36360cb54fbaad156c69dcf7026c366768f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "272feda2_eedad232",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2021-02-05T10:06:30Z",
+      "side": 1,
+      "message": "LGTM with one question/comment.",
+      "revId": "577db36360cb54fbaad156c69dcf7026c366768f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd858baa_3fd856fc",
+        "filename": "modules/audio_coding/codecs/isac/audio_encoder_isac_t_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2021-02-05T10:06:30Z",
+      "side": 1,
+      "message": "I suppose the #define for this error code (https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/modules/audio_coding/codecs/isac/fix/source/settings.h;l\u003d195?q\u003dcodecs%2Fisac%2Ffix%2Fsource%2Fsettings.h\u0026ss\u003dchromium%2Fchromium%2Fsrc\u0026start\u003d1) is not reachable from this file?",
+      "range": {
+        "startLine": 143,
+        "startChar": 44,
+        "endLine": 143,
+        "endChar": 48
+      },
+      "revId": "577db36360cb54fbaad156c69dcf7026c366768f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

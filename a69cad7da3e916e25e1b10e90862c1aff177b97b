@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "61c549ec_18f6f6e0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-02-05T11:06:36Z",
+      "side": 1,
+      "message": "awesome! lgtm-ing with some smaller cosmetic touch up requests for the existing code.",
+      "revId": "a69cad7da3e916e25e1b10e90862c1aff177b97b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "595b1aa2_8e35d8d4",
@@ -37,6 +54,81 @@
         "endLine": 470,
         "endChar": 37
       },
+      "revId": "a69cad7da3e916e25e1b10e90862c1aff177b97b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "208effd7_135e7a3e",
+        "filename": "pc/jsep_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-02-05T11:06:36Z",
+      "side": 1,
+      "message": "great :)",
+      "parentUuid": "595b1aa2_8e35d8d4",
+      "range": {
+        "startLine": 470,
+        "startChar": 2,
+        "endLine": 470,
+        "endChar": 37
+      },
+      "revId": "a69cad7da3e916e25e1b10e90862c1aff177b97b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62febcce_4d42bf06",
+        "filename": "pc/jsep_transport.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-02-05T11:06:36Z",
+      "side": 1,
+      "message": "nit: can you remove this \u0027else\u0027?\n\nin fact since all these are early returns, none of the else statements are needed and arguably (subjectively) make the code a little less readable.  Could just be:\n\n  if (dtls_srtp_transport_)\n    return dtls_srtp_transport_.get();\n  if (sdes_transport_)\n    return sdes_transport_.get();\n  if (unencrypted_rtp_transport_)\n    unencrypted_rtp_transport_.get();\n  return nullptr;",
+      "revId": "a69cad7da3e916e25e1b10e90862c1aff177b97b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d120d11_78da1d6f",
+        "filename": "pc/jsep_transport.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-02-05T11:06:36Z",
+      "side": 1,
+      "message": "same here",
+      "revId": "a69cad7da3e916e25e1b10e90862c1aff177b97b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f98f8e7_e405bc6b",
+        "filename": "pc/jsep_transport.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-02-05T11:06:36Z",
+      "side": 1,
+      "message": "and here (etc)",
       "revId": "a69cad7da3e916e25e1b10e90862c1aff177b97b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

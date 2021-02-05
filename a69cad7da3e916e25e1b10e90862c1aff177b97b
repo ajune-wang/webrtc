@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0dcc9a07_d74de781",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-05T08:56:28Z",
+      "side": 1,
+      "message": "PTAL. Followup to remove most of the locking in JsepTransport.",
+      "revId": "a69cad7da3e916e25e1b10e90862c1aff177b97b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "595b1aa2_8e35d8d4",
+        "filename": "pc/jsep_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-05T08:56:28Z",
+      "side": 1,
+      "message": "Seems to work fine now.",
+      "range": {
+        "startLine": 470,
+        "startChar": 2,
+        "endLine": 470,
+        "endChar": 37
+      },
+      "revId": "a69cad7da3e916e25e1b10e90862c1aff177b97b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

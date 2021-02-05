@@ -75,6 +75,11 @@ LIB_TO_LICENSES_DICT = {
     'ooura': ['common_audio/third_party/ooura/LICENSE'],
     'spl_sqrt_floor': ['common_audio/third_party/spl_sqrt_floor/LICENSE'],
 
+    # //third_party/androidx doesn't have a LICENSE file in it, so
+    # as a workaround this script selects one of the internal LICENSES
+    # (assuming they are identical).
+    'androidx': ['third_party/androidx/androidx_core_core/LICENSE'],
+
     # TODO(bugs.webrtc.org/1110): Remove this hack. This is not a lib.
     # For some reason it is listed as so in _GetThirdPartyLibraries.
     'android_deps': [],

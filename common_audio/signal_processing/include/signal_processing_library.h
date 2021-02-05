@@ -133,15 +133,7 @@ void WebRtcSpl_ZerosArrayW32(int32_t* vector, size_t vector_length);
 //      - length : Number of samples in vector.
 //
 // Return value  : Maximum absolute value in vector.
-typedef int16_t (*MaxAbsValueW16)(const int16_t* vector, size_t length);
-extern const MaxAbsValueW16 WebRtcSpl_MaxAbsValueW16;
-int16_t WebRtcSpl_MaxAbsValueW16C(const int16_t* vector, size_t length);
-#if defined(WEBRTC_HAS_NEON)
-int16_t WebRtcSpl_MaxAbsValueW16Neon(const int16_t* vector, size_t length);
-#endif
-#if defined(MIPS32_LE)
-int16_t WebRtcSpl_MaxAbsValueW16_mips(const int16_t* vector, size_t length);
-#endif
+int16_t WebRtcSpl_MaxAbsValueW16(const int16_t* vector, size_t length);
 
 // Returns the largest absolute value in a signed 32-bit vector.
 //
@@ -150,15 +142,7 @@ int16_t WebRtcSpl_MaxAbsValueW16_mips(const int16_t* vector, size_t length);
 //      - length : Number of samples in vector.
 //
 // Return value  : Maximum absolute value in vector.
-typedef int32_t (*MaxAbsValueW32)(const int32_t* vector, size_t length);
-extern const MaxAbsValueW32 WebRtcSpl_MaxAbsValueW32;
-int32_t WebRtcSpl_MaxAbsValueW32C(const int32_t* vector, size_t length);
-#if defined(WEBRTC_HAS_NEON)
-int32_t WebRtcSpl_MaxAbsValueW32Neon(const int32_t* vector, size_t length);
-#endif
-#if defined(MIPS_DSP_R1_LE)
-int32_t WebRtcSpl_MaxAbsValueW32_mips(const int32_t* vector, size_t length);
-#endif
+int32_t WebRtcSpl_MaxAbsValueW32(const int32_t* vector, size_t length);
 
 // Returns the maximum value of a 16-bit vector.
 //
@@ -231,44 +215,51 @@ int32_t WebRtcSpl_MinValueW32_mips(const int32_t* vector, size_t length);
 // Returns both the minimum and maximum values of a 16-bit vector.
 //
 // Input:
-//      - vector : 16-bit input vector.
-//      - length : Number of samples in vector.
+//      - data   : 16-bit input array.
+//      - length : Number of samples in data.
 // Ouput:
-//      - max_val : Maximum sample value in |vector|.
-//      - min_val : Minimum sample value in |vector|.
-void WebRtcSpl_MinMaxW16(const int16_t* vector,
+//      - max_val : Maximum sample value in |data|.
+//      - min_val : Minimum sample value in |data|.
+void WebRtcSpl_MinMaxW16(const int16_t* data,
                          size_t length,
                          int16_t* min_val,
                          int16_t* max_val);
 #if defined(WEBRTC_HAS_NEON)
-void WebRtcSpl_MinMaxW16Neon(const int16_t* vector,
+void WebRtcSpl_MinMaxW16Neon(const int16_t* data,
                              size_t length,
                              int16_t* min_val,
                              int16_t* max_val);
 #endif
 
-// Returns the vector index to the largest absolute value of a 16-bit vector.
+// Returns both the minimum and maximum values of a 32-bit vector.
 //
 // Input:
-//      - vector : 16-bit input vector.
-//      - length : Number of samples in vector.
-//
-// Return value  : Index to the maximum absolute value in vector.
-//                 If there are multiple equal maxima, return the index of the
-//                 first. -32768 will always have precedence over 32767 (despite
-//                 -32768 presenting an int16 absolute value of 32767).
-size_t WebRtcSpl_MaxAbsIndexW16(const int16_t* vector, size_t length);
+//      - data   : 32-bit input array.
+//      - length : Number of samples in data.
+// Ouput:
+//      - max_val : Maximum sample value in |data|.
+//      - min_val : Minimum sample value in |data|.
+void WebRtcSpl_MinMaxW32(const int32_t* data,
+                         size_t length,
+                         int32_t* min_val,
+                         int32_t* max_val);
+#if defined(WEBRTC_HAS_NEON)
+void WebRtcSpl_MinMaxW32Neon(const int32_t* data,
+                             size_t length,
+                             int32_t* min_val,
+                             int32_t* max_val);
+#endif
 
 // Returns the element with the largest absolute value of a 16-bit vector. Note
 // that this function can return a negative value.
 //
 // Input:
-//      - vector : 16-bit input vector.
-//      - length : Number of samples in vector.
+//      - data   : 16-bit input array.
+//      - length : Number of samples in data.
 //
 // Return value  : The element with the largest absolute value. Note that this
 //                 may be a negative value.
-int16_t WebRtcSpl_MaxAbsElementW16(const int16_t* vector, size_t length);
+int16_t WebRtcSpl_MaxAbsElementW16(const int16_t* data, size_t length);
 
 // Returns the vector index to the maximum sample value of a 16-bit vector.
 //

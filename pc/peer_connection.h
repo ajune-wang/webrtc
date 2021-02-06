@@ -455,7 +455,8 @@ class PeerConnection : public PeerConnectionInternal,
                  bool is_unified_plan,
                  std::unique_ptr<RtcEventLog> event_log,
                  std::unique_ptr<Call> call,
-                 PeerConnectionDependencies& dependencies);
+                 PeerConnectionDependencies& dependencies,
+                 bool dtls_enabled);
 
   ~PeerConnection() override;
 
@@ -463,6 +464,9 @@ class PeerConnection : public PeerConnectionInternal,
   RTCError Initialize(
       const PeerConnectionInterface::RTCConfiguration& configuration,
       PeerConnectionDependencies dependencies);
+  void InitializeTransportController_n(
+      const RTCConfiguration& configuration,
+      const PeerConnectionDependencies& dependencies);
 
   rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
   FindTransceiverBySender(rtc::scoped_refptr<RtpSenderInterface> sender)
@@ -627,8 +631,9 @@ class PeerConnection : public PeerConnectionInternal,
 
   // TODO(zstein): |async_resolver_factory_| can currently be nullptr if it
   // is not injected. It should be required once chromium supplies it.
-  const std::unique_ptr<AsyncResolverFactory> async_resolver_factory_
-      RTC_GUARDED_BY(signaling_thread());
+  // This member variable is only used by JsepTransportController so we should
+  // consider moving ownership to there.
+  const std::unique_ptr<AsyncResolverFactory> async_resolver_factory_;
   std::unique_ptr<cricket::PortAllocator>
       port_allocator_;  // TODO(bugs.webrtc.org/9987): Accessed on both
                         // signaling and network thread.
@@ -646,8 +651,7 @@ class PeerConnection : public PeerConnectionInternal,
   std::unique_ptr<Call> call_ RTC_GUARDED_BY(worker_thread());
   ScopedTaskSafety signaling_thread_safety_;
   rtc::scoped_refptr<PendingTaskSafetyFlag> network_thread_safety_;
-  std::unique_ptr<ScopedTaskSafety> call_safety_
-      RTC_GUARDED_BY(worker_thread());
+  rtc::scoped_refptr<PendingTaskSafetyFlag> call_safety_;
 
   // Points to the same thing as `call_`. Since it's const, we may read the
   // pointer from any thread.
@@ -681,7 +685,7 @@ class PeerConnection : public PeerConnectionInternal,
   std::unique_ptr<SdpOfferAnswerHandler> sdp_handler_
       RTC_GUARDED_BY(signaling_thread());
 
-  bool dtls_enabled_ RTC_GUARDED_BY(signaling_thread()) = false;
+  const bool dtls_enabled_;
 
   UsagePattern usage_pattern_ RTC_GUARDED_BY(signaling_thread());
   bool return_histogram_very_quickly_ RTC_GUARDED_BY(signaling_thread()) =

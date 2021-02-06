@@ -621,9 +621,11 @@ RTCError PeerConnection::Initialize(
         }
       };
 
-  transport_controller_.reset(new JsepTransportController(
-      signaling_thread(), network_thread(), port_allocator_.get(),
-      async_resolver_factory_.get(), config));
+  // TODO(bugs.webrtc.org/12427): Should we construct the object on the network
+  // thread and tear it down there?
+  transport_controller_.reset(
+      new JsepTransportController(network_thread(), port_allocator_.get(),
+                                  async_resolver_factory_.get(), config));
 
   // The following RTC_DCHECKs are added by looking at the caller thread.
   // If this is incorrect there might not be test failures
@@ -1440,6 +1442,7 @@ RTCError PeerConnection::SetConfiguration(
 
   if (configuration_.active_reset_srtp_params !=
       modified_config.active_reset_srtp_params) {
+    // TODO: move to the network thread - hides an invoke.
     transport_controller_->SetActiveResetSrtpParams(
         modified_config.active_reset_srtp_params);
   }
@@ -1594,6 +1597,7 @@ void PeerConnection::StopRtcEventLog() {
 rtc::scoped_refptr<DtlsTransportInterface>
 PeerConnection::LookupDtlsTransportByMid(const std::string& mid) {
   RTC_DCHECK_RUN_ON(signaling_thread());
+  // TODO: move to the network thread - hides an invoke.
   return transport_controller_->LookupDtlsTransportByMid(mid);
 }
 
@@ -2144,7 +2148,10 @@ bool PeerConnection::IceRestartPending(const std::string& content_name) const {
 }
 
 bool PeerConnection::NeedsIceRestart(const std::string& content_name) const {
-  return transport_controller_->NeedsIceRestart(content_name);
+  return network_thread()->Invoke<bool>(RTC_FROM_HERE, [this, &content_name] {
+    RTC_DCHECK_RUN_ON(network_thread());
+    return transport_controller_->NeedsIceRestart(content_name);
+  });
 }
 
 void PeerConnection::OnTransportControllerConnectionState(

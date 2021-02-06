@@ -74,7 +74,6 @@ class JsepTransportControllerTest : public JsepTransportController::Observer,
 
   void CreateJsepTransportController(
       JsepTransportController::Config config,
-      rtc::Thread* signaling_thread = rtc::Thread::Current(),
       rtc::Thread* network_thread = rtc::Thread::Current(),
       cricket::PortAllocator* port_allocator = nullptr) {
     config.transport_observer = this;
@@ -84,8 +83,8 @@ class JsepTransportControllerTest : public JsepTransportController::Observer,
     config.dtls_transport_factory = fake_dtls_transport_factory_.get();
     config.on_dtls_handshake_error_ = [](rtc::SSLHandshakeError s) {};
     transport_controller_ = std::make_unique<JsepTransportController>(
-        signaling_thread, network_thread, port_allocator,
-        nullptr /* async_resolver_factory */, config);
+        network_thread, port_allocator, nullptr /* async_resolver_factory */,
+        config);
     ConnectTransportControllerSignals();
   }
 
@@ -887,7 +886,7 @@ TEST_F(JsepTransportControllerTest, IceSignalingOccursOnSignalingThread) {
   network_thread_ = rtc::Thread::CreateWithSocketServer();
   network_thread_->Start();
   CreateJsepTransportController(JsepTransportController::Config(),
-                                signaling_thread_, network_thread_.get(),
+                                network_thread_.get(),
                                 /*port_allocator=*/nullptr);
   CreateLocalDescriptionAndCompleteConnectionOnNetworkThread();
 

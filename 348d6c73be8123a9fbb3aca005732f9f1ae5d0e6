@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b47c736_46c1faee",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-02-08T14:50:58Z",
+      "side": 1,
+      "message": "Indeed. I should have fixed this when moving the code. Thanks.",
+      "parentUuid": "cc9d6dd8_93a28032",
+      "range": {
+        "startLine": 275,
+        "startChar": 38,
+        "endLine": 275,
+        "endChar": 62
+      },
+      "revId": "348d6c73be8123a9fbb3aca005732f9f1ae5d0e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "791e1361_3da4ca51",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-02-08T12:20:34Z",
       "side": 1,
       "message": "Could be written more concisely as\n\nreturn configuration.enable_dtls_srtp.value_or(dtls_enabled);\n\nCould also consider eliminating the local variable dtls_enabled, but that may be less readable.",
+      "range": {
+        "startLine": 276,
+        "startChar": 0,
+        "endLine": 279,
+        "endChar": 22
+      },
+      "revId": "348d6c73be8123a9fbb3aca005732f9f1ae5d0e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8e7e57c_826f8750",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-02-08T14:50:58Z",
+      "side": 1,
+      "message": "much better",
+      "parentUuid": "791e1361_3da4ca51",
       "range": {
         "startLine": 276,
         "startChar": 0,

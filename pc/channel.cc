@@ -413,6 +413,7 @@ bool BaseChannel::SendPacket(bool rtcp,
   // The only downside is that we can't return a proper failure code if
   // needed. Since UDP is unreliable anyway, this should be a non-issue.
   if (!network_thread_->IsCurrent()) {
+    RTC_NOTREACHED();
     // Avoid a copy by transferring the ownership of the packet data.
     int message_id = rtcp ? MSG_SEND_RTCP_PACKET : MSG_SEND_RTP_PACKET;
     SendPacketMessageData* data = new SendPacketMessageData;

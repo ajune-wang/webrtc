@@ -96,7 +96,7 @@ class RateControlSettings final {
   explicit RateControlSettings(
       const WebRtcKeyValueConfig* const key_value_config);
 
-  CongestionWindowConfig congestion_window_config_;
+  const CongestionWindowConfig congestion_window_config_;
   VideoRateControlConfig video_config_;
 };
 

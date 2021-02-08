@@ -16,6 +16,23 @@
       "message": "PTAL",
       "revId": "d0099c56a9c4f2061a7f5a79b4759783a36d163a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b15ef614_7b1579ff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-02-08T16:17:21Z",
+      "side": 1,
+      "message": "Holding LGTM until we enable the plugin and we verify everything works.",
+      "revId": "d0099c56a9c4f2061a7f5a79b4759783a36d163a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

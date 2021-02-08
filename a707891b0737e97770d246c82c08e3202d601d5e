@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5bb9fdd1_91391348",
+        "filename": "pc/jsep_transport_controller.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-08T09:49:33Z",
+      "side": 1,
+      "message": "Please update comment.",
+      "range": {
+        "startLine": 138,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 67
+      },
+      "revId": "a707891b0737e97770d246c82c08e3202d601d5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "440933fc_6567cd12",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-08T09:49:33Z",
+      "side": 1,
+      "message": "RTC_RUN_ON annotation?",
+      "range": {
+        "startLine": 467,
+        "startChar": 0,
+        "endLine": 469,
+        "endChar": 54
+      },
+      "revId": "a707891b0737e97770d246c82c08e3202d601d5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fac340e7_d268b955",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-08T09:49:33Z",
+      "side": 1,
+      "message": "Why no GUARDED_BY annotation on this flag, and network_thread_safety_ above?",
+      "range": {
+        "startLine": 655,
+        "startChar": 44,
+        "endLine": 655,
+        "endChar": 56
+      },
+      "revId": "a707891b0737e97770d246c82c08e3202d601d5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c43095f_e9bc3606",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 689,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-08T09:49:33Z",
+      "side": 1,
+      "message": "It\u0027s a bit confusing that this member is not used at all by the DtlsEnabled() method, and there are also a couple of `dtls_enabled` locals. Maybe rename this member for clarity, perhaps  `dtls_enabled_default_` (I don\u0027t really understand the role of this member, though)?",
+      "range": {
+        "startLine": 689,
+        "startChar": 13,
+        "endLine": 689,
+        "endChar": 26
+      },
+      "revId": "a707891b0737e97770d246c82c08e3202d601d5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

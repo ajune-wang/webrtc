@@ -24,6 +24,47 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "af5b3174_90e19cf3",
+        "filename": "pc/jsep_transport_controller.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-02-08T11:55:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5bb9fdd1_91391348",
+      "range": {
+        "startLine": 138,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 67
+      },
+      "revId": "a707891b0737e97770d246c82c08e3202d601d5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a825ac4_7003af4d",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-02-08T11:55:50Z",
+      "side": 1,
+      "message": "Since Create() is a static function, we can\u0027t use dtls_enabled_. This is though how we get the value for the dtls_enabled_ member variable, which can now be const (see injection via the ctor below).",
+      "revId": "a707891b0737e97770d246c82c08e3202d601d5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "440933fc_6567cd12",
@@ -37,6 +78,30 @@
       "writtenOn": "2021-02-08T09:49:33Z",
       "side": 1,
       "message": "RTC_RUN_ON annotation?",
+      "range": {
+        "startLine": 467,
+        "startChar": 0,
+        "endLine": 469,
+        "endChar": 54
+      },
+      "revId": "a707891b0737e97770d246c82c08e3202d601d5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4446cdae_04350c71",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-02-08T11:55:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "440933fc_6567cd12",
       "range": {
         "startLine": 467,
         "startChar": 0,
@@ -72,6 +137,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "99c344a2_cb398ee3",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-02-08T11:55:50Z",
+      "side": 1,
+      "message": "The flags need to be used from other threads to the thread that they represent. Internally, the flags themselves will check that the state only changes in the correct context.\nRight now the call_safety_ flag basically represents the worker thread so I\u0027ll rename that variable so that the three are aligned.",
+      "parentUuid": "fac340e7_d268b955",
+      "range": {
+        "startLine": 655,
+        "startChar": 44,
+        "endLine": 655,
+        "endChar": 56
+      },
+      "revId": "a707891b0737e97770d246c82c08e3202d601d5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3c43095f_e9bc3606",
         "filename": "pc/peer_connection.h",
         "patchSetId": 10
@@ -83,6 +172,30 @@
       "writtenOn": "2021-02-08T09:49:33Z",
       "side": 1,
       "message": "It\u0027s a bit confusing that this member is not used at all by the DtlsEnabled() method, and there are also a couple of `dtls_enabled` locals. Maybe rename this member for clarity, perhaps  `dtls_enabled_default_` (I don\u0027t really understand the role of this member, though)?",
+      "range": {
+        "startLine": 689,
+        "startChar": 13,
+        "endLine": 689,
+        "endChar": 26
+      },
+      "revId": "a707891b0737e97770d246c82c08e3202d601d5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "546297f0_bb8908c6",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 689,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-02-08T11:55:50Z",
+      "side": 1,
+      "message": "The DtlsEnabled() method is a helper method in the anonymous namespace that we use to initialize this variable. It\u0027s how we can make this variable const.\n\nThe ReportNegotiatedCiphers() method is static, which is why it can\u0027t access that member variable. It doesn\u0027t strictly speaking need to be static though but my thinking was that if we get to reporting those stats more asynchronously, we don\u0027t need to couple those reporting events with the object\u0027s lifetime (potentially blocking destruction).",
+      "parentUuid": "3c43095f_e9bc3606",
       "range": {
         "startLine": 689,
         "startChar": 13,

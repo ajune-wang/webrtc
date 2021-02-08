@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "cca90b1c_a682ba99",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-02-08T14:23:22Z",
+      "side": 1,
+      "message": "No jsep controller test exists for it, which isn\u0027t surprising given that this was ignored before. But I\u0027ve added an ErrorOnInvalidRemoteIceCandidateAdded test now for this case.",
+      "parentUuid": "4b5d8868_846a4e84",
+      "revId": "cf28d9bd0f9070c84025163b161c110ffe526809",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "e9314ec3_259212da",
@@ -48,6 +66,24 @@
       "writtenOn": "2021-02-08T11:30:51Z",
       "side": 1,
       "message": "I like having the threading DCHECK first in the function, for tidiness.",
+      "revId": "cf28d9bd0f9070c84025163b161c110ffe526809",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "822350e4_c76b1e6f",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-02-08T14:23:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9fafeafc_9806916a",
       "revId": "cf28d9bd0f9070c84025163b161c110ffe526809",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

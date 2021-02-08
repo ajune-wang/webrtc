@@ -33,6 +33,64 @@
       "message": "Holding LGTM until we enable the plugin and we verify everything works.",
       "revId": "d0099c56a9c4f2061a7f5a79b4759783a36d163a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61113673_32cf3b51",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5028
+      },
+      "writtenOn": "2021-02-08T17:41:51Z",
+      "side": 1,
+      "message": "Note that we don\u0027t need to ",
+      "revId": "d0099c56a9c4f2061a7f5a79b4759783a36d163a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "034cb2a7_159287d5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5028
+      },
+      "writtenOn": "2021-02-08T17:41:51Z",
+      "side": 1,
+      "message": "We don\u0027t need to enable the plugin to land this change.\n\nowners_client is a common interface between Depot Tools owners and Gerrit owners, and right now it uses Depot Tools owners implementation, so nothing should change.\nUsing owners_client will make switching to Gerrit code owners easier in the future.\n\nI found a bug, though.",
+      "parentUuid": "b15ef614_7b1579ff",
+      "revId": "d0099c56a9c4f2061a7f5a79b4759783a36d163a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc188e9e_3854def8",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 1374,
+      "author": {
+        "id": 5028
+      },
+      "writtenOn": "2021-02-08T17:41:51Z",
+      "side": 1,
+      "message": "This should be virtual_depended_on_files.",
+      "range": {
+        "startLine": 1374,
+        "startChar": 8,
+        "endLine": 1374,
+        "endChar": 22
+      },
+      "revId": "d0099c56a9c4f2061a7f5a79b4759783a36d163a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

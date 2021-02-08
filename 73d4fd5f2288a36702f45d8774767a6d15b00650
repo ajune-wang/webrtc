@@ -16,6 +16,23 @@
       "message": "Do you have a tracking bug?",
       "revId": "73d4fd5f2288a36702f45d8774767a6d15b00650",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49408c76_9ffbc8c7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-02-08T18:19:04Z",
+      "side": 1,
+      "message": "LGTM but please add a \"Bug: chromium:XXX\".",
+      "revId": "73d4fd5f2288a36702f45d8774767a6d15b00650",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

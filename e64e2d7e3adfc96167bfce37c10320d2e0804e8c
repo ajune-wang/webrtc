@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6edef099_8fe4133c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5028
+      },
+      "writtenOn": "2021-02-08T18:37:44Z",
+      "side": 1,
+      "message": "Henrik, can you approve?\nLooks like Mirko is not an OWNER.",
+      "revId": "e64e2d7e3adfc96167bfce37c10320d2e0804e8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

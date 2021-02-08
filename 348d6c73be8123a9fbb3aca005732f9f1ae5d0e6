@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "932aec5c_e5cb47a3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-08T12:20:34Z",
+      "side": 1,
+      "message": "lgtm % comment nit.",
+      "revId": "348d6c73be8123a9fbb3aca005732f9f1ae5d0e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc9d6dd8_93a28032",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-08T12:20:34Z",
+      "side": 1,
+      "message": "I think this comment, referencing the member variable, contributed to my confusion... Consider rephrasing.",
+      "range": {
+        "startLine": 275,
+        "startChar": 38,
+        "endLine": 275,
+        "endChar": 62
+      },
+      "revId": "348d6c73be8123a9fbb3aca005732f9f1ae5d0e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "791e1361_3da4ca51",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-08T12:20:34Z",
+      "side": 1,
+      "message": "Could be written more concisely as\n\nreturn configuration.enable_dtls_srtp.value_or(dtls_enabled);\n\nCould also consider eliminating the local variable dtls_enabled, but that may be less readable.",
+      "range": {
+        "startLine": 276,
+        "startChar": 0,
+        "endLine": 279,
+        "endChar": 22
+      },
+      "revId": "348d6c73be8123a9fbb3aca005732f9f1ae5d0e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

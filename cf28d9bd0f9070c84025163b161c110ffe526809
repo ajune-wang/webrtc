@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b5d8868_846a4e84",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-02-08T11:30:51Z",
+      "side": 1,
+      "message": "This is a Good Thing. We had an outstanding bug to report invalid candidates, I think. But where\u0027s the test for that?",
+      "revId": "cf28d9bd0f9070c84025163b161c110ffe526809",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9314ec3_259212da",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-02-08T11:30:51Z",
+      "side": 1,
+      "message": "Hm. UseCandidate is actually a behind-the-scenes call; AddIceCandidate will add the candidate to the description, and if the session is \"ready\" (exchange completed), it will call UseCandidate. In the case where it isn\u0027t ready, but the candidate is valid, the candidate will be stored in the remote description and used when the PC is ready to use it.\n\nThis means that it\u0027s OK to do things a bit piecemeal, it doesn\u0027t influence the observable state from JS that much.\n\nI think. But I\u0027d like to see tests for the behavior that changed.",
+      "revId": "cf28d9bd0f9070c84025163b161c110ffe526809",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fafeafc_9806916a",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-02-08T11:30:51Z",
+      "side": 1,
+      "message": "I like having the threading DCHECK first in the function, for tidiness.",
+      "revId": "cf28d9bd0f9070c84025163b161c110ffe526809",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

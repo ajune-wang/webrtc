@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8ab993c_0f741e66",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-02-08T09:05:22Z",
+      "side": 1,
+      "message": "Besides the describing the purpose, add what this CL actually does.\nNamely, it replaces the existing scheme to notify the \"capture output used\" status to AGC1 by switching to the RuntimeSetting scheme.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 0
+      },
+      "revId": "92419403e7d40207c79dc780e8966abb6103b767",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddfa0969_322661d4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-02-08T09:05:22Z",
+      "side": 1,
+      "message": "Thanks for the CL Per :)\nLGTM % a few comments",
+      "revId": "92419403e7d40207c79dc780e8966abb6103b767",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43d1cd56_1aa024cb",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-02-08T09:05:22Z",
+      "side": 1,
+      "message": "[nit] If unused, the manager disregards all incoming audio.",
+      "range": {
+        "startLine": 55,
+        "startChar": 5,
+        "endLine": 55,
+        "endChar": 16
+      },
+      "revId": "92419403e7d40207c79dc780e8966abb6103b767",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8586d4e_d7b6da94",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 696,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-02-08T09:05:22Z",
+      "side": 1,
+      "message": "remove line 680 and\n\n    case RuntimeSetting::Type::kPlayoutVolumeChange: {\n      bool enqueueing_successful \u003d\n          capture_runtime_settings_enqueuer_.Enqueue(setting);\n      enqueueing_successful \u0026\u003d\n          render_runtime_settings_enqueuer_.Enqueue(setting);\n      return enqueueing_successful;\n    }",
+      "range": {
+        "startLine": 690,
+        "startChar": 0,
+        "endLine": 696,
+        "endChar": 35
+      },
+      "revId": "92419403e7d40207c79dc780e8966abb6103b767",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa365bf2_46157192",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-02-08T09:05:22Z",
+      "side": 1,
+      "message": "maybe mark as deprecated indicating how to create the runtime setting?\nfor example, sth like\n\n// Use instead:\n// auto setting \u003d RuntimeSetting::CreateCaptureOutputUsedSetting(true|false);\n// apm.SetRuntimeSetting(setting);",
+      "range": {
+        "startLine": 532,
+        "startChar": 0,
+        "endLine": 533,
+        "endChar": 54
+      },
+      "revId": "92419403e7d40207c79dc780e8966abb6103b767",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -33,6 +33,24 @@
       "message": "Hi Siarhei, can you please provide some details on the artifacts you\u0027re seeing and how/why your patchset solves the issue? Thanks.",
       "revId": "46193a716fafafc70ca0ed2c466639da4cf1e59e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01646170_c50d1f3d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15700
+      },
+      "writtenOn": "2021-02-08T13:11:38Z",
+      "side": 1,
+      "message": "Hi Peter!\nSorry for the delay.\nSo, when I use RTCMTLRenderer inside UICollectionViewCell and applying mirroring to it with CGAffineTransform(scaleX: -1, y: 1) it causes artifacts in landscape orientation(see videos below). It can rotate and squash video, can freeze display(main queue in free, actually i can press buttons, but Display is not updating). And they causes only sometimes. If I use OpenGL version of renderer - everything works fine. Looks like it\u0027s some Metal problem.\n\nSo i decided to make this - if we rotating video inside renderer, why we can\u0027t mirror it here, if we need? That\u0027s why i implement it. And seems to me, it\u0027s also better in performance.\n\nVideos here: https://drive.google.com/drive/folders/14Gzz8DauxbnmiUCPyjsj4BjPsoe_Ijs3?usp\u003dsharing",
+      "parentUuid": "aa72d032_a31b3068",
+      "revId": "46193a716fafafc70ca0ed2c466639da4cf1e59e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

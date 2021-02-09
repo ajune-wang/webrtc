@@ -50,6 +50,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "97e3169f_7c91c887",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-02-09T09:17:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "49d33d34_de13522a",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 0
+      },
+      "revId": "92419403e7d40207c79dc780e8966abb6103b767",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "ddfa0969_322661d4",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -196,6 +220,30 @@
       "side": 1,
       "message": "Yes, I thought about that too. However, my concern with that approach is that at the moment, the SetRuntimeSetting has not a guaranteed delivery (the swapqueue may overflow), in contrast to set_output_will_be_muted. \n\nThat can be handled by delayed retransmission of the RuntimeSetting, but the current code calling set_output_will_be_muted cannot really do that (without major changes).\n\nI have an implementation in mind for the SetRunTimeSetting that could allow it to fall-back to a safe state when an overflow of the queue is detected. However, until that is in place, I don\u0027t think we can deprecate this method.\n\n\n(for muting, the issue is that if the unmuting event is missed, then that will be very bad for the audio quality).",
       "parentUuid": "fa365bf2_46157192",
+      "range": {
+        "startLine": 532,
+        "startChar": 0,
+        "endLine": 533,
+        "endChar": 54
+      },
+      "revId": "92419403e7d40207c79dc780e8966abb6103b767",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "edb8a1b4_c250205d",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-02-09T09:17:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c3ecb9b5_6df38598",
       "range": {
         "startLine": 532,
         "startChar": 0,

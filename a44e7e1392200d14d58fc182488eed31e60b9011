@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a309760e_1686f64a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-02-09T09:17:48Z",
+      "side": 1,
+      "message": "Thanks for the new patch set, still LGTM.",
+      "revId": "a44e7e1392200d14d58fc182488eed31e60b9011",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

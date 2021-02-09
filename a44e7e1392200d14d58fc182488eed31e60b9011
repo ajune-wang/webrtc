@@ -16,6 +16,23 @@
       "message": "Thanks for the new patch set, still LGTM.",
       "revId": "a44e7e1392200d14d58fc182488eed31e60b9011",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab2ef780_34c8d0d0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-02-09T10:28:12Z",
+      "side": 1,
+      "message": "Thanks for the review!!!",
+      "revId": "a44e7e1392200d14d58fc182488eed31e60b9011",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

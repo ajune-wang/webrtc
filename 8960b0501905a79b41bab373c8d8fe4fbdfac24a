@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fae5fe10_84c6670e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-02-09T15:07:46Z",
+      "side": 1,
+      "message": "Adding guidou@ to the CL.\n\nGuido implemented what seems like this exact functionality for Chrome some time back. It would be strange to have two mechanisms for doing the same thing, so it would be good to make sure we only have one mechanism.\n",
+      "revId": "8960b0501905a79b41bab373c8d8fe4fbdfac24a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

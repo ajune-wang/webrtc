@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "49d33d34_de13522a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-02-09T07:49:16Z",
+      "side": 1,
+      "message": "I think that is not needed at the moment, since I see no way around keeping the old code for the muting.",
+      "parentUuid": "f8ab993c_0f741e66",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 0
+      },
+      "revId": "92419403e7d40207c79dc780e8966abb6103b767",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "ddfa0969_322661d4",
@@ -64,6 +88,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5b752f1_512c1e25",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-02-09T07:49:16Z",
+      "side": 1,
+      "message": "Thanks! That definitely is better.",
+      "parentUuid": "43d1cd56_1aa024cb",
+      "range": {
+        "startLine": 55,
+        "startChar": 5,
+        "endLine": 55,
+        "endChar": 16
+      },
+      "revId": "92419403e7d40207c79dc780e8966abb6103b767",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b8586d4e_d7b6da94",
@@ -87,6 +135,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4473652f_d74826d5",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 696,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-02-09T07:49:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8586d4e_d7b6da94",
+      "range": {
+        "startLine": 690,
+        "startChar": 0,
+        "endLine": 696,
+        "endChar": 35
+      },
+      "revId": "92419403e7d40207c79dc780e8966abb6103b767",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fa365bf2_46157192",
@@ -100,6 +172,30 @@
       "writtenOn": "2021-02-08T09:05:22Z",
       "side": 1,
       "message": "maybe mark as deprecated indicating how to create the runtime setting?\nfor example, sth like\n\n// Use instead:\n// auto setting \u003d RuntimeSetting::CreateCaptureOutputUsedSetting(true|false);\n// apm.SetRuntimeSetting(setting);",
+      "range": {
+        "startLine": 532,
+        "startChar": 0,
+        "endLine": 533,
+        "endChar": 54
+      },
+      "revId": "92419403e7d40207c79dc780e8966abb6103b767",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3ecb9b5_6df38598",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-02-09T07:49:16Z",
+      "side": 1,
+      "message": "Yes, I thought about that too. However, my concern with that approach is that at the moment, the SetRuntimeSetting has not a guaranteed delivery (the swapqueue may overflow), in contrast to set_output_will_be_muted. \n\nThat can be handled by delayed retransmission of the RuntimeSetting, but the current code calling set_output_will_be_muted cannot really do that (without major changes).\n\nI have an implementation in mind for the SetRunTimeSetting that could allow it to fall-back to a safe state when an overflow of the queue is detected. However, until that is in place, I don\u0027t think we can deprecate this method.\n\n\n(for muting, the issue is that if the unmuting event is missed, then that will be very bad for the audio quality).",
+      "parentUuid": "fa365bf2_46157192",
       "range": {
         "startLine": 532,
         "startChar": 0,

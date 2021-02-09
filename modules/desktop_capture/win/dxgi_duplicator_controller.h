@@ -223,14 +223,15 @@ class DxgiDuplicatorController {
 
   // A self-incremented integer to compare with the one in Context. It ensures
   // a Context instance is always initialized after DxgiDuplicatorController.
-  int identity_ = 0;
-  DesktopRect desktop_rect_;
-  DesktopVector dpi_;
-  std::vector<DxgiAdapterDuplicator> duplicators_;
-  D3dInfo d3d_info_;
-  DisplayConfigurationMonitor display_configuration_monitor_;
+  int identity_ = 0 RTC_GUARDED_BY(lock_);
+  DesktopRect desktop_rect_ RTC_GUARDED_BY(lock_);
+  DesktopVector dpi_ RTC_GUARDED_BY(lock_);
+  std::vector<DxgiAdapterDuplicator> duplicators_ RTC_GUARDED_BY(lock_);
+  D3dInfo d3d_info_ RTC_GUARDED_BY(lock_);
+  DisplayConfigurationMonitor display_configuration_monitor_
+      RTC_GUARDED_BY(lock_);
   // A number to indicate how many succeeded duplications have been performed.
-  uint32_t succeeded_duplications_ = 0;
+  uint32_t succeeded_duplications_ RTC_GUARDED_BY(lock_) = 0;
 };
 
 }  // namespace webrtc

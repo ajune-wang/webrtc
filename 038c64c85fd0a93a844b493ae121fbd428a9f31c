@@ -33,6 +33,23 @@
       "message": "PTAL.",
       "revId": "038c64c85fd0a93a844b493ae121fbd428a9f31c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7143cdb9_c001737a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-02-09T08:51:55Z",
+      "side": 1,
+      "message": "Thanks nisse@! 😊 🎉",
+      "revId": "038c64c85fd0a93a844b493ae121fbd428a9f31c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

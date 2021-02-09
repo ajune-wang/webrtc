@@ -1418,6 +1418,10 @@ class RTC_EXPORT PeerConnectionFactoryInterface
 
     // Sets crypto related options, e.g. enabled cipher suites.
     CryptoOptions crypto_options = CryptoOptions::NoGcm();
+
+    // Sets from extern the portrange in the portallocator
+    int min_port = 0;
+    int max_port = 0;
   };
 
   // Set the options to be used for subsequently created PeerConnections.

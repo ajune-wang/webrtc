@@ -251,6 +251,22 @@ PeerConnectionFactory::CreatePeerConnectionOrError(
 
   dependencies.allocator->SetNetworkIgnoreMask(options().network_ignore_mask);
 
+  // the setting of the portrange must be done from
+  //  the networkthread / ThreadCheck
+  if (options_.max_port && (options_.min_port <= options_.max_port)) {
+    bool result = false;
+    cricket::PortAllocator* pa = dependencies.allocator.get();
+    int minport = options_.min_port;
+    int maxport = options_.max_port;
+
+    result = network_thread()->Invoke<bool>(
+        RTC_FROM_HERE,
+        [pa, minport, maxport] { return pa->SetPortRange(minport, maxport); });
+    if (!result) {
+      RTC_LOG(LS_WARNING) << "the setting of minport/maxport failed";
+    }
+  }
+
   std::unique_ptr<RtcEventLog> event_log =
       worker_thread()->Invoke<std::unique_ptr<RtcEventLog>>(
           RTC_FROM_HERE, [this] { return CreateRtcEventLog_w(); });

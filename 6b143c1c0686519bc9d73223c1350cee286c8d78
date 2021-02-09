@@ -46,6 +46,30 @@
       },
       "revId": "6b143c1c0686519bc9d73223c1350cee286c8d78",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f4af627_88cd6633",
+        "filename": "rtc_base/virtual_socket_server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1026,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-02-09T23:02:45Z",
+      "side": 0,
+      "message": "It seems to indicate that there was a version of this that was thought to be accessed from multiple threads, but most of the multithread thinking has rotted away since 2014.\n\nAs far as I can tell, it\u0027s not documented which threads do what in this class, so it\u0027s fair to guess that it\u0027s either single-threaded or wrong.",
+      "parentUuid": "f58361bf_9f378b39",
+      "range": {
+        "startLine": 1024,
+        "startChar": 0,
+        "endLine": 1026,
+        "endChar": 31
+      },
+      "revId": "6b143c1c0686519bc9d73223c1350cee286c8d78",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

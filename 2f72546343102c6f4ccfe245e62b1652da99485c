@@ -16,6 +16,23 @@
       "message": "PTAL. Do you have any clue what this locking was about?",
       "revId": "2f72546343102c6f4ccfe245e62b1652da99485c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42b79be5_d5df87f7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-02-09T23:02:45Z",
+      "side": 1,
+      "message": "Looks like good cleanup to me.\n",
+      "revId": "2f72546343102c6f4ccfe245e62b1652da99485c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

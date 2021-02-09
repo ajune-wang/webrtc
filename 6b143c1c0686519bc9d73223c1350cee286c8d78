@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5b59759_fabaaa57",
+        "filename": "rtc_base/virtual_socket_server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1026,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-09T14:18:38Z",
+      "side": 0,
+      "message": "I don\u0027t understand this at all.",
+      "range": {
+        "startLine": 1024,
+        "startChar": 0,
+        "endLine": 1026,
+        "endChar": 31
+      },
+      "revId": "6b143c1c0686519bc9d73223c1350cee286c8d78",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

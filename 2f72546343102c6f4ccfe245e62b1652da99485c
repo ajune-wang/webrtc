@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6cb38f52_fa8b6904",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-09T14:18:38Z",
+      "side": 1,
+      "message": "PTAL. Do you have any clue what this locking was about?",
+      "revId": "2f72546343102c6f4ccfe245e62b1652da99485c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

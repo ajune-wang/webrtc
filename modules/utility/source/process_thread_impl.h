@@ -92,18 +92,17 @@ class ProcessThreadImpl : public ProcessThread {
   // issues, but I haven't figured out what they are, if there are alignment
   // requirements for mutexes on Mac or if there's something else to it.
   // So be careful with changing the layout.
-  rtc::RecursiveCriticalSection
-      lock_;  // Used to guard modules_, tasks_ and stop_.
+  rtc::RecursiveCriticalSection lock_;
 
   SequenceChecker thread_checker_;
   rtc::Event wake_up_;
   // TODO(pbos): Remove unique_ptr and stop recreating the thread.
   std::unique_ptr<rtc::PlatformThread> thread_;
 
-  ModuleList modules_;
+  ModuleList modules_ RTC_GUARDED_BY(lock_);
   std::queue<QueuedTask*> queue_;
   std::priority_queue<DelayedTask> delayed_tasks_ RTC_GUARDED_BY(lock_);
-  bool stop_;
+  bool stop_ RTC_GUARDED_BY(lock_);
   const char* thread_name_;
 };
 

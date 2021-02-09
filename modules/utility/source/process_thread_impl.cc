@@ -75,6 +75,8 @@ void ProcessThreadImpl::Start() {
   if (thread_.get())
     return;
 
+  rtc::CritScope lock(&lock_);
+
   RTC_DCHECK(!stop_);
 
   for (ModuleCallback& m : modules_)
@@ -98,6 +100,8 @@ void ProcessThreadImpl::Stop() {
   wake_up_.Set();
 
   thread_->Stop();
+
+  rtc::CritScope lock(&lock_);
   stop_ = false;
 
   thread_.reset();

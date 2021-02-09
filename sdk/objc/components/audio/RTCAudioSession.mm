@@ -16,7 +16,7 @@
 
 #include "rtc_base/atomic_ops.h"
 #include "rtc_base/checks.h"
-#include "rtc_base/deprecated/recursive_critical_section.h"
+#include "rtc_base/synchronization/mutex.h"
 
 #import "RTCAudioSessionConfiguration.h"
 #import "base/RTCLogging.h"
@@ -35,7 +35,7 @@ NSString * const kRTCAudioSessionOutputVolumeSelector = @"outputVolume";
 // TODO(tkchin): Consider more granular locking. We're not expecting a lot of
 // lock contention so coarse locks should be fine for now.
 @implementation RTC_OBJC_TYPE (RTCAudioSession) {
-  rtc::RecursiveCriticalSection _crit;
+  webrtc::Mutex _mutex;
   AVAudioSession *_session;
   volatile int _activationCount;
   volatile int _lockRecursionCount;
@@ -234,20 +234,11 @@ NSString * const kRTCAudioSessionOutputVolumeSelector = @"outputVolume";
 #pragma clang diagnostic ignored "-Wthread-safety-analysis"
 
 - (void)lockForConfiguration {
-  _crit.Enter();
-  rtc::AtomicOps::Increment(&_lockRecursionCount);
+  _mutex.Lock();
 }
 
 - (void)unlockForConfiguration {
-  // Don't let threads other than the one that called lockForConfiguration
-  // unlock.
-  if (_crit.TryEnter()) {
-    rtc::AtomicOps::Decrement(&_lockRecursionCount);
-    // One unlock for the tryLock, and another one to actually unlock. If this
-    // was called without anyone calling lock, we will hit an assertion.
-    _crit.Leave();
-    _crit.Leave();
-  }
+  _mutex.Unlock();
 }
 
 #pragma clang diagnostic pop

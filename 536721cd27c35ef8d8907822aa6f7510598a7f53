@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9bc4134c_538e63d2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-02-11T09:56:47Z",
+      "side": 1,
+      "message": "marking as -1 since I\u0027m pretty sure that those new locks are not needed.\nCan you add information to the cl description for why they\u0027re needed?",
+      "revId": "536721cd27c35ef8d8907822aa6f7510598a7f53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b7ff16c1_24fbbfad",
@@ -14,6 +31,30 @@
       "writtenOn": "2021-02-09T10:41:02Z",
       "side": 1,
       "message": "Is this still relevant?\n\nIt looks like the layout has changed since this comment was added so maybe the issue has been fixed?",
+      "range": {
+        "startLine": 89,
+        "startChar": 2,
+        "endLine": 94,
+        "endChar": 44
+      },
+      "revId": "536721cd27c35ef8d8907822aa6f7510598a7f53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3855f6a_901ca299",
+        "filename": "modules/utility/source/process_thread_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-02-11T09:56:47Z",
+      "side": 1,
+      "message": "Fine to remove. I think we\u0027ll know soon enough via bots if this is still an issue.",
+      "parentUuid": "b7ff16c1_24fbbfad",
       "range": {
         "startLine": 89,
         "startChar": 2,

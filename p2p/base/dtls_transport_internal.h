@@ -17,6 +17,7 @@
 #include <memory>
 #include <string>
 #include <utility>
+#include <vector>
 
 #include "api/crypto/crypto_options.h"
 #include "api/dtls_transport_interface.h"
@@ -115,6 +116,24 @@ class DtlsTransportInternal : public rtc::PacketTransportInternal {
   virtual IceTransportInternal* ice_transport() = 0;
 
   sigslot::signal2<DtlsTransportInternal*, DtlsTransportState> SignalDtlsState;
+  // F: void(DtlsTransportInternal*, const DtlsTransportState)
+  template <typename F>
+  void SubscribeDtlsState(F&& callback) {
+    dtls_state_tags_.push_back(dtls_state_tags_.size());
+    dtls_state_callback_list_.AddReceiver(&dtls_state_tags_.back(),
+                                          std::forward<F>(callback));
+  }
+  // Unsubscribe the last subscription only.
+  void UnsubscribeDtlsState() {
+    for (int tag : dtls_state_tags_) {
+      dtls_state_callback_list_.RemoveReceivers(&tag);
+    }
+    dtls_state_tags_.clear();
+  }
+  void SendDtlsState(DtlsTransportInternal* transport,
+                     DtlsTransportState state) {
+    dtls_state_callback_list_.Send(transport, state);
+  }
 
   // Emitted whenever the Dtls handshake failed on some transport channel.
   // F: void(rtc::SSLHandshakeError)
@@ -134,6 +153,9 @@ class DtlsTransportInternal : public rtc::PacketTransportInternal {
   RTC_DISALLOW_COPY_AND_ASSIGN(DtlsTransportInternal);
   webrtc::CallbackList<const rtc::SSLHandshakeError>
       dtls_handshake_error_callback_list_;
+  webrtc::CallbackList<DtlsTransportInternal*, const DtlsTransportState>
+      dtls_state_callback_list_;
+  std::vector<int> dtls_state_tags_;
 };
 
 }  // namespace cricket

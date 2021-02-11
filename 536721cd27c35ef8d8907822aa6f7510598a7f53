@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a6aacb33_abf6decd",
+        "filename": "modules/utility/source/process_thread_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-11T10:20:06Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "c354f90f_7f7a64d3",
+      "revId": "536721cd27c35ef8d8907822aa6f7510598a7f53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "138fddda_7eeba775",
         "filename": "modules/utility/source/process_thread_impl.cc",
         "patchSetId": 1
@@ -65,6 +83,24 @@
       "writtenOn": "2021-02-11T09:59:19Z",
       "side": 1,
       "message": "what could be competing with access here?",
+      "revId": "536721cd27c35ef8d8907822aa6f7510598a7f53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7529a301_88330f87",
+        "filename": "modules/utility/source/process_thread_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-11T10:20:06Z",
+      "side": 1,
+      "message": "Nothing, I think, but not locking violates the RTC_GUARDED_BY annotation.",
+      "parentUuid": "138fddda_7eeba775",
       "revId": "536721cd27c35ef8d8907822aa6f7510598a7f53",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -111,6 +147,29 @@
         "startChar": 2,
         "endLine": 94,
         "endChar": 44
+      },
+      "revId": "536721cd27c35ef8d8907822aa6f7510598a7f53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0ccdf10_7b290c37",
+        "filename": "modules/utility/source/process_thread_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-11T10:20:06Z",
+      "side": 1,
+      "message": "I think I understand the access pattern now: `stop_` is only ever written by the constructor thread. Read from the process thread, which takes the mutex. The constructor thread then needs to take the mutex only when (i) modifying the value, and (ii) the process thread actually is running. I think we\u0027ve discussed using similar access pattern in other places.\n\nIs there a way to express that to the compiler? Otherwise, I can document it (\"used to guard stop_\" as claimed above isn\u0027t accurate, imo), and delete the RTC_GUARDED_BY annotation.",
+      "range": {
+        "startLine": 105,
+        "startChar": 2,
+        "endLine": 105,
+        "endChar": 35
       },
       "revId": "536721cd27c35ef8d8907822aa6f7510598a7f53",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"

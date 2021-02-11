@@ -83,6 +83,8 @@ class AudioProcessingImpl : public AudioProcessing {
   void DetachAecDump() override;
   void SetRuntimeSetting(RuntimeSetting setting) override;
   bool PostRuntimeSetting(RuntimeSetting setting) override;
+  void HandleOverrunInCaptureRuntimeSettingsQueue()
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_capture_);
 
   // Capture-side exclusive methods possibly running APM in a
   // multi-threaded manner. Acquire the capture lock.

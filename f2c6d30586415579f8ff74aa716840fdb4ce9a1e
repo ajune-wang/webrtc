@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7ec8948_c51d71ee",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-02-11T10:55:33Z",
+      "side": 1,
+      "message": "Saw this #ifdef at the top of the file, and thought \"that can\u0027t be right\".\n",
+      "revId": "f2c6d30586415579f8ff74aa716840fdb4ce9a1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

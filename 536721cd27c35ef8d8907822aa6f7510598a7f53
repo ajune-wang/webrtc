@@ -18,6 +18,57 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "16892b6f_395275e9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-02-11T09:59:19Z",
+      "side": 1,
+      "message": "adding questions for why I think that the locks shouldn\u0027t be needed.",
+      "revId": "536721cd27c35ef8d8907822aa6f7510598a7f53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c354f90f_7f7a64d3",
+        "filename": "modules/utility/source/process_thread_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-02-11T09:59:19Z",
+      "side": 1,
+      "message": "this is reading stop_ which should be safe on this thread (we\u0027re on the only thread that can write to this value).",
+      "revId": "536721cd27c35ef8d8907822aa6f7510598a7f53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "138fddda_7eeba775",
+        "filename": "modules/utility/source/process_thread_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-02-11T09:59:19Z",
+      "side": 1,
+      "message": "what could be competing with access here?",
+      "revId": "536721cd27c35ef8d8907822aa6f7510598a7f53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b7ff16c1_24fbbfad",

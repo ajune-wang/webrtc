@@ -806,6 +806,7 @@ int AudioProcessingImpl::ProcessStream(const float* const* src,
 
 void AudioProcessingImpl::HandleCaptureRuntimeSettings() {
   RuntimeSetting setting;
+  int num_settings_processed = 0;
   while (capture_runtime_settings_.Remove(&setting)) {
     if (aec_dump_) {
       aec_dump_->WriteRuntimeSetting(setting);
@@ -864,7 +865,20 @@ void AudioProcessingImpl::HandleCaptureRuntimeSettings() {
         HandleCaptureOutputUsedSetting(value);
         break;
     }
+    ++num_settings_processed;
   }
+
+  if (num_settings_processed >= kRuntimeSettingQueueSize) {
+    // Handle overrun of the runtime settings queue, which likely will has
+    // caused settings to be discarded.
+    HandleOverrunInCaptureRuntimeSettingsQueue();
+  }
+}
+
+void AudioProcessingImpl::HandleOverrunInCaptureRuntimeSettingsQueue() {
+  // Fall back to a safe state for the case when a setting for capture output
+  // usage setting has been missed.
+  capture_.capture_output_used = true;
 }
 
 void AudioProcessingImpl::HandleRenderRuntimeSettings() {

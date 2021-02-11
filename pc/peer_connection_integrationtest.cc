@@ -8,10 +8,6 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-// Disable for TSan v2, see
-// https://code.google.com/p/webrtc/issues/detail?id=1205 for details.
-#if !defined(THREAD_SANITIZER)
-
 #include <stdio.h>
 
 #include <algorithm>
@@ -5195,6 +5191,9 @@ TEST_P(PeerConnectionIntegrationTest, MediaFlowsWhenCandidatesSetOnlyInSdp) {
   ASSERT_TRUE(ExpectNewFrames(media_expectations));
 }
 
+#if !defined(THREAD_SANITIZER)
+// This test provokes TSAN errors. See bugs.webrtc.org/3608.
+
 // Test that SetAudioPlayout can be used to disable audio playout from the
 // start, then later enable it. This may be useful, for example, if the caller
 // needs to play a local ringtone until some event occurs, after which it
@@ -5225,6 +5224,8 @@ TEST_P(PeerConnectionIntegrationTest, DisableAndEnableAudioPlayout) {
   media_expectations.ExpectBidirectionalAudio();
   ASSERT_TRUE(ExpectNewFrames(media_expectations));
 }
+
+#endif  // !defined(THREAD_SANITIZER)
 
 double GetAudioEnergyStat(PeerConnectionWrapper* pc) {
   auto report = pc->NewGetStats();
@@ -6097,5 +6098,3 @@ TEST_F(PeerConnectionIntegrationTestUnifiedPlan,
 
 }  // namespace
 }  // namespace webrtc
-
-#endif  // if !defined(THREAD_SANITIZER)

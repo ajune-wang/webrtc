@@ -16,6 +16,23 @@
       "message": "PTAL. Preparation for replacing RecursiveCriticalSection with a plain mutex.",
       "revId": "51d5a36d259b60ed41cbf2b9ff0ac2268180a55b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc0bd391_94b6331a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-02-11T16:10:07Z",
+      "side": 1,
+      "message": "lgtm fwiw! go Nisse!",
+      "revId": "51d5a36d259b60ed41cbf2b9ff0ac2268180a55b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -70,6 +70,30 @@
       },
       "revId": "6b143c1c0686519bc9d73223c1350cee286c8d78",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fc66c94_2ce84d67",
+        "filename": "rtc_base/virtual_socket_server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1026,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-11T08:46:25Z",
+      "side": 0,
+      "message": "It\u0027s called from the constructor, and from a few other places in tests, all in test setup code, as far as I can tell. I\u0027d guess neither lock or memory barrier is needed.",
+      "parentUuid": "3f4af627_88cd6633",
+      "range": {
+        "startLine": 1024,
+        "startChar": 0,
+        "endLine": 1026,
+        "endChar": 31
+      },
+      "revId": "6b143c1c0686519bc9d73223c1350cee286c8d78",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

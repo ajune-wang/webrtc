@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9675c3a0_0810c22e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-11T16:20:50Z",
+      "side": 1,
+      "message": "PTAL.",
+      "revId": "415473068a72d262d0789b41925df65861663a7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1fbf017_6bd30ceb",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 784,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-11T16:20:50Z",
+      "side": 1,
+      "message": "Not sure why we need to check for id_ changes. It would be nice if the two versions of OnEvent could be unified.",
+      "range": {
+        "startLine": 784,
+        "startChar": 33,
+        "endLine": 784,
+        "endChar": 50
+      },
+      "revId": "415473068a72d262d0789b41925df65861663a7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

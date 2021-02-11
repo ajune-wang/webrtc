@@ -77,9 +77,11 @@ void ProcessThreadImpl::Start() {
 
   RTC_DCHECK(!stop_);
 
-  for (ModuleCallback& m : modules_)
-    m.module->ProcessThreadAttached(this);
-
+  {
+    rtc::CritScope lock(&lock_);
+    for (ModuleCallback& m : modules_)
+      m.module->ProcessThreadAttached(this);
+  }
   thread_.reset(
       new rtc::PlatformThread(&ProcessThreadImpl::Run, this, thread_name_));
   thread_->Start();
@@ -91,6 +93,7 @@ void ProcessThreadImpl::Stop() {
     return;
 
   {
+    // Need to take lock, for synchronization with `thread_`.
     rtc::CritScope lock(&lock_);
     stop_ = true;
   }
@@ -98,11 +101,16 @@ void ProcessThreadImpl::Stop() {
   wake_up_.Set();
 
   thread_->Stop();
+
+  // Since `thread_` no longer runs, flag can be cleared without locking.
   stop_ = false;
 
   thread_.reset();
-  for (ModuleCallback& m : modules_)
-    m.module->ProcessThreadAttached(nullptr);
+  {
+    rtc::CritScope lock(&lock_);
+    for (ModuleCallback& m : modules_)
+      m.module->ProcessThreadAttached(nullptr);
+  }
 }
 
 void ProcessThreadImpl::WakeUp(Module* module) {

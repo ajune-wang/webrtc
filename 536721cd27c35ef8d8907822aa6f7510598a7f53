@@ -245,6 +245,30 @@
       },
       "revId": "536721cd27c35ef8d8907822aa6f7510598a7f53",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b66131b8_1c947183",
+        "filename": "modules/utility/source/process_thread_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-02-11T12:10:06Z",
+      "side": 1,
+      "message": "\u003e The access for `modules_` is also a bit subtle. It is accessed under `lock_` everywhere but in Start and Stop, when the process thread is known to not be running. \n\u003e \n\u003e However, it is modified (with locking) also by the WakeUp method, which carries the comment \"Allowed to be called on any thread.\". For that to be safe, it seems improper to access it without locking anywhere?\n\u003e \n\u003e I\u0027m uploading a patchset with locks around `modules_` access, to get it to compile. Would you prefer to delete the annotation for that member?\n\u003e \n\u003e I\u0027m kind-of tempted to add a fake MutexLock-lookalike that is like MutexLock except that it actually doesn\u0027t do any locking. And it could perhaps be tied to a threadchecker, so locking can be bypassed only an a singe thread. That would give the compiler a somewhat closer approximation to intended usage.\n\nWhat about keeping it like this (for stop_) and adding RTC_GUARDED_BY and use RTC_NO_THREAD_SAFETY_ANALYSIS? That + the comments should be enough. What I am worried here is that future changes to the code, without the thread annotation might allow some bad usage patterns to slip through, but if we annotate, that part is locked down.",
+      "parentUuid": "6e4d7d47_0143b730",
+      "range": {
+        "startLine": 105,
+        "startChar": 2,
+        "endLine": 105,
+        "endChar": 35
+      },
+      "revId": "536721cd27c35ef8d8907822aa6f7510598a7f53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -221,6 +221,30 @@
       },
       "revId": "536721cd27c35ef8d8907822aa6f7510598a7f53",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e4d7d47_0143b730",
+        "filename": "modules/utility/source/process_thread_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-11T11:39:20Z",
+      "side": 1,
+      "message": "The access for `modules_` is also a bit subtle. It is accessed under `lock_` everywhere but in Start and Stop, when the process thread is known to not be running. \n\nHowever, it is modified (with locking) also by the WakeUp method, which carries the comment \"Allowed to be called on any thread.\". For that to be safe, it seems improper to access it without locking anywhere?\n\nI\u0027m uploading a patchset with locks around `modules_` access, to get it to compile. Would you prefer to delete the annotation for that member?\n\nI\u0027m kind-of tempted to add a fake MutexLock-lookalike that is like MutexLock except that it actually doesn\u0027t do any locking. And it could perhaps be tied to a threadchecker, so locking can be bypassed only an a singe thread. That would give the compiler a somewhat closer approximation to intended usage.",
+      "parentUuid": "88cc968a_16a73ff4",
+      "range": {
+        "startLine": 105,
+        "startChar": 2,
+        "endLine": 105,
+        "endChar": 35
+      },
+      "revId": "536721cd27c35ef8d8907822aa6f7510598a7f53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

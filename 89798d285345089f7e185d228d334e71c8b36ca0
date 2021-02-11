@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e82eb438_af073981",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-11T10:57:50Z",
+      "side": 1,
+      "message": "Hi, can you advice on what\u0027s needed to delete the use of RecursiveCriticalSection in this class?\n\nIt\u0027s not clear to me why tests fail; if there\u0027s some nearby code that depends on recursive locking.\n\nIs the isLocked method really needed?",
+      "revId": "89798d285345089f7e185d228d334e71c8b36ca0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

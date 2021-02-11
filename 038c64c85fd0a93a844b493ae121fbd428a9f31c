@@ -50,6 +50,23 @@
       "message": "Thanks nisse@! 😊 🎉",
       "revId": "038c64c85fd0a93a844b493ae121fbd428a9f31c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c37dfdc_4944fff2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-02-11T09:13:27Z",
+      "side": 1,
+      "message": "nice!",
+      "revId": "038c64c85fd0a93a844b493ae121fbd428a9f31c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

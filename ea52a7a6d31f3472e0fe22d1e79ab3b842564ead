@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7765105_d3d316b7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 22
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-02-11T01:36:42Z",
+      "side": 1,
+      "message": "Sorry, I didn\u0027t mean to overwrite your CL, meant to upload a new one but for some reason \"git cl issue 0\" didn\u0027t work as expected. See how it says \"initial upload\"? Weird. Maybe I needed to change the author?\n\nThis fixes merge conflicts enough to make it build but I didn\u0027t carry over all the changes from master, so this will need more work if we go forward with this approach.",
+      "revId": "ea52a7a6d31f3472e0fe22d1e79ab3b842564ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

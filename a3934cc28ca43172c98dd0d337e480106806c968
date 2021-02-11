@@ -34,6 +34,23 @@
       "parentUuid": "4aae0c5a_5e78dd8a",
       "revId": "a3934cc28ca43172c98dd0d337e480106806c968",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f035def_ff093bc1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9470
+      },
+      "writtenOn": "2021-02-11T08:14:01Z",
+      "side": 1,
+      "message": "Thanks Oskar. You were right. I looked in the incorrect OWNERS file.\n\nI think I got the right one now and added Christoffer.\n\nChristoffer, I fixed a type while reading the API. Could you +1 this?\n\nSorry for the noise.",
+      "revId": "a3934cc28ca43172c98dd0d337e480106806c968",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

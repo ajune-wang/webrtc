@@ -12,15 +12,9 @@
 #include <memory>
 
 #include "absl/strings/string_view.h"
+#include "modules/video_coding/svc/scalability_structure_full_svc.h"
 #include "modules/video_coding/svc/scalability_structure_key_svc.h"
-#include "modules/video_coding/svc/scalability_structure_l1t2.h"
-#include "modules/video_coding/svc/scalability_structure_l1t3.h"
-#include "modules/video_coding/svc/scalability_structure_l2t1.h"
-#include "modules/video_coding/svc/scalability_structure_l2t1h.h"
-#include "modules/video_coding/svc/scalability_structure_l2t2.h"
 #include "modules/video_coding/svc/scalability_structure_l2t2_key_shift.h"
-#include "modules/video_coding/svc/scalability_structure_l3t1.h"
-#include "modules/video_coding/svc/scalability_structure_l3t3.h"
 #include "modules/video_coding/svc/scalability_structure_s2t1.h"
 #include "modules/video_coding/svc/scalable_video_controller.h"
 #include "modules/video_coding/svc/scalable_video_controller_no_layering.h"

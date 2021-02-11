@@ -21,7 +21,13 @@ namespace webrtc {
 
 class ScalabilityStructureFullSvc : public ScalableVideoController {
  public:
-  ScalabilityStructureFullSvc(int num_spatial_layers, int num_temporal_layers);
+  struct Settings {
+    int num_spatial_layers = 1;
+    int num_temporal_layers = 1;
+    int scaling_factor_num = 1;
+    int scaling_factor_den = 2;
+  };
+  explicit ScalabilityStructureFullSvc(Settings settings);
   ~ScalabilityStructureFullSvc() override;
 
   StreamLayersConfig StreamConfig() const override;
@@ -29,6 +35,14 @@ class ScalabilityStructureFullSvc : public ScalableVideoController {
   std::vector<LayerFrameConfig> NextFrameConfig(bool restart) override;
   GenericFrameInfo OnEncodeDone(const LayerFrameConfig& config) override;
   void OnRatesUpdated(const VideoBitrateAllocation& bitrates) override;
+
+ protected:
+  static FrameDependencyStructure L1T2();
+  static FrameDependencyStructure L1T3();
+  static FrameDependencyStructure L2T1();
+  static FrameDependencyStructure L2T2();
+  static FrameDependencyStructure L3T1();
+  static FrameDependencyStructure L3T3();
 
  private:
   enum FramePattern {
@@ -45,13 +59,14 @@ class ScalabilityStructureFullSvc : public ScalableVideoController {
 
   // Index of the buffer to store last frame for layer (`sid`, `tid`)
   int BufferIndex(int sid, int tid) const {
-    return tid * num_spatial_layers_ + sid;
+    return tid * settings_.num_spatial_layers + sid;
   }
   bool DecodeTargetIsActive(int sid, int tid) const {
-    return active_decode_targets_[sid * num_temporal_layers_ + tid];
+    return active_decode_targets_[sid * settings_.num_temporal_layers + tid];
   }
   void SetDecodeTargetIsActive(int sid, int tid, bool value) {
-    active_decode_targets_.set(sid * num_temporal_layers_ + tid, value);
+    active_decode_targets_.set(sid * settings_.num_temporal_layers + tid,
+                               value);
   }
   FramePattern NextPattern() const;
   bool TemporalLayerIsActive(int tid) const;
@@ -59,13 +74,168 @@ class ScalabilityStructureFullSvc : public ScalableVideoController {
                                     int tid,
                                     const LayerFrameConfig& frame);
 
-  const int num_spatial_layers_;
-  const int num_temporal_layers_;
+  const Settings settings_;
 
   FramePattern last_pattern_ = kNone;
   std::bitset<kMaxNumSpatialLayers> can_reference_t0_frame_for_spatial_id_ = 0;
   std::bitset<kMaxNumSpatialLayers> can_reference_t1_frame_for_spatial_id_ = 0;
   std::bitset<32> active_decode_targets_;
+};
+
+class ScalabilityStructureL1T2 : public ScalabilityStructureFullSvc {
+ public:
+  ScalabilityStructureL1T2()
+      : ScalabilityStructureFullSvc([] {
+          Settings settings;
+          settings.num_spatial_layers = 1;
+          settings.num_temporal_layers = 2;
+          return settings;
+        }()) {}
+  ~ScalabilityStructureL1T2() override = default;
+
+  FrameDependencyStructure DependencyStructure() const override {
+    return L1T2();
+  }
+};
+
+class ScalabilityStructureL1T2h : public ScalabilityStructureFullSvc {
+ public:
+  ScalabilityStructureL1T2h()
+      : ScalabilityStructureFullSvc([] {
+          Settings settings;
+          settings.num_spatial_layers = 1;
+          settings.num_temporal_layers = 2;
+          settings.scaling_factor_num = 2;
+          settings.scaling_factor_den = 3;
+          return settings;
+        }()) {}
+  ~ScalabilityStructureL1T2h() override = default;
+
+  FrameDependencyStructure DependencyStructure() const override {
+    return L1T2();
+  }
+};
+
+// T2       0   0   0   0
+//          |  /    |  /
+// T1       / 0     / 0  ...
+//         |_/     |_/
+// T0     0-------0------
+// Time-> 0 1 2 3 4 5 6 7
+class ScalabilityStructureL1T3 : public ScalabilityStructureFullSvc {
+ public:
+  ScalabilityStructureL1T3()
+      : ScalabilityStructureFullSvc([] {
+          Settings settings;
+          settings.num_spatial_layers = 1;
+          settings.num_temporal_layers = 3;
+          return settings;
+        }()) {}
+  ~ScalabilityStructureL1T3() override = default;
+
+  FrameDependencyStructure DependencyStructure() const override {
+    return L1T3();
+  }
+};
+
+// S1  0--0--0-
+//     |  |  | ...
+// S0  0--0--0-
+class ScalabilityStructureL2T1 : public ScalabilityStructureFullSvc {
+ public:
+  ScalabilityStructureL2T1()
+      : ScalabilityStructureFullSvc([] {
+          Settings settings;
+          settings.num_spatial_layers = 2;
+          settings.num_temporal_layers = 1;
+          return settings;
+        }()) {}
+  ~ScalabilityStructureL2T1() override = default;
+
+  FrameDependencyStructure DependencyStructure() const override {
+    return L2T1();
+  }
+};
+
+class ScalabilityStructureL2T1h : public ScalabilityStructureFullSvc {
+ public:
+  ScalabilityStructureL2T1h()
+      : ScalabilityStructureFullSvc([] {
+          Settings settings;
+          settings.num_spatial_layers = 2;
+          settings.num_temporal_layers = 1;
+          settings.scaling_factor_num = 2;
+          settings.scaling_factor_den = 3;
+          return settings;
+        }()) {}
+  ~ScalabilityStructureL2T1h() override = default;
+
+  FrameDependencyStructure DependencyStructure() const override {
+    return L2T1();
+  }
+};
+
+// S1T1     0   0
+//         /|  /|  /
+// S1T0   0-+-0-+-0
+//        | | | | | ...
+// S0T1   | 0 | 0 |
+//        |/  |/  |/
+// S0T0   0---0---0--
+// Time-> 0 1 2 3 4
+class ScalabilityStructureL2T2 : public ScalabilityStructureFullSvc {
+ public:
+  ScalabilityStructureL2T2()
+      : ScalabilityStructureFullSvc([] {
+          Settings settings;
+          settings.num_spatial_layers = 2;
+          settings.num_temporal_layers = 2;
+          return settings;
+        }()) {}
+  ~ScalabilityStructureL2T2() override = default;
+
+  FrameDependencyStructure DependencyStructure() const override {
+    return L2T2();
+  }
+};
+
+// S2     0-0-0-
+//        | | |
+// S1     0-0-0-...
+//        | | |
+// S0     0-0-0-
+// Time-> 0 1 2
+class ScalabilityStructureL3T1 : public ScalabilityStructureFullSvc {
+ public:
+  ScalabilityStructureL3T1()
+      : ScalabilityStructureFullSvc([] {
+          Settings settings;
+          settings.num_spatial_layers = 3;
+          settings.num_temporal_layers = 1;
+          return settings;
+        }()) {}
+  ~ScalabilityStructureL3T1() override = default;
+
+  FrameDependencyStructure DependencyStructure() const override {
+    return L3T1();
+  }
+};
+
+// https://aomediacodec.github.io/av1-rtp-spec/#a1022-l3t3-full-svc
+class ScalabilityStructureL3T3 : public ScalabilityStructureFullSvc {
+ public:
+  ScalabilityStructureL3T3()
+      : ScalabilityStructureFullSvc([] {
+          Settings settings;
+          settings.num_spatial_layers = 3;
+          settings.num_temporal_layers = 3;
+          return settings;
+        }()) {}
+  ~ScalabilityStructureL3T3() override = default;
+
+  FrameDependencyStructure DependencyStructure() const override {
+    return L3T3();
+  }
 };
 
 }  // namespace webrtc

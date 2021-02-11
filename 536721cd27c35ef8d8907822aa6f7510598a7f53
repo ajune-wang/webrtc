@@ -197,6 +197,30 @@
       },
       "revId": "536721cd27c35ef8d8907822aa6f7510598a7f53",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88cc968a_16a73ff4",
+        "filename": "modules/utility/source/process_thread_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-02-11T10:37:52Z",
+      "side": 1,
+      "message": "@nisse - that\u0027s how it works 😊\n\nIt\u0027s not a great match for the annotation macros as is though so I think that in order to make that happen, we would need to abstract this pattern out to a special locking class that encapsulates this logic.  The simpler way forward is to, as you suggest, improve the documentation and make it more accurate. I think we\u0027ll need to have that sort of documentation anyway since if we figure out a good way to abstract this in a helper class, the documentation would need to be there.",
+      "parentUuid": "691fcf17_f125f550",
+      "range": {
+        "startLine": 105,
+        "startChar": 2,
+        "endLine": 105,
+        "endChar": 35
+      },
+      "revId": "536721cd27c35ef8d8907822aa6f7510598a7f53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

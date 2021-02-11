@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2732e87_c0a7a72a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-02-11T15:18:21Z",
+      "side": 1,
+      "message": "How this class can be tested, is it possible to mock/fake java environment\u0026encoder?\nOr is it ok to submit changes to this class without any testing?\n",
+      "revId": "ddddf2ca894e1a35af8bb98309bc090fdaad24df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

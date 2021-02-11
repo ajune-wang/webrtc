@@ -8,10 +8,6 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-// Disable for TSan v2, see
-// https://code.google.com/p/webrtc/issues/detail?id=1205 for details.
-#if !defined(THREAD_SANITIZER)
-
 #include <stdio.h>
 
 #include <algorithm>
@@ -6097,5 +6093,3 @@ TEST_F(PeerConnectionIntegrationTestUnifiedPlan,
 
 }  // namespace
 }  // namespace webrtc
-
-#endif  // if !defined(THREAD_SANITIZER)

@@ -16,6 +16,29 @@
       "message": "This is getting pretty ugly. Do you think we should just switch out everything to be int64_t?",
       "revId": "af6a1ea362852d8f2cd8f5bae1015bcc0556b72e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fcaacdb2_59e21e14",
+        "filename": "modules/audio_coding/neteq/buffer_level_filter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-02-11T16:08:57Z",
+      "side": 1,
+      "message": "How does this overflow happen? It should be fine if the buffer size is less than ~174 seconds @ 48kHz right? Is there some way we can prevent the buffer size from reaching such a crazy size instead of doing a fix here?",
+      "range": {
+        "startLine": 49,
+        "startChar": 39,
+        "endLine": 49,
+        "endChar": 58
+      },
+      "revId": "af6a1ea362852d8f2cd8f5bae1015bcc0556b72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

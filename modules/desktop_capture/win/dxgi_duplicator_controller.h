@@ -155,15 +155,15 @@ class DxgiDuplicatorController {
   // If current instance has not been initialized, executes DoInitialize()
   // function, and returns initialize result. Otherwise directly returns true.
   // This function may calls Deinitialize() if initialization failed.
-  bool Initialize();
+  bool Initialize() RTC_EXCLUSIVE_LOCKS_REQUIRED(lock_);
 
   // Does the real initialization work, this function should only be called in
   // Initialize().
-  bool DoInitialize();
+  bool DoInitialize() RTC_EXCLUSIVE_LOCKS_REQUIRED(lock_);
 
   // Clears all COM components referred by this instance. So next Duplicate()
   // call will eventually initialize this instance again.
-  void Deinitialize();
+  void Deinitialize() RTC_EXCLUSIVE_LOCKS_REQUIRED(lock_);
 
   // A helper function to check whether a Context has been expired.
   bool ContextExpired(const Context* const context) const;
@@ -223,14 +223,15 @@ class DxgiDuplicatorController {
 
   // A self-incremented integer to compare with the one in Context. It ensures
   // a Context instance is always initialized after DxgiDuplicatorController.
-  int identity_ = 0;
-  DesktopRect desktop_rect_;
-  DesktopVector dpi_;
-  std::vector<DxgiAdapterDuplicator> duplicators_;
-  D3dInfo d3d_info_;
-  DisplayConfigurationMonitor display_configuration_monitor_;
+  int identity_ RTC_GUARDED_BY(lock_) = 0;
+  DesktopRect desktop_rect_ RTC_GUARDED_BY(lock_);
+  DesktopVector dpi_ RTC_GUARDED_BY(lock_);
+  std::vector<DxgiAdapterDuplicator> duplicators_ RTC_GUARDED_BY(lock_);
+  D3dInfo d3d_info_ RTC_GUARDED_BY(lock_);
+  DisplayConfigurationMonitor display_configuration_monitor_
+      RTC_GUARDED_BY(lock_);
   // A number to indicate how many succeeded duplications have been performed.
-  uint32_t succeeded_duplications_ = 0;
+  uint32_t succeeded_duplications_ RTC_GUARDED_BY(lock_) = 0;
 };
 
 }  // namespace webrtc

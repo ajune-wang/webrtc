@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdea8e69_cf82f167",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-02-11T07:36:45Z",
+      "side": 1,
+      "message": "Sorry, wrong API shape. Decide what the pattern for subscriptions is, and reprogram accordingly.\n",
+      "revId": "3c66019ab415c0ee993ac5e639971ddefda7a0ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5844df1_32b08e3c",
+        "filename": "p2p/base/dtls_transport_internal.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-02-11T07:36:45Z",
+      "side": 1,
+      "message": "This is the wrong API.\n\nIf you add multiple subscriptions one at a time, from independent entities, unsubscribing them all in a single call is the wrong API shape.\n\nIf you only have a single subscriber ever (which I *think* is the case here), you should be using a callback, not a callback list, and making it an error to try to set it twice without an intervening Unsubscribe.\n\nIf you can argue that you\u0027ll have multiple subscriptions and need to clear all of them at once, you should name this call UnsubscribeAllDtlsStateCallbacks.",
+      "revId": "3c66019ab415c0ee993ac5e639971ddefda7a0ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

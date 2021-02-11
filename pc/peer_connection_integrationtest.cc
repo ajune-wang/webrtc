@@ -8,10 +8,6 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-// Disable for TSan v2, see
-// https://code.google.com/p/webrtc/issues/detail?id=1205 for details.
-#if !defined(THREAD_SANITIZER)
-
 #include <stdio.h>
 
 #include <algorithm>
@@ -3717,6 +3713,9 @@ TEST_P(PeerConnectionIntegrationTest,
   EXPECT_FALSE(callee()->data_observer()->IsOpen());
 }
 
+#if !defined(THREAD_SANITIZER)
+// This test provokes TSAN errors. See bugs.webrtc.org/3608
+
 // Tests that data is buffered in an RTP data channel until an observer is
 // registered for it.
 //
@@ -3762,6 +3761,8 @@ TEST_P(PeerConnectionIntegrationTestWithFakeClock,
   EXPECT_EQ_SIMULATED_WAIT(data, new_observer.last_message(), kDefaultTimeout,
                            FakeClock());
 }
+
+#endif  // !defined(THREAD_SANITIZER)
 
 // This test sets up a call between two parties with audio, video and but only
 // the caller client supports RTP data channels.
@@ -4201,6 +4202,9 @@ class PeerConnectionIntegrationIceStatesTestWithFakeClock
     : public FakeClockForTest,
       public PeerConnectionIntegrationIceStatesTest {};
 
+#if !defined(THREAD_SANITIZER)
+// This test provokes TSAN errors. bugs.webrtc.org/3608
+
 // Tests that the PeerConnection goes through all the ICE gathering/connection
 // states over the duration of the call. This includes Disconnected and Failed
 // states, induced by putting a firewall between the peers and waiting for them
@@ -4326,6 +4330,8 @@ TEST_P(PeerConnectionIntegrationIceStatesTestWithFakeClock,
                            caller()->standardized_ice_connection_state(),
                            kConsentTimeout, FakeClock());
 }
+
+#endif  // !defined(THREAD_SANITIZER)
 
 // Tests that the best connection is set to the appropriate IPv4/IPv6 connection
 // and that the statistics in the metric observers are updated correctly.
@@ -4683,6 +4689,9 @@ TEST_F(PeerConnectionIntegrationTestPlanB, CanSendRemoteVideoTrack) {
   ASSERT_TRUE(ExpectNewFrames(media_expectations));
 }
 
+#if !defined(THREAD_SANITIZER)
+// This test provokes TSAN errors. bugs.webrtc.org/3608
+
 // Test that we achieve the expected end-to-end connection time, using a
 // fake clock and simulated latency on the media and signaling paths.
 // We use a TURN<->TURN connection because this is usually the quickest to
@@ -4772,6 +4781,8 @@ TEST_P(PeerConnectionIntegrationTestWithFakeClock,
   // negative number is calculated for the rtt due to the global clock changing.
   ClosePeerConnections();
 }
+
+#endif  // !defined(THREAD_SANITIZER)
 
 // Verify that a TurnCustomizer passed in through RTCConfiguration
 // is actually used by the underlying TURN candidate pair.
@@ -5195,6 +5206,9 @@ TEST_P(PeerConnectionIntegrationTest, MediaFlowsWhenCandidatesSetOnlyInSdp) {
   ASSERT_TRUE(ExpectNewFrames(media_expectations));
 }
 
+#if !defined(THREAD_SANITIZER)
+// This test provokes TSAN errors. See bugs.webrtc.org/11305.
+
 // Test that SetAudioPlayout can be used to disable audio playout from the
 // start, then later enable it. This may be useful, for example, if the caller
 // needs to play a local ringtone until some event occurs, after which it
@@ -5226,6 +5240,8 @@ TEST_P(PeerConnectionIntegrationTest, DisableAndEnableAudioPlayout) {
   ASSERT_TRUE(ExpectNewFrames(media_expectations));
 }
 
+#endif  // !defined(THREAD_SANITIZER)
+
 double GetAudioEnergyStat(PeerConnectionWrapper* pc) {
   auto report = pc->NewGetStats();
   auto track_stats_list =
@@ -5244,6 +5260,9 @@ double GetAudioEnergyStat(PeerConnectionWrapper* pc) {
   }
   return *remote_track_stats->total_audio_energy;
 }
+
+#if !defined(THREAD_SANITIZER)
+// This test provokes TSAN errors. See bugs.webrtc.org/3608
 
 // Test that if audio playout is disabled via the SetAudioPlayout() method, then
 // incoming audio is still processed and statistics are generated.
@@ -5264,6 +5283,8 @@ TEST_P(PeerConnectionIntegrationTest,
   // Wait for the callee to receive audio stats.
   EXPECT_TRUE_WAIT(GetAudioEnergyStat(caller()) > 0, kMaxWaitForFramesMs);
 }
+
+#endif  // !defined(THREAD_SANITIZER)
 
 // Test that SetAudioRecording can be used to disable audio recording from the
 // start, then later enable it. This may be useful, for example, if the caller
@@ -6097,5 +6118,3 @@ TEST_F(PeerConnectionIntegrationTestUnifiedPlan,
 
 }  // namespace
 }  // namespace webrtc
-
-#endif  // if !defined(THREAD_SANITIZER)

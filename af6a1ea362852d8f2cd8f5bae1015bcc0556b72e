@@ -39,6 +39,30 @@
       },
       "revId": "af6a1ea362852d8f2cd8f5bae1015bcc0556b72e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b27bd87b_a7d13562",
+        "filename": "modules/audio_coding/neteq/buffer_level_filter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2021-02-11T17:41:43Z",
+      "side": 1,
+      "message": "The fuzzer can insert arbitrary rtp packets and since we use rtp timestamps to calculate the buffer size, then it can be as big as 2**32. Yeah maybe it would be better to put a limit on the buffer size returned by the packet buffer...",
+      "parentUuid": "fcaacdb2_59e21e14",
+      "range": {
+        "startLine": 49,
+        "startChar": 39,
+        "endLine": 49,
+        "endChar": 58
+      },
+      "revId": "af6a1ea362852d8f2cd8f5bae1015bcc0556b72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

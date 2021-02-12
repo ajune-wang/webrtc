@@ -70,6 +70,15 @@
 namespace webrtc {
 
 namespace {
+
+template <typename Closure>
+void Invoke(TaskQueueBase* task_queue, Closure&& task) {
+  rtc::Event event;
+  task_queue->PostTask(
+      ToQueuedTask(std::forward<Closure>(task), [&event] { event.Set(); }));
+  event.Wait(rtc::Event::kForever);
+}
+
 bool SendPeriodicFeedback(const std::vector<RtpExtension>& extensions) {
   for (const auto& extension : extensions) {
     if (extension.uri == RtpExtension::kTransportSequenceNumberV2Uri)
@@ -296,17 +305,17 @@ class Call final : public webrtc::Call,
   DeliveryStatus DeliverRtcp(MediaType media_type,
                              const uint8_t* packet,
                              size_t length)
-      RTC_EXCLUSIVE_LOCKS_REQUIRED(worker_thread_);
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(network_thread_);
   DeliveryStatus DeliverRtp(MediaType media_type,
                             rtc::CopyOnWriteBuffer packet,
                             int64_t packet_time_us)
-      RTC_EXCLUSIVE_LOCKS_REQUIRED(worker_thread_);
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(network_thread_);
   void ConfigureSync(const std::string& sync_group)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(worker_thread_);
 
   void NotifyBweOfReceivedPacket(const RtpPacketReceived& packet,
                                  MediaType media_type)
-      RTC_SHARED_LOCKS_REQUIRED(worker_thread_);
+      RTC_SHARED_LOCKS_REQUIRED(network_thread_);
 
   void UpdateSendHistograms(Timestamp first_sent_packet)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(worker_thread_);
@@ -1356,28 +1365,30 @@ PacketReceiver::DeliveryStatus Call::DeliverRtcp(MediaType media_type,
   }
   bool rtcp_delivered = false;
   if (media_type == MediaType::ANY || media_type == MediaType::VIDEO) {
-    for (VideoReceiveStream2* stream : video_receive_streams_) {
-      if (stream->DeliverRtcp(packet, length))
+    Invoke(worker_thread_, [this, packet, length, &rtcp_delivered]() {
+      RTC_DCHECK_RUN_ON(worker_thread_);
+      for (VideoReceiveStream2* stream : video_receive_streams_) {
+        if (stream->DeliverRtcp(packet, length))
+          rtcp_delivered = true;
+      }
+      for (VideoSendStream* stream : video_send_streams_) {
+        stream->DeliverRtcp(packet, length);
         rtcp_delivered = true;
-    }
+      }
+    });
   }
   if (media_type == MediaType::ANY || media_type == MediaType::AUDIO) {
-    for (AudioReceiveStream* stream : audio_receive_streams_) {
-      stream->DeliverRtcp(packet, length);
-      rtcp_delivered = true;
-    }
-  }
-  if (media_type == MediaType::ANY || media_type == MediaType::VIDEO) {
-    for (VideoSendStream* stream : video_send_streams_) {
-      stream->DeliverRtcp(packet, length);
-      rtcp_delivered = true;
-    }
-  }
-  if (media_type == MediaType::ANY || media_type == MediaType::AUDIO) {
-    for (auto& kv : audio_send_ssrcs_) {
-      kv.second->DeliverRtcp(packet, length);
-      rtcp_delivered = true;
-    }
+    Invoke(worker_thread_, [this, packet, length, &rtcp_delivered]() {
+      RTC_DCHECK_RUN_ON(worker_thread_);
+      for (AudioReceiveStream* stream : audio_receive_streams_) {
+        stream->DeliverRtcp(packet, length);
+        rtcp_delivered = true;
+      }
+      for (auto& kv : audio_send_ssrcs_) {
+        kv.second->DeliverRtcp(packet, length);
+        rtcp_delivered = true;
+      }
+    });
   }
 
   if (rtcp_delivered) {
@@ -1417,19 +1428,26 @@ PacketReceiver::DeliveryStatus Call::DeliverRtp(MediaType media_type,
   RTC_DCHECK(media_type == MediaType::AUDIO || media_type == MediaType::VIDEO ||
              is_keep_alive_packet);
 
-  auto it = receive_rtp_config_.find(parsed_packet.Ssrc());
-  if (it == receive_rtp_config_.end()) {
-    RTC_LOG(LS_ERROR) << "receive_rtp_config_ lookup failed for ssrc "
-                      << parsed_packet.Ssrc();
-    // Destruction of the receive stream, including deregistering from the
-    // RtpDemuxer, is not protected by the |worker_thread_|.
-    // But deregistering in the |receive_rtp_config_| map is. So by not passing
-    // the packet on to demuxing in this case, we prevent incoming packets to be
-    // passed on via the demuxer to a receive stream which is being torned down.
+  bool ssrc_not_found = false;
+  Invoke(worker_thread_, [this, &parsed_packet, &ssrc_not_found]() {
+    RTC_DCHECK_RUN_ON(worker_thread_);
+    auto it = receive_rtp_config_.find(parsed_packet.Ssrc());
+    if (it == receive_rtp_config_.end()) {
+      RTC_LOG(LS_ERROR) << "receive_rtp_config_ lookup failed for ssrc "
+                        << parsed_packet.Ssrc();
+      // Destruction of the receive stream, including deregistering from the
+      // RtpDemuxer, is not protected by the |worker_thread_|.
+      // But deregistering in the |receive_rtp_config_| map is. So by not
+      // passing the packet on to demuxing in this case, we prevent incoming
+      // packets to be passed on via the demuxer to a receive stream which is
+      // being torned down.
+      ssrc_not_found = true;
+    } else {
+      parsed_packet.IdentifyExtensions(it->second.extensions);
+    }
+  });
+  if (ssrc_not_found)
     return DELIVERY_UNKNOWN_SSRC;
-  }
-
-  parsed_packet.IdentifyExtensions(it->second.extensions);
 
   NotifyBweOfReceivedPacket(parsed_packet, media_type);
 
@@ -1471,7 +1489,7 @@ PacketReceiver::DeliveryStatus Call::DeliverPacket(
     MediaType media_type,
     rtc::CopyOnWriteBuffer packet,
     int64_t packet_time_us) {
-  RTC_DCHECK_RUN_ON(worker_thread_);
+  RTC_DCHECK_RUN_ON(network_thread_);
 
   if (IsRtcp(packet.cdata(), packet.size()))
     return DeliverRtcp(media_type, packet.cdata(), packet.size());
@@ -1535,9 +1553,13 @@ void Call::OnRecoveredPacket(const uint8_t* packet, size_t length) {
 
 void Call::NotifyBweOfReceivedPacket(const RtpPacketReceived& packet,
                                      MediaType media_type) {
-  auto it = receive_rtp_config_.find(packet.Ssrc());
-  bool use_send_side_bwe =
-      (it != receive_rtp_config_.end()) && it->second.use_send_side_bwe;
+  bool use_send_side_bwe = false;
+  Invoke(worker_thread_, [this, &use_send_side_bwe, &packet]() {
+    RTC_DCHECK_RUN_ON(worker_thread_);
+    auto it = receive_rtp_config_.find(packet.Ssrc());
+    use_send_side_bwe =
+        (it != receive_rtp_config_.end()) && it->second.use_send_side_bwe;
+  });
 
   RTPHeader header;
   packet.GetHeader(&header);

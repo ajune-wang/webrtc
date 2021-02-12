@@ -64,6 +64,11 @@ RTC_POP_IGNORING_WUNDEF()
 #endif
 
 namespace cricket {
+
+using rtc::CopyOnWriteBuffer;
+using webrtc::PacketReceiver;
+using webrtc::ToQueuedTask;
+
 namespace {
 
 constexpr size_t kMaxUnsignaledRecvStreams = 4;
@@ -2214,7 +2219,7 @@ bool WebRtcVoiceMediaChannel::InsertDtmf(uint32_t ssrc,
                                         event, duration);
 }
 
-void WebRtcVoiceMediaChannel::OnPacketReceived(rtc::CopyOnWriteBuffer packet,
+void WebRtcVoiceMediaChannel::OnPacketReceived(CopyOnWriteBuffer packet,
                                                int64_t packet_time_us) {
   RTC_DCHECK_RUN_ON(&network_thread_checker_);
   // TODO(bugs.webrtc.org/11993): This code is very similar to what
@@ -2222,69 +2227,86 @@ void WebRtcVoiceMediaChannel::OnPacketReceived(rtc::CopyOnWriteBuffer packet,
   // consistency it would be good to move the interaction with call_->Receiver()
   // to a common implementation and provide a callback on the worker thread
   // for the exception case (DELIVERY_UNKNOWN_SSRC) and how retry is attempted.
-  worker_thread_->PostTask(ToQueuedTask(task_safety_, [this, packet,
-                                                       packet_time_us] {
-    RTC_DCHECK_RUN_ON(worker_thread_);
+  call_->Receiver()->DeliverPacketAsync(
+      webrtc::MediaType::AUDIO, std::move(packet), packet_time_us,
+      [this, safety = task_safety_.flag(), worker = worker_thread_](
+          webrtc::MediaType media_type, CopyOnWriteBuffer packet,
+          int64_t packet_time_us) {
+        RTC_DCHECK_RUN_ON(&network_thread_checker_);
+        // Create an unsignaled receive stream for this previously not received
+        // ssrc. If there already is N unsignaled receive streams, delete the
+        // oldest. See: https://bugs.chromium.org/p/webrtc/issues/detail?id=5208
+        uint32_t ssrc = 0;
+        if (!GetRtpSsrc(packet.cdata(), packet.size(), &ssrc))
+          return;
 
-    webrtc::PacketReceiver::DeliveryStatus delivery_result =
-        call_->Receiver()->DeliverPacket(webrtc::MediaType::AUDIO, packet,
-                                         packet_time_us);
+        // Special case for retrying packets with unknown SSRCs.
+        worker->PostTask(ToQueuedTask(
+            std::move(safety),
+            [network_thread = rtc::Thread::Current(), ssrc, this,
+             packet = std::move(packet), packet_time_us]() {
+              RTC_DCHECK_RUN_ON(worker_thread_);
+              // TODO(bugs.webrtc.org/11993): See if it makes sense to maintain
+              // the state of the below variables that are guarded by
+              // |thread_checker_| on the network thread and avoid the above
+              // PostTask.
+              RTC_DCHECK(!absl::c_linear_search(unsignaled_recv_ssrcs_, ssrc));
 
-    if (delivery_result != webrtc::PacketReceiver::DELIVERY_UNKNOWN_SSRC) {
-      return;
-    }
+              // Add new stream.
+              StreamParams sp = unsignaled_stream_params_;
+              sp.ssrcs.push_back(ssrc);
+              RTC_LOG(LS_INFO)
+                  << "Creating unsignaled receive stream for SSRC=" << ssrc;
+              if (!AddRecvStream(sp)) {
+                RTC_LOG(LS_WARNING)
+                    << "Could not create unsignaled receive stream.";
+                return;
+              }
+              unsignaled_recv_ssrcs_.push_back(ssrc);
+              RTC_HISTOGRAM_COUNTS_LINEAR("WebRTC.Audio.NumOfUnsignaledStreams",
+                                          unsignaled_recv_ssrcs_.size(), 1, 100,
+                                          101);
 
-    // Create an unsignaled receive stream for this previously not received
-    // ssrc. If there already is N unsignaled receive streams, delete the
-    // oldest. See: https://bugs.chromium.org/p/webrtc/issues/detail?id=5208
-    uint32_t ssrc = 0;
-    if (!GetRtpSsrc(packet.cdata(), packet.size(), &ssrc)) {
-      return;
-    }
-    RTC_DCHECK(!absl::c_linear_search(unsignaled_recv_ssrcs_, ssrc));
+              // Remove oldest unsignaled stream, if we have too many.
+              if (unsignaled_recv_ssrcs_.size() > kMaxUnsignaledRecvStreams) {
+                uint32_t remove_ssrc = unsignaled_recv_ssrcs_.front();
+                RTC_DLOG(LS_INFO)
+                    << "Removing unsignaled receive stream with SSRC="
+                    << remove_ssrc;
+                RemoveRecvStream(remove_ssrc);
+              }
+              RTC_DCHECK_GE(kMaxUnsignaledRecvStreams,
+                            unsignaled_recv_ssrcs_.size());
 
-    // Add new stream.
-    StreamParams sp = unsignaled_stream_params_;
-    sp.ssrcs.push_back(ssrc);
-    RTC_LOG(LS_INFO) << "Creating unsignaled receive stream for SSRC=" << ssrc;
-    if (!AddRecvStream(sp)) {
-      RTC_LOG(LS_WARNING) << "Could not create unsignaled receive stream.";
-      return;
-    }
-    unsignaled_recv_ssrcs_.push_back(ssrc);
-    RTC_HISTOGRAM_COUNTS_LINEAR("WebRTC.Audio.NumOfUnsignaledStreams",
-                                unsignaled_recv_ssrcs_.size(), 1, 100, 101);
+              SetOutputVolume(ssrc, default_recv_volume_);
+              SetBaseMinimumPlayoutDelayMs(ssrc,
+                                           default_recv_base_minimum_delay_ms_);
 
-    // Remove oldest unsignaled stream, if we have too many.
-    if (unsignaled_recv_ssrcs_.size() > kMaxUnsignaledRecvStreams) {
-      uint32_t remove_ssrc = unsignaled_recv_ssrcs_.front();
-      RTC_DLOG(LS_INFO) << "Removing unsignaled receive stream with SSRC="
-                        << remove_ssrc;
-      RemoveRecvStream(remove_ssrc);
-    }
-    RTC_DCHECK_GE(kMaxUnsignaledRecvStreams, unsignaled_recv_ssrcs_.size());
+              // The default sink can only be attached to one stream at a time,
+              // so we hook it up to the *latest* unsignaled stream we've seen,
+              // in order to support the case where the SSRC of one unsignaled
+              // stream changes.
+              if (default_sink_) {
+                for (uint32_t drop_ssrc : unsignaled_recv_ssrcs_) {
+                  auto it = recv_streams_.find(drop_ssrc);
+                  it->second->SetRawAudioSink(nullptr);
+                }
+                std::unique_ptr<webrtc::AudioSinkInterface> proxy_sink(
+                    new ProxySink(default_sink_.get()));
+                SetRawAudioSink(ssrc, std::move(proxy_sink));
+              }
 
-    SetOutputVolume(ssrc, default_recv_volume_);
-    SetBaseMinimumPlayoutDelayMs(ssrc, default_recv_base_minimum_delay_ms_);
-
-    // The default sink can only be attached to one stream at a time, so we hook
-    // it up to the *latest* unsignaled stream we've seen, in order to support
-    // the case where the SSRC of one unsignaled stream changes.
-    if (default_sink_) {
-      for (uint32_t drop_ssrc : unsignaled_recv_ssrcs_) {
-        auto it = recv_streams_.find(drop_ssrc);
-        it->second->SetRawAudioSink(nullptr);
-      }
-      std::unique_ptr<webrtc::AudioSinkInterface> proxy_sink(
-          new ProxySink(default_sink_.get()));
-      SetRawAudioSink(ssrc, std::move(proxy_sink));
-    }
-
-    delivery_result = call_->Receiver()->DeliverPacket(webrtc::MediaType::AUDIO,
-                                                       packet, packet_time_us);
-    RTC_DCHECK_NE(webrtc::PacketReceiver::DELIVERY_UNKNOWN_SSRC,
-                  delivery_result);
-  }));
+              // Retry delivery of the packet on the network thread.
+              // TODO(bugs.webrtc.org/11993): Do we need an alive flag for the
+              // network thread?
+              network_thread->PostTask(ToQueuedTask(
+                  [this, packet = std::move(packet), packet_time_us]() {
+                    call_->Receiver()->DeliverPacketAsync(
+                        webrtc::MediaType::AUDIO, packet, packet_time_us,
+                        nullptr);
+                  }));
+            }));
+      });
 }
 
 void WebRtcVoiceMediaChannel::OnNetworkRouteChanged(

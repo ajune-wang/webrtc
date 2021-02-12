@@ -48,6 +48,11 @@ class PacketReceiver {
   // Update docs etc when the work has been completed. Once we're done with the
   // updates, we might be able to go back to returning the status from this
   // function instead of having to report it via a callback.
+  // TODO(bugs.webrtc.org/11993): The callback isn't actually needed except for
+  // when the SSRC is unknown (DELIVERY_UNKNOWN_SSRC). We shouldn't require
+  // a callback to be made for a successfully delivered packet or if a packet
+  // error was encountered, since in such a case, we won't retry the packet
+  // or otherwise need to asynchronously handle the issue.
   virtual void DeliverPacketAsync(MediaType media_type,
                                   rtc::CopyOnWriteBuffer packet,
                                   int64_t packet_time_us,

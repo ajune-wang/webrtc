@@ -179,8 +179,7 @@ PacketReceiver::DeliveryStatus FakeNetworkPipe::DeliverPacket(
     MediaType media_type,
     rtc::CopyOnWriteBuffer packet,
     int64_t packet_time_us) {
-  return EnqueuePacket(std::move(packet), absl::nullopt, false, media_type,
-                       packet_time_us)
+  return EnqueuePacket(packet, absl::nullopt, false, media_type, packet_time_us)
              ? PacketReceiver::DELIVERY_OK
              : PacketReceiver::DELIVERY_PACKET_ERROR;
 }

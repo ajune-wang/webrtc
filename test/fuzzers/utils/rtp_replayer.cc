@@ -165,10 +165,23 @@ void RtpReplayer::ReplayPackets(rtc::FakeClock* clock,
     }
 
     ++num_packets;
-    switch (call->Receiver()->DeliverPacket(
+
+    PacketReceiver::DeliveryStatus delivery_status;
+    bool callback_ran = false;
+    call->Receiver()->DeliverPacket(
         webrtc::MediaType::VIDEO,
         rtc::CopyOnWriteBuffer(packet.data, packet.length),
-        /* packet_time_us */ -1)) {
+        /* packet_time_us */ -1,
+        [&delivery_status, &callback_ran](PacketReceiver::DeliveryStatus status,
+                                          webrtc::MediaType,
+                                          rtc::CopyOnWriteBuffer, int64_t) {
+          delivery_status = status;
+          callback_ran = true;
+        });
+
+    RTC_DCHECK(callback_ran) << "Need to handle asynchronicity.";
+
+    switch (delivery_status) {
       case PacketReceiver::DELIVERY_OK:
         break;
       case PacketReceiver::DELIVERY_UNKNOWN_SSRC: {

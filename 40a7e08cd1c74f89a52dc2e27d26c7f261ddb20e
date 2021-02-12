@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "084173f8_afe301e7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-02-12T17:04:06Z",
+      "side": 1,
+      "message": "This is the same idea as for the android wrapper (https://webrtc-review.googlesource.com/c/src/+/206985)",
+      "revId": "40a7e08cd1c74f89a52dc2e27d26c7f261ddb20e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

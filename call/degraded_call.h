@@ -97,6 +97,11 @@ class DegradedCall : public Call, private PacketReceiver {
   DeliveryStatus DeliverPacket(MediaType media_type,
                                rtc::CopyOnWriteBuffer packet,
                                int64_t packet_time_us) override;
+  void DeliverPacketAsync(
+      MediaType media_type,
+      rtc::CopyOnWriteBuffer packet,
+      int64_t packet_time_us,
+      PacketReceiver::UnknownSsrcCallback callback) override;
 
  private:
   class FakeNetworkPipeOnTaskQueue {

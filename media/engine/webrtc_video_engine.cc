@@ -39,11 +39,16 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_conversions.h"
 #include "rtc_base/strings/string_builder.h"
+#include "rtc_base/task_utils/to_queued_task.h"
 #include "rtc_base/thread.h"
 #include "rtc_base/time_utils.h"
 #include "rtc_base/trace_event.h"
 
 namespace cricket {
+
+using rtc::CopyOnWriteBuffer;
+using webrtc::PacketReceiver;
+using webrtc::ToQueuedTask;
 
 namespace {
 
@@ -1683,7 +1688,7 @@ void WebRtcVideoChannel::FillSendAndReceiveCodecStats(
   }
 }
 
-void WebRtcVideoChannel::OnPacketReceived(rtc::CopyOnWriteBuffer packet,
+void WebRtcVideoChannel::OnPacketReceived(CopyOnWriteBuffer packet,
                                           int64_t packet_time_us) {
   RTC_DCHECK_RUN_ON(&network_thread_checker_);
   // TODO(bugs.webrtc.org/11993): This code is very similar to what
@@ -1691,115 +1696,90 @@ void WebRtcVideoChannel::OnPacketReceived(rtc::CopyOnWriteBuffer packet,
   // consistency it would be good to move the interaction with call_->Receiver()
   // to a common implementation and provide a callback on the worker thread
   // for the exception case (DELIVERY_UNKNOWN_SSRC) and how retry is attempted.
-  worker_thread_->PostTask(
-      ToQueuedTask(task_safety_, [this, packet, packet_time_us] {
-        RTC_DCHECK_RUN_ON(&thread_checker_);
-        const webrtc::PacketReceiver::DeliveryStatus delivery_result =
-            call_->Receiver()->DeliverPacket(webrtc::MediaType::VIDEO, packet,
-                                             packet_time_us);
-        switch (delivery_result) {
-          case webrtc::PacketReceiver::DELIVERY_OK:
-            return;
-          case webrtc::PacketReceiver::DELIVERY_PACKET_ERROR:
-            return;
-          case webrtc::PacketReceiver::DELIVERY_UNKNOWN_SSRC:
-            break;
-        }
-
+  call_->Receiver()->DeliverPacketAsync(
+      webrtc::MediaType::VIDEO, std::move(packet), packet_time_us,
+      [this, safety = task_safety_.flag(), worker = worker_thread_](
+          webrtc::MediaType media_type, CopyOnWriteBuffer packet,
+          int64_t packet_time_us) {
+        RTC_DCHECK_RUN_ON(&network_thread_checker_);
         uint32_t ssrc = 0;
-        if (!GetRtpSsrc(packet.cdata(), packet.size(), &ssrc)) {
+        if (!GetRtpSsrc(packet.cdata(), packet.size(), &ssrc))
           return;
-        }
 
-        if (unknown_ssrc_packet_buffer_) {
-          unknown_ssrc_packet_buffer_->AddPacket(ssrc, packet_time_us, packet);
-          return;
-        }
+        // Special case for retrying packets with unknown SSRCs.
+        worker->PostTask(ToQueuedTask(
+            std::move(safety),
+            [network_thread = rtc::Thread::Current(), ssrc, this,
+             packet = std::move(packet), packet_time_us]() {
+              RTC_DCHECK_RUN_ON(&thread_checker_);
+              // TODO(bugs.webrtc.org/11993): See if it makes sense to maintain
+              // the state of the below variables that are guarded by
+              // |thread_checker_| on the network thread and avoid the above
+              // PostTask.
+              if (unknown_ssrc_packet_buffer_) {
+                unknown_ssrc_packet_buffer_->AddPacket(ssrc, packet_time_us,
+                                                       std::move(packet));
+                return;
+              }
 
-        if (discard_unknown_ssrc_packets_) {
-          return;
-        }
+              if (discard_unknown_ssrc_packets_)
+                return;
 
-        int payload_type = 0;
-        if (!GetRtpPayloadType(packet.cdata(), packet.size(), &payload_type)) {
-          return;
-        }
+              int payload_type = 0;
+              if (!GetRtpPayloadType(packet.cdata(), packet.size(),
+                                     &payload_type)) {
+                return;
+              }
 
-        // See if this payload_type is registered as one that usually gets its
-        // own SSRC (RTX) or at least is safe to drop either way (FEC). If it
-        // is, and it wasn't handled above by DeliverPacket, that means we don't
-        // know what stream it associates with, and we shouldn't ever create an
-        // implicit channel for these.
-        for (auto& codec : recv_codecs_) {
-          if (payload_type == codec.rtx_payload_type ||
-              payload_type == codec.ulpfec.red_rtx_payload_type ||
-              payload_type == codec.ulpfec.ulpfec_payload_type) {
-            return;
-          }
-        }
-        if (payload_type == recv_flexfec_payload_type_) {
-          return;
-        }
+              // See if this payload_type is registered as one that usually gets
+              // its own SSRC (RTX) or at least is safe to drop either way
+              // (FEC). If it is, and it wasn't handled above by DeliverPacket,
+              // that means we don't know what stream it associates with, and we
+              // shouldn't ever create an implicit channel for these.
+              for (auto& codec : recv_codecs_) {
+                if (payload_type == codec.rtx_payload_type ||
+                    payload_type == codec.ulpfec.red_rtx_payload_type ||
+                    payload_type == codec.ulpfec.ulpfec_payload_type) {
+                  return;
+                }
+              }
 
-        switch (unsignalled_ssrc_handler_->OnUnsignalledSsrc(this, ssrc)) {
-          case UnsignalledSsrcHandler::kDropPacket:
-            return;
-          case UnsignalledSsrcHandler::kDeliverPacket:
-            break;
-        }
+              if (payload_type == recv_flexfec_payload_type_)
+                return;
 
-        if (call_->Receiver()->DeliverPacket(webrtc::MediaType::VIDEO, packet,
-                                             packet_time_us) !=
-            webrtc::PacketReceiver::DELIVERY_OK) {
-          RTC_LOG(LS_WARNING) << "Failed to deliver RTP packet on re-delivery.";
-        }
-      }));
+              if (unsignalled_ssrc_handler_->OnUnsignalledSsrc(this, ssrc) ==
+                  UnsignalledSsrcHandler::kDropPacket) {
+                return;
+              }
+
+              // Retry delivery of the packet on the network thread.
+              // TODO(bugs.webrtc.org/11993): Do we need an alive flag for the
+              // network thread?
+              network_thread->PostTask(ToQueuedTask(
+                  [this, packet = std::move(packet), packet_time_us]() {
+                    call_->Receiver()->DeliverPacketAsync(
+                        webrtc::MediaType::VIDEO, packet, packet_time_us,
+                        nullptr);
+                  }));
+            }));
+      });
 }
 
 void WebRtcVideoChannel::BackfillBufferedPackets(
     rtc::ArrayView<const uint32_t> ssrcs) {
   RTC_DCHECK_RUN_ON(&thread_checker_);
-  if (!unknown_ssrc_packet_buffer_) {
+  if (!unknown_ssrc_packet_buffer_)
     return;
-  }
 
-  int delivery_ok_cnt = 0;
-  int delivery_unknown_ssrc_cnt = 0;
-  int delivery_packet_error_cnt = 0;
-  webrtc::PacketReceiver* receiver = this->call_->Receiver();
-  unknown_ssrc_packet_buffer_->BackfillPackets(
-      ssrcs, [&](uint32_t /*ssrc*/, int64_t packet_time_us,
-                 rtc::CopyOnWriteBuffer packet) {
-        switch (receiver->DeliverPacket(webrtc::MediaType::VIDEO, packet,
-                                        packet_time_us)) {
-          case webrtc::PacketReceiver::DELIVERY_OK:
-            delivery_ok_cnt++;
-            break;
-          case webrtc::PacketReceiver::DELIVERY_UNKNOWN_SSRC:
-            delivery_unknown_ssrc_cnt++;
-            break;
-          case webrtc::PacketReceiver::DELIVERY_PACKET_ERROR:
-            delivery_packet_error_cnt++;
-            break;
-        }
-      });
-  rtc::StringBuilder out;
-  out << "[ ";
-  for (uint32_t ssrc : ssrcs) {
-    out << std::to_string(ssrc) << " ";
-  }
-  out << "]";
-  auto level = rtc::LS_INFO;
-  if (delivery_unknown_ssrc_cnt > 0 || delivery_packet_error_cnt > 0) {
-    level = rtc::LS_ERROR;
-  }
-  int total =
-      delivery_ok_cnt + delivery_unknown_ssrc_cnt + delivery_packet_error_cnt;
-  RTC_LOG_V(level) << "Backfilled " << total
-                   << " packets for ssrcs: " << out.Release()
-                   << " ok: " << delivery_ok_cnt
-                   << " error: " << delivery_packet_error_cnt
-                   << " unknown: " << delivery_unknown_ssrc_cnt;
+  auto backfill_callback = [receiver = call_->Receiver()](
+                               uint32_t ssrc, int64_t packet_time_us,
+                               CopyOnWriteBuffer packet) {
+    receiver->DeliverPacketAsync(webrtc::MediaType::VIDEO, std::move(packet),
+                                 packet_time_us, nullptr);
+  };
+
+  unknown_ssrc_packet_buffer_->BackfillPackets(ssrcs,
+                                               std::move(backfill_callback));
 }
 
 void WebRtcVideoChannel::OnReadyToSend(bool ready) {
@@ -1974,7 +1954,7 @@ std::vector<webrtc::RtpSource> WebRtcVideoChannel::GetSources(
 bool WebRtcVideoChannel::SendRtp(const uint8_t* data,
                                  size_t len,
                                  const webrtc::PacketOptions& options) {
-  rtc::CopyOnWriteBuffer packet(data, len, kMaxRtpPacketLen);
+  CopyOnWriteBuffer packet(data, len, kMaxRtpPacketLen);
   rtc::PacketOptions rtc_options;
   rtc_options.packet_id = options.packet_id;
   if (DscpEnabled()) {
@@ -1988,7 +1968,7 @@ bool WebRtcVideoChannel::SendRtp(const uint8_t* data,
 }
 
 bool WebRtcVideoChannel::SendRtcp(const uint8_t* data, size_t len) {
-  rtc::CopyOnWriteBuffer packet(data, len, kMaxRtpPacketLen);
+  CopyOnWriteBuffer packet(data, len, kMaxRtpPacketLen);
   rtc::PacketOptions rtc_options;
   if (DscpEnabled()) {
     rtc_options.dscp = PreferredDscp();

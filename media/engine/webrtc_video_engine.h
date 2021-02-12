@@ -320,6 +320,9 @@ class WebRtcVideoChannel : public VideoMediaChannel,
   static std::string CodecSettingsVectorToString(
       const std::vector<VideoCodecSettings>& codecs);
 
+  void RetryPacketDelivery(rtc::CopyOnWriteBuffer packet,
+                           int64_t packet_time_us);
+
   // Wrapper for the sender part.
   class WebRtcVideoSendStream {
    public:
@@ -607,7 +610,7 @@ class WebRtcVideoChannel : public VideoMediaChannel,
   VideoOptions default_send_options_ RTC_GUARDED_BY(thread_checker_);
   VideoRecvParameters recv_params_ RTC_GUARDED_BY(thread_checker_);
   int64_t last_stats_log_ms_ RTC_GUARDED_BY(thread_checker_);
-  const bool discard_unknown_ssrc_packets_ RTC_GUARDED_BY(thread_checker_);
+  const bool discard_unknown_ssrc_packets_;
   // This is a stream param that comes from the remote description, but wasn't
   // signaled with any a=ssrc lines. It holds information that was signaled
   // before the unsignaled receive stream is created when the first packet is
@@ -622,8 +625,7 @@ class WebRtcVideoChannel : public VideoMediaChannel,
       unsignaled_frame_transformer_ RTC_GUARDED_BY(thread_checker_);
 
   // Buffer for unhandled packets.
-  std::unique_ptr<UnhandledPacketsBuffer> unknown_ssrc_packet_buffer_
-      RTC_GUARDED_BY(thread_checker_);
+  const std::unique_ptr<UnhandledPacketsBuffer> unknown_ssrc_packet_buffer_;
 
   bool allow_codec_switching_ = false;
   absl::optional<EncoderSwitchRequestCallback::Config>

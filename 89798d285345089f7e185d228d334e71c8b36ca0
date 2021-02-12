@@ -33,6 +33,24 @@
       "message": "Looks like the failing test is RTCAudioSessionTest.testLockForConfiguration.\n\nI\u0027d say just delete the tests, and perhaps the isLocked method as well.",
       "revId": "89798d285345089f7e185d228d334e71c8b36ca0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6782a522_09b62222",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-12T08:49:28Z",
+      "side": 1,
+      "message": "Tried deleting. I\u0027m a bit concerned by deleting the checks, but I think the existing pattern is somewhat broken. As I understand it, the idea is that the application locks the RTCAudioSession before updating the config and unlocks when finished, to avoid lock operations for each setting being modified. But that\u0027s not so useful if we have an isLocked check that is even more expensive than taking the lock.",
+      "parentUuid": "54743dcd_ae4b77de",
+      "revId": "89798d285345089f7e185d228d334e71c8b36ca0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

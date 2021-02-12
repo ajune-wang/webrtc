@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "102df715_19a24101",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-12T08:49:28Z",
+      "side": 1,
+      "message": "Markus: Is it possible to have a cheap IsLocked method on the Mutex class? To be useful would need to check that the mutex is locked and that the current thread is the owner. Could be used both for DCHECKs (in which case performance isn\u0027t so critical). Or like in this case (which is more questionable, imo), for returning an error to the application if it calls certain methods without needed locking.",
+      "revId": "0ee1c277ae8268cd4c12e885abbc4db69e79eed0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

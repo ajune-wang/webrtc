@@ -175,6 +175,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a3412e6_8994ecb8",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 971,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-12T11:40:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6903eb25_8a69ad09",
+      "revId": "415473068a72d262d0789b41925df65861663a7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4bbe0ead_13cbaa1e",
@@ -206,6 +224,24 @@
       "side": 1,
       "message": "As I understand it, it\u0027s a somewhat convoluted way to implement WakeUp. If always points to the fWait_ member, and I think it\u0027s intended to be modified only by the Wait* methods; this \"Signaler\" thing is called indirectly from those methods. So no multithreading, afaikt. I\u0027ll try to clarify in name and/or comment.",
       "parentUuid": "4bbe0ead_13cbaa1e",
+      "revId": "415473068a72d262d0789b41925df65861663a7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef1fade4_9b22b6cf",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 974,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-12T11:40:44Z",
+      "side": 1,
+      "message": "Renamed, and changed typ to bool\u0026.",
+      "parentUuid": "3a365819_3730944c",
       "revId": "415473068a72d262d0789b41925df65861663a7b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

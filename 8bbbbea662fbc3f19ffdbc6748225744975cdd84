@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ac98247_28e1ffe4",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1064,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-12T11:40:44Z",
+      "side": 1,
+      "message": "Using a reference argument for this is according to style guide. Although personally I find it a bit confusing.",
+      "range": {
+        "startLine": 1064,
+        "startChar": 38,
+        "endLine": 1064,
+        "endChar": 44
+      },
+      "revId": "8bbbbea662fbc3f19ffdbc6748225744975cdd84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -46,6 +46,53 @@
       },
       "revId": "6d17602e704f997dbab0afd3b070b6c827257a70",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0915d1c3_6eda74de",
+        "filename": "sdk/objc/components/audio/RTCAudioSession.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2021-02-12T13:52:22Z",
+      "side": 0,
+      "message": "Yeah I agree it\u0027s not ideal.\n\nRTCAudioSession is public-ish.",
+      "parentUuid": "3a7d0697_76356201",
+      "range": {
+        "startLine": 349,
+        "startChar": 3,
+        "endLine": 350,
+        "endChar": 45
+      },
+      "revId": "6d17602e704f997dbab0afd3b070b6c827257a70",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "746f0498_12d4a69c",
+        "filename": "sdk/objc/components/audio/RTCAudioSession.mm",
+        "patchSetId": 6
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2021-02-12T13:52:22Z",
+      "side": 0,
+      "message": "can we delete this too now?",
+      "range": {
+        "startLine": 234,
+        "startChar": 14,
+        "endLine": 234,
+        "endChar": 58
+      },
+      "revId": "6d17602e704f997dbab0afd3b070b6c827257a70",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

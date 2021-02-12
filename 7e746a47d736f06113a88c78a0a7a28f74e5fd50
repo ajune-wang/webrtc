@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ceef982c_4442b057",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-12T10:52:10Z",
+      "side": 1,
+      "message": "Delete all use of isLocked and checkLock:. Please have another look.",
+      "revId": "7e746a47d736f06113a88c78a0a7a28f74e5fd50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

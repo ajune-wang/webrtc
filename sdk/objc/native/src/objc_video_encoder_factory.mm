@@ -28,6 +28,7 @@
 #include "api/video_codecs/video_encoder.h"
 #include "modules/video_coding/include/video_codec_interface.h"
 #include "modules/video_coding/include/video_error_codes.h"
+#include "modules/video_coding/svc/scalable_video_controller_no_layering.h"
 #include "rtc_base/logging.h"
 #include "sdk/objc/native/src/objc_video_frame.h"
 
@@ -57,6 +58,19 @@ class ObjCVideoEncoder : public VideoEncoder {
       if ([info isKindOfClass:[RTC_OBJC_TYPE(RTCCodecSpecificInfoH264) class]]) {
         codecSpecificInfo =
             [(RTC_OBJC_TYPE(RTCCodecSpecificInfoH264) *)info nativeCodecSpecificInfo];
+      }
+
+      // For stream with scalability, NextFrameConfig should be called before encoding and used to
+      // configure encoder, then passed here. But while this encoder wrapper uses only trivial
+      // scalability, NextFrameConfig can be called here.
+      bool key_frame = encodedImage._frameType == VideoFrameType::kVideoFrameKey;
+      auto layer_frames = svc_controller_.NextFrameConfig(/*reset=*/key_frame);
+      RTC_DCHECK_EQ(layer_frames.size(), 1);
+      codecSpecificInfo.generic_frame_info = svc_controller_.OnEncodeDone(layer_frames[0]);
+      if (key_frame) {
+        codecSpecificInfo.template_structure = svc_controller_.DependencyStructure();
+        codecSpecificInfo.template_structure->resolutions = {
+            RenderResolution(encodedImage._encodedWidth, encodedImage._encodedHeight)};
       }
 
       EncodedImageCallback::Result res = callback->OnEncodedImage(encodedImage, &codecSpecificInfo);
@@ -103,6 +117,7 @@ class ObjCVideoEncoder : public VideoEncoder {
  private:
   id<RTC_OBJC_TYPE(RTCVideoEncoder)> encoder_;
   const std::string implementation_name_;
+  ScalableVideoControllerNoLayering svc_controller_;
 };
 
 class ObjcVideoEncoderSelector : public VideoEncoderFactory::EncoderSelectorInterface {

@@ -44,7 +44,6 @@ class AudioReceiveStream final : public webrtc::AudioReceiveStream,
                                  public Syncable {
  public:
   AudioReceiveStream(Clock* clock,
-                     RtpStreamReceiverControllerInterface* receiver_controller,
                      PacketRouter* packet_router,
                      ProcessThread* module_process_thread,
                      NetEqFactory* neteq_factory,
@@ -54,7 +53,6 @@ class AudioReceiveStream final : public webrtc::AudioReceiveStream,
   // For unit tests, which need to supply a mock channel receive.
   AudioReceiveStream(
       Clock* clock,
-      RtpStreamReceiverControllerInterface* receiver_controller,
       PacketRouter* packet_router,
       const webrtc::AudioReceiveStream::Config& config,
       const rtc::scoped_refptr<webrtc::AudioState>& audio_state,
@@ -66,6 +64,12 @@ class AudioReceiveStream final : public webrtc::AudioReceiveStream,
   AudioReceiveStream& operator=(const AudioReceiveStream&) = delete;
 
   ~AudioReceiveStream() override;
+
+  // Called on the network thread to register/unregister with the network
+  // transport.
+  void RegisterWithTransport(
+      RtpStreamReceiverControllerInterface* receiver_controller);
+  void UnregisterFromTransport();
 
   // webrtc::AudioReceiveStream implementation.
   void Reconfigure(const webrtc::AudioReceiveStream::Config& config) override;
@@ -110,6 +114,7 @@ class AudioReceiveStream final : public webrtc::AudioReceiveStream,
 
   SequenceChecker worker_thread_checker_;
   SequenceChecker module_process_thread_checker_;
+  SequenceChecker network_thread_checker_;
   webrtc::AudioReceiveStream::Config config_;
   rtc::scoped_refptr<webrtc::AudioState> audio_state_;
   SourceTracker source_tracker_;
@@ -118,7 +123,8 @@ class AudioReceiveStream final : public webrtc::AudioReceiveStream,
 
   bool playing_ RTC_GUARDED_BY(worker_thread_checker_) = false;
 
-  std::unique_ptr<RtpStreamReceiverInterface> rtp_stream_receiver_;
+  std::unique_ptr<RtpStreamReceiverInterface> rtp_stream_receiver_
+      RTC_GUARDED_BY(network_thread_checker_);
 };
 }  // namespace internal
 }  // namespace webrtc

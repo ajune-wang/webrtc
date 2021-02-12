@@ -1155,6 +1155,7 @@ if (is_ios || is_mac) {
           ":videosource_objc",
           ":videotoolbox_objc",
           "../api:libjingle_peerconnection_api",
+          "../api:mock_video_encoder",
           "../api/audio_codecs:audio_codecs_api",
           "../api/audio_codecs:builtin_audio_decoder_factory",
           "../api/audio_codecs:builtin_audio_encoder_factory",
@@ -1574,6 +1575,7 @@ if (is_ios || is_mac) {
         "../media:rtc_audio_video",
         "../media:rtc_media_base",
         "../modules/video_coding:video_codec_interface",
+        "../modules/video_coding/svc:scalable_video_controller",
         "../rtc_base",
         "../rtc_base:checks",
       ]

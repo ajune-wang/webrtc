@@ -52,6 +52,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "48e458e5_b6872553",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-02-12T08:52:42Z",
+      "side": 1,
+      "message": "Seems like a simplification indeed (feels like there used to be more code here once).\n\nA few drive-by nits; we\u0027re moving pf_ around so much that I feel it\u0027s time to document it.\n",
+      "revId": "415473068a72d262d0789b41925df65861663a7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c1fbf017_6bd30ceb",
@@ -119,6 +136,40 @@
         "endLine": 784,
         "endChar": 50
       },
+      "revId": "415473068a72d262d0789b41925df65861663a7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "347129a9_2e6efa5c",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 971,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-02-12T08:52:42Z",
+      "side": 1,
+      "message": "can you const this?",
+      "revId": "415473068a72d262d0789b41925df65861663a7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bbe0ead_13cbaa1e",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 974,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-02-12T08:52:42Z",
+      "side": 1,
+      "message": "I think we should either renmae this flag or document it in comments.\n\nWhat is the intended meaning of the pf_ flag pointer?\nIs it GUARDED_BY anything? Is there risk if it\u0027s not?\n(As far as I can tell, it\u0027s actually a const pointer to a mutable bool - should it be RTC_PT_GUARDED_BY?)\n\nCan we give it a name that reflects its function?",
       "revId": "415473068a72d262d0789b41925df65861663a7b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

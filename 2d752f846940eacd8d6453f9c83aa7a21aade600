@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e6c8ed4_e79e287f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-02-12T08:44:43Z",
+      "side": 1,
+      "message": "Thanks for the CL Per!\nI have some comments.",
+      "revId": "2d752f846940eacd8d6453f9c83aa7a21aade600",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8daf0ff3_375a5fba",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 871,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-02-12T08:44:43Z",
+      "side": 1,
+      "message": "Smart and simple, cool!\nMuch simpler than somehow firing a call to `HandleOverrunInCaptureRuntimeSettingsQueue()` from `AudioProcessingImpl::RuntimeSettingEnqueuer::Enqueue` when the queue is full.\n\nI initially thought that this method could have suffered from false negatives, but here you\u0027re using `num_settings_processed \u003e\u003d kRuntimeSettingQueueSize` and not `num_settings_processed \u003e kRuntimeSettingQueueSize`, so the following example is handled correctly:\n\n- `AudioProcessingImpl::PostRuntimeSetting` is called `kRuntimeSettingQueueSize`\n- `AudioProcessingImpl::HandleCaptureRuntimeSettings` never gets called\n- an additional call to `AudioProcessingImpl::PostRuntimeSetting` is made\n- then `AudioProcessingImpl::RuntimeSettingEnqueuer::Enqueue` removes the oldest setting and inserts the new one\n- finally `AudioProcessingImpl::HandleCaptureRuntimeSettings` gets called\n- `num_settings_processed` equals `kRuntimeSettingQueueSize` and `HandleOverrunInCaptureRuntimeSettingsQueue()` is called as wished\n\nWith that being said, I wonder if we can add a unit test.\n`kRuntimeSettingQueueSize` can be defined in the header file under e.g., the webrtc::internal namespace so that the test code can use that constant. WDYT?",
+      "range": {
+        "startLine": 871,
+        "startChar": 2,
+        "endLine": 871,
+        "endChar": 59
+      },
+      "revId": "2d752f846940eacd8d6453f9c83aa7a21aade600",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56570d1a_8a261a96",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 879,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-02-12T08:44:43Z",
+      "side": 1,
+      "message": "Great to add a fall back mechanism.\n\nI wonder if this method should be generalized to all the submodules that handle runtime settings.\nFor instance, the fixed digital controller of AGC2 could switch back to 0 dB (or the initial gain).\nProbably we need to design with care such a feature, for instance adding an interface that is implemented by the submodules that handle runtime settings.\n\nWhat about adding at least a TODO for that?",
+      "range": {
+        "startLine": 879,
+        "startChar": 5,
+        "endLine": 879,
+        "endChar": 30
+      },
+      "revId": "2d752f846940eacd8d6453f9c83aa7a21aade600",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef53994b_67520b3d",
+        "filename": "modules/audio_processing/audio_processing_impl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-02-12T08:44:43Z",
+      "side": 1,
+      "message": "Why public? Plus, this is not part of the APM API, so add docstring if you want to keep it public.",
+      "range": {
+        "startLine": 86,
+        "startChar": 7,
+        "endLine": 86,
+        "endChar": 49
+      },
+      "revId": "2d752f846940eacd8d6453f9c83aa7a21aade600",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

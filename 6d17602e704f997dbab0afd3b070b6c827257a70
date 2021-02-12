@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1ad7a26_e363bd5f",
+        "filename": "sdk/objc/components/audio/RTCAudioSession.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 6077
+      },
+      "writtenOn": "2021-02-12T08:54:02Z",
+      "side": 0,
+      "message": "This comment seems done now.",
+      "range": {
+        "startLine": 349,
+        "startChar": 3,
+        "endLine": 350,
+        "endChar": 45
+      },
+      "revId": "6d17602e704f997dbab0afd3b070b6c827257a70",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

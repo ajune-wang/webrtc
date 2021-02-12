@@ -587,8 +587,6 @@ rtc_library("audioproc_test_utils") {
     "test/bitexactness_tools.h",
     "test/performance_timer.cc",
     "test/performance_timer.h",
-    "test/simulator_buffers.cc",
-    "test/simulator_buffers.h",
     "test/test_utils.cc",
     "test/test_utils.h",
   ]

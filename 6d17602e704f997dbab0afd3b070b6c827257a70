@@ -93,6 +93,30 @@
       },
       "revId": "6d17602e704f997dbab0afd3b070b6c827257a70",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2171fb74_9aea82e6",
+        "filename": "sdk/objc/components/audio/RTCAudioSession.mm",
+        "patchSetId": 6
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-12T15:34:16Z",
+      "side": 0,
+      "message": "Giving it a try.",
+      "parentUuid": "746f0498_12d4a69c",
+      "range": {
+        "startLine": 234,
+        "startChar": 14,
+        "endLine": 234,
+        "endChar": 58
+      },
+      "revId": "6d17602e704f997dbab0afd3b070b6c827257a70",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

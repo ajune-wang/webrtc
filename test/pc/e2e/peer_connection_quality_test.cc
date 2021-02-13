@@ -670,11 +670,15 @@ void PeerConnectionE2EQualityTest::TearDownCall() {
     video_source->Stop();
   }
 
-  alice_->pc()->Close();
-  bob_->pc()->Close();
-
+  //
   alice_video_sources_.clear();
   bob_video_sources_.clear();
+
+  alice_->Close();
+  bob_->Close();
+  // Reset peers to close
+  alice_ = nullptr;
+  bob_ = nullptr;
 
   media_helper_ = nullptr;
 }

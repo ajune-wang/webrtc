@@ -21,6 +21,7 @@ namespace webrtc_pc_e2e {
 
 bool TestPeer::AddIceCandidates(
     std::vector<std::unique_ptr<IceCandidateInterface>> candidates) {
+  RTC_CHECK(wrapper_) << "TestPeer is already closed";
   bool success = true;
   for (auto& candidate : candidates) {
     if (!pc()->AddIceCandidate(candidate.get())) {

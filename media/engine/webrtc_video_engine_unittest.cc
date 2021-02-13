@@ -4081,8 +4081,10 @@ TEST_F(WebRtcVideoChannelFlexfecRecvTest, SetDefaultRecvCodecsWithoutSsrc) {
       fake_call_->GetVideoReceiveStreams();
   ASSERT_EQ(1U, video_streams.size());
   const FakeVideoReceiveStream& video_stream = *video_streams.front();
-  EXPECT_EQ(0, video_stream.GetNumAddedSecondarySinks());
-  EXPECT_EQ(0, video_stream.GetNumRemovedSecondarySinks());
+  const webrtc::VideoReceiveStream::Config& video_config =
+      video_stream.GetConfig();
+  EXPECT_FALSE(video_config.rtp.protected_by_flexfec);
+  EXPECT_EQ(video_config.rtp.optional_packet_sink_, nullptr);
 }
 
 TEST_F(WebRtcVideoChannelFlexfecRecvTest, SetDefaultRecvCodecsWithSsrc) {
@@ -4103,10 +4105,10 @@ TEST_F(WebRtcVideoChannelFlexfecRecvTest, SetDefaultRecvCodecsWithSsrc) {
       fake_call_->GetVideoReceiveStreams();
   ASSERT_EQ(1U, video_streams.size());
   const FakeVideoReceiveStream& video_stream = *video_streams.front();
-  EXPECT_EQ(1, video_stream.GetNumAddedSecondarySinks());
   const webrtc::VideoReceiveStream::Config& video_config =
       video_stream.GetConfig();
   EXPECT_TRUE(video_config.rtp.protected_by_flexfec);
+  EXPECT_NE(video_config.rtp.optional_packet_sink_, nullptr);
 }
 
 TEST_F(WebRtcVideoChannelFlexfecRecvTest,
@@ -4122,8 +4124,11 @@ TEST_F(WebRtcVideoChannelFlexfecRecvTest,
       fake_call_->GetVideoReceiveStreams();
   ASSERT_EQ(1U, video_streams.size());
   const FakeVideoReceiveStream& video_stream = *video_streams.front();
-  EXPECT_EQ(0, video_stream.GetNumAddedSecondarySinks());
-  EXPECT_EQ(0, video_stream.GetNumRemovedSecondarySinks());
+  // TODO(tommi): Here, we probably should expect optional_packet_sink_ to be
+  // set and move the 'enable/disable' functionality into the flexfec sink.
+  // ... or, expect the video stream to be recreated? (and change the test name)
+  // EXPECT_EQ(0, video_stream.GetNumAddedSecondarySinks());
+  // EXPECT_EQ(0, video_stream.GetNumRemovedSecondarySinks());
 
   // Enable FlexFEC.
   recv_parameters.codecs.push_back(GetEngineCodec("flexfec-03"));
@@ -4134,8 +4139,10 @@ TEST_F(WebRtcVideoChannelFlexfecRecvTest,
       << "Enabling FlexFEC should not create VideoReceiveStream.";
   EXPECT_EQ(1U, fake_call_->GetFlexfecReceiveStreams().size())
       << "Enabling FlexFEC should create a single FlexfecReceiveStream.";
-  EXPECT_EQ(1, video_stream.GetNumAddedSecondarySinks());
-  EXPECT_EQ(0, video_stream.GetNumRemovedSecondarySinks());
+  // TODO(tommi): Here either optional_packet_sink_ remains the same, or
+  // everything has been recreated.
+  // EXPECT_EQ(1, video_stream.GetNumAddedSecondarySinks());
+  // EXPECT_EQ(0, video_stream.GetNumRemovedSecondarySinks());
 }
 
 TEST_F(WebRtcVideoChannelFlexfecRecvTest,

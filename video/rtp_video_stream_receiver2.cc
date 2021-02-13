@@ -228,7 +228,6 @@ RtpVideoStreamReceiver2::RtpVideoStreamReceiver2(
       ulpfec_receiver_(UlpfecReceiver::Create(config->rtp.remote_ssrc,
                                               this,
                                               config->rtp.extensions)),
-      receiving_(false),
       last_packet_log_ms_(-1),
       rtp_rtcp_(CreateRtpRtcpModule(
           clock,
@@ -253,6 +252,8 @@ RtpVideoStreamReceiver2::RtpVideoStreamReceiver2(
       has_received_frame_(false),
       frames_decryptable_(false),
       absolute_capture_time_receiver_(clock) {
+  network_task_checker_.Detach();
+
   constexpr bool remb_candidate = true;
   if (packet_router_)
     packet_router_->AddReceiveRtpModule(rtp_rtcp_.get(), remb_candidate);
@@ -632,11 +633,7 @@ void RtpVideoStreamReceiver2::OnRecoveredPacket(const uint8_t* rtp_packet,
 // This method handles both regular RTP packets and packets recovered
 // via FlexFEC.
 void RtpVideoStreamReceiver2::OnRtpPacket(const RtpPacketReceived& packet) {
-  RTC_DCHECK_RUN_ON(&worker_task_checker_);
-
-  if (!receiving_) {
-    return;
-  }
+  RTC_DCHECK_RUN_ON(&network_task_checker_);
 
   if (!packet.recovered()) {
     // TODO(nisse): Exclude out-of-order packets?
@@ -675,8 +672,8 @@ void RtpVideoStreamReceiver2::OnRtpPacket(const RtpPacketReceived& packet) {
     rtp_receive_statistics_->OnRtpPacket(packet);
   }
 
-  for (RtpPacketSinkInterface* secondary_sink : secondary_sinks_) {
-    secondary_sink->OnRtpPacket(packet);
+  if (config_.rtp.optional_packet_sink_) {
+    config_.rtp.optional_packet_sink_->OnRtpPacket(packet);
   }
 }
 
@@ -1019,11 +1016,7 @@ void RtpVideoStreamReceiver2::NotifyReceiverOfEmptyPacket(uint16_t seq_num) {
 
 bool RtpVideoStreamReceiver2::DeliverRtcp(const uint8_t* rtcp_packet,
                                           size_t rtcp_packet_length) {
-  RTC_DCHECK_RUN_ON(&worker_task_checker_);
-
-  if (!receiving_) {
-    return false;
-  }
+  RTC_DCHECK_RUN_ON(&network_task_checker_);
 
   rtp_rtcp_->IncomingRtcpPacket(rtcp_packet, rtcp_packet_length);
 
@@ -1094,16 +1087,6 @@ void RtpVideoStreamReceiver2::SignalNetworkState(NetworkState state) {
   RTC_DCHECK_RUN_ON(&worker_task_checker_);
   rtp_rtcp_->SetRTCPStatus(state == kNetworkUp ? config_.rtp.rtcp_mode
                                                : RtcpMode::kOff);
-}
-
-void RtpVideoStreamReceiver2::StartReceive() {
-  RTC_DCHECK_RUN_ON(&worker_task_checker_);
-  receiving_ = true;
-}
-
-void RtpVideoStreamReceiver2::StopReceive() {
-  RTC_DCHECK_RUN_ON(&worker_task_checker_);
-  receiving_ = false;
 }
 
 void RtpVideoStreamReceiver2::UpdateHistograms() {

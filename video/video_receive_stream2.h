@@ -87,7 +87,6 @@ class VideoReceiveStream2 : public webrtc::VideoReceiveStream,
 
   VideoReceiveStream2(TaskQueueFactory* task_queue_factory,
                       TaskQueueBase* current_queue,
-                      RtpStreamReceiverControllerInterface* receiver_controller,
                       int num_cpu_cores,
                       PacketRouter* packet_router,
                       VideoReceiveStream::Config config,
@@ -96,6 +95,12 @@ class VideoReceiveStream2 : public webrtc::VideoReceiveStream,
                       Clock* clock,
                       VCMTiming* timing);
   ~VideoReceiveStream2() override;
+
+  // Called on the network thread to register/unregister with the network
+  // transport.
+  void RegisterWithTransport(
+      RtpStreamReceiverControllerInterface* receiver_controller);
+  void UnregisterFromTransport();
 
   const Config& config() const { return config_; }
 
@@ -110,8 +115,9 @@ class VideoReceiveStream2 : public webrtc::VideoReceiveStream,
 
   webrtc::VideoReceiveStream::Stats GetStats() const override;
 
-  void AddSecondarySink(RtpPacketSinkInterface* sink) override;
-  void RemoveSecondarySink(const RtpPacketSinkInterface* sink) override;
+  // TODO(tommi): Remove.
+  // void AddSecondarySink(RtpPacketSinkInterface* sink);           // override;
+  // void RemoveSecondarySink(const RtpPacketSinkInterface* sink);  // override;
 
   // SetBaseMinimumPlayoutDelayMs and GetBaseMinimumPlayoutDelayMs are called
   // from webrtc/api level and requested by user code. For e.g. blink/js layer
@@ -180,6 +186,7 @@ class VideoReceiveStream2 : public webrtc::VideoReceiveStream,
 
   RTC_NO_UNIQUE_ADDRESS SequenceChecker worker_sequence_checker_;
   RTC_NO_UNIQUE_ADDRESS SequenceChecker module_process_sequence_checker_;
+  RTC_NO_UNIQUE_ADDRESS SequenceChecker network_thread_checker_;
 
   TaskQueueFactory* const task_queue_factory_;
 

@@ -326,10 +326,7 @@ void FakeVideoSendStream::InjectVideoSinkWants(
 
 FakeVideoReceiveStream::FakeVideoReceiveStream(
     webrtc::VideoReceiveStream::Config config)
-    : config_(std::move(config)),
-      receiving_(false),
-      num_added_secondary_sinks_(0),
-      num_removed_secondary_sinks_(0) {}
+    : config_(std::move(config)), receiving_(false) {}
 
 const webrtc::VideoReceiveStream::Config& FakeVideoReceiveStream::GetConfig()
     const {
@@ -361,6 +358,8 @@ void FakeVideoReceiveStream::SetStats(
   stats_ = stats;
 }
 
+// TODO(tommi): delete.
+/*
 void FakeVideoReceiveStream::AddSecondarySink(
     webrtc::RtpPacketSinkInterface* sink) {
   ++num_added_secondary_sinks_;
@@ -377,7 +376,7 @@ int FakeVideoReceiveStream::GetNumAddedSecondarySinks() const {
 
 int FakeVideoReceiveStream::GetNumRemovedSecondarySinks() const {
   return num_removed_secondary_sinks_;
-}
+}*/
 
 FakeFlexfecReceiveStream::FakeFlexfecReceiveStream(
     const webrtc::FlexfecReceiveStream::Config& config)

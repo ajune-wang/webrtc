@@ -213,6 +213,7 @@ class VideoReceiveStream {
       uint32_t rtx_ssrc = 0;
 
       // Set if the stream is protected using FlexFEC.
+      // TODO(tommi): Can this be removed if we have optional_packet_sink_?
       bool protected_by_flexfec = false;
 
       // Map from rtx payload type -> media payload type.
@@ -227,6 +228,10 @@ class VideoReceiveStream {
 
       // RTP header extensions used for the received stream.
       std::vector<RtpExtension> extensions;
+
+      // Optional callback sink to support additional packet handlsers such as
+      // FlexFec.
+      RtpPacketSinkInterface* optional_packet_sink_ = nullptr;
     } rtp;
 
     // Transport for outgoing packets (RTCP).
@@ -277,13 +282,6 @@ class VideoReceiveStream {
   // TODO(pbos): Add info on currently-received codec to Stats.
   virtual Stats GetStats() const = 0;
 
-  // RtpDemuxer only forwards a given RTP packet to one sink. However, some
-  // sinks, such as FlexFEC, might wish to be informed of all of the packets
-  // a given sink receives (or any set of sinks). They may do so by registering
-  // themselves as secondary sinks.
-  virtual void AddSecondarySink(RtpPacketSinkInterface* sink) = 0;
-  virtual void RemoveSecondarySink(const RtpPacketSinkInterface* sink) = 0;
-
   virtual std::vector<RtpSource> GetSources() const = 0;
 
   // Sets a base minimum for the playout delay. Base minimum delay sets lower
@@ -322,6 +320,16 @@ class VideoReceiveStream {
 
  protected:
   virtual ~VideoReceiveStream() {}
+};
+
+class DEPRECATED_VideoReceiveStream : public VideoReceiveStream {
+ public:
+  // RtpDemuxer only forwards a given RTP packet to one sink. However, some
+  // sinks, such as FlexFEC, might wish to be informed of all of the packets
+  // a given sink receives (or any set of sinks). They may do so by registering
+  // themselves as secondary sinks.
+  virtual void AddSecondarySink(RtpPacketSinkInterface* sink) = 0;
+  virtual void RemoveSecondarySink(const RtpPacketSinkInterface* sink) = 0;
 };
 
 }  // namespace webrtc

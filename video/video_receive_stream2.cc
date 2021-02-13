@@ -189,7 +189,6 @@ constexpr int kInactiveStreamThresholdMs = 600000;  //  10 minutes.
 VideoReceiveStream2::VideoReceiveStream2(
     TaskQueueFactory* task_queue_factory,
     TaskQueueBase* current_queue,
-    RtpStreamReceiverControllerInterface* receiver_controller,
     int num_cpu_cores,
     PacketRouter* packet_router,
     VideoReceiveStream::Config config,
@@ -244,6 +243,7 @@ VideoReceiveStream2::VideoReceiveStream2(
   RTC_DCHECK(call_stats_);
 
   module_process_sequence_checker_.Detach();
+  network_thread_checker_.Detach();
 
   RTC_DCHECK(!config_.decoders.empty());
   RTC_CHECK(config_.decoder_factory);
@@ -261,15 +261,10 @@ VideoReceiveStream2::VideoReceiveStream2(
   frame_buffer_.reset(
       new video_coding::FrameBuffer(clock_, timing_.get(), &stats_proxy_));
 
-  // Register with RtpStreamReceiverController.
-  media_receiver_ = receiver_controller->CreateReceiver(
-      config_.rtp.remote_ssrc, &rtp_video_stream_receiver_);
   if (config_.rtp.rtx_ssrc) {
     rtx_receive_stream_ = std::make_unique<RtxReceiveStream>(
         &rtp_video_stream_receiver_, config.rtp.rtx_associated_payload_types,
         config_.rtp.remote_ssrc, rtp_receive_statistics_.get());
-    rtx_receiver_ = receiver_controller->CreateReceiver(
-        config_.rtp.rtx_ssrc, rtx_receive_stream_.get());
   } else {
     rtp_receive_statistics_->EnableRetransmitDetection(config.rtp.remote_ssrc,
                                                        true);
@@ -283,7 +278,31 @@ VideoReceiveStream2::VideoReceiveStream2(
 VideoReceiveStream2::~VideoReceiveStream2() {
   RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
   RTC_LOG(LS_INFO) << "~VideoReceiveStream2: " << config_.ToString();
+  RTC_DCHECK(!media_receiver_);
+  RTC_DCHECK(!rtx_receiver_);
   Stop();
+}
+
+void VideoReceiveStream2::RegisterWithTransport(
+    RtpStreamReceiverControllerInterface* receiver_controller) {
+  RTC_DCHECK_RUN_ON(&network_thread_checker_);
+  RTC_DCHECK(!media_receiver_);
+  RTC_DCHECK(!rtx_receiver_);
+
+  // Register with RtpStreamReceiverController.
+  media_receiver_ = receiver_controller->CreateReceiver(
+      config_.rtp.remote_ssrc, &rtp_video_stream_receiver_);
+  if (config_.rtp.rtx_ssrc) {
+    RTC_DCHECK(rtx_receive_stream_);
+    rtx_receiver_ = receiver_controller->CreateReceiver(
+        config_.rtp.rtx_ssrc, rtx_receive_stream_.get());
+  }
+}
+
+void VideoReceiveStream2::UnregisterFromTransport() {
+  RTC_DCHECK_RUN_ON(&network_thread_checker_);
+  media_receiver_.reset();
+  rtx_receiver_.reset();
 }
 
 void VideoReceiveStream2::SignalNetworkState(NetworkState state) {
@@ -388,12 +407,13 @@ void VideoReceiveStream2::Start() {
     StartNextDecode();
   });
   decoder_running_ = true;
-  rtp_video_stream_receiver_.StartReceive();
 }
 
 void VideoReceiveStream2::Stop() {
   RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
-  rtp_video_stream_receiver_.StopReceive();
+
+  // TODO(tommi): Check if there's a risk related to OnRtp* callbacks on the
+  // network thread occuring after (or during) Stop().
 
   stats_proxy_.OnUniqueFramesCounted(
       rtp_video_stream_receiver_.GetUniqueFramesSeen());
@@ -471,14 +491,15 @@ void VideoReceiveStream2::UpdateHistograms() {
   stats_proxy_.UpdateHistograms(fraction_lost, rtp_stats, nullptr);
 }
 
-void VideoReceiveStream2::AddSecondarySink(RtpPacketSinkInterface* sink) {
+// TODO(tommi): remove
+/*void VideoReceiveStream2::AddSecondarySink(RtpPacketSinkInterface* sink) {
   rtp_video_stream_receiver_.AddSecondarySink(sink);
 }
 
 void VideoReceiveStream2::RemoveSecondarySink(
     const RtpPacketSinkInterface* sink) {
   rtp_video_stream_receiver_.RemoveSecondarySink(sink);
-}
+}*/
 
 bool VideoReceiveStream2::SetBaseMinimumPlayoutDelayMs(int delay_ms) {
   RTC_DCHECK_RUN_ON(&worker_sequence_checker_);

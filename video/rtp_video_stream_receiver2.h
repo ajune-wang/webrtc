@@ -96,9 +96,6 @@ class RtpVideoStreamReceiver2 : public LossNotificationSender,
                        const std::map<std::string, std::string>& codec_params,
                        bool raw_payload);
 
-  void StartReceive();
-  void StopReceive();
-
   // Produces the transport-related timestamps; current_delay_ms is left unset.
   absl::optional<Syncable::Info> GetSyncInfo() const;
 
@@ -281,7 +278,7 @@ class RtpVideoStreamReceiver2 : public LossNotificationSender,
   std::unique_ptr<UlpfecReceiver> ulpfec_receiver_;
 
   RTC_NO_UNIQUE_ADDRESS SequenceChecker worker_task_checker_;
-  bool receiving_ RTC_GUARDED_BY(worker_task_checker_);
+  RTC_NO_UNIQUE_ADDRESS SequenceChecker network_task_checker_;
   int64_t last_packet_log_ms_ RTC_GUARDED_BY(worker_task_checker_);
 
   const std::unique_ptr<ModuleRtpRtcpImpl2> rtp_rtcp_;

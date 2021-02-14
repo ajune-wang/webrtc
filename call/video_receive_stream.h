@@ -213,6 +213,7 @@ class VideoReceiveStream {
       uint32_t rtx_ssrc = 0;
 
       // Set if the stream is protected using FlexFEC.
+      // TODO(tommi): Can this be removed if we have optional_packet_sink_?
       bool protected_by_flexfec = false;
 
       // Optional callback sink to support additional packet handlsers such as
@@ -231,6 +232,10 @@ class VideoReceiveStream {
 
       // RTP header extensions used for the received stream.
       std::vector<RtpExtension> extensions;
+
+      // Optional callback sink to support additional packet handlsers such as
+      // FlexFec.
+      RtpPacketSinkInterface* optional_packet_sink_ = nullptr;
     } rtp;
 
     // Transport for outgoing packets (RTCP).

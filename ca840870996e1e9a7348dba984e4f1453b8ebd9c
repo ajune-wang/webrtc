@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0c26b86_193d53fc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-02-15T17:06:38Z",
+      "side": 1,
+      "message": "Nice! 😊\n\nA couple of potential follow-ups below, but lgtm.",
+      "revId": "ca840870996e1e9a7348dba984e4f1453b8ebd9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd7038bf_af5ba2d0",
+        "filename": "rtc_base/virtual_socket_server.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 868,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-02-15T17:06:38Z",
+      "side": 1,
+      "message": "nit: std::unique_ptr? (for auto delete when out of scope)",
+      "revId": "ca840870996e1e9a7348dba984e4f1453b8ebd9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38f9c457_d214e226",
+        "filename": "rtc_base/virtual_socket_server.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-02-15T17:06:38Z",
+      "side": 1,
+      "message": "Does it make sense to use CallbackList instead or does the code as is require sigslot?",
+      "revId": "ca840870996e1e9a7348dba984e4f1453b8ebd9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

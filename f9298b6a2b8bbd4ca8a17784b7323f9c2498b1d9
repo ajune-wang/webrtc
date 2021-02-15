@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9edc2746_bc1b8a98",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-15T13:45:40Z",
+      "side": 1,
+      "message": "Harald, can you rubberstamp the change to sdk/BUILD.gn?",
+      "revId": "f9298b6a2b8bbd4ca8a17784b7323f9c2498b1d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

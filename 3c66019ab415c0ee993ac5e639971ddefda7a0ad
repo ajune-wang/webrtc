@@ -33,6 +33,24 @@
       "message": "This is the wrong API.\n\nIf you add multiple subscriptions one at a time, from independent entities, unsubscribing them all in a single call is the wrong API shape.\n\nIf you only have a single subscriber ever (which I *think* is the case here), you should be using a callback, not a callback list, and making it an error to try to set it twice without an intervening Unsubscribe.\n\nIf you can argue that you\u0027ll have multiple subscriptions and need to clear all of them at once, you should name this call UnsubscribeAllDtlsStateCallbacks.",
       "revId": "3c66019ab415c0ee993ac5e639971ddefda7a0ad",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a19b0ae0_a0767c6a",
+        "filename": "p2p/base/dtls_transport_internal.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2021-02-15T11:03:51Z",
+      "side": 1,
+      "message": "There are multiple subscriptions:\nAt the construction of webrtc::DtlsTransport - https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/pc/dtls_transport.cc;l\u003d54;drc\u003d8cfbfc3a40cb9513286d6a94cbf17783d558745b\n\nAnd at srtp_transport: https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/pc/dtls_srtp_transport.cc;l\u003d286;drc\u003da4d873786f10eedd72de25ad0d94ad7c53c1f68a\n\nSo disconnect at srct_transport should only disconnect the subscription created there.\nSo added another subscribe and unsubscribe methods and used simpler subscribe without id in other places.",
+      "parentUuid": "e5844df1_32b08e3c",
+      "revId": "3c66019ab415c0ee993ac5e639971ddefda7a0ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -149,9 +149,6 @@ int VirtualSocket::Bind(const SocketAddress& addr) {
   } else {
     bound_ = true;
     was_any_ = addr.IsAnyIP();
-    // Post a message here such that test case could have chance to
-    // process the local address. (i.e. SetAlternativeLocalAddress).
-    server_->msg_queue_->Post(RTC_FROM_HERE, this, MSG_ID_ADDRESS_BOUND);
   }
   return result;
 }
@@ -683,7 +680,13 @@ int VirtualSocketServer::Bind(VirtualSocket* socket,
   SocketAddress normalized(addr.ipaddr().Normalized(), addr.port());
 
   AddressMap::value_type entry(normalized, socket);
-  return bindings_->insert(entry).second ? 0 : -1;
+  if (bindings_->insert(entry).second) {
+    // Post a message here such that test case could have chance to
+    // process the local address. (i.e. SetAlternativeLocalAddress).
+    msg_queue_->Post(RTC_FROM_HERE, socket, MSG_ID_ADDRESS_BOUND);
+    return 0;
+  }
+  return -1;
 }
 
 int VirtualSocketServer::Bind(VirtualSocket* socket, SocketAddress* addr) {

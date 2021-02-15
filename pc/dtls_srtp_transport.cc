@@ -277,7 +277,6 @@ void DtlsSrtpTransport::SetDtlsTransport(
   }
 
   if (*old_dtls_transport) {
-    (*old_dtls_transport)->SignalDtlsState.disconnect(this);
     (*old_dtls_transport)->UnsubscribeDtlsState(&subscription_id_);
   }
 

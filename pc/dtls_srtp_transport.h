@@ -97,6 +97,7 @@ class DtlsSrtpTransport : public SrtpTransport {
   absl::optional<std::vector<int>> recv_extension_ids_;
 
   bool active_reset_srtp_params_ = false;
+  int subscription_id_;
 };
 
 }  // namespace webrtc

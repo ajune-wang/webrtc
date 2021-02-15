@@ -33,6 +33,24 @@
       "message": "can you add a unittest to show what is different now?",
       "revId": "caea976526a05b744f27b1c14638347b49537488",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc62a376_69e3fd9e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-02-15T18:26:55Z",
+      "side": 1,
+      "message": "audio/channel_receive.cc lacks basic unittest infra, and this one is perhaps too small to add an infra.\n\nThis has been tested on a Chromium/peerconnection level.",
+      "parentUuid": "18562256_808d7dc5",
+      "revId": "caea976526a05b744f27b1c14638347b49537488",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

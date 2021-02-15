@@ -16,6 +16,29 @@
       "message": "Sam, PTAL at test/fuzzers\nNisse, PTAL at api/\nIlya, PTAL at everything else, hopefully it\u0027s pretty straight forward",
       "revId": "03fdad3e20f53dd162a4d34ef412873f527e9d42",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30704826_7ffc2f8d",
+        "filename": "api/video/encoded_frame.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-15T10:25:52Z",
+      "side": 1,
+      "message": "Needs a comment and maybe a more descriptive name.",
+      "range": {
+        "startLine": 61,
+        "startChar": 10,
+        "endLine": 61,
+        "endChar": 14
+      },
+      "revId": "03fdad3e20f53dd162a4d34ef412873f527e9d42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

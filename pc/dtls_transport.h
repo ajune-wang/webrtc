@@ -30,8 +30,7 @@ class IceTransportWithPointer;
 
 // This implementation wraps a cricket::DtlsTransport, and takes
 // ownership of it.
-class DtlsTransport : public DtlsTransportInterface,
-                      public sigslot::has_slots<> {
+class DtlsTransport : public DtlsTransportInterface {
  public:
   // This object must be constructed and updated on a consistent thread,
   // the same thread as the one the cricket::DtlsTransportInternal object

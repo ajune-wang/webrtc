@@ -28,7 +28,6 @@
 #include "rtc_base/ssl_certificate.h"
 #include "rtc_base/ssl_fingerprint.h"
 #include "rtc_base/ssl_stream_adapter.h"
-#include "rtc_base/third_party/sigslot/sigslot.h"
 
 namespace cricket {
 
@@ -114,7 +113,6 @@ class DtlsTransportInternal : public rtc::PacketTransportInternal {
   // Expose the underneath IceTransport.
   virtual IceTransportInternal* ice_transport() = 0;
 
-  sigslot::signal2<DtlsTransportInternal*, DtlsTransportState> SignalDtlsState;
   // F: void(DtlsTransportInternal*, const DtlsTransportState)
   template <typename F>
   void SubscribeDtlsState(F&& callback) {

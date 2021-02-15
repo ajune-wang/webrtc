@@ -141,6 +141,30 @@
       },
       "revId": "6d17602e704f997dbab0afd3b070b6c827257a70",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0254f9f0_2d5658d1",
+        "filename": "sdk/objc/components/audio/RTCAudioSession.mm",
+        "patchSetId": 6
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-15T11:45:41Z",
+      "side": 0,
+      "message": "Failed too. So leaving #pragma in place for now.",
+      "parentUuid": "d923ed7e_3b1677fe",
+      "range": {
+        "startLine": 234,
+        "startChar": 14,
+        "endLine": 234,
+        "endChar": 58
+      },
+      "revId": "6d17602e704f997dbab0afd3b070b6c827257a70",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

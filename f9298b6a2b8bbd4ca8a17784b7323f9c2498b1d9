@@ -16,6 +16,23 @@
       "message": "Harald, can you rubberstamp the change to sdk/BUILD.gn?",
       "revId": "f9298b6a2b8bbd4ca8a17784b7323f9c2498b1d9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90b6de62_f80a6ee7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-02-15T13:59:38Z",
+      "side": 1,
+      "message": "Rubber meets road. Stamp applied.\n\n",
+      "revId": "f9298b6a2b8bbd4ca8a17784b7323f9c2498b1d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

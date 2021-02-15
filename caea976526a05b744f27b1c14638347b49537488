@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52b7a0c0_00dcd3aa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-02-15T15:17:12Z",
+      "side": 1,
+      "message": "Chen and Danil, PTAL this CL, which is in parallel to https://webrtc-review.googlesource.com/c/src/+/169850",
+      "revId": "caea976526a05b744f27b1c14638347b49537488",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

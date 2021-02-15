@@ -605,6 +605,7 @@ if (current_os == "linux" || is_android) {
     sources = [
       "src/jni/android_video_track_source.cc",
       "src/jni/android_video_track_source.h",
+      "src/jni/egl_base_10_impl.cc",
       "src/jni/encoded_image.cc",
       "src/jni/encoded_image.h",
       "src/jni/h264_utils.cc",
@@ -1205,6 +1206,7 @@ if (current_os == "linux" || is_android) {
       "api/org/webrtc/VideoSink.java",
       "api/org/webrtc/VideoTrack.java",
       "api/org/webrtc/YuvHelper.java",
+      "src/java/org/webrtc/EglBase10Impl.java",
       "src/java/org/webrtc/H264Utils.java",
       "src/java/org/webrtc/NV12Buffer.java",
       "src/java/org/webrtc/NV21Buffer.java",

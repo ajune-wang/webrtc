@@ -12,7 +12,6 @@
 #define PC_DTLS_SRTP_TRANSPORT_H_
 
 #include <string>
-#include <vector>
 
 #include "absl/types/optional.h"
 #include "api/crypto_params.h"
@@ -97,6 +96,7 @@ class DtlsSrtpTransport : public SrtpTransport {
   absl::optional<std::vector<int>> recv_extension_ids_;
 
   bool active_reset_srtp_params_ = false;
+  int subscription_id_;
 };
 
 }  // namespace webrtc

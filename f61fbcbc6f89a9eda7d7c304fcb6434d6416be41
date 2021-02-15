@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d06ab00d_a009a519",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2021-02-15T12:42:02Z",
+      "side": 1,
+      "message": "nit: align",
+      "range": {
+        "startLine": 10,
+        "startChar": 74,
+        "endLine": 10,
+        "endChar": 80
+      },
+      "revId": "f61fbcbc6f89a9eda7d7c304fcb6434d6416be41",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1547e88_b86a9fa7",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bandwidth_estimation.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2021-02-15T12:42:02Z",
+      "side": 1,
+      "message": "it: Interval does not really explain 5 sec value. \"Expecting RTCP feedback to be sent with roughly 1s intervals, a 5s gap indicates a channel outage.\"",
+      "range": {
+        "startLine": 25,
+        "startChar": 58,
+        "endLine": 25,
+        "endChar": 68
+      },
+      "revId": "f61fbcbc6f89a9eda7d7c304fcb6434d6416be41",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7d77b13_b0b89bce",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bandwidth_estimation.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2021-02-15T12:42:02Z",
+      "side": 1,
+      "message": "Function does more. Maybe just \"Initialize\" as that is all it does now.",
+      "range": {
+        "startLine": 232,
+        "startChar": 35,
+        "endLine": 232,
+        "endChar": 53
+      },
+      "revId": "f61fbcbc6f89a9eda7d7c304fcb6434d6416be41",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -117,6 +117,30 @@
       },
       "revId": "6d17602e704f997dbab0afd3b070b6c827257a70",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d923ed7e_3b1677fe",
+        "filename": "sdk/objc/components/audio/RTCAudioSession.mm",
+        "patchSetId": 6
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-15T10:45:18Z",
+      "side": 0,
+      "message": "Didn\u0027t work.  \n\nFAILED: obj/sdk/audio_session_objc/RTCAudioSession.o\n/opt/s/w/ir/cache/goma/client/gomacc ../../third_party/llvm-build/Release+Asserts/bin/clang++ -MMD -...(too long)\n../../sdk/objc/components/audio/RTCAudioSession.mm:230:1: error: mutex \u0027self-\u003e_mutex\u0027 is still held at the end of function [-Werror,-Wthread-safety-analysis]\n}\n^\n../../sdk/objc/components/audio/RTCAudioSession.mm:229:10: note: mutex acquired here\n_mutex.Lock();\n^\n../../sdk/objc/components/audio/RTCAudioSession.mm:233:10: error: releasing mutex \u0027self-\u003e_mutex\u0027 that was not held [-Werror,-Wthread-safety-analysis]\n_mutex.Unlock();\n^\n2 errors generated.\n\nI\u0027ll try adding RTC_EXCLUSIVE_LOCK_FUNCTION / RTC_EXCLUSIVE_UNLOCK_FUNCTION, maybe it helps to add then in the ..mm file only, I don\u0027t think they can go in RTCAudioSession.h sinve _mutex isn\u0027t declared there.",
+      "parentUuid": "2171fb74_9aea82e6",
+      "range": {
+        "startLine": 234,
+        "startChar": 14,
+        "endLine": 234,
+        "endChar": 58
+      },
+      "revId": "6d17602e704f997dbab0afd3b070b6c827257a70",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

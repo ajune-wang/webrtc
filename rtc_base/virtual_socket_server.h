@@ -192,6 +192,9 @@ class VirtualSocketServer : public SocketServer, public sigslot::has_slots<> {
   // Sends a disconnect message to the socket at the given address
   bool Disconnect(VirtualSocket* socket);
 
+  // Lookup address, and disconnect corresponding socket.
+  bool Disconnect(const SocketAddress& addr);
+
   // Sends the given packet to the socket at the given address (if one exists).
   int SendUdp(VirtualSocket* socket,
               const char* data,
@@ -200,6 +203,9 @@ class VirtualSocketServer : public SocketServer, public sigslot::has_slots<> {
 
   // Moves as much data as possible from the sender's buffer to the network
   void SendTcp(VirtualSocket* socket);
+
+  // Cancel attempts to connect to a socket that is being closed.
+  void CancelConnects(VirtualSocket* socket);
 
   // Places a packet on the network.
   void AddPacketToNetwork(VirtualSocket* socket,

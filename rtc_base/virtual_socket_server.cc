@@ -149,9 +149,6 @@ int VirtualSocket::Bind(const SocketAddress& addr) {
   } else {
     bound_ = true;
     was_any_ = addr.IsAnyIP();
-    // Post a message here such that test case could have chance to
-    // process the local address. (i.e. SetAlternativeLocalAddress).
-    server_->msg_queue_->Post(RTC_FROM_HERE, this, MSG_ID_ADDRESS_BOUND);
   }
   return result;
 }
@@ -200,6 +197,9 @@ int VirtualSocket::Close() {
     }
     // Cancel potential connects
     MessageList msgs;
+#if 1
+    server_->CancelConnects(this);
+#else
     if (server_->msg_queue_) {
       server_->msg_queue_->Clear(this, MSG_ID_CONNECT, &msgs);
     }
@@ -221,6 +221,7 @@ int VirtualSocket::Close() {
       }
       delete data;
     }
+#endif
   }
 
   // Clear incoming packets and disconnect messages
@@ -683,7 +684,13 @@ int VirtualSocketServer::Bind(VirtualSocket* socket,
   SocketAddress normalized(addr.ipaddr().Normalized(), addr.port());
 
   AddressMap::value_type entry(normalized, socket);
-  return bindings_->insert(entry).second ? 0 : -1;
+  if (bindings_->insert(entry).second) {
+    // Post a message here such that test case could have chance to
+    // process the local address. (i.e. SetAlternativeLocalAddress).
+    msg_queue_->Post(RTC_FROM_HERE, socket, MSG_ID_ADDRESS_BOUND);
+    return 0;
+  }
+  return -1;
 }
 
 int VirtualSocketServer::Bind(VirtualSocket* socket, SocketAddress* addr) {
@@ -812,6 +819,34 @@ bool VirtualSocketServer::Disconnect(VirtualSocket* socket) {
     return true;
   }
   return false;
+}
+
+bool VirtualSocketServer::Disconnect(const SocketAddress& addr) {
+  return Disconnect(LookupBinding(addr));
+}
+
+void VirtualSocketServer::CancelConnects(VirtualSocket* socket) {
+  MessageList msgs;
+  if (msg_queue_) {
+    msg_queue_->Clear(socket, MSG_ID_CONNECT, &msgs);
+  }
+  for (MessageList::iterator it = msgs.begin(); it != msgs.end(); ++it) {
+    RTC_DCHECK(nullptr != it->pdata);
+    MessageAddress* data = static_cast<MessageAddress*>(it->pdata);
+    SocketAddress local_addr = socket->GetLocalAddress();
+    // Lookup remote side.
+    VirtualSocket* socket = LookupConnection(local_addr, data->addr);
+    if (socket) {
+      // Server socket, remote side is a socket retreived by
+      // accept. Accepted sockets are not bound so we will not
+      // find it by looking in the bindings table.
+      Disconnect(socket);
+      RemoveConnection(local_addr, data->addr);
+    } else {
+      Disconnect(data->addr);
+    }
+    delete data;
+  }
 }
 
 int VirtualSocketServer::SendUdp(VirtualSocket* socket,

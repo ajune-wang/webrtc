@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ae18cc8_612932a8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-15T11:41:37Z",
+      "side": 1,
+      "message": "api/video/ lgtm.",
+      "revId": "98da0f7b5f26e47af7ba6489a750c6dad93dc3dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f48d3e7_63b66000",
+        "filename": "api/video/encoded_frame.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-15T11:41:37Z",
+      "side": 1,
+      "message": "If the member was renamed `id_`, explicit this wouldn\u0027t be needed, right?",
+      "range": {
+        "startLine": 55,
+        "startChar": 27,
+        "endLine": 55,
+        "endChar": 33
+      },
+      "revId": "98da0f7b5f26e47af7ba6489a750c6dad93dc3dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

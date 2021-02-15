@@ -121,6 +121,24 @@
       "message": "Is this a leftover? You removed the SignalDtlsState.connect(), so there should be no reason to call SignalDtlsState.disconnect().",
       "revId": "5d1d7ac37f54ef0bf58031d8d1a138b98ef15f2e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "91e07d98_c05bc392",
+        "filename": "pc/dtls_srtp_transport.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2021-02-15T12:51:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "005bd67b_e79fe853",
+      "revId": "5d1d7ac37f54ef0bf58031d8d1a138b98ef15f2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

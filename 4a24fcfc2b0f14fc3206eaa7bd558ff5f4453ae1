@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8827d41d_e02f8e63",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-15T15:56:31Z",
+      "side": 1,
+      "message": "Daniela, can you have a look? First attempt was reverted due to breakage in AppRTCMobile. ps#1 is a pure reland. ps#2 includes a crude fix to AudioDeviceIOS.",
+      "revId": "4a24fcfc2b0f14fc3206eaa7bd558ff5f4453ae1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95401d7b_21cd3e26",
+        "filename": "sdk/objc/native/src/audio/audio_device_ios.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 908,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-15T15:56:31Z",
+      "side": 1,
+      "message": "Instead of introducing this method, one could perhaps release the lock before the whole block \"if (session.canPlayOrRecord) {...}\", and let ConfigureAudioSession grab and release the lock again. But not sure if that could change behavior or introduce some races, e.g., with the canPlayOrRecord call.\n\nDuplicating the method but skipping lock operations seems closest to the old code, which depended on recursive locking being allowed.",
+      "range": {
+        "startLine": 908,
+        "startChar": 9,
+        "endLine": 908,
+        "endChar": 36
+      },
+      "revId": "4a24fcfc2b0f14fc3206eaa7bd558ff5f4453ae1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

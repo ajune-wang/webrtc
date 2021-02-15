@@ -946,6 +946,8 @@ void ReceiveStatisticsProxy::OnRenderedFrame(
 void ReceiveStatisticsProxy::OnSyncOffsetUpdated(int64_t video_playout_ntp_ms,
                                                  int64_t sync_offset_ms,
                                                  double estimated_freq_khz) {
+  // TODO(tommi): This may come in on the network thread rather than
+  // render queue.
   RTC_DCHECK_RUN_ON(&incoming_render_queue_);
   int64_t now_ms = clock_->TimeInMilliseconds();
   worker_thread_->PostTask(

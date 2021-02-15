@@ -33,6 +33,23 @@
       "message": "Rubber meets road. Stamp applied.\n\n",
       "revId": "f9298b6a2b8bbd4ca8a17784b7323f9c2498b1d9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62b4d683_0b520ac7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-15T14:02:27Z",
+      "side": 1,
+      "message": "Attempting to land. Note that patchset #9 is identical to patchset #6, which was lgtm:ed by Kári. ",
+      "revId": "f9298b6a2b8bbd4ca8a17784b7323f9c2498b1d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

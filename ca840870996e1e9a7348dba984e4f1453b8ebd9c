@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e4e1132e_4c104180",
+        "filename": "rtc_base/virtual_socket_server.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 868,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-16T07:41:59Z",
+      "side": 1,
+      "message": "Makes sense as a followup (I\u0027d prefer if we can have unique pointer also while the data is owned by the message queue machinery, but I\u0027m not so familiar with that abstraction).",
+      "parentUuid": "bd7038bf_af5ba2d0",
+      "revId": "ca840870996e1e9a7348dba984e4f1453b8ebd9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "38f9c457_d214e226",
         "filename": "rtc_base/virtual_socket_server.h",
         "patchSetId": 4
@@ -48,6 +66,24 @@
       "writtenOn": "2021-02-15T17:06:38Z",
       "side": 1,
       "message": "Does it make sense to use CallbackList instead or does the code as is require sigslot?",
+      "revId": "ca840870996e1e9a7348dba984e4f1453b8ebd9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc9e1510_fc900e8b",
+        "filename": "rtc_base/virtual_socket_server.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-16T07:41:59Z",
+      "side": 1,
+      "message": "Don\u0027t know, but since it\u0027s claimed to be for tests only, my guess would be that it doesn\u0027t have to be a sigslot.",
+      "parentUuid": "38f9c457_d214e226",
       "revId": "ca840870996e1e9a7348dba984e4f1453b8ebd9c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

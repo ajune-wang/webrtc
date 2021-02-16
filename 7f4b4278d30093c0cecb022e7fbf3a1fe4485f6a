@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4d2b2db_2a057db0",
+        "filename": "video/rtp_video_stream_receiver2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-02-16T16:22:41Z",
+      "side": 1,
+      "message": "Not sure if this is necessary. Until we are in a decodable state we will make KF requests every 200 ms (when the decoder can\u0027t get a decodable frame out of the FrameBuffer).\n\nI also suspect this could cause bursts of KF requests (several delta frames before a KF), I think it should be throttled to avoid that.",
+      "range": {
+        "startLine": 381,
+        "startChar": 8,
+        "endLine": 381,
+        "endChar": 23
+      },
+      "revId": "7f4b4278d30093c0cecb022e7fbf3a1fe4485f6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

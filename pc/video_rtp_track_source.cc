@@ -37,9 +37,11 @@ rtc::VideoSinkInterface<VideoFrame>* VideoRtpTrackSource::sink() {
 
 void VideoRtpTrackSource::BroadcastRecordableEncodedFrame(
     const RecordableEncodedFrame& frame) const {
+  RecordableEncodedFrame::EncodedResolution resolution = frame.resolution();
+  std::vector<const RecordableEncodedFrame*> frames = {&frame};
   MutexLock lock(&mu_);
   for (rtc::VideoSinkInterface<RecordableEncodedFrame>* sink : encoded_sinks_) {
-    sink->OnFrame(frame);
+    sink->OnFrame(resolution.width, resolution.height, frames);
   }
 }
 

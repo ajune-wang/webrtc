@@ -51,6 +51,46 @@
       "parentUuid": "18562256_808d7dc5",
       "revId": "caea976526a05b744f27b1c14638347b49537488",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "399f79ae_2670576c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-02-16T12:01:25Z",
+      "side": 1,
+      "message": "There is no tests, not comment, and the bug is very generic.\nAlso, I\u0027m not too familiar with the audio pipeline, i.e. I do not understand why you need this change, \n\nIt doesn\u0027t look like you need my +1 to submit this change. Do not wait for me to understand it.\nI trust you and Chen.",
+      "revId": "caea976526a05b744f27b1c14638347b49537488",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6cdbf993_416f523f",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 711,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-02-16T12:01:25Z",
+      "side": 1,
+      "message": "it seems you\u0027ve missed an extra \u0027}\u0027",
+      "range": {
+        "startLine": 711,
+        "startChar": 0,
+        "endLine": 711,
+        "endChar": 5
+      },
+      "revId": "caea976526a05b744f27b1c14638347b49537488",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

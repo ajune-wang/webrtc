@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "af75ba6c_e35b27c3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-02-16T15:46:08Z",
+      "side": 1,
+      "message": "Looks good, just nits + I don\u0027t think you need the weak_ptr.\n",
+      "revId": "65d41983cb0d8d7181f8f19719a80fd602557f20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ac1e49b7_38801a49",
@@ -20,6 +37,47 @@
         "endLine": 511,
         "endChar": 15
       },
+      "revId": "65d41983cb0d8d7181f8f19719a80fd602557f20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38160c14_1bd88932",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-02-16T15:46:08Z",
+      "side": 1,
+      "message": "I think it is safe to just capture \"this\" here.\nAgree that it is good to add a comment documenting the assumption, in case of refactoring.",
+      "parentUuid": "ac1e49b7_38801a49",
+      "range": {
+        "startLine": 511,
+        "startChar": 7,
+        "endLine": 511,
+        "endChar": 15
+      },
+      "revId": "65d41983cb0d8d7181f8f19719a80fd602557f20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39b96fda_7b510338",
+        "filename": "pc/jsep_transport_controller.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-02-16T15:46:08Z",
+      "side": 1,
+      "message": "Please place the new member above RTC_DISALLOW_COPY_AND_ASSIGN, per convention.",
       "revId": "65d41983cb0d8d7181f8f19719a80fd602557f20",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

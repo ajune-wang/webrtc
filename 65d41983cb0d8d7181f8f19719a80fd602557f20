@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "34ad2bb4_f190a16b",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-16T16:11:19Z",
+      "side": 1,
+      "message": "I\u0027m afraid I don\u0027t have an informed opinion, I\u0027m not really familiar with this code, or how the old sigslot code would handle the case that `this` is destroyed.",
+      "parentUuid": "38160c14_1bd88932",
+      "range": {
+        "startLine": 511,
+        "startChar": 7,
+        "endLine": 511,
+        "endChar": 15
+      },
+      "revId": "65d41983cb0d8d7181f8f19719a80fd602557f20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "39b96fda_7b510338",
         "filename": "pc/jsep_transport_controller.h",
         "patchSetId": 6

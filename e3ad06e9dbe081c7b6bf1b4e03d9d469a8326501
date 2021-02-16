@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85d33edd_97128667",
+        "filename": "p2p/base/dtls_transport_internal.h",
+        "patchSetId": 25
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-02-16T10:28:15Z",
+      "side": 1,
+      "message": "Maybe let\u0027s reuse removal_tag as param name?",
+      "range": {
+        "startLine": 125,
+        "startChar": 38,
+        "endLine": 125,
+        "endChar": 40
+      },
+      "revId": "e3ad06e9dbe081c7b6bf1b4e03d9d469a8326501",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0b9487a_f55cbf76",
+        "filename": "pc/dtls_srtp_transport.cc",
+        "patchSetId": 25
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-02-16T10:28:15Z",
+      "side": 1,
+      "message": "I have double checked this method from the lifetime of \"this\" point of view and it is safe.\n\nMaybe, this method should be refactored into something like:\n\n  void DtlsSrtpTransport::SetDtlsTransport(cricket::DtlsTransportInternal* new_dtls_transport)\n\nIn order to make it explicit that old_dtls_transport is always the internal data member.",
+      "range": {
+        "startLine": 272,
+        "startChar": 5,
+        "endLine": 272,
+        "endChar": 40
+      },
+      "revId": "e3ad06e9dbe081c7b6bf1b4e03d9d469a8326501",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "364fc917_64bc714e",
+        "filename": "pc/dtls_srtp_transport.h",
+        "patchSetId": 25
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-02-16T10:28:15Z",
+      "side": 1,
+      "message": "What do you think about using dtls_state_subscription_id_?\n\nAlso, add a comment before the data member with an explanation of what it is used for.",
+      "range": {
+        "startLine": 100,
+        "startChar": 6,
+        "endLine": 100,
+        "endChar": 22
+      },
+      "revId": "e3ad06e9dbe081c7b6bf1b4e03d9d469a8326501",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2744f7a_ade8b71f",
+        "filename": "pc/sctp_transport.cc",
+        "patchSetId": 25
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-02-16T10:28:15Z",
+      "side": 1,
+      "message": "I wonder if we should change this to dtls_transport_, to make it more explicit that \"this\" lifetime if OK (it should be a noop from a functional point of view but it is more clear from a readability point of view). Also the if() at line 95.",
+      "range": {
+        "startLine": 98,
+        "startChar": 6,
+        "endLine": 98,
+        "endChar": 15
+      },
+      "revId": "e3ad06e9dbe081c7b6bf1b4e03d9d469a8326501",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1064,6 +1064,18 @@ TEST_F(RtpVideoStreamReceiver2DependencyDescriptorTest, UnwrapsFrameId) {
 }
 
 TEST_F(RtpVideoStreamReceiver2DependencyDescriptorTest,
+       RequestKeyFrameWhenFirstPacketIsDeltaframe) {
+  FrameDependencyStructure stream_structure1 = CreateStreamStructure();
+  DependencyDescriptor deltaframe_descriptor;
+  deltaframe_descriptor.frame_dependencies = stream_structure1.templates[0];
+  deltaframe_descriptor.frame_number = 2;
+
+  EXPECT_CALL(mock_on_complete_frame_callback_, DoOnCompleteFrame).Times(0);
+  EXPECT_CALL(mock_key_frame_request_sender_, RequestKeyFrame);
+  InjectPacketWith(stream_structure1, deltaframe_descriptor);
+}
+
+TEST_F(RtpVideoStreamReceiver2DependencyDescriptorTest,
        DropsLateDeltaFramePacketWithDependencyDescriptorExtension) {
   FrameDependencyStructure stream_structure1 = CreateStreamStructure();
   FrameDependencyStructure stream_structure2 = CreateStreamStructure();

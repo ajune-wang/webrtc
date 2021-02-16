@@ -16,6 +16,7 @@
 
 #include "absl/types/optional.h"
 #include "api/crypto_params.h"
+#include "api/function_view.h"
 #include "api/rtc_error.h"
 #include "p2p/base/dtls_transport_internal.h"
 #include "p2p/base/packet_transport_internal.h"
@@ -46,8 +47,9 @@ class DtlsSrtpTransport : public SrtpTransport {
   void UpdateRecvEncryptedHeaderExtensionIds(
       const std::vector<int>& recv_extension_ids);
 
-  sigslot::signal<DtlsSrtpTransport*, bool> SignalDtlsSrtpSetupFailure;
   sigslot::signal<> SignalDtlsStateChange;
+
+  void SetOnDtlsStateChange(std::function<void(void)> callback);
 
   RTCError SetSrtpSendKey(const cricket::CryptoParams& params) override {
     return RTCError(RTCErrorType::UNSUPPORTED_OPERATION,
@@ -97,6 +99,7 @@ class DtlsSrtpTransport : public SrtpTransport {
   absl::optional<std::vector<int>> recv_extension_ids_;
 
   bool active_reset_srtp_params_ = false;
+  std::function<void(void)> on_dtls_state_change_ = []() {};
 };
 
 }  // namespace webrtc

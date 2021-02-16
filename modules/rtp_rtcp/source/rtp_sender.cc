@@ -629,6 +629,30 @@ bool RTPSender::AssignSequenceNumber(RtpPacketToSend* packet) {
   return true;
 }
 
+bool RTPSender::AssignSequenceNumbers(
+    std::vector<std::unique_ptr<RtpPacketToSend>>& packets) {
+  RTC_DCHECK(!packets.empty());
+  MutexLock lock(&send_mutex_);
+  if (!sending_media_)
+    return false;
+  for (auto& packet : packets) {
+    RTC_DCHECK_EQ(packet->Ssrc(), ssrc_);
+    packet->SetSequenceNumber(sequence_number_++);
+  }
+  RtpPacketToSend& last_packet = *packets.back();
+  // Remember marker bit to determine if padding can be inserted with
+  // sequence number following |packet|.
+  last_packet_marker_bit_ = last_packet.Marker();
+  // Remember payload type to use in the padding packet if rtx is disabled.
+  last_payload_type_ = last_packet.PayloadType();
+  // Save timestamps to generate timestamp field and extensions for the padding.
+  last_rtp_timestamp_ = last_packet.Timestamp();
+  last_timestamp_time_ms_ = clock_->TimeInMilliseconds();
+  capture_time_ms_ = last_packet.capture_time_ms();
+
+  return true;
+}
+
 void RTPSender::SetSendingMediaStatus(bool enabled) {
   MutexLock lock(&send_mutex_);
   sending_media_ = enabled;

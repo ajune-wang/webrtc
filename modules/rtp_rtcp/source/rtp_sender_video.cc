@@ -648,8 +648,6 @@ bool RTPSenderVideo::SendVideo(
     if (!packetizer->NextPacket(packet.get()))
       return false;
     RTC_DCHECK_LE(packet->payload_size(), expected_payload_capacity);
-    if (!rtp_sender_->AssignSequenceNumber(packet.get()))
-      return false;
 
     packet->set_allow_retransmission(allow_retransmission);
     packet->set_is_key_frame(video_header.frame_type ==
@@ -689,6 +687,11 @@ bool RTPSenderVideo::SendVideo(
             << "Sent last RTP packet of the first video frame (pre-pacer)";
       }
     }
+  }
+
+  if (!rtp_sender_->AssignSequenceNumbers(rtp_packets)) {
+    // Media not being sent.
+    return false;
   }
 
   LogAndSendToNetwork(std::move(rtp_packets), payload.size());

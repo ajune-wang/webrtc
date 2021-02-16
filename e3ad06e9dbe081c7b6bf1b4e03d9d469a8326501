@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "527a93c5_8496cdc8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 25
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2021-02-16T15:29:24Z",
+      "side": 1,
+      "message": "Thanks Mirko and Harald.",
+      "revId": "e3ad06e9dbe081c7b6bf1b4e03d9d469a8326501",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6904d708_dd74a839",
@@ -81,6 +98,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b48b2e5_6b110996",
+        "filename": "pc/dtls_srtp_transport.cc",
+        "patchSetId": 25
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2021-02-16T15:29:24Z",
+      "side": 1,
+      "message": "Will do it in a separate CL ?",
+      "parentUuid": "b0b9487a_f55cbf76",
+      "range": {
+        "startLine": 272,
+        "startChar": 5,
+        "endLine": 272,
+        "endChar": 40
+      },
+      "revId": "e3ad06e9dbe081c7b6bf1b4e03d9d469a8326501",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "175a1bf0_fbaa0d5f",
@@ -100,6 +141,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3da9891d_a059e2b9",
+        "filename": "pc/dtls_srtp_transport.cc",
+        "patchSetId": 25
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2021-02-16T15:29:24Z",
+      "side": 1,
+      "message": "Will do it next with other suggestions.",
+      "parentUuid": "175a1bf0_fbaa0d5f",
+      "revId": "e3ad06e9dbe081c7b6bf1b4e03d9d469a8326501",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f804385a_9da30cf3",
         "filename": "pc/dtls_srtp_transport.cc",
         "patchSetId": 25
@@ -111,6 +170,24 @@
       "writtenOn": "2021-02-16T14:01:38Z",
       "side": 1,
       "message": "What you are using as a tag is in fact the address of the subscription_id_ parameter, which is a constant offset from \"this\".\nYou can use \"this\" as subscription ID and make the code more readable.",
+      "revId": "e3ad06e9dbe081c7b6bf1b4e03d9d469a8326501",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cdd1067_2c9de18b",
+        "filename": "pc/dtls_srtp_transport.cc",
+        "patchSetId": 25
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2021-02-16T15:29:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f804385a_9da30cf3",
       "revId": "e3ad06e9dbe081c7b6bf1b4e03d9d469a8326501",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -162,6 +239,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a4a2bc4_04ad325c",
+        "filename": "pc/dtls_srtp_transport.h",
+        "patchSetId": 25
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2021-02-16T15:29:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b055ced_5eed3820",
+      "range": {
+        "startLine": 100,
+        "startChar": 6,
+        "endLine": 100,
+        "endChar": 22
+      },
+      "revId": "e3ad06e9dbe081c7b6bf1b4e03d9d469a8326501",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b2744f7a_ade8b71f",
@@ -175,6 +276,30 @@
       "writtenOn": "2021-02-16T10:28:15Z",
       "side": 1,
       "message": "I wonder if we should change this to dtls_transport_, to make it more explicit that \"this\" lifetime if OK (it should be a noop from a functional point of view but it is more clear from a readability point of view). Also the if() at line 95.",
+      "range": {
+        "startLine": 98,
+        "startChar": 6,
+        "endLine": 98,
+        "endChar": 15
+      },
+      "revId": "e3ad06e9dbe081c7b6bf1b4e03d9d469a8326501",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d95db152_60a29e8f",
+        "filename": "pc/sctp_transport.cc",
+        "patchSetId": 25
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2021-02-16T15:29:24Z",
+      "side": 1,
+      "message": "+1, will work on a follow up CL.",
+      "parentUuid": "b2744f7a_ade8b71f",
       "range": {
         "startLine": 98,
         "startChar": 6,

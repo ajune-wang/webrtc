@@ -45,7 +45,8 @@ JsepTransportController::JsepTransportController(
       port_allocator_(port_allocator),
       async_resolver_factory_(async_resolver_factory),
       config_(config),
-      active_reset_srtp_params_(config.active_reset_srtp_params) {
+      active_reset_srtp_params_(config.active_reset_srtp_params),
+      weak_factory_(this) {
   // The |transport_observer| is assumed to be non-null.
   RTC_DCHECK(config_.transport_observer);
   RTC_DCHECK(config_.rtcp_handler);
@@ -506,8 +507,13 @@ JsepTransportController::CreateDtlsSrtpTransport(
   dtls_srtp_transport->SetDtlsTransports(rtp_dtls_transport,
                                          rtcp_dtls_transport);
   dtls_srtp_transport->SetActiveResetSrtpParams(active_reset_srtp_params_);
-  dtls_srtp_transport->SignalDtlsStateChange.connect(
-      this, &JsepTransportController::UpdateAggregateStates_n);
+  dtls_srtp_transport->SetOnDtlsStateChange(
+      [weak_ptr = weak_factory_.GetWeakPtr()]() {
+        if (weak_ptr) {
+          RTC_DCHECK_RUN_ON(weak_ptr->network_thread_);
+          weak_ptr->UpdateAggregateStates_n();
+        }
+      });
   return dtls_srtp_transport;
 }
 

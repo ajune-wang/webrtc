@@ -106,6 +106,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fba1d70f_1ee2a787",
+        "filename": "rtc_base/virtual_socket_server.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-16T08:29:44Z",
+      "side": 1,
+      "message": "Deleted. Nice.",
+      "parentUuid": "f9d9b283_f733b992",
+      "revId": "ca840870996e1e9a7348dba984e4f1453b8ebd9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9484a5e8_238cc260",
@@ -142,6 +160,30 @@
       "writtenOn": "2021-02-16T08:15:08Z",
       "side": 1,
       "message": "Also this one seems unused (no connect() to it). Maybe we can delete as well.\n\nThis time code search finds some matches but it looks like they come from https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/rtc_base/async_packet_socket.h;l\u003d122;drc\u003df417238217396b52fd1e03a7ed6439e03cbc43f8 which has the same name of this signal.",
+      "range": {
+        "startLine": 375,
+        "startChar": 2,
+        "endLine": 376,
+        "endChar": 76
+      },
+      "revId": "ca840870996e1e9a7348dba984e4f1453b8ebd9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be87f96b_b0379e06",
+        "filename": "rtc_base/virtual_socket_server.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-16T08:29:44Z",
+      "side": 1,
+      "message": "Prefer to do this as a followup. Looks like if deleted, all code dealing with MSG_ID_ADDRESS_BOUND can be deleted too.",
+      "parentUuid": "9b9911f5_80ec4cf6",
       "range": {
         "startLine": 375,
         "startChar": 2,

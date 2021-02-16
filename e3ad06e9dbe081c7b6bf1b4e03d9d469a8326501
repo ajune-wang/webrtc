@@ -1,6 +1,40 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7a134e6_e01d68f2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 25
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-02-16T14:01:38Z",
+      "side": 1,
+      "message": "Code now looks good in terms of what gets unsubscribed.\nFor easier reading, I think you should use \"this\" as the removal tag rather than a superfluous data member of \"this\".\n",
+      "revId": "e3ad06e9dbe081c7b6bf1b4e03d9d469a8326501",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6904d708_dd74a839",
+        "filename": "p2p/base/dtls_transport_internal.h",
+        "patchSetId": 25
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-02-16T14:01:38Z",
+      "side": 1,
+      "message": "Here\u0027s where you could use rtc::FunctionView, I think.",
+      "revId": "e3ad06e9dbe081c7b6bf1b4e03d9d469a8326501",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "85d33edd_97128667",
@@ -49,6 +83,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "175a1bf0_fbaa0d5f",
+        "filename": "pc/dtls_srtp_transport.cc",
+        "patchSetId": 25
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-02-16T14:01:38Z",
+      "side": 1,
+      "message": "Drive-by fix:\nThis will crash if old_dtls_transport is null.\nRecent style guide change: Reference arguments are preferred.\nThe Right Way is to make it an cricket::DtlsTransportInternal*\u0026.",
+      "revId": "e3ad06e9dbe081c7b6bf1b4e03d9d469a8326501",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f804385a_9da30cf3",
+        "filename": "pc/dtls_srtp_transport.cc",
+        "patchSetId": 25
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-02-16T14:01:38Z",
+      "side": 1,
+      "message": "What you are using as a tag is in fact the address of the subscription_id_ parameter, which is a constant offset from \"this\".\nYou can use \"this\" as subscription ID and make the code more readable.",
+      "revId": "e3ad06e9dbe081c7b6bf1b4e03d9d469a8326501",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "364fc917_64bc714e",
         "filename": "pc/dtls_srtp_transport.h",
         "patchSetId": 25
@@ -60,6 +128,30 @@
       "writtenOn": "2021-02-16T10:28:15Z",
       "side": 1,
       "message": "What do you think about using dtls_state_subscription_id_?\n\nAlso, add a comment before the data member with an explanation of what it is used for.",
+      "range": {
+        "startLine": 100,
+        "startChar": 6,
+        "endLine": 100,
+        "endChar": 22
+      },
+      "revId": "e3ad06e9dbe081c7b6bf1b4e03d9d469a8326501",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b055ced_5eed3820",
+        "filename": "pc/dtls_srtp_transport.h",
+        "patchSetId": 25
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-02-16T14:01:38Z",
+      "side": 1,
+      "message": "I don\u0027t think you need this member. See other comment.",
+      "parentUuid": "364fc917_64bc714e",
       "range": {
         "startLine": 100,
         "startChar": 6,

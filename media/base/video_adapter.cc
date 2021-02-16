@@ -271,6 +271,8 @@ bool VideoAdapter::AdaptFrameResolution(int in_width,
 
   if (previous_width_ &&
       (previous_width_ != *out_width || previous_height_ != *out_height)) {
+    RTC_LOG(LS_ERROR) << "VideoAdapter new size: " << *out_width << "x"
+                      << *out_height;
     ++adaption_changes_;
     RTC_LOG(LS_INFO) << "Frame size changed: scaled " << frames_scaled_
                      << " / out " << frames_out_ << " / in " << frames_in_

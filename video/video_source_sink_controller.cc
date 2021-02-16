@@ -113,6 +113,7 @@ void VideoSourceSinkController::SetRestrictions(
 void VideoSourceSinkController::SetPixelsPerFrameUpperLimit(
     absl::optional<size_t> pixels_per_frame_upper_limit) {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
+  RTC_LOG(LS_ERROR) << "SetPixelsPerFrameUpperLimit: " << pixels_per_frame_upper_limit.value_or(0);
   pixels_per_frame_upper_limit_ = std::move(pixels_per_frame_upper_limit);
 }
 

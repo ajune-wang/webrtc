@@ -852,6 +852,7 @@ void VideoStreamEncoder::ReconfigureEncoder() {
   // at this layer.
 #if RTC_DCHECK_IS_ON
   for (const auto& stream : streams) {
+    RTC_LOG(LS_ERROR) << "ReconfigureEncoder LAYER: " << stream.width << "x" << stream.height;
     RTC_DCHECK_GE(stream.num_temporal_layers.value_or(1), 1);
   }
 #endif
@@ -873,6 +874,8 @@ void VideoStreamEncoder::ReconfigureEncoder() {
   RTC_CHECK_GE(last_frame_info_->height, highest_stream_height);
   crop_width_ = last_frame_info_->width - highest_stream_width;
   crop_height_ = last_frame_info_->height - highest_stream_height;
+  RTC_LOG(LS_ERROR) << "ReconfigureEncoder for: " << highest_stream->height
+                    << " (crop_height_ " << crop_height_ << ")";
 
   encoder_bitrate_limits_ =
       encoder_->GetEncoderInfo().GetEncoderBitrateLimitsForResolution(
@@ -1592,6 +1595,7 @@ void VideoStreamEncoder::EncodeVideoFrame(const VideoFrame& video_frame,
           VideoFrameBuffer::Type::kNative &&
       !info.supports_native_handle) {
     // This module only supports software encoding.
+    // RTC_LOG(LS_ERROR) << "GetMappedFrameBuffer is called";
     rtc::scoped_refptr<VideoFrameBuffer> buffer =
         out_frame.video_frame_buffer()->GetMappedFrameBuffer(
             info.preferred_pixel_formats);
@@ -1643,6 +1647,8 @@ void VideoStreamEncoder::EncodeVideoFrame(const VideoFrame& video_frame,
           VideoFrame::UpdateRect{0, 0, cropped_width, cropped_height});
 
     } else {
+      RTC_LOG(LS_ERROR) << "VideoStreamEncoder::Scale: "
+                        << cropped_width << "x" << cropped_height;
       cropped_buffer = video_frame.video_frame_buffer()->Scale(cropped_width,
                                                                cropped_height);
       if (!update_rect.IsEmpty()) {

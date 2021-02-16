@@ -498,6 +498,7 @@ class JsepTransportController : public sigslot::has_slots<> {
   rtc::scoped_refptr<rtc::RTCCertificate> certificate_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(JsepTransportController);
+  rtc::WeakPtrFactory<JsepTransportController> weak_factory_;
 };
 
 }  // namespace webrtc

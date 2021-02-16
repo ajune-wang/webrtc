@@ -39,6 +39,30 @@
       },
       "revId": "eb033d7eefd6fa6befde777099447b18c09a5e8d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc407905_09636d2a",
+        "filename": "api/video/encoded_frame.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-02-16T11:41:20Z",
+      "side": 1,
+      "message": "There are a several sources than can be used, RTP sequence number, VP8/VP9 descriptors, generic payload descriptor, different RTP header extensions. Not sure if mentioning them clarify things.",
+      "parentUuid": "c6c5d29d_eeab1d23",
+      "range": {
+        "startLine": 58,
+        "startChar": 25,
+        "endLine": 58,
+        "endChar": 43
+      },
+      "revId": "eb033d7eefd6fa6befde777099447b18c09a5e8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

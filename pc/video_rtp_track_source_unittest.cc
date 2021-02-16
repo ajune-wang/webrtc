@@ -10,12 +10,15 @@
 
 #include "pc/video_rtp_track_source.h"
 
+#include "api/media_stream_interface.h"
 #include "rtc_base/ref_counted_object.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 
 namespace webrtc {
 namespace {
+
+using ::testing::_;
 
 class MockCallback : public VideoRtpTrackSource::Callback {
  public:
@@ -26,6 +29,12 @@ class MockCallback : public VideoRtpTrackSource::Callback {
 class MockSink : public rtc::VideoSinkInterface<RecordableEncodedFrame> {
  public:
   MOCK_METHOD(void, OnFrame, (const RecordableEncodedFrame&), (override));
+  MOCK_METHOD(void,
+              OnFrame,
+              (int adapted_source_width,
+               int adapted_source_height,
+               const std::vector<const RecordableEncodedFrame*>& video_frames),
+              (override));
 };
 
 rtc::scoped_refptr<VideoRtpTrackSource> MakeSource(
@@ -128,8 +137,8 @@ TEST(VideoRtpTrackSourceTest, BroadcastsFrames) {
   MockSink sink2;
   source->AddEncodedSink(&sink2);
   TestFrame frame;
-  EXPECT_CALL(sink, OnFrame);
-  EXPECT_CALL(sink2, OnFrame);
+  EXPECT_CALL(sink, OnFrame(_));
+  EXPECT_CALL(sink2, OnFrame(_));
   source->BroadcastRecordableEncodedFrame(frame);
 }
 

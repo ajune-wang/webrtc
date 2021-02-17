@@ -136,6 +136,10 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
       VideoSourceRestrictionsListener* restrictions_listener);
 
  private:
+  // The VideoFrameInfo resolution is the adapted source size, which is the size
+  // a source frame after adaptation (pixel limits) have been applied. Note that
+  // because of scaleResolutionDownBy, simulcast or SVC logic the encoded
+  // resolution(s) could in some cases be smaller than the adapted source size.
   class VideoFrameInfo {
    public:
     VideoFrameInfo(int width, int height, bool is_texture)
@@ -173,13 +177,19 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   void OnEncoderSettingsChanged() RTC_RUN_ON(&encoder_queue_);
 
   // Implements VideoSinkInterface.
-  void OnFrame(const VideoFrame& video_frame) override;
+  void OnFrames(int adapted_source_width,
+                int adapted_source_height,
+                const std::vector<const VideoFrame*>& frames) override;
   void OnDiscardedFrame() override;
 
-  void MaybeEncodeVideoFrame(const VideoFrame& frame,
+  void MaybeEncodeVideoFrame(int adapted_source_width,
+                             int adapted_source_height,
+                             const std::vector<VideoFrame>& video_frames,
                              int64_t time_when_posted_in_ms);
 
-  void EncodeVideoFrame(const VideoFrame& frame,
+  // TODO(https://crbug.com/webrtc/12469): Update this to take multiple video
+  // frames and make use of already scaled video frames, if available.
+  void EncodeVideoFrame(const VideoFrame& video_frame,
                         int64_t time_when_posted_in_ms);
   // Indicates wether frame should be dropped because the pixel count is too
   // large for the current bitrate configuration.

@@ -55,12 +55,16 @@ VideoSinkWants VideoBroadcaster::wants() const {
   return current_wants_;
 }
 
-void VideoBroadcaster::OnFrame(const webrtc::VideoFrame& frame) {
+void VideoBroadcaster::OnFrames(
+    int adapted_source_width,
+    int adapted_source_height,
+    const std::vector<const webrtc::VideoFrame*>& frames) {
+  RTC_DCHECK(!frames.empty());
   webrtc::MutexLock lock(&sinks_and_wants_lock_);
   bool current_frame_was_discarded = false;
   for (auto& sink_pair : sink_pairs()) {
     if (sink_pair.wants.rotation_applied &&
-        frame.rotation() != webrtc::kVideoRotation_0) {
+        frames[0]->rotation() != webrtc::kVideoRotation_0) {
       // Calls to OnFrame are not synchronized with changes to the sink wants.
       // When rotation_applied is set to true, one or a few frames may get here
       // with rotation still pending. Protect sinks that don't expect any
@@ -74,20 +78,32 @@ void VideoBroadcaster::OnFrame(const webrtc::VideoFrame& frame) {
       webrtc::VideoFrame black_frame =
           webrtc::VideoFrame::Builder()
               .set_video_frame_buffer(
-                  GetBlackFrameBuffer(frame.width(), frame.height()))
-              .set_rotation(frame.rotation())
-              .set_timestamp_us(frame.timestamp_us())
-              .set_id(frame.id())
+                  GetBlackFrameBuffer(frames[0]->width(), frames[0]->height()))
+              .set_rotation(frames[0]->rotation())
+              .set_timestamp_us(frames[0]->timestamp_us())
+              .set_id(frames[0]->id())
               .build();
-      sink_pair.sink->OnFrame(black_frame);
-    } else if (!previous_frame_sent_to_all_sinks_ && frame.has_update_rect()) {
+      sink_pair.sink->OnFrames(adapted_source_width, adapted_source_height,
+                               {&black_frame});
+    } else if (!previous_frame_sent_to_all_sinks_ &&
+               frames[0]->has_update_rect()) {
       // Since last frame was not sent to some sinks, no reliable update
-      // information is available, so we need to clear the update rect.
-      webrtc::VideoFrame copy = frame;
-      copy.clear_update_rect();
-      sink_pair.sink->OnFrame(copy);
+      // information is available, so we need to clear the update rects on all
+      // frames.
+      std::vector<webrtc::VideoFrame> frame_copies;
+      std::vector<const webrtc::VideoFrame*> frame_copy_ptrs;
+      frame_copies.reserve(frames.size());
+      frame_copy_ptrs.reserve(frames.size());
+      for (const auto* video_frame : frames) {
+        frame_copies.push_back(*video_frame);
+        frame_copies.back().clear_update_rect();
+        frame_copy_ptrs.push_back(&frame_copies.back());
+      }
+      sink_pair.sink->OnFrames(adapted_source_width, adapted_source_height,
+                               frame_copy_ptrs);
     } else {
-      sink_pair.sink->OnFrame(frame);
+      sink_pair.sink->OnFrames(adapted_source_width, adapted_source_height,
+                               frames);
     }
   }
   previous_frame_sent_to_all_sinks_ = !current_frame_was_discarded;

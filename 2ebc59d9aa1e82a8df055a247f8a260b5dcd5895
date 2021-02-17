@@ -54,6 +54,41 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "362be8e9_04dffad5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-02-17T14:20:36Z",
+      "side": 1,
+      "message": "In the case of 720p capture, 480p adaptation and 360p resolution what I want to avoid is having to produce that 480p frame.\n\nYou are right, if scaleResolutionDownBy is modified and we only pass in 360p then we don\u0027t know what to do for the 480p frame.\n\nI have a proposed solution that is \"for free\". We can always pass in the 720p video frame. In that case we would have 720p + 360p and if it turns out that suddenly we want 480p we can downscale 720p to 480p inside VideoStreamEncoder. This means that:\n1. In the normal case, we get rid of the 480p unnecessary scale.\n2. In the worst-case edge-case, we do 720p -\u003e 480p downscale. This is what Chromium already does today, so the only difference is that this would be part of the already-existing VSE downscale step.",
+      "parentUuid": "85001970_4ca1232f",
+      "revId": "2ebc59d9aa1e82a8df055a247f8a260b5dcd5895",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "efdb3e39_b2b9e321",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-02-17T14:20:36Z",
+      "side": 1,
+      "message": "I will get back to you when I have updated the CL so that we can guarantee to always have a frame that is at least as big as the adapted video size. Then we can handle the edge case with minimal number of downscales and not having to drop frames even in the worst case.",
+      "revId": "2ebc59d9aa1e82a8df055a247f8a260b5dcd5895",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "74ce1258_6148ca6a",
         "filename": "api/video/video_sink_interface.h",
         "patchSetId": 7
@@ -77,6 +112,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "adbf4e2c_33c9b009",
+        "filename": "api/video/video_sink_interface.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-02-17T14:20:36Z",
+      "side": 1,
+      "message": "I don\u0027t consider the fact that there exists multiple versions of the frame an \"implementation detail\". WebRTC asks for multiple frames because it wants to encode multiple frames and so it gets multiple frames. It\u0027s pretty straight-forward.\n\nConsider simulcast, we want to encode frame A, B and C. And we have frame A, B and C available in Chromium as a set of media::VideoFrames ready to pass over to WebRTC as webrtc::VideoFrames.\nWe can either pass along frames A, B and C or we can create some pseudo-frame D that hides frame A, B and C inside of it only to expose it when you request to scale it.\n\nThis requirement that we must have a frame of size \"adapted source size\" is legacy. We\u0027re not interested in the 480p frame, the only reason we care about 480p is because that is what we use as input to ReconfigureEncoder(). But the 480p value is really just derived from the rtc::VideoSinkWants, which comes from ResourceAdaptation, so with a bit of refactoring maybe we could have wired up ReconfigureEncoder() to the rtc::VideoSinkWants directly. Only reason we can\u0027t is because of VideoAdapter logic, and I don\u0027t want to touch that for the sake of scaled frames.",
+      "parentUuid": "74ce1258_6148ca6a",
+      "range": {
+        "startLine": 49,
+        "startChar": 24,
+        "endLine": 49,
+        "endChar": 69
+      },
+      "revId": "2ebc59d9aa1e82a8df055a247f8a260b5dcd5895",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b5256eb7_72f4d362",
         "filename": "media/base/video_broadcaster.cc",
         "patchSetId": 7
@@ -88,6 +147,30 @@
       "writtenOn": "2021-02-17T13:45:00Z",
       "side": 1,
       "message": "This is UaF pitfall here. If the frame is buffered somewhere (like it does in encoder queue), |black_frame| would be destroyed.",
+      "range": {
+        "startLine": 87,
+        "startChar": 32,
+        "endLine": 87,
+        "endChar": 33
+      },
+      "revId": "2ebc59d9aa1e82a8df055a247f8a260b5dcd5895",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afaa4f6a_8529452a",
+        "filename": "media/base/video_broadcaster.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-02-17T14:20:36Z",
+      "side": 1,
+      "message": "I changed \"const VideoFrame\u0026\" to \"const std::vector\u003cconst VideoFrame*\u003e\u0026\". I would have liked to pass in \"std::vector\u003cconst VideoFrame\u0026\u003e\" but C++ does not allow vectors of refs.\n\nUnfortunately I can\u0027t pass in \"const std::vector\u003cVideoFrame\u003e\u0026\" because VideoSinkInterface\u003cT\u003e is template-instantiated with RecordableEncodedFrame which is an abstract interface, so I can\u0027t have a vector of RecordableEncodedFrame-values, it needs to be ptrs in order to point to implementations of RecordableEncodedFrame.\n\nAny suggestion if this can be made better?",
+      "parentUuid": "b5256eb7_72f4d362",
       "range": {
         "startLine": 87,
         "startChar": 32,

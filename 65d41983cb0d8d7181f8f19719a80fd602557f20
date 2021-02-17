@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd836fa1_6a70f128",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2021-02-17T00:41:51Z",
+      "side": 1,
+      "message": "Thanks Mirko, Niels, Harald.",
+      "revId": "65d41983cb0d8d7181f8f19719a80fd602557f20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ac1e49b7_38801a49",
@@ -113,6 +130,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "77b6562b_5dcc0978",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2021-02-17T00:41:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "365a0287_d002f220",
+      "range": {
+        "startLine": 511,
+        "startChar": 7,
+        "endLine": 511,
+        "endChar": 15
+      },
+      "revId": "65d41983cb0d8d7181f8f19719a80fd602557f20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "39b96fda_7b510338",
@@ -126,6 +167,24 @@
       "writtenOn": "2021-02-16T15:46:08Z",
       "side": 1,
       "message": "Please place the new member above RTC_DISALLOW_COPY_AND_ASSIGN, per convention.",
+      "revId": "65d41983cb0d8d7181f8f19719a80fd602557f20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2402e73_bfd5b2b7",
+        "filename": "pc/jsep_transport_controller.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2021-02-17T00:41:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39b96fda_7b510338",
       "revId": "65d41983cb0d8d7181f8f19719a80fd602557f20",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

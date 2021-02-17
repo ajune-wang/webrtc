@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5a3b71c_522f7b5f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-02-17T12:48:07Z",
+      "side": 1,
+      "message": "Ilya can you take a look? I should add a unit test but I have a question about update rect and I want to get an OK that this is the right approach.",
+      "revId": "2ebc59d9aa1e82a8df055a247f8a260b5dcd5895",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bdae040c_21b7b373",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1280,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-02-17T12:48:07Z",
+      "side": 1,
+      "message": "Ilya what is this update rect that is set in multiple places?\n\nI have currently kept it as-is only looking at the 0-th frame, which is the only one being encoded at the moment, but I wonder if I need to keep track of one update rect per scaled frame in the future or if we can reuse the same update rect for each frame but with a different scale factor?\n\nWhat is the update rect?",
+      "revId": "2ebc59d9aa1e82a8df055a247f8a260b5dcd5895",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

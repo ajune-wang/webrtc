@@ -11,6 +11,8 @@
 #ifndef MEDIA_BASE_VIDEO_BROADCASTER_H_
 #define MEDIA_BASE_VIDEO_BROADCASTER_H_
 
+#include <vector>
+
 #include "api/scoped_refptr.h"
 #include "api/sequence_checker.h"
 #include "api/video/video_frame_buffer.h"
@@ -46,7 +48,10 @@ class VideoBroadcaster : public VideoSourceBase,
   // it will never receive a frame with pending rotation. Our caller
   // may pass in frames without precise synchronization with changes
   // to the VideoSinkWants.
-  void OnFrame(const webrtc::VideoFrame& frame) override;
+  void OnFrames(int adapted_source_width,
+                int adapted_source_height,
+                const webrtc::VideoFrame& frame,
+                std::vector<const webrtc::VideoFrame*> scaled_frames) override;
 
   void OnDiscardedFrame() override;
 

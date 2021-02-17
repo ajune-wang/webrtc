@@ -55,7 +55,11 @@ VideoSinkWants VideoBroadcaster::wants() const {
   return current_wants_;
 }
 
-void VideoBroadcaster::OnFrame(const webrtc::VideoFrame& frame) {
+void VideoBroadcaster::OnFrames(
+    int adapted_source_width,
+    int adapted_source_height,
+    const webrtc::VideoFrame& frame,
+    std::vector<const webrtc::VideoFrame*> scaled_frames) {
   webrtc::MutexLock lock(&sinks_and_wants_lock_);
   bool current_frame_was_discarded = false;
   for (auto& sink_pair : sink_pairs()) {
@@ -82,12 +86,14 @@ void VideoBroadcaster::OnFrame(const webrtc::VideoFrame& frame) {
       sink_pair.sink->OnFrame(black_frame);
     } else if (!previous_frame_sent_to_all_sinks_ && frame.has_update_rect()) {
       // Since last frame was not sent to some sinks, no reliable update
-      // information is available, so we need to clear the update rect.
+      // information is available, so we need to clear the update rects on all
+      // frames.
       webrtc::VideoFrame copy = frame;
       copy.clear_update_rect();
       sink_pair.sink->OnFrame(copy);
     } else {
-      sink_pair.sink->OnFrame(frame);
+      sink_pair.sink->OnFrames(adapted_source_width, adapted_source_height,
+                               frame, scaled_frames);
     }
   }
   previous_frame_sent_to_all_sinks_ = !current_frame_was_discarded;

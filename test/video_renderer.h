@@ -12,10 +12,10 @@
 
 #include <stddef.h>
 
+#include "api/video/video_frame.h"
 #include "api/video/video_sink_interface.h"
 
 namespace webrtc {
-class VideoFrame;
 
 namespace test {
 class VideoRenderer : public rtc::VideoSinkInterface<VideoFrame> {

@@ -50,6 +50,14 @@ class RecordableEncodedFrame {
   // doesn't contain resolution information
   virtual EncodedResolution resolution() const = 0;
 
+  // To aid migrating to the new VideoSinkInterface::OnFrames() signature, these
+  // width and height getters were added to allow a default implementation of
+  // the old VideoSinkInterface::OnFrame().
+  // TODO(https://crbug.com/1157072): When the old OnFrame() is removed, delete
+  // these getters.
+  unsigned width() const { return resolution().width; }
+  unsigned height() const { return resolution().height; }
+
   // Returns the computed render time
   virtual Timestamp render_time() const = 0;
 };

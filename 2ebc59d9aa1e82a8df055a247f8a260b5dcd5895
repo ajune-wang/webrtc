@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "242ce575_65d518c5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-02-17T13:46:49Z",
+      "side": 1,
+      "message": "Well, potentially dropping frames until the full resolution comes through is a possible solution.",
+      "revId": "2ebc59d9aa1e82a8df055a247f8a260b5dcd5895",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "74ce1258_6148ca6a",

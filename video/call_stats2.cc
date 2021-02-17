@@ -90,6 +90,7 @@ CallStats::~CallStats() {
 
 void CallStats::EnsureStarted() {
   RTC_DCHECK_RUN_ON(task_queue_);
+  RTC_DCHECK(!repeating_task_.Running());
   repeating_task_ =
       RepeatingTaskHandle::DelayedStart(task_queue_, kUpdateInterval, [this]() {
         UpdateAndReport();

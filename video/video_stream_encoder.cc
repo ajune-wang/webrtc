@@ -1171,9 +1171,20 @@ void VideoStreamEncoder::OnEncoderSettingsChanged() {
   degradation_preference_manager_->SetIsScreenshare(is_screenshare);
 }
 
-void VideoStreamEncoder::OnFrame(const VideoFrame& video_frame) {
+void VideoStreamEncoder::OnFrames(
+    int adapted_source_width,
+    int adapted_source_height,
+    const std::vector<const VideoFrame*>& frames) {
   RTC_DCHECK_RUNS_SERIALIZED(&incoming_frame_race_checker_);
-  VideoFrame incoming_frame = video_frame;
+  RTC_DCHECK(!frames.empty());
+
+  // Make shallow copies of the frames in order to take ownership. This is
+  // needed to modify timestamps. All frames will have the same timestamps.
+  std::vector<VideoFrame> incoming_frames;
+  incoming_frames.reserve(frames.size());
+  for (const auto* video_frame : frames) {
+    incoming_frames.push_back(*video_frame);
+  }
 
   // Local time in webrtc time base.
   Timestamp now = clock_->CurrentTime();
@@ -1182,32 +1193,38 @@ void VideoStreamEncoder::OnFrame(const VideoFrame& video_frame) {
   // the timestamp may be set to the future. As the encoding pipeline assumes
   // capture time to be less than present time, we should reset the capture
   // timestamps here. Otherwise there may be issues with RTP send stream.
-  if (incoming_frame.timestamp_us() > now.us())
-    incoming_frame.set_timestamp_us(now.us());
+  if (incoming_frames[0].timestamp_us() > now.us()) {
+    for (auto& incoming_frame : incoming_frames) {
+      incoming_frame.set_timestamp_us(now.us());
+    }
+  }
 
   // Capture time may come from clock with an offset and drift from clock_.
   int64_t capture_ntp_time_ms;
-  if (video_frame.ntp_time_ms() > 0) {
-    capture_ntp_time_ms = video_frame.ntp_time_ms();
-  } else if (video_frame.render_time_ms() != 0) {
-    capture_ntp_time_ms = video_frame.render_time_ms() + delta_ntp_internal_ms_;
+  if (incoming_frames[0].ntp_time_ms() > 0) {
+    capture_ntp_time_ms = incoming_frames[0].ntp_time_ms();
+  } else if (incoming_frames[0].render_time_ms() != 0) {
+    capture_ntp_time_ms =
+        incoming_frames[0].render_time_ms() + delta_ntp_internal_ms_;
   } else {
     capture_ntp_time_ms = now.ms() + delta_ntp_internal_ms_;
   }
-  incoming_frame.set_ntp_time_ms(capture_ntp_time_ms);
+  for (auto& incoming_frame : incoming_frames) {
+    incoming_frame.set_ntp_time_ms(capture_ntp_time_ms);
+    // Convert NTP time, in ms, to RTP timestamp.
+    constexpr int kMsToRtpTimestamp = 90;
+    incoming_frame.set_timestamp(
+        kMsToRtpTimestamp *
+        static_cast<uint32_t>(incoming_frame.ntp_time_ms()));
+  }
 
-  // Convert NTP time, in ms, to RTP timestamp.
-  const int kMsToRtpTimestamp = 90;
-  incoming_frame.set_timestamp(
-      kMsToRtpTimestamp * static_cast<uint32_t>(incoming_frame.ntp_time_ms()));
-
-  if (incoming_frame.ntp_time_ms() <= last_captured_timestamp_) {
+  if (incoming_frames[0].ntp_time_ms() <= last_captured_timestamp_) {
     // We don't allow the same capture time for two frames, drop this one.
     RTC_LOG(LS_WARNING) << "Same/old NTP timestamp ("
-                        << incoming_frame.ntp_time_ms()
+                        << incoming_frames[0].ntp_time_ms()
                         << " <= " << last_captured_timestamp_
                         << ") for incoming frame. Dropping.";
-    encoder_queue_.PostTask([this, incoming_frame]() {
+    encoder_queue_.PostTask([this, incoming_frame = incoming_frames[0]]() {
       RTC_DCHECK_RUN_ON(&encoder_queue_);
       accumulated_update_rect_.Union(incoming_frame.update_rect());
       accumulated_update_rect_is_valid_ &= incoming_frame.has_update_rect();
@@ -1221,26 +1238,28 @@ void VideoStreamEncoder::OnFrame(const VideoFrame& video_frame) {
     log_stats = true;
   }
 
-  last_captured_timestamp_ = incoming_frame.ntp_time_ms();
+  last_captured_timestamp_ = incoming_frames[0].ntp_time_ms();
 
   int64_t post_time_us = clock_->CurrentTime().us();
   ++posted_frames_waiting_for_encode_;
 
   encoder_queue_.PostTask(
-      [this, incoming_frame, post_time_us, log_stats]() {
+      [this, adapted_source_width, adapted_source_height, incoming_frames,
+       post_time_us, log_stats]() {
         RTC_DCHECK_RUN_ON(&encoder_queue_);
-        encoder_stats_observer_->OnIncomingFrame(incoming_frame.width(),
-                                                 incoming_frame.height());
+        encoder_stats_observer_->OnIncomingFrame(adapted_source_width,
+                                                 adapted_source_height);
         ++captured_frame_count_;
         const int posted_frames_waiting_for_encode =
             posted_frames_waiting_for_encode_.fetch_sub(1);
         RTC_DCHECK_GT(posted_frames_waiting_for_encode, 0);
-        CheckForAnimatedContent(incoming_frame, post_time_us);
+        CheckForAnimatedContent(incoming_frames[0], post_time_us);
         bool cwnd_frame_drop =
             cwnd_frame_drop_interval_ &&
             (cwnd_frame_counter_++ % cwnd_frame_drop_interval_.value() == 0);
         if (posted_frames_waiting_for_encode == 1 && !cwnd_frame_drop) {
-          MaybeEncodeVideoFrame(incoming_frame, post_time_us);
+          MaybeEncodeVideoFrame(adapted_source_width, adapted_source_height,
+                                incoming_frames, post_time_us);
         } else {
           if (cwnd_frame_drop) {
             // Frame drop by congestion window pusback. Do not encode this
@@ -1256,8 +1275,9 @@ void VideoStreamEncoder::OnFrame(const VideoFrame& video_frame) {
             encoder_stats_observer_->OnFrameDropped(
                 VideoStreamEncoderObserver::DropReason::kEncoderQueue);
           }
-          accumulated_update_rect_.Union(incoming_frame.update_rect());
-          accumulated_update_rect_is_valid_ &= incoming_frame.has_update_rect();
+          accumulated_update_rect_.Union(incoming_frames[0].update_rect());
+          accumulated_update_rect_is_valid_ &=
+              incoming_frames[0].has_update_rect();
         }
         if (log_stats) {
           RTC_LOG(LS_INFO) << "Number of frames: captured "
@@ -1421,24 +1441,29 @@ void VideoStreamEncoder::SetEncoderRates(
   }
 }
 
-void VideoStreamEncoder::MaybeEncodeVideoFrame(const VideoFrame& video_frame,
-                                               int64_t time_when_posted_us) {
+void VideoStreamEncoder::MaybeEncodeVideoFrame(
+    int adapted_source_width,
+    int adapted_source_height,
+    const std::vector<VideoFrame>& video_frames,
+    int64_t time_when_posted_us) {
   RTC_DCHECK_RUN_ON(&encoder_queue_);
-  input_state_provider_.OnFrameSizeObserved(video_frame.size());
+  input_state_provider_.OnFrameSizeObserved(adapted_source_width *
+                                            adapted_source_height);
 
-  if (!last_frame_info_ || video_frame.width() != last_frame_info_->width ||
-      video_frame.height() != last_frame_info_->height ||
-      video_frame.is_texture() != last_frame_info_->is_texture) {
+  if (!last_frame_info_ || adapted_source_width != last_frame_info_->width ||
+      adapted_source_height != last_frame_info_->height ||
+      video_frames[0].is_texture() != last_frame_info_->is_texture) {
     pending_encoder_reconfiguration_ = true;
-    last_frame_info_ = VideoFrameInfo(video_frame.width(), video_frame.height(),
-                                      video_frame.is_texture());
+    last_frame_info_ =
+        VideoFrameInfo(adapted_source_width, adapted_source_height,
+                       video_frames[0].is_texture());
     RTC_LOG(LS_INFO) << "Video frame parameters changed: dimensions="
                      << last_frame_info_->width << "x"
                      << last_frame_info_->height
                      << ", texture=" << last_frame_info_->is_texture << ".";
     // Force full frame update, since resolution has changed.
-    accumulated_update_rect_ =
-        VideoFrame::UpdateRect{0, 0, video_frame.width(), video_frame.height()};
+    accumulated_update_rect_ = VideoFrame::UpdateRect{
+        0, 0, video_frames[0].width(), video_frames[0].height()};
   }
 
   // We have to create then encoder before the frame drop logic,
@@ -1483,19 +1508,23 @@ void VideoStreamEncoder::MaybeEncodeVideoFrame(const VideoFrame& video_frame,
     accumulated_update_rect_is_valid_ &= pending_frame_->has_update_rect();
   }
 
-  if (DropDueToSize(video_frame.size())) {
+  // TODO(https://crbug.com/webrtc/12469): Update this code and
+  // EncodeVideoFrame() to look at all video frames.
+  const VideoFrame& frame_to_encode = video_frames[0];
+
+  if (DropDueToSize(last_frame_info_->pixel_count())) {
     RTC_LOG(LS_INFO) << "Dropping frame. Too large for target bitrate.";
     stream_resource_manager_.OnFrameDroppedDueToSize();
     // Storing references to a native buffer risks blocking frame capture.
-    if (video_frame.video_frame_buffer()->type() !=
+    if (frame_to_encode.video_frame_buffer()->type() !=
         VideoFrameBuffer::Type::kNative) {
-      pending_frame_ = video_frame;
+      pending_frame_ = frame_to_encode;
       pending_frame_post_time_us_ = time_when_posted_us;
     } else {
       // Ensure that any previously stored frame is dropped.
       pending_frame_.reset();
-      accumulated_update_rect_.Union(video_frame.update_rect());
-      accumulated_update_rect_is_valid_ &= video_frame.has_update_rect();
+      accumulated_update_rect_.Union(frame_to_encode.update_rect());
+      accumulated_update_rect_is_valid_ &= frame_to_encode.has_update_rect();
     }
     return;
   }
@@ -1503,18 +1532,18 @@ void VideoStreamEncoder::MaybeEncodeVideoFrame(const VideoFrame& video_frame,
 
   if (EncoderPaused()) {
     // Storing references to a native buffer risks blocking frame capture.
-    if (video_frame.video_frame_buffer()->type() !=
+    if (frame_to_encode.video_frame_buffer()->type() !=
         VideoFrameBuffer::Type::kNative) {
       if (pending_frame_)
         TraceFrameDropStart();
-      pending_frame_ = video_frame;
+      pending_frame_ = frame_to_encode;
       pending_frame_post_time_us_ = time_when_posted_us;
     } else {
       // Ensure that any previously stored frame is dropped.
       pending_frame_.reset();
       TraceFrameDropStart();
-      accumulated_update_rect_.Union(video_frame.update_rect());
-      accumulated_update_rect_is_valid_ &= video_frame.has_update_rect();
+      accumulated_update_rect_.Union(frame_to_encode.update_rect());
+      accumulated_update_rect_is_valid_ &= frame_to_encode.has_update_rect();
     }
     return;
   }
@@ -1538,12 +1567,12 @@ void VideoStreamEncoder::MaybeEncodeVideoFrame(const VideoFrame& video_frame,
         << ", input frame rate " << framerate_fps;
     OnDroppedFrame(
         EncodedImageCallback::DropReason::kDroppedByMediaOptimizations);
-    accumulated_update_rect_.Union(video_frame.update_rect());
-    accumulated_update_rect_is_valid_ &= video_frame.has_update_rect();
+    accumulated_update_rect_.Union(frame_to_encode.update_rect());
+    accumulated_update_rect_is_valid_ &= frame_to_encode.has_update_rect();
     return;
   }
 
-  EncodeVideoFrame(video_frame, time_when_posted_us);
+  EncodeVideoFrame(frame_to_encode, time_when_posted_us);
 }
 
 void VideoStreamEncoder::EncodeVideoFrame(const VideoFrame& video_frame,

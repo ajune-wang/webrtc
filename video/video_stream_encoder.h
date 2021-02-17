@@ -173,13 +173,15 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   void OnEncoderSettingsChanged() RTC_RUN_ON(&encoder_queue_);
 
   // Implements VideoSinkInterface.
-  void OnFrame(const VideoFrame& video_frame) override;
+  void OnFrames(int adapted_source_width,
+                int adapted_source_height,
+                const std::vector<const VideoFrame*>& frames) override;
   void OnDiscardedFrame() override;
 
-  void MaybeEncodeVideoFrame(const VideoFrame& frame,
+  void MaybeEncodeVideoFrame(const std::vector<VideoFrame>& video_frames,
                              int64_t time_when_posted_in_ms);
 
-  void EncodeVideoFrame(const VideoFrame& frame,
+  void EncodeVideoFrame(const VideoFrame& video_frame,
                         int64_t time_when_posted_in_ms);
   // Indicates wether frame should be dropped because the pixel count is too
   // large for the current bitrate configuration.

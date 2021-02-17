@@ -18,6 +18,69 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "85001970_4ca1232f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-02-17T13:45:00Z",
+      "side": 1,
+      "message": "I just realized that this approach might be infeasible.\nThe feedback is delayed. So consider this situation: Encoder is configured with ScaleDownBy factor of 2. No adaptation, capture is 720p. So your idea is to capture in 360p and pass it to webrtc.\n\nBut what happens if the encoder is suddenly reconfigured to have a ScaleDownBy factor of 1?\nWebrtc would want full size image, but it would take a couple of frames before the capturer gets the feedback and starts sending full size images.\n\nWhat to do meanwhile? It\u0027s a completely new state: encoder is encoding 360p, but it wants 720p.\nHow to calculate that?",
+      "revId": "2ebc59d9aa1e82a8df055a247f8a260b5dcd5895",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74ce1258_6148ca6a",
+        "filename": "api/video/video_sink_interface.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-02-17T13:45:00Z",
+      "side": 1,
+      "message": "I thought the pre-scaled images would be passed via RtcVideoFrameAdapter, where scaling operation would be no-op. That way, webrtc shouldn\u0027t know about chrome-specific mechanism.\nI believe abstracting all the implementation details about pre-scaled frames in chrome land would be better.\n\nPassing vector of frames everywhere in webrtc doesn\u0027t seem to be such a good idea. Also, passing a vector of pointers is dangerous, and it introduce UaF (see comments in other files).\n\nInstead, maybe we could have an additional vector of VideoFrameBuffers inside?",
+      "range": {
+        "startLine": 49,
+        "startChar": 24,
+        "endLine": 49,
+        "endChar": 69
+      },
+      "revId": "2ebc59d9aa1e82a8df055a247f8a260b5dcd5895",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5256eb7_72f4d362",
+        "filename": "media/base/video_broadcaster.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-02-17T13:45:00Z",
+      "side": 1,
+      "message": "This is UaF pitfall here. If the frame is buffered somewhere (like it does in encoder queue), |black_frame| would be destroyed.",
+      "range": {
+        "startLine": 87,
+        "startChar": 32,
+        "endLine": 87,
+        "endChar": 33
+      },
+      "revId": "2ebc59d9aa1e82a8df055a247f8a260b5dcd5895",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bdae040c_21b7b373",
@@ -31,6 +94,24 @@
       "writtenOn": "2021-02-17T12:48:07Z",
       "side": 1,
       "message": "Ilya what is this update rect that is set in multiple places?\n\nI have currently kept it as-is only looking at the 0-th frame, which is the only one being encoded at the moment, but I wonder if I need to keep track of one update rect per scaled frame in the future or if we can reuse the same update rect for each frame but with a different scale factor?\n\nWhat is the update rect?",
+      "revId": "2ebc59d9aa1e82a8df055a247f8a260b5dcd5895",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d76fdeac_d2e94c28",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1280,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-02-17T13:45:00Z",
+      "side": 1,
+      "message": "It indicates, which part of the frame was updated since the last frame. It is set by tab capturer only currently.\n\nIt\u0027s used to detect static content and adjust encode framerate.",
+      "parentUuid": "bdae040c_21b7b373",
       "revId": "2ebc59d9aa1e82a8df055a247f8a260b5dcd5895",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

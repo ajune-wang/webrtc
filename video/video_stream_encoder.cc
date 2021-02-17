@@ -1171,8 +1171,12 @@ void VideoStreamEncoder::OnEncoderSettingsChanged() {
   degradation_preference_manager_->SetIsScreenshare(is_screenshare);
 }
 
-void VideoStreamEncoder::OnFrame(const VideoFrame& video_frame) {
+void VideoStreamEncoder::OnFrame(
+    int adapted_source_width,
+    int adapted_source_height,
+    const std::vector<const VideoFrame*>& video_frames) {
   RTC_DCHECK_RUNS_SERIALIZED(&incoming_frame_race_checker_);
+  const auto& video_frame = *video_frames[0];
   VideoFrame incoming_frame = video_frame;
 
   // Local time in webrtc time base.
@@ -1182,8 +1186,9 @@ void VideoStreamEncoder::OnFrame(const VideoFrame& video_frame) {
   // the timestamp may be set to the future. As the encoding pipeline assumes
   // capture time to be less than present time, we should reset the capture
   // timestamps here. Otherwise there may be issues with RTP send stream.
-  if (incoming_frame.timestamp_us() > now.us())
+  if (incoming_frame.timestamp_us() > now.us()) {
     incoming_frame.set_timestamp_us(now.us());
+  }
 
   // Capture time may come from clock with an offset and drift from clock_.
   int64_t capture_ntp_time_ms;

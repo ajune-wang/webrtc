@@ -25,7 +25,12 @@ class MockCallback : public VideoRtpTrackSource::Callback {
 
 class MockSink : public rtc::VideoSinkInterface<RecordableEncodedFrame> {
  public:
-  MOCK_METHOD(void, OnFrame, (const RecordableEncodedFrame&), (override));
+  MOCK_METHOD(void,
+              OnFrame,
+              (int adapted_source_width,
+               int adapted_source_height,
+               const std::vector<const RecordableEncodedFrame*>& video_frames),
+              (override));
 };
 
 rtc::scoped_refptr<VideoRtpTrackSource> MakeSource(

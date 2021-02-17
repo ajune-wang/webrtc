@@ -89,6 +89,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "120d72ba_8a55c582",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-02-17T14:36:27Z",
+      "side": 1,
+      "message": "In that case, I propose to not change anything in webrtc. At least in the interface.\n\nWebRtcVideoFrameAdapter should contain the full size image and downscaled copies. When they should be accessed via CropAndScaleBy overriden VideoFrameBuffer method: The method should return a copy with soft-applied scaling. When ToI420() or GetMemoryMappedFrame() is called, the cache of prescaled images is checked if it already has the correct size.\nThat way if only scaleDownBy\u003d2 image is encoded, only that will be requested and no actual 480p scaling would be done.\n\n\nTo make it work you need to change VideoStreamEncoder to not call GetMemoryMappedFrame() and do these calls in SW encoders themselves.\n\nYou also need to override CropAndScaleBy in WebRtcVideoFrameAdapter.",
+      "parentUuid": "362be8e9_04dffad5",
+      "revId": "2ebc59d9aa1e82a8df055a247f8a260b5dcd5895",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "74ce1258_6148ca6a",
         "filename": "api/video/video_sink_interface.h",
         "patchSetId": 7

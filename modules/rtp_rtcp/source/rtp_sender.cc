@@ -47,6 +47,9 @@ constexpr uint32_t kTimestampTicksPerMs = 90;
 // Min size needed to get payload padding from packet history.
 constexpr int kMinPayloadPaddingBytes = 50;
 
+// RED header if first byte of payload.
+constexpr size_t kRedForFecHeaderLength = 1;
+
 template <typename Extension>
 constexpr RtpExtensionSize CreateExtensionSize() {
   return {Extension::kId, Extension::kValueSizeBytes};
@@ -626,6 +629,35 @@ bool RTPSender::AssignSequenceNumber(RtpPacketToSend* packet) {
   last_rtp_timestamp_ = packet->Timestamp();
   last_timestamp_time_ms_ = clock_->TimeInMilliseconds();
   capture_time_ms_ = packet->capture_time_ms();
+  return true;
+}
+
+bool RTPSender::AssignSequenceNumbersAndStoreLastPacketState(
+    rtc::ArrayView<std::unique_ptr<RtpPacketToSend>> packets) {
+  RTC_DCHECK(!packets.empty());
+  MutexLock lock(&send_mutex_);
+  if (!sending_media_)
+    return false;
+  for (auto& packet : packets) {
+    RTC_DCHECK_EQ(packet->Ssrc(), ssrc_);
+    packet->SetSequenceNumber(sequence_number_++);
+  }
+  RtpPacketToSend& last_packet = **packets.rbegin();
+  // Remember marker bit to determine if padding can be inserted with
+  // sequence number following |packet|.
+  last_packet_marker_bit_ = last_packet.Marker();
+  // Remember payload type to use in the padding packet if rtx is disabled.
+  if (last_packet.is_red()) {
+    RTC_DCHECK_GE(last_packet.payload_size(), kRedForFecHeaderLength);
+    last_payload_type_ = last_packet.PayloadBuffer()[0];
+  } else {
+    last_payload_type_ = last_packet.PayloadType();
+  }
+  // Save timestamps to generate timestamp field and extensions for the padding.
+  last_rtp_timestamp_ = last_packet.Timestamp();
+  last_timestamp_time_ms_ = clock_->TimeInMilliseconds();
+  capture_time_ms_ = last_packet.capture_time_ms();
+
   return true;
 }
 

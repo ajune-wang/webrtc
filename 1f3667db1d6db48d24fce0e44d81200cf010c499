@@ -43,6 +43,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "989a9934_520a0e9b",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 647,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-02-17T12:59:32Z",
+      "side": 1,
+      "message": "I still disagree with making RtpPacket be aware of any payload format, in particular do not like partial support of red format.\n\nThough I agree it would be nice to avoid overhead of extra copying when creating a red packet. I beleive there should be a neater way. Looking at the code now I guess it was my mistake making VideoPacketizers be aware of the RtpPacket.",
+      "parentUuid": "02885e17_a6f25a63",
+      "range": {
+        "startLine": 647,
+        "startChar": 2,
+        "endLine": 647,
+        "endChar": 49
+      },
+      "revId": "1f3667db1d6db48d24fce0e44d81200cf010c499",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "54b1b1a0_257eec07",
         "filename": "modules/rtp_rtcp/source/rtp_sender.h",
         "patchSetId": 1
@@ -78,6 +102,30 @@
       "side": 1,
       "message": "Good point, done. I initially wanted to use an ArrayView\u003cRtpPacketToSend\u003e but didn\u0027t find a clean way to unwrap from the unique pointers.",
       "parentUuid": "54b1b1a0_257eec07",
+      "range": {
+        "startLine": 143,
+        "startChar": 6,
+        "endLine": 143,
+        "endChar": 52
+      },
+      "revId": "1f3667db1d6db48d24fce0e44d81200cf010c499",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61e76b0c_a6c2d5fc",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-02-17T12:59:32Z",
+      "side": 1,
+      "message": "you can\u0027t wrap continuous array of smart pointers to T into ArrayView\u003cconst T\u003e.\nArrayView require underlying type to be a continuous array of concrete objects.\n\nThere are more complicated reference types that can do that with a reasonable overhead, but I do not think any of these types are available in webrtc.",
+      "parentUuid": "5bd6d161_6bb267dd",
       "range": {
         "startLine": 143,
         "startChar": 6,

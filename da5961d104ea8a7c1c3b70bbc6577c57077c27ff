@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4194c88e_1d923b13",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-02-17T12:59:32Z",
+      "side": 1,
+      "message": "Looks better. More descriptive function name is nice!\nStill looks good (now looks good not just for me, but for bots too)\n",
+      "revId": "da5961d104ea8a7c1c3b70bbc6577c57077c27ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d9eb31b_40502256",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-02-17T12:59:32Z",
+      "side": 1,
+      "message": "Remember (media|video) payload type",
+      "range": {
+        "startLine": 649,
+        "startChar": 5,
+        "endLine": 649,
+        "endChar": 21
+      },
+      "revId": "da5961d104ea8a7c1c3b70bbc6577c57077c27ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9cf878b_aaedfa96",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-02-17T12:59:32Z",
+      "side": 1,
+      "message": "Alternative solution is to pass payload_type/payload_id as a parameter. Might be safer for later changes.",
+      "range": {
+        "startLine": 650,
+        "startChar": 2,
+        "endLine": 650,
+        "endChar": 29
+      },
+      "revId": "da5961d104ea8a7c1c3b70bbc6577c57077c27ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

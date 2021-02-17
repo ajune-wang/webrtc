@@ -107,6 +107,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2208f78e_6d5c40da",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-02-17T15:11:04Z",
+      "side": 1,
+      "message": "OK this idea is growing on me after my initial pushback.\n\nSo in this case, would we have a VideoFrame that advertises itself as height()\u003d\u003d480p but internally the only buffers that have been created are 720p and 360p until encoding happens and the final resolution is decided?",
+      "parentUuid": "120d72ba_8a55c582",
+      "revId": "2ebc59d9aa1e82a8df055a247f8a260b5dcd5895",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "74ce1258_6148ca6a",
         "filename": "api/video/video_sink_interface.h",
         "patchSetId": 7
@@ -166,6 +184,30 @@
       "side": 1,
       "message": "The complication is that regardless of what webrtc has requested you must pass down the full resolution frame (because the feedback is delayed). But that frame is not that webrtc has requested, so it now doesn\u0027t cleanly align with your view of \"passing down exactly what is requested\". If you explicitly pass scaled images, you need to keep checking if they are not what you need and perform actual scaling as it\u0027s done before. Then, you need to somehow make it work with multiple scaling steps (one adaptation step in WebRtcVideoTrackSource, cropping in VideoStreamEncoder, scaling in SimulcastEncoderAdapter/libvpx_vp8_encoder).\n\nIt would be a lot of copy paste. Abstracting all these extra frames as cache of pre-scaled images is removing all this complexity. Since all this feedback is best-effort anyway, I don\u0027t think it should dictate the interface.\n\nIt\u0027s unfortunate, that we couldn\u0027t include additional frames as a member in media::VideoFrame, but in webrtc we can abstract this complexity away.",
       "parentUuid": "adbf4e2c_33c9b009",
+      "range": {
+        "startLine": 49,
+        "startChar": 24,
+        "endLine": 49,
+        "endChar": 69
+      },
+      "revId": "2ebc59d9aa1e82a8df055a247f8a260b5dcd5895",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fdb88b7_371cfa88",
+        "filename": "api/video/video_sink_interface.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-02-17T15:11:04Z",
+      "side": 1,
+      "message": "Hmm, it would be nice to avoid copy-paste...",
+      "parentUuid": "7cf350ef_650ee2ab",
       "range": {
         "startLine": 49,
         "startChar": 24,

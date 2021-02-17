@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf48494f_d6caf7fb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-02-17T15:11:04Z",
+      "side": 1,
+      "message": "I updated OnFrames() again to avoid the \"no 480p image\" problem (https://webrtc-review.googlesource.com/c/src/+/207865/8/api/video/video_sink_interface.h), but the idea of hiding this inside the VideoFrame is starting to sound more appealing to me as long as we avoid that 480p image...",
+      "revId": "eb8ee28dbc87f2f29c47c5f6f4dee545dd039acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

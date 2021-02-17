@@ -43,6 +43,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "7ea406ed_5e5fd9bb",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-02-17T14:20:42Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "1d9eb31b_40502256",
+      "range": {
+        "startLine": 649,
+        "startChar": 5,
+        "endLine": 649,
+        "endChar": 21
+      },
+      "revId": "da5961d104ea8a7c1c3b70bbc6577c57077c27ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "f9cf878b_aaedfa96",
         "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
         "patchSetId": 2
@@ -54,6 +78,30 @@
       "writtenOn": "2021-02-17T12:59:32Z",
       "side": 1,
       "message": "Alternative solution is to pass payload_type/payload_id as a parameter. Might be safer for later changes.",
+      "range": {
+        "startLine": 650,
+        "startChar": 2,
+        "endLine": 650,
+        "endChar": 29
+      },
+      "revId": "da5961d104ea8a7c1c3b70bbc6577c57077c27ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bb33281_ee2a92c1",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-02-17T14:20:42Z",
+      "side": 1,
+      "message": "Had a hard time making that look neat. I think will keep like this for now, and have another go once I try to move to deferred sequence number assignments for real.\nI did combine the state updates into a private helper method though.",
+      "parentUuid": "f9cf878b_aaedfa96",
       "range": {
         "startLine": 650,
         "startChar": 2,

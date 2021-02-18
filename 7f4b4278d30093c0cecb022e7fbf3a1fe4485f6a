@@ -142,6 +142,30 @@
       },
       "revId": "7f4b4278d30093c0cecb022e7fbf3a1fe4485f6a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96654be0_6c87f8e3",
+        "filename": "video/rtp_video_stream_receiver2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-02-18T14:19:17Z",
+      "side": 1,
+      "message": "Thank you for this link!\nit shows that stream considered active when packets are added to the PacketBuffer,\nbut when DD fails to parse, then packet is NOT added to the PacketBuffer.\n\nso I think this KF request is needed until we\u0027ll learn to add packets to PacketBuffer with DD partially parsed.",
+      "parentUuid": "02f25b80_87021585",
+      "range": {
+        "startLine": 381,
+        "startChar": 8,
+        "endLine": 381,
+        "endChar": 23
+      },
+      "revId": "7f4b4278d30093c0cecb022e7fbf3a1fe4485f6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

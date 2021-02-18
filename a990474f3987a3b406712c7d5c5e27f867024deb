@@ -39,6 +39,30 @@
       },
       "revId": "a990474f3987a3b406712c7d5c5e27f867024deb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "812e8ac4_2a30d13e",
+        "filename": "sdk/objc/unittests/objc_video_encoder_factory_tests.mm",
+        "patchSetId": 17
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5670
+      },
+      "writtenOn": "2021-02-18T16:09:29Z",
+      "side": 1,
+      "message": "You could try something like\n\nid callbackBlock;\n\n[[[encoderMock expect] andDo:^(NSInvocation *invocation) {\n    void (^callback)(BOOL(RTC_OBJC_TYPE(RTCEncodedImage) * _Nonnull frame, \n                     id\u003cRTC_OBJC_TYPE(RTCCodecSpecificInfo)\u003e _Nonnull inf) \u003d [invocation getArgumentAtIndexAsObject:0];\n    callbackBlock \u003d callback;\n}] setCallback:OCMOCK_ANY];\n\nAnd you\u0027ll need to add expects and do to run callbackBlock.\n\nHowever, I think it\u0027s worthwhile getting rid of the encoder mock and moving to a fake instead. It will be easier to read as well.",
+      "parentUuid": "a95fed85_607081a9",
+      "range": {
+        "startLine": 30,
+        "startChar": 19,
+        "endLine": 30,
+        "endChar": 34
+      },
+      "revId": "a990474f3987a3b406712c7d5c5e27f867024deb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

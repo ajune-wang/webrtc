@@ -425,6 +425,46 @@ class SctpTransport::UsrSctpWrapper {
     return 0;
   }
 
+  static void OnUpcall(struct socket* sock, void* data, int flags) {
+    SctpTransport* transport = GetTransportFromSocket(sock);
+    if (!transport) {
+      RTC_LOG(LS_ERROR) << "OnUpcall: Failed to get transport for socket "
+                        << sock << "; possibly was already destroyed.";
+      return;
+    }
+    // Sanity check that both methods of getting the SctpTransport pointer
+    // yield the same result.
+    RTC_CHECK_EQ(transport, static_cast<SctpTransport*>(data));
+
+    int events = usrsctp_get_events(sock);
+    if (events & SCTP_EVENT_READ) {
+      int result;
+      char buf[10240];
+      struct sctp_recvv_rn rn;
+      socklen_t infolen = sizeof(rn);
+      memset(&rn, 0, sizeof(rn));
+      unsigned int infotype = 0;
+      int recv_flags = 0;
+
+      for (;;) {
+        ssize_t recv_length =
+            usrsctp_recvv(sock, buf, sizeof(buf), NULL, 0, &rn, &infolen,
+                          &infotype, &recv_flags);
+        if (recv_length < 0 && errno != EAGAIN && errno != EWOULDBLOCK) {
+          RTC_LOG(LS_ERROR) << "OnUpcall: Failed to receive data for socket << "
+                            << sock << " error %d" << errno;
+        }
+        if (recv_length <= 0)
+          break;
+        result = transport->OnDataOrNotificationFromSctp(
+            buf, recv_length, rn.recvv_rcvinfo, recv_flags);
+      }
+    }
+    if (events & SCTP_EVENT_WRITE) {
+      transport->OnSendThresholdCallback();
+    }
+  }
+
   // This is the callback called from usrsctp when data has been received, after
   // a packet has been interpreted and parsed by usrsctp and found to contain
   // payload data. It is called by a usrsctp thread. It is assumed this function
@@ -854,17 +894,9 @@ bool SctpTransport::OpenSctpSocket() {
 
   UsrSctpWrapper::IncrementUsrSctpUsageCount();
 
-  // If kSctpSendBufferSize isn't reflective of reality, we log an error, but we
-  // still have to do something reasonable here.  Look up what the buffer's real
-  // size is and set our threshold to something reasonable.
-  // TODO(bugs.webrtc.org/11824): That was previously set to 50%, not 25%, but
-  // it was reduced to a recent usrsctp regression. Can return to 50% when the
-  // root cause is fixed.
-  static const int kSendThreshold = usrsctp_sysctl_get_sctp_sendspace() / 4;
+  sock_ =
+      usrsctp_socket(AF_CONN, SOCK_STREAM, IPPROTO_SCTP, NULL, NULL, 0, NULL);
 
-  sock_ = usrsctp_socket(
-      AF_CONN, SOCK_STREAM, IPPROTO_SCTP, &UsrSctpWrapper::OnSctpInboundPacket,
-      &UsrSctpWrapper::SendThresholdCallback, kSendThreshold, this);
   if (!sock_) {
     RTC_LOG_ERRNO(LS_ERROR) << debug_name_
                             << "->OpenSctpSocket(): "
@@ -889,6 +921,24 @@ bool SctpTransport::OpenSctpSocket() {
 bool SctpTransport::ConfigureSctpSocket() {
   RTC_DCHECK_RUN_ON(network_thread_);
   RTC_DCHECK(sock_);
+
+  // Prepare socket for upcall API
+  if (usrsctp_set_upcall(sock_, &UsrSctpWrapper::OnUpcall, this) < 0) {
+    RTC_LOG_ERRNO(LS_ERROR) << debug_name_
+                            << "->ConfigureSctpSocket(): "
+                               "Failed to set SCTP upcall.";
+    return false;
+  }
+
+  uint32_t recvrcvinfo = 1;
+  if (usrsctp_setsockopt(sock_, IPPROTO_SCTP, SCTP_RECVRCVINFO, &recvrcvinfo,
+                         sizeof(recvrcvinfo)) < 0) {
+    RTC_LOG_ERRNO(LS_ERROR) << debug_name_
+                            << "->ConfigureSctpSocket(): "
+                               "Failed to set SCTP_RECVRCVINFO";
+    return false;
+  }
+
   // Make the socket non-blocking. Connect, close, shutdown etc will not block
   // the thread waiting for the socket operation to complete.
   if (usrsctp_set_non_blocking(sock_, 1) < 0) {
@@ -945,11 +995,9 @@ bool SctpTransport::ConfigureSctpSocket() {
   }
 
   // Subscribe to SCTP event notifications.
-  // TODO(crbug.com/1137936): Subscribe to SCTP_SEND_FAILED_EVENT once deadlock
-  // is fixed upstream, or we switch to the upcall API:
-  // https://github.com/sctplab/usrsctp/issues/537
   int event_types[] = {SCTP_ASSOC_CHANGE, SCTP_PEER_ADDR_CHANGE,
-                       SCTP_SENDER_DRY_EVENT, SCTP_STREAM_RESET_EVENT};
+                       SCTP_SEND_FAILED_EVENT, SCTP_SENDER_DRY_EVENT,
+                       SCTP_STREAM_RESET_EVENT};
   struct sctp_event event = {0};
   event.se_assoc_id = SCTP_ALL_ASSOC;
   event.se_on = 1;

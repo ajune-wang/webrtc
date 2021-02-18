@@ -22,6 +22,30 @@
       },
       "revId": "7f4b4278d30093c0cecb022e7fbf3a1fe4485f6a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c409aa91_fcd33bb2",
+        "filename": "video/rtp_video_stream_receiver2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-02-18T12:24:00Z",
+      "side": 1,
+      "message": "would decoder still request KF if it never seen a single frame?\n\nI see code (in this class) to request KF when\na) H264 packet looks like a delta frame when KF is expected.\nb) a delta frame assembled before any KF.\nThis new check is aligned with these two scenarios.\n\n(But yep, look like there is no key frame request throttling. let me add it).",
+      "parentUuid": "d4d2b2db_2a057db0",
+      "range": {
+        "startLine": 381,
+        "startChar": 8,
+        "endLine": 381,
+        "endChar": 23
+      },
+      "revId": "7f4b4278d30093c0cecb022e7fbf3a1fe4485f6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

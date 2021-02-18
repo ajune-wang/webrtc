@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d69e533_ed2b9c0e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-02-18T15:33:12Z",
+      "side": 1,
+      "message": "May be also test AV1 encoder can handle this structure\n(https://webrtc.googlesource.com/src/+/refs/heads/master/modules/video_coding/codecs/av1/libaom_av1_unittest.cc#319)\n\n(though for this bug it might be better to sketch similar suite for vp9 wrapper.\nSometimes structure that looks reasonable to me cause crashes in the encoder)",
+      "revId": "09eb8d1141abf8d43cb2a91664dce039c3ed416a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a85c742_1914c6bc",
+        "filename": "modules/video_coding/svc/scalability_structure_key_svc.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-02-18T15:33:12Z",
+      "side": 1,
+      "message": "add/copy comment about order of the templates (or list them in index order, aka order by spatial id, temporal id)",
+      "range": {
+        "startLine": 317,
+        "startChar": 2,
+        "endLine": 317,
+        "endChar": 14
+      },
+      "revId": "09eb8d1141abf8d43cb2a91664dce039c3ed416a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

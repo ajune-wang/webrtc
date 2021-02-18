@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4c51d25_5a048af8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2021-02-18T15:52:40Z",
+      "side": 1,
+      "message": "Skipped for now, seems AV1 already differs slightly in what structures are tested",
+      "parentUuid": "2d69e533_ed2b9c0e",
+      "revId": "09eb8d1141abf8d43cb2a91664dce039c3ed416a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4a85c742_1914c6bc",
@@ -31,6 +49,30 @@
       "writtenOn": "2021-02-18T15:33:12Z",
       "side": 1,
       "message": "add/copy comment about order of the templates (or list them in index order, aka order by spatial id, temporal id)",
+      "range": {
+        "startLine": 317,
+        "startChar": 2,
+        "endLine": 317,
+        "endChar": 14
+      },
+      "revId": "09eb8d1141abf8d43cb2a91664dce039c3ed416a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf11d85a_9d4dfc3d",
+        "filename": "modules/video_coding/svc/scalability_structure_key_svc.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2021-02-18T15:52:40Z",
+      "side": 1,
+      "message": "Reordered instead",
+      "parentUuid": "4a85c742_1914c6bc",
       "range": {
         "startLine": 317,
         "startChar": 2,

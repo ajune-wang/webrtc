@@ -46,6 +46,30 @@
       },
       "revId": "7f4b4278d30093c0cecb022e7fbf3a1fe4485f6a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b966058_90b9400f",
+        "filename": "video/rtp_video_stream_receiver2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-02-18T12:51:35Z",
+      "side": 1,
+      "message": "There is throttling on the receive side though?\nIt would be nice if we could switch to fir instead of pli (today I think we always send pli even if fir is negotiated), since fir has request deduplication built in.",
+      "parentUuid": "c409aa91_fcd33bb2",
+      "range": {
+        "startLine": 381,
+        "startChar": 8,
+        "endLine": 381,
+        "endChar": 23
+      },
+      "revId": "7f4b4278d30093c0cecb022e7fbf3a1fe4485f6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

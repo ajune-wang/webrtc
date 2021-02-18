@@ -22,6 +22,30 @@
       },
       "revId": "73c384fb4ecfb94f294ebfb9393b01f99197ff3d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1b42d67_b1e118cd",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-02-18T15:54:54Z",
+      "side": 1,
+      "message": "These are num_temporal_units (aka number of input frames), i.e. 24 output frames.\n(and the minimum should 15 output frames, to cover both T0 Key frame and T0 delta frame)\n\n[should probably rename the parameter to avoid the confusion, specially since it is av1 test, term \"temporal unit\" is more accurate than term \"frame\" here]",
+      "parentUuid": "ba35ecda_f270f8bf",
+      "range": {
+        "startLine": 318,
+        "startChar": 59,
+        "endLine": 318,
+        "endChar": 60
+      },
+      "revId": "73c384fb4ecfb94f294ebfb9393b01f99197ff3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

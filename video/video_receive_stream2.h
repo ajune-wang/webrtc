@@ -87,7 +87,7 @@ class VideoReceiveStream2 : public webrtc::VideoReceiveStream,
 
   VideoReceiveStream2(TaskQueueFactory* task_queue_factory,
                       TaskQueueBase* current_queue,
-                      RtpStreamReceiverControllerInterface* receiver_controller,
+                      TaskQueueBase* network_thread,
                       int num_cpu_cores,
                       PacketRouter* packet_router,
                       VideoReceiveStream::Config config,
@@ -96,6 +96,12 @@ class VideoReceiveStream2 : public webrtc::VideoReceiveStream,
                       Clock* clock,
                       VCMTiming* timing);
   ~VideoReceiveStream2() override;
+
+  // Called on the network thread to register/unregister with the network
+  // transport.
+  void RegisterWithTransport(
+      RtpStreamReceiverControllerInterface* receiver_controller);
+  void UnregisterFromTransport();
 
   const Config& config() const { return config_; }
 
@@ -184,6 +190,7 @@ class VideoReceiveStream2 : public webrtc::VideoReceiveStream,
   const VideoReceiveStream::Config config_;
   const int num_cpu_cores_;
   TaskQueueBase* const worker_thread_;
+  TaskQueueBase* const network_thread_;
   Clock* const clock_;
 
   CallStats* const call_stats_;

@@ -13,6 +13,8 @@
 
 #include "sdk/objc/native/src/objc_video_encoder_factory.h"
 
+#import "RTCFakeVideoEncoder.h"
+#include "api/test/mock_video_encoder.h"
 #include "api/video_codecs/sdp_video_format.h"
 #include "api/video_codecs/video_encoder.h"
 #import "base/RTCVideoEncoder.h"
@@ -21,8 +23,9 @@
 #import "components/video_frame_buffer/RTCCVPixelBuffer.h"
 #include "modules/video_coding/include/video_codec_interface.h"
 #include "modules/video_coding/include/video_error_codes.h"
-#include "rtc_base/gunit.h"
 #include "sdk/objc/native/src/objc_frame_buffer.h"
+#include "test/gmock.h"
+#include "test/gtest.h"
 
 id<RTC_OBJC_TYPE(RTCVideoEncoderFactory)> CreateEncoderFactoryReturning(int return_code) {
   id encoderMock = OCMProtocolMock(@protocol(RTC_OBJC_TYPE(RTCVideoEncoder)));
@@ -92,6 +95,75 @@ TEST(ObjCVideoEncoderFactoryTest, EncodeReturnsOKOnSuccess) {
                                  .build();
   std::vector<webrtc::VideoFrameType> frame_types;
 
+  EXPECT_EQ(encoder->Encode(frame, &frame_types), WEBRTC_VIDEO_CODEC_OK);
+}
+
+TEST(ObjCVideoEncoderFactoryTest, EncoderFillsGenericFrameInfo) {
+  std::unique_ptr<webrtc::VideoEncoder> encoder =
+      GetObjCEncoder([[RTC_OBJC_TYPE(RTCFakeVideoEncoderFactory) alloc] init]);
+  webrtc::VideoCodec settings;
+  const webrtc::VideoEncoder::Capabilities kCapabilities(false);
+  EXPECT_EQ(encoder->InitEncode(&settings, webrtc::VideoEncoder::Settings(kCapabilities, 1, 0)),
+            WEBRTC_VIDEO_CODEC_OK);
+  webrtc::MockEncodedImageCallback callback;
+  ASSERT_EQ(encoder->RegisterEncodeCompleteCallback(&callback), WEBRTC_VIDEO_CODEC_OK);
+
+  CVPixelBufferRef pixel_buffer;
+  CVPixelBufferCreate(kCFAllocatorDefault, 640, 480, kCVPixelFormatType_32ARGB, nil, &pixel_buffer);
+  rtc::scoped_refptr<webrtc::VideoFrameBuffer> buffer =
+      new rtc::RefCountedObject<webrtc::ObjCFrameBuffer>(
+          [[RTC_OBJC_TYPE(RTCCVPixelBuffer) alloc] initWithPixelBuffer:pixel_buffer]);
+  webrtc::VideoFrame frame =
+      webrtc::VideoFrame::Builder().set_video_frame_buffer(buffer).set_timestamp_us(0).build();
+
+  EXPECT_CALL(callback, OnEncodedImage)
+      .Times(2)
+      .WillRepeatedly(testing::WithArg<1>([](const webrtc::CodecSpecificInfo* info) {
+        EXPECT_NE(info->generic_frame_info, absl::nullopt);
+        return webrtc::EncodedImageCallback::Result(webrtc::EncodedImageCallback::Result::OK);
+      }));
+
+  std::vector<webrtc::VideoFrameType> frame_types(1);
+  frame_types[0] = webrtc::VideoFrameType::kVideoFrameKey;
+  EXPECT_EQ(encoder->Encode(frame, &frame_types), WEBRTC_VIDEO_CODEC_OK);
+  frame_types[0] = webrtc::VideoFrameType::kVideoFrameDelta;
+  EXPECT_EQ(encoder->Encode(frame, &frame_types), WEBRTC_VIDEO_CODEC_OK);
+}
+
+TEST(ObjCVideoEncoderFactoryTest, EncoderFillsTemplateStructureOnKeyFrames) {
+  std::unique_ptr<webrtc::VideoEncoder> encoder =
+      GetObjCEncoder([[RTC_OBJC_TYPE(RTCFakeVideoEncoderFactory) alloc] init]);
+  webrtc::VideoCodec settings;
+  const webrtc::VideoEncoder::Capabilities kCapabilities(false);
+  EXPECT_EQ(encoder->InitEncode(&settings, webrtc::VideoEncoder::Settings(kCapabilities, 1, 0)),
+            WEBRTC_VIDEO_CODEC_OK);
+  webrtc::MockEncodedImageCallback callback;
+  ASSERT_EQ(encoder->RegisterEncodeCompleteCallback(&callback), WEBRTC_VIDEO_CODEC_OK);
+
+  CVPixelBufferRef pixel_buffer;
+  CVPixelBufferCreate(kCFAllocatorDefault, 640, 480, kCVPixelFormatType_32ARGB, nil, &pixel_buffer);
+  rtc::scoped_refptr<webrtc::VideoFrameBuffer> buffer =
+      new rtc::RefCountedObject<webrtc::ObjCFrameBuffer>(
+          [[RTC_OBJC_TYPE(RTCCVPixelBuffer) alloc] initWithPixelBuffer:pixel_buffer]);
+  webrtc::VideoFrame frame =
+      webrtc::VideoFrame::Builder().set_video_frame_buffer(buffer).set_timestamp_us(0).build();
+
+  EXPECT_CALL(callback, OnEncodedImage)
+      .WillOnce(testing::WithArg<1>([](const webrtc::CodecSpecificInfo* info) {
+        // Key frame.
+        EXPECT_NE(info->template_structure, absl::nullopt);
+        return webrtc::EncodedImageCallback::Result(webrtc::EncodedImageCallback::Result::OK);
+      }))
+      .WillOnce(testing::WithArg<1>([](const webrtc::CodecSpecificInfo* info) {
+        // Delta frame.
+        EXPECT_EQ(info->template_structure, absl::nullopt);
+        return webrtc::EncodedImageCallback::Result(webrtc::EncodedImageCallback::Result::OK);
+      }));
+
+  std::vector<webrtc::VideoFrameType> frame_types(1);
+  frame_types[0] = webrtc::VideoFrameType::kVideoFrameKey;
+  EXPECT_EQ(encoder->Encode(frame, &frame_types), WEBRTC_VIDEO_CODEC_OK);
+  frame_types[0] = webrtc::VideoFrameType::kVideoFrameDelta;
   EXPECT_EQ(encoder->Encode(frame, &frame_types), WEBRTC_VIDEO_CODEC_OK);
 }
 

@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aee4b5f6_180691d6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-02-18T18:17:23Z",
+      "side": 1,
+      "message": "This is the \"just start doing it\" version, I guess.\n",
+      "revId": "39113f39f347b80a4dbbd37d470095f8c729db61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "daa0f557_ffb7a5fb",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-02-18T18:17:23Z",
+      "side": 1,
+      "message": "Is clearing the buffer on each upcall necessary, or \"just to be on the safe side\"?",
+      "revId": "39113f39f347b80a4dbbd37d470095f8c729db61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c92fcf0c_a7634753",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 898,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-02-18T18:17:23Z",
+      "side": 1,
+      "message": "Can we delete OnSctpInboundPacket?",
+      "revId": "39113f39f347b80a4dbbd37d470095f8c729db61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

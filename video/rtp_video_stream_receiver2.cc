@@ -366,7 +366,7 @@ RtpVideoStreamReceiver2::ParseGenericDependenciesExtension(
     const RtpPacketReceived& rtp_packet,
     RTPVideoHeader* video_header) {
   if (rtp_packet.HasExtension<RtpDependencyDescriptorExtension>()) {
-    webrtc::DependencyDescriptor dependency_descriptor;
+    DependencyDescriptor dependency_descriptor;
     if (!rtp_packet.GetExtension<RtpDependencyDescriptorExtension>(
             video_structure_.get(), &dependency_descriptor)) {
       // Descriptor is there, but failed to parse. Either it is invalid,
@@ -374,8 +374,20 @@ RtpVideoStreamReceiver2::ParseGenericDependenciesExtension(
       // or too new packet (before relevant video_structure_ arrived).
       // Drop such packet to be on the safe side.
       // TODO(bugs.webrtc.org/10342): Stash too new packet.
-      RTC_LOG(LS_WARNING) << "ssrc: " << rtp_packet.Ssrc()
-                          << " Failed to parse dependency descriptor.";
+      if (video_structure_ == nullptr) {
+        RTC_LOG(LS_WARNING)
+            << "ssrc: " << rtp_packet.Ssrc()
+            << " Failed to parse dependency descriptor, missing key frame.";
+        // To avoid producing too many key frame requests, and to align with
+        // key frame request in OnAssembledFrame function, limit to one request
+        // per temporal unit.
+        if (rtp_packet.Marker()) {
+          RequestKeyFrame();
+        }
+      } else {
+        RTC_LOG(LS_WARNING) << "ssrc: " << rtp_packet.Ssrc()
+                            << " Failed to parse dependency descriptor.";
+      }
       return kDropPacket;
     }
     if (dependency_descriptor.attached_structure != nullptr &&

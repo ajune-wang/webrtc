@@ -94,6 +94,30 @@
       },
       "revId": "7f4b4278d30093c0cecb022e7fbf3a1fe4485f6a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae9b5f92_1626dcd4",
+        "filename": "video/rtp_video_stream_receiver2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-02-18T13:32:28Z",
+      "side": 1,
+      "message": "Ah, yeah doing it per packet sounds like a bad thing.\nAnd yes, FIR wouldn\u0027t be entirely trivial especially considering potential compatibility/specs/api issues.\nAdding some simple throttling on the send side sounds good.",
+      "parentUuid": "b7ee9d15_0f2a81da",
+      "range": {
+        "startLine": 381,
+        "startChar": 8,
+        "endLine": 381,
+        "endChar": 23
+      },
+      "revId": "7f4b4278d30093c0cecb022e7fbf3a1fe4485f6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

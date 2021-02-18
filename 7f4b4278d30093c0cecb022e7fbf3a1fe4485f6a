@@ -70,6 +70,30 @@
       },
       "revId": "7f4b4278d30093c0cecb022e7fbf3a1fe4485f6a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7ee9d15_0f2a81da",
+        "filename": "video/rtp_video_stream_receiver2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-02-18T13:07:32Z",
+      "side": 1,
+      "message": "Even though there is throttling on the receive side, it is still a bad idea to send back an rtcp packet with PLI/FIR on every incoming rtp packet [until KF]\n\n(replacing pli with fir is one-line change, but by itself unlikely adds any value.\nusing fir deduplication - that is more involved, RtcpTransciver has it implemented, RtpRtcp lacks that functionality).",
+      "parentUuid": "3b966058_90b9400f",
+      "range": {
+        "startLine": 381,
+        "startChar": 8,
+        "endLine": 381,
+        "endChar": 23
+      },
+      "revId": "7f4b4278d30093c0cecb022e7fbf3a1fe4485f6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -118,6 +118,30 @@
       },
       "revId": "7f4b4278d30093c0cecb022e7fbf3a1fe4485f6a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02f25b80_87021585",
+        "filename": "video/rtp_video_stream_receiver2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-02-18T14:10:36Z",
+      "side": 1,
+      "message": "\u003e would decoder still request KF if it never seen a single frame?\n\nYes, as long as there are incoming packets on the stream (last 5 seconds) it is considered active, so a KF request will be sent.\n\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/video/video_receive_stream2.cc;l\u003d743;drc\u003d8408c9938cb543a7cd5e7127927f3b4d0834ad59\n\nDon\u0027t think this KF request is necessary (sorry for late reply).",
+      "parentUuid": "ae9b5f92_1626dcd4",
+      "range": {
+        "startLine": 381,
+        "startChar": 8,
+        "endLine": 381,
+        "endChar": 23
+      },
+      "revId": "7f4b4278d30093c0cecb022e7fbf3a1fe4485f6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c3e8ab2_68281d61",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 16584
+      },
+      "writtenOn": "2021-02-19T20:08:17Z",
+      "side": 1,
+      "message": "We should be careful here as (g_thread \u003e\u003e 1) is not correct... It will work now for 4, 2 and 1 thread, but if we have 8 threads we would need 8 tiles (tile-column\u003d3) while we will set tile-column\u003d4 (8 \u003e\u003e 1) in  this case.",
+      "revId": "6ddfad85182114cf00735cdfc7bbe1c13cd31205",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

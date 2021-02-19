@@ -165,6 +165,8 @@ int VirtualSocket::Close() {
   }
 
   if (SOCK_STREAM == type_) {
+    CritScope cs(&crit_);
+
     // Cancel pending sockets
     if (listen_queue_) {
       while (!listen_queue_->empty()) {
@@ -232,6 +234,8 @@ int VirtualSocket::RecvFrom(void* pv,
   if (timestamp) {
     *timestamp = -1;
   }
+
+  CritScope cs(&crit_);
   // If we don't have a packet, then either error or wait for one to arrive.
   if (recv_buffer_.empty()) {
     if (async_) {
@@ -274,6 +278,7 @@ int VirtualSocket::RecvFrom(void* pv,
 }
 
 int VirtualSocket::Listen(int backlog) {
+  CritScope cs(&crit_);
   RTC_DCHECK(SOCK_STREAM == type_);
   RTC_DCHECK(CS_CLOSED == state_);
   if (local_addr_.IsNil()) {
@@ -287,6 +292,7 @@ int VirtualSocket::Listen(int backlog) {
 }
 
 VirtualSocket* VirtualSocket::Accept(SocketAddress* paddr) {
+  CritScope cs(&crit_);
   if (nullptr == listen_queue_) {
     error_ = EINVAL;
     return nullptr;
@@ -342,6 +348,8 @@ int VirtualSocket::SetOption(Option opt, int value) {
 }
 
 void VirtualSocket::OnMessage(Message* pmsg) {
+  CritScope cs(&crit_);
+
   if (pmsg->message_id == MSG_ID_PACKET) {
     RTC_DCHECK(nullptr != pmsg->pdata);
     Packet* packet = static_cast<Packet*>(pmsg->pdata);

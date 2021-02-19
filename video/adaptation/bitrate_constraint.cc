@@ -10,7 +10,6 @@
 
 #include "video/adaptation/bitrate_constraint.h"
 
-#include <string>
 #include <utility>
 #include <vector>
 

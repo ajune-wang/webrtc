@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21d0dd8a_95a88118",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-02-19T11:15:46Z",
+      "side": 1,
+      "message": "Solution alternative to https://webrtc-review.googlesource.com/c/src/+/207866\nfor scenario where packets are dropped because DD can\u0027t be parsed before key frame",
+      "revId": "27ff574ab5ab4777511de6e0bb529f60593bf37a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -16,6 +16,46 @@
       "message": "Ilya, can you do an OWNERS review?\n",
       "revId": "8b82564b78404d80e878d991d751c2afa0ae5b7e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4858bd8e_0d5505b1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-02-19T09:38:50Z",
+      "side": 1,
+      "message": "Code is good, but I have on question.",
+      "revId": "8b82564b78404d80e878d991d751c2afa0ae5b7e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e7a2850_81206ef3",
+        "filename": "modules/video_coding/video_receiver2.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-02-19T09:38:50Z",
+      "side": 1,
+      "message": "That sounds dangerous. How is it guaranteed in VideoReceiveStream?",
+      "range": {
+        "startLine": 58,
+        "startChar": 17,
+        "endLine": 59,
+        "endChar": 55
+      },
+      "revId": "8b82564b78404d80e878d991d751c2afa0ae5b7e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

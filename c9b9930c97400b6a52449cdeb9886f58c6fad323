@@ -22,6 +22,30 @@
       },
       "revId": "c9b9930c97400b6a52449cdeb9886f58c6fad323",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17887428_ebb68192",
+        "filename": "video/rtp_video_stream_receiver2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 916,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-02-19T11:53:04Z",
+      "side": 0,
+      "message": "eventually yes, it can be removed.\n\nFor now RtpVideoStreamRecever1 still uses it. I\u0027m not sure the same change can be made to it because simpler threading was the reason to fork RtpVideoStreamReceiver.\n\nEither way, would prefer to do such cleanup in a separate CL.\n(generally prefer to separate behaviour change from pure cleanup)",
+      "parentUuid": "269ae2d6_8283273a",
+      "range": {
+        "startLine": 916,
+        "startChar": 24,
+        "endLine": 916,
+        "endChar": 44
+      },
+      "revId": "c9b9930c97400b6a52449cdeb9886f58c6fad323",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

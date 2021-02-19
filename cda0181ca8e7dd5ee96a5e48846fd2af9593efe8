@@ -22,6 +22,30 @@
       },
       "revId": "cda0181ca8e7dd5ee96a5e48846fd2af9593efe8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2db95b8e_635770a1",
+        "filename": "video/rtp_video_stream_receiver2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 917,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-02-19T11:53:04Z",
+      "side": 1,
+      "message": "no, it won\u0027t, but I think it doesn\u0027t matter.\nif remote end sends everything over rtx, something is wrong.",
+      "parentUuid": "60eebd23_2f2c0457",
+      "range": {
+        "startLine": 917,
+        "startChar": 9,
+        "endLine": 917,
+        "endChar": 42
+      },
+      "revId": "cda0181ca8e7dd5ee96a5e48846fd2af9593efe8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

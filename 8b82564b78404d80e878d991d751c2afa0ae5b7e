@@ -56,6 +56,30 @@
       },
       "revId": "8b82564b78404d80e878d991d751c2afa0ae5b7e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f06b82d_1c265659",
+        "filename": "modules/video_coding/video_receiver2.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-02-19T10:45:13Z",
+      "side": 1,
+      "message": "It\u0027s the responsibility of the caller to make sure that this is fulfilled. However, the checks on rows 62-68 are there to help. What it boils down to is that the caller must make sure to properly call DecoderThreadStarting() before the decoder thread is started and call DecoderThreadStopped() after the decoder thread has been stopped.\n\nThis is already part of the existing implementation and takes place in VideoReceiveStream::Start() and ::Stop().",
+      "parentUuid": "4e7a2850_81206ef3",
+      "range": {
+        "startLine": 58,
+        "startChar": 17,
+        "endLine": 59,
+        "endChar": 55
+      },
+      "revId": "8b82564b78404d80e878d991d751c2afa0ae5b7e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

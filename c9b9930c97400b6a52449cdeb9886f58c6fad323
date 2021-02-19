@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "269ae2d6_8283273a",
+        "filename": "video/rtp_video_stream_receiver2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 916,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-02-19T11:39:30Z",
+      "side": 0,
+      "message": "I think we should remove LastReceivedPacketMs as well",
+      "range": {
+        "startLine": 916,
+        "startChar": 24,
+        "endLine": 916,
+        "endChar": 44
+      },
+      "revId": "c9b9930c97400b6a52449cdeb9886f58c6fad323",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

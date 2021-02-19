@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60eebd23_2f2c0457",
+        "filename": "video/rtp_video_stream_receiver2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 917,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-02-19T11:39:30Z",
+      "side": 1,
+      "message": "Will RTX (duplicate) packets cause this timestamp to be updated (not sure if it even matters)?",
+      "range": {
+        "startLine": 917,
+        "startChar": 9,
+        "endLine": 917,
+        "endChar": 42
+      },
+      "revId": "cda0181ca8e7dd5ee96a5e48846fd2af9593efe8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

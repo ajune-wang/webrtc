@@ -80,6 +80,30 @@
       },
       "revId": "8b82564b78404d80e878d991d751c2afa0ae5b7e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e011b02_3345c920",
+        "filename": "modules/video_coding/video_receiver2.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-02-19T10:50:53Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2f06b82d_1c265659",
+      "range": {
+        "startLine": 58,
+        "startChar": 17,
+        "endLine": 59,
+        "endChar": 55
+      },
+      "revId": "8b82564b78404d80e878d991d751c2afa0ae5b7e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

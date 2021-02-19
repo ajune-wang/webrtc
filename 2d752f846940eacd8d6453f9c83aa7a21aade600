@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d70c8f29_07003493",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 871,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-02-19T13:11:43Z",
+      "side": 1,
+      "message": "Good point!\nI added testing, but to do that I also needed to add some more handling of this.\n\nPTAL",
+      "parentUuid": "8daf0ff3_375a5fba",
+      "range": {
+        "startLine": 871,
+        "startChar": 2,
+        "endLine": 871,
+        "endChar": 59
+      },
+      "revId": "2d752f846940eacd8d6453f9c83aa7a21aade600",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "56570d1a_8a261a96",
         "filename": "modules/audio_processing/audio_processing_impl.cc",
         "patchSetId": 3
@@ -66,6 +90,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8f8e203d_02e62c4a",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 879,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-02-19T13:11:43Z",
+      "side": 1,
+      "message": "I think we should only do it where it makes sense, and not likely for all runtime settings.\n\nIn some cases, falling back to a default value can be even worse than continuing with the last specified value.\n\nI\u0027d prefer to not add a general todo for this since it likely will stay there forever. Instead I think it is better to open bugs for what should be added in this.",
+      "parentUuid": "56570d1a_8a261a96",
+      "range": {
+        "startLine": 879,
+        "startChar": 5,
+        "endLine": 879,
+        "endChar": 30
+      },
+      "revId": "2d752f846940eacd8d6453f9c83aa7a21aade600",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ef53994b_67520b3d",
         "filename": "modules/audio_processing/audio_processing_impl.h",
         "patchSetId": 3
@@ -77,6 +125,30 @@
       "writtenOn": "2021-02-12T08:44:43Z",
       "side": 1,
       "message": "Why public? Plus, this is not part of the APM API, so add docstring if you want to keep it public.",
+      "range": {
+        "startLine": 86,
+        "startChar": 7,
+        "endLine": 86,
+        "endChar": 49
+      },
+      "revId": "2d752f846940eacd8d6453f9c83aa7a21aade600",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb50abc8_5be6f38f",
+        "filename": "modules/audio_processing/audio_processing_impl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-02-19T13:11:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef53994b_67520b3d",
       "range": {
         "startLine": 86,
         "startChar": 7,

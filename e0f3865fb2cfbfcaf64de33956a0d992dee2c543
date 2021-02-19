@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a61c2a33_aacd23c0",
+        "filename": "api/transport/goog_cc_factory.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-02-19T09:26:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1629831_ddb22985",
+      "range": {
+        "startLine": 34,
+        "startChar": 11,
+        "endLine": 34,
+        "endChar": 28
+      },
+      "revId": "e0f3865fb2cfbfcaf64de33956a0d992dee2c543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "091f0617_963ed45a",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-02-19T08:53:04Z",
       "side": 1,
       "message": "ABSL_DEPRECATED(\"\") ?",
+      "range": {
+        "startLine": 76,
+        "startChar": 2,
+        "endLine": 76,
+        "endChar": 19
+      },
+      "revId": "e0f3865fb2cfbfcaf64de33956a0d992dee2c543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6826a1e9_3345595e",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-02-19T09:26:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "091f0617_963ed45a",
       "range": {
         "startLine": 76,
         "startChar": 2,

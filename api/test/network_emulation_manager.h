@@ -68,6 +68,14 @@ struct EmulatedEndpointConfig {
   // Network type which will be used to represent endpoint to WebRTC.
   rtc::AdapterType type = rtc::AdapterType::ADAPTER_TYPE_UNKNOWN;
   StatsGatheringMode stats_gathering_mode = StatsGatheringMode::kDefault;
+  // Allow endpoint to send packets specifying source IP address different to
+  // the current endpoint IP address. If false endpoint will crash if attempt
+  // to send such packet will be done.
+  bool allow_send_packet_with_different_source_ip = false;
+  // Allow endpoint to receive packet with destination IP address different to
+  // the current endpoint IP address. If false endpoint will crash if such
+  // packet will arrive.
+  bool allow_receive_packets_with_different_dest_ip = false;
 };
 
 struct EmulatedTURNServerConfig {
@@ -225,6 +233,11 @@ class NetworkEmulationManager {
   // calls as a transport route for message or cross traffic.
   virtual EmulatedRoute* CreateRoute(
       const std::vector<EmulatedNetworkNode*>& via_nodes) = 0;
+
+  virtual EmulatedRoute* CreateDefaultRoute(
+      EmulatedEndpoint* from,
+      const std::vector<EmulatedNetworkNode*>& via_nodes,
+      EmulatedEndpoint* to) = 0;
 
   // Removes route previously created by CreateRoute(...).
   // Caller mustn't call this function with route, that have been already

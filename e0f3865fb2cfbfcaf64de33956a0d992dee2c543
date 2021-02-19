@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6175b117_44da8f85",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-02-19T08:53:04Z",
+      "side": 1,
+      "message": "LGTM (not a root owner though).\n\nJust 2 small comments on when there is no message (use \"\" or not).",
+      "revId": "e0f3865fb2cfbfcaf64de33956a0d992dee2c543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1629831_ddb22985",
+        "filename": "api/transport/goog_cc_factory.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-02-19T08:53:04Z",
+      "side": 1,
+      "message": "ABSL_DEPRECATED(\"\") ?",
+      "range": {
+        "startLine": 34,
+        "startChar": 11,
+        "endLine": 34,
+        "endChar": 28
+      },
+      "revId": "e0f3865fb2cfbfcaf64de33956a0d992dee2c543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "091f0617_963ed45a",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-02-19T08:53:04Z",
+      "side": 1,
+      "message": "ABSL_DEPRECATED(\"\") ?",
+      "range": {
+        "startLine": 76,
+        "startChar": 2,
+        "endLine": 76,
+        "endChar": 19
+      },
+      "revId": "e0f3865fb2cfbfcaf64de33956a0d992dee2c543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

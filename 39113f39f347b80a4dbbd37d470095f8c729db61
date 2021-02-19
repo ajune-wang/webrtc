@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a6b06e3_f184c46f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-02-19T12:03:23Z",
+      "side": 1,
+      "message": "It\u0027s easier to test that way in CI :)",
+      "parentUuid": "aee4b5f6_180691d6",
+      "revId": "39113f39f347b80a4dbbd37d470095f8c729db61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "daa0f557_ffb7a5fb",
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "60d4daca_84baa39a",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-02-19T12:03:23Z",
+      "side": 1,
+      "message": "Safe side, copied from examples, could be removed (but it made things easier to debug). Also, the buffer size I used is kind of random, will need to find a proper value (what if we need a bigger buffer as we receive large messages?)",
+      "parentUuid": "daa0f557_ffb7a5fb",
+      "revId": "39113f39f347b80a4dbbd37d470095f8c729db61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c92fcf0c_a7634753",
         "filename": "media/sctp/sctp_transport.cc",
         "patchSetId": 1
@@ -48,6 +84,24 @@
       "writtenOn": "2021-02-18T18:17:23Z",
       "side": 1,
       "message": "Can we delete OnSctpInboundPacket?",
+      "revId": "39113f39f347b80a4dbbd37d470095f8c729db61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73cf54ff_b40377f9",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 898,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-02-19T12:03:23Z",
+      "side": 1,
+      "message": "Yes, we should then, and I think we could split it down further into separate functions to handle data and notifications for cleaner code.\nThis is still WIP :)",
+      "parentUuid": "c92fcf0c_a7634753",
       "revId": "39113f39f347b80a4dbbd37d470095f8c729db61",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

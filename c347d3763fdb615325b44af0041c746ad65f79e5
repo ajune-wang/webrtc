@@ -33,6 +33,23 @@
       "message": "Tommi, PTAL",
       "revId": "c347d3763fdb615325b44af0041c746ad65f79e5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82b67dc5_0a7e019f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-02-20T15:46:09Z",
+      "side": 1,
+      "message": "Can you update the CL description with why the change is needed and add a tracking bug?",
+      "revId": "c347d3763fdb615325b44af0041c746ad65f79e5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

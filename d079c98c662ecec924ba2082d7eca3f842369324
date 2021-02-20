@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6bb482a2_3a0168c1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-02-20T16:40:45Z",
+      "side": 1,
+      "message": "took another look. thanks for adding the documentation. There are still a couple of places where the CL doesn\u0027t actually make an improvement. Since we\u0027re in general moving away from using ProcessThread, is there a need to modify the class beyond adding documentation?",
+      "revId": "d079c98c662ecec924ba2082d7eca3f842369324",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45809b6d_849fc60a",
+        "filename": "modules/utility/source/process_thread_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-02-20T16:40:45Z",
+      "side": 1,
+      "message": "lock isn\u0027t needed here since thread_ isn\u0027t running",
+      "revId": "d079c98c662ecec924ba2082d7eca3f842369324",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0741861_7b7742b3",
+        "filename": "modules/utility/source/process_thread_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-02-20T16:40:45Z",
+      "side": 1,
+      "message": "lock not needed when thread_ is null",
+      "revId": "d079c98c662ecec924ba2082d7eca3f842369324",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca8b55f8_071fb26a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-02-22T15:31:05Z",
+      "side": 1,
+      "message": "see https://github.com/cisco/libsrtp/blob/381706dc7e05258596083b5fbdc4981d7a710e60/srtp/srtp.c#L4423 for reference. This gives a better explanation about the _32/_80 decision than the current code.\n",
+      "revId": "f4b6f9bba196c3397312440d9db292e1f37a41e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

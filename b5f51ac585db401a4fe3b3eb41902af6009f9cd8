@@ -16,6 +16,23 @@
       "message": "PTAL.",
       "revId": "b5f51ac585db401a4fe3b3eb41902af6009f9cd8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "386c5900_82f3e50e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-02-22T13:19:48Z",
+      "side": 1,
+      "message": "Dead code: Just Say No!\n:-)\n",
+      "revId": "b5f51ac585db401a4fe3b3eb41902af6009f9cd8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

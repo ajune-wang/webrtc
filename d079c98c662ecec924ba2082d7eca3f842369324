@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "00418cf0_c5f529d2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-22T09:07:47Z",
+      "side": 1,
+      "message": "\u003e took another look. thanks for adding the documentation. There are still a couple of places where the CL doesn\u0027t actually make an improvement.\n\nMade a new iteration. It adds RTC_GUARDED_BY, but no new locks, instead RTC_NO_THREAD_SAFETY_ANALYSIS with comments.\n\n\u003eSince we\u0027re in general moving away from using ProcessThread, is there a need to modify the class beyond adding documentation?\n\nThe reason I was touching the class at all is that it\u0027s one of the few remaining users of the deprecated RecursiveCriticalSection. I was thinking thread annotation would help cleaning that up. But if you think it\u0027s overkill, I can change back to a doc-only cl.",
+      "parentUuid": "6bb482a2_3a0168c1",
+      "revId": "d079c98c662ecec924ba2082d7eca3f842369324",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "45809b6d_849fc60a",
         "filename": "modules/utility/source/process_thread_impl.cc",
         "patchSetId": 2

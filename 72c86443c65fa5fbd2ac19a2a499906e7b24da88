@@ -16,6 +16,24 @@
       "message": "Why should we fail only if receivers are different?",
       "revId": "72c86443c65fa5fbd2ac19a2a499906e7b24da88",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11990779_1e2aa31f",
+        "filename": "test/network/network_emulation.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-02-22T10:10:14Z",
+      "side": 1,
+      "message": "It\u0027s ok to set a default route to the same destination even multiple time. But if route is already set and we want to replace it with new receiver - it will break the previous one, so we fail in such case",
+      "parentUuid": "05594fd0_59c12d64",
+      "revId": "72c86443c65fa5fbd2ac19a2a499906e7b24da88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

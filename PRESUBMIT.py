@@ -146,9 +146,9 @@ def VerifyNativeApiHeadersListIsValid(input_api, output_api):
     if non_existing_paths:
         return [
             output_api.PresubmitError(
-                'Directories to native API headers have changed which has made the '
-                'list in PRESUBMIT.py outdated.\nPlease update it to the current '
-                'location of our native APIs.', non_existing_paths)
+                'Directories to native API headers have changed which has made '
+                'the list in PRESUBMIT.py outdated.\nPlease update it to the '
+                'current location of our native APIs.', non_existing_paths)
         ]
     return []
 
@@ -157,7 +157,7 @@ API_CHANGE_MSG = """
 You seem to be changing native API header files. Please make sure that you:
   1. Make compatible changes that don't break existing clients. Usually
      this is done by keeping the existing method signatures unchanged.
-  2. Mark the old stuff as deprecated (see RTC_DEPRECATED macro).
+  2. Mark the old stuff as deprecated (see ABSL_DEPRECATED macro).
   3. Create a timeline and plan for when the deprecated stuff will be
      removed. (The amount of time we give users to change their code
      should be informed by how much work it is for them. If they just
@@ -212,10 +212,10 @@ def CheckNoIOStreamInHeaders(input_api, output_api, source_file_filter):
     if len(files):
         return [
             output_api.PresubmitError(
-                'Do not #include <iostream> in header files, since it inserts static '
-                +
-                'initialization into every file including the header. Instead, '
-                + '#include <ostream>. See http://crbug.com/94794', files)
+                'Do not #include <iostream> in header files, since it inserts '
+                'static initialization into every file including the header. '
+                'Instead, #include <ostream>. See http://crbug.com/94794',
+                files)
         ]
     return []
 
@@ -263,9 +263,9 @@ def CheckNoFRIEND_TEST(
         return []
     return [
         output_api.PresubmitPromptWarning(
-            'WebRTC\'s code should not use '
-            'gtest\'s FRIEND_TEST() macro. Include testsupport/gtest_prod_util.h and '
-            'use FRIEND_TEST_ALL_PREFIXES() instead.\n' + '\n'.join(problems))
+            'WebRTC\'s code should not use gtest\'s FRIEND_TEST() macro. '
+            'Include testsupport/gtest_prod_util.h and use '
+            'FRIEND_TEST_ALL_PREFIXES() instead.\n' + '\n'.join(problems))
     ]
 
 
@@ -346,9 +346,9 @@ def CheckNoSourcesAbove(input_api, gn_files, output_api):
     if violating_gn_files:
         return [
             output_api.PresubmitError(
-                'Referencing source files above the directory of the GN file is not '
-                'allowed. Please introduce new GN targets in the proper location '
-                'instead.\n'
+                'Referencing source files above the directory of the GN file is'
+                ' not allowed. Please introduce new GN targets in the proper '
+                'location instead.\n'
                 'Invalid source entries:\n'
                 '%s\n'
                 'Violating GN files:' % '\n'.join(violating_source_entries),
@@ -407,9 +407,9 @@ def CheckNoMixingSources(input_api, gn_files, output_api):
         gn_file_content = input_api.ReadFile(gn_file)
         for target_match in TARGET_RE.finditer(gn_file_content):
             # list_of_sources is a list of tuples of the form
-            # (c_files, cc_files, objc_files) that keeps track of all the sources
-            # defined in a target. A GN target can have more that on definition of
-            # sources (since it supports if/else statements).
+            # (c_files, cc_files, objc_files) that keeps track of all the
+            # sources defined in a target. A GN target can have more that on
+            # definition of sources (since it supports if/else statements).
             # E.g.:
             # rtc_static_library("foo") {
             #   if (is_win) {
@@ -454,8 +454,8 @@ def CheckNoMixingSources(input_api, gn_files, output_api):
         return [
             output_api.PresubmitError(
                 'GN targets cannot mix .c, .cc and .m (or .mm) source files.\n'
-                'Please create a separate target for each collection of sources.\n'
-                'Mixed sources: \n'
+                'Please create a separate target for each collection of'
+                ' sources.\nMixed sources: \n'
                 '%s\n'
                 'Violating GN files:\n%s\n' %
                 (json.dumps(errors, indent=2), '\n'.join(errors.keys())))
@@ -476,7 +476,8 @@ def CheckNoPackageBoundaryViolations(input_api, gn_files, output_api):
     if errors:
         return [
             output_api.PresubmitError(
-                'There are package boundary violations in the following GN files:',
+                'There are package boundary violations in the following GN'
+                ' files:',
                 long_text='\n\n'.join(str(err) for err in errors))
         ]
     return []
@@ -491,7 +492,7 @@ def CheckNoWarningSuppressionFlagsAreAdded(gn_files,
                                            input_api,
                                            output_api,
                                            error_formatter=_ReportFileAndLine):
-    """Make sure that warning suppression flags are not added wihtout a reason."""
+    """Ensure that warning suppression flags are not added wihtout a reason."""
     msg = ('Usage of //build/config/clang:extra_warnings is discouraged '
            'in WebRTC.\n'
            'If you are not adding this code (e.g. you are just moving '
@@ -674,8 +675,8 @@ def CheckGnGen(input_api, output_api):
     if errors:
         return [
             output_api.PresubmitPromptWarning(
-                'Some #includes do not match the build dependency graph. Please run:\n'
-                '  gn gen --check <out_dir>',
+                'Some #includes do not match the build dependency graph. '
+                'Please run:\n  gn gen --check <out_dir>',
                 long_text='\n\n'.join(errors))
         ]
     return []
@@ -729,18 +730,20 @@ def CheckUnwantedDependencies(input_api, output_api, source_file_filter):
     if error_descriptions:
         results.append(
             output_api.PresubmitError(
-                'You added one or more #includes that violate checkdeps rules.\n'
-                'Check that the DEPS files in these locations contain valid rules.\n'
-                'See https://cs.chromium.org/chromium/src/buildtools/checkdeps/ for '
-                'more details about checkdeps.', error_descriptions))
+                'You added one or more #includes that violate checkdeps rules.'
+                '\nCheck that the DEPS files in these locations contain valid '
+                'rules.\nSee'
+                ' https://cs.chromium.org/chromium/src/buildtools/checkdeps/'
+                ' for more details about checkdeps.', error_descriptions))
     if warning_descriptions:
         results.append(
             output_api.PresubmitPromptOrNotify(
-                'You added one or more #includes of files that are temporarily\n'
-                'allowed but being removed. Can you avoid introducing the\n'
-                '#include? See relevant DEPS file(s) for details and contacts.\n'
-                'See https://cs.chromium.org/chromium/src/buildtools/checkdeps/ for '
-                'more details about checkdeps.', warning_descriptions))
+                'You added one or more #includes of files that are '
+                'temporarily\nallowed but being removed. Can you avoid '
+                'introducing the\n#include? See relevant DEPS file(s) for '
+                'details and contacts.\nSee '
+                'https://cs.chromium.org/chromium/src/buildtools/checkdeps/ '
+                'for more details about checkdeps.', warning_descriptions))
     return results
 
 
@@ -787,10 +790,12 @@ def CheckChangeHasBugField(input_api, output_api):
     else:
         return [
             output_api.PresubmitError(
-                'The "Bug: [bug number]" footer is mandatory. Please create a bug and '
-                'reference it using either of:\n'
-                ' * https://bugs.webrtc.org - reference it using Bug: webrtc:XXXX\n'
-                ' * https://crbug.com - reference it using Bug: chromium:XXXXXX'
+                'The "Bug: [bug number]" footer is mandatory. Please create a'
+                ' bug and reference it using either of:\n'
+                ' * https://bugs.webrtc.org - reference it using Bug:'
+                ' webrtc:XXXX\n'
+                ' * https://crbug.com - reference it using Bug:'
+                ' chromium:XXXXXX'
             )
         ]
 
@@ -932,12 +937,12 @@ def CommonChecks(input_api, output_api):
             pylintrc='pylintrc'))
 
     # TODO(nisse): talk/ is no more, so make below checks simpler?
-    # WebRTC can't use the presubmit_canned_checks.PanProjectChecks function since
-    # we need to have different license checks in talk/ and webrtc/ directories.
-    # Instead, hand-picked checks are included below.
+    # WebRTC can't use the presubmit_canned_checks.PanProjectChecks function
+    # since we need to have different license checks in talk/ and webrtc/
+    # directories. Instead, hand-picked checks are included below.
 
-    # .m and .mm files are ObjC files. For simplicity we will consider .h files in
-    # ObjC subdirectories ObjC headers.
+    # .m and .mm files are ObjC files. For simplicity we will consider .h files
+    # in ObjC subdirectories ObjC headers.
     objc_filter_list = (r'.+\.m$', r'.+\.mm$', r'.+objc\/.+\.h$')
     # Skip long-lines check for DEPS and GN files.
     build_file_filter_list = (r'.+\.gn$', r'.+\.gni$', 'DEPS')
@@ -1163,9 +1168,9 @@ def CheckAbslMemoryInclude(input_api, output_api, source_file_filter):
     if len(files):
         return [
             output_api.PresubmitError(
-                'Please include "absl/memory/memory.h" header for  absl::WrapUnique.\n'
-                'This header may or may not be included transitively depending on the '
-                'C++ standard version.', files)
+                'Please include "absl/memory/memory.h" header for '
+                'absl::WrapUnique.\nThis header may or may not be included '
+                'transitively depending on the C++ standard version.', files)
         ]
     return []
 
@@ -1343,13 +1348,15 @@ def CheckAddedDepsHaveTargetApprovals(input_api, output_api):
         if input_api.tbr:
             return [
                 output_api.PresubmitNotifyResult(
-                    '--tbr was specified, skipping OWNERS check for DEPS additions'
+                    '--tbr was specified, skipping OWNERS check for DEPS'
+                    ' additions'
                 )
             ]
         if input_api.dry_run:
             return [
                 output_api.PresubmitNotifyResult(
-                    'This is a dry run, skipping OWNERS check for DEPS additions'
+                    'This is a dry run, skipping OWNERS check for DEPS'
+                    ' additions'
                 )
             ]
         if not input_api.change.issue:
@@ -1393,8 +1400,8 @@ def CheckAddedDepsHaveTargetApprovals(input_api, output_api):
     if unapproved_dependencies:
         output_list = [
             output(
-                'You need LGTM from owners of depends-on paths in DEPS that were '
-                'modified in this CL:\n    %s' %
+                'You need LGTM from owners of depends-on paths in DEPS that '
+                'were modified in this CL:\n    %s' %
                 '\n    '.join(sorted(unapproved_dependencies)))
         ]
         suggested_owners = input_api.owners_client.SuggestOwners(

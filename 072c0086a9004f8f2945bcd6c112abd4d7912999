@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c389ebc1_a80f47ce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2021-02-22T08:38:31Z",
+      "side": 1,
+      "message": "This was certainly a bit bizarre previously, this change does make things a bit easier to understand I think. LGTM.",
+      "revId": "072c0086a9004f8f2945bcd6c112abd4d7912999",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

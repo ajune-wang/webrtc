@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05594fd0_59c12d64",
+        "filename": "test/network/network_emulation.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 11540
+      },
+      "writtenOn": "2021-02-22T09:54:50Z",
+      "side": 1,
+      "message": "Why should we fail only if receivers are different?",
+      "revId": "72c86443c65fa5fbd2ac19a2a499906e7b24da88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

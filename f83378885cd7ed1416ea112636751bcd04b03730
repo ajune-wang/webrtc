@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f03612b4_ac3901eb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-02-22T10:31:21Z",
+      "side": 1,
+      "message": "Looks straightforward - but can you add a bug for this and add it to the Webrtc-Core hotlist?\nWe should have followups to get ABSL_DEPRECATED(\"\") filled out - and we should also have a long-term followup for actually removing the ABSL_DEPRECATED functions. This clearly shows that we\u0027ve been falling down on that (I remember adding some of these).\n",
+      "revId": "f83378885cd7ed1416ea112636751bcd04b03730",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

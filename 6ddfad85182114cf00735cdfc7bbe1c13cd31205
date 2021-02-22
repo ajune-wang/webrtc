@@ -34,6 +34,24 @@
       "parentUuid": "2c3e8ab2_68281d61",
       "revId": "6ddfad85182114cf00735cdfc7bbe1c13cd31205",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "409cb9b3_8f6427de",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 16584
+      },
+      "writtenOn": "2021-02-22T01:51:36Z",
+      "side": 1,
+      "message": "Jerome, do you mind to fix this (to log2()), or at least make a comment in NumberOfThreads() to indicate that it will not work for more than 4 threads? \nI think this is better to address now, because it may cause unexpected problems if we decide to upscale it later.",
+      "parentUuid": "ef1ed0fc_ed92954c",
+      "revId": "6ddfad85182114cf00735cdfc7bbe1c13cd31205",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

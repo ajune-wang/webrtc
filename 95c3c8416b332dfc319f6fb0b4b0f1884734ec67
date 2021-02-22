@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "77a591c7_db6adde6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-02-22T11:12:01Z",
+      "side": 1,
+      "message": "Can you also take care of the mention in PRESUBMIT.py?\n\nI\u0027ve been trying to locate the instructions for deprecating/changing API functions, since I think those too were mentioning RTC_DEPRECATED and specifically mentioning a 2-week wait, but can only find the PRESUBMIT stuff just now.\n\n",
+      "revId": "95c3c8416b332dfc319f6fb0b4b0f1884734ec67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

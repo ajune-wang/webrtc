@@ -16,6 +16,23 @@
       "message": "Can you also take care of the mention in PRESUBMIT.py?\n\nI\u0027ve been trying to locate the instructions for deprecating/changing API functions, since I think those too were mentioning RTC_DEPRECATED and specifically mentioning a 2-week wait, but can only find the PRESUBMIT stuff just now.\n\n",
       "revId": "95c3c8416b332dfc319f6fb0b4b0f1884734ec67",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "505d21a8_e0053888",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-02-22T11:13:10Z",
+      "side": 1,
+      "message": "I see you DID take care of PRESUBMIT.py. But since Abseil doesn\u0027t have anything RTC-specific, the instructions for usage have to go elsewhere. But let\u0027s land this and track the doc in the bug.\n",
+      "revId": "95c3c8416b332dfc319f6fb0b4b0f1884734ec67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42f9f5a4_78c4719a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-02-22T09:18:14Z",
+      "side": 1,
+      "message": "ah, that makes sense. Thanks for the context and improving the documentation 👍",
+      "revId": "cdbf66305053af219543c07880c9205e55cbee30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49955416_1b5d4802",
+        "filename": "modules/utility/source/process_thread_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-02-22T09:18:14Z",
+      "side": 1,
+      "message": "could also add RTC_DCHECK(!thread_);",
+      "revId": "cdbf66305053af219543c07880c9205e55cbee30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

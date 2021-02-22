@@ -51,6 +51,24 @@
       "parentUuid": "49955416_1b5d4802",
       "revId": "cdbf66305053af219543c07880c9205e55cbee30",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b3ced29_044338d1",
+        "filename": "modules/utility/source/process_thread_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-02-22T09:32:09Z",
+      "side": 1,
+      "message": "Ah, right. Yes you could do that.\nAlternatively, just to keep Start/Stop symmetric, you could do\nRTC_DCHECK(!thread_-\u003eIsRunning())\nInstead. That\u0027s pretty much equivalent to what the comment says.",
+      "parentUuid": "831c9c76_14c0235b",
+      "revId": "cdbf66305053af219543c07880c9205e55cbee30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

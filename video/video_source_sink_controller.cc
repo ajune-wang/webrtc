@@ -133,6 +133,12 @@ void VideoSourceSinkController::SetResolutionAlignment(
   resolution_alignment_ = resolution_alignment;
 }
 
+void VideoSourceSinkController::SetEncoderResolutions(
+    std::vector<rtc::Size> encoder_resolutions) {
+  RTC_DCHECK_RUN_ON(&sequence_checker_);
+  encoder_resolutions_ = std::move(encoder_resolutions);
+}
+
 // RTC_EXCLUSIVE_LOCKS_REQUIRED(sequence_checker_)
 rtc::VideoSinkWants VideoSourceSinkController::CurrentSettingsToSinkWants()
     const {
@@ -161,6 +167,7 @@ rtc::VideoSinkWants VideoSourceSinkController::CurrentSettingsToSinkWants()
                frame_rate_upper_limit_.has_value()
                    ? static_cast<int>(frame_rate_upper_limit_.value())
                    : std::numeric_limits<int>::max());
+  wants.encoder_resolutions = encoder_resolutions_;
   return wants;
 }
 

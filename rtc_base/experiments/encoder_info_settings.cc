@@ -32,6 +32,23 @@ std::vector<VideoEncoder::ResolutionBitrateLimits> ToResolutionBitrateLimits(
 
 }  // namespace
 
+absl::optional<VideoEncoder::ResolutionBitrateLimits>
+EncoderInfoSettings::GetDefaultBitrateLimitsForResolution(
+    int frame_size_pixels) {
+  const std::vector<VideoEncoder::ResolutionBitrateLimits> kLimits = {
+      {320 * 180, 0, 0, 0},  // todo
+      {480 * 270, 0, 0, 0},
+      {640 * 360, 0, 0, 0},
+      {960 * 540, 0, 0, 0},
+      {1280 * 720, 0, 0, 0}};
+  for (size_t i = 0; i < kLimits.size(); ++i) {
+    if (kLimits[i].frame_size_pixels >= frame_size_pixels) {
+      return absl::optional<VideoEncoder::ResolutionBitrateLimits>(kLimits[i]);
+    }
+  }
+  return absl::nullopt;
+}
+
 EncoderInfoSettings::EncoderInfoSettings(std::string name)
     : requested_resolution_alignment_("requested_resolution_alignment"),
       apply_alignment_to_all_simulcast_layers_(

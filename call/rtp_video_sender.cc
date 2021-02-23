@@ -411,18 +411,6 @@ RtpVideoSender::RtpVideoSender(
 
   // RTP/RTCP initialization.
 
-  // We add the highest spatial layer first to ensure it'll be prioritized
-  // when sending padding, with the hope that the packet rate will be smaller,
-  // and that it's more important to protect than the lower layers.
-
-  // TODO(nisse): Consider moving registration with PacketRouter last, after the
-  // modules are fully configured.
-  for (const RtpStreamSender& stream : rtp_streams_) {
-    constexpr bool remb_candidate = true;
-    transport->packet_router()->AddSendRtpModule(stream.rtp_rtcp.get(),
-                                                 remb_candidate);
-  }
-
   for (size_t i = 0; i < rtp_config_.extensions.size(); ++i) {
     const std::string& extension = rtp_config_.extensions[i].uri;
     int id = rtp_config_.extensions[i].id;
@@ -460,12 +448,12 @@ RtpVideoSender::RtpVideoSender(
   // Signal congestion controller this object is ready for OnPacket* callbacks.
   transport_->GetStreamFeedbackProvider()->RegisterStreamFeedbackObserver(
       rtp_config_.ssrcs, this);
+
+  SetActive(true);
 }
 
 RtpVideoSender::~RtpVideoSender() {
-  for (const RtpStreamSender& stream : rtp_streams_) {
-    transport_->packet_router()->RemoveSendRtpModule(stream.rtp_rtcp.get());
-  }
+  SetActive(false);
   transport_->GetStreamFeedbackProvider()->DeRegisterStreamFeedbackObserver(
       this);
 }
@@ -509,10 +497,30 @@ void RtpVideoSender::SetActiveModulesLocked(
     if (active_modules[i]) {
       active_ = true;
     }
+
     // Sends a kRtcpByeCode when going from true to false.
     rtp_streams_[i].rtp_rtcp->SetSendingStatus(active_modules[i]);
+
+    bool switched_status =
+        rtp_streams_[i].rtp_rtcp->SendingMedia() != active_modules[i];
+
+    if (switched_status && !active_modules[i]) {
+      // Disabling media, remove from packet router map to reduce size and
+      // prevent any stray packets in the pacer from asynchronously arriving
+      // to a disabled module.
+      transport_->packet_router()->RemoveSendRtpModule(
+          rtp_streams_[i].rtp_rtcp.get());
+    }
+
     // If set to false this module won't send media.
     rtp_streams_[i].rtp_rtcp->SetSendingMediaStatus(active_modules[i]);
+
+    if (switched_status && active_modules[i]) {
+      // Turning on media, register with packet router.
+      transport_->packet_router()->AddSendRtpModule(
+          rtp_streams_[i].rtp_rtcp.get(),
+          /*remb_candidate=*/true);
+    }
   }
 }
 

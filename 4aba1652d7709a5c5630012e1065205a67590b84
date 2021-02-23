@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a8b5d98_49e87605",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-02-23T13:06:22Z",
+      "side": 1,
+      "message": "nit: You can write \"webrtc:7065\" here instead.\n\nI see an old TODO was already referencing this issue, but consider filing a new issue specifically for implementing jitter anyway because this issue has already been closed. If you file a new issue and then close it after this CL has landed then we can add a milestone label (e.g. M-90 if it lands before Thursday). Having an upcoming milestone label will make the issue show up in the WebRTC release notes.",
+      "revId": "4aba1652d7709a5c5630012e1065205a67590b84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "748b3a66_730c24e1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-02-23T13:06:22Z",
+      "side": 1,
+      "message": "Thank you for contributing!\n\nAnd the jitter metric is already on our allow list inside chromium, so there should be no problem merging this:\nhttps://source.chromium.org/chromium/chromium/src/+/master:chrome/test/data/webrtc/peerconnection_getstats.js;l\u003d96?q\u003dpeerconnection_getstats.js\u0026originalUrl\u003dhttps:%2F%2Fcs.chromium.org%2F\n\nLooks good to me - but can you file a separate issue and reference it from the description instead?",
+      "revId": "4aba1652d7709a5c5630012e1065205a67590b84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

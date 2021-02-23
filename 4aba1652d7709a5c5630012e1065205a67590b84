@@ -51,6 +51,23 @@
       "message": "Thank you for contributing!\n\nAnd the jitter metric is already on our allow list inside chromium, so there should be no problem merging this:\nhttps://source.chromium.org/chromium/chromium/src/+/master:chrome/test/data/webrtc/peerconnection_getstats.js;l\u003d96?q\u003dpeerconnection_getstats.js\u0026originalUrl\u003dhttps:%2F%2Fcs.chromium.org%2F\n\nLooks good to me - but can you file a separate issue and reference it from the description instead?",
       "revId": "4aba1652d7709a5c5630012e1065205a67590b84",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "26590267_88933ae3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-02-23T13:27:49Z",
+      "side": 1,
+      "message": "This looks good, thanks!\n(The jitter stat as defined in the RFC is pretty useless, but having it shown according to spec is still much better than not having it shown at all.)\n\nBest of luck with further contributions!\n",
+      "revId": "4aba1652d7709a5c5630012e1065205a67590b84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

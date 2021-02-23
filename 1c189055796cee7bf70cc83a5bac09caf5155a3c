@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "feefbf04_b982dba6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16600
+      },
+      "writtenOn": "2021-02-23T14:55:26Z",
+      "side": 1,
+      "message": "Hi! Thanks for reviewing! Followed up the comments.\n\nSince it\u0027s my first time so I\u0027m a bit unsure of the next steps .. Is it that you guys will merge it rather than me? I see that I can\u0027t trigger CQs.\n\nThanks!",
+      "revId": "1c189055796cee7bf70cc83a5bac09caf5155a3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -38,6 +38,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "e7d64bb1_84da2242",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 16600
+      },
+      "writtenOn": "2021-02-23T14:55:26Z",
+      "side": 1,
+      "message": "Done! https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d12487\n\nChanged to webrtc:12487",
+      "parentUuid": "78f4cf28_85a4f92a",
+      "revId": "4aba1652d7709a5c5630012e1065205a67590b84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "748b3a66_730c24e1",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -66,6 +84,24 @@
       "writtenOn": "2021-02-23T13:27:49Z",
       "side": 1,
       "message": "This looks good, thanks!\n(The jitter stat as defined in the RFC is pretty useless, but having it shown according to spec is still much better than not having it shown at all.)\n\nBest of luck with further contributions!\n",
+      "revId": "4aba1652d7709a5c5630012e1065205a67590b84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59812823_6b743a31",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16600
+      },
+      "writtenOn": "2021-02-23T14:55:26Z",
+      "side": 1,
+      "message": "Yup - https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d12487\n\nThanks!",
+      "parentUuid": "748b3a66_730c24e1",
       "revId": "4aba1652d7709a5c5630012e1065205a67590b84",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

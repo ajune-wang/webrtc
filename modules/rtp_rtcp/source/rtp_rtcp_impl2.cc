@@ -329,10 +329,8 @@ bool ModuleRtpRtcpImpl2::OnSendingRtpFrame(uint32_t timestamp,
 bool ModuleRtpRtcpImpl2::TrySendPacket(RtpPacketToSend* packet,
                                        const PacedPacketInfo& pacing_info) {
   RTC_DCHECK(rtp_sender_);
-  // TODO(sprang): Consider if we can remove this check.
-  if (!rtp_sender_->packet_generator.SendingMedia()) {
-    return false;
-  }
+  RTC_DCHECK(rtp_sender_->packet_generator.SendingMedia());
+
   rtp_sender_->packet_sender.SendPacket(packet, pacing_info);
   return true;
 }

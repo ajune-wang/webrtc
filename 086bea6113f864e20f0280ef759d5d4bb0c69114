@@ -50,6 +50,23 @@
       "message": "LGTM for what this is trying to achieve and from quick code search, but please wait for another reviewer who has a better understanding of this code than me before landing",
       "revId": "086bea6113f864e20f0280ef759d5d4bb0c69114",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "baa80519_a8c9e077",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-02-24T12:49:49Z",
+      "side": 1,
+      "message": "This should be fine.\nJust to check, are you seeing any elevated levels or repeating tasks? The process interval right now should be 500ms for the task queue pacer.\n\nIdeally I\u0027d like to improve the pacing controller and allow indefinite waits instead, sane that would be less fragile. It\u0027d require some work to figure out exactly in which situations we need keep-alive though.",
+      "revId": "086bea6113f864e20f0280ef759d5d4bb0c69114",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

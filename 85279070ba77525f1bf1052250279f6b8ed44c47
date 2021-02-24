@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab8315fd_b47c6ada",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-02-24T09:32:44Z",
+      "side": 1,
+      "message": "Hi Sam, maybe you can give an owner\u0027s approval?",
+      "revId": "85279070ba77525f1bf1052250279f6b8ed44c47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -26,17 +26,17 @@ class PacketSequencer {
   // media ssrc is not allowed unless the last sequenced media packet had the
   // marker bit set (i.e. don't insert padding packets between the first and
   // last packets of a video frame).
+  // Packets matching |flexfec_ssrc| will not be sequenced, they are assumed to
+  // be part of an independent packet stream.
   PacketSequencer(uint32_t media_ssrc,
-                  uint32_t rtx_ssrc,
+                  absl::optional<uint32_t> rtx_ssrc,
+                  absl::optional<uint32_t> flexfec_ssrc,
                   bool require_marker_before_media_padding,
                   Clock* clock);
 
   // Assigns sequence number, and in the case of non-RTX padding also timestamps
   // and payload type.
-  // Returns false if sequencing failed, which it can do for instance if the
-  // packet to squence is padding on the media ssrc, but the media is mid frame
-  // (the last marker bit is false).
-  bool Sequence(RtpPacketToSend& packet);
+  void Sequence(RtpPacketToSend& packet);
 
   void set_media_sequence_number(uint16_t sequence_number) {
     media_sequence_number_ = sequence_number;
@@ -51,12 +51,18 @@ class PacketSequencer {
   uint16_t media_sequence_number() const { return media_sequence_number_; }
   uint16_t rtx_sequence_number() const { return rtx_sequence_number_; }
 
+  // Returns true if we have seen a payload type, and if constructed with
+  // |require_marker_before_media_padding| = true, that the last sent media
+  // packet had the marker bit set.
+  bool CanSendPaddingOnMediaSsrc();
+
  private:
   void UpdateLastPacketState(const RtpPacketToSend& packet);
   bool PopulatePaddingFields(RtpPacketToSend& packet);
 
   const uint32_t media_ssrc_;
-  const uint32_t rtx_ssrc_;
+  const absl::optional<uint32_t> rtx_ssrc_;
+  const absl::optional<uint32_t> flexfec_ssrc_;
   const bool require_marker_before_media_padding_;
   Clock* const clock_;
 

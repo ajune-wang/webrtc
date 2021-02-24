@@ -23,11 +23,13 @@ constexpr uint32_t kTimestampTicksPerMs = 90;
 }  // namespace
 
 PacketSequencer::PacketSequencer(uint32_t media_ssrc,
-                                 uint32_t rtx_ssrc,
+                                 absl::optional<uint32_t> rtx_ssrc,
+                                 absl::optional<uint32_t> flexfec_ssrc,
                                  bool require_marker_before_media_padding,
                                  Clock* clock)
     : media_ssrc_(media_ssrc),
       rtx_ssrc_(rtx_ssrc),
+      flexfec_ssrc_(flexfec_ssrc),
       require_marker_before_media_padding_(require_marker_before_media_padding),
       clock_(clock),
       media_sequence_number_(0),
@@ -38,12 +40,13 @@ PacketSequencer::PacketSequencer(uint32_t media_ssrc,
       last_timestamp_time_ms_(0),
       last_packet_marker_bit_(false) {}
 
-bool PacketSequencer::Sequence(RtpPacketToSend& packet) {
-  if (packet.packet_type() == RtpPacketMediaType::kPadding &&
-      !PopulatePaddingFields(packet)) {
-    // This padding packet can't be sent with current state, return without
-    // updating the sequence number.
-    return false;
+void PacketSequencer::Sequence(RtpPacketToSend& packet) {
+  if (packet.Ssrc() == flexfec_ssrc_) {
+    return;
+  }
+
+  if (packet.packet_type() == RtpPacketMediaType::kPadding) {
+    PopulatePaddingFields(packet);
   }
 
   if (packet.Ssrc() == media_ssrc_) {
@@ -51,12 +54,10 @@ bool PacketSequencer::Sequence(RtpPacketToSend& packet) {
     if (packet.packet_type() != RtpPacketMediaType::kPadding) {
       UpdateLastPacketState(packet);
     }
-    return true;
+  } else {
+    RTC_DCHECK(packet.Ssrc() == rtx_ssrc_);
+    packet.SetSequenceNumber(rtx_sequence_number_++);
   }
-
-  RTC_DCHECK_EQ(packet.Ssrc(), rtx_ssrc_);
-  packet.SetSequenceNumber(rtx_sequence_number_++);
-  return true;
 }
 
 void PacketSequencer::SetRtpState(const RtpState& state) {
@@ -93,17 +94,7 @@ void PacketSequencer::UpdateLastPacketState(const RtpPacketToSend& packet) {
 
 bool PacketSequencer::PopulatePaddingFields(RtpPacketToSend& packet) {
   if (packet.Ssrc() == media_ssrc_) {
-    if (last_payload_type_ == -1) {
-      return false;
-    }
-
-    // Without RTX we can't send padding in the middle of frames.
-    // For audio marker bits doesn't mark the end of a frame and frames
-    // are usually a single packet, so for now we don't apply this rule
-    // for audio.
-    if (require_marker_before_media_padding_ && !last_packet_marker_bit_) {
-      return false;
-    }
+    RTC_DCHECK(CanSendPaddingOnMediaSsrc());
 
     packet.SetTimestamp(last_rtp_timestamp_);
     packet.set_capture_time_ms(last_capture_time_ms_);
@@ -111,7 +102,7 @@ bool PacketSequencer::PopulatePaddingFields(RtpPacketToSend& packet) {
     return true;
   }
 
-  RTC_DCHECK_EQ(packet.Ssrc(), rtx_ssrc_);
+  RTC_DCHECK(packet.Ssrc() == rtx_ssrc_);
   if (packet.payload_size() > 0) {
     // This is payload padding packet, don't update timestamp fields.
     return true;
@@ -132,6 +123,22 @@ bool PacketSequencer::PopulatePaddingFields(RtpPacketToSend& packet) {
       packet.set_capture_time_ms(packet.capture_time_ms() +
                                  (now_ms - last_timestamp_time_ms_));
     }
+  }
+
+  return true;
+}
+
+bool PacketSequencer::CanSendPaddingOnMediaSsrc() {
+  if (last_payload_type_ == -1) {
+    return false;
+  }
+
+  // Without RTX we can't send padding in the middle of frames.
+  // For audio marker bits doesn't mark the end of a frame and frames
+  // are usually a single packet, so for now we don't apply this rule
+  // for audio.
+  if (require_marker_before_media_padding_ && !last_packet_marker_bit_) {
+    return false;
   }
 
   return true;

@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40703899_9a2e1c57",
+        "filename": "video/adaptation/bitrate_constraint.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-02-24T13:58:27Z",
+      "side": 1,
+      "message": "not needed? there is check and early exit for simulcast in L61-64.",
+      "range": {
+        "startLine": 81,
+        "startChar": 8,
+        "endLine": 81,
+        "endChar": 71
+      },
+      "revId": "b25a50b6ae047a62ca149db74b51e8eba988f391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "455dcf47_e8cb41d0",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-02-24T13:58:27Z",
+      "side": 1,
+      "message": "not needed? already checked in L357",
+      "range": {
+        "startLine": 372,
+        "startChar": 6,
+        "endLine": 372,
+        "endChar": 48
+      },
+      "revId": "b25a50b6ae047a62ca149db74b51e8eba988f391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7ed17d4_49838a55",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-02-24T13:58:27Z",
+      "side": 1,
+      "message": "This is called from 3 places:here, below and in BitrateConstraint::IsAdaptationUpAllowed.\n\nMaybe wrap GetEncoderInfo() into a function in VideoStreamEncoder and set defaults as well as handle the kill-switch there?",
+      "range": {
+        "startLine": 374,
+        "startChar": 29,
+        "endLine": 374,
+        "endChar": 65
+      },
+      "revId": "b25a50b6ae047a62ca149db74b51e8eba988f391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c645fc00_af287f56",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 423,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-02-24T13:58:27Z",
+      "side": 1,
+      "message": "not needed?",
+      "range": {
+        "startLine": 423,
+        "startChar": 6,
+        "endLine": 423,
+        "endChar": 38
+      },
+      "revId": "b25a50b6ae047a62ca149db74b51e8eba988f391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

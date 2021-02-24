@@ -118,12 +118,17 @@ void PacedSender::EnqueuePackets(
     TRACE_EVENT0(TRACE_DISABLED_BY_DEFAULT("webrtc"),
                  "PacedSender::EnqueuePackets");
     MutexLock lock(&mutex_);
+    const Timestamp now = clock_->CurrentTime();
     for (auto& packet : packets) {
       TRACE_EVENT2(TRACE_DISABLED_BY_DEFAULT("webrtc"),
                    "PacedSender::EnqueuePackets::Loop", "sequence_number",
                    packet->SequenceNumber(), "rtp_timestamp",
                    packet->Timestamp());
 
+      // TODO(sprang): Make sure tests respect this, replace with DCHECK.
+      if (packet->capture_time_ms() < 0) {
+        packet->set_capture_time_ms(now.ms());
+      }
       pacing_controller_.EnqueuePacket(std::move(packet));
     }
   }

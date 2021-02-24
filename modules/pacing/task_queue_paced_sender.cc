@@ -135,7 +135,12 @@ void TaskQueuePacedSender::EnqueuePackets(
 
   task_queue_.PostTask([this, packets_ = std::move(packets)]() mutable {
     RTC_DCHECK_RUN_ON(&task_queue_);
+    const Timestamp now = clock_->CurrentTime();
     for (auto& packet : packets_) {
+      // TODO(sprang): Make sure tests respect this, replace with DCHECK.
+      if (packet->capture_time_ms() < 0) {
+        packet->set_capture_time_ms(now.ms());
+      }
       pacing_controller_.EnqueuePacket(std::move(packet));
     }
     MaybeProcessPackets(Timestamp::MinusInfinity());

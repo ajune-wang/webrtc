@@ -142,6 +142,7 @@ class RtpSenderEgress {
   const bool is_audio_;
 #endif
   const bool need_rtp_packet_infos_;
+  bool last_packet_marker_ RTC_GUARDED_BY(pacer_checker_);
   VideoFecGenerator* const fec_generator_ RTC_GUARDED_BY(pacer_checker_);
 
   TransportFeedbackObserver* const transport_feedback_observer_;

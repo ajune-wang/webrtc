@@ -16,6 +16,23 @@
       "message": "OK tests added and ready for review - please take a look, Ilya",
       "revId": "8232cb5160acb29d27b8abe362630a73793f408e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b497972d_59838813",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-02-24T13:39:31Z",
+      "side": 1,
+      "message": "And +Nisse for api/video/video_source_interface.[h/cc]. I did add a new struct here, rtc::Size, but let me know if it makes more sense to move this to a separate file since it is very generic sounding.",
+      "revId": "8232cb5160acb29d27b8abe362630a73793f408e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

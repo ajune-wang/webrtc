@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23976899_7923406e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-02-24T08:48:06Z",
+      "side": 1,
+      "message": "This is one of the \"oops\" moments..... we shouldn\u0027t allow people to use TURN server configs for portscanning+.\n",
+      "revId": "790fc2a6866bcc5659db867af9367d3521f0e632",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

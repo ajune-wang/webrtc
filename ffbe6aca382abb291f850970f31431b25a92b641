@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a561435d_23bf3a22",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-02-24T21:18:21Z",
+      "side": 1,
+      "message": "I\u0027d clarify \"GCM cipher\"",
+      "revId": "ffbe6aca382abb291f850970f31431b25a92b641",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b06fab62_21f824b6",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-02-24T21:18:21Z",
+      "side": 1,
+      "message": "Additionally subtract -4 for TURN ChannelData",
+      "revId": "ffbe6aca382abb291f850970f31431b25a92b641",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b9a75ea0_c04eb320",
+        "filename": "video/adaptation/bitrate_constraint.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2021-02-24T14:33:51Z",
+      "side": 1,
+      "message": "Could be a single stream: encoder_settings_-\u003eencoder_config().simulcast_layers.size: 1\n\nE.g. in AdaptUpAllowedWithoutBitrateLimits test, default limits should not be used, right?",
+      "parentUuid": "40703899_9a2e1c57",
+      "range": {
+        "startLine": 81,
+        "startChar": 8,
+        "endLine": 81,
+        "endChar": 71
+      },
+      "revId": "b25a50b6ae047a62ca149db74b51e8eba988f391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "455dcf47_e8cb41d0",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 7
@@ -37,6 +61,30 @@
       "writtenOn": "2021-02-24T13:58:27Z",
       "side": 1,
       "message": "not needed? already checked in L357",
+      "range": {
+        "startLine": 372,
+        "startChar": 6,
+        "endLine": 372,
+        "endChar": 48
+      },
+      "revId": "b25a50b6ae047a62ca149db74b51e8eba988f391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5085fb63_c28fc15f",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2021-02-24T14:33:51Z",
+      "side": 1,
+      "message": "see comment in bitrate_constaint.cc",
+      "parentUuid": "455dcf47_e8cb41d0",
       "range": {
         "startLine": 372,
         "startChar": 6,
@@ -83,6 +131,30 @@
       "writtenOn": "2021-02-24T13:58:27Z",
       "side": 1,
       "message": "not needed?",
+      "range": {
+        "startLine": 423,
+        "startChar": 6,
+        "endLine": 423,
+        "endChar": 38
+      },
+      "revId": "b25a50b6ae047a62ca149db74b51e8eba988f391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f08cfaf_a3b22825",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 423,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2021-02-24T14:33:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c645fc00_af287f56",
       "range": {
         "startLine": 423,
         "startChar": 6,

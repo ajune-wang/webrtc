@@ -12,6 +12,14 @@
 
 namespace rtc {
 
+Size::Size(size_t width, size_t height) : width(width), height(height) {}
+Size::Size(const Size&) = default;
+Size::~Size() = default;
+
+bool operator==(const Size& a, const Size& b) {
+  return a.width == b.width && a.height == b.height;
+}
+
 VideoSinkWants::VideoSinkWants() = default;
 VideoSinkWants::VideoSinkWants(const VideoSinkWants&) = default;
 VideoSinkWants::~VideoSinkWants() = default;

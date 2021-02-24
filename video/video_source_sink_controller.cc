@@ -29,7 +29,15 @@ std::string WantsToString(const rtc::VideoSinkWants& wants) {
      << " max_pixel_count=" << wants.max_pixel_count << " target_pixel_count="
      << (wants.target_pixel_count.has_value()
              ? std::to_string(wants.target_pixel_count.value())
-             : "null");
+             : "null")
+     << " encoder_resolutions={";
+  for (size_t i = 0; i < wants.encoder_resolutions.size(); ++i) {
+    if (i != 0)
+      ss << ",";
+    ss << wants.encoder_resolutions[i].width << "x"
+       << wants.encoder_resolutions[i].height;
+  }
+  ss << "}";
 
   return ss.Release();
 }
@@ -104,6 +112,12 @@ int VideoSourceSinkController::resolution_alignment() const {
   return resolution_alignment_;
 }
 
+const std::vector<rtc::Size>& VideoSourceSinkController::encoder_resolutions()
+    const {
+  RTC_DCHECK_RUN_ON(&sequence_checker_);
+  return encoder_resolutions_;
+}
+
 void VideoSourceSinkController::SetRestrictions(
     VideoSourceRestrictions restrictions) {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
@@ -131,6 +145,12 @@ void VideoSourceSinkController::SetResolutionAlignment(
     int resolution_alignment) {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
   resolution_alignment_ = resolution_alignment;
+}
+
+void VideoSourceSinkController::SetEncoderResolutions(
+    std::vector<rtc::Size> encoder_resolutions) {
+  RTC_DCHECK_RUN_ON(&sequence_checker_);
+  encoder_resolutions_ = std::move(encoder_resolutions);
 }
 
 // RTC_EXCLUSIVE_LOCKS_REQUIRED(sequence_checker_)
@@ -161,6 +181,7 @@ rtc::VideoSinkWants VideoSourceSinkController::CurrentSettingsToSinkWants()
                frame_rate_upper_limit_.has_value()
                    ? static_cast<int>(frame_rate_upper_limit_.value())
                    : std::numeric_limits<int>::max());
+  wants.encoder_resolutions = encoder_resolutions_;
   return wants;
 }
 

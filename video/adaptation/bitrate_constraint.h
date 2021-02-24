@@ -46,6 +46,7 @@ class BitrateConstraint : public AdaptationConstraint {
       RTC_GUARDED_BY(&sequence_checker_);
   absl::optional<uint32_t> encoder_target_bitrate_bps_
       RTC_GUARDED_BY(&sequence_checker_);
+  const bool default_limits_enabled_;
 };
 
 }  // namespace webrtc

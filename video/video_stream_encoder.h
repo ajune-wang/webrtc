@@ -440,6 +440,8 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   VideoSourceSinkController video_source_sink_controller_
       RTC_GUARDED_BY(main_queue_);
 
+  const bool default_limits_enabled_;
+
   // Public methods are proxied to the task queues. The queues must be destroyed
   // first to make sure no tasks run that use other members.
   rtc::TaskQueue encoder_queue_;

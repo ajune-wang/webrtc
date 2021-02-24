@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "296140c8_4f4b15ba",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-02-24T22:44:46Z",
+      "side": 1,
+      "message": "that assumes you have a channel. The conservative estimate would be to assume assume a send indication which is length-of-xor(?)-peer-address plus two bytes for the port plus a byte for the family? OTOH SCTP packets should only be sent after a valid pair is established which is when chrome create a turn channeldata binding so this might be fine 99.9999999% of the time.\n\nIdeally this would update for the actual overhead similar to how AudioEncoderOpusImpl::OnReceivedOverhead  works. But that is probably overkill",
+      "revId": "cc3bed031c0169064e9030d9354aaee2f0ba6993",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

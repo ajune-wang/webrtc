@@ -33,6 +33,40 @@
       "message": "And +Nisse for api/video/video_source_interface.[h/cc]. I did add a new struct here, rtc::Size, but let me know if it makes more sense to move this to a separate file since it is very generic sounding.",
       "revId": "8232cb5160acb29d27b8abe362630a73793f408e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06169b82_974ce75c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-02-24T14:12:17Z",
+      "side": 1,
+      "message": "To fix tests you will have to update all the VSE_UT tests, which expect something from the sinkwants: hardcoded resolutions values must be set there.",
+      "revId": "8232cb5160acb29d27b8abe362630a73793f408e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a7305ea_1b2f8cea",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 999,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-02-24T14:12:17Z",
+      "side": 1,
+      "message": "You should take |codec.simulcastStreams| here instead of streams.\n\nIt\u0027s safer to take the values directly from the encoder config without assuming that |codec| values don\u0027t change from |streams| values.\n\nFor now, libvpx vp9 encoder does all the downscaling itself.\n\nIn theory, it could accept several images the same way vp8 encoder does.\n\nAdd here a \"todo\" to also process |codec.spatialLayers|.",
+      "revId": "8232cb5160acb29d27b8abe362630a73793f408e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1faad16d_e880a5f3",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-02-24T15:02:02Z",
+      "side": 1,
+      "message": "nit: that function takes vector by value.\nyou can avoid an extra copy of it either by creating it inline:\nSetActiveModulesLocked(std::vector\u003cbool\u003e(rtp_streams_.size(), /*active\u003d*/false));\nor by moving:\nstd::vector\u003cbool\u003e active_modules(rtp_streams_.size(), /*active\u003d*/false);\nSetActiveModulesLocked(std::move(active_modules));\n\n(marking active_modules const forces a copy)",
+      "range": {
+        "startLine": 455,
+        "startChar": 25,
+        "endLine": 455,
+        "endChar": 39
+      },
+      "revId": "df0681ea2e935c582ad371f59d85c7f2a748f0a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

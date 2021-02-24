@@ -346,6 +346,14 @@ void TurnPort::PrepareAddress() {
     server_address_.address.SetPort(TURN_DEFAULT_PORT);
   }
 
+  // Do not connect to ports below 1024
+  if (!AllowedTurnPort(server_address_.address.port())) {
+    RTC_LOG(LS_ERROR) << "Attempt to start allocation with port# "
+                      << server_address_.address.port();
+    OnAllocateError(STUN_ERROR_SERVER_ERROR,
+                    "Attempt to redirect to a port < 1024");
+    return;
+  }
   if (server_address_.address.IsUnresolvedIP()) {
     ResolveTurnAddress(server_address_.address);
   } else {

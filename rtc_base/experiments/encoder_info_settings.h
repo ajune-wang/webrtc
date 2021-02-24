@@ -41,6 +41,11 @@ class EncoderInfoSettings {
     return resolution_bitrate_limits_;
   }
 
+  static std::vector<VideoEncoder::ResolutionBitrateLimits>
+  GetDefaultBitrateLimits();
+  static absl::optional<VideoEncoder::ResolutionBitrateLimits>
+  GetDefaultBitrateLimitsForResolution(int frame_size_pixels);
+
  protected:
   explicit EncoderInfoSettings(std::string name);
 

@@ -52,6 +52,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2c4fd44_2ad78026",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-02-24T15:07:51Z",
+      "side": 1,
+      "message": "There were a bunch of tests triggering adaptation, encoding a frame and then comparing \"sink_wants\" with \"last_wants\". The tests started failing when resolution changed because adaptation would update last_wants and then upon encoding the frame last_wants would be updated yet again with the new encoder_resolutions. This is expected, but from the test\u0027s point of view, the \"last_wants\" were no longer the \"last_wants\" from the point in time that it expected, because it was updated twice.\n\nThe tests were updated to do:\n1. trigger adaptation\n2. copy the value of last wants\n3. encode the frame\n4. compare sink_wants to the copy of the last wants.\n\nTests now pass again.",
+      "parentUuid": "06169b82_974ce75c",
+      "revId": "8232cb5160acb29d27b8abe362630a73793f408e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a7305ea_1b2f8cea",
@@ -65,6 +83,24 @@
       "writtenOn": "2021-02-24T14:12:17Z",
       "side": 1,
       "message": "You should take |codec.simulcastStreams| here instead of streams.\n\nIt\u0027s safer to take the values directly from the encoder config without assuming that |codec| values don\u0027t change from |streams| values.\n\nFor now, libvpx vp9 encoder does all the downscaling itself.\n\nIn theory, it could accept several images the same way vp8 encoder does.\n\nAdd here a \"todo\" to also process |codec.spatialLayers|.",
+      "revId": "8232cb5160acb29d27b8abe362630a73793f408e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "684c5b66_5b71f7b3",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 999,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-02-24T15:07:51Z",
+      "side": 1,
+      "message": "OK, done!",
+      "parentUuid": "8a7305ea_1b2f8cea",
       "revId": "8232cb5160acb29d27b8abe362630a73793f408e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

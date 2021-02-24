@@ -38,6 +38,7 @@
 #include "rtc_base/constructor_magic.h"
 #include "rtc_base/event.h"
 #include "rtc_base/experiments/alr_experiment.h"
+#include "rtc_base/experiments/encoder_info_settings.h"
 #include "rtc_base/experiments/rate_control_settings.h"
 #include "rtc_base/location.h"
 #include "rtc_base/logging.h"
@@ -202,6 +203,22 @@ VideoBitrateAllocation UpdateAllocationFromEncoderInfo(
   }
   new_allocation.set_bw_limited(allocation.is_bw_limited());
   return new_allocation;
+}
+
+VideoEncoder::EncoderInfo GetEncoderInfo(
+    const VideoEncoder::EncoderInfo& info,
+    const VideoEncoderConfig& encoder_config,
+    bool default_limits_enabled) {
+  if (!default_limits_enabled || !info.resolution_bitrate_limits.empty() ||
+      encoder_config.simulcast_layers.size() <= 1) {
+    return info;
+  }
+  // Bitrate limits are not configured and more than one layer is used, use
+  // the default limits.
+  VideoEncoder::EncoderInfo new_info = info;
+  new_info.resolution_bitrate_limits =
+      EncoderInfoSettings::GetDefaultBitrateLimits();
+  return new_info;
 }
 
 // Converts a VideoBitrateAllocation that contains allocated bitrate per layer,
@@ -606,6 +623,8 @@ VideoStreamEncoder::VideoStreamEncoder(
                                degradation_preference_manager_.get()),
       video_source_sink_controller_(/*sink=*/this,
                                     /*source=*/nullptr),
+      default_limits_enabled_(
+          !field_trial::IsEnabled("WebRTC-DefaultBitrateLimitsKillSwitch")),
       encoder_queue_(task_queue_factory->CreateTaskQueue(
           "EncoderQueue",
           TaskQueueFactory::Priority::NORMAL)) {
@@ -919,12 +938,13 @@ void VideoStreamEncoder::ReconfigureEncoder() {
             << ", max=" << encoder_config_.max_bitrate_bps
             << "). The app bitrate limits will be used.";
       }
-    } else {
-      ApplyEncoderBitrateLimitsIfSingleActiveStream(
-          encoder_->GetEncoderInfo(), encoder_config_.simulcast_layers,
-          &streams);
     }
   }
+
+  ApplyEncoderBitrateLimitsIfSingleActiveStream(
+      GetEncoderInfo(encoder_->GetEncoderInfo(), encoder_config_,
+                     default_limits_enabled_),
+      encoder_config_.simulcast_layers, &streams);
 
   VideoCodec codec;
   if (!VideoCodecInitializer::SetupCodec(encoder_config_, streams, &codec)) {
@@ -936,10 +956,10 @@ void VideoStreamEncoder::ReconfigureEncoder() {
     // thus some cropping might be needed.
     crop_width_ = last_frame_info_->width - codec.width;
     crop_height_ = last_frame_info_->height - codec.height;
-    if (encoder_bitrate_limits_) {
-      ApplyVp9BitrateLimits(encoder_->GetEncoderInfo(), encoder_config_,
-                            &codec);
-    }
+    ApplyVp9BitrateLimits(
+        GetEncoderInfo(encoder_->GetEncoderInfo(), encoder_config_,
+                       default_limits_enabled_),
+        encoder_config_, &codec);
   }
 
   char log_stream_buf[4 * 1024];
@@ -2060,8 +2080,9 @@ bool VideoStreamEncoder::DropDueToSize(uint32_t pixel_count) const {
           encoder_target_bitrate_bps_.value());
 
   absl::optional<VideoEncoder::ResolutionBitrateLimits> encoder_bitrate_limits =
-      encoder_->GetEncoderInfo().GetEncoderBitrateLimitsForResolution(
-          pixel_count);
+      GetEncoderInfo(encoder_->GetEncoderInfo(), encoder_config_,
+                     default_limits_enabled_)
+          .GetEncoderBitrateLimitsForResolution(pixel_count);
 
   if (encoder_bitrate_limits.has_value()) {
     // Use bitrate limits provided by encoder.

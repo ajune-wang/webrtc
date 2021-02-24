@@ -902,6 +902,13 @@ int OpenSSLStreamAdapter::ContinueSSL() {
       // out if one was missing.
       RTC_DCHECK(peer_cert_chain_ || !GetClientAuthEnabled());
 
+#ifdef OPENSSL_IS_BORINGSSL
+      // The largest overhead we expect is 37 bytes: 24 for GCM ciphertext and
+      // 13 for the record header. If this ever increases, we need to update
+      // kSctpMtu to account for it.
+      RTC_DCHECK(SSL_max_seal_overhead(ssl_) <= 37);
+#endif
+
       state_ = SSL_CONNECTED;
       if (!WaitingToVerifyPeerCertificate()) {
         // We have everything we need to start the connection, so signal

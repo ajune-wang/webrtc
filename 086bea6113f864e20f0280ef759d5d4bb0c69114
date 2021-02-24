@@ -33,6 +33,23 @@
       "message": "Erik - can you take a look?",
       "revId": "086bea6113f864e20f0280ef759d5d4bb0c69114",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "946499e5_b60e5a99",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-02-24T08:40:52Z",
+      "side": 1,
+      "message": "LGTM for what this is trying to achieve and from quick code search, but please wait for another reviewer who has a better understanding of this code than me before landing",
+      "revId": "086bea6113f864e20f0280ef759d5d4bb0c69114",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

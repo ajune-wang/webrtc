@@ -18,6 +18,8 @@
 #include "call/adaptation/encoder_settings.h"
 #include "call/adaptation/video_source_restrictions.h"
 #include "call/adaptation/video_stream_input_state.h"
+#include "rtc_base/experiments/encoder_info_settings.h"
+#include "test/field_trial.h"
 #include "test/gtest.h"
 
 namespace webrtc {
@@ -114,6 +116,31 @@ TEST(BitrateConstraintTest, AdaptUpDisallowedAtSinglecastIfBitrateIsNotEnough) {
       VideoStreamInputState(), restrictions_before, restrictions_after));
 }
 
+TEST(BitrateConstraintTest, AdaptUpAllowedWithoutBitrateLimits) {
+  VideoCodec video_codec;
+  VideoEncoderConfig encoder_config;
+  FillCodecConfig(&video_codec, &encoder_config,
+                  /*width_px=*/640, /*height_px=*/360,
+                  /*active_flags=*/{true});
+
+  EncoderSettings encoder_settings(VideoEncoder::EncoderInfo(),
+                                   std::move(encoder_config), video_codec);
+
+  BitrateConstraint bitrate_constraint;
+  bitrate_constraint.OnEncoderSettingsUpdated(encoder_settings);
+  bitrate_constraint.OnEncoderTargetBitrateUpdated(1);
+
+  VideoSourceRestrictions restrictions_before(
+      /*max_pixels_per_frame=*/640 * 360, /*target_pixels_per_frame=*/640 * 360,
+      /*max_frame_rate=*/30);
+  VideoSourceRestrictions restrictions_after(
+      /*max_pixels_per_frame=*/1280 * 720,
+      /*target_pixels_per_frame=*/1280 * 720, /*max_frame_rate=*/30);
+
+  EXPECT_TRUE(bitrate_constraint.IsAdaptationUpAllowed(
+      VideoStreamInputState(), restrictions_before, restrictions_after));
+}
+
 TEST(BitrateConstraintTest,
      AdaptUpAllowedAtSinglecastUpperLayerActiveIfBitrateIsEnough) {
   VideoCodec video_codec;
@@ -164,6 +191,93 @@ TEST(BitrateConstraintTest,
       /*target_pixels_per_frame=*/1280 * 720, /*max_frame_rate=*/30);
 
   EXPECT_FALSE(bitrate_constraint.IsAdaptationUpAllowed(
+      VideoStreamInputState(), restrictions_before, restrictions_after));
+}
+
+TEST(BitrateConstraintTest, AdaptUpAllowedIfBitrateIsEnough_DefaultLimits) {
+  VideoCodec video_codec;
+  VideoEncoderConfig encoder_config;
+  FillCodecConfig(&video_codec, &encoder_config,
+                  /*width_px=*/640, /*height_px=*/360,
+                  /*active_flags=*/{false, true});
+
+  EncoderSettings encoder_settings(VideoEncoder::EncoderInfo(),
+                                   std::move(encoder_config), video_codec);
+
+  const absl::optional<VideoEncoder::ResolutionBitrateLimits> kLimits540p =
+      EncoderInfoSettings::GetDefaultBitrateLimitsForResolution(960 * 540);
+
+  BitrateConstraint bitrate_constraint;
+  bitrate_constraint.OnEncoderSettingsUpdated(encoder_settings);
+  bitrate_constraint.OnEncoderTargetBitrateUpdated(
+      kLimits540p->min_start_bitrate_bps);
+
+  VideoSourceRestrictions restrictions_before(
+      /*max_pixels_per_frame=*/640 * 360, /*target_pixels_per_frame=*/640 * 360,
+      /*max_frame_rate=*/30);
+  VideoSourceRestrictions restrictions_after(
+      /*max_pixels_per_frame=*/960 * 540,
+      /*target_pixels_per_frame=*/960 * 540, /*max_frame_rate=*/30);
+
+  EXPECT_TRUE(bitrate_constraint.IsAdaptationUpAllowed(
+      VideoStreamInputState(), restrictions_before, restrictions_after));
+}
+
+TEST(BitrateConstraintTest,
+     AdaptUpDisallowedIfBitrateIsNotEnough_DefaultLimits) {
+  VideoCodec video_codec;
+  VideoEncoderConfig encoder_config;
+  FillCodecConfig(&video_codec, &encoder_config,
+                  /*width_px=*/640, /*height_px=*/360,
+                  /*active_flags=*/{false, true});
+
+  EncoderSettings encoder_settings(VideoEncoder::EncoderInfo(),
+                                   std::move(encoder_config), video_codec);
+
+  const absl::optional<VideoEncoder::ResolutionBitrateLimits> kLimits540p =
+      EncoderInfoSettings::GetDefaultBitrateLimitsForResolution(960 * 540);
+
+  BitrateConstraint bitrate_constraint;
+  bitrate_constraint.OnEncoderSettingsUpdated(encoder_settings);
+  bitrate_constraint.OnEncoderTargetBitrateUpdated(
+      kLimits540p->min_start_bitrate_bps - 1);
+
+  VideoSourceRestrictions restrictions_before(
+      /*max_pixels_per_frame=*/640 * 360, /*target_pixels_per_frame=*/640 * 360,
+      /*max_frame_rate=*/30);
+  VideoSourceRestrictions restrictions_after(
+      /*max_pixels_per_frame=*/960 * 540,
+      /*target_pixels_per_frame=*/960 * 540, /*max_frame_rate=*/30);
+
+  EXPECT_FALSE(bitrate_constraint.IsAdaptationUpAllowed(
+      VideoStreamInputState(), restrictions_before, restrictions_after));
+}
+
+TEST(BitrateConstraintTest,
+     AdaptUpAllowedIfBitrateIsNotEnough_DefaultLimitsDisabled) {
+  webrtc::test::ScopedFieldTrials field_trials(
+      "WebRTC-DefaultBitrateLimitsKillSwitch/Enabled/");
+  VideoCodec video_codec;
+  VideoEncoderConfig encoder_config;
+  FillCodecConfig(&video_codec, &encoder_config,
+                  /*width_px=*/640, /*height_px=*/360,
+                  /*active_flags=*/{false, true});
+
+  EncoderSettings encoder_settings(VideoEncoder::EncoderInfo(),
+                                   std::move(encoder_config), video_codec);
+
+  BitrateConstraint bitrate_constraint;
+  bitrate_constraint.OnEncoderSettingsUpdated(encoder_settings);
+  bitrate_constraint.OnEncoderTargetBitrateUpdated(1);
+
+  VideoSourceRestrictions restrictions_before(
+      /*max_pixels_per_frame=*/640 * 360, /*target_pixels_per_frame=*/640 * 360,
+      /*max_frame_rate=*/30);
+  VideoSourceRestrictions restrictions_after(
+      /*max_pixels_per_frame=*/960 * 540,
+      /*target_pixels_per_frame=*/960 * 540, /*max_frame_rate=*/30);
+
+  EXPECT_TRUE(bitrate_constraint.IsAdaptationUpAllowed(
       VideoStreamInputState(), restrictions_before, restrictions_after));
 }
 

@@ -16,6 +16,7 @@
 
 #include "api/sequence_checker.h"
 #include "call/adaptation/video_stream_adapter.h"
+#include "rtc_base/experiments/encoder_info_settings.h"
 #include "video/adaptation/video_stream_encoder_resource_manager.h"
 
 namespace webrtc {
@@ -72,6 +73,13 @@ bool BitrateConstraint::IsAdaptationUpAllowed(
             // Need some sort of expected resulting pixels to be used
             // instead of unrestricted.
             GetHigherResolutionThan(*current_frame_size_px));
+
+    if (!bitrate_limits.has_value() &&
+        encoder_settings_->encoder_config().simulcast_layers.size() > 1) {
+      bitrate_limits =
+          EncoderInfoSettings::GetDefaultBitrateLimitsForResolution(
+              GetHigherResolutionThan(*current_frame_size_px));
+    }
 
     if (bitrate_limits.has_value()) {
       RTC_DCHECK_GE(bitrate_limits->frame_size_pixels, *current_frame_size_px);

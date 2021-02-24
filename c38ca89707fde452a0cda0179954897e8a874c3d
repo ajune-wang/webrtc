@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53e55966_f9daeb2c",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-02-24T13:37:40Z",
+      "side": 1,
+      "message": "you shouldn\u0027t call a virtual function from the destructor\n(make a non-virtual variant of the SetActive)",
+      "revId": "c38ca89707fde452a0cda0179954897e8a874c3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c31b0b23_f394df09",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-02-24T13:37:40Z",
+      "side": 1,
+      "message": "would you find it neater to make the code more symmetic, something like:\nbool was_active \u003d rtp_streams_[i].rtp_rtcp-\u003eSendingMedia();\nbool should_be_active \u003d active_modules[i];\n\nif (was_active \u0026\u0026 !should_be_active) {\n  // this way it is more obvious it is disabling media.\n}\n...\nif (!was_active \u0026\u0026 should_be_active) {\n  // obviously turning on media, so may be no need for this extra comment.\n}",
+      "range": {
+        "startLine": 502,
+        "startChar": 0,
+        "endLine": 504,
+        "endChar": 0
+      },
+      "revId": "c38ca89707fde452a0cda0179954897e8a874c3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

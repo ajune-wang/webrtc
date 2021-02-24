@@ -67,6 +67,24 @@
       "message": "This should be fine.\nJust to check, are you seeing any elevated levels or repeating tasks? The process interval right now should be 500ms for the task queue pacer.\n\nIdeally I\u0027d like to improve the pacing controller and allow indefinite waits instead, sane that would be less fragile. It\u0027d require some work to figure out exactly in which situations we need keep-alive though.",
       "revId": "086bea6113f864e20f0280ef759d5d4bb0c69114",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "238f2577_4bef63c7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16458
+      },
+      "writtenOn": "2021-02-24T16:28:08Z",
+      "side": 1,
+      "message": "I added details in the CL description. TaskQueuePacedSender::MaybeProcessPackets() is repeatedly posting itself on |task_queue_| (in chromium this turns out to be the ThreadPool) every 500ms, whenever MaybeProcessPackets is called for the first time; in this case through SetPacingRates().\nI\u0027m not sure what \u0027elevated level\u0027 refers to?",
+      "parentUuid": "baa80519_a8c9e077",
+      "revId": "086bea6113f864e20f0280ef759d5d4bb0c69114",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

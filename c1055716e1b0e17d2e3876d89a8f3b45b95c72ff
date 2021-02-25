@@ -16,6 +16,46 @@
       "message": "Putting my keyboard where my mouth is.\n",
       "revId": "c1055716e1b0e17d2e3876d89a8f3b45b95c72ff",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0fcab542_7b1e9b09",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-02-25T21:22:06Z",
+      "side": 1,
+      "message": "thanks! lgtm",
+      "revId": "c1055716e1b0e17d2e3876d89a8f3b45b95c72ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d222c141_16e9c59f",
+        "filename": "api/proxy.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-02-25T21:22:06Z",
+      "side": 1,
+      "message": "nice!",
+      "range": {
+        "startLine": 20,
+        "startChar": 3,
+        "endLine": 20,
+        "endChar": 19
+      },
+      "revId": "c1055716e1b0e17d2e3876d89a8f3b45b95c72ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

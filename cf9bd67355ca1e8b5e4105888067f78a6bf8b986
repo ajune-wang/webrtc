@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ca9f8f4_63a8a739",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-02-25T09:11:37Z",
+      "side": 1,
+      "message": "I didn\u0027t mean to approve the CL myself, just wanted to start the review 😊",
+      "revId": "cf9bd67355ca1e8b5e4105888067f78a6bf8b986",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

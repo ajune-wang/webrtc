@@ -16,6 +16,40 @@
       "message": "PTAL. I verified that this is returning 37 for GCM as expected.",
       "revId": "4477fc1d3bec21e53f88c03aff67a0817b85a1f9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c692b24c_143bd313",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-02-25T19:10:01Z",
+      "side": 1,
+      "message": "lgtm with one suggestion",
+      "revId": "4477fc1d3bec21e53f88c03aff67a0817b85a1f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "009dabb9_98605138",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 909,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-02-25T19:10:01Z",
+      "side": 1,
+      "message": "RTC_DCHECK_LE(SSL_max_seal_overhead(ssl_), 37);\n\nThe printout will be more useful when it fails since you\u0027ll see the first value too.",
+      "revId": "4477fc1d3bec21e53f88c03aff67a0817b85a1f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

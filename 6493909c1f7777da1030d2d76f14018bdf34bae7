@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a93c4fee_a8357ea6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-02-25T14:06:11Z",
+      "side": 1,
+      "message": "Not for this CL, but...",
+      "revId": "6493909c1f7777da1030d2d76f14018bdf34bae7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c4de1a32_0e6d5535",
@@ -55,6 +72,30 @@
       "side": 1,
       "message": "It is actually the network thread in this proxy. There aren\u0027t proxy macros for the network thread and I\u0027m not sure which is better to introduce such macros or to rename the \u0027WORKER\u0027 macros to something like \"SECONDARY\".  In the proxy code there\u0027s actually no logic related to the roles that a signaling or worker thread play, they\u0027re just two separate pointers of the same type.",
       "parentUuid": "c4de1a32_0e6d5535",
+      "range": {
+        "startLine": 136,
+        "startChar": 0,
+        "endLine": 136,
+        "endChar": 53
+      },
+      "revId": "6493909c1f7777da1030d2d76f14018bdf34bae7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d32c15f_475c533b",
+        "filename": "api/peer_connection_proxy.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-02-25T14:06:11Z",
+      "side": 1,
+      "message": "I would definitely LGTM a CL that changed WORKER to SECONDARY in the macros. I have been confused by this naming before.",
+      "parentUuid": "e2157308_f6f85b06",
       "range": {
         "startLine": 136,
         "startChar": 0,

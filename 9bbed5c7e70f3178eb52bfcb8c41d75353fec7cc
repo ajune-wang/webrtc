@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3bcd58c1_7b4b7721",
+        "filename": "api/video/video_source_interface.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-02-25T08:43:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1041591a_b78230e3",
+      "range": {
+        "startLine": 23,
+        "startChar": 18,
+        "endLine": 23,
+        "endChar": 22
+      },
+      "revId": "9bbed5c7e70f3178eb52bfcb8c41d75353fec7cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "68e0d9a2_0fe2375a",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-02-25T08:23:12Z",
       "side": 1,
       "message": "I think google C++ style guide prefers (signed) int over the (unsigned) size_t for anything that doesn\u0027t need the well defined modulo arithmetic we get on overflow of unsigned types.",
+      "range": {
+        "startLine": 28,
+        "startChar": 2,
+        "endLine": 28,
+        "endChar": 8
+      },
+      "revId": "9bbed5c7e70f3178eb52bfcb8c41d75353fec7cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f09f3ad5_c42d11bb",
+        "filename": "api/video/video_source_interface.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-02-25T08:43:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68e0d9a2_0fe2375a",
       "range": {
         "startLine": 28,
         "startChar": 2,

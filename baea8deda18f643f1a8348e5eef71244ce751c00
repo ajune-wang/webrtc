@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0133eed9_17f62ae6",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1616,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-02-25T16:26:54Z",
+      "side": 1,
+      "message": "The source frame rate is unfortunately not the same thing as the number of frames sent.\n\nFor example, you could capture at 30 fps but because of bad bandwidth you end up dropping frames etc and end up sending at a lower fps.\n\nThe source\u0027s frames should be based on the same thing as the source\u0027s frame rate (but an accumulative counter instead of an FPS). So if we look at where framerate_input comes from, we eventually end up here in the code:\n\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/video/send_statistics_proxy.cc;l\u003d738;drc\u003d6531b4f2fda5515c3315e50d1cfb709e607d53e6;bpv\u003d1;bpt\u003d1\n\nSo if you were to add a counter that you +\u003d 1 at the same place that you add samples to the input frame rate tracker here:\n\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/video/send_statistics_proxy.cc;l\u003d1055;drc\u003d6531b4f2fda5515c3315e50d1cfb709e607d53e6;bpv\u003d1;bpt\u003d1\n\nThen you should end up with a total counter-equivalent of the rate. But you\u0027ll also have to plumb this value down through a few more layers of code, including webrtc_video_engine.cc etc, to get it to here.",
+      "revId": "baea8deda18f643f1a8348e5eef71244ce751c00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52abb126_ffb48e62",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1617,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-02-25T16:26:54Z",
+      "side": 1,
+      "message": "As a side-note, there is actually a bug with how we count the source frame rate and resolution because it is based on the source\u0027s frames after CPU/bandwidth adaptation which may downsample the frames - I just filed https://crbug.com/webrtc/12501. But we can ignore that issue here. For this CL, we just want \"frames\" and \"framesPerSecond\" to match.",
+      "revId": "baea8deda18f643f1a8348e5eef71244ce751c00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

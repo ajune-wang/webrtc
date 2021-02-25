@@ -12,6 +12,16 @@
 
 namespace rtc {
 
+VideoSinkWants::FrameSize::FrameSize(int width, int height)
+    : width(width), height(height) {}
+VideoSinkWants::FrameSize::FrameSize(const FrameSize&) = default;
+VideoSinkWants::FrameSize::~FrameSize() = default;
+
+bool operator==(const VideoSinkWants::FrameSize& a,
+                const VideoSinkWants::FrameSize& b) {
+  return a.width == b.width && a.height == b.height;
+}
+
 VideoSinkWants::VideoSinkWants() = default;
 VideoSinkWants::VideoSinkWants(const VideoSinkWants&) = default;
 VideoSinkWants::~VideoSinkWants() = default;

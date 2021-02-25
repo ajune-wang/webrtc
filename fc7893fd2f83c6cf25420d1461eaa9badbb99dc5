@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fdbc0f6_aa8e2916",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-25T09:02:47Z",
+      "side": 1,
+      "message": "api/video/ lgtm, with some optional nits.",
+      "revId": "fc7893fd2f83c6cf25420d1461eaa9badbb99dc5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78f44081_776a5b07",
+        "filename": "api/video/video_source_interface.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-25T09:02:47Z",
+      "side": 1,
+      "message": "Fine as is, but it would be ok to inline some or all of these, in particular the \u003d default ones.",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 1
+      },
+      "revId": "fc7893fd2f83c6cf25420d1461eaa9badbb99dc5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21e5d87e_90a39151",
+        "filename": "api/video/video_source_interface.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-25T09:02:47Z",
+      "side": 1,
+      "message": "I think everything expressed in the SinkWants is dealt with on a best-effort bases, it\u0027s intentionally SinkWants and not SinkRequirements.",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 80
+      },
+      "revId": "fc7893fd2f83c6cf25420d1461eaa9badbb99dc5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8319c8b_8f412483",
+        "filename": "api/video/video_source_interface.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-25T09:02:47Z",
+      "side": 1,
+      "message": "I think I\u0027d prefer to strike \"encoder_\" from the name, the sink is kind of abstract at this place, and doesn\u0027t have to be an encoder. And I think it reads quite nicely to use this field as sink_wants.resolutions. (Regardless, I think it\u0027s a good thing that you document the encoder usecase in the above comments).",
+      "range": {
+        "startLine": 81,
+        "startChar": 25,
+        "endLine": 81,
+        "endChar": 44
+      },
+      "revId": "fc7893fd2f83c6cf25420d1461eaa9badbb99dc5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

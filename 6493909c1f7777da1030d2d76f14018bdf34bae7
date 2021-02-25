@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75b19eb2_d84044f8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-25T08:53:06Z",
+      "side": 1,
+      "message": "Looks good, but I find the proxy change a bit confusing.",
+      "revId": "6493909c1f7777da1030d2d76f14018bdf34bae7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4de1a32_0e6d5535",
+        "filename": "api/peer_connection_proxy.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-25T08:53:06Z",
+      "side": 1,
+      "message": "Hi, I find the comment a bit confusing. Is WORKER in PROXY_WORKER_METHOD actually the network thread in this proxy? Or are you referring to an invoke done elsewhere?",
+      "range": {
+        "startLine": 136,
+        "startChar": 0,
+        "endLine": 136,
+        "endChar": 53
+      },
+      "revId": "6493909c1f7777da1030d2d76f14018bdf34bae7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

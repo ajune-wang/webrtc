@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "091bc3f0_df907ce5",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-02-25T19:46:25Z",
+      "side": 1,
+      "message": "There is an RTC_CHECK in the ValidateParams in test/pc/e2e/peer_configurer.cc. It checks values if input_dump_file_name/output_dump_file_name are set",
+      "parentUuid": "8d971655_0e30af5a",
+      "range": {
+        "startLine": 225,
+        "startChar": 33,
+        "endLine": 225,
+        "endChar": 65
+      },
+      "revId": "4cb6f091d36e5481baea7aea8f6dcede9d678409",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b0516d1c_6193f81e",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-02-25T14:49:07Z",
       "side": 1,
       "message": "I wonder if mixing unsigned and signed is a good idea here.\n\nSince sampling_modulo_ needs to be \u003e 0, should we also make it unsigned?",
+      "range": {
+        "startLine": 36,
+        "startChar": 8,
+        "endLine": 36,
+        "endChar": 44
+      },
+      "revId": "4cb6f091d36e5481baea7aea8f6dcede9d678409",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d99178ac_cdbd8a51",
+        "filename": "test/pc/e2e/analyzer/video/video_quality_analyzer_injection_helper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-02-25T19:46:25Z",
+      "side": 1,
+      "message": "Made them both signed to be on the safe side.",
+      "parentUuid": "b0516d1c_6193f81e",
       "range": {
         "startLine": 36,
         "startChar": 8,

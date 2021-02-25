@@ -104,6 +104,30 @@
       },
       "revId": "6493909c1f7777da1030d2d76f14018bdf34bae7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06a13dd4_58cbbc36",
+        "filename": "api/peer_connection_proxy.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-25T15:43:54Z",
+      "side": 1,
+      "message": "I see that there is a comment on that far above (round line 25). Moving closer to the use of the WORKER macros might be a good idea. Or renaming. Anyway, change LGTM.",
+      "parentUuid": "4d32c15f_475c533b",
+      "range": {
+        "startLine": 136,
+        "startChar": 0,
+        "endLine": 136,
+        "endChar": 53
+      },
+      "revId": "6493909c1f7777da1030d2d76f14018bdf34bae7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

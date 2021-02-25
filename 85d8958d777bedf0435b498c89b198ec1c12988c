@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af50c02a_17084294",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-02-25T09:24:38Z",
+      "side": 1,
+      "message": "LGTM with nits",
+      "revId": "85d8958d777bedf0435b498c89b198ec1c12988c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31876d9f_dda656d0",
+        "filename": "p2p/base/turn_port.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-02-25T09:24:38Z",
+      "side": 1,
+      "message": "nit: ... with the exception of 443 due to existing deployments.",
+      "revId": "85d8958d777bedf0435b498c89b198ec1c12988c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fab5f5a3_921b64d3",
+        "filename": "p2p/base/turn_port.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 961,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-02-25T09:24:38Z",
+      "side": 1,
+      "message": "nit: move to top (so it acts as a complete feature killswitch), then return port \u003d\u003d 443 || port \u003e\u003d 1024",
+      "revId": "85d8958d777bedf0435b498c89b198ec1c12988c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b5ea3ee_c31c4cdf",
+        "filename": "p2p/base/turn_port_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1824,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-02-25T09:24:38Z",
+      "side": 1,
+      "message": "add a test for 443? Can do later ;-)",
+      "revId": "85d8958d777bedf0435b498c89b198ec1c12988c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1059,8 +1059,9 @@ class RTCStatsReportVerifier {
     verifier.TestMemberIsUndefined(video_source.height);
     // TODO(hbos): When |frames| is implemented test that this member should be
     // expected to be non-negative.
-    verifier.TestMemberIsUndefined(video_source.frames);
+    verifier.TestMemberIsNonNegative<uint32_t>(video_source.frames);
     verifier.TestMemberIsNonNegative<uint32_t>(video_source.frames_per_second);
+    verifier.TestMemberIsNonNegative<uint32_t>(video_source.frames);
     return verifier.ExpectAllMembersSuccessfullyTested();
   }
 

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "393dd1a4_a822b640",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-02-25T11:37:06Z",
+      "side": 1,
+      "message": "Disagre on one style point, addressed all other concerns.\nThanks for the review!\n",
+      "revId": "0a4ad70a1ab9c0a03dd4388fb6e26702eecac135",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

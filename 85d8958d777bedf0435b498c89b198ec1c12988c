@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "91a7d52e_7e7c9cb2",
+        "filename": "p2p/base/turn_port.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-02-25T11:37:06Z",
+      "side": 1,
+      "message": "Moved all commentary on explicit port numbers to the AllowedTurnPort function.",
+      "parentUuid": "31876d9f_dda656d0",
+      "revId": "85d8958d777bedf0435b498c89b198ec1c12988c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fab5f5a3_921b64d3",
@@ -54,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ab30c26a_345a1b75",
+        "filename": "p2p/base/turn_port.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 961,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-02-25T11:37:06Z",
+      "side": 1,
+      "message": "Actually disagree, we shouldn\u0027t put complicating logic in what we assume is the normal path when we can put it in the exception path. (normal path is 443 or \u003e1024)",
+      "parentUuid": "fab5f5a3_921b64d3",
+      "revId": "85d8958d777bedf0435b498c89b198ec1c12988c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7b5ea3ee_c31c4cdf",
         "filename": "p2p/base/turn_port_unittest.cc",
         "patchSetId": 5
@@ -65,6 +101,24 @@
       "writtenOn": "2021-02-25T09:24:38Z",
       "side": 1,
       "message": "add a test for 443? Can do later ;-)",
+      "revId": "85d8958d777bedf0435b498c89b198ec1c12988c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61a23d3f_e731c87d",
+        "filename": "p2p/base/turn_port_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1824,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-02-25T11:37:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b5ea3ee_c31c4cdf",
       "revId": "85d8958d777bedf0435b498c89b198ec1c12988c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

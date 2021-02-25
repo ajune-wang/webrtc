@@ -22,6 +22,7 @@
 #include "modules/rtp_rtcp/include/rtp_header_extension_map.h"
 #include "modules/rtp_rtcp/include/rtp_packet_sender.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
+#include "modules/rtp_rtcp/source/packet_sequencer.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/transport_feedback.h"
 #include "modules/rtp_rtcp/source/rtp_format_video_generic.h"
 #include "modules/rtp_rtcp/source/rtp_generic_frame_descriptor.h"
@@ -249,6 +250,12 @@ struct RtpSenderContext : public SequenceNumberAssigner {
                    TimeController* time_controller)
       : time_controller_(time_controller),
         packet_history_(config.clock, config.enable_rtx_padding_prioritization),
+        sequencer_(config.local_media_ssrc,
+                   config.rtx_send_ssrc,
+                   config.fec_generator ? config.fec_generator->FecSsrc()
+                                        : absl::nullopt,
+                   !config.audio,
+                   config.clock),
         packet_sender_(config, &packet_history_),
         pacer_(time_controller,
                std::make_unique<RtpSenderEgress::NonPacedPacketSender>(
@@ -256,8 +263,8 @@ struct RtpSenderContext : public SequenceNumberAssigner {
                    this)),
         packet_generator_(config,
                           &packet_history_,
-                          config.paced_sender ? config.paced_sender : &pacer_) {
-  }
+                          config.paced_sender ? config.paced_sender : &pacer_,
+                          &sequencer_) {}
   void AssignSequenceNumber(RtpPacketToSend* packet) override {
     packet_generator_.AssignSequenceNumber(packet);
   }
@@ -274,6 +281,7 @@ struct RtpSenderContext : public SequenceNumberAssigner {
   }
   TimeController* time_controller_;
   RtpPacketHistory packet_history_;
+  PacketSequencer sequencer_;
   RtpSenderEgress packet_sender_;
   TaskQueuePacketSender pacer_;
   RTPSender packet_generator_;
@@ -424,10 +432,17 @@ class RtpSenderTest : public ::testing::TestWithParam<TestConfig> {
                           rtp_sender()->ExpectedPerPacketOverhead());
   }
 
+  std::vector<std::unique_ptr<RtpPacketToSend>> GeneratePadding(
+      size_t target_size_bytes) {
+    return rtp_sender()->GeneratePadding(
+        target_size_bytes, true, [seq = &rtp_sender_context_->sequencer_]() {
+          return seq->CanSendPaddingOnMediaSsrc();
+        });
+  }
+
   size_t GenerateAndSendPadding(size_t target_size_bytes) {
     size_t generated_bytes = 0;
-    for (auto& packet :
-         rtp_sender()->GeneratePadding(target_size_bytes, true)) {
+    for (auto& packet : GeneratePadding(target_size_bytes)) {
       generated_bytes += packet->payload_size() + packet->padding_size();
       rtp_sender_context_->InjectPacket(std::move(packet), PacedPacketInfo());
     }
@@ -535,16 +550,16 @@ TEST_P(RtpSenderTestWithoutPacer, AssignSequenceNumberMayAllowPaddingOnVideo) {
   auto packet = rtp_sender()->AllocatePacket();
   ASSERT_TRUE(packet);
 
-  ASSERT_TRUE(rtp_sender()->GeneratePadding(kPaddingSize, true).empty());
+  ASSERT_TRUE(GeneratePadding(kPaddingSize).empty());
   packet->SetMarker(false);
   ASSERT_TRUE(rtp_sender()->AssignSequenceNumber(packet.get()));
   // Packet without marker bit doesn't allow padding on video stream.
-  ASSERT_TRUE(rtp_sender()->GeneratePadding(kPaddingSize, true).empty());
+  ASSERT_TRUE(GeneratePadding(kPaddingSize).empty());
 
   packet->SetMarker(true);
   ASSERT_TRUE(rtp_sender()->AssignSequenceNumber(packet.get()));
   // Packet with marker bit allows send padding.
-  ASSERT_FALSE(rtp_sender()->GeneratePadding(kPaddingSize, true).empty());
+  ASSERT_FALSE(GeneratePadding(kPaddingSize).empty());
 }
 
 TEST_P(RtpSenderTest, AssignSequenceNumberAllowsPaddingOnAudio) {
@@ -589,7 +604,7 @@ TEST_P(RtpSenderTestWithoutPacer, AssignSequenceNumberSetPaddingTimestamps) {
   packet->SetTimestamp(kTimestamp);
 
   ASSERT_TRUE(rtp_sender()->AssignSequenceNumber(packet.get()));
-  auto padding_packets = rtp_sender()->GeneratePadding(kPaddingSize, true);
+  auto padding_packets = GeneratePadding(kPaddingSize);
 
   ASSERT_EQ(1u, padding_packets.size());
   // Verify padding packet timestamp.
@@ -2406,7 +2421,7 @@ TEST_P(RtpSenderTest, GeneratedPaddingHasBweExtensions) {
 
   // Generate a plain padding packet, check that extensions are registered.
   std::vector<std::unique_ptr<RtpPacketToSend>> generated_packets =
-      rtp_sender()->GeneratePadding(/*target_size_bytes=*/1, true);
+      GeneratePadding(/*target_size_bytes=*/1);
   ASSERT_THAT(generated_packets, SizeIs(1));
   auto& plain_padding = generated_packets.front();
   EXPECT_GT(plain_padding->padding_size(), 0u);
@@ -2428,7 +2443,7 @@ TEST_P(RtpSenderTest, GeneratedPaddingHasBweExtensions) {
   EXPECT_TRUE(rtp_header.extension.hasTransportSequenceNumber);
 
   // Generate a payload padding packets, check that extensions are registered.
-  generated_packets = rtp_sender()->GeneratePadding(kMinPaddingSize, true);
+  generated_packets = GeneratePadding(kMinPaddingSize);
   ASSERT_EQ(generated_packets.size(), 1u);
   auto& payload_padding = generated_packets.front();
   EXPECT_EQ(payload_padding->padding_size(), 0u);
@@ -2475,7 +2490,7 @@ TEST_P(RtpSenderTest, GeneratePaddingResendsOldPacketsWithRtx) {
   // Generated padding has large enough budget that the video packet should be
   // retransmitted as padding.
   std::vector<std::unique_ptr<RtpPacketToSend>> generated_packets =
-      rtp_sender()->GeneratePadding(kMinPaddingSize, true);
+      GeneratePadding(kMinPaddingSize);
   ASSERT_EQ(generated_packets.size(), 1u);
   auto& padding_packet = generated_packets.front();
   EXPECT_EQ(padding_packet->packet_type(), RtpPacketMediaType::kPadding);
@@ -2487,8 +2502,7 @@ TEST_P(RtpSenderTest, GeneratePaddingResendsOldPacketsWithRtx) {
   const size_t kPaddingBytesRequested = kMinPaddingSize - 1;
 
   size_t padding_bytes_generated = 0;
-  generated_packets =
-      rtp_sender()->GeneratePadding(kPaddingBytesRequested, true);
+  generated_packets = GeneratePadding(kPaddingBytesRequested);
   EXPECT_EQ(generated_packets.size(), 1u);
   for (auto& packet : generated_packets) {
     EXPECT_EQ(packet->packet_type(), RtpPacketMediaType::kPadding);
@@ -2532,14 +2546,14 @@ TEST_P(RtpSenderTest, LimitsPayloadPaddingSize) {
   // Generated padding has large enough budget that the video packet should be
   // retransmitted as padding.
   EXPECT_THAT(
-      rtp_sender()->GeneratePadding(kMinTargerSizeForPayload, true),
+      GeneratePadding(kMinTargerSizeForPayload),
       AllOf(Not(IsEmpty()),
             Each(Pointee(Property(&RtpPacketToSend::padding_size, Eq(0u))))));
 
   // If payload padding is > 2x requested size, plain padding is returned
   // instead.
   EXPECT_THAT(
-      rtp_sender()->GeneratePadding(kMinTargerSizeForPayload - 1, true),
+      GeneratePadding(kMinTargerSizeForPayload - 1),
       AllOf(Not(IsEmpty()),
             Each(Pointee(Property(&RtpPacketToSend::padding_size, Gt(0u))))));
 }
@@ -2575,7 +2589,7 @@ TEST_P(RtpSenderTest, GeneratePaddingCreatesPurePaddingWithoutRtx) {
       (kPaddingBytesRequested + kMaxPaddingSize - 1) / kMaxPaddingSize;
   size_t padding_bytes_generated = 0;
   std::vector<std::unique_ptr<RtpPacketToSend>> padding_packets =
-      rtp_sender()->GeneratePadding(kPaddingBytesRequested, true);
+      GeneratePadding(kPaddingBytesRequested);
   EXPECT_EQ(padding_packets.size(), kExpectedNumPaddingPackets);
   for (auto& packet : padding_packets) {
     EXPECT_EQ(packet->packet_type(), RtpPacketMediaType::kPadding);

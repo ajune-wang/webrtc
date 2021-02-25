@@ -178,7 +178,8 @@ RTPSenderVideo::RTPSenderVideo(const Config& config)
               : nullptr),
       include_capture_clock_offset_(absl::StartsWith(
           config.field_trials->Lookup(kIncludeCaptureClockOffset),
-          "Enabled")) {
+          "Enabled")),
+      deferred_sequencing_(config.use_deferred_sequencing) {
   if (frame_transformer_delegate_)
     frame_transformer_delegate_->Init();
 }
@@ -689,7 +690,8 @@ bool RTPSenderVideo::SendVideo(
     }
   }
 
-  if (!rtp_sender_->AssignSequenceNumbersAndStoreLastPacketState(rtp_packets)) {
+  if (!deferred_sequencing_ &&
+      !rtp_sender_->AssignSequenceNumbersAndStoreLastPacketState(rtp_packets)) {
     // Media not being sent.
     return false;
   }

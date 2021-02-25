@@ -82,6 +82,7 @@ class RTPSenderVideo {
     const WebRtcKeyValueConfig* field_trials = nullptr;
     rtc::scoped_refptr<FrameTransformerInterface> frame_transformer;
     TaskQueueBase* send_transport_queue = nullptr;
+    bool use_deferred_sequencing = false;
   };
 
   explicit RTPSenderVideo(const Config& config);
@@ -252,6 +253,8 @@ class RTPSenderVideo {
       frame_transformer_delegate_;
 
   const bool include_capture_clock_offset_;
+
+  const bool deferred_sequencing_;
 };
 
 }  // namespace webrtc

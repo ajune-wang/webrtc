@@ -16,6 +16,24 @@
       "message": "that assumes you have a channel. The conservative estimate would be to assume assume a send indication which is length-of-xor(?)-peer-address plus two bytes for the port plus a byte for the family? OTOH SCTP packets should only be sent after a valid pair is established which is when chrome create a turn channeldata binding so this might be fine 99.9999999% of the time.\n\nIdeally this would update for the actual overhead similar to how AudioEncoderOpusImpl::OnReceivedOverhead  works. But that is probably overkill",
       "revId": "cc3bed031c0169064e9030d9354aaee2f0ba6993",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "907f9827_2490f41e",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-02-25T00:33:14Z",
+      "side": 1,
+      "message": "\u003e that assumes you have a channel.\n\nTrue, though as you say, 99% of the time the channel should be established by the time the SCTP handshake is done. And if it\u0027s not, a packet will end up retransmitted, but that\u0027s not the end of the world.\n\n\u003e Ideally this would update for the actual overhead similar to how AudioEncoderOpusImpl::OnReceivedOverhead  works. But that is probably overkill\n\nI wouldn\u0027t say overkill, though currently NetworkRoute doesn\u0027t seem to account for TURN or DTLS overhead (ignoring DTLS makes sense since it doesn\u0027t apply to RTP, not sure why it\u0027s ignoring TURN). So that would need a little more work.",
+      "parentUuid": "296140c8_4f4b15ba",
+      "revId": "cc3bed031c0169064e9030d9354aaee2f0ba6993",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

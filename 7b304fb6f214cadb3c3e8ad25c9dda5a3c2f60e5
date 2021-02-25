@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "605a1191_006c4de8",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 1137,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-02-25T09:27:40Z",
+      "side": 1,
+      "message": "Should this also be updated? It is passed to resource manager in L1181:\nstream_resource_manager_.ConfigureQualityScaler(info)",
+      "range": {
+        "startLine": 1137,
+        "startChar": 28,
+        "endLine": 1137,
+        "endChar": 32
+      },
+      "revId": "7b304fb6f214cadb3c3e8ad25c9dda5a3c2f60e5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

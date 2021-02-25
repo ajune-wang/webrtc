@@ -572,7 +572,7 @@ DataRate AverageBitrateAfterCrossInducedLoss(std::string name) {
 }
 
 TEST_F(GoogCcNetworkControllerTest,
-       LossBasedRecoversFasterAfterCrossInducedLoss) {
+       DISABLED_LossBasedRecoversFasterAfterCrossInducedLoss) {
   // This test acts as a reference for the test below, showing that without the
   // trial, we have worse behavior.
   DataRate average_bitrate_without_loss_based =

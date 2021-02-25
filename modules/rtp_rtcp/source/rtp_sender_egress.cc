@@ -101,6 +101,7 @@ RtpSenderEgress::RtpSenderEgress(const RtpRtcpInterface::Configuration& config,
       is_audio_(config.audio),
 #endif
       need_rtp_packet_infos_(config.need_rtp_packet_infos),
+      last_packet_marker_(false),
       fec_generator_(config.fec_generator),
       transport_feedback_observer_(config.transport_feedback_callback),
       send_side_delay_observer_(config.send_side_delay_observer),
@@ -233,6 +234,9 @@ void RtpSenderEgress::SendPacket(RtpPacketToSend* packet,
 
   const bool is_media = packet->packet_type() == RtpPacketMediaType::kAudio ||
                         packet->packet_type() == RtpPacketMediaType::kVideo;
+  if (is_media) {
+    last_packet_marker_ = packet->Marker();
+  }
 
   PacketOptions options;
   {
@@ -376,6 +380,11 @@ std::vector<std::unique_ptr<RtpPacketToSend>>
 RtpSenderEgress::FetchFecPackets() {
   RTC_DCHECK_RUN_ON(&pacer_checker_);
   if (fec_generator_) {
+    if (fec_generator_->GetFecType() == VideoFecGenerator::FecType::kUlpFec &&
+        !last_packet_marker_) {
+      // Don't send FEC in the middle of frame, postpone polling.
+      return {};
+    }
     return fec_generator_->GetFecPackets();
   }
   return {};

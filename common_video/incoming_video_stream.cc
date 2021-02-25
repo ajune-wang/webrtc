@@ -16,6 +16,8 @@
 #include "absl/types/optional.h"
 #include "common_video/video_render_frames.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
+#include "rtc_base/time_utils.h"
 #include "rtc_base/trace_event.h"
 
 namespace webrtc {
@@ -38,6 +40,7 @@ void IncomingVideoStream::OnFrame(const VideoFrame& video_frame) {
   TRACE_EVENT0("webrtc", "IncomingVideoStream::OnFrame");
   RTC_CHECK_RUNS_SERIALIZED(&decoder_race_checker_);
   RTC_DCHECK(!incoming_render_queue_.IsCurrent());
+  RTC_LOG(WARNING) << "BBXTS " << video_frame.timestamp_us() << " " << rtc::TimeMicros() << " IncomingVideoStream::OnFrame " << video_frame.ntp_time_ms();
   // TODO(srte): Using video_frame = std::move(video_frame) would move the frame
   // into the lambda instead of copying it, but it doesn't work unless we change
   // OnFrame to take its frame argument by value instead of const reference.

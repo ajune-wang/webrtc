@@ -44,6 +44,7 @@
 #include "rtc_base/strings/string_builder.h"
 #include "rtc_base/system/no_unique_address.h"
 #include "rtc_base/thread_annotations.h"
+#include "rtc_base/time_utils.h"
 #include "rtc_base/trace_event.h"
 #include "system_wrappers/include/field_trial.h"
 #include "video/adaptation/video_stream_encoder_resource_manager.h"
@@ -1182,8 +1183,10 @@ void VideoStreamEncoder::OnFrame(const VideoFrame& video_frame) {
   // the timestamp may be set to the future. As the encoding pipeline assumes
   // capture time to be less than present time, we should reset the capture
   // timestamps here. Otherwise there may be issues with RTP send stream.
-  if (incoming_frame.timestamp_us() > now.us())
+  if (incoming_frame.timestamp_us() > now.us()) {
+    RTC_LOG(WARNING) << "BBXTS " << video_frame.timestamp_us() << " " << rtc::TimeMicros() << " VideoStreamEncoder::OnFrame_timestamp_us_adj " << now.us();
     incoming_frame.set_timestamp_us(now.us());
+  }
 
   // Capture time may come from clock with an offset and drift from clock_.
   int64_t capture_ntp_time_ms;
@@ -1195,6 +1198,7 @@ void VideoStreamEncoder::OnFrame(const VideoFrame& video_frame) {
     capture_ntp_time_ms = now.ms() + delta_ntp_internal_ms_;
   }
   incoming_frame.set_ntp_time_ms(capture_ntp_time_ms);
+  RTC_LOG(WARNING) << "BBXTS " << incoming_frame.timestamp_us() << " " << rtc::TimeMicros() << " VideoStreamEncoder::OnFrame_set_ntp_time_ms " << capture_ntp_time_ms;
 
   // Convert NTP time, in ms, to RTP timestamp.
   const int kMsToRtpTimestamp = 90;
@@ -1207,6 +1211,7 @@ void VideoStreamEncoder::OnFrame(const VideoFrame& video_frame) {
                         << incoming_frame.ntp_time_ms()
                         << " <= " << last_captured_timestamp_
                         << ") for incoming frame. Dropping.";
+    RTC_LOG(WARNING) << "BBXTS " << incoming_frame.timestamp_us() << " " << rtc::TimeMicros() << " VideoStreamEncoder::OnFrame_drop_old";
     encoder_queue_.PostTask([this, incoming_frame]() {
       RTC_DCHECK_RUN_ON(&encoder_queue_);
       accumulated_update_rect_.Union(incoming_frame.update_rect());
@@ -1242,6 +1247,7 @@ void VideoStreamEncoder::OnFrame(const VideoFrame& video_frame) {
         if (posted_frames_waiting_for_encode == 1 && !cwnd_frame_drop) {
           MaybeEncodeVideoFrame(incoming_frame, post_time_us);
         } else {
+          RTC_LOG(WARNING) << "BBXTS " << incoming_frame.timestamp_us() << " " << rtc::TimeMicros() << " VideoStreamEncoder::OnFrame_drop_conenc";
           if (cwnd_frame_drop) {
             // Frame drop by congestion window pusback. Do not encode this
             // frame.
@@ -1536,6 +1542,7 @@ void VideoStreamEncoder::MaybeEncodeVideoFrame(const VideoFrame& video_frame,
                 ? last_encoder_rate_settings_->encoder_target.bps()
                 : 0)
         << ", input frame rate " << framerate_fps;
+    RTC_LOG(WARNING) << "BBXTS " << video_frame.timestamp_us() << " " << rtc::TimeMicros() << " VideoStreamEncoder::MaybeEncodeVideoFrame_drop";
     OnDroppedFrame(
         EncodedImageCallback::DropReason::kDroppedByMediaOptimizations);
     accumulated_update_rect_.Union(video_frame.update_rect());
@@ -1685,6 +1692,7 @@ void VideoStreamEncoder::EncodeVideoFrame(const VideoFrame& video_frame,
   TRACE_EVENT_ASYNC_STEP0("webrtc", "Video", video_frame.render_time_ms(),
                           "Encode");
 
+  RTC_LOG(WARNING) << "BBXTS " << video_frame.timestamp_us() << " " << rtc::TimeMicros() << " VideoStreamEncoder::EncodeVideoFrame_start";
   stream_resource_manager_.OnEncodeStarted(out_frame, time_when_posted_us);
 
   RTC_DCHECK_LE(send_codec_.width, out_frame.width());
@@ -2108,6 +2116,7 @@ void VideoStreamEncoder::RunPostEncode(const EncodedImage& encoded_image,
 
   RTC_DCHECK_RUN_ON(&encoder_queue_);
 
+  RTC_LOG(WARNING) << "BBXTS " << encoded_image.NtpTimeMs() << " " << rtc::TimeMicros() << " VideoStreamEncoder::RunPostEncode";
   absl::optional<int> encode_duration_us;
   if (encoded_image.timing_.flags != VideoSendTiming::kInvalid) {
     encode_duration_us =

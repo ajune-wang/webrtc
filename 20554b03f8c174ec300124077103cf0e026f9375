@@ -16,6 +16,24 @@
       "message": "I have taken a look at peer_connection_dependency_factory.cc.\nThe portrange is in this implementation the following way:\n-\u003e Starts with \"CreatePeerConnectionFactory()\"\n   \"\u0026PeerConnectionDependencyFactory::InitializeSignalingThread, \"\n-\u003e Initialise the \"webrtc::PeerCoinnectionFactoryDependencies pcf_deps\"\n   and \"cricket::MediaEngineDependencies media_deps \"\n-\u003e \"pc_factory_ \u003d webrtc::CreateModularPeerConnectionFactory(std::move(pcf_deps)\"\n   the \"PeerConnectionFactoryInterface::Options factory_options\" parameters are\n   defined and are setting with \"pc_factory_-\u003eSetOptions(factory_options)\"\n\n--the \"CreateModularPeerConnectionFactory\" is used from the browser and nativeclient\n  in both environments the dependencies are set as transfer parameter\n\n-\u003ein the browser used:\nPeerConnectionDependencyFactory::CreatePeerConnection(\n    const webrtc::PeerConnectionInterface::RTCConfiguration\u0026 config,\n    blink::WebLocalFrame* web_frame,\n    webrtc::PeerConnectionObserver* observer,\n    ExceptionState\u0026 exception_state) {\n\n  dependencies.allocator \u003d CreatePortAllocator(web_frame);\n\n  dependencies.async_resolver_factory \u003d CreateAsyncResolverFactory();\n  auto pc_or_error \u003d GetPcFactory()-\u003eCreatePeerConnectionOrError(\n      config, std::move(dependencies));\n---\nPeerConnectionDependencyFactory::CreatePortAllocator(\n  uint16_t min_port \u003d 0;\n  uint16_t max_port \u003d 0;\n\n       Platform::Current()-\u003eGetWebRTCRendererPreferences(\n          web_frame, \u0026webrtc_ip_handling_policy, \u0026min_port, \u0026max_port,\n          \u0026allow_mdns_obfuscation);\n\n  if (IsValidPortRange(min_port, max_port))\n    port_allocator-\u003eSetPortRange(min_port, max_port);\n\n\n-\u003ein nativeclient used:\nRTCErrorOr\u003crtc::scoped_refptr\u003cPeerConnectionInterface\u003e\u003e\nPeerConnectionFactoryInterface::CreatePeerConnectionOrError(\n    const PeerConnectionInterface::RTCConfiguration\u0026 configuration,\n    PeerConnectionDependencies dependencies) {\n  return RTCError(RTCErrorType::INTERNAL_ERROR);\n}\n  if (!dependencies.allocator) {\n    rtc::PacketSocketFactory* packet_socket_factory;\n    if (dependencies.packet_socket_factory)\n      packet_socket_factory \u003d dependencies.packet_socket_factory.get();\n    else\n      packet_socket_factory \u003d context_-\u003edefault_socket_factory();\n\n    dependencies.allocator \u003d std::make_unique\u003ccricket::BasicPortAllocator\u003e(\n        context_-\u003edefault_network_manager(), packet_socket_factory,\n        configuration.turn_customizer);\n  }\n--\u003e at that point of initalisation of the allocator is defined and the portrange\n    can be set.\n\n  // the setting of the portrange must be done from\n  //  the networkthread / ThreadCheck\n  if (options_.max_port \u0026\u0026 (options_.min_port \u003c\u003d options_.max_port)) {\n    bool result \u003d false;\n    cricket::PortAllocator* pa \u003d dependencies.allocator.get();\n    int minport \u003d options_.min_port;\n    int maxport \u003d options_.max_port;\n\n    result \u003d network_thread()-\u003eInvoke\u003cbool\u003e(\n        RTC_FROM_HERE,\n        [pa, minport, maxport] { return pa-\u003eSetPortRange(minport, maxport); });\n    if (!result) {\n      RTC_LOG(LS_WARNING) \u003c\u003c \"the setting of minport/maxport failed\";\n    }\n  }\n\nFazit:\n I see no way to have the same mechanisms to set the portrange in the browser \n and nativeclient implementation, because the setting of the min/max_port values\n over the \"GetWebRTCRendererPreferences\" are unknown in the nativeclient.",
       "revId": "20554b03f8c174ec300124077103cf0e026f9375",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2d03f66_4aa1d08e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-02-26T21:09:48Z",
+      "side": 1,
+      "message": "In the native client you just provide your own port allocator which is ~5 LOC. Can\u0027t share unfortunately ;-)",
+      "parentUuid": "45239eca_ad4133a5",
+      "revId": "20554b03f8c174ec300124077103cf0e026f9375",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

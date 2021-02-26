@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2bdb6990_5da4768c",
+        "filename": "video/adaptation/bitrate_constraint_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-02-26T16:34:42Z",
+      "side": 1,
+      "message": "move to anonymous namespace?",
+      "range": {
+        "startLine": 87,
+        "startChar": 2,
+        "endLine": 92,
+        "endChar": 61
+      },
+      "revId": "4a38fa0aa285fe8173d6d8d09d56d529c1ee4d39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f854962_23865433",
+        "filename": "video/adaptation/bitrate_constraint_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-02-26T16:34:42Z",
+      "side": 1,
+      "message": "No difference between before and after restrictions here. Expected?",
+      "range": {
+        "startLine": 185,
+        "startChar": 34,
+        "endLine": 185,
+        "endChar": 55
+      },
+      "revId": "4a38fa0aa285fe8173d6d8d09d56d529c1ee4d39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

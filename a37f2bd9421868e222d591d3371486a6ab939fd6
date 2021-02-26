@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4fcdb1d_35045361",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-02-26T07:26:28Z",
+      "side": 1,
+      "message": "I don\u0027t understand why this was OK on presubmit and failed on postsubmit.\n\nPresubmit:\n[89/221] CXX obj/pc/peerconnection/peer_connection_factory.o\n\nPostsubmit:\n\nFAILED: obj/pc/peerconnection/peer_connection_factory.o \n/b/s/w/ir/cache/goma/client/gomacc ../../third_party/llvm-build/Release+Asserts/bin/clang++ -MMD -MF obj/pc/peerconnection/peer_connection_factory.o.d -DUSE_UDEV -DUSE_AURA\u003d1 -DUSE_GLIB\u003d1 -DUSE_NSS_CERTS\u003d1 -DUSE_OZONE\u003d1 -DUSE_X11\u003d1 -D_FILE_OFFSET_BITS\u003d64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_GNU_SOURCE -DCR_CLANG_REVISION\u003d\\\"llvmorg-13-init-1559-g01b87444-1\\\" -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D_LIBCPP_ABI_UNSTABLE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_ENABLE_NODISCARD -D_LIBCPP_HAS_NO_VENDOR_AVAILABILITY_ANNOTATIONS -D_LIBCPP_DEBUG\u003d0 -DCR_LIBCXX_REVISION\u003d8fa87946779682841e21e2da977eccfb6cb3bded -DCR_SYSROOT_HASH\u003d92dd6b554df680bd27110d06ae3fc21fa5fd6588 -D_DEBUG -DDYNAMIC_ANNOTATIONS_ENABLED\u003d1 -DWEBRTC_ENABLE_PROTOBUF\u003d1 -DWEBRTC_INCLUDE_INTERNAL_AUDIO_DEVICE -DRTC_ENABLE_VP9 -DWEBRTC_HAVE_SCTP -DWEBRTC_USE_H264 -DWEBRTC_LIBRARY_IMPL -DWEBRTC_ENABLE_AVX2 -DWEBRTC_NON_STATIC_TRACE_EVENT_HANDLERS\u003d1 -DWEBRTC_POSIX -DWEBRTC_LINUX -DABSL_ALLOCATOR_NOTHROW\u003d1 -DWEBRTC_HAVE_SCTP -I../.. -Igen -I../../third_party/abseil-cpp -I../../third_party/libyuv/include -fno-delete-null-pointer-checks -fno-strict-aliasing --param\u003dssp-buffer-size\u003d4 -fstack-protector -funwind-tables -fPIC -pthread -fcolor-diagnostics -fmerge-all-constants -fcrash-diagnostics-dir\u003d../../tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare\u003d0 -Xclang -fno-experimental-new-pass-manager -fcomplete-member-pointers -m64 -march\u003dx86-64 -msse3 -Wno-builtin-macro-redefined -D__DATE__\u003d -D__TIME__\u003d -D__TIMESTAMP__\u003d -Xclang -fdebug-compilation-dir -Xclang . -no-canonical-prefixes -Wall -Werror -Wextra -Wimplicit-fallthrough -Wunreachable-code -Wthread-safety -Wextra-semi -Wno-missing-field-initializers -Wno-unused-parameter -Wno-c++11-narrowing -Wno-unneeded-internal-declaration -Wno-undefined-var-template -Wno-psabi -Wno-ignored-pragma-optimize -Wno-implicit-int-float-conversion -Wno-final-dtor-non-final-class -Wno-builtin-assume-aligned-alignment -Wno-deprecated-copy -Wno-non-c-typedef-for-linkage -Wmax-tokens -O0 -fno-omit-frame-pointer -g2 -Xclang -debug-info-kind\u003dconstructor -gsplit-dwarf -ggnu-pubnames -ftrivial-auto-var-init\u003dpattern -fvisibility\u003dhidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Wexit-time-destructors -Wglobal-constructors -Wc++11-narrowing -Wimplicit-fallthrough -Wthread-safety -Winconsistent-missing-override -Wundef -Wunused-lambda-capture -Wno-shorten-64-to-32 -Wno-undefined-bool-conversion -Wno-tautological-undefined-compare -std\u003dc++14 -fno-trigraphs -Wno-trigraphs -fno-exceptions -fno-rtti -nostdinc++ -isystem../../buildtools/third_party/libc++/trunk/include -isystem../../buildtools/third_party/libc++abi/trunk/include --sysroot\u003d../../build/linux/debian_sid_amd64-sysroot -fvisibility-inlines-hidden -Wnon-virtual-dtor -Woverloaded-virtual -c ../../pc/peer_connection_factory.cc -o obj/pc/peerconnection/peer_connection_factory.o\nIn file included from ../../pc/peer_connection_factory.cc:26:\n../../api/peer_connection_proxy.h:139:22: error: unknown type name \u0027LookupDtlsTransportByMid\u0027\n                     LookupDtlsTransportByMid,\n                     ^\n../../api/peer_connection_proxy.h:138:1: error: C++ requires a type specifier for all declarations\nPROXY_WORKER_METHOD1(rtc::scoped_refptr\u003cDtlsTransportInterface\u003e,\n^\n../../api/peer_connection_proxy.h:140:41: error: expected \u0027;\u0027 at end of declaration list\n                     const std::string\u0026)",
+      "revId": "a37f2bd9421868e222d591d3371486a6ab939fd6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -122,4 +122,21 @@ const size_t kConferenceDefaultNumTemporalLayers = 3;
 // RFC 3556 and RFC 3890
 const char kApplicationSpecificBandwidth[] = "AS";
 const char kTransportSpecificBandwidth[] = "TIAS";
+
+// QP is obtained from VP8-bitstream for HW, so the QP corresponds to the
+// bitstream range of [0, 127] and not the user-level range of [0,63].
+const int kLowVp8QpThreshold = 29;
+const int kHighVp8QpThreshold = 95;
+
+// TODO(ilink): Tune these thresholds further.
+// Selected using ConverenceMotion_1280_720_50.yuv clip.
+// No toggling observed on any link capacity from 100-2000kbps.
+// HD was reached consistently when link capacity was 1500kbps.
+// Set resolutions are a bit more conservative than svc_config.cc sets, e.g.
+// for 300kbps resolution converged to 270p instead of 360p.
+const int kLowVp9QpThreshold = 149;
+const int kHighVp9QpThreshold = 205;
+
+const int kLowH264QpThreshold = 24;
+const int kHighH264QpThreshold = 37;
 }  // namespace cricket

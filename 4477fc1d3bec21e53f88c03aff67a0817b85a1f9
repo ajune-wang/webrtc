@@ -105,6 +105,42 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b17bbb8_567836a5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-02-26T20:37:54Z",
+      "side": 1,
+      "message": "Well, this is saying \"you might encounter interoperability issues if you don\u0027t support it\", not \"you must support it\". But the fact of the matter is that our implementation *does* support non-GCM cipher suites so if we are being conservative, we should account for that.",
+      "parentUuid": "41597d2c_c7ad4e09",
+      "revId": "4477fc1d3bec21e53f88c03aff67a0817b85a1f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46d20a20_6d56569e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-02-26T20:37:54Z",
+      "side": 1,
+      "message": "I agree. Let\u0027s continue discussion in the bug.",
+      "parentUuid": "f604b8bf_33f81907",
+      "revId": "4477fc1d3bec21e53f88c03aff67a0817b85a1f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "009dabb9_98605138",

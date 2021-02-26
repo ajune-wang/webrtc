@@ -53,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "77570bb6_2f467f06",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1616,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-02-26T12:18:26Z",
+      "side": 1,
+      "message": "We always measure frame rate in frames per second, so FPS and frame rate are the same thing. I don\u0027t know exactly what input_fps_counter is used for but I think it is reporting the fps through some other means (there is some observer getting triggered sometimes) and input_frame_rate_tracker_ is used for getStats. But they attempt to measure the same thing anyhow.\n\nYes I think input_frame_rate_tracker_.TotalSampleCount() does what we want. It looks like input_frame_rate_tracker_ is never cleared from samples so this will be the correct value!",
+      "parentUuid": "dac6b8d2_7f8f78fa",
+      "revId": "baea8deda18f643f1a8348e5eef71244ce751c00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "52abb126_ffb48e62",

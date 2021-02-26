@@ -269,16 +269,16 @@ bool DtlsSrtpTransport::ExtractParams(
 
 void DtlsSrtpTransport::SetDtlsTransport(
     cricket::DtlsTransportInternal* new_dtls_transport,
-    cricket::DtlsTransportInternal** old_dtls_transport) {
-  if (*old_dtls_transport == new_dtls_transport) {
+    cricket::DtlsTransportInternal*& old_dtls_transport) {
+  if (old_dtls_transport == new_dtls_transport) {
     return;
   }
 
-  if (*old_dtls_transport) {
-    (*old_dtls_transport)->UnsubscribeDtlsState(this);
+  if (old_dtls_transport) {
+    old_dtls_transport->UnsubscribeDtlsState(this);
   }
 
-  *old_dtls_transport = new_dtls_transport;
+  old_dtls_transport = new_dtls_transport;
 
   if (new_dtls_transport) {
     new_dtls_transport->SubscribeDtlsState(
@@ -291,12 +291,12 @@ void DtlsSrtpTransport::SetDtlsTransport(
 
 void DtlsSrtpTransport::SetRtpDtlsTransport(
     cricket::DtlsTransportInternal* rtp_dtls_transport) {
-  SetDtlsTransport(rtp_dtls_transport, &rtp_dtls_transport_);
+  SetDtlsTransport(rtp_dtls_transport, rtp_dtls_transport_);
 }
 
 void DtlsSrtpTransport::SetRtcpDtlsTransport(
     cricket::DtlsTransportInternal* rtcp_dtls_transport) {
-  SetDtlsTransport(rtcp_dtls_transport, &rtcp_dtls_transport_);
+  SetDtlsTransport(rtcp_dtls_transport, rtcp_dtls_transport_);
 }
 
 void DtlsSrtpTransport::OnDtlsState(cricket::DtlsTransportInternal* transport,

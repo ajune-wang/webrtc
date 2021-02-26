@@ -121,12 +121,13 @@ class DtlsTransportInternal : public rtc::PacketTransportInternal {
   }
 
   template <typename F>
-  void SubscribeDtlsState(const void* id, F&& callback) {
-    dtls_state_callback_list_.AddReceiver(id, std::forward<F>(callback));
+  void SubscribeDtlsState(const void* removal_tag, F&& callback) {
+    dtls_state_callback_list_.AddReceiver(removal_tag,
+                                          std::forward<F>(callback));
   }
   // Unsubscribe the subscription with given id.
-  void UnsubscribeDtlsState(const void* id) {
-    dtls_state_callback_list_.RemoveReceivers(id);
+  void UnsubscribeDtlsState(const void* removal_tag) {
+    dtls_state_callback_list_.RemoveReceivers(removal_tag);
   }
 
   void SendDtlsState(DtlsTransportInternal* transport,

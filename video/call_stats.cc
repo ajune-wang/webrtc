@@ -192,7 +192,7 @@ void CallStats::OnRttUpdate(int64_t rtt) {
 
   // Make sure Process() will be called and deliver the updates asynchronously.
   last_process_time_ -= kUpdateIntervalMs;
-  process_thread_->WakeUp(this);
+  process_thread_->WakeUpOnProcessThread(this);
 }
 
 void CallStats::UpdateHistograms() {

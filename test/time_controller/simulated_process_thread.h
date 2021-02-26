@@ -40,6 +40,7 @@ class SimulatedProcessThread : public ProcessThread,
   void Start() override;
   void Stop() override;
   void WakeUp(Module* module) override;
+  void WakeUpOnProcessThread(Module* module) override;
   void RegisterModule(Module* module, const rtc::Location& from) override;
   void DeRegisterModule(Module* module) override;
   void PostTask(std::unique_ptr<QueuedTask> task) override;
@@ -52,6 +53,7 @@ class SimulatedProcessThread : public ProcessThread,
     RTC_NOTREACHED();
   }
   Timestamp GetNextTime(Module* module, Timestamp at_time);
+  void WakeUpInternal(Module* module) RTC_EXCLUSIVE_LOCKS_REQUIRED(lock_);
 
   sim_time_impl::SimulatedTimeControllerImpl* const handler_;
   // Using char* to be debugger friendly.

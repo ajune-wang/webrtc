@@ -334,11 +334,18 @@ class VideoStreamEncoderUnderTest : public VideoStreamEncoder {
         time_controller_(time_controller),
         fake_cpu_resource_(FakeResource::Create("FakeResource[CPU]")),
         fake_quality_resource_(FakeResource::Create("FakeResource[QP]")),
-        fake_adaptation_constraint_("FakeAdaptationConstraint") {
+        fake_adaptation_constraint_("FakeAdaptationConstraint"),
+        quality_scaling_settings_(VideoEncoder::ScalingSettings::kOff) {
     InjectAdaptationResource(fake_quality_resource_,
                              VideoAdaptationReason::kQuality);
     InjectAdaptationResource(fake_cpu_resource_, VideoAdaptationReason::kCpu);
     InjectAdaptationConstraint(&fake_adaptation_constraint_);
+  }
+
+  void ConfigureQualityScaler(
+      const VideoEncoder::EncoderInfo& encoder_info) override {
+    quality_scaling_settings_ = encoder_info.scaling_settings;
+    VideoStreamEncoder::ConfigureQualityScaler(encoder_info);
   }
 
   void SetSourceAndWaitForRestrictionsUpdated(
@@ -426,6 +433,7 @@ class VideoStreamEncoderUnderTest : public VideoStreamEncoder {
   rtc::scoped_refptr<FakeResource> fake_cpu_resource_;
   rtc::scoped_refptr<FakeResource> fake_quality_resource_;
   FakeAdaptationConstraint fake_adaptation_constraint_;
+  VideoEncoder::ScalingSettings quality_scaling_settings_;
 };
 
 // Simulates simulcast behavior and makes highest stream resolutions divisible
@@ -5948,6 +5956,136 @@ TEST_F(VideoStreamEncoderTest,
   EXPECT_FALSE(stats_proxy_->GetStats().bw_limited_resolution);
 
   video_stream_encoder_->Stop();
+}
+
+class VideoStreamEncoderQualityScalingSettingsTest
+    : public VideoStreamEncoderTest {
+ public:
+  void ConfigureEncoder(const std::string& payload_name,
+                        bool is_quality_adaptation_allowed,
+                        bool is_scaling_settings_present) {
+    video_send_config_.rtp.payload_name = payload_name;
+    VideoEncoderConfig video_encoder_config;
+    test::FillEncoderConfiguration(PayloadStringToCodecType(payload_name), 1,
+                                   &video_encoder_config);
+    for (auto& layer : video_encoder_config.simulcast_layers) {
+      layer.num_temporal_layers = 1;
+      layer.max_framerate = kDefaultFramerate;
+    }
+
+    video_encoder_config.max_bitrate_bps = kTargetBitrateBps;
+    video_encoder_config.content_type =
+        VideoEncoderConfig::ContentType::kRealtimeVideo;
+
+    if (payload_name == "VP8") {
+      VideoCodecVP8 encodec_settings = VideoEncoder::GetDefaultVp8Settings();
+      encodec_settings.automaticResizeOn = is_quality_adaptation_allowed;
+      video_encoder_config.encoder_specific_settings =
+          new rtc::RefCountedObject<
+              VideoEncoderConfig::Vp8EncoderSpecificSettings>(encodec_settings);
+    } else if (payload_name == "VP9") {
+      VideoCodecVP9 encodec_settings = VideoEncoder::GetDefaultVp9Settings();
+      encodec_settings.automaticResizeOn = is_quality_adaptation_allowed;
+      video_encoder_config.encoder_specific_settings =
+          new rtc::RefCountedObject<
+              VideoEncoderConfig::Vp9EncoderSpecificSettings>(encodec_settings);
+    }
+
+    fake_encoder_.SetQualityScaling(is_scaling_settings_present);
+
+    VideoStreamEncoderTest::ConfigureEncoder(std::move(video_encoder_config));
+
+    // Push a frame to trigger reconfig.
+    video_stream_encoder_->OnBitrateUpdatedAndWaitForManagedResources(
+        DataRate::BitsPerSec(kTargetBitrateBps),
+        DataRate::BitsPerSec(kTargetBitrateBps),
+        DataRate::BitsPerSec(kTargetBitrateBps), 0, 0, 0);
+
+    video_source_.IncomingCapturedFrame(
+        CreateFrame(1, codec_width_, codec_height_));
+    WaitForEncodedFrame(1);
+
+    video_stream_encoder_->Stop();
+
+    qp_thresholds_ =
+        video_stream_encoder_->quality_scaling_settings_.thresholds;
+  }
+
+ protected:
+  absl::optional<VideoEncoder::QpThresholds> qp_thresholds_;
+};
+
+TEST_F(VideoStreamEncoderQualityScalingSettingsTest,
+       AdaptationAllowedVp8ScalingSettingsAbsent_DefaultScalingSettingsUsed) {
+  ConfigureEncoder(/*payload_name=*/"VP8",
+                   /*is_quality_adaptation_allowed=*/true,
+                   /*is_scaling_settings_present=*/false);
+  ASSERT_TRUE(qp_thresholds_.has_value());
+  EXPECT_EQ((*qp_thresholds_).low, cricket::kLowVp8QpThreshold);
+  EXPECT_EQ((*qp_thresholds_).high, cricket::kHighVp8QpThreshold);
+}
+
+TEST_F(VideoStreamEncoderQualityScalingSettingsTest,
+       AdaptationAllowedVp9ScalingSettingsAbsent_DefaultScalingSettingsUsed) {
+  ConfigureEncoder(/*payload_name=*/"VP9",
+                   /*is_quality_adaptation_allowed=*/true,
+                   /*is_scaling_settings_present=*/false);
+  ASSERT_TRUE(qp_thresholds_.has_value());
+  EXPECT_EQ((*qp_thresholds_).low, cricket::kLowVp9QpThreshold);
+  EXPECT_EQ((*qp_thresholds_).high, cricket::kHighVp9QpThreshold);
+}
+
+TEST_F(VideoStreamEncoderQualityScalingSettingsTest,
+       AdaptationAllowedH264ScalingSettingsAbsent_DefaultScalingSettingsUsed) {
+  ConfigureEncoder(/*payload_name=*/"H264",
+                   /*is_quality_adaptation_allowed=*/true,
+                   /*is_scaling_settings_present=*/false);
+  ASSERT_TRUE(qp_thresholds_.has_value());
+  EXPECT_EQ((*qp_thresholds_).low, cricket::kLowH264QpThreshold);
+  EXPECT_EQ((*qp_thresholds_).high, cricket::kHighH264QpThreshold);
+}
+
+TEST_F(VideoStreamEncoderQualityScalingSettingsTest,
+       AdaptationAllowedScalingSettingsPresent_OriginalScalingSettingsUsed) {
+  ConfigureEncoder(/*payload_name=*/"VP8",
+                   /*is_quality_adaptation_allowed=*/true,
+                   /*is_scaling_settings_present=*/true);
+  ASSERT_TRUE(qp_thresholds_.has_value());
+  EXPECT_EQ((*qp_thresholds_).low, kQpLow);
+  EXPECT_EQ((*qp_thresholds_).high, kQpHigh);
+}
+
+TEST_F(VideoStreamEncoderQualityScalingSettingsTest,
+       AdaptationNotAllowedScalingSettingsAbsent_ScalingSettingsAbsent) {
+  ConfigureEncoder(/*payload_name=*/"VP8",
+                   /*is_quality_adaptation_allowed=*/false,
+                   /*is_scaling_settings_present=*/false);
+  EXPECT_FALSE(qp_thresholds_.has_value());
+}
+
+TEST_F(VideoStreamEncoderQualityScalingSettingsTest,
+       AdaptationNotVp8AllowedScalingSettingsPresent_ScalingSettingsAbsent) {
+  ConfigureEncoder(/*payload_name=*/"VP8",
+                   /*is_quality_adaptation_allowed=*/false,
+                   /*is_scaling_settings_present=*/true);
+  EXPECT_FALSE(qp_thresholds_.has_value());
+}
+
+TEST_F(VideoStreamEncoderQualityScalingSettingsTest,
+       AdaptationNotVp9AllowedScalingSettingsPresent_ScalingSettingsAbsent) {
+  ConfigureEncoder(/*payload_name=*/"VP9",
+                   /*is_quality_adaptation_allowed=*/false,
+                   /*is_scaling_settings_present=*/true);
+  EXPECT_FALSE(qp_thresholds_.has_value());
+}
+
+TEST_F(VideoStreamEncoderQualityScalingSettingsTest,
+       AdaptationNotH264AllowedScalingSettingsPresent_ScalingSettingsPresent) {
+  ConfigureEncoder(/*payload_name=*/"H264",
+                   /*is_quality_adaptation_allowed=*/false,
+                   /*is_scaling_settings_present=*/true);
+  // Currently quality scaling is enabled unconditionally with H264 codec.
+  EXPECT_TRUE(qp_thresholds_.has_value());
 }
 
 TEST_F(VideoStreamEncoderTest,

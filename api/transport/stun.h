@@ -269,6 +269,8 @@ class StunMessage {
   std::string transaction_id_;
   uint32_t reduced_transaction_id_;
   uint32_t stun_magic_cookie_;
+  // The original buffer for messages created by Read().
+  std::string buffer_;
 };
 
 // Base class for all STUN/TURN attributes.

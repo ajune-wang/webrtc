@@ -473,6 +473,9 @@ bool StunMessage::AddFingerprint() {
 }
 
 bool StunMessage::Read(ByteBufferReader* buf) {
+  // Keep a copy of the buffer data around for later verification.
+  buffer_.assign(buf->Data(), buf->Length());
+
   if (!buf->ReadUInt16(&type_)) {
     return false;
   }

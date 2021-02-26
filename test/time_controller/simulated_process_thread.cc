@@ -124,6 +124,15 @@ void SimulatedProcessThread::Stop() {
 
 void SimulatedProcessThread::WakeUp(Module* module) {
   MutexLock lock(&lock_);
+  WakeUpInternal(module);
+}
+
+void SimulatedProcessThread::WakeUpOnProcessThread(Module* module)
+    RTC_NO_THREAD_SAFETY_ANALYSIS {
+  WakeUpInternal(module);
+}
+
+void SimulatedProcessThread::WakeUpInternal(Module* module) {
   for (auto it = delayed_modules_.begin(); it != delayed_modules_.end(); ++it) {
     if (RemoveByValue(&it->second, module))
       break;

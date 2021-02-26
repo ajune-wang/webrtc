@@ -55,6 +55,12 @@ class ExternalTimeController::ProcessThreadWrapper : public ProcessThread {
     parent_->ScheduleNext();
   }
 
+  void WakeUpOnProcessThread(Module* module) override {
+    parent_->UpdateTime();
+    thread_->WakeUpOnProcessThread(GetWrapper(module));
+    parent_->ScheduleNext();
+  }
+
   void PostTask(std::unique_ptr<QueuedTask> task) override {
     parent_->UpdateTime();
     thread_->PostTask(std::move(task));

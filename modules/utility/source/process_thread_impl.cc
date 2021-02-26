@@ -93,7 +93,7 @@ void ProcessThreadImpl::Stop() {
 
   {
     // Need to take lock, for synchronization with `thread_`.
-    rtc::CritScope lock(&lock_);
+    MutexLock lock(&mutex_);
     stop_ = true;
   }
 
@@ -118,19 +118,30 @@ void ProcessThreadImpl::StopNoLocks() RTC_NO_THREAD_SAFETY_ANALYSIS {
 void ProcessThreadImpl::WakeUp(Module* module) {
   // Allowed to be called on any thread.
   {
-    rtc::CritScope lock(&lock_);
-    for (ModuleCallback& m : modules_) {
-      if (m.module == module)
-        m.next_callback = kCallProcessImmediately;
-    }
+    MutexLock lock(&mutex_);
+    WakeUpInternal(module);
   }
   wake_up_.Set();
+}
+
+// Must be called only indirectly from Process, which already holds the lock.
+void ProcessThreadImpl::WakeUpOnProcessThread(Module* module)
+    RTC_NO_THREAD_SAFETY_ANALYSIS {
+  WakeUpInternal(module);
+  wake_up_.Set();
+}
+
+void ProcessThreadImpl::WakeUpInternal(Module* module) {
+  for (ModuleCallback& m : modules_) {
+    if (m.module == module)
+      m.next_callback = kCallProcessImmediately;
+  }
 }
 
 void ProcessThreadImpl::PostTask(std::unique_ptr<QueuedTask> task) {
   // Allowed to be called on any thread.
   {
-    rtc::CritScope lock(&lock_);
+    MutexLock lock(&mutex_);
     queue_.push(task.release());
   }
   wake_up_.Set();
@@ -141,7 +152,7 @@ void ProcessThreadImpl::PostDelayedTask(std::unique_ptr<QueuedTask> task,
   int64_t run_at_ms = rtc::TimeMillis() + milliseconds;
   bool recalculate_wakeup_time;
   {
-    rtc::CritScope lock(&lock_);
+    MutexLock lock(&mutex_);
     recalculate_wakeup_time =
         delayed_tasks_.empty() || run_at_ms < delayed_tasks_.top().run_at_ms;
     delayed_tasks_.emplace(run_at_ms, std::move(task));
@@ -159,7 +170,7 @@ void ProcessThreadImpl::RegisterModule(Module* module,
 #if RTC_DCHECK_IS_ON
   {
     // Catch programmer error.
-    rtc::CritScope lock(&lock_);
+    MutexLock lock(&mutex_);
     for (const ModuleCallback& mc : modules_) {
       RTC_DCHECK(mc.module != module)
           << "Already registered here: " << mc.location.ToString()
@@ -177,7 +188,7 @@ void ProcessThreadImpl::RegisterModule(Module* module,
     module->ProcessThreadAttached(this);
 
   {
-    rtc::CritScope lock(&lock_);
+    MutexLock lock(&mutex_);
     modules_.push_back(ModuleCallback(module, from));
   }
 
@@ -192,7 +203,7 @@ void ProcessThreadImpl::DeRegisterModule(Module* module) {
   RTC_DCHECK(module);
 
   {
-    rtc::CritScope lock(&lock_);
+    MutexLock lock(&mutex_);
     modules_.remove_if(
         [&module](const ModuleCallback& m) { return m.module == module; });
   }
@@ -215,7 +226,7 @@ bool ProcessThreadImpl::Process() {
   int64_t next_checkpoint = now + (1000 * 60);
 
   {
-    rtc::CritScope lock(&lock_);
+    MutexLock lock(&mutex_);
     if (stop_)
       return false;
     for (ModuleCallback& m : modules_) {
@@ -258,11 +269,11 @@ bool ProcessThreadImpl::Process() {
     while (!queue_.empty()) {
       QueuedTask* task = queue_.front();
       queue_.pop();
-      lock_.Leave();
+      mutex_.Unlock();
       if (task->Run()) {
         delete task;
       }
-      lock_.Enter();
+      mutex_.Lock();
     }
   }
 

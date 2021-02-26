@@ -43,8 +43,14 @@ class ProcessThread : public TaskQueueBase {
   // away.  This causes the worker thread to wake up and requery the specified
   // module for when it should be called back. (Typically the module should
   // return 0 from TimeUntilNextProcess on the worker thread at that point).
-  // Can be called on any thread.
+  // Can be called on any thread but the process thread itself.
   virtual void WakeUp(Module* module) = 0;
+  // This method similarly wakes up the thread, and may be called from the
+  // ProcessThread, or more precisely, from code invoked by a module's Process()
+  // method.
+  // TODO(bugs.webrtc.org/11567): Default implementation is not correct, delete
+  // as soon as downstream implementations are updated.
+  virtual void WakeUpOnProcessThread(Module* module) { WakeUp(module); }
 
   // Adds a module that will start to receive callbacks on the worker thread.
   // Can be called from any thread.

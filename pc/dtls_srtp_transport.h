@@ -76,7 +76,7 @@ class DtlsSrtpTransport : public SrtpTransport {
                      rtc::ZeroOnFreeBuffer<unsigned char>* send_key,
                      rtc::ZeroOnFreeBuffer<unsigned char>* recv_key);
   void SetDtlsTransport(cricket::DtlsTransportInternal* new_dtls_transport,
-                        cricket::DtlsTransportInternal** old_dtls_transport);
+                        cricket::DtlsTransportInternal*& old_dtls_transport);
   void SetRtpDtlsTransport(cricket::DtlsTransportInternal* rtp_dtls_transport);
   void SetRtcpDtlsTransport(
       cricket::DtlsTransportInternal* rtcp_dtls_transport);

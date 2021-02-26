@@ -92,10 +92,10 @@ void SctpTransport::SetDtlsTransport(
   SctpTransportState next_state = info_.state();
   dtls_transport_ = transport;
   if (internal_sctp_transport_) {
-    if (transport) {
+    if (dtls_transport_) {
       internal_sctp_transport_->SetDtlsTransport(transport->internal());
 
-      transport->internal()->SubscribeDtlsState(
+      dtls_transport_->internal()->SubscribeDtlsState(
           [this](cricket::DtlsTransportInternal* transport,
                  cricket::DtlsTransportState state) {
             OnDtlsStateChange(transport, state);

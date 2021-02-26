@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "77dfff36_73e9e297",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-26T16:09:56Z",
+      "side": 1,
+      "message": "PTAL. Do you think WakeUpOnProcessThread is a reasonable workaround? There\u0027s no intended change in behavior.\n\nThe alternative would be to eliminate the only call site, in CallStats::OnRttUpdate, but I don\u0027t know why it needs to call WakeUp.",
+      "revId": "ae2c9182f9c24686eed4e95b3cc7932a4b68d5e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

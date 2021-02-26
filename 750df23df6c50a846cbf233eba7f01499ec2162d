@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c4594bc_e65c74c6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-26T09:55:26Z",
+      "side": 1,
+      "message": "I think this is a smalls step in the right direction, even though I\u0027m not really familiar with this code. I think tsan is completely ignoring races in this file, adding annotations should make it easier to (i) fix tsan issues, and (ii) understand what\u0027s needed to eliminate the use of RecursiveCriticalSection.",
+      "revId": "750df23df6c50a846cbf233eba7f01499ec2162d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

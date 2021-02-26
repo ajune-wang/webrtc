@@ -87,6 +87,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f604b8bf_33f81907",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-02-26T08:11:55Z",
+      "side": 1,
+      "message": "So do we need to lower kSctpMtu even further? Seems like it would be worth it to add more dynamic logic to the code so that we we don\u0027t always shave off bytes that could be used.",
+      "parentUuid": "f8644535_886a5da0",
+      "revId": "4477fc1d3bec21e53f88c03aff67a0817b85a1f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "009dabb9_98605138",

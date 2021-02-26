@@ -52,6 +52,41 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "41597d2c_c7ad4e09",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-02-26T06:45:47Z",
+      "side": 1,
+      "message": "Great catch!\nWe have to account for non-GCM. RFC 8827 (security-arch):\n\n   All implementations MUST support DTLS 1.2 with the\n   TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 cipher suite and the P-256\n   curve [FIPS186].  Earlier drafts of this specification required DTLS\n   1.0 with the cipher suite TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA, and\n   at the time of this writing some implementations do not support DTLS\n   1.2; endpoints which support only DTLS 1.2 might encounter\n   interoperability issues.\n\nIt\u0027s not that long ago that we added GCM support.",
+      "parentUuid": "fe0282bd_8fd9ae92",
+      "revId": "4477fc1d3bec21e53f88c03aff67a0817b85a1f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8644535_886a5da0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-02-26T06:45:47Z",
+      "side": 1,
+      "message": "Shows that the test was a GREAT idea!\n",
+      "revId": "4477fc1d3bec21e53f88c03aff67a0817b85a1f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "009dabb9_98605138",

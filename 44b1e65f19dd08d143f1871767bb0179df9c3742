@@ -16,6 +16,46 @@
       "message": "Thanks for fixing!",
       "revId": "44b1e65f19dd08d143f1871767bb0179df9c3742",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d8fe69b_7a5d30bb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-26T08:48:16Z",
+      "side": 1,
+      "message": "Code change lgtm, but I think docs need a little improvement.",
+      "revId": "44b1e65f19dd08d143f1871767bb0179df9c3742",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78178c2a_bfb93da6",
+        "filename": "api/peer_connection_proxy.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-02-26T08:48:16Z",
+      "side": 1,
+      "message": "Please update comment. And I think it would be good with a comment at the top of each *_proxy.h file saying which threads are the intended primary and secondary for that proxy class.",
+      "range": {
+        "startLine": 24,
+        "startChar": 26,
+        "endLine": 25,
+        "endChar": 70
+      },
+      "revId": "44b1e65f19dd08d143f1871767bb0179df9c3742",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

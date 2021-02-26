@@ -255,9 +255,10 @@ PeerConnectionFactory::CreatePeerConnectionOrError(
       worker_thread()->Invoke<std::unique_ptr<RtcEventLog>>(
           RTC_FROM_HERE, [this] { return CreateRtcEventLog_w(); });
 
+  webrtc::NetEqFactory* neteq_factory_raw = dependencies.neteq_factory.get();
   std::unique_ptr<Call> call = worker_thread()->Invoke<std::unique_ptr<Call>>(
       RTC_FROM_HERE,
-      [this, &event_log] { return CreateCall_w(event_log.get()); });
+      [this, &event_log, &neteq_factory_raw] { return CreateCall_w(event_log.get(), neteq_factory_raw); });
 
   auto result = PeerConnection::Create(context_, options_, std::move(event_log),
                                        std::move(call), configuration,
@@ -317,7 +318,7 @@ std::unique_ptr<RtcEventLog> PeerConnectionFactory::CreateRtcEventLog_w() {
 }
 
 std::unique_ptr<Call> PeerConnectionFactory::CreateCall_w(
-    RtcEventLog* event_log) {
+    RtcEventLog* event_log, webrtc::NetEqFactory* neteq_factory) {
   RTC_DCHECK_RUN_ON(worker_thread());
 
   webrtc::Call::Config call_config(event_log, network_thread());
@@ -347,7 +348,7 @@ std::unique_ptr<Call> PeerConnectionFactory::CreateCall_w(
   call_config.task_queue_factory = task_queue_factory_.get();
   call_config.network_state_predictor_factory =
       network_state_predictor_factory_.get();
-  call_config.neteq_factory = neteq_factory_.get();
+  call_config.neteq_factory = neteq_factory;
 
   if (IsTrialEnabled("WebRTC-Bwe-InjectedCongestionController")) {
     RTC_LOG(LS_INFO) << "Using injected network controller factory";

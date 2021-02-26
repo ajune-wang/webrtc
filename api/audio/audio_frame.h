@@ -19,6 +19,7 @@
 #include "api/audio/channel_layout.h"
 #include "api/rtp_packet_infos.h"
 #include "rtc_base/constructor_magic.h"
+#include "rtc_base/system/rtc_export.h"
 
 namespace webrtc {
 
@@ -33,7 +34,7 @@ namespace webrtc {
  * - The total number of samples is samples_per_channel_ * num_channels_.
  * - Stereo data is interleaved starting with the left channel.
  */
-class AudioFrame {
+class RTC_EXPORT AudioFrame {
  public:
   // Using constexpr here causes linker errors unless the variable also has an
   // out-of-class definition, which is impractical in this header-only class.

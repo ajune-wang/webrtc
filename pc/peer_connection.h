@@ -711,6 +711,8 @@ class PeerConnection : public PeerConnectionInternal,
   // Did the connectionState ever change to `connected`?
   // Used to gather metrics only the first such state change.
   bool was_ever_connected_ RTC_GUARDED_BY(signaling_thread()) = false;
+
+  std::unique_ptr<NetEqFactory> neteq_factory_;
 };
 
 }  // namespace webrtc

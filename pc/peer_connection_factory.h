@@ -146,7 +146,7 @@ class PeerConnectionFactory : public PeerConnectionFactoryInterface {
   }
 
   std::unique_ptr<RtcEventLog> CreateRtcEventLog_w();
-  std::unique_ptr<Call> CreateCall_w(RtcEventLog* event_log);
+  std::unique_ptr<Call> CreateCall_w(RtcEventLog* event_log, webrtc::NetEqFactory* neteq_factory);
 
   rtc::scoped_refptr<ConnectionContext> context_;
   PeerConnectionFactoryInterface::Options options_

@@ -41,6 +41,7 @@ std::unique_ptr<NetEq> CreateNetEq(
     Clock* clock,
     const rtc::scoped_refptr<AudioDecoderFactory>& decoder_factory) {
   if (neteq_factory) {
+    RTC_LOG(LERROR) << "Making NetEQ using factory " << neteq_factory;
     return neteq_factory->CreateNetEq(config, decoder_factory, clock);
   }
   return DefaultNetEqFactory().CreateNetEq(config, decoder_factory, clock);

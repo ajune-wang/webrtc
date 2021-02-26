@@ -471,7 +471,8 @@ PeerConnection::PeerConnection(
       dtls_enabled_(dtls_enabled),
       data_channel_controller_(this),
       message_handler_(signaling_thread()),
-      weak_factory_(this) {
+      weak_factory_(this),
+      neteq_factory_(std::move(dependencies.neteq_factory)) {
   worker_thread()->Invoke<void>(RTC_FROM_HERE, [this] {
     RTC_DCHECK_RUN_ON(worker_thread());
     worker_thread_safety_ = PendingTaskSafetyFlag::Create();

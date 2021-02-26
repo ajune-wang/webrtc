@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aaaea4b2_645b6504",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 28
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2021-02-26T12:59:22Z",
+      "side": 1,
+      "message": "For suggested refactoring: https://webrtc-review.googlesource.com/c/src/+/208881\n",
+      "revId": "60c0b442ee55ef1a34dcea0046bb9df29aab6992",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

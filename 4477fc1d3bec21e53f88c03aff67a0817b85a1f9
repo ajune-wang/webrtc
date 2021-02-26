@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe0282bd_8fd9ae92",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-02-26T03:27:48Z",
+      "side": 1,
+      "message": "DTLS 1.0 tests failed with an overhead of 65 bytes.\n\nI thought \"well we can just ignore that since DTLS 1.0 is disabled by default.\" But that made me think, even with 1.2 there are some supported ciphers that probably aren\u0027t exercised by tests.\n\nAnd sure enough, all of the non-GCM ciphers have a larger overhead. For example, TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA is 65: 13 record header + 16 ciphertext + 16 padding + 20 SHA\n\nSo... do we only care about GCM? Or do we account for an overhead of 65 bytes? I think that should be the max since we exclude SHA256/SHA384 cipher suites.",
+      "revId": "4477fc1d3bec21e53f88c03aff67a0817b85a1f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "009dabb9_98605138",

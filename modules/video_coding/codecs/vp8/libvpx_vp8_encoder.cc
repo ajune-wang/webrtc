@@ -27,6 +27,7 @@
 #include "api/video/video_timing.h"
 #include "api/video_codecs/vp8_temporal_layers.h"
 #include "api/video_codecs/vp8_temporal_layers_factory.h"
+#include "media/base/media_constants.h"
 #include "modules/video_coding/codecs/interface/common_constants.h"
 #include "modules/video_coding/codecs/vp8/include/vp8.h"
 #include "modules/video_coding/include/video_error_codes.h"
@@ -51,11 +52,6 @@ constexpr char kVP8IosMaxNumberOfThreadFieldTrialParameter[] = "max_thread";
 
 constexpr char kVp8ForcePartitionResilience[] =
     "WebRTC-VP8-ForcePartitionResilience";
-
-// QP is obtained from VP8-bitstream for HW, so the QP corresponds to the
-// bitstream range of [0, 127] and not the user-level range of [0,63].
-constexpr int kLowVp8QpThreshold = 29;
-constexpr int kHighVp8QpThreshold = 95;
 
 constexpr int kTokenPartitions = VP8_ONE_TOKENPARTITION;
 constexpr uint32_t kVp832ByteAlign = 32u;
@@ -1189,10 +1185,10 @@ VideoEncoder::EncoderInfo LibvpxVp8Encoder::GetEncoderInfo() const {
       (vpx_configs_.empty() || vpx_configs_[0].rc_dropframe_thresh > 0) &&
       codec_.VP8().automaticResizeOn;
 
-  info.scaling_settings = enable_scaling
-                              ? VideoEncoder::ScalingSettings(
-                                    kLowVp8QpThreshold, kHighVp8QpThreshold)
-                              : VideoEncoder::ScalingSettings::kOff;
+  info.scaling_settings = enable_scaling ? VideoEncoder::ScalingSettings(
+                                               cricket::kLowVp8QpThreshold,
+                                               cricket::kHighVp8QpThreshold)
+                                         : VideoEncoder::ScalingSettings::kOff;
   if (rate_control_settings_.LibvpxVp8MinPixels()) {
     info.scaling_settings.min_pixels_per_frame =
         rate_control_settings_.LibvpxVp8MinPixels().value();

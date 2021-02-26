@@ -31,6 +31,7 @@
 #include "api/video_codecs/video_encoder.h"
 #include "call/adaptation/resource_adaptation_processor.h"
 #include "call/adaptation/video_stream_adapter.h"
+#include "media/base/media_constants.h"
 #include "modules/video_coding/codecs/vp9/svc_rate_allocator.h"
 #include "modules/video_coding/include/video_codec_initializer.h"
 #include "rtc_base/arraysize.h"
@@ -463,6 +464,28 @@ void ApplyEncoderBitrateLimitsIfSingleActiveStream(
                encoder_bitrate_limits->max_bitrate_bps);
 }
 
+void SetDefaultQualityScalingSettingsIfAbsent(
+    const VideoCodec& codec,
+    VideoEncoder::EncoderInfo* encoder_info) {
+  if (encoder_info->scaling_settings.thresholds.has_value()) {
+    return;
+  }
+
+  if (codec.codecType == VideoCodecType::kVideoCodecVP8 &&
+      codec.VP8().automaticResizeOn) {
+    encoder_info->scaling_settings = VideoEncoder::ScalingSettings(
+        cricket::kLowVp8QpThreshold, cricket::kHighVp8QpThreshold);
+  }
+  if (codec.codecType == VideoCodecType::kVideoCodecVP9 &&
+      codec.VP9().automaticResizeOn) {
+    encoder_info->scaling_settings = VideoEncoder::ScalingSettings(
+        cricket::kLowVp9QpThreshold, cricket::kHighVp9QpThreshold);
+  } else if (codec.codecType == VideoCodecType::kVideoCodecH264) {
+    encoder_info->scaling_settings = VideoEncoder::ScalingSettings(
+        cricket::kLowH264QpThreshold, cricket::kHighH264QpThreshold);
+  }
+}
+
 }  //  namespace
 
 VideoStreamEncoder::EncoderRateSettings::EncoderRateSettings()
@@ -743,8 +766,9 @@ void VideoStreamEncoder::SetSource(
         degradation_preference);
     stream_resource_manager_.SetDegradationPreferences(degradation_preference);
     if (encoder_) {
-      stream_resource_manager_.ConfigureQualityScaler(
-          encoder_->GetEncoderInfo());
+      VideoEncoder::EncoderInfo encoder_info = encoder_->GetEncoderInfo();
+      SetDefaultQualityScalingSettingsIfAbsent(send_codec_, &encoder_info);
+      ConfigureQualityScaler(encoder_info);
     }
   });
 }
@@ -1193,7 +1217,8 @@ void VideoStreamEncoder::ReconfigureEncoder() {
       std::move(streams), is_svc, encoder_config_.content_type,
       encoder_config_.min_transmit_bitrate_bps);
 
-  stream_resource_manager_.ConfigureQualityScaler(info);
+  SetDefaultQualityScalingSettingsIfAbsent(send_codec_, &info);
+  ConfigureQualityScaler(info);
 }
 
 void VideoStreamEncoder::OnEncoderSettingsChanged() {
@@ -2469,6 +2494,13 @@ void VideoStreamEncoder::RemoveRestrictionsListenerForTesting(
     event.Set();
   });
   event.Wait(rtc::Event::kForever);
+}
+
+void VideoStreamEncoder::ConfigureQualityScaler(
+    const VideoEncoder::EncoderInfo& encoder_info) {
+  RTC_DCHECK_RUN_ON(&encoder_queue_);
+  RTC_DCHECK(encoder_);
+  stream_resource_manager_.ConfigureQualityScaler(encoder_info);
 }
 
 }  // namespace webrtc

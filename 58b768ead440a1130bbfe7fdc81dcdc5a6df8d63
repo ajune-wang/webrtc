@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b39eedd0_ca23b925",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16600
+      },
+      "writtenOn": "2021-02-27T09:09:05Z",
+      "side": 1,
+      "message": "https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d12506",
+      "revId": "58b768ead440a1130bbfe7fdc81dcdc5a6df8d63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

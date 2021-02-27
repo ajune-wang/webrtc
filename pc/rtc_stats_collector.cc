@@ -541,6 +541,7 @@ ProduceRemoteInboundRtpStreamStatsFromReportBlockData(
   remote_inbound->kind =
       media_type == cricket::MEDIA_TYPE_AUDIO ? "audio" : "video";
   remote_inbound->packets_lost = report_block.packets_lost;
+  remote_inbound->fraction_lost = report_block.fraction_lost;
   remote_inbound->round_trip_time =
       static_cast<double>(report_block_data.last_rtt_ms()) /
       rtc::kNumMillisecsPerSec;
@@ -1613,6 +1614,7 @@ void RTCStatsCollector::ProduceMediaSourceStats_s(
           if (video_sender_info) {
             video_source_stats->frames_per_second =
                 video_sender_info->framerate_input;
+            video_source_stats->frames = video_sender_info->frames;
           }
         }
         media_source_stats = std::move(video_source_stats);

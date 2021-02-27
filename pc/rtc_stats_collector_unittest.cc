@@ -2474,6 +2474,7 @@ TEST_F(RTCStatsCollectorTest, RTCVideoSourceStatsCollectedForSenderWithTrack) {
       cricket::SsrcSenderInfo());
   video_media_info.aggregated_senders[0].local_stats[0].ssrc = kSsrc;
   video_media_info.aggregated_senders[0].framerate_input = 29;
+  video_media_info.aggregated_senders[0].frames = 10001;
   auto* video_media_channel = pc_->AddVideoChannel("VideoMid", "TransportName");
   video_media_channel->SetStats(video_media_info);
 
@@ -2493,9 +2494,8 @@ TEST_F(RTCStatsCollectorTest, RTCVideoSourceStatsCollectedForSenderWithTrack) {
   expected_video.kind = "video";
   expected_video.width = kVideoSourceWidth;
   expected_video.height = kVideoSourceHeight;
-  // |expected_video.frames| is expected to be undefined because it is not set.
-  // TODO(hbos): When implemented, set its expected value here.
   expected_video.frames_per_second = 29;
+  expected_video.frames = 10001;
 
   ASSERT_TRUE(report->Get(expected_video.id()));
   EXPECT_EQ(report->Get(expected_video.id())->cast_to<RTCVideoSourceStats>(),
@@ -2535,6 +2535,7 @@ TEST_F(RTCStatsCollectorTest,
   auto video_stats =
       report->Get("RTCVideoSource_42")->cast_to<RTCVideoSourceStats>();
   EXPECT_FALSE(video_stats.frames_per_second.is_defined());
+  EXPECT_FALSE(video_stats.frames.is_defined());
 }
 
 // The track not having a source is not expected to be true in practise, but
@@ -2678,6 +2679,7 @@ TEST_P(RTCStatsCollectorTestWithParamKind,
   const int64_t kReportBlockTimestampUtcUs = 123456789;
   const int64_t kRoundTripTimeMs = 13000;
   const double kRoundTripTimeSeconds = 13.0;
+  const double kFractionLost = 0.01f;
 
   // The report block's timestamp cannot be from the future, set the fake clock
   // to match.
@@ -2690,6 +2692,7 @@ TEST_P(RTCStatsCollectorTestWithParamKind,
     // |source_ssrc|, "SSRC of the RTP packet sender".
     report_block.source_ssrc = ssrc;
     report_block.packets_lost = 7;
+    report_block.fraction_lost = kFractionLost;
     ReportBlockData report_block_data;
     report_block_data.SetReportBlock(report_block, kReportBlockTimestampUtcUs);
     report_block_data.AddRoundTripTimeSample(1234);
@@ -2708,6 +2711,7 @@ TEST_P(RTCStatsCollectorTestWithParamKind,
         "RTCRemoteInboundRtp" + MediaTypeUpperCase() + stream_id,
         kReportBlockTimestampUtcUs);
     expected_remote_inbound_rtp.ssrc = ssrc;
+    expected_remote_inbound_rtp.fraction_lost = kFractionLost;
     expected_remote_inbound_rtp.kind = MediaTypeLowerCase();
     expected_remote_inbound_rtp.transport_id =
         "RTCTransport_TransportName_1";  // 1 for RTP (we have no RTCP

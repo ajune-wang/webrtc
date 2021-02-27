@@ -555,8 +555,8 @@ class RTC_EXPORT RTCRemoteInboundRtpStreamStats final : public RTCStats {
   // RTCRemoteInboundRtpStreamStats
   RTCStatsMember<std::string> local_id;
   RTCStatsMember<double> round_trip_time;
-  // TODO(hbos): The following RTCRemoteInboundRtpStreamStats metric should also
-  // be implemented: fractionLost.
+  // TODO(hbos): fractionLost is not yet implemented for audio streams
+  RTCStatsMember<double> fraction_lost;
 };
 
 // https://w3c.github.io/webrtc-stats/#dom-rtcmediasourcestats
@@ -602,7 +602,6 @@ class RTC_EXPORT RTCVideoSourceStats final : public RTCMediaSourceStats {
 
   RTCStatsMember<uint32_t> width;
   RTCStatsMember<uint32_t> height;
-  // TODO(hbos): Implement this metric.
   RTCStatsMember<uint32_t> frames;
   RTCStatsMember<uint32_t> frames_per_second;
 };

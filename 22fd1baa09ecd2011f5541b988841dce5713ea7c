@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c052ee0b_809199ee",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-03-01T12:38:47Z",
+      "side": 1,
+      "message": "This step is (mostly) just refactoring how the code does things, it should amount to the same thing.\n\nOverall plan: https://docs.google.com/document/d/1nIrGpPFOW8xMLR97n5iEcipdDyFVs_kHUT4ybRaa9Xs/edit#heading\u003dh.p5l0c0se9oth",
+      "revId": "22fd1baa09ecd2011f5541b988841dce5713ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

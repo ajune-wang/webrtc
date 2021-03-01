@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8c23f53_e46320e5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-03-01T13:14:53Z",
+      "side": 1,
+      "message": "PTAL. Is this the proper way to use ScopedTaskSafety?",
+      "revId": "aed8c267bef78643298bd0e100e7766c78b68750",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -16,6 +16,24 @@
       "message": "out of curiosity: did the populated data in Chromium make sense - ie did you see any loss indications, and were they comparable with what you saw from \"packets lost\"?\n",
       "revId": "8419959c9f7c8edc66ed779a0833cbf8059b7d5b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c146ab8_33d87179",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16600
+      },
+      "writtenOn": "2021-03-01T15:34:44Z",
+      "side": 1,
+      "message": "Yes - here is a video of chrome://webrtc-internals with Google Meet \n\nhttps://drive.google.com/file/d/1OwdF0hYMyDFsErravyzWoIOJaaUMHF8U/view?usp\u003dsharing\n\nIt presents meaningful data when packetsLost increases and is otherwise 0. This makes sense because it\u0027s \"the fraction of RTP data packets from source SSRC_n lost since the previous SR or RR packet was sent\". (RFC 3550 6.4.1)",
+      "parentUuid": "a08102d2_13e9e1ad",
+      "revId": "8419959c9f7c8edc66ed779a0833cbf8059b7d5b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

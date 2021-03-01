@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e58354ab_c5947302",
+        "filename": "api/DEPS",
+        "patchSetId": 8
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-03-01T16:33:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d8983f56_cca20c5d",
+      "revId": "c6c6ffc198879433dead418d0fc7462be9b91228",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0b44e435_faff0fda",
@@ -48,6 +66,24 @@
       "writtenOn": "2021-03-01T16:02:18Z",
       "side": 1,
       "message": "\"This is a home page\" (Home should not be capitalized in this context)",
+      "revId": "c6c6ffc198879433dead418d0fc7462be9b91228",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbac419a_cadd5712",
+        "filename": "g3doc/index.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-03-01T16:33:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b44e435_faff0fda",
       "revId": "c6c6ffc198879433dead418d0fc7462be9b91228",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

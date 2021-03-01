@@ -70,6 +70,24 @@
       "parentUuid": "b30939b0_dad9fc91",
       "revId": "e59833a9a212e820360950b49e687ac97caae7e8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "583fb7f9_736c8417",
+        "filename": "modules/utility/source/process_thread_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-03-01T10:42:50Z",
+      "side": 1,
+      "message": "ah, ok.\nIf that\u0027s alright as is though and you\u0027re unblocked as far as removing the reentrant lock, then I think we can land this and move on 😊",
+      "parentUuid": "b192e399_d9b762f0",
+      "revId": "e59833a9a212e820360950b49e687ac97caae7e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

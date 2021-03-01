@@ -34,6 +34,24 @@
       "parentUuid": "15734fa1_7ba69560",
       "revId": "e59833a9a212e820360950b49e687ac97caae7e8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b30939b0_dad9fc91",
+        "filename": "modules/utility/source/process_thread_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-03-01T10:09:51Z",
+      "side": 1,
+      "message": "Since ProcessThread will be deprecated at some point, I think it\u0027s OK to encourage use of the TQ interfaces and provide developer aid in the form of DCHECKs when incompatible operations are attempted.  I.e. Process+WakeUp should work and we should keep the existing behavior. It\u0027s OK if Run+WakeUp run into a DCHECK. We should rather be using Run+PostTask.  Similarly if we can add a DCHECK for catching the Process+PostTask combination (i.e. that when PostTask is called when IsCurrent() is true, holds_mutex_ should be false) that would be helpful.",
+      "parentUuid": "03f6a636_f839d5e2",
+      "revId": "e59833a9a212e820360950b49e687ac97caae7e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

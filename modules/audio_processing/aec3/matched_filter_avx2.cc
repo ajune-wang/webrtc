@@ -126,6 +126,7 @@ void MatchedFilterCore_AVX2(size_t x_start_index,
 
     x_start_index = x_start_index > 0 ? x_start_index - 1 : x_size - 1;
   }
+  _mm256_zeroupper();
 }
 
 }  // namespace aec3

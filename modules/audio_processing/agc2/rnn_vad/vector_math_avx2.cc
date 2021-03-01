@@ -48,6 +48,7 @@ float VectorMath::DotProductAvx2(rtc::ArrayView<const float> x,
        ++i) {
     dot_product += x[i] * y[i];
   }
+  _mm256_zeroupper();
   return dot_product;
 }
 

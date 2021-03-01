@@ -31,6 +31,7 @@ void ErlComputer_AVX2(
     }
     erl[kFftLengthBy2] += H2_j[kFftLengthBy2];
   }
+  _mm256_zeroupper();
 }
 
 }  // namespace aec3

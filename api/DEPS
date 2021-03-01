@@ -36,6 +36,7 @@ include_rules = [
   "-libyuv",
   "-common_types.h",
   "-WebRTC",
+  "-g3doc",
 ]
 
 specific_include_rules = {

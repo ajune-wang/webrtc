@@ -146,6 +146,30 @@
       },
       "revId": "aed8c267bef78643298bd0e100e7766c78b68750",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37415389_d224213b",
+        "filename": "sdk/android/src/jni/android_network_monitor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-03-01T15:48:24Z",
+      "side": 1,
+      "message": "\u003e But.... can NetworkMonitor be reStarted after Stopped? \n\nNot sure, needs investigation.\n\n\u003e if yes, then it won\u0027t work because SafetyFlag can\u0027t be resurrected (and recreating it would break thread safety of using it in NotifyConnectionTypeChanged)\n\nAs far as I understand, it should work to stop and discard the old safety flag, and create a fresh one to be passed with future tasks. Tasks posted with the old flag will be cancelled, but I think that\u0027s ok if one explicitly stop and restart.",
+      "parentUuid": "d899d08e_b43b6d22",
+      "range": {
+        "startLine": 235,
+        "startChar": 2,
+        "endLine": 235,
+        "endChar": 19
+      },
+      "revId": "aed8c267bef78643298bd0e100e7766c78b68750",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

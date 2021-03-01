@@ -16,6 +16,24 @@
       "message": "We might still have a race here though unless we can be sure that WakeUp can never be called from within a QueuedTask::Run() call.\n\nFor Process(), this looks good because we already hold the lock when we get here,\nbut for Run() (line 277) we don\u0027t actually hold the lock.\n\nA hack around it, which could be enabled only in debug builds, could be to:\n\n* Add a boolean member variable, holds_mutex_, guarded by \u0027this\u0027 (run on)\n* Set the variable to true for the scope that starts at 233, reset to false before releasing the lock.\n* Inside of WakeUpOnProcessThread(), RTC_DCHECK(holds_mutex_);",
       "revId": "e59833a9a212e820360950b49e687ac97caae7e8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03f6a636_f839d5e2",
+        "filename": "modules/utility/source/process_thread_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-03-01T09:45:28Z",
+      "side": 1,
+      "message": "Hmm, to get it right, we should allow calls from QueuedTask::Run (since docs say WakeUp can be called from any thread), and grab the lock in that case.\n\nI.e., something like if (IsCurrent() \u0026\u0026 holds_mutex_) { lock-less case }\n\nIf we want no change in behavior, I guess that\u0027s the way to do it.\n\nI also note that a module\u0027s Process() can not call PostTask, since that also needs to take the same lock.\n\nA different way that might work would be to use a separate lock for queue_ (to allow calls to PostTask from module\u0027s Process), and then let WakeUp just post a task to update the modules_. But I\u0027m afraid that would introduce a new race, with DeregisterModule.",
+      "parentUuid": "15734fa1_7ba69560",
+      "revId": "e59833a9a212e820360950b49e687ac97caae7e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

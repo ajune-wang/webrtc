@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e42d648f_8bf944a9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-03-01T12:03:59Z",
+      "side": 1,
+      "message": "It is ready. Asa, could you please take a look?",
+      "revId": "99f574d2d55b310d6c63e55c707af1484ac33c4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15734fa1_7ba69560",
+        "filename": "modules/utility/source/process_thread_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-03-01T09:22:34Z",
+      "side": 1,
+      "message": "We might still have a race here though unless we can be sure that WakeUp can never be called from within a QueuedTask::Run() call.\n\nFor Process(), this looks good because we already hold the lock when we get here,\nbut for Run() (line 277) we don\u0027t actually hold the lock.\n\nA hack around it, which could be enabled only in debug builds, could be to:\n\n* Add a boolean member variable, holds_mutex_, guarded by \u0027this\u0027 (run on)\n* Set the variable to true for the scope that starts at 233, reset to false before releasing the lock.\n* Inside of WakeUpOnProcessThread(), RTC_DCHECK(holds_mutex_);",
+      "revId": "e59833a9a212e820360950b49e687ac97caae7e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

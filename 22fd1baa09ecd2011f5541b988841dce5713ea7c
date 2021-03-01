@@ -16,6 +16,92 @@
       "message": "This step is (mostly) just refactoring how the code does things, it should amount to the same thing.\n\nOverall plan: https://docs.google.com/document/d/1nIrGpPFOW8xMLR97n5iEcipdDyFVs_kHUT4ybRaa9Xs/edit#heading\u003dh.p5l0c0se9oth",
       "revId": "22fd1baa09ecd2011f5541b988841dce5713ea7c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c892013_bf6c6e3b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-03-01T20:45:35Z",
+      "side": 1,
+      "message": "Looks good. Since I\u0027m not too familiar with the context, I have a few questions I\u0027d like to get clarified.",
+      "revId": "22fd1baa09ecd2011f5541b988841dce5713ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ca90229_a086668d",
+        "filename": "api/transport/stun.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-03-01T20:45:35Z",
+      "side": 1,
+      "message": "Should this be kIntegrityOk?",
+      "range": {
+        "startLine": 219,
+        "startChar": 46,
+        "endLine": 219,
+        "endChar": 53
+      },
+      "revId": "22fd1baa09ecd2011f5541b988841dce5713ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f88daa59_579d5d1b",
+        "filename": "p2p/base/turn_server.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-03-01T20:45:35Z",
+      "side": 1,
+      "message": "nit: Maybe we don\u0027t need to abbreviate this? Or is this common in the RFC?",
+      "range": {
+        "startLine": 346,
+        "startChar": 29,
+        "endLine": 346,
+        "endChar": 32
+      },
+      "revId": "22fd1baa09ecd2011f5541b988841dce5713ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "294f590d_d040c15a",
+        "filename": "p2p/base/turn_server.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-03-01T20:45:35Z",
+      "side": 1,
+      "message": "nit: Is this actually checked?",
+      "range": {
+        "startLine": 346,
+        "startChar": 13,
+        "endLine": 346,
+        "endChar": 25
+      },
+      "revId": "22fd1baa09ecd2011f5541b988841dce5713ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

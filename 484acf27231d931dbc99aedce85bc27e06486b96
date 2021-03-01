@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e12b8ff8_0878d26b",
+        "filename": "p2p/base/turn_port.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 720,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-03-01T20:45:35Z",
+      "side": 0,
+      "message": "Do all StunSuccessResponseTypes have a corresponding request with message integrity set? Otherwise, it looks like the new code might miss some integrity checks.",
+      "range": {
+        "startLine": 720,
+        "startChar": 6,
+        "endLine": 720,
+        "endChar": 31
+      },
+      "revId": "484acf27231d931dbc99aedce85bc27e06486b96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

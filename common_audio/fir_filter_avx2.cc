@@ -83,6 +83,8 @@ void FIRFilterAVX2::Filter(const float* in, size_t length, float* out) {
 
   // Update current state.
   memmove(state_.get(), &state_[length], state_length_ * sizeof(state_[0]));
+
+  _mm256_zeroupper();
 }
 
 }  // namespace webrtc

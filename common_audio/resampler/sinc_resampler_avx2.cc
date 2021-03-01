@@ -60,6 +60,7 @@ float SincResampler::Convolve_AVX2(const float* input_ptr,
   _mm_store_ss(&result, _mm_add_ss(m128_sums2,
                                    _mm_shuffle_ps(m128_sums2, m128_sums2, 1)));
 
+  _mm256_zeroupper();
   return result;
 }
 

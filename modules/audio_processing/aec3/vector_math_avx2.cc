@@ -34,6 +34,7 @@ void VectorMath::SqrtAVX2(rtc::ArrayView<float> x) {
   for (; j < x_size; ++j) {
     x[j] = sqrtf(x[j]);
   }
+  _mm256_zeroupper();
 }
 
 // Elementwise vector multiplication z = x * y.
@@ -56,6 +57,7 @@ void VectorMath::MultiplyAVX2(rtc::ArrayView<const float> x,
   for (; j < x_size; ++j) {
     z[j] = x[j] * y[j];
   }
+  _mm256_zeroupper();
 }
 
 // Elementwise vector accumulation z += x.
@@ -76,6 +78,7 @@ void VectorMath::AccumulateAVX2(rtc::ArrayView<const float> x,
   for (; j < x_size; ++j) {
     z[j] += x[j];
   }
+  _mm256_zeroupper();
 }
 
 }  // namespace aec3

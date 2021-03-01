@@ -52,6 +52,24 @@
       "parentUuid": "5104745b_28432ac7",
       "revId": "3e064b3e76a9434d7071dd85d5e11897fac39e37",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d84a4bb_bf2401ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-01T19:25:25Z",
+      "side": 1,
+      "message": "getStats() is special, because it collects stats from the lowest layers and exposes them to the API, this is why it has to go through all the layers in the code base to expose something.\n\nSo if you want to change the behavior of the encoder, you only need to touch video/. But if you want to expose something the encoder is doing in getStats(), i.e. all the way up to the api/ layer, then you have to go through media/ and call/ to get there.",
+      "parentUuid": "a09a0aeb_c6a281de",
+      "revId": "3e064b3e76a9434d7071dd85d5e11897fac39e37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

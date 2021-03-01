@@ -16,6 +16,23 @@
       "message": "tommi: Please take a look. Thanks.",
       "revId": "1d71013352d2a1a1ac9fc1c10a4a604fe2069786",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d4973e8_e860467c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8992
+      },
+      "writtenOn": "2021-03-01T16:22:05Z",
+      "side": 1,
+      "message": "asapersson@: PTAL",
+      "revId": "1d71013352d2a1a1ac9fc1c10a4a604fe2069786",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -306,7 +306,7 @@ bool TurnServer::GetKey(const StunMessage* msg, std::string* key) {
 }
 
 bool TurnServer::CheckAuthorization(TurnServerConnection* conn,
-                                    const StunMessage* msg,
+                                    StunMessage* msg,
                                     const char* data,
                                     size_t size,
                                     const std::string& key) {
@@ -344,8 +344,8 @@ bool TurnServer::CheckAuthorization(TurnServerConnection* conn,
   }
 
   // Fail if bad username or M-I.
-  // We need |data| and |size| for the call to ValidateMessageIntegrity.
-  if (key.empty() || !StunMessage::ValidateMessageIntegrity(data, size, key)) {
+  if (key.empty() || msg->ValidateMessageIntegrity(key) !=
+                         StunMessage::IntegrityStatus::kIntegrityOk) {
     SendErrorResponseWithRealmAndNonce(conn, msg, STUN_ERROR_UNAUTHORIZED,
                                        STUN_ERROR_REASON_UNAUTHORIZED);
     return false;

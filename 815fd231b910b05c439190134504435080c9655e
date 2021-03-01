@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "173d3496_7cd79c51",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-03-01T14:07:05Z",
+      "side": 1,
+      "message": "I ended up scratching my head about why this is ok when libsrtp tells you to include more bytes here:\nhttps://github.com/cisco/libsrtp/blob/381706dc7e05258596083b5fbdc4981d7a710e60/include/srtp.h#L393-L396\n\n(and I checked, we don\u0027t parse MKI in SDES and there is a test for that; well, at least one for lifetime that also claims to test not parsing MKI)",
+      "revId": "815fd231b910b05c439190134504435080c9655e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

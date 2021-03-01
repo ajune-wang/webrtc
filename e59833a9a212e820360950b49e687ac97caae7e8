@@ -52,6 +52,24 @@
       "parentUuid": "03f6a636_f839d5e2",
       "revId": "e59833a9a212e820360950b49e687ac97caae7e8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b192e399_d9b762f0",
+        "filename": "modules/utility/source/process_thread_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-03-01T10:34:45Z",
+      "side": 1,
+      "message": "Done. But can\u0027t DCHECK in WakeUp, because current call_stats_unittest.cc uses PostTask with a task that ends up calling WakeUp.",
+      "parentUuid": "b30939b0_dad9fc91",
+      "revId": "e59833a9a212e820360950b49e687ac97caae7e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

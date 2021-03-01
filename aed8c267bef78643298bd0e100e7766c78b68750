@@ -170,6 +170,30 @@
       },
       "revId": "aed8c267bef78643298bd0e100e7766c78b68750",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "992d3eb1_7e9df05f",
+        "filename": "sdk/android/src/jni/android_network_monitor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-01T15:58:09Z",
+      "side": 1,
+      "message": "creating a new flag would create a race with NotifyConnectionTypeChanged where the flag is accessed.\n(making a [shared] copy of the flag is thread-safe, replacing flag with new one is not)",
+      "parentUuid": "37415389_d224213b",
+      "range": {
+        "startLine": 235,
+        "startChar": 2,
+        "endLine": 235,
+        "endChar": 19
+      },
+      "revId": "aed8c267bef78643298bd0e100e7766c78b68750",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

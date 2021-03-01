@@ -122,6 +122,30 @@
       },
       "revId": "aed8c267bef78643298bd0e100e7766c78b68750",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d899d08e_b43b6d22",
+        "filename": "sdk/android/src/jni/android_network_monitor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-01T14:06:39Z",
+      "side": 1,
+      "message": "Cancelling in Stop might be a good solution (likely you\u0027ll need to use SafetyFlag directly then rather than ScopedSafetyFlag, but that should be easy).\n\nBut.... can NetworkMonitor be reStarted after Stopped? if yes, then it won\u0027t work because SafetyFlag can\u0027t be resurrected (and recreating it would break thread safety of using it in NotifyConnectionTypeChanged)",
+      "parentUuid": "99dfad09_e9f22d0a",
+      "range": {
+        "startLine": 235,
+        "startChar": 2,
+        "endLine": 235,
+        "endChar": 19
+      },
+      "revId": "aed8c267bef78643298bd0e100e7766c78b68750",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

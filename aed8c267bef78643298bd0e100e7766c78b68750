@@ -74,6 +74,30 @@
       },
       "revId": "aed8c267bef78643298bd0e100e7766c78b68750",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1fb478b4_f094fd25",
+        "filename": "sdk/android/src/jni/android_network_monitor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-01T13:56:20Z",
+      "side": 1,
+      "message": "(I considered using this scenario as motivation to introduce a thread-safe \u0027TaskSafety\u0027 flag: https://webrtc-review.googlesource.com/c/src/+/169341\nbut wasn\u0027t sure it is strong enough motivation to introduce such complicated flag)",
+      "parentUuid": "4df5f295_ea6000e9",
+      "range": {
+        "startLine": 235,
+        "startChar": 2,
+        "endLine": 235,
+        "endChar": 19
+      },
+      "revId": "aed8c267bef78643298bd0e100e7766c78b68750",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

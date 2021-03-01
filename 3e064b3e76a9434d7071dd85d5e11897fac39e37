@@ -70,6 +70,24 @@
       "parentUuid": "a09a0aeb_c6a281de",
       "revId": "3e064b3e76a9434d7071dd85d5e11897fac39e37",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d132b17e_2de2cd92",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16600
+      },
+      "writtenOn": "2021-03-01T19:32:12Z",
+      "side": 1,
+      "message": "I see, this is greatly helpful. I was guessing that the folder structure should map to certain layering, but wasn\u0027t able to sort how exactly how. Thanks!",
+      "parentUuid": "2d84a4bb_bf2401ef",
+      "revId": "3e064b3e76a9434d7071dd85d5e11897fac39e37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

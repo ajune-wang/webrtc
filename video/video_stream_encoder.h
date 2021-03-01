@@ -113,6 +113,10 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   DataRate UpdateTargetBitrate(DataRate target_bitrate,
                                double cwnd_reduce_ratio);
 
+  static void SetDefaultQualityScalingSettings(
+      const VideoCodec& codec,
+      VideoEncoder::EncoderInfo* encoder_info);
+
  protected:
   // Used for testing. For example the |ScalingObserverInterface| methods must
   // be called on |encoder_queue_|.

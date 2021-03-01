@@ -31,6 +31,7 @@
 #include "api/video_codecs/video_encoder.h"
 #include "call/adaptation/resource_adaptation_processor.h"
 #include "call/adaptation/video_stream_adapter.h"
+#include "media/base/media_constants.h"
 #include "modules/video_coding/codecs/vp9/svc_rate_allocator.h"
 #include "modules/video_coding/include/video_codec_initializer.h"
 #include "rtc_base/arraysize.h"
@@ -743,8 +744,9 @@ void VideoStreamEncoder::SetSource(
         degradation_preference);
     stream_resource_manager_.SetDegradationPreferences(degradation_preference);
     if (encoder_) {
-      stream_resource_manager_.ConfigureQualityScaler(
-          encoder_->GetEncoderInfo());
+      VideoEncoder::EncoderInfo encoder_info = encoder_->GetEncoderInfo();
+      SetDefaultQualityScalingSettings(send_codec_, &encoder_info);
+      stream_resource_manager_.ConfigureQualityScaler(encoder_info);
     }
   });
 }
@@ -1193,6 +1195,7 @@ void VideoStreamEncoder::ReconfigureEncoder() {
       std::move(streams), is_svc, encoder_config_.content_type,
       encoder_config_.min_transmit_bitrate_bps);
 
+  SetDefaultQualityScalingSettings(send_codec_, &info);
   stream_resource_manager_.ConfigureQualityScaler(info);
 }
 
@@ -2469,6 +2472,51 @@ void VideoStreamEncoder::RemoveRestrictionsListenerForTesting(
     event.Set();
   });
   event.Wait(rtc::Event::kForever);
+}
+
+void VideoStreamEncoder::SetDefaultQualityScalingSettings(
+    const VideoCodec& codec,
+    VideoEncoder::EncoderInfo* encoder_info) {
+  if (!encoder_info->is_hardware_accelerated) {
+    // Do not override scaling settings for WebRTC internal encoders. VP9, for
+    // example, uses its own fieldtrial to enable/disable quality scaling.
+    return;
+  }
+
+  if (encoder_info->scaling_settings.thresholds.has_value()) {
+    // Keep scaling settings provided by encoder.
+    return;
+  }
+
+  if (field_trial::IsEnabled("WebRTC-DefaultScalingSettingsKillSwitch")) {
+    return;
+  }
+
+  // Encoder didn't provide scaling settings. This is a valid case. Encoder may
+  // not be aware of WebRTC quality scaling feature. Use default settings for
+  // known codecs.
+  absl::optional<VideoEncoder::ScalingSettings> scaling_settings;
+  if (codec.codecType == VideoCodecType::kVideoCodecVP8 &&
+      codec.VP8().automaticResizeOn) {
+    scaling_settings = VideoEncoder::ScalingSettings(
+        cricket::kLowVp8QpThreshold, cricket::kHighVp8QpThreshold);
+  } else if (codec.codecType == VideoCodecType::kVideoCodecVP9 &&
+             codec.VP9().automaticResizeOn) {
+    scaling_settings = VideoEncoder::ScalingSettings(
+        cricket::kLowVp9QpThreshold, cricket::kHighVp9QpThreshold);
+  } else if (codec.codecType == VideoCodecType::kVideoCodecH264) {
+    scaling_settings = VideoEncoder::ScalingSettings(
+        cricket::kLowH264QpThreshold, cricket::kHighH264QpThreshold);
+  }
+
+  if (scaling_settings.has_value() &&
+      scaling_settings->thresholds.has_value()) {
+    RTC_LOG(LS_INFO)
+        << "Encoder didn't provide scaling settings. Use defaults: "
+        << scaling_settings->thresholds->low << ", "
+        << scaling_settings->thresholds->high;
+    encoder_info->scaling_settings = *scaling_settings;
+  }
 }
 
 }  // namespace webrtc

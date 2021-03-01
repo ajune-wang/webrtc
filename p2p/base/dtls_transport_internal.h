@@ -126,7 +126,7 @@ class DtlsTransportInternal : public rtc::PacketTransportInternal {
   }
   // Unsubscribe the subscription with given id.
   void UnsubscribeDtlsState(const void* id) {
-    test_--;
+    test_++;
     dtls_state_callback_list_.RemoveReceivers(id);
   }
 

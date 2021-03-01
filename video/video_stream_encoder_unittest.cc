@@ -84,8 +84,9 @@ const uint32_t kStartBitrateBps = 600000;
 const uint32_t kSimulcastTargetBitrateBps = 3150000;
 const uint32_t kLowTargetBitrateBps = kTargetBitrateBps / 10;
 const int kMaxInitialFramedrop = 4;
-const int kDefaultFramerate = 30;
-const int64_t kFrameIntervalMs = rtc::kNumMillisecsPerSec / kDefaultFramerate;
+const int kDefaultFramerateFps = 30;
+const int64_t kFrameIntervalMs =
+    rtc::kNumMillisecsPerSec / kDefaultFramerateFps;
 const int64_t kProcessIntervalMs = 1000;
 const VideoEncoder::ResolutionBitrateLimits
     kEncoderBitrateLimits540p(960 * 540, 100 * 1000, 100 * 1000, 2000 * 1000);
@@ -242,7 +243,7 @@ auto ResolutionMax() {
 }
 
 auto FpsMax() {
-  return WantsFps(Eq(kDefaultFramerate));
+  return WantsFps(Eq(kDefaultFramerateFps));
 }
 
 auto FpsUnlimited() {
@@ -275,7 +276,7 @@ auto FpsInRangeForPixelsInBalanced(int last_frame_pixels) {
   } else if (last_frame_pixels <= 640 * 480) {
     fps_range_matcher = Ge(15);
   } else {
-    fps_range_matcher = Eq(kDefaultFramerate);
+    fps_range_matcher = Eq(kDefaultFramerateFps);
   }
   return Field("max_framerate_fps", &rtc::VideoSinkWants::max_framerate_fps,
                fps_range_matcher);
@@ -605,6 +606,22 @@ class MockEncoderSelector
   MOCK_METHOD(absl::optional<SdpVideoFormat>, OnEncoderBroken, (), (override));
 };
 
+void FillQualityScalingSettigs(VideoCodec* codec,
+                               VideoEncoder::EncoderInfo* encoder_info,
+                               VideoCodecType codec_type,
+                               bool is_automatic_resize_enabled,
+                               bool is_hardware_accelerated,
+                               VideoEncoder::ScalingSettings scaling_settings) {
+  codec->codecType = codec_type;
+  if (codec_type == VideoCodecType::kVideoCodecVP8) {
+    codec->VP8()->automaticResizeOn = is_automatic_resize_enabled;
+  } else if (codec_type == VideoCodecType::kVideoCodecVP9) {
+    codec->VP9()->automaticResizeOn = is_automatic_resize_enabled;
+  }
+  encoder_info->is_hardware_accelerated = is_hardware_accelerated;
+  encoder_info->scaling_settings = scaling_settings;
+}
+
 }  // namespace
 
 class VideoStreamEncoderTest : public ::testing::Test {
@@ -615,7 +632,7 @@ class VideoStreamEncoderTest : public ::testing::Test {
       : video_send_config_(VideoSendStream::Config(nullptr)),
         codec_width_(320),
         codec_height_(240),
-        max_framerate_(kDefaultFramerate),
+        max_framerate_(kDefaultFramerateFps),
         fake_encoder_(&time_controller_),
         encoder_factory_(&fake_encoder_),
         stats_proxy_(new MockableSendStatisticsProxy(
@@ -679,7 +696,7 @@ class VideoStreamEncoderTest : public ::testing::Test {
                                    num_streams, &video_encoder_config);
     for (auto& layer : video_encoder_config.simulcast_layers) {
       layer.num_temporal_layers = num_temporal_layers;
-      layer.max_framerate = kDefaultFramerate;
+      layer.max_framerate = kDefaultFramerateFps;
     }
     video_encoder_config.max_bitrate_bps =
         num_streams == 1 ? kTargetBitrateBps : kSimulcastTargetBitrateBps;
@@ -2623,7 +2640,7 @@ TEST_F(VideoStreamEncoderTest, SinkWantsStoredByDegradationPreference) {
   EXPECT_FALSE(video_source_.sink_wants().target_pixel_count);
   EXPECT_LT(video_source_.sink_wants().max_pixel_count,
             kFrameWidth * kFrameHeight);
-  EXPECT_EQ(kDefaultFramerate, video_source_.sink_wants().max_framerate_fps);
+  EXPECT_EQ(kDefaultFramerateFps, video_source_.sink_wants().max_framerate_fps);
 
   // Set new source, switch to maintain-resolution.
   test::FrameForwarder new_video_source;
@@ -2689,7 +2706,8 @@ TEST_F(VideoStreamEncoderTest, SinkWantsStoredByDegradationPreference) {
   EXPECT_LT(new_video_source.sink_wants().max_pixel_count,
             kFrameWidth * kFrameHeight);
   EXPECT_FALSE(new_video_source.sink_wants().target_pixel_count);
-  EXPECT_EQ(kDefaultFramerate, new_video_source.sink_wants().max_framerate_fps);
+  EXPECT_EQ(kDefaultFramerateFps,
+            new_video_source.sink_wants().max_framerate_fps);
 
   // Calling SetSource with framerate scaling enabled apply the old SinkWants.
   video_stream_encoder_->SetSourceAndWaitForRestrictionsUpdated(
@@ -4268,11 +4286,10 @@ TEST_F(VideoStreamEncoderTest, ReportsVideoBitrateAllocation) {
                VideoStreamEncoder::BitrateAllocationCallbackType::
                    kVideoBitrateAllocation);
 
-  const int kDefaultFps = 30;
   const VideoBitrateAllocation expected_bitrate =
       SimulcastRateAllocator(fake_encoder_.codec_config())
           .Allocate(VideoBitrateAllocationParameters(kLowTargetBitrateBps,
-                                                     kDefaultFps));
+                                                     kDefaultFramerateFps));
 
   video_stream_encoder_->OnBitrateUpdatedAndWaitForManagedResources(
       DataRate::BitsPerSec(kLowTargetBitrateBps),
@@ -4287,14 +4304,14 @@ TEST_F(VideoStreamEncoderTest, ReportsVideoBitrateAllocation) {
 
   // Check that encoder has been updated too, not just allocation observer.
   EXPECT_TRUE(fake_encoder_.GetAndResetLastRateControlSettings().has_value());
-  AdvanceTime(TimeDelta::Seconds(1) / kDefaultFps);
+  AdvanceTime(TimeDelta::Seconds(1) / kDefaultFramerateFps);
 
   // VideoBitrateAllocation not updated on second frame.
   video_source_.IncomingCapturedFrame(
       CreateFrame(CurrentTimeMs(), codec_width_, codec_height_));
   WaitForEncodedFrame(CurrentTimeMs());
   EXPECT_EQ(sink_.number_of_bitrate_allocations(), 1);
-  AdvanceTime(TimeDelta::Millis(1) / kDefaultFps);
+  AdvanceTime(TimeDelta::Millis(1) / kDefaultFramerateFps);
 
   // VideoBitrateAllocation updated after a process interval.
   const int64_t start_time_ms = CurrentTimeMs();
@@ -4302,7 +4319,7 @@ TEST_F(VideoStreamEncoderTest, ReportsVideoBitrateAllocation) {
     video_source_.IncomingCapturedFrame(
         CreateFrame(CurrentTimeMs(), codec_width_, codec_height_));
     WaitForEncodedFrame(CurrentTimeMs());
-    AdvanceTime(TimeDelta::Millis(1) / kDefaultFps);
+    AdvanceTime(TimeDelta::Millis(1) / kDefaultFramerateFps);
   }
   EXPECT_GT(sink_.number_of_bitrate_allocations(), 3);
 
@@ -4313,8 +4330,6 @@ TEST_F(VideoStreamEncoderTest, ReportsVideoLayersAllocationForVP8Simulcast) {
   ResetEncoder("VP8", /*num_streams*/ 2, 1, 1, /*screenshare*/ false,
                VideoStreamEncoder::BitrateAllocationCallbackType::
                    kVideoLayersAllocation);
-
-  const int kDefaultFps = 30;
 
   video_stream_encoder_->OnBitrateUpdatedAndWaitForManagedResources(
       DataRate::BitsPerSec(kLowTargetBitrateBps),
@@ -4334,7 +4349,7 @@ TEST_F(VideoStreamEncoderTest, ReportsVideoLayersAllocationForVP8Simulcast) {
       fake_encoder_.GetAndResetLastRateControlSettings()->target_bitrate;
   // Check that encoder has been updated too, not just allocation observer.
   EXPECT_EQ(bitrate_allocation.get_sum_bps(), kLowTargetBitrateBps);
-  AdvanceTime(TimeDelta::Seconds(1) / kDefaultFps);
+  AdvanceTime(TimeDelta::Seconds(1) / kDefaultFramerateFps);
 
   // VideoLayersAllocation might be updated if frame rate changes.
   int number_of_layers_allocation = 1;
@@ -4964,7 +4979,7 @@ TEST_F(VideoStreamEncoderTest, OveruseDetectorUpdatedOnReconfigureAndAdaption) {
 
   EXPECT_EQ(
       video_stream_encoder_->overuse_detector_proxy_->GetLastTargetFramerate(),
-      kDefaultFramerate);
+      kDefaultFramerateFps);
 
   // Trigger reconfigure encoder (without resetting the entire instance).
   VideoEncoderConfig video_encoder_config;
@@ -5334,7 +5349,7 @@ TEST_F(VideoStreamEncoderTest, InitialFrameDropActivatesWhenLayersChange) {
           /*screenshare enabled*/ false);
   for (auto& layer : video_encoder_config.simulcast_layers) {
     layer.num_temporal_layers = 1;
-    layer.max_framerate = kDefaultFramerate;
+    layer.max_framerate = kDefaultFramerateFps;
   }
   video_encoder_config.max_bitrate_bps = kSimulcastTargetBitrateBps;
   video_encoder_config.content_type =
@@ -5951,28 +5966,185 @@ TEST_F(VideoStreamEncoderTest,
 }
 
 TEST_F(VideoStreamEncoderTest,
-       ResolutionNotAdaptedForTooSmallFrame_MaintainFramerateMode) {
-  const int kTooSmallWidth = 10;
-  const int kTooSmallHeight = 10;
-  video_stream_encoder_->OnBitrateUpdatedAndWaitForManagedResources(
-      DataRate::BitsPerSec(kTargetBitrateBps),
-      DataRate::BitsPerSec(kTargetBitrateBps),
-      DataRate::BitsPerSec(kTargetBitrateBps), 0, 0, 0);
+       ScalingAllowedVp8ScalingSettingsAbsent_DefaultScalingSettingsUsed) {
+  VideoCodec codec;
+  VideoEncoder::EncoderInfo encoder_info;
+  FillQualityScalingSettigs(
+      &codec, &encoder_info,
+      /*codec_type=*/kVideoCodecVP8,
+      /*is_automatic_resize_enabled=*/true,
+      /*is_hardware_accelerated=*/true,
+      /*scaling_settings=*/VideoEncoder::ScalingSettings::kOff);
+  EXPECT_FALSE(encoder_info.scaling_settings.thresholds.has_value());
 
-  // Enable MAINTAIN_FRAMERATE preference, no initial limitation.
-  test::FrameForwarder source;
-  video_stream_encoder_->SetSource(
-      &source, webrtc::DegradationPreference::MAINTAIN_FRAMERATE);
-  EXPECT_THAT(source.sink_wants(), UnlimitedSinkWants());
-  EXPECT_FALSE(stats_proxy_->GetStats().cpu_limited_resolution);
+  video_stream_encoder_->SetDefaultQualityScalingSettings(codec, &encoder_info);
+  auto thresholds = encoder_info.scaling_settings.thresholds;
+  ASSERT_TRUE(thresholds.has_value());
+  EXPECT_EQ((*thresholds).low, cricket::kLowVp8QpThreshold);
+  EXPECT_EQ((*thresholds).high, cricket::kHighVp8QpThreshold);
 
-  // Trigger adapt down, too small frame, expect no change.
-  source.IncomingCapturedFrame(CreateFrame(1, kTooSmallWidth, kTooSmallHeight));
-  WaitForEncodedFrame(1);
-  video_stream_encoder_->TriggerCpuOveruse();
-  EXPECT_THAT(source.sink_wants(), FpsMaxResolutionMax());
-  EXPECT_FALSE(stats_proxy_->GetStats().cpu_limited_resolution);
-  EXPECT_EQ(0, stats_proxy_->GetStats().number_of_cpu_adapt_changes);
+  video_stream_encoder_->Stop();
+}
+
+TEST_F(VideoStreamEncoderTest,
+       ScalingAllowedVp9ScalingSettingsAbsent_DefaultScalingSettingsUsed) {
+  VideoCodec codec;
+  VideoEncoder::EncoderInfo encoder_info;
+  FillQualityScalingSettigs(
+      &codec, &encoder_info,
+      /*codec_type=*/kVideoCodecVP9,
+      /*is_automatic_resize_enabled=*/true,
+      /*is_hardware_accelerated=*/true,
+      /*scaling_settings=*/VideoEncoder::ScalingSettings::kOff);
+  EXPECT_FALSE(encoder_info.scaling_settings.thresholds.has_value());
+
+  video_stream_encoder_->SetDefaultQualityScalingSettings(codec, &encoder_info);
+  auto thresholds = encoder_info.scaling_settings.thresholds;
+  ASSERT_TRUE(thresholds.has_value());
+  EXPECT_EQ((*thresholds).low, cricket::kLowVp9QpThreshold);
+  EXPECT_EQ((*thresholds).high, cricket::kHighVp9QpThreshold);
+
+  video_stream_encoder_->Stop();
+}
+
+TEST_F(VideoStreamEncoderTest,
+       ScalingAllowedH264ScalingSettingsAbsent_DefaultScalingSettingsUsed) {
+  VideoCodec codec;
+  VideoEncoder::EncoderInfo encoder_info;
+  FillQualityScalingSettigs(
+      &codec, &encoder_info,
+      /*codec_type=*/kVideoCodecH264,
+      /*is_automatic_resize_enabled=*/true,
+      /*is_hardware_accelerated=*/true,
+      /*scaling_settings=*/VideoEncoder::ScalingSettings::kOff);
+  EXPECT_FALSE(encoder_info.scaling_settings.thresholds.has_value());
+
+  video_stream_encoder_->SetDefaultQualityScalingSettings(codec, &encoder_info);
+  auto thresholds = encoder_info.scaling_settings.thresholds;
+  ASSERT_TRUE(thresholds.has_value());
+  EXPECT_EQ((*thresholds).low, cricket::kLowH264QpThreshold);
+  EXPECT_EQ((*thresholds).high, cricket::kHighH264QpThreshold);
+
+  video_stream_encoder_->Stop();
+}
+
+TEST_F(VideoStreamEncoderTest,
+       ScalingNotAllowedVp8ScalingSettingsAbsent_ScalingSettingsAbsent) {
+  VideoCodec codec;
+  VideoEncoder::EncoderInfo encoder_info;
+  FillQualityScalingSettigs(
+      &codec, &encoder_info,
+      /*codec_type=*/kVideoCodecVP8,
+      /*is_automatic_resize_enabled=*/false,
+      /*is_hardware_accelerated=*/true,
+      /*scaling_settings=*/VideoEncoder::ScalingSettings::kOff);
+  EXPECT_FALSE(encoder_info.scaling_settings.thresholds.has_value());
+
+  video_stream_encoder_->SetDefaultQualityScalingSettings(codec, &encoder_info);
+  auto thresholds = encoder_info.scaling_settings.thresholds;
+  EXPECT_FALSE(thresholds.has_value());
+
+  video_stream_encoder_->Stop();
+}
+
+TEST_F(VideoStreamEncoderTest,
+       ScalingNotAllowedVp9ScalingSettingsAbsent_ScalingSettingsAbsent) {
+  VideoCodec codec;
+  VideoEncoder::EncoderInfo encoder_info;
+  FillQualityScalingSettigs(
+      &codec, &encoder_info,
+      /*codec_type=*/kVideoCodecVP9,
+      /*is_automatic_resize_enabled=*/false,
+      /*is_hardware_accelerated=*/true,
+      /*scaling_settings=*/VideoEncoder::ScalingSettings::kOff);
+  EXPECT_FALSE(encoder_info.scaling_settings.thresholds.has_value());
+
+  video_stream_encoder_->SetDefaultQualityScalingSettings(codec, &encoder_info);
+  auto thresholds = encoder_info.scaling_settings.thresholds;
+  EXPECT_FALSE(thresholds.has_value());
+
+  video_stream_encoder_->Stop();
+}
+
+TEST_F(VideoStreamEncoderTest,
+       ScalingNotAllowedH264ScalingSettingsAbsent_DefaultScalingSettingsUsed) {
+  VideoCodec codec;
+  VideoEncoder::EncoderInfo encoder_info;
+  FillQualityScalingSettigs(
+      &codec, &encoder_info,
+      /*codec_type=*/kVideoCodecH264,
+      /*is_automatic_resize_enabled=*/true,
+      /*is_hardware_accelerated=*/true,
+      /*scaling_settings=*/VideoEncoder::ScalingSettings::kOff);
+  EXPECT_FALSE(encoder_info.scaling_settings.thresholds.has_value());
+
+  video_stream_encoder_->SetDefaultQualityScalingSettings(codec, &encoder_info);
+  auto thresholds = encoder_info.scaling_settings.thresholds;
+  ASSERT_TRUE(thresholds.has_value());
+  EXPECT_EQ((*thresholds).low, cricket::kLowH264QpThreshold);
+  EXPECT_EQ((*thresholds).high, cricket::kHighH264QpThreshold);
+
+  video_stream_encoder_->Stop();
+}
+
+TEST_F(VideoStreamEncoderTest,
+       ScalingAllowedScalingSettingsPresent_EncoderScalingSettingsUsed) {
+  VideoCodec codec;
+  VideoEncoder::EncoderInfo encoder_info;
+  FillQualityScalingSettigs(
+      &codec, &encoder_info,
+      /*codec_type=*/kVideoCodecVP8,
+      /*is_automatic_resize_enabled=*/true,
+      /*is_hardware_accelerated=*/true,
+      /*scaling_settings=*/VideoEncoder::ScalingSettings(kQpLow, kQpHigh));
+  EXPECT_TRUE(encoder_info.scaling_settings.thresholds.has_value());
+
+  video_stream_encoder_->SetDefaultQualityScalingSettings(codec, &encoder_info);
+  auto thresholds = encoder_info.scaling_settings.thresholds;
+  ASSERT_TRUE(thresholds.has_value());
+  EXPECT_EQ((*thresholds).low, kQpLow);
+  EXPECT_EQ((*thresholds).high, kQpHigh);
+
+  video_stream_encoder_->Stop();
+}
+
+TEST_F(VideoStreamEncoderTest,
+       ScalingAllowedSwScalingSettingsAbsent_ScalingSettingsAbsent) {
+  VideoCodec codec;
+  VideoEncoder::EncoderInfo encoder_info;
+  FillQualityScalingSettigs(
+      &codec, &encoder_info,
+      /*codec_type=*/kVideoCodecVP8,
+      /*is_automatic_resize_enabled=*/true,
+      /*is_hardware_accelerated=*/false,
+      /*scaling_settings=*/VideoEncoder::ScalingSettings::kOff);
+  EXPECT_FALSE(encoder_info.scaling_settings.thresholds.has_value());
+
+  video_stream_encoder_->SetDefaultQualityScalingSettings(codec, &encoder_info);
+  auto thresholds = encoder_info.scaling_settings.thresholds;
+  EXPECT_FALSE(thresholds.has_value());
+
+  video_stream_encoder_->Stop();
+}
+
+TEST_F(VideoStreamEncoderTest,
+       ScalingAllowedScalingSettingsAbsentKillSwitchOn_ScalingSettingsAbsent) {
+  webrtc::test::ScopedFieldTrials field_trial(
+      "WebRTC-DefaultScalingSettingsKillSwitch/Enabled/");
+
+  VideoCodec codec;
+  VideoEncoder::EncoderInfo encoder_info;
+  FillQualityScalingSettigs(
+      &codec, &encoder_info,
+      /*codec_type=*/kVideoCodecVP8,
+      /*is_automatic_resize_enabled=*/true,
+      /*is_hardware_accelerated=*/true,
+      /*scaling_settings=*/VideoEncoder::ScalingSettings::kOff);
+  EXPECT_FALSE(encoder_info.scaling_settings.thresholds.has_value());
+
+  video_stream_encoder_->SetDefaultQualityScalingSettings(codec, &encoder_info);
+  auto thresholds = encoder_info.scaling_settings.thresholds;
+  EXPECT_FALSE(thresholds.has_value());
 
   video_stream_encoder_->Stop();
 }
@@ -7137,7 +7309,7 @@ TEST_F(VideoStreamEncoderTest, AdjustsTimestampInternalSource) {
   int64_t timestamp = 1;
   EncodedImage image;
   image.SetEncodedData(
-      EncodedImageBuffer::Create(kTargetBitrateBps / kDefaultFramerate / 8));
+      EncodedImageBuffer::Create(kTargetBitrateBps / kDefaultFramerateFps / 8));
   image.capture_time_ms_ = ++timestamp;
   image.SetTimestamp(static_cast<uint32_t>(timestamp * 90));
   const int64_t kEncodeFinishDelayMs = 10;
@@ -7303,20 +7475,20 @@ TEST_F(VideoStreamEncoderTest, EncoderRatesPropagatedOnReconfigure) {
   auto prev_rate_settings = fake_encoder_.GetAndResetLastRateControlSettings();
   ASSERT_TRUE(prev_rate_settings.has_value());
   EXPECT_EQ(static_cast<int>(prev_rate_settings->framerate_fps),
-            kDefaultFramerate);
+            kDefaultFramerateFps);
 
-  // Send 1s of video to ensure the framerate is stable at kDefaultFramerate.
-  for (int i = 0; i < 2 * kDefaultFramerate; i++) {
-    timestamp_ms += 1000 / kDefaultFramerate;
+  // Send 1s of video to ensure the framerate is stable at kDefaultFramerateFps.
+  for (int i = 0; i < 2 * kDefaultFramerateFps; i++) {
+    timestamp_ms += 1000 / kDefaultFramerateFps;
     video_source_.IncomingCapturedFrame(CreateFrame(timestamp_ms, nullptr));
     WaitForEncodedFrame(timestamp_ms);
   }
   EXPECT_EQ(static_cast<int>(fake_encoder_.GetLastFramerate()),
-            kDefaultFramerate);
+            kDefaultFramerateFps);
   // Capture larger frame to trigger a reconfigure.
   codec_height_ *= 2;
   codec_width_ *= 2;
-  timestamp_ms += 1000 / kDefaultFramerate;
+  timestamp_ms += 1000 / kDefaultFramerateFps;
   video_source_.IncomingCapturedFrame(CreateFrame(timestamp_ms, nullptr));
   WaitForEncodedFrame(timestamp_ms);
 

@@ -21,6 +21,7 @@
 
 #include "absl/strings/match.h"
 #include "common_video/libyuv/include/webrtc_libyuv.h"
+#include "media/base/media_constants.h"
 #include "modules/video_coding/utility/simulcast_rate_allocator.h"
 #include "modules/video_coding/utility/simulcast_utility.h"
 #include "rtc_base/checks.h"
@@ -39,10 +40,6 @@ namespace webrtc {
 namespace {
 
 const bool kOpenH264EncoderDetailedLogging = false;
-
-// QP scaling thresholds.
-static const int kLowH264QpThreshold = 24;
-static const int kHighH264QpThreshold = 37;
 
 // Used by histograms. Values of entries should not be changed.
 enum H264EncoderImplEvent {
@@ -615,8 +612,8 @@ VideoEncoder::EncoderInfo H264EncoderImpl::GetEncoderInfo() const {
   EncoderInfo info;
   info.supports_native_handle = false;
   info.implementation_name = "OpenH264";
-  info.scaling_settings =
-      VideoEncoder::ScalingSettings(kLowH264QpThreshold, kHighH264QpThreshold);
+  info.scaling_settings = VideoEncoder::ScalingSettings(
+      cricket::kLowH264QpThreshold, cricket::kHighH264QpThreshold);
   info.is_hardware_accelerated = false;
   info.has_internal_source = false;
   info.supports_simulcast = true;

@@ -33,6 +33,47 @@
       "message": "I\u0027m not very familiar with this code. Adding jonaso@ based on commit history",
       "revId": "aed8c267bef78643298bd0e100e7766c78b68750",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02da9f55_abb4e672",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-01T13:51:17Z",
+      "side": 1,
+      "message": "yes, that is how ScopedTaskSafety supposed to be used (except that it itself has a thread check in the destructor, and thus check you\u0027ve added is redundand)\n\nHowever.... it relies on assumption that I\u0027m afraid is not true in this case.",
+      "parentUuid": "b8c23f53_e46320e5",
+      "revId": "aed8c267bef78643298bd0e100e7766c78b68750",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4df5f295_ea6000e9",
+        "filename": "sdk/android/src/jni/android_network_monitor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-01T13:51:17Z",
+      "side": 1,
+      "message": "I\u0027m not sure this is true.\n\nI remember trying to remove this async_invoker_ and thus checking where the NetworkMonitor is destroyed. The conclusion I got is that it might be destroyed on a different thread.\n\n(Unfortunately I do not remember the details: was is just too many layers and interfaces I failed to unwind, or was it destroyed from java threadpool that is beyond webrtc control and might not be the same thread that created the Monitor)",
+      "range": {
+        "startLine": 235,
+        "startChar": 2,
+        "endLine": 235,
+        "endChar": 19
+      },
+      "revId": "aed8c267bef78643298bd0e100e7766c78b68750",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

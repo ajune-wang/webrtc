@@ -135,6 +135,9 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   void RemoveRestrictionsListenerForTesting(
       VideoSourceRestrictionsListener* restrictions_listener);
 
+  virtual void ConfigureQualityScaler(
+      const VideoEncoder::EncoderInfo& encoder_info);
+
  private:
   class VideoFrameInfo {
    public:

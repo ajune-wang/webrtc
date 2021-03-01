@@ -16,6 +16,23 @@
       "message": "PTAL. Is this the proper way to use ScopedTaskSafety?",
       "revId": "aed8c267bef78643298bd0e100e7766c78b68750",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "476448c7_730006cb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2021-03-01T13:21:49Z",
+      "side": 1,
+      "message": "I\u0027m not very familiar with this code. Adding jonaso@ based on commit history",
+      "revId": "aed8c267bef78643298bd0e100e7766c78b68750",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

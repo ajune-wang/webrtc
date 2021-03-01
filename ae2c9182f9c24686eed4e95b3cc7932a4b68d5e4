@@ -33,6 +33,24 @@
       "message": "It would be great if we could avoid modifying the interface.\n\nI was wondering if there\u0027s some way we could know if we\u0027re on the process thread when we\u0027re call, without requiring a lock to check that.\n\nThis may be a bit involved, but what do you think about this:\n\nIt occurs to me that ProcessThread supports the PostTask and PostDelayedTask methods\nfrom TaskQueueBase, yet does not inherit from TaskQueueBase.\n\nWhat if we change that, make ProcessThread inherit from TaskQueueBase and while we call out to Process(), TimeUntilNextProcess() or QueuedTask::Run(), we use CurrentTaskQueueSetter to set the\ncurrently active TQ.  (arguably, we should be doing that already for QueuedTask::Run)\n\nThen we add a member variable that\u0027s only allowed to be written to/read from the process thread (requires no lock) where we can push modules to that need to be woken up when we detect that Wakeup is being called on the ProcessThread (which we can now do by checking if TaskQueueBase::IsCurrent()).\n\nInside ProcessThreadImpl::Process() we then check and clear that list before waiting.",
       "revId": "ae2c9182f9c24686eed4e95b3cc7932a4b68d5e4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d56f9a65_95c184d9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-03-01T08:48:53Z",
+      "side": 1,
+      "message": "It looks like ProcessThread (the interface) does inherit TaskQueueBase.\n\nAnd the Run method uses CurrentTaskQueueSetter. So I\u0027ll try if IsCurrent() might solve the problem.",
+      "parentUuid": "5cb8a86d_09726e5f",
+      "revId": "ae2c9182f9c24686eed4e95b3cc7932a4b68d5e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

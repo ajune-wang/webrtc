@@ -34,6 +34,24 @@
       "parentUuid": "6091c32d_aebdbcc9",
       "revId": "3e064b3e76a9434d7071dd85d5e11897fac39e37",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a09a0aeb_c6a281de",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-01T19:23:18Z",
+      "side": 1,
+      "message": "There\u0027s lots of layers in the code base.\n\nOn the very top you have various folders in the chromium repo which is mostly the blink namespace. That\u0027s JavaScript layers and other chromium-specific implementation (like camera access). Down in the the webrtc repo though, you can think of the layers as...\n\nOn the top you have api/ this is where the PeerConnection lives and other APIs intended to be used by chromium or native apps. You\u0027ll have senders and receivers here too, configured according to the APIs called by the application.\n\nThe PeerConnection will construct a call/ object internally, and for example a sender and receiver will have an RTP stream. Maybe demuxing logic is here too, and media/. The line does get blurry, and maybe some of the layers could be trimmed down with refactoring, I don\u0027t know enough to comment about that. But eventually packets and frames and stuff get directed to audio or video parts of the codebase.\n\nSo for example the encoders and decoders live in audio/ and video/. This is a layer far down, here bytes get crunched, something the application does not need to know about other than from a quality and statistics point of view.\n\nI\u0027m sure there\u0027s more to it than this simplified explanation, but the folders were created to keep track of different \"layers\" in the code base. We also have teams working specifically with audio or specifically with video, so it made sense to have different teams and different code owners have different folders.\n\nYou\u0027ll find the OWNERS file in each directory, those are the people you need approval from to land CLs affecting the files in those directories.",
+      "parentUuid": "5104745b_28432ac7",
+      "revId": "3e064b3e76a9434d7071dd85d5e11897fac39e37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

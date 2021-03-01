@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12fa1622_d10b4987",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-03-01T15:42:03Z",
+      "side": 1,
+      "message": "Let me create a new one:\n\nError 409: invalid author:\n  email address mbonadei@google.com is not registered in your account, and you lack \u0027forge author\u0027 permission.\nThe following addresses are currently registered:\n   mbonadei@apprtc.net\n   mbonadei@webrtc.org",
+      "revId": "36372840f212de06b107b75b0993bfa431eccea8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

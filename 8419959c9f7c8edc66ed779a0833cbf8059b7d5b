@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a08102d2_13e9e1ad",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-03-01T13:51:13Z",
+      "side": 1,
+      "message": "out of curiosity: did the populated data in Chromium make sense - ie did you see any loss indications, and were they comparable with what you saw from \"packets lost\"?\n",
+      "revId": "8419959c9f7c8edc66ed779a0833cbf8059b7d5b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

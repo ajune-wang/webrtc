@@ -194,6 +194,30 @@
       },
       "revId": "aed8c267bef78643298bd0e100e7766c78b68750",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "514fd66b_75f5bda4",
+        "filename": "sdk/android/src/jni/android_network_monitor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-03-01T16:24:08Z",
+      "side": 1,
+      "message": "I can see two approaches to make it work:\n\n1. Ensure that NotifyConectionTypeChanged won\u0027t be called at the wrong time. Stop calls Java_NetworkMonitor_stopMonitoring, but I\u0027m not sure if it guarantees that there are no ongoing callbacks by the time it returns. I\u0027ve had a quick look at tha java code, and I can\u0027t say for sure it is sufficiently synchronized, but it seems dangerous to me if it isn\u0027t.\n\n2. Ensure that flag pointer can be replaced atomically. I don\u0027t think it matters much if NotifyConnectionTypeChanged gets the old or the new pointer, as long as it gets one of them and nothing else.",
+      "parentUuid": "992d3eb1_7e9df05f",
+      "range": {
+        "startLine": 235,
+        "startChar": 2,
+        "endLine": 235,
+        "endChar": 19
+      },
+      "revId": "aed8c267bef78643298bd0e100e7766c78b68750",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

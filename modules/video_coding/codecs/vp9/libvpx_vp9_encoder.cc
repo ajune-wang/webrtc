@@ -24,6 +24,7 @@
 #include "api/video/i010_buffer.h"
 #include "common_video/include/video_frame_buffer.h"
 #include "common_video/libyuv/include/webrtc_libyuv.h"
+#include "media/base/media_constants.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/video_coding/codecs/vp9/svc_rate_allocator.h"
 #include "modules/video_coding/svc/create_scalability_structure.h"
@@ -52,15 +53,6 @@ uint8_t kUpdBufIdx[4] = {0, 0, 1, 0};
 
 // Maximum allowed PID difference for differnet per-layer frame-rate case.
 const int kMaxAllowedPidDiff = 30;
-
-// TODO(ilink): Tune these thresholds further.
-// Selected using ConverenceMotion_1280_720_50.yuv clip.
-// No toggling observed on any link capacity from 100-2000kbps.
-// HD was reached consistently when link capacity was 1500kbps.
-// Set resolutions are a bit more conservative than svc_config.cc sets, e.g.
-// for 300kbps resolution converged to 270p instead of 360p.
-constexpr int kLowVp9QpThreshold = 149;
-constexpr int kHighVp9QpThreshold = 205;
 
 std::pair<size_t, size_t> GetActiveLayers(
     const VideoBitrateAllocation& allocation) {
@@ -1775,8 +1767,8 @@ LibvpxVp9Encoder::ParseVariableFramerateConfig(
 LibvpxVp9Encoder::QualityScalerExperiment
 LibvpxVp9Encoder::ParseQualityScalerConfig(const WebRtcKeyValueConfig& trials) {
   FieldTrialFlag disabled = FieldTrialFlag("Disabled");
-  FieldTrialParameter<int> low_qp("low_qp", kLowVp9QpThreshold);
-  FieldTrialParameter<int> high_qp("hihg_qp", kHighVp9QpThreshold);
+  FieldTrialParameter<int> low_qp("low_qp", cricket::kLowVp9QpThreshold);
+  FieldTrialParameter<int> high_qp("hihg_qp", cricket::kHighVp9QpThreshold);
   ParseFieldTrial({&disabled, &low_qp, &high_qp},
                   trials.Lookup("WebRTC-VP9QualityScaler"));
   QualityScalerExperiment config;

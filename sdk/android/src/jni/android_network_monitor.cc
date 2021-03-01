@@ -21,6 +21,7 @@
 #include "rtc_base/ip_address.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/strings/string_builder.h"
+#include "rtc_base/task_utils/to_queued_task.h"
 #include "sdk/android/generated_base_jni/NetworkChangeDetector_jni.h"
 #include "sdk/android/generated_base_jni/NetworkMonitor_jni.h"
 #include "sdk/android/native_api/jni/java_types.h"
@@ -230,7 +231,9 @@ AndroidNetworkMonitor::AndroidNetworkMonitor(
       j_network_monitor_(env, Java_NetworkMonitor_getInstance(env)),
       network_thread_(rtc::Thread::Current()) {}
 
-AndroidNetworkMonitor::~AndroidNetworkMonitor() = default;
+AndroidNetworkMonitor::~AndroidNetworkMonitor() {
+  RTC_DCHECK_RUN_ON(network_thread_);
+}
 
 void AndroidNetworkMonitor::Start() {
   RTC_DCHECK_RUN_ON(network_thread_);
@@ -524,11 +527,11 @@ AndroidNetworkMonitorFactory::CreateNetworkMonitor() {
 void AndroidNetworkMonitor::NotifyConnectionTypeChanged(
     JNIEnv* env,
     const JavaRef<jobject>& j_caller) {
-  invoker_.AsyncInvoke<void>(RTC_FROM_HERE, network_thread_, [this] {
+  network_thread_->PostTask(ToQueuedTask(task_safety_.flag(), [this] {
     RTC_LOG(LS_INFO)
         << "Android network monitor detected connection type change.";
     SignalNetworksChanged();
-  });
+  }));
 }
 
 void AndroidNetworkMonitor::NotifyOfActiveNetworkList(

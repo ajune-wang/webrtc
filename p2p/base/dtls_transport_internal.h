@@ -126,6 +126,7 @@ class DtlsTransportInternal : public rtc::PacketTransportInternal {
   }
   // Unsubscribe the subscription with given id.
   void UnsubscribeDtlsState(const void* id) {
+    test_--;
     dtls_state_callback_list_.RemoveReceivers(id);
   }
 
@@ -154,6 +155,7 @@ class DtlsTransportInternal : public rtc::PacketTransportInternal {
       dtls_handshake_error_callback_list_;
   webrtc::CallbackList<DtlsTransportInternal*, const DtlsTransportState>
       dtls_state_callback_list_;
+  int test_;
 };
 
 }  // namespace cricket

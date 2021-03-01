@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "458d5c16_55784045",
+        "filename": "project.config",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5533
+      },
+      "writtenOn": "2021-03-01T16:25:33Z",
+      "side": 0,
+      "message": "this can also be useful if you want your committer to submit even if CQ is broken (either because of your builds or because LUCI is down). Up to you.",
+      "range": {
+        "startLine": 35,
+        "startChar": 1,
+        "endLine": 35,
+        "endChar": 46
+      },
+      "revId": "38cd88acebfe5592b49fbf29818db5ae35dfce24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

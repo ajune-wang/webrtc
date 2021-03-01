@@ -148,6 +148,15 @@ extern const size_t kConferenceDefaultNumTemporalLayers;
 
 extern const char kApplicationSpecificBandwidth[];
 extern const char kTransportSpecificBandwidth[];
+
+extern const int kLowVp8QpThreshold;
+extern const int kHighVp8QpThreshold;
+
+extern const int kLowVp9QpThreshold;
+extern const int kHighVp9QpThreshold;
+
+extern const int kLowH264QpThreshold;
+extern const int kHighH264QpThreshold;
 }  // namespace cricket
 
 #endif  // MEDIA_BASE_MEDIA_CONSTANTS_H_

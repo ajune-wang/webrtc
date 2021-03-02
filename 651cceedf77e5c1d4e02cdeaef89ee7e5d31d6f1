@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f21f544_18dd2efa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-03-02T10:16:18Z",
+      "side": 1,
+      "message": "PTAL. A simpler alternative to https://webrtc-review.googlesource.com/c/src/+/208943, and this one seems to pass tests.",
+      "revId": "651cceedf77e5c1d4e02cdeaef89ee7e5d31d6f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

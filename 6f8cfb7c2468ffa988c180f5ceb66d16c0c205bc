@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d15385b_890ad9e5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16600
+      },
+      "writtenOn": "2021-03-02T06:23:16Z",
+      "side": 1,
+      "message": "Sending this as a WIP because I have a design question about using proxy vs. not .. would be interested in learning from you and see if it makes sense or not.\n\nAlso would appreciate general feedback on the approach - I can test it with Chromium but my audio stream never gets nack/retransmission so I don\u0027t get to see meaningful value.  ",
+      "revId": "6f8cfb7c2468ffa988c180f5ceb66d16c0c205bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20a60f00_e061d02b",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 16600
+      },
+      "writtenOn": "2021-03-02T06:23:16Z",
+      "side": 1,
+      "message": "My hunch tells me this is not a plausible way to do it because we might later need to add more stats observers. I\u0027m thinking of adding a |AudioSendStatisticsProxy| which would be a similar idea to |SendStatisticsProxy| for video. I\u0027ll let |AudiosendStatisticsProxy| extend |RtcpPacketTypeCounterObserver| and hold the |packet_counter_| object as well. Thoughts?",
+      "revId": "6f8cfb7c2468ffa988c180f5ceb66d16c0c205bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b7a25fd_9c7fc164",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 16600
+      },
+      "writtenOn": "2021-03-02T06:23:16Z",
+      "side": 1,
+      "message": "Continuing from above .. if I implement a proxy class then this would just take a proxy.",
+      "revId": "6f8cfb7c2468ffa988c180f5ceb66d16c0c205bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ba8ee9f_7d021d1b",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 16600
+      },
+      "writtenOn": "2021-03-02T06:23:16Z",
+      "side": 1,
+      "message": "Am I right that this would automatically enable rtp_rtcp_ to collect nack?",
+      "revId": "6f8cfb7c2468ffa988c180f5ceb66d16c0c205bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

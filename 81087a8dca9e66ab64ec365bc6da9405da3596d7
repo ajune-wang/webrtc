@@ -16,6 +16,40 @@
       "message": "With all the BUILD.gn changes, I think this should be reviewed by Mirko.\nhbos for SDP and integration test sanity.\n\nNote: It found an use-after-free on the first run.\n\n",
       "revId": "81087a8dca9e66ab64ec365bc6da9405da3596d7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "08b15c7a_ac05f19f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-02T13:05:09Z",
+      "side": 1,
+      "message": "Fuzz, fuzz and away!",
+      "revId": "81087a8dca9e66ab64ec365bc6da9405da3596d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0279a2ad_6ce7d53c",
+        "filename": "test/fuzzers/sdp_integration_fuzzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-02T13:05:09Z",
+      "side": 1,
+      "message": "How is the fuzzer SDP generated? I assume this \"corpora/sdp-corpus\" modifies valid SDP somehow so that only small parts of it is garbage and we don\u0027t immediately get a parse error every time?",
+      "revId": "81087a8dca9e66ab64ec365bc6da9405da3596d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

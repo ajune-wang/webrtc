@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ea8ada9_18e1e5ab",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 16600
+      },
+      "writtenOn": "2021-03-02T16:06:29Z",
+      "side": 1,
+      "message": "To me this is basically the audio counterpart of SendStatisticsProxy ... Would it be worthwhile to make a separate file/class for it?",
+      "revId": "e57520bdb5656cf719a53ac797c707c73d7ff263",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

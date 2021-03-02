@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b074b25_01888f0a",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 16600
+      },
+      "writtenOn": "2021-03-02T16:06:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "20a60f00_e061d02b",
+      "revId": "6f8cfb7c2468ffa988c180f5ceb66d16c0c205bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7b7a25fd_9c7fc164",
@@ -52,6 +70,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f895d09_e750baf2",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 16600
+      },
+      "writtenOn": "2021-03-02T16:06:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b7a25fd_9c7fc164",
+      "revId": "6f8cfb7c2468ffa988c180f5ceb66d16c0c205bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9ba8ee9f_7d021d1b",
@@ -65,6 +101,24 @@
       "writtenOn": "2021-03-02T06:23:16Z",
       "side": 1,
       "message": "Am I right that this would automatically enable rtp_rtcp_ to collect nack?",
+      "revId": "6f8cfb7c2468ffa988c180f5ceb66d16c0c205bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8dc58f7_4b40e279",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 16600
+      },
+      "writtenOn": "2021-03-02T16:06:29Z",
+      "side": 1,
+      "message": "Done - verified that the packet type observer gets called in rtp_receiver. https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/modules/rtp_rtcp/source/rtcp_receiver.cc;l\u003d481",
+      "parentUuid": "9ba8ee9f_7d021d1b",
       "revId": "6f8cfb7c2468ffa988c180f5ceb66d16c0c205bc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

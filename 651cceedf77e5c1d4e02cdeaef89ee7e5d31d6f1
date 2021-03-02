@@ -16,6 +16,29 @@
       "message": "PTAL. A simpler alternative to https://webrtc-review.googlesource.com/c/src/+/208943, and this one seems to pass tests.",
       "revId": "651cceedf77e5c1d4e02cdeaef89ee7e5d31d6f1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e452e425_9ee0b047",
+        "filename": "sdk/android/src/jni/android_network_monitor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2021-03-02T10:19:03Z",
+      "side": 1,
+      "message": "Can network_thread_ be null? Do we need a check?",
+      "range": {
+        "startLine": 527,
+        "startChar": 2,
+        "endLine": 527,
+        "endChar": 17
+      },
+      "revId": "651cceedf77e5c1d4e02cdeaef89ee7e5d31d6f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -16,6 +16,23 @@
       "message": "Tests still fail, but I\u0027m not sure where to find relevant error messages. The log appears truncated:\n\nI   44.103s run_tests_on_device(01e18dee26782694)  [ RUN      ] P2PTransportChannelTest.HandleUfragPwdChangeSymmetricNat\nI   44.103s run_tests_on_device(01e18dee26782694)  (line 466): Set ICE ufrag: UF00 pwd: TESTICEPWD00000000000000 on transport test content name\nI   44.103s run_tests_on_device(01e18dee26782694)  (line 477): Received remote ICE parameters: ufrag\u003dUF01, renomination disabled\nI   44.103s run_tests_on_device(01e18dee26782694)  (line 466): Set ICE ufrag: UF01 pwd: TESTICEPWD00000000000001 on transport test content name\nI   44.103s run_tests_on_device(01e18dee26782694)  (line 477): Received remote ICE parameters: ufrag\u003dUF00, renomination disabled\nI   44.103s run_tests_on_device(01e18dee26782694)  (line 532): Set backup connection ping interval to 25000 milliseconds.\nI   44.103s run_tests_on_device(01e18dee26782694)  (line 541): Set ICE receiving timeout to 2500 milliseconds\nI   44.103s run_tests_on_device(01e18dee26782694)  (line 548): Set ping most likely connection to 0\nI   44.103s run_tests_on_device(01e18dee26782694)  (line 555): Set stable_writable_connection_ping_interval to 2500\nI   44.103s run_tests_on_device(01e18dee26782694)  (line 568): Set presume writable when fully relayed to 0\nI   44.103s run_tests_on_device(01e18dee26782694)  (line 586): Set regather_on_failed_networks_interval to 300000\nI   44.103s run_tests_on_device(01e18dee26782694)  (line 593): Set receiving_switching_delay to 1000\nI   44.103s run_tests_on_device(01e18dee26782694)  (line 532): Set backup connection ping interval to 25000 milliseconds.\nI   44.103s run_tests_on_device(01e18dee26782694)  (line 541): Set ICE receiving timeout to 2500 milliseconds\nI   44.103s run_tests_on_device(01e18dee26782694)  (line 548): Set ping most likely connection to 0\nI   44.103s run_tests_on_device(01e18dee26782694)  (line 555): Set stable_writable_connection_ping_interval to 2500\nI   44.103s run_tests_on_device(01e18dee26782694)  (line 568): Set presume writable when fully relayed to 0\nI   44.103s run_tests_on_device(01e18dee26782694)  (line 586): Set regather_on_failed_networks_interval to 300000\nI   44.103s run_tests_on_device(01e18dee26782694)  (line 593): Set receiving_switching_delay to 1000\nI   44.103s run_tests_on_device(01e18dee26782694)  (line 375): Start getting ports with turn_port_prune_policy 0\nI   44.103s run_tests_on_device(01e18dee26782694)  (line 375): Start getting ports with turn_port_prune_policy 0\nI   44.103s run_tests_on_device(01e18dee26782694)  (line 477): Received remote ICE parameters: ufrag\u003dUF01, renomination disabled\nI   44.103s run_tests_on_device(01e18dee26782694)  (line 477): Received remote ICE parameters: ufrag\u003dUF00, renomination disabled\nI   44.103s run_tests_on_device(01e18dee26782694)  (line 861): Network manager has started\nI   44.103s run_tests_on_device(01e18dee26782694)  (line 861): Network manager has started\nI   44.103s run_tests_on_device(01e18dee267 \n\nThe last log message is from BasicPortAllocatorSession::OnNetworksChanged, perhaps the result of a connection event?\n\nIf there is a crash, it would be nice to see DCHECK message, backtrace, etc, maybe that\u0027s available in some other log file?",
       "revId": "5c60b4da488346c733929d7362e1d24e32d040bd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4beff27_3ccdd578",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-03-02T09:30:38Z",
+      "side": 1,
+      "message": "And one other question: Does any of you know why the particular NotifyConnectionTypeChanged needs an async invocation in the first place? There are three other Notify methods using blocking network_thread_-\u003eInvoke, including at least two, NotifyOfNetworkConnect, NotifyOfNetworkPreference, that fire the same SignalNetworksChanged.",
+      "revId": "5c60b4da488346c733929d7362e1d24e32d040bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

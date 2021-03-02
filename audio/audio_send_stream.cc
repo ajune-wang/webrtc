@@ -108,28 +108,29 @@ AudioSendStream::AudioSendStream(
     RtcEventLog* event_log,
     RtcpRttStats* rtcp_rtt_stats,
     const absl::optional<RtpState>& suspended_rtp_state)
-    : AudioSendStream(clock,
-                      config,
-                      audio_state,
-                      task_queue_factory,
-                      rtp_transport,
-                      bitrate_allocator,
-                      event_log,
-                      suspended_rtp_state,
-                      voe::CreateChannelSend(
-                          clock,
-                          task_queue_factory,
-                          module_process_thread,
-                          config.send_transport,
-                          rtcp_rtt_stats,
-                          event_log,
-                          config.frame_encryptor,
-                          config.crypto_options,
-                          config.rtp.extmap_allow_mixed,
-                          config.rtcp_report_interval_ms,
-                          config.rtp.ssrc,
-                          config.frame_transformer,
-                          rtp_transport->transport_feedback_observer())) {}
+    : AudioSendStream(
+          clock,
+          config,
+          audio_state,
+          task_queue_factory,
+          rtp_transport,
+          bitrate_allocator,
+          event_log,
+          suspended_rtp_state,
+          voe::CreateChannelSend(clock,
+                                 task_queue_factory,
+                                 module_process_thread,
+                                 config.send_transport,
+                                 rtcp_rtt_stats,
+                                 event_log,
+                                 config.frame_encryptor,
+                                 config.crypto_options,
+                                 config.rtp.extmap_allow_mixed,
+                                 config.rtcp_report_interval_ms,
+                                 config.rtp.ssrc,
+                                 config.frame_transformer,
+                                 rtp_transport->transport_feedback_observer(),
+                                 this)) {}
 
 AudioSendStream::AudioSendStream(
     Clock* clock,
@@ -158,7 +159,8 @@ AudioSendStream::AudioSendStream(
       bitrate_allocator_(bitrate_allocator),
       rtp_transport_(rtp_transport),
       rtp_rtcp_module_(channel_send_->GetRtpRtcp()),
-      suspended_rtp_state_(suspended_rtp_state) {
+      suspended_rtp_state_(suspended_rtp_state),
+      packet_counter_(new RtcpPacketTypeCounter()) {
   RTC_LOG(LS_INFO) << "AudioSendStream: " << config.rtp.ssrc;
   RTC_DCHECK(worker_queue_);
   RTC_DCHECK(audio_state_);
@@ -449,6 +451,7 @@ webrtc::AudioSendStream::Stats AudioSendStream::GetStats(
   webrtc::AudioSendStream::Stats stats;
   stats.local_ssrc = config_.rtp.ssrc;
   stats.target_bitrate_bps = channel_send_->GetBitrate();
+  stats.nack_count = packet_counter_->nack_packets;
 
   webrtc::CallSendStatistics call_stats = channel_send_->GetRTCPStatistics();
   stats.payload_bytes_sent = call_stats.payload_bytes_sent;
@@ -501,6 +504,14 @@ webrtc::AudioSendStream::Stats AudioSendStream::GetStats(
   stats.report_block_datas = std::move(call_stats.report_block_datas);
 
   return stats;
+}
+
+void AudioSendStream::RtcpPacketTypesCounterUpdated(
+    uint32_t ssrc,
+    const RtcpPacketTypeCounter& packet_counter) {
+  RTC_DCHECK_RUN_ON(&worker_thread_checker_);
+
+  packet_counter_->Add(packet_counter);
 }
 
 void AudioSendStream::DeliverRtcp(const uint8_t* packet, size_t length) {

@@ -470,6 +470,7 @@ struct VoiceSenderInfo : public MediaSenderInfo {
   // https://w3c.github.io/webrtc-stats/#dom-rtcmediastreamtrackstats-totalaudioenergy
   double total_input_energy = 0.0;
   double total_input_duration = 0.0;
+  uint32_t nack_count = 0;
   bool typing_noise_detected = false;
   webrtc::ANAStats ana_statistics;
   webrtc::AudioProcessingStats apm_statistics;

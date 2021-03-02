@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12f10c26_c47e5269",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2021-03-02T09:42:53Z",
+      "side": 1,
+      "message": "Hello Andres!\n\nCould you please look at this CL which adds some missing nullability annotations to iOS SDK? It will make API more clear, especially when used from Swift, which has type inferences and rigorous type checker.\n\nThanks a lot in advance,\nYura.",
+      "revId": "debdff6819e4893f47dca3d53b7823ad172680a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

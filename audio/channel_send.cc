@@ -30,6 +30,7 @@
 #include "modules/audio_coding/include/audio_coding_module.h"
 #include "modules/audio_processing/rms_level.h"
 #include "modules/pacing/packet_router.h"
+#include "modules/rtp_rtcp/include/rtcp_statistics.h"
 #include "modules/rtp_rtcp/source/rtp_rtcp_impl2.h"
 #include "modules/utility/include/process_thread.h"
 #include "rtc_base/checks.h"
@@ -79,7 +80,8 @@ class ChannelSend : public ChannelSendInterface,
               int rtcp_report_interval_ms,
               uint32_t ssrc,
               rtc::scoped_refptr<FrameTransformerInterface> frame_transformer,
-              TransportFeedbackObserver* feedback_observer);
+              TransportFeedbackObserver* feedback_observer,
+              RtcpPacketTypeCounterObserver* rtcp_packet_type_counter_observer);
 
   ~ChannelSend() override;
 
@@ -242,6 +244,8 @@ class ChannelSend : public ChannelSendInterface,
   rtc::TaskQueue encoder_queue_;
 
   const bool fixing_timestamp_stall_;
+
+  RtcpPacketTypeCounterObserver* rtcp_packet_type_counter_observer_;
 };
 
 const int kTelephoneEventAttenuationdB = 10;
@@ -455,7 +459,8 @@ ChannelSend::ChannelSend(
     int rtcp_report_interval_ms,
     uint32_t ssrc,
     rtc::scoped_refptr<FrameTransformerInterface> frame_transformer,
-    TransportFeedbackObserver* feedback_observer)
+    TransportFeedbackObserver* feedback_observer,
+    RtcpPacketTypeCounterObserver* rtcp_packet_type_counter_observer)
     : event_log_(rtc_event_log),
       _timeStamp(0),  // This is just an offset, RTP module will add it's own
                       // random offset
@@ -474,7 +479,8 @@ ChannelSend::ChannelSend(
           "AudioEncoder",
           TaskQueueFactory::Priority::NORMAL)),
       fixing_timestamp_stall_(
-          !field_trial::IsDisabled("WebRTC-Audio-FixTimestampStall")) {
+          !field_trial::IsDisabled("WebRTC-Audio-FixTimestampStall")),
+      rtcp_packet_type_counter_observer_(rtcp_packet_type_counter_observer) {
   RTC_DCHECK(module_process_thread);
   module_process_thread_checker_.Detach();
 
@@ -495,6 +501,8 @@ ChannelSend::ChannelSend(
       retransmission_rate_limiter_.get();
   configuration.extmap_allow_mixed = extmap_allow_mixed;
   configuration.rtcp_report_interval_ms = rtcp_report_interval_ms;
+  configuration.rtcp_packet_type_counter_observer =
+      rtcp_packet_type_counter_observer_;
 
   configuration.local_media_ssrc = ssrc;
 
@@ -954,12 +962,14 @@ std::unique_ptr<ChannelSendInterface> CreateChannelSend(
     int rtcp_report_interval_ms,
     uint32_t ssrc,
     rtc::scoped_refptr<FrameTransformerInterface> frame_transformer,
-    TransportFeedbackObserver* feedback_observer) {
+    TransportFeedbackObserver* feedback_observer,
+    RtcpPacketTypeCounterObserver* rtcp_packet_type_counter_observer) {
   return std::make_unique<ChannelSend>(
       clock, task_queue_factory, module_process_thread, rtp_transport,
       rtcp_rtt_stats, rtc_event_log, frame_encryptor, crypto_options,
       extmap_allow_mixed, rtcp_report_interval_ms, ssrc,
-      std::move(frame_transformer), feedback_observer);
+      std::move(frame_transformer), feedback_observer,
+      rtcp_packet_type_counter_observer);
 }
 
 }  // namespace voe

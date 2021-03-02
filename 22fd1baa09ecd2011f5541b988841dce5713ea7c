@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3dabe6c6_f181ad9e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-03-02T08:09:33Z",
+      "side": 1,
+      "message": "Thanks! Responded to concerns or fixed comments.",
+      "revId": "22fd1baa09ecd2011f5541b988841dce5713ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5ca90229_a086668d",
@@ -48,6 +65,30 @@
       "writtenOn": "2021-03-01T20:45:35Z",
       "side": 1,
       "message": "Should this be kIntegrityOk?",
+      "range": {
+        "startLine": 219,
+        "startChar": 46,
+        "endLine": 219,
+        "endChar": 53
+      },
+      "revId": "22fd1baa09ecd2011f5541b988841dce5713ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d528fab1_37059a98",
+        "filename": "api/transport/stun.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-03-02T08:09:33Z",
+      "side": 1,
+      "message": "It is !\u003d, not \u003d\u003d.\n\nThis function is used to return the password that *should* be able to verify the buffer, so in theory the status can be any of No, Ok or Bad. see StunMessage::ValidateMessageIntegrity.",
+      "parentUuid": "5ca90229_a086668d",
       "range": {
         "startLine": 219,
         "startChar": 46,
@@ -99,6 +140,54 @@
         "startChar": 13,
         "endLine": 346,
         "endChar": 25
+      },
+      "revId": "22fd1baa09ecd2011f5541b988841dce5713ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80e44c0b_46f8681f",
+        "filename": "p2p/base/turn_server.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-03-02T08:09:33Z",
+      "side": 1,
+      "message": "A wrong username will result in a different hash, but isn\u0027t explicitly checked here. Updating comment.",
+      "parentUuid": "294f590d_d040c15a",
+      "range": {
+        "startLine": 346,
+        "startChar": 13,
+        "endLine": 346,
+        "endChar": 25
+      },
+      "revId": "22fd1baa09ecd2011f5541b988841dce5713ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15153ae7_d700d3b8",
+        "filename": "p2p/base/turn_server.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-03-02T08:09:33Z",
+      "side": 1,
+      "message": "Not all users will have the RFC in their heads anyway. Replacing with MESSAGE_INTEGRITY (abbreviated name of the attribute).",
+      "parentUuid": "f88daa59_579d5d1b",
+      "range": {
+        "startLine": 346,
+        "startChar": 29,
+        "endLine": 346,
+        "endChar": 32
       },
       "revId": "22fd1baa09ecd2011f5541b988841dce5713ea7c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"

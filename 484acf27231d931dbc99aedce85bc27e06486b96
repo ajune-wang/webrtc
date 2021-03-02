@@ -22,6 +22,30 @@
       },
       "revId": "484acf27231d931dbc99aedce85bc27e06486b96",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7a441d3_525245b8",
+        "filename": "p2p/base/turn_port.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 720,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-03-02T08:09:33Z",
+      "side": 0,
+      "message": "Yes, they do. That\u0027s what the previous code checked.\nThe reason why I switched from computing the hash() here to storing the password in the request message is that hash() only exists for TURN ports, while I wanted to use the same check for STUN requests; the RFC says that the password (\u003dhash() when it\u0027s TURN) is the same on the request and the response.",
+      "parentUuid": "e12b8ff8_0878d26b",
+      "range": {
+        "startLine": 720,
+        "startChar": 6,
+        "endLine": 720,
+        "endChar": 31
+      },
+      "revId": "484acf27231d931dbc99aedce85bc27e06486b96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -30,6 +30,7 @@
 #include "modules/audio_coding/include/audio_coding_module.h"
 #include "modules/audio_processing/rms_level.h"
 #include "modules/pacing/packet_router.h"
+#include "modules/rtp_rtcp/include/rtcp_statistics.h"
 #include "modules/rtp_rtcp/source/rtp_rtcp_impl2.h"
 #include "modules/utility/include/process_thread.h"
 #include "rtc_base/checks.h"
@@ -209,7 +210,6 @@ class ChannelSend : public ChannelSendInterface,
   // task queue; hence potential race.
   bool _includeAudioLevelIndication;
 
-  // RtcpBandwidthObserver
   const std::unique_ptr<VoERtcpObserver> rtcp_observer_;
 
   PacketRouter* packet_router_ RTC_GUARDED_BY(&worker_thread_checker_) =
@@ -268,7 +268,8 @@ class RtpPacketSenderProxy : public RtpPacketSender {
   RtpPacketSender* rtp_packet_pacer_ RTC_GUARDED_BY(&mutex_);
 };
 
-class VoERtcpObserver : public RtcpBandwidthObserver {
+class VoERtcpObserver : public RtcpBandwidthObserver,
+                        public RtcpPacketTypeCounterObserver {
  public:
   explicit VoERtcpObserver(ChannelSend* owner)
       : owner_(owner), bandwidth_observer_(nullptr) {}
@@ -334,12 +335,26 @@ class VoERtcpObserver : public RtcpBandwidthObserver {
     owner_->OnUplinkPacketLossRate(weighted_fraction_lost / 255.0f);
   }
 
+  void RtcpPacketTypesCounterUpdated(
+      uint32_t ssrc,
+      const RtcpPacketTypeCounter& packet_counter) override {
+    MutexLock lock(&mutex_);
+
+    packet_type_counter_->Add(packet_counter);
+  }
+
+  RtcpPacketTypeCounter* getRtcpPacketTypesCounter() {
+    MutexLock lock(&mutex_);
+    return packet_type_counter_;
+  }
+
  private:
   ChannelSend* owner_;
   // Maps remote side ssrc to extended highest sequence number received.
   std::map<uint32_t, uint32_t> extended_max_sequence_number_;
   Mutex mutex_;
   RtcpBandwidthObserver* bandwidth_observer_ RTC_GUARDED_BY(mutex_);
+  RtcpPacketTypeCounter* packet_type_counter_ RTC_GUARDED_BY(mutex_);
 };
 
 int32_t ChannelSend::SendData(AudioFrameType frameType,
@@ -495,6 +510,7 @@ ChannelSend::ChannelSend(
       retransmission_rate_limiter_.get();
   configuration.extmap_allow_mixed = extmap_allow_mixed;
   configuration.rtcp_report_interval_ms = rtcp_report_interval_ms;
+  configuration.rtcp_packet_type_counter_observer = rtcp_observer_.get();
 
   configuration.local_media_ssrc = ssrc;
 
@@ -794,6 +810,10 @@ CallSendStatistics ChannelSend::GetRTCPStatistics() const {
       rtp_stats.transmitted.packets + rtx_stats.transmitted.packets;
   stats.retransmitted_packets_sent = rtp_stats.retransmitted.packets;
   stats.report_block_datas = rtp_rtcp_->GetLatestReportBlockData();
+
+  RtcpPacketTypeCounter* packet_type_counter =
+      rtcp_observer_->getRtcpPacketTypesCounter();
+  stats.nacks_rcvd = packet_type_counter->nack_packets;
 
   return stats;
 }

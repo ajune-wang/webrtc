@@ -76,7 +76,7 @@ bool ObjCNetworkMonitor::IsAdapterAvailable(const std::string& interface_name) {
 void ObjCNetworkMonitor::OnPathUpdate(
     std::map<std::string, rtc::AdapterType> adapter_type_by_name) {
   RTC_DCHECK(network_monitor_ != nil);
-  invoker_.AsyncInvoke<void>(RTC_FROM_HERE, thread_, [this, adapter_type_by_name] {
+  thread_->Invoke<void>(RTC_FROM_HERE, [this, adapter_type_by_name] {
     RTC_DCHECK_RUN_ON(thread_);
     adapter_type_by_name_ = adapter_type_by_name;
     SignalNetworksChanged();

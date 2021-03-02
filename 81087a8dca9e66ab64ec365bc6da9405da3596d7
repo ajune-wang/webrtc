@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "98de2269_1f58cdd0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-03-02T14:18:06Z",
+      "side": 1,
+      "message": "Thanks for taking a look!\n\nNow let\u0027s see what it can discover....\n",
+      "revId": "81087a8dca9e66ab64ec365bc6da9405da3596d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0279a2ad_6ce7d53c",
@@ -48,6 +65,24 @@
       "writtenOn": "2021-03-02T13:05:09Z",
       "side": 1,
       "message": "How is the fuzzer SDP generated? I assume this \"corpora/sdp-corpus\" modifies valid SDP somehow so that only small parts of it is garbage and we don\u0027t immediately get a parse error every time?",
+      "revId": "81087a8dca9e66ab64ec365bc6da9405da3596d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91da112a_7b2151ec",
+        "filename": "test/fuzzers/sdp_integration_fuzzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-03-02T14:18:06Z",
+      "side": 1,
+      "message": "The \"corpora/sdp-corpus\" (valid SDP examples) is the seed function for the generator; the fuzzer then performs various transforms on it to produce new samples. It seems to keep track of whcih ones lead to new execution paths, so that it can try to explore them further, rather than just relying on random changes (which would be inefficient at path exploration).",
+      "parentUuid": "0279a2ad_6ce7d53c",
       "revId": "81087a8dca9e66ab64ec365bc6da9405da3596d7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

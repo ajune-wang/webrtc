@@ -39,6 +39,30 @@
       },
       "revId": "651cceedf77e5c1d4e02cdeaef89ee7e5d31d6f1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb794eca_b9ed6ddf",
+        "filename": "sdk/android/src/jni/android_network_monitor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-03-02T10:24:08Z",
+      "side": 1,
+      "message": "It\u0027s assigned in the constructor (from rtc::Thread::Current()), and used without any null check elsewhere in this class. \n\nI\u0027m adding a const declaration.",
+      "parentUuid": "e452e425_9ee0b047",
+      "range": {
+        "startLine": 527,
+        "startChar": 2,
+        "endLine": 527,
+        "endChar": 17
+      },
+      "revId": "651cceedf77e5c1d4e02cdeaef89ee7e5d31d6f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

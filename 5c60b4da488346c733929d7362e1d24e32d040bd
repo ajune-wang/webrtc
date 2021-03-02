@@ -67,6 +67,60 @@
       "message": "Made an alternative cl https://webrtc-review.googlesource.com/c/src/+/209181,",
       "revId": "5c60b4da488346c733929d7362e1d24e32d040bd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3661e1b_fae78d84",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-03-02T21:07:22Z",
+      "side": 1,
+      "message": "I think you could safely change it to an Invoke.",
+      "parentUuid": "a4beff27_3ccdd578",
+      "revId": "5c60b4da488346c733929d7362e1d24e32d040bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebf2efe3_5762503d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-03-02T21:07:22Z",
+      "side": 1,
+      "message": "Probably because the task safety flag is constructed on a different thread than it\u0027s used on.",
+      "parentUuid": "c15b2a0c_093d33f0",
+      "revId": "5c60b4da488346c733929d7362e1d24e32d040bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7a032c2_697496ee",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-03-02T21:07:22Z",
+      "side": 1,
+      "message": "Not really introduced, just moved around. Well, I did introduce AsyncInvoker because it was simpler than the old style of subclassing from MessageHandler.",
+      "parentUuid": "8525f364_14a06394",
+      "revId": "5c60b4da488346c733929d7362e1d24e32d040bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -136,7 +136,8 @@ std::unique_ptr<ChannelSendInterface> CreateChannelSend(
     int rtcp_report_interval_ms,
     uint32_t ssrc,
     rtc::scoped_refptr<FrameTransformerInterface> frame_transformer,
-    TransportFeedbackObserver* feedback_observer);
+    TransportFeedbackObserver* feedback_observer,
+    RtcpPacketTypeCounterObserver* rtcp_packet_type_counter_observer);
 
 }  // namespace voe
 }  // namespace webrtc

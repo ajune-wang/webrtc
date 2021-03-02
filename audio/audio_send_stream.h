@@ -21,6 +21,7 @@
 #include "call/audio_send_stream.h"
 #include "call/audio_state.h"
 #include "call/bitrate_allocator.h"
+#include "modules/rtp_rtcp/include/rtcp_statistics.h"
 #include "modules/rtp_rtcp/source/rtp_rtcp_interface.h"
 #include "rtc_base/experiments/struct_parameters_parser.h"
 #include "rtc_base/race_checker.h"
@@ -52,7 +53,8 @@ namespace internal {
 class AudioState;
 
 class AudioSendStream final : public webrtc::AudioSendStream,
-                              public webrtc::BitrateAllocatorObserver {
+                              public webrtc::BitrateAllocatorObserver,
+                              public webrtc::RtcpPacketTypeCounterObserver {
  public:
   AudioSendStream(Clock* clock,
                   const webrtc::AudioSendStream::Config& config,
@@ -109,6 +111,10 @@ class AudioSendStream final : public webrtc::AudioSendStream,
   // Returns combined per-packet overhead.
   size_t TestOnlyGetPerPacketOverheadBytes() const
       RTC_LOCKS_EXCLUDED(overhead_per_packet_lock_);
+
+  void RtcpPacketTypesCounterUpdated(
+      uint32_t ssrc,
+      const RtcpPacketTypeCounter& packet_counter) override;
 
  private:
   class TimedTransport;
@@ -227,6 +233,8 @@ class AudioSendStream final : public webrtc::AudioSendStream,
       0;
   absl::optional<std::pair<TimeDelta, TimeDelta>> frame_length_range_
       RTC_GUARDED_BY(worker_thread_checker_);
+
+  RtcpPacketTypeCounter* packet_counter_;
 };
 }  // namespace internal
 }  // namespace webrtc

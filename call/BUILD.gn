@@ -532,28 +532,6 @@ if (rtc_include_tests) {
     }
   }
 
-  # TODO(eladalon): This should be moved, as with the TODO for |rtp_interfaces|.
-  rtc_source_set("mock_rtp_interfaces") {
-    testonly = true
-
-    sources = [
-      "test/mock_rtp_packet_sink_interface.h",
-      "test/mock_rtp_transport_controller_send.h",
-    ]
-    deps = [
-      ":rtp_interfaces",
-      "../api:frame_transformer_interface",
-      "../api:libjingle_peerconnection_api",
-      "../api/crypto:frame_encryptor_interface",
-      "../api/crypto:options",
-      "../api/transport:bitrate_settings",
-      "../modules/pacing",
-      "../rtc_base",
-      "../rtc_base:rate_limiter",
-      "../rtc_base/network:sent_packet",
-      "../test:test_support",
-    ]
-  }
   rtc_source_set("mock_bitrate_allocator") {
     testonly = true
 
@@ -590,4 +568,30 @@ if (rtc_include_tests) {
     ]
     absl_deps = [ "//third_party/abseil-cpp/absl/algorithm:container" ]
   }
+}
+
+# Test source set built outside of rtc_include_tests because it is being
+# used by a fuzzer.
+
+# TODO(eladalon): This should be moved, as with the TODO for |rtp_interfaces|.
+rtc_source_set("mock_rtp_interfaces") {
+  testonly = true
+
+  sources = [
+    "test/mock_rtp_packet_sink_interface.h",
+    "test/mock_rtp_transport_controller_send.h",
+  ]
+  deps = [
+    ":rtp_interfaces",
+    "../api:frame_transformer_interface",
+    "../api:libjingle_peerconnection_api",
+    "../api/crypto:frame_encryptor_interface",
+    "../api/crypto:options",
+    "../api/transport:bitrate_settings",
+    "../modules/pacing",
+    "../rtc_base",
+    "../rtc_base:rate_limiter",
+    "../rtc_base/network:sent_packet",
+    "../test:test_support",
+  ]
 }

@@ -135,74 +135,6 @@ rtc_library("rtc_p2p") {
 }
 
 if (rtc_include_tests) {
-  rtc_library("fake_ice_transport") {
-    testonly = true
-    visibility = [ "*" ]
-    sources = [ "base/fake_ice_transport.h" ]
-    deps = [
-      ":rtc_p2p",
-      "../api:libjingle_peerconnection_api",
-      "../rtc_base",
-      "../rtc_base:rtc_base_approved",
-    ]
-    absl_deps = [
-      "//third_party/abseil-cpp/absl/algorithm:container",
-      "//third_party/abseil-cpp/absl/types:optional",
-    ]
-  }
-
-  rtc_library("fake_port_allocator") {
-    testonly = true
-    visibility = [ "*" ]
-    sources = [ "base/fake_port_allocator.h" ]
-    deps = [
-      ":rtc_p2p",
-      "../rtc_base",
-      "../rtc_base:net_helpers",
-      "../rtc_base:threading",
-    ]
-  }
-
-  rtc_library("p2p_test_utils") {
-    testonly = true
-    sources = [
-      "base/fake_dtls_transport.h",
-      "base/fake_packet_transport.h",
-      "base/mock_async_resolver.h",
-      "base/mock_ice_transport.h",
-      "base/test_stun_server.cc",
-      "base/test_stun_server.h",
-      "base/test_turn_customizer.h",
-      "base/test_turn_server.h",
-    ]
-    deps = [
-      ":fake_ice_transport",
-      ":fake_port_allocator",
-      ":p2p_server_utils",
-      ":rtc_p2p",
-      "../api:libjingle_peerconnection_api",
-      "../api:packet_socket_factory",
-      "../api:sequence_checker",
-      "../api/crypto:options",
-      "../api/transport:stun_types",
-      "../rtc_base",
-      "../rtc_base:async_resolver_interface",
-      "../rtc_base:async_socket",
-      "../rtc_base:gunit_helpers",
-      "../rtc_base:rtc_base_approved",
-      "../rtc_base:rtc_base_tests_utils",
-      "../rtc_base:socket_address",
-      "../rtc_base:socket_server",
-      "../rtc_base:threading",
-      "../rtc_base/third_party/sigslot",
-      "../test:test_support",
-    ]
-    absl_deps = [
-      "//third_party/abseil-cpp/absl/algorithm:container",
-      "//third_party/abseil-cpp/absl/types:optional",
-    ]
-  }
-
   rtc_library("rtc_p2p_unittests") {
     testonly = true
 
@@ -329,4 +261,75 @@ if (rtc_include_tests) {
       "//testing/gtest",
     ]
   }
+}
+
+# Test libraries built outside of rtc_include_tests because they are
+# referenced by a fuzzer.
+
+rtc_library("fake_ice_transport") {
+  testonly = true
+  visibility = [ "*" ]
+  sources = [ "base/fake_ice_transport.h" ]
+  deps = [
+    ":rtc_p2p",
+    "../api:libjingle_peerconnection_api",
+    "../rtc_base",
+    "../rtc_base:rtc_base_approved",
+  ]
+  absl_deps = [
+    "//third_party/abseil-cpp/absl/algorithm:container",
+    "//third_party/abseil-cpp/absl/types:optional",
+  ]
+}
+
+rtc_library("fake_port_allocator") {
+  testonly = true
+  visibility = [ "*" ]
+  sources = [ "base/fake_port_allocator.h" ]
+  deps = [
+    ":rtc_p2p",
+    "../rtc_base",
+    "../rtc_base:net_helpers",
+    "../rtc_base:threading",
+  ]
+}
+
+rtc_library("p2p_test_utils") {
+  testonly = true
+  sources = [
+    "base/fake_dtls_transport.h",
+    "base/fake_packet_transport.h",
+    "base/mock_async_resolver.h",
+    "base/mock_ice_transport.h",
+    "base/test_stun_server.cc",
+    "base/test_stun_server.h",
+    "base/test_turn_customizer.h",
+    "base/test_turn_server.h",
+  ]
+  deps = [
+    ":fake_ice_transport",
+    ":fake_port_allocator",
+    ":p2p_server_utils",
+    ":rtc_p2p",
+    "../api:libjingle_peerconnection_api",
+    "../api:packet_socket_factory",
+    "../api:sequence_checker",
+    "../api/crypto:options",
+    "../api/transport:stun_types",
+    "../rtc_base",
+    "../rtc_base:async_resolver_interface",
+    "../rtc_base:async_socket",
+    "../rtc_base:gunit_helpers",
+    "../rtc_base:rtc_base_approved",
+    "../rtc_base:rtc_base_tests_utils",
+    "../rtc_base:socket_address",
+    "../rtc_base:socket_server",
+    "../rtc_base:threading",
+    "../rtc_base/third_party/sigslot",
+    "../test:test_support",
+  ]
+  absl_deps = [
+    "//third_party/abseil-cpp/absl/algorithm:container",
+    "//third_party/abseil-cpp/absl/types:optional",
+  ]
 }

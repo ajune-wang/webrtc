@@ -860,38 +860,6 @@ if (rtc_include_tests) {
     ]
   }
 
-  rtc_library("fake_frame_encryptor") {
-    testonly = true
-    sources = [
-      "test/fake_frame_encryptor.cc",
-      "test/fake_frame_encryptor.h",
-    ]
-    deps = [
-      ":array_view",
-      ":libjingle_peerconnection_api",
-      ":rtp_parameters",
-      "../rtc_base:checks",
-      "../rtc_base:rtc_base_approved",
-      "crypto:frame_encryptor_interface",
-    ]
-  }
-
-  rtc_library("fake_frame_decryptor") {
-    testonly = true
-    sources = [
-      "test/fake_frame_decryptor.cc",
-      "test/fake_frame_decryptor.h",
-    ]
-    deps = [
-      ":array_view",
-      ":libjingle_peerconnection_api",
-      ":rtp_parameters",
-      "../rtc_base:checks",
-      "../rtc_base:rtc_base_approved",
-      "crypto:frame_decryptor_interface",
-    ]
-  }
-
   rtc_source_set("mock_media_stream_interface") {
     visibility = [ "*" ]
     testonly = true
@@ -931,21 +899,6 @@ if (rtc_include_tests) {
     visibility = [ "*" ]
     testonly = true
     sources = [ "test/mock_peer_connection_factory_interface.h" ]
-
-    deps = [
-      ":libjingle_peerconnection_api",
-      "../test:test_support",
-    ]
-  }
-
-  rtc_source_set("mock_rtp") {
-    visibility = [ "*" ]
-    testonly = true
-    sources = [
-      "test/mock_rtp_transceiver.h",
-      "test/mock_rtpreceiver.h",
-      "test/mock_rtpsender.h",
-    ]
 
     deps = [
       ":libjingle_peerconnection_api",
@@ -1108,4 +1061,54 @@ if (rtc_include_tests) {
       "units:units_unittests",
     ]
   }
+}
+
+# Test libraries that are moved outside "if test only" because they are
+# used by fuzzers.
+
+rtc_library("fake_frame_encryptor") {
+  testonly = true
+  sources = [
+    "test/fake_frame_encryptor.cc",
+    "test/fake_frame_encryptor.h",
+  ]
+  deps = [
+    ":array_view",
+    ":libjingle_peerconnection_api",
+    ":rtp_parameters",
+    "../rtc_base:checks",
+    "../rtc_base:rtc_base_approved",
+    "crypto:frame_encryptor_interface",
+  ]
+}
+
+rtc_library("fake_frame_decryptor") {
+  testonly = true
+  sources = [
+    "test/fake_frame_decryptor.cc",
+    "test/fake_frame_decryptor.h",
+  ]
+  deps = [
+    ":array_view",
+    ":libjingle_peerconnection_api",
+    ":rtp_parameters",
+    "../rtc_base:checks",
+    "../rtc_base:rtc_base_approved",
+    "crypto:frame_decryptor_interface",
+  ]
+}
+
+rtc_source_set("mock_rtp") {
+  visibility = [ "*" ]
+  testonly = true
+  sources = [
+    "test/mock_rtp_transceiver.h",
+    "test/mock_rtpreceiver.h",
+    "test/mock_rtpsender.h",
+  ]
+
+  deps = [
+    ":libjingle_peerconnection_api",
+    "../test:test_support",
+  ]
 }

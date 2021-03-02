@@ -446,70 +446,6 @@ rtc_source_set("rtc_media") {
 }
 
 if (rtc_include_tests) {
-  rtc_library("rtc_media_tests_utils") {
-    testonly = true
-
-    defines = []
-    deps = [
-      ":rtc_audio_video",
-      ":rtc_internal_video_codecs",
-      ":rtc_media",
-      ":rtc_media_base",
-      ":rtc_simulcast_encoder_adapter",
-      "../api:call_api",
-      "../api:fec_controller_api",
-      "../api:scoped_refptr",
-      "../api/transport:field_trial_based_config",
-      "../api/video:encoded_image",
-      "../api/video:video_bitrate_allocation",
-      "../api/video:video_frame",
-      "../api/video:video_rtp_headers",
-      "../api/video_codecs:video_codecs_api",
-      "../call:call_interfaces",
-      "../call:mock_rtp_interfaces",
-      "../call:video_stream_api",
-      "../common_video",
-      "../modules/audio_processing",
-      "../modules/audio_processing:api",
-      "../modules/rtp_rtcp:rtp_rtcp_format",
-      "../modules/video_coding:video_codec_interface",
-      "../modules/video_coding:video_coding_utility",
-      "../p2p:rtc_p2p",
-      "../rtc_base",
-      "../rtc_base:checks",
-      "../rtc_base:gunit_helpers",
-      "../rtc_base:rtc_base_approved",
-      "../rtc_base:rtc_task_queue",
-      "../rtc_base:stringutils",
-      "../rtc_base:threading",
-      "../rtc_base/synchronization:mutex",
-      "../rtc_base/third_party/sigslot",
-      "../test:test_support",
-      "//testing/gtest",
-    ]
-    absl_deps = [
-      "//third_party/abseil-cpp/absl/algorithm:container",
-      "//third_party/abseil-cpp/absl/strings",
-    ]
-    sources = [
-      "base/fake_frame_source.cc",
-      "base/fake_frame_source.h",
-      "base/fake_media_engine.cc",
-      "base/fake_media_engine.h",
-      "base/fake_network_interface.h",
-      "base/fake_rtp.cc",
-      "base/fake_rtp.h",
-      "base/fake_video_renderer.cc",
-      "base/fake_video_renderer.h",
-      "base/test_utils.cc",
-      "base/test_utils.h",
-      "engine/fake_webrtc_call.cc",
-      "engine/fake_webrtc_call.h",
-      "engine/fake_webrtc_video_engine.cc",
-      "engine/fake_webrtc_video_engine.h",
-    ]
-  }
-
   if (!build_with_chromium) {
     rtc_media_unittests_resources = [
       "../resources/media/captured-320x240-2s-48.frames",
@@ -668,4 +604,71 @@ if (rtc_include_tests) {
       }
     }
   }
+}
+
+# Test library built outsie of rtc_include_tests because it is being used
+# by a fuzzer.
+
+rtc_library("rtc_media_tests_utils") {
+  testonly = true
+
+  defines = []
+  deps = [
+    ":rtc_audio_video",
+    ":rtc_internal_video_codecs",
+    ":rtc_media",
+    ":rtc_media_base",
+    ":rtc_simulcast_encoder_adapter",
+    "../api:call_api",
+    "../api:fec_controller_api",
+    "../api:scoped_refptr",
+    "../api/transport:field_trial_based_config",
+    "../api/video:encoded_image",
+    "../api/video:video_bitrate_allocation",
+    "../api/video:video_frame",
+    "../api/video:video_rtp_headers",
+    "../api/video_codecs:video_codecs_api",
+    "../call:call_interfaces",
+    "../call:mock_rtp_interfaces",
+    "../call:video_stream_api",
+    "../common_video",
+    "../modules/audio_processing",
+    "../modules/audio_processing:api",
+    "../modules/rtp_rtcp:rtp_rtcp_format",
+    "../modules/video_coding:video_codec_interface",
+    "../modules/video_coding:video_coding_utility",
+    "../p2p:rtc_p2p",
+    "../rtc_base",
+    "../rtc_base:checks",
+    "../rtc_base:gunit_helpers",
+    "../rtc_base:rtc_base_approved",
+    "../rtc_base:rtc_task_queue",
+    "../rtc_base:stringutils",
+    "../rtc_base:threading",
+    "../rtc_base/synchronization:mutex",
+    "../rtc_base/third_party/sigslot",
+    "../test:test_support",
+    "//testing/gtest",
+  ]
+  absl_deps = [
+    "//third_party/abseil-cpp/absl/algorithm:container",
+    "//third_party/abseil-cpp/absl/strings",
+  ]
+  sources = [
+    "base/fake_frame_source.cc",
+    "base/fake_frame_source.h",
+    "base/fake_media_engine.cc",
+    "base/fake_media_engine.h",
+    "base/fake_network_interface.h",
+    "base/fake_rtp.cc",
+    "base/fake_rtp.h",
+    "base/fake_video_renderer.cc",
+    "base/fake_video_renderer.h",
+    "base/test_utils.cc",
+    "base/test_utils.h",
+    "engine/fake_webrtc_call.cc",
+    "engine/fake_webrtc_call.h",
+    "engine/fake_webrtc_video_engine.cc",
+    "engine/fake_webrtc_video_engine.h",
+  ]
 }

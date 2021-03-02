@@ -153,7 +153,8 @@ const int64_t kNanosecondsPerSecond = 1000000000;
 - (void)startCaptureWithDevice:(AVCaptureDevice *)device
                         format:(AVCaptureDeviceFormat *)format
                            fps:(NSInteger)fps
-             completionHandler:(nullable void (^)(NSError *))completionHandler {
+             completionHandler:
+                 (__nullable RTC_OBJC_TYPE(RTCCameraVideoCapturerErrorBlock))completionHandler {
   _willBeRunning = YES;
   [RTC_OBJC_TYPE(RTCDispatcher)
       dispatchAsyncOnType:RTCDispatcherTypeCaptureSession

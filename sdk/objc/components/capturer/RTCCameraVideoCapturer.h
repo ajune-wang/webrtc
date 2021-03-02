@@ -16,6 +16,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ * Error passing block.
+ */
+typedef void (^RTC_OBJC_TYPE(RTCCameraVideoCapturerErrorBlock))(NSError *_Nullable error);
+
 RTC_OBJC_EXPORT
 // Camera capture that implements RTCVideoCapturer. Delivers frames to a
 // RTCVideoCapturerDelegate (usually RTCVideoSource).
@@ -40,7 +45,8 @@ NS_EXTENSION_UNAVAILABLE_IOS("Camera not available in app extensions.")
 - (void)startCaptureWithDevice:(AVCaptureDevice *)device
                         format:(AVCaptureDeviceFormat *)format
                            fps:(NSInteger)fps
-             completionHandler:(nullable void (^)(NSError *))completionHandler;
+             completionHandler:
+                 (__nullable RTC_OBJC_TYPE(RTCCameraVideoCapturerErrorBlock))completionHandler;
 // Stops the capture session asynchronously and notifies callback on completion.
 - (void)stopCaptureWithCompletionHandler:(nullable void (^)(void))completionHandler;
 

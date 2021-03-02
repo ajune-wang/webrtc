@@ -45,7 +45,7 @@ typedef NS_ENUM(NSInteger, RTCFileVideoCapturerStatus) {
 @synthesize fileURL = _fileURL;
 
 - (void)startCapturingFromFileNamed:(NSString *)nameOfFile
-                            onError:(RTCFileVideoCapturerErrorBlock)errorBlock {
+                            onError:(RTC_OBJC_TYPE(RTCFileVideoCapturerErrorBlock))errorBlock {
   if (_status == RTCFileVideoCapturerStatusStarted) {
     NSError *error =
         [NSError errorWithDomain:kRTCFileVideoCapturerErrorDomain
@@ -77,7 +77,7 @@ typedef NS_ENUM(NSInteger, RTCFileVideoCapturerStatus) {
   });
 }
 
-- (void)setupReaderOnError:(RTCFileVideoCapturerErrorBlock)errorBlock {
+- (void)setupReaderOnError:(RTC_OBJC_TYPE(RTCFileVideoCapturerErrorBlock))errorBlock {
   AVURLAsset *asset = [AVURLAsset URLAssetWithURL:_fileURL options:nil];
 
   NSArray *allTracks = [asset tracksWithMediaType:AVMediaTypeVideo];

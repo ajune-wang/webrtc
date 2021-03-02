@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * Error passing block.
  */
-typedef void (^RTCFileVideoCapturerErrorBlock)(NSError *error);
+typedef void (^RTC_OBJC_TYPE(RTCFileVideoCapturerErrorBlock))(NSError* _Nullable error);
 
 /**
  * Captures buffers from bundled video file.
@@ -40,7 +40,7 @@ NS_CLASS_AVAILABLE_IOS(10)
  * @errorBlock block to be executed upon error.
  */
 - (void)startCapturingFromFileNamed:(NSString *)nameOfFile
-                            onError:(__nullable RTCFileVideoCapturerErrorBlock)errorBlock;
+                            onError:(RTC_OBJC_TYPE(RTCFileVideoCapturerErrorBlock))errorBlock;
 
 /**
  * Immediately stops capture.

@@ -16,6 +16,259 @@
       "message": "PTAL",
       "revId": "3a1fb2569d4c519198c2a97e01f44e434ccd7300",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30479938_0fc36434",
+        "filename": "logging/rtc_event_log/encoder/blob_encoding.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2021-03-02T11:13:46Z",
+      "side": 1,
+      "message": "Move this into the loop?",
+      "range": {
+        "startLine": 62,
+        "startChar": 2,
+        "endLine": 62,
+        "endChar": 23
+      },
+      "revId": "3a1fb2569d4c519198c2a97e01f44e434ccd7300",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2c47c43_a1640664",
+        "filename": "logging/rtc_event_log/encoder/var_int.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2021-03-02T11:13:46Z",
+      "side": 1,
+      "message": "Due diligence: If i+1 \u003d\u003d size(), then a valid, empty string_view is produced, right?",
+      "range": {
+        "startLine": 52,
+        "startChar": 20,
+        "endLine": 52,
+        "endChar": 39
+      },
+      "revId": "3a1fb2569d4c519198c2a97e01f44e434ccd7300",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0261d714_e33c9fb9",
+        "filename": "logging/rtc_event_log/encoder/var_int.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2021-03-02T11:13:46Z",
+      "side": 1,
+      "message": "Maybe an empty string_view? (Or nullopt if you take my other suggestion.)",
+      "range": {
+        "startLine": 56,
+        "startChar": 17,
+        "endLine": 56,
+        "endChar": 22
+      },
+      "revId": "3a1fb2569d4c519198c2a97e01f44e434ccd7300",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df41b72e_97e21894",
+        "filename": "logging/rtc_event_log/encoder/var_int.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2021-03-02T11:13:46Z",
+      "side": 1,
+      "message": "Unterminated sentence.",
+      "range": {
+        "startLine": 37,
+        "startChar": 3,
+        "endLine": 37,
+        "endChar": 73
+      },
+      "revId": "3a1fb2569d4c519198c2a97e01f44e434ccd7300",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92f5ac30_afbb37e3",
+        "filename": "logging/rtc_event_log/encoder/var_int.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2021-03-02T11:13:46Z",
+      "side": 1,
+      "message": "Maybe an absl::optional\u003cstring_view\u003e, since we don\u0027t really want to use the returned string_view if `false`, and using an optional\u003c\u003e would guarantee we can\u0027t accidentally do so. Wdyt?",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 34
+      },
+      "revId": "3a1fb2569d4c519198c2a97e01f44e434ccd7300",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51e5e889_1060cc71",
+        "filename": "logging/rtc_event_log/encoder/var_int.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2021-03-02T11:13:46Z",
+      "side": 1,
+      "message": "nit: Maybe this caveat should go at the end, after the reader has gotten a good grasp of the main usecase for the function?",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 63
+      },
+      "revId": "3a1fb2569d4c519198c2a97e01f44e434ccd7300",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c36756b_d3bf216e",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1085,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2021-03-02T11:13:46Z",
+      "side": 1,
+      "message": "nit: nullptr, here and elsewhere. (Or !file.)",
+      "range": {
+        "startLine": 1085,
+        "startChar": 14,
+        "endLine": 1085,
+        "endChar": 18
+      },
+      "revId": "3a1fb2569d4c519198c2a97e01f44e434ccd7300",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e593ee17_e05155a8",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1091,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2021-03-02T11:13:46Z",
+      "side": 1,
+      "message": "Although I personally dislike that style guidance, IIRC, we are discouraged from using unterminated comments. (IMHO titles !\u003d sentences, so a full-stop is indeed unnecessary. But style guides are style guides...)",
+      "range": {
+        "startLine": 1091,
+        "startChar": 2,
+        "endLine": 1091,
+        "endChar": 22
+      },
+      "revId": "3a1fb2569d4c519198c2a97e01f44e434ccd7300",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "113f7e26_e499f29c",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1092,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2021-03-02T11:13:46Z",
+      "side": 1,
+      "message": "You probably want to check the return value of both calls to fseek. Otherwise, the check (bytes_read !\u003d filesize) further below is not as convincing.",
+      "range": {
+        "startLine": 1092,
+        "startChar": 2,
+        "endLine": 1092,
+        "endChar": 7
+      },
+      "revId": "3a1fb2569d4c519198c2a97e01f44e434ccd7300",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f6175cc_38f901ea",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1104,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2021-03-02T11:13:46Z",
+      "side": 1,
+      "message": "ParsedRtcEventLog::ParseStatus IMHO. But my next comment might make this a moot point.",
+      "range": {
+        "startLine": 1104,
+        "startChar": 2,
+        "endLine": 1104,
+        "endChar": 6
+      },
+      "revId": "3a1fb2569d4c519198c2a97e01f44e434ccd7300",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0fce3b97_c912ba19",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1106,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2021-03-02T11:13:46Z",
+      "side": 1,
+      "message": "1. Previous calls to RTC_PARSE_CHECK_OR_RETURN might have returned without closing, right? Can we use a wrapper around `file` to ensure it\u0027s closed when the function exits? If so, we can also get rid of the `status` intermediate, of course.\n2. nit: Do you think it would be worthwhile to check the return code of fclose too, btw, and log an error if applicable?",
+      "range": {
+        "startLine": 1106,
+        "startChar": 2,
+        "endLine": 1106,
+        "endChar": 8
+      },
+      "revId": "3a1fb2569d4c519198c2a97e01f44e434ccd7300",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

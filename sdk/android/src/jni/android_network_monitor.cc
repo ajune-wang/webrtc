@@ -21,6 +21,7 @@
 #include "rtc_base/ip_address.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/strings/string_builder.h"
+#include "rtc_base/task_utils/to_queued_task.h"
 #include "sdk/android/generated_base_jni/NetworkChangeDetector_jni.h"
 #include "sdk/android/generated_base_jni/NetworkMonitor_jni.h"
 #include "sdk/android/native_api/jni/java_types.h"
@@ -228,7 +229,8 @@ AndroidNetworkMonitor::AndroidNetworkMonitor(
     : android_sdk_int_(Java_NetworkMonitor_androidSdkInt(env)),
       j_application_context_(env, j_application_context),
       j_network_monitor_(env, Java_NetworkMonitor_getInstance(env)),
-      network_thread_(rtc::Thread::Current()) {}
+      network_thread_(rtc::Thread::Current()),
+      task_safety_(PendingTaskSafetyFlag::Create()) {}
 
 AndroidNetworkMonitor::~AndroidNetworkMonitor() = default;
 
@@ -249,6 +251,7 @@ void AndroidNetworkMonitor::Start() {
   // it creates sockets.
   network_thread_->socketserver()->set_network_binder(this);
 
+  task_safety_->SetAlive();
   JNIEnv* env = AttachCurrentThreadIfNeeded();
   Java_NetworkMonitor_startMonitoring(
       env, j_network_monitor_, j_application_context_, jlongFromPointer(this));
@@ -268,6 +271,7 @@ void AndroidNetworkMonitor::Stop() {
     network_thread_->socketserver()->set_network_binder(nullptr);
   }
 
+  task_safety_->SetNotAlive();
   JNIEnv* env = AttachCurrentThreadIfNeeded();
   Java_NetworkMonitor_stopMonitoring(env, j_network_monitor_,
                                      jlongFromPointer(this));
@@ -524,11 +528,11 @@ AndroidNetworkMonitorFactory::CreateNetworkMonitor() {
 void AndroidNetworkMonitor::NotifyConnectionTypeChanged(
     JNIEnv* env,
     const JavaRef<jobject>& j_caller) {
-  invoker_.AsyncInvoke<void>(RTC_FROM_HERE, network_thread_, [this] {
+  network_thread_->PostTask(ToQueuedTask(task_safety_, [this] {
     RTC_LOG(LS_INFO)
         << "Android network monitor detected connection type change.";
     SignalNetworksChanged();
-  });
+  }));
 }
 
 void AndroidNetworkMonitor::NotifyOfActiveNetworkList(

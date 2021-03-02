@@ -33,6 +33,23 @@
       "message": "And one other question: Does any of you know why the particular NotifyConnectionTypeChanged needs an async invocation in the first place? There are three other Notify methods using blocking network_thread_-\u003eInvoke, including at least two, NotifyOfNetworkConnect, NotifyOfNetworkPreference, that fire the same SignalNetworksChanged.",
       "revId": "5c60b4da488346c733929d7362e1d24e32d040bd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8525f364_14a06394",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-03-02T09:38:52Z",
+      "side": 1,
+      "message": "And it looks like current AsyncInvoker as well as blocking Invokes were introduced in the refactoring https://webrtc-review.googlesource.com/c/src/+/181420. \n\nTaylor, do you know one uses an AsyncInvoker, and the others are blocking?",
+      "revId": "5c60b4da488346c733929d7362e1d24e32d040bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

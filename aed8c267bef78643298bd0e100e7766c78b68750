@@ -218,6 +218,30 @@
       },
       "revId": "aed8c267bef78643298bd0e100e7766c78b68750",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d32f4bb_ef8434c2",
+        "filename": "sdk/android/src/jni/android_network_monitor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-03-02T09:20:32Z",
+      "side": 1,
+      "message": "After pondering a little more, I think the simplest way to support the restart case would be to add a PendingTaskSafetyFlag::SetAlive() method. I\u0027ll try that out, and see what happens to the tests.",
+      "parentUuid": "514fd66b_75f5bda4",
+      "range": {
+        "startLine": 235,
+        "startChar": 2,
+        "endLine": 235,
+        "endChar": 19
+      },
+      "revId": "aed8c267bef78643298bd0e100e7766c78b68750",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

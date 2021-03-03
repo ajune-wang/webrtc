@@ -16,6 +16,23 @@
       "message": "Hello Kári!\n\nI\u0027m currently trying to use WebRTC.framework from Swift for iOS development and found some issues with nulability annotations. I\u0027ve fixed some of the most annoying. Maybe there are some more missing nullable/nonnull, but I didn\u0027t encounter them yet. Will send another CL if found. Could you please review this CL?\n\nThanks a lot in advance,\nYura.",
       "revId": "9eebdbe509855a10437fb900625e1e4cfbfdc7dc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9f14844_8f25d1b6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2021-03-03T17:55:37Z",
+      "side": 1,
+      "message": "Awesome, Thanks for fixing this!",
+      "revId": "9eebdbe509855a10437fb900625e1e4cfbfdc7dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

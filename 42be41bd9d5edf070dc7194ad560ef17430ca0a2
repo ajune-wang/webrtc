@@ -33,6 +33,46 @@
       "message": "+ilnik@ for media/engine\n+brandtr@ for api/video_codecs",
       "revId": "42be41bd9d5edf070dc7194ad560ef17430ca0a2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79cf0a49_96d4b624",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2021-03-03T13:00:59Z",
+      "side": 1,
+      "message": "api/video_codecs lgtm. (Arguably, `VideoEncoderConfig` does not belong in api/, but that\u0027s a different story).\n\nBut please see my question about the possibility of a bad optional.",
+      "revId": "42be41bd9d5edf070dc7194ad560ef17430ca0a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7ea4460_0c850b5b",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2021-03-03T13:00:59Z",
+      "side": 1,
+      "message": "Is it guaranteed that we won\u0027t hit a bad optional here? Prior to this CL, `quality_scaling_allowed` would be false in that case. But with this CL, maybe we could have an empty optional and still `quality_scaling_allowed` be true?",
+      "range": {
+        "startLine": 542,
+        "startChar": 40,
+        "endLine": 542,
+        "endChar": 67
+      },
+      "revId": "42be41bd9d5edf070dc7194ad560ef17430ca0a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

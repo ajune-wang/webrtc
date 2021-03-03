@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": false,
       "key": {
         "uuid": "ce101e5e_af1f9553",
         "filename": "/PATCHSET_LEVEL",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "minyue: looks like you added most of these in other encoders.\nI *think* I\u0027ve got everything, should be simple pass-through. But how would I know I missed something?",
       "revId": "24e99ff3cb4e7e52f48b2a056fd9fa5fe6053961",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": false
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "dbe0e106_1c681463",
         "filename": "/PATCHSET_LEVEL",
@@ -31,8 +32,24 @@
       "side": 1,
       "message": "ping ;-)",
       "revId": "24e99ff3cb4e7e52f48b2a056fd9fa5fe6053961",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": false
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34e68340_1e61730c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-03-03T08:23:14Z",
+      "side": 1,
+      "message": "this seems like a good time to ping :-)",
+      "revId": "24e99ff3cb4e7e52f48b2a056fd9fa5fe6053961",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

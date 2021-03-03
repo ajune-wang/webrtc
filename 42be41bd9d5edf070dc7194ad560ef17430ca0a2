@@ -69,6 +69,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ffd5810_c076be46",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-03-03T13:48:22Z",
+      "side": 1,
+      "message": "Let\u0027s remove automaticResizeOn in a follow up CL (that will be a large change). We need to merge this CL into M90. To lower the risk I would like to do as fewer changes as possible",
+      "parentUuid": "3bf5ad3e_e6bb1ada",
+      "revId": "42be41bd9d5edf070dc7194ad560ef17430ca0a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "75c5c192_4d04450e",
@@ -82,6 +100,24 @@
       "writtenOn": "2021-03-03T13:04:39Z",
       "side": 1,
       "message": "To keep things in sync with AutomaticResize paramters in VideoCodec settings, please separate this condition into a member function and use it here and in L486\n\nIt could calculate is_screencast from parameters_ itself and would take no paramteres.\n\nWould be something like IsAutomaticResizeEnabled().\n\nOr maybe you could come up with another way to only calculate this condition once here and pass it to L486 somehow.",
+      "revId": "42be41bd9d5edf070dc7194ad560ef17430ca0a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e84bd01_63e069d0",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 2495,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-03-03T13:48:22Z",
+      "side": 1,
+      "message": "Those are all fair points. I\u0027m planning to delete automaticResizeOn fields from VP8/9 codec settings as part of https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d12511.\n\nWe need to merge this CL into M90. To lower the risk I would like to do as fewer changes as possible.",
+      "parentUuid": "75c5c192_4d04450e",
       "revId": "42be41bd9d5edf070dc7194ad560ef17430ca0a2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

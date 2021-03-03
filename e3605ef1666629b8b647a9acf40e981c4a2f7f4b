@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aab5909f_2d69f6ae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-03-03T12:39:40Z",
+      "side": 1,
+      "message": "Hi Ilya,\nHere\u0027s another review :)\n\nRegarding performance, I\u0027ve done a local benchmark on a Windows computer. The average times for both Decode() and Decoded() are the same with and without this CL.",
+      "revId": "e3605ef1666629b8b647a9acf40e981c4a2f7f4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

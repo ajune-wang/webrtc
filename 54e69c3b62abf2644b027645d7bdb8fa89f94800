@@ -16,6 +16,23 @@
       "message": "This comes in the class of \"Oops\".\n",
       "revId": "54e69c3b62abf2644b027645d7bdb8fa89f94800",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6358c0a3_648fb109",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 3127,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-03T08:14:58Z",
+      "side": 1,
+      "message": "LGTM but (separate CL maybe?) shouldn\u0027t we check for legal token characters everywhere else also?",
+      "revId": "54e69c3b62abf2644b027645d7bdb8fa89f94800",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

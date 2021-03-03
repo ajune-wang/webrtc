@@ -33,6 +33,23 @@
       "message": "Awesome, Thanks for fixing this!",
       "revId": "9eebdbe509855a10437fb900625e1e4cfbfdc7dc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e91a6e2_24987ee3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2021-03-03T18:01:43Z",
+      "side": 1,
+      "message": "Ah. I don\u0027t understand why presubmit check complains about missing RTC_OBJC_TYPE... Maybe enums should be wrapped as well?",
+      "revId": "9eebdbe509855a10437fb900625e1e4cfbfdc7dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

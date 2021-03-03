@@ -50,6 +50,23 @@
       "message": "Ah. I don\u0027t understand why presubmit check complains about missing RTC_OBJC_TYPE... Maybe enums should be wrapped as well?",
       "revId": "9eebdbe509855a10437fb900625e1e4cfbfdc7dc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06d394f3_54bd34d0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2021-03-03T18:40:03Z",
+      "side": 1,
+      "message": "Hello Mirko Bonadei,\n\ncould you please help with presubmit checker? As I see the problem is reported by PRESUBMIT.py due to checker\n```\n    rtc_objc_export \u003d re.compile(r\u0027RTC_OBJC_EXPORT(.|\\n){26}\u0027,\n                                 re.MULTILINE | re.DOTALL)\n```\nhave only check 26 character after RTC_OBJC_EXPORT, but RTCCameraVideoCapturer has very long comment and another macro before actual definition of @interface.\n\nCould you please submit this CL into CQ without pre-submit check? Or let me know what is the policy of usage `No-Presubmit: True`, maybe I\u0027m allowed to do myself.\n\nThanks a lot in advance!",
+      "revId": "9eebdbe509855a10437fb900625e1e4cfbfdc7dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

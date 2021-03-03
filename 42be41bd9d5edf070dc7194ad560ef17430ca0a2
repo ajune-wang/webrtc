@@ -54,6 +54,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3bf5ad3e_e6bb1ada",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-03-03T13:04:39Z",
+      "side": 1,
+      "message": "This is the second place using the same paramters.\n\nYou can move is_screencast calculation inside the new member function.",
+      "revId": "42be41bd9d5edf070dc7194ad560ef17430ca0a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75c5c192_4d04450e",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 2495,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-03-03T13:04:39Z",
+      "side": 1,
+      "message": "To keep things in sync with AutomaticResize paramters in VideoCodec settings, please separate this condition into a member function and use it here and in L486\n\nIt could calculate is_screencast from parameters_ itself and would take no paramteres.\n\nWould be something like IsAutomaticResizeEnabled().\n\nOr maybe you could come up with another way to only calculate this condition once here and pass it to L486 somehow.",
+      "revId": "42be41bd9d5edf070dc7194ad560ef17430ca0a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b7ea4460_0c850b5b",
         "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
         "patchSetId": 8
@@ -65,6 +99,30 @@
       "writtenOn": "2021-03-03T13:00:59Z",
       "side": 1,
       "message": "Is it guaranteed that we won\u0027t hit a bad optional here? Prior to this CL, `quality_scaling_allowed` would be false in that case. But with this CL, maybe we could have an empty optional and still `quality_scaling_allowed` be true?",
+      "range": {
+        "startLine": 542,
+        "startChar": 40,
+        "endLine": 542,
+        "endChar": 67
+      },
+      "revId": "42be41bd9d5edf070dc7194ad560ef17430ca0a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "081b2ca3_bbe04268",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-03-03T13:04:39Z",
+      "side": 1,
+      "message": "I also was confused by this and had to think about it. It\u0027s safe, since the CL adds a new way to get here when !scaling_settings.thresholds.has_value(). So it ends up passing nullopt here as it would have done at L545.\n\nI believe a comment should be here noting that it can pass nullopt, if no thresholds are set anywhere.",
+      "parentUuid": "b7ea4460_0c850b5b",
       "range": {
         "startLine": 542,
         "startChar": 40,

@@ -16,6 +16,40 @@
       "message": "Hi Ilya,\nHere\u0027s another review :)\n\nRegarding performance, I\u0027ve done a local benchmark on a Windows computer. The average times for both Decode() and Decoded() are the same with and without this CL.",
       "revId": "e3605ef1666629b8b647a9acf40e981c4a2f7f4b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3de3b27_d6ff9ff8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-03-03T12:52:14Z",
+      "side": 1,
+      "message": "lgtm % one comment",
+      "revId": "e3605ef1666629b8b647a9acf40e981c4a2f7f4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6719606_be0d9f67",
+        "filename": "modules/video_coding/timestamp_map.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-03-03T12:52:14Z",
+      "side": 1,
+      "message": "Can you please clear the data here somehow? I suggest zeroing the timestamp should be enough. Otherwise there\u0027s a very unlikely possibility that due to the ring buffer overflow some data might be returned two times.\n\nBefore, in that scenario a nullptr data would be returned and it would be the same as if timestamps were not found.\n\nIdeally, so kind of valid flag or optional in ring buffer should be made, but It believe it\u0027s an overkill for this unlikely scenario.",
+      "revId": "e3605ef1666629b8b647a9acf40e981c4a2f7f4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

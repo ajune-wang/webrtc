@@ -50,6 +50,47 @@
       "message": "Hi Zhaoliang,\nCould you PTAL?\nAlessio",
       "revId": "b0c887f2fe5169f7bdbf6b9b1da20ce9aa244fea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46ecbf65_01df1a13",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2021-03-03T06:52:34Z",
+      "side": 1,
+      "message": "Hi Alessio, Thanks for your point of view.\n\nI think in common_audio \u0026 aec3, the avx2 code doesn\u0027t mixed with sse instructions if we can remove the sse intrinsic code from the avx2 file, also these avx2 files would not call other sse functions or libraries, so in my understanding, maybe we don\u0027t need _mm256_zeroupper() in these file if we remove the sse code.\n\nAnd for agc2, IMHO, we don\u0027t need _mm256_zeroupper() if the sse code can be removed and DotProductAvx2 doesn\u0027t call sse functions or libbraries. Otherwise, the avx code is mixed with sse code, so adding calls to `_mm256_zeroupper` is needed.\n\n_mm256_zeroupper can be added if the performance still improved after we remove the sse code in avx2 file. WDYT? Thanks!!!",
+      "parentUuid": "5d9949d5_24f8b417",
+      "revId": "b0c887f2fe5169f7bdbf6b9b1da20ce9aa244fea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2e268df_2b204ffd",
+        "filename": "modules/audio_processing/agc2/rnn_vad/vector_math_avx2.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2021-03-03T06:52:34Z",
+      "side": 1,
+      "message": "Can we convert these sse intrinsic code to avx2?",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 45,
+        "endChar": 41
+      },
+      "revId": "b0c887f2fe5169f7bdbf6b9b1da20ce9aa244fea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

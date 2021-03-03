@@ -131,6 +131,30 @@
       },
       "revId": "42be41bd9d5edf070dc7194ad560ef17430ca0a2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1dc91b35_0eb1ea10",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-03-03T13:08:08Z",
+      "side": 1,
+      "message": "UpdateQualityScalerSettings() will be called with absl::nullopt in that case. Same happens if quality_scaling_allowed\u003dfalse in L545.",
+      "parentUuid": "b7ea4460_0c850b5b",
+      "range": {
+        "startLine": 542,
+        "startChar": 40,
+        "endLine": 542,
+        "endChar": 67
+      },
+      "revId": "42be41bd9d5edf070dc7194ad560ef17430ca0a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -141,6 +141,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "181a2f28_ebd42488",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-03-03T21:42:11Z",
+      "side": 1,
+      "message": "Abandoned in favor of https://webrtc-review.googlesource.com/c/src/+/209321.\n\nThe difference being that this CL provides two options, \"run in single threaded mode with network thread\" or \"run in multithreaded mode\". Whereas the new one provides options of \"use network thread in single threaded mode\" or \"use independent thread in single threaded mode\". Which is what people were asking for in the meeting where this was discussed, if I understood correctly.",
+      "parentUuid": "1d800e81_c881681c",
+      "revId": "f42b8feea04a063bf08a4569638ad7c43e4d4b9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c70cdd24_4033cb75",

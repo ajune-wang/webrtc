@@ -7952,6 +7952,9 @@ TEST_F(VideoStreamEncoderTest,
   video_stream_encoder_->Stop();
 }
 
+#if !defined(WEBRTC_IOS)
+// TODO(bugs.webrtc.org/12401): Disabled because WebRTC-Video-QualityScaling is
+// disabled by default on iOS.
 TEST_F(VideoStreamEncoderTest, QualityScalingAllowed_QualityScalingEnabled) {
   VideoEncoderConfig video_encoder_config = video_encoder_config_.Copy();
 
@@ -7979,5 +7982,6 @@ TEST_F(VideoStreamEncoderTest, QualityScalingAllowed_QualityScalingEnabled) {
 
   video_stream_encoder_->Stop();
 }
+#endif
 
 }  // namespace webrtc

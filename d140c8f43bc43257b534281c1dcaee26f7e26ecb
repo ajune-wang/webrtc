@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a260a96_e4b474ad",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2021-03-04T14:03:30Z",
+      "side": 1,
+      "message": "Still LGTM. Let\u0027s bypass the presubmit check for now but fix it for the future.",
+      "revId": "d140c8f43bc43257b534281c1dcaee26f7e26ecb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

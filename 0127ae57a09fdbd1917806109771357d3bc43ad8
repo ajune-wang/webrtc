@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "064f17e7_75d3f2eb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2021-03-04T09:42:35Z",
+      "side": 1,
+      "message": "NOPRESUBMIT as it fails only for owner +1 and this is a revert.",
+      "revId": "0127ae57a09fdbd1917806109771357d3bc43ad8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

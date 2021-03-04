@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87c13264_84a5acd2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-03-04T10:45:37Z",
+      "side": 1,
+      "message": "Disabled QualityScalingAllowed_QualityScalingEnabled on iOS.\n\nPlease take a look.",
+      "revId": "82fb9b18c27fe00d77986011c522cabca49c9b43",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

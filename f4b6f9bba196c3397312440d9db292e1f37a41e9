@@ -33,6 +33,23 @@
       "message": "I should add a reviewer too ;-)",
       "revId": "f4b6f9bba196c3397312440d9db292e1f37a41e9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "29ed33a5_99ebe805",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-03-05T11:04:03Z",
+      "side": 1,
+      "message": "I assume this is sufficiently exercised by existing tests that I don\u0027t have to ask about that ... it\u0027s supposed to be a no-op, right?\n",
+      "revId": "f4b6f9bba196c3397312440d9db292e1f37a41e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

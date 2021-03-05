@@ -16,6 +16,24 @@
       "message": "does this line even make sense?",
       "revId": "ae096ef7a6f91b3473a71d3cbf574507c19d000c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "346cfa4b_d9faf78e",
+        "filename": "pc/srtp_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-03-05T11:04:03Z",
+      "side": 0,
+      "message": "RTC_NOTREACHED is, confusingly, a DCHECK not a CHECK. It\u0027s been suggested (https://crbug.com/webrtc/9065) to rename it to RTC_DCHECK_NOTREACHED.",
+      "parentUuid": "f5aa5625_cca7dbfe",
+      "revId": "ae096ef7a6f91b3473a71d3cbf574507c19d000c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

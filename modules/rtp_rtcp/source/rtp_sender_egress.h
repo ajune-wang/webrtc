@@ -44,7 +44,8 @@ class RtpSenderEgress {
   class NonPacedPacketSender : public RtpPacketSender {
    public:
     NonPacedPacketSender(RtpSenderEgress* sender,
-                         SequenceNumberAssigner* sequence_number_assigner);
+                         SequenceNumberAssigner* sequence_number_assigner,
+                         bool deferred_sequencing);
     virtual ~NonPacedPacketSender();
 
     void EnqueuePackets(
@@ -52,6 +53,7 @@ class RtpSenderEgress {
 
    private:
     void PrepareForSend(RtpPacketToSend* packet);
+    const bool deferred_sequencing_;
     uint16_t transport_sequence_number_;
     RtpSenderEgress* const sender_;
     SequenceNumberAssigner* sequence_number_assigner_;
@@ -142,6 +144,7 @@ class RtpSenderEgress {
   const bool is_audio_;
 #endif
   const bool need_rtp_packet_infos_;
+  bool last_packet_marker_ RTC_GUARDED_BY(pacer_checker_);
   VideoFecGenerator* const fec_generator_ RTC_GUARDED_BY(pacer_checker_);
 
   TransportFeedbackObserver* const transport_feedback_observer_;

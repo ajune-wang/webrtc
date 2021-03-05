@@ -72,6 +72,41 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "32404242_ddc20e5b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-03-05T15:54:57Z",
+      "side": 1,
+      "message": "\u003e Hi Alessio, Thanks for your point of view.\n\nThank you for your review!\n\n\u003e \n\u003e I think in common_audio \u0026 aec3, the avx2 code doesn\u0027t mixed with sse instructions \n\nUnfortunately that\u0027s the case: AEC3 uses https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/common_audio/third_party/ooura/fft_size_128/ooura_fft_sse2.cc. It\u0027s also the case for other APM sub-modules and in general I think a defensive approach is needed since WebRTC (Chromium) code outside of APM that uses SSE2 would cost transition penalties anyways.\n\nBTW, I tried to measure the transitions with https://software.intel.com/content/www/us/en/develop/articles/intel-software-development-emulator.html, but unfortunately I cannot setup the OS to correctly run the tool.\n\n\u003e if we can remove the sse intrinsic code from the avx2 file, also these avx2 files would not call other sse functions or libraries, so in my understanding, maybe we don\u0027t need _mm256_zeroupper() in these file if we remove the sse code.\n\nTrue, I will for sure switch to a full AVX2 implementation; that\u0027s a great suggestion; however, the problem remains since AGC2 uses PFFFT which is optimized with SSE2.\n\n\u003e \n\u003e And for agc2, IMHO, we don\u0027t need _mm256_zeroupper() if the sse code can be removed and DotProductAvx2 doesn\u0027t call sse functions or libbraries. Otherwise, the avx code is mixed with sse code, so adding calls to `_mm256_zeroupper` is needed.\n\u003e \n\u003e _mm256_zeroupper can be added if the performance still improved after we remove the sse code in avx2 file. WDYT? Thanks!!!\n\nI sent on this CL without benchmarking, but as soon as I have time and suitable hardware I will try again with the SDE tool and I will also benchmark.",
+      "parentUuid": "46ecbf65_01df1a13",
+      "revId": "b0c887f2fe5169f7bdbf6b9b1da20ce9aa244fea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96152b30_e2b1f483",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-03-05T15:54:57Z",
+      "side": 1,
+      "message": "Hi Zhaoliang,\nThanks a lot for your input.\nI have replied.\nAlessio",
+      "revId": "b0c887f2fe5169f7bdbf6b9b1da20ce9aa244fea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e2e268df_2b204ffd",
         "filename": "modules/audio_processing/agc2/rnn_vad/vector_math_avx2.cc",
         "patchSetId": 2

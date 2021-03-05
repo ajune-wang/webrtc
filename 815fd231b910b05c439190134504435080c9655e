@@ -50,6 +50,24 @@
       "message": "Should this mention where it is initialized to its proper value?",
       "revId": "815fd231b910b05c439190134504435080c9655e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d044204b_c90fdb4d",
+        "filename": "pc/srtp_session.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-03-05T11:21:50Z",
+      "side": 1,
+      "message": "git grep answers that easily so I\u0027d say \"no\". And 0 is a proper value when one uses the disable-webrtc-encryption flag (or its boolean incarnation in webrtc)",
+      "parentUuid": "e425d565_6c2a3231",
+      "revId": "815fd231b910b05c439190134504435080c9655e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -16,6 +16,40 @@
       "message": "I ended up scratching my head about why this is ok when libsrtp tells you to include more bytes here:\nhttps://github.com/cisco/libsrtp/blob/381706dc7e05258596083b5fbdc4981d7a710e60/include/srtp.h#L393-L396\n\n(and I checked, we don\u0027t parse MKI in SDES and there is a test for that; well, at least one for lifetime that also claims to test not parsing MKI)",
       "revId": "815fd231b910b05c439190134504435080c9655e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48efe921_bfc823d7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-03-05T11:14:55Z",
+      "side": 1,
+      "message": "LGTM. One question.\n",
+      "revId": "815fd231b910b05c439190134504435080c9655e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e425d565_6c2a3231",
+        "filename": "pc/srtp_session.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-03-05T11:14:55Z",
+      "side": 1,
+      "message": "Should this mention where it is initialized to its proper value?",
+      "revId": "815fd231b910b05c439190134504435080c9655e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

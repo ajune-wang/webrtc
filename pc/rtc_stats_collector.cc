@@ -454,6 +454,7 @@ void SetOutboundRTPStreamStatsFromVoiceSenderInfo(
                                                outbound_audio);
   outbound_audio->media_type = "audio";
   outbound_audio->kind = "audio";
+  outbound_audio->nack_count = voice_sender_info.nacks_rcvd;
   if (voice_sender_info.codec_payload_type) {
     outbound_audio->codec_id = RTCCodecStatsIDFromMidDirectionAndPayload(
         mid, false, *voice_sender_info.codec_payload_type);

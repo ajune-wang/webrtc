@@ -33,6 +33,24 @@
       "message": "does having the different attribute types in this help or will it just confuse because it adds too many tokens? Maybe the fuzzer would find \"\\r\\na\u003d\" more helpful since that will construct new lines starting with the attributes?",
       "revId": "b702db05fb28dd61ef49d27d50557caa2095d197",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c89592bb_abf38f88",
+        "filename": "test/fuzzers/corpora/sdp.tokens",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2021-03-06T08:05:21Z",
+      "side": 1,
+      "message": "I\u0027m no SDP expert, is the SDP format dependent on attributes names, or are they arbitrary? As in, will a parser have different logic depending on the name of a parsed attribute? If so, it makes sense to include attributes.\n\nAbout \"\\r\\nx\" vs \"x\": Does it improve fuzzer performance noticeably? As in, does the fuzzer somewhat quickly find NEW units when running with a corpus with newline-attributes, when continuing after running for a while  with attributes separately?",
+      "parentUuid": "6bba3e3b_2aa45711",
+      "revId": "b702db05fb28dd61ef49d27d50557caa2095d197",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

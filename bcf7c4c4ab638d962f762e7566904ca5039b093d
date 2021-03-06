@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2851331_d27040f1",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 16600
+      },
+      "writtenOn": "2021-03-06T19:31:29Z",
+      "side": 1,
+      "message": "I am not sure if initializing this here is a good idea or not. Seems like we would prefer passing counters from a few layers up but not sure where to start \u0026 whether or not it\u0027s worth the complexity.",
+      "revId": "bcf7c4c4ab638d962f762e7566904ca5039b093d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

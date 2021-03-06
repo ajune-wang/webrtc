@@ -785,7 +785,6 @@ class RTCStatsReportVerifier {
     } else {
       verifier->TestMemberIsUndefined(stream.fir_count);
       verifier->TestMemberIsUndefined(stream.pli_count);
-      verifier->TestMemberIsUndefined(stream.nack_count);
     }
     verifier->TestMemberIsUndefined(stream.sli_count);
   }
@@ -801,6 +800,7 @@ class RTCStatsReportVerifier {
     } else {
       verifier.TestMemberIsUndefined(inbound_stream.qp_sum);
       verifier.TestMemberIsUndefined(inbound_stream.decoder_implementation);
+      verifier.TestMemberIsUndefined(inbound_stream.nack_count);
     }
     verifier.TestMemberIsNonNegative<uint32_t>(inbound_stream.packets_received);
     if (inbound_stream.media_type.is_defined() &&
@@ -934,6 +934,7 @@ class RTCStatsReportVerifier {
       verifier.TestMemberIsIDReference(outbound_stream.media_source_id,
                                        RTCAudioSourceStats::kType);
       verifier.TestMemberIsUndefined(outbound_stream.qp_sum);
+      verifier.TestMemberIsNonNegative<uint32_t>(outbound_stream.nack_count);
     }
     verifier.TestMemberIsOptionalIDReference(
         outbound_stream.remote_id, RTCRemoteInboundRtpStreamStats::kType);

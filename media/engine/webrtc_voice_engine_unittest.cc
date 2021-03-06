@@ -605,6 +605,7 @@ class WebRtcVoiceEngineTestFake : public ::testing::TestWithParam<bool> {
     stats.ana_statistics.frame_length_decrease_counter = 876;
     stats.ana_statistics.uplink_packet_loss_fraction = 987.0;
     stats.typing_noise_detected = true;
+    stats.nacks_rcvd = 1233;
     return stats;
   }
   void SetAudioSendStreamStats() {
@@ -655,6 +656,7 @@ class WebRtcVoiceEngineTestFake : public ::testing::TestWithParam<bool> {
               stats.ana_statistics.uplink_packet_loss_fraction);
     EXPECT_EQ(info.typing_noise_detected,
               stats.typing_noise_detected && is_sending);
+    EXPECT_EQ(info.nacks_rcvd, stats.nacks_rcvd);
   }
 
   webrtc::AudioReceiveStream::Stats GetAudioReceiveStreamStats() const {

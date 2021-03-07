@@ -407,12 +407,13 @@ class RTC_EXPORT RTCReceivedRtpStreamStats : public RTCRTPStreamStats {
 
   // TODO(hbos) The following fields need to be added and migrated
   // both from RTCInboundRtpStreamStats and RTCRemoteInboundRtpStreamStats:
-  // packetsReceived, packetsLost, jitter, packetsDiscarded,
-  // packetsRepaired, burstPacketsLost, burstPacketDiscarded,
-  // burstLossCount, burstDiscardCount, burstLossRate,
+  // packetsReceived, packetsDiscarded, packetsRepaired, burstPacketsLost,
+  // burstPacketDiscarded, burstLossCount, burstDiscardCount, burstLossRate,
   // burstDiscardRate, gapLossRate, gapDiscardRate, framesDropped,
   // partialFramesLost, fullFramesLost
   // crbug.com/webrtc/12532
+  RTCStatsMember<double> jitter;
+  RTCStatsMember<int32_t> packets_lost;  // Signed per RFC 3550
 
  protected:
   RTCReceivedRtpStreamStats(const std::string&& id, int64_t timestamp_us);
@@ -437,9 +438,7 @@ class RTC_EXPORT RTCInboundRTPStreamStats final
   RTCStatsMember<uint64_t> fec_packets_discarded;
   RTCStatsMember<uint64_t> bytes_received;
   RTCStatsMember<uint64_t> header_bytes_received;
-  RTCStatsMember<int32_t> packets_lost;  // Signed per RFC 3550
   RTCStatsMember<double> last_packet_received_timestamp;
-  RTCStatsMember<double> jitter;
   RTCStatsMember<double> jitter_buffer_delay;
   RTCStatsMember<uint64_t> jitter_buffer_emitted_count;
   RTCStatsMember<uint64_t> total_samples_received;
@@ -557,11 +556,6 @@ class RTC_EXPORT RTCRemoteInboundRtpStreamStats final
   RTCRemoteInboundRtpStreamStats(std::string&& id, int64_t timestamp_us);
   RTCRemoteInboundRtpStreamStats(const RTCRemoteInboundRtpStreamStats& other);
   ~RTCRemoteInboundRtpStreamStats() override;
-
-  // TODO(https://crbug.com/webrtc/12532): Move the following section
-  // to RTCReceivedRtpStreamStats.
-  RTCStatsMember<int32_t> packets_lost;
-  RTCStatsMember<double> jitter;
 
   // TODO(hbos): The following RTCReceivedRtpStreamStats metrics should also be
   // implemented: packetsReceived, packetsDiscarded, packetsRepaired,

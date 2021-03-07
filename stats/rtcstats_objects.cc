@@ -607,11 +607,15 @@ RTCReceivedRtpStreamStats::RTCReceivedRtpStreamStats(const std::string&& id,
 
 RTCReceivedRtpStreamStats::RTCReceivedRtpStreamStats(std::string&& id,
                                                      int64_t timestamp_us)
-    : RTCRTPStreamStats(std::move(id), timestamp_us) {}
+    : RTCRTPStreamStats(std::move(id), timestamp_us),
+      jitter("jitter"),
+      packets_lost("packetsLost") {}
 
 RTCReceivedRtpStreamStats::RTCReceivedRtpStreamStats(
     const RTCReceivedRtpStreamStats& other)
-    : RTCRTPStreamStats(other) {}
+    : RTCRTPStreamStats(other),
+      jitter(other.jitter),
+      packets_lost(other.packets_lost) {}
 
 RTCReceivedRtpStreamStats::~RTCReceivedRtpStreamStats() {}
 
@@ -676,9 +680,7 @@ RTCInboundRTPStreamStats::RTCInboundRTPStreamStats(std::string&& id,
       fec_packets_discarded("fecPacketsDiscarded"),
       bytes_received("bytesReceived"),
       header_bytes_received("headerBytesReceived"),
-      packets_lost("packetsLost"),
       last_packet_received_timestamp("lastPacketReceivedTimestamp"),
-      jitter("jitter"),
       jitter_buffer_delay("jitterBufferDelay"),
       jitter_buffer_emitted_count("jitterBufferEmittedCount"),
       total_samples_received("totalSamplesReceived"),
@@ -724,9 +726,7 @@ RTCInboundRTPStreamStats::RTCInboundRTPStreamStats(
       fec_packets_discarded(other.fec_packets_discarded),
       bytes_received(other.bytes_received),
       header_bytes_received(other.header_bytes_received),
-      packets_lost(other.packets_lost),
       last_packet_received_timestamp(other.last_packet_received_timestamp),
-      jitter(other.jitter),
       jitter_buffer_delay(other.jitter_buffer_delay),
       jitter_buffer_emitted_count(other.jitter_buffer_emitted_count),
       total_samples_received(other.total_samples_received),
@@ -882,8 +882,6 @@ RTCRemoteInboundRtpStreamStats::RTCRemoteInboundRtpStreamStats(
     std::string&& id,
     int64_t timestamp_us)
     : RTCReceivedRtpStreamStats(std::move(id), timestamp_us),
-      packets_lost("packetsLost"),
-      jitter("jitter"),
       local_id("localId"),
       round_trip_time("roundTripTime"),
       fraction_lost("fractionLost"),
@@ -893,8 +891,6 @@ RTCRemoteInboundRtpStreamStats::RTCRemoteInboundRtpStreamStats(
 RTCRemoteInboundRtpStreamStats::RTCRemoteInboundRtpStreamStats(
     const RTCRemoteInboundRtpStreamStats& other)
     : RTCReceivedRtpStreamStats(other),
-      packets_lost(other.packets_lost),
-      jitter(other.jitter),
       local_id(other.local_id),
       round_trip_time(other.round_trip_time),
       fraction_lost(other.fraction_lost),

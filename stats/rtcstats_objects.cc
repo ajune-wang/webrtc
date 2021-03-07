@@ -598,7 +598,26 @@ RTCRTPStreamStats::~RTCRTPStreamStats() {}
 
 // clang-format off
 WEBRTC_RTCSTATS_IMPL(
-    RTCInboundRTPStreamStats, RTCRTPStreamStats, "inbound-rtp",
+    RTCReceivedRtpStreamStats, RTCRTPStreamStats, "received-rtp")
+// clang-format on
+
+RTCReceivedRtpStreamStats::RTCReceivedRtpStreamStats(const std::string&& id,
+                                                     int64_t timestamp_us)
+    : RTCReceivedRtpStreamStats(std::string(id), timestamp_us) {}
+
+RTCReceivedRtpStreamStats::RTCReceivedRtpStreamStats(std::string&& id,
+                                                     int64_t timestamp_us)
+    : RTCRTPStreamStats(std::move(id), timestamp_us) {}
+
+RTCReceivedRtpStreamStats::RTCReceivedRtpStreamStats(
+    const RTCReceivedRtpStreamStats& other)
+    : RTCRTPStreamStats(other) {}
+
+RTCReceivedRtpStreamStats::~RTCReceivedRtpStreamStats() {}
+
+// clang-format off
+WEBRTC_RTCSTATS_IMPL(
+    RTCInboundRTPStreamStats, RTCReceivedRtpStreamStats, "inbound-rtp",
     &packets_received,
     &fec_packets_received,
     &fec_packets_discarded,
@@ -651,7 +670,7 @@ RTCInboundRTPStreamStats::RTCInboundRTPStreamStats(const std::string& id,
 
 RTCInboundRTPStreamStats::RTCInboundRTPStreamStats(std::string&& id,
                                                    int64_t timestamp_us)
-    : RTCRTPStreamStats(std::move(id), timestamp_us),
+    : RTCReceivedRtpStreamStats(std::move(id), timestamp_us),
       packets_received("packetsReceived"),
       fec_packets_received("fecPacketsReceived"),
       fec_packets_discarded("fecPacketsDiscarded"),
@@ -699,7 +718,7 @@ RTCInboundRTPStreamStats::RTCInboundRTPStreamStats(std::string&& id,
 
 RTCInboundRTPStreamStats::RTCInboundRTPStreamStats(
     const RTCInboundRTPStreamStats& other)
-    : RTCRTPStreamStats(other),
+    : RTCReceivedRtpStreamStats(other),
       packets_received(other.packets_received),
       fec_packets_received(other.fec_packets_received),
       fec_packets_discarded(other.fec_packets_discarded),
@@ -862,11 +881,7 @@ RTCRemoteInboundRtpStreamStats::RTCRemoteInboundRtpStreamStats(
 RTCRemoteInboundRtpStreamStats::RTCRemoteInboundRtpStreamStats(
     std::string&& id,
     int64_t timestamp_us)
-    : RTCStats(std::move(id), timestamp_us),
-      ssrc("ssrc"),
-      kind("kind"),
-      transport_id("transportId"),
-      codec_id("codecId"),
+    : RTCReceivedRtpStreamStats(std::move(id), timestamp_us),
       packets_lost("packetsLost"),
       jitter("jitter"),
       local_id("localId"),
@@ -877,11 +892,7 @@ RTCRemoteInboundRtpStreamStats::RTCRemoteInboundRtpStreamStats(
 
 RTCRemoteInboundRtpStreamStats::RTCRemoteInboundRtpStreamStats(
     const RTCRemoteInboundRtpStreamStats& other)
-    : RTCStats(other),
-      ssrc(other.ssrc),
-      kind(other.kind),
-      transport_id(other.transport_id),
-      codec_id(other.codec_id),
+    : RTCReceivedRtpStreamStats(other),
       packets_lost(other.packets_lost),
       jitter(other.jitter),
       local_id(other.local_id),

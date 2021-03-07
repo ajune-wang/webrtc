@@ -398,10 +398,23 @@ class RTC_EXPORT RTCRTPStreamStats : public RTCStats {
   RTCRTPStreamStats(std::string&& id, int64_t timestamp_us);
 };
 
+class RTC_EXPORT RTCReceivedRtpStreamStats : public RTCRTPStreamStats {
+ public:
+  WEBRTC_RTCSTATS_DECL();
+
+  RTCReceivedRtpStreamStats(const RTCReceivedRtpStreamStats& other);
+  ~RTCReceivedRtpStreamStats() override;
+
+ protected:
+  RTCReceivedRtpStreamStats(const std::string&& id, int64_t timestamp_us);
+  RTCReceivedRtpStreamStats(std::string&& id, int64_t timestamp_us);
+};
+
 // https://w3c.github.io/webrtc-stats/#inboundrtpstats-dict*
 // TODO(hbos): Support the remote case |is_remote = true|.
 // https://bugs.webrtc.org/7065
-class RTC_EXPORT RTCInboundRTPStreamStats final : public RTCRTPStreamStats {
+class RTC_EXPORT RTCInboundRTPStreamStats final
+    : public RTCReceivedRtpStreamStats {
  public:
   WEBRTC_RTCSTATS_DECL();
 

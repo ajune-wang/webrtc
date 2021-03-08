@@ -51,6 +51,24 @@
       "parentUuid": "1f3fbbda_fe76221d",
       "revId": "b4dfb67eafb1fa5762919c5dda2d4a12c3a27806",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34353091_4ce59c84",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-03-08T20:36:08Z",
+      "side": 1,
+      "message": "It\u0027s definitely possible for it to be stopped and restarted. Should always be on the same thread, though.",
+      "parentUuid": "cdb9beb8_8ed381e9",
+      "revId": "b4dfb67eafb1fa5762919c5dda2d4a12c3a27806",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

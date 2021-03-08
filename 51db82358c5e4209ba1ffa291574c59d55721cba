@@ -16,6 +16,40 @@
       "message": "the pure move LGTM.\n",
       "revId": "51db82358c5e4209ba1ffa291574c59d55721cba",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3df7e6d0_cf05e5dc",
+        "filename": "stats/rtcstats_objects.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-08T12:48:50Z",
+      "side": 1,
+      "message": "I think this must be updated to list \u0026jitter and \u0026packets_lost in this macro",
+      "revId": "51db82358c5e4209ba1ffa291574c59d55721cba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77b637ef_ba02185f",
+        "filename": "stats/rtcstats_objects.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-08T12:48:50Z",
+      "side": 1,
+      "message": "And that you remove them from here",
+      "revId": "51db82358c5e4209ba1ffa291574c59d55721cba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

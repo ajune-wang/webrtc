@@ -16,6 +16,47 @@
       "message": "addressing your last comment on that bug.\n(also you\u0027re still marked as ooo from the x-mas break? :-))",
       "revId": "454c60715ef6ebe1c1e45d35dacb9096fc3c8e6d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88fbde62_63b58980",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-03-08T09:07:41Z",
+      "side": 1,
+      "message": "Thanks for looking into this, although I think that I did the things that I was thinking of in this commit:\nhttps://chromiumdash.appspot.com/commit/10aeb7403f30ea34045d79f7cba0f3e7e962768c\n\nIt still seems reasonable to me to change all names to README.md, but I think that you also need to update the links then both here and at webrtc.org. See comment in docs/native-code/README.md\n\nThanks for the reminder about the ooo status :-)",
+      "parentUuid": "d419a47c_274dda2d",
+      "revId": "454c60715ef6ebe1c1e45d35dacb9096fc3c8e6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e16b2c8_75db8667",
+        "filename": "docs/native-code/README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-03-08T09:07:41Z",
+      "side": 1,
+      "message": "Remove or change to README.md (at several places)",
+      "range": {
+        "startLine": 38,
+        "startChar": 127,
+        "endLine": 38,
+        "endChar": 135
+      },
+      "revId": "454c60715ef6ebe1c1e45d35dacb9096fc3c8e6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

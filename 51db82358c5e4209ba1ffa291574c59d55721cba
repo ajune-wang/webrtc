@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "773a08b9_a7e90f5d",
+        "filename": "stats/rtcstats_objects.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 16600
+      },
+      "writtenOn": "2021-03-08T15:32:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3df7e6d0_cf05e5dc",
+      "revId": "51db82358c5e4209ba1ffa291574c59d55721cba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "77b637ef_ba02185f",
@@ -48,6 +66,24 @@
       "writtenOn": "2021-03-08T12:48:50Z",
       "side": 1,
       "message": "And that you remove them from here",
+      "revId": "51db82358c5e4209ba1ffa291574c59d55721cba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "821868e2_2dd20061",
+        "filename": "stats/rtcstats_objects.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 16600
+      },
+      "writtenOn": "2021-03-08T15:32:07Z",
+      "side": 1,
+      "message": "Resolved and merged into parent CL.",
+      "parentUuid": "77b637ef_ba02185f",
       "revId": "51db82358c5e4209ba1ffa291574c59d55721cba",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

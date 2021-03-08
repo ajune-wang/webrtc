@@ -33,6 +33,24 @@
       "message": "This is probably safe if it is for the Android equivalent, I\u0027m not 100% sure though.\n\nI\u0027m still curious why PendingTaskSafetyFlag won\u0027t work, though. It looks to me like network monitor instances are only created by NetworkManager::StartNetworkMonitor, which is guarded by the network thread: https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/rtc_base/network.h;drc\u003d9680e17185f4d0a48a7047d0070ef26d1df282d6;bpv\u003d1;bpt\u003d1;l\u003d277?q\u003d%22createnetworkmonitor%22\u0026ss\u003dchromium%2Fchromium%2Fsrc:third_party%2Fwebrtc%2F",
       "revId": "b4dfb67eafb1fa5762919c5dda2d4a12c3a27806",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cdb9beb8_8ed381e9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-03-08T09:31:37Z",
+      "side": 1,
+      "message": "I could perhaps give it a try (it didn\u0027t work out when I attempted that in the android network manager).\n\nDo you know if StartNetworkMonitor and StopNetworkMonitor are called at most once each, or if Start - Stop - (re)Start is allowed?",
+      "parentUuid": "1f3fbbda_fe76221d",
+      "revId": "b4dfb67eafb1fa5762919c5dda2d4a12c3a27806",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

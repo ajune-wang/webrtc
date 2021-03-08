@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8549b9c6_bc665b16",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-03-08T23:44:29Z",
+      "side": 1,
+      "message": "In the interest of time, I\u0027m going back to \"AutoFreedPointer\" because every attempt to use unique_ptr with a custom deleter triggered the issue. Which is strange because we use custom deleters in other places, like here: https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/api/video/i420_buffer.h;l\u003d119?q\u003di420\u0026ss\u003dchromium%2Fchromium%2Fsrc\n\nAre you okay with this?",
+      "revId": "abeabfdbc6f9ded7c6689a2eedf576617c5fe836",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -51,6 +51,24 @@
       "parentUuid": "6bba3e3b_2aa45711",
       "revId": "b702db05fb28dd61ef49d27d50557caa2095d197",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8baebce9_d91e9119",
+        "filename": "test/fuzzers/corpora/sdp.tokens",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-03-08T08:38:44Z",
+      "side": 1,
+      "message": "Excellent question. SDP as a format is consisting of\n  \u003csingle-char-attribute-type\u003e\u003d\u003crest-of-the-line\u003e\u003ccrlf\u003e\nso giving the \"every line starts with an attribute-equals\" hint would eliminate a ton of the problem space. But coverage guidance might do the same very quickly.\n\nFor a comparison I pulled a recent crash (which the fuzzer found) from commit\n  cd467b51aba4188995eaa9c48e00f482d6ffcea4\nand then ran the sdp parser fuzzer with seed\u003d123 (to remove randomness) and a corpus from the unit test (but with \"m\u003dapplication\" instead of m\u003do\")\n\nOddly, despite adding a dict to the build gn in this change it wasn\u0027t used by default (you can see that in the output lines saying \"ChangeByte\", it will show binary stuff) so I had to add a -dict\u003dpath-to-sdp.dict argument (and then you see ManualDict lines in the output). Which might mean the specifying the dict in the GN file is not working? It is good to have as an annotiation at least.\n\nThis arrived at a crash after #559477 iterations (and ~300k in a second run, not sure why this is not deterministic!? If it isn\u0027t then I can not really use the \u0027find-in-N-runs\u0027 as a metric whether to include `a` or `\\na\u003d`)\nWithout the dict it arrived at a crash after only #27387 iterations.\n\nI\u0027d say the overall structure seems to come more from the corpus than the dictionary. Which probably means we should update the corpus with some of the fancy sdp things that aren\u0027t the default.\n\nWhen you ask for \"NEW units\" does that mean one can measure/judge parser performance based on how often these occur?",
+      "parentUuid": "c89592bb_abf38f88",
+      "revId": "b702db05fb28dd61ef49d27d50557caa2095d197",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

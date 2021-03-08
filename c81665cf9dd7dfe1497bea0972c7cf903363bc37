@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f274834c_2cc9cace",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-03-08T09:39:15Z",
+      "side": 1,
+      "message": "Thanks for fixing the dependency 😊",
+      "revId": "c81665cf9dd7dfe1497bea0972c7cf903363bc37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c453d9d7_667b862b",
+        "filename": "sdk/android/src/jni/android_network_monitor.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-03-08T09:39:15Z",
+      "side": 1,
+      "message": "this changes the behavior from async to a blocking sync though. Could we use PostTask() + a thread safety flag instead?",
+      "revId": "c81665cf9dd7dfe1497bea0972c7cf903363bc37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

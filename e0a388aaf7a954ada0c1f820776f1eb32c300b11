@@ -50,6 +50,24 @@
       "message": "nit: If we fix these separately it might be good to track two issues for this, i.e. mark the audio on as fixed and keep the video one open.",
       "revId": "e0a388aaf7a954ada0c1f820776f1eb32c300b11",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21ecacec_e59d5d3a",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 16600
+      },
+      "writtenOn": "2021-03-08T15:39:33Z",
+      "side": 1,
+      "message": "video is already done actually, the only thing left is inbound audio",
+      "parentUuid": "6c8356a4_3911705f",
+      "revId": "e0a388aaf7a954ada0c1f820776f1eb32c300b11",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

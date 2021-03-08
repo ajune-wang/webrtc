@@ -33,6 +33,24 @@
       "message": "this changes the behavior from async to a blocking sync though. Could we use PostTask() + a thread safety flag instead?",
       "revId": "c81665cf9dd7dfe1497bea0972c7cf903363bc37",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68bb5c7e_b2d26841",
+        "filename": "sdk/android/src/jni/android_network_monitor.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-03-08T09:47:16Z",
+      "side": 1,
+      "message": "I tried that first, see https://webrtc-review.googlesource.com/c/src/+/208943, but couldn\u0027t get it to work. And I figured that if other java callbacks in this class are handled with blocking invoke, it would be fine for this one too, for the time being.\n\nMaybe I\u0027ll give it another try in the objc network monitor https://webrtc-review.googlesource.com/c/src/+/209185. One question is if start-stop-restart-stop is a valid use case. If so, we probably need  a PendingTaskSafetyFlag::SetAlive() method to support the restart case.",
+      "parentUuid": "c453d9d7_667b862b",
+      "revId": "c81665cf9dd7dfe1497bea0972c7cf903363bc37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

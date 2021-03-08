@@ -185,8 +185,8 @@ For instructions on how to do this see [here][strip-arch].
 
 
 [cocoapods]: https://cocoapods.org/pods/GoogleWebRTC
-[webrtc-prerequisite-sw]: https://webrtc.googlesource.com/src/+/refs/heads/master/docs/native-code/development/prerequisite-sw/index.md
-[webrtc-development]: https://webrtc.googlesource.com/src/+/refs/heads/master/docs/native-code/development/index.md
+[webrtc-prerequisite-sw]: https://webrtc.googlesource.com/src/+/refs/heads/master/docs/native-code/development/prerequisite-sw/
+[webrtc-development]: https://webrtc.googlesource.com/src/+/refs/heads/master/docs/native-code/development/
 [framework-script]: https://chromium.googlesource.com/external/webrtc/+/master/tools_webrtc/ios/build_ios_libs.py
 [ninja]: https://ninja-build.org/
 [gn]: https://gn.googlesource.com/gn/+/master/README.md

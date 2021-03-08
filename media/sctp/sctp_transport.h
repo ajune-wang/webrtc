@@ -95,10 +95,17 @@ class SctpTransport : public SctpTransportInternal,
   void set_debug_name_for_testing(const char* debug_name) override {
     debug_name_ = debug_name;
   }
+<<<<<<< HEAD   (45f3d0 M86: Prepare for usrsctp being updated.)
   int InjectDataOrNotificationFromSctpForTesting(void* data,
                                                  size_t length,
                                                  struct sctp_rcvinfo rcv,
                                                  int flags);
+=======
+  void InjectDataOrNotificationFromSctpForTesting(const void* data,
+                                                  size_t length,
+                                                  struct sctp_rcvinfo rcv,
+                                                  int flags);
+>>>>>>> CHANGE (b2e71b Reland "Fix race between destroying SctpTransport and receiv)
 
   // Exposed to allow Post call from c-callbacks.
   // TODO(deadbeef): Remove this or at least make it return a const pointer.
@@ -179,12 +186,19 @@ class SctpTransport : public SctpTransportInternal,
   // Called using |invoker_| to send packet on the network.
   void OnPacketFromSctpToNetwork(const rtc::CopyOnWriteBuffer& buffer);
 
-  // Called on the SCTP thread.
+  // Called on the network thread.
   // Flags are standard socket API flags (RFC 6458).
+<<<<<<< HEAD   (45f3d0 M86: Prepare for usrsctp being updated.)
   int OnDataOrNotificationFromSctp(void* data,
                                    size_t length,
                                    struct sctp_rcvinfo rcv,
                                    int flags);
+=======
+  void OnDataOrNotificationFromSctp(const void* data,
+                                    size_t length,
+                                    struct sctp_rcvinfo rcv,
+                                    int flags);
+>>>>>>> CHANGE (b2e71b Reland "Fix race between destroying SctpTransport and receiv)
   // Called using |invoker_| to decide what to do with the data.
   void OnDataFromSctpToTransport(const ReceiveDataParams& params,
                                  const rtc::CopyOnWriteBuffer& buffer);

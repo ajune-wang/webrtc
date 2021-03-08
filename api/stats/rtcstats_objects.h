@@ -398,10 +398,33 @@ class RTC_EXPORT RTCRTPStreamStats : public RTCStats {
   RTCRTPStreamStats(std::string&& id, int64_t timestamp_us);
 };
 
+class RTC_EXPORT RTCReceivedRtpStreamStats : public RTCRTPStreamStats {
+ public:
+  WEBRTC_RTCSTATS_DECL();
+
+  RTCReceivedRtpStreamStats(const RTCReceivedRtpStreamStats& other);
+  ~RTCReceivedRtpStreamStats() override;
+
+  // TODO(hbos) The following fields need to be added and migrated
+  // both from RTCInboundRtpStreamStats and RTCRemoteInboundRtpStreamStats:
+  // packetsReceived, packetsDiscarded, packetsRepaired, burstPacketsLost,
+  // burstPacketDiscarded, burstLossCount, burstDiscardCount, burstLossRate,
+  // burstDiscardRate, gapLossRate, gapDiscardRate, framesDropped,
+  // partialFramesLost, fullFramesLost
+  // crbug.com/webrtc/12532
+  RTCStatsMember<double> jitter;
+  RTCStatsMember<int32_t> packets_lost;  // Signed per RFC 3550
+
+ protected:
+  RTCReceivedRtpStreamStats(const std::string&& id, int64_t timestamp_us);
+  RTCReceivedRtpStreamStats(std::string&& id, int64_t timestamp_us);
+};
+
 // https://w3c.github.io/webrtc-stats/#inboundrtpstats-dict*
 // TODO(hbos): Support the remote case |is_remote = true|.
 // https://bugs.webrtc.org/7065
-class RTC_EXPORT RTCInboundRTPStreamStats final : public RTCRTPStreamStats {
+class RTC_EXPORT RTCInboundRTPStreamStats final
+    : public RTCReceivedRtpStreamStats {
  public:
   WEBRTC_RTCSTATS_DECL();
 
@@ -415,9 +438,7 @@ class RTC_EXPORT RTCInboundRTPStreamStats final : public RTCRTPStreamStats {
   RTCStatsMember<uint64_t> fec_packets_discarded;
   RTCStatsMember<uint64_t> bytes_received;
   RTCStatsMember<uint64_t> header_bytes_received;
-  RTCStatsMember<int32_t> packets_lost;  // Signed per RFC 3550
   RTCStatsMember<double> last_packet_received_timestamp;
-  RTCStatsMember<double> jitter;
   RTCStatsMember<double> jitter_buffer_delay;
   RTCStatsMember<uint64_t> jitter_buffer_emitted_count;
   RTCStatsMember<uint64_t> total_samples_received;
@@ -519,8 +540,6 @@ class RTC_EXPORT RTCOutboundRTPStreamStats final : public RTCRTPStreamStats {
   RTCStatsMember<std::string> encoder_implementation;
 };
 
-// TODO(https://crbug.com/webrtc/10671): Refactor the stats dictionaries to have
-// the same hierarchy as in the spec; implement RTCReceivedRtpStreamStats.
 // Several metrics are shared between "outbound-rtp", "remote-inbound-rtp",
 // "inbound-rtp" and "remote-outbound-rtp". In the spec there is a hierarchy of
 // dictionaries that minimizes defining the same metrics in multiple places.
@@ -528,7 +547,8 @@ class RTC_EXPORT RTCOutboundRTPStreamStats final : public RTCRTPStreamStats {
 // purely editorial. In C++ non-final classes in the hierarchy could be used to
 // refer to different stats objects within the hierarchy.
 // https://w3c.github.io/webrtc-stats/#remoteinboundrtpstats-dict*
-class RTC_EXPORT RTCRemoteInboundRtpStreamStats final : public RTCStats {
+class RTC_EXPORT RTCRemoteInboundRtpStreamStats final
+    : public RTCReceivedRtpStreamStats {
  public:
   WEBRTC_RTCSTATS_DECL();
 
@@ -537,17 +557,6 @@ class RTC_EXPORT RTCRemoteInboundRtpStreamStats final : public RTCStats {
   RTCRemoteInboundRtpStreamStats(const RTCRemoteInboundRtpStreamStats& other);
   ~RTCRemoteInboundRtpStreamStats() override;
 
-  // In the spec RTCRemoteInboundRtpStreamStats inherits from RTCRtpStreamStats
-  // and RTCReceivedRtpStreamStats. The members here are listed based on where
-  // they are defined in the spec.
-  // RTCRtpStreamStats
-  RTCStatsMember<uint32_t> ssrc;
-  RTCStatsMember<std::string> kind;
-  RTCStatsMember<std::string> transport_id;
-  RTCStatsMember<std::string> codec_id;
-  // RTCReceivedRtpStreamStats
-  RTCStatsMember<int32_t> packets_lost;
-  RTCStatsMember<double> jitter;
   // TODO(hbos): The following RTCReceivedRtpStreamStats metrics should also be
   // implemented: packetsReceived, packetsDiscarded, packetsRepaired,
   // burstPacketsLost, burstPacketsDiscarded, burstLossCount, burstDiscardCount,

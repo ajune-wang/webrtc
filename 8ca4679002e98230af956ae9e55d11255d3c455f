@@ -50,6 +50,24 @@
       "message": "Should be ready for another look. @hbos\n\nSide question - I just realized try job doesn\u0027t run test, right? How do we usually find out test failures if any?",
       "revId": "8ca4679002e98230af956ae9e55d11255d3c455f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "584bdb0a_4fd90067",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16600
+      },
+      "writtenOn": "2021-03-08T16:16:55Z",
+      "side": 1,
+      "message": "nvm tests are run in each job :)",
+      "parentUuid": "ad800396_a2fd3cd3",
+      "revId": "8ca4679002e98230af956ae9e55d11255d3c455f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

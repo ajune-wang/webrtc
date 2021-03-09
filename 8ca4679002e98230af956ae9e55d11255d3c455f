@@ -68,6 +68,57 @@
       "parentUuid": "ad800396_a2fd3cd3",
       "revId": "8ca4679002e98230af956ae9e55d11255d3c455f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bc53327_fca780c5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-09T06:59:53Z",
+      "side": 1,
+      "message": "Thanks, it looks good now except I noticed that we have some old metrics still in RTCRtpStreamStats that I think would make sense to move in this CL",
+      "revId": "8ca4679002e98230af956ae9e55d11255d3c455f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92336b5e_54df8046",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-09T06:59:53Z",
+      "side": 1,
+      "message": "In the spec, RTCRtpStreamStats contains less members, only:\n\ndictionary RTCRtpStreamStats : RTCStats {\n             required unsigned long       ssrc;\n             required DOMString           kind;\n             DOMString           transportId;\n             DOMString           codecId;\n};\n\nSo I think the following members should be moved to both RTCInboundRtpStreamStats and RTCOutboundRtpStreamStats in order to match the spec:\n- firCount\n- pliCount\n- nackCount\n- sliCount\n- qpSum\n\nOtherwise, these would be exposed to RTCRemoteInboundRtpStreamStats as well (though it would only be visible in C++ because we never defined these for that dictionary). So can we move these in this CL?\n\nThen there are some legacy versions of the metrics:\n- mediaType (which was renamed kind)\n- isRemote (which was deleted from the spec, it\u0027s not even in obsolete section)\n\nI suggest moving them only to the places where they have a defined value today, which is RTCInboundRtpStreamStats and RTCOutboundRtpStreamStats.",
+      "revId": "8ca4679002e98230af956ae9e55d11255d3c455f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34e83a0e_515d93c2",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-09T06:59:53Z",
+      "side": 1,
+      "message": "nit: I think you can remove this comment now, it seems a bit out of place after removing the TODO.\nBut keep the spec link to https://w3c.github.io/webrtc-stats/#remoteinboundrtpstats-dict*, that\u0027s useful",
+      "revId": "8ca4679002e98230af956ae9e55d11255d3c455f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

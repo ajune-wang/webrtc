@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b615eef6_e1ccc622",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2021-03-09T08:50:25Z",
+      "side": 1,
+      "message": "Hello Kári!\n\nCould you please take a look at this CL, which explicitly states that completion handlers must not be null. The issue was discovered in my previous CL: https://webrtc-review.googlesource.com/c/src/+/209700.\n\nThanks a lot in advance,\nYura.",
+      "revId": "5a814386b725fdc57aa3a60811611735609f2383",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -37,28 +37,21 @@
 NSString *const kRTCPeerConnectionErrorDomain = @"org.webrtc.RTC_OBJC_TYPE(RTCPeerConnection)";
 int const kRTCPeerConnnectionSessionDescriptionError = -1;
 
-typedef void (^RTCSetSessionDescriptionCompletionHandler)(NSError *_Nullable error);
-
 namespace {
 
 class SetSessionDescriptionObserver : public webrtc::SetLocalDescriptionObserverInterface,
                                       public webrtc::SetRemoteDescriptionObserverInterface {
  public:
-  SetSessionDescriptionObserver(
-      RTCSetSessionDescriptionCompletionHandler _Nullable completionHandler) {
+  SetSessionDescriptionObserver(RTCSetSessionDescriptionCompletionHandler completionHandler) {
     completion_handler_ = completionHandler;
   }
 
   virtual void OnSetLocalDescriptionComplete(webrtc::RTCError error) override {
-    if (completion_handler_ != nil) {
-      OnCompelete(error);
-    }
+    OnCompelete(error);
   }
 
   virtual void OnSetRemoteDescriptionComplete(webrtc::RTCError error) override {
-    if (completion_handler_ != nil) {
-      OnCompelete(error);
-    }
+    OnCompelete(error);
   }
 
  private:
@@ -542,8 +535,7 @@ void PeerConnectionDelegateAdapter::OnRemoveTrack(
 }
 
 - (void)offerForConstraints:(RTC_OBJC_TYPE(RTCMediaConstraints) *)constraints
-          completionHandler:(void (^)(RTC_OBJC_TYPE(RTCSessionDescription) * sessionDescription,
-                                      NSError *error))completionHandler {
+          completionHandler:(RTCCreateSessionDescriptionCompletionHandler)completionHandler {
   rtc::scoped_refptr<webrtc::CreateSessionDescriptionObserverAdapter>
       observer(new rtc::RefCountedObject
           <webrtc::CreateSessionDescriptionObserverAdapter>(completionHandler));
@@ -554,8 +546,7 @@ void PeerConnectionDelegateAdapter::OnRemoveTrack(
 }
 
 - (void)answerForConstraints:(RTC_OBJC_TYPE(RTCMediaConstraints) *)constraints
-           completionHandler:(void (^)(RTC_OBJC_TYPE(RTCSessionDescription) * sessionDescription,
-                                       NSError *error))completionHandler {
+           completionHandler:(RTCCreateSessionDescriptionCompletionHandler)completionHandler {
   rtc::scoped_refptr<webrtc::CreateSessionDescriptionObserverAdapter>
       observer(new rtc::RefCountedObject
           <webrtc::CreateSessionDescriptionObserverAdapter>(completionHandler));
@@ -566,21 +557,21 @@ void PeerConnectionDelegateAdapter::OnRemoveTrack(
 }
 
 - (void)setLocalDescription:(RTC_OBJC_TYPE(RTCSessionDescription) *)sdp
-          completionHandler:(nullable void (^)(NSError *error))completionHandler {
+          completionHandler:(RTCSetSessionDescriptionCompletionHandler)completionHandler {
   rtc::scoped_refptr<webrtc::SetLocalDescriptionObserverInterface> observer(
       new rtc::RefCountedObject<::SetSessionDescriptionObserver>(completionHandler));
   _peerConnection->SetLocalDescription(sdp.nativeDescription->Clone(), observer);
 }
 
 - (void)setLocalDescriptionWithCompletionHandler:
-    (nullable void (^)(NSError *error))completionHandler {
+    (RTCSetSessionDescriptionCompletionHandler)completionHandler {
   rtc::scoped_refptr<webrtc::SetLocalDescriptionObserverInterface> observer(
       new rtc::RefCountedObject<::SetSessionDescriptionObserver>(completionHandler));
   _peerConnection->SetLocalDescription(observer);
 }
 
 - (void)setRemoteDescription:(RTC_OBJC_TYPE(RTCSessionDescription) *)sdp
-           completionHandler:(nullable void (^)(NSError *error))completionHandler {
+           completionHandler:(RTCSetSessionDescriptionCompletionHandler)completionHandler {
   rtc::scoped_refptr<webrtc::SetRemoteDescriptionObserverInterface> observer(
       new rtc::RefCountedObject<::SetSessionDescriptionObserver>(completionHandler));
   _peerConnection->SetRemoteDescription(sdp.nativeDescription->Clone(), observer);

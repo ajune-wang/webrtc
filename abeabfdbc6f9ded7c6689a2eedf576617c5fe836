@@ -34,6 +34,24 @@
       "parentUuid": "8549b9c6_bc665b16",
       "revId": "abeabfdbc6f9ded7c6689a2eedf576617c5fe836",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "26676d46_6d899584",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-03-09T20:30:46Z",
+      "side": 1,
+      "message": "I don\u0027t really know yet. It seems to be causing memory corruption, as we get strange unexpected callbacks from usrsctp (including SendThresholdCallback in a loop with a null pointer). Maybe the pointer isn\u0027t being reset to null when the unique_ptr is moved, resulting in double freeing? But why would that only happen with a custom deleter?",
+      "parentUuid": "884fa7a6_2ee85d32",
+      "revId": "abeabfdbc6f9ded7c6689a2eedf576617c5fe836",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

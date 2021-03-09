@@ -16,6 +16,24 @@
       "message": "In the interest of time, I\u0027m going back to \"AutoFreedPointer\" because every attempt to use unique_ptr with a custom deleter triggered the issue. Which is strange because we use custom deleters in other places, like here: https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/api/video/i420_buffer.h;l\u003d119?q\u003di420\u0026ss\u003dchromium%2Fchromium%2Fsrc\n\nAre you okay with this?",
       "revId": "abeabfdbc6f9ded7c6689a2eedf576617c5fe836",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "884fa7a6_2ee85d32",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-03-09T08:13:35Z",
+      "side": 1,
+      "message": "Ok, but please document why that appears needed. Any idea why unique_ptr is causing trouble? I vaguely remember some other case where the order of destructing the pointed-to object and writing to the pointer memory location mattered.",
+      "parentUuid": "8549b9c6_bc665b16",
+      "revId": "abeabfdbc6f9ded7c6689a2eedf576617c5fe836",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

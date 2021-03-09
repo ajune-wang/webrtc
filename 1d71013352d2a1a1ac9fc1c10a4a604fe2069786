@@ -67,6 +67,23 @@
       "message": "[testing whether submitting a comment removes WIP]",
       "revId": "1d71013352d2a1a1ac9fc1c10a4a604fe2069786",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14aaa3aa_88fa6d90",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8992
+      },
+      "writtenOn": "2021-03-09T20:01:52Z",
+      "side": 1,
+      "message": "I removed myself from the reviewers list. I don\u0027t see a \"Mark as active\" button like the one on Chromium Gerrit. Could it be because I\u0027m not a committer?",
+      "revId": "1d71013352d2a1a1ac9fc1c10a4a604fe2069786",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

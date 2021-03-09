@@ -48,6 +48,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4fef4c46_d0dbd681",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-09T16:03:29Z",
+      "side": 1,
+      "message": "Thank you, I  missed the inheritance.",
+      "parentUuid": "ad659e3f_578fa438",
+      "range": {
+        "startLine": 11,
+        "startChar": 2,
+        "endLine": 12,
+        "endChar": 32
+      },
+      "revId": "19d620291d572a9e139dc588b8c2ee4d93ccdff4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "845f453e_bdaf3464",
@@ -189,6 +213,30 @@
       "side": 1,
       "message": "I fully agree with you and I don\u0027t expect such a large number of RTCP SRs in one call. I chose uint64 to stick to the spec. According to https://www.w3.org/TR/webrtc-stats/#dom-rtcremoteoutboundrtpstreamstats-reportssent that counter is a an unsigned long long. Also note that uint64_t is already used elsewhere.\n\n@Henrik: what do you recommend?",
       "parentUuid": "d4df2158_62045f46",
+      "range": {
+        "startLine": 78,
+        "startChar": 11,
+        "endLine": 78,
+        "endChar": 19
+      },
+      "revId": "19d620291d572a9e139dc588b8c2ee4d93ccdff4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6de7a85_5c41b0cf",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-09T16:03:29Z",
+      "side": 1,
+      "message": "if you want to keep uint64_t to match the spec, that might be good reason, just add a comment where the variable is declared with the link to the spec.\n(otherwise me when I forget, or somebody else without the context would refactor it into int at some point)",
+      "parentUuid": "92dab3f0_5fdfd42d",
       "range": {
         "startLine": 78,
         "startChar": 11,

@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f155e3c_4b9abcff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-09T16:03:29Z",
+      "side": 1,
+      "message": "Can you please also add a test to verify new functionality",
+      "revId": "5a1f53e145e77647cc9bd752cade3637f1e354b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6453d216_3066cfbd",
@@ -14,6 +31,30 @@
       "writtenOn": "2021-03-09T15:50:14Z",
       "side": 1,
       "message": "Question to the reviewers. Do you think it makes sense to use instead the code below? RTCP SR reports are sent at a lower frequency than that of RTP packets; however, it can still happen that an RTCP SR packet arrives before the previously sent RTCP SR packet. If that happens, then the counters won\u0027t be monotonic. WDYT?\n\n```\nremote_sender_packet_count_ \u003d std::max(\n    remote_sender_packet_count_, sender_report.sender_packet_count());\nremote_sender_octet_count_ \u003d std::max(\n    remote_sender_octet_count_, sender_report.sender_octet_count());\n```",
+      "range": {
+        "startLine": 535,
+        "startChar": 0,
+        "endLine": 536,
+        "endChar": 68
+      },
+      "revId": "5a1f53e145e77647cc9bd752cade3637f1e354b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dff31e29_ade5fdd0",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-09T16:03:29Z",
+      "side": 1,
+      "message": "Does spec require them to be monotonic?\nI think it should be fine to use latest values.\n\nIf that turns out to be the problem, then it would be better to add more generic check SR packets are out of order and discard full old SR [rather than taking max here]",
+      "parentUuid": "6453d216_3066cfbd",
       "range": {
         "startLine": 535,
         "startChar": 0,

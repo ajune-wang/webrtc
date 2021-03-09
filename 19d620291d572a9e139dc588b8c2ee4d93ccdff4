@@ -1,6 +1,52 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8abb349_3e29e4ec",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-09T15:16:58Z",
+      "side": 1,
+      "message": "why do you need these two counts?\nYes, SR contains  them, but it seems RTCRemoteOutboundRtpStreamStats doesn\u0027t need them.",
+      "range": {
+        "startLine": 11,
+        "startChar": 2,
+        "endLine": 12,
+        "endChar": 32
+      },
+      "revId": "19d620291d572a9e139dc588b8c2ee4d93ccdff4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "845f453e_bdaf3464",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-09T15:16:58Z",
+      "side": 1,
+      "message": "this is the same link as [1]",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 3
+      },
+      "revId": "19d620291d572a9e139dc588b8c2ee4d93ccdff4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "180f4429_ad4da729",
@@ -31,6 +77,52 @@
       "writtenOn": "2021-03-09T14:59:01Z",
       "side": 1,
       "message": "+Henrik since I\u0027m not sure I correctly interpreted https://www.w3.org/TR/webrtc-stats/#dom-rtcremoteoutboundrtpstreamstats-reportssent. IIUC, RTCP SR reports do not include the number of sent reports, so we have to count the received ones, right?",
+      "revId": "19d620291d572a9e139dc588b8c2ee4d93ccdff4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7a807c5_f287fe18",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-09T15:16:58Z",
+      "side": 1,
+      "message": "https://google.github.io/styleguide/cppguide.html#Inputs_and_Outputs\n\"Prefer using return values over output parameters\"\n\nThis function is already horrible with 5 output parameters.\n\nMay be it would be long-term cleaner to add a new function instead and return all these stats grouped in a struct.\n\nstruct NamingIsHard {\n  Timestamp last_[rtcp_]arrival_time;\n  NtpTime last_received_ntp;\n  uint32_t last_received_rtp_time;\n  (size_t|int) num_sent_packets;\n  (size_t|int|DataSize) num_sent_(bytes|octets);\n  (size_t|int) num_received_sender_reports;\n}\n\nabsl::optional\u003cNamingIsHard\u003e GetSenderReportStats() const;\n(may be even non-optional since .num_received_sender_reports \u003d\u003d 0 naturally imply other members doesn\u0027t have meaningful values)\n\n(Henrik did similar cleanup with report blocks in the past: \nGetLatestReportBlockData pushed away legacy similar function)",
+      "range": {
+        "startLine": 71,
+        "startChar": 11,
+        "endLine": 75,
+        "endChar": 35
+      },
+      "revId": "19d620291d572a9e139dc588b8c2ee4d93ccdff4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4df2158_62045f46",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-09T15:16:58Z",
+      "side": 1,
+      "message": "int, size_t or, if you think there can be 2 billion sender reports in call, int64_t \n\nhttps://google.github.io/styleguide/cppguide.html#Integer_Types\n\n\"You should not use the unsigned integer types such as uint32_t, unless there is a valid reason such as representing a bit pattern rather than a number, or you need defined overflow modulo 2^N. In particular, do not use unsigned types to say a number will never be negative.\"\n\n(same but with more details: http://go/totw/159)",
+      "range": {
+        "startLine": 78,
+        "startChar": 11,
+        "endLine": 78,
+        "endChar": 19
+      },
       "revId": "19d620291d572a9e139dc588b8c2ee4d93ccdff4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

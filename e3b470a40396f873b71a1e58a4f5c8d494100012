@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37122ac4_8d1984c4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-03-09T08:39:08Z",
+      "side": 1,
+      "message": "LGTM % Nico agrees to land the Chromium change.",
+      "revId": "e3b470a40396f873b71a1e58a4f5c8d494100012",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

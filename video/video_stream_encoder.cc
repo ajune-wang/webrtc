@@ -33,6 +33,8 @@
 #include "call/adaptation/video_stream_adapter.h"
 #include "modules/video_coding/codecs/vp9/svc_rate_allocator.h"
 #include "modules/video_coding/include/video_codec_initializer.h"
+#include "modules/video_coding/utility/vp8_header_parser.h"
+#include "modules/video_coding/utility/vp9_uncompressed_header_parser.h"
 #include "rtc_base/arraysize.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/constructor_magic.h"
@@ -1872,6 +1874,17 @@ EncodedImageCallback::Result VideoStreamEncoder::OnEncodedImage(
   frame_encode_metadata_writer_.UpdateBitstream(codec_specific_info,
                                                 &image_copy);
 
+  VideoCodecType codec_type = codec_specific_info
+                                  ? codec_specific_info->codecType
+                                  : send_codec_.codecType;
+
+  if (image_copy.qp_ < 0) {
+    image_copy.qp_ = qp_parser_
+                         .Parse(codec_type, spatial_idx, image_copy.data(),
+                                image_copy.size())
+                         .value_or(-1);
+  }
+
   // Piggyback ALR experiment group id and simulcast id into the content type.
   const uint8_t experiment_id =
       experiment_groups_[videocontenttypehelpers::IsScreenshare(
@@ -1894,12 +1907,9 @@ EncodedImageCallback::Result VideoStreamEncoder::OnEncodedImage(
   // Post a task because |send_codec_| requires |encoder_queue_| lock.
   unsigned int image_width = image_copy._encodedWidth;
   unsigned int image_height = image_copy._encodedHeight;
-  VideoCodecType codec = codec_specific_info
-                             ? codec_specific_info->codecType
-                             : VideoCodecType::kVideoCodecGeneric;
-  encoder_queue_.PostTask([this, codec, image_width, image_height] {
+  encoder_queue_.PostTask([this, codec_type, image_width, image_height] {
     RTC_DCHECK_RUN_ON(&encoder_queue_);
-    if (codec == VideoCodecType::kVideoCodecVP9 &&
+    if (codec_type == VideoCodecType::kVideoCodecVP9 &&
         send_codec_.VP9()->automaticResizeOn) {
       unsigned int expected_width = send_codec_.width;
       unsigned int expected_height = send_codec_.height;

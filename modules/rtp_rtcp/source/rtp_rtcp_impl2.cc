@@ -24,6 +24,7 @@
 #include "modules/rtp_rtcp/source/rtp_rtcp_config.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
+#include "system_wrappers/include/ntp_time.h"
 
 #ifdef _WIN32
 // Disable warning C4355: 'this' : used in base member initializer list.
@@ -440,17 +441,19 @@ int32_t ModuleRtpRtcpImpl2::SetCNAME(const char* c_name) {
   return rtcp_sender_.SetCNAME(c_name);
 }
 
-int32_t ModuleRtpRtcpImpl2::RemoteNTP(uint32_t* received_ntpsecs,
-                                      uint32_t* received_ntpfrac,
-                                      uint32_t* rtcp_arrival_time_secs,
-                                      uint32_t* rtcp_arrival_time_frac,
-                                      uint32_t* rtcp_timestamp) const {
-  return rtcp_receiver_.NTP(received_ntpsecs, received_ntpfrac,
-                            rtcp_arrival_time_secs, rtcp_arrival_time_frac,
-                            rtcp_timestamp,
-                            /*remote_sender_packet_count=*/nullptr,
-                            /*remote_sender_octet_count=*/nullptr,
-                            /*remote_sender_reports_count=*/nullptr)
+int32_t ModuleRtpRtcpImpl2::RemoteNTP(
+    uint32_t* received_ntpsecs,
+    uint32_t* received_ntpfrac,
+    uint32_t* rtcp_arrival_time_secs,
+    uint32_t* rtcp_arrival_time_frac,
+    uint32_t* rtcp_timestamp,
+    uint32_t* remote_sender_packet_count,
+    uint64_t* remote_sender_octet_count,
+    uint64_t* remote_sender_reports_count) const {
+  return rtcp_receiver_.NTP(
+             received_ntpsecs, received_ntpfrac, rtcp_arrival_time_secs,
+             rtcp_arrival_time_frac, rtcp_timestamp, remote_sender_packet_count,
+             remote_sender_octet_count, remote_sender_reports_count)
              ? 0
              : -1;
 }
@@ -680,6 +683,34 @@ void ModuleRtpRtcpImpl2::OnReceivedRtcpReportBlocks(
       }
     }
   }
+}
+
+void ModuleRtpRtcpImpl2::GetSenderReportStats(
+    absl::optional<int64_t>& last_arrival_timestamp_ms,
+    absl::optional<int64_t>& last_remote_timestamp_ms,
+    uint32_t& packets_sent,
+    uint64_t& bytes_sent,
+    uint64_t& reports_count) const {
+  last_arrival_timestamp_ms = absl::nullopt;
+  last_remote_timestamp_ms = absl::nullopt;
+  packets_sent = 0;
+  bytes_sent = 0;
+  reports_count = 0;
+
+  uint32_t received_ntp_secs = 0;
+  uint32_t received_ntp_frac = 0;
+  uint32_t rtcp_arrival_time_secs = 0;
+  uint32_t rtcp_arrival_time_frac = 0;
+  if (!rtcp_receiver_.NTP(&received_ntp_secs, &received_ntp_frac,
+                          &rtcp_arrival_time_secs, &rtcp_arrival_time_frac,
+                          /*rtcp_timestamp=*/nullptr, &packets_sent,
+                          &bytes_sent, &reports_count)) {
+    return;
+  }
+  NtpTime arrival(rtcp_arrival_time_secs, rtcp_arrival_time_frac);
+  NtpTime remote(rtcp_arrival_time_secs, rtcp_arrival_time_frac);
+  last_arrival_timestamp_ms = arrival.ToMs();
+  last_remote_timestamp_ms = remote.ToMs();
 }
 
 void ModuleRtpRtcpImpl2::set_rtt_ms(int64_t rtt_ms) {

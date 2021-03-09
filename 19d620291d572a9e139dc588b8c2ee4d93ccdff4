@@ -16,6 +16,23 @@
       "message": "Hi Danil,\nCould you PTAL?\nAlessio",
       "revId": "19d620291d572a9e139dc588b8c2ee4d93ccdff4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41b0be26_4f4c366c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-03-09T14:59:01Z",
+      "side": 1,
+      "message": "+Henrik since I\u0027m not sure I correctly interpreted https://www.w3.org/TR/webrtc-stats/#dom-rtcremoteoutboundrtpstreamstats-reportssent. IIUC, RTCP SR reports do not include the number of sent reports, so we have to count the received ones, right?",
+      "revId": "19d620291d572a9e139dc588b8c2ee4d93ccdff4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

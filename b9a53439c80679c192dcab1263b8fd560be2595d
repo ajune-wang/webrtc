@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d38227b_63c6045f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16600
+      },
+      "writtenOn": "2021-03-09T17:27:23Z",
+      "side": 1,
+      "message": "Updated CL - deleted sli_count",
+      "revId": "b9a53439c80679c192dcab1263b8fd560be2595d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

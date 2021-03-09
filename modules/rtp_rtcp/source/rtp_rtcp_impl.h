@@ -169,7 +169,8 @@ class ModuleRtpRtcpImpl : public RtpRtcp, public RTCPReceiver::ModuleRtpRtcp {
                     uint32_t* received_ntp_frac,
                     uint32_t* rtcp_arrival_time_secs,
                     uint32_t* rtcp_arrival_time_frac,
-                    uint32_t* rtcp_timestamp) const override;
+                    uint32_t* rtcp_timestamp,
+                    uint64_t* num_remote_sender_reports) const override;
 
   // Get RoundTripTime.
   int32_t RTT(uint32_t remote_ssrc,
@@ -227,6 +228,11 @@ class ModuleRtpRtcpImpl : public RtpRtcp, public RTCPReceiver::ModuleRtpRtcp {
                                uint16_t last_received_seq_num,
                                bool decodability_flag,
                                bool buffering_allowed) override;
+
+  // Reads the sender report stats.
+  void GetSenderReportStats(absl::optional<int64_t>& last_arrival_timestamp_ms,
+                            absl::optional<int64_t>& last_remote_timestamp_ms,
+                            uint64_t& num_remote_sender_reports) const;
 
   RtpSendRates GetSendRates() const override;
 

@@ -33,6 +33,23 @@
       "message": "asapersson@: PTAL",
       "revId": "1d71013352d2a1a1ac9fc1c10a4a604fe2069786",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52d98b77_45b4208a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-03-09T19:04:18Z",
+      "side": 1,
+      "message": "Hi Francois - looks like the state of the CL is a bit strange. Seems like you\u0027ve put yourself as a reviewer and marked the CL as WIP, which means it can\u0027t be landed. Intentional?",
+      "revId": "1d71013352d2a1a1ac9fc1c10a4a604fe2069786",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

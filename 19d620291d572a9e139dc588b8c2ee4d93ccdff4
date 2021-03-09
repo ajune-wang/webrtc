@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad659e3f_578fa438",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-03-09T15:26:10Z",
+      "side": 1,
+      "message": "RTCRemoteOutboundRtpStreamStats extends RTCSentRtpStreamStats, which has those counters (see https://www.w3.org/TR/webrtc-stats/#dom-rtcsentrtpstreamstats)",
+      "parentUuid": "e8abb349_3e29e4ec",
+      "range": {
+        "startLine": 11,
+        "startChar": 2,
+        "endLine": 12,
+        "endChar": 32
+      },
+      "revId": "19d620291d572a9e139dc588b8c2ee4d93ccdff4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "845f453e_bdaf3464",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-03-09T15:16:58Z",
       "side": 1,
       "message": "this is the same link as [1]",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 3
+      },
+      "revId": "19d620291d572a9e139dc588b8c2ee4d93ccdff4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd551551_37538b9c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-03-09T15:26:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "845f453e_bdaf3464",
       "range": {
         "startLine": 17,
         "startChar": 0,
@@ -117,6 +165,30 @@
       "writtenOn": "2021-03-09T15:16:58Z",
       "side": 1,
       "message": "int, size_t or, if you think there can be 2 billion sender reports in call, int64_t \n\nhttps://google.github.io/styleguide/cppguide.html#Integer_Types\n\n\"You should not use the unsigned integer types such as uint32_t, unless there is a valid reason such as representing a bit pattern rather than a number, or you need defined overflow modulo 2^N. In particular, do not use unsigned types to say a number will never be negative.\"\n\n(same but with more details: http://go/totw/159)",
+      "range": {
+        "startLine": 78,
+        "startChar": 11,
+        "endLine": 78,
+        "endChar": 19
+      },
+      "revId": "19d620291d572a9e139dc588b8c2ee4d93ccdff4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92dab3f0_5fdfd42d",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-03-09T15:26:10Z",
+      "side": 1,
+      "message": "I fully agree with you and I don\u0027t expect such a large number of RTCP SRs in one call. I chose uint64 to stick to the spec. According to https://www.w3.org/TR/webrtc-stats/#dom-rtcremoteoutboundrtpstreamstats-reportssent that counter is a an unsigned long long. Also note that uint64_t is already used elsewhere.\n\n@Henrik: what do you recommend?",
+      "parentUuid": "d4df2158_62045f46",
       "range": {
         "startLine": 78,
         "startChar": 11,

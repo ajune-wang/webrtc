@@ -219,7 +219,10 @@ void AudioIngress::ReceivedRTCPPacket(
 
   uint32_t ntp_secs = 0, ntp_frac = 0, rtp_timestamp = 0;
   if (rtp_rtcp_->RemoteNTP(&ntp_secs, &ntp_frac, nullptr, nullptr,
-                           &rtp_timestamp) != 0) {
+                           &rtp_timestamp,
+                           /*remote_sender_packet_count=*/nullptr,
+                           /*remote_sender_octet_count=*/nullptr,
+                           /*remote_sender_reports_count=*/nullptr) != 0) {
     // Waiting for RTCP.
     return;
   }

@@ -338,7 +338,10 @@ class RtpRtcpInterface : public RtcpFeedbackSenderInterface {
                             uint32_t* received_ntp_frac,
                             uint32_t* rtcp_arrival_time_secs,
                             uint32_t* rtcp_arrival_time_frac,
-                            uint32_t* rtcp_timestamp) const = 0;
+                            uint32_t* rtcp_timestamp,
+                            uint32_t* remote_sender_packet_count,
+                            uint64_t* remote_sender_octet_count,
+                            uint64_t* remote_sender_reports_count) const = 0;
 
   // Returns current RTT (round-trip time) estimate.
   // Returns -1 on failure else 0.

@@ -72,7 +72,10 @@ class RTCPReceiver final {
            uint32_t* received_ntp_frac,
            uint32_t* rtcp_arrival_time_secs,
            uint32_t* rtcp_arrival_time_frac,
-           uint32_t* rtcp_timestamp) const;
+           uint32_t* rtcp_timestamp,
+           uint32_t* remote_sender_packet_count,
+           uint32_t* remote_sender_octet_count,
+           uint64_t* remote_sender_reports_count) const;
 
   std::vector<rtcp::ReceiveTimeInfo> ConsumeReceivedXrReferenceTimeInfo();
 
@@ -239,6 +242,9 @@ class RTCPReceiver final {
   uint32_t remote_sender_rtp_time_ RTC_GUARDED_BY(rtcp_receiver_lock_);
   // When did we receive the last send report.
   NtpTime last_received_sr_ntp_ RTC_GUARDED_BY(rtcp_receiver_lock_);
+  uint32_t remote_sender_packet_count_ RTC_GUARDED_BY(rtcp_receiver_lock_);
+  uint32_t remote_sender_octet_count_ RTC_GUARDED_BY(rtcp_receiver_lock_);
+  uint64_t remote_sender_reports_count_ RTC_GUARDED_BY(rtcp_receiver_lock_);
 
   // Received RRTR information in ascending receive time order.
   std::list<RrtrInformation> received_rrtrs_

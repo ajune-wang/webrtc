@@ -24,6 +24,7 @@
 #include "modules/rtp_rtcp/source/rtp_rtcp_config.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
+#include "system_wrappers/include/ntp_time.h"
 
 #ifdef _WIN32
 // Disable warning C4355: 'this' : used in base member initializer list.
@@ -714,6 +715,34 @@ void ModuleRtpRtcpImpl::OnReceivedRtcpReportBlocks(
       }
     }
   }
+}
+
+void ModuleRtpRtcpImpl::GetSenderReportStats(
+    absl::optional<int64_t>& last_arrival_timestamp_ms,
+    absl::optional<int64_t>& last_remote_timestamp_ms,
+    uint32_t& packets_sent,
+    uint64_t& bytes_sent,
+    uint64_t& reports_count) const {
+  last_arrival_timestamp_ms = absl::nullopt;
+  last_remote_timestamp_ms = absl::nullopt;
+  packets_sent = 0;
+  bytes_sent = 0;
+  reports_count = 0;
+
+  uint32_t received_ntp_secs = 0;
+  uint32_t received_ntp_frac = 0;
+  uint32_t rtcp_arrival_time_secs = 0;
+  uint32_t rtcp_arrival_time_frac = 0;
+  if (!rtcp_receiver_.NTP(&received_ntp_secs, &received_ntp_frac,
+                          &rtcp_arrival_time_secs, &rtcp_arrival_time_frac,
+                          /*rtcp_timestamp=*/nullptr, &packets_sent,
+                          &bytes_sent, &reports_count)) {
+    return;
+  }
+  NtpTime arrival(rtcp_arrival_time_secs, rtcp_arrival_time_frac);
+  NtpTime remote(rtcp_arrival_time_secs, rtcp_arrival_time_frac);
+  last_arrival_timestamp_ms = arrival.ToMs();
+  last_remote_timestamp_ms = remote.ToMs();
 }
 
 void ModuleRtpRtcpImpl::set_rtt_ms(int64_t rtt_ms) {

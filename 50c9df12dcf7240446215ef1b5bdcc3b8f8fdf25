@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e54a8857_7197a481",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-09T10:17:20Z",
+      "side": 1,
+      "message": "LGTM % optionally remove sliCount here or in a separate CL?",
+      "revId": "50c9df12dcf7240446215ef1b5bdcc3b8f8fdf25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3943ebda_0735cad7",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-09T10:17:20Z",
+      "side": 1,
+      "message": "I\u0027m a little tempted if you could delete media_type in a separate CL (so that we can revert it separately if it causes any unexpected trouble). It\u0027s sad we can\u0027t measure use counts for individual stats (because they are JS dictionaries and people simply iterate over all of them) but even if that were to break something it should be a one-line fix to update a client to use kind instead. What do you think?",
+      "revId": "50c9df12dcf7240446215ef1b5bdcc3b8f8fdf25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c85f09e4_7ed25649",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-09T10:17:20Z",
+      "side": 1,
+      "message": "Sorry, one last comment, but considering we never set the sliCount, how about we just delete it so that people who code search don\u0027t get the impression that it exists?",
+      "revId": "50c9df12dcf7240446215ef1b5bdcc3b8f8fdf25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

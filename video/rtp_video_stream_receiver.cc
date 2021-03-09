@@ -376,9 +376,13 @@ void RtpVideoStreamReceiver::AddReceiveCodec(
 
 absl::optional<Syncable::Info> RtpVideoStreamReceiver::GetSyncInfo() const {
   Syncable::Info info;
-  if (rtp_rtcp_->RemoteNTP(&info.capture_time_ntp_secs,
-                           &info.capture_time_ntp_frac, nullptr, nullptr,
-                           &info.capture_time_source_clock) != 0) {
+  if (rtp_rtcp_->RemoteNTP(
+          &info.capture_time_ntp_secs, &info.capture_time_ntp_frac,
+          /*rtcp_arrival_time_secs=*/nullptr,
+          /*rtcp_arrival_time_frac=*/nullptr, &info.capture_time_source_clock,
+          /*remote_sender_packet_count=*/nullptr,
+          /*remote_sender_octet_count=*/nullptr,
+          /*remote_sender_reports_count=*/nullptr) != 0) {
     return absl::nullopt;
   }
   {
@@ -1064,7 +1068,10 @@ bool RtpVideoStreamReceiver::DeliverRtcp(const uint8_t* rtcp_packet,
   uint32_t recieved_ntp_secs = 0;
   uint32_t recieved_ntp_frac = 0;
   if (rtp_rtcp_->RemoteNTP(&ntp_secs, &ntp_frac, &recieved_ntp_secs,
-                           &recieved_ntp_frac, &rtp_timestamp) != 0) {
+                           &recieved_ntp_frac, &rtp_timestamp,
+                           /*remote_sender_packet_count=*/nullptr,
+                           /*remote_sender_octet_count=*/nullptr,
+                           /*remote_sender_reports_count=*/nullptr) != 0) {
     // Waiting for RTCP.
     return true;
   }

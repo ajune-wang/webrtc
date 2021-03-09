@@ -137,6 +137,24 @@
       "message": "nit: I think you can remove this comment now, it seems a bit out of place after removing the TODO.\nBut keep the spec link to https://w3c.github.io/webrtc-stats/#remoteinboundrtpstats-dict*, that\u0027s useful",
       "revId": "8ca4679002e98230af956ae9e55d11255d3c455f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ef7388c_99b3c736",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 16600
+      },
+      "writtenOn": "2021-03-09T08:21:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34e83a0e_515d93c2",
+      "revId": "8ca4679002e98230af956ae9e55d11255d3c455f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

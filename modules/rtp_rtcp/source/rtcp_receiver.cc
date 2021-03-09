@@ -173,6 +173,7 @@ RTCPReceiver::RTCPReceiver(const RtpRtcpInterface::Configuration& config,
                                            : kDefaultVideoReportInterval)),
       // TODO(bugs.webrtc.org/10774): Remove fallback.
       remote_ssrc_(0),
+      num_remote_sender_reports_(0),
       remote_sender_rtp_time_(0),
       xr_rrtr_status_(config.non_sender_rtt_measurement),
       xr_rr_rtt_ms_(0),
@@ -325,12 +326,15 @@ bool RTCPReceiver::NTP(uint32_t* received_ntp_secs,
                        uint32_t* received_ntp_frac,
                        uint32_t* rtcp_arrival_time_secs,
                        uint32_t* rtcp_arrival_time_frac,
-                       uint32_t* rtcp_timestamp) const {
+                       uint32_t* rtcp_timestamp,
+                       uint64_t* num_remote_sender_reports) const {
   MutexLock lock(&rtcp_receiver_lock_);
   if (!last_received_sr_ntp_.Valid())
     return false;
 
   // NTP from incoming SenderReport.
+  if (num_remote_sender_reports)
+    *num_remote_sender_reports = num_remote_sender_reports_;
   if (received_ntp_secs)
     *received_ntp_secs = remote_sender_ntp_time_.seconds();
   if (received_ntp_frac)
@@ -516,6 +520,7 @@ void RTCPReceiver::HandleSenderReport(const CommonHeader& rtcp_block,
     // Only signal that we have received a SR when we accept one.
     packet_information->packet_type_flags |= kRtcpSr;
 
+    num_remote_sender_reports_++;
     remote_sender_ntp_time_ = sender_report.ntp();
     remote_sender_rtp_time_ = sender_report.rtp_timestamp();
     last_received_sr_ntp_ = TimeMicrosToNtp(clock_->TimeInMicroseconds());

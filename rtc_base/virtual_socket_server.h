@@ -94,6 +94,12 @@ class VirtualSocketServer : public SocketServer, public sigslot::has_slots<> {
     drop_prob_ = drop_prob;
   }
 
+  // Controls the maximum transmission unit for the networks simulated
+  // by this server. Any UDP packet sent that is larger than this will
+  // be dropped.
+  size_t mtu() { return mtu_; }
+  void set_mtu(size_t mtu) { mtu_ = mtu; }
+
   // If |blocked| is true, subsequent attempts to send will result in -1 being
   // returned, with the socket error set to EWOULDBLOCK.
   //
@@ -308,6 +314,9 @@ class VirtualSocketServer : public SocketServer, public sigslot::has_slots<> {
   std::unique_ptr<Function> delay_dist_;
 
   double drop_prob_;
+  size_t mtu_ = 65507;
+  // The default is the max size of IPv4 fragmented UDP packet payload:
+  // 65535 bytes - 8 bytes UDP header - 20 bytes IP header.
   bool sending_blocked_ = false;
   RTC_DISALLOW_COPY_AND_ASSIGN(VirtualSocketServer);
 };

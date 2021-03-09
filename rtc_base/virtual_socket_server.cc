@@ -901,6 +901,12 @@ int VirtualSocketServer::SendUdp(VirtualSocket* socket,
   }
 
   // See if we want to drop this packet.
+  if (data_size > mtu_) {
+    RTC_LOG(LS_ERROR) << "DEBUG: Dropping packet because of MTU limit";
+    // Return as if send was successful; packet disappears.
+    return data_size;
+  }
+
   if (Random() < drop_prob_) {
     RTC_LOG(LS_VERBOSE) << "Dropping packet: bad luck";
     return static_cast<int>(data_size);

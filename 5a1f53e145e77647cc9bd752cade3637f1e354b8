@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6453d216_3066cfbd",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-03-09T15:50:14Z",
+      "side": 1,
+      "message": "Question to the reviewers. Do you think it makes sense to use instead the code below? RTCP SR reports are sent at a lower frequency than that of RTP packets; however, it can still happen that an RTCP SR packet arrives before the previously sent RTCP SR packet. If that happens, then the counters won\u0027t be monotonic. WDYT?\n\n```\nremote_sender_packet_count_ \u003d std::max(\n    remote_sender_packet_count_, sender_report.sender_packet_count());\nremote_sender_octet_count_ \u003d std::max(\n    remote_sender_octet_count_, sender_report.sender_octet_count());\n```",
+      "range": {
+        "startLine": 535,
+        "startChar": 0,
+        "endLine": 536,
+        "endChar": 68
+      },
+      "revId": "5a1f53e145e77647cc9bd752cade3637f1e354b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55343e46_c4c24ba1",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-03-09T15:50:14Z",
+      "side": 1,
+      "message": "Note that the type was chosen according to the spec (https://www.w3.org/TR/webrtc-stats/#dom-rtcsentrtpstreamstats). uint32_t is used in `SenderReport` (see https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/modules/rtp_rtcp/source/rtcp_packet/sender_report.h;l\u003d55-56).\n\nSo, same point raised by Daniel here.",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 47
+      },
+      "revId": "5a1f53e145e77647cc9bd752cade3637f1e354b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

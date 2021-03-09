@@ -2458,6 +2458,11 @@ bool WebRtcVoiceMediaChannel::GetStats(VoiceMediaInfo* info,
         stats.relative_packet_arrival_delay_seconds;
     rinfo.interruption_count = stats.interruption_count;
     rinfo.total_interruption_duration_ms = stats.total_interruption_duration_ms;
+    rinfo.last_sender_report_timestamp_ms =
+        stats.last_sender_report_timestamp_ms;
+    rinfo.last_sender_report_remote_timestamp_ms =
+        stats.last_sender_report_remote_timestamp_ms;
+    rinfo.num_remote_sender_reports = stats.num_remote_sender_reports;
 
     info->receivers.push_back(rinfo);
   }

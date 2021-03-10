@@ -62,16 +62,34 @@ TEST(ScalabilityStructureL3T3KeyTest,
   // Simulate T1 frame dropped by the encoder,
   // i.e. retrieve config, but skip calling OnEncodeDone.
   structure.NextFrameConfig(/*restart=*/false);
-  // one more temporal units (T2)
+  // one more temporal unit.
   wrapper.GenerateFrames(/*num_temporal_units=*/1, frames);
 
-  ASSERT_THAT(frames, SizeIs(9));
-  EXPECT_EQ(frames[0].temporal_id, 0);
-  EXPECT_EQ(frames[3].temporal_id, 2);
-  // T1 frames were dropped by the encoder.
-  EXPECT_EQ(frames[6].temporal_id, 2);
-
+  EXPECT_THAT(frames, SizeIs(9));
   EXPECT_TRUE(wrapper.FrameReferencesAreValid(frames));
+}
+
+TEST(ScalabilityStructureL3T3KeyTest,
+     SkippingFrameReusePreviousFrameConfiguration) {
+  std::vector<GenericFrameInfo> frames;
+  ScalabilityStructureL3T3Key structure;
+  ScalabilityStructureWrapper wrapper(structure);
+
+  // 1st 2 temporal units (T0 and T2)
+  wrapper.GenerateFrames(/*num_temporal_units=*/2, frames);
+  ASSERT_THAT(frames, SizeIs(6));
+  ASSERT_EQ(frames[0].temporal_id, 0);
+  ASSERT_EQ(frames[3].temporal_id, 2);
+
+  // Simulate a frame dropped by the encoder,
+  // i.e. retrieve config, but skip calling OnEncodeDone.
+  structure.NextFrameConfig(/*restart=*/false);
+  // two more temporal unit, expect temporal pattern continues
+  wrapper.GenerateFrames(/*num_temporal_units=*/2, frames);
+  ASSERT_THAT(frames, SizeIs(12));
+  // Expect temporal pattern continues as if there were no dropped frames.
+  EXPECT_EQ(frames[6].temporal_id, 1);
+  EXPECT_EQ(frames[9].temporal_id, 2);
 }
 
 TEST(ScalabilityStructureL3T3KeyTest,

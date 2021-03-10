@@ -173,6 +173,34 @@ ScalabilityStructureKeySvc::T2Config() {
   return configs;
 }
 
+ScalabilityStructureKeySvc::FramePattern
+ScalabilityStructureKeySvc::NextPattern(
+    ScalabilityStructureKeySvc::FramePattern last_pattern) const {
+  switch (last_pattern) {
+    case kNone:
+    case kDeltaT2B:
+      return kDeltaT0;
+    case kDeltaT2A:
+      if (TemporalLayerIsActive(1)) {
+        return kDeltaT1;
+      }
+      return kDeltaT0;
+    case kDeltaT1:
+      if (TemporalLayerIsActive(2)) {
+        return kDeltaT2B;
+      }
+      return kDeltaT0;
+    case kDeltaT0:
+      if (TemporalLayerIsActive(2)) {
+        return kDeltaT2A;
+      }
+      if (TemporalLayerIsActive(1)) {
+        return kDeltaT1;
+      }
+      return kDeltaT0;
+  }
+}
+
 std::vector<ScalableVideoController::LayerFrameConfig>
 ScalabilityStructureKeySvc::NextFrameConfig(bool restart) {
   if (active_decode_targets_.none()) {
@@ -180,41 +208,22 @@ ScalabilityStructureKeySvc::NextFrameConfig(bool restart) {
     return {};
   }
 
-  if (restart) {
+  received_callback_ = false;
+  if (restart || last_pattern_ == kNone) {
     last_pattern_ = kNone;
+    return KeyframeConfig();
   }
 
-  switch (last_pattern_) {
-    case kNone:
-      last_pattern_ = kDeltaT0;
-      return KeyframeConfig();
-    case kDeltaT2B:
-      last_pattern_ = kDeltaT0;
-      return T0Config();
-    case kDeltaT2A:
-      if (TemporalLayerIsActive(1)) {
-        last_pattern_ = kDeltaT1;
-        return T1Config();
-      }
-      last_pattern_ = kDeltaT0;
+  switch (NextPattern(last_pattern_)) {
+    case kDeltaT0:
       return T0Config();
     case kDeltaT1:
-      if (TemporalLayerIsActive(2)) {
-        last_pattern_ = kDeltaT2B;
-        return T2Config();
-      }
-      last_pattern_ = kDeltaT0;
-      return T0Config();
-    case kDeltaT0:
-      if (TemporalLayerIsActive(2)) {
-        last_pattern_ = kDeltaT2A;
-        return T2Config();
-      } else if (TemporalLayerIsActive(1)) {
-        last_pattern_ = kDeltaT1;
-        return T1Config();
-      }
-      last_pattern_ = kDeltaT0;
-      return T0Config();
+      return T1Config();
+    case kDeltaT2A:
+    case kDeltaT2B:
+      return T2Config();
+    case kNone:
+      break;
   }
   RTC_NOTREACHED();
   return {};
@@ -222,6 +231,11 @@ ScalabilityStructureKeySvc::NextFrameConfig(bool restart) {
 
 GenericFrameInfo ScalabilityStructureKeySvc::OnEncodeDone(
     const LayerFrameConfig& config) {
+  if (!received_callback_) {
+    received_callback_ = true;
+    last_pattern_ = NextPattern(last_pattern_);
+  }
+
   if (config.TemporalId() == 1) {
     can_reference_t1_frame_for_spatial_id_.set(config.SpatialId());
   }

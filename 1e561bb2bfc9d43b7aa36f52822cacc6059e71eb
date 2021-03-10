@@ -1,0 +1,228 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a27537a9_b02fe422",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-03-10T15:31:18Z",
+      "side": 1,
+      "message": "LGTM % comments.",
+      "revId": "1e561bb2bfc9d43b7aa36f52822cacc6059e71eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "868726a6_9a1f45df",
+        "filename": "g3doc/how_to_write_documentation.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-03-10T15:31:18Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 13,
+        "startChar": 72,
+        "endLine": 13,
+        "endChar": 73
+      },
+      "revId": "1e561bb2bfc9d43b7aa36f52822cacc6059e71eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9ff6c9b_1ad3415c",
+        "filename": "g3doc/how_to_write_documentation.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-03-10T15:31:18Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 19,
+        "startChar": 69,
+        "endLine": 19,
+        "endChar": 70
+      },
+      "revId": "1e561bb2bfc9d43b7aa36f52822cacc6059e71eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25d3f2d3_037eabac",
+        "filename": "g3doc/how_to_write_documentation.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-03-10T15:31:18Z",
+      "side": 1,
+      "message": "strict",
+      "range": {
+        "startLine": 24,
+        "startChar": 14,
+        "endLine": 24,
+        "endChar": 19
+      },
+      "revId": "1e561bb2bfc9d43b7aa36f52822cacc6059e71eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffa54156_71ff0d61",
+        "filename": "g3doc/how_to_write_documentation.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-03-10T15:31:18Z",
+      "side": 1,
+      "message": "the",
+      "range": {
+        "startLine": 28,
+        "startChar": 2,
+        "endLine": 28,
+        "endChar": 3
+      },
+      "revId": "1e561bb2bfc9d43b7aa36f52822cacc6059e71eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9be5fdc7_02e0a66a",
+        "filename": "g3doc/how_to_write_documentation.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-03-10T15:31:18Z",
+      "side": 1,
+      "message": ",",
+      "range": {
+        "startLine": 28,
+        "startChar": 14,
+        "endLine": 28,
+        "endChar": 15
+      },
+      "revId": "1e561bb2bfc9d43b7aa36f52822cacc6059e71eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "826adba8_bebfa2e1",
+        "filename": "g3doc/how_to_write_documentation.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-03-10T15:31:18Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 29,
+        "startChar": 72,
+        "endLine": 29,
+        "endChar": 73
+      },
+      "revId": "1e561bb2bfc9d43b7aa36f52822cacc6059e71eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64fe5104_edc272a1",
+        "filename": "g3doc/how_to_write_documentation.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-03-10T15:31:18Z",
+      "side": 1,
+      "message": "a",
+      "range": {
+        "startLine": 30,
+        "startChar": 48,
+        "endLine": 30,
+        "endChar": 50
+      },
+      "revId": "1e561bb2bfc9d43b7aa36f52822cacc6059e71eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "524bed9c_9976397b",
+        "filename": "g3doc/how_to_write_documentation.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-03-10T15:31:18Z",
+      "side": 1,
+      "message": ", (I think , is better here)",
+      "range": {
+        "startLine": 31,
+        "startChar": 55,
+        "endLine": 31,
+        "endChar": 57
+      },
+      "revId": "1e561bb2bfc9d43b7aa36f52822cacc6059e71eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a970f9b_b7252759",
+        "filename": "g3doc/how_to_write_documentation.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-03-10T15:31:18Z",
+      "side": 1,
+      "message": "Googler",
+      "range": {
+        "startLine": 39,
+        "startChar": 13,
+        "endLine": 39,
+        "endChar": 21
+      },
+      "revId": "1e561bb2bfc9d43b7aa36f52822cacc6059e71eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

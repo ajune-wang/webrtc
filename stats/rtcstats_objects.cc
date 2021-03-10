@@ -893,6 +893,54 @@ RTCRemoteInboundRtpStreamStats::RTCRemoteInboundRtpStreamStats(
 RTCRemoteInboundRtpStreamStats::~RTCRemoteInboundRtpStreamStats() {}
 
 // clang-format off
+WEBRTC_RTCSTATS_IMPL(
+    RTCRemoteOutboundRtpStreamStats, RTCStats, "remote-outbound-rtp",
+    &ssrc,
+    &kind,
+    &transport_id,
+    &codec_id,
+    &packets_sent,
+    &bytes_sent,
+    &local_id,
+    &remote_timestamp,
+    &reports_sent)
+// clang-format on
+
+RTCRemoteOutboundRtpStreamStats::RTCRemoteOutboundRtpStreamStats(
+    const std::string& id,
+    int64_t timestamp_us)
+    : RTCRemoteOutboundRtpStreamStats(std::string(id), timestamp_us) {}
+
+RTCRemoteOutboundRtpStreamStats::RTCRemoteOutboundRtpStreamStats(
+    std::string&& id,
+    int64_t timestamp_us)
+    : RTCStats(std::move(id), timestamp_us),
+      ssrc("ssrc"),
+      kind("kind"),
+      transport_id("transportId"),
+      codec_id("codecId"),
+      packets_sent("packetsSent"),
+      bytes_sent("bytesSent"),
+      local_id("localId"),
+      remote_timestamp("remoteTimestamp"),
+      reports_sent("reportsSent") {}
+
+RTCRemoteOutboundRtpStreamStats::RTCRemoteOutboundRtpStreamStats(
+    const RTCRemoteOutboundRtpStreamStats& other)
+    : RTCStats(other),
+      ssrc(other.ssrc),
+      kind(other.kind),
+      transport_id(other.transport_id),
+      codec_id(other.codec_id),
+      packets_sent(other.packets_sent),
+      bytes_sent(other.bytes_sent),
+      local_id(other.local_id),
+      remote_timestamp(other.remote_timestamp),
+      reports_sent(other.reports_sent) {}
+
+RTCRemoteOutboundRtpStreamStats::~RTCRemoteOutboundRtpStreamStats() {}
+
+// clang-format off
 WEBRTC_RTCSTATS_IMPL(RTCMediaSourceStats, RTCStats, "parent-media-source",
     &track_identifier,
     &kind)

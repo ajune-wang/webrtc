@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "048505a5_8e6fe748",
+        "filename": "modules/rtp_rtcp/include/receive_statistics.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2021-03-10T11:34:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "176c63d3_3a771d7e",
+      "range": {
+        "startLine": 61,
+        "startChar": 22,
+        "endLine": 61,
+        "endChar": 28
+      },
+      "revId": "344063053180aaa40ebc100049bc6e958702a844",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a8a8f467_d90408cb",
@@ -81,6 +105,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4cfea6be_feafcc04",
+        "filename": "modules/rtp_rtcp/include/receive_statistics.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2021-03-10T11:34:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8a8f467_d90408cb",
+      "range": {
+        "startLine": 62,
+        "startChar": 50,
+        "endLine": 62,
+        "endChar": 58
+      },
+      "revId": "344063053180aaa40ebc100049bc6e958702a844",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "efdf52be_3b193aa9",
@@ -94,6 +142,30 @@
       "writtenOn": "2021-03-10T09:30:17Z",
       "side": 1,
       "message": "you do not need lambda here:\n  return std::make_unique\u003cReceiveStatisticsLocked\u003e(\n      clock, std::make_unique\u003cStreamStatisticianLocked\u003e);\n\n(i.e. make_unique without calling it is convertible to the function, and even to a function pointer)",
+      "range": {
+        "startLine": 290,
+        "startChar": 13,
+        "endLine": 293,
+        "endChar": 7
+      },
+      "revId": "344063053180aaa40ebc100049bc6e958702a844",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8e65963_efaa888c",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2021-03-10T11:34:42Z",
+      "side": 1,
+      "message": "But how about the arguments? \nnote: candidate constructor not viable: no known conversion from \u0027std::unique_ptr\u003cwebrtc::StreamStatisticianLocked\u003e ()\u0027 to \u0027std::function\u003cstd::unique_ptr\u003cStreamStatisticianImplInterface\u003e (uint32_t, Clock *, int)\u003e\u0027 (aka \u0027function\u003cunique_ptr\u003cwebrtc::StreamStatisticianImplInterface\u003e (unsigned int, webrtc::Clock *, int)\u003e\u0027) for 2nd argument\n\nDiscussed offline- I would prefer lambda.",
+      "parentUuid": "efdf52be_3b193aa9",
       "range": {
         "startLine": 290,
         "startChar": 13,
@@ -129,6 +201,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "c8a633de_ce9e00c5",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2021-03-10T11:34:42Z",
+      "side": 1,
+      "message": "do reason",
+      "parentUuid": "38b2e347_2d2e2d5d",
+      "range": {
+        "startLine": 335,
+        "startChar": 6,
+        "endLine": 335,
+        "endChar": 11
+      },
+      "revId": "344063053180aaa40ebc100049bc6e958702a844",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "baf90187_80c77339",
         "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
         "patchSetId": 1
@@ -140,6 +236,30 @@
       "writtenOn": "2021-03-10T09:30:17Z",
       "side": 1,
       "message": "I remember there was a reason to avoid taking both locks in this order,\nbut it seems there reason is no longer there (there used to be a callback inside StreamStatistician that called into ReceiveStatistic and thus took the same two locks in the opposite order)",
+      "range": {
+        "startLine": 343,
+        "startChar": 0,
+        "endLine": 346,
+        "endChar": 3
+      },
+      "revId": "344063053180aaa40ebc100049bc6e958702a844",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "afa7acfe_c4764f5b",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2021-03-10T11:34:42Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "baf90187_80c77339",
       "range": {
         "startLine": 343,
         "startChar": 0,
@@ -173,6 +293,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "362ed12e_42cd4169",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2021-03-10T11:34:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "913e1d0b_0347e6a5",
+      "range": {
+        "startLine": 33,
+        "startChar": 45,
+        "endLine": 33,
+        "endChar": 47
+      },
+      "revId": "344063053180aaa40ebc100049bc6e958702a844",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b31108fd_ad51b8ea",
@@ -186,6 +330,30 @@
       "writtenOn": "2021-03-10T09:30:17Z",
       "side": 1,
       "message": "compatible",
+      "range": {
+        "startLine": 40,
+        "startChar": 10,
+        "endLine": 40,
+        "endChar": 16
+      },
+      "revId": "344063053180aaa40ebc100049bc6e958702a844",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5616090_dc082b96",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2021-03-10T11:34:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b31108fd_ad51b8ea",
       "range": {
         "startLine": 40,
         "startChar": 10,

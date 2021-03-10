@@ -16,6 +16,24 @@
       "message": "This is NOT intended for submission as-is, but review is an easy way to show the use of the\nmax_udp_payload interface in order to verify behavior when we have UDP issues.\n\nIt did show an edge case (see description) that may merit further investigation.\n\n",
       "revId": "ad726fc4fa25d176b659336f47395876228a9886",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92378287_1a66d7ba",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-03-10T22:27:44Z",
+      "side": 1,
+      "message": "If you\u0027re talking about how towards the end of the test, messages still end up received but after a longer and longer delay, that\u0027s because usrsctp is sending combined SACK+DATA packets that just barely exceed the MTU. When retransmitted, the SACK and DATA chunks are in separate packets, so they get through. But each time this happens, the retransmission timer doubles until it exceeds the test timeout. So in short, this is expected behavior.",
+      "parentUuid": "5feb72b7_6c1a6cc8",
+      "revId": "ad726fc4fa25d176b659336f47395876228a9886",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

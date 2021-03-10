@@ -63,6 +63,7 @@ class BlockProcessorImpl final : public BlockProcessor {
   void GetMetrics(EchoControl::Metrics* metrics) const override;
 
   void SetAudioBufferDelay(int delay_ms) override;
+  void SetCaptureOutputUsage(bool capture_output_used) override;
 
  private:
   static int instance_count_;
@@ -236,6 +237,8 @@ void BlockProcessorImpl::GetMetrics(EchoControl::Metrics* metrics) const {
 void BlockProcessorImpl::SetAudioBufferDelay(int delay_ms) {
   render_buffer_->SetAudioBufferDelay(delay_ms);
 }
+
+void BlockProcessorImpl::SetCaptureOutputUsage(bool capture_output_used) {}
 
 }  // namespace
 

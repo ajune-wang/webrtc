@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6dcaf582_8aa18d12",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-03-10T07:31:31Z",
+      "side": 1,
+      "message": "PTAL. I did some naming changes++, so should have another look.\n",
+      "revId": "ae0afa2fe8fbcaabc9f195d37a6a487df56d8b79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ac2195db_562f4715",
@@ -54,6 +71,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f19ab174_ea66d6c9",
+        "filename": "rtc_base/virtual_socket_server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 905,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-03-10T07:31:31Z",
+      "side": 1,
+      "message": "No, it should be LS_VERBOSE like the others. Leftover from debug phase, changed.",
+      "parentUuid": "ac2195db_562f4715",
+      "revId": "ae0afa2fe8fbcaabc9f195d37a6a487df56d8b79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dea0b6f4_a59e2b26",
         "filename": "rtc_base/virtual_socket_server.h",
         "patchSetId": 1
@@ -65,6 +100,24 @@
       "writtenOn": "2021-03-10T00:09:32Z",
       "side": 1,
       "message": "\"UDP payload\" instead of \"packet\"?",
+      "revId": "ae0afa2fe8fbcaabc9f195d37a6a487df56d8b79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be473029_394b295d",
+        "filename": "rtc_base/virtual_socket_server.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-03-10T07:31:31Z",
+      "side": 1,
+      "message": "It does raise the interesting question of whether we should call this \"mtu\" when we don\u0027t account for the size of the IP(4,6) header. Changed to \"UDP payload\".\n\nAlso added monitoring of the largest UDP payload sent; this will make it easier to develop tests that use this framework.",
+      "parentUuid": "dea0b6f4_a59e2b26",
       "revId": "ae0afa2fe8fbcaabc9f195d37a6a487df56d8b79",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

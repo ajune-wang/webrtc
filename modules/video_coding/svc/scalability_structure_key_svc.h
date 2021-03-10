@@ -58,10 +58,13 @@ class ScalabilityStructureKeySvc : public ScalableVideoController {
   std::vector<LayerFrameConfig> T1Config();
   std::vector<LayerFrameConfig> T2Config();
 
+  FramePattern NextPattern(FramePattern last_pattern) const;
+
   const int num_spatial_layers_;
   const int num_temporal_layers_;
 
   FramePattern last_pattern_ = kNone;
+  bool received_callback_ = false;
   std::bitset<kMaxNumSpatialLayers> spatial_id_is_enabled_;
   std::bitset<kMaxNumSpatialLayers> can_reference_t1_frame_for_spatial_id_;
   std::bitset<32> active_decode_targets_;

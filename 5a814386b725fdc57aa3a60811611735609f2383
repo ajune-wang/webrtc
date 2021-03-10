@@ -16,6 +16,46 @@
       "message": "Hello Kári!\n\nCould you please take a look at this CL, which explicitly states that completion handlers must not be null. The issue was discovered in my previous CL: https://webrtc-review.googlesource.com/c/src/+/209700.\n\nThanks a lot in advance,\nYura.",
       "revId": "5a814386b725fdc57aa3a60811611735609f2383",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "294c2a51_9cc29250",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2021-03-10T09:48:01Z",
+      "side": 1,
+      "message": "Thank you for doing this!\n\nLGTM with small nit.",
+      "revId": "5a814386b725fdc57aa3a60811611735609f2383",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7e98535_42baaa52",
+        "filename": "sdk/objc/api/peerconnection/RTCPeerConnection.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2021-03-10T09:48:01Z",
+      "side": 1,
+      "message": "please add asserts that the completionhandler !\u003d nil at the top of each of these methods.\n\nThanks!",
+      "range": {
+        "startLine": 538,
+        "startChar": 29,
+        "endLine": 538,
+        "endChar": 73
+      },
+      "revId": "5a814386b725fdc57aa3a60811611735609f2383",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

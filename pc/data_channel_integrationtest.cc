@@ -397,6 +397,81 @@ TEST_P(DataChannelIntegrationTest, EndToEndCallWithSctpDataChannel) {
                  kDefaultTimeout);
 }
 
+// This test sets up a call between two parties with an SCTP
+// data channel only, and sends messages of various sizes.
+TEST_P(DataChannelIntegrationTest,
+       EndToEndCallWithSctpDataChannelVariousSizes) {
+  ASSERT_TRUE(CreatePeerConnectionWrappers());
+  ConnectFakeSignaling();
+  // Expect that data channel created on caller side will show up for callee as
+  // well.
+  caller()->CreateDataChannel();
+  caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  // Caller data channel should already exist (it created one). Callee data
+  // channel may not exist yet, since negotiation happens in-band, not in SDP.
+  ASSERT_NE(nullptr, caller()->data_channel());
+  ASSERT_TRUE_WAIT(callee()->data_channel() != nullptr, kDefaultTimeout);
+  EXPECT_TRUE_WAIT(caller()->data_observer()->IsOpen(), kDefaultTimeout);
+  EXPECT_TRUE_WAIT(callee()->data_observer()->IsOpen(), kDefaultTimeout);
+
+  for (int message_size = 1; message_size < 100000; message_size *= 2) {
+    RTC_LOG(LS_ERROR) << "DEBUG: Sending message of size " << message_size;
+    std::string data(message_size, 'a');
+    caller()->data_channel()->Send(DataBuffer(data));
+    EXPECT_EQ_WAIT(data, callee()->data_observer()->last_message(),
+                   kDefaultTimeout);
+    callee()->data_channel()->Send(DataBuffer(data));
+    EXPECT_EQ_WAIT(data, caller()->data_observer()->last_message(),
+                   kDefaultTimeout);
+  }
+  // Specifically probe the area around the MTU size.
+  for (int message_size = 1100; message_size < 1300; message_size += 1) {
+    RTC_LOG(LS_ERROR) << "DEBUG: Sending message of size " << message_size;
+    std::string data(message_size, 'a');
+    caller()->data_channel()->Send(DataBuffer(data));
+    EXPECT_EQ_WAIT(data, callee()->data_observer()->last_message(),
+                   kDefaultTimeout);
+    callee()->data_channel()->Send(DataBuffer(data));
+    EXPECT_EQ_WAIT(data, caller()->data_observer()->last_message(),
+                   kDefaultTimeout);
+  }
+}
+
+// This test verifies that lowering the MTU of the connection will cause
+// the datachannel to not transmit reliably.
+TEST_P(DataChannelIntegrationTest, EndToEndCallWithSctpDataChannelLoweredMtu) {
+  ASSERT_TRUE(CreatePeerConnectionWrappers());
+  ConnectFakeSignaling();
+  // Expect that data channel created on caller side will show up for callee as
+  // well.
+  caller()->CreateDataChannel();
+  caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  // Caller data channel should already exist (it created one). Callee data
+  // channel may not exist yet, since negotiation happens in-band, not in SDP.
+  ASSERT_NE(nullptr, caller()->data_channel());
+  ASSERT_TRUE_WAIT(callee()->data_channel() != nullptr, kDefaultTimeout);
+  EXPECT_TRUE_WAIT(caller()->data_observer()->IsOpen(), kDefaultTimeout);
+  EXPECT_TRUE_WAIT(callee()->data_observer()->IsOpen(), kDefaultTimeout);
+
+  for (int mtu = 1230; mtu > 1100; mtu--) {
+    virtual_socket_server()->set_max_udp_payload(mtu);
+    RTC_LOG(LS_ERROR) << "DEBUG: Set MTU size to " << mtu;
+    // Specifically probe the area around the MTU size.
+    for (int message_size = 1140; message_size < 1240; message_size += 1) {
+      RTC_LOG(LS_ERROR) << "DEBUG: Sending message of size " << message_size;
+      std::string data(message_size, 'a');
+      caller()->data_channel()->Send(DataBuffer(data));
+      ASSERT_EQ_WAIT(data, callee()->data_observer()->last_message(),
+                     kDefaultTimeout);
+      callee()->data_channel()->Send(DataBuffer(data));
+      ASSERT_EQ_WAIT(data, caller()->data_observer()->last_message(),
+                     kDefaultTimeout);
+    }
+  }
+}
+
 // Ensure that when the callee closes an SCTP data channel, the closing
 // procedure results in the data channel being closed for the caller as well.
 TEST_P(DataChannelIntegrationTest, CalleeClosesSctpDataChannel) {

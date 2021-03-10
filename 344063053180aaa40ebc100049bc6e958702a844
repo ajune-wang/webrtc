@@ -16,6 +16,230 @@
       "message": "Please? ",
       "revId": "344063053180aaa40ebc100049bc6e958702a844",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "398fbbea_29381af3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-10T09:30:17Z",
+      "side": 1,
+      "message": "overall lg",
+      "revId": "344063053180aaa40ebc100049bc6e958702a844",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "176c63d3_3a771d7e",
+        "filename": "modules/rtp_rtcp/include/receive_statistics.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-10T09:30:17Z",
+      "side": 1,
+      "message": "I think it is actually thread-compatible.\n(in practice difference is small since we rarely use read-write locks,\nand it is unlikely there will be an immutable object of this type)",
+      "range": {
+        "startLine": 61,
+        "startChar": 22,
+        "endLine": 61,
+        "endChar": 28
+      },
+      "revId": "344063053180aaa40ebc100049bc6e958702a844",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8a8f467_d90408cb",
+        "filename": "modules/rtp_rtcp/include/receive_statistics.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-10T09:30:17Z",
+      "side": 1,
+      "message": "Not sure \u0027Unlocked\u0027 is a good name for class that doesn\u0027t use locks.\nmay be CreateThreadCompatible (or CreateThreadUnsafe)",
+      "range": {
+        "startLine": 62,
+        "startChar": 50,
+        "endLine": 62,
+        "endChar": 58
+      },
+      "revId": "344063053180aaa40ebc100049bc6e958702a844",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efdf52be_3b193aa9",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-10T09:30:17Z",
+      "side": 1,
+      "message": "you do not need lambda here:\n  return std::make_unique\u003cReceiveStatisticsLocked\u003e(\n      clock, std::make_unique\u003cStreamStatisticianLocked\u003e);\n\n(i.e. make_unique without calling it is convertible to the function, and even to a function pointer)",
+      "range": {
+        "startLine": 290,
+        "startChar": 13,
+        "endLine": 293,
+        "endChar": 7
+      },
+      "revId": "344063053180aaa40ebc100049bc6e958702a844",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38b2e347_2d2e2d5d",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-10T09:30:17Z",
+      "side": 1,
+      "message": "why change this line?",
+      "range": {
+        "startLine": 335,
+        "startChar": 6,
+        "endLine": 335,
+        "endChar": 11
+      },
+      "revId": "344063053180aaa40ebc100049bc6e958702a844",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "baf90187_80c77339",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-10T09:30:17Z",
+      "side": 1,
+      "message": "I remember there was a reason to avoid taking both locks in this order,\nbut it seems there reason is no longer there (there used to be a callback inside StreamStatistician that called into ReceiveStatistic and thus took the same two locks in the opposite order)",
+      "range": {
+        "startLine": 343,
+        "startChar": 0,
+        "endLine": 346,
+        "endChar": 3
+      },
+      "revId": "344063053180aaa40ebc100049bc6e958702a844",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "913e1d0b_0347e6a5",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-10T09:30:17Z",
+      "side": 1,
+      "message": "\u003d default\nhttps://abseil.io/tips/131",
+      "range": {
+        "startLine": 33,
+        "startChar": 45,
+        "endLine": 33,
+        "endChar": 47
+      },
+      "revId": "344063053180aaa40ebc100049bc6e958702a844",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b31108fd_ad51b8ea",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-10T09:30:17Z",
+      "side": 1,
+      "message": "compatible",
+      "range": {
+        "startLine": 40,
+        "startChar": 10,
+        "endLine": 40,
+        "endChar": 16
+      },
+      "revId": "344063053180aaa40ebc100049bc6e958702a844",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4094a6a6_bb6695a8",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-10T09:30:17Z",
+      "side": 1,
+      "message": "probably this can be a function pointer rather than std::function,\nwhich is a bit cheaper (but less readable to write)",
+      "range": {
+        "startLine": 160,
+        "startChar": 6,
+        "endLine": 160,
+        "endChar": 19
+      },
+      "revId": "344063053180aaa40ebc100049bc6e958702a844",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "177cf8d8_7cb8ba63",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-10T09:30:17Z",
+      "side": 1,
+      "message": "::testing::Bool()",
+      "range": {
+        "startLine": 88,
+        "startChar": 25,
+        "endLine": 88,
+        "endChar": 55
+      },
+      "revId": "344063053180aaa40ebc100049bc6e958702a844",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

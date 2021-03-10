@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09656bd2_d8d72b91",
+        "filename": "modules/video_coding/utility/qp_parser_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2021-03-10T16:56:59Z",
+      "side": 1,
+      "message": "Could just be qp and line above removed (if qp has no value, will evaluate to false).\n\nAnd same below.",
+      "range": {
+        "startLine": 61,
+        "startChar": 12,
+        "endLine": 61,
+        "endChar": 15
+      },
+      "revId": "44b6fe3d6c742e47dba64921d4179a66d2fdf9b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

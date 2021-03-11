@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7bd83fa_880319ae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-11T12:06:53Z",
+      "side": 1,
+      "message": "I\u0027ll need to do something similar for full-svc and simulcast structures.\nAlso, looking at various edge cases I\u0027ve come up with where each broke alternative way to implement skipping, I guess it would be a good idea to fuzz various scenarios.",
+      "revId": "7d3a0984c91703d5f2241f141227133dc496a502",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

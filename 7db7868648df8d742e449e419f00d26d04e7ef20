@@ -16,6 +16,52 @@
       "message": "Hi,\nCould you please take a look at this CL?",
       "revId": "7db7868648df8d742e449e419f00d26d04e7ef20",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b37e8a43_9f0ef61a",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1328,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2021-03-11T09:00:26Z",
+      "side": 1,
+      "message": "Hmm, how is this optional?",
+      "range": {
+        "startLine": 1328,
+        "startChar": 5,
+        "endLine": 1328,
+        "endChar": 15
+      },
+      "revId": "7db7868648df8d742e449e419f00d26d04e7ef20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dff3bb9e_523ce176",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1331,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2021-03-11T09:00:26Z",
+      "side": 1,
+      "message": "Don\u0027t we anyway get a click from the discontinuity between the muted frame and the next one? How does this perform with audioproc_f?\n\nWould it be better to interpolate up from zero?",
+      "range": {
+        "startLine": 1329,
+        "startChar": 46,
+        "endLine": 1331,
+        "endChar": 14
+      },
+      "revId": "7db7868648df8d742e449e419f00d26d04e7ef20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -695,8 +695,10 @@ void ChannelReceive::ReceivedRTCPPacket(const uint8_t* data, size_t length) {
   uint32_t ntp_secs = 0;
   uint32_t ntp_frac = 0;
   uint32_t rtp_timestamp = 0;
-  if (0 !=
-      rtp_rtcp_->RemoteNTP(&ntp_secs, &ntp_frac, NULL, NULL, &rtp_timestamp)) {
+  if (rtp_rtcp_->RemoteNTP(&ntp_secs, &ntp_frac,
+                           /*rtcp_arrival_time_secs=*/nullptr,
+                           /*rtcp_arrival_time_frac=*/nullptr,
+                           &rtp_timestamp) != 0) {
     // Waiting for RTCP.
     return;
   }
@@ -753,11 +755,10 @@ void ChannelReceive::ResetReceiverCongestionControlObjects() {
 
 CallReceiveStatistics ChannelReceive::GetRTCPStatistics() const {
   RTC_DCHECK(worker_thread_checker_.IsCurrent());
-  // --- RtcpStatistics
   CallReceiveStatistics stats;
 
-  // The jitter statistics is updated for each received RTP packet and is
-  // based on received packets.
+  // The jitter statistics is updated for each received RTP packet and is based
+  // on received packets.
   RtpReceiveStats rtp_stats;
   StreamStatistician* statistician =
       rtp_receive_statistics_->GetStatistician(remote_ssrc_);
@@ -768,10 +769,10 @@ CallReceiveStatistics ChannelReceive::GetRTCPStatistics() const {
   stats.cumulativeLost = rtp_stats.packets_lost;
   stats.jitterSamples = rtp_stats.jitter;
 
-  // --- RTT
+  // RTT.
   stats.rttMs = GetRTT();
 
-  // --- Data counters
+  // Data counters.
   if (statistician) {
     stats.payload_bytes_rcvd = rtp_stats.packet_counter.payload_bytes;
 
@@ -788,11 +789,19 @@ CallReceiveStatistics ChannelReceive::GetRTCPStatistics() const {
     stats.last_packet_received_timestamp_ms = absl::nullopt;
   }
 
-  // --- Timestamps
+  // Timestamps.
   {
     MutexLock lock(&ts_stats_lock_);
     stats.capture_start_ntp_time_ms_ = capture_start_ntp_time_ms_;
   }
+
+  // RTCP SR stats.
+  rtp_rtcp_->GetSenderReportStats(stats.last_sender_report_timestamp_ms,
+                                  stats.last_sender_report_remote_timestamp_ms,
+                                  stats.sender_reports_packets_sent,
+                                  stats.sender_reports_bytes_sent,
+                                  stats.sender_reports_reports_count);
+
   return stats;
 }
 
@@ -913,7 +922,9 @@ absl::optional<Syncable::Info> ChannelReceive::GetSyncInfo() const {
   RTC_DCHECK(module_process_thread_checker_.IsCurrent());
   Syncable::Info info;
   if (rtp_rtcp_->RemoteNTP(&info.capture_time_ntp_secs,
-                           &info.capture_time_ntp_frac, nullptr, nullptr,
+                           &info.capture_time_ntp_frac,
+                           /*rtcp_arrival_time_secs=*/nullptr,
+                           /*rtcp_arrival_time_frac=*/nullptr,
                            &info.capture_time_source_clock) != 0) {
     return absl::nullopt;
   }

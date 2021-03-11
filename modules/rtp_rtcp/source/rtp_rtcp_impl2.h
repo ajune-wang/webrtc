@@ -240,6 +240,13 @@ class ModuleRtpRtcpImpl2 final : public RtpRtcpInterface,
                                bool decodability_flag,
                                bool buffering_allowed) override;
 
+  // Reads the sender report stats.
+  void GetSenderReportStats(absl::optional<int64_t>& last_arrival_timestamp_ms,
+                            absl::optional<int64_t>& last_remote_timestamp_ms,
+                            uint32_t& packets_sent,
+                            uint64_t& bytes_sent,
+                            uint64_t& reports_count) const;
+
   RtpSendRates GetSendRates() const override;
 
   void OnReceivedNack(

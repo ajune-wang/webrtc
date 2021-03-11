@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e6274bb_5720582c",
+        "filename": "modules/video_coding/svc/scalability_structure_key_svc.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-11T14:00:32Z",
+      "side": 1,
+      "message": "yes, it can be sufficient.\nNot sure if it is overall clearer. May be it is, take a look.",
+      "parentUuid": "48415bb7_5000d3fa",
+      "range": {
+        "startLine": 237,
+        "startChar": 18,
+        "endLine": 237,
+        "endChar": 31
+      },
+      "revId": "7d3a0984c91703d5f2241f141227133dc496a502",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "37269acf_d574a7da",
@@ -64,6 +88,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9c0be93_fcdad253",
+        "filename": "modules/video_coding/svc/scalability_structure_key_svc.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-11T14:00:32Z",
+      "side": 1,
+      "message": "I do not find it better.\nwould \u0027current_pattern_\u0027 be clearer?\n(though if pattern is passed via id, this naming is obsolete)",
+      "parentUuid": "37269acf_d574a7da",
+      "range": {
+        "startLine": 67,
+        "startChar": 15,
+        "endLine": 67,
+        "endChar": 28
+      },
+      "revId": "7d3a0984c91703d5f2241f141227133dc496a502",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ede8b57e_5b50ea09",
@@ -77,6 +125,30 @@
       "writtenOn": "2021-03-11T13:17:09Z",
       "side": 1,
       "message": "Remove, only assigned, never used",
+      "range": {
+        "startLine": 68,
+        "startChar": 7,
+        "endLine": 68,
+        "endChar": 28
+      },
+      "revId": "7d3a0984c91703d5f2241f141227133dc496a502",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "572f11f1_a000e199",
+        "filename": "modules/video_coding/svc/scalability_structure_key_svc.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-11T14:00:32Z",
+      "side": 1,
+      "message": "oops, leftover from other tries.\nadding next_pattern_ member made this one unneeded.",
+      "parentUuid": "ede8b57e_5b50ea09",
       "range": {
         "startLine": 68,
         "startChar": 7,

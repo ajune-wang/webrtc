@@ -86,6 +86,24 @@
       "parentUuid": "76b86d7d_80968a54",
       "revId": "ad726fc4fa25d176b659336f47395876228a9886",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2f99985_49151421",
+        "filename": "pc/data_channel_integrationtest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-03-11T18:00:37Z",
+      "side": 1,
+      "message": "It\u0027s set as a per-socket option inside of WebRTC, here:\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/media/sctp/sctp_transport.cc;drc\u003d8a38b1cf681cd77f0d59a68fb45d8dedbd7d4cee;l\u003d844",
+      "parentUuid": "ce9150e3_3706c8da",
+      "revId": "ad726fc4fa25d176b659336f47395876228a9886",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

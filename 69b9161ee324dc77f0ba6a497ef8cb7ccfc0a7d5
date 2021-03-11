@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff600abf_added80d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-03-11T07:40:11Z",
+      "side": 1,
+      "message": "Hi,\nCould you please take a look at this CL?",
+      "revId": "69b9161ee324dc77f0ba6a497ef8cb7ccfc0a7d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

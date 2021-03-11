@@ -33,6 +33,161 @@
       "message": "hbos@ cc\u0027d",
       "revId": "e6a96a346c38d64de1bca606d422f3da3e075fc4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8901fe5_a27ce673",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 772,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-11T16:52:57Z",
+      "side": 1,
+      "message": "while improving comments, may be make this one more useful by explaining what RTT is:\nRound trip time",
+      "range": {
+        "startLine": 772,
+        "startChar": 5,
+        "endLine": 772,
+        "endChar": 8
+      },
+      "revId": "e6a96a346c38d64de1bca606d422f3da3e075fc4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "baf74090_3bf654e7",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 798,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-11T16:52:57Z",
+      "side": 1,
+      "message": "\"avoid comments that just repeat what the code does\"\n\nhttps://testing.googleblog.com/2017/07/code-health-to-comment-or-not-to-comment.html",
+      "range": {
+        "startLine": 798,
+        "startChar": 0,
+        "endLine": 798,
+        "endChar": 19
+      },
+      "revId": "e6a96a346c38d64de1bca606d422f3da3e075fc4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "289c939c_d0caad06",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 743,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-11T16:52:57Z",
+      "side": 1,
+      "message": "It might be better to return NtpTime and convert to Ms later.\n(because other users of this function might need different time resolution, e.g. compact ntp)",
+      "range": {
+        "startLine": 743,
+        "startChar": 30,
+        "endLine": 743,
+        "endChar": 45
+      },
+      "revId": "e6a96a346c38d64de1bca606d422f3da3e075fc4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f702b5e5_6e1634c3",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-11T16:52:57Z",
+      "side": 1,
+      "message": "feel free to ignore this file and update just the RtpRtcpImpl2\n(this one is marked as deprecated)",
+      "revId": "e6a96a346c38d64de1bca606d422f3da3e075fc4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8ed4e45_f3d68853",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-11T16:52:57Z",
+      "side": 1,
+      "message": "https://google.github.io/styleguide/cppguide.html#Inputs_and_Outputs\n\n\"Prefer using return values over output parameters\"\n\nIn this case it might be good idea to create a small struct with 5 members.",
+      "range": {
+        "startLine": 232,
+        "startChar": 2,
+        "endLine": 232,
+        "endChar": 6
+      },
+      "revId": "e6a96a346c38d64de1bca606d422f3da3e075fc4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0e0e9a8_386bb921",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-11T16:52:57Z",
+      "side": 1,
+      "message": "Minimise use of loops in tests. Here it looks avoidable.\nit might be clearer to send two reports, but keep only the last expectation.\n\nhttp://go/unit-testing-practices#control-structures",
+      "range": {
+        "startLine": 649,
+        "startChar": 2,
+        "endLine": 649,
+        "endChar": 76
+      },
+      "revId": "e6a96a346c38d64de1bca606d422f3da3e075fc4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe67e185_395a0b2b",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 681,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-11T16:52:57Z",
+      "side": 1,
+      "message": "I worry this test might add confusion:\nremote timestamp and local timestamp should never share the same clock [test is the only case when they can]\nThus comparing them looks confusing. Real code shouldn\u0027t do that.\n\nIf clock is simulated in this test suite, it might be better to have two separate tests for the remote and for the local timestamps with equality expectation.",
+      "range": {
+        "startLine": 680,
+        "startChar": 46,
+        "endLine": 681,
+        "endChar": 8
+      },
+      "revId": "e6a96a346c38d64de1bca606d422f3da3e075fc4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -68,6 +68,24 @@
       "message": "since the mtu problem was IPv6 specific, I wonder if we should have two separate \u0027safe maximum\u0027 values as an interim solution as to not regress too much for ipv4. If so, we should also have separate tests for each. Wdyt?",
       "revId": "ad726fc4fa25d176b659336f47395876228a9886",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce9150e3_3706c8da",
+        "filename": "pc/data_channel_integrationtest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-03-11T17:41:54Z",
+      "side": 1,
+      "message": "The \"safe maximum\" is compiled in as a constant in usrsctp, and is global. If we want to make it dynamic, we should implement PLPMTUD (path MTU discovery using packet loss, not ICMP reports, as the prober).",
+      "parentUuid": "76b86d7d_80968a54",
+      "revId": "ad726fc4fa25d176b659336f47395876228a9886",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

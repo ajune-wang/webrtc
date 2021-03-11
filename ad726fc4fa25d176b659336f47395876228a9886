@@ -34,6 +34,40 @@
       "parentUuid": "5feb72b7_6c1a6cc8",
       "revId": "ad726fc4fa25d176b659336f47395876228a9886",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e0867c9_14b405aa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-03-11T08:31:31Z",
+      "side": 1,
+      "message": "Nice - as we move towards a more dynamic way of solving this, I\u0027m wondering if it makes sense for us to tackle this specifically for ipv6 right now?",
+      "revId": "ad726fc4fa25d176b659336f47395876228a9886",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76b86d7d_80968a54",
+        "filename": "pc/data_channel_integrationtest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-03-11T08:31:31Z",
+      "side": 1,
+      "message": "since the mtu problem was IPv6 specific, I wonder if we should have two separate \u0027safe maximum\u0027 values as an interim solution as to not regress too much for ipv4. If so, we should also have separate tests for each. Wdyt?",
+      "revId": "ad726fc4fa25d176b659336f47395876228a9886",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

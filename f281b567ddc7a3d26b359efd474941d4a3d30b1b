@@ -39,6 +39,30 @@
       },
       "revId": "f281b567ddc7a3d26b359efd474941d4a3d30b1b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a4d4e77_22a3492f",
+        "filename": "modules/audio_processing/aec3/echo_remover.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-03-11T08:12:07Z",
+      "side": 1,
+      "message": "Yes, I agree.\nThere is a bunch of similar changes that will cause temporary issues when unmuting.\nSince this CL is about reducing as much cost as possible when being in muted mode, I\u0027d prefer to avoid calling ApplyGain.\n\nWe could reset e_output_old_ after unmuting, but that would only help with this particular problem. We also have issues with how the gains are computed based on averaged spectra.\n\nAt the moment, I instead chose a more general approach to mute the APM output for a while after unmuting occurs. \nhttps://webrtc-review.googlesource.com/c/src/+/211343\nCurrently, the time for that muting is 10 ms, which would masks 2 blocks of faulty outputs from AEC3.\nThe reason I chose that approach is that the code changes to avoid that unmuting produce artefacts in each submodule are quite extensive, covers several submodules in the APM, and also likely in themselves involve partial muting.\n\n \nWhat do you think of the above approach?\nAlso, do you think 10 ms of muting is sufficient to mask artefacts? Or do we need more (adding more is definitely fine but we should not do it if it is not necessary) (once all of these CLs have landed, I will test the combined effect to verify whether 10 ms is sufficient).",
+      "parentUuid": "b3288fd4_2a15c9b0",
+      "range": {
+        "startLine": 436,
+        "startChar": 0,
+        "endLine": 441,
+        "endChar": 3
+      },
+      "revId": "f281b567ddc7a3d26b359efd474941d4a3d30b1b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

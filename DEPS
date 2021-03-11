@@ -7,31 +7,31 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'c3fb27225edefafd9cb94fb66c3134b247e6ace7',
+  'chromium_revision': 'e4b4f4c217ff6b9f40354ff4ab52680466e386ed',
 }
 
 deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@52993915b78549a2a2c22ed880dfa4e8a66b3ce4',
+    'https://chromium.googlesource.com/chromium/src/base@3ffa2dcceeb525dfc0eef438b42cd0145b696b45',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@793c5d8f1d23e33ef42ba9b01ba528eb59bbf5ba',
+    'https://chromium.googlesource.com/chromium/src/build@aa5609956110723646f5cd17ab0f32e2f0f6ca3d',
   'src/buildtools':
-    'https://chromium.googlesource.com/chromium/src/buildtools@368c7dd2c90cd27cadfa8e653ab6953405f153cc',
+    'https://chromium.googlesource.com/chromium/src/buildtools@724219683fd4d770bdc211818d3daeb78a7bc25f',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
   'src/examples/androidtests/third_party/gradle': {
     'url': 'https://chromium.googlesource.com/external/github.com/gradle/gradle.git@f2d1fb54a951d8b11d25748e4711bec8d128d7e3',
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@1aeb3230c57e4a4243cd8199b9b65422f9087563',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@39c87890df33a5ebcd33294a0ec58f402c5a81ce',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@7b860b0eec05dd951e13e49b2faf735b78b0e76e',
+    'https://chromium.googlesource.com/chromium/src/testing@d193db0946215b5d3170fc42ca3f08062238ef38',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@799cdc3d3759a22df09a8e54168db36843edbb04',
+    'https://chromium.googlesource.com/chromium/src/third_party@0e8dfa51aebafd089ada97ddecd568d2d2ef9a0a',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -129,7 +129,7 @@ deps = {
   'src/third_party/colorama/src':
     'https://chromium.googlesource.com/external/colorama.git@799604a1041e9b3bc5d2789ecbd7e8db2e18e6b8',
   'src/third_party/depot_tools':
-    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@2f8ba755627741ed16e0cbc253dc37dd8897652a',
+    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@8d727180beeccc7401cf1c90241b7be00e7ab3f4',
   'src/third_party/ffmpeg':
     'https://chromium.googlesource.com/chromium/third_party/ffmpeg.git@ebd8895ddb097b985db1fbdc816548549e211af9',
   'src/third_party/findbugs': {
@@ -206,7 +206,7 @@ deps = {
       'condition': 'checkout_android',
   },
   'src/third_party/perfetto':
-    'https://android.googlesource.com/platform/external/perfetto.git@6dfe3a2da9327700dbd4434c6c91ac2f6330fe19',
+    'https://android.googlesource.com/platform/external/perfetto.git@d1b5cf0934b8c9ee6dc43b5c558e23b5e67d5828',
   'src/third_party/libvpx/source/libvpx':
     'https://chromium.googlesource.com/webm/libvpx.git@61edec1efbea1c02d71857e2aff9426d9cd2df4e',
   'src/third_party/libyuv':
@@ -263,7 +263,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@f0efeee2fb7d7cb9491d8b26e263caccaef458bc',
+    'https://chromium.googlesource.com/chromium/src/tools@1fe1b6244132ae3df719c3a13d3065bd9163e71c',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@a32a1607f6093d338f756c7e7c7b4333b0c50c9c',
 
@@ -364,7 +364,7 @@ deps = {
     'packages': [
       {
           'package': 'chromium/third_party/androidx',
-          'version': 'suQhvpKvL46vk2RYCR_Hj2EclqgQ84rsinZYd6WndqMC',
+          'version': 'ODTksKqAvofEnch_TVM5jkT74OAxb5uugb09_-MP5VAC',
       },
     ],
     'condition': 'checkout_android',

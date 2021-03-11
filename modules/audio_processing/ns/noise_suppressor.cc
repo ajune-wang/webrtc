@@ -448,99 +448,104 @@ void NoiseSuppressor::Process(AudioBuffer* audio) {
     }
   }
 
-  // Aggregate the Wiener filters for all channels.
-  std::array<float, kFftSizeBy2Plus1> filter_data;
-  rtc::ArrayView<const float, kFftSizeBy2Plus1> filter = filter_data;
-  if (num_channels_ == 1) {
-    filter = channels_[0]->wiener_filter.get_filter();
-  } else {
-    AggregateWienerFilters(filter_data);
-  }
-
-  for (size_t ch = 0; ch < num_channels_; ++ch) {
-    // Apply the filter to the lower band.
-    for (size_t i = 0; i < kFftSizeBy2Plus1; ++i) {
-      filter_bank_states[ch].real[i] *= filter[i];
-      filter_bank_states[ch].imag[i] *= filter[i];
-    }
-  }
-
-  // Perform filter bank synthesis
-  for (size_t ch = 0; ch < num_channels_; ++ch) {
-    fft_.Ifft(filter_bank_states[ch].real, filter_bank_states[ch].imag,
-              filter_bank_states[ch].extended_frame);
-  }
-
-  for (size_t ch = 0; ch < num_channels_; ++ch) {
-    const float energy_after_filtering =
-        ComputeEnergyOfExtendedFrame(filter_bank_states[ch].extended_frame);
-
-    // Apply synthesis window.
-    ApplyFilterBankWindow(filter_bank_states[ch].extended_frame);
-
-    // Compute the adjustment of the noise attenuation filter based on the
-    // effect of the attenuation.
-    gain_adjustments[ch] =
-        channels_[ch]->wiener_filter.ComputeOverallScalingFactor(
-            num_analyzed_frames_,
-            channels_[ch]->speech_probability_estimator.get_prior_probability(),
-            energies_before_filtering[ch], energy_after_filtering);
-  }
-
-  // Select and apply adjustment of the noise attenuation filter based on the
-  // effect of the attenuation.
-  float gain_adjustment = gain_adjustments[0];
-  for (size_t ch = 1; ch < num_channels_; ++ch) {
-    gain_adjustment = std::min(gain_adjustment, gain_adjustments[ch]);
-  }
-  for (size_t ch = 0; ch < num_channels_; ++ch) {
-    for (size_t i = 0; i < kFftSize; ++i) {
-      filter_bank_states[ch].extended_frame[i] =
-          gain_adjustment * filter_bank_states[ch].extended_frame[i];
-    }
-  }
-
-  // Use overlap-and-add to form the output frame of the lowest band.
-  for (size_t ch = 0; ch < num_channels_; ++ch) {
-    rtc::ArrayView<float, kNsFrameSize> y_band0(&audio->split_bands(ch)[0][0],
-                                                kNsFrameSize);
-    OverlapAndAdd(filter_bank_states[ch].extended_frame,
-                  channels_[ch]->process_synthesis_memory, y_band0);
-  }
-
-  if (num_bands_ > 1) {
-    // Select the noise attenuating gain to apply to the upper band.
-    float upper_band_gain = upper_band_gains[0];
-    for (size_t ch = 1; ch < num_channels_; ++ch) {
-      upper_band_gain = std::min(upper_band_gain, upper_band_gains[ch]);
+  // Only do the below processing if the output of the audio processing module
+  // is used.
+  if (capture_output_used_) {
+    // Aggregate the Wiener filters for all channels.
+    std::array<float, kFftSizeBy2Plus1> filter_data;
+    rtc::ArrayView<const float, kFftSizeBy2Plus1> filter = filter_data;
+    if (num_channels_ == 1) {
+      filter = channels_[0]->wiener_filter.get_filter();
+    } else {
+      AggregateWienerFilters(filter_data);
     }
 
-    // Process the upper bands.
     for (size_t ch = 0; ch < num_channels_; ++ch) {
-      for (size_t b = 1; b < num_bands_; ++b) {
-        // Delay the upper bands to match the delay of the filterbank applied to
-        // the lowest band.
-        rtc::ArrayView<float, kNsFrameSize> y_band(
-            &audio->split_bands(ch)[b][0], kNsFrameSize);
-        std::array<float, kNsFrameSize> delayed_frame;
-        DelaySignal(y_band, channels_[ch]->process_delay_memory[b - 1],
-                    delayed_frame);
+      // Apply the filter to the lower band.
+      for (size_t i = 0; i < kFftSizeBy2Plus1; ++i) {
+        filter_bank_states[ch].real[i] *= filter[i];
+        filter_bank_states[ch].imag[i] *= filter[i];
+      }
+    }
 
-        // Apply the time-domain noise-attenuating gain.
-        for (size_t j = 0; j < kNsFrameSize; j++) {
-          y_band[j] = upper_band_gain * delayed_frame[j];
+    // Perform filter bank synthesis
+    for (size_t ch = 0; ch < num_channels_; ++ch) {
+      fft_.Ifft(filter_bank_states[ch].real, filter_bank_states[ch].imag,
+                filter_bank_states[ch].extended_frame);
+    }
+
+    for (size_t ch = 0; ch < num_channels_; ++ch) {
+      const float energy_after_filtering =
+          ComputeEnergyOfExtendedFrame(filter_bank_states[ch].extended_frame);
+
+      // Apply synthesis window.
+      ApplyFilterBankWindow(filter_bank_states[ch].extended_frame);
+
+      // Compute the adjustment of the noise attenuation filter based on the
+      // effect of the attenuation.
+      gain_adjustments[ch] =
+          channels_[ch]->wiener_filter.ComputeOverallScalingFactor(
+              num_analyzed_frames_,
+              channels_[ch]
+                  ->speech_probability_estimator.get_prior_probability(),
+              energies_before_filtering[ch], energy_after_filtering);
+    }
+
+    // Select and apply adjustment of the noise attenuation filter based on the
+    // effect of the attenuation.
+    float gain_adjustment = gain_adjustments[0];
+    for (size_t ch = 1; ch < num_channels_; ++ch) {
+      gain_adjustment = std::min(gain_adjustment, gain_adjustments[ch]);
+    }
+    for (size_t ch = 0; ch < num_channels_; ++ch) {
+      for (size_t i = 0; i < kFftSize; ++i) {
+        filter_bank_states[ch].extended_frame[i] =
+            gain_adjustment * filter_bank_states[ch].extended_frame[i];
+      }
+    }
+
+    // Use overlap-and-add to form the output frame of the lowest band.
+    for (size_t ch = 0; ch < num_channels_; ++ch) {
+      rtc::ArrayView<float, kNsFrameSize> y_band0(&audio->split_bands(ch)[0][0],
+                                                  kNsFrameSize);
+      OverlapAndAdd(filter_bank_states[ch].extended_frame,
+                    channels_[ch]->process_synthesis_memory, y_band0);
+    }
+
+    if (num_bands_ > 1) {
+      // Select the noise attenuating gain to apply to the upper band.
+      float upper_band_gain = upper_band_gains[0];
+      for (size_t ch = 1; ch < num_channels_; ++ch) {
+        upper_band_gain = std::min(upper_band_gain, upper_band_gains[ch]);
+      }
+
+      // Process the upper bands.
+      for (size_t ch = 0; ch < num_channels_; ++ch) {
+        for (size_t b = 1; b < num_bands_; ++b) {
+          // Delay the upper bands to match the delay of the filterbank applied
+          // to the lowest band.
+          rtc::ArrayView<float, kNsFrameSize> y_band(
+              &audio->split_bands(ch)[b][0], kNsFrameSize);
+          std::array<float, kNsFrameSize> delayed_frame;
+          DelaySignal(y_band, channels_[ch]->process_delay_memory[b - 1],
+                      delayed_frame);
+
+          // Apply the time-domain noise-attenuating gain.
+          for (size_t j = 0; j < kNsFrameSize; j++) {
+            y_band[j] = upper_band_gain * delayed_frame[j];
+          }
         }
       }
     }
-  }
 
-  // Limit the output the allowed range.
-  for (size_t ch = 0; ch < num_channels_; ++ch) {
-    for (size_t b = 0; b < num_bands_; ++b) {
-      rtc::ArrayView<float, kNsFrameSize> y_band(&audio->split_bands(ch)[b][0],
-                                                 kNsFrameSize);
-      for (size_t j = 0; j < kNsFrameSize; j++) {
-        y_band[j] = std::min(std::max(y_band[j], -32768.f), 32767.f);
+    // Limit the output the allowed range.
+    for (size_t ch = 0; ch < num_channels_; ++ch) {
+      for (size_t b = 0; b < num_bands_; ++b) {
+        rtc::ArrayView<float, kNsFrameSize> y_band(
+            &audio->split_bands(ch)[b][0], kNsFrameSize);
+        for (size_t j = 0; j < kNsFrameSize; j++) {
+          y_band[j] = std::min(std::max(y_band[j], -32768.f), 32767.f);
+        }
       }
     }
   }

@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "db949ed0_aed5acd9",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-11T09:09:42Z",
+      "side": 1,
+      "message": "yes, we have one RTCPReceiver per ssrc.\n\nAlmost. same RTCPReceiver is shared for main ssrc and rtx ssrc [i.e. retransmission]\nWhat does spec say about associate rtx stream? One place it mention stats are \u0027per ssrc\u0027, another place it mention \"incluing retransmission packets\" but doesn\u0027t clarify if that should include rtx packets, or just packets retransmitted using the same ssrc. This CL implements latter.",
+      "parentUuid": "74f69052_c1ee5474",
+      "revId": "048adc7136346105b21dc403acc60bf94e3e931b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "88ead8fd_70e4a0f9",
         "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
         "patchSetId": 6
@@ -48,6 +66,24 @@
       "writtenOn": "2021-03-11T08:56:09Z",
       "side": 1,
       "message": "For contrast, in the \"remote-inbound-rtp\" case we had to obtain report block data for each \"received_report_blocks_\" mapping, which was a (source ssrc, remote ssrc) mapping in order to collect report block data on a per-ssrc basis.\n\nI wonder if/why we don\u0027t have to do that here in the \"remote-outbound-rtp\" case? We just filter by \"remote_ssrc_ \u003d\u003d remote_ssrc\" and that gets the job done?",
+      "revId": "048adc7136346105b21dc403acc60bf94e3e931b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3d2b117_bd0c81c8",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-11T09:09:42Z",
+      "side": 1,
+      "message": "yes, that\u0027s how SR/RR are orgonized: \nSR is a \u0027large\u0027 report that contains \"every\" stat about single outgoing ssrc\n\nRR itself has practically nothing and is there just to provide a handle to attach  report blocks to.\neach ReportBlock contain stats about the incoming ssrc.\nRB attached to SR also contains stats about the incoming ssrcs, even though SR itself has stats about the outgoing ssrc.\n(in practice we currently do not attach RB to SR, but that is unrelated topic)",
+      "parentUuid": "88ead8fd_70e4a0f9",
       "revId": "048adc7136346105b21dc403acc60bf94e3e931b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b9e5597_3ec53b3c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-11T08:56:09Z",
+      "side": 1,
+      "message": "Hey I missed the review and I think this is correct but I\u0027m asking questions just to make sure we get one \"remote-outbound-rtp\" per \"inbound-rtp\" and don\u0027t get them mixed up. So curious why this looks different than the \"remote-inbound-rtp\" case? But I think it\u0027s corrrect.",
+      "revId": "048adc7136346105b21dc403acc60bf94e3e931b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74f69052_c1ee5474",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-11T08:56:09Z",
+      "side": 1,
+      "message": "What happens if I have two \"inbound-rtp\" streams with ssrc 1 and ssrc 2.\n\nWhen the first RTCP SR comes in for ssrc 1 I would expect a \"remote-outbound-rtp\" to be created for ssrc 1, containing packet counters for ssrc 1. But nothing for ssrc 2.\n\nLater an RTCP SR comes in for ssrc 2 and then another \"remote-outbound-rtp\" is created for ssrc 2, but not affecting the one for ssrc 1, and so on.\n\nWill we have one RTCPReceiver for each ssrc? E.g. one with remote_ssrc_ \u003d\u003d 1 and another one with remote_ssrc_ \u003d\u003d 2? I think so if we have one per stream?\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/call/call.cc;l\u003d1360;drc\u003dd14888464e64156d58831d1899ddb05102c1058e;bpv\u003d1;bpt\u003d1\n\nSo I think this is correct, just wanted to make sure we don\u0027t get RTCP SR mixed up.",
+      "revId": "048adc7136346105b21dc403acc60bf94e3e931b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88ead8fd_70e4a0f9",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-11T08:56:09Z",
+      "side": 1,
+      "message": "For contrast, in the \"remote-inbound-rtp\" case we had to obtain report block data for each \"received_report_blocks_\" mapping, which was a (source ssrc, remote ssrc) mapping in order to collect report block data on a per-ssrc basis.\n\nI wonder if/why we don\u0027t have to do that here in the \"remote-outbound-rtp\" case? We just filter by \"remote_ssrc_ \u003d\u003d remote_ssrc\" and that gets the job done?",
+      "revId": "048adc7136346105b21dc403acc60bf94e3e931b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -33,6 +33,24 @@
       "message": "This comment actually belongs as part of the documentation of network_info_by_handle_ - that the interface_name component is a substring, not a complete name.",
       "revId": "be58833f816d512b592d0e26e20c72de6ab719b2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c28a70a9_18a6d914",
+        "filename": "sdk/android/src/jni/android_network_monitor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2021-03-11T11:53:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "022ee8ca_ac56f054",
+      "revId": "be58833f816d512b592d0e26e20c72de6ab719b2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

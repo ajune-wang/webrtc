@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7115c1db_d062ba18",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-03-11T11:33:31Z",
+      "side": 1,
+      "message": "Except that it shows the need for a comment in https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/sdk/android/src/jni/android_network_monitor.h;drc\u003dc81665cf9dd7dfe1497bea0972c7cf903363bc37;l\u003d127, I think this is fine.\n",
+      "revId": "be58833f816d512b592d0e26e20c72de6ab719b2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "022ee8ca_ac56f054",
+        "filename": "sdk/android/src/jni/android_network_monitor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-03-11T11:33:31Z",
+      "side": 1,
+      "message": "This comment actually belongs as part of the documentation of network_info_by_handle_ - that the interface_name component is a substring, not a complete name.",
+      "revId": "be58833f816d512b592d0e26e20c72de6ab719b2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

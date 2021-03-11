@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44c4896b_f1e71367",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2021-03-11T07:55:45Z",
+      "side": 1,
+      "message": "Good! Please check my concerns regarding ApplyGain below.",
+      "revId": "f281b567ddc7a3d26b359efd474941d4a3d30b1b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3288fd4_2a15c9b0",
+        "filename": "modules/audio_processing/aec3/echo_remover.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2021-03-11T07:55:45Z",
+      "side": 1,
+      "message": "Shouldn\u0027t ApplyGain always run, even when the output isn\u0027t used?\nOtherwise the first output frame after unmuting will be mixed with the last frame before muting, since suppression_filter_ overlaps with the last frame .\nAn alternative could be to reset e_output_old_ after unmuting.",
+      "range": {
+        "startLine": 436,
+        "startChar": 0,
+        "endLine": 441,
+        "endChar": 3
+      },
+      "revId": "f281b567ddc7a3d26b359efd474941d4a3d30b1b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

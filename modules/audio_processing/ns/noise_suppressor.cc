@@ -448,6 +448,12 @@ void NoiseSuppressor::Process(AudioBuffer* audio) {
     }
   }
 
+  // Only do the below processing if the output of the audio processing module
+  // is used.
+  if (!capture_output_used_) {
+    return;
+  }
+
   // Aggregate the Wiener filters for all channels.
   std::array<float, kFftSizeBy2Plus1> filter_data;
   rtc::ArrayView<const float, kFftSizeBy2Plus1> filter = filter_data;
@@ -518,8 +524,8 @@ void NoiseSuppressor::Process(AudioBuffer* audio) {
     // Process the upper bands.
     for (size_t ch = 0; ch < num_channels_; ++ch) {
       for (size_t b = 1; b < num_bands_; ++b) {
-        // Delay the upper bands to match the delay of the filterbank applied to
-        // the lowest band.
+        // Delay the upper bands to match the delay of the filterbank applied
+        // to the lowest band.
         rtc::ArrayView<float, kNsFrameSize> y_band(
             &audio->split_bands(ch)[b][0], kNsFrameSize);
         std::array<float, kNsFrameSize> delayed_frame;

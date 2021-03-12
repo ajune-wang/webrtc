@@ -68,6 +68,24 @@
       "parentUuid": "142f8c15_f5e59b5c",
       "revId": "662b306bae903f4898210421103b3784d79b6c32",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c03832c3_bb756c95",
+        "filename": "sdk/android/src/jni/android_network_monitor.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-03-12T16:15:47Z",
+      "side": 1,
+      "message": "The reference counting for the pointer itself, is thread safe.\nIt\u0027s the |alive()| flag that must be set/checked on the same thread.\n\nIf the member variable is created/cleared in a context (thread/tq) when we know that there\u0027s no chance of a race (pre start / post stop), then we don\u0027t have to worry about pending tasks for that same context that may hold a reference to the object that we\u0027re about to mark as \u0027not alive\u0027.  They\u0027ll still hold a reference, they won\u0027t actually run, but they won\u0027t uaf either since they\u0027re not using the class member variable to check the flag.",
+      "parentUuid": "10b758de_915726e4",
+      "revId": "662b306bae903f4898210421103b3784d79b6c32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -149,8 +149,7 @@ class AndroidNetworkMonitor : public rtc::NetworkMonitorInterface {
   // This applies to adapter_type_by_name_, vpn_underlying_adapter_type_by_name_
   // and FindNetworkHandleFromIfname.
   bool bind_using_ifname_ RTC_GUARDED_BY(network_thread_) = true;
-  const rtc::scoped_refptr<PendingTaskSafetyFlag> safety_flag_
-      RTC_PT_GUARDED_BY(network_thread_);
+  ScopedTaskSafety task_safety_;
 };
 
 class AndroidNetworkMonitorFactory : public rtc::NetworkMonitorFactory {

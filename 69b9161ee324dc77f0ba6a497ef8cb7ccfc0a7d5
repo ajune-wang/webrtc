@@ -16,6 +16,29 @@
       "message": "Hi,\nCould you please take a look at this CL?",
       "revId": "69b9161ee324dc77f0ba6a497ef8cb7ccfc0a7d5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "097d9c9f_7af8ed0f",
+        "filename": "modules/audio_processing/ns/noise_suppressor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2021-03-12T14:07:13Z",
+      "side": 1,
+      "message": "It would be easier to read IMHO if the function just returned here if the capture is not used. That would also make the diff of this commit easier to understand.",
+      "range": {
+        "startLine": 453,
+        "startChar": 2,
+        "endLine": 453,
+        "endChar": 29
+      },
+      "revId": "69b9161ee324dc77f0ba6a497ef8cb7ccfc0a7d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

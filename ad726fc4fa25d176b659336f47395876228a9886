@@ -122,6 +122,24 @@
       "parentUuid": "b2f99985_49151421",
       "revId": "ad726fc4fa25d176b659336f47395876228a9886",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5cb487ba_d3a2d864",
+        "filename": "pc/data_channel_integrationtest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-03-12T20:42:42Z",
+      "side": 1,
+      "message": "Filed bug for following up:\nhttps://bugs.chromium.org/p/webrtc/issues/detail?id\u003d12582\n\nBtw, that constant is in WebRTC actually not usrsctp, so hopefully it\u0027s not that complicated to get these 9 bytes back 😊 (for ipv4)",
+      "parentUuid": "e6c444f2_e0bddc93",
+      "revId": "ad726fc4fa25d176b659336f47395876228a9886",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

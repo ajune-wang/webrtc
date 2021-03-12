@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "473671ce_5972de55",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-03-12T11:33:00Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "848b48eb3ef5a7377fc7db57d707f1039104ce7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7306ebdc_5a531bf4",
+        "filename": "modules/video_coding/svc/scalability_structure_key_svc.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-03-12T11:33:00Z",
+      "side": 1,
+      "message": "Add a comment about the encoder dropping frame and why `last_pattern_` is updated here. Comment could also mentioned that calculating LayerFrameConfig this way won\u0027t work with encoders that use pipelining.",
+      "range": {
+        "startLine": 235,
+        "startChar": 2,
+        "endLine": 235,
+        "endChar": 15
+      },
+      "revId": "848b48eb3ef5a7377fc7db57d707f1039104ce7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38c0707a_77a9d5b4",
+        "filename": "modules/video_coding/svc/scalability_structure_key_svc_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-03-12T11:33:00Z",
+      "side": 1,
+      "message": "consistency nit: \n\n  ASSERT_THAT(frames, SizeIs(2));\n\nbefore this EXPECT.",
+      "range": {
+        "startLine": 141,
+        "startChar": 2,
+        "endLine": 141,
+        "endChar": 11
+      },
+      "revId": "848b48eb3ef5a7377fc7db57d707f1039104ce7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

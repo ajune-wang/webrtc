@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9faf5d0e_a8d1ad92",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-03-12T08:06:11Z",
+      "side": 1,
+      "message": "This is one place where I think taking a lock is strictly better than invoking a different thread; it\u0027s a very small operation, it\u0027s not in production, and contention is unlikely.\n\nSeems good to me.\n",
+      "revId": "4f281f142ae749d4d181415c8d06ac65995e431b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

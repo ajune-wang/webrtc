@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1a63305_617a561e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-03-12T10:35:41Z",
+      "side": 1,
+      "message": "Added a RTC_PT_GUARDED_BY annotation.\n\nHarald, can you review the api/scoped_refptr.h fix?",
+      "revId": "026934d3ea7c12c31ba219af789c62f785125bff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

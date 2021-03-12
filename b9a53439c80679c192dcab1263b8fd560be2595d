@@ -68,6 +68,24 @@
       "message": "Was that a flake or related? +2 again",
       "revId": "b9a53439c80679c192dcab1263b8fd560be2595d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "efbc2341_175c2710",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16600
+      },
+      "writtenOn": "2021-03-12T08:33:55Z",
+      "side": 1,
+      "message": "Seems like IceStatesReachCompletionWithRemoteHostname is being flaky, but unrelated to this CL. Concernable? https://chromium-swarm.appspot.com/task?id\u003d52398c2c6fdd3e10",
+      "parentUuid": "f0ed6303_69bde473",
+      "revId": "b9a53439c80679c192dcab1263b8fd560be2595d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a1b1294_c4c39f40",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-12T14:53:40Z",
+      "side": 1,
+      "message": "for consistency either\nASSERT_THAT(SendRtcp, Eq(0));\nEXPECT_THAT(GetStats, Not(Eq(absl::nullopt));\n\nor\nASSERT_EQ(...SendRtcp, 0);\nEXPECT_NE(...GetStats(), absl::nullopt);",
+      "range": {
+        "startLine": 632,
+        "startChar": 2,
+        "endLine": 634,
+        "endChar": 79
+      },
+      "revId": "0f85077bc7255f7987286ef8077841eac852169f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3abc7115_76a0303a",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 648,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-12T14:53:40Z",
+      "side": 1,
+      "message": "alternativly you may use testing::Field matcher:\nOptional(Field(\u0026SenderReportStats::reports_count, 1));\nor if you prefer to be more verbose:\nOptional(Field(\u0026SenderReportStats::reports_count, Eq(1)));\n\nhttps://github.com/google/googletest/blob/master/docs/gmock_cheat_sheet.md#member-matchers",
+      "range": {
+        "startLine": 648,
+        "startChar": 23,
+        "endLine": 648,
+        "endChar": 54
+      },
+      "revId": "0f85077bc7255f7987286ef8077841eac852169f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c600b33f_1ba62fc5",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-12T14:53:40Z",
+      "side": 1,
+      "message": "if you like, you may collapse it into single matcher:\nEXPECT_THAT(receiver_.impl_-\u003eGetSenderReportStats(), Optional(AllOf(\n  Field(\u0026SenderReportStats::last_arrival_timestamp, expected_arrival_ntp),\n  Field(\u0026SenderReportStats::last_remote_timestamp, expected_remote_ntp))));\n\nThough if it fails, the error message is likely would be harder to read than with multiple matchers.",
+      "range": {
+        "startLine": 664,
+        "startChar": 2,
+        "endLine": 670,
+        "endChar": 80
+      },
+      "revId": "0f85077bc7255f7987286ef8077841eac852169f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89dccf7e_6b1542bb",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_interface.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-12T14:53:40Z",
+      "side": 1,
+      "message": "I think it would be cleaner to combine these two variables into single one\nNtpTime last_arrival_time[stamp];\n\n(since it is unlikely one half is useful without another half).\n\nSplit into secs and frac predates introduction of the NtpTime type and might even predate uint64_t type.",
+      "range": {
+        "startLine": 159,
+        "startChar": 4,
+        "endLine": 160,
+        "endChar": 41
+      },
+      "revId": "0f85077bc7255f7987286ef8077841eac852169f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

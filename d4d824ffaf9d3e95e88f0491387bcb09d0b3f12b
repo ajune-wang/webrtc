@@ -16,6 +16,24 @@
       "message": "Nit: inculding -\u003e including, delete trailing space.",
       "revId": "d4d824ffaf9d3e95e88f0491387bcb09d0b3f12b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b84dbcea_7468d57e",
+        "filename": "g3doc/how_to_write_documentation.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-03-12T11:42:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2521e0aa_7459ecd6",
+      "revId": "d4d824ffaf9d3e95e88f0491387bcb09d0b3f12b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

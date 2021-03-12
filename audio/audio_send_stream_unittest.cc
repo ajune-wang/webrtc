@@ -65,7 +65,11 @@ const double kEchoReturnLoss = -65;
 const double kEchoReturnLossEnhancement = 101;
 const double kResidualEchoLikelihood = -1.0f;
 const double kResidualEchoLikelihoodMax = 23.0f;
-const CallSendStatistics kCallStats = {112, 12, 13456, 17890};
+const CallSendStatistics kCallStats = {.rttMs = 112,
+                                       .payload_bytes_sent = 12,
+                                       .header_and_padding_bytes_sent = 13456,
+                                       .retransmitted_bytes_sent = 17890,
+                                       .nacks_rcvd = 10002};
 const ReportBlock kReportBlock = {456, 780, 123, 567, 890, 132, 143, 13354};
 const int kTelephoneEventPayloadType = 123;
 const int kTelephoneEventPayloadFrequency = 65432;
@@ -446,6 +450,7 @@ TEST(AudioSendStreamTest, GetStats) {
     EXPECT_EQ(kCallStats.header_and_padding_bytes_sent,
               stats.header_and_padding_bytes_sent);
     EXPECT_EQ(kCallStats.packetsSent, stats.packets_sent);
+    EXPECT_EQ(kCallStats.nacks_rcvd, stats.nacks_rcvd);
     EXPECT_EQ(kReportBlock.cumulative_num_packets_lost, stats.packets_lost);
     EXPECT_EQ(Q8ToFloat(kReportBlock.fraction_lost), stats.fraction_lost);
     EXPECT_EQ(kIsacFormat.name, stats.codec_name);

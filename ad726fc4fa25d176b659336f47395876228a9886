@@ -104,6 +104,24 @@
       "parentUuid": "ce9150e3_3706c8da",
       "revId": "ad726fc4fa25d176b659336f47395876228a9886",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6c444f2_e0bddc93",
+        "filename": "pc/data_channel_integrationtest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-03-12T02:23:33Z",
+      "side": 1,
+      "message": "Yeah, I was thining of https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/media/sctp/sctp_transport.cc;drc\u003de0f24c04b4eaaf3543c7c641749a40d1b2560c5e;l\u003d70\n\nWe could make that path dependent, but then we would also have to change it when the candidate pair changes.",
+      "parentUuid": "b2f99985_49151421",
+      "revId": "ad726fc4fa25d176b659336f47395876228a9886",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

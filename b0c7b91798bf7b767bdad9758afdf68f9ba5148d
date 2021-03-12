@@ -33,6 +33,23 @@
       "message": "Comment on making the max packet size transport-dependent....\n",
       "revId": "b0c7b91798bf7b767bdad9758afdf68f9ba5148d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c512ec27_2d51a58a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-03-12T02:23:33Z",
+      "side": 1,
+      "message": "we should move the variable-MTU discussion into a bug",
+      "revId": "b0c7b91798bf7b767bdad9758afdf68f9ba5148d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

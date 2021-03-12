@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b24dcee8_f4bfb89c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-12T12:59:33Z",
+      "side": 1,
+      "message": "Same as https://webrtc-review.googlesource.com/c/src/+/211340\nbut for full svc",
+      "revId": "50d9d78b7ec99148e00452271e6dfc1018b68fc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17909fc0_cc755c13",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-03-12T23:16:08Z",
+      "side": 1,
+      "message": "This is a reland of \"Reduce complexity in the APM pipeline when the output is not used\"\n(https://webrtc-review.googlesource.com/c/src/+/209703)\n\nOne minor change has been made to avoid failures of downstream code.\n\nCould you please take a look at the changes?",
+      "revId": "7b63a7d25a7c7020b16df2645a0e7d0724b83fcb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

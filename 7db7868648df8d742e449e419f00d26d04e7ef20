@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5af77b5d_c40336b5",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1328,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-03-12T14:19:15Z",
+      "side": 1,
+      "message": "My bad, it is indeed not (but it was that in the first variant of the CL).\nI removed the optional part now.",
+      "parentUuid": "b37e8a43_9f0ef61a",
+      "range": {
+        "startLine": 1328,
+        "startChar": 5,
+        "endLine": 1328,
+        "endChar": 15
+      },
+      "revId": "7db7868648df8d742e449e419f00d26d04e7ef20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dff3bb9e_523ce176",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-03-11T09:00:26Z",
       "side": 1,
       "message": "Don\u0027t we anyway get a click from the discontinuity between the muted frame and the next one? How does this perform with audioproc_f?\n\nWould it be better to interpolate up from zero?",
+      "range": {
+        "startLine": 1329,
+        "startChar": 46,
+        "endLine": 1331,
+        "endChar": 14
+      },
+      "revId": "7db7868648df8d742e449e419f00d26d04e7ef20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f1f5b10_018f2d4c",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1331,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-03-12T14:19:15Z",
+      "side": 1,
+      "message": "The intention with this CL is different from achieving a non-abrupt unmuting.\n\nWhat this should achieve is to avoid the artefacts that will occur when the processing that was deactivated during the muting again becomes active.\nThere will be buffers which have not been updated, and similar things, which will cause artefacts beyond abrupt unmuted audio.\n\nI updated the comment to better reflect that.\n\nPTAL",
+      "parentUuid": "dff3bb9e_523ce176",
       "range": {
         "startLine": 1329,
         "startChar": 46,

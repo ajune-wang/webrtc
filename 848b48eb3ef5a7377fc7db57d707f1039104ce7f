@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "874303e7_323c1dd9",
+        "filename": "modules/video_coding/svc/scalability_structure_key_svc.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-12T11:58:13Z",
+      "side": 1,
+      "message": "I\u0027ve added comment about dropping \"all frames in temporal unit\",\nbut prefer not to mention pipelining for now.\n\nIt might work with pipelining [thank\u0027s to your suggesting of passing next_pattern via id], but dependencies would look weird:\ne.g. KF, T2, T2, T1, T2, T0, T0, T2, ...",
+      "parentUuid": "7306ebdc_5a531bf4",
+      "range": {
+        "startLine": 235,
+        "startChar": 2,
+        "endLine": 235,
+        "endChar": 15
+      },
+      "revId": "848b48eb3ef5a7377fc7db57d707f1039104ce7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "38c0707a_77a9d5b4",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-03-12T11:33:00Z",
       "side": 1,
       "message": "consistency nit: \n\n  ASSERT_THAT(frames, SizeIs(2));\n\nbefore this EXPECT.",
+      "range": {
+        "startLine": 141,
+        "startChar": 2,
+        "endLine": 141,
+        "endChar": 11
+      },
+      "revId": "848b48eb3ef5a7377fc7db57d707f1039104ce7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a8f373a_f29040f7",
+        "filename": "modules/video_coding/svc/scalability_structure_key_svc_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-12T11:58:13Z",
+      "side": 1,
+      "message": "Done\n(SizeIs(3) though since all 3 spatial layers are enabled. Even more reason to put this assert)",
+      "parentUuid": "38c0707a_77a9d5b4",
       "range": {
         "startLine": 141,
         "startChar": 2,

@@ -932,7 +932,7 @@ class RTCStatsReportVerifier {
     } else {
       verifier.TestMemberIsUndefined(outbound_stream.fir_count);
       verifier.TestMemberIsUndefined(outbound_stream.pli_count);
-      verifier.TestMemberIsUndefined(outbound_stream.nack_count);
+      verifier.TestMemberIsNonNegative<uint32_t>(outbound_stream.nack_count);
       verifier.TestMemberIsIDReference(outbound_stream.media_source_id,
                                        RTCAudioSourceStats::kType);
       verifier.TestMemberIsUndefined(outbound_stream.qp_sum);

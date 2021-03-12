@@ -451,6 +451,7 @@ webrtc::AudioSendStream::Stats AudioSendStream::GetStats(
   stats.target_bitrate_bps = channel_send_->GetBitrate();
 
   webrtc::CallSendStatistics call_stats = channel_send_->GetRTCPStatistics();
+  stats.nacks_rcvd = call_stats.nacks_rcvd;
   stats.payload_bytes_sent = call_stats.payload_bytes_sent;
   stats.header_and_padding_bytes_sent =
       call_stats.header_and_padding_bytes_sent;

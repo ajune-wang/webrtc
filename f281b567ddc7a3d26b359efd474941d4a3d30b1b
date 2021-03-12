@@ -63,6 +63,30 @@
       },
       "revId": "f281b567ddc7a3d26b359efd474941d4a3d30b1b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f087b9f6_9fad3fe8",
+        "filename": "modules/audio_processing/aec3/echo_remover.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2021-03-12T14:03:09Z",
+      "side": 1,
+      "message": "That sounds like a sane approach.\nBut please test the combination of the two CLs before landing either of them.\nAnd please land https://webrtc-review.googlesource.com/c/src/+/211343 before this CL.",
+      "parentUuid": "1a4d4e77_22a3492f",
+      "range": {
+        "startLine": 436,
+        "startChar": 0,
+        "endLine": 441,
+        "endChar": 3
+      },
+      "revId": "f281b567ddc7a3d26b359efd474941d4a3d30b1b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -105,6 +105,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "264445b0_4270e4c9",
+        "filename": "g3doc/how_to_write_documentation.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-03-12T10:11:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2cc1551e_dacb3792",
+      "revId": "ed0a2474cc964335e10fca2050c19afd69978156",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5382f8ef_326c7a5d",

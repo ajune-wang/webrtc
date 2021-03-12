@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c04382cd_0dc37e12",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-03-12T15:39:28Z",
+      "side": 1,
+      "message": "I appreciate advice on how to replace the flag in a thread safe (but preferably lockless) way.",
+      "revId": "662b306bae903f4898210421103b3784d79b6c32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "142f8c15_f5e59b5c",
@@ -31,6 +48,24 @@
       "writtenOn": "2021-03-12T15:05:27Z",
       "side": 1,
       "message": "This could have side effects. It\u0027s probably better to create a new flag. There might be pending operations for the previous start/stop period we might want to not overlap with the state change",
+      "revId": "662b306bae903f4898210421103b3784d79b6c32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10b758de_915726e4",
+        "filename": "sdk/android/src/jni/android_network_monitor.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-03-12T15:39:28Z",
+      "side": 1,
+      "message": "I considered creating a new flag, and I think it was Danil that pointed out we then get a potential data race on safety_flag_ pointer. We replace the pointer here, on the network thread, and the pointer is read by some arbitrary java thread, where they post tasks to the network thread.\n\nIt would hope that Java_NetworkMonitor_stopMonitoring guarantees that we will get no concurrent reads on the java thread, but I we\u0027d at least need to tell the compiler about that, and maybe use some memory barrier.\n\nWhat would you suggest?",
+      "parentUuid": "142f8c15_f5e59b5c",
       "revId": "662b306bae903f4898210421103b3784d79b6c32",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

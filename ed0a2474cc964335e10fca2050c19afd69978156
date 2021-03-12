@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d96db4a9_98d1ac66",
+        "filename": "g3doc/how_to_write_documentation.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-03-12T10:11:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "41c3c28e_8fd3a3a1",
+      "revId": "ed0a2474cc964335e10fca2050c19afd69978156",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "14df1acd_90c38e7e",
@@ -48,6 +66,24 @@
       "writtenOn": "2021-03-12T08:17:49Z",
       "side": 1,
       "message": "English nit: \"the next lines\". Do they need to be at the top, the bottom, or can they be anywhere in the file? Establishing a convention is good, even if the answer is \"anywhere\".",
+      "revId": "ed0a2474cc964335e10fca2050c19afd69978156",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "132174ed_cc053426",
+        "filename": "g3doc/how_to_write_documentation.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-03-12T10:11:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "14df1acd_90c38e7e",
       "revId": "ed0a2474cc964335e10fca2050c19afd69978156",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -82,6 +118,24 @@
       "writtenOn": "2021-03-12T08:17:49Z",
       "side": 1,
       "message": "Can you add two sentences on top of this file to introduce the WebRTC project, to emphasize that this is not just an index, it is the home page for documentation?",
+      "revId": "ed0a2474cc964335e10fca2050c19afd69978156",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb85499d_9f37e694",
+        "filename": "g3doc/sitemap.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-03-12T10:11:05Z",
+      "side": 1,
+      "message": "It is the structure of the future left side menu, so it shouldn\u0027t have any explanations.",
+      "parentUuid": "5382f8ef_326c7a5d",
       "revId": "ed0a2474cc964335e10fca2050c19afd69978156",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

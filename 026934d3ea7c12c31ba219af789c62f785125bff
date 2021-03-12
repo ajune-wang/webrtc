@@ -33,6 +33,57 @@
       "message": "Adding Jonaso because he\u0027s been messing around with AndroidNetworkMonitor recently.\n",
       "revId": "026934d3ea7c12c31ba219af789c62f785125bff",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bcbfaac4_1012fd3d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-03-12T10:46:48Z",
+      "side": 1,
+      "message": "LGTM!\n",
+      "revId": "026934d3ea7c12c31ba219af789c62f785125bff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4529a43b_17d3914c",
+        "filename": "api/scoped_refptr.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-03-12T10:46:48Z",
+      "side": 1,
+      "message": "Aha, that was the one annotalyzer was looking for!",
+      "revId": "026934d3ea7c12c31ba219af789c62f785125bff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14a17185_985df164",
+        "filename": "sdk/android/src/jni/android_network_monitor.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-03-12T10:46:48Z",
+      "side": 1,
+      "message": "The reason for using this rather than ScopedTaskSafety is that you want to discard tasks that are triggered before SetAlive (Start) or after SetNotAlive (Stop), I suppose. Should that be documented in a comment?",
+      "revId": "026934d3ea7c12c31ba219af789c62f785125bff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

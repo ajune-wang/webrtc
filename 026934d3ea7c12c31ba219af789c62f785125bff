@@ -84,6 +84,24 @@
       "message": "The reason for using this rather than ScopedTaskSafety is that you want to discard tasks that are triggered before SetAlive (Start) or after SetNotAlive (Stop), I suppose. Should that be documented in a comment?",
       "revId": "026934d3ea7c12c31ba219af789c62f785125bff",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dac2b861_f834c234",
+        "filename": "sdk/android/src/jni/android_network_monitor.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-03-12T11:02:17Z",
+      "side": 1,
+      "message": "Yes, it seems wrong to invoke callbacks after Stop(). Plus, I\u0027m not really sure which thread runs the destructor.",
+      "parentUuid": "14a17185_985df164",
+      "revId": "026934d3ea7c12c31ba219af789c62f785125bff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

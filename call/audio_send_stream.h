@@ -55,6 +55,7 @@ class AudioSendStream : public AudioSender {
     int32_t jitter_ms = -1;
     int64_t rtt_ms = -1;
     int16_t audio_level = 0;
+    uint32_t nacks_rcvd = 0;
     // See description of "totalAudioEnergy" in the WebRTC stats spec:
     // https://w3c.github.io/webrtc-stats/#dom-rtcmediastreamtrackstats-totalaudioenergy
     double total_input_energy = 0.0;

@@ -13,9 +13,11 @@
 
 #include <memory>
 
+#include "api/sequence_checker.h"
 #include "call/flexfec_receive_stream.h"
 #include "call/rtp_packet_sink_interface.h"
 #include "modules/rtp_rtcp/source/rtp_rtcp_impl2.h"
+#include "rtc_base/system/no_unique_address.h"
 #include "system_wrappers/include/clock.h"
 
 namespace webrtc {
@@ -34,12 +36,17 @@ class FlexfecReceiveStreamImpl : public FlexfecReceiveStream {
  public:
   FlexfecReceiveStreamImpl(
       Clock* clock,
-      RtpStreamReceiverControllerInterface* receiver_controller,
       const Config& config,
       RecoveredPacketReceiver* recovered_packet_receiver,
       RtcpRttStats* rtt_stats,
       ProcessThread* process_thread);
   ~FlexfecReceiveStreamImpl() override;
+
+  // Called on the network thread to register/unregister with the network
+  // transport.
+  void RegisterWithTransport(
+      RtpStreamReceiverControllerInterface* receiver_controller);
+  void UnregisterFromTransport();
 
   // RtpPacketSinkInterface.
   void OnRtpPacket(const RtpPacketReceived& packet) override;
@@ -48,6 +55,8 @@ class FlexfecReceiveStreamImpl : public FlexfecReceiveStream {
   const Config& GetConfig() const override;
 
  private:
+  RTC_NO_UNIQUE_ADDRESS SequenceChecker network_thread_checker_;
+
   // Config.
   const Config config_;
 
@@ -57,9 +66,10 @@ class FlexfecReceiveStreamImpl : public FlexfecReceiveStream {
   // RTCP reporting.
   const std::unique_ptr<ReceiveStatistics> rtp_receive_statistics_;
   const std::unique_ptr<ModuleRtpRtcpImpl2> rtp_rtcp_;
-  ProcessThread* process_thread_;
+  ProcessThread* const process_thread_;
 
-  std::unique_ptr<RtpStreamReceiverInterface> rtp_stream_receiver_;
+  std::unique_ptr<RtpStreamReceiverInterface> rtp_stream_receiver_
+      RTC_GUARDED_BY(network_thread_checker_);
 };
 
 }  // namespace webrtc

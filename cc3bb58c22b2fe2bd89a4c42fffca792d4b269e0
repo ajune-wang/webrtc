@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4094770f_35860ef4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16600
+      },
+      "writtenOn": "2021-03-13T03:35:50Z",
+      "side": 1,
+      "message": "Discussion might be needed in the issue.",
+      "revId": "cc3bb58c22b2fe2bd89a4c42fffca792d4b269e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

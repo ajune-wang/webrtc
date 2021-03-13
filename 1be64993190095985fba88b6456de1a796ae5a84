@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5971ebed_8149f308",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-03-13T00:11:09Z",
+      "side": 1,
+      "message": "Landing with NOTRY because Android test is failing due to https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d12574",
+      "revId": "1be64993190095985fba88b6456de1a796ae5a84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

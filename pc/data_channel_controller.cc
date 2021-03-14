@@ -50,10 +50,16 @@ bool DataChannelController::ConnectDataChannel(
     // whether or not the underlying transport is ready.
     return false;
   }
-  rtp_data_channel()->SignalReadyToSendData.connect(
-      webrtc_data_channel, &RtpDataChannel::OnChannelReady);
-  rtp_data_channel()->SignalDataReceived.connect(
-      webrtc_data_channel, &RtpDataChannel::OnDataReceived);
+  rtp_data_channel()->AddOnReadyToSendData(
+      /*removal_tag=*/webrtc_data_channel, [webrtc_data_channel](bool ready) {
+        webrtc_data_channel->OnChannelReady(ready);
+      });
+  rtp_data_channel()->AddOnDataReceived(
+      /*removal_tag=*/webrtc_data_channel,
+      [webrtc_data_channel](auto&&... args) {
+        webrtc_data_channel->OnDataReceived(
+            std::forward<decltype(args)>(args)...);
+      });
   return true;
 }
 
@@ -65,8 +71,8 @@ void DataChannelController::DisconnectDataChannel(
         << "DisconnectDataChannel called when rtp_data_channel_ is NULL.";
     return;
   }
-  rtp_data_channel()->SignalReadyToSendData.disconnect(webrtc_data_channel);
-  rtp_data_channel()->SignalDataReceived.disconnect(webrtc_data_channel);
+  rtp_data_channel()->RemoveOnReadyToSendData(webrtc_data_channel);
+  rtp_data_channel()->RemoveOnDataReceived(webrtc_data_channel);
 }
 
 bool DataChannelController::ConnectDataChannel(

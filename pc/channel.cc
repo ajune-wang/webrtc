@@ -26,6 +26,7 @@
 #include "media/base/rtp_utils.h"
 #include "modules/rtp_rtcp/source/rtp_packet_received.h"
 #include "pc/rtp_media_utils.h"
+#include "rtc_base/callback_list.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/copy_on_write_buffer.h"
 #include "rtc_base/logging.h"
@@ -1483,17 +1484,19 @@ void RtpDataChannel::UpdateMediaSendRecvState_w() {
 void RtpDataChannel::OnMessage(rtc::Message* pmsg) {
   switch (pmsg->message_id) {
     case MSG_READYTOSENDDATA: {
+      RTC_DCHECK_RUN_ON(signaling_thread());
       DataChannelReadyToSendMessageData* data =
           static_cast<DataChannelReadyToSendMessageData*>(pmsg->pdata);
       ready_to_send_data_ = data->data();
-      SignalReadyToSendData(ready_to_send_data_);
+      on_ready_to_send_data_.Send(ready_to_send_data_);
       delete data;
       break;
     }
     case MSG_DATARECEIVED: {
+      RTC_DCHECK_RUN_ON(signaling_thread());
       DataReceivedMessageData* data =
           static_cast<DataReceivedMessageData*>(pmsg->pdata);
-      SignalDataReceived(data->params, data->payload);
+      on_data_received_.Send(data->params, data->payload);
       delete data;
       break;
     }

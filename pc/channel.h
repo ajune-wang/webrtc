@@ -51,6 +51,7 @@
 #include "pc/srtp_transport.h"
 #include "rtc_base/async_packet_socket.h"
 #include "rtc_base/async_udp_socket.h"
+#include "rtc_base/callback_list.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/copy_on_write_buffer.h"
 #include "rtc_base/location.h"
@@ -523,12 +524,29 @@ class RtpDataChannel : public BaseChannel {
   // Should be called on the signaling thread only.
   bool ready_to_send_data() const { return ready_to_send_data_; }
 
-  sigslot::signal2<const ReceiveDataParams&, const rtc::CopyOnWriteBuffer&>
-      SignalDataReceived;
+  template <typename F>
+  void AddOnDataReceived(const void* removal_tag, F&& functor) {
+    RTC_DCHECK_RUN_ON(signaling_thread());
+    on_data_received_.AddReceiver(removal_tag, std::forward<F>(functor));
+  }
+  void RemoveOnDataReceived(const void* removal_tag) {
+    RTC_DCHECK_RUN_ON(signaling_thread());
+    on_data_received_.RemoveReceivers(removal_tag);
+  }
+
   // Signal for notifying when the channel becomes ready to send data.
   // That occurs when the channel is enabled, the transport is writable,
   // both local and remote descriptions are set, and the channel is unblocked.
-  sigslot::signal1<bool> SignalReadyToSendData;
+  template <typename F>
+  void AddOnReadyToSendData(const void* removal_tag, F&& functor) {
+    RTC_DCHECK_RUN_ON(signaling_thread());
+    on_ready_to_send_data_.AddReceiver(removal_tag, std::forward<F>(functor));
+  }
+  void RemoveOnReadyToSendData(const void* removal_tag) {
+    RTC_DCHECK_RUN_ON(signaling_thread());
+    on_ready_to_send_data_.RemoveReceivers(removal_tag);
+  }
+
   cricket::MediaType media_type() const override {
     return cricket::MEDIA_TYPE_DATA;
   }
@@ -592,6 +610,11 @@ class RtpDataChannel : public BaseChannel {
   // Last DataRecvParameters sent down to the media_channel() via
   // SetRecvParameters.
   DataRecvParameters last_recv_params_;
+
+  webrtc::CallbackList<const ReceiveDataParams&, const rtc::CopyOnWriteBuffer&>
+      on_data_received_ RTC_GUARDED_BY(signaling_thread());
+  webrtc::CallbackList<bool> on_ready_to_send_data_
+      RTC_GUARDED_BY(signaling_thread());
 };
 
 }  // namespace cricket

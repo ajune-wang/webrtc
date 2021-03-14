@@ -14,6 +14,7 @@
 #include <utility>
 
 #include "absl/algorithm/container.h"
+#include "absl/functional/bind_front.h"
 #include "absl/types/optional.h"
 #include "api/peer_connection_interface.h"
 #include "api/rtc_error.h"
@@ -50,10 +51,10 @@ bool DataChannelController::ConnectDataChannel(
     // whether or not the underlying transport is ready.
     return false;
   }
-  rtp_data_channel()->SignalReadyToSendData.connect(
-      webrtc_data_channel, &RtpDataChannel::OnChannelReady);
-  rtp_data_channel()->SignalDataReceived.connect(
-      webrtc_data_channel, &RtpDataChannel::OnDataReceived);
+  rtp_data_channel()->SetOnReadyToSendData(
+      absl::bind_front(&RtpDataChannel::OnChannelReady, webrtc_data_channel));
+  rtp_data_channel()->SetOnDataReceived(
+      absl::bind_front(&RtpDataChannel::OnDataReceived, webrtc_data_channel));
   return true;
 }
 
@@ -65,8 +66,8 @@ void DataChannelController::DisconnectDataChannel(
         << "DisconnectDataChannel called when rtp_data_channel_ is NULL.";
     return;
   }
-  rtp_data_channel()->SignalReadyToSendData.disconnect(webrtc_data_channel);
-  rtp_data_channel()->SignalDataReceived.disconnect(webrtc_data_channel);
+  rtp_data_channel()->SetOnReadyToSendData(nullptr);
+  rtp_data_channel()->SetOnDataReceived(nullptr);
 }
 
 bool DataChannelController::ConnectDataChannel(

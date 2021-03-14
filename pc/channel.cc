@@ -12,6 +12,7 @@
 
 #include <algorithm>
 #include <cstdint>
+#include <functional>
 #include <iterator>
 #include <map>
 #include <utility>
@@ -1480,20 +1481,40 @@ void RtpDataChannel::UpdateMediaSendRecvState_w() {
                    << " for " << ToString();
 }
 
+void RtpDataChannel::SetOnDataReceived(
+    std::function<void(const ReceiveDataParams&, const rtc::CopyOnWriteBuffer&)>
+        signal) {
+  RTC_DCHECK_RUN_ON(signaling_thread());
+  RTC_DCHECK(on_signal_data_received_ == nullptr || signal == nullptr);
+  on_signal_data_received_ = std::move(signal);
+}
+
+void RtpDataChannel::SetOnReadyToSendData(std::function<void(bool)> signal) {
+  RTC_DCHECK_RUN_ON(signaling_thread());
+  RTC_DCHECK(on_ready_to_send_data_ == nullptr || signal == nullptr);
+  on_ready_to_send_data_ = std::move(signal);
+}
+
 void RtpDataChannel::OnMessage(rtc::Message* pmsg) {
   switch (pmsg->message_id) {
     case MSG_READYTOSENDDATA: {
+      RTC_DCHECK_RUN_ON(signaling_thread());
       DataChannelReadyToSendMessageData* data =
           static_cast<DataChannelReadyToSendMessageData*>(pmsg->pdata);
       ready_to_send_data_ = data->data();
-      SignalReadyToSendData(ready_to_send_data_);
+      if (on_ready_to_send_data_) {
+        on_ready_to_send_data_(ready_to_send_data_);
+      }
       delete data;
       break;
     }
     case MSG_DATARECEIVED: {
+      RTC_DCHECK_RUN_ON(signaling_thread());
       DataReceivedMessageData* data =
           static_cast<DataReceivedMessageData*>(pmsg->pdata);
-      SignalDataReceived(data->params, data->payload);
+      if (on_signal_data_received_) {
+        on_signal_data_received_(data->params, std::move(data->payload));
+      }
       delete data;
       break;
     }

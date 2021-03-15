@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "13f78005_d4972654",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-03-15T14:20:52Z",
+      "side": 1,
+      "message": "This worries me. The usual test for \"not implemented\" is that the value is missing from the stats object. Showing the number 0 should be an indication that there are no nacks to be counted.\n\nCan you ensure the initial state of the object is \"missing\" (before lower layer code populates it with a definite nack count)?",
+      "revId": "80f61f93f689adbff428348149c9c688c6a826d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "868bf226_990a07a8",
@@ -49,6 +66,23 @@
       "writtenOn": "2021-03-15T11:21:28Z",
       "side": 1,
       "message": "+gustaf@ please take a look for audio/",
+      "revId": "80f61f93f689adbff428348149c9c688c6a826d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78350d32_bd03ad3f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-03-15T14:20:52Z",
+      "side": 1,
+      "message": "Commenting on \"missing\" versus \"zero\" for \"no, I\u0027m not counting\". Haven\u0027t checked the code.\n",
       "revId": "80f61f93f689adbff428348149c9c688c6a826d8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

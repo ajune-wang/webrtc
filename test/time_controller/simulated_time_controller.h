@@ -114,7 +114,8 @@ class TokenTaskQueue : public TaskQueueBase {
     RTC_NOTREACHED();
   }
   void PostDelayedTask(std::unique_ptr<QueuedTask> /*task*/,
-                       uint32_t /*milliseconds*/) override {
+                       uint32_t /*milliseconds*/,
+                       const rtc::Location& location) override {
     RTC_NOTREACHED();
   }
 };

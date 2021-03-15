@@ -163,7 +163,8 @@ void ProcessThreadImpl::PostTask(std::unique_ptr<QueuedTask> task) {
 }
 
 void ProcessThreadImpl::PostDelayedTask(std::unique_ptr<QueuedTask> task,
-                                        uint32_t milliseconds) {
+                                        uint32_t milliseconds,
+                                        const rtc::Location& location) {
   int64_t run_at_ms = rtc::TimeMillis() + milliseconds;
   bool recalculate_wakeup_time;
   {

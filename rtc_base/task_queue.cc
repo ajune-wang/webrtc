@@ -34,8 +34,9 @@ void TaskQueue::PostTask(std::unique_ptr<webrtc::QueuedTask> task) {
 }
 
 void TaskQueue::PostDelayedTask(std::unique_ptr<webrtc::QueuedTask> task,
-                                uint32_t milliseconds) {
-  return impl_->PostDelayedTask(std::move(task), milliseconds);
+                                uint32_t milliseconds,
+                                const rtc::Location& location) {
+  return impl_->PostDelayedTask(std::move(task), milliseconds, location);
 }
 
 }  // namespace rtc

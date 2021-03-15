@@ -405,8 +405,10 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
 
   // From TaskQueueBase
   void PostTask(std::unique_ptr<webrtc::QueuedTask> task) override;
-  void PostDelayedTask(std::unique_ptr<webrtc::QueuedTask> task,
-                       uint32_t milliseconds) override;
+  void PostDelayedTask(
+      std::unique_ptr<webrtc::QueuedTask> task,
+      uint32_t milliseconds,
+      const rtc::Location& location = rtc::Location::Current()) override;
   void Delete() override;
 
   // ProcessMessages will process I/O and dispatch messages until:

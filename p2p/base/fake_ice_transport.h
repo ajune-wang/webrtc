@@ -42,18 +42,31 @@ class FakeIceTransport : public IceTransportInternal {
 
   // If async, will send packets by "Post"-ing to message queue instead of
   // synchronously "Send"-ing.
-  void SetAsync(bool async) { async_ = async; }
-  void SetAsyncDelay(int delay_ms) { async_delay_ms_ = delay_ms; }
+  void SetAsync(bool async) {
+    RTC_DCHECK_RUN_ON(network_thread_);
+    async_ = async;
+  }
+  void SetAsyncDelay(int delay_ms) {
+    RTC_DCHECK_RUN_ON(network_thread_);
+    async_delay_ms_ = delay_ms;
+  }
 
   // SetWritable, SetReceiving and SetDestination are the main methods that can
   // be used for testing, to simulate connectivity or lack thereof.
-  void SetWritable(bool writable) { set_writable(writable); }
-  void SetReceiving(bool receiving) { set_receiving(receiving); }
+  void SetWritable(bool writable) {
+    RTC_DCHECK_RUN_ON(network_thread_);
+    set_writable(writable);
+  }
+  void SetReceiving(bool receiving) {
+    RTC_DCHECK_RUN_ON(network_thread_);
+    set_receiving(receiving);
+  }
 
   // Simulates the two transports connecting to each other.
   // If |asymmetric| is true this method only affects this FakeIceTransport.
   // If false, it affects |dest| as well.
   void SetDestination(FakeIceTransport* dest, bool asymmetric = false) {
+    RTC_DCHECK_RUN_ON(network_thread_);
     if (dest == dest_) {
       return;
     }
@@ -220,8 +233,14 @@ class FakeIceTransport : public IceTransportInternal {
   }
 
   // Fake PacketTransportInternal implementation.
-  bool writable() const override { return writable_; }
-  bool receiving() const override { return receiving_; }
+  bool writable() const override {
+    RTC_DCHECK_RUN_ON(network_thread_);
+    return writable_;
+  }
+  bool receiving() const override {
+    RTC_DCHECK_RUN_ON(network_thread_);
+    return receiving_;
+  }
   // If combine is enabled, every two consecutive packets to be sent with
   // "SendPacket" will be combined into one outgoing packet.
   void combine_outgoing_packets(bool combine) {
@@ -231,6 +250,7 @@ class FakeIceTransport : public IceTransportInternal {
                  size_t len,
                  const rtc::PacketOptions& options,
                  int flags) override {
+    RTC_DCHECK_RUN_ON(network_thread_);
     if (!dest_) {
       return -1;
     }
@@ -240,8 +260,11 @@ class FakeIceTransport : public IceTransportInternal {
       rtc::CopyOnWriteBuffer packet(std::move(send_packet_));
       if (async_) {
         invoker_.AsyncInvokeDelayed<void>(
-            RTC_FROM_HERE, rtc::Thread::Current(),
-            [this, packet] { FakeIceTransport::SendPacketInternal(packet); },
+            RTC_FROM_HERE, network_thread_,
+            [this, packet] {
+              RTC_DCHECK_RUN_ON(network_thread_);
+              FakeIceTransport::SendPacketInternal(packet);
+            },
             async_delay_ms_);
       } else {
         SendPacketInternal(packet);
@@ -280,7 +303,8 @@ class FakeIceTransport : public IceTransportInternal {
   }
 
  private:
-  void set_writable(bool writable) {
+  void set_writable(bool writable)
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(network_thread_) {
     if (writable_ == writable) {
       return;
     }
@@ -292,7 +316,8 @@ class FakeIceTransport : public IceTransportInternal {
     SignalWritableState(this);
   }
 
-  void set_receiving(bool receiving) {
+  void set_receiving(bool receiving)
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(network_thread_) {
     if (receiving_ == receiving) {
       return;
     }
@@ -300,7 +325,8 @@ class FakeIceTransport : public IceTransportInternal {
     SignalReceivingState(this);
   }
 
-  void SendPacketInternal(const rtc::CopyOnWriteBuffer& packet) {
+  void SendPacketInternal(const rtc::CopyOnWriteBuffer& packet)
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(network_thread_) {
     if (dest_) {
       last_sent_packet_ = packet;
       dest_->SignalReadPacket(dest_, packet.data<char>(), packet.size(),
@@ -309,10 +335,10 @@ class FakeIceTransport : public IceTransportInternal {
   }
 
   rtc::AsyncInvoker invoker_;
-  std::string name_;
-  int component_;
-  FakeIceTransport* dest_ = nullptr;
-  bool async_ = false;
+  const std::string name_;
+  const int component_;
+  FakeIceTransport* dest_ RTC_GUARDED_BY(network_thread_) = nullptr;
+  bool async_ RTC_GUARDED_BY(network_thread_) = false;
   int async_delay_ms_ = 0;
   Candidates remote_candidates_;
   IceConfig ice_config_;
@@ -326,8 +352,8 @@ class FakeIceTransport : public IceTransportInternal {
   absl::optional<IceTransportState> legacy_transport_state_;
   IceGatheringState gathering_state_ = kIceGatheringNew;
   bool had_connection_ = false;
-  bool writable_ = false;
-  bool receiving_ = false;
+  bool writable_ RTC_GUARDED_BY(network_thread_) = false;
+  bool receiving_ RTC_GUARDED_BY(network_thread_) = false;
   bool combine_outgoing_packets_ = false;
   rtc::CopyOnWriteBuffer send_packet_;
   absl::optional<rtc::NetworkRoute> network_route_;

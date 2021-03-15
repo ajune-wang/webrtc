@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c34b2dc_548f8e4c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-03-15T22:43:03Z",
+      "side": 1,
+      "message": "Merging to M90 as the relanded CL has been in a couple Canary builds without issue.",
+      "revId": "f167d67515b8c3e46a242a3f1464b7a3f58541e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

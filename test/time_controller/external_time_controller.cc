@@ -62,7 +62,8 @@ class ExternalTimeController::ProcessThreadWrapper : public ProcessThread {
   }
 
   void PostDelayedTask(std::unique_ptr<QueuedTask> task,
-                       uint32_t milliseconds) override {
+                       uint32_t milliseconds,
+                       const rtc::Location& location) override {
     parent_->UpdateTime();
     thread_->PostDelayedTask(std::move(task), milliseconds);
     parent_->ScheduleNext();
@@ -137,7 +138,9 @@ class ExternalTimeController::TaskQueueWrapper : public TaskQueueBase {
     parent_->ScheduleNext();
   }
 
-  void PostDelayedTask(std::unique_ptr<QueuedTask> task, uint32_t ms) override {
+  void PostDelayedTask(std::unique_ptr<QueuedTask> task,
+                       uint32_t ms,
+                       const rtc::Location& location) override {
     parent_->UpdateTime();
     base_->PostDelayedTask(std::make_unique<TaskWrapper>(std::move(task), this),
                            ms);

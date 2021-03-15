@@ -13,6 +13,7 @@
 #include <memory>
 
 #include "api/task_queue/queued_task.h"
+#include "rtc_base/location.h"
 #include "rtc_base/system/rtc_export.h"
 #include "rtc_base/thread_annotations.h"
 
@@ -53,8 +54,10 @@ class RTC_LOCKABLE RTC_EXPORT TaskQueueBase {
   // and in some cases, such as on Windows when all high precision timers have
   // been used up, can be off by as much as 15 millseconds.
   // May be called on any thread or task queue, including this task queue.
-  virtual void PostDelayedTask(std::unique_ptr<QueuedTask> task,
-                               uint32_t milliseconds) = 0;
+  virtual void PostDelayedTask(
+      std::unique_ptr<QueuedTask> task,
+      uint32_t milliseconds,
+      const rtc::Location& location = rtc::Location::Current()) = 0;
 
   // Returns the task queue that is running the current thread.
   // Returns nullptr if this thread is not associated with any task queue.

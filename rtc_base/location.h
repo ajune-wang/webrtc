@@ -41,6 +41,12 @@ class RTC_EXPORT Location {
 
   std::string ToString() const;
 
+  static Location Current(const char* function_name = __builtin_FUNCTION(),
+                          const char* file_name = __builtin_FILE(),
+                          int line_number = __builtin_LINE()) {
+    return Location(function_name, file_name, line_number);
+  }
+
  private:
   const char* function_name_ = "Unknown";
   const char* file_name_ = "Unknown";

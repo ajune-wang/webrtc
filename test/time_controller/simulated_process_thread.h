@@ -44,7 +44,8 @@ class SimulatedProcessThread : public ProcessThread,
   void DeRegisterModule(Module* module) override;
   void PostTask(std::unique_ptr<QueuedTask> task) override;
   void PostDelayedTask(std::unique_ptr<QueuedTask> task,
-                       uint32_t milliseconds) override;
+                       uint32_t milliseconds,
+                       const rtc::Location& location) override;
 
  private:
   void Delete() override {

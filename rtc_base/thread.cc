@@ -1061,10 +1061,11 @@ void Thread::PostTask(std::unique_ptr<webrtc::QueuedTask> task) {
 }
 
 void Thread::PostDelayedTask(std::unique_ptr<webrtc::QueuedTask> task,
-                             uint32_t milliseconds) {
+                             uint32_t milliseconds,
+                             const rtc::Location& location) {
   // Though PostDelayed takes MessageData by raw pointer (last parameter),
   // it still takes it with ownership.
-  PostDelayed(RTC_FROM_HERE, milliseconds, &queued_task_handler_,
+  PostDelayed(location, milliseconds, &queued_task_handler_,
               /*id=*/0,
               new ScopedMessageData<webrtc::QueuedTask>(std::move(task)));
 }

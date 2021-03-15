@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbb80225_511f5de2",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-15T09:45:26Z",
+      "side": 0,
+      "message": "I agree we should delete this. Should be safe.",
+      "revId": "c80f95511422fae261140e1eb3018d7cf88238b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "573e947d_5dee5d53",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-15T09:45:26Z",
+      "side": 0,
+      "message": "This one is a bit more scary - I imagine there is plenty of code out there that does something like \"if mediaType \u003d\u003d \"audio\" { ... } else { it must be video! }\" that if it suddenly is undefined they would start processing all rtp stats as if they are the same kind even when they are not.\n\nI still like the idea of deleting it, but can you try to do this in a separate CL in case we have to revert it? This decision might also be good to be reviewed separately, for example I would like to see what hta@ thinks about deleting it.",
+      "revId": "c80f95511422fae261140e1eb3018d7cf88238b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "795688bd_02a75c0e",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-15T09:45:26Z",
+      "side": 0,
+      "message": "I agree we should delete this too. Should be safe.",
+      "revId": "c80f95511422fae261140e1eb3018d7cf88238b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f21a3cbe_6e4c9f0a",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-15T09:45:26Z",
+      "side": 0,
+      "message": "Same here, happy to delete it.",
+      "revId": "c80f95511422fae261140e1eb3018d7cf88238b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

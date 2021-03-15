@@ -16,6 +16,23 @@
       "message": "Discussion might be needed in the issue.",
       "revId": "cc3bb58c22b2fe2bd89a4c42fffca792d4b269e0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "193f50f1_6ce14915",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-15T09:45:26Z",
+      "side": 1,
+      "message": "Thanks. I like this CL but I would not delete mediaType in this CL. Perhaps in a separate CL? It is more risky so it might be reverted, we don\u0027t want to revert all of them",
+      "revId": "cc3bb58c22b2fe2bd89a4c42fffca792d4b269e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

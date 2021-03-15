@@ -2297,8 +2297,15 @@ TEST_P(PeerConnectionIntegrationTest, EndToEndCallWithIceRenomination) {
 // With a max bundle policy and RTCP muxing, adding a new media description to
 // the connection should not affect ICE at all because the new media will use
 // the existing connection.
+#if defined(THREAD_SANITIZER)
+#define MAYBE_AddMediaToConnectedBundleDoesNotRestartIce \
+  DISABLED_AddMediaToConnectedBundleDoesNotRestartIce
+#else
+#define MAYBE_AddMediaToConnectedBundleDoesNotRestartIce \
+  AddMediaToConnectedBundleDoesNotRestartIce
+#endif
 TEST_P(PeerConnectionIntegrationTest,
-       AddMediaToConnectedBundleDoesNotRestartIce) {
+       MAYBE_AddMediaToConnectedBundleDoesNotRestartIce) {
   PeerConnectionInterface::RTCConfiguration config;
   config.bundle_policy = PeerConnectionInterface::kBundlePolicyMaxBundle;
   config.rtcp_mux_policy = PeerConnectionInterface::kRtcpMuxPolicyRequire;

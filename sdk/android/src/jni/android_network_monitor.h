@@ -133,8 +133,8 @@ class AndroidNetworkMonitor : public rtc::NetworkMonitorInterface,
   bool find_network_handle_without_ipv6_temporary_part_
       RTC_GUARDED_BY(network_thread_) = false;
   bool surface_cellular_types_ RTC_GUARDED_BY(network_thread_) = false;
-  const rtc::scoped_refptr<PendingTaskSafetyFlag> safety_flag_
-      RTC_PT_GUARDED_BY(network_thread_);
+  rtc::scoped_refptr<PendingTaskSafetyFlag> safety_flag_
+      RTC_PT_GUARDED_BY(network_thread_) = nullptr;
 };
 
 class AndroidNetworkMonitorFactory : public rtc::NetworkMonitorFactory {

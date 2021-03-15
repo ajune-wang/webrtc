@@ -16,6 +16,24 @@
       "message": "Looks right to me. And tests pass.\n\nIs it possible to write an unit test for the issue?\n",
       "revId": "2f9b3dff0a32690a857159bf4fad0b556a0c2f56",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b4b044d_79ba284d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-03-15T14:22:59Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "88f05ed1_3a2da6ab",
+      "revId": "2f9b3dff0a32690a857159bf4fad0b556a0c2f56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -77,7 +77,8 @@ void SimulatedTaskQueue::PostTask(std::unique_ptr<QueuedTask> task) {
 }
 
 void SimulatedTaskQueue::PostDelayedTask(std::unique_ptr<QueuedTask> task,
-                                         uint32_t milliseconds) {
+                                         uint32_t milliseconds,
+                                         const rtc::Location& location) {
   MutexLock lock(&lock_);
   Timestamp target_time =
       handler_->CurrentTime() + TimeDelta::Millis(milliseconds);

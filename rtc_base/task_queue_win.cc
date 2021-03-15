@@ -162,7 +162,8 @@ class TaskQueueWin : public TaskQueueBase {
   void Delete() override;
   void PostTask(std::unique_ptr<QueuedTask> task) override;
   void PostDelayedTask(std::unique_ptr<QueuedTask> task,
-                       uint32_t milliseconds) override;
+                       uint32_t milliseconds,
+                       const rtc::Location& location) override;
 
   void RunPendingTasks();
 
@@ -241,7 +242,8 @@ void TaskQueueWin::PostTask(std::unique_ptr<QueuedTask> task) {
 }
 
 void TaskQueueWin::PostDelayedTask(std::unique_ptr<QueuedTask> task,
-                                   uint32_t milliseconds) {
+                                   uint32_t milliseconds,
+                                   const rtc::Location& location) {
   if (!milliseconds) {
     PostTask(std::move(task));
     return;

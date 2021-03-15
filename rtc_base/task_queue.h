@@ -99,8 +99,10 @@ class RTC_LOCKABLE RTC_EXPORT TaskQueue {
   // and in some cases, such as on Windows when all high precision timers have
   // been used up, can be off by as much as 15 millseconds (although 8 would be
   // more likely). This can be mitigated by limiting the use of delayed tasks.
-  void PostDelayedTask(std::unique_ptr<webrtc::QueuedTask> task,
-                       uint32_t milliseconds);
+  void PostDelayedTask(
+      std::unique_ptr<webrtc::QueuedTask> task,
+      uint32_t milliseconds,
+      const rtc::Location& location = rtc::Location::Current());
 
   // std::enable_if is used here to make sure that calls to PostTask() with
   // std::unique_ptr<SomeClassDerivedFromQueuedTask> would not end up being
@@ -118,9 +120,12 @@ class RTC_LOCKABLE RTC_EXPORT TaskQueue {
             typename std::enable_if<!std::is_convertible<
                 Closure,
                 std::unique_ptr<webrtc::QueuedTask>>::value>::type* = nullptr>
-  void PostDelayedTask(Closure&& closure, uint32_t milliseconds) {
+  void PostDelayedTask(
+      Closure&& closure,
+      uint32_t milliseconds,
+      const rtc::Location& location = rtc::Location::Current()) {
     PostDelayedTask(webrtc::ToQueuedTask(std::forward<Closure>(closure)),
-                    milliseconds);
+                    milliseconds, location);
   }
 
  private:

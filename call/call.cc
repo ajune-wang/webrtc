@@ -723,6 +723,7 @@ void Call::EnsureStarted() {
   // off being kicked off on request rather than in the ctor.
   transport_send_ptr_->RegisterTargetTransferRateObserver(this);
 
+  call_stats_->EnsureStarted();
   module_process_thread_->EnsureStarted();
   transport_send_ptr_->EnsureStarted();
 }

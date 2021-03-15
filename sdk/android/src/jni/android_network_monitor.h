@@ -133,8 +133,15 @@ class AndroidNetworkMonitor : public rtc::NetworkMonitorInterface,
   bool find_network_handle_without_ipv6_temporary_part_
       RTC_GUARDED_BY(network_thread_) = false;
   bool surface_cellular_types_ RTC_GUARDED_BY(network_thread_) = false;
-  const rtc::scoped_refptr<PendingTaskSafetyFlag> safety_flag_
-      RTC_PT_GUARDED_BY(network_thread_);
+
+  // NOTE: if bind_using_ifname_ is TRUE
+  // then the adapter name is used with substring matching as follows:
+  // An adapater name repored by android as 'wlan0'
+  // will be matched with 'v4-wlan0' ("v4-wlan0".find("wlan0") != npos).
+  // This applies to adapter_type_by_name_, vpn_underlying_adapter_type_by_name_
+  // and FindNetworkHandleFromIfname.
+  bool bind_using_ifname_ RTC_GUARDED_BY(network_thread_) = true;
+  ScopedTaskSafety task_safety_;
 };
 
 class AndroidNetworkMonitorFactory : public rtc::NetworkMonitorFactory {

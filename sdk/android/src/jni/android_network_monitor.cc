@@ -229,8 +229,7 @@ AndroidNetworkMonitor::AndroidNetworkMonitor(
     : android_sdk_int_(Java_NetworkMonitor_androidSdkInt(env)),
       j_application_context_(env, j_application_context),
       j_network_monitor_(env, Java_NetworkMonitor_getInstance(env)),
-      network_thread_(rtc::Thread::Current()),
-      safety_flag_(PendingTaskSafetyFlag::Create()) {}
+      network_thread_(rtc::Thread::Current()) {}
 
 AndroidNetworkMonitor::~AndroidNetworkMonitor() {
   RTC_DCHECK(!started_);
@@ -253,9 +252,6 @@ void AndroidNetworkMonitor::Start() {
   // it creates sockets.
   network_thread_->socketserver()->set_network_binder(this);
 
-  // Needed for restart after Stop().
-  safety_flag_->SetAlive();
-
   JNIEnv* env = AttachCurrentThreadIfNeeded();
   Java_NetworkMonitor_startMonitoring(
       env, j_network_monitor_, j_application_context_, jlongFromPointer(this));
@@ -268,10 +264,6 @@ void AndroidNetworkMonitor::Stop() {
   }
   started_ = false;
   find_network_handle_without_ipv6_temporary_part_ = false;
-
-  // Cancel any pending tasks. We should not call SignalNetworksChanged when the
-  // monitor is stopped.
-  safety_flag_->SetNotAlive();
 
   JNIEnv* env = AttachCurrentThreadIfNeeded();
   Java_NetworkMonitor_stopMonitoring(env, j_network_monitor_,
@@ -529,7 +521,7 @@ AndroidNetworkMonitorFactory::CreateNetworkMonitor() {
 void AndroidNetworkMonitor::NotifyConnectionTypeChanged(
     JNIEnv* env,
     const JavaRef<jobject>& j_caller) {
-  network_thread_->PostTask(ToQueuedTask(safety_flag_, [this] {
+  network_thread_->PostTask(ToQueuedTask(task_safety_.flag(), [this] {
     RTC_LOG(LS_INFO)
         << "Android network monitor detected connection type change.";
     SignalNetworksChanged();
@@ -553,7 +545,7 @@ void AndroidNetworkMonitor::NotifyOfNetworkConnect(
   NetworkInformation network_info =
       GetNetworkInformationFromJava(env, j_network_info);
   network_thread_->PostTask(ToQueuedTask(
-      safety_flag_, [this, network_info = std::move(network_info)] {
+      task_safety_.flag(), [this, network_info = std::move(network_info)] {
         OnNetworkConnected_n(network_info);
       }));
 }
@@ -562,9 +554,10 @@ void AndroidNetworkMonitor::NotifyOfNetworkDisconnect(
     JNIEnv* env,
     const JavaRef<jobject>& j_caller,
     jlong network_handle) {
-  network_thread_->PostTask(ToQueuedTask(safety_flag_, [this, network_handle] {
-    OnNetworkDisconnected_n(static_cast<NetworkHandle>(network_handle));
-  }));
+  network_thread_->PostTask(
+      ToQueuedTask(task_safety_.flag(), [this, network_handle] {
+        OnNetworkDisconnected_n(static_cast<NetworkHandle>(network_handle));
+      }));
 }
 
 void AndroidNetworkMonitor::NotifyOfNetworkPreference(
@@ -577,7 +570,7 @@ void AndroidNetworkMonitor::NotifyOfNetworkPreference(
       static_cast<rtc::NetworkPreference>(jpreference);
 
   network_thread_->PostTask(ToQueuedTask(
-      safety_flag_,
+      task_safety_.flag(),
       [this, type, preference] { OnNetworkPreference_n(type, preference); }));
 }
 

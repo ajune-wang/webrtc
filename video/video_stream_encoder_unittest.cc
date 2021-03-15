@@ -1613,8 +1613,9 @@ TEST_F(VideoStreamEncoderTest, NonI420FramesShouldNotBeConvertedToI420) {
   video_stream_encoder_->Stop();
 }
 
+// The encoder is responsible for mapping native frames.
 TEST_F(VideoStreamEncoderTest,
-       NativeFrameIsConvertedToI420IfNoFrameTypePreference) {
+       NativeFrameIsNotConvertedToI420EvenIfNoFrameTypePreference) {
   video_stream_encoder_->OnBitrateUpdatedAndWaitForManagedResources(
       DataRate::BitsPerSec(kTargetBitrateBps),
       DataRate::BitsPerSec(kTargetBitrateBps),
@@ -1626,12 +1627,14 @@ TEST_F(VideoStreamEncoderTest,
   video_source_.IncomingCapturedFrame(CreateFakeNV12NativeFrame(
       1, &frame_destroyed_event, codec_width_, codec_height_));
   WaitForEncodedFrame(1);
-  EXPECT_EQ(VideoFrameBuffer::Type::kI420,
+  EXPECT_EQ(VideoFrameBuffer::Type::kNative,
             fake_encoder_.GetLastInputPixelFormat());
   video_stream_encoder_->Stop();
 }
 
-TEST_F(VideoStreamEncoderTest, NativeFrameMappedToPreferredPixelFormat) {
+// The encoder is responsible for mapping native frames.
+TEST_F(VideoStreamEncoderTest,
+       NativeFrameIsNotMappedEvenWhenPixelFormatPreferenceMatches) {
   video_stream_encoder_->OnBitrateUpdatedAndWaitForManagedResources(
       DataRate::BitsPerSec(kTargetBitrateBps),
       DataRate::BitsPerSec(kTargetBitrateBps),
@@ -1643,12 +1646,14 @@ TEST_F(VideoStreamEncoderTest, NativeFrameMappedToPreferredPixelFormat) {
   video_source_.IncomingCapturedFrame(CreateFakeNV12NativeFrame(
       1, &frame_destroyed_event, codec_width_, codec_height_));
   WaitForEncodedFrame(1);
-  EXPECT_EQ(VideoFrameBuffer::Type::kNV12,
+  EXPECT_EQ(VideoFrameBuffer::Type::kNative,
             fake_encoder_.GetLastInputPixelFormat());
   video_stream_encoder_->Stop();
 }
 
-TEST_F(VideoStreamEncoderTest, NativeFrameConvertedToI420IfMappingNotFeasible) {
+// The encoder is responsible for mapping native frames.
+TEST_F(VideoStreamEncoderTest,
+       NativeFrameIsNotConvertedToI420EvenIfMappingIsNotFeasible) {
   video_stream_encoder_->OnBitrateUpdatedAndWaitForManagedResources(
       DataRate::BitsPerSec(kTargetBitrateBps),
       DataRate::BitsPerSec(kTargetBitrateBps),
@@ -1661,12 +1666,13 @@ TEST_F(VideoStreamEncoderTest, NativeFrameConvertedToI420IfMappingNotFeasible) {
   video_source_.IncomingCapturedFrame(CreateFakeNV12NativeFrame(
       1, &frame_destroyed_event, codec_width_, codec_height_));
   WaitForEncodedFrame(1);
-  EXPECT_EQ(VideoFrameBuffer::Type::kI420,
+  EXPECT_EQ(VideoFrameBuffer::Type::kNative,
             fake_encoder_.GetLastInputPixelFormat());
   video_stream_encoder_->Stop();
 }
 
-TEST_F(VideoStreamEncoderTest, NativeFrameBackedByNV12FrameIsEncodedFromI420) {
+// The encoder is responsible for mapping native frames.
+TEST_F(VideoStreamEncoderTest, NativeFrameBackedByNV12IsNotMapped) {
   video_stream_encoder_->OnBitrateUpdatedAndWaitForManagedResources(
       DataRate::BitsPerSec(kTargetBitrateBps),
       DataRate::BitsPerSec(kTargetBitrateBps),
@@ -1676,7 +1682,7 @@ TEST_F(VideoStreamEncoderTest, NativeFrameBackedByNV12FrameIsEncodedFromI420) {
   video_source_.IncomingCapturedFrame(CreateFakeNV12NativeFrame(
       1, &frame_destroyed_event, codec_width_, codec_height_));
   WaitForEncodedFrame(1);
-  EXPECT_EQ(VideoFrameBuffer::Type::kI420,
+  EXPECT_EQ(VideoFrameBuffer::Type::kNative,
             fake_encoder_.GetLastInputPixelFormat());
   video_stream_encoder_->Stop();
 }

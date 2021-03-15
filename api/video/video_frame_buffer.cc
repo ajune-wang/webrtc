@@ -12,6 +12,7 @@
 
 #include "api/video/i420_buffer.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 
 namespace webrtc {
 
@@ -24,8 +25,12 @@ rtc::scoped_refptr<VideoFrameBuffer> VideoFrameBuffer::CropAndScale(
     int scaled_height) {
   rtc::scoped_refptr<I420Buffer> result =
       I420Buffer::Create(scaled_width, scaled_height);
-  result->CropAndScaleFrom(*this->ToI420(), offset_x, offset_y, crop_width,
+  auto i420_buffer = this->ToI420();
+  RTC_LOG(LS_ERROR) << "VideoFrameBuffer::CropAndScale: this: " << this
+                    << ", i420_buffer: " << i420_buffer;
+  result->CropAndScaleFrom(*i420_buffer, offset_x, offset_y, crop_width,
                            crop_height);
+  RTC_LOG(LS_ERROR) << "CropAndScale... done";
   return result;
 }
 

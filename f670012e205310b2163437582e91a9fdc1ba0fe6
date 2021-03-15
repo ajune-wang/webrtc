@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2de1e62e_eb1d3a0e",
+        "filename": "modules/video_coding/utility/qp_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-03-15T09:13:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f67e40f_8f9b48f1",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 18
+      },
+      "revId": "f670012e205310b2163437582e91a9fdc1ba0fe6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5594832f_c0dbcee5",
@@ -47,6 +71,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e4b35ee_6d122f1a",
+        "filename": "modules/video_coding/utility/qp_parser.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-03-15T09:13:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5594832f_c0dbcee5",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 14
+      },
+      "revId": "f670012e205310b2163437582e91a9fdc1ba0fe6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cc3b1e07_8ac3c48e",
@@ -60,6 +108,30 @@
       "writtenOn": "2021-03-12T17:20:54Z",
       "side": 1,
       "message": "kVideoCodecVP8",
+      "range": {
+        "startLine": 114,
+        "startChar": 19,
+        "endLine": 114,
+        "endChar": 37
+      },
+      "revId": "f670012e205310b2163437582e91a9fdc1ba0fe6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a31e53c6_d854bda1",
+        "filename": "modules/video_coding/utility/qp_parser_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-03-15T09:13:22Z",
+      "side": 1,
+      "message": "changed here and in ParseQpNullData, ParseQpEmptyData",
+      "parentUuid": "cc3b1e07_8ac3c48e",
       "range": {
         "startLine": 114,
         "startChar": 19,

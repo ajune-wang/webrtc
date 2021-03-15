@@ -16,6 +16,24 @@
       "message": "Thank you! Now I have a counter question... why is ssrc a string?\n(I\u0027ll try to answer that after getting food)",
       "revId": "f27c0aa3baeedaa795383462cf00ca28971f4598",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db97c9e7_bbc2b209",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-03-15T11:40:13Z",
+      "side": 1,
+      "message": "Technical debt... It looks like before absl::flag some homemade stuff were used in webrtc and maybe at the beginning it didn\u0027t support ints.",
+      "parentUuid": "83c7c138_7af8cc6d",
+      "revId": "f27c0aa3baeedaa795383462cf00ca28971f4598",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

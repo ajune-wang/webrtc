@@ -70,6 +70,7 @@ class RtpDataChannelProviderInterface {
 // kClosed: Both UpdateReceiveSsrc and UpdateSendSsrc has been called with
 //          SSRC==0.
 class RtpDataChannel : public DataChannelInterface,
+                       public cricket::RtpDataChannel::Listener,
                        public sigslot::has_slots<> {
  public:
   static rtc::scoped_refptr<RtpDataChannel> Create(
@@ -130,11 +131,10 @@ class RtpDataChannel : public DataChannelInterface,
   // Called when the channel's ready to use.  That can happen when the
   // underlying DataMediaChannel becomes ready, or when this channel is a new
   // stream on an existing DataMediaChannel, and we've finished negotiation.
-  void OnChannelReady(bool writable);
+  void OnChannelReady(bool writable) override;
 
-  // Slots for provider to connect signals to.
   void OnDataReceived(const cricket::ReceiveDataParams& params,
-                      const rtc::CopyOnWriteBuffer& payload);
+                      const rtc::CopyOnWriteBuffer& payload) override;
 
   // Called when the transport channel is unusable.
   // This method makes sure the DataChannel is disconnected and changes state

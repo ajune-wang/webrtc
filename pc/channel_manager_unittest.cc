@@ -64,11 +64,14 @@ class ChannelManagerTest : public ::testing::Test {
 
   std::unique_ptr<webrtc::RtpTransportInternal> CreateDtlsSrtpTransport() {
     rtp_dtls_transport_ = std::make_unique<FakeDtlsTransport>(
-        "fake_dtls_transport", cricket::ICE_CANDIDATE_COMPONENT_RTP);
+        "fake_dtls_transport", cricket::ICE_CANDIDATE_COMPONENT_RTP,
+        network_.get());
     auto dtls_srtp_transport = std::make_unique<webrtc::DtlsSrtpTransport>(
         /*rtcp_mux_required=*/true);
-    dtls_srtp_transport->SetDtlsTransports(rtp_dtls_transport_.get(),
-                                           /*rtcp_dtls_transport=*/nullptr);
+    network_->Invoke<void>(RTC_FROM_HERE, [this, &dtls_srtp_transport] {
+      dtls_srtp_transport->SetDtlsTransports(rtp_dtls_transport_.get(),
+                                             /*rtcp_dtls_transport=*/nullptr);
+    });
     return dtls_srtp_transport;
   }
 

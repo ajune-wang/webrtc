@@ -12,10 +12,12 @@
 
 #include "absl/strings/ascii.h"
 #include "absl/strings/match.h"
+#include "api/uma_metrics.h"
 #include "p2p/base/p2p_constants.h"
 #include "rtc_base/arraysize.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/strings/string_builder.h"
+#include "system_wrappers/include/metrics.h"
 
 using webrtc::RTCError;
 using webrtc::RTCErrorOr;
@@ -33,9 +35,18 @@ bool IsIceChar(char c) {
         << "permitted in ufrag or pwd. This is a protocol violation that "
         << "is permitted to allow upgrading but will be rejected in "
         << "the future. See https://crbug.com/1053756";
+    RTC_HISTOGRAM_ENUMERATION("WebRTC.PeerConnection.IceCredentialsCharset",
+                              webrtc::kIceCredentialsCharsetExtended,
+                              webrtc::kIceCredentialsCharsetMax);
     return true;
   }
-  return absl::ascii_isalnum(c) || c == '+' || c == '/';
+  bool isAllowed = absl::ascii_isalnum(c) || c == '+' || c == '/';
+  RTC_HISTOGRAM_ENUMERATION("WebRTC.PeerConnection.IceCredentialsCharset",
+                            isAllowed
+                                ? webrtc::kIceCredentialsCharsetAllowed
+                                : webrtc::kIceCredentialsCharsetNotAllowed,
+                            webrtc::kIceCredentialsCharsetMax);
+  return isAllowed;
 }
 
 RTCError ValidateIceUfrag(absl::string_view raw_ufrag) {

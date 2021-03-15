@@ -202,6 +202,17 @@ enum BundlePolicyUsage {
   kBundlePolicyUsageMax
 };
 
+// Metrics for valid ICE credentials. Some deployed software violates the
+// requirements from the RFC.
+// These values are persisted to logs. Entries should not be renumbered and
+// numeric values should never be reused.
+enum IceCredentialsCharset {
+  kIceCredentialsCharsetAllowed = 0,
+  kIceCredentialsCharsetExtended = 1,
+  kIceCredentialsCharsetNotAllowed = 2,
+  kIceCredentialsCharsetMax
+};
+
 // When adding new metrics please consider using the style described in
 // https://chromium.googlesource.com/chromium/src.git/+/HEAD/tools/metrics/histograms/README.md#usage
 // instead of the legacy enums used above.

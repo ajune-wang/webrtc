@@ -66,6 +66,7 @@ class TurnPort : public Port {
       webrtc::TurnCustomizer* customizer) {
     // Do basic parameter validation.
     if (credentials.username.size() > kMaxTurnUsernameLength) {
+      RTC_LOG(LS_ERROR) << "Attempt to use TURN with a too long username";
       return nullptr;
     }
     // Do not connect to low-numbered ports. The default STUN port is 3478.
@@ -117,6 +118,7 @@ class TurnPort : public Port {
       rtc::SSLCertificateVerifier* tls_cert_verifier = nullptr) {
     // Do basic parameter validation.
     if (credentials.username.size() > kMaxTurnUsernameLength) {
+      RTC_LOG(LS_ERROR) << "Attempt to use TURN with a too long username";
       return nullptr;
     }
     // Do not connect to low-numbered ports. The default STUN port is 3478.

@@ -474,7 +474,16 @@ TEST_P(DataChannelIntegrationTest,
 // the datachannel to not transmit reliably.
 // The purpose of this test is to ensure that we know how a too-small MTU
 // error manifests itself.
-TEST_P(DataChannelIntegrationTest, EndToEndCallWithSctpDataChannelHarmfulMtu) {
+// TODO(bugs.webrtc.org/12587): Flaky on Windows bots.
+#if defined(WEBRTC_WIN)
+#define MAYBE_EndToEndCallWithSctpDataChannelHarmfulMtu \
+  DISABLED_EndToEndCallWithSctpDataChannelHarmfulMtu
+#else
+#define MAYBE_EndToEndCallWithSctpDataChannelHarmfulMtu \
+  EndToEndCallWithSctpDataChannelHarmfulMtu
+#endif
+TEST_P(DataChannelIntegrationTest,
+       MAYBE_EndToEndCallWithSctpDataChannelHarmfulMtu) {
   // The lowest payload size limit that's tested and found safe for this
   // application in this configuration (see test above).
   const size_t kLowestSafePayloadSizeLimit = 1225;

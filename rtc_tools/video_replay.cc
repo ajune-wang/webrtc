@@ -119,6 +119,16 @@ ABSL_FLAG(std::string, decoder_ivf_filename, "", "Decoder ivf output file");
 // Flag for video codec.
 ABSL_FLAG(std::string, codec, "VP8", "Video codec");
 
+// Flags for rtp start and stop timestamp.
+ABSL_FLAG(std::string,
+          start_timestamp,
+          "0",
+          "RTP start timestamp (no wraparound)");
+ABSL_FLAG(std::string,
+          stop_timestamp,
+          "4294967295",
+          "RTP stop timestamp (no wraparound)");
+
 namespace {
 
 static bool ValidatePayloadType(int32_t payload_type) {
@@ -199,6 +209,16 @@ static std::string IVFFilename() {
 
 static std::string Codec() {
   return absl::GetFlag(FLAGS_codec);
+}
+
+static uint32_t StartTimestamp() {
+  return rtc::StringToNumber<uint32_t>(absl::GetFlag(FLAGS_start_timestamp))
+      .value();
+}
+
+static uint32_t StopTimestamp() {
+  return rtc::StringToNumber<uint32_t>(absl::GetFlag(FLAGS_stop_timestamp))
+      .value();
 }
 
 }  // namespace
@@ -520,6 +540,8 @@ class RtpReplayer final {
     int num_packets = 0;
     std::map<uint32_t, int> unknown_packets;
     rtc::Event event(/*manual_reset=*/false, /*initially_signalled=*/false);
+    uint32_t start_timestamp = StartTimestamp();
+    uint32_t stop_timestamp = StopTimestamp();
     while (true) {
       int64_t now_ms = rtc::TimeMillis();
       if (replay_start_ms == -1) {
@@ -529,6 +551,13 @@ class RtpReplayer final {
       test::RtpPacket packet;
       if (!rtp_reader->NextPacket(&packet)) {
         break;
+      }
+      RTPHeader header;
+      std::unique_ptr<RtpHeaderParser> parser(RtpHeaderParser::CreateForTest());
+      parser->Parse(packet.data, packet.length, &header);
+      if (header.timestamp < start_timestamp ||
+          header.timestamp > stop_timestamp) {
+        continue;
       }
 
       int64_t deliver_in_ms = replay_start_ms + packet.time_ms - now_ms;
@@ -550,10 +579,6 @@ class RtpReplayer final {
         case PacketReceiver::DELIVERY_OK:
           break;
         case PacketReceiver::DELIVERY_UNKNOWN_SSRC: {
-          RTPHeader header;
-          std::unique_ptr<RtpHeaderParser> parser(
-              RtpHeaderParser::CreateForTest());
-          parser->Parse(packet.data, packet.length, &header);
           if (unknown_packets[header.ssrc] == 0)
             fprintf(stderr, "Unknown SSRC: %u!\n", header.ssrc);
           ++unknown_packets[header.ssrc];

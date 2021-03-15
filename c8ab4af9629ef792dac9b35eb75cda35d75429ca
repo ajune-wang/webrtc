@@ -16,6 +16,46 @@
       "message": "PTAL. Tommi suggested creating a new flag, and Danil had some concerns with racing over the pointer update when we discussed it a few weeks ago. I believe it is safe, since we write the pointer only on the networkthread, and only when the java monitor is stopped. And I\u0027d expect the path to start the java monitor should imply sufficient memory barriers.",
       "revId": "c8ab4af9629ef792dac9b35eb75cda35d75429ca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a44d624_0ca6a2ba",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-15T10:17:10Z",
+      "side": 1,
+      "message": "Yes, I had concerns, but the comment near the flag creation covers them.\n",
+      "revId": "c8ab4af9629ef792dac9b35eb75cda35d75429ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "758fa051_b7750728",
+        "filename": "sdk/android/src/jni/android_network_monitor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-15T10:17:10Z",
+      "side": 1,
+      "message": "If this is true, then it looks safe.\nDo you know if we have tsan bots for this class to verify the assumption?",
+      "range": {
+        "startLine": 256,
+        "startChar": 32,
+        "endLine": 257,
+        "endChar": 37
+      },
+      "revId": "c8ab4af9629ef792dac9b35eb75cda35d75429ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

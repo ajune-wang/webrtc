@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d93b3fc_741d2742",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2021-03-15T10:19:54Z",
+      "side": 1,
+      "message": "Ilya: can you take a look please?\nI mainly needed this for the \"write images of frames\" but putting it in a central place made more sense than restricting the timestamps just there.\n\nMirko: for owner LGTM",
+      "revId": "7f3f0cb7dc1c54ae08b947a7b08065cae0c6802d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -51,6 +51,41 @@
       "parentUuid": "f8e20684_a48fa3bb",
       "revId": "77b6c5c53b510afa329f28825f9f2bd6c773671f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b3cb929_0f75d8dc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-03-15T11:38:10Z",
+      "side": 1,
+      "message": "It\u0027s a breaking change that we had to back down on due to people using those characters.\nOnce bitten...\n",
+      "revId": "77b6c5c53b510afa329f28825f9f2bd6c773671f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e901924_6d3e4693",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-03-15T11:38:10Z",
+      "side": 1,
+      "message": "If it\u0027s 0.00001%, I don\u0027t care much who it is.\nIf it\u0027s 0.1% or 1%, we need to hunt them down somehow.",
+      "parentUuid": "e6200612_c87ce2f4",
+      "revId": "77b6c5c53b510afa329f28825f9f2bd6c773671f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

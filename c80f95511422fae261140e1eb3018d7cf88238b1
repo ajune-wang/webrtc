@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9e38bc8_32519647",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-15T10:00:56Z",
+      "side": 0,
+      "message": "Actually it looks like even Firefox has implemented mediaType. In that case I think all major browsers (Chrome, Edge, Safari, Firefox) have it already. In this case I\u0027m not sure if it is worth the risk of deleting it since even if you use the wrong name it would work on all platforms. But if we delete it that might break something.",
+      "parentUuid": "573e947d_5dee5d53",
+      "revId": "c80f95511422fae261140e1eb3018d7cf88238b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "795688bd_02a75c0e",

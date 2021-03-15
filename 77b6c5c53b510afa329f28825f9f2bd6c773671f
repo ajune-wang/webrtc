@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c5e11dd_3dbe5ed9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-03-15T08:58:17Z",
+      "side": 1,
+      "message": "Shall we do it? The PSA said \"we will do it\" a year ago.",
+      "revId": "77b6c5c53b510afa329f28825f9f2bd6c773671f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

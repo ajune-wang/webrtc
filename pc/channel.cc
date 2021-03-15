@@ -1480,20 +1480,38 @@ void RtpDataChannel::UpdateMediaSendRecvState_w() {
                    << " for " << ToString();
 }
 
+void RtpDataChannel::AddListener(Listener* listener) {
+  RTC_DCHECK_RUN_ON(signaling_thread());
+  RTC_DCHECK(!absl::c_linear_search(listeners_, listener));
+  listeners_.push_back(listener);
+}
+
+void RtpDataChannel::RemoveListener(Listener* listener) {
+  RTC_DCHECK_RUN_ON(signaling_thread());
+  listeners_.erase(std::remove(listeners_.begin(), listeners_.end(), listener),
+                   listeners_.end());
+}
+
 void RtpDataChannel::OnMessage(rtc::Message* pmsg) {
   switch (pmsg->message_id) {
     case MSG_READYTOSENDDATA: {
+      RTC_DCHECK_RUN_ON(signaling_thread());
       DataChannelReadyToSendMessageData* data =
           static_cast<DataChannelReadyToSendMessageData*>(pmsg->pdata);
       ready_to_send_data_ = data->data();
-      SignalReadyToSendData(ready_to_send_data_);
+      for (Listener* l : listeners_) {
+        l->OnChannelReady(ready_to_send_data_);
+      }
       delete data;
       break;
     }
     case MSG_DATARECEIVED: {
+      RTC_DCHECK_RUN_ON(signaling_thread());
       DataReceivedMessageData* data =
           static_cast<DataReceivedMessageData*>(pmsg->pdata);
-      SignalDataReceived(data->params, data->payload);
+      for (Listener* l : listeners_) {
+        l->OnDataReceived(data->params, data->payload);
+      }
       delete data;
       break;
     }

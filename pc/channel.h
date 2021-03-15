@@ -499,6 +499,20 @@ class VideoChannel : public BaseChannel {
 // RtpDataChannel is a specialization for data.
 class RtpDataChannel : public BaseChannel {
  public:
+  class Listener {
+   public:
+    // Signal for notifying when the channel becomes ready to send data.
+    // That occurs when the channel is enabled, the transport is writable,
+    // both local and remote descriptions are set, and the channel is unblocked.
+    virtual void OnChannelReady(bool writable) = 0;
+
+    virtual void OnDataReceived(const ReceiveDataParams& params,
+                                const rtc::CopyOnWriteBuffer& payload) = 0;
+
+   protected:
+    ~Listener() = default;
+  };
+
   RtpDataChannel(rtc::Thread* worker_thread,
                  rtc::Thread* network_thread,
                  rtc::Thread* signaling_thread,
@@ -523,12 +537,9 @@ class RtpDataChannel : public BaseChannel {
   // Should be called on the signaling thread only.
   bool ready_to_send_data() const { return ready_to_send_data_; }
 
-  sigslot::signal2<const ReceiveDataParams&, const rtc::CopyOnWriteBuffer&>
-      SignalDataReceived;
-  // Signal for notifying when the channel becomes ready to send data.
-  // That occurs when the channel is enabled, the transport is writable,
-  // both local and remote descriptions are set, and the channel is unblocked.
-  sigslot::signal1<bool> SignalReadyToSendData;
+  void AddListener(Listener* listener);
+  void RemoveListener(Listener* listener);
+
   cricket::MediaType media_type() const override {
     return cricket::MEDIA_TYPE_DATA;
   }
@@ -592,6 +603,8 @@ class RtpDataChannel : public BaseChannel {
   // Last DataRecvParameters sent down to the media_channel() via
   // SetRecvParameters.
   DataRecvParameters last_recv_params_;
+
+  std::vector<Listener*> listeners_ RTC_GUARDED_BY(signaling_thread());
 };
 
 }  // namespace cricket

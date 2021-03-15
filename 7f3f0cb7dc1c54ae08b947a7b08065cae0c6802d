@@ -100,6 +100,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ef969d44_c52cca35",
+        "filename": "rtc_tools/video_replay.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2021-03-15T11:21:29Z",
+      "side": 1,
+      "message": "I tried to emulate how SSRCs behaves and initially wanted to use -1 as default value. Updated to uint32_t which matches the RTP timestamp *and* allows abseil to reject negative values (and presumably larger ones as well)",
+      "parentUuid": "aa3d8023_a6bc228f",
+      "revId": "7f3f0cb7dc1c54ae08b947a7b08065cae0c6802d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2ff23bec_e408244e",
         "filename": "rtc_tools/video_replay.cc",
         "patchSetId": 1
@@ -111,6 +129,24 @@
       "writtenOn": "2021-03-15T10:32:18Z",
       "side": 1,
       "message": "Please add one more sentence in the help message, or at least add it as the comment.\n\nWhat does it mean? IIUC:\nOnly playback packets with the timestamps from the specified interval.\n\nRight now it\u0027s not perfectly clear what these flags would do.",
+      "revId": "7f3f0cb7dc1c54ae08b947a7b08065cae0c6802d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47696b7f_2dc76fb5",
+        "filename": "rtc_tools/video_replay.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2021-03-15T11:21:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ff23bec_e408244e",
       "revId": "7f3f0cb7dc1c54ae08b947a7b08065cae0c6802d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -16,6 +16,24 @@
       "message": "These DCHECKs are from the initial commit, and AFAICT similar checks are not present in other encoder wrappers (maxBitrate is not even used in the VP8/VP9 wrapper).\n\n",
       "revId": "2135097cd2b9b00570626e1c981f9ea21a564307",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06eef44c_c4201798",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-15T13:55:20Z",
+      "side": 1,
+      "message": "not sure what these DCHECKs are protecting against.",
+      "parentUuid": "e7454425_a1cd7b77",
+      "revId": "2135097cd2b9b00570626e1c981f9ea21a564307",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

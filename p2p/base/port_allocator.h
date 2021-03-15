@@ -88,6 +88,9 @@ enum {
   // Exclude link-local network interfaces
   // from considertaion after adapter enumeration.
   PORTALLOCATOR_DISABLE_LINK_LOCAL_NETWORKS = 0x10000,
+
+  // Exclude all IPv4 interfaces. This flag is used in tests.
+  PORTALLOCATOR_DISABLE_IPV4 = 0x20000,
 };
 
 // Defines various reasons that have caused ICE regathering.

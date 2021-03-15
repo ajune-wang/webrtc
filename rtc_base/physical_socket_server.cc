@@ -189,6 +189,7 @@ int PhysicalSocket::Bind(const SocketAddress& bind_addr) {
   // If a network binder is available, use it to bind a socket to an interface
   // instead of bind(), since this is more reliable on an OS with a weak host
   // model.
+  RTC_LOG(LS_ERROR) << "DEBUG: Bind to " << bind_addr.ToString();
   if (ss_->network_binder() && !bind_addr.IsAnyIP()) {
     NetworkBindingResult result =
         ss_->network_binder()->BindSocketToNetwork(s_, bind_addr.ipaddr());

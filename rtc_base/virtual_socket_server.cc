@@ -136,6 +136,7 @@ void VirtualSocket::SetLocalAddress(const SocketAddress& addr) {
 }
 
 int VirtualSocket::Bind(const SocketAddress& addr) {
+  RTC_LOG(LS_ERROR) << "DEBUG: Bind to " << addr.ToString();
   if (!local_addr_.IsNil()) {
     error_ = EINVAL;
     return -1;

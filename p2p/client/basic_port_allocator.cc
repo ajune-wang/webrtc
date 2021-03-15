@@ -1399,6 +1399,8 @@ void AllocationSequence::CreateUDPPorts() {
     return;
   }
 
+  RTC_LOG(LS_ERROR) << "DEBUG: Network prefix family is "
+                    << network_->prefix().family();
   // TODO(mallinath) - Remove UDPPort creating socket after shared socket
   // is enabled completely.
   std::unique_ptr<UDPPort> port;

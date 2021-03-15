@@ -1943,6 +1943,10 @@ class PeerConnectionIntegrationIceStatesTest
     return (port_allocator_flags_ & cricket::PORTALLOCATOR_ENABLE_IPV6);
   }
 
+  bool TestIPv4() {
+    return !(port_allocator_flags_ & cricket::PORTALLOCATOR_DISABLE_IPV4);
+  }
+
   void SetPortAllocatorFlags() {
     PeerConnectionIntegrationBaseTest::SetPortAllocatorFlags(
         port_allocator_flags_, port_allocator_flags_);
@@ -1950,16 +1954,23 @@ class PeerConnectionIntegrationIceStatesTest
 
   std::vector<SocketAddress> CallerAddresses() {
     std::vector<SocketAddress> addresses;
-    addresses.push_back(SocketAddress("1.1.1.1", 0));
+    if (TestIPv4()) {
+      RTC_LOG(LS_ERROR) << "DEBUG: Testing IPv4";
+      addresses.push_back(SocketAddress("1.1.1.1", 0));
+    }
     if (TestIPv6()) {
+      RTC_LOG(LS_ERROR) << "DEBUG: Testing IPv6";
       addresses.push_back(SocketAddress("1111:0:a:b:c:d:e:f", 0));
     }
+    RTC_LOG(LS_ERROR) << "DEBUG: Addresses len is " << addresses.size();
     return addresses;
   }
 
   std::vector<SocketAddress> CalleeAddresses() {
     std::vector<SocketAddress> addresses;
-    addresses.push_back(SocketAddress("2.2.2.2", 0));
+    if (TestIPv4()) {
+      addresses.push_back(SocketAddress("2.2.2.2", 0));
+    }
     if (TestIPv6()) {
       addresses.push_back(SocketAddress("2222:0:a:b:c:d:e:f", 0));
     }
@@ -2170,13 +2181,20 @@ constexpr uint32_t kFlagsIPv6NoStun =
 constexpr uint32_t kFlagsIPv4Stun =
     cricket::PORTALLOCATOR_DISABLE_TCP | cricket::PORTALLOCATOR_DISABLE_RELAY;
 
+constexpr uint32_t kFlagsIPv6Only =
+    cricket::PORTALLOCATOR_DISABLE_IPV4 | cricket::PORTALLOCATOR_ENABLE_IPV6 |
+    cricket::PORTALLOCATOR_DISABLE_TCP | cricket::PORTALLOCATOR_DISABLE_STUN |
+    cricket::PORTALLOCATOR_DISABLE_ADAPTER_ENUMERATION |
+    cricket::PORTALLOCATOR_DISABLE_RELAY;
+
 INSTANTIATE_TEST_SUITE_P(
     PeerConnectionIntegrationTest,
     PeerConnectionIntegrationIceStatesTest,
     Combine(Values(SdpSemantics::kPlanB, SdpSemantics::kUnifiedPlan),
             Values(std::make_pair("IPv4 no STUN", kFlagsIPv4NoStun),
                    std::make_pair("IPv6 no STUN", kFlagsIPv6NoStun),
-                   std::make_pair("IPv4 with STUN", kFlagsIPv4Stun))));
+                   std::make_pair("IPv4 with STUN", kFlagsIPv4Stun),
+                   std::make_pair("IPv6 only no STUN", kFlagsIPv6Only))));
 
 INSTANTIATE_TEST_SUITE_P(
     PeerConnectionIntegrationTest,
@@ -2184,7 +2202,8 @@ INSTANTIATE_TEST_SUITE_P(
     Combine(Values(SdpSemantics::kPlanB, SdpSemantics::kUnifiedPlan),
             Values(std::make_pair("IPv4 no STUN", kFlagsIPv4NoStun),
                    std::make_pair("IPv6 no STUN", kFlagsIPv6NoStun),
-                   std::make_pair("IPv4 with STUN", kFlagsIPv4Stun))));
+                   std::make_pair("IPv4 with STUN", kFlagsIPv4Stun),
+                   std::make_pair("IPv6 only no STUN", kFlagsIPv6Only))));
 
 // This test sets up a call between two parties with audio and video.
 // During the call, the caller restarts ICE and the test verifies that

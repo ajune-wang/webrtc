@@ -15,8 +15,9 @@
 #include <string>
 
 #include "p2p/base/packet_transport_internal.h"
-#include "rtc_base/async_invoker.h"
 #include "rtc_base/copy_on_write_buffer.h"
+#include "rtc_base/task_utils/pending_task_safety_flag.h"
+#include "rtc_base/task_utils/to_queued_task.h"
 
 namespace rtc {
 
@@ -71,9 +72,10 @@ class FakePacketTransport : public PacketTransportInternal {
     }
     CopyOnWriteBuffer packet(data, len);
     if (async_) {
-      invoker_.AsyncInvokeDelayed<void>(
-          RTC_FROM_HERE, Thread::Current(),
-          [this, packet] { SendPacketInternal(packet); }, async_delay_ms_);
+      Thread::Current()->PostDelayedTask(
+          webrtc::ToQueuedTask(task_safety_.flag(),
+                               [this, packet] { SendPacketInternal(packet); }),
+          async_delay_ms_);
     } else {
       SendPacketInternal(packet);
     }
@@ -138,7 +140,6 @@ class FakePacketTransport : public PacketTransportInternal {
   }
 
   CopyOnWriteBuffer last_sent_packet_;
-  AsyncInvoker invoker_;
   std::string transport_name_;
   FakePacketTransport* dest_ = nullptr;
   bool async_ = false;
@@ -150,6 +151,7 @@ class FakePacketTransport : public PacketTransportInternal {
   int error_ = 0;
 
   absl::optional<NetworkRoute> network_route_;
+  webrtc::ScopedTaskSafety task_safety_;
 };
 
 }  // namespace rtc

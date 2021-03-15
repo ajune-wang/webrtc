@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76238156_3c7ac2e3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-03-15T15:34:48Z",
+      "side": 1,
+      "message": "PTAL. Preparation for deleting the AsyncInvoker.",
+      "revId": "1a7d2f29bc2cb4a3dda476ab68220c08a6fd42d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

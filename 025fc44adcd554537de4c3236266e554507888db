@@ -16,6 +16,24 @@
       "message": "Can you point the CL at the merged-to bug?\nApart from that - sad-but-approved.\n",
       "revId": "025fc44adcd554537de4c3236266e554507888db",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c6e0d71_c804f655",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2021-03-15T13:09:11Z",
+      "side": 1,
+      "message": "Yep, done! I forgot to do a bug search before creating that bug... Apparently I uploaded this CL in between filing the merged-from bug, and doing the merge.",
+      "parentUuid": "8167496c_de41bd84",
+      "revId": "025fc44adcd554537de4c3236266e554507888db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

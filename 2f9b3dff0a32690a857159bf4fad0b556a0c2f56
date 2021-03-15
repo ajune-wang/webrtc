@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88f05ed1_3a2da6ab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-03-15T11:35:40Z",
+      "side": 1,
+      "message": "Looks right to me. And tests pass.\n\nIs it possible to write an unit test for the issue?\n",
+      "revId": "2f9b3dff0a32690a857159bf4fad0b556a0c2f56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

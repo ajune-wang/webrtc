@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49985bfc_831d4026",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-03-16T09:01:27Z",
+      "side": 1,
+      "message": "Given that SetAlive is no longer used, should we delete it again?\n\n(I kind of liked the idea that a PendingTasksSafetyFlag was always born alive, went dead, and could never be resurrected - it made the semantics of \"alive\" easy to think about)\n",
+      "revId": "3e774f64b07e4735c39fceba13c06d82620cc3d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

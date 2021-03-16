@@ -71,6 +71,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c29c4670_861d9574",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-03-16T10:14:48Z",
+      "side": 1,
+      "message": "\u003e What happens if I have two \"inbound-rtp\" streams with ssrc 1 and ssrc 2.\n\u003e \n\u003e When the first RTCP SR comes in for ssrc 1 I would expect a \"remote-outbound-rtp\" to be created for ssrc 1, containing packet counters for ssrc 1. But nothing for ssrc 2.\n\u003e \n\u003e Later an RTCP SR comes in for ssrc 2 and then another \"remote-outbound-rtp\" is created for ssrc 2, but not affecting the one for ssrc 1, and so on.\n\nYes, that must be the behavior. I hope that the test I added in\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/modules/rtp_rtcp/source/rtp_rtcp_impl2_unittest.cc;l\u003d657 fully covers the scenario you described.",
+      "parentUuid": "74f69052_c1ee5474",
+      "revId": "048adc7136346105b21dc403acc60bf94e3e931b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "88ead8fd_70e4a0f9",

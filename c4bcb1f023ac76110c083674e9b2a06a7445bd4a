@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8e82485_1bb49240",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-03-16T10:33:02Z",
+      "side": 1,
+      "message": "PTAL. Do I get it right that all methods, including the destructor and OnProviderDestroyed, are called on the signaling thread?",
+      "revId": "c4bcb1f023ac76110c083674e9b2a06a7445bd4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

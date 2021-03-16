@@ -117,6 +117,15 @@ std::vector<const std::string*> GetStatsReferencedIds(const RTCStats& stats) {
     AddIdIfDefined(remote_inbound_rtp.transport_id, &neighbor_ids);
     AddIdIfDefined(remote_inbound_rtp.codec_id, &neighbor_ids);
     AddIdIfDefined(remote_inbound_rtp.local_id, &neighbor_ids);
+  } else if (type == RTCRemoteOutboundRtpStreamStats::kType) {
+    const auto& remote_outbound_rtp =
+        static_cast<const RTCRemoteOutboundRtpStreamStats&>(stats);
+    // Inherited from `RTCRTPStreamStats`.
+    AddIdIfDefined(remote_outbound_rtp.track_id, &neighbor_ids);
+    AddIdIfDefined(remote_outbound_rtp.transport_id, &neighbor_ids);
+    AddIdIfDefined(remote_outbound_rtp.codec_id, &neighbor_ids);
+    // Direct members of `RTCRemoteOutboundRtpStreamStats`.
+    AddIdIfDefined(remote_outbound_rtp.local_id, &neighbor_ids);
   } else if (type == RTCAudioSourceStats::kType ||
              type == RTCVideoSourceStats::kType) {
     // RTC[Audio/Video]SourceStats does not have any neighbor references.

@@ -605,6 +605,30 @@ RTCReceivedRtpStreamStats::~RTCReceivedRtpStreamStats() {}
 
 // clang-format off
 WEBRTC_RTCSTATS_IMPL(
+    RTCSentRtpStreamStats, RTCRTPStreamStats, "sent-rtp",
+    &packets_sent,
+    &bytes_sent)
+// clang-format on
+
+RTCSentRtpStreamStats::RTCSentRtpStreamStats(const std::string&& id,
+                                             int64_t timestamp_us)
+    : RTCSentRtpStreamStats(std::string(id), timestamp_us) {}
+
+RTCSentRtpStreamStats::RTCSentRtpStreamStats(std::string&& id,
+                                             int64_t timestamp_us)
+    : RTCRTPStreamStats(std::move(id), timestamp_us),
+      packets_sent("packetsSent"),
+      bytes_sent("bytesSent") {}
+
+RTCSentRtpStreamStats::RTCSentRtpStreamStats(const RTCSentRtpStreamStats& other)
+    : RTCRTPStreamStats(other),
+      packets_sent(other.packets_sent),
+      bytes_sent(other.bytes_sent) {}
+
+RTCSentRtpStreamStats::~RTCSentRtpStreamStats() {}
+
+// clang-format off
+WEBRTC_RTCSTATS_IMPL(
     RTCInboundRTPStreamStats, RTCReceivedRtpStreamStats, "inbound-rtp",
     &packets_received,
     &fec_packets_received,
@@ -908,6 +932,37 @@ RTCRemoteInboundRtpStreamStats::RTCRemoteInboundRtpStreamStats(
       round_trip_time_measurements(other.round_trip_time_measurements) {}
 
 RTCRemoteInboundRtpStreamStats::~RTCRemoteInboundRtpStreamStats() {}
+
+// clang-format off
+WEBRTC_RTCSTATS_IMPL(
+    RTCRemoteOutboundRtpStreamStats, RTCSentRtpStreamStats,
+    "remote-outbound-rtp",
+    &local_id,
+    &remote_timestamp,
+    &reports_sent)
+// clang-format on
+
+RTCRemoteOutboundRtpStreamStats::RTCRemoteOutboundRtpStreamStats(
+    const std::string& id,
+    int64_t timestamp_us)
+    : RTCRemoteOutboundRtpStreamStats(std::string(id), timestamp_us) {}
+
+RTCRemoteOutboundRtpStreamStats::RTCRemoteOutboundRtpStreamStats(
+    std::string&& id,
+    int64_t timestamp_us)
+    : RTCSentRtpStreamStats(std::move(id), timestamp_us),
+      local_id("localId"),
+      remote_timestamp("remoteTimestamp"),
+      reports_sent("reportsSent") {}
+
+RTCRemoteOutboundRtpStreamStats::RTCRemoteOutboundRtpStreamStats(
+    const RTCRemoteOutboundRtpStreamStats& other)
+    : RTCSentRtpStreamStats(other),
+      local_id(other.local_id),
+      remote_timestamp(other.remote_timestamp),
+      reports_sent(other.reports_sent) {}
+
+RTCRemoteOutboundRtpStreamStats::~RTCRemoteOutboundRtpStreamStats() {}
 
 // clang-format off
 WEBRTC_RTCSTATS_IMPL(RTCMediaSourceStats, RTCStats, "parent-media-source",

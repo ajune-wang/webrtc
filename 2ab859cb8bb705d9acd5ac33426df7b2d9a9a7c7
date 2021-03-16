@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f87f2cdf_3ed85332",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-03-16T14:12:35Z",
+      "side": 1,
+      "message": "Hi Henrik,\nCould you PTAL?\nWhile waiting for the 1st round of comments, I will test this CL in Chromium.\nOnce done, I will add a \"Tested: comment\" line in the description.\nAlessio",
+      "revId": "2ab859cb8bb705d9acd5ac33426df7b2d9a9a7c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

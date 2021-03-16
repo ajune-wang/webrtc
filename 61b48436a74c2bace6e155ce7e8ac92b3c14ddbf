@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5cd5a4a_4628d7e3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-03-16T11:04:33Z",
+      "side": 1,
+      "message": "PTAL. Looks like it was accidentally copied in https://webrtc-review.googlesource.com/c/src/+/208022.",
+      "revId": "61b48436a74c2bace6e155ce7e8ac92b3c14ddbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1866,6 +1866,14 @@ constexpr int kOnlyLocalPorts = cricket::PORTALLOCATOR_DISABLE_STUN |
 
 // Use a mock resolver to resolve the hostname back to the original IP on both
 // sides and check that the ICE connection connects.
+// TODO(bugs.webrtc.org/12590): Flaky on Windows.
+#if defined(WEBRTC_WIN)
+#define MAYBE_IceStatesReachCompletionWithRemoteHostname \
+  DISABLED_IceStatesReachCompletionWithRemoteHostname
+#else
+#define MAYBE_IceStatesReachCompletionWithRemoteHostname \
+  IceStatesReachCompletionWithRemoteHostname
+#endif
 TEST_P(PeerConnectionIntegrationTest,
        IceStatesReachCompletionWithRemoteHostname) {
   auto caller_resolver_factory =
@@ -2123,6 +2131,12 @@ TEST_P(PeerConnectionIntegrationIceStatesTestWithFakeClock,
 
 // Tests that the best connection is set to the appropriate IPv4/IPv6 connection
 // and that the statistics in the metric observers are updated correctly.
+// TODO(bugs.webrtc.org/12591): Flaky on Windows.
+#if defined(WEBRTC_WIN)
+#define MAYBE_VerifyBestConnection DISABLED_VerifyBestConnection
+#else
+#define MAYBE_VerifyBestConnection VerifyBestConnection
+#endif
 TEST_P(PeerConnectionIntegrationIceStatesTest, VerifyBestConnection) {
   ASSERT_TRUE(CreatePeerConnectionWrappers());
   ConnectFakeSignaling();

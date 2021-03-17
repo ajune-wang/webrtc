@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4841bb2c_a9e3a446",
+        "filename": "api/rtp_parameters.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-17T13:51:23Z",
+      "side": 1,
+      "message": "These two sentences looks redundant. May be leave just last one or some mix of them. Something like\nHeader extension to propagate `webrtc::VideoFrame::id`",
+      "range": {
+        "startLine": 356,
+        "startChar": 0,
+        "endLine": 358,
+        "endChar": 0
+      },
+      "revId": "e0481924309abae92d4035c3a4782b5cb99dea8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ff9a27f_3ad64080",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-17T13:51:23Z",
+      "side": 1,
+      "message": "These field trials for other extensions exists because api to dynamically enable/disable extension wasn\u0027t implemented yet.\nAfaik that api is implemented now all the way to the js layer, so it might be cleaner to add this extension as \u0027kStopped\u0027 and enable via api when you want to use it.\n\n(Other field trials should be eventually removed too in favor of the same api)",
+      "range": {
+        "startLine": 692,
+        "startChar": 26,
+        "endLine": 692,
+        "endChar": 63
+      },
+      "revId": "e0481924309abae92d4035c3a4782b5cb99dea8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

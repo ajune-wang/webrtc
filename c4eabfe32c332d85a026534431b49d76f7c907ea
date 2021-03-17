@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "513b94d9_1304944a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-03-17T20:03:54Z",
+      "side": 1,
+      "message": "LGTM % comment",
+      "revId": "c4eabfe32c332d85a026534431b49d76f7c907ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66a8a9a6_a41bcf92",
+        "filename": "docs/native-code/rtp-hdrext/video-frame-tracking-id/README.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-03-17T20:03:54Z",
+      "side": 1,
+      "message": "BTW, is it still true?",
+      "range": {
+        "startLine": 14,
+        "startChar": 74,
+        "endLine": 15,
+        "endChar": 30
+      },
+      "revId": "c4eabfe32c332d85a026534431b49d76f7c907ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

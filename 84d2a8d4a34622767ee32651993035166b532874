@@ -65,6 +65,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d821bd76_ea775a4c",
+        "filename": "api/rtp_parameters.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-03-17T13:26:50Z",
+      "side": 1,
+      "message": "Ah, I see, now I understand what you meant, yep it\u0027s also good.",
+      "parentUuid": "ab65045f_08b486a8",
+      "range": {
+        "startLine": 356,
+        "startChar": 38,
+        "endLine": 356,
+        "endChar": 49
+      },
+      "revId": "84d2a8d4a34622767ee32651993035166b532874",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7ceecb8a_0d00e969",

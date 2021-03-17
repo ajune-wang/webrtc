@@ -16,6 +16,23 @@
       "message": "Hi  Kári!\n\nCould you please review this CL which seems to expose last thing which is required to implement perfect negotiation algorithm with iOS SDK?\n\nThanks a lot in advance,\nYura.",
       "revId": "d703f26493348c9008d1b771dfdfcf55902be054",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db9c1f03_e46f67e6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2021-03-17T09:03:19Z",
+      "side": 1,
+      "message": "Thanks Yura!",
+      "revId": "d703f26493348c9008d1b771dfdfcf55902be054",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

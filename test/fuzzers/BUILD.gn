@@ -632,6 +632,18 @@ webrtc_fuzzer_test("vp8_replay_fuzzer") {
   seed_corpus = "corpora/rtpdump-corpus/vp8"
 }
 
+if (rtc_build_libvpx) {
+  webrtc_fuzzer_test("vp9_encoder_references_fuzzer") {
+    sources = [ "vp9_encoder_references_fuzzer.cc" ]
+    deps = [
+      "../../modules/video_coding:mock_libvpx_interface",
+      "../../modules/video_coding:webrtc_vp9",
+      rtc_libvpx_dir,
+    ]
+    defines = [ "RTC_ENABLE_VP9" ]
+  }
+}
+
 webrtc_fuzzer_test("vp9_replay_fuzzer") {
   sources = [ "vp9_replay_fuzzer.cc" ]
   deps = [

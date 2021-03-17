@@ -1857,9 +1857,6 @@ TEST_P(PeerConnectionIntegrationTest, IceStatesReachCompletion) {
                  callee()->ice_connection_state(), kDefaultTimeout);
 }
 
-#if !defined(THREAD_SANITIZER)
-// This test provokes TSAN errors. See bugs.webrtc.org/3608
-
 constexpr int kOnlyLocalPorts = cricket::PORTALLOCATOR_DISABLE_STUN |
                                 cricket::PORTALLOCATOR_DISABLE_RELAY |
                                 cricket::PORTALLOCATOR_DISABLE_TCP;
@@ -1919,8 +1916,6 @@ TEST_P(PeerConnectionIntegrationTest,
                           "WebRTC.PeerConnection.CandidatePairType_UDP",
                           webrtc::kIceCandidatePairHostNameHostName));
 }
-
-#endif  // !defined(THREAD_SANITIZER)
 
 // Test that firewalling the ICE connection causes the clients to identify the
 // disconnected state and then removing the firewall causes them to reconnect.

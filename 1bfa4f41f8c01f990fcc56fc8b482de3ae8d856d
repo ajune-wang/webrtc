@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "363bdfbd_0350c897",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2021-03-17T14:42:51Z",
+      "side": 1,
+      "message": "Hi Kári!\n\nCould you please look at this CL which helps users to resolve SDP incompatibility between clients with modern WebRTC and clients with WebRTC \u003c 71. Modern clients by default include a\u003dextmap-allow-mixed in SDP, while old clients are unable to parse this line claiming it must include 2 parameters.\nMore info about the issue: https://groups.google.com/a/chromium.org/g/blink-dev/c/7z3uvp0-ZAc/m/8Z7qpp71BgAJ\n\nThanks a lot in advance,\nYura.",
+      "revId": "1bfa4f41f8c01f990fcc56fc8b482de3ae8d856d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

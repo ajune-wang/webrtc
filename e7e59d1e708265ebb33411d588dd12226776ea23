@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ea5c1eb_332c8dee",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-03-17T13:36:25Z",
+      "side": 1,
+      "message": "Can you add a reference to the design document that explains why the other frame IDs (RTP timestamp, codec-specific frame IDs) are unsuitable for the purpose?",
+      "revId": "e7e59d1e708265ebb33411d588dd12226776ea23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40ab58d4_761be893",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-03-17T13:36:25Z",
+      "side": 1,
+      "message": "A few questions. Mostly about the background for this. Is this just an experiment that you expect to delete in 6 months, or are you expecting to deploy this in production and run with it \"forever\"?\n",
+      "revId": "e7e59d1e708265ebb33411d588dd12226776ea23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27400d2a_84f6166e",
+        "filename": "docs/native-code/rtp-hdrext/video-frame-tracking-id/README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-03-17T13:36:25Z",
+      "side": 1,
+      "message": "What\u0027s the reason for choosing such a small number as 16 bits for the tracking ID?\nIf running a 60 FPS video, you\u0027ll wraparound in 18 minutes.",
+      "revId": "e7e59d1e708265ebb33411d588dd12226776ea23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c1a0557_348b91a9",
+        "filename": "docs/native-code/rtp-hdrext/video-frame-tracking-id/README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-03-17T13:36:25Z",
+      "side": 1,
+      "message": "Nit: Extension -\u003e The extension, frames -\u003e frame.",
+      "revId": "e7e59d1e708265ebb33411d588dd12226776ea23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

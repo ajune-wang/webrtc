@@ -21,6 +21,7 @@
 #include <utility>
 #include <vector>
 
+#include "absl/algorithm/container.h"
 #include "api/scoped_refptr.h"
 #include "api/video/video_content_type.h"
 #include "api/video/video_frame_buffer.h"
@@ -929,30 +930,8 @@ int LibvpxVp8Encoder::Encode(const VideoFrame& frame,
     flags[i] = send_key_frame ? VPX_EFLAG_FORCE_KF : EncodeFlags(tl_configs[i]);
   }
 
-  rtc::scoped_refptr<VideoFrameBuffer> input_image = frame.video_frame_buffer();
-  // Since we are extracting raw pointers from |input_image| to
-  // |raw_images_[0]|, the resolution of these frames must match.
-  RTC_DCHECK_EQ(input_image->width(), raw_images_[0].d_w);
-  RTC_DCHECK_EQ(input_image->height(), raw_images_[0].d_h);
-  switch (input_image->type()) {
-    case VideoFrameBuffer::Type::kI420:
-      PrepareI420Image(input_image->GetI420());
-      break;
-    case VideoFrameBuffer::Type::kNV12:
-      PrepareNV12Image(input_image->GetNV12());
-      break;
-    default: {
-      rtc::scoped_refptr<I420BufferInterface> i420_image =
-          input_image->ToI420();
-      if (!i420_image) {
-        RTC_LOG(LS_ERROR) << "Failed to convert "
-                          << VideoFrameBufferTypeToString(input_image->type())
-                          << " image to I420. Can't encode frame.";
-        return WEBRTC_VIDEO_CODEC_ERROR;
-      }
-      input_image = i420_image;
-      PrepareI420Image(i420_image);
-    }
+  if (!PrepareImage(frame.video_frame_buffer())) {
+    return WEBRTC_VIDEO_CODEC_ERROR;
   }
   struct CleanUpOnExit {
     explicit CleanUpOnExit(vpx_image_t& raw_image) : raw_image_(raw_image) {}
@@ -1262,61 +1241,108 @@ void LibvpxVp8Encoder::MaybeUpdatePixelFormat(vpx_img_fmt fmt) {
   }
 }
 
-void LibvpxVp8Encoder::PrepareI420Image(const I420BufferInterface* frame) {
-  RTC_DCHECK(!raw_images_.empty());
-  MaybeUpdatePixelFormat(VPX_IMG_FMT_I420);
-  // Image in vpx_image_t format.
-  // Input image is const. VP8's raw image is not defined as const.
-  raw_images_[0].planes[VPX_PLANE_Y] = const_cast<uint8_t*>(frame->DataY());
-  raw_images_[0].planes[VPX_PLANE_U] = const_cast<uint8_t*>(frame->DataU());
-  raw_images_[0].planes[VPX_PLANE_V] = const_cast<uint8_t*>(frame->DataV());
+bool LibvpxVp8Encoder::PrepareImage(
+    rtc::scoped_refptr<VideoFrameBuffer> frame) {
+  RTC_DCHECK_EQ(frame->width(), raw_images_[0].d_w);
+  RTC_DCHECK_EQ(frame->height(), raw_images_[0].d_h);
+  absl::InlinedVector<VideoFrameBuffer::Type, kMaxPreferredPixelFormats>
+      supported_formats = {VideoFrameBuffer::Type::kI420,
+                           VideoFrameBuffer::Type::kNV12};
 
-  raw_images_[0].stride[VPX_PLANE_Y] = frame->StrideY();
-  raw_images_[0].stride[VPX_PLANE_U] = frame->StrideU();
-  raw_images_[0].stride[VPX_PLANE_V] = frame->StrideV();
+  rtc::scoped_refptr<VideoFrameBuffer> mapped_frame;
+  if (frame->type() == VideoFrameBuffer::Type::kNative) {
+    mapped_frame = frame->GetMappedFrameBuffer(supported_formats);
+  } else {
+    // |frame| is already mapped.
+    mapped_frame = frame;
+  }
+  if (!mapped_frame || absl::c_find(supported_formats, mapped_frame->type()) ==
+                           supported_formats.end()) {
+    // The frame is not of a supported format, convert to I420 and prepare that
+    // instead.
+    auto i420_frame = frame->ToI420();
+    if (!i420_frame) {
+      RTC_LOG(LS_ERROR) << "Failed to convert "
+                        << VideoFrameBufferTypeToString(frame->type())
+                        << " image to I420. Can't encode frame.";
+      return false;
+    }
+    return PrepareImage(i420_frame);
+  }
 
+  // Maybe update pixel format.
+  absl::InlinedVector<VideoFrameBuffer::Type, kMaxPreferredPixelFormats>
+      mapped_type = {mapped_frame->type()};
+  switch (mapped_frame->type()) {
+    case VideoFrameBuffer::Type::kI420:
+      MaybeUpdatePixelFormat(VPX_IMG_FMT_I420);
+      break;
+    case VideoFrameBuffer::Type::kNV12:
+      MaybeUpdatePixelFormat(VPX_IMG_FMT_NV12);
+      break;
+    default:
+      RTC_NOTREACHED();
+  }
+
+  // Prepare |raw_images_|.
+  PrepareRawImages(0, *mapped_frame);
   for (size_t i = 1; i < encoders_.size(); ++i) {
-    // Scale the image down a number of times by downsampling factor
-    libyuv::I420Scale(
-        raw_images_[i - 1].planes[VPX_PLANE_Y],
-        raw_images_[i - 1].stride[VPX_PLANE_Y],
-        raw_images_[i - 1].planes[VPX_PLANE_U],
-        raw_images_[i - 1].stride[VPX_PLANE_U],
-        raw_images_[i - 1].planes[VPX_PLANE_V],
-        raw_images_[i - 1].stride[VPX_PLANE_V], raw_images_[i - 1].d_w,
-        raw_images_[i - 1].d_h, raw_images_[i].planes[VPX_PLANE_Y],
-        raw_images_[i].stride[VPX_PLANE_Y], raw_images_[i].planes[VPX_PLANE_U],
-        raw_images_[i].stride[VPX_PLANE_U], raw_images_[i].planes[VPX_PLANE_V],
-        raw_images_[i].stride[VPX_PLANE_V], raw_images_[i].d_w,
-        raw_images_[i].d_h, libyuv::kFilterBilinear);
+    auto scaled_frame = frame->Scale(raw_images_[i].d_w, raw_images_[i].d_h);
+    if (scaled_frame->type() == VideoFrameBuffer::Type::kNative) {
+      scaled_frame = scaled_frame->GetMappedFrameBuffer(mapped_type);
+      RTC_DCHECK(scaled_frame) << "Failed to map downscaled image.";
+    }
+    RTC_DCHECK_EQ(scaled_frame->type(), mapped_frame->type())
+        << "Scaled frames must have the same type as the mapped frame.";
+    PrepareRawImages(i, *scaled_frame);
+  }
+  return true;
+}
+
+void LibvpxVp8Encoder::PrepareRawImages(size_t i,
+                                        const VideoFrameBuffer& buffer) {
+  switch (buffer.type()) {
+    case VideoFrameBuffer::Type::kI420: {
+      const I420BufferInterface* i420_buffer = buffer.GetI420();
+      RTC_DCHECK(i420_buffer);
+      PrepareRawImagesWithI420(i, i420_buffer);
+      break;
+    }
+    case VideoFrameBuffer::Type::kNV12: {
+      const NV12BufferInterface* nv12_buffer = buffer.GetNV12();
+      RTC_DCHECK(nv12_buffer);
+      PrepareRawImagesWithNV12(i, nv12_buffer);
+      break;
+    }
+    default:
+      RTC_NOTREACHED();
   }
 }
 
-void LibvpxVp8Encoder::PrepareNV12Image(const NV12BufferInterface* frame) {
-  RTC_DCHECK(!raw_images_.empty());
-  MaybeUpdatePixelFormat(VPX_IMG_FMT_NV12);
-  // Image in vpx_image_t format.
-  // Input image is const. VP8's raw image is not defined as const.
-  raw_images_[0].planes[VPX_PLANE_Y] = const_cast<uint8_t*>(frame->DataY());
-  raw_images_[0].planes[VPX_PLANE_U] = const_cast<uint8_t*>(frame->DataUV());
-  raw_images_[0].planes[VPX_PLANE_V] = raw_images_[0].planes[VPX_PLANE_U] + 1;
-  raw_images_[0].stride[VPX_PLANE_Y] = frame->StrideY();
-  raw_images_[0].stride[VPX_PLANE_U] = frame->StrideUV();
-  raw_images_[0].stride[VPX_PLANE_V] = frame->StrideUV();
-
-  for (size_t i = 1; i < encoders_.size(); ++i) {
-    // Scale the image down a number of times by downsampling factor
-    libyuv::NV12Scale(
-        raw_images_[i - 1].planes[VPX_PLANE_Y],
-        raw_images_[i - 1].stride[VPX_PLANE_Y],
-        raw_images_[i - 1].planes[VPX_PLANE_U],
-        raw_images_[i - 1].stride[VPX_PLANE_U], raw_images_[i - 1].d_w,
-        raw_images_[i - 1].d_h, raw_images_[i].planes[VPX_PLANE_Y],
-        raw_images_[i].stride[VPX_PLANE_Y], raw_images_[i].planes[VPX_PLANE_U],
-        raw_images_[i].stride[VPX_PLANE_U], raw_images_[i].d_w,
-        raw_images_[i].d_h, libyuv::kFilterBilinear);
-    raw_images_[i].planes[VPX_PLANE_V] = raw_images_[i].planes[VPX_PLANE_U] + 1;
-  }
+void LibvpxVp8Encoder::PrepareRawImagesWithI420(
+    size_t i,
+    const I420BufferInterface* i420_buffer) {
+  raw_images_[i].planes[VPX_PLANE_Y] =
+      const_cast<uint8_t*>(i420_buffer->DataY());
+  raw_images_[i].planes[VPX_PLANE_U] =
+      const_cast<uint8_t*>(i420_buffer->DataU());
+  raw_images_[i].planes[VPX_PLANE_V] =
+      const_cast<uint8_t*>(i420_buffer->DataV());
+  raw_images_[i].stride[VPX_PLANE_Y] = i420_buffer->StrideY();
+  raw_images_[i].stride[VPX_PLANE_U] = i420_buffer->StrideU();
+  raw_images_[i].stride[VPX_PLANE_V] = i420_buffer->StrideV();
+}
+void LibvpxVp8Encoder::PrepareRawImagesWithNV12(
+    size_t i,
+    const NV12BufferInterface* nv12_buffer) {
+  raw_images_[i].planes[VPX_PLANE_Y] =
+      const_cast<uint8_t*>(nv12_buffer->DataY());
+  raw_images_[i].planes[VPX_PLANE_U] =
+      const_cast<uint8_t*>(nv12_buffer->DataUV());
+  raw_images_[i].planes[VPX_PLANE_V] = raw_images_[i].planes[VPX_PLANE_U] + 1;
+  raw_images_[i].stride[VPX_PLANE_Y] = nv12_buffer->StrideY();
+  raw_images_[i].stride[VPX_PLANE_U] = nv12_buffer->StrideUV();
+  raw_images_[i].stride[VPX_PLANE_V] = nv12_buffer->StrideUV();
 }
 
 // static

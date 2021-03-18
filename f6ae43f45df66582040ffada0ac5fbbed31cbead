@@ -71,6 +71,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f52b70da_a6ce83e3",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2021-03-18T11:39:08Z",
+      "side": 1,
+      "message": "I think it\u0027s fine to leave it as optional.\nOtherwise I will have to check in frame_object.cc if the RTPVideoTypeHeader::video_frame_tracking_id holds a value before calling this function.",
+      "parentUuid": "dd89c9cc_90df8371",
+      "range": {
+        "startLine": 120,
+        "startChar": 31,
+        "endLine": 120,
+        "endChar": 62
+      },
+      "revId": "f6ae43f45df66582040ffada0ac5fbbed31cbead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ca5383a4_37d5ad71",

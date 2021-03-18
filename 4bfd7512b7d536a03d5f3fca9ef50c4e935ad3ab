@@ -16,6 +16,47 @@
       "message": "Erik, can you please take an early look if this kind of testing looks reasonable.\n\nIt compiles, but not finished yet (almost no validation, not enough of libvpx is stubbed, and even in this shallow state it fails after a second of fuzzing, probably due to some missing configuration)",
       "revId": "4bfd7512b7d536a03d5f3fca9ef50c4e935ad3ab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff5e2254_e8483646",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-03-18T07:42:39Z",
+      "side": 1,
+      "message": "Yes, I think this makes sense!",
+      "parentUuid": "5548240d_821cb617",
+      "revId": "4bfd7512b7d536a03d5f3fca9ef50c4e935ad3ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2230347_bdd6ee6b",
+        "filename": "test/fuzzers/vp9_encoder_references_fuzzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-03-18T07:42:39Z",
+      "side": 1,
+      "message": "I wonder if this is \"too\" random? E.e. we might get more callbacks for a frame than we have spatial layers, or callbacks before first encode.\nDepending on what we want to test exactly, do we need to respect the drop mode of libvpx (i.e. full superframe drop)?",
+      "range": {
+        "startLine": 164,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 57
+      },
+      "revId": "4bfd7512b7d536a03d5f3fca9ef50c4e935ad3ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

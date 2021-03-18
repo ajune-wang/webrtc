@@ -16,6 +16,23 @@
       "message": "Added comments, do they look accurate?",
       "revId": "dcf68c43bc0ffc068afe0408ab41c84d436c6034",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f14e619_bdef93f1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-03-18T09:33:07Z",
+      "side": 1,
+      "message": "Comments look good! Let\u0027s go.\n\n(the nulling of dest-\u003edest is, I think, intended for the common case of two FakeIceTransports pointing at each other - it permits deleting them one at a time. Hopefully they\u0027ll both be deleted on the same thread.)\n",
+      "revId": "dcf68c43bc0ffc068afe0408ab41c84d436c6034",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

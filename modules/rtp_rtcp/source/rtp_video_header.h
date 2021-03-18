@@ -77,6 +77,10 @@ struct RTPVideoHeader {
   VideoPlayoutDelay playout_delay;
   VideoSendTiming video_timing;
   absl::optional<ColorSpace> color_space;
+  // Field is meant for media quality testing purpose. When enabled it carries
+  // the webrtc::VideoFrame id field from the sender to the receiver using the
+  // VideoFrameTrackingIdExtension.
+  absl::optional<uint16_t> video_frame_tracking_id;
   RTPVideoTypeHeader video_type_header;
 };
 

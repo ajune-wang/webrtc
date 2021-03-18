@@ -33,6 +33,24 @@
       "message": "As far as I can tell from the annotations, everything has to be accessed on the network thread, except that constructors and destructors can run on any thread. Is that correct?\n\nIt would be good to have 2 lines saying so at the top of the class.\n",
       "revId": "1a7d2f29bc2cb4a3dda476ab68220c08a6fd42d1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0486cd88_b4649155",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-03-18T09:03:45Z",
+      "side": 1,
+      "message": "It\u0027s not crystal clear to me, in particular, the assignment\n\ndest_-\u003edest_ \u003d nullptr;\n\nin the destructor looks unsafe, unless either (i) it runs on the network thread, or (ii) the network thread has been shutdown.",
+      "parentUuid": "e49fa8f6_86dfac22",
+      "revId": "1a7d2f29bc2cb4a3dda476ab68220c08a6fd42d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

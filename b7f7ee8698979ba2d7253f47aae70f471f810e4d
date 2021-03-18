@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "96da6588_7c2a3880",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2021-03-18T12:51:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c6123615_343c75ee",
+      "range": {
+        "startLine": 121,
+        "startChar": 31,
+        "endLine": 121,
+        "endChar": 62
+      },
+      "revId": "b7f7ee8698979ba2d7253f47aae70f471f810e4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "17ace745_df8ca076",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-03-18T11:59:05Z",
       "side": 1,
       "message": "Instead prefer to describe what it is. (in spirit of http://go/totw/138)\n(e.g. if someone look at this field two years later, how that person can check if the field is still needed?)\n\nTesting can mean multiple things.\ne.g. this field can\u0027t be there only when NDEBUG or GUNIT_TESTING is defined because \nit still will be there in production code.",
+      "range": {
+        "startLine": 80,
+        "startChar": 53,
+        "endLine": 80,
+        "endChar": 78
+      },
+      "revId": "b7f7ee8698979ba2d7253f47aae70f471f810e4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4540eb78_2d989d8e",
+        "filename": "modules/rtp_rtcp/source/rtp_video_header.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2021-03-18T12:51:19Z",
+      "side": 1,
+      "message": "Tried to come up with a reasonable explanation.",
+      "parentUuid": "17ace745_df8ca076",
       "range": {
         "startLine": 80,
         "startChar": 53,
@@ -70,6 +118,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "111a4502_bb09b315",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2021-03-18T12:51:19Z",
+      "side": 1,
+      "message": "Thought it made sense to have the receiver be the symmetry of the sender.\nRemoved it.",
+      "parentUuid": "79609ef0_d30368fd",
+      "range": {
+        "startLine": 544,
+        "startChar": 2,
+        "endLine": 544,
+        "endChar": 46
+      },
+      "revId": "b7f7ee8698979ba2d7253f47aae70f471f810e4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "47d82951_9ab3a00a",
@@ -83,6 +155,30 @@
       "writtenOn": "2021-03-18T11:59:05Z",
       "side": 1,
       "message": "This is same as\n  video_header.video_frame_tracking_id \u003d\n    rtp_packet.GetExtension\u003cVideoFrameTrackingIdExtension\u003e();",
+      "range": {
+        "startLine": 545,
+        "startChar": 4,
+        "endLine": 548,
+        "endChar": 5
+      },
+      "revId": "b7f7ee8698979ba2d7253f47aae70f471f810e4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7efd0c50_4b7b8898",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2021-03-18T12:51:19Z",
+      "side": 1,
+      "message": "Looks much nicer, thanks.",
+      "parentUuid": "47d82951_9ab3a00a",
       "range": {
         "startLine": 545,
         "startChar": 4,

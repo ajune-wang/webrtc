@@ -33,6 +33,7 @@
 #include "common_video/include/video_frame_buffer.h"
 #include "media/base/video_adapter.h"
 #include "media/engine/webrtc_video_engine.h"
+#include "modules/video_coding/codecs/vp8/include/vp8.h"
 #include "modules/video_coding/codecs/vp9/include/vp9_globals.h"
 #include "modules/video_coding/utility/quality_scaler.h"
 #include "modules/video_coding/utility/simulcast_rate_allocator.h"
@@ -116,7 +117,8 @@ class TestBuffer : public webrtc::I420Buffer {
   rtc::Event* const event_;
 };
 
-// A fake native buffer that can't be converted to I420.
+// A fake native buffer that can't be converted to I420 but it can be scaled
+// produces another fake native buffer.
 class FakeNativeBuffer : public webrtc::VideoFrameBuffer {
  public:
   FakeNativeBuffer(rtc::Event* event, int width, int height)
@@ -126,6 +128,16 @@ class FakeNativeBuffer : public webrtc::VideoFrameBuffer {
   int height() const override { return height_; }
   rtc::scoped_refptr<webrtc::I420BufferInterface> ToI420() override {
     return nullptr;
+  }
+  rtc::scoped_refptr<VideoFrameBuffer> CropAndScale(
+      int offset_x,
+      int offset_y,
+      int crop_width,
+      int crop_height,
+      int scaled_width,
+      int scaled_height) override {
+    return new rtc::RefCountedObject<FakeNativeBuffer>(nullptr, scaled_width,
+                                                       scaled_height);
   }
 
  private:
@@ -168,6 +180,118 @@ class FakeNV12NativeBuffer : public webrtc::VideoFrameBuffer {
   }
   rtc::scoped_refptr<NV12Buffer> nv12_buffer_;
   rtc::Event* const event_;
+};
+
+// A native buffer that is scalable and mappable.
+class MappableNativeBuffer : public VideoFrameBuffer {
+ public:
+  MappableNativeBuffer(VideoFrameBuffer::Type mappable_type,
+                       int width,
+                       int height)
+      : mappable_type_(mappable_type),
+        buffer_(new rtc::RefCountedObject<ScaledBuffer>(this, width, height)) {}
+  ~MappableNativeBuffer() override {}
+
+  VideoFrameBuffer::Type type() const override { return Type::kNative; }
+  int width() const override { return buffer_->width(); }
+  int height() const override { return buffer_->height(); }
+  rtc::scoped_refptr<I420BufferInterface> ToI420() override {
+    return buffer_->ToI420();
+  }
+  rtc::scoped_refptr<VideoFrameBuffer> CropAndScale(
+      int offset_x,
+      int offset_y,
+      int crop_width,
+      int crop_height,
+      int scaled_width,
+      int scaled_height) override {
+    return buffer_->CropAndScale(offset_x, offset_y, crop_width, crop_height,
+                                 scaled_width, scaled_height);
+  }
+  rtc::scoped_refptr<VideoFrameBuffer> GetMappedFrameBuffer(
+      rtc::ArrayView<VideoFrameBuffer::Type> types) override {
+    return buffer_->GetMappedFrameBuffer(types);
+  }
+
+ private:
+  friend class rtc::RefCountedObject<MappableNativeBuffer>;
+
+  class ScaledBuffer : public VideoFrameBuffer {
+   public:
+    ScaledBuffer(rtc::scoped_refptr<MappableNativeBuffer> parent,
+                 int width,
+                 int height)
+        : parent_(std::move(parent)), width_(width), height_(height) {}
+    ~ScaledBuffer() override {}
+
+    VideoFrameBuffer::Type type() const override { return Type::kNative; }
+    int width() const override { return width_; }
+    int height() const override { return height_; }
+    rtc::scoped_refptr<I420BufferInterface> ToI420() override {
+      return parent_->GetOrCreateMappedBuffer(width_, height_)->ToI420();
+    }
+    rtc::scoped_refptr<VideoFrameBuffer> CropAndScale(
+        int offset_x,
+        int offset_y,
+        int crop_width,
+        int crop_height,
+        int scaled_width,
+        int scaled_height) override {
+      return rtc::scoped_refptr<VideoFrameBuffer>(
+          new rtc::RefCountedObject<ScaledBuffer>(parent_, scaled_width,
+                                                  scaled_height));
+    }
+    rtc::scoped_refptr<VideoFrameBuffer> GetMappedFrameBuffer(
+        rtc::ArrayView<VideoFrameBuffer::Type> types) override {
+      if (absl::c_find(types, parent_->mappable_type_) == types.end())
+        return nullptr;
+      return parent_->GetOrCreateMappedBuffer(width_, height_);
+    }
+
+   private:
+    friend class rtc::RefCountedObject<ScaledBuffer>;
+
+    const rtc::scoped_refptr<MappableNativeBuffer> parent_;
+    const int width_;
+    const int height_;
+  };
+
+  rtc::scoped_refptr<VideoFrameBuffer> GetOrCreateMappedBuffer(int width,
+                                                               int height) {
+    MutexLock lock(&lock_);
+    for (auto& mapped_buffer : mapped_buffers_) {
+      if (mapped_buffer->width() == width &&
+          mapped_buffer->height() == height) {
+        return mapped_buffer;
+      }
+    }
+    rtc::scoped_refptr<VideoFrameBuffer> mapped_buffer;
+    switch (mappable_type_) {
+      case VideoFrameBuffer::Type::kI420: {
+        rtc::scoped_refptr<I420Buffer> i420_buffer =
+            I420Buffer::Create(width, height);
+        I420Buffer::SetBlack(i420_buffer);
+        mapped_buffer = i420_buffer;
+        break;
+      }
+      case VideoFrameBuffer::Type::kNV12: {
+        rtc::scoped_refptr<NV12Buffer> nv12_buffer =
+            NV12Buffer::Create(width, height);
+        nv12_buffer->InitializeData();
+        mapped_buffer = nv12_buffer;
+        break;
+      }
+      default:
+        RTC_NOTREACHED();
+    }
+    mapped_buffers_.push_back(mapped_buffer);
+    return mapped_buffer;
+  }
+
+  const VideoFrameBuffer::Type mappable_type_;
+  const rtc::scoped_refptr<ScaledBuffer> buffer_;
+  mutable Mutex lock_;
+  std::vector<rtc::scoped_refptr<VideoFrameBuffer>> mapped_buffers_;
 };
 
 class CpuOveruseDetectorProxy : public OveruseFrameDetector {
@@ -989,6 +1113,16 @@ class VideoStreamEncoderTest : public ::testing::Test {
       return settings;
     }
 
+    int GetLastInputWidth() const {
+      MutexLock lock(&local_mutex_);
+      return last_input_width_;
+    }
+
+    int GetLastInputHeight() const {
+      MutexLock lock(&local_mutex_);
+      return last_input_height_;
+    }
+
     absl::optional<VideoFrameBuffer::Type> GetLastInputPixelFormat() {
       MutexLock lock(&local_mutex_);
       return last_input_pixel_format_;
@@ -1555,7 +1689,7 @@ TEST_F(VideoStreamEncoderBlockedTest, DropsPendingFramesOnSlowEncode) {
   EXPECT_EQ(1, dropped_count);
 }
 
-TEST_F(VideoStreamEncoderTest, DropFrameWithFailedI420Conversion) {
+TEST_F(VideoStreamEncoderTest, NativeFrameWithoutI420SupportGetsDelivered) {
   video_stream_encoder_->OnBitrateUpdatedAndWaitForManagedResources(
       DataRate::BitsPerSec(kTargetBitrateBps),
       DataRate::BitsPerSec(kTargetBitrateBps),
@@ -1564,12 +1698,18 @@ TEST_F(VideoStreamEncoderTest, DropFrameWithFailedI420Conversion) {
   rtc::Event frame_destroyed_event;
   video_source_.IncomingCapturedFrame(
       CreateFakeNativeFrame(1, &frame_destroyed_event));
-  ExpectDroppedFrame();
-  EXPECT_TRUE(frame_destroyed_event.Wait(kDefaultTimeoutMs));
+  WaitForEncodedFrame(1);
+  EXPECT_EQ(VideoFrameBuffer::Type::kNative,
+            fake_encoder_.GetLastInputPixelFormat());
+  EXPECT_EQ(fake_encoder_.codec_config().width,
+            fake_encoder_.GetLastInputWidth());
+  EXPECT_EQ(fake_encoder_.codec_config().height,
+            fake_encoder_.GetLastInputHeight());
   video_stream_encoder_->Stop();
 }
 
-TEST_F(VideoStreamEncoderTest, DropFrameWithFailedI420ConversionWithCrop) {
+TEST_F(VideoStreamEncoderTest,
+       NativeFrameWithoutI420SupportGetsCroppedIfNecessary) {
   // Use the cropping factory.
   video_encoder_config_.video_stream_factory =
       new rtc::RefCountedObject<CroppingVideoStreamFactory>();
@@ -1594,8 +1734,13 @@ TEST_F(VideoStreamEncoderTest, DropFrameWithFailedI420ConversionWithCrop) {
   rtc::Event frame_destroyed_event;
   video_source_.IncomingCapturedFrame(CreateFakeNativeFrame(
       2, &frame_destroyed_event, codec_width_ + 1, codec_height_ + 1));
-  ExpectDroppedFrame();
-  EXPECT_TRUE(frame_destroyed_event.Wait(kDefaultTimeoutMs));
+  WaitForEncodedFrame(2);
+  EXPECT_EQ(VideoFrameBuffer::Type::kNative,
+            fake_encoder_.GetLastInputPixelFormat());
+  EXPECT_EQ(fake_encoder_.codec_config().width,
+            fake_encoder_.GetLastInputWidth());
+  EXPECT_EQ(fake_encoder_.codec_config().height,
+            fake_encoder_.GetLastInputHeight());
   video_stream_encoder_->Stop();
 }
 
@@ -1613,8 +1758,7 @@ TEST_F(VideoStreamEncoderTest, NonI420FramesShouldNotBeConvertedToI420) {
   video_stream_encoder_->Stop();
 }
 
-TEST_F(VideoStreamEncoderTest,
-       NativeFrameIsConvertedToI420IfNoFrameTypePreference) {
+TEST_F(VideoStreamEncoderTest, NativeFrameGetsDelivered_NoFrameTypePreference) {
   video_stream_encoder_->OnBitrateUpdatedAndWaitForManagedResources(
       DataRate::BitsPerSec(kTargetBitrateBps),
       DataRate::BitsPerSec(kTargetBitrateBps),
@@ -1626,12 +1770,13 @@ TEST_F(VideoStreamEncoderTest,
   video_source_.IncomingCapturedFrame(CreateFakeNV12NativeFrame(
       1, &frame_destroyed_event, codec_width_, codec_height_));
   WaitForEncodedFrame(1);
-  EXPECT_EQ(VideoFrameBuffer::Type::kI420,
+  EXPECT_EQ(VideoFrameBuffer::Type::kNative,
             fake_encoder_.GetLastInputPixelFormat());
   video_stream_encoder_->Stop();
 }
 
-TEST_F(VideoStreamEncoderTest, NativeFrameMappedToPreferredPixelFormat) {
+TEST_F(VideoStreamEncoderTest,
+       NativeFrameGetsDelivered_PixelFormatPreferenceMatches) {
   video_stream_encoder_->OnBitrateUpdatedAndWaitForManagedResources(
       DataRate::BitsPerSec(kTargetBitrateBps),
       DataRate::BitsPerSec(kTargetBitrateBps),
@@ -1643,12 +1788,12 @@ TEST_F(VideoStreamEncoderTest, NativeFrameMappedToPreferredPixelFormat) {
   video_source_.IncomingCapturedFrame(CreateFakeNV12NativeFrame(
       1, &frame_destroyed_event, codec_width_, codec_height_));
   WaitForEncodedFrame(1);
-  EXPECT_EQ(VideoFrameBuffer::Type::kNV12,
+  EXPECT_EQ(VideoFrameBuffer::Type::kNative,
             fake_encoder_.GetLastInputPixelFormat());
   video_stream_encoder_->Stop();
 }
 
-TEST_F(VideoStreamEncoderTest, NativeFrameConvertedToI420IfMappingNotFeasible) {
+TEST_F(VideoStreamEncoderTest, NativeFrameGetsDelivered_MappingIsNotFeasible) {
   video_stream_encoder_->OnBitrateUpdatedAndWaitForManagedResources(
       DataRate::BitsPerSec(kTargetBitrateBps),
       DataRate::BitsPerSec(kTargetBitrateBps),
@@ -1661,12 +1806,12 @@ TEST_F(VideoStreamEncoderTest, NativeFrameConvertedToI420IfMappingNotFeasible) {
   video_source_.IncomingCapturedFrame(CreateFakeNV12NativeFrame(
       1, &frame_destroyed_event, codec_width_, codec_height_));
   WaitForEncodedFrame(1);
-  EXPECT_EQ(VideoFrameBuffer::Type::kI420,
+  EXPECT_EQ(VideoFrameBuffer::Type::kNative,
             fake_encoder_.GetLastInputPixelFormat());
   video_stream_encoder_->Stop();
 }
 
-TEST_F(VideoStreamEncoderTest, NativeFrameBackedByNV12FrameIsEncodedFromI420) {
+TEST_F(VideoStreamEncoderTest, NativeFrameGetsDelivered_BackedByNV12) {
   video_stream_encoder_->OnBitrateUpdatedAndWaitForManagedResources(
       DataRate::BitsPerSec(kTargetBitrateBps),
       DataRate::BitsPerSec(kTargetBitrateBps),
@@ -1676,7 +1821,7 @@ TEST_F(VideoStreamEncoderTest, NativeFrameBackedByNV12FrameIsEncodedFromI420) {
   video_source_.IncomingCapturedFrame(CreateFakeNV12NativeFrame(
       1, &frame_destroyed_event, codec_width_, codec_height_));
   WaitForEncodedFrame(1);
-  EXPECT_EQ(VideoFrameBuffer::Type::kI420,
+  EXPECT_EQ(VideoFrameBuffer::Type::kNative,
             fake_encoder_.GetLastInputPixelFormat());
   video_stream_encoder_->Stop();
 }
@@ -7933,5 +8078,36 @@ TEST_F(VideoStreamEncoderTest, QualityScalingAllowed_QualityScalingEnabled) {
   video_stream_encoder_->Stop();
 }
 #endif
+
+TEST_F(VideoStreamEncoderTest, LibvpxVp8Encoder) {
+  // Force use of a real LibvpxVp8Encoder.
+  NiceMock<MockEncoderSelector> encoder_selector;
+  auto vp8_encoder = VP8Encoder::Create();
+  auto encoder_factory = std::make_unique<test::VideoEncoderProxyFactory>(
+      vp8_encoder.get(), &encoder_selector);
+  video_send_config_.encoder_settings.encoder_factory = encoder_factory.get();
+  VideoEncoderConfig video_encoder_config;
+  test::FillEncoderConfiguration(kVideoCodecVP8, 1, &video_encoder_config);
+  video_encoder_config_ = video_encoder_config.Copy();
+  ConfigureEncoder(video_encoder_config_.Copy());
+
+  // Set bitrate to ensure frame is not dropped.
+  video_stream_encoder_->OnBitrateUpdatedAndWaitForManagedResources(
+      DataRate::BitsPerSec(kTargetBitrateBps),
+      DataRate::BitsPerSec(kTargetBitrateBps),
+      DataRate::BitsPerSec(kTargetBitrateBps), 0, 0, 0);
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
+
+  video_source_.IncomingCapturedFrame(
+      CreateFakeNV12NativeFrame(1, nullptr, codec_width_, codec_height_));
+  WaitForEncodedFrame(codec_width_, codec_height_);
+  video_stream_encoder_->Stop();
+
+  // The encoders produces by the VideoEncoderProxyFactory have a pointer back
+  // to it's factory, so in order for the encoder instance in the
+  // |video_stream_encoder_| to be destroyed before the |encoder_factory| we
+  // reset the |video_stream_encoder_| here.
+  video_stream_encoder_.reset();
+}
 
 }  // namespace webrtc

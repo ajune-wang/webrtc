@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "891e329c_07773f2b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-18T12:45:11Z",
+      "side": 1,
+      "message": "Good idea to make it less spammy!\n\nI\u0027m wondering if alternatively we could use NiceMocks so that if we don\u0027t explicitly EXPECT something that is important for the test, the mock is OK with it? Preventing failures if some expected call doesn\u0027t happen that isn\u0027t really important to the test.\n\nBut this seems like a good thing to land for now.",
+      "revId": "8c35a1186dfb2a893d314da93e578a521633fb3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

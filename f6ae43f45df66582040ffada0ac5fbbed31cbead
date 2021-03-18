@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8c7c237_b88323f3",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2021-03-18T10:30:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64afdab0_273b9cc2",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 3
+      },
+      "revId": "f6ae43f45df66582040ffada0ac5fbbed31cbead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ca5383a4_37d5ad71",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-03-18T09:14:44Z",
       "side": 1,
       "message": "// Testing only",
+      "range": {
+        "startLine": 80,
+        "startChar": 27,
+        "endLine": 80,
+        "endChar": 50
+      },
+      "revId": "f6ae43f45df66582040ffada0ac5fbbed31cbead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0116642_092701f0",
+        "filename": "modules/rtp_rtcp/source/rtp_video_header.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2021-03-18T10:30:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca5383a4_37d5ad71",
       "range": {
         "startLine": 80,
         "startChar": 27,

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b700357_95a379f8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-18T19:49:49Z",
+      "side": 1,
+      "message": "There is still more work to do to validate references,\nbut it probably does enough already to provide some value.\n\n(e.g. it discovered that multiplying two uint16_t numbers and then converting result to int may produce negative value)",
+      "revId": "dd996af5a242b8611a45937b0f9945c33e053288",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

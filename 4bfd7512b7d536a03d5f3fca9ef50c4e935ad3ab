@@ -57,6 +57,30 @@
       },
       "revId": "4bfd7512b7d536a03d5f3fca9ef50c4e935ad3ab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "938cde87_2064a55d",
+        "filename": "test/fuzzers/vp9_encoder_references_fuzzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-18T19:50:40Z",
+      "side": 1,
+      "message": "It isn\u0027t the intent to callback with unexpected frames.\nI\u0027ve added guards to callbacks just with frames encoder was asked to produce.\n\nI\u0027ve would like to fuzz frame drop, but postponing that until later (to ensure drop is random, but still respects drop mode of libvpx)",
+      "parentUuid": "d2230347_bdd6ee6b",
+      "range": {
+        "startLine": 164,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 57
+      },
+      "revId": "4bfd7512b7d536a03d5f3fca9ef50c4e935ad3ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

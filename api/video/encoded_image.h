@@ -113,6 +113,15 @@ class RTC_EXPORT EncodedImage {
     color_space_ = color_space;
   }
 
+  // These methods along with the private member video_frame_tracking_id_ are
+  // meant for media quality testing purpose only.
+  absl::optional<uint16_t> VideoFrameTrackingId() const {
+    return video_frame_tracking_id_;
+  }
+  void SetVideoFrameTrackingId(const absl::optional<uint16_t>& tracking_id) {
+    video_frame_tracking_id_ = tracking_id;
+  }
+
   const RtpPacketInfos& PacketInfos() const { return packet_infos_; }
   void SetPacketInfos(RtpPacketInfos packet_infos) {
     packet_infos_ = std::move(packet_infos);
@@ -202,6 +211,7 @@ class RTC_EXPORT EncodedImage {
   absl::optional<int> spatial_index_;
   std::map<int, size_t> spatial_layer_frame_size_bytes_;
   absl::optional<webrtc::ColorSpace> color_space_;
+  absl::optional<uint16_t> video_frame_tracking_id_;  // Used for testing only.
   // Information about packets used to assemble this video frame. This is needed
   // by |SourceTracker| when the frame is delivered to the RTCRtpReceiver's
   // MediaStreamTrack, in order to implement getContributingSources(). See:

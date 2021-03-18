@@ -508,6 +508,12 @@ void RtpVideoStreamReceiver2::OnReceivedPayloadData(
   } else {
     rtp_packet.GetExtension<PlayoutDelayLimits>(&video_header.playout_delay);
   }
+  if (video_header.is_first_packet_in_frame) {
+    uint16_t tracking_id;
+    if (rtp_packet.GetExtension<VideoFrameTrackingIdExtension>(&tracking_id)) {
+      video_header.video_frame_tracking_id = tracking_id;
+    }
+  }
 
   ParseGenericDependenciesResult generic_descriptor_state =
       ParseGenericDependenciesExtension(rtp_packet, &video_header);

@@ -654,7 +654,9 @@ class TurnPortTest : public ::testing::Test,
     // Expect that it still processes an incoming ping and signals the
     // unknown address.
     turn_unknown_address_ = false;
+#if 0
     turn_port_->invoker()->Flush(rtc::Thread::Current());
+#endif
     conn1->Ping(0);
     EXPECT_TRUE_SIMULATED_WAIT(turn_unknown_address_, kSimulatedRtt,
                                fake_clock_);

@@ -22,6 +22,30 @@
       },
       "revId": "035747712f46e1aeb0e63f187dc5a6ff1b8cca99",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44e41fab_c2c2d61c",
+        "filename": "p2p/base/turn_port_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 657,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-03-18T22:24:58Z",
+      "side": 0,
+      "message": "This causes the AsyncInvokeDelayed task to be executed immediately, destroying the TurnEntry. You could do fake_clock_.AdvanceTime(5 * 60 * 1000) to accomplish the same thing, assuming the timeout doesn\u0027t change.",
+      "parentUuid": "7a208c59_c16866fa",
+      "range": {
+        "startLine": 657,
+        "startChar": 0,
+        "endLine": 657,
+        "endChar": 57
+      },
+      "revId": "035747712f46e1aeb0e63f187dc5a6ff1b8cca99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

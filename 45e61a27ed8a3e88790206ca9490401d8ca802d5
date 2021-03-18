@@ -16,6 +16,23 @@
       "message": "PTAL. I need some advice on the use of AsyncInvoker::Flush.",
       "revId": "45e61a27ed8a3e88790206ca9490401d8ca802d5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "753fa92e_91ab0928",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-03-18T22:24:58Z",
+      "side": 1,
+      "message": "Looks good after comment is addressed.",
+      "revId": "45e61a27ed8a3e88790206ca9490401d8ca802d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

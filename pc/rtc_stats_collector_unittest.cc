@@ -47,6 +47,7 @@
 #include "rtc_base/synchronization/mutex.h"
 #include "rtc_base/time_utils.h"
 
+using ::testing::_;
 using ::testing::AtLeast;
 using ::testing::Invoke;
 using ::testing::Return;
@@ -331,6 +332,9 @@ rtc::scoped_refptr<MockRtpSenderInternal> CreateMockSender(
   }));
   EXPECT_CALL(*sender, AttachmentId()).WillRepeatedly(Return(attachment_id));
   EXPECT_CALL(*sender, stream_ids()).WillRepeatedly(Return(local_stream_ids));
+  EXPECT_CALL(*sender, SetMediaChannel(_));
+  EXPECT_CALL(*sender, SetTransceiverAsStopped());
+  EXPECT_CALL(*sender, Stop());
   return sender;
 }
 
@@ -357,6 +361,8 @@ rtc::scoped_refptr<MockRtpReceiverInternal> CreateMockReceiver(
     return params;
   }));
   EXPECT_CALL(*receiver, AttachmentId()).WillRepeatedly(Return(attachment_id));
+  EXPECT_CALL(*receiver, SetMediaChannel(_));
+  EXPECT_CALL(*receiver, StopAndEndTrack());
   return receiver;
 }
 

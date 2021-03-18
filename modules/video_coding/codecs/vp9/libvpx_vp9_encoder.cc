@@ -97,9 +97,10 @@ std::unique_ptr<ScalableVideoController> CreateVp9ScalabilityStructure(
     ss << "L" << num_spatial_layers << "T" << num_temporal_layers;
   } else if (codec.VP9().interLayerPred == InterLayerPredMode::kOnKeyPic) {
     ss << "L" << num_spatial_layers << "T" << num_temporal_layers << "_KEY";
-  } else {
-    RTC_DCHECK_EQ(codec.VP9().interLayerPred, InterLayerPredMode::kOff);
+  } else if (codec.VP9().interLayerPred == InterLayerPredMode::kOff) {
     ss << "S" << num_spatial_layers << "T" << num_temporal_layers;
+  } else {
+    return nullptr;
   }
 
   // Check spatial ratio.
@@ -778,7 +779,7 @@ int LibvpxVp9Encoder::InitAndSetControlSettings(const VideoCodec* inst) {
         libvpx_->codec_control(encoder_, VP9E_SET_SVC_INTER_LAYER_PRED, 2);
         break;
       default:
-        RTC_NOTREACHED();
+        return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
     }
 
     memset(&svc_drop_frame_, 0, sizeof(svc_drop_frame_));
@@ -1790,7 +1791,7 @@ LibvpxVp9Encoder::ParseQualityScalerConfig(const WebRtcKeyValueConfig& trials) {
 }
 
 void LibvpxVp9Encoder::UpdatePerformanceFlags() {
-  const auto find_speed = [&](int min_pixel_count) {
+  const auto find_speed = [&](int64_t min_pixel_count) {
     RTC_DCHECK(!performance_flags_.settings_by_resolution.empty());
     auto it =
         performance_flags_.settings_by_resolution.upper_bound(min_pixel_count);
@@ -1800,12 +1801,13 @@ void LibvpxVp9Encoder::UpdatePerformanceFlags() {
   performance_flags_by_spatial_index_.clear();
   if (is_svc_) {
     for (int si = 0; si < num_spatial_layers_; ++si) {
-      performance_flags_by_spatial_index_.push_back(find_speed(
-          codec_.spatialLayers[si].width * codec_.spatialLayers[si].height));
+      performance_flags_by_spatial_index_.push_back(
+          find_speed(int64_t{codec_.spatialLayers[si].width} *
+                     codec_.spatialLayers[si].height));
     }
   } else {
     performance_flags_by_spatial_index_.push_back(
-        find_speed(codec_.width * codec_.height));
+        find_speed(int64_t{codec_.width} * codec_.height));
   }
 }
 

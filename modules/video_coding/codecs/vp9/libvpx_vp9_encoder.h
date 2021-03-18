@@ -215,7 +215,7 @@ class LibvpxVp9Encoder : public VP9Encoder {
     // Map from min pixel count to settings for that resolution and above.
     // E.g. if you want some settings A if below wvga (640x360) and some other
     // setting B at wvga and above, you'd use map {{0, A}, {230400, B}}.
-    std::map<int, ParameterSet> settings_by_resolution;
+    std::map<int64_t, ParameterSet> settings_by_resolution;
   };
   // Performance flags, ordered by |min_pixel_count|.
   const PerformanceFlags performance_flags_;

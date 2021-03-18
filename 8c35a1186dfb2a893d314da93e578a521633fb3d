@@ -16,6 +16,24 @@
       "message": "Good idea to make it less spammy!\n\nI\u0027m wondering if alternatively we could use NiceMocks so that if we don\u0027t explicitly EXPECT something that is important for the test, the mock is OK with it? Preventing failures if some expected call doesn\u0027t happen that isn\u0027t really important to the test.\n\nBut this seems like a good thing to land for now.",
       "revId": "8c35a1186dfb2a893d314da93e578a521633fb3d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e44a2755_1c00a3e3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-03-18T12:50:37Z",
+      "side": 1,
+      "message": "Alternatively we can use NiceMock and StrictMock to either suppress warnings or raise an error. But in this case the fix was easy and, more importantly, it makes sense to set those expectations - i.e., those methods *must* be called.",
+      "parentUuid": "891e329c_07773f2b",
+      "revId": "8c35a1186dfb2a893d314da93e578a521633fb3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

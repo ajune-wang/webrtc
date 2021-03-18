@@ -7,16 +7,16 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'a1e978b5ab13f78e3e687c3ea520274f572c04d1',
+  'chromium_revision': '704c90fe77a5cde90f439a431ce81b9e8aa3d06c',
 }
 
 deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@0fb68da7d7062d7db7a54372d3551d9cb6c8e531',
+    'https://chromium.googlesource.com/chromium/src/base@06d646e022928ebb6f536b563c79c8aef88e4f80',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@ff9d9ded7eebcc97760e2b571dbbfe176931e972',
+    'https://chromium.googlesource.com/chromium/src/build@4c0c41e29a307c9b93e6db348abe5afb0c46eb14',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@69cc9b8a3ae010e0721c4bea12de7a352d9a93f9',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -25,13 +25,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@42bc686f490847c340df70ba6a53721b4bcc2c02',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@8572b4106b9a08a5bd57fe4bafca3601249e8f55',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@4901239ff2fe99ded4e257765d91abb0b5c3f281',
+    'https://chromium.googlesource.com/chromium/src/testing@abb650f2baba05aad65450b8a57ec0e31ba7ee36',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@231944623289b04fea1ba7c49802d31c824c964f',
+    'https://chromium.googlesource.com/chromium/src/third_party@c713d2f70be65bb5fde9f503741ad5757289c50c',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -206,7 +206,7 @@ deps = {
       'condition': 'checkout_android',
   },
   'src/third_party/perfetto':
-    'https://android.googlesource.com/platform/external/perfetto.git@371d8955a1cbc43fc7b2ec19b30c250d6466291c',
+    'https://android.googlesource.com/platform/external/perfetto.git@9a387881b7516f492a3da7d8321260b8b2318895',
   'src/third_party/libvpx/source/libvpx':
     'https://chromium.googlesource.com/webm/libvpx.git@61edec1efbea1c02d71857e2aff9426d9cd2df4e',
   'src/third_party/libyuv':
@@ -263,7 +263,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@bc8d59ca8533a8e3a9ccfd32a60042f36ddac900',
+    'https://chromium.googlesource.com/chromium/src/tools@c4565b5e35c70bbf28643ac556e8759365fe9442',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@a32a1607f6093d338f756c7e7c7b4333b0c50c9c',
 
@@ -364,7 +364,7 @@ deps = {
     'packages': [
       {
           'package': 'chromium/third_party/androidx',
-          'version': '65fRug8cVwh3hU__E3A3qq1_ITouFc9LU--TbqTw714C',
+          'version': 'i0GHnYjbnrO5uPFUhN_LTY-OldhEXfimO5qHglFC5fwC',
       },
     ],
     'condition': 'checkout_android',

@@ -936,12 +936,18 @@ int LibvpxVp8Encoder::Encode(const VideoFrame& frame,
   RTC_DCHECK_EQ(input_image->height(), raw_images_[0].d_h);
   switch (input_image->type()) {
     case VideoFrameBuffer::Type::kI420:
+      RTC_LOG(LS_ERROR) << "LibvpxVp8Encoder -- I420 path";
       PrepareI420Image(input_image->GetI420());
       break;
     case VideoFrameBuffer::Type::kNV12:
+      RTC_LOG(LS_ERROR) << "LibvpxVp8Encoder -- NV12 path";
       PrepareNV12Image(input_image->GetNV12());
       break;
+    case VideoFrameBuffer::Type::kNative:
+      RTC_LOG(LS_ERROR) << "LibvpxVp8Encoder -- NATIVE path";
+      ABSL_FALLTHROUGH_INTENDED;
     default: {
+      RTC_LOG(LS_ERROR) << "LibvpxVp8Encoder -- default path";
       rtc::scoped_refptr<I420BufferInterface> i420_image =
           input_image->ToI420();
       if (!i420_image) {

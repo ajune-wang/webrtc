@@ -50,6 +50,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dd89c9cc_90df8371",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-03-18T11:15:58Z",
+      "side": 1,
+      "message": "I think we can have just uint16_t here. If it\u0027s set, then optional will be set, if not - then it will be empty",
+      "range": {
+        "startLine": 120,
+        "startChar": 31,
+        "endLine": 120,
+        "endChar": 62
+      },
+      "revId": "f6ae43f45df66582040ffada0ac5fbbed31cbead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ca5383a4_37d5ad71",
         "filename": "modules/rtp_rtcp/source/rtp_video_header.h",
         "patchSetId": 1

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df569f41_8a2cd16d",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-03-18T11:15:58Z",
+      "side": 1,
+      "message": "Please put it above data member for consistency.",
+      "range": {
+        "startLine": 214,
+        "startChar": 54,
+        "endLine": 214,
+        "endChar": 79
+      },
+      "revId": "5ff11a69b9edb571a75123ce6c8314a8d37699a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1fd1f316_d3592028",
+        "filename": "test/pc/e2e/analyzer/video/single_process_encoded_image_data_injector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-03-18T11:15:58Z",
+      "side": 1,
+      "message": "We can set it here, but we will also need a separate injector/extractor that will just do setting of this field on encoded image and extracting id from this field during extraction.",
+      "range": {
+        "startLine": 54,
+        "startChar": 2,
+        "endLine": 54,
+        "endChar": 34
+      },
+      "revId": "5ff11a69b9edb571a75123ce6c8314a8d37699a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

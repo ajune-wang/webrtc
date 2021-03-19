@@ -298,7 +298,6 @@ void SetInboundRTPStreamStatsFromMediaReceiverInfo(
   RTC_DCHECK(inbound_stats);
   inbound_stats->ssrc = media_receiver_info.ssrc();
   // TODO(hbos): Support the remote case. https://crbug.com/657855
-  inbound_stats->is_remote = false;
   inbound_stats->packets_received =
       static_cast<uint32_t>(media_receiver_info.packets_rcvd);
   inbound_stats->bytes_received =
@@ -433,7 +432,6 @@ void SetOutboundRTPStreamStatsFromMediaSenderInfo(
   RTC_DCHECK(outbound_stats);
   outbound_stats->ssrc = media_sender_info.ssrc();
   // TODO(hbos): Support the remote case. https://crbug.com/657856
-  outbound_stats->is_remote = false;
   outbound_stats->packets_sent =
       static_cast<uint32_t>(media_sender_info.packets_sent);
   outbound_stats->retransmitted_packets_sent =

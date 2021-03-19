@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2c9e959_cc30e25d",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-03-19T15:31:29Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3aba1c35_74abef6d",
+      "revId": "4ea8bda21b516438351b0d585125b6b9e2bd5a4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f25763fb_c57bfd5f",
@@ -52,6 +70,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed9fe10c_81e5d801",
+        "filename": "pc/rtc_stats_collector_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-03-19T15:31:29Z",
+      "side": 1,
+      "message": "Exactly, there are no remote inbound tests, so I didn\u0027t add that.\nHowever, since the specs says \"The timestamp reported in the statistics object is the time at which the corresponding RTCP RR was received\" it makes sense to fix the expression.",
+      "parentUuid": "f25763fb_c57bfd5f",
+      "revId": "4ea8bda21b516438351b0d585125b6b9e2bd5a4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bc864130_3552fad8",
@@ -65,6 +101,24 @@
       "writtenOn": "2021-03-19T08:16:45Z",
       "side": 1,
       "message": "nit: To stay consistent with surrounding code, I\u0027d call the variables \"inbound_rtp\" and \"outbound_rtp\" instead of \"s\"",
+      "revId": "4ea8bda21b516438351b0d585125b6b9e2bd5a4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b834ef15_17413f72",
+        "filename": "pc/rtc_stats_traversal.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-03-19T15:31:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc864130_3552fad8",
       "revId": "4ea8bda21b516438351b0d585125b6b9e2bd5a4a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

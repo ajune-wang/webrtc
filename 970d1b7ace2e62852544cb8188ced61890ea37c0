@@ -65,6 +65,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8c482ed_bab82266",
+        "filename": "modules/video_coding/codecs/multiplex/augmented_video_frame_buffer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2021-03-19T13:38:03Z",
+      "side": 1,
+      "message": "Tired...I meant non-virtual yes 😴",
+      "parentUuid": "2d04ee9f_5d7ed364",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 1
+      },
+      "revId": "970d1b7ace2e62852544cb8188ced61890ea37c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "43990af0_107f051d",
@@ -196,6 +220,30 @@
       "side": 1,
       "message": "Profile2 only works with I010 buffers which at the moment can only be constructed from I420 buffers, so the existing code doing \"X -\u003e I420 -\u003e I010\" is correct.\n\nThe only case where this could lead to unnecessary conversion is if there was a native I010 buffer (native I010 -\u003e I420 -\u003e I010). It would still work, but it would not be an efficient path. But the only native buffers that have been implemented are I420 and NV12 as far as I can tell, so I though I\u0027d skip optimizing this path for now.\n\nWould you like me to file a crbug about this and add a TODO?",
       "parentUuid": "62f30607_94b610a3",
+      "range": {
+        "startLine": 110,
+        "startChar": 39,
+        "endLine": 110,
+        "endChar": 63
+      },
+      "revId": "970d1b7ace2e62852544cb8188ced61890ea37c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fbeb7db_64829e1a",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2021-03-19T13:38:03Z",
+      "side": 1,
+      "message": "I don\u0027t think that is needed. Profile2 is not used in Chrome-Webrtc afaik",
+      "parentUuid": "0eebdbfb_1d24e504",
       "range": {
         "startLine": 110,
         "startChar": 39,

@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1d52c75_6c9cf3e4",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-03-19T07:05:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a5ec718c_f2db1634",
+      "revId": "efd9b317d71ba987cada36394a46a9892622853d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "83afd215_faf5fb32",
@@ -48,6 +66,24 @@
       "writtenOn": "2021-03-16T16:24:25Z",
       "side": 1,
       "message": "Please add unit tests in rtc_stats_collector_unittest.cc that takes some fake cricket::VoiceReceiverInfo values creates the remote-outbound-rtp if we have RTCP reports but not otherwise etc",
+      "revId": "efd9b317d71ba987cada36394a46a9892622853d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d532b8f5_885c55aa",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-03-19T07:05:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83afd215_faf5fb32",
       "revId": "efd9b317d71ba987cada36394a46a9892622853d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -69,6 +105,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ef98818_54c2ae4d",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1766,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-03-19T07:05:01Z",
+      "side": 1,
+      "message": "Good catch! BTW the standard doesn\u0027t specify it, but I assumed that `remote_id` must be empty when the corresponding remote output stats are not available.",
+      "parentUuid": "9d05bcf5_ccfbe61b",
+      "revId": "efd9b317d71ba987cada36394a46a9892622853d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4a26bd63_c8d89900",
@@ -86,6 +140,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6bc93aa6_8b0e9043",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 952,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-03-19T07:05:01Z",
+      "side": 1,
+      "message": "Right. BTW, this comment should belong to VerifyRTCInboundRTPStreamStats() right?",
+      "parentUuid": "4a26bd63_c8d89900",
+      "revId": "efd9b317d71ba987cada36394a46a9892622853d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "98e88148_3dcc6eba",
@@ -99,6 +171,24 @@
       "writtenOn": "2021-03-16T16:24:25Z",
       "side": 1,
       "message": "When you have inboundd-rtp.remoteId don\u0027t forget to add it here as well",
+      "revId": "efd9b317d71ba987cada36394a46a9892622853d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4a77ce4_65d969b2",
+        "filename": "pc/rtc_stats_traversal.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-03-19T07:05:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "98e88148_3dcc6eba",
       "revId": "efd9b317d71ba987cada36394a46a9892622853d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

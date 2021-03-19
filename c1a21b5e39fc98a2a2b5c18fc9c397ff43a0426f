@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b14b0d99_03a73eb7",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 16600
+      },
+      "writtenOn": "2021-03-19T15:26:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "222d4f56_20342c5a",
+      "revId": "c1a21b5e39fc98a2a2b5c18fc9c397ff43a0426f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "65c58c70_f764bf99",
@@ -48,6 +66,24 @@
       "writtenOn": "2021-03-19T15:15:24Z",
       "side": 1,
       "message": "nit: Same here, remove this TODO.",
+      "revId": "c1a21b5e39fc98a2a2b5c18fc9c397ff43a0426f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d9e1fcc_ab8e5157",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 16600
+      },
+      "writtenOn": "2021-03-19T15:26:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "65c58c70_f764bf99",
       "revId": "c1a21b5e39fc98a2a2b5c18fc9c397ff43a0426f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -121,6 +121,23 @@
       "message": "Same here, happy to delete it.",
       "revId": "c80f95511422fae261140e1eb3018d7cf88238b1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b52063b6_3480e5f6",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-19T07:39:47Z",
+      "side": 0,
+      "message": "This one is still deleted in the latest PS, let me know when I should take another look.",
+      "revId": "c80f95511422fae261140e1eb3018d7cf88238b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

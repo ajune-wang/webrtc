@@ -36,10 +36,12 @@ class MockAsyncResolver : public AsyncResolverInterface {
               (const, override));
   MOCK_METHOD(int, GetError, (), (const, override));
 
-  // Note that this won't delete the object like AsyncResolverInterface says in
-  // order to avoid sanitizer failures caused by this being a synchronous
-  // implementation. The test code should delete the object instead.
-  MOCK_METHOD(void, Destroy, (bool), (override));
+  // Note that the lifetime of async resolvers is confusing.
+  // In order to get the right lifetime for not leaking, this method
+  // has to have an implementation that deletes it.
+  // It also means that mocks need to be produced with new(), not
+  // by being statically allocated.
+  void Destroy(bool wait) { delete this; }
 };
 
 }  // namespace rtc

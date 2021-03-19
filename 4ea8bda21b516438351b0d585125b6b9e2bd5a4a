@@ -16,6 +16,57 @@
       "message": "Thanks for your comments Henrik.",
       "revId": "4ea8bda21b516438351b0d585125b6b9e2bd5a4a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3aba1c35_74abef6d",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-19T08:16:45Z",
+      "side": 1,
+      "message": "Careful, you are changing the ID of remote-inbound-rtp here.\n\nWhile the spec does not specify how to generate stats IDs, because our implementation generated the stats IDs in such a predictable way, people started depending on how the IDs were generated. This is really bad for web compatibility, because for example in Firefox the IDs are completely random.\n\nAs a result, we updated the spec to mandate that stats IDs MUST NOT be predictable (https://w3c.github.io/webrtc-pc/#dom-rtcstats-id) which we unfortunately at the moment have not implemented.\n\nAnyway, long story short is we should change the stats IDs (all of them) but because doing so might break apps, we should do so in a separate effort.\n\nChanging from \"...Rtp...\" to \"...RTP...\" here has the risk of breakage for apps that do \"report.get(hardcodedStringId)\" without adding value so let\u0027s not touch it here.",
+      "revId": "4ea8bda21b516438351b0d585125b6b9e2bd5a4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f25763fb_c57bfd5f",
+        "filename": "pc/rtc_stats_collector_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-19T08:16:45Z",
+      "side": 1,
+      "message": "nit: I guess this should be \"if remote outbound OR remote inbound\" but that we never crossed this code path with remote inbound?",
+      "revId": "4ea8bda21b516438351b0d585125b6b9e2bd5a4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc864130_3552fad8",
+        "filename": "pc/rtc_stats_traversal.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-19T08:16:45Z",
+      "side": 1,
+      "message": "nit: To stay consistent with surrounding code, I\u0027d call the variables \"inbound_rtp\" and \"outbound_rtp\" instead of \"s\"",
+      "revId": "4ea8bda21b516438351b0d585125b6b9e2bd5a4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

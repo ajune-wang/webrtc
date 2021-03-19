@@ -123,6 +123,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca851335_83e80f43",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1766,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-19T08:16:45Z",
+      "side": 1,
+      "message": "Correct. By not setting a value, it will be undefined. In JS the attribute will be completely missing in this case.",
+      "parentUuid": "7ef98818_54c2ae4d",
+      "revId": "efd9b317d71ba987cada36394a46a9892622853d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4a26bd63_c8d89900",

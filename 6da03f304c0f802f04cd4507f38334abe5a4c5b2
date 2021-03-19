@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b29585c_a8e50e4a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-19T11:45:42Z",
+      "side": 1,
+      "message": "Please take a look, Ilya and Evan",
+      "revId": "6da03f304c0f802f04cd4507f38334abe5a4c5b2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b35d00b2_1b9b119e",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1917,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-19T11:45:42Z",
+      "side": 1,
+      "message": "Alternatively we could make AugmentedVideoFrameBuffer::GetI420() return its underlying implementation\u0027s GetI420() to allow GetI420() here, this seems wrong as well because it is not possible to override GetNV12() to do the same. I think this was always broken but that AugmentedVideoFrameBuffer was simply never used with anything other than MultiplexEncoderAdapter+VP9 and I420. For example if AugmentedVideoFrameBuffer was used with VP8 we would crash here due to GetI420:\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc;l\u003d939?q\u003dlibvpx_vp8_encoder.cc\u0026originalUrl\u003dhttps:%2F%2Fcs.chromium.org%2F\n\nThe currently CL is consistent with what happens today (code always calls ToI420 instead of GetI420) but I think the right behavior would be to be able to do GetI420 here.",
+      "revId": "6da03f304c0f802f04cd4507f38334abe5a4c5b2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

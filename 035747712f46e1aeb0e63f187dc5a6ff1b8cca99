@@ -70,6 +70,30 @@
       },
       "revId": "035747712f46e1aeb0e63f187dc5a6ff1b8cca99",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6cc59cc8_8a3dcfef",
+        "filename": "p2p/base/turn_port_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 657,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-03-19T21:06:49Z",
+      "side": 0,
+      "message": "Ah, Ports automatically destroy themselves after the last connection is gone and 45 seconds have passed... You can override this using: \n\n  turn_port_-\u003eset_timeout_delay(10*60*1000);\n\nAlso, though it appears to be unnecessary right now, you may want to do this instead of just AdvanceTime:\n\n   SIMULATED_WAIT(false, 5 * 60 * 1000, fake_clock_);\n\nSince this will process the message loop every simulated millisecond, in case some transactions need to occur (like CreatePermission requests) during the time you\u0027re waiting. The downside is this is more expensive (the test takes over a second when I do that).",
+      "parentUuid": "a4533bd8_f29d3574",
+      "range": {
+        "startLine": 657,
+        "startChar": 0,
+        "endLine": 657,
+        "endChar": 57
+      },
+      "revId": "035747712f46e1aeb0e63f187dc5a6ff1b8cca99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

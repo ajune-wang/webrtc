@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3631830_bf4a1960",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-03-19T16:06:58Z",
+      "side": 1,
+      "message": "Only comments about tests. ",
+      "revId": "22a58809c92b0d881a71919f146d275d9bdc312e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8da9fef_6eefb198",
+        "filename": "test/mappable_native_buffer.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-03-19T16:06:58Z",
+      "side": 1,
+      "message": "This is impossible. All the buffers are required to have ToI420 implemented.\n\nSo maybe rename NV12BufferNotIntendedForI420.\n\nRTC_NOTREACHED() should be EXPECT_TRUE(FALSE) \u003c\u003c \"Expected zer-conversion, but NV12 buffer is converted to I420\".\n\nBut better still, can you make that check in the test itself? Can the encoder report what did it get as an input instead?",
+      "range": {
+        "startLine": 27,
+        "startChar": 6,
+        "endLine": 27,
+        "endChar": 36
+      },
+      "revId": "22a58809c92b0d881a71919f146d275d9bdc312e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

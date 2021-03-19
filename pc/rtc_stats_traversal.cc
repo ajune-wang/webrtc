@@ -99,24 +99,34 @@ std::vector<const std::string*> GetStatsReferencedIds(const RTCStats& stats) {
     AddIdIfDefined(track.media_source_id, &neighbor_ids);
   } else if (type == RTCPeerConnectionStats::kType) {
     // RTCPeerConnectionStats does not have any neighbor references.
-  } else if (type == RTCInboundRTPStreamStats::kType ||
-             type == RTCOutboundRTPStreamStats::kType) {
-    const auto& rtp = static_cast<const RTCRTPStreamStats&>(stats);
-    AddIdIfDefined(rtp.track_id, &neighbor_ids);
-    AddIdIfDefined(rtp.transport_id, &neighbor_ids);
-    AddIdIfDefined(rtp.codec_id, &neighbor_ids);
-    if (type == RTCOutboundRTPStreamStats::kType) {
-      const auto& outbound_rtp =
-          static_cast<const RTCOutboundRTPStreamStats&>(stats);
-      AddIdIfDefined(outbound_rtp.media_source_id, &neighbor_ids);
-      AddIdIfDefined(outbound_rtp.remote_id, &neighbor_ids);
-    }
+  } else if (type == RTCInboundRTPStreamStats::kType) {
+    const auto& s = static_cast<const RTCInboundRTPStreamStats&>(stats);
+    AddIdIfDefined(s.remote_id, &neighbor_ids);
+    AddIdIfDefined(s.track_id, &neighbor_ids);
+    AddIdIfDefined(s.transport_id, &neighbor_ids);
+    AddIdIfDefined(s.codec_id, &neighbor_ids);
+  } else if (type == RTCOutboundRTPStreamStats::kType) {
+    const auto& s = static_cast<const RTCOutboundRTPStreamStats&>(stats);
+    AddIdIfDefined(s.remote_id, &neighbor_ids);
+    AddIdIfDefined(s.track_id, &neighbor_ids);
+    AddIdIfDefined(s.transport_id, &neighbor_ids);
+    AddIdIfDefined(s.codec_id, &neighbor_ids);
+    AddIdIfDefined(s.media_source_id, &neighbor_ids);
   } else if (type == RTCRemoteInboundRtpStreamStats::kType) {
     const auto& remote_inbound_rtp =
         static_cast<const RTCRemoteInboundRtpStreamStats&>(stats);
     AddIdIfDefined(remote_inbound_rtp.transport_id, &neighbor_ids);
     AddIdIfDefined(remote_inbound_rtp.codec_id, &neighbor_ids);
     AddIdIfDefined(remote_inbound_rtp.local_id, &neighbor_ids);
+  } else if (type == RTCRemoteOutboundRtpStreamStats::kType) {
+    const auto& remote_outbound_rtp =
+        static_cast<const RTCRemoteOutboundRtpStreamStats&>(stats);
+    // Inherited from `RTCRTPStreamStats`.
+    AddIdIfDefined(remote_outbound_rtp.track_id, &neighbor_ids);
+    AddIdIfDefined(remote_outbound_rtp.transport_id, &neighbor_ids);
+    AddIdIfDefined(remote_outbound_rtp.codec_id, &neighbor_ids);
+    // Direct members of `RTCRemoteOutboundRtpStreamStats`.
+    AddIdIfDefined(remote_outbound_rtp.local_id, &neighbor_ids);
   } else if (type == RTCAudioSourceStats::kType ||
              type == RTCVideoSourceStats::kType) {
     // RTC[Audio/Video]SourceStats does not have any neighbor references.

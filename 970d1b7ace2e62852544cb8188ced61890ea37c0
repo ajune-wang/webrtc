@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2d04ee9f_5d7ed364",
+        "filename": "modules/video_coding/codecs/multiplex/augmented_video_frame_buffer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-19T13:24:50Z",
+      "side": 1,
+      "message": "Pure virtual? That\u0027s a step in the right direction, but the end goal is to make it non-virtual right? I added this comment let me know if you agree:\n\n\n  // TODO(https://crbug.com/webrtc/12021): When AugmentedVideoFrameBuffer is\n  // updated to implement the buffer interfaces of relevant\n  // VideoFrameBuffer::Types, stop overriding GetI420() as a workaround to\n  // AugmentedVideoFrameBuffer not being the type that is returned by type().",
+      "parentUuid": "3c2ca425_f754b083",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 1
+      },
+      "revId": "970d1b7ace2e62852544cb8188ced61890ea37c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "43990af0_107f051d",
         "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
         "patchSetId": 6
@@ -54,6 +78,30 @@
       "writtenOn": "2021-03-19T12:43:10Z",
       "side": 1,
       "message": "Technically I420A is not fully supported since the alpha channel is dropped. I don\u0027t think that libvpx encoders supports the alpha channel anyways, so perhaps dropping it is ok.",
+      "range": {
+        "startLine": 1880,
+        "startChar": 51,
+        "endLine": 1880,
+        "endChar": 57
+      },
+      "revId": "970d1b7ace2e62852544cb8188ced61890ea37c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a11dd637_69618cab",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1880,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-19T13:24:50Z",
+      "side": 1,
+      "message": "I\u0027m curious about that since I420A extends I420. But I agree it makes sense not to say we support I420A when we don\u0027t support the alpha, and GetI420/ToI420 should work and be a no-op regardless.",
+      "parentUuid": "43990af0_107f051d",
       "range": {
         "startLine": 1880,
         "startChar": 51,
@@ -87,6 +135,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "72f8040e_0f4f5a1d",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1884,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-19T13:24:50Z",
+      "side": 1,
+      "message": "If I understand correctly, being able to handle kNative as an input frame is not the same as \"supporting\" kNative. The encoders that support kNative are the ones that are able to cast the buffer into some implementation-specific type without having to map it or convert it first. E.g. chromium encoders doing static_cast\u003cWebRtcVideoFrameAdapter*\u003e and being able to access the native implemented data. So supports_native_handle should still be false even after this CL, since we only support mapping and converting from native.",
+      "parentUuid": "970c97fe_13f60d12",
+      "range": {
+        "startLine": 1884,
+        "startChar": 24,
+        "endLine": 1884,
+        "endChar": 55
+      },
+      "revId": "970d1b7ace2e62852544cb8188ced61890ea37c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "62f30607_94b610a3",
@@ -100,6 +172,30 @@
       "writtenOn": "2021-03-19T12:43:10Z",
       "side": 1,
       "message": "What about Profile2? Will that be done later or just skipped?",
+      "range": {
+        "startLine": 110,
+        "startChar": 39,
+        "endLine": 110,
+        "endChar": 63
+      },
+      "revId": "970d1b7ace2e62852544cb8188ced61890ea37c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0eebdbfb_1d24e504",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-19T13:24:50Z",
+      "side": 1,
+      "message": "Profile2 only works with I010 buffers which at the moment can only be constructed from I420 buffers, so the existing code doing \"X -\u003e I420 -\u003e I010\" is correct.\n\nThe only case where this could lead to unnecessary conversion is if there was a native I010 buffer (native I010 -\u003e I420 -\u003e I010). It would still work, but it would not be an efficient path. But the only native buffers that have been implemented are I420 and NV12 as far as I can tell, so I though I\u0027d skip optimizing this path for now.\n\nWould you like me to file a crbug about this and add a TODO?",
+      "parentUuid": "62f30607_94b610a3",
       "range": {
         "startLine": 110,
         "startChar": 39,

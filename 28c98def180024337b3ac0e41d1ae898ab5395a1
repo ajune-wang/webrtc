@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87380920_7aa326f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2021-03-19T10:37:38Z",
+      "side": 1,
+      "message": "Hello Harald!\n\nCould you please take a look at this CL which adds wrapper for Libaom AV1 encoder/decoder into SDK for Android? This is kind of similar things as was done in CL https://webrtc-review.googlesource.com/c/src/+/208400\n\nThanks a lot in advance,\nYura.",
+      "revId": "28c98def180024337b3ac0e41d1ae898ab5395a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

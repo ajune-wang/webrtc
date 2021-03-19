@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42df850c_1ad1faa3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-19T15:15:24Z",
+      "side": 1,
+      "message": "LGTM % nits",
+      "revId": "c1a21b5e39fc98a2a2b5c18fc9c397ff43a0426f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "222d4f56_20342c5a",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-19T15:15:24Z",
+      "side": 1,
+      "message": "nit: You can remove this TODO, the remote case now refers to the remote-*-rtp case which is shipped for remote-inbound-rtp and there are CLs for remote-outbound-rtp that will soon land.",
+      "revId": "c1a21b5e39fc98a2a2b5c18fc9c397ff43a0426f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65c58c70_f764bf99",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-19T15:15:24Z",
+      "side": 1,
+      "message": "nit: Same here, remove this TODO.",
+      "revId": "c1a21b5e39fc98a2a2b5c18fc9c397ff43a0426f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

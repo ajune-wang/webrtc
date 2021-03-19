@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36d7a7d7_d4fd802b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-03-19T09:30:30Z",
+      "side": 1,
+      "message": "Here\u0027s the bug that triggered my concern about AsyncResolver.\n",
+      "revId": "eac10890c5da40639bb303f5f21be932a7d2e0c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

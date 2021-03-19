@@ -1088,7 +1088,6 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
         resolved_addr.SetResolvedIP(resolved_ip);
         EXPECT_CALL(*remote_async_resolver_, GetResolvedAddress(_, _))
             .WillOnce(DoAll(SetArgPointee<1>(resolved_addr), Return(true)));
-        EXPECT_CALL(*remote_async_resolver_, Destroy(_));
       }
     }
 

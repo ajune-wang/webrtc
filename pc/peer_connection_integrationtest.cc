@@ -1857,41 +1857,30 @@ TEST_P(PeerConnectionIntegrationTest, IceStatesReachCompletion) {
                  callee()->ice_connection_state(), kDefaultTimeout);
 }
 
-#if !defined(THREAD_SANITIZER)
-// This test provokes TSAN errors. See bugs.webrtc.org/3608
-
 constexpr int kOnlyLocalPorts = cricket::PORTALLOCATOR_DISABLE_STUN |
                                 cricket::PORTALLOCATOR_DISABLE_RELAY |
                                 cricket::PORTALLOCATOR_DISABLE_TCP;
 
-// Use a mock resolver to resolve the hostname back to the original IP on both
-// sides and check that the ICE connection connects.
-// TODO(bugs.webrtc.org/12590): Flaky on Windows.
-#if defined(WEBRTC_WIN)
-#define MAYBE_IceStatesReachCompletionWithRemoteHostname \
-  DISABLED_IceStatesReachCompletionWithRemoteHostname
-#else
-#define MAYBE_IceStatesReachCompletionWithRemoteHostname \
-  IceStatesReachCompletionWithRemoteHostname
-#endif
 TEST_P(PeerConnectionIntegrationTest,
-       MAYBE_IceStatesReachCompletionWithRemoteHostname) {
+       IceStatesReachCompletionWithRemoteHostname) {
   auto caller_resolver_factory =
       std::make_unique<NiceMock<webrtc::MockAsyncResolverFactory>>();
   auto callee_resolver_factory =
       std::make_unique<NiceMock<webrtc::MockAsyncResolverFactory>>();
-  NiceMock<rtc::MockAsyncResolver> callee_async_resolver;
-  NiceMock<rtc::MockAsyncResolver> caller_async_resolver;
+  // Pointers to these two objects are handed to the network thread and
+  // may be accessed during destruction.
+  auto callee_async_resolver = new NiceMock<rtc::MockAsyncResolver>;
+  auto caller_async_resolver = new NiceMock<rtc::MockAsyncResolver>;
 
   // This also verifies that the injected AsyncResolverFactory is used by
   // P2PTransportChannel.
   EXPECT_CALL(*caller_resolver_factory, Create())
-      .WillOnce(Return(&caller_async_resolver));
+      .WillOnce(Return(caller_async_resolver));
   webrtc::PeerConnectionDependencies caller_deps(nullptr);
   caller_deps.async_resolver_factory = std::move(caller_resolver_factory);
 
   EXPECT_CALL(*callee_resolver_factory, Create())
-      .WillOnce(Return(&callee_async_resolver));
+      .WillOnce(Return(callee_async_resolver));
   webrtc::PeerConnectionDependencies callee_deps(nullptr);
   callee_deps.async_resolver_factory = std::move(callee_resolver_factory);
 
@@ -1902,8 +1891,8 @@ TEST_P(PeerConnectionIntegrationTest,
   ASSERT_TRUE(CreatePeerConnectionWrappersWithConfigAndDeps(
       config, std::move(caller_deps), config, std::move(callee_deps)));
 
-  caller()->SetRemoteAsyncResolver(&callee_async_resolver);
-  callee()->SetRemoteAsyncResolver(&caller_async_resolver);
+  caller()->SetRemoteAsyncResolver(callee_async_resolver);
+  callee()->SetRemoteAsyncResolver(caller_async_resolver);
 
   // Enable hostname candidates with mDNS names.
   caller()->SetMdnsResponder(
@@ -1927,8 +1916,6 @@ TEST_P(PeerConnectionIntegrationTest,
                           "WebRTC.PeerConnection.CandidatePairType_UDP",
                           webrtc::kIceCandidatePairHostNameHostName));
 }
-
-#endif  // !defined(THREAD_SANITIZER)
 
 // Test that firewalling the ICE connection causes the clients to identify the
 // disconnected state and then removing the firewall causes them to reconnect.

@@ -1,6 +1,52 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "78d2abd4_0968cb4c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-03-19T12:00:59Z",
+      "side": 1,
+      "message": "This should be \"Support native scaling of VideoFrameBuffers in LibvpxVp9Encoder\"\n\nYou change didn\u0027t make the encoder support native buffers.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 54
+      },
+      "revId": "6da03f304c0f802f04cd4507f38334abe5a4c5b2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d06f3958_60c4aaaf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-03-19T12:00:59Z",
+      "side": 1,
+      "message": "Again, \"support kNative buffers\" means that it takes a buffer with a type kNative and encodes it directly without converting it to something else.",
+      "range": {
+        "startLine": 19,
+        "startChar": 41,
+        "endLine": 19,
+        "endChar": 65
+      },
+      "revId": "6da03f304c0f802f04cd4507f38334abe5a4c5b2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "8b29585c_a8e50e4a",
@@ -35,6 +81,46 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "23c27f98_96fa5572",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-03-19T12:00:59Z",
+      "side": 1,
+      "message": "Some minor requests about the code. And a big request to change the way this CL is framed and described.",
+      "revId": "6da03f304c0f802f04cd4507f38334abe5a4c5b2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b470a4b_ca1cc783",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1903,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-03-19T12:00:59Z",
+      "side": 1,
+      "message": "could it be just mapped_buffer \u003d i420_frame? Why do we need recursion here?",
+      "range": {
+        "startLine": 1903,
+        "startChar": 11,
+        "endLine": 1903,
+        "endChar": 48
+      },
+      "revId": "6da03f304c0f802f04cd4507f38334abe5a4c5b2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b35d00b2_1b9b119e",
@@ -48,6 +134,24 @@
       "writtenOn": "2021-03-19T11:45:42Z",
       "side": 1,
       "message": "Alternatively we could make AugmentedVideoFrameBuffer::GetI420() return its underlying implementation\u0027s GetI420() to allow GetI420() here, this seems wrong as well because it is not possible to override GetNV12() to do the same. I think this was always broken but that AugmentedVideoFrameBuffer was simply never used with anything other than MultiplexEncoderAdapter+VP9 and I420. For example if AugmentedVideoFrameBuffer was used with VP8 we would crash here due to GetI420:\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc;l\u003d939?q\u003dlibvpx_vp8_encoder.cc\u0026originalUrl\u003dhttps:%2F%2Fcs.chromium.org%2F\n\nThe currently CL is consistent with what happens today (code always calls ToI420 instead of GetI420) but I think the right behavior would be to be able to do GetI420 here.",
+      "revId": "6da03f304c0f802f04cd4507f38334abe5a4c5b2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee9ce5a0_b5bfc4b8",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1917,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-03-19T12:00:59Z",
+      "side": 1,
+      "message": "GetI420 should be made non-virtual as other GetXXXX methods (that being virtual is a hack which is now made obsolete by GetMappedFrameBuffer). So it should be technically impossible to call GetI420 on non kI420 VideoFrameBuffers.",
+      "parentUuid": "b35d00b2_1b9b119e",
       "revId": "6da03f304c0f802f04cd4507f38334abe5a4c5b2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

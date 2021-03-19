@@ -16,6 +16,98 @@
       "message": "PTAL Ilya, especially about the AugmentedVideoFrameBuffer if I should do GetI420() or ToI420() since it reports kI420 (it\u0027s a buffer wrapper that doesn\u0027t support the getters).",
       "revId": "970d1b7ace2e62852544cb8188ced61890ea37c0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c2ca425_f754b083",
+        "filename": "modules/video_coding/codecs/multiplex/augmented_video_frame_buffer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2021-03-19T12:43:10Z",
+      "side": 1,
+      "message": "I have an open cleanup bug to make GetI420() pure virtual. https://crbug.com/webrtc/12021 Add a comment about that here.",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 1
+      },
+      "revId": "970d1b7ace2e62852544cb8188ced61890ea37c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43990af0_107f051d",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1880,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2021-03-19T12:43:10Z",
+      "side": 1,
+      "message": "Technically I420A is not fully supported since the alpha channel is dropped. I don\u0027t think that libvpx encoders supports the alpha channel anyways, so perhaps dropping it is ok.",
+      "range": {
+        "startLine": 1880,
+        "startChar": 51,
+        "endLine": 1880,
+        "endChar": 57
+      },
+      "revId": "970d1b7ace2e62852544cb8188ced61890ea37c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "970c97fe_13f60d12",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1884,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2021-03-19T12:43:10Z",
+      "side": 1,
+      "message": "Are you also updating the Vp9 encoder to set supports_native_handle? Or is that in a followup?",
+      "range": {
+        "startLine": 1884,
+        "startChar": 24,
+        "endLine": 1884,
+        "endChar": 55
+      },
+      "revId": "970d1b7ace2e62852544cb8188ced61890ea37c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62f30607_94b610a3",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2021-03-19T12:43:10Z",
+      "side": 1,
+      "message": "What about Profile2? Will that be done later or just skipped?",
+      "range": {
+        "startLine": 110,
+        "startChar": 39,
+        "endLine": 110,
+        "endChar": 63
+      },
+      "revId": "970d1b7ace2e62852544cb8188ced61890ea37c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

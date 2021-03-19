@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "c8dce7a6_83b8d9cf",
         "filename": "api/video/encoded_image.h",
@@ -20,10 +21,10 @@
         "endChar": 67
       },
       "revId": "20c0f40c8fd332749980c900766c48871302e0aa",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "b6f60eb1_e1ece593",
         "filename": "api/video/encoded_image.h",
@@ -44,10 +45,10 @@
         "endChar": 67
       },
       "revId": "20c0f40c8fd332749980c900766c48871302e0aa",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "97004d13_b3bb7c48",
         "filename": "api/video/encoded_image.h",
@@ -68,10 +69,10 @@
         "endChar": 67
       },
       "revId": "20c0f40c8fd332749980c900766c48871302e0aa",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "2fc2b266_0b35b8d5",
         "filename": "api/video/encoded_image.h",
@@ -92,10 +93,10 @@
         "endChar": 67
       },
       "revId": "20c0f40c8fd332749980c900766c48871302e0aa",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "725f75ad_be03e9f5",
         "filename": "api/video/encoded_image.h",
@@ -116,8 +117,31 @@
         "endChar": 67
       },
       "revId": "20c0f40c8fd332749980c900766c48871302e0aa",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e930c3d_a5249da1",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-03-19T12:17:07Z",
+      "side": 1,
+      "message": "The non-const version was deleted a while ago.",
+      "parentUuid": "725f75ad_be03e9f5",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 67
+      },
+      "revId": "20c0f40c8fd332749980c900766c48871302e0aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

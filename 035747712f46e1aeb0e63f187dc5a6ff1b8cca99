@@ -46,6 +46,30 @@
       },
       "revId": "035747712f46e1aeb0e63f187dc5a6ff1b8cca99",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4533bd8_f29d3574",
+        "filename": "p2p/base/turn_port_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 657,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-03-19T10:38:10Z",
+      "side": 0,
+      "message": "I\u0027m a bit puzzled why tests pass without this AdvanceTime. With AdvanceTime of exactly 5 minutes, it fails like this:\n\n(connection.cc:1216): Connection deleted with number of pings sent: 0\n(port.cc:385): Received STUN BINDING request id\u003d49556c614b393658414b5372 from unknown address 22.22.22.22:49154\n(port.cc:925): Port[5a51ef30::1:0:relay:Net[unittest:11.11.11.11/32:Unknown:id\u003d0]]: Port deleted\n(turn_port.cc:1571): Port[5a51ef30::1:0:relay:Net[unittest:11.11.11.11/32:Unknown:id\u003d0]]: TURN refresh request sent, id\u003d644f4e522f3431376a627238\n(connection.cc:1159): Conn[5a5248c0::Net[unittest:22.22.22.22/32:Unknown:id\u003d0]:w5YceTIF:1:0:local:udp:22.22.22.22:49154-\u003eZTR8hGee:1:33562367:relay:udp:99.99.99.5:49153|CRWI|-|0|0|144149272869223934|100]: Timing-out STUN ping 49556c614b393658414b5372 after 300050 ms\n(turn_server.cc:715): Alloc[11.11.11.11:49152-:0:unknown]: Refreshed allocation, lifetime\u003d0\n(turn_server.cc:870): Alloc[11.11.11.11:49152-:0:unknown]: Received external packet without permission, peer\u003d22.22.22.22:49154\n(turn_server.cc:633): Alloc[11.11.11.11:49152-:0:unknown]: Allocation destroyed\n../../p2p/base/turn_port_unittest.cc:660: Failure\nValue of: turn_unknown_address_\n  Actual: false\nExpected: true\nStack trace:\n  0x55c756409de0: cricket::TurnPortTest::TestDestroyTurnConnection()\n  0x55c7563f568b: cricket::TurnPortTest_TestDestroyTurnConnection_Test::TestBody()\n  0x55c756a202cb: testing::internal::HandleSehExceptionsInMethodIfSupported\u003c\u003e()\n  0x55c756a10f47: testing::internal::HandleExceptionsInMethodIfSupported\u003c\u003e()\n  0x55c756a01191: testing::Test::Run()\n  0x55c756a0185e: testing::TestInfo::Run()\n... Google Test internal frames ...\n\nBy bisecting, I find that \n\n  ./out/Debug/rtc_unittests --gtest_filter\u003d\u0027TurnPortTest.TestDestroyTurnConnection\u0027\n\nsucceeds with \n\n  fake_clock_.AdvanceTime(webrtc::TimeDelta::Seconds(44));\n\nbut fails with\n\n  fake_clock_.AdvanceTime(webrtc::TimeDelta::Seconds(45));\n\nIn the successful case, the log is\n\n(connection.cc:1216): Connection deleted with number of pings sent: 0\n(port.cc:385): Received STUN BINDING request id\u003d525457616843493558424347 from unknown address 22.22.22.22:49154\n(port.cc:385): Received STUN BINDING request id\u003d444d3963456f713179757442 from unknown address 22.22.22.22:49154\n(connection.cc:312): Conn[88b34360::Net[unittest:11.11.11.11/32:Unknown:id\u003d0]:eNi2TD1e:1:0:relay:udp:99.99.99.5:49153-\u003eEpDnMPkf:1:2113937151:local:udp:22.22.22.22:49154|C--W|-|0|0|144149272869223934|-]: Connection created\n(connection.cc:486): Conn[88b34360::Net[unittest:11.11.11.11/32:Unknown:id\u003d0]:eNi2TD1e:1:0:relay:udp:99.99.99.5:49153-\u003eEpDnMPkf:1:2113937151:local:udp:22.22.22.22:49154|C--W|-|0|0|144149272869223934|-]: Received STUN BINDING request, id\u003d7a596b6f51304f682b626936\n(connection.cc:723): Conn[88b34360::Net[unittest:11.11.11.11/32:Unknown:id\u003d0]:eNi2TD1e:1:0:relay:udp:99.99.99.5:49153-\u003eEpDnMPkf:1:2113937151:local:udp:22.22.22.22:49154|CR-W|-|0|0|144149272869223934|-]: Sent STUN BINDING response, to\u003d22.22.22.22:49154, id\u003d7a596b6f51304f682b626936\n(turn_port.cc:1571): Port[88ae8f30::1:0:relay:Net[unittest:11.11.11.11/32:Unknown:id\u003d0]]: TURN refresh request sent, id\u003d424b7359317a4a38356f506f\n(turn_server.cc:633): Alloc[11.11.11.11:49152-:0:unknown]: Allocation destroyed\n[       OK ] TurnPortTest.TestDestroyTurnConnection (4 ms)\n\nSuggestions?",
+      "parentUuid": "44e41fab_c2c2d61c",
+      "range": {
+        "startLine": 657,
+        "startChar": 0,
+        "endLine": 657,
+        "endChar": 57
+      },
+      "revId": "035747712f46e1aeb0e63f187dc5a6ff1b8cca99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

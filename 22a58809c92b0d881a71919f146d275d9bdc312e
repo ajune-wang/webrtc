@@ -39,6 +39,30 @@
       },
       "revId": "22a58809c92b0d881a71919f146d275d9bdc312e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7eb298b_5f31cbab",
+        "filename": "test/mappable_native_buffer.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-19T16:42:19Z",
+      "side": 1,
+      "message": "Done - I added MappableNativeBuffer::DidConvertToI420() instead and EXPECT_FALSE in tests.",
+      "parentUuid": "f8da9fef_6eefb198",
+      "range": {
+        "startLine": 27,
+        "startChar": 6,
+        "endLine": 27,
+        "endChar": 36
+      },
+      "revId": "22a58809c92b0d881a71919f146d275d9bdc312e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

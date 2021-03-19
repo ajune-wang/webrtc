@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5247adb1_8e5ace15",
+        "filename": "test/mappable_native_buffer.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-19T16:42:19Z",
+      "side": 1,
+      "message": "I usually try to avoid static_casts but it was easier to store the boolean inside NV12BufferWithDidConvertToI420 than inside MappableNativeBuffer in order to avoid circular references (memleak). There are other options, but probably not worth worrying about for a test-only class.",
+      "revId": "0fe145bfd0b15e83a17c9db34acf292580a8b765",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

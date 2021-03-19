@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0482562d_0018550d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-19T12:25:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78d2abd4_0968cb4c",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 54
+      },
+      "revId": "6da03f304c0f802f04cd4507f38334abe5a4c5b2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d06f3958_60c4aaaf",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-03-19T12:00:59Z",
       "side": 1,
       "message": "Again, \"support kNative buffers\" means that it takes a buffer with a type kNative and encodes it directly without converting it to something else.",
+      "range": {
+        "startLine": 19,
+        "startChar": 41,
+        "endLine": 19,
+        "endChar": 65
+      },
+      "revId": "6da03f304c0f802f04cd4507f38334abe5a4c5b2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d4c1eeb_925bb04d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-19T12:25:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d06f3958_60c4aaaf",
       "range": {
         "startLine": 19,
         "startChar": 41,
@@ -121,6 +169,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "83353f0c_1c360ca2",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1903,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-19T12:25:41Z",
+      "side": 1,
+      "message": "You\u0027re right, done.",
+      "parentUuid": "4b470a4b_ca1cc783",
+      "range": {
+        "startLine": 1903,
+        "startChar": 11,
+        "endLine": 1903,
+        "endChar": 48
+      },
+      "revId": "6da03f304c0f802f04cd4507f38334abe5a4c5b2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b35d00b2_1b9b119e",
@@ -152,6 +224,24 @@
       "side": 1,
       "message": "GetI420 should be made non-virtual as other GetXXXX methods (that being virtual is a hack which is now made obsolete by GetMappedFrameBuffer). So it should be technically impossible to call GetI420 on non kI420 VideoFrameBuffers.",
       "parentUuid": "b35d00b2_1b9b119e",
+      "revId": "6da03f304c0f802f04cd4507f38334abe5a4c5b2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1a55f12_0bde1a23",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1917,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-19T12:25:41Z",
+      "side": 1,
+      "message": "The problem with AugmentedVideoFrameBuffer is that it reports kI420 without itself implementing I420BufferInterface. So if an encoder that sees the kI420 type on such a buffer calls GetI420() it would get a null pointer. That\u0027s the bug, right?\n\nIn order to allow GetI420() on kI420 buffers inside the VP9 encoder I updated AugmentedVideoFrameBuffer::GetI420(). Overriding GetI420() is wrong, but then at least the problem is limited to a single class, instead of encoder classes having to work around the problem of AugmentedVideoFrameBuffer.\n\nI updated the code like this now, but let me know if you want me to revert that decision.",
+      "parentUuid": "ee9ce5a0_b5bfc4b8",
       "revId": "6da03f304c0f802f04cd4507f38334abe5a4c5b2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

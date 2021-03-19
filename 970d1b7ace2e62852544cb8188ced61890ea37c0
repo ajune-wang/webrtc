@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8929c37a_8bfced96",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-19T12:25:41Z",
+      "side": 1,
+      "message": "PTAL Ilya, especially about the AugmentedVideoFrameBuffer if I should do GetI420() or ToI420() since it reports kI420 (it\u0027s a buffer wrapper that doesn\u0027t support the getters).",
+      "revId": "970d1b7ace2e62852544cb8188ced61890ea37c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

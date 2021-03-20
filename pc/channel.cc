@@ -389,9 +389,7 @@ sigslot::signal1<ChannelInterface*>& BaseChannel::SignalFirstPacketReceived() {
 }
 
 sigslot::signal1<const rtc::SentPacket&>& BaseChannel::SignalSentPacket() {
-  // TODO(bugs.webrtc.org/11994): Uncomment this check once callers have been
-  // fixed to access this variable from the correct thread.
-  // RTC_DCHECK_RUN_ON(worker_thread_);
+  RTC_DCHECK_RUN_ON(worker_thread_);
   return SignalSentPacket_;
 }
 

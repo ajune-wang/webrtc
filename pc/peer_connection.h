@@ -452,6 +452,14 @@ class PeerConnection : public PeerConnectionInternal,
   }
   void RequestUsagePatternReportForTesting();
 
+  // Posts a task to the worker thread that will be cancelled if the
+  // PeerConnection instance goes out of scope before the task is due.
+  template <typename Closure>
+  void PostToWorker(Closure&& closure) {
+    worker_thread()->PostTask(
+        ToQueuedTask(worker_thread_safety_, std::move(closure)));
+  }
+
  protected:
   // Available for rtc::scoped_refptr creation
   PeerConnection(rtc::scoped_refptr<ConnectionContext> context,

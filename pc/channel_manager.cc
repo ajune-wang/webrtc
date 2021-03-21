@@ -160,6 +160,7 @@ VoiceChannel* ChannelManager::CreateVoiceChannel(
     const webrtc::CryptoOptions& crypto_options,
     rtc::UniqueRandomIdGenerator* ssrc_generator,
     const AudioOptions& options) {
+  RTC_DCHECK(media_engine_);
   // TODO(bugs.webrtc.org/11992): Remove this workaround after updates in
   // PeerConnection and add the expectation that we're already on the right
   // thread.
@@ -197,9 +198,8 @@ VoiceChannel* ChannelManager::CreateVoiceChannel(
 
 void ChannelManager::DestroyVoiceChannel(VoiceChannel* voice_channel) {
   TRACE_EVENT0("webrtc", "ChannelManager::DestroyVoiceChannel");
-  if (!voice_channel) {
-    return;
-  }
+  RTC_DCHECK(voice_channel);
+
   if (!worker_thread_->IsCurrent()) {
     worker_thread_->Invoke<void>(RTC_FROM_HERE,
                                  [&] { DestroyVoiceChannel(voice_channel); });
@@ -230,6 +230,7 @@ VideoChannel* ChannelManager::CreateVideoChannel(
     rtc::UniqueRandomIdGenerator* ssrc_generator,
     const VideoOptions& options,
     webrtc::VideoBitrateAllocatorFactory* video_bitrate_allocator_factory) {
+  RTC_DCHECK(media_engine_);
   // TODO(bugs.webrtc.org/11992): Remove this workaround after updates in
   // PeerConnection and add the expectation that we're already on the right
   // thread.
@@ -269,9 +270,8 @@ VideoChannel* ChannelManager::CreateVideoChannel(
 
 void ChannelManager::DestroyVideoChannel(VideoChannel* video_channel) {
   TRACE_EVENT0("webrtc", "ChannelManager::DestroyVideoChannel");
-  if (!video_channel) {
-    return;
-  }
+  RTC_DCHECK(video_channel);
+
   if (!worker_thread_->IsCurrent()) {
     worker_thread_->Invoke<void>(RTC_FROM_HERE,
                                  [&] { DestroyVideoChannel(video_channel); });
@@ -299,6 +299,7 @@ RtpDataChannel* ChannelManager::CreateRtpDataChannel(
     bool srtp_required,
     const webrtc::CryptoOptions& crypto_options,
     rtc::UniqueRandomIdGenerator* ssrc_generator) {
+  RTC_DCHECK(media_engine_);
   if (!worker_thread_->IsCurrent()) {
     return worker_thread_->Invoke<RtpDataChannel*>(RTC_FROM_HERE, [&] {
       return CreateRtpDataChannel(media_config, rtp_transport, signaling_thread,
@@ -331,9 +332,8 @@ RtpDataChannel* ChannelManager::CreateRtpDataChannel(
 
 void ChannelManager::DestroyRtpDataChannel(RtpDataChannel* data_channel) {
   TRACE_EVENT0("webrtc", "ChannelManager::DestroyRtpDataChannel");
-  if (!data_channel) {
-    return;
-  }
+  RTC_DCHECK(data_channel);
+
   if (!worker_thread_->IsCurrent()) {
     worker_thread_->Invoke<void>(
         RTC_FROM_HERE, [&] { return DestroyRtpDataChannel(data_channel); });

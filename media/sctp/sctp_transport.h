@@ -59,13 +59,14 @@ struct SctpInboundPacket;
 //  7.  SctpTransport::OnPacketReceived(wrapped_data)
 //  8.  usrsctp_conninput(wrapped_data)
 // [network thread returns; sctp thread then calls the following]
-//  9.  OnSctpInboundData(data)
-//  10. SctpTransport::OnDataFromSctpToTransport(data)
+//  9.  OnSctpUpcall()
+//  10. usrsctp_recvv(data)
+//  11. SctpTransport::OnDataOrNotificationFromSctp(data)
 // [sctp thread returns having async invoked on the network thread]
-//  11. SctpTransport::OnDataFromSctpToTransport(data)
-//  12. SctpTransport::SignalDataReceived(data)
+//  12. SctpTransport::OnDataFromSctpToTransport(data)
+//  13. SctpTransport::SignalDataReceived(data)
 // [from the same thread, methods registered/connected to
-//  SctpTransport are called with the recieved data]
+//  SctpTransport are called with the received data]
 class SctpTransport : public SctpTransportInternal,
                       public sigslot::has_slots<> {
  public:

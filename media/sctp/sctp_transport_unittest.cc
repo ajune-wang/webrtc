@@ -549,7 +549,7 @@ TEST_P(SctpTransportTestWithOrdered,
   // Make the transport writable again and expect a "SignalReadyToSendData" at
   // some point after sending the buffered message.
   fake_dtls1()->SetWritable(true);
-  EXPECT_EQ_WAIT(2, transport1_ready_to_send_count(), kDefaultTimeout);
+  EXPECT_EQ_WAIT(1, transport1_ready_to_send_count(), kDefaultTimeout);
 
   // Queued message should be received by the receiver before receiving the
   // reset

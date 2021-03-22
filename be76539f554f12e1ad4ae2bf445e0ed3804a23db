@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7dcab2e_72037571",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-03-22T13:45:27Z",
+      "side": 1,
+      "message": "I think this should be bug: webrtc:12584",
+      "revId": "be76539f554f12e1ad4ae2bf445e0ed3804a23db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

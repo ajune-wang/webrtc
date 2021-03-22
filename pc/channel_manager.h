@@ -58,8 +58,11 @@ class ChannelManager final {
   ChannelManager() = delete;
   ~ChannelManager();
 
+  // Accessors for the worker thread, allowing it to be set after construction,
+  // but before Init. set_worker_thread will return false if called after Init.
   rtc::Thread* worker_thread() const { return worker_thread_; }
   rtc::Thread* network_thread() const { return network_thread_; }
+
   MediaEngineInterface* media_engine() { return media_engine_.get(); }
 
   // Retrieves the list of supported audio & video codec types.

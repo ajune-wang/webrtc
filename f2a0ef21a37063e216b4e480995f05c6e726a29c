@@ -68,6 +68,24 @@
       "parentUuid": "31c9ad72_aaacb95e",
       "revId": "f2a0ef21a37063e216b4e480995f05c6e726a29c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e76a6f1_b7d28811",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 1909,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-22T09:47:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f217a53_93b16236",
+      "revId": "f2a0ef21a37063e216b4e480995f05c6e726a29c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

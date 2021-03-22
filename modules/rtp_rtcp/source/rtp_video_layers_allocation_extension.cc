@@ -205,12 +205,12 @@ SpatialLayersBitmasks SpatialLayersBitmasksPerRtpStream(
 bool RtpVideoLayersAllocationExtension::Write(
     rtc::ArrayView<uint8_t> data,
     const VideoLayersAllocation& allocation) {
-  if (allocation.active_spatial_layers.empty()) {
-    return false;
-  }
-
   RTC_DCHECK(AllocationIsValid(allocation));
   RTC_DCHECK_GE(data.size(), ValueSize(allocation));
+
+  if (allocation.active_spatial_layers.empty()) {
+    return allocation.resolution_and_frame_rate_is_valid;
+  }
 
   SpatialLayersBitmasks slb = SpatialLayersBitmasksPerRtpStream(allocation);
   uint8_t* write_at = data.data();
@@ -273,13 +273,20 @@ bool RtpVideoLayersAllocationExtension::Write(
 bool RtpVideoLayersAllocationExtension::Parse(
     rtc::ArrayView<const uint8_t> data,
     VideoLayersAllocation* allocation) {
-  if (data.empty() || allocation == nullptr) {
+  if (allocation == nullptr) {
     return false;
   }
+
+  allocation->active_spatial_layers.clear();
+  if (data.empty()) {
+    allocation->rtp_stream_index = 0;
+    allocation->resolution_and_frame_rate_is_valid = true;
+    return true;
+  }
+
   const uint8_t* read_at = data.data();
   const uint8_t* const end = data.data() + data.size();
 
-  allocation->active_spatial_layers.clear();
   // Header byte.
   allocation->rtp_stream_index = *read_at >> 6;
   int num_rtp_streams = 1 + ((*read_at >> 4) & 0b11);

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ceef79fd_363d15aa",
+        "filename": "modules/rtp_rtcp/source/rtp_video_layers_allocation_extension.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-22T15:26:33Z",
+      "side": 1,
+      "message": "Can you add a comment why empty layers valid if and only if there are resolutions and frame rates.\n(may be just return true instead: when there are no resolutions, then it doesn\u0027t matter if they are valid)",
+      "range": {
+        "startLine": 212,
+        "startChar": 11,
+        "endLine": 212,
+        "endChar": 56
+      },
+      "revId": "9e917cb31ecea8f1e9169ff4a4075d2e5a15baaa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

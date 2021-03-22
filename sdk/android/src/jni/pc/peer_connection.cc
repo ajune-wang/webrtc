@@ -40,6 +40,7 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_conversions.h"
+#include "sdk/android/generated_peerconnection_jni/AddIceObserver_jni.h"
 #include "sdk/android/generated_peerconnection_jni/CandidatePairChangeEvent_jni.h"
 #include "sdk/android/generated_peerconnection_jni/PeerConnection_jni.h"
 #include "sdk/android/native_api/jni/java_types.h"
@@ -630,6 +631,34 @@ static jboolean JNI_PeerConnection_AddIceCandidate(
   std::unique_ptr<IceCandidateInterface> candidate(
       CreateIceCandidate(sdp_mid, j_sdp_mline_index, sdp, nullptr));
   return ExtractNativePC(jni, j_pc)->AddIceCandidate(candidate.get());
+}
+
+static void JNI_PeerConnection_AddIceCandidateWithObserver(
+    JNIEnv* jni,
+    const JavaParamRef<jobject>& j_pc,
+    const JavaParamRef<jstring>& j_sdp_mid,
+    jint j_sdp_mline_index,
+    const JavaParamRef<jstring>& j_candidate_sdp,
+    const JavaParamRef<jobject>& j_observer) {
+  std::string sdp_mid = JavaToNativeString(jni, j_sdp_mid);
+  std::string sdp = JavaToNativeString(jni, j_candidate_sdp);
+  std::unique_ptr<IceCandidateInterface> candidate(
+      CreateIceCandidate(sdp_mid, j_sdp_mline_index, sdp, nullptr));
+
+  auto j_observer_global =
+      std::make_shared<ScopedJavaGlobalRef<jobject>>(jni, j_observer);
+
+  ExtractNativePC(jni, j_pc)->AddIceCandidate(
+      std::move(candidate), [j_observer_global](RTCError error) {
+        JNIEnv* env = AttachCurrentThreadIfNeeded();
+        if (error.ok()) {
+          Java_AddIceObserver_onAddSuccess(env, *j_observer_global);
+        } else {
+          Java_AddIceObserver_onAddFailure(
+              env, *j_observer_global,
+              NativeToJavaString(env, error.message()));
+        }
+      });
 }
 
 static jboolean JNI_PeerConnection_RemoveIceCandidates(

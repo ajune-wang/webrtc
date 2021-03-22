@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1695af6b_b422d306",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-03-22T09:24:09Z",
+      "side": 1,
+      "message": "On suggestion for a more readable workaround for android buffers.",
+      "revId": "f2a0ef21a37063e216b4e480995f05c6e726a29c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "31c9ad72_aaacb95e",
@@ -31,6 +48,24 @@
       "writtenOn": "2021-03-22T08:52:54Z",
       "side": 1,
       "message": "Note that I added this workaround here. So it is a recursive call, but it only happens on invalid kNative. For correct buffer implementations we do not do recursion.",
+      "revId": "f2a0ef21a37063e216b4e480995f05c6e726a29c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f217a53_93b16236",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 1909,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-03-22T09:24:09Z",
+      "side": 1,
+      "message": "If calling ToI420() two times fixes it, you should do it here explicitly. Recursion is far less readable. Also, check not for \u003d\u003d kNative but for !\u003d kI420. So the bug would be clearly visible - we called ToI420, we expect kI420 back.\n\nbuffer \u003d buffer-\u003eToI420();\nDCHECK_EQ(buffer-\u003etype(), VideoFrameBuffer::Type::kI420);",
+      "parentUuid": "31c9ad72_aaacb95e",
       "revId": "f2a0ef21a37063e216b4e480995f05c6e726a29c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

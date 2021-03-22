@@ -7,14 +7,14 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'b7f0a0c1117de7119bd087283f9fea8da1e4d481',
+  'chromium_revision': '331c9876117199e35b50d20024f09815b36f0e79',
 }
 
 deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@ce392ef26f7afca6c0efbf4e25fb99e4f6b0a4b0',
+    'https://chromium.googlesource.com/chromium/src/base@43d460a2ff332b220b32ac59e75d5e2cca8fce38',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@120a8d610c9db0d98a4318c153f4d7bf2c44cc38',
   'src/buildtools':
@@ -25,13 +25,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@e4c6cd619abe9400859a1f95d6a1e417d4242151',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@b9c801ca6eaac3af4978cd55ec9a05ae0a71b7b1',
     'condition': 'checkout_ios',
   },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@38ceae6941960b79aa93adf147b6a004f58fac8c',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@0819985359cf098a954d117ff08538edd5052104',
+    'https://chromium.googlesource.com/chromium/src/third_party@3d958ee69da10b8a58572eb8d48be1c5049e2b05',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -206,7 +206,7 @@ deps = {
       'condition': 'checkout_android',
   },
   'src/third_party/perfetto':
-    'https://android.googlesource.com/platform/external/perfetto.git@024ea24c78533030a3faec9a5583af3175f07712',
+    'https://android.googlesource.com/platform/external/perfetto.git@b54a945057f0d4b92c45a562361ad9d8db76ed68',
   'src/third_party/libvpx/source/libvpx':
     'https://chromium.googlesource.com/webm/libvpx.git@61edec1efbea1c02d71857e2aff9426d9cd2df4e',
   'src/third_party/libyuv':

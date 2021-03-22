@@ -286,6 +286,7 @@ if (is_android) {
       "api/org/webrtc/NetworkControllerFactoryFactory.java",
 
       # TODO(sakal): Break dependencies and move to base_java.
+      "api/org/webrtc/AddIceObserver.java",
       "api/org/webrtc/NetworkMonitor.java",
       "api/org/webrtc/NetworkMonitorAutoDetect.java",
       "api/org/webrtc/NetworkStatePredictorFactoryFactory.java",
@@ -1264,6 +1265,7 @@ if (current_os == "linux" || is_android) {
 
   generate_jni("generated_peerconnection_jni") {
     sources = [
+      "api/org/webrtc/AddIceObserver.java",
       "api/org/webrtc/AudioTrack.java",
       "api/org/webrtc/CallSessionFileRotatingLogSink.java",
       "api/org/webrtc/CandidatePairChangeEvent.java",

@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ff08750_f89052eb",
+        "filename": "modules/rtp_rtcp/source/rtp_video_layers_allocation_extension.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-22T17:13:53Z",
+      "side": 1,
+      "message": "alternative solution is to add something like\n// When NS\u003d0 and sl_bm\u003d0, RID must be 0 too. In such case message describes zero RTP streams, i.e. there are no video streams to send.\n\nand update parser/builder to use single byte zero as a message to disable all the streams.\n\n(in theory that conflicts with current format, but in practice it doesn\u0027t: when there is single RTP stream (NS\u003d0), then there is no point to set sl_bm to 0 just to write actual value in sl0_bm)\n\nEither way old parser would reject newer format.",
+      "revId": "9e917cb31ecea8f1e9169ff4a4075d2e5a15baaa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ceef79fd_363d15aa",

@@ -16,6 +16,23 @@
       "message": "Please take a look, Ilya and Evan. (CC handellm)",
       "revId": "645370678a2f1baf8db411aed9cfda621b1dedf6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee192d08_1ab00713",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-22T09:33:24Z",
+      "side": 1,
+      "message": "Thanks, landing.\n\nFYI Markus due to dependency on Scale() in soon-to-land code I am unconditionally fixing this for all NV12 buffers, i.e. this performance improvement will not run on a separate experiment. Control group will get the improvement as well.",
+      "revId": "645370678a2f1baf8db411aed9cfda621b1dedf6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

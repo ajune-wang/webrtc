@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbaf87c5_1d1f6127",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2021-03-22T13:28:53Z",
+      "side": 1,
+      "message": "Hello Sami!\n\nCould you please take a look at this CL which exposes restartIce from PC in Android SDK.\n\nThanks a lot in advance,\nYura.",
+      "revId": "06e868908931f8cd13561a204e98bf6d72ad8689",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

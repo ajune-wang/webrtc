@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24ff8274_bd48c414",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2021-03-22T14:00:41Z",
+      "side": 1,
+      "message": "Hello Sami and Niels!\n\nCould you please review this CL which exposes modern version of addIceCandidate with callback form Android SDK?\n\nNiels, I\u0027ve added you to verify correctness of wrapping observer into std::function (noted some of your comments about C++14 and std::move here https://webrtc-review.googlesource.com/c/src/+/201734).\n\nThanks a lot for review in advance,\nYura.\n",
+      "revId": "ef1e7ab5e8919aa8cbbfe5408cbf5d888030cd86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

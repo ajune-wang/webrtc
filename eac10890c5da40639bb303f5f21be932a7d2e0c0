@@ -16,6 +16,40 @@
       "message": "Here\u0027s the bug that triggered my concern about AsyncResolver.\n",
       "revId": "eac10890c5da40639bb303f5f21be932a7d2e0c0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c22a7134_b9dd109a",
+        "filename": "p2p/base/mock_async_resolver.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-22T13:42:21Z",
+      "side": 1,
+      "message": "You need to \"overrride\"",
+      "revId": "eac10890c5da40639bb303f5f21be932a7d2e0c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "027d509c_606c86be",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1872,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-22T13:42:21Z",
+      "side": 1,
+      "message": "auto*",
+      "revId": "eac10890c5da40639bb303f5f21be932a7d2e0c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

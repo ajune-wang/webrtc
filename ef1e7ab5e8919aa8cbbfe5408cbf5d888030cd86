@@ -16,6 +16,46 @@
       "message": "Hello Sami and Niels!\n\nCould you please review this CL which exposes modern version of addIceCandidate with callback form Android SDK?\n\nNiels, I\u0027ve added you to verify correctness of wrapping observer into std::function (noted some of your comments about C++14 and std::move here https://webrtc-review.googlesource.com/c/src/+/201734).\n\nThanks a lot for review in advance,\nYura.\n",
       "revId": "ef1e7ab5e8919aa8cbbfe5408cbf5d888030cd86",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4cfc92c4_42249b23",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-03-22T14:59:59Z",
+      "side": 1,
+      "message": "Harald, can you review, since this is mainly about peerconnection api?",
+      "revId": "ef1e7ab5e8919aa8cbbfe5408cbf5d888030cd86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "777d53e0_53993586",
+        "filename": "sdk/android/src/jni/pc/peer_connection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-03-22T14:59:59Z",
+      "side": 1,
+      "message": "Webrtc hasn\u0027t adopted shared_ptr. We have ScopedJavaRefCounted.\n\nBut it looks like what we\u0027d really want is to stick to exclusive ownership? Like\n\n   auto j_observer \u003d ScopedJavaGlobalRef\u003cjobject\u003e(jni, j_observer);\n\nand in the lambda below, capture as \n\n  [j_observer \u003d std::move(j_observer)]()...{...}\n\nBut then that won\u0027t work with the std::function argument type of AddIceCandidate. We\u0027ve discussed introducing a std::function-lookalike that doesn\u0027t require copyability.",
+      "range": {
+        "startLine": 649,
+        "startChar": 6,
+        "endLine": 649,
+        "endChar": 22
+      },
+      "revId": "ef1e7ab5e8919aa8cbbfe5408cbf5d888030cd86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

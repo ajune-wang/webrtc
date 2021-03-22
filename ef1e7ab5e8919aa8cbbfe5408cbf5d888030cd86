@@ -80,6 +80,30 @@
       },
       "revId": "ef1e7ab5e8919aa8cbbfe5408cbf5d888030cd86",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13cd9abd_b9e9126f",
+        "filename": "sdk/android/src/jni/pc/peer_connection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2021-03-22T15:50:43Z",
+      "side": 1,
+      "message": "I\u0027ve added wrapper class for Java\u0027s observer and made it ref-countable.",
+      "parentUuid": "9f226ca0_8ea4c850",
+      "range": {
+        "startLine": 649,
+        "startChar": 6,
+        "endLine": 649,
+        "endChar": 22
+      },
+      "revId": "ef1e7ab5e8919aa8cbbfe5408cbf5d888030cd86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

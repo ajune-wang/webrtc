@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36f80f3e_09ff70a4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-22T08:52:54Z",
+      "side": 1,
+      "message": "PTAL Ilya",
+      "revId": "f2a0ef21a37063e216b4e480995f05c6e726a29c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31c9ad72_aaacb95e",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 1909,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-22T08:52:54Z",
+      "side": 1,
+      "message": "Note that I added this workaround here. So it is a recursive call, but it only happens on invalid kNative. For correct buffer implementations we do not do recursion.",
+      "revId": "f2a0ef21a37063e216b4e480995f05c6e726a29c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

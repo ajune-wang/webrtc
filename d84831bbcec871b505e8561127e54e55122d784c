@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65203ac4_6d9c4f71",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 26
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-23T09:22:29Z",
+      "side": 1,
+      "message": "This change made sense to me going forward: that we should always deliver the frames in the correct size, regardless if the encoder is HW or SW, so that we don\u0027t need to write code on this layer depending on which encoder is used.\n\nHowever I realize that the Legacy frame adapter is not optimized for soft-applied scaling, so what do you say - should I revert this and leave simulcast_encoder_adapter.cc unchanged for this CL to avoid a temporary performance regression?",
+      "revId": "d84831bbcec871b505e8561127e54e55122d784c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

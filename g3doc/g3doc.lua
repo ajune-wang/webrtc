@@ -1,4 +1,6 @@
 return {
+  base = ''
+
   theme = {
     '@builtins/theme/ng.md'
     -- We don't want to have more than h3 headings in the Table Of Content.

@@ -33,6 +33,23 @@
       "message": "Remember to update the allow-list before landing so that the bots don\u0027t cry and block roll:\nhttps://source.chromium.org/chromium/chromium/src/+/master:chrome/test/data/webrtc/peerconnection_getstats.js;l\u003d537?q\u003dpeerconnection_getstats.js\u0026originalUrl\u003dhttps:%2F%2Fcs.chromium.org%2F",
       "revId": "76ed0b04522eb877342b5ca191210b0fa381ae60",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6d9c87a_fdeab40e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-03-23T06:27:04Z",
+      "side": 1,
+      "message": "https://chromium-review.googlesource.com/c/chromium/src/+/2778404\n-- tests disabled.",
+      "revId": "76ed0b04522eb877342b5ca191210b0fa381ae60",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

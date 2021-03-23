@@ -16,6 +16,41 @@
       "message": "new version, with single 0 byte payload for empty allocation.\nPTAL",
       "revId": "d7a1112133eab9afe4ccfbd9199754e8ea8f89ba",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ab5a100_4e079e3e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-23T09:44:28Z",
+      "side": 1,
+      "message": "code looks good.\nIt would be nice to also add a sentance about this case to the format comment,\nand to duplicate it in docs/native-code/rtp-hdrext/video-layers-allocation00/README.md",
+      "parentUuid": "ed4c658c_3818079a",
+      "revId": "d7a1112133eab9afe4ccfbd9199754e8ea8f89ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a7a7571_e63ce8c9",
+        "filename": "modules/rtp_rtcp/source/rtp_video_layers_allocation_extension.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-23T09:44:28Z",
+      "side": 1,
+      "message": "may be keep this line as is\n(i.e. do not swap the order)",
+      "revId": "d7a1112133eab9afe4ccfbd9199754e8ea8f89ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

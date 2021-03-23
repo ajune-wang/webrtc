@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ff5f1e1_02087a43",
+        "filename": "media/sctp/sctp_transport_reliability_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-03-23T13:47:00Z",
+      "side": 0,
+      "message": "I don\u0027t think this is needed. Posted tasks will stay queued by the thread, and will effectively be cancelled by the time the receiving object is destroyed.",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 38
+      },
+      "revId": "93ee168671546914efeb7f7a897bc052cc2d6f31",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

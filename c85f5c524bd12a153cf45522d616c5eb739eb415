@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42bacd28_09e72a79",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 28
+      },
+      "lineNbr": 1648,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-03-23T10:28:06Z",
+      "side": 1,
+      "message": "\u0026\u0026 (out_frame.video_frame_buffer()-\u003etype() !\u003d\n          VideoFrameBuffer::Type::kNative ||\n      !info.supports_native_handle)",
+      "range": {
+        "startLine": 1648,
+        "startChar": 41,
+        "endLine": 1648,
+        "endChar": 42
+      },
+      "revId": "c85f5c524bd12a153cf45522d616c5eb739eb415",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

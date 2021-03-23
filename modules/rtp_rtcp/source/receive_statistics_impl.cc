@@ -102,7 +102,7 @@ bool StreamStatisticianImpl::UpdateOutOfOrder(const RtpPacketReceived& packet,
 
 void StreamStatisticianImpl::UpdateCounters(const RtpPacketReceived& packet) {
   RTC_DCHECK_EQ(ssrc_, packet.Ssrc());
-  int64_t now_ms = clock_->TimeInMilliseconds();
+  const int64_t now_ms = clock_->CurrentNtpInMilliseconds();
 
   incoming_bitrate_.Update(packet.size(), now_ms);
   receive_counters_.last_packet_received_timestamp_ms = now_ms;

@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19099e4f_ed65f60f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-03-23T11:49:37Z",
+      "side": 1,
+      "message": "PTAL.",
+      "revId": "7260f55b91ae8f26809701f53b9191cca52d9e1c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31060288_ec699747",
+        "filename": "media/sctp/sctp_transport_reliability_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-03-23T11:49:37Z",
+      "side": 1,
+      "message": "This one seems a bit more difficult, due to the use of the Flush method. So that\u0027s for some other cl.",
+      "range": {
+        "startLine": 139,
+        "startChar": 2,
+        "endLine": 139,
+        "endChar": 29
+      },
+      "revId": "7260f55b91ae8f26809701f53b9191cca52d9e1c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

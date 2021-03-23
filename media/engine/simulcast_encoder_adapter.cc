@@ -480,11 +480,8 @@ int SimulcastEncoderAdapter::Encode(
     }
   }
 
-  // Temporary thay may hold the result of texture to i420 buffer conversion.
-  rtc::scoped_refptr<VideoFrameBuffer> src_buffer;
   int src_width = input_image.width();
   int src_height = input_image.height();
-
   for (auto& layer : stream_contexts_) {
     // Don't encode frames in resolutions that we don't intend to send.
     if (layer.is_paused()) {
@@ -515,28 +512,20 @@ int SimulcastEncoderAdapter::Encode(
     // If scaling isn't required, because the input resolution
     // matches the destination or the input image is empty (e.g.
     // a keyframe request for encoders with internal camera
-    // sources) or the source image has a native handle, pass the image on
-    // directly. Otherwise, we'll scale it to match what the encoder expects
-    // (below).
-    // For texture frames, the underlying encoder is expected to be able to
-    // correctly sample/scale the source texture.
+    // sources), pass the image on directly. Otherwise, we'll scale it to match
+    // what the encoder expects (below).
     // TODO(perkj): ensure that works going forward, and figure out how this
     // affects webrtc:5683.
-    if ((layer.width() == src_width && layer.height() == src_height) ||
-        (input_image.video_frame_buffer()->type() ==
-             VideoFrameBuffer::Type::kNative &&
-         layer.encoder().GetEncoderInfo().supports_native_handle)) {
+    if (layer.width() == src_width && layer.height() == src_height) {
       int ret = layer.encoder().Encode(input_image, &stream_frame_types);
       if (ret != WEBRTC_VIDEO_CODEC_OK) {
         return ret;
       }
     } else {
-      if (src_buffer == nullptr) {
-        src_buffer = input_image.video_frame_buffer();
-      }
-      rtc::scoped_refptr<VideoFrameBuffer> dst_buffer =
-          src_buffer->Scale(layer.width(), layer.height());
-      if (!dst_buffer) {
+      rtc::scoped_refptr<VideoFrameBuffer> scaled_buffer =
+          input_image.video_frame_buffer()->Scale(layer.width(),
+                                                  layer.height());
+      if (!scaled_buffer) {
         RTC_LOG(LS_ERROR) << "Failed to scale video frame";
         return WEBRTC_VIDEO_CODEC_ENCODER_FAILURE;
       }
@@ -544,7 +533,7 @@ int SimulcastEncoderAdapter::Encode(
       // UpdateRect is not propagated to lower simulcast layers currently.
       // TODO(ilnik): Consider scaling UpdateRect together with the buffer.
       VideoFrame frame(input_image);
-      frame.set_video_frame_buffer(dst_buffer);
+      frame.set_video_frame_buffer(scaled_buffer);
       frame.set_rotation(webrtc::kVideoRotation_0);
       frame.set_update_rect(
           VideoFrame::UpdateRect{0, 0, frame.width(), frame.height()});

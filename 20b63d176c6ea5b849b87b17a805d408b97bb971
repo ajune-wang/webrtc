@@ -16,6 +16,103 @@
       "message": "PTAL",
       "revId": "20b63d176c6ea5b849b87b17a805d408b97bb971",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9786fd4_1df90dcf",
+        "filename": "api/video/encoded_frame.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-23T10:40:00Z",
+      "side": 1,
+      "message": "or just\nusing ::webrtc::EncodedFrame;\n\n(to stress name itself is unchanged, it is just namespace that is different)",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 44
+      },
+      "revId": "20b63d176c6ea5b849b87b17a805d408b97bb971",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e962262_6fa3ea07",
+        "filename": "modules/video_coding/frame_object.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-23T10:40:00Z",
+      "side": 1,
+      "message": "ditto, no need to write class name twice",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 48
+      },
+      "revId": "20b63d176c6ea5b849b87b17a805d408b97bb971",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec2801ac_4ca1c082",
+        "filename": "modules/video_coding/rtp_frame_reference_finder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-23T10:40:00Z",
+      "side": 1,
+      "message": "do you still need namespace here?",
+      "revId": "20b63d176c6ea5b849b87b17a805d408b97bb971",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ada35ca_8703ff39",
+        "filename": "modules/video_coding/rtp_vp8_ref_finder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-23T10:40:00Z",
+      "side": 1,
+      "message": "probably can remove this namespace too (though it belonged a bit more to previous change)",
+      "revId": "20b63d176c6ea5b849b87b17a805d408b97bb971",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b1d1c2f_e5322252",
+        "filename": "modules/video_coding/rtp_vp9_ref_finder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-23T10:40:00Z",
+      "side": 1,
+      "message": "probably can remove this namespace too",
+      "revId": "20b63d176c6ea5b849b87b17a805d408b97bb971",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

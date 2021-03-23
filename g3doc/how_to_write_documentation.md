@@ -32,8 +32,15 @@ desired documentation. If there is no `g3doc` subfolder, create a new one
 and add `g3doc.lua` file there with following content:
 
 ```
-config = require('/g3doc/g3doc.lua')
+config = require('<relative path to the /g3doc/g3doc.lua>')
 return config
+```
+
+When you want to specify a link from one page to another - use the absolute
+path prefexing it with `<?{base}?>` like this:
+
+```
+[My document](<?{base}?>/module/g3doc/my_document.md)
 ```
 
 If you are a Googler also please specify an owner, who will be responsible for

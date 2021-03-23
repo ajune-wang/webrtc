@@ -1,4 +1,4 @@
-config = require('/g3doc/g3doc.lua')
+config = require('../../../g3doc/g3doc.lua')
 
 config.freshness.owner = 'titovartem'
 

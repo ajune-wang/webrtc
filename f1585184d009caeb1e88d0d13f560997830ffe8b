@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7abed38_10f26296",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2021-03-23T08:27:27Z",
+      "side": 1,
+      "message": "Hello Harald!\n\nCould you please review this CL which exposes additional fields of RTCConfiguration?\n\nThanks a lot in advance,\nYura.",
+      "revId": "f1585184d009caeb1e88d0d13f560997830ffe8b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

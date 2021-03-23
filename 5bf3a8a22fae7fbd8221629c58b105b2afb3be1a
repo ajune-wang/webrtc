@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "372b3352_2afeb4ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-03-23T02:56:55Z",
+      "side": 1,
+      "message": "Patch set #4 is for rebase and patch set #5 fixes JAVA dependencies. PTAL. Thank you,",
+      "revId": "5bf3a8a22fae7fbd8221629c58b105b2afb3be1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

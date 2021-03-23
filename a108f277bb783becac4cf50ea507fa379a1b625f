@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61ce8f76_0d15715e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-03-23T13:39:38Z",
+      "side": 1,
+      "message": "My understanding is that the mdns interface is used from port.cc, using weak pointers. Which means that the destruction behavior of AsyncInvoker isn\u0027t needed. ",
+      "revId": "a108f277bb783becac4cf50ea507fa379a1b625f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

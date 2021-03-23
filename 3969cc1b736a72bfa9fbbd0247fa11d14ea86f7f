@@ -16,6 +16,92 @@
       "message": "Please take a look, Evan",
       "revId": "3969cc1b736a72bfa9fbbd0247fa11d14ea86f7f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0beb6c56_e54c0b98",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 30
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2021-03-23T12:10:44Z",
+      "side": 1,
+      "message": "Code looks good, just some higher level thoughts and comments.",
+      "revId": "3969cc1b736a72bfa9fbbd0247fa11d14ea86f7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e57187f7_be56b353",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 30
+      },
+      "lineNbr": 1656,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2021-03-23T12:10:44Z",
+      "side": 1,
+      "message": "Side comment: Is this TODO going to be fixed by the upcoming changes, once scaling can be removed from here? Can another bug be used instead of Ilya\u0027s name?",
+      "range": {
+        "startLine": 1655,
+        "startChar": 4,
+        "endLine": 1656,
+        "endChar": 73
+      },
+      "revId": "3969cc1b736a72bfa9fbbd0247fa11d14ea86f7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63a26fba_f6f690aa",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 30
+      },
+      "lineNbr": 1715,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2021-03-23T12:10:44Z",
+      "side": 1,
+      "message": "nit: Add a message on the DCHECK here so we know why the error is being raised. I know it wasn\u0027t there before but it is helpful.",
+      "range": {
+        "startLine": 1715,
+        "startChar": 2,
+        "endLine": 1715,
+        "endChar": 54
+      },
+      "revId": "3969cc1b736a72bfa9fbbd0247fa11d14ea86f7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecd3399c_a15c6d29",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 30
+      },
+      "lineNbr": 7979,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2021-03-23T12:10:44Z",
+      "side": 1,
+      "message": "Is there something that be done to ensure that we know \"everything will work\" based on the Encoder interface being implemented instead? I am a bit worried about external encoders breaking for example, because the way the interface was used has changed. The need for a test like this smells like abstraction leak as the caller needs to know about all implementations. \n\nI don\u0027t know if there is a clean way to do this, but it is something to consider. Nothing I can come up can be done cleanly or without a lot of refactoring (adding something to encoder info, adding a class level property or template param for how it accepts frames, a new subclass).",
+      "range": {
+        "startLine": 7979,
+        "startChar": 6,
+        "endLine": 7979,
+        "endChar": 43
+      },
+      "revId": "3969cc1b736a72bfa9fbbd0247fa11d14ea86f7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

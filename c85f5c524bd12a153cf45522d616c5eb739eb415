@@ -22,6 +22,30 @@
       },
       "revId": "c85f5c524bd12a153cf45522d616c5eb739eb415",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4e17b1d_95ce1102",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 28
+      },
+      "lineNbr": 1648,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-23T11:47:46Z",
+      "side": 1,
+      "message": "Done. In the future, when we have soft-applied crop and scale, can we get rid of the \"\u0026\u0026 (out_frame.video_frame_buffer()-\u003etype() !\u003d VideoFrameBuffer::Type::kNative || !info.supports_native_handle)\"?",
+      "parentUuid": "42bacd28_09e72a79",
+      "range": {
+        "startLine": 1648,
+        "startChar": 41,
+        "endLine": 1648,
+        "endChar": 42
+      },
+      "revId": "c85f5c524bd12a153cf45522d616c5eb739eb415",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

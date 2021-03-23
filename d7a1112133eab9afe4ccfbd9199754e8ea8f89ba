@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed4c658c_3818079a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2021-03-23T07:27:08Z",
+      "side": 1,
+      "message": "new version, with single 0 byte payload for empty allocation.\nPTAL",
+      "revId": "d7a1112133eab9afe4ccfbd9199754e8ea8f89ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

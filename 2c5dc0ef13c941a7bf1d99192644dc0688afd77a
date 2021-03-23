@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a701765_78a4b6d2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16458
+      },
+      "writtenOn": "2021-03-23T19:56:02Z",
+      "side": 1,
+      "message": "PTAL?\nSo I screwed up the first 2 times. \nTo ensure proper initialization of |task_queue_pacer_| I decided to keep call to SetPacingRates() early. Instead, I\u0027m avoiding posting MaybeProcessPackets before EnsureStarted(), lmk if that make sense?\n",
+      "revId": "2c5dc0ef13c941a7bf1d99192644dc0688afd77a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

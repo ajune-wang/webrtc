@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33057955_674229c9",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 928,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-03-23T13:53:35Z",
+      "side": 1,
+      "message": "[nit] maybe bugs.webrc.org/12532",
+      "range": {
+        "startLine": 928,
+        "startChar": 12,
+        "endLine": 928,
+        "endChar": 16
+      },
+      "revId": "2b6eb5523f60bbb004e5f1365ac90d1fda0424ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

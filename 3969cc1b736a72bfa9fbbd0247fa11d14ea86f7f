@@ -174,6 +174,30 @@
       },
       "revId": "3969cc1b736a72bfa9fbbd0247fa11d14ea86f7f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc50c537_f5f6229e",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 30
+      },
+      "lineNbr": 7979,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2021-03-24T10:00:10Z",
+      "side": 1,
+      "message": "I agree that the encoder should be able to handle any VideoFrameBuffer, but that was not how it was used before, and they kind of depended on implementation, so things could break for those relying on implementation rather than interface. I think this should be fine though.",
+      "parentUuid": "1f996008_e2211424",
+      "range": {
+        "startLine": 7979,
+        "startChar": 6,
+        "endLine": 7979,
+        "endChar": 43
+      },
+      "revId": "3969cc1b736a72bfa9fbbd0247fa11d14ea86f7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

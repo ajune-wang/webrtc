@@ -13,7 +13,7 @@
 
 #include <string>
 
-#include "api/async_resolver_factory.h"
+#include "api/async_dns_resolver.h"
 #include "api/rtc_error.h"
 #include "api/rtc_event_log/rtc_event_log.h"
 #include "api/scoped_refptr.h"
@@ -52,12 +52,12 @@ struct IceTransportInit final {
     port_allocator_ = port_allocator;
   }
 
-  AsyncResolverFactory* async_resolver_factory() {
-    return async_resolver_factory_;
+  AsyncDnsResolverFactoryInterface* async_dns_resolver_factory() {
+    return async_dns_resolver_factory_;
   }
-  void set_async_resolver_factory(
-      AsyncResolverFactory* async_resolver_factory) {
-    async_resolver_factory_ = async_resolver_factory;
+  void set_async_dns_resolver_factory(
+      AsyncDnsResolverFactoryInterface* async_dns_resolver_factory) {
+    async_dns_resolver_factory_ = async_dns_resolver_factory;
   }
 
   RtcEventLog* event_log() { return event_log_; }
@@ -65,7 +65,7 @@ struct IceTransportInit final {
 
  private:
   cricket::PortAllocator* port_allocator_ = nullptr;
-  AsyncResolverFactory* async_resolver_factory_ = nullptr;
+  AsyncDnsResolverFactoryInterface* async_dns_resolver_factory_ = nullptr;
   RtcEventLog* event_log_ = nullptr;
 };
 

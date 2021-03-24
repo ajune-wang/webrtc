@@ -59,7 +59,7 @@ rtc::scoped_refptr<IceTransportInterface> CreateIceTransport(
     IceTransportInit init) {
   return new rtc::RefCountedObject<IceTransportWithTransportChannel>(
       std::make_unique<cricket::P2PTransportChannel>(
-          "", 0, init.port_allocator(), init.async_resolver_factory(),
+          "", 0, init.port_allocator(), init.async_dns_resolver_factory(),
           init.event_log()));
 }
 

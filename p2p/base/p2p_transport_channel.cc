@@ -17,6 +17,7 @@
 
 #include "absl/algorithm/container.h"
 #include "absl/strings/match.h"
+#include "api/async_dns_resolver.h"
 #include "api/candidate.h"
 #include "logging/rtc_event_log/ice_logger.h"
 #include "p2p/base/basic_ice_controller.h"
@@ -135,13 +136,13 @@ P2PTransportChannel::P2PTransportChannel(
     const std::string& transport_name,
     int component,
     PortAllocator* allocator,
-    webrtc::AsyncResolverFactory* async_resolver_factory,
+    webrtc::AsyncDnsResolverFactoryInterface* async_dns_resolver_factory,
     webrtc::RtcEventLog* event_log,
     IceControllerFactoryInterface* ice_controller_factory)
     : transport_name_(transport_name),
       component_(component),
       allocator_(allocator),
-      async_resolver_factory_(async_resolver_factory),
+      async_dns_resolver_factory_(async_dns_resolver_factory),
       network_thread_(rtc::Thread::Current()),
       incoming_only_(false),
       error_(0),
@@ -197,9 +198,6 @@ P2PTransportChannel::~P2PTransportChannel() {
   std::vector<Connection*> copy(connections().begin(), connections().end());
   for (Connection* con : copy) {
     con->Destroy();
-  }
-  for (auto& p : resolvers_) {
-    p.resolver_->Destroy(false);
   }
   resolvers_.clear();
 }
@@ -1164,16 +1162,17 @@ void P2PTransportChannel::OnNominated(Connection* conn) {
 
 void P2PTransportChannel::ResolveHostnameCandidate(const Candidate& candidate) {
   RTC_DCHECK_RUN_ON(network_thread_);
-  if (!async_resolver_factory_) {
+  if (!async_dns_resolver_factory_) {
     RTC_LOG(LS_WARNING) << "Dropping ICE candidate with hostname address "
                            "(no AsyncResolverFactory)";
     return;
   }
 
-  rtc::AsyncResolverInterface* resolver = async_resolver_factory_->Create();
-  resolvers_.emplace_back(candidate, resolver);
-  resolver->SignalDone.connect(this, &P2PTransportChannel::OnCandidateResolved);
-  resolver->Start(candidate.address());
+  auto resolver = async_dns_resolver_factory_->Create();
+  auto resptr = resolver.get();
+  resolvers_.emplace_back(candidate, std::move(resolver));
+  resptr->Start(candidate.address(),
+                [this, resptr]() { OnCandidateResolved(resptr); });
   RTC_LOG(LS_INFO) << "Asynchronously resolving ICE candidate hostname "
                    << candidate.address().HostAsSensitiveURIString();
 }
@@ -1228,38 +1227,37 @@ void P2PTransportChannel::AddRemoteCandidate(const Candidate& candidate) {
 
 P2PTransportChannel::CandidateAndResolver::CandidateAndResolver(
     const Candidate& candidate,
-    rtc::AsyncResolverInterface* resolver)
-    : candidate_(candidate), resolver_(resolver) {}
+    std::unique_ptr<webrtc::AsyncDnsResolverInterface>&& resolver)
+    : candidate_(candidate), resolver_(std::move(resolver)) {}
 
 P2PTransportChannel::CandidateAndResolver::~CandidateAndResolver() {}
 
 void P2PTransportChannel::OnCandidateResolved(
-    rtc::AsyncResolverInterface* resolver) {
+    webrtc::AsyncDnsResolverInterface* resolver) {
   RTC_DCHECK_RUN_ON(network_thread_);
   auto p =
       absl::c_find_if(resolvers_, [resolver](const CandidateAndResolver& cr) {
-        return cr.resolver_ == resolver;
+        return cr.resolver_.get() == resolver;
       });
   if (p == resolvers_.end()) {
-    RTC_LOG(LS_ERROR) << "Unexpected AsyncResolver signal";
+    RTC_LOG(LS_ERROR) << "Unexpected AsyncDnsResolver return";
     RTC_NOTREACHED();
     return;
   }
   Candidate candidate = p->candidate_;
+  AddRemoteCandidateWithResult(candidate, resolver->result());
+  // Now we can delete the resolver.
   resolvers_.erase(p);
-  AddRemoteCandidateWithResolver(candidate, resolver);
-  network_thread_->PostTask(
-      ToQueuedTask([resolver]() { resolver->Destroy(false); }));
 }
 
-void P2PTransportChannel::AddRemoteCandidateWithResolver(
+void P2PTransportChannel::AddRemoteCandidateWithResult(
     Candidate candidate,
-    rtc::AsyncResolverInterface* resolver) {
+    const webrtc::AsyncDnsResolverResult& result) {
   RTC_DCHECK_RUN_ON(network_thread_);
-  if (resolver->GetError()) {
+  if (result.GetError()) {
     RTC_LOG(LS_WARNING) << "Failed to resolve ICE candidate hostname "
                         << candidate.address().HostAsSensitiveURIString()
-                        << " with error " << resolver->GetError();
+                        << " with error " << result.GetError();
     return;
   }
 
@@ -1267,9 +1265,8 @@ void P2PTransportChannel::AddRemoteCandidateWithResolver(
   // Prefer IPv6 to IPv4 if we have it (see RFC 5245 Section 15.1).
   // TODO(zstein): This won't work if we only have IPv4 locally but receive an
   // AAAA DNS record.
-  bool have_address =
-      resolver->GetResolvedAddress(AF_INET6, &resolved_address) ||
-      resolver->GetResolvedAddress(AF_INET, &resolved_address);
+  bool have_address = result.GetResolvedAddress(AF_INET6, &resolved_address) ||
+                      result.GetResolvedAddress(AF_INET, &resolved_address);
   if (!have_address) {
     RTC_LOG(LS_INFO) << "ICE candidate hostname "
                      << candidate.address().HostAsSensitiveURIString()

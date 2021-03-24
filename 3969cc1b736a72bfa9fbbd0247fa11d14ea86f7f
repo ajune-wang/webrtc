@@ -60,6 +60,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "0ff5185e_522bed30",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 30
+      },
+      "lineNbr": 1656,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-24T08:08:07Z",
+      "side": 1,
+      "message": "I think this TODO is tangental, but I guess the idea is that you should not need to do scaling? What\u0027s the alternative, dropping in-flight frames at the point of reconfiguring? I\u0027ll let Ilya reply, I\u0027m not touching this here.",
+      "parentUuid": "e57187f7_be56b353",
+      "range": {
+        "startLine": 1655,
+        "startChar": 4,
+        "endLine": 1656,
+        "endChar": 73
+      },
+      "revId": "3969cc1b736a72bfa9fbbd0247fa11d14ea86f7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "63a26fba_f6f690aa",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 30
@@ -83,6 +107,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "57895d82_19f28178",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 30
+      },
+      "lineNbr": 1715,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-24T08:08:07Z",
+      "side": 1,
+      "message": "Done. I also loosened up the DCHECK a bit because for native frames on encodes supporting native we may have skipped cropping earlier and the DCHECK was previously LE",
+      "parentUuid": "63a26fba_f6f690aa",
+      "range": {
+        "startLine": 1715,
+        "startChar": 2,
+        "endLine": 1715,
+        "endChar": 54
+      },
+      "revId": "3969cc1b736a72bfa9fbbd0247fa11d14ea86f7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "ecd3399c_a15c6d29",
         "filename": "video/video_stream_encoder_unittest.cc",
         "patchSetId": 30
@@ -94,6 +142,30 @@
       "writtenOn": "2021-03-23T12:10:44Z",
       "side": 1,
       "message": "Is there something that be done to ensure that we know \"everything will work\" based on the Encoder interface being implemented instead? I am a bit worried about external encoders breaking for example, because the way the interface was used has changed. The need for a test like this smells like abstraction leak as the caller needs to know about all implementations. \n\nI don\u0027t know if there is a clean way to do this, but it is something to consider. Nothing I can come up can be done cleanly or without a lot of refactoring (adding something to encoder info, adding a class level property or template param for how it accepts frames, a new subclass).",
+      "range": {
+        "startLine": 7979,
+        "startChar": 6,
+        "endLine": 7979,
+        "endChar": 43
+      },
+      "revId": "3969cc1b736a72bfa9fbbd0247fa11d14ea86f7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f996008_e2211424",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 30
+      },
+      "lineNbr": 7979,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-24T08:08:07Z",
+      "side": 1,
+      "message": "My opinion is that whatever a VideoFrameBuffer is, all encoders should be able to handle it, because the input to all encoders is a VideoFrameBuffer. If there were special versions of VFB that an encoder can\u0027t handle, I would argue it shouldn\u0027t be a VFB anymore but something else. A new class, that perhaps returns a VFB on request.\n\nA suggestion how to make this better in the future might be to add utility functions to VideoFrameBuffer. Something like \"give me these resolutions in this format\" that all encoders can easily invoke, rather than re-writing native handling in each encoder implementation as separate pieces of code? In that case there is less risk of a bug in a particular implementation and there is one place to update all encoders.\n\nWhat do you think?",
+      "parentUuid": "ecd3399c_a15c6d29",
       "range": {
         "startLine": 7979,
         "startChar": 6,

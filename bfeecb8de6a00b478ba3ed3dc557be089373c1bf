@@ -16,6 +16,23 @@
       "message": "jni code lgtm.",
       "revId": "bfeecb8de6a00b478ba3ed3dc557be089373c1bf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79f5eab0_534418d7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2021-03-24T08:08:27Z",
+      "side": 1,
+      "message": "Hello Sami!\n\nCould you please take a look at this CL?\n\nThanks a lot in advance,\nYura.",
+      "revId": "bfeecb8de6a00b478ba3ed3dc557be089373c1bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

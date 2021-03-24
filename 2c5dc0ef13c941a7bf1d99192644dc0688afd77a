@@ -56,6 +56,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "7ea89c36_526d2316",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 16458
+      },
+      "writtenOn": "2021-03-24T13:27:14Z",
+      "side": 1,
+      "message": "That was my reasoning - this seems to be the behavior of on-tq version already, so this made most sense here as well :)\nThanks for confirming!",
+      "parentUuid": "cddf0eab_20b5cedd",
+      "revId": "2c5dc0ef13c941a7bf1d99192644dc0688afd77a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "1a701765_78a4b6d2",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 8
@@ -85,6 +103,23 @@
       "side": 1,
       "message": "That was a tricky bug, did not foresee that happening...\nThanks for quick fixing!",
       "parentUuid": "1a701765_78a4b6d2",
+      "revId": "2c5dc0ef13c941a7bf1d99192644dc0688afd77a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1c00a75_552af79c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16458
+      },
+      "writtenOn": "2021-03-24T13:27:14Z",
+      "side": 1,
+      "message": "Thanks, committing!\nHoping that this one sticks :)",
       "revId": "2c5dc0ef13c941a7bf1d99192644dc0688afd77a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

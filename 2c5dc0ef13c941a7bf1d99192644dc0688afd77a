@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef04b088_13e956f1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-24T09:19:56Z",
+      "side": 1,
+      "message": "If processing packets can happen before EnsureStarted(), but it is made into a NO-OP, do we run any risk of having the packet queue grow out of control?\n\nHoping the answer is \"no\", but I am not very familiar with this code, and no-oping processing sounds like that could have side-effects unless starting is ensured to happen.",
+      "revId": "2c5dc0ef13c941a7bf1d99192644dc0688afd77a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "1a701765_78a4b6d2",

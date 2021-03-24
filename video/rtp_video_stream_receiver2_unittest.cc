@@ -163,11 +163,11 @@ class RtpVideoStreamReceiver2Test : public ::testing::Test,
     rtp_receive_statistics_ =
         ReceiveStatistics::Create(Clock::GetRealTimeClock());
     rtp_video_stream_receiver_ = std::make_unique<RtpVideoStreamReceiver2>(
-        TaskQueueBase::Current(), Clock::GetRealTimeClock(), &mock_transport_,
-        nullptr, nullptr, &config_, rtp_receive_statistics_.get(), nullptr,
-        nullptr, process_thread_.get(), &mock_nack_sender_,
-        &mock_key_frame_request_sender_, &mock_on_complete_frame_callback_,
-        nullptr, nullptr);
+        TaskQueueBase::Current(), TaskQueueBase::Current(),
+        Clock::GetRealTimeClock(), &mock_transport_, nullptr, nullptr, &config_,
+        rtp_receive_statistics_.get(), nullptr, nullptr, process_thread_.get(),
+        &mock_nack_sender_, &mock_key_frame_request_sender_,
+        &mock_on_complete_frame_callback_, nullptr, nullptr);
     VideoCodec codec;
     codec.codecType = kVideoCodecGeneric;
     rtp_video_stream_receiver_->AddReceiveCodec(kPayloadType, codec, {},
@@ -331,7 +331,6 @@ TEST_F(RtpVideoStreamReceiver2Test, CacheColorSpaceFromLastPacketOfKeyframe) {
   EXPECT_EQ(received_packet_generator.NumPackets(), 1u);
   RtpPacketReceived delta_frame_packet = received_packet_generator.NextPacket();
 
-  rtp_video_stream_receiver_->StartReceive();
   mock_on_complete_frame_callback_.AppendExpectedBitstream(
       kKeyFramePayload.data(), kKeyFramePayload.size());
 
@@ -464,7 +463,6 @@ TEST_F(RtpVideoStreamReceiver2Test,
   });
   RtpPacketReceived packet;
   EXPECT_TRUE(packet.Parse(data.data(), data.size()));
-  rtp_video_stream_receiver_->StartReceive();
   rtp_video_stream_receiver_->OnRtpPacket(packet);
 }
 
@@ -486,7 +484,6 @@ TEST_F(RtpVideoStreamReceiver2Test,
   // Manually convert to CopyOnWriteBuffer to be sure capacity == size
   // and asan bot can catch read buffer overflow.
   EXPECT_TRUE(packet.Parse(rtc::CopyOnWriteBuffer(data)));
-  rtp_video_stream_receiver_->StartReceive();
   rtp_video_stream_receiver_->OnRtpPacket(packet);
   // Expect asan doesn't find anything.
 }
@@ -749,8 +746,6 @@ TEST_F(RtpVideoStreamReceiver2Test, RequestKeyframeWhenPacketBufferGetsFull) {
 }
 
 TEST_F(RtpVideoStreamReceiver2Test, SinkGetsRtpNotifications) {
-  rtp_video_stream_receiver_->StartReceive();
-
   MockRtpPacketSink test_sink;
   test_packet_sink_ = &test_sink;
 
@@ -760,15 +755,10 @@ TEST_F(RtpVideoStreamReceiver2Test, SinkGetsRtpNotifications) {
   rtp_video_stream_receiver_->OnRtpPacket(*rtp_packet);
 
   // Test tear-down.
-  rtp_video_stream_receiver_->StopReceive();
   test_packet_sink_ = nullptr;
 }
 
 TEST_F(RtpVideoStreamReceiver2Test, NonStartedStreamGetsNoRtpCallbacks) {
-  // Explicitly showing that the stream is not in the |started| state,
-  // regardless of whether streams start out |started| or |stopped|.
-  rtp_video_stream_receiver_->StopReceive();
-
   MockRtpPacketSink test_sink;
   test_packet_sink_ = &test_sink;
 
@@ -783,8 +773,6 @@ TEST_F(RtpVideoStreamReceiver2Test, NonStartedStreamGetsNoRtpCallbacks) {
 TEST_F(RtpVideoStreamReceiver2Test, ParseGenericDescriptorOnePacket) {
   const std::vector<uint8_t> data = {0, 1, 2, 3, 4};
   const int kSpatialIndex = 1;
-
-  rtp_video_stream_receiver_->StartReceive();
 
   RtpHeaderExtensionMap extension_map;
   extension_map.Register<RtpGenericFrameDescriptorExtension00>(5);
@@ -826,8 +814,6 @@ TEST_F(RtpVideoStreamReceiver2Test, ParseGenericDescriptorOnePacket) {
 TEST_F(RtpVideoStreamReceiver2Test, ParseGenericDescriptorTwoPackets) {
   const std::vector<uint8_t> data = {0, 1, 2, 3, 4};
   const int kSpatialIndex = 1;
-
-  rtp_video_stream_receiver_->StartReceive();
 
   RtpHeaderExtensionMap extension_map;
   extension_map.Register<RtpGenericFrameDescriptorExtension00>(5);
@@ -888,7 +874,6 @@ TEST_F(RtpVideoStreamReceiver2Test, ParseGenericDescriptorRawPayload) {
   VideoCodec codec;
   rtp_video_stream_receiver_->AddReceiveCodec(kRawPayloadType, codec, {},
                                               /*raw_payload=*/true);
-  rtp_video_stream_receiver_->StartReceive();
 
   RtpHeaderExtensionMap extension_map;
   extension_map.Register<RtpGenericFrameDescriptorExtension00>(5);
@@ -920,7 +905,6 @@ TEST_F(RtpVideoStreamReceiver2Test, UnwrapsFrameId) {
   VideoCodec codec;
   rtp_video_stream_receiver_->AddReceiveCodec(kPayloadType, codec, {},
                                               /*raw_payload=*/true);
-  rtp_video_stream_receiver_->StartReceive();
   RtpHeaderExtensionMap extension_map;
   extension_map.Register<RtpGenericFrameDescriptorExtension00>(5);
 
@@ -967,7 +951,6 @@ class RtpVideoStreamReceiver2DependencyDescriptorTest
     rtp_video_stream_receiver_->AddReceiveCodec(payload_type_, codec, {},
                                                 /*raw_payload=*/true);
     extension_map_.Register<RtpDependencyDescriptorExtension>(7);
-    rtp_video_stream_receiver_->StartReceive();
   }
 
   // Returns some valid structure for the DependencyDescriptors.
@@ -1124,10 +1107,11 @@ TEST_F(RtpVideoStreamReceiver2Test, TransformFrame) {
   EXPECT_CALL(*mock_frame_transformer,
               RegisterTransformedFrameSinkCallback(_, config_.rtp.remote_ssrc));
   auto receiver = std::make_unique<RtpVideoStreamReceiver2>(
-      TaskQueueBase::Current(), Clock::GetRealTimeClock(), &mock_transport_,
-      nullptr, nullptr, &config_, rtp_receive_statistics_.get(), nullptr,
-      nullptr, process_thread_.get(), &mock_nack_sender_, nullptr,
-      &mock_on_complete_frame_callback_, nullptr, mock_frame_transformer);
+      TaskQueueBase::Current(), TaskQueueBase::Current(),
+      Clock::GetRealTimeClock(), &mock_transport_, nullptr, nullptr, &config_,
+      rtp_receive_statistics_.get(), nullptr, nullptr, process_thread_.get(),
+      &mock_nack_sender_, nullptr, &mock_on_complete_frame_callback_, nullptr,
+      mock_frame_transformer);
   VideoCodec video_codec;
   video_codec.codecType = kVideoCodecGeneric;
   receiver->AddReceiveCodec(kPayloadType, video_codec, {},

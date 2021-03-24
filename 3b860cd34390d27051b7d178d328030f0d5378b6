@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b7beb8b_91f3d573",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-03-24T14:02:43Z",
+      "side": 1,
+      "message": "ship it, i\u0027ll rebase and simplify :-)",
+      "revId": "3b860cd34390d27051b7d178d328030f0d5378b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

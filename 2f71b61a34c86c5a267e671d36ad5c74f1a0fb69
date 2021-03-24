@@ -53,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f8f2270_9dbbb64f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-24T08:27:40Z",
+      "side": 1,
+      "message": "Alessio happened to discover this manually while looking/updating the supported-stats expectations.\n\nI wonder why I didn\u0027t discover this, if I was just sloppy when re-enabling the test or if I forgot to re-enable it...",
+      "parentUuid": "71e17c5b_645c40f1",
+      "revId": "2f71b61a34c86c5a267e671d36ad5c74f1a0fb69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "59747f50_a8e56f4e",
@@ -70,6 +88,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4e82139_9c6e5c29",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 928,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-24T08:27:40Z",
+      "side": 1,
+      "message": "Thank you! You are very welcome to do it.",
+      "parentUuid": "59747f50_a8e56f4e",
+      "revId": "2f71b61a34c86c5a267e671d36ad5c74f1a0fb69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "ab4b50bf_d5a53a4a",
@@ -83,6 +119,24 @@
       "writtenOn": "2021-03-23T16:23:30Z",
       "side": 1,
       "message": "Is there a way to assert that the parent_class is the direct parent class in the macro?",
+      "revId": "2f71b61a34c86c5a267e671d36ad5c74f1a0fb69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1174ae3c_df7313a9",
+        "filename": "stats/rtcstats_objects.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 877,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-24T08:27:40Z",
+      "side": 1,
+      "message": "I can\u0027t think of a way, I don\u0027t think C++ has any way to do \"super\"?\n\nBut the point of the parent_class argument is for the MembersOfThisObjectAndAncestors() implementation that is defined by the macro to be able to do:\n\nparent_class::MembersOfThisObjectAndAncestors()\n\nSo it got me thinking, can we somehow know what the parent_class is without this argument?\n\nWell maybe you can do a typedef for it? \"using parent_class \u003d ...\" inside WEBRTC_RTCSTATS_DECL();\n\nBut I don\u0027t know, you have to manually enter it somewhere, so I guess it is error-prone either way. I guess I don\u0027t know of a solution.\n\n---\n\nBut the real issue is that if the Members() method is broken the stats don\u0027t get exposed to JS or native apps that just do \"for each member\".\n\nWhat if we iterate all the members, check which stats type that member is and static_cast it, then do a \"sizeof()\" for each member. Then we will know what the total size, in bytes, of all the members in the RTCStats class is.\n\nCan we somehow compare that number to sizeof(RTCRemoteInboundRtpStreamStats) and verify that they add up?\n\nIf the sizeof an RTCStats object is \u003csome overhead\u003e + \u003cbytes of all members\u003e?",
+      "parentUuid": "ab4b50bf_d5a53a4a",
       "revId": "2f71b61a34c86c5a267e671d36ad5c74f1a0fb69",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -36,6 +36,13 @@ config = require('/g3doc/g3doc.lua')
 return config
 ```
 
+When you want to specify a link from one page to another - use the absolute
+path prefexing it with `<?\{config.base}?>` like this:
+
+```
+[My document](<?\{config.base}?>/module/g3doc/my_document.md)
+```
+
 If you are a Googler also please specify an owner, who will be responsible for
 keeping this documentation updated, by adding the next lines at the beginning
 of your `.md` file immediately after page title:

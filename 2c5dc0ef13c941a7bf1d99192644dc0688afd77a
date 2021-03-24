@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8765e25_b32e8ee0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-03-24T09:39:39Z",
+      "side": 1,
+      "message": "I think this approach makes sense. Yes, you need to ensure started otherwise you have a stalled pacer with growing queues - but that\u0027s also how the non-tq version already works.\n\nMy initial thought was to make the pacing controller handle unspecified rates, but don\u0027t like the fact that we don\u0027t set a default rate (like we do with the old pacer) - and we could very well and up with other parts of the code being called and triggering similar issues as SetRates().",
+      "parentUuid": "ef04b088_13e956f1",
+      "revId": "2c5dc0ef13c941a7bf1d99192644dc0688afd77a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "1a701765_78a4b6d2",
@@ -31,6 +49,24 @@
       "writtenOn": "2021-03-23T19:56:02Z",
       "side": 1,
       "message": "PTAL?\nSo I screwed up the first 2 times. \nTo ensure proper initialization of |task_queue_pacer_| I decided to keep call to SetPacingRates() early. Instead, I\u0027m avoiding posting MaybeProcessPackets before EnsureStarted(), lmk if that make sense?\n",
+      "revId": "2c5dc0ef13c941a7bf1d99192644dc0688afd77a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1fe5409_d36ece8e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-03-24T09:39:39Z",
+      "side": 1,
+      "message": "That was a tricky bug, did not foresee that happening...\nThanks for quick fixing!",
+      "parentUuid": "1a701765_78a4b6d2",
       "revId": "2c5dc0ef13c941a7bf1d99192644dc0688afd77a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

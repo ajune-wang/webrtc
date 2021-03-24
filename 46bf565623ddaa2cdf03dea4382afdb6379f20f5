@@ -43,6 +43,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "c9b55cde_74b72465",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-03-24T07:51:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed0d8bbb_aecfd093",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 5
+      },
+      "revId": "46bf565623ddaa2cdf03dea4382afdb6379f20f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "1f6732b3_be300641",
         "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
         "patchSetId": 7
@@ -54,6 +78,30 @@
       "writtenOn": "2021-03-23T17:34:15Z",
       "side": 1,
       "message": "do you mind using thousand separators to make this constant more readable:\n2\u0027208\u0027988\u0027800\n\nare you worry that if NumMillisecondsPerSec becomes smaller type, this constant might overflow?\nMay be skip multiplication and just create using single literal\nconstexpr int64_t kNtpJan1970Millisecs \u003d 2\u0027208\u0027988\u0027800\u0027000;",
+      "range": {
+        "startLine": 34,
+        "startChar": 41,
+        "endLine": 34,
+        "endChar": 51
+      },
+      "revId": "46bf565623ddaa2cdf03dea4382afdb6379f20f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "381c8be2_1262c31e",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-03-24T07:51:53Z",
+      "side": 1,
+      "message": "\u003e do you mind using thousand separators to make this constant more readable:\n\u003e 2\u0027208\u0027988\u0027800\ndone\n\u003e \n\u003e are you worry that if NumMillisecondsPerSec becomes smaller type, this constant might overflow?\n\u003e May be skip multiplication and just create using single literal\n\u003e constexpr int64_t kNtpJan1970Millisecs \u003d 2\u0027208\u0027988\u0027800\u0027000;\ndone",
+      "parentUuid": "1f6732b3_be300641",
       "range": {
         "startLine": 34,
         "startChar": 41,
@@ -89,6 +137,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "47d0c0e0_bcad0cc6",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-03-24T07:51:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "258f6b94_04b0b653",
+      "range": {
+        "startLine": 114,
+        "startChar": 2,
+        "endLine": 114,
+        "endChar": 8
+      },
+      "revId": "46bf565623ddaa2cdf03dea4382afdb6379f20f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "5828d6bc_4bb90cf9",
         "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
         "patchSetId": 7
@@ -100,6 +172,30 @@
       "writtenOn": "2021-03-23T17:34:15Z",
       "side": 1,
       "message": "prefer dereference optional using operator*:\n\nhttps://abseil.io/tips/181#solution\n\"... accessing it using operator* or operator-\u003e is readable, efficient, and safe.\"",
+      "range": {
+        "startLine": 186,
+        "startChar": 8,
+        "endLine": 186,
+        "endChar": 67
+      },
+      "revId": "46bf565623ddaa2cdf03dea4382afdb6379f20f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b5971fe_835ab574",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-03-24T07:51:53Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "5828d6bc_4bb90cf9",
       "range": {
         "startLine": 186,
         "startChar": 8,
@@ -123,6 +219,30 @@
       "writtenOn": "2021-03-23T17:34:15Z",
       "side": 1,
       "message": "nope,\nit doesn\u0027t map to NTP timestamp, but to unix(?) timestamp.",
+      "range": {
+        "startLine": 76,
+        "startChar": 46,
+        "endLine": 76,
+        "endChar": 49
+      },
+      "revId": "46bf565623ddaa2cdf03dea4382afdb6379f20f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da79479c_28cad53b",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-03-24T07:51:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b775d0df_d1ae9465",
       "range": {
         "startLine": 76,
         "startChar": 46,

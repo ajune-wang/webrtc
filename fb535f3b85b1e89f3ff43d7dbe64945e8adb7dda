@@ -33,6 +33,24 @@
       "message": "@hbos - is this one good to land and try?",
       "revId": "fb535f3b85b1e89f3ff43d7dbe64945e8adb7dda",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5bf963a4_8fa58324",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-03-24T09:12:48Z",
+      "side": 1,
+      "message": "Yeah let\u0027s do this. I don\u0027t think this is affecting any tests since these legacy metrics are not in WPT, I did a code search with no results. So let\u0027s land",
+      "parentUuid": "ad6989fb_189944a3",
+      "revId": "fb535f3b85b1e89f3ff43d7dbe64945e8adb7dda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

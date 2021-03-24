@@ -1,7 +1,7 @@
-[Home](/g3doc/index.md)
+[Home](<?{config.base}?>/g3doc/index.md)
 *   How to contribute
     *   Code
-    *   [Documentation](/g3doc/how_to_write_documentation.md)
+    *   [Documentation](<?{config.base}?>/g3doc/how_to_write_documentation.md)
 *   Public C++ API
 *   Implementation
     *   Network
@@ -15,9 +15,9 @@
 *   Testing
     *   Media Quality and performance
         *   PeerConnection Framework
-            *   [Video analyzer](/test/pc/e2e/g3doc/default_video_quality_analyzer.md)
+            *   [Video analyzer](<?{config.base}?>/test/pc/e2e/g3doc/default_video_quality_analyzer.md)
         *   Call framework
         *   Video codecs test framework
     *   Network emulation
-        *   [Implementation](/test/network/g3doc/index.md)
+        *   [Implementation](<?{config.base}?>/test/network/g3doc/index.md)
     * Performance stats collection

@@ -27,7 +27,7 @@
 #include <string>
 #include <vector>
 
-#include "api/async_resolver_factory.h"
+#include "api/async_dns_resolver.h"
 #include "api/candidate.h"
 #include "api/rtc_error.h"
 #include "logging/rtc_event_log/events/rtc_event_ice_candidate_pair_config.h"
@@ -83,7 +83,7 @@ class RemoteCandidate : public Candidate {
 class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
  public:
   // For testing only.
-  // TODO(zstein): Remove once AsyncResolverFactory is required.
+  // TODO(zstein): Remove once AsyncDnsResolverFactory is required.
   P2PTransportChannel(const std::string& transport_name,
                       int component,
                       PortAllocator* allocator);
@@ -91,7 +91,7 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
       const std::string& transport_name,
       int component,
       PortAllocator* allocator,
-      webrtc::AsyncResolverFactory* async_resolver_factory,
+      webrtc::AsyncDnsResolverFactoryInterface* async_dns_resolver_factory,
       webrtc::RtcEventLog* event_log = nullptr,
       IceControllerFactoryInterface* ice_controller_factory = nullptr);
   ~P2PTransportChannel() override;
@@ -363,7 +363,7 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
   std::string transport_name_ RTC_GUARDED_BY(network_thread_);
   int component_ RTC_GUARDED_BY(network_thread_);
   PortAllocator* allocator_ RTC_GUARDED_BY(network_thread_);
-  webrtc::AsyncResolverFactory* async_resolver_factory_
+  webrtc::AsyncDnsResolverFactoryInterface* async_dns_resolver_factory_
       RTC_GUARDED_BY(network_thread_);
   rtc::Thread* const network_thread_;
   bool incoming_only_ RTC_GUARDED_BY(network_thread_);
@@ -426,17 +426,23 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
       RTC_GUARDED_BY(network_thread_);
 
   struct CandidateAndResolver final {
-    CandidateAndResolver(const Candidate& candidate,
-                         rtc::AsyncResolverInterface* resolver);
+    CandidateAndResolver(
+        const Candidate& candidate,
+        std::unique_ptr<webrtc::AsyncDnsResolverInterface>&& resolver);
     ~CandidateAndResolver();
+    // Moveable, but not copyable.
+    CandidateAndResolver(CandidateAndResolver&&) = default;
+    CandidateAndResolver& operator=(CandidateAndResolver&&) = default;
+
     Candidate candidate_;
-    rtc::AsyncResolverInterface* resolver_;
+    std::unique_ptr<webrtc::AsyncDnsResolverInterface> resolver_;
   };
   std::vector<CandidateAndResolver> resolvers_ RTC_GUARDED_BY(network_thread_);
   void FinishAddingRemoteCandidate(const Candidate& new_remote_candidate);
-  void OnCandidateResolved(rtc::AsyncResolverInterface* resolver);
-  void AddRemoteCandidateWithResolver(Candidate candidate,
-                                      rtc::AsyncResolverInterface* resolver);
+  void OnCandidateResolved(webrtc::AsyncDnsResolverInterface* resolver);
+  void AddRemoteCandidateWithResult(
+      Candidate candidate,
+      const webrtc::AsyncDnsResolverResult& result);
 
   // Number of times the selected_connection_ has been modified.
   uint32_t selected_candidate_pair_changes_ = 0;

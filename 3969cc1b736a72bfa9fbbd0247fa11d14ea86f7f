@@ -84,6 +84,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "9d94b746_35ee4785",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 30
+      },
+      "lineNbr": 1656,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-03-24T10:01:47Z",
+      "side": 1,
+      "message": "The idea was to combine this crop/scaling with adaptation scaling so it should be passed in sinkWants.\n\nWith soft-applied scaling it\u0027s not relevant anymore and can be dropped, I think.",
+      "parentUuid": "0ff5185e_522bed30",
+      "range": {
+        "startLine": 1655,
+        "startChar": 4,
+        "endLine": 1656,
+        "endChar": 73
+      },
+      "revId": "3969cc1b736a72bfa9fbbd0247fa11d14ea86f7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "63a26fba_f6f690aa",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 30

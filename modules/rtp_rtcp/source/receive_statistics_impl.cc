@@ -21,12 +21,18 @@
 #include "modules/rtp_rtcp/source/rtp_rtcp_config.h"
 #include "modules/rtp_rtcp/source/time_util.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/time_utils.h"
 #include "system_wrappers/include/clock.h"
 
 namespace webrtc {
-
+namespace {
 const int64_t kStatisticsTimeoutMs = 8000;
 const int64_t kStatisticsProcessIntervalMs = 1000;
+
+// Number of seconds since 1900 January 1 00:00 GMT (see
+// https://tools.ietf.org/html/rfc868).
+constexpr int64_t kNtpJan1970Millisecs = 2208988800 * rtc::kNumMillisecsPerSec;
+}  // namespace
 
 StreamStatistician::~StreamStatistician() {}
 
@@ -35,6 +41,9 @@ StreamStatisticianImpl::StreamStatisticianImpl(uint32_t ssrc,
                                                int max_reordering_threshold)
     : ssrc_(ssrc),
       clock_(clock),
+      delta_internal_ntp_ms_(clock_->CurrentNtpInMilliseconds() -
+                             clock_->TimeInMilliseconds() -
+                             kNtpJan1970Millisecs),
       incoming_bitrate_(kStatisticsProcessIntervalMs,
                         RateStatistics::kBpsScale),
       max_reordering_threshold_(max_reordering_threshold),
@@ -102,7 +111,7 @@ bool StreamStatisticianImpl::UpdateOutOfOrder(const RtpPacketReceived& packet,
 
 void StreamStatisticianImpl::UpdateCounters(const RtpPacketReceived& packet) {
   RTC_DCHECK_EQ(ssrc_, packet.Ssrc());
-  int64_t now_ms = clock_->TimeInMilliseconds();
+  const int64_t now_ms = clock_->TimeInMilliseconds();
 
   incoming_bitrate_.Update(packet.size(), now_ms);
   receive_counters_.last_packet_received_timestamp_ms = now_ms;
@@ -172,8 +181,11 @@ RtpReceiveStats StreamStatisticianImpl::GetStats() const {
   // TODO(nisse): Can we return a float instead?
   // Note: internal jitter value is in Q4 and needs to be scaled by 1/16.
   stats.jitter = jitter_q4_ >> 4;
-  stats.last_packet_received_timestamp_ms =
-      receive_counters_.last_packet_received_timestamp_ms;
+  if (receive_counters_.last_packet_received_timestamp_ms.has_value()) {
+    stats.last_packet_received_timestamp_ms =
+        receive_counters_.last_packet_received_timestamp_ms.value() +
+        delta_internal_ntp_ms_;
+  }
   stats.packet_counter = receive_counters_.transmitted;
   return stats;
 }

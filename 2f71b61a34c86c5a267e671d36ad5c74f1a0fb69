@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "71e17c5b_645c40f1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-03-24T06:06:40Z",
+      "side": 1,
+      "message": "There are chrome tests for this, in particular this one:\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/blink/web_tests/external/wpt/webrtc-stats/supported-stats.html\nThere is a test expectation too:\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/blink/web_tests/external/wpt/webrtc-stats/supported-stats-expected.txt\n\nIn order to fix a broken test one needs to deactivate the test in chrome, commit the test in webrtc, wait for chrome to update webrtc and then (back in chrome) reactivate the test while updating the test expectation.\nWhich is as error-prone as it sounds :-)",
+      "parentUuid": "158b3173_5a3f22a2",
+      "revId": "2f71b61a34c86c5a267e671d36ad5c74f1a0fb69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "59747f50_a8e56f4e",

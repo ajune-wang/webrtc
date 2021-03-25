@@ -16,6 +16,24 @@
       "message": "Since all lambdas here are capture-by-value, this is OK (nothing depends on local variables of this class).",
       "revId": "4d2feb6260e743e537d243f629dae519c6e133a9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "596150af_f462a139",
+        "filename": "rtc_base/fake_mdns_responder.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-03-25T09:31:34Z",
+      "side": 1,
+      "message": "Exactly.",
+      "parentUuid": "c2f4f159_de09fbdb",
+      "revId": "4d2feb6260e743e537d243f629dae519c6e133a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -46,6 +46,30 @@
       },
       "revId": "c66ee566f3f501ceb127f339ce1f7547191a89ac",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b539148_fb338f66",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 965,
+      "author": {
+        "id": 5677
+      },
+      "writtenOn": "2021-03-25T12:58:08Z",
+      "side": 1,
+      "message": "1.\nIs this really necessary? Doesn\u0027t the entire test directory get deleted when the test terminates?\n\n2.\nThere are a lot of ASSERT-s that would result in an early exit without removing this file. If manually removing the file is necessary, how about using some custom-code-on-destruction utility? You could define a FileWrapper that deletes a file when it\u0027s destroyed. I think there are plenty of resources like that in Chrome. Possibly also in WebRTC?\n\n3.\n(Btw, any idea why we don\u0027t import most of these utilities from Chrome into WebRTC?)",
+      "parentUuid": "fea906c5_92973099",
+      "range": {
+        "startLine": 965,
+        "startChar": 2,
+        "endLine": 965,
+        "endChar": 32
+      },
+      "revId": "c66ee566f3f501ceb127f339ce1f7547191a89ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

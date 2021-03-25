@@ -59,9 +59,9 @@ rtc::scoped_refptr<IceTransportInterface> CreateIceTransport(
 rtc::scoped_refptr<IceTransportInterface> CreateIceTransport(
     IceTransportInit init) {
   return new rtc::RefCountedObject<IceTransportWithTransportChannel>(
-      std::make_unique<cricket::P2PTransportChannel>(
+      cricket::P2PTransportChannel::Create(
           "", cricket::ICE_CANDIDATE_COMPONENT_RTP, init.port_allocator(),
-          init.async_resolver_factory(), init.event_log()));
+          init.async_dns_resolver_factory(), init.event_log()));
 }
 
 }  // namespace webrtc

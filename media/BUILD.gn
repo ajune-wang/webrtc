@@ -392,11 +392,49 @@ rtc_library("rtc_media_engine_defaults") {
   ]
 }
 
+rtc_library("dcsctp") {
+  deps = [
+    ":rtc_media_base",
+    "../api:array_view",
+    "../rtc_base",
+    "../rtc_base:checks",
+    "../rtc_base:rtc_base_approved",
+  ]
+  absl_deps = [ "//third_party/abseil-cpp/absl/base:endian" ]
+  sources = [
+    "sctp/dcsctp/packet/bounded_byte_reader.h",
+    "sctp/dcsctp/packet/bounded_byte_writer.h",
+  ]
+}
+
+if (rtc_include_tests) {
+  rtc_test("dcsctp_unittests") {
+    testonly = true
+
+    defines = []
+    deps = [
+      ":dcsctp",
+      "../api:array_view",
+      "../rtc_base:checks",
+      "../rtc_base:gunit_helpers",
+      "../rtc_base:rtc_base_approved",
+      "../test:test_main",
+      "../test:test_support",
+    ]
+    absl_deps = [ "//third_party/abseil-cpp/absl/base:endian" ]
+    sources = [
+      "sctp/dcsctp/packet/bounded_byte_reader_test.cc",
+      "sctp/dcsctp/packet/bounded_byte_writer_test.cc",
+    ]
+  }
+}
+
 rtc_library("rtc_data") {
   defines = [
     # "SCTP_DEBUG" # Uncomment for SCTP debugging.
   ]
   deps = [
+    ":dcsctp",
     ":rtc_media_base",
     "../api:call_api",
     "../api:sequence_checker",

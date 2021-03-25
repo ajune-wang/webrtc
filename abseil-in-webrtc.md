@@ -35,6 +35,7 @@ will generate a shared library.
 * The functions in `absl/algorithm/algorithm.h` and
   `absl/algorithm/container.h`.
 * `absl/base/const_init.h` for mutex initialization.
+* `absl/base/internal/endian.h` for endian conversion functions.
 * The macros in `absl/base/attributes.h`, `absl/base/config.h` and
   `absl/base/macros.h`.
 

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "304095b6_b5c4da96",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-03-25T17:08:22Z",
+      "side": 1,
+      "message": "Removing from LKGR in the meantime we find a solution.",
+      "revId": "1cfe3d3e2e48be7003c6c0fc2af6277435fa88cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

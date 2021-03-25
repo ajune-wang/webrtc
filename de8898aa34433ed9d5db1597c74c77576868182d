@@ -16,6 +16,24 @@
       "message": "Looks reasonable to me. It would be nice with a native implementation of the new interface, for validation, though. As far as I understand, the wrapper is the only non-mock implementation so far?",
       "revId": "de8898aa34433ed9d5db1597c74c77576868182d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b2e5779_8c05a573",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-03-25T11:20:03Z",
+      "side": 1,
+      "message": "Yep. I\u0027ll do that next - probably a much smaller task than the API changes.",
+      "parentUuid": "3dc14902_ed8f5bd7",
+      "revId": "de8898aa34433ed9d5db1597c74c77576868182d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -28,10 +28,28 @@ rtc_library("bounded_io") {
   ]
 }
 
+rtc_library("tlv_trait") {
+  deps = [
+    ":bounded_io",
+    "//api:array_view",
+    "//rtc_base",
+    "//rtc_base:checks",
+    "//rtc_base:rtc_base_approved",
+  ]
+  absl_deps = [ "//third_party/abseil-cpp/absl/strings:strings" ]
+  sources = [
+    "empty.cc",
+    "tlv_trait.h",
+  ]
+}
+
 if (rtc_include_tests) {
   group("dcsctp_packet_unittests") {
     testonly = true
-    deps = [ ":dcsctp_bounded_io_unittests" ]
+    deps = [
+      ":dcsctp_bounded_io_unittests",
+      ":dcsctp_tlv_trait_unittests",
+    ]
   }
 
   rtc_test("dcsctp_bounded_io_unittests") {
@@ -52,5 +70,22 @@ if (rtc_include_tests) {
       "bounded_byte_reader_test.cc",
       "bounded_byte_writer_test.cc",
     ]
+  }
+
+  rtc_test("dcsctp_tlv_trait_unittests") {
+    testonly = true
+
+    defines = []
+    deps = [
+      ":tlv_trait",
+      "//api:array_view",
+      "//rtc_base:checks",
+      "//rtc_base:gunit_helpers",
+      "//rtc_base:rtc_base_approved",
+      "//test:test_main",
+      "//test:test_support",
+    ]
+    absl_deps = []
+    sources = [ "tlv_trait_test.cc" ]
   }
 }

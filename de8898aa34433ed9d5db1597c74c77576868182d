@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3dc14902_ed8f5bd7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-03-25T10:57:59Z",
+      "side": 1,
+      "message": "Looks reasonable to me. It would be nice with a native implementation of the new interface, for validation, though. As far as I understand, the wrapper is the only non-mock implementation so far?",
+      "revId": "de8898aa34433ed9d5db1597c74c77576868182d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

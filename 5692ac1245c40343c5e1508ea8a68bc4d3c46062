@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6aad49a_41f001d8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-25T16:35:17Z",
+      "side": 1,
+      "message": "Yes, even as it is I worry it is too big.\nPrefer to solve other scenarios and iterate later.",
+      "parentUuid": "3fc878f3_144bd8d9",
+      "revId": "5692ac1245c40343c5e1508ea8a68bc4d3c46062",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "47f1e50c_100e1bda",
@@ -48,6 +66,30 @@
       "writtenOn": "2021-03-25T15:08:14Z",
       "side": 1,
       "message": "Isn\u0027t this too strict?\n\nI\u0027m thinking about prediction shift. If we\u0027re running L3T3_KEY_SHIFT we\u0027re not using inter-layer prediction - but the layer frames still share a picture id right?\n\nIf we _are_ using inter-layer prediction the afaict the standard doesn\u0027t mention prediction shift. I guess it does not, because it would mean higher spatial layer would not to reference older frames in the lower spatial layers to prevent referencing higher temporal temporal layers. That seems like a bad tradeoff quality wise, but not sure even this is invalid?\n\ntl;dr:\nMaybe only check this strictly for key-frames or when in non-flexible mode?",
+      "range": {
+        "startLine": 91,
+        "startChar": 6,
+        "endLine": 92,
+        "endChar": 54
+      },
+      "revId": "5692ac1245c40343c5e1508ea8a68bc4d3c46062",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6355be42_047c1963",
+        "filename": "test/fuzzers/vp9_encoder_references_fuzzer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-25T16:35:17Z",
+      "side": 1,
+      "message": "Yes, this check is too strict for prediction shift structures, but currently those are not supported by VP9.\nI would prefer to keep it for now and remove when/if we start using VP9 with temporal shift [k-svc or simulcast]\nAdded a comment it is not compatible with temporal shift structures.",
+      "parentUuid": "47f1e50c_100e1bda",
       "range": {
         "startLine": 91,
         "startChar": 6,
@@ -81,6 +123,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "078380ec_2aca2b5c",
+        "filename": "test/fuzzers/vp9_encoder_references_fuzzer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-25T16:35:17Z",
+      "side": 1,
+      "message": "I think it is cleaner to override than to use Mock:\nI do not want to EXPECT anything from it, I need it just to control encoder wrapper, so it is a stub (renamed, it is too shallow to be a fake).\nI tried to use ON_CALL (e.g. see patchset#1), but that doesn\u0027t look pretty since all functions have return value, so I can\u0027t just write\nON_CALL(libvpx_, codec_enc_config_default).WillByDefault(SavePointeeArg\u003c1\u003e(\u0026state.config));\nI need to write either\nON_CALL(libvpx_, codec_enc_config_default).WillByDefault(DoAll(SavePointeeArg\u003c1\u003e(\u0026state.config), Return(VPX_CODEC_OK));\nor \nON_CALL(libvpx_, codec_enc_config_default).WillByDefault(WithArg\u003c1\u003e[\u0026](vpx_vodec_enc_cfg_t* cfg) { state.config \u003d *cfg; return VPX_CODEC_OK; });\n\nLast one looks cleaner even if more wordy, but then it seems even cleaner just to implement interface rather inject functors.\n[I haven\u0027t verified, but suspect that it would also be a bit faster, which does matter for a fuzzer]\nMay be it would be even better to derive directily from LibvpxInterface, but I was lazy to implement all the functions in it.\n\nhttps://testing.googleblog.com/2013/07/testing-on-toilet-know-your-test-doubles.html",
+      "parentUuid": "ecfb9dee_f1dded3a",
+      "range": {
+        "startLine": 243,
+        "startChar": 0,
+        "endLine": 243,
+        "endChar": 57
+      },
+      "revId": "5692ac1245c40343c5e1508ea8a68bc4d3c46062",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "624487b5_425655ef",
@@ -94,6 +160,30 @@
       "writtenOn": "2021-03-25T15:08:14Z",
       "side": 1,
       "message": "Maybe expand comment to indicate what type of layer this refers to",
+      "range": {
+        "startLine": 363,
+        "startChar": 10,
+        "endLine": 363,
+        "endChar": 15
+      },
+      "revId": "5692ac1245c40343c5e1508ea8a68bc4d3c46062",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4c927d2_e8ae2e6f",
+        "filename": "test/fuzzers/vp9_encoder_references_fuzzer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-25T16:35:17Z",
+      "side": 1,
+      "message": "right, it isn\u0027t layer, it is spatial layer, which is a different term.\nRewrote the comment",
+      "parentUuid": "624487b5_425655ef",
       "range": {
         "startLine": 363,
         "startChar": 10,

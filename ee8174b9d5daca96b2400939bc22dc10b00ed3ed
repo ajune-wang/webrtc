@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "db37c6a0_8f5d5824",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1093,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-03-25T17:43:04Z",
+      "side": 1,
+      "message": "Because I just landed it. It probably takes a little while to update the code search tool. :)",
+      "parentUuid": "5ee4f2a5_4770425a",
+      "revId": "ee8174b9d5daca96b2400939bc22dc10b00ed3ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dfe41293_dbf24fb3",
@@ -48,6 +66,30 @@
       "writtenOn": "2021-03-25T17:22:11Z",
       "side": 1,
       "message": "Cast once after this point?",
+      "range": {
+        "startLine": 1094,
+        "startChar": 2,
+        "endLine": 1094,
+        "endChar": 44
+      },
+      "revId": "ee8174b9d5daca96b2400939bc22dc10b00ed3ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "baf0aa4c_910128f5",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1094,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-03-25T17:43:04Z",
+      "side": 1,
+      "message": "I\u0027ll look into it. It seems I need to avoid long, even though that is what the C library uses.",
+      "parentUuid": "dfe41293_dbf24fb3",
       "range": {
         "startLine": 1094,
         "startChar": 2,

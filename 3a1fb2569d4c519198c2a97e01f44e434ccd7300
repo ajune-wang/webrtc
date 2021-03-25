@@ -279,6 +279,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6673b813_14bc1a11",
+        "filename": "logging/rtc_event_log/encoder/var_int.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-03-25T17:43:04Z",
+      "side": 1,
+      "message": "The typical usage pattern is\nwhile(!input.empty()) {\n  std::tie(success, input) \u003d DecodeVarInt(input, \u0026output);\n  if (!success)\n    // Handle error and return\n  DoSomething(output);\n}\n\nPreserving `input` would require an additional temporary variable and (as I have empirically found) makes it easy to forget updating `input` at the end.",
+      "parentUuid": "c0cd9b81_7e804275",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 34
+      },
+      "revId": "3a1fb2569d4c519198c2a97e01f44e434ccd7300",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "51e5e889_1060cc71",
         "filename": "logging/rtc_event_log/encoder/var_int.h",
         "patchSetId": 1

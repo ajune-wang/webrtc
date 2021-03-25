@@ -94,6 +94,30 @@
       },
       "revId": "c66ee566f3f501ceb127f339ce1f7547191a89ac",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "163b0674_c1fe87a8",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 965,
+      "author": {
+        "id": 5677
+      },
+      "writtenOn": "2021-03-25T14:17:11Z",
+      "side": 1,
+      "message": "I think it would be good to add a remover, but I understand you\u0027re too busy for that. So long as this is an improvement, then...",
+      "parentUuid": "52f129e0_44c201b2",
+      "range": {
+        "startLine": 965,
+        "startChar": 2,
+        "endLine": 965,
+        "endChar": 32
+      },
+      "revId": "c66ee566f3f501ceb127f339ce1f7547191a89ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

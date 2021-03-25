@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37fa4cb2_eb63c9b2",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 965,
+      "author": {
+        "id": 5677
+      },
+      "writtenOn": "2021-03-25T11:29:21Z",
+      "side": 1,
+      "message": "Could you please link me to the definition of this?",
+      "range": {
+        "startLine": 965,
+        "startChar": 2,
+        "endLine": 965,
+        "endChar": 32
+      },
+      "revId": "c66ee566f3f501ceb127f339ce1f7547191a89ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

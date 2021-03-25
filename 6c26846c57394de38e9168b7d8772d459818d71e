@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94267698_4ac601f8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-03-25T12:49:23Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "6c26846c57394de38e9168b7d8772d459818d71e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd5a2dec_c0fd1efd",
+        "filename": "rtc_base/system/file_wrapper.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-03-25T12:49:23Z",
+      "side": 1,
+      "message": "Actually /proc is an interesting case, and an argument for the seek method .... ls gives a size of 0 for /proc/self/mountinfo (for instance), but running \"wc\" on it tells you that it in fact contains 2906 bytes (for me). Would be interesting to see what the seek method returns.\n\nMore relevant can be nonseekable files like /dev/tty.",
+      "revId": "6c26846c57394de38e9168b7d8772d459818d71e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f16564b1_c93849a2",
+        "filename": "rtc_base/system/file_wrapper_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-03-25T12:49:23Z",
+      "side": 1,
+      "message": "I\u0027d actually do this twice at least once, to check that FileSize() doesn\u0027t change the file size.....",
+      "revId": "6c26846c57394de38e9168b7d8772d459818d71e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

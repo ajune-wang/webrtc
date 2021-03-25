@@ -81,6 +81,30 @@
       },
       "revId": "4bfd7512b7d536a03d5f3fca9ef50c4e935ad3ab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "85ee51ee_a76bb76e",
+        "filename": "test/fuzzers/vp9_encoder_references_fuzzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-25T11:54:00Z",
+      "side": 1,
+      "message": "It seems I had to implemenet proper handling of frame drop configuration, or fuzzer would hit various DCHECKs\n\nAs a result I postpone fuzzing scenario where SetRates is called between call to Encode and Callback from it.",
+      "parentUuid": "938cde87_2064a55d",
+      "range": {
+        "startLine": 164,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 57
+      },
+      "revId": "4bfd7512b7d536a03d5f3fca9ef50c4e935ad3ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

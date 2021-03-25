@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b20ce68d_157635dd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-03-25T11:54:00Z",
+      "side": 1,
+      "message": "ptal,\n\nScreenshare mode is failing with this fuzzer, I didn\u0027t investigate why, just disabled it for now.",
+      "revId": "5692ac1245c40343c5e1508ea8a68bc4d3c46062",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -255,6 +255,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c0cd9b81_7e804275",
+        "filename": "logging/rtc_event_log/encoder/var_int.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2021-03-25T17:22:11Z",
+      "side": 1,
+      "message": "The code returns `input` on failure. So what would debugging code on the caller side do with it? The caller already has `input` in its hand. (Won\u0027t block, but please consider.)",
+      "parentUuid": "efdc87fe_192caf68",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 34
+      },
+      "revId": "3a1fb2569d4c519198c2a97e01f44e434ccd7300",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "51e5e889_1060cc71",
         "filename": "logging/rtc_event_log/encoder/var_int.h",
         "patchSetId": 1

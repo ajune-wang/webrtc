@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b343beca_1c16976d",
+        "filename": "g3doc.lua",
+        "patchSetId": 10
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-03-25T09:53:25Z",
+      "side": 1,
+      "message": "Yep, super here is for local customization. It\u0027s partly experiment right now to find out how it will work, so more modifications can come in future.",
+      "parentUuid": "1ad67670_900b7571",
+      "revId": "09682a578920bbf48a50038b9977e1c0e44a32ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cb6f0d2e_b0443356",
@@ -48,6 +66,24 @@
       "writtenOn": "2021-03-25T09:04:33Z",
       "side": 1,
       "message": "Is this different from \"return super()\" that you have used in g3doc/g3doc.lua?\n(is the difference that it makes the \"config\" variable available to files?)",
+      "revId": "09682a578920bbf48a50038b9977e1c0e44a32ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03bf186e_8d878e3e",
+        "filename": "g3doc/how_to_write_documentation.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-03-25T09:53:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb6f0d2e_b0443356",
       "revId": "09682a578920bbf48a50038b9977e1c0e44a32ab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

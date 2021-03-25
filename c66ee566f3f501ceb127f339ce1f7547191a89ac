@@ -70,6 +70,30 @@
       },
       "revId": "c66ee566f3f501ceb127f339ce1f7547191a89ac",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52f129e0_44c201b2",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 965,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-03-25T13:48:20Z",
+      "side": 1,
+      "message": "1. I wouldn\u0027t say that it is necessary, but I noticed that it is missing compared to the other tests that do remove the file. The file is not removed automatically when the test terminates.\n\n2. I\u0027m not aware of any such utility in WebRTC. I don\u0027t think fixing this is prioritized since the test is supposed to always pass. It would only leave files behind if you make local modifications that break the test, and never run the test again.\n\n3. I don\u0027t know.",
+      "parentUuid": "4b539148_fb338f66",
+      "range": {
+        "startLine": 965,
+        "startChar": 2,
+        "endLine": 965,
+        "endChar": 32
+      },
+      "revId": "c66ee566f3f501ceb127f339ce1f7547191a89ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

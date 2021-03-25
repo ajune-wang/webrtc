@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b7d4c21_2d0ad2f0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-03-25T08:20:14Z",
+      "side": 1,
+      "message": "Using the new interface to DNS resolution (no sigslot exposed).\n\nNote a somewhat convoluted piece of code around P2PIceTransport constructor; this constructor is called from external code, so I couldn\u0027t change its signature, and had to engineer around that.\n",
+      "revId": "1f0538058644c614d238b95012db2a0db7e1a724",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

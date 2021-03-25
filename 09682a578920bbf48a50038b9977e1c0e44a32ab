@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c9283f1_64837e34",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-03-25T09:04:33Z",
+      "side": 1,
+      "message": "Since I know noting of Lua, the comments may be off base.\n",
+      "revId": "09682a578920bbf48a50038b9977e1c0e44a32ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ad67670_900b7571",
+        "filename": "g3doc.lua",
+        "patchSetId": 10
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-03-25T09:04:33Z",
+      "side": 1,
+      "message": "I\u0027m no Lua expert, but we\u0027re at the top of the repository; does super() have any effect? Or is it the thing that makes for local customization in g3?",
+      "revId": "09682a578920bbf48a50038b9977e1c0e44a32ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb6f0d2e_b0443356",
+        "filename": "g3doc/how_to_write_documentation.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-03-25T09:04:33Z",
+      "side": 1,
+      "message": "Is this different from \"return super()\" that you have used in g3doc/g3doc.lua?\n(is the difference that it makes the \"config\" variable available to files?)",
+      "revId": "09682a578920bbf48a50038b9977e1c0e44a32ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a819d6d6_e5fded1e",
+        "filename": "g3doc/how_to_write_documentation.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-03-25T09:04:33Z",
+      "side": 1,
+      "message": "That\u0027s ugly. Is it even needed for links within the same directory?",
+      "revId": "09682a578920bbf48a50038b9977e1c0e44a32ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

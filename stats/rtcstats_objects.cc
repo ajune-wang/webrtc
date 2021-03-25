@@ -8,6 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+// TEST
+
 #include "api/stats/rtcstats_objects.h"
 
 #include <utility>

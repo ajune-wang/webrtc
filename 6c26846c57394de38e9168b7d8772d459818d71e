@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "df66b750_9d55c800",
+        "filename": "rtc_base/system/file_wrapper.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-03-25T14:53:41Z",
+      "side": 1,
+      "message": "You are right. Seeking gives size 0 for /proc/cpuinfo for example, but size -1 for /dev/tty. Updated the comment.",
+      "parentUuid": "bd5a2dec_c0fd1efd",
+      "revId": "6c26846c57394de38e9168b7d8772d459818d71e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f16564b1_c93849a2",
@@ -48,6 +66,24 @@
       "writtenOn": "2021-03-25T12:49:23Z",
       "side": 1,
       "message": "I\u0027d actually do this twice at least once, to check that FileSize() doesn\u0027t change the file size.....",
+      "revId": "6c26846c57394de38e9168b7d8772d459818d71e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "363a0dcc_11cf5759",
+        "filename": "rtc_base/system/file_wrapper_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-03-25T14:53:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f16564b1_c93849a2",
       "revId": "6c26846c57394de38e9168b7d8772d459818d71e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

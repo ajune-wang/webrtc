@@ -2056,6 +2056,7 @@ void PeerConnection::StopRtcEventLog_w() {
 
 cricket::ChannelInterface* PeerConnection::GetChannel(
     const std::string& content_name) {
+  RTC_DCHECK_RUN_ON(network_thread());
   for (const auto& transceiver : rtp_manager()->transceivers()->List()) {
     cricket::ChannelInterface* channel = transceiver->internal()->channel();
     if (channel && channel->content_name() == content_name) {

@@ -4517,6 +4517,13 @@ bool SdpOfferAnswerHandler::ReadyToUseRemoteCandidate(
     return false;
   }
 
+  return true;
+/*
+
+  TODO(tommi): Checking the transport name below is broken since once the
+  name has been set, it's never cleared (although the transport might).
+  We also can't call GetChannel on this thread.
+
   bool has_transport = false;
   cricket::ChannelInterface* channel = pc_->GetChannel(result.value()->name);
   if (channel) {
@@ -4526,7 +4533,7 @@ bool SdpOfferAnswerHandler::ReadyToUseRemoteCandidate(
     RTC_DCHECK(sctp_mid);
     has_transport = (result.value()->name == *sctp_mid);
   }
-  return has_transport;
+  return has_transport;*/
 }
 
 RTCErrorOr<const cricket::ContentInfo*> SdpOfferAnswerHandler::FindContentInfo(
@@ -4626,8 +4633,6 @@ cricket::VoiceChannel* SdpOfferAnswerHandler::CreateVoiceChannel(
   }
   voice_channel->SignalSentPacket().connect(pc_,
                                             &PeerConnection::OnSentPacket_w);
-  voice_channel->SetRtpTransport(rtp_transport);
-
   return voice_channel;
 }
 
@@ -4655,8 +4660,6 @@ cricket::VideoChannel* SdpOfferAnswerHandler::CreateVideoChannel(
   }
   video_channel->SignalSentPacket().connect(pc_,
                                             &PeerConnection::OnSentPacket_w);
-  video_channel->SetRtpTransport(rtp_transport);
-
   return video_channel;
 }
 
@@ -4691,8 +4694,6 @@ bool SdpOfferAnswerHandler::CreateDataChannel(const std::string& mid) {
       }
       data_channel_controller()->rtp_data_channel()->SignalSentPacket().connect(
           pc_, &PeerConnection::OnSentPacket_w);
-      data_channel_controller()->rtp_data_channel()->SetRtpTransport(
-          rtp_transport);
       SetHavePendingRtpDataChannel();
       return true;
   }
@@ -4866,23 +4867,6 @@ SdpOfferAnswerHandler::GetMediaDescriptionOptionsForRejectedData(
   AddRtpDataChannelOptions(*(data_channel_controller()->rtp_data_channels()),
                            &options);
   return options;
-}
-
-const std::string SdpOfferAnswerHandler::GetTransportName(
-    const std::string& content_name) {
-  RTC_DCHECK_RUN_ON(signaling_thread());
-  cricket::ChannelInterface* channel = pc_->GetChannel(content_name);
-  if (channel) {
-    return channel->transport_name();
-  }
-  if (data_channel_controller()->data_channel_transport()) {
-    RTC_DCHECK(pc_->sctp_mid());
-    if (content_name == *(pc_->sctp_mid())) {
-      return *(pc_->sctp_transport_name());
-    }
-  }
-  // Return an empty string if failed to retrieve the transport name.
-  return "";
 }
 
 bool SdpOfferAnswerHandler::UpdatePayloadTypeDemuxingState(

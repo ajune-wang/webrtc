@@ -124,7 +124,10 @@ class BaseChannel : public ChannelInterface,
   rtc::Thread* network_thread() const { return network_thread_; }
   const std::string& content_name() const override { return content_name_; }
   // TODO(deadbeef): This is redundant; remove this.
-  const std::string& transport_name() const override { return transport_name_; }
+  const std::string& transport_name() const override {
+    RTC_DCHECK_RUN_ON(signaling_thread());
+    return transport_name_;
+  }
   bool enabled() const override { return enabled_; }
 
   // This function returns true if using SRTP (DTLS-based keying or SDES).
@@ -434,7 +437,6 @@ class VoiceChannel : public BaseChannel {
   cricket::MediaType media_type() const override {
     return cricket::MEDIA_TYPE_AUDIO;
   }
-  void Init_w(webrtc::RtpTransportInternal* rtp_transport) override;
 
  private:
   // overrides from BaseChannel

@@ -228,11 +228,6 @@ void BaseChannel::Deinit() {
 }
 
 bool BaseChannel::SetRtpTransport(webrtc::RtpTransportInternal* rtp_transport) {
-  if (!network_thread_->IsCurrent()) {
-    return network_thread_->Invoke<bool>(RTC_FROM_HERE, [this, rtp_transport] {
-      return SetRtpTransport(rtp_transport);
-    });
-  }
   RTC_DCHECK_RUN_ON(network_thread());
   if (rtp_transport == rtp_transport_) {
     return true;

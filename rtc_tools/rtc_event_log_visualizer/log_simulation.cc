@@ -13,7 +13,7 @@
 #include <utility>
 
 #include "logging/rtc_event_log/rtc_event_processor.h"
-#include "modules/rtp_rtcp/source/time_util.h"
+#include "system_wrappers/include/ntp_time_util.h"
 
 namespace webrtc {
 

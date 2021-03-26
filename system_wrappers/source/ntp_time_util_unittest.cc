@@ -7,7 +7,7 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#include "modules/rtp_rtcp/source/time_util.h"
+#include "system_wrappers/include/ntp_time_util.h"
 
 #include "rtc_base/fake_clock.h"
 #include "rtc_base/time_utils.h"
@@ -16,7 +16,7 @@
 
 namespace webrtc {
 
-TEST(TimeUtilTest, TimeMicrosToNtpDoesntChangeBetweenRuns) {
+TEST(NtpTimeUtilTest, TimeMicrosToNtpDoesntChangeBetweenRuns) {
   rtc::ScopedFakeClock clock;
   // TimeMicrosToNtp is not pure: it behave differently between different
   // execution of the program, but should behave same during same execution.
@@ -29,7 +29,7 @@ TEST(TimeUtilTest, TimeMicrosToNtpDoesntChangeBetweenRuns) {
   EXPECT_EQ(TimeMicrosToNtp(time_us), time_ntp);
 }
 
-TEST(TimeUtilTest, TimeMicrosToNtpKeepsIntervals) {
+TEST(NtpTimeUtilTest, TimeMicrosToNtpKeepsIntervals) {
   rtc::ScopedFakeClock clock;
   NtpTime time_ntp1 = TimeMicrosToNtp(rtc::TimeMicros());
   clock.AdvanceTime(TimeDelta::Millis(20));
@@ -37,7 +37,7 @@ TEST(TimeUtilTest, TimeMicrosToNtpKeepsIntervals) {
   EXPECT_EQ(time_ntp2.ToMs() - time_ntp1.ToMs(), 20);
 }
 
-TEST(TimeUtilTest, CompactNtp) {
+TEST(NtpTimeUtilTest, CompactNtp) {
   const uint32_t kNtpSec = 0x12345678;
   const uint32_t kNtpFrac = 0x23456789;
   const NtpTime kNtp(kNtpSec, kNtpFrac);
@@ -45,7 +45,7 @@ TEST(TimeUtilTest, CompactNtp) {
   EXPECT_EQ(kNtpMid, CompactNtp(kNtp));
 }
 
-TEST(TimeUtilTest, CompactNtpRttToMs) {
+TEST(NtpTimeUtilTest, CompactNtpRttToMs) {
   const NtpTime ntp1(0x12345, 0x23456);
   const NtpTime ntp2(0x12654, 0x64335);
   int64_t ms_diff = ntp2.ToMs() - ntp1.ToMs();
@@ -56,7 +56,7 @@ TEST(TimeUtilTest, CompactNtpRttToMs) {
   EXPECT_NEAR(ms_diff, ntp_to_ms_diff, 1);
 }
 
-TEST(TimeUtilTest, CompactNtpRttToMsWithWrap) {
+TEST(NtpTimeUtilTest, CompactNtpRttToMsWithWrap) {
   const NtpTime ntp1(0x1ffff, 0x23456);
   const NtpTime ntp2(0x20000, 0x64335);
   int64_t ms_diff = ntp2.ToMs() - ntp1.ToMs();
@@ -72,7 +72,7 @@ TEST(TimeUtilTest, CompactNtpRttToMsWithWrap) {
   EXPECT_NEAR(ms_diff, ntp_to_ms_diff, 1);
 }
 
-TEST(TimeUtilTest, CompactNtpRttToMsLarge) {
+TEST(NtpTimeUtilTest, CompactNtpRttToMsLarge) {
   const NtpTime ntp1(0x10000, 0x00006);
   const NtpTime ntp2(0x17fff, 0xffff5);
   int64_t ms_diff = ntp2.ToMs() - ntp1.ToMs();
@@ -84,7 +84,7 @@ TEST(TimeUtilTest, CompactNtpRttToMsLarge) {
   EXPECT_NEAR(ms_diff, ntp_to_ms_diff, 1);
 }
 
-TEST(TimeUtilTest, CompactNtpRttToMsNegative) {
+TEST(NtpTimeUtilTest, CompactNtpRttToMsNegative) {
   const NtpTime ntp1(0x20000, 0x23456);
   const NtpTime ntp2(0x1ffff, 0x64335);
   int64_t ms_diff = ntp2.ToMs() - ntp1.ToMs();
@@ -95,7 +95,7 @@ TEST(TimeUtilTest, CompactNtpRttToMsNegative) {
   EXPECT_EQ(1, ntp_to_ms_diff);
 }
 
-TEST(TimeUtilTest, SaturatedUsToCompactNtp) {
+TEST(NtpTimeUtilTest, SaturatedUsToCompactNtp) {
   // Converts negative to zero.
   EXPECT_EQ(SaturatedUsToCompactNtp(-1), 0u);
   EXPECT_EQ(SaturatedUsToCompactNtp(0), 0u);

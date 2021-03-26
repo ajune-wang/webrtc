@@ -7,14 +7,14 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '733eeb1cd68822aa59232be5959a7b6ae0102444',
+  'chromium_revision': 'e0abc3035c46525522d9ce677e1e0b5cf0d414a8',
 }
 
 deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@cdaa8f16fb927e4d8c204ed3a6070837cda5415f',
+    'https://chromium.googlesource.com/chromium/src/base@b967848e4d68132601496b9d61672e0d4abfc599',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@5b847b7f2c0d456f249c92b441751f59f484b900',
   'src/buildtools':
@@ -29,9 +29,9 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@9420cb24675afe793396b3d1a2e9c3117a7a72ff',
+    'https://chromium.googlesource.com/chromium/src/testing@e50b540620033d1bd3d20866f2f26d06a3586e64',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@5d35c28dd938792b4f237d3c789b07b0e517c58a',
+    'https://chromium.googlesource.com/chromium/src/third_party@442427738682a36471c62443937f1f790d581229',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -69,7 +69,7 @@ deps = {
   'src/buildtools/third_party/libc++/trunk':
     'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxx.git@8fa87946779682841e21e2da977eccfb6cb3bded',
   'src/buildtools/third_party/libc++abi/trunk':
-    'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxxabi.git@f50df92a297982cc7468fb614b284bb31aa08e60',
+    'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxxabi.git@9bb07683fbffe86edb42c5c519b7a4bc4e893deb',
   'src/buildtools/third_party/libunwind/trunk':
     'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libunwind.git@cc80b4ac985d1c05a3d24dc96e4ffa7e98dbc535',
 
@@ -263,7 +263,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@fc65bbe8a7a3d03ee548572bb7dbdeed79252e7c',
+    'https://chromium.googlesource.com/chromium/src/tools@93460662300a1b7717f9720d79d21063f1bef27d',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@a32a1607f6093d338f756c7e7c7b4333b0c50c9c',
 
@@ -364,7 +364,7 @@ deps = {
     'packages': [
       {
           'package': 'chromium/third_party/androidx',
-          'version': 'NhuEArC6HyJ9d2G43Q3NyC1NYK5ZwpqdU7Eob3x4EocC',
+          'version': '6AH7sBPAv7wq_nodCWSNT_ybKEqaHc3VWsDBwZ68s-QC',
       },
     ],
     'condition': 'checkout_android',

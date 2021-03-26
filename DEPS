@@ -7,7 +7,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '5b1ac06bd2bc43ddf46c680ffc2853d033393d16',
+  'chromium_revision': 'd264bd3a3dc19210ddc79554a40ac7fbe064266a',
 }
 
 deps = {
@@ -18,20 +18,20 @@ deps = {
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@4c8106b4a190afe9ff733b6dbb928cf3f59e3a35',
   'src/buildtools':
-    'https://chromium.googlesource.com/chromium/src/buildtools@69cc9b8a3ae010e0721c4bea12de7a352d9a93f9',
+    'https://chromium.googlesource.com/chromium/src/buildtools@4401ea90ed6aefafb78fc3907df1794fc79f6664',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
   'src/examples/androidtests/third_party/gradle': {
     'url': 'https://chromium.googlesource.com/external/github.com/gradle/gradle.git@f2d1fb54a951d8b11d25748e4711bec8d128d7e3',
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@7e893ce8cf03b2569d91ebedebb328c074558841',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@a8726ed4d9ec7cd3be1392dc6dcdecbe1079211b',
     'condition': 'checkout_ios',
   },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@e50b540620033d1bd3d20866f2f26d06a3586e64',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@ad1e9c6ffb35d57b0c61208ba516e8b992274706',
+    'https://chromium.googlesource.com/chromium/src/third_party@1503aed77eea7811e5f9acad785ded1c0e24891f',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -263,7 +263,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@fea78d8967a6f967400ed43a63922270224a65f2',
+    'https://chromium.googlesource.com/chromium/src/tools@203f348d3367373f02e01d0fe669c9deef78b988',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@a32a1607f6093d338f756c7e7c7b4333b0c50c9c',
 

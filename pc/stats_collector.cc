@@ -648,7 +648,7 @@ void StatsCollector::GetStats(MediaStreamTrackInterface* track,
 
 void StatsCollector::UpdateStats(
     PeerConnectionInterface::StatsOutputLevel level) {
-  RTC_DCHECK(pc_->signaling_thread()->IsCurrent());
+  RTC_DCHECK_RUN_ON(pc_->signaling_thread());
   // Calls to UpdateStats() that occur less than kMinGatherStatsPeriodMs apart
   // will be ignored. Using a monotonic clock specifically for this, while using
   // a UTC clock for the reports themselves.
@@ -661,13 +661,17 @@ void StatsCollector::UpdateStats(
   cache_timestamp_ms_ = cache_now_ms;
   stats_gathering_started_ = GetTimeNow();
 
+  // TODO(tommi): ExtractSessionInfo now has a single hop to the network thread
+  // to fetch stats, then applies them on the signaling thread. See if we need
+  // to do this synchronously or if updating the stats without blocking is safe.
+  ExtractSessionInfo();
+
   // TODO(tommi): All of these hop over to the worker thread to fetch
   // information.  We could use an AsyncInvoker to run all of these and post
   // the information back to the signaling thread where we can create and
   // update stats reports.  That would also clean up the threading story a bit
   // since we'd be creating/updating the stats report objects consistently on
   // the same thread (this class has no locks right now).
-  ExtractSessionInfo();
   ExtractBweInfo();
   ExtractMediaInfo();
   ExtractSenderInfo();
@@ -717,7 +721,7 @@ bool StatsCollector::IsValidTrack(const std::string& track_id) {
 
 StatsReport* StatsCollector::AddCertificateReports(
     std::unique_ptr<rtc::SSLCertificateStats> cert_stats) {
-  RTC_DCHECK(pc_->signaling_thread()->IsCurrent());
+  RTC_DCHECK_RUN_ON(pc_->signaling_thread());
 
   StatsReport* first_report = nullptr;
   StatsReport* prev_report = nullptr;
@@ -844,22 +848,22 @@ StatsReport* StatsCollector::AddCandidateReport(
 }
 
 void StatsCollector::ExtractSessionInfo() {
-  RTC_DCHECK(pc_->signaling_thread()->IsCurrent());
+  RTC_DCHECK_RUN_ON(pc_->signaling_thread());
 
-  // Extract information from the base session.
-  StatsReport::Id id(StatsReport::NewTypedId(
-      StatsReport::kStatsReportTypeSession, pc_->session_id()));
-  StatsReport* report = reports_.ReplaceOrAddNew(id);
-  report->set_timestamp(stats_gathering_started_);
-  report->AddBoolean(StatsReport::kStatsValueNameInitiator,
-                     pc_->initial_offerer());
+  // TODO(tommi): Could we do this fully asynchronously?
 
-  cricket::CandidateStatsList pooled_candidate_stats_list =
-      pc_->GetPooledCandidateStats();
+  SessionStats stats;
+  pc_->network_thread()->Invoke<void>(
+      RTC_FROM_HERE, [this, &stats] { stats = ExtractSessionInfo_n(); });
 
-  for (const cricket::CandidateStats& stats : pooled_candidate_stats_list) {
-    AddCandidateReport(stats, true);
-  }
+  ExtractSessionInfo_s(std::move(stats));
+}
+
+StatsCollector::SessionStats StatsCollector::ExtractSessionInfo_n() {
+  RTC_DCHECK_RUN_ON(pc_->network_thread());
+  rtc::Thread::ScopedDisallowBlockingCalls no_blocking_calls;
+  SessionStats stats;
+  stats.candidate_stats = pc_->GetPooledCandidateStats();
 
   std::set<std::string> transport_names;
   for (const auto& entry : pc_->GetTransportNamesByMid()) {
@@ -869,9 +873,10 @@ void StatsCollector::ExtractSessionInfo() {
   std::map<std::string, cricket::TransportStats> transport_stats_by_name =
       pc_->GetTransportStatsByNames(transport_names);
 
-  for (const auto& entry : transport_stats_by_name) {
-    const std::string& transport_name = entry.first;
-    const cricket::TransportStats& transport_stats = entry.second;
+  for (auto& entry : transport_stats_by_name) {
+    // TODO(tommi): Can we also std::move entry.first?
+    stats.transport_stats.emplace_back(entry.first, std::move(entry.second));
+    TransportStats& transport = stats.transport_stats.back();
 
     // Attempt to get a copy of the certificates from the transport and
     // expose them in stats reports.  All channels in a transport share the
@@ -879,24 +884,59 @@ void StatsCollector::ExtractSessionInfo() {
     //
     StatsReport::Id local_cert_report_id, remote_cert_report_id;
     rtc::scoped_refptr<rtc::RTCCertificate> certificate;
-    if (pc_->GetLocalCertificate(transport_name, &certificate)) {
-      StatsReport* r = AddCertificateReports(
-          certificate->GetSSLCertificateChain().GetStats());
+    if (pc_->GetLocalCertificate(transport.name, &certificate)) {
+      transport.local_cert_stats =
+          certificate->GetSSLCertificateChain().GetStats();
+    }
+
+    std::unique_ptr<rtc::SSLCertChain> remote_cert_chain =
+        pc_->GetRemoteSSLCertChain(transport.name);
+    if (remote_cert_chain) {
+      transport.remote_cert_stats = remote_cert_chain->GetStats();
+    }
+  }
+
+  return stats;
+}
+
+void StatsCollector::ExtractSessionInfo_s(SessionStats session_stats) {
+  RTC_DCHECK_RUN_ON(pc_->signaling_thread());
+  rtc::Thread::ScopedDisallowBlockingCalls no_blocking_calls;
+
+  StatsReport::Id id(StatsReport::NewTypedId(
+      StatsReport::kStatsReportTypeSession, pc_->session_id()));
+  StatsReport* report = reports_.ReplaceOrAddNew(id);
+  report->set_timestamp(stats_gathering_started_);
+  report->AddBoolean(StatsReport::kStatsValueNameInitiator,
+                     pc_->initial_offerer());
+
+  for (const cricket::CandidateStats& stats : session_stats.candidate_stats) {
+    AddCandidateReport(stats, true);
+  }
+
+  for (auto& transport : session_stats.transport_stats) {
+    // Attempt to get a copy of the certificates from the transport and
+    // expose them in stats reports.  All channels in a transport share the
+    // same local and remote certificates.
+    //
+    StatsReport::Id local_cert_report_id, remote_cert_report_id;
+    if (transport.local_cert_stats) {
+      StatsReport* r =
+          AddCertificateReports(std::move(transport.local_cert_stats));
       if (r)
         local_cert_report_id = r->id();
     }
 
-    std::unique_ptr<rtc::SSLCertChain> remote_cert_chain =
-        pc_->GetRemoteSSLCertChain(transport_name);
-    if (remote_cert_chain) {
-      StatsReport* r = AddCertificateReports(remote_cert_chain->GetStats());
+    if (transport.remote_cert_stats) {
+      StatsReport* r =
+          AddCertificateReports(std::move(transport.remote_cert_stats));
       if (r)
         remote_cert_report_id = r->id();
     }
 
-    for (const auto& channel_iter : transport_stats.channel_stats) {
+    for (const auto& channel_iter : transport.stats.channel_stats) {
       StatsReport::Id id(
-          StatsReport::NewComponentId(transport_name, channel_iter.component));
+          StatsReport::NewComponentId(transport.name, channel_iter.component));
       StatsReport* channel_report = reports_.ReplaceOrAddNew(id);
       channel_report->set_timestamp(stats_gathering_started_);
       channel_report->AddInt(StatsReport::kStatsValueNameComponent,
@@ -939,7 +979,7 @@ void StatsCollector::ExtractSessionInfo() {
       for (const cricket::ConnectionInfo& info :
            channel_iter.ice_transport_stats.connection_infos) {
         StatsReport* connection_report = AddConnectionInfoReport(
-            transport_name, channel_iter.component, connection_id++,
+            transport.name, channel_iter.component, connection_id++,
             channel_report->id(), info);
         if (info.best_connection) {
           channel_report->AddId(
@@ -1102,6 +1142,8 @@ void StatsCollector::ExtractMediaInfo() {
       std::unique_ptr<MediaChannelStatsGatherer> gatherer =
           CreateMediaChannelStatsGatherer(channel->media_channel());
       gatherer->mid = channel->content_name();
+      // TODO(tommi): Reading the transport_name should happen on the network
+      // thread.
       gatherer->transport_name = channel->transport_name();
       for (const auto& sender : transceiver->internal()->senders()) {
         std::string track_id = (sender->track() ? sender->track()->id() : "");

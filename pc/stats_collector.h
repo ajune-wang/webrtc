@@ -146,6 +146,37 @@ class StatsCollector : public StatsCollectorInterface {
   // Helper method to update the timestamp of track records.
   void UpdateTrackReports();
 
+  // Struct that's populated on the network thread and carries the values to
+  // the signaling thread where the stats are added to the stats reports.
+  struct TransportStats {
+    TransportStats() = default;
+    TransportStats(std::string transport_name,
+                   cricket::TransportStats transport_stats)
+        : name(std::move(transport_name)), stats(std::move(transport_stats)) {}
+    TransportStats(TransportStats&&) = default;
+    TransportStats(const TransportStats&) = delete;
+
+    std::string name;
+    cricket::TransportStats stats;
+    std::unique_ptr<rtc::SSLCertificateStats> local_cert_stats;
+    std::unique_ptr<rtc::SSLCertificateStats> remote_cert_stats;
+  };
+
+  struct SessionStats {
+    SessionStats() = default;
+    SessionStats(SessionStats&&) = default;
+    SessionStats(const SessionStats&) = delete;
+
+    SessionStats& operator=(SessionStats&&) = default;
+    SessionStats& operator=(SessionStats&) = delete;
+
+    cricket::CandidateStatsList candidate_stats;
+    std::vector<TransportStats> transport_stats;
+  };
+
+  SessionStats ExtractSessionInfo_n();
+  void ExtractSessionInfo_s(SessionStats session_stats);
+
   // A collection for all of our stats reports.
   StatsCollection reports_;
   TrackIdMap track_ids_;

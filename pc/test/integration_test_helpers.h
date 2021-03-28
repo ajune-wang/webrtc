@@ -1362,6 +1362,8 @@ class PeerConnectionIntegrationBaseTest : public ::testing::Test {
       delete SetCalleePcWrapperAndReturnCurrent(nullptr);
     }
 
+    ClosePeerConnections();
+
     // If turn servers were created for the test they need to be destroyed on
     // the network thread.
     network_thread()->Invoke<void>(RTC_FROM_HERE, [this] {
@@ -1779,8 +1781,10 @@ class PeerConnectionIntegrationBaseTest : public ::testing::Test {
   }
 
   void ClosePeerConnections() {
-    caller()->pc()->Close();
-    callee()->pc()->Close();
+    if (caller())
+      caller()->pc()->Close();
+    if (callee())
+      callee()->pc()->Close();
   }
 
   void TestNegotiatedCipherSuite(

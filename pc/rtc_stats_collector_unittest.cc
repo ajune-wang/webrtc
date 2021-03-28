@@ -2981,7 +2981,7 @@ TEST_P(RTCStatsCollectorTestWithParamKind,
   auto& remote_inbound_rtp = report->Get(remote_inbound_rtp_id)
                                  ->cast_to<RTCRemoteInboundRtpStreamStats>();
 
-  EXPECT_TRUE(remote_inbound_rtp.transport_id.is_defined());
+  ASSERT_TRUE(remote_inbound_rtp.transport_id.is_defined());
   EXPECT_EQ("RTCTransport_TransportName_2",  // 2 for RTCP
             *remote_inbound_rtp.transport_id);
   EXPECT_TRUE(report->Get(*remote_inbound_rtp.transport_id));

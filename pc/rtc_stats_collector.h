@@ -229,7 +229,6 @@ class RTCStatsCollector : public virtual rtc::RefCountInterface,
           transport_stats_by_name) const;
   // The results are stored in |transceiver_stats_infos_| and |call_stats_|.
   void PrepareTransceiverStatsInfosAndCallStats_s_w();
-  std::set<std::string> PrepareTransportNames_s() const;
 
   // Stats gathering on a particular thread.
   void ProducePartialResultsOnSignalingThread(int64_t timestamp_us);
@@ -273,7 +272,6 @@ class RTCStatsCollector : public virtual rtc::RefCountInterface,
   // passed as arguments to avoid copies. This is thread safe - when we
   // set/reset we know there are no pending stats requests in progress.
   std::vector<RtpTransceiverStatsInfo> transceiver_stats_infos_;
-  std::set<std::string> transport_names_;
 
   Call::Stats call_stats_;
 

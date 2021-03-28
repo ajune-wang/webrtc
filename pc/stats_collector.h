@@ -106,6 +106,35 @@ class StatsCollector : public StatsCollectorInterface {
  private:
   friend class StatsCollectorTest;
 
+  // Struct that's populated on the network thread and carries the values to
+  // the signaling thread where the stats are added to the stats reports.
+  struct TransportStats {
+    TransportStats() = default;
+    TransportStats(std::string transport_name,
+                   cricket::TransportStats transport_stats)
+        : name(std::move(transport_name)), stats(std::move(transport_stats)) {}
+    TransportStats(TransportStats&&) = default;
+    TransportStats(const TransportStats&) = delete;
+
+    std::string name;
+    cricket::TransportStats stats;
+    std::unique_ptr<rtc::SSLCertificateStats> local_cert_stats;
+    std::unique_ptr<rtc::SSLCertificateStats> remote_cert_stats;
+  };
+
+  struct SessionStats {
+    SessionStats() = default;
+    SessionStats(SessionStats&&) = default;
+    SessionStats(const SessionStats&) = delete;
+
+    SessionStats& operator=(SessionStats&&) = default;
+    SessionStats& operator=(SessionStats&) = delete;
+
+    cricket::CandidateStatsList candidate_stats;
+    std::vector<TransportStats> transport_stats;
+    std::map<std::string, std::string> transport_names_by_mid;
+  };
+
   // Overridden in unit tests to fake timing.
   virtual double GetTimeNow();
 
@@ -129,9 +158,17 @@ class StatsCollector : public StatsCollectorInterface {
                                        const cricket::ConnectionInfo& info);
 
   void ExtractDataInfo();
-  void ExtractSessionInfo();
+
+  // Returns the SessionStats as gathered and used to populate the stats.
+  // Note that not all members of SessionStats may hold valid values in case
+  // ownership was transferred while capturing their values.
+  // A member variable that will be valid and can be reused, will be
+  // |transport_names_by_mid|.
+  SessionStats ExtractSessionInfo();
+
   void ExtractBweInfo();
-  void ExtractMediaInfo();
+  void ExtractMediaInfo(
+      const std::map<std::string, std::string>& transport_names_by_mid);
   void ExtractSenderInfo();
   webrtc::StatsReport* GetReport(const StatsReport::StatsType& type,
                                  const std::string& id,
@@ -145,6 +182,9 @@ class StatsCollector : public StatsCollectorInterface {
 
   // Helper method to update the timestamp of track records.
   void UpdateTrackReports();
+
+  SessionStats ExtractSessionInfo_n();
+  void ExtractSessionInfo_s(SessionStats& session_stats);
 
   // A collection for all of our stats reports.
   StatsCollection reports_;

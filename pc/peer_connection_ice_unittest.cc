@@ -835,6 +835,7 @@ TEST_P(PeerConnectionIceTest,
   // The operation will not be able to run until EXPECT_TRUE_WAIT(), giving us
   // time to remove all references to the PeerConnection.
   EXPECT_FALSE(operation_completed);
+  callee->pc()->Close();
   // This should delete the callee PC.
   callee = nullptr;
   EXPECT_TRUE_WAIT(operation_completed, kWaitTimeout);

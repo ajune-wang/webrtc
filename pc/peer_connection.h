@@ -272,7 +272,6 @@ class PeerConnection : public PeerConnectionInternal,
   rtc::Thread* worker_thread() const final { return context_->worker_thread(); }
 
   std::string session_id() const override {
-    RTC_DCHECK_RUN_ON(signaling_thread());
     return session_id_;
   }
 
@@ -437,11 +436,13 @@ class PeerConnection : public PeerConnectionInternal,
 
   // Returns true if SRTP (either using DTLS-SRTP or SDES) is required by
   // this session.
-  bool SrtpRequired() const RTC_RUN_ON(signaling_thread());
+  bool SrtpRequired() const;
 
   void OnSentPacket_w(const rtc::SentPacket& sent_packet);
 
   bool SetupDataChannelTransport_n(const std::string& mid)
+      RTC_RUN_ON(network_thread());
+  void SetupRtpDataChannelTransport_n(cricket::RtpDataChannel* data_channel)
       RTC_RUN_ON(network_thread());
   void TeardownDataChannelTransport_n() RTC_RUN_ON(network_thread());
   cricket::ChannelInterface* GetChannel(const std::string& content_name);
@@ -668,7 +669,7 @@ class PeerConnection : public PeerConnectionInternal,
   rtc::scoped_refptr<RTCStatsCollector> stats_collector_
       RTC_GUARDED_BY(signaling_thread());
 
-  std::string session_id_ RTC_GUARDED_BY(signaling_thread());
+  const std::string session_id_;
 
   std::unique_ptr<JsepTransportController>
       transport_controller_;  // TODO(bugs.webrtc.org/9987): Accessed on both

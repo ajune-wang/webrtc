@@ -205,6 +205,8 @@ TEST_P(DataChannelIntegrationTest, RtpDataChannelWorksAfterRollback) {
   SendRtpDataWithRetries(data_channel, data, 5);
   EXPECT_EQ_WAIT(data, callee()->data_observer()->last_message(),
                  kDefaultTimeout);
+  caller()->pc()->Close();
+  callee()->pc()->Close();
 }
 
 // Ensure that an RTP data channel is signaled as closed for the caller when

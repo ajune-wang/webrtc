@@ -2342,7 +2342,7 @@ void SdpOfferAnswerHandler::AddIceCandidate(
       [this_weak_ptr = weak_ptr_factory_.GetWeakPtr(),
        candidate = std::move(candidate), callback = std::move(callback)](
           std::function<void()> operations_chain_callback) {
-        if (!this_weak_ptr) {
+        if (!this_weak_ptr || this_weak_ptr->pc_->IsClosed()) {
           operations_chain_callback();
           callback(RTCError(
               RTCErrorType::INVALID_STATE,
@@ -4517,16 +4517,23 @@ bool SdpOfferAnswerHandler::ReadyToUseRemoteCandidate(
     return false;
   }
 
-  bool has_transport = false;
-  cricket::ChannelInterface* channel = pc_->GetChannel(result.value()->name);
-  if (channel) {
-    has_transport = !channel->transport_name().empty();
-  } else if (data_channel_controller()->data_channel_transport()) {
-    auto sctp_mid = pc_->sctp_mid();
-    RTC_DCHECK(sctp_mid);
-    has_transport = (result.value()->name == *sctp_mid);
-  }
-  return has_transport;
+  return true;
+  /*
+
+    TODO(tommi): Checking the transport name below is broken since once the
+    name has been set, it's never cleared (although the transport might).
+    We also can't call GetChannel on this thread.
+
+    bool has_transport = false;
+    cricket::ChannelInterface* channel = pc_->GetChannel(result.value()->name);
+    if (channel) {
+      has_transport = !channel->transport_name().empty();
+    } else if (data_channel_controller()->data_channel_transport()) {
+      auto sctp_mid = pc_->sctp_mid();
+      RTC_DCHECK(sctp_mid);
+      has_transport = (result.value()->name == *sctp_mid);
+    }
+    return has_transport;*/
 }
 
 RTCErrorOr<const cricket::ContentInfo*> SdpOfferAnswerHandler::FindContentInfo(
@@ -4626,8 +4633,6 @@ cricket::VoiceChannel* SdpOfferAnswerHandler::CreateVoiceChannel(
   }
   voice_channel->SignalSentPacket().connect(pc_,
                                             &PeerConnection::OnSentPacket_w);
-  voice_channel->SetRtpTransport(rtp_transport);
-
   return voice_channel;
 }
 
@@ -4655,8 +4660,6 @@ cricket::VideoChannel* SdpOfferAnswerHandler::CreateVideoChannel(
   }
   video_channel->SignalSentPacket().connect(pc_,
                                             &PeerConnection::OnSentPacket_w);
-  video_channel->SetRtpTransport(rtp_transport);
-
   return video_channel;
 }
 
@@ -4676,24 +4679,19 @@ bool SdpOfferAnswerHandler::CreateDataChannel(const std::string& mid) {
     case cricket::DCT_RTP:
     default:
       RtpTransportInternal* rtp_transport = pc_->GetRtpTransport(mid);
-      // TODO(bugs.webrtc.org/9987): set_rtp_data_channel() should be called on
-      // the network thread like set_data_channel_transport is.
-      {
-        RTC_DCHECK_RUN_ON(pc_->signaling_thread());
-        data_channel_controller()->set_rtp_data_channel(
-            channel_manager()->CreateRtpDataChannel(
-                pc_->configuration()->media_config, rtp_transport,
-                signaling_thread(), mid, pc_->SrtpRequired(),
-                pc_->GetCryptoOptions(), &ssrc_generator_));
-      }
-      if (!data_channel_controller()->rtp_data_channel()) {
+      cricket::RtpDataChannel* data_channel =
+          channel_manager()->CreateRtpDataChannel(
+              pc_->configuration()->media_config, rtp_transport,
+              signaling_thread(), mid, pc_->SrtpRequired(),
+              pc_->GetCryptoOptions(), &ssrc_generator_);
+      if (!data_channel)
         return false;
-      }
-      data_channel_controller()->rtp_data_channel()->SignalSentPacket().connect(
-          pc_, &PeerConnection::OnSentPacket_w);
-      data_channel_controller()->rtp_data_channel()->SetRtpTransport(
-          rtp_transport);
-      SetHavePendingRtpDataChannel();
+
+      pc_->network_thread()->Invoke<void>(RTC_FROM_HERE, [this, data_channel] {
+        RTC_DCHECK_RUN_ON(pc_->network_thread());
+        pc_->SetupRtpDataChannelTransport_n(data_channel);
+      });
+      have_pending_rtp_data_channel_ = true;
       return true;
   }
   return false;
@@ -4713,21 +4711,22 @@ void SdpOfferAnswerHandler::DestroyTransceiverChannel(
 
 void SdpOfferAnswerHandler::DestroyDataChannelTransport() {
   RTC_DCHECK_RUN_ON(signaling_thread());
-  if (data_channel_controller()->rtp_data_channel()) {
-    data_channel_controller()->OnTransportChannelClosed();
-    DestroyChannelInterface(data_channel_controller()->rtp_data_channel());
-    data_channel_controller()->set_rtp_data_channel(nullptr);
-  }
+  const bool has_sctp = pc_->sctp_mid().has_value();
+  auto* rtp_data_channel = data_channel_controller()->rtp_data_channel();
 
-  if (pc_->sctp_mid()) {
-    RTC_DCHECK_RUN_ON(pc_->signaling_thread());
+  if (has_sctp || rtp_data_channel)
     data_channel_controller()->OnTransportChannelClosed();
-    pc_->network_thread()->Invoke<void>(RTC_FROM_HERE, [this] {
-      RTC_DCHECK_RUN_ON(pc_->network_thread());
-      pc_->TeardownDataChannelTransport_n();
-    });
+
+  pc_->network_thread()->Invoke<void>(RTC_FROM_HERE, [this] {
+    RTC_DCHECK_RUN_ON(pc_->network_thread());
+    pc_->TeardownDataChannelTransport_n();
+  });
+
+  if (has_sctp)
     pc_->ResetSctpDataMid();
-  }
+
+  if (rtp_data_channel)
+    DestroyChannelInterface(rtp_data_channel);
 }
 
 void SdpOfferAnswerHandler::DestroyChannelInterface(
@@ -4866,23 +4865,6 @@ SdpOfferAnswerHandler::GetMediaDescriptionOptionsForRejectedData(
   AddRtpDataChannelOptions(*(data_channel_controller()->rtp_data_channels()),
                            &options);
   return options;
-}
-
-const std::string SdpOfferAnswerHandler::GetTransportName(
-    const std::string& content_name) {
-  RTC_DCHECK_RUN_ON(signaling_thread());
-  cricket::ChannelInterface* channel = pc_->GetChannel(content_name);
-  if (channel) {
-    return channel->transport_name();
-  }
-  if (data_channel_controller()->data_channel_transport()) {
-    RTC_DCHECK(pc_->sctp_mid());
-    if (content_name == *(pc_->sctp_mid())) {
-      return *(pc_->sctp_transport_name());
-    }
-  }
-  // Return an empty string if failed to retrieve the transport name.
-  return "";
 }
 
 bool SdpOfferAnswerHandler::UpdatePayloadTypeDemuxingState(

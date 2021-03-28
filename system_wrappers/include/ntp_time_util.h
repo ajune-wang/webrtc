@@ -8,15 +8,14 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_RTP_RTCP_SOURCE_TIME_UTIL_H_
-#define MODULES_RTP_RTCP_SOURCE_TIME_UTIL_H_
+#ifndef SYSTEM_WRAPPERS_INCLUDE_NTP_TIME_UTIL_H_
+#define SYSTEM_WRAPPERS_INCLUDE_NTP_TIME_UTIL_H_
 
 #include <stdint.h>
 
 #include "system_wrappers/include/ntp_time.h"
 
 namespace webrtc {
-namespace time_util {
 
 // Converts time obtained using rtc::TimeMicros to ntp format.
 // TimeMicrosToNtp guarantees difference of the returned values matches
@@ -53,6 +52,5 @@ uint32_t SaturatedUsToCompactNtp(int64_t us);
 // Values close to 2^16 seconds consider negative and result in minimum rtt = 1.
 int64_t CompactNtpRttToMs(uint32_t compact_ntp_interval);
 
-}  // namespace time_util
 }  // namespace webrtc
-#endif  // MODULES_RTP_RTCP_SOURCE_TIME_UTIL_H_
+#endif  // SYSTEM_WRAPPERS_INCLUDE_NTP_TIME_UTIL_H_

@@ -9,10 +9,11 @@
  */
 
 #include "modules/rtp_rtcp/include/remote_ntp_time_estimator.h"
+
 #include "absl/types/optional.h"
-#include "modules/rtp_rtcp/source/time_util.h"
 #include "system_wrappers/include/clock.h"
 #include "system_wrappers/include/ntp_time.h"
+#include "system_wrappers/include/ntp_time_util.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 

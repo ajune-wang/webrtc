@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "modules/rtp_rtcp/source/time_util.h"
+#include "system_wrappers/include/ntp_time_util.h"
 
 #include <algorithm>
 
@@ -28,7 +28,6 @@ int64_t NtpOffsetMsCalledOnce() {
 
 }  // namespace
 
-namespace time_util {
 int64_t NtpOffsetMs() {
   // Calculate the offset once.
   static int64_t ntp_offset_ms = NtpOffsetMsCalledOnce();
@@ -92,5 +91,4 @@ int64_t CompactNtpRttToMs(uint32_t compact_ntp_interval) {
   // Rtt value 0 considered too good to be true and increases to 1.
   return std::max<int64_t>(ms, 1);
 }
-}  // namespace time_util
 }  // namespace webrtc

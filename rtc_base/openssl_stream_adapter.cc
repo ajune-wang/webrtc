@@ -519,7 +519,7 @@ int OpenSSLStreamAdapter::StartSSL() {
     return -1;
   }
 
-  if (StreamAdapterInterface::GetState() != SS_OPEN) {
+  if (stream()->GetState() != SS_OPEN) {
     state_ = SSL_WAIT;
     return 0;
   }
@@ -561,7 +561,7 @@ StreamResult OpenSSLStreamAdapter::Write(const void* data,
   switch (state_) {
     case SSL_NONE:
       // pass-through in clear text
-      return StreamAdapterInterface::Write(data, data_len, written, error);
+      return stream()->Write(data, data_len, written, error);
 
     case SSL_WAIT:
     case SSL_CONNECTING:
@@ -629,7 +629,7 @@ StreamResult OpenSSLStreamAdapter::Read(void* data,
   switch (state_) {
     case SSL_NONE:
       // pass-through in clear text
-      return StreamAdapterInterface::Read(data, data_len, read, error);
+      return stream()->Read(data, data_len, read, error);
     case SSL_WAIT:
     case SSL_CONNECTING:
       return SR_BLOCK;
@@ -733,7 +733,7 @@ void OpenSSLStreamAdapter::Close() {
   // When we're closed at SSL layer, also close the stream level which
   // performs necessary clean up. Otherwise, a new incoming packet after
   // this could overflow the stream buffer.
-  StreamAdapterInterface::Close();
+  stream()->Close();
 }
 
 StreamState OpenSSLStreamAdapter::GetState() const {
@@ -809,7 +809,7 @@ void OpenSSLStreamAdapter::OnEvent(StreamInterface* stream,
   }
 
   if (events_to_signal) {
-    StreamAdapterInterface::OnEvent(stream, events_to_signal, signal_error);
+    SSLStreamAdapter::OnEvent(stream, events_to_signal, signal_error);
   }
 }
 
@@ -912,8 +912,7 @@ int OpenSSLStreamAdapter::ContinueSSL() {
         // The caller of ContinueSSL may be the same object listening for these
         // events and may not be prepared for reentrancy.
         // PostEvent(SE_OPEN | SE_READ | SE_WRITE, 0);
-        StreamAdapterInterface::OnEvent(stream(), SE_OPEN | SE_READ | SE_WRITE,
-                                        0);
+        SSLStreamAdapter::OnEvent(stream(), SE_OPEN | SE_READ | SE_WRITE, 0);
       }
       break;
 
@@ -956,7 +955,7 @@ void OpenSSLStreamAdapter::Error(const char* context,
   ssl_error_code_ = err;
   Cleanup(alert);
   if (signal) {
-    StreamAdapterInterface::OnEvent(stream(), SE_CLOSE, err);
+    SSLStreamAdapter::OnEvent(stream(), SE_CLOSE, err);
   }
 }
 

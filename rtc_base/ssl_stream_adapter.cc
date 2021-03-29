@@ -96,7 +96,9 @@ std::unique_ptr<SSLStreamAdapter> SSLStreamAdapter::Create(
 }
 
 SSLStreamAdapter::SSLStreamAdapter(std::unique_ptr<StreamInterface> stream)
-    : StreamAdapterInterface(stream.release()) {}
+    : stream_(std::move(stream)) {
+  stream_->SignalEvent.connect(this, &SSLStreamAdapter::OnEvent);
+}
 
 SSLStreamAdapter::~SSLStreamAdapter() {}
 

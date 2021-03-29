@@ -118,7 +118,7 @@ enum { SSE_MSG_TRUNC = 0xff0001 };
 // Used to send back UMA histogram value. Logged when Dtls handshake fails.
 enum class SSLHandshakeError { UNKNOWN, INCOMPATIBLE_CIPHERSUITE, MAX_VALUE };
 
-class SSLStreamAdapter : public StreamAdapterInterface {
+class SSLStreamAdapter : public StreamInterface, public sigslot::has_slots<> {
  public:
   // Instantiate an SSLStreamAdapter wrapping the given stream,
   // (using the selected implementation for the platform).
@@ -269,7 +269,17 @@ class SSLStreamAdapter : public StreamAdapterInterface {
 
   sigslot::signal1<SSLHandshakeError> SignalSSLHandshakeError;
 
+ protected:
+  // Note that the adapter presents itself as the origin of the stream events,
+  // since users of the adapter may not recognize the adapted object.
+  virtual void OnEvent(StreamInterface* stream, int events, int err) {
+    SignalEvent(this, events, err);
+  }
+  StreamInterface* stream() { return stream_.get(); }
+
  private:
+  const std::unique_ptr<StreamInterface> stream_;
+
   // If true (default), the client is required to provide a certificate during
   // handshake. If no certificate is given, handshake fails. This applies to
   // server mode only.

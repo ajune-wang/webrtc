@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aec2aaa2_f334d58d",
+        "filename": "pc/srtp_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-03-29T10:18:12Z",
+      "side": 0,
+      "message": "a couple of places using GetSrtpKeyAndSaltLengths use LS_WARNING. But they\u0027re fatal errors so should be LS_ERROR?",
+      "revId": "a9311b6761c88d5f5602f4891fdb1b612ae2a4a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

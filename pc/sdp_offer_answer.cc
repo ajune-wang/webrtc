@@ -4693,7 +4693,7 @@ bool SdpOfferAnswerHandler::CreateDataChannel(const std::string& mid) {
           pc_, &PeerConnection::OnSentPacket_w);
       data_channel_controller()->rtp_data_channel()->SetRtpTransport(
           rtp_transport);
-      SetHavePendingRtpDataChannel();
+      have_pending_rtp_data_channel_ = true;
       return true;
   }
   return false;
@@ -4866,23 +4866,6 @@ SdpOfferAnswerHandler::GetMediaDescriptionOptionsForRejectedData(
   AddRtpDataChannelOptions(*(data_channel_controller()->rtp_data_channels()),
                            &options);
   return options;
-}
-
-const std::string SdpOfferAnswerHandler::GetTransportName(
-    const std::string& content_name) {
-  RTC_DCHECK_RUN_ON(signaling_thread());
-  cricket::ChannelInterface* channel = pc_->GetChannel(content_name);
-  if (channel) {
-    return channel->transport_name();
-  }
-  if (data_channel_controller()->data_channel_transport()) {
-    RTC_DCHECK(pc_->sctp_mid());
-    if (content_name == *(pc_->sctp_mid())) {
-      return *(pc_->sctp_transport_name());
-    }
-  }
-  // Return an empty string if failed to retrieve the transport name.
-  return "";
 }
 
 bool SdpOfferAnswerHandler::UpdatePayloadTypeDemuxingState(

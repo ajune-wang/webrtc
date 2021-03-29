@@ -79,6 +79,12 @@ rtc_library("system_wrappers") {
   ]
 }
 
+rtc_library("ntp_time_util") {
+  visibility = [ "*" ]
+  public = [ "include/ntp_time_util.h" ]
+  deps = [ "../modules/rtp_rtcp" ]
+}
+
 rtc_library("field_trial") {
   visibility = [ "*" ]
   public = [ "include/field_trial.h" ]

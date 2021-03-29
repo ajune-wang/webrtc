@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e3ad9e5_2da3be2b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-03-29T12:56:21Z",
+      "side": 1,
+      "message": "Hi Danil,\n\nCould you help reviewing this CL?\n\nThis CL essentially does nothing except for exposing rtp_rtcp/time_util through system_wrapper/ntp_time_util. This is to let upstream projects to switch the dependency, after which we can move the definition and implementation of rtp_rtcp/time_util to system_wrapper (CL will be created shortly).",
+      "revId": "bc85ee51a63208200748d134fa3fc02a9baabc12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

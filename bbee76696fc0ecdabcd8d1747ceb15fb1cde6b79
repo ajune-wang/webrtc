@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "67be4ee4_c09775a7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2021-03-29T10:29:52Z",
+      "side": 1,
+      "message": "Hi Tommi!\n\nCould you please take a loot at this CL which exposes retartIce, required to implement perfect negotaiton?\n\nThanks a lot in advance,\nYura.",
+      "revId": "bbee76696fc0ecdabcd8d1747ceb15fb1cde6b79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

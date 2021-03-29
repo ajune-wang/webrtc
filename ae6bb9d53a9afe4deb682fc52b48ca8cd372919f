@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7f423b7_5087e1e1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-03-29T10:44:02Z",
+      "side": 1,
+      "message": "PTAL. This was an overly complex way to wrap a string.",
+      "revId": "ae6bb9d53a9afe4deb682fc52b48ca8cd372919f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

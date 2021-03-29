@@ -7,7 +7,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '89d90d60941a5d41fdf2a67b2565d4e6eecf2f7f',
+  'chromium_revision': 'fd5cc3f483a1aa3b95237a6b7f41ab089e5ba212',
 }
 
 deps = {
@@ -16,22 +16,22 @@ deps = {
   'src/base':
     'https://chromium.googlesource.com/chromium/src/base@1a35c26eac1383e89797b93ed58502115fab9583',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@833c1f757f772e19c858e8d327b51de052ea0f12',
+    'https://chromium.googlesource.com/chromium/src/build@c835251514d8f8e65e018462daad74814ed01f78',
   'src/buildtools':
-    'https://chromium.googlesource.com/chromium/src/buildtools@4401ea90ed6aefafb78fc3907df1794fc79f6664',
+    'https://chromium.googlesource.com/chromium/src/buildtools@99a2527e919b496f3d2849c77c5bbed4bdccd5a4',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
   'src/examples/androidtests/third_party/gradle': {
     'url': 'https://chromium.googlesource.com/external/github.com/gradle/gradle.git@f2d1fb54a951d8b11d25748e4711bec8d128d7e3',
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@f37009544ea2c9982205ba31aefae3d983863831',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@2f057190e52ebd4493dfa79f5d4613339d4440d9',
     'condition': 'checkout_ios',
   },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@0db537b72006c9ec7b75214bf2c728443b77bf4d',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@f65f5180afbde4abe0bda9836cbd058df9d25782',
+    'https://chromium.googlesource.com/chromium/src/third_party@eac56fbd15df70014b57b883182c7ffddcbd3add',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -364,7 +364,7 @@ deps = {
     'packages': [
       {
           'package': 'chromium/third_party/androidx',
-          'version': 'g8SLuoOc1bCcY1mN-J9JLpK6ha0jgDwjWRJqsDwEtM4C',
+          'version': 'OiGVKcWTr34A_ymtO48wvij4e3o7aaKiI4lYDT4KfOMC',
       },
     ],
     'condition': 'checkout_android',

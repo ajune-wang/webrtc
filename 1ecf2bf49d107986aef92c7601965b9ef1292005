@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1afff4f_213d9257",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-03-29T11:28:28Z",
+      "side": 1,
+      "message": "Could you please delete quality_scaling_experiment_enabled_ as well?",
+      "revId": "1ecf2bf49d107986aef92c7601965b9ef1292005",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c298fc3_c1b682b9",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-03-29T11:28:28Z",
+      "side": 1,
+      "message": "this is also unused",
+      "range": {
+        "startLine": 233,
+        "startChar": 13,
+        "endLine": 233,
+        "endChar": 48
+      },
+      "revId": "1ecf2bf49d107986aef92c7601965b9ef1292005",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

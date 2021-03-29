@@ -16,6 +16,23 @@
       "message": "PTAL. This was an overly complex way to wrap a string.",
       "revId": "ae6bb9d53a9afe4deb682fc52b48ca8cd372919f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4de8f56_686a9f9f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-03-29T10:59:28Z",
+      "side": 1,
+      "message": "Nice!",
+      "revId": "ae6bb9d53a9afe4deb682fc52b48ca8cd372919f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

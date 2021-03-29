@@ -7,31 +7,31 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '89d90d60941a5d41fdf2a67b2565d4e6eecf2f7f',
+  'chromium_revision': 'd4503dc74e29af71ff7e3801378f361f41688fa0',
 }
 
 deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@1a35c26eac1383e89797b93ed58502115fab9583',
+    'https://chromium.googlesource.com/chromium/src/base@41e68dcdeebf149e85d3911b5401bd3ab76dbd8d',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@833c1f757f772e19c858e8d327b51de052ea0f12',
+    'https://chromium.googlesource.com/chromium/src/build@d373e98f04d51d54f1a86ed5a9973368e792948d',
   'src/buildtools':
-    'https://chromium.googlesource.com/chromium/src/buildtools@4401ea90ed6aefafb78fc3907df1794fc79f6664',
+    'https://chromium.googlesource.com/chromium/src/buildtools@99a2527e919b496f3d2849c77c5bbed4bdccd5a4',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
   'src/examples/androidtests/third_party/gradle': {
     'url': 'https://chromium.googlesource.com/external/github.com/gradle/gradle.git@f2d1fb54a951d8b11d25748e4711bec8d128d7e3',
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@f37009544ea2c9982205ba31aefae3d983863831',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@f97210da747390e73594eeb33b6dd0f120d342b3',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@0db537b72006c9ec7b75214bf2c728443b77bf4d',
+    'https://chromium.googlesource.com/chromium/src/testing@a7daf4b6bc7d4e2139c81cd6a1a48bcb855512d6',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@f65f5180afbde4abe0bda9836cbd058df9d25782',
+    'https://chromium.googlesource.com/chromium/src/third_party@e702d3a1753f1ae618643d899bbcd316e6977677',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -364,7 +364,7 @@ deps = {
     'packages': [
       {
           'package': 'chromium/third_party/androidx',
-          'version': 'g8SLuoOc1bCcY1mN-J9JLpK6ha0jgDwjWRJqsDwEtM4C',
+          'version': 'OiGVKcWTr34A_ymtO48wvij4e3o7aaKiI4lYDT4KfOMC',
       },
     ],
     'condition': 'checkout_android',

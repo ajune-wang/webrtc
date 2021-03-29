@@ -2558,8 +2558,6 @@ include_rules = [
   "+test",
   "+rtc_tools",
 
-  "+modules/rtp_rtcp/source/time_util.h",
-
   # Abseil allowlist. Keep this in sync with abseil-in-webrtc.md.
   "+absl/algorithm/algorithm.h",
   "+absl/algorithm/container.h",

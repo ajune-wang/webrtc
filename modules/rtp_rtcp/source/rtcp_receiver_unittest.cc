@@ -36,11 +36,11 @@
 #include "modules/rtp_rtcp/source/rtcp_packet/sender_report.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/tmmbr.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/transport_feedback.h"
-#include "modules/rtp_rtcp/source/time_util.h"
 #include "rtc_base/arraysize.h"
 #include "rtc_base/fake_clock.h"
 #include "rtc_base/random.h"
 #include "system_wrappers/include/ntp_time.h"
+#include "system_wrappers/include/ntp_time_util.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 

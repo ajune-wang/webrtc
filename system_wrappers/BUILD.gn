@@ -36,6 +36,8 @@ rtc_library("system_wrappers") {
     "../api/units:timestamp",
     "../modules:module_api_public",
     "../rtc_base:checks",
+    "../rtc_base:divide_round",
+    "../rtc_base:timeutils",
     "../rtc_base/synchronization:mutex",
     "../rtc_base/system:arch",
     "../rtc_base/system:rtc_export",
@@ -82,7 +84,13 @@ rtc_library("system_wrappers") {
 rtc_library("ntp_time_util") {
   visibility = [ "*" ]
   public = [ "include/ntp_time_util.h" ]
-  deps = [ "../modules/rtp_rtcp" ]
+  sources = [ "source/ntp_time_util.cc" ]
+  deps = [
+    ":system_wrappers",
+    "../rtc_base:checks",
+    "../rtc_base:divide_round",
+    "../rtc_base:timeutils",
+  ]
 }
 
 rtc_library("field_trial") {
@@ -123,15 +131,19 @@ if (rtc_include_tests && !build_with_chromium) {
       "source/metrics_default_unittest.cc",
       "source/metrics_unittest.cc",
       "source/ntp_time_unittest.cc",
+      "source/ntp_time_util_unittest.cc",
       "source/rtp_to_ntp_estimator_unittest.cc",
     ]
 
     deps = [
       ":field_trial",
       ":metrics",
+      ":ntp_time_util",
       ":system_wrappers",
       "../rtc_base:checks",
       "../rtc_base:rtc_base_approved",
+      "../rtc_base:rtc_base_tests_utils",
+      "../rtc_base:timeutils",
       "../test:rtc_expect_death",
       "../test:test_main",
       "../test:test_support",

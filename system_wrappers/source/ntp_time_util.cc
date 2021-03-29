@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "modules/rtp_rtcp/source/time_util.h"
+#include "system_wrappers/include/ntp_time_util.h"
 
 #include <algorithm>
 

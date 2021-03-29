@@ -210,8 +210,6 @@ rtc_library("rtp_rtcp") {
     "source/rtp_utility.h",
     "source/source_tracker.cc",
     "source/source_tracker.h",
-    "source/time_util.cc",
-    "source/time_util.h",
     "source/tmmbr_help.cc",
     "source/tmmbr_help.h",
     "source/ulpfec_generator.cc",
@@ -300,6 +298,7 @@ rtc_library("rtp_rtcp") {
     "../../rtc_base/time:timestamp_extrapolator",
     "../../system_wrappers",
     "../../system_wrappers:metrics",
+    "../../system_wrappers:ntp_time_util",
     "../remote_bitrate_estimator",
     "../video_coding:codec_globals_headers",
   ]
@@ -372,6 +371,7 @@ rtc_library("rtcp_transceiver") {
     "../../rtc_base/task_utils:repeating_task",
     "../../rtc_base/task_utils:to_queued_task",
     "../../system_wrappers",
+    "../../system_wrappers:ntp_time_util",
   ]
   absl_deps = [
     "//third_party/abseil-cpp/absl/algorithm:container",
@@ -537,7 +537,6 @@ if (rtc_include_tests) {
       "source/rtp_utility_unittest.cc",
       "source/rtp_video_layers_allocation_extension_unittest.cc",
       "source/source_tracker_unittest.cc",
-      "source/time_util_unittest.cc",
       "source/ulpfec_generator_unittest.cc",
       "source/ulpfec_header_reader_writer_unittest.cc",
       "source/ulpfec_receiver_unittest.cc",
@@ -588,6 +587,7 @@ if (rtc_include_tests) {
       "../../rtc_base:task_queue_for_test",
       "../../rtc_base/task_utils:to_queued_task",
       "../../system_wrappers",
+      "../../system_wrappers:ntp_time_util",
       "../../test:field_trial",
       "../../test:mock_frame_transformer",
       "../../test:mock_transport",

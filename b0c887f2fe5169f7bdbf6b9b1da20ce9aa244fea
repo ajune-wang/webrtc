@@ -105,6 +105,42 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "04b7eadf_e3283f5d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2021-03-30T02:24:40Z",
+      "side": 1,
+      "message": "Alessio, I am really sorry for the delay.",
+      "parentUuid": "96152b30_e2b1f483",
+      "revId": "b0c887f2fe5169f7bdbf6b9b1da20ce9aa244fea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75499622_e8fd3f4a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2021-03-30T02:24:40Z",
+      "side": 1,
+      "message": "I\u0027m sorry I misunderstood that, when the  cflags (-mavx2, -mfma) are used the compiler will automatically generate VEX-encoded instructions rather than legacy Intel® SSE instructions where appropriate, which removes the transition between Intel® AVX and Intel® SSE within those files. So we don\u0027t need to switch to a full AVX2 implementation...\nI am not sure if there are really a lot of transition penalties, do you have some data? maybe I can try to use VTune to analysis the transition.",
+      "parentUuid": "32404242_ddc20e5b",
+      "revId": "b0c887f2fe5169f7bdbf6b9b1da20ce9aa244fea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e2e268df_2b204ffd",

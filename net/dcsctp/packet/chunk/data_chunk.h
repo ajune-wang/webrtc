@@ -1,0 +1,61 @@
+#ifndef NET_DCSCTP_PACKET_CHUNK_DATA_CHUNK_H_
+#define NET_DCSCTP_PACKET_CHUNK_DATA_CHUNK_H_
+#include <stddef.h>
+#include <stdint.h>
+
+#include <cstdint>
+#include <string>
+#include <utility>
+#include <vector>
+
+#include "absl/strings/string_view.h"
+#include "api/array_view.h"
+#include "net/dcsctp/packet/chunk/chunk.h"
+#include "net/dcsctp/packet/chunk/data_common.h"
+#include "net/dcsctp/packet/data.h"
+#include "net/dcsctp/packet/tlv_trait.h"
+
+namespace dcsctp {
+
+// https://tools.ietf.org/html/rfc4960#section-3.3.1
+struct DataChunkConfig : ChunkConfig {
+  static constexpr int kType = 0;
+  static constexpr size_t kHeaderSize = 16;
+  static constexpr size_t kVariableLengthAlignment = 1;
+};
+
+class DataChunk : public AnyDataChunk, public TLVTrait<DataChunkConfig> {
+ public:
+  static constexpr int kType = DataChunkConfig::kType;
+
+  // Exposed to allow the retransmission queue to make room for the correct
+  // header size.
+  static constexpr size_t kHeaderSize = DataChunkConfig::kHeaderSize;
+
+  DataChunk(uint32_t tsn,
+            uint16_t stream_id,
+            uint16_t ssn,
+            uint32_t ppid,
+            std::vector<uint8_t> payload,
+            const DataChunkOptions& options)
+      : AnyDataChunk(tsn,
+                     stream_id,
+                     ssn,
+                     /*message_id=*/0,
+                     /*fsn=*/0,
+                     ppid,
+                     std::move(payload),
+                     options) {}
+
+  DataChunk(uint32_t tsn, Data&& data, bool immediate_ack)
+      : AnyDataChunk(tsn, std::move(data), immediate_ack) {}
+
+  static absl::optional<DataChunk> Parse(rtc::ArrayView<const uint8_t> data);
+
+  void SerializeTo(std::vector<uint8_t>& out) const override;
+  std::string ToString() const override;
+};
+
+}  // namespace dcsctp
+
+#endif  // NET_DCSCTP_PACKET_CHUNK_DATA_CHUNK_H_

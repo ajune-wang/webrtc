@@ -1360,20 +1360,16 @@ PacketReceiver::DeliveryStatus Call::DeliverRtcp(MediaType media_type,
       if (stream->DeliverRtcp(packet, length))
         rtcp_delivered = true;
     }
-  }
-  if (media_type == MediaType::ANY || media_type == MediaType::AUDIO) {
-    for (AudioReceiveStream* stream : audio_receive_streams_) {
-      stream->DeliverRtcp(packet, length);
-      rtcp_delivered = true;
-    }
-  }
-  if (media_type == MediaType::ANY || media_type == MediaType::VIDEO) {
     for (VideoSendStream* stream : video_send_streams_) {
       stream->DeliverRtcp(packet, length);
       rtcp_delivered = true;
     }
   }
   if (media_type == MediaType::ANY || media_type == MediaType::AUDIO) {
+    for (AudioReceiveStream* stream : audio_receive_streams_) {
+      stream->DeliverRtcp(packet, length);
+      rtcp_delivered = true;
+    }
     for (auto& kv : audio_send_ssrcs_) {
       kv.second->DeliverRtcp(packet, length);
       rtcp_delivered = true;

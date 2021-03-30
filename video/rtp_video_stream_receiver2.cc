@@ -632,6 +632,8 @@ void RtpVideoStreamReceiver2::OnRecoveredPacket(const uint8_t* rtp_packet,
 // This method handles both regular RTP packets and packets recovered
 // via FlexFEC.
 void RtpVideoStreamReceiver2::OnRtpPacket(const RtpPacketReceived& packet) {
+  // TODO(tommi): We get here via Call::DeliverRtp, so should be moved to the
+  // network thread.
   RTC_DCHECK_RUN_ON(&worker_task_checker_);
 
   if (!receiving_) {
@@ -929,6 +931,8 @@ void RtpVideoStreamReceiver2::ManageFrame(
 }
 
 void RtpVideoStreamReceiver2::ReceivePacket(const RtpPacketReceived& packet) {
+  // TODO(tommi): We get here via Call::DeliverRtp (and other calls), so should
+  // be moved to the network thread.
   RTC_DCHECK_RUN_ON(&worker_task_checker_);
   if (packet.payload_size() == 0) {
     // Padding or keep-alive packet.

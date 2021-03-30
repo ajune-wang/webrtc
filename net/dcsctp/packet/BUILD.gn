@@ -201,11 +201,11 @@ rtc_library("chunk") {
 rtc_library("sctp_packet") {
   deps = [
     ":crc32c",
-    "../public:types",
     "../../../api:array_view",
     "../../../rtc_base",
     "../../../rtc_base:checks",
     "../../../rtc_base:rtc_base_approved",
+    "../public:types",
   ]
   sources = [
     "sctp_packet.cc",

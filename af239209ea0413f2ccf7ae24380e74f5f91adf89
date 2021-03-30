@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d724c62_79bfb60a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-03-30T09:43:27Z",
+      "side": 1,
+      "message": "Code is already compiling on all the platforms. 😊\n\nOnce we land this one, I will send a CL to connect the test binary to the CI system (part of the config is in WebRTC\u0027s repo but part is in another repo).\n\nGeneral LGTM from me, just one decision to make for the test binary organization (with a proposal).",
+      "revId": "af239209ea0413f2ccf7ae24380e74f5f91adf89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "953b02b4_dc48b708",
+        "filename": "net/dcsctp/BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-03-30T09:43:27Z",
+      "side": 1,
+      "message": "I think it might make sense to turn this into an rtc_test target (which then I will wire up to the CI, which is configured in another repo) and make it depend on rtc_library targets with the effective test code.\n\nIn WebRTC/Chrome infra, historically that has been the way to group tests.\n\nSomething like https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/BUILD.gn;l\u003d531;drc\u003db586d82a9434194146776337abe2ea55da0d45f8, which defines 1 rtc_unittests target binary which pulls in the actual tests as deps: https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/BUILD.gn;l\u003d547-559;drc\u003db586d82a9434194146776337abe2ea55da0d45f8.\n\ndcsctp should be small enough to be able to unit test it all with ./dcsctp_unittests right? (if not let me know and we will think something else).",
+      "range": {
+        "startLine": 17,
+        "startChar": 2,
+        "endLine": 17,
+        "endChar": 7
+      },
+      "revId": "af239209ea0413f2ccf7ae24380e74f5f91adf89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84c610e2_fbbf89be",
+        "filename": "net/dcsctp/packet/BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-03-30T09:43:27Z",
+      "side": 1,
+      "message": "Feel free to remove empty target params.\n\nFor context, we have absl_deps to switch to the absl shared library when Chromium  builds in component build mode (https://chromium.googlesource.com/chromium/src/+/master/docs/component_build.md, https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/webrtc.gni;l\u003d486-498;drc\u003d1a89bc8b62db6c18028c700537a33a9bcb9465a5).",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 16
+      },
+      "revId": "af239209ea0413f2ccf7ae24380e74f5f91adf89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73a088ad_0588a169",
+        "filename": "net/dcsctp/packet/BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-03-30T09:43:27Z",
+      "side": 1,
+      "message": "If you agree on the comment on net/dcsctp/BUILD.gn, feel free to remove the group and change \"dcsctp_bounded_io_unittests\" to rtc_library and use it directly as the dep in the rtc_test in the other BUILD.gn.",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 10
+      },
+      "revId": "af239209ea0413f2ccf7ae24380e74f5f91adf89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

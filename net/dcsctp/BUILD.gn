@@ -17,6 +17,7 @@ if (rtc_include_tests) {
   rtc_test("dcsctp_unittests") {
     testonly = true
     deps = [
+      "//net/dcsctp/common:dcsctp_common_unittests",
       "//net/dcsctp/packet:dcsctp_packet_unittests",
       "//test:test_main",
     ]

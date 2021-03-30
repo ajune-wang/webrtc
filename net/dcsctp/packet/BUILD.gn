@@ -37,6 +37,15 @@ rtc_source_set("tlv_trait") {
   sources = [ "tlv_trait.h" ]
 }
 
+rtc_source_set("data") {
+  deps = [
+    "//rtc_base",
+    "//rtc_base:checks",
+    "//rtc_base:rtc_base_approved",
+  ]
+  sources = [ "data.h" ]
+}
+
 rtc_library("crc32c") {
   deps = [
     "//api:array_view",

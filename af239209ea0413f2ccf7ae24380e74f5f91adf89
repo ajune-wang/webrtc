@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6d92a12_9add5f1e",
+        "filename": "net/dcsctp/BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-03-30T13:52:38Z",
+      "side": 1,
+      "message": "Good question - I guess aligning with how things are done is important. You are completely right in that executing tests don\u0027t take very long time. In blaze, \"blaze test foo/...\" would run all tests, so there is not much to be gained by grouping them together (quite on the contrary - each test would be run in parallel, storing logs and artifacts just for that test etc), but I will of course align with best practice here.",
+      "parentUuid": "953b02b4_dc48b708",
+      "range": {
+        "startLine": 17,
+        "startChar": 2,
+        "endLine": 17,
+        "endChar": 7
+      },
+      "revId": "af239209ea0413f2ccf7ae24380e74f5f91adf89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84c610e2_fbbf89be",
@@ -64,6 +88,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fadab2f1_061332bc",
+        "filename": "net/dcsctp/packet/BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-03-30T13:52:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84c610e2_fbbf89be",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 16
+      },
+      "revId": "af239209ea0413f2ccf7ae24380e74f5f91adf89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "73a088ad_0588a169",
@@ -77,6 +125,30 @@
       "writtenOn": "2021-03-30T09:43:27Z",
       "side": 1,
       "message": "If you agree on the comment on net/dcsctp/BUILD.gn, feel free to remove the group and change \"dcsctp_bounded_io_unittests\" to rtc_library and use it directly as the dep in the rtc_test in the other BUILD.gn.",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 10
+      },
+      "revId": "af239209ea0413f2ccf7ae24380e74f5f91adf89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c03872d_db9e038a",
+        "filename": "net/dcsctp/packet/BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-03-30T13:52:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "73a088ad_0588a169",
       "range": {
         "startLine": 31,
         "startChar": 0,

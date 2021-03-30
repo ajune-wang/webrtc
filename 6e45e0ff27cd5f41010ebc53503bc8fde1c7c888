@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e16ae582_754ea51a",
+        "filename": "net/dcsctp/BUILD.gn",
+        "patchSetId": 11
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-03-30T16:26:32Z",
+      "side": 1,
+      "message": "Feel free to remove this one.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 45
+      },
+      "revId": "6e45e0ff27cd5f41010ebc53503bc8fde1c7c888",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8e3ba04_fd59bb2f",
+        "filename": "net/dcsctp/BUILD.gn",
+        "patchSetId": 11
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-03-30T16:26:32Z",
+      "side": 1,
+      "message": "Looks like we do this in general:\n\n\"packet:dcsctp_packet_unittests\",\n\"../../test:test_main\",\n\n(maybe let\u0027s do that for consistency, see for example https://source.chromium.org/chromiumos/chromiumos/codesearch/+/main:src/third_party/webrtc-apm/system_wrappers/BUILD.gn;l\u003d130;drc\u003d8873da3f5e249afe173e07a30a4a02e259551afa).\n\nI don\u0027t remember why we decided for the relative paths instead of the absolute. It predates my involvement with WebRTC.",
+      "range": {
+        "startLine": 20,
+        "startChar": 7,
+        "endLine": 20,
+        "endChar": 20
+      },
+      "revId": "6e45e0ff27cd5f41010ebc53503bc8fde1c7c888",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fcd0396a_81f07825",
+        "filename": "net/dcsctp/packet/BUILD.gn",
+        "patchSetId": 11
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-03-30T16:26:32Z",
+      "side": 1,
+      "message": "Remove, this should not be needed.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 45
+      },
+      "revId": "6e45e0ff27cd5f41010ebc53503bc8fde1c7c888",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4559ecc_3bd06089",
+        "filename": "net/dcsctp/packet/BUILD.gn",
+        "patchSetId": 11
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-03-30T16:26:32Z",
+      "side": 1,
+      "message": "See my comment on the other BUILD.gn file.",
+      "range": {
+        "startLine": 17,
+        "startChar": 2,
+        "endLine": 22,
+        "endChar": 3
+      },
+      "revId": "6e45e0ff27cd5f41010ebc53503bc8fde1c7c888",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68fe4a23_41b47dcc",
+        "filename": "net/dcsctp/packet/BUILD.gn",
+        "patchSetId": 11
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-03-30T16:26:32Z",
+      "side": 1,
+      "message": "remove this one.",
+      "range": {
+        "startLine": 33,
+        "startChar": 3,
+        "endLine": 33,
+        "endChar": 16
+      },
+      "revId": "6e45e0ff27cd5f41010ebc53503bc8fde1c7c888",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78ff3220_18ff78ba",
+        "filename": "net/dcsctp/packet/BUILD.gn",
+        "patchSetId": 11
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-03-30T16:26:32Z",
+      "side": 1,
+      "message": "See my comment on the other BUILD.gn file.",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 28
+      },
+      "revId": "6e45e0ff27cd5f41010ebc53503bc8fde1c7c888",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -89,6 +89,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a54b6830_8e19cc75",
+        "filename": "net/dcsctp/BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-03-30T16:26:32Z",
+      "side": 1,
+      "message": "Thanks.\n\nYes, I guess this was also a choice because of the lack of something like \"bazel test foo/...\".",
+      "parentUuid": "2f4feb00_74689d20",
+      "range": {
+        "startLine": 17,
+        "startChar": 2,
+        "endLine": 17,
+        "endChar": 7
+      },
+      "revId": "af239209ea0413f2ccf7ae24380e74f5f91adf89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84c610e2_fbbf89be",

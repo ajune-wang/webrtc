@@ -137,6 +137,63 @@
       },
       "revId": "6e45e0ff27cd5f41010ebc53503bc8fde1c7c888",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9af2ddb_1c6d329d",
+        "filename": "net/dcsctp/packet/bounded_byte_reader.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-03-30T21:16:38Z",
+      "side": 1,
+      "message": "can we move these into an \u0027internal\u0027 namespace to indicate that they\u0027re not to be used outside of the BoundedByteReader implementation? Alternatively, we could make them private static members of the class?\n\nSome follow-ups that we could do later but could mark with a TODO now (and should be easy to do if we guard the code as internal):\n\nI also wonder if we could use templating to use const\u0026 and be exact about the size of |data| and internally cast to const uint8_t for the purposes of reconstructing in big endian order.  Btw, if we could use intrinsics, then that would be even better.",
+      "revId": "6e45e0ff27cd5f41010ebc53503bc8fde1c7c888",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a229408_05c2ecef",
+        "filename": "net/dcsctp/packet/bounded_byte_reader.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-03-30T21:16:38Z",
+      "side": 1,
+      "message": "nice",
+      "range": {
+        "startLine": 55,
+        "startChar": 18,
+        "endLine": 55,
+        "endChar": 24
+      },
+      "revId": "6e45e0ff27cd5f41010ebc53503bc8fde1c7c888",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f61814f_a53eb998",
+        "filename": "net/dcsctp/packet/bounded_byte_writer.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-03-30T21:16:38Z",
+      "side": 1,
+      "message": "same thing here wrt marking the helper routines internal",
+      "revId": "6e45e0ff27cd5f41010ebc53503bc8fde1c7c888",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

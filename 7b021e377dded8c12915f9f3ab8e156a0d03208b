@@ -39,6 +39,30 @@
       },
       "revId": "7b021e377dded8c12915f9f3ab8e156a0d03208b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2eed4428_33022ef6",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 4682,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-03-30T15:23:46Z",
+      "side": 1,
+      "message": "Good point - turns out that this is a \u0027leak\u0027 from SrtpRequired(). Removed the requirement of holding PeerConnection\u0027s \"lock\" before calling the method and added a check in the function.",
+      "parentUuid": "d578268f_e49e3604",
+      "range": {
+        "startLine": 4682,
+        "startChar": 8,
+        "endLine": 4682,
+        "endChar": 51
+      },
+      "revId": "7b021e377dded8c12915f9f3ab8e156a0d03208b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

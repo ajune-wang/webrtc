@@ -705,6 +705,14 @@ Call::~Call() {
                          pacer_bitrate_kbps_counter_);
   }
 
+  // TODO(tommi): Either:
+  // * Any work pending for the network thread, needs to be dropped
+  //   before updating the histograms.
+  // Or
+  // * We post a task to the network thread to update the histograms with
+  //   data that was captured on the network thread. (ownership of that state
+  //   could be transferred to the async task).
+
   UpdateReceiveHistograms();
 
   RTC_HISTOGRAM_COUNTS_100000("WebRTC.Call.LifetimeInSeconds",
@@ -1354,6 +1362,7 @@ PacketReceiver::DeliveryStatus Call::DeliverRtcp(MediaType media_type,
     received_bytes_per_second_counter_.Add(static_cast<int>(length));
     received_rtcp_bytes_per_second_counter_.Add(static_cast<int>(length));
   }
+
   bool rtcp_delivered = false;
   if (media_type == MediaType::ANY || media_type == MediaType::VIDEO) {
     for (VideoReceiveStream2* stream : video_receive_streams_) {
@@ -1473,10 +1482,9 @@ PacketReceiver::DeliveryStatus Call::DeliverPacket(
     int64_t packet_time_us) {
   RTC_DCHECK_RUN_ON(worker_thread_);
 
-  if (IsRtcp(packet.cdata(), packet.size()))
-    return DeliverRtcp(media_type, packet.cdata(), packet.size());
-
-  return DeliverRtp(media_type, std::move(packet), packet_time_us);
+  return IsRtcp(packet.cdata(), packet.size())
+             ? DeliverRtcp(media_type, packet.cdata(), packet.size())
+             : DeliverRtp(media_type, std::move(packet), packet_time_us);
 }
 
 void Call::DeliverPacketAsync(MediaType media_type,
@@ -1488,11 +1496,17 @@ void Call::DeliverPacketAsync(MediaType media_type,
   TaskQueueBase* network_thread = rtc::Thread::Current();
   RTC_DCHECK(network_thread);
 
+  const bool is_rtcp = IsRtcp(packet.cdata(), packet.size());
+
   worker_thread_->PostTask(ToQueuedTask(
-      task_safety_, [this, network_thread, media_type, p = std::move(packet),
-                     packet_time_us, cb = std::move(callback)] {
+      task_safety_,
+      [this, is_rtcp, network_thread, media_type, p = std::move(packet),
+       packet_time_us, cb = std::move(callback)] {
         RTC_DCHECK_RUN_ON(worker_thread_);
-        DeliveryStatus status = DeliverPacket(media_type, p, packet_time_us);
+        DeliveryStatus status =
+            is_rtcp ? DeliverRtcp(media_type, p.cdata(), p.size())
+                    : DeliverRtp(media_type, std::move(p), packet_time_us);
+
         if (status == DELIVERY_UNKNOWN_SSRC && cb) {
           network_thread->PostTask(
               ToQueuedTask([cb = std::move(cb), media_type, p = std::move(p),

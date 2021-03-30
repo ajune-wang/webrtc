@@ -22,6 +22,30 @@
       },
       "revId": "93ee168671546914efeb7f7a897bc052cc2d6f31",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89c376b3_da7abea3",
+        "filename": "media/sctp/sctp_transport_reliability_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-03-30T21:18:42Z",
+      "side": 0,
+      "message": "Isn\u0027t the problem the \"auto destination \u003d destination_.load();\", which is queued on the destination\u0027s thread rather than this object\u0027s own thread?\n\nI don\u0027t see why that\u0027s necessary though, I would just pass the previously loaded destination into the lambda.",
+      "parentUuid": "2ff5f1e1_02087a43",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 38
+      },
+      "revId": "93ee168671546914efeb7f7a897bc052cc2d6f31",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

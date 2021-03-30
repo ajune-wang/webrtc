@@ -113,7 +113,7 @@ class TCPPort : public Port {
   friend class TCPConnection;
 };
 
-class TCPConnection : public Connection {
+class TCPConnection final : public Connection {
  public:
   // Connection is outgoing unless socket is specified
   TCPConnection(TCPPort* port,

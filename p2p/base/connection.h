@@ -71,7 +71,6 @@ class ConnectionRequest : public StunRequest {
 // Represents a communication link between a port on the local client and a
 // port on the remote client.
 class Connection : public CandidatePairInterface,
-                   public rtc::MessageHandlerAutoCleanup,
                    public sigslot::has_slots<> {
  public:
   struct SentPing {
@@ -366,7 +365,17 @@ class Connection : public CandidatePairInterface,
 
   uint32_t nomination() const { return nomination_; }
 
-  void OnMessage(rtc::Message* pmsg) override;
+  class MsgHandler : public rtc::MessageHandlerAutoCleanup {
+   public:
+    MsgHandler(Connection* c) : c_(c) {}
+
+   private:
+    void OnMessage(rtc::Message* pmsg) override { c_->OnMessage(pmsg); }
+
+    Connection* const c_;
+  } handler_{this};
+
+  void OnMessage(rtc::Message* pmsg);
 
   // The local port where this connection sends and receives packets.
   Port* port() { return port_; }
@@ -468,7 +477,7 @@ class Connection : public CandidatePairInterface,
 };
 
 // ProxyConnection defers all the interesting work to the port.
-class ProxyConnection : public Connection {
+class ProxyConnection final : public Connection {
  public:
   ProxyConnection(Port* port, size_t index, const Candidate& remote_candidate);
 

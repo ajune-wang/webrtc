@@ -30,7 +30,7 @@ using TSN = StrongAlias<class TSNTag, uint32_t>;
 using ReconfigRequestSN = StrongAlias<class ReconfigRequestSNTag, uint32_t>;
 
 // Reconfiguration Response Sequence Number
-using ReconfigResponseSN = StrongAlias<class ReconfigRequestSNTag, uint32_t>;
+using ReconfigResponseSN = StrongAlias<class ReconfigResponseSNTag, uint32_t>;
 
 }  // namespace dcsctp
 #endif  // NET_DCSCTP_COMMON_INTERNAL_TYPES_H_

@@ -195,6 +195,21 @@ rtc_library("chunk") {
   ]
 }
 
+rtc_library("sctp_packet") {
+  deps = [
+    ":crc32c",
+    "../public:api",
+    "//api:array_view",
+    "//rtc_base",
+    "//rtc_base:checks",
+    "//rtc_base:rtc_base_approved",
+  ]
+  sources = [
+    "sctp_packet.cc",
+    "sctp_packet.h",
+  ]
+}
+
 if (rtc_include_tests) {
   rtc_library("dcsctp_packet_unittests") {
     testonly = true
@@ -205,6 +220,7 @@ if (rtc_include_tests) {
       ":crc32c",
       ":error_cause",
       ":parameter",
+      ":sctp_packet",
       ":tlv_trait",
       "../../../api:array_view",
       "../../../rtc_base:checks",

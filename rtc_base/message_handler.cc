@@ -17,6 +17,7 @@ namespace rtc {
 MessageHandlerAutoCleanup::MessageHandlerAutoCleanup() {}
 
 MessageHandlerAutoCleanup::~MessageHandlerAutoCleanup() {
+  RTC_CHECK(false);
   // Note that even though this clears currently pending messages for the
   // message handler, it's still racy since it doesn't prevent threads that
   // might be in the process of posting new messages with would-be dangling

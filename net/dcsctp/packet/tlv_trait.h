@@ -116,7 +116,7 @@ class TLVTrait {
         tlv_trait_impl::ReportInvalidPadding(padding);
         return absl::nullopt;
       }
-      if ((length % Config::kVariableLengthAlignment) != 0) {
+      if (!ValidateLengthAlignment(length, Config::kVariableLengthAlignment)) {
         tlv_trait_impl::ReportInvalidLengthMultiple(
             length, Config::kVariableLengthAlignment);
         return absl::nullopt;
@@ -129,8 +129,7 @@ class TLVTrait {
   // `Config::kHeaderSize` and a variable footer, as defined by `variable_size`
   // (which may be 0) and writes the type and length in the header.
   static BoundedByteWriter<Config::kHeaderSize> AllocateTLV(
-      std::vector<uint8_t>& out,
-      size_t variable_size = 0) {
+      std::vector<uint8_t>& out, size_t variable_size = 0) {
     const size_t offset = out.size();
     const size_t size = Config::kHeaderSize + variable_size;
     out.resize(offset + size);
@@ -146,6 +145,16 @@ class TLVTrait {
 
     return BoundedByteWriter<Config::kHeaderSize>(
         rtc::ArrayView<uint8_t>(out.data() + offset, size));
+  }
+
+ private:
+  static bool ValidateLengthAlignment(uint16_t length, size_t alignment) {
+    // This is to avoid MSVC believing there could be a "mod by zero", when it
+    // certainly can't.
+    if (alignment == 0) {
+      return true;
+    }
+    return (length % alignment) == 0;
   }
 };
 

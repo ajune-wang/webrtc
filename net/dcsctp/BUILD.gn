@@ -16,6 +16,9 @@ group("dcsctp") {
 if (rtc_include_tests) {
   group("dcsctp_unittests") {
     testonly = true
-    deps = [ "//net/dcsctp/packet:dcsctp_packet_unittests" ]
+    deps = [
+      "//net/dcsctp/common:dcsctp_common_unittests",
+      "//net/dcsctp/packet:dcsctp_packet_unittests",
+    ]
   }
 }

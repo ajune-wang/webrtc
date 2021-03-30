@@ -1696,6 +1696,10 @@ TEST_F(TestVp9Impl, EncoderInfoWithoutResolutionBitrateLimits) {
   EXPECT_TRUE(encoder_->GetEncoderInfo().resolution_bitrate_limits.empty());
 }
 
+TEST_F(TestVp9Impl, EncoderInfoWithoutNumTemporalLayers) {
+  EXPECT_EQ(absl::nullopt, encoder_->GetEncoderInfo().num_temporal_layers);
+}
+
 TEST_F(TestVp9Impl, EncoderInfoWithBitrateLimitsFromFieldTrial) {
   test::ScopedFieldTrials field_trials(
       "WebRTC-VP9-GetEncoderInfoOverride/"
@@ -1711,6 +1715,14 @@ TEST_F(TestVp9Impl, EncoderInfoWithBitrateLimitsFromFieldTrial) {
           VideoEncoder::ResolutionBitrateLimits{123, 11000, 44000, 77000},
           VideoEncoder::ResolutionBitrateLimits{456, 22000, 55000, 88000},
           VideoEncoder::ResolutionBitrateLimits{789, 33000, 66000, 99000}));
+}
+
+TEST_F(TestVp9Impl, EncoderInfoWithNumTemporalLayersFromFieldTrial) {
+  test::ScopedFieldTrials field_trials(
+      "WebRTC-VP9-GetEncoderInfoOverride/num_temporal_layers:2/");
+  SetUp();
+
+  EXPECT_EQ(2, encoder_->GetEncoderInfo().num_temporal_layers);
 }
 
 TEST_F(TestVp9Impl, EncoderInfoFpsAllocation) {

@@ -542,6 +542,19 @@ TEST(LibvpxVp8EncoderTest, RequestedResolutionAlignmentFromFieldTrial) {
   EXPECT_FALSE(
       encoder.GetEncoderInfo().apply_alignment_to_all_simulcast_layers);
   EXPECT_TRUE(encoder.GetEncoderInfo().resolution_bitrate_limits.empty());
+  EXPECT_EQ(encoder.GetEncoderInfo().num_temporal_layers, absl::nullopt);
+}
+
+TEST(LibvpxVp8EncoderTest, NumTemporalLayersFromFieldTrial) {
+  test::ScopedFieldTrials field_trials(
+      "WebRTC-VP8-GetEncoderInfoOverride/"
+      "num_temporal_layers:3/");
+
+  auto* const vpx = new NiceMock<MockLibvpxInterface>();
+  LibvpxVp8Encoder encoder((std::unique_ptr<LibvpxInterface>(vpx)),
+                           VP8Encoder::Settings());
+
+  EXPECT_EQ(encoder.GetEncoderInfo().num_temporal_layers, 3);
 }
 
 TEST(LibvpxVp8EncoderTest, ResolutionBitrateLimitsFromFieldTrial) {

@@ -63,10 +63,15 @@ EncoderInfoSettings::GetDefaultSinglecastBitrateLimitsForResolution(
   return info.GetEncoderBitrateLimitsForResolution(frame_size_pixels);
 }
 
+int EncoderInfoSettings::GetDefaultSinglecastNumTemporalLayers() {
+  return 1;
+}
+
 EncoderInfoSettings::EncoderInfoSettings(std::string name)
     : requested_resolution_alignment_("requested_resolution_alignment"),
       apply_alignment_to_all_simulcast_layers_(
-          "apply_alignment_to_all_simulcast_layers") {
+          "apply_alignment_to_all_simulcast_layers"),
+      num_temporal_layers_("num_temporal_layers") {
   FieldTrialStructList<BitrateLimit> bitrate_limits(
       {FieldTrialStructMember(
            "frame_size_pixels",
@@ -87,9 +92,10 @@ EncoderInfoSettings::EncoderInfoSettings(std::string name)
     name = "WebRTC-GetEncoderInfoOverride";
   }
 
-  ParseFieldTrial({&bitrate_limits, &requested_resolution_alignment_,
-                   &apply_alignment_to_all_simulcast_layers_},
-                  field_trial::FindFullName(name));
+  ParseFieldTrial(
+      {&bitrate_limits, &requested_resolution_alignment_,
+       &apply_alignment_to_all_simulcast_layers_, &num_temporal_layers_},
+      field_trial::FindFullName(name));
 
   resolution_bitrate_limits_ = ToResolutionBitrateLimits(bitrate_limits.Get());
 }
@@ -102,6 +108,16 @@ absl::optional<int> EncoderInfoSettings::requested_resolution_alignment()
     return absl::nullopt;
   }
   return requested_resolution_alignment_.GetOptional();
+}
+
+absl::optional<int> EncoderInfoSettings::num_temporal_layers() const {
+  if (num_temporal_layers_ &&
+      (num_temporal_layers_.Value() < 1 ||
+       num_temporal_layers_.Value() > kMaxTemporalStreams)) {
+    RTC_LOG(LS_WARNING) << "Unsupported temporal layer value, ignored.";
+    return absl::nullopt;
+  }
+  return num_temporal_layers_.GetOptional();
 }
 
 EncoderInfoSettings::~EncoderInfoSettings() {}

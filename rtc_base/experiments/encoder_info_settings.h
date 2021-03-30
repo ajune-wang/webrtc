@@ -40,6 +40,7 @@ class EncoderInfoSettings {
       const {
     return resolution_bitrate_limits_;
   }
+  absl::optional<int> num_temporal_layers() const;
 
   static std::vector<VideoEncoder::ResolutionBitrateLimits>
   GetDefaultSinglecastBitrateLimits(VideoCodecType codec_type);
@@ -48,6 +49,8 @@ class EncoderInfoSettings {
   GetDefaultSinglecastBitrateLimitsForResolution(VideoCodecType codec_type,
                                                  int frame_size_pixels);
 
+  static int GetDefaultSinglecastNumTemporalLayers();
+
  protected:
   explicit EncoderInfoSettings(std::string name);
 
@@ -55,6 +58,7 @@ class EncoderInfoSettings {
   FieldTrialOptional<int> requested_resolution_alignment_;
   FieldTrialFlag apply_alignment_to_all_simulcast_layers_;
   std::vector<VideoEncoder::ResolutionBitrateLimits> resolution_bitrate_limits_;
+  FieldTrialOptional<int> num_temporal_layers_;
 };
 
 // EncoderInfo settings for SimulcastEncoderAdapter.

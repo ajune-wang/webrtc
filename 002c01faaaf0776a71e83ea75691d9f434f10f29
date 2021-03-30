@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89d5dae4_3c82e552",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-03-30T11:01:27Z",
+      "side": 1,
+      "message": "Sounds like INT64_MAX (or std::numeric_limits\u003cint64_t\u003e::max()) would be more appropriate. But ok to move unchanged in this cl.",
+      "range": {
+        "startLine": 502,
+        "startChar": 58,
+        "endLine": 502,
+        "endChar": 67
+      },
+      "revId": "002c01faaaf0776a71e83ea75691d9f434f10f29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

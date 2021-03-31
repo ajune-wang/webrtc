@@ -43,6 +43,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "af23ab79_aab5760e",
+        "filename": "net/dcsctp/packet/tlv_trait.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-03-31T10:14:15Z",
+      "side": 1,
+      "message": "divisible\nOr you could say a multiple of 4",
+      "range": {
+        "startLine": 66,
+        "startChar": 37,
+        "endLine": 66,
+        "endChar": 51
+      },
+      "revId": "e088176f78279a3e47e1a82724a5fb738825e56d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "11533803_a564b894",
         "filename": "net/dcsctp/packet/tlv_trait.h",
         "patchSetId": 12
@@ -88,6 +111,29 @@
       "writtenOn": "2021-03-31T10:13:00Z",
       "side": 1,
       "message": "nit: could be const, same for padding below",
+      "revId": "e088176f78279a3e47e1a82724a5fb738825e56d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88a38c0c_2389af9a",
+        "filename": "net/dcsctp/packet/tlv_trait.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-03-31T10:14:15Z",
+      "side": 1,
+      "message": "Same as previous",
+      "range": {
+        "startLine": 122,
+        "startChar": 43,
+        "endLine": 122,
+        "endChar": 57
+      },
       "revId": "e088176f78279a3e47e1a82724a5fb738825e56d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

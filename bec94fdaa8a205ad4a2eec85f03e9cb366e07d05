@@ -33,6 +33,24 @@
       "message": "we don\u0027t do any cpu checking - so do we always assume little endian?",
       "revId": "bec94fdaa8a205ad4a2eec85f03e9cb366e07d05",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a641158_2b41f41d",
+        "filename": "net/dcsctp/packet/crc32c.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-03-31T13:01:02Z",
+      "side": 1,
+      "message": "I haven\u0027t verified on big endian devices, to be honest. My plan is to replace this entire file with github.com/google/crc32c (it\u0027s in third_party already), so I hope that will solve all endianness issues, if any.",
+      "parentUuid": "1595e4da_53c79093",
+      "revId": "bec94fdaa8a205ad4a2eec85f03e9cb366e07d05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

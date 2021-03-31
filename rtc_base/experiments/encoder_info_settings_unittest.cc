@@ -21,15 +21,17 @@ TEST(SimulcastEncoderAdapterSettingsTest, NoValuesWithoutFieldTrial) {
   EXPECT_EQ(absl::nullopt, settings.requested_resolution_alignment());
   EXPECT_FALSE(settings.apply_alignment_to_all_simulcast_layers());
   EXPECT_TRUE(settings.resolution_bitrate_limits().empty());
+  EXPECT_EQ(absl::nullopt, settings.num_temporal_layers());
 }
 
 TEST(SimulcastEncoderAdapterSettingsTest, NoValueForInvalidAlignment) {
   webrtc::test::ScopedFieldTrials field_trials(
       "WebRTC-SimulcastEncoderAdapter-GetEncoderInfoOverride/"
-      "requested_resolution_alignment:0/");
+      "requested_resolution_alignment:0,num_temporal_layers:0/");
 
   SimulcastEncoderAdapterEncoderInfoSettings settings;
   EXPECT_EQ(absl::nullopt, settings.requested_resolution_alignment());
+  EXPECT_EQ(absl::nullopt, settings.num_temporal_layers());
 }
 
 TEST(SimulcastEncoderAdapterSettingsTest, GetResolutionAlignment) {
@@ -55,6 +57,15 @@ TEST(SimulcastEncoderAdapterSettingsTest, GetApplyAlignment) {
   EXPECT_TRUE(settings.resolution_bitrate_limits().empty());
 }
 
+TEST(SimulcastEncoderAdapterSettingsTest, GetNumTemporalLayers) {
+  webrtc::test::ScopedFieldTrials field_trials(
+      "WebRTC-SimulcastEncoderAdapter-GetEncoderInfoOverride/"
+      "num_temporal_layers:3/");
+
+  SimulcastEncoderAdapterEncoderInfoSettings settings;
+  EXPECT_EQ(3, settings.num_temporal_layers());
+}
+
 TEST(SimulcastEncoderAdapterSettingsTest, GetResolutionBitrateLimits) {
   webrtc::test::ScopedFieldTrials field_trials(
       "WebRTC-SimulcastEncoderAdapter-GetEncoderInfoOverride/"
@@ -64,6 +75,7 @@ TEST(SimulcastEncoderAdapterSettingsTest, GetResolutionBitrateLimits) {
       "max_bitrate_bps:77000/");
 
   SimulcastEncoderAdapterEncoderInfoSettings settings;
+  EXPECT_EQ(absl::nullopt, settings.num_temporal_layers());
   EXPECT_EQ(absl::nullopt, settings.requested_resolution_alignment());
   EXPECT_FALSE(settings.apply_alignment_to_all_simulcast_layers());
   EXPECT_THAT(settings.resolution_bitrate_limits(),

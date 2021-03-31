@@ -21,12 +21,18 @@
 namespace webrtc {
 namespace test {
 namespace {
+
+constexpr int kDefaultNumTemporalLayers = 1;
+constexpr int kDefaultSimulcastNumTemporalLayers = 3;  // From simulcast.cc
+
 void SetEncoderSpecific(VideoEncoderConfig* encoder_config,
                         VideoCodecType type,
                         size_t num_spatial_layers) {
   if (type == kVideoCodecVP9) {
     VideoCodecVP9 vp9 = VideoEncoder::GetDefaultVp9Settings();
     vp9.numberOfSpatialLayers = num_spatial_layers;
+    vp9.numberOfTemporalLayers =
+        num_spatial_layers > 1 ? kDefaultSimulcastNumTemporalLayers : 1;
     encoder_config->encoder_specific_settings = new rtc::RefCountedObject<
         VideoEncoderConfig::Vp9EncoderSpecificSettings>(vp9);
   }
@@ -81,6 +87,7 @@ class InitEncodeTest : public test::EndToEndTest,
   };
   struct Expectation {
     const uint32_t pixels = 0;
+    const absl::optional<int> num_temporal_layers;
     const Bitrate eq_bitrate_bps;
     const Bitrate ne_bitrate_bps;
   };
@@ -147,6 +154,17 @@ class InitEncodeTest : public test::EndToEndTest,
                      const Settings& settings) override {
     for (const auto& expected : expectations_) {
       SpatialLayer layer = GetLayer(expected.pixels, *codec);
+      if (expected.num_temporal_layers) {
+        EXPECT_EQ(*expected.num_temporal_layers, layer.numberOfTemporalLayers);
+        if (codec->codecType == VideoCodecType::kVideoCodecVP8) {
+          EXPECT_EQ(*expected.num_temporal_layers,
+                    codec->VP8().numberOfTemporalLayers);
+        }
+        if (codec->codecType == VideoCodecType::kVideoCodecVP9) {
+          EXPECT_EQ(*expected.num_temporal_layers,
+                    codec->VP9().numberOfTemporalLayers);
+        }
+      }
       if (expected.eq_bitrate_bps.min)
         EXPECT_EQ(*expected.eq_bitrate_bps.min, layer.minBitrate * 1000);
       if (expected.eq_bitrate_bps.max)
@@ -163,6 +181,9 @@ class InitEncodeTest : public test::EndToEndTest,
     if (!encoder_info_override_.resolution_bitrate_limits().empty()) {
       info.resolution_bitrate_limits =
           encoder_info_override_.resolution_bitrate_limits();
+    }
+    if (encoder_info_override_.num_temporal_layers()) {
+      info.num_temporal_layers = *encoder_info_override_.num_temporal_layers();
     }
     return info;
   }
@@ -191,7 +212,7 @@ TEST_P(ResolutionBitrateLimitsTest, LimitsApplied) {
       payload_name_,
       {{/*active=*/true, /*bitrate_bps=*/{absl::nullopt, absl::nullopt}}},
       // Expectations:
-      {{1280 * 720,
+      {{1280 * 720, kDefaultNumTemporalLayers,
         /*eq_bitrate_bps=*/{32000, 3333000},
         /*ne_bitrate_bps=*/{absl::nullopt, absl::nullopt}}});
   RunBaseTest(&test);
@@ -201,7 +222,7 @@ TEST_P(ResolutionBitrateLimitsTest, EncodingsApplied) {
   InitEncodeTest test(payload_name_,
                       {{/*active=*/true, /*bitrate_bps=*/{22000, 3555000}}},
                       // Expectations:
-                      {{1280 * 720,
+                      {{1280 * 720, kDefaultNumTemporalLayers,
                         /*eq_bitrate_bps=*/{22000, 3555000},
                         /*ne_bitrate_bps=*/{absl::nullopt, absl::nullopt}}});
   RunBaseTest(&test);
@@ -218,7 +239,7 @@ TEST_P(ResolutionBitrateLimitsTest, IntersectionApplied) {
   InitEncodeTest test(payload_name_,
                       {{/*active=*/true, /*bitrate_bps=*/{22000, 1555000}}},
                       // Expectations:
-                      {{1280 * 720,
+                      {{1280 * 720, kDefaultNumTemporalLayers,
                         /*eq_bitrate_bps=*/{32000, 1555000},
                         /*ne_bitrate_bps=*/{absl::nullopt, absl::nullopt}}});
   RunBaseTest(&test);
@@ -227,6 +248,7 @@ TEST_P(ResolutionBitrateLimitsTest, IntersectionApplied) {
 TEST_P(ResolutionBitrateLimitsTest, LimitsAppliedMiddleActive) {
   webrtc::test::ScopedFieldTrials field_trials(
       "WebRTC-GetEncoderInfoOverride/"
+      "num_temporal_layers:2,"
       "frame_size_pixels:230400|921600,"
       "min_start_bitrate_bps:0|0,"
       "min_bitrate_bps:21000|32000,"
@@ -238,7 +260,7 @@ TEST_P(ResolutionBitrateLimitsTest, LimitsAppliedMiddleActive) {
        {/*active=*/true, /*bitrate_bps=*/{absl::nullopt, absl::nullopt}},
        {/*active=*/false, /*bitrate_bps=*/{absl::nullopt, absl::nullopt}}},
       // Expectations:
-      {{640 * 360,
+      {{640 * 360, /*num_temporal_layers=*/2,
         /*eq_bitrate_bps=*/{21000, 2222000},
         /*ne_bitrate_bps=*/{absl::nullopt, absl::nullopt}}});
 
@@ -259,7 +281,7 @@ TEST_P(ResolutionBitrateLimitsTest, IntersectionAppliedMiddleActive) {
        {/*active=*/true, /*bitrate_bps=*/{30000, 1555000}},
        {/*active=*/false, /*bitrate_bps=*/{absl::nullopt, absl::nullopt}}},
       // Expectations:
-      {{640 * 360,
+      {{640 * 360, kDefaultSimulcastNumTemporalLayers,
         /*eq_bitrate_bps=*/{31000, 1555000},
         /*ne_bitrate_bps=*/{absl::nullopt, absl::nullopt}}});
   RunBaseTest(&test);
@@ -278,6 +300,7 @@ TEST_P(ResolutionBitrateLimitsTest, DefaultLimitsAppliedMiddleActive) {
        {/*active=*/false, /*bitrate_bps=*/{absl::nullopt, absl::nullopt}}},
       // Expectations:
       {{640 * 360,
+        kDefaultSimulcastNumTemporalLayers,
         /*eq_bitrate_bps=*/
         {kDefaultSinglecastLimits360p->min_bitrate_bps,
          kDefaultSinglecastLimits360p->max_bitrate_bps},
@@ -289,6 +312,7 @@ TEST_P(ResolutionBitrateLimitsTest, DefaultLimitsAppliedMiddleActive) {
 TEST_P(ResolutionBitrateLimitsTest, LimitsAppliedHighestActive) {
   webrtc::test::ScopedFieldTrials field_trials(
       "WebRTC-GetEncoderInfoOverride/"
+      "num_temporal_layers:2,"
       "frame_size_pixels:230400|921600,"
       "min_start_bitrate_bps:0|0,"
       "min_bitrate_bps:31000|32000,"
@@ -300,7 +324,7 @@ TEST_P(ResolutionBitrateLimitsTest, LimitsAppliedHighestActive) {
        {/*active=*/false, /*bitrate_bps=*/{absl::nullopt, absl::nullopt}},
        {/*active=*/true, /*bitrate_bps=*/{absl::nullopt, absl::nullopt}}},
       // Expectations:
-      {{1280 * 720,
+      {{1280 * 720, /*num_temporal_layers=*/2,
         /*eq_bitrate_bps=*/{32000, 3333000},
         /*ne_bitrate_bps=*/{absl::nullopt, absl::nullopt}}});
   RunBaseTest(&test);
@@ -320,7 +344,7 @@ TEST_P(ResolutionBitrateLimitsTest, IntersectionAppliedHighestActive) {
        {/*active=*/false, /*bitrate_bps=*/{absl::nullopt, absl::nullopt}},
        {/*active=*/true, /*bitrate_bps=*/{30000, 1555000}}},
       // Expectations:
-      {{1280 * 720,
+      {{1280 * 720, kDefaultSimulcastNumTemporalLayers,
         /*eq_bitrate_bps=*/{32000, 1555000},
         /*ne_bitrate_bps=*/{absl::nullopt, absl::nullopt}}});
   RunBaseTest(&test);
@@ -329,6 +353,7 @@ TEST_P(ResolutionBitrateLimitsTest, IntersectionAppliedHighestActive) {
 TEST_P(ResolutionBitrateLimitsTest, LimitsNotAppliedLowestActive) {
   webrtc::test::ScopedFieldTrials field_trials(
       "WebRTC-GetEncoderInfoOverride/"
+      "num_temporal_layers:2,"
       "frame_size_pixels:230400|921600,"
       "min_start_bitrate_bps:0|0,"
       "min_bitrate_bps:31000|32000,"
@@ -339,10 +364,10 @@ TEST_P(ResolutionBitrateLimitsTest, LimitsNotAppliedLowestActive) {
       {{/*active=*/true, /*bitrate_bps=*/{absl::nullopt, absl::nullopt}},
        {/*active=*/false, /*bitrate_bps=*/{absl::nullopt, absl::nullopt}}},
       // Expectations:
-      {{640 * 360,
+      {{640 * 360, kDefaultSimulcastNumTemporalLayers,
         /*eq_bitrate_bps=*/{absl::nullopt, absl::nullopt},
         /*ne_bitrate_bps=*/{31000, 2222000}},
-       {1280 * 720,
+       {1280 * 720, kDefaultSimulcastNumTemporalLayers,
         /*eq_bitrate_bps=*/{absl::nullopt, absl::nullopt},
         /*ne_bitrate_bps=*/{32000, 3333000}}});
   RunBaseTest(&test);
@@ -351,6 +376,7 @@ TEST_P(ResolutionBitrateLimitsTest, LimitsNotAppliedLowestActive) {
 TEST_P(ResolutionBitrateLimitsTest, LimitsNotAppliedSimulcast) {
   webrtc::test::ScopedFieldTrials field_trials(
       "WebRTC-GetEncoderInfoOverride/"
+      "num_temporal_layers:2,"
       "frame_size_pixels:230400|921600,"
       "min_start_bitrate_bps:0|0,"
       "min_bitrate_bps:31000|32000,"
@@ -361,10 +387,10 @@ TEST_P(ResolutionBitrateLimitsTest, LimitsNotAppliedSimulcast) {
       {{/*active=*/true, /*bitrate_bps=*/{absl::nullopt, absl::nullopt}},
        {/*active=*/true, /*bitrate_bps=*/{absl::nullopt, absl::nullopt}}},
       // Expectations:
-      {{640 * 360,
+      {{640 * 360, kDefaultSimulcastNumTemporalLayers,
         /*eq_bitrate_bps=*/{absl::nullopt, absl::nullopt},
         /*ne_bitrate_bps=*/{31000, 2222000}},
-       {1280 * 720,
+       {1280 * 720, kDefaultSimulcastNumTemporalLayers,
         /*eq_bitrate_bps=*/{absl::nullopt, absl::nullopt},
         /*ne_bitrate_bps=*/{32000, 3333000}}});
   RunBaseTest(&test);

@@ -1183,6 +1183,9 @@ VideoEncoder::EncoderInfo LibvpxVp8Encoder::GetEncoderInfo() const {
     info.resolution_bitrate_limits =
         encoder_info_override_.resolution_bitrate_limits();
   }
+  if (encoder_info_override_.num_temporal_layers()) {
+    info.num_temporal_layers = *encoder_info_override_.num_temporal_layers();
+  }
 
   const bool enable_scaling =
       num_active_streams_ == 1 &&

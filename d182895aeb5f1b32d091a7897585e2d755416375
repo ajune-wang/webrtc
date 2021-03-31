@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d72b46c_959b3d08",
+        "filename": "net/dcsctp/common/pair_hash.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-03-31T17:56:05Z",
+      "side": 1,
+      "message": "Copy-paste from reference code, and not needed. Removed.",
+      "parentUuid": "df0b0dcc_4857b7c0",
+      "revId": "d182895aeb5f1b32d091a7897585e2d755416375",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6fe70df6_11f94a0d",
@@ -31,6 +49,24 @@
       "writtenOn": "2021-03-31T15:28:30Z",
       "side": 1,
       "message": "are there expectations about the sequence number that are worth documenting?\ne.g. monotonically increasing etc",
+      "revId": "d182895aeb5f1b32d091a7897585e2d755416375",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8433ecce_cf79835e",
+        "filename": "net/dcsctp/common/sequence_numbers.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-03-31T17:56:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6fe70df6_11f94a0d",
       "revId": "d182895aeb5f1b32d091a7897585e2d755416375",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -52,6 +88,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4cd377fd_143e99cf",
+        "filename": "net/dcsctp/common/sequence_numbers.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-03-31T17:56:05Z",
+      "side": 1,
+      "message": "No, previous values are quite alright, and quite common to encounter due to out-of-order delivery.\n\nI have added two unit tests to cover this as well.",
+      "parentUuid": "f351702c_01048f1b",
+      "revId": "d182895aeb5f1b32d091a7897585e2d755416375",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "91933e43_a6834d6b",
@@ -65,6 +119,24 @@
       "writtenOn": "2021-03-31T15:28:30Z",
       "side": 1,
       "message": "if there are expectations around incorrect values causing the unwrapper to crash (dcheck etc), then we could consider death tests.",
+      "revId": "d182895aeb5f1b32d091a7897585e2d755416375",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "963db9cc_e1d47a3a",
+        "filename": "net/dcsctp/common/sequence_numbers_test.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-03-31T17:56:05Z",
+      "side": 1,
+      "message": "There are none that I can think of, but I did add some static_assert that the wrapped value is unsigned and considerably smaller than an int64_t, as that\u0027s required for the unwrapping to work. \n\nOne may argue that unwrapping a value that is very different from the last seen value should be considered something to warn about, but I would prefer for the caller to make that decision depending on how this sequence number is applied.",
+      "parentUuid": "91933e43_a6834d6b",
       "revId": "d182895aeb5f1b32d091a7897585e2d755416375",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

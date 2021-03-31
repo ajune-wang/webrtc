@@ -30,8 +30,7 @@ class EncodedImageDataInjector {
   // layer. |coding_entity_id| is unique id of decoder or encoder.
   virtual EncodedImage InjectData(uint16_t id,
                                   bool discard,
-                                  const EncodedImage& source,
-                                  int coding_entity_id) = 0;
+                                  const EncodedImage& source) = 0;
 };
 
 struct EncodedImageExtractionResult {
@@ -59,8 +58,8 @@ class EncodedImageDataExtractor {
   // Returns encoded image id, extracted from payload and also encoded image
   // with its original payload. For concatenated spatial layers it should be the
   // same id. |coding_entity_id| is unique id of decoder or encoder.
-  virtual EncodedImageExtractionResult ExtractData(const EncodedImage& source,
-                                                   int coding_entity_id) = 0;
+  virtual EncodedImageExtractionResult ExtractData(
+      const EncodedImage& source) = 0;
 };
 
 }  // namespace webrtc_pc_e2e

@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df0b0dcc_4857b7c0",
+        "filename": "net/dcsctp/common/pair_hash.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-03-31T15:28:30Z",
+      "side": 1,
+      "message": "is std::size_t intentional? (or can we omit \u0027std::\u0027?)",
+      "revId": "d182895aeb5f1b32d091a7897585e2d755416375",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fe70df6_11f94a0d",
+        "filename": "net/dcsctp/common/sequence_numbers.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-03-31T15:28:30Z",
+      "side": 1,
+      "message": "are there expectations about the sequence number that are worth documenting?\ne.g. monotonically increasing etc",
+      "revId": "d182895aeb5f1b32d091a7897585e2d755416375",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f351702c_01048f1b",
+        "filename": "net/dcsctp/common/sequence_numbers.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-03-31T15:28:30Z",
+      "side": 1,
+      "message": "is there an expectation that prev_value \u003c\u003d value?",
+      "revId": "d182895aeb5f1b32d091a7897585e2d755416375",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91933e43_a6834d6b",
+        "filename": "net/dcsctp/common/sequence_numbers_test.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-03-31T15:28:30Z",
+      "side": 1,
+      "message": "if there are expectations around incorrect values causing the unwrapper to crash (dcheck etc), then we could consider death tests.",
+      "revId": "d182895aeb5f1b32d091a7897585e2d755416375",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

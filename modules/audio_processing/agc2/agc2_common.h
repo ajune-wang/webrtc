@@ -44,6 +44,7 @@ constexpr float kFullBufferLeakFactor = 1.f - 1.f / kFullBufferSizeMs;
 constexpr float kInitialSpeechLevelEstimateDbfs = -30.f;
 
 // Robust VAD probability and speech decisions.
+constexpr int kDefaultVadRnnResetPeriodMs = 1500;
 constexpr float kDefaultSmoothedVadProbabilityAttack = 1.f;
 constexpr int kDefaultLevelEstimatorAdjacentSpeechFramesThreshold = 1;
 

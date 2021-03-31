@@ -356,6 +356,7 @@ class RTC_EXPORT AudioProcessing : public rtc::RefCountInterface {
       } fixed_digital;
       struct AdaptiveDigital {
         bool enabled = false;
+        int vad_reset_period_ms = 1500;
         float vad_probability_attack = 0.3f;
         LevelEstimator level_estimator = kRms;
         int level_estimator_adjacent_speech_frames_threshold = 6;

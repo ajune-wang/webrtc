@@ -38,6 +38,8 @@ class Vad : public VoiceActivityDetector {
   Vad& operator=(const Vad&) = delete;
   ~Vad() = default;
 
+  void Reset() override { rnn_vad_.Reset(); }
+
   float ComputeProbability(AudioFrameView<const float> frame) override {
     // The source number of channels is 1, because we always use the 1st
     // channel.
@@ -80,24 +82,40 @@ float SmoothedVadProbability(float p_old, float p_new, float attack) {
 }  // namespace
 
 VadLevelAnalyzer::VadLevelAnalyzer()
-    : VadLevelAnalyzer(kDefaultSmoothedVadProbabilityAttack,
+    : VadLevelAnalyzer(kDefaultVadRnnResetPeriodMs,
+                       kDefaultSmoothedVadProbabilityAttack,
                        GetAvailableCpuFeatures()) {}
 
-VadLevelAnalyzer::VadLevelAnalyzer(float vad_probability_attack,
+VadLevelAnalyzer::VadLevelAnalyzer(int vad_reset_period_ms,
+                                   float vad_probability_attack,
                                    const AvailableCpuFeatures& cpu_features)
-    : VadLevelAnalyzer(vad_probability_attack,
+    : VadLevelAnalyzer(vad_reset_period_ms,
+                       vad_probability_attack,
                        std::make_unique<Vad>(cpu_features)) {}
 
-VadLevelAnalyzer::VadLevelAnalyzer(float vad_probability_attack,
+VadLevelAnalyzer::VadLevelAnalyzer(int vad_reset_period_ms,
+                                   float vad_probability_attack,
                                    std::unique_ptr<VoiceActivityDetector> vad)
-    : vad_(std::move(vad)), vad_probability_attack_(vad_probability_attack) {
+    : vad_(std::move(vad)),
+      vad_reset_period_frames_(
+          rtc::CheckedDivExact(vad_reset_period_ms, kFrameDurationMs)),
+      vad_probability_attack_(vad_probability_attack),
+      time_to_vad_reset_(vad_reset_period_frames_),
+      vad_probability_(0.f) {
   RTC_DCHECK(vad_);
+  RTC_DCHECK_GT(vad_reset_period_frames_, 1);
 }
 
 VadLevelAnalyzer::~VadLevelAnalyzer() = default;
 
 VadLevelAnalyzer::Result VadLevelAnalyzer::AnalyzeFrame(
     AudioFrameView<const float> frame) {
+  // Periodically reset the VAD.
+  time_to_vad_reset_--;
+  if (time_to_vad_reset_ <= 0) {
+    vad_->Reset();
+    time_to_vad_reset_ = vad_reset_period_frames_;
+  }
   // Compute levels.
   float peak = 0.f;
   float rms = 0.f;

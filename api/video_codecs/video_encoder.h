@@ -260,6 +260,9 @@ class RTC_EXPORT VideoEncoder {
     // preferred pixel format. The order of the formats does not matter.
     absl::InlinedVector<VideoFrameBuffer::Type, kMaxPreferredPixelFormats>
         preferred_pixel_formats;
+
+    // The number of temporal layers to use. Usage is restricted to singlecast.
+    absl::optional<int> num_temporal_layers;
   };
 
   struct RTC_EXPORT RateControlParameters {

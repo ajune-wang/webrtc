@@ -178,6 +178,9 @@ std::string VideoEncoder::EncoderInfo::ToString() const {
     oss << VideoFrameBufferTypeToString(preferred_pixel_formats.at(i));
   }
   oss << "]";
+  if (num_temporal_layers.has_value()) {
+    oss << ", num_temporal_layers = " << num_temporal_layers.value();
+  }
   oss << "}";
   return oss.str();
 }
@@ -215,6 +218,10 @@ bool VideoEncoder::EncoderInfo::operator==(const EncoderInfo& rhs) const {
 
   if (resolution_bitrate_limits != rhs.resolution_bitrate_limits ||
       supports_simulcast != rhs.supports_simulcast) {
+    return false;
+  }
+
+  if (num_temporal_layers != rhs.num_temporal_layers) {
     return false;
   }
 

@@ -366,9 +366,9 @@ int NumActiveStreams(const std::vector<VideoStream>& streams) {
   return num_active;
 }
 
-void ApplyVp9BitrateLimits(const VideoEncoder::EncoderInfo& encoder_info,
-                           const VideoEncoderConfig& encoder_config,
-                           VideoCodec* codec) {
+void ApplyVp9EncoderInfo(const VideoEncoder::EncoderInfo& encoder_info,
+                         const VideoEncoderConfig& encoder_config,
+                         VideoCodec* codec) {
   if (codec->codecType != VideoCodecType::kVideoCodecVP9 ||
       encoder_config.simulcast_layers.size() <= 1 ||
       VideoStreamEncoderResourceManager::IsSimulcast(encoder_config)) {
@@ -382,11 +382,6 @@ void ApplyVp9BitrateLimits(const VideoEncoder::EncoderInfo& encoder_info,
   if (!pixels.has_value()) {
     return;
   }
-  absl::optional<VideoEncoder::ResolutionBitrateLimits> bitrate_limits =
-      encoder_info.GetEncoderBitrateLimitsForResolution(*pixels);
-  if (!bitrate_limits.has_value()) {
-    return;
-  }
 
   // Index for the active stream.
   absl::optional<size_t> index;
@@ -395,6 +390,25 @@ void ApplyVp9BitrateLimits(const VideoEncoder::EncoderInfo& encoder_info,
       index = i;
   }
   if (!index.has_value()) {
+    return;
+  }
+
+  if (encoder_info.num_temporal_layers) {
+    // Use minimum if num_temporal_layers is set by RtpEncodingParameters.
+    int num_temporal_layers = std::min(
+        *encoder_info.num_temporal_layers,
+        static_cast<int>(
+            encoder_config.simulcast_layers[*index]
+                .num_temporal_layers.value_or(kMaxTemporalStreams + 1)));
+    for (int i = 0; i < codec->VP9()->numberOfSpatialLayers; ++i) {
+      codec->spatialLayers[i].numberOfTemporalLayers = num_temporal_layers;
+    }
+    codec->VP9()->numberOfTemporalLayers = num_temporal_layers;
+  }
+
+  absl::optional<VideoEncoder::ResolutionBitrateLimits> bitrate_limits =
+      encoder_info.GetEncoderBitrateLimitsForResolution(*pixels);
+  if (!bitrate_limits.has_value()) {
     return;
   }
 
@@ -433,11 +447,11 @@ void ApplyVp9BitrateLimits(const VideoEncoder::EncoderInfo& encoder_info,
   }
 }
 
-void ApplyEncoderBitrateLimitsIfSingleActiveStream(
+void ApplyEncoderInfoIfSingleActiveStream(
     const VideoEncoder::EncoderInfo& encoder_info,
     const std::vector<VideoStream>& encoder_config_layers,
     std::vector<VideoStream>* streams) {
-  // Apply limits if simulcast with one active stream (expect lowest).
+  // Apply encoder info if simulcast with one active stream (expect lowest).
   bool single_active_stream =
       streams->size() > 1 && NumActiveStreams(*streams) == 1 &&
       !streams->front().active && NumActiveStreams(encoder_config_layers) == 1;
@@ -453,6 +467,18 @@ void ApplyEncoderBitrateLimitsIfSingleActiveStream(
   }
   if (streams->size() < (index + 1) || !(*streams)[index].active) {
     return;
+  }
+
+  if (encoder_info.num_temporal_layers) {
+    // Use minimum if num_temporal_layers is set by RtpEncodingParameters.
+    int num_temporal_layers =
+        std::min(*encoder_info.num_temporal_layers,
+                 static_cast<int>(
+                     encoder_config_layers[index].num_temporal_layers.value_or(
+                         kMaxTemporalStreams + 1)));
+    for (auto& stream : *streams) {
+      stream.num_temporal_layers = num_temporal_layers;
+    }
   }
 
   // Get bitrate limits for active stream.
@@ -961,7 +987,7 @@ void VideoStreamEncoder::ReconfigureEncoder() {
     }
   }
 
-  ApplyEncoderBitrateLimitsIfSingleActiveStream(
+  ApplyEncoderInfoIfSingleActiveStream(
       GetEncoderInfoWithBitrateLimitUpdate(
           encoder_->GetEncoderInfo(), encoder_config_, default_limits_allowed_),
       encoder_config_.simulcast_layers, &streams);
@@ -976,10 +1002,10 @@ void VideoStreamEncoder::ReconfigureEncoder() {
     // thus some cropping might be needed.
     crop_width_ = last_frame_info_->width - codec.width;
     crop_height_ = last_frame_info_->height - codec.height;
-    ApplyVp9BitrateLimits(GetEncoderInfoWithBitrateLimitUpdate(
-                              encoder_->GetEncoderInfo(), encoder_config_,
-                              default_limits_allowed_),
-                          encoder_config_, &codec);
+    ApplyVp9EncoderInfo(GetEncoderInfoWithBitrateLimitUpdate(
+                            encoder_->GetEncoderInfo(), encoder_config_,
+                            default_limits_allowed_),
+                        encoder_config_, &codec);
   }
 
   char log_stream_buf[4 * 1024];

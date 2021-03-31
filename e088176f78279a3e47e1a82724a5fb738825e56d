@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8a2252f_ad3b1abe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-03-31T10:13:00Z",
+      "side": 1,
+      "message": "lgtm % nits",
+      "revId": "e088176f78279a3e47e1a82724a5fb738825e56d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4fdff3b0_481fea4b",
+        "filename": "net/dcsctp/packet/tlv_trait.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-03-31T10:13:00Z",
+      "side": 1,
+      "message": "nit: s/an/a",
+      "range": {
+        "startLine": 31,
+        "startChar": 59,
+        "endLine": 31,
+        "endChar": 60
+      },
+      "revId": "e088176f78279a3e47e1a82724a5fb738825e56d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11533803_a564b894",
+        "filename": "net/dcsctp/packet/tlv_trait.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-03-31T10:13:00Z",
+      "side": 1,
+      "message": "is there a way for us to move some of the implementation to a cc file?\n\nI\u0027m thinking that it would be good to avoid #include-ing logging.h for example, as it\u0027s a common header leak that can cause other files to miss out on iwyu.\n\nno biggie though",
+      "revId": "e088176f78279a3e47e1a82724a5fb738825e56d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d097804_734b4131",
+        "filename": "net/dcsctp/packet/tlv_trait.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-03-31T10:13:00Z",
+      "side": 1,
+      "message": "nit: could make this const:\n\nconst int type \u003d Config::kTypeSizeInBytes \u003d\u003d 1 ? tlv_header.Load8\u003c0\u003e() : tlv_header.Load16\u003c0\u003e();",
+      "revId": "e088176f78279a3e47e1a82724a5fb738825e56d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16ce0fb6_9c87a4db",
+        "filename": "net/dcsctp/packet/tlv_trait.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-03-31T10:13:00Z",
+      "side": 1,
+      "message": "nit: could be const, same for padding below",
+      "revId": "e088176f78279a3e47e1a82724a5fb738825e56d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

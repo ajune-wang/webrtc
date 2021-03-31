@@ -248,6 +248,9 @@ class RTC_EXPORT VideoEncoder {
     absl::optional<ResolutionBitrateLimits>
     GetEncoderBitrateLimitsForResolution(int frame_size_pixels) const;
 
+    // The number of temporal layers to use. Usage is restricted to singlecast.
+    absl::optional<int> num_temporal_layers;
+
     // If true, this encoder has internal support for generating simulcast
     // streams. Otherwise, an adapter class will be needed.
     // Even if true, the config provided to InitEncode() might not be supported,

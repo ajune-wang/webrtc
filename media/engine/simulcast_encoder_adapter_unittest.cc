@@ -1322,7 +1322,8 @@ TEST_F(TestSimulcastEncoderAdapterFake, EncoderInfoFromFieldTrial) {
   test::ScopedFieldTrials field_trials(
       "WebRTC-SimulcastEncoderAdapter-GetEncoderInfoOverride/"
       "requested_resolution_alignment:8,"
-      "apply_alignment_to_all_simulcast_layers/");
+      "apply_alignment_to_all_simulcast_layers,"
+      "num_temporal_layers:2/");
   SetUp();
   SimulcastTestFixtureImpl::DefaultSettings(
       &codec_, static_cast<const int*>(kTestTemporalLayerProfile),
@@ -1335,6 +1336,7 @@ TEST_F(TestSimulcastEncoderAdapterFake, EncoderInfoFromFieldTrial) {
   EXPECT_TRUE(
       adapter_->GetEncoderInfo().apply_alignment_to_all_simulcast_layers);
   EXPECT_TRUE(adapter_->GetEncoderInfo().resolution_bitrate_limits.empty());
+  EXPECT_EQ(2, adapter_->GetEncoderInfo().num_temporal_layers);
 }
 
 TEST_F(TestSimulcastEncoderAdapterFake,
@@ -1363,6 +1365,7 @@ TEST_F(TestSimulcastEncoderAdapterFake,
           VideoEncoder::ResolutionBitrateLimits{123, 11000, 44000, 77000},
           VideoEncoder::ResolutionBitrateLimits{456, 22000, 55000, 88000},
           VideoEncoder::ResolutionBitrateLimits{789, 33000, 66000, 99000}));
+  EXPECT_EQ(absl::nullopt, adapter_->GetEncoderInfo().num_temporal_layers);
 }
 
 TEST_F(TestSimulcastEncoderAdapterFake, ReportsInternalSource) {

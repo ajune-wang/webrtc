@@ -794,6 +794,9 @@ void SimulcastEncoderAdapter::OverrideFromFieldTrial(
     info->resolution_bitrate_limits =
         encoder_info_override_.resolution_bitrate_limits();
   }
+  if (encoder_info_override_.num_temporal_layers()) {
+    info->num_temporal_layers = *encoder_info_override_.num_temporal_layers();
+  }
 }
 
 VideoEncoder::EncoderInfo SimulcastEncoderAdapter::GetEncoderInfo() const {

@@ -16,6 +16,24 @@
       "message": "removing this method since it\u0027s only used in one place and the member variable is accessed directly elsewhere (easier to just search for \"have_pending_rtp_data_channel_\" to find where it\u0027s used).",
       "revId": "1c35e610ce15837665303710df99cf21ecddaf15",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7895d246_91c53aaf",
+        "filename": "pc/sdp_offer_answer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-04-01T08:24:54Z",
+      "side": 0,
+      "message": "Ack",
+      "parentUuid": "186e93c1_555810e7",
+      "revId": "1c35e610ce15837665303710df99cf21ecddaf15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

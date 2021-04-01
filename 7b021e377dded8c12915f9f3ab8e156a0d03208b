@@ -63,6 +63,30 @@
       },
       "revId": "7b021e377dded8c12915f9f3ab8e156a0d03208b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ee3e8d1_e51039a0",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 4682,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-04-01T08:24:54Z",
+      "side": 1,
+      "message": "So we generally should not use the compile time annotation RTC_RUN_ON on public methods?",
+      "parentUuid": "2eed4428_33022ef6",
+      "range": {
+        "startLine": 4682,
+        "startChar": 8,
+        "endLine": 4682,
+        "endChar": 51
+      },
+      "revId": "7b021e377dded8c12915f9f3ab8e156a0d03208b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

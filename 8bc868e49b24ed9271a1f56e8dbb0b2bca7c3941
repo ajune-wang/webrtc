@@ -16,6 +16,24 @@
       "message": "sdp_handler_ may be null if Initialize() failed (see check in dtor). I think we should consider setting sdp_handler_ on construction, make it const and work towards getting rid of the \u0027Initialize\u0027 step.",
       "revId": "8bc868e49b24ed9271a1f56e8dbb0b2bca7c3941",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8194ab5_6c3139e6",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-04-01T10:33:45Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "5af1202d_c94ad9fe",
+      "revId": "8bc868e49b24ed9271a1f56e8dbb0b2bca7c3941",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

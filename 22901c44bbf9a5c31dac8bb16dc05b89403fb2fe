@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "caa6a0b2_e88b03d5",
+        "filename": "pc/sdp_offer_answer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-04-01T10:33:45Z",
+      "side": 1,
+      "message": "Callbacks internal in this class, that is. Comment sounds a bit like it\u0027s a public utility.\n\nWould it be practical to instead invalidate the weak pointers (i.e., call SdpOfferAnswerHandler::PrepareForShutdown) when the peer connection transitions to closed?",
+      "range": {
+        "startLine": 556,
+        "startChar": 32,
+        "endLine": 556,
+        "endChar": 41
+      },
+      "revId": "22901c44bbf9a5c31dac8bb16dc05b89403fb2fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

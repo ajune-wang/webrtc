@@ -553,6 +553,11 @@ class SdpOfferAnswerHandler : public SdpStateProvider,
   // payload type based demuxing in the affected channels.
   bool UpdatePayloadTypeDemuxingState(cricket::ContentSource source);
 
+  // Utility method to use from callbacks to see if we're being shut down
+  // and should abort.
+  static bool IsShuttingDown(
+      const rtc::WeakPtr<SdpOfferAnswerHandler>& weak_ptr);
+
   // ==================================================================
   // Access to pc_ variables
   cricket::ChannelManager* channel_manager() const;

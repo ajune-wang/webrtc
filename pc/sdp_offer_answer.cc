@@ -1082,6 +1082,8 @@ void SdpOfferAnswerHandler::PrepareForShutdown() {
 
 void SdpOfferAnswerHandler::Close() {
   ChangeSignalingState(PeerConnectionInterface::kClosed);
+  // Invalidate our weak pointers for pending callbacks.
+  PrepareForShutdown();
 }
 
 void SdpOfferAnswerHandler::RestartIce() {

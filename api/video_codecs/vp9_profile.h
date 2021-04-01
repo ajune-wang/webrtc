@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MEDIA_BASE_VP9_PROFILE_H_
-#define MEDIA_BASE_VP9_PROFILE_H_
+#ifndef API_VIDEO_CODECS_VP9_PROFILE_H_
+#define API_VIDEO_CODECS_VP9_PROFILE_H_
 
 #include <string>
 
@@ -50,4 +50,4 @@ bool IsSameVP9Profile(const SdpVideoFormat::Parameters& params1,
 
 }  // namespace webrtc
 
-#endif  // MEDIA_BASE_VP9_PROFILE_H_
+#endif  // API_VIDEO_CODECS_VP9_PROFILE_H_

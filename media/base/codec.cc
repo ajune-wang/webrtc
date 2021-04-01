@@ -12,8 +12,8 @@
 
 #include "absl/algorithm/container.h"
 #include "absl/strings/match.h"
-#include "media/base/h264_profile_level_id.h"
-#include "media/base/vp9_profile.h"
+#include "api/video_codecs/h264_profile_level_id.h"
+#include "api/video_codecs/vp9_profile.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/string_encode.h"
@@ -56,18 +56,6 @@ bool IsSameCodecSpecific(const std::string& name1,
   if (either_name_matches(kVp9CodecName))
     return webrtc::IsSameVP9Profile(params1, params2);
   return true;
-}
-
-bool IsCodecInList(
-    const webrtc::SdpVideoFormat& format,
-    const std::vector<webrtc::SdpVideoFormat>& existing_formats) {
-  for (auto existing_format : existing_formats) {
-    if (IsSameCodec(format.name, format.parameters, existing_format.name,
-                    existing_format.parameters)) {
-      return true;
-    }
-  }
-  return false;
 }
 
 }  // namespace
@@ -452,6 +440,8 @@ const VideoCodec* FindMatchingCodec(
   return nullptr;
 }
 
+// TODO(kron): Remove once downstream projects stopped using this method in
+// favor of SdpVideoFormat::IsSameCodec().
 bool IsSameCodec(const std::string& name1,
                  const CodecParameterMap& params1,
                  const std::string& name2,
@@ -492,7 +482,7 @@ void AddH264ConstrainedBaselineProfileToSupportedFormats(
   std::copy_if(cbr_supported_formats.begin(), cbr_supported_formats.end(),
                std::back_inserter(*supported_formats),
                [supported_formats](const webrtc::SdpVideoFormat& format) {
-                 return !IsCodecInList(format, *supported_formats);
+                 return !format.IsCodecInList(*supported_formats);
                });
 
   if (supported_formats->size() > original_size) {

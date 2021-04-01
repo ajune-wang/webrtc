@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "058652c0_24afb1c5",
+        "filename": "system_wrappers/source/clock.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-01T11:15:08Z",
+      "side": 1,
+      "message": "Can we move it from https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/modules/rtp_rtcp/source/time_util.cc;l\u003d22-26;drc\u003d693bf1eea1e84cc8b09eed1f8fd99c7a40ae5fbd.\n\nIf this is needed in two places, it might make sense to create a utility.\n\n+nisse@ as well as system_wrappers owner.\n\n(the CL fails to build because WebRTC builds with -Wunused-function + -Werror, so maybe moving the function will fix).",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 1
+      },
+      "revId": "5fad86d10ccb8d1e41bd24cf74c00e9a88a31a37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

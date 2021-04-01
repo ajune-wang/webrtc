@@ -22,6 +22,30 @@
       },
       "revId": "22901c44bbf9a5c31dac8bb16dc05b89403fb2fe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d65411f_7c0d5d5b",
+        "filename": "pc/sdp_offer_answer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-01T10:49:25Z",
+      "side": 1,
+      "message": "yes that would be much better. Turns out that there\u0027s a call to SdpOfferAnswer::Close() where we can do that.",
+      "parentUuid": "caa6a0b2_e88b03d5",
+      "range": {
+        "startLine": 556,
+        "startChar": 32,
+        "endLine": 556,
+        "endChar": 41
+      },
+      "revId": "22901c44bbf9a5c31dac8bb16dc05b89403fb2fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

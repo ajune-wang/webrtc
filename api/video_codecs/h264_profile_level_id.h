@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MEDIA_BASE_H264_PROFILE_LEVEL_ID_H_
-#define MEDIA_BASE_H264_PROFILE_LEVEL_ID_H_
+#ifndef API_VIDEO_CODECS_H264_PROFILE_LEVEL_ID_H_
+#define API_VIDEO_CODECS_H264_PROFILE_LEVEL_ID_H_
 
 #include <map>
 #include <string>
@@ -113,4 +113,4 @@ bool IsSameH264Profile(const CodecParameterMap& params1,
 }  // namespace H264
 }  // namespace webrtc
 
-#endif  // MEDIA_BASE_H264_PROFILE_LEVEL_ID_H_
+#endif  // API_VIDEO_CODECS_H264_PROFILE_LEVEL_ID_H_

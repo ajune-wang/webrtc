@@ -33,6 +33,24 @@
       "message": "This is a little confusing since OpenSSLStreamAdapter overrides this and calls SSLStreamAdapter::OnEvent in a roundabout way, similar to how the other methods like Write worked before this change.\n\nMy suggestion would be to handle the ownership of StreamInterface and forwarding of events in OpenSSLStreamAdapter, calling SignalEvent(this, ...) directly instead of SSLStreamAdapter::OnEvent.",
       "revId": "efdeb1601a4770c5f8e47e2f354ef0f134f9ef2e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d18cd33_640a7f5f",
+        "filename": "rtc_base/ssl_stream_adapter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-04-01T08:19:13Z",
+      "side": 1,
+      "message": "I\u0027m also a bit confused... I tried to not change the behavior of SSLStreamAdapter in any way in this cl, since it\u0027s not clear to me if it is intended as concrete class usable by itself. If not, maybe next step should be to delete it and merge into OpenSSLStreamAdapter?\n\nThe OnEvent method is a bit special, in that SSLStreamAdapter connects it in its constructor, \n\n  stream_-\u003eSignalEvent.connect(this, \u0026SSLStreamAdapter::OnEvent);\n\nThat would move down to OpenSSLStreamAdapter, if we move the `stream_` member variable.",
+      "parentUuid": "efc202cd_acaa8fec",
+      "revId": "efdeb1601a4770c5f8e47e2f354ef0f134f9ef2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

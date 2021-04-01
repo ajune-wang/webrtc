@@ -44,6 +44,7 @@
 #include "rtc_base/experiments/field_trial_parser.h"
 #include "rtc_base/numerics/sequence_number_util.h"
 #include "rtc_base/system/no_unique_address.h"
+#include "rtc_base/task_utils/pending_task_safety_flag.h"
 #include "rtc_base/thread_annotations.h"
 #include "video/buffered_frame_decryptor.h"
 #include "video/rtp_video_stream_receiver_frame_transformer_delegate.h"
@@ -70,6 +71,7 @@ class RtpVideoStreamReceiver2 : public LossNotificationSender,
  public:
   RtpVideoStreamReceiver2(
       TaskQueueBase* current_queue,
+      TaskQueueBase* network_thread,
       Clock* clock,
       Transport* transport,
       RtcpRttStats* rtt_stats,
@@ -91,17 +93,17 @@ class RtpVideoStreamReceiver2 : public LossNotificationSender,
       rtc::scoped_refptr<FrameTransformerInterface> frame_transformer);
   ~RtpVideoStreamReceiver2() override;
 
+  // Note: Since adding receive codecs affects the map of payload types, this
+  // method must be called on the network thread.
   void AddReceiveCodec(uint8_t payload_type,
                        const VideoCodec& video_codec,
                        const std::map<std::string, std::string>& codec_params,
                        bool raw_payload);
 
-  void StartReceive();
-  void StopReceive();
-
   // Produces the transport-related timestamps; current_delay_ms is left unset.
   absl::optional<Syncable::Info> GetSyncInfo() const;
 
+  // Called on the network thread when we've received an RTCP packet.
   bool DeliverRtcp(const uint8_t* rtcp_packet, size_t rtcp_packet_length);
 
   void FrameContinuous(int64_t seq_num);
@@ -110,11 +112,9 @@ class RtpVideoStreamReceiver2 : public LossNotificationSender,
 
   void SignalNetworkState(NetworkState state);
 
-  // Returns number of different frames seen.
-  int GetUniqueFramesSeen() const {
-    RTC_DCHECK_RUN_ON(&worker_task_checker_);
-    return frame_counter_.GetUniqueSeen();
-  }
+  // Returns number of different frames seen. Must be called on the
+  // network thread.
+  int GetUniqueFramesSeen() const;
 
   // Implements RtpPacketSinkInterface.
   void OnRtpPacket(const RtpPacketReceived& packet) override;
@@ -247,25 +247,33 @@ class RtpVideoStreamReceiver2 : public LossNotificationSender,
 
   // Entry point doing non-stats work for a received packet. Called
   // for the same packet both before and after RED decapsulation.
-  void ReceivePacket(const RtpPacketReceived& packet);
+  void ReceivePacket(const RtpPacketReceived& packet)
+      RTC_RUN_ON(network_thread_);
   // Parses and handles RED headers.
   // This function assumes that it's being called from only one thread.
-  void ParseAndHandleEncapsulatingHeader(const RtpPacketReceived& packet);
-  void NotifyReceiverOfEmptyPacket(uint16_t seq_num);
+  void ParseAndHandleEncapsulatingHeader(const RtpPacketReceived& packet)
+      RTC_RUN_ON(network_thread_);
+  void NotifyReceiverOfEmptyPacket(uint16_t seq_num)
+      RTC_RUN_ON(network_thread_);
   void UpdateHistograms();
   bool IsRedEnabled() const;
-  void InsertSpsPpsIntoTracker(uint8_t payload_type);
-  void OnInsertedPacket(video_coding::PacketBuffer::InsertResult result);
+  void InsertSpsPpsIntoTracker(uint8_t payload_type)
+      RTC_RUN_ON(network_thread_);
+  void OnInsertedPacket(video_coding::PacketBuffer::InsertResult result)
+      RTC_RUN_ON(network_thread_);
   ParseGenericDependenciesResult ParseGenericDependenciesExtension(
       const RtpPacketReceived& rtp_packet,
-      RTPVideoHeader* video_header) RTC_RUN_ON(worker_task_checker_);
+      RTPVideoHeader* video_header) RTC_RUN_ON(network_thread_);
   void OnAssembledFrame(std::unique_ptr<RtpFrameObject> frame);
 
+  TaskQueueBase* const worker_thread_;
+  TaskQueueBase* const network_thread_;
   Clock* const clock_;
   // Ownership of this object lies with VideoReceiveStream, which owns |this|.
   const VideoReceiveStream::Config& config_;
   PacketRouter* const packet_router_;
   ProcessThread* const process_thread_;
+  ScopedTaskSafety worker_safety_;
 
   RemoteNtpTimeEstimator ntp_estimator_;
 
@@ -277,9 +285,7 @@ class RtpVideoStreamReceiver2 : public LossNotificationSender,
   ReceiveStatistics* const rtp_receive_statistics_;
   std::unique_ptr<UlpfecReceiver> ulpfec_receiver_;
 
-  RTC_NO_UNIQUE_ADDRESS SequenceChecker worker_task_checker_;
-  bool receiving_ RTC_GUARDED_BY(worker_task_checker_);
-  int64_t last_packet_log_ms_ RTC_GUARDED_BY(worker_task_checker_);
+  int64_t last_packet_log_ms_ RTC_GUARDED_BY(network_thread_);
 
   const std::unique_ptr<ModuleRtpRtcpImpl2> rtp_rtcp_;
 
@@ -291,58 +297,55 @@ class RtpVideoStreamReceiver2 : public LossNotificationSender,
   std::unique_ptr<LossNotificationController> loss_notification_controller_;
 
   video_coding::PacketBuffer packet_buffer_;
-  UniqueTimestampCounter frame_counter_ RTC_GUARDED_BY(worker_task_checker_);
-  SeqNumUnwrapper<uint16_t> frame_id_unwrapper_
-      RTC_GUARDED_BY(worker_task_checker_);
+  UniqueTimestampCounter frame_counter_ RTC_GUARDED_BY(network_thread_);
+  SeqNumUnwrapper<uint16_t> frame_id_unwrapper_ RTC_GUARDED_BY(network_thread_);
 
   // Video structure provided in the dependency descriptor in a first packet
   // of a key frame. It is required to parse dependency descriptor in the
   // following delta packets.
   std::unique_ptr<FrameDependencyStructure> video_structure_
-      RTC_GUARDED_BY(worker_task_checker_);
+      RTC_GUARDED_BY(network_thread_);
   // Frame id of the last frame with the attached video structure.
   // absl::nullopt when `video_structure_ == nullptr`;
   absl::optional<int64_t> video_structure_frame_id_
-      RTC_GUARDED_BY(worker_task_checker_);
+      RTC_GUARDED_BY(network_thread_);
 
   std::unique_ptr<RtpFrameReferenceFinder> reference_finder_
-      RTC_GUARDED_BY(worker_task_checker_);
-  absl::optional<VideoCodecType> current_codec_
-      RTC_GUARDED_BY(worker_task_checker_);
-  uint32_t last_assembled_frame_rtp_timestamp_
-      RTC_GUARDED_BY(worker_task_checker_);
+      RTC_GUARDED_BY(worker_thread_);
+  absl::optional<VideoCodecType> current_codec_ RTC_GUARDED_BY(worker_thread_);
+  uint32_t last_assembled_frame_rtp_timestamp_ RTC_GUARDED_BY(worker_thread_);
 
   std::map<int64_t, uint16_t> last_seq_num_for_pic_id_
-      RTC_GUARDED_BY(worker_task_checker_);
-  video_coding::H264SpsPpsTracker tracker_ RTC_GUARDED_BY(worker_task_checker_);
+      RTC_GUARDED_BY(worker_thread_);
+  video_coding::H264SpsPpsTracker tracker_ RTC_GUARDED_BY(network_thread_);
 
   // Maps payload id to the depacketizer.
   std::map<uint8_t, std::unique_ptr<VideoRtpDepacketizer>> payload_type_map_
-      RTC_GUARDED_BY(worker_task_checker_);
+      RTC_GUARDED_BY(network_thread_);
 
   // TODO(johan): Remove pt_codec_params_ once
   // https://bugs.chromium.org/p/webrtc/issues/detail?id=6883 is resolved.
   // Maps a payload type to a map of out-of-band supplied codec parameters.
   std::map<uint8_t, std::map<std::string, std::string>> pt_codec_params_
-      RTC_GUARDED_BY(worker_task_checker_);
-  int16_t last_payload_type_ RTC_GUARDED_BY(worker_task_checker_) = -1;
+      RTC_GUARDED_BY(network_thread_);
+  int16_t last_payload_type_ RTC_GUARDED_BY(network_thread_) = -1;
 
-  bool has_received_frame_ RTC_GUARDED_BY(worker_task_checker_);
+  bool has_received_frame_ RTC_GUARDED_BY(worker_thread_);
 
   absl::optional<uint32_t> last_received_rtp_timestamp_
-      RTC_GUARDED_BY(worker_task_checker_);
+      RTC_GUARDED_BY(worker_thread_);
   absl::optional<int64_t> last_received_rtp_system_time_ms_
-      RTC_GUARDED_BY(worker_task_checker_);
+      RTC_GUARDED_BY(worker_thread_);
 
   // Handles incoming encrypted frames and forwards them to the
   // rtp_reference_finder if they are decryptable.
   std::unique_ptr<BufferedFrameDecryptor> buffered_frame_decryptor_
-      RTC_PT_GUARDED_BY(worker_task_checker_);
-  bool frames_decryptable_ RTC_GUARDED_BY(worker_task_checker_);
+      RTC_PT_GUARDED_BY(worker_thread_);
+  bool frames_decryptable_ RTC_GUARDED_BY(worker_thread_);
   absl::optional<ColorSpace> last_color_space_;
 
   AbsoluteCaptureTimeReceiver absolute_capture_time_receiver_
-      RTC_GUARDED_BY(worker_task_checker_);
+      RTC_GUARDED_BY(network_thread_);
 
   int64_t last_completed_picture_id_ = 0;
 

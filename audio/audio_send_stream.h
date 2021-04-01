@@ -26,6 +26,7 @@
 #include "rtc_base/race_checker.h"
 #include "rtc_base/synchronization/mutex.h"
 #include "rtc_base/task_queue.h"
+#include "rtc_base/task_utils/pending_task_safety_flag.h"
 
 namespace webrtc {
 class RtcEventLog;
@@ -148,7 +149,7 @@ class AudioSendStream final : public webrtc::AudioSendStream,
   // Sets per-packet overhead on encoded (for ANA) based on current known values
   // of transport and packetization overheads.
   void UpdateOverheadForEncoder()
-      RTC_EXCLUSIVE_LOCKS_REQUIRED(overhead_per_packet_lock_);
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(network_thread_checker_);
 
   // Returns combined per-packet overhead.
   size_t GetPerPacketOverheadBytes() const
@@ -158,14 +159,17 @@ class AudioSendStream final : public webrtc::AudioSendStream,
       RTC_RUN_ON(worker_thread_checker_);
 
   void UpdateCachedTargetAudioBitrateConstraints()
-      RTC_RUN_ON(worker_thread_checker_);
+      RTC_RUN_ON(network_thread_checker_);
 
   Clock* clock_;
 
+  TaskQueueBase* const worker_thread_;
   SequenceChecker worker_thread_checker_;
+  SequenceChecker network_thread_checker_;
   SequenceChecker pacer_thread_checker_;
   rtc::RaceChecker audio_capture_race_checker_;
   rtc::TaskQueue* worker_queue_;
+  ScopedTaskSafety task_safety_;
 
   const bool allocate_audio_without_feedback_;
   const bool force_no_audio_feedback_ = allocate_audio_without_feedback_;
@@ -215,7 +219,7 @@ class AudioSendStream final : public webrtc::AudioSendStream,
   static int TransportSeqNumId(const Config& config);
 
   mutable Mutex overhead_per_packet_lock_;
-  size_t overhead_per_packet_ RTC_GUARDED_BY(overhead_per_packet_lock_) = 0;
+  size_t overhead_per_packet_ RTC_GUARDED_BY(network_thread_checker_) = 0;
 
   // Current transport overhead (ICE, TURN, etc.)
   size_t transport_overhead_per_packet_bytes_

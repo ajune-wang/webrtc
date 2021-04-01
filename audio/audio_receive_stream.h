@@ -22,6 +22,7 @@
 #include "call/audio_receive_stream.h"
 #include "call/syncable.h"
 #include "modules/rtp_rtcp/source/source_tracker.h"
+#include "rtc_base/system/no_unique_address.h"
 #include "system_wrappers/include/clock.h"
 
 namespace webrtc {
@@ -44,7 +45,6 @@ class AudioReceiveStream final : public webrtc::AudioReceiveStream,
                                  public Syncable {
  public:
   AudioReceiveStream(Clock* clock,
-                     RtpStreamReceiverControllerInterface* receiver_controller,
                      PacketRouter* packet_router,
                      ProcessThread* module_process_thread,
                      NetEqFactory* neteq_factory,
@@ -54,7 +54,6 @@ class AudioReceiveStream final : public webrtc::AudioReceiveStream,
   // For unit tests, which need to supply a mock channel receive.
   AudioReceiveStream(
       Clock* clock,
-      RtpStreamReceiverControllerInterface* receiver_controller,
       PacketRouter* packet_router,
       const webrtc::AudioReceiveStream::Config& config,
       const rtc::scoped_refptr<webrtc::AudioState>& audio_state,
@@ -66,6 +65,22 @@ class AudioReceiveStream final : public webrtc::AudioReceiveStream,
   AudioReceiveStream& operator=(const AudioReceiveStream&) = delete;
 
   ~AudioReceiveStream() override;
+
+  // Called on the network thread to register/unregister with the network
+  // transport.
+  void RegisterWithTransport(
+      RtpStreamReceiverControllerInterface* receiver_controller);
+  void UnregisterFromTransport();
+
+  // The local and remote ssrc values as well as sync_group never change as part
+  // of the configuration can be considered const. Therefore they can also be
+  // read from any thread.
+  // TODO(tommi): This isn't really safe because the config_ struct gets
+  // overwritten on the worker thread. We need separate const variables
+  // for this.
+  uint32_t local_ssrc() const { return config_.rtp.local_ssrc; }
+  uint32_t remote_ssrc() const { return config_.rtp.remote_ssrc; }
+  // const std::string& sync_group() const { return config_.sync_group; }
 
   // webrtc::AudioReceiveStream implementation.
   void Reconfigure(const webrtc::AudioReceiveStream::Config& config) override;
@@ -108,16 +123,20 @@ class AudioReceiveStream final : public webrtc::AudioReceiveStream,
 
   AudioState* audio_state() const;
 
-  SequenceChecker worker_thread_checker_;
+  RTC_NO_UNIQUE_ADDRESS SequenceChecker worker_thread_checker_;
+  RTC_NO_UNIQUE_ADDRESS SequenceChecker module_process_thread_checker_;
+  RTC_NO_UNIQUE_ADDRESS SequenceChecker network_thread_checker_;
   webrtc::AudioReceiveStream::Config config_;
   rtc::scoped_refptr<webrtc::AudioState> audio_state_;
   SourceTracker source_tracker_;
   const std::unique_ptr<voe::ChannelReceiveInterface> channel_receive_;
-  AudioSendStream* associated_send_stream_ = nullptr;
+  AudioSendStream* associated_send_stream_
+      RTC_GUARDED_BY(network_thread_checker_) = nullptr;
 
   bool playing_ RTC_GUARDED_BY(worker_thread_checker_) = false;
 
-  std::unique_ptr<RtpStreamReceiverInterface> rtp_stream_receiver_;
+  std::unique_ptr<RtpStreamReceiverInterface> rtp_stream_receiver_
+      RTC_GUARDED_BY(network_thread_checker_);
 };
 }  // namespace internal
 }  // namespace webrtc

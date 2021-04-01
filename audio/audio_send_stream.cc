@@ -39,6 +39,8 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/strings/audio_format_to_string.h"
 #include "rtc_base/task_queue.h"
+#include "rtc_base/task_utils/to_queued_task.h"
+#include "rtc_base/thread.h"
 #include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
@@ -142,6 +144,7 @@ AudioSendStream::AudioSendStream(
     const absl::optional<RtpState>& suspended_rtp_state,
     std::unique_ptr<voe::ChannelSendInterface> channel_send)
     : clock_(clock),
+      worker_thread_(rtc::Thread::Current()),
       worker_queue_(rtp_transport->GetWorkerQueue()),
       allocate_audio_without_feedback_(
           field_trial::IsEnabled("WebRTC-Audio-ABWENoTWCC")),
@@ -172,6 +175,7 @@ AudioSendStream::AudioSendStream(
   ConfigureStream(config, true);
   UpdateCachedTargetAudioBitrateConstraints();
   pacer_thread_checker_.Detach();
+  network_thread_checker_.Detach();
 }
 
 AudioSendStream::~AudioSendStream() {
@@ -348,24 +352,34 @@ void AudioSendStream::ConfigureStream(
   // Set currently known overhead (used in ANA, opus only).
   {
     MutexLock lock(&overhead_per_packet_lock_);
+    // TODO(tommi): This method generally gets called on the network thread.
+    // See if we can't post some of this work to the network thread and
+    // remove the mutexes.
     UpdateOverheadForEncoder();
   }
 
-  channel_send_->CallEncoder([this](AudioEncoder* encoder) {
-    RTC_DCHECK_RUN_ON(&worker_thread_checker_);
-    if (!encoder) {
-      return;
-    }
-    frame_length_range_ = encoder->GetFrameLengthRange();
-    UpdateCachedTargetAudioBitrateConstraints();
-  });
+  bool update_cached_target_audio_bitrate_constraints = !first_time;
+  channel_send_->CallEncoder(
+      [this,
+       &update_cached_target_audio_bitrate_constraints](AudioEncoder* encoder) {
+        RTC_DCHECK_RUN_ON(&worker_thread_checker_);
+        if (!encoder) {
+          return;
+        }
+        frame_length_range_ = encoder->GetFrameLengthRange();
+        update_cached_target_audio_bitrate_constraints = true;
+      });
 
   if (sending_) {
     ReconfigureBitrateObserver(new_config);
   }
 
+  // TODO(tommi): This is problematic because it can overwrite sync_group.
+  // Can we require ConfigureStream to be called from either the network
+  // thread or constructor?
   config_ = new_config;
-  if (!first_time) {
+  if (update_cached_target_audio_bitrate_constraints) {
+    // TODO(tommi): This method is also called within CallEncoder above.
     UpdateCachedTargetAudioBitrateConstraints();
   }
 }
@@ -504,15 +518,19 @@ webrtc::AudioSendStream::Stats AudioSendStream::GetStats(
 }
 
 void AudioSendStream::DeliverRtcp(const uint8_t* packet, size_t length) {
-  RTC_DCHECK_RUN_ON(&worker_thread_checker_);
+  RTC_DCHECK_RUN_ON(&network_thread_checker_);
   channel_send_->ReceivedRTCPPacket(packet, length);
 
   {
+    // TODO(tommi): Is this lock necessary?
     // Poll if overhead has changed, which it can do if ack triggers us to stop
     // sending mid/rid.
     MutexLock lock(&overhead_per_packet_lock_);
     UpdateOverheadForEncoder();
   }
+
+  // TODO(tommi): move this method to the network thread?
+  // (currently requires worker)
   UpdateCachedTargetAudioBitrateConstraints();
 }
 
@@ -537,17 +555,20 @@ uint32_t AudioSendStream::OnBitrateUpdated(BitrateAllocationUpdate update) {
 
 void AudioSendStream::SetTransportOverhead(
     int transport_overhead_per_packet_bytes) {
-  RTC_DCHECK_RUN_ON(&worker_thread_checker_);
+  RTC_DCHECK_RUN_ON(&network_thread_checker_);
   {
     MutexLock lock(&overhead_per_packet_lock_);
     transport_overhead_per_packet_bytes_ = transport_overhead_per_packet_bytes;
     UpdateOverheadForEncoder();
   }
-  UpdateCachedTargetAudioBitrateConstraints();
+
+  worker_thread_->PostTask(ToQueuedTask(task_safety_, [this]() {
+    RTC_DCHECK_RUN_ON(&worker_thread_checker_);
+    UpdateCachedTargetAudioBitrateConstraints();
+  }));
 }
 
 void AudioSendStream::UpdateOverheadForEncoder() {
-  RTC_DCHECK_RUN_ON(&worker_thread_checker_);
   size_t overhead_per_packet_bytes = GetPerPacketOverheadBytes();
   if (overhead_per_packet_ == overhead_per_packet_bytes) {
     return;
@@ -557,11 +578,23 @@ void AudioSendStream::UpdateOverheadForEncoder() {
   channel_send_->CallEncoder([&](AudioEncoder* encoder) {
     encoder->OnReceivedOverhead(overhead_per_packet_bytes);
   });
-  if (total_packet_overhead_bytes_ != overhead_per_packet_bytes) {
-    total_packet_overhead_bytes_ = overhead_per_packet_bytes;
-    if (registered_with_allocator_) {
-      ConfigureBitrateObserver();
+
+  auto closure = [this, overhead_per_packet_bytes]() {
+    RTC_DCHECK_RUN_ON(&worker_thread_checker_);
+    if (total_packet_overhead_bytes_ != overhead_per_packet_bytes) {
+      total_packet_overhead_bytes_ = overhead_per_packet_bytes;
+      if (registered_with_allocator_) {
+        ConfigureBitrateObserver();
+      }
     }
+  };
+
+  if (worker_thread_->IsCurrent()) {
+    // TODO(tommi): This function is always guarded by a mutex. Given that this
+    // section is guarded by the worker, the mutex scope is perhaps too wide.
+    closure();
+  } else {
+    worker_thread_->PostTask(ToQueuedTask(task_safety_, std::move(closure)));
   }
 }
 
@@ -909,10 +942,10 @@ AudioSendStream::GetMinMaxBitrateConstraints() const {
   if (send_side_bwe_with_overhead_) {
     if (use_legacy_overhead_calculation_) {
       // OverheadPerPacket = Ipv4(20B) + UDP(8B) + SRTP(10B) + RTP(12)
-      const DataSize kOverheadPerPacket = DataSize::Bytes(20 + 8 + 10 + 12);
-      const TimeDelta kMaxFrameLength =
+      constexpr DataSize kOverheadPerPacket = DataSize::Bytes(20 + 8 + 10 + 12);
+      constexpr TimeDelta kMaxFrameLength =
           TimeDelta::Millis(60);  // Based on Opus spec
-      const DataRate kMinOverhead = kOverheadPerPacket / kMaxFrameLength;
+      constexpr DataRate kMinOverhead = kOverheadPerPacket / kMaxFrameLength;
       constraints.min += kMinOverhead;
       constraints.max += kMinOverhead;
     } else {
@@ -935,6 +968,12 @@ void AudioSendStream::RegisterCngPayloadType(int payload_type,
 }
 
 void AudioSendStream::UpdateCachedTargetAudioBitrateConstraints() {
+  // TODO(tommi): This needs to be callable from the network thread.
+  // The problem is that the config gets re-applied from
+  // ReconfigureAudioSendStream in WebRtcAudioSendStream on the worker thread.
+  // Perhaps we need to guard the config with the network thread and require
+  // config changes to be applied on the network thread? This method gets called
+  // for rtcp packets
   absl::optional<AudioSendStream::TargetAudioBitrateConstraints>
       new_constraints = GetMinMaxBitrateConstraints();
   if (!new_constraints.has_value()) {

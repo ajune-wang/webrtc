@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "625dd58f_0205ff54",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-01T14:50:45Z",
+      "side": 1,
+      "message": "This ended up being a bit more involved, so I refactored the AddIceCandidate method (split it into internal/public implementations) to not have to duplicate error handling for what\u0027s essentially the same state (closed or invalidated weak ptr).",
+      "revId": "59945ccb395a73dc16eb44c3fcffac5904620d89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

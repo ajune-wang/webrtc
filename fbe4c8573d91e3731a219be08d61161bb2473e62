@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d93b1e62_e5c8da2b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-04-01T10:07:43Z",
+      "side": 1,
+      "message": "PTAL. It would be good if these tests could be run with some short counts by default. And, e.g., DISABLED_AllMessagesAreDeliveredOverReliableConnection seems to complete quickly (0.5s om my workstation). Any reason to have that disabled?",
+      "revId": "fbe4c8573d91e3731a219be08d61161bb2473e62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca0d0814_c5ec0307",
+        "filename": "media/sctp/sctp_transport_reliability_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-04-01T10:07:43Z",
+      "side": 1,
+      "message": "For this to work properly, the SdpDataSender must be destroyed on the same thread as it\u0027s posting tasks to, i.e., `thread_`. That seems to be the case, looking at the ~SctpPingPong destructor at line 355 below.",
+      "range": {
+        "startLine": 253,
+        "startChar": 0,
+        "endLine": 253,
+        "endChar": 48
+      },
+      "revId": "fbe4c8573d91e3731a219be08d61161bb2473e62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

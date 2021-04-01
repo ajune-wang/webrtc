@@ -4608,6 +4608,9 @@ RTCError SdpOfferAnswerHandler::CreateChannels(const SessionDescription& desc) {
 cricket::VoiceChannel* SdpOfferAnswerHandler::CreateVoiceChannel(
     const std::string& mid) {
   RTC_DCHECK_RUN_ON(signaling_thread());
+  if (!channel_manager()->media_engine())
+    return nullptr;
+
   RtpTransportInternal* rtp_transport = pc_->GetRtpTransport(mid);
 
   // TODO(bugs.webrtc.org/11992): CreateVoiceChannel internally switches to the
@@ -4632,6 +4635,9 @@ cricket::VoiceChannel* SdpOfferAnswerHandler::CreateVoiceChannel(
 cricket::VideoChannel* SdpOfferAnswerHandler::CreateVideoChannel(
     const std::string& mid) {
   RTC_DCHECK_RUN_ON(signaling_thread());
+  if (!channel_manager()->media_engine())
+    return nullptr;
+
   // NOTE: This involves a non-ideal hop (Invoke) over to the network thread.
   RtpTransportInternal* rtp_transport = pc_->GetRtpTransport(mid);
 
@@ -4668,6 +4674,9 @@ bool SdpOfferAnswerHandler::CreateDataChannel(const std::string& mid) {
       return true;
     case cricket::DCT_RTP:
     default:
+      if (!channel_manager()->media_engine())
+        return false;
+
       RtpTransportInternal* rtp_transport = pc_->GetRtpTransport(mid);
       // TODO(bugs.webrtc.org/9987): set_rtp_data_channel() should be called on
       // the network thread like set_data_channel_transport is.
@@ -4706,8 +4715,12 @@ void SdpOfferAnswerHandler::DestroyDataChannelTransport() {
   RTC_DCHECK_RUN_ON(signaling_thread());
   if (data_channel_controller()->rtp_data_channel()) {
     data_channel_controller()->OnTransportChannelClosed();
-    DestroyChannelInterface(data_channel_controller()->rtp_data_channel());
+    // Call set_rtp_data_channel(nullptr) before we destroy the channel.
+    // TODO(tommi): set_rtp_data_channel should be called on the network
+    // thread.
+    auto* channel = data_channel_controller()->rtp_data_channel();
     data_channel_controller()->set_rtp_data_channel(nullptr);
+    DestroyChannelInterface(channel);
   }
 
   if (pc_->sctp_mid()) {
@@ -4723,28 +4736,33 @@ void SdpOfferAnswerHandler::DestroyDataChannelTransport() {
 
 void SdpOfferAnswerHandler::DestroyChannelInterface(
     cricket::ChannelInterface* channel) {
+  RTC_DCHECK_RUN_ON(signaling_thread());
   // TODO(bugs.webrtc.org/11992): All the below methods should be called on the
   // worker thread. (they switch internally anyway). Change
   // DestroyChannelInterface to either be called on the worker thread, or do
   // this asynchronously on the worker.
   RTC_DCHECK(channel);
-  switch (channel->media_type()) {
-    case cricket::MEDIA_TYPE_AUDIO:
-      channel_manager()->DestroyVoiceChannel(
-          static_cast<cricket::VoiceChannel*>(channel));
-      break;
-    case cricket::MEDIA_TYPE_VIDEO:
-      channel_manager()->DestroyVideoChannel(
-          static_cast<cricket::VideoChannel*>(channel));
-      break;
-    case cricket::MEDIA_TYPE_DATA:
-      channel_manager()->DestroyRtpDataChannel(
-          static_cast<cricket::RtpDataChannel*>(channel));
-      break;
-    default:
-      RTC_NOTREACHED() << "Unknown media type: " << channel->media_type();
-      break;
-  }
+  RTC_DCHECK(channel_manager()->media_engine());
+
+  pc_->PostToWorker([channel, this]() {
+    switch (channel->media_type()) {
+      case cricket::MEDIA_TYPE_AUDIO:
+        channel_manager()->DestroyVoiceChannel(
+            static_cast<cricket::VoiceChannel*>(channel));
+        break;
+      case cricket::MEDIA_TYPE_VIDEO:
+        channel_manager()->DestroyVideoChannel(
+            static_cast<cricket::VideoChannel*>(channel));
+        break;
+      case cricket::MEDIA_TYPE_DATA:
+        channel_manager()->DestroyRtpDataChannel(
+            static_cast<cricket::RtpDataChannel*>(channel));
+        break;
+      default:
+        RTC_NOTREACHED() << "Unknown media type: " << channel->media_type();
+        break;
+    }
+  });
 }
 
 void SdpOfferAnswerHandler::DestroyAllChannels() {

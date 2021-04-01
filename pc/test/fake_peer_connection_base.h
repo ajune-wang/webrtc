@@ -262,6 +262,8 @@ class FakePeerConnectionBase : public PeerConnectionInternal {
     return absl::nullopt;
   }
 
+  std::set<std::string> GetTransportNames() const override { return {}; }
+
   std::map<std::string, std::string> GetTransportNamesByMid() const override {
     return {};
   }
@@ -295,6 +297,14 @@ class FakePeerConnectionBase : public PeerConnectionInternal {
   bool GetSslRole(const std::string& content_name,
                   rtc::SSLRole* role) override {
     return false;
+  }
+
+  void EnumerateTranceivers_n(
+      std::function<void(RtpTransceiver*)> callback) override {
+    auto tranceivers = GetTransceiversInternal();
+    for (auto& t : tranceivers) {
+      callback(t->internal());
+    }
   }
 
  protected:

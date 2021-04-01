@@ -52,6 +52,24 @@
       "parentUuid": "a90e0fe1_dcf11eb4",
       "revId": "de678de4d12aff4bc4aab1e932363873bbd0c8cc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61a07990_ed2851d7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-04-01T21:46:06Z",
+      "side": 1,
+      "message": "I imagine it\u0027s normal, the test was made to reproduce a very racy bug so it creates a huge number of connections.",
+      "parentUuid": "98d1dc6b_7f66534b",
+      "revId": "de678de4d12aff4bc4aab1e932363873bbd0c8cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

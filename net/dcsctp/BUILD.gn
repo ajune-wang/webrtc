@@ -15,6 +15,7 @@ if (rtc_include_tests) {
       "../../test:test_main",
       "common:dcsctp_common_unittests",
       "packet:dcsctp_packet_unittests",
+      "rx:dcsctp_rx_unittests",
       "timer:dcsctp_timer_unittests",
     ]
   }

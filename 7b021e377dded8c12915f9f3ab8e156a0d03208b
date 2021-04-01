@@ -87,6 +87,30 @@
       },
       "revId": "7b021e377dded8c12915f9f3ab8e156a0d03208b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "276fad4f_0227fe0e",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 4682,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-01T08:33:25Z",
+      "side": 1,
+      "message": "Well, I guess we can. But that will result in a pattern that may become problematic and/or confusing.\n\nIf you think about the thread/taskqueue as a type of lock that\u0027s required to be held, the pattern becomes essentially this:\n\npublic:\n Mutex\u0026 my_lock();\n void DoStuff() RTC_GUARDED_BY(my_lock);\n\nAnd we don\u0027t want to encourage that pattern. PeerConnection and the associated classes like SdpOfferAnswerHandler, used to be one class before Harald split things up. Following that change, there are still places where things aren\u0027t exactly in their natural place so to speak (see e.g. second half of DestroyDataChannelTransport), so there are helper methods here and there that give one class access to the member variables of another. I\u0027d prefer not to make that the general rule to follow though, as it becomes much harder to refactor the classes that expose the internal state via public methods.",
+      "parentUuid": "0ee3e8d1_e51039a0",
+      "range": {
+        "startLine": 4682,
+        "startChar": 8,
+        "endLine": 4682,
+        "endChar": 51
+      },
+      "revId": "7b021e377dded8c12915f9f3ab8e156a0d03208b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -200,7 +200,7 @@ class ChannelReceive : public ChannelReceiveInterface {
   // parts with single-threaded semantics, and thereby reduce the need for
   // locks.
   SequenceChecker worker_thread_checker_;
-
+  SequenceChecker network_thread_checker_;
   // Methods accessed from audio and video threads are checked for sequential-
   // only access. We don't necessarily own and control these threads, so thread
   // checkers cannot be used. E.g. Chromium may transfer "ownership" from one
@@ -506,6 +506,8 @@ ChannelReceive::ChannelReceive(
       crypto_options_(crypto_options),
       absolute_capture_time_receiver_(clock) {
   RTC_DCHECK(module_process_thread_);
+  network_thread_checker_.Detach();
+
   RTC_DCHECK(audio_device_module);
 
   acm_receiver_.ResetInitialDelay();
@@ -840,8 +842,7 @@ int ChannelReceive::ResendPackets(const uint16_t* sequence_numbers,
 
 void ChannelReceive::SetAssociatedSendChannel(
     const ChannelSendInterface* channel) {
-  // TODO(bugs.webrtc.org/11993): Expect to be called on the network thread.
-  RTC_DCHECK_RUN_ON(&worker_thread_checker_);
+  RTC_DCHECK_RUN_ON(&network_thread_checker_);
   MutexLock lock(&assoc_send_channel_lock_);
   associated_send_channel_ = channel;
 }
@@ -1023,6 +1024,8 @@ int ChannelReceive::GetRtpTimestampRateHz() const {
 }
 
 int64_t ChannelReceive::GetRTT() const {
+  // TODO(tommi): Thread check (maybe a lock is not needed for
+  // associated_send_channel_?).
   std::vector<ReportBlockData> report_blocks =
       rtp_rtcp_->GetLatestReportBlockData();
 

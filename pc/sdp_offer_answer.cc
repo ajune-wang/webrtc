@@ -955,7 +955,7 @@ SdpOfferAnswerHandler::SdpOfferAnswerHandler(PeerConnection* pc)
       weak_ptr_factory_(this) {
   operations_chain_->SetOnChainEmptyCallback(
       [this_weak_ptr = weak_ptr_factory_.GetWeakPtr()]() {
-        if (!this_weak_ptr)
+        if (IsShuttingDown(this_weak_ptr))
           return;
         this_weak_ptr->OnOperationsChainEmpty();
       });
@@ -1108,7 +1108,7 @@ void SdpOfferAnswerHandler::CreateOffer(
            rtc::scoped_refptr<CreateSessionDescriptionObserver>(observer),
        options](std::function<void()> operations_chain_callback) {
         // Abort early if |this_weak_ptr| is no longer valid.
-        if (!this_weak_ptr) {
+        if (IsShuttingDown(this_weak_ptr)) {
           observer_refptr->OnFailure(
               RTCError(RTCErrorType::INTERNAL_ERROR,
                        "CreateOffer failed because the session was shut down"));
@@ -1139,7 +1139,7 @@ void SdpOfferAnswerHandler::SetLocalDescription(
        desc = std::unique_ptr<SessionDescriptionInterface>(desc_ptr)](
           std::function<void()> operations_chain_callback) mutable {
         // Abort early if |this_weak_ptr| is no longer valid.
-        if (!this_weak_ptr) {
+        if (IsShuttingDown(this_weak_ptr)) {
           // For consistency with SetSessionDescriptionObserverAdapter whose
           // posted messages doesn't get processed when the PC is destroyed, we
           // do not inform |observer_refptr| that the operation failed.
@@ -1174,7 +1174,7 @@ void SdpOfferAnswerHandler::SetLocalDescription(
        desc = std::move(desc)](
           std::function<void()> operations_chain_callback) mutable {
         // Abort early if |this_weak_ptr| is no longer valid.
-        if (!this_weak_ptr) {
+        if (IsShuttingDown(this_weak_ptr)) {
           observer->OnSetLocalDescriptionComplete(RTCError(
               RTCErrorType::INTERNAL_ERROR,
               "SetLocalDescription failed because the session was shut down"));
@@ -1218,7 +1218,7 @@ void SdpOfferAnswerHandler::SetLocalDescription(
             std::move(operations_chain_callback));
         // Abort early if |this_weak_ptr| is no longer valid. This triggers the
         // same code path as if DoCreateOffer() or DoCreateAnswer() failed.
-        if (!this_weak_ptr) {
+        if (IsShuttingDown(this_weak_ptr)) {
           create_sdp_observer->OnFailure(RTCError(
               RTCErrorType::INTERNAL_ERROR,
               "SetLocalDescription failed because the session was shut down"));
@@ -1493,7 +1493,7 @@ void SdpOfferAnswerHandler::SetRemoteDescription(
        desc = std::unique_ptr<SessionDescriptionInterface>(desc_ptr)](
           std::function<void()> operations_chain_callback) mutable {
         // Abort early if |this_weak_ptr| is no longer valid.
-        if (!this_weak_ptr) {
+        if (IsShuttingDown(this_weak_ptr)) {
           // For consistency with SetSessionDescriptionObserverAdapter whose
           // posted messages doesn't get processed when the PC is destroyed, we
           // do not inform |observer_refptr| that the operation failed.
@@ -1528,7 +1528,7 @@ void SdpOfferAnswerHandler::SetRemoteDescription(
        desc = std::move(desc)](
           std::function<void()> operations_chain_callback) mutable {
         // Abort early if |this_weak_ptr| is no longer valid.
-        if (!this_weak_ptr) {
+        if (IsShuttingDown(this_weak_ptr)) {
           observer->OnSetRemoteDescriptionComplete(RTCError(
               RTCErrorType::INTERNAL_ERROR,
               "SetRemoteDescription failed because the session was shut down"));
@@ -2050,7 +2050,7 @@ void SdpOfferAnswerHandler::CreateAnswer(
            rtc::scoped_refptr<CreateSessionDescriptionObserver>(observer),
        options](std::function<void()> operations_chain_callback) {
         // Abort early if |this_weak_ptr| is no longer valid.
-        if (!this_weak_ptr) {
+        if (IsShuttingDown(this_weak_ptr)) {
           observer_refptr->OnFailure(RTCError(
               RTCErrorType::INTERNAL_ERROR,
               "CreateAnswer failed because the session was shut down"));
@@ -2342,7 +2342,7 @@ void SdpOfferAnswerHandler::AddIceCandidate(
       [this_weak_ptr = weak_ptr_factory_.GetWeakPtr(),
        candidate = std::move(candidate), callback = std::move(callback)](
           std::function<void()> operations_chain_callback) {
-        if (!this_weak_ptr) {
+        if (IsShuttingDown(this_weak_ptr)) {
           operations_chain_callback();
           callback(RTCError(
               RTCErrorType::INVALID_STATE,
@@ -5003,6 +5003,12 @@ bool SdpOfferAnswerHandler::UpdatePayloadTypeDemuxingState(
         }
         return true;
       });
+}
+
+// static
+bool SdpOfferAnswerHandler::IsShuttingDown(
+    const rtc::WeakPtr<SdpOfferAnswerHandler>& weak_ptr) {
+  return !weak_ptr || weak_ptr->pc_->IsClosed();
 }
 
 }  // namespace webrtc

@@ -677,6 +677,9 @@ void PeerConnection::InitializeTransportController_n(
   transport_controller_->SubscribeIceConnectionState(
       [this](cricket::IceConnectionState s) {
         RTC_DCHECK_RUN_ON(network_thread());
+        if (s == cricket::kIceConnectionConnected) {
+          ReportTransportStats();
+        }
         signaling_thread()->PostTask(
             ToQueuedTask(signaling_thread_safety_.flag(), [this, s]() {
               RTC_DCHECK_RUN_ON(signaling_thread());
@@ -2307,8 +2310,10 @@ void PeerConnection::OnTransportControllerConnectionState(
         SetIceConnectionState(PeerConnectionInterface::kIceConnectionConnected);
       }
       SetIceConnectionState(PeerConnectionInterface::kIceConnectionCompleted);
+
+      // TODO(tommi): Is it correct to report 'connected' here? (this is under
+      // 'completed', not 'connected', and we also report 'connected' above)
       NoteUsageEvent(UsageEvent::ICE_STATE_CONNECTED);
-      ReportTransportStats();
       break;
     default:
       RTC_NOTREACHED();
@@ -2682,48 +2687,44 @@ void PeerConnection::OnTransportControllerGatheringState(
   }
 }
 
+// Runs on network_thread().
 void PeerConnection::ReportTransportStats() {
-  // Run the loops that report the state on the network thread since the
-  // transport controller requires the stats to be read there (GetStats()).
-  network_thread()->PostTask(ToQueuedTask(network_thread_safety_, [this]() {
-    RTC_DCHECK_RUN_ON(network_thread());
-    rtc::Thread::ScopedDisallowBlockingCalls no_blocking_calls;
-    std::map<std::string, std::set<cricket::MediaType>>
-        media_types_by_transport_name;
-    for (const auto& transceiver : rtp_manager()->transceivers()->List()) {
-      if (transceiver->internal()->channel()) {
-        const std::string& transport_name =
-            transceiver->internal()->channel()->transport_name();
-        media_types_by_transport_name[transport_name].insert(
-            transceiver->media_type());
-      }
+  rtc::Thread::ScopedDisallowBlockingCalls no_blocking_calls;
+  std::map<std::string, std::set<cricket::MediaType>>
+      media_types_by_transport_name;
+  for (const auto& transceiver : rtp_manager()->transceivers()->List()) {
+    if (transceiver->internal()->channel()) {
+      const std::string& transport_name =
+          transceiver->internal()->channel()->transport_name();
+      media_types_by_transport_name[transport_name].insert(
+          transceiver->media_type());
     }
+  }
 
-    if (rtp_data_channel()) {
-      media_types_by_transport_name[rtp_data_channel()->transport_name()]
-          .insert(cricket::MEDIA_TYPE_DATA);
-    }
+  if (rtp_data_channel()) {
+    media_types_by_transport_name[rtp_data_channel()->transport_name()].insert(
+        cricket::MEDIA_TYPE_DATA);
+  }
 
-    if (sctp_mid_n_) {
-      auto dtls_transport =
-          transport_controller_->GetDtlsTransport(*sctp_mid_n_);
-      if (dtls_transport) {
-        media_types_by_transport_name[dtls_transport->transport_name()].insert(
-            cricket::MEDIA_TYPE_DATA);
-      }
+  if (sctp_mid_n_) {
+    auto dtls_transport = transport_controller_->GetDtlsTransport(*sctp_mid_n_);
+    if (dtls_transport) {
+      media_types_by_transport_name[dtls_transport->transport_name()].insert(
+          cricket::MEDIA_TYPE_DATA);
     }
+  }
 
-    for (const auto& entry : media_types_by_transport_name) {
-      const std::string& transport_name = entry.first;
-      const std::set<cricket::MediaType> media_types = entry.second;
-      cricket::TransportStats stats;
-      if (transport_controller_->GetStats(transport_name, &stats)) {
-        ReportBestConnectionState(stats);
-        ReportNegotiatedCiphers(dtls_enabled_, stats, media_types);
-      }
+  for (const auto& entry : media_types_by_transport_name) {
+    const std::string& transport_name = entry.first;
+    const std::set<cricket::MediaType> media_types = entry.second;
+    cricket::TransportStats stats;
+    if (transport_controller_->GetStats(transport_name, &stats)) {
+      ReportBestConnectionState(stats);
+      ReportNegotiatedCiphers(dtls_enabled_, stats, media_types);
     }
-  }));
+  }
 }
+
 // Walk through the ConnectionInfos to gather best connection usage
 // for IPv4 and IPv6.
 // static (no member state required)

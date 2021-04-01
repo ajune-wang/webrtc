@@ -33,6 +33,29 @@
       "message": "Ping?",
       "revId": "5453a31316ca8418bf615c0145f8227e4b0f303b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c3e2448_a0bf8679",
+        "filename": "media/sctp/sctp_transport_reliability_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-04-01T07:38:56Z",
+      "side": 1,
+      "message": "Is it this destination_.load() you are referring to? I agree it looks a bit unsafe.  Looks like the intention is to cancel the send if destination_ was reset to nullptr while the task was queued. Just adding `destination` to the capture list instead looks reasonable to me, but I don\u0027t grasp the full implications.",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 11
+      },
+      "revId": "5453a31316ca8418bf615c0145f8227e4b0f303b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -16,6 +16,24 @@
       "message": "By the way, these tests are disabled by default so it would be a good idea to run manually with MSAN. Not necessarily until completion, just long enough to ensure there are no MSAN bugs. Or you could reduce the various counts so it completes faster.",
       "revId": "de678de4d12aff4bc4aab1e932363873bbd0c8cc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a90e0fe1_dcf11eb4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-04-01T07:38:56Z",
+      "side": 1,
+      "message": "Oh, thanks for pointing that out, I wasn\u0027t paying attention. It fails immediately in a thread check if I run\n\n./out/Debug/rtc_media_unittests --gtest_filter\u003d\u0027UsrSctpReliabilityTest*\u0027 --gtest_also_run_disabled_tests\n\nSo needs some further investigation.",
+      "parentUuid": "78a665b2_9b7b2a72",
+      "revId": "de678de4d12aff4bc4aab1e932363873bbd0c8cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

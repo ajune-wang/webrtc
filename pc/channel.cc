@@ -196,6 +196,7 @@ void BaseChannel::DisconnectFromRtpTransport() {
   rtp_transport_->SignalNetworkRouteChanged.disconnect(this);
   rtp_transport_->SignalWritableState.disconnect(this);
   rtp_transport_->SignalSentPacket.disconnect(this);
+  rtp_transport_ = nullptr;
 }
 
 void BaseChannel::Init_w(webrtc::RtpTransportInternal* rtp_transport) {
@@ -211,6 +212,12 @@ void BaseChannel::Init_w(webrtc::RtpTransportInternal* rtp_transport) {
 
 void BaseChannel::Deinit() {
   RTC_DCHECK_RUN_ON(worker_thread());
+
+  // TODO(tommi): Figure out a way to detach from the transport while on the
+  // network thread before the channel gets deleted on the worker thread.
+  // Today, when the channel gets deleted on the worker thread, Deinit()
+  // always runs and adds this thread hop, wheather or not it's needed.
+
   media_channel_->SetInterface(/*iface=*/nullptr);
   // Packets arrive on the network thread, processing packets calls virtual
   // functions, so need to stop this process in Deinit that is called in

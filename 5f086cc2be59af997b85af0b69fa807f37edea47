@@ -16,6 +16,23 @@
       "message": "Commenting to CC myself (working around permissions issue).",
       "revId": "5f086cc2be59af997b85af0b69fa807f37edea47",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0185cadf_a12ede60",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7133
+      },
+      "writtenOn": "2021-04-01T17:45:18Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "5f086cc2be59af997b85af0b69fa807f37edea47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

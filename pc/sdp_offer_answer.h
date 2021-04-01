@@ -39,6 +39,7 @@
 #include "api/set_remote_description_observer_interface.h"
 #include "api/transport/data_channel_transport_interface.h"
 #include "api/turn_customizer.h"
+#include "api/uma_metrics.h"
 #include "api/video/video_bitrate_allocator_factory.h"
 #include "media/base/media_channel.h"
 #include "media/base/stream_params.h"
@@ -157,7 +158,7 @@ class SdpOfferAnswerHandler : public SdpStateProvider,
   PeerConnectionInterface::RTCConfiguration GetConfiguration();
   RTCError SetConfiguration(
       const PeerConnectionInterface::RTCConfiguration& configuration);
-  bool AddIceCandidate(const IceCandidateInterface* candidate);
+  AddIceCandidateResult AddIceCandidate(const IceCandidateInterface* candidate);
   void AddIceCandidate(std::unique_ptr<IceCandidateInterface> candidate,
                        std::function<void(RTCError)> callback);
   bool RemoveIceCandidates(const std::vector<cricket::Candidate>& candidates);

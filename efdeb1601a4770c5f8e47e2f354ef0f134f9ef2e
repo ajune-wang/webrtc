@@ -51,6 +51,24 @@
       "parentUuid": "efc202cd_acaa8fec",
       "revId": "efdeb1601a4770c5f8e47e2f354ef0f134f9ef2e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1578e975_0d40e396",
+        "filename": "rtc_base/ssl_stream_adapter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-04-01T21:34:44Z",
+      "side": 1,
+      "message": "SSLStreamAdapter acts as a pure virtual interface which other code can depend on, so I wouldn\u0027t get rid of it.\n\nAnd yes, I would connect the stream SignalEvent in the OpenSSLStreamAdapter constructor instead.",
+      "parentUuid": "2d18cd33_640a7f5f",
+      "revId": "efdeb1601a4770c5f8e47e2f354ef0f134f9ef2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

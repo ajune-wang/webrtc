@@ -63,7 +63,8 @@ std::vector<uint8_t> SctpPacket::Builder::Build() {
 }
 
 absl::optional<SctpPacket> SctpPacket::Parse(
-    rtc::ArrayView<const uint8_t> data, bool disable_checksum_verification) {
+    rtc::ArrayView<const uint8_t> data,
+    bool disable_checksum_verification) {
   if (data.size() < kHeaderSize + kChunkTlvHeaderSize ||
       data.size() > kMaxUdpPacketSize) {
     RTC_DLOG(LS_WARNING) << "Invalid packet size";

@@ -1094,6 +1094,7 @@ RTCStatsCollector::RequestInfo::RequestInfo(
   RTC_DCHECK(!sender_selector_ || !receiver_selector_);
 }
 
+// TODO(tommi): stop using refptr for RTCStatsCollector.
 rtc::scoped_refptr<RTCStatsCollector> RTCStatsCollector::Create(
     PeerConnectionInternal* pc,
     int64_t cache_lifetime_us) {
@@ -1177,6 +1178,7 @@ void RTCStatsCollector::GetStatsReportInternal(
       }
 
      private:
+      // TODO(tommi): Stop using refptr for RTCStatsCollector.
       rtc::scoped_refptr<RTCStatsCollector> collector_;
       rtc::scoped_refptr<const RTCStatsReport> cached_report_;
       std::vector<RequestInfo> requests_;
@@ -1199,16 +1201,50 @@ void RTCStatsCollector::GetStatsReportInternal(
     // Prepare |transceiver_stats_infos_| and |call_stats_| for use in
     // |ProducePartialResultsOnNetworkThread| and
     // |ProducePartialResultsOnSignalingThread|.
-    PrepareTransceiverStatsInfosAndCallStats_s_w();
+
+    transceiver_stats_infos_.clear();
+    // PrepareTransceiverStatsInfosAndCallStats_s_w();
+
     // Don't touch |network_report_| on the signaling thread until
     // ProducePartialResultsOnNetworkThread() has signaled the
     // |network_report_event_|.
+    // TODO(tommi): stop using network_report_event_.
     network_report_event_.Reset();
+
+    // TODO(tommi): Stop using refptr for RTCStatsCollector. Instead use pending
+    // safety task and keep destruction predictable.
     rtc::scoped_refptr<RTCStatsCollector> collector(this);
     network_thread_->PostTask(RTC_FROM_HERE, [collector, timestamp_us] {
-      collector->ProducePartialResultsOnNetworkThread(timestamp_us);
+      auto* voice = new std::map<cricket::VoiceMediaChannel*,
+                                 std::unique_ptr<cricket::VoiceMediaInfo>>();
+      auto* video = new std::map<cricket::VideoMediaChannel*,
+                                 std::unique_ptr<cricket::VideoMediaInfo>>();
+
+      collector->PrepareTransceiverStats_n(*voice, *video);
+
+      collector->worker_thread_->PostTask(
+          RTC_FROM_HERE,
+          [collector = std::move(collector), voice, video, timestamp_us]() {
+            // TODO(tommi): Handle the case if 'this' (aka collector) has been
+            // deleted.
+            // TODO(tommi): See if the stats collected on the worker thread can
+            // be collected in parallel to the network thread stats. It's
+            // possible that they're not related and don't need to be sequenced.
+            collector->PrepareTransceiverStats_w(*voice, *video);
+            delete voice;
+            delete video;
+
+            collector->network_thread_->PostTask(
+                RTC_FROM_HERE,
+                [collector = std::move(collector), timestamp_us] {
+                  collector->ProducePartialResultsOnNetworkThread(timestamp_us);
+                  collector->SignalNetworkReportReady(timestamp_us);
+                });
+          });
     });
-    ProducePartialResultsOnSignalingThread(timestamp_us);
+
+    // TODO(tommi): Convert to callback once the worker thread stuff is done.
+    // ProducePartialResultsOnSignalingThread(timestamp_us);
   }
 }
 
@@ -1221,7 +1257,7 @@ void RTCStatsCollector::WaitForPendingRequest() {
   RTC_DCHECK(signaling_thread_->IsCurrent());
   // If a request is pending, blocks until the |network_report_event_| is
   // signaled and then delivers the result. Otherwise this is a NO-OP.
-  MergeNetworkReport_s();
+  // MergeNetworkReport_s();
 }
 
 void RTCStatsCollector::ProducePartialResultsOnSignalingThread(
@@ -1272,13 +1308,18 @@ void RTCStatsCollector::ProducePartialResultsOnNetworkThread(
   ProducePartialResultsOnNetworkThreadImpl(
       timestamp_us, transport_stats_by_name, transport_cert_stats,
       network_report_.get());
+}
 
+void RTCStatsCollector::SignalNetworkReportReady(int64_t timestamp_us) {
   // Signal that it is now safe to touch |network_report_| on the signaling
   // thread, and post a task to merge it into the final results.
-  network_report_event_.Set();
+  // TODO(tommi): Stop using refptr for RTCStatsCollector.
   rtc::scoped_refptr<RTCStatsCollector> collector(this);
-  signaling_thread_->PostTask(
-      RTC_FROM_HERE, [collector] { collector->MergeNetworkReport_s(); });
+  signaling_thread_->PostTask(RTC_FROM_HERE, [collector, timestamp_us] {
+    collector->ProducePartialResultsOnSignalingThread(timestamp_us);
+    collector->network_report_event_.Set();
+    collector->MergeNetworkReport_s();
+  });
 }
 
 void RTCStatsCollector::ProducePartialResultsOnNetworkThreadImpl(
@@ -1306,7 +1347,7 @@ void RTCStatsCollector::MergeNetworkReport_s() {
   // |network_report_|. This is normally not blocking, but if
   // WaitForPendingRequest() is called while a request is pending, we might have
   // to wait until the network thread is done touching |network_report_|.
-  network_report_event_.Wait(rtc::Event::kForever);
+  // network_report_event_.Wait(rtc::Event::kForever);
   if (!network_report_) {
     // Normally, MergeNetworkReport_s() is executed because it is posted from
     // the network thread. But if WaitForPendingRequest() is called while a
@@ -2025,6 +2066,116 @@ RTCStatsCollector::PrepareTransportCertificateStats_n(
   return transport_cert_stats;
 }
 
+void RTCStatsCollector::PrepareTransceiverStats_n(
+    std::map<cricket::VoiceMediaChannel*,
+             std::unique_ptr<cricket::VoiceMediaInfo>>& voice_stats,
+    std::map<cricket::VideoMediaChannel*,
+             std::unique_ptr<cricket::VideoMediaInfo>>& video_stats) {
+  RTC_DCHECK_RUN_ON(network_thread_);
+  rtc::Thread::ScopedDisallowBlockingCalls no_blocking_calls;
+
+  pc_->EnumerateTranceivers_n(
+      [this, &voice_stats, &video_stats](RtpTransceiver* transceiver) {
+        cricket::MediaType media_type = transceiver->media_type();
+
+        // Prepare stats entry. The TrackMediaInfoMap will be filled in after
+        // the stats have been fetched on the worker thread.
+        transceiver_stats_infos_.emplace_back();
+        RtpTransceiverStatsInfo& stats = transceiver_stats_infos_.back();
+        stats.transceiver = transceiver;
+        stats.media_type = media_type;
+
+        cricket::ChannelInterface* channel = transceiver->channel();
+        if (channel) {
+          // The remaining fields require a BaseChannel.
+          stats.mid = channel->content_name();
+          stats.transport_name = channel->transport_name();
+
+          if (media_type == cricket::MEDIA_TYPE_AUDIO) {
+            auto* voice_channel = static_cast<cricket::VoiceChannel*>(channel);
+            RTC_DCHECK(voice_stats.find(voice_channel->media_channel()) ==
+                       voice_stats.end());
+            voice_stats[voice_channel->media_channel()] =
+                std::make_unique<cricket::VoiceMediaInfo>();
+          } else if (media_type == cricket::MEDIA_TYPE_VIDEO) {
+            auto* video_channel = static_cast<cricket::VideoChannel*>(channel);
+            RTC_DCHECK(video_stats.find(video_channel->media_channel()) ==
+                       video_stats.end());
+            video_stats[video_channel->media_channel()] =
+                std::make_unique<cricket::VideoMediaInfo>();
+          } else {
+            RTC_NOTREACHED();
+          }
+        }
+      });
+}
+
+void RTCStatsCollector::PrepareTransceiverStats_w(
+    std::map<cricket::VoiceMediaChannel*,
+             std::unique_ptr<cricket::VoiceMediaInfo>>& voice_stats,
+    std::map<cricket::VideoMediaChannel*,
+             std::unique_ptr<cricket::VideoMediaInfo>>& video_stats) {
+  RTC_DCHECK_RUN_ON(worker_thread_);
+  // We jump to the worker thread and call GetStats() on each media channel as
+  // well as GetCallStats(). At the same time we construct the
+  // TrackMediaInfoMaps, which also needs info from the worker thread. This
+  // minimizes the number of thread jumps.
+  rtc::Thread::ScopedDisallowBlockingCalls no_blocking_calls;
+
+  for (const auto& entry : voice_stats) {
+    if (!entry.first->GetStats(entry.second.get(),
+                               /*get_and_clear_legacy_stats=*/false)) {
+      RTC_LOG(LS_WARNING) << "Failed to get voice stats.";
+    }
+  }
+  for (const auto& entry : video_stats) {
+    if (!entry.first->GetStats(entry.second.get())) {
+      RTC_LOG(LS_WARNING) << "Failed to get video stats.";
+    }
+  }
+
+  // Create the TrackMediaInfoMap for each transceiver stats object.
+  // TODO(tommi): Can this loop run on the network thread?
+  for (auto& stats : transceiver_stats_infos_) {
+    auto transceiver = stats.transceiver;
+    std::unique_ptr<cricket::VoiceMediaInfo> voice_media_info;
+    std::unique_ptr<cricket::VideoMediaInfo> video_media_info;
+    if (transceiver->channel()) {
+      cricket::MediaType media_type = transceiver->media_type();
+      if (media_type == cricket::MEDIA_TYPE_AUDIO) {
+        auto* voice_channel =
+            static_cast<cricket::VoiceChannel*>(transceiver->channel());
+        RTC_DCHECK(voice_stats[voice_channel->media_channel()]);
+        voice_media_info =
+            std::move(voice_stats[voice_channel->media_channel()]);
+      } else if (media_type == cricket::MEDIA_TYPE_VIDEO) {
+        auto* video_channel =
+            static_cast<cricket::VideoChannel*>(transceiver->channel());
+        RTC_DCHECK(video_stats[video_channel->media_channel()]);
+        video_media_info =
+            std::move(video_stats[video_channel->media_channel()]);
+      }
+    }
+    // TODO(tommi): Holding on to a reference of the senders and receivers
+    // isn't good. This makes those lifetimes unpredictable and not clear on
+    // which thread the objects may get finally released.
+    std::vector<rtc::scoped_refptr<RtpSenderInternal>> senders;
+    for (const auto& sender : transceiver->senders()) {
+      senders.push_back(sender->internal());
+    }
+    std::vector<rtc::scoped_refptr<RtpReceiverInternal>> receivers;
+    for (const auto& receiver : transceiver->receivers()) {
+      receivers.push_back(receiver->internal());
+    }
+    stats.track_media_info_map = std::make_unique<TrackMediaInfoMap>(
+        std::move(voice_media_info), std::move(video_media_info), senders,
+        receivers);
+  }
+
+  call_stats_ = pc_->GetCallStats();
+}
+
+/*
 void RTCStatsCollector::PrepareTransceiverStatsInfosAndCallStats_s_w() {
   RTC_DCHECK(signaling_thread_->IsCurrent());
 
@@ -2090,7 +2241,7 @@ void RTCStatsCollector::PrepareTransceiverStatsInfosAndCallStats_s_w() {
 
     for (const auto& entry : voice_stats) {
       if (!entry.first->GetStats(entry.second.get(),
-                                 /*get_and_clear_legacy_stats=*/false)) {
+                                 false)) {
         RTC_LOG(LS_WARNING) << "Failed to get voice stats.";
       }
     }
@@ -2136,7 +2287,7 @@ void RTCStatsCollector::PrepareTransceiverStatsInfosAndCallStats_s_w() {
 
     call_stats_ = pc_->GetCallStats();
   });
-}
+}*/
 
 void RTCStatsCollector::OnRtpDataChannelCreated(RtpDataChannel* channel) {
   channel->SignalOpened.connect(this, &RTCStatsCollector::OnDataChannelOpened);

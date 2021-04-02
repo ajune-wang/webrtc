@@ -619,8 +619,10 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
   void StartWatchingDelayStats() {
     // Get the baseline numbers for audio_packets and audio_delay.
     auto received_stats = NewGetStats();
-    auto track_stats =
-        received_stats->GetStatsOfType<webrtc::RTCMediaStreamTrackStats>()[0];
+    auto ms_track_stats =
+        received_stats->GetStatsOfType<webrtc::RTCMediaStreamTrackStats>();
+    ASSERT_FALSE(ms_track_stats.empty());
+    auto track_stats = ms_track_stats[0];
     ASSERT_TRUE(track_stats->relative_packet_arrival_delay.is_defined());
     auto rtp_stats =
         received_stats->GetStatsOfType<webrtc::RTCInboundRTPStreamStats>()[0];

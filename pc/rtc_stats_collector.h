@@ -227,12 +227,29 @@ class RTCStatsCollector : public virtual rtc::RefCountInterface,
   PrepareTransportCertificateStats_n(
       const std::map<std::string, cricket::TransportStats>&
           transport_stats_by_name) const;
+
   // The results are stored in |transceiver_stats_infos_| and |call_stats_|.
+  void PrepareTransceiverStats_n(
+      std::map<cricket::VoiceMediaChannel*,
+               std::unique_ptr<cricket::VoiceMediaInfo>>& voice_stats,
+      std::map<cricket::VideoMediaChannel*,
+               std::unique_ptr<cricket::VideoMediaInfo>>& video_stats);
+  void PrepareTransceiverStats_w(
+      std::map<cricket::VoiceMediaChannel*,
+               std::unique_ptr<cricket::VoiceMediaInfo>>& voice_stats,
+      std::map<cricket::VideoMediaChannel*,
+               std::unique_ptr<cricket::VideoMediaInfo>>& video_stats);
+
   void PrepareTransceiverStatsInfosAndCallStats_s_w();
 
   // Stats gathering on a particular thread.
   void ProducePartialResultsOnSignalingThread(int64_t timestamp_us);
   void ProducePartialResultsOnNetworkThread(int64_t timestamp_us);
+
+  // Called after gathering stats to post a work item to the signaling thread
+  // and call MergeNetworkReport_s
+  void SignalNetworkReportReady(int64_t timestamp_us);
+
   // Merges |network_report_| into |partial_report_| and completes the request.
   // This is a NO-OP if |network_report_| is null.
   void MergeNetworkReport_s();
@@ -260,6 +277,9 @@ class RTCStatsCollector : public virtual rtc::RefCountInterface,
   // into |partial_report_| on the signaling thread and then nulled by
   // MergeNetworkReport_s(). Thread-safety is ensured by using
   // |network_report_event_|.
+  // TODO(tommi): Remove network_report_ and network_report_event_. Create the
+  // report on the network thread, post a task to signaling thread along with
+  // ownership.
   rtc::scoped_refptr<RTCStatsReport> network_report_;
   // If set, it is safe to touch the |network_report_| on the signaling thread.
   // This is reset before async-invoking ProducePartialResultsOnNetworkThread()

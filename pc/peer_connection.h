@@ -303,6 +303,7 @@ class PeerConnection : public PeerConnectionInternal,
   absl::optional<std::string> sctp_transport_name() const override;
 
   cricket::CandidateStatsList GetPooledCandidateStats() const override;
+  std::set<std::string> GetTransportNames() const override;
   std::map<std::string, std::string> GetTransportNamesByMid() const override;
   std::map<std::string, cricket::TransportStats> GetTransportStatsByNames(
       const std::set<std::string>& transport_names) override;
@@ -316,6 +317,8 @@ class PeerConnection : public PeerConnectionInternal,
   bool IceRestartPending(const std::string& content_name) const override;
   bool NeedsIceRestart(const std::string& content_name) const override;
   bool GetSslRole(const std::string& content_name, rtc::SSLRole* role) override;
+  void EnumerateTranceivers_n(
+      std::function<void(RtpTransceiver*)> callback) override;
 
   // Functions needed by DataChannelController
   void NoteDataAddedEvent() { NoteUsageEvent(UsageEvent::DATA_ADDED); }
@@ -441,6 +444,8 @@ class PeerConnection : public PeerConnectionInternal,
   void OnSentPacket_w(const rtc::SentPacket& sent_packet);
 
   bool SetupDataChannelTransport_n(const std::string& mid)
+      RTC_RUN_ON(network_thread());
+  void SetupRtpDataChannelTransport_n(cricket::RtpDataChannel* data_channel)
       RTC_RUN_ON(network_thread());
   void TeardownDataChannelTransport_n() RTC_RUN_ON(network_thread());
   cricket::ChannelInterface* GetChannel(const std::string& content_name);

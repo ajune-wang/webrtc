@@ -4618,8 +4618,6 @@ cricket::VoiceChannel* SdpOfferAnswerHandler::CreateVoiceChannel(
   }
   voice_channel->SignalSentPacket().connect(pc_,
                                             &PeerConnection::OnSentPacket_w);
-  voice_channel->SetRtpTransport(rtp_transport);
-
   return voice_channel;
 }
 
@@ -4643,8 +4641,6 @@ cricket::VideoChannel* SdpOfferAnswerHandler::CreateVideoChannel(
   }
   video_channel->SignalSentPacket().connect(pc_,
                                             &PeerConnection::OnSentPacket_w);
-  video_channel->SetRtpTransport(rtp_transport);
-
   return video_channel;
 }
 

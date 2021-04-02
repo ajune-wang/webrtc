@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd192df0_568be6ef",
+        "filename": "net/dcsctp/packet/chunk/heartbeat_ack_chunk.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-02T18:37:54Z",
+      "side": 1,
+      "message": "Do all the ToString() implementations return const char*? (converted to a std::string)",
+      "revId": "d6c43bc57f6c892b799b9b9adf5e7a0a7a2eb9b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7421db1_42170da3",
+        "filename": "net/dcsctp/packet/chunk/idata_chunk_test.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-02T18:37:54Z",
+      "side": 1,
+      "message": "git cl format?",
+      "revId": "d6c43bc57f6c892b799b9b9adf5e7a0a7a2eb9b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e61fcc3_05bec9c7",
+        "filename": "net/dcsctp/packet/chunk/idata_chunk_test.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-02T18:37:54Z",
+      "side": 1,
+      "message": "remove empty line",
+      "revId": "d6c43bc57f6c892b799b9b9adf5e7a0a7a2eb9b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4fe251b_b360060a",
+        "filename": "net/dcsctp/packet/error_cause/invalid_stream_identifier_cause.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-02T18:37:54Z",
+      "side": 1,
+      "message": "I guess not 😊",
+      "revId": "d6c43bc57f6c892b799b9b9adf5e7a0a7a2eb9b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60563438_eb440315",
+        "filename": "net/dcsctp/packet/error_cause/protocol_violation_cause.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-02T18:37:54Z",
+      "side": 1,
+      "message": "we should do another pass through the code to see if we can\u0027t apply RTC_GUARDED_BY threading restrictions throughout the implementation. It makes the design clear, code easier to reason about and helps us catch programmer errors quickly.",
+      "revId": "d6c43bc57f6c892b799b9b9adf5e7a0a7a2eb9b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -64,8 +64,6 @@ class DtlsTransportInternal : public rtc::PacketTransportInternal {
  public:
   ~DtlsTransportInternal() override;
 
-  virtual const webrtc::CryptoOptions& crypto_options() const = 0;
-
   virtual DtlsTransportState dtls_state() const = 0;
 
   virtual int component() const = 0;
@@ -108,8 +106,6 @@ class DtlsTransportInternal : public rtc::PacketTransportInternal {
   virtual bool SetRemoteFingerprint(const std::string& digest_alg,
                                     const uint8_t* digest,
                                     size_t digest_len) = 0;
-
-  virtual bool SetSslMaxProtocolVersion(rtc::SSLProtocolVersion version) = 0;
 
   // Expose the underneath IceTransport.
   virtual IceTransportInternal* ice_transport() = 0;

@@ -352,6 +352,22 @@ Thread::ScopedDisallowBlockingCalls::~ScopedDisallowBlockingCalls() {
   thread_->SetAllowBlockingCalls(previous_state_);
 }
 
+#if (!defined(NDEBUG) || defined(DCHECK_ALWAYS_ON))
+Thread::ScopedCountBlockingCalls::ScopedCountBlockingCalls(
+    std::function<void(uint32_t)> callback)
+    : thread_(Thread::Current()),
+      start_count_(thread_->GetBlockedCallCount()),
+      result_callback_(std::move(callback)) {}
+
+Thread::ScopedCountBlockingCalls::~ScopedCountBlockingCalls() {
+  result_callback_(GetCurrentBlockedCallCount());
+}
+
+uint32_t Thread::ScopedCountBlockingCalls::GetCurrentBlockedCallCount() const {
+  return thread_->GetBlockedCallCount() - start_count_;
+}
+#endif
+
 Thread::Thread(SocketServer* ss) : Thread(ss, /*do_init=*/true) {}
 
 Thread::Thread(std::unique_ptr<SocketServer> ss)
@@ -917,6 +933,13 @@ void Thread::Send(const Location& posted_from,
   }
 #endif
 
+#if (!defined(NDEBUG) || defined(DCHECK_ALWAYS_ON))
+  if (current_thread) {
+    RTC_DCHECK_RUN_ON(current_thread);
+    current_thread->blocked_call_count_++;
+  }
+#endif
+
   // Perhaps down the line we can get rid of this workaround and always require
   // current_thread to be valid when Send() is called.
   std::unique_ptr<rtc::Event> done_event;
@@ -1033,6 +1056,13 @@ void Thread::DisallowAllInvokes() {
   invoke_policy_enabled_ = true;
 #endif
 }
+
+#if (!defined(NDEBUG) || defined(DCHECK_ALWAYS_ON))
+uint32_t Thread::GetBlockedCallCount() const {
+  RTC_DCHECK_RUN_ON(this);
+  return blocked_call_count_;
+}
+#endif
 
 // Returns true if no policies added or if there is at least one policy
 // that permits invocation to |target| thread.

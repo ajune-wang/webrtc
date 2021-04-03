@@ -1124,6 +1124,8 @@ bool PeerConnection::GetStats(StatsObserver* observer,
     return false;
   }
 
+  // Track that the caller is using the old getStats().
+  deprecated_get_stats_used_ = true;
   stats_->UpdateStats(level);
   // The StatsCollector is used to tell if a track is valid because it may
   // remember tracks that the PeerConnection previously removed.
@@ -1141,6 +1143,7 @@ void PeerConnection::GetStats(RTCStatsCollectorCallback* callback) {
   RTC_DCHECK_RUN_ON(signaling_thread());
   RTC_DCHECK(stats_collector_);
   RTC_DCHECK(callback);
+  current_get_stats_used_ = true;
   stats_collector_->GetStatsReport(callback);
 }
 
@@ -1688,9 +1691,14 @@ void PeerConnection::Close() {
   if (IsClosed()) {
     return;
   }
-  // Update stats here so that we have the most recent stats for tracks and
-  // streams before the channels are closed.
-  stats_->UpdateStats(kStatsOutputLevelStandard);
+
+  // If the old getStats() call was use or if getStats has not been called at
+  // all, we update the legacy StatsCollector.
+  if (deprecated_get_stats_used_ || !current_get_stats_used_) {
+    // Update stats here so that we have the most recent stats for tracks and
+    // streams before the channels are closed.
+    stats_->UpdateStats(kStatsOutputLevelStandard);
+  }
 
   ice_connection_state_ = PeerConnectionInterface::kIceConnectionClosed;
   Observer()->OnIceConnectionChange(ice_connection_state_);

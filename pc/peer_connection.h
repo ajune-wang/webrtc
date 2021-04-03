@@ -711,6 +711,13 @@ class PeerConnection : public PeerConnectionInternal,
   // Did the connectionState ever change to `connected`?
   // Used to gather metrics only the first such state change.
   bool was_ever_connected_ RTC_GUARDED_BY(signaling_thread()) = false;
+
+  // Used to detect if stats are being polled via the legacy GetStats()
+  // method and/or the current one. As we deprecate the older version we can
+  // detect if only the 'current' method is being used and can skip maintaining
+  // the old set of stats (which block threads, consume cpu and memory).
+  bool current_get_stats_used_ RTC_GUARDED_BY(signaling_thread()) = false;
+  bool deprecated_get_stats_used_ RTC_GUARDED_BY(signaling_thread()) = false;
 };
 
 }  // namespace webrtc

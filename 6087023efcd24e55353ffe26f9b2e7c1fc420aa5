@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4221e5d7_63c68796",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-04T08:53:39Z",
+      "side": 1,
+      "message": "good catch! (that only the transport name was attaching ReportTransportStats to the wrong thread).\n\nJust remove the added comment, and this is good to go.\n",
+      "revId": "6087023efcd24e55353ffe26f9b2e7c1fc420aa5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c16684d_235d8d65",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2279,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-04T08:53:39Z",
+      "side": 1,
+      "message": "There is no UsageEvent::ICE_STATE_COMPLETED. This is the same issue as with the if above - if one jumps directly from connecting to completed, we need to make sure UsageEvent::ICE_STATE_CONNECTED is reported.\nUsage events are cumulative (they set bits in a word), not counters, so setting the bit one time more than required does not change the data.",
+      "revId": "6087023efcd24e55353ffe26f9b2e7c1fc420aa5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

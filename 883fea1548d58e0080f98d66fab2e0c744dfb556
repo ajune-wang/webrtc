@@ -22,6 +22,30 @@
       },
       "revId": "883fea1548d58e0080f98d66fab2e0c744dfb556",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c950c0ba_7f169d7e",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-04T14:33:01Z",
+      "side": 0,
+      "message": "yep, comparing to unsigned 0 is wrong. comparing to signed 0 is clearly better.\n\n(In practice GetPacketIndex shouldn\u0027t return negative values, so it might as well be a RTC_CHECK_GE(packet_index, 0); but implementation of the GetPacketIndex looks over-complicated so it is not trivial to see index is always non-negative)",
+      "parentUuid": "5455c5d8_e8c31eb9",
+      "range": {
+        "startLine": 137,
+        "startChar": 6,
+        "endLine": 137,
+        "endChar": 24
+      },
+      "revId": "883fea1548d58e0080f98d66fab2e0c744dfb556",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

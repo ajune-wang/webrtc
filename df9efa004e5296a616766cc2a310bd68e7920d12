@@ -16,6 +16,23 @@
       "message": "This CL can serve only as a reference.\n\nPlease check if the checks can indeed be removed or unsigned variables should be signed.",
       "revId": "df9efa004e5296a616766cc2a310bd68e7920d12",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f080de9c_8a3e57ca",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-04T14:33:01Z",
+      "side": 1,
+      "message": "I have no approval power in api/ though",
+      "revId": "df9efa004e5296a616766cc2a310bd68e7920d12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

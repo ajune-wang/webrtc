@@ -16,6 +16,23 @@
       "message": "hta - wdyt?",
       "revId": "cd84932aa26f47463918ef29a23a493ef5e3e324",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69db904e_9791cafd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-04T08:47:06Z",
+      "side": 1,
+      "message": "I don\u0027t think this is wise.\nthere are two cases:\n\n1) open / getstats(old) / close / getstats(old) -\u003e fine, we know old getstats is used\n2) open / close / getstats(old) -\u003e no stats are collected, old getstats behavior is seen as erroneous\n\npredicting the future based on past behavior is not wise.\n",
+      "revId": "cd84932aa26f47463918ef29a23a493ef5e3e324",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

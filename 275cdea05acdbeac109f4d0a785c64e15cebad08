@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2837dcbe_230ec935",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2021-04-05T14:26:31Z",
+      "side": 1,
+      "message": "Hello Harald!\n\nSorry for bothering you. Could you please take a look at this CL?\n\nThanks a lot,\nYura.",
+      "revId": "275cdea05acdbeac109f4d0a785c64e15cebad08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

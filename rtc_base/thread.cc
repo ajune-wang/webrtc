@@ -352,6 +352,31 @@ Thread::ScopedDisallowBlockingCalls::~ScopedDisallowBlockingCalls() {
   thread_->SetAllowBlockingCalls(previous_state_);
 }
 
+#if RTC_DCHECK_IS_ON
+Thread::ScopedCountBlockingCalls::ScopedCountBlockingCalls(
+    std::function<void(uint32_t, uint32_t)> callback)
+    : thread_(Thread::Current()),
+      start_actual_count_(thread_->GetActualBlockedCallCount()),
+      start_would_count_(thread_->GetWouldBlockCallCount()),
+      result_callback_(std::move(callback)) {}
+
+Thread::ScopedCountBlockingCalls::~ScopedCountBlockingCalls() {
+  result_callback_(GetActualBlockedCallCount(), GetWouldBlockCallCount());
+}
+
+uint32_t Thread::ScopedCountBlockingCalls::GetActualBlockedCallCount() const {
+  return thread_->GetActualBlockedCallCount() - start_actual_count_;
+}
+
+uint32_t Thread::ScopedCountBlockingCalls::GetWouldBlockCallCount() const {
+  return thread_->GetWouldBlockCallCount() - start_would_count_;
+}
+
+uint32_t Thread::ScopedCountBlockingCalls::GetTotalBlockedCallCount() const {
+  return GetActualBlockedCallCount() + GetWouldBlockCallCount();
+}
+#endif
+
 Thread::Thread(SocketServer* ss) : Thread(ss, /*do_init=*/true) {}
 
 Thread::Thread(std::unique_ptr<SocketServer> ss)
@@ -901,6 +926,10 @@ void Thread::Send(const Location& posted_from,
   msg.message_id = id;
   msg.pdata = pdata;
   if (IsCurrent()) {
+#if RTC_DCHECK_IS_ON
+    RTC_DCHECK_RUN_ON(this);
+    would_block_call_count_++;
+#endif
     msg.phandler->OnMessage(&msg);
     return;
   }
@@ -911,6 +940,8 @@ void Thread::Send(const Location& posted_from,
 
 #if RTC_DCHECK_IS_ON
   if (current_thread) {
+    RTC_DCHECK_RUN_ON(current_thread);
+    current_thread->blocked_call_count_++;
     RTC_DCHECK(current_thread->IsInvokeToThreadAllowed(this));
     ThreadManager::Instance()->RegisterSendAndCheckForCycles(current_thread,
                                                              this);
@@ -1033,6 +1064,17 @@ void Thread::DisallowAllInvokes() {
   invoke_policy_enabled_ = true;
 #endif
 }
+
+#if RTC_DCHECK_IS_ON
+uint32_t Thread::GetActualBlockedCallCount() const {
+  RTC_DCHECK_RUN_ON(this);
+  return blocked_call_count_;
+}
+uint32_t Thread::GetWouldBlockCallCount() const {
+  RTC_DCHECK_RUN_ON(this);
+  return would_block_call_count_;
+}
+#endif
 
 // Returns true if no policies added or if there is at least one policy
 // that permits invocation to |target| thread.

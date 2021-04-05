@@ -12,6 +12,7 @@
 
 #include <utility>
 
+#include "modules/desktop_capture/desktop_capture_types.h"
 #include "modules/desktop_capture/win/wgc_desktop_frame.h"
 #include "rtc_base/logging.h"
 
@@ -19,6 +20,27 @@ namespace WGC = ABI::Windows::Graphics::Capture;
 using Microsoft::WRL::ComPtr;
 
 namespace webrtc {
+
+namespace {
+
+enum class WgcCapturerError {
+  kSuccess = 0,
+  kNoDirect3dDevice = 1,
+  kNoSourceSelected = 2,
+  kItemCreationFailure = 3,
+  kSessionStartFailure = 4,
+  kGetFrameFailure = 5,
+  kFrameDropped = 6,
+  kWgcCapturerErrorMax = kFrameDropped
+};
+
+void LogWgcCapturerError(WgcCapturerError error) {
+  RTC_HISTOGRAM_ENUMERATION(
+      "WebRTC.DesktopCapture.WgcCapturerError", static_cast<int>(error),
+      static_cast<int>(WgcCapturerError::kWgcCapturerErrorMax));
+}
+
+}  // namespace
 
 WgcCapturerWin::WgcCapturerWin(
     std::unique_ptr<WgcCaptureSourceFactory> source_factory,
@@ -55,6 +77,9 @@ bool WgcCapturerWin::SelectSource(DesktopCapturer::SourceId id) {
 void WgcCapturerWin::Start(Callback* callback) {
   RTC_DCHECK(!callback_);
   RTC_DCHECK(callback);
+  RTC_HISTOGRAM_ENUMERATION_SPARSE("WebRTC.DesktopCapture.DesktopCapturerId",
+                                   DesktopCapturerId::kWgcCapturerWin,
+                                   DesktopCapturerId::kDesktopCapturerIdMax);
 
   callback_ = callback;
 
@@ -89,6 +114,7 @@ void WgcCapturerWin::CaptureFrame() {
     RTC_LOG(LS_ERROR) << "Source hasn't been selected";
     callback_->OnCaptureResult(DesktopCapturer::Result::ERROR_PERMANENT,
                                /*frame=*/nullptr);
+    LogWgcCapturerError(WgcCapturerError::kNoSourceSelected);
     return;
   }
 
@@ -96,8 +122,11 @@ void WgcCapturerWin::CaptureFrame() {
     RTC_LOG(LS_ERROR) << "No D3D11D3evice, cannot capture.";
     callback_->OnCaptureResult(DesktopCapturer::Result::ERROR_PERMANENT,
                                /*frame=*/nullptr);
+    LogWgcCapturerError(WgcCapturerError::kNoDirect3dDevice);
     return;
   }
+
+  int64_t capture_start_time_nanos = rtc::TimeNanos();
 
   HRESULT hr;
   WgcCaptureSession* capture_session = nullptr;
@@ -110,6 +139,7 @@ void WgcCapturerWin::CaptureFrame() {
       RTC_LOG(LS_ERROR) << "Failed to create a GraphicsCaptureItem: " << hr;
       callback_->OnCaptureResult(DesktopCapturer::Result::ERROR_PERMANENT,
                                  /*frame=*/nullptr);
+      LogWgcCapturerError(WgcCapturerError::kItemCreationFailure);
       return;
     }
 
@@ -131,6 +161,7 @@ void WgcCapturerWin::CaptureFrame() {
       ongoing_captures_.erase(capture_source_->GetSourceId());
       callback_->OnCaptureResult(DesktopCapturer::Result::ERROR_PERMANENT,
                                  /*frame=*/nullptr);
+      LogWgcCapturerError(WgcCapturerError::kSessionStartFailure);
       return;
     }
   }
@@ -142,15 +173,24 @@ void WgcCapturerWin::CaptureFrame() {
     ongoing_captures_.erase(capture_source_->GetSourceId());
     callback_->OnCaptureResult(DesktopCapturer::Result::ERROR_PERMANENT,
                                /*frame=*/nullptr);
+    LogWgcCapturerError(WgcCapturerError::kGetFrameFailure);
     return;
   }
 
   if (!frame) {
     callback_->OnCaptureResult(DesktopCapturer::Result::ERROR_TEMPORARY,
                                /*frame=*/nullptr);
+    LogWgcCapturerError(WgcCapturerError::kFrameDropped);
     return;
   }
 
+  int capture_time_ms = (rtc::TimeNanos() - capture_start_time_nanos) /
+                        rtc::kNumNanosecsPerMillisec;
+  RTC_HISTOGRAM_COUNTS_1000(
+      "Microsoft.WebRTC.DesktopCapture.WgcCaptureFrameTime", capture_time_ms);
+  frame->set_capture_time_ms(capture_time_ms);
+  frame->set_capturer_id(DesktopCapturerId::kWgcCapturerWin);
+  LogWgcCapturerError(WgcCapturerError::kSuccess);
   callback_->OnCaptureResult(DesktopCapturer::Result::SUCCESS,
                              std::move(frame));
 }

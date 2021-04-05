@@ -800,7 +800,7 @@ class RTCStatsReportVerifier {
   bool VerifyRTCInboundRTPStreamStats(
       const RTCInboundRTPStreamStats& inbound_stream) {
     RTCStatsVerifier verifier(report_, &inbound_stream);
-    VerifyRTCRTPStreamStats(inbound_stream, verifier);
+    VerifyRTCReceivedRtpStreamStats(inbound_stream, verifier);
     verifier.TestMemberIsOptionalIDReference(
         inbound_stream.remote_id, RTCRemoteOutboundRtpStreamStats::kType);
     if (inbound_stream.media_type.is_defined() &&
@@ -935,9 +935,6 @@ class RTCStatsReportVerifier {
   bool VerifyRTCOutboundRTPStreamStats(
       const RTCOutboundRTPStreamStats& outbound_stream) {
     RTCStatsVerifier verifier(report_, &outbound_stream);
-    // TODO(https://crbug.com/webrtc/12532): Invoke
-    // VerifyRTCReceivedRtpStreamStats() instead of VerifyRTCRTPStreamStats()
-    // because they have a shared hierarchy now!
     VerifyRTCRTPStreamStats(outbound_stream, verifier);
     if (outbound_stream.media_type.is_defined() &&
         *outbound_stream.media_type == "video") {

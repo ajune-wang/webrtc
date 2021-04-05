@@ -25,8 +25,10 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/string_utils.h"
+#include "rtc_base/time_utils.h"
 #include "rtc_base/trace_event.h"
 #include "rtc_base/win32.h"
+#include "system_wrappers/include/metrics.h"
 
 namespace webrtc {
 
@@ -143,14 +145,27 @@ bool WindowCapturerWinGdi::IsOccluded(const DesktopVector& pos) {
 void WindowCapturerWinGdi::Start(Callback* callback) {
   RTC_DCHECK(!callback_);
   RTC_DCHECK(callback);
+  RTC_HISTOGRAM_ENUMERATION_SPARSE(
+      "Microsoft.WebRTC.DesktopCapture.DesktopCapturerId",
+      DesktopCapturerId::kWindowCapturerWinGdi,
+      DesktopCapturerId::kDesktopCapturerIdMax);
 
   callback_ = callback;
 }
 
 void WindowCapturerWinGdi::CaptureFrame() {
   RTC_DCHECK(callback_);
+  int64_t capture_start_time_nanos = rtc::TimeNanos();
 
   CaptureResults results = CaptureFrame(/*capture_owned_windows*/ true);
+
+  int capture_time_ms = (rtc::TimeNanos() - capture_start_time_nanos) /
+                        rtc::kNumNanosecsPerMillisec;
+  RTC_HISTOGRAM_COUNTS_1000(
+      "Microsoft.WebRTC.DesktopCapture.WindowGdiCaptureFrameTime",
+      capture_time_ms);
+  results.frame->set_capture_time_ms(capture_time_ms);
+  results.frame->set_capturer_id(DesktopCapturerId::kWindowCapturerWinGdi);
   callback_->OnCaptureResult(results.result, std::move(results.frame));
 }
 

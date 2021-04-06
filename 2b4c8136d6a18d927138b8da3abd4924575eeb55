@@ -52,6 +52,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a31aa5e4_2b67f646",
+        "filename": "net/dcsctp/public/dcsctp_options.h",
+        "patchSetId": 30
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-06T21:19:12Z",
+      "side": 1,
+      "message": "Thanks - they really should, and my calculations were likely not correct. I\u0027m updating to the ones in sctp_transport.cc.",
+      "parentUuid": "47fc7a32_97619e81",
+      "revId": "2b4c8136d6a18d927138b8da3abd4924575eeb55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "030d1197_b65d61eb",
@@ -65,6 +83,30 @@
       "writtenOn": "2021-04-06T19:34:31Z",
       "side": 1,
       "message": "Nit: \"established\"",
+      "range": {
+        "startLine": 258,
+        "startChar": 33,
+        "endLine": 258,
+        "endChar": 43
+      },
+      "revId": "2b4c8136d6a18d927138b8da3abd4924575eeb55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a314d4c_fe28f210",
+        "filename": "net/dcsctp/public/dcsctp_socket.h",
+        "patchSetId": 30
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-06T21:19:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "030d1197_b65d61eb",
       "range": {
         "startLine": 258,
         "startChar": 33,

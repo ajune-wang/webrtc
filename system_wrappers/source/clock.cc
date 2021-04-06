@@ -29,6 +29,16 @@
 #include "rtc_base/time_utils.h"
 
 namespace webrtc {
+namespace {
+
+int64_t NtpOffsetMsCalledOnce() {
+  constexpr int64_t kNtpJan1970Sec = 2208988800;
+  int64_t clock_time = rtc::TimeMillis();
+  int64_t utc_time = rtc::TimeUTCMillis();
+  return utc_time - clock_time + kNtpJan1970Sec * rtc::kNumMillisecsPerSec;
+}
+
+}  // namespace
 
 class RealTimeClock : public Clock {
   Timestamp CurrentTime() override {

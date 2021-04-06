@@ -16,6 +16,24 @@
       "message": "I think it would be good to have a few words about *why*.\nEither a bug or a pointer to a design document / note about what you want to accomplish would be nice.\nIn particular, the scope of the counters is unclear to me.\n\nDo self-invokes count? How do you know it\u0027s a self-invoke?\n",
       "revId": "86a8f36fcd591c92da412a0e3005094766188e01",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0c64885_3b931554",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-06T15:21:20Z",
+      "side": 1,
+      "message": "Filed: https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d12649\n\nFor self-invokes, it depends on what falls under that definition. If a pointer to the same thread is assigned to e.g. signaling and network threads and then an invoke is made from one to the other (which is in actuality the same thread) then that will be counted as something that \"would\" be an Invoke, as in \"There was a call to Invoke, but it did not actually result in a thread hop in this particular case - but there is an Invoke there, so we\u0027re counting it\".\n\nSimilarly an Invoke() within an Invoke() will be counted.",
+      "parentUuid": "e8898c86_c0089f4f",
+      "revId": "86a8f36fcd591c92da412a0e3005094766188e01",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

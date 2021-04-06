@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7f64e2f_ce607df4",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 938,
+      "author": {
+        "id": 16600
+      },
+      "writtenOn": "2021-04-06T06:16:59Z",
+      "side": 1,
+      "message": "I guess the TODO was put into the wrong line, it should have been in VerifyRTCInboundRTPStreamStats. Once we have RTCOutboundRTCStreamStats migrated this will be relevant.",
+      "revId": "cbec10ad523fc16f5d710564dea0a38a429292ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

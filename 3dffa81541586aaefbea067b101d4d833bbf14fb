@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0cba903_03d95082",
+        "filename": "net/dcsctp/packet/tlv_trait.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5852
+      },
+      "writtenOn": "2021-04-06T20:21:17Z",
+      "side": 1,
+      "message": "Belated nit: \"actual_type\"",
+      "range": {
+        "startLine": 31,
+        "startChar": 27,
+        "endLine": 31,
+        "endChar": 38
+      },
+      "revId": "3dffa81541586aaefbea067b101d4d833bbf14fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

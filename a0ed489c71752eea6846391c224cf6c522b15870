@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "495ce5c4_130ec8c3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-06T15:58:41Z",
+      "side": 1,
+      "message": "I have now reviewed the implementation, and it seems straightforward (which is words of praise!)\n\nI do have comments on the naming, but I think the basic concept (now that I understand it) is sound.\n\nNotably, this counts only hops out of *this* thread - further invokes caused by the invokes are *not* counted.\n\nSounds good to me, awaiting your opinion on the naming bikeshed.\n",
+      "revId": "a0ed489c71752eea6846391c224cf6c522b15870",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f300c14d_0b3fac3f",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-06T15:58:41Z",
+      "side": 1,
+      "message": "These names lack a bit of context.\nWhat about actual_blocked_at_start_ and would_block_at_start?",
+      "revId": "a0ed489c71752eea6846391c224cf6c522b15870",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "682aabe4_93cfee50",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-06T15:58:41Z",
+      "side": 1,
+      "message": "While I\u0027m bikeshedding - \"WouldBlock\" is also a bit of a misnomer. It does occupy the thread, but it doesn\u0027t need to do any waiting - what about GetSameThreadCallCount?",
+      "revId": "a0ed489c71752eea6846391c224cf6c522b15870",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8a4e2a9_8dd12a1f",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 630,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-06T15:58:41Z",
+      "side": 1,
+      "message": "Why is this #if condition different from the #ifs that use it?",
+      "revId": "a0ed489c71752eea6846391c224cf6c522b15870",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed47cdd8_d8d9a89e",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-06T15:58:41Z",
+      "side": 1,
+      "message": "I\u0027m not happy with the name \"blocked call\" for this concept - it is not the call that is blocked, it is the thread that is blocked by the call.\nCould we rename this to \"blocking call\" consistently?",
+      "revId": "a0ed489c71752eea6846391c224cf6c522b15870",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

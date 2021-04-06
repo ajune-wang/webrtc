@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "60eddb86_8859326e",
+        "filename": "pc/channel_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-06T09:27:03Z",
+      "side": 1,
+      "message": "done - now (using the type that\u0027s used by the surrogate class):\nbool IsSrtpActive(std::unique_ptr\u003ctypename T::Channel\u003e\u0026 channel)",
+      "parentUuid": "aebe9533_a2b118ea",
+      "range": {
+        "startLine": 517,
+        "startChar": 4,
+        "endLine": 517,
+        "endChar": 24
+      },
+      "revId": "07b34f3187ffbf4843b91be690bfb7999acdf336",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "bfee6f68_30f62c45",
         "filename": "pc/channel_unittest.cc",
         "patchSetId": 4
@@ -43,6 +67,47 @@
         "endLine": 519,
         "endChar": 31
       },
+      "revId": "07b34f3187ffbf4843b91be690bfb7999acdf336",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82f53753_84f934d3",
+        "filename": "pc/channel_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-06T09:27:03Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "bfee6f68_30f62c45",
+      "range": {
+        "startLine": 519,
+        "startChar": 24,
+        "endLine": 519,
+        "endChar": 31
+      },
+      "revId": "07b34f3187ffbf4843b91be690bfb7999acdf336",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5ef1955_2f18f563",
+        "filename": "pc/channel_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-06T09:27:03Z",
+      "side": 1,
+      "message": "same here",
       "revId": "07b34f3187ffbf4843b91be690bfb7999acdf336",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

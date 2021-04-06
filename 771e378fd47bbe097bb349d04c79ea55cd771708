@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96474d4c_323f8c75",
+        "filename": "net/dcsctp/common/sequence_numbers.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-06T10:10:09Z",
+      "side": 1,
+      "message": "Nit: \"StrongAlias type\"?\n\n(since the term StrongType is not present in the codebase at the moment, we may want to specify what it means for future readers?)",
+      "range": {
+        "startLine": 29,
+        "startChar": 29,
+        "endLine": 29,
+        "endChar": 39
+      },
+      "revId": "771e378fd47bbe097bb349d04c79ea55cd771708",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

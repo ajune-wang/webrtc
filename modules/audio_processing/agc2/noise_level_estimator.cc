@@ -111,11 +111,6 @@ float NoiseLevelEstimator::Analyze(const AudioFrameView<const float>& frame) {
       constexpr int kTimeToEnergyIncreasedAllowedNumFrames = 1000;
       noise_energy_hold_counter_ = kTimeToEnergyIncreasedAllowedNumFrames;
     }
-  } else {
-    // TODO(bugs.webrtc.org/7494): Remove to not forget the estimated level.
-    // For a non-stationary signal, leak the estimate downwards in order to
-    // avoid estimate locking due to incorrect signal classification.
-    noise_energy_ = noise_energy_ * 0.99f;
   }
 
   // Ensure a minimum of the estimate.

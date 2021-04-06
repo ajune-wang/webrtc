@@ -76,7 +76,7 @@ TEST_P(NoiseEstimatorParametrization, PulseTone) {
                            /*no_pulse_amplitude=*/10.0f, /*frequency_hz=*/20.0f,
                            sample_rate_hz());
   const int noise_level_dbfs = RunEstimator(gen, sample_rate_hz());
-  EXPECT_NEAR(noise_level_dbfs, -79.0f, 1.0f);
+  EXPECT_NEAR(noise_level_dbfs, -70.0f, 1.0f);
 }
 
 INSTANTIATE_TEST_SUITE_P(GainController2NoiseEstimator,

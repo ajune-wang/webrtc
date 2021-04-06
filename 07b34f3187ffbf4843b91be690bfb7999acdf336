@@ -74,6 +74,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "77f75902_f202ef70",
+        "filename": "pc/channel_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-06T09:53:15Z",
+      "side": 1,
+      "message": "Well I figured that dereferencing a pointer doesn\u0027t mean that it can\u0027t be null (in fact some of the old webrtc code has been burned by this). I do understand your point though that it signals to the outside code that the expectation is that can\u0027t be null. However there\u0027s nobody besides me looking at that code right now 😊\n\nSo I opted to take a reference to the object that really can\u0027t be null, which is the unique_ptr\u003c\u003e object and have the RTC_DCHECK check in the function as a check that the test implementation itself is correct (not the code under test).",
+      "parentUuid": "45015942_426d4aa8",
+      "range": {
+        "startLine": 517,
+        "startChar": 4,
+        "endLine": 517,
+        "endChar": 24
+      },
+      "revId": "07b34f3187ffbf4843b91be690bfb7999acdf336",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "bfee6f68_30f62c45",
         "filename": "pc/channel_unittest.cc",
         "patchSetId": 4

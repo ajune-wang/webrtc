@@ -50,6 +50,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "45015942_426d4aa8",
+        "filename": "pc/channel_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-06T09:43:27Z",
+      "side": 1,
+      "message": "why do you need reference to the pointer if you only use reference to the object?\nI\u0027ve suggested to use reference instead of the DCHECK, use reference to indicate passed channel can\u0027t be nullptr pointer.\n\nEXPECT_FALSE(IsSrtpActive(*channel1_));)",
+      "parentUuid": "60eddb86_8859326e",
+      "range": {
+        "startLine": 517,
+        "startChar": 4,
+        "endLine": 517,
+        "endChar": 24
+      },
+      "revId": "07b34f3187ffbf4843b91be690bfb7999acdf336",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "bfee6f68_30f62c45",
         "filename": "pc/channel_unittest.cc",
         "patchSetId": 4

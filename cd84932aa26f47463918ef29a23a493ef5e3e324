@@ -51,6 +51,24 @@
       "parentUuid": "69db904e_9791cafd",
       "revId": "cd84932aa26f47463918ef29a23a493ef5e3e324",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b72bd590_397f690c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-06T09:48:39Z",
+      "side": 1,
+      "message": "Can we set a flag here and add an use counter into getStats(old) when this flag is set? I\u0027m not convinced it won\u0027t happen (consider where new getstats is used by the lib that accesses PC directly, while old getstats is used by a stats-collecting library that fires every N seconds).\n\nAlso, what problem are we fixing? (bug reference or pointer to design doc)?\nI fear that if this causes issues, they will be hard to debug.\n\nBTW: release notes are generated from closed bugs. So CLs submitted without a bug will go under the radar at release-note time.",
+      "parentUuid": "9d470cea_27ecea42",
+      "revId": "cd84932aa26f47463918ef29a23a493ef5e3e324",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

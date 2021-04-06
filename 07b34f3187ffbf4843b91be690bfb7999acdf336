@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aebe9533_a2b118ea",
+        "filename": "pc/channel_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-06T09:08:50Z",
+      "side": 1,
+      "message": "alternatively you may pass channel by reference:\n\n  bool IsSrtpActive(cricket::BaseChannel\u0026 channel) {\n    return network_thread_-\u003eInvoke\u003cbool\u003e(\n        RTC_FROM_HERE, [\u0026] { return channel.srtp_active(); });\n  }\n\nhttps://google.github.io/styleguide/cppguide.html#Inputs_and_Outputs\n\"non-optional output and input/output parameters should usually be references (which cannot be null)\"",
+      "range": {
+        "startLine": 517,
+        "startChar": 4,
+        "endLine": 517,
+        "endChar": 24
+      },
+      "revId": "07b34f3187ffbf4843b91be690bfb7999acdf336",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfee6f68_30f62c45",
+        "filename": "pc/channel_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-06T09:08:50Z",
+      "side": 1,
+      "message": "Invoke is a synchronious call, so lambda doesn\u0027t need to outlive this function and thus auto capture is ok and encouraged.\n\nhttp://go/c-readability-advice#explicit-vs-implicit-lambda-capture-clauses",
+      "range": {
+        "startLine": 519,
+        "startChar": 24,
+        "endLine": 519,
+        "endChar": 31
+      },
+      "revId": "07b34f3187ffbf4843b91be690bfb7999acdf336",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

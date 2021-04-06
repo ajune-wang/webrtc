@@ -1,6 +1,57 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "57ca2a04_83e5c229",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 830,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-04-06T07:35:36Z",
+      "side": 1,
+      "message": "packets_lost should already be tested by VerifyRTCReceivedRtpStreamStats",
+      "revId": "cbec10ad523fc16f5d710564dea0a38a429292ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd6482de_3262a3b2",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 848,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-04-06T07:35:36Z",
+      "side": 1,
+      "message": "And jitter also tested by VerifyRTCReceivedRtpStreamStats",
+      "revId": "cbec10ad523fc16f5d710564dea0a38a429292ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e44a8738_c146e34c",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 871,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-04-06T07:35:36Z",
+      "side": 1,
+      "message": "jitter is here too but no need to if on media_type since it is asserting the same thing in both places.\n\nIt\u0027s enough with the VerifyRTCReceivedRtpStreamStats test",
+      "revId": "cbec10ad523fc16f5d710564dea0a38a429292ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "d7f64e2f_ce607df4",

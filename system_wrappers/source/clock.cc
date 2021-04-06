@@ -10,6 +10,8 @@
 
 #include "system_wrappers/include/clock.h"
 
+#include "system_wrappers/include/field_trial.h"
+
 #if defined(WEBRTC_WIN)
 
 // Windows needs to be included before mmsystem.h
@@ -29,21 +31,57 @@
 #include "rtc_base/time_utils.h"
 
 namespace webrtc {
+namespace {
+
+int64_t NtpOffsetUsCalledOnce() {
+  constexpr int64_t kNtpJan1970Sec = 2208988800;
+  int64_t clock_time = rtc::TimeMicros();
+  int64_t utc_time = rtc::TimeUTCMicros();
+  return utc_time - clock_time + kNtpJan1970Sec * rtc::kNumMicrosecsPerSec;
+}
+
+NtpTime TimeMicrosToNtp(int64_t time_us) {
+  static int64_t ntp_offset_us = NtpOffsetUsCalledOnce();
+
+  int64_t time_ntp_us = time_us + ntp_offset_us;
+  RTC_DCHECK_GE(time_ntp_us, 0);  // Time before year 1900 is unsupported.
+
+  // TODO(danilchap): Convert both seconds and fraction together using int128
+  // when that type is easily available.
+  // Currently conversion is done separately for the seconds and the fractions
+  // to avoid overflows.
+
+  // Convert seconds to uint32 through uint64 for a well-defined cast.
+  // A wrap around, which will happen in 2036, is expected for NTP time.
+  uint32_t ntp_seconds =
+      static_cast<uint64_t>(time_ntp_us / rtc::kNumMicrosecsPerSec);
+
+  // Scale fractions of the second to NTP resolution.
+  constexpr int64_t kNtpFractionsInSecond = 1LL << 32;
+  int64_t us_fractions = time_ntp_us % rtc::kNumMicrosecsPerSec;
+  uint32_t ntp_fractions =
+      us_fractions * kNtpFractionsInSecond / rtc::kNumMicrosecsPerSec;
+  return NtpTime(ntp_seconds, ntp_fractions);
+}
+
+}  // namespace
 
 class RealTimeClock : public Clock {
   Timestamp CurrentTime() override {
     return Timestamp::Micros(rtc::TimeMicros());
   }
-  // Return a timestamp in milliseconds relative to some arbitrary source; the
-  // source is fixed for this clock.
-  int64_t TimeInMilliseconds() override { return rtc::TimeMillis(); }
 
-  // Return a timestamp in microseconds relative to some arbitrary source; the
-  // source is fixed for this clock.
-  int64_t TimeInMicroseconds() override { return rtc::TimeMicros(); }
-
-  // Retrieve an NTP absolute timestamp.
   NtpTime CurrentNtpTime() override {
+    return field_trial::IsEnabled("WebRTC-SystemIndependantNtpTimeKillSwitch")
+               ? SystemDependantNtpTime()
+               : TimeMicrosToNtp(rtc::TimeMicros());
+  }
+
+ protected:
+  virtual timeval CurrentTimeVal() = 0;
+
+ private:
+  NtpTime SystemDependantNtpTime() {
     timeval tv = CurrentTimeVal();
     double microseconds_in_seconds;
     uint32_t seconds;
@@ -52,19 +90,6 @@ class RealTimeClock : public Clock {
         microseconds_in_seconds * kMagicNtpFractionalUnit + 0.5);
     return NtpTime(seconds, fractions);
   }
-
-  // Retrieve an NTP absolute timestamp in milliseconds.
-  int64_t CurrentNtpInMilliseconds() override {
-    timeval tv = CurrentTimeVal();
-    uint32_t seconds;
-    double microseconds_in_seconds;
-    Adjust(tv, &seconds, &microseconds_in_seconds);
-    return 1000 * static_cast<int64_t>(seconds) +
-           static_cast<int64_t>(1000.0 * microseconds_in_seconds + 0.5);
-  }
-
- protected:
-  virtual timeval CurrentTimeVal() = 0;
 
   static void Adjust(const timeval& tv,
                      uint32_t* adjusted_s,
@@ -239,10 +264,8 @@ Clock* Clock::GetRealTimeClock() {
 
 SimulatedClock::SimulatedClock(int64_t initial_time_us)
     : time_us_(initial_time_us) {}
-
 SimulatedClock::SimulatedClock(Timestamp initial_time)
     : SimulatedClock(initial_time.us()) {}
-
 SimulatedClock::~SimulatedClock() {}
 
 Timestamp SimulatedClock::CurrentTime() {
@@ -257,14 +280,9 @@ NtpTime SimulatedClock::CurrentNtpTime() {
   return NtpTime(seconds, fractions);
 }
 
-int64_t SimulatedClock::CurrentNtpInMilliseconds() {
-  return TimeInMilliseconds() + 1000 * static_cast<int64_t>(kNtpJan1970);
-}
-
 void SimulatedClock::AdvanceTimeMilliseconds(int64_t milliseconds) {
   AdvanceTime(TimeDelta::Millis(milliseconds));
 }
-
 void SimulatedClock::AdvanceTimeMicroseconds(int64_t microseconds) {
   AdvanceTime(TimeDelta::Micros(microseconds));
 }

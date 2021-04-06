@@ -69,6 +69,24 @@
       "parentUuid": "9d470cea_27ecea42",
       "revId": "cd84932aa26f47463918ef29a23a493ef5e3e324",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "daf02247_d93223fb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-06T09:59:56Z",
+      "side": 1,
+      "message": "Yes, to be clear I\u0027m on the fence myself about this.\n\nI\u0027ve been looking into how many blocking invokes we have at various places in the PeerConnection API implementation and in various places there can be many. In some places the numbers go up as a multiplication of the number of tracks.\n\nIn this particular case, I\u0027m thinking about avoiding a few Invokes (typically 3 on the signaling thread, more on other threads) for the purposes of maintaining the legacy stats collections. It would be nice if those apps that use the new getStats() and do not need the old getStats() post close(), would get an added performance boost.  However, the new getStats() implementation is not without problems:\nhttps://bugs.chromium.org/p/webrtc/issues/detail?id\u003d12644",
+      "parentUuid": "b72bd590_397f690c",
+      "revId": "cd84932aa26f47463918ef29a23a493ef5e3e324",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

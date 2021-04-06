@@ -22,6 +22,30 @@
       },
       "revId": "5fad86d10ccb8d1e41bd24cf74c00e9a88a31a37",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d33835f_16d5ff9c",
+        "filename": "system_wrappers/source/clock.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 17376
+      },
+      "writtenOn": "2021-04-06T15:30:45Z",
+      "side": 1,
+      "message": "I will delete the methods I copy here from their previous location.\nHowever, I need to submit this first without deleting them so I can migrate google3. I\u0027ll be able to delete after.",
+      "parentUuid": "058652c0_24afb1c5",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 1
+      },
+      "revId": "5fad86d10ccb8d1e41bd24cf74c00e9a88a31a37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

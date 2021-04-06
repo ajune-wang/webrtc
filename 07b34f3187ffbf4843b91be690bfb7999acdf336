@@ -98,6 +98,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "5e79dfc5_63fec212",
+        "filename": "pc/channel_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-06T12:05:58Z",
+      "side": 1,
+      "message": "Ack\n(personally I think pointer was better than reference to pointer,\nand checking pointer is not null at the caller is better than accepting pointer and only then check it is not null.)\nbut that is not important for code that is so local.",
+      "parentUuid": "77f75902_f202ef70",
+      "range": {
+        "startLine": 517,
+        "startChar": 4,
+        "endLine": 517,
+        "endChar": 24
+      },
+      "revId": "07b34f3187ffbf4843b91be690bfb7999acdf336",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "bfee6f68_30f62c45",
         "filename": "pc/channel_unittest.cc",
         "patchSetId": 4

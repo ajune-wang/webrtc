@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c753e696_b1de1fb3",
+        "filename": "net/dcsctp/packet/chunk/heartbeat_ack_chunk.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-06T06:19:06Z",
+      "side": 1,
+      "message": "As you saw later on; No they\u0027re not. The ones that don\u0027t carry any interesting information are, but others will print out their important information.",
+      "parentUuid": "bd192df0_568be6ef",
+      "revId": "d6c43bc57f6c892b799b9b9adf5e7a0a7a2eb9b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e7421db1_42170da3",
@@ -31,6 +49,24 @@
       "writtenOn": "2021-04-02T18:37:54Z",
       "side": 1,
       "message": "git cl format?",
+      "revId": "d6c43bc57f6c892b799b9b9adf5e7a0a7a2eb9b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20cfc45c_c1685f94",
+        "filename": "net/dcsctp/packet/chunk/idata_chunk_test.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-06T06:19:06Z",
+      "side": 1,
+      "message": "It\u0027s actually not fixing it nor complaining. I guess it has given up on me, as I added too much weirdly formatted data from Wireshark. I\u0027ll adjust some manually, though.",
+      "parentUuid": "e7421db1_42170da3",
       "revId": "d6c43bc57f6c892b799b9b9adf5e7a0a7a2eb9b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -52,6 +88,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bef4d3b_054a47ca",
+        "filename": "net/dcsctp/packet/chunk/idata_chunk_test.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-06T06:19:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e61fcc3_05bec9c7",
+      "revId": "d6c43bc57f6c892b799b9b9adf5e7a0a7a2eb9b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d4fe251b_b360060a",
@@ -69,6 +123,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f125abc_6b2eac6d",
+        "filename": "net/dcsctp/packet/error_cause/invalid_stream_identifier_cause.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-06T06:19:06Z",
+      "side": 1,
+      "message": "😊",
+      "parentUuid": "d4fe251b_b360060a",
+      "revId": "d6c43bc57f6c892b799b9b9adf5e7a0a7a2eb9b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "60563438_eb440315",
@@ -82,6 +154,24 @@
       "writtenOn": "2021-04-02T18:37:54Z",
       "side": 1,
       "message": "we should do another pass through the code to see if we can\u0027t apply RTC_GUARDED_BY threading restrictions throughout the implementation. It makes the design clear, code easier to reason about and helps us catch programmer errors quickly.",
+      "revId": "d6c43bc57f6c892b799b9b9adf5e7a0a7a2eb9b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "631b049d_53195b9c",
+        "filename": "net/dcsctp/packet/error_cause/protocol_violation_cause.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-06T06:19:06Z",
+      "side": 1,
+      "message": "Hmm... there isn\u0027t any threading anywhere - by design, so there shouldn\u0027t be any need for RTC_GUARDED_BY annotations.\n\n(There is one exception, and that is an example timer driver implementation that is itself a multithreaded component, but no other components are).\n\nAll accesses to this library has to be serialized _per socket_. Feel free to call methods on two sockets concurrently, as two sockets share no state. And feel free to call methods on the same socket from different threads, as long as there is no concurrent calls. \n\nThis can either be achieved on the client by coarse-grained per-socket locking, or by e.g. using a \"serial executor\" of sorts.",
+      "parentUuid": "60563438_eb440315",
       "revId": "d6c43bc57f6c892b799b9b9adf5e7a0a7a2eb9b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

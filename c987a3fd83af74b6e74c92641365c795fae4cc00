@@ -159,6 +159,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7163d51_096c74e8",
+        "filename": "net/dcsctp/public/dcsctp_socket.h",
+        "patchSetId": 25
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-06T10:11:25Z",
+      "side": 1,
+      "message": "The last paragraph in the method description indicates that it\u0027s a no-op. Should I rewrite it to be even more explicit?",
+      "parentUuid": "0bbc1668_6c2150bc",
+      "revId": "c987a3fd83af74b6e74c92641365c795fae4cc00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "67aa620b_c6fe6934",

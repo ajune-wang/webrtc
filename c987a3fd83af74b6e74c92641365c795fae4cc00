@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7013a18_fb13ee37",
+        "filename": "net/dcsctp/public/dcsctp_message.h",
+        "patchSetId": 25
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-06T09:34:16Z",
+      "side": 1,
+      "message": "This is a destructive method and will put the object in a \"undefined\" state (the payload will be moved from, and you shouldn\u0027t call payload() on that object).\n\nSo the \u0026\u0026 requires that you call it on a std::moved-from instance, which signals to the reader, and to the compiler, that the object is not valid past this point.\n\nTypically:\n\nstd::vector\u003cconst uint8_t\u003e payload \u003d std::move(message).ReleasePayload();\n\n// This would yield a compiler warning/error (use after std::moved)\nrtc::ArrayView\u003cconst uint8_t\u003e payload2 \u003d message.payload();\n\nSo it\u0027s just for safety.",
+      "parentUuid": "067c71b6_0225655b",
+      "revId": "c987a3fd83af74b6e74c92641365c795fae4cc00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5009b5d2_f98994d7",
@@ -31,6 +49,24 @@
       "writtenOn": "2021-04-06T09:01:23Z",
       "side": 1,
       "message": "RFC3758?",
+      "revId": "c987a3fd83af74b6e74c92641365c795fae4cc00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42fa41db_2b13282b",
+        "filename": "net/dcsctp/public/dcsctp_options.h",
+        "patchSetId": 25
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-06T09:34:16Z",
+      "side": 1,
+      "message": "RFC4960 actually - updating. And I actually noticed when looking for the reference, that I used the wrong value. It\u0027s 8 in the RFC. Thanks",
+      "parentUuid": "5009b5d2_f98994d7",
       "revId": "c987a3fd83af74b6e74c92641365c795fae4cc00",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -52,6 +88,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fba513cb_0bea3363",
+        "filename": "net/dcsctp/public/dcsctp_socket.h",
+        "patchSetId": 25
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-06T09:34:16Z",
+      "side": 1,
+      "message": "Good points! Yes, it can be nullptr, and there\u0027s no real value of unsetting it. It\u0027s actually intended to be used in tests - which I hope I\u0027ll get to soon. All high-level test cases will create PCAP files with observed packets for all sockets, as artifacts. I\u0027ll see if I can make that into ResultDB, as the PacketObserver was originally written for a different artifact storage system.\n\nI\u0027ll make it into a constructor parameter, as a unique_ptr, so ownership is clear. And then it will disappear from this interface.",
+      "parentUuid": "070b1701_d165ca48",
+      "revId": "c987a3fd83af74b6e74c92641365c795fae4cc00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e2473e62_e54d4c8c",
@@ -65,6 +119,24 @@
       "writtenOn": "2021-04-06T09:25:14Z",
       "side": 1,
       "message": "Could this return an error if it doesn\u0027t support a stream reset?\nOr can we make sure the failed callback is called with a proper error code?",
+      "revId": "c987a3fd83af74b6e74c92641365c795fae4cc00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75fff21d_f32591ed",
+        "filename": "net/dcsctp/public/dcsctp_socket.h",
+        "patchSetId": 25
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-06T09:34:16Z",
+      "side": 1,
+      "message": "Please call SupportStreamsReset prior to calling this method, to ensure that the peer supports it. As stream resetting is asynchronous, and the peer may return an error, it\u0027s not guaranteed that this will succeed. If this fails, though, the callback `OnStreamsResetFailed` is guaranteed to be triggered. The same if it succeeds; then `OnStreamsResetPerformed` will be triggered.",
+      "parentUuid": "e2473e62_e54d4c8c",
       "revId": "c987a3fd83af74b6e74c92641365c795fae4cc00",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -86,6 +158,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "20e49301_29fe52fe",
+        "filename": "net/dcsctp/public/dcsctp_socket.h",
+        "patchSetId": 25
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-06T09:34:16Z",
+      "side": 1,
+      "message": "Good idea - done, and thanks",
+      "parentUuid": "67aa620b_c6fe6934",
+      "revId": "c987a3fd83af74b6e74c92641365c795fae4cc00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2fce701f_d358cf15",
@@ -103,6 +193,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d662daa8_ea77b51d",
+        "filename": "net/dcsctp/public/timeout.h",
+        "patchSetId": 25
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-06T09:34:16Z",
+      "side": 1,
+      "message": "The reason I made it like this, having a Start and Stop method, is that it works very well with the Hashed Wheel Timer algorithm, which is really efficient to handle a large (1000s) of timers, which are frequently started and stopped - which the timers in SCTP do.\n\nBy having a Start and Stop, these will translate into a simple linked-list insertion/deletion (which are constant, and use no heap allocations). If using objects and ctor/dtor to signal Start and Stop, that would add the heap operations  that aren\u0027t extremely expensive, but unnecessary.\n\nI will make a note about the contract that Start and Stop will _always_ be called in pairs.",
+      "parentUuid": "2fce701f_d358cf15",
+      "revId": "c987a3fd83af74b6e74c92641365c795fae4cc00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8d2877a3_a7267887",
@@ -116,6 +224,24 @@
       "writtenOn": "2021-04-06T09:01:23Z",
       "side": 1,
       "message": "Cancel()? Alternatively force use of a dtor (delete the Timeout instance) to do this?",
+      "revId": "c987a3fd83af74b6e74c92641365c795fae4cc00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43e18ff4_5a875552",
+        "filename": "net/dcsctp/public/timeout.h",
+        "patchSetId": 25
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-06T09:34:16Z",
+      "side": 1,
+      "message": "Please see above 😊\n\nI also added a remark that it will always be stopped when destructed. Yeah, I agree that this object is fairly low-level...",
+      "parentUuid": "8d2877a3_a7267887",
       "revId": "c987a3fd83af74b6e74c92641365c795fae4cc00",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

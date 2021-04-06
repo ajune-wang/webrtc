@@ -195,6 +195,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c6e4eed_5042f52c",
+        "filename": "net/dcsctp/public/dcsctp_socket.h",
+        "patchSetId": 25
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-06T10:44:19Z",
+      "side": 1,
+      "message": "I took your suggestion as it was - thanks!",
+      "parentUuid": "7d5864b8_54f73e07",
+      "revId": "c987a3fd83af74b6e74c92641365c795fae4cc00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "67aa620b_c6fe6934",

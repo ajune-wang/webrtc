@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e62196c_93fbe298",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2021-04-06T12:15:00Z",
+      "side": 1,
+      "message": "I\u0027m not sure I follow what the use-case is for this.\nEncoderInfo is intended to get information about what the encoder is actually doing, so\n1) If you want to understand temporal layer usage by a spatial layer, why not use EncoderInfo::fps_allocation instead?\n2) What is the purpose of overriding it? Just changing the EncoderInfo contents won\u0027t change how the encoder is encoding the frames?\n\nThis is a non-trivial CL so please file a bug.",
+      "revId": "3209285617718b59d516619ff31c38c5a6bd7b57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

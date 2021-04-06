@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8898c86_c0089f4f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-06T07:52:40Z",
+      "side": 1,
+      "message": "I think it would be good to have a few words about *why*.\nEither a bug or a pointer to a design document / note about what you want to accomplish would be nice.\nIn particular, the scope of the counters is unclear to me.\n\nDo self-invokes count? How do you know it\u0027s a self-invoke?\n",
+      "revId": "86a8f36fcd591c92da412a0e3005094766188e01",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

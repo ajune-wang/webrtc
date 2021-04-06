@@ -179,6 +179,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7d5864b8_54f73e07",
+        "filename": "net/dcsctp/public/dcsctp_socket.h",
+        "patchSetId": 25
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-04-06T10:38:29Z",
+      "side": 1,
+      "message": "Since it wasn\u0027t clear to me at least, that would be nice. The part about the other function returning true is a bit redundant. Maybe something like:\n\nResetting streams can only be done on an established association that supports stream resetting.\nCalling this method on e.g. a closed association or streams that don\u0027t support resetting will not perform any operation.",
+      "parentUuid": "a7163d51_096c74e8",
+      "revId": "c987a3fd83af74b6e74c92641365c795fae4cc00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "67aa620b_c6fe6934",
         "filename": "net/dcsctp/public/dcsctp_socket.h",
         "patchSetId": 25

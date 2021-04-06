@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "067c71b6_0225655b",
+        "filename": "net/dcsctp/public/dcsctp_message.h",
+        "patchSetId": 25
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-06T09:01:23Z",
+      "side": 1,
+      "message": "uhm, don\u0027t think I\u0027ve seen this before - have to ask:\n\nwhat is the semantic difference with and without \u0026\u0026?\n\n(nice to have the ReleasePayload option btw)",
+      "revId": "c987a3fd83af74b6e74c92641365c795fae4cc00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5009b5d2_f98994d7",
+        "filename": "net/dcsctp/public/dcsctp_options.h",
+        "patchSetId": 25
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-06T09:01:23Z",
+      "side": 1,
+      "message": "RFC3758?",
+      "revId": "c987a3fd83af74b6e74c92641365c795fae4cc00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "070b1701_d165ca48",
+        "filename": "net/dcsctp/public/dcsctp_socket.h",
+        "patchSetId": 25
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-06T09:01:23Z",
+      "side": 1,
+      "message": "would it make sense to set the observer via a constructor instead?\n\nAlso, is nullptr valid (and is it desired)?\n\nWhat I\u0027m wondering about is if it allows for a simpler implementation with fewer states if we can assume:\n- There is always an observer (introduced via the ctor)\n- There is no way to \"unset\" an observer (it can be const)\n- The observer object ownership is with the DcSctpSocketInterface implementation (observer is set via unique_ptr\u003c\u003e).\n\nThe last bit moves the responsibility of potential synchronization if the outside implementation requires it, out of the DcSctpSocketInterface implementation and into the outside implementation. It furthermore gives the outside implementation a way to get a callback when the DcSctpSocketInterface object goes out of scope, via the dtor of the callback implementation.",
+      "revId": "c987a3fd83af74b6e74c92641365c795fae4cc00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fce701f_d358cf15",
+        "filename": "net/dcsctp/public/timeout.h",
+        "patchSetId": 25
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-06T09:01:23Z",
+      "side": 1,
+      "message": "could this be done via a constructor? Avoid the possibility of multiple calls to Start() for the same Timeout? (without a matching \u0027Stop()\u0027)",
+      "revId": "c987a3fd83af74b6e74c92641365c795fae4cc00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d2877a3_a7267887",
+        "filename": "net/dcsctp/public/timeout.h",
+        "patchSetId": 25
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-06T09:01:23Z",
+      "side": 1,
+      "message": "Cancel()? Alternatively force use of a dtor (delete the Timeout instance) to do this?",
+      "revId": "c987a3fd83af74b6e74c92641365c795fae4cc00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

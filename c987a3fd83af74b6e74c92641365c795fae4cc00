@@ -54,6 +54,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e2473e62_e54d4c8c",
+        "filename": "net/dcsctp/public/dcsctp_socket.h",
+        "patchSetId": 25
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-04-06T09:25:14Z",
+      "side": 1,
+      "message": "Could this return an error if it doesn\u0027t support a stream reset?\nOr can we make sure the failed callback is called with a proper error code?",
+      "revId": "c987a3fd83af74b6e74c92641365c795fae4cc00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67aa620b_c6fe6934",
+        "filename": "net/dcsctp/public/dcsctp_socket.h",
+        "patchSetId": 25
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-04-06T09:25:14Z",
+      "side": 1,
+      "message": "Can\u0027t we make this a strong enum instead of abusing an optional nullopt to convey a specific meaning?",
+      "revId": "c987a3fd83af74b6e74c92641365c795fae4cc00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2fce701f_d358cf15",
         "filename": "net/dcsctp/public/timeout.h",
         "patchSetId": 25

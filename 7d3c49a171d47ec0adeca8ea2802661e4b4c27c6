@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ece920f_6fda8080",
+        "filename": "net/dcsctp/packet/bounded_byte_reader_test.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5852
+      },
+      "writtenOn": "2021-04-06T20:00:14Z",
+      "side": 1,
+      "message": "Belated nit: could use a test with a variable_offset (eg. reader.sub_reader\u003c4\u003e(1), and test its variable_data \u003d\u003d \"0,1,2,3\" to be sure both offset and length are respected, it\u0027s not just using the full length of the parent reader)",
+      "range": {
+        "startLine": 34,
+        "startChar": 36,
+        "endLine": 34,
+        "endChar": 46
+      },
+      "revId": "7d3c49a171d47ec0adeca8ea2802661e4b4c27c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

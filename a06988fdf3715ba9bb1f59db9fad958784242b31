@@ -16,6 +16,23 @@
       "message": "Looks like I was stuck at \"input CL title\" again and didn\u0027t submit the full CL .. updated!",
       "revId": "a06988fdf3715ba9bb1f59db9fad958784242b31",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ef4a126_fece0dec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-04-07T17:24:31Z",
+      "side": 1,
+      "message": "Cool, thanks!",
+      "revId": "a06988fdf3715ba9bb1f59db9fad958784242b31",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

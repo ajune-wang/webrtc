@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "10fa6e53_67254b5d",
+        "filename": "modules/desktop_capture/desktop_capture_types.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2021-04-07T19:52:09Z",
+      "side": 1,
+      "message": "This comment in system_wrappers_include/metrics.h where the macro is defined seems to say that we need a value like this:\n\n// |boundary| should be above the max enumerator sample.\n#define RTC_HISTOGRAM_ENUMERATION_SPARSE(name, sample, boundary)\n\nMaybe the comment is incorrect and needs to be updated? Let\u0027s get someone more familiar with WebRTC\u0027s histograms to take a look.",
+      "parentUuid": "779cf809_6872b6b4",
+      "range": {
+        "startLine": 53,
+        "startChar": 19,
+        "endLine": 53,
+        "endChar": 57
+      },
+      "revId": "104437f03646cfea6c02c26ebddd8f8a018dec1b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "25c29d4f_cebd87b8",
         "filename": "modules/desktop_capture/win/screen_capturer_win_directx.cc",
         "patchSetId": 4
@@ -37,6 +61,30 @@
       "writtenOn": "2021-04-06T18:37:30Z",
       "side": 1,
       "message": "https://chromium.googlesource.com/chromium/src.git/+/HEAD/tools/metrics/histograms/README.md#don_t-use-the-same-histogram-logging-call-in-multiple-places\n\nIt\u0027s better to make some LogCapturer(DesktopCapturerId id) function you use in multiple places.",
+      "range": {
+        "startLine": 110,
+        "startChar": 2,
+        "endLine": 112,
+        "endChar": 65
+      },
+      "revId": "104437f03646cfea6c02c26ebddd8f8a018dec1b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90860992_65a6b522",
+        "filename": "modules/desktop_capture/win/screen_capturer_win_directx.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2021-04-07T19:52:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25c29d4f_cebd87b8",
       "range": {
         "startLine": 110,
         "startChar": 2,

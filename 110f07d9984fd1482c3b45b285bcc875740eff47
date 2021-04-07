@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e7b2b4f_e6b2a2c8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2021-04-07T19:52:09Z",
+      "side": 1,
+      "message": "jaimewalch@, PTAL at this CL that adds telemetry to the modules/desktop_capture/ directory, and if you could help me and Steven better understand the correct usage of sparse histograms in WebRTC, that would be great too!",
+      "revId": "110f07d9984fd1482c3b45b285bcc875740eff47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

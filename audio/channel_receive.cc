@@ -200,7 +200,7 @@ class ChannelReceive : public ChannelReceiveInterface {
   // parts with single-threaded semantics, and thereby reduce the need for
   // locks.
   SequenceChecker worker_thread_checker_;
-
+  SequenceChecker network_thread_checker_;
   // Methods accessed from audio and video threads are checked for sequential-
   // only access. We don't necessarily own and control these threads, so thread
   // checkers cannot be used. E.g. Chromium may transfer "ownership" from one
@@ -504,6 +504,8 @@ ChannelReceive::ChannelReceive(
       crypto_options_(crypto_options),
       absolute_capture_time_receiver_(clock) {
   RTC_DCHECK(module_process_thread_);
+  network_thread_checker_.Detach();
+
   RTC_DCHECK(audio_device_module);
 
   acm_receiver_.ResetInitialDelay();

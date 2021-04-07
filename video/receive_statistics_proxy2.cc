@@ -805,13 +805,17 @@ void ReceiveStatisticsProxy::RtcpPacketTypesCounterUpdated(
 }
 
 void ReceiveStatisticsProxy::OnCname(uint32_t ssrc, absl::string_view cname) {
-  RTC_DCHECK_RUN_ON(&main_thread_);
   // TODO(pbos): Handle both local and remote ssrcs here and RTC_DCHECK that we
   // receive stats from one of them.
   if (remote_ssrc_ != ssrc)
     return;
 
-  stats_.c_name = std::string(cname);
+  std::string name(cname);
+  worker_thread_->PostTask(
+      ToQueuedTask(task_safety_, [this, name = std::move(name)]() {
+        RTC_DCHECK_RUN_ON(&main_thread_);
+        stats_.c_name = std::move(name);
+      }));
 }
 
 void ReceiveStatisticsProxy::OnDecodedFrame(const VideoFrame& frame,
@@ -946,6 +950,8 @@ void ReceiveStatisticsProxy::OnRenderedFrame(
 void ReceiveStatisticsProxy::OnSyncOffsetUpdated(int64_t video_playout_ntp_ms,
                                                  int64_t sync_offset_ms,
                                                  double estimated_freq_khz) {
+  // TODO(tommi): This may come in on the network thread rather than
+  // render queue.
   RTC_DCHECK_RUN_ON(&incoming_render_queue_);
   int64_t now_ms = clock_->TimeInMilliseconds();
   worker_thread_->PostTask(

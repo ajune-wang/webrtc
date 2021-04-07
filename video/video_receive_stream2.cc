@@ -66,6 +66,19 @@ constexpr int kMaxWaitForFrameMs = 3000;
 
 constexpr int kDefaultMaximumPreStreamDecoders = 100;
 
+// TODO(tommi): Delete temporary hack.
+template <typename Closure>
+void Invoke(TaskQueueBase* task_queue, Closure&& task) {
+  if (task_queue->IsCurrent()) {
+    task();  // workaround for tests with merged threads.
+    return;
+  }
+  rtc::Event event;
+  task_queue->PostTask(
+      ToQueuedTask(std::forward<Closure>(task), [&event] { event.Set(); }));
+  event.Wait(rtc::Event::kForever);
+}
+
 // Concrete instance of RecordableEncodedFrame wrapping needed content
 // from EncodedFrame.
 class WebRtcRecordableEncodedFrame : public RecordableEncodedFrame {
@@ -206,7 +219,7 @@ int DetermineMaxWaitForFrame(const VideoReceiveStream::Config& config,
 VideoReceiveStream2::VideoReceiveStream2(
     TaskQueueFactory* task_queue_factory,
     TaskQueueBase* current_queue,
-    RtpStreamReceiverControllerInterface* receiver_controller,
+    TaskQueueBase* network_thread,
     int num_cpu_cores,
     PacketRouter* packet_router,
     VideoReceiveStream::Config config,
@@ -214,11 +227,12 @@ VideoReceiveStream2::VideoReceiveStream2(
     CallStats* call_stats,
     Clock* clock,
     VCMTiming* timing)
-    : task_queue_factory_(task_queue_factory),
+   : task_queue_factory_(task_queue_factory),
       transport_adapter_(config.rtcp_send_transport),
       config_(std::move(config)),
       num_cpu_cores_(num_cpu_cores),
       worker_thread_(current_queue),
+      network_thread_(network_thread),
       clock_(clock),
       call_stats_(call_stats),
       source_tracker_(clock_),
@@ -227,6 +241,7 @@ VideoReceiveStream2::VideoReceiveStream2(
       timing_(timing),
       video_receiver_(clock_, timing_.get()),
       rtp_video_stream_receiver_(worker_thread_,
+                                 network_thread_,
                                  clock_,
                                  &transport_adapter_,
                                  call_stats->AsRtcpRttStats(),
@@ -275,15 +290,10 @@ VideoReceiveStream2::VideoReceiveStream2(
   frame_buffer_.reset(
       new video_coding::FrameBuffer(clock_, timing_.get(), &stats_proxy_));
 
-  // Register with RtpStreamReceiverController.
-  media_receiver_ = receiver_controller->CreateReceiver(
-      config_.rtp.remote_ssrc, &rtp_video_stream_receiver_);
   if (config_.rtp.rtx_ssrc) {
     rtx_receive_stream_ = std::make_unique<RtxReceiveStream>(
         &rtp_video_stream_receiver_, config.rtp.rtx_associated_payload_types,
         config_.rtp.remote_ssrc, rtp_receive_statistics_.get());
-    rtx_receiver_ = receiver_controller->CreateReceiver(
-        config_.rtp.rtx_ssrc, rtx_receive_stream_.get());
   } else {
     rtp_receive_statistics_->EnableRetransmitDetection(config.rtp.remote_ssrc,
                                                        true);
@@ -302,19 +312,46 @@ VideoReceiveStream2::VideoReceiveStream2(
 VideoReceiveStream2::~VideoReceiveStream2() {
   RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
   RTC_LOG(LS_INFO) << "~VideoReceiveStream2: " << config_.ToString();
+  RTC_DCHECK(!media_receiver_);
+  RTC_DCHECK(!rtx_receiver_);
   Stop();
 }
 
+void VideoReceiveStream2::RegisterWithTransport(
+    RtpStreamReceiverControllerInterface* receiver_controller) {
+  RTC_DCHECK_RUN_ON(network_thread_);
+  RTC_DCHECK(!media_receiver_);
+  RTC_DCHECK(!rtx_receiver_);
+
+  // Register with RtpStreamReceiverController.
+  media_receiver_ = receiver_controller->CreateReceiver(
+      config_.rtp.remote_ssrc, &rtp_video_stream_receiver_);
+  if (config_.rtp.rtx_ssrc) {
+    RTC_DCHECK(rtx_receive_stream_);
+    rtx_receiver_ = receiver_controller->CreateReceiver(
+        config_.rtp.rtx_ssrc, rtx_receive_stream_.get());
+  }
+}
+
+void VideoReceiveStream2::UnregisterFromTransport() {
+  RTC_DCHECK_RUN_ON(network_thread_);
+  media_receiver_.reset();
+  rtx_receiver_.reset();
+}
+
 void VideoReceiveStream2::SignalNetworkState(NetworkState state) {
-  RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
+  RTC_DCHECK_RUN_ON(network_thread_);
   rtp_video_stream_receiver_.SignalNetworkState(state);
 }
 
 bool VideoReceiveStream2::DeliverRtcp(const uint8_t* packet, size_t length) {
+  RTC_DCHECK_RUN_ON(network_thread_);
   return rtp_video_stream_receiver_.DeliverRtcp(packet, length);
 }
 
 void VideoReceiveStream2::SetSync(Syncable* audio_syncable) {
+  // TODO(tommi): Expect to be called on the network thread (called from
+  // Call::ConfigureSync).
   RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
   rtp_stream_sync_.ConfigureSync(audio_syncable);
 }
@@ -358,9 +395,12 @@ void VideoReceiveStream2::Start() {
 
     const bool raw_payload =
         config_.rtp.raw_payload_types.count(decoder.payload_type) > 0;
-    rtp_video_stream_receiver_.AddReceiveCodec(decoder.payload_type, codec,
-                                               decoder.video_format.parameters,
-                                               raw_payload);
+    // TODO(tommi): Make async. Also move out of loop!
+    Invoke(network_thread_, [this, &decoder, &raw_payload, &codec]() {
+      rtp_video_stream_receiver_.AddReceiveCodec(
+          decoder.payload_type, codec, decoder.video_format.parameters,
+          raw_payload);
+    });
     RTC_CHECK_EQ(VCM_OK, video_receiver_.RegisterReceiveCodec(
                              decoder.payload_type, &codec, num_cpu_cores_));
   }
@@ -382,15 +422,25 @@ void VideoReceiveStream2::Start() {
     StartNextDecode();
   });
   decoder_running_ = true;
-  rtp_video_stream_receiver_.StartReceive();
 }
 
 void VideoReceiveStream2::Stop() {
   RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
-  rtp_video_stream_receiver_.StopReceive();
 
-  stats_proxy_.OnUniqueFramesCounted(
-      rtp_video_stream_receiver_.GetUniqueFramesSeen());
+  // TODO(tommi): Check if there's a risk related to OnRtp* callbacks on the
+  // network thread occuring after (or during) Stop().
+
+  // TODO(tommi): rtp_video_stream_receiver_.GetUniqueFramesSeen() needs to be
+  // called on the network thread. Perhaps if we do some of the stopping on the
+  // network thread, we can piggyback that call? Move after all stopping has
+  // been done and we're no longer connected with the network thread? (as in no
+  // race possible?).
+  // TODO(tommi): Fix this... maybe one post to network thread, stop, wait?
+  int num_unique_frames = 0;
+  Invoke(network_thread_, [this, &num_unique_frames]() {
+    num_unique_frames = rtp_video_stream_receiver_.GetUniqueFramesSeen();
+  });
+  stats_proxy_.OnUniqueFramesCounted(num_unique_frames);
 
   decode_queue_.PostTask([this] { frame_buffer_->Stop(); });
 
@@ -420,6 +470,8 @@ void VideoReceiveStream2::Stop() {
 
   video_stream_decoder_.reset();
   incoming_video_stream_.reset();
+  // TODO(tommi): This atomic flag controls traffic on the network thread.
+  // Find a better way to do it?
   transport_adapter_.Disable();
 }
 
@@ -519,6 +571,9 @@ int VideoReceiveStream2::GetBaseMinimumPlayoutDelayMs() const {
 void VideoReceiveStream2::OnFrame(const VideoFrame& video_frame) {
   VideoFrameMetaData frame_meta(video_frame, clock_->CurrentTime());
 
+  // TODO(tommi): Might want to post to the network thread instead since the
+  // GetStreamSyncOffsetInMs() call may require that (same thread as other sync
+  // methods will be called on).
   worker_thread_->PostTask(
       ToQueuedTask(task_safety_, [frame_meta, this]() {
         RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
@@ -528,9 +583,13 @@ void VideoReceiveStream2::OnFrame(const VideoFrame& video_frame) {
         if (rtp_stream_sync_.GetStreamSyncOffsetInMs(
                 frame_meta.rtp_timestamp, frame_meta.render_time_ms(),
                 &video_playout_ntp_ms, &sync_offset_ms, &estimated_freq_khz)) {
+          // TODO(tommi): It should be OK to make this call on the network
+          // thread (once the above TODO() has been done)..
           stats_proxy_.OnSyncOffsetUpdated(video_playout_ntp_ms, sync_offset_ms,
                                            estimated_freq_khz);
         }
+        // TODO(tommi): This probably needs to still be posted to the worker
+        // once the above todos have been addressed.
         stats_proxy_.OnRenderedFrame(frame_meta);
       }));
 
@@ -608,6 +667,7 @@ uint32_t VideoReceiveStream2::id() const {
 }
 
 absl::optional<Syncable::Info> VideoReceiveStream2::GetInfo() const {
+  // TODO(tommi): See if we can require this to be called on the network thread.
   RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
   absl::optional<Syncable::Info> info =
       rtp_video_stream_receiver_.GetSyncInfo();

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03e49994_d7ca09a4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-07T16:26:01Z",
+      "side": 1,
+      "message": "What clients are needing offerExtmapAllowMixed?\nWe\u0027re working on deprecating and removing that flag from configuration.\n",
+      "revId": "90fab63b981d9e4ae0499dd8ddd4cf2884160a84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

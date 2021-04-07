@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e62bb0b_065e24b9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-04-07T15:35:06Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "395b6e208da82a6ad1d249f8d1ca0a74cccd988c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c765e829_b908039a",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-04-07T15:35:06Z",
+      "side": 1,
+      "message": "nit: Locked twice in happy case, could it be changed just once?",
+      "range": {
+        "startLine": 760,
+        "startChar": 28,
+        "endLine": 760,
+        "endChar": 53
+      },
+      "revId": "395b6e208da82a6ad1d249f8d1ca0a74cccd988c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -2173,7 +2173,12 @@ cricket::CandidateStatsList PeerConnection::GetPooledCandidateStats() const {
 
 std::map<std::string, std::string> PeerConnection::GetTransportNamesByMid()
     const {
-  RTC_DCHECK_RUN_ON(signaling_thread());
+  RTC_DCHECK_RUN_ON(network_thread());
+  rtc::Thread::ScopedDisallowBlockingCalls no_blocking_calls;
+
+  if (!network_thread_safety_->alive())
+    return {};
+
   std::map<std::string, std::string> transport_names_by_mid;
   for (const auto& transceiver : rtp_manager()->transceivers()->List()) {
     cricket::ChannelInterface* channel = transceiver->internal()->channel();
@@ -2187,10 +2192,9 @@ std::map<std::string, std::string> PeerConnection::GetTransportNamesByMid()
                                ->content_name()] =
         data_channel_controller_.rtp_data_channel()->transport_name();
   }
-  if (data_channel_controller_.data_channel_transport()) {
-    absl::optional<std::string> transport_name = sctp_transport_name();
-    RTC_DCHECK(transport_name);
-    transport_names_by_mid[*sctp_mid_s_] = *transport_name;
+  if (sctp_mid_n_) {
+    auto dtls_transport = transport_controller_->GetDtlsTransport(*sctp_mid_n_);
+    transport_names_by_mid[*sctp_mid_n_] = dtls_transport->transport_name();
   }
   return transport_names_by_mid;
 }

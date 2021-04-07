@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9dbd803f_395fb088",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 751,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-04-07T09:01:17Z",
+      "side": 1,
+      "message": "I believe there is a race, for example:\n\n  T0: DecodeAndMaybeDispatchEncodedFrame\n    Frame 0:  KF W/H \u003cunknown\u003e, actually 640x360\n  T1: DecodeAndMaybeDispatchEncodedFrame\n    Frame 1:  KF W/H \u003cunknown\u003e, actually 320x180\n  T2: OnFrame\n    Decoded frame 0: pending_resolution_ \u003d 640x360\n  T3: OnFrame\n    Decoded frame 1: pending_resolution_ unchanged\n  T4: DecodeAndMaybeDispatchEncodedFrame\n    Flush frame 0 and 1 as 640x360",
+      "range": {
+        "startLine": 751,
+        "startChar": 25,
+        "endLine": 751,
+        "endChar": 59
+      },
+      "revId": "bf924939d97bfdc8c4edc89ef2ce001936314a09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9349f736_4bcd0421",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 758,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-04-07T09:01:17Z",
+      "side": 1,
+      "message": "This max buffer size should be limited (10, 20 maybe?), and also cleared before inserting a keyframe.\n\nnit: in the happy case maybe avoid push_back and then loop through the one element in `buffered_encoded_frames_`?",
+      "range": {
+        "startLine": 758,
+        "startChar": 4,
+        "endLine": 758,
+        "endChar": 57
+      },
+      "revId": "bf924939d97bfdc8c4edc89ef2ce001936314a09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e582dcfb_f0edd134",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 759,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-04-07T09:01:17Z",
+      "side": 1,
+      "message": "WDYT about not using the parsed resolution and instead let the decoder produce it for all codecs? Of course that means that `pending_resolution_` would have to be updated on every frame (since AV1 for example can switch resolution on any frame).",
+      "range": {
+        "startLine": 759,
+        "startChar": 8,
+        "endLine": 759,
+        "endChar": 42
+      },
+      "revId": "bf924939d97bfdc8c4edc89ef2ce001936314a09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "552b27e6_4a253237",
+        "filename": "video/video_receive_stream2.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-04-07T09:01:17Z",
+      "side": 1,
+      "message": "Maybe merge into an optional?",
+      "range": {
+        "startLine": 264,
+        "startChar": 0,
+        "endLine": 267,
+        "endChar": 54
+      },
+      "revId": "bf924939d97bfdc8c4edc89ef2ce001936314a09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

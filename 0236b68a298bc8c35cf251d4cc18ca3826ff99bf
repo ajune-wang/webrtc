@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a66f254f_a7594818",
+        "filename": "modules/rtp_rtcp/source/remote_ntp_time_estimator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-07T11:05:01Z",
+      "side": 0,
+      "message": "do you want to guard this block of code with the same kill-switch used in the Clock?\n\nOtherwise that kill switch won\u0027t return to previous (current) behaviour, but would completely break this functionality.",
+      "revId": "0236b68a298bc8c35cf251d4cc18ca3826ff99bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

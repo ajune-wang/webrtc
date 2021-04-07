@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b844b568_190a8263",
+        "filename": "modules/rtp_rtcp/source/remote_ntp_time_estimator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-07T11:05:01Z",
+      "side": 1,
+      "message": "it might be nicer to make clock interface smaller, in particular remove this function, \nso may be use different one instead:\nclock_-\u003eCurrentNtpTime().ToMs();",
+      "range": {
+        "startLine": 55,
+        "startChar": 45,
+        "endLine": 55,
+        "endChar": 69
+      },
+      "revId": "274c34c89628b10979e2ff53d8594a2756db2991",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

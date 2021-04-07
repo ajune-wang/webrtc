@@ -84,6 +84,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1f9ccf03_a87c9d75",
+        "filename": "modules/audio_processing/agc2/adaptive_agc.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-04-07T13:47:17Z",
+      "side": 1,
+      "message": "I would use \u0027estimator_type\u0027\nI agree that the value of that change is small, but then again is the impact on the code size. There will be no new lines added.\n\nI leave it up to you to choose.",
+      "parentUuid": "5dfce9c0_1e6a8b3e",
+      "range": {
+        "startLine": 58,
+        "startChar": 23,
+        "endLine": 58,
+        "endChar": 27
+      },
+      "revId": "94838333ebbe8bed00c1579e2acc077ecc96e336",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "56017a4e_d46fcdc8",
         "filename": "modules/audio_processing/agc2/noise_level_estimator.cc",
         "patchSetId": 1
@@ -270,6 +294,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f3775bf_3f731550",
+        "filename": "modules/audio_processing/agc2/noise_level_estimator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-04-07T13:47:17Z",
+      "side": 1,
+      "message": "That does not really help for the first frame though, since min_noise_energy_ then is extremely low (-84 dBFS).\n\nI\u0027d instead suggest explicitly detecting zero frames.",
+      "parentUuid": "a64c78b7_008813b5",
+      "range": {
+        "startLine": 189,
+        "startChar": 14,
+        "endLine": 189,
+        "endChar": 71
+      },
+      "revId": "94838333ebbe8bed00c1579e2acc077ecc96e336",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0d5d93b9_83086d51",
@@ -413,6 +461,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bcb77f33_88e6a408",
+        "filename": "modules/audio_processing/agc2/noise_level_estimator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-04-07T13:47:17Z",
+      "side": 1,
+      "message": "To me, it is the attack that would make more sense to keep. Without that, 5 seconds of constant speech, or music, would achieve a completely wrong estimate.\n\nThe slower decay on the other hand, I don\u0027t at all see a need for. \nNote that if the noise drops in this estimate, it is very likely a true noise drop and then AGC2 should react to it.\n\nAlso note that with the the current decay constant the noise is only allowed to drop at most by 5 dB per 5 seconds, and often with less than that.\n\nAnother thing to note is that when using an instant increase, the impact of a too high noise estimate will take time to recover from due to the slow decay.",
+      "parentUuid": "c690716f_97dc5126",
+      "range": {
+        "startLine": 196,
+        "startChar": 6,
+        "endLine": 197,
+        "endChar": 79
+      },
+      "revId": "94838333ebbe8bed00c1579e2acc077ecc96e336",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b9e79a79_639ccf3e",
         "filename": "modules/audio_processing/agc2/noise_level_estimator.cc",
         "patchSetId": 1
@@ -448,6 +520,30 @@
       "side": 1,
       "message": "Good question on whether this should be acceptable to use later on (i.e., once `first_period_` becomes false), since the noise floor is monotonic.\nThat wouldn\u0027t be ok as an observation period can start with higher energy frames (e.g., due to speech or loud transient noise) and therefore it\u0027d require to write for instance `noise_energy_ \u003d std::min(noise_energy_, preliminary_noise_energy_)`. However, that would add memory across the entire call, which is not correct since we instead want to forget the noise energy from the previously analyzed periods to adapt to the noise level increases.\n\nInstead, at the beginning of the call, it\u0027s safe to keep as it is since the worst thing that can happen is that the noise floor is overestimated during the first frames of the first 5 seconds and that might lead to gain capping (done by AGC2 based on the measured noise level). If that happens, a lower-than-needed gain will be applied; but, as the noise energy can only get lower and as it is updated quickly in this phase (namely, every 10 ms frame), AGC2 will be allowed to promptly raise the gain if needed as soon as the measured noise floor gets lower.\n\nWDYT?",
       "parentUuid": "b9e79a79_639ccf3e",
+      "range": {
+        "startLine": 204,
+        "startChar": 8,
+        "endLine": 206,
+        "endChar": 58
+      },
+      "revId": "94838333ebbe8bed00c1579e2acc077ecc96e336",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23f160bb_ea0d8240",
+        "filename": "modules/audio_processing/agc2/noise_level_estimator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-04-07T13:47:17Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f5a43840_8d1b41d1",
       "range": {
         "startLine": 204,
         "startChar": 8,

@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4534dc1f_98ca3984",
+        "filename": "modules/audio_processing/agc2/noise_level_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-04-07T13:47:17Z",
+      "side": 1,
+      "message": "Please add a comment on what the min_noise_energy corresponds to (I get it to be -84 dBFS but I may have done some mistake in that.",
+      "range": {
+        "startLine": 127,
+        "startChar": 4,
+        "endLine": 127,
+        "endChar": 21
+      },
+      "revId": "648ce6c56b92fc9c109fc20a2c6e9369f9c5490e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87ca7b56_ee6b62b8",
+        "filename": "modules/audio_processing/agc2/noise_level_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-04-07T13:47:17Z",
+      "side": 1,
+      "message": "This statement is actually potentially quite expensive.\nAre you sure that the call to EnergyToDbfs is removed by the compiler if data-dumping is not turned on?\n\nRegardless, I would suggest instead dumping the value of preliminary_noise_energy_ \n\nDumping the dBFS value is a costly convenience and I think it is much more preferrable to compute the dBFS value in the offline tooling code that analyze the dumped data content.",
+      "range": {
+        "startLine": 196,
+        "startChar": 3,
+        "endLine": 198,
+        "endChar": 78
+      },
+      "revId": "648ce6c56b92fc9c109fc20a2c6e9369f9c5490e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "adcf9177_0d263e63",
+        "filename": "modules/audio_processing/agc2/noise_level_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-04-07T13:47:17Z",
+      "side": 1,
+      "message": "Hmm, I think this is not entirely correct since this is neither the minimum frame energy, nor a minimum bound for what the min_noise_energy_ can be.\n\n\nI would suggest changing it to\n// Initialize the minimum noise energy to -84 dBFS.",
+      "range": {
+        "startLine": 227,
+        "startChar": 4,
+        "endLine": 227,
+        "endChar": 67
+      },
+      "revId": "648ce6c56b92fc9c109fc20a2c6e9369f9c5490e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

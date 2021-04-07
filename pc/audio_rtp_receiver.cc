@@ -28,18 +28,25 @@ namespace webrtc {
 
 AudioRtpReceiver::AudioRtpReceiver(rtc::Thread* worker_thread,
                                    std::string receiver_id,
-                                   std::vector<std::string> stream_ids)
+                                   std::vector<std::string> stream_ids,
+                                   bool is_unified_plan)
     : AudioRtpReceiver(worker_thread,
                        receiver_id,
-                       CreateStreamsFromIds(std::move(stream_ids))) {}
+                       CreateStreamsFromIds(std::move(stream_ids)),
+                       is_unified_plan) {}
 
 AudioRtpReceiver::AudioRtpReceiver(
     rtc::Thread* worker_thread,
     const std::string& receiver_id,
-    const std::vector<rtc::scoped_refptr<MediaStreamInterface>>& streams)
+    const std::vector<rtc::scoped_refptr<MediaStreamInterface>>& streams,
+    bool is_unified_plan)
     : worker_thread_(worker_thread),
       id_(receiver_id),
-      source_(new rtc::RefCountedObject<RemoteAudioSource>(worker_thread)),
+      source_(new rtc::RefCountedObject<RemoteAudioSource>(
+          worker_thread,
+          is_unified_plan
+              ? RemoteAudioSource::OnAudioChannelGoneAction::kSurvive
+              : RemoteAudioSource::OnAudioChannelGoneAction::kEnd)),
       track_(AudioTrackProxyWithInternal<AudioTrack>::Create(
           rtc::Thread::Current(),
           AudioTrack::Create(receiver_id, source_))),
@@ -152,7 +159,10 @@ void AudioRtpReceiver::StopAndEndTrack() {
 
 void AudioRtpReceiver::RestartMediaChannel(absl::optional<uint32_t> ssrc) {
   RTC_DCHECK(media_channel_);
+  RTC_LOG(LS_ERROR) << "<AudioRtpReceiver::RestartMediaChannel>";
   if (!stopped_ && ssrc_ == ssrc) {
+    RTC_LOG(LS_ERROR) << "no need to restart";
+    RTC_LOG(LS_ERROR) << "</AudioRtpReceiver::RestartMediaChannel>";
     return;
   }
 
@@ -165,6 +175,7 @@ void AudioRtpReceiver::RestartMediaChannel(absl::optional<uint32_t> ssrc) {
   source_->Start(media_channel_, ssrc);
   delay_->OnStart(media_channel_, ssrc.value_or(0));
   Reconfigure();
+  RTC_LOG(LS_ERROR) << "</AudioRtpReceiver::RestartMediaChannel>";
 }
 
 void AudioRtpReceiver::SetupMediaChannel(uint32_t ssrc) {

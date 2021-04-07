@@ -16,6 +16,253 @@
       "message": "Hi Per,\nCould you PTAL?\nAlessio",
       "revId": "94838333ebbe8bed00c1579e2acc077ecc96e336",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60e75fad_2ba16589",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-04-07T09:44:53Z",
+      "side": 1,
+      "message": "Thanks for the CL!!!",
+      "revId": "94838333ebbe8bed00c1579e2acc077ecc96e336",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57e94d9a_d7e66ff4",
+        "filename": "modules/audio_processing/agc2/adaptive_agc.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-04-07T09:44:53Z",
+      "side": 1,
+      "message": "I would suggest using something more descriptive than type here. Type is a very ambiguous naming with some very specific meanings.",
+      "range": {
+        "startLine": 58,
+        "startChar": 23,
+        "endLine": 58,
+        "endChar": 27
+      },
+      "revId": "94838333ebbe8bed00c1579e2acc077ecc96e336",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56017a4e_d46fcdc8",
+        "filename": "modules/audio_processing/agc2/noise_level_estimator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-04-07T09:44:53Z",
+      "side": 1,
+      "message": "What is v? I would prefer a more descriptive naming for that.",
+      "range": {
+        "startLine": 141,
+        "startChar": 30,
+        "endLine": 141,
+        "endChar": 31
+      },
+      "revId": "94838333ebbe8bed00c1579e2acc077ecc96e336",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78936145_b0b83748",
+        "filename": "modules/audio_processing/agc2/noise_level_estimator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-04-07T09:44:53Z",
+      "side": 1,
+      "message": "Please move these to the AttackDecaySmooth method since they are only used as parameters to that method, and since that method is only called with those parameters.",
+      "range": {
+        "startLine": 160,
+        "startChar": 2,
+        "endLine": 161,
+        "endChar": 39
+      },
+      "revId": "94838333ebbe8bed00c1579e2acc077ecc96e336",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96d5011c_fd2ab130",
+        "filename": "modules/audio_processing/agc2/noise_level_estimator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-04-07T09:44:53Z",
+      "side": 1,
+      "message": "Why this value? Please document.\nAlso, it probably makes sense to add a /*somethingsomething\u003d*/ here",
+      "range": {
+        "startLine": 164,
+        "startChar": 15,
+        "endLine": 164,
+        "endChar": 20
+      },
+      "revId": "94838333ebbe8bed00c1579e2acc077ecc96e336",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "369d6a48_fac16877",
+        "filename": "modules/audio_processing/agc2/noise_level_estimator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-04-07T09:44:53Z",
+      "side": 1,
+      "message": "This is quite a risky assignment to do at call startup. There we have to handle the cornercase where the input is zero, which is very likely at call-startup since the audio from the microphone may not have passed through audio buffer pipeline before APM is called.\n\nIt would be good to handle this in some way.\n\n\nA similar argument could be made for hardware muting which also may produce a zero signal.\n\nOne way to address this would be to have the case of a zero signal be treated differently.",
+      "range": {
+        "startLine": 189,
+        "startChar": 14,
+        "endLine": 189,
+        "endChar": 71
+      },
+      "revId": "94838333ebbe8bed00c1579e2acc077ecc96e336",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d5d93b9_83086d51",
+        "filename": "modules/audio_processing/agc2/noise_level_estimator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-04-07T09:44:53Z",
+      "side": 1,
+      "message": "I\u0027d prefer to not use an optional for controlling the logic of when to jump-start the preliminary_noise_energy_ estimate.\nTo me, it is quite hard to follow-the state-machine for updating the noise when the boolean for whether to jump-start is bundled with the value to jump-start.\n\nI also think this makes the code more complex to run.",
+      "range": {
+        "startLine": 187,
+        "startChar": 4,
+        "endLine": 190,
+        "endChar": 27
+      },
+      "revId": "94838333ebbe8bed00c1579e2acc077ecc96e336",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a88c9c73_79e2fdb6",
+        "filename": "modules/audio_processing/agc2/noise_level_estimator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-04-07T09:44:53Z",
+      "side": 1,
+      "message": "Is this ever needed to be returned? Looking at line 187, I don\u0027t think this will ever have to be used.\n\nIf it is never used, please remove it.",
+      "range": {
+        "startLine": 197,
+        "startChar": 60,
+        "endLine": 197,
+        "endChar": 77
+      },
+      "revId": "94838333ebbe8bed00c1579e2acc077ecc96e336",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b13367f_f9697350",
+        "filename": "modules/audio_processing/agc2/noise_level_estimator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-04-07T09:44:53Z",
+      "side": 1,
+      "message": "Please write a comment on what the purpose of the smooth adjustment is.\nIt is kind of never wrong to adjust things in a smooth manner, but it has side effects since one easily ends up applying smoothing on smoothing, often in several layers.\n\nIn this case, we definitely know that preliminary_noise_energy_ is not lower than the noise energy. Therefore, I\u0027d expect that it is very safe to not at all smooth reducing the noise estimate. It kind of depends on how it is used though.",
+      "range": {
+        "startLine": 196,
+        "startChar": 6,
+        "endLine": 197,
+        "endChar": 79
+      },
+      "revId": "94838333ebbe8bed00c1579e2acc077ecc96e336",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9e79a79_639ccf3e",
+        "filename": "modules/audio_processing/agc2/noise_level_estimator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-04-07T09:44:53Z",
+      "side": 1,
+      "message": "Are there any side-effect of this?\nIf this is acceptable by the surrounding code during the first 5 seconds one could also argue that it maybe should be acceptable to use this later on.",
+      "range": {
+        "startLine": 204,
+        "startChar": 8,
+        "endLine": 206,
+        "endChar": 58
+      },
+      "revId": "94838333ebbe8bed00c1579e2acc077ecc96e336",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7db97379_938ff447",
+        "filename": "modules/audio_processing/agc2/noise_level_estimator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-04-07T09:44:53Z",
+      "side": 1,
+      "message": "I guess this is the minimum sample value, right? It may then make sense to document that, either with a comment or by using a local constant",
+      "range": {
+        "startLine": 216,
+        "startChar": 41,
+        "endLine": 216,
+        "endChar": 45
+      },
+      "revId": "94838333ebbe8bed00c1579e2acc077ecc96e336",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

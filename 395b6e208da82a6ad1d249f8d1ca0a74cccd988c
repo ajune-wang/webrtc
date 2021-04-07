@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5975d0c8_d641414d",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 758,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-04-07T15:56:16Z",
+      "side": 1,
+      "message": "Sorry for the UN-LGTM, but I\u0027m not confident this won\u0027t cause some unexpected crashes. Could we just change it to clear `buffered_encoded_frames_`?",
+      "range": {
+        "startLine": 758,
+        "startChar": 4,
+        "endLine": 758,
+        "endChar": 53
+      },
+      "revId": "395b6e208da82a6ad1d249f8d1ca0a74cccd988c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c765e829_b908039a",
         "filename": "video/video_receive_stream2.cc",
         "patchSetId": 7

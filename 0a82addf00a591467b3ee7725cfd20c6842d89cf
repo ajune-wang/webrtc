@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9ea72ba_65b979cc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-07T10:25:28Z",
+      "side": 1,
+      "message": "just some nits and optional suggestions",
+      "revId": "0a82addf00a591467b3ee7725cfd20c6842d89cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e87dae4_1f61b332",
+        "filename": "modules/video_coding/codecs/vp8/default_temporal_layers.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-07T10:25:28Z",
+      "side": 1,
+      "message": "alternatively to std::array\u003cbool, N\u003e you may use std::bitset\u003cN\u003e\n\nhttps://en.cppreference.com/w/cpp/utility/bitset",
+      "range": {
+        "startLine": 244,
+        "startChar": 1,
+        "endLine": 244,
+        "endChar": 61
+      },
+      "revId": "0a82addf00a591467b3ee7725cfd20c6842d89cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "150b00b4_fe8509c5",
+        "filename": "modules/video_coding/codecs/vp8/default_temporal_layers.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-07T10:25:28Z",
+      "side": 1,
+      "message": "would braced initialisation work here? (\"This is the safest approach\")\nuint8_t{buffer}\n\nhttps://google.github.io/styleguide/cppguide.html#Casting",
+      "range": {
+        "startLine": 253,
+        "startChar": 10,
+        "endLine": 253,
+        "endChar": 38
+      },
+      "revId": "0a82addf00a591467b3ee7725cfd20c6842d89cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "608a83d2_101f4be9",
+        "filename": "modules/video_coding/codecs/vp8/default_temporal_layers.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-07T10:25:28Z",
+      "side": 1,
+      "message": "can checker_ be nullptr?",
+      "range": {
+        "startLine": 536,
+        "startChar": 16,
+        "endLine": 536,
+        "endChar": 24
+      },
+      "revId": "0a82addf00a591467b3ee7725cfd20c6842d89cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59958577_babf5088",
+        "filename": "modules/video_coding/codecs/vp8/default_temporal_layers.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-07T10:25:28Z",
+      "side": 1,
+      "message": "you removed set too?",
+      "revId": "0a82addf00a591467b3ee7725cfd20c6842d89cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "369367c8_f282efcc",
+        "filename": "modules/video_coding/codecs/vp8/default_temporal_layers.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-07T10:25:28Z",
+      "side": 1,
+      "message": "until c++17 such constants require definition in the .cc file;\ni.e. add to .cc a line:\nconstexpr size_t DefaultTemporalLayers::kNumReferenceBuffers;",
+      "range": {
+        "startLine": 75,
+        "startChar": 26,
+        "endLine": 75,
+        "endChar": 46
+      },
+      "revId": "0a82addf00a591467b3ee7725cfd20c6842d89cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

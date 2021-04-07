@@ -16,6 +16,23 @@
       "message": "Hello Harald!\n\nSorry for bothering you. Could you please take a look at this CL?\n\nThanks a lot,\nYura.",
       "revId": "275cdea05acdbeac109f4d0a785c64e15cebad08",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba44e68a_9122e95f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2021-04-07T13:37:03Z",
+      "side": 1,
+      "message": "Hello Tommi!\n\nCould you please review this small CL?\n\nThanks a lot in advance,\nYura.",
+      "revId": "275cdea05acdbeac109f4d0a785c64e15cebad08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

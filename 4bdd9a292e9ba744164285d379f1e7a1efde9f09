@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "794f275c_0ffe6916",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2021-04-07T22:30:49Z",
+      "side": 1,
+      "message": "nisse@, can you PTAL at this CL that uses a sparse histogram and answer a question about the correct usage for us? The question is in the remaining unresolved comment thread\n",
+      "revId": "4bdd9a292e9ba744164285d379f1e7a1efde9f09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

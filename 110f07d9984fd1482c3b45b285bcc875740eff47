@@ -37,6 +37,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "02df0669_1fff6d46",
+        "filename": "modules/desktop_capture/desktop_capture_types.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2021-04-07T22:30:49Z",
+      "side": 1,
+      "message": "That\u0027s right, they are the expansion of the CreateFourCC calls. And yes, I preserved them for backwards-compatibility, although the only usage I could find was of the kUnknown value in Chromium, so I am not sure how much value there is in doing so. I\u0027m just erring on the side of caution. But I do like your suggestion of keeping the old code to document why these values are what they are, I\u0027ll do that.",
+      "parentUuid": "27a0dbb1_653ed412",
+      "revId": "110f07d9984fd1482c3b45b285bcc875740eff47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "bca86e0a_77cf5f2e",
         "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
         "patchSetId": 5
@@ -48,6 +66,30 @@
       "writtenOn": "2021-04-07T21:07:53Z",
       "side": 1,
       "message": "Optional: You can omit the initializer for kMaxValue (here and elsewhere) if you call it kNumValues instead and use (kNumValues - 1) throughout. It eliminates the possibility of someone adding a new enum in the future and forgetting to update this line. OTOH, it means you have to subtract one everywhere you use it, so your call.",
+      "range": {
+        "startLine": 60,
+        "startChar": 14,
+        "endLine": 60,
+        "endChar": 33
+      },
+      "revId": "110f07d9984fd1482c3b45b285bcc875740eff47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41026b40_8852c910",
+        "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2021-04-07T22:30:49Z",
+      "side": 1,
+      "message": "Looks like the guidance is to use kMaxValue, so I\u0027ll keep it as is\n\nhttps://chromium.googlesource.com/chromium/src.git/+/HEAD/tools/metrics/histograms/README.md#usage",
+      "parentUuid": "bca86e0a_77cf5f2e",
       "range": {
         "startLine": 60,
         "startChar": 14,

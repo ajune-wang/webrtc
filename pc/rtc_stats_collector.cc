@@ -1200,10 +1200,6 @@ void RTCStatsCollector::GetStatsReportInternal(
     // |ProducePartialResultsOnNetworkThread| and
     // |ProducePartialResultsOnSignalingThread|.
     PrepareTransceiverStatsInfosAndCallStats_s_w();
-    // Prepare |transport_names_| for use in
-    // |ProducePartialResultsOnNetworkThread|.
-    transport_names_ = PrepareTransportNames_s();
-
     // Don't touch |network_report_| on the signaling thread until
     // ProducePartialResultsOnNetworkThread() has signaled the
     // |network_report_event_|.
@@ -1261,7 +1257,7 @@ void RTCStatsCollector::ProducePartialResultsOnSignalingThreadImpl(
 
 void RTCStatsCollector::ProducePartialResultsOnNetworkThread(
     int64_t timestamp_us) {
-  RTC_DCHECK(network_thread_->IsCurrent());
+  RTC_DCHECK_RUN_ON(network_thread_);
   rtc::Thread::ScopedDisallowBlockingCalls no_blocking_calls;
 
   // Touching |network_report_| on this thread is safe by this method because
@@ -1269,7 +1265,7 @@ void RTCStatsCollector::ProducePartialResultsOnNetworkThread(
   network_report_ = RTCStatsReport::Create(timestamp_us);
 
   std::map<std::string, cricket::TransportStats> transport_stats_by_name =
-      pc_->GetTransportStatsByNames(transport_names_);
+      pc_->GetTransportStatsByNames(pc_->GetTransportNames());
   std::map<std::string, CertificateStatsPair> transport_cert_stats =
       PrepareTransportCertificateStats_n(transport_stats_by_name);
 
@@ -1291,7 +1287,7 @@ void RTCStatsCollector::ProducePartialResultsOnNetworkThreadImpl(
         transport_stats_by_name,
     const std::map<std::string, CertificateStatsPair>& transport_cert_stats,
     RTCStatsReport* partial_report) {
-  RTC_DCHECK(network_thread_->IsCurrent());
+  RTC_DCHECK_RUN_ON(network_thread_);
   rtc::Thread::ScopedDisallowBlockingCalls no_blocking_calls;
 
   ProduceCertificateStats_n(timestamp_us, transport_cert_stats, partial_report);
@@ -1379,7 +1375,7 @@ void RTCStatsCollector::ProduceCertificateStats_n(
     int64_t timestamp_us,
     const std::map<std::string, CertificateStatsPair>& transport_cert_stats,
     RTCStatsReport* report) const {
-  RTC_DCHECK(network_thread_->IsCurrent());
+  RTC_DCHECK_RUN_ON(network_thread_);
   rtc::Thread::ScopedDisallowBlockingCalls no_blocking_calls;
 
   for (const auto& transport_cert_stats_pair : transport_cert_stats) {
@@ -1398,7 +1394,7 @@ void RTCStatsCollector::ProduceCodecStats_n(
     int64_t timestamp_us,
     const std::vector<RtpTransceiverStatsInfo>& transceiver_stats_infos,
     RTCStatsReport* report) const {
-  RTC_DCHECK(network_thread_->IsCurrent());
+  RTC_DCHECK_RUN_ON(network_thread_);
   rtc::Thread::ScopedDisallowBlockingCalls no_blocking_calls;
 
   for (const auto& stats : transceiver_stats_infos) {
@@ -1470,7 +1466,7 @@ void RTCStatsCollector::ProduceIceCandidateAndPairStats_n(
         transport_stats_by_name,
     const Call::Stats& call_stats,
     RTCStatsReport* report) const {
-  RTC_DCHECK(network_thread_->IsCurrent());
+  RTC_DCHECK_RUN_ON(network_thread_);
   rtc::Thread::ScopedDisallowBlockingCalls no_blocking_calls;
 
   for (const auto& entry : transport_stats_by_name) {
@@ -1710,7 +1706,7 @@ void RTCStatsCollector::ProduceRTPStreamStats_n(
     int64_t timestamp_us,
     const std::vector<RtpTransceiverStatsInfo>& transceiver_stats_infos,
     RTCStatsReport* report) const {
-  RTC_DCHECK(network_thread_->IsCurrent());
+  RTC_DCHECK_RUN_ON(network_thread_);
   rtc::Thread::ScopedDisallowBlockingCalls no_blocking_calls;
 
   for (const RtpTransceiverStatsInfo& stats : transceiver_stats_infos) {
@@ -1728,7 +1724,7 @@ void RTCStatsCollector::ProduceAudioRTPStreamStats_n(
     int64_t timestamp_us,
     const RtpTransceiverStatsInfo& stats,
     RTCStatsReport* report) const {
-  RTC_DCHECK(network_thread_->IsCurrent());
+  RTC_DCHECK_RUN_ON(network_thread_);
   rtc::Thread::ScopedDisallowBlockingCalls no_blocking_calls;
 
   if (!stats.mid || !stats.transport_name) {
@@ -1820,7 +1816,7 @@ void RTCStatsCollector::ProduceVideoRTPStreamStats_n(
     int64_t timestamp_us,
     const RtpTransceiverStatsInfo& stats,
     RTCStatsReport* report) const {
-  RTC_DCHECK(network_thread_->IsCurrent());
+  RTC_DCHECK_RUN_ON(network_thread_);
   rtc::Thread::ScopedDisallowBlockingCalls no_blocking_calls;
 
   if (!stats.mid || !stats.transport_name) {
@@ -1905,7 +1901,7 @@ void RTCStatsCollector::ProduceTransportStats_n(
         transport_stats_by_name,
     const std::map<std::string, CertificateStatsPair>& transport_cert_stats,
     RTCStatsReport* report) const {
-  RTC_DCHECK(network_thread_->IsCurrent());
+  RTC_DCHECK_RUN_ON(network_thread_);
   rtc::Thread::ScopedDisallowBlockingCalls no_blocking_calls;
 
   for (const auto& entry : transport_stats_by_name) {
@@ -2003,7 +1999,7 @@ std::map<std::string, RTCStatsCollector::CertificateStatsPair>
 RTCStatsCollector::PrepareTransportCertificateStats_n(
     const std::map<std::string, cricket::TransportStats>&
         transport_stats_by_name) const {
-  RTC_DCHECK(network_thread_->IsCurrent());
+  RTC_DCHECK_RUN_ON(network_thread_);
   rtc::Thread::ScopedDisallowBlockingCalls no_blocking_calls;
 
   std::map<std::string, CertificateStatsPair> transport_cert_stats;
@@ -2042,45 +2038,48 @@ void RTCStatsCollector::PrepareTransceiverStatsInfosAndCallStats_s_w() {
            std::unique_ptr<cricket::VideoMediaInfo>>
       video_stats;
 
-  {
+  // TODO(tommi): Update the name of the function ("_n") and see if we can
+  // avoid synchronously blocking the signaling thread while we do this.
+  // (or avoid the Invoke at all).
+  network_thread_->Invoke<void>(RTC_FROM_HERE, [this, &voice_stats,
+                                                &video_stats] {
     rtc::Thread::ScopedDisallowBlockingCalls no_blocking_calls;
 
-    for (const auto& transceiver : pc_->GetTransceiversInternal()) {
+    pc_->EnumerateTranceivers_n([this, &voice_stats,
+                                 &video_stats](RtpTransceiver* transceiver) {
       cricket::MediaType media_type = transceiver->media_type();
 
       // Prepare stats entry. The TrackMediaInfoMap will be filled in after the
       // stats have been fetched on the worker thread.
       transceiver_stats_infos_.emplace_back();
       RtpTransceiverStatsInfo& stats = transceiver_stats_infos_.back();
-      stats.transceiver = transceiver->internal();
+      stats.transceiver = transceiver;
       stats.media_type = media_type;
 
-      cricket::ChannelInterface* channel = transceiver->internal()->channel();
-      if (!channel) {
+      cricket::ChannelInterface* channel = transceiver->channel();
+      if (channel) {
         // The remaining fields require a BaseChannel.
-        continue;
-      }
+        stats.mid = channel->content_name();
+        stats.transport_name = channel->transport_name();
 
-      stats.mid = channel->content_name();
-      stats.transport_name = channel->transport_name();
-
-      if (media_type == cricket::MEDIA_TYPE_AUDIO) {
-        auto* voice_channel = static_cast<cricket::VoiceChannel*>(channel);
-        RTC_DCHECK(voice_stats.find(voice_channel->media_channel()) ==
-                   voice_stats.end());
-        voice_stats[voice_channel->media_channel()] =
-            std::make_unique<cricket::VoiceMediaInfo>();
-      } else if (media_type == cricket::MEDIA_TYPE_VIDEO) {
-        auto* video_channel = static_cast<cricket::VideoChannel*>(channel);
-        RTC_DCHECK(video_stats.find(video_channel->media_channel()) ==
-                   video_stats.end());
-        video_stats[video_channel->media_channel()] =
-            std::make_unique<cricket::VideoMediaInfo>();
-      } else {
-        RTC_NOTREACHED();
+        if (media_type == cricket::MEDIA_TYPE_AUDIO) {
+          auto* voice_channel = static_cast<cricket::VoiceChannel*>(channel);
+          RTC_DCHECK(voice_stats.find(voice_channel->media_channel()) ==
+                     voice_stats.end());
+          voice_stats[voice_channel->media_channel()] =
+              std::make_unique<cricket::VoiceMediaInfo>();
+        } else if (media_type == cricket::MEDIA_TYPE_VIDEO) {
+          auto* video_channel = static_cast<cricket::VideoChannel*>(channel);
+          RTC_DCHECK(video_stats.find(video_channel->media_channel()) ==
+                     video_stats.end());
+          video_stats[video_channel->media_channel()] =
+              std::make_unique<cricket::VideoMediaInfo>();
+        } else {
+          RTC_NOTREACHED();
+        }
       }
-    }
-  }
+    });
+  });
 
   // We jump to the worker thread and call GetStats() on each media channel as
   // well as GetCallStats(). At the same time we construct the
@@ -2137,26 +2136,6 @@ void RTCStatsCollector::PrepareTransceiverStatsInfosAndCallStats_s_w() {
 
     call_stats_ = pc_->GetCallStats();
   });
-}
-
-std::set<std::string> RTCStatsCollector::PrepareTransportNames_s() const {
-  RTC_DCHECK(signaling_thread_->IsCurrent());
-  rtc::Thread::ScopedDisallowBlockingCalls no_blocking_calls;
-
-  std::set<std::string> transport_names;
-  for (const auto& transceiver : pc_->GetTransceiversInternal()) {
-    if (transceiver->internal()->channel()) {
-      transport_names.insert(
-          transceiver->internal()->channel()->transport_name());
-    }
-  }
-  if (pc_->rtp_data_channel()) {
-    transport_names.insert(pc_->rtp_data_channel()->transport_name());
-  }
-  if (pc_->sctp_transport_name()) {
-    transport_names.insert(*pc_->sctp_transport_name());
-  }
-  return transport_names;
 }
 
 void RTCStatsCollector::OnRtpDataChannelCreated(RtpDataChannel* channel) {

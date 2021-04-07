@@ -24,6 +24,7 @@
 #include "rtc_base/thread.h"
 #include "rtc_base/win/scoped_com_initializer.h"
 #include "rtc_base/win/windows_version.h"
+#include "system_wrappers/include/metrics.h"
 #include "test/gtest.h"
 
 namespace webrtc {
@@ -31,6 +32,14 @@ namespace {
 
 const char kWindowThreadName[] = "wgc_capturer_test_window_thread";
 const WCHAR kWindowTitle[] = L"WGC Capturer Test Window";
+
+const char kCapturerHistogram[] = "WebRTC.DesktopCapture.WgcCapturerResult";
+const int kSuccess = 0;
+const int kSessionStartFailure = 4;
+
+const char kCaptureSessionHistogram[] =
+    "WebRTC.DesktopCapture.WgcCaptureSessionStartResult";
+const int kSourceClosed = 1;
 
 const int kSmallWindowWidth = 200;
 const int kSmallWindowHeight = 100;
@@ -179,6 +188,10 @@ class WgcCapturerWinTest : public ::testing::TestWithParam<CaptureType>,
       capturer_->CaptureFrame();
     } while (result_ == DesktopCapturer::Result::ERROR_TEMPORARY);
 
+    EXPECT_GT(metrics::NumEvents(kCapturerHistogram, kSuccess),
+              successful_captures_);
+    ++successful_captures_;
+
     EXPECT_EQ(result_, DesktopCapturer::Result::SUCCESS);
     EXPECT_TRUE(frame_);
   }
@@ -233,6 +246,7 @@ class WgcCapturerWinTest : public ::testing::TestWithParam<CaptureType>,
   intptr_t source_id_;
   bool window_open_ = false;
   DesktopCapturer::Result result_;
+  int successful_captures_ = 0;
   std::unique_ptr<DesktopFrame> frame_;
   std::unique_ptr<DesktopCapturer> capturer_;
 };
@@ -403,6 +417,8 @@ TEST_F(WgcCapturerWinTest, CloseWindowMidCapture) {
   if (result_ == DesktopCapturer::Result::SUCCESS)
     capturer_->CaptureFrame();
 
+  EXPECT_GT(metrics::NumEvents(kCapturerHistogram, kSessionStartFailure), 0);
+  EXPECT_GT(metrics::NumEvents(kCaptureSessionHistogram, kSourceClosed), 0);
   EXPECT_EQ(result_, DesktopCapturer::Result::ERROR_PERMANENT);
 }
 

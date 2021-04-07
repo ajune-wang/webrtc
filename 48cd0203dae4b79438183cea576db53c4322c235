@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d531f79a_a0c5f8ab",
+        "filename": "pc/channel.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 884,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-07T08:59:12Z",
+      "side": 0,
+      "message": "Never called? Good riddance!",
+      "revId": "48cd0203dae4b79438183cea576db53c4322c235",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

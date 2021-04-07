@@ -43,6 +43,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "66838043_ce5c9878",
+        "filename": "modules/video_coding/codecs/vp8/default_temporal_layers.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-04-07T11:37:47Z",
+      "side": 1,
+      "message": "Good idea!",
+      "parentUuid": "8e87dae4_1f61b332",
+      "range": {
+        "startLine": 244,
+        "startChar": 1,
+        "endLine": 244,
+        "endChar": 61
+      },
+      "revId": "0a82addf00a591467b3ee7725cfd20c6842d89cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "150b00b4_fe8509c5",
         "filename": "modules/video_coding/codecs/vp8/default_temporal_layers.cc",
         "patchSetId": 4
@@ -54,6 +78,30 @@
       "writtenOn": "2021-04-07T10:25:28Z",
       "side": 1,
       "message": "would braced initialisation work here? (\"This is the safest approach\")\nuint8_t{buffer}\n\nhttps://google.github.io/styleguide/cppguide.html#Casting",
+      "range": {
+        "startLine": 253,
+        "startChar": 10,
+        "endLine": 253,
+        "endChar": 38
+      },
+      "revId": "0a82addf00a591467b3ee7725cfd20c6842d89cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37e32028_8f84406e",
+        "filename": "modules/video_coding/codecs/vp8/default_temporal_layers.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-04-07T11:37:47Z",
+      "side": 1,
+      "message": "From what I can gather, that\u0027s only allowed from c++17 unfortunately",
+      "parentUuid": "150b00b4_fe8509c5",
       "range": {
         "startLine": 253,
         "startChar": 10,
@@ -87,6 +135,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "80ae6404_e9400d4d",
+        "filename": "modules/video_coding/codecs/vp8/default_temporal_layers.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-04-07T11:37:47Z",
+      "side": 1,
+      "message": "Hm, true - only if DCHECK is not on so this check should be needed.",
+      "parentUuid": "608a83d2_101f4be9",
+      "range": {
+        "startLine": 536,
+        "startChar": 16,
+        "endLine": 536,
+        "endChar": 24
+      },
+      "revId": "0a82addf00a591467b3ee7725cfd20c6842d89cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "59958577_babf5088",
@@ -104,6 +176,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "77b06c03_1e341706",
+        "filename": "modules/video_coding/codecs/vp8/default_temporal_layers.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-04-07T11:37:47Z",
+      "side": 1,
+      "message": "Still used by DefaultTemporalLayersChecker. Don\u0027t fancy fixing that in this cl.",
+      "parentUuid": "59958577_babf5088",
+      "revId": "0a82addf00a591467b3ee7725cfd20c6842d89cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "369367c8_f282efcc",
@@ -117,6 +207,30 @@
       "writtenOn": "2021-04-07T10:25:28Z",
       "side": 1,
       "message": "until c++17 such constants require definition in the .cc file;\ni.e. add to .cc a line:\nconstexpr size_t DefaultTemporalLayers::kNumReferenceBuffers;",
+      "range": {
+        "startLine": 75,
+        "startChar": 26,
+        "endLine": 75,
+        "endChar": 46
+      },
+      "revId": "0a82addf00a591467b3ee7725cfd20c6842d89cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b33db15_9fe82a3c",
+        "filename": "modules/video_coding/codecs/vp8/default_temporal_layers.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-04-07T11:37:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "369367c8_f282efcc",
       "range": {
         "startLine": 75,
         "startChar": 26,

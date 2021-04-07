@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b56f4a0_b8f79376",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-04-07T09:31:10Z",
+      "side": 1,
+      "message": "%nits",
+      "revId": "1d81dad12371d1738278137f7e933351a9d32301",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc9e714f_19975483",
+        "filename": "system_wrappers/source/clock.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-04-07T09:31:10Z",
+      "side": 1,
+      "message": "dependent",
+      "range": {
+        "startLine": 84,
+        "startChar": 16,
+        "endLine": 84,
+        "endChar": 25
+      },
+      "revId": "1d81dad12371d1738278137f7e933351a9d32301",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

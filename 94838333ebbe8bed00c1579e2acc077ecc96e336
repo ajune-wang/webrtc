@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5dfce9c0_1e6a8b3e",
+        "filename": "modules/audio_processing/agc2/adaptive_agc.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-04-07T12:47:25Z",
+      "side": 1,
+      "message": "Well, the context is that of a short function defined in the anon ns as opposed as a declaration in a header file or a function definition which is long and one has to scroll to see the argument in use.\nI don\u0027t mind switching to `noise_estimator_type`, but IMO it only adds clutter. I\u0027ll mark as solved, but feel free to reopen if you have a strong preference.",
+      "parentUuid": "57e94d9a_d7e66ff4",
+      "range": {
+        "startLine": 58,
+        "startChar": 23,
+        "endLine": 58,
+        "endChar": 27
+      },
+      "revId": "94838333ebbe8bed00c1579e2acc077ecc96e336",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "56017a4e_d46fcdc8",
@@ -71,6 +95,30 @@
       "writtenOn": "2021-04-07T09:44:53Z",
       "side": 1,
       "message": "What is v? I would prefer a more descriptive naming for that.",
+      "range": {
+        "startLine": 141,
+        "startChar": 30,
+        "endLine": 141,
+        "endChar": 31
+      },
+      "revId": "94838333ebbe8bed00c1579e2acc077ecc96e336",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92000c4c_836ce093",
+        "filename": "modules/audio_processing/agc2/noise_level_estimator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-04-07T12:47:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56017a4e_d46fcdc8",
       "range": {
         "startLine": 141,
         "startChar": 30,
@@ -104,6 +152,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed84d20c_5594dbb2",
+        "filename": "modules/audio_processing/agc2/noise_level_estimator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-04-07T12:47:25Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "78936145_b0b83748",
+      "range": {
+        "startLine": 160,
+        "startChar": 2,
+        "endLine": 161,
+        "endChar": 39
+      },
+      "revId": "94838333ebbe8bed00c1579e2acc077ecc96e336",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "96d5011c_fd2ab130",
@@ -117,6 +189,30 @@
       "writtenOn": "2021-04-07T09:44:53Z",
       "side": 1,
       "message": "Why this value? Please document.\nAlso, it probably makes sense to add a /*somethingsomething\u003d*/ here",
+      "range": {
+        "startLine": 164,
+        "startChar": 15,
+        "endLine": 164,
+        "endChar": 20
+      },
+      "revId": "94838333ebbe8bed00c1579e2acc077ecc96e336",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8034d27_708ab045",
+        "filename": "modules/audio_processing/agc2/noise_level_estimator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-04-07T12:47:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96d5011c_fd2ab130",
       "range": {
         "startLine": 164,
         "startChar": 15,
@@ -150,6 +246,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a64c78b7_008813b5",
+        "filename": "modules/audio_processing/agc2/noise_level_estimator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-04-07T12:47:25Z",
+      "side": 1,
+      "message": "\u003e This is quite a risky assignment to do at call startup. There we have to handle the cornercase where the input is zero, which is very likely at call-startup since the audio from the microphone may not have passed through audio buffer pipeline before APM is called.\n\u003e \n\u003e It would be good to handle this in some way.\n\u003e \n\u003e \n\u003e A similar argument could be made for hardware muting which also may produce a zero signal.\n\u003e \n\u003e One way to address this would be to have the case of a zero signal be treated differently.\n\nThe case you describe, that is muted/zero input, is handled in lines 182-184 similarly as done in the alternative implementation (namely, `NoiseLevelEstimatorImpl::Analyze()`). I made the condition stricter by using `min_noise_energy_` instead of 0.",
+      "parentUuid": "369d6a48_fac16877",
+      "range": {
+        "startLine": 189,
+        "startChar": 14,
+        "endLine": 189,
+        "endChar": 71
+      },
+      "revId": "94838333ebbe8bed00c1579e2acc077ecc96e336",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0d5d93b9_83086d51",
@@ -163,6 +283,30 @@
       "writtenOn": "2021-04-07T09:44:53Z",
       "side": 1,
       "message": "I\u0027d prefer to not use an optional for controlling the logic of when to jump-start the preliminary_noise_energy_ estimate.\nTo me, it is quite hard to follow-the state-machine for updating the noise when the boolean for whether to jump-start is bundled with the value to jump-start.\n\nI also think this makes the code more complex to run.",
+      "range": {
+        "startLine": 187,
+        "startChar": 4,
+        "endLine": 190,
+        "endChar": 27
+      },
+      "revId": "94838333ebbe8bed00c1579e2acc077ecc96e336",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61afd0df_2fa0fe40",
+        "filename": "modules/audio_processing/agc2/noise_level_estimator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-04-07T12:47:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d5d93b9_83086d51",
       "range": {
         "startLine": 187,
         "startChar": 4,
@@ -219,6 +363,54 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c690716f_97dc5126",
+        "filename": "modules/audio_processing/agc2/noise_level_estimator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-04-07T12:47:25Z",
+      "side": 1,
+      "message": "Let\u0027s remove the attack, since what can harm AGC2 the most is a sudden decrease (and not a sudden increase). I added a comment where the constexprs are defined (beginning of the class) to clarify the behavior.",
+      "parentUuid": "6b13367f_f9697350",
+      "range": {
+        "startLine": 196,
+        "startChar": 6,
+        "endLine": 197,
+        "endChar": 79
+      },
+      "revId": "94838333ebbe8bed00c1579e2acc077ecc96e336",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b668c21b_6943c28c",
+        "filename": "modules/audio_processing/agc2/noise_level_estimator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-04-07T12:47:25Z",
+      "side": 1,
+      "message": "ah right, good point",
+      "parentUuid": "a88c9c73_79e2fdb6",
+      "range": {
+        "startLine": 197,
+        "startChar": 60,
+        "endLine": 197,
+        "endChar": 77
+      },
+      "revId": "94838333ebbe8bed00c1579e2acc077ecc96e336",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b9e79a79_639ccf3e",
@@ -244,6 +436,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f5a43840_8d1b41d1",
+        "filename": "modules/audio_processing/agc2/noise_level_estimator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-04-07T12:47:25Z",
+      "side": 1,
+      "message": "Good question on whether this should be acceptable to use later on (i.e., once `first_period_` becomes false), since the noise floor is monotonic.\nThat wouldn\u0027t be ok as an observation period can start with higher energy frames (e.g., due to speech or loud transient noise) and therefore it\u0027d require to write for instance `noise_energy_ \u003d std::min(noise_energy_, preliminary_noise_energy_)`. However, that would add memory across the entire call, which is not correct since we instead want to forget the noise energy from the previously analyzed periods to adapt to the noise level increases.\n\nInstead, at the beginning of the call, it\u0027s safe to keep as it is since the worst thing that can happen is that the noise floor is overestimated during the first frames of the first 5 seconds and that might lead to gain capping (done by AGC2 based on the measured noise level). If that happens, a lower-than-needed gain will be applied; but, as the noise energy can only get lower and as it is updated quickly in this phase (namely, every 10 ms frame), AGC2 will be allowed to promptly raise the gain if needed as soon as the measured noise floor gets lower.\n\nWDYT?",
+      "parentUuid": "b9e79a79_639ccf3e",
+      "range": {
+        "startLine": 204,
+        "startChar": 8,
+        "endLine": 206,
+        "endChar": 58
+      },
+      "revId": "94838333ebbe8bed00c1579e2acc077ecc96e336",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7db97379_938ff447",
         "filename": "modules/audio_processing/agc2/noise_level_estimator.cc",
         "patchSetId": 1
@@ -255,6 +471,30 @@
       "writtenOn": "2021-04-07T09:44:53Z",
       "side": 1,
       "message": "I guess this is the minimum sample value, right? It may then make sense to document that, either with a comment or by using a local constant",
+      "range": {
+        "startLine": 216,
+        "startChar": 41,
+        "endLine": 216,
+        "endChar": 45
+      },
+      "revId": "94838333ebbe8bed00c1579e2acc077ecc96e336",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f04ddd20_31311e4c",
+        "filename": "modules/audio_processing/agc2/noise_level_estimator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-04-07T12:47:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7db97379_938ff447",
       "range": {
         "startLine": 216,
         "startChar": 41,

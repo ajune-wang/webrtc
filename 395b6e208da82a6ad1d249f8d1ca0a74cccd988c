@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8f6d878_3fcae03b",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 758,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-04-07T16:55:34Z",
+      "side": 1,
+      "message": "Hmm yes, one failure mode I could think about is a stuck decoder.\nClearing can produce a corrupt stream coming out. I\u0027d rather debug video \"hanging\" in that case and just hang after reaching 60. See new PS.",
+      "parentUuid": "5975d0c8_d641414d",
+      "range": {
+        "startLine": 758,
+        "startChar": 4,
+        "endLine": 758,
+        "endChar": 53
+      },
+      "revId": "395b6e208da82a6ad1d249f8d1ca0a74cccd988c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c765e829_b908039a",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-04-07T15:35:06Z",
       "side": 1,
       "message": "nit: Locked twice in happy case, could it be changed just once?",
+      "range": {
+        "startLine": 760,
+        "startChar": 28,
+        "endLine": 760,
+        "endChar": 53
+      },
+      "revId": "395b6e208da82a6ad1d249f8d1ca0a74cccd988c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bce3c5a_4bb804e4",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-04-07T16:55:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c765e829_b908039a",
       "range": {
         "startLine": 760,
         "startChar": 28,

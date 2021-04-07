@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f8fb73a7_b62038e2",
+        "filename": "system_wrappers/source/clock.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-07T10:38:34Z",
+      "side": 1,
+      "message": "querying field_trial might be too slow to do on every call to this function.\nMight be better to query it in the constructor and save result in a boolean.",
+      "range": {
+        "startLine": 75,
+        "startChar": 11,
+        "endLine": 75,
+        "endChar": 78
+      },
+      "revId": "1d81dad12371d1738278137f7e933351a9d32301",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bc9e714f_19975483",
         "filename": "system_wrappers/source/clock.cc",
         "patchSetId": 8
@@ -31,6 +54,30 @@
       "writtenOn": "2021-04-07T09:31:10Z",
       "side": 1,
       "message": "dependent",
+      "range": {
+        "startLine": 84,
+        "startChar": 16,
+        "endLine": 84,
+        "endChar": 25
+      },
+      "revId": "1d81dad12371d1738278137f7e933351a9d32301",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ff6f409_68e0be47",
+        "filename": "system_wrappers/source/clock.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-07T10:38:34Z",
+      "side": 1,
+      "message": "I think both practically mean the same\nhttps://www.merriam-webster.com/words-at-play/spelling-variants-dependent-vs-dependant",
+      "parentUuid": "bc9e714f_19975483",
       "range": {
         "startLine": 84,
         "startChar": 16,

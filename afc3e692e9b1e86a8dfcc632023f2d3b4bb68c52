@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "635f5f6c_097a39fc",
+        "filename": "system_wrappers/source/clock.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-07T10:38:34Z",
+      "side": 1,
+      "message": "do not put this TODO on me.\n\nyou can resolve it using absl::int128/absl::uint128 (original TODO was written before absl was published)\nor remove it, if you think current code is good enough.",
+      "range": {
+        "startLine": 49,
+        "startChar": 22,
+        "endLine": 50,
+        "endChar": 40
+      },
+      "revId": "afc3e692e9b1e86a8dfcc632023f2d3b4bb68c52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

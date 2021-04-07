@@ -34,6 +34,24 @@
       "parentUuid": "3e62196c_93fbe298",
       "revId": "3209285617718b59d516619ff31c38c5a6bd7b57",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63a93446_4072f461",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-04-07T08:20:35Z",
+      "side": 1,
+      "message": "Ah, I see now where you change the config in VideoStreamEncoder.\nStill, I\u0027d rather not add the new field in EncoderInfo.",
+      "parentUuid": "da33ff86_65c49720",
+      "revId": "3209285617718b59d516619ff31c38c5a6bd7b57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

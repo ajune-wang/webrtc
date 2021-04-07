@@ -129,6 +129,8 @@ rtc_library("noise_level_estimator") {
     "../../../system_wrappers",
   ]
 
+  absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
+
   configs += [ "..:apm_debug_dump" ]
 }
 

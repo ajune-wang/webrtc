@@ -16,6 +16,7 @@
 #include <cmath>
 #include <numeric>
 
+#include "absl/types/optional.h"
 #include "api/array_view.h"
 #include "common_audio/include/audio_util.h"
 #include "modules/audio_processing/agc2/signal_classifier.h"
@@ -51,7 +52,7 @@ class NoiseLevelEstimatorImpl : public NoiseLevelEstimator {
   NoiseLevelEstimatorImpl& operator=(const NoiseLevelEstimatorImpl&) = delete;
   ~NoiseLevelEstimatorImpl() = default;
 
-  float Analyze(const AudioFrameView<const float>& frame) {
+  float Analyze(const AudioFrameView<const float>& frame) override {
     data_dumper_->DumpRaw("agc2_noise_level_estimator_hold_counter",
                           noise_energy_hold_counter_);
     const int sample_rate_hz =
@@ -135,11 +136,109 @@ class NoiseLevelEstimatorImpl : public NoiseLevelEstimator {
   SignalClassifier signal_classifier_;
 };
 
+// Returns an updated version of `v_old` by using an attack/decay process on
+// `v_new`.
+float AttackDecaySmooth(float v_old, float v_new, float attack, float decay) {
+  RTC_DCHECK_GT(attack, 0.0f);
+  RTC_DCHECK_LE(attack, 1.0f);
+  RTC_DCHECK_GT(decay, 0.0f);
+  RTC_DCHECK_LE(decay, 1.0f);
+  if (v_new < v_old) {
+    // Decay phase.
+    return decay * v_new + (1.0f - decay) * v_old;
+  } else {
+    // Attack phase.
+    return attack * v_new + (1.0f - attack) * v_old;
+  }
+}
+
+class NoiseFloorEstimator : public NoiseLevelEstimator {
+ public:
+  // Update the noise floor every 5 seconds.
+  static constexpr int kUpdatePeriodNumFrames = 500;
+  // Update the noise floor with fast attack and slow decay.
+  static constexpr float kAttack = 0.9f;
+  static constexpr float kDecay = 0.7f;
+
+  NoiseFloorEstimator(ApmDataDumper* data_dumper) : data_dumper_(data_dumper) {
+    Initialize(48000);
+  }
+  NoiseFloorEstimator(const NoiseFloorEstimator&) = delete;
+  NoiseFloorEstimator& operator=(const NoiseFloorEstimator&) = delete;
+  ~NoiseFloorEstimator() = default;
+
+  float Analyze(const AudioFrameView<const float>& frame) override {
+    data_dumper_->DumpRaw("agc2_noise_floor_preliminary_level_dbfs",
+                          EnergyToDbfs(preliminary_noise_energy_.value_or(0.0f),
+                                       frame.samples_per_channel()));
+    // Detect sample rate changes.
+    const int sample_rate_hz =
+        static_cast<int>(frame.samples_per_channel() * kFramesPerSecond);
+    if (sample_rate_hz != sample_rate_hz_) {
+      Initialize(sample_rate_hz);
+    }
+
+    const float frame_energy = FrameEnergy(frame);
+    if (frame_energy <= 0.0f) {
+      // Ignore frames when muted.
+      return EnergyToDbfs(noise_energy_, frame.samples_per_channel());
+    }
+
+    preliminary_noise_energy_ =
+        preliminary_noise_energy_.has_value()
+            ? std::min(preliminary_noise_energy_.value(), frame_energy)
+            : frame_energy;
+    if (counter_ == 0) {
+      // Full period observed.
+      first_period_ = false;
+      // Update the estimated noise floor energy with the preliminary
+      // estimation.
+      noise_energy_ = AttackDecaySmooth(
+          noise_energy_, preliminary_noise_energy_.value_or(min_noise_energy_),
+          kAttack, kDecay);
+      // Reset for a new observation period.
+      counter_ = kUpdatePeriodNumFrames;
+      preliminary_noise_energy_ = absl::nullopt;
+    } else {
+      if (first_period_) {
+        // While analyzing the signal during the initial period, continuously
+        // update the estimated noise energy.
+        noise_energy_ = preliminary_noise_energy_.value();
+      }
+      counter_--;
+    }
+    return EnergyToDbfs(noise_energy_, frame.samples_per_channel());
+  }
+
+ private:
+  void Initialize(int sample_rate_hz) {
+    sample_rate_hz_ = sample_rate_hz;
+    min_noise_energy_ = sample_rate_hz * 2.0f * 2.0f / kFramesPerSecond;
+    first_period_ = true;
+    preliminary_noise_energy_ = absl::nullopt;
+    noise_energy_ = min_noise_energy_;
+    counter_ = kUpdatePeriodNumFrames;
+  }
+
+  ApmDataDumper* const data_dumper_;
+  int sample_rate_hz_;
+  float min_noise_energy_;
+  bool first_period_;
+  absl::optional<float> preliminary_noise_energy_;
+  float noise_energy_;
+  int counter_;
+};
+
 }  // namespace
 
-std::unique_ptr<NoiseLevelEstimator> CreateNoiseLevelEstimator(
+std::unique_ptr<NoiseLevelEstimator> CreateStationaryNoiseEstimator(
     ApmDataDumper* data_dumper) {
   return std::make_unique<NoiseLevelEstimatorImpl>(data_dumper);
+}
+
+std::unique_ptr<NoiseLevelEstimator> CreateNoiseFloorEstimator(
+    ApmDataDumper* data_dumper) {
+  return std::make_unique<NoiseFloorEstimator>(data_dumper);
 }
 
 }  // namespace webrtc

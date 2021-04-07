@@ -350,12 +350,14 @@ class RTC_EXPORT AudioProcessing : public rtc::RefCountInterface {
       }
 
       enum LevelEstimator { kRms, kPeak };
+      enum NoiseEstimator { kStationaryNoise, kNoiseFloor };
       bool enabled = false;
       struct FixedDigital {
         float gain_db = 0.0f;
       } fixed_digital;
       struct AdaptiveDigital {
         bool enabled = false;
+        NoiseEstimator noise_estimator = kNoiseFloor;
         int vad_reset_period_ms = 1500;
         float vad_probability_attack = 0.3f;
         LevelEstimator level_estimator = kRms;

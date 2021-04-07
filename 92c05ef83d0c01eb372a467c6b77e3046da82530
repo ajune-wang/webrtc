@@ -16,6 +16,23 @@
       "message": "Hello Sami, Harald and Xavier!\n\nCould please some of you take a look at this CL?\n\nThanks a lot in advance,\nYura.",
       "revId": "92c05ef83d0c01eb372a467c6b77e3046da82530",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed3c5391_1a06cb27",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2021-04-07T15:35:35Z",
+      "side": 1,
+      "message": "Hello Xavier!\n\nThanks for reviewing my previous CL about sLD. Could you please review this CL as well?\n\nThanks a lot,\nYura.",
+      "revId": "92c05ef83d0c01eb372a467c6b77e3046da82530",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

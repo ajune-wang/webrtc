@@ -145,6 +145,7 @@ RtpTransceiver::~RtpTransceiver() {
 }
 
 void RtpTransceiver::SetChannel(cricket::ChannelInterface* channel) {
+  RTC_LOG(LS_ERROR) << "RtpTransceiver::SetChannel: " << channel;
   // Cannot set a non-null channel on a stopped transceiver.
   if (stopped_ && channel) {
     return;

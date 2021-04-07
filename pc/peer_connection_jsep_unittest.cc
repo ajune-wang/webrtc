@@ -1862,7 +1862,7 @@ TEST_F(PeerConnectionJsepTest, RollbackRemovesTransceiver) {
   EXPECT_EQ(callee->observer()->remove_track_events_.size(), 1u);
 }
 
-TEST_F(PeerConnectionJsepTest, RollbackKeepsTransceiverAndClearsMid) {
+TEST_F(PeerConnectionJsepTest, RollbackKeepsTransceiverAndClearsMid_Audio) {
   auto caller = CreatePeerConnection();
   caller->AddTransceiver(cricket::MEDIA_TYPE_AUDIO);
   auto callee = CreatePeerConnection();
@@ -1878,6 +1878,30 @@ TEST_F(PeerConnectionJsepTest, RollbackKeepsTransceiverAndClearsMid) {
   EXPECT_TRUE(callee->SetRemoteDescription(caller->CreateOffer()));
   EXPECT_EQ(callee->pc()->GetTransceivers().size(), 1u);
   EXPECT_EQ(callee->observer()->remove_track_events_.size(), 1u);
+  ASSERT_EQ(callee->pc()->GetReceivers().size(), 1u);
+  EXPECT_EQ(callee->pc()->GetReceivers()[0]->track()->state(),
+            MediaStreamTrackInterface::TrackState::kLive);
+}
+
+TEST_F(PeerConnectionJsepTest, RollbackKeepsTransceiverAndClearsMid_Video) {
+  auto caller = CreatePeerConnection();
+  caller->AddTransceiver(cricket::MEDIA_TYPE_VIDEO);
+  auto callee = CreatePeerConnection();
+  EXPECT_TRUE(callee->SetRemoteDescription(caller->CreateOffer()));
+  callee->AddVideoTrack("v");
+  EXPECT_EQ(callee->pc()->GetTransceivers().size(), 1u);
+  EXPECT_TRUE(callee->SetRemoteDescription(caller->CreateRollback()));
+  // Transceiver can't be removed as track was added to it.
+  EXPECT_EQ(callee->pc()->GetTransceivers().size(), 1u);
+  // Mid got cleared to make it reusable.
+  EXPECT_EQ(callee->pc()->GetTransceivers()[0]->mid(), absl::nullopt);
+  // Transceiver should be counted as addTrack-created after rollback.
+  EXPECT_TRUE(callee->SetRemoteDescription(caller->CreateOffer()));
+  EXPECT_EQ(callee->pc()->GetTransceivers().size(), 1u);
+  EXPECT_EQ(callee->observer()->remove_track_events_.size(), 1u);
+  ASSERT_EQ(callee->pc()->GetReceivers().size(), 1u);
+  EXPECT_EQ(callee->pc()->GetReceivers()[0]->track()->state(),
+            MediaStreamTrackInterface::TrackState::kLive);
 }
 
 TEST_F(PeerConnectionJsepTest,
@@ -2094,6 +2118,12 @@ TEST_F(PeerConnectionJsepTest, RollbackHasToDestroyTransport) {
             nullptr);
   EXPECT_NE(pc->pc()->GetTransceivers()[0]->sender()->dtls_transport(),
             audio_transport);
+  // Even though the transports were destroyed, the receivers' tracks must still
+  // be alive because the transceiver should not be stopped in a rollback.
+  EXPECT_EQ(pc->pc()->GetTransceivers()[0]->receiver()->track()->state(),
+            MediaStreamTrackInterface::TrackState::kLive);
+  EXPECT_EQ(pc->pc()->GetTransceivers()[1]->receiver()->track()->state(),
+            MediaStreamTrackInterface::TrackState::kLive);
 }
 
 TEST_F(PeerConnectionJsepTest, RollbackLocalDirectionChange) {

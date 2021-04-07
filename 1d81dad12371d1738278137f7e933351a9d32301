@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddb2f702_8fe2a325",
+        "filename": "system_wrappers/source/clock.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 17376
+      },
+      "writtenOn": "2021-04-07T22:30:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8fb73a7_b62038e2",
+      "range": {
+        "startLine": 75,
+        "startChar": 11,
+        "endLine": 75,
+        "endChar": 78
+      },
+      "revId": "1d81dad12371d1738278137f7e933351a9d32301",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bc9e714f_19975483",
@@ -78,6 +102,30 @@
       "side": 1,
       "message": "I think both practically mean the same\nhttps://www.merriam-webster.com/words-at-play/spelling-variants-dependent-vs-dependant",
       "parentUuid": "bc9e714f_19975483",
+      "range": {
+        "startLine": 84,
+        "startChar": 16,
+        "endLine": 84,
+        "endChar": 25
+      },
+      "revId": "1d81dad12371d1738278137f7e933351a9d32301",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "332c70a2_0444970b",
+        "filename": "system_wrappers/source/clock.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 17376
+      },
+      "writtenOn": "2021-04-07T22:30:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ff6f409_68e0be47",
       "range": {
         "startLine": 84,
         "startChar": 16,

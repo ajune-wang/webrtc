@@ -16,6 +16,24 @@
       "message": "nit: place empty lines back",
       "revId": "5290b8c4c49f8eac336b50bf86e18d75034e5cd1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7612006_a30bd2b7",
+        "filename": "system_wrappers/source/clock.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 17376
+      },
+      "writtenOn": "2021-04-07T22:30:47Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "471c4cce_eb9a49b9",
+      "revId": "5290b8c4c49f8eac336b50bf86e18d75034e5cd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

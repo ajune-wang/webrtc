@@ -16,6 +16,46 @@
       "message": "jaimewalch@, PTAL at this CL that adds telemetry to the modules/desktop_capture/ directory, and if you could help me and Steven better understand the correct usage of sparse histograms in WebRTC, that would be great too!",
       "revId": "110f07d9984fd1482c3b45b285bcc875740eff47",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27a0dbb1_653ed412",
+        "filename": "modules/desktop_capture/desktop_capture_types.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5166
+      },
+      "writtenOn": "2021-04-07T21:07:53Z",
+      "side": 1,
+      "message": "Presumably these are the expansions of the CreateFourCC expressions? Assuming we need to keep them unchanged for backwards-compatibility, I think the previous code made it clearer why these particular values are used, although you can use a comment if you prefer to make the relationship clearer between the simple numeric values and these legacy ones.",
+      "revId": "110f07d9984fd1482c3b45b285bcc875740eff47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bca86e0a_77cf5f2e",
+        "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5166
+      },
+      "writtenOn": "2021-04-07T21:07:53Z",
+      "side": 1,
+      "message": "Optional: You can omit the initializer for kMaxValue (here and elsewhere) if you call it kNumValues instead and use (kNumValues - 1) throughout. It eliminates the possibility of someone adding a new enum in the future and forgetting to update this line. OTOH, it means you have to subtract one everywhere you use it, so your call.",
+      "range": {
+        "startLine": 60,
+        "startChar": 14,
+        "endLine": 60,
+        "endChar": 33
+      },
+      "revId": "110f07d9984fd1482c3b45b285bcc875740eff47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

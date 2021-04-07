@@ -16,6 +16,23 @@
       "message": "Please take a look, Harald",
       "revId": "d74a66c400b36dd036063c6411028df82ae3cbfa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c516cd5f_8b8c2bfe",
+        "filename": "pc/audio_rtp_receiver.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-04-07T17:01:38Z",
+      "side": 1,
+      "message": "This mirrors what VideoRtpReceiver::Stop() is alrerady doing. Without this line we would fail PeerConnectionInterfaceTest/PeerConnectionInterfaceTest.RejectMediaContent/1.\n\nEnding the source does end the track, so it is really confusing that there exists both a Stop() and a StopAndEndTrack() in RtpReceiverInternal... they both stop the track, but the timing is a bit different.\n\nI think the only use case of \"stop without ending\" is rollback, which I showed is already not working (with or without this CL): https://crbug.com/webrtc/12653. I suggest we revisit Stop() versus StopAndEndTrack() in that issue, perhaps we can remove StopAndEndTrack() in favor of always doing Stop()... not this CL",
+      "revId": "d74a66c400b36dd036063c6411028df82ae3cbfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -12,8 +12,8 @@
 
 #include <tuple>
 
-#include "media/base/h264_profile_level_id.h"
-#include "media/base/vp9_profile.h"
+#include "api/video_codecs/h264_profile_level_id.h"
+#include "api/video_codecs/vp9_profile.h"
 #include "modules/video_coding/codecs/h264/include/h264.h"
 #include "rtc_base/gunit.h"
 

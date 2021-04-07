@@ -11,7 +11,7 @@
 #ifndef COMMON_VIDEO_H264_PROFILE_LEVEL_ID_H_
 #define COMMON_VIDEO_H264_PROFILE_LEVEL_ID_H_
 
-#include "media/base/h264_profile_level_id.h"
+#include "api/video_codecs/h264_profile_level_id.h"
 
 // TODO(zhihuang): Delete this file once dependent applications switch to
 // including "webrtc/media/base/h264_profile_level_id.h" directly.

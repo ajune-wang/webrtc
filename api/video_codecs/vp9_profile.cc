@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "media/base/vp9_profile.h"
+#include "api/video_codecs/vp9_profile.h"
 
 #include <map>
 #include <utility>

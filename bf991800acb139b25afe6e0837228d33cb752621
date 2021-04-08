@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "006335d4_5504415e",
+        "filename": "pc/channel_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-08T11:43:57Z",
+      "side": 1,
+      "message": "If this returns end(), we cannot use it as position to erase (not dereferenceable).\n\nAre we sure that the clients of this class always calls this method with known channels?",
+      "range": {
+        "startLine": 207,
+        "startChar": 24,
+        "endLine": 210,
+        "endChar": 8
+      },
+      "revId": "bf991800acb139b25afe6e0837228d33cb752621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6f72c8a_f9d6fdfa",
+        "filename": "pc/channel_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-08T11:43:57Z",
+      "side": 1,
+      "message": "This is not a DCHECK because we have places where it is call will nullptr? Or should be aligned with the rest of the CL?",
+      "range": {
+        "startLine": 261,
+        "startChar": 0,
+        "endLine": 263,
+        "endChar": 3
+      },
+      "revId": "bf991800acb139b25afe6e0837228d33cb752621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "347ee6da_96decb8a",
+        "filename": "pc/channel_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-08T11:43:57Z",
+      "side": 1,
+      "message": "See the other comment, if video_channel is not known this might be a problem here (other places has this construct in the CL).",
+      "range": {
+        "startLine": 271,
+        "startChar": 24,
+        "endLine": 274,
+        "endChar": 8
+      },
+      "revId": "bf991800acb139b25afe6e0837228d33cb752621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

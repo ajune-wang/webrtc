@@ -16,6 +16,24 @@
       "message": "do we want to protect against programmer error of not matching the Start()/Stop() calls?\n\nI\u0027m thinking that right now, Start/Start/Stop works \"fine\" from the pov of this class (as in no error is raised), but it results in one timer and not a timer being restarted, which might be what the developer expected (but missed making a call to Stop() at some point).\n\nI\u0027m aware of Restart, but that might not be the appropriate API in all cases. E.g if there\u0027s a period during which the developer does not want the timer to be running.",
       "revId": "bfc9ce133872cec2adf2c5fa639680d9859c8c1c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f57d0dd0_deb38941",
+        "filename": "net/dcsctp/timer/timer.cc",
+        "patchSetId": 35
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-08T08:35:13Z",
+      "side": 1,
+      "message": "Good point, and I do prefer to be explicit, and check if the timer is running in case you _don\u0027t_ want to restart it, which is not very common.\n\nSo one options is to:\n * Calling Start() will always start, or restart the timer. \n * Calling Stop() will always stop the timer (or do nothing if the timer is not running)\n * Remove Restart() as it\u0027s replaced by Start().\n\nWDYT?",
+      "parentUuid": "461f0b06_adaf1b8e",
+      "revId": "bfc9ce133872cec2adf2c5fa639680d9859c8c1c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

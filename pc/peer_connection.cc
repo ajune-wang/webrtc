@@ -2103,6 +2103,7 @@ void PeerConnection::StopRtcEventLog_w() {
 
 cricket::ChannelInterface* PeerConnection::GetChannel(
     const std::string& content_name) {
+  RTC_DCHECK_RUN_ON(network_thread());
   for (const auto& transceiver : rtp_manager()->transceivers()->List()) {
     cricket::ChannelInterface* channel = transceiver->internal()->channel();
     if (channel && channel->content_name() == content_name) {
@@ -2161,6 +2162,15 @@ bool PeerConnection::GetSslRole(const std::string& content_name,
   return false;
 }
 
+void PeerConnection::EnumerateTranceivers_n(
+    std::function<void(RtpTransceiver*)> callback) {
+  RTC_DCHECK_RUN_ON(network_thread());
+  rtc::Thread::ScopedDisallowBlockingCalls no_blocking_calls;
+  for (const auto& transceiver : rtp_manager()->transceivers()->List()) {
+    callback(transceiver->internal());
+  }
+}
+
 bool PeerConnection::GetTransportDescription(
     const SessionDescription* description,
     const std::string& content_name,
@@ -2196,6 +2206,28 @@ cricket::CandidateStatsList PeerConnection::GetPooledCandidateStats() const {
   cricket::CandidateStatsList candidate_states_list;
   port_allocator_->GetCandidateStatsFromPooledSessions(&candidate_states_list);
   return candidate_states_list;
+}
+
+std::set<std::string> PeerConnection::GetTransportNames() const {
+  RTC_DCHECK_RUN_ON(network_thread());
+  if (!network_thread_safety_->alive())
+    return {};
+  rtc::Thread::ScopedDisallowBlockingCalls no_blocking_calls;
+  std::set<std::string> ret;
+  for (const auto& transceiver : rtp_manager()->transceivers()->List()) {
+    cricket::ChannelInterface* channel = transceiver->internal()->channel();
+    if (channel) {
+      ret.insert(channel->transport_name());
+    }
+  }
+  if (data_channel_controller_.rtp_data_channel()) {
+    ret.insert(data_channel_controller_.rtp_data_channel()->transport_name());
+  }
+  if (sctp_mid_n_) {
+    auto dtls_transport = transport_controller_->GetDtlsTransport(*sctp_mid_n_);
+    ret.insert(dtls_transport->transport_name());
+  }
+  return ret;
 }
 
 std::map<std::string, std::string> PeerConnection::GetTransportNamesByMid()

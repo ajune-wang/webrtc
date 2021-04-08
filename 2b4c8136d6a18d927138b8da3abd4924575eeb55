@@ -70,6 +70,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "52bd8ee9_7d1ea280",
+        "filename": "net/dcsctp/public/dcsctp_options.h",
+        "patchSetId": 30
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-08T08:05:21Z",
+      "side": 1,
+      "message": "Great. Would it be worth it to have a separately defined constant that spells out kMaxMtuSize (or something like that) with the documentation that breaks down how we arrive at the values and assign that constant as the default value here? Just to make it more explicitly called out?",
+      "parentUuid": "a31aa5e4_2b67f646",
+      "revId": "2b4c8136d6a18d927138b8da3abd4924575eeb55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "030d1197_b65d61eb",

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a7191c7_57747011",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-08T12:20:58Z",
+      "side": 1,
+      "message": "injecting the clock is imho a good thing\n(I did consider it too, https://webrtc-review.googlesource.com/c/src/+/201737\nbut my reasons wasn\u0027t strong enough to push it)\n\nwould it make simpler to set default clock to RealTimeClock, then it can be used right away,\nbefore waiting for downstream project to set it to own clock.\n",
+      "revId": "7a4fc0da0a2a9e86054d350cfa5fe0705abb9a00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

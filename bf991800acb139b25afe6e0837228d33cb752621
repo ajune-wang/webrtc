@@ -96,6 +96,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "34328752_7c128333",
+        "filename": "pc/channel_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-08T14:16:16Z",
+      "side": 1,
+      "message": "Thanks.",
+      "parentUuid": "f9ed84b6_3d542c5d",
+      "range": {
+        "startLine": 207,
+        "startChar": 24,
+        "endLine": 210,
+        "endChar": 8
+      },
+      "revId": "bf991800acb139b25afe6e0837228d33cb752621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e6f72c8a_f9d6fdfa",

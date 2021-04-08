@@ -174,6 +174,24 @@
       "message": "In the objc interface there is a dcheck that member names aren\u0027t duplicated. Did this change make it so members such as ssrc are duplicated now because they are listed both here and in RTCRTPStreamStats?\n\nssrc, kind, codec_id, transport_id appear in both lists.\n\nhttps://source.corp.google.com/piper///depot/google3/third_party/webrtc/files/stable/webrtc/sdk/objc/api/peerconnection/RTCStatisticsReport.mm;rcl\u003d340858730;l\u003d122",
       "revId": "2f71b61a34c86c5a267e671d36ad5c74f1a0fb69",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70f9b12a_9210512d",
+        "filename": "stats/rtcstats_objects.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 879,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-04-08T08:32:36Z",
+      "side": 1,
+      "message": "Fixed it here: https://webrtc-review.googlesource.com/c/src/+/214343\n\nThanks",
+      "parentUuid": "3d669ccb_6310c8c4",
+      "revId": "2f71b61a34c86c5a267e671d36ad5c74f1a0fb69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

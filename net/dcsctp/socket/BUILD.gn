@@ -277,4 +277,18 @@ if (rtc_include_tests) {
       "transmission_control_block_test.cc",
     ]
   }
+
+  if (rtc_enable_google_benchmarks) {
+    rtc_library("dcsctp_socket_benchmark") {
+      testonly = true
+      sources = [ "dcsctp_socket_benchmark.cc" ]
+      deps = [
+        ":dcsctp_socket",
+        "../../../api:array_view",
+        "../public:socket",
+        "../public:types",
+        "//third_party/google_benchmark",
+      ]
+    }
+  }
 }

@@ -23,4 +23,14 @@ if (rtc_include_tests) {
       "tx:dcsctp_tx_unittests",
     ]
   }
+
+  if (rtc_enable_google_benchmarks) {
+    rtc_test("dcsctp_benchmark") {
+      testonly = true
+      deps = [
+        "../../test:benchmark_main",
+        "socket:dcsctp_socket_benchmark",
+      ]
+    }
+  }
 }

@@ -112,6 +112,9 @@ if (!build_with_chromium) {
       if (is_fuchsia) {
         deps += [ ":fuchsia_perf_tests" ]
       }
+      if (rtc_enable_google_benchmarks) {
+        deps += [ "net/dcsctp:dcsctp_benchmark" ]
+      }
     }
     if (target_os == "android") {
       deps += [ "tools_webrtc:binary_version_check" ]

@@ -88,6 +88,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "94dcc559_5a235940",
+        "filename": "net/dcsctp/public/dcsctp_options.h",
+        "patchSetId": 30
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-08T08:23:55Z",
+      "side": 1,
+      "message": "Good idea - done. I borrowed the rationale from sctp_transport.cc",
+      "parentUuid": "52bd8ee9_7d1ea280",
+      "revId": "2b4c8136d6a18d927138b8da3abd4924575eeb55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "030d1197_b65d61eb",

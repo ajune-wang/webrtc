@@ -501,7 +501,8 @@ PeerConnection::PeerConnection(
       // LLONG_MAX.
       session_id_(rtc::ToString(rtc::CreateRandomId64() & LLONG_MAX)),
       dtls_enabled_(dtls_enabled),
-      data_channel_controller_(this),
+      data_channel_controller_(this,
+                               std::make_unique<cricket::RtpDataEngine>()),
       message_handler_(signaling_thread()),
       weak_factory_(this) {
   worker_thread()->Invoke<void>(RTC_FROM_HERE, [this] {

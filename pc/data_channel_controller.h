@@ -16,6 +16,7 @@
 #include <map>
 #include <memory>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "api/data_channel_interface.h"
@@ -24,6 +25,7 @@
 #include "api/transport/data_channel_transport_interface.h"
 #include "media/base/media_channel.h"
 #include "media/base/media_engine.h"
+#include "media/base/rtp_data_engine.h"
 #include "media/base/stream_params.h"
 #include "pc/channel.h"
 #include "pc/data_channel_utils.h"
@@ -45,7 +47,9 @@ class DataChannelController : public RtpDataChannelProviderInterface,
                               public SctpDataChannelProviderInterface,
                               public DataChannelSink {
  public:
-  explicit DataChannelController(PeerConnection* pc) : pc_(pc) {}
+  DataChannelController(PeerConnection* pc,
+                        std::unique_ptr<cricket::RtpDataEngine> data_engine)
+      : pc_(pc), data_engine_(std::move(data_engine)) {}
 
   // Not copyable or movable.
   DataChannelController(DataChannelController&) = delete;
@@ -121,6 +125,10 @@ class DataChannelController : public RtpDataChannelProviderInterface,
   void set_data_channel_transport(DataChannelTransportInterface* transport);
   const std::map<std::string, rtc::scoped_refptr<RtpDataChannel>>*
   rtp_data_channels() const;
+
+  cricket::RtpDataCodecs GetRtpDataCodecs() {
+    return data_engine_->data_codecs();
+  }
 
   sigslot::signal1<RtpDataChannel*>& SignalRtpDataChannelCreated() {
     RTC_DCHECK_RUN_ON(signaling_thread());
@@ -240,6 +248,9 @@ class DataChannelController : public RtpDataChannelProviderInterface,
 
   // Owning PeerConnection.
   PeerConnection* const pc_;
+
+  const std::unique_ptr<cricket::RtpDataEngine> data_engine_;
+
   // The weak pointers must be dereferenced and invalidated on the signalling
   // thread only.
   rtc::WeakPtrFactory<DataChannelController> weak_factory_{this};

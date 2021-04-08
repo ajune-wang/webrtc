@@ -1413,22 +1413,26 @@ bool MediaSessionOptions::HasMediaDescription(MediaType type) const {
 
 MediaSessionDescriptionFactory::MediaSessionDescriptionFactory(
     const TransportDescriptionFactory* transport_desc_factory,
-    rtc::UniqueRandomIdGenerator* ssrc_generator)
-    : ssrc_generator_(ssrc_generator),
+    rtc::UniqueRandomIdGenerator* ssrc_generator,
+    RtpDataCodecs rtp_data_codecs)
+    : rtp_data_codecs_(std::move(rtp_data_codecs)),
+      ssrc_generator_(ssrc_generator),
       transport_desc_factory_(transport_desc_factory) {
   RTC_DCHECK(ssrc_generator_);
 }
 
 MediaSessionDescriptionFactory::MediaSessionDescriptionFactory(
     ChannelManager* channel_manager,
+    RtpDataCodecs rtp_data_codecs,
     const TransportDescriptionFactory* transport_desc_factory,
     rtc::UniqueRandomIdGenerator* ssrc_generator)
-    : MediaSessionDescriptionFactory(transport_desc_factory, ssrc_generator) {
+    : MediaSessionDescriptionFactory(transport_desc_factory,
+                                     ssrc_generator,
+                                     std::move(rtp_data_codecs)) {
   channel_manager->GetSupportedAudioSendCodecs(&audio_send_codecs_);
   channel_manager->GetSupportedAudioReceiveCodecs(&audio_recv_codecs_);
   channel_manager->GetSupportedVideoSendCodecs(&video_send_codecs_);
   channel_manager->GetSupportedVideoReceiveCodecs(&video_recv_codecs_);
-  channel_manager->GetSupportedDataCodecs(&rtp_data_codecs_);
   ComputeAudioCodecsIntersectionAndUnion();
   ComputeVideoCodecsIntersectionAndUnion();
 }

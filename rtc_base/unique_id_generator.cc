@@ -19,13 +19,18 @@
 
 namespace rtc {
 
-UniqueRandomIdGenerator::UniqueRandomIdGenerator() : known_ids_() {}
+UniqueRandomIdGenerator::UniqueRandomIdGenerator() : known_ids_() {
+  sequence_checker_.Detach();
+}
 UniqueRandomIdGenerator::UniqueRandomIdGenerator(ArrayView<uint32_t> known_ids)
-    : known_ids_(known_ids.begin(), known_ids.end()) {}
+    : known_ids_(known_ids.begin(), known_ids.end()) {
+  sequence_checker_.Detach();
+}
 
 UniqueRandomIdGenerator::~UniqueRandomIdGenerator() = default;
 
 uint32_t UniqueRandomIdGenerator::GenerateId() {
+  RTC_DCHECK_RUN_ON(&sequence_checker_);
   RTC_CHECK_LT(known_ids_.size(), std::numeric_limits<uint32_t>::max() - 1);
   while (true) {
     auto pair = known_ids_.insert(CreateRandomNonZeroId());
@@ -36,6 +41,7 @@ uint32_t UniqueRandomIdGenerator::GenerateId() {
 }
 
 bool UniqueRandomIdGenerator::AddKnownId(uint32_t value) {
+  RTC_DCHECK_RUN_ON(&sequence_checker_);
   return known_ids_.insert(value).second;
 }
 

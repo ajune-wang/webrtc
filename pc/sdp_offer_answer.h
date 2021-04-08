@@ -610,7 +610,7 @@ class SdpOfferAnswerHandler : public SdpStateProvider,
 
   // MIDs will be generated using this generator which will keep track of
   // all the MIDs that have been seen over the life of the PeerConnection.
-  rtc::UniqueStringGenerator mid_generator_ RTC_GUARDED_BY(signaling_thread());
+  rtc::UniqueStringGenerator mid_generator_;
 
   // List of content names for which the remote side triggered an ICE restart.
   std::set<std::string> pending_ice_restarts_
@@ -657,8 +657,7 @@ class SdpOfferAnswerHandler : public SdpStateProvider,
   // specified by the user (or by the remote party).
   // The generator is not used directly, instead it is passed on to the
   // channel manager and the session description factory.
-  rtc::UniqueRandomIdGenerator ssrc_generator_
-      RTC_GUARDED_BY(signaling_thread());
+  rtc::UniqueRandomIdGenerator ssrc_generator_;
 
   // A video bitrate allocator factory.
   // This can be injected using the PeerConnectionDependencies,

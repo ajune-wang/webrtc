@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87f03eb3_4dd81259",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-04-08T09:22:24Z",
+      "side": 1,
+      "message": "Hi!\n\nNisse can you review this change?\nA lot of files are changed, but the main change is quite simple:\nSdpVideoFormat is extended with two functions: IsSameCodec() and IsCodecInList().\nTo avoid circular dependencies I had to move h264_profile_level_id.* and vp9_profile.* to api/video_codecs.\n\nMirko, can you review the changes to the build files? Once downstream projects are updated to not use media/base/h264_profile_level_id.h and media/base/vp9_profile.h, these files will be removed.\n",
+      "revId": "7113bef33a7333fd36664c323c6c0d968005b452",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

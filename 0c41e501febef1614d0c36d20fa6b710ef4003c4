@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "385a5e02_320d669b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-08T10:54:39Z",
+      "side": 1,
+      "message": "I\u0027m not familiar with this code,\nI just checked that it does the same as before (as good as I can)",
+      "revId": "0c41e501febef1614d0c36d20fa6b710ef4003c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89f0cd20_78e280d1",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 2166,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-08T10:54:39Z",
+      "side": 1,
+      "message": "is feels a bit unsafe to call this function (which is virtual in base class) after PeerConnection destructor might be called.\n\nBut seems it is actually correct, in particular making the function final in PeerConnection class made it safer.",
+      "range": {
+        "startLine": 2166,
+        "startChar": 20,
+        "endLine": 2166,
+        "endChar": 36
+      },
+      "revId": "0c41e501febef1614d0c36d20fa6b710ef4003c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f78e19e_735c4100",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 2196,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-08T10:54:39Z",
+      "side": 1,
+      "message": "prefer exact type, or at least\nauto*\nhttps://chromium.googlesource.com/chromium/src/+/HEAD/styleguide/c++/c++-dos-and-donts.md#do-not-use-to-deduce-a-raw-pointer",
+      "range": {
+        "startLine": 2196,
+        "startChar": 4,
+        "endLine": 2196,
+        "endChar": 8
+      },
+      "revId": "0c41e501febef1614d0c36d20fa6b710ef4003c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4650480a_9b4c0063",
+        "filename": "pc/stats_collector.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 667,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-08T10:54:39Z",
+      "side": 1,
+      "message": "do you plan to use more of the SessionStats members?\n(if not, it might be cleaner to return just the transport_names_by_mid than to return full struct where some members are moved out)",
+      "range": {
+        "startLine": 667,
+        "startChar": 15,
+        "endLine": 667,
+        "endChar": 28
+      },
+      "revId": "0c41e501febef1614d0c36d20fa6b710ef4003c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38635fe7_3cae20d0",
+        "filename": "pc/stats_collector.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 878,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-08T10:54:39Z",
+      "side": 1,
+      "message": "Remove std::move here:\nin the map key is const, so you can\u0027t move it.",
+      "range": {
+        "startLine": 878,
+        "startChar": 49,
+        "endLine": 878,
+        "endChar": 60
+      },
+      "revId": "0c41e501febef1614d0c36d20fa6b710ef4003c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4dc4317_0028b624",
+        "filename": "pc/stats_collector.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1149,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-08T10:54:39Z",
+      "side": 1,
+      "message": "or\ngatherer-\u003etransport_name \u003d transport_names_by_mid.at(gatherer-\u003emid);\n\n(though that would replace RTC_DCHECK with internal map check that key exists)",
+      "range": {
+        "startLine": 1147,
+        "startChar": 6,
+        "endLine": 1149,
+        "endChar": 47
+      },
+      "revId": "0c41e501febef1614d0c36d20fa6b710ef4003c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86b6fb08_8d6cb038",
+        "filename": "pc/stats_collector.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-08T10:54:39Z",
+      "side": 1,
+      "message": "https://bugs.webrtc.org/12338\n\n\"Use backticks not vertical bars to denote variables in comments\"",
+      "range": {
+        "startLine": 166,
+        "startChar": 5,
+        "endLine": 166,
+        "endChar": 6
+      },
+      "revId": "0c41e501febef1614d0c36d20fa6b710ef4003c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

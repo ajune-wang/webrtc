@@ -134,6 +134,30 @@
       },
       "revId": "1d81dad12371d1738278137f7e933351a9d32301",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7f5095c_7465a834",
+        "filename": "system_wrappers/source/clock.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-04-08T07:09:37Z",
+      "side": 1,
+      "message": "ack",
+      "parentUuid": "332c70a2_0444970b",
+      "range": {
+        "startLine": 84,
+        "startChar": 16,
+        "endLine": 84,
+        "endChar": 25
+      },
+      "revId": "1d81dad12371d1738278137f7e933351a9d32301",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -72,6 +72,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9ed84b6_3d542c5d",
+        "filename": "pc/channel_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-08T13:25:14Z",
+      "side": 1,
+      "message": "Yes I see. At the moment there\u0027s a 1:1 mapping between a PeerConnection object and a ChannelManager. A little while ago, in order to make the code easier to reason about, hta@ teased out various parts of the PeerConnection implementation into separate classes and files, but there\u0027s still a 1:1 mapping. So as the code is written now, there\u0027s not a way for one PeerConnection to attempt to destroy channels owned or referenced by other PeerConnection objects.\n\nHowever, as things are getting cleaned up it\u0027s becoming clear that we don\u0027t need the ChannelManager. As a follow-up step, I\u0027m going to start moving the factory functions that are there, into the code that actually needs the channel objects and have a pointer to them.",
+      "parentUuid": "7c9f3bf9_dce84ae1",
+      "range": {
+        "startLine": 207,
+        "startChar": 24,
+        "endLine": 210,
+        "endChar": 8
+      },
+      "revId": "bf991800acb139b25afe6e0837228d33cb752621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e6f72c8a_f9d6fdfa",

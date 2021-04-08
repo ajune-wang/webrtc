@@ -66,6 +66,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "dc2f45c4_b6c0cd85",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 2196,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-08T13:15:41Z",
+      "side": 1,
+      "message": "Fixed - also fixed all the places that this was copied from.",
+      "parentUuid": "0f78e19e_735c4100",
+      "range": {
+        "startLine": 2196,
+        "startChar": 4,
+        "endLine": 2196,
+        "endChar": 8
+      },
+      "revId": "0c41e501febef1614d0c36d20fa6b710ef4003c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "4650480a_9b4c0063",
         "filename": "pc/stats_collector.cc",
         "patchSetId": 10
@@ -77,6 +101,30 @@
       "writtenOn": "2021-04-08T10:54:39Z",
       "side": 1,
       "message": "do you plan to use more of the SessionStats members?\n(if not, it might be cleaner to return just the transport_names_by_mid than to return full struct where some members are moved out)",
+      "range": {
+        "startLine": 667,
+        "startChar": 15,
+        "endLine": 667,
+        "endChar": 28
+      },
+      "revId": "0c41e501febef1614d0c36d20fa6b710ef4003c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31d5d1f5_408dd131",
+        "filename": "pc/stats_collector.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 667,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-08T13:15:41Z",
+      "side": 1,
+      "message": "done (and there aren\u0027t any plans to use more of the SessionStats members)",
+      "parentUuid": "4650480a_9b4c0063",
       "range": {
         "startLine": 667,
         "startChar": 15,
@@ -112,6 +160,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "00f85ebd_35e91e6d",
+        "filename": "pc/stats_collector.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 878,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-08T13:15:41Z",
+      "side": 1,
+      "message": "Done - thanks for catching.",
+      "parentUuid": "38635fe7_3cae20d0",
+      "range": {
+        "startLine": 878,
+        "startChar": 49,
+        "endLine": 878,
+        "endChar": 60
+      },
+      "revId": "0c41e501febef1614d0c36d20fa6b710ef4003c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "a4dc4317_0028b624",
         "filename": "pc/stats_collector.cc",
         "patchSetId": 10
@@ -123,6 +195,30 @@
       "writtenOn": "2021-04-08T10:54:39Z",
       "side": 1,
       "message": "or\ngatherer-\u003etransport_name \u003d transport_names_by_mid.at(gatherer-\u003emid);\n\n(though that would replace RTC_DCHECK with internal map check that key exists)",
+      "range": {
+        "startLine": 1147,
+        "startChar": 6,
+        "endLine": 1149,
+        "endChar": 47
+      },
+      "revId": "0c41e501febef1614d0c36d20fa6b710ef4003c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac278b0d_22e61dc7",
+        "filename": "pc/stats_collector.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1149,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-08T13:15:41Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "a4dc4317_0028b624",
       "range": {
         "startLine": 1147,
         "startChar": 6,
@@ -146,6 +242,30 @@
       "writtenOn": "2021-04-08T10:54:39Z",
       "side": 1,
       "message": "https://bugs.webrtc.org/12338\n\n\"Use backticks not vertical bars to denote variables in comments\"",
+      "range": {
+        "startLine": 166,
+        "startChar": 5,
+        "endLine": 166,
+        "endChar": 6
+      },
+      "revId": "0c41e501febef1614d0c36d20fa6b710ef4003c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4923503a_ef36cf38",
+        "filename": "pc/stats_collector.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-08T13:15:41Z",
+      "side": 1,
+      "message": "Thanks - wasn\u0027t aware of this",
+      "parentUuid": "86b6fb08_8d6cb038",
       "range": {
         "startLine": 166,
         "startChar": 5,

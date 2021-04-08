@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e398738f_6c749042",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-08T21:42:30Z",
+      "side": 1,
+      "message": "FYI - there appears to be a race with how UniqueRandomIdGenerator is used in SdpOfferAnswerHandler. In some cases IDs are generated on the signaling thread, in others on the worker thread.",
+      "revId": "3c94605bd0e13c0980a510428ba88a8048eda4e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b21da668_078add85",
+        "filename": "pc/sdp_offer_answer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-08T21:42:30Z",
+      "side": 1,
+      "message": "the generators end up getting used on other threads, so removing the RTC_GUARDED_BY() checks to not mislead.",
+      "revId": "65611dbfb973bbea1a2c342e091e904a3f4cb7c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

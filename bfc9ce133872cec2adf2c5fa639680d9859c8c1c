@@ -34,6 +34,24 @@
       "parentUuid": "461f0b06_adaf1b8e",
       "revId": "bfc9ce133872cec2adf2c5fa639680d9859c8c1c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b72bd74e_de99f3e4",
+        "filename": "net/dcsctp/timer/timer.cc",
+        "patchSetId": 35
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-08T11:02:37Z",
+      "side": 1,
+      "message": "I updated the change to reflect my proposal. PTAL!",
+      "parentUuid": "f57d0dd0_deb38941",
+      "revId": "bfc9ce133872cec2adf2c5fa639680d9859c8c1c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

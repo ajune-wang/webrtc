@@ -281,6 +281,7 @@ RtpDataChannel* ChannelManager::CreateRtpDataChannel(
     bool srtp_required,
     const webrtc::CryptoOptions& crypto_options,
     rtc::UniqueRandomIdGenerator* ssrc_generator) {
+  RTC_DCHECK(media_engine_);
   if (!worker_thread_->IsCurrent()) {
     return worker_thread_->Invoke<RtpDataChannel*>(RTC_FROM_HERE, [&] {
       return CreateRtpDataChannel(media_config, rtp_transport, signaling_thread,

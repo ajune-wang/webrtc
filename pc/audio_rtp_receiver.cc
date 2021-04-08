@@ -288,6 +288,9 @@ void AudioRtpReceiver::SetJitterBufferMinimumDelay(
 }
 
 void AudioRtpReceiver::SetMediaChannel(cricket::MediaChannel* media_channel) {
+  RTC_DCHECK_RUN_ON(worker_thread_);
+  RTC_LOG(LS_ERROR) << "************ AudioRtpReceiver::SetMediaChannel "
+                       "**********************";
   RTC_DCHECK(media_channel == nullptr ||
              media_channel->media_type() == media_type());
   media_channel_ = static_cast<cricket::VoiceMediaChannel*>(media_channel);

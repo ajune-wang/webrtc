@@ -251,6 +251,8 @@ void VideoRtpReceiver::SetJitterBufferMinimumDelay(
 void VideoRtpReceiver::SetMediaChannel(cricket::MediaChannel* media_channel) {
   RTC_DCHECK(media_channel == nullptr ||
              media_channel->media_type() == media_type());
+  RTC_LOG(LS_ERROR) << "************ VideoRtpReceiver::SetMediaChannel "
+                       "**********************";
   worker_thread_->Invoke<void>(RTC_FROM_HERE, [&] {
     RTC_DCHECK_RUN_ON(worker_thread_);
     bool encoded_sink_enabled = saved_encoded_sink_enabled_;

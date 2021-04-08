@@ -490,12 +490,6 @@ class RtpDataChannel : public BaseChannel {
                  webrtc::CryptoOptions crypto_options,
                  rtc::UniqueRandomIdGenerator* ssrc_generator);
   ~RtpDataChannel();
-  // TODO(zhihuang): Remove this once the RtpTransport can be shared between
-  // BaseChannels.
-  void Init_w(DtlsTransportInternal* rtp_dtls_transport,
-              DtlsTransportInternal* rtcp_dtls_transport,
-              rtc::PacketTransportInternal* rtp_packet_transport,
-              rtc::PacketTransportInternal* rtcp_packet_transport);
   void Init_w(webrtc::RtpTransportInternal* rtp_transport) override;
 
   virtual bool SendData(const SendDataParams& params,

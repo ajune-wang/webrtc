@@ -501,7 +501,8 @@ PeerConnection::PeerConnection(
       // LLONG_MAX.
       session_id_(rtc::ToString(rtc::CreateRandomId64() & LLONG_MAX)),
       dtls_enabled_(dtls_enabled),
-      data_channel_controller_(this),
+      data_channel_controller_(this,
+                               std::make_unique<cricket::RtpDataEngine>()),
       message_handler_(signaling_thread()),
       weak_factory_(this) {
   worker_thread()->Invoke<void>(RTC_FROM_HERE, [this] {
@@ -2451,35 +2452,53 @@ Call::Stats PeerConnection::GetCallStats() {
 }
 
 bool PeerConnection::SetupDataChannelTransport_n(const std::string& mid) {
-  DataChannelTransportInterface* transport =
-      transport_controller_->GetDataChannelTransport(mid);
-  if (!transport) {
-    RTC_LOG(LS_ERROR)
-        << "Data channel transport is not available for data channels, mid="
-        << mid;
-    return false;
-  }
-  RTC_LOG(LS_INFO) << "Setting up data channel transport for mid=" << mid;
+  if (data_channel_type() == cricket::DCT_SCTP) {
+    DataChannelTransportInterface* transport =
+        transport_controller_->GetDataChannelTransport(mid);
+    if (!transport) {
+      RTC_LOG(LS_ERROR)
+          << "Data channel transport is not available for data channels, mid="
+          << mid;
+      return false;
+    }
+    RTC_LOG(LS_INFO) << "Setting up data channel transport for mid=" << mid;
 
-  data_channel_controller_.set_data_channel_transport(transport);
-  data_channel_controller_.SetupDataChannelTransport_n();
-  sctp_mid_n_ = mid;
-  cricket::DtlsTransportInternal* dtls_transport =
-      transport_controller_->GetDtlsTransport(mid);
-  if (dtls_transport) {
-    signaling_thread()->PostTask(
-        ToQueuedTask(signaling_thread_safety_.flag(),
-                     [this, name = dtls_transport->transport_name()] {
-                       RTC_DCHECK_RUN_ON(signaling_thread());
-                       sctp_transport_name_s_ = std::move(name);
-                     }));
+    data_channel_controller_.set_data_channel_transport(transport);
+    data_channel_controller_.SetupDataChannelTransport_n();
+    sctp_mid_n_ = mid;
+    cricket::DtlsTransportInternal* dtls_transport =
+        transport_controller_->GetDtlsTransport(mid);
+    if (dtls_transport) {
+      signaling_thread()->PostTask(
+          ToQueuedTask(signaling_thread_safety_.flag(),
+                       [this, name = dtls_transport->transport_name()] {
+                         RTC_DCHECK_RUN_ON(signaling_thread());
+                         sctp_transport_name_s_ = std::move(name);
+                       }));
+    }
+
+    // Note: setting the data sink and checking initial state must be done last,
+    // after setting up the data channel.  Setting the data sink may trigger
+    // callbacks to PeerConnection which require the transport to be completely
+    // set up (eg. OnReadyToSend()).
+    transport->SetDataSink(&data_channel_controller_);
+  } else {
+    RTC_DCHECK_EQ(cricket::DCT_RTP, data_channel_type());
+    RtpTransportInternal* rtp_transport = GetRtpTransport(mid);
+    auto crypto_options = configuration_.crypto_options.has_value()
+                              ? *configuration_.crypto_options
+                              : options_.crypto_options;
+
+    cricket::RtpDataChannel* data_channel =
+        data_channel_controller_->CreateRtpDataChannel(
+            configuration_.media_config, rtp_transport, signaling_thread(), mid,
+            SrtpRequired(), crypto_options, &ssrc_generator_);
+    if (!data_channel)
+      return false;
+
+    SetupRtpDataChannelTransport_n(data_channel);
   }
 
-  // Note: setting the data sink and checking initial state must be done last,
-  // after setting up the data channel.  Setting the data sink may trigger
-  // callbacks to PeerConnection which require the transport to be completely
-  // set up (eg. OnReadyToSend()).
-  transport->SetDataSink(&data_channel_controller_);
   return true;
 }
 

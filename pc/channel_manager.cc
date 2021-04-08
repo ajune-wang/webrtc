@@ -116,11 +116,6 @@ void ChannelManager::GetSupportedVideoReceiveCodecs(
   }
 }
 
-void ChannelManager::GetSupportedDataCodecs(
-    std::vector<DataCodec>* codecs) const {
-  *codecs = data_engine_->data_codecs();
-}
-
 RtpHeaderExtensions ChannelManager::GetDefaultEnabledAudioRtpHeaderExtensions()
     const {
   if (!media_engine_)

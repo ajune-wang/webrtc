@@ -16,6 +16,24 @@
       "message": "\"The build remains valid\"... but Build() can\u0027t be called twice in a row expecting the same value in every case, right? (calls after the first one will yield an empty buffer, right?)\n\njust wondering if I\u0027m understanding the comment correctly.",
       "revId": "974fee1a98d784b5128dba33cfc6d667a20bbf08",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14e9ec70_2cbfa5ba",
+        "filename": "net/dcsctp/packet/sctp_packet.h",
+        "patchSetId": 32
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-08T09:00:58Z",
+      "side": 1,
+      "message": "Yes, you\u0027re absolutely correct. It\u0027s in a valid state, but the data is flushed. I\u0027ll update the comment.",
+      "parentUuid": "b85417ba_733c2c02",
+      "revId": "974fee1a98d784b5128dba33cfc6d667a20bbf08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

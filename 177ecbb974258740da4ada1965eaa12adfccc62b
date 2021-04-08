@@ -33,6 +33,24 @@
       "message": "LGTM! One suggestion I\u0027d have (probably for a separate fuzzer) is to set up the connection and fuzz at each stage. SCTP processes different chunks depending on whether it\u0027s received INIT/INIT_ACK/COOKIE_ECHO etc, so it would be nice to have fuzzers for these. ",
       "revId": "177ecbb974258740da4ada1965eaa12adfccc62b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9cda5fb0_ebda8320",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-08T21:22:25Z",
+      "side": 1,
+      "message": "Absolutely! I\u0027m working on a socket fuzzer, that will do exactly that. I\u0027m writing a mutator that creates valid packets with different chunks in each, similar to what I found at https://github.com/google/oss-fuzz/blob/master/projects/libpng-proto/libpng_transforms_fuzzer.cc\n\n\u003cinsert meme of dog saying \"I don\u0027t know what I\u0027m doing\"\u003e",
+      "parentUuid": "31ece8f4_58df7fba",
+      "revId": "177ecbb974258740da4ada1965eaa12adfccc62b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -33,6 +33,125 @@
       "message": "Hta@, can I have a stamp for api/video/recordable_encoded_frame.h?",
       "revId": "a78a1ce1a96548995cb5f0e06dcd091408e4b32c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6bb89f1e_90bbe497",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-08T12:35:03Z",
+      "side": 1,
+      "message": "Don\u0027t want to stand in the way, the API change looks sensible, but a few comments below...\n",
+      "revId": "a78a1ce1a96548995cb5f0e06dcd091408e4b32c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df8c5976_90c6ca9d",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 764,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-08T12:35:03Z",
+      "side": 1,
+      "message": "Should you be logging the misreporting?",
+      "revId": "a78a1ce1a96548995cb5f0e06dcd091408e4b32c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3862e23_a8c31d7e",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 769,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-08T12:35:03Z",
+      "side": 1,
+      "message": "The code for halting the process seems to be at the top of the function. This place just logs an error; I\u0027d move the \"halt the process\" comment up to the top.",
+      "revId": "a78a1ce1a96548995cb5f0e06dcd091408e4b32c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18e89719_0732cb1b",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 772,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-08T12:35:03Z",
+      "side": 1,
+      "message": "the output function is unlikely to be a decoder, given that you do decoding here and return that separately. Rephrase?",
+      "revId": "a78a1ce1a96548995cb5f0e06dcd091408e4b32c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c8c86e7_0785efb1",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 780,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-08T12:35:03Z",
+      "side": 1,
+      "message": "I don\u0027t like that the block below has 3 returns that return the same thing.\nI\u0027d like to rephrase this as\n\nif (encoded_frame_output_enabled) {\n   if (*pending_resolution.has_value() \u0026\u0026 !*pending_resolution.empty()) {\n      // Flush the buffered frames\n   }\n}\nreturn decode_result;",
+      "revId": "a78a1ce1a96548995cb5f0e06dcd091408e4b32c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72db356b_dd0923d3",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 789,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-08T12:35:03Z",
+      "side": 1,
+      "message": "note: having two variables with the same name and different functions is not very readable. I don\u0027t understand why you have to fish it out from the pointer anyway.",
+      "revId": "a78a1ce1a96548995cb5f0e06dcd091408e4b32c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38fc4201_8a763255",
+        "filename": "video/video_receive_stream2.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-08T12:35:03Z",
+      "side": 1,
+      "message": "Can we format this comment better? I had a hard time reading it until I realized that it\u0027s a bulleted list with each \"emplaced\" in a new bullet.",
+      "revId": "a78a1ce1a96548995cb5f0e06dcd091408e4b32c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

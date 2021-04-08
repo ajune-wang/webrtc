@@ -33,6 +33,46 @@
       "message": "Hello Xavier!\n\nThanks for reviewing my previous CL about sLD. Could you please review this CL as well?\n\nThanks a lot,\nYura.",
       "revId": "92c05ef83d0c01eb372a467c6b77e3046da82530",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7446b115_2a592b99",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2021-04-08T13:38:26Z",
+      "side": 1,
+      "message": "Sorry for the delay!",
+      "revId": "92c05ef83d0c01eb372a467c6b77e3046da82530",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0b39480_9ee9367c",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2021-04-08T13:38:26Z",
+      "side": 1,
+      "message": "The comment just above is about NetworkMonitor and NetworkMonitorAutoDetect (yes, it’s not obvious...). Can you move this line to the top of the list of sources?",
+      "range": {
+        "startLine": 289,
+        "startChar": 6,
+        "endLine": 289,
+        "endChar": 42
+      },
+      "revId": "92c05ef83d0c01eb372a467c6b77e3046da82530",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

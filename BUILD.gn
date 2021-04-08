@@ -89,6 +89,9 @@ if (!build_with_chromium) {
           "tools_webrtc/perf:webrtc_dashboard_upload",
         ]
       }
+      if (enable_google_benchmarks) {
+        deps += [ "net/dcsctp:dcsctp_benchmark" ]
+      }
     }
     if (target_os == "android") {
       deps += [ "tools_webrtc:binary_version_check" ]

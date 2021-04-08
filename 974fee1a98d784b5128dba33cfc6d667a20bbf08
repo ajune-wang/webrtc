@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b85417ba_733c2c02",
+        "filename": "net/dcsctp/packet/sctp_packet.h",
+        "patchSetId": 32
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-08T08:02:00Z",
+      "side": 1,
+      "message": "\"The build remains valid\"... but Build() can\u0027t be called twice in a row expecting the same value in every case, right? (calls after the first one will yield an empty buffer, right?)\n\njust wondering if I\u0027m understanding the comment correctly.",
+      "revId": "974fee1a98d784b5128dba33cfc6d667a20bbf08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

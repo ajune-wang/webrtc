@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7c9f3bf9_dce84ae1",
+        "filename": "pc/channel_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-08T13:03:42Z",
+      "side": 1,
+      "message": "I was more worried about having a non-null VoiceChannel* created from a different ChannelManager but if I understand correctly this is not possible (the PC context cannot be changed, so the ChannelManager must be the one that created the channel). If this is true then it is safe (but maybe it should be documented somewhere?).",
+      "parentUuid": "600e0fba_aaa9b347",
+      "range": {
+        "startLine": 207,
+        "startChar": 24,
+        "endLine": 210,
+        "endChar": 8
+      },
+      "revId": "bf991800acb139b25afe6e0837228d33cb752621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e6f72c8a_f9d6fdfa",
         "filename": "pc/channel_manager.cc",
         "patchSetId": 2
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "yup, DCHECK fixed and the checks for valid arguments are done up call stack",
       "parentUuid": "347ee6da_96decb8a",
+      "range": {
+        "startLine": 271,
+        "startChar": 24,
+        "endLine": 274,
+        "endChar": 8
+      },
+      "revId": "bf991800acb139b25afe6e0837228d33cb752621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfa2eec3_bffdc689",
+        "filename": "pc/channel_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-08T13:03:42Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "470a524e_35b02b5c",
       "range": {
         "startLine": 271,
         "startChar": 24,

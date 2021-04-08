@@ -33,6 +33,24 @@
       "message": "is policy.rtp.cipher_key_len equal to key_len + salt_len?",
       "revId": "3078e43494e7d5baf830b76a923341dc625319a0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e8a986f_89d1fdf9",
+        "filename": "pc/srtp_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-04-08T14:07:57Z",
+      "side": 1,
+      "message": "yes, see e.g. DtlsSrtpTransport::ExtractParams. The only reason one needs to know key and salt length is that the DTLS keying material is structured as\n  key-key-salt-salt\nin memory instead of\n  key-salt-key-salt\n\ncipher_key_len is how many bytes libsrtp will read from policy.key, a mismatch here would lead to an OOB read. Can\u0027t happen currently (even though I wonder about SDES...)",
+      "parentUuid": "694f1a8b_b966d080",
+      "revId": "3078e43494e7d5baf830b76a923341dc625319a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

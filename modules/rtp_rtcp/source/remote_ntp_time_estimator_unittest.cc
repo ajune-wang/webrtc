@@ -43,9 +43,7 @@ class RemoteNtpTimeEstimatorTest : public ::testing::Test {
            kTimestampOffset;
   }
 
-  NtpTime GetRemoteNtpTime() {
-    return TimeMicrosToNtp(remote_clock_.TimeInMicroseconds());
-  }
+  NtpTime GetRemoteNtpTime() { return remote_clock_.CurrentNtpTime(); }
 
   void SendRtcpSr() {
     uint32_t rtcp_timestamp = GetRemoteTimestamp();

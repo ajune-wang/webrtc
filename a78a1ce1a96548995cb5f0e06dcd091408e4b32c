@@ -52,6 +52,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fce84c8d_d0117f45",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-04-08T17:22:18Z",
+      "side": 1,
+      "message": "Harald, ptal if you like the new iteration.",
+      "revId": "a78a1ce1a96548995cb5f0e06dcd091408e4b32c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "df8c5976_90c6ca9d",
@@ -65,6 +82,24 @@
       "writtenOn": "2021-04-08T12:35:03Z",
       "side": 1,
       "message": "Should you be logging the misreporting?",
+      "revId": "a78a1ce1a96548995cb5f0e06dcd091408e4b32c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0359c39_96e62506",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 764,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-04-08T17:22:18Z",
+      "side": 1,
+      "message": "At the expense of some logic in OnFrame, I now do when detected. And am eventually consistent too :)",
+      "parentUuid": "df8c5976_90c6ca9d",
       "revId": "a78a1ce1a96548995cb5f0e06dcd091408e4b32c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -86,6 +121,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbabdb60_8bed4b98",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 769,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-04-08T17:22:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3862e23_a8c31d7e",
+      "revId": "a78a1ce1a96548995cb5f0e06dcd091408e4b32c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "18e89719_0732cb1b",
@@ -99,6 +152,24 @@
       "writtenOn": "2021-04-08T12:35:03Z",
       "side": 1,
       "message": "the output function is unlikely to be a decoder, given that you do decoding here and return that separately. Rephrase?",
+      "revId": "a78a1ce1a96548995cb5f0e06dcd091408e4b32c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd9299e8_bd8c2ba8",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 772,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-04-08T17:22:18Z",
+      "side": 1,
+      "message": "That\u0027s not how I read it when I wrote it. I made an attempt at enhancing the meaning, hope it\u0027s okay. The decoder being stuck is one likely reason for this queue to build so I thought I might as well write it in the log message. I guess the log message reader can look at the code a few lines above, too.\n(Am also now logging the error just once)",
+      "parentUuid": "18e89719_0732cb1b",
       "revId": "a78a1ce1a96548995cb5f0e06dcd091408e4b32c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -120,6 +191,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b844b19_e787cbf8",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 780,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-04-08T17:22:18Z",
+      "side": 1,
+      "message": "Inverted the code as per your wish, with a twist. If pending_resolution is nullopt we\u0027ll actually flush the frames, as the code at the top can\u0027t have requested a resolution.",
+      "parentUuid": "3c8c86e7_0785efb1",
+      "revId": "a78a1ce1a96548995cb5f0e06dcd091408e4b32c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "72db356b_dd0923d3",
@@ -137,6 +226,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "93477a85_6122b2be",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 789,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-04-08T17:22:18Z",
+      "side": 1,
+      "message": "(it\u0027s actually an optional protected by the lock). I avoid locking the mutex multiple times which was requested by philipel. If I don\u0027t fish it out, the mutex will have to be locked again below, and I\u0027d like to not flush the frames under the lock.",
+      "parentUuid": "72db356b_dd0923d3",
+      "revId": "a78a1ce1a96548995cb5f0e06dcd091408e4b32c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "38fc4201_8a763255",
@@ -150,6 +257,24 @@
       "writtenOn": "2021-04-08T12:35:03Z",
       "side": 1,
       "message": "Can we format this comment better? I had a hard time reading it until I realized that it\u0027s a bulleted list with each \"emplaced\" in a new bullet.",
+      "revId": "a78a1ce1a96548995cb5f0e06dcd091408e4b32c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac35d147_13592c65",
+        "filename": "video/video_receive_stream2.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-04-08T17:22:18Z",
+      "side": 1,
+      "message": "Done, hope it\u0027s better now?",
+      "parentUuid": "38fc4201_8a763255",
       "revId": "a78a1ce1a96548995cb5f0e06dcd091408e4b32c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c74623b_a6b1d43d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 39
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-08T12:49:23Z",
+      "side": 1,
+      "message": "lgtm.\n\nSince these are stateful classes, I do think that it will pay off and help with correct usage of the classes to use RTC_GUARDED_BY and sequence checkers.\nThere are a few benefits to them:\n* They serve as active documentation (catching things at compile time and also explain things to the reader)\n* Programmer errors are caught at compile or runtime.\n* Protect the design from unwanted dependencies that happen to work but are not the intended use case - thus becoming technical debt.",
+      "revId": "568482c937c3029b19daab2a71d78a964ed0aefc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

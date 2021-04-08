@@ -6,6 +6,7 @@
 # in the file PATENTS.  All contributing project authors may
 # be found in the AUTHORS file in the root of the source tree.
 
+import("../../../third_party/google_benchmark/buildconfig.gni")
 import("../../../webrtc.gni")
 
 rtc_source_set("context") {
@@ -135,5 +136,17 @@ if (rtc_include_tests) {
       "heartbeat_handler_test.cc",
       "stream_reset_handler_test.cc",
     ]
+  }
+
+  if (enable_google_benchmarks) {
+    rtc_library("dcsctp_socket_benchmark") {
+      testonly = true
+      sources = [ "dcsctp_socket_benchmark.cc" ]
+      deps = [
+        ":dcsctp_socket",
+        "../../../api:array_view",
+        "//third_party/google_benchmark",
+      ]
+    }
   }
 }

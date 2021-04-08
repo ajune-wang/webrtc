@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "600e0fba_aaa9b347",
+        "filename": "pc/channel_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-08T12:39:38Z",
+      "side": 1,
+      "message": "The way I reasoned about this is that the code has been like this for a while:\n\n  RTC_DCHECK(it !\u003d voice_channels_.end());\n  if (it \u003d\u003d voice_channels_.end()) {\n    return;\n  }\n\nThis is arguably against the coding recommendations (don\u0027t dcheck something that the code otherwise expects as a valid case). But the DCHECK has not been firing.\n\nBut to be even more safe, I looked at all callers to the function, most importantly SdpOfferAnswerHandler::DestroyChannelInterface where there\u0027s also a DCHECK. Then I looked at all callers of DestroyChannelInterface and verified that the channel pointer is checked before DestroyChannelInterface is called.\n\n(The same applies to the below Destroy* methods below)",
+      "parentUuid": "006335d4_5504415e",
+      "range": {
+        "startLine": 207,
+        "startChar": 24,
+        "endLine": 210,
+        "endChar": 8
+      },
+      "revId": "bf991800acb139b25afe6e0837228d33cb752621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e6f72c8a_f9d6fdfa",
         "filename": "pc/channel_manager.cc",
         "patchSetId": 2
@@ -37,6 +61,30 @@
       "writtenOn": "2021-04-08T11:43:57Z",
       "side": 1,
       "message": "This is not a DCHECK because we have places where it is call will nullptr? Or should be aligned with the rest of the CL?",
+      "range": {
+        "startLine": 261,
+        "startChar": 0,
+        "endLine": 263,
+        "endChar": 3
+      },
+      "revId": "bf991800acb139b25afe6e0837228d33cb752621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "944752fd_1020e5f0",
+        "filename": "pc/channel_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-08T12:39:38Z",
+      "side": 1,
+      "message": "Thanks, it should have been a DCHECK - fixed.",
+      "parentUuid": "e6f72c8a_f9d6fdfa",
       "range": {
         "startLine": 261,
         "startChar": 0,
@@ -60,6 +108,30 @@
       "writtenOn": "2021-04-08T11:43:57Z",
       "side": 1,
       "message": "See the other comment, if video_channel is not known this might be a problem here (other places has this construct in the CL).",
+      "range": {
+        "startLine": 271,
+        "startChar": 24,
+        "endLine": 274,
+        "endChar": 8
+      },
+      "revId": "bf991800acb139b25afe6e0837228d33cb752621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "470a524e_35b02b5c",
+        "filename": "pc/channel_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-08T12:39:38Z",
+      "side": 1,
+      "message": "yup, DCHECK fixed and the checks for valid arguments are done up call stack",
+      "parentUuid": "347ee6da_96decb8a",
       "range": {
         "startLine": 271,
         "startChar": 24,

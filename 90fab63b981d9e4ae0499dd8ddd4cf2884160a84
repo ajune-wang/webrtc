@@ -16,6 +16,24 @@
       "message": "What clients are needing offerExtmapAllowMixed?\nWe\u0027re working on deprecating and removing that flag from configuration.\n",
       "revId": "90fab63b981d9e4ae0499dd8ddd4cf2884160a84",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "16cfb3f7_b6412c4f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2021-04-08T11:18:33Z",
+      "side": 1,
+      "message": "It is used in the Android and iOS application I\u0027m working on. It was necessary to have compatibility with existing versions of application which used old webrtc, which had bug handling extmap-allowed in SDP. By the time you remove offerExtmapAllowMixed from Chromium/WebRTC I\u0027ll very likely won\u0027t need it anymore.",
+      "parentUuid": "03e49994_d7ca09a4",
+      "revId": "90fab63b981d9e4ae0499dd8ddd4cf2884160a84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

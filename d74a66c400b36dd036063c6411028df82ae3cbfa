@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aaaaae27_445b99fc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-08T05:00:33Z",
+      "side": 1,
+      "message": "The day of ripping out Plan B will be a day of significantly shorter code....\n",
+      "revId": "d74a66c400b36dd036063c6411028df82ae3cbfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c516cd5f_8b8c2bfe",
@@ -31,6 +48,23 @@
       "writtenOn": "2021-04-07T17:01:38Z",
       "side": 1,
       "message": "This mirrors what VideoRtpReceiver::Stop() is alrerady doing. Without this line we would fail PeerConnectionInterfaceTest/PeerConnectionInterfaceTest.RejectMediaContent/1.\n\nEnding the source does end the track, so it is really confusing that there exists both a Stop() and a StopAndEndTrack() in RtpReceiverInternal... they both stop the track, but the timing is a bit different.\n\nI think the only use case of \"stop without ending\" is rollback, which I showed is already not working (with or without this CL): https://crbug.com/webrtc/12653. I suggest we revisit Stop() versus StopAndEndTrack() in that issue, perhaps we can remove StopAndEndTrack() in favor of always doing Stop()... not this CL",
+      "revId": "d74a66c400b36dd036063c6411028df82ae3cbfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21bbee91_a2a9859b",
+        "filename": "pc/rtp_sender_receiver_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-08T05:00:33Z",
+      "side": 1,
+      "message": "add a comment /*IsUnifiedPlan\u003d*/ to this argument, since it\u0027s context free otherwise (it\u0027s not obvious from the function that it\u0027s an Unified Plan only function).",
       "revId": "d74a66c400b36dd036063c6411028df82ae3cbfa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

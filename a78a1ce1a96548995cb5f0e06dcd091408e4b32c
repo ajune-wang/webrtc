@@ -244,6 +244,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5c369be_feb21f59",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 789,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-08T20:02:24Z",
+      "side": 1,
+      "message": "OK, that makes sense.",
+      "parentUuid": "93477a85_6122b2be",
+      "revId": "a78a1ce1a96548995cb5f0e06dcd091408e4b32c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "38fc4201_8a763255",
@@ -275,6 +293,24 @@
       "side": 1,
       "message": "Done, hope it\u0027s better now?",
       "parentUuid": "38fc4201_8a763255",
+      "revId": "a78a1ce1a96548995cb5f0e06dcd091408e4b32c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "436f21b6_cdfb4805",
+        "filename": "video/video_receive_stream2.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-08T20:02:24Z",
+      "side": 1,
+      "message": "I see that the great formatter has jammed it all together again.... not worth fighting.",
+      "parentUuid": "ac35d147_13592c65",
       "revId": "a78a1ce1a96548995cb5f0e06dcd091408e4b32c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

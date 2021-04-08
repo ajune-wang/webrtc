@@ -1004,9 +1004,10 @@ void SdpOfferAnswerHandler::Initialize(
 
   webrtc_session_desc_factory_ =
       std::make_unique<WebRtcSessionDescriptionFactory>(
-          signaling_thread(), channel_manager(), this, pc_->session_id(),
-          pc_->dtls_enabled(), std::move(dependencies.cert_generator),
-          certificate, &ssrc_generator_,
+          signaling_thread(), channel_manager(),
+          data_channel_controller()->GetRtpDataCodecs(), this,
+          pc_->session_id(), pc_->dtls_enabled(),
+          std::move(dependencies.cert_generator), certificate, &ssrc_generator_,
           [this](const rtc::scoped_refptr<rtc::RTCCertificate>& certificate) {
             transport_controller()->SetLocalCertificate(certificate);
           });
@@ -4680,6 +4681,7 @@ bool SdpOfferAnswerHandler::CreateDataChannel(const std::string& mid) {
       break;
     case cricket::DCT_RTP:
     default:
+      // This is a hop to the network thread.
       RtpTransportInternal* rtp_transport = pc_->GetRtpTransport(mid);
       cricket::RtpDataChannel* data_channel =
           channel_manager()->CreateRtpDataChannel(

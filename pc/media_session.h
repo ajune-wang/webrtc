@@ -143,10 +143,12 @@ class MediaSessionDescriptionFactory {
   // owned by MediaSessionDescriptionFactory, so they must be kept alive by the
   // user of this class.
   MediaSessionDescriptionFactory(const TransportDescriptionFactory* factory,
-                                 rtc::UniqueRandomIdGenerator* ssrc_generator);
+                                 rtc::UniqueRandomIdGenerator* ssrc_generator,
+                                 RtpDataCodecs rtp_data_codecs);
   // This helper automatically sets up the factory to get its configuration
   // from the specified ChannelManager.
   MediaSessionDescriptionFactory(ChannelManager* cmanager,
+                                 RtpDataCodecs rtp_data_codecs,
                                  const TransportDescriptionFactory* factory,
                                  rtc::UniqueRandomIdGenerator* ssrc_generator);
 
@@ -163,9 +165,6 @@ class MediaSessionDescriptionFactory {
   RtpHeaderExtensions filtered_rtp_header_extensions(
       RtpHeaderExtensions extensions) const;
   const RtpDataCodecs& rtp_data_codecs() const { return rtp_data_codecs_; }
-  void set_rtp_data_codecs(const RtpDataCodecs& codecs) {
-    rtp_data_codecs_ = codecs;
-  }
   SecurePolicy secure() const { return secure_; }
   void set_secure(SecurePolicy s) { secure_ = s; }
 
@@ -368,7 +367,7 @@ class MediaSessionDescriptionFactory {
   VideoCodecs video_sendrecv_codecs_;
   // Union of send and recv.
   VideoCodecs all_video_codecs_;
-  RtpDataCodecs rtp_data_codecs_;
+  const RtpDataCodecs rtp_data_codecs_;
   // This object is not owned by the channel so it must outlive it.
   rtc::UniqueRandomIdGenerator* const ssrc_generator_;
   bool enable_encrypted_rtp_header_extensions_ = false;

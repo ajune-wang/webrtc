@@ -343,16 +343,37 @@ class JsepTransportController : public sigslot::has_slots<> {
       const std::vector<int>& encrypted_extension_ids,
       int rtp_abs_sendtime_extn_id);
 
-  absl::optional<std::string> bundled_mid() const {
-    absl::optional<std::string> bundled_mid;
-    if (bundle_group_ && bundle_group_->FirstContentName()) {
-      bundled_mid = *(bundle_group_->FirstContentName());
+  std::vector<std::string> BundledFirstMids() const {
+    std::vector<std::string> bundled_mids;
+    for (const auto& bundle_group : bundle_groups_) {
+      if (bundle_group.FirstContentName())
+        bundled_mids.push_back(*bundle_group.FirstContentName());
     }
-    return bundled_mid;
+    return bundled_mids;
+  }
+  bool IsBundledFirstMid(const std::string& mid) const {
+    for (const auto& bundle_group : bundle_groups_) {
+      if (bundle_group.HasContentName(mid)) {
+        return mid == *bundle_group.FirstContentName();
+      }
+    }
+    return false;
+  }
+  bool IsBundledButNotFirstMid(const std::string& mid) const {
+    for (const auto& bundle_group : bundle_groups_) {
+      if (bundle_group.HasContentName(mid)) {
+        return mid != *bundle_group.FirstContentName();
+      }
+    }
+    return false;
   }
 
   bool IsBundled(const std::string& mid) const {
-    return bundle_group_ && bundle_group_->HasContentName(mid);
+    for (const auto& bundle_group : bundle_groups_) {
+      if (bundle_group.HasContentName(mid))
+        return true;
+    }
+    return false;
   }
 
   bool ShouldUpdateBundleGroup(SdpType type,
@@ -491,7 +512,7 @@ class JsepTransportController : public sigslot::has_slots<> {
   const cricket::SessionDescription* remote_desc_ = nullptr;
   absl::optional<bool> initial_offerer_;
 
-  absl::optional<cricket::ContentGroup> bundle_group_;
+  std::vector<cricket::ContentGroup> bundle_groups_;
 
   cricket::IceConfig ice_config_;
   cricket::IceRole ice_role_ = cricket::ICEROLE_CONTROLLING;

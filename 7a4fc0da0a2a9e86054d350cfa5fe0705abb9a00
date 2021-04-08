@@ -16,6 +16,24 @@
       "message": "injecting the clock is imho a good thing\n(I did consider it too, https://webrtc-review.googlesource.com/c/src/+/201737\nbut my reasons wasn\u0027t strong enough to push it)\n\nwould it make simpler to set default clock to RealTimeClock, then it can be used right away,\nbefore waiting for downstream project to set it to own clock.\n",
       "revId": "7a4fc0da0a2a9e86054d350cfa5fe0705abb9a00",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa4f4b43_4d8522bc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17376
+      },
+      "writtenOn": "2021-04-08T12:41:50Z",
+      "side": 1,
+      "message": "Vice has its own clock, so using the real clock might also cause issues.\nBetter not to assume defaults. It\u0027s also easy to change vice.",
+      "parentUuid": "5a7191c7_57747011",
+      "revId": "7a4fc0da0a2a9e86054d350cfa5fe0705abb9a00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

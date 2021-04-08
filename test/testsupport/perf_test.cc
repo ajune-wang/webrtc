@@ -216,7 +216,7 @@ ResultsLinePrinter& GetResultsLinePrinter() {
 }
 
 PerfTestResultWriter& GetPerfWriter() {
-  static PerfTestResultWriter* writer = CreateHistogramWriter();
+  static const PerfTestResultWriter* writer = CreateHistogramWriter();
   return *writer;
 }
 

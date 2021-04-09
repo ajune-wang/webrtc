@@ -58,11 +58,16 @@ class PeerConnectionInternal : public PeerConnectionInterface {
 
   virtual cricket::CandidateStatsList GetPooledCandidateStats() const = 0;
 
+  // Returns a set of all transport names. Must be called on the network thread.
+  virtual std::set<std::string> GetTransportNames() const = 0;
+
   // Returns a map from MID to transport name for all active media sections.
+  // Must be called on the network thread.
   virtual std::map<std::string, std::string> GetTransportNamesByMid() const = 0;
 
   // Returns a map from transport name to transport stats for all given
   // transport names.
+  // Must be called on the network thread.
   virtual std::map<std::string, cricket::TransportStats>
   GetTransportStatsByNames(const std::set<std::string>& transport_names) = 0;
 
@@ -86,6 +91,11 @@ class PeerConnectionInternal : public PeerConnectionInterface {
   // Get SSL role for an arbitrary m= section (handles bundling correctly).
   virtual bool GetSslRole(const std::string& content_name,
                           rtc::SSLRole* role) = 0;
+  // Call to enumerate all tranceivers on the network thread.
+  // The callback will be called for every tranceiver held by |rtp_manager()|
+  // and must not block.
+  virtual void EnumerateTranceivers_n(
+      std::function<void(RtpTransceiver*)> callback) = 0;
 };
 
 }  // namespace webrtc

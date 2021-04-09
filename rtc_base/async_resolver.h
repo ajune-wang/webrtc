@@ -27,7 +27,6 @@
 #include "rtc_base/system/no_unique_address.h"
 #include "rtc_base/system/rtc_export.h"
 #include "rtc_base/task_utils/pending_task_safety_flag.h"
-#include "rtc_base/thread.h"
 #include "rtc_base/thread_annotations.h"
 
 namespace rtc {
@@ -60,7 +59,6 @@ class RTC_EXPORT AsyncResolver : public AsyncResolverInterface {
   std::vector<IPAddress> addresses_ RTC_GUARDED_BY(sequence_checker_);
   int error_ RTC_GUARDED_BY(sequence_checker_);
   webrtc::ScopedTaskSafety safety_ RTC_GUARDED_BY(sequence_checker_);
-  std::unique_ptr<Thread> popup_thread_ RTC_GUARDED_BY(sequence_checker_);
   bool recursion_check_ =
       false;  // Protects against SignalDone calling into Destroy.
   bool destroy_called_ = false;

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dec1913f_d160d8af",
+        "filename": "modules/desktop_capture/win/wgc_capturer_win.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 13004
+      },
+      "writtenOn": "2021-04-09T21:33:53Z",
+      "side": 1,
+      "message": "Should we add a unit test to cover this histogram and the capture time calculation?",
+      "range": {
+        "startLine": 187,
+        "startChar": 0,
+        "endLine": 194,
+        "endChar": 55
+      },
+      "revId": "49d8014b9789647db84f1e4ad887e4efb75e4f85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

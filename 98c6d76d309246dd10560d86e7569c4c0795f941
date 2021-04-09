@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f65950f_ad1be8fc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-09T06:49:52Z",
+      "side": 1,
+      "message": "LGTM, please use `No-Presubmit: True` to skip the pylint issue.",
+      "revId": "98c6d76d309246dd10560d86e7569c4c0795f941",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

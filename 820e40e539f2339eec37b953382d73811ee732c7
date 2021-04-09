@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "a6dc2f60_34700a1e",
         "filename": "/COMMIT_MSG",
@@ -20,10 +21,10 @@
         "endChar": 67
       },
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "8ca1ad6f_58e6fb29",
         "filename": "/COMMIT_MSG",
@@ -44,10 +45,10 @@
         "endChar": 67
       },
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "12048557_c7272ffd",
         "filename": "/COMMIT_MSG",
@@ -68,10 +69,10 @@
         "endChar": 67
       },
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "269e7dfe_f1dbb6d4",
         "filename": "/COMMIT_MSG",
@@ -92,10 +93,10 @@
         "endChar": 67
       },
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "b09e5105_53564bb7",
         "filename": "/PATCHSET_LEVEL",
@@ -109,10 +110,10 @@
       "side": 1,
       "message": "Adding some familiar faces.",
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": false
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "ee7c8ff6_cd5b6c47",
         "filename": "/PATCHSET_LEVEL",
@@ -126,10 +127,10 @@
       "side": 1,
       "message": "Adding a few more people who could review",
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": false
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "93cee8b7_cc3ac11c",
         "filename": "/PATCHSET_LEVEL",
@@ -143,10 +144,10 @@
       "side": 1,
       "message": "Thanks Huib - adding terelius@ to the list of reviewers and juberti to cc.\n\nBjorn - can you look into the libsrtp update too? mbonadei@ as cc on that too.",
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": false
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "da8191d4_9c9300e2",
         "filename": "/PATCHSET_LEVEL",
@@ -160,10 +161,10 @@
       "side": 1,
       "message": "api/pc code looks good aside from one minor comment.",
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": false
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "bc0b1bc4_c08e1ec2",
         "filename": "/PATCHSET_LEVEL",
@@ -177,10 +178,10 @@
       "side": 1,
       "message": "The bots found that there is something troubling on Linux, apparently. Lennart, can you check that?\n",
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": false
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "2ce1f567_1e63e86f",
         "filename": "/PATCHSET_LEVEL",
@@ -194,10 +195,10 @@
       "side": 1,
       "message": "How does this change relate to a\u003dextmap-allow-mixed?",
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": false
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "ad6edd52_78061611",
         "filename": "/PATCHSET_LEVEL",
@@ -212,10 +213,10 @@
       "message": "There\u0027s no 1:1 relationship here. Rather, the amount of extensions libwebrtc uses by default multiplied by two due to each of them now having an encrypted variant runs into issues when not using a\u003dextmap-allow-mixed.",
       "parentUuid": "2ce1f567_1e63e86f",
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "123c0cf3_5ad01847",
         "filename": "/PATCHSET_LEVEL",
@@ -230,10 +231,10 @@
       "message": "Mh, where? Cant\u0027 find it.",
       "parentUuid": "bc0b1bc4_c08e1ec2",
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "8abc1ead_0e5b121a",
         "filename": "/PATCHSET_LEVEL",
@@ -248,10 +249,10 @@
       "message": "https://ci.chromium.org/p/webrtc/builders/try/linux_rel/37893? for example.\n\nIf you view the CL in Gerritt, you should see a bar of red and green boxes - the red ones are failures. Click on the box to get to the errors.",
       "parentUuid": "123c0cf3_5ad01847",
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "148f47fa_2892db05",
         "filename": "/PATCHSET_LEVEL",
@@ -265,10 +266,10 @@
       "side": 1,
       "message": "How to see the failing bots...",
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": false
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "ebf4dbd3_c84ad749",
         "filename": "/PATCHSET_LEVEL",
@@ -283,10 +284,10 @@
       "message": "Here\u0027s the direct link to the failure output:\n\nhttps://isolateserver.appspot.com/browse?namespace\u003ddefault-gzip\u0026digest\u003dc70cf9b03f4bf4a0ba7ce00c8acd4b0ac78bf65f\u0026as\u003dfailed-tests.log",
       "parentUuid": "148f47fa_2892db05",
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": false
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "cb9fe42b_85e5a4ba",
         "filename": "/PATCHSET_LEVEL",
@@ -301,10 +302,10 @@
       "message": "Weird. I could briefly see them in the CL as well but not any more now.\n\nThey fail because https://github.com/cisco/libsrtp/pull/491 isn\u0027t in, yet. I\u0027ve run the test with a cherry-pick of that PR and it passes.\n\nIt\u0027s good that the test fails though, since it means we do have a working test for it. :)",
       "parentUuid": "148f47fa_2892db05",
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "1780cea6_35c130a8",
         "filename": "/PATCHSET_LEVEL",
@@ -319,10 +320,10 @@
       "message": "Right, but given the number of supported extensions, doesn\u0027t that happen on every session with a m\u003dvideo section?",
       "parentUuid": "ad6edd52_78061611",
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "ab2ea0b8_cd546c97",
         "filename": "/PATCHSET_LEVEL",
@@ -337,10 +338,10 @@
       "message": "Yes, at least with default settings.",
       "parentUuid": "1780cea6_35c130a8",
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "5852d42b_9bcd6aac",
         "filename": "/PATCHSET_LEVEL",
@@ -354,10 +355,10 @@
       "side": 1,
       "message": "Before I continue investing time into resolving the remaining code-related issues, I\u0027d like to know where we stand on merge vs. no merge, considering the discussion that came up around RFC 6904 and its use in this stack.",
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "35bb3f83_58080d3d",
         "filename": "/PATCHSET_LEVEL",
@@ -372,10 +373,10 @@
       "message": "Understood. I think the patch as it relates to header encryption seems good, we just need to agree on an answer for how we are going to handle SDP negotiation. If you want to land this as off-by-default, and fail hard if there are too many extensions, with some future TBD negotiation mechanism (either allow-mixed, or allow-encrypted) to turn this on in Chrome, I am OK with that.\n\nFor the future, since some new mechanism beyond 6904 will be needed to get to the desired end-state, I still think that we should take the opportunity to pick a mechanism that ensures we can deploy encryption as easily and broadly as possible.",
       "parentUuid": "5852d42b_9bcd6aac",
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "c2b746a6_01a18027",
         "filename": "/PATCHSET_LEVEL",
@@ -390,10 +391,10 @@
       "message": "Alright, that is reasonable. I will take a look at resolving the remaining issues.",
       "parentUuid": "35bb3f83_58080d3d",
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": false
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "cbc8c495_948d7fbb",
         "filename": "api/rtp_parameters.cc",
@@ -407,10 +408,10 @@
       "side": 1,
       "message": "Would be good for someone more familiar with RTP/media stack to confirm it\u0027s okay to add these.",
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "955b0bf0_3cb52ba5",
         "filename": "api/rtp_parameters.cc",
@@ -425,10 +426,10 @@
       "message": "Yes, it should be fine to encrypt those.\n(As I understand this is about P2P encryption, so when SFU is involved, it still can access and add/remove/modify these extensions)",
       "parentUuid": "cbc8c495_948d7fbb",
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": false
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "a3a85493_ce5d3c6c",
         "filename": "api/rtp_parameters.cc",
@@ -443,10 +444,10 @@
       "message": "Let\u0027s double check that the video timing header extension isn\u0027t modified in Chrome like the AbsSendTime extension. +ilnik",
       "parentUuid": "955b0bf0_3cb52ba5",
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "d7c49f61_b64c4d3d",
         "filename": "api/rtp_parameters.cc",
@@ -461,10 +462,10 @@
       "message": "In chrome it\u0027s only modified in pacer here:\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/modules/rtp_rtcp/source/rtp_sender_egress.cc;l\u003d228;drc\u003d918c868f6c9f8c79b68f77cf82400c21a0e741c6?originalUrl\u003dhttps:%2F%2Fcs.chromium.org%2F\n\nI believe this is before the encryption.\n\nAbsSendTime is also modified here, but it\u0027s also updated way after the pacer, that\u0027s why it can\u0027t be encrypted.\n\nUpdateRtpAbsSendTimeExtension rewrites it:\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/media/base/rtp_utils.cc;l\u003d393;drc\u003db3d2b5bc696440cb20bea823f2356d7c90bf7751?originalUrl\u003dhttps:%2F%2Fcs.chromium.org%2F\n\nIt is called from ApplyPacketOptions, which is called in network threads close to sockets:\nhttps://source.chromium.org/chromium/chromium/src/+/master:services/network/p2p/socket_tcp.cc;l\u003d454;drc\u003db3d2b5bc696440cb20bea823f2356d7c90bf7751?originalUrl\u003dhttps:%2F%2Fcs.chromium.org%2F\n\nThis is NOT the case for VideoTimingExtension.",
       "parentUuid": "a3a85493_ce5d3c6c",
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "3c68d5c5_f4ce3282",
         "filename": "api/rtp_parameters.cc",
@@ -479,10 +480,10 @@
       "message": "I don\u0027t understand these comments. Since auth is applied to the entire packet, doesn\u0027t that mean all extensions can\u0027t be changed later?\n\nAlso, if some can actually not be encrypted, why not just filter them out rather than having an allow list that will have to continually be updated?",
       "parentUuid": "d7c49f61_b64c4d3d",
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "769acf27_b5772d5c",
         "filename": "api/rtp_parameters.cc",
@@ -497,10 +498,10 @@
       "message": "After the extension is encrypted, it can\u0027t be updated. AbsSendTime is example of one which is modified at the point after the encryption is applied. Most of the extensions are written at the packetisation phase, before the encryption, and are never modified. There\u0027re few which are modified by the pacer, but it happens before the encryption.\n\nI agree that having a block-list of non-encryptable extensions would be a better approach.",
       "parentUuid": "3c68d5c5_f4ce3282",
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "8b4dbb67_a7e6c604",
         "filename": "api/rtp_parameters.cc",
@@ -515,10 +516,10 @@
       "message": "right, but even if it\u0027s not encrypted, it can\u0027t be updated without breaking SRTP authentication. So we must have some mechanism to solve that, which could also be used to fix the authentication.\n\nBut do we still use abs-send-time?",
       "parentUuid": "769acf27_b5772d5c",
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "8f0af2a9_0ff426af",
         "filename": "api/rtp_parameters.cc",
@@ -533,10 +534,10 @@
       "message": "I\u0027ve inverted it from an allow-list to a block-list. Anything else we need to do here?",
       "parentUuid": "8b4dbb67_a7e6c604",
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "88fb6fa5_75af74f5",
         "filename": "api/rtp_parameters.h",
@@ -550,10 +551,10 @@
       "side": 1,
       "message": "Is there a reason we would want this policy?",
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "a948ab6d_61f2e636",
         "filename": "api/rtp_parameters.h",
@@ -568,10 +569,10 @@
       "message": "It is used when RTP header extension encryption is not activated (`enable_encrypted_rtp_header_extensions \u003d false`) which is the default atm. I\u0027m happy if we can invert that behaviour but I assume the option to turn it off should still exist?",
       "parentUuid": "88fb6fa5_75af74f5",
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "57beb3cf_4eb4977f",
         "filename": "api/rtp_parameters.h",
@@ -586,10 +587,10 @@
       "message": "Right, I now see this is an internal detail, seems fine.",
       "parentUuid": "a948ab6d_61f2e636",
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": false
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "6774ad40_9622a35f",
         "filename": "api/rtp_parameters.h",
@@ -603,10 +604,10 @@
       "side": 1,
       "message": "nit: comment formatting",
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "f27c95b3_4e6cedf0",
         "filename": "api/rtp_parameters.h",
@@ -621,10 +622,10 @@
       "message": "Done",
       "parentUuid": "6774ad40_9622a35f",
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": false
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "9908514f_a237942c",
         "filename": "api/rtp_parameters.h",
@@ -638,10 +639,10 @@
       "side": 1,
       "message": "Should we also have a kRequireEncryptedExtension value?",
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "d2ea7309_21619d0e",
         "filename": "api/rtp_parameters.h",
@@ -656,10 +657,10 @@
       "message": "Interesting. There\u0027s no API for that right now but exposing this policy instead of the boolean `enable_encrypted_rtp_header_extensions` would allow for it. I agree this seems like a good addition. Not entirely sure it should be added in this CL though.",
       "parentUuid": "9908514f_a237942c",
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "d3dd946a_56354a27",
         "filename": "api/rtp_parameters.h",
@@ -674,10 +675,10 @@
       "message": "I can see us wanting a tri-state, e.g., disable, negotiate, require. Adding the \u0027require\u0027 filtering seems like a small change that might fit well in this CL.",
       "parentUuid": "d2ea7309_21619d0e",
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "80a728d4_8b6ab83d",
         "filename": "api/rtp_parameters.h",
@@ -692,10 +693,10 @@
       "message": "Fair enough.",
       "parentUuid": "d3dd946a_56354a27",
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "efe11250_4270a4a7",
         "filename": "api/rtp_parameters.h",
@@ -710,10 +711,28 @@
       "message": "Added but it\u0027s dead code right now since there\u0027s no public API for it.",
       "parentUuid": "80a728d4_8b6ab83d",
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea5a759e_1aaf12ad",
+        "filename": "api/rtp_parameters.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 8882
+      },
+      "writtenOn": "2021-04-09T20:09:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "efe11250_4270a4a7",
+      "revId": "820e40e539f2339eec37b953382d73811ee732c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "fb724e9b_69e2c62e",
         "filename": "api/rtp_parameters_unittest.cc",
@@ -727,10 +746,10 @@
       "side": 1,
       "message": "nit: Here and below, may want to put the encrypted extension last to ensure that DeduplicateHeaderExtensions/FindHeaderExtensionByUri doesn\u0027t just return the first uri match.",
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "a418cf41_ab82d948",
         "filename": "api/rtp_parameters_unittest.cc",
@@ -745,10 +764,10 @@
       "message": "That should be already covered by the blocks from line 30 and from line 38. Correct me if I\u0027m wrong.",
       "parentUuid": "fb724e9b_69e2c62e",
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": false
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "89eb75f3_3aafaca9",
         "filename": "pc/session_description.h",
@@ -768,10 +787,10 @@
         "endChar": 23
       },
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "7a15d0e4_9201f368",
         "filename": "pc/session_description.h",
@@ -792,10 +811,10 @@
         "endChar": 23
       },
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "96fd634b_f3d2eb20",
         "filename": "pc/session_description.h",
@@ -816,10 +835,10 @@
         "endChar": 23
       },
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "72abf405_f3f1b2f0",
         "filename": "pc/session_description.h",
@@ -840,10 +859,10 @@
         "endChar": 23
       },
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": false
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "34a914e5_1ec46a93",
         "filename": "pc/webrtc_sdp.cc",
@@ -857,10 +876,10 @@
       "side": 1,
       "message": "If possible, would prefer doing this filtering in media_session. There are some exceptions but our general policy is to just do parsing/encoding here and leave business logic in media_session.",
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "bcb8a592_496c4494",
         "filename": "pc/webrtc_sdp.cc",
@@ -875,10 +894,10 @@
       "message": "Can you give me some pointers on where to move it to?",
       "parentUuid": "34a914e5_1ec46a93",
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "8ca62ade_508f82a2",
         "filename": "pc/webrtc_sdp.cc",
@@ -893,10 +912,10 @@
       "message": "I think it would be NegotiateRtpHeaderExtensions; when doing this:\n\n    const webrtc::RtpExtension* theirs \u003d\n        webrtc::RtpExtension::FindHeaderExtensionByUri(offered_extensions,\n                                                       ours.uri, filter);\n\nIt should only use the \"prefer encryption\" filter if we support encryption for that particular extension.",
       "parentUuid": "bcb8a592_496c4494",
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "c0eeadb2_844800fd",
         "filename": "pc/webrtc_sdp.cc",
@@ -911,8 +930,7 @@
       "message": "Done",
       "parentUuid": "8ca62ade_508f82a2",
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": false
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

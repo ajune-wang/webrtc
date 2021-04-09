@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99b6d9b5_39347691",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8882
+      },
+      "writtenOn": "2021-04-09T20:09:49Z",
+      "side": 1,
+      "message": "Alright, rebasing was not that hard but nevertheless, please take another look.",
+      "revId": "40f0481865840929661cdd75a29ac7e239a7a162",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

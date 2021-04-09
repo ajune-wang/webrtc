@@ -16,6 +16,46 @@
       "message": "nisse@, can you PTAL at this CL that uses a sparse histogram and answer a question about the correct usage for us? The question is in the remaining unresolved comment thread\n",
       "revId": "4bdd9a292e9ba744164285d379f1e7a1efde9f09",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "924f1afc_15598971",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13074
+      },
+      "writtenOn": "2021-04-09T06:40:09Z",
+      "side": 1,
+      "message": "Hi Austin, just a couple naming related questions.",
+      "revId": "4bdd9a292e9ba744164285d379f1e7a1efde9f09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec73dda2_40c7b382",
+        "filename": "modules/desktop_capture/desktop_capture_metrics_helper.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 13074
+      },
+      "writtenOn": "2021-04-09T06:40:09Z",
+      "side": 1,
+      "message": "At first glance, LogCapturer() conveys logging. What do you think of calling this LogCapturerImpl()?\n\nIn fact, to prevent any connotations of logging, what do you think about renaming the telemetry helper methods in this change to Record** instead of Log**?\nEg. RecordCapturerImpl(), RecordStartCaptureResult(), RecordGetFrameResult(), etc.",
+      "range": {
+        "startLine": 18,
+        "startChar": 5,
+        "endLine": 18,
+        "endChar": 16
+      },
+      "revId": "4bdd9a292e9ba744164285d379f1e7a1efde9f09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

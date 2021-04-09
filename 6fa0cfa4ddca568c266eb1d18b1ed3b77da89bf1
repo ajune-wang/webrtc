@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2856ea7_b9bce5f2",
+        "filename": "modules/video_coding/generic_decoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-04-09T13:03:07Z",
+      "side": 0,
+      "message": "Popping the last added frame is the same thing as clearing the map. Change name of function to make this more clear.",
+      "range": {
+        "startLine": 284,
+        "startChar": 4,
+        "endLine": 284,
+        "endChar": 38
+      },
+      "revId": "6fa0cfa4ddca568c266eb1d18b1ed3b77da89bf1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a91187c_863de656",
+        "filename": "modules/video_coding/generic_decoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-04-09T13:03:07Z",
+      "side": 0,
+      "message": "Clean up, this should have been removed in an earlier CL.",
+      "range": {
+        "startLine": 107,
+        "startChar": 2,
+        "endLine": 107,
+        "endChar": 61
+      },
+      "revId": "6fa0cfa4ddca568c266eb1d18b1ed3b77da89bf1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d84783a7_4b28a716",
+        "filename": "modules/video_coding/generic_decoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-04-09T13:30:08Z",
+      "side": 1,
+      "message": "nit: Please add a comment describing what\u0027s happening here, since it\u0027s not trivial.\n\n_timestampMap.pop() erases all frame upto the specified timestamp and returns the frame info for this timestamp if it exists.\n\nThus, differense in the timestampMap size before and after Pop will show internally dropped frames.",
+      "revId": "18c85bb2db1492c623ae11f1002aa0381049b59c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "246e2666_31216a73",
+        "filename": "modules/audio_processing/agc2/noise_level_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-04-09T10:49:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4534dc1f_98ca3984",
+      "range": {
+        "startLine": 127,
+        "startChar": 4,
+        "endLine": 127,
+        "endChar": 21
+      },
+      "revId": "648ce6c56b92fc9c109fc20a2c6e9369f9c5490e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "87ca7b56_ee6b62b8",
@@ -47,6 +71,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "95bab22f_560fcf6d",
+        "filename": "modules/audio_processing/agc2/noise_level_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-04-09T10:49:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87ca7b56_ee6b62b8",
+      "range": {
+        "startLine": 196,
+        "startChar": 3,
+        "endLine": 198,
+        "endChar": 78
+      },
+      "revId": "648ce6c56b92fc9c109fc20a2c6e9369f9c5490e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "adcf9177_0d263e63",
@@ -60,6 +108,30 @@
       "writtenOn": "2021-04-07T13:47:17Z",
       "side": 1,
       "message": "Hmm, I think this is not entirely correct since this is neither the minimum frame energy, nor a minimum bound for what the min_noise_energy_ can be.\n\n\nI would suggest changing it to\n// Initialize the minimum noise energy to -84 dBFS.",
+      "range": {
+        "startLine": 227,
+        "startChar": 4,
+        "endLine": 227,
+        "endChar": 67
+      },
+      "revId": "648ce6c56b92fc9c109fc20a2c6e9369f9c5490e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1dcb7eb_0d6e373f",
+        "filename": "modules/audio_processing/agc2/noise_level_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-04-09T10:49:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "adcf9177_0d263e63",
       "range": {
         "startLine": 227,
         "startChar": 4,

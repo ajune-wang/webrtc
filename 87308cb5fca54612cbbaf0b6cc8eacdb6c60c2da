@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bcc93a03_344b497b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-09T12:39:53Z",
+      "side": 1,
+      "message": "My worry about this CL is that we don\u0027t have a test for the changed behavior. Otherwise it looks fine.\n",
+      "revId": "87308cb5fca54612cbbaf0b6cc8eacdb6c60c2da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "138474c1_21d586a4",
+        "filename": "rtc_base/async_resolver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-09T12:39:53Z",
+      "side": 1,
+      "message": "So this means that the platform thread doesn\u0027t run an event processing loop at all, it just does the lookup and dies? That looks great to me!",
+      "revId": "87308cb5fca54612cbbaf0b6cc8eacdb6c60c2da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

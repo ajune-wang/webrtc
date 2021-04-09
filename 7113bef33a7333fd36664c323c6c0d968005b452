@@ -16,6 +16,121 @@
       "message": "Hi!\n\nNisse can you review this change?\nA lot of files are changed, but the main change is quite simple:\nSdpVideoFormat is extended with two functions: IsSameCodec() and IsCodecInList().\nTo avoid circular dependencies I had to move h264_profile_level_id.* and vp9_profile.* to api/video_codecs.\n\nMirko, can you review the changes to the build files? Once downstream projects are updated to not use media/base/h264_profile_level_id.h and media/base/vp9_profile.h, these files will be removed.\n",
       "revId": "7113bef33a7333fd36664c323c6c0d968005b452",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7eb93a07_0daf8baa",
+        "filename": "api/video_codecs/h264_profile_level_id.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-09T06:47:04Z",
+      "side": 1,
+      "message": "2021\n\nAlso in other places.",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "7113bef33a7333fd36664c323c6c0d968005b452",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2503772_10a9dcac",
+        "filename": "api/video_codecs/h264_profile_level_id.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-09T06:47:04Z",
+      "side": 1,
+      "message": "Since we are moving the code, is it possible to avoid to expose webrtc::H264 to api?\n\nI think webrtc should be the only namespace and maybe the functions should have H264 as a prefix or be part of a class?",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 16
+      },
+      "revId": "7113bef33a7333fd36664c323c6c0d968005b452",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "621bfe46_af3f2a06",
+        "filename": "api/video_codecs/h264_profile_level_id.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-09T06:47:04Z",
+      "side": 1,
+      "message": "enum class (also below).",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 4
+      },
+      "revId": "7113bef33a7333fd36664c323c6c0d968005b452",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d9e6c8e_1943cac2",
+        "filename": "media/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-09T06:47:04Z",
+      "side": 1,
+      "message": "rtc_source_set and only keep the header without the DoNoCallThisFunctionH264.",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 11
+      },
+      "revId": "7113bef33a7333fd36664c323c6c0d968005b452",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f95a44f_4cf2e092",
+        "filename": "media/base/h264_profile_level_id.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-09T06:47:04Z",
+      "side": 1,
+      "message": "What error do you get?\n\nSee my comment below on the BUILD.gn file to simplify this.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 0
+      },
+      "revId": "7113bef33a7333fd36664c323c6c0d968005b452",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

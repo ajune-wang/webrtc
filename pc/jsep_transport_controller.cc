@@ -36,6 +36,21 @@ using webrtc::SdpType;
 
 namespace webrtc {
 
+namespace {
+
+bool IsBundledButNotFirstMid(
+    const std::vector<cricket::ContentGroup>& bundle_groups,
+    const std::string& mid) {
+  for (const auto& bundle_group : bundle_groups) {
+    if (bundle_group.HasContentName(mid)) {
+      return mid != *bundle_group.FirstContentName();
+    }
+  }
+  return false;
+}
+
+}  // namespace
+
 JsepTransportController::JsepTransportController(
     rtc::Thread* network_thread,
     cricket::PortAllocator* port_allocator,
@@ -540,17 +555,19 @@ RTCError JsepTransportController::ApplyDescription_n(
   }
 
   std::vector<int> merged_encrypted_extension_ids;
-  if (bundle_group_) {
+  if (!bundle_groups_.empty()) {
     merged_encrypted_extension_ids =
         MergeEncryptedHeaderExtensionIdsForBundle(description);
   }
 
   for (const cricket::ContentInfo& content_info : description->contents()) {
-    // Don't create transports for rejected m-lines and bundled m-lines."
+    // Don't create transports for rejected m-lines and bundled m-lines.
     if (content_info.rejected ||
-        (IsBundled(content_info.name) && content_info.name != *bundled_mid())) {
+        IsBundledButNotFirstMid(bundle_groups_, content_info.name)) {
+      RTC_LOG(LS_ERROR) << "IsBundledButNotFirstMid: " << content_info.name;
       continue;
     }
+    RTC_LOG(LS_ERROR) << "Creating transport for: " << content_info.name;
     error = MaybeCreateJsepTransport(local, content_info, *description);
     if (!error.ok()) {
       return error;
@@ -568,13 +585,27 @@ RTCError JsepTransportController::ApplyDescription_n(
       continue;
     }
 
-    if (IsBundled(content_info.name) && content_info.name != *bundled_mid()) {
-      if (!HandleBundledContent(content_info)) {
+    // Find the established BUNDLE group that this content is a member of, if
+    // any. Note that |bundle_groups_| may not be the same as in |description|
+    // for example if |description| is an offer with new groups.
+    const cricket::ContentGroup* content_bundle_group = nullptr;
+    for (const cricket::ContentGroup& bundle_group : bundle_groups_) {
+      if (bundle_group.HasContentName(content_info.name)) {
+        content_bundle_group = &bundle_group;
+        break;
+      }
+    }
+
+    // For bundle members that are not BUNDLE-tagged (not first in the group),
+    // configure their transport to be the same as the BUNDLE-tagged transport.
+    if (content_bundle_group &&
+        content_info.name != *content_bundle_group->FirstContentName()) {
+      if (!HandleBundledContent(content_info, *content_bundle_group)) {
         return RTCError(RTCErrorType::INVALID_PARAMETER,
-                        "Failed to process the bundled m= section with mid='" +
+                        "Failed to process the bundled m= section with "
+                        "mid='" +
                             content_info.name + "'.");
       }
-      continue;
     }
 
     error = ValidateContent(content_info);
@@ -583,7 +614,9 @@ RTCError JsepTransportController::ApplyDescription_n(
     }
 
     std::vector<int> extension_ids;
-    if (bundled_mid() && content_info.name == *bundled_mid()) {
+    // Is BUNDLE-tagged (first in the group)?
+    if (content_bundle_group &&
+        content_info.name == *content_bundle_group->FirstContentName()) {
       extension_ids = merged_encrypted_extension_ids;
     } else {
       extension_ids = GetEncryptedHeaderExtensionIds(content_info);
@@ -627,46 +660,91 @@ RTCError JsepTransportController::ValidateAndMaybeUpdateBundleGroup(
     SdpType type,
     const cricket::SessionDescription* description) {
   RTC_DCHECK(description);
-  const cricket::ContentGroup* new_bundle_group =
-      description->GetGroupByName(cricket::GROUP_TYPE_BUNDLE);
 
-  // The BUNDLE group containing a MID that no m= section has is invalid.
-  if (new_bundle_group) {
+  std::vector<const cricket::ContentGroup*> new_bundle_groups =
+      description->GetGroupsByName(cricket::GROUP_TYPE_BUNDLE);
+  RTC_LOG(LS_ERROR) << "=== NEW GROUPS ===";
+  for (const auto* group : new_bundle_groups) {
+    std::string str;
+    for (const auto& member : group->content_names()) {
+      if (!str.empty())
+        str += " ";
+      str += member;
+    }
+    RTC_LOG(LS_ERROR) << group->semantics() << " " << str;
+  }
+  RTC_LOG(LS_ERROR) << "==============";
+
+  // Verify |new_bundle_groups|.
+  // TODO(hbos): Optimize with std::set<> and std::map<> to avoid O(n^2).
+  std::vector<std::string> all_bundled_mids;
+  for (const cricket::ContentGroup* new_bundle_group : new_bundle_groups) {
     for (const std::string& content_name : new_bundle_group->content_names()) {
+      // The BUNDLE group must not contain a MID that is a member of a different
+      // BUNDLE group, or that contains the same MID multiple times.
+      if (std::find(all_bundled_mids.begin(), all_bundled_mids.end(),
+                    content_name) != all_bundled_mids.end()) {
+        return RTCError(RTCErrorType::INVALID_PARAMETER,
+                        "A BUNDLE group contains a MID='" + content_name +
+                            "' that is already in a BUNDLE group.");
+      }
+      all_bundled_mids.push_back(content_name);
+      // The BUNDLE group must not contain a MID that no m= section has.
       if (!description->GetContentByName(content_name)) {
         return RTCError(RTCErrorType::INVALID_PARAMETER,
-                        "The BUNDLE group contains MID='" + content_name +
+                        "A BUNDLE group contains a MID='" + content_name +
                             "' matching no m= section.");
       }
     }
   }
 
   if (type == SdpType::kAnswer) {
-    const cricket::ContentGroup* offered_bundle_group =
-        local ? remote_desc_->GetGroupByName(cricket::GROUP_TYPE_BUNDLE)
-              : local_desc_->GetGroupByName(cricket::GROUP_TYPE_BUNDLE);
+    std::vector<const cricket::ContentGroup*> offered_bundle_groups =
+        local ? remote_desc_->GetGroupsByName(cricket::GROUP_TYPE_BUNDLE)
+              : local_desc_->GetGroupsByName(cricket::GROUP_TYPE_BUNDLE);
 
-    if (new_bundle_group) {
-      // The BUNDLE group in answer should be a subset of offered group.
+    for (const cricket::ContentGroup* new_bundle_group : new_bundle_groups) {
+      if (!new_bundle_group->FirstContentName()) {
+        // Empty groups could be a subset of any group.
+        continue;
+      }
+      // The group in the answer (new_bundle_group) must have a corresponding
+      // group in the offer (original_group), because the answer groups may only
+      // be subsets of the offer groups.
+      const cricket::ContentGroup* original_group = nullptr;
+      for (const cricket::ContentGroup* offered_bundle_group :
+           offered_bundle_groups) {
+        if (offered_bundle_group->HasContentName(
+                *new_bundle_group->FirstContentName())) {
+          original_group = offered_bundle_group;
+          break;
+        }
+      }
+      if (!original_group) {
+        return RTCError(RTCErrorType::INVALID_PARAMETER,
+                        "A BUNDLE group was added in the answer that did not "
+                        "exist in the offer.");
+      }
       for (const std::string& content_name :
            new_bundle_group->content_names()) {
-        if (!offered_bundle_group ||
-            !offered_bundle_group->HasContentName(content_name)) {
+        // The BUNDLE group in answer should be a subset of offered group.
+        if (!original_group->HasContentName(content_name)) {
           return RTCError(RTCErrorType::INVALID_PARAMETER,
-                          "The BUNDLE group in answer contains a MID='" +
+                          "A BUNDLE group in answer contains a MID='" +
                               content_name +
-                              "' that was "
-                              "not in the offered group.");
+                              "' that was not in the offered group.");
         }
       }
     }
 
-    if (bundle_group_) {
-      for (const std::string& content_name : bundle_group_->content_names()) {
+    // TODO(hbos): Fix...
+    const cricket::ContentGroup* the_chosen_one =
+        !new_bundle_groups.empty() ? new_bundle_groups[0] : nullptr;
+    for (const cricket::ContentGroup& bundle_group : bundle_groups_) {
+      for (const std::string& content_name : bundle_group.content_names()) {
         // An answer that removes m= sections from pre-negotiated BUNDLE group
         // without rejecting it, is invalid.
-        if (!new_bundle_group ||
-            !new_bundle_group->HasContentName(content_name)) {
+        if (!the_chosen_one || !the_chosen_one->HasContentName(content_name)) {
           auto* content_info = description->GetContentByName(content_name);
           if (!content_info || !content_info->rejected) {
             return RTCError(RTCErrorType::INVALID_PARAMETER,
@@ -687,33 +765,39 @@ RTCError JsepTransportController::ValidateAndMaybeUpdateBundleGroup(
   }
 
   if (ShouldUpdateBundleGroup(type, description)) {
-    bundle_group_ = *new_bundle_group;
-  }
-
-  if (!bundled_mid()) {
-    return RTCError::OK();
-  }
-
-  auto bundled_content = description->GetContentByName(*bundled_mid());
-  if (!bundled_content) {
-    return RTCError(
-        RTCErrorType::INVALID_PARAMETER,
-        "An m= section associated with the BUNDLE-tag doesn't exist.");
-  }
-
-  // If the |bundled_content| is rejected, other contents in the bundle group
-  // should be rejected.
-  if (bundled_content->rejected) {
-    for (const auto& content_name : bundle_group_->content_names()) {
-      auto other_content = description->GetContentByName(content_name);
-      if (!other_content->rejected) {
-        return RTCError(RTCErrorType::INVALID_PARAMETER,
-                        "The m= section with mid='" + content_name +
-                            "' should be rejected.");
-      }
+    bundle_groups_.reserve(new_bundle_groups.size());
+    bundle_groups_.clear();
+    for (const cricket::ContentGroup* new_bundle_group : new_bundle_groups) {
+      bundle_groups_.push_back(*new_bundle_group);
     }
   }
 
+  for (const cricket::ContentGroup& bundle_group : bundle_groups_) {
+    if (!bundle_group.FirstContentName())
+      continue;
+
+    // The first MID in a BUNDLE group is BUNDLE-tagged.
+    auto bundled_content =
+        description->GetContentByName(*bundle_group.FirstContentName());
+    if (!bundled_content) {
+      return RTCError(
+          RTCErrorType::INVALID_PARAMETER,
+          "An m= section associated with the BUNDLE-tag doesn't exist.");
+    }
+
+    // If the |bundled_content| is rejected, other contents in the bundle group
+    // must also be rejected.
+    if (bundled_content->rejected) {
+      for (const auto& content_name : bundle_group.content_names()) {
+        auto other_content = description->GetContentByName(content_name);
+        if (!other_content->rejected) {
+          return RTCError(RTCErrorType::INVALID_PARAMETER,
+                          "The m= section with mid='" + content_name +
+                              "' should be rejected.");
+        }
+      }
+    }
+  }
   return RTCError::OK();
 }
 
@@ -738,25 +822,46 @@ void JsepTransportController::HandleRejectedContent(
   // BaseChannel/SctpTransport change the RtpTransport/DtlsTransport first,
   // then destroy the cricket::JsepTransport.
   RemoveTransportForMid(content_info.name);
-  if (content_info.name == bundled_mid()) {
-    for (const auto& content_name : bundle_group_->content_names()) {
+  auto first_mid_bundle_group_it = bundle_groups_.end();
+  for (auto it = bundle_groups_.begin(); it != bundle_groups_.end(); ++it) {
+    if (it->FirstContentName() &&
+        *it->FirstContentName() == content_info.name) {
+      first_mid_bundle_group_it = it;
+      break;
+    }
+  }
+  if (first_mid_bundle_group_it != bundle_groups_.end()) {
+    for (const auto& content_name :
+         first_mid_bundle_group_it->content_names()) {
       RemoveTransportForMid(content_name);
     }
-    bundle_group_.reset();
-  } else if (IsBundled(content_info.name)) {
-    // Remove the rejected content from the |bundle_group_|.
-    bundle_group_->RemoveContentName(content_info.name);
-    // Reset the bundle group if nothing left.
-    if (!bundle_group_->FirstContentName()) {
-      bundle_group_.reset();
+    bundle_groups_.erase(first_mid_bundle_group_it);
+  } else {
+    auto bundle_group_it = bundle_groups_.end();
+    for (auto it = bundle_groups_.begin(); it != bundle_groups_.end(); ++it) {
+      if (it->HasContentName(content_info.name)) {
+        bundle_group_it = it;
+        break;
+      }
+    }
+    if (bundle_group_it != bundle_groups_.end()) {
+      // Remove the rejected content from the |bundle_group_|.
+      bundle_group_it->RemoveContentName(content_info.name);
+      // Reset the bundle group if nothing left.
+      if (!bundle_group_it->FirstContentName()) {
+        bundle_groups_.erase(bundle_group_it);
+      }
     }
   }
   MaybeDestroyJsepTransport(content_info.name);
 }
 
 bool JsepTransportController::HandleBundledContent(
-    const cricket::ContentInfo& content_info) {
-  auto jsep_transport = GetJsepTransportByName(*bundled_mid());
+    const cricket::ContentInfo& content_info,
+    const cricket::ContentGroup& bundle_group) {
+  RTC_DCHECK(bundle_group.FirstContentName());
+  auto jsep_transport =
+      GetJsepTransportByName(*bundle_group.FirstContentName());
   RTC_DCHECK(jsep_transport);
   // If the content is bundled, let the
   // BaseChannel/SctpTransport change the RtpTransport/DtlsTransport first,
@@ -837,11 +942,11 @@ bool JsepTransportController::ShouldUpdateBundleGroup(
   }
 
   RTC_DCHECK(local_desc_ && remote_desc_);
-  const cricket::ContentGroup* local_bundle =
-      local_desc_->GetGroupByName(cricket::GROUP_TYPE_BUNDLE);
-  const cricket::ContentGroup* remote_bundle =
-      remote_desc_->GetGroupByName(cricket::GROUP_TYPE_BUNDLE);
-  return local_bundle && remote_bundle;
+  std::vector<const cricket::ContentGroup*> local_bundles =
+      local_desc_->GetGroupsByName(cricket::GROUP_TYPE_BUNDLE);
+  std::vector<const cricket::ContentGroup*> remote_bundles =
+      remote_desc_->GetGroupsByName(cricket::GROUP_TYPE_BUNDLE);
+  return !local_bundles.empty() && !remote_bundles.empty();
 }
 
 std::vector<int> JsepTransportController::GetEncryptedHeaderExtensionIds(
@@ -869,12 +974,15 @@ std::vector<int>
 JsepTransportController::MergeEncryptedHeaderExtensionIdsForBundle(
     const cricket::SessionDescription* description) {
   RTC_DCHECK(description);
-  RTC_DCHECK(bundle_group_);
+  RTC_DCHECK(!bundle_groups_.empty());
+  // TODO(hbos): Do this for all groups...
+  RTC_DCHECK_GE(bundle_groups_.size(), 1u);
+  const cricket::ContentGroup& bundled_group = bundle_groups_[0];
 
   std::vector<int> merged_ids;
   // Union the encrypted header IDs in the group when bundle is enabled.
   for (const cricket::ContentInfo& content_info : description->contents()) {
-    if (bundle_group_->HasContentName(content_info.name)) {
+    if (bundled_group.HasContentName(content_info.name)) {
       std::vector<int> extension_ids =
           GetEncryptedHeaderExtensionIds(content_info);
       for (int id : extension_ids) {

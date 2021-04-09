@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3892db51_984f9456",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-04-09T13:54:19Z",
+      "side": 1,
+      "message": "Here is the portal API: https://github.com/flatpak/xdg-desktop-portal/blob/master/data/org.freedesktop.portal.ScreenCast.xml#L111",
+      "parentUuid": "e9c5eed6_832d34bd",
+      "revId": "876754ad227a3250bd8e2a10df70676115984007",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b99d3941_8267847f",
@@ -31,6 +49,24 @@
       "writtenOn": "2021-04-09T13:26:43Z",
       "side": 1,
       "message": "is there no constant that more clearly explains the mode?",
+      "revId": "876754ad227a3250bd8e2a10df70676115984007",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31577198_6740d4a4",
+        "filename": "modules/desktop_capture/linux/base_capturer_pipewire.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1048,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-04-09T13:54:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b99d3941_8267847f",
       "revId": "876754ad227a3250bd8e2a10df70676115984007",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -34,6 +34,24 @@
       "parentUuid": "306c1eb2_79a14cb7",
       "revId": "b1e0618e89bfee6ac52f58f018d32dfb0b589d83",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59604059_b6986aff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-09T08:56:50Z",
+      "side": 1,
+      "message": "I see it has some repetitions, we might be able to remove them. Also we can change the format, so it will use less vertical space",
+      "parentUuid": "cc95b0f9_28de48f2",
+      "revId": "b1e0618e89bfee6ac52f58f018d32dfb0b589d83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1004,9 +1004,10 @@ void SdpOfferAnswerHandler::Initialize(
 
   webrtc_session_desc_factory_ =
       std::make_unique<WebRtcSessionDescriptionFactory>(
-          signaling_thread(), channel_manager(), this, pc_->session_id(),
-          pc_->dtls_enabled(), std::move(dependencies.cert_generator),
-          certificate, &ssrc_generator_,
+          signaling_thread(), channel_manager(),
+          data_channel_controller()->GetRtpDataCodecs(), this,
+          pc_->session_id(), pc_->dtls_enabled(),
+          std::move(dependencies.cert_generator), certificate, &ssrc_generator_,
           [this](const rtc::scoped_refptr<rtc::RTCCertificate>& certificate) {
             transport_controller()->SetLocalCertificate(certificate);
           });
@@ -4663,39 +4664,14 @@ cricket::VideoChannel* SdpOfferAnswerHandler::CreateVideoChannel(
 
 bool SdpOfferAnswerHandler::CreateDataChannel(const std::string& mid) {
   RTC_DCHECK_RUN_ON(signaling_thread());
-  switch (pc_->data_channel_type()) {
-    case cricket::DCT_SCTP:
-      if (!pc_->network_thread()->Invoke<bool>(RTC_FROM_HERE, [this, &mid] {
-            RTC_DCHECK_RUN_ON(pc_->network_thread());
-            return pc_->SetupDataChannelTransport_n(mid);
-          })) {
-        return false;
-      }
-      // TODO(tommi): Is this necessary? SetupDataChannelTransport_n() above
-      // will have queued up updating the transport name on the signaling thread
-      // and could update the mid at the same time. This here is synchronous
-      // though, but it changes the state of PeerConnection and makes it be
-      // out of sync (transport name not set while the mid is set).
-      pc_->SetSctpDataMid(mid);
-      break;
-    case cricket::DCT_RTP:
-    default:
-      RtpTransportInternal* rtp_transport = pc_->GetRtpTransport(mid);
-      cricket::RtpDataChannel* data_channel =
-          channel_manager()->CreateRtpDataChannel(
-              pc_->configuration()->media_config, rtp_transport,
-              signaling_thread(), mid, pc_->SrtpRequired(),
-              pc_->GetCryptoOptions(), &ssrc_generator_);
-      if (!data_channel)
-        return false;
-
-      pc_->network_thread()->Invoke<void>(RTC_FROM_HERE, [this, data_channel] {
-        RTC_DCHECK_RUN_ON(pc_->network_thread());
-        pc_->SetupRtpDataChannelTransport_n(data_channel);
-      });
+  if (pc_->data_channel_type() == cricket::DCT_SCTP) {
+    pc_->CreateSctpDataChannel(mid);
+  } else {
+    if (pc_->CreateRtpDataChannel(mid, &ssrc_generator_)) {
       have_pending_rtp_data_channel_ = true;
-      break;
+    }
   }
+  // TODO(tommi): remove return type.
   return true;
 }
 
@@ -4745,8 +4721,8 @@ void SdpOfferAnswerHandler::DestroyDataChannelTransport() {
   if (has_sctp)
     pc_->ResetSctpDataMid();
 
-  if (rtp_data_channel)
-    DestroyChannelInterface(rtp_data_channel);
+  // `rtp_data_channel` has already been destroyed.
+  RTC_DCHECK(!data_channel_controller()->rtp_data_channel());
 }
 
 void SdpOfferAnswerHandler::DestroyChannelInterface(
@@ -4754,6 +4730,7 @@ void SdpOfferAnswerHandler::DestroyChannelInterface(
   RTC_DCHECK_RUN_ON(signaling_thread());
   RTC_DCHECK(channel_manager()->media_engine());
   RTC_DCHECK(channel);
+  RTC_DCHECK_NE(cricket::MEDIA_TYPE_DATA, channel->media_type());
 
   // TODO(bugs.webrtc.org/11992): All the below methods should be called on the
   // worker thread. (they switch internally anyway). Change
@@ -4769,10 +4746,6 @@ void SdpOfferAnswerHandler::DestroyChannelInterface(
     case cricket::MEDIA_TYPE_VIDEO:
       channel_manager()->DestroyVideoChannel(
           static_cast<cricket::VideoChannel*>(channel));
-      break;
-    case cricket::MEDIA_TYPE_DATA:
-      channel_manager()->DestroyRtpDataChannel(
-          static_cast<cricket::RtpDataChannel*>(channel));
       break;
     default:
       RTC_NOTREACHED() << "Unknown media type: " << channel->media_type();

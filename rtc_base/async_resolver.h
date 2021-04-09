@@ -60,7 +60,6 @@ class RTC_EXPORT AsyncResolver : public AsyncResolverInterface {
   std::vector<IPAddress> addresses_ RTC_GUARDED_BY(sequence_checker_);
   int error_ RTC_GUARDED_BY(sequence_checker_);
   webrtc::ScopedTaskSafety safety_ RTC_GUARDED_BY(sequence_checker_);
-  std::unique_ptr<Thread> popup_thread_ RTC_GUARDED_BY(sequence_checker_);
   bool recursion_check_ =
       false;  // Protects against SignalDone calling into Destroy.
   bool destroy_called_ = false;

@@ -10,6 +10,7 @@
 
 #include "rtc_base/async_resolver.h"
 
+#include <memory>
 #include <string>
 #include <utility>
 
@@ -27,9 +28,11 @@
 #endif
 #endif  // defined(WEBRTC_POSIX) && !defined(__native_client__)
 
+#include "absl/memory/memory.h"
 #include "api/task_queue/task_queue_base.h"
 #include "rtc_base/ip_address.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/platform_thread.h"
 #include "rtc_base/task_queue.h"
 #include "rtc_base/task_utils/to_queued_task.h"
 #include "rtc_base/third_party/sigslot/sigslot.h"  // for signal_with_thread...
@@ -93,24 +96,38 @@ AsyncResolver::~AsyncResolver() {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
 }
 
+struct ResolutionData {
+  SocketAddress addr;
+  rtc::scoped_refptr<webrtc::PendingTaskSafetyFlag> flag;
+  webrtc::TaskQueueBase* caller_task_queue;
+  std::function<void(std::vector<IPAddress>, int)> completion_callback;
+};
+
+void RunResolution(void* obj) {
+  ResolutionData* data = static_cast<ResolutionData*>(obj);
+  std::vector<IPAddress> addresses;
+  int error = ResolveHostname(data->addr.hostname().c_str(),
+                              data->addr.family(), &addresses);
+  data->caller_task_queue->PostTask(webrtc::ToQueuedTask(
+      std::move(data->flag),
+      [error, data = absl::WrapUnique(data), addresses = std::move(addresses)] {
+        data->completion_callback(std::move(addresses), error);
+      }));
+}
+
 void AsyncResolver::Start(const SocketAddress& addr) {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
   RTC_DCHECK(!destroy_called_);
   addr_ = addr;
-  webrtc::TaskQueueBase* current_task_queue = webrtc::TaskQueueBase::Current();
-  popup_thread_ = Thread::Create();
-  popup_thread_->Start();
-  popup_thread_->PostTask(webrtc::ToQueuedTask(
-      [this, flag = safety_.flag(), addr, current_task_queue] {
-        std::vector<IPAddress> addresses;
-        int error =
-            ResolveHostname(addr.hostname().c_str(), addr.family(), &addresses);
-        current_task_queue->PostTask(webrtc::ToQueuedTask(
-            std::move(flag), [this, error, addresses = std::move(addresses)] {
-              RTC_DCHECK_RUN_ON(&sequence_checker_);
-              ResolveDone(std::move(addresses), error);
-            }));
-      }));
+  PlatformThread(
+      RunResolution,
+      new ResolutionData{addr, safety_.flag(), webrtc::TaskQueueBase::Current(),
+                         [this](std::vector<IPAddress> addresses, int error) {
+                           RTC_DCHECK_RUN_ON(&sequence_checker_);
+                           ResolveDone(std::move(addresses), error);
+                         }},
+      "NameResolution", ThreadAttributes().SetDetached())
+      .Start();
 }
 
 bool AsyncResolver::GetResolvedAddress(int family, SocketAddress* addr) const {

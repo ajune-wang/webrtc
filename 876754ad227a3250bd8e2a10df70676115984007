@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9c5eed6_832d34bd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-09T13:26:43Z",
+      "side": 1,
+      "message": "I don\u0027t know the api so I\u0027ll wait with stamping until others have taken a look. Feel free to ping if I\u0027m slow.",
+      "revId": "876754ad227a3250bd8e2a10df70676115984007",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b99d3941_8267847f",
+        "filename": "modules/desktop_capture/linux/base_capturer_pipewire.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1048,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-09T13:26:43Z",
+      "side": 1,
+      "message": "is there no constant that more clearly explains the mode?",
+      "revId": "876754ad227a3250bd8e2a10df70676115984007",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -732,6 +732,8 @@ void Connection::SendResponseMessage(const StunMessage& response) {
 }
 
 void Connection::OnReadyToSend() {
+  RTC_LOG(LS_ERROR) << "************ OnReadyToSend - is_empty()="
+                    << SignalReadyToSend.is_empty();
   SignalReadyToSend(this);
 }
 

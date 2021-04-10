@@ -608,7 +608,6 @@ class FakeMediaEngine : public CompositeMediaEngine {
 };
 
 // Have to come afterwards due to declaration order
-
 class FakeDataEngine : public DataEngineInterface {
  public:
   DataMediaChannel* CreateChannel(const MediaConfig& config) override;

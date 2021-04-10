@@ -80,14 +80,8 @@ class ChannelManagerTest : public ::testing::Test {
         webrtc::CryptoOptions(), &ssrc_generator_, VideoOptions(),
         video_bitrate_allocator_factory_.get());
     EXPECT_TRUE(video_channel != nullptr);
-    cricket::RtpDataChannel* rtp_data_channel = cm_->CreateRtpDataChannel(
-        cricket::MediaConfig(), rtp_transport, rtc::Thread::Current(),
-        cricket::CN_DATA, kDefaultSrtpRequired, webrtc::CryptoOptions(),
-        &ssrc_generator_);
-    EXPECT_TRUE(rtp_data_channel != nullptr);
     cm_->DestroyVideoChannel(video_channel);
     cm_->DestroyVoiceChannel(voice_channel);
-    cm_->DestroyRtpDataChannel(rtp_data_channel);
   }
 
   std::unique_ptr<rtc::Thread> network_;

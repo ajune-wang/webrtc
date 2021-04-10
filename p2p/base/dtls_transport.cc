@@ -639,6 +639,8 @@ void DtlsTransport::OnSentPacket(rtc::PacketTransportInternal* transport,
 void DtlsTransport::OnReadyToSend(rtc::PacketTransportInternal* transport) {
   RTC_DCHECK_RUN_ON(&thread_checker_);
   if (writable()) {
+    RTC_LOG(LS_ERROR) << "************ OnReadyToSend - is_empty()="
+                      << SignalReadyToSend.is_empty();
     SignalReadyToSend(this);
   }
 }
@@ -784,6 +786,8 @@ void DtlsTransport::set_writable(bool writable) {
   RTC_LOG(LS_VERBOSE) << ToString() << ": set_writable to: " << writable;
   writable_ = writable;
   if (writable_) {
+    RTC_LOG(LS_ERROR) << "************ OnReadyToSend - is_empty()="
+                      << SignalReadyToSend.is_empty();
     SignalReadyToSend(this);
   }
   SignalWritableState(this);

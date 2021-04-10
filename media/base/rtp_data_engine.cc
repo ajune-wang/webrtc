@@ -35,10 +35,9 @@ static const unsigned char kReservedSpace[] = {0x00, 0x00, 0x00, 0x00};
 // more than this, we need to increase this number.
 static const size_t kMaxSrtpHmacOverhead = 16;
 
-RtpDataEngine::RtpDataEngine() {
-  data_codecs_.push_back(
-      DataCodec(kGoogleRtpDataCodecPlType, kGoogleRtpDataCodecName));
-}
+RtpDataEngine::RtpDataEngine()
+    : data_codecs_{
+          DataCodec(kGoogleRtpDataCodecPlType, kGoogleRtpDataCodecName)} {}
 
 DataMediaChannel* RtpDataEngine::CreateChannel(const MediaConfig& config) {
   return new RtpDataMediaChannel(config);

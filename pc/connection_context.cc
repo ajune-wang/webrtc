@@ -126,8 +126,7 @@ ConnectionContext::ConnectionContext(
 
   worker_thread_->Invoke<void>(RTC_FROM_HERE, [&]() {
     channel_manager_ = cricket::ChannelManager::Create(
-        std::move(dependencies->media_engine),
-        std::make_unique<cricket::RtpDataEngine>(), /*enable_rtx=*/true,
+        std::move(dependencies->media_engine), /*enable_rtx=*/true,
         worker_thread(), network_thread());
   });
 

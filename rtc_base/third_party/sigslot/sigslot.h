@@ -369,6 +369,11 @@ class _signal_base : public _signal_base_interface, public mt_policy {
     return m_connected_slots.empty();
   }
 
+  size_t connections() {
+    lock_block<mt_policy> lock(this);
+    return m_connected_slots.size();
+  }
+
   void disconnect_all() {
     lock_block<mt_policy> lock(this);
 

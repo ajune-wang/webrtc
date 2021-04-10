@@ -284,6 +284,8 @@ void RtpTransport::MaybeSignalReadyToSend() {
       rtp_ready_to_send_ && (rtcp_ready_to_send_ || rtcp_mux_enabled_);
   if (ready_to_send != ready_to_send_) {
     ready_to_send_ = ready_to_send;
+    RTC_LOG(LS_ERROR) << "************ OnReadyToSend " << ready_to_send
+                      << " - conn_size=" << SignalReadyToSend.connections();
     SignalReadyToSend(ready_to_send);
   }
 }

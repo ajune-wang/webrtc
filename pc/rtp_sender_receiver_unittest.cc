@@ -112,8 +112,7 @@ class RtpSenderReceiverTest
         local_stream_(MediaStream::Create(kStreamId1)) {
     worker_thread_->Invoke<void>(RTC_FROM_HERE, [&]() {
       channel_manager_ = cricket::ChannelManager::Create(
-          absl::WrapUnique(media_engine_),
-          std::make_unique<cricket::RtpDataEngine>(), false, worker_thread_,
+          absl::WrapUnique(media_engine_), false, worker_thread_,
           network_thread_);
     });
 

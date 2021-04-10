@@ -608,7 +608,7 @@ class FakeMediaEngine : public CompositeMediaEngine {
 };
 
 // Have to come afterwards due to declaration order
-
+/*
 class FakeDataEngine : public DataEngineInterface {
  public:
   DataMediaChannel* CreateChannel(const MediaConfig& config) override;
@@ -624,7 +624,7 @@ class FakeDataEngine : public DataEngineInterface {
  private:
   std::vector<FakeDataMediaChannel*> channels_;
   std::vector<DataCodec> data_codecs_;
-};
+};*/
 
 }  // namespace cricket
 

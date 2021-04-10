@@ -667,7 +667,7 @@ void FakeMediaEngine::set_fail_create_channel(bool fail) {
   voice_->fail_create_channel_ = fail;
   video_->fail_create_channel_ = fail;
 }
-
+/*
 DataMediaChannel* FakeDataEngine::CreateChannel(const MediaConfig& config) {
   FakeDataMediaChannel* ch = new FakeDataMediaChannel(this, DataOptions());
   channels_.push_back(ch);
@@ -684,6 +684,6 @@ void FakeDataEngine::SetDataCodecs(const std::vector<DataCodec>& data_codecs) {
 }
 const std::vector<DataCodec>& FakeDataEngine::data_codecs() {
   return data_codecs_;
-}
+}*/
 
 }  // namespace cricket

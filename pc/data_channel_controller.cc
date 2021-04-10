@@ -509,13 +509,23 @@ cricket::RtpDataChannel* DataChannelController::rtp_data_channel() const {
   // TODO(bugs.webrtc.org/9987): Only allow this accessor to be called on the
   // network thread.
   // RTC_DCHECK_RUN_ON(network_thread());
-  return rtp_data_channel_;
+  return rtp_data_channel_.get();
 }
 
 void DataChannelController::set_rtp_data_channel(
-    cricket::RtpDataChannel* channel) {
+    std::unique_ptr<cricket::RtpDataChannel> channel) {
   RTC_DCHECK_RUN_ON(network_thread());
-  rtp_data_channel_ = channel;
+  if (rtp_data_channel_) {
+    // Disconnect from the currently associated transport. This allows us to
+    // delete the channel object asynchronously on the worker thread while other
+    // operations continue on the network thread.
+    rtp_data_channel_->Deinit_n();
+    auto* to_delete = rtp_data_channel_.release();
+    to_delete->worker_thread()->PostTask(
+        ToQueuedTask([to_delete] { delete to_delete; }));
+  }
+
+  rtp_data_channel_ = std::move(channel);
 }
 
 DataChannelTransportInterface* DataChannelController::data_channel_transport()

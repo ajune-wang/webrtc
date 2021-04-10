@@ -355,18 +355,35 @@ class MockDataChannelObserver : public webrtc::DataChannelObserver {
       : channel_(channel) {
     channel_->RegisterObserver(this);
     state_ = channel_->state();
+    RTC_LOG(LS_ERROR) << "*********** [MockDataChannelObserver] state_ = "
+                      << DataChannelInterface::DataStateString(state_);
   }
   virtual ~MockDataChannelObserver() { channel_->UnregisterObserver(); }
 
   void OnBufferedAmountChange(uint64_t previous_amount) override {}
 
-  void OnStateChange() override { state_ = channel_->state(); }
+  void OnStateChange() override {
+    RTC_NOTREACHED();
+    RTC_LOG(LS_ERROR) << "*********** [OnStateChange1] state_ = "
+                      << DataChannelInterface::DataStateString(state_);
+    state_ = channel_->state();
+    RTC_LOG(LS_ERROR) << "*********** [OnStateChange2] state_ = "
+                      << DataChannelInterface::DataStateString(state_);
+    state_changed_ = true;
+  }
   void OnMessage(const DataBuffer& buffer) override {
     messages_.push_back(
         std::string(buffer.data.data<char>(), buffer.data.size()));
   }
 
-  bool IsOpen() const { return state_ == DataChannelInterface::kOpen; }
+  bool IsOpen() const {
+    if (state_changed_) {
+      RTC_LOG(LS_ERROR) << "*********** [IsOpen] state_ = "
+                        << DataChannelInterface::DataStateString(state_);
+      state_changed_ = false;
+    }
+    return state_ == DataChannelInterface::kOpen;
+  }
   std::vector<std::string> messages() const { return messages_; }
   std::string last_message() const {
     return messages_.empty() ? std::string() : messages_.back();
@@ -377,6 +394,7 @@ class MockDataChannelObserver : public webrtc::DataChannelObserver {
   rtc::scoped_refptr<webrtc::DataChannelInterface> channel_;
   DataChannelInterface::DataState state_;
   std::vector<std::string> messages_;
+  mutable bool state_changed_ = true;
 };
 
 class MockStatsObserver : public webrtc::StatsObserver {

@@ -127,6 +127,7 @@ void WebRtcSessionDescriptionFactory::CopyCandidatesFromSessionDescription(
 WebRtcSessionDescriptionFactory::WebRtcSessionDescriptionFactory(
     rtc::Thread* signaling_thread,
     cricket::ChannelManager* channel_manager,
+    cricket::RtpDataCodecs data_codecs,
     const SdpStateProvider* sdp_info,
     const std::string& session_id,
     bool dtls_enabled,
@@ -137,6 +138,7 @@ WebRtcSessionDescriptionFactory::WebRtcSessionDescriptionFactory(
         on_certificate_ready)
     : signaling_thread_(signaling_thread),
       session_desc_factory_(channel_manager,
+                            std::move(data_codecs),
                             &transport_desc_factory_,
                             ssrc_generator),
       // RFC 4566 suggested a Network Time Protocol (NTP) format timestamp

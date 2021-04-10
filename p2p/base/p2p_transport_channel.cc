@@ -1818,6 +1818,8 @@ void P2PTransportChannel::SwitchSelectedConnection(Connection* conn,
     // has been disallowed to send.
     if (selected_connection_->writable() ||
         PresumedWritable(selected_connection_)) {
+      RTC_LOG(LS_ERROR) << "************ OnReadyToSend - is_empty()="
+                        << SignalReadyToSend.is_empty();
       SignalReadyToSend(this);
     }
 
@@ -2238,6 +2240,8 @@ void P2PTransportChannel::OnSentPacket(const rtc::SentPacket& sent_packet) {
 void P2PTransportChannel::OnReadyToSend(Connection* connection) {
   RTC_DCHECK_RUN_ON(network_thread_);
   if (connection == selected_connection_ && writable()) {
+    RTC_LOG(LS_ERROR) << "************ OnReadyToSend - is_empty()="
+                      << SignalReadyToSend.is_empty();
     SignalReadyToSend(this);
   }
 }
@@ -2251,6 +2255,8 @@ void P2PTransportChannel::SetWritable(bool writable) {
   writable_ = writable;
   if (writable_) {
     has_been_writable_ = true;
+    RTC_LOG(LS_ERROR) << "************ OnReadyToSend - is_empty()="
+                      << SignalReadyToSend.is_empty();
     SignalReadyToSend(this);
   }
   SignalWritableState(this);

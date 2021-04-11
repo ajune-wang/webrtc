@@ -19,6 +19,7 @@
 #include <utility>
 
 #include "absl/algorithm/container.h"
+#include "absl/memory/memory.h"
 #include "absl/strings/match.h"
 #include "api/jsep_ice_candidate.h"
 #include "api/rtp_parameters.h"
@@ -89,6 +90,29 @@ const char kSimulcastNumberOfEncodings[] =
     "WebRTC.PeerConnection.Simulcast.NumberOfSendEncodings";
 
 static const int REPORT_USAGE_PATTERN_DELAY_MS = 60000;
+
+const char* ToString(PeerConnectionInterface::IceConnectionState state) {
+  switch (state) {
+    case PeerConnectionInterface::kIceConnectionNew:
+      return "new";
+    case PeerConnectionInterface::kIceConnectionChecking:
+      return "checking";
+    case PeerConnectionInterface::kIceConnectionConnected:
+      return "connected";
+    case PeerConnectionInterface::kIceConnectionCompleted:
+      return "completed";
+    case PeerConnectionInterface::kIceConnectionFailed:
+      return "failed";
+    case PeerConnectionInterface::kIceConnectionDisconnected:
+      return "disconnected";
+    case PeerConnectionInterface::kIceConnectionClosed:
+      return "closed";
+    case PeerConnectionInterface::kIceConnectionMax:
+    default:
+      RTC_NOTREACHED();
+      return "<unknown>";
+  }
+}
 
 uint32_t ConvertIceTransportTypeToCandidateFilter(
     PeerConnectionInterface::IceTransportsType type) {
@@ -1808,8 +1832,9 @@ void PeerConnection::SetIceConnectionState(IceConnectionState new_state) {
     return;
   }
 
-  RTC_LOG(LS_INFO) << "Changing IceConnectionState " << ice_connection_state_
-                   << " => " << new_state;
+  RTC_LOG(LS_INFO) << "Changing IceConnectionState "
+                   << ToString(ice_connection_state_) << " => "
+                   << ToString(new_state);
   RTC_DCHECK(ice_connection_state_ !=
              PeerConnectionInterface::kIceConnectionClosed);
 
@@ -1828,7 +1853,8 @@ void PeerConnection::SetStandardizedIceConnectionState(
   }
 
   RTC_LOG(LS_INFO) << "Changing standardized IceConnectionState "
-                   << standardized_ice_connection_state_ << " => " << new_state;
+                   << ToString(standardized_ice_connection_state_) << " => "
+                   << ToString(new_state);
 
   standardized_ice_connection_state_ = new_state;
   Observer()->OnStandardizedIceConnectionChange(new_state);
@@ -2450,16 +2476,117 @@ Call::Stats PeerConnection::GetCallStats() {
   }
 }
 
-bool PeerConnection::SetupDataChannelTransport_n(const std::string& mid) {
+void PeerConnection::CreateSctpDataChannel(const std::string& mid) {
+  RTC_DCHECK_RUN_ON(signaling_thread());
+  RTC_DCHECK_EQ(data_channel_type(), cricket::DCT_SCTP);
+
+  // Set the `mid` straight away so that it can be referenced while things are
+  // being set up asynchronously on the network thread.
+  SetSctpDataMid(mid);
+
+  network_thread()->PostTask(
+      ToQueuedTask(network_thread_safety_, [this, mid = mid]() {
+        RTC_DCHECK_RUN_ON(network_thread());
+        SetupDataChannelTransport_n(mid);
+      }));
+}
+
+void PeerConnection::CreateRtpDataChannel(
+    const std::string& mid,
+    rtc::UniqueRandomIdGenerator* ssrc_generator) {
+  RTC_DCHECK_RUN_ON(signaling_thread());
+  RTC_DCHECK_EQ(data_channel_type(), cricket::DCT_RTP);
+  std::unique_ptr<cricket::DataMediaChannel> media_channel =
+      absl::WrapUnique(channel_manager()->data_engine()->CreateChannel(
+          configuration()->media_config));
+
+  // The fully async operations below do not work since ApplyLocalDescription
+  // is implemented in a way that require the signaling thread to block
+  // while operations complete on other threads.
+
+#if 0
+  // Construct the RtpChannel on the worker thread, then set it as our RTP
+  // data channel, on the network thread.
+  worker_thread()->PostTask(ToQueuedTask(
+      worker_thread_safety_,
+      [this, mc = std::move(media_channel), mid = mid,
+       srtp_required = SrtpRequired(), crypto_options = GetCryptoOptions(),
+       ssrc_generator]() mutable {
+        RTC_DCHECK_RUN_ON(worker_thread());
+        RTC_LOG(LS_ERROR) << "*************** on worker [rtp]";
+        auto data_channel = std::make_unique<cricket::RtpDataChannel>(
+            worker_thread(), network_thread(), signaling_thread(),
+            std::move(mc), mid, srtp_required, std::move(crypto_options),
+            ssrc_generator);
+        // Now register and initialize the data channel on the network
+        // thread.
+        network_thread()->PostTask(
+            ToQueuedTask(network_thread_safety_,
+                         [this, dc = std::move(data_channel)]() mutable {
+                           RTC_DCHECK_RUN_ON(network_thread());
+                           RTC_LOG(LS_ERROR) << "*************** on network "
+                                                "[rtp]";
+                           SetupRtpDataChannelTransport_n(std::move(dc));
+                         }));
+      }));
+#else
+#if 1
+  worker_thread()->Invoke<void>(
+      RTC_FROM_HERE,
+      [this, mc = std::move(media_channel), mid = mid,
+       srtp_required = SrtpRequired(), crypto_options = GetCryptoOptions(),
+       ssrc_generator]() mutable {
+        RTC_DCHECK_RUN_ON(worker_thread());
+        RTC_LOG(LS_ERROR) << "*************** on worker [rtp]";
+        auto data_channel = std::make_unique<cricket::RtpDataChannel>(
+            worker_thread(), network_thread(), signaling_thread(),
+            std::move(mc), mid, srtp_required, std::move(crypto_options),
+            ssrc_generator);
+        // Now register and initialize the data channel on the network
+        // thread.
+        network_thread()->Invoke<void>(
+            RTC_FROM_HERE, [this, dc = std::move(data_channel)]() mutable {
+              RTC_DCHECK_RUN_ON(network_thread());
+              RTC_LOG(LS_ERROR) << "*************** on network "
+                                   "[rtp]";
+              SetupRtpDataChannelTransport_n(std::move(dc));
+            });
+      });
+#else
+  worker_thread()->PostTask(ToQueuedTask(
+      worker_thread_safety_,
+      [this, mc = std::move(media_channel), mid = mid,
+       srtp_required = SrtpRequired(), crypto_options = GetCryptoOptions(),
+       ssrc_generator]() mutable {
+        RTC_DCHECK_RUN_ON(worker_thread());
+        RTC_LOG(LS_ERROR) << "*************** on worker [rtp]";
+        auto data_channel = std::make_unique<cricket::RtpDataChannel>(
+            worker_thread(), network_thread(), signaling_thread(),
+            std::move(mc), mid, srtp_required, std::move(crypto_options),
+            ssrc_generator);
+        // Now register and initialize the data channel on the network
+        // thread.
+        network_thread()->Invoke<void>(
+            RTC_FROM_HERE, [this, dc = std::move(data_channel)]() mutable {
+              RTC_DCHECK_RUN_ON(network_thread());
+              RTC_LOG(LS_ERROR) << "*************** on network "
+                                   "[rtp]";
+              SetupRtpDataChannelTransport_n(std::move(dc));
+            });
+      }));
+#endif
+#endif
+}
+
+void PeerConnection::SetupDataChannelTransport_n(const std::string& mid) {
+  RTC_DCHECK_EQ(data_channel_type(), cricket::DCT_SCTP);
   DataChannelTransportInterface* transport =
       transport_controller_->GetDataChannelTransport(mid);
   if (!transport) {
-    RTC_LOG(LS_ERROR)
-        << "Data channel transport is not available for data channels, mid="
-        << mid;
-    return false;
+    RTC_LOG(LS_WARNING) << "Transport for mid=" << mid
+                        << " torn down before setup completed";
+    return;
   }
-  RTC_LOG(LS_INFO) << "Setting up data channel transport for mid=" << mid;
 
   data_channel_controller_.set_data_channel_transport(transport);
   data_channel_controller_.SetupDataChannelTransport_n();
@@ -2480,25 +2607,34 @@ bool PeerConnection::SetupDataChannelTransport_n(const std::string& mid) {
   // callbacks to PeerConnection which require the transport to be completely
   // set up (eg. OnReadyToSend()).
   transport->SetDataSink(&data_channel_controller_);
-  return true;
 }
 
 void PeerConnection::SetupRtpDataChannelTransport_n(
-    cricket::RtpDataChannel* data_channel) {
-  data_channel_controller_.set_rtp_data_channel(data_channel);
-  if (!data_channel)
+    std::unique_ptr<cricket::RtpDataChannel> data_channel) {
+  RTC_DCHECK(data_channel);
+  auto* transport =
+      transport_controller_->GetRtpTransport(data_channel->content_name());
+  // Due to the way things are currently synchronously set up for RTP data
+  // channels, the transport will always be available as it's a synchronous
+  // step done via SetLocalTransportDescription() before CreateRtpDataChannel()
+  // is called. However, we have this check here for consistency between how
+  // the data channel setup is done on the network thread for both sctp and rtp.
+  if (!transport) {
+    RTC_LOG(LS_WARNING) << "Transport for mid=" << data_channel->content_name()
+                        << " torn down before setup completed";
+    cricket::RtpDataChannel::Destruct_n(std::move(data_channel));
     return;
+  }
 
+  data_channel->Init_n(transport);
   // TODO(bugs.webrtc.org/9987): OnSentPacket_w needs to be changed to
   // OnSentPacket_n (and be called on the network thread).
   data_channel->SignalSentPacket().connect(this,
                                            &PeerConnection::OnSentPacket_w);
+  data_channel_controller_.set_rtp_data_channel(std::move(data_channel));
 }
 
 void PeerConnection::TeardownDataChannelTransport_n() {
-  // Clear the RTP data channel if any.
-  data_channel_controller_.set_rtp_data_channel(nullptr);
-
   if (sctp_mid_n_) {
     // |sctp_mid_| may still be active through an SCTP transport.  If not, unset
     // it.

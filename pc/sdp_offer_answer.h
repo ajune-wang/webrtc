@@ -462,8 +462,9 @@ class SdpOfferAnswerHandler : public SdpStateProvider,
   RTCError PushdownMediaDescription(SdpType type,
                                     cricket::ContentSource source);
 
-  RTCError PushdownTransportDescription(cricket::ContentSource source,
-                                        SdpType type);
+  RTCError SetLocalTransportDescription(SdpType type);
+  RTCError SetRemoteTransportDescription(SdpType type);
+
   // Helper function to remove stopped transceivers.
   void RemoveStoppedTransceivers();
   // Deletes the corresponding channel of contents that don't exist in |desc|.
@@ -508,7 +509,7 @@ class SdpOfferAnswerHandler : public SdpStateProvider,
   // Helper methods to create media channels.
   cricket::VoiceChannel* CreateVoiceChannel(const std::string& mid);
   cricket::VideoChannel* CreateVideoChannel(const std::string& mid);
-  bool CreateDataChannel(const std::string& mid);
+  void CreateDataChannel(const std::string& mid);
 
   // Destroys and clears the BaseChannel associated with the given transceiver,
   // if such channel is set.

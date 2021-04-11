@@ -110,7 +110,10 @@ absl::optional<SctpPacket> SctpPacket::Parse(
     bool disable_checksum_verification) {
   if (data.size() < kHeaderSize + kChunkTlvHeaderSize ||
       data.size() > kMaxUdpPacketSize) {
-    RTC_DLOG(LS_WARNING) << "Invalid packet size";
+    RTC_DLOG(LS_WARNING) << "Invalid packet size: " << data.size()
+                         << ", allowed_range=["
+                         << kHeaderSize + kChunkTlvHeaderSize << ","
+                         << kMaxUdpPacketSize << "]";
     return absl::nullopt;
   }
 

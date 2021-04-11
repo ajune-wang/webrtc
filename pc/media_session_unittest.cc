@@ -432,17 +432,16 @@ void PreferGcmCryptoParameters(CryptoParamsVec* cryptos) {
 class MediaSessionDescriptionFactoryTest : public ::testing::Test {
  public:
   MediaSessionDescriptionFactoryTest()
-      : f1_(&tdf1_, &ssrc_generator1), f2_(&tdf2_, &ssrc_generator2) {
+      : f1_(&tdf1_, &ssrc_generator1, MAKE_VECTOR(kDataCodecs1)),
+        f2_(&tdf2_, &ssrc_generator2, MAKE_VECTOR(kDataCodecs2)) {
     f1_.set_audio_codecs(MAKE_VECTOR(kAudioCodecs1),
                          MAKE_VECTOR(kAudioCodecs1));
     f1_.set_video_codecs(MAKE_VECTOR(kVideoCodecs1),
                          MAKE_VECTOR(kVideoCodecs1));
-    f1_.set_rtp_data_codecs(MAKE_VECTOR(kDataCodecs1));
     f2_.set_audio_codecs(MAKE_VECTOR(kAudioCodecs2),
                          MAKE_VECTOR(kAudioCodecs2));
     f2_.set_video_codecs(MAKE_VECTOR(kVideoCodecs2),
                          MAKE_VECTOR(kVideoCodecs2));
-    f2_.set_rtp_data_codecs(MAKE_VECTOR(kDataCodecs2));
     tdf1_.set_certificate(rtc::RTCCertificate::Create(
         std::unique_ptr<rtc::SSLIdentity>(new rtc::FakeSSLIdentity("id1"))));
     tdf2_.set_certificate(rtc::RTCCertificate::Create(
@@ -4613,17 +4612,16 @@ TEST_F(MediaSessionDescriptionFactoryTest,
 class MediaProtocolTest : public ::testing::TestWithParam<const char*> {
  public:
   MediaProtocolTest()
-      : f1_(&tdf1_, &ssrc_generator1), f2_(&tdf2_, &ssrc_generator2) {
+      : f1_(&tdf1_, &ssrc_generator1, MAKE_VECTOR(kDataCodecs1)),
+        f2_(&tdf2_, &ssrc_generator2, MAKE_VECTOR(kDataCodecs2)) {
     f1_.set_audio_codecs(MAKE_VECTOR(kAudioCodecs1),
                          MAKE_VECTOR(kAudioCodecs1));
     f1_.set_video_codecs(MAKE_VECTOR(kVideoCodecs1),
                          MAKE_VECTOR(kVideoCodecs1));
-    f1_.set_rtp_data_codecs(MAKE_VECTOR(kDataCodecs1));
     f2_.set_audio_codecs(MAKE_VECTOR(kAudioCodecs2),
                          MAKE_VECTOR(kAudioCodecs2));
     f2_.set_video_codecs(MAKE_VECTOR(kVideoCodecs2),
                          MAKE_VECTOR(kVideoCodecs2));
-    f2_.set_rtp_data_codecs(MAKE_VECTOR(kDataCodecs2));
     f1_.set_secure(SEC_ENABLED);
     f2_.set_secure(SEC_ENABLED);
     tdf1_.set_certificate(rtc::RTCCertificate::Create(
@@ -4676,7 +4674,7 @@ INSTANTIATE_TEST_SUITE_P(MediaProtocolDtlsPatternTest,
 TEST_F(MediaSessionDescriptionFactoryTest, TestSetAudioCodecs) {
   TransportDescriptionFactory tdf;
   UniqueRandomIdGenerator ssrc_generator;
-  MediaSessionDescriptionFactory sf(&tdf, &ssrc_generator);
+  MediaSessionDescriptionFactory sf(&tdf, &ssrc_generator, {});
   std::vector<AudioCodec> send_codecs = MAKE_VECTOR(kAudioCodecs1);
   std::vector<AudioCodec> recv_codecs = MAKE_VECTOR(kAudioCodecs2);
 
@@ -4746,7 +4744,7 @@ bool CodecsMatch(const std::vector<Codec>& codecs1,
 void TestAudioCodecsOffer(RtpTransceiverDirection direction) {
   TransportDescriptionFactory tdf;
   UniqueRandomIdGenerator ssrc_generator;
-  MediaSessionDescriptionFactory sf(&tdf, &ssrc_generator);
+  MediaSessionDescriptionFactory sf(&tdf, &ssrc_generator, {});
   const std::vector<AudioCodec> send_codecs = MAKE_VECTOR(kAudioCodecs1);
   const std::vector<AudioCodec> recv_codecs = MAKE_VECTOR(kAudioCodecs2);
   const std::vector<AudioCodec> sendrecv_codecs =
@@ -4844,8 +4842,10 @@ void TestAudioCodecsAnswer(RtpTransceiverDirection offer_direction,
   TransportDescriptionFactory offer_tdf;
   TransportDescriptionFactory answer_tdf;
   UniqueRandomIdGenerator ssrc_generator1, ssrc_generator2;
-  MediaSessionDescriptionFactory offer_factory(&offer_tdf, &ssrc_generator1);
-  MediaSessionDescriptionFactory answer_factory(&answer_tdf, &ssrc_generator2);
+  MediaSessionDescriptionFactory offer_factory(&offer_tdf, &ssrc_generator1,
+                                               {});
+  MediaSessionDescriptionFactory answer_factory(&answer_tdf, &ssrc_generator2,
+                                                {});
   offer_factory.set_audio_codecs(
       VectorFromIndices(kOfferAnswerCodecs, kOfferSendCodecs),
       VectorFromIndices(kOfferAnswerCodecs, kOfferRecvCodecs));

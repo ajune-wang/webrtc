@@ -116,7 +116,7 @@ class DataChannelController : public RtpDataChannelProviderInterface,
   cricket::DataChannelType data_channel_type() const;
   void set_data_channel_type(cricket::DataChannelType type);
   cricket::RtpDataChannel* rtp_data_channel() const;
-  void set_rtp_data_channel(cricket::RtpDataChannel* channel);
+  void set_rtp_data_channel(std::unique_ptr<cricket::RtpDataChannel> channel);
   DataChannelTransportInterface* data_channel_transport() const;
   void set_data_channel_transport(DataChannelTransportInterface* transport);
   const std::map<std::string, rtc::scoped_refptr<RtpDataChannel>>*
@@ -201,7 +201,7 @@ class DataChannelController : public RtpDataChannelProviderInterface,
   // |data_channel_transport_| when using SCTP.
   // TODO(bugs.webrtc.org/9987): Accessed on both signaling and network
   // thread.
-  cricket::RtpDataChannel* rtp_data_channel_ = nullptr;
+  std::unique_ptr<cricket::RtpDataChannel> rtp_data_channel_;
 
   SctpSidAllocator sid_allocator_ /* RTC_GUARDED_BY(signaling_thread()) */;
   std::vector<rtc::scoped_refptr<SctpDataChannel>> sctp_data_channels_
@@ -240,6 +240,7 @@ class DataChannelController : public RtpDataChannelProviderInterface,
 
   // Owning PeerConnection.
   PeerConnection* const pc_;
+
   // The weak pointers must be dereferenced and invalidated on the signalling
   // thread only.
   rtc::WeakPtrFactory<DataChannelController> weak_factory_{this};

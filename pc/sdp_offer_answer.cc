@@ -1256,6 +1256,7 @@ RTCError SdpOfferAnswerHandler::ApplyLocalDescription(
     std::unique_ptr<SessionDescriptionInterface> desc) {
   RTC_DCHECK_RUN_ON(signaling_thread());
   RTC_DCHECK(desc);
+  RTC_LOG_THREAD_BLOCK_COUNT();
 
   // Update stats here so that we have the most recent stats for tracks and
   // streams that might be removed by updating the session description.
@@ -1299,7 +1300,7 @@ RTCError SdpOfferAnswerHandler::ApplyLocalDescription(
     }
   }
 
-  RTCError error = PushdownTransportDescription(cricket::CS_LOCAL, type);
+  RTCError error = SetLocalTransportDescription(type);
   if (!error.ok()) {
     return error;
   }
@@ -1365,7 +1366,7 @@ RTCError SdpOfferAnswerHandler::ApplyLocalDescription(
     }
   } else {
     // Media channels will be created only when offer is set. These may use new
-    // transports just created by PushdownTransportDescription.
+    // transports just created by SetLocalTransportDescription.
     if (type == SdpType::kOffer) {
       // TODO(bugs.webrtc.org/4676) - Handle CreateChannel failure, as new local
       // description is applied. Restore back to old description.
@@ -1481,7 +1482,6 @@ RTCError SdpOfferAnswerHandler::ApplyLocalDescription(
           *current_local_description_)) {
     local_ice_credentials_to_replace_->ClearIceCredentials();
   }
-
   return RTCError::OK();
 }
 
@@ -1587,7 +1587,7 @@ RTCError SdpOfferAnswerHandler::ApplyRemoteDescription(
   ReportSimulcastApiVersion(kSimulcastVersionApplyRemoteDescription,
                             *remote_description()->description());
 
-  RTCError error = PushdownTransportDescription(cricket::CS_REMOTE, type);
+  RTCError error = SetRemoteTransportDescription(type);
   if (!error.ok()) {
     return error;
   }
@@ -1601,7 +1601,7 @@ RTCError SdpOfferAnswerHandler::ApplyRemoteDescription(
     }
   } else {
     // Media channels will be created only when offer is set. These may use new
-    // transports just created by PushdownTransportDescription.
+    // transports just created by SetRemoteTransportDescription.
     if (type == SdpType::kOffer) {
       // TODO(mallinath) - Handle CreateChannel failure, as new local
       // description is applied. Restore back to old description.
@@ -1889,6 +1889,7 @@ void SdpOfferAnswerHandler::DoSetLocalDescription(
     rtc::scoped_refptr<SetLocalDescriptionObserverInterface> observer) {
   RTC_DCHECK_RUN_ON(signaling_thread());
   TRACE_EVENT0("webrtc", "SdpOfferAnswerHandler::DoSetLocalDescription");
+  RTC_LOG_THREAD_BLOCK_COUNT();
 
   if (!observer) {
     RTC_LOG(LS_ERROR) << "SetLocalDescription - observer is NULL.";
@@ -2491,6 +2492,7 @@ RTCError SdpOfferAnswerHandler::UpdateSessionState(
     cricket::ContentSource source,
     const cricket::SessionDescription* description) {
   RTC_DCHECK_RUN_ON(signaling_thread());
+  RTC_LOG_THREAD_BLOCK_COUNT();
 
   // If there's already a pending error then no state transition should happen.
   // But all call-sites should be verifying this before calling us!
@@ -2740,7 +2742,7 @@ RTCError SdpOfferAnswerHandler::Rollback(SdpType desc_type) {
   }
   transport_controller()->RollbackTransports();
   if (have_pending_rtp_data_channel_) {
-    DestroyDataChannelTransport();
+    pc_->DestroyDataChannelTransport();
     have_pending_rtp_data_channel_ = false;
   }
   transceivers()->DiscardStableStates();
@@ -3405,15 +3407,12 @@ RTCError SdpOfferAnswerHandler::UpdateDataChannel(
   }
   if (content.rejected) {
     RTC_LOG(LS_INFO) << "Rejected data channel, mid=" << content.mid();
-    DestroyDataChannelTransport();
+    pc_->DestroyDataChannelTransport();
   } else {
     if (!data_channel_controller()->rtp_data_channel() &&
         !data_channel_controller()->data_channel_transport()) {
       RTC_LOG(LS_INFO) << "Creating data channel, mid=" << content.mid();
-      if (!CreateDataChannel(content.name)) {
-        LOG_AND_RETURN_ERROR(RTCErrorType::INTERNAL_ERROR,
-                             "Failed to create data channel.");
-      }
+      CreateDataChannel(content.name);
     }
     if (source == cricket::CS_REMOTE) {
       const MediaContentDescription* data_desc = content.media_description();
@@ -4330,22 +4329,22 @@ RTCError SdpOfferAnswerHandler::PushdownMediaDescription(
   return RTCError::OK();
 }
 
-RTCError SdpOfferAnswerHandler::PushdownTransportDescription(
-    cricket::ContentSource source,
-    SdpType type) {
+RTCError SdpOfferAnswerHandler::SetLocalTransportDescription(SdpType type) {
   RTC_DCHECK_RUN_ON(signaling_thread());
+  // Here we hop over to the network thread and block the signaling thread while
+  // we set the local/remote description. This could be done asynconously if we
+  // can update the upstream callers.
+  return transport_controller()->SetLocalDescription(
+      type, local_description()->description());
+}
 
-  if (source == cricket::CS_LOCAL) {
-    const SessionDescriptionInterface* sdesc = local_description();
-    RTC_DCHECK(sdesc);
-    return transport_controller()->SetLocalDescription(type,
-                                                       sdesc->description());
-  } else {
-    const SessionDescriptionInterface* sdesc = remote_description();
-    RTC_DCHECK(sdesc);
-    return transport_controller()->SetRemoteDescription(type,
-                                                        sdesc->description());
-  }
+RTCError SdpOfferAnswerHandler::SetRemoteTransportDescription(SdpType type) {
+  RTC_DCHECK_RUN_ON(signaling_thread());
+  // Here we hop over to the network thread and block the signaling thread while
+  // we set the local/remote description. This could be done asynconously if we
+  // can update the upstream callers.
+  return transport_controller()->SetRemoteDescription(
+      type, remote_description()->description());
 }
 
 void SdpOfferAnswerHandler::RemoveStoppedTransceivers() {
@@ -4406,7 +4405,7 @@ void SdpOfferAnswerHandler::RemoveUnusedChannels(
 
   const cricket::ContentInfo* data_info = cricket::GetFirstDataContent(desc);
   if (!data_info || data_info->rejected) {
-    DestroyDataChannelTransport();
+    pc_->DestroyDataChannelTransport();
   }
 }
 
@@ -4601,10 +4600,7 @@ RTCError SdpOfferAnswerHandler::CreateChannels(const SessionDescription& desc) {
   if (pc_->data_channel_type() != cricket::DCT_NONE && data &&
       !data->rejected && !data_channel_controller()->rtp_data_channel() &&
       !data_channel_controller()->data_channel_transport()) {
-    if (!CreateDataChannel(data->name)) {
-      LOG_AND_RETURN_ERROR(RTCErrorType::INTERNAL_ERROR,
-                           "Failed to create data channel.");
-    }
+    CreateDataChannel(data->name);
   }
 
   return RTCError::OK();
@@ -4617,11 +4613,14 @@ cricket::VoiceChannel* SdpOfferAnswerHandler::CreateVoiceChannel(
   if (!channel_manager()->media_engine())
     return nullptr;
 
+  // TODO(tommi): GetRtpTransport() hops to the network thread. We do that again
+  // inside `CreateVoiceChannel()` on the next line.
   RtpTransportInternal* rtp_transport = pc_->GetRtpTransport(mid);
 
   // TODO(bugs.webrtc.org/11992): CreateVoiceChannel internally switches to the
-  // worker thread. We shouldn't be using the |call_ptr_| hack here but simply
-  // be on the worker thread and use |call_| (update upstream code).
+  // worker thread and then network thread (BaseChannel::Init_w). We shouldn't
+  // be using the `call_ptr()` hack here but simply be on the worker thread and
+  // use |call_| (update upstream code).
   cricket::VoiceChannel* voice_channel = channel_manager()->CreateVoiceChannel(
       pc_->call_ptr(), pc_->configuration()->media_config, rtp_transport,
       signaling_thread(), mid, pc_->SrtpRequired(), pc_->GetCryptoOptions(),
@@ -4646,8 +4645,9 @@ cricket::VideoChannel* SdpOfferAnswerHandler::CreateVideoChannel(
   RtpTransportInternal* rtp_transport = pc_->GetRtpTransport(mid);
 
   // TODO(bugs.webrtc.org/11992): CreateVideoChannel internally switches to the
-  // worker thread. We shouldn't be using the |call_ptr_| hack here but simply
-  // be on the worker thread and use |call_| (update upstream code).
+  // worker thread and then network thread (BaseChannel::Init_w). We shouldn't
+  // be using the `call_ptr()` hack here but simply be on the worker thread and
+  // use |call_| (update upstream code).
   cricket::VideoChannel* video_channel = channel_manager()->CreateVideoChannel(
       pc_->call_ptr(), pc_->configuration()->media_config, rtp_transport,
       signaling_thread(), mid, pc_->SrtpRequired(), pc_->GetCryptoOptions(),
@@ -4661,42 +4661,14 @@ cricket::VideoChannel* SdpOfferAnswerHandler::CreateVideoChannel(
   return video_channel;
 }
 
-bool SdpOfferAnswerHandler::CreateDataChannel(const std::string& mid) {
+void SdpOfferAnswerHandler::CreateDataChannel(const std::string& mid) {
   RTC_DCHECK_RUN_ON(signaling_thread());
-  switch (pc_->data_channel_type()) {
-    case cricket::DCT_SCTP:
-      if (!pc_->network_thread()->Invoke<bool>(RTC_FROM_HERE, [this, &mid] {
-            RTC_DCHECK_RUN_ON(pc_->network_thread());
-            return pc_->SetupDataChannelTransport_n(mid);
-          })) {
-        return false;
-      }
-      // TODO(tommi): Is this necessary? SetupDataChannelTransport_n() above
-      // will have queued up updating the transport name on the signaling thread
-      // and could update the mid at the same time. This here is synchronous
-      // though, but it changes the state of PeerConnection and makes it be
-      // out of sync (transport name not set while the mid is set).
-      pc_->SetSctpDataMid(mid);
-      break;
-    case cricket::DCT_RTP:
-    default:
-      RtpTransportInternal* rtp_transport = pc_->GetRtpTransport(mid);
-      cricket::RtpDataChannel* data_channel =
-          channel_manager()->CreateRtpDataChannel(
-              pc_->configuration()->media_config, rtp_transport,
-              signaling_thread(), mid, pc_->SrtpRequired(),
-              pc_->GetCryptoOptions(), &ssrc_generator_);
-      if (!data_channel)
-        return false;
-
-      pc_->network_thread()->Invoke<void>(RTC_FROM_HERE, [this, data_channel] {
-        RTC_DCHECK_RUN_ON(pc_->network_thread());
-        pc_->SetupRtpDataChannelTransport_n(data_channel);
-      });
-      have_pending_rtp_data_channel_ = true;
-      break;
+  if (pc_->data_channel_type() == cricket::DCT_SCTP) {
+    pc_->CreateSctpDataChannel(mid);
+  } else {
+    pc_->CreateRtpDataChannel(mid, &ssrc_generator_);
+    have_pending_rtp_data_channel_ = true;
   }
-  return true;
 }
 
 void SdpOfferAnswerHandler::DestroyTransceiverChannel(
@@ -4729,31 +4701,12 @@ void SdpOfferAnswerHandler::DestroyTransceiverChannel(
   }
 }
 
-void SdpOfferAnswerHandler::DestroyDataChannelTransport() {
-  RTC_DCHECK_RUN_ON(signaling_thread());
-  const bool has_sctp = pc_->sctp_mid().has_value();
-  auto* rtp_data_channel = data_channel_controller()->rtp_data_channel();
-
-  if (has_sctp || rtp_data_channel)
-    data_channel_controller()->OnTransportChannelClosed();
-
-  pc_->network_thread()->Invoke<void>(RTC_FROM_HERE, [this] {
-    RTC_DCHECK_RUN_ON(pc_->network_thread());
-    pc_->TeardownDataChannelTransport_n();
-  });
-
-  if (has_sctp)
-    pc_->ResetSctpDataMid();
-
-  if (rtp_data_channel)
-    DestroyChannelInterface(rtp_data_channel);
-}
-
 void SdpOfferAnswerHandler::DestroyChannelInterface(
     cricket::ChannelInterface* channel) {
   RTC_DCHECK_RUN_ON(signaling_thread());
   RTC_DCHECK(channel_manager()->media_engine());
   RTC_DCHECK(channel);
+  RTC_DCHECK_NE(cricket::MEDIA_TYPE_DATA, channel->media_type());
 
   // TODO(bugs.webrtc.org/11992): All the below methods should be called on the
   // worker thread. (they switch internally anyway). Change
@@ -4769,10 +4722,6 @@ void SdpOfferAnswerHandler::DestroyChannelInterface(
     case cricket::MEDIA_TYPE_VIDEO:
       channel_manager()->DestroyVideoChannel(
           static_cast<cricket::VideoChannel*>(channel));
-      break;
-    case cricket::MEDIA_TYPE_DATA:
-      channel_manager()->DestroyRtpDataChannel(
-          static_cast<cricket::RtpDataChannel*>(channel));
       break;
     default:
       RTC_NOTREACHED() << "Unknown media type: " << channel->media_type();
@@ -4810,7 +4759,7 @@ void SdpOfferAnswerHandler::DestroyAllChannels() {
     }
   }
 
-  DestroyDataChannelTransport();
+  pc_->DestroyDataChannelTransport();
 }
 
 void SdpOfferAnswerHandler::GenerateMediaDescriptionOptions(

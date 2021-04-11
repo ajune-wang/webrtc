@@ -2303,7 +2303,12 @@ std::unique_ptr<cricket::RtpDataChannel> ChannelTest<DataTraits>::CreateChannel(
       worker_thread, network_thread, signaling_thread, std::move(ch),
       cricket::CN_DATA, (flags & DTLS) != 0, webrtc::CryptoOptions(),
       &ssrc_generator_);
-  channel->Init_w(rtp_transport);
+
+  // Production code is encouraged not to use Init_w as it has a hidden thread
+  // hop and the initialization step on the network thread can be joined with
+  // other initialization steps or asynchronously.
+  network_thread_->Invoke<void>(RTC_FROM_HERE,
+                                [&]() { channel->Init_n(rtp_transport); });
   return channel;
 }
 

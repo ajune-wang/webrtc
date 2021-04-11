@@ -462,8 +462,9 @@ class SdpOfferAnswerHandler : public SdpStateProvider,
   RTCError PushdownMediaDescription(SdpType type,
                                     cricket::ContentSource source);
 
-  RTCError PushdownTransportDescription(cricket::ContentSource source,
-                                        SdpType type);
+  RTCError SetLocalTransportDescription(SdpType type);
+  RTCError SetRemoteTransportDescription(SdpType type);
+
   // Helper function to remove stopped transceivers.
   void RemoveStoppedTransceivers();
   // Deletes the corresponding channel of contents that don't exist in |desc|.
@@ -508,7 +509,7 @@ class SdpOfferAnswerHandler : public SdpStateProvider,
   // Helper methods to create media channels.
   cricket::VoiceChannel* CreateVoiceChannel(const std::string& mid);
   cricket::VideoChannel* CreateVideoChannel(const std::string& mid);
-  bool CreateDataChannel(const std::string& mid);
+  void CreateDataChannel(const std::string& mid);
 
   // Destroys and clears the BaseChannel associated with the given transceiver,
   // if such channel is set.
@@ -516,16 +517,12 @@ class SdpOfferAnswerHandler : public SdpStateProvider,
       rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
           transceiver);
 
-  // Destroys the RTP data channel transport and/or the SCTP data channel
-  // transport and clears it.
-  void DestroyDataChannelTransport();
-
   // Destroys the given ChannelInterface.
   // The channel cannot be accessed after this method is called.
   void DestroyChannelInterface(cricket::ChannelInterface* channel);
+
   // Generates MediaDescriptionOptions for the |session_opts| based on existing
   // local description or remote description.
-
   void GenerateMediaDescriptionOptions(
       const SessionDescriptionInterface* session_desc,
       RtpTransceiverDirection audio_direction,

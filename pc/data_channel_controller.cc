@@ -218,6 +218,7 @@ void DataChannelController::TeardownDataChannelTransport_n() {
     data_channel_transport()->SetDataSink(nullptr);
   }
   set_data_channel_transport(nullptr);
+  set_rtp_data_channel(nullptr);
 }
 
 void DataChannelController::OnTransportChanged(
@@ -509,13 +510,17 @@ cricket::RtpDataChannel* DataChannelController::rtp_data_channel() const {
   // TODO(bugs.webrtc.org/9987): Only allow this accessor to be called on the
   // network thread.
   // RTC_DCHECK_RUN_ON(network_thread());
-  return rtp_data_channel_;
+  return rtp_data_channel_.get();
 }
 
 void DataChannelController::set_rtp_data_channel(
-    cricket::RtpDataChannel* channel) {
+    std::unique_ptr<cricket::RtpDataChannel> channel) {
   RTC_DCHECK_RUN_ON(network_thread());
-  rtp_data_channel_ = channel;
+  if (rtp_data_channel_) {
+    cricket::RtpDataChannel::Destruct_n(std::move(rtp_data_channel_));
+  }
+
+  rtp_data_channel_ = std::move(channel);
 }
 
 DataChannelTransportInterface* DataChannelController::data_channel_transport()

@@ -1256,6 +1256,7 @@ RTCError SdpOfferAnswerHandler::ApplyLocalDescription(
     std::unique_ptr<SessionDescriptionInterface> desc) {
   RTC_DCHECK_RUN_ON(signaling_thread());
   RTC_DCHECK(desc);
+  RTC_LOG_THREAD_BLOCK_COUNT();
 
   // Update stats here so that we have the most recent stats for tracks and
   // streams that might be removed by updating the session description.
@@ -1481,7 +1482,6 @@ RTCError SdpOfferAnswerHandler::ApplyLocalDescription(
           *current_local_description_)) {
     local_ice_credentials_to_replace_->ClearIceCredentials();
   }
-
   return RTCError::OK();
 }
 
@@ -1889,6 +1889,7 @@ void SdpOfferAnswerHandler::DoSetLocalDescription(
     rtc::scoped_refptr<SetLocalDescriptionObserverInterface> observer) {
   RTC_DCHECK_RUN_ON(signaling_thread());
   TRACE_EVENT0("webrtc", "SdpOfferAnswerHandler::DoSetLocalDescription");
+  RTC_LOG_THREAD_BLOCK_COUNT();
 
   if (!observer) {
     RTC_LOG(LS_ERROR) << "SetLocalDescription - observer is NULL.";
@@ -2491,6 +2492,7 @@ RTCError SdpOfferAnswerHandler::UpdateSessionState(
     cricket::ContentSource source,
     const cricket::SessionDescription* description) {
   RTC_DCHECK_RUN_ON(signaling_thread());
+  RTC_LOG_THREAD_BLOCK_COUNT();
 
   // If there's already a pending error then no state transition should happen.
   // But all call-sites should be verifying this before calling us!
@@ -4663,39 +4665,14 @@ cricket::VideoChannel* SdpOfferAnswerHandler::CreateVideoChannel(
 
 bool SdpOfferAnswerHandler::CreateDataChannel(const std::string& mid) {
   RTC_DCHECK_RUN_ON(signaling_thread());
-  switch (pc_->data_channel_type()) {
-    case cricket::DCT_SCTP:
-      if (!pc_->network_thread()->Invoke<bool>(RTC_FROM_HERE, [this, &mid] {
-            RTC_DCHECK_RUN_ON(pc_->network_thread());
-            return pc_->SetupDataChannelTransport_n(mid);
-          })) {
-        return false;
-      }
-      // TODO(tommi): Is this necessary? SetupDataChannelTransport_n() above
-      // will have queued up updating the transport name on the signaling thread
-      // and could update the mid at the same time. This here is synchronous
-      // though, but it changes the state of PeerConnection and makes it be
-      // out of sync (transport name not set while the mid is set).
-      pc_->SetSctpDataMid(mid);
-      break;
-    case cricket::DCT_RTP:
-    default:
-      RtpTransportInternal* rtp_transport = pc_->GetRtpTransport(mid);
-      cricket::RtpDataChannel* data_channel =
-          channel_manager()->CreateRtpDataChannel(
-              pc_->configuration()->media_config, rtp_transport,
-              signaling_thread(), mid, pc_->SrtpRequired(),
-              pc_->GetCryptoOptions(), &ssrc_generator_);
-      if (!data_channel)
-        return false;
-
-      pc_->network_thread()->Invoke<void>(RTC_FROM_HERE, [this, data_channel] {
-        RTC_DCHECK_RUN_ON(pc_->network_thread());
-        pc_->SetupRtpDataChannelTransport_n(data_channel);
-      });
+  if (pc_->data_channel_type() == cricket::DCT_SCTP) {
+    pc_->CreateSctpDataChannel(mid);
+  } else {
+    if (pc_->CreateRtpDataChannel(mid, &ssrc_generator_)) {
       have_pending_rtp_data_channel_ = true;
-      break;
+    }
   }
+  // TODO(tommi): remove return type.
   return true;
 }
 
@@ -4745,8 +4722,8 @@ void SdpOfferAnswerHandler::DestroyDataChannelTransport() {
   if (has_sctp)
     pc_->ResetSctpDataMid();
 
-  if (rtp_data_channel)
-    DestroyChannelInterface(rtp_data_channel);
+  // `rtp_data_channel` has already been destroyed.
+  RTC_DCHECK(!data_channel_controller()->rtp_data_channel());
 }
 
 void SdpOfferAnswerHandler::DestroyChannelInterface(
@@ -4754,6 +4731,7 @@ void SdpOfferAnswerHandler::DestroyChannelInterface(
   RTC_DCHECK_RUN_ON(signaling_thread());
   RTC_DCHECK(channel_manager()->media_engine());
   RTC_DCHECK(channel);
+  RTC_DCHECK_NE(cricket::MEDIA_TYPE_DATA, channel->media_type());
 
   // TODO(bugs.webrtc.org/11992): All the below methods should be called on the
   // worker thread. (they switch internally anyway). Change
@@ -4769,10 +4747,6 @@ void SdpOfferAnswerHandler::DestroyChannelInterface(
     case cricket::MEDIA_TYPE_VIDEO:
       channel_manager()->DestroyVideoChannel(
           static_cast<cricket::VideoChannel*>(channel));
-      break;
-    case cricket::MEDIA_TYPE_DATA:
-      channel_manager()->DestroyRtpDataChannel(
-          static_cast<cricket::RtpDataChannel*>(channel));
       break;
     default:
       RTC_NOTREACHED() << "Unknown media type: " << channel->media_type();

@@ -198,6 +198,20 @@ rtc_library("chunk") {
   ]
 }
 
+
+rtc_library("chunk_validators") {
+  deps = [
+    ":chunk",
+    "../../../rtc_base",
+    "../../../rtc_base:checks",
+    "../../../rtc_base:rtc_base_approved",
+  ]
+  sources = [
+    "chunk_validators.h",
+    "chunk_validators.cc",
+  ]
+}
+
 rtc_library("sctp_packet") {
   deps = [
     ":crc32c",
@@ -220,6 +234,7 @@ if (rtc_include_tests) {
     deps = [
       ":bounded_io",
       ":chunk",
+      ":chunk_validators",
       ":crc32c",
       ":error_cause",
       ":parameter",
@@ -276,6 +291,7 @@ if (rtc_include_tests) {
       "parameter/supported_extensions_parameter_test.cc",
       "sctp_packet_test.cc",
       "tlv_trait_test.cc",
+      "chunk_validators_test.cc",
     ]
   }
 }

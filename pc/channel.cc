@@ -211,6 +211,9 @@ void BaseChannel::Init_w(webrtc::RtpTransportInternal* rtp_transport) {
 
 void BaseChannel::Deinit() {
   RTC_DCHECK_RUN_ON(worker_thread());
+  // TODO(tommi): There needs to be a way to avoid running this method if
+  // cleanup has already been done.
+
   media_channel_->SetInterface(/*iface=*/nullptr);
   // Packets arrive on the network thread, processing packets calls virtual
   // functions, so need to stop this process in Deinit that is called in
@@ -1270,36 +1273,60 @@ bool VideoChannel::SetRemoteContent_w(const MediaContentDescription* content,
   return true;
 }
 
-RtpDataChannel::RtpDataChannel(rtc::Thread* worker_thread,
-                               rtc::Thread* network_thread,
-                               rtc::Thread* signaling_thread,
-                               std::unique_ptr<DataMediaChannel> media_channel,
-                               const std::string& content_name,
-                               bool srtp_required,
-                               webrtc::CryptoOptions crypto_options,
-                               UniqueRandomIdGenerator* ssrc_generator)
+RtpDataChannel::RtpDataChannel(
+    rtc::Thread* worker_thread,
+    rtc::Thread* network_thread,
+    rtc::Thread* signaling_thread,
+    std::unique_ptr<DataMediaChannel> data_media_channel,
+    const std::string& content_name,
+    bool srtp_required,
+    webrtc::CryptoOptions crypto_options,
+    UniqueRandomIdGenerator* ssrc_generator)
     : BaseChannel(worker_thread,
                   network_thread,
                   signaling_thread,
-                  std::move(media_channel),
+                  std::move(data_media_channel),
                   content_name,
                   srtp_required,
                   crypto_options,
-                  ssrc_generator) {}
+                  ssrc_generator) {
+  media_channel()->SignalDataReceived.connect(this,
+                                              &RtpDataChannel::OnDataReceived);
+  media_channel()->SignalReadyToSend.connect(
+      this, &RtpDataChannel::OnDataChannelReadyToSend);
+}
 
 RtpDataChannel::~RtpDataChannel() {
   TRACE_EVENT0("webrtc", "RtpDataChannel::~RtpDataChannel");
   // this can't be done in the base class, since it calls a virtual
   DisableMedia_w();
-  Deinit();
+  if (!skip_deinit_in_destructor_)
+    Deinit();
 }
 
-void RtpDataChannel::Init_w(webrtc::RtpTransportInternal* rtp_transport) {
-  BaseChannel::Init_w(rtp_transport);
-  media_channel()->SignalDataReceived.connect(this,
-                                              &RtpDataChannel::OnDataReceived);
-  media_channel()->SignalReadyToSend.connect(
-      this, &RtpDataChannel::OnDataChannelReadyToSend);
+void RtpDataChannel::Destruct_n(std::unique_ptr<RtpDataChannel> channel) {
+  RTC_DCHECK_RUN_ON(channel->network_thread());
+  // Disconnect from the currently associated transport. This allows us to
+  // delete the channel object asynchronously on the worker thread while other
+  // operations continue on the network thread.
+  channel->Deinit_n();
+  auto* to_delete = channel.release();
+  to_delete->worker_thread()->PostTask(
+      ToQueuedTask([to_delete] { delete to_delete; }));
+}
+
+void RtpDataChannel::Init_n(webrtc::RtpTransportInternal* rtp_transport) {
+  RTC_DCHECK_RUN_ON(network_thread());
+  RTC_DCHECK(rtp_transport);
+  SetRtpTransport(rtp_transport);
+  media_channel()->SetInterface(this);
+}
+
+void RtpDataChannel::Deinit_n() {
+  RTC_DCHECK_RUN_ON(network_thread());
+  skip_deinit_in_destructor_ = true;
+  SetRtpTransport(nullptr);
+  media_channel()->SetInterface(nullptr);
 }
 
 bool RtpDataChannel::SendData(const SendDataParams& params,

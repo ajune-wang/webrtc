@@ -1563,6 +1563,9 @@ bool WebRtcVideoChannel::RemoveRecvStream(uint32_t ssrc) {
   }
   DeleteReceiveStream(stream->second);
   receive_streams_.erase(stream);
+  // Until the demuxer criteria has been updated, we have to be prepared for
+  // packets with this ssrc to arrive late.
+  recently_removed_receive_streams_[demuxer_criteria_id_].insert(ssrc);
 
   return true;
 }
@@ -1585,6 +1588,26 @@ void WebRtcVideoChannel::ResetUnsignaledRecvStream() {
       ++it;
     }
   }
+}
+
+void WebRtcVideoChannel::OnDemuxerCriteriaUpdatePending() {
+  RTC_DCHECK_RUN_ON(&thread_checker_);
+  ++demuxer_criteria_id_;
+}
+
+void WebRtcVideoChannel::OnDemuxerCriteriaUpdateComplete() {
+  RTC_DCHECK_RUN_ON(&network_thread_checker_);
+  uint32_t obsolete_demuxer_criteria_id = demuxer_criteria_completed_id_;
+  ++demuxer_criteria_completed_id_;
+  worker_thread_->PostTask(
+      ToQueuedTask(task_safety_, [this, obsolete_demuxer_criteria_id] {
+        RTC_DCHECK_RUN_ON(&thread_checker_);
+        auto it = recently_removed_receive_streams_.find(
+            obsolete_demuxer_criteria_id);
+        if (it != recently_removed_receive_streams_.end()) {
+          recently_removed_receive_streams_.erase(it);
+        }
+      }));
 }
 
 bool WebRtcVideoChannel::SetSink(
@@ -1751,6 +1774,17 @@ void WebRtcVideoChannel::OnPacketReceived(rtc::CopyOnWriteBuffer packet,
         }
         if (payload_type == recv_flexfec_payload_type_) {
           return;
+        }
+
+        // Ignore ssrcs of streams that were recently removed. This prevents
+        // creating unsginalled receive streams for m= sections that go from
+        // receiving to inactive while packets are still in-flight (in a posted
+        // task from the network thread to the worker thread). These are cleared
+        // every time the demuxer criteria is updated.
+        for (const auto& pair : recently_removed_receive_streams_) {
+          if (pair.second.find(ssrc) != pair.second.end()) {
+            return;
+          }
         }
 
         switch (unsignalled_ssrc_handler_->OnUnsignalledSsrc(this, ssrc)) {

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9381ee23_40f6d60c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 22
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7133
+      },
+      "writtenOn": "2021-04-12T15:40:30Z",
+      "side": 1,
+      "message": "Added a few comments on reassembly",
+      "revId": "8a13d2ca9fe195412ebdd45179fbbb1a75ad97db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -34,6 +34,40 @@
       "parentUuid": "d59bfb41_10ef4440",
       "revId": "d0a4bed6dd7d4b7603843b098d988a654e0cdada",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1fe4da3c_ef88d7b2",
+        "filename": "net/dcsctp/rx/traditional_reassembly_streams.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 7133
+      },
+      "writtenOn": "2021-04-12T15:40:30Z",
+      "side": 1,
+      "message": "Since you have to iterate though anyhow, it might be worthwhile to make sure that the first fragment is a begin, the middle ones are all middles and the last one is the end. Otherwise, you could have more than one begin and not know it. I don\u0027t think this would cause specific problems with this code, but I\u0027ve seen problems of this type in other protocols that involve fragmentation, so it would increase robustness as more stuff is added.",
+      "revId": "d0a4bed6dd7d4b7603843b098d988a654e0cdada",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a17c0ea7_c8dd8ea6",
+        "filename": "net/dcsctp/rx/traditional_reassembly_streams.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 7133
+      },
+      "writtenOn": "2021-04-12T15:40:30Z",
+      "side": 1,
+      "message": "What happens here if chunks are out-of-order? For example, if the end chunk is received before the begin one. It looks like it will just return a message with size 0, but it would be safer to check whether this is the case up front and return immediately and just return, so the code is still safe if more gets added.",
+      "revId": "d0a4bed6dd7d4b7603843b098d988a654e0cdada",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

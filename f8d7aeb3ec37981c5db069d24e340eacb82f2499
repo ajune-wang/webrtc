@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a8286ed_e839f592",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-04-12T22:10:46Z",
+      "side": 1,
+      "message": "LGTM, though I don\u0027t have context on this since I wasn\u0027t around when it was added.",
+      "revId": "f8d7aeb3ec37981c5db069d24e340eacb82f2499",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

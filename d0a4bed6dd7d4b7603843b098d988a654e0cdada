@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5b0586d3_8e06e049",
+        "filename": "net/dcsctp/rx/traditional_reassembly_streams.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-12T20:32:49Z",
+      "side": 1,
+      "message": "The algorithm (even if it\u0027s not quite optimal) should only assemble messages once a beginning is found (when FindBeginning has found a chunk with \"beginning\" flag set) and an end is found (when FindEnd has found a chunk with \"end\" flag set).\n\nIf invalid data was received, it would assemble an invalid message. It could detect this, and issue an ABORT(PROTOCOL_VIOLATION), as e.g if the queue had the following contents:\n\nTSN 10 BEGIN\nTSN 11 (not received yet)\nTSN 12 BEGIN\nTSN 13 MIDDLE\nTSN 14 END\n\n... and then TSN 11 was received with would be a MIDDLE (I said it was illegal). \n\nToday, it would assemble a message from TSN 10--TSN 14.\n\nI haven\u0027t actually considered validating received data chunks, so I need to think about how to signal that to the upper layers (this is detected quite low). I\u0027ll leave this one unresolved while I\u0027m thinking. Thanks! Or was there some other concerns?",
+      "parentUuid": "1fe4da3c_ef88d7b2",
+      "revId": "d0a4bed6dd7d4b7603843b098d988a654e0cdada",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a17c0ea7_c8dd8ea6",
         "filename": "net/dcsctp/rx/traditional_reassembly_streams.cc",
         "patchSetId": 19
@@ -66,6 +84,24 @@
       "writtenOn": "2021-04-12T15:40:30Z",
       "side": 1,
       "message": "What happens here if chunks are out-of-order? For example, if the end chunk is received before the begin one. It looks like it will just return a message with size 0, but it would be safer to check whether this is the case up front and return immediately and just return, so the code is still safe if more gets added.",
+      "revId": "d0a4bed6dd7d4b7603843b098d988a654e0cdada",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "484464f9_55525194",
+        "filename": "net/dcsctp/rx/traditional_reassembly_streams.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-12T20:32:49Z",
+      "side": 1,
+      "message": "The return value of this method just indicates how much bytes that were removed from the queue - the message is \"returned\" (or well, assembled) when calling AssembleMessage(*start, *end), which only happens if we - from the current iterator `iter` can iterate \"to the left\" until it finds a chunk with the \"BEGINNING\" flag, and \"to the right\" until it finds an chunk with the \"END\" flag. And this \"walking left or right\" in FindBeginning/FindEnd will return absl::nullopt if it find any gaps in TSNs. \n\nSo due to this, the algorithm should handle out-of-order chunks, which is validated by the test case ReassemblyQueueTest::LargeUnorderedChunkAllPermutations\n\nWith this explanation, do you think it\u0027s okey? I can add more comments in the code as well.",
+      "parentUuid": "a17c0ea7_c8dd8ea6",
       "revId": "d0a4bed6dd7d4b7603843b098d988a654e0cdada",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

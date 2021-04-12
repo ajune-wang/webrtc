@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d540fc4a_45e10fca",
+        "filename": "rtc_base/async_resolver.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-04-12T13:42:03Z",
+      "side": 1,
+      "message": "Somewhat done but changing the PlatformThread interface is for a different CL.",
+      "parentUuid": "3cee525a_052e3e53",
+      "revId": "571249092447867476274271afd894bedad36d68",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c6e3099d_2b2a7d5a",

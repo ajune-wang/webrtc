@@ -33,6 +33,23 @@
       "message": "This is just a wrapper around the argument list to RunResolution, right?\nCould we avoid this (and the ugly void* casting) by letting the thread() constructor take a std::function(void) and passing it a lambda with bound arguments?\n\nThat would actually make the code much more similar to the old one, which is also a nested lambda....",
       "revId": "571249092447867476274271afd894bedad36d68",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6e3099d_2b2a7d5a",
+        "filename": "rtc_base/async_resolver.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-12T12:17:36Z",
+      "side": 1,
+      "message": "Is there a chance that `caller_task_queue` has been deleted?",
+      "revId": "571249092447867476274271afd894bedad36d68",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

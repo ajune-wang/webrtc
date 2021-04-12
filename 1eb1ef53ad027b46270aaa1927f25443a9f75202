@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b92777b_fca6fe64",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-04-12T09:49:04Z",
+      "side": 1,
+      "message": "Please take a look, Harald and Taylor!\n\nIf we can agree to land this soon we could even backmerge it to M91 since the branch point was only a few days ago.",
+      "revId": "1eb1ef53ad027b46270aaa1927f25443a9f75202",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "496f7ed3_2709760f",
+        "filename": "media/engine/webrtc_video_engine.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-04-12T09:49:04Z",
+      "side": 1,
+      "message": "If we didn\u0027t want to support the possibility of having multiple pending demuxer updates being in-flight at the same time this could have been simplified to a single set that gets cleared at OnDemuxerCriteriaUpdateComplete(). And in fact, because BaseChannel::RegisterRtpDemuxerSink_w() does a block-invoke we will in practise only ever have a single demuxer update pending at a time.\n\nHowever I think block-invokes are the devil, so I decided to make this code future-proof in case we ever remove that block-invoke.\n\nAlso, I am using an std::map\u003cK,V\u003e instead of an std::queue\u003cV\u003e, even though the id is just an incrementing counter, because I wanted to avoid having to introduce a lock. The map allows me to only access recently_removed_receive_streams_ on the worker thread.",
+      "revId": "1eb1ef53ad027b46270aaa1927f25443a9f75202",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9565a806_c85fca76",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2073,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-04-12T09:49:04Z",
+      "side": 1,
+      "message": "This might be worth fixing as a separate issue.",
+      "revId": "1eb1ef53ad027b46270aaa1927f25443a9f75202",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

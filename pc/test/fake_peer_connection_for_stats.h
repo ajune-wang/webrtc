@@ -329,6 +329,7 @@ class FakePeerConnectionForStats : public FakePeerConnectionBase {
   }
 
   std::map<std::string, std::string> GetTransportNamesByMid() const override {
+    RTC_DCHECK_RUN_ON(network_thread_);
     std::map<std::string, std::string> transport_names_by_mid;
     if (voice_channel_) {
       transport_names_by_mid[voice_channel_->content_name()] =
@@ -343,6 +344,7 @@ class FakePeerConnectionForStats : public FakePeerConnectionBase {
 
   std::map<std::string, cricket::TransportStats> GetTransportStatsByNames(
       const std::set<std::string>& transport_names) override {
+    RTC_DCHECK_RUN_ON(network_thread_);
     std::map<std::string, cricket::TransportStats> transport_stats_by_name;
     for (const std::string& transport_name : transport_names) {
       transport_stats_by_name[transport_name] =

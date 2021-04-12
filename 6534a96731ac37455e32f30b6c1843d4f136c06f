@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0c27729_6174a6e1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-12T09:09:10Z",
+      "side": 1,
+      "message": "Tommi for file ownership, Artem for conformance to g3doc structure.\n",
+      "revId": "6534a96731ac37455e32f30b6c1843d4f136c06f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

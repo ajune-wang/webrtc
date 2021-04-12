@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48e04dbd_a63483f7",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1785,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-04-12T21:41:40Z",
+      "side": 1,
+      "message": "It\u0027s probably much more rare, but this bug could also theoretically happen with non-recently removed streams.\n\nSuppose we start with one video m\u003d section, which will be configured to receive all video packets, and we\u0027re upgrading to two sections. A packet might be received and enqueued from the second video track before the demux criteria changes, and also before a receive stream is created for it.\n\nThat\u0027s why in my original CL, I just drop any packets if the demux version doesn\u0027t match. I figured it was worth the risk that valid packets from the start of a track are dropped, though that\u0027s debatable.",
+      "revId": "e6ee3308b83e29d0e580bc64b3a7cec7fb7b19c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

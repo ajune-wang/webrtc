@@ -86,6 +86,24 @@
       "parentUuid": "c6e3099d_2b2a7d5a",
       "revId": "571249092447867476274271afd894bedad36d68",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7824ac6_2f474c38",
+        "filename": "rtc_base/async_resolver.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-04-12T18:13:48Z",
+      "side": 1,
+      "message": "Resolving for now as we\u0027re fixed in PS17+.",
+      "parentUuid": "6e0be5df_5d0f90a5",
+      "revId": "571249092447867476274271afd894bedad36d68",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

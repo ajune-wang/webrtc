@@ -79,6 +79,30 @@
       },
       "revId": "ec0d3d4d11c46d6754ec08bee14b66e2c3eb1ea6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2890103d_1d51722b",
+        "filename": "sdk/android/src/jni/video_codec_info.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2021-04-12T12:43:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8d1ebd7_40e8e548",
+      "range": {
+        "startLine": 39,
+        "startChar": 6,
+        "endLine": 39,
+        "endChar": 27
+      },
+      "revId": "ec0d3d4d11c46d6754ec08bee14b66e2c3eb1ea6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

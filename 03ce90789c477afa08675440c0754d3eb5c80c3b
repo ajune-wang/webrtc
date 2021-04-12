@@ -213,6 +213,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e968f5c0_f8e02597",
+        "filename": "test/pc/e2e/g3doc/index.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-12T23:33:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f61683b6_92272229",
+      "range": {
+        "startLine": 39,
+        "startChar": 12,
+        "endLine": 39,
+        "endChar": 15
+      },
+      "revId": "03ce90789c477afa08675440c0754d3eb5c80c3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "79ce1d71_b5fa3192",

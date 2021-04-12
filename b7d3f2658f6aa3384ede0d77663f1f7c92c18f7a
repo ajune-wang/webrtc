@@ -16,6 +16,23 @@
       "message": "Am I reading this correctly that it obscures IP addresses while we\u0027re debugging?\n\nThat doesn\u0027t make me happy.....\n",
       "revId": "b7d3f2658f6aa3384ede0d77663f1f7c92c18f7a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fe666b6_c39185c7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2021-04-12T20:18:14Z",
+      "side": 1,
+      "message": "As an option I could probably live with only unresolved addresses logged in original CL caused issue (I could do reland with such changes).",
+      "revId": "b7d3f2658f6aa3384ede0d77663f1f7c92c18f7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

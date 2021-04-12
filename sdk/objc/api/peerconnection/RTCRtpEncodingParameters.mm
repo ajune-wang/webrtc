@@ -24,6 +24,7 @@
 @synthesize ssrc = _ssrc;
 @synthesize bitratePriority = _bitratePriority;
 @synthesize networkPriority = _networkPriority;
+@synthesize adaptivePacketTime = _adaptivePacketTime;
 
 - (instancetype)init {
   return [super init];
@@ -60,6 +61,7 @@
     _bitratePriority = nativeParameters.bitrate_priority;
     _networkPriority = [RTC_OBJC_TYPE(RTCRtpEncodingParameters)
         priorityFromNativePriority:nativeParameters.network_priority];
+    _adaptivePacketTime = nativeParameters.adaptive_ptime;
   }
   return self;
 }
@@ -92,6 +94,7 @@
   parameters.bitrate_priority = _bitratePriority;
   parameters.network_priority =
       [RTC_OBJC_TYPE(RTCRtpEncodingParameters) nativePriorityFromPriority:_networkPriority];
+  parameters.adaptive_ptime = _adaptivePacketTime;
   return parameters;
 }
 

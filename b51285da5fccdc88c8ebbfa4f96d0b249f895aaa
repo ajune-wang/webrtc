@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "ff4cc68a_ed249641",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 49
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-12T09:45:39Z",
+      "side": 1,
+      "message": "Hah - looks like I\u0027ve consistently copy/pasted that typo all over the cl. Thanks",
+      "parentUuid": "17036a9b_1b1326b7",
+      "revId": "b51285da5fccdc88c8ebbfa4f96d0b249f895aaa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "1d188ef6_448c9a14",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 49
@@ -54,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "07ff45ac_99dd8762",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 49
+      },
+      "lineNbr": 2165,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-12T09:45:39Z",
+      "side": 1,
+      "message": "Now that the \u0027s\u0027 is back I hope this looks better.. but how you describe what the function does sounds backwards to me (hence I can understand why the name might sound misleading). But the function *does* enumerate transceivers one by one and it *does not* invoke callbacks on them.\n\n\"IterateOverTransceivers\" and \"ForEachTransceiver\" could work as names - but both of those imply enumerating the transceivers (as in \"mention (a number of things) one by one\") to the callback.\n\nHere\u0027s a classic example of a function like this:\nhttps://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-enumwindows",
+      "parentUuid": "18acca31_16da4687",
+      "revId": "b51285da5fccdc88c8ebbfa4f96d0b249f895aaa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1c7ee63d_d5d10936",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 49
@@ -65,6 +101,24 @@
       "writtenOn": "2021-04-12T06:14:54Z",
       "side": 1,
       "message": "I\u0027d like to make GetStats go directly to rtp_manager() for this. RtpTransmissionManager was written to (quote class comment):\n\n// The RtpTransmissionManager class is responsible for managing the lifetime\n// and relationships between objects of type RtpSender, RtpReceiver and\n// RtpTransceiver.",
+      "revId": "b51285da5fccdc88c8ebbfa4f96d0b249f895aaa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4a34a28_3468fa4d",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 49
+      },
+      "lineNbr": 2169,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-12T09:45:39Z",
+      "side": 1,
+      "message": "GetStats() already has a loop like this actually. This function isn\u0027t directly related to GetStats() though. Can you give some pseudo code of the change you\u0027d like to see?",
+      "parentUuid": "1c7ee63d_d5d10936",
       "revId": "b51285da5fccdc88c8ebbfa4f96d0b249f895aaa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -86,6 +140,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "da8fa46a_f19446ee",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 49
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-12T09:45:39Z",
+      "side": 1,
+      "message": "copy/paste strikes again!",
+      "parentUuid": "c0a26be7_9cb20fd6",
+      "revId": "b51285da5fccdc88c8ebbfa4f96d0b249f895aaa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d31a7f1d_cc9f5493",
@@ -103,6 +175,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "380b1679_1845659e",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 49
+      },
+      "lineNbr": 2053,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-12T09:45:39Z",
+      "side": 1,
+      "message": "Done, thanks. Yes this variable isn\u0027t a good fit as a member variable of the RTCStatsCollector class because it\u0027s naturally scoped within a set of stats gathering operations, cleare()-ed at the beginning and end of such an operation. A future improvement could remove the member variable and have it exist only while we\u0027re gathering stats (and pass ownership around as operations are performed).",
+      "parentUuid": "d31a7f1d_cc9f5493",
+      "revId": "b51285da5fccdc88c8ebbfa4f96d0b249f895aaa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "61e3a3c8_304600d4",
@@ -116,6 +206,24 @@
       "writtenOn": "2021-04-12T06:14:54Z",
       "side": 1,
       "message": "Can you add an \"assert plan B\" here? This is deeply bogus for Unified Plan.",
+      "revId": "b51285da5fccdc88c8ebbfa4f96d0b249f895aaa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "880053cd_af57b1be",
+        "filename": "pc/test/fake_peer_connection_for_stats.h",
+        "patchSetId": 49
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-12T09:45:39Z",
+      "side": 1,
+      "message": "These fake classes don\u0027t hold sdp semantic state. They\u0027re essentially bare bones containers for the purposes of testing the stats classes.",
+      "parentUuid": "61e3a3c8_304600d4",
       "revId": "b51285da5fccdc88c8ebbfa4f96d0b249f895aaa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

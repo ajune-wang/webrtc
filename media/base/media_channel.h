@@ -206,6 +206,13 @@ class MediaChannel : public sigslot::has_slots<> {
   // Resets any cached StreamParams for an unsignaled RecvStream, and removes
   // any existing unsignaled streams.
   virtual void ResetUnsignaledRecvStream() = 0;
+  // Informs the media channel when the demuxer criteria is updated.
+  // OnDemuxerCriteriaUpdatePending() happens on the same thread that the
+  // channel's streams are added or removed. OnDemuxerCriteriaUpdateComplete()
+  // happens on the thread where the demuxer lives, which may be a separate
+  // network thread.
+  virtual void OnDemuxerCriteriaUpdatePending() = 0;
+  virtual void OnDemuxerCriteriaUpdateComplete() = 0;
   // Returns the absoulte sendtime extension id value from media channel.
   virtual int GetRtpSendTimeExtnId() const;
   // Set the frame encryptor to use on all outgoing frames. This is optional.

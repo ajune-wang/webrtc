@@ -33,6 +33,24 @@
       "message": "Why isn\u0027t this relevant for audio?\nShould be less impactful, because we usually have fewer audio SSRCs, but if it\u0027s logical for video, it should be logical for audio. Making the two paths more different is not a Good Thing.",
       "revId": "b8f2d9c412ef4e0373ea29b642a2dd0872884ae0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d15888c_1b140de7",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2075,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-04-12T13:28:10Z",
+      "side": 1,
+      "message": "This is relevant for both audio and video, and we should fix this for audio as well.\nI filed https://crbug.com/webrtc/12676 for that. I think video is P-1 and audio is P-2. In the follow-up issue we can explore if we can refactor and reuse the same code in both places or if we need to write similar code in two places.\n\nBut for now, I\u0027m only fixing the video case to keep things simple - I want to backmerge this fix if possible.\n\nI added a TODO.",
+      "parentUuid": "cfcddf25_bb79341d",
+      "revId": "b8f2d9c412ef4e0373ea29b642a2dd0872884ae0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

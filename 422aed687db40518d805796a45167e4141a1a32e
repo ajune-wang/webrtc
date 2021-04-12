@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76cfa2e5_5730279f",
+        "filename": "net/dcsctp/tx/retransmission_queue.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-12T14:13:21Z",
+      "side": 1,
+      "message": "should t3_rtx be passed by reference to indicate that null is not an option?",
+      "revId": "422aed687db40518d805796a45167e4141a1a32e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7691f42b_58df04bd",
+        "filename": "net/dcsctp/tx/retransmission_queue.h",
+        "patchSetId": 27
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-12T14:13:21Z",
+      "side": 1,
+      "message": "worth adding a link at class level to explain the t3-rtx timer?",
+      "revId": "422aed687db40518d805796a45167e4141a1a32e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

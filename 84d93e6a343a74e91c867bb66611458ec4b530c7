@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93992c7e_fbae7d2f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-12T19:51:34Z",
+      "side": 1,
+      "message": "Yura, I will create a reland after the downstream project is fixed.",
+      "revId": "84d93e6a343a74e91c867bb66611458ec4b530c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

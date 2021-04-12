@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "732a612b_6d09ee2a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-04-12T08:29:55Z",
+      "side": 1,
+      "message": "This is actually the interface I\u0027m implementing to add another SCTP backend as it is was the factory is returning, so we should probably keep the name for now.\nAs this is pure renaming, if you want to suggest changes to that interface, we can do that on another channel and I\u0027m totally open to that :)",
+      "parentUuid": "278df3f7_8ba30b3e",
+      "revId": "095592cda52f92a5e388f432aded6f1bcbe24495",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "43f918fc_0c3fc983",
@@ -31,6 +49,24 @@
       "writtenOn": "2021-04-12T05:24:12Z",
       "side": 1,
       "message": "has there been a decision on whether or not the new dcSCTP-based API is going to involve the cricket namespace?\n\nIf not, I suggest that we rename SctpTransportInternal to UsrSctpTransportInternal while we\u0027re at it.",
+      "revId": "095592cda52f92a5e388f432aded6f1bcbe24495",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf32a863_96e7347b",
+        "filename": "media/sctp/usrsctp_transport.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-04-12T08:29:55Z",
+      "side": 1,
+      "message": "No decision at all about namespaces, but all the components right now are in cricket, so my WIP implementation is also using cricket. We can definitely change that too during review.\nSince SctpTransportInternal is the base interface for SCTP implementation according to the factory, I don\u0027t think we should change it now, unless we want to make it harder on us to add another backend.",
+      "parentUuid": "43f918fc_0c3fc983",
       "revId": "095592cda52f92a5e388f432aded6f1bcbe24495",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

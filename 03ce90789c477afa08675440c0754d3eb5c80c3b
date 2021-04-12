@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d118977_90142939",
+        "filename": "test/pc/e2e/g3doc/index.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-12T14:31:24Z",
+      "side": 1,
+      "message": "Level Framework\n\n(let\u0027s use capital letters)",
+      "range": {
+        "startLine": 3,
+        "startChar": 17,
+        "endLine": 3,
+        "endChar": 32
+      },
+      "revId": "03ce90789c477afa08675440c0754d3eb5c80c3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41bfb105_f2621ca3",
+        "filename": "test/pc/e2e/g3doc/index.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-12T14:31:24Z",
+      "side": 1,
+      "message": "Let\u0027s keep these on the same bullet point (e.g. Input video from a file or generated on the fly)",
+      "range": {
+        "startLine": 33,
+        "startChar": 8,
+        "endLine": 34,
+        "endChar": 33
+      },
+      "revId": "03ce90789c477afa08675440c0754d3eb5c80c3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "096f3a6c_affd521b",
+        "filename": "test/pc/e2e/g3doc/index.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-12T14:31:24Z",
+      "side": 1,
+      "message": "Also this one should go on the previous point.\n\nMaybe add a:\n\n* Input Video:\n  * ...\n  * ...\n\n?",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 76
+      },
+      "revId": "03ce90789c477afa08675440c0754d3eb5c80c3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15f375d9_09efc730",
+        "filename": "test/pc/e2e/g3doc/index.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-12T14:31:24Z",
+      "side": 1,
+      "message": "KSVC?",
+      "range": {
+        "startLine": 39,
+        "startChar": 12,
+        "endLine": 39,
+        "endChar": 15
+      },
+      "revId": "03ce90789c477afa08675440c0754d3eb5c80c3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79ce1d71_b5fa3192",
+        "filename": "test/pc/e2e/g3doc/index.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-12T14:31:24Z",
+      "side": 1,
+      "message": "Should we add a grouping here? Maybe also on previous points.\n\nHere maybe:\n\n * FEC:\n    * UPP\n    * Flex\n\nOther main categories are \"Input Video\", \"Output dumps\", \"Codecs configs on caller side\", etc..",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 16
+      },
+      "revId": "03ce90789c477afa08675440c0754d3eb5c80c3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d82d543_35f4ee07",
+        "filename": "test/pc/e2e/g3doc/index.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-12T14:31:24Z",
+      "side": 1,
+      "message": "Is this a thing to document or it is what we need to do in order to activate the previous features? If this is the case, I think we should not have this list (which is long to read and doesn\u0027t provide real information and maybe move it to a later point).\n\nIf you instead add what each injection enables (e.g. ULP FEC is enabled by ...), then it becomes really useful for the reader.",
+      "range": {
+        "startLine": 53,
+        "startChar": 4,
+        "endLine": 53,
+        "endChar": 16
+      },
+      "revId": "03ce90789c477afa08675440c0754d3eb5c80c3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

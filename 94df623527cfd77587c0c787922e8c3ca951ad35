@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7811918_0436615a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-12T14:45:50Z",
+      "side": 1,
+      "message": "It seems that this was implemented (in 2018) but never used.",
+      "revId": "94df623527cfd77587c0c787922e8c3ca951ad35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

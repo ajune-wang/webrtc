@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17036a9b_1b1326b7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 49
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-12T06:14:54Z",
+      "side": 1,
+      "message": "Can we get the \"s\" back into Transceivers?",
+      "revId": "b51285da5fccdc88c8ebbfa4f96d0b249f895aaa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d188ef6_448c9a14",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 49
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-12T06:14:54Z",
+      "side": 1,
+      "message": "I think this works, but I think we should move and rename things a bit.\n",
+      "revId": "b51285da5fccdc88c8ebbfa4f96d0b249f895aaa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18acca31_16da4687",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 49
+      },
+      "lineNbr": 2165,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-12T06:14:54Z",
+      "side": 1,
+      "message": "I think the name is misleading; it doesn\u0027t enumerate transceivers, it invokes a callback on them.\n\nIterateOverTransceivers? MapTransceivers? ForEachTrasnceiver?",
+      "revId": "b51285da5fccdc88c8ebbfa4f96d0b249f895aaa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c7ee63d_d5d10936",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 49
+      },
+      "lineNbr": 2169,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-12T06:14:54Z",
+      "side": 1,
+      "message": "I\u0027d like to make GetStats go directly to rtp_manager() for this. RtpTransmissionManager was written to (quote class comment):\n\n// The RtpTransmissionManager class is responsible for managing the lifetime\n// and relationships between objects of type RtpSender, RtpReceiver and\n// RtpTransceiver.",
+      "revId": "b51285da5fccdc88c8ebbfa4f96d0b249f895aaa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0a26be7_9cb20fd6",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 49
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-12T06:14:54Z",
+      "side": 1,
+      "message": "tranceivers -\u003e transceivers",
+      "revId": "b51285da5fccdc88c8ebbfa4f96d0b249f895aaa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d31a7f1d_cc9f5493",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 49
+      },
+      "lineNbr": 2053,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-12T06:14:54Z",
+      "side": 1,
+      "message": "Now that you write transceiver_stats_infos_ on the network thread, the comment in rtc_stats_collector_ needs changing. (the downside of relegating thread safety to commentary not guards....)",
+      "revId": "b51285da5fccdc88c8ebbfa4f96d0b249f895aaa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61e3a3c8_304600d4",
+        "filename": "pc/test/fake_peer_connection_for_stats.h",
+        "patchSetId": 49
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-12T06:14:54Z",
+      "side": 1,
+      "message": "Can you add an \"assert plan B\" here? This is deeply bogus for Unified Plan.",
+      "revId": "b51285da5fccdc88c8ebbfa4f96d0b249f895aaa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c9564ea_77b81381",
+        "filename": "media/sctp/sctp_transport_reliability_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-04-12T00:42:52Z",
+      "side": 1,
+      "message": "I tried running this test today and failed, looks like this needs to use ScopedTaskSafetyDetached.",
+      "revId": "128faf8a23e040eb0eb5ba87615c5382dc5401a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

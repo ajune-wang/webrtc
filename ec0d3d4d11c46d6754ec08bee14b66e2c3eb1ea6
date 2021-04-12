@@ -16,6 +16,52 @@
       "message": "Hello Fyodor and Markus!\n\nI\u0027ve noticed you\u0027ve recently did some changes related to AV1 codec in WebRTC. This CL seems to be stuck without review. Could please maybe suggest someone from Google/WebRTC who might be interested in reviewing this CL?\n\nThanks a lot in advance,\nYura.",
       "revId": "ec0d3d4d11c46d6754ec08bee14b66e2c3eb1ea6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7fb409e0_4c692942",
+        "filename": "sdk/android/src/jni/video_codec_info.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-04-12T11:30:32Z",
+      "side": 1,
+      "message": "\"AV1X\" was just the temporary name we used while the RTP spec was being developed, now we want to change it to just \"AV1\".\n\nThis is still the right thing to do for now, but later on when receivers know that \"AV1\" and \"AV1X\" means the same thing then we can remove this.",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 10
+      },
+      "revId": "ec0d3d4d11c46d6754ec08bee14b66e2c3eb1ea6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8d1ebd7_40e8e548",
+        "filename": "sdk/android/src/jni/video_codec_info.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-04-12T11:30:32Z",
+      "side": 1,
+      "message": "Please change this to:\n  if (format.name \u003d\u003d \"AV1X\" || format.name \u003d\u003d \"AV1\")",
+      "range": {
+        "startLine": 39,
+        "startChar": 6,
+        "endLine": 39,
+        "endChar": 27
+      },
+      "revId": "ec0d3d4d11c46d6754ec08bee14b66e2c3eb1ea6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

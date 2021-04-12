@@ -16,6 +16,23 @@
       "message": "That\u0027s what you get for adding me as reviewer - lots of nits :-)\n\n",
       "revId": "3a7dad1c024bc355baa267986853351db26cd7db",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95858787_58985141",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2021-04-12T13:50:44Z",
+      "side": 1,
+      "message": "thanks, submitting!",
+      "revId": "3a7dad1c024bc355baa267986853351db26cd7db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

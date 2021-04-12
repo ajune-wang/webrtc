@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99e032cf_df6b95ad",
+        "filename": "g3doc/sitemap.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-12T12:49:56Z",
+      "side": 1,
+      "message": "Maybe\nNetwork\n*    [ICE](/p2p/g3doc/index.md)\n*    DTLS\n*    STUN\n*    TURN",
+      "range": {
+        "startLine": 7,
+        "startChar": 8,
+        "endLine": 7,
+        "endChar": 33
+      },
+      "revId": "ef3f27d38786018d4b18dc116b8e2d71bb935214",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7697f078_e54c7c84",
+        "filename": "g3doc/sitemap.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-12T12:49:56Z",
+      "side": 1,
+      "message": "(/p2p",
+      "range": {
+        "startLine": 7,
+        "startChar": 13,
+        "endLine": 7,
+        "endChar": 17
+      },
+      "revId": "ef3f27d38786018d4b18dc116b8e2d71bb935214",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "501074b3_2e84c02a",
+        "filename": "p2p/g3doc/index.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-12T12:49:56Z",
+      "side": 1,
+      "message": "Maybe add a link on what ICE stands for?",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 3
+      },
+      "revId": "ef3f27d38786018d4b18dc116b8e2d71bb935214",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61d0eba8_3ca376e5",
+        "filename": "p2p/g3doc/index.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-12T12:49:56Z",
+      "side": 1,
+      "message": "Maybe add a bullet point for each port explaining the abstraction represented by this port?",
+      "range": {
+        "startLine": 22,
+        "startChar": 4,
+        "endLine": 22,
+        "endChar": 24
+      },
+      "revId": "ef3f27d38786018d4b18dc116b8e2d71bb935214",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc8e6629_cf076803",
+        "filename": "p2p/g3doc/index.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-12T12:49:56Z",
+      "side": 1,
+      "message": "Maybe add a bullet point explaining meaning of each candidate type?",
+      "range": {
+        "startLine": 34,
+        "startChar": 16,
+        "endLine": 34,
+        "endChar": 51
+      },
+      "revId": "ef3f27d38786018d4b18dc116b8e2d71bb935214",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8cadcd1e_c3671c79",
+        "filename": "p2p/g3doc/index.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-12T12:49:56Z",
+      "side": 1,
+      "message": "Maybe also briefly tell which ICE states exist and what do they mean a put a link to the standard where it can be found?",
+      "range": {
+        "startLine": 56,
+        "startChar": 70,
+        "endLine": 57,
+        "endChar": 10
+      },
+      "revId": "ef3f27d38786018d4b18dc116b8e2d71bb935214",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d0b642c_ab204a4b",
+        "filename": "p2p/g3doc/index.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-12T12:49:56Z",
+      "side": 1,
+      "message": "use",
+      "range": {
+        "startLine": 61,
+        "startChar": 31,
+        "endLine": 61,
+        "endChar": 36
+      },
+      "revId": "ef3f27d38786018d4b18dc116b8e2d71bb935214",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cce7f73d_42cdcea1",
+        "filename": "p2p/g3doc/index.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-12T12:49:56Z",
+      "side": 1,
+      "message": "to",
+      "range": {
+        "startLine": 61,
+        "startChar": 65,
+        "endLine": 61,
+        "endChar": 66
+      },
+      "revId": "ef3f27d38786018d4b18dc116b8e2d71bb935214",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54443d43_8cfe8dfb",
+        "filename": "p2p/g3doc/index.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-12T12:49:56Z",
+      "side": 1,
+      "message": "When",
+      "range": {
+        "startLine": 67,
+        "startChar": 4,
+        "endLine": 67,
+        "endChar": 7
+      },
+      "revId": "ef3f27d38786018d4b18dc116b8e2d71bb935214",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

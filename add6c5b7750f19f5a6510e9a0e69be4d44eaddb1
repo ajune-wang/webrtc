@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8db1aadc_cedb52c3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-12T04:48:56Z",
+      "side": 1,
+      "message": "I coded this death test in a style that worked, rather than debug further why the loop method did not work. YMMV.\n\nSince the error message seems to be wrong on more platforms than RTC_DEATH_TEST allows for, I limited the test to Linux only for this iteration.\n",
+      "revId": "add6c5b7750f19f5a6510e9a0e69be4d44eaddb1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

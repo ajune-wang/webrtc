@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f15d5710_283a8405",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 40
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-12T20:15:12Z",
+      "side": 1,
+      "message": "Thanks - Added proposal for fixes in https://webrtc-review.googlesource.com/c/src/+/215063 - please comment there!",
+      "revId": "6fa0cfa4ddca568c266eb1d18b1ed3b77da89bf1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0cb67fa0_f1d93215",
@@ -14,6 +31,30 @@
       "writtenOn": "2021-04-12T18:31:33Z",
       "side": 1,
       "message": "If expiration_count is too high, this could overflow. Should either add a check that it\u0027s within a boundary, or return a max time if it\u0027s too high. (Also check for -ve in case expiration_count itself overflows.)",
+      "range": {
+        "startLine": 34,
+        "startChar": 47,
+        "endLine": 34,
+        "endChar": 63
+      },
+      "revId": "6fa0cfa4ddca568c266eb1d18b1ed3b77da89bf1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eddf934e_70e7a724",
+        "filename": "net/dcsctp/timer/timer.cc",
+        "patchSetId": 40
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-12T20:15:12Z",
+      "side": 1,
+      "message": "Thanks - fixed!",
+      "parentUuid": "0cb67fa0_f1d93215",
       "range": {
         "startLine": 34,
         "startChar": 47,
@@ -47,6 +88,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "80815007_9be6101f",
+        "filename": "net/dcsctp/timer/timer.cc",
+        "patchSetId": 40
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-12T20:15:12Z",
+      "side": 1,
+      "message": "TimeoutIDs are still scoped to the timer id (id_), so even if the TimeoutId would be reused, it would still trigger the same timer just in advance, which wouldn\u0027t be a big issue really.\n\nAnd it\u0027s hard to trigger it in advance, as it will overflow after 4 billion restarts, which - with the highest frequency timer (delayed ack timer) would be restarted after every second sent packet - or after 8 billion sent packets. Which would take a while and is strictly impossible to do within the timer\u0027s expiration time.\n\nI have added a note in timer.h, by the declaration of `generation_`",
+      "parentUuid": "4a7787c4_b208ab42",
+      "range": {
+        "startLine": 62,
+        "startChar": 52,
+        "endLine": 62,
+        "endChar": 63
+      },
+      "revId": "6fa0cfa4ddca568c266eb1d18b1ed3b77da89bf1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8462a2e9_bb9ea52c",
@@ -60,6 +125,30 @@
       "writtenOn": "2021-04-12T18:31:33Z",
       "side": 1,
       "message": "Possible overflow here too.",
+      "range": {
+        "startLine": 95,
+        "startChar": 53,
+        "endLine": 95,
+        "endChar": 64
+      },
+      "revId": "6fa0cfa4ddca568c266eb1d18b1ed3b77da89bf1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20ef3f3a_d6ea2ed4",
+        "filename": "net/dcsctp/timer/timer.cc",
+        "patchSetId": 40
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-12T20:15:12Z",
+      "side": 1,
+      "message": "See above :)",
+      "parentUuid": "8462a2e9_bb9ea52c",
       "range": {
         "startLine": 95,
         "startChar": 53,
@@ -93,6 +182,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "19537289_5fdfbf23",
+        "filename": "net/dcsctp/timer/timer.cc",
+        "patchSetId": 40
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-12T20:15:12Z",
+      "side": 1,
+      "message": "Yes, and that would be after 4 billion timers created. Three of those are scoped to the socket and 5 are scoped to the connection/TCB, meaning that it would wrap around after 4 billion/5 \u003d 800 million reconnections on that socket, and we expect it to be restarted at maximum a handful of times. Even if it would be exploited, a connection takes 2-4 RTTs to setup, which would take 1.5-3 years as a lower bound with a RTT of 30ms.\n\nAnd if it was exploited, it means that the TCB-scoped timers would overwrite the constant ones, which are the init timer, cookie echo timer and shutdown timer.\n\nI have added a RTC_CHECK() on it, to ease my mind. Thanks!",
+      "parentUuid": "4cc58fd3_66c3b8f9",
+      "range": {
+        "startLine": 112,
+        "startChar": 18,
+        "endLine": 112,
+        "endChar": 26
+      },
+      "revId": "6fa0cfa4ddca568c266eb1d18b1ed3b77da89bf1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6dfb3264_03a8d5a4",
@@ -106,6 +219,30 @@
       "writtenOn": "2021-04-12T18:31:33Z",
       "side": 1,
       "message": "Suggest making this a StrongAlias.",
+      "range": {
+        "startLine": 113,
+        "startChar": 8,
+        "endLine": 113,
+        "endChar": 17
+      },
+      "revId": "6fa0cfa4ddca568c266eb1d18b1ed3b77da89bf1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60609763_2786ff1d",
+        "filename": "net/dcsctp/timer/timer.h",
+        "patchSetId": 40
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-12T20:15:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6dfb3264_03a8d5a4",
       "range": {
         "startLine": 113,
         "startChar": 8,

@@ -10,6 +10,7 @@
 
 #include "rtc_base/async_resolver.h"
 
+#include <memory>
 #include <string>
 #include <utility>
 
@@ -27,9 +28,11 @@
 #endif
 #endif  // defined(WEBRTC_POSIX) && !defined(__native_client__)
 
+#include "absl/memory/memory.h"
 #include "api/task_queue/task_queue_base.h"
 #include "rtc_base/ip_address.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/platform_thread.h"
 #include "rtc_base/task_queue.h"
 #include "rtc_base/task_utils/to_queued_task.h"
 #include "rtc_base/third_party/sigslot/sigslot.h"  // for signal_with_thread...
@@ -87,30 +90,66 @@ int ResolveHostname(const std::string& hostname,
 #endif  // !__native_client__
 }
 
-AsyncResolver::AsyncResolver() : error_(-1) {}
+struct AsyncResolver::CallbackHelper {
+  explicit CallbackHelper(Event* callbacks_done)
+      : callbacks_done_(callbacks_done) {}
+  ~CallbackHelper() { callbacks_done_->Set(); }
+  Event* callbacks_done_;
+};
+
+AsyncResolver::AsyncResolver()
+    : error_(-1),
+      callback_helper_(
+          std::make_shared<CallbackHelper>(&callback_helper_done_)) {}
 
 AsyncResolver::~AsyncResolver() {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
+
+  // Ensure the thread isn't using a stale reference to the current task queue,
+  // or calling into ResolveDone post destruction.
+  callback_helper_ = nullptr;
+  callback_helper_done_.Wait(Event::kForever);
+}
+
+void RunResolution(void* obj) {
+  std::function<void()>* function_ptr =
+      static_cast<std::function<void()>*>(obj);
+  (*function_ptr)();
+  delete function_ptr;
 }
 
 void AsyncResolver::Start(const SocketAddress& addr) {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
   RTC_DCHECK(!destroy_called_);
   addr_ = addr;
-  webrtc::TaskQueueBase* current_task_queue = webrtc::TaskQueueBase::Current();
-  popup_thread_ = Thread::Create();
-  popup_thread_->Start();
-  popup_thread_->PostTask(webrtc::ToQueuedTask(
-      [this, flag = safety_.flag(), addr, current_task_queue] {
+  auto thread_function =
+      [this, addr, caller_task_queue = webrtc::TaskQueueBase::Current(),
+       destruction_lock =
+           std::weak_ptr<AsyncResolver::CallbackHelper>(callback_helper_)] {
         std::vector<IPAddress> addresses;
         int error =
             ResolveHostname(addr.hostname().c_str(), addr.family(), &addresses);
-        current_task_queue->PostTask(webrtc::ToQueuedTask(
-            std::move(flag), [this, error, addresses = std::move(addresses)] {
-              RTC_DCHECK_RUN_ON(&sequence_checker_);
-              ResolveDone(std::move(addresses), error);
-            }));
-      }));
+        if (auto lock = destruction_lock.lock()) {
+          caller_task_queue->PostTask(webrtc::ToQueuedTask(
+              [this, error, addresses = std::move(addresses),
+               destruction_lock] {
+                if (auto lock = destruction_lock.lock()) {
+                  RTC_DCHECK_RUN_ON(&sequence_checker_);
+                  // ResolveDone can lead to instance destruction. Make sure we
+                  // don't deadlock waiting for the event Set to never happen.
+                  lock = nullptr;
+                  ResolveDone(std::move(addresses), error);
+                }
+              }));
+        }
+      };
+  PlatformThread thread(RunResolution,
+                        new std::function<void()>(thread_function),
+                        "NameResolution", ThreadAttributes().SetDetached());
+  thread.Start();
+  // Although |thread| is detached, the PlatformThread contract mandates to call
+  // Stop() before destruction. The call doesn't actually stop anything.
+  thread.Stop();
 }
 
 bool AsyncResolver::GetResolvedAddress(int family, SocketAddress* addr) const {

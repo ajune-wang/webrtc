@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "668e1bf1_521883fd",
+        "filename": "rtc_base/async_resolver.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-04-12T14:51:03Z",
+      "side": 1,
+      "message": "This will only wait while the detached thread is reserving \"this\" by its weak_ptr lock calls (producing a shared_ptr and this blocking dtor exit), i.e. for a very short amount of time.",
+      "range": {
+        "startLine": 108,
+        "startChar": 20,
+        "endLine": 109,
+        "endChar": 46
+      },
+      "revId": "f4d5a79e24120a9eb204ca7042dc34311f7eb874",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fc7388da_1bf19d7b",

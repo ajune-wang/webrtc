@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "791f254e_294b90bf",
+        "filename": "rtc_base/async_resolver.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-04-12T14:51:03Z",
+      "side": 1,
+      "message": "The old code protected for ResolveDone post destruction by using |safety_| but that can\u0027t be used for dereferencing caller_task_queue. Hence since the CallbackHelper mechanism can serve both uses I used it for both cases.",
+      "range": {
+        "startLine": 107,
+        "startChar": 8,
+        "endLine": 107,
+        "endChar": 32
+      },
+      "revId": "89be1dcfb14e59937aeab98f1e3876e17e720d7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

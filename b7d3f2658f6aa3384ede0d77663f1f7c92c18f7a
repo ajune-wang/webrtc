@@ -33,6 +33,24 @@
       "message": "As an option I could probably live with only unresolved addresses logged in original CL caused issue (I could do reland with such changes).",
       "revId": "b7d3f2658f6aa3384ede0d77663f1f7c92c18f7a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a4d7465_6bd02ffc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-12T20:23:55Z",
+      "side": 1,
+      "message": "Yes, that is an option as well.\n\nOn the other hand, having debug builds behaving differently from release builds in a way that changes the goal of the function (ToSensitiveString) is misleading. There should be an explicit call to a function that doesn\u0027t obscure the address but only in debug builds (e.g. a RTC_DLOG).",
+      "parentUuid": "3fe666b6_c39185c7",
+      "revId": "b7d3f2658f6aa3384ede0d77663f1f7c92c18f7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

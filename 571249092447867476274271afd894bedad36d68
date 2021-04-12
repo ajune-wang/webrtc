@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b85e84b4_5cd2fda8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-12T05:21:23Z",
+      "side": 1,
+      "message": "As to the code this will generate, I think it looks great.\n\nOnly wishing for a second look to see if we can get rid of the new type and the static_cast\u003cvoid*\u003e.\n",
+      "revId": "571249092447867476274271afd894bedad36d68",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3cee525a_052e3e53",
+        "filename": "rtc_base/async_resolver.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-12T05:21:23Z",
+      "side": 1,
+      "message": "This is just a wrapper around the argument list to RunResolution, right?\nCould we avoid this (and the ugly void* casting) by letting the thread() constructor take a std::function(void) and passing it a lambda with bound arguments?\n\nThat would actually make the code much more similar to the old one, which is also a nested lambda....",
+      "revId": "571249092447867476274271afd894bedad36d68",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -490,13 +490,19 @@ class RtpDataChannel : public BaseChannel {
                  webrtc::CryptoOptions crypto_options,
                  rtc::UniqueRandomIdGenerator* ssrc_generator);
   ~RtpDataChannel();
-  // TODO(zhihuang): Remove this once the RtpTransport can be shared between
-  // BaseChannels.
-  void Init_w(DtlsTransportInternal* rtp_dtls_transport,
-              DtlsTransportInternal* rtcp_dtls_transport,
-              rtc::PacketTransportInternal* rtp_packet_transport,
-              rtc::PacketTransportInternal* rtcp_packet_transport);
-  void Init_w(webrtc::RtpTransportInternal* rtp_transport) override;
+
+  // Call to delete an RtpDataChannel instance.
+  // This method must be called on the network thread.
+  // Destruct_n is the ideal way to destruct an RtpDataChannel instance since
+  // the first part of destruction is to disassociate from the transport, which
+  // needs to happen on the network thread (the last step of initialization is
+  // to associate with the transport, on the network thread).
+  // Following transport disassociation, the channel object will be deleted on
+  // the worker thread in an asynchronous fashion.
+  static void Destruct_n(std::unique_ptr<RtpDataChannel> channel);
+
+  // In case intialization can be done on the network thread (ideal).
+  void Init_n(webrtc::RtpTransportInternal* rtp_transport);
 
   virtual bool SendData(const SendDataParams& params,
                         const rtc::CopyOnWriteBuffer& payload,
@@ -548,6 +554,18 @@ class RtpDataChannel : public BaseChannel {
 
   typedef rtc::TypedMessageData<bool> DataChannelReadyToSendMessageData;
 
+  // Does the same as Deinit_w in case cleanup can be done on the network
+  // thread. The difference between Deinit_w and Deinit_n is that the latter
+  // must be called from the network thread and does not do a thread hop.
+  void Deinit_n();
+
+  // Discouraged use. RtpDataChannel offers Init_n, which requires being called
+  // on the network thread, which is the context that Init_w does the
+  // initialization work (via thread hop) and where data flows.
+  void Init_w(webrtc::RtpTransportInternal* rtp_transport) override {
+    RTC_NOTREACHED();
+  }
+
   // overrides from BaseChannel
   // Checks that data channel type is RTP.
   bool CheckDataChannelTypeFromContent(const MediaContentDescription* content,
@@ -567,6 +585,10 @@ class RtpDataChannel : public BaseChannel {
   void OnDataChannelReadyToSend(bool writable);
 
   bool ready_to_send_data_ = false;
+
+  // This is set to true if teardown starts on the network thread and we do not
+  // want to repeat network cleanup in the destructor.
+  bool skip_deinit_in_destructor_ RTC_GUARDED_BY(network_thread()) = false;
 
   // Last DataSendParameters sent down to the media_channel() via
   // SetSendParameters.

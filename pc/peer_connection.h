@@ -296,6 +296,7 @@ class PeerConnection : public PeerConnectionInternal,
   }
 
   cricket::RtpDataChannel* rtp_data_channel() const override {
+    // TODO(bugs.webrtc.org/9987): Only access on the network thread.
     return data_channel_controller_.rtp_data_channel();
   }
 
@@ -444,11 +445,21 @@ class PeerConnection : public PeerConnectionInternal,
 
   void OnSentPacket_w(const rtc::SentPacket& sent_packet);
 
-  bool SetupDataChannelTransport_n(const std::string& mid)
+  void CreateSctpDataChannel(const std::string& mid);
+  void CreateRtpDataChannel(const std::string& mid,
+                            rtc::UniqueRandomIdGenerator* ssrc_generator);
+
+  void SetupDataChannelTransport_n(const std::string& mid)
       RTC_RUN_ON(network_thread());
-  void SetupRtpDataChannelTransport_n(cricket::RtpDataChannel* data_channel)
+  void SetupRtpDataChannelTransport_n(
+      std::unique_ptr<cricket::RtpDataChannel> data_channel)
       RTC_RUN_ON(network_thread());
   void TeardownDataChannelTransport_n() RTC_RUN_ON(network_thread());
+
+  // Destroys the RTP data channel transport and/or the SCTP data channel
+  // transport and clears it.
+  void DestroyDataChannelTransport();
+
   cricket::ChannelInterface* GetChannel(const std::string& content_name);
 
   // Functions made public for testing.

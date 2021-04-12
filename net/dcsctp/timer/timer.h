@@ -12,6 +12,7 @@
 
 #include <stdint.h>
 
+#include <algorithm>
 #include <functional>
 #include <memory>
 #include <string>
@@ -68,6 +69,9 @@ struct TimerOptions {
 // backoff algorithm).
 class Timer {
  public:
+  // The maximum timer duration - one day.
+  static constexpr DurationMs kMaxTimerDuration = DurationMs(24 * 3600 * 1000);
+
   // When expired, the timer handler can optionally return a new duration which
   // will be set as `duration` and used as base duration when the timer is
   // restarted and as input to the backoff algorithm.
@@ -89,7 +93,9 @@ class Timer {
 
   // Sets the base duration. The actual timer duration may be larger depending
   // on the backoff algorithm.
-  void set_duration(DurationMs duration) { duration_ = duration; }
+  void set_duration(DurationMs duration) {
+    duration_ = std::min(duration, kMaxTimerDuration);
+  }
 
   // Retrieves the base duration. The actual timer duration may be larger
   // depending on the backoff algorithm.
@@ -133,7 +139,15 @@ class Timer {
 
   DurationMs duration_;
 
-  // Increased on each start, and is matched on Trigger, to avoid races.
+  // Increased on each start, and is matched on Trigger, to avoid races. And by
+  // race, meaning that a timeout - which may be evaluated/expired on a
+  // different thread while this thread has stopped that timer already. Note
+  // that the entire socket is not thread-safe, so `TimerManager::HandleTimeout`
+  // is never executed concurrently with any timer starting/stopping.
+  //
+  // This will wrap around after 4 billion timer restarts, and if it wraps
+  // around, it would just trigger _this_ timer in advance (but it's hard to
+  // restart it 4 billion times within its duration).
   uint32_t generation_ = 0;
   bool is_running_ = false;
   // Incremented each time time has expired and reset when stopped or restarted.

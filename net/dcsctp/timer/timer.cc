@@ -9,7 +9,9 @@
  */
 #include "net/dcsctp/timer/timer.h"
 
+#include <algorithm>
 #include <cstdint>
+#include <limits>
 #include <memory>
 #include <unordered_map>
 #include <utility>
@@ -17,6 +19,7 @@
 #include "absl/memory/memory.h"
 #include "absl/strings/string_view.h"
 #include "net/dcsctp/public/timeout.h"
+#include "rtc_base/checks.h"
 
 namespace dcsctp {
 namespace {
@@ -30,11 +33,21 @@ DurationMs GetBackoffDuration(TimerBackoffAlgorithm algorithm,
   switch (algorithm) {
     case TimerBackoffAlgorithm::kFixed:
       return base_duration;
-    case TimerBackoffAlgorithm::kExponential:
-      return DurationMs(*base_duration * (1 << expiration_count));
+    case TimerBackoffAlgorithm::kExponential: {
+      int32_t duration_ms = *base_duration;
+
+      while (expiration_count > 0 && duration_ms < *Timer::kMaxTimerDuration) {
+        duration_ms *= 2;
+        --expiration_count;
+      }
+
+      return DurationMs(std::min(duration_ms, *Timer::kMaxTimerDuration));
+    }
   }
 }
 }  // namespace
+
+constexpr DurationMs Timer::kMaxTimerDuration;
 
 Timer::Timer(uint32_t id,
              absl::string_view name,
@@ -110,6 +123,10 @@ std::unique_ptr<Timer> TimerManager::CreateTimer(absl::string_view name,
                                                  Timer::OnExpired on_expired,
                                                  const TimerOptions& options) {
   uint32_t id = ++next_id_;
+  // This would overflow after 4 billion timers created, which in SCTP would be
+  // after 800 million reconnections on a single socket. Ensure this will never
+  // happen.
+  RTC_CHECK(id != std::numeric_limits<uint32_t>::max());
   auto timer = absl::WrapUnique(new Timer(
       id, name, std::move(on_expired), [this, id]() { timers_.erase(id); },
       create_timeout_(), options));

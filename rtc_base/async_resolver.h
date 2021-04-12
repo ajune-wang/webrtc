@@ -22,6 +22,7 @@
 
 #include "api/sequence_checker.h"
 #include "rtc_base/async_resolver_interface.h"
+#include "rtc_base/event.h"
 #include "rtc_base/ip_address.h"
 #include "rtc_base/socket_address.h"
 #include "rtc_base/system/no_unique_address.h"
@@ -52,6 +53,9 @@ class RTC_EXPORT AsyncResolver : public AsyncResolverInterface {
   const std::vector<IPAddress>& addresses() const;
 
  private:
+  // Fwd decl.
+  class CallbackHelper;
+
   void ResolveDone(std::vector<IPAddress> addresses, int error)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(sequence_checker_);
   void MaybeSelfDestruct();
@@ -59,11 +63,12 @@ class RTC_EXPORT AsyncResolver : public AsyncResolverInterface {
   SocketAddress addr_ RTC_GUARDED_BY(sequence_checker_);
   std::vector<IPAddress> addresses_ RTC_GUARDED_BY(sequence_checker_);
   int error_ RTC_GUARDED_BY(sequence_checker_);
-  webrtc::ScopedTaskSafety safety_ RTC_GUARDED_BY(sequence_checker_);
-  std::unique_ptr<Thread> popup_thread_ RTC_GUARDED_BY(sequence_checker_);
   bool recursion_check_ =
       false;  // Protects against SignalDone calling into Destroy.
   bool destroy_called_ = false;
+
+  Event callback_helper_done_;  // Set when CallbackHelper is destroyed.
+  std::shared_ptr<CallbackHelper> callback_helper_;
   RTC_NO_UNIQUE_ADDRESS webrtc::SequenceChecker sequence_checker_;
 };
 

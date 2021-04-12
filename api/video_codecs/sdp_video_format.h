@@ -13,6 +13,7 @@
 
 #include <map>
 #include <string>
+#include <vector>
 
 #include "rtc_base/system/rtc_export.h"
 
@@ -31,6 +32,9 @@ struct RTC_EXPORT SdpVideoFormat {
   SdpVideoFormat& operator=(SdpVideoFormat&&);
 
   ~SdpVideoFormat();
+
+  bool IsSameCodec(const SdpVideoFormat& other) const;
+  bool IsCodecInList(const std::vector<webrtc::SdpVideoFormat>& formats) const;
 
   std::string ToString() const;
 

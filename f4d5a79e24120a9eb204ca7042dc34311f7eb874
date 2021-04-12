@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc7388da_1bf19d7b",
+        "filename": "rtc_base/async_resolver.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-12T14:50:01Z",
+      "side": 1,
+      "message": "would it make things simpler for this implementation to not worry about TaskQueue etc? Instead just take ownership of a function object and call it when things are done?\n\nThen the caller could deal with things appropriately, using locks, atomics, events or whatever suits the situation (or do nothing).",
+      "revId": "f4d5a79e24120a9eb204ca7042dc34311f7eb874",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7706260_28503bb8",
+        "filename": "rtc_base/async_resolver.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-12T14:50:01Z",
+      "side": 1,
+      "message": "does this copy the lambda or move it? I\u0027m guessing it copies, so you might like to ... std::move it!",
+      "revId": "f4d5a79e24120a9eb204ca7042dc34311f7eb874",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

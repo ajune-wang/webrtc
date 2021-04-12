@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdf42ed8_b851a016",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-12T12:10:05Z",
+      "side": 1,
+      "message": "I think this is good.\n\nI shouldn\u0027t expect the renegotiation stats to budge on this, because the tests don\u0027t carry real data, but you never know; should watch the effect when landed.\n\nMy big question is why it\u0027s worth not doing it for audio.\n",
+      "revId": "b8f2d9c412ef4e0373ea29b642a2dd0872884ae0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfcddf25_bb79341d",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2075,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-12T12:10:05Z",
+      "side": 1,
+      "message": "Why isn\u0027t this relevant for audio?\nShould be less impactful, because we usually have fewer audio SSRCs, but if it\u0027s logical for video, it should be logical for audio. Making the two paths more different is not a Good Thing.",
+      "revId": "b8f2d9c412ef4e0373ea29b642a2dd0872884ae0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

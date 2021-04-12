@@ -2,7 +2,7 @@
 *   How to contribute
     *   Code
     *   [Documentation](/g3doc/how_to_write_documentation.md)
-*   Public C++ API
+*  [Public C++ API](/api/g3doc/index.md)
 *   Implementation
     *   Network
     *   Congestion control and bandwidth estimation

@@ -15,6 +15,7 @@ rtc_library("timer") {
     "../../../rtc_base:checks",
     "../../../rtc_base:rtc_base_approved",
     "../public:types",
+    "../public:strong_alias",
   ]
   sources = [
     "fake_timeout.h",

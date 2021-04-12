@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd472851_e0dccc1a",
+        "filename": "net/dcsctp/rx/data_tracker.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5852
+      },
+      "writtenOn": "2021-04-12T21:40:16Z",
+      "side": 1,
+      "message": "Nit: I suggest UnwrappedTSN::UnderlyingWrappedType (or whatever the typename was), or just \"auto\" here, to avoid any confusion caused by putting the result in a signed int.",
+      "range": {
+        "startLine": 182,
+        "startChar": 6,
+        "endLine": 182,
+        "endChar": 10
+      },
+      "revId": "b2d539be6b4759ec31ecca16b7ffd7943c18d95b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "defb34d4_a748a5b1",
+        "filename": "net/dcsctp/rx/data_tracker.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5852
+      },
+      "writtenOn": "2021-04-12T21:40:16Z",
+      "side": 1,
+      "message": "As discussed in chat, it\u0027s possible for an attacker to craft chunks with very large differences between 32-bit TSN\u0027s (eg. 1, 2, 0xFFFFFFFF) which would cause the difference to be \u003e 16 bits the next time flush is called.\n\nI don\u0027t think this particular line of code is actually a security issue - static_cast will just truncate such large diffs to a 16-bit value, as opposed to having undefined behaviour - but it could use a comment stating this so that readers understand what happens in this edge case.\n\nAnd we should check whether there\u0027s code elsewhere that assumed TSN\u0027s are \u003c16 bits apart, and think whether there\u0027s a systematic way we want to handle that (eg. discard the chunk with the extreme TSN, close the connection, always use max(uint16_t) for the difference...)",
+      "range": {
+        "startLine": 186,
+        "startChar": 46,
+        "endLine": 186,
+        "endChar": 54
+      },
+      "revId": "b2d539be6b4759ec31ecca16b7ffd7943c18d95b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ef452f4_896e7d55",
+        "filename": "net/dcsctp/rx/data_tracker.h",
+        "patchSetId": 24
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5852
+      },
+      "writtenOn": "2021-04-12T21:40:16Z",
+      "side": 1,
+      "message": "Nit: this should be \"additional_tsns_\" - this patch was hard to review because I kept thinking this was a local variable.",
+      "range": {
+        "startLine": 116,
+        "startChar": 25,
+        "endLine": 116,
+        "endChar": 40
+      },
+      "revId": "b2d539be6b4759ec31ecca16b7ffd7943c18d95b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

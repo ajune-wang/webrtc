@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "278df3f7_8ba30b3e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-12T05:24:12Z",
+      "side": 1,
+      "message": "Makes sense to me, but I wonder if we can grab cricket::SctpTransportInternal while we\u0027re at it.\n",
+      "revId": "095592cda52f92a5e388f432aded6f1bcbe24495",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43f918fc_0c3fc983",
+        "filename": "media/sctp/usrsctp_transport.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-12T05:24:12Z",
+      "side": 1,
+      "message": "has there been a decision on whether or not the new dcSCTP-based API is going to involve the cricket namespace?\n\nIf not, I suggest that we rename SctpTransportInternal to UsrSctpTransportInternal while we\u0027re at it.",
+      "revId": "095592cda52f92a5e388f432aded6f1bcbe24495",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

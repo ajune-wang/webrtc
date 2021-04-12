@@ -4,7 +4,7 @@
     *   [Documentation](/g3doc/how_to_write_documentation.md)
 *   Public C++ API
 *   Implementation
-    *   Network
+    *   [ICE](p2p/g3doc/index.md)
     *   Congestion control and bandwidth estimation
     *   Audio
     *   Video

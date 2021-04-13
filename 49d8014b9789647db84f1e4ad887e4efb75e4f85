@@ -22,6 +22,30 @@
       },
       "revId": "49d8014b9789647db84f1e4ad887e4efb75e4f85",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d423150_fb840790",
+        "filename": "modules/desktop_capture/win/wgc_capturer_win.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2021-04-13T00:36:32Z",
+      "side": 1,
+      "message": "I\u0027ve added a new test to cover capture time, and modified another to test the capturer implementation histogram as well.",
+      "parentUuid": "dec1913f_d160d8af",
+      "range": {
+        "startLine": 187,
+        "startChar": 0,
+        "endLine": 194,
+        "endChar": 55
+      },
+      "revId": "49d8014b9789647db84f1e4ad887e4efb75e4f85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

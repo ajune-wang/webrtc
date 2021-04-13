@@ -15,6 +15,7 @@
       * AudioEngine
         * [ADM](/modules/audio_device/g3doc/audio_device_module.md)
     *   Video
+        * [Adaptation](/video/g3doc/adaptation.md)
     *   DataChannel
     *   PeerConnection
     *   Desktop capture

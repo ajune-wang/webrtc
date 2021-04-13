@@ -34,6 +34,24 @@
       "parentUuid": "48e04dbd_a63483f7",
       "revId": "e6ee3308b83e29d0e580bc64b3a7cec7fb7b19c4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d870a02_7c6ec95d",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1785,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-04-13T19:01:26Z",
+      "side": 1,
+      "message": "I just remembered, something I did in my previous CL to minimize the impact of potentially dropping packets is to only update the demuxer criteria if it actually changed: https://webrtc-review.googlesource.com/c/src/+/193500\n\nThat way if you have a call with a bunch of participants, a change in SDP for one participant won\u0027t potentially cause video to be disrupted for all participants.\n\nI\u0027d recommend doing that either as a part of this CL or as a standalone.",
+      "parentUuid": "5f5c205f_4fe4628c",
+      "revId": "e6ee3308b83e29d0e580bc64b3a7cec7fb7b19c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

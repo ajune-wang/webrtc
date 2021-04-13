@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce6dbf19_3cd1261e",
+        "filename": "g3doc/sitemap.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-13T11:24:54Z",
+      "side": 1,
+      "message": "Please remove line separator",
+      "range": {
+        "startLine": 11,
+        "startChar": 16,
+        "endLine": 12,
+        "endChar": 10
+      },
+      "revId": "0b8429312294eb4f1c7b59306e60c3f65fa76a38",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

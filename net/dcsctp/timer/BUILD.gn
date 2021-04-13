@@ -23,12 +23,27 @@ rtc_library("timer") {
   ]
 }
 
+rtc_library("scalable_timeout") {
+  deps = [
+    "../../../api:array_view",
+    "../../../rtc_base",
+    "../../../rtc_base:checks",
+    "../../../rtc_base:rtc_base_approved",
+    "../public:types",
+  ]
+  sources = [
+    "scalable_timeout.cc",
+    "scalable_timeout.h",
+  ]
+}
+
 if (rtc_include_tests) {
   rtc_library("dcsctp_timer_unittests") {
     testonly = true
 
     defines = []
     deps = [
+      ":scalable_timeout",
       ":timer",
       "../../../api:array_view",
       "../../../rtc_base:checks",
@@ -36,6 +51,9 @@ if (rtc_include_tests) {
       "../../../rtc_base:rtc_base_approved",
       "../../../test:test_support",
     ]
-    sources = [ "timer_test.cc" ]
+    sources = [
+      "scalable_timeout_test.cc",
+      "timer_test.cc",
+    ]
   }
 }

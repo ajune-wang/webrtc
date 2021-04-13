@@ -16,6 +16,24 @@
       "message": "It\u0027s probably much more rare, but this bug could also theoretically happen with non-recently removed streams.\n\nSuppose we start with one video m\u003d section, which will be configured to receive all video packets, and we\u0027re upgrading to two sections. A packet might be received and enqueued from the second video track before the demux criteria changes, and also before a receive stream is created for it.\n\nThat\u0027s why in my original CL, I just drop any packets if the demux version doesn\u0027t match. I figured it was worth the risk that valid packets from the start of a track are dropped, though that\u0027s debatable.",
       "revId": "e6ee3308b83e29d0e580bc64b3a7cec7fb7b19c4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f5c205f_4fe4628c",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1785,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-04-13T07:24:39Z",
+      "side": 1,
+      "message": "I had not considered that.\n\nOK, so I changed it to drop all unknown ssrcs when a criteria update is pending and added test coverage to emulate the case of going from one to many m\u003d sections.\n\nThis seems like the best we can do for now - we can\u0027t tell if the ssrc is intended for us until the demuxer is updated.\n\nHowever I have a feeling we should revisit this when supporting \"early media\" use cases. For example, if we inspect the packet and see that the MID matches our channel, then perhaps we can go ahead and not drop that packet? But this seems like a small concern considering we don\u0027t support early media yet (https://crbug.com/webrtc/10636) so dropping a few first packets that only happens when there is a race condition seems OK.",
+      "parentUuid": "48e04dbd_a63483f7",
+      "revId": "e6ee3308b83e29d0e580bc64b3a7cec7fb7b19c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3cc6df8e_5304682b",
+        "filename": "modules/audio_device/g3doc/audio_device_module.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-13T08:29:50Z",
+      "side": 1,
+      "message": "Please add a line separator",
+      "range": {
+        "startLine": 3,
+        "startChar": 42,
+        "endLine": 3,
+        "endChar": 43
+      },
+      "revId": "81da602e5110c663628f240e0cbf020333b18c36",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29ba0bc6_f0abe3f3",
+        "filename": "modules/audio_device/g3doc/audio_device_module.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-13T08:29:50Z",
+      "side": 1,
+      "message": "Maybe \nAudio Echo Cancelation (AEC), Audio Gain Control (AGC) and Noise Suppression (NS)",
+      "range": {
+        "startLine": 22,
+        "startChar": 39,
+        "endLine": 22,
+        "endChar": 54
+      },
+      "revId": "81da602e5110c663628f240e0cbf020333b18c36",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3a41fd5_06be87fd",
+        "filename": "modules/audio_device/g3doc/audio_device_module.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-13T08:29:50Z",
+      "side": 1,
+      "message": "Please unify: one have \u0027/\u0027 at the end, other not. I think it will be better to have similar in both cases. Also maybe add \u0027/\u0027 at the beginning to show that it is a path from root. The same below",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 33
+      },
+      "revId": "81da602e5110c663628f240e0cbf020333b18c36",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

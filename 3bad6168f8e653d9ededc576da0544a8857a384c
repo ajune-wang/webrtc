@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae8aacc1_ffa28be7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-13T18:20:33Z",
+      "side": 1,
+      "message": "Some formatting. Links are a pain both to add and to maintain.\n",
+      "revId": "3bad6168f8e653d9ededc576da0544a8857a384c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

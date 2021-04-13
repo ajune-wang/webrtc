@@ -47,6 +47,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e9ac74b_4161b652",
+        "filename": "net/dcsctp/rx/data_tracker.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5852
+      },
+      "writtenOn": "2021-04-13T11:23:32Z",
+      "side": 1,
+      "message": "Actually I think UnwrappedSequenceNumber might already handle this systematically the way I was hoping for - I had set it aside to review later. Will reopen this comment after I look at it more closely.",
+      "parentUuid": "defb34d4_a748a5b1",
+      "range": {
+        "startLine": 186,
+        "startChar": 46,
+        "endLine": 186,
+        "endChar": 54
+      },
+      "revId": "b2d539be6b4759ec31ecca16b7ffd7943c18d95b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4ef452f4_896e7d55",

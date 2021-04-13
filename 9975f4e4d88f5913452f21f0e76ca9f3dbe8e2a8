@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "602bc022_b43b2ae6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-13T09:46:02Z",
+      "side": 1,
+      "message": "shared_ptr?\nwaiting for tommi to be happy otherwise.\n",
+      "revId": "9975f4e4d88f5913452f21f0e76ca9f3dbe8e2a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "294bb0dd_30e607d0",
+        "filename": "rtc_base/async_resolver.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-13T09:46:02Z",
+      "side": 1,
+      "message": "std::shared_ptr isn\u0027t used anywhere else in webrtc at the moment.\nIs this the right construct to use, instead of rtc::shared_refptr?",
+      "revId": "9975f4e4d88f5913452f21f0e76ca9f3dbe8e2a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

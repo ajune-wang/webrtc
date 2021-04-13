@@ -43,6 +43,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d01a9e86_92819265",
+        "filename": "rtc_base/async_resolver.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-13T09:46:02Z",
+      "side": 1,
+      "message": "doesn\u0027t make sense here since the Asyncresolver class is a final class.\n(when I revisit this to make it use the new API that doesn\u0027t need sigslot, it becomes more relevant again)",
+      "parentUuid": "fc7388da_1bf19d7b",
+      "revId": "f4d5a79e24120a9eb204ca7042dc34311f7eb874",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c7706260_28503bb8",
         "filename": "rtc_base/async_resolver.cc",
         "patchSetId": 13

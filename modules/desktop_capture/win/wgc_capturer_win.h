@@ -13,58 +13,17 @@
 
 #include <d3d11.h>
 #include <wrl/client.h>
+
 #include <map>
 #include <memory>
 
 #include "modules/desktop_capture/desktop_capture_options.h"
 #include "modules/desktop_capture/desktop_capturer.h"
-#include "modules/desktop_capture/win/screen_capture_utils.h"
 #include "modules/desktop_capture/win/wgc_capture_session.h"
 #include "modules/desktop_capture/win/wgc_capture_source.h"
-#include "modules/desktop_capture/win/window_capture_utils.h"
+#include "modules/desktop_capture/win/wgc_capture_source_enumerator.h"
 
 namespace webrtc {
-
-// WgcCapturerWin is initialized with an implementation of this base class,
-// which it uses to find capturable sources of a particular type. This way,
-// WgcCapturerWin can remain source-agnostic.
-class SourceEnumerator {
- public:
-  virtual ~SourceEnumerator() = default;
-
-  virtual bool FindAllSources(DesktopCapturer::SourceList* sources) = 0;
-};
-
-class WindowEnumerator final : public SourceEnumerator {
- public:
-  WindowEnumerator() = default;
-
-  WindowEnumerator(const WindowEnumerator&) = delete;
-  WindowEnumerator& operator=(const WindowEnumerator&) = delete;
-
-  ~WindowEnumerator() override = default;
-
-  bool FindAllSources(DesktopCapturer::SourceList* sources) override {
-    return window_capture_helper_.EnumerateCapturableWindows(sources);
-  }
-
- private:
-  WindowCaptureHelperWin window_capture_helper_;
-};
-
-class ScreenEnumerator final : public SourceEnumerator {
- public:
-  ScreenEnumerator() = default;
-
-  ScreenEnumerator(const ScreenEnumerator&) = delete;
-  ScreenEnumerator& operator=(const ScreenEnumerator&) = delete;
-
-  ~ScreenEnumerator() override = default;
-
-  bool FindAllSources(DesktopCapturer::SourceList* sources) override {
-    return webrtc::GetMonitorList(sources);
-  }
-};
 
 // A capturer that uses the Window.Graphics.Capture APIs. It is suitable for
 // both window and screen capture (but only one type per instance). Consumers

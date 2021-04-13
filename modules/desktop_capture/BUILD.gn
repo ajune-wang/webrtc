@@ -571,6 +571,8 @@ rtc_library("desktop_capture_generic") {
       "win/wgc_capture_session.h",
       "win/wgc_capture_source.cc",
       "win/wgc_capture_source.h",
+      "win/wgc_capture_source_enumerator.cc",
+      "win/wgc_capture_source_enumerator.h",
       "win/wgc_capturer_win.cc",
       "win/wgc_capturer_win.h",
       "win/wgc_desktop_frame.cc",

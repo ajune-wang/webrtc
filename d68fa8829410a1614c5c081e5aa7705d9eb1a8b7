@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5cdb5ece_1e35c31d",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 52
+      },
+      "lineNbr": 2165,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-13T12:54:53Z",
+      "side": 1,
+      "message": "There are a few things that are an issue with how transceivers are managed and in particular the design/implementation of how RtpTransceiver and BaseChannel derived classes interact, causes the signaling and network threads to block and get congested. This both slows down network and signaling changes.\n\n* The transceiver List() method creates a new copy of all the \"current\" transceivers - with references to each one of them, which means that this interface may change how deterministic their destruction is. At the moment, the list is for the most part managed within PeerConnection, so knowing the state there is possible (outside of PeerConnection, less so).\n\n* The transceiver lists are proxies, which complicates things internally because it mixes use of the proxies themselves (effectively used as references) while also bypassing them by using the \"internal()\" method. This is another detail that is problematic and because it\u0027s not clear when it\u0027s appropriate to use proxies and when internal() is more appropriate (in general we should only be exposing proxies out via public APIs), we internally unintentionally paper over thread contention.\n\nChannel methods such as Stop, transport_name(), SetOption() etc, need to be called on the correct thread. So I\u0027m bit by bit getting rid of the implicit thread hops in an effort to reclaim performance and reduce jank. This is also a part of making sure that RTP related activity (network related more broadly), doesn\u0027t happen on the worker thread or contend with signaling thread activity.",
+      "parentUuid": "8f1b77a9_f9a88810",
+      "revId": "d68fa8829410a1614c5c081e5aa7705d9eb1a8b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "de00e9ab_b60e1ccb",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 52
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ddc4d1b8_508047c7",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 52
+      },
+      "lineNbr": 2217,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-13T12:54:53Z",
+      "side": 1,
+      "message": "GetTransportNames() calls BaseChannel::transport_name() for the actual transport names. It is not safe to make that call from the signaling thread. This isn\u0027t immediately obvious though so ping me and I can go through the details.",
+      "parentUuid": "de00e9ab_b60e1ccb",
+      "revId": "d68fa8829410a1614c5c081e5aa7705d9eb1a8b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dbb4adf4_f6bb9006",
         "filename": "pc/rtc_stats_collector.cc",
         "patchSetId": 52
@@ -48,6 +84,24 @@
       "writtenOn": "2021-04-13T10:15:10Z",
       "side": 1,
       "message": "Accessing transceivers is signaling threadd only!\nIt would be sensible to add a thread checker here:\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/pc/rtp_transceiver.cc;l\u003d259;drc\u003d03995903d33d08c3d9b3a21e517033dc546f2997;bpv\u003d1;bpt\u003d1\n\nI would propose splitting this up into \"what we want to do on signaling thread\" and \"what we want to do on network thread\", but I see that even the transceiver\u0027s channel is set on the signaling thread.\n\nSo I\u0027m confused what this should be doing? To me the old code looks correct and the new code just happens to work because 1) we are blocking the signaling thread, and 2) we do not have thread checks everywhere. If we added sensible DCHECKs this code would stop working, and as-is it is preventing us from removing the block-invoke.",
+      "revId": "d68fa8829410a1614c5c081e5aa7705d9eb1a8b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "984bdf44_a7e0dfe3",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 52
+      },
+      "lineNbr": 2049,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-13T12:54:53Z",
+      "side": 1,
+      "message": "See above. I realize you\u0027re using exclamations now, but I think that there are parts of the design and implementation that you may not be realizing are not thread safe - such as what you\u0027re calling out should be on the signaling thread. I summarized parts of this in the CL description.\n\nThe part that you suggest would be sensible to add a thread checker for, is a const variable.",
+      "parentUuid": "dbb4adf4_f6bb9006",
       "revId": "d68fa8829410a1614c5c081e5aa7705d9eb1a8b7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

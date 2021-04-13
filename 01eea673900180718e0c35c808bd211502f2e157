@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4fdde92_366ce2f6",
+        "filename": "test/pc/e2e/g3doc/index.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-13T06:04:08Z",
+      "side": 1,
+      "message": "Custom defined actions?",
+      "range": {
+        "startLine": 59,
+        "startChar": 8,
+        "endLine": 59,
+        "endChar": 11
+      },
+      "revId": "01eea673900180718e0c35c808bd211502f2e157",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3a8f54f_b2829c9c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2021-04-13T14:27:49Z",
+      "side": 1,
+      "message": "Hello Harald and Mirko!\n\nCould you please take a look at this CL which implements one of the options to implement useful error logging, but it should not break downstream project in debug builds when full ip is logged.\nBTW, I can\u0027t understand what\u0027s wrong with \u0027linux_rel\u0027 builds, seems to be irrelevant to changes.\n\nThanks a lot in advance,\nYura.",
+      "revId": "f23a368be9cc6e2ed4b31e8e3f6c7718f2e5e7d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

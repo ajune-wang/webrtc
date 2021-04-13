@@ -12,6 +12,7 @@
       * TURN
     *   Congestion control and bandwidth estimation
     *   Audio
+      * [Audio Coding](/modules/audio_coding/g3doc/index.md)
     *   Video
     *   DataChannel
     *   PeerConnection

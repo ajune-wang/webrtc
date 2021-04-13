@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc08b035_6fcd1e36",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-13T11:39:20Z",
+      "side": 1,
+      "message": "Thanks for the post-submit-review! I have added fixes at https://webrtc-review.googlesource.com/c/src/+/215070",
+      "revId": "b2d539be6b4759ec31ecca16b7ffd7943c18d95b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fd472851_e0dccc1a",
@@ -14,6 +31,30 @@
       "writtenOn": "2021-04-12T21:40:16Z",
       "side": 1,
       "message": "Nit: I suggest UnwrappedTSN::UnderlyingWrappedType (or whatever the typename was), or just \"auto\" here, to avoid any confusion caused by putting the result in a signed int.",
+      "range": {
+        "startLine": 182,
+        "startChar": 6,
+        "endLine": 182,
+        "endChar": 10
+      },
+      "revId": "b2d539be6b4759ec31ecca16b7ffd7943c18d95b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c4b1cc2_de68b53d",
+        "filename": "net/dcsctp/rx/data_tracker.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-13T11:39:20Z",
+      "side": 1,
+      "message": "auto is good. Thanks.",
+      "parentUuid": "fd472851_e0dccc1a",
       "range": {
         "startLine": 182,
         "startChar": 6,
@@ -71,6 +112,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a30cf95_a4c92f73",
+        "filename": "net/dcsctp/rx/data_tracker.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-13T11:39:20Z",
+      "side": 1,
+      "message": "I have added validation so that TSNs are not added too far from the cum_ack_tsn, and by not far, that\u0027s 256 packets - well below the 16-bit value range.",
+      "parentUuid": "defb34d4_a748a5b1",
+      "range": {
+        "startLine": 186,
+        "startChar": 46,
+        "endLine": 186,
+        "endChar": 54
+      },
+      "revId": "b2d539be6b4759ec31ecca16b7ffd7943c18d95b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4ef452f4_896e7d55",
@@ -84,6 +149,30 @@
       "writtenOn": "2021-04-12T21:40:16Z",
       "side": 1,
       "message": "Nit: this should be \"additional_tsns_\" - this patch was hard to review because I kept thinking this was a local variable.",
+      "range": {
+        "startLine": 116,
+        "startChar": 25,
+        "endLine": 116,
+        "endChar": 40
+      },
+      "revId": "b2d539be6b4759ec31ecca16b7ffd7943c18d95b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b258bfe7_e50ab260",
+        "filename": "net/dcsctp/rx/data_tracker.h",
+        "patchSetId": 24
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-13T11:39:20Z",
+      "side": 1,
+      "message": "Oops! I renamed it last minute :/",
+      "parentUuid": "4ef452f4_896e7d55",
       "range": {
         "startLine": 116,
         "startChar": 25,

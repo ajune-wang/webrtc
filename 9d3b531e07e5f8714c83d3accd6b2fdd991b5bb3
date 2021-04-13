@@ -584,6 +584,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4dd2f6b8_1bd9bf79",
+        "filename": "test/pc/e2e/g3doc/architecture.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-13T14:51:50Z",
+      "side": 1,
+      "message": "What about:\n\n\"The next line will also be ...\"\n\nSince it is not added at the end or after, I guess we can just mention that such line is added?",
+      "parentUuid": "4e597c8c_0802f6ed",
+      "range": {
+        "startLine": 160,
+        "startChar": 0,
+        "endLine": 160,
+        "endChar": 24
+      },
+      "revId": "9d3b531e07e5f8714c83d3accd6b2fdd991b5bb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "12bea798_26f49385",
         "filename": "test/pc/e2e/g3doc/architecture.md",
         "patchSetId": 1
@@ -713,6 +737,30 @@
       "side": 1,
       "message": "Rephrased a bit, PTAL.",
       "parentUuid": "29272c99_6f2e0370",
+      "range": {
+        "startLine": 175,
+        "startChar": 58,
+        "endLine": 177,
+        "endChar": 12
+      },
+      "revId": "9d3b531e07e5f8714c83d3accd6b2fdd991b5bb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6214d08b_e8a7b04d",
+        "filename": "test/pc/e2e/g3doc/architecture.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-13T14:51:50Z",
+      "side": 1,
+      "message": "SG.",
+      "parentUuid": "6b6761ff_8df5bdd7",
       "range": {
         "startLine": 175,
         "startChar": 58,

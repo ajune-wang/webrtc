@@ -20,6 +20,7 @@
 *   Testing
     *   Media Quality and performance
         *   [PeerConnection Framework](/test/pc/e2e/g3doc/index.md)
+            *   [Architecture](/test/pc/e2e/g3doc/architecture.md)
             *   [Video analyzer](/test/pc/e2e/g3doc/default_video_quality_analyzer.md)
         *   Call framework
         *   Video codecs test framework

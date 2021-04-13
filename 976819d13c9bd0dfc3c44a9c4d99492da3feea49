@@ -16,6 +16,23 @@
       "message": "Jesús, could you please have a look?",
       "revId": "976819d13c9bd0dfc3c44a9c4d99492da3feea49",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25dd06f8_5176c953",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2021-04-13T13:13:07Z",
+      "side": 1,
+      "message": "Thanks for this CL, good find. ",
+      "revId": "976819d13c9bd0dfc3c44a9c4d99492da3feea49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

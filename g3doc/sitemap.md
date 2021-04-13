@@ -8,6 +8,8 @@
     *   Congestion control and bandwidth estimation
     *   Audio
     *   Video
+        * [Video
+          coding](/modules/video_coding/g3doc/video_coding/index.md)
     *   DataChannel
     *   PeerConnection
     *   Desktop capture

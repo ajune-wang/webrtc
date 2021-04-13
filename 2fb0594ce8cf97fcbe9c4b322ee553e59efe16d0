@@ -33,6 +33,23 @@
       "message": "test/fuzzers/ lgtm",
       "revId": "2fb0594ce8cf97fcbe9c4b322ee553e59efe16d0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2661ab20_9836a97f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-04-13T16:17:30Z",
+      "side": 1,
+      "message": "nice!",
+      "revId": "2fb0594ce8cf97fcbe9c4b322ee553e59efe16d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

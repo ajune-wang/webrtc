@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa014686_920b9560",
+        "filename": "test/pc/e2e/g3doc/architecture.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-13T14:04:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f3ac466_e4ba8458",
+      "range": {
+        "startLine": 9,
+        "startChar": 71,
+        "endLine": 9,
+        "endChar": 78
+      },
+      "revId": "9d3b531e07e5f8714c83d3accd6b2fdd991b5bb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3eb5714f_f0ba2342",
@@ -77,6 +101,54 @@
       "writtenOn": "2021-04-13T13:27:25Z",
       "side": 1,
       "message": "by the",
+      "range": {
+        "startLine": 24,
+        "startChar": 51,
+        "endLine": 24,
+        "endChar": 53
+      },
+      "revId": "9d3b531e07e5f8714c83d3accd6b2fdd991b5bb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f820be8_793cf3e7",
+        "filename": "test/pc/e2e/g3doc/architecture.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-13T14:04:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3eb5714f_f0ba2342",
+      "range": {
+        "startLine": 24,
+        "startChar": 4,
+        "endLine": 24,
+        "endChar": 10
+      },
+      "revId": "9d3b531e07e5f8714c83d3accd6b2fdd991b5bb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10b94a60_9c064102",
+        "filename": "test/pc/e2e/g3doc/architecture.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-13T14:04:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "125afdce_d27b9cf7",
       "range": {
         "startLine": 24,
         "startChar": 51,
@@ -133,6 +205,54 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b2d0522_d482ee6e",
+        "filename": "test/pc/e2e/g3doc/architecture.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-13T14:04:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f0a9d5b_9421a33f",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 12
+      },
+      "revId": "9d3b531e07e5f8714c83d3accd6b2fdd991b5bb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee9edce9_5dec3a7a",
+        "filename": "test/pc/e2e/g3doc/architecture.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-13T14:04:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "04103827_55d9b063",
+      "range": {
+        "startLine": 42,
+        "startChar": 45,
+        "endLine": 42,
+        "endChar": 61
+      },
+      "revId": "9d3b531e07e5f8714c83d3accd6b2fdd991b5bb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0a7c7cbb_aff10dd6",
@@ -146,6 +266,30 @@
       "writtenOn": "2021-04-13T13:27:25Z",
       "side": 1,
       "message": "I think \"by the network layer\" is more clear and maybe add between () what does that mean since it is an overloaded term.",
+      "range": {
+        "startLine": 44,
+        "startChar": 66,
+        "endLine": 45,
+        "endChar": 13
+      },
+      "revId": "9d3b531e07e5f8714c83d3accd6b2fdd991b5bb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d53193bb_6fcbf63c",
+        "filename": "test/pc/e2e/g3doc/architecture.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-13T14:04:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a7c7cbb_aff10dd6",
       "range": {
         "startLine": 44,
         "startChar": 66,
@@ -179,6 +323,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "08b03020_485bac33",
+        "filename": "test/pc/e2e/g3doc/architecture.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-13T14:04:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3cd5d21_9f5bce66",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 7
+      },
+      "revId": "9d3b531e07e5f8714c83d3accd6b2fdd991b5bb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c3c38670_9d01e347",
@@ -192,6 +360,30 @@
       "writtenOn": "2021-04-13T13:27:25Z",
       "side": 1,
       "message": "isn\u0027t",
+      "range": {
+        "startLine": 72,
+        "startChar": 21,
+        "endLine": 72,
+        "endChar": 27
+      },
+      "revId": "9d3b531e07e5f8714c83d3accd6b2fdd991b5bb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ec8066b_652d0817",
+        "filename": "test/pc/e2e/g3doc/architecture.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-13T14:04:58Z",
+      "side": 1,
+      "message": "Replaced This -\u003e These instead",
+      "parentUuid": "c3c38670_9d01e347",
       "range": {
         "startLine": 72,
         "startChar": 21,
@@ -225,6 +417,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3528f798_6034fbe9",
+        "filename": "test/pc/e2e/g3doc/architecture.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-13T14:04:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4b18c91_952b109c",
+      "range": {
+        "startLine": 73,
+        "startChar": 38,
+        "endLine": 73,
+        "endChar": 47
+      },
+      "revId": "9d3b531e07e5f8714c83d3accd6b2fdd991b5bb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "de3b782c_a8f8f30b",
@@ -238,6 +454,30 @@
       "writtenOn": "2021-04-13T13:27:25Z",
       "side": 1,
       "message": "Remove and start with \"The\".",
+      "range": {
+        "startLine": 103,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 9
+      },
+      "revId": "9d3b531e07e5f8714c83d3accd6b2fdd991b5bb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d203119d_8e4d75e0",
+        "filename": "test/pc/e2e/g3doc/architecture.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-13T14:04:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de3b782c_a8f8f30b",
       "range": {
         "startLine": 103,
         "startChar": 0,
@@ -271,6 +511,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d23aebca_7af1e2aa",
+        "filename": "test/pc/e2e/g3doc/architecture.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-13T14:04:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8b83e82_23f66dc2",
+      "range": {
+        "startLine": 121,
+        "startChar": 15,
+        "endLine": 121,
+        "endChar": 24
+      },
+      "revId": "9d3b531e07e5f8714c83d3accd6b2fdd991b5bb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3cf8c4b9_7fa8126d",
@@ -284,6 +548,30 @@
       "writtenOn": "2021-04-13T13:27:25Z",
       "side": 1,
       "message": "After this section, the following line ...",
+      "range": {
+        "startLine": 160,
+        "startChar": 0,
+        "endLine": 160,
+        "endChar": 24
+      },
+      "revId": "9d3b531e07e5f8714c83d3accd6b2fdd991b5bb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e597c8c_0802f6ed",
+        "filename": "test/pc/e2e/g3doc/architecture.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-13T14:04:58Z",
+      "side": 1,
+      "message": "It won\u0027t be added at the end, rephrased a bit.",
+      "parentUuid": "3cf8c4b9_7fa8126d",
       "range": {
         "startLine": 160,
         "startChar": 0,
@@ -319,6 +607,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0e54c869_a4f7a5b4",
+        "filename": "test/pc/e2e/g3doc/architecture.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-13T14:04:58Z",
+      "side": 1,
+      "message": "Probably we should make them aware about it. Because it will cause test breakage on presubmit.",
+      "parentUuid": "12bea798_26f49385",
+      "range": {
+        "startLine": 167,
+        "startChar": 8,
+        "endLine": 167,
+        "endChar": 21
+      },
+      "revId": "9d3b531e07e5f8714c83d3accd6b2fdd991b5bb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a40f5e8b_cd4c7212",
         "filename": "test/pc/e2e/g3doc/architecture.md",
         "patchSetId": 1
@@ -330,6 +642,30 @@
       "writtenOn": "2021-04-13T13:27:25Z",
       "side": 1,
       "message": "\", the\"",
+      "range": {
+        "startLine": 175,
+        "startChar": 14,
+        "endLine": 175,
+        "endChar": 15
+      },
+      "revId": "9d3b531e07e5f8714c83d3accd6b2fdd991b5bb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b133fda1_046e87e8",
+        "filename": "test/pc/e2e/g3doc/architecture.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-13T14:04:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a40f5e8b_cd4c7212",
       "range": {
         "startLine": 175,
         "startChar": 14,
@@ -353,6 +689,30 @@
       "writtenOn": "2021-04-13T13:27:25Z",
       "side": 1,
       "message": "about the video frame, allowing the fake SFU to know if it belongs to a simulcast stream/spatial layer of if it should be \"discarded\".",
+      "range": {
+        "startLine": 175,
+        "startChar": 58,
+        "endLine": 177,
+        "endChar": 12
+      },
+      "revId": "9d3b531e07e5f8714c83d3accd6b2fdd991b5bb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b6761ff_8df5bdd7",
+        "filename": "test/pc/e2e/g3doc/architecture.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-13T14:04:58Z",
+      "side": 1,
+      "message": "Rephrased a bit, PTAL.",
+      "parentUuid": "29272c99_6f2e0370",
       "range": {
         "startLine": 175,
         "startChar": 58,

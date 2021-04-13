@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00591623_5f46709e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-04-13T20:02:54Z",
+      "side": 1,
+      "message": "I would like to understand a general way to add links. If a link is defined by line number, the doc will be hard to maintain.",
+      "revId": "a63d6aacd4cd04ec3dde69481e3428c35ce719b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

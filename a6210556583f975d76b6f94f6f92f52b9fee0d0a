@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c19615c2_69540f3c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2021-04-13T15:05:08Z",
+      "side": 1,
+      "message": "PTAL. Borrowed some stuff from a presentation by Henrik :)",
+      "revId": "a6210556583f975d76b6f94f6f92f52b9fee0d0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

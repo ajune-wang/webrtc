@@ -14,75 +14,76 @@
 #include "system_wrappers/include/sleep.h"
 #include "test/gmock.h"
 
-using ::testing::Invoke;
-using ::testing::MockFunction;
-
 namespace rtc {
 namespace {
-
-void NullRunFunction(void* obj) {}
-
-// Function that sets a boolean.
-void SetFlagRunFunction(void* obj) {
-  bool* obj_as_bool = static_cast<bool*>(obj);
-  *obj_as_bool = true;
-}
-
-void StdFunctionRunFunction(void* obj) {
-  std::function<void()>* fun = static_cast<std::function<void()>*>(obj);
-  (*fun)();
-}
-
 std::atomic<bool> g_flag{false};
-
 }  // namespace
 
-TEST(PlatformThreadTest, StartStop) {
-  PlatformThread thread(&NullRunFunction, nullptr, "PlatformThreadTest");
-  EXPECT_TRUE(thread.name() == "PlatformThreadTest");
-  EXPECT_TRUE(thread.GetThreadRef() == 0);
-  thread.Start();
-  EXPECT_TRUE(thread.GetThreadRef() != 0);
-  thread.Stop();
-  EXPECT_TRUE(thread.GetThreadRef() == 0);
+TEST(PlatformThreadTest, DefaultConstructedIsEmpty) {
+  PlatformThread thread;
+  EXPECT_EQ(thread.GetHandle(), PlatformThread::kNullHandle);
+  EXPECT_TRUE(thread.empty());
 }
 
-TEST(PlatformThreadTest, StartStop2) {
-  PlatformThread thread1(&NullRunFunction, nullptr, "PlatformThreadTest1");
-  PlatformThread thread2(&NullRunFunction, nullptr, "PlatformThreadTest2");
-  EXPECT_TRUE(thread1.GetThreadRef() == thread2.GetThreadRef());
-  thread1.Start();
-  thread2.Start();
-  EXPECT_TRUE(thread1.GetThreadRef() != thread2.GetThreadRef());
-  thread2.Stop();
-  thread1.Stop();
+TEST(PlatformThreadTest, StartClear) {
+  PlatformThread thread = PlatformThread::SpawnJoinable([] {}, "1");
+  EXPECT_NE(thread.GetHandle(), PlatformThread::kNullHandle);
+  EXPECT_FALSE(thread.empty());
+  thread.Clear();
+  EXPECT_TRUE(thread.empty());
+  thread = PlatformThread::SpawnDetached([] {}, "2");
+  EXPECT_FALSE(thread.empty());
+  thread.Clear();
+  EXPECT_TRUE(thread.empty());
+}
+
+TEST(PlatformThreadTest, MovesEmpty) {
+  PlatformThread thread1;
+  PlatformThread thread2 = std::move(thread1);
+  EXPECT_TRUE(thread1.empty());
+  EXPECT_TRUE(thread2.empty());
+}
+
+TEST(PlatformThreadTest, MovesHandles) {
+  PlatformThread thread1 = PlatformThread::SpawnJoinable([] {}, "1");
+  PlatformThread thread2 = std::move(thread1);
+  EXPECT_TRUE(thread1.empty());
+  EXPECT_FALSE(thread2.empty());
+  thread1 = PlatformThread::SpawnDetached([] {}, "2");
+  thread2 = std::move(thread1);
+  EXPECT_TRUE(thread1.empty());
+  EXPECT_FALSE(thread2.empty());
+}
+
+TEST(PlatformThreadTest,
+     TwoThreadHandlesAreDifferentWhenStartedAndEqualWhenJoined) {
+  PlatformThread thread1 = PlatformThread();
+  PlatformThread thread2 = PlatformThread();
+  EXPECT_EQ(thread1.GetHandle(), thread2.GetHandle());
+  thread1 = PlatformThread::SpawnJoinable([] {}, "1");
+  thread2 = PlatformThread::SpawnJoinable([] {}, "2");
+  EXPECT_NE(thread1.GetHandle(), thread2.GetHandle());
+  thread1.Clear();
+  EXPECT_NE(thread1.GetHandle(), thread2.GetHandle());
+  thread2.Clear();
+  EXPECT_EQ(thread1.GetHandle(), thread2.GetHandle());
 }
 
 TEST(PlatformThreadTest, RunFunctionIsCalled) {
   bool flag = false;
-  PlatformThread thread(&SetFlagRunFunction, &flag, "RunFunctionIsCalled");
-  thread.Start();
-
-  // At this point, the flag may be either true or false.
-  thread.Stop();
-
-  // We expect the thread to have run at least once.
+  PlatformThread::SpawnJoinable([&] { flag = true; }, "T");
   EXPECT_TRUE(flag);
 }
 
 TEST(PlatformThreadTest, JoinsThread) {
   // This test flakes if there are problems with the join implementation.
-  EXPECT_TRUE(ThreadAttributes().joinable);
   rtc::Event event;
-  MockFunction<void()> function;
-  EXPECT_CALL(function, Call).WillOnce(Invoke([&] {
-    webrtc::SleepMs(1000);
-    event.Set();
-  }));
-  std::function<void()> std_function = function.AsStdFunction();
-  PlatformThread thread(&StdFunctionRunFunction, &std_function, "T");
-  thread.Start();
-  thread.Stop();
+  PlatformThread::SpawnJoinable(
+      [&] {
+        webrtc::SleepMs(1000);
+        event.Set();
+      },
+      "T");
   EXPECT_TRUE(event.Wait(/*give_up_after_ms=*/0));
 }
 
@@ -90,19 +91,15 @@ TEST(PlatformThreadTest, StopsBeforeDetachedThreadExits) {
   // This test flakes if there are problems with the detached thread
   // implementation.
   g_flag = false;
-  MockFunction<void()> function;
   rtc::Event event;
-  EXPECT_CALL(function, Call).WillOnce(Invoke([&] {
-    event.Set();
-    webrtc::SleepMs(1000);
-    g_flag = true;
-  }));
-  std::function<void()> std_function = function.AsStdFunction();
-  PlatformThread thread(&StdFunctionRunFunction, &std_function, "T",
-                        ThreadAttributes().SetDetached());
-  thread.Start();
+  PlatformThread thread = PlatformThread::SpawnDetached(
+      [&] {
+        event.Set();
+        webrtc::SleepMs(1000);
+        g_flag = true;
+      },
+      "T");
   event.Wait(Event::kForever);
-  thread.Stop();
   EXPECT_FALSE(g_flag);
 }
 

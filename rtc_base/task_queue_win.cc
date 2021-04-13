@@ -55,17 +55,13 @@ void CALLBACK InitializeQueueThread(ULONG_PTR param) {
 rtc::ThreadPriority TaskQueuePriorityToThreadPriority(
     TaskQueueFactory::Priority priority) {
   switch (priority) {
-    case TaskQueueFactory::Priority::HIGH:
-      return rtc::kRealtimePriority;
-    case TaskQueueFactory::Priority::LOW:
-      return rtc::kLowPriority;
-    case TaskQueueFactory::Priority::NORMAL:
-      return rtc::kNormalPriority;
-    default:
-      RTC_NOTREACHED();
-      break;
+    case Priority::HIGH:
+      return rtc::ThreadPriority::kRealtime;
+    case Priority::LOW:
+      return rtc::ThreadPriority::kLow;
+    case Priority::NORMAL:
+      return rtc::ThreadPriority::kNormal;
   }
-  return rtc::kNormalPriority;
 }
 
 int64_t GetTick() {
@@ -167,24 +163,6 @@ class TaskQueueWin : public TaskQueueBase {
   void RunPendingTasks();
 
  private:
-  static void ThreadMain(void* context);
-
-  class WorkerThread : public rtc::PlatformThread {
-   public:
-    WorkerThread(rtc::ThreadRunFunction func,
-                 void* obj,
-                 absl::string_view thread_name,
-                 rtc::ThreadPriority priority)
-        : PlatformThread(func,
-                         obj,
-                         thread_name,
-                         rtc::ThreadAttributes().SetPriority(priority)) {}
-
-    bool QueueAPC(PAPCFUNC apc_function, ULONG_PTR data) {
-      return rtc::PlatformThread::QueueAPC(apc_function, data);
-    }
-  };
-
   void RunThreadMain();
   bool ProcessQueuedMessages();
   void RunDueTasks();
@@ -207,7 +185,7 @@ class TaskQueueWin : public TaskQueueBase {
                       greater<DelayedTaskInfo>>
       timer_tasks_;
   UINT_PTR timer_id_ = 0;
-  WorkerThread thread_;
+  PlatformThread thread_;
   Mutex pending_lock_;
   std::queue<std::unique_ptr<QueuedTask>> pending_
       RTC_GUARDED_BY(pending_lock_);
@@ -216,10 +194,11 @@ class TaskQueueWin : public TaskQueueBase {
 
 TaskQueueWin::TaskQueueWin(absl::string_view queue_name,
                            rtc::ThreadPriority priority)
-    : thread_(&TaskQueueWin::ThreadMain, this, queue_name, priority),
-      in_queue_(::CreateEvent(nullptr, true, false, nullptr)) {
+    : in_queue_(::CreateEvent(nullptr, true, false, nullptr)) {
   RTC_DCHECK(in_queue_);
-  thread_.Start();
+  thread_ = rtc::PlatformThread::SpawnJoinable([this] { RunThreadMain(); },
+                                               queue_name, priority);
+
   rtc::Event event(false, false);
   RTC_CHECK(thread_.QueueAPC(&InitializeQueueThread,
                              reinterpret_cast<ULONG_PTR>(&event)));
@@ -232,7 +211,7 @@ void TaskQueueWin::Delete() {
     RTC_CHECK_EQ(ERROR_NOT_ENOUGH_QUOTA, ::GetLastError());
     Sleep(1);
   }
-  thread_.Stop();
+  thread_.Clear();
   ::CloseHandle(in_queue_);
   delete this;
 }
@@ -275,11 +254,6 @@ void TaskQueueWin::RunPendingTasks() {
     if (!task->Run())
       task.release();
   }
-}
-
-// static
-void TaskQueueWin::ThreadMain(void* context) {
-  static_cast<TaskQueueWin*>(context)->RunThreadMain();
 }
 
 void TaskQueueWin::RunThreadMain() {

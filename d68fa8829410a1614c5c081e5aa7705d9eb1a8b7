@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f1b77a9_f9a88810",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 52
+      },
+      "lineNbr": 2165,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-04-13T10:15:10Z",
+      "side": 1,
+      "message": "Why do we enumerate transceivers on the network thread? Transceivers are typically created synchronously on the signaling thread (PeerConnection::AddTransceiver, AddTrack) and iterated synchronously on the signaling thread (PeerConnection::GetTransceivers).\n\nEven transceivers that get created as part of processing SDP is created by the signaling thread by AssociateTransceiver. Even if we improved this such that new transceivers could truly be created \"in parallel\" like the spec allows, it would be illegal to expose the transceiver prior to that operation completing, so the signaling thread is where we should look for transceivers.\n\nTo me it looks like calling EnumerateTransceivers_n() is only safe because it is called while we are already blocking the signaling thread. But if we are going to block the signaling thread already, then we can enumerate the transceivers before invoking on the network thread (and we\u0027ll know that the transceiver list is still up-to-date).",
+      "revId": "d68fa8829410a1614c5c081e5aa7705d9eb1a8b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de00e9ab_b60e1ccb",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 52
+      },
+      "lineNbr": 2217,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-04-13T10:15:10Z",
+      "side": 1,
+      "message": "Again, transceivers belong to signaling thread. GetTransportNames() is only safe if it is being called while we are blocking the signaling thread.",
+      "revId": "d68fa8829410a1614c5c081e5aa7705d9eb1a8b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbb4adf4_f6bb9006",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 52
+      },
+      "lineNbr": 2049,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-04-13T10:15:10Z",
+      "side": 1,
+      "message": "Accessing transceivers is signaling threadd only!\nIt would be sensible to add a thread checker here:\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/pc/rtp_transceiver.cc;l\u003d259;drc\u003d03995903d33d08c3d9b3a21e517033dc546f2997;bpv\u003d1;bpt\u003d1\n\nI would propose splitting this up into \"what we want to do on signaling thread\" and \"what we want to do on network thread\", but I see that even the transceiver\u0027s channel is set on the signaling thread.\n\nSo I\u0027m confused what this should be doing? To me the old code looks correct and the new code just happens to work because 1) we are blocking the signaling thread, and 2) we do not have thread checks everywhere. If we added sensible DCHECKs this code would stop working, and as-is it is preventing us from removing the block-invoke.",
+      "revId": "d68fa8829410a1614c5c081e5aa7705d9eb1a8b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

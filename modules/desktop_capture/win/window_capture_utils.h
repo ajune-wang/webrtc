@@ -86,8 +86,11 @@ enum GetWindowListFlags {
 // - Program Manager & Start menu.
 // - [with kIgnoreUntitled] windows with no title.
 // - [with kIgnoreUnresponsive] windows that unresponsive.
+// - Any windows with styles matching those provided in |style_filters|.
 // Returns false if native APIs failed.
-bool GetWindowList(int flags, DesktopCapturer::SourceList* windows);
+bool GetWindowList(int flags,
+                   DesktopCapturer::SourceList* windows,
+                   LONG style_filters = 0);
 
 typedef HRESULT(WINAPI* DwmIsCompositionEnabledFunc)(BOOL* enabled);
 typedef HRESULT(WINAPI* DwmGetWindowAttributeFunc)(HWND hwnd,
@@ -107,7 +110,12 @@ class WindowCaptureHelperWin {
   bool IsWindowOnCurrentDesktop(HWND hwnd);
   bool IsWindowVisibleOnCurrentDesktop(HWND hwnd);
   bool IsWindowCloaked(HWND hwnd);
-  bool EnumerateCapturableWindows(DesktopCapturer::SourceList* results);
+
+  // The optional |style_filters| parameter allows callers to provide window
+  // styles (e.g. WS_EX_TOOLWINDOW) and prevent windows that match from being
+  // included in |results|.
+  bool EnumerateCapturableWindows(DesktopCapturer::SourceList* results,
+                                  LONG style_filters = 0);
 
  private:
   HMODULE dwmapi_library_ = nullptr;

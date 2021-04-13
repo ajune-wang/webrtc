@@ -33,6 +33,16 @@ namespace {
 constexpr size_t kMaxUdpPacketSize = 65535;
 constexpr size_t kChunkTlvHeaderSize = 4;
 constexpr size_t kExpectedDescriptorCount = 4;
+
+size_t GetMaxPacketSize(size_t mtu) {
+  // SCTP packets are always a multiple of 4 bytes, as padding is added to the
+  // chunks if their size isn't even divisible by four. So make sure that the
+  // maximum packet size is even divisible by four, but not larger than the MTU.
+  size_t max_packet_size = RoundUpTo4(mtu - 3);
+  RTC_DCHECK(max_packet_size <= mtu);
+  return max_packet_size;
+}
+
 }  // namespace
 
 /*
@@ -52,7 +62,7 @@ SctpPacket::Builder::Builder(VerificationTag verification_tag,
     : verification_tag_(verification_tag),
       source_port_(options.local_port),
       dest_port_(options.remote_port),
-      max_mtu_(options.mtu) {}
+      max_mtu_(GetMaxPacketSize(options.mtu)) {}
 
 SctpPacket::Builder& SctpPacket::Builder::Add(const Chunk& chunk) {
   if (out_.empty()) {
@@ -72,6 +82,14 @@ SctpPacket::Builder& SctpPacket::Builder::Add(const Chunk& chunk) {
   return *this;
 }
 
+size_t SctpPacket::Builder::bytes_remaining() const {
+  if (out_.empty()) {
+    // The packet header (CommonHeader) hasn't been written yet:
+    return max_mtu_ - kHeaderSize;
+  }
+  return out_.size() >= max_mtu_ ? 0 : max_mtu_ - out_.size();
+}
+
 std::vector<uint8_t> SctpPacket::Builder::Build() {
   std::vector<uint8_t> out;
   out_.swap(out);
@@ -80,6 +98,8 @@ std::vector<uint8_t> SctpPacket::Builder::Build() {
     uint32_t crc = GenerateCrc32C(out);
     BoundedByteWriter<kHeaderSize>(out).Store32<8>(crc);
   }
+  RTC_DCHECK(out.size() <= max_mtu_)
+      << "Exceeded MTU, data=" << out.size() << ", mtu=" << max_mtu_;
   return out;
 }
 

@@ -66,9 +66,7 @@ class SctpPacket {
     Builder& Add(const Chunk& chunk);
 
     // The number of bytes remaining in the packet, until the MTU is reached.
-    size_t bytes_remaining() const {
-      return out_.size() >= max_mtu_ ? 0 : max_mtu_ - out_.size();
-    }
+    size_t bytes_remaining() const;
 
     // Indicates if any packets have been added to the builder.
     bool empty() const { return out_.empty(); }

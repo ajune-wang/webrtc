@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "761174ab_f6eb0c0c",
+        "filename": "api/g3doc/index.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-13T12:31:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa8e2b8f_9c28b2ce",
+      "revId": "61b2a277c52da4ca5f9e46c5c834df6653f9e3f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "df9fe9b4_972ff678",
@@ -48,6 +66,24 @@
       "writtenOn": "2021-04-13T11:52:25Z",
       "side": 1,
       "message": "great!",
+      "revId": "61b2a277c52da4ca5f9e46c5c834df6653f9e3f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8be8e42_4cf9e894",
+        "filename": "api/g3doc/index.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-13T12:31:41Z",
+      "side": 1,
+      "message": "Ack\nI think \"mostly\" should be \"always\", but I didn\u0027t want to bet on that before I had checked them all.",
+      "parentUuid": "df9fe9b4_972ff678",
       "revId": "61b2a277c52da4ca5f9e46c5c834df6653f9e3f5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

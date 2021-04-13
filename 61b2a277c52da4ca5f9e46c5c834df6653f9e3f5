@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2731b58_7dcc8127",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-13T08:50:37Z",
+      "side": 1,
+      "message": "I\u0027m intending to close the related bug once this one is landed.\nWe can open more bugs for adding more details of other APIs.\n\n",
+      "revId": "61b2a277c52da4ca5f9e46c5c834df6653f9e3f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

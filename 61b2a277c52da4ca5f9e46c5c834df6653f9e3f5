@@ -16,6 +16,40 @@
       "message": "I\u0027m intending to close the related bug once this one is landed.\nWe can open more bugs for adding more details of other APIs.\n\n",
       "revId": "61b2a277c52da4ca5f9e46c5c834df6653f9e3f5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa8e2b8f_9c28b2ce",
+        "filename": "api/g3doc/index.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-13T11:52:25Z",
+      "side": 1,
+      "message": "should we simply say \"the recommended way\" instead of \"the best documented way\"?\n\nI think that the level of documentation will vary but we\u0027ll still prefer that webrtc be used via the PC interface.",
+      "revId": "61b2a277c52da4ca5f9e46c5c834df6653f9e3f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df9fe9b4_972ff678",
+        "filename": "api/g3doc/index.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-13T11:52:25Z",
+      "side": 1,
+      "message": "great!",
+      "revId": "61b2a277c52da4ca5f9e46c5c834df6653f9e3f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

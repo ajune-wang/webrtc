@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "539bff8e_973a016d",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 52
+      },
+      "lineNbr": 2165,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-13T16:18:43Z",
+      "side": 1,
+      "message": "It is true that there are several things in RTCStatsCollector that are only safe because of blocking operations on the signaling thread and aren\u0027t actually safe. RTCStatsCollector holds on to object pointers and references to objects across a few threads, which could affect object lifetimes and/or could cause them to destruct on other threads than they\u0027d expect. RTCStatsCollector has an event object that\u0027s used to block the signaling thread until those references are released and pointers cleared. It would be good to avoid holding on to these objects and only acquire them when we\u0027re also ready to collect the associated stats (and then just keep the stats).",
+      "parentUuid": "5cdb5ece_1e35c31d",
+      "revId": "d68fa8829410a1614c5c081e5aa7705d9eb1a8b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "de00e9ab_b60e1ccb",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 52

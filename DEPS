@@ -7,14 +7,14 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '74f869d04b2f7b9e9139960a0d8491ce0c7ae4df',
+  'chromium_revision': '6d23616512e543b30fd1d5369c1926afc7518017',
 }
 
 deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@ca7b938131505fc10908e44c7b2ac59cb171dc40',
+    'https://chromium.googlesource.com/chromium/src/base@f468b71ec42858e3ead4a7421aa9bb75a672ea06',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@79006bea8b2e0586ea6e9dd64043de199e4b883d',
   'src/buildtools':
@@ -29,9 +29,9 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@21d746be786d64b6c39e5c7797907fbb26727a5c',
+    'https://chromium.googlesource.com/chromium/src/testing@e5f83f632def47e79dfa6632feb0f683a3e90a64',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@cd3c7ea8d46e82ffc029e8050d63492fa2cc0447',
+    'https://chromium.googlesource.com/chromium/src/third_party@90ceb8e0cfbecfda7992bf33725b743346c2388e',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -263,7 +263,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@55b8544079ec6ad66c9313338257ffb28dc15184',
+    'https://chromium.googlesource.com/chromium/src/tools@ae9d13d9661698081c9c8d723c233ebcb6360cfd',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@a32a1607f6093d338f756c7e7c7b4333b0c50c9c',
 
@@ -485,15 +485,15 @@ deps = {
       'packages': [
         {
           'package': 'infra/tools/luci/isolate/${{platform}}',
-          'version': 'git_revision:f784260b204b2d93c7bd6d1a619f09c6822e5926',
+          'version': 'git_revision:d3c477bcb09ee66dbedfd9f1e8a915ab9d64bdbb',
         },
         {
           'package': 'infra/tools/luci/isolated/${{platform}}',
-          'version': 'git_revision:f784260b204b2d93c7bd6d1a619f09c6822e5926',
+          'version': 'git_revision:d3c477bcb09ee66dbedfd9f1e8a915ab9d64bdbb',
         },
         {
           'package': 'infra/tools/luci/swarming/${{platform}}',
-          'version': 'git_revision:f784260b204b2d93c7bd6d1a619f09c6822e5926',
+          'version': 'git_revision:d3c477bcb09ee66dbedfd9f1e8a915ab9d64bdbb',
         },
       ],
       'dep_type': 'cipd',

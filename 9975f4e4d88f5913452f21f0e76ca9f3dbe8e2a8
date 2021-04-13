@@ -33,6 +33,24 @@
       "message": "std::shared_ptr isn\u0027t used anywhere else in webrtc at the moment.\nIs this the right construct to use, instead of rtc::shared_refptr?",
       "revId": "9975f4e4d88f5913452f21f0e76ca9f3dbe8e2a8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bec252dc_03c31112",
+        "filename": "rtc_base/async_resolver.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-04-13T10:01:17Z",
+      "side": 1,
+      "message": "In this case I need to use exactly std::shared_ptr because of the std::weak_ptr lock() semantics.",
+      "parentUuid": "294bb0dd_30e607d0",
+      "revId": "9975f4e4d88f5913452f21f0e76ca9f3dbe8e2a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

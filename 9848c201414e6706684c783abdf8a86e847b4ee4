@@ -16,6 +16,46 @@
       "message": "improving the shift was actually easier than I expected and the new version is much easier to read!\n\nNow ideally this would use some kind of ring buffer to avoid the SetData calls but I didn\u0027t see a data structure that would fit?",
       "revId": "9848c201414e6706684c783abdf8a86e847b4ee4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7034786e_4b7e3610",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2021-04-13T15:36:44Z",
+      "side": 1,
+      "message": "Sorry for the delay on reviewing this CL. From our last conversation, I thought that more changes were expected but I was wrong and then I forgot about this.\n\nThe new changes look good but I have a minor question. \n\nKind regards, \nJesus",
+      "revId": "9848c201414e6706684c783abdf8a86e847b4ee4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecb98a32_cb546dd6",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2021-04-13T15:36:44Z",
+      "side": 1,
+      "message": "do we need to do this when there is no redundant encoding, case header_length_bytes \u003d\u003d 0? that is, do we need to do this when due to the lack of redundant payloads we are encoding without wrapping the original encoding into RED?",
+      "range": {
+        "startLine": 137,
+        "startChar": 2,
+        "endLine": 137,
+        "endChar": 33
+      },
+      "revId": "9848c201414e6706684c783abdf8a86e847b4ee4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

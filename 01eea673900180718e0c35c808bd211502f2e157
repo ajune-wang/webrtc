@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "80762c29_7c86dc88",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-13T06:04:24Z",
+      "side": 1,
+      "message": "One small comment but LGTM (I forgot to +1 yesterday).",
+      "revId": "01eea673900180718e0c35c808bd211502f2e157",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a4fdde92_366ce2f6",

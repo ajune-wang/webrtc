@@ -65,6 +65,52 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "56f4edf4_8f580d2c",
+        "filename": "modules/audio_device/g3doc/audio_device_module.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2021-04-13T12:27:32Z",
+      "side": 1,
+      "message": "nit: Perhpas add these links in the footer as done later in the doc for consistency.",
+      "range": {
+        "startLine": 10,
+        "startChar": 17,
+        "endLine": 10,
+        "endChar": 184
+      },
+      "revId": "81da602e5110c663628f240e0cbf020333b18c36",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a372a8ce_f8c74d2d",
+        "filename": "modules/audio_device/g3doc/audio_device_module.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2021-04-13T12:27:32Z",
+      "side": 1,
+      "message": "Start/Stop physical audio streams",
+      "range": {
+        "startLine": 18,
+        "startChar": 4,
+        "endLine": 18,
+        "endChar": 14
+      },
+      "revId": "81da602e5110c663628f240e0cbf020333b18c36",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "29ba0bc6_f0abe3f3",
@@ -154,6 +200,75 @@
         "startChar": 0,
         "endLine": 25,
         "endChar": 33
+      },
+      "revId": "81da602e5110c663628f240e0cbf020333b18c36",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffcc1b4d_5250692d",
+        "filename": "modules/audio_device/g3doc/audio_device_module.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2021-04-13T12:27:32Z",
+      "side": 1,
+      "message": "can remove \"which is\"",
+      "range": {
+        "startLine": 88,
+        "startChar": 22,
+        "endLine": 88,
+        "endChar": 32
+      },
+      "revId": "81da602e5110c663628f240e0cbf020333b18c36",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d70f5288_1c8f912b",
+        "filename": "modules/audio_device/g3doc/audio_device_module.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2021-04-13T12:27:32Z",
+      "side": 1,
+      "message": "the parts",
+      "range": {
+        "startLine": 92,
+        "startChar": 52,
+        "endLine": 92,
+        "endChar": 57
+      },
+      "revId": "81da602e5110c663628f240e0cbf020333b18c36",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d71a73b_f302e536",
+        "filename": "modules/audio_device/g3doc/audio_device_module.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2021-04-13T12:27:32Z",
+      "side": 1,
+      "message": "the parts",
+      "range": {
+        "startLine": 94,
+        "startChar": 55,
+        "endLine": 94,
+        "endChar": 60
       },
       "revId": "81da602e5110c663628f240e0cbf020333b18c36",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"

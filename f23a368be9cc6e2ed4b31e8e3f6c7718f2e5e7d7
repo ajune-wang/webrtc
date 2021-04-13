@@ -16,6 +16,24 @@
       "message": "Hello Harald and Mirko!\n\nCould you please take a look at this CL which implements one of the options to implement useful error logging, but it should not break downstream project in debug builds when full ip is logged.\nBTW, I can\u0027t understand what\u0027s wrong with \u0027linux_rel\u0027 builds, seems to be irrelevant to changes.\n\nThanks a lot in advance,\nYura.",
       "revId": "f23a368be9cc6e2ed4b31e8e3f6c7718f2e5e7d7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "449a24b1_7f2f39ce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-13T16:55:03Z",
+      "side": 1,
+      "message": "Thanks Yura.\n\nYes, linux_rel issues are unrelated. We are investigating into that.\n\nWe\u0027re checking a few things with the people who caused the rollback, so we will take a look as soon as that gets addressed.\n\nKeeping the comment unresolved.",
+      "parentUuid": "f3a8f54f_b2829c9c",
+      "revId": "f23a368be9cc6e2ed4b31e8e3f6c7718f2e5e7d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

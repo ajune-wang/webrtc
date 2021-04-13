@@ -2,9 +2,14 @@
 *   How to contribute
     *   Code
     *   [Documentation](/g3doc/how_to_write_documentation.md)
-*   Public C++ API
+*  [Public C++ API](/api/g3doc/index.md)
+    *   [Threading](/api/g3doc/threading_design.md) 
 *   Implementation
-    *   Network
+    * Network
+      * [ICE](/p2p/g3doc/ice.md)
+      * STUN
+      * DTLS
+      * TURN
     *   Congestion control and bandwidth estimation
     *   Audio
     *   Video

@@ -56,6 +56,7 @@ if (!build_with_chromium) {
         "modules/rtp_rtcp:test_packet_masks_metrics",
         "modules/video_capture:video_capture_internal_impl",
         "net/dcsctp:dcsctp_unittests",
+        "net/dcsctp/compat:dcsctp_compat_server",
         "pc:peerconnection_unittests",
         "pc:rtc_pc_unittests",
         "rtc_tools:rtp_generator",

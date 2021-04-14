@@ -20,6 +20,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c64f0125_efb52e8e",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-04-14T09:37:50Z",
+      "side": 1,
+      "message": "An I-frame is not the same as a keyframe as an I-frame may not reset the state of the decoder. Also, the linked source does not say anything about this.",
+      "range": {
+        "startLine": 25,
+        "startChar": 55,
+        "endLine": 25,
+        "endChar": 62
+      },
+      "revId": "75c5112263e73de82f2ba22d7a117dbab732c837",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93b1ace2_0f3d804b",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-04-14T09:37:50Z",
+      "side": 1,
+      "message": "This is a bit complicated, but to simplify it I would say that it\u0027s not true for temporal layers, but it can be true for certain spatial layer configurations (simulcast).",
+      "range": {
+        "startLine": 45,
+        "startChar": 23,
+        "endLine": 45,
+        "endChar": 44
+      },
+      "revId": "75c5112263e73de82f2ba22d7a117dbab732c837",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "db123cae_9fb4e161",
         "filename": "modules/video_coding/g3doc/index.md",
         "patchSetId": 4
@@ -105,6 +151,52 @@
         "startChar": 44,
         "endLine": 53,
         "endChar": 13
+      },
+      "revId": "75c5112263e73de82f2ba22d7a117dbab732c837",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5aea9aa_0015c47b",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-04-14T09:37:50Z",
+      "side": 1,
+      "message": "AFAIK we support this.",
+      "range": {
+        "startLine": 56,
+        "startChar": 28,
+        "endLine": 56,
+        "endChar": 55
+      },
+      "revId": "75c5112263e73de82f2ba22d7a117dbab732c837",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96a213f7_ba0c5712",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-04-14T09:37:50Z",
+      "side": 1,
+      "message": "nit: I\u0027m not 100% sure how spatial scalability is defined, so I think it might be safer to say \"...where interlayer (interspatial?) dependencies are only used to encode key frames...\"",
+      "range": {
+        "startLine": 65,
+        "startChar": 55,
+        "endLine": 65,
+        "endChar": 74
       },
       "revId": "75c5112263e73de82f2ba22d7a117dbab732c837",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
@@ -595,6 +687,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3bafe604_54c5f96f",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-04-14T09:37:50Z",
+      "side": 1,
+      "message": "I have a few suggestions that I think explains what these classes do in a more direct way, and also kind of explains how they are used together in an indirect way. WDYT?\n\n\"(re-)combines RTP packets into frames.\"",
+      "range": {
+        "startLine": 119,
+        "startChar": 21,
+        "endLine": 119,
+        "endChar": 71
+      },
+      "revId": "75c5112263e73de82f2ba22d7a117dbab732c837",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "102eb85f_75b69668",
         "filename": "modules/video_coding/g3doc/index.md",
         "patchSetId": 4
@@ -618,6 +733,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7753b920_1c05c15e",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-04-14T09:37:50Z",
+      "side": 1,
+      "message": "\"Determines dependencies between frames based on information in the RTP header, payload header and RTP extensions.\"",
+      "range": {
+        "startLine": 120,
+        "startChar": 32,
+        "endLine": 121,
+        "endChar": 47
+      },
+      "revId": "75c5112263e73de82f2ba22d7a117dbab732c837",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5a176662_bca178dd",
         "filename": "modules/video_coding/g3doc/index.md",
         "patchSetId": 4
@@ -634,6 +772,29 @@
         "startChar": 5,
         "endLine": 122,
         "endChar": 16
+      },
+      "revId": "75c5112263e73de82f2ba22d7a117dbab732c837",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dcee7585_a513be7b",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-04-14T09:37:50Z",
+      "side": 1,
+      "message": "\"Order frames based on their dependencies to be fed to the decoder\" (or something like that).",
+      "range": {
+        "startLine": 122,
+        "startChar": 20,
+        "endLine": 124,
+        "endChar": 70
       },
       "revId": "75c5112263e73de82f2ba22d7a117dbab732c837",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"

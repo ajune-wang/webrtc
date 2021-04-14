@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0cb8682d_9ceacb39",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2021-04-14T08:52:44Z",
+      "side": 1,
+      "message": "Ptal!\n\nArtem: general g3doc stuff\nMichael: video coding\nPhilip: receiver buffer",
+      "revId": "75c5112263e73de82f2ba22d7a117dbab732c837",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

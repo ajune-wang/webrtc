@@ -324,7 +324,9 @@ INSTANTIATE_TEST_SUITE_P(
                                48000,
                                true)));
 
-TEST(GainController2, UsageSaturationMargin) {
+// TODO(bugs.webrtc.org/7494): Adapt and re-enable once the new saturation
+// protector is ready.
+TEST(GainController2, DISABLED_UsageSaturationMargin) {
   GainController2 gain_controller2;
   gain_controller2.Initialize(AudioProcessing::kSampleRate48kHz);
 

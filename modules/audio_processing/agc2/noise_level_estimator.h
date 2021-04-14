@@ -26,6 +26,7 @@ class NoiseLevelEstimator {
   // Returns the estimated noise level in dBFS.
   float Analyze(const AudioFrameView<const float>& frame);
 
+<<<<<<< HEAD   (48ae01 [Merge-91] Remove RTCRemoteInboundRtpStreamStats duplicate m)
  private:
   void Initialize(int sample_rate_hz);
 
@@ -37,6 +38,15 @@ class NoiseLevelEstimator {
   int noise_energy_hold_counter_;
   SignalClassifier signal_classifier_;
 };
+=======
+// Creates a noise level estimator based on stationarity detection.
+std::unique_ptr<NoiseLevelEstimator> CreateStationaryNoiseEstimator(
+    ApmDataDumper* data_dumper);
+
+// Creates a noise level estimator based on noise floor detection.
+std::unique_ptr<NoiseLevelEstimator> CreateNoiseFloorEstimator(
+    ApmDataDumper* data_dumper);
+>>>>>>> CHANGE (61982a AGC2 lightweight noise floor estimator)
 
 }  // namespace webrtc
 

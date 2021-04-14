@@ -9,7 +9,7 @@ Further, it is quite common that video encoders overshoot the target frame size 
 These packet bursts can cause several issues, such as congesting networks and causing buffer bloat or even packet loss.
 Most sessions have more than one media stream, e.g. a video and an audio track. If you put a frame on the wire in one go, and those packets take 100ms to reach the other side - that means you have now blocked any audio packets from reaching the remote end in time as well.
 
-The paced sender solves this by having a buffer in which media is queued, and then using a _leaky bycket_ algorithm to pace them onto the network. The buffer contains separate fifo streams for all media tracks so that e.g. audio can be prioritized over video - and equal prio streams can be sent in a round-robin fashion to avoid any one stream blocking others.
+The paced sender solves this by having a buffer in which media is queued, and then using a _leaky bucket_ algorithm to pace them onto the network. The buffer contains separate fifo streams for all media tracks so that e.g. audio can be prioritized over video - and equal prio streams can be sent in a round-robin fashion to avoid any one stream blocking others.
 
 Since the pacer is in control of the bitrate sent on the wire, it is also used to generate padding in cases where a minimum send rate is required - and to generate packet trains if bitrate probing is used.
 

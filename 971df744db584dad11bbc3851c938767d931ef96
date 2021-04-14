@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d714bad_70e90762",
+        "filename": "net/dcsctp/common/math.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-14T16:18:09Z",
+      "side": 1,
+      "message": "how does this work if the type is unsigned?",
+      "revId": "971df744db584dad11bbc3851c938767d931ef96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ca7ae18_f26c355e",
+        "filename": "net/dcsctp/packet/sctp_packet_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-14T16:18:09Z",
+      "side": 1,
+      "message": "can/should we use the max mtu constant?",
+      "revId": "971df744db584dad11bbc3851c938767d931ef96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

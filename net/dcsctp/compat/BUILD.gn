@@ -1,0 +1,37 @@
+# Copyright (c) 2021 The WebRTC project authors. All Rights Reserved.
+#
+# Use of this source code is governed by a BSD-style license
+# that can be found in the LICENSE file in the root of the source
+# tree. An additional intellectual property rights grant can be found
+# in the file PATENTS.  All contributing project authors may
+# be found in the AUTHORS file in the root of the source tree.
+
+import("../../../webrtc.gni")
+
+if (!build_with_chromium) {
+  rtc_library("dcsctp_compat_server_lib") {
+    testonly = true
+    sources = [
+      "dcsctp_compat_main.cc",
+      "dcsctp_compat_server.cc",
+      "dcsctp_compat_server.h",
+    ]
+    deps = [ "../../../rtc_base:rtc_base_approved" ]
+    absl_deps = [
+      "//third_party/abseil-cpp/absl/debugging:failure_signal_handler",
+      "//third_party/abseil-cpp/absl/debugging:symbolize",
+      "//third_party/abseil-cpp/absl/flags:flag",
+      "//third_party/abseil-cpp/absl/flags:parse",
+    ]
+  }
+
+  rtc_executable("dcsctp_compat_server") {
+    testonly = true
+    deps = [
+      ":dcsctp_compat_server_lib",
+      "../../../rtc_base",
+      "../../../rtc_base:checks",
+      "../../../rtc_base:rtc_base_approved",
+    ]
+  }
+}

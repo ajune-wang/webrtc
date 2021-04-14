@@ -33,6 +33,23 @@
       "message": "Looks like it was successful. Anything I need to do here to press the merge hammer?",
       "revId": "40f0481865840929661cdd75a29ac7e239a7a162",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12a5b56a_d3b00529",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-14T06:53:51Z",
+      "side": 1,
+      "message": "Given that this reduces code size, I\u0027m submitting it.\n",
+      "revId": "40f0481865840929661cdd75a29ac7e239a7a162",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

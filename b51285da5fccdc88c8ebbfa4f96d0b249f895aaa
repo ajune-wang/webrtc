@@ -126,6 +126,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4fb8e14e_8698e9fb",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 49
+      },
+      "lineNbr": 2165,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-14T07:30:41Z",
+      "side": 1,
+      "message": "(following up again here since I like your suggestion of moving the iteration even closer to the source)\n\nInstead of PeerConnection, which is one step closer, RtpTransmissionManager would be two steps closer and TransceiverList three steps.\n\nIt\u0027s likely that there are some operations that we should tie to the signaling thread while making sure that access to other things that either must only happen on different threads for safety reasons or are more efficient to do on other threads (e.g. related to network traffic - and therefore we don\u0027t want it to be interrupted by signaling thread activity).",
+      "parentUuid": "369d79dc_83348097",
+      "revId": "b51285da5fccdc88c8ebbfa4f96d0b249f895aaa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1c7ee63d_d5d10936",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 49

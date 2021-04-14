@@ -12,6 +12,7 @@
       * TURN
     *   Congestion control and bandwidth estimation
     *   Audio
+        * [NetEq](/modules/audio_coding/neteq/g3doc/index.md)
     *   Video
     *   DataChannel
     *   PeerConnection

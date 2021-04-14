@@ -16,6 +16,24 @@
       "message": "WRT threading: The reason why transceives()-\u003eList() returns a list by value is that there are other places that iterate over the list and can cause changes to the set of transceivers; doing it this way makes the iteration safe, and the fact that it returns a list of scoped_refptr rather than a list of pointers ensures that the transceivers won\u0027t go away while you\u0027re iterating.\n\nThat said, I agree with Henrik that the TransceiverList class needs to have a sequence checker member, which will end up pointing to the signaling thread; we should enumerate before invoking the network thread, not after.\n\nOther comments below.\n\n\n\n",
       "revId": "f7146cf066f4985999f625b5073f176a1dab09dc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c56ae54_e902a76c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 53
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-14T07:23:04Z",
+      "side": 1,
+      "message": "I understand the thinking behind it there are unfortunately other things beyond the transceiver objects that are not safe so this doesn\u0027t actually make things better - but because of how the interface is, it gives the appearance of that kind of safety.\n\nCreating the copy every time an iteration is done (+ the use of scoped_refptr), is an inefficiency in places where it is guaranteed that the list cannot change (such as on the signaling thread) - which turns out to be most places.\nRelated to how scoped_refptr is used, there\u0027s a similar issue with RTCStatsCollector whereby the class is reference counted for the purposes of running asynchronous tasks, but it\u0027s actually not safe to run those tasks after the PeerConnection instance (that ultimately owns the stats collector instance), has gone out of scope - and it doesn\u0027t necessarily have to do with RTCStatsCollector itself but actually the object that it holds on to related to those async operations. We have other tools now such as weak_ptr and the task flag to cancel pending operations, that we could use to avoid running pending operations and avoid synchronization for teardown (and ideally use unique_ptr for the stats collector).\n\nAs far as the List() method goes, I think it could actually have been better to be more restrictive with how the list is used, make sure it\u0027s consistently used in a way that aligns with the state that the transceiver objects refer to, including pointers to sub objects, such as BaseChannel objects and transports. Exposing a const\u0026 pointer to the member variable is one way, but doing so does give out access to that variable. An alternate thing to offer, and what applies in particular to collections, is a function that does the iteration for you in the way that is supported, and applies all the restrictions and checks every time.",
+      "parentUuid": "11aa76b9_53a1891c",
+      "revId": "f7146cf066f4985999f625b5073f176a1dab09dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

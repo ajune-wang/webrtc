@@ -108,6 +108,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "369d79dc_83348097",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 49
+      },
+      "lineNbr": 2165,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-14T07:23:04Z",
+      "side": 1,
+      "message": "Fair enough, I\u0027ll change the name. The part I would like to change is to have the PeerConnection instance more consistently in control of how the enumeration is done. That\u0027s where these enumerations are done for the most part and I\u0027d like to start pulling those in rather than spreading them. The fact that the list currently creates a copy of a vector with additional references, is a risk of spreading handles that may affect object lifetimes, which is why I purposely did not want the interface to use the reference counted proxies.",
+      "parentUuid": "c16d83a5_b094212c",
+      "revId": "b51285da5fccdc88c8ebbfa4f96d0b249f895aaa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1c7ee63d_d5d10936",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 49
@@ -155,6 +173,24 @@
       "side": 1,
       "message": "Old: void PeerConnection::EnumerateTransceivers_n()\n\nNew: void RtpTransmissionManager::EnumerateTransceivers_n()\n\nOn this line: for (const auto\u0026 tranceiver : transceivers()-\u003eList())",
       "parentUuid": "b4a34a28_3468fa4d",
+      "revId": "b51285da5fccdc88c8ebbfa4f96d0b249f895aaa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10729de1_09c7417b",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 49
+      },
+      "lineNbr": 2169,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-14T07:23:04Z",
+      "side": 1,
+      "message": "Ah I see. Yes, sounds good.\nOn that note, would it make sense to move this to the transceiver list, make it be specifically for the \u0027internal()\u0027 pointers (not proxies) and skip creating the copy? We could also have the ScopedDisallowBlockingCalls check there to have a slightly broader scope of guarding against regressions.",
+      "parentUuid": "486a94ea_b4cb690c",
       "revId": "b51285da5fccdc88c8ebbfa4f96d0b249f895aaa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

@@ -16,6 +16,24 @@
       "message": "lastly, pls update root/g3doc/sitemap.md",
       "revId": "0445aeb6fa9dfdefc3832604fcc81085d0cdfceb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "601425a7_5fd84584",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2021-04-14T07:25:08Z",
+      "side": 1,
+      "message": "Will do before merging (there will be more conflicts :)).",
+      "parentUuid": "a24e7a18_525a094d",
+      "revId": "0445aeb6fa9dfdefc3832604fcc81085d0cdfceb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

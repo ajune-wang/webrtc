@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50ea51fa_d617f98f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2021-04-14T11:02:31Z",
+      "side": 1,
+      "message": "LGTM with a few editorial nits; to be considered in a next CL.",
+      "revId": "8181b4f1e072645e21057bab9f604bd2ab8c2481",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "116d14e1_92ea2f65",
+        "filename": "modules/audio_coding/neteq/g3doc/index.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2021-04-14T11:02:31Z",
+      "side": 1,
+      "message": "object?",
+      "range": {
+        "startLine": 75,
+        "startChar": 59,
+        "endLine": 75,
+        "endChar": 64
+      },
+      "revId": "8181b4f1e072645e21057bab9f604bd2ab8c2481",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

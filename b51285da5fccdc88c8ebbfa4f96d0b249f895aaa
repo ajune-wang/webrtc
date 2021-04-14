@@ -90,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c16d83a5_b094212c",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 49
+      },
+      "lineNbr": 2165,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-14T06:49:15Z",
+      "side": 1,
+      "message": "I would prefer ForEachTransceiver - the windows example is a good example of what I don\u0027t like :-)",
+      "parentUuid": "07ff45ac_99dd8762",
+      "revId": "b51285da5fccdc88c8ebbfa4f96d0b249f895aaa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1c7ee63d_d5d10936",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 49
@@ -119,6 +137,24 @@
       "side": 1,
       "message": "GetStats() already has a loop like this actually. This function isn\u0027t directly related to GetStats() though. Can you give some pseudo code of the change you\u0027d like to see?",
       "parentUuid": "1c7ee63d_d5d10936",
+      "revId": "b51285da5fccdc88c8ebbfa4f96d0b249f895aaa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "486a94ea_b4cb690c",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 49
+      },
+      "lineNbr": 2169,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-14T06:49:15Z",
+      "side": 1,
+      "message": "Old: void PeerConnection::EnumerateTransceivers_n()\n\nNew: void RtpTransmissionManager::EnumerateTransceivers_n()\n\nOn this line: for (const auto\u0026 tranceiver : transceivers()-\u003eList())",
+      "parentUuid": "b4a34a28_3468fa4d",
       "revId": "b51285da5fccdc88c8ebbfa4f96d0b249f895aaa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -224,6 +260,24 @@
       "side": 1,
       "message": "These fake classes don\u0027t hold sdp semantic state. They\u0027re essentially bare bones containers for the purposes of testing the stats classes.",
       "parentUuid": "61e3a3c8_304600d4",
+      "revId": "b51285da5fccdc88c8ebbfa4f96d0b249f895aaa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "455673ed_bb3d7d79",
+        "filename": "pc/test/fake_peer_connection_for_stats.h",
+        "patchSetId": 49
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-14T06:49:15Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "880053cd_af57b1be",
       "revId": "b51285da5fccdc88c8ebbfa4f96d0b249f895aaa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

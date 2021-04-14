@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11aa76b9_53a1891c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 53
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-14T06:49:15Z",
+      "side": 1,
+      "message": "WRT threading: The reason why transceives()-\u003eList() returns a list by value is that there are other places that iterate over the list and can cause changes to the set of transceivers; doing it this way makes the iteration safe, and the fact that it returns a list of scoped_refptr rather than a list of pointers ensures that the transceivers won\u0027t go away while you\u0027re iterating.\n\nThat said, I agree with Henrik that the TransceiverList class needs to have a sequence checker member, which will end up pointing to the signaling thread; we should enumerate before invoking the network thread, not after.\n\nOther comments below.\n\n\n\n",
+      "revId": "f7146cf066f4985999f625b5073f176a1dab09dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

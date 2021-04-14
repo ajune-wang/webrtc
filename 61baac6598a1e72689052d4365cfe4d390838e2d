@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "180ad65f_2bb823b4",
+        "filename": "modules/audio_processing/agc2/noise_level_estimator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-04-14T14:17:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "918e9122_0bdacefc",
+      "range": {
+        "startLine": 149,
+        "startChar": 1,
+        "endLine": 150,
+        "endChar": 36
+      },
+      "revId": "61baac6598a1e72689052d4365cfe4d390838e2d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "361fd203_66c12f33",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-04-14T13:13:09Z",
       "side": 1,
       "message": "Why this change? This is basically a bitexactness test in that there is no real logic in why this is the correct data (at least without not checking the input) and there is no spec/functional design that mandates that the result should exceed this.\n\nFrom that aspect I think it is important to explicitly mention this in the test to explain this for the readers.",
+      "range": {
+        "startLine": 354,
+        "startChar": 2,
+        "endLine": 354,
+        "endChar": 62
+      },
+      "revId": "61baac6598a1e72689052d4365cfe4d390838e2d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9856aba0_90408d99",
+        "filename": "modules/audio_processing/gain_controller2_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-04-14T14:17:31Z",
+      "side": 1,
+      "message": "Thanks for your comment, you\u0027re fully right. I fixed this in the child CL in which this test is removed. See the following link for more details: https://webrtc-review.googlesource.com/c/src/+/215140/5/modules/audio_processing/gain_controller2_unittest.cc",
+      "parentUuid": "361fd203_66c12f33",
       "range": {
         "startLine": 354,
         "startChar": 2,

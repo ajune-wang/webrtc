@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ab84364_8fbcc612",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-04-14T09:41:36Z",
+      "side": 1,
+      "message": "Tested and it fixed the known MTU issues.",
+      "revId": "f5860510a2e30da0324c948c6e84df968c8bfdb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

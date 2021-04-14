@@ -16,6 +16,627 @@
       "message": "Ptal!\n\nArtem: general g3doc stuff\nMichael: video coding\nPhilip: receiver buffer",
       "revId": "75c5112263e73de82f2ba22d7a117dbab732c837",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db123cae_9fb4e161",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-14T09:09:18Z",
+      "side": 1,
+      "message": "Please add 2 line separators after \":\", so enumeration will be rendered correctly",
+      "range": {
+        "startLine": 49,
+        "startChar": 39,
+        "endLine": 49,
+        "endChar": 41
+      },
+      "revId": "75c5112263e73de82f2ba22d7a117dbab732c837",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8c90afa_9bba210b",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-14T09:09:18Z",
+      "side": 1,
+      "message": "Please add a line separator",
+      "range": {
+        "startLine": 50,
+        "startChar": 65,
+        "endLine": 50,
+        "endChar": 66
+      },
+      "revId": "75c5112263e73de82f2ba22d7a117dbab732c837",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4400e67c_36a80d5a",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-14T09:09:18Z",
+      "side": 1,
+      "message": "Please add a line separator",
+      "range": {
+        "startLine": 52,
+        "startChar": 9,
+        "endLine": 52,
+        "endChar": 10
+      },
+      "revId": "75c5112263e73de82f2ba22d7a117dbab732c837",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb75e4a4_bf140a2b",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-14T09:09:18Z",
+      "side": 1,
+      "message": "These sentences sounds a bit internally inconsistent and unclear. Maybe rephrase a bit? Sorry, I can\u0027t propose a better wording 😞\n\nMaybe\n_Temporal scalability_ is when there are multiple layers whose framerate (bitrate) is reducing from top layer to bottom layer\n?",
+      "range": {
+        "startLine": 49,
+        "startChar": 44,
+        "endLine": 53,
+        "endChar": 13
+      },
+      "revId": "75c5112263e73de82f2ba22d7a117dbab732c837",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20f0b418_33bddfa3",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-14T09:09:18Z",
+      "side": 1,
+      "message": "Maybe add a link?",
+      "range": {
+        "startLine": 72,
+        "startChar": 17,
+        "endLine": 72,
+        "endChar": 39
+      },
+      "revId": "75c5112263e73de82f2ba22d7a117dbab732c837",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d2b1c66_e63ff01c",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-14T09:09:18Z",
+      "side": 1,
+      "message": "Maybe add a link?",
+      "range": {
+        "startLine": 74,
+        "startChar": 32,
+        "endLine": 74,
+        "endChar": 61
+      },
+      "revId": "75c5112263e73de82f2ba22d7a117dbab732c837",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b53a91c_51b8e908",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-14T09:09:18Z",
+      "side": 1,
+      "message": "Please add 2 line separators after \":\", so enumeration will be rendered correctly.",
+      "range": {
+        "startLine": 77,
+        "startChar": 52,
+        "endLine": 77,
+        "endChar": 54
+      },
+      "revId": "75c5112263e73de82f2ba22d7a117dbab732c837",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ee5401b_cc5a0924",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-14T09:09:18Z",
+      "side": 1,
+      "message": "Please add a line separator",
+      "range": {
+        "startLine": 78,
+        "startChar": 15,
+        "endLine": 78,
+        "endChar": 16
+      },
+      "revId": "75c5112263e73de82f2ba22d7a117dbab732c837",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffa77f55_bcb29960",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-14T09:09:18Z",
+      "side": 1,
+      "message": "Please add a line separator",
+      "range": {
+        "startLine": 78,
+        "startChar": 78,
+        "endLine": 78,
+        "endChar": 79
+      },
+      "revId": "75c5112263e73de82f2ba22d7a117dbab732c837",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f156fd5_acd1218a",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-14T09:09:18Z",
+      "side": 1,
+      "message": "Maybe add a link?",
+      "range": {
+        "startLine": 86,
+        "startChar": 34,
+        "endLine": 86,
+        "endChar": 68
+      },
+      "revId": "75c5112263e73de82f2ba22d7a117dbab732c837",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "913ed2fe_98fe1dc3",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-14T09:09:18Z",
+      "side": 1,
+      "message": "Maybe add a link?",
+      "range": {
+        "startLine": 91,
+        "startChar": 26,
+        "endLine": 91,
+        "endChar": 52
+      },
+      "revId": "75c5112263e73de82f2ba22d7a117dbab732c837",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2da75ca9_73c9e863",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-14T09:09:18Z",
+      "side": 1,
+      "message": "Maybe add a link?",
+      "range": {
+        "startLine": 93,
+        "startChar": 5,
+        "endLine": 93,
+        "endChar": 25
+      },
+      "revId": "75c5112263e73de82f2ba22d7a117dbab732c837",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f84833ca_2d142125",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-14T09:09:18Z",
+      "side": 1,
+      "message": "Maybe add a link?",
+      "range": {
+        "startLine": 95,
+        "startChar": 5,
+        "endLine": 95,
+        "endChar": 28
+      },
+      "revId": "75c5112263e73de82f2ba22d7a117dbab732c837",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a3b8e3d_cb96bd39",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-14T09:09:18Z",
+      "side": 1,
+      "message": "Maybe add a link?",
+      "range": {
+        "startLine": 97,
+        "startChar": 5,
+        "endLine": 97,
+        "endChar": 21
+      },
+      "revId": "75c5112263e73de82f2ba22d7a117dbab732c837",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d369128_caeeb031",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-14T09:09:18Z",
+      "side": 1,
+      "message": "Maybe add a link?",
+      "range": {
+        "startLine": 100,
+        "startChar": 24,
+        "endLine": 100,
+        "endChar": 53
+      },
+      "revId": "75c5112263e73de82f2ba22d7a117dbab732c837",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68d7151c_fc05165d",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-14T09:09:18Z",
+      "side": 1,
+      "message": "Maybe add a link?",
+      "range": {
+        "startLine": 102,
+        "startChar": 5,
+        "endLine": 102,
+        "endChar": 17
+      },
+      "revId": "75c5112263e73de82f2ba22d7a117dbab732c837",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8d6a3e3_e3112f4e",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-14T09:09:18Z",
+      "side": 1,
+      "message": "Maybe add a link?",
+      "range": {
+        "startLine": 104,
+        "startChar": 5,
+        "endLine": 104,
+        "endChar": 24
+      },
+      "revId": "75c5112263e73de82f2ba22d7a117dbab732c837",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56643904_f2ba0cad",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-14T09:09:18Z",
+      "side": 1,
+      "message": "Maybe add a link?",
+      "range": {
+        "startLine": 105,
+        "startChar": 5,
+        "endLine": 105,
+        "endChar": 13
+      },
+      "revId": "75c5112263e73de82f2ba22d7a117dbab732c837",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63fb679a_d29f23b5",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-14T09:09:18Z",
+      "side": 1,
+      "message": "Maybe add a link?",
+      "range": {
+        "startLine": 106,
+        "startChar": 5,
+        "endLine": 106,
+        "endChar": 18
+      },
+      "revId": "75c5112263e73de82f2ba22d7a117dbab732c837",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "439f9a62_74e7301f",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-14T09:09:18Z",
+      "side": 1,
+      "message": "Maybe add a link?",
+      "range": {
+        "startLine": 108,
+        "startChar": 5,
+        "endLine": 108,
+        "endChar": 27
+      },
+      "revId": "75c5112263e73de82f2ba22d7a117dbab732c837",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f355f350_b47a6fd6",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-14T09:09:18Z",
+      "side": 1,
+      "message": "Maybe add a link?",
+      "range": {
+        "startLine": 110,
+        "startChar": 30,
+        "endLine": 110,
+        "endChar": 52
+      },
+      "revId": "75c5112263e73de82f2ba22d7a117dbab732c837",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b41222e_4f349a84",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-14T09:09:18Z",
+      "side": 1,
+      "message": "Maybe add a link?",
+      "range": {
+        "startLine": 112,
+        "startChar": 5,
+        "endLine": 112,
+        "endChar": 25
+      },
+      "revId": "75c5112263e73de82f2ba22d7a117dbab732c837",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d0b0168_b039ba96",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-14T09:09:18Z",
+      "side": 1,
+      "message": "Maybe add a link?",
+      "range": {
+        "startLine": 114,
+        "startChar": 5,
+        "endLine": 114,
+        "endChar": 26
+      },
+      "revId": "75c5112263e73de82f2ba22d7a117dbab732c837",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b55b800e_1a3c04a5",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-14T09:09:18Z",
+      "side": 1,
+      "message": "Maybe add a link?",
+      "range": {
+        "startLine": 117,
+        "startChar": 31,
+        "endLine": 117,
+        "endChar": 53
+      },
+      "revId": "75c5112263e73de82f2ba22d7a117dbab732c837",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "775a94d3_177604fa",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-14T09:09:18Z",
+      "side": 1,
+      "message": "Maybe add a link?",
+      "range": {
+        "startLine": 119,
+        "startChar": 5,
+        "endLine": 119,
+        "endChar": 17
+      },
+      "revId": "75c5112263e73de82f2ba22d7a117dbab732c837",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "102eb85f_75b69668",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-14T09:09:18Z",
+      "side": 1,
+      "message": "Maybe add a link?",
+      "range": {
+        "startLine": 120,
+        "startChar": 5,
+        "endLine": 120,
+        "endChar": 28
+      },
+      "revId": "75c5112263e73de82f2ba22d7a117dbab732c837",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a176662_bca178dd",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-14T09:09:18Z",
+      "side": 1,
+      "message": "Maybe add a link?",
+      "range": {
+        "startLine": 122,
+        "startChar": 5,
+        "endLine": 122,
+        "endChar": 16
+      },
+      "revId": "75c5112263e73de82f2ba22d7a117dbab732c837",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

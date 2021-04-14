@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad1a0a27_32f6a14f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2021-04-14T13:49:50Z",
+      "side": 1,
+      "message": "Hello Kári!\n\nCould you please have a look at this CL which allows SDK user to enable adaptive audio frame length via rtp sender parameters update?\n\nThanks a lot in advance,\nYura.",
+      "revId": "05e2416e0b575e2147208f8d56fc533d9715b89c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "642720bd_48ff317a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-04-14T13:13:09Z",
+      "side": 1,
+      "message": "lgtm with nits\n\nThanks for the CL!",
+      "revId": "61baac6598a1e72689052d4365cfe4d390838e2d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "918e9122_0bdacefc",
+        "filename": "modules/audio_processing/agc2/noise_level_estimator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-04-14T13:13:09Z",
+      "side": 1,
+      "message": "Nit, I would skip this assert since anyone changing that anyway must know what they are doing to get it to work as intended.\nThe asserts are no guarantee for good performance and they actually exclude cases which could give good performance.\n\nAs a comparison, there is no static assert on the kUpdatePeriodNumFrames which can give equally poor performance if set wrongly.\n\nAt the least, I would limit this to only be one assert with an \u0026\u0026 statement.",
+      "range": {
+        "startLine": 149,
+        "startChar": 1,
+        "endLine": 150,
+        "endChar": 36
+      },
+      "revId": "61baac6598a1e72689052d4365cfe4d390838e2d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "361fd203_66c12f33",
+        "filename": "modules/audio_processing/gain_controller2_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-04-14T13:13:09Z",
+      "side": 1,
+      "message": "Why this change? This is basically a bitexactness test in that there is no real logic in why this is the correct data (at least without not checking the input) and there is no spec/functional design that mandates that the result should exceed this.\n\nFrom that aspect I think it is important to explicitly mention this in the test to explain this for the readers.",
+      "range": {
+        "startLine": 354,
+        "startChar": 2,
+        "endLine": 354,
+        "endChar": 62
+      },
+      "revId": "61baac6598a1e72689052d4365cfe4d390838e2d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

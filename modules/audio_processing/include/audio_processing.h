@@ -349,6 +349,7 @@ class RTC_EXPORT AudioProcessing : public rtc::RefCountInterface {
         return !(*this == rhs);
       }
 
+      // TODO(crbug.com/webrtc/7494): Remove `LevelEstimator`.
       enum LevelEstimator { kRms, kPeak };
       bool enabled = false;
       struct FixedDigital {
@@ -357,6 +358,7 @@ class RTC_EXPORT AudioProcessing : public rtc::RefCountInterface {
       struct AdaptiveDigital {
         bool enabled = false;
         int vad_reset_period_ms = 1500;
+<<<<<<< HEAD   (48ae01 [Merge-91] Remove RTCRemoteInboundRtpStreamStats duplicate m)
         float vad_probability_attack = 0.3f;
         LevelEstimator level_estimator = kRms;
         int level_estimator_adjacent_speech_frames_threshold = 6;
@@ -365,11 +367,22 @@ class RTC_EXPORT AudioProcessing : public rtc::RefCountInterface {
         float initial_saturation_margin_db = 20.0f;
         float extra_saturation_margin_db = 5.0f;
         int gain_applier_adjacent_speech_frames_threshold = 6;
+=======
+        int adjacent_speech_frames_threshold = 12;
+>>>>>>> CHANGE (980c46 AGC2: retuning and large refactoring)
         float max_gain_change_db_per_second = 3.0f;
-        float max_output_noise_level_dbfs = -55.0f;
+        float max_output_noise_level_dbfs = -50.0f;
         bool sse2_allowed = true;
         bool avx2_allowed = true;
         bool neon_allowed = true;
+        // TODO(crbug.com/webrtc/7494): Remove deprecated settings below.
+        float vad_probability_attack = 1.0f;
+        LevelEstimator level_estimator = kRms;
+        int level_estimator_adjacent_speech_frames_threshold = 12;
+        bool use_saturation_protector = true;
+        float initial_saturation_margin_db = 25.0f;
+        float extra_saturation_margin_db = 5.0f;
+        int gain_applier_adjacent_speech_frames_threshold = 12;
       } adaptive_digital;
     } gain_controller2;
 

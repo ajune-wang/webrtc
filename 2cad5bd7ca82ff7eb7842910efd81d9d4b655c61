@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55888693_d0eeaf0b",
+        "filename": "video/g3doc/adaptation.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2021-04-14T09:51:38Z",
+      "side": 1,
+      "message": "is a mechanism which reduces the ...",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 43
+      },
+      "revId": "2cad5bd7ca82ff7eb7842910efd81d9d4b655c61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d05708ca_f568572c",
+        "filename": "video/g3doc/adaptation.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2021-04-14T09:51:38Z",
+      "side": 1,
+      "message": "The list contains 3",
+      "range": {
+        "startLine": 73,
+        "startChar": 10,
+        "endLine": 73,
+        "endChar": 11
+      },
+      "revId": "2cad5bd7ca82ff7eb7842910efd81d9d4b655c61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39c6159d_417a406c",
+        "filename": "video/g3doc/adaptation.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2021-04-14T09:51:38Z",
+      "side": 1,
+      "message": "use \u0027:\u0027 instead of \u0027,\u0027",
+      "revId": "2cad5bd7ca82ff7eb7842910efd81d9d4b655c61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

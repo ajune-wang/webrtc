@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb1fb38c_d4a312dd",
+        "filename": "video/g3doc/adaptation.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2021-04-14T09:55:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55888693_d0eeaf0b",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 43
+      },
+      "revId": "2cad5bd7ca82ff7eb7842910efd81d9d4b655c61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d05708ca_f568572c",
@@ -47,6 +71,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b645092_8fbbdeff",
+        "filename": "video/g3doc/adaptation.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2021-04-14T09:55:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d05708ca_f568572c",
+      "range": {
+        "startLine": 73,
+        "startChar": 10,
+        "endLine": 73,
+        "endChar": 11
+      },
+      "revId": "2cad5bd7ca82ff7eb7842910efd81d9d4b655c61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "39c6159d_417a406c",
@@ -60,6 +108,24 @@
       "writtenOn": "2021-04-14T09:51:38Z",
       "side": 1,
       "message": "use \u0027:\u0027 instead of \u0027,\u0027",
+      "revId": "2cad5bd7ca82ff7eb7842910efd81d9d4b655c61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60d75837_99f690f2",
+        "filename": "video/g3doc/adaptation.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2021-04-14T09:55:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39c6159d_417a406c",
       "revId": "2cad5bd7ca82ff7eb7842910efd81d9d4b655c61",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

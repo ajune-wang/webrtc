@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "55adaf09_c9e5715d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13849
+      },
+      "writtenOn": "2021-04-14T19:00:05Z",
+      "side": 1,
+      "message": "PTAL!  Also, can you CQ +2 since I still haven\u0027t ironed out the issues with my WebRTC account : (",
+      "revId": "b8d5c8f2243c9ae3419b427bd6db30d17c4b61f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

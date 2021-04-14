@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4678374e_59eed41c",
+        "filename": "net/dcsctp/timer/scalable_timeout.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-14T18:18:35Z",
+      "side": 1,
+      "message": "if there aren\u0027t any threading concerns in the implementation, why do we need a lock? Would it make sense to use sequence checkers?",
+      "revId": "28e44feb2fa7b73cfcc852dc8bde2a4ba75aa6a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5eebccbc_b378d8d1",
+        "filename": "net/dcsctp/timer/scalable_timeout.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-14T18:18:35Z",
+      "side": 1,
+      "message": "calling out while holding a lock.\nSame for Unlink().\n\nCan we avoid that?",
+      "revId": "28e44feb2fa7b73cfcc852dc8bde2a4ba75aa6a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fbf6d51c_459c8281",
+        "filename": "net/dcsctp/timer/scalable_timeout.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-14T18:18:35Z",
+      "side": 1,
+      "message": "are there any global pointers to it? (if not, how is it managed?)\nwhat happens if there are more than one instances?",
+      "revId": "28e44feb2fa7b73cfcc852dc8bde2a4ba75aa6a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "701035a4_cd56f04b",
+        "filename": "net/dcsctp/timer/scalable_timeout.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-14T18:18:35Z",
+      "side": 1,
+      "message": "would it make sense to have ScalableTimeout be a private nested class rather than friend?",
+      "revId": "28e44feb2fa7b73cfcc852dc8bde2a4ba75aa6a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d19aaf1_c96931ed",
+        "filename": "net/dcsctp/timer/scalable_timeout.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-14T18:18:35Z",
+      "side": 1,
+      "message": "should driver be passed by reference?\n\nAlso add a DCHECK here to catch bad callers straight away",
+      "revId": "28e44feb2fa7b73cfcc852dc8bde2a4ba75aa6a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "576ded29_f890b432",
+        "filename": "net/dcsctp/timer/scalable_timeout.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-14T18:18:35Z",
+      "side": 1,
+      "message": "this makes me a bit nervous since we\u0027ve had issues in webrtc in the past with null references :-/ worse still, references where we end up with a uaf.\n\nHow is lifetime guaranteed?",
+      "revId": "28e44feb2fa7b73cfcc852dc8bde2a4ba75aa6a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f98204c_2908c50a",
+        "filename": "net/dcsctp/timer/scalable_timeout_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-14T18:18:35Z",
+      "side": 1,
+      "message": "can we use other constructs than rtc::Thread?\n\nE.g. platform thread or TaskQueue[ForTesting]?",
+      "revId": "28e44feb2fa7b73cfcc852dc8bde2a4ba75aa6a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

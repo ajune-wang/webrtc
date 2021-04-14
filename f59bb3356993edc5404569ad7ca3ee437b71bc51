@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a83f3fee_57b64432",
+        "filename": "video/g3doc/adaptation.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2021-04-14T09:19:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5067ace_146c7a04",
+      "revId": "f59bb3356993edc5404569ad7ca3ee437b71bc51",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bbcf58a5_92eeab6d",
@@ -48,6 +66,24 @@
       "writtenOn": "2021-04-14T09:13:12Z",
       "side": 1,
       "message": "Optional suggestion: Instead of \"The algorithm...\" be more specific and say \"Which video quality setting is changed in response to adaptation - resolution, frame rate or both - is based on the degradation preference for the video track.\"\n\nBut feel free to skip this suggestion if that\u0027s too much details in an overview",
+      "revId": "f59bb3356993edc5404569ad7ca3ee437b71bc51",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4121777_bca732af",
+        "filename": "video/g3doc/adaptation.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2021-04-14T09:19:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bbcf58a5_92eeab6d",
       "revId": "f59bb3356993edc5404569ad7ca3ee437b71bc51",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -69,6 +105,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "81449aa5_2c8b57a9",
+        "filename": "video/g3doc/adaptation.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2021-04-14T09:19:42Z",
+      "side": 1,
+      "message": "I will remove the thresholds section. I agree, too much detail.",
+      "parentUuid": "b8ef2bd3_b71e5aae",
+      "revId": "f59bb3356993edc5404569ad7ca3ee437b71bc51",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "011f2748_f5d66e3a",
@@ -82,6 +136,24 @@
       "writtenOn": "2021-04-14T09:13:12Z",
       "side": 1,
       "message": "Should we point out that DISABLED is legacy and should be removed or is that too much detail? A CL recently landed in Meet to remove a hypothetical code path doing \"googCpuOveruseDetection: false\" that is probably for an experiment from ancient times. But it\u0027s still in the code base so we can keep this if you like.",
+      "revId": "f59bb3356993edc5404569ad7ca3ee437b71bc51",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dca35074_3221338d",
+        "filename": "video/g3doc/adaptation.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2021-04-14T09:19:42Z",
+      "side": 1,
+      "message": "Can remove.",
+      "parentUuid": "011f2748_f5d66e3a",
       "revId": "f59bb3356993edc5404569ad7ca3ee437b71bc51",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

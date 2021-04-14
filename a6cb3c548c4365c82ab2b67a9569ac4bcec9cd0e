@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a792694e_3f73e7d0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-04-14T06:16:05Z",
+      "side": 1,
+      "message": "Thanks for the comments!\nI\u0027ve uploaded a new patchset. PTAL",
+      "revId": "a6cb3c548c4365c82ab2b67a9569ac4bcec9cd0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

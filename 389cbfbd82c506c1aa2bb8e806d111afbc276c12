@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5705387_d8a3ef30",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-14T16:44:16Z",
+      "side": 1,
+      "message": "This does raise the question of who owns the sinks in sinks_.",
+      "revId": "389cbfbd82c506c1aa2bb8e806d111afbc276c12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "16dcd0ab_80be1077",
@@ -14,6 +31,23 @@
       "writtenOn": "2021-04-14T14:48:15Z",
       "side": 1,
       "message": "Please take a look, Harald",
+      "revId": "389cbfbd82c506c1aa2bb8e806d111afbc276c12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1c3c706_f884ac13",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-14T16:44:16Z",
+      "side": 1,
+      "message": "Nobody should be dinged for having a pointer to something it doesn\u0027t own (except perhaps the programmer). Approving.\n",
       "revId": "389cbfbd82c506c1aa2bb8e806d111afbc276c12",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51d86f5a_e147dcbd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-04-14T23:01:10Z",
+      "side": 1,
+      "message": "I\u0027ve found this code emit a warning when using the \"-Wobjc-missing-property-synthesis\" compiler option, and I\u0027d like to fix it. Please take a look. Thank you.",
+      "revId": "68879bb11bbc02bce994c2c74bf935a5796f741f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

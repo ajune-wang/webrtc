@@ -91,6 +91,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "31ad79fe_b8fc8c7f",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 52
+      },
+      "lineNbr": 2217,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-04-14T08:38:04Z",
+      "side": 1,
+      "message": "My understanding is that calling TransceiverList::List() creates a copy of transceivers_ which is a signaling thread vector. So I think we either need to add a lock to transceivers_ or document that this is only safe while the signaling thread is blocked.\n\nBut please explain if I am missing something.\n\nWhat do you think about calling TransceiverList::List() when we are still on the signaling thread and having GetTransportNames() be a helper function that iterates this list being passed in as an argument?\n\nI am OK with using transceivers methods on the network thread as long as those methods should be on network. My concern was with the vector variable or accessing members that look like they use signaling thread variables.",
+      "parentUuid": "ddc4d1b8_508047c7",
+      "revId": "d68fa8829410a1614c5c081e5aa7705d9eb1a8b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dbb4adf4_f6bb9006",
         "filename": "pc/rtc_stats_collector.cc",
         "patchSetId": 52
@@ -120,6 +138,24 @@
       "side": 1,
       "message": "See above. I realize you\u0027re using exclamations now, but I think that there are parts of the design and implementation that you may not be realizing are not thread safe - such as what you\u0027re calling out should be on the signaling thread. I summarized parts of this in the CL description.\n\nThe part that you suggest would be sensible to add a thread checker for, is a const variable.",
       "parentUuid": "dbb4adf4_f6bb9006",
+      "revId": "d68fa8829410a1614c5c081e5aa7705d9eb1a8b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de809839_49ccfa0c",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 52
+      },
+      "lineNbr": 2049,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-04-14T08:38:04Z",
+      "side": 1,
+      "message": "That\u0027s OK, as long as we clarify that this is a list of transceiver internals and not proxies then we can access non-signaling thread methods on the network thread. I am OK with const methods not having thread checkers.",
+      "parentUuid": "984bdf44_a7e0dfe3",
       "revId": "d68fa8829410a1614c5c081e5aa7705d9eb1a8b7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

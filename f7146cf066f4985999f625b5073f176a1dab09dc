@@ -34,6 +34,40 @@
       "parentUuid": "11aa76b9_53a1891c",
       "revId": "f7146cf066f4985999f625b5073f176a1dab09dc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42cd7104_034b13e2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 53
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-04-14T08:38:04Z",
+      "side": 1,
+      "message": "I still have some questions",
+      "revId": "f7146cf066f4985999f625b5073f176a1dab09dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd62bad4_f9cd6ad6",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 53
+      },
+      "lineNbr": 2058,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-04-14T08:38:04Z",
+      "side": 1,
+      "message": "RtpTransceiver::SetChannel() modifies channel_ on the signaling thread.\n\nCan you add a comment that this is only safe while we are blocking the signaling thread or explain why this is otherwise safe?",
+      "revId": "f7146cf066f4985999f625b5073f176a1dab09dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

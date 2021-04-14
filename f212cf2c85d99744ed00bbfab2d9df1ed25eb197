@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86c458f4_7ecd3884",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17514
+      },
+      "writtenOn": "2021-04-14T21:30:30Z",
+      "side": 1,
+      "message": "I didn\u0027t add tests because I really don\u0027t know where to add them. All the other RTCConfiguration fields like ice_check_interval_strong_connectivity don\u0027t seem to be tested anywhere.",
+      "revId": "f212cf2c85d99744ed00bbfab2d9df1ed25eb197",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

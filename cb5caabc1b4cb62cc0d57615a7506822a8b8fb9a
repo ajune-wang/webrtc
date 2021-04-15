@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b038db86_6ac89118",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-04-15T22:13:24Z",
+      "side": 1,
+      "message": "I emoved a small amount of code related to unused TOOLKIT_GTK definitions. Please take a look. Thank you.",
+      "revId": "cb5caabc1b4cb62cc0d57615a7506822a8b8fb9a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

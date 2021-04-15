@@ -56,6 +56,30 @@
       },
       "revId": "bde8fe9acc6ffe7fda0e6f2921c5829087a853ea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "382e29bf_2397092e",
+        "filename": "sdk/android/api/org/webrtc/VideoCapturer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2021-04-15T14:35:26Z",
+      "side": 1,
+      "message": "To avoid breaking existing implementations, you could use a default interface method. There is some desugaring happening for old SDKs, and other interfaces already use default methods: https://source.chromium.org/search?q\u003d%5E%5B%20%5D*default%5B%20%5D%20lang:java%20f:webrtc",
+      "parentUuid": "fd028b76_be7aa3f9",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 24
+      },
+      "revId": "bde8fe9acc6ffe7fda0e6f2921c5829087a853ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

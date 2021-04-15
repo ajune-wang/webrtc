@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c2ab5c38_87438832",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-04-15T09:48:05Z",
+      "side": 1,
+      "message": "I much rather have fuzzy and accurate than precise and inaccurate high level introduction, and I do think the difference is more than theoretical. When a slide change happen when screensharing for example the encoder would generate an I-frame, which ofc does not reset the stream.\n\nI would suggest simply not mentioning the term \"I-frame\" or \"P-frame\" at all.",
+      "parentUuid": "c21f1e86_65b22f69",
+      "range": {
+        "startLine": 25,
+        "startChar": 55,
+        "endLine": 25,
+        "endChar": 62
+      },
+      "revId": "75c5112263e73de82f2ba22d7a117dbab732c837",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "93b1ace2_0f3d804b",
         "filename": "modules/video_coding/g3doc/index.md",
         "patchSetId": 4
@@ -102,6 +126,30 @@
       "side": 1,
       "message": "Yeah, I don\u0027t really mention the directionality of layer dependencies here. I also don\u0027t want to get into too much detail. Wdyt of the new text?",
       "parentUuid": "93b1ace2_0f3d804b",
+      "range": {
+        "startLine": 45,
+        "startChar": 23,
+        "endLine": 45,
+        "endChar": 44
+      },
+      "revId": "75c5112263e73de82f2ba22d7a117dbab732c837",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41c028af_11a283cc",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-04-15T09:48:05Z",
+      "side": 1,
+      "message": "SGTM",
+      "parentUuid": "62d816d8_7d63c36f",
       "range": {
         "startLine": 45,
         "startChar": 23,

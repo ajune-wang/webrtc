@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "743c01ae_465a52c2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-04-15T13:29:12Z",
+      "side": 1,
+      "message": "Hi Mirko and Nisse,\n\nMany files are touched but most files only have very minor changes to include files and enum names.\n\nThe \"real\" change is the moving of h264_profile_level_id.* and vp9_profile.* to api/video_codecs\nand the legacy code that is kept to make sure that downstream projects still build.",
+      "revId": "bb883ca47709a970c79ec11ada9824f9fb40cb2d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

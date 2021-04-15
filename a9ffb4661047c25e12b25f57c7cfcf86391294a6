@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "439e705a_ef49bb93",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-04-15T22:15:47Z",
+      "side": 1,
+      "message": "I emoved a gn variable related to unused GTK definitions. Please take a look. Thank you.",
+      "revId": "a9ffb4661047c25e12b25f57c7cfcf86391294a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

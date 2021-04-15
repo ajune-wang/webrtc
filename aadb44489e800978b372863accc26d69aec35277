@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3de41a45_14f8f533",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2021-04-15T13:35:45Z",
+      "side": 1,
+      "message": "Nice! Very detailed, but looks good.",
+      "revId": "aadb44489e800978b372863accc26d69aec35277",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "677173d4_9665f6ee",
+        "filename": "video/g3doc/stats.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2021-04-15T13:35:45Z",
+      "side": 1,
+      "message": "Nice! I wasn\u0027t aware of this short trick for linking a piece of text directly :)",
+      "range": {
+        "startLine": 6,
+        "startChar": 37,
+        "endLine": 6,
+        "endChar": 54
+      },
+      "revId": "aadb44489e800978b372863accc26d69aec35277",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e5f83e3_7057c794",
+        "filename": "video/g3doc/stats.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2021-04-15T13:35:45Z",
+      "side": 1,
+      "message": "``? Here and below.",
+      "range": {
+        "startLine": 28,
+        "startChar": 83,
+        "endLine": 28,
+        "endChar": 90
+      },
+      "revId": "aadb44489e800978b372863accc26d69aec35277",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

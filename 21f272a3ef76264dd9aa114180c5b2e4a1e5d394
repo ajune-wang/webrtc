@@ -54,6 +54,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "30eb33d7_3fa744f2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-04-15T13:03:05Z",
+      "side": 1,
+      "message": "rtc_enable_sctp will require a backend to work.\nAdded an assert to reflect that.",
+      "parentUuid": "f3c3899b_059721b3",
+      "revId": "21f272a3ef76264dd9aa114180c5b2e4a1e5d394",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dc79a5cc_9f075b37",

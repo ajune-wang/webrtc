@@ -16,6 +16,23 @@
       "message": "Hi team, can you PTAL at this CL that filters unsupported windows for the WGC capturer.",
       "revId": "bbc6db5ae8d661c05e26117919310c0662a69335",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "190ea8e8_774b40f0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13004
+      },
+      "writtenOn": "2021-04-15T20:22:44Z",
+      "side": 1,
+      "message": "Thanks for the fix.  Looks good to me.",
+      "revId": "bbc6db5ae8d661c05e26117919310c0662a69335",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

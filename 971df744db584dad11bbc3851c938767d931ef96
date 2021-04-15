@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9349a799_460a0759",
+        "filename": "net/dcsctp/common/math.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-15T07:46:33Z",
+      "side": 1,
+      "message": "It works well, thanks to relying on the number being converted into two-complement. \n\nI have added a lot of test cases to show that it works for negative signed number and for (positive) unsigned numbers. \n\nI also changed the \"-4\" to \"~3\", which has the same bit representation in case anyone else think it\u0027s odd to operate an unsigned number with a signed.",
+      "parentUuid": "5d714bad_70e90762",
+      "revId": "971df744db584dad11bbc3851c938767d931ef96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4ca7ae18_f26c355e",
@@ -31,6 +49,24 @@
       "writtenOn": "2021-04-14T16:18:09Z",
       "side": 1,
       "message": "can/should we use the max mtu constant?",
+      "revId": "971df744db584dad11bbc3851c938767d931ef96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d708dc72_14fdd914",
+        "filename": "net/dcsctp/packet/sctp_packet_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-15T07:46:33Z",
+      "side": 1,
+      "message": "It is the same value, but I\u0027m using constant numbers in the test to make them hermetic. These numbers - 1191 MTU, 183 (payload 1) and 957 (payload2) - came from a real world situation, so I want to guard against any regressions by having the same scenario here.",
+      "parentUuid": "4ca7ae18_f26c355e",
       "revId": "971df744db584dad11bbc3851c938767d931ef96",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

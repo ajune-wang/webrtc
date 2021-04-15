@@ -16,6 +16,23 @@
       "message": "Hi Harald!\n\nCould you please also review this CL? I haven\u0027t noticed initially that LGTM by Kári wouldn\u0027t allow me to change audio_encoder_opus.cc, but your LGTM will be counted.\n\nThanks a lot in advance,\nYura.",
       "revId": "a9efc1e2c972b318bdda285d437c905a2f715171",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c22feaa_eaf97c7f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-15T16:57:56Z",
+      "side": 1,
+      "message": "If a second click is needed, I\u0027l +1 after Kari\u0027s review.\n",
+      "revId": "a9efc1e2c972b318bdda285d437c905a2f715171",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

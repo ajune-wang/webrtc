@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d03437d_e20678c5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-15T10:04:29Z",
+      "side": 1,
+      "message": "LGTM % comments",
+      "revId": "7a52762fd9aebd34fdf7cbba24a73cbfe3351c2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad0f7176_a67985ca",
+        "filename": "g3doc/sitemap.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-15T10:04:29Z",
+      "side": 1,
+      "message": "remove?",
+      "range": {
+        "startLine": 25,
+        "startChar": 55,
+        "endLine": 25,
+        "endChar": 67
+      },
+      "revId": "7a52762fd9aebd34fdf7cbba24a73cbfe3351c2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96062fc6_ba21456f",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-04-15T10:04:29Z",
+      "side": 1,
+      "message": "nit: you might want to put the links into the bottom of the doc as you did for wiki links.",
+      "range": {
+        "startLine": 124,
+        "startChar": 19,
+        "endLine": 124,
+        "endChar": 149
+      },
+      "revId": "7a52762fd9aebd34fdf7cbba24a73cbfe3351c2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

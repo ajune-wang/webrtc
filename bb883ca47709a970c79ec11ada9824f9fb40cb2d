@@ -16,6 +16,92 @@
       "message": "Hi Mirko and Nisse,\n\nMany files are touched but most files only have very minor changes to include files and enum names.\n\nThe \"real\" change is the moving of h264_profile_level_id.* and vp9_profile.* to api/video_codecs\nand the legacy code that is kept to make sure that downstream projects still build.",
       "revId": "bb883ca47709a970c79ec11ada9824f9fb40cb2d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "511f45fa_5f192cf4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-04-15T13:42:08Z",
+      "side": 1,
+      "message": "lgtm. Some optional suggestions.",
+      "revId": "bb883ca47709a970c79ec11ada9824f9fb40cb2d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9401d9c8_6eac8bb8",
+        "filename": "api/video_codecs/h264_profile_level_id.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-04-15T13:42:08Z",
+      "side": 1,
+      "message": "I would strike (or move) \"Generate\" from the name, to get it to start with H264. Also, it would be nice to use a return value instead of using an output argument (at least, I\u0027m guessing `answer_params` is an output parameter).",
+      "range": {
+        "startLine": 100,
+        "startChar": 5,
+        "endLine": 100,
+        "endChar": 40
+      },
+      "revId": "bb883ca47709a970c79ec11ada9824f9fb40cb2d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fdb046d_83383656",
+        "filename": "api/video_codecs/h264_profile_level_id.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-04-15T13:42:08Z",
+      "side": 1,
+      "message": "Redundant comment.",
+      "range": {
+        "startLine": 105,
+        "startChar": 62,
+        "endLine": 106,
+        "endChar": 14
+      },
+      "revId": "bb883ca47709a970c79ec11ada9824f9fb40cb2d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c8b3db9_d0540d82",
+        "filename": "api/video_codecs/h264_profile_level_id.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-04-15T13:42:08Z",
+      "side": 1,
+      "message": "Would prefer name starting with H264 or H264Profile.",
+      "range": {
+        "startLine": 107,
+        "startChar": 5,
+        "endLine": 107,
+        "endChar": 22
+      },
+      "revId": "bb883ca47709a970c79ec11ada9824f9fb40cb2d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

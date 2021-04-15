@@ -36,6 +36,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae297c14_69a468f3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-04-15T12:59:00Z",
+      "side": 1,
+      "message": "sgtm.",
+      "parentUuid": "9de5a42b_00d2973d",
+      "revId": "f08908822d7aacad43a8da8745362d7e3e4a3cd9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "69ed4728_38cb3179",
@@ -73,6 +91,30 @@
       "side": 1,
       "message": "Two formats can have several parameters that doesn\u0027t change the codec, so even though the two formats are not identical they represent the same codec. So I think that the distinction between \u003d\u003d and same codec is needed.",
       "parentUuid": "69ed4728_38cb3179",
+      "range": {
+        "startLine": 36,
+        "startChar": 2,
+        "endLine": 36,
+        "endChar": 54
+      },
+      "revId": "f08908822d7aacad43a8da8745362d7e3e4a3cd9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf7be756_ed1a0a5f",
+        "filename": "api/video_codecs/sdp_video_format.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-04-15T12:59:00Z",
+      "side": 1,
+      "message": "Ok. Maybe worthy of a comment? The corresponding usecases for the distinction isn\u0027t clear to me.",
+      "parentUuid": "fc572b01_46f3eae8",
       "range": {
         "startLine": 36,
         "startChar": 2,

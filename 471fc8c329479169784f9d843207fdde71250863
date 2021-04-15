@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90aed2dc_3fc1dc73",
+        "filename": "net/dcsctp/packet/sctp_packet.cc",
+        "patchSetId": 36
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5852
+      },
+      "writtenOn": "2021-04-15T22:06:48Z",
+      "side": 1,
+      "message": "When would disable_checksum_verification be true?",
+      "range": {
+        "startLine": 110,
+        "startChar": 7,
+        "endLine": 110,
+        "endChar": 37
+      },
+      "revId": "471fc8c329479169784f9d843207fdde71250863",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

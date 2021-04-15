@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "803c2d59_73d96a96",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-15T18:22:04Z",
+      "side": 1,
+      "message": "This should be chromium:1149922",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 20
+      },
+      "revId": "2efa41a5ced42df1d9c3cb7f2d3d7a03fc8afb63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "bcc861be_56ee4ccc",
@@ -14,6 +37,23 @@
       "writtenOn": "2021-04-15T17:53:00Z",
       "side": 1,
       "message": "mbonadei@ Ping!",
+      "revId": "2efa41a5ced42df1d9c3cb7f2d3d7a03fc8afb63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4ce09a6_3ba89119",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-15T18:22:04Z",
+      "side": 1,
+      "message": "Sorry, LGTM.",
       "revId": "2efa41a5ced42df1d9c3cb7f2d3d7a03fc8afb63",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

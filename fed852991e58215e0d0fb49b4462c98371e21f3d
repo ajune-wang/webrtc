@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef1e0210_24e84dde",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 861,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-04-15T13:06:08Z",
+      "side": 1,
+      "message": "BTW, why is this cast needed?",
+      "range": {
+        "startLine": 861,
+        "startChar": 23,
+        "endLine": 861,
+        "endChar": 52
+      },
+      "revId": "fed852991e58215e0d0fb49b4462c98371e21f3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43c7d79f_f35b3d21",
+        "filename": "rtc_base/openssl_stream_adapter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-04-15T13:06:08Z",
+      "side": 1,
+      "message": "Made this non-virtual in the process.",
+      "range": {
+        "startLine": 151,
+        "startChar": 7,
+        "endLine": 151,
+        "endChar": 14
+      },
+      "revId": "fed852991e58215e0d0fb49b4462c98371e21f3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

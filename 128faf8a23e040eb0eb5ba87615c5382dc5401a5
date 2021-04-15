@@ -16,6 +16,24 @@
       "message": "I tried running this test today and failed, looks like this needs to use ScopedTaskSafetyDetached.",
       "revId": "128faf8a23e040eb0eb5ba87615c5382dc5401a5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87b643b4_1157b64f",
+        "filename": "media/sctp/sctp_transport_reliability_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-04-15T11:55:13Z",
+      "side": 1,
+      "message": "Fix landed.",
+      "parentUuid": "2c9564ea_77b81381",
+      "revId": "128faf8a23e040eb0eb5ba87615c5382dc5401a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -52,6 +52,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf888a97_bb793cad",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-04-15T15:16:26Z",
+      "side": 1,
+      "message": "Thanks for the quick review!\nI\u0027ll update according to your suggestions.",
+      "revId": "bb883ca47709a970c79ec11ada9824f9fb40cb2d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9401d9c8_6eac8bb8",
@@ -65,6 +82,30 @@
       "writtenOn": "2021-04-15T13:42:08Z",
       "side": 1,
       "message": "I would strike (or move) \"Generate\" from the name, to get it to start with H264. Also, it would be nice to use a return value instead of using an output argument (at least, I\u0027m guessing `answer_params` is an output parameter).",
+      "range": {
+        "startLine": 100,
+        "startChar": 5,
+        "endLine": 100,
+        "endChar": 40
+      },
+      "revId": "bb883ca47709a970c79ec11ada9824f9fb40cb2d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e208ae92_795ad0e2",
+        "filename": "api/video_codecs/h264_profile_level_id.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-04-15T15:16:26Z",
+      "side": 1,
+      "message": "I\u0027ll remove Generate and change to a return value based function.",
+      "parentUuid": "9401d9c8_6eac8bb8",
       "range": {
         "startLine": 100,
         "startChar": 5,
@@ -98,6 +139,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4fb039f6_16398c27",
+        "filename": "api/video_codecs/h264_profile_level_id.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-04-15T15:16:26Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6fdb046d_83383656",
+      "range": {
+        "startLine": 105,
+        "startChar": 62,
+        "endLine": 106,
+        "endChar": 14
+      },
+      "revId": "bb883ca47709a970c79ec11ada9824f9fb40cb2d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5c8b3db9_d0540d82",
@@ -111,6 +176,30 @@
       "writtenOn": "2021-04-15T13:42:08Z",
       "side": 1,
       "message": "Would prefer name starting with H264 or H264Profile.",
+      "range": {
+        "startLine": 107,
+        "startChar": 5,
+        "endLine": 107,
+        "endChar": 22
+      },
+      "revId": "bb883ca47709a970c79ec11ada9824f9fb40cb2d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6be2deb_e15e287f",
+        "filename": "api/video_codecs/h264_profile_level_id.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-04-15T15:16:26Z",
+      "side": 1,
+      "message": "Will fix and also rename IsSameVP9Profile to VP9IsSameProfile.",
+      "parentUuid": "5c8b3db9_d0540d82",
       "range": {
         "startLine": 107,
         "startChar": 5,
@@ -157,6 +246,30 @@
       "writtenOn": "2021-04-15T13:45:21Z",
       "side": 1,
       "message": "Better to use bug.webrtc.org/XXX here.",
+      "range": {
+        "startLine": 18,
+        "startChar": 8,
+        "endLine": 18,
+        "endChar": 12
+      },
+      "revId": "bb883ca47709a970c79ec11ada9824f9fb40cb2d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0e6783d_2f4fc793",
+        "filename": "media/base/h264_profile_level_id.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-04-15T15:16:26Z",
+      "side": 1,
+      "message": "Do you mean that I should create a new bug to track this or just use the existing bug under which I\u0027m doing this work?",
+      "parentUuid": "9df30a2b_be98d1d3",
       "range": {
         "startLine": 18,
         "startChar": 8,

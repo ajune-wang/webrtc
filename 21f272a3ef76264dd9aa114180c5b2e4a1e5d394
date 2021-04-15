@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e51da22b_5071f047",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-15T11:32:37Z",
+      "side": 1,
+      "message": "Not certain this works for all cases. In particular, a lot of tests are #if-ed out under RTC_USE_SCTP (unless I remember wrong), so not setting this compile flag will mean that tests are not run.\n\nI think you want to end up with\n\nrtc_enable_sctp\n  - enables code and tests that expect SCTP to work\n  rtc_build_usrsctp\n  - compiles usrsctp and makes it available as a factory\n  rtc_build_dsctp\n  - compies dcsctp and makes it available as a factory\n  rtc_sctp_implementation\u003d{usrsctp|dcsctp)\n  - decides which factory is used by default in constructiong peerconnectiosn.\n\nIs this right?",
+      "revId": "21f272a3ef76264dd9aa114180c5b2e4a1e5d394",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dc79a5cc_9f075b37",
@@ -43,6 +60,23 @@
         "endLine": 436,
         "endChar": 14
       },
+      "revId": "21f272a3ef76264dd9aa114180c5b2e4a1e5d394",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac980ef8_6aa26bb4",
+        "filename": "media/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-15T11:32:37Z",
+      "side": 1,
+      "message": "Seems that rtc_enable_sctp and rtc_build_usrsctp should be 2 different flags, and that this part should only be done when both are set.\n(I assume that you\u0027ll add an rtc_build_dcsctp flag soon?)",
       "revId": "21f272a3ef76264dd9aa114180c5b2e4a1e5d394",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

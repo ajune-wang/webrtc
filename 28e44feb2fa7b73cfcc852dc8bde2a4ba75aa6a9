@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5c588a5_7c20acf7",
+        "filename": "net/dcsctp/timer/scalable_timeout.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-15T10:10:31Z",
+      "side": 1,
+      "message": "The timeout driver is multi-threaded, in contrast to anything else in dcSCTP to be able to evaluate all timers for all thousands of sockets in a single thread, instead of having thousands of timer evaluators.\n\nSo the TimerDriver will have Tick called from a dedicated thread (not created here), and I\u0027ve added a SequenceChecker than ensures that Tick is always called from the same thread.\n\nThe remaining method (well, only accessed through Timeout, but the Schedule, Cancel etc), can be called from any socket/thread.",
+      "parentUuid": "4678374e_59eed41c",
+      "revId": "28e44feb2fa7b73cfcc852dc8bde2a4ba75aa6a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5eebccbc_b378d8d1",
@@ -31,6 +49,24 @@
       "writtenOn": "2021-04-14T18:18:35Z",
       "side": 1,
       "message": "calling out while holding a lock.\nSame for Unlink().\n\nCan we avoid that?",
+      "revId": "28e44feb2fa7b73cfcc852dc8bde2a4ba75aa6a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a77d36e8_4efb55e9",
+        "filename": "net/dcsctp/timer/scalable_timeout.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-15T10:10:31Z",
+      "side": 1,
+      "message": "Yeah, I know, and it\u0027s unfortunate. It\u0027s required to ensure that the lifetime of the objects is still valid at this point.\n\nThe callback/manager/factory/socket that created the timeouts is guaranteed to be alive here, as it needs to hold the mutex to remove the timeouts when it is destructed, so by holding the mutex, they can correctly post a message on the TaskQueue/Executor/Thread that manage the socket.\n\nAdding a hard dependency on any opinionated threading concept here, e.g. TaskQueue, would unlikely fit well with how servers are structured today unfortunately.\n\nI have tried to document this as good as I can in the documentation for the callback. Do you have a better idea how to solve it?",
+      "parentUuid": "5eebccbc_b378d8d1",
       "revId": "28e44feb2fa7b73cfcc852dc8bde2a4ba75aa6a9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -52,6 +88,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d242cac0_1707cd6d",
+        "filename": "net/dcsctp/timer/scalable_timeout.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-15T10:10:31Z",
+      "side": 1,
+      "message": "I rephrased this sentence. WDYT?",
+      "parentUuid": "fbf6d51c_459c8281",
+      "revId": "28e44feb2fa7b73cfcc852dc8bde2a4ba75aa6a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "701035a4_cd56f04b",
@@ -65,6 +119,24 @@
       "writtenOn": "2021-04-14T18:18:35Z",
       "side": 1,
       "message": "would it make sense to have ScalableTimeout be a private nested class rather than friend?",
+      "revId": "28e44feb2fa7b73cfcc852dc8bde2a4ba75aa6a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f8fa417_d333e44b",
+        "filename": "net/dcsctp/timer/scalable_timeout.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-15T10:10:31Z",
+      "side": 1,
+      "message": "I gave it a try - PTAL",
+      "parentUuid": "701035a4_cd56f04b",
       "revId": "28e44feb2fa7b73cfcc852dc8bde2a4ba75aa6a9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -86,6 +158,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "060dd20b_588cfb59",
+        "filename": "net/dcsctp/timer/scalable_timeout.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-15T10:10:31Z",
+      "side": 1,
+      "message": "This is just me trying to follow https://abseil.io/tips/116, but I changed to passing a reference if that\u0027s what\u0027s recommended in WebRTC.",
+      "parentUuid": "0d19aaf1_c96931ed",
+      "revId": "28e44feb2fa7b73cfcc852dc8bde2a4ba75aa6a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "576ded29_f890b432",
@@ -103,6 +193,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5fcdc71_f0e0eebe",
+        "filename": "net/dcsctp/timer/scalable_timeout.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-15T10:10:31Z",
+      "side": 1,
+      "message": "Now it can\u0027t be null any longer, but lifetime is only guaranteed by documentation. \n\nIn reality, this is not very complicated to enforce. This implementation is mainly intended to be used in servers (not as much in browsers), and in the servers, this is created on startup and lives as long as the server lives.\n\nI can understand the complications if it\u0027s supposed to be dynamically created and torn down, but that will have to be solved by reference counting from the higher order component (PeerConnection or something similar).",
+      "parentUuid": "576ded29_f890b432",
+      "revId": "28e44feb2fa7b73cfcc852dc8bde2a4ba75aa6a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9f98204c_2908c50a",
@@ -116,6 +224,24 @@
       "writtenOn": "2021-04-14T18:18:35Z",
       "side": 1,
       "message": "can we use other constructs than rtc::Thread?\n\nE.g. platform thread or TaskQueue[ForTesting]?",
+      "revId": "28e44feb2fa7b73cfcc852dc8bde2a4ba75aa6a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a87bb50_60636115",
+        "filename": "net/dcsctp/timer/scalable_timeout_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-15T10:10:31Z",
+      "side": 1,
+      "message": "I\u0027m not too familiar with WebRTC threading concepts, and I just needed a simple \"thread\", so I picked the one with the most familiar name :) But I\u0027ve changed it to PlatformThread now - thanks!",
+      "parentUuid": "9f98204c_2908c50a",
       "revId": "28e44feb2fa7b73cfcc852dc8bde2a4ba75aa6a9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

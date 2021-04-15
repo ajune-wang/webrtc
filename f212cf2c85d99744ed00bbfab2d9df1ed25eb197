@@ -16,6 +16,24 @@
       "message": "I didn\u0027t add tests because I really don\u0027t know where to add them. All the other RTCConfiguration fields like ice_check_interval_strong_connectivity don\u0027t seem to be tested anywhere.",
       "revId": "f212cf2c85d99744ed00bbfab2d9df1ed25eb197",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33cc3c5b_e6b97a3d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2021-04-15T12:53:09Z",
+      "side": 1,
+      "message": "I think you can copy/modify TestPingBackupConnectionRate\n(but don\u0027t _need_ to run it multi homed...) to also test stable rate.",
+      "parentUuid": "86c458f4_7ecd3884",
+      "revId": "f212cf2c85d99744ed00bbfab2d9df1ed25eb197",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

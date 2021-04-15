@@ -89,6 +89,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3d2b20f_a70bee2b",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2021-04-15T13:58:47Z",
+      "side": 1,
+      "message": "Yeah, I\u0027d rather not get into details about H.264 IDR slices or VP9 intra-only frames, so I\u0027ll just remove the mention here.",
+      "parentUuid": "c2ab5c38_87438832",
+      "range": {
+        "startLine": 25,
+        "startChar": 55,
+        "endLine": 25,
+        "endChar": 62
+      },
+      "revId": "75c5112263e73de82f2ba22d7a117dbab732c837",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "93b1ace2_0f3d804b",

@@ -1,0 +1,412 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f4dffea_393eab15",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7672
+      },
+      "writtenOn": "2021-04-15T20:37:20Z",
+      "side": 1,
+      "message": "Thanks for taking the initiative on this.",
+      "revId": "9acf9bed77e87fc382d12280509e86df20b66640",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "112b9711_ec622136",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 7672
+      },
+      "writtenOn": "2021-04-15T20:37:20Z",
+      "side": 1,
+      "message": "Consider replacing the word \"raw\" with \"uncompressed\".",
+      "range": {
+        "startLine": 8,
+        "startChar": 73,
+        "endLine": 8,
+        "endChar": 76
+      },
+      "revId": "9acf9bed77e87fc382d12280509e86df20b66640",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5206a81_4136d044",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 7672
+      },
+      "writtenOn": "2021-04-15T20:37:20Z",
+      "side": 1,
+      "message": "Consider: \"... prediction of the original video frame using either information from previously encoded frames [motion compensation][motion-compensation-wiki] or information from previously encoded portions of the current frame, subtraction of the prediction from the original video, and transform and quantization of the resulting difference [transform coding][transform-coding-wiki]. The output of the quantization process, quantized transform coefficients, is losslessly entropy coded [entropy coding][entropy-coding-wiki] along with other encoder parameters (e.g., those related to the prediction process) and then a reconstruction is constructed by inverse quantizing and inverse transforming the quantized transform coefficients and adding the result to the prediction. Finally, in-loop filtering is applied and the resulting reconstruction is stored as a reference frame to be used to develop predictions for future frames.\"",
+      "range": {
+        "startLine": 15,
+        "startChar": 24,
+        "endLine": 17,
+        "endChar": 37
+      },
+      "revId": "9acf9bed77e87fc382d12280509e86df20b66640",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28b84a5c_335dc3d2",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 7672
+      },
+      "writtenOn": "2021-04-15T20:37:20Z",
+      "side": 1,
+      "message": "Consider replacing \"thus needed\" with \"required\".",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 11
+      },
+      "revId": "9acf9bed77e87fc382d12280509e86df20b66640",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3db98343_0bfa6406",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 7672
+      },
+      "writtenOn": "2021-04-15T20:37:20Z",
+      "side": 1,
+      "message": "Consider: \"For real-time-communications encoding, key frames typically ...\"",
+      "range": {
+        "startLine": 25,
+        "startChar": 50,
+        "endLine": 25,
+        "endChar": 51
+      },
+      "revId": "9acf9bed77e87fc382d12280509e86df20b66640",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a53df758_b447b740",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 7672
+      },
+      "writtenOn": "2021-04-15T20:37:20Z",
+      "side": 1,
+      "message": "Consider: \"delta frames\" (i.e., frames whose predictions are derived from previously encoded frames).\n\nNote: the term delta frames is used later so I thought it might be good to add a definition.",
+      "range": {
+        "startLine": 26,
+        "startChar": 22,
+        "endLine": 26,
+        "endChar": 36
+      },
+      "revId": "9acf9bed77e87fc382d12280509e86df20b66640",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d05e2682_45270f67",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 7672
+      },
+      "writtenOn": "2021-04-15T20:37:20Z",
+      "side": 1,
+      "message": "Consider: \"bitstream\"",
+      "range": {
+        "startLine": 30,
+        "startChar": 26,
+        "endLine": 30,
+        "endChar": 32
+      },
+      "revId": "9acf9bed77e87fc382d12280509e86df20b66640",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b745c9bc_81444a0f",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 7672
+      },
+      "writtenOn": "2021-04-15T20:37:20Z",
+      "side": 1,
+      "message": "Consider: \"... the frame that was most recently encoded.\"\n\nNote: the previous frame may be a key frame.",
+      "range": {
+        "startLine": 34,
+        "startChar": 72,
+        "endLine": 35,
+        "endChar": 24
+      },
+      "revId": "9acf9bed77e87fc382d12280509e86df20b66640",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be221970_7b6fb56e",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 7672
+      },
+      "writtenOn": "2021-04-15T20:37:20Z",
+      "side": 1,
+      "message": "Consider \"bitstream\"\n\nNote: going forward, consider replacing all instances of \"encoded stream\" with \"encoded bitstream\"  \n\nTo reduce comment clutter, I\u0027ll not mark such instances.",
+      "range": {
+        "startLine": 39,
+        "startChar": 56,
+        "endLine": 39,
+        "endChar": 62
+      },
+      "revId": "9acf9bed77e87fc382d12280509e86df20b66640",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44a59107_b7ea65de",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 7672
+      },
+      "writtenOn": "2021-04-15T20:37:20Z",
+      "side": 1,
+      "message": "Consider replacing \"that\" with \"each of whom\".",
+      "range": {
+        "startLine": 40,
+        "startChar": 11,
+        "endLine": 40,
+        "endChar": 15
+      },
+      "revId": "9acf9bed77e87fc382d12280509e86df20b66640",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6a627ee_5f78207b",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 7672
+      },
+      "writtenOn": "2021-04-15T20:37:20Z",
+      "side": 1,
+      "message": "Consider: \"a heterogeneous network of receivers, ...\"",
+      "range": {
+        "startLine": 41,
+        "startChar": 19,
+        "endLine": 41,
+        "endChar": 38
+      },
+      "revId": "9acf9bed77e87fc382d12280509e86df20b66640",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f77719bb_e0b62c82",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 7672
+      },
+      "writtenOn": "2021-04-15T20:37:20Z",
+      "side": 1,
+      "message": "Consider \"using only available lower layers.\"",
+      "range": {
+        "startLine": 44,
+        "startChar": 31,
+        "endLine": 44,
+        "endChar": 63
+      },
+      "revId": "9acf9bed77e87fc382d12280509e86df20b66640",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91a1ddd8_c2b7211b",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 7672
+      },
+      "writtenOn": "2021-04-15T20:37:20Z",
+      "side": 1,
+      "message": "Consider: \" ... of the bitstream in order to achieve the intended downlink bandwidth\"  [I intentionally removed the word \"conditions\"].",
+      "range": {
+        "startLine": 46,
+        "startChar": 14,
+        "endLine": 46,
+        "endChar": 34
+      },
+      "revId": "9acf9bed77e87fc382d12280509e86df20b66640",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8657ab7_16afcc12",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 7672
+      },
+      "writtenOn": "2021-04-15T20:37:20Z",
+      "side": 1,
+      "message": "Consider replacing \"the top layer\" with \"upper layer(s)\"",
+      "range": {
+        "startLine": 51,
+        "startChar": 88,
+        "endLine": 51,
+        "endChar": 101
+      },
+      "revId": "9acf9bed77e87fc382d12280509e86df20b66640",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44ce944e_e9cae095",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 7672
+      },
+      "writtenOn": "2021-04-15T20:37:20Z",
+      "side": 1,
+      "message": "Consider replacing \"the top layer\" with \"upper layer(s)\"",
+      "range": {
+        "startLine": 52,
+        "startChar": 88,
+        "endLine": 52,
+        "endChar": 101
+      },
+      "revId": "9acf9bed77e87fc382d12280509e86df20b66640",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63c16674_1b607f6a",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 7672
+      },
+      "writtenOn": "2021-04-15T20:37:20Z",
+      "side": 1,
+      "message": "Consider replacing \"the top layer\" with \"upper layer(s)\"",
+      "range": {
+        "startLine": 53,
+        "startChar": 71,
+        "endLine": 53,
+        "endChar": 84
+      },
+      "revId": "9acf9bed77e87fc382d12280509e86df20b66640",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c39a0177_c5731737",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 7672
+      },
+      "writtenOn": "2021-04-15T20:37:20Z",
+      "side": 1,
+      "message": "Consider: \"In cases where multiple encodings of the same source are required (e.g., uplink transmission in a multi-party call), spatial scalability with inter-layer prediction generally offers superior coding efficiency compared with simulcast.  When a single encoding is required (e.g., downlink in any call), simulcast generally provides better coding efficiency for the upper spatial layers.\"",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 27
+      },
+      "revId": "9acf9bed77e87fc382d12280509e86df20b66640",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c92e90e_1b3ea77b",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 7672
+      },
+      "writtenOn": "2021-04-15T20:37:20Z",
+      "side": 1,
+      "message": "Consider: \"... key frames, for which inter-layer prediction is typically significantly more effective than it is for delta frames, can be seen ...\"",
+      "range": {
+        "startLine": 66,
+        "startChar": 37,
+        "endLine": 66,
+        "endChar": 47
+      },
+      "revId": "9acf9bed77e87fc382d12280509e86df20b66640",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

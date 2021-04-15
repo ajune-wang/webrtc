@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ea48645_9229f0d4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2021-04-15T16:57:24Z",
+      "side": 1,
+      "message": "Hi Jamie, PTAL at this CL that fixes a crash in WindowCapturerWinGdi::CaptureFrame.",
+      "revId": "86555df3671d76e42a1236a9bf60169b80f582b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

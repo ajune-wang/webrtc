@@ -16,6 +16,24 @@
       "message": "Where did this definition move to?",
       "revId": "572f50fc04165b0ab90e388fee4306e73f535c9f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28332be4_3d62d44e",
+        "filename": "pc/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 1014,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-04-15T11:45:22Z",
+      "side": 0,
+      "message": "It didn\u0027t move, it was already in the config target rtc_pc_config at the top of the file, that define was redundant.\nThe chain is peerconnection_unittests --(deps)-\u003e rtc_pc_base --(public config)-\u003e rtc_pc_config",
+      "parentUuid": "d76ccedc_00385da7",
+      "revId": "572f50fc04165b0ab90e388fee4306e73f535c9f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

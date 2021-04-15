@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb367838_75bdebbb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-04-15T11:45:22Z",
+      "side": 1,
+      "message": "rtc_enable_sctp will add the WEBRTC_HAVE_SCTP define to all WebRTC targets and you would need an SCTP transport enabled.\nrtc_build_usrsctp makes the that transport available to the factory and enables the related tests.\nrtc_build_dcsctp (soon™) makes that transport available to the factory, then a field trial allows you to pick which one you want.\n\nI don\u0027t think a build option to chose the preferred backend is welcome (we could alter the field trial default for that instead).\n\nI did try building and running tests without rtc_enable_sctp.",
+      "parentUuid": "e51da22b_5071f047",
+      "revId": "21f272a3ef76264dd9aa114180c5b2e4a1e5d394",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dc79a5cc_9f075b37",
@@ -31,6 +49,30 @@
       "writtenOn": "2021-04-15T11:23:50Z",
       "side": 1,
       "message": "remove",
+      "range": {
+        "startLine": 402,
+        "startChar": 36,
+        "endLine": 402,
+        "endChar": 44
+      },
+      "revId": "21f272a3ef76264dd9aa114180c5b2e4a1e5d394",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "01242ff9_30b43cc6",
+        "filename": "media/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-04-15T11:45:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc79a5cc_9f075b37",
       "range": {
         "startLine": 402,
         "startChar": 36,
@@ -64,6 +106,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ac038e9_fac5323d",
+        "filename": "media/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-04-15T11:45:22Z",
+      "side": 1,
+      "message": "No, we\u0027re adding to it soon after if usrsctp is used, and we\u0027re going to use the same pattern for the dcsctp transport as well.",
+      "parentUuid": "d1f2517d_5407cd1d",
+      "range": {
+        "startLine": 436,
+        "startChar": 2,
+        "endLine": 436,
+        "endChar": 14
+      },
+      "revId": "21f272a3ef76264dd9aa114180c5b2e4a1e5d394",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ac980ef8_6aa26bb4",
@@ -81,6 +147,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb0c7214_92a4abda",
+        "filename": "media/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-04-15T11:45:22Z",
+      "side": 1,
+      "message": "There will be an rtc_build_dcsctp flag soon.\nThe rtc_build_usrsctp flag depends on rtc_enable_sctp, so those tests will only be added when both are true.",
+      "parentUuid": "ac980ef8_6aa26bb4",
+      "revId": "21f272a3ef76264dd9aa114180c5b2e4a1e5d394",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "946a678f_6128965c",
@@ -94,6 +178,30 @@
       "writtenOn": "2021-04-15T11:23:50Z",
       "side": 1,
       "message": "Why this has been moved into its own declare_args()?",
+      "range": {
+        "startLine": 292,
+        "startChar": 0,
+        "endLine": 294,
+        "endChar": 1
+      },
+      "revId": "21f272a3ef76264dd9aa114180c5b2e4a1e5d394",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13768400_1734b194",
+        "filename": "webrtc.gni",
+        "patchSetId": 2
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-04-15T11:45:22Z",
+      "side": 1,
+      "message": "Can\u0027t use an argument in the same block as it is declared, since I want to have rtc_build_usrsctp depend on the value of rtc_enable_sctp, I need an extra declare_args() call.",
+      "parentUuid": "946a678f_6128965c",
       "range": {
         "startLine": 292,
         "startChar": 0,

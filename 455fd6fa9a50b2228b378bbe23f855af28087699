@@ -16,6 +16,40 @@
       "message": "PTAL Taylor",
       "revId": "455fd6fa9a50b2228b378bbe23f855af28087699",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16d8001e_6f36d95f",
+        "filename": "media/engine/webrtc_video_engine_unittest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 6521,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-04-15T20:45:43Z",
+      "side": 1,
+      "message": "\"pending\"",
+      "revId": "455fd6fa9a50b2228b378bbe23f855af28087699",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d919e13_04ba62b9",
+        "filename": "pc/channel.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-04-15T20:45:43Z",
+      "side": 1,
+      "message": "This method is called when connecting to a new RtpTransport, in which case we do want to call RegisterRtpDemuxerSink unconditionally. I\u0027d still set previous_demuxer_criteria_ to false if it fails.\n\nIt\u0027s somewhat confusing though that one RegisterRtpDemuxerSink method does things that the other doesn\u0027t. Since this method is only called in one place, maybe get rid of it and add a comment in ConnectToRtpTransport saying \"we don\u0027t need to call OnDemuxerCriteriaUpdatePending/Complete because there\u0027s no previous criteria to worry about\".",
+      "revId": "455fd6fa9a50b2228b378bbe23f855af28087699",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

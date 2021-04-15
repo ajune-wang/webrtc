@@ -33,6 +33,8 @@ static const char kIceUfrag2[] = "u0002";
 static const char kIcePwd2[] = "TESTICEPWD00000000000002";
 static const char kIceUfrag3[] = "u0003";
 static const char kIcePwd3[] = "TESTICEPWD00000000000003";
+static const char kIceUfrag4[] = "u0004";
+static const char kIcePwd4[] = "TESTICEPWD00000000000004";
 static const char kAudioMid1[] = "audio1";
 static const char kAudioMid2[] = "audio2";
 static const char kVideoMid1[] = "video1";
@@ -1097,6 +1099,33 @@ TEST_F(JsepTransportControllerTest, MultipleMediaSectionsOfSameTypeWithBundle) {
   // Verify the DtlsTransport for the SCTP data channel is reset correctly.
   auto it2 = changed_dtls_transport_by_mid_.find(kDataMid1);
   ASSERT_TRUE(it2 != changed_dtls_transport_by_mid_.end());
+}
+
+// asdadasdadasdadadsa
+TEST_F(JsepTransportControllerTest, MultipleBundleGroups) {
+  CreateJsepTransportController(JsepTransportController::Config());
+  cricket::ContentGroup bundle_group1(cricket::GROUP_TYPE_BUNDLE);
+  bundle_group1.AddContentName(kAudioMid1);
+  bundle_group1.AddContentName(kVideoMid1);
+  cricket::ContentGroup bundle_group2(cricket::GROUP_TYPE_BUNDLE);
+  bundle_group2.AddContentName(kAudioMid2);
+  bundle_group2.AddContentName(kVideoMid2);
+
+  auto local_offer = std::make_unique<cricket::SessionDescription>();
+  AddAudioSection(local_offer.get(), kAudioMid1, kIceUfrag1, kIcePwd1,
+                  cricket::ICEMODE_FULL, cricket::CONNECTIONROLE_ACTPASS,
+                  nullptr);
+  AddVideoSection(local_offer.get(), kVideoMid1, kIceUfrag2, kIcePwd2,
+                  cricket::ICEMODE_FULL, cricket::CONNECTIONROLE_ACTPASS,
+                  nullptr);
+  AddAudioSection(local_offer.get(), kAudioMid2, kIceUfrag3, kIcePwd3,
+                  cricket::ICEMODE_FULL, cricket::CONNECTIONROLE_ACTPASS,
+                  nullptr);
+  AddVideoSection(local_offer.get(), kVideoMid2, kIceUfrag4, kIcePwd4,
+                  cricket::ICEMODE_FULL, cricket::CONNECTIONROLE_ACTPASS,
+                  nullptr);
+  local_offer->AddGroup(bundle_group1);
+  local_offer->AddGroup(bundle_group2);
 }
 
 // Tests that only a subset of all the m= sections are bundled.

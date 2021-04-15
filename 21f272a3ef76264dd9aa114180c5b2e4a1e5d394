@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f3c3899b_059721b3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-15T12:34:53Z",
+      "side": 1,
+      "message": "And after the field trial is completed, is it possible to only have rtc_enable_sctp (which turns on and off building the SCTP library?).",
+      "parentUuid": "fb367838_75bdebbb",
+      "revId": "21f272a3ef76264dd9aa114180c5b2e4a1e5d394",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dc79a5cc_9f075b37",
         "filename": "media/BUILD.gn",
         "patchSetId": 2

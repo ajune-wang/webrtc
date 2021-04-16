@@ -16,6 +16,23 @@
       "message": "great, thanks!",
       "revId": "6dea8ec633300c3faac955539b6749c800f66e44",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b459382_852d9bc1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-16T06:49:05Z",
+      "side": 1,
+      "message": "Seems good.\n\nI do note that since this value is unrestricted and used unconditionally, there might be interesting failure modes if it is set to very long or very short (zero, 1 or ~1 year).\nBut in general, C++ API users are allowed to shoot themselves in the foot, so that\u0027s probably OK.\n",
+      "revId": "6dea8ec633300c3faac955539b6749c800f66e44",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

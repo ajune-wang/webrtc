@@ -16,6 +16,23 @@
       "message": "Hi Jamie and team, PTAL at this CL that allows us to use the native WGC cursor capture and avoid having a duplicate image of the cursor composited over top.",
       "revId": "22512c07272bd4d8181a9807d9cd47cd93c0a677",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fdd327a_812b02d1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13074
+      },
+      "writtenOn": "2021-04-16T01:19:54Z",
+      "side": 1,
+      "message": "Looks good to me. Thanks Austin!",
+      "revId": "22512c07272bd4d8181a9807d9cd47cd93c0a677",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

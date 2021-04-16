@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b1e1e81_06b93d53",
+        "filename": "modules/video_coding/utility/vp9_uncompressed_header_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-04-16T14:19:58Z",
+      "side": 1,
+      "message": "f_false?",
+      "range": {
+        "startLine": 40,
+        "startChar": 28,
+        "endLine": 40,
+        "endChar": 34
+      },
+      "revId": "faa3ecfc42f99a34d9650a401d8e4b433dd142be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1bbaa24b_7af57a92",
+        "filename": "modules/video_coding/utility/vp9_uncompressed_header_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-04-16T14:19:58Z",
+      "side": 1,
+      "message": "string_view",
+      "range": {
+        "startLine": 67,
+        "startChar": 46,
+        "endLine": 67,
+        "endChar": 77
+      },
+      "revId": "faa3ecfc42f99a34d9650a401d8e4b433dd142be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbbe9fd9_0424965d",
+        "filename": "modules/video_coding/utility/vp9_uncompressed_header_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-04-16T14:19:58Z",
+      "side": 1,
+      "message": "string_view",
+      "range": {
+        "startLine": 106,
+        "startChar": 28,
+        "endLine": 106,
+        "endChar": 49
+      },
+      "revId": "faa3ecfc42f99a34d9650a401d8e4b433dd142be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b53f8ad_34e6f04b",
+        "filename": "modules/video_coding/utility/vp9_uncompressed_header_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-04-16T14:19:58Z",
+      "side": 1,
+      "message": "Just another suggestion that I think would increases readability. Add a `has_error` member that is set to true if we ever fail to read from `buffer_`. Then the flow could look like this:\n\n  frame_info-\u003ecolor_range \u003d static_cast\u003cColorSpace\u003e(br-\u003eReadUnsigned\u003cuint8_t\u003e(3));\n  RETURN_IF_FALSE(br-\u003ehas_error())\n\nOr something even crazier, change the BitstreamReader to return optionals:\n\n  #define RES_OR_RETURN(x, do_with_res) \\\n  {                                     \\\n    if (auto r \u003d (x)) {                 \\\n      auto\u0026 res \u003d *r;                   \\\n      do_with_res                       \\\n    } else {                            \\\n      return false;                     \\\n    }                                   \\\n  }\n\n  template \u003ctypename T\u003e\n  absl::optional\u003cT\u003e ReadUnsigned(int bits \u003d sizeof(T) * 8) {\n    RTC_DCHECK_LE(bits, 32);\n    RTC_DCHECK_LE(bits, sizeof(T) * 8);\n    uint32_t val;\n    if (!buffer_-\u003eReadBits(\u0026val, bits)) {\n      return {};\n    }\n    return {val};\n  }\n\nThen the flow would look like this:\n\n  RES_OR_RETURN(br-\u003eReadUnsigned\u003cuint8_t\u003e(3), {\n    // `res` is a uint8_t\n    frame_info-\u003ecolor_space \u003d static_cast\u003cColorSpace\u003e(res);\n  })\n\n\nWDYT?",
+      "range": {
+        "startLine": 147,
+        "startChar": 2,
+        "endLine": 147,
+        "endChar": 26
+      },
+      "revId": "faa3ecfc42f99a34d9650a401d8e4b433dd142be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

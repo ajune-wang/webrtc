@@ -118,6 +118,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "92079b63_42a78c15",
+        "filename": "api/video_codecs/h264_profile_level_id.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-04-16T11:54:34Z",
+      "side": 1,
+      "message": "It turns out that the function adds parameters to the input answer_params.\nTo not change this behavior with the risk of introducing a new bug, I\u0027ve kept the function as it is but moved it to media/sdp_video_format_utils.h so that it\u0027s not a part of the api.",
+      "parentUuid": "e208ae92_795ad0e2",
+      "range": {
+        "startLine": 100,
+        "startChar": 5,
+        "endLine": 100,
+        "endChar": 40
+      },
+      "revId": "bb883ca47709a970c79ec11ada9824f9fb40cb2d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6fdb046d_83383656",
         "filename": "api/video_codecs/h264_profile_level_id.h",
         "patchSetId": 2
@@ -210,6 +234,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5dd4beef_f0cd9945",
+        "filename": "api/video_codecs/h264_profile_level_id.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-04-16T11:54:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c6be2deb_e15e287f",
+      "range": {
+        "startLine": 107,
+        "startChar": 5,
+        "endLine": 107,
+        "endChar": 22
+      },
+      "revId": "bb883ca47709a970c79ec11ada9824f9fb40cb2d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fd22323a_e3bcb493",
@@ -223,6 +271,30 @@
       "writtenOn": "2021-04-15T13:45:21Z",
       "side": 1,
       "message": "Same (an in other places as well).",
+      "range": {
+        "startLine": 13,
+        "startChar": 8,
+        "endLine": 13,
+        "endChar": 12
+      },
+      "revId": "bb883ca47709a970c79ec11ada9824f9fb40cb2d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10f71d76_d7c17259",
+        "filename": "media/base/h264_profile_level_id.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-04-16T11:54:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fd22323a_e3bcb493",
       "range": {
         "startLine": 13,
         "startChar": 8,
@@ -294,6 +366,30 @@
       "side": 1,
       "message": "Yes, using this bug is fine. :)",
       "parentUuid": "b0e6783d_2f4fc793",
+      "range": {
+        "startLine": 18,
+        "startChar": 8,
+        "endLine": 18,
+        "endChar": 12
+      },
+      "revId": "bb883ca47709a970c79ec11ada9824f9fb40cb2d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5375c1e9_c6ec7598",
+        "filename": "media/base/h264_profile_level_id.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-04-16T11:54:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0878bbe6_f20f5691",
       "range": {
         "startLine": 18,
         "startChar": 8,

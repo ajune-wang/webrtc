@@ -36,6 +36,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "94731fc2_2cb98d28",
+        "filename": "net/dcsctp/common/math.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-16T14:02:22Z",
+      "side": 1,
+      "message": "Great - ~3 is more readable to me actually (and arguably more in line with the code in IsDivisibleBy4).",
+      "parentUuid": "9349a799_460a0759",
+      "revId": "971df744db584dad11bbc3851c938767d931ef96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4ca7ae18_f26c355e",

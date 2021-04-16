@@ -208,8 +208,8 @@ declare_args() {
 
   # When set to true, a capturer implementation that uses the
   # Windows.Graphics.Capture APIs will be available for use. These APIs are
-  # available in the Win 10 SDK v10.0.19041.
-  rtc_enable_win_wgc = false
+  # available in the Win 10 SDK v10.0.17763.
+  rtc_enable_win_wgc = is_win
 }
 
 if (!build_with_mozilla) {

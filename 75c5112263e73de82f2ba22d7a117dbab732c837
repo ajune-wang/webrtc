@@ -372,6 +372,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa94c84a_11aa86f7",
+        "filename": "modules/video_coding/g3doc/index.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2021-04-16T08:21:15Z",
+      "side": 1,
+      "message": "Resolving.",
+      "parentUuid": "1e18d7f5_08da174c",
+      "range": {
+        "startLine": 49,
+        "startChar": 44,
+        "endLine": 53,
+        "endChar": 13
+      },
+      "revId": "75c5112263e73de82f2ba22d7a117dbab732c837",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a5aea9aa_0015c47b",

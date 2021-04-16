@@ -48,6 +48,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c080c4c_fca1e25f",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 861,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-04-16T07:52:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10ca4335_298bd89f",
+      "range": {
+        "startLine": 861,
+        "startChar": 23,
+        "endLine": 861,
+        "endChar": 52
+      },
+      "revId": "fed852991e58215e0d0fb49b4462c98371e21f3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "43c7d79f_f35b3d21",

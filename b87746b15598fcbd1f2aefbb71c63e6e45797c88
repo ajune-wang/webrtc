@@ -141,6 +141,30 @@
       },
       "revId": "b87746b15598fcbd1f2aefbb71c63e6e45797c88",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e702d592_db382eb8",
+        "filename": "net/dcsctp/packet/parameter/parameter.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5852
+      },
+      "writtenOn": "2021-04-16T18:09:48Z",
+      "side": 1,
+      "message": "I think the obvious reading of that RFC section is that there should be padding AFTER every parameter, not BETWEEN every parameter as you said, which is what made me think the padding was in the wrong place here.",
+      "parentUuid": "5e41e151_d45d47ac",
+      "range": {
+        "startLine": 49,
+        "startChar": 10,
+        "endLine": 49,
+        "endChar": 16
+      },
+      "revId": "b87746b15598fcbd1f2aefbb71c63e6e45797c88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

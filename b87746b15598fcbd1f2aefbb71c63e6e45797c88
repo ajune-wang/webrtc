@@ -69,6 +69,30 @@
       },
       "revId": "b87746b15598fcbd1f2aefbb71c63e6e45797c88",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdc61217_aa25ff1a",
+        "filename": "net/dcsctp/packet/parameter/parameter.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-16T07:22:16Z",
+      "side": 1,
+      "message": "This is just to add padding, if the previous parameter didn\u0027t write an amount of bytes that was even divisible by four.\n\nFor parameters (not chunks), padding (1-3 bytes) is only added _between_ parameters. For chunks, padding is always added (even after the last one).",
+      "parentUuid": "a8ad2f5e_11adc7c7",
+      "range": {
+        "startLine": 49,
+        "startChar": 10,
+        "endLine": 49,
+        "endChar": 16
+      },
+      "revId": "b87746b15598fcbd1f2aefbb71c63e6e45797c88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3570aa2f_d9a3ed87",
+        "filename": "net/dcsctp/rx/traditional_reassembly_streams.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5852
+      },
+      "writtenOn": "2021-04-16T22:22:10Z",
+      "side": 1,
+      "message": "I don\u0027t think the queue can get into that state right now (12-14 would be assembled into a packet as soon as all 3 of them are received). But I could easily see problems arising as you add optimizations to the algorithm.\n\nI suggest adding a validation functions that are called when DCHECK\u0027s are enabled to check all the state assumptions of this code (such as that all chunks in a queue have the same StreamID, that TSN\u0027s are always monotonically increasing, that all iterators are valid). Not at this point validating the received data (so multiple BEGIN\u0027s would be allowed), just validating that all the data structures you put the received data into are correct. Then when you optimize the algorithm you can be sure not to break any of these DCHECK\u0027s.\n\nSeparately to that you\u0027ll also want to validate the contents of the received data.",
+      "parentUuid": "5b0586d3_8e06e049",
+      "revId": "d0a4bed6dd7d4b7603843b098d988a654e0cdada",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a17c0ea7_c8dd8ea6",
         "filename": "net/dcsctp/rx/traditional_reassembly_streams.cc",
         "patchSetId": 19

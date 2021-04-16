@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1fb934f_e9d43314",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-04-16T09:08:17Z",
+      "side": 1,
+      "message": "lgtm",
+      "revId": "5b6080182e160dda01e03ac2543900c1203e27f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "821ad02e_f79a877b",
+        "filename": "media/base/h264_profile_level_id.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-04-16T09:08:17Z",
+      "side": 1,
+      "message": "Spelling. And preferably a working link (url sans https://), like TODO(crbug.com/1187565).",
+      "range": {
+        "startLine": 18,
+        "startChar": 8,
+        "endLine": 18,
+        "endChar": 25
+      },
+      "revId": "5b6080182e160dda01e03ac2543900c1203e27f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

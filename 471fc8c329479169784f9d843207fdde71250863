@@ -22,6 +22,30 @@
       },
       "revId": "471fc8c329479169784f9d843207fdde71250863",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca8c2eb8_0f90606e",
+        "filename": "net/dcsctp/packet/sctp_packet.cc",
+        "patchSetId": 36
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-16T07:20:02Z",
+      "side": 1,
+      "message": "When running fuzzers. Fuzzers will never manage to generate correct checksums.\n\nTrivia: Usrsctp also disables checksumming when using the loopback interface, as they assume that there will be no corruption there. That\u0027s not supported here (and wouldn\u0027t make sense either).\n\nEven more trivia: The checksumming is actually quite unnecessary for Data Channels, as all packets are enclosed in DTLS, which provides integrity checks. But it\u0027s still done, for compatibility. \n\nNo more trivia.",
+      "parentUuid": "90aed2dc_3fc1dc73",
+      "range": {
+        "startLine": 110,
+        "startChar": 7,
+        "endLine": 110,
+        "endChar": 37
+      },
+      "revId": "471fc8c329479169784f9d843207fdde71250863",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

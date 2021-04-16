@@ -24,8 +24,8 @@
 #include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
 #include "api/crypto_params.h"
+#include "api/video_codecs/h264_profile_level_id.h"
 #include "media/base/codec.h"
-#include "media/base/h264_profile_level_id.h"
 #include "media/base/media_constants.h"
 #include "media/sctp/sctp_transport_internal.h"
 #include "p2p/base/p2p_constants.h"
@@ -801,8 +801,8 @@ static void NegotiateCodecs(const std::vector<C>& local_codecs,
         }
       }
       if (absl::EqualsIgnoreCase(ours.name, kH264CodecName)) {
-        webrtc::H264::GenerateProfileLevelIdForAnswer(
-            ours.params, theirs.params, &negotiated.params);
+        negotiated.params =
+            webrtc::H264ProfileLevelIdForAnswer(ours.params, theirs.params);
       }
       negotiated.id = theirs.id;
       negotiated.name = theirs.name;

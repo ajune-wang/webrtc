@@ -33,6 +33,23 @@
       "message": "If a second click is needed, I\u0027l +1 after Kari\u0027s review.\n",
       "revId": "a9efc1e2c972b318bdda285d437c905a2f715171",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7176cc2_3e1936d9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2021-04-16T12:56:17Z",
+      "side": 1,
+      "message": "LGTM from my side.",
+      "revId": "a9efc1e2c972b318bdda285d437c905a2f715171",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

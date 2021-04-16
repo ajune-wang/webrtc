@@ -117,6 +117,30 @@
       },
       "revId": "b87746b15598fcbd1f2aefbb71c63e6e45797c88",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e41e151_d45d47ac",
+        "filename": "net/dcsctp/packet/parameter/parameter.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-16T17:49:12Z",
+      "side": 1,
+      "message": "The comment that is just above this code block is copy-pasted from the RFC - is it good enough?",
+      "parentUuid": "36a0458b_868245db",
+      "range": {
+        "startLine": 49,
+        "startChar": 10,
+        "endLine": 49,
+        "endChar": 16
+      },
+      "revId": "b87746b15598fcbd1f2aefbb71c63e6e45797c88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

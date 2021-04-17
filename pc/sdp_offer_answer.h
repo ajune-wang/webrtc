@@ -523,9 +523,9 @@ class SdpOfferAnswerHandler : public SdpStateProvider,
   // Destroys the given ChannelInterface.
   // The channel cannot be accessed after this method is called.
   void DestroyChannelInterface(cricket::ChannelInterface* channel);
+
   // Generates MediaDescriptionOptions for the |session_opts| based on existing
   // local description or remote description.
-
   void GenerateMediaDescriptionOptions(
       const SessionDescriptionInterface* session_desc,
       RtpTransceiverDirection audio_direction,

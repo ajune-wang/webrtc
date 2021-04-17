@@ -4644,30 +4644,34 @@ void SdpOfferAnswerHandler::DestroyChannelInterface(
   // DestroyChannelInterface to either be called on the worker thread, or do
   // this asynchronously on the worker.
   RTC_LOG_THREAD_BLOCK_COUNT();
+  RTC_DCHECK(channel_manager()->media_engine());
 
-  switch (channel->media_type()) {
-    case cricket::MEDIA_TYPE_AUDIO:
-      channel_manager()->DestroyVoiceChannel(
-          static_cast<cricket::VoiceChannel*>(channel));
-      break;
-    case cricket::MEDIA_TYPE_VIDEO:
-      channel_manager()->DestroyVideoChannel(
-          static_cast<cricket::VideoChannel*>(channel));
-      break;
-    case cricket::MEDIA_TYPE_DATA:
-      RTC_NOTREACHED()
-          << "Trying to destroy datachannel through DestroyChannelInterface";
-      break;
-    default:
-      RTC_NOTREACHED() << "Unknown media type: " << channel->media_type();
-      break;
-  }
-
-  // TODO(tommi): Figure out why we can get 2 blocking calls when running
-  // PeerConnectionCryptoTest.CreateAnswerWithDifferentSslRoles.
-  // and 3 when running
-  // PeerConnectionCryptoTest.CreateAnswerWithDifferentSslRoles
-  // RTC_DCHECK_BLOCK_COUNT_NO_MORE_THAN(1);
+  pc_->PostToWorker([channel, this]() {
+    RTC_LOG_THREAD_BLOCK_COUNT();
+    switch (channel->media_type()) {
+      case cricket::MEDIA_TYPE_AUDIO:
+        channel_manager()->DestroyVoiceChannel(
+            static_cast<cricket::VoiceChannel*>(channel));
+        break;
+      case cricket::MEDIA_TYPE_VIDEO:
+        channel_manager()->DestroyVideoChannel(
+            static_cast<cricket::VideoChannel*>(channel));
+        break;
+      case cricket::MEDIA_TYPE_DATA:
+        RTC_NOTREACHED()
+            << "Trying to destroy datachannel through DestroyChannelInterface";
+        break;
+      default:
+        RTC_NOTREACHED() << "Unknown media type: " << channel->media_type();
+        break;
+    }
+    // TODO(tommi): Figure out why we can get 2 blocking calls when running
+    // PeerConnectionCryptoTest.CreateAnswerWithDifferentSslRoles.
+    // and 3 when running
+    // PeerConnectionCryptoTest.CreateAnswerWithDifferentSslRoles
+    // RTC_DCHECK_BLOCK_COUNT_NO_MORE_THAN(1);
+  });
+  RTC_DCHECK_BLOCK_COUNT_NO_MORE_THAN(0);
 }
 
 void SdpOfferAnswerHandler::DestroyAllChannels() {

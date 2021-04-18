@@ -50,6 +50,23 @@
       "message": "LGTM from my side.",
       "revId": "a9efc1e2c972b318bdda285d437c905a2f715171",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b701492_54c48ca7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-18T20:23:29Z",
+      "side": 1,
+      "message": "Approving, since the only addition not approvable by Kari is adding a LS_VERBOSE log statement.\n",
+      "revId": "a9efc1e2c972b318bdda285d437c905a2f715171",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

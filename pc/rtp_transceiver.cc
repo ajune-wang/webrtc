@@ -144,6 +144,25 @@ RtpTransceiver::~RtpTransceiver() {
   StopInternal();
 }
 
+cricket::VoiceChannel* RtpTransceiver::CreateVoiceChannel(
+    const std::string& mid,
+    RtpTransportInternal* rtp_transport,
+    Call* call,
+    const MediaConfig& config,
+    bool srtp_required,
+    const webrtc::CryptoOptions& crypto_options,
+    rtc::UniqueRandomIdGenerator* ssrc_generator,
+    const AudioOptions& options) {
+  if (!channel_manager_->media_engine())
+    return nullptr;
+
+  // In reality, only MediaConfig::enable_dscp is needed.
+
+  return channel_manager()->CreateVoiceChannel(
+      call, config, rtp_transport, thread_, mid, srtp_required, crypto_options,
+      ssrc_generator, options);
+}
+
 void RtpTransceiver::SetChannel(cricket::ChannelInterface* channel) {
   // Cannot set a non-null channel on a stopped transceiver.
   if (stopped_ && channel) {

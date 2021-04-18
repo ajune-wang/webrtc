@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3093e3fc_a129f1d9",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 54
+      },
+      "lineNbr": 2220,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-18T09:47:00Z",
+      "side": 1,
+      "message": "Also removed this method and updated StatsCollector.",
+      "revId": "88b9a296e4f174f35e266f9acccbafbeda54e14e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

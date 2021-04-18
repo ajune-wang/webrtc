@@ -109,6 +109,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "59703652_1c093d9b",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 52
+      },
+      "lineNbr": 2217,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-18T09:47:00Z",
+      "side": 1,
+      "message": "Yes, you\u0027re right and that\u0027s possible.\n\nI\u0027ve removed GetTransportNames() and changed the code in RTCStatsCollector to fetch the list on the signaling thread, release it there, but enumerate through the channels on the network thread while the signaling thread owns the reference.",
+      "parentUuid": "31ad79fe_b8fc8c7f",
+      "revId": "d68fa8829410a1614c5c081e5aa7705d9eb1a8b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dbb4adf4_f6bb9006",
         "filename": "pc/rtc_stats_collector.cc",
         "patchSetId": 52
@@ -156,6 +174,24 @@
       "side": 1,
       "message": "That\u0027s OK, as long as we clarify that this is a list of transceiver internals and not proxies then we can access non-signaling thread methods on the network thread. I am OK with const methods not having thread checkers.",
       "parentUuid": "984bdf44_a7e0dfe3",
+      "revId": "d68fa8829410a1614c5c081e5aa7705d9eb1a8b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9248c57a_8992603d",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 52
+      },
+      "lineNbr": 2049,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-18T09:47:00Z",
+      "side": 1,
+      "message": "OK, I\u0027ve moved the list access so that it\u0027s clear from the code that fetching the list happens on the signaling thread, the scope of the variable is the signaling thread and that the enumeration on the network thread happens synchronously.",
+      "parentUuid": "de809839_49ccfa0c",
       "revId": "d68fa8829410a1614c5c081e5aa7705d9eb1a8b7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

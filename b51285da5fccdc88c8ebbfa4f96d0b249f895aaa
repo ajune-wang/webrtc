@@ -162,6 +162,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fea1f1b4_a5600be1",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 49
+      },
+      "lineNbr": 2165,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-18T09:47:00Z",
+      "side": 1,
+      "message": "I changed the approach and have now removed this method (as well as a couple of other ones that aren\u0027t needed either).",
+      "parentUuid": "a200eae6_8e7f62c8",
+      "revId": "b51285da5fccdc88c8ebbfa4f96d0b249f895aaa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1c7ee63d_d5d10936",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 49

@@ -68,6 +68,24 @@
       "message": "RtpTransceiver::SetChannel() modifies channel_ on the signaling thread.\n\nCan you add a comment that this is only safe while we are blocking the signaling thread or explain why this is otherwise safe?",
       "revId": "f7146cf066f4985999f625b5073f176a1dab09dc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae5a4c89_dd003ef2",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 53
+      },
+      "lineNbr": 2058,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-18T09:47:00Z",
+      "side": 1,
+      "message": "This should be addressed now",
+      "parentUuid": "fd62bad4_f9cd6ad6",
+      "revId": "f7146cf066f4985999f625b5073f176a1dab09dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

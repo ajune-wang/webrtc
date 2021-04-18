@@ -33,7 +33,8 @@ namespace webrtc {
 
 // Checks that a channel cannot be set on a stopped |RtpTransceiver|.
 TEST(RtpTransceiverTest, CannotSetChannelOnStoppedTransceiver) {
-  RtpTransceiver transceiver(cricket::MediaType::MEDIA_TYPE_AUDIO);
+  RtpTransceiver transceiver(rtc::Thread::Current(),
+                             cricket::MediaType::MEDIA_TYPE_AUDIO);
   cricket::MockChannelInterface channel1;
   sigslot::signal1<cricket::ChannelInterface*> signal;
   EXPECT_CALL(channel1, media_type())
@@ -59,7 +60,8 @@ TEST(RtpTransceiverTest, CannotSetChannelOnStoppedTransceiver) {
 
 // Checks that a channel can be unset on a stopped |RtpTransceiver|
 TEST(RtpTransceiverTest, CanUnsetChannelOnStoppedTransceiver) {
-  RtpTransceiver transceiver(cricket::MediaType::MEDIA_TYPE_VIDEO);
+  RtpTransceiver transceiver(rtc::Thread::Current(),
+                             cricket::MediaType::MEDIA_TYPE_VIDEO);
   cricket::MockChannelInterface channel;
   sigslot::signal1<cricket::ChannelInterface*> signal;
   EXPECT_CALL(channel, media_type())
@@ -87,7 +89,8 @@ class RtpTransceiverUnifiedPlanTest : public ::testing::Test {
             false,
             rtc::Thread::Current(),
             rtc::Thread::Current())),
-        transceiver_(RtpSenderProxyWithInternal<RtpSenderInternal>::Create(
+        transceiver_(rtc::Thread::Current(),
+                     RtpSenderProxyWithInternal<RtpSenderInternal>::Create(
                          rtc::Thread::Current(),
                          new rtc::RefCountedObject<MockRtpSenderInternal>()),
                      RtpReceiverProxyWithInternal<RtpReceiverInternal>::Create(
@@ -136,7 +139,8 @@ class RtpTransceiverTestForHeaderExtensions : public ::testing::Test {
              RtpHeaderExtensionCapability(RtpExtension::kVideoRotationUri,
                                           4,
                                           RtpTransceiverDirection::kSendRecv)}),
-        transceiver_(RtpSenderProxyWithInternal<RtpSenderInternal>::Create(
+        transceiver_(rtc::Thread::Current(),
+                     RtpSenderProxyWithInternal<RtpSenderInternal>::Create(
                          rtc::Thread::Current(),
                          new rtc::RefCountedObject<MockRtpSenderInternal>()),
                      RtpReceiverProxyWithInternal<RtpReceiverInternal>::Create(

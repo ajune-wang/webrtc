@@ -103,31 +103,24 @@ RTCError VerifyCodecPreferences(const std::vector<RtpCodecCapability>& codecs,
   return RTCError::OK();
 }
 
-TaskQueueBase* GetCurrentTaskQueueOrThread() {
-  TaskQueueBase* current = TaskQueueBase::Current();
-  if (!current)
-    current = rtc::ThreadManager::Instance()->CurrentThread();
-  return current;
-}
-
 }  // namespace
 
-RtpTransceiver::RtpTransceiver(cricket::MediaType media_type)
-    : thread_(GetCurrentTaskQueueOrThread()),
-      unified_plan_(false),
-      media_type_(media_type) {
+RtpTransceiver::RtpTransceiver(rtc::Thread* signaling_thread,
+                               cricket::MediaType media_type)
+    : thread_(signaling_thread), unified_plan_(false), media_type_(media_type) {
   RTC_DCHECK(media_type == cricket::MEDIA_TYPE_AUDIO ||
              media_type == cricket::MEDIA_TYPE_VIDEO);
 }
 
 RtpTransceiver::RtpTransceiver(
+    rtc::Thread* signaling_thread,
     rtc::scoped_refptr<RtpSenderProxyWithInternal<RtpSenderInternal>> sender,
     rtc::scoped_refptr<RtpReceiverProxyWithInternal<RtpReceiverInternal>>
         receiver,
     cricket::ChannelManager* channel_manager,
     std::vector<RtpHeaderExtensionCapability> header_extensions_offered,
     std::function<void()> on_negotiation_needed)
-    : thread_(GetCurrentTaskQueueOrThread()),
+    : thread_(signaling_thread),
       unified_plan_(true),
       media_type_(sender->media_type()),
       channel_manager_(channel_manager),
@@ -142,9 +135,12 @@ RtpTransceiver::RtpTransceiver(
 
 RtpTransceiver::~RtpTransceiver() {
   StopInternal();
+  RTC_DCHECK(!channel_);
 }
 
 void RtpTransceiver::SetChannel(cricket::ChannelInterface* channel) {
+  RTC_DCHECK_RUN_ON(thread_);
+
   // Cannot set a non-null channel on a stopped transceiver.
   if (stopped_ && channel) {
     return;
@@ -158,11 +154,21 @@ void RtpTransceiver::SetChannel(cricket::ChannelInterface* channel) {
 
   if (channel_) {
     channel_->SignalFirstPacketReceived().disconnect(this);
+
+    if (media_type_ == cricket::MEDIA_TYPE_AUDIO) {
+      channel_manager_->DestroyVoiceChannel(
+          static_cast<cricket::VoiceChannel*>(channel_));
+    } else {
+      RTC_DCHECK_EQ(cricket::MEDIA_TYPE_VIDEO, media_type_);
+      channel_manager_->DestroyVideoChannel(
+          static_cast<cricket::VideoChannel*>(channel_));
+    }
   }
 
   channel_ = channel;
 
   if (channel_) {
+    // TODO(tommi): Set this callback in the ctor, stop using sigslot.
     channel_->SignalFirstPacketReceived().connect(
         this, &RtpTransceiver::OnFirstPacketReceived);
   }
@@ -187,6 +193,67 @@ void RtpTransceiver::SetChannel(cricket::ChannelInterface* channel) {
   }
 
   RTC_DCHECK_BLOCK_COUNT_NO_MORE_THAN(receivers_.size() * 2);
+}
+
+RTCError RtpTransceiver::CreateVoiceChannel(
+    const std::string& mid,
+    RtpTransportInternal* rtp_transport,
+    Call* call,
+    const cricket::MediaConfig& config,
+    bool srtp_required,
+    const CryptoOptions& crypto_options,
+    rtc::UniqueRandomIdGenerator* ssrc_generator,
+    const cricket::AudioOptions& options) {
+  RTC_DCHECK_RUN_ON(thread_);
+  RTC_DCHECK_EQ(cricket::MEDIA_TYPE_AUDIO, media_type_);
+  RTC_DCHECK(!channel_);
+  if (!channel_manager_->media_engine()) {
+    LOG_AND_RETURN_ERROR(RTCErrorType::INTERNAL_ERROR, "No media engine.");
+  }
+
+  // In reality, only MediaConfig::enable_dscp is needed.
+
+  SetChannel(channel_manager_->CreateVoiceChannel(
+      call, config, rtp_transport, thread_, mid, srtp_required, crypto_options,
+      ssrc_generator, options));
+
+  if (!channel_) {
+    LOG_AND_RETURN_ERROR(RTCErrorType::INTERNAL_ERROR,
+                         "Failed to create audio channel for mid=" + mid);
+  }
+
+  return RTCError::OK();
+}
+
+RTCError RtpTransceiver::CreateVideoChannel(
+    const std::string& mid,
+    RtpTransportInternal* rtp_transport,
+    Call* call,
+    const cricket::MediaConfig& config,
+    bool srtp_required,
+    const CryptoOptions& crypto_options,
+    rtc::UniqueRandomIdGenerator* ssrc_generator,
+    const cricket::VideoOptions& options,
+    webrtc::VideoBitrateAllocatorFactory* video_bitrate_allocator_factory) {
+  RTC_DCHECK_RUN_ON(thread_);
+  RTC_DCHECK_EQ(cricket::MEDIA_TYPE_VIDEO, media_type_);
+  RTC_DCHECK(!channel_);
+  if (!channel_manager_->media_engine()) {
+    LOG_AND_RETURN_ERROR(RTCErrorType::INTERNAL_ERROR, "No media engine.");
+  }
+
+  // In reality, only MediaConfig::enable_dscp is needed.
+
+  SetChannel(channel_manager_->CreateVideoChannel(
+      call, config, rtp_transport, thread_, mid, srtp_required, crypto_options,
+      ssrc_generator, options, video_bitrate_allocator_factory));
+
+  if (!channel_) {
+    LOG_AND_RETURN_ERROR(RTCErrorType::INTERNAL_ERROR,
+                         "Failed to create audio channel for mid=" + mid);
+  }
+
+  return RTCError::OK();
 }
 
 void RtpTransceiver::AddSender(

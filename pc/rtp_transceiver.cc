@@ -103,31 +103,24 @@ RTCError VerifyCodecPreferences(const std::vector<RtpCodecCapability>& codecs,
   return RTCError::OK();
 }
 
-TaskQueueBase* GetCurrentTaskQueueOrThread() {
-  TaskQueueBase* current = TaskQueueBase::Current();
-  if (!current)
-    current = rtc::ThreadManager::Instance()->CurrentThread();
-  return current;
-}
-
 }  // namespace
 
-RtpTransceiver::RtpTransceiver(cricket::MediaType media_type)
-    : thread_(GetCurrentTaskQueueOrThread()),
-      unified_plan_(false),
-      media_type_(media_type) {
+RtpTransceiver::RtpTransceiver(rtc::Thread* signaling_thread,
+                               cricket::MediaType media_type)
+    : thread_(signaling_thread), unified_plan_(false), media_type_(media_type) {
   RTC_DCHECK(media_type == cricket::MEDIA_TYPE_AUDIO ||
              media_type == cricket::MEDIA_TYPE_VIDEO);
 }
 
 RtpTransceiver::RtpTransceiver(
+    rtc::Thread* signaling_thread,
     rtc::scoped_refptr<RtpSenderProxyWithInternal<RtpSenderInternal>> sender,
     rtc::scoped_refptr<RtpReceiverProxyWithInternal<RtpReceiverInternal>>
         receiver,
     cricket::ChannelManager* channel_manager,
     std::vector<RtpHeaderExtensionCapability> header_extensions_offered,
     std::function<void()> on_negotiation_needed)
-    : thread_(GetCurrentTaskQueueOrThread()),
+    : thread_(signaling_thread),
       unified_plan_(true),
       media_type_(sender->media_type()),
       channel_manager_(channel_manager),
@@ -142,6 +135,25 @@ RtpTransceiver::RtpTransceiver(
 
 RtpTransceiver::~RtpTransceiver() {
   StopInternal();
+}
+
+cricket::VoiceChannel* RtpTransceiver::CreateVoiceChannel(
+    const std::string& mid,
+    RtpTransportInternal* rtp_transport,
+    Call* call,
+    const cricket::MediaConfig& config,
+    bool srtp_required,
+    const CryptoOptions& crypto_options,
+    rtc::UniqueRandomIdGenerator* ssrc_generator,
+    const cricket::AudioOptions& options) {
+  if (!channel_manager_->media_engine())
+    return nullptr;
+
+  // In reality, only MediaConfig::enable_dscp is needed.
+
+  return channel_manager_->CreateVoiceChannel(
+      call, config, rtp_transport, thread_, mid, srtp_required, crypto_options,
+      ssrc_generator, options);
 }
 
 void RtpTransceiver::SetChannel(cricket::ChannelInterface* channel) {

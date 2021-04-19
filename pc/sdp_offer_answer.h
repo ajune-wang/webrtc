@@ -184,6 +184,10 @@ class SdpOfferAnswerHandler : public SdpStateProvider,
           transceiver,
       const SessionDescriptionInterface* sdesc) const;
 
+  const cricket::ContentInfo* FindMediaSectionForTransceiver(
+      RtpTransceiver* transceiver,
+      const SessionDescriptionInterface* sdesc) const;
+
   // Destroys all BaseChannels and destroys the SCTP data channel, if present.
   void DestroyAllChannels();
 
@@ -419,6 +423,10 @@ class SdpOfferAnswerHandler : public SdpStateProvider,
   //     being removed.
   // |removed_streams| is the list of streams which no longer have a receiving
   //     track so should be removed.
+  void ProcessRemovalOfRemoteTrack(
+      RtpTransceiver* transceiver,
+      std::vector<rtc::scoped_refptr<RtpTransceiverInterface>>* remove_list,
+      std::vector<rtc::scoped_refptr<MediaStreamInterface>>* removed_streams);
   void ProcessRemovalOfRemoteTrack(
       rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
           transceiver,

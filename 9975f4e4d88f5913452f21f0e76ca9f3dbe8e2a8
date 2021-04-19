@@ -18,6 +18,41 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a34ba9c_f47740fe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-19T09:03:42Z",
+      "side": 1,
+      "message": "thanks - yup, we use other alternatives.",
+      "parentUuid": "602bc022_b43b2ae6",
+      "revId": "9975f4e4d88f5913452f21f0e76ca9f3dbe8e2a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05f22c63_c748046e",
+        "filename": "rtc_base/async_resolver.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-19T09:03:42Z",
+      "side": 1,
+      "message": "std::shared_ptr and std::weak_ptr are on the banlist for chromium and webrtc - but there are alternatives. Check out \"rtc_base/weak_ptr.h\".",
+      "revId": "9975f4e4d88f5913452f21f0e76ca9f3dbe8e2a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "294bb0dd_30e607d0",
@@ -49,6 +84,24 @@
       "side": 1,
       "message": "In this case I need to use exactly std::shared_ptr because of the std::weak_ptr lock() semantics.",
       "parentUuid": "294bb0dd_30e607d0",
+      "revId": "9975f4e4d88f5913452f21f0e76ca9f3dbe8e2a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7535d769_49392467",
+        "filename": "rtc_base/async_resolver.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-19T09:03:42Z",
+      "side": 1,
+      "message": "this requirement will go away with using the webrtc weak ptr.",
+      "parentUuid": "bec252dc_03c31112",
       "revId": "9975f4e4d88f5913452f21f0e76ca9f3dbe8e2a8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

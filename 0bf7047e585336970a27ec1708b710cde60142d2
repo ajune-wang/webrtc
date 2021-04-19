@@ -104,6 +104,30 @@
       },
       "revId": "0bf7047e585336970a27ec1708b710cde60142d2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17ea5b6e_6bae65bc",
+        "filename": "rtc_base/task_utils/pending_task_safety_flag.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-04-19T08:06:05Z",
+      "side": 1,
+      "message": "I also prefer CreateDetachedInactive.",
+      "parentUuid": "1f6b3ac0_a137ca73",
+      "range": {
+        "startLine": 60,
+        "startChar": 51,
+        "endLine": 60,
+        "endChar": 77
+      },
+      "revId": "0bf7047e585336970a27ec1708b710cde60142d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

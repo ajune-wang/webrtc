@@ -33,6 +33,23 @@
       "message": "I think there\u0027s some confusion. It would be nice if conventions for RTC_DCHECK_RUN_ON were consistent with the compile time checks RTC_RUN_ON and RTC_GUARDED_BY.\n\nIf I git grep for usage of RTC_GUARDED_BY and RTC_RUN_ON, some take the address, some don\u0027t. Does it work correctly either way, or or one of the styles wrong? E.g.,\n\naudio/audio_send_stream.h:      RTC_RUN_ON(worker_thread_checker_);\n\nvs\n\ncall/adaptation/video_stream_adapter.h:      RTC_RUN_ON(\u0026sequence_checker_);\n\n\n",
       "revId": "1d669f7ae4b077692138b9d9ccf33918ed04aa75",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc5c25d9_1872504e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-04-19T07:23:02Z",
+      "side": 1,
+      "message": "But fixing the docs to match current implementation seems right, regardless.",
+      "revId": "1d669f7ae4b077692138b9d9ccf33918ed04aa75",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

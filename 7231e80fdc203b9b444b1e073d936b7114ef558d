@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4b257fc_57f455c9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-19T13:33:02Z",
+      "side": 1,
+      "message": "Very nice!\nIf the bots pass, let\u0027s submit!\n",
+      "revId": "7231e80fdc203b9b444b1e073d936b7114ef558d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

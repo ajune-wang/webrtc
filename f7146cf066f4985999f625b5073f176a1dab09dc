@@ -122,6 +122,24 @@
       "parentUuid": "d57d344e_47fdc385",
       "revId": "f7146cf066f4985999f625b5073f176a1dab09dc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e22cd6dc_398ec8e0",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 53
+      },
+      "lineNbr": 2058,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-04-19T09:54:28Z",
+      "side": 1,
+      "message": "Sounds good to me. Making the transceiver responsible seems to simplify things. I do like ref counting to ensure we never do use-after-free (the object could say it has been removed in a thread safe way without necessarily having been deleted yet if someone still references it). But with the future fixes outlined above I don\u0027t know if that will be necessary. In any case, let\u0027s land this CL.",
+      "parentUuid": "344d767f_023e578a",
+      "revId": "f7146cf066f4985999f625b5073f176a1dab09dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

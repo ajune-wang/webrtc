@@ -16,6 +16,40 @@
       "message": "Kari, can you review the changes to sdk/objc?\n\n",
       "revId": "c4ea4583fef415c0c3cbe36e9a331aab92b70a5b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da84602c_c97028a3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-19T08:11:25Z",
+      "side": 1,
+      "message": "Assuming that this is (nearly) strictly moving code, LGTM (with nit).\n",
+      "revId": "c4ea4583fef415c0c3cbe36e9a331aab92b70a5b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb1c730d_09b34fec",
+        "filename": "media/base/h264_profile_level_id.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-19T08:11:25Z",
+      "side": 1,
+      "message": "These are for backwards compatibility with the enum (not enum class) version, right? Is there a bug to deprecate and remove these? If so, add TODO; if not, file it and add a TODO :-)",
+      "revId": "c4ea4583fef415c0c3cbe36e9a331aab92b70a5b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

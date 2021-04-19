@@ -32,12 +32,14 @@ namespace webrtc {
 
 namespace {
 
-class DataChannelIntegrationTest
-    : public PeerConnectionIntegrationBaseTest,
-      public ::testing::WithParamInterface<SdpSemantics> {
+class DataChannelIntegrationTest : public PeerConnectionIntegrationBaseTest,
+                                   public ::testing::WithParamInterface<
+                                       std::tuple<SdpSemantics, std::string>> {
  protected:
   DataChannelIntegrationTest()
-      : PeerConnectionIntegrationBaseTest(GetParam()) {}
+      : PeerConnectionIntegrationBaseTest(std::get<0>(GetParam())),
+        field_trials_(std::get<1>(GetParam())) {}
+  test::ScopedFieldTrials field_trials_;
 };
 
 GTEST_ALLOW_UNINSTANTIATED_PARAMETERIZED_TEST(DataChannelIntegrationTest);
@@ -534,15 +536,19 @@ TEST_P(DataChannelIntegrationTest,
   EXPECT_EQ(1u, callee_report->GetStatsOfType<RTCTransportStats>().size());
 }
 
-INSTANTIATE_TEST_SUITE_P(DataChannelIntegrationTest,
-                         DataChannelIntegrationTest,
-                         Values(SdpSemantics::kPlanB,
-                                SdpSemantics::kUnifiedPlan));
+INSTANTIATE_TEST_SUITE_P(
+    DataChannelIntegrationTest,
+    DataChannelIntegrationTest,
+    Combine(Values(SdpSemantics::kPlanB, SdpSemantics::kUnifiedPlan),
+            Values("WebRTC-DataChannel-Dcsctp/Enabled/",
+                   "WebRTC-DataChannel-Dcsctp/Disabled/")));
 
-INSTANTIATE_TEST_SUITE_P(DataChannelIntegrationTest,
-                         DataChannelIntegrationTestWithFakeClock,
-                         Values(SdpSemantics::kPlanB,
-                                SdpSemantics::kUnifiedPlan));
+INSTANTIATE_TEST_SUITE_P(
+    DataChannelIntegrationTest,
+    DataChannelIntegrationTestWithFakeClock,
+    Combine(Values(SdpSemantics::kPlanB, SdpSemantics::kUnifiedPlan),
+            Values("WebRTC-DataChannel-Dcsctp/Enabled/",
+                   "WebRTC-DataChannel-Dcsctp/Disabled/")));
 
 TEST_F(DataChannelIntegrationTestUnifiedPlan,
        EndToEndCallWithBundledSctpDataChannel) {

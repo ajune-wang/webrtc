@@ -52,6 +52,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb2eed6d_16852d7c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-19T07:16:31Z",
+      "side": 1,
+      "message": "Hm. Going further requires rethinking the proxy mechanism.\n",
+      "revId": "15f5ad1313b3c861c4db7ecf9a6ff7e36f6642e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "71253d9a_c797e09c",
@@ -105,6 +122,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4e005a21_0c3b1a29",
+        "filename": "pc/transceiver_list.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-19T07:16:31Z",
+      "side": 1,
+      "message": "Only if there is a way to find the unique proxy from the transceiver object.",
+      "parentUuid": "0c2ecb4d_849b328a",
+      "revId": "15f5ad1313b3c861c4db7ecf9a6ff7e36f6642e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a2c3bd17_e88a3497",
         "filename": "pc/transceiver_list.h",
         "patchSetId": 1
@@ -150,6 +185,24 @@
       "writtenOn": "2021-04-19T06:42:02Z",
       "side": 1,
       "message": "nit: \"and within the calling scope\"?",
+      "revId": "15f5ad1313b3c861c4db7ecf9a6ff7e36f6642e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46cc9543_e0421c88",
+        "filename": "pc/transceiver_list.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-19T07:16:31Z",
+      "side": 1,
+      "message": "As long as you guarantee that remove() isn\u0027t called, it\u0027s OK.",
+      "parentUuid": "724b9f1d_c1179b25",
       "revId": "15f5ad1313b3c861c4db7ecf9a6ff7e36f6642e1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

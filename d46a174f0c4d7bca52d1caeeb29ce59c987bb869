@@ -16,6 +16,24 @@
       "message": "Good to reduce the use of \u0027RtpTransceiverProxyWithInternal\u0027 in our internal APIs. I wonder if the relationship between internal and proxy is perhaps reversed?\n\nI.e. that we could be using RtpTransceiver objects by default, not necessarily reference counted (i.e. deterministic lifetime) and when a proxy is needed, it can be accessed via a proxy() accessor?",
       "revId": "d46a174f0c4d7bca52d1caeeb29ce59c987bb869",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4dd1579_dfd2be21",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-19T07:16:31Z",
+      "side": 0,
+      "message": "I think that\u0027s a much larger question ... .at the moment the proxies own the non-proxy objects, so a refptr to a proxy will also keep the contained object alive. Having two proxies pointing to the same background object would be a mess, so we need to have one unique proxy per proxied object. A pointer to the proxy would make the proxied object \"aware\" of proxying, which is something I think we have wanted to avoid.\n\nWe could have a global array of weak_ptr to the proxies that can be searched to find the right proxy, but that\u0027s .... ugly.",
+      "parentUuid": "43043313_fa0df92d",
+      "revId": "d46a174f0c4d7bca52d1caeeb29ce59c987bb869",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

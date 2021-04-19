@@ -50,6 +50,24 @@
       "message": "But fixing the docs to match current implementation seems right, regardless.",
       "revId": "1d669f7ae4b077692138b9d9ccf33918ed04aa75",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69d11c84_72c6b3d7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-19T07:55:25Z",
+      "side": 1,
+      "message": "Yep, making it all work smoothly is a different bug. This bug bit me, so I scratched the itch :-)",
+      "parentUuid": "cc5c25d9_1872504e",
+      "revId": "1d669f7ae4b077692138b9d9ccf33918ed04aa75",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

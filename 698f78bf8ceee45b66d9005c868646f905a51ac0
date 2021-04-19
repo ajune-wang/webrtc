@@ -16,6 +16,23 @@
       "message": "Capturing the discussion?\n",
       "revId": "698f78bf8ceee45b66d9005c868646f905a51ac0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e8dd73d_50d85282",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-19T12:35:10Z",
+      "side": 1,
+      "message": "Should we add \"[preferred]\" here (for unique_ptr)? We do have cases in the source code where we\u0027re using shared ownership but unique_ptr might be a better fit for deterministic object lifetimes.",
+      "revId": "698f78bf8ceee45b66d9005c868646f905a51ac0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

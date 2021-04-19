@@ -39,6 +39,30 @@
       },
       "revId": "4c70db515b11df42bae932d7d8b244d5bf3e2b22",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e912872_d5de172f",
+        "filename": "sdk/android/api/org/webrtc/RtpParameters.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2021-04-19T07:21:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "962e4e91_8add8ad0",
+      "range": {
+        "startLine": 83,
+        "startChar": 90,
+        "endLine": 83,
+        "endChar": 93
+      },
+      "revId": "4c70db515b11df42bae932d7d8b244d5bf3e2b22",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

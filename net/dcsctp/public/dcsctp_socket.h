@@ -18,11 +18,26 @@
 #include "absl/types/optional.h"
 #include "api/array_view.h"
 #include "net/dcsctp/public/dcsctp_message.h"
+#include "net/dcsctp/public/dcsctp_options.h"
 #include "net/dcsctp/public/packet_observer.h"
 #include "net/dcsctp/public/timeout.h"
 #include "net/dcsctp/public/types.h"
 
 namespace dcsctp {
+
+// The socket/association state
+enum class SocketState {
+  // The socket is closed.
+  kClosed,
+  // The socket has initiated a connection, which is not yet established. Note
+  // that for incoming connections and for reconnections when the socket is
+  // already connected, the socket will not transition to this state.
+  kConnecting,
+  // The socket is connected, and the connection is established.
+  kConnected,
+  // The socket is shutting down, and the connection is not yet closed.
+  kShuttingDown,
+};
 
 // Send options for sending messages
 struct SendOptions {
@@ -82,15 +97,59 @@ inline constexpr absl::string_view ToString(ErrorKind error) {
   }
 }
 
-// Return value of SupportsStreamReset.
-enum class StreamResetSupport {
+enum class SendStatus {
+  // The message was enqueued successfully. As sending the message is done
+  // asynchronously, this is no guarantee that the message has been actually
+  // sent.
+  kSuccess,
+  // The message was rejected as the payload was empty (which is not allowed in
+  // SCTP).
+  kErrorMessageEmpty,
+  // The message was rejected as the payload was larger than what has been set
+  // as `DcSctpOptions.max_message_size`.
+  kErrorMessageTooLarge,
+  // The message could not be enqueued as the socket is out of resources. This
+  // mainly indicates that the send queue is full.
+  kErrorResourceExhaustion,
+  // The message could not be sent as the socket is shutting down.
+  kErrorShuttingDown,
+};
+
+inline constexpr absl::string_view ToString(SendStatus error) {
+  switch (error) {
+    case SendStatus::kSuccess:
+      return "SUCCESS";
+    case SendStatus::kErrorMessageEmpty:
+      return "ERROR_MESSAGE_EMPTY";
+    case SendStatus::kErrorMessageTooLarge:
+      return "ERROR_MESSAGE_TOO_LARGE";
+    case SendStatus::kErrorResourceExhaustion:
+      return "ERROR_RESOURCE_EXHAUSTION";
+    case SendStatus::kErrorShuttingDown:
+      return "ERROR_SHUTTING_DOWN";
+  }
+}
+
+// Return value of ResetStreams.
+enum class ResetStreamsStatus {
   // If the connection is not yet established, this will be returned.
-  kUnknown,
-  // Indicates that Stream Reset is supported by the peer.
-  kSupported,
-  // Indicates that Stream Reset is not supported by the peer.
+  kNotConnected,
+  // Indicates that ResetStreams operation has succeeded.
+  kPerformed,
+  // Indicates that ResetStreams has failed as it's not supported by the peer.
   kNotSupported,
 };
+
+inline constexpr absl::string_view ToString(ResetStreamsStatus error) {
+  switch (error) {
+    case ResetStreamsStatus::kNotConnected:
+      return "NOT_CONNECTED";
+    case ResetStreamsStatus::kPerformed:
+      return "PERFORMED";
+    case ResetStreamsStatus::kNotSupported:
+      return "NOT_SUPPORTED";
+  }
+}
 
 // Callbacks that the DcSctpSocket will be done synchronously to the owning
 // client. It is allowed to call back into the library from callbacks that start
@@ -124,7 +183,7 @@ class DcSctpSocketCallbacks {
 
   // Called when the library needs a random number uniformly distributed between
   // `low` (inclusive) and `high` (exclusive). The random number used by the
-  // library are not used for cryptographic purposes there are no requirements
+  // library are not used for cryptographic purposes. There are no requirements
   // on a secure random number generator.
   //
   // Note that it's NOT ALLOWED to call into this library from within this
@@ -200,15 +259,6 @@ class DcSctpSocketCallbacks {
   // It is allowed to call into this library from within this callback.
   virtual void OnIncomingStreamsReset(
       rtc::ArrayView<const StreamID> incoming_streams) = 0;
-
-  // If an outgoing message has expired before being completely sent.
-  // TODO(boivie) Add some kind of message identifier.
-  // TODO(boivie) Add callbacks for OnMessageSent and OnSentMessageAcked
-  //
-  // It is allowed to call into this library from within this callback.
-  virtual void OnSentMessageExpired(StreamID stream_id,
-                                    PPID ppid,
-                                    bool unsent) = 0;
 };
 
 // The DcSctpSocket implementation implements the following interface.
@@ -236,6 +286,22 @@ class DcSctpSocketInterface {
   // not already closed. No callbacks will be made after Close() has returned.
   virtual void Close() = 0;
 
+  // The socket state.
+  virtual SocketState state() const = 0;
+
+  // The options it was created with.
+  virtual DcSctpOptions options() const = 0;
+
+  // Sends the message `message` using the provided send options.
+  // Sending a message is an asynchrous operation, and the `OnError` callback
+  // may be invoked to indicate any errors in sending the message.
+  //
+  // The association does not have to be established before calling this method.
+  // If it's called before there is an established association, the message will
+  // be queued.
+  virtual SendStatus Send(DcSctpMessage message,
+                          const SendOptions& send_options) = 0;
+
   // Resetting streams is an asynchronous operation and the results will
   // be notified using `DcSctpSocketCallbacks::OnStreamsResetDone()` on success
   // and `DcSctpSocketCallbacks::OnStreamsResetFailed()` on failure. Note that
@@ -251,27 +317,8 @@ class DcSctpSocketInterface {
   // Resetting streams can only be done on an established association that
   // supports stream resetting. Calling this method on e.g. a closed association
   // or streams that don't support resetting will not perform any operation.
-  virtual void ResetStreams(
+  virtual ResetStreamsStatus ResetStreams(
       rtc::ArrayView<const StreamID> outgoing_streams) = 0;
-
-  // Indicates if the peer supports resetting streams (RFC6525). Please note
-  // that the connection must be established for support to be known.
-  virtual StreamResetSupport SupportsStreamReset() const = 0;
-
-  // Sends the message `message` using the provided send options.
-  // Sending a message is an asynchrous operation, and the `OnError` callback
-  // may be invoked to indicate any errors in sending the message.
-  //
-  // The association does not have to be established before calling this method.
-  // If it's called before there is an established association, the message will
-  // be queued.
-  void Send(DcSctpMessage message, const SendOptions& send_options = {}) {
-    SendMessage(std::move(message), send_options);
-  }
-
- private:
-  virtual void SendMessage(DcSctpMessage message,
-                           const SendOptions& send_options) = 0;
 };
 }  // namespace dcsctp
 

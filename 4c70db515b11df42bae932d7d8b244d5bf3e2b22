@@ -16,6 +16,29 @@
       "message": "Hello Xavier!\n\nCould you please take a look?\n\nThanks a lot in advance,\nYura.",
       "revId": "4c70db515b11df42bae932d7d8b244d5bf3e2b22",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "962e4e91_8add8ad0",
+        "filename": "sdk/android/api/org/webrtc/RtpParameters.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2021-04-19T05:45:25Z",
+      "side": 1,
+      "message": "Could you remove this lonely closing `*/`? Or make the comment a Javadoc for the variable? (either way’s fine)",
+      "range": {
+        "startLine": 83,
+        "startChar": 90,
+        "endLine": 83,
+        "endChar": 93
+      },
+      "revId": "4c70db515b11df42bae932d7d8b244d5bf3e2b22",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

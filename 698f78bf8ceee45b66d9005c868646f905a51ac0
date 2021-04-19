@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e61f7ef4_ad63fab5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-19T12:35:19Z",
+      "side": 1,
+      "message": "LGTM, thanks for updating this. It is a good documentation for the actual state of the art.",
+      "revId": "698f78bf8ceee45b66d9005c868646f905a51ac0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5e8dd73d_50d85282",

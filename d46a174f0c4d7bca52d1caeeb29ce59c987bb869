@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f882efa_f0ba5f34",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-19T12:35:19Z",
+      "side": 0,
+      "message": "Ah, now I see what you meant! 😊\n\nI was not aware of this, thanks!",
+      "range": {
+        "startLine": 125,
+        "startChar": 0,
+        "endLine": 125,
+        "endChar": 11
+      },
+      "revId": "d46a174f0c4d7bca52d1caeeb29ce59c987bb869",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

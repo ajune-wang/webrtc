@@ -98,10 +98,6 @@ class MockDcSctpSocketCallbacks : public DcSctpSocketCallbacks {
               OnIncomingStreamsReset,
               (rtc::ArrayView<const StreamID> incoming_streams),
               (override));
-  MOCK_METHOD(void,
-              OnSentMessageExpired,
-              (StreamID stream_id, PPID ppid, bool unsent),
-              (override));
   MOCK_METHOD(void, NotifyOutgoingMessageBufferEmpty, (), (override));
 
   bool HasPacket() const { return !sent_packets_.empty(); }

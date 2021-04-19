@@ -77,11 +77,6 @@
 
 namespace dcsctp {
 namespace {
-// The advertised number of outbound streams. Using protocol max limits.
-constexpr uint16_t kNbrOfOutboundStreams = 65535;
-
-// The advertised number of inbound streams. Using protocol max limits.
-constexpr uint16_t kNbrOfInboundStreams = 65535;
 
 Capabilities GetCapabilities(const DcSctpOptions& options,
                              const Parameters& parameters) {
@@ -123,27 +118,6 @@ void AddCapabilityParameters(const DcSctpOptions& options,
     chunk_types.push_back(IForwardTsnChunk::kType);
   }
   builder.Add(SupportedExtensionsParameter(std::move(chunk_types)));
-}
-
-constexpr absl::string_view ToString(DcSctpSocket::State state) {
-  switch (state) {
-    case DcSctpSocket::State::kClosed:
-      return "CLOSED";
-    case DcSctpSocket::State::kCookieWait:
-      return "COOKIE_WAIT";
-    case DcSctpSocket::State::kCookieEchoed:
-      return "COOKIE_ECHOED";
-    case DcSctpSocket::State::kEstablished:
-      return "ESTABLISHED";
-    case DcSctpSocket::State::kShutdownPending:
-      return "SHUTDOWN_PENDING";
-    case DcSctpSocket::State::kShutdownSent:
-      return "SHUTDOWN_SENT";
-    case DcSctpSocket::State::kShutdownReceived:
-      return "SHUTDOWN_RECEIVED";
-    case DcSctpSocket::State::kShutdownAckSent:
-      return "SHUTDOWN_ACK_SENT";
-  }
 }
 
 TieTag MakeTieTag(DcSctpSocketCallbacks& cb) {
@@ -225,6 +199,27 @@ bool DcSctpSocket::IsConsistent() const {
   return !inconsistent;
 }
 
+constexpr absl::string_view DcSctpSocket::ToString(DcSctpSocket::State state) {
+  switch (state) {
+    case DcSctpSocket::State::kClosed:
+      return "CLOSED";
+    case DcSctpSocket::State::kCookieWait:
+      return "COOKIE_WAIT";
+    case DcSctpSocket::State::kCookieEchoed:
+      return "COOKIE_ECHOED";
+    case DcSctpSocket::State::kEstablished:
+      return "ESTABLISHED";
+    case DcSctpSocket::State::kShutdownPending:
+      return "SHUTDOWN_PENDING";
+    case DcSctpSocket::State::kShutdownSent:
+      return "SHUTDOWN_SENT";
+    case DcSctpSocket::State::kShutdownReceived:
+      return "SHUTDOWN_RECEIVED";
+    case DcSctpSocket::State::kShutdownAckSent:
+      return "SHUTDOWN_ACK_SENT";
+  }
+}
+
 void DcSctpSocket::SetState(State state, absl::string_view reason) {
   if (state_ != state) {
     RTC_DLOG(LS_VERBOSE) << log_prefix_ << "Socket state changed from "
@@ -239,7 +234,8 @@ void DcSctpSocket::SendInit() {
   AddCapabilityParameters(options_, params_builder);
   InitChunk init(/*initiate_tag=*/connect_params_.verification_tag,
                  /*a_rwnd=*/options_.max_receiver_window_buffer_size,
-                 kNbrOfOutboundStreams, kNbrOfInboundStreams,
+                 options_.announced_maximum_outgoing_streams,
+                 options_.announced_maximum_incoming_streams,
                  connect_params_.initial_tsn, params_builder.Build());
   SctpPacket::Builder b(VerificationTag(0), options_);
   b.Add(init);
@@ -267,7 +263,8 @@ void DcSctpSocket::Connect() {
     t1_init_->Start();
     SetState(State::kCookieWait, "Connect called");
   } else {
-    RTC_DLOG(LS_WARNING) << "Called Connect on a socket that is not closed";
+    RTC_DLOG(LS_WARNING) << log_prefix()
+                         << "Called Connect on a socket that is not closed";
   }
   RTC_DCHECK(IsConsistent());
   callbacks_.TriggerDeferred();
@@ -298,7 +295,7 @@ void DcSctpSocket::Close() {
     }
     InternalClose(ErrorKind::kNoError, "");
   } else {
-    RTC_DLOG(LS_INFO) << "Called Close on a closed socket";
+    RTC_DLOG(LS_INFO) << log_prefix() << "Called Close on a closed socket";
   }
   RTC_DCHECK(IsConsistent());
   callbacks_.TriggerDeferred();
@@ -329,12 +326,16 @@ void DcSctpSocket::InternalClose(ErrorKind error, absl::string_view message) {
   }
 }
 
-void DcSctpSocket::SendMessage(DcSctpMessage message,
-                               const SendOptions& send_options) {
+SendStatus DcSctpSocket::Send(DcSctpMessage message,
+                              const SendOptions& send_options) {
   if (message.payload().empty()) {
     callbacks_.OnError(ErrorKind::kProtocolViolation,
-                       "Rejected empty message to send");
-    return;
+                       "Rejected to send empty message");
+    return SendStatus::kErrorMessageEmpty;
+  } else if (message.payload().size() > options_.max_message_size) {
+    callbacks_.OnError(ErrorKind::kProtocolViolation,
+                       "Rejected to send too large message");
+    return SendStatus::kErrorMessageTooLarge;
   } else if (state_ == State::kShutdownPending ||
              state_ == State::kShutdownSent ||
              state_ == State::kShutdownReceived ||
@@ -343,32 +344,36 @@ void DcSctpSocket::SendMessage(DcSctpMessage message,
     // "An endpoint should reject any new data request from its upper layer
     // if it is in the SHUTDOWN-PENDING, SHUTDOWN-SENT, SHUTDOWN-RECEIVED, or
     // SHUTDOWN-ACK-SENT state."
-    RTC_DLOG(LS_VERBOSE)
-        << log_prefix()
-        << "Not sending SCTP message as the socket is shutting down";
-    callbacks_.OnError(ErrorKind::kWrongSequence, "Socket is shutting down");
+    callbacks_.OnError(
+        ErrorKind::kWrongSequence,
+        "Rejected to send message as the socket is shutting down");
+    return SendStatus::kErrorShuttingDown;
   } else if (send_queue_.IsFull()) {
-    RTC_DLOG(LS_VERBOSE)
-        << log_prefix()
-        << "Not sending SCTP message as the outgoing message buffer is full";
-
     callbacks_.OnError(ErrorKind::kResourceExhaustion,
-                       "Outgoing message buffer is full");
-  } else {
-    send_queue_.Add(callbacks_.TimeMillis(), std::move(message), send_options);
-    if (tcb_ != nullptr) {
-      tcb_->SendBufferedPackets();
-    }
+                       "Rejected to send message as the send queue is full");
+    return SendStatus::kErrorResourceExhaustion;
   }
+
+  send_queue_.Add(callbacks_.TimeMillis(), std::move(message), send_options);
+  if (tcb_ != nullptr) {
+    tcb_->SendBufferedPackets();
+  }
+
   RTC_DCHECK(IsConsistent());
   callbacks_.TriggerDeferred();
+  return SendStatus::kSuccess;
 }
 
-void DcSctpSocket::ResetStreams(
+ResetStreamsStatus DcSctpSocket::ResetStreams(
     rtc::ArrayView<const StreamID> outgoing_streams) {
   if (tcb_ == nullptr) {
-    RTC_LOG(LS_WARNING) << "Socket is not connected";
-    return;
+    callbacks_.OnError(ErrorKind::kWrongSequence,
+                       "Can't reset streams as the socket is not connected");
+    return ResetStreamsStatus::kNotConnected;
+  } else if (!tcb_->capabilities().reconfig) {
+    callbacks_.OnError(ErrorKind::kWrongSequence,
+                       "Can't reset streams as the peer doesn't support it");
+    return ResetStreamsStatus::kNotSupported;
   }
 
   tcb_->stream_reset_handler().ResetStreams(outgoing_streams);
@@ -382,14 +387,28 @@ void DcSctpSocket::ResetStreams(
 
   RTC_DCHECK(IsConsistent());
   callbacks_.TriggerDeferred();
+  return ResetStreamsStatus::kPerformed;
 }
 
-StreamResetSupport DcSctpSocket::SupportsStreamReset() const {
-  if (tcb_ == nullptr) {
-    return StreamResetSupport::kUnknown;
+SocketState DcSctpSocket::state() const {
+  switch (state_) {
+    case State::kClosed:
+      return SocketState::kClosed;
+    case State::kCookieWait:
+      ABSL_FALLTHROUGH_INTENDED;
+    case State::kCookieEchoed:
+      return SocketState::kConnecting;
+    case State::kEstablished:
+      return SocketState::kConnected;
+    case State::kShutdownPending:
+      ABSL_FALLTHROUGH_INTENDED;
+    case State::kShutdownSent:
+      ABSL_FALLTHROUGH_INTENDED;
+    case State::kShutdownReceived:
+      ABSL_FALLTHROUGH_INTENDED;
+    case State::kShutdownAckSent:
+      return SocketState::kShuttingDown;
   }
-  return tcb_->capabilities().reconfig ? StreamResetSupport::kSupported
-                                       : StreamResetSupport::kNotSupported;
 }
 
 void DcSctpSocket::MaybeSendShutdownOnPacketReceived(const SctpPacket& packet) {
@@ -552,7 +571,8 @@ void DcSctpSocket::ReceivePacket(rtc::ArrayView<const uint8_t> data) {
   }
 
   if (!ValidateVerificationTag(*packet)) {
-    RTC_DLOG(LS_VERBOSE) << "Packet failed verification tag check - dropping";
+    RTC_DLOG(LS_VERBOSE) << log_prefix()
+                         << "Packet failed verification tag check - dropping";
     RTC_DCHECK(IsConsistent());
     callbacks_.TriggerDeferred();
     return;
@@ -979,7 +999,8 @@ void DcSctpSocket::HandleInit(const CommonHeader& header,
 
   InitAckChunk init_ack(/*initiate_tag=*/connect_params_.verification_tag,
                         options_.max_receiver_window_buffer_size,
-                        kNbrOfOutboundStreams, kNbrOfInboundStreams,
+                        options_.announced_maximum_outgoing_streams,
+                        options_.announced_maximum_incoming_streams,
                         connect_params_.initial_tsn, params_builder.Build());
   b.Add(init_ack);
   SendPacket(b);
@@ -1218,7 +1239,8 @@ void DcSctpSocket::HandleSack(const CommonHeader& header,
     SackChunk sack = ChunkValidators::Clean(*std::move(chunk));
 
     if (!tcb_->retransmission_queue().IsAcknowledgeValid(sack)) {
-      RTC_DLOG(LS_VERBOSE) << "Dropping out-of-order SACK with TSN "
+      RTC_DLOG(LS_VERBOSE) << log_prefix()
+                           << "Dropping out-of-order SACK with TSN "
                            << *sack.cumulative_tsn_ack();
     } else {
       tcb_->retransmission_queue().HandleAcknowledge(callbacks_.TimeMillis(),

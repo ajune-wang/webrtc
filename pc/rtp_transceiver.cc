@@ -141,6 +141,7 @@ RtpTransceiver::RtpTransceiver(
 }
 
 RtpTransceiver::~RtpTransceiver() {
+  RTC_DCHECK_RUN_ON(thread_);
   StopInternal();
 }
 
@@ -401,6 +402,7 @@ RTCError RtpTransceiver::StopStandard() {
 }
 
 void RtpTransceiver::StopInternal() {
+  RTC_DCHECK_RUN_ON(thread_);
   StopTransceiverProcedure();
 }
 

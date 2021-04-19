@@ -43,10 +43,32 @@ struct DcSctpOptions {
   // port number as destination port.
   int remote_port = 5000;
 
+  // The announced maximum number of incoming streams. Note that this value is
+  // constant and can't be currently increased in run-time as "Add Incoming
+  // Streams Request" in RFC6525 isn't supported.
+  //
+  // The socket implementation doesn't have any per-stream fixed costs, which is
+  // why the default value is set to be the maximum value.
+  uint16_t announced_maximum_incoming_streams = 65535;
+
+  // The announced maximum number of outgoing streams. Note that this value is
+  // constant and can't be currently increased in run-time as "Add Outgoing
+  // Streams Request" in RFC6525 isn't supported.
+  //
+  // The socket implementation doesn't have any per-stream fixed costs, which is
+  // why the default value is set to be the maximum value.
+  uint16_t announced_maximum_outgoing_streams = 65535;
+
   // Maximum SCTP packet size. The library will limit the size of generated
   // packets to be less than or equal to this number. This does not include any
   // overhead of DTLS, TURN, UDP or IP headers.
   size_t mtu = kMaxSafeMTUSize;
+
+  // The largest allowed message payload to be sent. Messages will be rejected
+  // if their payload is larger than this value. Note that this doesn't affect
+  // incoming messages, which may larger than this value (but smaller than
+  // `max_receiver_window_buffer_size`).
+  size_t max_message_size = 256 * 1024;
 
   // Maximum received window buffer size. This should be a bit larger than the
   // largest sized message you want to be able to receive. This essentially

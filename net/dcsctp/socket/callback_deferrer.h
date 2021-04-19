@@ -147,15 +147,6 @@ class CallbackDeferrer : public DcSctpSocketCallbacks {
             DcSctpSocketCallbacks& cb) { cb.OnIncomingStreamsReset(streams); });
   }
 
-  void OnSentMessageExpired(StreamID stream_id,
-                            PPID ppid,
-                            bool unsent) override {
-    deferred_.emplace_back(
-        [stream_id, ppid, unsent](DcSctpSocketCallbacks& cb) {
-          cb.OnSentMessageExpired(stream_id, ppid, unsent);
-        });
-  }
-
  private:
   DcSctpSocketCallbacks& underlying_;
 

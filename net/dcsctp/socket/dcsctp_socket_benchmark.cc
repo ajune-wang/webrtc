@@ -50,9 +50,6 @@ class BenchmarkCallbacks : public DcSctpSocketCallbacks {
       rtc::ArrayView<const StreamID> outgoing_streams) override {}
   void OnIncomingStreamsReset(
       rtc::ArrayView<const StreamID> incoming_streams) override {}
-  void OnSentMessageExpired(StreamID stream_id,
-                            PPID ppid,
-                            bool unsent) override {}
 
   void NotifyOutgoingMessageBufferEmpty() override {
     is_outgoing_message_buffer_empty_ = true;

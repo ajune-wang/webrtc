@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "396f99a1_437d5f03",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-04-19T10:05:17Z",
+      "side": 1,
+      "message": "Test added for talking to legacy endpoint (answer with single group)",
+      "revId": "ce56fb97696cfd92e8a10b4a7f7e053648c13449",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

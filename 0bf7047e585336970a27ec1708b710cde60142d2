@@ -80,6 +80,30 @@
       },
       "revId": "0bf7047e585336970a27ec1708b710cde60142d2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f6b3ac0_a137ca73",
+        "filename": "rtc_base/task_utils/pending_task_safety_flag.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-19T08:03:12Z",
+      "side": 1,
+      "message": "At the moment I don\u0027t think we need the Create() case, so I\u0027ll revert that part.\n\nDo you both prefer CreateDetachedInactive() to CreateDetached(false)? If so, I can make that change too.",
+      "parentUuid": "da15b016_4bd53436",
+      "range": {
+        "startLine": 60,
+        "startChar": 51,
+        "endLine": 60,
+        "endChar": 77
+      },
+      "revId": "0bf7047e585336970a27ec1708b710cde60142d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -11,7 +11,6 @@
 #define API_REF_COUNTED_BASE_H_
 
 #include "rtc_base/constructor_magic.h"
-#include "rtc_base/ref_count.h"
 #include "rtc_base/ref_counter.h"
 
 namespace rtc {
@@ -36,6 +35,42 @@ class RefCountedBase {
   mutable webrtc::webrtc_impl::RefCounter ref_count_{0};
 
   RTC_DISALLOW_COPY_AND_ASSIGN(RefCountedBase);
+};
+
+// Template based version of `RefCountedBase` for simple implementations that do
+// not need (or want) destruction via virtual destructor or the overhead of a
+// vtable.
+//
+// To use:
+//   struct MyInt : public rtc::RefCountedBaseT<MyInt>  {
+//     int foo_ = 0;
+//   };
+//
+//   rtc::scoped_refptr<MyInt> my_int(new MyInt());
+//
+// sizeof(MyInt) on a 32 bit system would then be 8, int + refcount and no
+// vtable generated.
+template <typename T>
+class RefCountedBaseT {
+ public:
+  RefCountedBaseT() = default;
+
+  void AddRef() const { ref_count_.IncRef(); }
+  RefCountReleaseStatus Release() const {
+    const auto status = ref_count_.DecRef();
+    if (status == RefCountReleaseStatus::kDroppedLastRef) {
+      delete static_cast<const T*>(this);
+    }
+    return status;
+  }
+
+ protected:
+  ~RefCountedBaseT() = default;
+
+ private:
+  mutable webrtc::webrtc_impl::RefCounter ref_count_{0};
+
+  RTC_DISALLOW_COPY_AND_ASSIGN(RefCountedBaseT);
 };
 
 }  // namespace rtc

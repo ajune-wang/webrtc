@@ -33,6 +33,23 @@
       "message": "Thanks for the fix.  Looks good to me.",
       "revId": "bbc6db5ae8d661c05e26117919310c0662a69335",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b3f6961_3b366a03",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2021-04-19T18:24:53Z",
+      "side": 1,
+      "message": "Hi Jamie, PTAL at this CL that filters out unsupported windows for WgcCapturerWin.",
+      "revId": "bbc6db5ae8d661c05e26117919310c0662a69335",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

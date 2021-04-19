@@ -10,13 +10,11 @@
 
 #include "rtc_base/task_utils/pending_task_safety_flag.h"
 
-#include "rtc_base/ref_counted_object.h"
-
 namespace webrtc {
 
 // static
 rtc::scoped_refptr<PendingTaskSafetyFlag> PendingTaskSafetyFlag::Create() {
-  return new rtc::RefCountedObject<PendingTaskSafetyFlag>();
+  return new PendingTaskSafetyFlag();
 }
 
 rtc::scoped_refptr<PendingTaskSafetyFlag>

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05345f7c_a01c37d5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-04-19T08:06:36Z",
+      "side": 1,
+      "message": "Kari, can you review the changes to sdk/objc?\n\n",
+      "revId": "c4ea4583fef415c0c3cbe36e9a331aab92b70a5b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "889caece_1fc09820",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-19T12:58:43Z",
+      "side": 1,
+      "message": "I\u0027d forgotten to mention rtc::weak_ptr.\n\nAdded a para to Tommi\u0027s point (an 1-word comment doesn\u0027t do it justice).\n",
+      "revId": "10cbd68737b2cdc54762b048f0ab3d429ed043b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

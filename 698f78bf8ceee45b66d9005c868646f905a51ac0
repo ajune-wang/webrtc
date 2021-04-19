@@ -77,6 +77,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "3c14e8b2_27ef9230",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-19T12:58:43Z",
+      "side": 1,
+      "message": "Added a paragraph about what to choose when, also added rtc::weak_ptr to the list.",
+      "parentUuid": "5e8dd73d_50d85282",
+      "revId": "698f78bf8ceee45b66d9005c868646f905a51ac0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "b3570771_8ff53a5f",
         "filename": "style-guide.md",
         "patchSetId": 1

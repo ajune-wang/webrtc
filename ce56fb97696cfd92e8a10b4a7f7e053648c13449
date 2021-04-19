@@ -33,6 +33,91 @@
       "message": "Good test!\n",
       "revId": "ce56fb97696cfd92e8a10b4a7f7e053648c13449",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5596f8a6_ab54e5bd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-04-19T22:50:48Z",
+      "side": 1,
+      "message": "Looks good! There\u0027s just one BUNDLE corner case we may need to handle. Also, it would be great to have a simple integration test at the peerconnection_integrationtests and/or peerconnection_bundle_unittest level.\n\nBy the way, there is some code in peer_connection.cc and sdp_offer_answer.cc that\u0027s not prepared for there being multiple bundle groups. Doesn\u0027t necessarily need to be handled in this CL, but at least keep the bug open until those are also addressed.",
+      "revId": "ce56fb97696cfd92e8a10b4a7f7e053648c13449",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9159f845_c36b8d8f",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 718,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-04-19T22:50:48Z",
+      "side": 1,
+      "message": "I don\u0027t think you can always match by the first content name; the answerer is allowed to change it.\n\nIt\u0027s not necessarily something we handle well (I think it\u0027s broken with max-bundle) but we shouldn\u0027t leave it more broken.\n\nI would maybe add an \"IsSubset\" helper function, look for the first match, cross it off and repeat (need to be careful to handle situations like \"offer: AB, CD\", \"answer: A, B\").",
+      "revId": "ce56fb97696cfd92e8a10b4a7f7e053648c13449",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c4da676_40f72bc1",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-04-19T22:50:48Z",
+      "side": 1,
+      "message": "Do we typically do this when dealing with short lists, or you just thinking of the worst case?",
+      "revId": "ce56fb97696cfd92e8a10b4a7f7e053648c13449",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e6b6586_c679feb9",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 822,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-04-19T22:50:48Z",
+      "side": 1,
+      "message": "This code could be simplified if you found the parent bundle group first and then did:\n\n  if (bundle_group \u0026\u0026 content_info.name \u003d\u003d bundle_group-\u003eFirstContentName()) {\n    ...\n  } else if (bundle_group) {\n    ...\n  }",
+      "revId": "ce56fb97696cfd92e8a10b4a7f7e053648c13449",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fd8cd15_19e0a2ce",
+        "filename": "pc/jsep_transport_controller_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1316,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-04-19T22:50:48Z",
+      "side": 1,
+      "message": "Should add a test for the answerer changing which MID is first in the group. I\u0027m surprised we don\u0027t already have that for the single group case.",
+      "revId": "ce56fb97696cfd92e8a10b4a7f7e053648c13449",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

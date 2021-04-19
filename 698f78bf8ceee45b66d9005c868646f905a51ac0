@@ -137,6 +137,54 @@
       },
       "revId": "698f78bf8ceee45b66d9005c868646f905a51ac0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7327f9d3_4a4dfd5b",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-19T13:29:30Z",
+      "side": 1,
+      "message": "So far, the argument has not compelled anyone, so I\u0027d say that the statement is strictly true. If it had a compelling advantage, we would expect to see someone being compelled by it. Mentioning that it\u0027s an override in Chrome makes sense.",
+      "parentUuid": "825c6474_e62cbbb3",
+      "range": {
+        "startLine": 139,
+        "startChar": 17,
+        "endLine": 139,
+        "endChar": 47
+      },
+      "revId": "698f78bf8ceee45b66d9005c868646f905a51ac0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1d655ae_a68fc81b",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-19T13:29:30Z",
+      "side": 1,
+      "message": "Good point; the autoconvert tripped me up just today.\nCan you file a bug saying \"we should fix this\"?",
+      "parentUuid": "b3570771_8ff53a5f",
+      "range": {
+        "startLine": 139,
+        "startChar": 58,
+        "endLine": 139,
+        "endChar": 71
+      },
+      "revId": "698f78bf8ceee45b66d9005c868646f905a51ac0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

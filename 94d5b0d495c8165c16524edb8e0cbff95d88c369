@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "179fcaad_e34afef0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-19T13:29:30Z",
+      "side": 1,
+      "message": "Removed weak_ptr and pointed to the actual ban doc.\n",
+      "revId": "94d5b0d495c8165c16524edb8e0cbff95d88c369",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

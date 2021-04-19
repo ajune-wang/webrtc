@@ -39,6 +39,30 @@
       },
       "revId": "10cbd68737b2cdc54762b048f0ab3d429ed043b9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfbbe014_02d09c17",
+        "filename": "style-guide.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-19T13:29:30Z",
+      "side": 1,
+      "message": "Good point. Reference deleted again.",
+      "parentUuid": "a247bfac_3e9a4e8f",
+      "range": {
+        "startLine": 137,
+        "startChar": 10,
+        "endLine": 137,
+        "endChar": 18
+      },
+      "revId": "10cbd68737b2cdc54762b048f0ab3d429ed043b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

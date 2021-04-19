@@ -104,6 +104,24 @@
       "parentUuid": "ae5a4c89_dd003ef2",
       "revId": "f7146cf066f4985999f625b5073f176a1dab09dc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "344d767f_023e578a",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 53
+      },
+      "lineNbr": 2058,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-19T09:35:41Z",
+      "side": 1,
+      "message": "Agree.\n\nJust to summarize all these things as they stand:\n* The ChannelManager (CM) to creates the channel objects and owns them (but does not use them).\n* PC uses CM to create the channels and give a pointer to them to the transceiver\n* PC accesses the channel object from the transceivers via channel()\n* PC uses CM to destroy the channel objects after calling SetChannel(nullptr).\n\nI think that this TODO sums up what would simplify these things:\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/pc/sdp_offer_answer.cc;drc\u003d1aa1254f5b527b89b190837892d5928c8d0f7bfc;l\u003d4613\n\nSo, taking that a step further, this would mean that:\n* Transceivers create and own the channel objects.\n* ChannelManager doesn\u0027t hold on to ownership or control destruction.\n* Interaction between the transceiver and channel object, moves to transceiver and out of PC.\n\nThere are further benefits that we could get by doing this:\n* The SignalFirstPacketReceived could be replaced with a const, set-at-construction time, function callback to RtpTransceiver.\n* This would be the last dependency on sigslot in Channel (following CLs that I\u0027m working on to simplify MediaChannel/Channel interaction).\n* The Channel\u0027s dependency on the worker thread could be changed to be the signaling thread, which is where RtpTransceiver works. There\u0027s no heavy lift there.\n* This would remove blocking calls to worker from signaling thread and simplify both Channel and RtpTransceiver.\n\nActually, it could be possible to remove dependency on all but network thread from\nthe Channel classes and just take care of signaling thread interaction when that\u0027s\nneeded, in the RtpTransceiver class.",
+      "parentUuid": "d57d344e_47fdc385",
+      "revId": "f7146cf066f4985999f625b5073f176a1dab09dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

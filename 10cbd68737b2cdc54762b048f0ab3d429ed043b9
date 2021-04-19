@@ -16,6 +16,29 @@
       "message": "I\u0027d forgotten to mention rtc::weak_ptr.\n\nAdded a para to Tommi\u0027s point (an 1-word comment doesn\u0027t do it justice).\n",
       "revId": "10cbd68737b2cdc54762b048f0ab3d429ed043b9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a247bfac_3e9a4e8f",
+        "filename": "style-guide.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-19T13:19:48Z",
+      "side": 1,
+      "message": "did you mean \u0027WeakPtr\u0027?\n\nI\u0027m not sure this type of smart pointer is good to mention. \nWeakPtr seems to have narrow use case and it is different than usecase for unique_ptr/shared-ptr/scoped_refptr.\n\nWeakPtr is more about thread-safety, rather than ownership,\nin particular it has very different api and guarantees than std::weak_ptr\n\nI found 7 current usages of it, though this class is available for years.\nChecked one - it seems there it can be replaced with PendingTaskSafetyFlag.\n[may be WeakPtr shouldn\u0027t exist at all in favor of that safety flag - I haven\u0027t check other 6 uses]",
+      "range": {
+        "startLine": 137,
+        "startChar": 10,
+        "endLine": 137,
+        "endChar": 18
+      },
+      "revId": "10cbd68737b2cdc54762b048f0ab3d429ed043b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

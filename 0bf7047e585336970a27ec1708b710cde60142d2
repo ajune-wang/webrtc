@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e2c9efb_b298380f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-19T07:58:29Z",
+      "side": 1,
+      "message": "Drive-by comment.",
+      "revId": "0bf7047e585336970a27ec1708b710cde60142d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d4061669_db60133f",
@@ -31,6 +48,30 @@
       "writtenOn": "2021-04-19T07:13:45Z",
       "side": 1,
       "message": "Do we need all four combinations detached/non-detached alive/not-alive? If not, consider adding a third Create... method, instead of the optional bool argument.\n\nI\u0027m somewhat against bool arguments when I expect all call sites to pass a constant, but I don\u0027t have a strong opinion in this case.",
+      "range": {
+        "startLine": 60,
+        "startChar": 51,
+        "endLine": 60,
+        "endChar": 77
+      },
+      "revId": "0bf7047e585336970a27ec1708b710cde60142d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da15b016_4bd53436",
+        "filename": "rtc_base/task_utils/pending_task_safety_flag.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-19T07:58:29Z",
+      "side": 1,
+      "message": "Even if all 4 cases are needed, I think CreateInactive and CreateDetachedInactive are more readable than the bool argument.",
+      "parentUuid": "d4061669_db60133f",
       "range": {
         "startLine": 60,
         "startChar": 51,

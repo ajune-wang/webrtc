@@ -37,6 +37,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a6903a13_475349cc",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-19T12:50:28Z",
+      "side": 1,
+      "message": "link \nhttps://google.github.io/styleguide/cppguide.html#Ownership_and_Smart_Pointers\n\nand mention this rule overrides google C++ style guides recommendation\n\"If you do use shared ownership, prefer to use std::shared_ptr\"",
+      "range": {
+        "startLine": 131,
+        "startChar": 4,
+        "endLine": 131,
+        "endChar": 18
+      },
+      "revId": "698f78bf8ceee45b66d9005c868646f905a51ac0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5e8dd73d_50d85282",
         "filename": "style-guide.md",
         "patchSetId": 1
@@ -48,6 +71,52 @@
       "writtenOn": "2021-04-19T12:35:10Z",
       "side": 1,
       "message": "Should we add \"[preferred]\" here (for unique_ptr)? We do have cases in the source code where we\u0027re using shared ownership but unique_ptr might be a better fit for deterministic object lifetimes.",
+      "revId": "698f78bf8ceee45b66d9005c868646f905a51ac0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3570771_8ff53a5f",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-19T12:50:28Z",
+      "side": 1,
+      "message": "chromium version of this type got tons of improvements since it was cloned into webrtc.\ne.g. webrtc version still has and heavily rely on *implicit* conversion to/from raw pointers. (which makes reference counting errorprone)\n\n(chromium also has option to start reference counting with 1 avoiding extra atomic operation during construction. webrtc lacks such optimisation)",
+      "range": {
+        "startLine": 139,
+        "startChar": 58,
+        "endLine": 139,
+        "endChar": 71
+      },
+      "revId": "698f78bf8ceee45b66d9005c868646f905a51ac0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "825c6474_e62cbbb3",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-19T12:50:28Z",
+      "side": 1,
+      "message": "\"offers no compelling advantage\" I find debatable. \nPrefer less controversial argument (even if it would look weaker).\ne.g. \"for consistency with chromium style guide\"",
+      "range": {
+        "startLine": 139,
+        "startChar": 17,
+        "endLine": 139,
+        "endChar": 47
+      },
       "revId": "698f78bf8ceee45b66d9005c868646f905a51ac0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

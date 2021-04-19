@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9a70094_12e396a3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-19T06:04:18Z",
+      "side": 1,
+      "message": "If we land this one after Tommi\u0027s CL, we should be able to enable the thread checking.\nThe reduction in the number of explicit calls to internal() seems good to me.\n",
+      "revId": "15f5ad1313b3c861c4db7ecf9a6ff7e36f6642e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

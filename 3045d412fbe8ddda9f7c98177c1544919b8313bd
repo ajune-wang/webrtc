@@ -16,6 +16,91 @@
       "message": "Turned out there are 2 more instances of List() being called from the network thread. This patch set attempts to call them out by renaming them to UnsafeList().\n\nWill delete them in a later CL.\n",
       "revId": "3045d412fbe8ddda9f7c98177c1544919b8313bd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9eb06ffe_56f65d8c",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2097,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-19T18:53:36Z",
+      "side": 1,
+      "message": "ah, I can follow up on this",
+      "revId": "3045d412fbe8ddda9f7c98177c1544919b8313bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a12239d_953aadc7",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2652,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-19T18:53:36Z",
+      "side": 1,
+      "message": "and this\n(unless someone else wants to)",
+      "revId": "3045d412fbe8ddda9f7c98177c1544919b8313bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eab4d74c_6dfef563",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 662,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-19T18:53:36Z",
+      "side": 1,
+      "message": "nit: could accept this param as const\u0026",
+      "revId": "3045d412fbe8ddda9f7c98177c1544919b8313bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4305d163_af3f2ab2",
+        "filename": "pc/transceiver_list.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-19T18:53:36Z",
+      "side": 1,
+      "message": "nit:\nRTC_NO_UNIQUE_ADDRESS SequenceChecker sequence_checker_;\n\nheader:\n#include \"rtc_base/system/no_unique_address.h\"",
+      "revId": "3045d412fbe8ddda9f7c98177c1544919b8313bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd012287_eab54566",
+        "filename": "pc/transceiver_list.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-19T18:53:36Z",
+      "side": 1,
+      "message": "nit: bugs.webrtc.org/12692",
+      "revId": "3045d412fbe8ddda9f7c98177c1544919b8313bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

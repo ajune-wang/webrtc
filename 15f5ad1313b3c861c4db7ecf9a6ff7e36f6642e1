@@ -88,6 +88,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ab517bbc_4cd498b5",
+        "filename": "pc/sdp_offer_answer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-19T18:37:02Z",
+      "side": 1,
+      "message": "Hm. It turns out that ProcessRemovalOfRemoteTrack actually pulls the pointer right back into a scoped_refptr (no compiler warning, seems we have auto-upcast here).\nSince such flipflopping makes me exceedingly nervous, I\u0027m going back to scoped_refptr for that function.",
+      "parentUuid": "71253d9a_c797e09c",
+      "revId": "15f5ad1313b3c861c4db7ecf9a6ff7e36f6642e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d8a1cd4e_bfe58ac0",
         "filename": "pc/sdp_offer_answer.h",
         "patchSetId": 1
@@ -99,6 +117,24 @@
       "writtenOn": "2021-04-19T07:10:42Z",
       "side": 1,
       "message": "nit: For both FindMediaSectionForTransceiver() and ProcessRemovalOfRemoteTrack(): do you really need both versions of the method? Prefer to have just one of them, if possible, and adjust the calling places, in order to minimize a bloaty interface.",
+      "revId": "15f5ad1313b3c861c4db7ecf9a6ff7e36f6642e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4a55c0f_93a791b5",
+        "filename": "pc/sdp_offer_answer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-19T18:37:02Z",
+      "side": 1,
+      "message": "Removed one version of FindMediaSectionForTransceiver. Also took it private.\n\nRemoved one version of ProcessRemoval ... it was already private.",
+      "parentUuid": "d8a1cd4e_bfe58ac0",
       "revId": "15f5ad1313b3c861c4db7ecf9a6ff7e36f6642e1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -157,6 +193,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3b9ce0b5_8d697061",
+        "filename": "pc/transceiver_list.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-19T18:37:02Z",
+      "side": 1,
+      "message": "I think that\u0027s already said in the next sentence.",
+      "parentUuid": "a2c3bd17_e88a3497",
+      "revId": "15f5ad1313b3c861c4db7ecf9a6ff7e36f6642e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "76b2a1d0_2d616185",
         "filename": "pc/transceiver_list.h",
         "patchSetId": 1
@@ -168,6 +222,24 @@
       "writtenOn": "2021-04-19T07:10:42Z",
       "side": 1,
       "message": "Please add the DCHECK or add a TODO with a crbug reference to a bug for adding the CHECK.",
+      "revId": "15f5ad1313b3c861c4db7ecf9a6ff7e36f6642e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5efe634c_fdca18a7",
+        "filename": "pc/transceiver_list.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-19T18:37:02Z",
+      "side": 1,
+      "message": "I\u0027m hoping that tommi\u0027s CL lands before mine so that I don\u0027t have to :-)",
+      "parentUuid": "76b2a1d0_2d616185",
       "revId": "15f5ad1313b3c861c4db7ecf9a6ff7e36f6642e1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

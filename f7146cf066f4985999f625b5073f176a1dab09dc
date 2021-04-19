@@ -140,6 +140,24 @@
       "parentUuid": "344d767f_023e578a",
       "revId": "f7146cf066f4985999f625b5073f176a1dab09dc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df0ed734_a64917e4",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 53
+      },
+      "lineNbr": 2058,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-19T09:55:34Z",
+      "side": 1,
+      "message": "Seems to me that if we do these changes, removing ownership of Channel objects from ChannelManager, ChannelManager should be renamed to ChannelFactory.\n\nMost of the other functions of ChannelManager seem to be a front for the media engine that it gets as a constructor argument.",
+      "parentUuid": "344d767f_023e578a",
+      "revId": "f7146cf066f4985999f625b5073f176a1dab09dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -53,6 +53,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "17232b94_303a3a26",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 57
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-19T09:55:34Z",
+      "side": 1,
+      "message": "Going +1 on this, let\u0027s land it now.\nRefactoring ChannelManager is left for a further CL (do file a bug!)\n",
+      "revId": "c1b4fbda70cb823f192ec6fef839b7d571e8fecc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "609a22b6_450562f7",

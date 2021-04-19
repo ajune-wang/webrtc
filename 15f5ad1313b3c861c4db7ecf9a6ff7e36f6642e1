@@ -16,6 +16,57 @@
       "message": "If we land this one after Tommi\u0027s CL, we should be able to enable the thread checking.\nThe reduction in the number of explicit calls to internal() seems good to me.\n",
       "revId": "15f5ad1313b3c861c4db7ecf9a6ff7e36f6642e1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3987ebe4_2f56b646",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-19T06:42:02Z",
+      "side": 1,
+      "message": "lgtm. Good to see the thread checkers and I also think that moving away from the \u0027internal()\u0027 accessor would be a good thing.",
+      "revId": "15f5ad1313b3c861c4db7ecf9a6ff7e36f6642e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c2ecb4d_849b328a",
+        "filename": "pc/transceiver_list.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-19T06:42:02Z",
+      "side": 1,
+      "message": "down the line we could possibly go towards getting rid of the vector of proxies and instead go towards:\n\nstd::vector\u003cstd::unique_ptr\u003cRtpTransceiver\u003e\u003e transceivers_;\n\nand then return a const std::vector\u003c\u003e\u0026 here.",
+      "revId": "15f5ad1313b3c861c4db7ecf9a6ff7e36f6642e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "724b9f1d_c1179b25",
+        "filename": "pc/transceiver_list.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-19T06:42:02Z",
+      "side": 1,
+      "message": "nit: \"and within the calling scope\"?",
+      "revId": "15f5ad1313b3c861c4db7ecf9a6ff7e36f6642e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43043313_fa0df92d",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-19T06:42:02Z",
+      "side": 0,
+      "message": "Good to reduce the use of \u0027RtpTransceiverProxyWithInternal\u0027 in our internal APIs. I wonder if the relationship between internal and proxy is perhaps reversed?\n\nI.e. that we could be using RtpTransceiver objects by default, not necessarily reference counted (i.e. deterministic lifetime) and when a proxy is needed, it can be accessed via a proxy() accessor?",
+      "revId": "d46a174f0c4d7bca52d1caeeb29ce59c987bb869",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

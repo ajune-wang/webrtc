@@ -36,6 +36,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a6b051d_0142796d",
+        "filename": "net/dcsctp/tx/retransmission_queue.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-19T12:07:30Z",
+      "side": 1,
+      "message": "I\u0027ve changed it. PTAL.",
+      "parentUuid": "6bef4c56_1c8f03a8",
+      "revId": "422aed687db40518d805796a45167e4141a1a32e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7691f42b_58df04bd",

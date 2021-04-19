@@ -3332,17 +3332,27 @@ RTCError SdpOfferAnswerHandler::UpdateTransceiverChannel(
   } else {
     if (!channel) {
       if (transceiver->media_type() == cricket::MEDIA_TYPE_AUDIO) {
-        channel = CreateVoiceChannel(content.name);
+        return transceiver->internal()->CreateVoiceChannel(
+            content.name, pc_->GetRtpTransport(content.name), pc_->call_ptr(),
+            pc_->configuration()->media_config, pc_->SrtpRequired(),
+            pc_->GetCryptoOptions(), &ssrc_generator_, audio_options());
+        // channel = CreateVoiceChannel(content.name);
       } else {
         RTC_DCHECK_EQ(cricket::MEDIA_TYPE_VIDEO, transceiver->media_type());
-        channel = CreateVideoChannel(content.name);
+        // channel = CreateVideoChannel(content.name);
+        return transceiver->internal()->CreateVideoChannel(
+            content.name, pc_->GetRtpTransport(content.name), pc_->call_ptr(),
+            pc_->configuration()->media_config, pc_->SrtpRequired(),
+            pc_->GetCryptoOptions(), &ssrc_generator_, video_options(),
+            video_bitrate_allocator_factory_.get());
       }
+      /*
       if (!channel) {
         LOG_AND_RETURN_ERROR(
             RTCErrorType::INTERNAL_ERROR,
             "Failed to create channel for mid=" + content.name);
       }
-      transceiver->internal()->SetChannel(channel);
+      transceiver->internal()->SetChannel(channel);*/
     }
   }
   return RTCError::OK();
@@ -4482,7 +4492,28 @@ RTCError SdpOfferAnswerHandler::CreateChannels(const SessionDescription& desc) {
       LOG_AND_RETURN_ERROR(RTCErrorType::INTERNAL_ERROR,
                            "Failed to create voice channel.");
     }
-    rtp_manager()->GetAudioTransceiver()->internal()->SetChannel(voice_channel);
+    // rtp_manager()->GetAudioTransceiver()->internal()->SetChannel(voice_channel);
+    rtp_manager()->GetAudioTransceiver()->internal()->CreateVoiceChannel(
+            voice->name, pc_->GetRtpTransport(voice->name), pc_->call_ptr(),
+            pc_->configuration()->media_config, pc_->SrtpRequired(),
+            pc_->GetCryptoOptions(), &ssrc_generator_, audio_options());
+/*
+      if (transceiver->media_type() == cricket::MEDIA_TYPE_AUDIO) {
+        return transceiver->internal()->CreateVoiceChannel(
+            content.name, pc_->GetRtpTransport(content.name), pc_->call_ptr(),
+            pc_->configuration()->media_config, pc_->SrtpRequired(),
+            pc_->GetCryptoOptions(), &ssrc_generator_, audio_options());
+        // channel = CreateVoiceChannel(content.name);
+      } else {
+        RTC_DCHECK_EQ(cricket::MEDIA_TYPE_VIDEO, transceiver->media_type());
+        // channel = CreateVideoChannel(content.name);
+        return transceiver->internal()->CreateVideoChannel(
+            content.name, pc_->GetRtpTransport(content.name), pc_->call_ptr(),
+            pc_->configuration()->media_config, pc_->SrtpRequired(),
+            pc_->GetCryptoOptions(), &ssrc_generator_, video_options(),
+            video_bitrate_allocator_factory_.get());
+      }
+*/
   }
 
   const cricket::ContentInfo* video = cricket::GetFirstVideoContent(&desc);

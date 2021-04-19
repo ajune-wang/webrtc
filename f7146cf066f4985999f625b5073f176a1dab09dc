@@ -86,6 +86,24 @@
       "parentUuid": "fd62bad4_f9cd6ad6",
       "revId": "f7146cf066f4985999f625b5073f176a1dab09dc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d57d344e_47fdc385",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 53
+      },
+      "lineNbr": 2058,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-04-19T08:05:31Z",
+      "side": 1,
+      "message": "I see that channel\u0027s transport_name() now has RTC_DCHECK_RUN_ON(network_thread()); and that content_name() accesses a const variable, so that part of it is good.\n\nHowever obtaining the ptr to the channel through transceiver-\u003echannel() means we are accessing the internal variable channel_ of RtpTransceiver. This ptr is set using RtpTransceiver::SetChannel() which is called by SdpOfferAnswerHandler on the signaling thread. So one might consider adding RTC_DCHECK_RUN_ON(signaling_thread()) to RtpTransceiver::channel().\n\nIf channels were reference counted we could have copied the references on the signaling thread to ensure they are still alive by the time we reach the network thread here (just like we did with the transceiver list), but unfortunately they are not ref counted and are explicitly created[1] and destroyed[2] by calls from the signaling thread (in SdpOfferAnswerHandler) doing block-invokes onto the worker thread (inside ChannelManager\u0027s create and destroy).\n\nThis is an unfortunate pattern that I see used in many places in PeerConnection: the lifetime of objects are indirectly managed by signaling thread, but the actual usage of the object happens on worker/network thread, and they aren\u0027t ref counted. In many times this forces us to sync up with the signaling thread - a thread that we should ideally never block (since it blocks JS), but often times have to because of this.\n\nSo while accessing the channel *if it still exists* is safe, using transceiver-\u003echannel() is only safe because we are currently blocking the signaling thread.\n\nYou may want to land this CL as-is but with a comment explaining that this is only safe because we are currently blocking the signaling thread, or you may want to fetch the Channel ptrs on the signaling thread like you do transceivers but the lifetime of them are still only guaranteed because of blocking.\n\nHow to make this non-blocking in a future CL? Maybe we should consider ref counted channels? Then the channel could tell us if it it has been removed without risk of use-after-free.\n\n[1] https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/pc/sdp_offer_answer.cc;l\u003d4581;drc\u003d1aa1254f5b527b89b190837892d5928c8d0f7bfc;bpv\u003d1;bpt\u003d1\n[2] https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/pc/sdp_offer_answer.cc;l\u003d4727;drc\u003d1aa1254f5b527b89b190837892d5928c8d0f7bfc;bpv\u003d1;bpt\u003d1",
+      "parentUuid": "ae5a4c89_dd003ef2",
+      "revId": "f7146cf066f4985999f625b5073f176a1dab09dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

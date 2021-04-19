@@ -125,6 +125,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "029dff22_562da2e8",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 52
+      },
+      "lineNbr": 2217,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-04-19T08:05:31Z",
+      "side": 1,
+      "message": "Awesome, then my concern is resolved.",
+      "parentUuid": "59703652_1c093d9b",
+      "revId": "d68fa8829410a1614c5c081e5aa7705d9eb1a8b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dbb4adf4_f6bb9006",
@@ -192,6 +210,24 @@
       "side": 1,
       "message": "OK, I\u0027ve moved the list access so that it\u0027s clear from the code that fetching the list happens on the signaling thread, the scope of the variable is the signaling thread and that the enumeration on the network thread happens synchronously.",
       "parentUuid": "de809839_49ccfa0c",
+      "revId": "d68fa8829410a1614c5c081e5aa7705d9eb1a8b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef494c7d_a394f6db",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 52
+      },
+      "lineNbr": 2049,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-04-19T08:05:31Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9248c57a_8992603d",
       "revId": "d68fa8829410a1614c5c081e5aa7705d9eb1a8b7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

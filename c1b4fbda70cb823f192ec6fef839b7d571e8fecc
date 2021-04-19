@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35b5db9d_d8d0ec42",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 57
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-04-19T08:05:31Z",
+      "side": 1,
+      "message": "My transceiver_ concern has been fully addressed. Awesome.\n\nI have one more concern about transceiver-\u003echannel() which I try to explain in a lengthy comment. But I think we should land this CL with a comment about it and revisit the channel lifetime in a separate CL. Or what do you think tommi?",
+      "revId": "c1b4fbda70cb823f192ec6fef839b7d571e8fecc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

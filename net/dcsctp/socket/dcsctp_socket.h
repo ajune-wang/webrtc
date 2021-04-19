@@ -66,18 +66,6 @@ namespace dcsctp {
 // go/thread-compatible
 class DcSctpSocket : public DcSctpSocketInterface {
  public:
-  enum class State {
-    kClosed,
-    kCookieWait,
-    // TCB valid in these:
-    kCookieEchoed,
-    kEstablished,
-    kShutdownPending,
-    kShutdownSent,
-    kShutdownReceived,
-    kShutdownAckSent,
-  };
-
   // Instantiates a DcSctpSocket, which interacts with the world through the
   // `callbacks` interface and is configured using `options`.
   //
@@ -96,14 +84,12 @@ class DcSctpSocket : public DcSctpSocketInterface {
   void Connect() override;
   void Shutdown() override;
   void Close() override;
-  void ResetStreams(rtc::ArrayView<const StreamID> outgoing_streams) override;
-  StreamResetSupport SupportsStreamReset() const override;
-  void SendMessage(DcSctpMessage message,
-                   const SendOptions& send_options) override;
-
-  // Returns the connection state, to be used for debugging.
-  State state() const { return state_; }
-  void SetState(State state, absl::string_view reason);
+  SendStatus Send(DcSctpMessage message,
+                  const SendOptions& send_options) override;
+  ResetStreamsStatus ResetStreams(
+      rtc::ArrayView<const StreamID> outgoing_streams) override;
+  SocketState state() const override;
+  DcSctpOptions options() const override { return options_; }
 
   // Returns this socket's verification tag, for debugging.
   VerificationTag verification_tag() const {
@@ -117,11 +103,27 @@ class DcSctpSocket : public DcSctpSocketInterface {
     VerificationTag verification_tag = VerificationTag(0);
   };
 
+  // Detailed state (separate from SocketState, which is the public state).
+  enum class State {
+    kClosed,
+    kCookieWait,
+    // TCB valid in these:
+    kCookieEchoed,
+    kEstablished,
+    kShutdownPending,
+    kShutdownSent,
+    kShutdownReceived,
+    kShutdownAckSent,
+  };
+
   // Returns the log prefix used for debug logging.
   std::string log_prefix() const;
 
   bool IsConsistent() const;
+  static constexpr absl::string_view ToString(DcSctpSocket::State state);
 
+  // Changes the socket state, given a `reason` (for debugging/logging).
+  void SetState(State state, absl::string_view reason);
   // Closes the connection if not already closed. Does not send ABORT.
   void MakeConnectionParameters();
   // Closes the association. Note that the TCB will not be valid past this call.

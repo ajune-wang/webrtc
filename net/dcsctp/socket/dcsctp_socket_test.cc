@@ -54,6 +54,8 @@ using ::testing::HasSubstr;
 using ::testing::IsEmpty;
 using ::testing::SizeIs;
 
+constexpr SendOptions kSendOptions;
+
 MATCHER_P(HasDataChunkWithSsn, ssn, "") {
   absl::optional<SctpPacket> packet = SctpPacket::Parse(arg);
   if (!packet.has_value()) {
@@ -218,8 +220,8 @@ TEST_F(DcSctpSocketTest, EstablishConnection) {
   // A reads COOKIE_ACK.
   sock_a_.ReceivePacket(cb_z_.ConsumeSentPacket());
 
-  EXPECT_EQ(sock_a_.state(), DcSctpSocket::State::kEstablished);
-  EXPECT_EQ(sock_z_.state(), DcSctpSocket::State::kEstablished);
+  EXPECT_EQ(sock_a_.state(), SocketState::kConnected);
+  EXPECT_EQ(sock_z_.state(), SocketState::kConnected);
 }
 
 TEST_F(DcSctpSocketTest, EstablishConnectionWithSetupCollision) {
@@ -235,8 +237,8 @@ TEST_F(DcSctpSocketTest, EstablishConnectionWithSetupCollision) {
     sock_a_.ReceivePacket(cb_z_.ConsumeSentPacket());
   }
 
-  EXPECT_EQ(sock_a_.state(), DcSctpSocket::State::kEstablished);
-  EXPECT_EQ(sock_z_.state(), DcSctpSocket::State::kEstablished);
+  EXPECT_EQ(sock_a_.state(), SocketState::kConnected);
+  EXPECT_EQ(sock_z_.state(), SocketState::kConnected);
 }
 
 TEST_F(DcSctpSocketTest, EstablishSimultaneousConnection) {
@@ -260,7 +262,7 @@ TEST_F(DcSctpSocketTest, EstablishSimultaneousConnection) {
   // A reads COOKIE_ECHO - establishes connection.
   sock_a_.ReceivePacket(cb_z_.ConsumeSentPacket());
 
-  EXPECT_EQ(sock_a_.state(), DcSctpSocket::State::kEstablished);
+  EXPECT_EQ(sock_a_.state(), SocketState::kConnected);
 
   // Proceed with the remaining packets.
   while (cb_a_.HasPacket() || cb_z_.HasPacket()) {
@@ -268,8 +270,8 @@ TEST_F(DcSctpSocketTest, EstablishSimultaneousConnection) {
     sock_a_.ReceivePacket(cb_z_.ConsumeSentPacket());
   }
 
-  EXPECT_EQ(sock_a_.state(), DcSctpSocket::State::kEstablished);
-  EXPECT_EQ(sock_z_.state(), DcSctpSocket::State::kEstablished);
+  EXPECT_EQ(sock_a_.state(), SocketState::kConnected);
+  EXPECT_EQ(sock_z_.state(), SocketState::kConnected);
 }
 
 TEST_F(DcSctpSocketTest, ResendInitAndEstablishConnection) {
@@ -291,8 +293,8 @@ TEST_F(DcSctpSocketTest, ResendInitAndEstablishConnection) {
   // A reads COOKIE_ACK.
   sock_a_.ReceivePacket(cb_z_.ConsumeSentPacket());
 
-  EXPECT_EQ(sock_a_.state(), DcSctpSocket::State::kEstablished);
-  EXPECT_EQ(sock_z_.state(), DcSctpSocket::State::kEstablished);
+  EXPECT_EQ(sock_a_.state(), SocketState::kConnected);
+  EXPECT_EQ(sock_z_.state(), SocketState::kConnected);
 }
 
 TEST_F(DcSctpSocketTest, ResendingInitTooManyTimesAborts) {
@@ -318,7 +320,7 @@ TEST_F(DcSctpSocketTest, ResendingInitTooManyTimesAborts) {
   EXPECT_CALL(cb_a_, OnAborted).Times(1);
   RunTimers();
 
-  EXPECT_EQ(sock_a_.state(), DcSctpSocket::State::kClosed);
+  EXPECT_EQ(sock_a_.state(), SocketState::kClosed);
 }
 
 TEST_F(DcSctpSocketTest, ResendCookieEchoAndEstablishConnection) {
@@ -342,8 +344,8 @@ TEST_F(DcSctpSocketTest, ResendCookieEchoAndEstablishConnection) {
   // A reads COOKIE_ACK.
   sock_a_.ReceivePacket(cb_z_.ConsumeSentPacket());
 
-  EXPECT_EQ(sock_a_.state(), DcSctpSocket::State::kEstablished);
-  EXPECT_EQ(sock_z_.state(), DcSctpSocket::State::kEstablished);
+  EXPECT_EQ(sock_a_.state(), SocketState::kConnected);
+  EXPECT_EQ(sock_z_.state(), SocketState::kConnected);
 }
 
 TEST_F(DcSctpSocketTest, ResendingCookieEchoTooManyTimesAborts) {
@@ -375,7 +377,7 @@ TEST_F(DcSctpSocketTest, ResendingCookieEchoTooManyTimesAborts) {
   EXPECT_CALL(cb_a_, OnAborted).Times(1);
   RunTimers();
 
-  EXPECT_EQ(sock_a_.state(), DcSctpSocket::State::kClosed);
+  EXPECT_EQ(sock_a_.state(), SocketState::kClosed);
 }
 
 TEST_F(DcSctpSocketTest, ShutdownConnection) {
@@ -396,14 +398,14 @@ TEST_F(DcSctpSocketTest, ShutdownConnection) {
   // Z reads SHUTDOWN_COMPLETE.
   sock_z_.ReceivePacket(cb_a_.ConsumeSentPacket());
 
-  EXPECT_EQ(sock_a_.state(), DcSctpSocket::State::kClosed);
-  EXPECT_EQ(sock_z_.state(), DcSctpSocket::State::kClosed);
+  EXPECT_EQ(sock_a_.state(), SocketState::kClosed);
+  EXPECT_EQ(sock_z_.state(), SocketState::kClosed);
 }
 
 TEST_F(DcSctpSocketTest, EstablishConnectionWhileSendingData) {
   sock_a_.Connect();
 
-  sock_a_.Send(DcSctpMessage(StreamID(1), PPID(53), {1, 2}));
+  sock_a_.Send(DcSctpMessage(StreamID(1), PPID(53), {1, 2}), kSendOptions);
 
   // Z reads INIT, produces INIT_ACK
   sock_z_.ReceivePacket(cb_a_.ConsumeSentPacket());
@@ -414,8 +416,8 @@ TEST_F(DcSctpSocketTest, EstablishConnectionWhileSendingData) {
   // // A reads COOKIE_ACK.
   sock_a_.ReceivePacket(cb_z_.ConsumeSentPacket());
 
-  EXPECT_EQ(sock_a_.state(), DcSctpSocket::State::kEstablished);
-  EXPECT_EQ(sock_z_.state(), DcSctpSocket::State::kEstablished);
+  EXPECT_EQ(sock_a_.state(), SocketState::kConnected);
+  EXPECT_EQ(sock_z_.state(), SocketState::kConnected);
 
   absl::optional<DcSctpMessage> msg = cb_z_.ConsumeReceivedMessage();
   ASSERT_TRUE(msg.has_value());
@@ -430,10 +432,10 @@ TEST_F(DcSctpSocketTest, SendMessageAfterEstablished) {
   sock_z_.ReceivePacket(cb_a_.ConsumeSentPacket());
   sock_a_.ReceivePacket(cb_z_.ConsumeSentPacket());
 
-  EXPECT_EQ(sock_a_.state(), DcSctpSocket::State::kEstablished);
-  EXPECT_EQ(sock_z_.state(), DcSctpSocket::State::kEstablished);
+  EXPECT_EQ(sock_a_.state(), SocketState::kConnected);
+  EXPECT_EQ(sock_z_.state(), SocketState::kConnected);
 
-  sock_a_.Send(DcSctpMessage(StreamID(1), PPID(53), {1, 2}));
+  sock_a_.Send(DcSctpMessage(StreamID(1), PPID(53), {1, 2}), kSendOptions);
   sock_z_.ReceivePacket(cb_a_.ConsumeSentPacket());
 
   absl::optional<DcSctpMessage> msg = cb_z_.ConsumeReceivedMessage();
@@ -453,10 +455,10 @@ TEST_F(DcSctpSocketTest, TimeoutResendsPacket) {
   // // A reads COOKIE_ACK.
   sock_a_.ReceivePacket(cb_z_.ConsumeSentPacket());
 
-  EXPECT_EQ(sock_a_.state(), DcSctpSocket::State::kEstablished);
-  EXPECT_EQ(sock_z_.state(), DcSctpSocket::State::kEstablished);
+  EXPECT_EQ(sock_a_.state(), SocketState::kConnected);
+  EXPECT_EQ(sock_z_.state(), SocketState::kConnected);
 
-  sock_a_.Send(DcSctpMessage(StreamID(1), PPID(53), {1, 2}));
+  sock_a_.Send(DcSctpMessage(StreamID(1), PPID(53), {1, 2}), kSendOptions);
   cb_a_.ConsumeSentPacket();
 
   RTC_LOG(LS_INFO) << "Advancing time";
@@ -482,11 +484,11 @@ TEST_F(DcSctpSocketTest, SendALotOfBytesMissedSecondPacket) {
   // // A reads COOKIE_ACK.
   sock_a_.ReceivePacket(cb_z_.ConsumeSentPacket());
 
-  EXPECT_EQ(sock_a_.state(), DcSctpSocket::State::kEstablished);
-  EXPECT_EQ(sock_z_.state(), DcSctpSocket::State::kEstablished);
+  EXPECT_EQ(sock_a_.state(), SocketState::kConnected);
+  EXPECT_EQ(sock_z_.state(), SocketState::kConnected);
 
   std::vector<uint8_t> payload(options_.mtu * 10);
-  sock_a_.Send(DcSctpMessage(StreamID(1), PPID(53), payload));
+  sock_a_.Send(DcSctpMessage(StreamID(1), PPID(53), payload), kSendOptions);
 
   // First DATA
   sock_z_.ReceivePacket(cb_a_.ConsumeSentPacket());
@@ -513,8 +515,8 @@ TEST_F(DcSctpSocketTest, SendingHeartbeatAnswersWithAck) {
   sock_z_.ReceivePacket(cb_a_.ConsumeSentPacket());
   sock_a_.ReceivePacket(cb_z_.ConsumeSentPacket());
 
-  EXPECT_EQ(sock_a_.state(), DcSctpSocket::State::kEstablished);
-  EXPECT_EQ(sock_z_.state(), DcSctpSocket::State::kEstablished);
+  EXPECT_EQ(sock_a_.state(), SocketState::kConnected);
+  EXPECT_EQ(sock_z_.state(), SocketState::kConnected);
 
   // Inject a HEARTBEAT chunk
   SctpPacket::Builder b(sock_a_.verification_tag(), DcSctpOptions());
@@ -543,8 +545,8 @@ TEST_F(DcSctpSocketTest, ExpectHeartbeatToBeSent) {
   sock_z_.ReceivePacket(cb_a_.ConsumeSentPacket());
   sock_a_.ReceivePacket(cb_z_.ConsumeSentPacket());
 
-  EXPECT_EQ(sock_a_.state(), DcSctpSocket::State::kEstablished);
-  EXPECT_EQ(sock_z_.state(), DcSctpSocket::State::kEstablished);
+  EXPECT_EQ(sock_a_.state(), SocketState::kConnected);
+  EXPECT_EQ(sock_z_.state(), SocketState::kConnected);
 
   EXPECT_THAT(cb_a_.ConsumeSentPacket(), IsEmpty());
 
@@ -576,8 +578,8 @@ TEST_F(DcSctpSocketTest, CloseConnectionAfterTooManyLostHeartbeats) {
   sock_z_.ReceivePacket(cb_a_.ConsumeSentPacket());
   sock_a_.ReceivePacket(cb_z_.ConsumeSentPacket());
 
-  EXPECT_EQ(sock_a_.state(), DcSctpSocket::State::kEstablished);
-  EXPECT_EQ(sock_z_.state(), DcSctpSocket::State::kEstablished);
+  EXPECT_EQ(sock_a_.state(), SocketState::kConnected);
+  EXPECT_EQ(sock_z_.state(), SocketState::kConnected);
 
   EXPECT_THAT(cb_a_.ConsumeSentPacket(), testing::IsEmpty());
   // Force-close socket Z so that it doesn't interfere from now on.
@@ -623,8 +625,8 @@ TEST_F(DcSctpSocketTest, RecoversAfterASuccessfulAck) {
   sock_z_.ReceivePacket(cb_a_.ConsumeSentPacket());
   sock_a_.ReceivePacket(cb_z_.ConsumeSentPacket());
 
-  EXPECT_EQ(sock_a_.state(), DcSctpSocket::State::kEstablished);
-  EXPECT_EQ(sock_z_.state(), DcSctpSocket::State::kEstablished);
+  EXPECT_EQ(sock_a_.state(), SocketState::kConnected);
+  EXPECT_EQ(sock_z_.state(), SocketState::kConnected);
 
   EXPECT_THAT(cb_a_.ConsumeSentPacket(), testing::IsEmpty());
   // Force-close socket Z so that it doesn't interfere from now on.
@@ -686,8 +688,8 @@ TEST_F(DcSctpSocketTest, ResetStream) {
   sock_z_.ReceivePacket(cb_a_.ConsumeSentPacket());
   sock_a_.ReceivePacket(cb_z_.ConsumeSentPacket());
 
-  EXPECT_EQ(sock_a_.state(), DcSctpSocket::State::kEstablished);
-  EXPECT_EQ(sock_z_.state(), DcSctpSocket::State::kEstablished);
+  EXPECT_EQ(sock_a_.state(), SocketState::kConnected);
+  EXPECT_EQ(sock_z_.state(), SocketState::kConnected);
 
   sock_a_.Send(DcSctpMessage(StreamID(1), PPID(53), {1, 2}), {});
   sock_z_.ReceivePacket(cb_a_.ConsumeSentPacket());
@@ -720,8 +722,8 @@ TEST_F(DcSctpSocketTest, ResetStreamWillMakeChunksStartAtZeroSsn) {
   sock_z_.ReceivePacket(cb_a_.ConsumeSentPacket());
   sock_a_.ReceivePacket(cb_z_.ConsumeSentPacket());
 
-  EXPECT_EQ(sock_a_.state(), DcSctpSocket::State::kEstablished);
-  EXPECT_EQ(sock_z_.state(), DcSctpSocket::State::kEstablished);
+  EXPECT_EQ(sock_a_.state(), SocketState::kConnected);
+  EXPECT_EQ(sock_z_.state(), SocketState::kConnected);
 
   std::vector<uint8_t> payload(options_.mtu - 100);
 
@@ -779,13 +781,13 @@ TEST_F(DcSctpSocketTest, OnePeerReconnects) {
   sock_z_.ReceivePacket(cb_a_.ConsumeSentPacket());
   sock_a_.ReceivePacket(cb_z_.ConsumeSentPacket());
 
-  EXPECT_EQ(sock_a_.state(), DcSctpSocket::State::kEstablished);
-  EXPECT_EQ(sock_z_.state(), DcSctpSocket::State::kEstablished);
+  EXPECT_EQ(sock_a_.state(), SocketState::kConnected);
+  EXPECT_EQ(sock_z_.state(), SocketState::kConnected);
 
   // Let's be evil here - reconnect while a fragmented packet was about to be
   // sent. The receiving side should get it in full.
   std::vector<uint8_t> payload(options_.mtu * 10);
-  sock_a_.Send(DcSctpMessage(StreamID(1), PPID(53), payload));
+  sock_a_.Send(DcSctpMessage(StreamID(1), PPID(53), payload), kSendOptions);
 
   // First DATA
   sock_z_.ReceivePacket(cb_a_.ConsumeSentPacket());
@@ -817,8 +819,8 @@ TEST_F(DcSctpSocketTest, SendMessageWithLimitedRtx) {
   sock_z_.ReceivePacket(cb_a_.ConsumeSentPacket());
   sock_a_.ReceivePacket(cb_z_.ConsumeSentPacket());
 
-  EXPECT_EQ(sock_a_.state(), DcSctpSocket::State::kEstablished);
-  EXPECT_EQ(sock_z_.state(), DcSctpSocket::State::kEstablished);
+  EXPECT_EQ(sock_a_.state(), SocketState::kConnected);
+  EXPECT_EQ(sock_z_.state(), SocketState::kConnected);
 
   SendOptions send_options = {.max_retransmissions = 0};
   std::vector<uint8_t> payload(options_.mtu - 100);
@@ -898,8 +900,8 @@ TEST_F(DcSctpSocketTest, ReceivingUnknownChunkRespondsWithError) {
   sock_z_.ReceivePacket(cb_a_.ConsumeSentPacket());
   sock_a_.ReceivePacket(cb_z_.ConsumeSentPacket());
 
-  EXPECT_EQ(sock_a_.state(), DcSctpSocket::State::kEstablished);
-  EXPECT_EQ(sock_z_.state(), DcSctpSocket::State::kEstablished);
+  EXPECT_EQ(sock_a_.state(), SocketState::kConnected);
+  EXPECT_EQ(sock_z_.state(), SocketState::kConnected);
 
   // Inject a FAKE chunk
   SctpPacket::Builder b(sock_a_.verification_tag(), DcSctpOptions());
@@ -926,8 +928,8 @@ TEST_F(DcSctpSocketTest, ReceivingErrorChunkReportsAsCallback) {
   sock_z_.ReceivePacket(cb_a_.ConsumeSentPacket());
   sock_a_.ReceivePacket(cb_z_.ConsumeSentPacket());
 
-  EXPECT_EQ(sock_a_.state(), DcSctpSocket::State::kEstablished);
-  EXPECT_EQ(sock_z_.state(), DcSctpSocket::State::kEstablished);
+  EXPECT_EQ(sock_a_.state(), SocketState::kConnected);
+  EXPECT_EQ(sock_z_.state(), SocketState::kConnected);
 
   // Inject a ERROR chunk
   SctpPacket::Builder b(sock_a_.verification_tag(), DcSctpOptions());

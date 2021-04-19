@@ -16,6 +16,23 @@
       "message": "Removing self since I\u0027m not familiar with the PipeWire/xdg-desktop-portal APIs.",
       "revId": "8b8bcd7f65d2e4eb1711f3533c83da1415da5c6e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9f65c98_7c28ff0b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-04-19T08:32:30Z",
+      "side": 1,
+      "message": "Hi, I don\u0027t think anyone from WebRTC is familiar with the portal API, but the API change/addition for this is quite trivial, basically I just set an additional option (an uint). This option is documented here: https://github.com/flatpak/xdg-desktop-portal/blob/master/data/org.freedesktop.portal.ScreenCast.xml#L111.\n\nThank you. ",
+      "revId": "8b8bcd7f65d2e4eb1711f3533c83da1415da5c6e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

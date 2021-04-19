@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef11af7d_dca73fe8",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2097,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-19T19:26:42Z",
+      "side": 1,
+      "message": "Feel free to pick up the bug :-)\nI thought I\u0027d have to add a mid-to-channel map that is either updated whenever a channel is set or a transceiver is added, or updated just before we jump to the network thread when it might be needed. You may have more creative ideas :-)",
+      "parentUuid": "9eb06ffe_56f65d8c",
+      "revId": "3045d412fbe8ddda9f7c98177c1544919b8313bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7a12239d_953aadc7",
@@ -48,6 +66,24 @@
       "writtenOn": "2021-04-19T18:53:36Z",
       "side": 1,
       "message": "and this\n(unless someone else wants to)",
+      "revId": "3045d412fbe8ddda9f7c98177c1544919b8313bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb8ab0d5_0d588845",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2652,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-19T19:26:42Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7a12239d_953aadc7",
       "revId": "3045d412fbe8ddda9f7c98177c1544919b8313bd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -69,6 +105,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "89224520_65c5bcdb",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 662,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-19T19:26:42Z",
+      "side": 1,
+      "message": "Deleted function instead. There are only 4 callers; the caller can do the internal() call.",
+      "parentUuid": "eab4d74c_6dfef563",
+      "revId": "3045d412fbe8ddda9f7c98177c1544919b8313bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4305d163_af3f2ab2",
@@ -86,6 +140,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6147fe77_2f845e29",
+        "filename": "pc/transceiver_list.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-19T19:26:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4305d163_af3f2ab2",
+      "revId": "3045d412fbe8ddda9f7c98177c1544919b8313bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bd012287_eab54566",
@@ -99,6 +171,24 @@
       "writtenOn": "2021-04-19T18:53:36Z",
       "side": 1,
       "message": "nit: bugs.webrtc.org/12692",
+      "revId": "3045d412fbe8ddda9f7c98177c1544919b8313bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2cb1552d_ce6d10fb",
+        "filename": "pc/transceiver_list.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-19T19:26:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd012287_eab54566",
       "revId": "3045d412fbe8ddda9f7c98177c1544919b8313bd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -80,6 +80,30 @@
       },
       "revId": "bde8fe9acc6ffe7fda0e6f2921c5829087a853ea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96720143_8f405ebc",
+        "filename": "sdk/android/api/org/webrtc/VideoCapturer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 8239
+      },
+      "writtenOn": "2021-04-20T08:12:29Z",
+      "side": 1,
+      "message": "Ah, I wasn\u0027t aware that Java 8 features are allowed in the WebRTC codebase!\n\nHowever, what would the default method return? I don\u0027t think it\u0027s possible to provide an implementation that isn\u0027t wrong.\n\nWe could return a `Boolean` and return `null` by default, but that would probably lead to a bit more messy logic for code that relies on this flag. What do you think?",
+      "parentUuid": "382e29bf_2397092e",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 24
+      },
+      "revId": "bde8fe9acc6ffe7fda0e6f2921c5829087a853ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

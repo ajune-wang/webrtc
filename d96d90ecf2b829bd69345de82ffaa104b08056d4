@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7a00a7d_22c0155a",
+        "filename": "rtc_base/async_resolver.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-20T17:46:37Z",
+      "side": 1,
+      "message": "nit, could do something like:\n\n  bool live \u003d [\u0026state]() {\n      webrtc::MutexLock lock(\u0026state-\u003emutex);\n      return state-\u003estatus \u003d\u003d State::Status::kLive;\n    }();\n\n  if (live)\n    ResolveDone(std::move(addresses), error);\n\nHowever, isn\u0027t there still a race condition after releasing the lock?",
+      "revId": "d96d90ecf2b829bd69345de82ffaa104b08056d4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52e366c4_0cda6b31",
+        "filename": "rtc_base/async_resolver.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-20T17:46:37Z",
+      "side": 1,
+      "message": "We could actually add a StartDetached() method to PlatformThread that combines these two things.",
+      "revId": "d96d90ecf2b829bd69345de82ffaa104b08056d4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

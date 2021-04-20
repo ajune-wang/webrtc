@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "529d8db6_6662c7e8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-20T09:56:54Z",
+      "side": 1,
+      "message": "No opinion on what to do with RefCountedBase... it may need to be hidden better because it\u0027s part of the implementation of RefCounted, not something that should be used directly. Chromium has it as base::subtle::RefCountedBase, which is a clear \"here there be dragons\" sign....\n",
+      "revId": "f9739095b8cd63948e1b427d7754499d32d6b940",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4515f283_aa7c5129",
@@ -66,6 +83,24 @@
       "side": 1,
       "message": "I\u0027m not against that name. Since the implementation is close to being identical to RefCountedBase, but supports a template parameter, I took the traditional approach of appending T to indicate a template class.\n\nNow back to the bikeshedding - Does NonVirtual then imply that by default things should be virtual and do we want that? (I haven\u0027t made my mind up on that but am leaning towards the \"legacy\" name stays and we\u0027d not want to rename the other class RefCountedBaseVirtual).\n\nLooking forward though, as I\u0027ve been looking around the code, I think we can deprecate RefCountedBase, which would leave only this implementation. Would you then want the name of the class still to be RefCountedBaseNonVirtual or would you want to change it to be RefCountedBase?",
       "parentUuid": "4515f283_aa7c5129",
+      "revId": "f9739095b8cd63948e1b427d7754499d32d6b940",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0362152_acb52a93",
+        "filename": "api/ref_counted_base.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-20T09:56:54Z",
+      "side": 1,
+      "message": "The reason for putting NonVirtual in the name is the usage restriction documented above: \"for simple implementations that do not need (or want) destruction via virtual destructor or the overhead of a vtable.\"\n\nWe have tons of classes with virtual destructors (695 matches for \"file:webrtc \"virtual ~\"), so calling attention to the fact that this class will conflict with virtual is, to me, worthy of putting it in the name.\n\n\"RefCountedButCannotBeUsedWithVirtualDestructor\" is too long, so RefCountedNonVirtual was the first thing that occured to me.",
+      "parentUuid": "ceac6208_f2f033b6",
       "revId": "f9739095b8cd63948e1b427d7754499d32d6b940",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

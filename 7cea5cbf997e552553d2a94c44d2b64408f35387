@@ -16,6 +16,207 @@
       "message": "PTAL",
       "revId": "7cea5cbf997e552553d2a94c44d2b64408f35387",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21f5e42f_8e371db9",
+        "filename": "modules/congestion_controller/include/receive_side_congestion_controller.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-20T15:16:50Z",
+      "side": 1,
+      "message": "would you prefer to update to DataRate in a different CL?",
+      "range": {
+        "startLine": 40,
+        "startChar": 25,
+        "endLine": 40,
+        "endChar": 33
+      },
+      "revId": "7cea5cbf997e552553d2a94c44d2b64408f35387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "85e8c881_df3d4c09",
+        "filename": "modules/congestion_controller/receive_side_congestion_controller.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-20T15:16:50Z",
+      "side": 1,
+      "message": "might be safer to pass function that does nothing\n(remb_throttler_ calls the passed function without any validation)\n[](auto...) {}",
+      "range": {
+        "startLine": 131,
+        "startChar": 22,
+        "endLine": 131,
+        "endChar": 29
+      },
+      "revId": "7cea5cbf997e552553d2a94c44d2b64408f35387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c02421b7_13b842db",
+        "filename": "modules/congestion_controller/remb_throttler.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-20T15:16:50Z",
+      "side": 1,
+      "message": "PacketRouter uses constant 97 (though it apply percentage to last_send_remb_bitrate_)\nbut... (97 / 100) !\u003d (100 / 103)\n\nclose enough though.",
+      "range": {
+        "startLine": 36,
+        "startChar": 18,
+        "endLine": 36,
+        "endChar": 39
+      },
+      "revId": "7cea5cbf997e552553d2a94c44d2b64408f35387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1cc764a3_63ec7084",
+        "filename": "modules/congestion_controller/remb_throttler.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-20T15:16:50Z",
+      "side": 1,
+      "message": "do you prefer to change this to DataRate in a different CL?",
+      "range": {
+        "startLine": 29,
+        "startChar": 25,
+        "endLine": 29,
+        "endChar": 32
+      },
+      "revId": "7cea5cbf997e552553d2a94c44d2b64408f35387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42a2f61f_ee1680ec",
+        "filename": "modules/congestion_controller/remb_throttler_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-20T15:16:50Z",
+      "side": 1,
+      "message": "remove 1st empty line",
+      "revId": "7cea5cbf997e552553d2a94c44d2b64408f35387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bd54466_d8ef3939",
+        "filename": "modules/congestion_controller/remb_throttler_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-20T15:16:50Z",
+      "side": 1,
+      "message": "Times(1) is redundant (no explicit cardinality means the same)",
+      "range": {
+        "startLine": 40,
+        "startChar": 32,
+        "endLine": 40,
+        "endChar": 41
+      },
+      "revId": "7cea5cbf997e552553d2a94c44d2b64408f35387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dcabaf37_7ad6a3a9",
+        "filename": "modules/congestion_controller/remb_throttler_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-20T15:16:50Z",
+      "side": 1,
+      "message": "May be add a comment why this time Call is expected",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 75
+      },
+      "revId": "7cea5cbf997e552553d2a94c44d2b64408f35387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f52bdf2b_5693809d",
+        "filename": "modules/congestion_controller/remb_throttler_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-20T15:16:50Z",
+      "side": 1,
+      "message": "may be remove word \u0027Trigger\u0027",
+      "range": {
+        "startLine": 77,
+        "startChar": 67,
+        "endLine": 77,
+        "endChar": 74
+      },
+      "revId": "7cea5cbf997e552553d2a94c44d2b64408f35387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f20999a_1761b84c",
+        "filename": "modules/remote_bitrate_estimator/include/remote_bitrate_estimator.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-20T15:16:50Z",
+      "side": 1,
+      "message": "bugs.webrtc.org/12693",
+      "range": {
+        "startLine": 41,
+        "startChar": 8,
+        "endLine": 41,
+        "endChar": 20
+      },
+      "revId": "7cea5cbf997e552553d2a94c44d2b64408f35387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

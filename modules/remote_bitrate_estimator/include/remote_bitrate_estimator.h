@@ -38,6 +38,7 @@ class RemoteBitrateObserver {
   virtual ~RemoteBitrateObserver() {}
 };
 
+// TODO(webrtc:12693): Deprecate
 class TransportFeedbackSenderInterface {
  public:
   virtual ~TransportFeedbackSenderInterface() = default;

@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbbf90f4_85646e08",
+        "filename": "net/dcsctp/packet/chunk_validators.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-20T12:03:19Z",
+      "side": 1,
+      "message": "That\u0027s correct. I\u0027ve added it to go/dcsctp-fixups so that it will fixed. Thanks!",
+      "parentUuid": "86f62338_6d40572d",
+      "revId": "691e590cb69dbf68858c9a29526d9eb9d56f1558",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "119e7528_9169ab3f",
@@ -48,6 +66,24 @@
       "writtenOn": "2021-04-20T10:18:09Z",
       "side": 1,
       "message": "Since we\u0027ve already made a linear pass through the blocks, I\u0027d suggest setting a \"problem\" flag in the first pass (if blocks abut or overlap), and returning early if the \"problem\" flag is not set.\nThis makes for a faster happy path, and a place to put a LOG(INFO) \u003c\u003c \"Buggy partner\" or equivalent.",
+      "revId": "691e590cb69dbf68858c9a29526d9eb9d56f1558",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57ab273b_57822743",
+        "filename": "net/dcsctp/packet/chunk_validators.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-20T12:03:19Z",
+      "side": 1,
+      "message": "Good idea - I have done that, by creating a separate Validate that does validation in O(n) and exits early if no issues are found.",
+      "parentUuid": "119e7528_9169ab3f",
       "revId": "691e590cb69dbf68858c9a29526d9eb9d56f1558",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -69,6 +105,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d64533df_88ab5372",
+        "filename": "net/dcsctp/packet/chunk_validators_test.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-20T12:03:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce31fcf3_a9c83a30",
+      "revId": "691e590cb69dbf68858c9a29526d9eb9d56f1558",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "63a67ba8_a1ea05ea",
@@ -82,6 +136,24 @@
       "writtenOn": "2021-04-20T10:18:09Z",
       "side": 1,
       "message": "Those blocks aren\u0027t adjacent, they\u0027re overlapping. Chunk 123+4 is ACKed by both blocks.",
+      "revId": "691e590cb69dbf68858c9a29526d9eb9d56f1558",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "55bf6e62_ab933b3c",
+        "filename": "net/dcsctp/packet/chunk_validators_test.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-20T12:03:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63a67ba8_a1ea05ea",
       "revId": "691e590cb69dbf68858c9a29526d9eb9d56f1558",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

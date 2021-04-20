@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6bd788f7_1cfe5313",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-20T10:18:09Z",
+      "side": 1,
+      "message": "You know you can trust me to find something to comment on :-)\n\nRFC 4960 section 3.3.4 was interesting, not that hard to read.....\n",
+      "revId": "691e590cb69dbf68858c9a29526d9eb9d56f1558",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86f62338_6d40572d",
+        "filename": "net/dcsctp/packet/chunk_validators.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-20T10:18:09Z",
+      "side": 1,
+      "message": "hm. surprised that we let the typename TSN get by.... all-uppercase names are supposed to be macros.",
+      "revId": "691e590cb69dbf68858c9a29526d9eb9d56f1558",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "119e7528_9169ab3f",
+        "filename": "net/dcsctp/packet/chunk_validators.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-20T10:18:09Z",
+      "side": 1,
+      "message": "Since we\u0027ve already made a linear pass through the blocks, I\u0027d suggest setting a \"problem\" flag in the first pass (if blocks abut or overlap), and returning early if the \"problem\" flag is not set.\nThis makes for a faster happy path, and a place to put a LOG(INFO) \u003c\u003c \"Buggy partner\" or equivalent.",
+      "revId": "691e590cb69dbf68858c9a29526d9eb9d56f1558",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce31fcf3_a9c83a30",
+        "filename": "net/dcsctp/packet/chunk_validators_test.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-20T10:18:09Z",
+      "side": 1,
+      "message": "Need test for the happy cases:\n- No SACK\n- One gap ack block\n- Well ordered gap ack blocks",
+      "revId": "691e590cb69dbf68858c9a29526d9eb9d56f1558",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63a67ba8_a1ea05ea",
+        "filename": "net/dcsctp/packet/chunk_validators_test.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-20T10:18:09Z",
+      "side": 1,
+      "message": "Those blocks aren\u0027t adjacent, they\u0027re overlapping. Chunk 123+4 is ACKed by both blocks.",
+      "revId": "691e590cb69dbf68858c9a29526d9eb9d56f1558",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

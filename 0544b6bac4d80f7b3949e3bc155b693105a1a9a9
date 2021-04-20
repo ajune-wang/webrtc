@@ -16,6 +16,75 @@
       "message": "Hi Nisse,\n\nCan you take a look at this CL again?",
       "revId": "0544b6bac4d80f7b3949e3bc155b693105a1a9a9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2386203a_6e0c3f42",
+        "filename": "api/video_codecs/sdp_video_format.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-04-20T12:45:25Z",
+      "side": 1,
+      "message": "Could consider const std::string\u0026 or string_view return type (no copy, but caller would need to ensure the parameters outlive usage of the return value). But if performance isn\u0027t critical, leaving std::string seems simplest and safest.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 11
+      },
+      "revId": "0544b6bac4d80f7b3949e3bc155b693105a1a9a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a2d5481_a7e2053c",
+        "filename": "api/video_codecs/sdp_video_format.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-04-20T12:45:25Z",
+      "side": 1,
+      "message": "const ?",
+      "range": {
+        "startLine": 27,
+        "startChar": 2,
+        "endLine": 27,
+        "endChar": 6
+      },
+      "revId": "0544b6bac4d80f7b3949e3bc155b693105a1a9a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "781f4c55_e8398086",
+        "filename": "api/video_codecs/sdp_video_format.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-04-20T12:45:25Z",
+      "side": 1,
+      "message": "const auto\u0026 ?",
+      "range": {
+        "startLine": 96,
+        "startChar": 7,
+        "endLine": 96,
+        "endChar": 11
+      },
+      "revId": "0544b6bac4d80f7b3949e3bc155b693105a1a9a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -60,6 +60,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "11d05613_f0db071d",
+        "filename": "modules/congestion_controller/include/receive_side_congestion_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2021-04-20T14:14:38Z",
+      "side": 1,
+      "message": "I realized I would like this to match  RtcpFeedbackSenderInterface::SetRemb for now. \nWe can even use that interface- but given the TODO for that interface- what do you prefer? I think I prefer std::function since they are conceptually different (ssbwe vs receive side bwe).",
+      "parentUuid": "863d3cdb_1119d130",
+      "range": {
+        "startLine": 40,
+        "startChar": 40,
+        "endLine": 40,
+        "endChar": 68
+      },
+      "revId": "f6499a40b2400e0be59c3d1459c7f41cc9849f72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "874b941d_c2af8b2e",
         "filename": "modules/congestion_controller/include/receive_side_congestion_controller.h",
         "patchSetId": 2
@@ -71,6 +95,30 @@
       "writtenOn": "2021-04-20T12:23:16Z",
       "side": 1,
       "message": "reading the CL description I\u0027m unsure why do you add this function [now]",
+      "range": {
+        "startLine": 76,
+        "startChar": 7,
+        "endLine": 76,
+        "endChar": 34
+      },
+      "revId": "f6499a40b2400e0be59c3d1459c7f41cc9849f72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e062de44_01f518d8",
+        "filename": "modules/congestion_controller/include/receive_side_congestion_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2021-04-20T14:14:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "874b941d_c2af8b2e",
       "range": {
         "startLine": 76,
         "startChar": 7,
@@ -94,6 +142,30 @@
       "writtenOn": "2021-04-20T12:23:16Z",
       "side": 1,
       "message": "these tests are already in the webrtc namespace",
+      "range": {
+        "startLine": 46,
+        "startChar": 20,
+        "endLine": 46,
+        "endChar": 28
+      },
+      "revId": "f6499a40b2400e0be59c3d1459c7f41cc9849f72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a514191_aeacb523",
+        "filename": "modules/congestion_controller/receive_side_congestion_controller_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2021-04-20T14:14:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4c1f318_a6cbe27d",
       "range": {
         "startLine": 46,
         "startChar": 20,
@@ -140,6 +212,30 @@
       "writtenOn": "2021-04-20T12:23:16Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 74,
+        "startChar": 20,
+        "endLine": 74,
+        "endChar": 28
+      },
+      "revId": "f6499a40b2400e0be59c3d1459c7f41cc9849f72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b665022_cb09e65c",
+        "filename": "modules/congestion_controller/receive_side_congestion_controller_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2021-04-20T14:14:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e2a77e96_f1af912e",
       "range": {
         "startLine": 74,
         "startChar": 20,
@@ -198,6 +294,54 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "a61ee3a2_b2195d85",
+        "filename": "modules/congestion_controller/remb_throttler.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2021-04-20T14:14:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9816a4d0_6b49ab23",
+      "range": {
+        "startLine": 27,
+        "startChar": 40,
+        "endLine": 27,
+        "endChar": 48
+      },
+      "revId": "f6499a40b2400e0be59c3d1459c7f41cc9849f72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72fc1885_d8257bfa",
+        "filename": "modules/congestion_controller/remb_throttler.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2021-04-20T14:14:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4eded9c3_cf59c76e",
+      "range": {
+        "startLine": 27,
+        "startChar": 26,
+        "endLine": 27,
+        "endChar": 34
+      },
+      "revId": "f6499a40b2400e0be59c3d1459c7f41cc9849f72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "f99852d0_0984b36d",
         "filename": "modules/congestion_controller/remb_throttler.h",
         "patchSetId": 2
@@ -242,6 +386,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d482f71_d0dc7346",
+        "filename": "modules/remote_bitrate_estimator/include/remote_bitrate_estimator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2021-04-20T14:14:38Z",
+      "side": 1,
+      "message": "Still in use by WebRTC-I want to remove these in my next open source cl.",
+      "parentUuid": "2c6a2c06_d881d8d4",
+      "range": {
+        "startLine": 41,
+        "startChar": 8,
+        "endLine": 41,
+        "endChar": 20
+      },
+      "revId": "f6499a40b2400e0be59c3d1459c7f41cc9849f72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a419f520_501e00eb",
@@ -265,6 +433,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "35e35775_2cc87c7c",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2021-04-20T14:14:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a419f520_501e00eb",
+      "range": {
+        "startLine": 39,
+        "startChar": 39,
+        "endLine": 39,
+        "endChar": 47
+      },
+      "revId": "f6499a40b2400e0be59c3d1459c7f41cc9849f72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "164bf0ac_80db9eaa",
@@ -278,6 +470,30 @@
       "writtenOn": "2021-04-20T12:23:16Z",
       "side": 1,
       "message": "may be move const before the type (since it is no longer a pointer)\ne.g. for consistency with the next line.",
+      "range": {
+        "startLine": 94,
+        "startChar": 26,
+        "endLine": 94,
+        "endChar": 31
+      },
+      "revId": "f6499a40b2400e0be59c3d1459c7f41cc9849f72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2839803_cd348625",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2021-04-20T14:14:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "164bf0ac_80db9eaa",
       "range": {
         "startLine": 94,
         "startChar": 26,

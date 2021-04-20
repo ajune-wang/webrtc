@@ -3320,17 +3320,18 @@ RTCError SdpOfferAnswerHandler::UpdateTransceiverChannel(
   } else {
     if (!channel) {
       if (transceiver->media_type() == cricket::MEDIA_TYPE_AUDIO) {
-        channel = CreateVoiceChannel(content.name);
+        return transceiver->internal()->CreateVoiceChannel(
+            content.name, pc_->GetRtpTransport(content.name), pc_->call_ptr(),
+            pc_->configuration()->media_config, pc_->SrtpRequired(),
+            pc_->GetCryptoOptions(), &ssrc_generator_, audio_options());
       } else {
         RTC_DCHECK_EQ(cricket::MEDIA_TYPE_VIDEO, transceiver->media_type());
-        channel = CreateVideoChannel(content.name);
+        return transceiver->internal()->CreateVideoChannel(
+            content.name, pc_->GetRtpTransport(content.name), pc_->call_ptr(),
+            pc_->configuration()->media_config, pc_->SrtpRequired(),
+            pc_->GetCryptoOptions(), &ssrc_generator_, video_options(),
+            video_bitrate_allocator_factory_.get());
       }
-      if (!channel) {
-        LOG_AND_RETURN_ERROR(
-            RTCErrorType::INTERNAL_ERROR,
-            "Failed to create channel for mid=" + content.name);
-      }
-      transceiver->internal()->SetChannel(channel);
     }
   }
   return RTCError::OK();
@@ -4453,23 +4454,26 @@ RTCError SdpOfferAnswerHandler::CreateChannels(const SessionDescription& desc) {
   const cricket::ContentInfo* voice = cricket::GetFirstAudioContent(&desc);
   if (voice && !voice->rejected &&
       !rtp_manager()->GetAudioTransceiver()->internal()->channel()) {
-    cricket::VoiceChannel* voice_channel = CreateVoiceChannel(voice->name);
-    if (!voice_channel) {
-      LOG_AND_RETURN_ERROR(RTCErrorType::INTERNAL_ERROR,
-                           "Failed to create voice channel.");
-    }
-    rtp_manager()->GetAudioTransceiver()->internal()->SetChannel(voice_channel);
+    auto ret =
+        rtp_manager()->GetAudioTransceiver()->internal()->CreateVoiceChannel(
+            voice->name, pc_->GetRtpTransport(voice->name), pc_->call_ptr(),
+            pc_->configuration()->media_config, pc_->SrtpRequired(),
+            pc_->GetCryptoOptions(), &ssrc_generator_, audio_options());
+    if (!ret.ok())
+      return ret;
   }
 
   const cricket::ContentInfo* video = cricket::GetFirstVideoContent(&desc);
   if (video && !video->rejected &&
       !rtp_manager()->GetVideoTransceiver()->internal()->channel()) {
-    cricket::VideoChannel* video_channel = CreateVideoChannel(video->name);
-    if (!video_channel) {
-      LOG_AND_RETURN_ERROR(RTCErrorType::INTERNAL_ERROR,
-                           "Failed to create video channel.");
-    }
-    rtp_manager()->GetVideoTransceiver()->internal()->SetChannel(video_channel);
+    auto ret =
+        rtp_manager()->GetVideoTransceiver()->internal()->CreateVideoChannel(
+            video->name, pc_->GetRtpTransport(video->name), pc_->call_ptr(),
+            pc_->configuration()->media_config, pc_->SrtpRequired(),
+            pc_->GetCryptoOptions(), &ssrc_generator_, video_options(),
+            video_bitrate_allocator_factory_.get());
+    if (!ret.ok())
+      return ret;
   }
 
   const cricket::ContentInfo* data = cricket::GetFirstDataContent(&desc);
@@ -4488,6 +4492,7 @@ RTCError SdpOfferAnswerHandler::CreateChannels(const SessionDescription& desc) {
 cricket::VoiceChannel* SdpOfferAnswerHandler::CreateVoiceChannel(
     const std::string& mid) {
   RTC_DCHECK_RUN_ON(signaling_thread());
+  RTC_NOTREACHED();
   if (!channel_manager()->media_engine())
     return nullptr;
 
@@ -4506,6 +4511,7 @@ cricket::VoiceChannel* SdpOfferAnswerHandler::CreateVoiceChannel(
 cricket::VideoChannel* SdpOfferAnswerHandler::CreateVideoChannel(
     const std::string& mid) {
   RTC_DCHECK_RUN_ON(signaling_thread());
+  RTC_NOTREACHED();
   if (!channel_manager()->media_engine())
     return nullptr;
 
@@ -4560,7 +4566,8 @@ void SdpOfferAnswerHandler::DestroyTransceiverChannel(
     // blocking calls to e.g. ClearRecordableEncodedFrameCallback which triggers
     // another blocking call or Stop() for video channels.
     transceiver->internal()->SetChannel(nullptr);
-    RTC_DCHECK_BLOCK_COUNT_NO_MORE_THAN(2);
+    // RTC_DCHECK_BLOCK_COUNT_NO_MORE_THAN(2);
+
     // TODO(tommi): All channel objects end up getting deleted on the
     // worker thread. Can DestroyTransceiverChannel be purely posted to the
     // worker?
@@ -4589,6 +4596,9 @@ void SdpOfferAnswerHandler::DestroyChannelInterface(
   RTC_DCHECK_RUN_ON(signaling_thread());
   RTC_DCHECK(channel_manager()->media_engine());
   RTC_DCHECK(channel);
+
+  RTC_LOG(LS_ERROR) << "***************** DestroyChannelInterface";
+  return;
 
   // TODO(bugs.webrtc.org/11992): All the below methods should be called on the
   // worker thread. (they switch internally anyway). Change

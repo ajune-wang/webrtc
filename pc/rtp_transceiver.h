@@ -78,13 +78,17 @@ class RtpTransceiver final
   // channel set.
   // |media_type| specifies the type of RtpTransceiver (and, by transitivity,
   // the type of senders, receivers, and channel). Can either by audio or video.
-  explicit RtpTransceiver(cricket::MediaType media_type);
+  RtpTransceiver(rtc::Thread* signaling_thread,
+                 cricket::MediaType media_type,
+                 // TODO(tommi): Make mandatory (not == nullptr).
+                 cricket::ChannelManager* channel_manager = nullptr);
   // Construct a Unified Plan-style RtpTransceiver with the given sender and
   // receiver. The media type will be derived from the media types of the sender
   // and receiver. The sender and receiver should have the same media type.
   // |HeaderExtensionsToOffer| is used for initializing the return value of
   // HeaderExtensionsToOffer().
   RtpTransceiver(
+      rtc::Thread* signaling_thread,
       rtc::scoped_refptr<RtpSenderProxyWithInternal<RtpSenderInternal>> sender,
       rtc::scoped_refptr<RtpReceiverProxyWithInternal<RtpReceiverInternal>>
           receiver,
@@ -100,6 +104,26 @@ class RtpTransceiver final
   // Sets the Voice/VideoChannel. The caller must pass in the correct channel
   // implementation based on the type of the transceiver.
   void SetChannel(cricket::ChannelInterface* channel);
+
+  RTCError CreateVoiceChannel(const std::string& mid,
+                              RtpTransportInternal* rtp_transport,
+                              Call* call,
+                              const cricket::MediaConfig& config,
+                              bool srtp_required,
+                              const CryptoOptions& crypto_options,
+                              rtc::UniqueRandomIdGenerator* ssrc_generator,
+                              const cricket::AudioOptions& options);
+
+  RTCError CreateVideoChannel(
+      const std::string& mid,
+      RtpTransportInternal* rtp_transport,
+      Call* call,
+      const cricket::MediaConfig& config,
+      bool srtp_required,
+      const CryptoOptions& crypto_options,
+      rtc::UniqueRandomIdGenerator* ssrc_generator,
+      const cricket::VideoOptions& options,
+      webrtc::VideoBitrateAllocatorFactory* video_bitrate_allocator_factory);
 
   // Adds an RtpSender of the appropriate type to be owned by this transceiver.
   // Must not be null.
@@ -236,7 +260,7 @@ class RtpTransceiver final
   void StopSendingAndReceiving();
 
   // Enforce that this object is created, used and destroyed on one thread.
-  const TaskQueueBase* thread_;
+  rtc::Thread* const thread_;
   const bool unified_plan_;
   const cricket::MediaType media_type_;
   std::vector<rtc::scoped_refptr<RtpSenderProxyWithInternal<RtpSenderInternal>>>
@@ -258,7 +282,7 @@ class RtpTransceiver final
   bool has_ever_been_used_to_send_ = false;
 
   cricket::ChannelInterface* channel_ = nullptr;
-  cricket::ChannelManager* channel_manager_ = nullptr;
+  cricket::ChannelManager* const channel_manager_;
   std::vector<RtpCodecCapability> codec_preferences_;
   std::vector<RtpHeaderExtensionCapability> header_extensions_to_offer_;
   const std::function<void()> on_negotiation_needed_;

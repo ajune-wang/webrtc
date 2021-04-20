@@ -53,6 +53,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "645686b1_d1c4ebb1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2021-04-20T08:00:59Z",
+      "side": 1,
+      "message": "sdk/objc LGTM!",
+      "revId": "c4ea4583fef415c0c3cbe36e9a331aab92b70a5b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bb1c730d_09b34fec",

@@ -1,0 +1,191 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44606d75_70038334",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 36
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-20T11:09:57Z",
+      "side": 1,
+      "message": "A few comments - interface could be better documented.\n",
+      "revId": "6034b0542442e0b81c67fa1c6193e89690092666",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25bfbba4_19df1034",
+        "filename": "net/dcsctp/tx/fcfs_send_queue.cc",
+        "patchSetId": 36
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-20T11:09:57Z",
+      "side": 1,
+      "message": "This seems like an expensive operation (O(n) in queue sizes) if the caller is supposed to check it before each call to Add(). TODO for later optimization?",
+      "revId": "6034b0542442e0b81c67fa1c6193e89690092666",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "168f51cd_6b3f25e9",
+        "filename": "net/dcsctp/tx/fcfs_send_queue.cc",
+        "patchSetId": 36
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-20T11:09:57Z",
+      "side": 1,
+      "message": "I\u0027m not clear about the semantics of StrongAlias\u003cclass IsEndTag, bool\u003e - why are you dereferencing it here and using it as a bool on line 130?",
+      "revId": "6034b0542442e0b81c67fa1c6193e89690092666",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53d71dc0_80c3e007",
+        "filename": "net/dcsctp/tx/fcfs_send_queue.cc",
+        "patchSetId": 36
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-20T11:09:57Z",
+      "side": 1,
+      "message": "What exactly is this supposed to discard according to the SendQueue contract?\nThere\u0027s no feedback on whether anything was discarded - should there be?",
+      "revId": "6034b0542442e0b81c67fa1c6193e89690092666",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78505971_7b85de30",
+        "filename": "net/dcsctp/tx/fcfs_send_queue.cc",
+        "patchSetId": 36
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-20T11:09:57Z",
+      "side": 1,
+      "message": "where are partially sent messages discarded?",
+      "revId": "6034b0542442e0b81c67fa1c6193e89690092666",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa016f16_5b25dc45",
+        "filename": "net/dcsctp/tx/fcfs_send_queue.h",
+        "patchSetId": 36
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-20T11:09:57Z",
+      "side": 1,
+      "message": "What\u0027s the purpose of the \"now\" argument?",
+      "revId": "6034b0542442e0b81c67fa1c6193e89690092666",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ee3ebda_bab0d84b",
+        "filename": "net/dcsctp/tx/fcfs_send_queue.h",
+        "patchSetId": 36
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-20T11:09:57Z",
+      "side": 1,
+      "message": "I think the traditional phrase is \"Implementation of SendQueue\" - these methods aren\u0027t inherited, the interface is inherited, and implemented separately in this class.",
+      "revId": "6034b0542442e0b81c67fa1c6193e89690092666",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3671531e_4b25ff68",
+        "filename": "net/dcsctp/tx/fcfs_send_queue_test.cc",
+        "patchSetId": 36
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-20T11:09:57Z",
+      "side": 1,
+      "message": "for consistency, use now here.",
+      "revId": "6034b0542442e0b81c67fa1c6193e89690092666",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76a0b0b0_57006ede",
+        "filename": "net/dcsctp/tx/fcfs_send_queue_test.cc",
+        "patchSetId": 36
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-20T11:09:57Z",
+      "side": 1,
+      "message": "Suggest using 1999 rather than 1000. Get close to the limit.",
+      "revId": "6034b0542442e0b81c67fa1c6193e89690092666",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e5a8c90_886d0766",
+        "filename": "net/dcsctp/tx/send_queue.h",
+        "patchSetId": 36
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-20T11:09:57Z",
+      "side": 1,
+      "message": "sentence structure is incomplete - suggest adding \", is further clarified\" to the end, which would make it complete.",
+      "revId": "6034b0542442e0b81c67fa1c6193e89690092666",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c2ebcbe_0f96d930",
+        "filename": "net/dcsctp/tx/send_queue.h",
+        "patchSetId": 36
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-20T11:09:57Z",
+      "side": 1,
+      "message": "What happens if the message can\u0027t be discarded? And what happens if more than one message satisfies the criteria? The contract needs to be clear.\n\nWhere do we get message_id from? Is it part of the message passed in with Add()? If so, can there be duplicates?",
+      "revId": "6034b0542442e0b81c67fa1c6193e89690092666",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

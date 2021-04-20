@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "766aa717_cbd028e6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-20T08:44:34Z",
+      "side": 1,
+      "message": "LGTM % 2/3 small comments.",
+      "revId": "f9739095b8cd63948e1b427d7754499d32d6b940",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "515ab52a_38e4f2eb",
+        "filename": "api/stats/rtc_stats_report.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-20T08:44:34Z",
+      "side": 1,
+      "message": "\u003d default?\n\nLooks like this is {} in the .cc file.",
+      "range": {
+        "startLine": 115,
+        "startChar": 2,
+        "endLine": 115,
+        "endChar": 20
+      },
+      "revId": "f9739095b8cd63948e1b427d7754499d32d6b940",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d23c97c0_07f31392",
+        "filename": "rtc_base/rtc_certificate.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-20T08:44:34Z",
+      "side": 1,
+      "message": "I think we can \u003d default here as well?",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 20
+      },
+      "revId": "f9739095b8cd63948e1b427d7754499d32d6b940",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5d99667_6fd82f25",
+        "filename": "sdk/android/src/jni/audio_device/opensles_common.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-20T08:44:34Z",
+      "side": 1,
+      "message": "Probably \u003ddefault here as well IIUC.",
+      "range": {
+        "startLine": 74,
+        "startChar": 3,
+        "endLine": 74,
+        "endChar": 22
+      },
+      "revId": "f9739095b8cd63948e1b427d7754499d32d6b940",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a84b80ad_c59f0cb3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-04-20T14:55:52Z",
+      "side": 1,
+      "message": "Hi Minyue,\nThis is a cherry pick.\nCould you PTAL?\nAlessio",
+      "revId": "c8511f2bbc21daadd482d93cd857041acae26aa9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

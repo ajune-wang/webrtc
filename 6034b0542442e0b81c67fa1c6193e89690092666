@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "417591d0_28dfe4b1",
+        "filename": "net/dcsctp/tx/fcfs_send_queue.cc",
+        "patchSetId": 36
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-20T13:03:50Z",
+      "side": 1,
+      "message": "Makes very much sense. Added a TODO - thanks!",
+      "parentUuid": "25bfbba4_19df1034",
+      "revId": "6034b0542442e0b81c67fa1c6193e89690092666",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "168f51cd_6b3f25e9",
@@ -48,6 +66,24 @@
       "writtenOn": "2021-04-20T11:09:57Z",
       "side": 1,
       "message": "I\u0027m not clear about the semantics of StrongAlias\u003cclass IsEndTag, bool\u003e - why are you dereferencing it here and using it as a bool on line 130?",
+      "revId": "6034b0542442e0b81c67fa1c6193e89690092666",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4dd22575_3b37af44",
+        "filename": "net/dcsctp/tx/fcfs_send_queue.cc",
+        "patchSetId": 36
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-20T13:03:50Z",
+      "side": 1,
+      "message": "I don\u0027t have to dereference it - thanks. I have added a test case demonstrating that StrongAlias\u003cbool\u003e can be evaluated as a boolean (but not e.g. StrongAlias\u003cint\u003e - that will not compile if you would try that - good!) as a https://webrtc-review.googlesource.com/c/src/+/215686",
+      "parentUuid": "168f51cd_6b3f25e9",
       "revId": "6034b0542442e0b81c67fa1c6193e89690092666",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -69,6 +105,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "efb2ec70_43bde5fc",
+        "filename": "net/dcsctp/tx/fcfs_send_queue.cc",
+        "patchSetId": 36
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-20T13:03:50Z",
+      "side": 1,
+      "message": "I have updated the documentation of Discard in the SendQueue interface as well as this comment. Thanks for bringing this up. This isn\u0027t obvious.\n\nThere was once a callback for this, which I\u0027m removing in https://webrtc-review.googlesource.com/c/src/+/215662, as I need to make the story around this better. \n\n1) The client must be able to provide some kind of identifier when sending a message that will be given back in any callback, so that the client knows what has been skipped\n2) There should be more callbacks regarding message lifecycle in that case, to also signal when a packet has been fully sent (the last fragment has been transmitted) and when the packet has been fully acked (all fragments have been acked)\n\nThis is also a bit complicated in the case when e.g. a connection is restarted; There may be packet loss - this can\u0027t be guaranteed - as the TCB is re-created. Should callbacks be signaled then?\n\nToo many questions to solve right now, so I\u0027m postponing this discussion as it\u0027s not strictly needed for Data Channels, but it would be really good to know - especially server-side - to have connection stats indicating time from \"send to ack\" for example.",
+      "parentUuid": "53d71dc0_80c3e007",
+      "revId": "6034b0542442e0b81c67fa1c6193e89690092666",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "78505971_7b85de30",
@@ -82,6 +136,24 @@
       "writtenOn": "2021-04-20T11:09:57Z",
       "side": 1,
       "message": "where are partially sent messages discarded?",
+      "revId": "6034b0542442e0b81c67fa1c6193e89690092666",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4343d488_e4e563f9",
+        "filename": "net/dcsctp/tx/fcfs_send_queue.cc",
+        "patchSetId": 36
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-20T13:03:50Z",
+      "side": 1,
+      "message": "Never - they are always delivered in full. Because of this, resetting a stream may take some time (and has a more complicated state machine than I would want) as the stream can only be reset once any partially messages are fully sent and acked. I have updated the docs here.\n\nI have also added a TODO in the SendQueue::PrepareSetStreams documentation to investigate if non-partly sent messages should be discarded. RFC8831 allows both options; \"[RFC6525] also guarantees that all the messages are delivered (or abandoned) before the stream is reset.\". \n\nI believe that usrsctp will abandon them.",
+      "parentUuid": "78505971_7b85de30",
       "revId": "6034b0542442e0b81c67fa1c6193e89690092666",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -103,6 +175,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d84c48be_396ff177",
+        "filename": "net/dcsctp/tx/fcfs_send_queue.h",
+        "patchSetId": 36
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-20T13:03:50Z",
+      "side": 1,
+      "message": "I have documented the parameter. It\u0027s simply the current time - passed in as parameter instead of getting it in this method (by any \"clock\" interface) due to:\n1) To have consistent time values for all packets that are added in a single batch. Prevents edge cases where time is different between two calls.\n2) For efficiency. It\u0027s not free to get the current time, and it\u0027s generally something we try to avoid calling more than a few times per processed packet.\n3) For easier testing, as it\u0027s more obvious to know what affects its state.",
+      "parentUuid": "fa016f16_5b25dc45",
+      "revId": "6034b0542442e0b81c67fa1c6193e89690092666",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6ee3ebda_bab0d84b",
@@ -116,6 +206,24 @@
       "writtenOn": "2021-04-20T11:09:57Z",
       "side": 1,
       "message": "I think the traditional phrase is \"Implementation of SendQueue\" - these methods aren\u0027t inherited, the interface is inherited, and implemented separately in this class.",
+      "revId": "6034b0542442e0b81c67fa1c6193e89690092666",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2400384f_aff8c214",
+        "filename": "net/dcsctp/tx/fcfs_send_queue.h",
+        "patchSetId": 36
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-20T13:03:50Z",
+      "side": 1,
+      "message": "Thanks! Done.",
+      "parentUuid": "6ee3ebda_bab0d84b",
       "revId": "6034b0542442e0b81c67fa1c6193e89690092666",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -137,6 +245,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "274aaac2_2d51e6a5",
+        "filename": "net/dcsctp/tx/fcfs_send_queue_test.cc",
+        "patchSetId": 36
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-20T13:03:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3671531e_4b25ff68",
+      "revId": "6034b0542442e0b81c67fa1c6193e89690092666",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "76a0b0b0_57006ede",
@@ -150,6 +276,24 @@
       "writtenOn": "2021-04-20T11:09:57Z",
       "side": 1,
       "message": "Suggest using 1999 rather than 1000. Get close to the limit.",
+      "revId": "6034b0542442e0b81c67fa1c6193e89690092666",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04a95ac5_1404479a",
+        "filename": "net/dcsctp/tx/fcfs_send_queue_test.cc",
+        "patchSetId": 36
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-20T13:03:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "76a0b0b0_57006ede",
       "revId": "6034b0542442e0b81c67fa1c6193e89690092666",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -171,6 +315,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8c90501_6e0c9678",
+        "filename": "net/dcsctp/tx/send_queue.h",
+        "patchSetId": 36
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-20T13:03:50Z",
+      "side": 1,
+      "message": "Thanks, Done",
+      "parentUuid": "0e5a8c90_886d0766",
+      "revId": "6034b0542442e0b81c67fa1c6193e89690092666",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2c2ebcbe_0f96d930",
@@ -184,6 +346,24 @@
       "writtenOn": "2021-04-20T11:09:57Z",
       "side": 1,
       "message": "What happens if the message can\u0027t be discarded? And what happens if more than one message satisfies the criteria? The contract needs to be clear.\n\nWhere do we get message_id from? Is it part of the message passed in with Add()? If so, can there be duplicates?",
+      "revId": "6034b0542442e0b81c67fa1c6193e89690092666",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff7d7a02_0cfa3f85",
+        "filename": "net/dcsctp/tx/send_queue.h",
+        "patchSetId": 36
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-20T13:03:50Z",
+      "side": 1,
+      "message": "I have added more text here - PTAL!",
+      "parentUuid": "2c2ebcbe_0f96d930",
       "revId": "6034b0542442e0b81c67fa1c6193e89690092666",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

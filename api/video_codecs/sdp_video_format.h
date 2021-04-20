@@ -14,6 +14,7 @@
 #include <map>
 #include <string>
 
+#include "api/array_view.h"
 #include "rtc_base/system/rtc_export.h"
 
 namespace webrtc {
@@ -31,6 +32,10 @@ struct RTC_EXPORT SdpVideoFormat {
   SdpVideoFormat& operator=(SdpVideoFormat&&);
 
   ~SdpVideoFormat();
+
+  bool IsSameCodec(const SdpVideoFormat& other) const;
+  bool IsCodecInList(
+      rtc::ArrayView<const webrtc::SdpVideoFormat> formats) const;
 
   std::string ToString() const;
 

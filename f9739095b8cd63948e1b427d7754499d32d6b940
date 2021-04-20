@@ -18,6 +18,40 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d76cc62_35da9033",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-20T08:47:09Z",
+      "side": 1,
+      "message": "Seems elegant, but I think the naming is wrong.\nLet the bikesheds be painted.\n",
+      "revId": "f9739095b8cd63948e1b427d7754499d32d6b940",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4515f283_aa7c5129",
+        "filename": "api/ref_counted_base.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-20T08:47:09Z",
+      "side": 1,
+      "message": "I do think I object to the name. It is not the base of RefCounted.\nWould suggest to call it RefCountedNonVirtual.",
+      "revId": "f9739095b8cd63948e1b427d7754499d32d6b940",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "515ab52a_38e4f2eb",

@@ -68,10 +68,10 @@ typedef ScopedSLObject<SLObjectItf, const SLObjectItf_*> ScopedSLObjectItf;
 // Subsequent calls returns the already created engine.
 // Note: This class must be used single threaded and this is enforced by a
 // thread checker.
-class OpenSLEngineManager : public rtc::RefCountedBase {
+class OpenSLEngineManager : public rtc::RefCountedBaseT<OpenSLEngineManager> {
  public:
   OpenSLEngineManager();
-  ~OpenSLEngineManager() override;
+  ~OpenSLEngineManager();
   SLObjectItf GetOpenSLEngine();
 
  private:

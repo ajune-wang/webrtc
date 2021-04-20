@@ -28,7 +28,7 @@ typedef union _XEvent XEvent;
 namespace webrtc {
 
 // A ref-counted object to store XDisplay connection.
-class RTC_EXPORT SharedXDisplay : public rtc::RefCountedBase {
+class RTC_EXPORT SharedXDisplay : public rtc::RefCountedBaseT<SharedXDisplay> {
  public:
   class XEventHandler {
    public:
@@ -66,7 +66,7 @@ class RTC_EXPORT SharedXDisplay : public rtc::RefCountedBase {
   void IgnoreXServerGrabs();
 
  protected:
-  ~SharedXDisplay() override;
+  ~SharedXDisplay();
 
  private:
   typedef std::map<int, std::vector<XEventHandler*> > EventHandlersMap;

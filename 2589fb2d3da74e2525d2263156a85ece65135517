@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "71d6d129_e265f765",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-20T12:54:04Z",
+      "side": 1,
+      "message": "What is std::move(sack) supposed to do to the source?\nIt seems that Validate(whatever) returns false, but I\u0027m not sure why.\n",
+      "revId": "2589fb2d3da74e2525d2263156a85ece65135517",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "004c7d05_6ed8155b",
+        "filename": "net/dcsctp/packet/chunk_validators_test.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-20T12:54:04Z",
+      "side": 1,
+      "message": "Supernit: OneValidAckBlock",
+      "revId": "2589fb2d3da74e2525d2263156a85ece65135517",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7377dd51_f3836123",
+        "filename": "net/dcsctp/packet/chunk_validators_test.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-20T12:54:04Z",
+      "side": 1,
+      "message": "and here",
+      "revId": "2589fb2d3da74e2525d2263156a85ece65135517",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a93a895_024f20ff",
+        "filename": "net/dcsctp/packet/chunk_validators_test.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-20T12:54:04Z",
+      "side": 1,
+      "message": "Since this is after std::move(sack), you\u0027re validating an empty sack. Since tests pass, Validate(empty) returns false. Why?",
+      "revId": "2589fb2d3da74e2525d2263156a85ece65135517",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8cfbd2f_3df54bb1",
+        "filename": "net/dcsctp/packet/chunk_validators_test.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-20T12:54:04Z",
+      "side": 1,
+      "message": "Same here.",
+      "revId": "2589fb2d3da74e2525d2263156a85ece65135517",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

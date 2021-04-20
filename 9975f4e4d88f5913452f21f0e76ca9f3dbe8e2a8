@@ -53,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3e66e25_b52a354c",
+        "filename": "rtc_base/async_resolver.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-04-20T13:35:27Z",
+      "side": 1,
+      "message": "The RTC weak ptr doesn\u0027t have what I needed. Refactored the CL to not make use of std::shared/weak.",
+      "parentUuid": "05f22c63_c748046e",
+      "revId": "9975f4e4d88f5913452f21f0e76ca9f3dbe8e2a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "294bb0dd_30e607d0",
@@ -102,6 +120,24 @@
       "side": 1,
       "message": "this requirement will go away with using the webrtc weak ptr.",
       "parentUuid": "bec252dc_03c31112",
+      "revId": "9975f4e4d88f5913452f21f0e76ca9f3dbe8e2a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c60a7215_7d5cba8c",
+        "filename": "rtc_base/async_resolver.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-04-20T13:35:27Z",
+      "side": 1,
+      "message": "The RTC weak ptr doesn\u0027t have what I needed. Refactored the CL to not make use of std::shared/weak.",
+      "parentUuid": "7535d769_49392467",
       "revId": "9975f4e4d88f5913452f21f0e76ca9f3dbe8e2a8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

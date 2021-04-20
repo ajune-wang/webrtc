@@ -69,6 +69,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "53102edc_a6096298",
+        "filename": "net/dcsctp/packet/chunk_validators_test.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-20T13:12:17Z",
+      "side": 1,
+      "message": "Done. I don\u0027t know why, and what the compiler actually does when you std::move() something is hard to _really know_.",
+      "parentUuid": "9a93a895_024f20ff",
+      "revId": "2589fb2d3da74e2525d2263156a85ece65135517",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d8cfbd2f_3df54bb1",
@@ -82,6 +100,24 @@
       "writtenOn": "2021-04-20T12:54:04Z",
       "side": 1,
       "message": "Same here.",
+      "revId": "2589fb2d3da74e2525d2263156a85ece65135517",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23fafcda_11d41884",
+        "filename": "net/dcsctp/packet/chunk_validators_test.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-20T13:12:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d8cfbd2f_3df54bb1",
       "revId": "2589fb2d3da74e2525d2263156a85ece65135517",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

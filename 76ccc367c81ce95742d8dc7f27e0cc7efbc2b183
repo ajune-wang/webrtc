@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bed01e21_881a509a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-20T06:16:16Z",
+      "side": 1,
+      "message": "Found that the Android APK test somehow holds on to a reference to a stopped transceiver that is destroyed on a different thread, and the changes (probably marginal) lead to this reference surviving the expected lifetime of the transceiver, leading to the transceiver destructor being called on a different thread.\n\nThis should be OK as long as the transceiver is stopped on the signaling thread; changed DCHECKs to reflect this.\n",
+      "revId": "76ccc367c81ce95742d8dc7f27e0cc7efbc2b183",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

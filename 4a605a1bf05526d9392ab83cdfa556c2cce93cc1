@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd0ba001_d2dd2ca8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-21T10:41:48Z",
+      "side": 1,
+      "message": "Yup, I think we need the workaround of logging sensitive data in full for debugging (such as when all the machines involved are on 192.168.1.x), but I think this can be done in a followup, driven by how urgently people ask for it.\n",
+      "revId": "4a605a1bf05526d9392ab83cdfa556c2cce93cc1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

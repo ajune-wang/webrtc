@@ -3212,12 +3212,11 @@ WEBRTC_RTCSTATS_IMPL(RTCTestStats, RTCStats, "test-stats", &dummy_stat)
 class FakeRTCStatsCollector : public RTCStatsCollector,
                               public RTCStatsCollectorCallback {
  public:
-  static rtc::scoped_refptr<FakeRTCStatsCollector> Create(
+  static rtc::scoped_refptr<RTCStatsCollector> Create(
       PeerConnectionInternal* pc,
       int64_t cache_lifetime_us) {
-    return rtc::scoped_refptr<FakeRTCStatsCollector>(
-        new rtc::RefCountedObject<FakeRTCStatsCollector>(pc,
-                                                         cache_lifetime_us));
+    return new rtc::RefCountedObject<FakeRTCStatsCollector>(pc,
+                                                            cache_lifetime_us);
   }
 
   // RTCStatsCollectorCallback implementation.
@@ -3301,9 +3300,10 @@ class FakeRTCStatsCollector : public RTCStatsCollector,
 TEST(RTCStatsCollectorTestWithFakeCollector, ThreadUsageAndResultsMerging) {
   rtc::scoped_refptr<FakePeerConnectionForStats> pc(
       new rtc::RefCountedObject<FakePeerConnectionForStats>());
-  rtc::scoped_refptr<FakeRTCStatsCollector> stats_collector(
+  rtc::scoped_refptr<RTCStatsCollector> stats_collector(
       FakeRTCStatsCollector::Create(pc, 50 * rtc::kNumMicrosecsPerMillisec));
-  stats_collector->VerifyThreadUsageAndResultsMerging();
+  static_cast<FakeRTCStatsCollector*>(stats_collector.get())
+      ->VerifyThreadUsageAndResultsMerging();
 }
 
 }  // namespace

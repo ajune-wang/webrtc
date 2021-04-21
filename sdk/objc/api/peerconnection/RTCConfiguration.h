@@ -268,6 +268,13 @@ RTC_OBJC_EXPORT
  */
 @property(nonatomic, copy, nullable) NSNumber *iceInactiveTimeout;
 
+/**
+ * If set to true, candidate pairs will be pinged in order of most likely
+ * to work (which means using a TURN server, generally), rather than in
+ * standard priority order.
+ */
+@property(nonatomic, assign) BOOL prioritizeMostLikelyIceCandidatePairs;
+
 - (instancetype)init;
 
 @end

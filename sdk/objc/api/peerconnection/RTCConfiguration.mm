@@ -63,6 +63,7 @@
 @synthesize iceUnwritableTimeout = _iceUnwritableTimeout;
 @synthesize iceUnwritableMinChecks = _iceUnwritableMinChecks;
 @synthesize iceInactiveTimeout = _iceInactiveTimeout;
+@synthesize prioritizeMostLikelyIceCandidatePairs = _prioritizeMostLikelyIceCandidatePairs;
 
 - (instancetype)init {
   // Copy defaults.
@@ -159,6 +160,7 @@
     _iceInactiveTimeout = config.ice_inactive_timeout.has_value() ?
         [NSNumber numberWithInt:*config.ice_inactive_timeout] :
         nil;
+    _prioritizeMostLikelyIceCandidatePairs = config.prioritize_most_likely_ice_candidate_pairs;
   }
   return self;
 }
@@ -309,6 +311,7 @@
   if (_iceInactiveTimeout != nil) {
     nativeConfig->ice_inactive_timeout = absl::optional<int>(_iceInactiveTimeout.intValue);
   }
+  nativeConfig->prioritize_most_likely_ice_candidate_pairs = _prioritizeMostLikelyIceCandidatePairs;
   return nativeConfig.release();
 }
 

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "373a6460_8c39cc2d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-21T14:05:36Z",
+      "side": 1,
+      "message": "Fumitoshi, can you +1 when the issues are resolved on goma side?",
+      "revId": "55ae77af62085ab8c7fd4045a14af09d0f9b57e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

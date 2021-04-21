@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a50200cf_20af4e32",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-21T15:57:06Z",
+      "side": 1,
+      "message": "Do we have a bug for this?\n\nIt looks like a cleanup will follow, so good to have in one place.",
+      "range": {
+        "startLine": 16,
+        "startChar": 5,
+        "endLine": 16,
+        "endChar": 9
+      },
+      "revId": "27fecbf2799ad814ca83d3314766eaa779ab6397",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52b522b0_34c9a16e",
+        "filename": "rtc_base/ref_counted_object.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-21T15:57:06Z",
+      "side": 1,
+      "message": "I wonder if this should be in api/scoped_refptr.h.\n\nLooks like there might be benefit for clients interacting with WebRTC APIs (and maybe, if enough we might be even able to lock visibility for //rtc_base:refcount, this is a long shot, I have not looked really into it).",
+      "range": {
+        "startLine": 94,
+        "startChar": 4,
+        "endLine": 94,
+        "endChar": 20
+      },
+      "revId": "27fecbf2799ad814ca83d3314766eaa779ab6397",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

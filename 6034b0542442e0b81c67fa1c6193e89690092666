@@ -158,6 +158,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "76355976_ac1337ce",
+        "filename": "net/dcsctp/tx/fcfs_send_queue.cc",
+        "patchSetId": 36
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-21T07:41:10Z",
+      "side": 1,
+      "message": "Nice documentation in the Discard documentation about this being problematic - thanks!",
+      "parentUuid": "4343d488_e4e563f9",
+      "revId": "6034b0542442e0b81c67fa1c6193e89690092666",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fa016f16_5b25dc45",
@@ -189,6 +207,24 @@
       "side": 1,
       "message": "I have documented the parameter. It\u0027s simply the current time - passed in as parameter instead of getting it in this method (by any \"clock\" interface) due to:\n1) To have consistent time values for all packets that are added in a single batch. Prevents edge cases where time is different between two calls.\n2) For efficiency. It\u0027s not free to get the current time, and it\u0027s generally something we try to avoid calling more than a few times per processed packet.\n3) For easier testing, as it\u0027s more obvious to know what affects its state.",
       "parentUuid": "fa016f16_5b25dc45",
+      "revId": "6034b0542442e0b81c67fa1c6193e89690092666",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94f454d4_9717fa19",
+        "filename": "net/dcsctp/tx/fcfs_send_queue.h",
+        "patchSetId": 36
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-21T07:41:10Z",
+      "side": 1,
+      "message": "This is something that belongs in overarching API documentation - that the channel doesn\u0027t know the time, it depends on now() being passed in to each API call that needs to know what time it is (and that the clock is required to be monotonic).\n\nI would suggest augmenting all methods that take a \"now\" argument with \"RTC_DCHECK(now \u003e\u003d last_seen_now_); last_seen_now_ \u003d now\", because time moving backwards is awful to debug.",
+      "parentUuid": "d84c48be_396ff177",
       "revId": "6034b0542442e0b81c67fa1c6193e89690092666",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

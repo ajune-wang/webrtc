@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e70b3fa_4c2b657f",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-21T12:46:59Z",
+      "side": 1,
+      "message": "I plan to add that in a follow up CL\n(in patchset#1 I\u0027ve added it, but then decided to split it into own change)",
+      "parentUuid": "6052148e_e0d3eab4",
+      "range": {
+        "startLine": 410,
+        "startChar": 23,
+        "endLine": 410,
+        "endChar": 35
+      },
+      "revId": "18492a982c98a40a26e60ad82e140e52550ec35c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1ade7f8e_baf815af",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-04-21T12:35:09Z",
       "side": 1,
       "message": "Just to confirm, we don\u0027t expect these to wrap, right?",
+      "range": {
+        "startLine": 411,
+        "startChar": 44,
+        "endLine": 411,
+        "endChar": 59
+      },
+      "revId": "18492a982c98a40a26e60ad82e140e52550ec35c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60e41e93_5c0ce78e",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-21T12:46:59Z",
+      "side": 1,
+      "message": "no, int64_t assumed to be practically infinite.",
+      "parentUuid": "1ade7f8e_baf815af",
       "range": {
         "startLine": 411,
         "startChar": 44,
@@ -87,6 +135,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "430d6f28_0aba4089",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-21T12:46:59Z",
+      "side": 1,
+      "message": "I\u0027m unsure.\nIt can be increased to 4. That would make DD on the wire slightly larger. But I\u0027m unaware of a usecase where more than 3 temporal layers are sent.\n\nincreasing it to this constant to be on the safe side, this code doesn\u0027t try to optimise wire size anyway.",
+      "parentUuid": "41d66669_99f92b69",
+      "range": {
+        "startLine": 416,
+        "startChar": 12,
+        "endLine": 416,
+        "endChar": 31
+      },
+      "revId": "18492a982c98a40a26e60ad82e140e52550ec35c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0c17fa59_f0e18bd2",
@@ -100,6 +172,30 @@
       "writtenOn": "2021-04-21T12:18:30Z",
       "side": 1,
       "message": "kVp9FrameIdBufferSize or something like that?",
+      "range": {
+        "startLine": 472,
+        "startChar": 41,
+        "endLine": 472,
+        "endChar": 44
+      },
+      "revId": "18492a982c98a40a26e60ad82e140e52550ec35c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fde25603_f7d8d92e",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-21T12:46:59Z",
+      "side": 1,
+      "message": "added a local constant kPictureDiffLimit",
+      "parentUuid": "0c17fa59_f0e18bd2",
       "range": {
         "startLine": 472,
         "startChar": 41,

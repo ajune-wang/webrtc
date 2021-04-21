@@ -104,6 +104,30 @@
       },
       "revId": "bde8fe9acc6ffe7fda0e6f2921c5829087a853ea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d1c8ad0_700c9366",
+        "filename": "sdk/android/api/org/webrtc/VideoCapturer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2021-04-21T14:57:18Z",
+      "side": 1,
+      "message": "On Java 8: note that it’s only java 8 language features, not APIs. So lambdas, method references, default methods are ok, but no Stream or java.time (https://developer.android.com/studio/write/java8-support)\n\nFor the default implementation, indeed I don’t see a good option. But I really don’t want to break existing implementations. I suggest we follow the plan from https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/PRESUBMIT.py;l\u003d157-171;drc\u003d22379fc8dcb6b11cb4ab1ce8b9e00fe99c0ae740\n\nSo:\n- start with a default implementation throwing an UnsupportedOperationException, with the assumption that clients wanting to rely on this method would either use the implementations you migrate here or update their own\n- send a PSA to https://groups.google.com/g/discuss-webrtc, with the intent to remove the default implementation in a couple of months\n- revert the default method to be an basic interface method after some time has passed",
+      "parentUuid": "96720143_8f405ebc",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 24
+      },
+      "revId": "bde8fe9acc6ffe7fda0e6f2921c5829087a853ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -937,6 +937,9 @@ void DefaultVideoQualityAnalyzer::ReportResults(
       static_cast<double>(stats.total_encoded_images_payload) /
           static_cast<double>(test_duration.us()) * kMicrosPerSecond,
       "bytesPerSecond", /*important=*/false, ImproveDirection::kNone);
+  test::PrintResult("rendered_frames", "", test_case_name,
+                    frame_counters.rendered, "count", /*important=*/false,
+                    ImproveDirection::kBiggerIsBetter);
 }
 
 void DefaultVideoQualityAnalyzer::ReportResult(

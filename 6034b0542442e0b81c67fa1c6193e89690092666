@@ -229,6 +229,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6844a48e_7391e0bf",
+        "filename": "net/dcsctp/tx/fcfs_send_queue.h",
+        "patchSetId": 36
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-21T09:34:45Z",
+      "side": 1,
+      "message": "I will definitely add those checks where it _is_ important, but also try to design my classes so that monotonic time isn\u0027t strictly required (as that\u0027s a rare property that e.g. absl::Now() doesn\u0027t provide). \n\nI have added a note in the design doc about that only components in the \"Socket layer\" are allowed to query time, and to pass it down to lower layer components. That\u0027s easy to enforce now with only a few contributors, but I don\u0027t know how to really enforce it going forward.",
+      "parentUuid": "94f454d4_9717fa19",
+      "revId": "6034b0542442e0b81c67fa1c6193e89690092666",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6ee3ebda_bab0d84b",

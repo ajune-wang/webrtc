@@ -16,6 +16,23 @@
       "message": "Nice improvements!\n",
       "revId": "5742faa7dcd28d1bd38f698b37e434aa0864540f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "265c0ac2_fd511099",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 41
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-21T09:34:45Z",
+      "side": 1,
+      "message": "Thanks for reviewing!",
+      "revId": "5742faa7dcd28d1bd38f698b37e434aa0864540f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

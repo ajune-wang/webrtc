@@ -16,6 +16,24 @@
       "message": "Are these new PPIDs part of the protocol spec?\n",
       "revId": "188440b5bb3934deb9188d00a0fdf76e210548c1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c575a4c0_272802bf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-04-21T18:58:54Z",
+      "side": 1,
+      "message": "Yes, follow the updated link, either the IANA one or the IETF one.",
+      "parentUuid": "76a376dc_4c8a172f",
+      "revId": "188440b5bb3934deb9188d00a0fdf76e210548c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

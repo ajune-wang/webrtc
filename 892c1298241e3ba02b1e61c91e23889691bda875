@@ -16,6 +16,29 @@
       "message": "crodbro - as owner, can you please take a look at congestion_controller\nphilipel - as owner, please take a look at remote_bitrate_estimator. \n\nThanks",
       "revId": "892c1298241e3ba02b1e61c91e23889691bda875",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e549f9d2_fbe9bb46",
+        "filename": "modules/congestion_controller/remb_throttler.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2021-04-21T07:15:43Z",
+      "side": 1,
+      "message": "Looks odd, and not like \"throttling\". From comment, I expected logic to avoid sending tons of almost-similar Rembs. Rather, this logic seems to \"wait a bit\" before sending steep increases.",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 34
+      },
+      "revId": "892c1298241e3ba02b1e61c91e23889691bda875",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

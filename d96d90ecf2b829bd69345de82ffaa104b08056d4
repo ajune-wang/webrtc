@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5eefe30e_89746f9f",
+        "filename": "rtc_base/async_resolver.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-04-21T08:23:11Z",
+      "side": 1,
+      "message": "Right, thanks. No race condition because we\u0027re running on the same sequence as the dtor.",
+      "parentUuid": "d7a00a7d_22c0155a",
+      "revId": "d96d90ecf2b829bd69345de82ffaa104b08056d4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "52e366c4_0cda6b31",
@@ -31,6 +49,24 @@
       "writtenOn": "2021-04-20T17:46:37Z",
       "side": 1,
       "message": "We could actually add a StartDetached() method to PlatformThread that combines these two things.",
+      "revId": "d96d90ecf2b829bd69345de82ffaa104b08056d4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e5ac5dc_8d11f6d3",
+        "filename": "rtc_base/async_resolver.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-04-21T08:23:11Z",
+      "side": 1,
+      "message": "Yep, see the followup CL where I do this.",
+      "parentUuid": "52e366c4_0cda6b31",
       "revId": "d96d90ecf2b829bd69345de82ffaa104b08056d4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

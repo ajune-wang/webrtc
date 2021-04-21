@@ -20,6 +20,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4373be0a_9e15398c",
+        "filename": "modules/congestion_controller/include/receive_side_congestion_controller.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-04-21T09:13:50Z",
+      "side": 1,
+      "message": "Avoid defining RembSender twice:\n\n  using RembSender \u003d RembThrottler::RembSender\n\nor just use\n\n  RembThrottler::RembSender\n\ndirectly",
+      "range": {
+        "startLine": 39,
+        "startChar": 2,
+        "endLine": 39,
+        "endChar": 20
+      },
+      "revId": "892c1298241e3ba02b1e61c91e23889691bda875",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc8e7ccf_c895a999",
+        "filename": "modules/congestion_controller/receive_side_congestion_controller.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-04-21T09:13:50Z",
+      "side": 1,
+      "message": "Could this be changed to `RembSender()`?",
+      "range": {
+        "startLine": 131,
+        "startChar": 22,
+        "endLine": 131,
+        "endChar": 36
+      },
+      "revId": "892c1298241e3ba02b1e61c91e23889691bda875",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e549f9d2_fbe9bb46",
         "filename": "modules/congestion_controller/remb_throttler.cc",
         "patchSetId": 7
@@ -60,6 +106,75 @@
         "startChar": 4,
         "endLine": 38,
         "endChar": 34
+      },
+      "revId": "892c1298241e3ba02b1e61c91e23889691bda875",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa4849d2_3b09c3db",
+        "filename": "modules/congestion_controller/remb_throttler.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-04-21T09:13:50Z",
+      "side": 1,
+      "message": "Feel free to ignore this as this is just my personal design philosophy, I don\u0027t have anything in the styleguide to point to :)\n\nIn general I think it\u0027s better to not have helper classes use locks, them being the point of synchronization does not seem like it should be their job. Instead (if necessary) protect it with a TQ or lock in the \"glue code\" (ReceiveSideCongestionController in this case) where it is used.\n\nI also prefer to not inject callback functions further than necessary, this often cause a \"pass-through\" problem where some class has to pass on some information not relevant to its function because this is where the callback is actually made. Again, use the \"glue code\" to first call the helper class (RembThrottler) and then the callback. Instead of returning void return an absl::optional\u003cDataRate\u003e?\n\nWDYT?",
+      "range": {
+        "startLine": 26,
+        "startChar": 6,
+        "endLine": 26,
+        "endChar": 19
+      },
+      "revId": "892c1298241e3ba02b1e61c91e23889691bda875",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c14a4fec_1d08da46",
+        "filename": "modules/congestion_controller/remb_throttler.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-04-21T09:13:50Z",
+      "side": 1,
+      "message": "ArrayView?",
+      "range": {
+        "startLine": 29,
+        "startChar": 46,
+        "endLine": 29,
+        "endChar": 73
+      },
+      "revId": "892c1298241e3ba02b1e61c91e23889691bda875",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ceddb434_38e3fdb9",
+        "filename": "modules/congestion_controller/remb_throttler.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-04-21T09:13:50Z",
+      "side": 1,
+      "message": "DataRate?",
+      "range": {
+        "startLine": 29,
+        "startChar": 25,
+        "endLine": 29,
+        "endChar": 44
       },
       "revId": "892c1298241e3ba02b1e61c91e23889691bda875",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"

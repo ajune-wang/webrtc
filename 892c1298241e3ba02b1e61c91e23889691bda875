@@ -206,6 +206,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "af29ebbb_3ae016cf",
+        "filename": "modules/congestion_controller/remb_throttler.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-04-21T11:49:09Z",
+      "side": 1,
+      "message": "My idea was for a new mutex to live alongside the RembThrottler in ReceiveSideCongestionController, and I don\u0027t think any of the things you mentioned prevents that.\n\nAnyhow, that\u0027s just my preference :)",
+      "parentUuid": "4996cc70_9ba4d566",
+      "range": {
+        "startLine": 26,
+        "startChar": 6,
+        "endLine": 26,
+        "endChar": 19
+      },
+      "revId": "892c1298241e3ba02b1e61c91e23889691bda875",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c14a4fec_1d08da46",
@@ -295,6 +319,54 @@
         "startChar": 46,
         "endLine": 29,
         "endChar": 73
+      },
+      "revId": "892c1298241e3ba02b1e61c91e23889691bda875",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b9e43f7_fba4b943",
+        "filename": "modules/congestion_controller/remb_throttler.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-04-21T11:49:09Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f953cd55_308efed4",
+      "range": {
+        "startLine": 29,
+        "startChar": 46,
+        "endLine": 29,
+        "endChar": 73
+      },
+      "revId": "892c1298241e3ba02b1e61c91e23889691bda875",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ebe3bd3_a0dc493c",
+        "filename": "modules/congestion_controller/remb_throttler.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-04-21T11:49:09Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9b94a1a5_d9c14c6b",
+      "range": {
+        "startLine": 29,
+        "startChar": 25,
+        "endLine": 29,
+        "endChar": 44
       },
       "revId": "892c1298241e3ba02b1e61c91e23889691bda875",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"

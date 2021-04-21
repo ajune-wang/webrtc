@@ -56,7 +56,7 @@ I010Buffer::~I010Buffer() {}
 
 // static
 rtc::scoped_refptr<I010Buffer> I010Buffer::Create(int width, int height) {
-  return new rtc::RefCountedObject<I010Buffer>(
+  return rtc::make_ref_counted<I010Buffer>(
       width, height, width, (width + 1) / 2, (width + 1) / 2);
 }
 

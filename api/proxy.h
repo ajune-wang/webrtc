@@ -260,7 +260,7 @@ class ConstMethodCall : public QueuedTask {
  public:                                                                       \
   static rtc::scoped_refptr<c##ProxyWithInternal> Create(                      \
       rtc::Thread* primary_thread, INTERNAL_CLASS* c) {                        \
-    return new rtc::RefCountedObject<c##ProxyWithInternal>(primary_thread, c); \
+    return rtc::make_ref_counted<c##ProxyWithInternal>(primary_thread, c); \
   }
 
 #define BEGIN_PROXY_MAP(c)                                        \
@@ -271,7 +271,7 @@ class ConstMethodCall : public QueuedTask {
   static rtc::scoped_refptr<c##ProxyWithInternal> Create(         \
       rtc::Thread* primary_thread, rtc::Thread* secondary_thread, \
       INTERNAL_CLASS* c) {                                        \
-    return new rtc::RefCountedObject<c##ProxyWithInternal>(       \
+    return rtc::make_ref_counted<c##ProxyWithInternal>(       \
         primary_thread, secondary_thread, c);                     \
   }
 

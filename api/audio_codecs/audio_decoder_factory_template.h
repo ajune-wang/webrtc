@@ -124,7 +124,7 @@ rtc::scoped_refptr<AudioDecoderFactory> CreateAudioDecoderFactory() {
                 "Caller must give at least one template parameter");
 
   return rtc::scoped_refptr<AudioDecoderFactory>(
-      new rtc::RefCountedObject<
+      rtc::make_ref_counted<
           audio_decoder_factory_template_impl::AudioDecoderFactoryT<Ts...>>());
 }
 

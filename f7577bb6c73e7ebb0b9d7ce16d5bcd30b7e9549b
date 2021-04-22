@@ -33,6 +33,74 @@
       "message": "Sorry for the CL size 😊",
       "revId": "f7577bb6c73e7ebb0b9d7ce16d5bcd30b7e9549b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14419724_836d0271",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 778,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-04-22T23:13:48Z",
+      "side": 1,
+      "message": "nit: would emplace_back eliminate the need for make_unique?",
+      "revId": "f7577bb6c73e7ebb0b9d7ce16d5bcd30b7e9549b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f0d715d_98d0d02b",
+        "filename": "pc/jsep_transport_controller_unittest.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 1572,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-04-22T23:13:48Z",
+      "side": 1,
+      "message": "One other idea for a test: What happens if we receive an offer with overlapping groups (i.e. (A, C), (B, C))?",
+      "revId": "f7577bb6c73e7ebb0b9d7ce16d5bcd30b7e9549b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "848219a2_8f56ff5e",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 4785,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-04-22T23:13:48Z",
+      "side": 1,
+      "message": "It\u0027s a corner case, but this code doesn\u0027t really behave correctly with regards to multiple bundle groups now. If you have two audio sections but they are in different groups, meaning different transports, it\u0027s okay if their payload types overlap.\n\nBasically, you need per-bundle-group versions of these variables. Or you\u0027d need to change the algorithm in some way.\n\nBy the way, if you\u0027re unfamiliar with this code, it\u0027s related to your recent change. This is what will cause unsignaled streams to be removed in the first place when going from one to multiple m\u003d sections, whereas your change is preventing them from being recreated.",
+      "revId": "f7577bb6c73e7ebb0b9d7ce16d5bcd30b7e9549b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4df4e967_29f42405",
+        "filename": "pc/sdp_offer_answer.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-04-22T23:13:48Z",
+      "side": 1,
+      "message": "I\u0027m not thrilled about passing this map as a parameter everywhere, but for lots of m\u003d sections it\u0027s a lot more efficient than the alternative (which is O(N^2)) so it seems justified.",
+      "revId": "f7577bb6c73e7ebb0b9d7ce16d5bcd30b7e9549b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

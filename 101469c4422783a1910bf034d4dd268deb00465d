@@ -1,0 +1,293 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7e91430_1358eccc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 45
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-22T08:13:37Z",
+      "side": 1,
+      "message": "Seems solid!\n\nSome queries wrt C++ style issues, comments and nits.\n",
+      "revId": "101469c4422783a1910bf034d4dd268deb00465d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6f5d1ed_054bca6d",
+        "filename": "net/dcsctp/tx/retransmission_queue.cc",
+        "patchSetId": 45
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-22T08:13:37Z",
+      "side": 1,
+      "message": "Doing the AckGapBlocks and NackBetweenAckBlocks in two separate loops over the same data seems like a strange decision. Why?",
+      "revId": "101469c4422783a1910bf034d4dd268deb00465d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1625ae46_4101f63b",
+        "filename": "net/dcsctp/tx/retransmission_queue.cc",
+        "patchSetId": 45
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-22T08:13:37Z",
+      "side": 1,
+      "message": "Clarity: \"Note: It is important not to drop SACKs with identical TSN to that previously received, .....\"",
+      "revId": "101469c4422783a1910bf034d4dd268deb00465d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa7c0ba4_112d9ab9",
+        "filename": "net/dcsctp/tx/retransmission_queue.cc",
+        "patchSetId": 45
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-22T08:13:37Z",
+      "side": 1,
+      "message": "No need to repeat.",
+      "revId": "101469c4422783a1910bf034d4dd268deb00465d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35ecf191_65ffeb9a",
+        "filename": "net/dcsctp/tx/retransmission_queue.cc",
+        "patchSetId": 45
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-22T08:13:37Z",
+      "side": 1,
+      "message": "Isn\u0027t the StopT3RtxTimer condition the same as the if below? Should they be merged?",
+      "revId": "101469c4422783a1910bf034d4dd268deb00465d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60d9f8a0_0ae7a089",
+        "filename": "net/dcsctp/tx/retransmission_queue.cc",
+        "patchSetId": 45
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-22T08:13:37Z",
+      "side": 1,
+      "message": "Opinion: Delayed ack (Nagle for TCP) is really an old and stupid idea. It\u0027s created lots of trouble for TCP, and is largely turned off in modern TCP usage.\nConsider whether we should take a stand and Just Not Do It.\n\n(Rate-limiting acks to one per RTT makes sense.)",
+      "revId": "101469c4422783a1910bf034d4dd268deb00465d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d683951b_2d4bf127",
+        "filename": "net/dcsctp/tx/retransmission_queue.cc",
+        "patchSetId": 45
+      },
+      "lineNbr": 619,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-22T08:13:37Z",
+      "side": 1,
+      "message": "Since Timer restarts if it\u0027s already running, why do an if on it?",
+      "revId": "101469c4422783a1910bf034d4dd268deb00465d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eba038bd_87efcb56",
+        "filename": "net/dcsctp/tx/retransmission_queue.h",
+        "patchSetId": 45
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-22T08:13:37Z",
+      "side": 1,
+      "message": "nit: manage -\u003e manages",
+      "revId": "101469c4422783a1910bf034d4dd268deb00465d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0933a412_87d6de19",
+        "filename": "net/dcsctp/tx/retransmission_queue.h",
+        "patchSetId": 45
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-22T08:13:37Z",
+      "side": 1,
+      "message": "nit: schedule -\u003e schedules",
+      "revId": "101469c4422783a1910bf034d4dd268deb00465d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d675899c_cc387246",
+        "filename": "net/dcsctp/tx/retransmission_queue.h",
+        "patchSetId": 45
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-22T08:13:37Z",
+      "side": 1,
+      "message": "It\u0027s unusual to spell out Ack as Acknowledge. Rename for ease of reading?\n\nWhy does this have to be part of the public API? I\u0027d expect it to be only useful as part of HandleAcknowledge. If it\u0027s only exposed for testing, add that info in a comment, or move it to the private API and add an IsAcknowledgeValidForTesting wrapper.\n\n(Consider this for other public functions too. Since the caller isn\u0027t part of this CL, it\u0027s probably only clear to you what needs to be public.)",
+      "revId": "101469c4422783a1910bf034d4dd268deb00465d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f72ae384_571cf97e",
+        "filename": "net/dcsctp/tx/retransmission_queue.h",
+        "patchSetId": 45
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-22T08:13:37Z",
+      "side": 1,
+      "message": "GetChunkStatesForTesting?\n\nhttps://chromium.googlesource.com/chromium/src/+/HEAD/styleguide/c++/c++.md#test_only-code",
+      "revId": "101469c4422783a1910bf034d4dd268deb00465d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19bfd97e_9cacf78f",
+        "filename": "net/dcsctp/tx/retransmission_queue.h",
+        "patchSetId": 45
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-22T08:13:37Z",
+      "side": 1,
+      "message": "Can we make any of these member variables const?\nIn general I don\u0027t like structs, even for internal usage - it\u0027s harder to make it obvious what can be modified and when.",
+      "revId": "101469c4422783a1910bf034d4dd268deb00465d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d00e243a_45902975",
+        "filename": "net/dcsctp/tx/retransmission_queue.h",
+        "patchSetId": 45
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-22T08:13:37Z",
+      "side": 1,
+      "message": "htna is a horrible variable name - highest_tsn_acked is a lot clearer. RFC 4960 mentions it exactly once, and as an algorithm, not a variable, so unlike cwnd and rwnd, I don\u0027t think it\u0027s worth using the RFC name for consistency.",
+      "revId": "101469c4422783a1910bf034d4dd268deb00465d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5aad60f_77de31df",
+        "filename": "net/dcsctp/tx/retransmission_queue.h",
+        "patchSetId": 45
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-22T08:13:37Z",
+      "side": 1,
+      "message": "Here and below: Consider whether AckInfo really needs to be maintained by the caller of these functions. It seems that you have a series of functions that all update AckInfo as a side effect.\n\nAlso, C++ style guide says that order of arguments is inputs first, I/O and output last (https://google.github.io/styleguide/cppguide.html#Inputs_and_Outputs)",
+      "revId": "101469c4422783a1910bf034d4dd268deb00465d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8701bca_667be5c3",
+        "filename": "net/dcsctp/tx/retransmission_queue.h",
+        "patchSetId": 45
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-22T08:13:37Z",
+      "side": 1,
+      "message": "Suggest saying \"The sum of the message bytes of the send_queue_\", given that you don\u0027t want to spend time explaining whether or not selective-acked stuff counts yet again.",
+      "revId": "101469c4422783a1910bf034d4dd268deb00465d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49ee209f_83d9745c",
+        "filename": "net/dcsctp/tx/retransmission_queue_test.cc",
+        "patchSetId": 45
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-22T08:13:37Z",
+      "side": 1,
+      "message": "Global: I\u0027d call the variable \"queue\" not \"buf\". Makes for easier reading of the test code.",
+      "revId": "101469c4422783a1910bf034d4dd268deb00465d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8cbf2f33_f2376275",
+        "filename": "net/dcsctp/tx/retransmission_queue_test.cc",
+        "patchSetId": 45
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-22T08:13:37Z",
+      "side": 1,
+      "message": "I\u0027d suggest encapsulating the call to the constructor in a wrapper function. With this number of arguments, it\u0027s hard to see whether all the constructors are equal or whether there are subtle variations between one test case and the next.",
+      "revId": "101469c4422783a1910bf034d4dd268deb00465d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

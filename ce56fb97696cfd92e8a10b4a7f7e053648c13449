@@ -52,6 +52,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe1eb5d7_d8f5e1bb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-04-22T10:46:29Z",
+      "side": 1,
+      "message": "I updated the CL to fix all remaining assumptions about a single BUNDLE group (that I could find) and added a basic peerconnection_bundle_unittest.cc.\n\nLet me know if you think I need to have more PC level tests than this, but the CL is getting pretty big right now so I would like to land it soon.",
+      "parentUuid": "5596f8a6_ab54e5bd",
+      "revId": "ce56fb97696cfd92e8a10b4a7f7e053648c13449",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9159f845_c36b8d8f",
@@ -65,6 +83,24 @@
       "writtenOn": "2021-04-19T22:50:48Z",
       "side": 1,
       "message": "I don\u0027t think you can always match by the first content name; the answerer is allowed to change it.\n\nIt\u0027s not necessarily something we handle well (I think it\u0027s broken with max-bundle) but we shouldn\u0027t leave it more broken.\n\nI would maybe add an \"IsSubset\" helper function, look for the first match, cross it off and repeat (need to be careful to handle situations like \"offer: AB, CD\", \"answer: A, B\").",
+      "revId": "ce56fb97696cfd92e8a10b4a7f7e053648c13449",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6a951ad_b9220a6b",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 718,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-04-22T10:46:29Z",
+      "side": 1,
+      "message": "Because offered_bundle_groups_by_mid has a mapping for all members of the offered group and the answer must be a subset, I can do offered_bundle_groups_by_mid.find() using any group member of the answer that I like. Any member will do, but FirstContentName() is one that I know exists here, so that is the one I am using.\n\nSo I was correctly checking that the answer group was a subset of an offer group, but I was not checking that groups mapped 1:1, so it was possible for different subsets of the same group to get listed several times - which is incorrect. I fixed this by keeping track of group\u003c-\u003egroup mappings to make sure I don\u0027t find several subsets of the same group.\n\nThe test MultipleBundleGroupsIllegallyChangeGroup covers \"offer: AB, CD\", \"answer: AD, CB\" but you are right that I was failing the case \"offer: AB, CD\", \"answer: A, B\" so I added a test for this: MultipleBundleGroupsInvalidSubsets.",
+      "parentUuid": "9159f845_c36b8d8f",
       "revId": "ce56fb97696cfd92e8a10b4a7f7e053648c13449",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -86,6 +122,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "75d0f1eb_73d666b9",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-04-22T10:46:29Z",
+      "side": 1,
+      "message": "No you\u0027re right reserve() is a bit over-kill. Removed.",
+      "parentUuid": "2c4da676_40f72bc1",
+      "revId": "ce56fb97696cfd92e8a10b4a7f7e053648c13449",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2e6b6586_c679feb9",
@@ -103,6 +157,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a741bedd_11537c11",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 822,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-04-22T10:46:29Z",
+      "side": 1,
+      "message": "Good idea. I simplified the code, and discovered a bug while doing so.\nBecause HandleRejectedContent() is erasing groups from bundle_groups_ it could cause the pointers inside established_bundle_groups_by_mid to become invalid. So I updated the code to keep established_bundle_groups_by_mid up-to-date and ensured stable pointers to bundle groups by using std::unqiue_ptr\u003c\u003e as the element type of bundle_groups_.",
+      "parentUuid": "2e6b6586_c679feb9",
+      "revId": "ce56fb97696cfd92e8a10b4a7f7e053648c13449",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2fd8cd15_19e0a2ce",
@@ -116,6 +188,24 @@
       "writtenOn": "2021-04-19T22:50:48Z",
       "side": 1,
       "message": "Should add a test for the answerer changing which MID is first in the group. I\u0027m surprised we don\u0027t already have that for the single group case.",
+      "revId": "ce56fb97696cfd92e8a10b4a7f7e053648c13449",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74efa897_53c1e42b",
+        "filename": "pc/jsep_transport_controller_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1316,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-04-22T10:46:29Z",
+      "side": 1,
+      "message": "I added a test that moves the first MIDs out of the group without rejecting them.\nI.e. \"offer: ABC, answer: BC\".\n\nI also added a test that just changes places: \"offer: ABC, answer: BAC\".\nWe actually support this, but I think we should reject this. I filed a bug for it since fixing that feels a bit tangental to what t am trying to achieve here: https://crbug.com/webrtc/12699",
+      "parentUuid": "2fd8cd15_19e0a2ce",
       "revId": "ce56fb97696cfd92e8a10b4a7f7e053648c13449",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

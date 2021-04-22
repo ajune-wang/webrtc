@@ -22,6 +22,30 @@
       },
       "revId": "8d8c57d4962700ca74c9780b854b7d8736120965",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51b3f1fb_f96159a9",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-22T13:22:32Z",
+      "side": 1,
+      "message": "Thanks for catching. Yes, it might. E.g. if encoder wrapper produce single spatial layer and thus inaccurate in setting this flag right.\nBetter to add checks against OOB.",
+      "parentUuid": "8b387d95_26f2c7ca",
+      "range": {
+        "startLine": 464,
+        "startChar": 27,
+        "endLine": 464,
+        "endChar": 51
+      },
+      "revId": "8d8c57d4962700ca74c9780b854b7d8736120965",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

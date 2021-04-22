@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "36043f2e_afabbb44",
+        "filename": "net/dcsctp/tx/retransmission_timeout.cc",
+        "patchSetId": 43
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-22T13:31:18Z",
+      "side": 1,
+      "message": "I have added a configuration value in dcsctp_options.h. I set the limit to 8 seconds, which is less than 12, but I\u0027m thinking that some improvements would probably have been done since you measure it last time. I found some RTT numbers showing that the 99pt of really bad cellular connections had a RTT of a little bit over 4 seconds, so this is twice that value.",
+      "parentUuid": "6cad756a_29f8c3a3",
+      "revId": "0f3eee6435fd4549effce4fb1819ed0b338d00f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "25b45746_da6c54f2",
@@ -48,6 +66,24 @@
       "writtenOn": "2021-04-22T08:56:40Z",
       "side": 1,
       "message": "\"a round-trip-time\"\nhttps://www.grammarly.com/blog/indefinite-articles-a-and-an/",
+      "revId": "0f3eee6435fd4549effce4fb1819ed0b338d00f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23ef8c5f_6af3d84a",
+        "filename": "net/dcsctp/tx/retransmission_timeout.h",
+        "patchSetId": 43
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-22T13:31:18Z",
+      "side": 1,
+      "message": "Thanks. It used to say \"When an RTT is calculated\", and then I just elaborated a bit more in the comment.",
+      "parentUuid": "25b45746_da6c54f2",
       "revId": "0f3eee6435fd4549effce4fb1819ed0b338d00f7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -69,6 +105,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e2ead26_0709d36b",
+        "filename": "net/dcsctp/tx/retransmission_timeout.h",
+        "patchSetId": 43
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-22T13:31:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49ea613d_39b20ddc",
+      "revId": "0f3eee6435fd4549effce4fb1819ed0b338d00f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "93ef10cc_58798b9f",
@@ -82,6 +136,24 @@
       "writtenOn": "2021-04-22T08:56:40Z",
       "side": 1,
       "message": "Add a comment somewhere early that the default RTO values in options are initial 500, min 120, max 800. Your tests depends on those values.\n\nI\u0027d prefer to have a kTestOptions with explicit values in the test here, so that the tests are isolated from the defaults.",
+      "revId": "0f3eee6435fd4549effce4fb1819ed0b338d00f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb0bcb89_b9e8706a",
+        "filename": "net/dcsctp/tx/retransmission_timeout_test.cc",
+        "patchSetId": 43
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-22T13:31:18Z",
+      "side": 1,
+      "message": "I don\u0027t know why I didn\u0027t make them isolated. Completely agree, so done.",
+      "parentUuid": "93ef10cc_58798b9f",
       "revId": "0f3eee6435fd4549effce4fb1819ed0b338d00f7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -103,6 +175,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4085973f_99075e0e",
+        "filename": "net/dcsctp/tx/retransmission_timeout_test.cc",
+        "patchSetId": 43
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-22T13:31:18Z",
+      "side": 1,
+      "message": "Good point. Done.",
+      "parentUuid": "770b5869_aafebfd7",
+      "revId": "0f3eee6435fd4549effce4fb1819ed0b338d00f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ca9dd239_343b5e31",
@@ -116,6 +206,24 @@
       "writtenOn": "2021-04-22T08:56:40Z",
       "side": 1,
       "message": "Here and below: Recommend setting that value.",
+      "revId": "0f3eee6435fd4549effce4fb1819ed0b338d00f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d919b71_0ff5eb05",
+        "filename": "net/dcsctp/tx/retransmission_timeout_test.cc",
+        "patchSetId": 43
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-22T13:31:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca9dd239_343b5e31",
       "revId": "0f3eee6435fd4549effce4fb1819ed0b338d00f7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -40,6 +40,23 @@ rtc_library("pending_task_safety_flag") {
   ]
 }
 
+rtc_library("shared_task_queue_factory") {
+  sources = [
+    "shared_task_queue_factory.cc",
+    "shared_task_queue_factory.h",
+  ]
+  deps = [
+    "..:checks",
+    "..:macromagic",
+    "..:refcount",
+    "../../api:refcountedbase",
+    "../../api:scoped_refptr",
+    "../../api:sequence_checker",
+    "../../api/task_queue",
+    "../synchronization:mutex",
+  ]
+}
+
 rtc_source_set("to_queued_task") {
   sources = [ "to_queued_task.h" ]
   deps = [
@@ -58,6 +75,23 @@ if (rtc_include_tests) {
       "..:rtc_base_approved",
       "..:rtc_task_queue",
       "..:task_queue_for_test",
+      "../../test:test_support",
+    ]
+  }
+
+  rtc_library("shared_task_queue_factory_unittests") {
+    testonly = true
+    sources = [ "shared_task_queue_factory_unittest.cc" ]
+    deps = [
+      ":shared_task_queue_factory",
+      ":to_queued_task",
+      "..:rtc_base_approved",
+      "..:rtc_task_queue",
+      "..:task_queue_for_test",
+      "../../api:priority",
+      "../../api/task_queue",
+      "../../api/task_queue:default_task_queue_factory",
+      "../../api/task_queue:task_queue_test",
       "../../test:test_support",
     ]
   }

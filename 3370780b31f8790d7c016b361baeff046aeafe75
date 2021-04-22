@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a3bf09cb_f54c8caa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-22T17:15:01Z",
+      "side": 1,
+      "message": "No, I don\u0027t have any concern but it worth pointing out that we removed rtc::Bind in https://webrtc-review.googlesource.com/c/src/+/202250. I know, they are not really the same and rtc::Bind had other problems but maybe this is worth a quick chat on the WebRTC core team chat/mailing list?",
+      "parentUuid": "f3fc4b5c_e110aadf",
+      "revId": "3370780b31f8790d7c016b361baeff046aeafe75",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6e3b7893_19f87f13",
         "filename": "DEPS",
         "patchSetId": 1

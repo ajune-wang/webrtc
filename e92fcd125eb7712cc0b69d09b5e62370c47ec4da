@@ -84,6 +84,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5b1e3f09_914cc6e6",
+        "filename": "pc/rtc_stats_collector_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3213,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-22T16:16:41Z",
+      "side": 1,
+      "message": "Yes we could avoid it (inheriting twice from a reference counted interface) and I think we generally go for the containment design patterns. I don\u0027t know the reasons for this particular design.\n\nIt _should_ be fine to inherit more than once from RefCountedInterface though since it\u0027s a pure virtual interface. In fact, the concept behind rtc::RefCountedObject is that it\u0027s supposed to be used as the `final` class, that ends up override-ing (satisfying) the implementation requirements of all the base implementations and map them all to a common reference counter.\n\nThat\u0027s the theory at least 😊 However, there are a couple of things that RefCountedObject does not have:\n* The `final` attribute.\n* Applying the `override` keyword to AddRef and Release.\n\nFor that reason (and likely that the above isn\u0027t exactly obvious to everyone) we have cases in the code whereby classes inherit from RefCountedObject rather than RefCountedObject the other way around. This is problematic and could introduce multiple reference counters into the same object.\n\nBut to get to the core problem here, it\u0027s actually scoped_refptr\u003c\u003e that\u0027s the problem. It is only aware of one type. So because there are two AddRef()s and two Release()s, it gets confused about which one to call. That\u0027s why I made the simple fix of changing the return value to be the RTCStatsCollector type, to remove the ambiguity. This is the same ambiguity that seems to have been the reason why virtual inheritance was used in the first place.\n\nBesides this solution, which I\u0027ll admit is more on the hacky side, there are two other solutions:\n\n1. We could make scoped_refptr support a way to specify what interface to do reference counting through. This would basically something like:\n\ntemplate \u003cclass T, class RefInterface \u003d T\u003e\nclass scoped_refptr;\n\n2. \"Repeat declare\" the pure virtual methods also in the class that inherits from multiple interfaces. This simply removes the confusion for scoped_refptr and addresses the problem in a more type-safe way than the current approach.\n\nSo, I\u0027m going to apply approach #2 to this CL since I think this is a rather exceptional case and we don\u0027t need to make changes to scoped_refptr (since I\u0027m not sure we want to encourage those sort of situations).",
+      "parentUuid": "a1f6c387_3b08a425",
+      "range": {
+        "startLine": 3212,
+        "startChar": 0,
+        "endLine": 3213,
+        "endChar": 62
+      },
+      "revId": "e92fcd125eb7712cc0b69d09b5e62370c47ec4da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a5be22f2_cedb25ee",
         "filename": "pc/rtc_stats_collector_unittest.cc",
         "patchSetId": 2
@@ -101,6 +125,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8e72ec3a_5b303642",
+        "filename": "pc/rtc_stats_collector_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3215,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-22T16:16:41Z",
+      "side": 1,
+      "message": "Answered above.",
+      "parentUuid": "a5be22f2_cedb25ee",
+      "revId": "e92fcd125eb7712cc0b69d09b5e62370c47ec4da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eb91140c_be585e15",
         "filename": "pc/rtc_stats_collector_unittest.cc",
         "patchSetId": 2
@@ -112,6 +154,30 @@
       "writtenOn": "2021-04-22T09:24:32Z",
       "side": 1,
       "message": "I think it\u0027s a bit subtle that you need to cast the pointer up and down the inheritance tree to get to use the right refcount when the scoped_refptr is passed around (if that\u0027s the reason?). It needs a comment somewhere.",
+      "range": {
+        "startLine": 3305,
+        "startChar": 2,
+        "endLine": 3305,
+        "endChar": 13
+      },
+      "revId": "e92fcd125eb7712cc0b69d09b5e62370c47ec4da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abef7c74_545278a9",
+        "filename": "pc/rtc_stats_collector_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3305,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-22T16:16:41Z",
+      "side": 1,
+      "message": "The reason was that VerifyThreadUsageAndResultsMerging is not a method of RTCStatsCollector, but it is a method of FakeRTCStatsCollector. Since that object is created via FakeRTCStatsCollector::Create() I figured it would be clear that statically casting the object would be safe. However, I\u0027ve  changed the approach now, so this isn\u0027t necessary.",
+      "parentUuid": "eb91140c_be585e15",
       "range": {
         "startLine": 3305,
         "startChar": 2,

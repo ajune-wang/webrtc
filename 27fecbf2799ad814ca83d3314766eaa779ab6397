@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "84978325_6d6378af",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-22T16:54:50Z",
+      "side": 1,
+      "message": "Indeed - bug filed.",
+      "parentUuid": "a50200cf_20af4e32",
+      "range": {
+        "startLine": 16,
+        "startChar": 5,
+        "endLine": 16,
+        "endChar": 9
+      },
+      "revId": "27fecbf2799ad814ca83d3314766eaa779ab6397",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "52b522b0_34c9a16e",
         "filename": "rtc_base/ref_counted_object.h",
         "patchSetId": 2
@@ -37,6 +61,30 @@
       "writtenOn": "2021-04-21T15:57:06Z",
       "side": 1,
       "message": "I wonder if this should be in api/scoped_refptr.h.\n\nLooks like there might be benefit for clients interacting with WebRTC APIs (and maybe, if enough we might be even able to lock visibility for //rtc_base:refcount, this is a long shot, I have not looked really into it).",
+      "range": {
+        "startLine": 94,
+        "startChar": 4,
+        "endLine": 94,
+        "endChar": 20
+      },
+      "revId": "27fecbf2799ad814ca83d3314766eaa779ab6397",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44bb63e1_07da790f",
+        "filename": "rtc_base/ref_counted_object.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-22T16:54:50Z",
+      "side": 1,
+      "message": "I started out with using scoped_refptr.h but then moved the code over to the internal files. Here\u0027s essentially what I was thinking:\n\n* We might want to expand on these utilities to also cover RefCountedBase and RefCountedNonVirtual (ref_counted_base.h). Given that we have multiple ways of ref counting I think we\u0027ll need some flexibility to clean things up and then it will help to not have the utilities in the api/ folder.\n* RefCountedObject\u003c\u003e is an internal implementation detail but it\u0027s already being used externally. make_ref_counted() could help us get out of that but instead of moving towards a general utility, I\u0027d like to explore moving towards object specific factories, since that will leave us with more control.\n* Adding a dependency to scoped_refptr.h on the RefCountedObject implementation felt like exposing more implementation details to something that\u0027s relatively free of dependencies (and is in the api/ directory).",
+      "parentUuid": "52b522b0_34c9a16e",
       "range": {
         "startLine": 94,
         "startChar": 4,

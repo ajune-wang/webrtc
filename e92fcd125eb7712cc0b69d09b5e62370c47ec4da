@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac7e1385_a0d70caf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-04-22T09:24:32Z",
+      "side": 1,
+      "message": "I think code is ok, but I think it\u0027s subtle and deserves a bit more docs.",
+      "revId": "e92fcd125eb7712cc0b69d09b5e62370c47ec4da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d639dc6d_9bd569cb",
+        "filename": "pc/rtc_stats_collector_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3213,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-04-22T09:24:32Z",
+      "side": 1,
+      "message": "So this is where we inherit RefCountInterface twice. I\u0027m not sure I fully understand the implications. We shouldn\u0027t get two refcounts, since the actual refcount is part of RefCountedObject, which is below in the inheritance tree. Right? Do we get two pairs of AddRef/Release methods?\n\nThe subtlety needs a comment, and if you expect problems, maybe a TODO to avoid this situation buy splitting into one class per interface.",
+      "range": {
+        "startLine": 3212,
+        "startChar": 0,
+        "endLine": 3213,
+        "endChar": 62
+      },
+      "revId": "e92fcd125eb7712cc0b69d09b5e62370c47ec4da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb91140c_be585e15",
+        "filename": "pc/rtc_stats_collector_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3305,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-04-22T09:24:32Z",
+      "side": 1,
+      "message": "I think it\u0027s a bit subtle that you need to cast the pointer up and down the inheritance tree to get to use the right refcount when the scoped_refptr is passed around (if that\u0027s the reason?). It needs a comment somewhere.",
+      "range": {
+        "startLine": 3305,
+        "startChar": 2,
+        "endLine": 3305,
+        "endChar": 13
+      },
+      "revId": "e92fcd125eb7712cc0b69d09b5e62370c47ec4da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -48,7 +48,8 @@ struct GainApplierHelper {
             &apm_data_dumper,
             adjacent_speech_frames_threshold,
             kMaxGainChangePerSecondDb,
-            kMaxOutputNoiseLevelDbfs)) {}
+            kMaxOutputNoiseLevelDbfs,
+            /*dry_run=*/false)) {}
   ApmDataDumper apm_data_dumper;
   std::unique_ptr<AdaptiveDigitalGainApplier> gain_applier;
 };
@@ -268,6 +269,64 @@ TEST_P(AdaptiveDigitalGainApplierTest, IncreaseGainWithEnoughSpeechFrames) {
 INSTANTIATE_TEST_SUITE_P(GainController2,
                          AdaptiveDigitalGainApplierTest,
                          ::testing::Values(1, 7, 31));
+
+// Checks that the input is never modified when running in dry run mode.
+TEST(GainController2GainApplier, DryRunDoesNotChangeInput) {
+  ApmDataDumper apm_data_dumper(0);
+  AdaptiveDigitalGainApplier gain_applier(
+      &apm_data_dumper, /*adjacent_speech_frames_threshold=*/1,
+      kMaxGainChangePerSecondDb, kMaxOutputNoiseLevelDbfs, /*dry_run=*/true);
+  // Simulate an input signal with log speech level.
+  AdaptiveDigitalGainApplier::FrameInfo info = kFrameInfo;
+  info.speech_level_dbfs = -60.0f;
+  // Allow enough time to reach the maximum gain.
+  constexpr int kNumFramesToAdapt =
+      static_cast<int>(kMaxGainDb / kMaxGainChangePerFrameDb) + 10;
+  constexpr float kPcmSamples = 123.456f;
+  // Run the gain applier and check that the PCM samples are not modified.
+  for (int i = 0; i < kNumFramesToAdapt; ++i) {
+    SCOPED_TRACE(i);
+    VectorFloatFrame fake_audio(kMono, kFrameLen10ms8kHz, kPcmSamples);
+    gain_applier.Process(info, fake_audio.float_frame_view());
+    EXPECT_FLOAT_EQ(fake_audio.float_frame_view().channel(0)[0], kPcmSamples);
+  }
+}
+
+// Checks that no sample is modified before and after the sample rate changes.
+TEST(GainController2GainApplier, DryRunHandlesSampleRateChange) {
+  ApmDataDumper apm_data_dumper(0);
+  AdaptiveDigitalGainApplier gain_applier(
+      &apm_data_dumper, /*adjacent_speech_frames_threshold=*/1,
+      kMaxGainChangePerSecondDb, kMaxOutputNoiseLevelDbfs, /*dry_run=*/true);
+  AdaptiveDigitalGainApplier::FrameInfo info = kFrameInfo;
+  info.speech_level_dbfs = -60.0f;
+  constexpr float kPcmSamples = 123.456f;
+  VectorFloatFrame fake_audio_8k(kMono, kFrameLen10ms8kHz, kPcmSamples);
+  gain_applier.Process(info, fake_audio_8k.float_frame_view());
+  EXPECT_FLOAT_EQ(fake_audio_8k.float_frame_view().channel(0)[0], kPcmSamples);
+  VectorFloatFrame fake_audio_48k(kMono, kFrameLen10ms48kHz, kPcmSamples);
+  gain_applier.Process(info, fake_audio_48k.float_frame_view());
+  EXPECT_FLOAT_EQ(fake_audio_48k.float_frame_view().channel(0)[0], kPcmSamples);
+}
+
+// Checks that no sample is modified before and after the number of channels
+// changes.
+TEST(GainController2GainApplier, DryRunHandlesNumChannelsChange) {
+  ApmDataDumper apm_data_dumper(0);
+  AdaptiveDigitalGainApplier gain_applier(
+      &apm_data_dumper, /*adjacent_speech_frames_threshold=*/1,
+      kMaxGainChangePerSecondDb, kMaxOutputNoiseLevelDbfs, /*dry_run=*/true);
+  AdaptiveDigitalGainApplier::FrameInfo info = kFrameInfo;
+  info.speech_level_dbfs = -60.0f;
+  constexpr float kPcmSamples = 123.456f;
+  VectorFloatFrame fake_audio_8k(kMono, kFrameLen10ms8kHz, kPcmSamples);
+  gain_applier.Process(info, fake_audio_8k.float_frame_view());
+  EXPECT_FLOAT_EQ(fake_audio_8k.float_frame_view().channel(0)[0], kPcmSamples);
+  VectorFloatFrame fake_audio_48k(kStereo, kFrameLen10ms8kHz, kPcmSamples);
+  gain_applier.Process(info, fake_audio_48k.float_frame_view());
+  EXPECT_FLOAT_EQ(fake_audio_48k.float_frame_view().channel(0)[0], kPcmSamples);
+  EXPECT_FLOAT_EQ(fake_audio_48k.float_frame_view().channel(1)[0], kPcmSamples);
+}
 
 }  // namespace
 }  // namespace webrtc

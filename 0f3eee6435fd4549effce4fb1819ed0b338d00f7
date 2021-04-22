@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a753b3bd_da8229fc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 43
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-22T08:56:40Z",
+      "side": 1,
+      "message": "Lots of commentary :-)\nBasis is sound (or as sound as that RFC ever was).\n",
+      "revId": "0f3eee6435fd4549effce4fb1819ed0b338d00f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6cad756a_29f8c3a3",
+        "filename": "net/dcsctp/tx/retransmission_timeout.cc",
+        "patchSetId": 43
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-22T08:56:40Z",
+      "side": 1,
+      "message": "Code doesn\u0027t do what the comment says (no hard limit). Delete, or move to dscp_options.h where the 800 ms value is actually used?\n\nFWIW, I\u0027ve seen RTTs of 12 seconds on production networks (congested satelite links with overlarge buffers feeding into an Indian university).",
+      "revId": "0f3eee6435fd4549effce4fb1819ed0b338d00f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25b45746_da6c54f2",
+        "filename": "net/dcsctp/tx/retransmission_timeout.h",
+        "patchSetId": 43
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-22T08:56:40Z",
+      "side": 1,
+      "message": "\"a round-trip-time\"\nhttps://www.grammarly.com/blog/indefinite-articles-a-and-an/",
+      "revId": "0f3eee6435fd4549effce4fb1819ed0b338d00f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49ea613d_39b20ddc",
+        "filename": "net/dcsctp/tx/retransmission_timeout.h",
+        "patchSetId": 43
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-22T08:56:40Z",
+      "side": 1,
+      "message": "nit: state is -\u003e state calculation is",
+      "revId": "0f3eee6435fd4549effce4fb1819ed0b338d00f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93ef10cc_58798b9f",
+        "filename": "net/dcsctp/tx/retransmission_timeout_test.cc",
+        "patchSetId": 43
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-22T08:56:40Z",
+      "side": 1,
+      "message": "Add a comment somewhere early that the default RTO values in options are initial 500, min 120, max 800. Your tests depends on those values.\n\nI\u0027d prefer to have a kTestOptions with explicit values in the test here, so that the tests are isolated from the defaults.",
+      "revId": "0f3eee6435fd4549effce4fb1819ed0b338d00f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "770b5869_aafebfd7",
+        "filename": "net/dcsctp/tx/retransmission_timeout_test.cc",
+        "patchSetId": 43
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-22T08:56:40Z",
+      "side": 1,
+      "message": "This is a test of the negative *first* value. Since the code on first is different from the code on subsequent, you should have tests for both (and subsequent is more important).",
+      "revId": "0f3eee6435fd4549effce4fb1819ed0b338d00f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca9dd239_343b5e31",
+        "filename": "net/dcsctp/tx/retransmission_timeout_test.cc",
+        "patchSetId": 43
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-22T08:56:40Z",
+      "side": 1,
+      "message": "Here and below: Recommend setting that value.",
+      "revId": "0f3eee6435fd4549effce4fb1819ed0b338d00f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

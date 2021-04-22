@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5d1bc10e_4c744a9d",
+        "filename": "net/dcsctp/tx/retransmission_queue.cc",
+        "patchSetId": 45
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-22T13:31:05Z",
+      "side": 1,
+      "message": "Just for making each function smaller and easier to read. It\u0027s very unlikely to have any performance impact (gap-ack-blocks indicate packet loss, and is not _that_ common fortunately).\n\nThey don\u0027t share much more than the actual looping over the blocks. \n\nIs that okey?",
+      "parentUuid": "e6f5d1ed_054bca6d",
+      "revId": "101469c4422783a1910bf034d4dd268deb00465d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1625ae46_4101f63b",
         "filename": "net/dcsctp/tx/retransmission_queue.cc",
         "patchSetId": 45
@@ -48,6 +66,24 @@
       "writtenOn": "2021-04-22T08:13:37Z",
       "side": 1,
       "message": "Clarity: \"Note: It is important not to drop SACKs with identical TSN to that previously received, .....\"",
+      "revId": "101469c4422783a1910bf034d4dd268deb00465d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df3ef103_a1239fbb",
+        "filename": "net/dcsctp/tx/retransmission_queue.cc",
+        "patchSetId": 45
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-22T13:31:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1625ae46_4101f63b",
       "revId": "101469c4422783a1910bf034d4dd268deb00465d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -69,6 +105,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9389d44_1713f559",
+        "filename": "net/dcsctp/tx/retransmission_queue.cc",
+        "patchSetId": 45
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-22T13:31:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa7c0ba4_112d9ab9",
+      "revId": "101469c4422783a1910bf034d4dd268deb00465d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "35ecf191_65ffeb9a",
@@ -82,6 +136,24 @@
       "writtenOn": "2021-04-22T08:13:37Z",
       "side": 1,
       "message": "Isn\u0027t the StopT3RtxTimer condition the same as the if below? Should they be merged?",
+      "revId": "101469c4422783a1910bf034d4dd268deb00465d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79d9c98f_0fe85c49",
+        "filename": "net/dcsctp/tx/retransmission_queue.cc",
+        "patchSetId": 45
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-22T13:31:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35ecf191_65ffeb9a",
       "revId": "101469c4422783a1910bf034d4dd268deb00465d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -103,6 +175,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc26a455_cfb7409c",
+        "filename": "net/dcsctp/tx/retransmission_queue.cc",
+        "patchSetId": 45
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-22T13:31:05Z",
+      "side": 1,
+      "message": "Good suggestion; I agree that the delayed acking should be removed, so I\u0027ve put that on the \"fixup\" list. It affects the Data Tracker, which as already been submitted, so changes will come in a separate commit. Thanks!",
+      "parentUuid": "60d9f8a0_0ae7a089",
+      "revId": "101469c4422783a1910bf034d4dd268deb00465d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d683951b_2d4bf127",
@@ -116,6 +206,24 @@
       "writtenOn": "2021-04-22T08:13:37Z",
       "side": 1,
       "message": "Since Timer restarts if it\u0027s already running, why do an if on it?",
+      "revId": "101469c4422783a1910bf034d4dd268deb00465d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "abdd98bb_e33b56a0",
+        "filename": "net/dcsctp/tx/retransmission_queue.cc",
+        "patchSetId": 45
+      },
+      "lineNbr": 619,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-22T13:31:05Z",
+      "side": 1,
+      "message": "If it was restarted (if I removed the if), it would be restarted with a new expiry time (RTO), and this is not what we want. The timer should keep running until the cum_tsn_ack is increased. _Then_ it should be stopped, or possibly restarted. But restarting it for every time a packet is sent would only delay the time until packet loss was detected.",
+      "parentUuid": "d683951b_2d4bf127",
       "revId": "101469c4422783a1910bf034d4dd268deb00465d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -137,6 +245,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0d88e00_93d808fc",
+        "filename": "net/dcsctp/tx/retransmission_queue.h",
+        "patchSetId": 45
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-22T13:31:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eba038bd_87efcb56",
+      "revId": "101469c4422783a1910bf034d4dd268deb00465d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0933a412_87d6de19",
@@ -150,6 +276,24 @@
       "writtenOn": "2021-04-22T08:13:37Z",
       "side": 1,
       "message": "nit: schedule -\u003e schedules",
+      "revId": "101469c4422783a1910bf034d4dd268deb00465d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1340e54_5610f099",
+        "filename": "net/dcsctp/tx/retransmission_queue.h",
+        "patchSetId": 45
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-22T13:31:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0933a412_87d6de19",
       "revId": "101469c4422783a1910bf034d4dd268deb00465d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -171,6 +315,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4baf106_f94c7242",
+        "filename": "net/dcsctp/tx/retransmission_queue.h",
+        "patchSetId": 45
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-22T13:31:05Z",
+      "side": 1,
+      "message": "I have renamed it to IsSackValid (considered IsAckValid, but as the concept is called SACK in SCTP, I stuck to it..)\n\nThe only reason why it\u0027s exposed is that receiving a valid sack will make the socket e.g. send more data or to continue shutting down the socket (if all sent data has been acked). And it shouldn\u0027t do that if a SACK is received which was e.g. an old SACK that might have been received out-of-order.\n\nBut I\u0027ve changed it so that the HandleAcknowledge (now called HandleSack) will return a bool indicating if it processed the sack - which is what the caller really wants to know. By doing that, IsAcknowledgeValid/IsSackValid, can be made private.\n\nThanks",
+      "parentUuid": "d675899c_cc387246",
+      "revId": "101469c4422783a1910bf034d4dd268deb00465d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f72ae384_571cf97e",
@@ -184,6 +346,24 @@
       "writtenOn": "2021-04-22T08:13:37Z",
       "side": 1,
       "message": "GetChunkStatesForTesting?\n\nhttps://chromium.googlesource.com/chromium/src/+/HEAD/styleguide/c++/c++.md#test_only-code",
+      "revId": "101469c4422783a1910bf034d4dd268deb00465d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4522b87_e32290d6",
+        "filename": "net/dcsctp/tx/retransmission_queue.h",
+        "patchSetId": 45
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-22T13:31:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f72ae384_571cf97e",
       "revId": "101469c4422783a1910bf034d4dd268deb00465d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -205,6 +385,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "37878cc9_5f1230f4",
+        "filename": "net/dcsctp/tx/retransmission_queue.h",
+        "patchSetId": 45
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-22T13:31:05Z",
+      "side": 1,
+      "message": "I made it into a class, PTAL!",
+      "parentUuid": "19bfd97e_9cacf78f",
+      "revId": "101469c4422783a1910bf034d4dd268deb00465d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d00e243a_45902975",
@@ -218,6 +416,24 @@
       "writtenOn": "2021-04-22T08:13:37Z",
       "side": 1,
       "message": "htna is a horrible variable name - highest_tsn_acked is a lot clearer. RFC 4960 mentions it exactly once, and as an algorithm, not a variable, so unlike cwnd and rwnd, I don\u0027t think it\u0027s worth using the RFC name for consistency.",
+      "revId": "101469c4422783a1910bf034d4dd268deb00465d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50a13edf_eea6f3ad",
+        "filename": "net/dcsctp/tx/retransmission_queue.h",
+        "patchSetId": 45
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-22T13:31:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d00e243a_45902975",
       "revId": "101469c4422783a1910bf034d4dd268deb00465d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -241,6 +457,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b298f712_26d5bca6",
+        "filename": "net/dcsctp/tx/retransmission_queue.h",
+        "patchSetId": 45
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-22T13:31:05Z",
+      "side": 1,
+      "message": "I have put it last, but I don\u0027t have a good alternative, as acking (in different ways) need to update a fair amount of state. State that is only applicable during the processing of a Sack, so I don\u0027t want to put it in the RetransmisssionQueue state. Do you have a suggestion?",
+      "parentUuid": "a5aad60f_77de31df",
+      "revId": "101469c4422783a1910bf034d4dd268deb00465d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a8701bca_667be5c3",
         "filename": "net/dcsctp/tx/retransmission_queue.h",
         "patchSetId": 45
@@ -252,6 +486,24 @@
       "writtenOn": "2021-04-22T08:13:37Z",
       "side": 1,
       "message": "Suggest saying \"The sum of the message bytes of the send_queue_\", given that you don\u0027t want to spend time explaining whether or not selective-acked stuff counts yet again.",
+      "revId": "101469c4422783a1910bf034d4dd268deb00465d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c985eaf4_14adb81a",
+        "filename": "net/dcsctp/tx/retransmission_queue.h",
+        "patchSetId": 45
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-22T13:31:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8701bca_667be5c3",
       "revId": "101469c4422783a1910bf034d4dd268deb00465d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -273,6 +525,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6385e098_6edf32b3",
+        "filename": "net/dcsctp/tx/retransmission_queue_test.cc",
+        "patchSetId": 45
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-22T13:31:05Z",
+      "side": 1,
+      "message": "Agree. It was previously called something with Buffer instead of Queue. Done.",
+      "parentUuid": "49ee209f_83d9745c",
+      "revId": "101469c4422783a1910bf034d4dd268deb00465d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8cbf2f33_f2376275",
@@ -286,6 +556,24 @@
       "writtenOn": "2021-04-22T08:13:37Z",
       "side": 1,
       "message": "I\u0027d suggest encapsulating the call to the constructor in a wrapper function. With this number of arguments, it\u0027s hard to see whether all the constructors are equal or whether there are subtle variations between one test case and the next.",
+      "revId": "101469c4422783a1910bf034d4dd268deb00465d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe3e23cb_ffb67be2",
+        "filename": "net/dcsctp/tx/retransmission_queue_test.cc",
+        "patchSetId": 45
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-22T13:31:05Z",
+      "side": 1,
+      "message": "Good idea. Done.",
+      "parentUuid": "8cbf2f33_f2376275",
       "revId": "101469c4422783a1910bf034d4dd268deb00465d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

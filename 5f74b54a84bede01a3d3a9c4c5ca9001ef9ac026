@@ -16,6 +16,23 @@
       "message": "+Henrik for the ownership",
       "revId": "5f74b54a84bede01a3d3a9c4c5ca9001ef9ac026",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e1126d3_bf7cc856",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2021-04-22T08:53:26Z",
+      "side": 1,
+      "message": "Rubber-stamp LGTM\n\nThanks for adding this!",
+      "revId": "5f74b54a84bede01a3d3a9c4c5ca9001ef9ac026",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

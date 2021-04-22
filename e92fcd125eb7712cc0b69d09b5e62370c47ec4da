@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5f37596_8ca9e18e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-22T09:37:23Z",
+      "side": 1,
+      "message": "Diamond multiple inheritance is the root of a lot of head-scratching. Can we avoid it?\n",
+      "revId": "e92fcd125eb7712cc0b69d09b5e62370c47ec4da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d639dc6d_9bd569cb",
@@ -37,6 +54,47 @@
         "endLine": 3213,
         "endChar": 62
       },
+      "revId": "e92fcd125eb7712cc0b69d09b5e62370c47ec4da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1f6c387_3b08a425",
+        "filename": "pc/rtc_stats_collector_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3213,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-22T09:37:23Z",
+      "side": 1,
+      "message": "We could avoid the double inheritance if the fake RTCStatsCollector owned a callback object instead of being a callback object.\n\nSubtle \u003d error-prone.",
+      "parentUuid": "d639dc6d_9bd569cb",
+      "range": {
+        "startLine": 3212,
+        "startChar": 0,
+        "endLine": 3213,
+        "endChar": 62
+      },
+      "revId": "e92fcd125eb7712cc0b69d09b5e62370c47ec4da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5be22f2_cedb25ee",
+        "filename": "pc/rtc_stats_collector_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3215,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-22T09:37:23Z",
+      "side": 1,
+      "message": "The create method isn\u0027t virtual. Why do you need to return the base class not the fake?",
       "revId": "e92fcd125eb7712cc0b69d09b5e62370c47ec4da",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

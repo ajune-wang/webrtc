@@ -152,11 +152,16 @@ class AsyncInvoker : public MessageHandlerAutoCleanup {
   // future.
   std::atomic<int> pending_invocations_;
 
+  void Foo() {
+    static_assert(!std::is_base_of<RefCountInterface, Event>::value, "");
+  }
+
   // Reference counted so that if the AsyncInvoker destructor finishes before
   // an AsyncClosure's destructor that's about to call
   // "invocation_complete_->Set()", it's not dereferenced after being
   // destroyed.
-  scoped_refptr<RefCountedObject<Event>> invocation_complete_;
+  // rtc::Ref<Event>::Ptr invocation_complete_;
+  rtc::scoped_refptr<FinalRefCountedObject<Event>> invocation_complete_;
 
   // This flag is used to ensure that if an application AsyncInvokes tasks that
   // recursively AsyncInvoke other tasks ad infinitum, the cycle eventually

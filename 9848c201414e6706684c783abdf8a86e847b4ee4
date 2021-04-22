@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d8b0dbd_833bb526",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-04-22T17:01:59Z",
+      "side": 1,
+      "message": "while I viewed this as a blocker :-)\nTurned out to be a great change since we need variable redundancy, switching to email...",
+      "parentUuid": "7034786e_4b7e3610",
+      "revId": "9848c201414e6706684c783abdf8a86e847b4ee4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ecb98a32_cb546dd6",
@@ -48,6 +66,30 @@
       "writtenOn": "2021-04-13T15:36:44Z",
       "side": 1,
       "message": "do we need to do this when there is no redundant encoding, case header_length_bytes \u003d\u003d 0? that is, do we need to do this when due to the lack of redundant payloads we are encoding without wrapping the original encoding into RED?",
+      "range": {
+        "startLine": 137,
+        "startChar": 2,
+        "endLine": 137,
+        "endChar": 33
+      },
+      "revId": "9848c201414e6706684c783abdf8a86e847b4ee4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13eae15e_ce84c17f",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-04-22T17:01:59Z",
+      "side": 1,
+      "message": "In general I didn\u0027t understand the use of info.redundant but didn\u0027t want to change it either. It seems that this was a more generic mechanism also used for other things but those other things were removed.",
+      "parentUuid": "ecb98a32_cb546dd6",
       "range": {
         "startLine": 137,
         "startChar": 2,

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b387d95_26f2c7ca",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-04-22T13:10:56Z",
+      "side": 1,
+      "message": "Sorry for the un-LGTM, but I realize this could lead to OOB if the encoder wrapper produces incorrect information",
+      "range": {
+        "startLine": 464,
+        "startChar": 27,
+        "endLine": 464,
+        "endChar": 51
+      },
+      "revId": "8d8c57d4962700ca74c9780b854b7d8736120965",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

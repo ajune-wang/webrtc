@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e62b0b1_5de19084",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2021-04-22T18:27:56Z",
+      "side": 1,
+      "message": "Hi Mirko!\n\nCould you please approve this reland which should no longer cause issues for others, because your CL is already landed: https://webrtc-review.googlesource.com/c/src/+/215064\n\nThanks a lot in advance,\nYura.",
+      "revId": "a86d36d4394cccc74ab3cb38e14fc09cb7430beb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

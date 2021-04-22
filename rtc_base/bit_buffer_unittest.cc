@@ -142,6 +142,20 @@ TEST(BitBufferTest, ReadBits) {
   EXPECT_FALSE(buffer.ReadBits(&val, 1));
 }
 
+TEST(BitBufferTest, ReadBits64) {
+  const uint8_t bytes[] = {0x4D, 0x32, 0xAB, 0x54, 0x00, 0xFF, 0xFE, 0x01};
+  uint64_t val;
+  BitBuffer buffer(bytes, 8);
+
+  EXPECT_TRUE(buffer.PeekBits(&val, 33));
+  EXPECT_EQ(0x9A6556A8ull, val);
+
+  EXPECT_TRUE(buffer.ReadBits(&val, 64));
+  EXPECT_EQ(0x4D32AB5400FFFE01ull, val);
+
+  EXPECT_FALSE(buffer.ReadBits(&val, 1));
+}
+
 TEST(BitBufferDeathTest, SetOffsetValues) {
   uint8_t bytes[4] = {0};
   BitBufferWriter buffer(bytes, 4);

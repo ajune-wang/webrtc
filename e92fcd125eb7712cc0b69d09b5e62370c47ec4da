@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9113e311_e53cde79",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-22T16:23:13Z",
+      "side": 1,
+      "message": "We should. The style guide encourages composition over multiple inheritance. Diamond inheritance is generally frowned upon, so yeah I think we could and should avoid it.",
+      "parentUuid": "e5f37596_8ca9e18e",
+      "revId": "e92fcd125eb7712cc0b69d09b5e62370c47ec4da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d639dc6d_9bd569cb",

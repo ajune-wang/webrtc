@@ -84,7 +84,17 @@ struct DcSctpOptions {
 
   // The maximum time when a SACK will be sent from the arrival of an
   // unacknowledged packet. Whatever is smallest of RTO/2 and this will be used.
-  DurationMs delayed_ack_max_timeout = DurationMs(200);
+  //
+  // Note that the default value is very small - almost zero. This is to
+  // effectively disable delayed acknowledgement (see
+  // https://en.wikipedia.org/wiki/Nagle%27s_algorithm). By still having a
+  // non-zero value, if a received message results in the client immediately
+  // sending a reply, the delayed SACK will be bundled with the reply instead of
+  // sent by itself possibly less than a millisecond earlier.
+  //
+  // To enable "delayed acknowledgment" as it's described in RFC4960, set this
+  // value to 200 ms.
+  DurationMs delayed_ack_max_timeout = DurationMs(10);
 
   // Do slow start as TCP - double cwnd instead of increasing it by MTU.
   bool slow_start_tcp_style = true;

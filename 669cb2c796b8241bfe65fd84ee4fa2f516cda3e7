@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ead5033e_662755a5",
+        "filename": "api/ref_counted_base.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-23T10:22:59Z",
+      "side": 1,
+      "message": "I think one of the reasons std::shared_ptr discourages use of function similar to \u0027HasOneRef\u0027 is support for std::weak_ptr.\nscoped_ptr doesn\u0027t have such feature (and thus issue).\n\nThread1 {\n  auto shared \u003d std::make_shared\u003cFoo\u003e();\n  std::weak_ptr\u003cFoo\u003e weak(shared);\n  assert(shared.use_count() \u003d\u003d 1);\n  PassToThread2(weak);\n  // now use_count may change from 1 to 2 by Thread2 at any time:\n  if (shared.use_count() \u003d\u003d 1) {\n    assert(shared.use_count() \u003d\u003d 1); // may fail.\n  }\n}\n\nThread2(std::weak_ptr\u003cFoo\u003e weak) {\n  if (std::shared_ptr\u003cFoo\u003e shared \u003d weak.lock()) {\n    assert(shared.use_count() \u003d\u003d 2);\n  }\n}",
+      "parentUuid": "d21c3771_a1b5ed7a",
+      "range": {
+        "startLine": 33,
+        "startChar": 7,
+        "endLine": 33,
+        "endChar": 16
+      },
+      "revId": "669cb2c796b8241bfe65fd84ee4fa2f516cda3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "652bd58b_85409d92",
         "filename": "modules/desktop_capture/shared_desktop_frame.h",
         "patchSetId": 5

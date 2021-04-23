@@ -146,6 +146,30 @@
       },
       "revId": "9848c201414e6706684c783abdf8a86e847b4ee4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b56f1495_878d07cf",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2021-04-23T09:04:00Z",
+      "side": 1,
+      "message": "I agree, the price of the extra byte is probably worthy as we would not be sending different payload types that can change from one packet to the next one.",
+      "parentUuid": "813c1e83_38cbd50e",
+      "range": {
+        "startLine": 137,
+        "startChar": 2,
+        "endLine": 137,
+        "endChar": 33
+      },
+      "revId": "9848c201414e6706684c783abdf8a86e847b4ee4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

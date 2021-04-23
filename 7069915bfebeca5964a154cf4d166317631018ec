@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37344120_230c8936",
+        "filename": "rtc_base/ref_counted_object.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-23T09:27:19Z",
+      "side": 1,
+      "message": "what about case where T already has reference counting?\ne.g. T is derived from RefCountedBase,\nor implements thread-unsafe reference counting.\n\nin such case this helper should\nreturn new T(std::forward\u003cArgs\u003e(args)...);",
+      "revId": "7069915bfebeca5964a154cf4d166317631018ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

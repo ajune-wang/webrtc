@@ -170,6 +170,30 @@
       },
       "revId": "9848c201414e6706684c783abdf8a86e847b4ee4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d601b3c6_dff366cf",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-04-23T09:09:15Z",
+      "side": 1,
+      "message": "It was a good thing to test the decoder can decode it properly. But as you can see in \nhttps://github.com/fippo/webrtc/blob/js-red/src/content/peerconnection/audio/js/main.js#L99-L101 I\u0027ve come to regret the decision :-)",
+      "parentUuid": "b56f1495_878d07cf",
+      "range": {
+        "startLine": 137,
+        "startChar": 2,
+        "endLine": 137,
+        "endChar": 33
+      },
+      "revId": "9848c201414e6706684c783abdf8a86e847b4ee4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

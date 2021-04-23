@@ -122,6 +122,30 @@
       },
       "revId": "9848c201414e6706684c783abdf8a86e847b4ee4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "813c1e83_38cbd50e",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-04-23T08:33:41Z",
+      "side": 1,
+      "message": "done. Had to change some unit tests as they were not expecting different things.\n\nIn general i\u0027m not very happy with that behavior anymore and I think that a variable redundancy encoder will be easier if it also uses the red payload type if there is no redundancy. But that is best done in a different CL :-)",
+      "parentUuid": "12a05d35_da51b1b1",
+      "range": {
+        "startLine": 137,
+        "startChar": 2,
+        "endLine": 137,
+        "endChar": 33
+      },
+      "revId": "9848c201414e6706684c783abdf8a86e847b4ee4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

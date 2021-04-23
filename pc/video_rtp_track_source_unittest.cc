@@ -1,3 +1,4 @@
+
 /*
  *  Copyright (c) 2019 The WebRTC project authors. All Rights Reserved.
  *
@@ -30,9 +31,7 @@ class MockSink : public rtc::VideoSinkInterface<RecordableEncodedFrame> {
 
 rtc::scoped_refptr<VideoRtpTrackSource> MakeSource(
     VideoRtpTrackSource::Callback* callback) {
-  rtc::scoped_refptr<VideoRtpTrackSource> source(
-      new rtc::RefCountedObject<VideoRtpTrackSource>(callback));
-  return source;
+  return rtc::make_ref_counted<VideoRtpTrackSource>(callback);
 }
 
 TEST(VideoRtpTrackSourceTest, CreatesWithRemoteAtttributeSet) {

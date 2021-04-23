@@ -50,6 +50,24 @@
       "message": "Would it make sense to #ifdef-guard this (similarly to the allow_pipewire method, below) so that it would be a compile-time error to call this in a build where it won\u0027t have any effect?",
       "revId": "f88d825c37ccdb93134982821ba93df5c77d71b9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5bc04f59_3b1fcb00",
+        "filename": "modules/desktop_capture/desktop_capture_options.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2021-04-23T20:13:57Z",
+      "side": 1,
+      "message": "Great idea, I\u0027ve guarded this behind the RTC_ENABLE_WIN_WGC build flag. I also uncovered an unrelated issue when testing, and included the fix for that here as well, since it was so small. I\u0027ll complete this CL at the end of today.",
+      "parentUuid": "bfe8d512_603c2ad6",
+      "revId": "f88d825c37ccdb93134982821ba93df5c77d71b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -50,6 +50,24 @@
       "message": "I would be leery of assuming order of the codec; I don\u0027t think that\u0027s guaranteed anywhere.",
       "revId": "69bb6f8491f0b5f5a474829677a7df4fa94d4d60",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6331cfd3_130ea209",
+        "filename": "pc/peer_connection_signaling_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 955,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2021-04-23T09:03:51Z",
+      "side": 1,
+      "message": "PS2 changes the order of the rtpmap lines in the test such that they do not follow the m-line order. This will break whenever the codecs are not in the order specified in the m-line.",
+      "parentUuid": "f3355909_c7eb8c24",
+      "revId": "69bb6f8491f0b5f5a474829677a7df4fa94d4d60",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

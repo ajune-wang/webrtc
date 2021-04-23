@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c849f469_b4b3b170",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-04-23T09:55:34Z",
+      "side": 1,
+      "message": "Looks basically good, but some questions on HasOneRef. ",
+      "revId": "669cb2c796b8241bfe65fd84ee4fa2f516cda3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d21c3771_a1b5ed7a",
+        "filename": "api/ref_counted_base.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-04-23T09:55:34Z",
+      "side": 1,
+      "message": "Use of HasOneRef is somewhat discouraged. It\u0027s subtle, has few uses (in our pool classes), and doesn\u0027t exist on std::shared_ptr (the exclusion is motivated by some subtleties I don\u0027t quite understand).\n\nSo it would be nice if we could avoid exposing it in api/ headers. Or if that is difficult, go halfway and move it to protected (forcing subclasses that want it to to expose it explicitly).",
+      "range": {
+        "startLine": 33,
+        "startChar": 7,
+        "endLine": 33,
+        "endChar": 16
+      },
+      "revId": "669cb2c796b8241bfe65fd84ee4fa2f516cda3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "652bd58b_85409d92",
+        "filename": "modules/desktop_capture/shared_desktop_frame.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-04-23T09:55:34Z",
+      "side": 1,
+      "message": "BTW, this looks like the std::shared_ptr move constructor from std::unique_ptr could make things simpler.",
+      "range": {
+        "startLine": 55,
+        "startChar": 10,
+        "endLine": 55,
+        "endChar": 67
+      },
+      "revId": "669cb2c796b8241bfe65fd84ee4fa2f516cda3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

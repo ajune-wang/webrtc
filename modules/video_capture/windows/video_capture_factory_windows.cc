@@ -28,7 +28,7 @@ rtc::scoped_refptr<VideoCaptureModule> VideoCaptureImpl::Create(
 
   // TODO(tommi): Use Media Foundation implementation for Vista and up.
   rtc::scoped_refptr<VideoCaptureDS> capture(
-      new rtc::RefCountedObject<VideoCaptureDS>());
+      rtc::make_ref_counted<VideoCaptureDS>());
   if (capture->Init(device_id) != 0) {
     return nullptr;
   }

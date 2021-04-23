@@ -23,6 +23,7 @@
 #include "api/rtc_event_log/rtc_event_log.h"
 #include "api/sequence_checker.h"
 #include "api/transport/network_control.h"
+#include "api/units/time_delta.h"
 #include "audio/audio_receive_stream.h"
 #include "audio/audio_send_stream.h"
 #include "audio/audio_state.h"
@@ -49,11 +50,14 @@
 #include "modules/video_coding/fec_controller_default.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/constructor_magic.h"
+#include "rtc_base/experiments/field_trial_parser.h"
 #include "rtc_base/location.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/strings/string_builder.h"
 #include "rtc_base/system/no_unique_address.h"
 #include "rtc_base/task_utils/pending_task_safety_flag.h"
+#include "rtc_base/task_utils/quantum_task_queue_factory.h"
+#include "rtc_base/task_utils/shared_task_queue_factory.h"
 #include "rtc_base/thread_annotations.h"
 #include "rtc_base/time_utils.h"
 #include "rtc_base/trace_event.h"
@@ -478,6 +482,15 @@ class Call final : public webrtc::Call,
   // last ensures that it is destroyed first and any running tasks are finished.
   std::unique_ptr<RtpTransportControllerSendInterface> transport_send_;
 
+  // True if WebRTC-QuantumDecode is enabled
+  FieldTrialFlag quantum_decode_enabled_;
+  // Set if WebRTC-QuantumDecode is enabled. The duration in milliseconds of a
+  // decoding quantum.
+  FieldTrialParameter<unsigned> quantum_decode_duration_;
+
+  std::unique_ptr<TaskQueueFactory> shared_task_queue_factory_;
+  std::unique_ptr<TaskQueueFactory> quantum_task_queue_factory_;
+
   bool is_started_ RTC_GUARDED_BY(worker_thread_) = false;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(Call);
@@ -663,11 +676,24 @@ Call::Call(Clock* clock,
       video_send_delay_stats_(new SendDelayStats(clock_)),
       start_ms_(clock_->TimeInMilliseconds()),
       transport_send_ptr_(transport_send.get()),
-      transport_send_(std::move(transport_send)) {
+      transport_send_(std::move(transport_send)),
+      quantum_decode_enabled_("enabled", false),
+      quantum_decode_duration_("duration",
+                               (TimeDelta::Millis(1000) / 24).ms()) {
   RTC_DCHECK(config.event_log != nullptr);
   RTC_DCHECK(config.trials != nullptr);
   RTC_DCHECK(network_thread_);
   RTC_DCHECK(worker_thread_->IsCurrent());
+
+  ParseFieldTrial({&quantum_decode_enabled_, &quantum_decode_duration_},
+                  field_trial::FindFullName("WebRTC-QuantumDecode"));
+  if (quantum_decode_enabled_) {
+    quantum_task_queue_factory_ = CreateQuantumTaskQueueFactory(
+        task_queue_factory_, TimeDelta::Millis(quantum_decode_duration_.Get()),
+        clock_);
+    shared_task_queue_factory_ =
+        CreateSharedTaskQueueFactory(quantum_task_queue_factory_.get());
+  }
 
   // Do not remove this call; it is here to convince the compiler that the
   // WebRTC source timestamp string needs to be in the final binary.
@@ -1032,10 +1058,12 @@ webrtc::VideoReceiveStream* Call::CreateVideoReceiveStream(
   // and set it up asynchronously on the network thread (the registration and
   // |video_receiver_controller_| need to live on the network thread).
   VideoReceiveStream2* receive_stream = new VideoReceiveStream2(
-      task_queue_factory_, worker_thread_, &video_receiver_controller_,
-      num_cpu_cores_, transport_send_ptr_->packet_router(),
-      std::move(configuration), module_process_thread_->process_thread(),
-      call_stats_.get(), clock_, new VCMTiming(clock_));
+      quantum_decode_enabled_ ? shared_task_queue_factory_.get()
+                              : task_queue_factory_,
+      worker_thread_, &video_receiver_controller_, num_cpu_cores_,
+      transport_send_ptr_->packet_router(), std::move(configuration),
+      module_process_thread_->process_thread(), call_stats_.get(), clock_,
+      new VCMTiming(clock_));
 
   const webrtc::VideoReceiveStream::Config& config = receive_stream->config();
   if (config.rtp.rtx_ssrc) {

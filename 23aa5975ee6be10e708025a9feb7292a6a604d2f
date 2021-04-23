@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa8a91d6_79d4a590",
+        "filename": "net/dcsctp/socket/context.h",
+        "patchSetId": 37
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-23T15:14:24Z",
+      "side": 1,
+      "message": "q: why IsConnectionEstablished() and not is_connection_established() like e.g. current_rto(), peer_initial_tsn() etc below?\n\n(I don\u0027t care strongly about this, so feel free to leave as is, or rename)",
+      "revId": "23aa5975ee6be10e708025a9feb7292a6a604d2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a935b0b0_a3b19ed2",
+        "filename": "net/dcsctp/socket/mock_dcsctp_socket_callbacks.h",
+        "patchSetId": 37
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-23T15:14:24Z",
+      "side": 1,
+      "message": "I\u0027m assuming that there aren\u0027t any expectations around these being sequential/continuous.",
+      "revId": "23aa5975ee6be10e708025a9feb7292a6a604d2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

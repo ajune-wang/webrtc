@@ -98,6 +98,30 @@
       },
       "revId": "9848c201414e6706684c783abdf8a86e847b4ee4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12a05d35_da51b1b1",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2021-04-23T06:09:22Z",
+      "side": 1,
+      "message": "I have not tracked how info.redundant is used but we should not change it when we are going to forward a packet with the original encoding payload and not the RED payload. \n\nDigging a bit on the history, I see that from this CL https://webrtc-review.googlesource.com/c/src/+/176371 we changed the implementation from always returning a RED payload to returning a RED payload or an original payload when no redundancy was available. We probably missed that the redundant field on info should not be modified when returning a packet with the original payload that has no redundancy. \n\nWould you mind putting that line inside an if (header_length_bytes \u003e 0)?",
+      "parentUuid": "13eae15e_ce84c17f",
+      "range": {
+        "startLine": 137,
+        "startChar": 2,
+        "endLine": 137,
+        "endChar": 33
+      },
+      "revId": "9848c201414e6706684c783abdf8a86e847b4ee4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

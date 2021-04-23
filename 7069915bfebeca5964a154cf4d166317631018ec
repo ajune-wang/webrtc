@@ -16,6 +16,24 @@
       "message": "what about case where T already has reference counting?\ne.g. T is derived from RefCountedBase,\nor implements thread-unsafe reference counting.\n\nin such case this helper should\nreturn new T(std::forward\u003cArgs\u003e(args)...);",
       "revId": "7069915bfebeca5964a154cf4d166317631018ec",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95197265_f276ed22",
+        "filename": "rtc_base/ref_counted_object.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-23T09:32:56Z",
+      "side": 1,
+      "message": "Yes I would like to catch that at compile time and either have it handled correctly in the templates or static_assert at compile time with useful information to developers about how to handle it.\n\nI\u0027ve given it some thought but there\u0027s a bit of a dependency problem between these approaches for ref counting, I\u0027d like to consolidate them eventually but they\u0027re still separate.",
+      "parentUuid": "37344120_230c8936",
+      "revId": "7069915bfebeca5964a154cf4d166317631018ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

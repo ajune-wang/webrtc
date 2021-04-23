@@ -22,6 +22,30 @@
       },
       "revId": "d7842008efdd9d5cbfa4157dde78c13556c1636b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c504561_87aaa22a",
+        "filename": "rtc_base/ref_counted_object.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-23T09:32:56Z",
+      "side": 1,
+      "message": "ah, I didn\u0027t notice using T::T there. Hmm... I did run into a problem that FinalRefCountedObject did not support constructors that RefCountedObject did, here:\n\nhttps://webrtc-review.googlesource.com/c/src/+/215967/5\n\nSo I made FinalRefCountedObject and RefCountedObject, work the same.",
+      "parentUuid": "767220c6_cf60a280",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 41
+      },
+      "revId": "d7842008efdd9d5cbfa4157dde78c13556c1636b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

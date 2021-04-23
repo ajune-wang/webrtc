@@ -16,6 +16,40 @@
       "message": "Hi Jamie and team, PTAL at this CL that adds a new flag to DesktopCaptureOptions to allow opt-in to using the WGC capturer.",
       "revId": "f88d825c37ccdb93134982821ba93df5c77d71b9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1101a59e_901b592a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5166
+      },
+      "writtenOn": "2021-04-23T19:46:14Z",
+      "side": 1,
+      "message": "LGTM, with or without my suggestion.",
+      "revId": "f88d825c37ccdb93134982821ba93df5c77d71b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfe8d512_603c2ad6",
+        "filename": "modules/desktop_capture/desktop_capture_options.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5166
+      },
+      "writtenOn": "2021-04-23T19:46:14Z",
+      "side": 1,
+      "message": "Would it make sense to #ifdef-guard this (similarly to the allow_pipewire method, below) so that it would be a compile-time error to call this in a build where it won\u0027t have any effect?",
+      "revId": "f88d825c37ccdb93134982821ba93df5c77d71b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

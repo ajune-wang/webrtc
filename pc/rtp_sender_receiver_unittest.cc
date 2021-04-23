@@ -511,7 +511,7 @@ class RtpSenderReceiverTest
   cricket::FakeMediaEngine* media_engine_;
   std::unique_ptr<cricket::ChannelManager> channel_manager_;
   cricket::FakeCall fake_call_;
-  cricket::VoiceChannel* voice_channel_;
+  std::unique_ptr<cricket::VoiceChannel> voice_channel_;
   cricket::VideoChannel* video_channel_;
   cricket::FakeVoiceMediaChannel* voice_media_channel_;
   cricket::FakeVideoMediaChannel* video_media_channel_;

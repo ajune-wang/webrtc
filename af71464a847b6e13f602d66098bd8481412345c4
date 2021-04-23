@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "141e9c86_b9a92c5e",
+        "filename": "rtc_base/task_utils/shared_task_queue_factory.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-04-23T10:02:28Z",
+      "side": 1,
+      "message": "Agree it looks odd but it\u0027s the complete container for the shared task queue, and it works. Do you have a suggestion?",
+      "parentUuid": "6a78473a_14309b61",
+      "revId": "af71464a847b6e13f602d66098bd8481412345c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4b76f751_16bdebc9",
         "filename": "rtc_base/task_utils/shared_task_queue_factory.cc",
         "patchSetId": 1
@@ -31,6 +49,24 @@
       "writtenOn": "2021-04-22T12:21:43Z",
       "side": 1,
       "message": "fyi - RefCountedBaseNonVirtual\u003cState\u003e is probably what you want.",
+      "revId": "af71464a847b6e13f602d66098bd8481412345c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72cc0b9b_03e8286a",
+        "filename": "rtc_base/task_utils/shared_task_queue_factory.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-04-23T10:02:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b76f751_16bdebc9",
       "revId": "af71464a847b6e13f602d66098bd8481412345c4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -72,6 +108,30 @@
       "side": 1,
       "message": "Is it a theoretical problem or a practical one? Will the above example run on this task queue?\n\nIf not, then I think you should delete task_ here and not leak.\n\nSince the example above uses Invoke (blocking) semantics from the main thread of the application, I\u0027m guessing that your case is more narrowly defined and you don\u0027t have to worry about the above optimization (avoid heap allocations).\n\nI\u0027d just focus on making sure it works for the cases you\u0027re thinking of. A risk with trying to solve everything in this CL, could have the implication of someone wanting to change the TQ interfaces themselves, change the rules (e.g. everything must be heap allocated) and the whole infrastructure we currently have. Which would be a huge and risky task, possibly without benefits (and worse, more heap allocations).",
       "parentUuid": "603eeb39_6fb542f9",
+      "range": {
+        "startLine": 76,
+        "startChar": 4,
+        "endLine": 76,
+        "endChar": 28
+      },
+      "revId": "af71464a847b6e13f602d66098bd8481412345c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ca2f12c_8a6538ed",
+        "filename": "rtc_base/task_utils/shared_task_queue_factory.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-04-23T10:02:28Z",
+      "side": 1,
+      "message": "For the use case where I was planning to use this factory, I think only dynamic closures are passed. But it\u0027s unspecified what to do with the QueuedTask if it hasn\u0027t been run. For now I specified in the docs that only dynamic closures can be used, and am cleaning them up in the (generated) destructor.\n\nFor another CL we could fix this with another method QueuedTask::ShouldDelete() or similar, to continue support for stack-allocated queued tasks.",
+      "parentUuid": "aa5db74e_f4dd2386",
       "range": {
         "startLine": 76,
         "startChar": 4,

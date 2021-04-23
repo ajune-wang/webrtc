@@ -16,6 +16,23 @@
       "message": "(just realized I hadn\u0027t added you as a reviewer)",
       "revId": "adbcf101573a23dd0489fe61295bb6fb3c8be49a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "246818a7_5496612d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-23T08:47:47Z",
+      "side": 1,
+      "message": "nisse - fyi, this CL and a couple of other CLs will accomplish what we discussed in the other CL (remove virtual inheritance). We can get to applying \u0027override\u0027 to the AddRef/Release methods in a couple of CLs (see relation chain).",
+      "revId": "adbcf101573a23dd0489fe61295bb6fb3c8be49a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

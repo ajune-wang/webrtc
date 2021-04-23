@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "767220c6_cf60a280",
+        "filename": "rtc_base/ref_counted_object.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-23T09:29:57Z",
+      "side": 1,
+      "message": "using T::T\nis there so that these forward constructors should not be needed.\n\nIn particular these constructors expose protected constructors of T which is likely undesired.",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 41
+      },
+      "revId": "d7842008efdd9d5cbfa4157dde78c13556c1636b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

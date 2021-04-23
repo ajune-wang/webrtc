@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6d4dbdb_9f528bd0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-23T12:30:47Z",
+      "side": 1,
+      "message": "Can do testing better, otherwise looks ok-ish.\n",
+      "revId": "78cb01244d65a0f537ebd11a4532d091804a1078",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e6db714_9100492b",
+        "filename": "rtc_base/bit_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-23T12:30:47Z",
+      "side": 1,
+      "message": "Sniping: C++ style guide says \"output arguments last\", and now says \"use reference whenever a null pointer is unacceptable\". But I\u0027ll take a \"conformance with surrounding code\" argument if you don\u0027t want to convert\u0027em all.",
+      "revId": "78cb01244d65a0f537ebd11a4532d091804a1078",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b02cb99f_326797a9",
+        "filename": "rtc_base/bit_buffer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-23T12:30:47Z",
+      "side": 1,
+      "message": "Ouch - that was ugly reading!\n\nCan you instead test EXPECT_EQ(0x4D32AB5400FFFE01 \u003e\u003e (64-33), val);\n\nThat was the most readable way I could imagine to say \"the first 33 bits of this value\".",
+      "revId": "78cb01244d65a0f537ebd11a4532d091804a1078",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4a586ce_ed36391d",
+        "filename": "rtc_base/bit_buffer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-23T12:30:47Z",
+      "side": 1,
+      "message": "This seems to me to be a bit weak on exercising the code, since it tests only reading that starts on a byte boundary.\n\nWDYT about reading first 33 bits and then 31 bits?",
+      "revId": "78cb01244d65a0f537ebd11a4532d091804a1078",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

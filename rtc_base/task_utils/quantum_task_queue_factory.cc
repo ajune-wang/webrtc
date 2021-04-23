@@ -16,6 +16,7 @@
 
 #include "api/units/time_delta.h"
 #include "api/units/timestamp.h"
+#include "rtc_base/logging.h"
 #include "rtc_base/time_utils.h"
 #include "system_wrappers/include/clock.h"
 
@@ -50,8 +51,12 @@ class QuantumTaskQueue : public TaskQueueBase {
         quantum_delay_;
     int64_t adjusted_millis =
         (epoch_ + quantum_delay_ * rounded_quantums_since_epoch - now).ms();
-    base_task_queue_->PostDelayedTask(
-        std::move(task), adjusted_millis < 0 ? 0 : adjusted_millis);
+    int64_t real_wait_ms = adjusted_millis < 0 ? 0 : adjusted_millis;
+    RTC_LOG(LS_ERROR) << "Want schedule lambda at "
+                      << (now + TimeDelta::Millis(adjusted_millis)).ms()
+                      << " adj millis " << adjusted_millis << " real "
+                      << (now + TimeDelta::Millis(real_wait_ms)).ms();
+    base_task_queue_->PostDelayedTask(std::move(task), real_wait_ms);
   }
 
  private:
@@ -59,6 +64,7 @@ class QuantumTaskQueue : public TaskQueueBase {
   const Timestamp epoch_;
   const TimeDelta quantum_delay_;
   Clock* const clock_;
+  //int ctr = 9;
 };
 
 class QuantumTaskQueueFactory : public TaskQueueFactory {

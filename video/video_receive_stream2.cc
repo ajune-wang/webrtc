@@ -665,7 +665,7 @@ int64_t VideoReceiveStream2::GetMaxWaitMs() const {
   return keyframe_required_ ? max_wait_for_keyframe_ms_
                             : max_wait_for_frame_ms_;
 }
-
+int ctr = 25;
 void VideoReceiveStream2::StartNextDecode() {
   // Running on the decode thread.
   TRACE_EVENT0("webrtc", "VideoReceiveStream2::StartNextDecode");
@@ -673,12 +673,15 @@ void VideoReceiveStream2::StartNextDecode() {
       GetMaxWaitMs(), keyframe_required_, &decode_queue_,
       /* encoded frame handler */
       [this](std::unique_ptr<EncodedFrame> frame, ReturnReason res) {
+    RTC_LOG(LS_ERROR) << "Now: " << clock_->CurrentTime().ms();
         RTC_DCHECK_EQ(frame == nullptr, res == ReturnReason::kTimeout);
         RTC_DCHECK_EQ(frame != nullptr, res == ReturnReason::kFrameFound);
         RTC_DCHECK_RUN_ON(&decode_queue_);
         if (decoder_stopped_)
           return;
         if (frame) {
+          RTC_LOG(LS_ERROR) <<"got frame";
+//if (ctr--== 0)*(volatile int*)0=0;
           HandleEncodedFrame(std::move(frame));
         } else {
           int64_t now_ms = clock_->TimeInMilliseconds();

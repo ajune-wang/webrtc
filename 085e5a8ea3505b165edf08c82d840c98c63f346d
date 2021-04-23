@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c63e0aa_ed429366",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 38
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-23T15:36:27Z",
+      "side": 1,
+      "message": "Just nits, I will take a second look later.",
+      "revId": "085e5a8ea3505b165edf08c82d840c98c63f346d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f34b6761_05150fe2",
@@ -14,6 +31,29 @@
       "writtenOn": "2021-04-23T15:19:13Z",
       "side": 1,
       "message": "nit: use the ctor instead?",
+      "revId": "085e5a8ea3505b165edf08c82d840c98c63f346d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a74b5821_50163eaa",
+        "filename": "net/dcsctp/socket/heartbeat_handler.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-23T15:36:27Z",
+      "side": 1,
+      "message": "Nit: For debugging purpose, maybe the 2 error messages should differ a bit (and tell a bit more, e.g. info-param vs info parsing error?)",
+      "range": {
+        "startLine": 141,
+        "startChar": 30,
+        "endLine": 141,
+        "endChar": 59
+      },
       "revId": "085e5a8ea3505b165edf08c82d840c98c63f346d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

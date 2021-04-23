@@ -22,6 +22,30 @@
       },
       "revId": "137a6e5a2f00246bedc40ba4739fbbec7bb61247",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa7071dd_e1f8c58f",
+        "filename": "pc/rtc_stats_collector_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3230,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-23T08:26:26Z",
+      "side": 1,
+      "message": "Yes, override isn\u0027t what we want since we don\u0027t want to implement. In terms of what will be emitted into the binary, vtables etc, I think that it may vary depending on the build tools in use (at least in theory, compilers have some freedom there), but the important thing is that the the function pointers in each vtable will all lead to only one implementation (and the compiler will take care of offset calculations etc). As far as the trick itself, it\u0027s more about satisfying scoped_refptr\u0027s design than it is about getting the build tools to do the right thing. Agree that it\u0027s a subtle thing 😊",
+      "parentUuid": "5c07a64b_2eb52d53",
+      "range": {
+        "startLine": 3229,
+        "startChar": 0,
+        "endLine": 3230,
+        "endChar": 57
+      },
+      "revId": "137a6e5a2f00246bedc40ba4739fbbec7bb61247",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

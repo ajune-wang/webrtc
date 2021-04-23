@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "622c07ad_64402d29",
+        "filename": "pc/dtmf_sender_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-23T18:16:09Z",
+      "side": 1,
+      "message": "This is actually a case of removing RefCountedObject, since observer_ is of type std::unique_ptr\u003c\u003e.",
+      "range": {
+        "startLine": 121,
+        "startChar": 22,
+        "endLine": 121,
+        "endChar": 38
+      },
+      "revId": "1c9af01d2adc9ca131e0c06569b0bf90743bf83f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

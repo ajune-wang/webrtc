@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04836859_5d732427",
+        "filename": "net/dcsctp/socket/mock_dcsctp_socket_callbacks.h",
+        "patchSetId": 38
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-23T15:15:00Z",
+      "side": 1,
+      "message": "Does it make sense to move or swap here as well?",
+      "range": {
+        "startLine": 109,
+        "startChar": 29,
+        "endLine": 109,
+        "endChar": 52
+      },
+      "revId": "1db1a05a53d4024685c1db4af37d76f5d2942141",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

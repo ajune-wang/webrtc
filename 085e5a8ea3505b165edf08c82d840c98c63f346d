@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f34b6761_05150fe2",
+        "filename": "net/dcsctp/socket/heartbeat_handler.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-23T15:19:13Z",
+      "side": 1,
+      "message": "nit: use the ctor instead?",
+      "revId": "085e5a8ea3505b165edf08c82d840c98c63f346d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3ba7cb8_034be480",
+        "filename": "net/dcsctp/socket/heartbeat_handler.h",
+        "patchSetId": 38
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-23T15:19:13Z",
+      "side": 1,
+      "message": "prefer not to have members be references since the pointer is provided externally. Can we make this be `Context* ctx_` That would be in line with the rest of webrtc.",
+      "revId": "085e5a8ea3505b165edf08c82d840c98c63f346d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -53,7 +53,7 @@ VideoRtpReceiver::VideoRtpReceiver(
       delay_(JitterBufferDelayProxy::Create(
           rtc::Thread::Current(),
           worker_thread,
-          new rtc::RefCountedObject<JitterBufferDelay>(worker_thread))) {
+          rtc::make_ref_counted<JitterBufferDelay>(worker_thread))) {
   RTC_DCHECK(worker_thread_);
   SetStreams(streams);
   source_->SetState(MediaSourceInterface::kLive);

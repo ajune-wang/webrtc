@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4f6b56c0_70c7852b",
+        "filename": "api/ref_counted_base.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-23T10:25:36Z",
+      "side": 1,
+      "message": "I agree that for shared objects that implement reference counting, such as shared_ptr or RefCountedBase that it should be considered an exceptional case (and ideally avoided) when information about the reference count itself is needed.\n\nHowever, this does exist for shared_ptr and it\u0027s actually more revealing in terms of details than what the webrtc reference counting classes have:\nhttps://en.cppreference.com/w/cpp/memory/shared_ptr/use_count\n\nThere\u0027s also documentation for use_count() for when it\u0027s needed and one of those motivations is exactly the same as for HasOneRef().\n\nIn this CL, the goal is to make the reference counting implementations more aligned. [Final]RefCountedObject supports HasOneRef(), it\u0027s required for weak ptr implementations and there is code such as I encountered in this CL, that has a valid reason for needing it. So rather than changing that code to use the somewhat more expensive implementation of RefCountedObject, it can use RefCountedNonVirtual and with the changes in this file, the four options, are now feature compatible. That, I hope, will facilitate merging them.",
+      "parentUuid": "d21c3771_a1b5ed7a",
+      "range": {
+        "startLine": 33,
+        "startChar": 7,
+        "endLine": 33,
+        "endChar": 16
+      },
+      "revId": "669cb2c796b8241bfe65fd84ee4fa2f516cda3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "652bd58b_85409d92",
         "filename": "modules/desktop_capture/shared_desktop_frame.h",
         "patchSetId": 5
@@ -78,6 +102,30 @@
       "writtenOn": "2021-04-23T09:55:34Z",
       "side": 1,
       "message": "BTW, this looks like the std::shared_ptr move constructor from std::unique_ptr could make things simpler.",
+      "range": {
+        "startLine": 55,
+        "startChar": 10,
+        "endLine": 55,
+        "endChar": 67
+      },
+      "revId": "669cb2c796b8241bfe65fd84ee4fa2f516cda3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "012645b7_be0c73e6",
+        "filename": "modules/desktop_capture/shared_desktop_frame.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-23T10:25:36Z",
+      "side": 1,
+      "message": "Yes this is a bit of a curious construct. I figured I wouldn\u0027t change it significantly in this CL though.\n(and see now that I forgot to delete line 54)",
+      "parentUuid": "652bd58b_85409d92",
       "range": {
         "startLine": 55,
         "startChar": 10,

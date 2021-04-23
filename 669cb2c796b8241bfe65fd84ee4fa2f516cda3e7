@@ -91,6 +91,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c425db56_f48cbaee",
+        "filename": "api/ref_counted_base.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-23T10:29:30Z",
+      "side": 1,
+      "message": "Danil beat me to it :) yes, as you can see shared_ptr does have use_count().\n\nBut this is risky business and due to the TOCTOU nature of the interface, the external code that uses the shared ptr (or scoped), must handle the subtleties around threading.",
+      "parentUuid": "4f6b56c0_70c7852b",
+      "range": {
+        "startLine": 33,
+        "startChar": 7,
+        "endLine": 33,
+        "endChar": 16
+      },
+      "revId": "669cb2c796b8241bfe65fd84ee4fa2f516cda3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "652bd58b_85409d92",
         "filename": "modules/desktop_capture/shared_desktop_frame.h",
         "patchSetId": 5

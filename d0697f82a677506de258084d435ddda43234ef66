@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3c3d52ba_084c3c0e",
+        "filename": "modules/video_coding/codecs/vp9/vp9_frame_buffer_pool.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-23T11:04:09Z",
+      "side": 0,
+      "message": "Here is where the implementation for HasOneRef() is added.",
+      "revId": "d0697f82a677506de258084d435ddda43234ef66",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "79916e34_9f150f29",
         "filename": "modules/video_coding/codecs/vp9/vp9_frame_buffer_pool.h",
         "patchSetId": 5
@@ -14,6 +31,30 @@
       "writtenOn": "2021-04-23T09:55:34Z",
       "side": 0,
       "message": "Where was this method implemented before this change?",
+      "range": {
+        "startLine": 74,
+        "startChar": 4,
+        "endLine": 74,
+        "endChar": 39
+      },
+      "revId": "d0697f82a677506de258084d435ddda43234ef66",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ceba160_5a924ed7",
+        "filename": "modules/video_coding/codecs/vp9/vp9_frame_buffer_pool.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-23T11:04:09Z",
+      "side": 0,
+      "message": "I\u0027ll add a comment where it is.",
+      "parentUuid": "79916e34_9f150f29",
       "range": {
         "startLine": 74,
         "startChar": 4,

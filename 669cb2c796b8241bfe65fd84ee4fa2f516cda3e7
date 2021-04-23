@@ -182,6 +182,23 @@
       },
       "revId": "669cb2c796b8241bfe65fd84ee4fa2f516cda3e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96f195b4_d959c743",
+        "filename": "modules/video_coding/codecs/vp9/vp9_frame_buffer_pool.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-23T11:04:09Z",
+      "side": 1,
+      "message": "Here is where HasOneRef() is used (as a public method)",
+      "revId": "669cb2c796b8241bfe65fd84ee4fa2f516cda3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

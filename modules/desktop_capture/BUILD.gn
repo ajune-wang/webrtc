@@ -150,10 +150,7 @@ if (rtc_include_tests) {
           "win/wgc_capturer_win_unittest.cc",
         ]
       }
-      deps += [
-        ":desktop_capture_mock",
-        "../../system_wrappers:metrics",
-      ]
+      deps += [ ":desktop_capture_mock" ]
       public_configs = [ ":x11_config" ]
     }
   }

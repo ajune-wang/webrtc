@@ -89,10 +89,10 @@ class RtpTransceiverUnifiedPlanTest : public ::testing::Test {
             rtc::Thread::Current())),
         transceiver_(RtpSenderProxyWithInternal<RtpSenderInternal>::Create(
                          rtc::Thread::Current(),
-                         new rtc::RefCountedObject<MockRtpSenderInternal>()),
+                         rtc::make_ref_counted<MockRtpSenderInternal>()),
                      RtpReceiverProxyWithInternal<RtpReceiverInternal>::Create(
                          rtc::Thread::Current(),
-                         new rtc::RefCountedObject<MockRtpReceiverInternal>()),
+                         rtc::make_ref_counted<MockRtpReceiverInternal>()),
                      channel_manager_.get(),
                      channel_manager_->GetSupportedAudioRtpHeaderExtensions(),
                      /* on_negotiation_needed= */ [] {}) {}
@@ -138,10 +138,10 @@ class RtpTransceiverTestForHeaderExtensions : public ::testing::Test {
                                           RtpTransceiverDirection::kSendRecv)}),
         transceiver_(RtpSenderProxyWithInternal<RtpSenderInternal>::Create(
                          rtc::Thread::Current(),
-                         new rtc::RefCountedObject<MockRtpSenderInternal>()),
+                         rtc::make_ref_counted<MockRtpSenderInternal>()),
                      RtpReceiverProxyWithInternal<RtpReceiverInternal>::Create(
                          rtc::Thread::Current(),
-                         new rtc::RefCountedObject<MockRtpReceiverInternal>()),
+                         rtc::make_ref_counted<MockRtpReceiverInternal>()),
                      channel_manager_.get(),
                      extensions_,
                      /* on_negotiation_needed= */ [] {}) {}

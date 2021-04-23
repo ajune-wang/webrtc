@@ -110,7 +110,7 @@ int PASCAL wWinMain(HINSTANCE instance,
   rtc::InitializeSSL();
   PeerConnectionClient client;
   rtc::scoped_refptr<Conductor> conductor(
-      new rtc::RefCountedObject<Conductor>(&client, &wnd));
+      rtc::make_ref_counted<Conductor>(&client, &wnd));
 
   // Main loop.
   MSG msg;

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c07a64b_2eb52d53",
+        "filename": "pc/rtc_stats_collector_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3230,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-04-23T07:50:38Z",
+      "side": 1,
+      "message": "Hmm, is the effect that we\u0027ll use the methods we inherit from the first class in the inheritance list? And override isn\u0027t appropriate, since we don\u0027t add any implementation? I\u0027m happy if this trick works, but details are a bit too subtle for me ;-)",
+      "range": {
+        "startLine": 3229,
+        "startChar": 0,
+        "endLine": 3230,
+        "endChar": 57
+      },
+      "revId": "137a6e5a2f00246bedc40ba4739fbbec7bb61247",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -124,6 +124,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c4b5fed_31d0fa36",
+        "filename": "pc/rtc_stats_collector_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3213,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-04-23T07:50:38Z",
+      "side": 1,
+      "message": "\u003e That\u0027s the theory at least 😊 However, there are a couple of things that RefCountedObject does not have:\n\u003e * The `final` attribute.\n\nI made an effort to add that a few years ago, but it wasn\u0027t completed. There are quite a few places that need to be updated.\n\n\u003e * Applying the `override` keyword to AddRef and Release.\n\nMaybe that\u0027s a comparatively easy fix?\n \n\u003e 2. \"Repeat declare\" the pure virtual methods also in the class that inherits from multiple interfaces. This simply removes the confusion for scoped_refptr and addresses the problem in a more type-safe way than the current approach.\n\u003e \n\u003e So, I\u0027m going to apply approach #2 to this CL since\n\nsgtm. Should be reasonably safe and robust, and a local change with an obvious place to add comments saying what\u0027s going on.",
+      "parentUuid": "5b1e3f09_914cc6e6",
+      "range": {
+        "startLine": 3212,
+        "startChar": 0,
+        "endLine": 3213,
+        "endChar": 62
+      },
+      "revId": "e92fcd125eb7712cc0b69d09b5e62370c47ec4da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a5be22f2_cedb25ee",

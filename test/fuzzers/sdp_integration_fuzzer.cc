@@ -35,7 +35,7 @@ void FuzzOneInput(const uint8_t* data, size_t size) {
   // generated are discarded.
 
   rtc::scoped_refptr<MockSetSessionDescriptionObserver> srd_observer(
-      new rtc::RefCountedObject<MockSetSessionDescriptionObserver>());
+      rtc::make_ref_counted<MockSetSessionDescriptionObserver>());
 
   webrtc::SdpParseError error;
   std::unique_ptr<webrtc::SessionDescriptionInterface> sdp(
@@ -48,7 +48,7 @@ void FuzzOneInput(const uint8_t* data, size_t size) {
 
   // If set-remote-description was successful, try to answer.
   rtc::scoped_refptr<MockSetSessionDescriptionObserver> sld_observer(
-      new rtc::RefCountedObject<MockSetSessionDescriptionObserver>());
+      rtc::make_ref_counted<MockSetSessionDescriptionObserver>());
   if (srd_observer->result()) {
     test.caller()->pc()->SetLocalDescription(sld_observer.get());
     EXPECT_TRUE_WAIT(sld_observer->called(), 100);

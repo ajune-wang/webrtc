@@ -175,7 +175,7 @@ WebRtcSessionDescriptionFactory::WebRtcSessionDescriptionFactory(
     certificate_request_state_ = CERTIFICATE_WAITING;
 
     rtc::scoped_refptr<WebRtcCertificateGeneratorCallback> callback(
-        new rtc::RefCountedObject<WebRtcCertificateGeneratorCallback>());
+        rtc::make_ref_counted<WebRtcCertificateGeneratorCallback>());
     callback->SignalRequestFailed.connect(
         this, &WebRtcSessionDescriptionFactory::OnCertificateRequestFailed);
     callback->SignalCertificateReady.connect(

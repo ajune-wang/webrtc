@@ -302,6 +302,7 @@ class BaseChannel : public ChannelInterface,
   void UpdateRtpHeaderExtensionMap(
       const RtpHeaderExtensions& header_extensions);
 
+  // TODO(tommi): rename to RegisterRtpDemuxerSink_n and require network thread.
   bool RegisterRtpDemuxerSink_w() RTC_RUN_ON(worker_thread());
 
   // Return description of media channel to facilitate logging

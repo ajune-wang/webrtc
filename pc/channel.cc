@@ -172,6 +172,7 @@ std::string BaseChannel::ToString() const {
   return sb.Release();
 }
 
+// Runs on the network thread.
 bool BaseChannel::ConnectToRtpTransport() {
   RTC_DCHECK(rtp_transport_);
   RTC_DCHECK(media_channel());
@@ -513,21 +514,27 @@ void BaseChannel::UpdateRtpHeaderExtensionMap(
   });
 }
 
+// TODO(tommi): expect network thread.
 bool BaseChannel::RegisterRtpDemuxerSink_w() {
   if (demuxer_criteria_ == previous_demuxer_criteria_) {
     return true;
   }
-  media_channel_->OnDemuxerCriteriaUpdatePending();
+
   // Copy demuxer criteria, since they're a worker-thread variable
   // and we want to pass them to the network thread
+  // TODO(tommi): ^^^ demuxer_criteria_ should belong to the network thread.
   return network_thread_->Invoke<bool>(
-      RTC_FROM_HERE, [this, demuxer_criteria = demuxer_criteria_] {
+      RTC_FROM_HERE, [this, demuxer_criteria = demuxer_criteria_]() {
         RTC_DCHECK_RUN_ON(network_thread());
         RTC_DCHECK(rtp_transport_);
+        // TODO(tommi): Doesn't seem like OnDemuxerCriteriaUpdatePending/
+        // OnDemuxerCriteriaUpdateComplete are needed.
+        media_channel_->OnDemuxerCriteriaUpdatePending();
         bool result =
-            rtp_transport_->RegisterRtpDemuxerSink(demuxer_criteria, this);
+            rtp_transport_->RegisterRtpDemuxerSink(demuxer_criteria_, this);
         if (result) {
-          previous_demuxer_criteria_ = demuxer_criteria;
+          // TODO(tommi): Is `previous_demuxer_criteria_` actually useful?
+          previous_demuxer_criteria_ = demuxer_criteria_;
         } else {
           previous_demuxer_criteria_ = {};
         }
@@ -608,28 +615,19 @@ bool BaseChannel::SetPayloadTypeDemuxingEnabled_w(bool enabled) {
   }
   payload_type_demuxing_enabled_ = enabled;
   if (!enabled) {
-    // TODO(crbug.com/11477): This will remove *all* unsignaled streams (those
-    // without an explicitly signaled SSRC), which may include streams that
-    // were matched to this channel by MID or RID. Ideally we'd remove only the
-    // streams that were matched based on payload type alone, but currently
+    // TODO(bugs.webrtc.org/11477): This will remove *all* unsignaled streams
+    // (those without an explicitly signaled SSRC), which may include streams
+    // that were matched to this channel by MID or RID. Ideally we'd remove only
+    // the streams that were matched based on payload type alone, but currently
     // there is no straightforward way to identify those streams.
     media_channel()->ResetUnsignaledRecvStream();
     demuxer_criteria_.payload_types.clear();
-    if (!RegisterRtpDemuxerSink_w()) {
-      RTC_LOG(LS_ERROR) << "Failed to disable payload type demuxing for "
-                        << ToString();
-      return false;
-    }
   } else if (!payload_types_.empty()) {
     demuxer_criteria_.payload_types.insert(payload_types_.begin(),
                                            payload_types_.end());
-    if (!RegisterRtpDemuxerSink_w()) {
-      RTC_LOG(LS_ERROR) << "Failed to enable payload type demuxing for "
-                        << ToString();
-      return false;
-    }
   }
-  return true;
+
+  return RegisterRtpDemuxerSink_w();
 }
 
 bool BaseChannel::UpdateLocalStreams_w(const std::vector<StreamParams>& streams,

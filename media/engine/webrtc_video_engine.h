@@ -591,8 +591,10 @@ class WebRtcVideoChannel : public VideoMediaChannel,
   // * If we go from one to many m= sections, the demuxer may change from
   //   forwarding all packets to only forwarding the configured ssrcs, so there
   //   is a risk of receiving ssrcs for other, recently added m= sections.
-  uint32_t demuxer_criteria_id_ RTC_GUARDED_BY(thread_checker_) = 0;
-  uint32_t demuxer_criteria_completed_id_ RTC_GUARDED_BY(thread_checker_) = 0;
+  // TODO(tommi): These 2 variables shouldn't be needed.
+  uint32_t demuxer_criteria_id_ RTC_GUARDED_BY(network_thread_checker_) = 0;
+  uint32_t demuxer_criteria_completed_id_
+      RTC_GUARDED_BY(network_thread_checker_) = 0;
   std::set<uint32_t> send_ssrcs_ RTC_GUARDED_BY(thread_checker_);
   std::set<uint32_t> receive_ssrcs_ RTC_GUARDED_BY(thread_checker_);
 

@@ -138,7 +138,7 @@ ChannelManager::GetSupportedVideoRtpHeaderExtensions() const {
   return media_engine_->video().GetRtpHeaderExtensions();
 }
 
-VoiceChannel* ChannelManager::CreateVoiceChannel(
+std::unique_ptr<VoiceChannel> ChannelManager::CreateVoiceChannel(
     webrtc::Call* call,
     const MediaConfig& media_config,
     webrtc::RtpTransportInternal* rtp_transport,
@@ -154,11 +154,12 @@ VoiceChannel* ChannelManager::CreateVoiceChannel(
   // PeerConnection and add the expectation that we're already on the right
   // thread.
   if (!worker_thread_->IsCurrent()) {
-    return worker_thread_->Invoke<VoiceChannel*>(RTC_FROM_HERE, [&] {
-      return CreateVoiceChannel(call, media_config, rtp_transport,
-                                signaling_thread, content_name, srtp_required,
-                                crypto_options, ssrc_generator, options);
-    });
+    return worker_thread_->Invoke<std::unique_ptr<VoiceChannel>>(
+        RTC_FROM_HERE, [&] {
+          return CreateVoiceChannel(
+              call, media_config, rtp_transport, signaling_thread, content_name,
+              srtp_required, crypto_options, ssrc_generator, options);
+        });
   }
 
   RTC_DCHECK_RUN_ON(worker_thread_);
@@ -174,29 +175,9 @@ VoiceChannel* ChannelManager::CreateVoiceChannel(
       absl::WrapUnique(media_channel), content_name, srtp_required,
       crypto_options, ssrc_generator);
 
-  voice_channel->Init_w(rtp_transport);
+  // voice_channel->Init_w(rtp_transport);
 
-  VoiceChannel* voice_channel_ptr = voice_channel.get();
-  voice_channels_.push_back(std::move(voice_channel));
-  return voice_channel_ptr;
-}
-
-void ChannelManager::DestroyVoiceChannel(VoiceChannel* voice_channel) {
-  TRACE_EVENT0("webrtc", "ChannelManager::DestroyVoiceChannel");
-  RTC_DCHECK(voice_channel);
-
-  if (!worker_thread_->IsCurrent()) {
-    worker_thread_->Invoke<void>(RTC_FROM_HERE,
-                                 [&] { DestroyVoiceChannel(voice_channel); });
-    return;
-  }
-
-  RTC_DCHECK_RUN_ON(worker_thread_);
-
-  voice_channels_.erase(absl::c_find_if(
-      voice_channels_, [&](const std::unique_ptr<VoiceChannel>& p) {
-        return p.get() == voice_channel;
-      }));
+  return voice_channel;
 }
 
 VideoChannel* ChannelManager::CreateVideoChannel(

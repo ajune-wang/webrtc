@@ -46,6 +46,30 @@
       },
       "revId": "1c9af01d2adc9ca131e0c06569b0bf90743bf83f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6ca6f9d_b546bb7c",
+        "filename": "pc/dtmf_sender_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-24T08:19:19Z",
+      "side": 1,
+      "message": "It wasn\u0027t intentional. We weren\u0027t using static_assert, override at the time we introduced RefCountedObject and we didn\u0027t have the stl template utilities (or compiler support) that help us add these developer aids that help with correct usage. I forwarded an email to you with some added context.",
+      "parentUuid": "f88b0e22_3f68d373",
+      "range": {
+        "startLine": 121,
+        "startChar": 22,
+        "endLine": 121,
+        "endChar": 38
+      },
+      "revId": "1c9af01d2adc9ca131e0c06569b0bf90743bf83f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

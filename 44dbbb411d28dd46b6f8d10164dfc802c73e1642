@@ -16,6 +16,23 @@
       "message": "LGTM, thanks!",
       "revId": "44dbbb411d28dd46b6f8d10164dfc802c73e1642",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbb6a19c_65c49533",
+        "filename": "net/dcsctp/timer/timer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-24T13:54:50Z",
+      "side": 1,
+      "message": "nit: RTC_CHECK_NE",
+      "revId": "44dbbb411d28dd46b6f8d10164dfc802c73e1642",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

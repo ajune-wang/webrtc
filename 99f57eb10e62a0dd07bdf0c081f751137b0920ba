@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b397c927_38cd5398",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-04-24T06:47:23Z",
+      "side": 1,
+      "message": "Please take a stamp for backmerging this (approved here: https://bugs.chromium.org/p/chromium/issues/detail?id\u003d1201541#c7).",
+      "revId": "99f57eb10e62a0dd07bdf0c081f751137b0920ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

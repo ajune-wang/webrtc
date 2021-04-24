@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "da4ad220_0bc18f0a",
+        "filename": "rtc_base/task_utils/shared_task_queue_factory.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-24T14:08:27Z",
+      "side": 1,
+      "message": "RefCountedObject isn\u0027t the ideal fit since TaskQueueBase doesn\u0027t inherit from RefCountInterface, so I\u0027d look at the make_ref_counted\u003c\u003e utility for instantiating the task queue and you could use `Ref\u003cstd::unique_ptr\u003cTaskQueueBase, TaskQueueDeleter\u003e\u003e::Ptr` to declare the appropriate scoped_refptr type.\n\nHowever I don\u0027t think I\u0027m yet following what the problem is that\u0027s being solved.",
+      "parentUuid": "141e9c86_b9a92c5e",
+      "revId": "af71464a847b6e13f602d66098bd8481412345c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4b76f751_16bdebc9",
         "filename": "rtc_base/task_utils/shared_task_queue_factory.cc",
         "patchSetId": 1
@@ -132,6 +150,30 @@
       "side": 1,
       "message": "For the use case where I was planning to use this factory, I think only dynamic closures are passed. But it\u0027s unspecified what to do with the QueuedTask if it hasn\u0027t been run. For now I specified in the docs that only dynamic closures can be used, and am cleaning them up in the (generated) destructor.\n\nFor another CL we could fix this with another method QueuedTask::ShouldDelete() or similar, to continue support for stack-allocated queued tasks.",
       "parentUuid": "aa5db74e_f4dd2386",
+      "range": {
+        "startLine": 76,
+        "startChar": 4,
+        "endLine": 76,
+        "endChar": 28
+      },
+      "revId": "af71464a847b6e13f602d66098bd8481412345c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db88e186_b5b472bd",
+        "filename": "rtc_base/task_utils/shared_task_queue_factory.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-24T14:08:27Z",
+      "side": 1,
+      "message": "Here\u0027s what the PostTask documentation says:\n\n  // Schedules a task to execute. Tasks are executed in FIFO order.\n  // If |task-\u003eRun()| returns true, task is deleted on the task queue\n  // before next QueuedTask starts executing.\n  // When a TaskQueue is deleted, pending tasks will not be executed but they\n  // will be deleted. The deletion of tasks may happen synchronously on the\n  // TaskQueue or it may happen asynchronously after TaskQueue is deleted.\n  // This may vary from one implementation to the next so assumptions about\n  // lifetimes of pending tasks should not be made.\n  // May be called on any thread or task queue, including this task queue.\n\nSo it should be clear that tasks that have not been run when a task queue is destroyed, will be deleted.\n\nIt\u0027s also theoretically possible for PostTask() to fail and delete the task before returning (since PostTask on purpose returns void).\n\nFor QueuedTask, the destructor is guaranteed to run except in the case when Run() returns false. That\u0027s a signal to TQ to yield ownership. In all other cases the dtor will be called.",
+      "parentUuid": "4ca2f12c_8a6538ed",
       "range": {
         "startLine": 76,
         "startChar": 4,

@@ -30,9 +30,9 @@ class MockChannelInterface : public cricket::ChannelInterface {
   MOCK_METHOD(const std::string&, content_name, (), (const, override));
   MOCK_METHOD(bool, enabled, (), (const, override));
   MOCK_METHOD(bool, Enable, (bool), (override));
-  MOCK_METHOD(sigslot::signal1<ChannelInterface*>&,
-              SignalFirstPacketReceived,
-              (),
+  MOCK_METHOD(void,
+              SetFirstPacketReceivedCallback,
+              (std::function<void()>),
               (override));
   MOCK_METHOD(bool,
               SetLocalContent,

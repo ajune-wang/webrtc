@@ -15,7 +15,6 @@
 
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
-#include "rtc_base/ref_counted_object.h"
 #include "vpx/vpx_codec.h"
 #include "vpx/vpx_decoder.h"
 #include "vpx/vpx_frame_buffer.h"
@@ -61,14 +60,14 @@ Vp9FrameBufferPool::GetFrameBuffer(size_t min_size) {
     MutexLock lock(&buffers_lock_);
     // Do we have a buffer we can recycle?
     for (const auto& buffer : allocated_buffers_) {
-      if (buffer->HasOneRef()) {
+      if (!buffer->is_shared()) {
         available_buffer = buffer;
         break;
       }
     }
     // Otherwise create one.
     if (available_buffer == nullptr) {
-      available_buffer = rtc::make_ref_counted<Vp9FrameBuffer>();
+      available_buffer = new Vp9FrameBuffer();
       allocated_buffers_.push_back(available_buffer);
       if (allocated_buffers_.size() > max_num_buffers_) {
         RTC_LOG(LS_WARNING)
@@ -93,7 +92,7 @@ int Vp9FrameBufferPool::GetNumBuffersInUse() const {
   int num_buffers_in_use = 0;
   MutexLock lock(&buffers_lock_);
   for (const auto& buffer : allocated_buffers_) {
-    if (!buffer->HasOneRef())
+    if (buffer->is_shared())
       ++num_buffers_in_use;
   }
   return num_buffers_in_use;
@@ -107,7 +106,7 @@ bool Vp9FrameBufferPool::Resize(size_t max_number_of_buffers) {
     // are looping over and one from the application. If the ref count is 1,
     // then the list we are looping over holds the only reference and it's safe
     // to reuse.
-    if (!buffer->HasOneRef()) {
+    if (buffer->is_shared()) {
       used_buffers_count++;
     }
   }
@@ -119,7 +118,7 @@ bool Vp9FrameBufferPool::Resize(size_t max_number_of_buffers) {
   size_t buffers_to_purge = allocated_buffers_.size() - max_num_buffers_;
   auto iter = allocated_buffers_.begin();
   while (iter != allocated_buffers_.end() && buffers_to_purge > 0) {
-    if ((*iter)->HasOneRef()) {
+    if (!(*iter)->is_shared()) {
       iter = allocated_buffers_.erase(iter);
       buffers_to_purge--;
     } else {

@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8e44f37_7c93ef59",
+        "filename": "net/dcsctp/socket/heartbeat_handler.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-25T17:53:47Z",
+      "side": 1,
+      "message": "Done. Don\u0027t know why I didn\u0027t.",
+      "parentUuid": "f34b6761_05150fe2",
+      "revId": "085e5a8ea3505b165edf08c82d840c98c63f346d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a74b5821_50163eaa",
@@ -58,6 +76,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e247bccd_d8ed3e0a",
+        "filename": "net/dcsctp/socket/heartbeat_handler.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-25T17:53:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a74b5821_50163eaa",
+      "range": {
+        "startLine": 141,
+        "startChar": 30,
+        "endLine": 141,
+        "endChar": 59
+      },
+      "revId": "085e5a8ea3505b165edf08c82d840c98c63f346d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c3ba7cb8_034be480",
@@ -71,6 +113,24 @@
       "writtenOn": "2021-04-23T15:19:13Z",
       "side": 1,
       "message": "prefer not to have members be references since the pointer is provided externally. Can we make this be `Context* ctx_` That would be in line with the rest of webrtc.",
+      "revId": "085e5a8ea3505b165edf08c82d840c98c63f346d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b29a172_a6bb9383",
+        "filename": "net/dcsctp/socket/heartbeat_handler.h",
+        "patchSetId": 38
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-25T17:53:47Z",
+      "side": 1,
+      "message": "Thanks, it\u0027s quite different in different projects and in Google3, it used to be like that, until go/totw/116 which was updated recently when it was allowed to pass non-const references. I\u0027ll align with WebRTC and have added a fixup-task at go/dcsctp-fixups to align other classes which have already been submitted.",
+      "parentUuid": "c3ba7cb8_034be480",
       "revId": "085e5a8ea3505b165edf08c82d840c98c63f346d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -133,6 +133,24 @@
       "parentUuid": "c3ba7cb8_034be480",
       "revId": "085e5a8ea3505b165edf08c82d840c98c63f346d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ae815bf_10cb56e9",
+        "filename": "net/dcsctp/socket/heartbeat_handler.h",
+        "patchSetId": 38
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-25T18:49:45Z",
+      "side": 1,
+      "message": "yes we\u0027ve discussed those changes and we are following the changes to some extent. Before we fully commit, I\u0027d like to discuss it with a few folks since webrtc has a history of unsafe member references. Just now I did a quick search for examples though and didn\u0027t find any, so perhaps they\u0027re all gone. If that\u0027s the case we might be good to go, but I think it would be better to review that separately.",
+      "parentUuid": "0b29a172_a6bb9383",
+      "revId": "085e5a8ea3505b165edf08c82d840c98c63f346d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -552,8 +552,8 @@ static void JNI_PeerConnection_CreateOffer(
   std::unique_ptr<MediaConstraints> constraints =
       JavaToNativeMediaConstraints(jni, j_constraints);
   rtc::scoped_refptr<CreateSdpObserverJni> observer(
-      new rtc::RefCountedObject<CreateSdpObserverJni>(jni, j_observer,
-                                                      std::move(constraints)));
+      rtc::make_ref_counted<CreateSdpObserverJni>(jni, j_observer,
+                                                  std::move(constraints)));
   PeerConnectionInterface::RTCOfferAnswerOptions options;
   CopyConstraintsIntoOfferAnswerOptions(observer->constraints(), &options);
   ExtractNativePC(jni, j_pc)->CreateOffer(observer, options);
@@ -567,8 +567,8 @@ static void JNI_PeerConnection_CreateAnswer(
   std::unique_ptr<MediaConstraints> constraints =
       JavaToNativeMediaConstraints(jni, j_constraints);
   rtc::scoped_refptr<CreateSdpObserverJni> observer(
-      new rtc::RefCountedObject<CreateSdpObserverJni>(jni, j_observer,
-                                                      std::move(constraints)));
+      rtc::make_ref_counted<CreateSdpObserverJni>(jni, j_observer,
+                                                  std::move(constraints)));
   PeerConnectionInterface::RTCOfferAnswerOptions options;
   CopyConstraintsIntoOfferAnswerOptions(observer->constraints(), &options);
   ExtractNativePC(jni, j_pc)->CreateAnswer(observer, options);
@@ -579,7 +579,7 @@ static void JNI_PeerConnection_SetLocalDescriptionAutomatically(
     const JavaParamRef<jobject>& j_pc,
     const JavaParamRef<jobject>& j_observer) {
   rtc::scoped_refptr<SetLocalSdpObserverJni> observer(
-      new rtc::RefCountedObject<SetLocalSdpObserverJni>(jni, j_observer));
+      rtc::make_ref_counted<SetLocalSdpObserverJni>(jni, j_observer));
   ExtractNativePC(jni, j_pc)->SetLocalDescription(observer);
 }
 
@@ -589,7 +589,7 @@ static void JNI_PeerConnection_SetLocalDescription(
     const JavaParamRef<jobject>& j_observer,
     const JavaParamRef<jobject>& j_sdp) {
   rtc::scoped_refptr<SetLocalSdpObserverJni> observer(
-      new rtc::RefCountedObject<SetLocalSdpObserverJni>(jni, j_observer));
+      rtc::make_ref_counted<SetLocalSdpObserverJni>(jni, j_observer));
   ExtractNativePC(jni, j_pc)->SetLocalDescription(
       JavaToNativeSessionDescription(jni, j_sdp), observer);
 }
@@ -600,7 +600,7 @@ static void JNI_PeerConnection_SetRemoteDescription(
     const JavaParamRef<jobject>& j_observer,
     const JavaParamRef<jobject>& j_sdp) {
   rtc::scoped_refptr<SetRemoteSdpObserverJni> observer(
-      new rtc::RefCountedObject<SetRemoteSdpObserverJni>(jni, j_observer));
+      rtc::make_ref_counted<SetRemoteSdpObserverJni>(jni, j_observer));
   ExtractNativePC(jni, j_pc)->SetRemoteDescription(
       JavaToNativeSessionDescription(jni, j_sdp), observer);
 }
@@ -800,7 +800,7 @@ static jboolean JNI_PeerConnection_OldGetStats(
     const JavaParamRef<jobject>& j_observer,
     jlong native_track) {
   rtc::scoped_refptr<StatsObserverJni> observer(
-      new rtc::RefCountedObject<StatsObserverJni>(jni, j_observer));
+      rtc::make_ref_counted<StatsObserverJni>(jni, j_observer));
   return ExtractNativePC(jni, j_pc)->GetStats(
       observer, reinterpret_cast<MediaStreamTrackInterface*>(native_track),
       PeerConnectionInterface::kStatsOutputLevelStandard);
@@ -811,8 +811,7 @@ static void JNI_PeerConnection_NewGetStats(
     const JavaParamRef<jobject>& j_pc,
     const JavaParamRef<jobject>& j_callback) {
   rtc::scoped_refptr<RTCStatsCollectorCallbackWrapper> callback(
-      new rtc::RefCountedObject<RTCStatsCollectorCallbackWrapper>(jni,
-                                                                  j_callback));
+      rtc::make_ref_counted<RTCStatsCollectorCallbackWrapper>(jni, j_callback));
   ExtractNativePC(jni, j_pc)->GetStats(callback);
 }
 

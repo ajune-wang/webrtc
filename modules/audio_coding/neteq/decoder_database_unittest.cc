@@ -27,7 +27,7 @@ using ::testing::Invoke;
 namespace webrtc {
 
 TEST(DecoderDatabase, CreateAndDestroy) {
-  DecoderDatabase db(new rtc::RefCountedObject<MockAudioDecoderFactory>,
+  DecoderDatabase db(rtc::make_ref_counted<MockAudioDecoderFactory>(),
                      absl::nullopt);
   EXPECT_EQ(0, db.Size());
   EXPECT_TRUE(db.Empty());
@@ -35,7 +35,7 @@ TEST(DecoderDatabase, CreateAndDestroy) {
 
 TEST(DecoderDatabase, InsertAndRemove) {
   rtc::scoped_refptr<MockAudioDecoderFactory> factory(
-      new rtc::RefCountedObject<MockAudioDecoderFactory>);
+      rtc::make_ref_counted<MockAudioDecoderFactory>());
   DecoderDatabase db(factory, absl::nullopt);
   const uint8_t kPayloadType = 0;
   const std::string kCodecName = "Robert\'); DROP TABLE Students;";
@@ -51,7 +51,7 @@ TEST(DecoderDatabase, InsertAndRemove) {
 
 TEST(DecoderDatabase, InsertAndRemoveAll) {
   rtc::scoped_refptr<MockAudioDecoderFactory> factory(
-      new rtc::RefCountedObject<MockAudioDecoderFactory>);
+      rtc::make_ref_counted<MockAudioDecoderFactory>());
   DecoderDatabase db(factory, absl::nullopt);
   const std::string kCodecName1 = "Robert\'); DROP TABLE Students;";
   const std::string kCodecName2 = "https://xkcd.com/327/";
@@ -68,7 +68,7 @@ TEST(DecoderDatabase, InsertAndRemoveAll) {
 
 TEST(DecoderDatabase, GetDecoderInfo) {
   rtc::scoped_refptr<MockAudioDecoderFactory> factory(
-      new rtc::RefCountedObject<MockAudioDecoderFactory>);
+      rtc::make_ref_counted<MockAudioDecoderFactory>());
   auto* decoder = new MockAudioDecoder;
   EXPECT_CALL(*factory, MakeAudioDecoderMock(_, _, _))
       .WillOnce(Invoke([decoder](const SdpAudioFormat& format,
@@ -104,7 +104,7 @@ TEST(DecoderDatabase, GetDecoder) {
 
 TEST(DecoderDatabase, TypeTests) {
   rtc::scoped_refptr<MockAudioDecoderFactory> factory(
-      new rtc::RefCountedObject<MockAudioDecoderFactory>);
+      rtc::make_ref_counted<MockAudioDecoderFactory>());
   DecoderDatabase db(factory, absl::nullopt);
   const uint8_t kPayloadTypePcmU = 0;
   const uint8_t kPayloadTypeCng = 13;
@@ -141,7 +141,7 @@ TEST(DecoderDatabase, TypeTests) {
 TEST(DecoderDatabase, CheckPayloadTypes) {
   constexpr int kNumPayloads = 10;
   rtc::scoped_refptr<MockAudioDecoderFactory> factory(
-      new rtc::RefCountedObject<MockAudioDecoderFactory>);
+      rtc::make_ref_counted<MockAudioDecoderFactory>());
   DecoderDatabase db(factory, absl::nullopt);
   // Load a number of payloads into the database. Payload types are 0, 1, ...,
   // while the decoder type is the same for all payload types (this does not

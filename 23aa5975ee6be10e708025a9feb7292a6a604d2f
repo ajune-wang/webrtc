@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "5887af11_c2954f93",
+        "filename": "net/dcsctp/socket/context.h",
+        "patchSetId": 37
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-25T17:29:01Z",
+      "side": 1,
+      "message": "I have no idea why I named it that way. It was wrong, as you say - thanks for noticing!",
+      "parentUuid": "aa8a91d6_79d4a590",
+      "revId": "23aa5975ee6be10e708025a9feb7292a6a604d2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "a935b0b0_a3b19ed2",
         "filename": "net/dcsctp/socket/mock_dcsctp_socket_callbacks.h",
         "patchSetId": 37
@@ -31,6 +49,24 @@
       "writtenOn": "2021-04-23T15:14:24Z",
       "side": 1,
       "message": "I\u0027m assuming that there aren\u0027t any expectations around these being sequential/continuous.",
+      "revId": "23aa5975ee6be10e708025a9feb7292a6a604d2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ec0c8f0_5e71aa85",
+        "filename": "net/dcsctp/socket/mock_dcsctp_socket_callbacks.h",
+        "patchSetId": 37
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-25T17:29:01Z",
+      "side": 1,
+      "message": "No, absolutely not. In real implementations, the random number generated backing GetRandomInt should be seeded externally and GetRandomInt should simply return a random number. In mock scenarios, it\u0027s preferred to have some kind of determinism. Well, not at all needed, and it can be argued if it\u0027s a good idea. But it has helped me to compare traces when random numbers are picked the same way between test runs. But at the same time, when you have two sockets both backed by an instantiated MockDcSctpCallbacks, it\u0027s good if these two sockets get _different_ random numbers. Otherwise, they will both pick the same starting sequence number. And that\u0027s not an issue per se, but it makes it harded to debug when both sockets look the same. So that\u0027s why the GetUniqueSeed will ensure that both sockets get different sequences, but still with determinism.\n\nI have added a comment about this in the code as it\u0027s a fair question. Thanks!",
+      "parentUuid": "a935b0b0_a3b19ed2",
       "revId": "23aa5975ee6be10e708025a9feb7292a6a604d2f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

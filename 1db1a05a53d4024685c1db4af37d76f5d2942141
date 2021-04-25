@@ -22,6 +22,30 @@
       },
       "revId": "1db1a05a53d4024685c1db4af37d76f5d2942141",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2fdf94d0_a8ac7f91",
+        "filename": "net/dcsctp/socket/mock_dcsctp_socket_callbacks.h",
+        "patchSetId": 38
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-25T17:29:01Z",
+      "side": 1,
+      "message": "Absolutely - thanks!\n\n(Here, I like Rust\u0027s approach, where move is the default, and copying has to be explicit)",
+      "parentUuid": "04836859_5d732427",
+      "range": {
+        "startLine": 109,
+        "startChar": 29,
+        "endLine": 109,
+        "endChar": 52
+      },
+      "revId": "1db1a05a53d4024685c1db4af37d76f5d2942141",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

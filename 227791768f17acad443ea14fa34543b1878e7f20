@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea70d420_eccd3362",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 41
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-25T22:59:19Z",
+      "side": 1,
+      "message": "\"Say something nice\" it says. I hope this review finds you well. If SCTP is generally simple, this extension (RFC6525) is not designed in the same spirit. \n\nOne can surely understand why a \"Data Channel Close\" operation was implemented like this, instead of having e.g. a DATA_CHANNEL_CLOSE message in RFC8832. For example, this design allows implementations to discard messages, but other than that, it\u0027s quite complicated and puts a lot of work on the SCTP implementation. There should be quite good test coverage, though.",
+      "revId": "227791768f17acad443ea14fa34543b1878e7f20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

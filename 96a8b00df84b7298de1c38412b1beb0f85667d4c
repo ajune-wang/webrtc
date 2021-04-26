@@ -206,6 +206,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7bb8e92_3c1c00cf",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-26T14:59:03Z",
+      "side": 1,
+      "message": "afaik it is other way around: ASSERT_X require function to return void, constructor fits that description. \n\nif ASSERT_TRUE doesn\u0027t work, you can use EXPECT_TRUE",
+      "parentUuid": "bb6c3974_d0f68e31",
+      "range": {
+        "startLine": 97,
+        "startChar": 4,
+        "endLine": 97,
+        "endChar": 13
+      },
+      "revId": "96a8b00df84b7298de1c38412b1beb0f85667d4c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "8213624b_42e42e82",
@@ -266,6 +290,30 @@
       "side": 1,
       "message": "A few of the test-cases to be ported will need to re-initilize with a modified RtpRtcp::Configuration.\nThat\u0027s not needed here though, I can move initialization to ctor and save the helper method for later (if it\u0027s even really needed - it\u0027s quite trivial).",
       "parentUuid": "947e0ceb_2e680b4f",
+      "range": {
+        "startLine": 139,
+        "startChar": 7,
+        "endLine": 139,
+        "endChar": 12
+      },
+      "revId": "96a8b00df84b7298de1c38412b1beb0f85667d4c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d0a7d7f_295fd7f8",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-26T14:59:03Z",
+      "side": 1,
+      "message": "SetUp is needed if test case needs to initialize differently in a derived test fixture (SetUp can be overrideen, constructor can only be extended.)",
+      "parentUuid": "50697988_a54ee52f",
       "range": {
         "startLine": 139,
         "startChar": 7,

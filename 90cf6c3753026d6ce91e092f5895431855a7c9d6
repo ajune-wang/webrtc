@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07a289d1_1e54e47f",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-26T14:59:03Z",
+      "side": 1,
+      "message": "nit: prefer \"\u003d default\"\nhttps://abseil.io/tips/131",
+      "range": {
+        "startLine": 77,
+        "startChar": 31,
+        "endLine": 77,
+        "endChar": 33
+      },
+      "revId": "90cf6c3753026d6ce91e092f5895431855a7c9d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f52a814_24c59009",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-26T14:59:03Z",
+      "side": 1,
+      "message": "trials is configured after it is used (through DefaultConfig())\nis it intended?\n\n(using non-static functions during member initialisation is a source for hard to spot bugs, prefer to avoid such pattern)\n\nSuggestion: do not keep object under test as fixture member, instead add a helper that creates it.",
+      "range": {
+        "startLine": 138,
+        "startChar": 4,
+        "endLine": 138,
+        "endChar": 11
+      },
+      "revId": "90cf6c3753026d6ce91e092f5895431855a7c9d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

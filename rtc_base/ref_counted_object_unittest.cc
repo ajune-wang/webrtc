@@ -125,6 +125,10 @@ TEST(FinalRefCountedObject, CanWrapIntoScopedRefptr) {
   EXPECT_TRUE(ref2->HasOneRef());
 }
 
+TEST(RefCounted, CanWrapUniquePtr) {
+  auto ref = make_ref_counted<std::unique_ptr<A>>(std::make_unique<A>());
+}
+
 // This test is mostly a compile-time test for scoped_refptr compatibility.
 TEST(RefCounted, SmartPointers) {
   // Sanity compile-time tests. FooItf is virtual, Foo is not, FooItf inherits

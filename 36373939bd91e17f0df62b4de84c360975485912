@@ -22,6 +22,30 @@
       },
       "revId": "36373939bd91e17f0df62b4de84c360975485912",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad709c00_a438ce12",
+        "filename": "rtc_base/ref_counted_object.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-26T16:33:46Z",
+      "side": 1,
+      "message": "last time I tried it failed because there are uses of exposed protected constructors.\n\nI think it is better to do such change in a separate CL, may be in a series of CL because I\u0027m not sure if those protected constructors should become public of if that objects need to created with different constructors. That need to be decided case by case.",
+      "parentUuid": "7ec25f18_b7a3fca9",
+      "range": {
+        "startLine": 24,
+        "startChar": 6,
+        "endLine": 24,
+        "endChar": 22
+      },
+      "revId": "36373939bd91e17f0df62b4de84c360975485912",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

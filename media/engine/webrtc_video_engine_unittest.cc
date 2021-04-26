@@ -6388,7 +6388,10 @@ TEST_F(WebRtcVideoChannelTest, MapsReceivedPayloadTypeToCodecName) {
 // Tests that when we add a stream without SSRCs, but contains a stream_id
 // that it is stored and its stream id is later used when the first packet
 // arrives to properly create a receive stream with a sync label.
-TEST_F(WebRtcVideoChannelTest, RecvUnsignaledSsrcWithSignaledStreamId) {
+// TODO(tommi): The situation that this test is for, isn't applicable anymore
+// since it tests inconsistent demuxer state between worker and network threads.
+TEST_F(WebRtcVideoChannelTest,
+       DISABLED_RecvUnsignaledSsrcWithSignaledStreamId) {
   const char kSyncLabel[] = "sync_label";
   cricket::StreamParams unsignaled_stream;
   unsignaled_stream.set_stream_ids({kSyncLabel});
@@ -6469,8 +6472,10 @@ TEST_F(WebRtcVideoChannelTest,
   EXPECT_EQ(receivers2[0]->GetConfig().rtp.remote_ssrc, kIncomingSignalledSsrc);
 }
 
+// TODO(tommi): The situation that this test is for, isn't applicable anymore
+// since it tests inconsistent demuxer state between worker and network threads.
 TEST_F(WebRtcVideoChannelTest,
-       RecentlyAddedSsrcsDoNotCreateUnsignalledRecvStreams) {
+       DISABLED_RecentlyAddedSsrcsDoNotCreateUnsignalledRecvStreams) {
   const uint32_t kSsrc1 = 1;
   const uint32_t kSsrc2 = 2;
 
@@ -6552,8 +6557,10 @@ TEST_F(WebRtcVideoChannelTest,
   EXPECT_EQ(fake_call_->GetDeliveredPacketsForSsrc(kSsrc2), 1u);
 }
 
+// TODO(tommi): The situation that this test is for, isn't applicable anymore
+// since it tests inconsistent demuxer state between worker and network threads.
 TEST_F(WebRtcVideoChannelTest,
-       RecentlyRemovedSsrcsDoNotCreateUnsignalledRecvStreams) {
+       DISABLED_RecentlyRemovedSsrcsDoNotCreateUnsignalledRecvStreams) {
   const uint32_t kSsrc1 = 1;
   const uint32_t kSsrc2 = 2;
 
@@ -6636,7 +6643,9 @@ TEST_F(WebRtcVideoChannelTest,
   EXPECT_EQ(fake_call_->GetDeliveredPacketsForSsrc(kSsrc2), 2u);
 }
 
-TEST_F(WebRtcVideoChannelTest, MultiplePendingDemuxerCriteriaUpdates) {
+// TODO(tommi): The situation that this test is for, isn't applicable anymore
+// since it tests inconsistent demuxer state between worker and network threads.
+TEST_F(WebRtcVideoChannelTest, DISABLED_MultiplePendingDemuxerCriteriaUpdates) {
   const uint32_t kSsrc = 1;
 
   // Starting point: receiving kSsrc.

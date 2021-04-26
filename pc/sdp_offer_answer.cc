@@ -4135,6 +4135,7 @@ void SdpOfferAnswerHandler::UpdateRemoteSendersList(
 
 void SdpOfferAnswerHandler::EnableSending() {
   RTC_DCHECK_RUN_ON(signaling_thread());
+  // TODO(tommi): Accessing |channe()| should happen on the network thread.
   for (const auto& transceiver : transceivers()->ListInternal()) {
     cricket::ChannelInterface* channel = transceiver->channel();
     if (channel && !channel->enabled()) {
@@ -4828,7 +4829,8 @@ bool SdpOfferAnswerHandler::UpdatePayloadTypeDemuxingState(
   if (channels_to_update.empty()) {
     return true;
   }
-  return pc_->worker_thread()->Invoke<bool>(
+
+  return pc_->network_thread()->Invoke<bool>(
       RTC_FROM_HERE, [&channels_to_update, bundle_group,
                       pt_demuxing_enabled_audio, pt_demuxing_enabled_video]() {
         for (const auto& it : channels_to_update) {
@@ -4837,18 +4839,14 @@ bool SdpOfferAnswerHandler::UpdatePayloadTypeDemuxingState(
           cricket::MediaType media_type = channel->media_type();
           bool in_bundle_group = (bundle_group && bundle_group->HasContentName(
                                                       channel->content_name()));
-          if (media_type == cricket::MediaType::MEDIA_TYPE_AUDIO) {
-            if (!channel->SetPayloadTypeDemuxingEnabled(
-                    (!in_bundle_group || pt_demuxing_enabled_audio) &&
-                    RtpTransceiverDirectionHasRecv(local_direction))) {
-              return false;
-            }
-          } else if (media_type == cricket::MediaType::MEDIA_TYPE_VIDEO) {
-            if (!channel->SetPayloadTypeDemuxingEnabled(
-                    (!in_bundle_group || pt_demuxing_enabled_video) &&
-                    RtpTransceiverDirectionHasRecv(local_direction))) {
-              return false;
-            }
+          bool direction_has_recv =
+              RtpTransceiverDirectionHasRecv(local_direction);
+          bool demuxing = (media_type == cricket::MediaType::MEDIA_TYPE_AUDIO)
+                              ? pt_demuxing_enabled_audio
+                              : pt_demuxing_enabled_video;
+          bool enabled = (!in_bundle_group || demuxing) && direction_has_recv;
+          if (!channel->SetPayloadTypeDemuxingEnabled(enabled)) {
+            return false;
           }
         }
         return true;

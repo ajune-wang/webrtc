@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab3c06e2_bfa6a009",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-26T10:04:22Z",
+      "side": 1,
+      "message": "This change is not as trivial as it seems: rtc::make_ref_counted\u003cT\u003e returns different type than new RefCountedObject\u003cT\u003e and sometimes that matter (e.g. there are Create functions that currently return raw pointer).\n\nIt might be safer to split this change into small chunks for more careful review.",
+      "revId": "aad2c27b602f0f7b80cf52fe0cda24e1ed3a9742",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b8f9865_9d0f4063",
+        "filename": "examples/peerconnection/client/conductor.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-26T10:04:22Z",
+      "side": 1,
+      "message": "this function doesn\u0027t return scoped_refptr,\ndo you want to change the return type too?\n\n(otherwise you\u0027re using implicit scoped_refptr -\u003e raw pointer conversion)",
+      "range": {
+        "startLine": 61,
+        "startChar": 9,
+        "endLine": 61,
+        "endChar": 44
+      },
+      "revId": "aad2c27b602f0f7b80cf52fe0cda24e1ed3a9742",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "747e665d_62fe45c1",
+        "filename": "examples/peerconnection/client/linux/main.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-26T10:04:22Z",
+      "side": 1,
+      "message": "prefer assignment now that you\u0027re calling function that return scoped_refptr.\nhttp://go/totw/88#best-practices-for-initialization\n\"Use assignment-like syntax with \u003d when initializing ... with smart pointers\"\n\n(Maybe also use \"auto conductor\" to avoid potential extra conversion)",
+      "range": {
+        "startLine": 104,
+        "startChar": 41,
+        "endLine": 104,
+        "endChar": 42
+      },
+      "revId": "aad2c27b602f0f7b80cf52fe0cda24e1ed3a9742",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a553ae2_7f9aea8f",
+        "filename": "examples/peerconnection/client/main.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-26T10:04:22Z",
+      "side": 1,
+      "message": "prefer assign",
+      "range": {
+        "startLine": 112,
+        "startChar": 41,
+        "endLine": 112,
+        "endChar": 42
+      },
+      "revId": "aad2c27b602f0f7b80cf52fe0cda24e1ed3a9742",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd458ea1_66959dd1",
+        "filename": "examples/unityplugin/simple_peer_connection.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-26T10:04:22Z",
+      "side": 1,
+      "message": "change return type or do not use make_ref_counted",
+      "range": {
+        "startLine": 101,
+        "startChar": 9,
+        "endLine": 101,
+        "endChar": 44
+      },
+      "revId": "aad2c27b602f0f7b80cf52fe0cda24e1ed3a9742",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "645404bc_2e876839",
+        "filename": "modules/audio_coding/neteq/decoder_database_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-26T10:04:22Z",
+      "side": 1,
+      "message": "prefer assign",
+      "range": {
+        "startLine": 37,
+        "startChar": 53,
+        "endLine": 37,
+        "endChar": 54
+      },
+      "revId": "aad2c27b602f0f7b80cf52fe0cda24e1ed3a9742",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2139b403_e5e959a0",
+        "filename": "modules/audio_coding/neteq/neteq_impl_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-26T10:04:22Z",
+      "side": 1,
+      "message": "prefer assign",
+      "range": {
+        "startLine": 306,
+        "startChar": 66,
+        "endLine": 306,
+        "endChar": 67
+      },
+      "revId": "aad2c27b602f0f7b80cf52fe0cda24e1ed3a9742",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

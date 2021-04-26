@@ -106,6 +106,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "45fdce2c_597e3a14",
+        "filename": "net/dcsctp/socket/stream_reset_handler.cc",
+        "patchSetId": 41
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-26T08:23:17Z",
+      "side": 1,
+      "message": "Nice!",
+      "parentUuid": "0b9972d3_20723dfd",
+      "range": {
+        "startLine": 221,
+        "startChar": 4,
+        "endLine": 221,
+        "endChar": 10
+      },
+      "revId": "227791768f17acad443ea14fa34543b1878e7f20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a428ff8_a47f05c9",

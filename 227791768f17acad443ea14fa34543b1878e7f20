@@ -82,6 +82,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b9972d3_20723dfd",
+        "filename": "net/dcsctp/socket/stream_reset_handler.cc",
+        "patchSetId": 41
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-26T08:08:10Z",
+      "side": 1,
+      "message": "Neither, actually 😊\n\nThe resp-\u003eresult() is an enum class, so you _do_ not want a default here. By skipping the default, the compiler will produce an error if you are not covering all cases in the switch statement.\n\nThe enum is at https://webrtc.googlesource.com/src/+/refs/heads/master/net/dcsctp/packet/parameter/reconfiguration_response_parameter.h#40\n\nWhere it\u0027s actually parsed from the wire, where it has a default with a warning, and then failing to parse the parameter is at https://webrtc.googlesource.com/src/+/refs/heads/master/net/dcsctp/packet/parameter/reconfiguration_response_parameter.cc#102",
+      "parentUuid": "03fdc256_601b846f",
+      "range": {
+        "startLine": 221,
+        "startChar": 4,
+        "endLine": 221,
+        "endChar": 10
+      },
+      "revId": "227791768f17acad443ea14fa34543b1878e7f20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a428ff8_a47f05c9",
@@ -95,6 +119,30 @@
       "writtenOn": "2021-04-26T05:43:42Z",
       "side": 1,
       "message": "Should the \"break\" be inside {}?\n\nAlso, kInProgress doesn\u0027t use {}, should we be uniform in the style for this switch?",
+      "range": {
+        "startLine": 234,
+        "startChar": 6,
+        "endLine": 234,
+        "endChar": 14
+      },
+      "revId": "227791768f17acad443ea14fa34543b1878e7f20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a90da2a0_662cd1d0",
+        "filename": "net/dcsctp/socket/stream_reset_handler.cc",
+        "patchSetId": 41
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-26T08:08:10Z",
+      "side": 1,
+      "message": "Uniformity is important, so I removed the {}. Thanks!",
+      "parentUuid": "8a428ff8_a47f05c9",
       "range": {
         "startLine": 234,
         "startChar": 6,
@@ -128,6 +176,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b178c56_a352fea3",
+        "filename": "net/dcsctp/socket/stream_reset_handler.h",
+        "patchSetId": 41
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-26T08:08:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b199fb3a_8855edad",
+      "range": {
+        "startLine": 63,
+        "startChar": 66,
+        "endLine": 63,
+        "endChar": 68
+      },
+      "revId": "227791768f17acad443ea14fa34543b1878e7f20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8ea9e154_bc42d6fa",
@@ -141,6 +213,30 @@
       "writtenOn": "2021-04-26T05:43:42Z",
       "side": 1,
       "message": "I am not sure about keeping \"us\" in this comment since it might mean different things for different readers. Maybe we can just remove?",
+      "range": {
+        "startLine": 121,
+        "startChar": 19,
+        "endLine": 121,
+        "endChar": 31
+      },
+      "revId": "227791768f17acad443ea14fa34543b1878e7f20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "407f3d02_9495f4d8",
+        "filename": "net/dcsctp/socket/stream_reset_handler.h",
+        "patchSetId": 41
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-26T08:08:10Z",
+      "side": 1,
+      "message": "Thanks. The comment was also wrong, as ... well, you\u0027re not always the sender.",
+      "parentUuid": "8ea9e154_bc42d6fa",
       "range": {
         "startLine": 121,
         "startChar": 19,

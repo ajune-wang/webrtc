@@ -101,6 +101,7 @@ rtc_library("rtc_base_approved") {
     "copy_on_write_buffer.h",
     "event_tracer.cc",
     "event_tracer.h",
+    "hash.h",
     "location.cc",
     "location.h",
     "numerics/histogram_percentile_counter.cc",

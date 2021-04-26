@@ -1,0 +1,274 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8cbb2e56_6f6179b0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-26T13:32:17Z",
+      "side": 1,
+      "message": "It is good idea to split out test for the RtpSenderEgress now that it is a separate class.\nDo you mind also apply best practices to the new tests suite?",
+      "revId": "96a8b00df84b7298de1c38412b1beb0f85667d4c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41774ce4_8e3554d3",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-26T13:32:17Z",
+      "side": 1,
+      "message": "make the constants constexpr",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 5
+      },
+      "revId": "96a8b00df84b7298de1c38412b1beb0f85667d4c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b4573db_23fa9fcc",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-26T13:32:17Z",
+      "side": 1,
+      "message": "Prefer to put usings before the constants (it is not uncommon for a constant to use one of the type aliases, but other way around is much less common)\n\nhttps://google.github.io/styleguide/cppguide.html#Declaration_Order\n\"prefer the following order: types (including typedef, using, enum, and nested structs and classes), constants,\"",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 0
+      },
+      "revId": "96a8b00df84b7298de1c38412b1beb0f85667d4c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e017805_2848eef1",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-26T13:32:17Z",
+      "side": 1,
+      "message": "either const\u0026 or pass by value\n\nhttps://abseil.io/tips/109",
+      "range": {
+        "startLine": 94,
+        "startChar": 20,
+        "endLine": 94,
+        "endChar": 39
+      },
+      "revId": "96a8b00df84b7298de1c38412b1beb0f85667d4c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b72cf68b_b2f5fc2b",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-26T13:32:17Z",
+      "side": 1,
+      "message": "may be ASSERT_TRUE\n(to fail a test rather than crashes it)",
+      "range": {
+        "startLine": 97,
+        "startChar": 4,
+        "endLine": 97,
+        "endChar": 13
+      },
+      "revId": "96a8b00df84b7298de1c38412b1beb0f85667d4c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8213624b_42e42e82",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-26T13:32:17Z",
+      "side": 1,
+      "message": "or\nrtc::MakeArrayView(packet, length)",
+      "range": {
+        "startLine": 111,
+        "startChar": 25,
+        "endLine": 111,
+        "endChar": 70
+      },
+      "revId": "96a8b00df84b7298de1c38412b1beb0f85667d4c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "947e0ceb_2e680b4f",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-26T13:32:17Z",
+      "side": 1,
+      "message": "why use SetUp instead of doing work in the constructor?\n\nhttps://github.com/google/googletest/blob/master/docs/faq.md#should-i-use-the-constructordestructor-of-the-test-fixture-or-setupteardown-ctorvssetup\n\nEither prefer constructor, or add a comment explaining SetUp choice.",
+      "range": {
+        "startLine": 139,
+        "startChar": 7,
+        "endLine": 139,
+        "endChar": 12
+      },
+      "revId": "96a8b00df84b7298de1c38412b1beb0f85667d4c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3939b93e_b4b21a9e",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-26T13:32:17Z",
+      "side": 1,
+      "message": "Might be better to pick a different name than the overloaded function.\nE.g. call it Create and return the object under test rather than keeping it in the fixture\n\nhttps://abseil.io/tips/122",
+      "range": {
+        "startLine": 141,
+        "startChar": 7,
+        "endLine": 141,
+        "endChar": 12
+      },
+      "revId": "96a8b00df84b7298de1c38412b1beb0f85667d4c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c42244e6_fcdc967d",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-26T13:32:17Z",
+      "side": 1,
+      "message": "nit: may remove prefix Get\n(that function actually creates the config, that doesn\u0027t matter. What does matter that it returns the config)",
+      "range": {
+        "startLine": 145,
+        "startChar": 25,
+        "endLine": 145,
+        "endChar": 28
+      },
+      "revId": "96a8b00df84b7298de1c38412b1beb0f85667d4c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58661036_7e171d20",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-26T13:32:17Z",
+      "side": 1,
+      "message": ".Times(1) is redundant (it is default for an EXPECT_CALL)",
+      "range": {
+        "startLine": 217,
+        "startChar": 6,
+        "endLine": 217,
+        "endChar": 15
+      },
+      "revId": "96a8b00df84b7298de1c38412b1beb0f85667d4c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3c18c11_c9113688",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-26T13:32:17Z",
+      "side": 1,
+      "message": "prefer to write type out explicitly, it is not obvious from the local context.",
+      "range": {
+        "startLine": 219,
+        "startChar": 2,
+        "endLine": 219,
+        "endChar": 6
+      },
+      "revId": "96a8b00df84b7298de1c38412b1beb0f85667d4c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef9f197e_3d2847c5",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-26T13:32:17Z",
+      "side": 1,
+      "message": "TestConfig(false)\n\nhttp://go/totw/88#best-practices-for-initialization\n\"Use {} initialization without the \u003d only if the above options don’t compile\"",
+      "range": {
+        "startLine": 227,
+        "startChar": 43,
+        "endLine": 227,
+        "endChar": 60
+      },
+      "revId": "96a8b00df84b7298de1c38412b1beb0f85667d4c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

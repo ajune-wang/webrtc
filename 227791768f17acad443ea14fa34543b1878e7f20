@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "23686cee_40ebfb8b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 41
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-26T06:34:13Z",
+      "side": 1,
+      "message": "Have not reviewed code, but commenting on a comment.\n",
+      "revId": "227791768f17acad443ea14fa34543b1878e7f20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "555cbc79_7d617e9a",
@@ -31,6 +48,30 @@
       "writtenOn": "2021-04-26T05:43:42Z",
       "side": 1,
       "message": "To avoid issues with unknown request types, we may want to add a default case with RTC_CHECK_NOTREACHED() (or something similar).\n\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/api/media_types.cc;l\u003d34;drc\u003dc95b93966734b44962f2479006b85375d0556c98",
+      "range": {
+        "startLine": 221,
+        "startChar": 4,
+        "endLine": 221,
+        "endChar": 10
+      },
+      "revId": "227791768f17acad443ea14fa34543b1878e7f20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03fdc256_601b846f",
+        "filename": "net/dcsctp/socket/stream_reset_handler.cc",
+        "patchSetId": 41
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-26T06:34:13Z",
+      "side": 1,
+      "message": "note - we do not want any kind of RTC_NOTREACHED in a switch that takes input from the wire. We should have a default that acts appropriately on protocol error.",
+      "parentUuid": "555cbc79_7d617e9a",
       "range": {
         "startLine": 221,
         "startChar": 4,

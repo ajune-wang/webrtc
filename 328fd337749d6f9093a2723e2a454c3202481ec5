@@ -33,6 +33,24 @@
       "message": "I don\u0027t like this form - because it assumes that Enable() can be called on the worker thread, in which case enabled_ will be updated, but enabled_s_ will never be.\n\nSuggestion: Let Enable() DCHECK signaling_thread, and do a simple lambda posting to the worker thread to update enabled_. We don\u0027t need the flexibility.",
       "revId": "328fd337749d6f9093a2723e2a454c3202481ec5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bec0d62f_645e3394",
+        "filename": "pc/channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-26T07:26:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d1ad4a2d_5774b2bb",
+      "revId": "328fd337749d6f9093a2723e2a454c3202481ec5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

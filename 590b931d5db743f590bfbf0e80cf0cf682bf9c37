@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c08c1cf7_f38b84c2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-26T13:46:29Z",
+      "side": 1,
+      "message": "you say those multiparameter templates weren\u0027t needed after all? Joy!\n",
+      "revId": "590b931d5db743f590bfbf0e80cf0cf682bf9c37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa7f8c76_43f783be",
+        "filename": "rtc_base/ref_counted_object_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-26T13:46:29Z",
+      "side": 1,
+      "message": "I\u0027d rather not have the silly unique_ptr example in the unittests - I think it\u0027s an abuse of the pattern, and probably a misunderstanding.\nCan we instead wrap an int, a class of our own devising or something else that doesn\u0027t mess around with ownership?",
+      "revId": "590b931d5db743f590bfbf0e80cf0cf682bf9c37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

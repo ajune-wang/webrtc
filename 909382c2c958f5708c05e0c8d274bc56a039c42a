@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce92be45_40ba6d85",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-26T10:12:04Z",
+      "side": 1,
+      "message": "I think this is an improvement: Either the inc/dec functions are virtual, and we need the RefCountedBase, or they are not, and we are in the non-virtual space.\n\nMy personal position is that having a function be private + a warning label on it is enough to scare people away from it.\n",
+      "revId": "909382c2c958f5708c05e0c8d274bc56a039c42a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

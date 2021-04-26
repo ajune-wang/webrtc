@@ -19,7 +19,7 @@ namespace webrtc {
 rtc::scoped_refptr<LocalAudioSource> LocalAudioSource::Create(
     const cricket::AudioOptions* audio_options) {
   rtc::scoped_refptr<LocalAudioSource> source(
-      new rtc::RefCountedObject<LocalAudioSource>());
+      rtc::make_ref_counted<LocalAudioSource>());
   source->Initialize(audio_options);
   return source;
 }

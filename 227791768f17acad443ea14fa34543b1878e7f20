@@ -16,6 +16,98 @@
       "message": "\"Say something nice\" it says. I hope this review finds you well. If SCTP is generally simple, this extension (RFC6525) is not designed in the same spirit. \n\nOne can surely understand why a \"Data Channel Close\" operation was implemented like this, instead of having e.g. a DATA_CHANNEL_CLOSE message in RFC8832. For example, this design allows implementations to discard messages, but other than that, it\u0027s quite complicated and puts a lot of work on the SCTP implementation. There should be quite good test coverage, though.",
       "revId": "227791768f17acad443ea14fa34543b1878e7f20",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "555cbc79_7d617e9a",
+        "filename": "net/dcsctp/socket/stream_reset_handler.cc",
+        "patchSetId": 41
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-26T05:43:42Z",
+      "side": 1,
+      "message": "To avoid issues with unknown request types, we may want to add a default case with RTC_CHECK_NOTREACHED() (or something similar).\n\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/api/media_types.cc;l\u003d34;drc\u003dc95b93966734b44962f2479006b85375d0556c98",
+      "range": {
+        "startLine": 221,
+        "startChar": 4,
+        "endLine": 221,
+        "endChar": 10
+      },
+      "revId": "227791768f17acad443ea14fa34543b1878e7f20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a428ff8_a47f05c9",
+        "filename": "net/dcsctp/socket/stream_reset_handler.cc",
+        "patchSetId": 41
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-26T05:43:42Z",
+      "side": 1,
+      "message": "Should the \"break\" be inside {}?\n\nAlso, kInProgress doesn\u0027t use {}, should we be uniform in the style for this switch?",
+      "range": {
+        "startLine": 234,
+        "startChar": 6,
+        "endLine": 234,
+        "endChar": 14
+      },
+      "revId": "227791768f17acad443ea14fa34543b1878e7f20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b199fb3a_8855edad",
+        "filename": "net/dcsctp/socket/stream_reset_handler.h",
+        "patchSetId": 41
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-26T05:43:42Z",
+      "side": 1,
+      "message": "RFC",
+      "range": {
+        "startLine": 63,
+        "startChar": 66,
+        "endLine": 63,
+        "endChar": 68
+      },
+      "revId": "227791768f17acad443ea14fa34543b1878e7f20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ea9e154_bc42d6fa",
+        "filename": "net/dcsctp/socket/stream_reset_handler.h",
+        "patchSetId": 41
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-26T05:43:42Z",
+      "side": 1,
+      "message": "I am not sure about keeping \"us\" in this comment since it might mean different things for different readers. Maybe we can just remove?",
+      "range": {
+        "startLine": 121,
+        "startChar": 19,
+        "endLine": 121,
+        "endChar": 31
+      },
+      "revId": "227791768f17acad443ea14fa34543b1878e7f20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

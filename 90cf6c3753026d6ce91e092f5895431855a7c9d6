@@ -45,6 +45,30 @@
       },
       "revId": "90cf6c3753026d6ce91e092f5895431855a7c9d6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41b4b87b_195f8068",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-04-26T15:15:23Z",
+      "side": 1,
+      "message": "Oh, good catch.\nYes - not keeping as a member is a good idea, that also avoids redundant initialization for test cases that want the custom config.",
+      "parentUuid": "3f52a814_24c59009",
+      "range": {
+        "startLine": 138,
+        "startChar": 4,
+        "endLine": 138,
+        "endChar": 11
+      },
+      "revId": "90cf6c3753026d6ce91e092f5895431855a7c9d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

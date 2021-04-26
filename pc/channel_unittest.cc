@@ -633,7 +633,7 @@ class ChannelTest : public ::testing::Test, public sigslot::has_slots<> {
     CreateContent(0, kPcmuCodec, kH264Codec, &content1);
     content1.AddStream(stream1);
     EXPECT_TRUE(channel1_->SetLocalContent(&content1, SdpType::kOffer, NULL));
-    EXPECT_TRUE(channel1_->Enable(true));
+    channel1_->Enable(true);
     EXPECT_EQ(1u, media_channel1_->send_streams().size());
 
     EXPECT_TRUE(channel2_->SetRemoteContent(&content1, SdpType::kOffer, NULL));
@@ -646,7 +646,7 @@ class ChannelTest : public ::testing::Test, public sigslot::has_slots<> {
     EXPECT_TRUE(channel1_->SetRemoteContent(&content2, SdpType::kAnswer, NULL));
     EXPECT_EQ(0u, media_channel1_->recv_streams().size());
     EXPECT_TRUE(channel2_->SetLocalContent(&content2, SdpType::kAnswer, NULL));
-    EXPECT_TRUE(channel2_->Enable(true));
+    channel2_->Enable(true);
     EXPECT_EQ(0u, media_channel2_->send_streams().size());
 
     SendCustomRtp1(kSsrc1, 0);
@@ -690,7 +690,7 @@ class ChannelTest : public ::testing::Test, public sigslot::has_slots<> {
       EXPECT_FALSE(media_channel2_->playout());
     }
     EXPECT_FALSE(media_channel2_->sending());
-    EXPECT_TRUE(channel1_->Enable(true));
+    channel1_->Enable(true);
     if (verify_playout_) {
       EXPECT_FALSE(media_channel1_->playout());
     }
@@ -722,7 +722,7 @@ class ChannelTest : public ::testing::Test, public sigslot::has_slots<> {
       EXPECT_FALSE(media_channel2_->playout());
     }
     EXPECT_FALSE(media_channel2_->sending());
-    EXPECT_TRUE(channel2_->Enable(true));
+    channel2_->Enable(true);
     if (verify_playout_) {
       EXPECT_TRUE(media_channel2_->playout());
     }
@@ -746,8 +746,8 @@ class ChannelTest : public ::testing::Test, public sigslot::has_slots<> {
     // Set |content2| to be InActive.
     content2.set_direction(RtpTransceiverDirection::kInactive);
 
-    EXPECT_TRUE(channel1_->Enable(true));
-    EXPECT_TRUE(channel2_->Enable(true));
+    channel1_->Enable(true);
+    channel2_->Enable(true);
     if (verify_playout_) {
       EXPECT_FALSE(media_channel1_->playout());
     }

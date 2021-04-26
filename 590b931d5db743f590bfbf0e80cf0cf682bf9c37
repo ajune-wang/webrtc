@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d198ec2_cf6f03c6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-26T14:34:02Z",
+      "side": 1,
+      "message": "that what `using T::T` is for.",
+      "parentUuid": "c08c1cf7_f38b84c2",
+      "revId": "590b931d5db743f590bfbf0e80cf0cf682bf9c37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fa7f8c76_43f783be",
@@ -31,6 +49,24 @@
       "writtenOn": "2021-04-26T13:46:29Z",
       "side": 1,
       "message": "I\u0027d rather not have the silly unique_ptr example in the unittests - I think it\u0027s an abuse of the pattern, and probably a misunderstanding.\nCan we instead wrap an int, a class of our own devising or something else that doesn\u0027t mess around with ownership?",
+      "revId": "590b931d5db743f590bfbf0e80cf0cf682bf9c37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "edc168ff_e5ab752b",
+        "filename": "rtc_base/ref_counted_object_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-26T14:34:02Z",
+      "side": 1,
+      "message": "rewrote the test to more accurately describe the scenario that require explicit constructor from T\u0026\u0026",
+      "parentUuid": "fa7f8c76_43f783be",
       "revId": "590b931d5db743f590bfbf0e80cf0cf682bf9c37",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -114,6 +114,7 @@ TEST(FinalRefCountedObject, CanWrapIntoScopedRefptr) {
   using WrappedTyped = FinalRefCountedObject<A>;
   static_assert(!std::is_polymorphic<WrappedTyped>::value, "");
   scoped_refptr<WrappedTyped> ref(new WrappedTyped());
+
   EXPECT_TRUE(ref.get());
   EXPECT_TRUE(ref->HasOneRef());
   // Test reference counter is updated on some simple operations.
@@ -123,6 +124,11 @@ TEST(FinalRefCountedObject, CanWrapIntoScopedRefptr) {
 
   ref = nullptr;
   EXPECT_TRUE(ref2->HasOneRef());
+}
+
+TEST(FinalRefCountedObject, CanWrapUniquePtr) {
+  using WrappedTyped = FinalRefCountedObject<std::unique_ptr<A>>;
+  scoped_refptr<WrappedTyped> ref(new WrappedTyped(std::make_unique<A>()));
 }
 
 // This test is mostly a compile-time test for scoped_refptr compatibility.

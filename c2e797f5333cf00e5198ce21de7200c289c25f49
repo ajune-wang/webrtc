@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43478a1a_24c7c452",
+        "filename": "pc/channel.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-04-26T09:32:11Z",
+      "side": 1,
+      "message": "Add TODO  item on deleting this inheritance? I guess it\u0027s still needed because subclasses have slots, so the inherit would need to be moved rather than just deleted?",
+      "range": {
+        "startLine": 97,
+        "startChar": 20,
+        "endLine": 97,
+        "endChar": 48
+      },
+      "revId": "c2e797f5333cf00e5198ce21de7200c289c25f49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c01e6eb_3e8ffad7",
+        "filename": "pc/channel_interface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-04-26T09:32:11Z",
+      "side": 1,
+      "message": "Would be nice if it could be turned into a construction-time setting.",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 42
+      },
+      "revId": "c2e797f5333cf00e5198ce21de7200c289c25f49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

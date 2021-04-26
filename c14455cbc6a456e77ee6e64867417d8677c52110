@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f984562_ba083eec",
+        "filename": "modules/audio_processing/agc2/adaptive_agc.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-04-26T15:29:03Z",
+      "side": 1,
+      "message": "You\u0027re right and in fact in the header file there\u0027s a TODO to remove this ctor. Let\u0027s remove this ctor.\n\nI also fixed `VadLevelAnalyzer` in a similar way since it had the same issue.",
+      "parentUuid": "175fbcb7_c4d7e68c",
+      "range": {
+        "startLine": 64,
+        "startChar": 1,
+        "endLine": 64,
+        "endChar": 56
+      },
+      "revId": "c14455cbc6a456e77ee6e64867417d8677c52110",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6538a6c9_e8883afb",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-04-26T09:43:41Z",
       "side": 1,
       "message": "Nit:\nThis code is partly duplicated in both constructors, but there is also code which is only present in one constructor. I would advise to only have one piece of code for this, not mainly due to the concern of having more code than needed but rather due to the concern that it is error prone do have two implementations that must remain the same.",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 3
+      },
+      "revId": "c14455cbc6a456e77ee6e64867417d8677c52110",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79cd1aa1_a0eef2ea",
+        "filename": "modules/audio_processing/agc2/adaptive_agc.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-04-26T15:29:03Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "6538a6c9_e8883afb",
       "range": {
         "startLine": 94,
         "startChar": 0,

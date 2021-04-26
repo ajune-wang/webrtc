@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "770f115f_f06f3f51",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-04-26T15:29:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f7f1c030_1a63a55c",
+      "range": {
+        "startLine": 111,
+        "startChar": 2,
+        "endLine": 111,
+        "endChar": 33
+      },
+      "revId": "139785522fd681a106ea03b8feada67ee264f621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3f00caf2_6c87ce81",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-04-26T09:43:41Z",
       "side": 1,
       "message": "As above, please do this resizing in the initialize call, or at construction.",
+      "range": {
+        "startLine": 115,
+        "startChar": 4,
+        "endLine": 115,
+        "endChar": 39
+      },
+      "revId": "139785522fd681a106ea03b8feada67ee264f621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b895937_8939c8e1",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-04-26T15:29:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f00caf2_6c87ce81",
       "range": {
         "startLine": 115,
         "startChar": 4,
@@ -87,6 +135,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ca426e7_99eff466",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-04-26T15:29:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "71e196f4_a8684c6a",
+      "range": {
+        "startLine": 120,
+        "startChar": 4,
+        "endLine": 120,
+        "endChar": 32
+      },
+      "revId": "139785522fd681a106ea03b8feada67ee264f621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c3d64871_4c637d65",
@@ -100,6 +172,30 @@
       "writtenOn": "2021-04-26T09:43:41Z",
       "side": 1,
       "message": "I think these DCHECKS should be at the beginning of the method and not at the end.\n\nI see the value in ensuring the the sizes of the input are the correct ones. However, since this should not do any vector resizing (apart from some really well motivated cases) that should be checked upfront rather than afterwards I think.",
+      "range": {
+        "startLine": 125,
+        "startChar": 2,
+        "endLine": 130,
+        "endChar": 52
+      },
+      "revId": "139785522fd681a106ea03b8feada67ee264f621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7388ad3_37a1c7af",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-04-26T15:29:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3d64871_4c637d65",
       "range": {
         "startLine": 125,
         "startChar": 2,

@@ -452,7 +452,7 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
   rtc::scoped_refptr<MockStatsObserver> OldGetStatsForTrack(
       webrtc::MediaStreamTrackInterface* track) {
     rtc::scoped_refptr<MockStatsObserver> observer(
-        new rtc::RefCountedObject<MockStatsObserver>());
+        rtc::make_ref_counted<MockStatsObserver>());
     EXPECT_TRUE(peer_connection_->GetStats(
         observer, nullptr, PeerConnectionInterface::kStatsOutputLevelStandard));
     EXPECT_TRUE_WAIT(observer->called(), kDefaultTimeout);
@@ -468,7 +468,7 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
   // and returns null.
   rtc::scoped_refptr<const webrtc::RTCStatsReport> NewGetStats() {
     rtc::scoped_refptr<webrtc::MockRTCStatsCollectorCallback> callback(
-        new rtc::RefCountedObject<webrtc::MockRTCStatsCollectorCallback>());
+        rtc::make_ref_counted<webrtc::MockRTCStatsCollectorCallback>());
     peer_connection_->GetStats(callback);
     EXPECT_TRUE_WAIT(callback->called(), kDefaultTimeout);
     return callback->report();
@@ -606,7 +606,7 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
   // Returns null on failure.
   std::unique_ptr<SessionDescriptionInterface> CreateOfferAndWait() {
     rtc::scoped_refptr<MockCreateSessionDescriptionObserver> observer(
-        new rtc::RefCountedObject<MockCreateSessionDescriptionObserver>());
+        rtc::make_ref_counted<MockCreateSessionDescriptionObserver>());
     pc()->CreateOffer(observer, offer_answer_options_);
     return WaitForDescriptionFromObserver(observer);
   }
@@ -828,7 +828,7 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
     config.frame_interval_ms = 100;
 
     video_track_sources_.emplace_back(
-        new rtc::RefCountedObject<webrtc::FakePeriodicVideoTrackSource>(
+        rtc::make_ref_counted<webrtc::FakePeriodicVideoTrackSource>(
             config, false /* remote */));
     rtc::scoped_refptr<webrtc::VideoTrackInterface> track(
         peer_connection_factory_->CreateVideoTrack(
@@ -875,7 +875,7 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
   // Returns null on failure.
   std::unique_ptr<SessionDescriptionInterface> CreateAnswer() {
     rtc::scoped_refptr<MockCreateSessionDescriptionObserver> observer(
-        new rtc::RefCountedObject<MockCreateSessionDescriptionObserver>());
+        rtc::make_ref_counted<MockCreateSessionDescriptionObserver>());
     pc()->CreateAnswer(observer, offer_answer_options_);
     return WaitForDescriptionFromObserver(observer);
   }
@@ -901,7 +901,7 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
   bool SetLocalDescriptionAndSendSdpMessage(
       std::unique_ptr<SessionDescriptionInterface> desc) {
     rtc::scoped_refptr<MockSetSessionDescriptionObserver> observer(
-        new rtc::RefCountedObject<MockSetSessionDescriptionObserver>());
+        rtc::make_ref_counted<MockSetSessionDescriptionObserver>());
     RTC_LOG(LS_INFO) << debug_name_ << ": SetLocalDescriptionAndSendSdpMessage";
     SdpType type = desc->GetType();
     std::string sdp;
@@ -918,7 +918,7 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
 
   bool SetRemoteDescription(std::unique_ptr<SessionDescriptionInterface> desc) {
     rtc::scoped_refptr<MockSetSessionDescriptionObserver> observer(
-        new rtc::RefCountedObject<MockSetSessionDescriptionObserver>());
+        rtc::make_ref_counted<MockSetSessionDescriptionObserver>());
     RTC_LOG(LS_INFO) << debug_name_ << ": SetRemoteDescription";
     pc()->SetRemoteDescription(observer, desc.release());
     RemoveUnusedVideoRenderers();
@@ -1322,8 +1322,7 @@ class MockIceTransportFactory : public IceTransportFactory {
       int component,
       IceTransportInit init) {
     RecordIceTransportCreated();
-    return new rtc::RefCountedObject<MockIceTransport>(transport_name,
-                                                       component);
+    return rtc::make_ref_counted<MockIceTransport>(transport_name, component);
   }
   MOCK_METHOD(void, RecordIceTransportCreated, ());
 };

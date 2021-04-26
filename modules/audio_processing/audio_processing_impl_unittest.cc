@@ -545,7 +545,7 @@ TEST(AudioProcessingImplTest, RenderPreProcessorBeforeEchoDetector) {
   // Make sure that signal changes caused by a render pre-processing sub-module
   // take place before any echo detector analysis.
   rtc::scoped_refptr<TestEchoDetector> test_echo_detector(
-      new rtc::RefCountedObject<TestEchoDetector>());
+      rtc::make_ref_counted<TestEchoDetector>());
   std::unique_ptr<CustomProcessing> test_render_pre_processor(
       new TestRenderPreProcessor());
   // Create APM injecting the test echo detector and render pre-processor.
@@ -606,7 +606,7 @@ TEST(AudioProcessingImplTest, RenderPreProcessorBeforeEchoDetector) {
 // This mainly tests that SetCreateOptionalSubmodulesForTesting has an effect.
 TEST(ApmWithSubmodulesExcludedTest, BitexactWithDisabledModules) {
   rtc::scoped_refptr<AudioProcessingImpl> apm =
-      new rtc::RefCountedObject<AudioProcessingImpl>(webrtc::Config());
+      rtc::make_ref_counted<AudioProcessingImpl>(webrtc::Config());
   ASSERT_EQ(apm->Initialize(), AudioProcessing::kNoError);
 
   ApmSubmoduleCreationOverrides overrides;
@@ -655,7 +655,7 @@ TEST(ApmWithSubmodulesExcludedTest, BitexactWithDisabledModules) {
 // calls to the transient suppressor API.
 TEST(ApmWithSubmodulesExcludedTest, ReinitializeTransientSuppressor) {
   rtc::scoped_refptr<AudioProcessingImpl> apm =
-      new rtc::RefCountedObject<AudioProcessingImpl>(webrtc::Config());
+      rtc::make_ref_counted<AudioProcessingImpl>(webrtc::Config());
   ASSERT_EQ(apm->Initialize(), kNoErr);
 
   ApmSubmoduleCreationOverrides overrides;
@@ -717,7 +717,7 @@ TEST(ApmWithSubmodulesExcludedTest, ReinitializeTransientSuppressor) {
 // calls to the transient suppressor API.
 TEST(ApmWithSubmodulesExcludedTest, ToggleTransientSuppressor) {
   rtc::scoped_refptr<AudioProcessingImpl> apm =
-      new rtc::RefCountedObject<AudioProcessingImpl>(webrtc::Config());
+      rtc::make_ref_counted<AudioProcessingImpl>(webrtc::Config());
   ASSERT_EQ(apm->Initialize(), AudioProcessing::kNoError);
 
   ApmSubmoduleCreationOverrides overrides;

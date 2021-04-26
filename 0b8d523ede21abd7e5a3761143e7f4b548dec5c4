@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0fcead83_24d666d9",
+        "filename": "net/dcsctp/tx/retransmission_queue.cc",
+        "patchSetId": 52
+      },
+      "lineNbr": 681,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-26T13:43:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1fda7d21_f51a14e0",
+      "revId": "0b8d523ede21abd7e5a3761143e7f4b548dec5c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4836c4a2_8f42d962",
@@ -48,6 +66,24 @@
       "writtenOn": "2021-04-26T13:32:01Z",
       "side": 1,
       "message": "Is this a const reference?",
+      "revId": "0b8d523ede21abd7e5a3761143e7f4b548dec5c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7675a61d_853934f5",
+        "filename": "net/dcsctp/tx/retransmission_queue.cc",
+        "patchSetId": 52
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-26T13:43:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4836c4a2_8f42d962",
       "revId": "0b8d523ede21abd7e5a3761143e7f4b548dec5c4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

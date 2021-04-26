@@ -22,6 +22,30 @@
       },
       "revId": "1631ad150702f69bdedbd71a400e9fac378def9f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "608d2b64_b3873dc2",
+        "filename": "config.star",
+        "patchSetId": 4
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5533
+      },
+      "writtenOn": "2021-04-26T18:40:34Z",
+      "side": 1,
+      "message": "derp. Fixed!",
+      "parentUuid": "09352fa5_ecade4c5",
+      "range": {
+        "startLine": 127,
+        "startChar": 60,
+        "endLine": 127,
+        "endChar": 62
+      },
+      "revId": "1631ad150702f69bdedbd71a400e9fac378def9f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6a765e55_fec5e5f3",
+        "filename": "pc/channel.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-26T18:13:45Z",
+      "side": 1,
+      "message": "It\u0027s currently needed because of RtpTransportInternal\u0027s use of sigslot. In those cases I suspect we could also switch to single-callback-supported mechanisms, whether that be an interface or a set of std::function setters.",
+      "parentUuid": "43478a1a_24c7c452",
+      "range": {
+        "startLine": 97,
+        "startChar": 20,
+        "endLine": 97,
+        "endChar": 48
+      },
+      "revId": "c2e797f5333cf00e5198ce21de7200c289c25f49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3c01e6eb_3e8ffad7",
         "filename": "pc/channel_interface.h",
         "patchSetId": 8
@@ -37,6 +61,30 @@
       "writtenOn": "2021-04-26T09:32:11Z",
       "side": 1,
       "message": "Would be nice if it could be turned into a construction-time setting.",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 42
+      },
+      "revId": "c2e797f5333cf00e5198ce21de7200c289c25f49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbba5ca9_5f3ebaad",
+        "filename": "pc/channel_interface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-26T18:13:45Z",
+      "side": 1,
+      "message": "Yes, I plan to do that. I\u0027ll be moving construction and ownership of the channel objects into the RtpTransceiver and once there, we can make this be a construction time parameter. There are also some other benefits such as consolidating a few thread hops that currently happen as part of channel initialization.",
+      "parentUuid": "3c01e6eb_3e8ffad7",
       "range": {
         "startLine": 46,
         "startChar": 0,

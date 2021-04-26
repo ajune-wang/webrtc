@@ -52,6 +52,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "89d4dc78_30d51344",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 778,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-04-26T19:06:49Z",
+      "side": 1,
+      "message": "Not without doing \"new cricket::ContentGroup(...)\" which I suspect is the less preferred style.",
+      "parentUuid": "14419724_836d0271",
+      "revId": "f7577bb6c73e7ebb0b9d7ce16d5bcd30b7e9549b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0f0d715d_98d0d02b",
@@ -65,6 +83,24 @@
       "writtenOn": "2021-04-22T23:13:48Z",
       "side": 1,
       "message": "One other idea for a test: What happens if we receive an offer with overlapping groups (i.e. (A, C), (B, C))?",
+      "revId": "f7577bb6c73e7ebb0b9d7ce16d5bcd30b7e9549b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a80d6f9_cb889310",
+        "filename": "pc/jsep_transport_controller_unittest.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 1572,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-04-26T19:06:49Z",
+      "side": 1,
+      "message": "Test added. It gets rejected.",
+      "parentUuid": "0f0d715d_98d0d02b",
       "revId": "f7577bb6c73e7ebb0b9d7ce16d5bcd30b7e9549b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -88,6 +124,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "60e4f221_f5d0ce01",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 4785,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-04-26T19:06:49Z",
+      "side": 1,
+      "message": "Good catch. I updated this method to have per-bundle versions of these variables. If you would like me to add a test for this let me know if you know a good place for that, otherwise I think the logic is the same only per-bundle now.",
+      "parentUuid": "848219a2_8f56ff5e",
+      "revId": "f7577bb6c73e7ebb0b9d7ce16d5bcd30b7e9549b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "4df4e967_29f42405",
         "filename": "pc/sdp_offer_answer.h",
         "patchSetId": 19
@@ -99,6 +153,24 @@
       "writtenOn": "2021-04-22T23:13:48Z",
       "side": 1,
       "message": "I\u0027m not thrilled about passing this map as a parameter everywhere, but for lots of m\u003d sections it\u0027s a lot more efficient than the alternative (which is O(N^2)) so it seems justified.",
+      "revId": "f7577bb6c73e7ebb0b9d7ce16d5bcd30b7e9549b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9980b201_1094af49",
+        "filename": "pc/sdp_offer_answer.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-04-26T19:06:49Z",
+      "side": 1,
+      "message": "I feel the same, but O(n^2) scares me if you have 50+ m\u003d sections...",
+      "parentUuid": "4df4e967_29f42405",
       "revId": "f7577bb6c73e7ebb0b9d7ce16d5bcd30b7e9549b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -16,6 +16,24 @@
       "message": "Nisse - your suggestion of making it protected seems to work well.\nWdyt about this approach?",
       "revId": "e94e00bd4b935d3afc2a87652ba6d089a84a96e0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47e0378f_86d88552",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-04-26T08:43:05Z",
+      "side": 1,
+      "message": "Good enough to me. Maybe add a comment explaining that it is intended only for subclasses internal to webrtc?",
+      "parentUuid": "195a55c1_8b119556",
+      "revId": "e94e00bd4b935d3afc2a87652ba6d089a84a96e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

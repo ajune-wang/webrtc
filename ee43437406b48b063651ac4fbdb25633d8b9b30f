@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db3702ee_dc0c6321",
+        "filename": "modules/video_coding/codecs/vp9/vp9_frame_buffer_pool.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-04-26T08:43:05Z",
+      "side": 1,
+      "message": "You could keep the same name, just promote it to public with\n\nusing HasOneRef;\n\nMight be easier to read with one name less, but I don\u0027t have a strong opinion.",
+      "range": {
+        "startLine": 75,
+        "startChar": 4,
+        "endLine": 75,
+        "endChar": 51
+      },
+      "revId": "ee43437406b48b063651ac4fbdb25633d8b9b30f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

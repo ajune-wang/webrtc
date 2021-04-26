@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ec25f18_b7a3fca9",
+        "filename": "rtc_base/ref_counted_object.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-26T16:25:10Z",
+      "side": 1,
+      "message": "Can we update RefCountedObject too?",
+      "range": {
+        "startLine": 24,
+        "startChar": 6,
+        "endLine": 24,
+        "endChar": 22
+      },
+      "revId": "36373939bd91e17f0df62b4de84c360975485912",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -53,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "84fb3cde_3e7ea465",
+        "filename": "net/dcsctp/tx/retransmission_queue.cc",
+        "patchSetId": 45
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-26T13:32:01Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5d1bc10e_4c744a9d",
+      "revId": "101469c4422783a1910bf034d4dd268deb00465d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1625ae46_4101f63b",
@@ -469,6 +487,24 @@
       "side": 1,
       "message": "I have put it last, but I don\u0027t have a good alternative, as acking (in different ways) need to update a fair amount of state. State that is only applicable during the processing of a Sack, so I don\u0027t want to put it in the RetransmisssionQueue state. Do you have a suggestion?",
       "parentUuid": "a5aad60f_77de31df",
+      "revId": "101469c4422783a1910bf034d4dd268deb00465d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4bce69c_ff65eb54",
+        "filename": "net/dcsctp/tx/retransmission_queue.h",
+        "patchSetId": 45
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-26T13:32:01Z",
+      "side": 1,
+      "message": "I think this is good enough - I was considering making these functions on AckInfo, but when looking at them, I realized that they also do a fair amount of stuff to the TxData object, so one of them has to be the I/O argument and the other the \"this\" of the function - this way works.",
+      "parentUuid": "b298f712_26d5bca6",
       "revId": "101469c4422783a1910bf034d4dd268deb00465d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

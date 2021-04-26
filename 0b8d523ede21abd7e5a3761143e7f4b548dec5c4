@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fd6c05b_e0661342",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 52
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-26T13:32:01Z",
+      "side": 1,
+      "message": "Approved!\n",
+      "revId": "0b8d523ede21abd7e5a3761143e7f4b548dec5c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1fda7d21_f51a14e0",
+        "filename": "net/dcsctp/tx/retransmission_queue.cc",
+        "patchSetId": 52
+      },
+      "lineNbr": 681,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-26T13:32:01Z",
+      "side": 1,
+      "message": "can we use a const_iterator here?",
+      "revId": "0b8d523ede21abd7e5a3761143e7f4b548dec5c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4836c4a2_8f42d962",
+        "filename": "net/dcsctp/tx/retransmission_queue.cc",
+        "patchSetId": 52
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-26T13:32:01Z",
+      "side": 1,
+      "message": "Is this a const reference?",
+      "revId": "0b8d523ede21abd7e5a3761143e7f4b548dec5c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

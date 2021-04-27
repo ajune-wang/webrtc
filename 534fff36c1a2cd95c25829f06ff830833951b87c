@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6c7c1db_a01ce4a2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-04-27T05:54:05Z",
+      "side": 1,
+      "message": "I updated description with a link to a bug. Can this be queued again? Thank you.",
+      "revId": "534fff36c1a2cd95c25829f06ff830833951b87c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -18,6 +18,69 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c5af8ad_82fac931",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-04-27T06:44:45Z",
+      "side": 1,
+      "message": "This will change the iteration order of the containers, so it\u0027s important to make sure that we don\u0027t do processing that\u0027s dependent on the iteration order when changing this. If we are, that code should be updated so it\u0027s unaffected b the change.\n\n(such changes can lead to subtle changes in behaviors that can trigger latent race conditions in tests and sometimes even production)",
+      "revId": "a74cb8526ef05a6b7a6534b07d336570e34b2bc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "930e137c_e39674ca",
+        "filename": "call/rtp_demuxer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-04-27T06:44:45Z",
+      "side": 1,
+      "message": "I\u0027m no std lib expert, but I think unordered map is often not ideal to use, maybe use absl::flat_hash_map instead? https://abseil.io/tips/136",
+      "range": {
+        "startLine": 174,
+        "startChar": 7,
+        "endLine": 174,
+        "endChar": 20
+      },
+      "revId": "a74cb8526ef05a6b7a6534b07d336570e34b2bc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cde3f8e1_2be2661c",
+        "filename": "call/rtp_demuxer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-04-27T06:44:45Z",
+      "side": 1,
+      "message": "could we use an inline lambda here instead?",
+      "range": {
+        "startLine": 179,
+        "startChar": 21,
+        "endLine": 179,
+        "endChar": 37
+      },
+      "revId": "a74cb8526ef05a6b7a6534b07d336570e34b2bc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cb16c244_c7b1764f",

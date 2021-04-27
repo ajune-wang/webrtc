@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1d632ba_4fef04db",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-27T07:26:19Z",
+      "side": 1,
+      "message": "Yes, I share your concern. I have carefully inspected all changes and haven\u0027t seen any sign of expecting a certain iteration order. The unordered_multimap\u0027s equal_range wasn\u0027t very familiar to me, but it also checks out fine.",
+      "parentUuid": "3c5af8ad_82fac931",
+      "revId": "a74cb8526ef05a6b7a6534b07d336570e34b2bc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "930e137c_e39674ca",
@@ -58,6 +76,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee358906_686ba580",
+        "filename": "call/rtp_demuxer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-27T07:26:19Z",
+      "side": 1,
+      "message": "absl::flat_hash_map is not yet approved for use in WebRTC. I would\u0027ve used it if it was. If it becomes approved, it should certainly be considered and benchmarked (also regarding binary size, which is a concern)",
+      "parentUuid": "930e137c_e39674ca",
+      "range": {
+        "startLine": 174,
+        "startChar": 7,
+        "endLine": 174,
+        "endChar": 20
+      },
+      "revId": "a74cb8526ef05a6b7a6534b07d336570e34b2bc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cde3f8e1_2be2661c",
@@ -71,6 +113,30 @@
       "writtenOn": "2021-04-27T06:44:45Z",
       "side": 1,
       "message": "could we use an inline lambda here instead?",
+      "range": {
+        "startLine": 179,
+        "startChar": 21,
+        "endLine": 179,
+        "endChar": 37
+      },
+      "revId": "a74cb8526ef05a6b7a6534b07d336570e34b2bc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1cbc60b4_19355dc8",
+        "filename": "call/rtp_demuxer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-27T07:26:19Z",
+      "side": 1,
+      "message": "This PairHash is expected to be used in multiple places, which is why I put it in rtc_base. This is actually just moved from net/dcsctp/common/ and when this is submitted, I intend to remove that one. If the hashing function is improved, it would benefit all if it was in a single location. Abseil already provides a hashing function for std::pair\u003c\u003e (which is why you wouldn\u0027t need to define one).",
+      "parentUuid": "cde3f8e1_2be2661c",
       "range": {
         "startLine": 179,
         "startChar": 21,

@@ -110,6 +110,30 @@
       },
       "revId": "f684b92d7c53acc2e6987de928eaffd434654549",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b272723_eaa73f82",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 6641
+      },
+      "writtenOn": "2021-04-27T15:01:45Z",
+      "side": 1,
+      "message": "Thank you! I am still not sure what it does. What are side effects? Does it mean that it runs the adaptive digital agc algorithms but does not modify the output audio signal, and if so, what is it used for?",
+      "parentUuid": "e85e27e9_91e73c3f",
+      "range": {
+        "startLine": 366,
+        "startChar": 0,
+        "endLine": 366,
+        "endChar": 29
+      },
+      "revId": "f684b92d7c53acc2e6987de928eaffd434654549",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f3b036e_e578c805",
+        "filename": "net/dcsctp/socket/stream_reset_handler.cc",
+        "patchSetId": 46
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-27T20:54:22Z",
+      "side": 1,
+      "message": "It\u0027s not *inhales*. The method should be called ParseDescriptors() instead, which I\u0027ll fix in a separate CL. It\u0027s called descriptors() in SctpPacket, where it is a simple getter returning an rtc::ArrayView, so consistency is not great. I\u0027ve added it to the \"fixups\" doc - thanks.",
+      "parentUuid": "9742adac_f50ad3bb",
+      "revId": "7cdb353c94811e8162c0796013a2c7a170cbc597",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "48ac412c_f02dd983",
@@ -35,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "14bc0ab4_c4f394ff",
+        "filename": "net/dcsctp/socket/stream_reset_handler.cc",
+        "patchSetId": 46
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-27T20:54:22Z",
+      "side": 1,
+      "message": "Yeah, I agree that this doesn\u0027t look too nice, but it\u0027s fortunately quite constant and will never change as the RFC is old and we have all what we need from it.",
+      "parentUuid": "48ac412c_f02dd983",
+      "revId": "7cdb353c94811e8162c0796013a2c7a170cbc597",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "95e080aa_129036ec",
@@ -48,6 +84,24 @@
       "writtenOn": "2021-04-27T16:49:18Z",
       "side": 1,
       "message": "nit: since the previous if() scope has an early return, I\u0027d remove the \u0027else\u0027.",
+      "revId": "7cdb353c94811e8162c0796013a2c7a170cbc597",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66efa59a_1f48099d",
+        "filename": "net/dcsctp/socket/stream_reset_handler.cc",
+        "patchSetId": 46
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-27T20:54:22Z",
+      "side": 1,
+      "message": "Thanks, makes the flow more consistent.",
+      "parentUuid": "95e080aa_129036ec",
       "revId": "7cdb353c94811e8162c0796013a2c7a170cbc597",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

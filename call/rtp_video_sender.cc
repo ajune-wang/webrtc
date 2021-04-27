@@ -343,6 +343,43 @@ bool IsFirstFrameOfACodedVideoSequence(
   return encoded_image.SpatialIndex() <= 0;
 }
 
+// Create structure that aligns with simulated generic info in RtpPayloadParams
+// The templates are valid, alloing to produce valid dependency descriptor,
+// but suboptimal, forcing dependency descriptor to use more bytes than it can.
+std::unique_ptr<FrameDependencyStructure> MinimalisticVp9Structure(
+    const CodecSpecificInfoVP9& vp9) {
+  const int num_spatial_layers = vp9.num_spatial_layers;
+  const int num_temporal_layers = kMaxTemporalStreams;
+  auto structure = std::make_unique<FrameDependencyStructure>();
+  structure->num_decode_targets = num_spatial_layers * num_temporal_layers;
+  structure->num_chains = num_spatial_layers;
+  structure->templates.reserve(num_spatial_layers * num_temporal_layers);
+  for (int sid = 0; sid < num_spatial_layers; ++sid) {
+    for (int tid = 0; tid < num_temporal_layers; ++tid) {
+      FrameDependencyTemplate a_template;
+      a_template.spatial_id = sid;
+      a_template.temporal_id = tid;
+      for (int s = 0; s < num_spatial_layers; ++s) {
+        for (int t = 0; t < num_temporal_layers; ++t) {
+          a_template.decode_target_indications.push_back(
+              sid <= s && tid <= t ? DecodeTargetIndication::kSwitch
+                                   : DecodeTargetIndication::kNotPresent);
+        }
+      }
+      // Create a template for typical case of no scalability.
+      a_template.frame_diffs.push_back(1);
+      a_template.chain_diffs.assign(structure->num_chains, 1);
+      structure->templates.push_back(a_template);
+
+      structure->decode_target_protected_by_chain.push_back(sid);
+    }
+    if (vp9.ss_data_available && vp9.spatial_layer_resolution_present) {
+      structure->resolutions.emplace_back(vp9.width[sid], vp9.height[sid]);
+    }
+  }
+  return structure;
+}
+
 }  // namespace
 
 RtpVideoSender::RtpVideoSender(
@@ -367,6 +404,9 @@ RtpVideoSender::RtpVideoSender(
           field_trials_.Lookup("WebRTC-Video-UseFrameRateForOverhead"),
           "Enabled")),
       has_packet_feedback_(TransportSeqNumExtensionConfigured(rtp_config)),
+      simulate_vp9_structure_(absl::StartsWith(
+          field_trials_.Lookup("WebRTC-Vp9DependencyDescriptor"),
+          "Enabled")),
       active_(false),
       module_process_thread_(nullptr),
       suspended_ssrcs_(std::move(suspended_ssrcs)),
@@ -578,10 +618,17 @@ EncodedImageCallback::Result RtpVideoSender::OnEncodedImage(
     // If encoder adapter produce FrameDependencyStructure, pass it so that
     // dependency descriptor rtp header extension can be used.
     // If not supported, disable using dependency descriptor by passing nullptr.
-    rtp_streams_[stream_index].sender_video->SetVideoStructure(
-        (codec_specific_info && codec_specific_info->template_structure)
-            ? &*codec_specific_info->template_structure
-            : nullptr);
+    RTPSenderVideo& sender_video = *rtp_streams_[stream_index].sender_video;
+    if (codec_specific_info && codec_specific_info->template_structure) {
+      sender_video.SetVideoStructure(&*codec_specific_info->template_structure);
+    } else if (simulate_vp9_structure_ && codec_specific_info &&
+               codec_specific_info->codecType == kVideoCodecVP9) {
+      std::unique_ptr<FrameDependencyStructure> structure =
+          MinimalisticVp9Structure(codec_specific_info->codecSpecific.VP9);
+      sender_video.SetVideoStructure(structure.get());
+    } else {
+      sender_video.SetVideoStructure(nullptr);
+    }
   }
 
   bool send_result = rtp_streams_[stream_index].sender_video->SendEncodedImage(

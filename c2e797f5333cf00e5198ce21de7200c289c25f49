@@ -93,6 +93,30 @@
       },
       "revId": "c2e797f5333cf00e5198ce21de7200c289c25f49",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99a029bc_cbbfe916",
+        "filename": "pc/channel_interface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-04-27T11:17:01Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "dbba5ca9_5f3ebaad",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 42
+      },
+      "revId": "c2e797f5333cf00e5198ce21de7200c289c25f49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

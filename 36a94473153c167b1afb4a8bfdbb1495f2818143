@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40c363b8_0513439a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-04-27T11:17:01Z",
+      "side": 1,
+      "message": "LGTM. Still think a TODO comment on the has_slots inheritance would be nice.",
+      "revId": "36a94473153c167b1afb4a8bfdbb1495f2818143",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

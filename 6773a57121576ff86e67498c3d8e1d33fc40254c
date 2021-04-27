@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e1fb343_0b1bb0d8",
+        "filename": "modules/audio_coding/neteq/neteq_impl_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-27T12:42:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "954df38c_268adad1",
+      "range": {
+        "startLine": 489,
+        "startChar": 2,
+        "endLine": 489,
+        "endChar": 41
+      },
+      "revId": "6773a57121576ff86e67498c3d8e1d33fc40254c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b498fc50_f5230cd5",
@@ -89,6 +113,54 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "1950e46f_e9e58c25",
+        "filename": "modules/audio_device/audio_device_impl.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-27T12:42:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "433f8c15_09f0c604",
+      "range": {
+        "startLine": 95,
+        "startChar": 2,
+        "endLine": 95,
+        "endChar": 43
+      },
+      "revId": "6773a57121576ff86e67498c3d8e1d33fc40254c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be24f262_cf1afcb0",
+        "filename": "modules/audio_device/audio_device_impl.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-27T12:42:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b498fc50_f5230cd5",
+      "range": {
+        "startLine": 95,
+        "startChar": 55,
+        "endLine": 95,
+        "endChar": 56
+      },
+      "revId": "6773a57121576ff86e67498c3d8e1d33fc40254c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "62d78a75_f8c7b6fd",
         "filename": "modules/audio_mixer/audio_mixer_impl.cc",
         "patchSetId": 11
@@ -100,6 +172,30 @@
       "writtenOn": "2021-04-27T11:38:14Z",
       "side": 1,
       "message": "may be this type should be changed to rtc::Ref\u003cAudioMixerImpl\u003e::Ptr",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 147,
+        "endChar": 34
+      },
+      "revId": "6773a57121576ff86e67498c3d8e1d33fc40254c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a37ccdd4_c311f271",
+        "filename": "modules/audio_mixer/audio_mixer_impl.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-27T12:42:42Z",
+      "side": 1,
+      "message": "at the moment it\u0027s RefCountInterface derived at least, so this is in line with what other places do for RefCountInterface types.",
+      "parentUuid": "62d78a75_f8c7b6fd",
       "range": {
         "startLine": 147,
         "startChar": 0,
@@ -123,6 +219,30 @@
       "writtenOn": "2021-04-27T11:38:14Z",
       "side": 1,
       "message": "change the return type or postpone converting to rtc::make_ref_counted",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 16
+      },
+      "revId": "6773a57121576ff86e67498c3d8e1d33fc40254c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "291dc287_6863b353",
+        "filename": "modules/audio_processing/test/audio_processing_builder_for_testing.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-27T12:42:42Z",
+      "side": 1,
+      "message": "reverted this change. I thought I had already done that but turns out that was the AudioProcessingBuilder::Create and that this is the WEBRTC_EXCLUDE_AUDIO_PROCESSING_MODULE part. Thanks.",
+      "parentUuid": "4ed06cb1_b86c2a9a",
       "range": {
         "startLine": 31,
         "startChar": 0,
@@ -158,6 +278,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "f8b9578a_17efe2f8",
+        "filename": "modules/video_coding/codecs/multiplex/test/multiplex_adapter_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-27T12:42:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5aec46d_b8c1f2ee",
+      "range": {
+        "startLine": 93,
+        "startChar": 4,
+        "endLine": 93,
+        "endChar": 49
+      },
+      "revId": "6773a57121576ff86e67498c3d8e1d33fc40254c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "219fe490_3775fccf",
         "filename": "pc/audio_rtp_receiver.cc",
         "patchSetId": 11
@@ -169,6 +313,30 @@
       "writtenOn": "2021-04-27T11:38:14Z",
       "side": 1,
       "message": "may be change the type of the source_ to rtc::Ref\u003cRemoteAudioSource\u003e::Ptr",
+      "range": {
+        "startLine": 45,
+        "startChar": 6,
+        "endLine": 45,
+        "endChar": 13
+      },
+      "revId": "6773a57121576ff86e67498c3d8e1d33fc40254c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65675cdf_ef4ea40f",
+        "filename": "pc/audio_rtp_receiver.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-27T12:42:42Z",
+      "side": 1,
+      "message": "RefCountInterface derived type. At the moment I think that use of Ref\u003c\u003e::Ptr is probably best to limit to corner cases and templates.",
+      "parentUuid": "219fe490_3775fccf",
       "range": {
         "startLine": 45,
         "startChar": 6,
@@ -227,6 +395,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "289cd2aa_00d99214",
+        "filename": "pc/dtls_transport_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-27T12:42:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "275f5b0f_39fa2987",
+      "range": {
+        "startLine": 89,
+        "startChar": 2,
+        "endLine": 89,
+        "endChar": 35
+      },
+      "revId": "6773a57121576ff86e67498c3d8e1d33fc40254c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "0c91db05_aec64dfa",
         "filename": "pc/dtmf_sender.cc",
         "patchSetId": 11
@@ -238,6 +430,30 @@
       "writtenOn": "2021-04-27T11:38:14Z",
       "side": 1,
       "message": "may be just return, without introducing variable dtmf_sender",
+      "range": {
+        "startLine": 68,
+        "startChar": 2,
+        "endLine": 68,
+        "endChar": 46
+      },
+      "revId": "6773a57121576ff86e67498c3d8e1d33fc40254c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "231cad22_4d825845",
+        "filename": "pc/dtmf_sender.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-27T12:42:42Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "0c91db05_aec64dfa",
       "range": {
         "startLine": 68,
         "startChar": 2,
@@ -261,6 +477,30 @@
       "writtenOn": "2021-04-27T11:38:14Z",
       "side": 1,
       "message": "may be use auto",
+      "range": {
+        "startLine": 31,
+        "startChar": 2,
+        "endLine": 31,
+        "endChar": 45
+      },
+      "revId": "6773a57121576ff86e67498c3d8e1d33fc40254c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c888380d_890d1fb2",
+        "filename": "pc/ice_transport_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-27T12:42:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08a2acce_6d7b084b",
       "range": {
         "startLine": 31,
         "startChar": 2,
@@ -319,6 +559,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "943c8722_c536561f",
+        "filename": "pc/peer_connection_signaling_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 1021,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-27T12:42:42Z",
+      "side": 1,
+      "message": "Thanks! changed back.",
+      "parentUuid": "c26de183_3061840a",
+      "range": {
+        "startLine": 1021,
+        "startChar": 16,
+        "endLine": 1021,
+        "endChar": 74
+      },
+      "revId": "6773a57121576ff86e67498c3d8e1d33fc40254c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "ad285a4e_a9253d18",
         "filename": "pc/peer_connection_wrapper.cc",
         "patchSetId": 11
@@ -330,6 +594,30 @@
       "writtenOn": "2021-04-27T11:38:14Z",
       "side": 1,
       "message": "may be drop webrtc:: prefix because this code is already in webrtc namespace",
+      "range": {
+        "startLine": 328,
+        "startChar": 28,
+        "endLine": 328,
+        "endChar": 36
+      },
+      "revId": "6773a57121576ff86e67498c3d8e1d33fc40254c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ce598b1_ec7d854a",
+        "filename": "pc/peer_connection_wrapper.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-27T12:42:42Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "ad285a4e_a9253d18",
       "range": {
         "startLine": 328,
         "startChar": 28,
@@ -353,6 +641,30 @@
       "writtenOn": "2021-04-27T11:38:14Z",
       "side": 1,
       "message": "Proxy::Create function takes implementation class by raw pointer, not by scoped_refptr\n\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/api/proxy.h;l\u003d262;drc\u003dc1d589146b5c9f37bcaa4b83347ec0e66b716581",
+      "range": {
+        "startLine": 90,
+        "startChar": 68,
+        "endLine": 90,
+        "endChar": 74
+      },
+      "revId": "6773a57121576ff86e67498c3d8e1d33fc40254c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4040381b_2dc0cd5d",
+        "filename": "pc/rtp_transceiver_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-27T12:42:42Z",
+      "side": 1,
+      "message": "Thanks - reverted this file.",
+      "parentUuid": "691ad339_902fc4d0",
       "range": {
         "startLine": 90,
         "startChar": 68,
@@ -388,6 +700,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "a13ccb47_fd5a160a",
+        "filename": "pc/video_rtp_receiver.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-27T12:42:42Z",
+      "side": 1,
+      "message": "Thanks - reverted.",
+      "parentUuid": "28e80ddf_11601bcc",
+      "range": {
+        "startLine": 53,
+        "startChar": 37,
+        "endLine": 53,
+        "endChar": 43
+      },
+      "revId": "6773a57121576ff86e67498c3d8e1d33fc40254c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "8b34c23d_3dcb3a65",
         "filename": "sdk/android/src/jni/pc/video.cc",
         "patchSetId": 11
@@ -399,6 +735,30 @@
       "writtenOn": "2021-04-27T11:38:14Z",
       "side": 1,
       "message": "this looks strange: create a smart point to convert it to raw right away?\nbut old code does the same, so ok to keep it.",
+      "range": {
+        "startLine": 51,
+        "startChar": 9,
+        "endLine": 51,
+        "endChar": 25
+      },
+      "revId": "6773a57121576ff86e67498c3d8e1d33fc40254c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7de03cf7_2c33d3c3",
+        "filename": "sdk/android/src/jni/pc/video.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-27T12:42:42Z",
+      "side": 1,
+      "message": "indeed - don\u0027t know the history here.",
+      "parentUuid": "8b34c23d_3dcb3a65",
       "range": {
         "startLine": 51,
         "startChar": 9,

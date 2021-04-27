@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9742adac_f50ad3bb",
+        "filename": "net/dcsctp/socket/stream_reset_handler.cc",
+        "patchSetId": 46
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-27T16:49:18Z",
+      "side": 1,
+      "message": "avoid creating a copy?  (or is descriptors() not a const\u0026 getter?)",
+      "revId": "7cdb353c94811e8162c0796013a2c7a170cbc597",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48ac412c_f02dd983",
+        "filename": "net/dcsctp/socket/stream_reset_handler.cc",
+        "patchSetId": 46
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-27T16:49:18Z",
+      "side": 1,
+      "message": "nit: fyi - in some cases it can be less code (and easier to maintain) to do something like:\n\nType accepted_types[] \u003d {\n  OutgoingSSNResetRequestParameter::kType,\n  IncomingSSNResetRequestParameter::kType,\n  ...\n};\n\nfor (const auto\u0026 t : accepted_types) {\n  if (descriptors[0].type \u003d\u003d t)\n    return true;\n}\n\n(I guess you could also use something like std::find_if for the loop and skip the accessor in the loop)",
+      "revId": "7cdb353c94811e8162c0796013a2c7a170cbc597",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95e080aa_129036ec",
+        "filename": "net/dcsctp/socket/stream_reset_handler.cc",
+        "patchSetId": 46
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-27T16:49:18Z",
+      "side": 1,
+      "message": "nit: since the previous if() scope has an early return, I\u0027d remove the \u0027else\u0027.",
+      "revId": "7cdb353c94811e8162c0796013a2c7a170cbc597",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

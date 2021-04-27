@@ -162,6 +162,24 @@
       "message": "Maybe add the same comment we have here https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/net/dcsctp/common/pair_hash.h;l\u003d20;drc\u003da4d5e24c118af05735e3ed0c8d256c021d4d0415 (or reference to the net/dcsctp file to also show this is tested?).",
       "revId": "a74cb8526ef05a6b7a6534b07d336570e34b2bc9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5bb170a_b5715307",
+        "filename": "rtc_base/hash.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-27T07:27:12Z",
+      "side": 1,
+      "message": "Yes, that moving of PairHash was very incomplete! I have moved it competely now - thanks!",
+      "parentUuid": "cb16c244_c7b1764f",
+      "revId": "a74cb8526ef05a6b7a6534b07d336570e34b2bc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

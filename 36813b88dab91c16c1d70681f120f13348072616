@@ -16,6 +16,24 @@
       "message": "Hi Mirko, can you PTAL at this CL that enables the RTC_ENABLE_WIN_WGC build flag which adds a dependency on the Win10 SDK v10.0.17763.0? If this looks good to you, I\u0027ll post a PSA on discuss-webrtc and land this after a week if there are no objections there.",
       "revId": "36813b88dab91c16c1d70681f120f13348072616",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "212e0669_6e476743",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-28T07:27:54Z",
+      "side": 1,
+      "message": "Sounds good to me. With the build config available I think it is ok to default to what Chromium does and send out a PSA.",
+      "parentUuid": "af562d2e_42f96565",
+      "revId": "36813b88dab91c16c1d70681f120f13348072616",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

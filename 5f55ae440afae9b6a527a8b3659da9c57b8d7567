@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cce71861_836e0bea",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-28T11:02:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d761263_8e56ad89",
+      "range": {
+        "startLine": 383,
+        "startChar": 4,
+        "endLine": 383,
+        "endChar": 56
+      },
+      "revId": "5f55ae440afae9b6a527a8b3659da9c57b8d7567",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "87cb2b89_2b9ad133",
@@ -43,6 +67,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "c59d063b_3ac9b340",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-28T11:02:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87cb2b89_2b9ad133",
+      "revId": "5f55ae440afae9b6a527a8b3659da9c57b8d7567",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "9c9a80ab_c8b8c818",
         "filename": "modules/rtp_rtcp/source/receive_statistics_impl.h",
         "patchSetId": 1
@@ -54,6 +96,30 @@
       "writtenOn": "2021-04-28T10:33:26Z",
       "side": 1,
       "message": "There should be an order for ssrcs (to take off from the last_returned_ssrc_ between different calls to ReceiveStatisticsImpl::RtcpReportBlocks to produce report block for each ssrc regularly), but it doesn\u0027t have to be the default std::less\u003cuint32_t\u003e order.\n\nIf this set would look bad on performance stats, it should be possible to replace it with std::vector\u003cuint32_t\u003e (and replace last_returned_ssrc_ with something like last_returned_ssrc_index_)\nCode likely wouldn\u0027t be more complicated.",
+      "range": {
+        "startLine": 197,
+        "startChar": 2,
+        "endLine": 197,
+        "endChar": 20
+      },
+      "revId": "5f55ae440afae9b6a527a8b3659da9c57b8d7567",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aabbe4c9_33d47f66",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-28T11:02:06Z",
+      "side": 1,
+      "message": "Yes, PTAL and re-review - code changed much.",
+      "parentUuid": "9c9a80ab_c8b8c818",
       "range": {
         "startLine": 197,
         "startChar": 2,

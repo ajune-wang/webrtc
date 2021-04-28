@@ -88,6 +88,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8b6eaaa6_3f4ebf71",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-28T11:43:37Z",
+      "side": 1,
+      "message": "Should we RTC_DCHECK(IsConsistent()) here as well?",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7cd7fa77_e47243fd",
         "filename": "net/dcsctp/socket/dcsctp_socket.cc",
         "patchSetId": 47
@@ -184,6 +201,29 @@
       "writtenOn": "2021-04-28T11:37:14Z",
       "side": 1,
       "message": "This link is only accessible to Googlers, you may want to replace it with a short description instead.",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1e29101_d50bea00",
+        "filename": "net/dcsctp/socket/dcsctp_socket.h",
+        "patchSetId": 47
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-28T11:43:37Z",
+      "side": 1,
+      "message": "Nit: remove? Or maybe link to https://abseil.io/blog/20180531-regular-types which has a paragraph on thread compatible types.",
+      "range": {
+        "startLine": 66,
+        "startChar": 3,
+        "endLine": 66,
+        "endChar": 23
+      },
       "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

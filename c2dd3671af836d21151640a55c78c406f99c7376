@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "938014a5_6e34e9a8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-28T14:59:56Z",
+      "side": 1,
+      "message": "It\u0027s quite unclear if this optimization is worth doing; if this is a common enough situation. Searching the map is expensive, but the map needs to be a sorted variant.",
+      "revId": "c2dd3671af836d21151640a55c78c406f99c7376",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

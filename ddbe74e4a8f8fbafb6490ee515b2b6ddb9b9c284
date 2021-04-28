@@ -51,6 +51,24 @@
       "parentUuid": "2b30ae9d_d345f40e",
       "revId": "ddbe74e4a8f8fbafb6490ee515b2b6ddb9b9c284",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4c48559_1490c8fe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-04-28T09:25:10Z",
+      "side": 1,
+      "message": "Yes, only SL0 should be marked as the key-frame.\n\nAre you sure, you\u0027ve seen kVideoFrameKey on non SL0 frames? In both commonly used interlayer prediction modes (kOn, kOnKeyPic) for key-frame there are inter-layer predictions. And libvpx shouldn\u0027t report that the frame is key-frame for that case (VPX_FRAME_IS_KEY). So, if that happens, it should be fixed in libvpx.",
+      "parentUuid": "aca91107_daf53716",
+      "revId": "ddbe74e4a8f8fbafb6490ee515b2b6ddb9b9c284",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

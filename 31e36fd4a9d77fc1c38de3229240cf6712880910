@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fcc3a29_a3313c9d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-28T21:01:52Z",
+      "side": 1,
+      "message": "If you have plenty of time, consider doing it differently. If you\u0027re in a hurry, I can stamp it later.\n",
+      "revId": "31e36fd4a9d77fc1c38de3229240cf6712880910",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0ef4555_10e2e715",
+        "filename": "pc/test/mock_peer_connection_observers.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-28T21:01:52Z",
+      "side": 1,
+      "message": "I would call it \"closing_state_seen_\".\n\nBut this is the kind of special code that I don\u0027t like to have in a semigeneric mock - I\u0027d rather that OnStateChange() pushed the state to the end of a list, and that the test checked that the end of the list was {connected, closing, closed}.",
+      "revId": "31e36fd4a9d77fc1c38de3229240cf6712880910",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

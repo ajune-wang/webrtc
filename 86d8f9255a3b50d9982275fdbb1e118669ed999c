@@ -72,6 +72,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b40b2ec_7fc19e27",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-28T14:47:06Z",
+      "side": 1,
+      "message": "It is not about simulcast, no structure is assumed.\nI reformulated the comment. Better?",
+      "parentUuid": "64b21395_bda68b55",
+      "range": {
+        "startLine": 347,
+        "startChar": 0,
+        "endLine": 348,
+        "endChar": 79
+      },
+      "revId": "86d8f9255a3b50d9982275fdbb1e118669ed999c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2959c200_746eea23",
@@ -133,6 +157,30 @@
       "side": 1,
       "message": "I see... What about adding a `absl::optional\u003cFrameDependencyStructure\u003e template_structure` to RTPVideoHeader and then copy the template dependency structures instead? Not as performant I know, but cleaner...",
       "parentUuid": "a900cc6d_db535139",
+      "range": {
+        "startLine": 349,
+        "startChar": 42,
+        "endLine": 349,
+        "endChar": 66
+      },
+      "revId": "86d8f9255a3b50d9982275fdbb1e118669ed999c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db824e65_d8633e89",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-28T14:47:06Z",
+      "side": 1,
+      "message": "I\u0027m not sure it will be conceptually cleaner (may be it would).\nRTPVideoHeader describes a frame (sometimes a packet).\nFrameDependencyStructure describes a coded video sequence.\nkeeping place for that description in metadata for every frame might not considered to be clean.\n\nwdyt about middle solution: move MinimalisticVp9Structure into RtpPayloadParams as static method, but keep using it here as it is now?",
+      "parentUuid": "4e12a0e6_29ce4a44",
       "range": {
         "startLine": 349,
         "startChar": 42,

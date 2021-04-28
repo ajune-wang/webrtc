@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cd00536_7ea618a8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 47
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-28T10:52:18Z",
+      "side": 1,
+      "message": "Exciting!\n\njust minor things from me, so lgtm-ing assuming they\u0027ll be resolved amicably 😄",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd5e5eea_d3e84bdf",
+        "filename": "net/dcsctp/socket/callback_deferrer.h",
+        "patchSetId": 47
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-28T10:52:18Z",
+      "side": 1,
+      "message": "can we keep this being a pointer? (in line with how the parameter is accepted)\nThe conversation we\u0027ve been having around this is leaning into the direction of making the contract/interface not being the implicit place for converting from pointer to reference but rather place the burden of making sure the pointer is valid, on the caller.\n\nSo if you prefer to keep this as a reference, you can change the constructor to also accept the parameter by ref.",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1ea9620_2d7124ba",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-28T10:52:18Z",
+      "side": 1,
+      "message": "great to see liberal use of RTC_DLOG (with emphasis on the \u0027D\u0027). I think we have quite a bit of binary bloat related to using the non-D variant.",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7cd7fa77_e47243fd",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-28T10:52:18Z",
+      "side": 1,
+      "message": "nit: skip \u0027else\u0027 if there\u0027s an early return",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5ae340d_1bdfd069",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 775,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-28T10:52:18Z",
+      "side": 1,
+      "message": "nit: could also change this to be an early return",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f5fa456_34405030",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 938,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-28T10:52:18Z",
+      "side": 1,
+      "message": "nit: since this is the only \u0027else\u0027 scope that has an early return (and it\u0027s somewhat easy to miss that it\u0027s different from all the other scopes) you could move the specific kShutdownAckSent out, above tie_tag (line 922).  All the other ones are fall-through type checks that make it clear that we\u0027ll be proceeding through to the SendPacket code path.",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdec7ac4_c1d86fcd",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 1096,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-28T10:52:18Z",
+      "side": 1,
+      "message": "nit: don\u0027t think you need all the parentheses",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "172e241d_cee50721",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 1344,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-04-28T10:52:18Z",
+      "side": 1,
+      "message": "nit: remove empty line",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

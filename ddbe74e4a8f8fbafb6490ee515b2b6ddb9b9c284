@@ -33,6 +33,24 @@
       "message": "Can you elaborate, what issue this CL is supposed to fix?\n\nYou can\u0027t set a key-frame type on a non SL0 frames if libvpx didn\u0027t report |VPX_FRAME_IS_KEY| flag.\n\nBecause there are delta frames with no dependencies, which are not key-frames and you can\u0027t start decoding from them.",
       "revId": "ddbe74e4a8f8fbafb6490ee515b2b6ddb9b9c284",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aca91107_daf53716",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2021-04-28T08:56:15Z",
+      "side": 1,
+      "message": "This CL is not intended to fix any bugs, I am just curios if this is an error. IMHO, for key picture, only the SL0 is key frame, and the upper layer should be delta frame, but I seen that the upper layer is also set to kVideoFrameKey for key picture, is that right? please correct me if I\u0027m wrong, thanks in advance!",
+      "parentUuid": "2b30ae9d_d345f40e",
+      "revId": "ddbe74e4a8f8fbafb6490ee515b2b6ddb9b9c284",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

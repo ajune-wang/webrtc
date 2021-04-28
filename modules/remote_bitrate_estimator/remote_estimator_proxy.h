@@ -14,6 +14,7 @@
 #include <functional>
 #include <map>
 #include <memory>
+#include <utility>
 #include <vector>
 
 #include "api/transport/network_control.h"
@@ -81,15 +82,22 @@ class RemoteEstimatorProxy : public RemoteBitrateEstimator {
   void SendFeedbackOnRequest(int64_t sequence_number,
                              const FeedbackRequest& feedback_request)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(&lock_);
-  static int64_t BuildFeedbackPacket(
-      uint8_t feedback_packet_count,
-      uint32_t media_ssrc,
-      int64_t base_sequence_number,
-      std::map<int64_t, int64_t>::const_iterator
-          begin_iterator,  // |begin_iterator| is inclusive.
-      std::map<int64_t, int64_t>::const_iterator
-          end_iterator,  // |end_iterator| is exclusive.
-      rtcp::TransportFeedback* feedback_packet);
+
+  // Adds to `feedback_packet` as many packet arrival times between
+  // `begin_iterator` and `end_iterator` as can fit. The returned iterator
+  // points to the first entry between `begin_iterator` and `end_iterator` that
+  // was not added, if it didn't fit, or points to `end_iterator` if all arrival
+  // times could be added.
+  // The returned value, is the next starting sequence number to report.
+  static std::pair<std::map<int64_t, int64_t>::const_iterator, int64_t>
+  BuildFeedbackPacket(uint8_t feedback_packet_count,
+                      uint32_t media_ssrc,
+                      int64_t base_sequence_number,
+                      std::map<int64_t, int64_t>::const_iterator
+                          begin_iterator,  // |begin_iterator| is inclusive.
+                      std::map<int64_t, int64_t>::const_iterator
+                          end_iterator,  // |end_iterator| is exclusive.
+                      rtcp::TransportFeedback* feedback_packet);
 
   Clock* const clock_;
   const TransportFeedbackSender feedback_sender_;

@@ -16,6 +16,7 @@
 #include <memory>
 #include <vector>
 
+#include "absl/container/btree_map.h"
 #include "api/transport/network_control.h"
 #include "api/transport/webrtc_key_value_config.h"
 #include "modules/remote_bitrate_estimator/include/remote_bitrate_estimator.h"
@@ -59,7 +60,7 @@ class RemoteEstimatorProxy : public RemoteBitrateEstimator {
   void SetSendPeriodicFeedback(bool send_periodic_feedback);
 
  private:
-  using PacketArrivalTimesMap = std::map<int64_t, int64_t>;
+  using PacketArrivalTimesMap = absl::btree_map<int64_t, int64_t>;
 
   struct TransportWideFeedbackConfig {
     FieldTrialParameter<TimeDelta> back_window{"wind", TimeDelta::Millis(500)};

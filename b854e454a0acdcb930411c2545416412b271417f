@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "10d58e70_d6ec54e5",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-04-28T11:08:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f50839f9_71fefa73",
+      "range": {
+        "startLine": 87,
+        "startChar": 4,
+        "endLine": 87,
+        "endChar": 67
+      },
+      "revId": "b854e454a0acdcb930411c2545416412b271417f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6def8cec_2cb2c66e",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-04-27T17:28:28Z",
       "side": 1,
       "message": "why wrap last_packet_ into unique_ptr?\ncan it be just \nRtpPacketReceived last_packet_?\n{to set header extensions mapping after packet is created you can use\nlast_packet_.IdentifyExtension(header_extensions_);}\n\nhttps://abseil.io/tips/187",
+      "range": {
+        "startLine": 115,
+        "startChar": 2,
+        "endLine": 115,
+        "endChar": 36
+      },
+      "revId": "b854e454a0acdcb930411c2545416412b271417f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "839eb289_2c89c535",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-04-28T11:08:13Z",
+      "side": 1,
+      "message": "Ah, you\u0027re right. Done.",
+      "parentUuid": "6def8cec_2cb2c66e",
       "range": {
         "startLine": 115,
         "startChar": 2,
@@ -89,6 +137,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cde4b6e0_c500abda",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 889,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-04-28T11:08:13Z",
+      "side": 1,
+      "message": "This tests really tests two things, that RtpSender reserves the extension and that it is populated - so it\u0027s almost an integration test.\nFor AST, yes RtpSenderEgress assigns that - but for TSN that\u0027s only done there in tests. In production, PacketRouter does the assigning. I\u0027d rather not add tests just for test code. Instead I hope to move PacketRouter (which does TSN assignment in real usage) to the RTP module and use it in these tests. Then the non-paced sender for test would literally just stub the pacer and not also the packet router.\nLong way of saying, I\u0027d rather have it here since it will make more sense after other things move.\n\nI\u0027ll rename the tests to make expectations more clear. ok?",
+      "parentUuid": "58a55584_2214bade",
+      "range": {
+        "startLine": 889,
+        "startChar": 7,
+        "endLine": 889,
+        "endChar": 55
+      },
+      "revId": "b854e454a0acdcb930411c2545416412b271417f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8a149cdf_21a42a14",
         "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2_unittest.cc",
         "patchSetId": 1
@@ -100,6 +172,30 @@
       "writtenOn": "2021-04-27T17:28:28Z",
       "side": 1,
       "message": "you can combine these two expectsions into one:\n  EXPECT_EQ(sender_.last_packet().GetExtension\u003cTransportSequenceNumber\u003e(),\n            first_transport_seq + 1);",
+      "range": {
+        "startLine": 902,
+        "startChar": 2,
+        "endLine": 905,
+        "endChar": 59
+      },
+      "revId": "b854e454a0acdcb930411c2545416412b271417f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "734bf303_e9dd736c",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 905,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-04-28T11:08:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a149cdf_21a42a14",
       "range": {
         "startLine": 902,
         "startChar": 2,

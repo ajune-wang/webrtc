@@ -43,6 +43,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "56f25163_b53dff48",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-28T11:36:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e64a81d_2b82ecfd",
+      "range": {
+        "startLine": 383,
+        "startChar": 16,
+        "endLine": 383,
+        "endChar": 17
+      },
+      "revId": "82deb89258cbd4b90e7192448184015ca28a6efe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "feb91630_731b0774",
         "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
         "patchSetId": 3
@@ -54,6 +78,30 @@
       "writtenOn": "2021-04-28T11:17:26Z",
       "side": 1,
       "message": "alternative way to write it is\nstatisticians_[mesia_ssrc]-\u003eGet...\nbut that wouldn\u0027t crash nicely, like DCHECK would.",
+      "range": {
+        "startLine": 392,
+        "startChar": 9,
+        "endLine": 392,
+        "endChar": 34
+      },
+      "revId": "82deb89258cbd4b90e7192448184015ca28a6efe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3b0f961_b408dbe8",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-28T11:36:26Z",
+      "side": 1,
+      "message": "Yeah, I\u0027m divided, but let\u0027s do it like this right now. It can always be changed, and the produced assembly in release mode would almost be the same.",
+      "parentUuid": "feb91630_731b0774",
       "range": {
         "startLine": 392,
         "startChar": 9,
@@ -77,6 +125,24 @@
       "writtenOn": "2021-04-28T11:17:26Z",
       "side": 1,
       "message": "Look like you don\u0027t need to add set now.",
+      "revId": "82deb89258cbd4b90e7192448184015ca28a6efe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa8682d4_ad4da79a",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-28T11:36:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42422a3d_81af9346",
       "revId": "82deb89258cbd4b90e7192448184015ca28a6efe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

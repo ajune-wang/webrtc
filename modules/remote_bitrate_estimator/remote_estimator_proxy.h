@@ -60,6 +60,8 @@ class RemoteEstimatorProxy : public RemoteBitrateEstimator {
   void SetSendPeriodicFeedback(bool send_periodic_feedback);
 
  private:
+  using PacketArrivalTimesMap = std::map<int64_t, int64_t>;
+
   struct TransportWideFeedbackConfig {
     FieldTrialParameter<TimeDelta> back_window{"wind", TimeDelta::Millis(500)};
     FieldTrialParameter<TimeDelta> min_interval{"min", TimeDelta::Millis(50)};
@@ -89,13 +91,13 @@ class RemoteEstimatorProxy : public RemoteBitrateEstimator {
   // was not added, if it didn't fit, or points to `end_iterator` if all arrival
   // times could be added.
   // The returned value, is the next starting sequence number to report.
-  static std::pair<std::map<int64_t, int64_t>::const_iterator, int64_t>
+  static std::pair<PacketArrivalTimesMap::const_iterator, int64_t>
   BuildFeedbackPacket(uint8_t feedback_packet_count,
                       uint32_t media_ssrc,
                       int64_t base_sequence_number,
-                      std::map<int64_t, int64_t>::const_iterator
+                      PacketArrivalTimesMap::const_iterator
                           begin_iterator,  // |begin_iterator| is inclusive.
-                      std::map<int64_t, int64_t>::const_iterator
+                      PacketArrivalTimesMap::const_iterator
                           end_iterator,  // |end_iterator| is exclusive.
                       rtcp::TransportFeedback* feedback_packet);
 
@@ -113,7 +115,7 @@ class RemoteEstimatorProxy : public RemoteBitrateEstimator {
   SeqNumUnwrapper<uint16_t> unwrapper_ RTC_GUARDED_BY(&lock_);
   absl::optional<int64_t> periodic_window_start_seq_ RTC_GUARDED_BY(&lock_);
   // Map unwrapped seq -> time.
-  std::map<int64_t, int64_t> packet_arrival_times_ RTC_GUARDED_BY(&lock_);
+  PacketArrivalTimesMap packet_arrival_times_ RTC_GUARDED_BY(&lock_);
   int64_t send_interval_ms_ RTC_GUARDED_BY(&lock_);
   bool send_periodic_feedback_ RTC_GUARDED_BY(&lock_);
 

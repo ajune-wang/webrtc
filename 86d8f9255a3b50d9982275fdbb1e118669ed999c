@@ -48,6 +48,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "64b21395_bda68b55",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-04-28T12:56:39Z",
+      "side": 1,
+      "message": "True, what about:\n\n  // Assumes a SXTY (S3T3 for example) type of stream, so templates produced\n  // might not perfectly match the actual structure of the stream. In such\n  // case slightly more overhead will be incurred.\n\nI don\u0027t think the current wording is particular clear...",
+      "parentUuid": "0887daa3_dc50cd06",
+      "range": {
+        "startLine": 347,
+        "startChar": 0,
+        "endLine": 348,
+        "endChar": 79
+      },
+      "revId": "86d8f9255a3b50d9982275fdbb1e118669ed999c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2959c200_746eea23",
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "That what I tried initially, but didn\u0027t found where to write FrameDependencyStructure to:\n\nRtpPayloadParams struct fills \"struct RTPVideoHeader\" that doesn\u0027t have a place for the structure.\nCodecSpecificInfo carries the structure, but it is passed through RtpPayloadParams by const pointer and thus can\u0027t be updated with the structure.",
       "parentUuid": "2959c200_746eea23",
+      "range": {
+        "startLine": 349,
+        "startChar": 42,
+        "endLine": 349,
+        "endChar": 66
+      },
+      "revId": "86d8f9255a3b50d9982275fdbb1e118669ed999c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e12a0e6_29ce4a44",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-04-28T12:56:39Z",
+      "side": 1,
+      "message": "I see... What about adding a `absl::optional\u003cFrameDependencyStructure\u003e template_structure` to RTPVideoHeader and then copy the template dependency structures instead? Not as performant I know, but cleaner...",
+      "parentUuid": "a900cc6d_db535139",
       "range": {
         "startLine": 349,
         "startChar": 42,
@@ -142,6 +190,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f59640c8_7b9661b9",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-04-28T12:56:39Z",
+      "side": 1,
+      "message": "Makes sense.",
+      "parentUuid": "d3ef2f12_90faac4f",
+      "range": {
+        "startLine": 365,
+        "startChar": 14,
+        "endLine": 366,
+        "endChar": 74
+      },
+      "revId": "86d8f9255a3b50d9982275fdbb1e118669ed999c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "37c21d09_bc66804b",
@@ -179,6 +251,30 @@
       "side": 1,
       "message": "that frame_diff would be correct more often than plain \u00271\u0027. Updated.\n(except for the `+1` part)",
       "parentUuid": "37c21d09_bc66804b",
+      "range": {
+        "startLine": 370,
+        "startChar": 39,
+        "endLine": 370,
+        "endChar": 40
+      },
+      "revId": "86d8f9255a3b50d9982275fdbb1e118669ed999c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e37ba35_ad1853d4",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-04-28T12:56:39Z",
+      "side": 1,
+      "message": "Oops :)",
+      "parentUuid": "a2b2e055_956b93f1",
       "range": {
         "startLine": 370,
         "startChar": 39,

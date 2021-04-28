@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f887bbbc_6f4d4674",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-04-28T12:56:39Z",
+      "side": 1,
+      "message": "We don\u0027t really have a template for keyframes, but maybe we don\u0027t care that much?\n\nNot sure if you it\u0027s worth doing, but if we implemented more ScalabilityStructureSimulcast versions (or just a single generic one) then we could reuse it to generate the templates and the chain diffs (just replace kDiscardable with kSwitch).\n\nRight now the chain diffs would always have to be overwritten.",
+      "range": {
+        "startLine": 377,
+        "startChar": 36,
+        "endLine": 377,
+        "endChar": 59
+      },
+      "revId": "0bfe01fd0e428a0d07ca0d8090a0e488ee822a82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a7eb67b_a42ffe52",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 809,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-04-28T12:56:39Z",
+      "side": 1,
+      "message": "Could we change this to test a S2T2 stream? And also validate the sent DD (to see that it outputs expected template IDs)",
+      "range": {
+        "startLine": 809,
+        "startChar": 5,
+        "endLine": 809,
+        "endChar": 25
+      },
+      "revId": "0bfe01fd0e428a0d07ca0d8090a0e488ee822a82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

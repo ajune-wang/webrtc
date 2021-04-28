@@ -346,6 +346,7 @@ StreamStatisticianImplInterface* ReceiveStatisticsImpl::GetOrCreateStatistician(
   if (impl == nullptr) {  // new element
     impl =
         stream_statistician_factory_(ssrc, clock_, max_reordering_threshold_);
+    all_ssrcs_.insert(ssrc);
   }
   return impl.get();
 }
@@ -374,12 +375,15 @@ std::vector<rtcp::ReportBlock> ReceiveStatisticsImpl::RtcpReportBlocks(
     size_t max_blocks) {
   std::vector<rtcp::ReportBlock> result;
   result.reserve(std::min(max_blocks, statisticians_.size()));
-  auto add_report_block = [&result](
-                              uint32_t media_ssrc,
-                              StreamStatisticianImplInterface* statistician) {
+  auto add_report_block = [&](uint32_t media_ssrc) {
     // Do we have receive statistics to send?
     RtcpStatistics stats;
-    if (!statistician->GetActiveStatisticsAndReset(&stats))
+
+    auto statistician_it = statisticians_.find(media_ssrc);
+    RTC_DCHECK(statistician_it != statisticians_.end());
+
+    if (statistician_it == statisticians_.end() ||
+        !statistician_it->second->GetActiveStatisticsAndReset(&stats))
       return;
     result.emplace_back();
     rtcp::ReportBlock& block = result.back();
@@ -394,13 +398,13 @@ std::vector<rtcp::ReportBlock> ReceiveStatisticsImpl::RtcpReportBlocks(
     block.SetJitter(stats.jitter);
   };
 
-  const auto start_it = statisticians_.upper_bound(last_returned_ssrc_);
-  for (auto it = start_it;
-       result.size() < max_blocks && it != statisticians_.end(); ++it)
-    add_report_block(it->first, it->second.get());
-  for (auto it = statisticians_.begin();
+  const auto start_it = all_ssrcs_.upper_bound(last_returned_ssrc_);
+  for (auto it = start_it; result.size() < max_blocks && it != all_ssrcs_.end();
+       ++it)
+    add_report_block(*it);
+  for (auto it = all_ssrcs_.begin();
        result.size() < max_blocks && it != start_it; ++it)
-    add_report_block(it->first, it->second.get());
+    add_report_block(*it);
 
   if (!result.empty())
     last_returned_ssrc_ = result.back().source_ssrc();

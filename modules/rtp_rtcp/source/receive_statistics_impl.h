@@ -15,6 +15,8 @@
 #include <functional>
 #include <map>
 #include <memory>
+#include <set>
+#include <unordered_map>
 #include <utility>
 #include <vector>
 
@@ -189,8 +191,10 @@ class ReceiveStatisticsImpl : public ReceiveStatistics {
       stream_statistician_factory_;
   uint32_t last_returned_ssrc_;
   int max_reordering_threshold_;
-  std::map<uint32_t, std::unique_ptr<StreamStatisticianImplInterface>>
+  std::unordered_map<uint32_t /*ssrc*/,
+                     std::unique_ptr<StreamStatisticianImplInterface>>
       statisticians_;
+  std::set<uint32_t> all_ssrcs_;
 };
 
 // Thread-safe implementation wrapping access to ReceiveStatisticsImpl with a

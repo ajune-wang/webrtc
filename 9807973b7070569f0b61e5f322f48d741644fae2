@@ -18,6 +18,91 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4845bc16_fdbcd5be",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 47
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-28T11:52:29Z",
+      "side": 1,
+      "message": "Lots and lots of nits. Most pressing worry is whether callback sequence of callbacks vs messages matters.\n\nOverall structure looks good.\n",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e49d78f5_7fde0d7f",
+        "filename": "net/dcsctp/public/dcsctp_socket.h",
+        "patchSetId": 47
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-28T11:52:29Z",
+      "side": 1,
+      "message": "Given that reset is a protocol operation (request/response), and this is returned from a synchronous method, I think this probably should be \"Indicates that the ReesetStreams operation has been successfully initiated\".",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d13c7da_8fa83fbd",
+        "filename": "net/dcsctp/public/dcsctp_socket.h",
+        "patchSetId": 47
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-28T11:52:29Z",
+      "side": 1,
+      "message": "Nit: random number -\u003e random numbers",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61718274_fe375c97",
+        "filename": "net/dcsctp/public/dcsctp_socket.h",
+        "patchSetId": 47
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-28T11:52:29Z",
+      "side": 1,
+      "message": "Nit: -\u003e There are no requirements that the random number generator be secure.",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "194fcad6_589cb0e6",
+        "filename": "net/dcsctp/socket/callback_deferrer.h",
+        "patchSetId": 47
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-28T11:52:29Z",
+      "side": 1,
+      "message": "This means that callbacks will be triggered in the order they were received, but all messages will be processed after all the callbacks are done.\nThis means, for instance, that if we get a message followed by a reset (all in one package), we will first get OnIncomingStreamsReset called and then OnMessageReceived - might this be confusing for the callee?\n\nConsider consultation on whether we have some helper class that allows you to put messages into the same sequence as the callbacks.",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cd5e5eea_d3e84bdf",
@@ -71,6 +156,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3d2d68a8_788fc147",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-28T11:52:29Z",
+      "side": 1,
+      "message": "I would find this easier to read if it was a switch(state_) with specific expectations in each state. Might cause some repetition, but clearer.",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cd9f48e6_8e9c148d",
         "filename": "net/dcsctp/socket/dcsctp_socket.cc",
         "patchSetId": 47
@@ -82,6 +184,40 @@
       "writtenOn": "2021-04-28T11:37:14Z",
       "side": 1,
       "message": "Replace constant",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82b0d0c6_69d12d6e",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-28T11:52:29Z",
+      "side": 1,
+      "message": "What happens if you call Shutdown() before the TCB is created?\nSeems to me we should either get an error or abort the init procedure.",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "326ac732_ef0aca25",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-28T11:52:29Z",
+      "side": 1,
+      "message": "As a matter of English, I would call this CloseConnectionOnTooManyTransmissionErrors or (even longer) CloseConnectionBecauseOfTooManyTransmissionErrors.",
       "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -105,6 +241,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cbf59ac6_1c44c254",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-28T11:52:29Z",
+      "side": 1,
+      "message": "Nit: \"Rejected to send\" is a bit weird in English. Suggest using \"Unable to send message as...\"",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7cd7fa77_e47243fd",
         "filename": "net/dcsctp/socket/dcsctp_socket.cc",
         "patchSetId": 47
@@ -122,6 +275,74 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "221dcb3f_05af0be5",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-28T11:52:29Z",
+      "side": 1,
+      "message": "Is kWrongSequence the right error here? I would think that there would be a kUnsupportedOperation error in the set of possible errors (unless this is set by external standard).",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9de883e_8ff13430",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-28T11:52:29Z",
+      "side": 1,
+      "message": "Here we\u0027re far beyond validating the verification tag. Does the function have the wrong name?",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9d2cee0_2f8fa759",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-28T11:52:29Z",
+      "side": 1,
+      "message": "That seems suspicious. What would it mean if it happened in Real Life? Protocol violation?",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "060a90dc_1c9a9e63",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-28T11:52:29Z",
+      "side": 1,
+      "message": "This seems inverted - if the high bit of the type is set, you set continue_processing to true, and then log that the \"stop processing\" flag is set.\nEither there is a naming problem or a logic problem here.",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e5ae340d_1bdfd069",
         "filename": "net/dcsctp/socket/dcsctp_socket.cc",
         "patchSetId": 47
@@ -133,6 +354,40 @@
       "writtenOn": "2021-04-28T10:52:18Z",
       "side": 1,
       "message": "nit: could also change this to be an early return",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c94fa242_d4980b3a",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-28T11:52:29Z",
+      "side": 1,
+      "message": "These 2 functions have exactly the same content apart from the parser you call. Can you somehow merge the common code into HandleData rather than have 2 copies?",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ddaa731b_5cfef54d",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 834,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-28T11:52:29Z",
+      "side": 1,
+      "message": "It\u0027s not nice to do name overloads for unrelated functions. I suggest you call this one HandleDataCommon.",
       "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -173,6 +428,74 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "30ece958_e11782fa",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 1096,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-28T11:52:29Z",
+      "side": 1,
+      "message": "I find the long if/then/else with the verification tag check in each IF to be confusing to read. Can we split this into an upper IF on header.verification_tag !\u003d tcb_-\u003emy_verification_tag() and within that branch on the different conditions?",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fafbd82f_315b1074",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 1155,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-28T11:52:29Z",
+      "side": 1,
+      "message": "Is this a TODO (implement something here), or is it that you genuinely don\u0027t know what this indicates? The latter would be bad.",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b47fa388_985a9929",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 1157,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-28T11:52:29Z",
+      "side": 1,
+      "message": "Since we\u0027re a long way from the if here, perhaps add a comment \"TCB does not exist\"?",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b31ba827_3487185d",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 1166,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-28T11:52:29Z",
+      "side": 1,
+      "message": "The hidden else branch would seem to be the good path (continue), leading to TCB creation at line 1179. Should you move TCB creation here, to make it obvious that this is the good path that causes TCB creation?",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "172e241d_cee50721",
         "filename": "net/dcsctp/socket/dcsctp_socket.cc",
         "patchSetId": 47
@@ -184,6 +507,74 @@
       "writtenOn": "2021-04-28T10:52:18Z",
       "side": 1,
       "message": "nit: remove empty line",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55cd1764_bce014b1",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 1440,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-28T11:52:29Z",
+      "side": 1,
+      "message": "Same comment here about using name overloading on functions with different purposes.",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab863da3_d21e7441",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 1467,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-28T11:52:29Z",
+      "side": 1,
+      "message": "you can make an early return: if (outstanding_bytes() !\u003d 0) { return; } - makes it obvious that the function remains in the same state if there are bytes in the retransmission queue.",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea9908fb_0cd3554c",
+        "filename": "net/dcsctp/socket/dcsctp_socket.h",
+        "patchSetId": 47
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-28T11:52:29Z",
+      "side": 1,
+      "message": "Nit: dcSCTP -\u003e DcSctpSocket",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9cc9756_f409ce44",
+        "filename": "net/dcsctp/socket/dcsctp_socket.h",
+        "patchSetId": 47
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-28T11:52:29Z",
+      "side": 1,
+      "message": "Nit: manage -\u003e manages, handle -\u003e handles",
       "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

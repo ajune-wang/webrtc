@@ -16,6 +16,24 @@
       "message": "Description state the encoded_queue_ might become null\nWhere is the code that sets encoder_queue_ to nullptr?",
       "revId": "e6b1b925f13ee261f4c6b8c017886d60df42e6b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af0e67af_7439914d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5706
+      },
+      "writtenOn": "2021-04-28T15:04:11Z",
+      "side": 1,
+      "message": "What actually happens is that an old delegate requests to transform a frame, the frame travels somewhere (e.g., JS) to be transformed and in the middle of that process the delegate is reset. Then the new delegate receives the frame queued by the old delegate before |encoder_queue_| is initialized (i.e., before a new frame arrives).\nI updated the description and comment to better reflect what happens.",
+      "parentUuid": "2f88cb37_610b7d97",
+      "revId": "e6b1b925f13ee261f4c6b8c017886d60df42e6b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

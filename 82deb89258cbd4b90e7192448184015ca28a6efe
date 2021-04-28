@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40786dad_2f91d434",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-28T11:17:26Z",
+      "side": 1,
+      "message": "Without embedded lambda it looks much nicer!",
+      "revId": "82deb89258cbd4b90e7192448184015ca28a6efe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e64a81d_2b82ecfd",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-28T11:17:26Z",
+      "side": 1,
+      "message": "may be initialize it to 0 to make code less brittle.\nThen you also won\u0027t need the escape block if(all_ssrcs_.empty())\nThe benefit of removing that block is single `return result` statement which, afaik, helps with RVO\n\nhttps://abseil.io/tips/11#how-can-you-ensure-the-compiler-performs-rvo",
+      "range": {
+        "startLine": 383,
+        "startChar": 16,
+        "endLine": 383,
+        "endChar": 17
+      },
+      "revId": "82deb89258cbd4b90e7192448184015ca28a6efe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "feb91630_731b0774",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-28T11:17:26Z",
+      "side": 1,
+      "message": "alternative way to write it is\nstatisticians_[mesia_ssrc]-\u003eGet...\nbut that wouldn\u0027t crash nicely, like DCHECK would.",
+      "range": {
+        "startLine": 392,
+        "startChar": 9,
+        "endLine": 392,
+        "endChar": 34
+      },
+      "revId": "82deb89258cbd4b90e7192448184015ca28a6efe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42422a3d_81af9346",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-28T11:17:26Z",
+      "side": 1,
+      "message": "Look like you don\u0027t need to add set now.",
+      "revId": "82deb89258cbd4b90e7192448184015ca28a6efe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

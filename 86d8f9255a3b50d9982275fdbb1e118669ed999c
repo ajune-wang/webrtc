@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0887daa3_dc50cd06",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-28T10:57:54Z",
+      "side": 1,
+      "message": "that\u0027s only part of the issue. templates are also inaccurate causing custom fdiffs/dtis/chains and thus more overhead on delta frames too.",
+      "parentUuid": "c6c98a65_454b9ad1",
+      "range": {
+        "startLine": 347,
+        "startChar": 0,
+        "endLine": 348,
+        "endChar": 79
+      },
+      "revId": "86d8f9255a3b50d9982275fdbb1e118669ed999c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2959c200_746eea23",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-04-28T09:51:38Z",
       "side": 1,
       "message": "I don\u0027t see why this shouldn\u0027t be implemented in the RtpPayloadParams class?",
+      "range": {
+        "startLine": 349,
+        "startChar": 42,
+        "endLine": 349,
+        "endChar": 66
+      },
+      "revId": "86d8f9255a3b50d9982275fdbb1e118669ed999c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a900cc6d_db535139",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-28T10:57:54Z",
+      "side": 1,
+      "message": "That what I tried initially, but didn\u0027t found where to write FrameDependencyStructure to:\n\nRtpPayloadParams struct fills \"struct RTPVideoHeader\" that doesn\u0027t have a place for the structure.\nCodecSpecificInfo carries the structure, but it is passed through RtpPayloadParams by const pointer and thus can\u0027t be updated with the structure.",
+      "parentUuid": "2959c200_746eea23",
       "range": {
         "startLine": 349,
         "startChar": 42,
@@ -70,6 +118,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3ef2f12_90faac4f",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-28T10:57:54Z",
+      "side": 1,
+      "message": "no, not Discardable: RtpPayloadParam::Vp9ToGeneric never uses Discardable indication, so using Discardable would always trigger custom dti.\nlooking at RtpPayloadParam::Vp9ToGeneric, it seems Switch is the most popular indication. [It is possible to do something smarter and create templates that better align with RtpPayloadParam::Vp9ToGeneric, but I haven\u0027t come up with a neat way to do it]\n\n(RtpPayloadParams doesn\u0027t use Discardable because there is no way to be sure frame is discardable looking just at the vp9 codec specific info: 8-frame pattern commonly refer to the previous frame of the same temporal layer)",
+      "parentUuid": "0b6fb25d_352550fc",
+      "range": {
+        "startLine": 365,
+        "startChar": 14,
+        "endLine": 366,
+        "endChar": 74
+      },
+      "revId": "86d8f9255a3b50d9982275fdbb1e118669ed999c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "37c21d09_bc66804b",
@@ -83,6 +155,30 @@
       "writtenOn": "2021-04-28T09:51:38Z",
       "side": 1,
       "message": "Shouldn\u0027t this be:\n\n  tid \u003d\u003d 0 ? num_spatial_layers * num_temporal_layers + 1 :\n             num_spatial_layers + 1;",
+      "range": {
+        "startLine": 370,
+        "startChar": 39,
+        "endLine": 370,
+        "endChar": 40
+      },
+      "revId": "86d8f9255a3b50d9982275fdbb1e118669ed999c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2b2e055_956b93f1",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-28T10:57:54Z",
+      "side": 1,
+      "message": "that frame_diff would be correct more often than plain \u00271\u0027. Updated.\n(except for the `+1` part)",
+      "parentUuid": "37c21d09_bc66804b",
       "range": {
         "startLine": 370,
         "startChar": 39,

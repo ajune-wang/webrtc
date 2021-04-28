@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfbc4618_2299c279",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 46
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-28T09:50:19Z",
+      "side": 1,
+      "message": "Looks good. A couople of suggestions for simplifications only.\n",
+      "revId": "9bdd963333a6d9b52c60b59a4a448a0ca44b566f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edda64c8_b6120799",
+        "filename": "net/dcsctp/socket/transmission_control_block.cc",
+        "patchSetId": 46
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-28T09:50:19Z",
+      "side": 1,
+      "message": "Would this be clearer if written as delayed_ack_tmo \u003d std::min(rto_.rto()* 0.5, options_.delayed_ack_max_timeout);",
+      "revId": "9bdd963333a6d9b52c60b59a4a448a0ca44b566f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db73eba9_8a080c5f",
+        "filename": "net/dcsctp/socket/transmission_control_block.cc",
+        "patchSetId": 46
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-28T09:50:19Z",
+      "side": 1,
+      "message": "At the moment, this seems to be never called with only_one_packet\u003dtrue.\nIs it a feature reserved for later usage?",
+      "revId": "9bdd963333a6d9b52c60b59a4a448a0ca44b566f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49285864_dde6adca",
+        "filename": "net/dcsctp/socket/transmission_control_block.h",
+        "patchSetId": 46
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-28T09:50:19Z",
+      "side": 1,
+      "message": "I don\u0027t see a call that uses the builder argument either. If you\u0027re not sure you\u0027ll need it, I\u0027d suggest removing it from the interface and add it back when you know you have a need for it.\n\nInterfaces are forever.....",
+      "revId": "9bdd963333a6d9b52c60b59a4a448a0ca44b566f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

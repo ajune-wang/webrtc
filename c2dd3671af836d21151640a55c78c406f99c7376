@@ -16,6 +16,69 @@
       "message": "It\u0027s quite unclear if this optimization is worth doing; if this is a common enough situation. Searching the map is expensive, but the map needs to be a sorted variant.",
       "revId": "c2dd3671af836d21151640a55c78c406f99c7376",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ea741fc_e838887e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-28T15:14:08Z",
+      "side": 1,
+      "message": "(but I\u0027m not an owner here)",
+      "revId": "c2dd3671af836d21151640a55c78c406f99c7376",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96d793c3_f581de7a",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-28T15:14:08Z",
+      "side": 1,
+      "message": "may be keep auto, iterator returned by find and similar is a common example where exact type is not that important.\n\nhttps://google.github.io/styleguide/cppguide.html#Type_deduction\n\"Local variable type deduction\"\n\"For local variables, you can use type deduction to make the code clearer by eliminating type information that is obvious or irrelevant\"",
+      "range": {
+        "startLine": 202,
+        "startChar": 2,
+        "endLine": 202,
+        "endChar": 44
+      },
+      "revId": "c2dd3671af836d21151640a55c78c406f99c7376",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "067b700c_111dde40",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-28T15:14:08Z",
+      "side": 1,
+      "message": "https://google.github.io/styleguide/cppguide.html#Structs_vs._Tuples\n\n\"Prefer to use a struct instead of a pair or a tuple whenever the elements can have meaningful names.\"\n\n(though... this function is private, and std::tie looks nice when this function is called. So I\u0027m not sure if adding an extra struct would make it cleaner)",
+      "range": {
+        "startLine": 92,
+        "startChar": 9,
+        "endLine": 92,
+        "endChar": 71
+      },
+      "revId": "c2dd3671af836d21151640a55c78c406f99c7376",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

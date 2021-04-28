@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7eb24df5_310bcf4e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-28T14:00:04Z",
+      "side": 1,
+      "message": "Clobbering the build helped.\n\nLGTM and skip presubmit since the python linter need some fixing.",
+      "revId": "016916d0b380c469bfc4242e483dc482d03c4728",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

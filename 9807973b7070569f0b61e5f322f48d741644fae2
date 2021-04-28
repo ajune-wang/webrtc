@@ -37,6 +37,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "72a080d8_ad449905",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-04-28T11:37:14Z",
+      "side": 1,
+      "message": "Can you replace this with std::numeric_limit\u003cuint32_t\u003e::max ?",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a1ea9620_2d7124ba",
         "filename": "net/dcsctp/socket/dcsctp_socket.cc",
         "patchSetId": 47
@@ -48,6 +65,23 @@
       "writtenOn": "2021-04-28T10:52:18Z",
       "side": 1,
       "message": "great to see liberal use of RTC_DLOG (with emphasis on the \u0027D\u0027). I think we have quite a bit of binary bloat related to using the non-D variant.",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd9f48e6_8e9c148d",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-04-28T11:37:14Z",
+      "side": 1,
+      "message": "Replace constant",
       "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -133,6 +167,23 @@
       "writtenOn": "2021-04-28T10:52:18Z",
       "side": 1,
       "message": "nit: remove empty line",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf549980_dc086232",
+        "filename": "net/dcsctp/socket/dcsctp_socket.h",
+        "patchSetId": 47
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-04-28T11:37:14Z",
+      "side": 1,
+      "message": "This link is only accessible to Googlers, you may want to replace it with a short description instead.",
       "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

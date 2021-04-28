@@ -199,7 +199,7 @@ void RemoteEstimatorProxy::SendPeriodicFeedbacks() {
     }
   }
 
-  std::map<int64_t, int64_t>::const_iterator begin_iterator =
+  PacketArrivalTimesMap::const_iterator begin_iterator =
       packet_arrival_times_.lower_bound(*periodic_window_start_seq_);
 
   while (begin_iterator != packet_arrival_times_.cend()) {
@@ -252,13 +252,13 @@ void RemoteEstimatorProxy::SendFeedbackOnRequest(
   feedback_sender_(std::move(packets));
 }
 
-std::pair<std::map<int64_t, int64_t>::const_iterator, int64_t>
+std::pair<RemoteEstimatorProxy::PacketArrivalTimesMap::const_iterator, int64_t>
 RemoteEstimatorProxy::BuildFeedbackPacket(
     uint8_t feedback_packet_count,
     uint32_t media_ssrc,
     int64_t base_sequence_number,
-    std::map<int64_t, int64_t>::const_iterator begin_iterator,
-    std::map<int64_t, int64_t>::const_iterator end_iterator,
+    PacketArrivalTimesMap::const_iterator begin_iterator,
+    PacketArrivalTimesMap::const_iterator end_iterator,
     rtcp::TransportFeedback* feedback_packet) {
   RTC_DCHECK(begin_iterator != end_iterator);
 

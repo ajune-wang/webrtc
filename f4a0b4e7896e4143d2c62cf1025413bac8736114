@@ -52,6 +52,24 @@
       "parentUuid": "c5f9682f_00da781b",
       "revId": "f4a0b4e7896e4143d2c62cf1025413bac8736114",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a15abd0_f6422149",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2021-04-28T08:25:10Z",
+      "side": 1,
+      "message": "Thank you very much for an update.",
+      "parentUuid": "709a67cf_98766105",
+      "revId": "f4a0b4e7896e4143d2c62cf1025413bac8736114",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

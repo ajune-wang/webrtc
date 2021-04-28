@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6c98a65_454b9ad1",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-04-28T09:51:38Z",
+      "side": 1,
+      "message": "Mabye something like:\n\n  // May produce more templates than necessary, causing slightly more overhead\n  // on keyframes.",
+      "range": {
+        "startLine": 347,
+        "startChar": 0,
+        "endLine": 348,
+        "endChar": 79
+      },
+      "revId": "86d8f9255a3b50d9982275fdbb1e118669ed999c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2959c200_746eea23",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-04-28T09:51:38Z",
+      "side": 1,
+      "message": "I don\u0027t see why this shouldn\u0027t be implemented in the RtpPayloadParams class?",
+      "range": {
+        "startLine": 349,
+        "startChar": 42,
+        "endLine": 349,
+        "endChar": 66
+      },
+      "revId": "86d8f9255a3b50d9982275fdbb1e118669ed999c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b6fb25d_352550fc",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-04-28T09:51:38Z",
+      "side": 1,
+      "message": "Wan\u0027t to include discardable?\n\n  sid \u003e s ? DecodeTargetIndication::kNotPresent :\n  tid \u003e t ? DecodeTargetIndication::kNotPresent :\n  tid \u003e 0 \u0026\u0026 tid \u003d\u003d t ? DecodeTargetIndication::kDiscardable :\n                        DecodeTargetIndication::kSwitch",
+      "range": {
+        "startLine": 365,
+        "startChar": 14,
+        "endLine": 366,
+        "endChar": 74
+      },
+      "revId": "86d8f9255a3b50d9982275fdbb1e118669ed999c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37c21d09_bc66804b",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-04-28T09:51:38Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be:\n\n  tid \u003d\u003d 0 ? num_spatial_layers * num_temporal_layers + 1 :\n             num_spatial_layers + 1;",
+      "range": {
+        "startLine": 370,
+        "startChar": 39,
+        "endLine": 370,
+        "endChar": 40
+      },
+      "revId": "86d8f9255a3b50d9982275fdbb1e118669ed999c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

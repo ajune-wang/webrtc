@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "391eff72_e2895f09",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 46
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-28T22:22:16Z",
+      "side": 1,
+      "message": "Absolutely not, sorry about that. I just extracted this class (which once was just a inner class of Socket (in next CL)), and just because it compiles and builds, doesn\u0027t necessarily make it complete as a CL.",
+      "parentUuid": "ebb31c16_e3a8357e",
+      "revId": "9bdd963333a6d9b52c60b59a4a448a0ca44b566f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "edda64c8_b6120799",
@@ -48,6 +66,24 @@
       "writtenOn": "2021-04-28T09:50:19Z",
       "side": 1,
       "message": "Would this be clearer if written as delayed_ack_tmo \u003d std::min(rto_.rto()* 0.5, options_.delayed_ack_max_timeout);",
+      "revId": "9bdd963333a6d9b52c60b59a4a448a0ca44b566f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d970c11b_f6415c82",
+        "filename": "net/dcsctp/socket/transmission_control_block.cc",
+        "patchSetId": 46
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-28T22:22:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "edda64c8_b6120799",
       "revId": "9bdd963333a6d9b52c60b59a4a448a0ca44b566f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -69,6 +105,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f5e6e57_ed9cefc2",
+        "filename": "net/dcsctp/socket/transmission_control_block.cc",
+        "patchSetId": 46
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-28T22:22:16Z",
+      "side": 1,
+      "message": "I split out this CL from the socket CL, to make the CLs smaller, but I didn\u0027t consider that it made this CL quite incomplete. It makes sense when analyzed in its larger scope.",
+      "parentUuid": "db73eba9_8a080c5f",
+      "revId": "9bdd963333a6d9b52c60b59a4a448a0ca44b566f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "362ece58_11c94c9c",
@@ -86,6 +140,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "463768db_ada32e25",
+        "filename": "net/dcsctp/socket/transmission_control_block.cc",
+        "patchSetId": 46
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-28T22:22:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "362ece58_11c94c9c",
+      "revId": "9bdd963333a6d9b52c60b59a4a448a0ca44b566f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "49285864_dde6adca",
@@ -99,6 +171,24 @@
       "writtenOn": "2021-04-28T09:50:19Z",
       "side": 1,
       "message": "I don\u0027t see a call that uses the builder argument either. If you\u0027re not sure you\u0027ll need it, I\u0027d suggest removing it from the interface and add it back when you know you have a need for it.\n\nInterfaces are forever.....",
+      "revId": "9bdd963333a6d9b52c60b59a4a448a0ca44b566f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34202a5f_4dab923f",
+        "filename": "net/dcsctp/socket/transmission_control_block.h",
+        "patchSetId": 46
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-28T22:22:16Z",
+      "side": 1,
+      "message": "I split out this class from the Socket CL, to make smaller CLs. It\u0027s definitely used there, and I understand that this splitting made this CL incomplete. I could remove this method in this CL, and add it in the follow-up, but I would rather focus on getting that CL submitted as well :) Once the big blocks of code are submitted, all future CLs will be independent, complete, with test cases and all that.",
+      "parentUuid": "49285864_dde6adca",
       "revId": "9bdd963333a6d9b52c60b59a4a448a0ca44b566f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

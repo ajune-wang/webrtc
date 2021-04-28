@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88442fab_a73a2583",
+        "filename": "modules/audio_coding/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 1836,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-28T13:49:27Z",
+      "side": 1,
+      "message": "The iOS linker error is a bit weird.\n\nAt first, I was wondering about passing resources like this: https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/modules/audio_coding/BUILD.gn;l\u003d1514-1516;drc\u003de904161cecbe5e2ca31382e2a62fc776151bb8f2. Which is something we might have to do but here it looks different.\n\nI wonder if there is a cache issue here.\n\nCan you add a print line here https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/tools_webrtc/get_landmines.py;l\u003d57;drc\u003d8cc6695652307929edfc877cd64b75cd9ec2d615. E.g. a print(\"Switching rtc_executable to rtc_test\")?",
+      "range": {
+        "startLine": 1836,
+        "startChar": 4,
+        "endLine": 1836,
+        "endChar": 12
+      },
+      "revId": "663a47bc9cfb8c10642873d6db9047d1c2806659",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

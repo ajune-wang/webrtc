@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba217feb_b87b40fe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 47
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-28T22:28:53Z",
+      "side": 1,
+      "message": "It was a good worry. Thanks for worrying.",
+      "parentUuid": "4845bc16_fdbcd5be",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e49d78f5_7fde0d7f",
@@ -48,6 +66,24 @@
       "writtenOn": "2021-04-28T11:52:29Z",
       "side": 1,
       "message": "Given that reset is a protocol operation (request/response), and this is returned from a synchronous method, I think this probably should be \"Indicates that the ReesetStreams operation has been successfully initiated\".",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "deb08c3d_32f4f520",
+        "filename": "net/dcsctp/public/dcsctp_socket.h",
+        "patchSetId": 47
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-28T22:28:53Z",
+      "side": 1,
+      "message": "Good idea - thanks!",
+      "parentUuid": "e49d78f5_7fde0d7f",
       "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -69,6 +105,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "83347d41_b5658422",
+        "filename": "net/dcsctp/public/dcsctp_socket.h",
+        "patchSetId": 47
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-28T22:28:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d13c7da_8fa83fbd",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "61718274_fe375c97",
@@ -82,6 +136,24 @@
       "writtenOn": "2021-04-28T11:52:29Z",
       "side": 1,
       "message": "Nit: -\u003e There are no requirements that the random number generator be secure.",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fcdb631_5fecee0b",
+        "filename": "net/dcsctp/public/dcsctp_socket.h",
+        "patchSetId": 47
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-28T22:28:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61718274_fe375c97",
       "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -103,6 +175,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd8996c2_ca8c3e74",
+        "filename": "net/dcsctp/socket/callback_deferrer.h",
+        "patchSetId": 47
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-28T22:28:53Z",
+      "side": 1,
+      "message": "You\u0027re right, that\u0027s unacceptable even.\n\nI was lazy last time to not create the helper class, but now it\u0027s there. Where I would usually use std::shared_ptr (as I know it was banned), I had to learn WebRTC\u0027s constructs instead. Hope I didn\u0027t completely mess up.",
+      "parentUuid": "194fcad6_589cb0e6",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cd5e5eea_d3e84bdf",
@@ -116,6 +206,24 @@
       "writtenOn": "2021-04-28T10:52:18Z",
       "side": 1,
       "message": "can we keep this being a pointer? (in line with how the parameter is accepted)\nThe conversation we\u0027ve been having around this is leaning into the direction of making the contract/interface not being the implicit place for converting from pointer to reference but rather place the burden of making sure the pointer is valid, on the caller.\n\nSo if you prefer to keep this as a reference, you can change the constructor to also accept the parameter by ref.",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "29db322a_d603cc10",
+        "filename": "net/dcsctp/socket/callback_deferrer.h",
+        "patchSetId": 47
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-28T22:28:53Z",
+      "side": 1,
+      "message": "Making it a reference, as it can\u0027t be nullptr. There is a task in the fixups doc to make this consistent everywhere.",
+      "parentUuid": "cd5e5eea_d3e84bdf",
       "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -137,6 +245,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "10f4311c_284150b8",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-28T22:28:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72a080d8_ad449905",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a1ea9620_2d7124ba",
@@ -150,6 +276,24 @@
       "writtenOn": "2021-04-28T10:52:18Z",
       "side": 1,
       "message": "great to see liberal use of RTC_DLOG (with emphasis on the \u0027D\u0027). I think we have quite a bit of binary bloat related to using the non-D variant.",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa626afe_5f7d463f",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-28T22:28:53Z",
+      "side": 1,
+      "message": ":)",
+      "parentUuid": "a1ea9620_2d7124ba",
       "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -171,6 +315,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a562c8d0_8a695895",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-28T22:28:53Z",
+      "side": 1,
+      "message": "Agree, Done. I used a lot of RTC_DCHECK instead, to get it to log nicer when it\u0027s inconsistent.",
+      "parentUuid": "3d2d68a8_788fc147",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cd9f48e6_8e9c148d",
@@ -184,6 +346,24 @@
       "writtenOn": "2021-04-28T11:37:14Z",
       "side": 1,
       "message": "Replace constant",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aad8ba8c_d4fc0126",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-28T22:28:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd9f48e6_8e9c148d",
       "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -207,6 +387,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "968de0fb_6efe99f2",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-28T22:28:53Z",
+      "side": 1,
+      "message": "Good question. To send an error seems unnecessary; it\u0027s not an invalid sequence. The client\u0027s intention is to gracefully close the socket, and as there is no outstanding data, it should be safe to just close it at this point. WDYT?",
+      "parentUuid": "82b0d0c6_69d12d6e",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "326ac732_ef0aca25",
         "filename": "net/dcsctp/socket/dcsctp_socket.cc",
         "patchSetId": 47
@@ -218,6 +416,24 @@
       "writtenOn": "2021-04-28T11:52:29Z",
       "side": 1,
       "message": "As a matter of English, I would call this CloseConnectionOnTooManyTransmissionErrors or (even longer) CloseConnectionBecauseOfTooManyTransmissionErrors.",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae7b6af3_cd31b1c5",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-28T22:28:53Z",
+      "side": 1,
+      "message": "This is starting to look like Java :) But I\u0027m not against descriptive names!",
+      "parentUuid": "326ac732_ef0aca25",
       "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -239,6 +455,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e0e8152_b77545fb",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-28T22:28:53Z",
+      "side": 1,
+      "message": "This method\u0027s purpose is to close the connection (abort it usually) and put it in a consistent state, so yes, it should even if I initially just added it at the end of public method calls.",
+      "parentUuid": "8b6eaaa6_3f4ebf71",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cbf59ac6_1c44c254",
@@ -252,6 +486,24 @@
       "writtenOn": "2021-04-28T11:52:29Z",
       "side": 1,
       "message": "Nit: \"Rejected to send\" is a bit weird in English. Suggest using \"Unable to send message as...\"",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1466dbd2_3d956662",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-28T22:28:53Z",
+      "side": 1,
+      "message": "My English has never been very good. Thanks.",
+      "parentUuid": "cbf59ac6_1c44c254",
       "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -273,6 +525,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5bf1df99_2606d895",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-28T22:28:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7cd7fa77_e47243fd",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "221dcb3f_05af0be5",
@@ -286,6 +556,24 @@
       "writtenOn": "2021-04-28T11:52:29Z",
       "side": 1,
       "message": "Is kWrongSequence the right error here? I would think that there would be a kUnsupportedOperation error in the set of possible errors (unless this is set by external standard).",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8910971_84ea15ed",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-28T22:28:53Z",
+      "side": 1,
+      "message": "kUnsupportedOperation is good. No, there is no standard here, just me making up things.",
+      "parentUuid": "221dcb3f_05af0be5",
       "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -307,6 +595,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "62e6c54c_824b1ff6",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-28T22:28:53Z",
+      "side": 1,
+      "message": "Yes. It started as just validating the verification tag, but it evolved. Thanks",
+      "parentUuid": "c9de883e_8ff13430",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f9d2cee0_2f8fa759",
@@ -320,6 +626,24 @@
       "writtenOn": "2021-04-28T11:52:29Z",
       "side": 1,
       "message": "That seems suspicious. What would it mean if it happened in Real Life? Protocol violation?",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "291f91c4_0a570392",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-28T22:28:53Z",
+      "side": 1,
+      "message": "In real life, this would mean a DTLS message with empty payload. Quite valid probably in DTLS, but the packet wouldn\u0027t be an SCTP packet.\n\nI doubt it would ever happen in real life, though.\n\nIn this case, this was just a convenient way to exchange messages in tests;\n\n```\n  while (cb_a_.HasPacket() || cb_z_.HasPacket()) {\n    sock_z_.ReceivePacket(cb_a_.ConsumeSentPacket());\n    sock_a_.ReceivePacket(cb_z_.ConsumeSentPacket());\n  }\n```\n\n... which would process message as long as any side had anything to say. But it resulted in many empty messages.\n\nI have corrected the tests now, so that they don\u0027t do this.",
+      "parentUuid": "f9d2cee0_2f8fa759",
       "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -341,6 +665,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "46b87caf_5a36afc8",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-28T22:28:53Z",
+      "side": 1,
+      "message": "Good catch! In a previous revision, the variable was called stop_processing (with inverted behaviour). But I changed it to let the return value of this function be \"positive\", in that true made it continue. There were not test cases for log printouts, though.\n\nAdditionally, the RFC doesn\u0027t mention these \"flags\", so I changed the log printouts.",
+      "parentUuid": "060a90dc_1c9a9e63",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e5ae340d_1bdfd069",
@@ -354,6 +696,24 @@
       "writtenOn": "2021-04-28T10:52:18Z",
       "side": 1,
       "message": "nit: could also change this to be an early return",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eab96731_38149099",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 775,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-28T22:28:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e5ae340d_1bdfd069",
       "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -375,6 +735,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4e28608_95a4e9c8",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-28T22:28:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c94fa242_d4980b3a",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ddaa731b_5cfef54d",
@@ -392,6 +770,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca7bbdf1_cb0418c1",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 834,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-28T22:28:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ddaa731b_5cfef54d",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2f5fa456_34405030",
@@ -405,6 +801,24 @@
       "writtenOn": "2021-04-28T10:52:18Z",
       "side": 1,
       "message": "nit: since this is the only \u0027else\u0027 scope that has an early return (and it\u0027s somewhat easy to miss that it\u0027s different from all the other scopes) you could move the specific kShutdownAckSent out, above tie_tag (line 922).  All the other ones are fall-through type checks that make it clear that we\u0027ll be proceeding through to the SendPacket code path.",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0916088b_cd7e1c21",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 938,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-28T22:28:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f5fa456_34405030",
       "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -443,6 +857,42 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c327c057_b6aa566c",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 1096,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-28T22:28:53Z",
+      "side": 1,
+      "message": "It maps so nicely to table 2 in RFC4960, so it\u0027s simply written with that as source-of-truth.",
+      "parentUuid": "30ece958_e11782fa",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a18b58c7_8670a5f4",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 1096,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-28T22:28:53Z",
+      "side": 1,
+      "message": "Right. This is not Lisp :) Done.",
+      "parentUuid": "cdec7ac4_c1d86fcd",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fafbd82f_315b1074",
@@ -460,6 +910,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2fe85faa_9d0e9477",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 1155,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-28T22:28:53Z",
+      "side": 1,
+      "message": "I genuinely don\u0027t know what https://tools.ietf.org/html/rfc4960#section-5.2.4, section D represents. I believe it represents a duplicate received Cookie Echo, but the RFC isn\u0027t very clear on this part. I\u0027ll write that.",
+      "parentUuid": "fafbd82f_315b1074",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b47fa388_985a9929",
@@ -473,6 +941,24 @@
       "writtenOn": "2021-04-28T11:52:29Z",
       "side": 1,
       "message": "Since we\u0027re a long way from the if here, perhaps add a comment \"TCB does not exist\"?",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4efc800c_1a04feeb",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 1157,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-28T22:28:53Z",
+      "side": 1,
+      "message": "I split out the previous big block to its own method, so now it\u0027s not that bad.",
+      "parentUuid": "b47fa388_985a9929",
       "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -496,6 +982,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a598f9a8_8bebb85d",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 1166,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-28T22:28:53Z",
+      "side": 1,
+      "message": "This is not the only path leading to (re-)creating the TCB. Yes, this is the \"normal\" path, but if there was a TCB previously, it might be discarded (e.g. line 1122 \u0026 1133) which makes it be re-created on line 1179.\n\nOr did I misunderstand you?",
+      "parentUuid": "b31ba827_3487185d",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "172e241d_cee50721",
         "filename": "net/dcsctp/socket/dcsctp_socket.cc",
         "patchSetId": 47
@@ -507,6 +1011,24 @@
       "writtenOn": "2021-04-28T10:52:18Z",
       "side": 1,
       "message": "nit: remove empty line",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d3f3ce2_35257366",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 1344,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-28T22:28:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "172e241d_cee50721",
       "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -528,6 +1050,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4d7abfa_f409dd52",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 1440,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-28T22:28:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55cd1764_bce014b1",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ab863da3_d21e7441",
@@ -541,6 +1081,24 @@
       "writtenOn": "2021-04-28T11:52:29Z",
       "side": 1,
       "message": "you can make an early return: if (outstanding_bytes() !\u003d 0) { return; } - makes it obvious that the function remains in the same state if there are bytes in the retransmission queue.",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab7607a9_c2ff8afe",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 1467,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-28T22:28:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab863da3_d21e7441",
       "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -562,6 +1120,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e38c5c1_b7433983",
+        "filename": "net/dcsctp/socket/dcsctp_socket.h",
+        "patchSetId": 47
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-28T22:28:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea9908fb_0cd3554c",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e9cc9756_f409ce44",
@@ -575,6 +1151,24 @@
       "writtenOn": "2021-04-28T11:52:29Z",
       "side": 1,
       "message": "Nit: manage -\u003e manages, handle -\u003e handles",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7f038c8_8f497dae",
+        "filename": "net/dcsctp/socket/dcsctp_socket.h",
+        "patchSetId": 47
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-28T22:28:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9cc9756_f409ce44",
       "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -609,6 +1203,48 @@
       "writtenOn": "2021-04-28T11:43:37Z",
       "side": 1,
       "message": "Nit: remove? Or maybe link to https://abseil.io/blog/20180531-regular-types which has a paragraph on thread compatible types.",
+      "range": {
+        "startLine": 66,
+        "startChar": 3,
+        "endLine": 66,
+        "endChar": 23
+      },
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ee7516e_d859d2d3",
+        "filename": "net/dcsctp/socket/dcsctp_socket.h",
+        "patchSetId": 47
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-28T22:28:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf549980_dc086232",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b210392_57eb105e",
+        "filename": "net/dcsctp/socket/dcsctp_socket.h",
+        "patchSetId": 47
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-28T22:28:53Z",
+      "side": 1,
+      "message": "Removed and replaced with a text",
+      "parentUuid": "a1e29101_d50bea00",
       "range": {
         "startLine": 66,
         "startChar": 3,

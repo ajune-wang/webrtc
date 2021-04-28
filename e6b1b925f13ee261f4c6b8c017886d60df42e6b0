@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f88cb37_610b7d97",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-28T14:32:40Z",
+      "side": 1,
+      "message": "Description state the encoded_queue_ might become null\nWhere is the code that sets encoder_queue_ to nullptr?",
+      "revId": "e6b1b925f13ee261f4c6b8c017886d60df42e6b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

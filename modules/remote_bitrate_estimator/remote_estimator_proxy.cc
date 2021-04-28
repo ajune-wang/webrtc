@@ -257,8 +257,8 @@ int64_t RemoteEstimatorProxy::BuildFeedbackPacket(
     uint8_t feedback_packet_count,
     uint32_t media_ssrc,
     int64_t base_sequence_number,
-    std::map<int64_t, int64_t>::const_iterator begin_iterator,
-    std::map<int64_t, int64_t>::const_iterator end_iterator,
+    absl::btree_map<int64_t, int64_t>::const_iterator begin_iterator,
+    absl::btree_map<int64_t, int64_t>::const_iterator end_iterator,
     rtcp::TransportFeedback* feedback_packet) {
   RTC_DCHECK(begin_iterator != end_iterator);
 

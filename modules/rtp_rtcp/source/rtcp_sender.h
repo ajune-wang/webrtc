@@ -17,6 +17,7 @@
 #include <string>
 #include <vector>
 
+#include "absl/container/btree_map.h"
 #include "absl/types/optional.h"
 #include "api/call/transport.h"
 #include "api/video/video_bitrate_allocation.h"
@@ -269,7 +270,7 @@ class RTCPSender final {
 
   typedef void (RTCPSender::*BuilderFunc)(const RtcpContext&, PacketSender&);
   // Map from RTCPPacketType to builder.
-  std::map<uint32_t, BuilderFunc> builders_;
+  absl::btree_map<uint32_t, BuilderFunc> builders_;
 };
 }  // namespace webrtc
 

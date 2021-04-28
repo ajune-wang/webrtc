@@ -12,10 +12,10 @@
 #define MODULES_REMOTE_BITRATE_ESTIMATOR_REMOTE_ESTIMATOR_PROXY_H_
 
 #include <functional>
-#include <map>
 #include <memory>
 #include <vector>
 
+#include "absl/container/btree_map.h"
 #include "api/transport/network_control.h"
 #include "api/transport/webrtc_key_value_config.h"
 #include "modules/remote_bitrate_estimator/include/remote_bitrate_estimator.h"
@@ -85,9 +85,9 @@ class RemoteEstimatorProxy : public RemoteBitrateEstimator {
       uint8_t feedback_packet_count,
       uint32_t media_ssrc,
       int64_t base_sequence_number,
-      std::map<int64_t, int64_t>::const_iterator
+      absl::btree_map<int64_t, int64_t>::const_iterator
           begin_iterator,  // |begin_iterator| is inclusive.
-      std::map<int64_t, int64_t>::const_iterator
+      absl::btree_map<int64_t, int64_t>::const_iterator
           end_iterator,  // |end_iterator| is exclusive.
       rtcp::TransportFeedback* feedback_packet);
 
@@ -105,7 +105,8 @@ class RemoteEstimatorProxy : public RemoteBitrateEstimator {
   SeqNumUnwrapper<uint16_t> unwrapper_ RTC_GUARDED_BY(&lock_);
   absl::optional<int64_t> periodic_window_start_seq_ RTC_GUARDED_BY(&lock_);
   // Map unwrapped seq -> time.
-  std::map<int64_t, int64_t> packet_arrival_times_ RTC_GUARDED_BY(&lock_);
+  absl::btree_map<int64_t, int64_t> packet_arrival_times_
+      RTC_GUARDED_BY(&lock_);
   int64_t send_interval_ms_ RTC_GUARDED_BY(&lock_);
   bool send_periodic_feedback_ RTC_GUARDED_BY(&lock_);
 

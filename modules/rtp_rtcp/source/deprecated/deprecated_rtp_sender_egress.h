@@ -15,6 +15,7 @@
 #include <memory>
 #include <vector>
 
+#include "absl/container/btree_map.h"
 #include "absl/types/optional.h"
 #include "api/call/transport.h"
 #include "api/rtc_event_log/rtc_event_log.h"
@@ -82,7 +83,7 @@ class DEPRECATED_RtpSenderEgress {
   // Maps capture time in milliseconds to send-side delay in milliseconds.
   // Send-side delay is the difference between transmission time and capture
   // time.
-  typedef std::map<int64_t, int> SendDelayMap;
+  typedef absl::btree_map<int64_t, int> SendDelayMap;
 
   RtpSendRates GetSendRatesLocked() const RTC_EXCLUSIVE_LOCKS_REQUIRED(lock_);
   bool HasCorrectSsrc(const RtpPacketToSend& packet) const;

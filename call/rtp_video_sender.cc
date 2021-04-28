@@ -343,6 +343,50 @@ bool IsFirstFrameOfACodedVideoSequence(
   return encoded_image.SpatialIndex() <= 0;
 }
 
+// Create structure that aligns with simulated generic info in RtpPayloadParams
+// The templates allow to produce valid dependency descriptor for any vp9 stream
+// with up to 4 temporal layers. The set of the templates is not tuned for any
+// paricular structure thus dependency descriptor would use more bytes on the
+// wire than with a tuned templates.
+FrameDependencyStructure MinimalisticVp9Structure(
+    const CodecSpecificInfoVP9& vp9) {
+  const int num_spatial_layers = vp9.num_spatial_layers;
+  const int num_temporal_layers = kMaxTemporalStreams;
+  FrameDependencyStructure structure;
+  structure.num_decode_targets = num_spatial_layers * num_temporal_layers;
+  structure.num_chains = num_spatial_layers;
+  structure.templates.reserve(num_spatial_layers * num_temporal_layers);
+  for (int sid = 0; sid < num_spatial_layers; ++sid) {
+    for (int tid = 0; tid < num_temporal_layers; ++tid) {
+      FrameDependencyTemplate a_template;
+      a_template.spatial_id = sid;
+      a_template.temporal_id = tid;
+      for (int s = 0; s < num_spatial_layers; ++s) {
+        for (int t = 0; t < num_temporal_layers; ++t) {
+          // Prefer kSwitch for indication frame is part of the decode target
+          // because RtpPayloadParams::Vp9ToGeneric uses that indication more
+          // often that kRequired, increasing chance custom dti need not to
+          // use more bits in dependency descriptor on the wire.
+          a_template.decode_target_indications.push_back(
+              sid <= s && tid <= t ? DecodeTargetIndication::kSwitch
+                                   : DecodeTargetIndication::kNotPresent);
+        }
+      }
+      a_template.frame_diffs.push_back(tid == 0 ? num_spatial_layers *
+                                                      num_temporal_layers
+                                                : num_spatial_layers);
+      a_template.chain_diffs.assign(structure.num_chains, 1);
+      structure.templates.push_back(a_template);
+
+      structure.decode_target_protected_by_chain.push_back(sid);
+    }
+    if (vp9.ss_data_available && vp9.spatial_layer_resolution_present) {
+      structure.resolutions.emplace_back(vp9.width[sid], vp9.height[sid]);
+    }
+  }
+  return structure;
+}
+
 }  // namespace
 
 RtpVideoSender::RtpVideoSender(
@@ -367,6 +411,9 @@ RtpVideoSender::RtpVideoSender(
           field_trials_.Lookup("WebRTC-Video-UseFrameRateForOverhead"),
           "Enabled")),
       has_packet_feedback_(TransportSeqNumExtensionConfigured(rtp_config)),
+      simulate_vp9_structure_(absl::StartsWith(
+          field_trials_.Lookup("WebRTC-Vp9DependencyDescriptor"),
+          "Enabled")),
       active_(false),
       module_process_thread_(nullptr),
       suspended_ssrcs_(std::move(suspended_ssrcs)),
@@ -578,10 +625,17 @@ EncodedImageCallback::Result RtpVideoSender::OnEncodedImage(
     // If encoder adapter produce FrameDependencyStructure, pass it so that
     // dependency descriptor rtp header extension can be used.
     // If not supported, disable using dependency descriptor by passing nullptr.
-    rtp_streams_[stream_index].sender_video->SetVideoStructure(
-        (codec_specific_info && codec_specific_info->template_structure)
-            ? &*codec_specific_info->template_structure
-            : nullptr);
+    RTPSenderVideo& sender_video = *rtp_streams_[stream_index].sender_video;
+    if (codec_specific_info && codec_specific_info->template_structure) {
+      sender_video.SetVideoStructure(&*codec_specific_info->template_structure);
+    } else if (simulate_vp9_structure_ && codec_specific_info &&
+               codec_specific_info->codecType == kVideoCodecVP9) {
+      FrameDependencyStructure structure =
+          MinimalisticVp9Structure(codec_specific_info->codecSpecific.VP9);
+      sender_video.SetVideoStructure(&structure);
+    } else {
+      sender_video.SetVideoStructure(nullptr);
+    }
   }
 
   bool send_result = rtp_streams_[stream_index].sender_video->SendEncodedImage(

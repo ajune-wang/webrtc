@@ -199,13 +199,12 @@ void RemoteEstimatorProxy::SendPeriodicFeedbacks() {
     }
   }
 
-  for (auto begin_iterator =
-           packet_arrival_times_.lower_bound(*periodic_window_start_seq_);
-       begin_iterator != packet_arrival_times_.cend();
-       begin_iterator =
-           packet_arrival_times_.lower_bound(*periodic_window_start_seq_)) {
+  std::map<int64_t, int64_t>::const_iterator begin_iterator =
+      packet_arrival_times_.lower_bound(*periodic_window_start_seq_);
+
+  while (begin_iterator != packet_arrival_times_.cend()) {
     auto feedback_packet = std::make_unique<rtcp::TransportFeedback>();
-    periodic_window_start_seq_ = BuildFeedbackPacket(
+    std::tie(begin_iterator, periodic_window_start_seq_) = BuildFeedbackPacket(
         feedback_packet_count_++, media_ssrc_, *periodic_window_start_seq_,
         begin_iterator, packet_arrival_times_.cend(), feedback_packet.get());
 
@@ -253,7 +252,8 @@ void RemoteEstimatorProxy::SendFeedbackOnRequest(
   feedback_sender_(std::move(packets));
 }
 
-int64_t RemoteEstimatorProxy::BuildFeedbackPacket(
+std::pair<std::map<int64_t, int64_t>::const_iterator, int64_t>
+RemoteEstimatorProxy::BuildFeedbackPacket(
     uint8_t feedback_packet_count,
     uint32_t media_ssrc,
     int64_t base_sequence_number,
@@ -272,7 +272,8 @@ int64_t RemoteEstimatorProxy::BuildFeedbackPacket(
                            begin_iterator->second * 1000);
   feedback_packet->SetFeedbackSequenceNumber(feedback_packet_count);
   int64_t next_sequence_number = base_sequence_number;
-  for (auto it = begin_iterator; it != end_iterator; ++it) {
+  auto it = begin_iterator;
+  for (; it != end_iterator; ++it) {
     if (!feedback_packet->AddReceivedPacket(
             static_cast<uint16_t>(it->first & 0xFFFF), it->second * 1000)) {
       // If we can't even add the first seq to the feedback packet, we won't be
@@ -285,7 +286,7 @@ int64_t RemoteEstimatorProxy::BuildFeedbackPacket(
     }
     next_sequence_number = it->first + 1;
   }
-  return next_sequence_number;
+  return std::make_pair(it, next_sequence_number);
 }
 
 }  // namespace webrtc

@@ -365,7 +365,11 @@ class MockDataChannelObserver : public webrtc::DataChannelObserver {
 
   void OnBufferedAmountChange(uint64_t previous_amount) override {}
 
-  void OnStateChange() override { state_ = channel_->state(); }
+  void OnStateChange() override {
+    state_ = channel_->state();
+    if (state_ == DataChannelInterface::DataState::kClosing)
+      got_closing_state_ = true;
+  }
   void OnMessage(const DataBuffer& buffer) override {
     messages_.push_back(
         {std::string(buffer.data.data<char>(), buffer.data.size()),
@@ -387,10 +391,14 @@ class MockDataChannelObserver : public webrtc::DataChannelObserver {
   }
   size_t received_message_count() const { return messages_.size(); }
 
+  DataChannelInterface::DataState state() const { return state_; }
+  bool got_closing_state() const { return got_closing_state_; }
+
  private:
   rtc::scoped_refptr<webrtc::DataChannelInterface> channel_;
   DataChannelInterface::DataState state_;
   std::vector<Message> messages_;
+  bool got_closing_state_;
 };
 
 class MockStatsObserver : public webrtc::StatsObserver {

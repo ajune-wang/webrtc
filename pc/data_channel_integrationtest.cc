@@ -362,8 +362,12 @@ TEST_P(DataChannelIntegrationTest, CalleeClosesSctpDataChannel) {
   // Close the data channel on the callee side, and wait for it to reach the
   // "closed" state on both sides.
   callee()->data_channel()->Close();
-  EXPECT_TRUE_WAIT(!caller()->data_observer()->IsOpen(), kDefaultTimeout);
-  EXPECT_TRUE_WAIT(!callee()->data_observer()->IsOpen(), kDefaultTimeout);
+  EXPECT_EQ_WAIT(DataChannelInterface::DataState::kClosed,
+                 caller()->data_observer()->state(), kDefaultTimeout);
+  EXPECT_TRUE(caller()->data_observer()->got_closing_state());
+  EXPECT_EQ_WAIT(DataChannelInterface::DataState::kClosed,
+                 callee()->data_observer()->state(), kDefaultTimeout);
+  EXPECT_TRUE(callee()->data_observer()->got_closing_state());
 }
 
 TEST_P(DataChannelIntegrationTest, SctpDataChannelConfigSentToOtherSide) {

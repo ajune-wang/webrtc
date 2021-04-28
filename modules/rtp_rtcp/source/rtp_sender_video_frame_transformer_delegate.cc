@@ -129,9 +129,10 @@ void RTPSenderVideoFrameTransformerDelegate::OnTransformedFrame(
     std::unique_ptr<TransformableFrameInterface> frame) {
   MutexLock lock(&sender_lock_);
 
-  // The encoder queue gets destroyed after the sender; as long as the sender is
-  // alive, it's safe to post.
-  if (!sender_)
+  // The encoder queue normally gets destroyed after the sender;
+  // however, it might be reset due to a renegotiation that results
+  // in an encoder reset.
+  if (!sender_ || !encoder_queue_)
     return;
   rtc::scoped_refptr<RTPSenderVideoFrameTransformerDelegate> delegate = this;
   encoder_queue_->PostTask(ToQueuedTask(

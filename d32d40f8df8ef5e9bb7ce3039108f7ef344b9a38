@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff7b64fa_9b2c5f55",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-04-29T10:06:24Z",
+      "side": 1,
+      "message": "nit: I usually find \u0026foo.value() more readable than \u0026*foo.",
+      "range": {
+        "startLine": 586,
+        "startChar": 38,
+        "endLine": 586,
+        "endChar": 39
+      },
+      "revId": "d32d40f8df8ef5e9bb7ce3039108f7ef344b9a38",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -22,6 +22,30 @@
       },
       "revId": "d32d40f8df8ef5e9bb7ce3039108f7ef344b9a38",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b806e9fc_fde5b704",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-29T10:39:31Z",
+      "side": 1,
+      "message": "\u0027*\u0027 and \u0027.value()\u0027 are not exactly the same. Most of the time optional should be dereferenced using \u0027*\u0027 (including this time where one line above there is a run-time check optional contains values)\n\nhttps://abseil.io/tips/181#recommendation\n\"Accessing the value ... should be performed via operator* or operator-\u003e, after a call ... has verified that the value is present.\"",
+      "parentUuid": "ff7b64fa_9b2c5f55",
+      "range": {
+        "startLine": 586,
+        "startChar": 38,
+        "endLine": 586,
+        "endChar": 39
+      },
+      "revId": "d32d40f8df8ef5e9bb7ce3039108f7ef344b9a38",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

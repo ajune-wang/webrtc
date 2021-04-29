@@ -24,8 +24,8 @@ RtpFrameObject::RtpFrameObject(
     uint16_t last_seq_num,
     bool markerBit,
     int times_nacked,
-    int64_t first_packet_received_time,
-    int64_t last_packet_received_time,
+    class Timestamp first_packet_received_time,
+    class Timestamp last_packet_received_time,
     uint32_t rtp_timestamp,
     int64_t ntp_time_ms,
     const VideoSendTiming& timing,
@@ -83,8 +83,8 @@ RtpFrameObject::RtpFrameObject(
     timing_.network2_timestamp_ms =
         ntp_time_ms_ + timing.network2_timestamp_delta_ms;
   }
-  timing_.receive_start_ms = first_packet_received_time;
-  timing_.receive_finish_ms = last_packet_received_time;
+  timing_.receive_start_ms = first_packet_received_time.ms();
+  timing_.receive_finish_ms = last_packet_received_time.ms();
   timing_.flags = timing.flags;
   is_last_spatial_layer = markerBit;
 }
@@ -112,7 +112,7 @@ VideoCodecType RtpFrameObject::codec_type() const {
   return codec_type_;
 }
 
-int64_t RtpFrameObject::ReceivedTime() const {
+Timestamp RtpFrameObject::ReceivedTime() const {
   return last_packet_received_time_;
 }
 

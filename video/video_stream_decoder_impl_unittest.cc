@@ -129,7 +129,9 @@ class FakeVideoDecoderFactory : public VideoDecoderFactory {
 
 class FakeEncodedFrame : public EncodedFrame {
  public:
-  int64_t ReceivedTime() const override { return 0; }
+  class Timestamp ReceivedTime() const override {
+    return Timestamp::Millis(0);
+  }
   int64_t RenderTime() const override { return 0; }
 
   // Setters for protected variables.

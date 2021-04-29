@@ -507,7 +507,7 @@ void RtpVideoStreamReceiver::OnReceivedPayloadData(
     const RTPVideoHeader& video) {
   RTC_DCHECK_RUN_ON(&worker_task_checker_);
   auto packet = std::make_unique<video_coding::PacketBuffer::Packet>(
-      rtp_packet, video, clock_->TimeInMilliseconds());
+      rtp_packet, video, clock_->CurrentTime());
 
   // Try to extrapolate absolute capture time if it is missing.
   packet->packet_info.set_absolute_capture_time(
@@ -739,8 +739,8 @@ void RtpVideoStreamReceiver::OnInsertedPacket(
     video_coding::PacketBuffer::InsertResult result) {
   video_coding::PacketBuffer::Packet* first_packet = nullptr;
   int max_nack_count;
-  int64_t min_recv_time;
-  int64_t max_recv_time;
+  Timestamp min_recv_time = Timestamp::Millis(0);
+  Timestamp max_recv_time = Timestamp::Millis(0);
   std::vector<rtc::ArrayView<const uint8_t>> payloads;
   RtpPacketInfos::vector_type packet_infos;
 
@@ -752,16 +752,16 @@ void RtpVideoStreamReceiver::OnInsertedPacket(
     if (packet->is_first_packet_in_frame()) {
       first_packet = packet.get();
       max_nack_count = packet->times_nacked;
-      min_recv_time = packet->packet_info.receive_time_ms();
-      max_recv_time = packet->packet_info.receive_time_ms();
+      min_recv_time = packet->packet_info.receive_time();
+      max_recv_time = packet->packet_info.receive_time();
       payloads.clear();
       packet_infos.clear();
     } else {
       max_nack_count = std::max(max_nack_count, packet->times_nacked);
       min_recv_time =
-          std::min(min_recv_time, packet->packet_info.receive_time_ms());
+          std::min(min_recv_time, packet->packet_info.receive_time());
       max_recv_time =
-          std::max(max_recv_time, packet->packet_info.receive_time_ms());
+          std::max(max_recv_time, packet->packet_info.receive_time());
     }
     payloads.emplace_back(packet->video_payload);
     packet_infos.push_back(packet->packet_info);

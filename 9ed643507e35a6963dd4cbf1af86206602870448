@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbaea02b_f3a316d5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 51
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-29T07:00:53Z",
+      "side": 1,
+      "message": "All previous issues fixed!\n\nA few new ones.",
+      "revId": "9ed643507e35a6963dd4cbf1af86206602870448",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3945ccdd_fec2697c",
+        "filename": "net/dcsctp/socket/callback_deferrer.h",
+        "patchSetId": 51
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-29T07:00:53Z",
+      "side": 1,
+      "message": "I don\u0027t see the advantage of this struct over simply embedding Message in the MessageDeliverer class. The bool has_delivered should be equivalent to message.empty() (assuming that std::move(message) results in the source object having empty\u003dtrue, I\u0027m not sure what the proper idiom is).",
+      "revId": "9ed643507e35a6963dd4cbf1af86206602870448",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2dc4b814_4beb2d70",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 51
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-29T07:00:53Z",
+      "side": 1,
+      "message": "I\u0027m in two minds about this number. On the one hand, it\u0027s stated in this way in the RFC; on the other hand, it\u0027s an incomprehensible blob of numbers, and section 5.3.1 says that it\u0027s 2^32-1 - std::numeric_mimit\u003cuint32_t\u003e::max makes it clearer what it is.",
+      "revId": "9ed643507e35a6963dd4cbf1af86206602870448",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7246cc32_51b4321e",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 51
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-29T07:00:53Z",
+      "side": 1,
+      "message": "This doesn\u0027t work - it will crash in debug and pass true in production, which will lead to the dreaded \"production-only bug\". If you make them all RTC_CHECK, it crashes in production - but then I would want an analysis that says you can never get this test failing unless this library has a bug, which makes it all a bit pointless.",
+      "revId": "9ed643507e35a6963dd4cbf1af86206602870448",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35874b02_4582eb8c",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 51
+      },
+      "lineNbr": 1246,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-29T07:00:53Z",
+      "side": 1,
+      "message": "I would log the state here, and LOG(ERROR) if the state is not ESTABLISHED. Either this code is unreachable from the COOKIE-ECHOED state, or it\u0027s not; if it\u0027s reachable, then it needs to make the transition to ESTABLISHED and stop the cookie echo timer.\n\nI don\u0027t have in my head the matrix of \u003cTCB existence, state\u003e, so I don\u0027t know if it can happen or not.",
+      "revId": "9ed643507e35a6963dd4cbf1af86206602870448",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

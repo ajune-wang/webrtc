@@ -403,6 +403,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf28a1db_b4140e3d",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-29T07:00:53Z",
+      "side": 1,
+      "message": "Looks good to me.",
+      "parentUuid": "968de0fb_6efe99f2",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "326ac732_ef0aca25",
@@ -994,6 +1012,24 @@
       "side": 1,
       "message": "This is not the only path leading to (re-)creating the TCB. Yes, this is the \"normal\" path, but if there was a TCB previously, it might be discarded (e.g. line 1122 \u0026 1133) which makes it be re-created on line 1179.\n\nOr did I misunderstand you?",
       "parentUuid": "b31ba827_3487185d",
+      "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ea973d4_e9031280",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 47
+      },
+      "lineNbr": 1166,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-29T07:00:53Z",
+      "side": 1,
+      "message": "Now that the huge block is its own method, this is much more readable. No change needed.",
+      "parentUuid": "a598f9a8_8bebb85d",
       "revId": "9807973b7070569f0b61e5f322f48d741644fae2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

@@ -46,6 +46,30 @@
       },
       "revId": "d32d40f8df8ef5e9bb7ce3039108f7ef344b9a38",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75b34cae_c8f9f1b0",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-04-29T11:02:31Z",
+      "side": 1,
+      "message": "In most cases I agree. What I don\u0027t like is the \u0027\u0026*\u0027 sequence, which makes it hard to see what you\u0027re doing (unless you know the type by heart). That\u0027s just my personal preference though",
+      "parentUuid": "b806e9fc_fde5b704",
+      "range": {
+        "startLine": 586,
+        "startChar": 38,
+        "endLine": 586,
+        "endChar": 39
+      },
+      "revId": "d32d40f8df8ef5e9bb7ce3039108f7ef344b9a38",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

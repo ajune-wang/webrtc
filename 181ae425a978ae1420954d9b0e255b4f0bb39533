@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5885f5b1_2d11f24c",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-04-29T14:13:47Z",
+      "side": 1,
+      "message": "good catch!",
+      "parentUuid": "2fa960c7_94a5caf8",
+      "range": {
+        "startLine": 96,
+        "startChar": 15,
+        "endLine": 96,
+        "endChar": 40
+      },
+      "revId": "181ae425a978ae1420954d9b0e255b4f0bb39533",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5b2c5c1c_51ff72dd",
@@ -71,6 +95,30 @@
       "writtenOn": "2021-04-28T13:52:07Z",
       "side": 1,
       "message": "rtc::ArrayView\u003cconst float\u003e",
+      "range": {
+        "startLine": 102,
+        "startChar": 4,
+        "endLine": 102,
+        "endChar": 25
+      },
+      "revId": "181ae425a978ae1420954d9b0e255b4f0bb39533",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e57896ef_a350291e",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-04-29T14:13:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b2c5c1c_51ff72dd",
       "range": {
         "startLine": 102,
         "startChar": 4,
@@ -104,6 +152,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e51811b9_476d463b",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-04-29T14:13:47Z",
+      "side": 1,
+      "message": "Yes, let\u0027s simplify. I initially wrote it that way because I don\u0027t like much to rely on short-circuit evaluation. In this case, I wanted to make sure that `dry_run_frame_[0]` is not evaluated when `dry_run_frame_` is empty (that\u0027s the case in C++, but I feel itchy anyways).",
+      "parentUuid": "acf90da8_5422a99b",
+      "range": {
+        "startLine": 144,
+        "startChar": 2,
+        "endLine": 148,
+        "endChar": 3
+      },
+      "revId": "181ae425a978ae1420954d9b0e255b4f0bb39533",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d1687ad7_6645794d",
@@ -117,6 +189,30 @@
       "writtenOn": "2021-04-28T13:52:07Z",
       "side": 1,
       "message": "Nit:\nIt is nice to avoid negations but since dry_run is not the primary way this is intended to run I think the code would be easier to understand by writing this as \n\n if (!dry_run_) {\n gain_applier_.ApplyGain(frame);\n}\nelse {\n...\n}",
+      "range": {
+        "startLine": 222,
+        "startChar": 2,
+        "endLine": 232,
+        "endChar": 3
+      },
+      "revId": "181ae425a978ae1420954d9b0e255b4f0bb39533",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "805dcd5a_dbdf7db8",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-04-29T14:13:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d1687ad7_6645794d",
       "range": {
         "startLine": 222,
         "startChar": 2,

@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2390a0b2_8d86f8f5",
+        "filename": "net/dcsctp/socket/callback_deferrer.h",
+        "patchSetId": 51
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-29T10:58:18Z",
+      "side": 1,
+      "message": "MessageDeliverer must be a copyable class, as a std::function is copyable, so I can\u0027t embed a move-only class, which DcSctpMessage is, as that would make MessageDeliverer move-only. So by having a shared pointer, the std::function (or lambda if you prefer) can capture it, but then potentially (but not in reality, hence the DCHECK), the message could be delivered twice if the std::function _is_copied (which it\u0027s not), which would be bad as it\u0027s moved away on delivery. So the `has_delivered` is just making sure that nobody does anything stupid in the future.",
+      "parentUuid": "3945ccdd_fec2697c",
+      "revId": "9ed643507e35a6963dd4cbf1af86206602870448",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2dc4b814_4beb2d70",
@@ -48,6 +66,24 @@
       "writtenOn": "2021-04-29T07:00:53Z",
       "side": 1,
       "message": "I\u0027m in two minds about this number. On the one hand, it\u0027s stated in this way in the RFC; on the other hand, it\u0027s an incomprehensible blob of numbers, and section 5.3.1 says that it\u0027s 2^32-1 - std::numeric_mimit\u003cuint32_t\u003e::max makes it clearer what it is.",
+      "revId": "9ed643507e35a6963dd4cbf1af86206602870448",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bed0a733_f4a8dc3f",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 51
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-29T10:58:18Z",
+      "side": 1,
+      "message": "I made it a \"blog of numbers\", as that blob was searchable in the RFC, which std::numeric_limits\u003cuint32_t\u003e::max() isn\u0027t, but I don\u0027t have very strong feelings about it. Done.",
+      "parentUuid": "2dc4b814_4beb2d70",
       "revId": "9ed643507e35a6963dd4cbf1af86206602870448",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -69,6 +105,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ab2ae31_30adcbc7",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 51
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-29T10:58:18Z",
+      "side": 1,
+      "message": "I rewrote it. IsConsistent will always be called as RTC_DCHECK(IsConsistent());\n\nThe problem with the pure IsConsistent that is often used in WebRTC, is that it\u0027s hard to know _why_ it was inconsistent, hence my individual checks. But let\u0027s try this! When debug checks are enabled, often debug logs are enabled as well, which should be sufficient to know why it was inconsistent.",
+      "parentUuid": "7246cc32_51b4321e",
+      "revId": "9ed643507e35a6963dd4cbf1af86206602870448",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "35874b02_4582eb8c",
@@ -82,6 +136,24 @@
       "writtenOn": "2021-04-29T07:00:53Z",
       "side": 1,
       "message": "I would log the state here, and LOG(ERROR) if the state is not ESTABLISHED. Either this code is unreachable from the COOKIE-ECHOED state, or it\u0027s not; if it\u0027s reachable, then it needs to make the transition to ESTABLISHED and stop the cookie echo timer.\n\nI don\u0027t have in my head the matrix of \u003cTCB existence, state\u003e, so I don\u0027t know if it can happen or not.",
+      "revId": "9ed643507e35a6963dd4cbf1af86206602870448",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f3a1a1d_76c4a8ec",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 51
+      },
+      "lineNbr": 1246,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-29T10:58:18Z",
+      "side": 1,
+      "message": "I looked in the \"SCTP bible\" (Stream Control Transmission Protocol (SCTP) - A reference Guide, Randall R Stewart \u0026 Qiaobing Xie) and it\u0027s described on page 109, as a \"Lost Chunk\" scenario, meaning that the sent Cookie-Ack from the normal association flow was lost, and the peer re-sent its CookieEcho. So I updated the comment to mention that. \n\nI have added a test-case for this scenario, and I can see when running that test case that we get this log printout.\n\nThanks for making me look this up and sort this out.",
+      "parentUuid": "35874b02_4582eb8c",
       "revId": "9ed643507e35a6963dd4cbf1af86206602870448",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

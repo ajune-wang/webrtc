@@ -14,20 +14,6 @@
 
 namespace rtc {
 
-CopyOnWriteBuffer::CopyOnWriteBuffer() : offset_(0), size_(0) {
-  RTC_DCHECK(IsConsistent());
-}
-
-CopyOnWriteBuffer::CopyOnWriteBuffer(const CopyOnWriteBuffer& buf)
-    : buffer_(buf.buffer_), offset_(buf.offset_), size_(buf.size_) {}
-
-CopyOnWriteBuffer::CopyOnWriteBuffer(CopyOnWriteBuffer&& buf)
-    : buffer_(std::move(buf.buffer_)), offset_(buf.offset_), size_(buf.size_) {
-  buf.offset_ = 0;
-  buf.size_ = 0;
-  RTC_DCHECK(IsConsistent());
-}
-
 CopyOnWriteBuffer::CopyOnWriteBuffer(const std::string& s)
     : CopyOnWriteBuffer(s.data(), s.length()) {}
 
@@ -45,8 +31,6 @@ CopyOnWriteBuffer::CopyOnWriteBuffer(size_t size, size_t capacity)
       size_(size) {
   RTC_DCHECK(IsConsistent());
 }
-
-CopyOnWriteBuffer::~CopyOnWriteBuffer() = default;
 
 bool CopyOnWriteBuffer::operator==(const CopyOnWriteBuffer& buf) const {
   // Must either be the same view of the same buffer or have the same contents.

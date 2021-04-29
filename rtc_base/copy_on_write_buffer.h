@@ -30,11 +30,19 @@ namespace rtc {
 class RTC_EXPORT CopyOnWriteBuffer {
  public:
   // An empty buffer.
-  CopyOnWriteBuffer();
+  CopyOnWriteBuffer() : offset_(0), size_(0) { RTC_DCHECK(IsConsistent()); }
   // Share the data with an existing buffer.
-  CopyOnWriteBuffer(const CopyOnWriteBuffer& buf);
+  CopyOnWriteBuffer(const CopyOnWriteBuffer& buf)
+      : buffer_(buf.buffer_), offset_(buf.offset_), size_(buf.size_) {}
   // Move contents from an existing buffer.
-  CopyOnWriteBuffer(CopyOnWriteBuffer&& buf);
+  CopyOnWriteBuffer(CopyOnWriteBuffer&& buf)
+      : buffer_(std::move(buf.buffer_)),
+        offset_(buf.offset_),
+        size_(buf.size_) {
+    buf.offset_ = 0;
+    buf.size_ = 0;
+    RTC_DCHECK(IsConsistent());
+  }
 
   // Construct a buffer from a string, convenient for unittests.
   CopyOnWriteBuffer(const std::string& s);
@@ -70,7 +78,7 @@ class RTC_EXPORT CopyOnWriteBuffer {
   CopyOnWriteBuffer(const T (&array)[N])  // NOLINT: runtime/explicit
       : CopyOnWriteBuffer(array, N) {}
 
-  ~CopyOnWriteBuffer();
+  ~CopyOnWriteBuffer() = default;
 
   // Get a pointer to the data. Just .data() will give you a (const) uint8_t*,
   // but you may also use .data<int8_t>() and .data<char>().

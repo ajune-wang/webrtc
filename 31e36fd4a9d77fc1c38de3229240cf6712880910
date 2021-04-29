@@ -33,6 +33,24 @@
       "message": "I would call it \"closing_state_seen_\".\n\nBut this is the kind of special code that I don\u0027t like to have in a semigeneric mock - I\u0027d rather that OnStateChange() pushed the state to the end of a list, and that the test checked that the end of the list was {connected, closing, closed}.",
       "revId": "31e36fd4a9d77fc1c38de3229240cf6712880910",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "253771bb_bd3efa21",
+        "filename": "pc/test/mock_peer_connection_observers.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-04-29T10:50:36Z",
+      "side": 1,
+      "message": "Thanks, I was utterly uninspired when writing this, but I knew it was the wrong way. Made it into a list instead!",
+      "parentUuid": "c0ef4555_10e2e715",
+      "revId": "31e36fd4a9d77fc1c38de3229240cf6712880910",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

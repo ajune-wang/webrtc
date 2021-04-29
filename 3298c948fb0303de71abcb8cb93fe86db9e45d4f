@@ -16,6 +16,29 @@
       "message": "Hi Chen,\n\nCan you take a first look at this CL? In particular the changes to api/rtp_packet_info*\n\n",
       "revId": "3298c948fb0303de71abcb8cb93fe86db9e45d4f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3163439c_840e51ba",
+        "filename": "api/video/encoded_frame.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-04-29T13:51:19Z",
+      "side": 1,
+      "message": "May be better to keep this as int64_t for simplicity.",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 51
+      },
+      "revId": "3298c948fb0303de71abcb8cb93fe86db9e45d4f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

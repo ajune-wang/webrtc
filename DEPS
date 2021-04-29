@@ -7,14 +7,14 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'd6ff4261ae4c76ef6af80cb00a24ee641754a436',
+  'chromium_revision': '1b009e996e53e68df77a5d63a7c33d13907bfa38',
 }
 
 deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@a43bbae42bc0fb245bbc74b98e74cf13767f3191',
+    'https://chromium.googlesource.com/chromium/src/base@715ea8c7b940832c3cdef0ae35eee0006624473e',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@32281a3e42d30495248ea4c89aa6de41371a1001',
   'src/buildtools':
@@ -29,9 +29,9 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@6da587631d402bb5aba7cebf1ddbbb1d2813a987',
+    'https://chromium.googlesource.com/chromium/src/testing@a660a95e6f9305381c5508d915d73843aaea0a46',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@f3f428930193275f12b6e2e37b9ab980b1d71671',
+    'https://chromium.googlesource.com/chromium/src/third_party@01d5a8cd26a083b4c9c19b75060dc9e8f5bc0743',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -131,7 +131,7 @@ deps = {
   'src/third_party/crc32c/src':
     'https://chromium.googlesource.com/external/github.com/google/crc32c.git@5998f8451548244de8cde7fab387a550e7c4497d',
   'src/third_party/depot_tools':
-    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@6234dd231719d51d565ca0d846cfaac6c72a2499',
+    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@3a56ba9d9c9d22bc78e24f96a9096247d53649f8',
   'src/third_party/ffmpeg':
     'https://chromium.googlesource.com/chromium/third_party/ffmpeg.git@280d5fd0df8b4284ad040bd29deb3241bd6dfc4a',
   'src/third_party/findbugs': {
@@ -265,7 +265,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@91e132667ed3dca751fcad350fc498277ef353db',
+    'https://chromium.googlesource.com/chromium/src/tools@69dfa2f86b24f4a440e026e141ae9c21ef321a2f',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@a32a1607f6093d338f756c7e7c7b4333b0c50c9c',
 

@@ -183,6 +183,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a5510a3_a635aa5e",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 889,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-29T10:28:15Z",
+      "side": 1,
+      "message": "I completely forgot RtpRtcpImpl owns RtpSender that sets the BWE extensions, so actually it is (indirect) responsibility of the RtpRtcpImpl to set them.\nInvolvement of the `std::unique_ptr\u003cRTPSenderVideo\u003e sender_video_` confused me.\n\nThen the new placement of the test does make sense.",
+      "parentUuid": "63d5c06c_feb1cbaa",
+      "range": {
+        "startLine": 889,
+        "startChar": 7,
+        "endLine": 889,
+        "endChar": 55
+      },
+      "revId": "b854e454a0acdcb930411c2545416412b271417f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a149cdf_21a42a14",

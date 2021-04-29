@@ -16,6 +16,24 @@
       "message": "Looking at logs today, I saw one 403 error -- fix here https://webrtc-review.googlesource.com/c/src/+/216399\n\nSo, I\u0027ll land this CL after the above fix is deployed.",
       "revId": "2ee4f570ba4932a7e5bc053ddb3b53af60f5422b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "22ab5030_a4f18203",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5533
+      },
+      "writtenOn": "2021-04-29T12:13:46Z",
+      "side": 1,
+      "message": "Fixed deployed. Shipping 25% now.",
+      "parentUuid": "2a835910_3195963f",
+      "revId": "2ee4f570ba4932a7e5bc053ddb3b53af60f5422b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

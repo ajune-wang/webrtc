@@ -96,6 +96,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7e87a05_764b2c49",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-04-29T09:29:18Z",
+      "side": 1,
+      "message": "LG",
+      "parentUuid": "4b40b2ec_7fc19e27",
+      "range": {
+        "startLine": 347,
+        "startChar": 0,
+        "endLine": 348,
+        "endChar": 79
+      },
+      "revId": "86d8f9255a3b50d9982275fdbb1e118669ed999c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2959c200_746eea23",
@@ -181,6 +205,30 @@
       "side": 1,
       "message": "I\u0027m not sure it will be conceptually cleaner (may be it would).\nRTPVideoHeader describes a frame (sometimes a packet).\nFrameDependencyStructure describes a coded video sequence.\nkeeping place for that description in metadata for every frame might not considered to be clean.\n\nwdyt about middle solution: move MinimalisticVp9Structure into RtpPayloadParams as static method, but keep using it here as it is now?",
       "parentUuid": "4e12a0e6_29ce4a44",
+      "range": {
+        "startLine": 349,
+        "startChar": 42,
+        "endLine": 349,
+        "endChar": 66
+      },
+      "revId": "86d8f9255a3b50d9982275fdbb1e118669ed999c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e13f652_d86081d0",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-04-29T09:29:18Z",
+      "side": 1,
+      "message": "I have a somewhat different view of the RTPVideoHeader. It holds information sent in the RTP header section of the packet, and it doesn\u0027t really matter if that information happens to describe something about a frame or a coded video sequence.\n\nI think your suggestion about a static function in RtpPayloadParams sounds good though.",
+      "parentUuid": "db824e65_d8633e89",
       "range": {
         "startLine": 349,
         "startChar": 42,

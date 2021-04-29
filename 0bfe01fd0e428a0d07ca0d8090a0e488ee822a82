@@ -48,6 +48,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "73f08c83_681fc8ed",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-04-29T09:29:18Z",
+      "side": 1,
+      "message": "True, ack.",
+      "parentUuid": "f11687d4_f9870256",
+      "range": {
+        "startLine": 377,
+        "startChar": 36,
+        "endLine": 377,
+        "endChar": 59
+      },
+      "revId": "0bfe01fd0e428a0d07ca0d8090a0e488ee822a82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7a7eb67b_a42ffe52",
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "That is not really the point of this test (and the added feature).\nCorrectness (including template ids) should be validated by RtpDependencyDescriptor Builder/Parser\n\nSame as for previous test,\nthe point of this test is to verify DD can be created at all.\nIf there is no compatible template, no DD would be written.\n\nI use two pictures (rather than one) because key frames and delta frames are treated slightly differently.",
       "parentUuid": "7a7eb67b_a42ffe52",
+      "range": {
+        "startLine": 809,
+        "startChar": 5,
+        "endLine": 809,
+        "endChar": 25
+      },
+      "revId": "0bfe01fd0e428a0d07ca0d8090a0e488ee822a82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23984ecf_3f60dce2",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 809,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-04-29T09:29:18Z",
+      "side": 1,
+      "message": "I get that being able to send the DD is the most important part of generating the structure, but I also thought maybe we cared a little bit about how it turns out on the wire.\n\nI don\u0027t mean for the test to check for correctness, only that we check that the overhead is kind of what we expected for typical (SXTY) streams. Now that I think of it I guess it\u0027s not really that important.",
+      "parentUuid": "4f9104ff_bc6a1bd6",
       "range": {
         "startLine": 809,
         "startChar": 5,

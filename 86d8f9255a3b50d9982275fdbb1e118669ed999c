@@ -239,6 +239,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a867280_a69e3d1a",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-04-29T09:43:42Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "5e13f652_d86081d0",
+      "range": {
+        "startLine": 349,
+        "startChar": 42,
+        "endLine": 349,
+        "endChar": 66
+      },
+      "revId": "86d8f9255a3b50d9982275fdbb1e118669ed999c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0b6fb25d_352550fc",

@@ -98,7 +98,9 @@ class FrameObjectFake : public EncodedFrame {
 
   void SetNtpTime(int64_t ntp_time_ms) { ntp_time_ms_ = ntp_time_ms; }
 
-  int64_t ReceivedTime() const override { return 0; }
+  class Timestamp ReceivedTime() const override {
+    return Timestamp::Millis(0);
+  }
 
   int64_t RenderTime() const override { return _renderTimeMs; }
 };
@@ -388,16 +390,16 @@ TEST_F(VideoReceiveStream2TestWithFakeDecoder, RenderedFrameUpdatesGetSources) {
     info.set_csrcs({kCsrc});
     info.set_rtp_timestamp(kRtpTimestamp);
 
-    info.set_receive_time_ms(clock_->TimeInMilliseconds() - 5000);
+    info.set_receive_time(clock_->CurrentTime() - TimeDelta::Millis(5000));
     infos.push_back(info);
 
-    info.set_receive_time_ms(clock_->TimeInMilliseconds() - 3000);
+    info.set_receive_time(clock_->CurrentTime() - TimeDelta::Millis(3000));
     infos.push_back(info);
 
-    info.set_receive_time_ms(clock_->TimeInMilliseconds() - 2000);
+    info.set_receive_time(clock_->CurrentTime() - TimeDelta::Millis(2000));
     infos.push_back(info);
 
-    info.set_receive_time_ms(clock_->TimeInMilliseconds() - 4000);
+    info.set_receive_time(clock_->CurrentTime() - TimeDelta::Millis(1000));
     infos.push_back(info);
 
     packet_infos = RtpPacketInfos(std::move(infos));

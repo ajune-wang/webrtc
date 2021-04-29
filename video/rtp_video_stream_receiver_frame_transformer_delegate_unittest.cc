@@ -38,9 +38,10 @@ using ::testing::SaveArg;
 std::unique_ptr<RtpFrameObject> CreateRtpFrameObject(
     const RTPVideoHeader& video_header) {
   return std::make_unique<RtpFrameObject>(
-      0, 0, true, 0, 0, 0, 0, 0, VideoSendTiming(), 0, video_header.codec,
-      kVideoRotation_0, VideoContentType::UNSPECIFIED, video_header,
-      absl::nullopt, RtpPacketInfos(), EncodedImageBuffer::Create(0));
+      0, 0, true, 0, Timestamp::Millis(0), Timestamp::Millis(0), 0, 0,
+      VideoSendTiming(), 0, video_header.codec, kVideoRotation_0,
+      VideoContentType::UNSPECIFIED, video_header, absl::nullopt,
+      RtpPacketInfos(), EncodedImageBuffer::Create(0));
 }
 
 std::unique_ptr<RtpFrameObject> CreateRtpFrameObject() {

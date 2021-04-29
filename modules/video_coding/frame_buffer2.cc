@@ -238,7 +238,7 @@ EncodedFrame* FrameBuffer::GetNextFrame() {
   size_t superframe_size = 0;
   EncodedFrame* first_frame = frames_to_decode_[0]->second.frame.get();
   int64_t render_time_ms = first_frame->RenderTime();
-  int64_t receive_time_ms = first_frame->ReceivedTime();
+  Timestamp receive_time = first_frame->ReceivedTime();
   // Gracefully handle bad RTP timestamps and render time issues.
   if (HasBadRenderTiming(*first_frame, now_ms)) {
     jitter_estimator_.Reset();
@@ -253,7 +253,7 @@ EncodedFrame* FrameBuffer::GetNextFrame() {
     frame->SetRenderTime(render_time_ms);
 
     superframe_delayed_by_retransmission |= frame->delayed_by_retransmission();
-    receive_time_ms = std::max(receive_time_ms, frame->ReceivedTime());
+    receive_time = std::max(receive_time, frame->ReceivedTime());
     superframe_size += frame->size();
 
     PropagateDecodability(frame_it->second);
@@ -280,7 +280,7 @@ EncodedFrame* FrameBuffer::GetNextFrame() {
     int64_t frame_delay;
 
     if (inter_frame_delay_.CalculateDelay(first_frame->Timestamp(),
-                                          &frame_delay, receive_time_ms)) {
+                                          &frame_delay, receive_time.ms())) {
       jitter_estimator_.UpdateEstimate(frame_delay, superframe_size);
     }
 
@@ -461,7 +461,7 @@ int64_t FrameBuffer::InsertFrame(std::unique_ptr<EncodedFrame> frame) {
     return last_continuous_frame_id;
 
   if (!frame->delayed_by_retransmission())
-    timing_->IncomingTimestamp(frame->Timestamp(), frame->ReceivedTime());
+    timing_->IncomingTimestamp(frame->Timestamp(), frame->ReceivedTime().ms());
 
   // It can happen that a frame will be reported as fully received even if a
   // lower spatial layer frame is missing.

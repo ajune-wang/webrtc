@@ -1570,6 +1570,16 @@ if (rtc_include_tests) {
         configs += [ ":external_ssl_library" ]
       }
     }
+
+    rtc_library("copy_on_write_buffer_benchmark") {
+      testonly = true
+      sources = [ "copy_on_write_buffer_benchmark.cc" ]
+      deps = [
+        ":rtc_base_approved",
+        "system:unused",
+        "//third_party/google_benchmark",
+      ]
+    }
   }
 }
 

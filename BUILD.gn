@@ -594,6 +594,7 @@ if (rtc_include_tests && !build_with_chromium) {
     rtc_test("benchmarks") {
       testonly = true
       deps = [
+        "rtc_base:copy_on_write_buffer_benchmark",
         "rtc_base/synchronization:mutex_benchmark",
         "test:benchmark_main",
       ]

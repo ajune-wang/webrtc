@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fd34974_7d4badb1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5533
+      },
+      "writtenOn": "2021-04-29T12:41:15Z",
+      "side": 1,
+      "message": "PTAL \u0026\u0026 tell me when you feel comfortable to land it.\n\nI don\u0027t want to land it earlier than ~16:30 CEST, s.t. I get more confidence from 25%.",
+      "revId": "daa0a2415b971dcc1fb1dabf6bd312fbb895a547",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -14,6 +14,7 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#include "api/units/timestamp.h"
 #include "modules/video_coding/encoded_frame.h"
 
 namespace webrtc {
@@ -30,7 +31,7 @@ class EncodedFrame : public webrtc::VCMEncodedFrame {
   virtual ~EncodedFrame() {}
 
   // When this frame was received.
-  virtual int64_t ReceivedTime() const = 0;
+  virtual class Timestamp ReceivedTime() const = 0;
 
   // When this frame should be rendered.
   virtual int64_t RenderTime() const = 0;

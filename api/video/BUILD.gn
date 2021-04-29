@@ -140,7 +140,10 @@ rtc_library("encoded_frame") {
     "encoded_frame.h",
   ]
 
-  deps = [ "../../modules/video_coding:encoded_frame" ]
+  deps = [
+    "../../modules/video_coding:encoded_frame",
+    "../units:timestamp",
+  ]
 }
 
 rtc_source_set("video_codec_constants") {

@@ -28,6 +28,10 @@ if (!rtc_build_ssl) {
   }
 }
 
+rtc_source_set("cricket_namespace_compatibility") {
+  sources = [ "cricket_namespace_compatibility.h" ]
+}
+
 rtc_source_set("protobuf_utils") {
   sources = [ "protobuf_utils.h" ]
   if (rtc_enable_protobuf) {

@@ -53,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c01b7e4_d78ef187",
+        "filename": "net/dcsctp/socket/callback_deferrer.h",
+        "patchSetId": 51
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-30T07:12:11Z",
+      "side": 1,
+      "message": "aside (can be left for later): not invoking RefCountedBase and using the make_ref_counted function that Tommi just added will remove the need for a vtable on this type, saving a few bytes.",
+      "parentUuid": "2390a0b2_8d86f8f5",
+      "revId": "9ed643507e35a6963dd4cbf1af86206602870448",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2dc4b814_4beb2d70",
@@ -154,6 +172,24 @@
       "side": 1,
       "message": "I looked in the \"SCTP bible\" (Stream Control Transmission Protocol (SCTP) - A reference Guide, Randall R Stewart \u0026 Qiaobing Xie) and it\u0027s described on page 109, as a \"Lost Chunk\" scenario, meaning that the sent Cookie-Ack from the normal association flow was lost, and the peer re-sent its CookieEcho. So I updated the comment to mention that. \n\nI have added a test-case for this scenario, and I can see when running that test case that we get this log printout.\n\nThanks for making me look this up and sort this out.",
       "parentUuid": "35874b02_4582eb8c",
+      "revId": "9ed643507e35a6963dd4cbf1af86206602870448",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "01df88c9_7d6f6331",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 51
+      },
+      "lineNbr": 1246,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-04-30T07:12:11Z",
+      "side": 1,
+      "message": "Given the text of the RFC, I\u0027d like a RTC_DCHECK(state\u003d\u003d ESTABLISHED), so that if the other state is hit, we\u0027ll know.... but this is fine for now.",
+      "parentUuid": "7f3a1a1d_76c4a8ec",
       "revId": "9ed643507e35a6963dd4cbf1af86206602870448",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

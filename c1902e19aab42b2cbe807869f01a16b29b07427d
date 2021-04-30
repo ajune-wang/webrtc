@@ -50,6 +50,23 @@
       "message": "Kari, can you take a look when you have time?",
       "revId": "c1902e19aab42b2cbe807869f01a16b29b07427d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f57a3fed_1b94aa21",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2021-04-30T07:24:30Z",
+      "side": 1,
+      "message": "This looks fine to me. If the community wants this I see no reason not to provide the option.",
+      "revId": "c1902e19aab42b2cbe807869f01a16b29b07427d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

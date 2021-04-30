@@ -7,7 +7,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '720eb67ae3752c1520d7fc9e6954cd195bfe8609',
+  'chromium_revision': 'ea6804e556d1d7914beb3e49a07fb9ee87fa9e8b',
 }
 
 deps = {
@@ -31,7 +31,7 @@ deps = {
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@206bdd6798acba06f0c22efc49586b485e80f253',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@2c60ded257ebc5c66f0e4b709a3d53848670962b',
+    'https://chromium.googlesource.com/chromium/src/third_party@1e50245ccb897ba22c769302941d62240ee9fbe2',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -122,7 +122,7 @@ deps = {
   'src/third_party/breakpad/breakpad':
     'https://chromium.googlesource.com/breakpad/breakpad.git@3bea2815bfea6e641d50aad15bde2c494ef8f34b',
   'src/third_party/catapult':
-    'https://chromium.googlesource.com/catapult.git@bbfed50cf91d86dc24b07f292741f2b20d7d0697',
+    'https://chromium.googlesource.com/catapult.git@fb2fab6876cbb2d31cf13d34c58cee42173a5d58',
   'src/third_party/ced/src': {
     'url': 'https://chromium.googlesource.com/external/github.com/google/compact_enc_det.git@ba412eaaacd3186085babcd901679a48863c7dd5',
   },
@@ -265,7 +265,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@24c68e0d2034d7c3ab1a1001fca0a52336add117',
+    'https://chromium.googlesource.com/chromium/src/tools@b9f19b2740157ae4f4ca2f2c3e5e6be961a17eca',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@a32a1607f6093d338f756c7e7c7b4333b0c50c9c',
 
@@ -2073,7 +2073,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/android_deps/libs/org_jetbrains_kotlin_kotlin_stdlib',
-              'version': 'version:2@1.4.30.cr0',
+              'version': 'version:2@1.4.32.cr0',
           },
       ],
       'condition': 'checkout_android',
@@ -2084,7 +2084,29 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/android_deps/libs/org_jetbrains_kotlin_kotlin_stdlib_common',
-              'version': 'version:2@1.4.30.cr0',
+              'version': 'version:2@1.4.32.cr0',
+          },
+      ],
+      'condition': 'checkout_android',
+      'dep_type': 'cipd',
+  },
+
+  'src/third_party/android_deps/libs/org_jetbrains_kotlinx_kotlinx_coroutines_android': {
+      'packages': [
+          {
+              'package': 'chromium/third_party/android_deps/libs/org_jetbrains_kotlinx_kotlinx_coroutines_android',
+              'version': 'version:2@1.4.3.cr0',
+          },
+      ],
+      'condition': 'checkout_android',
+      'dep_type': 'cipd',
+  },
+
+  'src/third_party/android_deps/libs/org_jetbrains_kotlinx_kotlinx_coroutines_core_jvm': {
+      'packages': [
+          {
+              'package': 'chromium/third_party/android_deps/libs/org_jetbrains_kotlinx_kotlinx_coroutines_core_jvm',
+              'version': 'version:2@1.4.3.cr0',
           },
       ],
       'condition': 'checkout_android',

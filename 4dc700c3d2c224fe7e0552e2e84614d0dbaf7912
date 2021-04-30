@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "daf3b013_7be6c2f2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-30T08:53:16Z",
+      "side": 1,
+      "message": "If I understand this correctly, we have 792B regression on all current usage. Not a lot, are you sure you want to abandon?",
+      "revId": "4dc700c3d2c224fe7e0552e2e84614d0dbaf7912",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

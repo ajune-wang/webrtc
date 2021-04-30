@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "03efc7bb_ce1c3fb9",
+        "filename": "net/dcsctp/socket/state_cookie.cc",
+        "patchSetId": 52
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-30T18:34:14Z",
+      "side": 1,
+      "message": "Done (actually, it was the comment on the method end \"}\" that shouldn\u0027t have had the comment.",
+      "parentUuid": "89cc2127_dfe40628",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 22
+      },
+      "revId": "09e2d55a0c7bbede6bcdf100266b7605540f8401",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "976cc6f9_b8e72b5a",
@@ -71,6 +95,30 @@
       "writtenOn": "2021-04-30T07:24:50Z",
       "side": 1,
       "message": "Can we add unit tests for these two methods?",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 44
+      },
+      "revId": "09e2d55a0c7bbede6bcdf100266b7605540f8401",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ed6f641_d808150e",
+        "filename": "net/dcsctp/socket/state_cookie.h",
+        "patchSetId": 52
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-04-30T18:34:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "976cc6f9_b8e72b5a",
       "range": {
         "startLine": 43,
         "startChar": 0,

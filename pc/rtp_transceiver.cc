@@ -104,19 +104,12 @@ RTCError VerifyCodecPreferences(const std::vector<RtpCodecCapability>& codecs,
   return RTCError::OK();
 }
 
-TaskQueueBase* GetCurrentTaskQueueOrThread() {
-  TaskQueueBase* current = TaskQueueBase::Current();
-  if (!current)
-    current = rtc::ThreadManager::Instance()->CurrentThread();
-  return current;
-}
-
 }  // namespace
 
-RtpTransceiver::RtpTransceiver(
-    cricket::MediaType media_type,
-    cricket::ChannelManager* channel_manager /* = nullptr*/)
-    : thread_(GetCurrentTaskQueueOrThread()),
+RtpTransceiver::RtpTransceiver(rtc::Thread* signaling_thread,
+                               cricket::MediaType media_type,
+                               cricket::ChannelManager* channel_manager)
+    : thread_(signaling_thread),
       unified_plan_(false),
       media_type_(media_type),
       channel_manager_(channel_manager) {
@@ -126,13 +119,14 @@ RtpTransceiver::RtpTransceiver(
 }
 
 RtpTransceiver::RtpTransceiver(
+    rtc::Thread* signaling_thread,
     rtc::scoped_refptr<RtpSenderProxyWithInternal<RtpSenderInternal>> sender,
     rtc::scoped_refptr<RtpReceiverProxyWithInternal<RtpReceiverInternal>>
         receiver,
     cricket::ChannelManager* channel_manager,
     std::vector<RtpHeaderExtensionCapability> header_extensions_offered,
     std::function<void()> on_negotiation_needed)
-    : thread_(GetCurrentTaskQueueOrThread()),
+    : thread_(signaling_thread),
       unified_plan_(true),
       media_type_(sender->media_type()),
       channel_manager_(channel_manager),
@@ -140,6 +134,7 @@ RtpTransceiver::RtpTransceiver(
       on_negotiation_needed_(std::move(on_negotiation_needed)) {
   RTC_DCHECK(media_type_ == cricket::MEDIA_TYPE_AUDIO ||
              media_type_ == cricket::MEDIA_TYPE_VIDEO);
+  RTC_DCHECK(channel_manager_);
   RTC_DCHECK_EQ(sender->media_type(), receiver->media_type());
   RTC_DCHECK(channel_manager_);
   senders_.push_back(sender);
@@ -154,10 +149,19 @@ RtpTransceiver::~RtpTransceiver() {
     RTC_DCHECK_RUN_ON(thread_);
     StopInternal();
   }
+
+  RTC_DCHECK(!voice_channel_);
+  RTC_DCHECK(!video_channel_);
+
+  if (channel_) {
+    // TODO(tommi): There are tests that set their own channel pointers.
+    RTC_LOG(LS_ERROR) << "*************** Channel not null in dtor";
+  }
 }
 
 void RtpTransceiver::SetChannel(cricket::ChannelInterface* channel) {
   RTC_DCHECK_RUN_ON(thread_);
+
   // Cannot set a non-null channel on a stopped transceiver.
   if (stopped_ && channel) {
     return;
@@ -189,11 +193,45 @@ void RtpTransceiver::SetChannel(cricket::ChannelInterface* channel) {
   channel_manager_->network_thread()->Invoke<void>(RTC_FROM_HERE, [&]() {
     if (channel_) {
       channel_->SetFirstPacketReceivedCallback(nullptr);
+      if (media_type_ == cricket::MEDIA_TYPE_AUDIO) {
+        // TODO(tommi): There are tests that set their own channel pointers...
+        // This check shouldn't be needed and ownership should be completely
+        // with the transceiver.
+        if (voice_channel_.get() == channel_) {
+          /*          // Start cleanup on the network thread.
+                    auto* network = voice_channel_->network_thread();
+                    if (!network->IsCurrent()) {
+                      rtc::Event event;  // hack.
+                      network->PostTask(RTC_FROM_HERE, [ch =
+             std::move(voice_channel_), &event]() mutable {
+                        cricket::VoiceChannel::Destruct_n(std::move(ch));
+                        event.Set();
+                      });
+                      event.Wait(rtc::Event::kForever);
+                    } else {*/
+          // TODO(tommi): This seems to be because tests are using the same
+          // thread. In that case, there's a problem with using PostTask since
+          // it will happen too late. Currently working around that by calling
+          // directly.
+          cricket::VoiceChannel::Destruct_n(std::move(voice_channel_));
+          // }
+        }
+      } else {
+        RTC_DCHECK_EQ(cricket::MEDIA_TYPE_VIDEO, media_type_);
+        if (channel_ == video_channel_.get()) {
+          channel_manager_->worker_thread()->PostTask(
+              RTC_FROM_HERE, [ch = std::move(video_channel_),
+                              cm = channel_manager_]() mutable {
+                cm->DestroyVideoChannel(ch.release());
+              });
+        }
+      }
     }
 
     channel_ = channel;
 
     if (channel_) {
+      // TODO(tommi): Set this callback in the ctor, stop using sigslot.
       channel_->SetFirstPacketReceivedCallback(
           [thread = thread_, flag = signaling_thread_safety_, this]() mutable {
             thread->PostTask(ToQueuedTask(
@@ -220,6 +258,85 @@ void RtpTransceiver::SetChannel(cricket::ChannelInterface* channel) {
     receiver->internal()->SetMediaChannel(channel_ ? channel_->media_channel()
                                                    : nullptr);
   }
+}
+
+RTCError RtpTransceiver::CreateVoiceChannel(
+    const std::string& mid,
+    RtpTransportInternal* rtp_transport,
+    Call* call,
+    const cricket::MediaConfig& config,
+    bool srtp_required,
+    const CryptoOptions& crypto_options,
+    rtc::UniqueRandomIdGenerator* ssrc_generator,
+    const cricket::AudioOptions& options) {
+  RTC_DCHECK_RUN_ON(thread_);
+  RTC_DCHECK_EQ(cricket::MEDIA_TYPE_AUDIO, media_type_);
+  RTC_DCHECK(!channel_);
+  RTC_DCHECK(channel_manager_);
+  RTC_DCHECK(!voice_channel_);
+
+  if (!channel_manager_->media_engine()) {
+    LOG_AND_RETURN_ERROR(RTCErrorType::INTERNAL_ERROR, "No media engine.");
+  }
+
+  // Cannot set a non-null channel on a stopped transceiver.
+  if (stopped_) {
+    LOG_AND_RETURN_ERROR(RTCErrorType::INTERNAL_ERROR, "Stopped transceiver.");
+  }
+
+  // TODO(tommi): In reality, only MediaConfig::enable_dscp is needed.
+  // TODO(tommi): Construct the channel on the network thread. We can't
+  // fail beyond this point, so we could possibly do it asynchronously (and
+  // restrict usage to the channel() accessor to the network thread).
+  // TODO(tommi): CreateVoiceChannel shouldn't take rtc::Thread* as a param.
+  voice_channel_ = channel_manager_->CreateVoiceChannel(
+      call, config, rtp_transport, static_cast<rtc::Thread*>(thread_), mid,
+      srtp_required, crypto_options, ssrc_generator, options);
+
+  RTC_DCHECK(voice_channel_);
+
+  // TODO(tommi): use call->network_thread() and PostTask.
+  channel_manager_->network_thread()->Invoke<void>(
+      RTC_FROM_HERE, [&]() { voice_channel_->Init_n(rtp_transport); });
+
+  SetChannel(voice_channel_.get());
+  RTC_DCHECK_EQ(channel_, voice_channel_.get());
+
+  return RTCError::OK();
+}
+
+RTCError RtpTransceiver::CreateVideoChannel(
+    const std::string& mid,
+    RtpTransportInternal* rtp_transport,
+    Call* call,
+    const cricket::MediaConfig& config,
+    bool srtp_required,
+    const CryptoOptions& crypto_options,
+    rtc::UniqueRandomIdGenerator* ssrc_generator,
+    const cricket::VideoOptions& options,
+    webrtc::VideoBitrateAllocatorFactory* video_bitrate_allocator_factory) {
+  RTC_DCHECK_RUN_ON(thread_);
+  RTC_DCHECK_EQ(cricket::MEDIA_TYPE_VIDEO, media_type_);
+  RTC_DCHECK(!channel_);
+  RTC_DCHECK(channel_manager_);
+  if (!channel_manager_->media_engine()) {
+    LOG_AND_RETURN_ERROR(RTCErrorType::INTERNAL_ERROR, "No media engine.");
+  }
+
+  // In reality, only MediaConfig::enable_dscp is needed.
+
+  // TODO(tommi): CreateVideoChannel shouldn't take rtc::Thread* as a param.
+  SetChannel(channel_manager_->CreateVideoChannel(
+      call, config, rtp_transport, static_cast<rtc::Thread*>(thread_), mid,
+      srtp_required, crypto_options, ssrc_generator, options,
+      video_bitrate_allocator_factory));
+
+  if (!channel_) {
+    LOG_AND_RETURN_ERROR(RTCErrorType::INTERNAL_ERROR,
+                         "Failed to create audio channel for mid=" + mid);
+  }
+
+  return RTCError::OK();
 }
 
 void RtpTransceiver::AddSender(

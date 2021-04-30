@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "92741767_51599eec",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1001,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-04-30T17:11:58Z",
+      "side": 1,
+      "message": "Yes, it\u0027s SimulcastLayersRemovedFromTail",
+      "parentUuid": "37da630a_540d9044",
+      "revId": "0ecbc6aaa846965a068e71693eef2c95867003f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bf12a49c_51d439ea",
@@ -48,6 +66,24 @@
       "writtenOn": "2021-04-30T11:47:44Z",
       "side": 1,
       "message": "You\u0027re missing an explicit check for number of elements here (it\u0027s implicit in the test that there\u0027s only one element in the ElementsAre, but checking size is easier to read).",
+      "revId": "0ecbc6aaa846965a068e71693eef2c95867003f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "216f9921_02720930",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-04-30T17:11:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf12a49c_51d439ea",
       "revId": "0ecbc6aaa846965a068e71693eef2c95867003f1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

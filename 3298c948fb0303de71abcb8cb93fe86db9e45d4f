@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bc04e869_16386b19",
+        "filename": "api/rtp_packet_info.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2021-04-30T08:40:49Z",
+      "side": 1,
+      "message": "Would it make sense to use `Timestamp::MinusInfinity()`? There\u0027s a much higher likelihood that 0 is a valid value.\n\nIf we want to use 0, then I strongly recommend that we do `Timestamp::Zero()` to be more explicit.",
+      "range": {
+        "startLine": 19,
+        "startChar": 49,
+        "endLine": 19,
+        "endChar": 69
+      },
+      "revId": "3298c948fb0303de71abcb8cb93fe86db9e45d4f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3163439c_840e51ba",
         "filename": "api/video/encoded_frame.h",
         "patchSetId": 4
@@ -36,6 +59,29 @@
         "startChar": 2,
         "endLine": 34,
         "endChar": 51
+      },
+      "revId": "3298c948fb0303de71abcb8cb93fe86db9e45d4f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35fe755c_d25a7a46",
+        "filename": "api/video/encoded_frame.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2021-04-30T08:40:49Z",
+      "side": 1,
+      "message": "`virtual Timestamp ReceivedTime() const \u003d 0;` instead of `virtual class Timestamp ReceivedTime() const \u003d 0;`?\n\nThe latter style is a holdover from C.",
+      "range": {
+        "startLine": 34,
+        "startChar": 10,
+        "endLine": 34,
+        "endChar": 16
       },
       "revId": "3298c948fb0303de71abcb8cb93fe86db9e45d4f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"

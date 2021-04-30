@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "64db005c_1d58a071",
+        "filename": "api/rtp_packet_info.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-04-30T10:55:05Z",
+      "side": 1,
+      "message": "Yes, that makes sense.\n\nI just saw the comment in timestamp.h stating that negative values are not valid and assumed they could not be represented 😊\n\nWill fix.",
+      "parentUuid": "bc04e869_16386b19",
+      "range": {
+        "startLine": 19,
+        "startChar": 49,
+        "endLine": 19,
+        "endChar": 69
+      },
+      "revId": "3298c948fb0303de71abcb8cb93fe86db9e45d4f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3163439c_840e51ba",
         "filename": "api/video/encoded_frame.h",
         "patchSetId": 4
@@ -77,6 +101,30 @@
       "writtenOn": "2021-04-30T08:40:49Z",
       "side": 1,
       "message": "`virtual Timestamp ReceivedTime() const \u003d 0;` instead of `virtual class Timestamp ReceivedTime() const \u003d 0;`?\n\nThe latter style is a holdover from C.",
+      "range": {
+        "startLine": 34,
+        "startChar": 10,
+        "endLine": 34,
+        "endChar": 16
+      },
+      "revId": "3298c948fb0303de71abcb8cb93fe86db9e45d4f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75882127_220ac372",
+        "filename": "api/video/encoded_frame.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-04-30T10:55:05Z",
+      "side": 1,
+      "message": "There\u0027s a function in this class (inherited from webrtc::VCMEncodedFrame) called Timestamp() so class was needed to point that it was the class I wanted. However, I keep EncodedFrame as it is and only update RtpPacketInfo to avoid breaking too many other builds.",
+      "parentUuid": "35fe755c_d25a7a46",
       "range": {
         "startLine": 34,
         "startChar": 10,

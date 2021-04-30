@@ -143,6 +143,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8b837456_0f020262",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 51
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-30T07:24:50Z",
+      "side": 1,
+      "message": "The question here is if we want to crash in case the socket goes into an inconsistent state. As of now, the original hta@ concern is still there since IsConsistent() is only DCHECKed.\n\nThis is not different from our usage of RTC_DCHECK_RUN_ON and various non-null RTC_DCHECK and it assumes we extensively test in debug mode but I want to double check hta@\u0027s point of view here since the dreaded \"production-only bug\" is still possible.",
+      "parentUuid": "7ab2ae31_30adcbc7",
+      "revId": "9ed643507e35a6963dd4cbf1af86206602870448",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "35874b02_4582eb8c",
         "filename": "net/dcsctp/socket/dcsctp_socket.cc",
         "patchSetId": 51

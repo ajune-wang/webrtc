@@ -33,6 +33,52 @@
       "message": "Happy to submit!\n",
       "revId": "09e2d55a0c7bbede6bcdf100266b7605540f8401",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89cc2127_dfe40628",
+        "filename": "net/dcsctp/socket/state_cookie.cc",
+        "patchSetId": 52
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-30T07:24:50Z",
+      "side": 1,
+      "message": "Remove?",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 22
+      },
+      "revId": "09e2d55a0c7bbede6bcdf100266b7605540f8401",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "976cc6f9_b8e72b5a",
+        "filename": "net/dcsctp/socket/state_cookie.h",
+        "patchSetId": 52
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-04-30T07:24:50Z",
+      "side": 1,
+      "message": "Can we add unit tests for these two methods?",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 44
+      },
+      "revId": "09e2d55a0c7bbede6bcdf100266b7605540f8401",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

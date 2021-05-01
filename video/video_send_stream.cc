@@ -209,19 +209,15 @@ void VideoSendStream::SetSource(
 }
 
 void VideoSendStream::ReconfigureVideoEncoder(VideoEncoderConfig config) {
-  // TODO(perkj): Some test cases in VideoSendStreamTest call
-  // ReconfigureVideoEncoder from the network thread.
-  // RTC_DCHECK_RUN_ON(&thread_checker_);
-  RTC_DCHECK(content_type_ == config.content_type);
+  RTC_DCHECK_RUN_ON(&thread_checker_);
+  RTC_DCHECK_EQ(content_type_, config.content_type);
   video_stream_encoder_->ConfigureEncoder(
       std::move(config),
       config_.rtp.max_packet_size - CalculateMaxHeaderSize(config_.rtp));
 }
 
 VideoSendStream::Stats VideoSendStream::GetStats() {
-  // TODO(perkj, solenberg): Some test cases in EndToEndTest call GetStats from
-  // a network thread. See comment in Call::GetStats().
-  // RTC_DCHECK_RUN_ON(&thread_checker_);
+  RTC_DCHECK_RUN_ON(&thread_checker_);
   return stats_proxy_.GetStats();
 }
 

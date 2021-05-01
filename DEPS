@@ -7,7 +7,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '7b152a4cbe9f68c86964b0bd1e35bdf2f022fa15',
+  'chromium_revision': '76a03d35cbcca404bc9af5a84fab3c9a24685b06',
 }
 
 deps = {
@@ -29,9 +29,9 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@81272d4d3980d810fc64765593c0f42dc380760d',
+    'https://chromium.googlesource.com/chromium/src/testing@158b84e18867c18d400e32e9cc851c87b386494b',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@02f8a2ccd1b04dc83ac7f6881b0dd9cd9ae79e01',
+    'https://chromium.googlesource.com/chromium/src/third_party@11a30cbf385b9846f49c58136bd8214cb88f7ecf',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -131,7 +131,7 @@ deps = {
   'src/third_party/crc32c/src':
     'https://chromium.googlesource.com/external/github.com/google/crc32c.git@5998f8451548244de8cde7fab387a550e7c4497d',
   'src/third_party/depot_tools':
-    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@c64e3902afbce90beb9dcefa457a9f79fc76bf35',
+    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@f663e543389de90c5573825a654721b367c31633',
   'src/third_party/ffmpeg':
     'https://chromium.googlesource.com/chromium/third_party/ffmpeg.git@280d5fd0df8b4284ad040bd29deb3241bd6dfc4a',
   'src/third_party/findbugs': {
@@ -265,7 +265,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@70d816d4cdbc4d60346eb68e7d02c3b1fcc79ef0',
+    'https://chromium.googlesource.com/chromium/src/tools@6d522713f731ea9cdde3542deb8c0af1705f3d12',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@a32a1607f6093d338f756c7e7c7b4333b0c50c9c',
 
@@ -476,15 +476,15 @@ deps = {
       'packages': [
         {
           'package': 'infra/tools/luci/isolate/${{platform}}',
-          'version': 'git_revision:7c21dae4ffe132b3bf611dce050d268f1ef4c155',
+          'version': 'git_revision:1b257aacd4934e5a8b2508b240ffc7d866df9273',
         },
         {
           'package': 'infra/tools/luci/isolated/${{platform}}',
-          'version': 'git_revision:7c21dae4ffe132b3bf611dce050d268f1ef4c155',
+          'version': 'git_revision:1b257aacd4934e5a8b2508b240ffc7d866df9273',
         },
         {
           'package': 'infra/tools/luci/swarming/${{platform}}',
-          'version': 'git_revision:7c21dae4ffe132b3bf611dce050d268f1ef4c155',
+          'version': 'git_revision:1b257aacd4934e5a8b2508b240ffc7d866df9273',
         },
       ],
       'dep_type': 'cipd',

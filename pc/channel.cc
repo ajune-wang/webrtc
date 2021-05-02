@@ -296,8 +296,6 @@ bool BaseChannel::SetLocalContent(const MediaContentDescription* content,
   RTC_DCHECK_RUN_ON(signaling_thread());
   TRACE_EVENT0("webrtc", "BaseChannel::SetLocalContent");
 
-  SetContent_s(content, type);
-
   return InvokeOnWorker<bool>(RTC_FROM_HERE, [this, content, type, error_desc] {
     RTC_DCHECK_RUN_ON(worker_thread());
     return SetLocalContent_w(content, type, error_desc);
@@ -310,19 +308,10 @@ bool BaseChannel::SetRemoteContent(const MediaContentDescription* content,
   RTC_DCHECK_RUN_ON(signaling_thread());
   TRACE_EVENT0("webrtc", "BaseChannel::SetRemoteContent");
 
-  SetContent_s(content, type);
-
   return InvokeOnWorker<bool>(RTC_FROM_HERE, [this, content, type, error_desc] {
     RTC_DCHECK_RUN_ON(worker_thread());
     return SetRemoteContent_w(content, type, error_desc);
   });
-}
-
-void BaseChannel::SetContent_s(const MediaContentDescription* content,
-                               SdpType type) {
-  RTC_DCHECK(content);
-  if (type == SdpType::kAnswer)
-    negotiated_header_extensions_ = content->rtp_header_extensions();
 }
 
 bool BaseChannel::SetPayloadTypeDemuxingEnabled(bool enabled) {
@@ -861,11 +850,6 @@ void BaseChannel::FlushRtcpMessages_n() {
 void BaseChannel::SignalSentPacket_n(const rtc::SentPacket& sent_packet) {
   RTC_DCHECK_RUN_ON(network_thread());
   media_channel()->OnPacketSent(sent_packet);
-}
-
-RtpHeaderExtensions BaseChannel::GetNegotiatedRtpHeaderExtensions() const {
-  RTC_DCHECK_RUN_ON(signaling_thread());
-  return negotiated_header_extensions_;
 }
 
 VoiceChannel::VoiceChannel(rtc::Thread* worker_thread,

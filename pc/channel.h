@@ -309,15 +309,10 @@ class BaseChannel : public ChannelInterface,
   // Return description of media channel to facilitate logging
   std::string ToString() const;
 
-  // ChannelInterface overrides
-  RtpHeaderExtensions GetNegotiatedRtpHeaderExtensions() const override;
-
  private:
   bool ConnectToRtpTransport() RTC_RUN_ON(network_thread());
   void DisconnectFromRtpTransport() RTC_RUN_ON(network_thread());
   void SignalSentPacket_n(const rtc::SentPacket& sent_packet);
-  void SetContent_s(const MediaContentDescription* content,
-                    webrtc::SdpType type) RTC_RUN_ON(signaling_thread());
 
   rtc::Thread* const worker_thread_;
   rtc::Thread* const network_thread_;
@@ -382,12 +377,6 @@ class BaseChannel : public ChannelInterface,
   // like in Simulcast.
   // This object is not owned by the channel so it must outlive it.
   rtc::UniqueRandomIdGenerator* const ssrc_generator_;
-
-  // |negotiated_header_extensions_| is read and written to on the signaling
-  // thread from the SdpOfferAnswerHandler class (e.g.
-  // PushdownMediaDescription().
-  RtpHeaderExtensions negotiated_header_extensions_
-      RTC_GUARDED_BY(signaling_thread());
 };
 
 // VoiceChannel is a specialization that adds support for early media, DTMF,

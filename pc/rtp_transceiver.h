@@ -233,6 +233,11 @@ class RtpTransceiver final
       rtc::ArrayView<const RtpHeaderExtensionCapability>
           header_extensions_to_offer) override;
 
+  // Called on the signaling thread when the local or remote content description
+  // is updated. Used to update the negotiated header extensions.
+  void OnNegotiationUpdate(SdpType sdp_type,
+                           const cricket::MediaContentDescription* content);
+
  private:
   void OnFirstPacketReceived();
   void StopSendingAndReceiving();
@@ -264,6 +269,13 @@ class RtpTransceiver final
   cricket::ChannelManager* channel_manager_ = nullptr;
   std::vector<RtpCodecCapability> codec_preferences_;
   std::vector<RtpHeaderExtensionCapability> header_extensions_to_offer_;
+
+  // |negotiated_header_extensions_| is read and written to on the signaling
+  // thread from the SdpOfferAnswerHandler class (e.g.
+  // PushdownMediaDescription().
+  cricket::RtpHeaderExtensions negotiated_header_extensions_
+      RTC_GUARDED_BY(thread_);
+
   const std::function<void()> on_negotiation_needed_;
 };
 

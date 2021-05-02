@@ -2499,12 +2499,7 @@ RTCError SdpOfferAnswerHandler::UpdateSessionState(
 
   // Update internal objects according to the session description's media
   // descriptions.
-  RTCError error = PushdownMediaDescription(type, source, bundle_groups_by_mid);
-  if (!error.ok()) {
-    return error;
-  }
-
-  return RTCError::OK();
+  return PushdownMediaDescription(type, source, bundle_groups_by_mid);
 }
 
 bool SdpOfferAnswerHandler::ShouldFireNegotiationNeededEvent(
@@ -4203,6 +4198,9 @@ RTCError SdpOfferAnswerHandler::PushdownMediaDescription(
     if (!content_desc) {
       continue;
     }
+
+    transceiver->OnNegotiationUpdate(type, content_desc);
+
     std::string error;
     bool success = (source == cricket::CS_LOCAL)
                        ? channel->SetLocalContent(content_desc, type, &error)

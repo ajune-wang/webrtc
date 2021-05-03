@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "26881cea_916e67da",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-05-03T08:32:41Z",
+      "side": 1,
+      "message": "I looked into that and how the state gets applied to the various transport classes. \n\nIt\u0027s rather complicated as is (imho unnecessarily so), seems to happen via two forks of call paths that largely deal with applying the same state changes. Take a look at the SdpOfferAnswerHandler::UpdateSessionState code path (which calls PushdownMediaDescription) vs the PushdownTransportDescription path. Both propagate the description properties via multiple layers and multiple threads (along with many blocking calls to the same threads).\n\nFrom the names, you might assume that getting the negotiated headers to the transports happens via the second path (transport), but it actually happens on the former (media). It happens via a synchronous thread hop inside of the channel class to the network thread. Before that happens though, the session description has already been applied, on the network thread, again blocking call to ApplyDescription_n in JsepTransportController - but there we do not propagate the negotiated headers.\n\nBtw, I added some documentation about how the header extensions are sent to the transport via the channel classes (no change in this CL):\nhttps://webrtc-review.googlesource.com/c/src/+/216691/6/pc/channel.h#339 \n\nIt seems we store copied state from the PC class for every channel, only for the purposes of filtering the negotiated headers before handing them  to the transport.\n\nIn any case, this change removes a bit of unnecessary state from the channel classes, there\u0027s more that doesn\u0027t belong there and more still that\u0027s being managed and used on competing threads (worker and network). hbos landed a change the other day that works around an inherent design problem related to the demuxer state being changed on the worker and then eventually being referred to on the network thread. While the state is being changed, the network thread might do the wrong thing, so hbos implemented callbacks to notify that the state was being changed and then additional checks on the network thread for \u0027is the state being changed\u0027 as to avoid certain operations while that\u0027s happening. I think we should consider keeping the demuxer state on the network thread and change it there. That\u0027l avoid locks, hops and additional \u0027uncertain\u0027 states.",
+      "parentUuid": "45c75cbf_82996dfe",
+      "revId": "12785d1ddc823218076f098a54157bee38b0e3e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ca02830c_952811cc",
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dc946e44_aeb00fb7",
+        "filename": "pc/rtp_transceiver.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-05-03T08:32:41Z",
+      "side": 1,
+      "message": "This method _is_ only called from SdpOfferAnswer::ApplyRemoteDescription/ApplyLocalDescription.\n\nAs we move closer to having the channel object being owned by the transceiver, I think that this method could take care of updating the channel object (call SetLocalContent/SetRemoteContent). So long term, I don\u0027t see it as being only for updating the header extensions. Should it rather be called ApplyDescription?",
+      "parentUuid": "ca02830c_952811cc",
+      "revId": "12785d1ddc823218076f098a54157bee38b0e3e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "aefaf0fd_29f1d670",
         "filename": "pc/rtp_transceiver_unittest.cc",
         "patchSetId": 6
@@ -48,6 +84,24 @@
       "writtenOn": "2021-05-03T04:52:59Z",
       "side": 1,
       "message": "Not changed in this CL, but this line looks wrong. HeaderExtensionsNegotiated is a const function that returns a value; calling it in a test without checking its return value seems pointless.",
+      "revId": "12785d1ddc823218076f098a54157bee38b0e3e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4991dc6e_37ab90e5",
+        "filename": "pc/rtp_transceiver_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-05-03T08:32:41Z",
+      "side": 1,
+      "message": "Agree. Fixed it so that the call is still made but the return value is checked for correctness.\n\nThese tests are not really that necessary anymore since the whole debacle around managing the header extensions in the channel class for the purposes of the transceiver implementation, is gone.",
+      "parentUuid": "aefaf0fd_29f1d670",
       "revId": "12785d1ddc823218076f098a54157bee38b0e3e0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

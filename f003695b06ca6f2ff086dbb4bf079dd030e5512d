@@ -117,6 +117,30 @@
       },
       "revId": "f003695b06ca6f2ff086dbb4bf079dd030e5512d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fc5da2a_31e3ebf2",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-05-03T13:22:39Z",
+      "side": 1,
+      "message": "There is always a log of debugging happening on DC. And unless we have great devtools integration, we\u0027re going to rely on those logs, so this won\u0027t change in 6 months most likely.",
+      "parentUuid": "31040764_3cf30462",
+      "range": {
+        "startLine": 201,
+        "startChar": 2,
+        "endLine": 201,
+        "endChar": 9
+      },
+      "revId": "f003695b06ca6f2ff086dbb4bf079dd030e5512d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

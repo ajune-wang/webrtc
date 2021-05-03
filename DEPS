@@ -7,7 +7,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '323da96e89f1d1b3ac3cefa5a0e62d99b8c4cd8c',
+  'chromium_revision': '73e2eaec28ae7dd0af5206dbe008a1e5fe827799',
 }
 
 deps = {
@@ -29,9 +29,9 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@a8c3e0f4287e29696fe6d093c75b09620c88fea6',
+    'https://chromium.googlesource.com/chromium/src/testing@06a094df0e4f05684ed24474fe06d2ca2a656552',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@3ade6071294aa282cb853fe53bc50b268a9e4750',
+    'https://chromium.googlesource.com/chromium/src/third_party@f525631bc3019bc7eb9ac2a78259aa4a74d574f7',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -122,7 +122,7 @@ deps = {
   'src/third_party/breakpad/breakpad':
     'https://chromium.googlesource.com/breakpad/breakpad.git@3bea2815bfea6e641d50aad15bde2c494ef8f34b',
   'src/third_party/catapult':
-    'https://chromium.googlesource.com/catapult.git@00b6ebab8b4ec3aa2376e3f2dd51a4547d31c492',
+    'https://chromium.googlesource.com/catapult.git@a934af88835906e8c2843972dfac6295bd5dafc8',
   'src/third_party/ced/src': {
     'url': 'https://chromium.googlesource.com/external/github.com/google/compact_enc_det.git@ba412eaaacd3186085babcd901679a48863c7dd5',
   },
@@ -212,7 +212,7 @@ deps = {
   'src/third_party/libvpx/source/libvpx':
     'https://chromium.googlesource.com/webm/libvpx.git@61edec1efbea1c02d71857e2aff9426d9cd2df4e',
   'src/third_party/libyuv':
-    'https://chromium.googlesource.com/libyuv/libyuv.git@64994843e652443df2d5201c6ae3fb725097360f',
+    'https://chromium.googlesource.com/libyuv/libyuv.git@49ebc996aa8c4bdf89c1b5ea461eb677234c61cc',
   'src/third_party/lss': {
     'url': 'https://chromium.googlesource.com/linux-syscall-support.git@92a65a8f5d705d1928874420c8d0d15bde8c89e5',
     'condition': 'checkout_android or checkout_linux',
@@ -366,7 +366,7 @@ deps = {
     'packages': [
       {
           'package': 'chromium/third_party/androidx',
-          'version': 'shhcvIQmkadS49s7gxWnbJhKbME6mSxhR188J7CYIyYC',
+          'version': 'cREYq53_0-Yloc4ReYx6Fpr7DwTCVlhtEMnqI56CKpAC',
       },
     ],
     'condition': 'checkout_android',

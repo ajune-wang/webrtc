@@ -18,6 +18,29 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "561d9f37_4ae4ad18",
+        "filename": "DEPS",
+        "patchSetId": 3
+      },
+      "lineNbr": 2603,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-05-03T10:43:51Z",
+      "side": 1,
+      "message": "Nit: if we think this is something we only need in //media, maybe add to //media/DEPS?\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/media/DEPS",
+      "range": {
+        "startLine": 2603,
+        "startChar": 3,
+        "endLine": 2603,
+        "endChar": 9
+      },
+      "revId": "39df641cec283c1dddb7b4ccdae6aaca29eb779a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "248f4e4a_1add939c",

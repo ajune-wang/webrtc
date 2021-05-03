@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a96d65e_8471d6ce",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-05-03T10:43:51Z",
+      "side": 1,
+      "message": "Nit: bugs.webrtc.org/12614",
+      "range": {
+        "startLine": 182,
+        "startChar": 10,
+        "endLine": 182,
+        "endChar": 16
+      },
+      "revId": "f003695b06ca6f2ff086dbb4bf079dd030e5512d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99219800_d8c0631b",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-05-03T10:43:51Z",
+      "side": 1,
+      "message": "Should we RTC_DLOG everywhere and use a build with GN\u0027s dcheck_always_on\u003dtrue while testing this?",
+      "range": {
+        "startLine": 201,
+        "startChar": 2,
+        "endLine": 201,
+        "endChar": 9
+      },
+      "revId": "f003695b06ca6f2ff086dbb4bf079dd030e5512d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

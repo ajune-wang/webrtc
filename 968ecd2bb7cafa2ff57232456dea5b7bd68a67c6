@@ -16,6 +16,23 @@
       "message": "Hello Rasmus/ Asa, can you please take a look at this change? Thank you 😊",
       "revId": "968ecd2bb7cafa2ff57232456dea5b7bd68a67c6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "77b7754f_cccb1cf3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13776
+      },
+      "writtenOn": "2021-05-03T23:10:09Z",
+      "side": 1,
+      "message": "Hello Rasmus and Åsa, were you able to take a look at this PR?",
+      "revId": "968ecd2bb7cafa2ff57232456dea5b7bd68a67c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

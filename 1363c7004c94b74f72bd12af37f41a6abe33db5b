@@ -34,6 +34,24 @@
       "parentUuid": "f6c9db98_501fee89",
       "revId": "1363c7004c94b74f72bd12af37f41a6abe33db5b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e62e877c_00c75aa7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-05-03T17:29:39Z",
+      "side": 1,
+      "message": "Saving on lines of code sounds good, but it\u0027s significantly bigger in terms of binary size. Depending on the problem you think needs to be solved, I was asking because if that problem is specific to something you\u0027re working on and not relevant for other uses of platform thread.\n\nGenerally speaking, I don\u0027t think PlatformThread is something we should be using directly or encouraging new direct uses of. We should rather be using other constructs that give the hosting application more control over how threading runs. So the question is also in order to understand why is this area of the code a problem?\n\nI looked at the bug, but I\u0027m not a 100% convinced that there\u0027s a problem (there\u0027s nothing that appears to be blocked by this in the bug at least) but would like to hear from others. As far as naming of methods etc, I\u0027d consider implementations in g3, Chromium etc. I don\u0027t think any of the current names will be all that surprising. The new names might in fact be less familiar (Finalize() might be confusing for example but I\u0027m guessing that Start() won\u0027t be).",
+      "parentUuid": "c17c59f5_1f746ab7",
+      "revId": "1363c7004c94b74f72bd12af37f41a6abe33db5b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

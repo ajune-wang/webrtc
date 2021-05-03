@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "762219c4_1c3dc359",
+        "filename": "pc/channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-05-03T07:13:51Z",
+      "side": 1,
+      "message": "You could consider inlining the logic of that function here, to get one level less of wrapping.",
+      "range": {
+        "startLine": 331,
+        "startChar": 9,
+        "endLine": 331,
+        "endChar": 40
+      },
+      "revId": "5caf6dd4ba78be06d4ed5048ef991b88c4289356",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

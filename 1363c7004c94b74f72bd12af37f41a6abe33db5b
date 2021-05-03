@@ -52,6 +52,24 @@
       "parentUuid": "c17c59f5_1f746ab7",
       "revId": "1363c7004c94b74f72bd12af37f41a6abe33db5b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0334e38c_91ff2123",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-05-03T18:23:42Z",
+      "side": 1,
+      "message": "The CL follows up on your comment in https://webrtc-review.googlesource.com/c/src/+/214780/19..22/rtc_base/async_resolver.cc#b155, but the code begged for some maintenance so redid the rest of the interface.\n\nWhat\u0027s the binary size increase limit? It doesn\u0027t sound like 788 bytes would be a killer if we consider other changes to webrtc.\n\nAround the question whether the CL solves a problem or not. It\u0027s a cleaner API which can\u0027t be misused, leads to lines reductions and (subjective) is easier to read. The value of those improvements is in the eyes of the beholder.\n\n(On naming: since the stop method doesn\u0027t stop anything I figured it\u0027s more correct to call it Finalize (In this context it finalizes access to the PlatformThread instance) which is a pretty common word in both g3 and chromium code)",
+      "parentUuid": "e62e877c_00c75aa7",
+      "revId": "1363c7004c94b74f72bd12af37f41a6abe33db5b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

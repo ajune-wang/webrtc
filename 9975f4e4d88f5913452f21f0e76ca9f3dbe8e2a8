@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba1687b4_b536d608",
+        "filename": "rtc_base/platform_thread.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-05-03T10:23:26Z",
+      "side": 0,
+      "message": "Unused - removed.",
+      "range": {
+        "startLine": 40,
+        "startChar": 2,
+        "endLine": 40,
+        "endChar": 18
+      },
+      "revId": "9975f4e4d88f5913452f21f0e76ca9f3dbe8e2a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

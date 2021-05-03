@@ -22,6 +22,30 @@
       },
       "revId": "5caf6dd4ba78be06d4ed5048ef991b88c4289356",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66edbae4_4e75a6e3",
+        "filename": "pc/channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-05-03T07:54:33Z",
+      "side": 1,
+      "message": "Decided to leave it as is for now. hbos recently made some changes related to the demuxer, working thread and network thread. There\u0027s a race there with how some settings are applied on the worker thread but being used at the same time on the network thread. I\u0027d like to manage the demuxing state on the network thread remove the race which could be argued to be a design flaw.",
+      "parentUuid": "762219c4_1c3dc359",
+      "range": {
+        "startLine": 331,
+        "startChar": 9,
+        "endLine": 331,
+        "endChar": 40
+      },
+      "revId": "5caf6dd4ba78be06d4ed5048ef991b88c4289356",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

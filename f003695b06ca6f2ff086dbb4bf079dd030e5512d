@@ -93,6 +93,30 @@
       },
       "revId": "f003695b06ca6f2ff086dbb4bf079dd030e5512d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31040764_3cf30462",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-05-03T13:18:39Z",
+      "side": 1,
+      "message": "I am fine if we keep logs around at the beginning but long term, even if we LS_VERBOSE we will still add these string to .rodata even if their usefulness will decrease day after day (unless there is a lot of debugging to do on DC).\n\n+1 to remove stuff and LS_VERBOSE, but maybe add a TODO to RTC_DLOG in ~6 months?",
+      "parentUuid": "b16e1226_faa8ac6d",
+      "range": {
+        "startLine": 201,
+        "startChar": 2,
+        "endLine": 201,
+        "endChar": 9
+      },
+      "revId": "f003695b06ca6f2ff086dbb4bf079dd030e5512d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

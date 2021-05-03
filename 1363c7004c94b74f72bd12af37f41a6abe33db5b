@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6c9db98_501fee89",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-05-03T11:56:30Z",
+      "side": 1,
+      "message": "Can you file a bug for tracking?\n\nArguably it\u0027s a good thing for an abstraction layer to be simple and not add too much syntactic sugar.\n\nThis statement sounds a little subjective, so we need to document the actual problems being fixed:\n\n\"PlatformThread\u0027s API is using old style function pointers, causes\ncasting, is unintuitive and forces artificial call sequences, and\nis additionally possible to misuse in release mode\"\n\nIs there a chance that what this CL adds to PlatformThread, could be implemented as a layer on top of the current PlatformThread?",
+      "revId": "1363c7004c94b74f72bd12af37f41a6abe33db5b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

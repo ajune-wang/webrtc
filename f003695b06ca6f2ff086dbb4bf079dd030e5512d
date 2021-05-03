@@ -189,6 +189,30 @@
       },
       "revId": "f003695b06ca6f2ff086dbb4bf079dd030e5512d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7dcd6dd0_2d064838",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-05-03T16:30:07Z",
+      "side": 1,
+      "message": "Given the binary size savings we have seen, SGTM. 😊",
+      "parentUuid": "efe4ab26_053435d1",
+      "range": {
+        "startLine": 201,
+        "startChar": 2,
+        "endLine": 201,
+        "endChar": 9
+      },
+      "revId": "f003695b06ca6f2ff086dbb4bf079dd030e5512d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

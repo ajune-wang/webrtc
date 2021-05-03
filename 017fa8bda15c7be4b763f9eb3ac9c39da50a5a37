@@ -47,6 +47,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a6901dd_8b776cbb",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-05-03T15:27:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "13add767_f4c793ba",
+      "range": {
+        "startLine": 374,
+        "startChar": 10,
+        "endLine": 374,
+        "endChar": 17
+      },
+      "revId": "017fa8bda15c7be4b763f9eb3ac9c39da50a5a37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ac4bd25c_f8ba3a35",
@@ -60,6 +84,30 @@
       "writtenOn": "2021-05-03T14:19:23Z",
       "side": 1,
       "message": "Do these have to be public?",
+      "range": {
+        "startLine": 58,
+        "startChar": 2,
+        "endLine": 58,
+        "endChar": 15
+      },
+      "revId": "017fa8bda15c7be4b763f9eb3ac9c39da50a5a37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e74daba_438c8d09",
+        "filename": "media/sctp/dcsctp_transport.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-05-03T15:27:19Z",
+      "side": 1,
+      "message": "I put them public since the code style doesn\u0027t allow private inheritance in C++, and it doesn\u0027t conceptually make sense to have a public inheritance with tighter visibility on the methods that are overridden.\nMade the change though and it builds.",
+      "parentUuid": "ac4bd25c_f8ba3a35",
       "range": {
         "startLine": 58,
         "startChar": 2,

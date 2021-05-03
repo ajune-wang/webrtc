@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1154fb0a_db3f5502",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-03T14:19:23Z",
+      "side": 1,
+      "message": "The random number generator doesn\u0027t have to be secure, so this should suffice.",
+      "range": {
+        "startLine": 131,
+        "startChar": 14,
+        "endLine": 131,
+        "endChar": 42
+      },
+      "revId": "017fa8bda15c7be4b763f9eb3ac9c39da50a5a37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13add767_f4c793ba",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-03T14:19:23Z",
+      "side": 1,
+      "message": "If the above was LS_ERROR, this should be too, also printing out dcsctp::ToString(error) and message",
+      "range": {
+        "startLine": 374,
+        "startChar": 10,
+        "endLine": 374,
+        "endChar": 17
+      },
+      "revId": "017fa8bda15c7be4b763f9eb3ac9c39da50a5a37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac4bd25c_f8ba3a35",
+        "filename": "media/sctp/dcsctp_transport.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-03T14:19:23Z",
+      "side": 1,
+      "message": "Do these have to be public?",
+      "range": {
+        "startLine": 58,
+        "startChar": 2,
+        "endLine": 58,
+        "endChar": 15
+      },
+      "revId": "017fa8bda15c7be4b763f9eb3ac9c39da50a5a37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

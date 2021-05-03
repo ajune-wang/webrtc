@@ -137,6 +137,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "9c459914_a9958904",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-03T14:19:23Z",
+      "side": 1,
+      "message": "But shouldn\u0027t it be enough to have it created in the constructor and call SetNotAlive() in the destructor? It doesn\u0027t matter that much as I have a slightly more optimized version at https://webrtc-review.googlesource.com/c/src/+/217223 that you (and I) should use when it has landed.",
+      "parentUuid": "0dd2a928_e68f3f1d",
+      "range": {
+        "startLine": 99,
+        "startChar": 4,
+        "endLine": 100,
+        "endChar": 42
+      },
+      "revId": "39df641cec283c1dddb7b4ccdae6aaca29eb779a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "2c31d84f_b99cab9a",
         "filename": "media/sctp/dcsctp_transport.cc",
         "patchSetId": 3

@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a6e4a58_78e943b2",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-05-03T13:09:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a96d65e_8471d6ce",
+      "range": {
+        "startLine": 182,
+        "startChar": 10,
+        "endLine": 182,
+        "endChar": 16
+      },
+      "revId": "f003695b06ca6f2ff086dbb4bf079dd030e5512d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "99219800_d8c0631b",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-05-03T10:43:51Z",
       "side": 1,
       "message": "Should we RTC_DLOG everywhere and use a build with GN\u0027s dcheck_always_on\u003dtrue while testing this?",
+      "range": {
+        "startLine": 201,
+        "startChar": 2,
+        "endLine": 201,
+        "endChar": 9
+      },
+      "revId": "f003695b06ca6f2ff086dbb4bf079dd030e5512d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b16e1226_faa8ac6d",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-05-03T13:09:09Z",
+      "side": 1,
+      "message": "I\u0027d prefer if it didn\u0027t require a special build to log what is happening on the DataChannels.\nI can probably remove some logs and tweak verbosity level though.",
+      "parentUuid": "99219800_d8c0631b",
       "range": {
         "startLine": 201,
         "startChar": 2,

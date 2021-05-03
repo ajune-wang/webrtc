@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45c75cbf_82996dfe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-03T04:52:59Z",
+      "side": 1,
+      "message": "Naming question. Once that\u0027s resolved, I approve.\n\nUltimately the list of negotiated RTP header extensions needs to be on the transport - because that\u0027s where we interpret the incoming extensions according to their negotiated ID. But since tests still pass, I assume that this still works; the copy in the transceiver is good for negotiation.\n\n(Idle speculation: I wonder if we can do away with the whole \"channel\" layer of the abstraction stack. It seems to not add that much value over transports, senders and receivers.)",
+      "revId": "12785d1ddc823218076f098a54157bee38b0e3e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca02830c_952811cc",
+        "filename": "pc/rtp_transceiver.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-03T04:52:59Z",
+      "side": 1,
+      "message": "Hm. It \"feels wrong\" to have an OnNegotiationUpdate method at this level, doing only this thing.\n\nMost of the changes that are being done to a transceiver on negotiation update are done through other methods, and probably all of them are called from SdpOfferAnswer::ApplyRemoteDescription/ApplyLocalDescription.\n\nIf the description said \"TODO(): Move all the updates for transceivers from SdpOfferAnswer::Apply*Description into this method\", I\u0027d be inclined to submit it as-is; if that\u0027s not an appropriate description, then I\u0027d rename it to UpdateNegotiatedHeaderExtensions.",
+      "revId": "12785d1ddc823218076f098a54157bee38b0e3e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aefaf0fd_29f1d670",
+        "filename": "pc/rtp_transceiver_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-03T04:52:59Z",
+      "side": 1,
+      "message": "Not changed in this CL, but this line looks wrong. HeaderExtensionsNegotiated is a const function that returns a value; calling it in a test without checking its return value seems pointless.",
+      "revId": "12785d1ddc823218076f098a54157bee38b0e3e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ed64aa0_44488f15",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-03T09:55:31Z",
+      "side": 1,
+      "message": "Mostly nits! Good work!",
+      "revId": "39df641cec283c1dddb7b4ccdae6aaca29eb779a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "248f4e4a_1add939c",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-03T09:55:31Z",
+      "side": 1,
+      "message": "Just FYI: I\u0027m working on a more efficient TaskQueue based Timeout implementation. This works, but I hope that we can get both Chrome and Media Router to use that one (and that one will not do any timer wheel shenanigans).",
+      "range": {
+        "startLine": 86,
+        "startChar": 6,
+        "endLine": 86,
+        "endChar": 19
+      },
+      "revId": "39df641cec283c1dddb7b4ccdae6aaca29eb779a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "213ce173_bb9034d8",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-03T09:55:31Z",
+      "side": 1,
+      "message": "You don\u0027t need to recreate this on each Start/Stop. The library will handle calling socket-\u003eHandleTimeout(old_timeout);",
+      "range": {
+        "startLine": 99,
+        "startChar": 4,
+        "endLine": 100,
+        "endChar": 42
+      },
+      "revId": "39df641cec283c1dddb7b4ccdae6aaca29eb779a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c31d84f_b99cab9a",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-03T09:55:31Z",
+      "side": 1,
+      "message": "This is the default, so you don\u0027t need to set it (again).",
+      "range": {
+        "startLine": 187,
+        "startChar": 17,
+        "endLine": 187,
+        "endChar": 57
+      },
+      "revId": "39df641cec283c1dddb7b4ccdae6aaca29eb779a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad219bd6_42a12ab7",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-03T09:55:31Z",
+      "side": 1,
+      "message": "should this really return false?",
+      "range": {
+        "startLine": 210,
+        "startChar": 9,
+        "endLine": 210,
+        "endChar": 14
+      },
+      "revId": "39df641cec283c1dddb7b4ccdae6aaca29eb779a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47ac4685_0f3e82e4",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-03T09:55:31Z",
+      "side": 1,
+      "message": "This is a bit of a weird comparison. The max_message_size is expected to be quite large. But if you would set it to be quite small, say 100 bytes, and send a 100 byte message, then 12 (SCTP header) + 16 (DATA header) + 100 bytes (payload) \u003d 126 bytes would get sent, and this would trigger.",
+      "range": {
+        "startLine": 297,
+        "startChar": 2,
+        "endLine": 304,
+        "endChar": 3
+      },
+      "revId": "39df641cec283c1dddb7b4ccdae6aaca29eb779a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4dcf7eee_62137146",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-03T09:55:31Z",
+      "side": 1,
+      "message": "I don\u0027t think having this as a member adds much value. It certainly does in usrsctp, with its EOR, but I think it can be skipped here.",
+      "range": {
+        "startLine": 363,
+        "startChar": 2,
+        "endLine": 363,
+        "endChar": 17
+      },
+      "revId": "39df641cec283c1dddb7b4ccdae6aaca29eb779a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "177af717_07891623",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-05-03T07:21:51Z",
+      "side": 1,
+      "message": "lgtm. Ilya, please check that video/ logging changes are ok.",
+      "revId": "b314fe6a379d1eb1990d5f9230382fd25e10a25b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de46bbc7_5d83a6e1",
+        "filename": "common_video/h264/h264_bitstream_parser.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-05-03T07:21:51Z",
+      "side": 1,
+      "message": "This would be a candidate for a LOG_ONCE facility or similar. Agree logging per frame seems excessive.",
+      "range": {
+        "startLine": 278,
+        "startChar": 0,
+        "endLine": 278,
+        "endChar": 75
+      },
+      "revId": "b314fe6a379d1eb1990d5f9230382fd25e10a25b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9eb67cd9_151ac40d",
+        "filename": "video/video_send_stream.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-05-03T07:21:51Z",
+      "side": 1,
+      "message": "Please check with video/ owners. Doesn\u0027t look that useful to me, but not sure which logs are useful when debugging logs from the wild.",
+      "range": {
+        "startLine": 187,
+        "startChar": 0,
+        "endLine": 187,
+        "endChar": 47
+      },
+      "revId": "b314fe6a379d1eb1990d5f9230382fd25e10a25b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

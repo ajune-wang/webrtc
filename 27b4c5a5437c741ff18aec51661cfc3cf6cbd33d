@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "204ddf37_8755ea64",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 11717
+      },
+      "writtenOn": "2021-05-03T11:19:25Z",
+      "side": 1,
+      "message": "I don\u0027t have access to CQ.",
+      "revId": "27b4c5a5437c741ff18aec51661cfc3cf6cbd33d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

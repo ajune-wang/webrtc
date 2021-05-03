@@ -7,16 +7,16 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '9c14b5c16ccb832d74d0cf74ac4fdffb66eb73ea',
+  'chromium_revision': 'a1ea92c88313c45fd6e66ff87bd8730da873851d',
 }
 
 deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@5bcaae9314efe9d9509b0bc287441019d336a589',
+    'https://chromium.googlesource.com/chromium/src/base@be4652d9eca6b0dd9256ee3644040b184fdf77a8',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@c0a55af97797b60ed29b396283df68efcd2c3cdd',
+    'https://chromium.googlesource.com/chromium/src/build@d4db8ff46413a4224ffc1cba61b628f80f3a8acd',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@5da6005cc90f06df9cf4fbaad30374c9a41a7ba9',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -25,13 +25,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@6ad2deee8e82c0f11d6f11ed437709c77f5a407c',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@ece1fbd2e30ed70d9310bb2835a384ad3d9ad979',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@06a094df0e4f05684ed24474fe06d2ca2a656552',
+    'https://chromium.googlesource.com/chromium/src/testing@76b222f5bb6569d5b57e8bf6300ecbf7cfa0450e',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@8b6f8ce63d6d8adc9dca166df66b980b05aa6e3e',
+    'https://chromium.googlesource.com/chromium/src/third_party@9412c9e505f6ce415511111552345839d04867a2',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -122,7 +122,7 @@ deps = {
   'src/third_party/breakpad/breakpad':
     'https://chromium.googlesource.com/breakpad/breakpad.git@3bea2815bfea6e641d50aad15bde2c494ef8f34b',
   'src/third_party/catapult':
-    'https://chromium.googlesource.com/catapult.git@a934af88835906e8c2843972dfac6295bd5dafc8',
+    'https://chromium.googlesource.com/catapult.git@785c56fc0ffa12b96475d37c5bd44e432e6f9c59',
   'src/third_party/ced/src': {
     'url': 'https://chromium.googlesource.com/external/github.com/google/compact_enc_det.git@ba412eaaacd3186085babcd901679a48863c7dd5',
   },
@@ -265,7 +265,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@17e02dbd3867b964c9805894d521cfef331bdf7c',
+    'https://chromium.googlesource.com/chromium/src/tools@cc3679d92ed5704f18382224ab1b0e5c187d6a19',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@a32a1607f6093d338f756c7e7c7b4333b0c50c9c',
 

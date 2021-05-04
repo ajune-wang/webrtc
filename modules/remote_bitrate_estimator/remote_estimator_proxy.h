@@ -11,8 +11,8 @@
 #ifndef MODULES_REMOTE_BITRATE_ESTIMATOR_REMOTE_ESTIMATOR_PROXY_H_
 #define MODULES_REMOTE_BITRATE_ESTIMATOR_REMOTE_ESTIMATOR_PROXY_H_
 
+#include <deque>
 #include <functional>
-#include <map>
 #include <memory>
 #include <vector>
 
@@ -29,6 +29,65 @@ class Clock;
 namespace rtcp {
 class TransportFeedback;
 }
+
+// PacketArrivalTimeMap is an optimized map of packet sequence number to arrival
+// time, limited in size to never exceed `kMaxNumberOfPackets`. It will grow as
+// needed, and remove old packets, and will expand to allow earlier packets to
+// be added (out-of-order).
+//
+// Not yet received packets have the arrival time zero. The queue will not span
+// larger than necessary and the last packet should always be received. The
+// first packet in the queue doesn't have to be received in case of receiving
+// packets out-of-order.
+class PacketArrivalTimeMap {
+ public:
+  static constexpr size_t kMaxNumberOfPackets = 32768;
+
+  // Indicates if the packet with `sequence_number` has already been received.
+  bool has_received(int64_t sequence_number) const;
+
+  // Returns the sequence number of the first entry in the map, i.e. the
+  // sequence number that a `begin()` iterator would represent.
+  int64_t begin_sequence_number() const { return begin_sequence_number_; }
+
+  // Returns the sequence number of the element just after the map, i.e. the
+  // sequence number that an `end()` iterator would represent.
+  int64_t end_sequence_number() const {
+    return begin_sequence_number_ + arrival_times.size();
+  }
+
+  // Returns an element by `sequence_number`, which must be valid, i.e.
+  // between [begin_sequence_number, end_sequence_number).
+  int64_t get(int64_t sequence_number) {
+    int64_t pos = sequence_number - begin_sequence_number_;
+    RTC_DCHECK(pos >= 0 && pos < static_cast<int64_t>(arrival_times.size()));
+    return arrival_times[pos];
+  }
+
+  // Clamps `sequence_number` between [begin_sequence_number,
+  // end_sequence_number].
+  int64_t clamp(int64_t sequence_number) const;
+
+  // Erases all elements from the beginning of the map until `sequence_number`.
+  void EraseTo(int64_t sequence_number);
+
+  // Records the fact that a packet with `sequence_number` arrived at
+  // `arrival_time_ms`.
+  void AddPacket(int64_t sequence_number, int64_t arrival_time_ms);
+
+  // Removes packets from the beginning of the map as long as they are received
+  // before `sequence_number` and with an age older than `arrival_time_limit`
+  void RemoveOldPackets(int64_t sequence_number, int64_t arrival_time_limit);
+
+ private:
+  // Deque representing unwrapped sequence number -> time, where the index +
+  // `begin_sequence_number_` represents the packet's sequence number.
+  std::deque<int64_t> arrival_times;
+
+  // The unwrapped sequence number for the first element in
+  // `arrival_times`.
+  int64_t begin_sequence_number_ = 0;
+};
 
 // Class used when send-side BWE is enabled: This proxy is instantiated on the
 // receive side. It buffers a number of receive timestamps and then sends
@@ -75,12 +134,6 @@ class RemoteEstimatorProxy : public RemoteBitrateEstimator {
     }
   };
 
-  static const int kMaxNumberOfPackets;
-
-  // Records the fact that a packet with `sequence_number` arrived at
-  // `arrival_time_ms`.
-  void AddPacket(int64_t sequence_number, int64_t arrival_time_ms)
-      RTC_EXCLUSIVE_LOCKS_REQUIRED(&lock_);
   void MaybeCullOldPackets(int64_t sequence_number, int64_t arrival_time_ms)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(&lock_);
   void SendPeriodicFeedbacks() RTC_EXCLUSIVE_LOCKS_REQUIRED(&lock_);
@@ -89,22 +142,22 @@ class RemoteEstimatorProxy : public RemoteBitrateEstimator {
       RTC_EXCLUSIVE_LOCKS_REQUIRED(&lock_);
 
   // Returns a Transport Feedback packet with information about as many packets
-  // that has been received between [`begin_iterator`, `end_iterator`) that can
-  // fit in it. If `is_periodic_update`, this represents sending a periodic
-  // feedback message, which will make it update the
-  // `periodic_window_start_seq_` variable with the first packet that was not
-  // included in the feedback packet, so that the next update can continue from
-  // that sequence number.
+  // that has been received between [`begin_sequence_number_incl`,
+  // `end_sequence_number_excl`) that can fit in it. If `is_periodic_update`,
+  // this represents sending a periodic feedback message, which will make it
+  // update the `periodic_window_start_seq_` variable with the first packet that
+  // was not included in the feedback packet, so that the next update can
+  // continue from that sequence number.
+  //
+  // If no incoming packets were added, nullptr
+  // is returned.
   //
   // `include_timestamps` decide if the returned TransportFeedback should
   // include timestamps.
   std::unique_ptr<rtcp::TransportFeedback> BuildFeedbackPacket(
       bool include_timestamps,
-      int64_t base_sequence_number,
-      std::map<int64_t, int64_t>::const_iterator
-          begin_iterator,  // |begin_iterator| is inclusive.
-      std::map<int64_t, int64_t>::const_iterator
-          end_iterator,  // |end_iterator| is exclusive.
+      int64_t begin_sequence_number_inclusive,
+      int64_t end_sequence_number_exclusive,
       bool is_periodic_update) RTC_EXCLUSIVE_LOCKS_REQUIRED(&lock_);
 
   Clock* const clock_;
@@ -123,8 +176,10 @@ class RemoteEstimatorProxy : public RemoteBitrateEstimator {
   // The next sequence number that should be the start sequence number during
   // periodic reporting. Will be absl::nullopt before the first seen packet.
   absl::optional<int64_t> periodic_window_start_seq_ RTC_GUARDED_BY(&lock_);
-  // Map unwrapped seq -> time.
-  std::map<int64_t, int64_t> packet_arrival_times_ RTC_GUARDED_BY(&lock_);
+
+  // Packet arrival times, by sequence number.
+  PacketArrivalTimeMap packet_arrival_times_ RTC_GUARDED_BY(&lock_);
+
   int64_t send_interval_ms_ RTC_GUARDED_BY(&lock_);
   bool send_periodic_feedback_ RTC_GUARDED_BY(&lock_);
 

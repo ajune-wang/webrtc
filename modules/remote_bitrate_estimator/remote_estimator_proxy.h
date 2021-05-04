@@ -11,8 +11,8 @@
 #ifndef MODULES_REMOTE_BITRATE_ESTIMATOR_REMOTE_ESTIMATOR_PROXY_H_
 #define MODULES_REMOTE_BITRATE_ESTIMATOR_REMOTE_ESTIMATOR_PROXY_H_
 
+#include <deque>
 #include <functional>
-#include <map>
 #include <memory>
 #include <vector>
 
@@ -89,20 +89,19 @@ class RemoteEstimatorProxy : public RemoteBitrateEstimator {
       RTC_EXCLUSIVE_LOCKS_REQUIRED(&lock_);
 
   // Returns a Transport Feedback packet with information about as many packets
-  // that has been received between [`begin_iterator`, `end_iterator`) that can
-  // fit in it. If `update_periodic_window_start_seq`, it updates the
+  // that has been received between [`begin_sequence_number_incl`,
+  // `end_sequence_number_excl`) that can fit in it. If
+  // `update_periodic_window_start_seq`, it updates the
   // `periodic_window_start_seq_` variable with the first packet that was not
-  // included in the feedback packet.
+  // included in the feedback packet. If no incoming packets were added, nullptr
+  // is returned.
   //
   // `include_timestamps` decide if the returned TransportFeedback should
   // include timestamps.
   std::unique_ptr<rtcp::TransportFeedback> BuildFeedbackPacket(
       bool include_timestamps,
-      int64_t base_sequence_number,
-      std::map<int64_t, int64_t>::const_iterator
-          begin_iterator,  // |begin_iterator| is inclusive.
-      std::map<int64_t, int64_t>::const_iterator
-          end_iterator,  // |end_iterator| is exclusive.
+      int64_t begin_sequence_number_inclusive,
+      int64_t end_sequence_number_exclusive,
       bool update_periodic_window_start_seq)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(&lock_);
 
@@ -122,8 +121,19 @@ class RemoteEstimatorProxy : public RemoteBitrateEstimator {
   // The next sequence number that should be the start sequence number during
   // periodic reporting. Will be absl::nullopt before the first seen packet.
   absl::optional<int64_t> periodic_window_start_seq_ RTC_GUARDED_BY(&lock_);
-  // Map unwrapped seq -> time.
-  std::map<int64_t, int64_t> packet_arrival_times_ RTC_GUARDED_BY(&lock_);
+
+  // Deque representing unwrapped seq -> time, where the index +
+  // `packet_arrival_times_start_idx_` represents the packet's sequence number.
+  // Not yet received packets have the arrival time zero, and this queue will
+  // be at most `kMaxNumberOfPackets` large (if there have been sequence number
+  // gaps) but often much smaller. The queue will not span larger than necessary
+  // and the first and last packet should always be received.
+  std::deque<int64_t> packet_arrival_times_ RTC_GUARDED_BY(&lock_);
+
+  // The unwrapped sequence number for the first element in
+  // `packet_arrival_times`.
+  int64_t packet_arrival_times_start_seq_ RTC_GUARDED_BY(&lock_) = 0;
+
   int64_t send_interval_ms_ RTC_GUARDED_BY(&lock_);
   bool send_periodic_feedback_ RTC_GUARDED_BY(&lock_);
 

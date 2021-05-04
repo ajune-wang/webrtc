@@ -1,6 +1,91 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "de9d4096_e547f6d6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-04T10:30:05Z",
+      "side": 1,
+      "message": "I\u0027m very happy to see all the green!\n\nsome nits, including naming - perhaps best to address these before submitting.\n",
+      "revId": "1d1fa245540a8084473a728a2a6a86ab30cf9873",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d9e62ae_44a81e19",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-04T10:30:05Z",
+      "side": 1,
+      "message": "Given that this is a straightforward conversion from one type to another, and not a getter in the sense of getting something out of a larger structure, perhaps call it ConvertToPpid();",
+      "revId": "1d1fa245540a8084473a728a2a6a86ab30cf9873",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "998bdada_c40db7ed",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-04T10:30:05Z",
+      "side": 1,
+      "message": "On the same vein: ConvertToDataMessageType?",
+      "revId": "1d1fa245540a8084473a728a2a6a86ab30cf9873",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8fd5c88_5027263d",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-04T10:30:05Z",
+      "side": 1,
+      "message": "Likely not a worry, but I wonder if we should make this injectable or overridable somehow, so that we can write deterministic tests. Could be a fuzzer input.",
+      "revId": "1d1fa245540a8084473a728a2a6a86ab30cf9873",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01c2fee4_ab1afa14",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-04T10:30:05Z",
+      "side": 1,
+      "message": "else RTC_DCHECK(local port, remote port, max_message_size unchanged)?\n\ncalling start() twice seems to have possibly calling Connect() as its effect. But we do call Connect() when transport_was_ever_writable_ flips (below), so is there ever a time when there\u0027s a point to calling it twice?",
+      "revId": "1d1fa245540a8084473a728a2a6a86ab30cf9873",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4bd85fd5_23249bc3",
@@ -14,6 +99,30 @@
       "writtenOn": "2021-05-04T07:39:45Z",
       "side": 1,
       "message": "Missing \u003c\u003c debug_name_",
+      "range": {
+        "startLine": 315,
+        "startChar": 25,
+        "endLine": 315,
+        "endChar": 26
+      },
+      "revId": "1d1fa245540a8084473a728a2a6a86ab30cf9873",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8dbea7eb_bf999abd",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-04T10:30:05Z",
+      "side": 1,
+      "message": "I think this should not be LS_ERROR; it\u0027s untrusted data and leads to log spew if we get hit by someone using the wrong PPID.",
+      "parentUuid": "4bd85fd5_23249bc3",
       "range": {
         "startLine": 315,
         "startChar": 25,
@@ -49,6 +158,57 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e76f4121_a399363b",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-04T10:30:05Z",
+      "side": 1,
+      "message": "Shouldn\u0027t we signal the channels to be closed here?",
+      "revId": "1d1fa245540a8084473a728a2a6a86ab30cf9873",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "933e92ad_6e7ce54f",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-04T10:30:05Z",
+      "side": 1,
+      "message": "Does a Restart imply that the streams need to be cleared, or not?",
+      "revId": "1d1fa245540a8084473a728a2a6a86ab30cf9873",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07302ea6_f5319cd1",
+        "filename": "media/sctp/dcsctp_transport.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-04T10:30:05Z",
+      "side": 1,
+      "message": "Naming nit: I think DcSctpTrasnport is a better capitalization according to styleguide (Dc is a separate word from Sctp).",
+      "revId": "1d1fa245540a8084473a728a2a6a86ab30cf9873",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "981dab0b_5e881dcc",
         "filename": "media/sctp/dcsctp_transport.h",
         "patchSetId": 10
@@ -66,6 +226,23 @@
         "endLine": 97,
         "endChar": 56
       },
+      "revId": "1d1fa245540a8084473a728a2a6a86ab30cf9873",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "452b4ad7_6a03365c",
+        "filename": "media/sctp/dcsctp_transport.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-04T10:30:05Z",
+      "side": 1,
+      "message": "Nit: DcSctpTransport (capitalize each component word).",
       "revId": "1d1fa245540a8084473a728a2a6a86ab30cf9873",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0dd3972_e95cb1f4",
+        "filename": "rtc_base/platform_thread.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-05-04T07:33:17Z",
+      "side": 1,
+      "message": "I don\u0027t think this is portable according to pthreads spec. E.g., man page for pthread_self says\n\n       POSIX.1 allows an implementation wide freedom in choosing the type used\n       to  represent  a thread ID; for example, representation using either an\n       arithmetic type or a structure is permitted.  Therefore,  variables  of\n       type pthread_t can\u0027t portably be compared using the C equality operator\n       (\u003d\u003d); use pthread_equal(3) instead.\n\nI find nothing saying that a running thread can\u0027t have get thread id 0.\n\nNot sure if it needs to be portable, but if we don\u0027t do that, I think it deserves a comment, and preferably a link to some docs saying that 0 isn\u0027t used for valid threads on linux or macos. The portable way, I think, would be a class with a absl::optional\u003cpthread_t\u003e and an equality operator calling phtread_equal.\n\nOr maybe even better: Don\u0027t define any kNullHandle at all, and let users of the class use absl::optional\u003cPlatformThread\u003e if they need an \"unset\" state.\n\nDo we expect to be able to use C++ standard threads anytime soon?",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 42
+      },
+      "revId": "706a88a87f770c54a17c79b28aec78f19bd694e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e311324_83ae1083",
+        "filename": "rtc_base/platform_thread.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-05-04T07:33:17Z",
+      "side": 1,
+      "message": "I like the design that factory functions return running threads. And if we go with absl::optional\u003cPlatformThread\u003e, we won\u0027t need any default constructor and corresponding complexity.",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 86,
+        "endChar": 0
+      },
+      "revId": "706a88a87f770c54a17c79b28aec78f19bd694e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

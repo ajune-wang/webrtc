@@ -70,6 +70,24 @@
       "parentUuid": "e62e877c_00c75aa7",
       "revId": "1363c7004c94b74f72bd12af37f41a6abe33db5b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9772ee68_0fb0df05",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6720
+      },
+      "writtenOn": "2021-05-04T07:17:20Z",
+      "side": 1,
+      "message": "You\u0027re right - 788 isn\u0027t a problem, I misread the size. Let me ping one more reviewer to take a look.",
+      "parentUuid": "0334e38c_91ff2123",
+      "revId": "1363c7004c94b74f72bd12af37f41a6abe33db5b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

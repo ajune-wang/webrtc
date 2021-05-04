@@ -51,8 +51,13 @@ bool SetAv1SvcConfig(VideoCodec& video_codec) {
   if (info.num_spatial_layers == 1) {
     SpatialLayer& spatial_layer = video_codec.spatialLayers[0];
     spatial_layer.minBitrate = video_codec.minBitrate;
-    spatial_layer.targetBitrate = video_codec.startBitrate;
     spatial_layer.maxBitrate = video_codec.maxBitrate;
+    if (video_codec.startBitrate == 0) {
+      spatial_layer.targetBitrate =
+          (video_codec.minBitrate + video_codec.maxBitrate) / 2;
+    } else {
+      spatial_layer.targetBitrate = video_codec.startBitrate;
+    }
     return true;
   }
 

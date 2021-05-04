@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ddb456b_7a1ae0b5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-04T13:27:13Z",
+      "side": 1,
+      "message": "Noticed this in passing. Seems like a small step on the path towards Const All The Things.\n",
+      "revId": "37d4e52c6020895065f204e6d4930634810b599b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

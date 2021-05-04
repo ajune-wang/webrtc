@@ -33,6 +33,23 @@
       "message": "(oh and check the cla please -- the bot doesn\u0027t do that sadly)",
       "revId": "b8816c06071a72c91b8cf8e21b16e2fadeca3be2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d8be765_f5ddbf5a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-05-04T11:09:08Z",
+      "side": 1,
+      "message": "lgtm\ncla and authors ok",
+      "revId": "b8816c06071a72c91b8cf8e21b16e2fadeca3be2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

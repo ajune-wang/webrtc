@@ -54,13 +54,9 @@ constexpr bool kIsArm = false;
 #endif
 
 absl::optional<LibvpxVp8Decoder::DeblockParams> DefaultDeblockParams() {
-  if (kIsArm) {
-    // For ARM, this is only called when deblocking is explicitly enabled, and
-    // the default strength is set by the ctor.
-    return LibvpxVp8Decoder::DeblockParams();
-  }
-  // For non-arm, don't use the explicit deblocking settings by default.
-  return absl::nullopt;
+  return LibvpxVp8Decoder::DeblockParams(/*max_level=*/8,
+                                         /*degrade_qp=*/60,
+                                         /*min_qp=*/30);
 }
 
 absl::optional<LibvpxVp8Decoder::DeblockParams>
@@ -120,7 +116,7 @@ class LibvpxVp8Decoder::QpSmoother {
 
 LibvpxVp8Decoder::LibvpxVp8Decoder()
     : use_postproc_(
-          kIsArm ? webrtc::field_trial::IsEnabled(kVp8PostProcArmFieldTrial)
+          kIsArm ? !webrtc::field_trial::IsDisabled(kVp8PostProcArmFieldTrial)
                  : true),
       buffer_pool_(false, 300 /* max_number_of_buffers*/),
       decode_complete_callback_(NULL),

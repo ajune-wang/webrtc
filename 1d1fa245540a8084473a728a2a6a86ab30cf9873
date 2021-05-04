@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bd85fd5_23249bc3",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-04T07:39:45Z",
+      "side": 1,
+      "message": "Missing \u003c\u003c debug_name_",
+      "range": {
+        "startLine": 315,
+        "startChar": 25,
+        "endLine": 315,
+        "endChar": 26
+      },
+      "revId": "1d1fa245540a8084473a728a2a6a86ab30cf9873",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40a07736_ec2d8295",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-04T07:39:45Z",
+      "side": 1,
+      "message": "Please also print out ToString(error) and message",
+      "range": {
+        "startLine": 338,
+        "startChar": 54,
+        "endLine": 338,
+        "endChar": 55
+      },
+      "revId": "1d1fa245540a8084473a728a2a6a86ab30cf9873",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "981dab0b_5e881dcc",
+        "filename": "media/sctp/dcsctp_transport.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-04T07:39:45Z",
+      "side": 1,
+      "message": "As this is initially nullptr, and will be set on Start(), but many methods don\u0027t check that (e.g. SendMessage or ResetStream, or all the options methods), it could result in NPE. Consider checking for nullptr and error out, or use some kind of builder pattern to make sure it\u0027s always set, if modifying the interface is allowed.",
+      "range": {
+        "startLine": 97,
+        "startChar": 49,
+        "endLine": 97,
+        "endChar": 56
+      },
+      "revId": "1d1fa245540a8084473a728a2a6a86ab30cf9873",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

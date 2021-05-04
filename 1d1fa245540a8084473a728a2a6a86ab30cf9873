@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "321d131a_13004006",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-05-04T14:50:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d9e62ae_44a81e19",
+      "revId": "1d1fa245540a8084473a728a2a6a86ab30cf9873",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "998bdada_c40db7ed",
@@ -48,6 +66,24 @@
       "writtenOn": "2021-05-04T10:30:05Z",
       "side": 1,
       "message": "On the same vein: ConvertToDataMessageType?",
+      "revId": "1d1fa245540a8084473a728a2a6a86ab30cf9873",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4401dd79_ca8e24ad",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-05-04T14:50:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "998bdada_c40db7ed",
       "revId": "1d1fa245540a8084473a728a2a6a86ab30cf9873",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -69,6 +105,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2438d1fa_76130d39",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-05-04T14:50:31Z",
+      "side": 1,
+      "message": "Although it\u0027s not quite the same, the clock used to initialize the RNG is injected in the class, so the tests can be deterministic.\nWe should probably not fuzz the transport though but the library directly.",
+      "parentUuid": "a8fd5c88_5027263d",
+      "revId": "1d1fa245540a8084473a728a2a6a86ab30cf9873",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "01c2fee4_ab1afa14",
@@ -82,6 +136,24 @@
       "writtenOn": "2021-05-04T10:30:05Z",
       "side": 1,
       "message": "else RTC_DCHECK(local port, remote port, max_message_size unchanged)?\n\ncalling start() twice seems to have possibly calling Connect() as its effect. But we do call Connect() when transport_was_ever_writable_ flips (below), so is there ever a time when there\u0027s a point to calling it twice?",
+      "revId": "1d1fa245540a8084473a728a2a6a86ab30cf9873",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "330d8cf0_3bcd6b4e",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-05-04T14:50:31Z",
+      "side": 1,
+      "message": "I believe you can call Start() twice, with the same ports, to update the max message size on the transport. The value can be updated from SDP at any point.\nWe\u0027re currently missing the API to change the max_message_size in DcSctp, although that should be added soon.\nI rewrote the Connect() checks to be based on transport-\u003ewritable() \u0026\u0026 socket_ \u0026\u0026 socket_-\u003estate() \u003d\u003d kClosed instead.",
+      "parentUuid": "01c2fee4_ab1afa14",
       "revId": "1d1fa245540a8084473a728a2a6a86ab30cf9873",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -133,6 +205,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f246ea5_7806c419",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-05-04T14:50:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4bd85fd5_23249bc3",
+      "range": {
+        "startLine": 315,
+        "startChar": 25,
+        "endLine": 315,
+        "endChar": 26
+      },
+      "revId": "1d1fa245540a8084473a728a2a6a86ab30cf9873",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "40a07736_ec2d8295",
@@ -146,6 +242,30 @@
       "writtenOn": "2021-05-04T07:39:45Z",
       "side": 1,
       "message": "Please also print out ToString(error) and message",
+      "range": {
+        "startLine": 338,
+        "startChar": 54,
+        "endLine": 338,
+        "endChar": 55
+      },
+      "revId": "1d1fa245540a8084473a728a2a6a86ab30cf9873",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed2a0e13_52d387ce",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-05-04T14:50:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40a07736_ec2d8295",
       "range": {
         "startLine": 338,
         "startChar": 54,
@@ -173,6 +293,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "def48675_d4f8cda0",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-05-04T14:50:31Z",
+      "side": 1,
+      "message": "It\u0027s only closed on destruction of the object, the state update of the SctpTransport is managed outside this class.\nIndividual channels are properly signaled through other callbacks.",
+      "parentUuid": "e76f4121_a399363b",
+      "revId": "1d1fa245540a8084473a728a2a6a86ab30cf9873",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "933e92ad_6e7ce54f",
@@ -190,6 +328,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4017a412_cb28caf5",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-05-04T14:50:31Z",
+      "side": 1,
+      "message": "It does not, it\u0027s just a notification, packets should still be sent from the queue.",
+      "parentUuid": "933e92ad_6e7ce54f",
+      "revId": "1d1fa245540a8084473a728a2a6a86ab30cf9873",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "07302ea6_f5319cd1",
@@ -203,6 +359,24 @@
       "writtenOn": "2021-05-04T10:30:05Z",
       "side": 1,
       "message": "Naming nit: I think DcSctpTrasnport is a better capitalization according to styleguide (Dc is a separate word from Sctp).",
+      "revId": "1d1fa245540a8084473a728a2a6a86ab30cf9873",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf0d17d9_2a414069",
+        "filename": "media/sctp/dcsctp_transport.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-05-04T14:50:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "07302ea6_f5319cd1",
       "revId": "1d1fa245540a8084473a728a2a6a86ab30cf9873",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -230,6 +404,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f450766_c5a3bb36",
+        "filename": "media/sctp/dcsctp_transport.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-05-04T14:50:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "981dab0b_5e881dcc",
+      "range": {
+        "startLine": 97,
+        "startChar": 49,
+        "endLine": 97,
+        "endChar": 56
+      },
+      "revId": "1d1fa245540a8084473a728a2a6a86ab30cf9873",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "452b4ad7_6a03365c",
@@ -243,6 +441,24 @@
       "writtenOn": "2021-05-04T10:30:05Z",
       "side": 1,
       "message": "Nit: DcSctpTransport (capitalize each component word).",
+      "revId": "1d1fa245540a8084473a728a2a6a86ab30cf9873",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a3470a5_203b4da2",
+        "filename": "media/sctp/dcsctp_transport.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-05-04T14:50:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "452b4ad7_6a03365c",
       "revId": "1d1fa245540a8084473a728a2a6a86ab30cf9873",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

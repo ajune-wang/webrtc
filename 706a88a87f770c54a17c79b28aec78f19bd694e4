@@ -26,6 +26,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "865ae3c3_2c24c29b",
+        "filename": "rtc_base/platform_thread.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-05-04T07:33:27Z",
+      "side": 1,
+      "message": "nit: empty()",
+      "range": {
+        "startLine": 49,
+        "startChar": 5,
+        "endLine": 49,
+        "endChar": 10
+      },
+      "revId": "706a88a87f770c54a17c79b28aec78f19bd694e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7e311324_83ae1083",
         "filename": "rtc_base/platform_thread.h",
         "patchSetId": 13

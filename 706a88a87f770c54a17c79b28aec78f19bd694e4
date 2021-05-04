@@ -1,6 +1,91 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a61b72cd_d41d6ecc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-04T09:35:45Z",
+      "side": 1,
+      "message": "The increased readability of the test code convinced me that this is a Good Thing.\n\nIt looks as if adding Finalize() to the destructor happened rather late; there are many tests where I think you can just delete calls to Finalize(). Marked up some of them.\n\nOne nit for ownership clarity; otherwise, I\u0027m signing off on this one.\n\nNote: This should have a PSA to webrtc-users and discuss-webrtc - preferably before submitting.\n",
+      "revId": "706a88a87f770c54a17c79b28aec78f19bd694e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1b5f095_cff55003",
+        "filename": "modules/audio_coding/acm2/audio_coding_module_unittest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-04T09:35:45Z",
+      "side": 1,
+      "message": "given that you now Finalize() in the destructor, can you just delete these?",
+      "revId": "706a88a87f770c54a17c79b28aec78f19bd694e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36cd0a92_a2e7de22",
+        "filename": "modules/audio_processing/audio_processing_impl_locking_unittest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 534,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-04T09:35:45Z",
+      "side": 1,
+      "message": "Here too ... remove?",
+      "revId": "706a88a87f770c54a17c79b28aec78f19bd694e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4767eb62_d8a64b0e",
+        "filename": "modules/audio_processing/audio_processing_performance_unittest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-04T09:35:45Z",
+      "side": 1,
+      "message": "And here.",
+      "revId": "706a88a87f770c54a17c79b28aec78f19bd694e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a654f8d7_31a34b95",
+        "filename": "rtc_base/platform_thread.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-04T09:35:45Z",
+      "side": 1,
+      "message": "somehow it seems to me like a lie to call std::make_unique().release() and return the result. Who owns that object, and for how long?\n(It\u0027s not captured by the lambda, so it can\u0027t be for that reason.)\n\nSuggested change: move the .release() into the calls to ::CreateThread / pthread_create below - that makes it clear that we\u0027re holding the object until it is passed to the platform thread creating function.",
+      "revId": "706a88a87f770c54a17c79b28aec78f19bd694e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b0dd3972_e95cb1f4",

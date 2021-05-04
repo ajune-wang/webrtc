@@ -105,6 +105,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bc3703b1_8e007f1d",
+        "filename": "rtc_base/platform_thread.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-05-04T12:39:59Z",
+      "side": 1,
+      "message": "what is really the difference in this context between\n\n  new std::function\u003c...\u003e(...);\n\nand\n\n  std::make_unique\u003cstd::function\u003c...\u003e(...)).release();\n\nIf there\u0027s no difference, maybe just go with the former? (the compiler might even skip generating some throwaway code)",
+      "parentUuid": "a654f8d7_31a34b95",
+      "revId": "706a88a87f770c54a17c79b28aec78f19bd694e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b0dd3972_e95cb1f4",
         "filename": "rtc_base/platform_thread.h",
         "patchSetId": 13

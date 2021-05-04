@@ -52,6 +52,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8cebac7_32bdea46",
+        "filename": "modules/audio_coding/acm2/audio_coding_module_unittest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-05-04T19:56:10Z",
+      "side": 1,
+      "message": "Not with the current declaration order (looks like Mutex could be accessed while destroying the object, depending on the internal thread logic). Changed that and got some new failures, there are some crazy virtual method interactions in the test. So if you don\u0027t mind I\u0027m keeping the original calls.",
+      "parentUuid": "d1b5f095_cff55003",
+      "revId": "706a88a87f770c54a17c79b28aec78f19bd694e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "36cd0a92_a2e7de22",
@@ -69,6 +87,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bcd1611e_efa39b77",
+        "filename": "modules/audio_processing/audio_processing_impl_locking_unittest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 534,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-05-04T19:56:10Z",
+      "side": 1,
+      "message": "With changed declaration order, yes.",
+      "parentUuid": "36cd0a92_a2e7de22",
+      "revId": "706a88a87f770c54a17c79b28aec78f19bd694e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4767eb62_d8a64b0e",
@@ -82,6 +118,24 @@
       "writtenOn": "2021-05-04T09:35:45Z",
       "side": 1,
       "message": "And here.",
+      "revId": "706a88a87f770c54a17c79b28aec78f19bd694e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98e6b08e_7f622f93",
+        "filename": "modules/audio_processing/audio_processing_performance_unittest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-05-04T19:56:10Z",
+      "side": 1,
+      "message": "TearDown removed with changed declaration order.",
+      "parentUuid": "4767eb62_d8a64b0e",
       "revId": "706a88a87f770c54a17c79b28aec78f19bd694e4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -121,6 +175,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6329e6c_bdb2e1e4",
+        "filename": "rtc_base/platform_thread.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-05-04T19:56:10Z",
+      "side": 1,
+      "message": "I thought we dislike new as in other Google code bases :)\nBut agree with you. Changed to the former.",
+      "parentUuid": "bc3703b1_8e007f1d",
+      "revId": "706a88a87f770c54a17c79b28aec78f19bd694e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b0dd3972_e95cb1f4",
@@ -134,6 +206,30 @@
       "writtenOn": "2021-05-04T07:33:17Z",
       "side": 1,
       "message": "I don\u0027t think this is portable according to pthreads spec. E.g., man page for pthread_self says\n\n       POSIX.1 allows an implementation wide freedom in choosing the type used\n       to  represent  a thread ID; for example, representation using either an\n       arithmetic type or a structure is permitted.  Therefore,  variables  of\n       type pthread_t can\u0027t portably be compared using the C equality operator\n       (\u003d\u003d); use pthread_equal(3) instead.\n\nI find nothing saying that a running thread can\u0027t have get thread id 0.\n\nNot sure if it needs to be portable, but if we don\u0027t do that, I think it deserves a comment, and preferably a link to some docs saying that 0 isn\u0027t used for valid threads on linux or macos. The portable way, I think, would be a class with a absl::optional\u003cpthread_t\u003e and an equality operator calling phtread_equal.\n\nOr maybe even better: Don\u0027t define any kNullHandle at all, and let users of the class use absl::optional\u003cPlatformThread\u003e if they need an \"unset\" state.\n\nDo we expect to be able to use C++ standard threads anytime soon?",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 42
+      },
+      "revId": "706a88a87f770c54a17c79b28aec78f19bd694e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4cdff686_7840dd2d",
+        "filename": "rtc_base/platform_thread.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-05-04T19:56:10Z",
+      "side": 1,
+      "message": "The importability was retained from the original code. I think your suggestion to use absl::optional\u003cHandle\u003e is a good one, implemented that. But seeing that many of the current consumers depend on an \"unset\" state which would anyway need to exist internally due to Finalize, I think it makes sense to keep the unset state ctors here in this class and not spread the optional. Also see the number of pbos TODOs getting deleted by the CL.\n\nOn your question about std::thread: as PlatformThread stands and to keep the code unchanged semantically we\u0027d need to support the priority setup (this has been shown to have some defects on Mac though, but not trivial to fix in a single CL) from the \"current thread\". Not sure the standard mandates a std::thread is backed on pthreads on Mac even though I\u0027m pretty sure pthread_self() works from the thread in practice.",
+      "parentUuid": "b0dd3972_e95cb1f4",
       "range": {
         "startLine": 45,
         "startChar": 0,
@@ -167,6 +263,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "435f6750_72cfcb6e",
+        "filename": "rtc_base/platform_thread.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-05-04T19:56:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "865ae3c3_2c24c29b",
+      "range": {
+        "startLine": 49,
+        "startChar": 5,
+        "endLine": 49,
+        "endChar": 10
+      },
+      "revId": "706a88a87f770c54a17c79b28aec78f19bd694e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7e311324_83ae1083",
@@ -180,6 +300,30 @@
       "writtenOn": "2021-05-04T07:33:17Z",
       "side": 1,
       "message": "I like the design that factory functions return running threads. And if we go with absl::optional\u003cPlatformThread\u003e, we won\u0027t need any default constructor and corresponding complexity.",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 86,
+        "endChar": 0
+      },
+      "revId": "706a88a87f770c54a17c79b28aec78f19bd694e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a531576_cd943f81",
+        "filename": "rtc_base/platform_thread.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-05-04T19:56:10Z",
+      "side": 1,
+      "message": "I like the factory methods too! For the second part, see my reply above.",
+      "parentUuid": "7e311324_83ae1083",
       "range": {
         "startLine": 75,
         "startChar": 0,

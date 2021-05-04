@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e1bcba29_38597a4a",
+        "filename": "pc/rtp_transceiver.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-04T08:25:39Z",
+      "side": 1,
+      "message": "As I said, I\u0027m happy with a TODO that says \"We\u0027re planning to move all the updates done on the channel from the transceiver into this method\".\nWhat I\u0027m not happy with is having a method with a very generic name doing only a small piece of the job the name implies, and no markers around it to indicate that we know it\u0027s not doing what it says on the label.",
+      "parentUuid": "dc946e44_aeb00fb7",
+      "revId": "12785d1ddc823218076f098a54157bee38b0e3e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "aefaf0fd_29f1d670",
         "filename": "pc/rtp_transceiver_unittest.cc",
         "patchSetId": 6
@@ -102,6 +120,24 @@
       "side": 1,
       "message": "Agree. Fixed it so that the call is still made but the return value is checked for correctness.\n\nThese tests are not really that necessary anymore since the whole debacle around managing the header extensions in the channel class for the purposes of the transceiver implementation, is gone.",
       "parentUuid": "aefaf0fd_29f1d670",
+      "revId": "12785d1ddc823218076f098a54157bee38b0e3e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2dc42d33_83079d15",
+        "filename": "pc/rtp_transceiver_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-04T08:25:39Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4991dc6e_37ab90e5",
       "revId": "12785d1ddc823218076f098a54157bee38b0e3e0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

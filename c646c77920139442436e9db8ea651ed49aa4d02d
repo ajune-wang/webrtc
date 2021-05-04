@@ -16,6 +16,23 @@
       "message": "ping",
       "revId": "c646c77920139442436e9db8ea651ed49aa4d02d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d1b3712_924f3973",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-04T08:25:39Z",
+      "side": 1,
+      "message": "Seems we agree on what needs to be done. Add a TODO saying the same thing, and I\u0027m happy!\n",
+      "revId": "c646c77920139442436e9db8ea651ed49aa4d02d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

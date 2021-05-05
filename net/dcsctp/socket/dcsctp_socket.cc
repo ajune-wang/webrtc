@@ -366,9 +366,10 @@ SendStatus DcSctpSocket::Send(DcSctpMessage message,
     return SendStatus::kErrorResourceExhaustion;
   }
 
-  send_queue_.Add(callbacks_.TimeMillis(), std::move(message), send_options);
+  TimeMs now = callbacks_.TimeMillis();
+  send_queue_.Add(now, std::move(message), send_options);
   if (tcb_ != nullptr) {
-    tcb_->SendBufferedPackets();
+    tcb_->SendBufferedPackets(now);
   }
 
   RTC_DCHECK(IsConsistent());
@@ -1019,6 +1020,7 @@ void DcSctpSocket::HandleInit(const CommonHeader& header,
 
 void DcSctpSocket::SendCookieEcho() {
   RTC_DCHECK(tcb_ != nullptr);
+  TimeMs now = callbacks_.TimeMillis();
   SctpPacket::Builder b = tcb_->PacketBuilder();
   b.Add(*cookie_echo_chunk_);
 
@@ -1026,7 +1028,7 @@ void DcSctpSocket::SendCookieEcho() {
   // "The COOKIE ECHO chunk can be bundled with any pending outbound DATA
   // chunks, but it MUST be the first chunk in the packet and until the COOKIE
   // ACK is returned the sender MUST NOT send any other packets to the peer."
-  tcb_->SendBufferedPackets(b, /*only_one_packet=*/true);
+  tcb_->SendBufferedPackets(b, now, /*only_one_packet=*/true);
 }
 
 void DcSctpSocket::HandleInitAck(
@@ -1139,7 +1141,7 @@ void DcSctpSocket::HandleCookieEcho(
   // "A COOKIE ACK chunk may be bundled with any pending DATA chunks (and/or
   // SACK chunks), but the COOKIE ACK chunk MUST be the first chunk in the
   // packet."
-  tcb_->SendBufferedPackets(b);
+  tcb_->SendBufferedPackets(b, callbacks_.TimeMillis());
 }
 
 bool DcSctpSocket::HandleCookieEchoWithTCB(const CommonHeader& header,
@@ -1240,7 +1242,7 @@ void DcSctpSocket::HandleCookieAck(
   t1_cookie_->Stop();
   cookie_echo_chunk_ = absl::nullopt;
   SetState(State::kEstablished, "COOKIE_ACK received");
-  tcb_->SendBufferedPackets();
+  tcb_->SendBufferedPackets(callbacks_.TimeMillis());
   callbacks_.OnConnected();
 }
 
@@ -1264,7 +1266,7 @@ void DcSctpSocket::HandleSack(const CommonHeader& header,
       MaybeSendShutdownOrAck();
       // Receiving an ACK will decrease outstanding bytes (maybe now below
       // cwnd?) or indicate packet loss that may result in sending FORWARD-TSN.
-      tcb_->SendBufferedPackets();
+      tcb_->SendBufferedPackets(callbacks_.TimeMillis());
     } else {
       RTC_DLOG(LS_VERBOSE) << log_prefix()
                            << "Dropping out-of-order SACK with TSN "

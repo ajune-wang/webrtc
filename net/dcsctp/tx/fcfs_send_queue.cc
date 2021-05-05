@@ -70,7 +70,7 @@ FCFSSendQueue::Item* FCFSSendQueue::GetFirstNonExpiredMessage(TimeMs now) {
     // 2) It has a non-negative expiry time.
     // 3) And that expiry time has passed.
     if (!item.message_id.has_value() && item.expires_at.has_value() &&
-        *item.expires_at <= now) {
+        *item.expires_at < now) {
       // TODO(boivie): This should be reported to the client.
       RTC_DLOG(LS_VERBOSE)
           << log_prefix_

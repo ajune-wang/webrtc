@@ -127,11 +127,6 @@ JsepTransportController::Config ScenarioIceConnectionImpl::CreateJsepConfig() {
   config.transport_observer = this;
   config.bundle_policy =
       PeerConnectionInterface::BundlePolicy::kBundlePolicyMaxBundle;
-  config.rtcp_handler = [this](const rtc::CopyOnWriteBuffer& packet,
-                               int64_t packet_time_us) {
-    RTC_DCHECK_RUN_ON(network_thread_);
-    observer_->OnPacketReceived(packet);
-  };
   return config;
 }
 

@@ -595,10 +595,6 @@ class PeerConnection : public PeerConnectionInternal,
       rtc::scoped_refptr<DtlsTransport> dtls_transport,
       DataChannelTransportInterface* data_channel_transport) override;
 
-  std::function<void(const rtc::CopyOnWriteBuffer& packet,
-                     int64_t packet_time_us)>
-  InitializeRtcpCallback();
-
   const rtc::scoped_refptr<ConnectionContext> context_;
   const PeerConnectionFactoryInterface::Options options_;
   PeerConnectionObserver* observer_ RTC_GUARDED_BY(signaling_thread()) =

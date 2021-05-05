@@ -80,8 +80,6 @@ class JsepTransportControllerTest : public JsepTransportController::Observer,
       rtc::Thread* network_thread = rtc::Thread::Current(),
       cricket::PortAllocator* port_allocator = nullptr) {
     config.transport_observer = this;
-    config.rtcp_handler = [](const rtc::CopyOnWriteBuffer& packet,
-                             int64_t packet_time_us) { RTC_NOTREACHED(); };
     config.ice_transport_factory = fake_ice_transport_factory_.get();
     config.dtls_transport_factory = fake_dtls_transport_factory_.get();
     config.on_dtls_handshake_error_ = [](rtc::SSLHandshakeError s) {};

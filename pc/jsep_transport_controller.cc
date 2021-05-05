@@ -1109,9 +1109,6 @@ RTCError JsepTransportController::MaybeCreateJsepTransport(
           std::move(dtls_srtp_transport), std::move(rtp_dtls_transport),
           std::move(rtcp_dtls_transport), std::move(sctp_transport));
 
-  jsep_transport->rtp_transport()->SignalRtcpPacketReceived.connect(
-      this, &JsepTransportController::OnRtcpPacketReceived_n);
-
   jsep_transport->SignalRtcpMuxActive.connect(
       this, &JsepTransportController::UpdateAggregateStates_n);
   SetTransportForMid(content_info.name, jsep_transport.get());
@@ -1455,6 +1452,7 @@ void JsepTransportController::UpdateAggregateStates_n() {
 void JsepTransportController::OnRtcpPacketReceived_n(
     rtc::CopyOnWriteBuffer* packet,
     int64_t packet_time_us) {
+  // TODO(tommi): delete method, rtcp_handler.
   RTC_DCHECK(config_.rtcp_handler);
   config_.rtcp_handler(*packet, packet_time_us);
 }

@@ -306,6 +306,8 @@ class BaseChannel : public ChannelInterface,
   bool ConnectToRtpTransport() RTC_RUN_ON(network_thread());
   void DisconnectFromRtpTransport() RTC_RUN_ON(network_thread());
   void SignalSentPacket_n(const rtc::SentPacket& sent_packet);
+  void OnRtcpPacketReceived_n(rtc::CopyOnWriteBuffer* packet,
+                              int64_t packet_time_us);
 
   rtc::Thread* const worker_thread_;
   rtc::Thread* const network_thread_;

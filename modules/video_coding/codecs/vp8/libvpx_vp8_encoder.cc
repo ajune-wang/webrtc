@@ -16,6 +16,7 @@
 #include <algorithm>
 #include <cstdint>
 #include <iterator>
+#include <limits>
 #include <memory>
 #include <string>
 #include <utility>
@@ -49,6 +50,10 @@ constexpr char kVP8IosMaxNumberOfThreadFieldTrial[] =
     "WebRTC-VP8IosMaxNumberOfThread";
 constexpr char kVP8IosMaxNumberOfThreadFieldTrialParameter[] = "max_thread";
 #endif
+
+constexpr char kVP8MaxNumberOfThreadsFieldTrial[] =
+    "WebRTC-VP8MaxNumberOfThreads";
+constexpr char kVP8MaxNumberOfThreadsFieldTrialParameter[] = "max_threads";
 
 constexpr char kVp8ForcePartitionResilience[] =
     "WebRTC-VP8-ForcePartitionResilience";
@@ -608,8 +613,16 @@ int LibvpxVp8Encoder::InitEncode(const VideoCodec* inst,
 
   // Determine number of threads based on the image size and #cores.
   // TODO(fbarchard): Consider number of Simulcast layers.
-  vpx_configs_[0].g_threads = NumberOfThreads(
-      vpx_configs_[0].g_w, vpx_configs_[0].g_h, settings.number_of_cores);
+  std::string max_thread_trial_string =
+      field_trial::FindFullName(kVP8MaxNumberOfThreadsFieldTrial);
+  FieldTrialParameter<int> max_thread_count(
+      kVP8MaxNumberOfThreadsFieldTrialParameter,
+      std::numeric_limits<int>::max());
+  ParseFieldTrial({&max_thread_count}, max_thread_trial_string);
+  vpx_configs_[0].g_threads =
+      std::min(NumberOfThreads(vpx_configs_[0].g_w, vpx_configs_[0].g_h,
+                               settings.number_of_cores),
+               int(max_thread_count));
 
   // Creating a wrapper to the image - setting image data to NULL.
   // Actual pointer will be set in encode. Setting align to 1, as it

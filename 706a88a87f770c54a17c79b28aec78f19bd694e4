@@ -70,6 +70,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "46986e9e_a407e36e",
+        "filename": "modules/audio_coding/acm2/audio_coding_module_unittest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-05-05T08:18:05Z",
+      "side": 1,
+      "message": "If we went the absl::optional route, explicit calls to Finalize would be replaced with\n\ninsert_packet_thread_ \u003d absl::nullopt;\n\nto destroy the PlatformThread object. Not sure if I\u0027d prefer explicit destruction over over a correct (but brittle) declaration order, when there are subtleties.",
+      "parentUuid": "a8cebac7_32bdea46",
+      "revId": "706a88a87f770c54a17c79b28aec78f19bd694e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "36cd0a92_a2e7de22",
@@ -230,6 +248,30 @@
       "side": 1,
       "message": "The importability was retained from the original code. I think your suggestion to use absl::optional\u003cHandle\u003e is a good one, implemented that. But seeing that many of the current consumers depend on an \"unset\" state which would anyway need to exist internally due to Finalize, I think it makes sense to keep the unset state ctors here in this class and not spread the optional. Also see the number of pbos TODOs getting deleted by the CL.\n\nOn your question about std::thread: as PlatformThread stands and to keep the code unchanged semantically we\u0027d need to support the priority setup (this has been shown to have some defects on Mac though, but not trivial to fix in a single CL) from the \"current thread\". Not sure the standard mandates a std::thread is backed on pthreads on Mac even though I\u0027m pretty sure pthread_self() works from the thread in practice.",
       "parentUuid": "b0dd3972_e95cb1f4",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 42
+      },
+      "revId": "706a88a87f770c54a17c79b28aec78f19bd694e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "044c4457_f21bb496",
+        "filename": "rtc_base/platform_thread.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-05-05T08:18:05Z",
+      "side": 1,
+      "message": "Ok. Do you think it\u0027s a reasonable followup to remove default constructor and unset state? I see there\u0027s also the moved-from state, that might make things more complicated.",
+      "parentUuid": "4cdff686_7840dd2d",
       "range": {
         "startLine": 45,
         "startChar": 0,

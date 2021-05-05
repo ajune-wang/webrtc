@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13d1acc9_f56a56df",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-05T09:26:39Z",
+      "side": 1,
+      "message": "While we still need to have a OK from a \"binary size increase POV\", it would be great if you could review it from a functionality POV. Thanks!",
+      "revId": "a31a59499816fb96399c4968df78c6e7a07d89b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

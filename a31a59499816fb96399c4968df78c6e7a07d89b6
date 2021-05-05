@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eaa1d898_98e0c80d",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-05T12:17:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "043bcc5d_ae0886da",
+      "range": {
+        "startLine": 76,
+        "startChar": 38,
+        "endLine": 76,
+        "endChar": 41
+      },
+      "revId": "a31a59499816fb96399c4968df78c6e7a07d89b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "595178c3_268c5313",
@@ -81,6 +105,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffe7de64_b03e587b",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-05T12:17:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "595178c3_268c5313",
+      "range": {
+        "startLine": 87,
+        "startChar": 39,
+        "endLine": 87,
+        "endChar": 63
+      },
+      "revId": "a31a59499816fb96399c4968df78c6e7a07d89b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a5e15917_99803916",
@@ -94,6 +142,30 @@
       "writtenOn": "2021-05-05T11:36:44Z",
       "side": 1,
       "message": "maybe dcheck pos \u003e\u003d 0?",
+      "range": {
+        "startLine": 111,
+        "startChar": 6,
+        "endLine": 111,
+        "endChar": 9
+      },
+      "revId": "a31a59499816fb96399c4968df78c6e7a07d89b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c76d5179_b5236f71",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-05T12:17:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a5e15917_99803916",
       "range": {
         "startLine": 111,
         "startChar": 6,

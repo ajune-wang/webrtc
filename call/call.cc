@@ -1364,18 +1364,6 @@ PacketReceiver::DeliveryStatus Call::DeliverRtcp(MediaType media_type,
                                                  size_t length) {
   TRACE_EVENT0("webrtc", "Call::DeliverRtcp");
 
-  // TODO(bugs.webrtc.org/11993): This DCHECK is here just to maintain the
-  // invariant that currently the only call path to this function is via
-  // `PeerConnection::InitializeRtcpCallback()`. DeliverRtp on the other hand
-  // gets called via the channel classes and
-  // WebRtc[Audio|Video]Channel's `OnPacketReceived`. We'll remove the
-  // PeerConnection involvement as well as
-  // `JsepTransportController::OnRtcpPacketReceived_n` and `rtcp_handler`
-  // and make sure that the flow of packets is consistent from the
-  // `RtpTransport` class, via the *Channel and *Engine classes and into Call.
-  // This way we'll also know more about the context of the packet.
-  RTC_DCHECK_EQ(media_type, MediaType::ANY);
-
   // TODO(pbos): Make sure it's a valid packet.
   //             Return DELIVERY_UNKNOWN_SSRC if it can be determined that
   //             there's no receiver of the packet.

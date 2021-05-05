@@ -61,7 +61,6 @@ JsepTransportController::JsepTransportController(
       active_reset_srtp_params_(config.active_reset_srtp_params) {
   // The |transport_observer| is assumed to be non-null.
   RTC_DCHECK(config_.transport_observer);
-  RTC_DCHECK(config_.rtcp_handler);
   RTC_DCHECK(config_.ice_transport_factory);
   RTC_DCHECK(config_.on_dtls_handshake_error_);
 }
@@ -1109,9 +1108,6 @@ RTCError JsepTransportController::MaybeCreateJsepTransport(
           std::move(dtls_srtp_transport), std::move(rtp_dtls_transport),
           std::move(rtcp_dtls_transport), std::move(sctp_transport));
 
-  jsep_transport->rtp_transport()->SignalRtcpPacketReceived.connect(
-      this, &JsepTransportController::OnRtcpPacketReceived_n);
-
   jsep_transport->SignalRtcpMuxActive.connect(
       this, &JsepTransportController::UpdateAggregateStates_n);
   SetTransportForMid(content_info.name, jsep_transport.get());
@@ -1450,13 +1446,6 @@ void JsepTransportController::UpdateAggregateStates_n() {
     ice_gathering_state_ = new_gathering_state;
     signal_ice_gathering_state_.Send(new_gathering_state);
   }
-}
-
-void JsepTransportController::OnRtcpPacketReceived_n(
-    rtc::CopyOnWriteBuffer* packet,
-    int64_t packet_time_us) {
-  RTC_DCHECK(config_.rtcp_handler);
-  config_.rtcp_handler(*packet, packet_time_us);
 }
 
 void JsepTransportController::OnDtlsHandshakeError(

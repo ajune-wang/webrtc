@@ -121,11 +121,6 @@ class JsepTransportController : public sigslot::has_slots<> {
     webrtc::IceTransportFactory* ice_transport_factory = nullptr;
     cricket::DtlsTransportFactory* dtls_transport_factory = nullptr;
     Observer* transport_observer = nullptr;
-    // Must be provided and valid for the lifetime of the
-    // JsepTransportController instance.
-    std::function<void(const rtc::CopyOnWriteBuffer& packet,
-                       int64_t packet_time_us)>
-        rtcp_handler;
     // Initial value for whether DtlsTransport reset causes a reset
     // of SRTP parameters.
     bool active_reset_srtp_params = false;
@@ -445,11 +440,6 @@ class JsepTransportController : public sigslot::has_slots<> {
       const cricket::CandidatePairChangeEvent& event)
       RTC_RUN_ON(network_thread_);
   void UpdateAggregateStates_n() RTC_RUN_ON(network_thread_);
-
-  void OnRtcpPacketReceived_n(rtc::CopyOnWriteBuffer* packet,
-                              int64_t packet_time_us)
-      RTC_RUN_ON(network_thread_);
-
   void OnDtlsHandshakeError(rtc::SSLHandshakeError error);
 
   rtc::Thread* const network_thread_ = nullptr;

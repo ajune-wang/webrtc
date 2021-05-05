@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4da05844_46d4591b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-05-05T08:43:06Z",
+      "side": 1,
+      "message": "We discussed offline - PSA not needed as the class isn\u0027t in API and has no downstream project users.",
+      "parentUuid": "a61b72cd_d41d6ecc",
+      "revId": "706a88a87f770c54a17c79b28aec78f19bd694e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d1b5f095_cff55003",
@@ -272,6 +290,30 @@
       "side": 1,
       "message": "Ok. Do you think it\u0027s a reasonable followup to remove default constructor and unset state? I see there\u0027s also the moved-from state, that might make things more complicated.",
       "parentUuid": "4cdff686_7840dd2d",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 42
+      },
+      "revId": "706a88a87f770c54a17c79b28aec78f19bd694e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72a87551_3ed51983",
+        "filename": "rtc_base/platform_thread.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-05-05T08:43:06Z",
+      "side": 1,
+      "message": "I\u0027m sorry, but without redesigning current users I don\u0027t see that this would simplify things overall but just make many consumers have to use optional or unique_ptr.\nI designed the moved-from state to be the same as empty().\nI\u0027ll anyway add TODOs to investigate if they can be removed. Thanks!",
+      "parentUuid": "044c4457_f21bb496",
       "range": {
         "startLine": 45,
         "startChar": 0,

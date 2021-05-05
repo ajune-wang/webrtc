@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a30a091c_9092b7cf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-05T21:17:14Z",
+      "side": 1,
+      "message": "LGTM. A couple of remaining nits.\n",
+      "revId": "4e008c01358465b8844ccccde2a3525f155eb66d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee975b4b_f8b78d6d",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-05T21:17:14Z",
+      "side": 1,
+      "message": "Return false?",
+      "revId": "4e008c01358465b8844ccccde2a3525f155eb66d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

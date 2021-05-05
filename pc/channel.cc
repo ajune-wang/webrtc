@@ -192,6 +192,8 @@ bool BaseChannel::ConnectToRtpTransport() {
                                               &BaseChannel::OnWritableState);
   rtp_transport_->SignalSentPacket.connect(this,
                                            &BaseChannel::SignalSentPacket_n);
+  rtp_transport_->SignalRtcpPacketReceived.connect(
+      this, &BaseChannel::OnRtcpPacketReceived_n);
   return true;
 }
 
@@ -199,6 +201,7 @@ void BaseChannel::DisconnectFromRtpTransport() {
   RTC_DCHECK(rtp_transport_);
   RTC_DCHECK(media_channel());
   rtp_transport_->UnregisterRtpDemuxerSink(this);
+  rtp_transport_->SignalRtcpPacketReceived.disconnect(this);
   rtp_transport_->SignalReadyToSend.disconnect(this);
   rtp_transport_->SignalNetworkRouteChanged.disconnect(this);
   rtp_transport_->SignalWritableState.disconnect(this);
@@ -838,6 +841,12 @@ void BaseChannel::FlushRtcpMessages_n() {
 void BaseChannel::SignalSentPacket_n(const rtc::SentPacket& sent_packet) {
   RTC_DCHECK_RUN_ON(network_thread());
   media_channel()->OnPacketSent(sent_packet);
+}
+
+void BaseChannel::OnRtcpPacketReceived_n(rtc::CopyOnWriteBuffer* packet,
+                                         int64_t packet_time_us) {
+  RTC_DCHECK_RUN_ON(network_thread());
+  media_channel_->OnPacketReceived(*packet, packet_time_us);
 }
 
 VoiceChannel::VoiceChannel(rtc::Thread* worker_thread,

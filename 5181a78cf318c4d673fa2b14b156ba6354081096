@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff439cb9_af2fe69a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-05-06T07:45:32Z",
+      "side": 1,
+      "message": "One question, but code change itself looks good.",
+      "revId": "5181a78cf318c4d673fa2b14b156ba6354081096",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c45c74b_40cf4080",
+        "filename": "pc/channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 849,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-05-06T07:45:32Z",
+      "side": 1,
+      "message": "If we have separated RTP and RTCP packets earlier, it seems a bit brittle to pass them the same path and leave for the receiver to infer protocol from the packet contents.\n\nWhen using rtp mux (common case?), I think we take some extra steps to ensure that no rtp packet can look like an rtcp packet, but is that true if separate ports are used for rtp and rtcp?",
+      "range": {
+        "startLine": 849,
+        "startChar": 2,
+        "endLine": 849,
+        "endChar": 34
+      },
+      "revId": "5181a78cf318c4d673fa2b14b156ba6354081096",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -76,6 +76,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a806e5d7_6e0987ac",
+        "filename": "pc/channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-05-06T17:20:29Z",
+      "side": 1,
+      "message": "Thanks Danil - of course, you\u0027re right. This isn\u0027t the right approach. I\u0027ll abandon this CL and tackle it differently. Actually, it would probably be a good thing to make SignalRtcpPacketReceived a std::function\u003c\u003e callback to ensure that multiple can\u0027t be set for a single transport.",
+      "parentUuid": "58c64ea8_3d9c547c",
+      "range": {
+        "startLine": 195,
+        "startChar": 2,
+        "endLine": 195,
+        "endChar": 42
+      },
+      "revId": "5181a78cf318c4d673fa2b14b156ba6354081096",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8c45c74b_40cf4080",
@@ -209,6 +233,30 @@
       "side": 1,
       "message": "Merging rtp and rtcp looks fine to me: In practice separation between rtp and rtcp based on the content of the packet is well defined and relyed on in several places.\n\nSeparating Audio and Video looks suspicious: rtcp packet may (and when such packet is created with RtcpTransciver it does) contains subpackets both for audio and video streams.\nEven when a packet contains subpackets just for one media type, it is not trivial to detect which one it is.\n\nIn webrtc incoming rtcp packets should be routed to all streams, each RtpRtcpModule then only handle parts for itself.",
       "parentUuid": "b9a30b73_207288ef",
+      "range": {
+        "startLine": 849,
+        "startChar": 2,
+        "endLine": 849,
+        "endChar": 34
+      },
+      "revId": "5181a78cf318c4d673fa2b14b156ba6354081096",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f869b95d_cc2674ed",
+        "filename": "pc/channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 849,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-05-06T17:20:29Z",
+      "side": 1,
+      "message": "Thanks both. Yes these checks are confusing so the right thing is probably to remove them all and ignore the media_type value.",
+      "parentUuid": "bc57152b_beeab754",
       "range": {
         "startLine": 849,
         "startChar": 2,

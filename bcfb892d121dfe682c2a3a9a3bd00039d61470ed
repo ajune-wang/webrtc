@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be1cc4c1_05664109",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6402
+      },
+      "writtenOn": "2021-05-06T06:42:32Z",
+      "side": 1,
+      "message": "Can you fix the test and verify that it passes before I review the actual code?\n",
+      "revId": "bcfb892d121dfe682c2a3a9a3bd00039d61470ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca34585e_b46c0a62",
+        "filename": "net/dcsctp/socket/dcsctp_socket_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1147,
+      "author": {
+        "id": 6402
+      },
+      "writtenOn": "2021-05-06T06:42:32Z",
+      "side": 1,
+      "message": "Somewhat irrelevant to this CL:\nThese 6 lines of code will be common to every test that works in connected mode. Does it make sense to make them into a helper called \"GoToConnectedState\" or something like that?",
+      "revId": "bcfb892d121dfe682c2a3a9a3bd00039d61470ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dae1925f_e545b15f",
+        "filename": "net/dcsctp/socket/dcsctp_socket_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1151,
+      "author": {
+        "id": 6402
+      },
+      "writtenOn": "2021-05-06T06:42:32Z",
+      "side": 1,
+      "message": "the way optional works, you should be able to say lifetime\u003dDurationMs(0).",
+      "revId": "bcfb892d121dfe682c2a3a9a3bd00039d61470ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44f57c9c_fd7d8b51",
+        "filename": "net/dcsctp/socket/dcsctp_socket_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1178,
+      "author": {
+        "id": 6402
+      },
+      "writtenOn": "2021-05-06T06:42:32Z",
+      "side": 1,
+      "message": "Where is the sending of the small message?",
+      "revId": "bcfb892d121dfe682c2a3a9a3bd00039d61470ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

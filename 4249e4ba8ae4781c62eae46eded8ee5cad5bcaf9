@@ -16,6 +16,23 @@
       "message": "Thanks for reviewing!",
       "revId": "4249e4ba8ae4781c62eae46eded8ee5cad5bcaf9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4bb6cd9_02bac46d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-05-06T09:36:50Z",
+      "side": 1,
+      "message": "It looks like you are also doing some cleanup/refactoring in this CL, that makes it harder to check for correctness of the map-\u003edeque change. Could you split this into two CLs? Starting with the refactor if that\u0027s needed for the map-\u003edeque change.",
+      "revId": "4249e4ba8ae4781c62eae46eded8ee5cad5bcaf9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

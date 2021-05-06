@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "472588d0_ee7a41b4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-06T18:42:47Z",
+      "side": 1,
+      "message": "Some words about the PeerConnection and its subclasses.\n\nTriggered by the conversation with Tommi around ConnectionContext and what I was thinking when I created it.\n\nNot diving into the MediaDescription and RtpSender/Receiver/Transceiver objects yet (those may need their own pages).\n",
+      "revId": "0c453546f367f19afbc1ac5de5be4d7a25cd6df1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

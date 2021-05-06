@@ -63,6 +63,30 @@
       },
       "revId": "5181a78cf318c4d673fa2b14b156ba6354081096",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6fa1269_eb43ec1c",
+        "filename": "pc/channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 849,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-05-06T09:04:17Z",
+      "side": 1,
+      "message": "I find it a bit confusing, but unrelated to this cl.\n\nFor one, as far as I\u0027m aware, for RTP the early split into AUDIO or VIDEO is based on mid, or for lack of mid, on payload type. Doesn\u0027t seem applicable for RTCP.\n\nSecond, shouldn\u0027t sender and receiver reports in RTCP be able to carry information about any mix of streams in the same RTP session, including both audio and video? Then classifying all RTCP as either audio or video seems a bit strange.\n\nI seem to recall that the audio/video split makes RTCP be processed twice in some parts of the code. Do we get RTCP messages delivered twice to Call? If so, the change is from twice, always MediaType::ANY to twice, once as MediaType::AUDIO, once as MediaType::VIDEO.",
+      "parentUuid": "7f87893e_46065568",
+      "range": {
+        "startLine": 849,
+        "startChar": 2,
+        "endLine": 849,
+        "endChar": 34
+      },
+      "revId": "5181a78cf318c4d673fa2b14b156ba6354081096",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

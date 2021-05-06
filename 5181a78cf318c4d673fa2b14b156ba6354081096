@@ -39,6 +39,30 @@
       },
       "revId": "5181a78cf318c4d673fa2b14b156ba6354081096",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f87893e_46065568",
+        "filename": "pc/channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 849,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-05-06T08:51:47Z",
+      "side": 1,
+      "message": "As is (without this CL), the code paths do already merge here:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/call/call.cc;drc\u003deb9c3f237b110a5e5a06c3a0f20c4523dc645264;l\u003d1493\n\nSo it looks like the PacketReceiver implementation is already expected to infer the protocol from the packet. Following the Call layer btw, there is additional muxing that happens for rtp packets.\n\nOne functional difference that this change introduces is this:\n\nBefore: All rtcp packets are delivered to Call::DeliverRtcp() with MediaType::ANY.\nAfter: rtcp packets are delivered to Call::DeliverRtcp() with MediaType::VIDEO or MediaType::AUDIO.\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/call/call.cc;drc\u003dc3fe176a27dcad95b576fa233c63d7238b138af4;l\u003d1362\n\nAs far as I\u0027ve been able to confirm, this is \"more correct\" and before there was overhead involved with attempting to deliver all rtcp packets to all streams.",
+      "parentUuid": "8c45c74b_40cf4080",
+      "range": {
+        "startLine": 849,
+        "startChar": 2,
+        "endLine": 849,
+        "endChar": 34
+      },
+      "revId": "5181a78cf318c4d673fa2b14b156ba6354081096",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

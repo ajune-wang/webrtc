@@ -87,6 +87,30 @@
       },
       "revId": "5181a78cf318c4d673fa2b14b156ba6354081096",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "060fe59e_5b2bcfe1",
+        "filename": "pc/channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 849,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-05-06T10:05:18Z",
+      "side": 1,
+      "message": "I don\u0027t _think_ rtcp packets are delivered twice to Call... unless they somehow get delivered via more than one transport instance?\n\nWith MediaType::ANY, each rtcp packet does get delivered to both audio and video streams, all send and receive. Downstream from there, that goes into potentially multiple instances of RTCPReceiver (IncomingPacket()) and RtpVideoSender (DeliverRtcp()).\n\nIn both of those cases (send/receive), the packets flow through ModuleRtpRtcpImpl2::IncomingRtcpPacket. So if you put a breakpoint on that function, you will likely see it hit twice for the same packet, same bidirectional channel. Could that be it?\n\nI am confused by this too. I get the feeling that this isn\u0027t by design. There\u0027s a lot of duplicate work going on and a lot of locks being taken for every received packet, so there\u0027s room for improvement.\n\nHowever, as to make this change less risky, I\u0027m wondering if I should change DeliverRtcp to not check the media type at all and essentially proceed as if it was MediaType::ANY. Wdyt?",
+      "parentUuid": "b6fa1269_eb43ec1c",
+      "range": {
+        "startLine": 849,
+        "startChar": 2,
+        "endLine": 849,
+        "endChar": 34
+      },
+      "revId": "5181a78cf318c4d673fa2b14b156ba6354081096",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

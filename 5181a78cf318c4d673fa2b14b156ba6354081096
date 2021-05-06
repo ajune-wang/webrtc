@@ -35,6 +35,47 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "612b3a93_9e16d76b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-05-06T11:28:55Z",
+      "side": 1,
+      "message": "not at pc/ level though.",
+      "parentUuid": "a887f300_68733900",
+      "revId": "5181a78cf318c4d673fa2b14b156ba6354081096",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58c64ea8_3d9c547c",
+        "filename": "pc/channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-05-06T11:28:55Z",
+      "side": 1,
+      "message": "Does single rtp_transport_ serves multiple BaseChannels?\nI suspect connecting to signal here would multiple the incoming rtcp packet between AUDIO and VIDEO that then come back to the same Call object.\nwhile binding in jsep transport avoided that particular multiplication.\n\nOn the other hand, same packet arrived through VideoChannel would then be multiple just to video Rtcp handler objects, while packet arrvied through AudioChannel would be multiplied just to audio rtcp handle objects inside Call\n\nbut... reading Call::DelvierRtcp it looks like it will be logged in rtc event log twice.\n\n(just a suspicion though, I do not know this code well enough to be sure.\na test at pc level that verifies that incoming rtcp packet is written to rtc event log exactly once can verify my hypothesis)",
+      "range": {
+        "startLine": 195,
+        "startChar": 2,
+        "endLine": 195,
+        "endChar": 42
+      },
+      "revId": "5181a78cf318c4d673fa2b14b156ba6354081096",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8c45c74b_40cf4080",
@@ -144,6 +185,30 @@
       "side": 1,
       "message": "To me, tt seems safest to keep letting DeliverRtcp deliver all rtcp to all streams. And make a separate cl, if it makes sense to change that.",
       "parentUuid": "060fe59e_5b2bcfe1",
+      "range": {
+        "startLine": 849,
+        "startChar": 2,
+        "endLine": 849,
+        "endChar": 34
+      },
+      "revId": "5181a78cf318c4d673fa2b14b156ba6354081096",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc57152b_beeab754",
+        "filename": "pc/channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 849,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-05-06T11:28:55Z",
+      "side": 1,
+      "message": "Merging rtp and rtcp looks fine to me: In practice separation between rtp and rtcp based on the content of the packet is well defined and relyed on in several places.\n\nSeparating Audio and Video looks suspicious: rtcp packet may (and when such packet is created with RtcpTransciver it does) contains subpackets both for audio and video streams.\nEven when a packet contains subpackets just for one media type, it is not trivial to detect which one it is.\n\nIn webrtc incoming rtcp packets should be routed to all streams, each RtpRtcpModule then only handle parts for itself.",
+      "parentUuid": "b9a30b73_207288ef",
       "range": {
         "startLine": 849,
         "startChar": 2,

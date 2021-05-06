@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee37d0a5_db509c2d",
+        "filename": "pc/channel_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1419,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-05-06T20:21:49Z",
+      "side": 1,
+      "message": "these two methods add additional checks for correctness to catch early if a media channel pointer is being accessed that might belong to a deleted channel object.\nPreviously the tests used potentially dangling pointers.",
+      "revId": "c7d4af4db6e850ba7a02a06cd3491c2077d1d696",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

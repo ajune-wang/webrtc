@@ -478,13 +478,15 @@ void RtpVideoStreamReceiver2::OnReceivedPayloadData(
 
   // Try to extrapolate absolute capture time if it is missing.
   packet->packet_info.set_absolute_capture_time(
-      absolute_capture_time_receiver_.OnReceivePacket(
-          AbsoluteCaptureTimeReceiver::GetSource(packet->packet_info.ssrc(),
-                                                 packet->packet_info.csrcs()),
-          packet->packet_info.rtp_timestamp(),
-          // Assume frequency is the same one for all video frames.
-          kVideoPayloadTypeFrequency,
-          packet->packet_info.absolute_capture_time()));
+      absolute_capture_time_receiver_
+          .OnReceivePacket(
+              AbsoluteCaptureTimeReceiver::GetSource(
+                  packet->packet_info.ssrc(), packet->packet_info.csrcs()),
+              packet->packet_info.rtp_timestamp(),
+              // Assume frequency is the same one for all video frames.
+              kVideoPayloadTypeFrequency,
+              packet->packet_info.absolute_capture_time())
+          .adjusted_clock_offset);
 
   RTPVideoHeader& video_header = packet->video_header;
   video_header.rotation = kVideoRotation_0;

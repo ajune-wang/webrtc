@@ -17,10 +17,20 @@
 namespace webrtc {
 namespace {
 
+using AbsoluteCaptureTimeFlavors =
+    AbsoluteCaptureTimeReceiver::AbsoluteCaptureTimeFlavors;
+
 constexpr Timestamp kInvalidLastReceiveTime = Timestamp::MinusInfinity();
+
 }  // namespace
 
 constexpr TimeDelta AbsoluteCaptureTimeReceiver::kInterpolationMaxInterval;
+
+bool AbsoluteCaptureTimeFlavors::operator==(
+    const AbsoluteCaptureTimeFlavors& rhs) const {
+  return unadjusted_clock_offset == rhs.unadjusted_clock_offset &&
+         adjusted_clock_offset == rhs.adjusted_clock_offset;
+}
 
 AbsoluteCaptureTimeReceiver::AbsoluteCaptureTimeReceiver(Clock* clock)
     : clock_(clock),
@@ -44,8 +54,7 @@ void AbsoluteCaptureTimeReceiver::SetRemoteToLocalClockOffset(
   remote_to_local_clock_offset_ = value_q32x32;
 }
 
-absl::optional<AbsoluteCaptureTime>
-AbsoluteCaptureTimeReceiver::OnReceivePacket(
+AbsoluteCaptureTimeFlavors AbsoluteCaptureTimeReceiver::OnReceivePacket(
     uint32_t source,
     uint32_t rtp_timestamp,
     uint32_t rtp_clock_frequency,
@@ -59,7 +68,8 @@ AbsoluteCaptureTimeReceiver::OnReceivePacket(
     if (!ShouldInterpolateExtension(receive_time, source, rtp_timestamp,
                                     rtp_clock_frequency)) {
       last_receive_time_ = kInvalidLastReceiveTime;
-      return absl::nullopt;
+      return {.unadjusted_clock_offset = absl::nullopt,
+              .adjusted_clock_offset = absl::nullopt};
     }
 
     extension.absolute_capture_timestamp = InterpolateAbsoluteCaptureTimestamp(
@@ -81,10 +91,13 @@ AbsoluteCaptureTimeReceiver::OnReceivePacket(
     extension = *received_extension;
   }
 
-  extension.estimated_capture_clock_offset = AdjustEstimatedCaptureClockOffset(
-      extension.estimated_capture_clock_offset);
+  AbsoluteCaptureTime adjusted_clock_offset = extension;
+  adjusted_clock_offset.estimated_capture_clock_offset =
+      AdjustEstimatedCaptureClockOffset(
+          extension.estimated_capture_clock_offset);
 
-  return extension;
+  return {.unadjusted_clock_offset = extension,
+          .adjusted_clock_offset = adjusted_clock_offset};
 }
 
 uint64_t AbsoluteCaptureTimeReceiver::InterpolateAbsoluteCaptureTimestamp(

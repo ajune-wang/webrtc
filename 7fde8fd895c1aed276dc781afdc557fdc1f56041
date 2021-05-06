@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a9af6df_a1bbd6c0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-06T10:06:30Z",
+      "side": 1,
+      "message": "Here is the refactoring as a separate CL!",
+      "revId": "7fde8fd895c1aed276dc781afdc557fdc1f56041",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

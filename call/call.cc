@@ -32,6 +32,7 @@
 #include "call/receive_time_calculator.h"
 #include "call/rtp_stream_receiver_controller.h"
 #include "call/rtp_transport_controller_send.h"
+#include "call/rtp_transport_controller_send_factory.h"
 #include "call/version.h"
 #include "logging/rtc_event_log/events/rtc_event_audio_receive_stream_config.h"
 #include "logging/rtc_event_log/events/rtc_event_rtcp_packet_incoming.h"
@@ -515,12 +516,22 @@ Call* Call::Create(const Call::Config& config,
                    rtc::scoped_refptr<SharedModuleThread> call_thread,
                    std::unique_ptr<ProcessThread> pacer_thread) {
   RTC_DCHECK(config.task_queue_factory);
+
+  RtpTransportControllerSendFactory transport_controller_factory_;
+
   return new internal::Call(
       clock, config,
-      std::make_unique<RtpTransportControllerSend>(
-          clock, config.event_log, config.network_state_predictor_factory,
-          config.network_controller_factory, config.bitrate_config,
-          std::move(pacer_thread), config.task_queue_factory, config.trials),
+      config.rtp_transport_controller_send_factory == nullptr
+          ? transport_controller_factory_.create(
+                clock, config.event_log, config.network_state_predictor_factory,
+                config.network_controller_factory, config.bitrate_config,
+                std::move(pacer_thread), config.task_queue_factory,
+                config.trials)
+          : config.rtp_transport_controller_send_factory->create(
+                clock, config.event_log, config.network_state_predictor_factory,
+                config.network_controller_factory, config.bitrate_config,
+                std::move(pacer_thread), config.task_queue_factory,
+                config.trials),
       std::move(call_thread), config.task_queue_factory);
 }
 

@@ -35,6 +35,25 @@ namespace webrtc {
 //
 class AbsoluteCaptureTimeReceiver {
  public:
+  // Represents different flavors of the absolute capture time extension that
+  // are computed by `AbsoluteCaptureTimeReceiver`.
+  struct AbsoluteCaptureTimeFlavors {
+    // According to the standard, the "estimated capture clock offset is the
+    // sender's estimate of the offset between its own NTP clock and the
+    // capture system's NTP clock" - i.e., the remote to local clock offset is
+    // not included. `unadjusted_clock_offset` sticks to the standard.
+    absl::optional<AbsoluteCaptureTime> unadjusted_clock_offset;
+    // `adjusted_clock_offset` includes instead the remote to local clock
+    // offset. If such an offset is not available, `adjusted_clock_offset` is
+    // not specified.
+    absl::optional<AbsoluteCaptureTime> adjusted_clock_offset;
+
+    bool operator==(const AbsoluteCaptureTimeFlavors& rhs) const;
+    bool operator!=(const AbsoluteCaptureTimeFlavors& rhs) const {
+      return !(*this == rhs);
+    }
+  };
+
   static constexpr TimeDelta kInterpolationMaxInterval =
       TimeDelta::Millis(5000);
 
@@ -52,9 +71,10 @@ class AbsoluteCaptureTimeReceiver {
   // Note that the value must be in Q32.32-formatted fixed-point seconds.
   void SetRemoteToLocalClockOffset(absl::optional<int64_t> value_q32x32);
 
-  // Returns a received header extension, an interpolated header extension, or
-  // |absl::nullopt| if it's not possible to interpolate a header extension.
-  absl::optional<AbsoluteCaptureTime> OnReceivePacket(
+  // Computes different flavors of the absolute capture time extension. For each
+  // flavor, sets a received header extension, an interpolated header extension,
+  // or |absl::nullopt| if it's not possible to interpolate a header extension.
+  AbsoluteCaptureTimeFlavors OnReceivePacket(
       uint32_t source,
       uint32_t rtp_timestamp,
       uint32_t rtp_clock_frequency,

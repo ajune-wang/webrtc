@@ -276,6 +276,8 @@ class ChannelReceive : public ChannelReceiveInterface {
   rtc::scoped_refptr<FrameDecryptorInterface> frame_decryptor_;
   webrtc::CryptoOptions crypto_options_;
 
+  // TODO(alessiob): Wrap the receiver with one that provides both adjusted and
+  // unadjusted offsets.
   webrtc::AbsoluteCaptureTimeReceiver absolute_capture_time_receiver_;
 
   rtc::scoped_refptr<ChannelReceiveFrameTransformerDelegate>
@@ -618,12 +620,14 @@ void ChannelReceive::OnRtpPacket(const RtpPacketReceived& packet) {
 
   // Interpolates absolute capture timestamp RTP header extension.
   header.extension.absolute_capture_time =
-      absolute_capture_time_receiver_.OnReceivePacket(
-          AbsoluteCaptureTimeReceiver::GetSource(header.ssrc,
-                                                 header.arrOfCSRCs),
-          header.timestamp,
-          rtc::saturated_cast<uint32_t>(packet_copy.payload_type_frequency()),
-          header.extension.absolute_capture_time);
+      absolute_capture_time_receiver_
+          .OnReceivePacket(AbsoluteCaptureTimeReceiver::GetSource(
+                               header.ssrc, header.arrOfCSRCs),
+                           header.timestamp,
+                           rtc::saturated_cast<uint32_t>(
+                               packet_copy.payload_type_frequency()),
+                           header.extension.absolute_capture_time)
+          .adjusted_clock_offset;
 
   ReceivePacket(packet_copy.data(), packet_copy.size(), header);
 }

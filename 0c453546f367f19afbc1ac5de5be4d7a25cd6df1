@@ -16,6 +16,57 @@
       "message": "Some words about the PeerConnection and its subclasses.\n\nTriggered by the conversation with Tommi around ConnectionContext and what I was thinking when I created it.\n\nNot diving into the MediaDescription and RtpSender/Receiver/Transceiver objects yet (those may need their own pages).\n",
       "revId": "0c453546f367f19afbc1ac5de5be4d7a25cd6df1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1440c5d7_bf2219fd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-05-07T08:35:32Z",
+      "side": 1,
+      "message": "LGTM % should we add a link?",
+      "revId": "0c453546f367f19afbc1ac5de5be4d7a25cd6df1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68aab555_39e45bf5",
+        "filename": "pc/g3doc/peer_connection.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-05-07T08:35:32Z",
+      "side": 1,
+      "message": "Link to spec? https://w3c.github.io/webrtc-pc/ or https://www.w3.org/TR/webrtc/",
+      "revId": "0c453546f367f19afbc1ac5de5be4d7a25cd6df1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b90a9575_dde1e986",
+        "filename": "pc/g3doc/peer_connection.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-05-07T08:35:32Z",
+      "side": 1,
+      "message": "nit: delete empty lines that are red here?",
+      "revId": "0c453546f367f19afbc1ac5de5be4d7a25cd6df1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

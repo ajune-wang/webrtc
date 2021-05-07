@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a23c89df_89be2ed0",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-05-07T12:47:01Z",
+      "side": 1,
+      "message": "I think this in combination with the packet_arrival_times_ has a complex enough interaction that extracting it would be warranted here.\n\nMy suggestion would be to create a new class with separate unit tests that abstracts away the fact that we store gaps as 0, the max limit and that we don\u0027t actually store the sequence number for each entry any more. Possibly you could make it have interfaces similar to std::map as a way to make the integration even easier.",
+      "range": {
+        "startLine": 137,
+        "startChar": 10,
+        "endLine": 137,
+        "endChar": 41
+      },
+      "revId": "e0226e486dd8b64b16471b89b69a083b2f44e738",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

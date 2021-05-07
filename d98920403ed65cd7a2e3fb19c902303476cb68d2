@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a4d99a4_bfb955d2",
+        "filename": "BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-05-07T14:08:34Z",
+      "side": 1,
+      "message": "Seems to be in 12.5 actually, bots are on 12.4 right now.",
+      "revId": "d98920403ed65cd7a2e3fb19c902303476cb68d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

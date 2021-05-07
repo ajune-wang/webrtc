@@ -51,8 +51,9 @@ inline int GetUniqueSeed() {
 
 class MockDcSctpSocketCallbacks : public DcSctpSocketCallbacks {
  public:
-  MockDcSctpSocketCallbacks()
-      : random_(internal::GetUniqueSeed()),
+  MockDcSctpSocketCallbacks(absl::string_view name = "")
+      : log_prefix_(name.empty() ? "" : std::string(name) + ": "),
+        random_(internal::GetUniqueSeed()),
         timeout_manager_([this]() { return now_; }) {
     ON_CALL(*this, SendPacket)
         .WillByDefault([this](rtc::ArrayView<const uint8_t> data) {
@@ -65,9 +66,16 @@ class MockDcSctpSocketCallbacks : public DcSctpSocketCallbacks {
         });
 
     ON_CALL(*this, OnError)
-        .WillByDefault([](ErrorKind error, absl::string_view message) {
+        .WillByDefault([this](ErrorKind error, absl::string_view message) {
           RTC_LOG(LS_WARNING)
-              << "Socket error: " << ToString(error) << "; " << message;
+              << log_prefix_ << "Socket error: " << ToString(error) << "; "
+              << message;
+        });
+    ON_CALL(*this, OnAborted)
+        .WillByDefault([this](ErrorKind error, absl::string_view message) {
+          RTC_LOG(LS_WARNING)
+              << log_prefix_ << "Socket abort: " << ToString(error) << "; "
+              << message;
         });
   }
   MOCK_METHOD(void,
@@ -139,6 +147,7 @@ class MockDcSctpSocketCallbacks : public DcSctpSocketCallbacks {
   }
 
  private:
+  const std::string log_prefix_;
   TimeMs now_ = TimeMs(0);
   webrtc::Random random_;
   FakeTimeoutManager timeout_manager_;

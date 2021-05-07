@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4cd08981_7c8eb845",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-07T07:48:52Z",
+      "side": 1,
+      "message": "Cleanup of old functions that shouldn\u0027t be used.\n\nTommi for API shape (\"deprecate ALL the things\").\nMirko to comment on the // nogncheck I added in api/peer_connection_interface.h\n",
+      "revId": "776725532995ac2b44d02dd5694717780c2c2b05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

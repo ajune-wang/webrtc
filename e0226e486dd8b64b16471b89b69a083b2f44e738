@@ -22,6 +22,30 @@
       },
       "revId": "e0226e486dd8b64b16471b89b69a083b2f44e738",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "569957cc_f6dcc481",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-07T18:52:22Z",
+      "side": 1,
+      "message": "Done, except that I intentionally didn\u0027t make it an interface as std::map, as that would be too much effort.",
+      "parentUuid": "a23c89df_89be2ed0",
+      "range": {
+        "startLine": 137,
+        "startChar": 10,
+        "endLine": 137,
+        "endChar": 41
+      },
+      "revId": "e0226e486dd8b64b16471b89b69a083b2f44e738",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -10,6 +10,8 @@
 #ifndef CALL_CALL_CONFIG_H_
 #define CALL_CALL_CONFIG_H_
 
+#include <memory>
+
 #include "api/fec_controller.h"
 #include "api/neteq/neteq_factory.h"
 #include "api/network_state_predictor.h"
@@ -19,6 +21,7 @@
 #include "api/transport/network_control.h"
 #include "api/transport/webrtc_key_value_config.h"
 #include "call/audio_state.h"
+#include "call/rtp_transport_controller_send_factory_interface.h"
 
 namespace webrtc {
 
@@ -69,6 +72,9 @@ struct CallConfig {
   const WebRtcKeyValueConfig* trials = nullptr;
 
   TaskQueueBase* const network_task_queue_ = nullptr;
+
+  std::shared_ptr<RtpTransportControllerSendFactoryInterface>
+      rtp_transport_controller_send_factory = nullptr;
 };
 
 }  // namespace webrtc

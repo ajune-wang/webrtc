@@ -99,7 +99,8 @@ rtc::scoped_refptr<PeerConnectionInterface> CreatePeerConnection(
     rtc_configuration.servers.push_back(server);
   }
 
-  return pcf->CreatePeerConnection(rtc_configuration, std::move(pc_deps));
+  return pcf->CreatePeerConnectionOrError(rtc_configuration, std::move(pc_deps))
+      .MoveValue();
 }
 
 }  // namespace

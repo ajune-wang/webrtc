@@ -52,6 +52,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f4ddb99_18915afe",
+        "filename": "pc/g3doc/peer_connection.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-07T09:52:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68aab555_39e45bf5",
+      "revId": "0c453546f367f19afbc1ac5de5be4d7a25cd6df1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b90a9575_dde1e986",
@@ -65,6 +83,24 @@
       "writtenOn": "2021-05-07T08:35:32Z",
       "side": 1,
       "message": "nit: delete empty lines that are red here?",
+      "revId": "0c453546f367f19afbc1ac5de5be4d7a25cd6df1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ed27c1f_17c846ff",
+        "filename": "pc/g3doc/peer_connection.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-07T09:52:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b90a9575_dde1e986",
       "revId": "0c453546f367f19afbc1ac5de5be4d7a25cd6df1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

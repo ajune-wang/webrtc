@@ -13,6 +13,8 @@
 
 #include <stddef.h>  // size_t
 
+#include <array>
+
 #include "rtc_base/system/rtc_export.h"
 
 namespace webrtc {
@@ -95,6 +97,8 @@ struct RTC_EXPORT EchoCanceller3Config {
   } filter;
 
   struct Erle {
+    Erle();
+
     float min = 1.f;
     float max_l = 4.f;
     float max_h = 1.5f;
@@ -102,6 +106,8 @@ struct RTC_EXPORT EchoCanceller3Config {
     size_t num_sections = 1;
     bool clamp_quality_estimate_to_zero = true;
     bool clamp_quality_estimate_to_one = true;
+    std::array<float, 65> erle_bounds;
+    bool use_erle_bounds = false;
   } erle;
 
   struct EpStrength {

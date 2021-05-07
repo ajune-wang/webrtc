@@ -80,6 +80,7 @@ class SignalDependentErleEstimator {
 
   void ComputeActiveFilterSections();
 
+  const EchoCanceller3Config& config_;
   const float min_erle_;
   const size_t num_sections_;
   const size_t num_blocks_;

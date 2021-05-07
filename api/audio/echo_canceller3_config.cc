@@ -65,6 +65,10 @@ EchoCanceller3Config::EchoModel::EchoModel(
 EchoCanceller3Config::EchoModel& EchoCanceller3Config::EchoModel::operator=(
     const EchoModel& e) = default;
 
+EchoCanceller3Config::Erle::Erle() {
+  erle_bounds.fill(1000.f);
+}
+
 EchoCanceller3Config::Suppressor::Suppressor() = default;
 EchoCanceller3Config::Suppressor::Suppressor(
     const EchoCanceller3Config::Suppressor& e) = default;
@@ -163,6 +167,9 @@ bool EchoCanceller3Config::Validate(EchoCanceller3Config* config) {
     res = false;
   }
   res = res & Limit(&c->erle.num_sections, 1, c->filter.refined.length_blocks);
+  for (float& bound : c->erle.erle_bounds) {
+    res = res & Limit(&bound, 1.f, 1000000.f);
+  }
 
   res = res & Limit(&c->ep_strength.default_gain, 0.f, 1000000.f);
   res = res & Limit(&c->ep_strength.default_len, -1.f, 1.f);

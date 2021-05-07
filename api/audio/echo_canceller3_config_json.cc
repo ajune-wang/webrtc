@@ -14,6 +14,7 @@
 #include <string>
 #include <vector>
 
+#include "api/array_view.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/strings/json.h"
@@ -21,6 +22,23 @@
 
 namespace webrtc {
 namespace {
+
+void ReadParam(const Json::Value& root,
+               std::string param_name,
+               rtc::ArrayView<float> param) {
+  Json::Value json_array;
+  if (rtc::GetValueFromJsonObject(root, param_name, &json_array)) {
+    std::vector<double> v;
+    rtc::JsonArrayToDoubleVector(json_array, &v);
+    if (v.size() != param.size()) {
+      return;
+    }
+
+    for (size_t k = 0; k < param.size(); ++k) {
+      param[k] = static_cast<float>(v[k]);
+    }
+  }
+}
 void ReadParam(const Json::Value& root, std::string param_name, bool* param) {
   RTC_DCHECK(param);
   bool v;
@@ -246,6 +264,8 @@ void Aec3ConfigFromJsonString(absl::string_view json_string,
               &cfg.erle.clamp_quality_estimate_to_zero);
     ReadParam(section, "clamp_quality_estimate_to_one",
               &cfg.erle.clamp_quality_estimate_to_one);
+    ReadParam(section, "erle_bounds", cfg.erle.erle_bounds);
+    ReadParam(section, "use_erle_bounds", &cfg.erle.use_erle_bounds);
   }
 
   if (rtc::GetValueFromJsonObject(aec3_root, "ep_strength", &section)) {
@@ -535,7 +555,15 @@ std::string Aec3ConfigToJsonString(const EchoCanceller3Config& config) {
   ost << "\"clamp_quality_estimate_to_zero\": "
       << (config.erle.clamp_quality_estimate_to_zero ? "true" : "false") << ",";
   ost << "\"clamp_quality_estimate_to_one\": "
-      << (config.erle.clamp_quality_estimate_to_one ? "true" : "false");
+      << (config.erle.clamp_quality_estimate_to_one ? "true" : "false") << ",";
+  ost << "\"erle_bounds\": [";
+  for (size_t k = 0; k < config.erle.erle_bounds.size() - 1; ++k) {
+    ost << config.erle.erle_bounds[k] << ",";
+  }
+  ost << config.erle.erle_bounds[config.erle.erle_bounds.size() - 1];
+  ost << "],";
+  ost << "\"use_erle_bounds\": "
+      << (config.erle.use_erle_bounds ? "true" : "false");
   ost << "},";
 
   ost << "\"ep_strength\": {";

@@ -107,11 +107,27 @@ std::vector<size_t> SetSectionsBoundaries(size_t delay_headroom_blocks,
   return estimator_boundaries_blocks;
 }
 
-std::array<float, SignalDependentErleEstimator::kSubbands>
-SetMaxErleSubbands(float max_erle_l, float max_erle_h, size_t limit_subband_l) {
+std::array<float, SignalDependentErleEstimator::kSubbands> SetMaxErleSubbands(
+    bool use_erle_bounds,
+    const std::array<float, kFftLengthBy2Plus1>& erle_bounds,
+    float max_erle_l,
+    float max_erle_h,
+    size_t limit_subband_l) {
   std::array<float, SignalDependentErleEstimator::kSubbands> max_erle;
-  std::fill(max_erle.begin(), max_erle.begin() + limit_subband_l, max_erle_l);
-  std::fill(max_erle.begin() + limit_subband_l, max_erle.end(), max_erle_h);
+
+  if (use_erle_bounds) {
+    size_t num_bins_per_band = erle_bounds.size() / max_erle.size();
+    for (size_t band = 0; band < max_erle.size(); ++band) {
+      max_erle[band] = 0.f;
+      for (size_t bin = 0; bin < num_bins_per_band; ++bin) {
+        max_erle[band] = std::max(max_erle[band],
+                                  erle_bounds[band * num_bins_per_band + bin]);
+      }
+    }
+  } else {
+    std::fill(max_erle.begin(), max_erle.begin() + limit_subband_l, max_erle_l);
+    std::fill(max_erle.begin() + limit_subband_l, max_erle.end(), max_erle_h);
+  }
   return max_erle;
 }
 
@@ -120,13 +136,16 @@ SetMaxErleSubbands(float max_erle_l, float max_erle_h, size_t limit_subband_l) {
 SignalDependentErleEstimator::SignalDependentErleEstimator(
     const EchoCanceller3Config& config,
     size_t num_capture_channels)
-    : min_erle_(config.erle.min),
+    : config_(config),
+      min_erle_(config.erle.min),
       num_sections_(config.erle.num_sections),
       num_blocks_(config.filter.refined.length_blocks),
       delay_headroom_blocks_(config.delay.delay_headroom_samples / kBlockSize),
       band_to_subband_(FormSubbandMap()),
-      max_erle_(SetMaxErleSubbands(config.erle.max_l,
-                                   config.erle.max_h,
+      max_erle_(SetMaxErleSubbands(config_.erle.use_erle_bounds,
+                                   config_.erle.erle_bounds,
+                                   config_.erle.max_l,
+                                   config_.erle.max_h,
                                    band_to_subband_[kFftLengthBy2 / 2])),
       section_boundaries_blocks_(SetSectionsBoundaries(delay_headroom_blocks_,
                                                        num_blocks_,
@@ -199,18 +218,34 @@ void SignalDependentErleEstimator::Update(
 
   // Applies the correction factor to the input erle for getting a more refined
   // erle estimation for the current input signal.
-  for (size_t ch = 0; ch < erle_.size(); ++ch) {
-    for (size_t k = 0; k < kFftLengthBy2; ++k) {
-      RTC_DCHECK_GT(correction_factors_[ch].size(), n_active_sections_[ch][k]);
-      float correction_factor =
-          correction_factors_[ch][n_active_sections_[ch][k]]
-                             [band_to_subband_[k]];
-      erle_[ch][k] = rtc::SafeClamp(average_erle[ch][k] * correction_factor,
-                                    min_erle_, max_erle_[band_to_subband_[k]]);
-      if (use_onset_detection_) {
-        erle_onset_compensated_[ch][k] = rtc::SafeClamp(
-            average_erle_onset_compensated[ch][k] * correction_factor,
-            min_erle_, max_erle_[band_to_subband_[k]]);
+  if (config_.erle.use_erle_bounds) {
+    for (size_t ch = 0; ch < erle_.size(); ++ch) {
+      for (size_t k = 0; k < kFftLengthBy2; ++k) {
+        RTC_DCHECK_GT(correction_factors_[ch].size(),
+                      n_active_sections_[ch][k]);
+        float correction_factor =
+            correction_factors_[ch][n_active_sections_[ch][k]]
+                               [band_to_subband_[k]];
+        erle_[ch][k] = rtc::SafeClamp(average_erle[ch][k] * correction_factor,
+                                      min_erle_, config_.erle.erle_bounds[k]);
+      }
+    }
+  } else {
+    for (size_t ch = 0; ch < erle_.size(); ++ch) {
+      for (size_t k = 0; k < kFftLengthBy2; ++k) {
+        RTC_DCHECK_GT(correction_factors_[ch].size(),
+                      n_active_sections_[ch][k]);
+        float correction_factor =
+            correction_factors_[ch][n_active_sections_[ch][k]]
+                               [band_to_subband_[k]];
+        erle_[ch][k] =
+            rtc::SafeClamp(average_erle[ch][k] * correction_factor, min_erle_,
+                           max_erle_[band_to_subband_[k]]);
+        if (use_onset_detection_) {
+          erle_onset_compensated_[ch][k] = rtc::SafeClamp(
+              average_erle_onset_compensated[ch][k] * correction_factor,
+              min_erle_, max_erle_[band_to_subband_[k]]);
+        }
       }
     }
   }

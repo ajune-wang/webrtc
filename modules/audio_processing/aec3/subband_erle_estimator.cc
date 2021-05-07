@@ -26,11 +26,19 @@ constexpr int kBlocksToHoldErle = 100;
 constexpr int kBlocksForOnsetDetection = kBlocksToHoldErle + 150;
 constexpr int kPointsToAccumulate = 6;
 
-std::array<float, kFftLengthBy2Plus1> SetMaxErleBands(float max_erle_l,
-                                                      float max_erle_h) {
+std::array<float, kFftLengthBy2Plus1> SetMaxErleBands(
+    bool use_erle_bounds,
+    const std::array<float, kFftLengthBy2Plus1>& erle_bounds,
+    float max_erle_l,
+    float max_erle_h) {
   std::array<float, kFftLengthBy2Plus1> max_erle;
-  std::fill(max_erle.begin(), max_erle.begin() + kFftLengthBy2 / 2, max_erle_l);
-  std::fill(max_erle.begin() + kFftLengthBy2 / 2, max_erle.end(), max_erle_h);
+  if (use_erle_bounds) {
+    std::copy(erle_bounds.begin(), erle_bounds.end(), max_erle.begin());
+  } else {
+    std::fill(max_erle.begin(), max_erle.begin() + kFftLengthBy2 / 2,
+              max_erle_l);
+    std::fill(max_erle.begin() + kFftLengthBy2 / 2, max_erle.end(), max_erle_h);
+  }
   return max_erle;
 }
 
@@ -44,7 +52,10 @@ SubbandErleEstimator::SubbandErleEstimator(const EchoCanceller3Config& config,
                                            size_t num_capture_channels)
     : use_onset_detection_(config.erle.onset_detection),
       min_erle_(config.erle.min),
-      max_erle_(SetMaxErleBands(config.erle.max_l, config.erle.max_h)),
+      max_erle_(SetMaxErleBands(config.erle.use_erle_bounds,
+                                config.erle.erle_bounds,
+                                config.erle.max_l,
+                                config.erle.max_h)),
       use_min_erle_during_onsets_(EnableMinErleDuringOnsets()),
       accum_spectra_(num_capture_channels),
       erle_(num_capture_channels),

@@ -25,6 +25,8 @@ TEST(EchoCanceller3JsonHelpers, ToStringAndParseJson) {
       !cfg.filter.high_pass_filter_echo_reference;
   cfg.comfort_noise.noise_floor_dbfs = 100.f;
   cfg.echo_model.model_reverb_in_nonlinear_mode = false;
+  cfg.erle.use_erle_bounds = !cfg.erle.use_erle_bounds;
+  cfg.erle.erle_bounds.fill(cfg.erle.erle_bounds[0] + 1.f);
   cfg.suppressor.normal_tuning.mask_hf.enr_suppress = .5f;
   cfg.suppressor.subband_nearend_detection.nearend_average_blocks = 3;
   cfg.suppressor.subband_nearend_detection.subband1 = {1, 3};
@@ -55,6 +57,8 @@ TEST(EchoCanceller3JsonHelpers, ToStringAndParseJson) {
             cfg_transformed.comfort_noise.noise_floor_dbfs);
   EXPECT_EQ(cfg.echo_model.model_reverb_in_nonlinear_mode,
             cfg_transformed.echo_model.model_reverb_in_nonlinear_mode);
+  EXPECT_EQ(cfg.erle.use_erle_bounds, cfg_transformed.erle.use_erle_bounds);
+  EXPECT_EQ(cfg.erle.erle_bounds, cfg_transformed.erle.erle_bounds);
   EXPECT_EQ(cfg.suppressor.normal_tuning.mask_hf.enr_suppress,
             cfg_transformed.suppressor.normal_tuning.mask_hf.enr_suppress);
   EXPECT_EQ(cfg.suppressor.subband_nearend_detection.nearend_average_blocks,

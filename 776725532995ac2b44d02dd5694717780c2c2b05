@@ -16,6 +16,52 @@
       "message": "Cleanup of old functions that shouldn\u0027t be used.\n\nTommi for API shape (\"deprecate ALL the things\").\nMirko to comment on the // nogncheck I added in api/peer_connection_interface.h\n",
       "revId": "776725532995ac2b44d02dd5694717780c2c2b05",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fae229c5_16c4be53",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-05-07T08:35:29Z",
+      "side": 1,
+      "message": "This should be moved before line 127.",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 43
+      },
+      "revId": "776725532995ac2b44d02dd5694717780c2c2b05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68d5d508_45dff8ac",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-05-07T08:35:29Z",
+      "side": 1,
+      "message": "Is this IWYU?",
+      "range": {
+        "startLine": 119,
+        "startChar": 0,
+        "endLine": 126,
+        "endChar": 50
+      },
+      "revId": "776725532995ac2b44d02dd5694717780c2c2b05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

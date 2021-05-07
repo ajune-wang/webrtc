@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20e24b0d_5ba539ff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-07T09:58:38Z",
+      "side": 1,
+      "message": "This is a simplification (good).\nOnly point to change: Using uint. The Style Gods have contemplated this matter, and say that it is Not Good.\n",
+      "revId": "370b2eff2cfea42e4a6c9bbb54e2d8b6385f7984",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bee1900_342e3fe9",
+        "filename": "api/transport/data_channel_transport_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-07T09:58:38Z",
+      "side": 1,
+      "message": "Google C++ stye guide recommends against using uint to represent \"cannot be negative\" - it says \"Use assertions for this\".\n\nhttps://google.github.io/styleguide/cppguide.html#Integer_Types",
+      "revId": "370b2eff2cfea42e4a6c9bbb54e2d8b6385f7984",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

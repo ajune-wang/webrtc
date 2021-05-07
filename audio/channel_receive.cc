@@ -627,7 +627,7 @@ void ChannelReceive::OnRtpPacket(const RtpPacketReceived& packet) {
                            rtc::saturated_cast<uint32_t>(
                                packet_copy.payload_type_frequency()),
                            header.extension.absolute_capture_time)
-          .adjusted_clock_offset;
+          .unadjusted_clock_offset;
 
   ReceivePacket(packet_copy.data(), packet_copy.size(), header);
 }

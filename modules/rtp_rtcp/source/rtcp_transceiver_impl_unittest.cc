@@ -82,13 +82,9 @@ constexpr int kAlmostForeverMs = 1000;
 // Helper to wait for an rtcp packet produced on a different thread/task queue.
 class FakeRtcpTransport : public webrtc::Transport {
  public:
-  bool SendRtcp(const uint8_t* data, size_t size) override {
-    sent_rtcp_.Set();
-    return true;
-  }
-  bool SendRtp(const uint8_t*, size_t, const webrtc::PacketOptions&) override {
+  void SendRtcp(const uint8_t* data, size_t size) override { sent_rtcp_.Set(); }
+  void SendRtp(const uint8_t*, size_t, const webrtc::PacketOptions&) override {
     ADD_FAILURE() << "RtcpTransciver shouldn't send rtp packets.";
-    return true;
   }
 
   // Returns true when packet was received by the transport.
@@ -113,15 +109,13 @@ class RtcpParserTransport : public webrtc::Transport {
   int num_packets() const { return num_packets_; }
 
  private:
-  bool SendRtcp(const uint8_t* data, size_t size) override {
+  void SendRtcp(const uint8_t* data, size_t size) override {
     ++num_packets_;
     parser_->Parse(data, size);
-    return true;
   }
 
-  bool SendRtp(const uint8_t*, size_t, const webrtc::PacketOptions&) override {
+  void SendRtp(const uint8_t*, size_t, const webrtc::PacketOptions&) override {
     ADD_FAILURE() << "RtcpTransciver shouldn't send rtp packets.";
-    return true;
   }
 
   RtcpPacketParser* const parser_;

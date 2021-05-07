@@ -119,16 +119,15 @@ class LoopbackTransportTest : public webrtc::Transport {
         kRepairedRidExtensionId);
   }
 
-  bool SendRtp(const uint8_t* data,
+  void SendRtp(const uint8_t* data,
                size_t len,
                const PacketOptions& options) override {
     last_options_ = options;
     total_bytes_sent_ += len;
     sent_packets_.push_back(RtpPacketReceived(&receivers_extensions_));
     EXPECT_TRUE(sent_packets_.back().Parse(data, len));
-    return true;
   }
-  bool SendRtcp(const uint8_t* data, size_t len) override { return false; }
+  void SendRtcp(const uint8_t* data, size_t len) override {}
   const RtpPacketReceived& last_sent_packet() { return sent_packets_.back(); }
   int packets_sent() { return sent_packets_.size(); }
 
@@ -535,13 +534,13 @@ TEST_P(RtpSenderTest, PaddingAlwaysAllowedOnAudio) {
 
   const size_t kPaddingSize = 59;
   EXPECT_CALL(transport, SendRtp(_, kPaddingSize + kRtpHeaderSize, _))
-      .WillOnce(Return(true));
+      .WillOnce(Return());
   EXPECT_EQ(kPaddingSize, GenerateAndSendPadding(kPaddingSize));
 
   // Requested padding size is too small, will send a larger one.
   const size_t kMinPaddingSize = 50;
   EXPECT_CALL(transport, SendRtp(_, kMinPaddingSize + kRtpHeaderSize, _))
-      .WillOnce(Return(true));
+      .WillOnce(Return());
   EXPECT_EQ(kMinPaddingSize, GenerateAndSendPadding(kMinPaddingSize - 5));
 }
 

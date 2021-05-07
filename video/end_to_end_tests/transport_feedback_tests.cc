@@ -62,14 +62,14 @@ TEST(TransportFeedbackMultiStreamTest, AssignsTransportSequenceNumbers) {
     }
     virtual ~RtpExtensionHeaderObserver() {}
 
-    bool SendRtp(const uint8_t* data,
+    void SendRtp(const uint8_t* data,
                  size_t length,
                  const PacketOptions& options) override {
       {
         MutexLock lock(&lock_);
 
         if (IsDone())
-          return false;
+          return;
 
         if (started_) {
           RtpPacket rtp_packet(&extensions_);
@@ -119,11 +119,11 @@ TEST(TransportFeedbackMultiStreamTest, AssignsTransportSequenceNumbers) {
             done_.Set();
 
           if (drop_packet)
-            return true;
+            return;
         }
       }
 
-      return test::DirectTransport::SendRtp(data, length, options);
+      test::DirectTransport::SendRtp(data, length, options);
     }
 
     bool IsDone() {

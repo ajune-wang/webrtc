@@ -118,10 +118,10 @@ class AndroidVoipClient : public webrtc::Transport,
   void Delete(JNIEnv* env);
 
   // Implementation for Transport.
-  bool SendRtp(const uint8_t* packet,
+  void SendRtp(const uint8_t* packet,
                size_t length,
                const webrtc::PacketOptions& options) override;
-  bool SendRtcp(const uint8_t* packet, size_t length) override;
+  void SendRtcp(const uint8_t* packet, size_t length) override;
 
   // Slots for sockets to connect to.
   void OnSignalReadRTPPacket(rtc::AsyncPacketSocket* socket,

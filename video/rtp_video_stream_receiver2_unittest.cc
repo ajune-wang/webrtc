@@ -73,11 +73,11 @@ RTPVideoHeader GetGenericVideoHeader(VideoFrameType frame_type) {
 
 class MockTransport : public Transport {
  public:
-  MOCK_METHOD(bool,
+  MOCK_METHOD(void,
               SendRtp,
               (const uint8_t*, size_t length, const PacketOptions& options),
               (override));
-  MOCK_METHOD(bool, SendRtcp, (const uint8_t*, size_t length), (override));
+  MOCK_METHOD(void, SendRtcp, (const uint8_t*, size_t length), (override));
 };
 
 class MockNackSender : public NackSender {

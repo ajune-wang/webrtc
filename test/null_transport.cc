@@ -12,15 +12,11 @@
 namespace webrtc {
 namespace test {
 
-bool NullTransport::SendRtp(const uint8_t* packet,
+void NullTransport::SendRtp(const uint8_t* packet,
                             size_t length,
-                            const PacketOptions& options) {
-  return true;
-}
+                            const PacketOptions& options) {}
 
-bool NullTransport::SendRtcp(const uint8_t* packet, size_t length) {
-  return true;
-}
+void NullTransport::SendRtcp(const uint8_t* packet, size_t length) {}
 
 }  // namespace test
 }  // namespace webrtc

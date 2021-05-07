@@ -50,7 +50,7 @@ class LayerFilteringTransport : public test::DirectTransport {
       int selected_sl,
       const std::map<uint8_t, MediaType>& payload_type_map);
   bool DiscardedLastPacket() const;
-  bool SendRtp(const uint8_t* data,
+  void SendRtp(const uint8_t* data,
                size_t length,
                const PacketOptions& options) override;
 

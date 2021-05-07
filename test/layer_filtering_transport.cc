@@ -75,12 +75,13 @@ bool LayerFilteringTransport::DiscardedLastPacket() const {
   return discarded_last_packet_;
 }
 
-bool LayerFilteringTransport::SendRtp(const uint8_t* packet,
+void LayerFilteringTransport::SendRtp(const uint8_t* packet,
                                       size_t length,
                                       const PacketOptions& options) {
   if (selected_tl_ == -1 && selected_sl_ == -1) {
     // Nothing to change, forward the packet immediately.
-    return test::DirectTransport::SendRtp(packet, length, options);
+    test::DirectTransport::SendRtp(packet, length, options);
+    return;
   }
 
   RtpPacket rtp_packet;
@@ -89,7 +90,8 @@ bool LayerFilteringTransport::SendRtp(const uint8_t* packet,
   if (rtp_packet.Ssrc() < ssrc_to_filter_min_ ||
       rtp_packet.Ssrc() > ssrc_to_filter_max_) {
     // Nothing to change, forward the packet immediately.
-    return test::DirectTransport::SendRtp(packet, length, options);
+    test::DirectTransport::SendRtp(packet, length, options);
+    return;
   }
 
   if (rtp_packet.PayloadType() == vp8_video_payload_type_ ||
@@ -167,8 +169,7 @@ bool LayerFilteringTransport::SendRtp(const uint8_t* packet,
     }
   }
 
-  return test::DirectTransport::SendRtp(rtp_packet.data(), rtp_packet.size(),
-                                        options);
+  test::DirectTransport::SendRtp(rtp_packet.data(), rtp_packet.size(), options);
 }
 
 }  // namespace test

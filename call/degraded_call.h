@@ -141,10 +141,10 @@ class DegradedCall : public Call, private PacketReceiver {
                                     Transport* real_transport);
     ~FakeNetworkPipeTransportAdapter();
 
-    bool SendRtp(const uint8_t* packet,
+    void SendRtp(const uint8_t* packet,
                  size_t length,
                  const PacketOptions& options) override;
-    bool SendRtcp(const uint8_t* packet, size_t length) override;
+    void SendRtcp(const uint8_t* packet, size_t length) override;
 
    private:
     FakeNetworkPipeOnTaskQueue* const network_pipe_;

@@ -75,13 +75,13 @@ class RtxLoopBackTransport : public webrtc::Transport {
     packet_loss_ = 0;
   }
 
-  bool SendRtp(const uint8_t* data,
+  void SendRtp(const uint8_t* data,
                size_t len,
                const PacketOptions& options) override {
     count_++;
     RtpPacketReceived packet;
     if (!packet.Parse(data, len))
-      return false;
+      return;
     if (packet.Ssrc() == rtx_ssrc_) {
       count_rtx_ssrc_++;
     } else {
@@ -91,19 +91,17 @@ class RtxLoopBackTransport : public webrtc::Transport {
     }
     if (packet_loss_ > 0) {
       if ((count_ % packet_loss_) == 0) {
-        return true;
+        return;
       }
     } else if (count_ >= consecutive_drop_start_ &&
                count_ < consecutive_drop_end_) {
-      return true;
+      return;
     }
     EXPECT_TRUE(stream_receiver_controller_.OnRtpPacket(packet));
-    return true;
   }
 
-  bool SendRtcp(const uint8_t* data, size_t len) override {
-    module_->IncomingRtcpPacket((const uint8_t*)data, len);
-    return true;
+  void SendRtcp(const uint8_t* data, size_t len) override {
+    module_->IncomingRtcpPacket(data, len);
   }
   int count_;
   int packet_loss_;

@@ -16,6 +16,24 @@
       "message": "nit: ConnectSockets()?",
       "revId": "67d473bd5d9392bd4c28998c5b6c709327fdb2a7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a9dd3e5_1ff1f3ac",
+        "filename": "net/dcsctp/socket/dcsctp_socket_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-07T09:28:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "acb9baaf_8079685c",
+      "revId": "67d473bd5d9392bd4c28998c5b6c709327fdb2a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -74,11 +74,11 @@ class VideoAnalyzer : public PacketReceiver,
   void PreEncodeOnFrame(const VideoFrame& video_frame);
   void PostEncodeOnFrame(size_t stream_id, uint32_t timestamp);
 
-  bool SendRtp(const uint8_t* packet,
+  void SendRtp(const uint8_t* packet,
                size_t length,
                const PacketOptions& options) override;
 
-  bool SendRtcp(const uint8_t* packet, size_t length) override;
+  void SendRtcp(const uint8_t* packet, size_t length) override;
   void OnFrame(const VideoFrame& video_frame) override;
   void Wait();
 

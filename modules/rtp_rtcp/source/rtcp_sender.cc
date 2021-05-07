@@ -616,11 +616,10 @@ int32_t RTCPSender::SendRTCP(const FeedbackState& feedback_state,
                              const uint16_t* nack_list) {
   int32_t error_code = -1;
   auto callback = [&](rtc::ArrayView<const uint8_t> packet) {
-    if (transport_->SendRtcp(packet.data(), packet.size())) {
-      error_code = 0;
-      if (event_log_) {
-        event_log_->Log(std::make_unique<RtcEventRtcpPacketOutgoing>(packet));
-      }
+    transport_->SendRtcp(packet.data(), packet.size());
+    error_code = 0;
+    if (event_log_) {
+      event_log_->Log(std::make_unique<RtcEventRtcpPacketOutgoing>(packet));
     }
   };
   absl::optional<PacketSender> sender;
@@ -903,10 +902,9 @@ void RTCPSender::SendCombinedRtcpPacket(
   }
   RTC_DCHECK_LE(max_packet_size, IP_PACKET_SIZE);
   auto callback = [&](rtc::ArrayView<const uint8_t> packet) {
-    if (transport_->SendRtcp(packet.data(), packet.size())) {
-      if (event_log_)
-        event_log_->Log(std::make_unique<RtcEventRtcpPacketOutgoing>(packet));
-    }
+    transport_->SendRtcp(packet.data(), packet.size());
+    if (event_log_)
+      event_log_->Log(std::make_unique<RtcEventRtcpPacketOutgoing>(packet));
   };
   PacketSender sender(callback, max_packet_size);
   for (auto& rtcp_packet : rtcp_packets) {

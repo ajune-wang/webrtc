@@ -51,10 +51,10 @@ class DirectTransport : public Transport {
   // TODO(holmer): Look into moving this to the constructor.
   virtual void SetReceiver(PacketReceiver* receiver);
 
-  bool SendRtp(const uint8_t* data,
+  void SendRtp(const uint8_t* data,
                size_t length,
                const PacketOptions& options) override;
-  bool SendRtcp(const uint8_t* data, size_t length) override;
+  void SendRtcp(const uint8_t* data, size_t length) override;
 
   int GetAverageDelayMs();
 

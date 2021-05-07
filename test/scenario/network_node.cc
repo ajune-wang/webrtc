@@ -73,7 +73,7 @@ NetworkNodeTransport::NetworkNodeTransport(Clock* sender_clock,
 
 NetworkNodeTransport::~NetworkNodeTransport() = default;
 
-bool NetworkNodeTransport::SendRtp(const uint8_t* packet,
+void NetworkNodeTransport::SendRtp(const uint8_t* packet,
                                    size_t length,
                                    const PacketOptions& options) {
   int64_t send_time_ms = sender_clock_->TimeInMilliseconds();
@@ -88,21 +88,19 @@ bool NetworkNodeTransport::SendRtp(const uint8_t* packet,
 
   MutexLock lock(&mutex_);
   if (!endpoint_)
-    return false;
+    return;
   rtc::CopyOnWriteBuffer buffer(packet, length);
   endpoint_->SendPacket(local_address_, remote_address_, buffer,
                         packet_overhead_.bytes());
-  return true;
 }
 
-bool NetworkNodeTransport::SendRtcp(const uint8_t* packet, size_t length) {
+void NetworkNodeTransport::SendRtcp(const uint8_t* packet, size_t length) {
   rtc::CopyOnWriteBuffer buffer(packet, length);
   MutexLock lock(&mutex_);
   if (!endpoint_)
-    return false;
+    return;
   endpoint_->SendPacket(local_address_, remote_address_, buffer,
                         packet_overhead_.bytes());
-  return true;
 }
 
 void NetworkNodeTransport::Connect(EmulatedEndpoint* endpoint,

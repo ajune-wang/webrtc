@@ -309,7 +309,7 @@ TEST_F(AudioChannelTest, RttIsAvailableAfterChangeOfRemoteSsrc) {
     audio_mixer_->Mix(/*number_of_channels=*/1, &audio_frame);
 
     // Revert to default to avoid using reference in route_rtp lambda.
-    ON_CALL(transport_, SendRtp).WillByDefault(Return(true));
+    ON_CALL(transport_, SendRtp).WillByDefault(Return());
   };
 
   auto send_recv_rtcp = [&](rtc::scoped_refptr<AudioChannel> rtcp_sender,
@@ -325,7 +325,7 @@ TEST_F(AudioChannelTest, RttIsAvailableAfterChangeOfRemoteSsrc) {
     rtcp_sender->SendRTCPReportForTesting(kRtcpSr);
 
     // Revert to default to avoid using reference in route_rtcp lambda.
-    ON_CALL(transport_, SendRtcp).WillByDefault(Return(true));
+    ON_CALL(transport_, SendRtcp).WillByDefault(Return());
   };
 
   // AC1 <-- RTP/RTCP --> AC2

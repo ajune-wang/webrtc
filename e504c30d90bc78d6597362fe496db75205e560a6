@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbc5b611_b0ee8055",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-05-07T06:37:29Z",
+      "side": 1,
+      "message": "It\u0027s not the most elegant way to indicate two different forms of update, but in this case I think it\u0027s warranted. Consider if you can give this a bit more of a semantic or general meaning. Maybe is_periodic_update or something? It also makes it a bit more clear why we want it sometimes but not others.",
+      "range": {
+        "startLine": 270,
+        "startChar": 9,
+        "endLine": 270,
+        "endChar": 41
+      },
+      "revId": "e504c30d90bc78d6597362fe496db75205e560a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

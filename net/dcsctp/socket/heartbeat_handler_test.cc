@@ -41,6 +41,7 @@ class HeartbeatHandlerTest : public testing::Test {
  protected:
   HeartbeatHandlerTest()
       : options_(MakeOptions()),
+        callbacks_("socket"),
         context_(&callbacks_),
         timer_manager_([this]() { return callbacks_.CreateTimeout(); }),
         handler_("log: ", options_, &context_, &timer_manager_) {}

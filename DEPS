@@ -7,14 +7,14 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '8a149a190c476fbe12fd4944fb006e601f275e05',
+  'chromium_revision': '579e701702171abe92894c993b9cd6eb880c51c9',
 }
 
 deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@4999280222842357482522519a5b7217e1de73a5',
+    'https://chromium.googlesource.com/chromium/src/base@11575c0a74c3b9f87911f08cf4616f4417fc7001',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@c844180242cb01fd21f29882e88f03366a6f286c',
   'src/buildtools':
@@ -208,7 +208,7 @@ deps = {
       'condition': 'checkout_android',
   },
   'src/third_party/perfetto':
-    'https://android.googlesource.com/platform/external/perfetto.git@2b0fcfa349ac5ccd7851e459ec683a8e687f7c75',
+    'https://android.googlesource.com/platform/external/perfetto.git@7dc7013d1b97fe8e4a1b653ae7c819e946ab1bc7',
   'src/third_party/libvpx/source/libvpx':
     'https://chromium.googlesource.com/webm/libvpx.git@61edec1efbea1c02d71857e2aff9426d9cd2df4e',
   'src/third_party/libyuv':
@@ -476,15 +476,15 @@ deps = {
       'packages': [
         {
           'package': 'infra/tools/luci/isolate/${{platform}}',
-          'version': 'git_revision:1b257aacd4934e5a8b2508b240ffc7d866df9273',
+          'version': 'git_revision:fa78eb7ab25ca5d574c0741c8c1a02d6fd7ed66d',
         },
         {
           'package': 'infra/tools/luci/isolated/${{platform}}',
-          'version': 'git_revision:1b257aacd4934e5a8b2508b240ffc7d866df9273',
+          'version': 'git_revision:fa78eb7ab25ca5d574c0741c8c1a02d6fd7ed66d',
         },
         {
           'package': 'infra/tools/luci/swarming/${{platform}}',
-          'version': 'git_revision:1b257aacd4934e5a8b2508b240ffc7d866df9273',
+          'version': 'git_revision:fa78eb7ab25ca5d574c0741c8c1a02d6fd7ed66d',
         },
       ],
       'dep_type': 'cipd',

@@ -247,9 +247,15 @@ int WebRtcOpus_Encode(OpusEncInst* inst,
           inst, rtc::MakeArrayView(audio_in, samples),
           rtc::MakeArrayView(encoded, res))) {
     // This packet is a high energy refresh DTX packet. For avoiding an increase
-    // of the energy in the DTX region at the decoder, this packet is dropped.
-    inst->in_dtx_mode = 0;
-    return 0;
+    // of the energy in the DTX region at the decoder, this packet is
+    // substituted by a TOC byte with one empty frame.
+    // The number of frames described in the TOC byte
+    // (https://tools.ietf.org/html/rfc6716#section-3.1) are overwritten to
+    // always indicate one frame (last two bits equal to 0).
+    encoded[0] = encoded[0] & 0b11111100;
+    inst->in_dtx_mode = 1;
+    // The payload is just the TOC byte and has 1 byte as length.
+    return 1;
   }
   inst->in_dtx_mode = 0;
   return res;
@@ -652,6 +658,11 @@ int WebRtcOpus_Decode(OpusDecInst* inst,
                       int16_t* audio_type) {
   int decoded_samples;
 
+  if (inst->data_dumper_ == nullptr) {
+    webrtc::ApmDataDumper::SetActivated(true);
+    inst->data_dumper_.reset(new webrtc::ApmDataDumper(1));
+  }
+
   if (encoded_bytes == 0) {
     *audio_type = DetermineAudioType(inst, encoded_bytes);
     decoded_samples = DecodePlc(inst, decoded);
@@ -660,6 +671,8 @@ int WebRtcOpus_Decode(OpusDecInst* inst,
                                    MaxFrameSizePerChannel(inst->sample_rate_hz),
                                    decoded, audio_type, 0);
   }
+  inst->data_dumper_->DumpRaw("decoded_samples", decoded_samples);
+
   if (decoded_samples < 0) {
     return -1;
   }
@@ -668,6 +681,9 @@ int WebRtcOpus_Decode(OpusDecInst* inst,
     /* Update decoded sample memory, to be used by the PLC in case of losses. */
     inst->prev_decoded_samples = decoded_samples;
   }
+
+  inst->data_dumper_->DumpRaw("decoded_size", static_cast<int>(encoded_bytes));
+  inst->data_dumper_->DumpRaw("decoded_pcm", decoded_samples, decoded);
 
   return decoded_samples;
 }

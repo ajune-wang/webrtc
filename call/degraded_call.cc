@@ -97,7 +97,7 @@ DegradedCall::FakeNetworkPipeTransportAdapter::
   network_pipe_->RemoveActiveTransport(real_transport_);
 }
 
-bool DegradedCall::FakeNetworkPipeTransportAdapter::SendRtp(
+void DegradedCall::FakeNetworkPipeTransportAdapter::SendRtp(
     const uint8_t* packet,
     size_t length,
     const PacketOptions& options) {
@@ -115,14 +115,12 @@ bool DegradedCall::FakeNetworkPipeTransportAdapter::SendRtp(
     sent_packet.info.packet_type = rtc::PacketType::kData;
     call_->OnSentPacket(sent_packet);
   }
-  return true;
 }
 
-bool DegradedCall::FakeNetworkPipeTransportAdapter::SendRtcp(
+void DegradedCall::FakeNetworkPipeTransportAdapter::SendRtcp(
     const uint8_t* packet,
     size_t length) {
   network_pipe_->SendRtcp(packet, length, real_transport_);
-  return true;
 }
 
 DegradedCall::DegradedCall(

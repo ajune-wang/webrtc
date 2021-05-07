@@ -95,7 +95,7 @@ class PacketTransport : public test::DirectTransport {
         transport_type_(transport_type) {}
 
  private:
-  bool SendRtp(const uint8_t* packet,
+  void SendRtp(const uint8_t* packet,
                size_t length,
                const PacketOptions& options) override {
     EXPECT_FALSE(RtpHeaderParser::IsRtcp(packet, length));
@@ -110,14 +110,14 @@ class PacketTransport : public test::DirectTransport {
     switch (action) {
       case RtpRtcpObserver::DROP_PACKET:
         // Drop packet silently.
-        return true;
+        break;
       case RtpRtcpObserver::SEND_PACKET:
-        return test::DirectTransport::SendRtp(packet, length, options);
+        test::DirectTransport::SendRtp(packet, length, options);
+        break;
     }
-    return true;  // Will never happen, makes compiler happy.
   }
 
-  bool SendRtcp(const uint8_t* packet, size_t length) override {
+  void SendRtcp(const uint8_t* packet, size_t length) override {
     EXPECT_TRUE(RtpHeaderParser::IsRtcp(packet, length));
     RtpRtcpObserver::Action action;
     {
@@ -130,11 +130,11 @@ class PacketTransport : public test::DirectTransport {
     switch (action) {
       case RtpRtcpObserver::DROP_PACKET:
         // Drop packet silently.
-        return true;
+        break;
       case RtpRtcpObserver::SEND_PACKET:
-        return test::DirectTransport::SendRtcp(packet, length);
+        test::DirectTransport::SendRtcp(packet, length);
+        break;
     }
-    return true;  // Will never happen, makes compiler happy.
   }
 
   RtpRtcpObserver* const observer_;

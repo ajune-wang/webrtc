@@ -2015,16 +2015,14 @@ std::vector<webrtc::RtpSource> WebRtcVideoChannel::GetSources(
   return it->second->GetSources();
 }
 
-bool WebRtcVideoChannel::SendRtp(const uint8_t* data,
+void WebRtcVideoChannel::SendRtp(const uint8_t* data,
                                  size_t len,
                                  const webrtc::PacketOptions& options) {
   MediaChannel::SendRtp(data, len, options);
-  return true;
 }
 
-bool WebRtcVideoChannel::SendRtcp(const uint8_t* data, size_t len) {
+void WebRtcVideoChannel::SendRtcp(const uint8_t* data, size_t len) {
   MediaChannel::SendRtcp(data, len);
-  return true;
 }
 
 WebRtcVideoChannel::WebRtcVideoSendStream::VideoSendStreamParameters::

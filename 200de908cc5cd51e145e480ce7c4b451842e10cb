@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7a1a194_aa706907",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-05-07T15:59:32Z",
+      "side": 1,
+      "message": "Nisse - FYI - I don\u0027t think this is worth the effort at this point.",
+      "revId": "200de908cc5cd51e145e480ce7c4b451842e10cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

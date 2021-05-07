@@ -239,11 +239,11 @@ class WebRtcVoiceMediaChannel final : public VoiceMediaChannel,
       override;
 
   // implements Transport interface
-  bool SendRtp(const uint8_t* data,
+  void SendRtp(const uint8_t* data,
                size_t len,
                const webrtc::PacketOptions& options) override;
 
-  bool SendRtcp(const uint8_t* data, size_t len) override;
+  void SendRtcp(const uint8_t* data, size_t len) override;
 
  private:
   bool SetOptions(const AudioOptions& options);

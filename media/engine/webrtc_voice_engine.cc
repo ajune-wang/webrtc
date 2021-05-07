@@ -2554,16 +2554,14 @@ void WebRtcVoiceMediaChannel::SetDepacketizerToDecoderFrameTransformer(
       std::move(frame_transformer));
 }
 
-bool WebRtcVoiceMediaChannel::SendRtp(const uint8_t* data,
+void WebRtcVoiceMediaChannel::SendRtp(const uint8_t* data,
                                       size_t len,
                                       const webrtc::PacketOptions& options) {
   MediaChannel::SendRtp(data, len, options);
-  return true;
 }
 
-bool WebRtcVoiceMediaChannel::SendRtcp(const uint8_t* data, size_t len) {
+void WebRtcVoiceMediaChannel::SendRtcp(const uint8_t* data, size_t len) {
   MediaChannel::SendRtcp(data, len);
-  return true;
 }
 
 bool WebRtcVoiceMediaChannel::MaybeDeregisterUnsignaledRecvStream(

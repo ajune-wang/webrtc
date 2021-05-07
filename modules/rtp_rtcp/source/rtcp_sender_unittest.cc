@@ -53,14 +53,11 @@ class TestTransport : public Transport {
  public:
   TestTransport() {}
 
-  bool SendRtp(const uint8_t* /*data*/,
+  void SendRtp(const uint8_t* /*data*/,
                size_t /*len*/,
-               const PacketOptions& options) override {
-    return false;
-  }
-  bool SendRtcp(const uint8_t* data, size_t len) override {
+               const PacketOptions& options) override {}
+  void SendRtcp(const uint8_t* data, size_t len) override {
     parser_.Parse(data, len);
-    return true;
   }
   test::RtcpPacketParser parser_;
 };

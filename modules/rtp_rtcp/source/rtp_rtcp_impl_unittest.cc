@@ -69,7 +69,7 @@ class SendTransport : public Transport {
     clock_ = clock;
     delay_ms_ = delay_ms;
   }
-  bool SendRtp(const uint8_t* data,
+  void SendRtp(const uint8_t* data,
                size_t len,
                const PacketOptions& options) override {
     RTPHeader header;
@@ -77,9 +77,8 @@ class SendTransport : public Transport {
     EXPECT_TRUE(parser->Parse(static_cast<const uint8_t*>(data), len, &header));
     ++rtp_packets_sent_;
     last_rtp_header_ = header;
-    return true;
   }
-  bool SendRtcp(const uint8_t* data, size_t len) override {
+  void SendRtcp(const uint8_t* data, size_t len) override {
     test::RtcpPacketParser parser;
     parser.Parse(data, len);
     last_nack_list_ = parser.nack()->packet_ids();
@@ -90,7 +89,6 @@ class SendTransport : public Transport {
     EXPECT_TRUE(receiver_);
     receiver_->IncomingRtcpPacket(data, len);
     ++rtcp_packets_sent_;
-    return true;
   }
   size_t NumRtcpSent() { return rtcp_packets_sent_; }
   ModuleRtpRtcpImpl* receiver_;

@@ -32,16 +32,14 @@ class NetworkStateEndToEndTest : public test::CallTest {
  protected:
   class UnusedTransport : public Transport {
    private:
-    bool SendRtp(const uint8_t* packet,
+    void SendRtp(const uint8_t* packet,
                  size_t length,
                  const PacketOptions& options) override {
       ADD_FAILURE() << "Unexpected RTP sent.";
-      return false;
     }
 
-    bool SendRtcp(const uint8_t* packet, size_t length) override {
+    void SendRtcp(const uint8_t* packet, size_t length) override {
       ADD_FAILURE() << "Unexpected RTCP sent.";
-      return false;
     }
   };
   class RequiredTransport : public Transport {
@@ -58,18 +56,16 @@ class NetworkStateEndToEndTest : public test::CallTest {
     }
 
    private:
-    bool SendRtp(const uint8_t* packet,
+    void SendRtp(const uint8_t* packet,
                  size_t length,
                  const PacketOptions& options) override {
       MutexLock lock(&mutex_);
       need_rtp_ = false;
-      return true;
     }
 
-    bool SendRtcp(const uint8_t* packet, size_t length) override {
+    void SendRtcp(const uint8_t* packet, size_t length) override {
       MutexLock lock(&mutex_);
       need_rtcp_ = false;
-      return true;
     }
     bool need_rtp_;
     bool need_rtcp_;

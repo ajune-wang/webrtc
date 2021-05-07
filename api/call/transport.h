@@ -40,10 +40,10 @@ struct PacketOptions {
 
 class Transport {
  public:
-  virtual bool SendRtp(const uint8_t* packet,
+  virtual void SendRtp(const uint8_t* packet,
                        size_t length,
                        const PacketOptions& options) = 0;
-  virtual bool SendRtcp(const uint8_t* packet, size_t length) = 0;
+  virtual void SendRtcp(const uint8_t* packet, size_t length) = 0;
 
  protected:
   virtual ~Transport() {}

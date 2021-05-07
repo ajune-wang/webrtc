@@ -104,16 +104,15 @@ class TestTransport : public Transport {
  public:
   explicit TestTransport(RtpHeaderExtensionMap* extensions)
       : total_data_sent_(DataSize::Zero()), extensions_(extensions) {}
-  bool SendRtp(const uint8_t* packet,
+  void SendRtp(const uint8_t* packet,
                size_t length,
                const PacketOptions& options) override {
     total_data_sent_ += DataSize::Bytes(length);
     last_packet_.emplace(rtc::MakeArrayView(packet, length), options,
                          extensions_);
-    return true;
   }
 
-  bool SendRtcp(const uint8_t*, size_t) override { RTC_CHECK_NOTREACHED(); }
+  void SendRtcp(const uint8_t*, size_t) override { RTC_CHECK_NOTREACHED(); }
 
   absl::optional<TransmittedPacket> last_packet() { return last_packet_; }
 

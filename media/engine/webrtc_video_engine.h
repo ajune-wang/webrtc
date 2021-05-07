@@ -519,10 +519,10 @@ class WebRtcVideoChannel : public VideoMediaChannel,
 
   void Construct(webrtc::Call* call, WebRtcVideoEngine* engine);
 
-  bool SendRtp(const uint8_t* data,
+  void SendRtp(const uint8_t* data,
                size_t len,
                const webrtc::PacketOptions& options) override;
-  bool SendRtcp(const uint8_t* data, size_t len) override;
+  void SendRtcp(const uint8_t* data, size_t len) override;
 
   // Generate the list of codec parameters to pass down based on the negotiated
   // "codecs". Note that VideoCodecSettings correspond to concrete codecs like

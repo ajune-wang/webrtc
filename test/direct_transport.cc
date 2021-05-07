@@ -58,7 +58,7 @@ void DirectTransport::SetReceiver(PacketReceiver* receiver) {
   fake_network_->SetReceiver(receiver);
 }
 
-bool DirectTransport::SendRtp(const uint8_t* data,
+void DirectTransport::SendRtp(const uint8_t* data,
                               size_t length,
                               const PacketOptions& options) {
   if (send_call_) {
@@ -70,12 +70,10 @@ bool DirectTransport::SendRtp(const uint8_t* data,
     send_call_->OnSentPacket(sent_packet);
   }
   SendPacket(data, length);
-  return true;
 }
 
-bool DirectTransport::SendRtcp(const uint8_t* data, size_t length) {
+void DirectTransport::SendRtcp(const uint8_t* data, size_t length) {
   SendPacket(data, length);
-  return true;
 }
 
 void DirectTransport::SendPacket(const uint8_t* data, size_t length) {

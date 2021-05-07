@@ -55,11 +55,11 @@ constexpr int kDefaultTimeOutMs = 50;
 
 class MockTransport : public Transport {
  public:
-  MOCK_METHOD(bool,
+  MOCK_METHOD(void,
               SendRtp,
               (const uint8_t*, size_t length, const PacketOptions& options),
               (override));
-  MOCK_METHOD(bool, SendRtcp, (const uint8_t*, size_t length), (override));
+  MOCK_METHOD(void, SendRtcp, (const uint8_t*, size_t length), (override));
 };
 
 class MockVideoDecoder : public VideoDecoder {
@@ -610,7 +610,6 @@ TEST_P(VideoReceiveStream2TestWithSimulatedClock,
   auto tick = TimeDelta::Millis(GetParam() / 2);
   EXPECT_CALL(mock_transport_, SendRtcp).Times(1).WillOnce(Invoke([this]() {
     loop_.Quit();
-    return 0;
   }));
   video_receive_stream_.GenerateKeyFrame();
   PassEncodedFrameAndWait(MakeFrame(VideoFrameType::kVideoFrameDelta, 0));
@@ -623,7 +622,6 @@ TEST_P(VideoReceiveStream2TestWithSimulatedClock,
   // sent again.
   EXPECT_CALL(mock_transport_, SendRtcp).Times(1).WillOnce(Invoke([this]() {
     loop_.Quit();
-    return 0;
   }));
   time_controller_.AdvanceTime(tick);
   PassEncodedFrameAndWait(MakeFrame(VideoFrameType::kVideoFrameDelta, 2));

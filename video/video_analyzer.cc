@@ -264,7 +264,7 @@ void VideoAnalyzer::PostEncodeOnFrame(size_t stream_id, uint32_t timestamp) {
   }
 }
 
-bool VideoAnalyzer::SendRtp(const uint8_t* packet,
+void VideoAnalyzer::SendRtp(const uint8_t* packet,
                             size_t length,
                             const PacketOptions& options) {
   RtpPacket rtp_packet;
@@ -272,34 +272,32 @@ bool VideoAnalyzer::SendRtp(const uint8_t* packet,
 
   int64_t current_time = clock_->CurrentNtpInMilliseconds();
 
-  bool result = transport_->SendRtp(packet, length, options);
-  {
-    MutexLock lock(&lock_);
-    if (rtp_timestamp_delta_ == 0 && rtp_packet.Ssrc() == ssrc_to_analyze_) {
-      RTC_CHECK(static_cast<bool>(first_sent_timestamp_));
-      rtp_timestamp_delta_ = rtp_packet.Timestamp() - *first_sent_timestamp_;
-    }
+  transport_->SendRtp(packet, length, options);
 
-    if (!IsFlexfec(rtp_packet.PayloadType()) &&
-        rtp_packet.Ssrc() == ssrc_to_analyze_) {
-      // Ignore FlexFEC timestamps, to avoid collisions with media timestamps.
-      // (FlexFEC and media are sent on different SSRCs, which have different
-      // timestamps spaces.)
-      // Also ignore packets from wrong SSRC and retransmits.
-      int64_t timestamp =
-          wrap_handler_.Unwrap(rtp_packet.Timestamp() - rtp_timestamp_delta_);
-      send_times_[timestamp] = current_time;
+  MutexLock lock(&lock_);
+  if (rtp_timestamp_delta_ == 0 && rtp_packet.Ssrc() == ssrc_to_analyze_) {
+    RTC_CHECK(static_cast<bool>(first_sent_timestamp_));
+    rtp_timestamp_delta_ = rtp_packet.Timestamp() - *first_sent_timestamp_;
+  }
 
-      if (IsInSelectedSpatialAndTemporalLayer(rtp_packet)) {
-        encoded_frame_sizes_[timestamp] += rtp_packet.payload_size();
-      }
+  if (!IsFlexfec(rtp_packet.PayloadType()) &&
+      rtp_packet.Ssrc() == ssrc_to_analyze_) {
+    // Ignore FlexFEC timestamps, to avoid collisions with media timestamps.
+    // (FlexFEC and media are sent on different SSRCs, which have different
+    // timestamps spaces.)
+    // Also ignore packets from wrong SSRC and retransmits.
+    int64_t timestamp =
+        wrap_handler_.Unwrap(rtp_packet.Timestamp() - rtp_timestamp_delta_);
+    send_times_[timestamp] = current_time;
+
+    if (IsInSelectedSpatialAndTemporalLayer(rtp_packet)) {
+      encoded_frame_sizes_[timestamp] += rtp_packet.payload_size();
     }
   }
-  return result;
 }
 
-bool VideoAnalyzer::SendRtcp(const uint8_t* packet, size_t length) {
-  return transport_->SendRtcp(packet, length);
+void VideoAnalyzer::SendRtcp(const uint8_t* packet, size_t length) {
+  transport_->SendRtcp(packet, length);
 }
 
 void VideoAnalyzer::OnFrame(const VideoFrame& video_frame) {

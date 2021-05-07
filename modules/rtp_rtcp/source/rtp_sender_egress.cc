@@ -520,9 +520,8 @@ bool RtpSenderEgress::SendPacketToNetwork(const RtpPacketToSend& packet,
                                           const PacedPacketInfo& pacing_info) {
   int bytes_sent = -1;
   if (transport_) {
-    bytes_sent = transport_->SendRtp(packet.data(), packet.size(), options)
-                     ? static_cast<int>(packet.size())
-                     : -1;
+    transport_->SendRtp(packet.data(), packet.size(), options);
+    bytes_sent = static_cast<int>(packet.size());
     if (event_log_ && bytes_sent > 0) {
       event_log_->Log(std::make_unique<RtcEventRtpPacketOutgoing>(
           packet, pacing_info.probe_cluster_id));

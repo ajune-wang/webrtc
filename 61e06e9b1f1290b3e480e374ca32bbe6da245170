@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9aa71898_c3e59036",
+        "filename": "api/peer_connection_interface.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-05-07T17:58:59Z",
+      "side": 1,
+      "message": "nit: no else is needed for early returns\n\nalternatively could also \n\nreturn result.ok() ? result.MoveValue() : nullptr;",
+      "revId": "61e06e9b1f1290b3e480e374ca32bbe6da245170",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4e289bd_b70d0f54",
+        "filename": "examples/androidnativeapi/jni/android_call_client.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-05-07T17:58:59Z",
+      "side": 1,
+      "message": "this assumes that \u0027OrError\u0027 can never happen, right?",
+      "revId": "61e06e9b1f1290b3e480e374ca32bbe6da245170",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e7acfe9_fb209643",
+        "filename": "examples/objcnativeapi/objc/objc_call_client.mm",
+        "patchSetId": 8
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-05-07T17:58:59Z",
+      "side": 1,
+      "message": "no chance an error could happen?",
+      "revId": "61e06e9b1f1290b3e480e374ca32bbe6da245170",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "faeb3475_39c36187",
+        "filename": "examples/unityplugin/simple_peer_connection.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-05-07T17:58:59Z",
+      "side": 1,
+      "message": "nit: for early returns, skip else.\n\nThis calls out the return statement and also, for functions that return something else than void, makes the last return statement consistently be the last line of the function, rather than be in a scope that\u0027s a sub scope of the main scope.",
+      "revId": "61e06e9b1f1290b3e480e374ca32bbe6da245170",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b6fc5b2_6cf11dbf",
+        "filename": "test/network/network_emulation_pc_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-05-07T17:58:59Z",
+      "side": 1,
+      "message": "assumes an error will never happen whereas previously the caller can check for error (now I think we\u0027ll hit a check).",
+      "revId": "61e06e9b1f1290b3e480e374ca32bbe6da245170",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -168,52 +168,42 @@ std::vector<VideoCodec> GetPayloadTypesAndDefaultCodecs(
     bool isCodecValidForLowerRange =
         absl::EqualsIgnoreCase(codec.name, kFlexfecCodecName) ||
         absl::EqualsIgnoreCase(codec.name, kAv1CodecName);
-    if (!isCodecValidForLowerRange) {
-      codec.id = payload_type_upper++;
-    } else {
+    // Lower range gets used for "new" codecs or when running out of payload
+    // types in the upper range.
+    if (isCodecValidForLowerRange ||
+        payload_type_upper >= kLastDynamicPayloadTypeUpperRange) {
       codec.id = payload_type_lower++;
+    } else {
+      codec.id = payload_type_upper++;
     }
     AddDefaultFeedbackParams(&codec, trials);
     output_codecs.push_back(codec);
 
-    if (payload_type_upper > kLastDynamicPayloadTypeUpperRange) {
-      RTC_LOG(LS_ERROR)
-          << "Out of dynamic payload types [96,127], skipping the rest.";
-      // TODO(https://bugs.chromium.org/p/webrtc/issues/detail?id=12194):
-      // continue in lower range.
-      break;
-    }
     if (payload_type_lower > kLastDynamicPayloadTypeLowerRange) {
       // TODO(https://bugs.chromium.org/p/webrtc/issues/detail?id=12248):
       // return an error.
-      RTC_LOG(LS_ERROR)
-          << "Out of dynamic payload types [35,65], skipping the rest.";
+      RTC_LOG(LS_ERROR) << "Out of dynamic payload types [35,65] after "
+                           "fallback from [96, 127], skipping the rest.";
       break;
     }
 
     // Add associated RTX codec for non-FEC codecs.
     if (!absl::EqualsIgnoreCase(codec.name, kUlpfecCodecName) &&
         !absl::EqualsIgnoreCase(codec.name, kFlexfecCodecName)) {
-      if (!isCodecValidForLowerRange) {
-        output_codecs.push_back(
-            VideoCodec::CreateRtxCodec(payload_type_upper++, codec.id));
-      } else {
+      if (isCodecValidForLowerRange ||
+          payload_type_upper >= kLastDynamicPayloadTypeUpperRange) {
         output_codecs.push_back(
             VideoCodec::CreateRtxCodec(payload_type_lower++, codec.id));
+      } else {
+        output_codecs.push_back(
+            VideoCodec::CreateRtxCodec(payload_type_upper++, codec.id));
       }
 
-      if (payload_type_upper > kLastDynamicPayloadTypeUpperRange) {
-        RTC_LOG(LS_ERROR)
-            << "Out of dynamic payload types [96,127], skipping rtx.";
-        // TODO(https://bugs.chromium.org/p/webrtc/issues/detail?id=12194):
-        // continue in lower range.
-        break;
-      }
       if (payload_type_lower > kLastDynamicPayloadTypeLowerRange) {
         // TODO(https://bugs.chromium.org/p/webrtc/issues/detail?id=12248):
         // return an error.
-        RTC_LOG(LS_ERROR)
-            << "Out of dynamic payload types [35,65], skipping rtx.";
+        RTC_LOG(LS_ERROR) << "Out of dynamic payload types [35,65] after "
+                             "fallback from [96, 127], skipping rtx.";
         break;
       }
     }

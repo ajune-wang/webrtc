@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50ee1f7c_6f96c52f",
+        "filename": "net/dcsctp/socket/stream_reset_handler_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-05-07T09:11:44Z",
+      "side": 1,
+      "message": "nit: Might be more interesting to have another constructor or a default argument rather than having to pass a non-informative \"socket\" there.",
+      "revId": "aa50bb5629de2494bd38a8875fef7735de7ea7b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

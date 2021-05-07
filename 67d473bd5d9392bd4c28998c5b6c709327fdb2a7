@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acb9baaf_8079685c",
+        "filename": "net/dcsctp/socket/dcsctp_socket_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-05-07T09:07:06Z",
+      "side": 1,
+      "message": "nit: ConnectSockets()?",
+      "revId": "67d473bd5d9392bd4c28998c5b6c709327fdb2a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

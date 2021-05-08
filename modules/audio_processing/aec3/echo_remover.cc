@@ -196,7 +196,7 @@ EchoRemoverImpl::EchoRemoverImpl(const EchoCanceller3Config& config,
       num_capture_channels_(num_capture_channels),
       use_coarse_filter_output_(
           config_.filter.enable_coarse_filter_output_usage),
-      subtractor_(config,
+      subtractor_(config_,
                   num_render_channels_,
                   num_capture_channels_,
                   data_dumper_.get(),

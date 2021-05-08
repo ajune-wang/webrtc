@@ -146,7 +146,7 @@ class AecState {
  private:
   static int instance_count_;
   std::unique_ptr<ApmDataDumper> data_dumper_;
-  const EchoCanceller3Config config_;
+  const EchoCanceller3Config& config_;
   const size_t num_capture_channels_;
   const bool deactivate_initial_state_reset_at_echo_path_change_;
   const bool full_reset_at_echo_path_change_;

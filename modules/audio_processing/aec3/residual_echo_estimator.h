@@ -63,7 +63,7 @@ class ResidualEchoEstimator {
   float GetEchoPathGain(const AecState& aec_state,
                         bool gain_for_early_reflections) const;
 
-  const EchoCanceller3Config config_;
+  const EchoCanceller3Config& config_;
   const size_t num_render_channels_;
   const float early_reflections_transparent_mode_gain_;
   const float late_reflections_transparent_mode_gain_;

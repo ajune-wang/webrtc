@@ -41,7 +41,8 @@ TEST(SuppressionGainDeathTest, NullOutputGains) {
   Y.im.fill(0.f);
 
   float high_bands_gain;
-  AecState aec_state(EchoCanceller3Config{}, 1);
+  EchoCanceller3Config config;
+  AecState aec_state(config, 1);
   EXPECT_DEATH(
       SuppressionGain(EchoCanceller3Config{}, DetectOptimization(), 16000, 1)
           .GetGain(E2, S2, R2, N2,
@@ -61,9 +62,10 @@ TEST(SuppressionGain, BasicGainComputation) {
   constexpr size_t kNumCaptureChannels = 2;
   constexpr int kSampleRateHz = 16000;
   constexpr size_t kNumBands = NumBandsForRate(kSampleRateHz);
-  SuppressionGain suppression_gain(EchoCanceller3Config(), DetectOptimization(),
-                                   kSampleRateHz, kNumCaptureChannels);
-  RenderSignalAnalyzer analyzer(EchoCanceller3Config{});
+  EchoCanceller3Config config;
+  SuppressionGain suppression_gain(config, DetectOptimization(), kSampleRateHz,
+                                   kNumCaptureChannels);
+  RenderSignalAnalyzer analyzer(config);
   float high_bands_gain;
   std::vector<std::array<float, kFftLengthBy2Plus1>> E2(kNumCaptureChannels);
   std::vector<std::array<float, kFftLengthBy2Plus1>> S2(kNumCaptureChannels,
@@ -76,8 +78,8 @@ TEST(SuppressionGain, BasicGainComputation) {
   std::vector<std::vector<std::vector<float>>> x(
       kNumBands, std::vector<std::vector<float>>(
                      kNumRenderChannels, std::vector<float>(kBlockSize, 0.f)));
-  EchoCanceller3Config config;
-  AecState aec_state(config, kNumCaptureChannels);
+  ird_party / apmg3 / modules / audio_processing / aec3 /
+      aec_state.h AecState aec_state(config, kNumCaptureChannels);
   ApmDataDumper data_dumper(42);
   Subtractor subtractor(config, kNumRenderChannels, kNumCaptureChannels,
                         &data_dumper, DetectOptimization());

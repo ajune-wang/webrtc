@@ -114,7 +114,7 @@ class SuppressionGain {
   static int instance_count_;
   std::unique_ptr<ApmDataDumper> data_dumper_;
   const Aec3Optimization optimization_;
-  const EchoCanceller3Config config_;
+  const EchoCanceller3Config& config_;
   const size_t num_capture_channels_;
   const int state_change_duration_blocks_;
   std::array<float, kFftLengthBy2Plus1> last_gain_;

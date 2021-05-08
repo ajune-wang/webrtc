@@ -31,6 +31,15 @@ TEST(EchoCanceller3JsonHelpers, ToStringAndParseJson) {
   cfg.suppressor.subband_nearend_detection.subband1 = {4, 5};
   cfg.suppressor.subband_nearend_detection.nearend_threshold = 2.f;
   cfg.suppressor.subband_nearend_detection.snr_threshold = 100.f;
+  cfg.suppressor.high_frequency_suppression.conservative_hf_suppression =
+      !cfg.suppressor.high_frequency_suppression.conservative_hf_suppression;
+  cfg.suppressor.high_frequency_suppression.limiting_gain_band += 1;
+  cfg.suppressor.high_frequency_suppression.bands_in_limiting_gain += 1;
+  cfg.suppressor.high_frequency_suppression.limiting_gain_scaling += 1;
+  cfg.suppressor.high_frequency_suppression.uppermost_reliable_band += 1;
+  cfg.suppressor.high_frequency_suppression.bands_in_bounding_gain += 1;
+  cfg.suppressor.high_frequency_suppression.bounding_gain_scaling += 1;
+
   std::string json_string = Aec3ConfigToJsonString(cfg);
   EchoCanceller3Config cfg_transformed = Aec3ConfigFromJsonString(json_string);
 

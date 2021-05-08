@@ -33,32 +33,40 @@ void LimitLowFrequencyGains(std::array<float, kFftLengthBy2Plus1>* gain) {
   (*gain)[0] = (*gain)[1] = std::min((*gain)[1], (*gain)[2]);
 }
 
-void LimitHighFrequencyGains(bool conservative_hf_suppression,
-                             std::array<float, kFftLengthBy2Plus1>* gain) {
+void LimitHighFrequencyGains(
+    const EchoCanceller3Config::Suppressor::HighFrequencySuppression& config,
+    std::array<float, kFftLengthBy2Plus1>& gain) {
   // Limit the high frequency gains to avoid echo leakage due to an imperfect
   // filter.
-  constexpr size_t kFirstBandToLimit = (64 * 2000) / 8000;
-  const float min_upper_gain = (*gain)[kFirstBandToLimit];
-  std::for_each(
-      gain->begin() + kFirstBandToLimit + 1, gain->end(),
-      [min_upper_gain](float& a) { a = std::min(a, min_upper_gain); });
-  (*gain)[kFftLengthBy2] = (*gain)[kFftLengthBy2Minus1];
+  if (config.bands_in_limiting_gain > 0) {
+    float min_upper_gain = 1.f;
+    for (int band = config.limiting_gain_band;
+         band < config.limiting_gain_band + config.bands_in_limiting_gain;
+         ++band) {
+      min_upper_gain = std::min(min_upper_gain, gain[band]);
+    }
+    min_upper_gain *= config.limiting_gain_scaling;
+    std::for_each(
+        gain.begin() + config.limiting_gain_band + 1, gain.end(),
+        [min_upper_gain](float& a) { a = std::min(a, min_upper_gain); });
+  }
+  gain[kFftLengthBy2] = gain[kFftLengthBy2Minus1];
 
-  if (conservative_hf_suppression) {
+  if (config.conservative_hf_suppression && config.bands_in_bounding_gain > 0) {
     // Limits the gain in the frequencies for which the adaptive filter has not
     // converged.
     // TODO(peah): Make adaptive to take the actual filter error into account.
-    constexpr size_t kUpperAccurateBandPlus1 = 29;
-
-    constexpr float oneByBandsInSum =
-        1 / static_cast<float>(kUpperAccurateBandPlus1 - 20);
+    RTC_DCHECK_GE(config.uppermost_reliable_band,
+                  config.bands_in_bounding_gain);
+    RTC_DCHECK_LE(config.uppermost_reliable_band, gain.size());
     const float hf_gain_bound =
-        std::accumulate(gain->begin() + 20,
-                        gain->begin() + kUpperAccurateBandPlus1, 0.f) *
-        oneByBandsInSum;
+        std::accumulate(gain.begin() + config.uppermost_reliable_band -
+                            config.bands_in_bounding_gain,
+                        gain.begin() + config.uppermost_reliable_band, 0.f) *
+        (config.bounding_gain_scaling / config.bands_in_bounding_gain);
 
     std::for_each(
-        gain->begin() + kUpperAccurateBandPlus1, gain->end(),
+        gain.begin() + config.uppermost_reliable_band, gain.end(),
         [hf_gain_bound](float& a) { a = std::min(a, hf_gain_bound); });
   }
 }
@@ -304,9 +312,10 @@ void SuppressionGain::LowerBandGain(
   // Use conservative high-frequency gains during clock-drift or when not in
   // dominant nearend.
   if (!dominant_nearend_detector_->IsNearendState() || clock_drift ||
-      config_.suppressor.conservative_hf_suppression) {
-    LimitHighFrequencyGains(config_.suppressor.conservative_hf_suppression,
-                            gain);
+      config_.suppressor.high_frequency_suppression
+          .conservative_hf_suppression) {
+    LimitHighFrequencyGains(config_.suppressor.high_frequency_suppression,
+                            *gain);
   }
 
   // Store computed gains.

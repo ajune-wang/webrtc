@@ -223,8 +223,17 @@ struct RTC_EXPORT EchoCanceller3Config {
       float anti_howling_gain = 1.f;
     } high_bands_suppression;
 
+    struct HighFrequencySuppression {
+      bool conservative_hf_suppression = false;
+      int limiting_gain_band = 16;
+      int bands_in_limiting_gain = 1;
+      float limiting_gain_scaling = 1.f;
+      int uppermost_reliable_band = 29;
+      int bands_in_bounding_gain = 9;
+      float bounding_gain_scaling = 1.f;
+    } high_frequency_suppression;
+
     float floor_first_increase = 0.00001f;
-    bool conservative_hf_suppression = false;
   } suppressor;
 };
 }  // namespace webrtc

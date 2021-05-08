@@ -389,8 +389,30 @@ void Aec3ConfigFromJsonString(absl::string_view json_string,
 
     ReadParam(section, "floor_first_increase",
               &cfg.suppressor.floor_first_increase);
-    ReadParam(section, "conservative_hf_suppression",
-              &cfg.suppressor.conservative_hf_suppression);
+
+    if (rtc::GetValueFromJsonObject(section, "high_frequency_suppression",
+                                    &subsection)) {
+      ReadParam(subsection, "conservative_hf_suppression",
+                &cfg.suppressor.high_frequency_suppression
+                     .conservative_hf_suppression);
+      ReadParam(subsection, "limiting_gain_band",
+                &cfg.suppressor.high_frequency_suppression.limiting_gain_band);
+      ReadParam(
+          subsection, "bands_in_limiting_gain",
+          &cfg.suppressor.high_frequency_suppression.bands_in_limiting_gain);
+      ReadParam(
+          subsection, "limiting_gain_scaling",
+          &cfg.suppressor.high_frequency_suppression.limiting_gain_scaling);
+      ReadParam(
+          subsection, "uppermost_reliable_band",
+          &cfg.suppressor.high_frequency_suppression.uppermost_reliable_band);
+      ReadParam(
+          subsection, "bands_in_bounding_gain",
+          &cfg.suppressor.high_frequency_suppression.bands_in_bounding_gain);
+      ReadParam(
+          subsection, "bounding_gain_scaling",
+          &cfg.suppressor.high_frequency_suppression.bounding_gain_scaling);
+    }
   }
 }
 
@@ -694,8 +716,30 @@ std::string Aec3ConfigToJsonString(const EchoCanceller3Config& config) {
   ost << "},";
   ost << "\"floor_first_increase\": " << config.suppressor.floor_first_increase
       << ",";
+  ost << "\"high_frequency_suppression\": {";
   ost << "\"conservative_hf_suppression\": "
-      << config.suppressor.conservative_hf_suppression;
+      << (config.suppressor.high_frequency_suppression
+                  .conservative_hf_suppression
+              ? "true"
+              : "false")
+      << ",";
+  ost << "\"limiting_gain_band\": "
+      << config.suppressor.high_frequency_suppression.limiting_gain_band << ",";
+  ost << "\"bands_in_limiting_gain\": "
+      << config.suppressor.high_frequency_suppression.bands_in_limiting_gain
+      << ",";
+  ost << "\"limiting_gain_scaling\": "
+      << config.suppressor.high_frequency_suppression.limiting_gain_scaling
+      << ",";
+  ost << "\"uppermost_reliable_band\": "
+      << config.suppressor.high_frequency_suppression.uppermost_reliable_band
+      << ",";
+  ost << "\"bands_in_bounding_gain\": "
+      << config.suppressor.high_frequency_suppression.bands_in_bounding_gain
+      << ",";
+  ost << "\"bounding_gain_scaling\": "
+      << config.suppressor.high_frequency_suppression.bounding_gain_scaling;
+  ost << "}";
   ost << "}";
   ost << "}";
   ost << "}";

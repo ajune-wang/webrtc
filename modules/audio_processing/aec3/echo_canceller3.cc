@@ -373,7 +373,8 @@ EchoCanceller3Config AdjustConfig(const EchoCanceller3Config& config) {
   }
 
   if (field_trial::IsEnabled("WebRTC-Aec3EnforceConservativeHfSuppression")) {
-    adjusted_cfg.suppressor.conservative_hf_suppression = true;
+    adjusted_cfg.suppressor.high_frequency_suppression
+        .conservative_hf_suppression = true;
   }
 
   if (field_trial::IsEnabled("WebRTC-Aec3EnforceStationarityProperties")) {

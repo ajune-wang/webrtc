@@ -266,6 +266,28 @@ bool EchoCanceller3Config::Validate(EchoCanceller3Config* config) {
 
   res = res & Limit(&c->suppressor.floor_first_increase, 0.f, 1000000.f);
 
+  res =
+      res & Limit(&c->suppressor.high_frequency_suppression.limiting_gain_band,
+                  1, 64);
+  res =
+      res &
+      Limit(&c->suppressor.high_frequency_suppression.bands_in_limiting_gain, 0,
+            64 - c->suppressor.high_frequency_suppression.limiting_gain_band);
+  res = res &
+        Limit(&c->suppressor.high_frequency_suppression.limiting_gain_scaling,
+              0.f, 100.f);
+  res = res &
+        Limit(&c->suppressor.high_frequency_suppression.uppermost_reliable_band,
+              1, 64);
+  res =
+      res &
+      Limit(
+          &c->suppressor.high_frequency_suppression.bands_in_bounding_gain, 0,
+          c->suppressor.high_frequency_suppression.uppermost_reliable_band - 1);
+  res = res &
+        Limit(&c->suppressor.high_frequency_suppression.bounding_gain_scaling,
+              0.f, 100.f);
+
   return res;
 }
 }  // namespace webrtc

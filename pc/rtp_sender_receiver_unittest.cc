@@ -161,7 +161,15 @@ class RtpSenderReceiverTest
   }
 
   ~RtpSenderReceiverTest() {
+    audio_rtp_receiver_ = nullptr;
     audio_rtp_sender_ = nullptr;
+
+    if (voice_channel_) {
+      network_thread_->Invoke<void>(RTC_FROM_HERE, [&]() {
+        cricket::VoiceChannel::Destruct_n(std::move(voice_channel_));
+      });
+    }
+
     video_rtp_sender_ = nullptr;
     audio_rtp_receiver_ = nullptr;
     video_rtp_receiver_ = nullptr;
@@ -511,7 +519,7 @@ class RtpSenderReceiverTest
   cricket::FakeMediaEngine* media_engine_;
   std::unique_ptr<cricket::ChannelManager> channel_manager_;
   cricket::FakeCall fake_call_;
-  cricket::VoiceChannel* voice_channel_;
+  std::unique_ptr<cricket::VoiceChannel> voice_channel_;
   cricket::VideoChannel* video_channel_;
   cricket::FakeVoiceMediaChannel* voice_media_channel_;
   cricket::FakeVideoMediaChannel* video_media_channel_;

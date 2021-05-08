@@ -802,7 +802,51 @@ VoiceChannel::~VoiceChannel() {
   TRACE_EVENT0("webrtc", "VoiceChannel::~VoiceChannel");
   // this can't be done in the base class, since it calls a virtual
   DisableMedia_w();
-  Deinit();
+  if (!skip_deinit_in_destructor_)
+    Deinit();
+}
+
+void VoiceChannel::Destruct_n(std::unique_ptr<VoiceChannel> channel) {
+  RTC_DCHECK_RUN_ON(channel->network_thread());
+  // Disconnect from the currently associated transport. This allows us to
+  // delete the channel object asynchronously on the worker thread while other
+  // operations continue on the network thread.
+  channel->Deinit_n();
+  // TODO(tommi): Allow deleting on the network thread.
+  auto* to_delete = channel.release();
+#if 0
+  to_delete->worker_thread()->PostTask(
+      ToQueuedTask([to_delete] { delete to_delete; }));
+#else
+  // Hacks to work around some tests.
+  auto* thread = to_delete->worker_thread();
+  if (thread->IsCurrent()) {
+    delete to_delete;
+  } else {
+    rtc::Event event;
+    to_delete->worker_thread()->PostTask(ToQueuedTask([to_delete, &event] {
+      delete to_delete;
+      event.Set();
+    }));
+    event.Wait(rtc::Event::kForever);
+  }
+#endif
+}
+
+void VoiceChannel::Init_n(webrtc::RtpTransportInternal* rtp_transport) {
+  RTC_DCHECK_RUN_ON(network_thread());
+  RTC_DCHECK(rtp_transport);
+  SetRtpTransport(rtp_transport);
+  media_channel()->SetInterface(this);
+}
+
+void VoiceChannel::Deinit_n() {
+  RTC_DCHECK_RUN_ON(network_thread());
+  skip_deinit_in_destructor_ = true;
+  SetRtpTransport(nullptr);
+  media_channel()->SetInterface(nullptr);
+  // TODO(tommi): Could we free media_channel() here?
+  // or better yet, fully destruct on the network thread?
 }
 
 void VoiceChannel::UpdateMediaSendRecvState_w() {

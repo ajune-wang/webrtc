@@ -36,7 +36,8 @@ namespace webrtc {
 TEST(RtpTransceiverTest, CannotSetChannelOnStoppedTransceiver) {
   auto cm = cricket::ChannelManager::Create(
       nullptr, true, rtc::Thread::Current(), rtc::Thread::Current());
-  RtpTransceiver transceiver(cricket::MediaType::MEDIA_TYPE_AUDIO, cm.get());
+  RtpTransceiver transceiver(rtc::Thread::Current(),
+                             cricket::MediaType::MEDIA_TYPE_AUDIO, cm.get());
   cricket::MockChannelInterface channel1;
   EXPECT_CALL(channel1, media_type())
       .WillRepeatedly(Return(cricket::MediaType::MEDIA_TYPE_AUDIO));
@@ -56,13 +57,16 @@ TEST(RtpTransceiverTest, CannotSetChannelOnStoppedTransceiver) {
   // Channel can no longer be set, so this call should be a no-op.
   transceiver.SetChannel(&channel2);
   EXPECT_EQ(&channel1, transceiver.channel());
+
+  transceiver.SetChannel(nullptr);
 }
 
 // Checks that a channel can be unset on a stopped |RtpTransceiver|
 TEST(RtpTransceiverTest, CanUnsetChannelOnStoppedTransceiver) {
   auto cm = cricket::ChannelManager::Create(
       nullptr, true, rtc::Thread::Current(), rtc::Thread::Current());
-  RtpTransceiver transceiver(cricket::MediaType::MEDIA_TYPE_VIDEO, cm.get());
+  RtpTransceiver transceiver(rtc::Thread::Current(),
+                             cricket::MediaType::MEDIA_TYPE_VIDEO, cm.get());
   cricket::MockChannelInterface channel;
   EXPECT_CALL(channel, media_type())
       .WillRepeatedly(Return(cricket::MediaType::MEDIA_TYPE_VIDEO));
@@ -89,7 +93,8 @@ class RtpTransceiverUnifiedPlanTest : public ::testing::Test {
             false,
             rtc::Thread::Current(),
             rtc::Thread::Current())),
-        transceiver_(RtpSenderProxyWithInternal<RtpSenderInternal>::Create(
+        transceiver_(rtc::Thread::Current(),
+                     RtpSenderProxyWithInternal<RtpSenderInternal>::Create(
                          rtc::Thread::Current(),
                          sender_),
                      RtpReceiverProxyWithInternal<RtpReceiverInternal>::Create(
@@ -158,7 +163,8 @@ class RtpTransceiverTestForHeaderExtensions : public ::testing::Test {
              RtpHeaderExtensionCapability(RtpExtension::kVideoRotationUri,
                                           4,
                                           RtpTransceiverDirection::kSendRecv)}),
-        transceiver_(RtpSenderProxyWithInternal<RtpSenderInternal>::Create(
+        transceiver_(rtc::Thread::Current(),
+                     RtpSenderProxyWithInternal<RtpSenderInternal>::Create(
                          rtc::Thread::Current(),
                          sender_),
                      RtpReceiverProxyWithInternal<RtpReceiverInternal>::Create(

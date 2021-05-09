@@ -225,14 +225,6 @@ VideoBitrateAllocation SvcRateAllocator::Allocate(
         std::min(total_bitrate, DataRate::KilobitsPerSec(codec_.maxBitrate));
   }
 
-  if (codec_.spatialLayers[0].targetBitrate == 0) {
-    // Delegate rate distribution to encoder wrapper if bitrate thresholds
-    // are not set.
-    VideoBitrateAllocation bitrate_allocation;
-    bitrate_allocation.SetBitrate(0, 0, total_bitrate.bps());
-    return bitrate_allocation;
-  }
-
   const ActiveSpatialLayers active_layers =
       GetActiveSpatialLayers(codec_, num_layers_.spatial);
   size_t num_spatial_layers = active_layers.num;

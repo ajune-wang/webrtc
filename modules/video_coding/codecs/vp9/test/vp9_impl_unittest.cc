@@ -25,6 +25,7 @@
 #include "modules/video_coding/codecs/vp9/include/vp9.h"
 #include "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.h"
 #include "modules/video_coding/codecs/vp9/svc_config.h"
+#include "modules/video_coding/codecs/vp9/svc_rate_allocator.h"
 #include "rtc_base/strings/string_builder.h"
 #include "test/explicit_key_value_config.h"
 #include "test/field_trial.h"
@@ -89,10 +90,24 @@ void ConfigureSvc(VideoCodec& codec_settings,
 
   std::vector<SpatialLayer> layers = GetSvcConfig(
       codec_settings.width, codec_settings.height, codec_settings.maxFramerate,
-      /*first_active_layer=*/0, num_spatial_layers, num_temporal_layers, false);
+      /*first_active_layer=*/0, num_spatial_layers, num_temporal_layers,
+      codec_settings.mode == VideoCodecMode::kScreensharing);
   for (size_t i = 0; i < layers.size(); ++i) {
     codec_settings.spatialLayers[i] = layers[i];
   }
+}
+
+VideoEncoder::RateControlParameters GetFullRatePrams(const VideoCodec& codec,
+                                                     double input_fps) {
+  SvcRateAllocator rate_allocator(codec);
+  return VideoEncoder::RateControlParameters(
+      rate_allocator.Allocate(VideoBitrateAllocationParameters(
+          SvcRateAllocator::GetMaxBitrate(codec), input_fps)),
+      input_fps);
+}
+
+VideoEncoder::RateControlParameters GetFullRatePrams(const VideoCodec& codec) {
+  return GetFullRatePrams(codec, codec.maxFramerate);
 }
 
 }  // namespace
@@ -334,9 +349,10 @@ TEST(Vp9ImplTest, EncodeTemporalLayersWithSvcController) {
 TEST(Vp9ImplTest, EncoderWith2SpatialLayers) {
   std::unique_ptr<VideoEncoder> encoder = VP9Encoder::Create();
   VideoCodec codec_settings = DefaultCodecSettings();
-  codec_settings.VP9()->numberOfSpatialLayers = 2;
+  ConfigureSvc(codec_settings, /*num_spatial_layers=*/2);
   EXPECT_EQ(encoder->InitEncode(&codec_settings, kSettings),
             WEBRTC_VIDEO_CODEC_OK);
+  encoder->SetRates(GetFullRatePrams(codec_settings));
 
   std::vector<EncodedVideoFrameProducer::EncodedFrame> frames =
       EncodedVideoFrameProducer(*encoder)
@@ -354,9 +370,10 @@ TEST(Vp9ImplTest, EncodeSpatialLayersWithSvcController) {
       "WebRTC-Vp9DependencyDescriptor/Enabled/");
   std::unique_ptr<VideoEncoder> encoder = VP9Encoder::Create();
   VideoCodec codec_settings = DefaultCodecSettings();
-  codec_settings.VP9()->numberOfSpatialLayers = 2;
+  ConfigureSvc(codec_settings, /*num_spatial_layers=*/2);
   EXPECT_EQ(encoder->InitEncode(&codec_settings, kSettings),
             WEBRTC_VIDEO_CODEC_OK);
+  encoder->SetRates(GetFullRatePrams(codec_settings));
 
   std::vector<EncodedVideoFrameProducer::EncodedFrame> frames =
       EncodedVideoFrameProducer(*encoder)
@@ -1849,12 +1866,11 @@ TEST_P(Vp9ImplWithLayeringTest, FlexibleMode) {
   // in non-flexible mode.
   std::unique_ptr<VideoEncoder> encoder = VP9Encoder::Create();
   VideoCodec codec_settings = DefaultCodecSettings();
+  ConfigureSvc(codec_settings, num_spatial_layers_, num_temporal_layers_);
   codec_settings.VP9()->flexibleMode = true;
-  codec_settings.VP9()->frameDroppingOn = false;
-  codec_settings.VP9()->numberOfSpatialLayers = num_spatial_layers_;
-  codec_settings.VP9()->numberOfTemporalLayers = num_temporal_layers_;
   EXPECT_EQ(encoder->InitEncode(&codec_settings, kSettings),
             WEBRTC_VIDEO_CODEC_OK);
+  encoder->SetRates(GetFullRatePrams(codec_settings));
 
   GofInfoVP9 gof;
   if (num_temporal_layers_ == 1) {
@@ -1929,9 +1945,11 @@ TEST_F(TestVp9ImplFrameDropping, PreEncodeFrameDropping) {
   const float expected_framerate_fps = 5.0f;
   const float max_abs_framerate_error_fps = expected_framerate_fps * 0.1f;
 
+  ConfigureSvc(codec_settings_, 1);
   codec_settings_.maxFramerate = static_cast<uint32_t>(expected_framerate_fps);
   EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
             encoder_->InitEncode(&codec_settings_, kSettings));
+  encoder_->SetRates(GetFullRatePrams(codec_settings_, input_framerate_fps));
 
   VideoFrame input_frame = NextInputFrame();
   for (size_t frame_num = 0; frame_num < num_frames_to_encode; ++frame_num) {

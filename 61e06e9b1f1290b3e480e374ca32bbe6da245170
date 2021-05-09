@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b1c46e9_0849c75a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-09T15:00:21Z",
+      "side": 1,
+      "message": "Addressed Tommi\u0027s comments.\n\nIn 2 places, the code would crash if CreatePeerConnection failed; in those 2 cases, I feel that crashing in MoveValue() is the better choice; I don\u0027t want this CL burdened with designing in error handling for these cases.\n",
+      "revId": "61e06e9b1f1290b3e480e374ca32bbe6da245170",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9aa71898_c3e59036",
@@ -14,6 +31,24 @@
       "writtenOn": "2021-05-07T17:58:59Z",
       "side": 1,
       "message": "nit: no else is needed for early returns\n\nalternatively could also \n\nreturn result.ok() ? result.MoveValue() : nullptr;",
+      "revId": "61e06e9b1f1290b3e480e374ca32bbe6da245170",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a81fa6b0_79ed0cc5",
+        "filename": "api/peer_connection_interface.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-09T15:00:21Z",
+      "side": 1,
+      "message": "Reformulated as early return on error.",
+      "parentUuid": "9aa71898_c3e59036",
       "revId": "61e06e9b1f1290b3e480e374ca32bbe6da245170",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -37,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fc10e345_ba4e4825",
+        "filename": "examples/androidnativeapi/jni/android_call_client.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-09T15:00:21Z",
+      "side": 1,
+      "message": "I used this construct whenever the code immediately following was dereferencing the pointer without checking for nullness. In this case, line 190.\nI hope the error message when crashing for this reason is better than the error message caused by just following the null pointer, but didn\u0027t want to get into the redesign required to support handling the error in other ways.",
+      "parentUuid": "a4e289bd_b70d0f54",
+      "revId": "61e06e9b1f1290b3e480e374ca32bbe6da245170",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7e7acfe9_fb209643",
         "filename": "examples/objcnativeapi/objc/objc_call_client.mm",
         "patchSetId": 8
@@ -48,6 +101,24 @@
       "writtenOn": "2021-05-07T17:58:59Z",
       "side": 1,
       "message": "no chance an error could happen?",
+      "revId": "61e06e9b1f1290b3e480e374ca32bbe6da245170",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb06635d_4387bd05",
+        "filename": "examples/objcnativeapi/objc/objc_call_client.mm",
+        "patchSetId": 8
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-09T15:00:21Z",
+      "side": 1,
+      "message": "As above - pc_ is dereferenced below, so this introduces no new crash.",
+      "parentUuid": "7e7acfe9_fb209643",
       "revId": "61e06e9b1f1290b3e480e374ca32bbe6da245170",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -69,6 +140,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fa8caba_c944eafe",
+        "filename": "examples/unityplugin/simple_peer_connection.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-09T15:00:21Z",
+      "side": 1,
+      "message": "Reformulated as early error return.",
+      "parentUuid": "faeb3475_39c36187",
+      "revId": "61e06e9b1f1290b3e480e374ca32bbe6da245170",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8b6fc5b2_6cf11dbf",
@@ -82,6 +171,24 @@
       "writtenOn": "2021-05-07T17:58:59Z",
       "side": 1,
       "message": "assumes an error will never happen whereas previously the caller can check for error (now I think we\u0027ll hit a check).",
+      "revId": "61e06e9b1f1290b3e480e374ca32bbe6da245170",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64f7a454_d4c875bf",
+        "filename": "test/network/network_emulation_pc_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-09T15:00:21Z",
+      "side": 1,
+      "message": "Restored previous behaviour.",
+      "parentUuid": "8b6fc5b2_6cf11dbf",
       "revId": "61e06e9b1f1290b3e480e374ca32bbe6da245170",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

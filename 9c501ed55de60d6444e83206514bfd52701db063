@@ -16,6 +16,57 @@
       "message": "I tried to avoid calling it a mess -- it is.",
       "revId": "9c501ed55de60d6444e83206514bfd52701db063",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ececa700_f005f7ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-09T20:15:59Z",
+      "side": 1,
+      "message": "Good start, but where do the keys extracted by DtlsSrtpTransport go?\n",
+      "revId": "9c501ed55de60d6444e83206514bfd52701db063",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c79c0ab0_64d8a8a5",
+        "filename": "pc/g3doc/dtls_transport.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-09T20:15:59Z",
+      "side": 1,
+      "message": "nit: will call will provide -\u003e will provide",
+      "revId": "9c501ed55de60d6444e83206514bfd52701db063",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c9aab14_03dc8ffa",
+        "filename": "pc/g3doc/dtls_transport.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-09T20:15:59Z",
+      "side": 1,
+      "message": "and one of\n- installing them into \u003cother class\u003e\n- providing encryption/decryption service for RTP and RTCP packets",
+      "revId": "9c501ed55de60d6444e83206514bfd52701db063",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

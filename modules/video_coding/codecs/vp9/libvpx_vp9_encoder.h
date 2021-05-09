@@ -79,7 +79,6 @@ class LibvpxVp9Encoder : public VP9Encoder {
       bool is_key_pic,
       size_t first_active_spatial_layer_id);
 
-  bool ExplicitlyConfiguredSpatialLayers() const;
   bool SetSvcRates(const VideoBitrateAllocation& bitrate_allocation);
 
   void GetEncodedLayerFrame(const vpx_codec_cx_pkt* pkt);

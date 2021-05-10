@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8cc68d36_280dfd01",
+        "filename": "modules/audio_mixer/frame_combiner_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-05-10T11:28:15Z",
+      "side": 0,
+      "message": "can you help me to understand why this has to be declared in every test now?",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 34
+      },
+      "revId": "f2e581a74009acebde290f17768bc8dd4c02d7ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b54a37cb_cc8ee0c0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-05-10T11:28:15Z",
+      "side": 1,
+      "message": "some comments on test",
+      "revId": "65f412ac938dc2ee9ed023a0a5e2ee853fc67769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce88f8d4_8282aadf",
+        "filename": "modules/audio_mixer/frame_combiner_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-05-10T11:28:15Z",
+      "side": 1,
+      "message": "nit: remove this comment as it is not critical to this test.\n\nbonus: add another description of this test",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 54
+      },
+      "revId": "65f412ac938dc2ee9ed023a0a5e2ee853fc67769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30583a82_a2f8b797",
+        "filename": "modules/audio_mixer/frame_combiner_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-05-10T11:28:15Z",
+      "side": 1,
+      "message": "it is a bit weird that this test included many sample rates and #channels. I see that all tests are like that, many could have a better reason to add rates and channels. I would get rid of these loops.",
+      "range": {
+        "startLine": 120,
+        "startChar": 0,
+        "endLine": 122,
+        "endChar": 0
+      },
+      "revId": "65f412ac938dc2ee9ed023a0a5e2ee853fc67769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

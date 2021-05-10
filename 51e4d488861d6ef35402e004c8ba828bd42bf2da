@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a5249d0_cada02fa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-05-10T19:12:49Z",
+      "side": 1,
+      "message": "I think nisse@ has historically been more active in the transport api area. Any opinion?\nOtherwise looks good to me.",
+      "revId": "51e4d488861d6ef35402e004c8ba828bd42bf2da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc1916f7_48676bff",
+        "filename": "call/call.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-05-10T19:12:49Z",
+      "side": 1,
+      "message": "Think it would be easier to read/less duplication of you did eg:\n\nRtpTransportControllerSendFactory default_transport_controller_factory;\nRtpTransportControllerSendFactoryInterface transport_controller_factory \u003d\n    config.rtp_transport_controller_send_factory \u003d\u003d nullptr\n      ? \u0026default_transport_controller_factory\n      : config.rtp_transport_controller_send_factory.get();\n\n...and then always call transport_controller_factory-\u003eCreate() below.",
+      "range": {
+        "startLine": 520,
+        "startChar": 36,
+        "endLine": 520,
+        "endChar": 65
+      },
+      "revId": "51e4d488861d6ef35402e004c8ba828bd42bf2da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5aac4719_5613fd3b",
+        "filename": "call/call_config.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-05-10T19:12:49Z",
+      "side": 1,
+      "message": "std::shared_ptr is banned, see https://webrtc.googlesource.com/src/+/HEAD/style-guide.md#smart-pointers\n\nDo we need a shared pointer at all, or could this be unique_ptr instead?",
+      "range": {
+        "startLine": 75,
+        "startChar": 2,
+        "endLine": 75,
+        "endChar": 17
+      },
+      "revId": "51e4d488861d6ef35402e004c8ba828bd42bf2da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

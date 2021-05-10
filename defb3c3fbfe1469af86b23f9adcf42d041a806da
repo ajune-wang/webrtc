@@ -69,6 +69,24 @@
       "parentUuid": "ac4a58d8_147f13f3",
       "revId": "defb3c3fbfe1469af86b23f9adcf42d041a806da",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "edf728a2_7422b527",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2021-05-10T12:47:00Z",
+      "side": 1,
+      "message": "The latest failure was that the encoder created a short gap in the timestamp sequence but not in the sequence numbers. That looked like a loss at the decoder. This could actually happen in reality, entering in DTX for a really short period of time. However, the first packet after a DTX is not usually an empty (\u003c\u003d2 bytes) payload. \n\nWe could create a test for that:\n- Check that after a gap in timestamps but not in sequence number the next packet is a non empty packet (\u003e 2 bytes) or an empty packet (\u003c\u003d 2 bytes) but with a large enough timestamp gap. \n\nI think that test case does not need to be limited to this feature but I also think that it is bit too specific for a test case.\n\nWhat do you think?",
+      "parentUuid": "c64f3343_15dfc611",
+      "revId": "defb3c3fbfe1469af86b23f9adcf42d041a806da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c2c98dc_8c7f51d3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-05-10T07:55:41Z",
+      "side": 1,
+      "message": "-2.2 KiB on arm64. :) ",
+      "revId": "70a3b7614008b4da3a5fcf185744fe10fe2a3364",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

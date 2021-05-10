@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a3453fb_5be4b60a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2021-05-10T11:43:54Z",
+      "side": 1,
+      "message": "webrtc?",
+      "range": {
+        "startLine": 9,
+        "startChar": 5,
+        "endLine": 9,
+        "endChar": 16
+      },
+      "revId": "e2f828b3b8884d2c1d10dddae250f424ed83a5d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b729c41d_73df46e0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2021-05-10T11:43:54Z",
+      "side": 1,
+      "message": "Thanks for this CL, great work. Some minor comments. ",
+      "revId": "e2f828b3b8884d2c1d10dddae250f424ed83a5d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd4d5ae0_faef63d2",
+        "filename": "api/audio/echo_canceller3_config.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2021-05-10T11:43:54Z",
+      "side": 1,
+      "message": "1000.0f\nhttps://google.github.io/styleguide/cppguide.html#Floating_Literals",
+      "range": {
+        "startLine": 69,
+        "startChar": 23,
+        "endLine": 69,
+        "endChar": 25
+      },
+      "revId": "e2f828b3b8884d2c1d10dddae250f424ed83a5d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76d77b26_a59f451a",
+        "filename": "api/audio/echo_canceller3_config.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2021-05-10T11:43:54Z",
+      "side": 1,
+      "message": "https://google.github.io/styleguide/cppguide.html#Floating_Literals",
+      "range": {
+        "startLine": 171,
+        "startChar": 30,
+        "endLine": 171,
+        "endChar": 44
+      },
+      "revId": "e2f828b3b8884d2c1d10dddae250f424ed83a5d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7d1f421_e45f2145",
+        "filename": "modules/audio_processing/aec3/signal_dependent_erle_estimator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2021-05-10T11:43:54Z",
+      "side": 1,
+      "message": "65/6 \u003d 10.83\ndo we fill the whole max_erle_ vector?",
+      "range": {
+        "startLine": 119,
+        "startChar": 31,
+        "endLine": 119,
+        "endChar": 68
+      },
+      "revId": "e2f828b3b8884d2c1d10dddae250f424ed83a5d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12d6f6a1_b1070bdb",
+        "filename": "modules/audio_processing/aec3/signal_dependent_erle_estimator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2021-05-10T11:43:54Z",
+      "side": 1,
+      "message": "we are assuming here that config_.erle.size() \u003d\u003d kFftLengthBy2Plus1\n\nMaybe we can add a CHECK_EQ in SetMaxErleSubbands?",
+      "range": {
+        "startLine": 230,
+        "startChar": 62,
+        "endLine": 230,
+        "endChar": 76
+      },
+      "revId": "e2f828b3b8884d2c1d10dddae250f424ed83a5d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4acc10e2_a0841a17",
+        "filename": "modules/audio_processing/aec3/signal_dependent_erle_estimator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2021-05-10T11:43:54Z",
+      "side": 1,
+      "message": "This part should be in the if as well.",
+      "range": {
+        "startLine": 244,
+        "startChar": 0,
+        "endLine": 248,
+        "endChar": 9
+      },
+      "revId": "e2f828b3b8884d2c1d10dddae250f424ed83a5d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88a90e87_592e69e8",
+        "filename": "modules/audio_processing/aec3/subband_erle_estimator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2021-05-10T11:43:54Z",
+      "side": 1,
+      "message": "please add a CHECK_EQ that verifies the sizes.",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 36,
+        "endChar": 72
+      },
+      "revId": "e2f828b3b8884d2c1d10dddae250f424ed83a5d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

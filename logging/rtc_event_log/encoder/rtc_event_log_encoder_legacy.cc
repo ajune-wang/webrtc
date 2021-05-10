@@ -15,6 +15,7 @@
 #include <vector>
 
 #include "absl/types/optional.h"
+#include "api/array_view.h"
 #include "api/network_state_predictor.h"
 #include "api/rtp_headers.h"
 #include "api/rtp_parameters.h"
@@ -593,16 +594,18 @@ std::string RtcEventLogEncoderLegacy::EncodeRtcpPacketOutgoing(
 
 std::string RtcEventLogEncoderLegacy::EncodeRtpPacketIncoming(
     const RtcEventRtpPacketIncoming& event) {
-  return EncodeRtpPacket(event.timestamp_us(), event.header(),
-                         event.packet_length(), PacedPacketInfo::kNotAProbe,
-                         true);
+  return EncodeRtpPacket(
+      event.timestamp_us(),
+      rtc::MakeArrayView(event.header().data(), event.header_length()),
+      event.packet_length(), PacedPacketInfo::kNotAProbe, true);
 }
 
 std::string RtcEventLogEncoderLegacy::EncodeRtpPacketOutgoing(
     const RtcEventRtpPacketOutgoing& event) {
-  return EncodeRtpPacket(event.timestamp_us(), event.header(),
-                         event.packet_length(), event.probe_cluster_id(),
-                         false);
+  return EncodeRtpPacket(
+      event.timestamp_us(),
+      rtc::MakeArrayView(event.header().data(), event.header_length()),
+      event.packet_length(), event.probe_cluster_id(), false);
 }
 
 std::string RtcEventLogEncoderLegacy::EncodeVideoReceiveStreamConfig(
@@ -736,7 +739,7 @@ std::string RtcEventLogEncoderLegacy::EncodeRtcpPacket(
 
 std::string RtcEventLogEncoderLegacy::EncodeRtpPacket(
     int64_t timestamp_us,
-    const webrtc::RtpPacket& header,
+    rtc::ArrayView<const uint8_t> header,
     size_t packet_length,
     int probe_cluster_id,
     bool is_incoming) {

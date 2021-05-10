@@ -16,6 +16,41 @@
       "message": "LG, but no need to change unittest?",
       "revId": "defb3c3fbfe1469af86b23f9adcf42d041a806da",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f4c2ef7_ae3b2737",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2021-05-10T11:12:25Z",
+      "side": 1,
+      "message": "Thanks for the review.",
+      "revId": "defb3c3fbfe1469af86b23f9adcf42d041a806da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac4a58d8_147f13f3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2021-05-10T11:12:25Z",
+      "side": 1,
+      "message": "Not really. The unittest is testing that no refresh DTX packets (payloads \u003e\u003d 2) are sent when those packets have a larger energy than the expected comfort noise, that part is not affected by this CL.",
+      "parentUuid": "0e6c4a10_ebecf976",
+      "revId": "defb3c3fbfe1469af86b23f9adcf42d041a806da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

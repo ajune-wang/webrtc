@@ -52,6 +52,24 @@
       "parentUuid": "05f74e59_5835c8f4",
       "revId": "200de908cc5cd51e145e480ce7c4b451842e10cb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aba536e2_a22c3991",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-10T11:25:18Z",
+      "side": 1,
+      "message": "Should we think about not exporting api/call/ at all?\nGiven doubts about the value of Call, it seems logical to hide it.",
+      "parentUuid": "0183c48b_fd8ef6d0",
+      "revId": "200de908cc5cd51e145e480ce7c4b451842e10cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0d5e764_ac129116",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-05-10T17:35:04Z",
+      "side": 1,
+      "message": "Thank you! One day someone needs to explain me why constants are camel case while variables are snake case ;-)\nWill need help submitting",
+      "revId": "320ac57a8bec9881f102b27255da9c4a7d6213f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -75,6 +75,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1860f2e_f97df5b1",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-05-10T17:35:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c23677a7_9e2b5ba5",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 12
+      },
+      "revId": "2706586a0389353e13e4e321357ffdba257d30b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "786f2544_5adf07d8",
@@ -98,6 +122,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e546b705_cff3ac37",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-05-10T17:35:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "786f2544_5adf07d8",
+      "range": {
+        "startLine": 59,
+        "startChar": 7,
+        "endLine": 59,
+        "endChar": 33
+      },
+      "revId": "2706586a0389353e13e4e321357ffdba257d30b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1fc28d2b_e2e61df7",
@@ -111,6 +159,30 @@
       "writtenOn": "2021-05-10T15:46:04Z",
       "side": 1,
       "message": "Lower case with underscore for variable names.",
+      "range": {
+        "startLine": 184,
+        "startChar": 7,
+        "endLine": 184,
+        "endChar": 33
+      },
+      "revId": "2706586a0389353e13e4e321357ffdba257d30b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2a69601_279cb07b",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-05-10T17:35:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1fc28d2b_e2e61df7",
       "range": {
         "startLine": 184,
         "startChar": 7,

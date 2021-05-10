@@ -67,6 +67,24 @@
       "message": "and one of\n- installing them into \u003cother class\u003e\n- providing encryption/decryption service for RTP and RTCP packets",
       "revId": "9c501ed55de60d6444e83206514bfd52701db063",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b204077_bbded7ee",
+        "filename": "pc/g3doc/dtls_transport.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-05-10T08:11:07Z",
+      "side": 1,
+      "message": "the whole thing is a convoluted mess, just count the number namespaces involved :-)\n\nWhat is actually doing the key extraction is cricket::DtlsTransport::ExportKeyingMaterial which lets rtc::SSLStreamAdapter do the actual work.\nThe protection/unprotection of RTP/RTCP happens in cricket::SrtpSession which is owned by a webrtc:SrtpTransport (in this case the webrtc::DtlsSrtpTransport).\nI\u0027d still say this happens in DtlsSrtpTransport::ExtractParams.\n\nAnd there is cricket::DtlsTransportInternal which is the underlying packet transport.\nWill update along those lines.\n\nI suspect two of the reasons for this being such a mess are\n1/ support for unencrypted rtp (hence the inheritance of srtptransport from RtpTransport)\n2/ SDES (hence the inheritance of DtlsSrtpTransport from SrtpTransport)",
+      "parentUuid": "3c9aab14_03dc8ffa",
+      "revId": "9c501ed55de60d6444e83206514bfd52701db063",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

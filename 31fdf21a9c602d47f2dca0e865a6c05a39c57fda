@@ -1,0 +1,205 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2749dffc_e9587c78",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-10T14:19:31Z",
+      "side": 1,
+      "message": "Thanks so much for the CL Doudou.\nLGTM % some nits",
+      "revId": "31fdf21a9c602d47f2dca0e865a6c05a39c57fda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0b9fbfc_244a1a3b",
+        "filename": "modules/audio_mixer/audio_mixer_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-10T14:19:31Z",
+      "side": 1,
+      "message": "_GT(..., 0)",
+      "range": {
+        "startLine": 136,
+        "startChar": 2,
+        "endLine": 136,
+        "endChar": 12
+      },
+      "revId": "31fdf21a9c602d47f2dca0e865a6c05a39c57fda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f327eb6d_a4377776",
+        "filename": "modules/audio_mixer/audio_mixer_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-10T14:19:31Z",
+      "side": 1,
+      "message": "since you\u0027re editing this, could you add /*use_limiter\u003d*/?",
+      "range": {
+        "startLine": 147,
+        "startChar": 16,
+        "endLine": 147,
+        "endChar": 20
+      },
+      "revId": "31fdf21a9c602d47f2dca0e865a6c05a39c57fda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0508f152_adfd4e37",
+        "filename": "modules/audio_mixer/audio_mixer_impl_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-10T14:19:31Z",
+      "side": 1,
+      "message": "add a comment above, for example:\n// Populate VAD and frame for the inactive sources.",
+      "range": {
+        "startLine": 471,
+        "startChar": 2,
+        "endLine": 471,
+        "endChar": 59
+      },
+      "revId": "31fdf21a9c602d47f2dca0e865a6c05a39c57fda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af0eaf02_9c841b77",
+        "filename": "modules/audio_mixer/audio_mixer_impl_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-10T14:19:31Z",
+      "side": 1,
+      "message": "it may be good to also set `vad_activity_` to kVadActive for the active sources to make the test case\n\nplus we should also expect the same result of this test when `kVadUnknown` is used instead of `kVadPassive` (but I\u0027d leave this as optional)",
+      "range": {
+        "startLine": 472,
+        "startChar": 4,
+        "endLine": 472,
+        "endChar": 54
+      },
+      "revId": "31fdf21a9c602d47f2dca0e865a6c05a39c57fda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31d614f5_07896419",
+        "filename": "modules/audio_mixer/audio_mixer_impl_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-10T14:19:31Z",
+      "side": 1,
+      "message": "I don\u0027t think this is necessary for the inactive sources - as long as `GetAudioSourceMixabilityStatusForTest()` is used to verify the mixer behavior.\nIf you wish, try to remove and check if the test still pass - I guess it will.",
+      "range": {
+        "startLine": 473,
+        "startChar": 4,
+        "endLine": 475,
+        "endChar": 51
+      },
+      "revId": "31fdf21a9c602d47f2dca0e865a6c05a39c57fda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a187e92_c41510cb",
+        "filename": "modules/audio_mixer/audio_mixer_impl_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-10T14:19:31Z",
+      "side": 1,
+      "message": "[nit] int",
+      "range": {
+        "startLine": 485,
+        "startChar": 7,
+        "endLine": 485,
+        "endChar": 13
+      },
+      "revId": "31fdf21a9c602d47f2dca0e865a6c05a39c57fda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c471a05d_44b08fe8",
+        "filename": "modules/audio_mixer/audio_mixer_impl_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-10T14:19:31Z",
+      "side": 1,
+      "message": "[nit] int",
+      "range": {
+        "startLine": 494,
+        "startChar": 7,
+        "endLine": 494,
+        "endChar": 13
+      },
+      "revId": "31fdf21a9c602d47f2dca0e865a6c05a39c57fda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63ee00da_b4323a19",
+        "filename": "modules/audio_mixer/frame_combiner.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-10T14:19:31Z",
+      "side": 1,
+      "message": "Use `rtc::dchecked_cast\u003cint\u003e` from third_party/webrtc/rtc_base/numerics/safe_conversions.h (you may need to add the dependency in the BUILD file)",
+      "range": {
+        "startLine": 212,
+        "startChar": 8,
+        "endLine": 212,
+        "endChar": 24
+      },
+      "revId": "31fdf21a9c602d47f2dca0e865a6c05a39c57fda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

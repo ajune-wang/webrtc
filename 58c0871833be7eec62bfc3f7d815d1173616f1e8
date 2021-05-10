@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1b86205_5ce1abc8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9865
+      },
+      "writtenOn": "2021-05-10T11:07:02Z",
+      "side": 1,
+      "message": "Right, I\u0027ve updated the issue to webrtc:12745",
+      "parentUuid": "12efc516_5ebcf326",
+      "revId": "58c0871833be7eec62bfc3f7d815d1173616f1e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1a958256_97eb0ac0",
@@ -31,6 +49,30 @@
       "writtenOn": "2021-05-10T10:31:20Z",
       "side": 1,
       "message": "this can be combined.",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 3
+      },
+      "revId": "58c0871833be7eec62bfc3f7d815d1173616f1e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "941dc4ad_f26937e0",
+        "filename": "modules/audio_mixer/frame_combiner.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 9865
+      },
+      "writtenOn": "2021-05-10T11:07:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a958256_97eb0ac0",
       "range": {
         "startLine": 60,
         "startChar": 0,

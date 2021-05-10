@@ -1,0 +1,320 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb601d5f_c6b940f4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-05-10T10:04:59Z",
+      "side": 1,
+      "message": "Some initial comments, I haven\u0027t thoroughly checked all the logic yet.",
+      "revId": "bb98acfa4847fe8ffbef0f2426254d353f950bee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b07d45da_d2b039c3",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-05-10T10:04:59Z",
+      "side": 1,
+      "message": "Move to declaration.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 80
+      },
+      "revId": "bb98acfa4847fe8ffbef0f2426254d353f950bee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3fa8fd6_b3777388",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-05-10T10:04:59Z",
+      "side": 1,
+      "message": "Avoid using unsigned for variables, In this part of the code, the bes solution is to ensure that the size of the array is always casted as signed when compared/used together with other variables. unsigned types have nasty failure modes that can trigger hard to find bugs.",
+      "range": {
+        "startLine": 53,
+        "startChar": 4,
+        "endLine": 53,
+        "endChar": 10
+      },
+      "revId": "bb98acfa4847fe8ffbef0f2426254d353f950bee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12ea90c9_01b5de67",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-05-10T10:04:59Z",
+      "side": 1,
+      "message": "Is this expected and should it be silenced? Could we document better why this should happen and is safe to ignore?",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 13
+      },
+      "revId": "bb98acfa4847fe8ffbef0f2426254d353f950bee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "660f306f_d9b75154",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-05-10T10:04:59Z",
+      "side": 1,
+      "message": "If you cast this to int this whole things becomes obviously safe given that we know size() is never \u003e\u003d INT32_MAX/2\n\nSince it\u0027s a common source for usage of unsigned arithmetic here I suggest adding a private helper function that returns size() cast to signed.",
+      "range": {
+        "startLine": 123,
+        "startChar": 17,
+        "endLine": 123,
+        "endChar": 37
+      },
+      "revId": "bb98acfa4847fe8ffbef0f2426254d353f950bee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c869cdf6_e3c39912",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-05-10T10:04:59Z",
+      "side": 1,
+      "message": "nit: inline the lookup, no need to add the extra variable (and not introducing it helps the reader immediately know that it\u0027s only used once)",
+      "range": {
+        "startLine": 163,
+        "startChar": 39,
+        "endLine": 163,
+        "endChar": 59
+      },
+      "revId": "bb98acfa4847fe8ffbef0f2426254d353f950bee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0fa79007_53875302",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-05-10T10:04:59Z",
+      "side": 1,
+      "message": "last_received_sequence_number?",
+      "range": {
+        "startLine": 303,
+        "startChar": 10,
+        "endLine": 303,
+        "endChar": 38
+      },
+      "revId": "bb98acfa4847fe8ffbef0f2426254d353f950bee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37cc1e5b_e5ccf169",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-05-10T10:04:59Z",
+      "side": 1,
+      "message": "[Maybe|Try]BuildFeedbackPacket",
+      "range": {
+        "startLine": 357,
+        "startChar": 22,
+        "endLine": 357,
+        "endChar": 41
+      },
+      "revId": "bb98acfa4847fe8ffbef0f2426254d353f950bee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04c7b48f_3e811bf5",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-05-10T10:04:59Z",
+      "side": 1,
+      "message": "Could this be moved to a separate file? With separate tests?",
+      "range": {
+        "startLine": 42,
+        "startChar": 6,
+        "endLine": 42,
+        "endChar": 26
+      },
+      "revId": "bb98acfa4847fe8ffbef0f2426254d353f950bee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91d76bbe_8e8d6d6f",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-05-10T10:04:59Z",
+      "side": 1,
+      "message": "int, https://google.github.io/styleguide/cppguide.html#Integer_Types",
+      "range": {
+        "startLine": 44,
+        "startChar": 19,
+        "endLine": 44,
+        "endChar": 25
+      },
+      "revId": "bb98acfa4847fe8ffbef0f2426254d353f950bee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f02f60e3_b3fa6bff",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-05-10T10:04:59Z",
+      "side": 1,
+      "message": "(1 \u003c\u003c 15)?",
+      "range": {
+        "startLine": 44,
+        "startChar": 48,
+        "endLine": 44,
+        "endChar": 53
+      },
+      "revId": "bb98acfa4847fe8ffbef0f2426254d353f950bee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "240a94ea_45bdfd3f",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-05-10T10:04:59Z",
+      "side": 1,
+      "message": "Document the assumption that sequence_number !\u003d 0, also add a DCHECK for that do document it in code. Also add reference to external docs that motivates how we can know that it\u0027s never 0.",
+      "range": {
+        "startLine": 76,
+        "startChar": 7,
+        "endLine": 76,
+        "endChar": 16
+      },
+      "revId": "bb98acfa4847fe8ffbef0f2426254d353f950bee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "197d3119_ad74c5ce",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-05-10T10:04:59Z",
+      "side": 1,
+      "message": "Test naming, describe the behavior under test, see also eg. https://testing.googleblog.com/2014/10/testing-on-toilet-writing-descriptive.html",
+      "range": {
+        "startLine": 643,
+        "startChar": 33,
+        "endLine": 643,
+        "endChar": 58
+      },
+      "revId": "bb98acfa4847fe8ffbef0f2426254d353f950bee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6da58253_9aeec6d0",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-05-10T10:04:59Z",
+      "side": 1,
+      "message": "Use a separate test name for PacketArrivalTimeMap",
+      "range": {
+        "startLine": 643,
+        "startChar": 7,
+        "endLine": 643,
+        "endChar": 31
+      },
+      "revId": "bb98acfa4847fe8ffbef0f2426254d353f950bee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

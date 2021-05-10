@@ -34,6 +34,24 @@
       "parentUuid": "c7a1a194_aa706907",
       "revId": "200de908cc5cd51e145e480ce7c4b451842e10cb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0183c48b_fd8ef6d0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-05-10T10:59:44Z",
+      "side": 1,
+      "message": "I can\u0027t think of why it needs to be in api/. I\u0027m guessing the reasons must be legacy dependencies. Over time I guess our best bet will be to deprecate the interface. There are too many places outside of webrtc that are using this definition.",
+      "parentUuid": "05f74e59_5835c8f4",
+      "revId": "200de908cc5cd51e145e480ce7c4b451842e10cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

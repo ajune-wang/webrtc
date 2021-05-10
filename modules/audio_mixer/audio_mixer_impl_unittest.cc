@@ -12,12 +12,17 @@
 
 #include <string.h>
 
+#include <cstdint>
 #include <limits>
 #include <memory>
 #include <string>
 #include <utility>
 
+#include "absl/types/optional.h"
 #include "api/audio/audio_mixer.h"
+#include "api/rtp_packet_info.h"
+#include "api/rtp_packet_infos.h"
+#include "api/units/timestamp.h"
 #include "modules/audio_mixer/default_output_rate_calculator.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/strings/string_builder.h"
@@ -29,6 +34,7 @@ using ::testing::_;
 using ::testing::Exactly;
 using ::testing::Invoke;
 using ::testing::Return;
+using ::testing::UnorderedElementsAre;
 
 namespace webrtc {
 
@@ -87,6 +93,10 @@ class MockMixerAudioSource : public ::testing::NiceMock<AudioMixer::Source> {
     fake_audio_frame_info_ = audio_frame_info;
   }
 
+  void set_packet_infos(const RtpPacketInfos& packet_infos) {
+    packet_infos_ = packet_infos;
+  }
+
  private:
   AudioFrameInfo FakeAudioFrameWithInfo(int sample_rate_hz,
                                         AudioFrame* audio_frame) {
@@ -94,11 +104,13 @@ class MockMixerAudioSource : public ::testing::NiceMock<AudioMixer::Source> {
     audio_frame->sample_rate_hz_ = sample_rate_hz;
     audio_frame->samples_per_channel_ =
         rtc::CheckedDivExact(sample_rate_hz, 100);
+    audio_frame->packet_infos_ = packet_infos_;
     return fake_info();
   }
 
   AudioFrame fake_frame_;
   AudioFrameInfo fake_audio_frame_info_;
+  RtpPacketInfos packet_infos_;
 };
 
 class CustomRateCalculator : public OutputRateCalculator {
@@ -593,6 +605,43 @@ TEST(AudioMixer, MultipleChannelsManyParticipants) {
     EXPECT_EQ(frame_for_mixing.data()[100 * frame_for_mixing.num_channels_ + i],
               static_cast<int16_t>(1000 * i));
   }
+}
+
+TEST(AudioMixer, MixerShouldIncludeRtpPacketInfoFromAllSources) {
+  const uint32_t kSsrc0 = 10;
+  const uint32_t kSsrc1 = 11;
+  const uint32_t kCsrc0 = 20;
+  const uint32_t kCsrc1 = 21;
+  const uint32_t kCsrc2 = 31;
+  const int kAudioLevel0 = 10;
+  const absl::optional<uint32_t> kAudioLevel1 = absl::nullopt;
+  const uint32_t kRtpTimestamp0 = 300;
+  const uint32_t kRtpTimestamp1 = 400;
+  const Timestamp kReceiveTime0 = Timestamp::Millis(10);
+  const Timestamp kReceiveTime1 = Timestamp::Millis(20);
+
+  const RtpPacketInfo kPacketInfo0(kSsrc0, {kCsrc0, kCsrc1}, kRtpTimestamp0,
+                                   kAudioLevel0, absl::nullopt, kReceiveTime0);
+  const RtpPacketInfo kPacketInfo1(kSsrc1, {kCsrc2}, kRtpTimestamp1,
+                                   kAudioLevel1, absl::nullopt, kReceiveTime1);
+
+  MockMixerAudioSource source;
+  source.set_packet_infos(RtpPacketInfos({kPacketInfo0}));
+
+  const auto mixer = AudioMixerImpl::Create();
+  mixer->AddSource(&source);
+  ResetFrame(source.fake_frame());
+  mixer->Mix(1, &frame_for_mixing);
+
+  MockMixerAudioSource other_source;
+  other_source.set_packet_infos(RtpPacketInfos({kPacketInfo1}));
+  ResetFrame(other_source.fake_frame());
+  mixer->AddSource(&other_source);
+
+  mixer->Mix(1, &frame_for_mixing);
+
+  EXPECT_THAT(frame_for_mixing.packet_infos_,
+              UnorderedElementsAre(kPacketInfo0, kPacketInfo1));
 }
 
 class HighOutputRateCalculator : public OutputRateCalculator {

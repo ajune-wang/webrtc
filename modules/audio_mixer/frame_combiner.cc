@@ -207,10 +207,9 @@ void FrameCombiner::LogMixingStats(
     uma_logging_counter_ = 0;
     RTC_HISTOGRAM_COUNTS_100("WebRTC.Audio.AudioMixer.NumIncomingStreams",
                              static_cast<int>(number_of_streams));
-    RTC_HISTOGRAM_ENUMERATION(
-        "WebRTC.Audio.AudioMixer.NumIncomingActiveStreams",
-        static_cast<int>(mix_list.size()),
-        AudioMixerImpl::kMaximumAmountOfMixedAudioSources);
+    RTC_HISTOGRAM_COUNTS_LINEAR(
+        "WebRTC.Audio.AudioMixer.NumIncomingActiveStreams2",
+        static_cast<int>(mix_list.size()), 0, 16, 17);
 
     using NativeRate = AudioProcessing::NativeRate;
     static constexpr NativeRate native_rates[] = {

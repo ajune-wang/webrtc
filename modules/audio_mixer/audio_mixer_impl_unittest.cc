@@ -12,10 +12,12 @@
 
 #include <string.h>
 
+#include <cstdint>
 #include <limits>
 #include <memory>
 #include <string>
 #include <utility>
+#include <vector>
 
 #include "api/audio/audio_mixer.h"
 #include "modules/audio_mixer/default_output_rate_calculator.h"
@@ -160,7 +162,7 @@ void MixMonoAtGivenNativeRate(int native_sample_rate,
 
 TEST(AudioMixer, LargestEnergyVadActiveMixed) {
   constexpr int kAudioSources =
-      AudioMixerImpl::kMaximumAmountOfMixedAudioSources + 3;
+      AudioMixerImpl::kDefaultNumberOfMixedAudioSources + 3;
 
   const auto mixer = AudioMixerImpl::Create();
 
@@ -191,7 +193,7 @@ TEST(AudioMixer, LargestEnergyVadActiveMixed) {
         mixer->GetAudioSourceMixabilityStatusForTest(&participants[i]);
     if (i == kAudioSources - 1 ||
         i < kAudioSources - 1 -
-                AudioMixerImpl::kMaximumAmountOfMixedAudioSources) {
+                AudioMixerImpl::kDefaultNumberOfMixedAudioSources) {
       EXPECT_FALSE(is_mixed)
           << "Mixing status of AudioSource #" << i << " wrong.";
     } else {
@@ -322,7 +324,7 @@ TEST(AudioMixer, ParticipantNumberOfChannels) {
 // another participant with higher energy is added.
 TEST(AudioMixer, RampedOutSourcesShouldNotBeMarkedMixed) {
   constexpr int kAudioSources =
-      AudioMixerImpl::kMaximumAmountOfMixedAudioSources + 1;
+      AudioMixerImpl::kDefaultNumberOfMixedAudioSources + 1;
 
   const auto mixer = AudioMixerImpl::Create();
   MockMixerAudioSource participants[kAudioSources];
@@ -399,7 +401,7 @@ TEST(AudioMixer, ConstructFromOtherThread) {
 
 TEST(AudioMixer, MutedShouldMixAfterUnmuted) {
   constexpr int kAudioSources =
-      AudioMixerImpl::kMaximumAmountOfMixedAudioSources + 1;
+      AudioMixerImpl::kDefaultNumberOfMixedAudioSources + 1;
 
   std::vector<AudioFrame> frames(kAudioSources);
   for (auto& frame : frames) {
@@ -417,7 +419,7 @@ TEST(AudioMixer, MutedShouldMixAfterUnmuted) {
 
 TEST(AudioMixer, PassiveShouldMixAfterNormal) {
   constexpr int kAudioSources =
-      AudioMixerImpl::kMaximumAmountOfMixedAudioSources + 1;
+      AudioMixerImpl::kDefaultNumberOfMixedAudioSources + 1;
 
   std::vector<AudioFrame> frames(kAudioSources);
   for (auto& frame : frames) {
@@ -435,7 +437,7 @@ TEST(AudioMixer, PassiveShouldMixAfterNormal) {
 
 TEST(AudioMixer, ActiveShouldMixBeforeLoud) {
   constexpr int kAudioSources =
-      AudioMixerImpl::kMaximumAmountOfMixedAudioSources + 1;
+      AudioMixerImpl::kDefaultNumberOfMixedAudioSources + 1;
 
   std::vector<AudioFrame> frames(kAudioSources);
   for (auto& frame : frames) {
@@ -454,9 +456,51 @@ TEST(AudioMixer, ActiveShouldMixBeforeLoud) {
   MixAndCompare(frames, frame_info, expected_status);
 }
 
+TEST(AudioMixer, ShouldMixUpToSpecifiedNumberOfSourcesToMix) {
+  constexpr int kAudioSources = 5;
+  constexpr int kSourcesToMix = 2;
+
+  std::vector<AudioFrame> frames(kAudioSources);
+  for (auto& frame : frames) {
+    ResetFrame(&frame);
+  }
+
+  std::vector<AudioMixer::Source::AudioFrameInfo> frame_info(
+      kAudioSources, AudioMixer::Source::AudioFrameInfo::kNormal);
+
+  for (int i = 0; i < kAudioSources - kSourcesToMix; i++) {
+    frames[i].vad_activity_ = AudioFrame::kVadPassive;
+    int16_t* frame_data = frames[i].mutable_data();
+    std::fill(frame_data, frame_data + kDefaultSampleRateHz / 100,
+              std::numeric_limits<int16_t>::max());
+  }
+
+  std::vector<MockMixerAudioSource> participants(kAudioSources);
+  for (size_t i = 0; i < kAudioSources; ++i) {
+    participants[i].fake_frame()->CopyFrom(frames[i]);
+    participants[i].set_fake_info(frame_info[i]);
+  }
+
+  const auto mixer = AudioMixerImpl::Create(kSourcesToMix);
+  for (size_t i = 0; i < kAudioSources; ++i) {
+    EXPECT_TRUE(mixer->AddSource(&participants[i]));
+    EXPECT_CALL(participants[i], GetAudioFrameWithInfo(kDefaultSampleRateHz, _))
+        .Times(Exactly(1));
+  }
+
+  mixer->Mix(1, &frame_for_mixing);
+
+  std::vector<bool> expected_status = {false, false, false, true, true};
+  for (size_t i = 0; i < kAudioSources; ++i) {
+    EXPECT_EQ(expected_status[i],
+              mixer->GetAudioSourceMixabilityStatusForTest(&participants[i]))
+        << "Wrong mix status for source #" << i << " is wrong";
+  }
+}
+
 TEST(AudioMixer, UnmutedShouldMixBeforeLoud) {
   constexpr int kAudioSources =
-      AudioMixerImpl::kMaximumAmountOfMixedAudioSources + 1;
+      AudioMixerImpl::kDefaultNumberOfMixedAudioSources + 1;
 
   std::vector<AudioFrame> frames(kAudioSources);
   for (auto& frame : frames) {

@@ -108,6 +108,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5a6e0173_80368ebf",
+        "filename": "examples/androidnativeapi/jni/android_call_client.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-10T08:46:04Z",
+      "side": 1,
+      "message": "There\u0027s already an RTC_DCHECK within MoveValue().",
+      "parentUuid": "86cfc75b_8261deb4",
+      "revId": "61e06e9b1f1290b3e480e374ca32bbe6da245170",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7e7acfe9_fb209643",
         "filename": "examples/objcnativeapi/objc/objc_call_client.mm",
         "patchSetId": 8

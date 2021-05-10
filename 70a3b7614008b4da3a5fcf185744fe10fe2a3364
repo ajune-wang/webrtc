@@ -16,6 +16,23 @@
       "message": "-2.2 KiB on arm64. :) ",
       "revId": "70a3b7614008b4da3a5fcf185744fe10fe2a3364",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb3e8cf1_1a70234b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-10T08:46:04Z",
+      "side": 1,
+      "message": "Thanks!\n",
+      "revId": "70a3b7614008b4da3a5fcf185744fe10fe2a3364",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

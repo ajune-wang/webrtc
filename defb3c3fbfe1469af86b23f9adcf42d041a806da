@@ -87,6 +87,24 @@
       "parentUuid": "c64f3343_15dfc611",
       "revId": "defb3c3fbfe1469af86b23f9adcf42d041a806da",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "038abce9_3da77f84",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-05-10T14:02:44Z",
+      "side": 1,
+      "message": "In my word, the error was that audio receiver (NetEQ) has not been informed about DTX, before seeing a gap in timestamp. The DTX information replies on one byter.\n\nAn ideal test would be that we never introduce packet loss on the sender side:\n\nwe only allow the following to break after an empty packet\ntimestamp(packet(n)) + duration(packet(n)) \u003d\u003d timestamp(packet(n + 1))\nuntil next non-empty packet is released.\n\nI guess the test is then need to be written at a higher level, where timestamp packet number are defined.\n\nTo make it relatively easier and localized, we can add in the DTX test to make sure that\nopus_encoder always return \u003e2 unless the last issued payload is \u003c\u003d2",
+      "parentUuid": "edf728a2_7422b527",
+      "revId": "defb3c3fbfe1469af86b23f9adcf42d041a806da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

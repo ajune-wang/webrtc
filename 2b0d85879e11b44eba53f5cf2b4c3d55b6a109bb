@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78f9c01e_914d7cfc",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-05-10T08:31:05Z",
+      "side": 1,
+      "message": "Extra empty line. Please remove.",
+      "revId": "2b0d85879e11b44eba53f5cf2b4c3d55b6a109bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7d17666_64ffa9df",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 635,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-05-10T08:31:05Z",
+      "side": 1,
+      "message": "Where does this come from? In that scenario can we have spatial layer with 0 width?",
+      "revId": "2b0d85879e11b44eba53f5cf2b4c3d55b6a109bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

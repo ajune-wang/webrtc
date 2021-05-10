@@ -33,6 +33,92 @@
       "message": "Thanks for this change. ",
       "revId": "2706586a0389353e13e4e321357ffdba257d30b9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e854ed0f_b6a317c9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2021-05-10T15:46:04Z",
+      "side": 1,
+      "message": "Thanks, Philipp!\n\nLGTM with nits addressed.\n",
+      "revId": "2706586a0389353e13e4e321357ffdba257d30b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c23677a7_9e2b5ba5",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2021-05-10T15:46:04Z",
+      "side": 1,
+      "message": "Why not size_t? The result is used to compare with size_t variables in both places.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 12
+      },
+      "revId": "2706586a0389353e13e4e321357ffdba257d30b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "786f2544_5adf07d8",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2021-05-10T15:46:04Z",
+      "side": 1,
+      "message": "Please, use lower case with underscore for variable names.",
+      "range": {
+        "startLine": 59,
+        "startChar": 7,
+        "endLine": 59,
+        "endChar": 33
+      },
+      "revId": "2706586a0389353e13e4e321357ffdba257d30b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1fc28d2b_e2e61df7",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2021-05-10T15:46:04Z",
+      "side": 1,
+      "message": "Lower case with underscore for variable names.",
+      "range": {
+        "startLine": 184,
+        "startChar": 7,
+        "endLine": 184,
+        "endChar": 33
+      },
+      "revId": "2706586a0389353e13e4e321357ffdba257d30b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

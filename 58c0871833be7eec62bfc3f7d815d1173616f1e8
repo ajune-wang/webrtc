@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12efc516_5ebcf326",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-05-10T10:31:20Z",
+      "side": 1,
+      "message": "I don\u0027t see a relation of this CL to webrtc:10757",
+      "revId": "58c0871833be7eec62bfc3f7d815d1173616f1e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a958256_97eb0ac0",
+        "filename": "modules/audio_mixer/frame_combiner.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-05-10T10:31:20Z",
+      "side": 1,
+      "message": "this can be combined.",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 3
+      },
+      "revId": "58c0871833be7eec62bfc3f7d815d1173616f1e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3aa1280a_20197237",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-10T20:47:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b07d45da_d2b039c3",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 80
+      },
+      "revId": "bb98acfa4847fe8ffbef0f2426254d353f950bee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b3fa8fd6_b3777388",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-05-10T10:04:59Z",
       "side": 1,
       "message": "Avoid using unsigned for variables, In this part of the code, the bes solution is to ensure that the size of the array is always casted as signed when compared/used together with other variables. unsigned types have nasty failure modes that can trigger hard to find bugs.",
+      "range": {
+        "startLine": 53,
+        "startChar": 4,
+        "endLine": 53,
+        "endChar": 10
+      },
+      "revId": "bb98acfa4847fe8ffbef0f2426254d353f950bee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35ec24a9_8fa290e3",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-10T20:47:52Z",
+      "side": 1,
+      "message": "I don\u0027t quite agree. Mixing signed and unsigned variables is worse.",
+      "parentUuid": "b3fa8fd6_b3777388",
       "range": {
         "startLine": 53,
         "startChar": 4,
@@ -87,6 +135,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "39f58004_26c1ebf7",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-10T20:47:52Z",
+      "side": 1,
+      "message": "This is only exercised in unit tests to handle bugs previously found by fuzzing. It\u0027s not expected for the sequence number to jump too much backwards at all.",
+      "parentUuid": "12ea90c9_01b5de67",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 13
+      },
+      "revId": "bb98acfa4847fe8ffbef0f2426254d353f950bee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "660f306f_d9b75154",
@@ -100,6 +172,30 @@
       "writtenOn": "2021-05-10T10:04:59Z",
       "side": 1,
       "message": "If you cast this to int this whole things becomes obviously safe given that we know size() is never \u003e\u003d INT32_MAX/2\n\nSince it\u0027s a common source for usage of unsigned arithmetic here I suggest adding a private helper function that returns size() cast to signed.",
+      "range": {
+        "startLine": 123,
+        "startChar": 17,
+        "endLine": 123,
+        "endChar": 37
+      },
+      "revId": "bb98acfa4847fe8ffbef0f2426254d353f950bee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "402aaa73_6e13f287",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-10T20:47:52Z",
+      "side": 1,
+      "message": "I don\u0027t quite see why this is unsafe.",
+      "parentUuid": "660f306f_d9b75154",
       "range": {
         "startLine": 123,
         "startChar": 17,
@@ -133,6 +229,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8631a06_7c98d86e",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-10T20:47:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c869cdf6_e3c39912",
+      "range": {
+        "startLine": 163,
+        "startChar": 39,
+        "endLine": 163,
+        "endChar": 59
+      },
+      "revId": "bb98acfa4847fe8ffbef0f2426254d353f950bee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0fa79007_53875302",
@@ -146,6 +266,30 @@
       "writtenOn": "2021-05-10T10:04:59Z",
       "side": 1,
       "message": "last_received_sequence_number?",
+      "range": {
+        "startLine": 303,
+        "startChar": 10,
+        "endLine": 303,
+        "endChar": 38
+      },
+      "revId": "bb98acfa4847fe8ffbef0f2426254d353f950bee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35640030_e7329970",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-10T20:47:52Z",
+      "side": 1,
+      "message": "No, packets can be received out-of-order.",
+      "parentUuid": "0fa79007_53875302",
       "range": {
         "startLine": 303,
         "startChar": 10,
@@ -179,6 +323,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3364ad1_5b50808e",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-10T20:47:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "37cc1e5b_e5ccf169",
+      "range": {
+        "startLine": 357,
+        "startChar": 22,
+        "endLine": 357,
+        "endChar": 41
+      },
+      "revId": "bb98acfa4847fe8ffbef0f2426254d353f950bee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "04c7b48f_3e811bf5",
@@ -192,6 +360,30 @@
       "writtenOn": "2021-05-10T10:04:59Z",
       "side": 1,
       "message": "Could this be moved to a separate file? With separate tests?",
+      "range": {
+        "startLine": 42,
+        "startChar": 6,
+        "endLine": 42,
+        "endChar": 26
+      },
+      "revId": "bb98acfa4847fe8ffbef0f2426254d353f950bee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7935046_31e89a0b",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-10T20:47:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "04c7b48f_3e811bf5",
       "range": {
         "startLine": 42,
         "startChar": 6,
@@ -248,6 +440,54 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fcf7d75a_92c4839a",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-10T20:47:52Z",
+      "side": 1,
+      "message": "Just within modules/ there are almost 10000 uses of size_t, and they usually denote sizes. Even in g/c-users, that style guide will not find much traction.",
+      "parentUuid": "91d76bbe_8e8d6d6f",
+      "range": {
+        "startLine": 44,
+        "startChar": 19,
+        "endLine": 44,
+        "endChar": 25
+      },
+      "revId": "bb98acfa4847fe8ffbef0f2426254d353f950bee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c028ab2a_e4283586",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-10T20:47:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f02f60e3_b3fa6bff",
+      "range": {
+        "startLine": 44,
+        "startChar": 48,
+        "endLine": 44,
+        "endChar": 53
+      },
+      "revId": "bb98acfa4847fe8ffbef0f2426254d353f950bee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "240a94ea_45bdfd3f",
@@ -261,6 +501,30 @@
       "writtenOn": "2021-05-10T10:04:59Z",
       "side": 1,
       "message": "Document the assumption that sequence_number !\u003d 0, also add a DCHECK for that do document it in code. Also add reference to external docs that motivates how we can know that it\u0027s never 0.",
+      "range": {
+        "startLine": 76,
+        "startChar": 7,
+        "endLine": 76,
+        "endChar": 16
+      },
+      "revId": "bb98acfa4847fe8ffbef0f2426254d353f950bee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59301220_d7a12d4b",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-10T20:47:52Z",
+      "side": 1,
+      "message": "sequence_number 0 is absolutely allowed.",
+      "parentUuid": "240a94ea_45bdfd3f",
       "range": {
         "startLine": 76,
         "startChar": 7,
@@ -307,6 +571,54 @@
       "writtenOn": "2021-05-10T10:04:59Z",
       "side": 1,
       "message": "Use a separate test name for PacketArrivalTimeMap",
+      "range": {
+        "startLine": 643,
+        "startChar": 7,
+        "endLine": 643,
+        "endChar": 31
+      },
+      "revId": "bb98acfa4847fe8ffbef0f2426254d353f950bee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e88adf2_591e84f9",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-10T20:47:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "197d3119_ad74c5ce",
+      "range": {
+        "startLine": 643,
+        "startChar": 33,
+        "endLine": 643,
+        "endChar": 58
+      },
+      "revId": "bb98acfa4847fe8ffbef0f2426254d353f950bee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "170a56c0_1b2bbd8d",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-10T20:47:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6da58253_9aeec6d0",
       "range": {
         "startLine": 643,
         "startChar": 7,

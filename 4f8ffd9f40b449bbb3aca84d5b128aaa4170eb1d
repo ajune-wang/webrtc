@@ -16,6 +16,57 @@
       "message": "the other change is baked in now and I think i\u0027ve seen another bug recently where payload type exhaustion might have been the root cause.",
       "revId": "4f8ffd9f40b449bbb3aca84d5b128aaa4170eb1d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "71785f8b_a98e264c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-10T06:48:02Z",
+      "side": 1,
+      "message": "PT was a time bomb. Let\u0027s not plant more time bombs.\n",
+      "revId": "4f8ffd9f40b449bbb3aca84d5b128aaa4170eb1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e35fb774_40f81bc6",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-10T06:48:02Z",
+      "side": 1,
+      "message": "a far future problem: if we have isCodecValidForLowerRange() for so many codecs that the lower range gets filled up before the higher range is full, this will error out here. Suggest adding (\"\u0026\u0026 payload_type_lower \u003c kLastDynamicPayloadTypeLowerRange\") to the condition above, and checking that both ranges are full when we get here.\n\n(Same thing below).",
+      "revId": "4f8ffd9f40b449bbb3aca84d5b128aaa4170eb1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f49cab2d_3c3ca2a1",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-10T06:48:02Z",
+      "side": 1,
+      "message": "Given that this if condition is getting pretty complex AND is repeated, I suggest creating a single function absl::optional\u003cPT\u003e AllocatePayloadType(codec.name).",
+      "revId": "4f8ffd9f40b449bbb3aca84d5b128aaa4170eb1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

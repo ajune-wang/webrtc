@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8ea95fd_4140c8c9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-05-10T11:43:18Z",
+      "side": 1,
+      "message": "LGTM after today\u0027s WebRTC meeting discussion.",
+      "revId": "e35c50ceb92a0d484a6468058006d327dd48f3eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

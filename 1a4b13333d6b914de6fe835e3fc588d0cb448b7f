@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f96e8b99_e6061fed",
+        "filename": "rtc_base/thread.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 949,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-05-11T20:18:27Z",
+      "side": 1,
+      "message": "That went so so. OK if I move it back into CheckSendPoliciesBeforeSendTask?",
+      "parentUuid": "46d210b8_3a533ab6",
+      "revId": "1a4b13333d6b914de6fe835e3fc588d0cb448b7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "75b1359f_f16b1e54",
         "filename": "rtc_base/thread.cc",
         "patchSetId": 4

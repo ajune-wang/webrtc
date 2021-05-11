@@ -105,6 +105,24 @@
       "parentUuid": "edf728a2_7422b527",
       "revId": "defb3c3fbfe1469af86b23f9adcf42d041a806da",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23108b01_319945ac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2021-05-11T11:58:32Z",
+      "side": 1,
+      "message": "Thanks for the suggestion. Right, looking at it from the Decoder side point of view makes things clearer. I have updated the unittest that was doing the filtering of the DTX refresh packets.",
+      "parentUuid": "038abce9_3da77f84",
+      "revId": "defb3c3fbfe1469af86b23f9adcf42d041a806da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

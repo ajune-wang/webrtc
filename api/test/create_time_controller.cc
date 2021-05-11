@@ -34,7 +34,9 @@ std::unique_ptr<CallFactoryInterface> CreateTimeControllerBasedCallFactory(
    public:
     explicit TimeControllerBasedCallFactory(TimeController* time_controller)
         : time_controller_(time_controller) {}
-    Call* CreateCall(const Call::Config& config) override {
+    Call* CreateCall(const Call::Config& config,
+                     std::unique_ptr<RtpTransportControllerSendInterface>
+                         transportControllerSend) override {
       if (!module_thread_) {
         module_thread_ = SharedModuleThread::Create(
             time_controller_->CreateProcessThread("CallModules"),

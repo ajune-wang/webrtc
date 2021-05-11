@@ -85,6 +85,24 @@
       "parentUuid": "3c9aab14_03dc8ffa",
       "revId": "9c501ed55de60d6444e83206514bfd52701db063",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36b9ef3f_1edaa907",
+        "filename": "pc/g3doc/dtls_transport.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-11T06:26:57Z",
+      "side": 1,
+      "message": "Yeah, we\u0027re going to nuke the cricket:: namespace (and probably the rtp:: namespace) Real Soon Now (some year, hopefully this), but that won\u0027t help in the actual structure.\n\nIf you add the sentence starting \"the protection...\" from this comment to the doc, I think we have left enough breadcrumbs that people who care can follow the code.",
+      "parentUuid": "2b204077_bbded7ee",
+      "revId": "9c501ed55de60d6444e83206514bfd52701db063",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

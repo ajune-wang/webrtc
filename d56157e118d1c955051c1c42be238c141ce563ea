@@ -16,6 +16,23 @@
       "message": "Please use @webrtc.org addresses for reviewing webrtc CLs when possible.\n",
       "revId": "d56157e118d1c955051c1c42be238c141ce563ea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75cb56e3_38bba4ed",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-11T06:44:22Z",
+      "side": 1,
+      "message": "Approved.\n\nOne slightly worrying property is that the number of calls to callbacks_.TimeMillis() is proliferating. But I *think* all of these were formerly being called from SendPackets(). The only reason I can see for pulling this up is that different calls to TimeMillis() from SendPackets() could return different results - is this the reason why?\n\nWe could argue that \"now\" should be injected into the library per-call also from timer driven events rather than via a callout (where the lib itself has no way to control whether the time increments while the library is working). But that would be a larger refactoring.\n\nThis fixes the problem, as far as I can tell.",
+      "revId": "d56157e118d1c955051c1c42be238c141ce563ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

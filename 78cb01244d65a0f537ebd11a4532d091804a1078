@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4041aa6b_6b62e228",
+        "filename": "rtc_base/bit_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-05-11T13:51:59Z",
+      "side": 1,
+      "message": "I thought about it, but I\u0027d prefer deferring that for a follow-up CL. (It will have to touch a bunch of places in the video encoder wrapper / packetizer.)",
+      "parentUuid": "3e6db714_9100492b",
+      "revId": "78cb01244d65a0f537ebd11a4532d091804a1078",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b02cb99f_326797a9",
         "filename": "rtc_base/bit_buffer_unittest.cc",
         "patchSetId": 1
@@ -48,6 +66,24 @@
       "writtenOn": "2021-04-23T12:30:47Z",
       "side": 1,
       "message": "Ouch - that was ugly reading!\n\nCan you instead test EXPECT_EQ(0x4D32AB5400FFFE01 \u003e\u003e (64-33), val);\n\nThat was the most readable way I could imagine to say \"the first 33 bits of this value\".",
+      "revId": "78cb01244d65a0f537ebd11a4532d091804a1078",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "588e5585_4243f2db",
+        "filename": "rtc_base/bit_buffer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-05-11T13:51:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b02cb99f_326797a9",
       "revId": "78cb01244d65a0f537ebd11a4532d091804a1078",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -65,6 +101,24 @@
       "writtenOn": "2021-04-23T12:30:47Z",
       "side": 1,
       "message": "This seems to me to be a bit weak on exercising the code, since it tests only reading that starts on a byte boundary.\n\nWDYT about reading first 33 bits and then 31 bits?",
+      "revId": "78cb01244d65a0f537ebd11a4532d091804a1078",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ab2922d_1466004e",
+        "filename": "rtc_base/bit_buffer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-05-11T13:51:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4a586ce_ed36391d",
       "revId": "78cb01244d65a0f537ebd11a4532d091804a1078",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

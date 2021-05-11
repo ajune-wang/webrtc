@@ -86,6 +86,24 @@
       "parentUuid": "dca781e5_4b7e2600",
       "revId": "9b094b269d7a663e0906ca8eaac2a3dd2ca640e3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "782eeb88_02d448de",
+        "filename": "pc/peer_connection_media_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1750,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2021-05-11T13:17:00Z",
+      "side": 1,
+      "message": "figured out a way to solve it. Given that it works if the peerconnection is created with a media engine that has the codecs set already rather than modifying the engine codecs afterwards this doesn\u0027t look like audio-related.",
+      "parentUuid": "169097f4_52ce0084",
+      "revId": "9b094b269d7a663e0906ca8eaac2a3dd2ca640e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

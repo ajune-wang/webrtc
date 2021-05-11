@@ -16,6 +16,24 @@
       "message": "I think this part was actually ok as is.",
       "revId": "da3dc149b20576a9bae09b0d7a4ecfe819829c1f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d52f48d7_cab3d467",
+        "filename": "rtc_base/thread.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 945,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-05-11T17:40:31Z",
+      "side": 0,
+      "message": "Yes, would like to call it from thread_wrapper.",
+      "parentUuid": "a54c3566_86aaac4a",
+      "revId": "da3dc149b20576a9bae09b0d7a4ecfe819829c1f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

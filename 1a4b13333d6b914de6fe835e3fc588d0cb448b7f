@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "46d210b8_3a533ab6",
+        "filename": "rtc_base/thread.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 949,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-05-11T17:40:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03803661_1d9f581d",
+      "revId": "1a4b13333d6b914de6fe835e3fc588d0cb448b7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "75b1359f_f16b1e54",
@@ -31,6 +49,24 @@
       "writtenOn": "2021-05-11T17:11:57Z",
       "side": 1,
       "message": "nit: CheckSendPoliciesBeforeSendTask? (since Post is conceptually supposed to be non-blocking and this is \u0027send\u0027 related).",
+      "revId": "1a4b13333d6b914de6fe835e3fc588d0cb448b7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21dd2c95_841c3eda",
+        "filename": "rtc_base/thread.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 953,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-05-11T17:40:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75b1359f_f16b1e54",
       "revId": "1a4b13333d6b914de6fe835e3fc588d0cb448b7f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

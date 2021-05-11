@@ -33,6 +33,42 @@
       "message": "Approved.\n\nOne slightly worrying property is that the number of calls to callbacks_.TimeMillis() is proliferating. But I *think* all of these were formerly being called from SendPackets(). The only reason I can see for pulling this up is that different calls to TimeMillis() from SendPackets() could return different results - is this the reason why?\n\nWe could argue that \"now\" should be injected into the library per-call also from timer driven events rather than via a callout (where the lib itself has no way to control whether the time increments while the library is working). But that would be a larger refactoring.\n\nThis fixes the problem, as far as I can tell.",
       "revId": "d56157e118d1c955051c1c42be238c141ce563ea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfb18d1c_3780a4bc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-11T08:28:34Z",
+      "side": 1,
+      "message": "Sorry!",
+      "parentUuid": "e989251e_e48f6d2d",
+      "revId": "d56157e118d1c955051c1c42be238c141ce563ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e1f0805_0f206c90",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-11T08:28:34Z",
+      "side": 1,
+      "message": "I agree that it would be good to be certain when time is retrieved. One possibility would be to provide it as an argument to each method in the public API, but that would clutter it a lot simply for testability. An alternative would be to explicitly call it once (as a callout) for each method call in the public API and never elsewhere. Then it would be injectable to tests, and deterministic. I think I would prefer the second approach, which I will implement.",
+      "parentUuid": "75cb56e3_38bba4ed",
+      "revId": "d56157e118d1c955051c1c42be238c141ce563ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

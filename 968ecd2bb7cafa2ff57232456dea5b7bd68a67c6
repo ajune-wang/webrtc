@@ -50,6 +50,23 @@
       "message": "Hello, this is a fairly low impact change for increasing efficiency of FEC decode on the receiver. Can someone please help with getting the change reviewed?",
       "revId": "968ecd2bb7cafa2ff57232456dea5b7bd68a67c6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53751a0e_eac311e0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2021-05-11T14:29:40Z",
+      "side": 1,
+      "message": "Sorry for the delay in getting to this! Thanks for the detailed CL description, this lgtm.",
+      "revId": "968ecd2bb7cafa2ff57232456dea5b7bd68a67c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

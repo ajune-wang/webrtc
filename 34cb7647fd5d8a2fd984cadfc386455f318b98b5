@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9ac89bf_75b0dd95",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-11T07:25:12Z",
+      "side": 1,
+      "message": "Given our other recent run-in with this issue, I think this CL should be revised to use the UsedPayloadTypes from pc/used_ids.h\n\nThere should be only one way to do it ....\n",
+      "revId": "34cb7647fd5d8a2fd984cadfc386455f318b98b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1736,6 +1736,22 @@ TEST_F(PeerConnectionMediaTestUnifiedPlan,
   EXPECT_TRUE(CompareCodecs(video_codecs_vpx_reverse, recv_codecs));
 }
 
+TEST_F(PeerConnectionMediaTestUnifiedPlan,
+       SetCodecPreferencesVoiceActivityDetection) {
+  auto caller = CreatePeerConnectionWithAudio();
+  AddComfortNoiseCodecsToSend(caller->media_engine());
+
+  auto transceiver = caller->pc()->GetTransceivers().front();
+  auto capabilities = caller->pc_factory()->GetRtpSenderCapabilities(
+      cricket::MediaType::MEDIA_TYPE_AUDIO);
+  EXPECT_TRUE(transceiver->SetCodecPreferences(capabilities.codecs).ok());
+
+  RTCOfferAnswerOptions options;
+  options.voice_activity_detection = false;
+  auto offer = caller->CreateOffer(options);
+  EXPECT_FALSE(HasAnyComfortNoiseCodecs(offer->description()));
+}
+
 INSTANTIATE_TEST_SUITE_P(PeerConnectionMediaTest,
                          PeerConnectionMediaTest,
                          Values(SdpSemantics::kPlanB,

@@ -69,6 +69,24 @@
       "parentUuid": "aca91107_daf53716",
       "revId": "ddbe74e4a8f8fbafb6490ee515b2b6ddb9b9c284",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e44007f_d9d6dc7e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2021-05-11T08:15:15Z",
+      "side": 1,
+      "message": "I\u0027m sure all layer frames of the first picture are marked as kVideoFrameKey.\nI tested with https://chromium-review.googlesource.com/c/webm/libvpx/+/2856009 which makes non SL0 frames delta frames, and the unittests of vp9 svc still failed.\nthat\u0027s because when build super frame for first picture, the frameType of super frame in VideoProcessor::BuildAndStoreSuperframe is not key when we fix the non SL0 kVideoFrameKey issue, so it cannot be decoded due to it\u0027s not key type.",
+      "parentUuid": "d4c48559_1490c8fe",
+      "revId": "ddbe74e4a8f8fbafb6490ee515b2b6ddb9b9c284",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

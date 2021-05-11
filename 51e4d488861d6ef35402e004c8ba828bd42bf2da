@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b57f961_3179f0b1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-05-11T07:22:19Z",
+      "side": 1,
+      "message": "Please give some details on the use case, either here or as a bug.\n\nCall is an internal class which is in a bit of flux, so usually not a good place to add hooks for applications to customize it. It might make more sense to pass some kind of RtpTransport factory to PeerConnectionFactory, and let PeerConnection/PeerconnectionFactory create an RtpTransportControllerSend, via the factory, and inject that into Call.",
+      "revId": "51e4d488861d6ef35402e004c8ba828bd42bf2da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dc1916f7_48676bff",
@@ -43,6 +60,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9e3834fb_261547e2",
+        "filename": "call/call.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-05-11T07:22:19Z",
+      "side": 1,
+      "message": "Do we really need a factory? Everything passed to the factory\u0027s create method (including the clock and the pacer thread) are available to the caller of Call::Create()). So it would be a bit simpler to let the caller pass a std::unique_ptr\u003cRtpTransportcontrollerSendInterface\u003e directly.\n\nIt might also make sense to change to CallConfig to pass-by-value, so that it can hold move-only members like unique_ptr, and then move more arguments into CallConfig. But that\u0027s better done as a separate change, I think.",
+      "range": {
+        "startLine": 524,
+        "startChar": 0,
+        "endLine": 529,
+        "endChar": 30
+      },
+      "revId": "51e4d488861d6ef35402e004c8ba828bd42bf2da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5aac4719_5613fd3b",
         "filename": "call/call_config.h",
         "patchSetId": 6
@@ -54,6 +94,30 @@
       "writtenOn": "2021-05-10T19:12:49Z",
       "side": 1,
       "message": "std::shared_ptr is banned, see https://webrtc.googlesource.com/src/+/HEAD/style-guide.md#smart-pointers\n\nDo we need a shared pointer at all, or could this be unique_ptr instead?",
+      "range": {
+        "startLine": 75,
+        "startChar": 2,
+        "endLine": 75,
+        "endChar": 17
+      },
+      "revId": "51e4d488861d6ef35402e004c8ba828bd42bf2da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b98dd8c9_c23d96af",
+        "filename": "call/call_config.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-05-11T07:22:19Z",
+      "side": 1,
+      "message": "The right answer depends on where the factory is expected to be owned.",
+      "parentUuid": "5aac4719_5613fd3b",
       "range": {
         "startLine": 75,
         "startChar": 2,

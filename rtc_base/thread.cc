@@ -919,6 +919,20 @@ void Thread::Send(const Location& posted_from,
   if (IsQuitting())
     return;
 
+  AssertBlockingIsAllowedOnCurrentThread();
+
+  Thread* current_thread = Thread::Current();
+
+#if RTC_DCHECK_IS_ON
+  if (current_thread) {
+    RTC_DCHECK_RUN_ON(current_thread);
+    current_thread->blocking_call_count_++;
+    RTC_DCHECK(current_thread->IsInvokeToThreadAllowed(this));
+    ThreadManager::Instance()->RegisterSendAndCheckForCycles(current_thread,
+                                                             this);
+  }
+#endif
+
   // Sent messages are sent to the MessageHandler directly, in the context
   // of "thread", like Win32 SendMessage. If in the right context,
   // call the handler directly.
@@ -935,20 +949,6 @@ void Thread::Send(const Location& posted_from,
     msg.phandler->OnMessage(&msg);
     return;
   }
-
-  AssertBlockingIsAllowedOnCurrentThread();
-
-  Thread* current_thread = Thread::Current();
-
-#if RTC_DCHECK_IS_ON
-  if (current_thread) {
-    RTC_DCHECK_RUN_ON(current_thread);
-    current_thread->blocking_call_count_++;
-    RTC_DCHECK(current_thread->IsInvokeToThreadAllowed(this));
-    ThreadManager::Instance()->RegisterSendAndCheckForCycles(current_thread,
-                                                             this);
-  }
-#endif
 
   // Perhaps down the line we can get rid of this workaround and always require
   // current_thread to be valid when Send() is called.

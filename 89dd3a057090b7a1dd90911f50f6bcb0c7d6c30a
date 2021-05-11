@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "698c22ff_cddee62c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-05-11T07:58:38Z",
+      "side": 1,
+      "message": "LGTM, but it looks like srte@ is reviewing too. Let\u0027s wait for his comments.",
+      "revId": "89dd3a057090b7a1dd90911f50f6bcb0c7d6c30a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

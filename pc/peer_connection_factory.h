@@ -37,6 +37,7 @@
 #include "api/transport/sctp_transport_factory_interface.h"
 #include "api/transport/webrtc_key_value_config.h"
 #include "call/call.h"
+#include "call/rtp_transport_controller_send_factory_interface.h"
 #include "p2p/base/port_allocator.h"
 #include "pc/channel_manager.h"
 #include "pc/connection_context.h"
@@ -159,6 +160,8 @@ class PeerConnectionFactory : public PeerConnectionFactoryInterface {
   std::unique_ptr<NetworkControllerFactoryInterface>
       injected_network_controller_factory_;
   std::unique_ptr<NetEqFactory> neteq_factory_;
+  std::unique_ptr<RtpTransportControllerSendFactoryInterface>
+      transport_controller_send_factory_;
 };
 
 }  // namespace webrtc

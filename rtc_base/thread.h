@@ -550,6 +550,9 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
     void reheap() { make_heap(c.begin(), c.end(), comp); }
   };
 
+  // Should be called before handlers are scheduled for execution in Send().
+  void CheckSendPoliciesBeforePostTask();
+
   void DoDelayPost(const Location& posted_from,
                    int64_t cmsDelay,
                    int64_t tstamp,

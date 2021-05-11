@@ -37,7 +37,11 @@
 #include "api/transport/sctp_transport_factory_interface.h"
 #include "api/transport/webrtc_key_value_config.h"
 #include "call/call.h"
+<<<<<<< HEAD
+=======
 #include "call/rtp_transport_controller_send_factory_interface.h"
+#include "media/sctp/sctp_transport_internal.h"
+>>>>>>> 457d25ca5f (Pass RtpTransportControllerSendFactoryInterface to PeerConnectionFactoryDependencies)
 #include "p2p/base/port_allocator.h"
 #include "pc/channel_manager.h"
 #include "pc/connection_context.h"

@@ -911,6 +911,20 @@ void Thread::Stop() {
   Join();
 }
 
+void Thread::CheckSendPoliciesBeforePostTask() {
+  AssertBlockingIsAllowedOnCurrentThread();
+#if RTC_DCHECK_IS_ON
+  Thread* current_thread = Thread::Current();
+  if (current_thread) {
+    RTC_DCHECK_RUN_ON(current_thread);
+    current_thread->blocking_call_count_++;
+    RTC_DCHECK(current_thread->IsInvokeToThreadAllowed(this));
+    ThreadManager::Instance()->RegisterSendAndCheckForCycles(current_thread,
+                                                             this);
+  }
+#endif
+}
+
 void Thread::Send(const Location& posted_from,
                   MessageHandler* phandler,
                   uint32_t id,
@@ -936,20 +950,9 @@ void Thread::Send(const Location& posted_from,
     return;
   }
 
-  AssertBlockingIsAllowedOnCurrentThread();
+  CheckSendPoliciesBeforePostTask();
 
   Thread* current_thread = Thread::Current();
-
-#if RTC_DCHECK_IS_ON
-  if (current_thread) {
-    RTC_DCHECK_RUN_ON(current_thread);
-    current_thread->blocking_call_count_++;
-    RTC_DCHECK(current_thread->IsInvokeToThreadAllowed(this));
-    ThreadManager::Instance()->RegisterSendAndCheckForCycles(current_thread,
-                                                             this);
-  }
-#endif
-
   // Perhaps down the line we can get rid of this workaround and always require
   // current_thread to be valid when Send() is called.
   std::unique_ptr<rtc::Event> done_event;

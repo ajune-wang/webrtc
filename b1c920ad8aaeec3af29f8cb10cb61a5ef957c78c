@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8c78a25_2118f371",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2021-05-12T09:15:19Z",
+      "side": 1,
+      "message": "Thanks for the CL! Please check bit-exactness before submitting.",
+      "revId": "b1c920ad8aaeec3af29f8cb10cb61a5ef957c78c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

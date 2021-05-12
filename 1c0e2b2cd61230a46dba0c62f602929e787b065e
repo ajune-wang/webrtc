@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d679ada_4dd0f1cd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17619
+      },
+      "writtenOn": "2021-05-12T09:31:17Z",
+      "side": 1,
+      "message": "Your proposal worked out nicely, can you please take a look.",
+      "revId": "1c0e2b2cd61230a46dba0c62f602929e787b065e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

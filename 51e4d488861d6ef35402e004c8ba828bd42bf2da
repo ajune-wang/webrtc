@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d849cdf5_10dc0ddb",
+        "filename": "call/call.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 17619
+      },
+      "writtenOn": "2021-05-12T09:31:17Z",
+      "side": 1,
+      "message": "I\u0027ll keep this in mind once for proposed solution in here.\nhttps://webrtc-review.googlesource.com/c/src/+/217769/6/call/call.cc#529",
+      "parentUuid": "dc1916f7_48676bff",
+      "range": {
+        "startLine": 520,
+        "startChar": 36,
+        "endLine": 520,
+        "endChar": 65
+      },
+      "revId": "51e4d488861d6ef35402e004c8ba828bd42bf2da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9e3834fb_261547e2",
@@ -71,6 +95,30 @@
       "writtenOn": "2021-05-11T07:22:19Z",
       "side": 1,
       "message": "Do we really need a factory? Everything passed to the factory\u0027s create method (including the clock and the pacer thread) are available to the caller of Call::Create()). So it would be a bit simpler to let the caller pass a std::unique_ptr\u003cRtpTransportcontrollerSendInterface\u003e directly.\n\nIt might also make sense to change to CallConfig to pass-by-value, so that it can hold move-only members like unique_ptr, and then move more arguments into CallConfig. But that\u0027s better done as a separate change, I think.",
+      "range": {
+        "startLine": 524,
+        "startChar": 0,
+        "endLine": 529,
+        "endChar": 30
+      },
+      "revId": "51e4d488861d6ef35402e004c8ba828bd42bf2da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f676e404_ac389299",
+        "filename": "call/call.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 17619
+      },
+      "writtenOn": "2021-05-12T09:31:17Z",
+      "side": 1,
+      "message": "We can move creation of instance of RtpTransportControllerSendFactoryInter to  PeerConnectionFactory, specifically to CreateCall_w.\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/pc/peer_connection_factory.cc;l\u003d318;drc\u003d834cb0651d5b24307b3df8007c2bc6bd5db93c29\n\nThen just pass unique_ptr to CreateCall.\nThat way We will just have one more dependency to PeerConnectionDependencies.\nWould that be an acceptable solution?",
+      "parentUuid": "9e3834fb_261547e2",
       "range": {
         "startLine": 524,
         "startChar": 0,
@@ -118,6 +166,30 @@
       "side": 1,
       "message": "The right answer depends on where the factory is expected to be owned.",
       "parentUuid": "5aac4719_5613fd3b",
+      "range": {
+        "startLine": 75,
+        "startChar": 2,
+        "endLine": 75,
+        "endChar": 17
+      },
+      "revId": "51e4d488861d6ef35402e004c8ba828bd42bf2da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20886df9_f5a5bcc1",
+        "filename": "call/call_config.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 17619
+      },
+      "writtenOn": "2021-05-12T09:31:17Z",
+      "side": 1,
+      "message": "It can be unique_ptr with solution proposed in here.\nhttps://webrtc-review.googlesource.com/c/src/+/217769/6/call/call.cc#529",
+      "parentUuid": "b98dd8c9_c23d96af",
       "range": {
         "startLine": 75,
         "startChar": 2,

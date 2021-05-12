@@ -33,6 +33,24 @@
       "message": "I have a different question: How does this CL change congestion response behavior?\n\nIn particular, does this influence the calculation of how much RTCP data is being allowed?\n\nI don\u0027t see a change in a test that has anything to do with responses to congestion, so I wonder.\n",
       "revId": "d1f44dc202ffaa1fa7b5a99833c61629719a77bd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0ae2d8f_a63a31c0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2021-05-12T07:52:31Z",
+      "side": 1,
+      "message": "Not at all. This is pure cleaning and follow up on https://webrtc-review.googlesource.com/c/src/+/215685. The purpose is to move functionality to where it belongs to be able to cleanup downstream projects to not use deprecated RTP/RTCP code and get us a step closer to be able to one day implement a RTCP transceiver that is transport wide instead of per RTP stream.",
+      "parentUuid": "193e1b53_1cdf5561",
+      "revId": "d1f44dc202ffaa1fa7b5a99833c61629719a77bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

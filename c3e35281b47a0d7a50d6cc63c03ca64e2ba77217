@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8647e537_5b4c3caa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-12T11:40:31Z",
+      "side": 1,
+      "message": "Looks good, apart from the need to sub-bullet in the sitemap.\n\nCan you add the maintenance headers (freshness.owner and reviewed date) to the moved docs too?\n",
+      "revId": "c3e35281b47a0d7a50d6cc63c03ca64e2ba77217",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de159614_ef59cbfa",
+        "filename": "g3doc/sitemap.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-12T11:40:31Z",
+      "side": 1,
+      "message": "The idea here was \"if you want to contribute code, go here\" - I think this needs to be filled in by text from docs/native-code/development/index.md - the style guide should be a sub-bullet. (We\u0027ll soon run out of left-side space at this pace...)",
+      "revId": "c3e35281b47a0d7a50d6cc63c03ca64e2ba77217",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

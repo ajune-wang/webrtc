@@ -13,6 +13,7 @@
 
 #include <memory>
 
+#include "call/rtp_transport_controller_send_interface.h"
 #include "rtc_base/system/rtc_export.h"
 
 namespace webrtc {
@@ -28,7 +29,9 @@ class CallFactoryInterface {
  public:
   virtual ~CallFactoryInterface() {}
 
-  virtual Call* CreateCall(const CallConfig& config) = 0;
+  virtual Call* CreateCall(const CallConfig& config,
+                           std::unique_ptr<RtpTransportControllerSendInterface>
+                               transportControllerSend) = 0;
 };
 
 RTC_EXPORT std::unique_ptr<CallFactoryInterface> CreateCallFactory();

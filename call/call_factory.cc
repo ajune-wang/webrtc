@@ -13,6 +13,7 @@
 #include <stdio.h>
 
 #include <memory>
+#include <utility>
 #include <string>
 
 #include "absl/types/optional.h"
@@ -74,7 +75,10 @@ CallFactory::CallFactory() {
   call_thread_.Detach();
 }
 
-Call* CallFactory::CreateCall(const Call::Config& config) {
+Call* CallFactory::CreateCall(
+    const Call::Config& config,
+    std::unique_ptr<RtpTransportControllerSendInterface>
+        transportControllerSend) {
   RTC_DCHECK_RUN_ON(&call_thread_);
   absl::optional<webrtc::BuiltInNetworkBehaviorConfig> send_degradation_config =
       ParseDegradationConfig(true);
@@ -82,7 +86,8 @@ Call* CallFactory::CreateCall(const Call::Config& config) {
       receive_degradation_config = ParseDegradationConfig(false);
 
   if (send_degradation_config || receive_degradation_config) {
-    return new DegradedCall(std::unique_ptr<Call>(Call::Create(config)),
+    return new DegradedCall(std::unique_ptr<Call>(Call::Create(
+                                config, std::move(transportControllerSend))),
                             send_degradation_config, receive_degradation_config,
                             config.task_queue_factory);
   }
@@ -95,7 +100,8 @@ Call* CallFactory::CreateCall(const Call::Config& config) {
         });
   }
 
-  return Call::Create(config, module_thread_);
+  return Call::Create(config, module_thread_,
+                      std::move(transportControllerSend));
 }
 
 std::unique_ptr<CallFactoryInterface> CreateCallFactory() {

@@ -11,6 +11,8 @@
 #ifndef CALL_CALL_FACTORY_H_
 #define CALL_CALL_FACTORY_H_
 
+#include <memory>
+
 #include "api/call/call_factory_interface.h"
 #include "api/sequence_checker.h"
 #include "call/call.h"
@@ -26,7 +28,9 @@ class CallFactory : public CallFactoryInterface {
  private:
   ~CallFactory() override {}
 
-  Call* CreateCall(const CallConfig& config) override;
+  Call* CreateCall(const CallConfig& config,
+                   std::unique_ptr<RtpTransportControllerSendInterface>
+                       transportControllerSend) override;
 
   RTC_NO_UNIQUE_ADDRESS SequenceChecker call_thread_;
   rtc::scoped_refptr<SharedModuleThread> module_thread_

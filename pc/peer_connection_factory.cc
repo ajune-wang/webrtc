@@ -29,6 +29,7 @@
 #include "api/transport/bitrate_settings.h"
 #include "api/units/data_rate.h"
 #include "call/audio_state.h"
+#include "call/rtp_transport_controller_send_factory.h"
 #include "media/base/media_engine.h"
 #include "p2p/base/basic_async_resolver_factory.h"
 #include "p2p/base/basic_packet_socket_factory.h"
@@ -100,7 +101,15 @@ PeerConnectionFactory::PeerConnectionFactory(
           std::move(dependencies->network_state_predictor_factory)),
       injected_network_controller_factory_(
           std::move(dependencies->network_controller_factory)),
-      neteq_factory_(std::move(dependencies->neteq_factory)) {}
+      neteq_factory_(std::move(dependencies->neteq_factory)) {
+  if (dependencies->transport_controller_send_factory) {
+    transport_controller_send_factory_ =
+        std::move(dependencies->transport_controller_send_factory);
+  } else {
+    transport_controller_send_factory_ =
+        std::make_unique<RtpTransportControllerSendFactory>();
+  }
+}
 
 PeerConnectionFactory::PeerConnectionFactory(
     PeerConnectionFactoryDependencies dependencies)
@@ -333,8 +342,14 @@ std::unique_ptr<Call> PeerConnectionFactory::CreateCall_w(
 
   call_config.trials = &trials();
 
-  return std::unique_ptr<Call>(
-      context_->call_factory()->CreateCall(call_config));
+  return std::unique_ptr<Call>(context_->call_factory()->CreateCall(
+      call_config,
+      transport_controller_send_factory_->create(
+          Clock::GetRealTimeClock(), call_config.event_log,
+          call_config.network_state_predictor_factory,
+          call_config.network_controller_factory, call_config.bitrate_config,
+          ProcessThread::Create("PacerThread"), call_config.task_queue_factory,
+          call_config.trials)));
 }
 
 bool PeerConnectionFactory::IsTrialEnabled(absl::string_view key) const {

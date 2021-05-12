@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25359613_77313fb8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-05-12T09:19:29Z",
+      "side": 1,
+      "message": "Still LGTM. :) ",
+      "revId": "41209f5bfa7e2718822423c51fe737743f670a06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea523e08_f85865e6",
+        "filename": "pc/peer_connection_header_extension_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-05-12T09:19:29Z",
+      "side": 1,
+      "message": "So this is the fix to the duplicated value issue?",
+      "range": {
+        "startLine": 203,
+        "startChar": 56,
+        "endLine": 204,
+        "endChar": 68
+      },
+      "revId": "41209f5bfa7e2718822423c51fe737743f670a06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

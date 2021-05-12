@@ -16,6 +16,23 @@
       "message": "Thanks for the suggestions. Sorry for the late response.",
       "revId": "41b6b2a89d2dc7d7d12e3d5f0bb8aadf623f0440",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f3f1344_fa6b49c2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-12T06:46:25Z",
+      "side": 1,
+      "message": "OK, I see the CL referred to is also in the review queue (awaiting resolution of Danil\u0027s suggestion).\n",
+      "revId": "41b6b2a89d2dc7d7d12e3d5f0bb8aadf623f0440",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

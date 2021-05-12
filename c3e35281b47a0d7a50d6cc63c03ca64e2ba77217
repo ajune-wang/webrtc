@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2476e07_1a859f24",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-05-12T12:10:22Z",
+      "side": 1,
+      "message": "added maintenance headers.",
+      "parentUuid": "8647e537_5b4c3caa",
+      "revId": "c3e35281b47a0d7a50d6cc63c03ca64e2ba77217",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "de159614_ef59cbfa",
@@ -31,6 +49,24 @@
       "writtenOn": "2021-05-12T11:40:31Z",
       "side": 1,
       "message": "The idea here was \"if you want to contribute code, go here\" - I think this needs to be filled in by text from docs/native-code/development/index.md - the style guide should be a sub-bullet. (We\u0027ll soon run out of left-side space at this pace...)",
+      "revId": "c3e35281b47a0d7a50d6cc63c03ca64e2ba77217",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e74f1976_4b7b0671",
+        "filename": "g3doc/sitemap.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-05-12T12:10:22Z",
+      "side": 1,
+      "message": "Made style guide a subbullet, but I didn\u0027t link the native-code doc because it doesn\u0027t render properly (is because it is not in g3doc subfolder?)\nFixing/moving it and adding the link seems to me unrelated to current change.",
+      "parentUuid": "de159614_ef59cbfa",
       "revId": "c3e35281b47a0d7a50d6cc63c03ca64e2ba77217",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

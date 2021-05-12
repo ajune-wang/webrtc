@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77c25453_a5ef3071",
+        "filename": "logging/rtc_event_log/events/rtc_event_common_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-05-12T06:52:48Z",
+      "side": 1,
+      "message": "extract constants for these?",
+      "range": {
+        "startLine": 413,
+        "startChar": 18,
+        "endLine": 413,
+        "endChar": 36
+      },
+      "revId": "9654c448117d172cbbd8d75d5c76865939e80251",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

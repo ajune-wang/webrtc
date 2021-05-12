@@ -87,8 +87,23 @@ class Call {
                       rtc::scoped_refptr<SharedModuleThread> call_thread);
   static Call* Create(const Call::Config& config,
                       Clock* clock,
+                      rtc::scoped_refptr<SharedModuleThread> call_thread);
+  static Call* Create(const Call::Config& config,
+                      Clock* clock,
                       rtc::scoped_refptr<SharedModuleThread> call_thread,
                       std::unique_ptr<ProcessThread> pacer_thread);
+  static Call* Create(const Call::Config& config,
+                      std::unique_ptr<RtpTransportControllerSendInterface>
+                          transportControllerSend);
+  static Call* Create(const Call::Config& config,
+                      rtc::scoped_refptr<SharedModuleThread> call_thread,
+                      std::unique_ptr<RtpTransportControllerSendInterface>
+                          transportControllerSend);
+  static Call* Create(const Call::Config& config,
+                      Clock* clock,
+                      rtc::scoped_refptr<SharedModuleThread> call_thread,
+                      std::unique_ptr<RtpTransportControllerSendInterface>
+                          transportControllerSend);
 
   virtual AudioSendStream* CreateAudioSendStream(
       const AudioSendStream::Config& config) = 0;

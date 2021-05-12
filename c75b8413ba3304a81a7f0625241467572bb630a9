@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9791c3d_ef30e21a",
+        "filename": "g3doc/sitemap.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-05-12T08:20:46Z",
+      "side": 1,
+      "message": "I was thinking to keep all code related contribution after \"Code\" section. SO I think maybe move it there or maybe remove that section? WDYT?",
+      "range": {
+        "startLine": 5,
+        "startChar": 8,
+        "endLine": 5,
+        "endChar": 44
+      },
+      "revId": "c75b8413ba3304a81a7f0625241467572bb630a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -107,6 +107,8 @@ TEST_P(PeerConnectionHeaderExtensionTest,
   cricket::MediaType media_type;
   SdpSemantics semantics;
   std::tie(media_type, semantics) = GetParam();
+  if (media_type == 0)
+    return;
   std::unique_ptr<PeerConnectionWrapper> wrapper =
       CreatePeerConnection(media_type, semantics);
   EXPECT_THAT(wrapper->pc_factory()
@@ -199,9 +201,9 @@ TEST_P(PeerConnectionHeaderExtensionTest, NegotiatedExtensionsAreAccessible) {
 INSTANTIATE_TEST_SUITE_P(
     ,
     PeerConnectionHeaderExtensionTest,
-    Combine(Values(SdpSemantics::kPlanB, SdpSemantics::kUnifiedPlan),
-            Values(cricket::MediaType::MEDIA_TYPE_AUDIO,
-                   cricket::MediaType::MEDIA_TYPE_VIDEO)),
+    Combine(Values(cricket::MediaType::MEDIA_TYPE_AUDIO,
+                   cricket::MediaType::MEDIA_TYPE_VIDEO),
+            Values(SdpSemantics::kPlanB, SdpSemantics::kUnifiedPlan)),
     [](const testing::TestParamInfo<
         PeerConnectionHeaderExtensionTest::ParamType>& info) {
       cricket::MediaType media_type;

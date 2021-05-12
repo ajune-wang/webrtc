@@ -201,7 +201,10 @@ INSTANTIATE_TEST_SUITE_P(
     PeerConnectionHeaderExtensionTest,
     Combine(Values(SdpSemantics::kPlanB, SdpSemantics::kUnifiedPlan),
             Values(cricket::MediaType::MEDIA_TYPE_AUDIO,
-                   cricket::MediaType::MEDIA_TYPE_VIDEO)),
+                   cricket::MediaType::MEDIA_TYPE_VIDEO))
+    // TODO(bugs.webrtc.org/12764): Re-add pretty test case label once
+    // bug is fixed.
+    /* ,
     [](const testing::TestParamInfo<
         PeerConnectionHeaderExtensionTest::ParamType>& info) {
       cricket::MediaType media_type;
@@ -214,6 +217,7 @@ INSTANTIATE_TEST_SUITE_P(
                                                                      : "Video")
               << "Engine")
           .str();
-    });
+          } */
+);
 
 }  // namespace webrtc

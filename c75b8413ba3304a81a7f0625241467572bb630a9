@@ -22,6 +22,30 @@
       },
       "revId": "c75b8413ba3304a81a7f0625241467572bb630a9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf015b69_70249980",
+        "filename": "g3doc/sitemap.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-05-12T10:48:49Z",
+      "side": 1,
+      "message": "Right, style guide is not about contributing documentation.\nIt would look natural under the Code session, but it seems odd to have single sub bullet, so for now I just renamed this section a bit (can be restructured back if/when there will be a 2nd bullet)",
+      "parentUuid": "b9791c3d_ef30e21a",
+      "range": {
+        "startLine": 5,
+        "startChar": 8,
+        "endLine": 5,
+        "endChar": 44
+      },
+      "revId": "c75b8413ba3304a81a7f0625241467572bb630a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

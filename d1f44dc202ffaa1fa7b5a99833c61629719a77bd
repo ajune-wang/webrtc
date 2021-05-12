@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "786b74d8_6b13b276",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2021-05-12T07:28:50Z",
+      "side": 1,
+      "message": "Harald, would you mind approve the DEPS changes for absl? ",
+      "revId": "d1f44dc202ffaa1fa7b5a99833c61629719a77bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

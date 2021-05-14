@@ -74,6 +74,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e017611a_2067dd01",
+        "filename": "rtc_base/thread.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 949,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-05-14T17:38:42Z",
+      "side": 1,
+      "message": "I think the reason behind was that we are not changing thread here and I assumed that invokes from thread to itself are allowed.",
+      "parentUuid": "6b074281_6d321713",
+      "revId": "1a4b13333d6b914de6fe835e3fc588d0cb448b7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "75b1359f_f16b1e54",
         "filename": "rtc_base/thread.cc",
         "patchSetId": 4

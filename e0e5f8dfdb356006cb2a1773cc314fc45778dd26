@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a8efc67_80735a6b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-14T18:32:40Z",
+      "side": 1,
+      "message": "The bug line needs to say:\n\nBug: chromium:12769",
+      "revId": "e0e5f8dfdb356006cb2a1773cc314fc45778dd26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f10f43c1_73865340",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-14T18:32:40Z",
+      "side": 1,
+      "message": "Please fix the bug line - all else seems good.\n",
+      "revId": "e0e5f8dfdb356006cb2a1773cc314fc45778dd26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

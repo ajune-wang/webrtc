@@ -16,6 +16,23 @@
       "message": "Hi Per and Harald, you are the reviewers suggested by review board. Please review if this make sense or not, thanks!",
       "revId": "3e6372b4884413eb3623b7dff86c06e341585923",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50956561_f532b6bd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-14T07:00:25Z",
+      "side": 1,
+      "message": "Makes sense to me.\n",
+      "revId": "3e6372b4884413eb3623b7dff86c06e341585923",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

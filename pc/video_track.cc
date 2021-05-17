@@ -43,7 +43,7 @@ std::string VideoTrack::kind() const {
 // thread.
 void VideoTrack::AddOrUpdateSink(rtc::VideoSinkInterface<VideoFrame>* sink,
                                  const rtc::VideoSinkWants& wants) {
-  RTC_DCHECK(worker_thread_->IsCurrent());
+  RTC_DCHECK_RUN_ON(worker_thread_);
   VideoSourceBase::AddOrUpdateSink(sink, wants);
   rtc::VideoSinkWants modified_wants = wants;
   modified_wants.black_frames = !enabled();
@@ -51,18 +51,23 @@ void VideoTrack::AddOrUpdateSink(rtc::VideoSinkInterface<VideoFrame>* sink,
 }
 
 void VideoTrack::RemoveSink(rtc::VideoSinkInterface<VideoFrame>* sink) {
-  RTC_DCHECK(worker_thread_->IsCurrent());
+  RTC_DCHECK_RUN_ON(worker_thread_);
   VideoSourceBase::RemoveSink(sink);
   video_source_->RemoveSink(sink);
 }
 
+VideoTrackSourceInterface* VideoTrack::GetSource() const {
+  RTC_DCHECK_RUN_ON(&main_sequence_);
+  return video_source_.get();
+}
+
 VideoTrackInterface::ContentHint VideoTrack::content_hint() const {
-  RTC_DCHECK_RUN_ON(&signaling_thread_checker_);
+  RTC_DCHECK_RUN_ON(&main_sequence_);
   return content_hint_;
 }
 
 void VideoTrack::set_content_hint(ContentHint hint) {
-  RTC_DCHECK_RUN_ON(&signaling_thread_checker_);
+  RTC_DCHECK_RUN_ON(&main_sequence_);
   if (content_hint_ == hint)
     return;
   content_hint_ = hint;
@@ -70,9 +75,9 @@ void VideoTrack::set_content_hint(ContentHint hint) {
 }
 
 bool VideoTrack::set_enabled(bool enable) {
-  RTC_DCHECK(signaling_thread_checker_.IsCurrent());
+  RTC_DCHECK_RUN_ON(&main_sequence_);
   worker_thread_->Invoke<void>(RTC_FROM_HERE, [enable, this] {
-    RTC_DCHECK(worker_thread_->IsCurrent());
+    RTC_DCHECK_RUN_ON(worker_thread_);
     for (auto& sink_pair : sink_pairs()) {
       rtc::VideoSinkWants modified_wants = sink_pair.wants;
       modified_wants.black_frames = !enable;
@@ -83,7 +88,7 @@ bool VideoTrack::set_enabled(bool enable) {
 }
 
 void VideoTrack::OnChanged() {
-  RTC_DCHECK(signaling_thread_checker_.IsCurrent());
+  RTC_DCHECK_RUN_ON(&main_sequence_);
   if (video_source_->state() == MediaSourceInterface::kEnded) {
     set_state(kEnded);
   } else {

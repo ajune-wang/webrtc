@@ -17,10 +17,12 @@
 #include "api/video/video_frame.h"
 #include "api/video/video_sink_interface.h"
 #include "api/video/video_source_interface.h"
+#include "rtc_base/system/no_unique_address.h"
 
 namespace rtc {
 
-// VideoSourceBase is not thread safe.
+// VideoSourceBase assumes that operations related to sinks, occur on the
+// same TQ/thread that the object was constructed on.
 class VideoSourceBase : public VideoSourceInterface<webrtc::VideoFrame> {
  public:
   VideoSourceBase();
@@ -36,12 +38,14 @@ class VideoSourceBase : public VideoSourceInterface<webrtc::VideoFrame> {
     VideoSinkInterface<webrtc::VideoFrame>* sink;
     VideoSinkWants wants;
   };
-  SinkPair* FindSinkPair(const VideoSinkInterface<webrtc::VideoFrame>* sink);
 
-  const std::vector<SinkPair>& sink_pairs() const { return sinks_; }
+  SinkPair* FindSinkPair(const VideoSinkInterface<webrtc::VideoFrame>* sink);
+  const std::vector<SinkPair>& sink_pairs() const;
+
+  RTC_NO_UNIQUE_ADDRESS webrtc::SequenceChecker main_sequence_;
 
  private:
-  std::vector<SinkPair> sinks_;
+  std::vector<SinkPair> sinks_ RTC_GUARDED_BY(&main_sequence_);
 };
 
 }  // namespace rtc

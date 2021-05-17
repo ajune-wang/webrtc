@@ -38,10 +38,8 @@ class VideoTrack : public MediaStreamTrack<VideoTrackInterface>,
   void AddOrUpdateSink(rtc::VideoSinkInterface<VideoFrame>* sink,
                        const rtc::VideoSinkWants& wants) override;
   void RemoveSink(rtc::VideoSinkInterface<VideoFrame>* sink) override;
+  VideoTrackSourceInterface* GetSource() const override;
 
-  VideoTrackSourceInterface* GetSource() const override {
-    return video_source_.get();
-  }
   ContentHint content_hint() const override;
   void set_content_hint(ContentHint hint) override;
   bool set_enabled(bool enable) override;
@@ -58,9 +56,8 @@ class VideoTrack : public MediaStreamTrack<VideoTrackInterface>,
   void OnChanged() override;
 
   rtc::Thread* const worker_thread_;
-  SequenceChecker signaling_thread_checker_;
   rtc::scoped_refptr<VideoTrackSourceInterface> video_source_;
-  ContentHint content_hint_ RTC_GUARDED_BY(signaling_thread_checker_);
+  ContentHint content_hint_ RTC_GUARDED_BY(&main_sequence_);
 };
 
 }  // namespace webrtc

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea5f4b96_2eb9c75b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-05-17T11:25:06Z",
+      "side": 1,
+      "message": "From my point of view, it would make sense to me to have the first cl focused on moving the construction of RtpTransportControllerSend, and let Call work with the interface only (with the possible exception of the single-argument Create method). \n\nIntroducing a new factory exposed via the PeerConnection api will likely need a bit more discussion, and I\u0027m afraid it will be a bit slower to make progress. In particular, some issues I think need to be covered:\n\n1. If we do this, call/rtp_transport_controller_send_interface.h should be moved to somewhere under api/. api/transport/rtp/ would make sense to me.\n\n2. Review the interface. Can it be implemented in a reasonable way without relying on internal (non-api) classes and interfaces?\n\n3. Document clearly which of the methods represent the class\u0027 proper responsibilities, and which (e.g., some or all of the getter methods) we should aim to remove from the interface.\n\n4. Design and document the factory interface and how it\u0027s injected into PeerConnection.\n\n",
+      "revId": "8a5f4394e93e0601ed5667ffd0530878d1bddbbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

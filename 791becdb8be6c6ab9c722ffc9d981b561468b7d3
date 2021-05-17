@@ -114,6 +114,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0406358c_263fd3cd",
+        "filename": "call/call.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-05-17T11:25:06Z",
+      "side": 1,
+      "message": "Would it work to have the single-argument method (to avoid updating lots of tests), and a method including all the args, to be used by CallFactory, and try to delete the rest?",
+      "parentUuid": "6fb23667_f7a6bedc",
+      "range": {
+        "startLine": 520,
+        "startChar": 0,
+        "endLine": 520,
+        "endChar": 66
+      },
+      "revId": "791becdb8be6c6ab9c722ffc9d981b561468b7d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ba1df6fa_de196b86",
         "filename": "call/call.h",
         "patchSetId": 16
@@ -149,6 +173,30 @@
       "side": 1,
       "message": "I have partially touched in this in comment for https://webrtc-review.googlesource.com/c/src/+/217769/16/call/call.cc#520\n\nI waned to keep single param create method in order to keep changes reasonably sized. I can try to move clock and call_thread in CallConfig, and defaulted as they are in current Create variants, would that be acceptable solution?",
       "parentUuid": "ba1df6fa_de196b86",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 51
+      },
+      "revId": "791becdb8be6c6ab9c722ffc9d981b561468b7d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f292cba2_49eaba85",
+        "filename": "call/call.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-05-17T11:25:06Z",
+      "side": 1,
+      "message": "Moving clock and call_thread makes sense to me, but I think that\u0027s best done as a separate cl. There may be some obstacles, e.g., google-internal tests using Call directly.",
+      "parentUuid": "029a1133_3ff441c5",
       "range": {
         "startLine": 85,
         "startChar": 0,

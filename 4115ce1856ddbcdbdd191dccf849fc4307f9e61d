@@ -22,6 +22,30 @@
       },
       "revId": "4115ce1856ddbcdbdd191dccf849fc4307f9e61d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21450c7b_d718d84c",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-05-17T12:12:40Z",
+      "side": 1,
+      "message": "it is clamped at lower side, but currently it is clamped at 0 (see lines #218-221)\nThere is already a comment explaining deviation from the spec.\n(eventually should probably be fixed, but that is a different issue)\n\nI prefer to keep the current spelling of the constant because it is written like that in the linked spec:\n\"should be clamped at 0x7fffff for positive loss\"\n\nWarn if capped... Once packet lost got to this limit, it would very likely stay at this limit until the end of the call. Warning unconditionally would then create too much spam. Added \u0027log once\u0027",
+      "parentUuid": "06ce82cb_fbc938c7",
+      "range": {
+        "startLine": 226,
+        "startChar": 35,
+        "endLine": 226,
+        "endChar": 47
+      },
+      "revId": "4115ce1856ddbcdbdd191dccf849fc4307f9e61d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

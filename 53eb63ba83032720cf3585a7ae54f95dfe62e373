@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2db0ddbe_32046024",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 812,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-05-17T10:09:47Z",
+      "side": 1,
+      "message": "nit: may be \nconst TimeDelta kPaddingPeriod \u003d TimeDelta::Millis(50)",
+      "range": {
+        "startLine": 812,
+        "startChar": 2,
+        "endLine": 812,
+        "endChar": 33
+      },
+      "revId": "53eb63ba83032720cf3585a7ae54f95dfe62e373",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb93ab34_5b7e3914",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 818,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-05-17T10:09:47Z",
+      "side": 1,
+      "message": "to send padding over media_ssrc, afaik, one of the bwe rtp header extensions should be registered. how does this test pass?",
+      "range": {
+        "startLine": 818,
+        "startChar": 7,
+        "endLine": 818,
+        "endChar": 47
+      },
+      "revId": "53eb63ba83032720cf3585a7ae54f95dfe62e373",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21752d4c_a3ae2f62",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 837,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-05-17T10:09:47Z",
+      "side": 1,
+      "message": "what is tested here?\nI guess that main point of this last packet is to verify sequence number continuity.\nMay be add a comment about it or remove verifying SSRC and Timestamp to make sequence number stand out.\n(timestamp adjusting with the capture_time_ms seems like a topic of another test)",
+      "range": {
+        "startLine": 837,
+        "startChar": 2,
+        "endLine": 837,
+        "endChar": 39
+      },
+      "revId": "53eb63ba83032720cf3585a7ae54f95dfe62e373",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

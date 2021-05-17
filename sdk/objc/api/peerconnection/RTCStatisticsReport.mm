@@ -91,6 +91,16 @@ NSObject *ValueFromStatsMember(const RTCStatsMemberInterface *member) {
         }
         return [array copy];
       }
+      case RTCStatsMemberInterface::kMapStringDouble: {
+        std::map<std::string, double> map =
+            *member->cast_to<RTCStatsMember<std::map<std::string, double>>>();
+        NSMutableDictionary<NSString *, NSNumber *> *dictionary =
+            [NSMutableDictionary dictionaryWithCapacity:map.size()];
+        for (const auto &item : map) {
+          dictionary[[NSString stringForStdString:item.first]] = @(item.second);
+        }
+        return [dictionary copy];
+      }
       default:
         RTC_NOTREACHED();
     }

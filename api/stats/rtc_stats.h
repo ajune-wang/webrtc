@@ -14,6 +14,7 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#include <map>
 #include <memory>
 #include <string>
 #include <utility>
@@ -237,6 +238,8 @@ class RTCStatsMemberInterface {
     kSequenceUint64,  // std::vector<uint64_t>
     kSequenceDouble,  // std::vector<double>
     kSequenceString,  // std::vector<std::string>
+
+    kMapStringDouble,  // std::map<std::string, double>
   };
 
   virtual ~RTCStatsMemberInterface() {}
@@ -392,6 +395,10 @@ WEBRTC_DECLARE_RTCSTATSMEMBER(std::vector<uint64_t>);
 WEBRTC_DECLARE_RTCSTATSMEMBER(std::vector<double>);
 WEBRTC_DECLARE_RTCSTATSMEMBER(std::vector<std::string>);
 
+#define COMMA ,
+WEBRTC_DECLARE_RTCSTATSMEMBER(std::map<std::string COMMA double>);
+#undef COMMA
+
 // Using inheritance just so that it's obvious from the member's declaration
 // whether it's standardized or not.
 template <typename T>
@@ -455,6 +462,8 @@ extern template class RTC_EXPORT_TEMPLATE_DECLARE(RTC_EXPORT)
     RTCNonStandardStatsMember<std::vector<double>>;
 extern template class RTC_EXPORT_TEMPLATE_DECLARE(RTC_EXPORT)
     RTCNonStandardStatsMember<std::vector<std::string>>;
+extern template class RTC_EXPORT_TEMPLATE_DECLARE(RTC_EXPORT)
+    RTCNonStandardStatsMember<std::map<std::string, double>>;
 
 }  // namespace webrtc
 

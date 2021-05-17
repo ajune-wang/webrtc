@@ -75,6 +75,10 @@ class RTC_EXPORT RtpPacketInfo {
     absolute_capture_time_ = value;
   }
 
+  void set_local_capture_clock_offset(const absl::optional<int64_t>& value) {
+    local_capture_clock_offset_ = value;
+  }
+
   Timestamp receive_time() const { return receive_time_; }
   void set_receive_time(Timestamp value) { receive_time_ = value; }
   // TODO(bugs.webrtc.org/12722): Deprecated, remove once downstream projects
@@ -94,7 +98,13 @@ class RTC_EXPORT RtpPacketInfo {
 
   // Fields from the Absolute Capture Time header extension:
   // http://www.webrtc.org/experiments/rtp-hdrext/abs-capture-time
+  // The estimated capture clock offset is in its received values, with
+  // possible interpolations.
   absl::optional<AbsoluteCaptureTime> absolute_capture_time_;
+
+  // Estimated capture clock offset defined in the Absolute Capture Time header
+  // extension, in adjusted values.
+  absl::optional<int64_t> local_capture_clock_offset_;
 
   // Local |webrtc::Clock|-based timestamp of when the packet was received.
   Timestamp receive_time_;

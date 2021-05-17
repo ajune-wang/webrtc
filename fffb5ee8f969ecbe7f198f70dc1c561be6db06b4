@@ -16,6 +16,24 @@
       "message": "You need to remove the blank lines between Bug: and Change-Id.\n",
       "revId": "fffb5ee8f969ecbe7f198f70dc1c561be6db06b4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c0d6d0c_569e8893",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16089
+      },
+      "writtenOn": "2021-05-17T19:47:05Z",
+      "side": 1,
+      "message": "Oh that\u0027s the reason. I was trying to look for the source code of the presubmit script but did not find that. Thanks a lot!",
+      "parentUuid": "18a495e5_3f0c91f8",
+      "revId": "fffb5ee8f969ecbe7f198f70dc1c561be6db06b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

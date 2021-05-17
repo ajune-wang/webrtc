@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18a495e5_3f0c91f8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-17T19:38:21Z",
+      "side": 1,
+      "message": "You need to remove the blank lines between Bug: and Change-Id.\n",
+      "revId": "fffb5ee8f969ecbe7f198f70dc1c561be6db06b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

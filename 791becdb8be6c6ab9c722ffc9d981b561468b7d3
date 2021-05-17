@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "654d5bff_e827ec73",
+        "filename": "api/test/create_time_controller.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 17619
+      },
+      "writtenOn": "2021-05-17T10:56:47Z",
+      "side": 1,
+      "message": "I\u0027ll do it promptly.",
+      "parentUuid": "e7867b51_e473b4e6",
+      "range": {
+        "startLine": 39,
+        "startChar": 25,
+        "endLine": 39,
+        "endChar": 48
+      },
+      "revId": "791becdb8be6c6ab9c722ffc9d981b561468b7d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4490a7a6_06eb6815",
         "filename": "call/call.cc",
         "patchSetId": 16
@@ -66,6 +90,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6fb23667_f7a6bedc",
+        "filename": "call/call.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 17619
+      },
+      "writtenOn": "2021-05-17T10:56:47Z",
+      "side": 1,
+      "message": "I was thinking about making said interface required, but problem I faced was that quite a few tests depend on single param Create method, the one that accepts CallConfig only. Because of that I decided to stick with original Create methods plus new ones where it is required. Not going via factory is fine but I wanted to encapsulate that creation and use it where necessary, not using default factory in this particular place kind of defeats the purpose of it. I am not too fond of this particular situation but I didn\u0027t see a reasonable way to have small enough change to enable custom factory and have it small enough at the same time. If you still feel that I should remove said factory from here, I\u0027ll revert this method to it\u0027s original state.",
+      "parentUuid": "4490a7a6_06eb6815",
+      "range": {
+        "startLine": 520,
+        "startChar": 0,
+        "endLine": 520,
+        "endChar": 66
+      },
+      "revId": "791becdb8be6c6ab9c722ffc9d981b561468b7d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ba1df6fa_de196b86",
         "filename": "call/call.h",
         "patchSetId": 16
@@ -77,6 +125,30 @@
       "writtenOn": "2021-05-17T07:50:42Z",
       "side": 1,
       "message": "This is a pretty large set of Create methods. Can we delete some of them? And/or move clock and call_thread (which are copyable types) into Call::Config? \n\nWithin webrtc, it looks like Call::Create is used only in test code (which doesn\u0027t motivate convenience here, imo) and by CallFactory.",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 51
+      },
+      "revId": "791becdb8be6c6ab9c722ffc9d981b561468b7d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "029a1133_3ff441c5",
+        "filename": "call/call.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 17619
+      },
+      "writtenOn": "2021-05-17T10:56:47Z",
+      "side": 1,
+      "message": "I have partially touched in this in comment for https://webrtc-review.googlesource.com/c/src/+/217769/16/call/call.cc#520\n\nI waned to keep single param create method in order to keep changes reasonably sized. I can try to move clock and call_thread in CallConfig, and defaulted as they are in current Create variants, would that be acceptable solution?",
+      "parentUuid": "ba1df6fa_de196b86",
       "range": {
         "startLine": 85,
         "startChar": 0,

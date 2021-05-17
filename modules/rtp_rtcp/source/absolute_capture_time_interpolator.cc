@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "modules/rtp_rtcp/source/absolute_capture_time_receiver.h"
+#include "modules/rtp_rtcp/source/absolute_capture_time_interpolator.h"
 
 #include <limits>
 
@@ -20,14 +20,12 @@ namespace {
 constexpr Timestamp kInvalidLastReceiveTime = Timestamp::MinusInfinity();
 }  // namespace
 
-constexpr TimeDelta AbsoluteCaptureTimeReceiver::kInterpolationMaxInterval;
+constexpr TimeDelta AbsoluteCaptureTimeInterpolator::kInterpolationMaxInterval;
 
-AbsoluteCaptureTimeReceiver::AbsoluteCaptureTimeReceiver(Clock* clock)
-    : clock_(clock),
-      remote_to_local_clock_offset_(absl::nullopt),
-      last_receive_time_(kInvalidLastReceiveTime) {}
+AbsoluteCaptureTimeInterpolator::AbsoluteCaptureTimeInterpolator(Clock* clock)
+    : clock_(clock), last_receive_time_(kInvalidLastReceiveTime) {}
 
-uint32_t AbsoluteCaptureTimeReceiver::GetSource(
+uint32_t AbsoluteCaptureTimeInterpolator::GetSource(
     uint32_t ssrc,
     rtc::ArrayView<const uint32_t> csrcs) {
   if (csrcs.empty()) {
@@ -37,15 +35,8 @@ uint32_t AbsoluteCaptureTimeReceiver::GetSource(
   return csrcs[0];
 }
 
-void AbsoluteCaptureTimeReceiver::SetRemoteToLocalClockOffset(
-    absl::optional<int64_t> value_q32x32) {
-  MutexLock lock(&mutex_);
-
-  remote_to_local_clock_offset_ = value_q32x32;
-}
-
 absl::optional<AbsoluteCaptureTime>
-AbsoluteCaptureTimeReceiver::OnReceivePacket(
+AbsoluteCaptureTimeInterpolator::OnReceivePacket(
     uint32_t source,
     uint32_t rtp_timestamp,
     uint32_t rtp_clock_frequency,
@@ -81,13 +72,10 @@ AbsoluteCaptureTimeReceiver::OnReceivePacket(
     extension = *received_extension;
   }
 
-  extension.estimated_capture_clock_offset = AdjustEstimatedCaptureClockOffset(
-      extension.estimated_capture_clock_offset);
-
   return extension;
 }
 
-uint64_t AbsoluteCaptureTimeReceiver::InterpolateAbsoluteCaptureTimestamp(
+uint64_t AbsoluteCaptureTimeInterpolator::InterpolateAbsoluteCaptureTimestamp(
     uint32_t rtp_timestamp,
     uint32_t rtp_clock_frequency,
     uint32_t last_rtp_timestamp,
@@ -101,7 +89,7 @@ uint64_t AbsoluteCaptureTimeReceiver::InterpolateAbsoluteCaptureTimestamp(
              rtp_clock_frequency;
 }
 
-bool AbsoluteCaptureTimeReceiver::ShouldInterpolateExtension(
+bool AbsoluteCaptureTimeInterpolator::ShouldInterpolateExtension(
     Timestamp receive_time,
     uint32_t source,
     uint32_t rtp_timestamp,
@@ -132,19 +120,6 @@ bool AbsoluteCaptureTimeReceiver::ShouldInterpolateExtension(
   }
 
   return true;
-}
-
-absl::optional<int64_t>
-AbsoluteCaptureTimeReceiver::AdjustEstimatedCaptureClockOffset(
-    absl::optional<int64_t> received_value) const {
-  if (received_value == absl::nullopt ||
-      remote_to_local_clock_offset_ == absl::nullopt) {
-    return absl::nullopt;
-  }
-
-  // Do calculations as "unsigned" to make overflows deterministic.
-  return static_cast<uint64_t>(*received_value) +
-         static_cast<uint64_t>(*remote_to_local_clock_offset_);
 }
 
 }  // namespace webrtc

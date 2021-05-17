@@ -17,6 +17,7 @@
 #include "api/video/video_frame.h"
 #include "api/video/video_sink_interface.h"
 #include "api/video/video_source_interface.h"
+#include "rtc_base/system/no_unique_address.h"
 
 namespace rtc {
 
@@ -41,7 +42,8 @@ class VideoSourceBase : public VideoSourceInterface<webrtc::VideoFrame> {
   const std::vector<SinkPair>& sink_pairs() const { return sinks_; }
 
  private:
-  std::vector<SinkPair> sinks_;
+  RTC_NO_UNIQUE_ADDRESS webrtc::SequenceChecker sequence_checker_;
+  std::vector<SinkPair> sinks_ RTC_GUARDED_BY(&sequence_checker_);
 };
 
 }  // namespace rtc

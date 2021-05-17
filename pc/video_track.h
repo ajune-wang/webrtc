@@ -58,7 +58,7 @@ class VideoTrack : public MediaStreamTrack<VideoTrackInterface>,
   void OnChanged() override;
 
   rtc::Thread* const worker_thread_;
-  SequenceChecker signaling_thread_checker_;
+  RTC_NO_UNIQUE_ADDRESS SequenceChecker signaling_thread_checker_;
   rtc::scoped_refptr<VideoTrackSourceInterface> video_source_;
   ContentHint content_hint_ RTC_GUARDED_BY(signaling_thread_checker_);
 };

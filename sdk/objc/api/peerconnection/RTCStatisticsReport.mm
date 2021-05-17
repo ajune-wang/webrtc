@@ -16,7 +16,7 @@
 namespace webrtc {
 
 /** Converts a single value to a suitable NSNumber, NSString or NSArray containing NSNumbers
-    or NSStrings.*/
+    or NSStrings, or NSDictionary of NSString keys to NSNumber values.*/
 NSObject *ValueFromStatsMember(const RTCStatsMemberInterface *member) {
   if (member->is_defined()) {
     switch (member->type()) {
@@ -90,6 +90,16 @@ NSObject *ValueFromStatsMember(const RTCStatsMemberInterface *member) {
           [array addObject:[NSString stringForStdString:item]];
         }
         return [array copy];
+      }
+      case RTCStatsMemberInterface::kMapStringDouble: {
+        std::map<std::string, double> map =
+            *member->cast_to<RTCStatsMember<std::map<std::string, double>>>();
+        NSMutableDictionary<NSString *, NSNumber *> *dictionary =
+            [NSMutableDictionary dictionaryWithCapacity:map.size()];
+        for (const auto &item : map) {
+          dictionary[[NSString stringForStdString:item.first]] = @(item.second);
+        }
+        return [dictionary copy];
       }
       default:
         RTC_NOTREACHED();

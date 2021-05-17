@@ -62,6 +62,7 @@ public class RTCStats {
    * - Double
    * - String
    * - The array form of any of the above (e.g., Integer[])
+   * - Map of string keys to double values
    */
   public Map<String, Object> getMembers() {
     return members;

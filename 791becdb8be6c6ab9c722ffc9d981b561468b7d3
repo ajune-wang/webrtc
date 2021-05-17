@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52090a29_8b8999a3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-05-17T07:50:42Z",
+      "side": 1,
+      "message": "Hi, I fully support moving the construction of RtpTransportControllerSend out of Call.\n\nI have some doubts about exposing the RtpTransportControllerSendInterface as part of the peerconnection api. That class is the result of a partly done refactoring. If it\u0027s useful in it\u0027s current shape, that\u0027s nice, but I\u0027d nevertheless would like to have a documented usecase before advertising it via api/.\n",
+      "revId": "791becdb8be6c6ab9c722ffc9d981b561468b7d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7867b51_e473b4e6",
+        "filename": "api/test/create_time_controller.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-05-17T07:50:42Z",
+      "side": 1,
+      "message": "Coding style says this should use \"snake case\", `transport_controller_send`.",
+      "range": {
+        "startLine": 39,
+        "startChar": 25,
+        "endLine": 39,
+        "endChar": 48
+      },
+      "revId": "791becdb8be6c6ab9c722ffc9d981b561468b7d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4490a7a6_06eb6815",
+        "filename": "call/call.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-05-17T07:50:42Z",
+      "side": 1,
+      "message": "I don\u0027t think there should be a factory here. Either make the RtpTransportControllerSendInterface required at construction (I think that\u0027s preferable), or have a fallback that constructs an RtpTransportControllerSend without going via any factory.",
+      "range": {
+        "startLine": 520,
+        "startChar": 0,
+        "endLine": 520,
+        "endChar": 66
+      },
+      "revId": "791becdb8be6c6ab9c722ffc9d981b561468b7d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba1df6fa_de196b86",
+        "filename": "call/call.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-05-17T07:50:42Z",
+      "side": 1,
+      "message": "This is a pretty large set of Create methods. Can we delete some of them? And/or move clock and call_thread (which are copyable types) into Call::Config? \n\nWithin webrtc, it looks like Call::Create is used only in test code (which doesn\u0027t motivate convenience here, imo) and by CallFactory.",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 51
+      },
+      "revId": "791becdb8be6c6ab9c722ffc9d981b561468b7d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39bdcb8a_eb9d6fb2",
+        "filename": "video/report_block_stats.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-05-18T01:41:31Z",
+      "side": 1,
+      "message": "Would it make sense to have it take a const RTCPReportBlock\u0026 instead, unpacking the needed fields internally?",
+      "range": {
+        "startLine": 34,
+        "startChar": 29,
+        "endLine": 36,
+        "endChar": 70
+      },
+      "revId": "47c54c3c6264f995b82497b108cff1dbe9fa1ef7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d79c1883_981cf581",
+        "filename": "video/send_statistics_proxy_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-05-18T01:41:31Z",
+      "side": 1,
+      "message": "nit: Maybe comment on why 5. Looks like 4 is enough? :)",
+      "range": {
+        "startLine": 189,
+        "startChar": 29,
+        "endLine": 189,
+        "endChar": 30
+      },
+      "revId": "47c54c3c6264f995b82497b108cff1dbe9fa1ef7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

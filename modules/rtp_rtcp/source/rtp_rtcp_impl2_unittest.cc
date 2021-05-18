@@ -19,6 +19,7 @@
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/rtp_rtcp/source/rtcp_packet.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/nack.h"
+#include "modules/rtp_rtcp/source/rtp_format_video_generic.h"
 #include "modules/rtp_rtcp/source/rtp_packet_received.h"
 #include "modules/rtp_rtcp/source/rtp_rtcp_interface.h"
 #include "modules/rtp_rtcp/source/rtp_sender_video.h"
@@ -33,6 +34,7 @@
 
 using ::testing::AllOf;
 using ::testing::ElementsAre;
+using ::testing::ElementsAreArray;
 using ::testing::Eq;
 using ::testing::Field;
 using ::testing::Gt;
@@ -960,6 +962,52 @@ TEST_P(RtpRtcpImpl2Test, PropagatesSentPacketInfo) {
                              .GetExtension<TransportSequenceNumber>())),
                 Field(&RtpRtcpModule::SentPacket::capture_time_ms, Eq(now_ms)),
                 Field(&RtpRtcpModule::SentPacket::ssrc, Eq(kSenderSsrc)))));
+}
+
+TEST_P(RtpRtcpImpl2Test, SendGenericVideo) {
+  const uint8_t kPayloadType = 127;
+  const VideoCodecType kCodecType = VideoCodecType::kVideoCodecGeneric;
+  const uint8_t kPayload[] = {47, 11, 32, 93, 89};
+
+  // Send keyframe.
+  RTPVideoHeader video_header;
+  video_header.frame_type = VideoFrameType::kVideoFrameKey;
+  ASSERT_TRUE(sender_video_->SendVideo(kPayloadType, kCodecType, 1234, 4321,
+                                       kPayload, video_header, absl::nullopt));
+
+  const RtpPacketReceived& last_packet = sender_.last_packet();
+  rtc::ArrayView<const uint8_t> sent_payload = last_packet.payload();
+  uint8_t generic_header = sent_payload[0];
+  EXPECT_TRUE(generic_header & RtpFormatVideoGeneric::kKeyFrameBit);
+  EXPECT_TRUE(generic_header & RtpFormatVideoGeneric::kFirstPacketBit);
+  EXPECT_THAT(sent_payload.subview(1), ElementsAreArray(kPayload));
+
+  // Send delta frame.
+  const uint8_t kDeltaPayload[] = {13, 42, 32, 93, 13};
+  video_header.frame_type = VideoFrameType::kVideoFrameDelta;
+  ASSERT_TRUE(sender_video_->SendVideo(kPayloadType, kCodecType, 1234, 4321,
+                                       kDeltaPayload, video_header,
+                                       absl::nullopt));
+
+  sent_payload = last_packet.payload();
+  generic_header = sent_payload[0];
+  EXPECT_FALSE(generic_header & RtpFormatVideoGeneric::kKeyFrameBit);
+  EXPECT_TRUE(generic_header & RtpFormatVideoGeneric::kFirstPacketBit);
+  EXPECT_THAT(sent_payload.subview(1), ElementsAreArray(kDeltaPayload));
+}
+
+TEST_P(RtpRtcpImpl2Test, SendRawVideo) {
+  const uint8_t kPayloadType = 111;
+  const uint8_t kPayload[] = {11, 22, 33, 44, 55};
+
+  // Send a frame.
+  RTPVideoHeader video_header;
+  video_header.frame_type = VideoFrameType::kVideoFrameKey;
+  ASSERT_TRUE(sender_video_->SendVideo(kPayloadType, absl::nullopt, 1234, 4321,
+                                       kPayload, video_header, absl::nullopt));
+
+  rtc::ArrayView<const uint8_t> sent_payload = sender_.last_packet().payload();
+  EXPECT_THAT(sent_payload, ElementsAreArray(kPayload));
 }
 
 INSTANTIATE_TEST_SUITE_P(WithAndWithoutOverhead,

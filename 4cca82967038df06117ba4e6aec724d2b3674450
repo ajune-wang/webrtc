@@ -16,6 +16,253 @@
       "message": "Apologies on keeping uploading new patches, which were to fix upstream failures. Now internal_tests are still red, but looks unrelated to this CL.\n\nCL is now ready for review.",
       "revId": "4cca82967038df06117ba4e6aec724d2b3674450",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7e6dfbb_eda3aa1f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-18T11:22:15Z",
+      "side": 1,
+      "message": "Thanks for the CL Minyue!\n\nIn general it looks good, I only have one major comment on `RtpPacketInfo` since it has a setter for `local_capture_clock_offset_` (see my comment in api/rtp_packet_info.h), but there is no getter.",
+      "revId": "4cca82967038df06117ba4e6aec724d2b3674450",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "406f7059_56f012f2",
+        "filename": "api/rtp_packet_info.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-18T11:22:15Z",
+      "side": 1,
+      "message": "I only see a setter, plus I have to look at the impl to understand that setting this value does not override `absolute_capture_time_` - i.e., when the `absolute_capture_time()` getter is called, the value of `local_capture_clock_offset_` does not play a role.\n\nShouldn\u0027t we add a getter for `local_capture_clock_offset_`?\nI would also add a docstring that clarifies that the two members are separate.\nPlease, also see my comment in audio/channel_receive.cc.\n\nI see two options:\n\nOption 1:\n\nconst absl::optional\u003cAbsoluteCaptureTime\u003e\u0026 AbsoluteCaptureTime(bool adjust_offset_to_local_clock) const {\n  if (!adjust_offset_to_local_clock || !absolute_capture_time_.has_value())\n    return absolute_capture_time_;\n  return AbsoluteCaptureTime{\n    absolute_capture_time_-\u003eabsolute_capture_timestamp,\n    local_capture_clock_offset_\n  };\n}\n\nOption 2:\n\n// Returns the received absolute capture time extension.\nconst absl::optional\u003cAbsoluteCaptureTime\u003e\u0026 absolute_capture_time() const {\n  return absolute_capture_time_;\n}\n\n// Returns the absolute capture time clock offset timestamp adjusted to the\n// local clock.\nabsl::optional\u003cint64_t\u003e local_capture_clock_offset() const {\n  return local_capture_clock_offset_;\n}",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 0
+      },
+      "revId": "4cca82967038df06117ba4e6aec724d2b3674450",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5121aa7_3190bf64",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-18T11:22:15Z",
+      "side": 1,
+      "message": "nice! I like the idea that we have sort of decorators around the received value",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 65
+      },
+      "revId": "4cca82967038df06117ba4e6aec724d2b3674450",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a13916d4_1d24a330",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-18T11:22:15Z",
+      "side": 1,
+      "message": "Is it enough to make a copy on which we call `set_local_capture_clock_offset()` in order to have the adjusted values in `RtpPacketInfos`? See my comment in api/rtp_packet_info.h.",
+      "range": {
+        "startLine": 450,
+        "startChar": 0,
+        "endLine": 452,
+        "endChar": 55
+      },
+      "revId": "4cca82967038df06117ba4e6aec724d2b3674450",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c7a4070_01509118",
+        "filename": "modules/rtp_rtcp/source/absolute_capture_time_interpolator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-18T11:22:15Z",
+      "side": 1,
+      "message": "nit: update the year\nplus in the CL description you could mention that `modules/rtp_rtcp/source/absolute_capture_time_interpolator.h` is a copy of `modules/rtp_rtcp/source/absolute_capture_time_receiver.h`\n\nsame for .cc",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "4cca82967038df06117ba4e6aec724d2b3674450",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd71df75_b9957649",
+        "filename": "modules/rtp_rtcp/source/absolute_capture_time_interpolator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-18T11:22:15Z",
+      "side": 1,
+      "message": "Just a thought around your design choice. The interpolator is always used, so it makes sense to have a receiver that always interpolates. However, I wonder if we should keep the receiver and the interpolator isolated. Naming wise, it seems better, but it could be error prone as one could use the receiver without the interpolator.\n\nNo action needed here, just wanted to check the rationale behind the design.",
+      "range": {
+        "startLine": 36,
+        "startChar": 6,
+        "endLine": 36,
+        "endChar": 37
+      },
+      "revId": "4cca82967038df06117ba4e6aec724d2b3674450",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aac1a44e_0297c00c",
+        "filename": "modules/rtp_rtcp/source/absolute_capture_time_receiver.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-18T11:22:15Z",
+      "side": 1,
+      "message": "// DEPRECATED. Use `AbsoluteCaptureTimeInterpolator` instead.",
+      "range": {
+        "startLine": 20,
+        "startChar": 3,
+        "endLine": 20,
+        "endChar": 13
+      },
+      "revId": "4cca82967038df06117ba4e6aec724d2b3674450",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a90e7e96_a734d25d",
+        "filename": "modules/rtp_rtcp/source/capture_clock_offset_updater.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-18T11:22:15Z",
+      "side": 1,
+      "message": "offset_q32x32",
+      "range": {
+        "startLine": 31,
+        "startChar": 59,
+        "endLine": 31,
+        "endChar": 71
+      },
+      "revId": "4cca82967038df06117ba4e6aec724d2b3674450",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "063994bc_f50fca80",
+        "filename": "modules/rtp_rtcp/source/capture_clock_offset_updater_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-18T11:22:15Z",
+      "side": 1,
+      "message": "nit: EXPECT_THAT(..., Optional(Eq()))",
+      "range": {
+        "startLine": 51,
+        "startChar": 2,
+        "endLine": 54,
+        "endChar": 64
+      },
+      "revId": "4cca82967038df06117ba4e6aec724d2b3674450",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e5df353_046e379f",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-18T11:22:15Z",
+      "side": 1,
+      "message": "Repalce with \"bugs.webrtc.org/\u003cbug_number\u003e\"",
+      "range": {
+        "startLine": 510,
+        "startChar": 10,
+        "endLine": 510,
+        "endChar": 16
+      },
+      "revId": "4cca82967038df06117ba4e6aec724d2b3674450",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc7daa7b_e5fc5c9e",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-18T11:22:15Z",
+      "side": 1,
+      "message": "Repalce with \"bugs.webrtc.org/\u003cbug_number\u003e\"",
+      "range": {
+        "startLine": 529,
+        "startChar": 10,
+        "endLine": 529,
+        "endChar": 16
+      },
+      "revId": "4cca82967038df06117ba4e6aec724d2b3674450",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

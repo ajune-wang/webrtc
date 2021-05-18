@@ -14,6 +14,7 @@
 
 #include <memory>
 #include <string>
+#include <utility>
 
 #include "absl/types/optional.h"
 #include "api/test/simulated_network.h"
@@ -74,7 +75,9 @@ CallFactory::CallFactory() {
   call_thread_.Detach();
 }
 
-Call* CallFactory::CreateCall(const Call::Config& config) {
+Call* CallFactory::CreateCall(const Call::Config& config,
+                              RtpTransportControllerSendFactoryInterface*
+                                  transport_controller_send_factory) {
   RTC_DCHECK_RUN_ON(&call_thread_);
   absl::optional<webrtc::BuiltInNetworkBehaviorConfig> send_degradation_config =
       ParseDegradationConfig(true);
@@ -82,9 +85,19 @@ Call* CallFactory::CreateCall(const Call::Config& config) {
       receive_degradation_config = ParseDegradationConfig(false);
 
   if (send_degradation_config || receive_degradation_config) {
-    return new DegradedCall(std::unique_ptr<Call>(Call::Create(config)),
-                            send_degradation_config, receive_degradation_config,
-                            config.task_queue_factory);
+    return new DegradedCall(
+        std::unique_ptr<Call>(Call::Create(
+            config, Clock::GetRealTimeClock(),
+            SharedModuleThread::Create(
+                ProcessThread::Create("ModuleProcessThread"), nullptr),
+            transport_controller_send_factory->create(
+                Clock::GetRealTimeClock(), config.event_log,
+                config.network_state_predictor_factory,
+                config.network_controller_factory, config.bitrate_config,
+                ProcessThread::Create("PacerThread"), config.task_queue_factory,
+                config.trials))),
+        send_degradation_config, receive_degradation_config,
+        config.task_queue_factory);
   }
 
   if (!module_thread_) {
@@ -95,7 +108,14 @@ Call* CallFactory::CreateCall(const Call::Config& config) {
         });
   }
 
-  return Call::Create(config, module_thread_);
+  return Call::Create(
+      config, Clock::GetRealTimeClock(), module_thread_,
+      transport_controller_send_factory->create(
+          Clock::GetRealTimeClock(), config.event_log,
+          config.network_state_predictor_factory,
+          config.network_controller_factory, config.bitrate_config,
+          ProcessThread::Create("PacerThread"), config.task_queue_factory,
+          config.trials));
 }
 
 std::unique_ptr<CallFactoryInterface> CreateCallFactory() {

@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f4c1c5c_b351c808",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-05-18T10:33:47Z",
+      "side": 1,
+      "message": "Side thought: is it supported to send padding on rtx without any bwe extensions?\nI guess we do not want to support such scenario, so it is good there no test for it.",
+      "range": {
+        "startLine": 637,
+        "startChar": 22,
+        "endLine": 637,
+        "endChar": 52
+      },
+      "revId": "099d5bc0e22d84c15abde581904152f362e72146",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b3cabdf_dd7a744a",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 675,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-05-18T10:33:47Z",
+      "side": 1,
+      "message": "kTimestampTicksPerMs?\nor pick arbitrary start rtp timestamp - it doesn\u0027t have to be aligned with start_time, only diffs have to.",
+      "range": {
+        "startLine": 675,
+        "startChar": 48,
+        "endLine": 675,
+        "endChar": 50
+      },
+      "revId": "099d5bc0e22d84c15abde581904152f362e72146",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd5bc069_08eba11e",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 693,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-05-18T10:33:47Z",
+      "side": 1,
+      "message": "nit: does payload_size at line#685 need to have same value as this one?\nI guess not, so prefer to avoid using the same value.",
+      "range": {
+        "startLine": 693,
+        "startChar": 58,
+        "endLine": 693,
+        "endChar": 61
+      },
+      "revId": "099d5bc0e22d84c15abde581904152f362e72146",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b023070_07ad7bb1",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 695,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-05-18T10:33:47Z",
+      "side": 1,
+      "message": "may be Each\n(though Contains also verifies there is at least one padding packet - that might be more important to test)",
+      "range": {
+        "startLine": 695,
+        "startChar": 6,
+        "endLine": 695,
+        "endChar": 14
+      },
+      "revId": "099d5bc0e22d84c15abde581904152f362e72146",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec287c88_dd11e2f2",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 710,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-05-18T10:33:47Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 710,
+        "startChar": 48,
+        "endLine": 710,
+        "endChar": 50
+      },
+      "revId": "099d5bc0e22d84c15abde581904152f362e72146",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c1a0ba8_7d133d08",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-05-18T10:33:47Z",
+      "side": 1,
+      "message": "ditto, avoid using same value as kPayloadSize to avoid accidental thinking it need to be the same.",
+      "range": {
+        "startLine": 732,
+        "startChar": 58,
+        "endLine": 732,
+        "endChar": 61
+      },
+      "revId": "099d5bc0e22d84c15abde581904152f362e72146",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

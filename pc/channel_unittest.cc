@@ -1430,7 +1430,8 @@ std::unique_ptr<cricket::VoiceChannel> ChannelTest<VoiceTraits>::CreateChannel(
       worker_thread, network_thread, signaling_thread, std::move(ch),
       cricket::CN_AUDIO, (flags & DTLS) != 0, webrtc::CryptoOptions(),
       &ssrc_generator_);
-  channel->Init_w(rtp_transport);
+  network_thread->Invoke<void>(RTC_FROM_HERE,
+                               [&]() { channel->Init_n(rtp_transport); });
   return channel;
 }
 

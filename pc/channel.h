@@ -384,6 +384,7 @@ class BaseChannel : public ChannelInterface,
 // and input/output level monitoring.
 class VoiceChannel : public BaseChannel {
  public:
+  // TODO(tommi): move construction to the network thread.
   VoiceChannel(rtc::Thread* worker_thread,
                rtc::Thread* network_thread,
                rtc::Thread* signaling_thread,
@@ -393,6 +394,19 @@ class VoiceChannel : public BaseChannel {
                webrtc::CryptoOptions crypto_options,
                rtc::UniqueRandomIdGenerator* ssrc_generator);
   ~VoiceChannel();
+
+  // Call to delete a VoiceChannel instance.
+  // This method must be called on the network thread.
+  // Destruct_n is the ideal way to destruct an RtpDataChannel instance since
+  // the first part of destruction is to disassociate from the transport, which
+  // needs to happen on the network thread (the last step of initialization is
+  // to associate with the transport, on the network thread).
+  // Following transport disassociation, the channel object will be deleted on
+  // the worker thread in an asynchronous fashion.
+  static void Destruct_n(std::unique_ptr<VoiceChannel> channel);
+
+  // In case intialization can be done on the network thread (ideal).
+  void Init_n(webrtc::RtpTransportInternal* rtp_transport);
 
   // downcasts a MediaChannel
   VoiceMediaChannel* media_channel() const override {
@@ -412,6 +426,22 @@ class VoiceChannel : public BaseChannel {
   bool SetRemoteContent_w(const MediaContentDescription* content,
                           webrtc::SdpType type,
                           std::string* error_desc) override;
+
+  // Does the same as Deinit_w in case cleanup can be done on the network
+  // thread. The difference between Deinit_w and Deinit_n is that the latter
+  // must be called from the network thread and does not do a thread hop.
+  void Deinit_n();
+
+  // Discouraged use. RtpDataChannel offers Init_n, which requires being called
+  // on the network thread, which is the context that Init_w does the
+  // initialization work (via thread hop) and where data flows.
+  void Init_w(webrtc::RtpTransportInternal* rtp_transport) override {
+    RTC_NOTREACHED();
+  }
+
+  // This is set to true if teardown starts on the network thread and we do not
+  // want to repeat network cleanup in the destructor.
+  bool skip_deinit_in_destructor_ RTC_GUARDED_BY(network_thread()) = false;
 
   // Last AudioSendParameters sent down to the media_channel() via
   // SetSendParameters.

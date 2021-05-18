@@ -388,6 +388,8 @@ class FakeVoiceMediaChannel : public RtpHelper<VoiceMediaChannel> {
   bool SetOptions(const AudioOptions& options);
   bool SetLocalSource(uint32_t ssrc, AudioSource* source);
 
+  void SetInterface(NetworkInterface* iface) override;
+
   FakeVoiceEngine* engine_;
   std::vector<AudioCodec> recv_codecs_;
   std::vector<AudioCodec> send_codecs_;

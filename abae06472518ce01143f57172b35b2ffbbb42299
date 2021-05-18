@@ -16,6 +16,23 @@
       "message": "Adding Xavier as my go-to JNI reviewer.\n",
       "revId": "abae06472518ce01143f57172b35b2ffbbb42299",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "855dfe20_8188ce4b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-05-18T17:41:32Z",
+      "side": 1,
+      "message": "I don\u0027t know this code that well so I\u0027m removing myself from the review list.",
+      "revId": "abae06472518ce01143f57172b35b2ffbbb42299",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

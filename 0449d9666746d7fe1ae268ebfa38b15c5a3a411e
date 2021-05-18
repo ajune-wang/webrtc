@@ -16,6 +16,29 @@
       "message": "Per, could you please take a look?",
       "revId": "0449d9666746d7fe1ae268ebfa38b15c5a3a411e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ced0b013_c9748202",
+        "filename": "modules/audio_processing/aec3/matched_filter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-05-18T14:48:19Z",
+      "side": 1,
+      "message": "I would prefer not to have the smoothing selected here. The matched filters should not have to be concerned with any delay estimates, since they don\u0027t at all handle those.\n\nI.e., there is no concept of a delay in a matched filter.\n\nMy suggestion is then to instead supply the smoothing directly in the Update call rather than to have the code in Update select the smoothing.\n\n\nA variant could be to use a bool that is called \"use_slow_smoothing\"\nand \ninstead of \nsmoothing_delay_found_\nsmoothing_delay_not_found_\ncall the members\nfast_smoothing_\nslow_smoothing_",
+      "range": {
+        "startLine": 350,
+        "startChar": 2,
+        "endLine": 351,
+        "endChar": 76
+      },
+      "revId": "0449d9666746d7fe1ae268ebfa38b15c5a3a411e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

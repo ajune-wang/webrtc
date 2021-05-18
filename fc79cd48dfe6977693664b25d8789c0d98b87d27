@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b64dd42_162b5e77",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2021-05-18T10:19:42Z",
+      "side": 1,
+      "message": "Per, could you please take a look at this small CL?",
+      "revId": "fc79cd48dfe6977693664b25d8789c0d98b87d27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

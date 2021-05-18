@@ -38,6 +38,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "2a330e8a_3b070b9e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-18T21:40:07Z",
+      "side": 1,
+      "message": "I feel like the instructions must be hard to read; the format of the bug line needs to be \"Bug: webrtc:12778\", not the URL format.",
+      "parentUuid": "5594b541_a10f7d15",
+      "revId": "8a5f4394e93e0601ed5667ffd0530878d1bddbbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "ea5f4b96_2eb9c75b",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 17

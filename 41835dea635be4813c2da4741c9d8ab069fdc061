@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a2d7de4_fac260c2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-18T21:40:07Z",
+      "side": 1,
+      "message": "Please address questions raised about the goal of this change, and the choices of architecture.\n",
+      "revId": "41835dea635be4813c2da4741c9d8ab069fdc061",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99f61807_20f1f425",
+        "filename": "api/call/call_factory_interface.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-18T21:40:07Z",
+      "side": 1,
+      "message": "Can you explain why it\u0027s not possible to make the transport_controller_send_factory part of CallConfig, so that the CreateCall API can remain unchanged?",
+      "revId": "41835dea635be4813c2da4741c9d8ab069fdc061",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

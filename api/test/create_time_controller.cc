@@ -34,14 +34,23 @@ std::unique_ptr<CallFactoryInterface> CreateTimeControllerBasedCallFactory(
    public:
     explicit TimeControllerBasedCallFactory(TimeController* time_controller)
         : time_controller_(time_controller) {}
-    Call* CreateCall(const Call::Config& config) override {
+    Call* CreateCall(const Call::Config& config,
+                     RtpTransportControllerSendFactoryInterface*
+                         transport_controller_send_factory) override {
       if (!module_thread_) {
         module_thread_ = SharedModuleThread::Create(
             time_controller_->CreateProcessThread("CallModules"),
             [this]() { module_thread_ = nullptr; });
       }
-      return Call::Create(config, time_controller_->GetClock(), module_thread_,
-                          time_controller_->CreateProcessThread("Pacer"));
+
+      return Call::Create(
+          config, time_controller_->GetClock(), module_thread_,
+          transport_controller_send_factory->create(
+              time_controller_->GetClock(), config.event_log,
+              config.network_state_predictor_factory,
+              config.network_controller_factory, config.bitrate_config,
+              time_controller_->CreateProcessThread("Pacer"),
+              config.task_queue_factory, config.trials));
     }
 
    private:

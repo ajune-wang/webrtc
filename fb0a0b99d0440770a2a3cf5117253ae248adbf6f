@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "397a9e1a_33719552",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-18T09:42:43Z",
+      "side": 1,
+      "message": "LGTM % nits",
+      "revId": "fb0a0b99d0440770a2a3cf5117253ae248adbf6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68ab00d5_2be2c8b3",
+        "filename": "modules/audio_mixer/audio_mixer_impl_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-18T09:42:43Z",
+      "side": 1,
+      "message": "nit: /*number_of_channels\u003d*/1 (and below in this file)",
+      "range": {
+        "startLine": 683,
+        "startChar": 13,
+        "endLine": 683,
+        "endChar": 14
+      },
+      "revId": "fb0a0b99d0440770a2a3cf5117253ae248adbf6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e15d52d1_41f6d9dc",
+        "filename": "modules/audio_mixer/frame_combiner_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-18T09:42:43Z",
+      "side": 1,
+      "message": "nit: constexpr (same below)",
+      "range": {
+        "startLine": 120,
+        "startChar": 2,
+        "endLine": 120,
+        "endChar": 14
+      },
+      "revId": "fb0a0b99d0440770a2a3cf5117253ae248adbf6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "103aea25_4331765e",
+        "filename": "modules/audio_mixer/frame_combiner_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-18T09:42:43Z",
+      "side": 1,
+      "message": "kNumChannels",
+      "range": {
+        "startLine": 121,
+        "startChar": 19,
+        "endLine": 121,
+        "endChar": 28
+      },
+      "revId": "fb0a0b99d0440770a2a3cf5117253ae248adbf6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

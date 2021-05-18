@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a04b6f75_5e4e2877",
+        "filename": "media/base/video_source_base.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-05-18T20:06:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ab9de3f_2b33ba81",
+      "revId": "5bd3ded845668791ced088d439ef34058b1116c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0ea86984_cc2c98af",
@@ -31,6 +49,30 @@
       "writtenOn": "2021-05-18T19:38:50Z",
       "side": 1,
       "message": "Do you think it is possible to drop VideoSourceBase entirely (not in this CL of course 😊).\n\nIt looks like it is only used https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/media/base/video_broadcaster.h;l\u003d29;drc\u003dd15a575ec3528c252419149d35977e55269d8a41.\n\nIf yes, maybe we should add a TODO and create a cleanup bug. WDYT?",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 65
+      },
+      "revId": "5bd3ded845668791ced088d439ef34058b1116c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "954ef019_f3f2c081",
+        "filename": "media/base/video_source_base.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-05-18T20:06:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ea86984_cc2c98af",
       "range": {
         "startLine": 23,
         "startChar": 0,

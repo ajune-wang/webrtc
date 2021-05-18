@@ -71,7 +71,7 @@ TEST(RTCStatsTest, RTCStatsAndMembers) {
   EXPECT_EQ(stats.id(), "testId");
   EXPECT_EQ(stats.timestamp_us(), static_cast<int64_t>(42));
   std::vector<const RTCStatsMemberInterface*> members = stats.Members();
-  EXPECT_EQ(members.size(), static_cast<size_t>(14));
+  EXPECT_EQ(members.size(), static_cast<size_t>(16));
   for (const RTCStatsMemberInterface* member : members) {
     EXPECT_FALSE(member->is_defined());
   }
@@ -98,6 +98,9 @@ TEST(RTCStatsTest, RTCStatsAndMembers) {
   std::vector<std::string> sequence_string;
   sequence_string.push_back(std::string("six"));
 
+  std::map<std::string, uint64_t> map_string_uint64{{"seven", 8}};
+  std::map<std::string, double> map_string_double{{"nine", 10.0}};
+
   stats.m_sequence_bool = sequence_bool;
   stats.m_sequence_int32 = sequence_int32;
   stats.m_sequence_uint32 = sequence_uint32;
@@ -106,6 +109,8 @@ TEST(RTCStatsTest, RTCStatsAndMembers) {
   stats.m_sequence_uint64 = sequence_uint64;
   stats.m_sequence_double = sequence_double;
   stats.m_sequence_string = sequence_string;
+  stats.m_map_string_uint64 = map_string_uint64;
+  stats.m_map_string_double = map_string_double;
   for (const RTCStatsMemberInterface* member : members) {
     EXPECT_TRUE(member->is_defined());
   }
@@ -123,6 +128,8 @@ TEST(RTCStatsTest, RTCStatsAndMembers) {
   EXPECT_EQ(*stats.m_sequence_uint64, sequence_uint64);
   EXPECT_EQ(*stats.m_sequence_double, sequence_double);
   EXPECT_EQ(*stats.m_sequence_string, sequence_string);
+  EXPECT_EQ(*stats.m_map_string_uint64, map_string_uint64);
+  EXPECT_EQ(*stats.m_map_string_double, map_string_double);
 
   int32_t numbers[] = {4, 8, 15, 16, 23, 42};
   std::vector<int32_t> numbers_sequence(&numbers[0], &numbers[6]);
@@ -152,6 +159,8 @@ TEST(RTCStatsTest, EqualityOperator) {
   stats_with_all_values.m_sequence_uint64 = std::vector<uint64_t>();
   stats_with_all_values.m_sequence_double = std::vector<double>();
   stats_with_all_values.m_sequence_string = std::vector<std::string>();
+  stats_with_all_values.m_map_string_uint64 = std::map<std::string, uint64_t>();
+  stats_with_all_values.m_map_string_double = std::map<std::string, double>();
   EXPECT_NE(stats_with_all_values, empty_stats);
   EXPECT_EQ(stats_with_all_values, stats_with_all_values);
   EXPECT_NE(stats_with_all_values.m_int32, stats_with_all_values.m_uint32);
@@ -180,6 +189,8 @@ TEST(RTCStatsTest, EqualityOperator) {
   one_member_different[11].m_sequence_uint64->push_back(321);
   one_member_different[12].m_sequence_double->push_back(321.0);
   one_member_different[13].m_sequence_string->push_back("321");
+  (*one_member_different[13].m_map_string_uint64)["321"] = 321;
+  (*one_member_different[13].m_map_string_double)["321"] = 321.0;
   for (size_t i = 0; i < 14; ++i) {
     EXPECT_NE(stats_with_all_values, one_member_different[i]);
   }
@@ -238,6 +249,9 @@ TEST(RTCStatsTest, RTCStatsPrintsValidJson) {
   std::vector<std::string> sequence_string;
   sequence_string.push_back(std::string("four"));
 
+  std::map<std::string, double> map_string_double{
+      {"three", 123.4567890123456499}, {"thirteen", 123.4567890123456499}};
+
   RTCTestStats stats(id, timestamp);
   stats.m_bool = m_bool;
   stats.m_int32 = m_int32;
@@ -249,6 +263,7 @@ TEST(RTCStatsTest, RTCStatsPrintsValidJson) {
   stats.m_sequence_int64 = sequence_int64;
   stats.m_sequence_double = sequence_double;
   stats.m_sequence_string = sequence_string;
+  stats.m_map_string_double = map_string_double;
 
   Json::Value json_output;
   EXPECT_TRUE(Json::Reader().parse(stats.ToJson(), json_output));
@@ -278,6 +293,16 @@ TEST(RTCStatsTest, RTCStatsPrintsValidJson) {
       rtc::GetValueFromJsonObject(json_output, "mSequenceString", &json_array));
   EXPECT_TRUE(rtc::JsonArrayToStringVector(json_array, &sequence_string));
 
+  Json::Value json_map;
+  EXPECT_TRUE(
+      rtc::GetValueFromJsonObject(json_output, "mMapStringDouble", &json_map));
+  for (const auto& entry : map_string_double) {
+    double double_output = 0.0;
+    EXPECT_TRUE(
+        rtc::GetDoubleFromJsonObject(json_map, entry.first, &double_output));
+    EXPECT_NEAR(double_output, entry.second, GetExpectedError(entry.second));
+  }
+
   EXPECT_EQ(id, stats.id());
   EXPECT_EQ(timestamp, stats.timestamp_us());
   EXPECT_EQ(m_bool, *stats.m_bool);
@@ -286,6 +311,7 @@ TEST(RTCStatsTest, RTCStatsPrintsValidJson) {
   EXPECT_EQ(sequence_bool, *stats.m_sequence_bool);
   EXPECT_EQ(sequence_int32, *stats.m_sequence_int32);
   EXPECT_EQ(sequence_string, *stats.m_sequence_string);
+  EXPECT_EQ(map_string_double, *stats.m_map_string_double);
 
   EXPECT_NEAR(m_double, *stats.m_double, GetExpectedError(*stats.m_double));
 
@@ -293,6 +319,13 @@ TEST(RTCStatsTest, RTCStatsPrintsValidJson) {
   for (size_t i = 0; i < stats.m_sequence_double->size(); ++i) {
     EXPECT_NEAR(sequence_double[i], stats.m_sequence_double->at(i),
                 GetExpectedError(stats.m_sequence_double->at(i)));
+  }
+
+  EXPECT_EQ(map_string_double.size(), stats.m_map_string_double->size());
+  for (const auto& entry : map_string_double) {
+    auto it = stats.m_map_string_double->find(entry.first);
+    EXPECT_NE(it, stats.m_map_string_double->end());
+    EXPECT_NEAR(entry.second, it->second, GetExpectedError(it->second));
   }
 
   // We read mInt64 as double since JSON stores all numbers as doubles, so there

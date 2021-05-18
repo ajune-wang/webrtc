@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "53666e57_aa815d23",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-18T07:20:40Z",
+      "side": 1,
+      "message": "Please fix. A bug is the proper place to discuss design choices, and the bug tracker preserves the discussion history.",
+      "revId": "8a5f4394e93e0601ed5667ffd0530878d1bddbbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "ea5f4b96_2eb9c75b",
@@ -31,6 +48,91 @@
       "writtenOn": "2021-05-17T12:58:19Z",
       "side": 1,
       "message": "Can we have the requirements documented in a bug?",
+      "revId": "8a5f4394e93e0601ed5667ffd0530878d1bddbbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e11cd59_728d6ba6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-18T07:20:40Z",
+      "side": 1,
+      "message": "Not taking a position on whether it\u0027s the right thing to do, but some comments on how it\u0027s injected.\n",
+      "revId": "8a5f4394e93e0601ed5667ffd0530878d1bddbbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4658f191_40b97081",
+        "filename": "call/rtp_transport_controller_send_factory_interface.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-18T07:20:40Z",
+      "side": 1,
+      "message": "Please include a class comment.\n\n\"A factory used for dependency injection on the send side of the transport controller\" should be approximately sufficient.",
+      "revId": "8a5f4394e93e0601ed5667ffd0530878d1bddbbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f39811a8_10dbc66f",
+        "filename": "pc/peer_connection_factory.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-18T07:20:40Z",
+      "side": 1,
+      "message": "Please move it to the initializer list so that it can be made const.\nIf you need more complex logic than a simple ?: then move the logic to the Create methods.\n\nThe reason the constructor is protected is because we want tight control over all callers, exactly to permit this kind of logic without the need to break constness.",
+      "revId": "8a5f4394e93e0601ed5667ffd0530878d1bddbbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "769506dd_4347eaf2",
+        "filename": "pc/peer_connection_factory.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-18T07:20:40Z",
+      "side": 1,
+      "message": "That\u0027s a huge number of additional dependencies from peer_connection_fctory to call_config. Pass the factory pointer to CreateCall instead.",
+      "revId": "8a5f4394e93e0601ed5667ffd0530878d1bddbbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44da00f6_2a54b1c6",
+        "filename": "pc/peer_connection_factory.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-18T07:20:40Z",
+      "side": 1,
+      "message": "Const.",
       "revId": "8a5f4394e93e0601ed5667ffd0530878d1bddbbf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

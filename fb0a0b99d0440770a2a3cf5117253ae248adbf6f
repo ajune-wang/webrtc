@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8263a7dd_af524bbc",
+        "filename": "modules/audio_mixer/audio_mixer_impl_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 9865
+      },
+      "writtenOn": "2021-05-18T09:51:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68ab00d5_2be2c8b3",
+      "range": {
+        "startLine": 683,
+        "startChar": 13,
+        "endLine": 683,
+        "endChar": 14
+      },
+      "revId": "fb0a0b99d0440770a2a3cf5117253ae248adbf6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e15d52d1_41f6d9dc",
@@ -64,6 +88,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a17e427_218bf49d",
+        "filename": "modules/audio_mixer/frame_combiner_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 9865
+      },
+      "writtenOn": "2021-05-18T09:51:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e15d52d1_41f6d9dc",
+      "range": {
+        "startLine": 120,
+        "startChar": 2,
+        "endLine": 120,
+        "endChar": 14
+      },
+      "revId": "fb0a0b99d0440770a2a3cf5117253ae248adbf6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "103aea25_4331765e",
@@ -77,6 +125,30 @@
       "writtenOn": "2021-05-18T09:42:43Z",
       "side": 1,
       "message": "kNumChannels",
+      "range": {
+        "startLine": 121,
+        "startChar": 19,
+        "endLine": 121,
+        "endChar": 28
+      },
+      "revId": "fb0a0b99d0440770a2a3cf5117253ae248adbf6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a04b601_1415a63f",
+        "filename": "modules/audio_mixer/frame_combiner_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 9865
+      },
+      "writtenOn": "2021-05-18T09:51:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "103aea25_4331765e",
       "range": {
         "startLine": 121,
         "startChar": 19,

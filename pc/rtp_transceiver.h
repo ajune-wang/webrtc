@@ -97,6 +97,9 @@ class RtpTransceiver final
 
   // Returns the Voice/VideoChannel set for this transceiver. May be null if
   // the transceiver is not in the currently set local/remote description.
+  // TODO(tommi): On what thread does this method get called? No lock or
+  // thread hints. |channel_| currently gets set on the signaling thread but
+  // might be used elsewhere.
   cricket::ChannelInterface* channel() const { return channel_; }
 
   // Sets the Voice/VideoChannel. The caller must pass in the correct channel

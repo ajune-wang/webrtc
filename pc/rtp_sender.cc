@@ -130,6 +130,10 @@ void RtpSenderBase::SetFrameEncryptor(
 }
 
 void RtpSenderBase::SetMediaChannel(cricket::MediaChannel* media_channel) {
+  // Currently runs on signaling thread - should be worker
+  RTC_DCHECK_RUN_ON(worker_thread_);
+  RTC_LOG(LS_ERROR)
+      << "************ RtpSenderBase::SetMediaChannel **********************";
   RTC_DCHECK(media_channel == nullptr ||
              media_channel->media_type() == media_type());
   media_channel_ = media_channel;
@@ -446,6 +450,9 @@ AudioRtpSender::~AudioRtpSender() {
 }
 
 bool AudioRtpSender::CanInsertDtmf() {
+  // TODO(tommi): should this be checked on the current thread or should the
+  // check be deferred to the worker thread? Perhaps CanInsertDtmf() is called
+  // on worker already (and why does it need to be called?)?
   if (!media_channel_) {
     RTC_LOG(LS_ERROR) << "CanInsertDtmf: No audio channel exists.";
     return false;
@@ -461,6 +468,10 @@ bool AudioRtpSender::CanInsertDtmf() {
 }
 
 bool AudioRtpSender::InsertDtmf(int code, int duration) {
+  // TODO(tommi): should this be checked on the current thread or should the
+  // check be deferred to the worker thread? Perhaps InsertDtmf() is called
+  // on worker already?  If not, is the return value necessary or can the
+  // function be made to be async and return void?
   if (!media_channel_) {
     RTC_LOG(LS_ERROR) << "InsertDtmf: No audio channel exists.";
     return false;

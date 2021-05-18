@@ -150,17 +150,6 @@ VoiceChannel* ChannelManager::CreateVoiceChannel(
     const AudioOptions& options) {
   RTC_DCHECK(call);
   RTC_DCHECK(media_engine_);
-  // TODO(bugs.webrtc.org/11992): Remove this workaround after updates in
-  // PeerConnection and add the expectation that we're already on the right
-  // thread.
-  if (!worker_thread_->IsCurrent()) {
-    return worker_thread_->Invoke<VoiceChannel*>(RTC_FROM_HERE, [&] {
-      return CreateVoiceChannel(call, media_config, rtp_transport,
-                                signaling_thread, content_name, srtp_required,
-                                crypto_options, ssrc_generator, options);
-    });
-  }
-
   RTC_DCHECK_RUN_ON(worker_thread_);
 
   VoiceMediaChannel* media_channel = media_engine_->voice().CreateMediaChannel(
@@ -182,16 +171,9 @@ VoiceChannel* ChannelManager::CreateVoiceChannel(
 }
 
 void ChannelManager::DestroyVoiceChannel(VoiceChannel* voice_channel) {
+  RTC_DCHECK_RUN_ON(worker_thread_);
   TRACE_EVENT0("webrtc", "ChannelManager::DestroyVoiceChannel");
   RTC_DCHECK(voice_channel);
-
-  if (!worker_thread_->IsCurrent()) {
-    worker_thread_->Invoke<void>(RTC_FROM_HERE,
-                                 [&] { DestroyVoiceChannel(voice_channel); });
-    return;
-  }
-
-  RTC_DCHECK_RUN_ON(worker_thread_);
 
   voice_channels_.erase(absl::c_find_if(
       voice_channels_, [&](const std::unique_ptr<VoiceChannel>& p) {
@@ -212,18 +194,6 @@ VideoChannel* ChannelManager::CreateVideoChannel(
     webrtc::VideoBitrateAllocatorFactory* video_bitrate_allocator_factory) {
   RTC_DCHECK(call);
   RTC_DCHECK(media_engine_);
-  // TODO(bugs.webrtc.org/11992): Remove this workaround after updates in
-  // PeerConnection and add the expectation that we're already on the right
-  // thread.
-  if (!worker_thread_->IsCurrent()) {
-    return worker_thread_->Invoke<VideoChannel*>(RTC_FROM_HERE, [&] {
-      return CreateVideoChannel(call, media_config, rtp_transport,
-                                signaling_thread, content_name, srtp_required,
-                                crypto_options, ssrc_generator, options,
-                                video_bitrate_allocator_factory);
-    });
-  }
-
   RTC_DCHECK_RUN_ON(worker_thread_);
 
   VideoMediaChannel* media_channel = media_engine_->video().CreateMediaChannel(
@@ -246,15 +216,9 @@ VideoChannel* ChannelManager::CreateVideoChannel(
 }
 
 void ChannelManager::DestroyVideoChannel(VideoChannel* video_channel) {
+  RTC_DCHECK_RUN_ON(worker_thread_);
   TRACE_EVENT0("webrtc", "ChannelManager::DestroyVideoChannel");
   RTC_DCHECK(video_channel);
-
-  if (!worker_thread_->IsCurrent()) {
-    worker_thread_->Invoke<void>(RTC_FROM_HERE,
-                                 [&] { DestroyVideoChannel(video_channel); });
-    return;
-  }
-  RTC_DCHECK_RUN_ON(worker_thread_);
 
   video_channels_.erase(absl::c_find_if(
       video_channels_, [&](const std::unique_ptr<VideoChannel>& p) {

@@ -3334,10 +3334,18 @@ RTCError SdpOfferAnswerHandler::UpdateTransceiverChannel(
     const cricket::ContentGroup* bundle_group) {
   RTC_DCHECK(IsUnifiedPlan());
   RTC_DCHECK(transceiver);
+  // TODO(tommi): Perhaps this entire function should (needs to?) run on the
+  // worker thread. The Create and Destroy  methods, internally hop to the
+  // worker. It's likely that SetChannel() also needs to run there.
   cricket::ChannelInterface* channel = transceiver->internal()->channel();
   if (content.rejected) {
     if (channel) {
-      transceiver->internal()->SetChannel(nullptr);
+      RTC_LOG(LS_ERROR) << "vvvvvvvvvvv On worker? vvvvvvvvvvv";
+      pc_->worker_thread()->Invoke<void>(RTC_FROM_HERE, [&transceiver]() {
+        transceiver->internal()->SetChannel(nullptr);
+      });
+      // transceiver->internal()->SetChannel(nullptr);
+      RTC_LOG(LS_ERROR) << "^^^^^^^^^^^ On worker? ^^^^^^^^^^^";
       DestroyChannelInterface(channel);
     }
   } else {
@@ -3353,7 +3361,13 @@ RTCError SdpOfferAnswerHandler::UpdateTransceiverChannel(
             RTCErrorType::INTERNAL_ERROR,
             "Failed to create channel for mid=" + content.name);
       }
-      transceiver->internal()->SetChannel(channel);
+      RTC_LOG(LS_ERROR) << "vvvvvvvvvvv On worker? vvvvvvvvvvv";
+      pc_->worker_thread()->Invoke<void>(
+          RTC_FROM_HERE, [&transceiver, channel]() {
+            transceiver->internal()->SetChannel(channel);
+          });
+      // transceiver->internal()->SetChannel(channel);
+      RTC_LOG(LS_ERROR) << "^^^^^^^^^^^ On worker? ^^^^^^^^^^^";
     }
   }
   return RTCError::OK();
@@ -4495,6 +4509,17 @@ RTCError SdpOfferAnswerHandler::CreateChannels(const SessionDescription& desc) {
   // Creating the media channels. Transports should already have been created
   // at this point.
   RTC_DCHECK_RUN_ON(signaling_thread());
+  RTC_DCHECK(!IsUnifiedPlan()) << "This code path is Plan B only";
+
+  // TODO(tommi): The Create and Destroy methods need to be shifted to the
+  // worker thread.  Currently the SetChannel methods seem to have some
+  // association with the signaling thread, but it seems likely that there
+  // are races there and in at least one case, there's an invoke to the worker
+  // in order to set the value.
+  // Perhaps the best thing is to shift this whole operation over to the worker.
+  // Note that GetAudioTransceiver() might then need to be called first, here
+  // on the signaling thread.
+
   const cricket::ContentInfo* voice = cricket::GetFirstAudioContent(&desc);
   if (voice && !voice->rejected &&
       !rtp_manager()->GetAudioTransceiver()->internal()->channel()) {
@@ -4535,8 +4560,17 @@ cricket::VoiceChannel* SdpOfferAnswerHandler::CreateVoiceChannel(
   RTC_DCHECK_RUN_ON(signaling_thread());
   if (!channel_manager()->media_engine())
     return nullptr;
-
+  // TODO(tommi): This introduces a hop to the network thread.
   RtpTransportInternal* rtp_transport = pc_->GetRtpTransport(mid);
+  return pc_->worker_thread()->Invoke<cricket::VoiceChannel*>(
+      RTC_FROM_HERE,
+      [this, mid, config = pc_->configuration()->media_config,
+       srtp = pc_->SrtpRequired(), crypto = pc_->GetCryptoOptions(),
+       options = audio_options(), transport = rtp_transport]() {
+        return CreateVoiceChannel_w(mid, config, srtp, crypto, options,
+                                    transport);
+      });
+}
 
   // TODO(bugs.webrtc.org/11992): CreateVoiceChannel internally switches to the
   // worker thread. We shouldn't be using the |call_ptr_| hack here but simply
@@ -4547,7 +4581,6 @@ cricket::VoiceChannel* SdpOfferAnswerHandler::CreateVoiceChannel(
       &ssrc_generator_, audio_options());
 }
 
-// TODO(steveanton): Perhaps this should be managed by the RtpTransceiver.
 cricket::VideoChannel* SdpOfferAnswerHandler::CreateVideoChannel(
     const std::string& mid) {
   RTC_DCHECK_RUN_ON(signaling_thread());
@@ -4556,6 +4589,24 @@ cricket::VideoChannel* SdpOfferAnswerHandler::CreateVideoChannel(
 
   // NOTE: This involves a non-ideal hop (Invoke) over to the network thread.
   RtpTransportInternal* rtp_transport = pc_->GetRtpTransport(mid);
+  return pc_->worker_thread()->Invoke<cricket::VideoChannel*>(
+      RTC_FROM_HERE,
+      [this, mid, config = pc_->configuration()->media_config,
+       srtp = pc_->SrtpRequired(), crypto = pc_->GetCryptoOptions(),
+       options = video_options_, transport = rtp_transport]() {
+        return CreateVideoChannel_w(mid, config, srtp, crypto, options,
+                                    transport);
+      });
+}
+
+cricket::VideoChannel* SdpOfferAnswerHandler::CreateVideoChannel_w(
+    const std::string& mid,
+    const cricket::MediaConfig& config,
+    bool srtp,
+    const CryptoOptions& crypto,
+    const cricket::VideoOptions& options,
+    RtpTransportInternal* transport) {
+  RTC_DCHECK_RUN_ON(pc_->worker_thread());
 
   // TODO(bugs.webrtc.org/11992): CreateVideoChannel internally switches to the
   // worker thread. We shouldn't be using the |call_ptr_| hack here but simply
@@ -4638,6 +4689,15 @@ void SdpOfferAnswerHandler::DestroyChannelInterface(
   RTC_DCHECK_RUN_ON(signaling_thread());
   RTC_DCHECK(channel_manager()->media_engine());
   RTC_DCHECK(channel);
+
+  // Should we just use PostTask instead?
+  pc_->worker_thread()->Invoke<void>(
+      RTC_FROM_HERE, [this, channel] { DestroyChannelInterface_w(channel); });
+}
+
+void SdpOfferAnswerHandler::DestroyChannelInterface_w(
+    cricket::ChannelInterface* channel) {
+  RTC_DCHECK_RUN_ON(pc_->worker_thread());
 
   // TODO(bugs.webrtc.org/11992): All the below methods should be called on the
   // worker thread. (they switch internally anyway). Change

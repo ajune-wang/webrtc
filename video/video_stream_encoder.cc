@@ -769,14 +769,20 @@ void VideoStreamEncoder::SetSource(
   input_state_provider_.OnHasInputChanged(source);
 
   // This may trigger reconfiguring the QualityScaler on the encoder queue.
-  encoder_queue_.PostTask([this, degradation_preference] {
+  encoder_queue_.PostTask([this, source, degradation_preference] {
     RTC_DCHECK_RUN_ON(&encoder_queue_);
-    degradation_preference_manager_->SetDegradationPreference(
-        degradation_preference);
-    stream_resource_manager_.SetDegradationPreferences(degradation_preference);
-    if (encoder_) {
-      stream_resource_manager_.ConfigureQualityScaler(
-          encoder_->GetEncoderInfo());
+    if (!source) {
+      encoder_->Release();
+      encoder_ = nullptr;
+    } else {
+      degradation_preference_manager_->SetDegradationPreference(
+          degradation_preference);
+      stream_resource_manager_.SetDegradationPreferences(
+          degradation_preference);
+      if (encoder_) {
+        stream_resource_manager_.ConfigureQualityScaler(
+            encoder_->GetEncoderInfo());
+      }
     }
   });
 }

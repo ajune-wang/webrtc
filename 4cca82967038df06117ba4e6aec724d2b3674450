@@ -60,6 +60,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "1c12c802_1aacd2c7",
+        "filename": "api/rtp_packet_info.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-05-18T17:07:43Z",
+      "side": 1,
+      "message": "yes, we should add a getter for sure. Run for option 2, but return const reference instead.\n\nAnd sorry for my careless on this. Apparently, more changes is needed in packet_info.h|cc and unittest with this new data field. Added now.",
+      "parentUuid": "406f7059_56f012f2",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 0
+      },
+      "revId": "4cca82967038df06117ba4e6aec724d2b3674450",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "c5121aa7_3190bf64",
         "filename": "audio/channel_receive.cc",
         "patchSetId": 5
@@ -104,6 +128,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2d5956d_704a08ea",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-05-18T17:07:43Z",
+      "side": 1,
+      "message": "no, the entire packet_infos is non-mutable. So we have to build a new RtpPacketInfos.",
+      "parentUuid": "a13916d4_1d24a330",
+      "range": {
+        "startLine": 450,
+        "startChar": 0,
+        "endLine": 452,
+        "endChar": 55
+      },
+      "revId": "4cca82967038df06117ba4e6aec724d2b3674450",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8c7a4070_01509118",
@@ -117,6 +165,30 @@
       "writtenOn": "2021-05-18T11:22:15Z",
       "side": 1,
       "message": "nit: update the year\nplus in the CL description you could mention that `modules/rtp_rtcp/source/absolute_capture_time_interpolator.h` is a copy of `modules/rtp_rtcp/source/absolute_capture_time_receiver.h`\n\nsame for .cc",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "4cca82967038df06117ba4e6aec724d2b3674450",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "184b5f72_0cb465df",
+        "filename": "modules/rtp_rtcp/source/absolute_capture_time_interpolator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-05-18T17:07:43Z",
+      "side": 1,
+      "message": "forgot this one but will be solved before submission.",
+      "parentUuid": "8c7a4070_01509118",
       "range": {
         "startLine": 2,
         "startChar": 18,
@@ -150,6 +222,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4af7739_aedb5efd",
+        "filename": "modules/rtp_rtcp/source/absolute_capture_time_interpolator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-05-18T17:07:43Z",
+      "side": 1,
+      "message": "It is not strictly necessary to do interpolations on receiving the header extension, then it will only be available in some rendered frames. So I think interpolator is a better name than receiver.",
+      "parentUuid": "fd71df75_b9957649",
+      "range": {
+        "startLine": 36,
+        "startChar": 6,
+        "endLine": 36,
+        "endChar": 37
+      },
+      "revId": "4cca82967038df06117ba4e6aec724d2b3674450",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aac1a44e_0297c00c",
@@ -163,6 +259,30 @@
       "writtenOn": "2021-05-18T11:22:15Z",
       "side": 1,
       "message": "// DEPRECATED. Use `AbsoluteCaptureTimeInterpolator` instead.",
+      "range": {
+        "startLine": 20,
+        "startChar": 3,
+        "endLine": 20,
+        "endChar": 13
+      },
+      "revId": "4cca82967038df06117ba4e6aec724d2b3674450",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d62261ce_0e8fe616",
+        "filename": "modules/rtp_rtcp/source/absolute_capture_time_receiver.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-05-18T17:07:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aac1a44e_0297c00c",
       "range": {
         "startLine": 20,
         "startChar": 3,
@@ -196,6 +316,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad5cb981_695b907a",
+        "filename": "modules/rtp_rtcp/source/capture_clock_offset_updater.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-05-18T17:07:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a90e7e96_a734d25d",
+      "range": {
+        "startLine": 31,
+        "startChar": 59,
+        "endLine": 31,
+        "endChar": 71
+      },
+      "revId": "4cca82967038df06117ba4e6aec724d2b3674450",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "063994bc_f50fca80",
@@ -209,6 +353,30 @@
       "writtenOn": "2021-05-18T11:22:15Z",
       "side": 1,
       "message": "nit: EXPECT_THAT(..., Optional(Eq()))",
+      "range": {
+        "startLine": 51,
+        "startChar": 2,
+        "endLine": 54,
+        "endChar": 64
+      },
+      "revId": "4cca82967038df06117ba4e6aec724d2b3674450",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b29ab34_66eeea70",
+        "filename": "modules/rtp_rtcp/source/capture_clock_offset_updater_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-05-18T17:07:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "063994bc_f50fca80",
       "range": {
         "startLine": 51,
         "startChar": 2,
@@ -242,6 +410,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e702322_8a2d8320",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-05-18T17:07:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e5df353_046e379f",
+      "range": {
+        "startLine": 510,
+        "startChar": 10,
+        "endLine": 510,
+        "endChar": 16
+      },
+      "revId": "4cca82967038df06117ba4e6aec724d2b3674450",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fc7daa7b_e5fc5c9e",
@@ -255,6 +447,30 @@
       "writtenOn": "2021-05-18T11:22:15Z",
       "side": 1,
       "message": "Repalce with \"bugs.webrtc.org/\u003cbug_number\u003e\"",
+      "range": {
+        "startLine": 529,
+        "startChar": 10,
+        "endLine": 529,
+        "endChar": 16
+      },
+      "revId": "4cca82967038df06117ba4e6aec724d2b3674450",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5474d9b8_b4019013",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-05-18T17:07:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc7daa7b_e5fc5c9e",
       "range": {
         "startLine": 529,
         "startChar": 10,

@@ -26,11 +26,9 @@
 #include "modules/rtp_rtcp/source/rtp_header_extensions.h"
 #include "modules/rtp_rtcp/source/rtp_packet.h"
 #include "modules/rtp_rtcp/source/rtp_packet_to_send.h"
-#include "modules/rtp_rtcp/source/time_util.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/trace_event.h"
-#include "system_wrappers/include/ntp_time.h"
 
 namespace webrtc {
 
@@ -157,7 +155,7 @@ bool RTPSenderAudio::SendAudio(AudioFrameType frame_type,
   return SendAudio(frame_type, payload_type, rtp_timestamp, payload_data,
                    payload_size,
                    // TODO(bugs.webrtc.org/10739) replace once plumbed.
-                   /*absolute_capture_timestamp_ms=*/0);
+                   /*absolute_capture_timestamp_ntp_ms=*/0);
 }
 
 bool RTPSenderAudio::SendAudio(AudioFrameType frame_type,
@@ -165,7 +163,7 @@ bool RTPSenderAudio::SendAudio(AudioFrameType frame_type,
                                uint32_t rtp_timestamp,
                                const uint8_t* payload_data,
                                size_t payload_size,
-                               int64_t absolute_capture_timestamp_ms) {
+                               int64_t absolute_capture_timestamp_ntp_ms) {
 #if RTC_TRACE_EVENTS_ENABLED
   TRACE_EVENT_ASYNC_STEP1("webrtc", "Audio", rtp_timestamp, "Send", "type",
                           FrameTypeToString(frame_type));
@@ -286,7 +284,7 @@ bool RTPSenderAudio::SendAudio(AudioFrameType frame_type,
       // Replace missing value with 0 (invalid frequency), this will trigger
       // absolute capture time sending.
       encoder_rtp_timestamp_frequency.value_or(0),
-      Int64MsToUQ32x32(absolute_capture_timestamp_ms + NtpOffsetMs()),
+      Int64MsToUQ32x32(absolute_capture_timestamp_ntp_ms),
       /*estimated_capture_clock_offset=*/
       include_capture_clock_offset_ ? absl::make_optional(0) : absl::nullopt);
   if (absolute_capture_time) {

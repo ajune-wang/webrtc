@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "344d5d64_b45c3e40",
+        "filename": "video/report_block_stats.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-05-18T10:53:28Z",
+      "side": 1,
+      "message": "I though about it. there are benefits and costs. both seems minor.\nBenefit \n - harder to pass parameter in the wrong order\n   (but there is only single call to this function, so not that many places to ensure it is correct)\nCosts\n - wider interface (require to pass more than function actually needs)\n - more boilerplate in tests,\n - an extra dependency edge (this file would need to include header declaring RTCPReportBlock. currently this file include only standard headers).\n\nI prefer to keep 3 plain parameters, but annotate them to make it harder to swap parameters by mistake.\nhttps://clang.llvm.org/extra/clang-tidy/checks/bugprone-argument-comment.html",
+      "parentUuid": "39bdcb8a_eb9d6fb2",
+      "range": {
+        "startLine": 34,
+        "startChar": 29,
+        "endLine": 36,
+        "endChar": 70
+      },
+      "revId": "47c54c3c6264f995b82497b108cff1dbe9fa1ef7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d79c1883_981cf581",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-05-18T01:41:31Z",
       "side": 1,
       "message": "nit: Maybe comment on why 5. Looks like 4 is enough? :)",
+      "range": {
+        "startLine": 189,
+        "startChar": 29,
+        "endLine": 189,
+        "endChar": 30
+      },
+      "revId": "47c54c3c6264f995b82497b108cff1dbe9fa1ef7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2a4d9cc_ada7f139",
+        "filename": "video/send_statistics_proxy_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-05-18T10:53:28Z",
+      "side": 1,
+      "message": "There is already comment above - to make numbers unique.\nswitching to 4 to reduce wondering (before this CL it was 16, I think)",
+      "parentUuid": "d79c1883_981cf581",
       "range": {
         "startLine": 189,
         "startChar": 29,

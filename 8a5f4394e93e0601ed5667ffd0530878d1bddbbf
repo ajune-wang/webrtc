@@ -86,6 +86,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffcb18f6_9c6d2dce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-18T09:09:05Z",
+      "side": 1,
+      "message": "RtpTransportControllerSendInterface is not something we expose in api/. So we won\u0027t make any stability guarantees on it; it may change without any notice.\n\nAre you sure this is the API you wish to use?\n\n",
+      "revId": "8a5f4394e93e0601ed5667ffd0530878d1bddbbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4658f191_40b97081",

@@ -16,6 +16,23 @@
       "message": "Artem - can you take a look?",
       "revId": "09b1342ffb889196f0b1efe7bf872a730182fd62",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23e09b6c_5998fb8c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-05-18T09:50:51Z",
+      "side": 1,
+      "message": "Friendly ping - land it or strand it?",
+      "revId": "09b1342ffb889196f0b1efe7bf872a730182fd62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

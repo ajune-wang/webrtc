@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8034b686_f1f1620c",
+        "filename": "pc/video_track.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 12419
+      },
+      "writtenOn": "2021-05-18T20:31:15Z",
+      "side": 1,
+      "message": "I think it will break an upstream project that currently run set_enabled on signaling thread.\n\nAlso, from my discussion with Per I thought we suppose to run set_enabled on signaling thread: \"Controlling the enabled state is something the application can do at any point in time. And that is typically done on the signaling thread.\"",
+      "revId": "3324ec7c58ede9ca9b2f0272a8510ed95ddf500f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

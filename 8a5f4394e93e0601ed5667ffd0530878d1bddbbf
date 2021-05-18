@@ -69,6 +69,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9bb69b4b_b36944d7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-18T09:07:25Z",
+      "side": 1,
+      "message": "Suggestion for alternate design:\n\nThe only place where this affects the rest of the API is when calling the CallFactory.\n\nYou already have the ability to override the CallFactory. Why not inject RtpTransportControllerSendInterface using a custom CallFactory?\n",
+      "revId": "8a5f4394e93e0601ed5667ffd0530878d1bddbbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4658f191_40b97081",

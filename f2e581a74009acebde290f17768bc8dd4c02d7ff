@@ -22,6 +22,30 @@
       },
       "revId": "f2e581a74009acebde290f17768bc8dd4c02d7ff",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b37e8fe_89bfe6f2",
+        "filename": "modules/audio_mixer/frame_combiner_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 9865
+      },
+      "writtenOn": "2021-05-18T07:08:18Z",
+      "side": 0,
+      "message": "When running on my machine the tests don\u0027t seem isolated enough, so the same instance of audio_frame_for_mixing is reused between tests. This causes the frame to contain the RtpPacketInfos from the previous test methods.",
+      "parentUuid": "8cc68d36_280dfd01",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 34
+      },
+      "revId": "f2e581a74009acebde290f17768bc8dd4c02d7ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd225e09_374626ab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-18T15:40:15Z",
+      "side": 1,
+      "message": "Adding hbos@ who wrote the rtc_stats inforastructure and xalep@ who knows all about JNI.\n",
+      "revId": "644cd0a295ea85459b016465fe1cbce5a503ac19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

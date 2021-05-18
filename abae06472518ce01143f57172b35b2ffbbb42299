@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80f42cc7_d01edfbf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-18T07:22:08Z",
+      "side": 1,
+      "message": "Adding Xavier as my go-to JNI reviewer.\n",
+      "revId": "abae06472518ce01143f57172b35b2ffbbb42299",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

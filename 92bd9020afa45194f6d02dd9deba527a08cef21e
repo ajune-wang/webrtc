@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45991bf6_63dda7a9",
+        "filename": "api/proxy.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-05-18T19:08:08Z",
+      "side": 0,
+      "message": "I added these checks back when I introduced the BYPASS_PROXY_CONSTMETHOD0 macro. The checks were very conservative but this CL is an example of why the checks are too restrictive and can be removed.",
+      "revId": "92bd9020afa45194f6d02dd9deba527a08cef21e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -24,7 +24,7 @@ namespace webrtc {
 
 class WindowCapturerWinGdi : public DesktopCapturer {
  public:
-  WindowCapturerWinGdi();
+  WindowCapturerWinGdi(DesktopCaptureOptions options);
 
   // Disallow copy and assign
   WindowCapturerWinGdi(const WindowCapturerWinGdi&) = delete;
@@ -60,6 +60,8 @@ class WindowCapturerWinGdi : public DesktopCapturer {
   DesktopSize previous_size_;
 
   WindowCaptureHelperWin window_capture_helper_;
+
+  DesktopCaptureOptions options_;
 
   // This map is used to avoid flickering for the case when SelectWindow() calls
   // are interleaved with Capture() calls.

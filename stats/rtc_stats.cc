@@ -65,6 +65,20 @@ std::string VectorOfStringsToString(const std::vector<T>& strings) {
 }
 
 template <typename T>
+std::string MapToString(const std::map<std::string, T>& map) {
+  rtc::StringBuilder sb;
+  sb << "[";
+  const char* separator = "";
+  for (const auto& element : map) {
+    sb << separator << "\"" << rtc::ToString(element.first)
+       << "\":" << rtc::ToString(element.second);
+    separator = ",";
+  }
+  sb << "]";
+  return sb.Release();
+}
+
+template <typename T>
 std::string ToStringAsDouble(const T value) {
   // JSON represents numbers as floating point numbers with about 15 decimal
   // digits of precision.
@@ -85,6 +99,20 @@ std::string VectorToStringAsDouble(const std::vector<T>& vector) {
     separator = ",";
   }
   sb << "]";
+  return sb.Release();
+}
+
+template <typename T>
+std::string MapToStringAsDouble(const std::map<std::string, T>& map) {
+  rtc::StringBuilder sb;
+  sb << "{";
+  const char* separator = "";
+  for (const auto& element : map) {
+    sb << separator << "\"" << rtc::ToString(element.first)
+       << "\":" << ToStringAsDouble(element.second);
+    separator = ",";
+  }
+  sb << "}";
   return sb.Release();
 }
 
@@ -248,6 +276,20 @@ WEBRTC_DEFINE_RTCSTATSMEMBER(std::vector<std::string>,
                              false,
                              VectorOfStringsToString(value_),
                              VectorOfStringsToString(value_));
+#define COMMA ,
+WEBRTC_DEFINE_RTCSTATSMEMBER(std::map<std::string COMMA uint64_t>,
+                             kMapStringDouble,
+                             false,
+                             false,
+                             MapToString(value_),
+                             MapToStringAsDouble(value_));
+WEBRTC_DEFINE_RTCSTATSMEMBER(std::map<std::string COMMA double>,
+                             kMapStringDouble,
+                             false,
+                             false,
+                             MapToString(value_),
+                             MapToStringAsDouble(value_));
+#undef COMMA
 
 template class RTC_EXPORT_TEMPLATE_DEFINE(RTC_EXPORT)
     RTCNonStandardStatsMember<bool>;

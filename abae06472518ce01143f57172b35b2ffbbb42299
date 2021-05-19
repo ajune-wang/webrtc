@@ -33,6 +33,29 @@
       "message": "I don\u0027t know this code that well so I\u0027m removing myself from the review list.",
       "revId": "abae06472518ce01143f57172b35b2ffbbb42299",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80be9719_45ca5fc6",
+        "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2021-05-19T15:52:05Z",
+      "side": 1,
+      "message": "This interface has implementations that this would break if you introduce this method as is.\n\nCould you make it a default method with an empty implementation?\n\nThat would also avoid having to override it in the PCObserver implementation in apprtc/PeerConnectionClient.java",
+      "range": {
+        "startLine": 150,
+        "startChar": 0,
+        "endLine": 150,
+        "endChar": 73
+      },
+      "revId": "abae06472518ce01143f57172b35b2ffbbb42299",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

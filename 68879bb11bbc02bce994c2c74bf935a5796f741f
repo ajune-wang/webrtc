@@ -16,6 +16,23 @@
       "message": "I\u0027ve found this code emit a warning when using the \"-Wobjc-missing-property-synthesis\" compiler option, and I\u0027d like to fix it. Please take a look. Thank you.",
       "revId": "68879bb11bbc02bce994c2c74bf935a5796f741f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fd38091_238502c7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-05-19T14:13:02Z",
+      "side": 1,
+      "message": "Gentle ping. Do I need to change something?",
+      "revId": "68879bb11bbc02bce994c2c74bf935a5796f741f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

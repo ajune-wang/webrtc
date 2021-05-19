@@ -87,6 +87,24 @@
       "parentUuid": "1169c53f_ac5275c1",
       "revId": "41835dea635be4813c2da4741c9d8ab069fdc061",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f213a5b_0d66d38f",
+        "filename": "api/call/call_factory_interface.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-05-19T12:29:31Z",
+      "side": 1,
+      "message": "In my opinion, a factory is appropriate when Call needs to instantiate some kind of object multiple times, typically, once per stream.\n\nBut the RtpTransportControllerSendInterface should be one per RTP session (which in itself is a somewhat vague concept). My preference (mostly unchanged since when I introduced these classes) would be to inject an already constructed RtpTransportControllerSendInterface. Either with ownership, as a unique_ptr, or a naked pointer. \n\nIn the latter case, ownership should be in the PeerConnection class, and it makes it possible to pass separate pointers for audio and video, which then can point to the same object or to distinct objects, depending on bundle mode. Not currently used for sending, but we do have distinct RtpStreamReceiverController on the receive path, and it would make sense to me to inject those objects in more or less the same way.",
+      "parentUuid": "9f3e812b_4b399d8c",
+      "revId": "41835dea635be4813c2da4741c9d8ab069fdc061",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

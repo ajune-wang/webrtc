@@ -16,6 +16,29 @@
       "message": "PTAL",
       "revId": "a8f6f0dd2b01f424bb2877fadfa7c7fa2c516592",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e4715fe_0fa9d0d7",
+        "filename": "api/rtc_event_log/rtc_event.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-05-19T13:38:36Z",
+      "side": 1,
+      "message": "Timestamp::ms() rounds to nearest, so tests that compare the (truncated) log time to the parsed time breaks unless the timestamp is an even millisecond.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 65
+      },
+      "revId": "a8f6f0dd2b01f424bb2877fadfa7c7fa2c516592",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

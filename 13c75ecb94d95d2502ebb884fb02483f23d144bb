@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6bf5c4b_f0971890",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 724,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-05-19T15:00:12Z",
+      "side": 1,
+      "message": "Do we really want the test to be time dependent, or could we replace with some hard coded constant here?",
+      "range": {
+        "startLine": 724,
+        "startChar": 30,
+        "endLine": 724,
+        "endChar": 56
+      },
+      "revId": "13c75ecb94d95d2502ebb884fb02483f23d144bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5fcda4b_191034e1",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-05-19T15:00:12Z",
+      "side": 1,
+      "message": "nit: do the conversion once at the top of the function, makes it easier to replace the input parameter in the future if wanted.",
+      "range": {
+        "startLine": 683,
+        "startChar": 31,
+        "endLine": 683,
+        "endChar": 62
+      },
+      "revId": "13c75ecb94d95d2502ebb884fb02483f23d144bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "133da352_9dfac076",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1408,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-05-19T15:00:12Z",
+      "side": 1,
+      "message": "Seems like it would make sense to provide event.timestamp() directly here instead? Or at least we should be able to remove the extra line: \naudio_recv_configs_.emplace_back(Timestamp::Micros(event.timestamp_us()),",
+      "range": {
+        "startLine": 1407,
+        "startChar": 4,
+        "endLine": 1408,
+        "endChar": 71
+      },
+      "revId": "13c75ecb94d95d2502ebb884fb02483f23d144bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

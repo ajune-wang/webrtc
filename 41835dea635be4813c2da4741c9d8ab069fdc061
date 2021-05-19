@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "93c95f59_4d306c27",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2021-05-19T11:32:35Z",
+      "side": 1,
+      "message": "the overall goal is to allow tweaks to, for example, transport-cc feedback is handled.\nWith this change we can provide our own class for the transport controller and maintain it outside the webrtc tree.\n\nI would expect this to be a quite common requirement actually.",
+      "parentUuid": "4a2d7de4_fac260c2",
+      "revId": "41835dea635be4813c2da4741c9d8ab069fdc061",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "99f61807_20f1f425",

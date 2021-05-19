@@ -16,6 +16,23 @@
       "message": "Sorry but I am not an owner in this area and have no experience of working with this particular code. Do you want me to look at something specific?",
       "revId": "678702d45fceb952f4262a03e28560a46f200bf8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd0cbcde_0ee1f87c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-19T13:49:50Z",
+      "side": 1,
+      "message": "Thanks Minyue!",
+      "revId": "678702d45fceb952f4262a03e28560a46f200bf8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

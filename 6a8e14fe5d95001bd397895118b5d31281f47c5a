@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59743e91_9e0b45f5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2021-05-19T15:11:22Z",
+      "side": 1,
+      "message": "Looks good to me for the Android/JNI parts",
+      "revId": "6a8e14fe5d95001bd397895118b5d31281f47c5a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

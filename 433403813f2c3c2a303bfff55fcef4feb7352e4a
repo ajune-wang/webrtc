@@ -16,6 +16,40 @@
       "message": "This comment got left off previous reply.\n",
       "revId": "433403813f2c3c2a303bfff55fcef4feb7352e4a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "176fed99_c7686b5e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-05-19T13:15:06Z",
+      "side": 1,
+      "message": "Looks good to me if comments are addressed. There are two chromium dependencies that I can think of that would need to be updated after adding the new Type but before landing uses of that type to avoid breaking chromium when unexpectedly seeing a new type:\n\n1. https://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/modules/peerconnection/peer_connection_tracker.cc;l\u003d680;drc\u003d5e75e356ed603a74d82e8e3a5f6cef62f54ccc61?q\u003dRTCStatsMemberInterface::Type\n\n2. https://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/modules/peerconnection/rtc_stats_report.cc;l\u003d31;drc\u003d5e75e356ed603a74d82e8e3a5f6cef62f54ccc61;bpv\u003d0;bpt\u003d1\n\nThere may be similar dependencies in mobile apps, but I\u0027ll let Xavier comment about that.",
+      "revId": "433403813f2c3c2a303bfff55fcef4feb7352e4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abc94f08_1e2bcf5e",
+        "filename": "stats/rtc_stats_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-05-19T13:15:06Z",
+      "side": 1,
+      "message": "What about mMapStringUint64 ?",
+      "revId": "433403813f2c3c2a303bfff55fcef4feb7352e4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

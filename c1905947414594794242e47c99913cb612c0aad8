@@ -16,6 +16,24 @@
       "message": "This trick is ugly. If you add a \"typedef std::map\u003cstd::string, double\u003e MapToDouble\" above, you should be able to just say WEBRTC_DECLARE_RTCSTATSMEMBER(MaptoDouble). Or there may be a way of quoting a macro argument - I don\u0027t know.",
       "revId": "c1905947414594794242e47c99913cb612c0aad8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fcd2409b_89564c25",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-05-19T13:15:06Z",
+      "side": 1,
+      "message": "I would also like to get rid of COMMA if possible",
+      "parentUuid": "d78d3a8a_488cd579",
+      "revId": "c1905947414594794242e47c99913cb612c0aad8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "137d4264_7ad918e3",
+        "filename": ".gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-05-19T14:23:43Z",
+      "side": 1,
+      "message": "//third_party/icu emits a lot of errors. Although I do not understand why icu is needed in WebRTC.\n\nFor google_benchmark, it is trying to find nonexistent header cycle_clock.h\n\n\nERROR at //third_party/google_benchmark/BUILD.gn:12:3: Source file not found.\n  source_set(\"google_benchmark\") {\n  ^-------------------------------\nThe target:\n  //third_party/google_benchmark:google_benchmark\nhas a source file:\n  //third_party/google_benchmark/src/src/cycle_clock.h\nwhich was not found.",
+      "parentUuid": "8ecda88d_9b6798cd",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 24
+      },
+      "revId": "978514daee76aff120cab265008332e1d027c534",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "cd37550c_fe9c25f5",

@@ -105,6 +105,24 @@
       "parentUuid": "9f3e812b_4b399d8c",
       "revId": "41835dea635be4813c2da4741c9d8ab069fdc061",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11a2e8f3_2b2334e3",
+        "filename": "api/call/call_factory_interface.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-19T13:32:41Z",
+      "side": 1,
+      "message": "RTP session is well-defined, (un)fortunately - one endpoint\u0027s view of an RTP session is equivalent to one transport (DTLS session, RTP transport). (I don\u0027t think there\u0027s any exceptions to this inside one PeerConnection.)\n\nSo if Call needs to play the multitransport game (bundling / not bundling, for instance), and RtpTransportControllerSendInterface is 1:1 with RtpTransport, Call will need to create multiple instances of it.",
+      "parentUuid": "9f213a5b_0d66d38f",
+      "revId": "41835dea635be4813c2da4741c9d8ab069fdc061",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

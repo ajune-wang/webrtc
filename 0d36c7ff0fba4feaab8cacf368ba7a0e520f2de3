@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1526bffc_715763ec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17659
+      },
+      "writtenOn": "2021-05-19T18:00:44Z",
+      "side": 1,
+      "message": "Interesting, this CL shows as sent for review on my desktop, but not on my laptop, even after refreshing both.\n\nAnyway @Stefan @Magnus, PTAL.",
+      "revId": "0d36c7ff0fba4feaab8cacf368ba7a0e520f2de3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

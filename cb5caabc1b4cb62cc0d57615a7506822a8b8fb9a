@@ -33,6 +33,23 @@
       "message": "Gentle ping. Do I need to change something?",
       "revId": "cb5caabc1b4cb62cc0d57615a7506822a8b8fb9a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "329c7d34_6d25d865",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5166
+      },
+      "writtenOn": "2021-05-19T17:00:55Z",
+      "side": 1,
+      "message": "Sorry for the delay. LGTM.",
+      "revId": "cb5caabc1b4cb62cc0d57615a7506822a8b8fb9a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd37550c_fe9c25f5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-05-19T14:10:51Z",
+      "side": 1,
+      "message": "Hello. I\u0027ve changed to use no_check_targets in the .gn file. Please take a look. Thank you.",
+      "revId": "978514daee76aff120cab265008332e1d027c534",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

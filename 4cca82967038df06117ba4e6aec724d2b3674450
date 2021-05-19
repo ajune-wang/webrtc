@@ -128,6 +128,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d196c79_d8feefc4",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-05-19T11:51:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92fc9f47_6d70a904",
+      "range": {
+        "startLine": 442,
+        "startChar": 7,
+        "endLine": 442,
+        "endChar": 12
+      },
+      "revId": "4cca82967038df06117ba4e6aec724d2b3674450",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a13916d4_1d24a330",
@@ -199,6 +223,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a4abb46_2408a2b1",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-05-19T11:51:47Z",
+      "side": 1,
+      "message": "yes, that is intended, and that is the way we can get unadjusted values in RTCRtpContributingSource. Edited CL description.",
+      "parentUuid": "db6da34e_11b8fa75",
+      "range": {
+        "startLine": 450,
+        "startChar": 0,
+        "endLine": 452,
+        "endChar": 55
+      },
+      "revId": "4cca82967038df06117ba4e6aec724d2b3674450",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8c7a4070_01509118",
@@ -236,6 +284,30 @@
       "side": 1,
       "message": "forgot this one but will be solved before submission.",
       "parentUuid": "8c7a4070_01509118",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "4cca82967038df06117ba4e6aec724d2b3674450",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f31900cf_6d20ef2e",
+        "filename": "modules/rtp_rtcp/source/absolute_capture_time_interpolator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-05-19T11:51:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "184b5f72_0cb465df",
       "range": {
         "startLine": 2,
         "startChar": 18,

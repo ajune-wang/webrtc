@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "70f830f3_c0c7d668",
+        "filename": "api/rtp_packet_info.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-05-19T11:51:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ff23ad7_2b56e2d9",
+      "range": {
+        "startLine": 110,
+        "startChar": 16,
+        "endLine": 110,
+        "endChar": 35
+      },
+      "revId": "fe1d7a8c6e59486d02f51468ca7cfbf0d1cfe20f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b467dde4_ba00cc7a",
@@ -81,6 +105,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "26917da4_873bb4f4",
+        "filename": "modules/rtp_rtcp/source/absolute_capture_time_receiver.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-05-19T11:51:47Z",
+      "side": 1,
+      "message": "this class is to be removed very soon.",
+      "parentUuid": "b467dde4_ba00cc7a",
+      "range": {
+        "startLine": 21,
+        "startChar": 36,
+        "endLine": 21,
+        "endChar": 74
+      },
+      "revId": "fe1d7a8c6e59486d02f51468ca7cfbf0d1cfe20f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "96e679e6_d9d1a6d5",
@@ -94,6 +142,30 @@
       "writtenOn": "2021-05-19T09:29:50Z",
       "side": 1,
       "message": "Both the class and the public function should have documentation. It\u0027s not obvious why this class exists or what the function does or is needed.",
+      "range": {
+        "startLine": 22,
+        "startChar": 26,
+        "endLine": 22,
+        "endChar": 59
+      },
+      "revId": "fe1d7a8c6e59486d02f51468ca7cfbf0d1cfe20f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bcc37fe_cb76f5de",
+        "filename": "modules/rtp_rtcp/source/capture_clock_offset_updater.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-05-19T11:51:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96e679e6_d9d1a6d5",
       "range": {
         "startLine": 22,
         "startChar": 26,

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7c6bd4e_219b5994",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-05-19T12:11:38Z",
+      "side": 1,
+      "message": "Hi Henrik\n\nAdd you for onwer\u0027s approve. As this changes various components, we need you, Henrik, as you are a top approver.",
+      "revId": "99e27ba9a5e07a741b60e8a72fb7e931fc20abc7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

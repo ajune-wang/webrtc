@@ -520,6 +520,10 @@ if (!build_with_chromium) {
     rtc_executable("webrtc_lib_link_test") {
       testonly = true
 
+      # This target is used for checking to link, so do not check dependencies
+      # on gn check.
+      check_includes = false
+
       sources = [ "webrtc_lib_link_test.cc" ]
       deps = [
         # NOTE: Don't add deps here. If this test fails to link, it means you

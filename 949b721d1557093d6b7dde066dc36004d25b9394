@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "682e437f_1a49bc67",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-05-19T15:38:35Z",
+      "side": 1,
+      "message": "This CL is stale for a long time. Xavier, please take a look. Thank you.",
+      "revId": "949b721d1557093d6b7dde066dc36004d25b9394",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

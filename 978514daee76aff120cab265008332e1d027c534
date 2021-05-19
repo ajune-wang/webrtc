@@ -48,6 +48,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a2bb9b3_cd431ba3",
+        "filename": ".gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-05-19T14:54:47Z",
+      "side": 1,
+      "message": "https://chromium-review.googlesource.com/c/chromium/src/+/2905764 should fix google_benchmark.\n\nWhile https://webrtc-review.googlesource.com/c/src/+/219470 shows why ICU is needed (not used by WebRTC but it is a toolchain dependency it seems).\n\nLet\u0027s wait for the google_benchmark to land and roll. Ping me in 2 days if I don\u0027t reply with the approval.",
+      "parentUuid": "137d4264_7ad918e3",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 24
+      },
+      "revId": "978514daee76aff120cab265008332e1d027c534",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "cd37550c_fe9c25f5",

@@ -51,6 +51,24 @@
       "parentUuid": "99f61807_20f1f425",
       "revId": "41835dea635be4813c2da4741c9d8ab069fdc061",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f3e812b_4b399d8c",
+        "filename": "api/call/call_factory_interface.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-19T11:08:15Z",
+      "side": 1,
+      "message": "All the 5 other factories referenced in CallConfig are passed by naked pointer (and it\u0027s a struct). I think \"stick with the pattern of the code around you\" indicates that we shouldn\u0027t be passing an unique_ptr for this factory either.",
+      "parentUuid": "1169c53f_ac5275c1",
+      "revId": "41835dea635be4813c2da4741c9d8ab069fdc061",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

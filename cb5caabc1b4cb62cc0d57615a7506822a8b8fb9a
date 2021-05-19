@@ -16,6 +16,23 @@
       "message": "I emoved a small amount of code related to unused TOOLKIT_GTK definitions. Please take a look. Thank you.",
       "revId": "cb5caabc1b4cb62cc0d57615a7506822a8b8fb9a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ef48ade_ac6c8ed9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-05-19T14:13:34Z",
+      "side": 1,
+      "message": "Gentle ping. Do I need to change something?",
+      "revId": "cb5caabc1b4cb62cc0d57615a7506822a8b8fb9a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

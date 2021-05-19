@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47af4b22_c2e2d48b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2021-05-19T09:29:50Z",
+      "side": 1,
+      "message": "It could make sense if you also include someone who\u0027s more opinionated about WebRTC than myself for review.",
+      "revId": "fe1d7a8c6e59486d02f51468ca7cfbf0d1cfe20f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ff23ad7_2b56e2d9",
+        "filename": "api/rtp_packet_info.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2021-05-19T09:29:50Z",
+      "side": 1,
+      "message": "I think that it should be clarified of what \"in adjusted values\" means.\n\nIt\u0027s probably best to be specific of about \"between capture system and sender\" or \"between capture system and the local machine\" or something along those lines. \"Adjusted values\" or \"received values\" require the user to know the details about the header.",
+      "range": {
+        "startLine": 110,
+        "startChar": 16,
+        "endLine": 110,
+        "endChar": 35
+      },
+      "revId": "fe1d7a8c6e59486d02f51468ca7cfbf0d1cfe20f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b467dde4_ba00cc7a",
+        "filename": "modules/rtp_rtcp/source/absolute_capture_time_receiver.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2021-05-19T09:29:50Z",
+      "side": 1,
+      "message": "This is very dangerous. The base class is not writen to be inherited.\n\nSpecifically: `AbsoluteCaptureTimeReceiver::OnReceivePacket()` hides rather than overrides `AbsoluteCaptureTimeInterpolator::OnReceivePacket()`.\n\nIt would be more appropiate to use composition rather than inheritance.",
+      "range": {
+        "startLine": 21,
+        "startChar": 36,
+        "endLine": 21,
+        "endChar": 74
+      },
+      "revId": "fe1d7a8c6e59486d02f51468ca7cfbf0d1cfe20f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96e679e6_d9d1a6d5",
+        "filename": "modules/rtp_rtcp/source/capture_clock_offset_updater.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2021-05-19T09:29:50Z",
+      "side": 1,
+      "message": "Both the class and the public function should have documentation. It\u0027s not obvious why this class exists or what the function does or is needed.",
+      "range": {
+        "startLine": 22,
+        "startChar": 26,
+        "endLine": 22,
+        "endChar": 59
+      },
+      "revId": "fe1d7a8c6e59486d02f51468ca7cfbf0d1cfe20f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

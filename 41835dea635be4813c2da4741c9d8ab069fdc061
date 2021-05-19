@@ -33,6 +33,24 @@
       "message": "Can you explain why it\u0027s not possible to make the transport_controller_send_factory part of CallConfig, so that the CreateCall API can remain unchanged?",
       "revId": "41835dea635be4813c2da4741c9d8ab069fdc061",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1169c53f_ac5275c1",
+        "filename": "api/call/call_factory_interface.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-05-19T07:03:55Z",
+      "side": 1,
+      "message": "Assuming we agree on injecting a unique_ptr\u003cRtpTransportControllerSendInterface\u003e here (no factory at this level), it\u0027s a problem that\nCallConfig is passed as a const ref, which means that it can\u0027t be used to pass unique_ptr ownership. (I\u0027d be fine with fixing that, but preferably as a separate cl).",
+      "parentUuid": "99f61807_20f1f425",
+      "revId": "41835dea635be4813c2da4741c9d8ab069fdc061",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

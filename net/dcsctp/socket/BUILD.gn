@@ -213,6 +213,9 @@ if (rtc_include_tests) {
       "../public:types",
       "../rx:data_tracker",
       "../rx:reassembly_queue",
+      "../timer:task_queue_timeout",
+      "../../../rtc_base:rtc_base",
+      "../../../rtc_base:rtc_base_tests_utils",
       "../testing:data_generator",
       "../testing:testing_macros",
       "../timer",
@@ -229,6 +232,7 @@ if (rtc_include_tests) {
       "heartbeat_handler_test.cc",
       "state_cookie_test.cc",
       "stream_reset_handler_test.cc",
+      "dcsctp_socket_network_test.cc",
     ]
   }
 }

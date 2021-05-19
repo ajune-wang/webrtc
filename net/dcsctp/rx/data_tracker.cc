@@ -26,6 +26,9 @@
 
 namespace dcsctp {
 
+constexpr size_t DataTracker::kMaxDuplicateTsnReported;
+constexpr size_t DataTracker::kMaxGapAckBlocksReported;
+
 bool DataTracker::IsTSNValid(TSN tsn) const {
   UnwrappedTSN unwrapped_tsn = tsn_unwrapper_.PeekUnwrap(tsn);
 
@@ -185,8 +188,20 @@ SackChunk DataTracker::CreateSelectiveAck(size_t a_rwnd) {
   std::set<TSN> duplicate_tsns;
   duplicate_tsns_.swap(duplicate_tsns);
 
+  std::vector<SackChunk::GapAckBlock> gap_ack_blocks = CreateGapAckBlocks();
+
+  // Limit the cardinality of we report, to avoid generating too large chunks.
+  while (duplicate_tsns.size() > kMaxDuplicateTsnReported) {
+    // Remove just any of the duplicates.
+    duplicate_tsns.erase(duplicate_tsns.begin());
+  }
+
+  while (gap_ack_blocks.size() > kMaxGapAckBlocksReported) {
+    gap_ack_blocks.erase(gap_ack_blocks.begin() + kMaxGapAckBlocksReported);
+  }
+
   return SackChunk(last_cumulative_acked_tsn_.Wrap(), a_rwnd,
-                   CreateGapAckBlocks(), std::move(duplicate_tsns));
+                   std::move(gap_ack_blocks), std::move(duplicate_tsns));
 }
 
 std::vector<SackChunk::GapAckBlock> DataTracker::CreateGapAckBlocks() const {

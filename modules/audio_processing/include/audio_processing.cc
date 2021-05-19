@@ -67,6 +67,8 @@ void CustomProcessing::SetRuntimeSetting(
 bool Agc1Config::operator==(const Agc1Config& rhs) const {
   const auto& analog_lhs = analog_gain_controller;
   const auto& analog_rhs = rhs.analog_gain_controller;
+  const auto& clipping_lhs = analog_lhs.clipping_controller;
+  const auto& clipping_rhs = analog_rhs.clipping_controller;
   return enabled == rhs.enabled && mode == rhs.mode &&
          target_level_dbfs == rhs.target_level_dbfs &&
          compression_gain_db == rhs.compression_gain_db &&
@@ -77,7 +79,20 @@ bool Agc1Config::operator==(const Agc1Config& rhs) const {
          analog_lhs.startup_min_volume == analog_rhs.startup_min_volume &&
          analog_lhs.clipped_level_min == analog_rhs.clipped_level_min &&
          analog_lhs.enable_digital_adaptive ==
-             analog_rhs.enable_digital_adaptive;
+             analog_rhs.enable_digital_adaptive &&
+         clipping_lhs.enabled == clipping_rhs.enabled &&
+         clipping_lhs.mode == clipping_rhs.mode &&
+         clipping_lhs.levels_buffered == clipping_rhs.levels_buffered &&
+         clipping_lhs.previous_levels_buffered ==
+             clipping_rhs.previous_levels_buffered &&
+         clipping_lhs.prediction_threshold ==
+             clipping_rhs.prediction_threshold &&
+         clipping_lhs.crest_factor_margin == clipping_rhs.crest_factor_margin &&
+         clipping_lhs.clipped_peak_ratio_threshold ==
+             clipping_rhs.clipped_peak_ratio_threshold &&
+         clipping_lhs.clipped_ratio_threshold ==
+             clipping_rhs.clipped_ratio_threshold &&
+         clipping_lhs.clipped_level_step == clipping_rhs.clipped_level_step;
 }
 
 bool Agc2Config::AdaptiveDigital::operator==(
@@ -157,7 +172,9 @@ std::string AudioProcessing::Config::ToString() const {
       << gain_controller1.analog_gain_controller.clipped_level_min
       << ", enable_digital_adaptive: "
       << gain_controller1.analog_gain_controller.enable_digital_adaptive
-      << " }}, gain_controller2: { enabled: " << gain_controller2.enabled
+      << ", clipping_controller : { enabled: "
+      << gain_controller1.analog_gain_controller.clipping_controller.enabled
+      << "}}}, gain_controller2: { enabled: " << gain_controller2.enabled
       << ", fixed_digital: { gain_db: "
       << gain_controller2.fixed_digital.gain_db
       << " }, adaptive_digital: { enabled: "

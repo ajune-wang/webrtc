@@ -114,6 +114,24 @@ GainControl::Mode Agc1ConfigModeToInterfaceMode(
   RTC_CHECK_NOTREACHED();
 }
 
+AgcManagerDirect::ClippingMode ClippingControllerConfigModeToInterfaceMode(
+    AudioProcessing::Config::GainController1::AnalogGainController::
+        ClippingController::Mode mode) {
+  using ClippingControllerConfig = AudioProcessing::Config::GainController1::
+      AnalogGainController::ClippingController;
+  switch (mode) {
+    case ClippingControllerConfig::kClippingDetectionOnly:
+      return AgcManagerDirect::kClippingDetectionOnly;
+    case ClippingControllerConfig::kClippingEventPrediction:
+      return AgcManagerDirect::kClippingEventPrediction;
+    case ClippingControllerConfig::kAdaptiveClippedLevelPrediction:
+      return AgcManagerDirect::kAdaptiveClippedLevelPrediction;
+    case ClippingControllerConfig::kFixedClippedLevelPrediction:
+      return AgcManagerDirect::kFixedClippedLevelPrediction;
+  }
+  RTC_CHECK_NOTREACHED();
+}
+
 bool MinimizeProcessingForUnusedOutput() {
   return !field_trial::IsEnabled("WebRTC-MutedStateKillSwitch");
 }
@@ -1917,6 +1935,20 @@ void AudioProcessingImpl::InitializeGainController1() {
         !config_.gain_controller1.analog_gain_controller
              .enable_digital_adaptive,
         capture_nonlocked_.split_rate));
+    const auto& clipping_config =
+        config_.gain_controller1.analog_gain_controller.clipping_controller;
+    if (clipping_config.enabled) {
+      submodules_.agc_manager->SetupClippingHandling(
+          ClippingControllerConfigModeToInterfaceMode(clipping_config.mode),
+          clipping_config.levels_buffered,
+          clipping_config.previous_levels_buffered,
+          clipping_config.prediction_threshold,
+          clipping_config.crest_factor_margin,
+          static_cast<float>(clipping_config.clipped_peak_ratio_threshold) /
+              100.f,
+          static_cast<float>(clipping_config.clipped_ratio_threshold) / 100.f,
+          clipping_config.clipped_level_step);
+    }
     if (re_creation) {
       submodules_.agc_manager->set_stream_analog_level(stream_analog_level);
     }

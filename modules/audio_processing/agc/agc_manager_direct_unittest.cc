@@ -130,6 +130,38 @@ class AgcManagerDirectTest : public ::testing::Test {
     }
   }
 
+  void CallPredictPreProc(int num_calls,
+                          AgcManagerDirect::ClippingMode mode,
+                          float peak_ratio) {
+    manager_.SetupClippingHandling(mode,
+                                   /*buffered_levels*/ 5,
+                                   /*previous_buffered_levels*/ 5,
+                                   /*clipping_threshold*/ -1,
+                                   /*crest_factor_margin*/ 3,
+                                   /*clipped_peak_ratio*/ 1.f,
+                                   /*clipped_ratio*/ 0.1f,
+                                   /*clipped_level_step*/ 15);
+    manager_.Initialize();
+    RTC_DCHECK_GE(1.f, peak_ratio);
+    std::fill(audio_data.begin(), audio_data.end(), 0.f);
+    for (size_t ch = 0; ch < kNumChannels; ++ch) {
+      for (size_t k = 0; k < kSamplesPerChannel; k += 2) {
+        audio[ch][k] = peak_ratio * 32767.f;
+      }
+    }
+    for (int i = 0; i < num_calls; ++i) {
+      manager_.AnalyzePreProcess(audio.data(), kSamplesPerChannel);
+    }
+    for (size_t ch = 0; ch < kNumChannels; ++ch) {
+      for (size_t k = 0; k < kSamplesPerChannel; ++k) {
+        audio[ch][k] = peak_ratio * 32767.f;
+      }
+    }
+    for (int i = 0; i < num_calls; ++i) {
+      manager_.AnalyzePreProcess(audio.data(), kSamplesPerChannel);
+    }
+  }
+
   MockAgc* agc_;
   MockGainControl gctrl_;
   AgcManagerDirect manager_;
@@ -694,6 +726,56 @@ TEST_F(AgcManagerDirectTest, TakesNoActionOnZeroMicVolume) {
   manager_.set_stream_analog_level(0);
   CallProcess(10);
   EXPECT_EQ(0, manager_.stream_analog_level());
+}
+
+TEST_F(AgcManagerDirectTest, ClippingDetectionOnlyLowersVolume) {
+  SetVolumeAndProcess(255);
+  const AgcManagerDirect::ClippingMode mode =
+      AgcManagerDirect::kClippingDetectionOnly;
+  EXPECT_EQ(255, manager_.stream_analog_level());
+  CallPredictPreProc(/*num_calls*/ 100, mode, /*peak_ratio*/ 0.99f);
+  EXPECT_EQ(255, manager_.stream_analog_level());
+  CallPredictPreProc(/*num_calls*/ 100, mode, /*peak_ratio*/ 1.0f);
+  EXPECT_EQ(240, manager_.stream_analog_level());
+}
+
+TEST_F(AgcManagerDirectTest, ClippingEventPredictionLowersVolume) {
+  SetVolumeAndProcess(255);
+  const AgcManagerDirect::ClippingMode mode =
+      AgcManagerDirect::kClippingEventPrediction;
+  EXPECT_EQ(255, manager_.stream_analog_level());
+  CallPredictPreProc(/*num_calls*/ 4, mode, /*peak_ratio*/ 0.99f);
+  EXPECT_EQ(255, manager_.stream_analog_level());
+  CallPredictPreProc(5, mode, 0.99f);
+  EXPECT_EQ(240, manager_.stream_analog_level());
+  CallPredictPreProc(295, mode, 0.99f);
+  EXPECT_EQ(240, manager_.stream_analog_level());
+  CallPredictPreProc(5, mode, 0.7f);
+  EXPECT_EQ(240, manager_.stream_analog_level());
+  CallPredictPreProc(5, mode, 0.99f);
+  EXPECT_EQ(225, manager_.stream_analog_level());
+}
+
+TEST_F(AgcManagerDirectTest, AdaptiveClippedLevelPredictionLowersVolume) {
+  SetVolumeAndProcess(255);
+  const AgcManagerDirect::ClippingMode mode =
+      AgcManagerDirect::kAdaptiveClippedLevelPrediction;
+  EXPECT_EQ(255, manager_.stream_analog_level());
+  CallPredictPreProc(/*num_calls*/ 4, mode, /*peak_ratio*/ 0.99f);
+  EXPECT_EQ(255, manager_.stream_analog_level());
+  CallPredictPreProc(5, mode, 0.99);
+  EXPECT_EQ(240, manager_.stream_analog_level());
+}
+
+TEST_F(AgcManagerDirectTest, FixedClippedLevelPredictionLowersVolume) {
+  SetVolumeAndProcess(255);
+  const AgcManagerDirect::ClippingMode mode =
+      AgcManagerDirect::kFixedClippedLevelPrediction;
+  EXPECT_EQ(255, manager_.stream_analog_level());
+  CallPredictPreProc(/*num_calls*/ 4, mode, /*peak_ratio*/ 0.99f);
+  EXPECT_EQ(255, manager_.stream_analog_level());
+  CallPredictPreProc(5, mode, 0.99f);
+  EXPECT_EQ(240, manager_.stream_analog_level());
 }
 
 TEST(AgcManagerDirectStandaloneTest, DisableDigitalDisablesDigital) {

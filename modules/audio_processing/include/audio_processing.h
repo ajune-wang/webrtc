@@ -334,6 +334,58 @@ class RTC_EXPORT AudioProcessing : public rtc::RefCountInterface {
         // clipping.
         int clipped_level_min = kClippedLevelMin;
         bool enable_digital_adaptive = true;
+
+        // Enables clipping prediction and configurable handling of detected
+        // clipping in the analog gain control.
+        struct ClippingController {
+          bool enabled = false;
+          enum Mode {
+            // Sets clipping handling  to only process detected clipping.
+            kClippingDetectionOnly,
+            // Sets clipping prediction for clipping event estimation.
+            kClippingEventPrediction,
+            // Sets clipping prediction for clipping level estimation.
+            // Predicts the required gain decrease for predicted and detected
+            // clipping. As |kFixedClippedLevelPrediction| but with adaptive
+            // gain adjustment steps.
+            kAdaptiveClippedLevelPrediction,
+            // Sets clipping prediction for clipping event estimation through
+            // clipped level estimation. As |kAdaptiveClippedLevelPrediction|
+            // but
+            // with fixed gain adjustment steps.
+            kFixedClippedLevelPrediction,
+          };
+          Mode mode = kAdaptiveClippedLevelPrediction;
+          // Sets the number of frame-level square-average and peak levels
+          // stored for clipping prediction. The value should be higher than 0
+          // if |enabled| is true. Has no effect if |previous_frames_buffered| +
+          // |current_frames_buffered| is higher than the number of captured
+          // frames.
+          size_t levels_buffered = 5;
+          // Sets the number of earlier frame-level square-average and peak
+          // levels stored for clipping prediction. The value should be higher
+          // than 0 if |enabled| is true. Has no effect if
+          // |previous_frames_buffered| + |current_frames_buffered| is higher
+          // than the number of captured frames.
+          size_t previous_levels_buffered = 5;
+          // Clipping prediction activation threshold in dB. Only peak values
+          // higher than |prediction_threshold| can result in clipping
+          // prediction.
+          int prediction_threshold = -2;
+          // Minimum crest factor drop that can result in clipping prediction.
+          // Has an effect only when mode is |kClippingEventPrediction|.
+          int crest_factor_margin = 3;
+          // Percentage of the full range required for a frame to be detected
+          // as clipped.
+          int clipped_peak_ratio_threshold = 100;
+          // Percentage of the samples that are required to be above the
+          // threeshold of |clipped_peak_ratio| percentage of the full range in
+          // order to detect a frame as clipped.
+          int clipped_ratio_threshold = 10;
+          // Microphone level adjustment steps when clipping occurs. Value
+          // should be on the range (0, 255].
+          int clipped_level_step = 15;
+        } clipping_controller;
       } analog_gain_controller;
     } gain_controller1;
 

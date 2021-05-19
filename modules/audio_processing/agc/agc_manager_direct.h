@@ -15,6 +15,7 @@
 
 #include "absl/types/optional.h"
 #include "modules/audio_processing/agc/agc.h"
+#include "modules/audio_processing/agc/clipping_predictor.h"
 #include "modules/audio_processing/audio_buffer.h"
 #include "modules/audio_processing/logging/apm_data_dumper.h"
 #include "rtc_base/gtest_prod_util.h"
@@ -47,6 +48,23 @@ class AgcManagerDirect final {
 
   void Initialize();
   void SetupDigitalGainControl(GainControl* gain_control) const;
+
+  // Setup clipping handling. The default mode is |kClippingDetectionOnly| set
+  // by default in the constructor.
+  enum ClippingMode {
+    kClippingDetectionOnly,
+    kClippingEventPrediction,
+    kFixedClippedLevelPrediction,
+    kAdaptiveClippedLevelPrediction,
+  };
+  void SetupClippingHandling(ClippingMode mode,
+                             size_t buffered_levels,
+                             size_t previous_buffered_levels,
+                             int clipping_threshold,
+                             int crest_factor_margin,
+                             float clipped_peak_ratio,
+                             float clippped_ratio,
+                             int clipped_level_step);
 
   void AnalyzePreProcess(const AudioBuffer* audio);
   void Process(const AudioBuffer* audio);
@@ -93,6 +111,9 @@ class AgcManagerDirect final {
 
   void AggregateChannelLevels();
 
+  absl::optional<int> PredictClippedLevelStep(const float* const* audio,
+                                              size_t samples_per_channel);
+
   std::unique_ptr<ApmDataDumper> data_dumper_;
   static int instance_counter_;
   const bool use_min_channel_level_;
@@ -107,6 +128,18 @@ class AgcManagerDirect final {
 
   std::vector<std::unique_ptr<MonoAgc>> channel_agcs_;
   std::vector<absl::optional<int>> new_compressions_to_set_;
+
+  // Clipping detection paremeters and optional clipping prediction if mode
+  // is one of the following: |kClipingEventPrediction|,
+  // |kFixedClippedLevelPrediction| or |kAdaptiveClippedLevelPrediction|.
+  struct ClippingConfig {
+    int clipped_level_step;
+    float clipped_ratio_threshold;
+    float threshold_low;
+    float threshold_high;
+  } clipping_config_;
+  ClippingMode clipping_mode_ = kClippingDetectionOnly;
+  std::unique_ptr<ClippingPredictor> clipping_predictor_;
 };
 
 class MonoAgc {
@@ -123,7 +156,7 @@ class MonoAgc {
   void Initialize();
   void HandleCaptureOutputUsedChange(bool capture_output_used);
 
-  void HandleClipping();
+  void HandleClipping(int clipped_level_step);
 
   void Process(const int16_t* audio,
                size_t samples_per_channel,

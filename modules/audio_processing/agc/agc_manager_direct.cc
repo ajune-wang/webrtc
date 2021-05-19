@@ -27,10 +27,10 @@ namespace webrtc {
 
 namespace {
 
-// Amount the microphone level is lowered with every clipping event.
-const int kClippedLevelStep = 15;
-// Proportion of clipped samples required to declare a clipping event.
-const float kClippedRatioThreshold = 0.1f;
+// Default amount the microphone level is lowered with every clipping event.
+const int kDefaultClippedLevelStep = 15;
+// Default proportion of clipped samples required to declare a clipping event.
+const float kDefaultClippedRatioThreshold = 0.1f;
 // Time in frames to wait after a clipping event before checking again.
 const int kClippedWaitFrames = 300;
 
@@ -112,18 +112,22 @@ int LevelFromGainError(int gain_error, int level, int min_mic_level) {
   return new_level;
 }
 
-// Returns the proportion of samples in the buffer which are at full-scale
-// (and presumably clipped).
+// Returns the proportion of samples in the buffer which are at (nearly)
+// full-scale (and presumably clipped). The default full scale
+// [-32768.f, 32767.f].
 float ComputeClippedRatio(const float* const* audio,
                           size_t num_channels,
-                          size_t samples_per_channel) {
+                          size_t samples_per_channel,
+                          float clipping_threshold_low,
+                          float clipping_threshold_high) {
   RTC_DCHECK_GT(samples_per_channel, 0);
   int num_clipped = 0;
   for (size_t ch = 0; ch < num_channels; ++ch) {
     int num_clipped_in_ch = 0;
     for (size_t i = 0; i < samples_per_channel; ++i) {
       RTC_DCHECK(audio[ch]);
-      if (audio[ch][i] >= 32767.f || audio[ch][i] <= -32768.f) {
+      if (audio[ch][i] >= clipping_threshold_high ||
+          audio[ch][i] <= clipping_threshold_low) {
         ++num_clipped_in_ch;
       }
     }
@@ -182,19 +186,19 @@ void MonoAgc::Process(const int16_t* audio,
   }
 }
 
-void MonoAgc::HandleClipping() {
+void MonoAgc::HandleClipping(int clipped_level_step) {
   // Always decrease the maximum level, even if the current level is below
   // threshold.
-  SetMaxLevel(std::max(clipped_level_min_, max_level_ - kClippedLevelStep));
+  SetMaxLevel(std::max(clipped_level_min_, max_level_ - clipped_level_step));
   if (log_to_histograms_) {
     RTC_HISTOGRAM_BOOLEAN("WebRTC.Audio.AgcClippingAdjustmentAllowed",
-                          level_ - kClippedLevelStep >= clipped_level_min_);
+                          level_ - clipped_level_step >= clipped_level_min_);
   }
   if (level_ > clipped_level_min_) {
     // Don't try to adjust the level if we're already below the limit. As
     // a consequence, if the user has brought the level above the limit, we
     // will still not react until the postproc updates the level.
-    SetLevel(std::max(clipped_level_min_, level_ - kClippedLevelStep));
+    SetLevel(std::max(clipped_level_min_, level_ - clipped_level_step));
     // Reset the AGCs for all channels since the level has changed.
     agc_->Reset();
   }
@@ -429,7 +433,11 @@ AgcManagerDirect::AgcManagerDirect(int num_capture_channels,
       frames_since_clipped_(kClippedWaitFrames),
       capture_output_used_(true),
       channel_agcs_(num_capture_channels),
-      new_compressions_to_set_(num_capture_channels) {
+      new_compressions_to_set_(num_capture_channels),
+      clipping_config_({kDefaultClippedLevelStep, kDefaultClippedRatioThreshold,
+                        -32768.f, 32767.f}),
+      clipping_mode_(kClippingDetectionOnly),
+      clipping_predictor_(nullptr) {
   const int min_mic_level = GetMinMicLevel();
   for (size_t ch = 0; ch < channel_agcs_.size(); ++ch) {
     ApmDataDumper* data_dumper_ch = ch == 0 ? data_dumper_.get() : nullptr;
@@ -451,8 +459,75 @@ void AgcManagerDirect::Initialize() {
     channel_agcs_[ch]->Initialize();
   }
   capture_output_used_ = true;
-
+  if (clipping_predictor_) {
+    clipping_predictor_->Initialize();
+  }
   AggregateChannelLevels();
+}
+
+void AgcManagerDirect::SetupClippingHandling(ClippingMode mode,
+                                             size_t buffered_levels,
+                                             size_t previous_buffered_levels,
+                                             int clipping_threshold,
+                                             int crest_factor_margin,
+                                             float clipped_peak_ratio,
+                                             float clipped_ratio,
+                                             int clipped_level_step) {
+  RTC_DLOG(LS_INFO) << "[agc]: Set clipping handling mode: " << mode;
+  RTC_DCHECK_LT(0.f, clipped_peak_ratio);
+  RTC_DCHECK_GE(1.f, clipped_peak_ratio);
+  RTC_DCHECK_LT(0.f, clipped_ratio);
+  RTC_DCHECK_GE(1.f, clipped_ratio);
+  RTC_DCHECK_LE(0, clipped_level_step);
+  RTC_DCHECK_GE(255, clipped_level_step);
+  clipping_config_.clipped_level_step = static_cast<float>(clipped_level_step);
+  clipping_config_.clipped_ratio_threshold = static_cast<float>(clipped_ratio);
+  clipping_config_.threshold_low = std::ceil(clipped_peak_ratio * -32768.f);
+  clipping_config_.threshold_high = std::floor(clipped_peak_ratio * 32767.f);
+  clipping_mode_ = mode;
+  if (mode == kClippingEventPrediction ||
+      mode == kFixedClippedLevelPrediction ||
+      mode == kAdaptiveClippedLevelPrediction) {
+    clipping_predictor_.reset(new ClippingPredictor(
+        num_capture_channels_, buffered_levels, previous_buffered_levels,
+        clipping_threshold, crest_factor_margin));
+    RTC_DCHECK(clipping_predictor_);
+  }
+}
+
+absl::optional<int> AgcManagerDirect::PredictClippedLevelStep(
+    const float* const* audio,
+    size_t samples_per_channel) {
+  if (!clipping_predictor_ || clipping_mode_ == kClippingDetectionOnly) {
+    return absl::nullopt;
+  }
+  if (clipping_mode_ == kClippingEventPrediction) {
+    const bool clipping_predicted =
+        clipping_predictor_->PredictClippingEvent(channel_controlling_gain_);
+    if (clipping_predicted) {
+      return clipping_config_.clipped_level_step;
+    }
+  } else if (clipping_mode_ == kFixedClippedLevelPrediction) {
+    absl::optional<float> predicted_peak_db =
+        clipping_predictor_->ProjectClippedPeakValue(channel_controlling_gain_);
+    if (predicted_peak_db.has_value() && *predicted_peak_db > 0) {
+      return clipping_config_.clipped_level_step;
+    }
+  } else if (clipping_mode_ == kAdaptiveClippedLevelPrediction) {
+    absl::optional<float> predicted_peak_db =
+        clipping_predictor_->ProjectClippedPeakValue(channel_controlling_gain_);
+    if (predicted_peak_db.has_value() && *predicted_peak_db > 0) {
+      const int predicted_gain_change =
+          rtc::SafeClamp(-static_cast<int>(std::ceil(*predicted_peak_db)),
+                         -kMaxResidualGainChange, 0);
+      const int new_level = LevelFromGainError(
+          predicted_gain_change, stream_analog_level_,
+          channel_agcs_[channel_controlling_gain_]->min_mic_level());
+      return std::max(clipping_config_.clipped_level_step,
+                      stream_analog_level_ - new_level);
+    }
+  }
+  return absl::nullopt;
 }
 
 void AgcManagerDirect::SetupDigitalGainControl(
@@ -488,12 +563,19 @@ void AgcManagerDirect::AnalyzePreProcess(const float* const* audio,
   if (!capture_output_used_) {
     return;
   }
-
+  const int wait_frames_left = kClippedWaitFrames - frames_since_clipped_;
+  if (!!clipping_predictor_ &&
+      (wait_frames_left <
+       static_cast<int>(clipping_predictor_->GetBufferSize()))) {
+    if (!clipping_predictor_->ProcessAudioFrame(audio, num_capture_channels_,
+                                                samples_per_channel)) {
+      clipping_predictor_->Reset();
+    }
+  }
   if (frames_since_clipped_ < kClippedWaitFrames) {
     ++frames_since_clipped_;
     return;
   }
-
   // Check for clipped samples, as the AGC has difficulty detecting pitch
   // under clipping distortion. We do this in the preprocessing phase in order
   // to catch clipped echo as well.
@@ -503,16 +585,38 @@ void AgcManagerDirect::AnalyzePreProcess(const float* const* audio,
   // maximum. This harsh treatment is an effort to avoid repeated clipped echo
   // events. As compensation for this restriction, the maximum compression
   // gain is increased, through SetMaxLevel().
-  float clipped_ratio =
-      ComputeClippedRatio(audio, num_capture_channels_, samples_per_channel);
-
-  if (clipped_ratio > kClippedRatioThreshold) {
-    RTC_DLOG(LS_INFO) << "[agc] Clipping detected. clipped_ratio="
-                      << clipped_ratio;
+  //
+  // If clipping prediction is enabled, predict clipping before it happens.
+  // Optionally estimate the level of clipping (predicted or detected). When
+  // clipping is prediced the micophone level is adjusted as described above.
+  // When the adaptive clipping level prediction is used, the gain is adjusted
+  // according to the estimated clipping level.
+  float clipped_ratio = ComputeClippedRatio(
+      audio, num_capture_channels_, samples_per_channel,
+      clipping_config_.threshold_low, clipping_config_.threshold_high);
+  absl::optional<int> predicted_step = absl::nullopt;
+  if (!!clipping_predictor_) {
+    predicted_step = PredictClippedLevelStep(audio, samples_per_channel);
+  }
+  if (clipped_ratio > clipping_config_.clipped_ratio_threshold ||
+      predicted_step.has_value()) {
+    int clipped_level_step = clipping_config_.clipped_level_step;
+    if (clipped_ratio > clipping_config_.clipped_ratio_threshold) {
+      RTC_LOG(LS_INFO) << "[agc] Clipping detected. clipped_ratio="
+                       << clipped_ratio;
+    }
+    if (predicted_step.has_value()) {
+      RTC_LOG(LS_INFO) << "[agc] Clipping predicted.";
+      clipped_level_step =
+          std::max(*predicted_step, clipping_config_.clipped_level_step);
+    }
     for (auto& state_ch : channel_agcs_) {
-      state_ch->HandleClipping();
+      state_ch->HandleClipping(clipped_level_step);
     }
     frames_since_clipped_ = 0;
+    if (!!clipping_predictor_) {
+      clipping_predictor_->Reset();
+    }
   }
   AggregateChannelLevels();
 }

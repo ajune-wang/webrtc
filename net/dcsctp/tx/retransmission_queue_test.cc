@@ -79,7 +79,6 @@ class RetransmissionQueueTest : public testing::Test {
     options.mtu = kMaxMtu;
     return RetransmissionQueue(
         "", TSN(10), kArwnd, producer_, on_rtt_.AsStdFunction(),
-        on_outgoing_message_buffer_empty_.AsStdFunction(),
         on_clear_retransmission_counter_.AsStdFunction(), *timer_, options,
         supports_partial_reliability, use_message_interleaving);
   }
@@ -89,7 +88,6 @@ class RetransmissionQueueTest : public testing::Test {
   FakeTimeoutManager timeout_manager_;
   TimerManager timer_manager_;
   NiceMock<MockFunction<void(DurationMs rtt_ms)>> on_rtt_;
-  NiceMock<MockFunction<void()>> on_outgoing_message_buffer_empty_;
   NiceMock<MockFunction<void()>> on_clear_retransmission_counter_;
   NiceMock<MockSendQueue> producer_;
   std::unique_ptr<Timer> timer_;

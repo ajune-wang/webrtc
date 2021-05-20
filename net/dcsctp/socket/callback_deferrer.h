@@ -145,6 +145,12 @@ class CallbackDeferrer : public DcSctpSocketCallbacks {
             DcSctpSocketCallbacks& cb) { cb.OnIncomingStreamsReset(streams); });
   }
 
+  void OnBufferedAmountLow(StreamID stream_id) override {
+    deferred_.emplace_back([stream_id](DcSctpSocketCallbacks& cb) {
+      cb.OnBufferedAmountLow(stream_id);
+    });
+  }
+
  private:
   // A wrapper around the move-only DcSctpMessage, to let it be captured in a
   // lambda.

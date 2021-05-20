@@ -32,11 +32,11 @@ Timestamp DriftingClock::CurrentTime() {
   return clock_->CurrentTime() + Drift() / 1000.;
 }
 
-NtpTime DriftingClock::CurrentNtpTime() {
+NtpTime DriftingClock::ConvertTimestampToNtpTime(Timestamp timestamp) {
   // NTP precision is 1/2^32 seconds, i.e. 2^32 ntp fractions = 1 second.
   const double kNtpFracPerMicroSecond = 4294.967296;  // = 2^32 / 10^6
 
-  NtpTime ntp = clock_->CurrentNtpTime();
+  NtpTime ntp = clock_->ConvertTimestampToNtpTime(timestamp);
   uint64_t total_fractions = static_cast<uint64_t>(ntp);
   total_fractions += Drift().us() * kNtpFracPerMicroSecond;
   return NtpTime(total_fractions);

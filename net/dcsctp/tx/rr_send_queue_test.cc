@@ -18,12 +18,14 @@
 #include "net/dcsctp/public/dcsctp_options.h"
 #include "net/dcsctp/public/dcsctp_socket.h"
 #include "net/dcsctp/public/types.h"
+#include "net/dcsctp/testing/testing_macros.h"
 #include "net/dcsctp/tx/send_queue.h"
 #include "rtc_base/gunit.h"
 #include "test/gmock.h"
 
 namespace dcsctp {
 namespace {
+using ::testing::SizeIs;
 
 constexpr TimeMs kNow = TimeMs(0);
 constexpr StreamID kStreamID(1);
@@ -357,5 +359,77 @@ TEST_F(RRSendQueueTest, RollBackResumesSSN) {
   EXPECT_EQ(chunk_three->data.ssn, SSN(2));
 }
 
+TEST_F(RRSendQueueTest, ReturnsFragmentsForOneMessageBeforeMovingToNext) {
+  std::vector<uint8_t> payload(200);
+  buf_.Add(kNow, DcSctpMessage(StreamID(1), kPPID, payload));
+  buf_.Add(kNow, DcSctpMessage(StreamID(2), kPPID, payload));
+
+  ASSERT_HAS_VALUE_AND_ASSIGN(SendQueue::DataToSend chunk1,
+                              buf_.Produce(kNow, 100));
+  EXPECT_EQ(chunk1.data.stream_id, StreamID(1));
+
+  ASSERT_HAS_VALUE_AND_ASSIGN(SendQueue::DataToSend chunk2,
+                              buf_.Produce(kNow, 100));
+  EXPECT_EQ(chunk2.data.stream_id, StreamID(1));
+
+  ASSERT_HAS_VALUE_AND_ASSIGN(SendQueue::DataToSend chunk3,
+                              buf_.Produce(kNow, 100));
+  EXPECT_EQ(chunk3.data.stream_id, StreamID(2));
+
+  ASSERT_HAS_VALUE_AND_ASSIGN(SendQueue::DataToSend chunk4,
+                              buf_.Produce(kNow, 100));
+  EXPECT_EQ(chunk4.data.stream_id, StreamID(2));
+}
+
+TEST_F(RRSendQueueTest, WillCycleInRoundRobinFashionBetweenStreams) {
+  buf_.Add(kNow, DcSctpMessage(StreamID(1), kPPID, std::vector<uint8_t>(1)));
+  buf_.Add(kNow, DcSctpMessage(StreamID(1), kPPID, std::vector<uint8_t>(2)));
+  buf_.Add(kNow, DcSctpMessage(StreamID(2), kPPID, std::vector<uint8_t>(3)));
+  buf_.Add(kNow, DcSctpMessage(StreamID(2), kPPID, std::vector<uint8_t>(4)));
+  buf_.Add(kNow, DcSctpMessage(StreamID(3), kPPID, std::vector<uint8_t>(5)));
+  buf_.Add(kNow, DcSctpMessage(StreamID(3), kPPID, std::vector<uint8_t>(6)));
+  buf_.Add(kNow, DcSctpMessage(StreamID(4), kPPID, std::vector<uint8_t>(7)));
+  buf_.Add(kNow, DcSctpMessage(StreamID(4), kPPID, std::vector<uint8_t>(8)));
+
+  ASSERT_HAS_VALUE_AND_ASSIGN(SendQueue::DataToSend chunk1,
+                              buf_.Produce(kNow, 100));
+  EXPECT_EQ(chunk1.data.stream_id, StreamID(1));
+  EXPECT_THAT(chunk1.data.payload, SizeIs(1));
+
+  ASSERT_HAS_VALUE_AND_ASSIGN(SendQueue::DataToSend chunk2,
+                              buf_.Produce(kNow, 100));
+  EXPECT_EQ(chunk2.data.stream_id, StreamID(2));
+  EXPECT_THAT(chunk2.data.payload, SizeIs(3));
+
+  ASSERT_HAS_VALUE_AND_ASSIGN(SendQueue::DataToSend chunk3,
+                              buf_.Produce(kNow, 100));
+  EXPECT_EQ(chunk3.data.stream_id, StreamID(3));
+  EXPECT_THAT(chunk3.data.payload, SizeIs(5));
+
+  ASSERT_HAS_VALUE_AND_ASSIGN(SendQueue::DataToSend chunk4,
+                              buf_.Produce(kNow, 100));
+  EXPECT_EQ(chunk4.data.stream_id, StreamID(4));
+  EXPECT_THAT(chunk4.data.payload, SizeIs(7));
+
+  ASSERT_HAS_VALUE_AND_ASSIGN(SendQueue::DataToSend chunk5,
+                              buf_.Produce(kNow, 100));
+  EXPECT_EQ(chunk5.data.stream_id, StreamID(1));
+  EXPECT_THAT(chunk5.data.payload, SizeIs(2));
+
+  ASSERT_HAS_VALUE_AND_ASSIGN(SendQueue::DataToSend chunk6,
+                              buf_.Produce(kNow, 100));
+  EXPECT_EQ(chunk6.data.stream_id, StreamID(2));
+  EXPECT_THAT(chunk6.data.payload, SizeIs(4));
+
+  ASSERT_HAS_VALUE_AND_ASSIGN(SendQueue::DataToSend chunk7,
+                              buf_.Produce(kNow, 100));
+  EXPECT_EQ(chunk7.data.stream_id, StreamID(3));
+  EXPECT_THAT(chunk7.data.payload, SizeIs(6));
+
+  ASSERT_HAS_VALUE_AND_ASSIGN(SendQueue::DataToSend chunk8,
+                              buf_.Produce(kNow, 100));
+  EXPECT_EQ(chunk8.data.stream_id, StreamID(4));
+  EXPECT_THAT(chunk8.data.payload, SizeIs(8));
+}
 }  // namespace
 }  // namespace dcsctp

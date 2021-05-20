@@ -92,6 +92,30 @@
       },
       "revId": "110d01b605778dd1ef54d50e6816237aded7d276",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82d33774_92cd7cf2",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-05-20T16:56:16Z",
+      "side": 1,
+      "message": "I agree that it is a bit odd. The root cause is that we call the parser (which expects a complete log) on a string produced by directly calling the encoder on a batch/partial log.",
+      "parentUuid": "eaa89840_06a88a88",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 74
+      },
+      "revId": "110d01b605778dd1ef54d50e6816237aded7d276",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

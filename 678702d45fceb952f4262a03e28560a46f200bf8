@@ -67,6 +67,46 @@
       "message": "LGTM for api.",
       "revId": "678702d45fceb952f4262a03e28560a46f200bf8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6585fc3e_5603b58f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2021-05-20T07:04:26Z",
+      "side": 1,
+      "message": "LGTM for audio/, with one minor comment.",
+      "revId": "678702d45fceb952f4262a03e28560a46f200bf8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2306d34_1fd48e92",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2021-05-20T07:04:26Z",
+      "side": 1,
+      "message": "nit: Is the nullopt assignment necessary?",
+      "range": {
+        "startLine": 443,
+        "startChar": 54,
+        "endLine": 443,
+        "endChar": 70
+      },
+      "revId": "678702d45fceb952f4262a03e28560a46f200bf8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

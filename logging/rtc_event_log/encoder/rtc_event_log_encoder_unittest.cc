@@ -721,31 +721,33 @@ TEST_P(RtcEventLogEncoderTest, RtcEventIceCandidatePair) {
 }
 
 TEST_P(RtcEventLogEncoderTest, RtcEventLoggingStarted) {
-  const int64_t timestamp_us = rtc::TimeMicros();
-  const int64_t utc_time_us = rtc::TimeUTCMicros();
+  const int64_t timestamp_ms = prng_.Rand(1'000'000'000);
+  const int64_t utc_time_ms = prng_.Rand(1'000'000'000);
 
-  std::string encoded = encoder_->EncodeLogStart(timestamp_us, utc_time_us);
+  std::string encoded =
+      encoder_->EncodeLogStart(timestamp_ms * 1000, utc_time_ms * 1000);
   ASSERT_TRUE(parsed_log_.ParseString(encoded).ok());
   const auto& start_log_events = parsed_log_.start_log_events();
 
   ASSERT_EQ(start_log_events.size(), 1u);
-  verifier_.VerifyLoggedStartEvent(timestamp_us, utc_time_us,
+  verifier_.VerifyLoggedStartEvent(timestamp_ms * 1000, utc_time_ms * 1000,
                                    start_log_events[0]);
 }
 
 TEST_P(RtcEventLogEncoderTest, RtcEventLoggingStopped) {
-  const int64_t start_timestamp_us = rtc::TimeMicros();
-  const int64_t start_utc_time_us = rtc::TimeUTCMicros();
-  std::string encoded =
-      encoder_->EncodeLogStart(start_timestamp_us, start_utc_time_us);
+  const int64_t start_timestamp_ms = prng_.Rand(1'000'000'000);
+  const int64_t start_utc_time_ms = prng_.Rand(1'000'000'000);
+  std::string encoded = encoder_->EncodeLogStart(start_timestamp_ms * 1000,
+                                                 start_utc_time_ms * 1000);
 
-  const int64_t stop_timestamp_us = rtc::TimeMicros();
-  encoded += encoder_->EncodeLogEnd(stop_timestamp_us);
+  const int64_t stop_timestamp_ms =
+      prng_.Rand(start_timestamp_ms, 2'000'000'000);
+  encoded += encoder_->EncodeLogEnd(stop_timestamp_ms * 1000);
   ASSERT_TRUE(parsed_log_.ParseString(encoded).ok());
   const auto& stop_log_events = parsed_log_.stop_log_events();
 
   ASSERT_EQ(stop_log_events.size(), 1u);
-  verifier_.VerifyLoggedStopEvent(stop_timestamp_us, stop_log_events[0]);
+  verifier_.VerifyLoggedStopEvent(stop_timestamp_ms * 1000, stop_log_events[0]);
 }
 
 // TODO(eladalon/terelius): Test with multiple events in the batch.
@@ -852,9 +854,9 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpReceiverReport) {
 
   for (auto direction : {kIncomingPacket, kOutgoingPacket}) {
     std::vector<rtcp::ReceiverReport> events(event_count_);
-    std::vector<int64_t> timestamps_us(event_count_);
+    std::vector<int64_t> timestamps_ms(event_count_);
     for (size_t i = 0; i < event_count_; ++i) {
-      timestamps_us[i] = rtc::TimeMicros();
+      timestamps_ms[i] = rtc::TimeMillis();
       events[i] = gen_.NewReceiverReport();
       rtc::Buffer buffer = events[i].Build();
       if (direction == kIncomingPacket) {
@@ -875,7 +877,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpReceiverReport) {
     ASSERT_EQ(receiver_reports.size(), event_count_);
 
     for (size_t i = 0; i < event_count_; ++i) {
-      verifier_.VerifyLoggedReceiverReport(timestamps_us[i], events[i],
+      verifier_.VerifyLoggedReceiverReport(timestamps_ms[i], events[i],
                                            receiver_reports[i]);
     }
   }
@@ -891,9 +893,9 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpSenderReport) {
 
   for (auto direction : {kIncomingPacket, kOutgoingPacket}) {
     std::vector<rtcp::SenderReport> events(event_count_);
-    std::vector<int64_t> timestamps_us(event_count_);
+    std::vector<int64_t> timestamps_ms(event_count_);
     for (size_t i = 0; i < event_count_; ++i) {
-      timestamps_us[i] = rtc::TimeMicros();
+      timestamps_ms[i] = rtc::TimeMillis();
       events[i] = gen_.NewSenderReport();
       rtc::Buffer buffer = events[i].Build();
       if (direction == kIncomingPacket) {
@@ -914,7 +916,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpSenderReport) {
     ASSERT_EQ(sender_reports.size(), event_count_);
 
     for (size_t i = 0; i < event_count_; ++i) {
-      verifier_.VerifyLoggedSenderReport(timestamps_us[i], events[i],
+      verifier_.VerifyLoggedSenderReport(timestamps_ms[i], events[i],
                                          sender_reports[i]);
     }
   }
@@ -930,9 +932,9 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpExtendedReports) {
 
   for (auto direction : {kIncomingPacket, kOutgoingPacket}) {
     std::vector<rtcp::ExtendedReports> events(event_count_);
-    std::vector<int64_t> timestamps_us(event_count_);
+    std::vector<int64_t> timestamps_ms(event_count_);
     for (size_t i = 0; i < event_count_; ++i) {
-      timestamps_us[i] = rtc::TimeMicros();
+      timestamps_ms[i] = rtc::TimeMillis();
       events[i] = gen_.NewExtendedReports();
       rtc::Buffer buffer = events[i].Build();
       if (direction == kIncomingPacket) {
@@ -953,7 +955,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpExtendedReports) {
     ASSERT_EQ(extended_reports.size(), event_count_);
 
     for (size_t i = 0; i < event_count_; ++i) {
-      verifier_.VerifyLoggedExtendedReports(timestamps_us[i], events[i],
+      verifier_.VerifyLoggedExtendedReports(timestamps_ms[i], events[i],
                                             extended_reports[i]);
     }
   }
@@ -969,9 +971,9 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpFir) {
 
   for (auto direction : {kIncomingPacket, kOutgoingPacket}) {
     std::vector<rtcp::Fir> events(event_count_);
-    std::vector<int64_t> timestamps_us(event_count_);
+    std::vector<int64_t> timestamps_ms(event_count_);
     for (size_t i = 0; i < event_count_; ++i) {
-      timestamps_us[i] = rtc::TimeMicros();
+      timestamps_ms[i] = rtc::TimeMillis();
       events[i] = gen_.NewFir();
       rtc::Buffer buffer = events[i].Build();
       if (direction == kIncomingPacket) {
@@ -992,7 +994,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpFir) {
     ASSERT_EQ(firs.size(), event_count_);
 
     for (size_t i = 0; i < event_count_; ++i) {
-      verifier_.VerifyLoggedFir(timestamps_us[i], events[i], firs[i]);
+      verifier_.VerifyLoggedFir(timestamps_ms[i], events[i], firs[i]);
     }
   }
 }
@@ -1007,9 +1009,9 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpPli) {
 
   for (auto direction : {kIncomingPacket, kOutgoingPacket}) {
     std::vector<rtcp::Pli> events(event_count_);
-    std::vector<int64_t> timestamps_us(event_count_);
+    std::vector<int64_t> timestamps_ms(event_count_);
     for (size_t i = 0; i < event_count_; ++i) {
-      timestamps_us[i] = rtc::TimeMicros();
+      timestamps_ms[i] = rtc::TimeMillis();
       events[i] = gen_.NewPli();
       rtc::Buffer buffer = events[i].Build();
       if (direction == kIncomingPacket) {
@@ -1030,7 +1032,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpPli) {
     ASSERT_EQ(plis.size(), event_count_);
 
     for (size_t i = 0; i < event_count_; ++i) {
-      verifier_.VerifyLoggedPli(timestamps_us[i], events[i], plis[i]);
+      verifier_.VerifyLoggedPli(timestamps_ms[i], events[i], plis[i]);
     }
   }
 }
@@ -1045,9 +1047,9 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpBye) {
 
   for (auto direction : {kIncomingPacket, kOutgoingPacket}) {
     std::vector<rtcp::Bye> events(event_count_);
-    std::vector<int64_t> timestamps_us(event_count_);
+    std::vector<int64_t> timestamps_ms(event_count_);
     for (size_t i = 0; i < event_count_; ++i) {
-      timestamps_us[i] = rtc::TimeMicros();
+      timestamps_ms[i] = rtc::TimeMillis();
       events[i] = gen_.NewBye();
       rtc::Buffer buffer = events[i].Build();
       if (direction == kIncomingPacket) {
@@ -1068,7 +1070,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpBye) {
     ASSERT_EQ(byes.size(), event_count_);
 
     for (size_t i = 0; i < event_count_; ++i) {
-      verifier_.VerifyLoggedBye(timestamps_us[i], events[i], byes[i]);
+      verifier_.VerifyLoggedBye(timestamps_ms[i], events[i], byes[i]);
     }
   }
 }
@@ -1083,9 +1085,9 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpNack) {
 
   for (auto direction : {kIncomingPacket, kOutgoingPacket}) {
     std::vector<rtcp::Nack> events(event_count_);
-    std::vector<int64_t> timestamps_us(event_count_);
+    std::vector<int64_t> timestamps_ms(event_count_);
     for (size_t i = 0; i < event_count_; ++i) {
-      timestamps_us[i] = rtc::TimeMicros();
+      timestamps_ms[i] = rtc::TimeMillis();
       events[i] = gen_.NewNack();
       rtc::Buffer buffer = events[i].Build();
       if (direction == kIncomingPacket) {
@@ -1106,7 +1108,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpNack) {
     ASSERT_EQ(nacks.size(), event_count_);
 
     for (size_t i = 0; i < event_count_; ++i) {
-      verifier_.VerifyLoggedNack(timestamps_us[i], events[i], nacks[i]);
+      verifier_.VerifyLoggedNack(timestamps_ms[i], events[i], nacks[i]);
     }
   }
 }
@@ -1121,9 +1123,9 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpRemb) {
 
   for (auto direction : {kIncomingPacket, kOutgoingPacket}) {
     std::vector<rtcp::Remb> events(event_count_);
-    std::vector<int64_t> timestamps_us(event_count_);
+    std::vector<int64_t> timestamps_ms(event_count_);
     for (size_t i = 0; i < event_count_; ++i) {
-      timestamps_us[i] = rtc::TimeMicros();
+      timestamps_ms[i] = rtc::TimeMillis();
       events[i] = gen_.NewRemb();
       rtc::Buffer buffer = events[i].Build();
       if (direction == kIncomingPacket) {
@@ -1144,7 +1146,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpRemb) {
     ASSERT_EQ(rembs.size(), event_count_);
 
     for (size_t i = 0; i < event_count_; ++i) {
-      verifier_.VerifyLoggedRemb(timestamps_us[i], events[i], rembs[i]);
+      verifier_.VerifyLoggedRemb(timestamps_ms[i], events[i], rembs[i]);
     }
   }
 }
@@ -1160,9 +1162,9 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpTransportFeedback) {
   for (auto direction : {kIncomingPacket, kOutgoingPacket}) {
     std::vector<rtcp::TransportFeedback> events;
     events.reserve(event_count_);
-    std::vector<int64_t> timestamps_us(event_count_);
+    std::vector<int64_t> timestamps_ms(event_count_);
     for (size_t i = 0; i < event_count_; ++i) {
-      timestamps_us[i] = rtc::TimeMicros();
+      timestamps_ms[i] = rtc::TimeMillis();
       events.emplace_back(gen_.NewTransportFeedback());
       rtc::Buffer buffer = events[i].Build();
       if (direction == kIncomingPacket) {
@@ -1184,7 +1186,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpTransportFeedback) {
     ASSERT_EQ(transport_feedbacks.size(), event_count_);
 
     for (size_t i = 0; i < event_count_; ++i) {
-      verifier_.VerifyLoggedTransportFeedback(timestamps_us[i], events[i],
+      verifier_.VerifyLoggedTransportFeedback(timestamps_ms[i], events[i],
                                               transport_feedbacks[i]);
     }
   }
@@ -1201,9 +1203,9 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpLossNotification) {
   for (auto direction : {kIncomingPacket, kOutgoingPacket}) {
     std::vector<rtcp::LossNotification> events;
     events.reserve(event_count_);
-    std::vector<int64_t> timestamps_us(event_count_);
+    std::vector<int64_t> timestamps_ms(event_count_);
     for (size_t i = 0; i < event_count_; ++i) {
-      timestamps_us[i] = rtc::TimeMicros();
+      timestamps_ms[i] = rtc::TimeMillis();
       events.emplace_back(gen_.NewLossNotification());
       rtc::Buffer buffer = events[i].Build();
       if (direction == kIncomingPacket) {
@@ -1224,7 +1226,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpLossNotification) {
     ASSERT_EQ(loss_notifications.size(), event_count_);
 
     for (size_t i = 0; i < event_count_; ++i) {
-      verifier_.VerifyLoggedLossNotification(timestamps_us[i], events[i],
+      verifier_.VerifyLoggedLossNotification(timestamps_ms[i], events[i],
                                              loss_notifications[i]);
     }
   }

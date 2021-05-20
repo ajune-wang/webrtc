@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1cc454f8_f80853dd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17729
+      },
+      "writtenOn": "2021-05-20T06:18:54Z",
+      "side": 1,
+      "message": "Hello, PTAL at this CL that replaces legacy getStats with standard getStats in the iOS example.\n",
+      "revId": "3dc9c2e7128974198961edb3183c6cc87d50b280",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

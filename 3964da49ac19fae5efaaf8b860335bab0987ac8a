@@ -16,6 +16,23 @@
       "message": "/video lgtm",
       "revId": "3964da49ac19fae5efaaf8b860335bab0987ac8a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00b6af29_7cdcfacb",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-05-20T09:48:30Z",
+      "side": 1,
+      "message": "Where are the packet infos consumed? I might miss something but really only see\n\nsource_tracker_.OnFrameDelivered(video_frame.packet_infos());\n\non line 524 below, so could update that?",
+      "revId": "3964da49ac19fae5efaaf8b860335bab0987ac8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

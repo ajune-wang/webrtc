@@ -33,6 +33,24 @@
       "message": "Did you visually check the quality of the downscaled video? Try a meet call with your feed downscaled to 180p and check for aliasing.",
       "revId": "bcea19e4e27a46c8cfca6018bb9b022bf2762320",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83892fc7_838aa89f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2021-05-20T14:08:37Z",
+      "side": 1,
+      "message": "If possible attaching that to the CL should give a good demonstration of the quality difference, showing that this change is reasonable.",
+      "parentUuid": "76201a6f_e2f43c9f",
+      "revId": "bcea19e4e27a46c8cfca6018bb9b022bf2762320",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

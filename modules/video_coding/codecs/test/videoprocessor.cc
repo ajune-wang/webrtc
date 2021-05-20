@@ -102,7 +102,7 @@ void CalculateFrameQuality(const I420BufferInterface& ref_buffer,
               scaled_buffer->MutableDataU(), scaled_buffer->StrideU(),
               scaled_buffer->MutableDataV(), scaled_buffer->StrideV(),
               scaled_buffer->width(), scaled_buffer->height(),
-              libyuv::kFilterBox);
+              libyuv::kFilterBilinear);
 
     CalculateFrameQuality(*scaled_buffer, dec_buffer, frame_stat, calc_ssim);
   } else {

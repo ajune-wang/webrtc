@@ -73,7 +73,7 @@ static void JNI_NV12Buffer_CropAndScale(JNIEnv* jni,
   libyuv::I420Scale(src_y, src_stride_y, tmp_u, tmp_stride_u, tmp_v,
                     tmp_stride_v, crop_width, crop_height, dst_y, dst_stride_y,
                     dst_u, dst_stride_u, dst_v, dst_stride_v, scale_width,
-                    scale_height, libyuv::kFilterBox);
+                    scale_height, libyuv::kFilterBilinear);
 }
 
 }  // namespace jni

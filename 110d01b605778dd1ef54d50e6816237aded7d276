@@ -51,6 +51,24 @@
       "parentUuid": "19de9f0b_2b949f3d",
       "revId": "110d01b605778dd1ef54d50e6816237aded7d276",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e6f9d5b_b18d4ca5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-05-20T14:53:44Z",
+      "side": 1,
+      "message": "The functional changes are on lines 65 and 1287.\n\nThe rest is a manual\ns/encoding_/encoding_type_/\ns/encoded \u003d/encoded_ +\u003d/",
+      "parentUuid": "56106d94_5bfc7021",
+      "revId": "110d01b605778dd1ef54d50e6816237aded7d276",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

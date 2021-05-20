@@ -16,6 +16,391 @@
       "message": "Hi Alessio, can you please take a look? Thanks!",
       "revId": "72479468818e0bf208ccbdda3d42bea5eed187ac",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99d76ac3_d3b13d60",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-20T14:40:40Z",
+      "side": 1,
+      "message": "Thanks for the CL Hanna! Great work!\n\nAs agreed offline, let\u0027s split the CL in smaller ones.\nI\u0027ll share comments on `LevelBuffer` and one on the design of `ClippingPredictor` that you can apply on the smaller CLs.",
+      "revId": "72479468818e0bf208ccbdda3d42bea5eed187ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68016002_c7d75d90",
+        "filename": "modules/audio_processing/agc/clipping_predictor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-20T14:40:40Z",
+      "side": 1,
+      "message": "these two methods look duplicated, keep one",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 0
+      },
+      "revId": "72479468818e0bf208ccbdda3d42bea5eed187ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63e9a642_f770d754",
+        "filename": "modules/audio_processing/agc/clipping_predictor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-20T14:40:40Z",
+      "side": 1,
+      "message": "if (tail_ \u003d\u003d buffer_max_length_) {\n  tail_ \u003d 0;\n}\n\nI prefer to avoid the mod operator which is optimized differently depending on `buffer_max_length_` (see https://godbolt.org/z/38v6sne4v and try to change `kSize` to a power of 2). Even if the mod alternative is jump free, the if alternative generates less instructions which is cache friendly.",
+      "range": {
+        "startLine": 118,
+        "startChar": 8,
+        "endLine": 118,
+        "endChar": 10
+      },
+      "revId": "72479468818e0bf208ccbdda3d42bea5eed187ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "daab9a6c_e0599878",
+        "filename": "modules/audio_processing/agc/clipping_predictor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-20T14:40:40Z",
+      "side": 1,
+      "message": "DCHECK the arguments to make sure they are valid\nalso check that they\u0027re not negative once you switch to int",
+      "range": {
+        "startLine": 127,
+        "startChar": 4,
+        "endLine": 128,
+        "endChar": 20
+      },
+      "revId": "72479468818e0bf208ccbdda3d42bea5eed187ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2b96de1_b6e56ccd",
+        "filename": "modules/audio_processing/agc/clipping_predictor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-20T14:40:40Z",
+      "side": 1,
+      "message": "it\u0027s better to avoid the modulo operator\none option is to have 2 for loops",
+      "range": {
+        "startLine": 134,
+        "startChar": 58,
+        "endLine": 134,
+        "endChar": 59
+      },
+      "revId": "72479468818e0bf208ccbdda3d42bea5eed187ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90f47701_d7b184ce",
+        "filename": "modules/audio_processing/agc/clipping_predictor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-20T14:40:40Z",
+      "side": 1,
+      "message": "same here",
+      "range": {
+        "startLine": 147,
+        "startChar": 58,
+        "endLine": 147,
+        "endChar": 59
+      },
+      "revId": "72479468818e0bf208ccbdda3d42bea5eed187ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "596788fd_1fedd6ee",
+        "filename": "modules/audio_processing/agc/clipping_predictor.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-20T14:40:40Z",
+      "side": 1,
+      "message": "As discussed offline, it\u0027s ok to keep the impl as it is (not fully optimized, but simple) with no need to more efficiently compute the rolling average (and the rolling max) for now. Let\u0027s just document that the impl of this class is not optimized for large buffers. We might add `RTC_LOG(LS_WARNING)` if the buffer size is greater than an acceptable threshold and also TODOs where the code can be optimized.",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 34
+      },
+      "revId": "72479468818e0bf208ccbdda3d42bea5eed187ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eac6bbe5_7bd06844",
+        "filename": "modules/audio_processing/agc/clipping_predictor.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-20T14:40:40Z",
+      "side": 1,
+      "message": "is this configurable? or is it hardcoded?\nif you don\u0027t plan to change the buffer size, I would hardcode the size in the .cc file\n\nif you keep the arg, add a description in the ctor docstring in particular with the unit (I guess number of frames)",
+      "range": {
+        "startLine": 30,
+        "startChar": 30,
+        "endLine": 30,
+        "endChar": 47
+      },
+      "revId": "72479468818e0bf208ccbdda3d42bea5eed187ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "adc0a9b5_11a7f0b0",
+        "filename": "modules/audio_processing/agc/clipping_predictor.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-20T14:40:40Z",
+      "side": 1,
+      "message": "From https://en.cppreference.com/w/cpp/container/vector/clear\n1. \"Invalidates any references, pointers, or iterators referring to contained elements. Any past-the-end iterators are also invalidated.\"\n2. \"Leaves the capacity() of the vector unchanged.\"\n\n(1) means that when we push new data into the vector after `clear()` it\u0027s possible that dynamic allocation occurs - the only guarantee is that the capacity doesn\u0027t change - i.e., no need to call `reserve()` again.\n\nFor realtime usage, dynamic alloc outside of the ctors must be avoided and in this case it\u0027s easy:\n- the ctor can init `data_` using `buffer_max_length_` as size\n- add `LevelBuffer::size_` which, together, with `tail_`, allows to provide the same functionalities\n\nSee for instance third_party/webrtc/modules/audio_processing/agc2/saturation_protector_buffer.cc which is pretty similar.",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 18
+      },
+      "revId": "72479468818e0bf208ccbdda3d42bea5eed187ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65ac0995_4e307345",
+        "filename": "modules/audio_processing/agc/clipping_predictor.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-20T14:40:40Z",
+      "side": 1,
+      "message": "move impl to .cc",
+      "range": {
+        "startLine": 33,
+        "startChar": 2,
+        "endLine": 36,
+        "endChar": 3
+      },
+      "revId": "72479468818e0bf208ccbdda3d42bea5eed187ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0efbb41_592f26d1",
+        "filename": "modules/audio_processing/agc/clipping_predictor.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-20T14:40:40Z",
+      "side": 1,
+      "message": "I don\u0027t think we need both `Reset()` and `Initialize()`, just keep one.",
+      "range": {
+        "startLine": 37,
+        "startChar": 2,
+        "endLine": 37,
+        "endChar": 20
+      },
+      "revId": "72479468818e0bf208ccbdda3d42bea5eed187ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "763bfbad_c4488fe4",
+        "filename": "modules/audio_processing/agc/clipping_predictor.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-20T14:40:40Z",
+      "side": 1,
+      "message": "unify and return absl::optional\u003cLevel\u003e since these methods are always called one after each other in `ClippingPredictor::ProjectClippedPeakValue()` and in `ClippingPredictor::ComputeCrestFactor()`.",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 80
+      },
+      "revId": "72479468818e0bf208ccbdda3d42bea5eed187ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13d2331c_961941a1",
+        "filename": "modules/audio_processing/agc/clipping_predictor.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-20T14:40:40Z",
+      "side": 1,
+      "message": "It looks like these methods are never used. Either remove them or add any missing call to them.",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 43
+      },
+      "revId": "72479468818e0bf208ccbdda3d42bea5eed187ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9dd95ea3_be552179",
+        "filename": "modules/audio_processing/agc/clipping_predictor.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-20T14:40:40Z",
+      "side": 1,
+      "message": "As discussed offline, let\u0027s (i) make this class responsible for recommending a level step when clipping is detected and (ii) switch to an interface with a simpler API so that it\u0027ll be easier to use the class and only through a single call. For instance, we could have sth like this:\n\n```\nclass ClippingPredictor {\n public:\n  virtual ~ClippingPredictor() \u003d default;\n  // Analyzes a multi-channel audio frame and predicts clipping. If clipping is\n  // predicted, returns a level step.\n  virtual absl::optional\u003cint\u003e RecommendLevelStep(\n      const float* const* audio, int num_channels, int samples_per_channel,\n      int current_mic_level);\n};\n\n// Create a clipping predictor with specified operating `mode`.\nstd::unique_ptr\u003cClippingPredictor\u003e CreateClippingPredictor(AnalogGainController::ClippingController::Mode mode);\n```\n\nNote that `RecommendLevelStep()` also requires the argument called `current_mic_level` which is needed for the `kAdaptiveClippedLevelPrediction` case. For that we also need to call `LevelFromGainError()` (see [1]); you can expose it in a new file or simply duplicate it in the anon ns of clipping_predictor.cc (it\u0027s a small function).\n\n[1] https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/audio_processing/agc/agc_manager_direct.cc;l\u003d93;bpv\u003d0;bpt\u003d1",
+      "range": {
+        "startLine": 72,
+        "startChar": 6,
+        "endLine": 72,
+        "endChar": 23
+      },
+      "revId": "72479468818e0bf208ccbdda3d42bea5eed187ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14194f3e_df919f75",
+        "filename": "modules/audio_processing/agc/clipping_predictor_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-20T14:40:40Z",
+      "side": 1,
+      "message": "constexpr (same below)\n\nPS: in .h files use \"static constexpr instead\"",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 5
+      },
+      "revId": "72479468818e0bf208ccbdda3d42bea5eed187ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12dd5ebc_f33b36e2",
+        "filename": "modules/audio_processing/agc/clipping_predictor_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-20T14:40:40Z",
+      "side": 1,
+      "message": "instead of a test fixture, consider the option of defining\n\n```\nvoid PopulateBuffer(int num_values, LevelBuffer\u0026 buffer);\n```\n\nthen in a test:\n\n```\nconstexpr int kBufferSize \u003d 4;\nLevelBuffer buffer(kBufferSize);\nPopulateBuffer(kBufferSize, buffer);\n```\n\nJust one extra line, more freedom with the tests (e.g., you can use TEST_P for parametric tests to test different sizes).",
+      "range": {
+        "startLine": 137,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 26
+      },
+      "revId": "72479468818e0bf208ccbdda3d42bea5eed187ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83b7e4b5_04c9d5e2",
+        "filename": "modules/audio_processing/agc/clipping_predictor_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-20T14:40:40Z",
+      "side": 1,
+      "message": "when loops are strictly needed in a unit test, it\u0027s a good practice to make gtest show some indication at which iteration the test fails - if it fails\nso, add SCOPED_TRACE(delay); in the row below",
+      "range": {
+        "startLine": 175,
+        "startChar": 2,
+        "endLine": 175,
+        "endChar": 43
+      },
+      "revId": "72479468818e0bf208ccbdda3d42bea5eed187ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

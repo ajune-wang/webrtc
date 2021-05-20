@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b68d016f_f3855342",
+        "filename": "system_wrappers/include/clock.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 17376
+      },
+      "writtenOn": "2021-05-20T14:51:49Z",
+      "side": 1,
+      "message": "yes, for the time being, because the real clock overrides this to revert to the system dependent way of getting the ntp time if the field trial is on.\nWe can make it non-virtual when we remove the field trial. Added a TODO for that.",
+      "parentUuid": "4fc88304_a24ff3b2",
+      "range": {
+        "startLine": 42,
+        "startChar": 2,
+        "endLine": 42,
+        "endChar": 9
+      },
+      "revId": "daa9123d49bb872841df7680d70019c205521c3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dd7119e2_ba04df85",
         "filename": "system_wrappers/include/clock.h",
         "patchSetId": 8
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8411d522_211e9e41",
+        "filename": "system_wrappers/include/clock.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 17376
+      },
+      "writtenOn": "2021-05-20T14:51:49Z",
+      "side": 1,
+      "message": "Pure virtual means it has no implementation, but changed it anyway.",
+      "parentUuid": "dd7119e2_ba04df85",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 21
+      },
+      "revId": "daa9123d49bb872841df7680d70019c205521c3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4cd02984_7515a974",
         "filename": "system_wrappers/include/clock.h",
         "patchSetId": 8
@@ -60,6 +108,30 @@
       "writtenOn": "2021-05-20T14:41:27Z",
       "side": 1,
       "message": "Document what this means. I take it it is milliseconds since a specific epoch defined by ntp spec? And it would be nice with a somewhat shorter name.\n\nActually, can we add a TODO item to delete this utility method, in favor of ConvertTimestampToNtpTime(timestamp).ToMs() ?",
+      "range": {
+        "startLine": 52,
+        "startChar": 10,
+        "endLine": 52,
+        "endChar": 49
+      },
+      "revId": "daa9123d49bb872841df7680d70019c205521c3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c486ec2b_dcb283ad",
+        "filename": "system_wrappers/include/clock.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 17376
+      },
+      "writtenOn": "2021-05-20T14:51:49Z",
+      "side": 1,
+      "message": "This will be used quite often which is why i added it here.\nAlso, this interface already returns both the relative timestamps and ntp times in milliseconds so IMHO i don\u0027t think it\u0027s weird at all.",
+      "parentUuid": "4cd02984_7515a974",
       "range": {
         "startLine": 52,
         "startChar": 10,

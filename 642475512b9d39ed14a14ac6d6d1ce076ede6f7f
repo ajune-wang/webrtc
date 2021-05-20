@@ -70,6 +70,30 @@
       },
       "revId": "642475512b9d39ed14a14ac6d6d1ce076ede6f7f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5df47cd_7908a35f",
+        "filename": "BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-05-20T09:31:20Z",
+      "side": 1,
+      "message": "Done. Presubmit has successful on the local machine",
+      "parentUuid": "2fcf2ab9_9b29e67a",
+      "range": {
+        "startLine": 525,
+        "startChar": 0,
+        "endLine": 525,
+        "endChar": 28
+      },
+      "revId": "642475512b9d39ed14a14ac6d6d1ce076ede6f7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

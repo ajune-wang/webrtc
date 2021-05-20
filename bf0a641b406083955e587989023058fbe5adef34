@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "952fbe9b_5cb20635",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17376
+      },
+      "writtenOn": "2021-05-20T15:24:37Z",
+      "side": 1,
+      "message": "Thanks",
+      "parentUuid": "b623f032_be4062ad",
+      "revId": "bf0a641b406083955e587989023058fbe5adef34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9df504a5_2b9bd27f",
@@ -31,6 +49,30 @@
       "writtenOn": "2021-05-20T15:09:58Z",
       "side": 1,
       "message": "Do you mean \"non-virtual\" here?",
+      "range": {
+        "startLine": 42,
+        "startChar": 44,
+        "endLine": 42,
+        "endChar": 56
+      },
+      "revId": "bf0a641b406083955e587989023058fbe5adef34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb1e35f4_afe8fe4a",
+        "filename": "system_wrappers/include/clock.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 17376
+      },
+      "writtenOn": "2021-05-20T15:24:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9df504a5_2b9bd27f",
       "range": {
         "startLine": 42,
         "startChar": 44,

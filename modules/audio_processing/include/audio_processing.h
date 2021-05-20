@@ -64,6 +64,9 @@ static const int kAgcStartupMinVolume = 85;
 static const int kAgcStartupMinVolume = 0;
 #endif  // defined(WEBRTC_CHROMIUM_BUILD)
 static constexpr int kClippedLevelMin = 70;
+const int kClippedLevelStep = 15;
+const float kClippedRatioThreshold = 0.1f;
+const int kClippedWaitFrames = 300;
 
 // To be deprecated: Please instead use the flag in the
 // AudioProcessing::Config::AnalogGainController.
@@ -334,6 +337,14 @@ class RTC_EXPORT AudioProcessing : public rtc::RefCountInterface {
         // clipping.
         int clipped_level_min = kClippedLevelMin;
         bool enable_digital_adaptive = true;
+        // Amount the microphone level is lowered with every clipping event.
+        // Limited to [0, 255].
+        int clipped_level_step = kClippedLevelStep;
+        // Proportion of clipped samples required to declare a clipping event.
+        // Limited to [0.f, 1.f].
+        float clipped_ratio_threshold = kClippedRatioThreshold;
+        // Time in frames to wait after a clipping event before checking again.
+        int clipped_wait_frames = kClippedWaitFrames;
       } analog_gain_controller;
     } gain_controller1;
 

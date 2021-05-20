@@ -57,10 +57,14 @@ class MockGainControl : public GainControl {
 };
 
 std::unique_ptr<AgcManagerDirect> CreateAgcManagerDirect(
-    int startup_min_level) {
+    int startup_min_level,
+    int clipped_level_step,
+    float clipped_ratio_threshold,
+    int clipped_wait_frames) {
   return std::make_unique<AgcManagerDirect>(
       /*num_capture_channels=*/1, startup_min_level, kClippedMin,
-      /*disable_digital_adaptive=*/true, kSampleRateHz);
+      /*disable_digital_adaptive=*/true, kSampleRateHz, clipped_level_step,
+      clipped_ratio_threshold, clipped_wait_frames);
 }
 
 }  // namespace
@@ -69,7 +73,13 @@ class AgcManagerDirectTest : public ::testing::Test {
  protected:
   AgcManagerDirectTest()
       : agc_(new MockAgc),
-        manager_(agc_, kInitialVolume, kClippedMin, kSampleRateHz),
+        manager_(agc_,
+                 kInitialVolume,
+                 kClippedMin,
+                 kSampleRateHz,
+                 kClippedLevelStep,
+                 kClippedRatioThreshold,
+                 kClippedWaitFrames),
         audio(kNumChannels),
         audio_data(kNumChannels * kSamplesPerChannel, 0.f) {
     ExpectInitialize();
@@ -705,14 +715,16 @@ TEST(AgcManagerDirectStandaloneTest, DisableDigitalDisablesDigital) {
   EXPECT_CALL(gctrl, enable_limiter(false));
 
   std::unique_ptr<AgcManagerDirect> manager =
-      CreateAgcManagerDirect(kInitialVolume);
+      CreateAgcManagerDirect(kInitialVolume, kClippedLevelStep,
+                             kClippedRatioThreshold, kClippedWaitFrames);
   manager->Initialize();
   manager->SetupDigitalGainControl(&gctrl);
 }
 
 TEST(AgcManagerDirectStandaloneTest, AgcMinMicLevelExperiment) {
   std::unique_ptr<AgcManagerDirect> manager =
-      CreateAgcManagerDirect(kInitialVolume);
+      CreateAgcManagerDirect(kInitialVolume, kClippedLevelStep,
+                             kClippedRatioThreshold, kClippedWaitFrames);
   EXPECT_EQ(manager->channel_agcs_[0]->min_mic_level(), kMinMicLevel);
   EXPECT_EQ(manager->channel_agcs_[0]->startup_min_level(), kInitialVolume);
 }
@@ -721,7 +733,8 @@ TEST(AgcManagerDirectStandaloneTest, AgcMinMicLevelExperimentDisabled) {
   test::ScopedFieldTrials field_trial(
       "WebRTC-Audio-AgcMinMicLevelExperiment/Disabled/");
   std::unique_ptr<AgcManagerDirect> manager =
-      CreateAgcManagerDirect(kInitialVolume);
+      CreateAgcManagerDirect(kInitialVolume, kClippedLevelStep,
+                             kClippedRatioThreshold, kClippedWaitFrames);
   EXPECT_EQ(manager->channel_agcs_[0]->min_mic_level(), kMinMicLevel);
   EXPECT_EQ(manager->channel_agcs_[0]->startup_min_level(), kInitialVolume);
 }
@@ -732,7 +745,8 @@ TEST(AgcManagerDirectStandaloneTest, AgcMinMicLevelExperimentOutOfRangeAbove) {
   test::ScopedFieldTrials field_trial(
       "WebRTC-Audio-AgcMinMicLevelExperiment/Enabled-256/");
   std::unique_ptr<AgcManagerDirect> manager =
-      CreateAgcManagerDirect(kInitialVolume);
+      CreateAgcManagerDirect(kInitialVolume, kClippedLevelStep,
+                             kClippedRatioThreshold, kClippedWaitFrames);
   EXPECT_EQ(manager->channel_agcs_[0]->min_mic_level(), kMinMicLevel);
   EXPECT_EQ(manager->channel_agcs_[0]->startup_min_level(), kInitialVolume);
 }
@@ -743,7 +757,8 @@ TEST(AgcManagerDirectStandaloneTest, AgcMinMicLevelExperimentOutOfRangeBelow) {
   test::ScopedFieldTrials field_trial(
       "WebRTC-Audio-AgcMinMicLevelExperiment/Enabled--1/");
   std::unique_ptr<AgcManagerDirect> manager =
-      CreateAgcManagerDirect(kInitialVolume);
+      CreateAgcManagerDirect(kInitialVolume, kClippedLevelStep,
+                             kClippedRatioThreshold, kClippedWaitFrames);
   EXPECT_EQ(manager->channel_agcs_[0]->min_mic_level(), kMinMicLevel);
   EXPECT_EQ(manager->channel_agcs_[0]->startup_min_level(), kInitialVolume);
 }
@@ -755,7 +770,8 @@ TEST(AgcManagerDirectStandaloneTest, AgcMinMicLevelExperimentEnabled50) {
   test::ScopedFieldTrials field_trial(
       "WebRTC-Audio-AgcMinMicLevelExperiment/Enabled-50/");
   std::unique_ptr<AgcManagerDirect> manager =
-      CreateAgcManagerDirect(kInitialVolume);
+      CreateAgcManagerDirect(kInitialVolume, kClippedLevelStep,
+                             kClippedRatioThreshold, kClippedWaitFrames);
   EXPECT_EQ(manager->channel_agcs_[0]->min_mic_level(), 50);
   EXPECT_EQ(manager->channel_agcs_[0]->startup_min_level(), kInitialVolume);
 }
@@ -768,9 +784,30 @@ TEST(AgcManagerDirectStandaloneTest,
   test::ScopedFieldTrials field_trial(
       "WebRTC-Audio-AgcMinMicLevelExperiment/Enabled-50/");
   std::unique_ptr<AgcManagerDirect> manager =
-      CreateAgcManagerDirect(/*startup_min_level=*/30);
+      CreateAgcManagerDirect(/*startup_min_level=*/30, kClippedLevelStep,
+                             kClippedRatioThreshold, kClippedWaitFrames);
   EXPECT_EQ(manager->channel_agcs_[0]->min_mic_level(), 50);
   EXPECT_EQ(manager->channel_agcs_[0]->startup_min_level(), 50);
+}
+
+// Verifies that configurable clipping parameters are initialized as intended.
+TEST(AgcManagerDirectStandaloneTest, ClippingParametersVerified) {
+  std::unique_ptr<AgcManagerDirect> manager =
+      CreateAgcManagerDirect(kInitialVolume, kClippedLevelStep,
+                             kClippedRatioThreshold, kClippedWaitFrames);
+  manager->Initialize();
+  EXPECT_EQ(manager->clipped_level_step_, kClippedLevelStep);
+  EXPECT_EQ(manager->clipped_ratio_threshold_, kClippedRatioThreshold);
+  EXPECT_EQ(manager->clipped_wait_frames_, kClippedWaitFrames);
+  std::unique_ptr<AgcManagerDirect> manager_custom =
+      CreateAgcManagerDirect(kInitialVolume,
+                             /*clipped_level_step*/ 10,
+                             /*clipped_ratio_threshold*/ 0.2f,
+                             /*clipped_wait_frames*/ 50);
+  manager_custom->Initialize();
+  EXPECT_EQ(manager_custom->clipped_level_step_, 10);
+  EXPECT_EQ(manager_custom->clipped_ratio_threshold_, 0.2f);
+  EXPECT_EQ(manager_custom->clipped_wait_frames_, 50);
 }
 
 }  // namespace webrtc

@@ -10,3 +10,12 @@
 
 #include "api/proxy.h"
 
+#include "rtc_base/trace_event.h"
+
+namespace webrtc {
+namespace internal {
+void TraceApiCall(const char* class_name, const char* method_name) {
+  TRACE_EVENT0(class_name, method_name);
+}
+}  // namespace internal
+}  // namespace webrtc

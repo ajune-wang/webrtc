@@ -208,7 +208,7 @@ void I420Buffer::CropAndScaleFrom(const I420BufferInterface& src,
       libyuv::I420Scale(y_plane, src.StrideY(), u_plane, src.StrideU(), v_plane,
                         src.StrideV(), crop_width, crop_height, MutableDataY(),
                         StrideY(), MutableDataU(), StrideU(), MutableDataV(),
-                        StrideV(), width(), height(), libyuv::kFilterBox);
+                        StrideV(), width(), height(), libyuv::kFilterBilinear);
 
   RTC_DCHECK_EQ(res, 0);
 }

@@ -135,7 +135,7 @@ rtc::scoped_refptr<I420ABufferInterface> ScaleI420ABuffer(
   libyuv::ScalePlane(buffer.DataA(), buffer.StrideA(), buffer.width(),
                      buffer.height(), axx_buffer->MutableDataY(),
                      axx_buffer->StrideY(), target_width, target_height,
-                     libyuv::kFilterBox);
+                     libyuv::kFilterBilinear);
   rtc::scoped_refptr<I420ABufferInterface> merged_buffer = WrapI420ABuffer(
       yuv_buffer->width(), yuv_buffer->height(), yuv_buffer->DataY(),
       yuv_buffer->StrideY(), yuv_buffer->DataU(), yuv_buffer->StrideU(),
@@ -360,7 +360,7 @@ void NV12Scale(uint8_t* tmp_buffer,
   libyuv::I420Scale(
       src_y, src_stride_y, src_u, src_chroma_width, src_v, src_chroma_width,
       src_width, src_height, dst_y, dst_stride_y, dst_u, dst_chroma_width,
-      dst_v, dst_chroma_width, dst_width, dst_height, libyuv::kFilterBox);
+      dst_v, dst_chroma_width, dst_width, dst_height, libyuv::kFilterBilinear);
 
   // Merge the UV planes into the destination.
   libyuv::MergeUVPlane(dst_u, dst_chroma_width, dst_v, dst_chroma_width, dst_uv,
@@ -411,7 +411,7 @@ void NV12ToI420Scaler::NV12ToI420Scale(const uint8_t* src_y,
   libyuv::I420Scale(src_y, src_stride_y, src_u, src_uv_width, src_v,
                     src_uv_width, src_width, src_height, dst_y, dst_stride_y,
                     dst_u, dst_stride_u, dst_v, dst_stride_v, dst_width,
-                    dst_height, libyuv::kFilterBox);
+                    dst_height, libyuv::kFilterBilinear);
 }
 
 }  // namespace webrtc

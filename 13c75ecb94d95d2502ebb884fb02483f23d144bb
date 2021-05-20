@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "055b2435_8a6767a7",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 724,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-05-20T11:42:52Z",
+      "side": 1,
+      "message": "I\u0027ve changed to randomized (with fixed seeds) timestamps, similar to other tests.",
+      "parentUuid": "c6bf5c4b_f0971890",
+      "range": {
+        "startLine": 724,
+        "startChar": 30,
+        "endLine": 724,
+        "endChar": 56
+      },
+      "revId": "13c75ecb94d95d2502ebb884fb02483f23d144bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b5fcda4b_191034e1",
@@ -47,6 +71,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff2eca18_3204a721",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-05-20T11:42:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b5fcda4b_191034e1",
+      "range": {
+        "startLine": 683,
+        "startChar": 31,
+        "endLine": 683,
+        "endChar": 62
+      },
+      "revId": "13c75ecb94d95d2502ebb884fb02483f23d144bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "133da352_9dfac076",
@@ -60,6 +108,30 @@
       "writtenOn": "2021-05-19T15:00:12Z",
       "side": 1,
       "message": "Seems like it would make sense to provide event.timestamp() directly here instead? Or at least we should be able to remove the extra line: \naudio_recv_configs_.emplace_back(Timestamp::Micros(event.timestamp_us()),",
+      "range": {
+        "startLine": 1407,
+        "startChar": 4,
+        "endLine": 1408,
+        "endChar": 71
+      },
+      "revId": "13c75ecb94d95d2502ebb884fb02483f23d144bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd85648d_e6121ca8",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1408,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-05-20T11:42:52Z",
+      "side": 1,
+      "message": "The |event| is a proto, so we can\u0027t add a timestamp() method. We could shave off a line as suggested, but the same pattern of extracting the timestamp first is used elsewhere as well. For those more complicated events, there\u0027s more code between checking that the timestamp exists and constructing the parsed struct, so the suggested change would make it less clear that the timestamp fields actually exists where it is used.\n\nThe code here could definitely be improved, but as this is the legacy format and we\u0027re hoping to remove the code in the future, I prefer to not spend too much effort refactoring it.",
+      "parentUuid": "133da352_9dfac076",
       "range": {
         "startLine": 1407,
         "startChar": 4,

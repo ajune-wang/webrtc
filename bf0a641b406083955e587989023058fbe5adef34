@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b623f032_be4062ad",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-05-20T15:09:58Z",
+      "side": 1,
+      "message": "lgtm % a comment nit.",
+      "revId": "bf0a641b406083955e587989023058fbe5adef34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9df504a5_2b9bd27f",
+        "filename": "system_wrappers/include/clock.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-05-20T15:09:58Z",
+      "side": 1,
+      "message": "Do you mean \"non-virtual\" here?",
+      "range": {
+        "startLine": 42,
+        "startChar": 44,
+        "endLine": 42,
+        "endChar": 56
+      },
+      "revId": "bf0a641b406083955e587989023058fbe5adef34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

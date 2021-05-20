@@ -14,7 +14,6 @@
 #include <deque>
 #include <string>
 #include <unordered_map>
-#include <unordered_set>
 #include <utility>
 
 #include "absl/algorithm/container.h"
@@ -104,6 +103,15 @@ class FCFSSendQueue : public SendQueue {
     FSN current_fsn = FSN(0);
   };
 
+  // Per-stream information.
+  struct OutgoingStream {
+    bool is_paused = false;
+    // MIDs are different for unordered and ordered messages sent on a stream.
+    MID next_unordered_mid = MID(0);
+    MID next_ordered_mid = MID(0);
+    SSN next_ssn = SSN(0);
+  };
+
   Item* GetFirstNonExpiredMessage(TimeMs now);
   bool IsPaused(StreamID stream_id) const;
 
@@ -111,12 +119,8 @@ class FCFSSendQueue : public SendQueue {
   const size_t buffer_size_;
   std::deque<Item> items_;
 
-  std::unordered_set<StreamID, StreamID::Hasher> paused_streams_;
+  std::unordered_map<StreamID, OutgoingStream, StreamID::Hasher> streams_;
   std::deque<Item> paused_items_;
-
-  std::unordered_map<std::pair<IsUnordered, StreamID>, MID, UnorderedStreamHash>
-      mid_by_stream_id_;
-  std::unordered_map<StreamID, SSN, StreamID::Hasher> ssn_by_stream_id_;
 };
 }  // namespace dcsctp
 

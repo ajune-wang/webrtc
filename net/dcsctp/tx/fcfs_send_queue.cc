@@ -12,7 +12,6 @@
 #include <cstdint>
 #include <deque>
 #include <unordered_map>
-#include <unordered_set>
 #include <utility>
 #include <vector>
 
@@ -95,6 +94,8 @@ absl::optional<SendQueue::DataToSend> FCFSSendQueue::Produce(TimeMs now,
   }
 
   DcSctpMessage& message = item->message;
+  OutgoingStream& stream =
+      streams_.emplace(message.stream_id(), OutgoingStream()).first->second;
 
   // Don't make too small fragments as that can result in increased risk of
   // failure to assemble a message if a small fragment is missing.
@@ -107,15 +108,14 @@ absl::optional<SendQueue::DataToSend> FCFSSendQueue::Produce(TimeMs now,
 
   // Allocate Message ID and SSN when the first fragment is sent.
   if (!item->message_id.has_value()) {
-    MID& mid =
-        mid_by_stream_id_[{item->send_options.unordered, message.stream_id()}];
+    MID& mid = item->send_options.unordered ? stream.next_unordered_mid
+                                            : stream.next_ordered_mid;
     item->message_id = mid;
     mid = MID(*mid + 1);
   }
   if (!item->send_options.unordered && !item->ssn.has_value()) {
-    SSN& ssn = ssn_by_stream_id_[message.stream_id()];
-    item->ssn = ssn;
-    ssn = SSN(*ssn + 1);
+    item->ssn = stream.next_ssn;
+    stream.next_ssn = SSN(*stream.next_ssn + 1);
   }
 
   // Grab the next `max_size` fragment from this message and calculate flags.
@@ -182,7 +182,9 @@ void FCFSSendQueue::Discard(IsUnordered unordered,
 void FCFSSendQueue::PrepareResetStreams(
     rtc::ArrayView<const StreamID> streams) {
   for (StreamID stream_id : streams) {
-    paused_streams_.insert(stream_id);
+    OutgoingStream& stream =
+        streams_.emplace(stream_id, OutgoingStream()).first->second;
+    stream.is_paused = true;
   }
 
   // Will not discard partially sent messages - only whole messages. Partially
@@ -207,14 +209,16 @@ bool FCFSSendQueue::CanResetStreams() const {
 }
 
 void FCFSSendQueue::CommitResetStreams() {
-  for (StreamID stream_id : paused_streams_) {
-    ssn_by_stream_id_[stream_id] = SSN(0);
+  for (auto& stream_entry : streams_) {
+    auto& stream = stream_entry.second;
+
+    stream.next_ssn = SSN(0);
     // https://tools.ietf.org/html/rfc8260#section-2.3.2
     // "When an association resets the SSN using the SCTP extension defined
     // in [RFC6525], the two counters (one for the ordered messages, one for
     // the unordered messages) used for the MIDs MUST be reset to 0."
-    mid_by_stream_id_[{IsUnordered(false), stream_id}] = MID(0);
-    mid_by_stream_id_[{IsUnordered(true), stream_id}] = MID(0);
+    stream.next_unordered_mid = MID(0);
+    stream.next_ordered_mid = MID(0);
   }
   RollbackResetStreams();
 }
@@ -224,7 +228,9 @@ void FCFSSendQueue::RollbackResetStreams() {
     items_.push_back(std::move(paused_items_.front()));
     paused_items_.pop_front();
   }
-  paused_streams_.clear();
+  for (auto& stream : streams_) {
+    stream.second.is_paused = false;
+  }
 }
 
 void FCFSSendQueue::Reset() {
@@ -239,12 +245,15 @@ void FCFSSendQueue::Reset() {
     item.current_fsn = FSN(0);
   }
   RollbackResetStreams();
-  mid_by_stream_id_.clear();
-  ssn_by_stream_id_.clear();
+  streams_.clear();
 }
 
 bool FCFSSendQueue::IsPaused(StreamID stream_id) const {
-  return paused_streams_.find(stream_id) != paused_streams_.end();
-}
+  auto it = streams_.find(stream_id);
+  if (it == streams_.end()) {
+    return false;
+  }
 
+  return it->second.is_paused;
+}
 }  // namespace dcsctp

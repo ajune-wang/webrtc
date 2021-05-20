@@ -1162,5 +1162,83 @@ TEST_F(DcSctpSocketTest, DiscardsMessagesWithLowLifetimeIfMustBuffer) {
   EXPECT_FALSE(cb_z_.ConsumeReceivedMessage().has_value());
 }
 
+TEST_F(DcSctpSocketTest, HasReasonableBufferedAmountValues) {
+  ConnectSockets();
+
+  EXPECT_EQ(sock_a_.buffered_amount(StreamID(1)), 0u);
+
+  sock_a_.Send(DcSctpMessage(StreamID(1), PPID(53), std::vector<uint8_t>(10)),
+               kSendOptions);
+  // Sending a small message will directly send it as a single packet, so
+  // nothing is left in the queue.
+  EXPECT_EQ(sock_a_.buffered_amount(StreamID(1)), 0u);
+
+  sock_a_.Send(DcSctpMessage(StreamID(1), PPID(53),
+                             std::vector<uint8_t>(kLargeMessageSize)),
+               kSendOptions);
+
+  // Sending a message will directly start sending a few packets, so the
+  // buffered amount is not the full message size.
+  EXPECT_GT(sock_a_.buffered_amount(StreamID(1)), 0u);
+  EXPECT_LT(sock_a_.buffered_amount(StreamID(1)), kLargeMessageSize);
+}
+
+TEST_F(DcSctpSocketTest, HasDefaultOnBufferedAmountLowValueZero) {
+  EXPECT_EQ(sock_a_.buffered_amount_low_threshold(StreamID(1)), 0u);
+}
+
+TEST_F(DcSctpSocketTest, TriggersOnBufferedAmountLowWithDefaultValueZero) {
+  EXPECT_CALL(cb_a_, OnBufferedAmountLow).Times(0);
+  ConnectSockets();
+
+  EXPECT_CALL(cb_a_, OnBufferedAmountLow(StreamID(1)));
+  sock_a_.Send(DcSctpMessage(StreamID(1), PPID(53), std::vector<uint8_t>(10)),
+               kSendOptions);
+  ExchangeMessages(sock_a_, cb_a_, sock_z_, cb_z_);
+}
+
+TEST_F(DcSctpSocketTest, TriggersOnBufferedAmountLowOnceIfBelowThreshold) {
+  sock_a_.SetBufferedAmountLowThreshold(StreamID(1), 10000);
+  EXPECT_CALL(cb_a_, OnBufferedAmountLow).Times(0);
+  ConnectSockets();
+
+  EXPECT_CALL(cb_a_, OnBufferedAmountLow(StreamID(1))).Times(1);
+  sock_a_.Send(DcSctpMessage(StreamID(1), PPID(53), std::vector<uint8_t>(1000)),
+               kSendOptions);
+  ExchangeMessages(sock_a_, cb_a_, sock_z_, cb_z_);
+
+  sock_a_.Send(DcSctpMessage(StreamID(1), PPID(53), std::vector<uint8_t>(1000)),
+               kSendOptions);
+  ExchangeMessages(sock_a_, cb_a_, sock_z_, cb_z_);
+}
+
+TEST_F(DcSctpSocketTest, TriggersOnBufferedAmountMultipleTimes) {
+  sock_a_.SetBufferedAmountLowThreshold(StreamID(1), 500);
+  EXPECT_CALL(cb_a_, OnBufferedAmountLow).Times(0);
+  ConnectSockets();
+
+  EXPECT_CALL(cb_a_, OnBufferedAmountLow(StreamID(1))).Times(3);
+  EXPECT_CALL(cb_a_, OnBufferedAmountLow(StreamID(2))).Times(2);
+  sock_a_.Send(DcSctpMessage(StreamID(1), PPID(53), std::vector<uint8_t>(1000)),
+               kSendOptions);
+  ExchangeMessages(sock_a_, cb_a_, sock_z_, cb_z_);
+
+  sock_a_.Send(DcSctpMessage(StreamID(2), PPID(53), std::vector<uint8_t>(1000)),
+               kSendOptions);
+  ExchangeMessages(sock_a_, cb_a_, sock_z_, cb_z_);
+
+  sock_a_.Send(DcSctpMessage(StreamID(1), PPID(53), std::vector<uint8_t>(1000)),
+               kSendOptions);
+  ExchangeMessages(sock_a_, cb_a_, sock_z_, cb_z_);
+
+  sock_a_.Send(DcSctpMessage(StreamID(2), PPID(53), std::vector<uint8_t>(1000)),
+               kSendOptions);
+  ExchangeMessages(sock_a_, cb_a_, sock_z_, cb_z_);
+
+  sock_a_.Send(DcSctpMessage(StreamID(1), PPID(53), std::vector<uint8_t>(1000)),
+               kSendOptions);
+  ExchangeMessages(sock_a_, cb_a_, sock_z_, cb_z_);
+}
+
 }  // namespace
 }  // namespace dcsctp

@@ -344,20 +344,20 @@ int SimulcastEncoderAdapter::InitEncode(
 
   // Two distinct scenarios:
   // * Singlecast (total_streams_count == 1) or simulcast with simulcast-capable
-  //   underlaying encoder implementation. SEA operates in bypass mode: original
-  //   settings are passed to the underlaying encoder, frame encode complete
-  //   callback is not intercepted.
+  //   underlaying encoder implementation if active_streams_count > 1. SEA
+  //   operates in bypass mode: original settings are passed to the underlaying
+  //   encoder, frame encode complete callback is not intercepted.
   // * Multi-encoder simulcast or singlecast if layers are deactivated
-  //   (total_streams_count > 1 and active_streams_count >= 1). SEA creates
-  //   N=active_streams_count encoders and configures each to produce a single
-  //   stream.
+  //   (active_streams_count >= 1). SEA creates N=active_streams_count encoders
+  //   and configures each to produce a single stream.
 
   // Singlecast or simulcast with simulcast-capable underlaying encoder.
+  int active_streams_count = CountActiveStreams(*inst);
   if (total_streams_count_ == 1 ||
-      encoder_context->encoder().GetEncoderInfo().supports_simulcast) {
+      (active_streams_count > 1 &&
+       encoder_context->encoder().GetEncoderInfo().supports_simulcast)) {
     int ret = encoder_context->encoder().InitEncode(&codec_, settings);
     if (ret >= 0) {
-      int active_streams_count = CountActiveStreams(*inst);
       stream_contexts_.emplace_back(
           /*parent=*/nullptr, std::move(encoder_context),
           /*framerate_controller=*/nullptr, /*stream_idx=*/0, codec_.width,

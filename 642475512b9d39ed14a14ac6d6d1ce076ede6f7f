@@ -22,6 +22,30 @@
       },
       "revId": "642475512b9d39ed14a14ac6d6d1ce076ede6f7f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c2cb301_650b3b1c",
+        "filename": "BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-05-20T09:24:17Z",
+      "side": 1,
+      "message": "That is intentional so there is no bug for placing it. Do you want me report a bug on this, or just put this string to point to a bug that doesn\u0027t exist?",
+      "parentUuid": "da1d943c_5c8d7bc3",
+      "range": {
+        "startLine": 525,
+        "startChar": 0,
+        "endLine": 525,
+        "endChar": 28
+      },
+      "revId": "642475512b9d39ed14a14ac6d6d1ce076ede6f7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3db47a2_234529aa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-05-20T12:09:53Z",
+      "side": 1,
+      "message": "Here\u0027s another small-impact CL but worth doing because I\u0027ve already investigated it and the CL is tiny",
+      "revId": "b4d769bddb78a75dd36c2f8cb1b150355036eb97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -366,13 +366,6 @@ uint32_t DcSctpTransport::GetRandomInt(uint32_t low, uint32_t high) {
   return random_.Rand(low, high);
 }
 
-void DcSctpTransport::NotifyOutgoingMessageBufferEmpty() {
-  if (!ready_to_send_data_) {
-    ready_to_send_data_ = true;
-    SignalReadyToSendData();
-  }
-}
-
 void DcSctpTransport::OnMessageReceived(dcsctp::DcSctpMessage message) {
   RTC_DCHECK_RUN_ON(network_thread_);
   RTC_LOG(LS_VERBOSE) << debug_name_ << "->OnMessageReceived(sid="

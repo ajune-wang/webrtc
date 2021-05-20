@@ -327,45 +327,4 @@ static uint8_t Average(int a, int b, int c, int d) {
   return (a + b + c + d + 2) / 4;
 }
 
-TEST_F(TestLibYuv, NV12Scale2x2to2x2) {
-  const std::vector<uint8_t> src_y = {0, 1, 2, 3};
-  const std::vector<uint8_t> src_uv = {0, 1};
-  std::vector<uint8_t> dst_y(4);
-  std::vector<uint8_t> dst_uv(2);
-
-  uint8_t* tmp_buffer = nullptr;
-
-  NV12Scale(tmp_buffer, src_y.data(), 2, src_uv.data(), 2, 2, 2, dst_y.data(),
-            2, dst_uv.data(), 2, 2, 2);
-
-  EXPECT_THAT(dst_y, ::testing::ContainerEq(src_y));
-  EXPECT_THAT(dst_uv, ::testing::ContainerEq(src_uv));
-}
-
-TEST_F(TestLibYuv, NV12Scale4x4to2x2) {
-  const uint8_t src_y[] = {0, 1, 2,  3,  4,  5,  6,  7,
-                           8, 9, 10, 11, 12, 13, 14, 15};
-  const uint8_t src_uv[] = {0, 1, 2, 3, 4, 5, 6, 7};
-  std::vector<uint8_t> dst_y(4);
-  std::vector<uint8_t> dst_uv(2);
-
-  std::vector<uint8_t> tmp_buffer;
-  const int src_chroma_width = (4 + 1) / 2;
-  const int src_chroma_height = (4 + 1) / 2;
-  const int dst_chroma_width = (2 + 1) / 2;
-  const int dst_chroma_height = (2 + 1) / 2;
-  tmp_buffer.resize(src_chroma_width * src_chroma_height * 2 +
-                    dst_chroma_width * dst_chroma_height * 2);
-  tmp_buffer.shrink_to_fit();
-
-  NV12Scale(tmp_buffer.data(), src_y, 4, src_uv, 4, 4, 4, dst_y.data(), 2,
-            dst_uv.data(), 2, 2, 2);
-
-  EXPECT_THAT(dst_y, ::testing::ElementsAre(
-                         Average(0, 1, 4, 5), Average(2, 3, 6, 7),
-                         Average(8, 9, 12, 13), Average(10, 11, 14, 15)));
-  EXPECT_THAT(dst_uv,
-              ::testing::ElementsAre(Average(0, 2, 4, 6), Average(1, 3, 5, 7)));
-}
-
 }  // namespace webrtc

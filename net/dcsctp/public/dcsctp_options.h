@@ -83,6 +83,10 @@ struct DcSctpOptions {
   // this before sending it.
   size_t max_send_buffer_size = 2 * 1024 * 1024;
 
+  // A threshold that, when the amount of data in the send buffer goes below
+  // this value, will trigger `DcSctpCallbacks::OnTotalBufferedAmountLow`.
+  size_t total_buffered_amount_low_threshold = 1.5 * 1024 * 1024;
+
   // Max allowed RTT value. When the RTT is measured and it's found to be larger
   // than this value, it will be discarded and not used for e.g. any RTO
   // calculation. The default value is an extreme maximum but can be adapted

@@ -710,6 +710,7 @@ WebRtcVideoChannel::WebRtcVideoChannel(
       encoder_factory_(encoder_factory),
       decoder_factory_(decoder_factory),
       bitrate_allocator_factory_(bitrate_allocator_factory),
+      recv_flexfec_payload_type_(0),
       default_send_options_(options),
       last_stats_log_ms_(-1),
       discard_unknown_ssrc_packets_(
@@ -726,10 +727,6 @@ WebRtcVideoChannel::WebRtcVideoChannel(
 
   rtcp_receiver_report_ssrc_ = kDefaultRtcpReceiverReportSsrc;
   sending_ = false;
-  recv_codecs_ = MapCodecs(GetPayloadTypesAndDefaultCodecs(
-      decoder_factory_, /*is_decoder_factory=*/true, call_->trials()));
-  recv_flexfec_payload_type_ =
-      recv_codecs_.empty() ? 0 : recv_codecs_.front().flexfec_payload_type;
 }
 
 WebRtcVideoChannel::~WebRtcVideoChannel() {
@@ -2864,11 +2861,15 @@ WebRtcVideoChannel::WebRtcVideoReceiveStream::GetRtpParameters() const {
 
 void WebRtcVideoChannel::WebRtcVideoReceiveStream::ConfigureCodecs(
     const std::vector<VideoCodecSettings>& recv_codecs) {
-  RTC_DCHECK(!recv_codecs.empty());
   config_.decoders.clear();
   config_.rtp.rtx_associated_payload_types.clear();
   config_.rtp.raw_payload_types.clear();
   config_.decoder_factory = decoder_factory_;
+
+  if (recv_codecs.empty()) {
+    return;
+  }
+
   for (const auto& recv_codec : recv_codecs) {
     webrtc::SdpVideoFormat video_format(recv_codec.codec.name,
                                         recv_codec.codec.params);

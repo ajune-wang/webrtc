@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da1d943c_5c8d7bc3",
+        "filename": "BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-05-20T08:34:13Z",
+      "side": 1,
+      "message": "Can you add a comment on the same line to match \"# no-presubmit-check TODO\\(bugs\\.webrtc\\.org/\\d+\\)\"?\n\nSee https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/PRESUBMIT.py;l\u003d615;drc\u003d22379fc8dcb6b11cb4ab1ce8b9e00fe99c0ae740",
+      "range": {
+        "startLine": 525,
+        "startChar": 0,
+        "endLine": 525,
+        "endChar": 28
+      },
+      "revId": "642475512b9d39ed14a14ac6d6d1ce076ede6f7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

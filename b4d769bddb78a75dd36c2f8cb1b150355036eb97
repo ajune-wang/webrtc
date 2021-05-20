@@ -16,6 +16,23 @@
       "message": "Here\u0027s another small-impact CL but worth doing because I\u0027ve already investigated it and the CL is tiny",
       "revId": "b4d769bddb78a75dd36c2f8cb1b150355036eb97",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86e16263_4e3559aa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-05-20T13:27:32Z",
+      "side": 1,
+      "message": "I think SEA is not the right place to fix that issue. \n\nIs it possible to instead fix the libvpx encoder to do correct scaling if there\u0027s only one active stream?\n",
+      "revId": "b4d769bddb78a75dd36c2f8cb1b150355036eb97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

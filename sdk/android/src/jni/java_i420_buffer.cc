@@ -55,7 +55,7 @@ static void JNI_JavaI420Buffer_CropAndScaleI420(
   bool ret = libyuv::I420Scale(
       src_y, src_stride_y, src_u, src_stride_u, src_v, src_stride_v, crop_width,
       crop_height, dst_y, dst_stride_y, dst_u, dst_stride_u, dst_v,
-      dst_stride_v, scale_width, scale_height, libyuv::kFilterBox);
+      dst_stride_v, scale_width, scale_height, libyuv::kFilterBilinear);
   RTC_DCHECK_EQ(ret, 0) << "I420Scale failed";
 }
 

@@ -10,9 +10,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import "sdk/objc/api/peerconnection/RTCStatisticsReport.h"
 #import "sdk/objc/base/RTCMacros.h"
-
-@class RTC_OBJC_TYPE(RTCLegacyStatsReport);
 
 /** Class used to accumulate stats information into a single displayable string.
  */
@@ -23,9 +22,6 @@
  */
 @property(nonatomic, readonly) NSString *statsString;
 
-/** Parses the information in the stats report into an appropriate internal
- *  format used to generate the stats string.
- */
-- (void)parseStatsReport:(RTC_OBJC_TYPE(RTCLegacyStatsReport) *)statsReport;
+- (void)setStats:(RTC_OBJC_TYPE(RTCStatisticsReport) *)stats;
 
 @end

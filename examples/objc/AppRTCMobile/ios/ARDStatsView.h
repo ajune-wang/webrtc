@@ -10,8 +10,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class RTCStatisticsReport;
+
 @interface ARDStatsView : UIView
 
-- (void)setStats:(NSArray *)stats;
+- (void)setStats:(RTCStatisticsReport *)stats;
 
 @end

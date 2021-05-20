@@ -16,6 +16,23 @@
       "message": "internal compiling fails?",
       "revId": "0b30dea956b821240028155983a45da3e8915ac1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99911cc2_9d0e3bb4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-05-20T08:08:55Z",
+      "side": 1,
+      "message": "Looks good to me. But you need to fix some downstream code before landing.\n\nYou may consider splitting the cl in two, one deleting the default implementation of CurrentTime, and a separate one to make methods non-virtual.",
+      "revId": "0b30dea956b821240028155983a45da3e8915ac1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

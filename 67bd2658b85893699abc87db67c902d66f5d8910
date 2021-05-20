@@ -16,6 +16,46 @@
       "message": "Thank you for the comments! I\u0027ve uploaded a new patch to address them.",
       "revId": "67bd2658b85893699abc87db67c902d66f5d8910",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17527a40_b6642432",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-20T14:46:18Z",
+      "side": 1,
+      "message": "Nice!\nLGTM % fix the DCHECKs",
+      "revId": "67bd2658b85893699abc87db67c902d66f5d8910",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0eae5fa_5a5ade0f",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-20T14:46:18Z",
+      "side": 1,
+      "message": "no yoda style comparison and for containers use .empty()\nfor example\n\nRTC_DCHECK(!channel_agcs_.empty());\nRTC_DCHECK_GE(clipped_level_step, 0);\n\nBTW why do we accept 0 for `clipped_level_step`?\nI guess it should be RTC_DCHECK_GT(clipped_level_step, 0);\n\nsimilarly for `clipped_ratio_threshold`, I think it should belong to the open interval (0, 1) and not to [0, 1] right?\n\nsame for `clipped_wait_frames`, I\u0027d say RTC_DCHECK_GT(clipped_wait_frames, 0);",
+      "range": {
+        "startLine": 446,
+        "startChar": 0,
+        "endLine": 451,
+        "endChar": 40
+      },
+      "revId": "67bd2658b85893699abc87db67c902d66f5d8910",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

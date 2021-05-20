@@ -46,6 +46,30 @@
       },
       "revId": "642475512b9d39ed14a14ac6d6d1ce076ede6f7f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fcf2ab9_9b29e67a",
+        "filename": "BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-05-20T09:26:38Z",
+      "side": 1,
+      "message": "Feel free to use bugs.webrtc.org/12785. It is fine since the comment above is clear and no one will try to fix.",
+      "parentUuid": "1c2cb301_650b3b1c",
+      "range": {
+        "startLine": 525,
+        "startChar": 0,
+        "endLine": 525,
+        "endChar": 28
+      },
+      "revId": "642475512b9d39ed14a14ac6d6d1ce076ede6f7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

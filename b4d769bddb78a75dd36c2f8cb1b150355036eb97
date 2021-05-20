@@ -33,6 +33,23 @@
       "message": "I think SEA is not the right place to fix that issue. \n\nIs it possible to instead fix the libvpx encoder to do correct scaling if there\u0027s only one active stream?\n",
       "revId": "b4d769bddb78a75dd36c2f8cb1b150355036eb97",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b128ca59_68130966",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-05-20T13:38:05Z",
+      "side": 1,
+      "message": "On the second thought, it\u0027s not a bad change. It\u0027s just confusing how total_streams_count and active_streams_count are mixed there... it relies on the logic below, where encoders are created only for active layers.\n\nMaybe separate the second part of the condition to a named bool separate_encoders_needed. Which is set to !supports_simulcast || active_count \u003d\u003d 1. Add a comment to it clarifying, that in case of one active stream it\u0027s better to create single encoder with only one configured layer than creating it with all-but-one disabled layers because that way we control scaling.\n",
+      "revId": "b4d769bddb78a75dd36c2f8cb1b150355036eb97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

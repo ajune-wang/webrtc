@@ -16,6 +16,23 @@
       "message": "Might make sense to move the conversion methods. Do you intend to advertise these as a public api, if/when the Clock interface is moved to api/? \n\nBut a stateless conversion method should probably be a static method.\n\n",
       "revId": "3ebef4017189bb89f31c04b8b42bc3635e8df34f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7745f6b7_89cee1c1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-05-20T13:38:37Z",
+      "side": 1,
+      "message": "The word \"relative\" before timestamp sounds unnecessary and redundant to me (CL description)",
+      "revId": "3ebef4017189bb89f31c04b8b42bc3635e8df34f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

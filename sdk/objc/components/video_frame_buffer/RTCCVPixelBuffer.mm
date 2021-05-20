@@ -339,7 +339,7 @@
                     dstStride,
                     dstWidth,
                     dstHeight,
-                    libyuv::kFilterBox);
+                    libyuv::kFilterBilinear);
 
   CVPixelBufferUnlockBaseAddress(_pixelBuffer, kCVPixelBufferLock_ReadOnly);
   CVPixelBufferUnlockBaseAddress(outputPixelBuffer, 0);

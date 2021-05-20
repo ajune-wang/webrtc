@@ -100,7 +100,7 @@ std::vector<std::vector<uint8_t>> FlattenYuvData(
   libyuv::ScalePlane(frame->DataY(), frame->StrideY(), frame->width(),
                      frame->height(), result[0].data(), frame->ChromaWidth(),
                      frame->ChromaWidth(), frame->ChromaHeight(),
-                     libyuv::kFilterBox);
+                     libyuv::kFilterBilinear);
 
   libyuv::CopyPlane(frame->DataU(), frame->StrideU(), result[1].data(),
                     frame->ChromaWidth(), frame->ChromaWidth(),
@@ -194,7 +194,7 @@ rtc::scoped_refptr<I420BufferInterface> AdjustColors(
   libyuv::ScalePlane(frame->DataY(), frame->StrideY(), frame->width(),
                      frame->height(), downscaled_y_plane.data(),
                      frame->ChromaWidth(), frame->ChromaWidth(),
-                     frame->ChromaHeight(), libyuv::kFilterBox);
+                     frame->ChromaHeight(), libyuv::kFilterBilinear);
 
   // Fill in the adjusted data row by row.
   for (int y = 0; y < frame->height(); ++y) {

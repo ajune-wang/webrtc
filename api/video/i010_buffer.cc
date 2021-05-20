@@ -223,7 +223,7 @@ void I010Buffer::CropAndScaleFrom(const I010BufferInterface& src,
       y_plane, src.StrideY(), u_plane, src.StrideU(), v_plane, src.StrideV(),
       crop_width, crop_height, MutableDataY(), StrideY(), MutableDataU(),
       StrideU(), MutableDataV(), StrideV(), width(), height(),
-      libyuv::kFilterBox);
+      libyuv::kFilterBilinear);
 
   RTC_DCHECK_EQ(res, 0);
 }

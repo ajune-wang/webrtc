@@ -69,6 +69,29 @@
       "parentUuid": "56106d94_5bfc7021",
       "revId": "110d01b605778dd1ef54d50e6816237aded7d276",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eaa89840_06a88a88",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2021-05-20T15:17:22Z",
+      "side": 1,
+      "message": "Please consider that maybe it\u0027s a gap in coverage that we can pass all tests either with or without this line.",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 74
+      },
+      "revId": "110d01b605778dd1ef54d50e6816237aded7d276",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

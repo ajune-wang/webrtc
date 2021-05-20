@@ -16,6 +16,161 @@
       "message": "Hi Alessio, can you please take a look?\n\nThanks!",
       "revId": "21d89a44ad7cf3d5a3cca789d694c3a99fbe66fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e537e5f_c9a3dd06",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-20T12:19:35Z",
+      "side": 1,
+      "message": "Thanks for your CL Hanna!\nI only have a bunch of minor comments.",
+      "revId": "21d89a44ad7cf3d5a3cca789d694c3a99fbe66fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32f229be_b50ded29",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-20T12:19:35Z",
+      "side": 1,
+      "message": "since you\u0027re editing this file, could you replace const with constexpr?\n(same for the constants below)",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 41
+      },
+      "revId": "21d89a44ad7cf3d5a3cca789d694c3a99fbe66fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e034f1b_20680806",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-20T12:19:35Z",
+      "side": 1,
+      "message": "can we add some RTC_DCHECKs for these params?\nfor instance, ratio in (0, 1)",
+      "range": {
+        "startLine": 433,
+        "startChar": 0,
+        "endLine": 435,
+        "endChar": 48
+      },
+      "revId": "21d89a44ad7cf3d5a3cca789d694c3a99fbe66fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26aed796_c8d60c27",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-20T12:19:35Z",
+      "side": 1,
+      "message": "I would move the comments from agc_manager_direct.cc for the hardcoded constant in the ctor docstring above; sth like\n\n// `clipped_level_step` is the amount the microphone level is lowered with\n// every clipping event. `clipped_ratio_threshold` is the proportion of clipped\n// samples required to declare a clipping event. `clipped_wait_frames` is the\n// time in frames to wait after a clipping event before checking again.\n\nIn the comment above I didn\u0027t write what are the accepted values. Based on the DCHECKs you add in the ctor impl, you can specify what are the valid ranges for each parameter.",
+      "range": {
+        "startLine": 43,
+        "startChar": 19,
+        "endLine": 45,
+        "endChar": 44
+      },
+      "revId": "21d89a44ad7cf3d5a3cca789d694c3a99fbe66fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9692ca0d_f110d959",
+        "filename": "modules/audio_processing/agc/agc_manager_direct_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 794,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-20T12:19:35Z",
+      "side": 1,
+      "message": "In order to test the API, it\u0027d be good to add tests to verify the behavior of these parameters. For example, one could check that a larger value for `clipped_level_step` produces a larger gain reduction when a saturated signal is passed. Similarly, one could verify that, for a suitable given signal, clipping is detected more often with a lower `clipped_ratio_threshold` value.\n\nIt\u0027s ok to add the tests in a separate CL; if so, I would recommend to add the following comments:\n```\n// TODO(bugs.webrtc.org/12774): Test the bahavior of `clipped_level_step`.\n// TODO(bugs.webrtc.org/12774): Test the bahavior of `clipped_ratio_threshold`.\n// TODO(bugs.webrtc.org/12774): Test the bahavior of `clipped_wait_frames`.\n```",
+      "range": {
+        "startLine": 794,
+        "startChar": 37,
+        "endLine": 794,
+        "endChar": 63
+      },
+      "revId": "21d89a44ad7cf3d5a3cca789d694c3a99fbe66fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32ab1839_b0239797",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-20T12:19:35Z",
+      "side": 1,
+      "message": "could you replace `static const` with `static constexpr`?",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 42
+      },
+      "revId": "21d89a44ad7cf3d5a3cca789d694c3a99fbe66fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74ec4c43_95011fbd",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-20T12:19:35Z",
+      "side": 1,
+      "message": "no need to define these values here, just add the default in lines 340-347 (`AnalogGainController` struct)\nyou\u0027ll need do define these constant as constexpr in agc_manager_direct_unittest.cc",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 35
+      },
+      "revId": "21d89a44ad7cf3d5a3cca789d694c3a99fbe66fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

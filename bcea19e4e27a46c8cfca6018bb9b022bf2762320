@@ -16,6 +16,23 @@
       "message": "Starting the review with the team, then I\u0027ll add other OWNERs if there are no objections yet. Realizing pushback is possible",
       "revId": "bcea19e4e27a46c8cfca6018bb9b022bf2762320",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76201a6f_e2f43c9f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-05-20T13:19:43Z",
+      "side": 1,
+      "message": "Did you visually check the quality of the downscaled video? Try a meet call with your feed downscaled to 180p and check for aliasing.",
+      "revId": "bcea19e4e27a46c8cfca6018bb9b022bf2762320",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

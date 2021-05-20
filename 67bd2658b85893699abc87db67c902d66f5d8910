@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db466fd3_17718b5f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-05-20T14:32:07Z",
+      "side": 1,
+      "message": "Thank you for the comments! I\u0027ve uploaded a new patch to address them.",
+      "revId": "67bd2658b85893699abc87db67c902d66f5d8910",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

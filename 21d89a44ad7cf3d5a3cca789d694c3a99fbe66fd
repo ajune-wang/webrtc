@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4286eabf_214a971b",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-05-20T14:32:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "32f229be_b50ded29",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 41
+      },
+      "revId": "21d89a44ad7cf3d5a3cca789d694c3a99fbe66fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3e034f1b_20680806",
@@ -71,6 +95,30 @@
       "writtenOn": "2021-05-20T12:19:35Z",
       "side": 1,
       "message": "can we add some RTC_DCHECKs for these params?\nfor instance, ratio in (0, 1)",
+      "range": {
+        "startLine": 433,
+        "startChar": 0,
+        "endLine": 435,
+        "endChar": 48
+      },
+      "revId": "21d89a44ad7cf3d5a3cca789d694c3a99fbe66fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a13bd4c0_58b9cd42",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-05-20T14:32:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e034f1b_20680806",
       "range": {
         "startLine": 433,
         "startChar": 0,
@@ -104,6 +152,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd7774d9_309bf3c2",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-05-20T14:32:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "26aed796_c8d60c27",
+      "range": {
+        "startLine": 43,
+        "startChar": 19,
+        "endLine": 45,
+        "endChar": 44
+      },
+      "revId": "21d89a44ad7cf3d5a3cca789d694c3a99fbe66fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9692ca0d_f110d959",
@@ -117,6 +189,30 @@
       "writtenOn": "2021-05-20T12:19:35Z",
       "side": 1,
       "message": "In order to test the API, it\u0027d be good to add tests to verify the behavior of these parameters. For example, one could check that a larger value for `clipped_level_step` produces a larger gain reduction when a saturated signal is passed. Similarly, one could verify that, for a suitable given signal, clipping is detected more often with a lower `clipped_ratio_threshold` value.\n\nIt\u0027s ok to add the tests in a separate CL; if so, I would recommend to add the following comments:\n```\n// TODO(bugs.webrtc.org/12774): Test the bahavior of `clipped_level_step`.\n// TODO(bugs.webrtc.org/12774): Test the bahavior of `clipped_ratio_threshold`.\n// TODO(bugs.webrtc.org/12774): Test the bahavior of `clipped_wait_frames`.\n```",
+      "range": {
+        "startLine": 794,
+        "startChar": 37,
+        "endLine": 794,
+        "endChar": 63
+      },
+      "revId": "21d89a44ad7cf3d5a3cca789d694c3a99fbe66fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e28ad32_983a05bc",
+        "filename": "modules/audio_processing/agc/agc_manager_direct_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 794,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-05-20T14:32:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9692ca0d_f110d959",
       "range": {
         "startLine": 794,
         "startChar": 37,
@@ -150,6 +246,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "72ce6c91_75f93df2",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-05-20T14:32:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "32ab1839_b0239797",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 42
+      },
+      "revId": "21d89a44ad7cf3d5a3cca789d694c3a99fbe66fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "74ec4c43_95011fbd",
@@ -163,6 +283,30 @@
       "writtenOn": "2021-05-20T12:19:35Z",
       "side": 1,
       "message": "no need to define these values here, just add the default in lines 340-347 (`AnalogGainController` struct)\nyou\u0027ll need do define these constant as constexpr in agc_manager_direct_unittest.cc",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 35
+      },
+      "revId": "21d89a44ad7cf3d5a3cca789d694c3a99fbe66fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9492f837_0cbfdbb1",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-05-20T14:32:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74ec4c43_95011fbd",
       "range": {
         "startLine": 67,
         "startChar": 0,

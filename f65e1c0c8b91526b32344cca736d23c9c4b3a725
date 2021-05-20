@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23bda5ca_a1e97fd3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-20T14:55:09Z",
+      "side": 1,
+      "message": "Now that dcSCTP\u0027s basics are in, I think we need to start filing issues for things like \"change the scheduler\".\nIf we have one CL for renaming FCFS to RR and another for making it actually do RR, it\u0027s nice if they refer to the same bug (and are the only CLs on that bug).",
+      "revId": "f65e1c0c8b91526b32344cca736d23c9c4b3a725",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7397b799_a7c90cbb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-20T14:55:09Z",
+      "side": 1,
+      "message": "It\u0027s just a rename, so looks good, but think about whether we should have multiple send queue implementations around.\n",
+      "revId": "f65e1c0c8b91526b32344cca736d23c9c4b3a725",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7c6aea2_a9222046",
+        "filename": "net/dcsctp/socket/dcsctp_socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-20T14:55:09Z",
+      "side": 1,
+      "message": "Would there be any value to keeping the FCFS SendQueue implementation around?\n\nI don\u0027t see how anyone would want to use it, but you never know - it validates the concept of the scheduler being a replaceable component.",
+      "revId": "f65e1c0c8b91526b32344cca736d23c9c4b3a725",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d9f95ef_26a31891",
+        "filename": "net/dcsctp/tx/rr_send_queue.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-20T14:55:09Z",
+      "side": 1,
+      "message": "English: \"As defined in https://..., it will cycle\"",
+      "revId": "f65e1c0c8b91526b32344cca736d23c9c4b3a725",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

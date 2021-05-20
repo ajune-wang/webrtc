@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "820719cc_720bcd58",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-05-20T13:31:52Z",
+      "side": 1,
+      "message": "Might make sense to move the conversion methods. Do you intend to advertise these as a public api, if/when the Clock interface is moved to api/? \n\nBut a stateless conversion method should probably be a static method.\n\n",
+      "revId": "3ebef4017189bb89f31c04b8b42bc3635e8df34f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

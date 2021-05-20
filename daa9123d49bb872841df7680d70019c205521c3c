@@ -48,6 +48,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "07345ad5_a4d1f64c",
+        "filename": "system_wrappers/include/clock.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 17376
+      },
+      "writtenOn": "2021-05-20T14:52:36Z",
+      "side": 1,
+      "message": "Resolving.",
+      "parentUuid": "b68d016f_f3855342",
+      "range": {
+        "startLine": 42,
+        "startChar": 2,
+        "endLine": 42,
+        "endChar": 9
+      },
+      "revId": "daa9123d49bb872841df7680d70019c205521c3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dd7119e2_ba04df85",
@@ -95,6 +119,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "123343e6_0c687022",
+        "filename": "system_wrappers/include/clock.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 17376
+      },
+      "writtenOn": "2021-05-20T14:52:36Z",
+      "side": 1,
+      "message": "Resolving.",
+      "parentUuid": "8411d522_211e9e41",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 21
+      },
+      "revId": "daa9123d49bb872841df7680d70019c205521c3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4cd02984_7515a974",
@@ -132,6 +180,30 @@
       "side": 1,
       "message": "This will be used quite often which is why i added it here.\nAlso, this interface already returns both the relative timestamps and ntp times in milliseconds so IMHO i don\u0027t think it\u0027s weird at all.",
       "parentUuid": "4cd02984_7515a974",
+      "range": {
+        "startLine": 52,
+        "startChar": 10,
+        "endLine": 52,
+        "endChar": 49
+      },
+      "revId": "daa9123d49bb872841df7680d70019c205521c3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60152c81_1dfb41d1",
+        "filename": "system_wrappers/include/clock.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 17376
+      },
+      "writtenOn": "2021-05-20T14:52:36Z",
+      "side": 1,
+      "message": "Resolving.",
+      "parentUuid": "c486ec2b_dcb283ad",
       "range": {
         "startLine": 52,
         "startChar": 10,

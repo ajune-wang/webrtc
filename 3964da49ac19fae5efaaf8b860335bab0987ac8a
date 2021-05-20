@@ -51,6 +51,24 @@
       "parentUuid": "00b6af29_7cdcfacb",
       "revId": "3964da49ac19fae5efaaf8b860335bab0987ac8a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00753ff2_d75eeadc",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-05-20T10:03:25Z",
+      "side": 1,
+      "message": "just tick resolve",
+      "parentUuid": "d61c2a9d_5efa5f9f",
+      "revId": "3964da49ac19fae5efaaf8b860335bab0987ac8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

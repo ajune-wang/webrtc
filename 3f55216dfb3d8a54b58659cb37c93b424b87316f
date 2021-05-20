@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eace5266_88979c0e",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-05-20T13:00:33Z",
+      "side": 1,
+      "message": "Might be better to swap the parameters to stress value under test is\nsender-\u003eGetSendRates()....",
+      "range": {
+        "startLine": 430,
+        "startChar": 6,
+        "endLine": 432,
+        "endChar": 17
+      },
+      "revId": "3f55216dfb3d8a54b58659cb37c93b424b87316f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d0894b2_4fe933f4",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-05-20T13:00:33Z",
+      "side": 1,
+      "message": "This name style is for constants \"whose value is fixed for the duration of the program\"\nhttps://google.github.io/styleguide/cppguide.html#Constant_Names\n\nthis variable changes its value on each loop iteration",
+      "range": {
+        "startLine": 469,
+        "startChar": 23,
+        "endLine": 469,
+        "endChar": 42
+      },
+      "revId": "3f55216dfb3d8a54b58659cb37c93b424b87316f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50835586_81389877",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-05-20T13:00:33Z",
+      "side": 1,
+      "message": "may be comment why i \u003d\u003d 0 is special (doesn\u0027t look obvious from code around)",
+      "range": {
+        "startLine": 470,
+        "startChar": 14,
+        "endLine": 470,
+        "endChar": 20
+      },
+      "revId": "3f55216dfb3d8a54b58659cb37c93b424b87316f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d119ca18_c572da90",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-05-20T13:00:33Z",
+      "side": 1,
+      "message": "because inside lambda you only put expectation on input parameters, you may rewrite the same EXPECT_CALL without lambda:\n  double expected_bitrate_bps \u003d ...;\n  EXPECT_CALL(observer, Notify(DoubleNear(expected_bitrate_bps, 500), \n                               DoubleNear(expected_bitrate_bps, 500),\n                               kSsrc));",
+      "range": {
+        "startLine": 471,
+        "startChar": 10,
+        "endLine": 471,
+        "endChar": 21
+      },
+      "revId": "3f55216dfb3d8a54b58659cb37c93b424b87316f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c611a6de_83fa6bf2",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-05-20T13:00:33Z",
+      "side": 1,
+      "message": "prefer to put value under test as 1st parameter, value it compares to as 2nd",
+      "range": {
+        "startLine": 471,
+        "startChar": 22,
+        "endLine": 471,
+        "endChar": 60
+      },
+      "revId": "3f55216dfb3d8a54b58659cb37c93b424b87316f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

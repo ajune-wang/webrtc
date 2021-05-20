@@ -33,6 +33,24 @@
       "message": "That most of the CL is the technical change of renaming makes it difficult to see if/what the actual change is. Could the two things please be broken apart?",
       "revId": "110d01b605778dd1ef54d50e6816237aded7d276",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56106d94_5bfc7021",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5677
+      },
+      "writtenOn": "2021-05-20T14:40:37Z",
+      "side": 1,
+      "message": ".",
+      "parentUuid": "19de9f0b_2b949f3d",
+      "revId": "110d01b605778dd1ef54d50e6816237aded7d276",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

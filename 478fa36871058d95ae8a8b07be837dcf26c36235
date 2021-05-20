@@ -46,6 +46,30 @@
       },
       "revId": "478fa36871058d95ae8a8b07be837dcf26c36235",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "449721ef_716f55c1",
+        "filename": "system_wrappers/include/clock.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 17376
+      },
+      "writtenOn": "2021-05-20T14:11:24Z",
+      "side": 1,
+      "message": "The interface is adding a default implementation that will not be used. This is to not break ViCE\u0027s clock that implements the interface.",
+      "parentUuid": "759b61e5_b1eeca41",
+      "range": {
+        "startLine": 50,
+        "startChar": 4,
+        "endLine": 50,
+        "endChar": 21
+      },
+      "revId": "478fa36871058d95ae8a8b07be837dcf26c36235",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

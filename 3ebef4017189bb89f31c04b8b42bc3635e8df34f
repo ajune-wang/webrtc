@@ -51,6 +51,24 @@
       "parentUuid": "7745f6b7_89cee1c1",
       "revId": "3ebef4017189bb89f31c04b8b42bc3635e8df34f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bcc621f0_e48c9e1e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17376
+      },
+      "writtenOn": "2021-05-20T14:11:24Z",
+      "side": 1,
+      "message": "We should keep the methods if/once the clock is moved to api/\nThe conversion is dependent on the clock implementation and hence cannot be static.",
+      "parentUuid": "820719cc_720bcd58",
+      "revId": "3ebef4017189bb89f31c04b8b42bc3635e8df34f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

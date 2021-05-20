@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e656fdef_aca6884d",
+        "filename": "modules/video_coding/codecs/h264/h264_decoder_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2021-05-20T19:46:02Z",
+      "side": 1,
+      "message": "Would it make sense to perhaps allocate this only once when the decoder is instantiated?",
+      "range": {
+        "startLine": 264,
+        "startChar": 0,
+        "endLine": 264,
+        "endChar": 39
+      },
+      "revId": "a5e0f315eafdc9f5c261a42afd20ea649e895b4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1d0a419_e390e1d1",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-05-20T13:35:53Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "eace5266_88979c0e",
+      "range": {
+        "startLine": 430,
+        "startChar": 6,
+        "endLine": 432,
+        "endChar": 17
+      },
+      "revId": "3f55216dfb3d8a54b58659cb37c93b424b87316f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5d0894b2_4fe933f4",
@@ -47,6 +71,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d312a007_a399d853",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-05-20T13:35:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d0894b2_4fe933f4",
+      "range": {
+        "startLine": 469,
+        "startChar": 23,
+        "endLine": 469,
+        "endChar": 42
+      },
+      "revId": "3f55216dfb3d8a54b58659cb37c93b424b87316f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "50835586_81389877",
@@ -60,6 +108,30 @@
       "writtenOn": "2021-05-20T13:00:33Z",
       "side": 1,
       "message": "may be comment why i \u003d\u003d 0 is special (doesn\u0027t look obvious from code around)",
+      "range": {
+        "startLine": 470,
+        "startChar": 14,
+        "endLine": 470,
+        "endChar": 20
+      },
+      "revId": "3f55216dfb3d8a54b58659cb37c93b424b87316f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccea5c33_33afe587",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-05-20T13:35:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "50835586_81389877",
       "range": {
         "startLine": 470,
         "startChar": 14,
@@ -106,6 +178,54 @@
       "writtenOn": "2021-05-20T13:00:33Z",
       "side": 1,
       "message": "prefer to put value under test as 1st parameter, value it compares to as 2nd",
+      "range": {
+        "startLine": 471,
+        "startChar": 22,
+        "endLine": 471,
+        "endChar": 60
+      },
+      "revId": "3f55216dfb3d8a54b58659cb37c93b424b87316f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0ce1731_b197f210",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-05-20T13:35:53Z",
+      "side": 1,
+      "message": "I tried that initially but couldn\u0027t get it to work. It seems like the implicit cast from uint32_t to double is the problem. I also tried MatcherCast\u003c\u003e without success and can\u0027t find the As\u003cT\u003e I\u0027m sure I\u0027ve seen somewhere. Regardless, I found the extra casts made it messier than separate checks here.",
+      "parentUuid": "d119ca18_c572da90",
+      "range": {
+        "startLine": 471,
+        "startChar": 10,
+        "endLine": 471,
+        "endChar": 21
+      },
+      "revId": "3f55216dfb3d8a54b58659cb37c93b424b87316f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4362aa81_29ee1a4a",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-05-20T13:35:53Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "c611a6de_83fa6bf2",
       "range": {
         "startLine": 471,
         "startChar": 22,

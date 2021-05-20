@@ -22,6 +22,30 @@
       },
       "revId": "a5e0f315eafdc9f5c261a42afd20ea649e895b4b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b3a10e4_8cd8f0e0",
+        "filename": "modules/video_coding/codecs/h264/h264_decoder_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 17659
+      },
+      "writtenOn": "2021-05-20T20:49:43Z",
+      "side": 1,
+      "message": "I am not sure thats a safe thing to do. It might be fine, but my goal here isn\u0027t to change behavior but rather just not rely on a deprecated method. Theres a bug here: https://bugs.chromium.org/p/chromium/issues/detail?id\u003d1211508",
+      "parentUuid": "e656fdef_aca6884d",
+      "range": {
+        "startLine": 264,
+        "startChar": 0,
+        "endLine": 264,
+        "endChar": 39
+      },
+      "revId": "a5e0f315eafdc9f5c261a42afd20ea649e895b4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

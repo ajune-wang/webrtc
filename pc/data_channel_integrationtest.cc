@@ -34,6 +34,9 @@ namespace webrtc {
 
 namespace {
 
+// All tests in this file require SCTP support.
+#ifdef WEBRTC_HAVE_SCTP
+
 class DataChannelIntegrationTest : public PeerConnectionIntegrationBaseTest,
                                    public ::testing::WithParamInterface<
                                        std::tuple<SdpSemantics, std::string>> {
@@ -42,8 +45,6 @@ class DataChannelIntegrationTest : public PeerConnectionIntegrationBaseTest,
       : PeerConnectionIntegrationBaseTest(std::get<0>(GetParam()),
                                           std::get<1>(GetParam())) {}
 };
-
-GTEST_ALLOW_UNINSTANTIATED_PARAMETERIZED_TEST(DataChannelIntegrationTest);
 
 // Fake clock must be set before threads are started to prevent race on
 // Set/GetClockForTesting().
@@ -76,17 +77,12 @@ class DataChannelIntegrationTestPlanB
       : PeerConnectionIntegrationBaseTest(SdpSemantics::kPlanB) {}
 };
 
-GTEST_ALLOW_UNINSTANTIATED_PARAMETERIZED_TEST(
-    DataChannelIntegrationTestWithFakeClock);
-
 class DataChannelIntegrationTestUnifiedPlan
     : public PeerConnectionIntegrationBaseTest {
  protected:
   DataChannelIntegrationTestUnifiedPlan()
       : PeerConnectionIntegrationBaseTest(SdpSemantics::kUnifiedPlan) {}
 };
-
-#ifdef WEBRTC_HAVE_SCTP
 
 // This test causes a PeerConnection to enter Disconnected state, and
 // sends data on a DataChannel while disconnected.

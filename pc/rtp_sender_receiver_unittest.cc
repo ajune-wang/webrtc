@@ -169,6 +169,7 @@ class RtpSenderReceiverTest
     local_stream_ = nullptr;
     video_track_ = nullptr;
     audio_track_ = nullptr;
+    run_loop_.Flush();
     worker_thread_->Invoke<void>(RTC_FROM_HERE,
                                  [&]() { channel_manager_.reset(); });
   }
@@ -352,6 +353,7 @@ class RtpSenderReceiverTest
     video_rtp_receiver_->Stop();
     video_rtp_receiver_ = nullptr;
     VerifyVideoChannelNoOutput();
+    run_loop_.Flush();
   }
 
   void VerifyVoiceChannelInput() { VerifyVoiceChannelInput(kAudioSsrc); }

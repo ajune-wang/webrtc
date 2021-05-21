@@ -9,6 +9,7 @@
  */
 
 #import "RTCCVPixelBuffer.h"
+#include "libyuv/convert.h"
 
 #import "api/video_frame_buffer/RTCNativeMutableI420Buffer.h"
 
@@ -160,54 +161,51 @@
 
   RTC_OBJC_TYPE(RTCMutableI420Buffer)* i420Buffer =
       [[RTC_OBJC_TYPE(RTCMutableI420Buffer) alloc] initWithWidth:[self width] height:[self height]];
+  // Scale the _pixelBuffer if required before converting to I420.
+  CVPixelBufferRef scaledPixelBuffer = NULL;
+  CVPixelBufferRef sourcePixelBuffer = NULL;
+  if ([self requiresCropping] ||
+      [self requiresScalingToWidth:i420Buffer.width height:i420Buffer.height]) {
+    CVPixelBufferCreate(
+        NULL, i420Buffer.width, i420Buffer.height, pixelFormat, NULL, &scaledPixelBuffer);
+    [self cropAndScaleTo:scaledPixelBuffer];
+
+    CVPixelBufferLockBaseAddress(scaledPixelBuffer, kCVPixelBufferLock_ReadOnly);
+    sourcePixelBuffer = scaledPixelBuffer;
+  } else {
+    sourcePixelBuffer = _pixelBuffer;
+  }
 
   switch (pixelFormat) {
     case kCVPixelFormatType_420YpCbCr8BiPlanarFullRange:
     case kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange: {
       const uint8_t* srcY =
-          static_cast<uint8_t*>(CVPixelBufferGetBaseAddressOfPlane(_pixelBuffer, 0));
-      const int srcYStride = CVPixelBufferGetBytesPerRowOfPlane(_pixelBuffer, 0);
+          static_cast<uint8_t*>(CVPixelBufferGetBaseAddressOfPlane(sourcePixelBuffer, 0));
+      const int srcYStride = CVPixelBufferGetBytesPerRowOfPlane(sourcePixelBuffer, 0);
       const uint8_t* srcUV =
-          static_cast<uint8_t*>(CVPixelBufferGetBaseAddressOfPlane(_pixelBuffer, 1));
-      const int srcUVStride = CVPixelBufferGetBytesPerRowOfPlane(_pixelBuffer, 1);
+          static_cast<uint8_t*>(CVPixelBufferGetBaseAddressOfPlane(sourcePixelBuffer, 1));
+      const int srcUVStride = CVPixelBufferGetBytesPerRowOfPlane(sourcePixelBuffer, 1);
 
       // Crop just by modifying pointers.
       srcY += srcYStride * _cropY + _cropX;
       srcUV += srcUVStride * (_cropY / 2) + _cropX;
+      libyuv::NV12ToI420(srcY,
+                         srcYStride,
+                         srcUV,
+                         srcUVStride,
+                         i420Buffer.mutableDataY,
+                         i420Buffer.strideY,
+                         i420Buffer.mutableDataU,
+                         i420Buffer.strideU,
+                         i420Buffer.mutableDataV,
+                         i420Buffer.strideV,
+                         i420Buffer.width,
+                         i420Buffer.height);
 
-      // TODO(magjed): Use a frame buffer pool.
-      webrtc::NV12ToI420Scaler nv12ToI420Scaler;
-      nv12ToI420Scaler.NV12ToI420Scale(srcY,
-                                       srcYStride,
-                                       srcUV,
-                                       srcUVStride,
-                                       _cropWidth,
-                                       _cropHeight,
-                                       i420Buffer.mutableDataY,
-                                       i420Buffer.strideY,
-                                       i420Buffer.mutableDataU,
-                                       i420Buffer.strideU,
-                                       i420Buffer.mutableDataV,
-                                       i420Buffer.strideV,
-                                       i420Buffer.width,
-                                       i420Buffer.height);
       break;
     }
     case kCVPixelFormatType_32BGRA:
     case kCVPixelFormatType_32ARGB: {
-      CVPixelBufferRef scaledPixelBuffer = NULL;
-      CVPixelBufferRef sourcePixelBuffer = NULL;
-      if ([self requiresCropping] ||
-          [self requiresScalingToWidth:i420Buffer.width height:i420Buffer.height]) {
-        CVPixelBufferCreate(
-            NULL, i420Buffer.width, i420Buffer.height, pixelFormat, NULL, &scaledPixelBuffer);
-        [self cropAndScaleTo:scaledPixelBuffer];
-
-        CVPixelBufferLockBaseAddress(scaledPixelBuffer, kCVPixelBufferLock_ReadOnly);
-        sourcePixelBuffer = scaledPixelBuffer;
-      } else {
-        sourcePixelBuffer = _pixelBuffer;
-      }
       const uint8_t* src = static_cast<uint8_t*>(CVPixelBufferGetBaseAddress(sourcePixelBuffer));
       const size_t bytesPerRow = CVPixelBufferGetBytesPerRow(sourcePixelBuffer);
 
@@ -236,14 +234,13 @@
                            i420Buffer.width,
                            i420Buffer.height);
       }
-
-      if (scaledPixelBuffer) {
-        CVPixelBufferUnlockBaseAddress(scaledPixelBuffer, kCVPixelBufferLock_ReadOnly);
-        CVBufferRelease(scaledPixelBuffer);
-      }
       break;
     }
     default: { RTC_NOTREACHED() << "Unsupported pixel format."; }
+  }
+  if (scaledPixelBuffer) {
+    CVPixelBufferUnlockBaseAddress(scaledPixelBuffer, kCVPixelBufferLock_ReadOnly);
+    CVBufferRelease(scaledPixelBuffer);
   }
 
   CVPixelBufferUnlockBaseAddress(_pixelBuffer, kCVPixelBufferLock_ReadOnly);

@@ -20,6 +20,7 @@
 
 #include <vector>
 
+#include "absl/base/attributes.h"
 #include "api/scoped_refptr.h"
 #include "api/video/video_frame.h"
 #include "api/video/video_frame_buffer.h"
@@ -100,7 +101,8 @@ double I420SSIM(const I420BufferInterface& ref_buffer,
 // Helper class for directly converting and scaling NV12 to I420. The Y-plane
 // will be scaled directly to the I420 destination, which makes this faster
 // than separate NV12->I420 + I420->I420 scaling.
-class RTC_EXPORT NV12ToI420Scaler {
+class RTC_EXPORT ABSL_DEPRECATED(
+    "Use libyuv::NV12Scale and libyuv::NV12ToI420 instead.") NV12ToI420Scaler {
  public:
   NV12ToI420Scaler();
   ~NV12ToI420Scaler();

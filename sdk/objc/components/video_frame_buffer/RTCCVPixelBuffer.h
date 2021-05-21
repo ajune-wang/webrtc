@@ -40,12 +40,11 @@ RTC_OBJC_EXPORT
 - (BOOL)requiresScalingToWidth:(int)width height:(int)height;
 - (int)bufferSizeForCroppingAndScalingToWidth:(int)width height:(int)height;
 
-/** The minimum size of the |tmpBuffer| must be the number of bytes returned from the
- * bufferSizeForCroppingAndScalingToWidth:height: method.
- * If that size is 0, the |tmpBuffer| may be nil.
- */
+/** Deprecated: tmpBuffer is unused */
 - (BOOL)cropAndScaleTo:(CVPixelBufferRef)outputPixelBuffer
-        withTempBuffer:(nullable uint8_t *)tmpBuffer;
+        withTempBuffer:(nullable uint8_t *)tmpBuffer DEPRECATED_ATTRIBUTE;
+
+- (BOOL)cropAndScaleTo:(CVPixelBufferRef)outputPixelBuffer;
 
 @end
 

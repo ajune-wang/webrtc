@@ -33,6 +33,57 @@
       "message": "Friendly ping - land it or strand it?",
       "revId": "09b1342ffb889196f0b1efe7bf872a730182fd62",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "502e0382_3ded896e",
+        "filename": "rtc_base/thread.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 914,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-05-21T06:30:39Z",
+      "side": 1,
+      "message": "nit: Since there\u0027s no SendTask, suggest just \"Send\".\nAlternatively, if this is meant to be used for Invoke(), then the method could be called CheckThreadPoliciesBeforeInvoke().\n\nActually, since the current thread will be implicitly used, what about:\n\nCheckInvokePoliciesForCurrentThread()?\n\nThat also implies that it\u0027s OK to use the function wherever, not only before Send.",
+      "revId": "09b1342ffb889196f0b1efe7bf872a730182fd62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "149b25af_608e7803",
+        "filename": "rtc_base/thread.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 920,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-05-21T06:30:39Z",
+      "side": 1,
+      "message": "Since the function is used now independently of Send/Invoke, then this counter can\u0027t be inside this function. The functionality needs to somehow continue to be a part of the actual operation, not only checking the policies.",
+      "revId": "09b1342ffb889196f0b1efe7bf872a730182fd62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb4012b5_8b3ff8a4",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-05-21T06:30:39Z",
+      "side": 1,
+      "message": "can you improve the docs a bit? Explain what the function does, why it\u0027s needed and if there\u0027s specific context that\u0027s assumed (e.g. before Send()), give a brief usage example.",
+      "revId": "09b1342ffb889196f0b1efe7bf872a730182fd62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

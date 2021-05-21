@@ -108,6 +108,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a03334cc_d0a3a8a8",
+        "filename": "rtc_base/thread.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 949,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-05-21T06:30:39Z",
+      "side": 1,
+      "message": "Artem - I think we shouldn\u0027t consider that to be allowed.\n\nThe conceptual threads, signaling, worker and network, are the concepts that need to follow the policies. The policies are the rules that the code needs to be aware of and respect.  If our tests set all those three conceptual pointers to point to the same thread instance, then all of a sudden they bypass all the policies (as many tests do), then we\u0027ve lost some of the benefits of the policies.",
+      "parentUuid": "6ed7c2a0_e9661cab",
+      "revId": "1a4b13333d6b914de6fe835e3fc588d0cb448b7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "75b1359f_f16b1e54",

@@ -33,6 +33,7 @@
 #include "rtc_base/gunit.h"
 #include "rtc_base/virtual_socket_server.h"
 #include "test/gmock.h"
+#include "test/run_loop.h"
 
 namespace webrtc {
 
@@ -189,6 +190,10 @@ class PeerConnectionMediaTestUnifiedPlan : public PeerConnectionMediaBaseTest {
  protected:
   PeerConnectionMediaTestUnifiedPlan()
       : PeerConnectionMediaBaseTest(SdpSemantics::kUnifiedPlan) {}
+
+  ~PeerConnectionMediaTestUnifiedPlan() override { run_loop_.Flush(); }
+
+  test::RunLoop run_loop_;
 };
 
 class PeerConnectionMediaTestPlanB : public PeerConnectionMediaBaseTest {

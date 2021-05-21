@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1dec3931_b58f1c71",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17724
+      },
+      "writtenOn": "2021-05-21T18:24:42Z",
+      "side": 1,
+      "message": "Ted - I\u0027m unclear if decode attempts will need to retain a reference on a reference counted avpacket for future reading of frames if there is no frame produced immediately for a packet sent for decode. They were previously using on-the-stack packets. Would those have been internally refcounted by ffmpeg? With the switch to packet_alloc, are those now refcounted? webrtc case seems simpler than media pipeline\u0027s case, since it looks like they\u0027re not expecting out-of-order decodes -- but that may not guarantee outputs are immediately ready. The reason for concern is that an unrefcounted packet is internally copied by ffmpeg, while a refcounted one isn\u0027t. And if the change in webrtc is to now use refcounting, ffmpeg internally might still be expecting the packet to be alive afer the free (in this change) has occurred (instead of unref). See avcodec_send_packet() documentation in lavc/avcodec.h and examples in docs/examples/decode_video.c",
+      "revId": "7a5a7b61813a305b8143be9e394597fa17e46acc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

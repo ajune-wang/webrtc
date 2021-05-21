@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "594e91e9_fb9e8430",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17659
+      },
+      "writtenOn": "2021-05-21T19:20:14Z",
+      "side": 1,
+      "message": "So I looked up whats going on here - the packets don\u0027t actually appear to be refcounted at all, its just horribly named functions. av_packet_unref just zeros out the struct, and av_packet_ref(AVPacket*dest, AVPacket*src) just makes a deep copy.",
+      "parentUuid": "1dec3931_b58f1c71",
+      "revId": "7a5a7b61813a305b8143be9e394597fa17e46acc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "424442e5_b28d2b46",
@@ -31,6 +49,24 @@
       "writtenOn": "2021-05-21T18:33:52Z",
       "side": 1,
       "message": "For more robust freeing, I suggest using unique_ptr with custom deleter that calls packet_free (like chromium\u0027s ScopedAVPacket), and possibly put this into a smaller scope so it gets auto-freed after use (if continuing with alloc+free for each frame).",
+      "revId": "7a5a7b61813a305b8143be9e394597fa17e46acc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09d7bd19_0c634a64",
+        "filename": "modules/video_coding/codecs/h264/h264_decoder_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 17659
+      },
+      "writtenOn": "2021-05-21T19:20:14Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "424442e5_b28d2b46",
       "revId": "7a5a7b61813a305b8143be9e394597fa17e46acc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

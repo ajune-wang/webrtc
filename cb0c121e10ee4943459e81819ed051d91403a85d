@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a53e88b9_b100c8d9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17724
+      },
+      "writtenOn": "2021-05-21T19:38:48Z",
+      "side": 1,
+      "message": "ScopedAVPacket LGTM (% separate chat about making our downstream avcodec_send_packet() raise merge conflict during future rolls if their internal copy-the-input-packet semantic ever changes upstream). Thanks for looking into this, Ted!",
+      "revId": "cb0c121e10ee4943459e81819ed051d91403a85d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

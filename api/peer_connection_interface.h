@@ -918,9 +918,21 @@ class RTC_EXPORT PeerConnectionInterface : public rtc::RefCountInterface {
   // Also, calling CreateDataChannel is the only way to get a data "m=" section
   // in SDP, so it should be done before CreateOffer is called, if the
   // application plans to use data channels.
+  virtual RTCErrorOr<rtc::scoped_refptr<DataChannelInterface>>
+  CreateDataChannelOrError(const std::string& label,
+                           const DataChannelInit* config) = 0;
+  // TODO(crbug.com/788659): Remove "virtual" once mock in Chrome is fixed.
+  ABSL_DEPRECATED("Use CreateDataChannelOrError")
   virtual rtc::scoped_refptr<DataChannelInterface> CreateDataChannel(
       const std::string& label,
-      const DataChannelInit* config) = 0;
+      const DataChannelInit* config) {
+    auto result = CreateDataChannelOrError(label, config);
+    if (!result.ok()) {
+      return nullptr;
+    } else {
+      return result.MoveValue();
+    }
+  }
 
   // NOTE: For the following 6 methods, it's only safe to dereference the
   // SessionDescriptionInterface on signaling_thread() (for example, calling

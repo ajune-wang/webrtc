@@ -33,6 +33,23 @@
       "message": "Adding Xavier and Kari since I\u0027m touching on Swift and JNI interfaces.\n",
       "revId": "91d1255bc8645ac18512d51399db351c7801396b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e7253ba_b3d11a39",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-21T08:52:06Z",
+      "side": 1,
+      "message": "Note: Chrome won\u0027t compile for now, https://chromium-review.googlesource.com/c/chromium/src/+/2910778 is intending to permanently fix this problem.\n",
+      "revId": "91d1255bc8645ac18512d51399db351c7801396b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -88,6 +88,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c7808be_0f1cb788",
+        "filename": "api/proxy.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-21T11:53:02Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d08d2025_fb6a87ec",
+      "revId": "c761da8505cbf855fbd10d614f85c12315d40f4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5421836f_47b0a26f",
@@ -119,6 +137,24 @@
       "side": 1,
       "message": "I tried that and also tried static constexpr, but ran into build issues since the static will need to belong to a single compilation unit and since this ends up being inside of the macros, we can end up with multiple definitions. There might be some neater trick but after a few tries, I ended with this which does add a pointer size variable to each proxy class. Not ideal but not terrible either I guess.",
       "parentUuid": "5421836f_47b0a26f",
+      "revId": "c761da8505cbf855fbd10d614f85c12315d40f4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f1c1e0b_2e996a14",
+        "filename": "api/proxy.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-21T11:53:02Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "095de1f1_3fe4fe8a",
       "revId": "c761da8505cbf855fbd10d614f85c12315d40f4e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

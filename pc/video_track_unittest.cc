@@ -19,6 +19,7 @@
 #include "pc/video_track_source.h"
 #include "rtc_base/ref_counted_object.h"
 #include "test/gtest.h"
+#include "test/run_loop.h"
 
 using webrtc::FakeVideoTrackRenderer;
 using webrtc::FakeVideoTrackSource;
@@ -38,7 +39,10 @@ class VideoTrackTest : public ::testing::Test {
                                       rtc::Thread::Current());
   }
 
+  ~VideoTrackTest() { run_loop_.Flush(); }
+
  protected:
+  webrtc::test::RunLoop run_loop_;
   rtc::scoped_refptr<FakeVideoTrackSource> video_track_source_;
   rtc::scoped_refptr<VideoTrackInterface> video_track_;
   cricket::FakeFrameSource frame_source_;
@@ -48,6 +52,7 @@ class VideoTrackTest : public ::testing::Test {
 TEST_F(VideoTrackTest, SourceStateChangeTrackState) {
   EXPECT_EQ(MediaStreamTrackInterface::kLive, video_track_->state());
   video_track_source_->SetState(MediaSourceInterface::kEnded);
+  run_loop_.Flush();
   EXPECT_EQ(MediaStreamTrackInterface::kEnded, video_track_->state());
 }
 

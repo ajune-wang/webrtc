@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c1cff7e_fb358553",
+        "filename": "api/proxy.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-05-21T06:50:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e7f1434_91e81047",
+      "revId": "c761da8505cbf855fbd10d614f85c12315d40f4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0d658fb3_5310f13e",
@@ -54,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d08d2025_fb6a87ec",
+        "filename": "api/proxy.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-05-21T06:50:06Z",
+      "side": 1,
+      "message": "the 2 level macro expansion is a trick to convert a macro argument to a string.\nHere\u0027s an explanation of how it works: https://gcc.gnu.org/onlinedocs/cpp/Stringizing.html",
+      "parentUuid": "0d658fb3_5310f13e",
+      "revId": "c761da8505cbf855fbd10d614f85c12315d40f4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5421836f_47b0a26f",
         "filename": "api/proxy.h",
         "patchSetId": 6
@@ -65,6 +101,24 @@
       "writtenOn": "2021-05-21T06:24:16Z",
       "side": 1,
       "message": "Could this even be \"static const char\" so that we link it only once per class, or is initialization convoluted if you do that?",
+      "revId": "c761da8505cbf855fbd10d614f85c12315d40f4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "095de1f1_3fe4fe8a",
+        "filename": "api/proxy.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-05-21T06:50:06Z",
+      "side": 1,
+      "message": "I tried that and also tried static constexpr, but ran into build issues since the static will need to belong to a single compilation unit and since this ends up being inside of the macros, we can end up with multiple definitions. There might be some neater trick but after a few tries, I ended with this which does add a pointer size variable to each proxy class. Not ideal but not terrible either I guess.",
+      "parentUuid": "5421836f_47b0a26f",
       "revId": "c761da8505cbf855fbd10d614f85c12315d40f4e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

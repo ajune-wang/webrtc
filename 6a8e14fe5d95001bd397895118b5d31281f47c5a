@@ -16,6 +16,40 @@
       "message": "Looks good to me for the Android/JNI parts",
       "revId": "6a8e14fe5d95001bd397895118b5d31281f47c5a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1ff590e_51700058",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-21T21:37:32Z",
+      "side": 1,
+      "message": "Looks good, but I\u0027ll let hbos do the final signoff.\n",
+      "revId": "6a8e14fe5d95001bd397895118b5d31281f47c5a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e8d8a8d_deac6986",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-21T21:37:32Z",
+      "side": 1,
+      "message": "watch out for commonly used names like \"internal\". would it be better to call it rtc_stats_internal?",
+      "revId": "6a8e14fe5d95001bd397895118b5d31281f47c5a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

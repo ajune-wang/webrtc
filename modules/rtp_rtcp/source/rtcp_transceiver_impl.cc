@@ -35,6 +35,7 @@
 #include "rtc_base/task_utils/repeating_task.h"
 #include "rtc_base/task_utils/to_queued_task.h"
 #include "rtc_base/time_utils.h"
+#include "system_wrappers/include/ntp_time.h"
 
 namespace webrtc {
 namespace {

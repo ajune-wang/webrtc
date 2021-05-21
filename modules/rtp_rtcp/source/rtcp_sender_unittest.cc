@@ -160,7 +160,7 @@ TEST_F(RtcpSenderTest, SendSr) {
   rtcp_sender->SetSendingStatus(feedback_state, true);
   feedback_state.packets_sent = kPacketCount;
   feedback_state.media_bytes_sent = kOctetCount;
-  NtpTime ntp = TimeMicrosToNtp(clock_.TimeInMicroseconds());
+  NtpTime ntp = clock_.CurrentNtpTime();
   EXPECT_EQ(0, rtcp_sender->SendRTCP(feedback_state, kRtcpSr));
   EXPECT_EQ(1, parser()->sender_report()->num_packets());
   EXPECT_EQ(kSenderSsrc, parser()->sender_report()->sender_ssrc());
@@ -516,7 +516,7 @@ TEST_F(RtcpSenderTest, SendXrWithRrtr) {
   auto rtcp_sender = CreateRtcpSender(config);
   rtcp_sender->SetRTCPStatus(RtcpMode::kCompound);
   rtcp_sender->SetSendingStatus(feedback_state(), false);
-  NtpTime ntp = TimeMicrosToNtp(clock_.TimeInMicroseconds());
+  NtpTime ntp = clock_.CurrentNtpTime();
   EXPECT_EQ(0, rtcp_sender->SendRTCP(feedback_state(), kRtcpReport));
   EXPECT_EQ(1, parser()->xr()->num_packets());
   EXPECT_EQ(kSenderSsrc, parser()->xr()->sender_ssrc());

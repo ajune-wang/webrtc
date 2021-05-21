@@ -11,6 +11,7 @@
 #include "pc/video_track.h"
 
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "api/notifier.h"
@@ -18,21 +19,57 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/location.h"
 #include "rtc_base/ref_counted_object.h"
+#include "rtc_base/task_utils/to_queued_task.h"
 
 namespace webrtc {
+
+VideoTrack::SourceObserver::SourceObserver(VideoTrack* track)
+    : track_(track),
+      worker_thread_(track->worker_thread_),
+      worker_safety_(track->worker_safety_) {
+  RTC_DCHECK_RUN_ON(&signaling_thread_);
+  RTC_DCHECK(worker_thread_);
+  RTC_DCHECK(worker_safety_);
+}
+
+VideoTrack::SourceObserver::~SourceObserver() {
+  RTC_DCHECK_RUN_ON(&signaling_thread_);
+}
+
+void VideoTrack::SourceObserver::OnChanged() {
+  RTC_DCHECK_RUN_ON(&signaling_thread_);
+  auto state = track_->video_source_->state();
+  worker_thread_->PostTask(ToQueuedTask(worker_safety_, [this, state]() {
+    track_->OnVideoSourceStateChanged(state);
+  }));
+}
 
 VideoTrack::VideoTrack(const std::string& label,
                        VideoTrackSourceInterface* video_source,
                        rtc::Thread* worker_thread)
     : MediaStreamTrack<VideoTrackInterface>(label),
+      signaling_thread_(rtc::Thread::Current()),
       worker_thread_(worker_thread),
+      worker_safety_(PendingTaskSafetyFlag::CreateDetached()),
       video_source_(video_source),
-      content_hint_(ContentHint::kNone) {
-  video_source_->RegisterObserver(this);
+      content_hint_(ContentHint::kNone),
+      observer_(new SourceObserver(this)) {
+  RTC_DCHECK_EQ(video_source_->state(), MediaSourceInterface::kLive);
+  // Detach the thread checker for VideoSourceBaseGuarded since we'll make calls
+  // to VideoSourceBaseGuarded on the worker thread, but we're currently on the
+  // signaling thread.
+  source_sequence_.Detach();
+  video_source_->RegisterObserver(observer_.get());
 }
 
 VideoTrack::~VideoTrack() {
-  video_source_->UnregisterObserver(this);
+  RTC_DCHECK_RUN_ON(worker_thread_);
+  worker_safety_->SetNotAlive();
+  signaling_thread_->PostTask(ToQueuedTask(
+      [source = std::move(video_source_), observer = observer_.release()]() {
+        source->UnregisterObserver(observer);
+        delete observer;
+      }));
 }
 
 std::string VideoTrack::kind() const {
@@ -43,26 +80,31 @@ std::string VideoTrack::kind() const {
 // thread.
 void VideoTrack::AddOrUpdateSink(rtc::VideoSinkInterface<VideoFrame>* sink,
                                  const rtc::VideoSinkWants& wants) {
-  RTC_DCHECK(worker_thread_->IsCurrent());
-  VideoSourceBase::AddOrUpdateSink(sink, wants);
+  RTC_DCHECK_RUN_ON(worker_thread_);
+  VideoSourceBaseGuarded::AddOrUpdateSink(sink, wants);
   rtc::VideoSinkWants modified_wants = wants;
   modified_wants.black_frames = !enabled();
   video_source_->AddOrUpdateSink(sink, modified_wants);
 }
 
 void VideoTrack::RemoveSink(rtc::VideoSinkInterface<VideoFrame>* sink) {
-  RTC_DCHECK(worker_thread_->IsCurrent());
-  VideoSourceBase::RemoveSink(sink);
+  RTC_DCHECK_RUN_ON(worker_thread_);
+  VideoSourceBaseGuarded::RemoveSink(sink);
   video_source_->RemoveSink(sink);
 }
 
+VideoTrackSourceInterface* VideoTrack::GetSource() const {
+  RTC_DCHECK_RUN_ON(signaling_thread_);
+  return video_source_.get();
+}
+
 VideoTrackInterface::ContentHint VideoTrack::content_hint() const {
-  RTC_DCHECK_RUN_ON(&signaling_thread_checker_);
+  RTC_DCHECK_RUN_ON(worker_thread_);
   return content_hint_;
 }
 
 void VideoTrack::set_content_hint(ContentHint hint) {
-  RTC_DCHECK_RUN_ON(&signaling_thread_checker_);
+  RTC_DCHECK_RUN_ON(worker_thread_);
   if (content_hint_ == hint)
     return;
   content_hint_ = hint;
@@ -70,25 +112,29 @@ void VideoTrack::set_content_hint(ContentHint hint) {
 }
 
 bool VideoTrack::set_enabled(bool enable) {
-  RTC_DCHECK(signaling_thread_checker_.IsCurrent());
-  worker_thread_->Invoke<void>(RTC_FROM_HERE, [enable, this] {
-    RTC_DCHECK(worker_thread_->IsCurrent());
-    for (auto& sink_pair : sink_pairs()) {
-      rtc::VideoSinkWants modified_wants = sink_pair.wants;
-      modified_wants.black_frames = !enable;
-      video_source_->AddOrUpdateSink(sink_pair.sink, modified_wants);
-    }
-  });
+  RTC_DCHECK_RUN_ON(worker_thread_);
+  for (auto& sink_pair : sink_pairs()) {
+    rtc::VideoSinkWants modified_wants = sink_pair.wants;
+    modified_wants.black_frames = !enable;
+    video_source_->AddOrUpdateSink(sink_pair.sink, modified_wants);
+  }
   return MediaStreamTrack<VideoTrackInterface>::set_enabled(enable);
 }
 
-void VideoTrack::OnChanged() {
-  RTC_DCHECK(signaling_thread_checker_.IsCurrent());
-  if (video_source_->state() == MediaSourceInterface::kEnded) {
-    set_state(kEnded);
-  } else {
-    set_state(kLive);
-  }
+bool VideoTrack::enabled() const {
+  RTC_DCHECK_RUN_ON(worker_thread_);
+  return MediaStreamTrack<VideoTrackInterface>::enabled();
+}
+
+MediaStreamTrackInterface::TrackState VideoTrack::state() const {
+  RTC_DCHECK_RUN_ON(worker_thread_);
+  return MediaStreamTrack<VideoTrackInterface>::state();
+}
+
+void VideoTrack::OnVideoSourceStateChanged(
+    MediaSourceInterface::SourceState state) {
+  RTC_DCHECK_RUN_ON(worker_thread_);
+  set_state(state == MediaSourceInterface::kEnded ? kEnded : kLive);
 }
 
 rtc::scoped_refptr<VideoTrack> VideoTrack::Create(

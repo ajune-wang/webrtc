@@ -126,6 +126,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e8f240f_f4a1f738",
+        "filename": "rtc_base/thread.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 949,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-05-21T12:39:38Z",
+      "side": 1,
+      "message": "It makes sense. I\u0027ll check it next week. Also invokes to itself might be removed in some places, I suppose.",
+      "parentUuid": "a03334cc_d0a3a8a8",
+      "revId": "1a4b13333d6b914de6fe835e3fc588d0cb448b7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "75b1359f_f16b1e54",

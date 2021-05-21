@@ -50,6 +50,24 @@
       "message": "On the second thought, it\u0027s not a bad change. It\u0027s just confusing how total_streams_count and active_streams_count are mixed there... it relies on the logic below, where encoders are created only for active layers.\n\nMaybe separate the second part of the condition to a named bool separate_encoders_needed. Which is set to !supports_simulcast || active_count \u003d\u003d 1. Add a comment to it clarifying, that in case of one active stream it\u0027s better to create single encoder with only one configured layer than creating it with all-but-one disabled layers because that way we control scaling.\n",
       "revId": "b4d769bddb78a75dd36c2f8cb1b150355036eb97",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2326f830_93984cd4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-05-21T10:00:20Z",
+      "side": 1,
+      "message": "That\u0027s a good suggestion that makes the code less confusing. Done.\n\nHaving all-but-one-active layer be the same as a single-layer encoder does allow us to more predictably control scaling, but I agree a simulcast-capable encoder shouldn\u0027t do unnecessary scaling either.\n\nI did try to patch LibvpxVp8Encoder previously but got null pointer dereference crashes for the layers that I avoided scaling. Maybe I did something wrong (in some cases the layer indices are reversed, hmm) or maybe they\u0027re required by libvpx. In any case, considering the small gains in relation to the amount of time I\u0027ve spent on scaling projects, I\u0027d like to land only the low-hanging fruit CLs and move on to higher-impact projects rather than debugging this further.",
+      "parentUuid": "b128ca59_68130966",
+      "revId": "b4d769bddb78a75dd36c2f8cb1b150355036eb97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -13,6 +13,7 @@
 #include <string.h>
 
 #include <cmath>
+#include <cstdint>
 #include <limits>
 
 #include "modules/rtp_rtcp/include/rtp_cvo.h"
@@ -848,6 +849,59 @@ bool VideoFrameTrackingIdExtension::Write(rtc::ArrayView<uint8_t> data,
                                           uint16_t video_frame_tracking_id) {
   RTC_DCHECK_EQ(data.size(), kValueSizeBytes);
   ByteWriter<uint16_t>::WriteBigEndian(data.data(), video_frame_tracking_id);
+  return true;
+}
+
+// An RTP Header Extension for Mixer-to-Client Audio Level Indication
+//
+// https://tools.ietf.org/html/rfc6465
+//
+// The form of the audio level extension block:
+//
+//  0                   1                   2                   3
+//  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+// +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+// |  ID   | len=2 |0|   level 1   |0|   level 2   |0|   level 3   |
+// +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+// Sample Audio Level Encoding Using the One-Byte Header Format
+//
+//  0                   1                   2                   3
+//  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+// +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+// |      ID       |     len=3     |0|   level 1   |0|   level 2   |
+// +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+// |0|   level 3   |    0 (pad)    |               ...             |
+// +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+// Sample Audio Level Encoding Using the Two-Byte Header Format
+
+constexpr RTPExtensionType CsrcAudioLevel::kId;
+constexpr const char CsrcAudioLevel::kUri[];
+
+bool CsrcAudioLevel::Parse(rtc::ArrayView<const uint8_t> data,
+                           CsrcAudioLevelList* csrc_audio_levels) {
+  if (data.size() > kRtpCsrcSize) {
+    return false;
+  }
+  csrc_audio_levels->numAudioLevels = data.size();
+  for (uint8_t i = 0; i < csrc_audio_levels->numAudioLevels; i++) {
+    csrc_audio_levels->arrOfAudioLevels[i] = data[i] & 0x7F;
+  }
+  return true;
+}
+
+size_t CsrcAudioLevel::ValueSize(const CsrcAudioLevelList& csrc_audio_levels) {
+  return csrc_audio_levels.numAudioLevels;
+}
+
+bool CsrcAudioLevel::Write(rtc::ArrayView<uint8_t> data,
+                           const CsrcAudioLevelList& csrc_audio_levels) {
+  RTC_CHECK_LE(csrc_audio_levels.numAudioLevels, kRtpCsrcSize);
+  if (csrc_audio_levels.numAudioLevels <= 0) {
+    return false;
+  }
+  for (int i = 0; i < csrc_audio_levels.numAudioLevels; i++) {
+    data[i] = csrc_audio_levels.arrOfAudioLevels[i] & 0x7F;
+  }
   return true;
 }
 

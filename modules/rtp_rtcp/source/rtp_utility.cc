@@ -20,6 +20,7 @@
 #include "api/video/video_rotation.h"
 #include "api/video/video_timing.h"
 #include "modules/rtp_rtcp/include/rtp_cvo.h"
+#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/rtp_rtcp/source/byte_io.h"
 #include "modules/rtp_rtcp/source/rtp_header_extensions.h"
 #include "modules/video_coding/codecs/interface/common_constants.h"
@@ -405,6 +406,14 @@ void RtpHeaderParser::ParseOneByteExtensionHeader(
             return;
           }
           header->extension.absolute_capture_time = extension;
+          break;
+        }
+        case kRtpExtensionCsrcAudioLevel: {
+          header->extension.csrcAudioLevels.numAudioLevels = len;
+          for (int i = 0; i < len; i++) {
+            header->extension.csrcAudioLevels.arrOfAudioLevels[i] =
+                ptr[i] & 0x7F;
+          }
           break;
         }
         case kRtpExtensionVideoRotation: {

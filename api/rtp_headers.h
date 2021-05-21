@@ -89,6 +89,19 @@ inline bool operator!=(const AbsoluteCaptureTime& lhs,
   return !(lhs == rhs);
 }
 
+enum { kRtpCsrcSize = 15 };  // RFC 3550 page 13
+
+// Audio level of CSRCs. See: https://tools.ietf.org/html/rfc6465
+struct CsrcAudioLevelList {
+  CsrcAudioLevelList() : numAudioLevels(0) {}
+  CsrcAudioLevelList(const CsrcAudioLevelList&) = default;
+  CsrcAudioLevelList& operator=(const CsrcAudioLevelList&) = default;
+
+  uint8_t numAudioLevels;
+  // arrOfAudioLevels has the same ordering as RTPHeader.arrOfCSRCs
+  uint8_t arrOfAudioLevels[kRtpCsrcSize];
+};
+
 struct RTPHeaderExtension {
   RTPHeaderExtension();
   RTPHeaderExtension(const RTPHeaderExtension& other);
@@ -127,6 +140,10 @@ struct RTPHeaderExtension {
   bool voiceActivity;
   uint8_t audioLevel;
 
+  // Per-CSRC audio levels in dBov.
+  // See https://tools.ietf.org/html/rfc6465
+  CsrcAudioLevelList csrcAudioLevels;
+
   // For Coordination of Video Orientation. See
   // http://www.etsi.org/deliver/etsi_ts/126100_126199/126114/12.07.00_60/
   // ts_126114v120700p.pdf
@@ -154,8 +171,6 @@ struct RTPHeaderExtension {
 
   absl::optional<ColorSpace> color_space;
 };
-
-enum { kRtpCsrcSize = 15 };  // RFC 3550 page 13
 
 struct RTPHeader {
   RTPHeader();

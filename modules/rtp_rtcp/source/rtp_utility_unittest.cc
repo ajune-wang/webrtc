@@ -18,6 +18,7 @@
 namespace webrtc {
 namespace {
 
+using ::testing::ElementsAre;
 using ::testing::ElementsAreArray;
 using ::testing::make_tuple;
 
@@ -149,14 +150,16 @@ TEST(RtpHeaderParser, ParseWithOverSizedExtension) {
   EXPECT_EQ(sizeof(kPacket), header.headerLength);
 }
 
-TEST(RtpHeaderParser, ParseAll9Extensions) {
+TEST(RtpHeaderParser, ParseAll10Extensions) {
   const uint8_t kAudioLevel = 0x5a;
+
   // clang-format off
   const uint8_t kPacket[] = {
-      0x90, kPayloadType, 0x00, kSeqNum,
+      0x91, kPayloadType, 0x00, kSeqNum,
       0x65, 0x43, 0x12, 0x78,  // kTimestamp.
       0x12, 0x34, 0x56, 0x78,  // kSsrc.
-      0xbe, 0xde, 0x00, 0x0c,  // Extension of size 12x32bit words.
+      0x32, 0x43, 0x54, 0x65,  // kCsrc[0]
+      0xbe, 0xde, 0x00, 0x0d,  // Extension of size 13x32bit words.
       0x40, 0x80|kAudioLevel,  // AudioLevel.
       0x22, 0x01, 0x56, 0xce,  // TransmissionOffset.
       0x62, 0x12, 0x34, 0x56,  // AbsoluteSendTime.
@@ -169,7 +172,8 @@ TEST(RtpHeaderParser, ParseAll9Extensions) {
       0xb2, 0x12, 0x48, 0x76,  // PlayoutDelayLimits.
       0xc2, 'r', 't', 'x',     // RtpStreamId
       0xd5, 's', 't', 'r', 'e', 'a', 'm',  // RepairedRtpStreamId
-      0x00,                    // Padding to 32bit boundary.
+      0xe1, 0x02,              // CsrcAudioLevel
+      0x00, 0x00, 0x00         // Padding to 32bit boundary.
   };
   // clang-format on
   ASSERT_EQ(sizeof(kPacket) % 4, 0u);
@@ -184,6 +188,7 @@ TEST(RtpHeaderParser, ParseAll9Extensions) {
   extensions.Register<PlayoutDelayLimits>(0xb);
   extensions.Register<RtpStreamId>(0xc);
   extensions.Register<RepairedRtpStreamId>(0xd);
+  extensions.Register<CsrcAudioLevel>(0xe);
   RtpUtility::RtpHeaderParser parser(kPacket, sizeof(kPacket));
   RTPHeader header;
 
@@ -219,6 +224,9 @@ TEST(RtpHeaderParser, ParseAll9Extensions) {
             header.extension.playout_delay.max_ms);
   EXPECT_EQ(header.extension.stream_id, "rtx");
   EXPECT_EQ(header.extension.repaired_stream_id, "stream");
+
+  EXPECT_EQ(1, header.extension.csrcAudioLevels.numAudioLevels);
+  EXPECT_EQ(2, header.extension.csrcAudioLevels.arrOfAudioLevels[0]);
 }
 
 TEST(RtpHeaderParser, ParseMalformedRsidExtensions) {
@@ -280,6 +288,43 @@ TEST(RtpHeaderParser, ParseWithCsrcsExtensionAndPadding) {
               header.headerLength);
   EXPECT_TRUE(header.extension.hasTransmissionTimeOffset);
   EXPECT_EQ(0x56ce, header.extension.transmissionTimeOffset);
+}
+
+TEST(RtpHeaderParser, ParseWithCsrcAudioLevelExtensionAndPadding) {
+  const uint8_t kPacketPaddingSize = 7;
+  const uint32_t kCsrcs[] = {0x34567890, 0x32435465};
+  const size_t kPayloadSize = 7;
+  // clang-format off
+  const uint8_t kPacket[] = {
+    0xb2, kPayloadType, 0x00, kSeqNum,
+    0x65, 0x43, 0x12, 0x78,  // kTimestamp.
+    0x12, 0x34, 0x56, 0x78,  // kSsrc.
+    0x34, 0x56, 0x78, 0x90,  // kCsrcs[0].
+    0x32, 0x43, 0x54, 0x65,  // kCsrcs[1].
+    0xbe, 0xde, 0x00, 0x01,  // Extension.
+    0x12, 0x05, 0x15,  // CSRC audio level extension id = 1 and lelves (5, 21)
+    'p', 'a', 'y', 'l', 'o', 'a', 'd',
+    'p', 'a', 'd', 'd', 'i', 'n', 'g', kPacketPaddingSize};
+  // clang-format on
+  RtpHeaderExtensionMap extensions;
+  extensions.Register<CsrcAudioLevel>(1);
+  RtpUtility::RtpHeaderParser parser(kPacket, sizeof(kPacket));
+  RTPHeader header;
+
+  EXPECT_TRUE(parser.Parse(&header, &extensions));
+
+  EXPECT_EQ(kPayloadType, header.payloadType);
+  EXPECT_EQ(kSeqNum, header.sequenceNumber);
+  EXPECT_EQ(kTimestamp, header.timestamp);
+  EXPECT_EQ(kSsrc, header.ssrc);
+  EXPECT_THAT(make_tuple(header.arrOfCSRCs, header.numCSRCs),
+              ElementsAreArray(kCsrcs));
+  EXPECT_EQ(kPacketPaddingSize, header.paddingLength);
+  EXPECT_THAT(sizeof(kPacket) - kPayloadSize - kPacketPaddingSize,
+              header.headerLength);
+  EXPECT_EQ(2, header.extension.csrcAudioLevels.numAudioLevels);
+  EXPECT_EQ(5, header.extension.csrcAudioLevels.arrOfAudioLevels[0]);
+  EXPECT_EQ(21, header.extension.csrcAudioLevels.arrOfAudioLevels[1]);
 }
 
 }  // namespace webrtc

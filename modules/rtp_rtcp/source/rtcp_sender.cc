@@ -40,6 +40,7 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_conversions.h"
 #include "rtc_base/trace_event.h"
+#include "system_wrappers/include/ntp_time.h"
 
 namespace webrtc {
 
@@ -103,16 +104,19 @@ class RTCPSender::RtcpContext {
   RtcpContext(const FeedbackState& feedback_state,
               int32_t nack_size,
               const uint16_t* nack_list,
-              int64_t now_us)
+              int64_t now_us,
+              NtpTime ntp_time)
       : feedback_state_(feedback_state),
         nack_size_(nack_size),
         nack_list_(nack_list),
-        now_us_(now_us) {}
+        now_us_(now_us),
+        ntp_time_(ntp_time) {}
 
   const FeedbackState& feedback_state_;
   const int32_t nack_size_;
   const uint16_t* nack_list_;
   const int64_t now_us_;
+  const NtpTime ntp_time_;
 };
 
 RTCPSender::RTCPSender(const RtpRtcpInterface::Configuration& config)
@@ -418,7 +422,7 @@ void RTCPSender::BuildSR(const RtcpContext& ctx, PacketSender& sender) {
 
   rtcp::SenderReport report;
   report.SetSenderSsrc(ssrc_);
-  report.SetNtp(TimeMicrosToNtp(ctx.now_us_));
+  report.SetNtp(ctx.ntp_time_);
   report.SetRtpTimestamp(rtp_timestamp);
   report.SetPacketCount(ctx.feedback_state_.packets_sent);
   report.SetOctetCount(ctx.feedback_state_.media_bytes_sent);
@@ -584,7 +588,7 @@ void RTCPSender::BuildExtendedReports(const RtcpContext& ctx,
 
   if (!sending_ && xr_send_receiver_reference_time_enabled_) {
     rtcp::Rrtr rrtr;
-    rrtr.SetNtp(TimeMicrosToNtp(ctx.now_us_));
+    rrtr.SetNtp(ctx.ntp_time_);
     xr.SetRrtr(rrtr);
   }
 
@@ -673,7 +677,7 @@ absl::optional<int32_t> RTCPSender::ComputeCompoundRTCPPacket(
 
   // We need to send our NTP even if we haven't received any reports.
   RtcpContext context(feedback_state, nack_size, nack_list,
-                      clock_->TimeInMicroseconds());
+                      clock_->TimeInMicroseconds(), clock_->CurrentNtpTime());
 
   PrepareReport(feedback_state);
 
@@ -783,7 +787,7 @@ std::vector<rtcp::ReportBlock> RTCPSender::CreateReportBlocks(
   if (!result.empty() && ((feedback_state.last_rr_ntp_secs != 0) ||
                           (feedback_state.last_rr_ntp_frac != 0))) {
     // Get our NTP as late as possible to avoid a race.
-    uint32_t now = CompactNtp(TimeMicrosToNtp(clock_->TimeInMicroseconds()));
+    uint32_t now = CompactNtp(clock_->CurrentNtpTime());
 
     uint32_t receive_time = feedback_state.last_rr_ntp_secs & 0x0000FFFF;
     receive_time <<= 16;

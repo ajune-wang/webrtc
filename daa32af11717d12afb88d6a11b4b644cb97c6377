@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ce280c5_23c8d97f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-21T21:45:33Z",
+      "side": 1,
+      "message": "I can\u0027t parse this sentence. Rephrase?",
+      "revId": "daa32af11717d12afb88d6a11b4b644cb97c6377",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98e1c8a0_a9fa51f9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-21T21:45:33Z",
+      "side": 1,
+      "message": "Mumble about first creating an overlong list and then chopping it down to size. Feels wrong.\nGive me a good reason, and I may approve it.....\n",
+      "revId": "daa32af11717d12afb88d6a11b4b644cb97c6377",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a1606c4_12610bc3",
+        "filename": "net/dcsctp/rx/data_tracker.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-21T21:45:33Z",
+      "side": 1,
+      "message": "C++ query: What\u0027s the point of declaring these here, but their values in the .h file? Usually I\u0027ve seen it the other way round, the value is in the .cc file and there is no value in the .h file (which makes some sense; the value is an implementation detail that API users shouldn\u0027t depend on).\n\nIf either works, either works for me.",
+      "revId": "daa32af11717d12afb88d6a11b4b644cb97c6377",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35b197a2_88bc0b91",
+        "filename": "net/dcsctp/rx/data_tracker.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-21T21:45:33Z",
+      "side": 1,
+      "message": "It feels unnatural to create this long list of duplicate tsns and then proceed to delete them. Wouldn\u0027t it be more natural to stop generating them when the number is too large?\n\nGiven that in both cases, we destroy the lists we\u0027re sourcing them from, it seems that there can\u0027t be an internal reason for keeping the long lists.",
+      "revId": "daa32af11717d12afb88d6a11b4b644cb97c6377",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

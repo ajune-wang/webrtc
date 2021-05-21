@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d719f14c_69b6d4ff",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_audio_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-05-21T09:04:36Z",
+      "side": 1,
+      "message": "test code repeats production code. that doesn\u0027t smell good (the fact that you change prod and test code in exactly same way also adds to that smell).\n\nI wonder if it would have been more robust to do something like\n\nint64_t absolute_capture_time_ms \u003d fake_clock_.CurrentTime().ms();\nNtpTime absolute_capture_time_ntp \u003d fake_clock_.CurrentNtpTime();\nfake_clock_.AdvanceTime(some random time);\n...\nSendAudio (..., absolute_capture_time_ms);\n...\nEXPECT_EQ(-\u003eabsclute_capture_time, ToUQ32x32(absolute_capture_time_ntp));\n(or expect near to support round error)\n\n\nBut.... it\u0027s not this CL that structured test as it is, so for this change it is an offtopic comment.",
+      "range": {
+        "startLine": 171,
+        "startChar": 23,
+        "endLine": 172,
+        "endChar": 38
+      },
+      "revId": "d7830fd8ee54f4ae51f5681e5f0243fea427966e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

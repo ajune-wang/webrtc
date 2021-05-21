@@ -16,6 +16,24 @@
       "message": "I think it will break an upstream project that currently run set_enabled on signaling thread.\n\nAlso, from my discussion with Per I thought we suppose to run set_enabled on signaling thread: \"Controlling the enabled state is something the application can do at any point in time. And that is typically done on the signaling thread.\"",
       "revId": "3324ec7c58ede9ca9b2f0272a8510ed95ddf500f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c76f7f3e_d6b32448",
+        "filename": "pc/video_track.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-05-21T07:07:47Z",
+      "side": 1,
+      "message": "By default I would have expected this to run on the signaling thread. However, the internal code related to this implementation, requires it to stay on the worker thread. Moving it over to signaling, would require quite a bit of refactoring.\n\nAs for on which thread the call ends up being made, that\u0027s controlled by the proxy class. So upstream project won\u0027t be affected by this. Previously there was a thread hop to the worker via the Invoke(), now that hop (for that project) will happen inside the proxy instead. For most other callers, we\u0027ll be on the right thread and not incur a hop (due to how the internal code works).",
+      "parentUuid": "8034b686_f1f1620c",
+      "revId": "3324ec7c58ede9ca9b2f0272a8510ed95ddf500f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

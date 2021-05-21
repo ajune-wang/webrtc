@@ -371,6 +371,7 @@ rtc_library("rtcp_transceiver") {
     "../../api:rtp_headers",
     "../../api:transport_api",
     "../../api/task_queue",
+    "../../api/units:timestamp",
     "../../api/video:video_bitrate_allocation",
     "../../rtc_base:checks",
     "../../rtc_base:rtc_base_approved",

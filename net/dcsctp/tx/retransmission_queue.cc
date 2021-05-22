@@ -678,22 +678,27 @@ bool RetransmissionQueue::TxData::has_expired(TimeMs now) const {
 }
 
 void RetransmissionQueue::ExpireChunks(TimeMs now) {
-  for (const auto& elem : outstanding_data_) {
-    UnwrappedTSN tsn = elem.first;
-    const TxData& item = elem.second;
+  for (auto it = outstanding_data_.begin(); it != outstanding_data_.end();
+       ++it) {
+    UnwrappedTSN tsn = it->first;
+    const TxData& item = it->second;
 
     // Chunks that are in-flight (possibly lost?), nacked or to be retransmitted
     // can be expired easily. There is always a risk that a message is expired
     // that was already received by the peer, but for which there haven't been
     // a SACK received. But that's acceptable, and handled.
-    if (item.has_expired(now)) {
+    if (item.state() == State::kAbandoned) {
+      // Already abandoned.
+    } else if (item.has_expired(now)) {
       RTC_DLOG(LS_VERBOSE) << log_prefix_ << "Marking chunk " << *tsn.Wrap()
                            << " and message " << *item.data().message_id
                            << " as expired";
       ExpireAllFor(item);
+    } else {
+      break;
     }
   }
-}
+}  // namespace dcsctp
 
 void RetransmissionQueue::ExpireAllFor(
     const RetransmissionQueue::TxData& item) {

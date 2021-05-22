@@ -14,6 +14,7 @@
 #include <functional>
 #include <iterator>
 #include <map>
+#include <set>
 #include <string>
 #include <unordered_map>
 #include <utility>
@@ -111,6 +112,8 @@ void RetransmissionQueue::RemoveAcked(UnwrappedTSN cumulative_tsn_ack,
     ack_info.acked_tsns.push_back(it->first.Wrap());
     if (it->second.state() == State::kInFlight) {
       outstanding_bytes_ -= GetSerializedChunkSize(it->second.data());
+    } else if (it->second.state() == State::kToBeRetransmitted) {
+      to_be_retransmitted_.erase(it->first);
     }
   }
 
@@ -187,6 +190,7 @@ void RetransmissionQueue::NackBetweenAckBlocks(
 
         if (iter->second.state() == State::kToBeRetransmitted) {
           ack_info.has_packet_loss = true;
+          to_be_retransmitted_.insert(iter->first);
           RTC_DLOG(LS_VERBOSE) << log_prefix_ << *iter->first.Wrap()
                                << " marked for retransmission";
         }
@@ -502,6 +506,7 @@ void RetransmissionQueue::HandleT3RtxTimerExpiry() {
         outstanding_bytes_ -= GetSerializedChunkSize(item.data());
       }
       item.SetState(State::kToBeRetransmitted);
+      to_be_retransmitted_.insert(tsn);
       ++count;
     }
   }
@@ -523,9 +528,13 @@ void RetransmissionQueue::HandleT3RtxTimerExpiry() {
 std::vector<std::pair<TSN, Data>>
 RetransmissionQueue::GetChunksToBeRetransmitted(size_t max_size) {
   std::vector<std::pair<TSN, Data>> result;
-  for (auto& elem : outstanding_data_) {
-    UnwrappedTSN tsn = elem.first;
-    TxData& item = elem.second;
+
+  for (auto it = to_be_retransmitted_.begin();
+       it != to_be_retransmitted_.end();) {
+    const UnwrappedTSN& tsn = *it;
+    auto elem = outstanding_data_.find(tsn);
+    RTC_DCHECK(elem != outstanding_data_.end());
+    TxData& item = elem->second;
 
     size_t serialized_size = GetSerializedChunkSize(item.data());
     if (item.state() == State::kToBeRetransmitted &&
@@ -534,6 +543,9 @@ RetransmissionQueue::GetChunksToBeRetransmitted(size_t max_size) {
       result.emplace_back(tsn.Wrap(), item.data().Clone());
       max_size -= serialized_size;
       outstanding_bytes_ += serialized_size;
+      it = to_be_retransmitted_.erase(it);
+    } else {
+      ++it;
     }
     // No point in continuing if the packet is full.
     if (max_size <= data_chunk_header_size_) {

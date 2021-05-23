@@ -424,7 +424,7 @@ class RtpSenderTest : public ::testing::TestWithParam<TestConfig> {
     for (auto& packet :
          rtp_sender()->GeneratePadding(target_size_bytes, true)) {
       generated_bytes += packet->payload_size() + packet->padding_size();
-      rtp_sender_context_->InjectPacket(std::move(packet), PacedPacketInfo());
+      rtp_sender()->SendToNetwork(std::move(packet));
     }
     return generated_bytes;
   }
@@ -529,14 +529,25 @@ TEST_P(RtpSenderTest, PaddingAlwaysAllowedOnAudio) {
   rtp_sender()->AssignSequenceNumber(audio_packet.get());
 
   const size_t kPaddingSize = 59;
-  EXPECT_CALL(transport, SendRtp(_, kPaddingSize + kRtpHeaderSize, _))
-      .WillOnce(Return(true));
+
+  EXPECT_CALL(
+      mock_paced_sender_,
+      EnqueuePackets(AllOf(
+          SizeIs(1), Each(AllOf(Pointee(Property(&RtpPacketToSend::packet_type,
+                                                 RtpPacketMediaType::kPadding)),
+                                Pointee(Property(&RtpPacketToSend::padding_size,
+                                                 kPaddingSize)))))));
   EXPECT_EQ(kPaddingSize, GenerateAndSendPadding(kPaddingSize));
 
   // Requested padding size is too small, will send a larger one.
   const size_t kMinPaddingSize = 50;
-  EXPECT_CALL(transport, SendRtp(_, kMinPaddingSize + kRtpHeaderSize, _))
-      .WillOnce(Return(true));
+  EXPECT_CALL(
+      mock_paced_sender_,
+      EnqueuePackets(AllOf(
+          SizeIs(1), Each(AllOf(Pointee(Property(&RtpPacketToSend::packet_type,
+                                                 RtpPacketMediaType::kPadding)),
+                                Pointee(Property(&RtpPacketToSend::padding_size,
+                                                 kMinPaddingSize)))))));
   EXPECT_EQ(kMinPaddingSize, GenerateAndSendPadding(kMinPaddingSize - 5));
 }
 
@@ -1709,8 +1720,8 @@ TEST_P(RtpSenderTest, GeneratePaddingCreatesPurePaddingWithoutRtx) {
   packet->set_allow_retransmission(true);
   packet->SetPayloadSize(kPayloadPacketSize);
   packet->set_packet_type(RtpPacketMediaType::kVideo);
-  EXPECT_CALL(send_packet_observer_, OnSendPacket).Times(1);
-  rtp_sender_context_->InjectPacket(std::move(packet), PacedPacketInfo());
+  rtp_sender_context_->packet_history_.PutRtpPacket(
+      std::move(packet), clock_->TimeInMilliseconds());
 
   // Payload padding not available without RTX, only generate plain padding on
   // the media SSRC.
@@ -1733,14 +1744,6 @@ TEST_P(RtpSenderTest, GeneratePaddingCreatesPurePaddingWithoutRtx) {
     EXPECT_TRUE(packet->HasExtension<TransportSequenceNumber>());
     EXPECT_TRUE(packet->HasExtension<AbsoluteSendTime>());
     EXPECT_TRUE(packet->HasExtension<TransmissionOffset>());
-
-    // Verify all header extensions are received.
-    rtp_sender_context_->InjectPacket(std::move(packet), PacedPacketInfo());
-    webrtc::RTPHeader rtp_header;
-    transport_.last_sent_packet().GetHeader(&rtp_header);
-    EXPECT_TRUE(rtp_header.extension.hasAbsoluteSendTime);
-    EXPECT_TRUE(rtp_header.extension.hasTransmissionTimeOffset);
-    EXPECT_TRUE(rtp_header.extension.hasTransportSequenceNumber);
   }
 
   EXPECT_EQ(padding_bytes_generated,

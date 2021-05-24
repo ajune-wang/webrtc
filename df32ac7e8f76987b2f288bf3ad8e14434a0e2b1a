@@ -16,6 +16,46 @@
       "message": "Hi team, PTAL at this CL that avoids a deadlock in the screen capture flow.",
       "revId": "df32ac7e8f76987b2f288bf3ad8e14434a0e2b1a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9edc6281_8687a1e0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13074
+      },
+      "writtenOn": "2021-05-24T20:08:23Z",
+      "side": 1,
+      "message": "Thanks Austin! LGTM with one question below.",
+      "revId": "df32ac7e8f76987b2f288bf3ad8e14434a0e2b1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a669694_fa8db4bc",
+        "filename": "modules/desktop_capture/win/window_capturer_win_gdi.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 13074
+      },
+      "writtenOn": "2021-05-24T20:08:23Z",
+      "side": 1,
+      "message": "Looks like we\u0027re only using: \u0027bool enumerate_current_process_windows\u0027 in this class. So can we simply pass the bool to the constructor? Or is it preferable to have the whole DesktopCapturerOptions?",
+      "range": {
+        "startLine": 27,
+        "startChar": 23,
+        "endLine": 27,
+        "endChar": 53
+      },
+      "revId": "df32ac7e8f76987b2f288bf3ad8e14434a0e2b1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

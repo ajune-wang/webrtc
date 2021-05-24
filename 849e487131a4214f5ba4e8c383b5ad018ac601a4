@@ -16,6 +16,23 @@
       "message": "lgtm for the JNI changes",
       "revId": "849e487131a4214f5ba4e8c383b5ad018ac601a4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7aa9c5d_3dd6154c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-05-24T16:47:53Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "849e487131a4214f5ba4e8c383b5ad018ac601a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

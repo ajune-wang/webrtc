@@ -64,7 +64,7 @@ void VideoTrack::RemoveSink(rtc::VideoSinkInterface<VideoFrame>* sink) {
 }
 
 VideoTrackSourceInterface* VideoTrack::GetSource() const {
-  RTC_DCHECK_RUN_ON(&signaling_thread_);
+  // Callable from any thread.
   return video_source_.get();
 }
 

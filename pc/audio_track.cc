@@ -43,7 +43,7 @@ std::string AudioTrack::kind() const {
 }
 
 AudioSourceInterface* AudioTrack::GetSource() const {
-  RTC_DCHECK_RUN_ON(&thread_checker_);
+  // Callable from any thread.
   return audio_source_.get();
 }
 

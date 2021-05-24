@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "752af02f_ac86fae0",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-05-24T07:45:40Z",
+      "side": 0,
+      "message": "This might be a good reason to keep kNumValues (to ensure we are not excluding states here).\n\nOpinions?",
+      "range": {
+        "startLine": 140,
+        "startChar": 39,
+        "endLine": 140,
+        "endChar": 74
+      },
+      "revId": "13e585196e1e4c394779b3edd559b0778096170e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

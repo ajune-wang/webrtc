@@ -33,6 +33,23 @@
       "message": "Gentle ping. Do I need to change something?",
       "revId": "68879bb11bbc02bce994c2c74bf935a5796f741f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff629a26_a9d5f74c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-05-24T21:03:52Z",
+      "side": 1,
+      "message": "I think the failure on win_x86_msvc_rel is an infra issue. Can you send it to CQ again?",
+      "revId": "68879bb11bbc02bce994c2c74bf935a5796f741f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

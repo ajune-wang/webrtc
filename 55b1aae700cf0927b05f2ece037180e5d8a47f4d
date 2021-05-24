@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9cd748eb_bede1a65",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-05-24T17:44:52Z",
+      "side": 1,
+      "message": "Awesome. lgtm. Would be great to track the invoke-to-self thing for the network thread. Happy that it isn\u0027t a broader problem 😊",
+      "revId": "55b1aae700cf0927b05f2ece037180e5d8a47f4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aab319a9_4e52bed0",
+        "filename": "pc/connection_context.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-05-24T17:44:52Z",
+      "side": 1,
+      "message": "Can we file a bug to fix this and add a TODO here (and below)?",
+      "revId": "55b1aae700cf0927b05f2ece037180e5d8a47f4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

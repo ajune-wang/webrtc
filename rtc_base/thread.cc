@@ -927,8 +927,12 @@ void Thread::Send(const Location& posted_from,
   msg.phandler = phandler;
   msg.message_id = id;
   msg.pdata = pdata;
+
+  Thread* current_thread = Thread::Current();
   if (IsCurrent()) {
 #if RTC_DCHECK_IS_ON
+    // current_thread != null, because it is equal to |this|.
+    RTC_DCHECK(current_thread->IsInvokeToThreadAllowed(this));
     RTC_DCHECK_RUN_ON(this);
     could_be_blocking_call_count_++;
 #endif
@@ -937,8 +941,6 @@ void Thread::Send(const Location& posted_from,
   }
 
   AssertBlockingIsAllowedOnCurrentThread();
-
-  Thread* current_thread = Thread::Current();
 
 #if RTC_DCHECK_IS_ON
   if (current_thread) {

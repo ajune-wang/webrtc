@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c962d554_6d198c7d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17709
+      },
+      "writtenOn": "2021-05-24T16:50:55Z",
+      "side": 1,
+      "message": "Ping, please help to review",
+      "revId": "06f0f75ad303c18cee674e27f726756035aed00d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

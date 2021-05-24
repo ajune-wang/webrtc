@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b12dc95_8008a408",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-05-24T07:35:00Z",
+      "side": 1,
+      "message": "Hello Stefan, owner of all things, can you take a look?",
+      "revId": "4afade3bdabe00db73a7a91a994639837a320fb8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

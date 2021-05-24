@@ -1,0 +1,228 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ccd3059_14726228",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-24T12:37:47Z",
+      "side": 1,
+      "message": "Thanks Hanna! I have some comments.",
+      "revId": "5950c70ab8438606fee118fdf1f8af28260fa6e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e553a86_167b9413",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-24T12:37:47Z",
+      "side": 1,
+      "message": "they share exactly the same DCHECKs and the same loop\nmerging this code into `ComputePartialMetrics()` will be simpler, more cache friendly and it\u0027ll read better",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 1
+      },
+      "revId": "5950c70ab8438606fee118fdf1f8af28260fa6e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4da02116_62969f57",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-24T12:37:47Z",
+      "side": 1,
+      "message": "move this between line 25-26 to document what `ClippingPredictorLevelBuffer::Level` is closer to the definition",
+      "range": {
+        "startLine": 21,
+        "startChar": 55,
+        "endLine": 22,
+        "endChar": 9
+      },
+      "revId": "5950c70ab8438606fee118fdf1f8af28260fa6e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22e7c0ea_15ee3fb2",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-24T12:37:47Z",
+      "side": 1,
+      "message": "at least `num_items`",
+      "range": {
+        "startLine": 47,
+        "startChar": 8,
+        "endLine": 47,
+        "endChar": 14
+      },
+      "revId": "5950c70ab8438606fee118fdf1f8af28260fa6e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "524f738c_cc87226d",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-24T12:37:47Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 47,
+        "startChar": 59,
+        "endLine": 47,
+        "endChar": 66
+      },
+      "revId": "5950c70ab8438606fee118fdf1f8af28260fa6e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d466a82_36511f0a",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-24T12:37:47Z",
+      "side": 1,
+      "message": "\"at index `delay` and before\" doesn\u0027t seem correct since the \"index\" of a ring buffer is a bit more complex than that\n\nwhat about \"for the most recent `num_items` pushed values starting from that with given `delay` (a `delay` equal to zero corresponds to the latest pushed item)\"?",
+      "range": {
+        "startLine": 48,
+        "startChar": 19,
+        "endLine": 48,
+        "endChar": 69
+      },
+      "revId": "5950c70ab8438606fee118fdf1f8af28260fa6e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eec3bfaf_e5f06853",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-24T12:37:47Z",
+      "side": 1,
+      "message": "can\u0027t we merge the impl into `ComputePartialMetrics()` or hide these in the anon ns?",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 74
+      },
+      "revId": "5950c70ab8438606fee118fdf1f8af28260fa6e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65d0061b_f38e8ef4",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-24T12:37:47Z",
+      "side": 1,
+      "message": "What about switching to `std::array\u003cLevel, 16\u003e`? Reasons I see:\n- The buffer will be used with hardcoded size and there will be no need to tune the size\n- The hard coded size will be 10, so we could pick 16 to allow some extra margin in case we need a longer buffer in the future",
+      "range": {
+        "startLine": 71,
+        "startChar": 2,
+        "endLine": 71,
+        "endChar": 27
+      },
+      "revId": "5950c70ab8438606fee118fdf1f8af28260fa6e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "381768c1_aaeb70dd",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-24T12:37:47Z",
+      "side": 1,
+      "message": "move this at the end of this file before `}  // namespace webrtc`",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 15
+      },
+      "revId": "5950c70ab8438606fee118fdf1f8af28260fa6e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d9374f0_f958dee6",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-24T12:37:47Z",
+      "side": 1,
+      "message": "just move this into the anon namespace and switch TEST_F to TEST - i.e., no need to have a fixture",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 3
+      },
+      "revId": "5950c70ab8438606fee118fdf1f8af28260fa6e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

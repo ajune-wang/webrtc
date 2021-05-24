@@ -84,6 +84,41 @@
       "message": "There is aliasing with bilinear - https://screenshot.googleplex.com/955aBrXAjLRf5nU. Box is more smooth be definition. Box results in lower encoded QP than bilinear which for QP-based resolution adaptation means higher resolution. I would also check b/152837511 (but not sure if that was caused by bilinear).\n\nIn any case, I think we should make such a change via an A/B experiment.",
       "revId": "4afade3bdabe00db73a7a91a994639837a320fb8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e97e3495_1ecef2ad",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-05-24T10:04:14Z",
+      "side": 1,
+      "message": "Adding Daniel Lee for input, see comment below.",
+      "revId": "4afade3bdabe00db73a7a91a994639837a320fb8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a082fe4_aa5bc72e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-05-24T10:04:14Z",
+      "side": 1,
+      "message": "+dklee@ do you have the full story on the aliasing issue?\n\nI think chromium tip-of-tree uses kFilterBilinear for simulcast frames and also for the main input to VP9 and other encoders - even without this CL. Is that a known problem or was that aliasing issue due to something else?\n\nI tried to summarize what know at b/152837511#comment45 but I am only looking at scaling of frames around encoding, I did not touch track.applyConstraints() or canvas capture and have no idea what filters that uses.",
+      "parentUuid": "9ca08933_c62fe099",
+      "revId": "4afade3bdabe00db73a7a91a994639837a320fb8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

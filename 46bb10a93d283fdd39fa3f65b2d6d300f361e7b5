@@ -1,0 +1,504 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c41f39c_c84f5e0f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-24T15:46:33Z",
+      "side": 1,
+      "message": "Thanks for the new patch set Hanna!\nNow that we agreed on the design, I have more detailed comments on the implementation and on the tests.",
+      "revId": "46bb10a93d283fdd39fa3f65b2d6d300f361e7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57b658c5_6d5bc3d0",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-24T15:46:33Z",
+      "side": 1,
+      "message": "move to the .h file (see comment in the header file)",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 44
+      },
+      "revId": "46bb10a93d283fdd39fa3f65b2d6d300f361e7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62ded5e2_a5ee909c",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-24T15:46:33Z",
+      "side": 1,
+      "message": "`capacity` if you decide to rename `ClippingPredictorLevelBuffer::BufferMaxLength()`",
+      "range": {
+        "startLine": 26,
+        "startChar": 8,
+        "endLine": 26,
+        "endChar": 25
+      },
+      "revId": "46bb10a93d283fdd39fa3f65b2d6d300f361e7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3874f9b_0fd1e28e",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-24T15:46:33Z",
+      "side": 1,
+      "message": "1",
+      "range": {
+        "startLine": 27,
+        "startChar": 42,
+        "endLine": 27,
+        "endChar": 43
+      },
+      "revId": "46bb10a93d283fdd39fa3f65b2d6d300f361e7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f66bfabe_27d127c7",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-24T15:46:33Z",
+      "side": 1,
+      "message": "_GT",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 32,
+        "endChar": 15
+      },
+      "revId": "46bb10a93d283fdd39fa3f65b2d6d300f361e7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "faa369af_a987b9d7",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-24T15:46:33Z",
+      "side": 1,
+      "message": "According to https://godbolt.org/z/67h1q6Wsj the following seems a bit simpler:\n```\ntail_++;\nif (tail_ \u003d\u003d BufferMaxLength()) {\n  tail_ \u003d 0;\n}\n```",
+      "range": {
+        "startLine": 41,
+        "startChar": 2,
+        "endLine": 41,
+        "endChar": 53
+      },
+      "revId": "46bb10a93d283fdd39fa3f65b2d6d300f361e7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59bce62d_ab7c8e82",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-24T15:46:33Z",
+      "side": 1,
+      "message": "[nit] 0.0f (same below and in other files of this CL)\nhttps://google.github.io/styleguide/cppguide.html#Floating_Literals",
+      "range": {
+        "startLine": 57,
+        "startChar": 14,
+        "endLine": 57,
+        "endChar": 17
+      },
+      "revId": "46bb10a93d283fdd39fa3f65b2d6d300f361e7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e63f1000_83fcb6e5",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-24T15:46:33Z",
+      "side": 1,
+      "message": "the same comment I added for line 41 applies here, so\n```\nif (idx \u003c 0) {\n  idx -\u003d BufferMaxLength();\n}\n```",
+      "range": {
+        "startLine": 61,
+        "startChar": 4,
+        "endLine": 61,
+        "endChar": 45
+      },
+      "revId": "46bb10a93d283fdd39fa3f65b2d6d300f361e7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69acecd6_bce7f078",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-24T15:46:33Z",
+      "side": 1,
+      "message": "use designated initializers\n```\nreturn {\n  .average \u003d sum / static_cast\u003cfloat\u003e(num_items),\n  .max \u003d max\n};\n```",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 15
+      },
+      "revId": "46bb10a93d283fdd39fa3f65b2d6d300f361e7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "696538de_8cf1ac06",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-24T15:46:33Z",
+      "side": 1,
+      "message": "*is* limited\n\nHowever, if I look at the impl there\u0027s no clamping, but a warning message is logged if `max_length` is greater than `kMaxAllowedBufferLength`.\n\nMy suggestion is to use the following as docstring for the ctor\n\n// Ctor. Sets the buffer capacity to max(1, `capacity`) and logs a warning message\n// if the capacity is greater than `kMaxAllowedBufferLength`.",
+      "range": {
+        "startLine": 31,
+        "startChar": 18,
+        "endLine": 31,
+        "endChar": 25
+      },
+      "revId": "46bb10a93d283fdd39fa3f65b2d6d300f361e7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a5be3ac_bf2d593d",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-24T15:46:33Z",
+      "side": 1,
+      "message": "move its def from .cc into the public scope of this class since this value is part of the API contract\n\n```\nclass ClippingPredictorLevelBuffer {\n public:\n  ...\n  static constexpr int kMaxAllowedBufferLength \u003d 100;\n```",
+      "range": {
+        "startLine": 31,
+        "startChar": 34,
+        "endLine": 31,
+        "endChar": 57
+      },
+      "revId": "46bb10a93d283fdd39fa3f65b2d6d300f361e7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "387f859e_7a388180",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-24T15:46:33Z",
+      "side": 1,
+      "message": "you can move this to the .cc file",
+      "range": {
+        "startLine": 46,
+        "startChar": 2,
+        "endLine": 46,
+        "endChar": 80
+      },
+      "revId": "46bb10a93d283fdd39fa3f65b2d6d300f361e7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e506ef7_fec1f81e",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-24T15:46:33Z",
+      "side": 1,
+      "message": "you used the \"capacity\" keyword in the comments, maybe we can name this method Capacity() to have more consistent names",
+      "range": {
+        "startLine": 55,
+        "startChar": 6,
+        "endLine": 55,
+        "endChar": 21
+      },
+      "revId": "46bb10a93d283fdd39fa3f65b2d6d300f361e7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "669c3076_1aa92cdd",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-24T15:46:33Z",
+      "side": 1,
+      "message": "[nit] designated initializers\n```\nbuffer.Push({.average\u003dstatic_cast\u003cfloat\u003e(i + 1) / 10.0f,\n             .max\u003di + 1});\n```",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 44
+      },
+      "revId": "46bb10a93d283fdd39fa3f65b2d6d300f361e7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48fcd416_2f01d59c",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-24T15:46:33Z",
+      "side": 1,
+      "message": "Use constexpr and, following [1], name it `kNumValues`.\n[1] https://google.github.io/styleguide/cppguide.html#Constant_Names",
+      "range": {
+        "startLine": 35,
+        "startChar": 2,
+        "endLine": 35,
+        "endChar": 27
+      },
+      "revId": "46bb10a93d283fdd39fa3f65b2d6d300f361e7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10fc652a_8b6acf85",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-24T15:46:33Z",
+      "side": 1,
+      "message": "EXPECT_EQ(buffer.Size(), num_values); is tested in 3 different tests. This means that, if the size is incorrectly set, 3 tests will fail. I value the principle of writing decoupled tests and as small as possible - i.e., only one thing being tested. So, in this case, I\u0027d add separate tests to check that `Size()` meets the expectation. For instance:\n\n```\nconstexpr int kCapacity \u003d 4;\n\nTEST(ClippingPredictorLevelBufferTest, CheckEmptyBufferSize) {\n  ClippingPredictorLevelBuffer buffer(kCapacity);\n  EXPECT_EQ(buffer.Size(), 0);\n}\n\nTEST(ClippingPredictorLevelBufferTest, CheckHalfFullBufferSize) {\n  ClippingPredictorLevelBuffer buffer(kCapacity);\n  PopulateBuffer(/*num_values\u003d*/kCapacity / 2, buffer);\n  EXPECT_EQ(buffer.Size(), kCapacity / 2);\n}\n\nTEST(ClippingPredictorLevelBufferTest, CheckFullBufferSize) {\n  ClippingPredictorLevelBuffer buffer(kCapacity);\n  PopulateBuffer(/*num_values\u003d*/kCapacity * 2, buffer);\n  EXPECT_EQ(buffer.Size(), kCapacity);\n}\n\nTEST(ClippingPredictorLevelBufferTest, CheckInvalidBufferSize) {\n  ClippingPredictorLevelBuffer buffer(/*capacity\u003d*/-1);\n  PopulateBuffer(/*num_values\u003d*/3, buffer);\n  EXPECT_EQ(buffer.Size(), 1);\n}\n\nTEST(ClippingPredictorLevelBufferTest, CheckTooLargeBufferSize) {\n  constexpr int kCapacity \u003d\n      ClippingPredictorLevelBuffer::kMaxSafeCapacity + 1;\n  ClippingPredictorLevelBuffer buffer(kCapacity);\n  PopulateBuffer(/*num_values\u003d*/kCapacity, buffer);\n  EXPECT_EQ(buffer.Size(), kCapacity);\n}\n```\n\nIn this way, we don\u0027t put too much in one test and the name of a test that fails is self-explanatory.\n\nYou may want to make the tests above parametric BTW, for instance to test different sizes. Example:\n\n```\nclass ClippingPredictorLevelBufferParametrization\n    : public ::testing::TestWithParam\u003cint\u003e {\n protected:\n  int capacity() const { return GetParam(); }\n};\n\nTEST_P(ClippingPredictorLevelBufferParametrization, CheckEmptyBufferSize) {\n  ClippingPredictorLevelBuffer buffer(capacity());\n  EXPECT_EQ(buffer.Size(), 0);\n}\n\n...\n\nINSTANTIATE_TEST_SUITE_P(ClippingPredictorLevelBufferTest,\n                         ClippingPredictorLevelBufferParametrization,\n                         ::testing::Values(-1, 0, 1, 123));\n```",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 39
+      },
+      "revId": "46bb10a93d283fdd39fa3f65b2d6d300f361e7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8549e90_7e8a15d5",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-24T15:46:33Z",
+      "side": 1,
+      "message": "```\nconstexpr float kExpectedMaxValues[]\n```",
+      "range": {
+        "startLine": 39,
+        "startChar": 2,
+        "endLine": 39,
+        "endChar": 26
+      },
+      "revId": "46bb10a93d283fdd39fa3f65b2d6d300f361e7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "742ba0c2_821ca6b5",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-24T15:46:33Z",
+      "side": 1,
+      "message": "with optional types, we use the following to get better error messages\n\n```\nEXPECT_THAT(buffer.ComputePartialMetrics(delay, num_values - delay),\n            Optional(Eq(...)));\n```",
+      "range": {
+        "startLine": 44,
+        "startChar": 4,
+        "endLine": 46,
+        "endChar": 68
+      },
+      "revId": "46bb10a93d283fdd39fa3f65b2d6d300f361e7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bf2319a_d5bcf43c",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-24T15:46:33Z",
+      "side": 1,
+      "message": "use the following when a nullopt is expected\n\n```\nEXPECT_EQ(buffer.ComputePartialMetrics(delay, num_items),\n          absl::nullopt);\n```",
+      "range": {
+        "startLine": 55,
+        "startChar": 6,
+        "endLine": 55,
+        "endChar": 18
+      },
+      "revId": "46bb10a93d283fdd39fa3f65b2d6d300f361e7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ca2073e_af779388",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-24T15:46:33Z",
+      "side": 1,
+      "message": "here you\u0027re testing something different from what is tested in the previous loop\nIIUC you check that when the window [-delay-num_items, -delay] is not available, absl::nullopt is returned\nif that\u0027s the case, a separate test is deserved",
+      "range": {
+        "startLine": 51,
+        "startChar": 2,
+        "endLine": 57,
+        "endChar": 3
+      },
+      "revId": "46bb10a93d283fdd39fa3f65b2d6d300f361e7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4645932a_4bf4179c",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-24T15:46:33Z",
+      "side": 1,
+      "message": "simply use kBufferLength",
+      "range": {
+        "startLine": 61,
+        "startChar": 2,
+        "endLine": 61,
+        "endChar": 39
+      },
+      "revId": "46bb10a93d283fdd39fa3f65b2d6d300f361e7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d00efd0_4b07812b",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-24T15:46:33Z",
+      "side": 1,
+      "message": "I wonder if the tests in this file read better if we do to the following\n\nWe could switch to `PopulateBuffer(const std::vector\u003cLevel\u003e\u0026, ClippingPredictorLevelBuffer\u0026)` so that the pushed values are visible in the unit test and it\u0027s clear to understand where the expected values come from.\n\nI would even think of not using `PopulateBuffer()` for the tests that check avg/max. Loops are hard to understand, especially when the sequences are short I\u0027d just write sth like this\n\n```\nbuffer.Push({.average\u003d1, .max\u003d2});\nbuffer.Push({.average\u003d3, .max\u003d6});\nEXPECT_THAT(buffer.ComputePartialMetrics(/*delay\u003d*/0, /*num_items*/1),\n            Optional(Eq(Level{.average\u003d1, .max\u003d2})));\nEXPECT_THAT(buffer.ComputePartialMetrics(/*delay\u003d*/1, /*num_items*/1),\n            Optional(Eq(Level{.average\u003d3, .max\u003d6})));\nEXPECT_THAT(buffer.ComputePartialMetrics(/*delay\u003d*/0, /*num_items*/2),\n            Optional(Eq(Level{.average\u003d2, .max\u003d4})));\n```",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 62
+      },
+      "revId": "46bb10a93d283fdd39fa3f65b2d6d300f361e7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0c35c78_78571a8f",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-24T15:46:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e553a86_167b9413",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 1
+      },
+      "revId": "5950c70ab8438606fee118fdf1f8af28260fa6e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4da02116_62969f57",
@@ -78,6 +102,30 @@
       "side": 1,
       "message": "Removing this part of the comment. This data structure is independent of how the Level average is computed.",
       "parentUuid": "4da02116_62969f57",
+      "range": {
+        "startLine": 21,
+        "startChar": 55,
+        "endLine": 22,
+        "endChar": 9
+      },
+      "revId": "5950c70ab8438606fee118fdf1f8af28260fa6e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1bbf2f3_2163d1cf",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-24T15:46:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fdac63f2_74021cb0",
       "range": {
         "startLine": 21,
         "startChar": 55,
@@ -299,6 +347,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6e3f416_2cb408ab",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-24T15:46:33Z",
+      "side": 1,
+      "message": "as discussed offline, flexibility is needed for the near future so std::vector is kept",
+      "parentUuid": "65d0061b_f38e8ef4",
+      "range": {
+        "startLine": 71,
+        "startChar": 2,
+        "endLine": 71,
+        "endChar": 27
+      },
+      "revId": "5950c70ab8438606fee118fdf1f8af28260fa6e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "381768c1_aaeb70dd",
@@ -322,6 +394,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb942d47_13408b61",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-24T15:46:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "381768c1_aaeb70dd",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 15
+      },
+      "revId": "5950c70ab8438606fee118fdf1f8af28260fa6e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5d9374f0_f958dee6",
@@ -335,6 +431,30 @@
       "writtenOn": "2021-05-24T12:37:47Z",
       "side": 1,
       "message": "just move this into the anon namespace and switch TEST_F to TEST - i.e., no need to have a fixture",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 3
+      },
+      "revId": "5950c70ab8438606fee118fdf1f8af28260fa6e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1df64ac5_30aa92c3",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-24T15:46:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d9374f0_f958dee6",
       "range": {
         "startLine": 27,
         "startChar": 0,

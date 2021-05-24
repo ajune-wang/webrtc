@@ -16,6 +16,24 @@
       "message": "LGTM. Do you need me to press \"Submit to CQ\" or are you able to do so?",
       "revId": "0661ca21ad35d96c9361c495a41dd7bddbf78893",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3500b261_4909519c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-05-24T21:00:50Z",
+      "side": 1,
+      "message": "I don’t have permission to Commit Queue +2.",
+      "parentUuid": "af86d664_5404e02b",
+      "revId": "0661ca21ad35d96c9361c495a41dd7bddbf78893",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

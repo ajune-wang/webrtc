@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "349127df_b08f158a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-05-24T14:55:53Z",
+      "side": 1,
+      "message": "Relanding this change with two thread checks removed. I missed removing them with the original CL.",
+      "revId": "693d2ea1980fb6b0948e44f851295c07a2eedf80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

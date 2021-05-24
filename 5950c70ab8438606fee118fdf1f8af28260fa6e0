@@ -66,6 +66,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fdac63f2_74021cb0",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-05-24T13:52:07Z",
+      "side": 1,
+      "message": "Removing this part of the comment. This data structure is independent of how the Level average is computed.",
+      "parentUuid": "4da02116_62969f57",
+      "range": {
+        "startLine": 21,
+        "startChar": 55,
+        "endLine": 22,
+        "endChar": 9
+      },
+      "revId": "5950c70ab8438606fee118fdf1f8af28260fa6e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "22e7c0ea_15ee3fb2",
         "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer.h",
         "patchSetId": 1
@@ -110,6 +134,54 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7d17924_e9e0b201",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-05-24T13:52:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22e7c0ea_15ee3fb2",
+      "range": {
+        "startLine": 47,
+        "startChar": 8,
+        "endLine": 47,
+        "endChar": 14
+      },
+      "revId": "5950c70ab8438606fee118fdf1f8af28260fa6e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ae986bc_c6bc6ac6",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-05-24T13:52:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "524f738c_cc87226d",
+      "range": {
+        "startLine": 47,
+        "startChar": 59,
+        "endLine": 47,
+        "endChar": 66
+      },
+      "revId": "5950c70ab8438606fee118fdf1f8af28260fa6e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5d466a82_36511f0a",
@@ -133,6 +205,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d8a2c5f_090b88dc",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-05-24T13:52:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d466a82_36511f0a",
+      "range": {
+        "startLine": 48,
+        "startChar": 19,
+        "endLine": 48,
+        "endChar": 69
+      },
+      "revId": "5950c70ab8438606fee118fdf1f8af28260fa6e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eec3bfaf_e5f06853",
@@ -146,6 +242,30 @@
       "writtenOn": "2021-05-24T12:37:47Z",
       "side": 1,
       "message": "can\u0027t we merge the impl into `ComputePartialMetrics()` or hide these in the anon ns?",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 74
+      },
+      "revId": "5950c70ab8438606fee118fdf1f8af28260fa6e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af35d232_c0da5973",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-05-24T13:52:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eec3bfaf_e5f06853",
       "range": {
         "startLine": 54,
         "startChar": 0,

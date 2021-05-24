@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af86d664_5404e02b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-05-24T16:46:37Z",
+      "side": 1,
+      "message": "LGTM. Do you need me to press \"Submit to CQ\" or are you able to do so?",
+      "revId": "0661ca21ad35d96c9361c495a41dd7bddbf78893",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

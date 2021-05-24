@@ -50,6 +50,23 @@
       "message": "Sorry for the delay. LGTM.",
       "revId": "cb5caabc1b4cb62cc0d57615a7506822a8b8fb9a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21d927f3_5739a7b3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-05-24T21:02:11Z",
+      "side": 1,
+      "message": "Can you send this CL to CQ? I don\u0027t have permission to do it.",
+      "revId": "cb5caabc1b4cb62cc0d57615a7506822a8b8fb9a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

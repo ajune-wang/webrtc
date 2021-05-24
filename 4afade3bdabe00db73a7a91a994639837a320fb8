@@ -50,6 +50,23 @@
       "message": "+hta Can you take a look?",
       "revId": "4afade3bdabe00db73a7a91a994639837a320fb8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "605217a5_6d74769c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-05-24T08:46:44Z",
+      "side": 1,
+      "message": "And +Sergey do you have an opinion here? The TL;DR: is that for \"nice\" factors like 2 and 4 there is not much of a performance difference between bilinear and box, but for other factors (e.g. if CPU adaptation is active) the box filter can cost us 1.0% CPU and from the attached pictures I can\u0027t even tell the difference.",
+      "revId": "4afade3bdabe00db73a7a91a994639837a320fb8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

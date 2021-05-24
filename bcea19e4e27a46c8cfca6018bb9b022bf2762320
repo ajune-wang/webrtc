@@ -69,6 +69,24 @@
       "parentUuid": "83892fc7_838aa89f",
       "revId": "bcea19e4e27a46c8cfca6018bb9b022bf2762320",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38eeb6ac_6094ab3f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2021-05-24T08:00:09Z",
+      "side": 1,
+      "message": "I can\u0027t see any difference here either. LGTM",
+      "parentUuid": "79bc7995_642582e6",
+      "revId": "bcea19e4e27a46c8cfca6018bb9b022bf2762320",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

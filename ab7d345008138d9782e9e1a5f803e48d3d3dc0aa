@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04374458_1d6a3813",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-05-24T21:05:57Z",
+      "side": 1,
+      "message": "Mbonadei, can you review this? I think the ios_api_framework recipe will be affected by this CL.",
+      "revId": "ab7d345008138d9782e9e1a5f803e48d3d3dc0aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

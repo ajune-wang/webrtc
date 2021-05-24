@@ -80,6 +80,30 @@
       },
       "revId": "abae06472518ce01143f57172b35b2ffbbb42299",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb7d1c55_a06f5b35",
+        "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2021-05-24T15:36:14Z",
+      "side": 1,
+      "message": "A default implementation is mostly useful for new methods, to avoid breaking existing implementations and give them time to implement new methods.\n\nWe don’t necessarily want _all_ interface methods to be optional. But feel free to send a change to make onAddTrack optional, it seems good in this case to be consistent between add and remove.",
+      "parentUuid": "5cb920a1_b7cdb1fd",
+      "range": {
+        "startLine": 150,
+        "startChar": 0,
+        "endLine": 150,
+        "endChar": 73
+      },
+      "revId": "abae06472518ce01143f57172b35b2ffbbb42299",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

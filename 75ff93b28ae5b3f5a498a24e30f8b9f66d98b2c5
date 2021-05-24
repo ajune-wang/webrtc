@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f71ee620_6920e236",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17694
+      },
+      "writtenOn": "2021-05-24T14:50:32Z",
+      "side": 1,
+      "message": "Uploaded patch set fixing this.",
+      "revId": "75ff93b28ae5b3f5a498a24e30f8b9f66d98b2c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

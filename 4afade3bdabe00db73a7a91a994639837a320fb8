@@ -67,6 +67,23 @@
       "message": "And +Sergey do you have an opinion here? The TL;DR: is that for \"nice\" factors like 2 and 4 there is not much of a performance difference between bilinear and box, but for other factors (e.g. if CPU adaptation is active) the box filter can cost us 1.0% CPU and from the attached pictures I can\u0027t even tell the difference.",
       "revId": "4afade3bdabe00db73a7a91a994639837a320fb8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ca08933_c62fe099",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7654
+      },
+      "writtenOn": "2021-05-24T09:02:15Z",
+      "side": 1,
+      "message": "There is aliasing with bilinear - https://screenshot.googleplex.com/955aBrXAjLRf5nU. Box is more smooth be definition. Box results in lower encoded QP than bilinear which for QP-based resolution adaptation means higher resolution. I would also check b/152837511 (but not sure if that was caused by bilinear).\n\nIn any case, I think we should make such a change via an A/B experiment.",
+      "revId": "4afade3bdabe00db73a7a91a994639837a320fb8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

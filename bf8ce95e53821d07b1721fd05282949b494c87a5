@@ -43,6 +43,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "a8480431_76a54edf",
+        "filename": "api/rtp_headers.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 9865
+      },
+      "writtenOn": "2021-05-24T11:05:16Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "30bd769e_314750b6",
+      "range": {
+        "startLine": 133,
+        "startChar": 23,
+        "endLine": 133,
+        "endChar": 40
+      },
+      "revId": "bf8ce95e53821d07b1721fd05282949b494c87a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "95fcb142_30176493",
         "filename": "modules/rtp_rtcp/source/rtp_header_extensions.cc",
         "patchSetId": 2
@@ -100,6 +124,30 @@
       "writtenOn": "2021-05-24T10:16:14Z",
       "side": 1,
       "message": "prefer int or size_t\n\nhttps://google.github.io/styleguide/cppguide.html#Integer_Types\n\n\"You should not use the unsigned integer types such as uint32_t, unless there is a valid reason such as representing a bit pattern rather than a number, or you need defined overflow modulo 2^N.\"",
+      "range": {
+        "startLine": 238,
+        "startChar": 7,
+        "endLine": 238,
+        "endChar": 14
+      },
+      "revId": "bf8ce95e53821d07b1721fd05282949b494c87a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b26b086_e90c97f6",
+        "filename": "modules/rtp_rtcp/source/rtp_header_extensions.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 9865
+      },
+      "writtenOn": "2021-05-24T11:05:16Z",
+      "side": 1,
+      "message": "Fixed!",
+      "parentUuid": "c62c0595_6f0a2b9d",
       "range": {
         "startLine": 238,
         "startChar": 7,

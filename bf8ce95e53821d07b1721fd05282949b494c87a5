@@ -16,6 +16,98 @@
       "message": "PTAL",
       "revId": "bf8ce95e53821d07b1721fd05282949b494c87a5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30bd769e_314750b6",
+        "filename": "api/rtp_headers.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-05-24T10:16:14Z",
+      "side": 1,
+      "message": "Why do you need csrc audio levels in this struct?\n\nMay be postpone adding it here until you know that is is helpful to have it here.\nWhen you do add it here, then you might want to add an extra line\nto RtpPacketReceived::GetHeader implementation",
+      "range": {
+        "startLine": 133,
+        "startChar": 23,
+        "endLine": 133,
+        "endChar": 40
+      },
+      "revId": "bf8ce95e53821d07b1721fd05282949b494c87a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95fcb142_30176493",
+        "filename": "modules/rtp_rtcp/source/rtp_header_extensions.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-05-24T10:16:14Z",
+      "side": 1,
+      "message": "may be use constant \u0027kMaxValueSizeBytes\u0027 instead (same value).\nThat constant is closer to this class when reader would like to check the value.",
+      "range": {
+        "startLine": 217,
+        "startChar": 20,
+        "endLine": 217,
+        "endChar": 32
+      },
+      "revId": "bf8ce95e53821d07b1721fd05282949b494c87a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cb1846a_7a4ba95c",
+        "filename": "modules/rtp_rtcp/source/rtp_header_extensions.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-05-24T10:16:14Z",
+      "side": 1,
+      "message": "ditto, may be use kMaxValueSizeBytes",
+      "range": {
+        "startLine": 234,
+        "startChar": 41,
+        "endLine": 234,
+        "endChar": 53
+      },
+      "revId": "bf8ce95e53821d07b1721fd05282949b494c87a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c62c0595_6f0a2b9d",
+        "filename": "modules/rtp_rtcp/source/rtp_header_extensions.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-05-24T10:16:14Z",
+      "side": 1,
+      "message": "prefer int or size_t\n\nhttps://google.github.io/styleguide/cppguide.html#Integer_Types\n\n\"You should not use the unsigned integer types such as uint32_t, unless there is a valid reason such as representing a bit pattern rather than a number, or you need defined overflow modulo 2^N.\"",
+      "range": {
+        "startLine": 238,
+        "startChar": 7,
+        "endLine": 238,
+        "endChar": 14
+      },
+      "revId": "bf8ce95e53821d07b1721fd05282949b494c87a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

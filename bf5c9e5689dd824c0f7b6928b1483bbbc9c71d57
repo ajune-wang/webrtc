@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "775b880d_699b6e92",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1806,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-05-24T12:17:09Z",
+      "side": 1,
+      "message": "AllOf(SizeIs(1), Each(xxx))\ncan be simplified to\nElementsAre(xxx)",
+      "range": {
+        "startLine": 1805,
+        "startChar": 21,
+        "endLine": 1806,
+        "endChar": 26
+      },
+      "revId": "bf5c9e5689dd824c0f7b6928b1483bbbc9c71d57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dfccdecc_69cb3b34",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1874,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-05-24T12:17:09Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 1873,
+        "startChar": 21,
+        "endLine": 1874,
+        "endChar": 25
+      },
+      "revId": "bf5c9e5689dd824c0f7b6928b1483bbbc9c71d57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

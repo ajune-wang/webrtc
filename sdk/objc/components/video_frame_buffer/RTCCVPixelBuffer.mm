@@ -122,6 +122,10 @@
 
 - (BOOL)cropAndScaleTo:(CVPixelBufferRef)outputPixelBuffer
         withTempBuffer:(nullable uint8_t*)tmpBuffer {
+  return [self cropAndScaleTo:outputPixelBuffer];
+}
+
+- (BOOL)cropAndScaleTo:(CVPixelBufferRef)outputPixelBuffer {
   const OSType srcPixelFormat = CVPixelBufferGetPixelFormatType(_pixelBuffer);
   const OSType dstPixelFormat = CVPixelBufferGetPixelFormatType(outputPixelBuffer);
 
@@ -133,10 +137,7 @@
       if (dstWidth > 0 && dstHeight > 0) {
         RTC_DCHECK(dstPixelFormat == kCVPixelFormatType_420YpCbCr8BiPlanarFullRange ||
                    dstPixelFormat == kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange);
-        if ([self requiresScalingToWidth:dstWidth height:dstHeight]) {
-          RTC_DCHECK(tmpBuffer);
-        }
-        [self cropAndScaleNV12To:outputPixelBuffer withTempBuffer:tmpBuffer];
+        [self cropAndScaleNV12To:outputPixelBuffer];
       }
       break;
     }
@@ -200,7 +201,7 @@
           [self requiresScalingToWidth:i420Buffer.width height:i420Buffer.height]) {
         CVPixelBufferCreate(
             NULL, i420Buffer.width, i420Buffer.height, pixelFormat, NULL, &scaledPixelBuffer);
-        [self cropAndScaleTo:scaledPixelBuffer withTempBuffer:NULL];
+        [self cropAndScaleTo:scaledPixelBuffer];
 
         CVPixelBufferLockBaseAddress(scaledPixelBuffer, kCVPixelBufferLock_ReadOnly);
         sourcePixelBuffer = scaledPixelBuffer;
@@ -264,7 +265,7 @@
 
 #pragma mark - Private
 
-- (void)cropAndScaleNV12To:(CVPixelBufferRef)outputPixelBuffer withTempBuffer:(uint8_t*)tmpBuffer {
+- (void)cropAndScaleNV12To:(CVPixelBufferRef)outputPixelBuffer {
   // Prepare output pointers.
   CVReturn cvRet = CVPixelBufferLockBaseAddress(outputPixelBuffer, 0);
   if (cvRet != kCVReturnSuccess) {
@@ -290,8 +291,7 @@
   srcY += srcYStride * _cropY + _cropX;
   srcUV += srcUVStride * (_cropY / 2) + _cropX;
 
-  webrtc::NV12Scale(tmpBuffer,
-                    srcY,
+  libyuv::NV12Scale(srcY,
                     srcYStride,
                     srcUV,
                     srcUVStride,
@@ -302,7 +302,8 @@
                     dstUV,
                     dstUVStride,
                     dstWidth,
-                    dstHeight);
+                    dstHeight,
+                    libyuv::kFilterBox);
 
   CVPixelBufferUnlockBaseAddress(_pixelBuffer, kCVPixelBufferLock_ReadOnly);
   CVPixelBufferUnlockBaseAddress(outputPixelBuffer, 0);

@@ -326,7 +326,6 @@ NSUInteger GetMaxSampleRate(const webrtc::H264ProfileLevelId &profile_level_id) 
   RTCVideoCodecMode _mode;
 
   webrtc::H264BitstreamParser _h264BitstreamParser;
-  std::vector<uint8_t> _frameScaleBuffer;
 }
 
 // .5 is set as a mininum to prevent overcompensating for large temporary
@@ -417,17 +416,7 @@ NSUInteger GetMaxSampleRate(const webrtc::H264ProfileLevelId &profile_level_id) 
       if (!pixelBuffer) {
         return WEBRTC_VIDEO_CODEC_ERROR;
       }
-      int dstWidth = CVPixelBufferGetWidth(pixelBuffer);
-      int dstHeight = CVPixelBufferGetHeight(pixelBuffer);
-      if ([rtcPixelBuffer requiresScalingToWidth:dstWidth height:dstHeight]) {
-        int size =
-            [rtcPixelBuffer bufferSizeForCroppingAndScalingToWidth:dstWidth height:dstHeight];
-        _frameScaleBuffer.resize(size);
-      } else {
-        _frameScaleBuffer.clear();
-      }
-      _frameScaleBuffer.shrink_to_fit();
-      if (![rtcPixelBuffer cropAndScaleTo:pixelBuffer withTempBuffer:_frameScaleBuffer.data()]) {
+      if (![rtcPixelBuffer cropAndScaleTo:pixelBuffer]) {
         CVBufferRelease(pixelBuffer);
         return WEBRTC_VIDEO_CODEC_ERROR;
       }

@@ -166,8 +166,6 @@ rtclog2::DtlsTransportStateEvent::DtlsTransportState ConvertToProtoFormat(
       return rtclog2::DtlsTransportStateEvent::DTLS_TRANSPORT_CLOSED;
     case webrtc::DtlsTransportState::kFailed:
       return rtclog2::DtlsTransportStateEvent::DTLS_TRANSPORT_FAILED;
-    case webrtc::DtlsTransportState::kNumValues:
-      RTC_NOTREACHED();
   }
   RTC_NOTREACHED();
   return rtclog2::DtlsTransportStateEvent::UNKNOWN_DTLS_TRANSPORT_STATE;

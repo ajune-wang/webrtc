@@ -1751,7 +1751,7 @@ void EventLogAnalyzer::CreateDtlsTransportStateGraph(Plot* plot) {
   plot->AppendTimeSeries(std::move(states));
   plot->SetXAxis(config_.CallBeginTimeSec(), config_.CallEndTimeSec(),
                  "Time (s)", kLeftMargin, kRightMargin);
-  plot->SetSuggestedYAxis(0, static_cast<float>(DtlsTransportState::kNumValues),
+  plot->SetSuggestedYAxis(0, static_cast<float>(DtlsTransportState::kFailed),
                           "Transport State", kBottomMargin, kTopMargin);
   plot->SetTitle("DTLS Transport State");
   plot->SetYAxisTickLabels(

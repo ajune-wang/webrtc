@@ -800,11 +800,9 @@ DtlsTransportState GetRuntimeDtlsTransportState(
     case rtclog2::DtlsTransportStateEvent::DTLS_TRANSPORT_FAILED:
       return DtlsTransportState::kFailed;
     case rtclog2::DtlsTransportStateEvent::UNKNOWN_DTLS_TRANSPORT_STATE:
-      RTC_NOTREACHED();
-      return DtlsTransportState::kNumValues;
+      RTC_CHECK_NOTREACHED();
   }
-  RTC_NOTREACHED();
-  return DtlsTransportState::kNumValues;
+  RTC_CHECK_NOTREACHED();
 }
 
 IceCandidatePairConfigType GetRuntimeIceCandidatePairConfigType(

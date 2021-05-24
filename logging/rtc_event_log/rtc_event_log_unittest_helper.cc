@@ -137,7 +137,7 @@ EventGenerator::NewBweUpdateLossBased() {
 std::unique_ptr<RtcEventDtlsTransportState>
 EventGenerator::NewDtlsTransportState() {
   DtlsTransportState state = static_cast<DtlsTransportState>(
-      prng_.Rand(static_cast<uint32_t>(DtlsTransportState::kNumValues) - 1));
+      prng_.Rand(static_cast<uint32_t>(DtlsTransportState::kFailed)));
 
   return std::make_unique<RtcEventDtlsTransportState>(state);
 }

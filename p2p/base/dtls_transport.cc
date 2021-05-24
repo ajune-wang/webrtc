@@ -531,9 +531,6 @@ void DtlsTransport::OnWritableState(rtc::PacketTransportInternal* transport) {
                         << ": OnWritableState() called in state "
                            "webrtc::DtlsTransportState::kClosed.";
       break;
-    case webrtc::DtlsTransportState::kNumValues:
-      RTC_NOTREACHED();
-      break;
   }
 }
 
@@ -629,7 +626,6 @@ void DtlsTransport::OnReadPacket(rtc::PacketTransportInternal* transport,
       break;
     case webrtc::DtlsTransportState::kFailed:
     case webrtc::DtlsTransportState::kClosed:
-    case webrtc::DtlsTransportState::kNumValues:
       // This shouldn't be happening. Drop the packet.
       break;
   }

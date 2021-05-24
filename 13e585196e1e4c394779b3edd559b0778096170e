@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "72611df7_5822dfed",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-05-24T08:11:39Z",
+      "side": 0,
+      "message": "Note that this kNumValues pattern is also used for the ~6 ICE candidate enums below. Are we planning to update those as well?",
+      "range": {
+        "startLine": 169,
+        "startChar": 0,
+        "endLine": 169,
+        "endChar": 48
+      },
+      "revId": "13e585196e1e4c394779b3edd559b0778096170e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "752af02f_ac86fae0",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
         "patchSetId": 1
@@ -14,6 +37,30 @@
       "writtenOn": "2021-05-24T07:45:40Z",
       "side": 0,
       "message": "This might be a good reason to keep kNumValues (to ensure we are not excluding states here).\n\nOpinions?",
+      "range": {
+        "startLine": 140,
+        "startChar": 39,
+        "endLine": 140,
+        "endChar": 74
+      },
+      "revId": "13e585196e1e4c394779b3edd559b0778096170e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22d9d935_89090026",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-05-24T08:11:39Z",
+      "side": 0,
+      "message": "I\u0027d prefer keeping as-is, but I don\u0027t feel strongly about it.",
+      "parentUuid": "752af02f_ac86fae0",
       "range": {
         "startLine": 140,
         "startChar": 39,

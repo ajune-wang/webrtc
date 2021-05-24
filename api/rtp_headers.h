@@ -15,6 +15,7 @@
 #include <stdint.h>
 
 #include <string>
+#include <vector>
 
 #include "absl/types/optional.h"
 #include "api/array_view.h"
@@ -126,6 +127,10 @@ struct RTPHeaderExtension {
   bool hasAudioLevel;
   bool voiceActivity;
   uint8_t audioLevel;
+
+  // Per-CSRC audio levels in dBov.
+  // See https://tools.ietf.org/html/rfc6465
+  std::vector<uint8_t> csrc_audio_levels;
 
   // For Coordination of Video Orientation. See
   // http://www.etsi.org/deliver/etsi_ts/126100_126199/126114/12.07.00_60/

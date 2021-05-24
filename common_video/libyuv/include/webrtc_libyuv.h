@@ -97,32 +97,6 @@ double I420SSIM(const VideoFrame* ref_frame, const VideoFrame* test_frame);
 double I420SSIM(const I420BufferInterface& ref_buffer,
                 const I420BufferInterface& test_buffer);
 
-// Helper class for directly converting and scaling NV12 to I420. The Y-plane
-// will be scaled directly to the I420 destination, which makes this faster
-// than separate NV12->I420 + I420->I420 scaling.
-class RTC_EXPORT NV12ToI420Scaler {
- public:
-  NV12ToI420Scaler();
-  ~NV12ToI420Scaler();
-  void NV12ToI420Scale(const uint8_t* src_y,
-                       int src_stride_y,
-                       const uint8_t* src_uv,
-                       int src_stride_uv,
-                       int src_width,
-                       int src_height,
-                       uint8_t* dst_y,
-                       int dst_stride_y,
-                       uint8_t* dst_u,
-                       int dst_stride_u,
-                       uint8_t* dst_v,
-                       int dst_stride_v,
-                       int dst_width,
-                       int dst_height);
-
- private:
-  std::vector<uint8_t> tmp_uv_planes_;
-};
-
 // Convert VideoType to libyuv FourCC type
 int ConvertVideoType(VideoType video_type);
 

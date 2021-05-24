@@ -119,6 +119,23 @@
       "parentUuid": "9ca08933_c62fe099",
       "revId": "4afade3bdabe00db73a7a91a994639837a320fb8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47e8369c_7627524f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-05-24T10:23:12Z",
+      "side": 1,
+      "message": "Based on further discussions with Ilya and Sergey I am closing this to avoid the aliasing issues. I\u0027ll look into updating chromium\u0027s filter to use Box instead otherwise I think we\u0027ll have a aliasing regresson in VP8 simulcast",
+      "revId": "4afade3bdabe00db73a7a91a994639837a320fb8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

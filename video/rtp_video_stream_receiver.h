@@ -64,11 +64,18 @@ class RtpPacketReceived;
 class Transport;
 class UlpfecReceiver;
 
+// A complete frame is a frame which has received all its packets and all its
+// references are known.
+class OnCompleteFrameCallback {
+ public:
+  virtual ~OnCompleteFrameCallback() {}
+  virtual void OnCompleteFrame(std::unique_ptr<EncodedFrame> frame) = 0;
+};
+
 class RtpVideoStreamReceiver : public LossNotificationSender,
                                public RecoveredPacketReceiver,
                                public RtpPacketSinkInterface,
                                public KeyFrameRequestSender,
-                               public OnCompleteFrameCallback,
                                public OnDecryptedFrameCallback,
                                public OnDecryptionStatusChangeCallback,
                                public RtpVideoFrameReceiver {
@@ -172,8 +179,7 @@ class RtpVideoStreamReceiver : public LossNotificationSender,
   // Don't use, still experimental.
   void RequestPacketRetransmit(const std::vector<uint16_t>& sequence_numbers);
 
-  // Implements OnCompleteFrameCallback.
-  void OnCompleteFrame(std::unique_ptr<EncodedFrame> frame) override;
+  void OnCompleteFrames(RtpFrameReferenceFinder::ReturnVector frames);
 
   // Implements OnDecryptedFrameCallback.
   void OnDecryptedFrame(std::unique_ptr<RtpFrameObject> frame) override;

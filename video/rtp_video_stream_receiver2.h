@@ -60,11 +60,18 @@ class RtpPacketReceived;
 class Transport;
 class UlpfecReceiver;
 
+// A complete frame is a frame which has received all its packets and all its
+// references are known.
+class OnCompleteFrameCallback2 {
+ public:
+  virtual ~OnCompleteFrameCallback2() {}
+  virtual void OnCompleteFrame(std::unique_ptr<EncodedFrame> frame) = 0;
+};
+
 class RtpVideoStreamReceiver2 : public LossNotificationSender,
                                 public RecoveredPacketReceiver,
                                 public RtpPacketSinkInterface,
                                 public KeyFrameRequestSender,
-                                public OnCompleteFrameCallback,
                                 public OnDecryptedFrameCallback,
                                 public OnDecryptionStatusChangeCallback,
                                 public RtpVideoFrameReceiver {
@@ -87,7 +94,7 @@ class RtpVideoStreamReceiver2 : public LossNotificationSender,
       // The KeyFrameRequestSender is optional; if not provided, key frame
       // requests are sent via the internal RtpRtcp module.
       KeyFrameRequestSender* keyframe_request_sender,
-      OnCompleteFrameCallback* complete_frame_callback,
+      OnCompleteFrameCallback2* complete_frame_callback,
       rtc::scoped_refptr<FrameDecryptorInterface> frame_decryptor,
       rtc::scoped_refptr<FrameTransformerInterface> frame_transformer);
   ~RtpVideoStreamReceiver2() override;
@@ -148,8 +155,7 @@ class RtpVideoStreamReceiver2 : public LossNotificationSender,
   // Don't use, still experimental.
   void RequestPacketRetransmit(const std::vector<uint16_t>& sequence_numbers);
 
-  // Implements OnCompleteFrameCallback.
-  void OnCompleteFrame(std::unique_ptr<EncodedFrame> frame) override;
+  void OnCompleteFrames(RtpFrameReferenceFinder::ReturnVector frame);
 
   // Implements OnDecryptedFrameCallback.
   void OnDecryptedFrame(std::unique_ptr<RtpFrameObject> frame) override;
@@ -287,7 +293,7 @@ class RtpVideoStreamReceiver2 : public LossNotificationSender,
 
   const std::unique_ptr<ModuleRtpRtcpImpl2> rtp_rtcp_;
 
-  OnCompleteFrameCallback* complete_frame_callback_;
+  OnCompleteFrameCallback2* complete_frame_callback_;
   KeyFrameRequestSender* const keyframe_request_sender_;
 
   RtcpFeedbackBuffer rtcp_feedback_buffer_;

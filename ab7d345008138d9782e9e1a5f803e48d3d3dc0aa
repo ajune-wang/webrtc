@@ -56,6 +56,24 @@
       "message": "Yes, the error is:\n\nOSError: [Errno 2] No such file or directory: \u0027/opt/s/w/ir/cache/builder/src/out_ios_libs/WebRTC.framework/WebRTC\u0027\n\nWhat path should be checked after this lands?",
       "revId": "ab7d345008138d9782e9e1a5f803e48d3d3dc0aa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23c40959_5a28b718",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-05-25T08:25:06Z",
+      "side": 1,
+      "message": "Before this CL, WebRTC.framework/WebRTC is a single file with different four architectures.\n\n$ file out_ios_libs/WebRTC.framework/WebRTC\nout_ios_libs/WebRTC.framework/WebRTC: Mach-O universal binary with 4 architectures: [x86_64:Mach-O 64-bit dynamically linked shared library x86_64] [i386] [arm_v7] [arm64]\nout_ios_libs/WebRTC.framework/WebRTC (for architecture x86_64):\tMach-O 64-bit dynamically linked shared library x86_64\nout_ios_libs/WebRTC.framework/WebRTC (for architecture i386):\tMach-O dynamically linked shared library i386\nout_ios_libs/WebRTC.framework/WebRTC (for architecture armv7):\tMach-O dynamically linked shared library arm_v7\nout_ios_libs/WebRTC.framework/WebRTC (for architecture arm64):\tMach-O 64-bit dynamically linked shared library arm64\n\n$ ls -s1 --block-size\u003d1 out_ios_libs/WebRTC.framework/WebRTC\n33837056 out_ios_libs/WebRTC.framework/WebRTC\n\nWith this CL, WebRTC.xcframework has multiple WebRTC.frameworks. By default option, it will contain two architectures for each framework.\n\n$ file out_ios_libs/WebRTC.xcframework/ios-arm64_armv7/WebRTC.framework/WebRTC\nout_ios_libs/WebRTC.xcframework/ios-arm64_armv7/WebRTC.framework/WebRTC: Mach-O universal binary with 2 architectures: [arm_v7:Mach-O dynamically linked shared library arm_v7] [arm64]\nout_ios_libs/WebRTC.xcframework/ios-arm64_armv7/WebRTC.framework/WebRTC (for architecture armv7):\tMach-O dynamically linked shared library arm_v7\nout_ios_libs/WebRTC.xcframework/ios-arm64_armv7/WebRTC.framework/WebRTC (for architecture arm64):\tMach-O 64-bit dynamically linked shared library arm64\n\n$ ls -s1 --block-size\u003d1 out_ios_libs/WebRTC.xcframework/ios-arm64_armv7/WebRTC.framework/WebRTC\n14274560 out_ios_libs/WebRTC.xcframework/ios-arm64_armv7/WebRTC.framework/WebRTC\n\n$ file out_ios_libs/WebRTC.xcframework/ios-arm64_x86_64-simulator/WebRTC.framework/WebRTC\nout_ios_libs/WebRTC.xcframework/ios-arm64_x86_64-simulator/WebRTC.framework/WebRTC: Mach-O universal binary with 2 architectures: [x86_64:Mach-O 64-bit dynamically linked shared library x86_64] [arm64]\nout_ios_libs/WebRTC.xcframework/ios-arm64_x86_64-simulator/WebRTC.framework/WebRTC (for architecture x86_64):\tMach-O 64-bit dynamically linked shared library x86_64\nout_ios_libs/WebRTC.xcframework/ios-arm64_x86_64-simulator/WebRTC.framework/WebRTC (for architecture arm64):\tMach-O 64-bit dynamically linked shared library arm64\n\n$ ls -s1 --block-size\u003d1  out_ios_libs/WebRTC.xcframework/ios-arm64_x86_64-simulator/WebRTC.framework/WebRTC\n17661952 out_ios_libs/WebRTC.xcframework/ios-arm64_x86_64-simulator/WebRTC.framework/WebRTC",
+      "parentUuid": "a925db50_cb182305",
+      "revId": "ab7d345008138d9782e9e1a5f803e48d3d3dc0aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

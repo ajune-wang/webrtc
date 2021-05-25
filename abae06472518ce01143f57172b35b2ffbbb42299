@@ -104,6 +104,30 @@
       },
       "revId": "abae06472518ce01143f57172b35b2ffbbb42299",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "217f53d7_8364319d",
+        "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 17694
+      },
+      "writtenOn": "2021-05-25T08:39:52Z",
+      "side": 1,
+      "message": "Added `onAddTrack` as default. I\u0027ve reviewed the other event methods and they would be made optional too, some of them like `onIceCandidate` will be almost always needed to be implemented, but others like `onDataChannel` or `onRenegotiationNeeded` are needed only in some use cases. I can be able to set all of them as default if you want, or left them as they currently are :-)",
+      "parentUuid": "eb7d1c55_a06f5b35",
+      "range": {
+        "startLine": 150,
+        "startChar": 0,
+        "endLine": 150,
+        "endChar": 73
+      },
+      "revId": "abae06472518ce01143f57172b35b2ffbbb42299",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

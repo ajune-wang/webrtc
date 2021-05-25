@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7945a9a7_18719a0b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-25T07:00:40Z",
+      "side": 1,
+      "message": "I think I disagree that this is an improvement.\n\nWe could argue for kNumValues \u003d kFailed, rather than kNumvalues \u003d kFailed + 1, but the two names are used differently, and should not be overloaded.\n\nSuggest that we establish a general principle about sentinels and document that before creating churn on this particular enum.\n\n\n",
+      "revId": "0ae8c79c20f92b0ab81a850c729a27fe253a76de",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c898947e_9b85c449",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1754,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-25T07:00:40Z",
+      "side": 1,
+      "message": "This is a major reason for using kNumValues; if values are inserted after kFailed, the plot will be wrong.",
+      "revId": "0ae8c79c20f92b0ab81a850c729a27fe253a76de",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce7e5a47_09c30d91",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-05-25T09:11:44Z",
+      "side": 1,
+      "message": "Sam, PTAL at test/fuzzers/\nErik, PTAL at everything else",
+      "revId": "d6cc50c7ce09a3dd46573c285d1660e83603b818",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

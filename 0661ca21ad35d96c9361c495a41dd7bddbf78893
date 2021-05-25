@@ -85,6 +85,23 @@
       "message": "sdk/objc LGTM.",
       "revId": "0661ca21ad35d96c9361c495a41dd7bddbf78893",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8927bba_f8a2b6e9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-05-25T20:17:58Z",
+      "side": 1,
+      "message": "The failure of video_capture_tests in mac_rel was an infra issue and it has fixed. Can you send this CL to CQ again?",
+      "revId": "0661ca21ad35d96c9361c495a41dd7bddbf78893",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

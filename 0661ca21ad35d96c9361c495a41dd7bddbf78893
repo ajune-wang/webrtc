@@ -68,6 +68,23 @@
       "message": "Adding Kari for review of objc bits.\n",
       "revId": "0661ca21ad35d96c9361c495a41dd7bddbf78893",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38e22e95_ba43150c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2021-05-25T06:38:43Z",
+      "side": 1,
+      "message": "sdk/objc LGTM.",
+      "revId": "0661ca21ad35d96c9361c495a41dd7bddbf78893",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

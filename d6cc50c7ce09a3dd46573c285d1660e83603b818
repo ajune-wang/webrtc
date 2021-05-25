@@ -16,6 +16,23 @@
       "message": "Sam, PTAL at test/fuzzers/\nErik, PTAL at everything else",
       "revId": "d6cc50c7ce09a3dd46573c285d1660e83603b818",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9d3b6ed_a729c801",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6641
+      },
+      "writtenOn": "2021-05-25T11:12:57Z",
+      "side": 1,
+      "message": "test/fuzzers/ lgtm",
+      "revId": "d6cc50c7ce09a3dd46573c285d1660e83603b818",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

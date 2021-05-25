@@ -14,6 +14,7 @@
 
 #include <memory>
 #include <string>
+#include <utility>
 
 #include "absl/types/optional.h"
 #include "api/test/simulated_network.h"
@@ -82,9 +83,19 @@ Call* CallFactory::CreateCall(const Call::Config& config) {
       receive_degradation_config = ParseDegradationConfig(false);
 
   if (send_degradation_config || receive_degradation_config) {
-    return new DegradedCall(std::unique_ptr<Call>(Call::Create(config)),
-                            send_degradation_config, receive_degradation_config,
-                            config.task_queue_factory);
+    return new DegradedCall(
+        std::unique_ptr<Call>(Call::Create(
+            config, Clock::GetRealTimeClock(),
+            SharedModuleThread::Create(
+                ProcessThread::Create("ModuleProcessThread"), nullptr),
+            config.rtp_transport_controller_send_factory->create(
+                Clock::GetRealTimeClock(), config.event_log,
+                config.network_state_predictor_factory,
+                config.network_controller_factory, config.bitrate_config,
+                ProcessThread::Create("PacerThread"), config.task_queue_factory,
+                config.trials))),
+        send_degradation_config, receive_degradation_config,
+        config.task_queue_factory);
   }
 
   if (!module_thread_) {
@@ -95,7 +106,14 @@ Call* CallFactory::CreateCall(const Call::Config& config) {
         });
   }
 
-  return Call::Create(config, module_thread_);
+  return Call::Create(
+      config, Clock::GetRealTimeClock(), module_thread_,
+      config.rtp_transport_controller_send_factory->create(
+          Clock::GetRealTimeClock(), config.event_log,
+          config.network_state_predictor_factory,
+          config.network_controller_factory, config.bitrate_config,
+          ProcessThread::Create("PacerThread"), config.task_queue_factory,
+          config.trials));
 }
 
 std::unique_ptr<CallFactoryInterface> CreateCallFactory() {

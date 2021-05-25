@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2593d63d_5a3c27b3",
+        "filename": "modules/congestion_controller/goog_cc/send_side_bandwidth_estimation.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2021-05-25T07:28:13Z",
+      "side": 1,
+      "message": "or maybe std::min(delay_based_limit_, max_bitrate_configured_)",
+      "range": {
+        "startLine": 584,
+        "startChar": 9,
+        "endLine": 584,
+        "endChar": 20
+      },
+      "revId": "b9ea1139e6fda73dff98d3c6d80b1855a94b1485",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

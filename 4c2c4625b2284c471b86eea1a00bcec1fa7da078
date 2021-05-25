@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94f054e7_7a96e4ed",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-25T06:52:42Z",
+      "side": 1,
+      "message": "Looks good, but I want one more test before approving.\n",
+      "revId": "4c2c4625b2284c471b86eea1a00bcec1fa7da078",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e14ad013_8aac3cdd",
+        "filename": "net/dcsctp/public/dcsctp_socket.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-25T06:52:42Z",
+      "side": 1,
+      "message": "Use ABSL_DEPRECATED? (only if you can stop testing it too)",
+      "revId": "4c2c4625b2284c471b86eea1a00bcec1fa7da078",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "889c25d5_ec923d99",
+        "filename": "net/dcsctp/socket/dcsctp_socket_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1170,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-25T06:52:42Z",
+      "side": 1,
+      "message": "kSmallMessageSize?",
+      "revId": "4c2c4625b2284c471b86eea1a00bcec1fa7da078",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82af34c9_92f08581",
+        "filename": "net/dcsctp/socket/dcsctp_socket_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1206,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-25T06:52:42Z",
+      "side": 1,
+      "message": "kLargeMessageSize?",
+      "revId": "4c2c4625b2284c471b86eea1a00bcec1fa7da078",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fb11745_c75fcb82",
+        "filename": "net/dcsctp/socket/dcsctp_socket_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1216,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-25T06:52:42Z",
+      "side": 1,
+      "message": "Should have at least one test where you enqueue a \"large\" message before hitting the limit (ie threshold 1500, packet sizes 1000).",
+      "revId": "4c2c4625b2284c471b86eea1a00bcec1fa7da078",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

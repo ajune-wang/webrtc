@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50337808_37e970c3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-25T07:15:00Z",
+      "side": 1,
+      "message": "One test that worries me, and one suggestion for simpler code (one less variable).\n\nOtherwise, looks fine.\n",
+      "revId": "20e29771d29f06e7f87c69f6b20b503bf6540f47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3051b7b_abc051fd",
+        "filename": "net/dcsctp/tx/rr_send_queue.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-25T07:15:00Z",
+      "side": 1,
+      "message": "This could also be written as\n\nbool must_fire_on_buffered_amount \u003d false;\nif (buffered_amount_ \u003e buffered_amount_low_threshold_ \u0026\u0026 buffered_amount_ - bytes\n  \u003c\u003d buffered_amount_low_threshold_) {\n  must_fire_on_buffered_amount \u003d true;\n}\nbuffered_amount_ -\u003d bytes",
+      "revId": "20e29771d29f06e7f87c69f6b20b503bf6540f47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "069ef94f_0baf9d0d",
+        "filename": "net/dcsctp/tx/rr_send_queue.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-25T07:15:00Z",
+      "side": 1,
+      "message": "Nit: pause -\u003e paused",
+      "revId": "20e29771d29f06e7f87c69f6b20b503bf6540f47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c38d10f_75781595",
+        "filename": "net/dcsctp/tx/rr_send_queue.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-25T07:15:00Z",
+      "side": 1,
+      "message": "Nit: \"so that it\u0027s not\"",
+      "revId": "20e29771d29f06e7f87c69f6b20b503bf6540f47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1526cea2_ce71081c",
+        "filename": "net/dcsctp/tx/rr_send_queue.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-25T07:15:00Z",
+      "side": 1,
+      "message": "Except for race conditions and at startup, isn\u0027t this value inferrable from buffered_amount_?",
+      "revId": "20e29771d29f06e7f87c69f6b20b503bf6540f47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d456daaf_cd53e055",
+        "filename": "net/dcsctp/tx/rr_send_queue_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-25T07:15:00Z",
+      "side": 1,
+      "message": "Why do you expect it to trigger here? The threshold is 1000, and you have not gone above that threshold.",
+      "revId": "20e29771d29f06e7f87c69f6b20b503bf6540f47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

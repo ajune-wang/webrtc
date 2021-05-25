@@ -123,6 +123,24 @@
       "parentUuid": "9f213a5b_0d66d38f",
       "revId": "41835dea635be4813c2da4741c9d8ab069fdc061",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "468ea91c_5987e4c7",
+        "filename": "api/call/call_factory_interface.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 17619
+      },
+      "writtenOn": "2021-05-25T10:36:12Z",
+      "side": 1,
+      "message": "I have tended to this issue. Please take a look.",
+      "parentUuid": "11a2e8f3_2b2334e3",
+      "revId": "41835dea635be4813c2da4741c9d8ab069fdc061",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

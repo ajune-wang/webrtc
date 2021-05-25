@@ -51,6 +51,23 @@
       "message": "I thought the code review is done, but apparently, it doesn\u0027t yet.\n\n@hta , can you take a look at objective-c codes?",
       "revId": "0661ca21ad35d96c9361c495a41dd7bddbf78893",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78c8d2f5_d6b5aa7c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-25T05:59:58Z",
+      "side": 1,
+      "message": "Adding Kari for review of objc bits.\n",
+      "revId": "0661ca21ad35d96c9361c495a41dd7bddbf78893",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

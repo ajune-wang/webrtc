@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2d4872f_10a77165",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-05-26T10:15:25Z",
+      "side": 1,
+      "message": "one AllOf is enough",
+      "range": {
+        "startLine": 512,
+        "startChar": 18,
+        "endLine": 512,
+        "endChar": 29
+      },
+      "revId": "495bf8804ec017f0d995a4b3677754c21226b8f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5569af6f_bed8c7a4",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1034,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-05-26T10:15:25Z",
+      "side": 1,
+      "message": "put this expectation at the beginning of the test\n(to be sure no packets other than expected were passed)\nhere it only verifies there are no other packets during destruction",
+      "revId": "495bf8804ec017f0d995a4b3677754c21226b8f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3264165_4a7f64ce",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1195,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-05-26T10:15:25Z",
+      "side": 1,
+      "message": "Update the comment:\nThis packet is no longer sent, only injected to the history.",
+      "range": {
+        "startLine": 1195,
+        "startChar": 5,
+        "endLine": 1195,
+        "endChar": 56
+      },
+      "revId": "495bf8804ec017f0d995a4b3677754c21226b8f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

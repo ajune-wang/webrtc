@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dfa22ba3_e8f11a1f",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-05-26T13:28:10Z",
+      "side": 0,
+      "message": "If you remove this, then we don\u0027t have a way to start retransmitting when we exhaust the send buffer on the socket.\nWith the current code, we need to catch a callback from the socket and use the SignalReadyToSendData() mechanism for the DataChannelController (and thus the DataChannels) to resume sending.",
+      "revId": "8a6b693513d22ff69591d8d8edf6a318f1e34dae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 extern NSString *const kRTCPeerConnectionErrorDomain;
 extern int const kRTCSessionDescriptionErrorCode;
 
-/** Represents the signaling state of the peer connection. */
+/** Represents the signaling state of the peerconnection. */
 typedef NS_ENUM(NSInteger, RTCSignalingState) {
   RTCSignalingStateStable,
   RTCSignalingStateHaveLocalOffer,

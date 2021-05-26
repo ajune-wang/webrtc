@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6184422_4fd79027",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-05-26T13:38:12Z",
+      "side": 1,
+      "message": "Nice to see so many helpers become unneeded!\n",
+      "revId": "6f036e55a4938db331702719106ee2d76bdd162e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbdbb40a_e534d06d",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 858,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-05-26T13:38:12Z",
+      "side": 1,
+      "message": "personally I prefer assignment over reset:\nconfig.rtx_send_ssrc \u003d absl::nullopt;  (if you want to note it is optional)\nor\nconfig.rtx_send_ssrc \u003d {}; (if you want to work for pretty much any type)",
+      "range": {
+        "startLine": 858,
+        "startChar": 22,
+        "endLine": 858,
+        "endChar": 31
+      },
+      "revId": "6f036e55a4938db331702719106ee2d76bdd162e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

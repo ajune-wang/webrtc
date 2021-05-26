@@ -73,6 +73,7 @@ void RRSendQueue::OutgoingStream::Add(DcSctpMessage message,
                                       absl::optional<TimeMs> expires_at,
                                       const SendOptions& send_options) {
   buffered_amount_.Increase(message.payload().size());
+  total_buffered_amount_.Increase(message.payload().size());
   items_.emplace_back(std::move(message), expires_at, send_options);
 
   RTC_DCHECK(IsConsistent());
@@ -131,6 +132,7 @@ absl::optional<SendQueue::DataToSend> RRSendQueue::OutgoingStream::Produce(
   FSN fsn(item->current_fsn);
   item->current_fsn = FSN(*item->current_fsn + 1);
   buffered_amount_.Decrease(payload.size());
+  total_buffered_amount_.Decrease(payload.size());
 
   SendQueue::DataToSend chunk(Data(stream_id, item->ssn.value_or(SSN(0)),
                                    item->message_id.value(), fsn, ppid,
@@ -161,6 +163,7 @@ void RRSendQueue::OutgoingStream::Discard(IsUnordered unordered,
     if (item.send_options.unordered == unordered &&
         item.message_id.has_value() && *item.message_id == message_id) {
       buffered_amount_.Decrease(item.remaining_size);
+      total_buffered_amount_.Decrease(item.remaining_size);
       items_.pop_front();
     }
   }
@@ -179,6 +182,7 @@ void RRSendQueue::OutgoingStream::Pause() {
   for (auto it = items_.begin(); it != items_.end();) {
     if (it->remaining_offset == 0) {
       buffered_amount_.Decrease(it->remaining_size);
+      total_buffered_amount_.Decrease(it->remaining_size);
       it = items_.erase(it);
     } else {
       ++it;
@@ -194,6 +198,8 @@ void RRSendQueue::OutgoingStream::Reset() {
     auto& item = items_.front();
     buffered_amount_.Increase(item.message.payload().size() -
                               item.remaining_size);
+    total_buffered_amount_.Increase(item.message.payload().size() -
+                                    item.remaining_size);
     item.remaining_offset = 0;
     item.remaining_size = item.message.payload().size();
     item.message_id = absl::nullopt;
@@ -231,23 +237,12 @@ void RRSendQueue::Add(TimeMs now,
       .Add(std::move(message), expires_at, send_options);
 }
 
-size_t RRSendQueue::total_bytes() const {
-  // TODO(boivie): Have the current size as a member variable, so that it's not
-  // calculated for every operation.
-  size_t bytes = 0;
-  for (const auto& stream : streams_) {
-    bytes += stream.second.buffered_amount().amount();
-  }
-
-  return bytes;
-}
-
 bool RRSendQueue::IsFull() const {
-  return total_bytes() >= buffer_size_;
+  return total_buffered_amount() >= buffer_size_;
 }
 
 bool RRSendQueue::IsEmpty() const {
-  return total_bytes() == 0;
+  return total_buffered_amount() == 0;
 }
 
 absl::optional<SendQueue::DataToSend> RRSendQueue::Produce(
@@ -323,6 +318,8 @@ void RRSendQueue::RollbackResetStreams() {
 }
 
 void RRSendQueue::Reset() {
+  // Recalculate buffered amount, as partially sent messages may have been put
+  // fully back in the queue.
   for (auto& stream_entry : streams_) {
     OutgoingStream& stream = stream_entry.second;
     stream.Reset();
@@ -359,7 +356,9 @@ RRSendQueue::OutgoingStream& RRSendQueue::GetOrCreateStreamInfo(
 
   return streams_
       .emplace(stream_id,
-               [this, stream_id]() { on_buffered_amount_low_(stream_id); })
+               OutgoingStream(
+                   [this, stream_id]() { on_buffered_amount_low_(stream_id); },
+                   total_buffered_amount_))
       .first->second;
 }
 }  // namespace dcsctp

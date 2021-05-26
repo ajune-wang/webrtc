@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "333b0fce_3a2e47cc",
+        "filename": "net/dcsctp/tx/rr_send_queue.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-26T13:13:34Z",
+      "side": 1,
+      "message": "Rewrote it anyway when removing the state boolean. The way it is written now maps more directly to how it\u0027s written in https://www.w3.org/TR/webrtc/#event-summary",
+      "parentUuid": "f3051b7b_abc051fd",
+      "revId": "20e29771d29f06e7f87c69f6b20b503bf6540f47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "069ef94f_0baf9d0d",
@@ -48,6 +66,24 @@
       "writtenOn": "2021-05-25T07:15:00Z",
       "side": 1,
       "message": "Nit: pause -\u003e paused",
+      "revId": "20e29771d29f06e7f87c69f6b20b503bf6540f47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e86f452e_629574bf",
+        "filename": "net/dcsctp/tx/rr_send_queue.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-26T13:13:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "069ef94f_0baf9d0d",
       "revId": "20e29771d29f06e7f87c69f6b20b503bf6540f47",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -69,6 +105,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7fe7990_72f747b2",
+        "filename": "net/dcsctp/tx/rr_send_queue.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-26T13:13:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c38d10f_75781595",
+      "revId": "20e29771d29f06e7f87c69f6b20b503bf6540f47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1526cea2_ce71081c",
@@ -86,6 +140,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "41dc02e4_8916c7aa",
+        "filename": "net/dcsctp/tx/rr_send_queue.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-26T13:13:34Z",
+      "side": 1,
+      "message": "Yes, but without it, it\u0027s hard to trigger \"once\" when it\u0027s always below the threshold.\n\nBut when I read https://www.w3.org/TR/webrtc/#event-summary (which I didn\u0027t before), it should obviously only trigger when it transitions from \"above\" to \"below or equal\", so ... then it shouldn\u0027t trigger and I can remove the need for this variable.",
+      "parentUuid": "1526cea2_ce71081c",
+      "revId": "20e29771d29f06e7f87c69f6b20b503bf6540f47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d456daaf_cd53e055",
@@ -99,6 +171,24 @@
       "writtenOn": "2021-05-25T07:15:00Z",
       "side": 1,
       "message": "Why do you expect it to trigger here? The threshold is 1000, and you have not gone above that threshold.",
+      "revId": "20e29771d29f06e7f87c69f6b20b503bf6540f47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "73c2a8ab_cd25e4f3",
+        "filename": "net/dcsctp/tx/rr_send_queue_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-26T13:13:34Z",
+      "side": 1,
+      "message": "I didn\u0027t read the spec, and thought it would trigger once to \"start driving the process\". \n\nFixed.",
+      "parentUuid": "d456daaf_cd53e055",
       "revId": "20e29771d29f06e7f87c69f6b20b503bf6540f47",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

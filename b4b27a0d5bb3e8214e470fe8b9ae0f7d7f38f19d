@@ -33,6 +33,24 @@
       "message": "thank you!",
       "revId": "b4b27a0d5bb3e8214e470fe8b9ae0f7d7f38f19d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbef80ee_4ab19dad",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-05-26T11:30:03Z",
+      "side": 1,
+      "message": "There is no such tool available in OSS for now, but I\u0027m looking on what can be used.",
+      "parentUuid": "1f117f6c_3f22ee43",
+      "revId": "b4b27a0d5bb3e8214e470fe8b9ae0f7d7f38f19d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

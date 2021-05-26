@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "78f3e06c_a6068c30",
+        "filename": "net/dcsctp/public/dcsctp_socket.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-26T13:13:25Z",
+      "side": 1,
+      "message": "Done, and removed all references to it in the tree.",
+      "parentUuid": "e14ad013_8aac3cdd",
+      "revId": "4c2c4625b2284c471b86eea1a00bcec1fa7da078",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "889c25d5_ec923d99",
@@ -48,6 +66,24 @@
       "writtenOn": "2021-05-25T06:52:42Z",
       "side": 1,
       "message": "kSmallMessageSize?",
+      "revId": "4c2c4625b2284c471b86eea1a00bcec1fa7da078",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2dd14f09_db0c9312",
+        "filename": "net/dcsctp/socket/dcsctp_socket_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1170,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-26T13:13:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "889c25d5_ec923d99",
       "revId": "4c2c4625b2284c471b86eea1a00bcec1fa7da078",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -69,6 +105,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "92bad9e6_5d05c938",
+        "filename": "net/dcsctp/socket/dcsctp_socket_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1206,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-26T13:13:25Z",
+      "side": 1,
+      "message": "There is a large one already (which is larger than that), but I added some constants to the test.",
+      "parentUuid": "82af34c9_92f08581",
+      "revId": "4c2c4625b2284c471b86eea1a00bcec1fa7da078",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5fb11745_c75fcb82",
@@ -82,6 +136,24 @@
       "writtenOn": "2021-05-25T06:52:42Z",
       "side": 1,
       "message": "Should have at least one test where you enqueue a \"large\" message before hitting the limit (ie threshold 1500, packet sizes 1000).",
+      "revId": "4c2c4625b2284c471b86eea1a00bcec1fa7da078",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8b5e3a3_742193bd",
+        "filename": "net/dcsctp/socket/dcsctp_socket_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1216,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-26T13:13:25Z",
+      "side": 1,
+      "message": "Added a test. PTAL!",
+      "parentUuid": "5fb11745_c75fcb82",
       "revId": "4c2c4625b2284c471b86eea1a00bcec1fa7da078",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -33,6 +33,23 @@
       "message": "Ping again, please help to check",
       "revId": "06f0f75ad303c18cee674e27f726756035aed00d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24c4be15_c6bb8206",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2021-05-26T12:23:45Z",
+      "side": 1,
+      "message": "Åsa, could you take a look?",
+      "revId": "06f0f75ad303c18cee674e27f726756035aed00d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

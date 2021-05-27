@@ -16,6 +16,24 @@
       "message": "We get smaller on binary size but still 12 KiB on arm64. I wonder if we can do more.",
       "revId": "dc09904902802220b412f2be9ddb482a42aa3e9c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "114d3dbc_2ab5c759",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-05-27T13:42:01Z",
+      "side": 1,
+      "message": "I don\u0027t think we can. I looked at the generated assembly which makes sense, so that\u0027s the .text increase. And we removed 2.5K from the generated proxy method strings.",
+      "parentUuid": "8baf3804_ee497525",
+      "revId": "dc09904902802220b412f2be9ddb482a42aa3e9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

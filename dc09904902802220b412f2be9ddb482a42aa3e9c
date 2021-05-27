@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8baf3804_ee497525",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-05-27T13:24:38Z",
+      "side": 1,
+      "message": "We get smaller on binary size but still 12 KiB on arm64. I wonder if we can do more.",
+      "revId": "dc09904902802220b412f2be9ddb482a42aa3e9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

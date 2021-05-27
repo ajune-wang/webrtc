@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4302d91d_6ac74648",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-27T07:26:19Z",
+      "side": 1,
+      "message": "Looks good!\n\nIt seems a bit strange to insert an item in the queue that will never be sent, but it is probably the simplest solution.\n",
+      "revId": "374cfb6e3bd049de7bf8c62e707aab5fe0ee4c3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce212257_a75c721d",
+        "filename": "net/dcsctp/tx/send_queue.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-27T07:26:19Z",
+      "side": 1,
+      "message": "I had to read this three times to get the right parse, so probably needs rephrasing - it was the semicolon that confused me.\n\nSuggested text:\n\nThis function returns true if this message had unsent fragments still in the queue that were discarded, and false if there were no such fragments.",
+      "revId": "374cfb6e3bd049de7bf8c62e707aab5fe0ee4c3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

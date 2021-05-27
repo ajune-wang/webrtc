@@ -98,6 +98,30 @@
       },
       "revId": "dc09904902802220b412f2be9ddb482a42aa3e9c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c8d7469_4f9d1626",
+        "filename": "pc/proxy.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-05-27T18:05:32Z",
+      "side": 1,
+      "message": "Even something like:\n\n#ifndef RTC_DISABLE_PROXY_TRACE_EVENTS\n#ifdef WEBRTC_CHROMIUM_BUILD\n#define RTC_DISABLE_PROXY_TRACE_EVENTS\n#endif\n#endif\n\nSo, if not in Chromium, we can assume this binary size will not be payed.",
+      "parentUuid": "c37ee194_957351c8",
+      "range": {
+        "startLine": 321,
+        "startChar": 12,
+        "endLine": 321,
+        "endChar": 42
+      },
+      "revId": "dc09904902802220b412f2be9ddb482a42aa3e9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

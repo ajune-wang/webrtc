@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e15870b6_2b6196b1",
+        "filename": "net/dcsctp/tx/rr_send_queue.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-27T11:11:27Z",
+      "side": 1,
+      "message": "Naming is hard. A \"ThresholdWatcher\" sounds like an object whose only purpose is to watch a (likely external) value and trigger a callback, but this also _manages_ the value... \n\n`ThresholdedValue`? Also sounds like a passive object. I\u0027ll go with your suggestion as I can\u0027t come up with anything better right now. It\u0027s an internal class, so it\u0027s easy to change when we come up with a better name.",
+      "parentUuid": "0f54ded2_46c021d5",
+      "revId": "a1d81d46b375f60fff3e04cffb2957a38ae1ad0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "936be758_31f81bf6",
@@ -48,6 +66,24 @@
       "writtenOn": "2021-05-27T10:07:56Z",
       "side": 1,
       "message": "Interesting question: If the current amount is 50, and you move the low_threshold from 40 to 60, should on_buffered_amount_low_ fire?\n\nI think yes, because otherwise there is a way into the state of \"there\u0027s room in the buffer, but you\u0027ll never be told about it\", which seems wrong.",
+      "revId": "a1d81d46b375f60fff3e04cffb2957a38ae1ad0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6ecacbe_67fbc15b",
+        "filename": "net/dcsctp/tx/rr_send_queue.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-27T11:11:27Z",
+      "side": 1,
+      "message": "Filed https://github.com/w3c/webrtc-pc/issues/2654 and implemented that.",
+      "parentUuid": "936be758_31f81bf6",
       "revId": "a1d81d46b375f60fff3e04cffb2957a38ae1ad0f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

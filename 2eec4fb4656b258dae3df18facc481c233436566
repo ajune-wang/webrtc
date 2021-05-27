@@ -16,6 +16,91 @@
       "message": "I have tended to comments.\nCan you please take a look.",
       "revId": "2eec4fb4656b258dae3df18facc481c233436566",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "671ef7a1_819fc96b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 23
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-27T09:53:18Z",
+      "side": 1,
+      "message": "I am less worried about the amount of new stuff we\u0027re exposing on API here (at least it\u0027s properly scoped to within the Call construct), but still a few points where it can be better.\n",
+      "revId": "2eec4fb4656b258dae3df18facc481c233436566",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d9ec57d_1eb7ddd1",
+        "filename": "call/call_factory.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-27T09:53:18Z",
+      "side": 1,
+      "message": "This expansion of arguments is horrible to maintain. You pass config and 7 members of config as separate parameters. Can you do better? (ie add a create function that takes config and extracts the seven parameters from it rather than requiring separate arguments)?",
+      "revId": "2eec4fb4656b258dae3df18facc481c233436566",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bd68df5_d0dc2f3c",
+        "filename": "call/call_factory.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-27T09:53:18Z",
+      "side": 1,
+      "message": "Same comment here.",
+      "revId": "2eec4fb4656b258dae3df18facc481c233436566",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba425a62_7a8e7fd9",
+        "filename": "call/rtp_transport_controller_send_factory.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-27T09:53:18Z",
+      "side": 1,
+      "message": "Style guide: Functions start with upper case: create -\u003e Create",
+      "revId": "2eec4fb4656b258dae3df18facc481c233436566",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a749ed3_f50798ea",
+        "filename": "call/rtp_transport_controller_send_factory.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-27T09:53:18Z",
+      "side": 1,
+      "message": "Here\u0027s where you need a sensible create function.",
+      "revId": "2eec4fb4656b258dae3df18facc481c233436566",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

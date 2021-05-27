@@ -52,6 +52,24 @@
       "parentUuid": "3726a5a1_628094e8",
       "revId": "8a6b693513d22ff69591d8d8edf6a318f1e34dae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7255df35_fd231961",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-27T11:12:26Z",
+      "side": 0,
+      "message": "Okey, done!",
+      "parentUuid": "5806c040_dce9b69b",
+      "revId": "8a6b693513d22ff69591d8d8edf6a318f1e34dae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b089519e_fb2e947b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-27T10:07:56Z",
+      "side": 1,
+      "message": "Always more questions....\n",
+      "revId": "a1d81d46b375f60fff3e04cffb2957a38ae1ad0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f54ded2_46c021d5",
+        "filename": "net/dcsctp/tx/rr_send_queue.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-27T10:07:56Z",
+      "side": 1,
+      "message": "I would call it a \"ThresholdWatcher\", since what it does is to take an action when a threshold has been passed. \"BufferedAmount\" reads like a passive object.",
+      "revId": "a1d81d46b375f60fff3e04cffb2957a38ae1ad0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "936be758_31f81bf6",
+        "filename": "net/dcsctp/tx/rr_send_queue.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-27T10:07:56Z",
+      "side": 1,
+      "message": "Interesting question: If the current amount is 50, and you move the low_threshold from 40 to 60, should on_buffered_amount_low_ fire?\n\nI think yes, because otherwise there is a way into the state of \"there\u0027s room in the buffer, but you\u0027ll never be told about it\", which seems wrong.",
+      "revId": "a1d81d46b375f60fff3e04cffb2957a38ae1ad0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -19,11 +19,13 @@
 #include "api/transport/network_control.h"
 #include "api/transport/webrtc_key_value_config.h"
 #include "call/audio_state.h"
+// #include "call/rtp_transport_controller_send_factory_interface.h"
 
 namespace webrtc {
 
 class AudioProcessing;
 class RtcEventLog;
+class RtpTransportControllerSendFactoryInterface;
 
 struct CallConfig {
   // If |network_task_queue| is set to nullptr, Call will assume that network
@@ -69,6 +71,9 @@ struct CallConfig {
   const WebRtcKeyValueConfig* trials = nullptr;
 
   TaskQueueBase* const network_task_queue_ = nullptr;
+  // RtpTransportControllerSend to use for this call.
+  RtpTransportControllerSendFactoryInterface*
+      rtp_transport_controller_send_factory = nullptr;
 };
 
 }  // namespace webrtc

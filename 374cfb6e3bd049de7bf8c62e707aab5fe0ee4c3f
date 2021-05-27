@@ -33,6 +33,24 @@
       "message": "I had to read this three times to get the right parse, so probably needs rephrasing - it was the semicolon that confused me.\n\nSuggested text:\n\nThis function returns true if this message had unsent fragments still in the queue that were discarded, and false if there were no such fragments.",
       "revId": "374cfb6e3bd049de7bf8c62e707aab5fe0ee4c3f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "091b527c_d0519c86",
+        "filename": "net/dcsctp/tx/send_queue.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-27T07:47:33Z",
+      "side": 1,
+      "message": "Much better - thanks!",
+      "parentUuid": "ce212257_a75c721d",
+      "revId": "374cfb6e3bd049de7bf8c62e707aab5fe0ee4c3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

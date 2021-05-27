@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "959d5721_df9fa0af",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-27T10:02:02Z",
+      "side": 1,
+      "message": "What does \"continue sending\" mean in this case? Rephrase as \"This can be used by clients to take alternate action (such as delaying transmission or using other buffering) if the send buffer ever becomes full\"?\n\nContinue sending is exactly what they shouldn\u0027t do as seen from the dcSCTP layer.",
+      "revId": "636e14d61765c881250dbcefb573f28c42efd510",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c23ca00_7b01b644",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-27T10:02:02Z",
+      "side": 1,
+      "message": "Some explanations could be better; code is straightforward (good).\n",
+      "revId": "636e14d61765c881250dbcefb573f28c42efd510",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c69967be_38846df6",
+        "filename": "net/dcsctp/tx/rr_send_queue.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-27T10:02:02Z",
+      "side": 1,
+      "message": "Should there be an IsConsistent check that sum(buffered_amount_(id)) \u003d\u003d total_buffered_amount_?",
+      "revId": "636e14d61765c881250dbcefb573f28c42efd510",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "434be802_04f1f691",
+        "filename": "net/dcsctp/tx/rr_send_queue_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-27T10:02:02Z",
+      "side": 1,
+      "message": "\"DoesntTriggers\" doesn\u0027t parse. \"OnTotalBufferedAmountLowDoesNotTriggerOnBufferFillingUp\"?",
+      "revId": "636e14d61765c881250dbcefb573f28c42efd510",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

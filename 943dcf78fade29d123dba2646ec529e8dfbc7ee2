@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec17e8a6_2cb3cd7e",
+        "filename": "rtc_base/string_utils.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-05-27T11:54:36Z",
+      "side": 1,
+      "message": "This namespace is a bit too generic, let\u0027s use rtc_base_string_utils_internal?",
+      "range": {
+        "startLine": 94,
+        "startChar": 10,
+        "endLine": 94,
+        "endChar": 16
+      },
+      "revId": "943dcf78fade29d123dba2646ec529e8dfbc7ee2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

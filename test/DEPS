@@ -1,6 +1,7 @@
 include_rules = [
   "+third_party/libjpeg",
   "+third_party/libjpeg_turbo",
+  "+base",
   "+call",
   "+common_audio",
   "+common_video",

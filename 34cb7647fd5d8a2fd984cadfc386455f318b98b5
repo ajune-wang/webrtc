@@ -16,6 +16,24 @@
       "message": "Given our other recent run-in with this issue, I think this CL should be revised to use the UsedPayloadTypes from pc/used_ids.h\n\nThere should be only one way to do it ....\n",
       "revId": "34cb7647fd5d8a2fd984cadfc386455f318b98b5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6344050_4cbcb01b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2021-05-28T14:13:34Z",
+      "side": 1,
+      "message": "that won\u0027t work. pc/used_ids assigns in descending order while this mapper assigns them ascending, to avoid collisions. I can volunteer documentation though, spent too much time pondering :-)",
+      "parentUuid": "e9ac89bf_75b0dd95",
+      "revId": "34cb7647fd5d8a2fd984cadfc386455f318b98b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

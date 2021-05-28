@@ -75,6 +75,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7414b191_7138f8bf",
+        "filename": "modules/desktop_capture/desktop_capture_options.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2021-05-28T21:34:41Z",
+      "side": 1,
+      "message": "I didn\u0027t want to duplicate the information, a pointer to the other comment is a good idea! Done.",
+      "parentUuid": "7ca88fcb_daea16fd",
+      "range": {
+        "startLine": 103,
+        "startChar": 12,
+        "endLine": 103,
+        "endChar": 13
+      },
+      "revId": "df32ac7e8f76987b2f288bf3ad8e14434a0e2b1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0a669694_fa8db4bc",
@@ -88,6 +112,30 @@
       "writtenOn": "2021-05-24T20:08:23Z",
       "side": 1,
       "message": "Looks like we\u0027re only using: \u0027bool enumerate_current_process_windows\u0027 in this class. So can we simply pass the bool to the constructor? Or is it preferable to have the whole DesktopCapturerOptions?",
+      "range": {
+        "startLine": 27,
+        "startChar": 23,
+        "endLine": 27,
+        "endChar": 53
+      },
+      "revId": "df32ac7e8f76987b2f288bf3ad8e14434a0e2b1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "373ccfa9_f6ccf731",
+        "filename": "modules/desktop_capture/win/window_capturer_win_gdi.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2021-05-28T21:34:41Z",
+      "side": 1,
+      "message": "Yeah let\u0027s just store the bool, no need to have the whole DesktopCaptureOptions.",
+      "parentUuid": "0a669694_fa8db4bc",
       "range": {
         "startLine": 27,
         "startChar": 23,

@@ -16,6 +16,184 @@
       "message": "Thank you for the detailed comments Alessio!\n\nI\u0027ve simplified the unit tests quite a lot, hence the high number of Ack in the comments :)",
       "revId": "70511b842c758e31fc78375867bf4c9a1891c892",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42de2b54_5652f9c2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-28T07:19:24Z",
+      "side": 1,
+      "message": "Thanks for the changes Hanna! Great work!\nLGTM % a few nits",
+      "revId": "70511b842c758e31fc78375867bf4c9a1891c892",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31038f67_4a41145a",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-28T07:19:24Z",
+      "side": 1,
+      "message": "[nit] kEpsilon \u003d 1e-6f;",
+      "range": {
+        "startLine": 22,
+        "startChar": 18,
+        "endLine": 22,
+        "endChar": 25
+      },
+      "revId": "70511b842c758e31fc78375867bf4c9a1891c892",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0141f9a2_bab52264",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-28T07:19:24Z",
+      "side": 1,
+      "message": "```\nif (size \u003c Capacity()) {\n  size_++;\n}\n```",
+      "range": {
+        "startLine": 46,
+        "startChar": 2,
+        "endLine": 46,
+        "endChar": 40
+      },
+      "revId": "70511b842c758e31fc78375867bf4c9a1891c892",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85c3604d_c83489fe",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-28T07:19:24Z",
+      "side": 1,
+      "message": "I would add the following comment:\n// Recommended maximum capacity. It is possible to create a buffer with\n// a larger capacity, but the implementation is not optimized for larger\n// values.",
+      "range": {
+        "startLine": 31,
+        "startChar": 2,
+        "endLine": 31,
+        "endChar": 42
+      },
+      "revId": "70511b842c758e31fc78375867bf4c9a1891c892",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97d4498f_991b052b",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-28T07:19:24Z",
+      "side": 1,
+      "message": "CheckMetricsAfterFullBuffer\n\nbreak down\n- Metrics because it\u0027s what you check\n- FullBuffer because # push ops \u003d\u003d capacity",
+      "range": {
+        "startLine": 75,
+        "startChar": 39,
+        "endLine": 75,
+        "endChar": 67
+      },
+      "revId": "70511b842c758e31fc78375867bf4c9a1891c892",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29ada931_7f77ddbf",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-28T07:19:24Z",
+      "side": 1,
+      "message": "[nit] /*capacity\u003d*/2 - i.e., equal before */ and no space after\n(same below in this file)",
+      "range": {
+        "startLine": 76,
+        "startChar": 38,
+        "endLine": 76,
+        "endChar": 51
+      },
+      "revId": "70511b842c758e31fc78375867bf4c9a1891c892",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04126131_8970a852",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-28T07:19:24Z",
+      "side": 1,
+      "message": "I would rename this as well, not sure what names fits here\nmaybe CheckMetricsAfterPushBeyondCapacity",
+      "range": {
+        "startLine": 90,
+        "startChar": 39,
+        "endLine": 90,
+        "endChar": 70
+      },
+      "revId": "70511b842c758e31fc78375867bf4c9a1891c892",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b76fbed_1b984a71",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-05-28T07:19:24Z",
+      "side": 1,
+      "message": "nit: I\u0027d move this after line 73 (lasting  parametric test), so it\u0027s closer to where it\u0027s used",
+      "range": {
+        "startLine": 134,
+        "startChar": 0,
+        "endLine": 137,
+        "endChar": 59
+      },
+      "revId": "70511b842c758e31fc78375867bf4c9a1891c892",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

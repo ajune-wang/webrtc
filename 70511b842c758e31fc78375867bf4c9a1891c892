@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ca4cda9_da71aad6",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-05-28T13:55:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "31038f67_4a41145a",
+      "range": {
+        "startLine": 22,
+        "startChar": 18,
+        "endLine": 22,
+        "endChar": 25
+      },
+      "revId": "70511b842c758e31fc78375867bf4c9a1891c892",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0141f9a2_bab52264",
@@ -71,6 +95,30 @@
       "writtenOn": "2021-05-28T07:19:24Z",
       "side": 1,
       "message": "```\nif (size \u003c Capacity()) {\n  size_++;\n}\n```",
+      "range": {
+        "startLine": 46,
+        "startChar": 2,
+        "endLine": 46,
+        "endChar": 40
+      },
+      "revId": "70511b842c758e31fc78375867bf4c9a1891c892",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d3438d0_df67d8ed",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-05-28T13:55:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0141f9a2_bab52264",
       "range": {
         "startLine": 46,
         "startChar": 2,
@@ -104,6 +152,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "28f2c137_5f595abd",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-05-28T13:55:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85c3604d_c83489fe",
+      "range": {
+        "startLine": 31,
+        "startChar": 2,
+        "endLine": 31,
+        "endChar": 42
+      },
+      "revId": "70511b842c758e31fc78375867bf4c9a1891c892",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "97d4498f_991b052b",
@@ -117,6 +189,30 @@
       "writtenOn": "2021-05-28T07:19:24Z",
       "side": 1,
       "message": "CheckMetricsAfterFullBuffer\n\nbreak down\n- Metrics because it\u0027s what you check\n- FullBuffer because # push ops \u003d\u003d capacity",
+      "range": {
+        "startLine": 75,
+        "startChar": 39,
+        "endLine": 75,
+        "endChar": 67
+      },
+      "revId": "70511b842c758e31fc78375867bf4c9a1891c892",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7a822a2_ef2afbaa",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-05-28T13:55:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97d4498f_991b052b",
       "range": {
         "startLine": 75,
         "startChar": 39,
@@ -150,6 +246,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "721f005a_2523ac52",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-05-28T13:55:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29ada931_7f77ddbf",
+      "range": {
+        "startLine": 76,
+        "startChar": 38,
+        "endLine": 76,
+        "endChar": 51
+      },
+      "revId": "70511b842c758e31fc78375867bf4c9a1891c892",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "04126131_8970a852",
@@ -173,6 +293,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b84f405_381de8dd",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-05-28T13:55:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "04126131_8970a852",
+      "range": {
+        "startLine": 90,
+        "startChar": 39,
+        "endLine": 90,
+        "endChar": 70
+      },
+      "revId": "70511b842c758e31fc78375867bf4c9a1891c892",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9b76fbed_1b984a71",
@@ -186,6 +330,30 @@
       "writtenOn": "2021-05-28T07:19:24Z",
       "side": 1,
       "message": "nit: I\u0027d move this after line 73 (lasting  parametric test), so it\u0027s closer to where it\u0027s used",
+      "range": {
+        "startLine": 134,
+        "startChar": 0,
+        "endLine": 137,
+        "endChar": 59
+      },
+      "revId": "70511b842c758e31fc78375867bf4c9a1891c892",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9cc5919c_3383b2a6",
+        "filename": "modules/audio_processing/agc/clipping_predictor_level_buffer_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-05-28T13:55:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b76fbed_1b984a71",
       "range": {
         "startLine": 134,
         "startChar": 0,

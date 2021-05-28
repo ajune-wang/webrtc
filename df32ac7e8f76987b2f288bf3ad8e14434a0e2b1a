@@ -35,6 +35,46 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "71599d36_80a4ccb6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13004
+      },
+      "writtenOn": "2021-05-28T19:06:31Z",
+      "side": 1,
+      "message": "Looks good to me.  Thank you for investigating and fixing this issue.",
+      "revId": "df32ac7e8f76987b2f288bf3ad8e14434a0e2b1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ca88fcb_daea16fd",
+        "filename": "modules/desktop_capture/desktop_capture_options.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 13004
+      },
+      "writtenOn": "2021-05-28T19:06:31Z",
+      "side": 1,
+      "message": "Should we explain how the deadlock occurs?  I see that we explain it in detail later so maybe we can give a pointer to the other comment that explains the details here.",
+      "range": {
+        "startLine": 103,
+        "startChar": 12,
+        "endLine": 103,
+        "endChar": 13
+      },
+      "revId": "df32ac7e8f76987b2f288bf3ad8e14434a0e2b1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0a669694_fa8db4bc",

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81588f52_9e078897",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-05-29T01:13:40Z",
+      "side": 1,
+      "message": "Hello, this CL is for iOS Unittest to run normally by making the Test Delegate implement the proper protocol. Please take a look. Thank you.",
+      "revId": "ba518bbf234cb8c68c3f25ac4dc144efc2a42654",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

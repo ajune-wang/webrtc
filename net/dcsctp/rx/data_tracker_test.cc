@@ -387,5 +387,143 @@ TEST_F(DataTrackerTest, SendsSackOnDuplicateDataChunks) {
   EXPECT_FALSE(timer_->is_running());
 }
 
+TEST_F(DataTrackerTest, GapAckBlockAddSingleBlock) {
+  Observer({12});
+  SackChunk sack = buf_.CreateSelectiveAck(kArwnd);
+  EXPECT_EQ(sack.cumulative_tsn_ack(), TSN(10));
+  EXPECT_THAT(sack.gap_ack_blocks(), ElementsAre(SackChunk::GapAckBlock(2, 2)));
+}
+
+TEST_F(DataTrackerTest, GapAckBlockAddsAnother) {
+  Observer({12});
+  Observer({14});
+  SackChunk sack = buf_.CreateSelectiveAck(kArwnd);
+  EXPECT_EQ(sack.cumulative_tsn_ack(), TSN(10));
+  EXPECT_THAT(sack.gap_ack_blocks(), ElementsAre(SackChunk::GapAckBlock(2, 2),
+                                                 SackChunk::GapAckBlock(4, 4)));
+}
+
+TEST_F(DataTrackerTest, GapAckBlockAddsDuplicate) {
+  Observer({12});
+  Observer({12});
+  SackChunk sack = buf_.CreateSelectiveAck(kArwnd);
+  EXPECT_EQ(sack.cumulative_tsn_ack(), TSN(10));
+  EXPECT_THAT(sack.gap_ack_blocks(), ElementsAre(SackChunk::GapAckBlock(2, 2)));
+  EXPECT_THAT(sack.duplicate_tsns(), ElementsAre(TSN(12)));
+}
+
+TEST_F(DataTrackerTest, GapAckBlockExpandsToRight) {
+  Observer({12});
+  Observer({13});
+  SackChunk sack = buf_.CreateSelectiveAck(kArwnd);
+  EXPECT_EQ(sack.cumulative_tsn_ack(), TSN(10));
+  EXPECT_THAT(sack.gap_ack_blocks(), ElementsAre(SackChunk::GapAckBlock(2, 3)));
+}
+
+TEST_F(DataTrackerTest, GapAckBlockExpandsToRightWithOther) {
+  Observer({12});
+  Observer({20});
+  Observer({30});
+  Observer({21});
+  SackChunk sack = buf_.CreateSelectiveAck(kArwnd);
+  EXPECT_EQ(sack.cumulative_tsn_ack(), TSN(10));
+  EXPECT_THAT(sack.gap_ack_blocks(),
+              ElementsAre(SackChunk::GapAckBlock(2, 2),    //
+                          SackChunk::GapAckBlock(10, 11),  //
+                          SackChunk::GapAckBlock(20, 20)));
+}
+
+TEST_F(DataTrackerTest, GapAckBlockExpandsToLeft) {
+  Observer({13});
+  Observer({12});
+  SackChunk sack = buf_.CreateSelectiveAck(kArwnd);
+  EXPECT_EQ(sack.cumulative_tsn_ack(), TSN(10));
+  EXPECT_THAT(sack.gap_ack_blocks(), ElementsAre(SackChunk::GapAckBlock(2, 3)));
+}
+
+TEST_F(DataTrackerTest, GapAckBlockExpandsToLeftWithOther) {
+  Observer({12});
+  Observer({21});
+  Observer({30});
+  Observer({20});
+  SackChunk sack = buf_.CreateSelectiveAck(kArwnd);
+  EXPECT_EQ(sack.cumulative_tsn_ack(), TSN(10));
+  EXPECT_THAT(sack.gap_ack_blocks(),
+              ElementsAre(SackChunk::GapAckBlock(2, 2),    //
+                          SackChunk::GapAckBlock(10, 11),  //
+                          SackChunk::GapAckBlock(20, 20)));
+}
+
+TEST_F(DataTrackerTest, GapAckBlockExpandsToLRightAndMerges) {
+  Observer({12});
+  Observer({20});
+  Observer({22});
+  Observer({30});
+  Observer({21});
+  SackChunk sack = buf_.CreateSelectiveAck(kArwnd);
+  EXPECT_EQ(sack.cumulative_tsn_ack(), TSN(10));
+  EXPECT_THAT(sack.gap_ack_blocks(),
+              ElementsAre(SackChunk::GapAckBlock(2, 2),    //
+                          SackChunk::GapAckBlock(10, 12),  //
+                          SackChunk::GapAckBlock(20, 20)));
+}
+
+TEST_F(DataTrackerTest, GapAckBlockRemoveAll) {
+  Observer({12});
+  Observer({20});
+  Observer({30});
+  buf_.HandleForwardTsn(TSN(40));
+
+  SackChunk sack = buf_.CreateSelectiveAck(kArwnd);
+  EXPECT_EQ(sack.cumulative_tsn_ack(), TSN(40));
+  EXPECT_THAT(sack.gap_ack_blocks(), IsEmpty());
+}
+
+TEST_F(DataTrackerTest, GapAckBlockRemoveUpToLast) {
+  Observer({12});
+  Observer({20});
+  Observer({30});
+  buf_.HandleForwardTsn(TSN(30));
+
+  SackChunk sack = buf_.CreateSelectiveAck(kArwnd);
+  EXPECT_EQ(sack.cumulative_tsn_ack(), TSN(30));
+  EXPECT_THAT(sack.gap_ack_blocks(), IsEmpty());
+}
+
+TEST_F(DataTrackerTest, GapAckBlockRemoveBeforeFirst) {
+  Observer({30});
+  buf_.HandleForwardTsn(TSN(20));
+
+  SackChunk sack = buf_.CreateSelectiveAck(kArwnd);
+  EXPECT_EQ(sack.cumulative_tsn_ack(), TSN(20));
+  EXPECT_THAT(sack.gap_ack_blocks(),
+              ElementsAre(SackChunk::GapAckBlock(10, 10)));
+}
+
+TEST_F(DataTrackerTest, GapAckBlockRemoveToMiddle) {
+  Observer({12});
+  Observer({20});
+  Observer({30});
+  buf_.HandleForwardTsn(TSN(20));
+
+  SackChunk sack = buf_.CreateSelectiveAck(kArwnd);
+  EXPECT_EQ(sack.cumulative_tsn_ack(), TSN(20));
+  EXPECT_THAT(sack.gap_ack_blocks(),
+              ElementsAre(SackChunk::GapAckBlock(10, 10)));
+}
+
+TEST_F(DataTrackerTest, GapAckBlockSplitBlock) {
+  Observer({12});
+  Observer({20});
+  Observer({22});
+  Observer({21});
+  Observer({30});
+  buf_.HandleForwardTsn(TSN(21));
+
+  SackChunk sack = buf_.CreateSelectiveAck(kArwnd);
+  EXPECT_EQ(sack.cumulative_tsn_ack(), TSN(22));
+  EXPECT_THAT(sack.gap_ack_blocks(), ElementsAre(SackChunk::GapAckBlock(8, 8)));
+}
+
 }  // namespace
 }  // namespace dcsctp

@@ -9,6 +9,7 @@
  */
 #include "net/dcsctp/rx/data_tracker.h"
 
+#include <algorithm>
 #include <cstdint>
 #include <iterator>
 #include <set>
@@ -16,6 +17,7 @@
 #include <utility>
 #include <vector>
 
+#include "absl/algorithm/container.h"
 #include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
 #include "net/dcsctp/common/sequence_numbers.h"
@@ -28,6 +30,99 @@ namespace dcsctp {
 
 constexpr size_t DataTracker::kMaxDuplicateTsnReported;
 constexpr size_t DataTracker::kMaxGapAckBlocksReported;
+
+bool DataTracker::GapAckBlocks::Add(UnwrappedTSN tsn) {
+  if (blocks_.empty()) {
+    blocks_.push_back(std::make_pair(tsn, tsn));
+    return true;
+  }
+
+  // Find any block to expand.
+  auto it =
+      absl::c_lower_bound(blocks_, std::make_pair(tsn, tsn),
+                          [&](const std::pair<UnwrappedTSN, UnwrappedTSN>& elem,
+                              const std::pair<UnwrappedTSN, UnwrappedTSN>& t) {
+                            return elem.first < t.first.next_value() &&
+                                   elem.second.next_value() < t.first;
+                          });
+
+  if (it == blocks_.end()) {
+    // All current blocks are below this tsn. Create a new block at the end.
+    blocks_.emplace_back(tsn, tsn);
+    return true;
+  }
+
+  if (it->second.next_value() == tsn) {
+    // This block can be expanded to the right, or merged with the next.
+    auto next_it = it + 1;
+    if (next_it != blocks_.end() && tsn.next_value() == next_it->first) {
+      // Expanding it would make it adjacent to next block - merge those.
+      it->second = next_it->second;
+      blocks_.erase(next_it);
+      return true;
+    }
+
+    // Expand to the right
+    it->second = tsn;
+    return true;
+  }
+
+  if (it->first == tsn.next_value()) {
+    // This block can be expanded to the left. Merging to the left would've been
+    // covered by the above "merge to the right", as the std::lower_bound finds
+    // the left-most block that matches, and both would match.
+    RTC_DCHECK((it - 1) == blocks_.begin() ||
+               (it - 1)->second.next_value() != tsn);
+
+    // Expand to the left.
+    it->first = tsn;
+    return true;
+  }
+
+  if (tsn >= it->first && tsn <= it->second) {
+    // It's already in this block.
+    return false;
+  }
+
+  // Need to create a new block in the middle.
+  blocks_.emplace(it, tsn, tsn);
+  return true;
+}
+
+void DataTracker::GapAckBlocks::EraseTo(UnwrappedTSN tsn) {
+  // Find the block that includes `tsn`.
+  auto it = absl::c_lower_bound(
+      blocks_, std::make_pair(tsn, tsn),
+      [&](const std::pair<UnwrappedTSN, UnwrappedTSN>& elem,
+          const std::pair<UnwrappedTSN, UnwrappedTSN>& t) {
+        return elem.first < t.first && elem.second < t.first;
+      });
+
+  if (it == blocks_.end()) {
+    blocks_.clear();
+    return;
+  }
+
+  if (tsn > it->second) {
+    // The entire block should be removed.
+    blocks_.erase(blocks_.begin(), it + 1);
+    return;
+  }
+
+  if (tsn < it->first) {
+    // The entire block is kept, but not the ones before.
+    blocks_.erase(blocks_.begin(), it);
+    return;
+  }
+
+  blocks_.erase(blocks_.begin(), it);
+  blocks_.front().first = tsn.next_value();
+}
+
+void DataTracker::GapAckBlocks::PopFront() {
+  RTC_DCHECK(!blocks_.empty());
+  blocks_.erase(blocks_.begin());
+}
 
 bool DataTracker::IsTSNValid(TSN tsn) const {
   UnwrappedTSN unwrapped_tsn = tsn_unwrapper_.PeekUnwrap(tsn);
@@ -69,14 +164,14 @@ void DataTracker::Observe(TSN tsn,
       last_cumulative_acked_tsn_ = unwrapped_tsn;
       // The cumulative acked tsn may be moved even further, if a gap was
       // filled.
-      while (!additional_tsns_.empty() &&
-             *additional_tsns_.begin() ==
-                 last_cumulative_acked_tsn_.next_value()) {
-        last_cumulative_acked_tsn_.Increment();
-        additional_tsns_.erase(additional_tsns_.begin());
+      if (!gap_ack_blocks_.empty() &&
+          gap_ack_blocks_.front().first ==
+              last_cumulative_acked_tsn_.next_value()) {
+        last_cumulative_acked_tsn_ = gap_ack_blocks_.front().second;
+        gap_ack_blocks_.PopFront();
       }
     } else {
-      bool inserted = additional_tsns_.insert(unwrapped_tsn).second;
+      bool inserted = gap_ack_blocks_.Add(unwrapped_tsn);
       if (!inserted) {
         // Already seen before.
         if (duplicate_tsns_.size() < kMaxDuplicateTsnReported) {
@@ -98,7 +193,7 @@ void DataTracker::Observe(TSN tsn,
   // the received DATA chunk sequence, it SHOULD send a SACK with Gap Ack
   // Blocks immediately.  The data receiver continues sending a SACK after
   // receipt of each SCTP packet that doesn't fill the gap."
-  if (!additional_tsns_.empty()) {
+  if (!gap_ack_blocks_.empty()) {
     UpdateAckState(AckState::kImmediate, "packet loss");
   }
 
@@ -162,24 +257,19 @@ void DataTracker::HandleForwardTsn(TSN new_cumulative_ack) {
   // `last_cumulative_acked_tsn_`, and if there have been prior "gaps" that are
   // now overlapping with the new value, remove them.
   last_cumulative_acked_tsn_ = unwrapped_tsn;
-  int erased_additional_tsns = std::distance(
-      additional_tsns_.begin(), additional_tsns_.upper_bound(unwrapped_tsn));
-  additional_tsns_.erase(additional_tsns_.begin(),
-                         additional_tsns_.upper_bound(unwrapped_tsn));
+  gap_ack_blocks_.EraseTo(unwrapped_tsn);
 
   // See if the `last_cumulative_acked_tsn_` can be moved even further:
-  while (!additional_tsns_.empty() &&
-         *additional_tsns_.begin() == last_cumulative_acked_tsn_.next_value()) {
-    last_cumulative_acked_tsn_.Increment();
-    additional_tsns_.erase(additional_tsns_.begin());
-    ++erased_additional_tsns;
+  if (!gap_ack_blocks_.empty() && gap_ack_blocks_.front().first ==
+                                      last_cumulative_acked_tsn_.next_value()) {
+    last_cumulative_acked_tsn_ = gap_ack_blocks_.front().second;
+    gap_ack_blocks_.PopFront();
   }
 
   RTC_DLOG(LS_VERBOSE) << log_prefix_ << "FORWARD_TSN, cum_ack_tsn="
                        << *prev_last_cum_ack_tsn.Wrap() << "->"
                        << *new_cumulative_ack << "->"
-                       << *last_cumulative_acked_tsn_.Wrap() << ", removed "
-                       << erased_additional_tsns << " additional TSNs";
+                       << *last_cumulative_acked_tsn_.Wrap();
 
   // https://tools.ietf.org/html/rfc3758#section-3.6
   // "Any time a FORWARD TSN chunk arrives, for the purposes of sending a
@@ -209,41 +299,18 @@ SackChunk DataTracker::CreateSelectiveAck(size_t a_rwnd) {
 }
 
 std::vector<SackChunk::GapAckBlock> DataTracker::CreateGapAckBlocks() const {
-  // This method will calculate the gaps between blocks of contiguous values in
-  // `additional_tsns_`, in the same format as the SACK chunk expects it;
-  // offsets from the "cumulative ack TSN value".
+  const auto& blocks = gap_ack_blocks_.blocks();
   std::vector<SackChunk::GapAckBlock> gap_ack_blocks;
-
-  absl::optional<UnwrappedTSN> first_tsn_in_block = absl::nullopt;
-  absl::optional<UnwrappedTSN> last_tsn_in_block = absl::nullopt;
-
-  auto flush = [&]() {
-    if (first_tsn_in_block.has_value()) {
-      if (gap_ack_blocks.size() < kMaxGapAckBlocksReported) {
-        auto start_diff = UnwrappedTSN::Difference(*first_tsn_in_block,
-                                                   last_cumulative_acked_tsn_);
-        auto end_diff = UnwrappedTSN::Difference(*last_tsn_in_block,
-                                                 last_cumulative_acked_tsn_);
-        gap_ack_blocks.emplace_back(static_cast<uint16_t>(start_diff),
-                                    static_cast<uint16_t>(end_diff));
-      }
-      first_tsn_in_block = absl::nullopt;
-      last_tsn_in_block = absl::nullopt;
-    }
-  };
-  for (UnwrappedTSN tsn : additional_tsns_) {
-    if (last_tsn_in_block.has_value() &&
-        last_tsn_in_block->next_value() == tsn) {
-      // Continuing the same block.
-      last_tsn_in_block = tsn;
-    } else {
-      // New block, or a gap from the old block's last value.
-      flush();
-      first_tsn_in_block = tsn;
-      last_tsn_in_block = tsn;
-    }
+  gap_ack_blocks.reserve(std::min(blocks.size(), kMaxGapAckBlocksReported));
+  for (size_t i = 0; i < blocks.size() && i < kMaxGapAckBlocksReported; ++i) {
+    auto start_diff =
+        UnwrappedTSN::Difference(blocks[i].first, last_cumulative_acked_tsn_);
+    auto end_diff =
+        UnwrappedTSN::Difference(blocks[i].second, last_cumulative_acked_tsn_);
+    gap_ack_blocks.emplace_back(static_cast<uint16_t>(start_diff),
+                                static_cast<uint16_t>(end_diff));
   }
-  flush();
+
   return gap_ack_blocks;
 }
 

@@ -16,6 +16,7 @@
 #include <cstdint>
 #include <set>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "absl/strings/string_view.h"
@@ -116,6 +117,38 @@ class DataTracker {
     // Send a SACK immediately after handling this packet.
     kImmediate,
   };
+
+  // Represents received TSNs not directly following the last cumulative acked
+  // TSN. This information is returned to the sender in the "gap ack blocks" in
+  // the SACK chunk.
+  class GapAckBlocks {
+   public:
+    // The return value indicates if `tsn` was added. If false is returned, the
+    // `tsn` was already present in the gap ack blocks.
+    bool Add(UnwrappedTSN tsn);
+
+    // Erases all TSNs up to, and including `tsn`. This may truncate an existing
+    // block, and the frontmost block's start TSN may be the next following tsn.
+    void EraseTo(UnwrappedTSN tsn);
+
+    // Removes the first block.
+    void PopFront();
+
+    const std::vector<std::pair<UnwrappedTSN, UnwrappedTSN>>& blocks() const {
+      return blocks_;
+    }
+
+    bool empty() const { return blocks_.empty(); }
+
+    const std::pair<UnwrappedTSN, UnwrappedTSN>& front() const {
+      return blocks_.front();
+    }
+
+   private:
+    // A sorted vector of non-overlapping and non-adjacent blocks.
+    std::vector<std::pair<UnwrappedTSN, UnwrappedTSN>> blocks_;
+  };
+
   std::vector<SackChunk::GapAckBlock> CreateGapAckBlocks() const;
   void UpdateAckState(AckState new_state, absl::string_view reason);
   static absl::string_view ToString(AckState ack_state);
@@ -130,7 +163,7 @@ class DataTracker {
   // All TSNs up until (and including) this value have been seen.
   UnwrappedTSN last_cumulative_acked_tsn_;
   // Received TSNs that are not directly following `last_cumulative_acked_tsn_`.
-  std::set<UnwrappedTSN> additional_tsns_;
+  GapAckBlocks gap_ack_blocks_;
   std::set<TSN> duplicate_tsns_;
 };
 }  // namespace dcsctp

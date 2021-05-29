@@ -16,6 +16,75 @@
       "message": "Hi joedow@, can you PTAL at this CL that helps consumers avoid a deadlock in desktop capture?",
       "revId": "f8270af12a8e2fbcb854bc5a363ee34389224ddf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "764826d5_4fbe6a82",
+        "filename": "modules/desktop_capture/cropping_window_capturer_win.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 13849
+      },
+      "writtenOn": "2021-05-29T00:19:26Z",
+      "side": 1,
+      "message": "nit: This might flow better as a ternary condition:\n\nint windows_list_flags \u003d enumerate_current_process_windows_ ?\n    GetWindowListFlags::kNone :\n    GetWindowListFlags::kIgnoreCurrentProcessWindows;",
+      "range": {
+        "startLine": 171,
+        "startChar": 18,
+        "endLine": 176,
+        "endChar": 29
+      },
+      "revId": "f8270af12a8e2fbcb854bc5a363ee34389224ddf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f82c142_53fd888b",
+        "filename": "modules/desktop_capture/win/window_capture_utils.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 13849
+      },
+      "writtenOn": "2021-05-29T00:19:26Z",
+      "side": 1,
+      "message": "nit Could this be:\n  int flags \u003d (GetWindowListFlags::kIgnoreUntitled |\n               GetWindowListFlags::kIgnoreUnresponsive);\n  if (!enumerate_current_process_windows) {\n    flags |\u003d GetWindowListFlags::kIgnoreCurrentProcessWindows;\n  }",
+      "range": {
+        "startLine": 460,
+        "startChar": 0,
+        "endLine": 467,
+        "endChar": 63
+      },
+      "revId": "f8270af12a8e2fbcb854bc5a363ee34389224ddf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9afb40b5_034b426c",
+        "filename": "modules/desktop_capture/win/window_capturer_win_gdi.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 13849
+      },
+      "writtenOn": "2021-05-29T00:19:26Z",
+      "side": 1,
+      "message": "Please mark as \u0027explicit\u0027 since the c\u0027tor takes 1 param now.",
+      "range": {
+        "startLine": 27,
+        "startChar": 1,
+        "endLine": 27,
+        "endChar": 5
+      },
+      "revId": "f8270af12a8e2fbcb854bc5a363ee34389224ddf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

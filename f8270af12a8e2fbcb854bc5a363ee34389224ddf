@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "04fdbb9f_4574fc5f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6515
+      },
+      "writtenOn": "2021-05-29T00:20:29Z",
+      "side": 1,
+      "message": "lgtm\n\nI had already typed up my comments from my @google account before I realized I needed to switch accounts to lgtm, sorry for that : P",
+      "revId": "f8270af12a8e2fbcb854bc5a363ee34389224ddf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "764826d5_4fbe6a82",

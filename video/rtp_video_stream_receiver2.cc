@@ -704,6 +704,7 @@ bool RtpVideoStreamReceiver2::IsRetransmissionsEnabled() const {
 void RtpVideoStreamReceiver2::RequestPacketRetransmit(
     const std::vector<uint16_t>& sequence_numbers) {
   RTC_DCHECK_RUN_ON(&worker_task_checker_);
+  RTC_NOTREACHED();
   rtp_rtcp_->SendNack(sequence_numbers);
 }
 

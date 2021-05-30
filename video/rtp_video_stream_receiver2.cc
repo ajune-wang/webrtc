@@ -654,6 +654,7 @@ void RtpVideoStreamReceiver2::OnRtpPacket(const RtpPacketReceived& packet) {
   RTC_DCHECK_RUN_ON(&worker_task_checker_);
 
   if (!receiving_) {
+    RTC_NOTREACHED();
     return;
   }
 

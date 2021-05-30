@@ -21,9 +21,12 @@
 
 #include "absl/functional/bind_front.h"
 #include "absl/types/optional.h"
+#include "api/ref_counted_base.h"
 #include "api/rtc_event_log/rtc_event_log.h"
+#include "api/scoped_refptr.h"
 #include "api/sequence_checker.h"
 #include "api/transport/network_control.h"
+#include "api/units/timestamp.h"
 #include "audio/audio_receive_stream.h"
 #include "audio/audio_send_stream.h"
 #include "audio/audio_state.h"
@@ -52,9 +55,11 @@
 #include "rtc_base/constructor_magic.h"
 #include "rtc_base/location.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/ref_counted_object.h"
 #include "rtc_base/strings/string_builder.h"
 #include "rtc_base/system/no_unique_address.h"
 #include "rtc_base/task_utils/pending_task_safety_flag.h"
+#include "rtc_base/task_utils/to_queued_task.h"
 #include "rtc_base/thread_annotations.h"
 #include "rtc_base/time_utils.h"
 #include "rtc_base/trace_event.h"
@@ -321,6 +326,37 @@ class Call final : public webrtc::Call,
   void SetClientBitratePreferences(const BitrateSettings& preferences) override;
 
  private:
+  // Collects received packet stats and exposes them as UMA histograms on
+  // destruction.
+  class ReceiveStats {
+   public:
+    explicit ReceiveStats(Clock* clock);
+    ~ReceiveStats();
+
+    void AddReceivedRtcpBytes(int bytes);
+    void AddReceivedAudioBytes(int bytes, webrtc::Timestamp arrival_time);
+    void AddReceivedVideoBytes(int bytes, webrtc::Timestamp arrival_time);
+
+   private:
+    SequenceChecker sequence_checker_;
+    RateCounter received_bytes_per_second_counter_
+        RTC_GUARDED_BY(sequence_checker_);
+    RateCounter received_audio_bytes_per_second_counter_
+        RTC_GUARDED_BY(sequence_checker_);
+    RateCounter received_video_bytes_per_second_counter_
+        RTC_GUARDED_BY(sequence_checker_);
+    RateCounter received_rtcp_bytes_per_second_counter_
+        RTC_GUARDED_BY(sequence_checker_);
+    absl::optional<Timestamp> first_received_rtp_audio_timestamp_
+        RTC_GUARDED_BY(sequence_checker_);
+    absl::optional<Timestamp> last_received_rtp_audio_timestamp_
+        RTC_GUARDED_BY(sequence_checker_);
+    absl::optional<Timestamp> first_received_rtp_video_timestamp_
+        RTC_GUARDED_BY(sequence_checker_);
+    absl::optional<Timestamp> last_received_rtp_video_timestamp_
+        RTC_GUARDED_BY(sequence_checker_);
+  };
+
   DeliveryStatus DeliverRtcp(MediaType media_type,
                              const uint8_t* packet,
                              size_t length)
@@ -336,7 +372,6 @@ class Call final : public webrtc::Call,
                                  MediaType media_type)
       RTC_SHARED_LOCKS_REQUIRED(worker_thread_);
 
-  void UpdateReceiveHistograms();
   void UpdateAggregateNetworkState();
 
   // Ensure that necessary process threads are started, and any required
@@ -433,17 +468,10 @@ class Call final : public webrtc::Call,
 
   webrtc::RtcEventLog* event_log_;
 
-  // The following members are only accessed (exclusively) from one thread and
-  // from the destructor, and therefore doesn't need any explicit
-  // synchronization.
-  RateCounter received_bytes_per_second_counter_;
-  RateCounter received_audio_bytes_per_second_counter_;
-  RateCounter received_video_bytes_per_second_counter_;
-  RateCounter received_rtcp_bytes_per_second_counter_;
-  absl::optional<int64_t> first_received_rtp_audio_ms_;
-  absl::optional<int64_t> last_received_rtp_audio_ms_;
-  absl::optional<int64_t> first_received_rtp_video_ms_;
-  absl::optional<int64_t> last_received_rtp_video_ms_;
+  // TODO(bugs.webrtc.org/11993) ready to move receive stats access to the
+  // network thread.
+  rtc::scoped_refptr<rtc::FinalRefCountedObject<ReceiveStats>> receive_stats_
+      RTC_GUARDED_BY(worker_thread_);
 
   uint32_t last_bandwidth_bps_ RTC_GUARDED_BY(worker_thread_);
   // TODO(holmer): Remove this lock once BitrateController no longer calls
@@ -625,6 +653,94 @@ VideoSendStream* Call::CreateVideoSendStream(
 
 namespace internal {
 
+Call::ReceiveStats::ReceiveStats(Clock* clock)
+    : received_bytes_per_second_counter_(clock, nullptr, false),
+      received_audio_bytes_per_second_counter_(clock, nullptr, false),
+      received_video_bytes_per_second_counter_(clock, nullptr, false),
+      received_rtcp_bytes_per_second_counter_(clock, nullptr, false) {
+  sequence_checker_.Detach();
+}
+
+void Call::ReceiveStats::AddReceivedRtcpBytes(int bytes) {
+  RTC_DCHECK_RUN_ON(&sequence_checker_);
+  if (received_bytes_per_second_counter_.HasSample()) {
+    // First RTP packet has been received.
+    received_bytes_per_second_counter_.Add(static_cast<int>(bytes));
+    received_rtcp_bytes_per_second_counter_.Add(static_cast<int>(bytes));
+  }
+}
+
+void Call::ReceiveStats::AddReceivedAudioBytes(int bytes,
+                                               webrtc::Timestamp arrival_time) {
+  RTC_DCHECK_RUN_ON(&sequence_checker_);
+  received_bytes_per_second_counter_.Add(bytes);
+  received_audio_bytes_per_second_counter_.Add(bytes);
+  if (!first_received_rtp_audio_timestamp_)
+    first_received_rtp_audio_timestamp_ = arrival_time;
+  last_received_rtp_audio_timestamp_ = arrival_time;
+}
+
+void Call::ReceiveStats::AddReceivedVideoBytes(int bytes,
+                                               webrtc::Timestamp arrival_time) {
+  RTC_DCHECK_RUN_ON(&sequence_checker_);
+  received_bytes_per_second_counter_.Add(bytes);
+  received_video_bytes_per_second_counter_.Add(bytes);
+  if (!first_received_rtp_video_timestamp_)
+    first_received_rtp_video_timestamp_ = arrival_time;
+  last_received_rtp_video_timestamp_ = arrival_time;
+}
+
+Call::ReceiveStats::~ReceiveStats() {
+  RTC_DCHECK_RUN_ON(&sequence_checker_);
+  if (first_received_rtp_audio_timestamp_) {
+    RTC_HISTOGRAM_COUNTS_100000(
+        "WebRTC.Call.TimeReceivingAudioRtpPacketsInSeconds",
+        (*last_received_rtp_audio_timestamp_ -
+         *first_received_rtp_audio_timestamp_)
+            .seconds());
+  }
+  if (first_received_rtp_video_timestamp_) {
+    RTC_HISTOGRAM_COUNTS_100000(
+        "WebRTC.Call.TimeReceivingVideoRtpPacketsInSeconds",
+        (*last_received_rtp_video_timestamp_ -
+         *first_received_rtp_video_timestamp_)
+            .seconds());
+  }
+  const int kMinRequiredPeriodicSamples = 5;
+  AggregatedStats video_bytes_per_sec =
+      received_video_bytes_per_second_counter_.GetStats();
+  if (video_bytes_per_sec.num_samples > kMinRequiredPeriodicSamples) {
+    RTC_HISTOGRAM_COUNTS_100000("WebRTC.Call.VideoBitrateReceivedInKbps",
+                                video_bytes_per_sec.average * 8 / 1000);
+    RTC_LOG(LS_INFO) << "WebRTC.Call.VideoBitrateReceivedInBps, "
+                     << video_bytes_per_sec.ToStringWithMultiplier(8);
+  }
+  AggregatedStats audio_bytes_per_sec =
+      received_audio_bytes_per_second_counter_.GetStats();
+  if (audio_bytes_per_sec.num_samples > kMinRequiredPeriodicSamples) {
+    RTC_HISTOGRAM_COUNTS_100000("WebRTC.Call.AudioBitrateReceivedInKbps",
+                                audio_bytes_per_sec.average * 8 / 1000);
+    RTC_LOG(LS_INFO) << "WebRTC.Call.AudioBitrateReceivedInBps, "
+                     << audio_bytes_per_sec.ToStringWithMultiplier(8);
+  }
+  AggregatedStats rtcp_bytes_per_sec =
+      received_rtcp_bytes_per_second_counter_.GetStats();
+  if (rtcp_bytes_per_sec.num_samples > kMinRequiredPeriodicSamples) {
+    RTC_HISTOGRAM_COUNTS_100000("WebRTC.Call.RtcpBitrateReceivedInBps",
+                                rtcp_bytes_per_sec.average * 8);
+    RTC_LOG(LS_INFO) << "WebRTC.Call.RtcpBitrateReceivedInBps, "
+                     << rtcp_bytes_per_sec.ToStringWithMultiplier(8);
+  }
+  AggregatedStats recv_bytes_per_sec =
+      received_bytes_per_second_counter_.GetStats();
+  if (recv_bytes_per_sec.num_samples > kMinRequiredPeriodicSamples) {
+    RTC_HISTOGRAM_COUNTS_100000("WebRTC.Call.BitrateReceivedInKbps",
+                                recv_bytes_per_sec.average * 8 / 1000);
+    RTC_LOG(LS_INFO) << "WebRTC.Call.BitrateReceivedInBps, "
+                     << recv_bytes_per_sec.ToStringWithMultiplier(8);
+  }
+}
+
 Call::Call(Clock* clock,
            const Call::Config& config,
            std::unique_ptr<RtpTransportControllerSendInterface> transport_send,
@@ -646,10 +762,7 @@ Call::Call(Clock* clock,
       video_network_state_(kNetworkDown),
       aggregate_network_up_(false),
       event_log_(config.event_log),
-      received_bytes_per_second_counter_(clock_, nullptr, true),
-      received_audio_bytes_per_second_counter_(clock_, nullptr, true),
-      received_video_bytes_per_second_counter_(clock_, nullptr, true),
-      received_rtcp_bytes_per_second_counter_(clock_, nullptr, true),
+      receive_stats_(rtc::make_ref_counted<ReceiveStats>(clock_)),
       last_bandwidth_bps_(0),
       min_allocated_send_bitrate_bps_(0),
       configured_max_padding_bitrate_bps_(0),
@@ -710,10 +823,13 @@ Call::~Call() {
                          pacer_bitrate_kbps_counter_);
   }
 
-  UpdateReceiveHistograms();
-
   RTC_HISTOGRAM_COUNTS_100000("WebRTC.Call.LifetimeInSeconds",
                               (now.ms() - start_ms_) / 1000);
+
+  // Emit receive statistic histograms eventually from this Call.
+  // TODO(bugs.webrtc.org/11993) eventually post the task to the network thread.
+  worker_thread_->PostTask(
+      ToQueuedTask([receive_stats = std::move(receive_stats_)] {}));
 }
 
 void Call::EnsureStarted() {
@@ -735,52 +851,6 @@ void Call::EnsureStarted() {
 void Call::SetClientBitratePreferences(const BitrateSettings& preferences) {
   RTC_DCHECK_RUN_ON(worker_thread_);
   GetTransportControllerSend()->SetClientBitratePreferences(preferences);
-}
-
-void Call::UpdateReceiveHistograms() {
-  if (first_received_rtp_audio_ms_) {
-    RTC_HISTOGRAM_COUNTS_100000(
-        "WebRTC.Call.TimeReceivingAudioRtpPacketsInSeconds",
-        (*last_received_rtp_audio_ms_ - *first_received_rtp_audio_ms_) / 1000);
-  }
-  if (first_received_rtp_video_ms_) {
-    RTC_HISTOGRAM_COUNTS_100000(
-        "WebRTC.Call.TimeReceivingVideoRtpPacketsInSeconds",
-        (*last_received_rtp_video_ms_ - *first_received_rtp_video_ms_) / 1000);
-  }
-  const int kMinRequiredPeriodicSamples = 5;
-  AggregatedStats video_bytes_per_sec =
-      received_video_bytes_per_second_counter_.GetStats();
-  if (video_bytes_per_sec.num_samples > kMinRequiredPeriodicSamples) {
-    RTC_HISTOGRAM_COUNTS_100000("WebRTC.Call.VideoBitrateReceivedInKbps",
-                                video_bytes_per_sec.average * 8 / 1000);
-    RTC_LOG(LS_INFO) << "WebRTC.Call.VideoBitrateReceivedInBps, "
-                     << video_bytes_per_sec.ToStringWithMultiplier(8);
-  }
-  AggregatedStats audio_bytes_per_sec =
-      received_audio_bytes_per_second_counter_.GetStats();
-  if (audio_bytes_per_sec.num_samples > kMinRequiredPeriodicSamples) {
-    RTC_HISTOGRAM_COUNTS_100000("WebRTC.Call.AudioBitrateReceivedInKbps",
-                                audio_bytes_per_sec.average * 8 / 1000);
-    RTC_LOG(LS_INFO) << "WebRTC.Call.AudioBitrateReceivedInBps, "
-                     << audio_bytes_per_sec.ToStringWithMultiplier(8);
-  }
-  AggregatedStats rtcp_bytes_per_sec =
-      received_rtcp_bytes_per_second_counter_.GetStats();
-  if (rtcp_bytes_per_sec.num_samples > kMinRequiredPeriodicSamples) {
-    RTC_HISTOGRAM_COUNTS_100000("WebRTC.Call.RtcpBitrateReceivedInBps",
-                                rtcp_bytes_per_sec.average * 8);
-    RTC_LOG(LS_INFO) << "WebRTC.Call.RtcpBitrateReceivedInBps, "
-                     << rtcp_bytes_per_sec.ToStringWithMultiplier(8);
-  }
-  AggregatedStats recv_bytes_per_sec =
-      received_bytes_per_second_counter_.GetStats();
-  if (recv_bytes_per_sec.num_samples > kMinRequiredPeriodicSamples) {
-    RTC_HISTOGRAM_COUNTS_100000("WebRTC.Call.BitrateReceivedInKbps",
-                                recv_bytes_per_sec.average * 8 / 1000);
-    RTC_LOG(LS_INFO) << "WebRTC.Call.BitrateReceivedInBps, "
-                     << recv_bytes_per_sec.ToStringWithMultiplier(8);
-  }
 }
 
 PacketReceiver* Call::Receiver() {
@@ -1376,11 +1446,7 @@ PacketReceiver::DeliveryStatus Call::DeliverRtcp(MediaType media_type,
   // TODO(pbos): Make sure it's a valid packet.
   //             Return DELIVERY_UNKNOWN_SSRC if it can be determined that
   //             there's no receiver of the packet.
-  if (received_bytes_per_second_counter_.HasSample()) {
-    // First RTP packet has been received.
-    received_bytes_per_second_counter_.Add(static_cast<int>(length));
-    received_rtcp_bytes_per_second_counter_.Add(static_cast<int>(length));
-  }
+  receive_stats_->AddReceivedRtcpBytes(static_cast<int>(length));
   bool rtcp_delivered = false;
   if (media_type == MediaType::ANY || media_type == MediaType::VIDEO) {
     for (VideoReceiveStream2* stream : video_receive_streams_) {
@@ -1466,29 +1532,19 @@ PacketReceiver::DeliveryStatus Call::DeliverRtp(MediaType media_type,
   int length = static_cast<int>(parsed_packet.size());
   if (media_type == MediaType::AUDIO) {
     if (audio_receiver_controller_.OnRtpPacket(parsed_packet)) {
-      received_bytes_per_second_counter_.Add(length);
-      received_audio_bytes_per_second_counter_.Add(length);
+      receive_stats_->AddReceivedAudioBytes(length,
+                                            parsed_packet.arrival_time());
       event_log_->Log(
           std::make_unique<RtcEventRtpPacketIncoming>(parsed_packet));
-      const int64_t arrival_time_ms = parsed_packet.arrival_time().ms();
-      if (!first_received_rtp_audio_ms_) {
-        first_received_rtp_audio_ms_.emplace(arrival_time_ms);
-      }
-      last_received_rtp_audio_ms_.emplace(arrival_time_ms);
       return DELIVERY_OK;
     }
   } else if (media_type == MediaType::VIDEO) {
     parsed_packet.set_payload_type_frequency(kVideoPayloadTypeFrequency);
     if (video_receiver_controller_.OnRtpPacket(parsed_packet)) {
-      received_bytes_per_second_counter_.Add(length);
-      received_video_bytes_per_second_counter_.Add(length);
+      receive_stats_->AddReceivedVideoBytes(length,
+                                            parsed_packet.arrival_time());
       event_log_->Log(
           std::make_unique<RtcEventRtpPacketIncoming>(parsed_packet));
-      const int64_t arrival_time_ms = parsed_packet.arrival_time().ms();
-      if (!first_received_rtp_video_ms_) {
-        first_received_rtp_video_ms_.emplace(arrival_time_ms);
-      }
-      last_received_rtp_video_ms_.emplace(arrival_time_ms);
       return DELIVERY_OK;
     }
   }

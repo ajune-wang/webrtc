@@ -200,6 +200,11 @@ void CallTest::RunBaseTest(BaseTest* test) {
     fake_send_audio_device_ = nullptr;
     fake_recv_audio_device_ = nullptr;
   });
+  // Await any final cleanup tasks injected by Calls to finish.
+  rtc::Event one_last_event;
+  SendTask(RTC_FROM_HERE, task_queue(),
+           [&one_last_event] { one_last_event.Set(); });
+  one_last_event.Wait(rtc::Event::kForever);
 }
 
 void CallTest::CreateCalls() {

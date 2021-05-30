@@ -946,13 +946,9 @@ VideoReceiveStream2::SetAndGetRecordingState(RecordingState state,
         event.Set();
       });
 
-  old_state.keyframe_needed = keyframe_generation_requested_;
-
   if (generate_key_frame) {
     rtp_video_stream_receiver_.RequestKeyFrame();
     keyframe_generation_requested_ = true;
-  } else {
-    keyframe_generation_requested_ = state.keyframe_needed;
   }
 
   event.Wait(rtc::Event::kForever);

@@ -23,6 +23,7 @@
 #include "call/rtp_stream_receiver_controller.h"
 #include "common_video/test/utilities.h"
 #include "media/base/fake_video_renderer.h"
+#include "media/engine/fake_webrtc_call.h"
 #include "modules/pacing/packet_router.h"
 #include "modules/rtp_rtcp/source/rtp_packet_to_send.h"
 #include "modules/utility/include/process_thread.h"
@@ -133,7 +134,7 @@ class VideoReceiveStream2Test : public ::testing::Test {
 
     video_receive_stream_ =
         std::make_unique<webrtc::internal::VideoReceiveStream2>(
-            task_queue_factory_.get(), loop_.task_queue(),
+            task_queue_factory_.get(), &fake_call_,
             &rtp_stream_receiver_controller_, kDefaultNumCpuCores,
             &packet_router_, config_.Copy(), process_thread_.get(),
             &call_stats_, clock_, timing_);
@@ -148,6 +149,7 @@ class VideoReceiveStream2Test : public ::testing::Test {
   MockVideoDecoder mock_h264_video_decoder_;
   test::VideoDecoderProxyFactory h264_decoder_factory_;
   cricket::FakeVideoRenderer fake_renderer_;
+  cricket::FakeCall fake_call_;
   MockTransport mock_transport_;
   PacketRouter packet_router_;
   RtpStreamReceiverController rtp_stream_receiver_controller_;
@@ -307,7 +309,7 @@ class VideoReceiveStream2TestWithFakeDecoder : public ::testing::Test {
     video_receive_stream_ = nullptr;
     timing_ = new VCMTiming(clock_);
     video_receive_stream_.reset(new webrtc::internal::VideoReceiveStream2(
-        task_queue_factory_.get(), loop_.task_queue(),
+        task_queue_factory_.get(), &fake_call_,
         &rtp_stream_receiver_controller_, kDefaultNumCpuCores, &packet_router_,
         config_.Copy(), process_thread_.get(), &call_stats_, clock_, timing_));
     video_receive_stream_->SetAndGetRecordingState(std::move(state), false);
@@ -324,6 +326,7 @@ class VideoReceiveStream2TestWithFakeDecoder : public ::testing::Test {
   MockTransport mock_transport_;
   PacketRouter packet_router_;
   RtpStreamReceiverController rtp_stream_receiver_controller_;
+  cricket::FakeCall fake_call_;
   std::unique_ptr<webrtc::internal::VideoReceiveStream2> video_receive_stream_;
   Clock* clock_;
   VCMTiming* timing_;
@@ -568,7 +571,7 @@ class VideoReceiveStream2TestWithSimulatedClock
                           &fake_renderer_)),
         call_stats_(time_controller_.GetClock(), loop_.task_queue()),
         video_receive_stream_(time_controller_.GetTaskQueueFactory(),
-                              loop_.task_queue(),
+                              &fake_call_,
                               &rtp_stream_receiver_controller_,
                               /*num_cores=*/2,
                               &packet_router_,
@@ -597,6 +600,7 @@ class VideoReceiveStream2TestWithSimulatedClock
   std::unique_ptr<ProcessThread> process_thread_;
   MockTransport mock_transport_;
   FakeRenderer fake_renderer_;
+  cricket::FakeCall fake_call_;
   VideoReceiveStream::Config config_;
   internal::CallStats call_stats_;
   PacketRouter packet_router_;
@@ -735,7 +739,7 @@ class VideoReceiveStream2TestWithLazyDecoderCreation : public ::testing::Test {
 
     video_receive_stream_ =
         std::make_unique<webrtc::internal::VideoReceiveStream2>(
-            task_queue_factory_.get(), loop_.task_queue(),
+            task_queue_factory_.get(), &fake_call_,
             &rtp_stream_receiver_controller_, kDefaultNumCpuCores,
             &packet_router_, config_.Copy(), process_thread_.get(),
             &call_stats_, clock_, timing_);
@@ -750,6 +754,7 @@ class VideoReceiveStream2TestWithLazyDecoderCreation : public ::testing::Test {
   MockVideoDecoder mock_h264_video_decoder_;
   MockVideoDecoderFactory mock_h264_decoder_factory_;
   cricket::FakeVideoRenderer fake_renderer_;
+  cricket::FakeCall fake_call_;
   MockTransport mock_transport_;
   PacketRouter packet_router_;
   RtpStreamReceiverController rtp_stream_receiver_controller_;

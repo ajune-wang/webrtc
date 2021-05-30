@@ -213,7 +213,7 @@ int DetermineMaxWaitForFrame(const VideoReceiveStream::Config& config,
 
 VideoReceiveStream2::VideoReceiveStream2(
     TaskQueueFactory* task_queue_factory,
-    TaskQueueBase* current_queue,
+    Call* call,
     RtpStreamReceiverControllerInterface* receiver_controller,
     int num_cpu_cores,
     PacketRouter* packet_router,
@@ -226,15 +226,15 @@ VideoReceiveStream2::VideoReceiveStream2(
       transport_adapter_(config.rtcp_send_transport),
       config_(std::move(config)),
       num_cpu_cores_(num_cpu_cores),
-      worker_thread_(current_queue),
+      call_(call),
       clock_(clock),
       call_stats_(call_stats),
       source_tracker_(clock_),
-      stats_proxy_(&config_, clock_, worker_thread_),
+      stats_proxy_(&config_, clock_, call->worker_thread()),
       rtp_receive_statistics_(ReceiveStatistics::Create(clock_)),
       timing_(timing),
       video_receiver_(clock_, timing_.get()),
-      rtp_video_stream_receiver_(worker_thread_,
+      rtp_video_stream_receiver_(call->worker_thread(),
                                  clock_,
                                  &transport_adapter_,
                                  call_stats->AsRtcpRttStats(),
@@ -249,7 +249,7 @@ VideoReceiveStream2::VideoReceiveStream2(
                                  this,     // OnCompleteFrameCallback
                                  config_.frame_decryptor,
                                  config_.frame_transformer),
-      rtp_stream_sync_(current_queue, this),
+      rtp_stream_sync_(call->worker_thread(), this),
       max_wait_for_keyframe_ms_(DetermineMaxWaitForFrame(config, true)),
       max_wait_for_frame_ms_(DetermineMaxWaitForFrame(config, false)),
       low_latency_renderer_enabled_("enabled", true),
@@ -261,7 +261,7 @@ VideoReceiveStream2::VideoReceiveStream2(
           TaskQueueFactory::Priority::HIGH)) {
   RTC_LOG(LS_INFO) << "VideoReceiveStream2: " << config_.ToString();
 
-  RTC_DCHECK(worker_thread_);
+  RTC_DCHECK(call_->worker_thread());
   RTC_DCHECK(config_.renderer);
   RTC_DCHECK(call_stats_);
   module_process_sequence_checker_.Detach();
@@ -529,7 +529,7 @@ void VideoReceiveStream2::OnFrame(const VideoFrame& video_frame) {
   // TODO(bugs.webrtc.org/10739): we should set local capture clock offset for
   // |video_frame.packet_infos|. But VideoFrame is const qualified here.
 
-  worker_thread_->PostTask(
+  call_->worker_thread()->PostTask(
       ToQueuedTask(task_safety_, [frame_meta, this]() {
         RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
         int64_t video_playout_ntp_ms;
@@ -685,7 +685,7 @@ void VideoReceiveStream2::StartNextDecode() {
           HandleEncodedFrame(std::move(frame));
         } else {
           int64_t now_ms = clock_->TimeInMilliseconds();
-          worker_thread_->PostTask(ToQueuedTask(
+          call_->worker_thread()->PostTask(ToQueuedTask(
               task_safety_, [this, now_ms, wait_ms = GetMaxWaitMs()]() {
                 RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
                 HandleFrameBufferTimeout(now_ms, wait_ms);
@@ -746,7 +746,7 @@ void VideoReceiveStream2::HandleEncodedFrame(
     force_request_key_frame = true;
   }
 
-  worker_thread_->PostTask(ToQueuedTask(
+  call_->worker_thread()->PostTask(ToQueuedTask(
       task_safety_,
       [this, now_ms, received_frame_is_keyframe, force_request_key_frame,
        decoded_frame_picture_id, keyframe_request_is_due]() {

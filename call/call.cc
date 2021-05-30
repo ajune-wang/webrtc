@@ -1042,10 +1042,10 @@ webrtc::VideoReceiveStream* Call::CreateVideoReceiveStream(
   // and set it up asynchronously on the network thread (the registration and
   // |video_receiver_controller_| need to live on the network thread).
   VideoReceiveStream2* receive_stream = new VideoReceiveStream2(
-      task_queue_factory_, worker_thread_, &video_receiver_controller_,
-      num_cpu_cores_, transport_send_->packet_router(),
-      std::move(configuration), module_process_thread_->process_thread(),
-      call_stats_.get(), clock_, new VCMTiming(clock_));
+      task_queue_factory_, this, &video_receiver_controller_, num_cpu_cores_,
+      transport_send_->packet_router(), std::move(configuration),
+      module_process_thread_->process_thread(), call_stats_.get(), clock_,
+      new VCMTiming(clock_));
 
   const webrtc::VideoReceiveStream::Config& config = receive_stream->config();
   if (config.rtp.rtx_ssrc) {

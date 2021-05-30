@@ -18,6 +18,7 @@
 #include "api/task_queue/task_queue_factory.h"
 #include "api/units/timestamp.h"
 #include "api/video/recordable_encoded_frame.h"
+#include "call/call.h"
 #include "call/rtp_packet_sink_interface.h"
 #include "call/syncable.h"
 #include "call/video_receive_stream.h"
@@ -91,7 +92,7 @@ class VideoReceiveStream2
   static constexpr size_t kBufferedEncodedFramesMaxSize = 60;
 
   VideoReceiveStream2(TaskQueueFactory* task_queue_factory,
-                      TaskQueueBase* current_queue,
+                      Call* call,
                       RtpStreamReceiverControllerInterface* receiver_controller,
                       int num_cpu_cores,
                       PacketRouter* packet_router,
@@ -190,7 +191,7 @@ class VideoReceiveStream2
   TransportAdapter transport_adapter_;
   const VideoReceiveStream::Config config_;
   const int num_cpu_cores_;
-  TaskQueueBase* const worker_thread_;
+  Call* const call_;
   Clock* const clock_;
 
   CallStats* const call_stats_;

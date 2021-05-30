@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4cbe8bd2_9000197f",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 955,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-05-30T18:22:48Z",
+      "side": 0,
+      "message": "There\u0027s a potential change here if a keyframe had previously been requested and this clears the flag. I can\u0027t find evidence of that being intentional, so I suspect that if that happens in practice, it could be a bug.",
+      "revId": "d280eaf1953555b68a9a5e611022ef19556e8e04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

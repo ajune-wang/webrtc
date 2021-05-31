@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92199906_a3011a93",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-05-31T15:55:21Z",
+      "side": 1,
+      "message": "Lgtm % a question.",
+      "revId": "3e5e387d5abcea5588e9d1e48497a8336c263200",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e02f9cc_8237c01a",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-05-31T15:55:21Z",
+      "side": 1,
+      "message": "Right now Call \"owns\" receive streams and destroys them synchronously on the worker thread in https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/call/call.cc;l\u003d1083;drc\u003d25972cfab8a96a2437aafe43451798e8f3719215;bpv\u003d1;bpt\u003d1?q\u003dcall::destroyvideorece\u0026ss\u003dchromium. As we\u0027re transferring several parts of the Call-kept state to the network thread, one way of avoiding Invokes in Call::DestroyVideoReceiveStream is to relax actual deletion to be allowed happening beyond the call to DestroyVideoReceiveStream (but eventually happening on the worker thread) and hence possibly happening beyond Call lifetime. If there\u0027s an alternative plan that guarantee Call existing until VideoReceiveStream2 dtor and avoiding Invokes, then I think storing Call is cool. Otherwise, can we consider passing the threads individually? Or invent some ThreadPackage object.",
+      "range": {
+        "startLine": 227,
+        "startChar": 6,
+        "endLine": 227,
+        "endChar": 11
+      },
+      "revId": "3e5e387d5abcea5588e9d1e48497a8336c263200",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

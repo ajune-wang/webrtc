@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ad595ee_32c322ab",
+        "filename": "video/video_receive_stream2.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-05-31T09:30:41Z",
+      "side": 1,
+      "message": "I thought about this during the weekend when doing similar things on my CLs. It\u0027s confusing to type \"network\" in the code when it currently captures the worker sequence.\nCan we call it packet_sequence_checker_ or similar to force the user to look at the declaration? Also if code assumes \"packet_sequence\" but works with either worker or network then there\u0027s an easy time AB-ing an eventual switch.",
+      "range": {
+        "startLine": 200,
+        "startChar": 40,
+        "endLine": 200,
+        "endChar": 65
+      },
+      "revId": "f988cceab3c554698386aaf6664dad60431e8f06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

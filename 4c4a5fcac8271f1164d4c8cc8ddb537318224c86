@@ -60,6 +60,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3161dcca_5595bac0",
+        "filename": "g3doc/implementation_basics.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-31T21:09:17Z",
+      "side": 1,
+      "message": "I noted all 3 (not using Timestamp, using the NTP epoch, and not using the monotonic clock) as \"they need to be updated\".",
+      "parentUuid": "3c6731ea_c7b4e79a",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 8
+      },
+      "revId": "4c4a5fcac8271f1164d4c8cc8ddb537318224c86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2e43edb1_cc13328a",
         "filename": "g3doc/implementation_basics.md",
         "patchSetId": 2
@@ -88,6 +112,30 @@
       "writtenOn": "2021-05-31T15:14:55Z",
       "side": 1,
       "message": "a single thread.\n\nAnd other variables annotated with RTC_GUARDED_BY(mutex).",
+      "range": {
+        "startLine": 32,
+        "startChar": 33,
+        "endLine": 32,
+        "endChar": 41
+      },
+      "revId": "4c4a5fcac8271f1164d4c8cc8ddb537318224c86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47782bd5_2cbcd500",
+        "filename": "g3doc/implementation_basics.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-31T21:09:17Z",
+      "side": 1,
+      "message": "A lot of classes have some variables RTC_GUARDED_BY(one thread) and some variables RTC_GUARDED_BY(another thread). Those were the multithread classes I was thinking of. Mutex is covered below.",
+      "parentUuid": "9ac1e138_6bac08bb",
       "range": {
         "startLine": 32,
         "startChar": 33,
@@ -138,6 +186,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b7ecef0_6476c872",
+        "filename": "g3doc/implementation_basics.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-31T21:09:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf710243_f1753b83",
+      "range": {
+        "startLine": 42,
+        "startChar": 20,
+        "endLine": 42,
+        "endChar": 29
+      },
+      "revId": "4c4a5fcac8271f1164d4c8cc8ddb537318224c86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d33a5f14_5a90b9d7",
@@ -151,6 +223,24 @@
       "writtenOn": "2021-05-31T15:16:07Z",
       "side": 1,
       "message": "nice!",
+      "revId": "4c4a5fcac8271f1164d4c8cc8ddb537318224c86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d04b7f2c_d4f583a8",
+        "filename": "g3doc/implementation_basics.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-31T21:09:17Z",
+      "side": 1,
+      "message": "I think there are more, but didn\u0027t find them in the WebRTC-Core hotlist.... some are already gone.",
+      "parentUuid": "d33a5f14_5a90b9d7",
       "revId": "4c4a5fcac8271f1164d4c8cc8ddb537318224c86",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

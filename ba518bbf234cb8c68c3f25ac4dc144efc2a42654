@@ -16,6 +16,29 @@
       "message": "Hello, this CL is for iOS Unittest to run normally by making the Test Delegate implement the proper protocol. Please take a look. Thank you.",
       "revId": "ba518bbf234cb8c68c3f25ac4dc144efc2a42654",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8695932_fa104b23",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-05-31T07:07:53Z",
+      "side": 1,
+      "message": "While this CL is technically fine, WebRTC cannot depend on Chromium\u0027s //base. There are some places where this is fine but I think this is not one of them.\n\nIn general, this code should be refactored to avoid taking the dependency on Chromium and work correctly but this might take more time.",
+      "range": {
+        "startLine": 292,
+        "startChar": 6,
+        "endLine": 292,
+        "endChar": 54
+      },
+      "revId": "ba518bbf234cb8c68c3f25ac4dc144efc2a42654",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

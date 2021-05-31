@@ -52,6 +52,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "095b7754_8318980d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 27
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-31T10:10:49Z",
+      "side": 1,
+      "message": "Let\u0027s see if we can solve this (sent in parallel with nisse\u0027s suggestion)\n",
+      "revId": "4e89079e7e9c8bccc1c13de59cc93168661e2408",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a7df1a71_8f4f7f11",
@@ -100,6 +117,24 @@
       "writtenOn": "2021-05-31T10:01:15Z",
       "side": 1,
       "message": "You could split out call_config.h to it\u0027s own build target, but I\u0027m not sure that\u0027s a good idea. \n\nPutting the helper in CallConfig might make sense, if we think about that class as primarily tied to the factory interfaces, rather than the Call implementation. If we had a different set of settings, with no overlap between what\u0027s used in Call itself and what\u0027s for the RtpTransportControllerSend, we could make RtpTransportConfig a direct member of CallConfig, and from that perspective, having CallConfig depend in RtpTransprtConfig is natural.",
+      "parentUuid": "f1199f31_64498696",
+      "revId": "4e89079e7e9c8bccc1c13de59cc93168661e2408",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5eca5135_e1a81d18",
+        "filename": "call/call_factory.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-31T10:10:49Z",
+      "side": 1,
+      "message": "Adding an ExtractTransportConfig method to CallConfig doesn\u0027t seem too awful.\nThere are other tricks including making RtpTransportConfig have a .cc file and letting the declaration take a forward reference to CallConfig rather than an #include, but they are even more complex.\n\nThe dependency does seem a bit weird, especially since we\u0027re exposing this at the API level. But let\u0027s try it that way.",
       "parentUuid": "f1199f31_64498696",
       "revId": "4e89079e7e9c8bccc1c13de59cc93168661e2408",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"

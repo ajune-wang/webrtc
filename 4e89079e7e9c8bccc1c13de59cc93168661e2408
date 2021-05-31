@@ -69,6 +69,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfd06bcf_e599b6a5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 27
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-31T11:57:55Z",
+      "side": 1,
+      "message": "I discussed this with the webrtc-core team today; we\u0027ve decided to approve this CL.\nA couple of STRONG WARNINGS:\n\n- This area is under active refactoring. If you depend on behaviors that aren\u0027t covered by checked-in unit tests, they\u0027re likely to get broken.\n- Even with unit tests, refactorings *will* touch this area, and if we decide to do API changes that invalidate this API (hiding more of the threads from the API was one of them), we will make them.\n\nHopefully, once you have a clearer view of what functions are desirable in order to do the QoS things you want to do, we can have a new discussion on what the best form of the interfaces should be.\n",
+      "revId": "4e89079e7e9c8bccc1c13de59cc93168661e2408",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a7df1a71_8f4f7f11",

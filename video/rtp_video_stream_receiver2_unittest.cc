@@ -765,22 +765,6 @@ TEST_F(RtpVideoStreamReceiver2Test, SinkGetsRtpNotifications) {
   test_packet_sink_ = nullptr;
 }
 
-TEST_F(RtpVideoStreamReceiver2Test, NonStartedStreamGetsNoRtpCallbacks) {
-  // Explicitly showing that the stream is not in the |started| state,
-  // regardless of whether streams start out |started| or |stopped|.
-  rtp_video_stream_receiver_->StopReceive();
-
-  MockRtpPacketSink test_sink;
-  test_packet_sink_ = &test_sink;
-
-  auto rtp_packet = CreateRtpPacketReceived();
-  EXPECT_CALL(test_sink, OnRtpPacket(_)).Times(0);
-
-  rtp_video_stream_receiver_->OnRtpPacket(*rtp_packet);
-
-  test_packet_sink_ = nullptr;
-}
-
 TEST_F(RtpVideoStreamReceiver2Test, ParseGenericDescriptorOnePacket) {
   const std::vector<uint8_t> data = {0, 1, 2, 3, 4};
   const int kSpatialIndex = 1;

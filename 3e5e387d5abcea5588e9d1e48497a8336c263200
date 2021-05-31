@@ -39,6 +39,30 @@
       },
       "revId": "3e5e387d5abcea5588e9d1e48497a8336c263200",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c39cabef_13fbe4a4",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-05-31T16:55:31Z",
+      "side": 1,
+      "message": "I think we can do the deletion on the network thread.\n\nI don\u0027t _think_ we to worry too much about whether or not the call instance exists when the deletion task runs on the network thread. We can use a safety flag to see if call is still accessible from the network thread, do the unregistration+disassociation if it it is, otherwise ignore, but always delete the stream on the network thread.\n\nThere could be issues with back pointers to the call object that interfere with this, but we\u0027ll see if there aren\u0027t solutions to that if so.",
+      "parentUuid": "8e02f9cc_8237c01a",
+      "range": {
+        "startLine": 227,
+        "startChar": 6,
+        "endLine": 227,
+        "endChar": 11
+      },
+      "revId": "3e5e387d5abcea5588e9d1e48497a8336c263200",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

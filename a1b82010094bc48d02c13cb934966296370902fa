@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7801a449_4cb0306b",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1172,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-05-31T15:27:58Z",
+      "side": 0,
+      "message": "This was the main culprit. The state returned by GetEncoderInfo() here was temporarily wrong, but down at L1616 it was back to the original value - causing us to never update the adjuster with the correct config.",
+      "range": {
+        "startLine": 1172,
+        "startChar": 37,
+        "endLine": 1172,
+        "endChar": 41
+      },
+      "revId": "a1b82010094bc48d02c13cb934966296370902fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47b07728_2a1c8965",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-05-31T15:27:58Z",
+      "side": 0,
+      "message": "This was set but never actually used.",
+      "range": {
+        "startLine": 313,
+        "startChar": 26,
+        "endLine": 313,
+        "endChar": 46
+      },
+      "revId": "a1b82010094bc48d02c13cb934966296370902fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

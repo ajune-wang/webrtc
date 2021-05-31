@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4872c4c_27d89517",
+        "filename": "call/call.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-05-31T18:25:04Z",
+      "side": 1,
+      "message": "Clock* const clock_",
+      "revId": "236fc9cc967d921b3d682299c47ac2bda7fbda5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98a6ef03_148cdb00",
+        "filename": "call/call.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-05-31T18:25:04Z",
+      "side": 1,
+      "message": "RTC_GUARDED_BY(destructor_sequence_checker_)?",
+      "revId": "236fc9cc967d921b3d682299c47ac2bda7fbda5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "458f99da_c2048520",
+        "filename": "call/call.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-05-31T18:25:04Z",
+      "side": 1,
+      "message": "documentation?\n\nare there plans to get rid of the atomics down the line?",
+      "revId": "236fc9cc967d921b3d682299c47ac2bda7fbda5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "359f2a45_89892849",
+        "filename": "call/call.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1407,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-05-31T18:25:04Z",
+      "side": 1,
+      "message": "isn\u0027t this inherently racy now?\nand if so, is it harmless if we call either PauseSendAndPacerBitrateCounters or AddTargetBitrateSample when we actually have send streams or don\u0027t (respectively)?",
+      "revId": "236fc9cc967d921b3d682299c47ac2bda7fbda5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

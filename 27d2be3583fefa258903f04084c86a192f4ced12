@@ -22,6 +22,47 @@
       },
       "revId": "27d2be3583fefa258903f04084c86a192f4ced12",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9de47ab4_fb3bb653",
+        "filename": "call/call.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-05-31T18:25:04Z",
+      "side": 0,
+      "message": "Ack",
+      "parentUuid": "046a1de9_3bbd2e6b",
+      "range": {
+        "startLine": 370,
+        "startChar": 23,
+        "endLine": 370,
+        "endChar": 33
+      },
+      "revId": "27d2be3583fefa258903f04084c86a192f4ced12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f86263f0_ce3f8a2f",
+        "filename": "call/call.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-05-31T18:25:04Z",
+      "side": 0,
+      "message": "intentionally deleting?",
+      "revId": "27d2be3583fefa258903f04084c86a192f4ced12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -775,8 +775,7 @@ void VideoStreamEncoder::SetSource(
         degradation_preference);
     stream_resource_manager_.SetDegradationPreferences(degradation_preference);
     if (encoder_) {
-      stream_resource_manager_.ConfigureQualityScaler(
-          encoder_->GetEncoderInfo());
+      stream_resource_manager_.ConfigureQualityScaler(encoder_info_);
     }
   });
 }
@@ -1119,7 +1118,6 @@ void VideoStreamEncoder::ReconfigureEncoder() {
     }
 
     frame_encode_metadata_writer_.Reset();
-    last_encode_info_ms_ = absl::nullopt;
     was_encode_called_since_last_initialization_ = false;
   }
 
@@ -1166,10 +1164,9 @@ void VideoStreamEncoder::ReconfigureEncoder() {
       field_trial::IsDisabled(kFrameDropperFieldTrial) ||
       (num_layers > 1 && codec.mode == VideoCodecMode::kScreensharing);
 
-  VideoEncoder::EncoderInfo info = encoder_->GetEncoderInfo();
   if (rate_control_settings_.UseEncoderBitrateAdjuster()) {
     bitrate_adjuster_ = std::make_unique<EncoderBitrateAdjuster>(codec);
-    bitrate_adjuster_->OnEncoderInfo(info);
+    bitrate_adjuster_->OnEncoderInfo(encoder_info_);
   }
 
   if (rate_allocator_ && last_encoder_rate_settings_) {
@@ -1210,7 +1207,7 @@ void VideoStreamEncoder::ReconfigureEncoder() {
       std::move(streams), is_svc, encoder_config_.content_type,
       encoder_config_.min_transmit_bitrate_bps);
 
-  stream_resource_manager_.ConfigureQualityScaler(info);
+  stream_resource_manager_.ConfigureQualityScaler(encoder_info_);
 }
 
 void VideoStreamEncoder::OnEncoderSettingsChanged() {
@@ -1612,34 +1609,7 @@ void VideoStreamEncoder::EncodeVideoFrame(const VideoFrame& video_frame,
 
   TraceFrameDropEnd();
 
-  // Encoder metadata needs to be updated before encode complete callback.
-  VideoEncoder::EncoderInfo info = encoder_->GetEncoderInfo();
-  if (info.implementation_name != encoder_info_.implementation_name) {
-    encoder_stats_observer_->OnEncoderImplementationChanged(
-        info.implementation_name);
-    if (bitrate_adjuster_) {
-      // Encoder implementation changed, reset overshoot detector states.
-      bitrate_adjuster_->Reset();
-    }
-  }
-
-  if (encoder_info_ != info) {
-    OnEncoderSettingsChanged();
-    stream_resource_manager_.ConfigureEncodeUsageResource();
-    RTC_LOG(LS_INFO) << "Encoder settings changed from "
-                     << encoder_info_.ToString() << " to " << info.ToString();
-  }
-
-  if (bitrate_adjuster_) {
-    for (size_t si = 0; si < kMaxSpatialLayers; ++si) {
-      if (info.fps_allocation[si] != encoder_info_.fps_allocation[si]) {
-        bitrate_adjuster_->OnEncoderInfo(info);
-        break;
-      }
-    }
-  }
-  encoder_info_ = info;
-  last_encode_info_ms_ = clock_->TimeInMilliseconds();
+  CheckForEncoderInfoUpdate();
 
   VideoFrame out_frame(video_frame);
   // Crop or scale the frame if needed. Dimension may be reduced to fit encoder
@@ -1647,7 +1617,7 @@ void VideoStreamEncoder::EncodeVideoFrame(const VideoFrame& video_frame,
   if ((crop_width_ > 0 || crop_height_ > 0) &&
       (out_frame.video_frame_buffer()->type() !=
            VideoFrameBuffer::Type::kNative ||
-       !info.supports_native_handle)) {
+       !encoder_info_.supports_native_handle)) {
     int cropped_width = video_frame.width() - crop_width_;
     int cropped_height = video_frame.height() - crop_height_;
     rtc::scoped_refptr<VideoFrameBuffer> cropped_buffer;
@@ -2344,6 +2314,40 @@ void VideoStreamEncoder::RemoveRestrictionsListenerForTesting(
     event.Set();
   });
   event.Wait(rtc::Event::kForever);
+}
+
+// TODO(sprang): Consider calling from more placed and avoid calls to
+// encoder_->GetEncoderInfo().
+void VideoStreamEncoder::CheckForEncoderInfoUpdate() {
+  // Encoder metadata needs to be updated before encode complete callback.
+  VideoEncoder::EncoderInfo info = encoder_->GetEncoderInfo();
+  if (info.implementation_name != encoder_info_.implementation_name) {
+    encoder_stats_observer_->OnEncoderImplementationChanged(
+        info.implementation_name);
+  }
+
+  if (encoder_info_ != info) {
+    OnEncoderSettingsChanged();
+    stream_resource_manager_.ConfigureEncodeUsageResource();
+    stream_resource_manager_.ConfigureQualityScaler(info);
+    if (bitrate_adjuster_) {
+      // Encoder implementation changed, reset overshoot detector states.
+      bitrate_adjuster_->Reset();
+    }
+    RTC_LOG(LS_INFO) << "Encoder settings changed from "
+                     << encoder_info_.ToString() << " to " << info.ToString();
+  }
+
+  if (bitrate_adjuster_) {
+    for (size_t si = 0; si < kMaxSpatialLayers; ++si) {
+      if (info.fps_allocation[si] != encoder_info_.fps_allocation[si]) {
+        bitrate_adjuster_->OnEncoderInfo(info);
+        break;
+      }
+    }
+  }
+
+  encoder_info_ = info;
 }
 
 }  // namespace webrtc

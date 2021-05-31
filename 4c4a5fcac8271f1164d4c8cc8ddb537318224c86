@@ -16,6 +16,75 @@
       "message": "A start on the \"list of primitives we should not be using\", as well as delivering on the promise\nto write down time conclusions from this morning.\n",
       "revId": "4c4a5fcac8271f1164d4c8cc8ddb537318224c86",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c6731ea_c7b4e79a",
+        "filename": "g3doc/implementation_basics.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-05-31T15:14:55Z",
+      "side": 1,
+      "message": "I think we should say that intervals and timeouts and the like should always be measured using system monotonic time, use of wallclock time being an exception.\n\nAnd when we do use wall clock time, some parts use \"NTP time\", which has a different epoch.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 8
+      },
+      "revId": "4c4a5fcac8271f1164d4c8cc8ddb537318224c86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ac1e138_6bac08bb",
+        "filename": "g3doc/implementation_basics.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-05-31T15:14:55Z",
+      "side": 1,
+      "message": "a single thread.\n\nAnd other variables annotated with RTC_GUARDED_BY(mutex).",
+      "range": {
+        "startLine": 32,
+        "startChar": 33,
+        "endLine": 32,
+        "endChar": 41
+      },
+      "revId": "4c4a5fcac8271f1164d4c8cc8ddb537318224c86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf710243_f1753b83",
+        "filename": "g3doc/implementation_basics.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-05-31T15:14:55Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 42,
+        "startChar": 20,
+        "endLine": 42,
+        "endChar": 29
+      },
+      "revId": "4c4a5fcac8271f1164d4c8cc8ddb537318224c86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

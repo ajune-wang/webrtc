@@ -39,6 +39,30 @@
       },
       "revId": "ba518bbf234cb8c68c3f25ac4dc144efc2a42654",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85e1554e_1f5b5383",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-05-31T07:18:35Z",
+      "side": 1,
+      "message": "If so, WebRTC should not depend on //base/test:google_test_runner to run iOS Unittest.\n(The description of the bug I reported should also be changed.)",
+      "parentUuid": "b8695932_fa104b23",
+      "range": {
+        "startLine": 292,
+        "startChar": 6,
+        "endLine": 292,
+        "endChar": 54
+      },
+      "revId": "ba518bbf234cb8c68c3f25ac4dc144efc2a42654",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

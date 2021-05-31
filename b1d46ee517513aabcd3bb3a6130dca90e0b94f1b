@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3642c413_fe469b57",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-05-31T16:00:19Z",
+      "side": 1,
+      "message": "Can you please add unit tests for both of the changes?",
+      "revId": "b1d46ee517513aabcd3bb3a6130dca90e0b94f1b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d6f375ee_be0de53f",
@@ -14,6 +31,30 @@
       "writtenOn": "2021-05-31T15:12:10Z",
       "side": 1,
       "message": "This solves my immediate problem, but I\u0027m not sure if we should generalize this. E.g. can we just copy the whole struct from config.spatial_layers if it\u0027s there - same as for VP9?",
+      "range": {
+        "startLine": 267,
+        "startChar": 0,
+        "endLine": 267,
+        "endChar": 80
+      },
+      "revId": "b1d46ee517513aabcd3bb3a6130dca90e0b94f1b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a009f1ab_0d34f246",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-05-31T16:00:19Z",
+      "side": 1,
+      "message": "looking how SetAv1SvcConfig fills spatialLayers, such generalization doesn\u0027t seem reasonable.\n\nI\u0027m not too familiar how spatial_layers is used, but planning to investigate it, then I\u0027ll have better idea how to make configuring active spatial layers nicer.\n(to me it feels that signal should go through bitrate allocator, not through initial encoder configuration)",
+      "parentUuid": "d6f375ee_be0de53f",
       "range": {
         "startLine": 267,
         "startChar": 0,

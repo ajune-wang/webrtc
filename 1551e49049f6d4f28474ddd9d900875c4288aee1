@@ -56,6 +56,30 @@
       },
       "revId": "1551e49049f6d4f28474ddd9d900875c4288aee1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0830c3fd_35338eca",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2319,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-05-31T17:27:59Z",
+      "side": 1,
+      "message": "Removed the comment. And no, let\u0027s not do that now (in fact I removed it from some places to reduce risk). The EncoderInfo handling is _extremely_ fragile and several calls sites don\u0027t just call it multiple times out of laziness but actually expect the contents to maybe change from one call to the next. :/\nThis is in dire need of a redesign...",
+      "parentUuid": "41a8e68e_f3993fa5",
+      "range": {
+        "startLine": 2319,
+        "startChar": 8,
+        "endLine": 2319,
+        "endChar": 14
+      },
+      "revId": "1551e49049f6d4f28474ddd9d900875c4288aee1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

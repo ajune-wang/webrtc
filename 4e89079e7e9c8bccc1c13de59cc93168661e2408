@@ -71,6 +71,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f1199f31_64498696",
+        "filename": "call/call_factory.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 17619
+      },
+      "writtenOn": "2021-05-31T09:51:39Z",
+      "side": 1,
+      "message": "Problem I will face is that call_interfaces module depends on rtp_interfaces module. If I add that static method or constructor in RtpTransportConfig I\u0027ll haveto add dependency for rtp_interfaces and I\u0027ll end up in circular dependencies with gn. I can add a function in CallConfig but that doesn\u0027t seem right. Any suggestion?",
+      "parentUuid": "a7df1a71_8f4f7f11",
+      "revId": "4e89079e7e9c8bccc1c13de59cc93168661e2408",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "087dca24_688ba86c",
         "filename": "call/rtp_transport_controller_send_factory_interface.h",
         "patchSetId": 27

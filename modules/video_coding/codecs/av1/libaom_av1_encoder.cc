@@ -671,8 +671,10 @@ int32_t LibaomAv1Encoder::Encode(
         encoded_image.content_type_ = VideoContentType::UNSPECIFIED;
         // If encoded image width/height info are added to aom_codec_cx_pkt_t,
         // use those values in lieu of the values in frame.
-        encoded_image._encodedHeight = frame.height();
-        encoded_image._encodedWidth = frame.width();
+        encoded_image._encodedHeight =
+            encoder_settings_.spatialLayers[layer_frame.SpatialId()].height;
+        encoded_image._encodedWidth =
+            encoder_settings_.spatialLayers[layer_frame.SpatialId()].width;
         encoded_image.timing_.flags = VideoSendTiming::kInvalid;
         int qp = -1;
         ret = aom_codec_control(&ctx_, AOME_GET_LAST_QUANTIZER, &qp);

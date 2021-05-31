@@ -16,6 +16,24 @@
       "message": "great - follow up for send stats? 😄",
       "revId": "c1ffdaab210388a6d7a1860d35941dafb5927f72",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "129e52ae_7d43d100",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-05-31T07:53:54Z",
+      "side": 1,
+      "message": "thanks - yep following up.",
+      "parentUuid": "b6f7ed04_15f09a40",
+      "revId": "c1ffdaab210388a6d7a1860d35941dafb5927f72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

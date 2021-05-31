@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9292273e_9e1d481c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 27
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-05-31T09:39:46Z",
+      "side": 1,
+      "message": "I\u0027m not convinced that this is a great interface for injecting a transport with custom behavior, but if it\u0027s good enough for Harald, it\u0027s good enough for me.\n\nOne question on const ref vs value for the config argument.",
+      "revId": "4e89079e7e9c8bccc1c13de59cc93168661e2408",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a7df1a71_8f4f7f11",
@@ -48,6 +65,29 @@
       "writtenOn": "2021-05-31T09:23:11Z",
       "side": 1,
       "message": "This block of config moves is repeated twice. Can you move it to a helper function on RtpTransportConfig (either a constructor that takes Call::Config as argument or a static Create function that takes Call::Config as argument)?",
+      "revId": "4e89079e7e9c8bccc1c13de59cc93168661e2408",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "087dca24_688ba86c",
+        "filename": "call/rtp_transport_controller_send_factory_interface.h",
+        "patchSetId": 27
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-05-31T09:39:46Z",
+      "side": 1,
+      "message": "Can we make this a pass-by-value argument, and include both the Clock* and the std::unique_ptr\u003cProcessThread\u003e as members? Since the corresponding const ref for CallConfig appears to make it unnecessarily clumsy to inject components to be owned by Call? Or do you see a clear separation between config to be shared by all transports, and injected state owned by each created instance?",
+      "range": {
+        "startLine": 25,
+        "startChar": 6,
+        "endLine": 25,
+        "endChar": 39
+      },
       "revId": "4e89079e7e9c8bccc1c13de59cc93168661e2408",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

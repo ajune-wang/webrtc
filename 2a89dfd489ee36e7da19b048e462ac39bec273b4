@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "169699a3_b716b477",
+        "filename": "net/dcsctp/rx/data_tracker.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-31T14:53:17Z",
+      "side": 1,
+      "message": "Behind the scenes, it\u0027s just calling std::lower_bound. It allows you to pass a container instead of two iterators, but that\u0027s also it. It makes it a bit more readable and slightly less error prone, but it will result in the same code as the template just expands to calling std::lower_bound.",
+      "parentUuid": "644c9d08_9c3ff261",
+      "revId": "2a89dfd489ee36e7da19b048e462ac39bec273b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9e963b13_5e2572fa",
@@ -48,6 +66,24 @@
       "writtenOn": "2021-05-31T08:45:07Z",
       "side": 1,
       "message": "Readabilityy nit: It\u0027s irritating to read this code when gap_ack_blocks and gap_ack_blocks_ are two different types but represent the same conceptual entity.\n\nCan we call one of them gap_blocks and the other one gap_ack_blocks, or one reported_gap_ack_blocks and the other gap_ack_blocks, or something like that?",
+      "revId": "2a89dfd489ee36e7da19b048e462ac39bec273b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6bcca471_e2d7f473",
+        "filename": "net/dcsctp/rx/data_tracker.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-31T14:53:17Z",
+      "side": 1,
+      "message": "Good point. I renamed the new data structure as \"AdditionalTsnBlocks\" (as it represents additional TSNs received, but as blocks), and kept the term \"gap ack blocks\" for what\u0027s returned in the chunk.",
+      "parentUuid": "9e963b13_5e2572fa",
       "revId": "2a89dfd489ee36e7da19b048e462ac39bec273b4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -69,6 +105,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "37191328_2c0fdcdd",
+        "filename": "net/dcsctp/rx/data_tracker.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-31T14:53:17Z",
+      "side": 1,
+      "message": "Yes, it\u0027s O(N), but as N is limited to kMaxGapAckBlocksReported (20), it\u0027s effectively constant even in worst cast. \n\nThe number of chunks in the previous \"additional_tsns\" could be in the large thousands in my throughput tests, and generating SACKs took longer time than was even available (meaning that the throughput test using simulated time ran slower than real-time).",
+      "parentUuid": "6ae1d609_d385ac57",
+      "revId": "2a89dfd489ee36e7da19b048e462ac39bec273b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "11bc0492_b6e7799b",
@@ -82,6 +136,24 @@
       "writtenOn": "2021-05-31T08:45:07Z",
       "side": 1,
       "message": "Should we introduce a name for this std::pair, such as \"TsnRange\"?\nThat would also be a convenient place to say whether this is [first, last], [first, last\u003e or some other combo.",
+      "revId": "2a89dfd489ee36e7da19b048e462ac39bec273b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d92d6de9_e3af94bf",
+        "filename": "net/dcsctp/rx/data_tracker.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-05-31T14:53:17Z",
+      "side": 1,
+      "message": "Good idea - Done.",
+      "parentUuid": "11bc0492_b6e7799b",
       "revId": "2a89dfd489ee36e7da19b048e462ac39bec273b4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

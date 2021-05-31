@@ -63,6 +63,24 @@
       "message": "intentionally deleting?",
       "revId": "27d2be3583fefa258903f04084c86a192f4ced12",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66b607db_07998687",
+        "filename": "call/call.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-05-31T20:52:21Z",
+      "side": 0,
+      "message": "Yes, I think the sequence checker is better as the queue interface isn\u0027t used for more than RTC_DCHECK_RUN_ON. It\u0027ll inform readers that we depend on _a_ serial context, not the exact transport queue.",
+      "parentUuid": "f86263f0_ce3f8a2f",
+      "revId": "27d2be3583fefa258903f04084c86a192f4ced12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

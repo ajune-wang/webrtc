@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0746dadc_339ea279",
+        "filename": "call/call.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-05-31T20:52:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4872c4c_27d89517",
+      "revId": "236fc9cc967d921b3d682299c47ac2bda7fbda5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "98a6ef03_148cdb00",
@@ -31,6 +49,24 @@
       "writtenOn": "2021-05-31T18:25:04Z",
       "side": 1,
       "message": "RTC_GUARDED_BY(destructor_sequence_checker_)?",
+      "revId": "236fc9cc967d921b3d682299c47ac2bda7fbda5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9df867fa_e9b1512b",
+        "filename": "call/call.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-05-31T20:52:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "98a6ef03_148cdb00",
       "revId": "236fc9cc967d921b3d682299c47ac2bda7fbda5c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -52,6 +88,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c64f3dc3_edaff889",
+        "filename": "call/call.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-05-31T20:52:21Z",
+      "side": 1,
+      "message": "Docs added. More docs also added at the .load() site, see below comment. I don\u0027t think the atomics hurt since we avoid the PostTask this way.",
+      "parentUuid": "458f99da_c2048520",
+      "revId": "236fc9cc967d921b3d682299c47ac2bda7fbda5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "359f2a45_89892849",
@@ -65,6 +119,24 @@
       "writtenOn": "2021-05-31T18:25:04Z",
       "side": 1,
       "message": "isn\u0027t this inherently racy now?\nand if so, is it harmless if we call either PauseSendAndPacerBitrateCounters or AddTargetBitrateSample when we actually have send streams or don\u0027t (respectively)?",
+      "revId": "236fc9cc967d921b3d682299c47ac2bda7fbda5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f7b8fed_072ce91b",
+        "filename": "call/call.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1407,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-05-31T20:52:21Z",
+      "side": 1,
+      "message": "Unless I\u0027m missing something it\u0027s no worse than it is today: the sender can\u0027t reasonably synchronize with streams getting added or removed because it\u0027s on the send thread, so an update might anyway be misinterpreted depending on when it\u0027s sent. As the worker action in this method take place initiated by the caller, it only works with polling anyway.\nAdded this as docs.",
+      "parentUuid": "359f2a45_89892849",
       "revId": "236fc9cc967d921b3d682299c47ac2bda7fbda5c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

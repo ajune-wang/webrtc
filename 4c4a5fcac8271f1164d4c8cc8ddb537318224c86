@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccb0790c_47837bd7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-05-31T15:16:07Z",
+      "side": 1,
+      "message": "This is great. lgtm % a couple of comments that hopefully help with clarification",
+      "revId": "4c4a5fcac8271f1164d4c8cc8ddb537318224c86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3c6731ea_c7b4e79a",
@@ -37,6 +54,23 @@
         "endLine": 14,
         "endChar": 8
       },
+      "revId": "4c4a5fcac8271f1164d4c8cc8ddb537318224c86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e43edb1_cc13328a",
+        "filename": "g3doc/implementation_basics.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-05-31T15:16:07Z",
+      "side": 1,
+      "message": "only the signaling/worker/network threads are rtc::Thread classes. All other threads (most) are TaskQueue instances, which run on top of application wide thread pools (the underlying implementation varies, but in Chrome this is the post_task implementation - see webrtc_overrides for details).\n\nThe fact that Thread now also implements TaskQueueBase, I\u0027d say is an implementation detail for webrtc. We do that for rtc::Thread and ProcessThread to facilitate transition over to dedicated task queues. Today, encoding, decoding, pacing, etc runs on dedicated TQ instances, that are not rtc::Thread.",
       "revId": "4c4a5fcac8271f1164d4c8cc8ddb537318224c86",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -66,6 +100,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "83bcdf07_a62ee2a7",
+        "filename": "g3doc/implementation_basics.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-05-31T15:16:07Z",
+      "side": 1,
+      "message": "Great. You could call out that this is lock-free programming. With this approach to synchronization, we sometimes have conversations whereby the conversation compares Invoke vs locking. That\u0027s not the right comparison. When we use Invoke(), that\u0027s a sign that we\u0027re not quite there yet with regards to having a fully lock-free implemetation. I.e. Invoke() is a stepping stone that\u0027ll go away eventually. But as you point out here, we want to emphasize PostTask and we have some useful tools available to help with that. So in our conversations, we sometimes need to remind ourselves that it\u0027s not Invoke vs locks, it\u0027s locks vs no locks.",
+      "revId": "4c4a5fcac8271f1164d4c8cc8ddb537318224c86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cf710243_f1753b83",
         "filename": "g3doc/implementation_basics.md",
         "patchSetId": 2
@@ -83,6 +134,23 @@
         "endLine": 42,
         "endChar": 29
       },
+      "revId": "4c4a5fcac8271f1164d4c8cc8ddb537318224c86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d33a5f14_5a90b9d7",
+        "filename": "g3doc/implementation_basics.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-05-31T15:16:07Z",
+      "side": 1,
+      "message": "nice!",
       "revId": "4c4a5fcac8271f1164d4c8cc8ddb537318224c86",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

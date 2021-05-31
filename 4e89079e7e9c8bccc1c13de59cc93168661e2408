@@ -108,6 +108,30 @@
       },
       "revId": "4e89079e7e9c8bccc1c13de59cc93168661e2408",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b4a3862_0e7352cb",
+        "filename": "call/rtp_transport_controller_send_factory_interface.h",
+        "patchSetId": 27
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 17619
+      },
+      "writtenOn": "2021-05-31T09:58:25Z",
+      "side": 1,
+      "message": "I would like to keep it like this, all configs passed from CallConfig in RtpTransportConfig and these 2 as a separate arguments. That way we clearly know what we inherit from Call and what are additional needs. I had to do it this way because of circular dependencies problem mentioned on Harald\u0027s comment, otherwise I would just pass CallConfig to it.",
+      "parentUuid": "087dca24_688ba86c",
+      "range": {
+        "startLine": 25,
+        "startChar": 6,
+        "endLine": 25,
+        "endChar": 39
+      },
+      "revId": "4e89079e7e9c8bccc1c13de59cc93168661e2408",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

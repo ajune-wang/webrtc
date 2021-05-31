@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "827b5744_cfb33d4f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-31T08:45:07Z",
+      "side": 1,
+      "message": "Looks nice. A couple of nits, but I think this is OK to submit.\n",
+      "revId": "2a89dfd489ee36e7da19b048e462ac39bec273b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "644c9d08_9c3ff261",
+        "filename": "net/dcsctp/rx/data_tracker.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-31T08:45:07Z",
+      "side": 1,
+      "message": "what is the advantage to using absl::c_lower_bound over std::lower_bound?",
+      "revId": "2a89dfd489ee36e7da19b048e462ac39bec273b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e963b13_5e2572fa",
+        "filename": "net/dcsctp/rx/data_tracker.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-31T08:45:07Z",
+      "side": 1,
+      "message": "Readabilityy nit: It\u0027s irritating to read this code when gap_ack_blocks and gap_ack_blocks_ are two different types but represent the same conceptual entity.\n\nCan we call one of them gap_blocks and the other one gap_ack_blocks, or one reported_gap_ack_blocks and the other gap_ack_blocks, or something like that?",
+      "revId": "2a89dfd489ee36e7da19b048e462ac39bec273b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ae1d609_d385ac57",
+        "filename": "net/dcsctp/rx/data_tracker.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-31T08:45:07Z",
+      "side": 1,
+      "message": "So this is O(gap_ack_blocks.size), while the other was O(TSNs reported)?\nThis is an improvement on the average case, I think; the pessimal case (losing every other packet) is still O(N).",
+      "revId": "2a89dfd489ee36e7da19b048e462ac39bec273b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11bc0492_b6e7799b",
+        "filename": "net/dcsctp/rx/data_tracker.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-31T08:45:07Z",
+      "side": 1,
+      "message": "Should we introduce a name for this std::pair, such as \"TsnRange\"?\nThat would also be a convenient place to say whether this is [first, last], [first, last\u003e or some other combo.",
+      "revId": "2a89dfd489ee36e7da19b048e462ac39bec273b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08c4ac6c_d080c126",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-31T15:57:23Z",
+      "side": 1,
+      "message": "What does \"a remote track has been removed\" mean?\nIn the JS interface, there is no such thing; all incoming tracks are permanently welded to their RTPReceivers.",
+      "revId": "4805b474f053d3fd40bb1d3c108275b907978a0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa6f5a2f_d47618fa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-31T15:57:23Z",
+      "side": 1,
+      "message": "Don\u0027t understand what this is supposed to hook to.\nCan you update the description to ensure I understand it?\n",
+      "revId": "4805b474f053d3fd40bb1d3c108275b907978a0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

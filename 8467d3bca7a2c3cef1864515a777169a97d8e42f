@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "06dba47f_61f92d3f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-05-31T11:25:26Z",
+      "side": 1,
+      "message": "nit: dedicated?",
+      "range": {
+        "startLine": 9,
+        "startChar": 4,
+        "endLine": 9,
+        "endChar": 13
+      },
+      "revId": "8467d3bca7a2c3cef1864515a777169a97d8e42f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "c6234b35_24271f62",
@@ -14,6 +37,138 @@
       "writtenOn": "2021-05-21T18:36:35Z",
       "side": 1,
       "message": "Do you find ok to do all those small changes together?",
+      "revId": "8467d3bca7a2c3cef1864515a777169a97d8e42f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f23008a_cf71e81e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-05-31T11:25:26Z",
+      "side": 1,
+      "message": "Generally looks good, but I am a bit concerned about possible behavior changes. On one had, the \"new\" behavior looks like it is fixing potential issues in the old code. On the other hand, I\u0027m not sure how good test coverage we have for functional performance since we generally try to use the send-side estimator rather than this estimator.",
+      "revId": "8467d3bca7a2c3cef1864515a777169a97d8e42f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a5c80fc_be8fcee2",
+        "filename": "modules/remote_bitrate_estimator/remote_bitrate_estimator_abs_send_time.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-05-31T11:25:26Z",
+      "side": 1,
+      "message": "nit: kMinClusterDelta?",
+      "range": {
+        "startLine": 34,
+        "startChar": 20,
+        "endLine": 34,
+        "endChar": 29
+      },
+      "revId": "8467d3bca7a2c3cef1864515a777169a97d8e42f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80203804_71a069fa",
+        "filename": "modules/remote_bitrate_estimator/remote_bitrate_estimator_abs_send_time.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-05-31T11:25:26Z",
+      "side": 1,
+      "message": "This looks like a potential behavior change. The previous condition was send_mean \u003c\u003d 0, whereas kMinDelta is 1. Are we sure that all added deltas are positive and at least 1 ms?",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 48
+      },
+      "revId": "8467d3bca7a2c3cef1864515a777169a97d8e42f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ea0ef90_66f18a22",
+        "filename": "modules/remote_bitrate_estimator/remote_bitrate_estimator_abs_send_time.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-05-31T11:25:26Z",
+      "side": 1,
+      "message": "It looks like we can add deltas smaller than 1 ms.",
+      "range": {
+        "startLine": 127,
+        "startChar": 0,
+        "endLine": 127,
+        "endChar": 48
+      },
+      "revId": "8467d3bca7a2c3cef1864515a777169a97d8e42f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46cdf011_cc92260d",
+        "filename": "modules/remote_bitrate_estimator/remote_bitrate_estimator_abs_send_time.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-05-31T11:25:26Z",
+      "side": 1,
+      "message": "This also looks like a behavior change.",
+      "range": {
+        "startLine": 145,
+        "startChar": 0,
+        "endLine": 145,
+        "endChar": 73
+      },
+      "revId": "8467d3bca7a2c3cef1864515a777169a97d8e42f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "066593b5_03ab4cfb",
+        "filename": "modules/remote_bitrate_estimator/remote_bitrate_estimator_abs_send_time.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-05-31T11:25:26Z",
+      "side": 1,
+      "message": "Could you clarify the reason for kMinDelta here?",
+      "range": {
+        "startLine": 330,
+        "startChar": 0,
+        "endLine": 330,
+        "endChar": 80
+      },
       "revId": "8467d3bca7a2c3cef1864515a777169a97d8e42f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -16,6 +16,40 @@
       "message": "I have tended to latest comments.\nPlease take a look.",
       "revId": "4e89079e7e9c8bccc1c13de59cc93168661e2408",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f34a51a_feb3d186",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 27
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-31T09:23:11Z",
+      "side": 1,
+      "message": "Code-wise, I think this is ready to land. Firing off a test queue to look at the size impact.\n",
+      "revId": "4e89079e7e9c8bccc1c13de59cc93168661e2408",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7df1a71_8f4f7f11",
+        "filename": "call/call_factory.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-31T09:23:11Z",
+      "side": 1,
+      "message": "This block of config moves is repeated twice. Can you move it to a helper function on RtpTransportConfig (either a constructor that takes Call::Config as argument or a static Create function that takes Call::Config as argument)?",
+      "revId": "4e89079e7e9c8bccc1c13de59cc93168661e2408",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

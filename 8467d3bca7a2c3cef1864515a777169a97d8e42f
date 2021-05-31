@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "94f4361a_8a69a06b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-05-31T15:16:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06dba47f_61f92d3f",
+      "range": {
+        "startLine": 9,
+        "startChar": 4,
+        "endLine": 9,
+        "endChar": 13
+      },
+      "revId": "8467d3bca7a2c3cef1864515a777169a97d8e42f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "c6234b35_24271f62",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 4
@@ -58,6 +82,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dcf5e7cb_7dfedbbf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-05-31T15:16:32Z",
+      "side": 1,
+      "message": "If there is no good coverage, may be it is not important if behaviour changes a bit.\nHowever unit tests currently are very strict.",
+      "parentUuid": "2f23008a_cf71e81e",
+      "revId": "8467d3bca7a2c3cef1864515a777169a97d8e42f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0a5c80fc_be8fcee2",
@@ -71,6 +113,30 @@
       "writtenOn": "2021-05-31T11:25:26Z",
       "side": 1,
       "message": "nit: kMinClusterDelta?",
+      "range": {
+        "startLine": 34,
+        "startChar": 20,
+        "endLine": 34,
+        "endChar": 29
+      },
+      "revId": "8467d3bca7a2c3cef1864515a777169a97d8e42f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39fd2c29_03f0c5db",
+        "filename": "modules/remote_bitrate_estimator/remote_bitrate_estimator_abs_send_time.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-05-31T15:16:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a5c80fc_be8fcee2",
       "range": {
         "startLine": 34,
         "startChar": 20,
@@ -104,6 +170,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5bc4ec42_b7b3c261",
+        "filename": "modules/remote_bitrate_estimator/remote_bitrate_estimator_abs_send_time.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-05-31T15:16:32Z",
+      "side": 1,
+      "message": "changed back to comparing to Zero. Tests do not complain.\n(.ms() \u003e 0 and .ms() \u003e\u003d1 are the same, but when precision is increased, they become different. I just wasn\u0027t sure which one is meant here)",
+      "parentUuid": "80203804_71a069fa",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 48
+      },
+      "revId": "8467d3bca7a2c3cef1864515a777169a97d8e42f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5ea0ef90_66f18a22",
@@ -117,6 +207,30 @@
       "writtenOn": "2021-05-31T11:25:26Z",
       "side": 1,
       "message": "It looks like we can add deltas smaller than 1 ms.",
+      "range": {
+        "startLine": 127,
+        "startChar": 0,
+        "endLine": 127,
+        "endChar": 48
+      },
+      "revId": "8467d3bca7a2c3cef1864515a777169a97d8e42f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4dc601ed_15e7d2e0",
+        "filename": "modules/remote_bitrate_estimator/remote_bitrate_estimator_abs_send_time.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-05-31T15:16:32Z",
+      "side": 1,
+      "message": "We can, same as before (old code doesn\u0027t prevent adding zero delta either, it just count number of small deltas and reject clusters where half of deltas are such small)",
+      "parentUuid": "5ea0ef90_66f18a22",
       "range": {
         "startLine": 127,
         "startChar": 0,
@@ -150,6 +264,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2cd257a_c23bd0e6",
+        "filename": "modules/remote_bitrate_estimator/remote_bitrate_estimator_abs_send_time.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-05-31T15:16:32Z",
+      "side": 1,
+      "message": "changed back to TimeDelta::Zero(). tests do not mind.\nSeems it is here just to avoid division by zero.",
+      "parentUuid": "46cdf011_cc92260d",
+      "range": {
+        "startLine": 145,
+        "startChar": 0,
+        "endLine": 145,
+        "endChar": 73
+      },
+      "revId": "8467d3bca7a2c3cef1864515a777169a97d8e42f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "066593b5_03ab4cfb",
@@ -163,6 +301,30 @@
       "writtenOn": "2021-05-31T11:25:26Z",
       "side": 1,
       "message": "Could you clarify the reason for kMinDelta here?",
+      "range": {
+        "startLine": 330,
+        "startChar": 0,
+        "endLine": 330,
+        "endChar": 80
+      },
+      "revId": "8467d3bca7a2c3cef1864515a777169a97d8e42f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "adb9f5c3_f9f0857e",
+        "filename": "modules/remote_bitrate_estimator/remote_bitrate_estimator_abs_send_time.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-05-31T15:16:32Z",
+      "side": 1,
+      "message": "To keep closer to the existent behaviour, as expressed with unit tests.\nE.g. there is a test that verifies that bitrate converges after exactly 1237 iterations.\n\n\"now.ms() - last_update_.ms() \u003e remote_rate_.GetFeedbackInterval().ms()\" - test pass\n\"now - last_update_ \u003e remote_rate_.GetFeedbackInterval()\" - test fail\n\"now - last_update_ \u003e remote_rate_.GetFeedbackInterval() + kMinDelta\" - test pass again.\n\nAdded such comment to code. May be it is good idea to remove the grace millisecond, but that would require to re-balance unit tests.",
+      "parentUuid": "066593b5_03ab4cfb",
       "range": {
         "startLine": 330,
         "startChar": 0,

@@ -34,6 +34,24 @@
       "parentUuid": "e9ac89bf_75b0dd95",
       "revId": "34cb7647fd5d8a2fd984cadfc386455f318b98b5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9c3d764_42eace3d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-05-31T08:53:01Z",
+      "side": 1,
+      "message": "Integration would require adding a FindAndSetIdUsedAscending method to UsedIds, which leaves UsedIds with at least two cursors. Too complex for today.\nApproving.",
+      "parentUuid": "e6344050_4cbcb01b",
+      "revId": "34cb7647fd5d8a2fd984cadfc386455f318b98b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -89,6 +89,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c37970cf_fa4d2851",
+        "filename": "call/call_factory.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-05-31T10:01:15Z",
+      "side": 1,
+      "message": "You could split out call_config.h to it\u0027s own build target, but I\u0027m not sure that\u0027s a good idea. \n\nPutting the helper in CallConfig might make sense, if we think about that class as primarily tied to the factory interfaces, rather than the Call implementation. If we had a different set of settings, with no overlap between what\u0027s used in Call itself and what\u0027s for the RtpTransportControllerSend, we could make RtpTransportConfig a direct member of CallConfig, and from that perspective, having CallConfig depend in RtpTransprtConfig is natural.",
+      "parentUuid": "f1199f31_64498696",
+      "revId": "4e89079e7e9c8bccc1c13de59cc93168661e2408",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "087dca24_688ba86c",
         "filename": "call/rtp_transport_controller_send_factory_interface.h",
         "patchSetId": 27

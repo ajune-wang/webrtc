@@ -64,6 +64,7 @@ RetransmissionQueue::RetransmissionQueue(
     bool use_message_interleaving)
     : options_(options),
       partial_reliability_(supports_partial_reliability),
+      use_message_interleaving_(use_message_interleaving),
       log_prefix_(std::string(log_prefix) + "tx: "),
       data_chunk_header_size_(use_message_interleaving
                                   ? IDataChunk::kHeaderSize
@@ -87,6 +88,9 @@ bool RetransmissionQueue::IsConsistent() const {
   size_t actual_outstanding_bytes = 0;
 
   std::set<UnwrappedTSN> actual_to_be_retransmitted;
+  enum ChunkType { kUnknown, kBeginning, kMiddle, kEnd, kComplete };
+  ChunkType prev_chunk_type = ChunkType::kUnknown;
+
   for (const auto& elem : outstanding_data_) {
     if (elem.second.is_outstanding()) {
       actual_outstanding_bytes += GetSerializedChunkSize(elem.second.data());
@@ -94,6 +98,49 @@ bool RetransmissionQueue::IsConsistent() const {
 
     if (elem.second.should_be_retransmitted()) {
       actual_to_be_retransmitted.insert(elem.first);
+    }
+
+    if (!use_message_interleaving_) {
+      switch (prev_chunk_type) {
+        case ChunkType::kUnknown:
+          break;
+        case ChunkType::kBeginning:
+          if (elem.second.data().is_beginning) {
+            RTC_DLOG(LS_ERROR)
+                << "Previous TSN was beginning but this TSN is beginning; tsn="
+                << *elem.first.Wrap();
+            return false;
+          }
+          break;
+        case ChunkType::kMiddle:
+          if (elem.second.data().is_beginning) {
+            RTC_DLOG(LS_ERROR)
+                << "Previous TSN was middle but this TSN is beginning; tsn="
+                << *elem.first.Wrap();
+            return false;
+          }
+          break;
+        case ChunkType::kEnd:
+        case ChunkType::kComplete:
+          if (!elem.second.data().is_beginning) {
+            RTC_DLOG(LS_ERROR) << "Previous TSN was complete or end but this "
+                                  "TSN isn't beginning; tsn="
+                               << *elem.first.Wrap();
+            return false;
+          }
+          break;
+      }
+      if (elem.second.data().is_beginning && !elem.second.data().is_end) {
+        prev_chunk_type = ChunkType::kBeginning;
+      } else if (!elem.second.data().is_beginning &&
+                 !elem.second.data().is_end) {
+        prev_chunk_type = ChunkType::kMiddle;
+      } else if (!elem.second.data().is_beginning &&
+                 elem.second.data().is_end) {
+        prev_chunk_type = ChunkType::kEnd;
+      } else {
+        prev_chunk_type = ChunkType::kComplete;
+      }
     }
   }
 

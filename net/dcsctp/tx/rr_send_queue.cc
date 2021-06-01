@@ -113,11 +113,6 @@ absl::optional<SendQueue::DataToSend> RRSendQueue::OutgoingStream::Produce(
 
   DcSctpMessage& message = item->message;
 
-  if (item->remaining_size > max_size && max_size < kMinimumFragmentedPayload) {
-    RTC_DCHECK(IsConsistent());
-    return absl::nullopt;
-  }
-
   // Allocate Message ID and SSN when the first fragment is sent.
   if (!item->message_id.has_value()) {
     MID& mid =

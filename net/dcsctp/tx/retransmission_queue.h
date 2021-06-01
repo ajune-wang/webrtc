@@ -325,6 +325,7 @@ class RetransmissionQueue {
   const DcSctpOptions options_;
   // If the peer supports RFC3758 - SCTP Partial Reliability Extension.
   const bool partial_reliability_;
+  const bool use_message_interleaving_;
   const std::string log_prefix_;
   // The size of the data chunk (DATA/I-DATA) header that is used.
   const size_t data_chunk_header_size_;

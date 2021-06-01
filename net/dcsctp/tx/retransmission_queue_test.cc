@@ -604,7 +604,8 @@ TEST_F(RetransmissionQueueTest, ProducesValidForwardTsnWhenFullySent) {
 }
 
 TEST_F(RetransmissionQueueTest, ProducesValidIForwardTsn) {
-  RetransmissionQueue queue = CreateQueue(/*use_message_interleaving=*/true);
+  RetransmissionQueue queue = CreateQueue(/*supports_partial_reliability=*/true,
+                                          /*use_message_interleaving=*/true);
   EXPECT_CALL(producer_, Produce)
       .WillOnce([this](TimeMs, size_t) {
         DataGeneratorOptions opts;

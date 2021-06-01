@@ -157,6 +157,24 @@
       "parentUuid": "1f7b8fed_072ce91b",
       "revId": "236fc9cc967d921b3d682299c47ac2bda7fbda5c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "382e9082_056e91c2",
+        "filename": "call/call.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1407,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-06-01T10:27:12Z",
+      "side": 1,
+      "message": "What makes it acceptable is that it wasn\u0027t synchronized before and it isn\u0027t synchronized now either.\n\nMy rationale:\nThe time-of-check-time-of-use race was present before because the send thread calling OnTargetTransferRate is unsynchronized with video stream addition/removal happening on the worker thread. This fact didn\u0027t change with the atomic. So the PostTask and synchronization doesn\u0027t help.\n\nI.e. consider the old code state in Call having 1 videostream before time T and 0 streams after T.\n1. If OnTargetTransferRate(100) happens a micro before T, we AddTargetBitrateSample.\n1. If OnTargetTransferRate(100) happens a micro after T, we PauseBitrateCounters.\n\nThe only way this is useful is if there are many samples getting fed.\n\nDo you find any holes in the above reasoning?",
+      "parentUuid": "be6121a4_e9445a7d",
+      "revId": "236fc9cc967d921b3d682299c47ac2bda7fbda5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

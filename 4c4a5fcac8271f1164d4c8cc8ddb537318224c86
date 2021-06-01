@@ -108,6 +108,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f33dfdbb_9ca769a7",
+        "filename": "g3doc/implementation_basics.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-01T07:46:47Z",
+      "side": 1,
+      "message": "Added a para about conversion of timestamps to/from other formats - \"do it as close to that interface as possible\".",
+      "parentUuid": "34089028_e56c35da",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 8
+      },
+      "revId": "4c4a5fcac8271f1164d4c8cc8ddb537318224c86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2e43edb1_cc13328a",
         "filename": "g3doc/implementation_basics.md",
         "patchSetId": 2

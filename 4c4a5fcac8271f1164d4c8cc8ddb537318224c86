@@ -84,6 +84,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "34089028_e56c35da",
+        "filename": "g3doc/implementation_basics.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-06-01T07:02:45Z",
+      "side": 1,
+      "message": "If I have understood it correctly, NTP time is on the wire in some RTCP messages, so can\u0027t be eliminated completely. It makes some sense to me to convert to and from the unix epoch close to the wire, but I\u0027m not really familiar with these parts of the code.",
+      "parentUuid": "3161dcca_5595bac0",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 8
+      },
+      "revId": "4c4a5fcac8271f1164d4c8cc8ddb537318224c86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2e43edb1_cc13328a",
         "filename": "g3doc/implementation_basics.md",
         "patchSetId": 2

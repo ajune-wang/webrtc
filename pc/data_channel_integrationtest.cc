@@ -757,10 +757,10 @@ TEST_P(DataChannelIntegrationTest,
   // Then, check that observed behavior (lose between 100 and 200 messages)
   // has not changed.
   // Usrsctp behavior is different on Android (177) and other platforms (122).
-  // Dcsctp loses 432 packets.
+  // Dcsctp loses 518 packets.
   EXPECT_GT(2 + packet_counter - 100,
             callee()->data_observer()->received_message_count());
-  EXPECT_LT(2 + packet_counter - 500,
+  EXPECT_LT(2 + packet_counter - 600,
             callee()->data_observer()->received_message_count());
 }
 

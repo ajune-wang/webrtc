@@ -46,6 +46,30 @@
       },
       "revId": "a425364b5c32fca44152ffee6941e4849cbeda59",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1f9b6bf_3acc6b22",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-01T13:10:58Z",
+      "side": 1,
+      "message": "Can you please add an assert that `width / 4` and `width / 2` have different values\n(e.g. ASEERT_GT(codec_settings.width, 4); )\n\nDoes VP9 emit frames from higher to lower spatial layer  order???\nEven when spatial scalability is used? (then it would emit S1 frame that depends on S0 frame before emitting S0 frame. That seems weird.)",
+      "parentUuid": "5fb1c846_a7d25926",
+      "range": {
+        "startLine": 152,
+        "startChar": 6,
+        "endLine": 152,
+        "endChar": 17
+      },
+      "revId": "a425364b5c32fca44152ffee6941e4849cbeda59",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

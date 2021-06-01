@@ -139,6 +139,24 @@
       "parentUuid": "359f2a45_89892849",
       "revId": "236fc9cc967d921b3d682299c47ac2bda7fbda5c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be6121a4_e9445a7d",
+        "filename": "call/call.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1407,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-06-01T08:49:48Z",
+      "side": 1,
+      "message": "Before, the flag was changed on the same thread that it\u0027s checked on. That guarantees that the check+operations, are atomic. Now, there\u0027s a time-of-check-time-of-use race because there\u0027s no guarantee that the value of video_send_streams_empty_ hasn\u0027t changed when PauseSendAndPacerBitrateCounters() is called.\n\nHaving said that, it still may not be worse than before (I\u0027m not sure myself) but just want to double check that you\u0027ve considered this and that it\u0027s acceptable.",
+      "parentUuid": "1f7b8fed_072ce91b",
+      "revId": "236fc9cc967d921b3d682299c47ac2bda7fbda5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

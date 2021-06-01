@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "585a9da7_49e4e786",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-06-01T09:15:53Z",
+      "side": 1,
+      "message": "Done. There is also an integration test coming in another CL.",
+      "parentUuid": "3642c413_fe469b57",
+      "revId": "b1d46ee517513aabcd3bb3a6130dca90e0b94f1b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d6f375ee_be0de53f",
@@ -55,6 +73,30 @@
       "side": 1,
       "message": "looking how SetAv1SvcConfig fills spatialLayers, such generalization doesn\u0027t seem reasonable.\n\nI\u0027m not too familiar how spatial_layers is used, but planning to investigate it, then I\u0027ll have better idea how to make configuring active spatial layers nicer.\n(to me it feels that signal should go through bitrate allocator, not through initial encoder configuration)",
       "parentUuid": "d6f375ee_be0de53f",
+      "range": {
+        "startLine": 267,
+        "startChar": 0,
+        "endLine": 267,
+        "endChar": 80
+      },
+      "revId": "b1d46ee517513aabcd3bb3a6130dca90e0b94f1b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd2d467e_af97eba2",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-06-01T09:15:53Z",
+      "side": 1,
+      "message": "The bitrate allocator uses the VideoCodec object to determine which layers are active (and what their min/max bitrates are etc) which is why it\u0027s needed now.\nReading your comment differently, the active flag shouldn\u0027t be a field in VideoCodec at all and instead just be something that is set on the bitrate allocator? That I would agree with.",
+      "parentUuid": "a009f1ab_0d34f246",
       "range": {
         "startLine": 267,
         "startChar": 0,

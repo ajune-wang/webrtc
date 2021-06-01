@@ -63,6 +63,30 @@
       },
       "revId": "ba518bbf234cb8c68c3f25ac4dc144efc2a42654",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd486a58_5cde229a",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-06-01T06:55:10Z",
+      "side": 1,
+      "message": "Yes, that is a workaround (in a GN template, which allows for some flexibility).\n\nHere it becomes a direct dependency and //base is not available everywhere.\n\nI wonder if copying GoogleTestRunnerDelegate into the WebRTC repo might be a temporary solution to make a step forward (with an explanatory comment).",
+      "parentUuid": "85e1554e_1f5b5383",
+      "range": {
+        "startLine": 292,
+        "startChar": 6,
+        "endLine": 292,
+        "endChar": 54
+      },
+      "revId": "ba518bbf234cb8c68c3f25ac4dc144efc2a42654",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

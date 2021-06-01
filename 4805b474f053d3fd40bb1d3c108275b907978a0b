@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "cad39f49_a5fe9996",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 17694
+      },
+      "writtenOn": "2021-06-01T06:12:23Z",
+      "side": 1,
+      "message": "A track on a sender PeerConnection is removed when calling to `PeerConnection.removeTrack()`, so it\u0027s not in the list of available tracks anymore.\n\nIn Javascript API, as you correctly say tracks are not \"removed\" explicitly from the PeerConnection, but instead receiver PeerConnection gets notified that they have been removed from the streams they are associated to, and when no `MediaStream` object has that track, it\u0027s considered that the track has been removed from the PeerConnection. In Java and C++ APIs there\u0027s no `MediaStreamObserver` class, so there\u0027s no way to listen to the `removeTrack` event the same way happens in Javascript API, but instead C++ API has a `removeTrack` event at PeerConnection level. This patchset just only wraps and expose this `removeTrack` event from the C++ API to the Java API.\n\nI know you could argue that the w3c spec dictates that the `removeTrack` must be at `MediaStream`, but the w3c spec is only about Javascript API and how browsers must implement it, there\u0027s no standard (to my knowledge) about how WebRTC APIs should look alike in other languages, including C++ or Java, just only about how the protocols should work so they can interact with other systems and WebRTC libraries.",
+      "parentUuid": "08c4ac6c_d080c126",
+      "revId": "4805b474f053d3fd40bb1d3c108275b907978a0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "fa6f5a2f_d47618fa",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 5

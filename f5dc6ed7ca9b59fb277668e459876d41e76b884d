@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fcf1f49e_1a3ea0d1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17694
+      },
+      "writtenOn": "2021-06-01T06:12:23Z",
+      "side": 1,
+      "message": "Resolved comments from Harald Alvestrand.",
+      "revId": "f5dc6ed7ca9b59fb277668e459876d41e76b884d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

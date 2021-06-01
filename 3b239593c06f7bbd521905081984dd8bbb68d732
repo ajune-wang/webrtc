@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e0a6c03_d9d3d13b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-06-01T09:45:23Z",
+      "side": 1,
+      "message": "Christoffer, could you advise on functional/performance testing for the AbsSendTime-based bitrate estimator?",
+      "revId": "3b239593c06f7bbd521905081984dd8bbb68d732",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

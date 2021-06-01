@@ -194,6 +194,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cff4b981_0e59fd0e",
+        "filename": "modules/remote_bitrate_estimator/remote_bitrate_estimator_abs_send_time.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-06-01T09:45:23Z",
+      "side": 1,
+      "message": "I agree, and your original 1 ms interpretation sounds better to me. However, I\u0027d prefer a pure refactoring if possible, and 0 ms sounds like it would be more consistent with the old behavior.",
+      "parentUuid": "5bc4ec42_b7b3c261",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 48
+      },
+      "revId": "8467d3bca7a2c3cef1864515a777169a97d8e42f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5ea0ef90_66f18a22",
@@ -325,6 +349,30 @@
       "side": 1,
       "message": "To keep closer to the existent behaviour, as expressed with unit tests.\nE.g. there is a test that verifies that bitrate converges after exactly 1237 iterations.\n\n\"now.ms() - last_update_.ms() \u003e remote_rate_.GetFeedbackInterval().ms()\" - test pass\n\"now - last_update_ \u003e remote_rate_.GetFeedbackInterval()\" - test fail\n\"now - last_update_ \u003e remote_rate_.GetFeedbackInterval() + kMinDelta\" - test pass again.\n\nAdded such comment to code. May be it is good idea to remove the grace millisecond, but that would require to re-balance unit tests.",
       "parentUuid": "066593b5_03ab4cfb",
+      "range": {
+        "startLine": 330,
+        "startChar": 0,
+        "endLine": 330,
+        "endChar": 80
+      },
+      "revId": "8467d3bca7a2c3cef1864515a777169a97d8e42f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34d3398a_346ad26a",
+        "filename": "modules/remote_bitrate_estimator/remote_bitrate_estimator_abs_send_time.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-06-01T09:45:23Z",
+      "side": 1,
+      "message": "If it only is a matter of rounding, maybe we could use .ms() instead?",
+      "parentUuid": "adb9f5c3_f9f0857e",
       "range": {
         "startLine": 330,
         "startChar": 0,

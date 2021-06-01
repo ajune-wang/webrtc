@@ -22,6 +22,30 @@
       },
       "revId": "a425364b5c32fca44152ffee6941e4849cbeda59",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fb1c846_a7d25926",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-06-01T12:59:40Z",
+      "side": 1,
+      "message": "Ah, seems the those field aren\u0027t populated in this test - they\u0027re all 0.\nUgh, there\u0027s too many different ways to configure stuff.\n\nI was assuming the same order as for vp9 - where the encoder emits from high to low.\nUpdated both test and code to figure out the resolutions.",
+      "parentUuid": "016849e8_349cd72a",
+      "range": {
+        "startLine": 152,
+        "startChar": 6,
+        "endLine": 152,
+        "endChar": 17
+      },
+      "revId": "a425364b5c32fca44152ffee6941e4849cbeda59",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

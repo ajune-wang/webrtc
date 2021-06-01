@@ -146,9 +146,9 @@ def VerifyNativeApiHeadersListIsValid(input_api, output_api):
     if non_existing_paths:
         return [
             output_api.PresubmitError(
-                'Directories to native API headers have changed which has made the '
-                'list in PRESUBMIT.py outdated.\nPlease update it to the current '
-                'location of our native APIs.', non_existing_paths)
+                'Directories to native API headers have changed which has made '
+                'the list in PRESUBMIT.py outdated.\nPlease update it to the '
+                'current location of our native APIs.', non_existing_paths)
         ]
     return []
 
@@ -212,10 +212,10 @@ def CheckNoIOStreamInHeaders(input_api, output_api, source_file_filter):
     if len(files):
         return [
             output_api.PresubmitError(
-                'Do not #include <iostream> in header files, since it inserts static '
-                +
-                'initialization into every file including the header. Instead, '
-                + '#include <ostream>. See http://crbug.com/94794', files)
+                'Do not #include <iostream> in header files, since it inserts '
+                'static initialization into every file including the header. '
+                'Instead, #include <ostream>. See http://crbug.com/94794',
+                files)
         ]
     return []
 
@@ -234,6 +234,7 @@ def CheckNoPragmaOnce(input_api, output_api, source_file_filter):
             files.append(f)
 
     if files:
+        # pylint: disable=line-too-long
         return [
             output_api.PresubmitError(
                 'Do not use #pragma once in header files.\n'
@@ -242,10 +243,9 @@ def CheckNoPragmaOnce(input_api, output_api, source_file_filter):
         ]
     return []
 
-
-def CheckNoFRIEND_TEST(
+def CheckNoFRIEND_TEST(# pylint: disable=invalid-name
         input_api,
-        output_api,  # pylint: disable=invalid-name
+        output_api,
         source_file_filter):
     """Make sure that gtest's FRIEND_TEST() macro is not used, the
   FRIEND_TEST_ALL_PREFIXES() macro from testsupport/gtest_prod_util.h should be
@@ -263,9 +263,9 @@ def CheckNoFRIEND_TEST(
         return []
     return [
         output_api.PresubmitPromptWarning(
-            'WebRTC\'s code should not use '
-            'gtest\'s FRIEND_TEST() macro. Include testsupport/gtest_prod_util.h and '
-            'use FRIEND_TEST_ALL_PREFIXES() instead.\n' + '\n'.join(problems))
+            'WebRTC\'s code should not use gtest\'s FRIEND_TEST() macro. '
+            'Include testsupport/gtest_prod_util.h and use '
+            'FRIEND_TEST_ALL_PREFIXES() instead.\n' + '\n'.join(problems))
     ]
 
 
@@ -346,9 +346,9 @@ def CheckNoSourcesAbove(input_api, gn_files, output_api):
     if violating_gn_files:
         return [
             output_api.PresubmitError(
-                'Referencing source files above the directory of the GN file is not '
-                'allowed. Please introduce new GN targets in the proper location '
-                'instead.\n'
+                'Referencing source files above the directory of the GN file '
+                'is not allowed. Please introduce new GN targets in the proper '
+                'location instead.\n'
                 'Invalid source entries:\n'
                 '%s\n'
                 'Violating GN files:' % '\n'.join(violating_source_entries),
@@ -406,6 +406,7 @@ def CheckNoMixingSources(input_api, gn_files, output_api):
     for gn_file in gn_files:
         gn_file_content = input_api.ReadFile(gn_file)
         for target_match in TARGET_RE.finditer(gn_file_content):
+            # pylint: disable=line-too-long
             # list_of_sources is a list of tuples of the form
             # (c_files, cc_files, objc_files) that keeps track of all the sources
             # defined in a target. A GN target can have more that on definition of
@@ -451,6 +452,7 @@ def CheckNoMixingSources(input_api, gn_files, output_api):
                     errors[gn_file.LocalPath()].append(
                         (target_name, all_sources))
     if errors:
+        # pylint: disable=line-too-long
         return [
             output_api.PresubmitError(
                 'GN targets cannot mix .c, .cc and .m (or .mm) source files.\n'
@@ -476,8 +478,8 @@ def CheckNoPackageBoundaryViolations(input_api, gn_files, output_api):
     if errors:
         return [
             output_api.PresubmitError(
-                'There are package boundary violations in the following GN files:',
-                long_text='\n\n'.join(str(err) for err in errors))
+                'There are package boundary violations in the following GN '
+                'files:', long_text='\n\n'.join(str(err) for err in errors))
         ]
     return []
 
@@ -491,7 +493,8 @@ def CheckNoWarningSuppressionFlagsAreAdded(gn_files,
                                            input_api,
                                            output_api,
                                            error_formatter=_ReportFileAndLine):
-    """Make sure that warning suppression flags are not added wihtout a reason."""
+    """Make sure that warning suppression flags are not added wihtout a
+    reason."""
     msg = ('Usage of //build/config/clang:extra_warnings is discouraged '
            'in WebRTC.\n'
            'If you are not adding this code (e.g. you are just moving '
@@ -672,6 +675,7 @@ def CheckGnGen(input_api, output_api):
         from build_helpers import RunGnCheck
     errors = RunGnCheck(FindSrcDirPath(input_api.PresubmitLocalPath()))[:5]
     if errors:
+        # pylint: disable=line-too-long
         return [
             output_api.PresubmitPromptWarning(
                 'Some #includes do not match the build dependency graph. Please run:\n'
@@ -726,6 +730,7 @@ def CheckUnwantedDependencies(input_api, output_api, source_file_filter):
             warning_descriptions.append(description_with_path)
 
     results = []
+    # pylint: disable=line-too-long
     if error_descriptions:
         results.append(
             output_api.PresubmitError(
@@ -787,9 +792,10 @@ def CheckChangeHasBugField(input_api, output_api):
     else:
         return [
             output_api.PresubmitError(
-                'The "Bug: [bug number]" footer is mandatory. Please create a bug and '
-                'reference it using either of:\n'
-                ' * https://bugs.webrtc.org - reference it using Bug: webrtc:XXXX\n'
+                'The "Bug: [bug number]" footer is mandatory. Please create a '
+                'bug and reference it using either of:\n'
+                ' * https://bugs.webrtc.org - reference it using Bug: '
+                'webrtc:XXXX\n'
                 ' * https://crbug.com - reference it using Bug: chromium:XXXXXX'
             )
         ]
@@ -911,10 +917,19 @@ def CommonChecks(input_api, output_api):
     results.extend(
         input_api.canned_checks.CheckLicense(input_api, output_api,
                                              _LicenseHeader(input_api)))
+
+    # TODO(https://crbug.com/webrtc/12114): Delete this filter and run pylint
+    # on all python files. This is a temporary solution.
+    python_file_filter = lambda f: (f.LocalPath().endswith('.py') and
+                                    source_file_filter(f))
+    python_changed_files = [f.LocalPath() for f in input_api.AffectedFiles(
+        file_filter=python_file_filter)]
+
     results.extend(
         input_api.canned_checks.RunPylint(
             input_api,
             output_api,
+            files_to_check=python_changed_files,
             files_to_skip=(
                 r'^base[\\\/].*\.py$',
                 r'^build[\\\/].*\.py$',
@@ -931,6 +946,7 @@ def CommonChecks(input_api, output_api):
             ),
             pylintrc='pylintrc'))
 
+    # pylint: disable=line-too-long
     # TODO(nisse): talk/ is no more, so make below checks simpler?
     # WebRTC can't use the presubmit_canned_checks.PanProjectChecks function since
     # we need to have different license checks in talk/ and webrtc/ directories.
@@ -1161,6 +1177,7 @@ def CheckAbslMemoryInclude(input_api, output_api, source_file_filter):
                 break
 
     if len(files):
+        # pylint: disable=line-too-long
         return [
             output_api.PresubmitError(
                 'Please include "absl/memory/memory.h" header for  absl::WrapUnique.\n'
@@ -1343,13 +1360,15 @@ def CheckAddedDepsHaveTargetApprovals(input_api, output_api):
         if input_api.tbr:
             return [
                 output_api.PresubmitNotifyResult(
-                    '--tbr was specified, skipping OWNERS check for DEPS additions'
+                    '--tbr was specified, skipping OWNERS check for DEPS '
+                    'additions'
                 )
             ]
         if input_api.dry_run:
             return [
                 output_api.PresubmitNotifyResult(
-                    'This is a dry run, skipping OWNERS check for DEPS additions'
+                    'This is a dry run, skipping OWNERS check for DEPS '
+                    'additions'
                 )
             ]
         if not input_api.change.issue:
@@ -1393,8 +1412,8 @@ def CheckAddedDepsHaveTargetApprovals(input_api, output_api):
     if unapproved_dependencies:
         output_list = [
             output(
-                'You need LGTM from owners of depends-on paths in DEPS that were '
-                'modified in this CL:\n    %s' %
+                'You need LGTM from owners of depends-on paths in DEPS that '
+                ' were modified in this CL:\n    %s' %
                 '\n    '.join(sorted(unapproved_dependencies)))
         ]
         suggested_owners = input_api.owners_client.SuggestOwners(

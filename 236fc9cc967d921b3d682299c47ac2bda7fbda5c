@@ -175,6 +175,24 @@
       "parentUuid": "be6121a4_e9445a7d",
       "revId": "236fc9cc967d921b3d682299c47ac2bda7fbda5c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9885f570_82c28a7f",
+        "filename": "call/call.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1407,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-06-01T10:48:38Z",
+      "side": 1,
+      "message": "I think that the reasoning around functional differences not mattering, makes sense.\n\nThe race is new though, and because of the PostTask, it was synchronized before but now it\u0027s not. We must be talking about different synchronization. I\u0027m thinking of the check (empty()) and the operations that follow that check. Before that check always happened on the same thread that can alter the state of the flag, so there\u0027s a guarantee that the state of the flag is unchanged when the following operations run (which previously also ran on that thread). With this change, the check is not guaranteed to hold, so the question is whether a \u0027hint\u0027 is \"good enough\" or if that\u0027s the wrong thing to focus on. If the more relevant question is how this affects the sample gathering matters or not and the answer is \u0027not\u0027, then the change lgtm.",
+      "parentUuid": "382e9082_056e91c2",
+      "revId": "236fc9cc967d921b3d682299c47ac2bda7fbda5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

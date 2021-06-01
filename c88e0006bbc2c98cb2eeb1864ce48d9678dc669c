@@ -16,6 +16,40 @@
       "message": "Not trying to document all of RTP but maybe someone will add stuff once it is there :-)\n\n(will ping artem to give me a hand with formatting once we\u0027re happy)",
       "revId": "c88e0006bbc2c98cb2eeb1864ce48d9678dc669c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8daf7385_0d1d010d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-01T08:02:01Z",
+      "side": 1,
+      "message": "Modulo nits on the audio description: LGTM.\n",
+      "revId": "c88e0006bbc2c98cb2eeb1864ce48d9678dc669c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c26f51c_3a38c045",
+        "filename": "pc/g3doc/rtp.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-01T08:02:01Z",
+      "side": 1,
+      "message": "iLBC, ISac, CN with clock rates other than 8000, and Opus are all allocated in the 102-106 range, which is dynamic (ie they may get booted off their preassigned numbers). I think that works.\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/media/engine/payload_type_mapper.cc;drc\u003d4f26a3c7e8e20e0e0ca4ca67a6ebdf3f5543dc3f;l\u003d62",
+      "revId": "c88e0006bbc2c98cb2eeb1864ce48d9678dc669c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

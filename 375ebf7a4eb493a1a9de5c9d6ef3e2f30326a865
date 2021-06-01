@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb225caa_e9173c62",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2021-06-01T07:52:57Z",
+      "side": 1,
+      "message": "I took a bit deeper look. I think it would make sense to choose to hide the member encoder_info_ and only use it for figuring out if a change as been made. ",
+      "revId": "375ebf7a4eb493a1a9de5c9d6ef3e2f30326a865",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1dcc7583_c104d01b",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1170,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2021-06-01T07:52:57Z",
+      "side": 1,
+      "message": "This method is 400 rows long and have called encoder_-\u003eGetEncoderInfo several times. Why suddenly use a cached version?\n\nHow about removing encoder_info_ all together, and have this method create a local encoder_info somewhere higher up.",
+      "range": {
+        "startLine": 1170,
+        "startChar": 37,
+        "endLine": 1170,
+        "endChar": 50
+      },
+      "revId": "375ebf7a4eb493a1a9de5c9d6ef3e2f30326a865",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e40702c_dd39c15d",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1583,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2021-06-01T07:52:57Z",
+      "side": 1,
+      "message": "Here a cached version is used just before it is checked for an update.",
+      "range": {
+        "startLine": 1583,
+        "startChar": 7,
+        "endLine": 1583,
+        "endChar": 20
+      },
+      "revId": "375ebf7a4eb493a1a9de5c9d6ef3e2f30326a865",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b67bcfbd_8173cacc",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1600,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2021-06-01T07:52:57Z",
+      "side": 1,
+      "message": "EncodeVideoFrame and MaybeEncodeVideoFrame is really the same method....",
+      "range": {
+        "startLine": 1600,
+        "startChar": 2,
+        "endLine": 1600,
+        "endChar": 18
+      },
+      "revId": "375ebf7a4eb493a1a9de5c9d6ef3e2f30326a865",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4783c2a7_5a2f8b6d",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2329,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2021-06-01T07:52:57Z",
+      "side": 1,
+      "message": "May I suggest you put encoder_info_ as a private member in a new helper class and remove encoder_info_ from VideoStreamEncoder ? \n\nclass EncoderInfoState\npublic\n  enum class InfoChanged {\n    kNone, \n    kName, \n    k.... \n  } \n  InfoChanged Update(const EncoderInfo\u0026 info) {\n     ...\n  } \n\nprivate:\n  Encoder last_info_;\n}\n\nAnd continue to call encoder-\u003eGetEncoderInfo() (but only once) in all methods where you need it since that seems to be the most common use.",
+      "range": {
+        "startLine": 2329,
+        "startChar": 34,
+        "endLine": 2329,
+        "endChar": 47
+      },
+      "revId": "375ebf7a4eb493a1a9de5c9d6ef3e2f30326a865",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

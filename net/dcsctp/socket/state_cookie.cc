@@ -23,7 +23,7 @@ namespace dcsctp {
 
 // Magic values, which the state cookie is prefixed with.
 constexpr uint32_t kMagic1 = 1684230979;
-constexpr uint32_t kMagic2 = 1414541360;
+constexpr uint32_t kMagic2 = 1414541361;
 constexpr size_t StateCookie::kCookieSize;
 
 std::vector<uint8_t> StateCookie::Serialize() {

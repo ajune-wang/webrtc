@@ -41,15 +41,12 @@ namespace dcsctp {
 // established, this send queue is always present - even for closed connections.
 class RRSendQueue : public SendQueue {
  public:
-  // How small a data chunk's payload may be, if having to fragment a message.
-  static constexpr size_t kMinimumFragmentedPayload = 10;
-
   RRSendQueue(absl::string_view log_prefix,
               size_t buffer_size,
               std::function<void(StreamID)> on_buffered_amount_low,
               size_t total_buffered_amount_low_threshold,
               std::function<void()> on_total_buffered_amount_low)
-      : log_prefix_(std::string(log_prefix) + "fcfs: "),
+      : log_prefix_(std::string(log_prefix) + "rr: "),
         buffer_size_(buffer_size),
         on_buffered_amount_low_(std::move(on_buffered_amount_low)),
         total_buffered_amount_(std::move(on_total_buffered_amount_low)) {

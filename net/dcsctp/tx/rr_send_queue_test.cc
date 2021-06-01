@@ -154,35 +154,6 @@ TEST_F(RRSendQueueTest, BufferBecomesFullAndEmptied) {
   EXPECT_TRUE(buf_.IsEmpty());
 }
 
-TEST_F(RRSendQueueTest, WillNotSendTooSmallPacket) {
-  std::vector<uint8_t> payload(RRSendQueue::kMinimumFragmentedPayload + 1);
-  buf_.Add(kNow, DcSctpMessage(kStreamID, kPPID, payload));
-
-  // Wouldn't fit enough payload (wouldn't want to fragment)
-  EXPECT_FALSE(
-      buf_.Produce(kNow,
-                   /*max_size=*/RRSendQueue::kMinimumFragmentedPayload - 1)
-          .has_value());
-
-  // Minimum fragment
-  absl::optional<SendQueue::DataToSend> chunk_one =
-      buf_.Produce(kNow,
-                   /*max_size=*/RRSendQueue::kMinimumFragmentedPayload);
-  ASSERT_TRUE(chunk_one.has_value());
-  EXPECT_EQ(chunk_one->data.stream_id, kStreamID);
-  EXPECT_EQ(chunk_one->data.ppid, kPPID);
-
-  // There is only one byte remaining - it can be fetched as it doesn't require
-  // additional fragmentation.
-  absl::optional<SendQueue::DataToSend> chunk_two =
-      buf_.Produce(kNow, /*max_size=*/1);
-  ASSERT_TRUE(chunk_two.has_value());
-  EXPECT_EQ(chunk_two->data.stream_id, kStreamID);
-  EXPECT_EQ(chunk_two->data.ppid, kPPID);
-
-  EXPECT_TRUE(buf_.IsEmpty());
-}
-
 TEST_F(RRSendQueueTest, DefaultsToOrderedSend) {
   std::vector<uint8_t> payload(20);
 

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecacc3b9_49b46b71",
+        "filename": "logging/g3doc/rtc_event_log.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-06-02T15:19:08Z",
+      "side": 1,
+      "message": "Is there a command to output all possible values for this argument?",
+      "range": {
+        "startLine": 43,
+        "startChar": 38,
+        "endLine": 43,
+        "endChar": 46
+      },
+      "revId": "5f0994a996d90abbb71e891427af899a3549f986",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

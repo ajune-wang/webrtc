@@ -22,6 +22,30 @@
       },
       "revId": "876ba34fe582ecc20c816e3ebaa70195d2b94cab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11f8eb5f_b799e0eb",
+        "filename": "logging/g3doc/rtc_event_log.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-06-02T23:39:05Z",
+      "side": 1,
+      "message": "Actually it will be not with horizontal scroll, but with a line break like this:\n\nout/Default/event_log_visualizer --plot\u003dincoming_packet_sizes,incoming_stream_bitrate /path/to/log_file | python",
+      "parentUuid": "f8510901_512b87ae",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 112
+      },
+      "revId": "876ba34fe582ecc20c816e3ebaa70195d2b94cab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

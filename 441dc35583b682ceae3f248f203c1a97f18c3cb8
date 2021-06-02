@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc841116_8cc0ae5a",
+        "filename": "modules/audio_processing/agc/clipping_predictor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-06-02T17:22:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "15925506_999411e1",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 34
+      },
+      "revId": "441dc35583b682ceae3f248f203c1a97f18c3cb8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0ff97e55_4eb0989b",
@@ -64,6 +88,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2633f60_bae77a57",
+        "filename": "modules/audio_processing/agc/clipping_predictor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-06-02T17:22:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ff97e55_4eb0989b",
+      "range": {
+        "startLine": 92,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 0
+      },
+      "revId": "441dc35583b682ceae3f248f203c1a97f18c3cb8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ef2d4fbe_4b65f728",
@@ -77,6 +125,30 @@
       "writtenOn": "2021-06-01T13:30:51Z",
       "side": 1,
       "message": "remove the check. seems never can fail.",
+      "range": {
+        "startLine": 233,
+        "startChar": 0,
+        "endLine": 233,
+        "endChar": 37
+      },
+      "revId": "441dc35583b682ceae3f248f203c1a97f18c3cb8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7442ea78_c5c2d243",
+        "filename": "modules/audio_processing/agc/clipping_predictor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-06-02T17:22:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef2d4fbe_4b65f728",
       "range": {
         "startLine": 233,
         "startChar": 0,

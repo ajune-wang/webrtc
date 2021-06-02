@@ -22,6 +22,30 @@
       },
       "revId": "38c8cd720b0c8292745a1f0b2c71b29df6226510",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c84a87d9_7ecfcac0",
+        "filename": "modules/video_coding/codecs/vp8/default_temporal_layers_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-06-02T14:48:52Z",
+      "side": 1,
+      "message": "Done, though it needs a cast below. :/",
+      "parentUuid": "e2050fe6_d8d6f210",
+      "range": {
+        "startLine": 692,
+        "startChar": 12,
+        "endLine": 692,
+        "endChar": 21
+      },
+      "revId": "38c8cd720b0c8292745a1f0b2c71b29df6226510",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

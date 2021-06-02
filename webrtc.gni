@@ -213,6 +213,7 @@ declare_args() {
 }
 
 if (!build_with_mozilla) {
+  import("//build/config/rts.gni")
   import("//testing/test.gni")
 }
 

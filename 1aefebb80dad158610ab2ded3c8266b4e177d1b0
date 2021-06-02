@@ -16,6 +16,29 @@
       "message": "Thank you for the comments!",
       "revId": "1aefebb80dad158610ab2ded3c8266b4e177d1b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af407cfd_f677da76",
+        "filename": "modules/audio_processing/agc/clipping_predictor_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-06-02T17:39:00Z",
+      "side": 1,
+      "message": "should it make sense to loop through all channels\n\nfor (int channel \u003d 0; channel \u003c num_channels(); ++channel) {\n  EXPECT_EQ(predictor-\u003eEstimateClippedLevelStep(channel, /*level\u003d*/255,\n                                                kDefaultClippedLevelStep,\n                                                kMinMicLevel, kMaxMicLevel),absl::nullopt)\n}\n\nWe may need this loop at a few places. It would help to add a helper function.",
+      "range": {
+        "startLine": 134,
+        "startChar": 0,
+        "endLine": 137,
+        "endChar": 0
+      },
+      "revId": "1aefebb80dad158610ab2ded3c8266b4e177d1b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

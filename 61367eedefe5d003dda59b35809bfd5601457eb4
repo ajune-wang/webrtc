@@ -16,6 +16,24 @@
       "message": "Not sure it\u0027s the right approach. I assume avoiding small fragments was there for a reason too.\n\nWouldn\u0027t a more robust / performant approach be to let the RR scheduler stay on the current stream until the end of a message is seen?\n\nI don\u0027t quite understand how the RR scheduler could move to a different stream when it encountered a too small fragment, but would stay on the current stream when encountering a large message where part has to go into the next packet anyway.\n\n",
       "revId": "61367eedefe5d003dda59b35809bfd5601457eb4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e9849c1_22dccfcf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-06-02T08:08:27Z",
+      "side": 1,
+      "message": "Yes, there was a reason; To avoid splitting a message into too many packets, which negatively affects reliability in partial reliability. On packet loss, the risk of retransmitting old chunks increases (for obvious reasons), and then there might be just a little bit space left in a packet for new non-retransmitted chunks. And if one would carve out very small parts of a large message into those, that message may be sent in many more packets than it originally would. If that message has limited reliability, e.g. max_retransmissions\u003d0, the risk of losing that message increases due to this.\n\nIt\u0027s something I read in a paper that I can\u0027t find now. It\u0027s not part of RFC4960.\n\nI have updated the CL (it looks much different now) to keep the fragmentation avoidance algorithm.",
+      "parentUuid": "3eb42076_00dba3f5",
+      "revId": "61367eedefe5d003dda59b35809bfd5601457eb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

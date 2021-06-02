@@ -198,6 +198,23 @@ absl::optional<float> GetConfiguredPacingFactor(
       default_pacing_config.pacing_factor);
 }
 
+uint32_t GetInitialEncoderMaxBitrate(int initial_encoder_max_bitrate) {
+  if (initial_encoder_max_bitrate > 0)
+    return rtc::dchecked_cast<uint32_t>(initial_encoder_max_bitrate);
+
+  // TODO(srte): Make sure max bitrate is not set to negative values. We don't
+  // have any way to handle unset values in downstream code, such as the
+  // bitrate allocator. Previously -1 was implicitly casted to UINT32_MAX, a
+  // behaviour that is not safe. Converting to 10 Mbps should be safe for
+  // reasonable use cases as it allows adding the max of multiple streams
+  // without wrappping around.
+  const int kFallbackMaxBitrateBps = 10000000;
+  RTC_DLOG(LS_ERROR) << "ERROR: Initial encoder max bitrate = "
+                     << initial_encoder_max_bitrate << " which is <= 0!";
+  RTC_DLOG(LS_INFO) << "Using default encoder max bitrate = 10 Mbps";
+  return kFallbackMaxBitrateBps;
+}
+
 }  // namespace
 
 PacingConfig::PacingConfig()
@@ -240,6 +257,8 @@ VideoSendStreamImpl::VideoSendStreamImpl(
       disable_padding_(true),
       max_padding_bitrate_(0),
       encoder_min_bitrate_bps_(0),
+      encoder_max_bitrate_bps_(
+          GetInitialEncoderMaxBitrate(initial_encoder_max_bitrate)),
       encoder_target_rate_bps_(0),
       encoder_bitrate_priority_(initial_encoder_bitrate_priority),
       video_stream_encoder_(video_stream_encoder),
@@ -268,59 +287,48 @@ VideoSendStreamImpl::VideoSendStreamImpl(
       weak_ptr_factory_(this),
       configured_pacing_factor_(
           GetConfiguredPacingFactor(*config_, content_type, pacing_config_)) {
-  video_stream_encoder->SetFecControllerOverride(rtp_video_sender_);
   RTC_DCHECK_RUN_ON(worker_queue_);
-  RTC_LOG(LS_INFO) << "VideoSendStreamInternal: " << config_->ToString();
-  weak_ptr_ = weak_ptr_factory_.GetWeakPtr();
-
+  RTC_DCHECK_GE(config_->rtp.payload_type, 0);
+  RTC_DCHECK_LE(config_->rtp.payload_type, 127);
   RTC_DCHECK(!config_->rtp.ssrcs.empty());
   RTC_DCHECK(transport_);
   RTC_DCHECK_NE(initial_encoder_max_bitrate, 0);
-
-  if (initial_encoder_max_bitrate > 0) {
-    encoder_max_bitrate_bps_ =
-        rtc::dchecked_cast<uint32_t>(initial_encoder_max_bitrate);
-  } else {
-    // TODO(srte): Make sure max bitrate is not set to negative values. We don't
-    // have any way to handle unset values in downstream code, such as the
-    // bitrate allocator. Previously -1 was implicitly casted to UINT32_MAX, a
-    // behaviour that is not safe. Converting to 10 Mbps should be safe for
-    // reasonable use cases as it allows adding the max of multiple streams
-    // without wrappping around.
-    const int kFallbackMaxBitrateBps = 10000000;
-    RTC_DLOG(LS_ERROR) << "ERROR: Initial encoder max bitrate = "
-                       << initial_encoder_max_bitrate << " which is <= 0!";
-    RTC_DLOG(LS_INFO) << "Using default encoder max bitrate = 10 Mbps";
-    encoder_max_bitrate_bps_ = kFallbackMaxBitrateBps;
-  }
+  RTC_LOG(LS_INFO) << "VideoSendStreamInternal: " << config_->ToString();
 
   RTC_CHECK(AlrExperimentSettings::MaxOneFieldTrialEnabled());
+
+  weak_ptr_ = weak_ptr_factory_.GetWeakPtr();
+  video_stream_encoder->SetFecControllerOverride(rtp_video_sender_);
+
+  absl::optional<bool> enable_alr_bw_probing;
+
   // If send-side BWE is enabled, check if we should apply updated probing and
   // pacing settings.
   if (configured_pacing_factor_.has_value()) {
     absl::optional<AlrExperimentSettings> alr_settings =
         GetAlrSettings(content_type);
+    int queue_time_limit_ms;
     if (alr_settings) {
-      transport->EnablePeriodicAlrProbing(true);
-      transport->SetQueueTimeLimit(alr_settings->max_paced_queue_time);
+      enable_alr_bw_probing = true;
+      queue_time_limit_ms = alr_settings->max_paced_queue_time;
     } else {
       RateControlSettings rate_control_settings =
           RateControlSettings::ParseFromFieldTrials();
-
-      transport->EnablePeriodicAlrProbing(
-          rate_control_settings.UseAlrProbing());
-      transport->SetQueueTimeLimit(pacing_config_.max_pacing_delay.Get().ms());
+      enable_alr_bw_probing = rate_control_settings.UseAlrProbing();
+      queue_time_limit_ms = pacing_config_.max_pacing_delay.Get().ms();
     }
 
+    transport->SetQueueTimeLimit(queue_time_limit_ms);
     transport->SetPacingFactor(*configured_pacing_factor_);
   }
 
   if (config_->periodic_alr_bandwidth_probing) {
-    transport->EnablePeriodicAlrProbing(true);
+    enable_alr_bw_probing = config_->periodic_alr_bandwidth_probing;
   }
 
-  RTC_DCHECK_GE(config_->rtp.payload_type, 0);
-  RTC_DCHECK_LE(config_->rtp.payload_type, 127);
+  if (enable_alr_bw_probing) {
+    transport->EnablePeriodicAlrProbing(*enable_alr_bw_probing);
+  }
 
   video_stream_encoder_->SetStartBitrate(
       bitrate_allocator_->GetStartBitrate(this));

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3eb42076_00dba3f5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-02T05:57:42Z",
+      "side": 1,
+      "message": "Not sure it\u0027s the right approach. I assume avoiding small fragments was there for a reason too.\n\nWouldn\u0027t a more robust / performant approach be to let the RR scheduler stay on the current stream until the end of a message is seen?\n\nI don\u0027t quite understand how the RR scheduler could move to a different stream when it encountered a too small fragment, but would stay on the current stream when encountering a large message where part has to go into the next packet anyway.\n\n",
+      "revId": "61367eedefe5d003dda59b35809bfd5601457eb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

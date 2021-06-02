@@ -850,8 +850,8 @@ TEST_F(GoogCcNetworkControllerTest, IsFairToTCP) {
   EXPECT_LT(client->send_bandwidth().kbps(), 750);
 }
 
-TEST(GoogCcScenario, RampupOnRembCapLifted) {
-  Scenario s("googcc_unit/rampup_ramb_cap_lifted");
+DataRate RunRembDipScenario(std::string scenario) {
+  Scenario s(scenario);
   NetworkSimulationConfig net_conf;
   net_conf.bandwidth = DataRate::KilobitsPerSec(2000);
   net_conf.delay = TimeDelta::Millis(50);
@@ -875,7 +875,21 @@ TEST(GoogCcScenario, RampupOnRembCapLifted) {
   DataRate RembLimitLifted = DataRate::KilobitsPerSec(10000);
   client->SetRemoteBitrate(RembLimitLifted);
   s.RunFor(TimeDelta::Seconds(10));
-  EXPECT_GT(client->send_bandwidth().kbps(), 1500);
+
+  return client->send_bandwidth();
+}
+
+TEST(GoogCcScenario, RampupOnRembCapLifted) {
+  DataRate final_estimate =
+      RunRembDipScenario("googcc_unit/rampup_ramb_cap_lifted");
+  EXPECT_GT(final_estimate.kbps(), 1500);
+}
+
+TEST(GoogCcScenario, SlowRampupOnRembCapLiftedWithKillSwitch) {
+  ScopedFieldTrials trial("WebRTC-Bwe-ReceiverLimitCapsOnly/Disabled/");
+  DataRate final_estimate =
+      RunRembDipScenario("googcc_unit/slow_rampup_remb_cap_lifted_killswitch");
+  EXPECT_LT(final_estimate.kbps(), 1000);
 }
 
 }  // namespace test

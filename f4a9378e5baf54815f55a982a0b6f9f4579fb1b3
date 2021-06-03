@@ -33,6 +33,24 @@
       "message": "Thanks for this change, I think that it simplifies things and makes the encoded stream more consistent as it does not change the payload type. ",
       "revId": "f4a9378e5baf54815f55a982a0b6f9f4579fb1b3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1238234b_5977b611",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-06-03T09:48:04Z",
+      "side": 1,
+      "message": "yeah. Too many things that aren\u0027t particularly clear when switching between payload types, e.g. are sequence numbers and timestamps allowed to be shared. It works but...\n\nhlundin: if you could do owner-lgtm and submit please...\n\nThanks!",
+      "parentUuid": "e0570f3a_a0fa5a35",
+      "revId": "f4a9378e5baf54815f55a982a0b6f9f4579fb1b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -16,6 +16,29 @@
       "message": "LGTM",
       "revId": "bca2175f6fba12954111fffcf90baaa592e44666",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4cd52dc4_29b54ab2",
+        "filename": "modules/remote_bitrate_estimator/remote_bitrate_estimator_abs_send_time.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2021-06-03T13:46:07Z",
+      "side": 1,
+      "message": "nit: not needed.",
+      "range": {
+        "startLine": 152,
+        "startChar": 28,
+        "endLine": 152,
+        "endChar": 32
+      },
+      "revId": "bca2175f6fba12954111fffcf90baaa592e44666",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6909569c_d23d25c6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2021-06-03T10:30:32Z",
+      "side": 1,
+      "message": "artem: anything I can do to autoformat myself (maybe just stick to some rules)?",
+      "revId": "9c9099cc889444a96364dec2c2085c394b802444",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

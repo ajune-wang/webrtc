@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07f81c98_b367a8ce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-03T08:44:03Z",
+      "side": 1,
+      "message": "Looks good, comments should be addressed for safety/consistency, but no need for second review.\n",
+      "revId": "ee8fae73af6dbd82419cb23071e8debb3c53b833",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4eb4301_7b4f1b71",
+        "filename": "net/dcsctp/tx/retransmission_queue.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-03T08:44:03Z",
+      "side": 1,
+      "message": "Since we don\u0027t have tests for NDATA yet, I suggest placing an RTC_CHECK(!use_message_interleaving_) here, so that accidents don\u0027t happen.",
+      "revId": "ee8fae73af6dbd82419cb23071e8debb3c53b833",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "554b1cbe_5f689590",
+        "filename": "net/dcsctp/tx/retransmission_queue.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-03T08:44:03Z",
+      "side": 1,
+      "message": "I think I\u0027ve seen this code before somewhere. Is it worth extracting to a helper function?",
+      "revId": "ee8fae73af6dbd82419cb23071e8debb3c53b833",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b020df6a_a3da3075",
+        "filename": "net/dcsctp/tx/retransmission_queue.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-03T08:44:03Z",
+      "side": 1,
+      "message": "is this for eventual implementation of NDATA (RFC 8260 section 2)? If so, please add a comment to that effect.",
+      "revId": "ee8fae73af6dbd82419cb23071e8debb3c53b833",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

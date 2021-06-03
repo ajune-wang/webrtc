@@ -16,6 +16,23 @@
       "message": "Jesús, can you take a look at this one, please?\n",
       "revId": "f4a9378e5baf54815f55a982a0b6f9f4579fb1b3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0570f3a_a0fa5a35",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2021-06-03T09:02:29Z",
+      "side": 1,
+      "message": "Thanks for this change, I think that it simplifies things and makes the encoded stream more consistent as it does not change the payload type. ",
+      "revId": "f4a9378e5baf54815f55a982a0b6f9f4579fb1b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -16,6 +16,23 @@
       "message": "Resolved comments from Harald Alvestrand.",
       "revId": "f5dc6ed7ca9b59fb277668e459876d41e76b884d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f68ce25b_8eaf830b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-03T08:45:30Z",
+      "side": 1,
+      "message": "Given that the spec also talks about \"removing\" remote tracks, I think this is OK-ish.\n",
+      "revId": "f5dc6ed7ca9b59fb277668e459876d41e76b884d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

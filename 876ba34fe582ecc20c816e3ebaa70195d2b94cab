@@ -46,6 +46,30 @@
       },
       "revId": "876ba34fe582ecc20c816e3ebaa70195d2b94cab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9368baa_31f56fdf",
+        "filename": "logging/g3doc/rtc_event_log.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-06-03T08:23:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11f8eb5f_b799e0eb",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 112
+      },
+      "revId": "876ba34fe582ecc20c816e3ebaa70195d2b94cab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

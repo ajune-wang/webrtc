@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "557ae85b_eaa6a5e3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-06-03T14:07:09Z",
+      "side": 1,
+      "message": "Don\u0027t worry, I\u0027ll run autoformat when it will be landed. I hope in some future we will have autoformat enabled in git cl format for the documentation files.",
+      "parentUuid": "6909569c_d23d25c6",
+      "revId": "9c9099cc889444a96364dec2c2085c394b802444",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "55ac7190_cf7d0972",

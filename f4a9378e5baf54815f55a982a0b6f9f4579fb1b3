@@ -51,6 +51,23 @@
       "parentUuid": "e0570f3a_a0fa5a35",
       "revId": "f4a9378e5baf54815f55a982a0b6f9f4579fb1b3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "afba0c97_929160d1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17804
+      },
+      "writtenOn": "2021-06-04T08:57:22Z",
+      "side": 1,
+      "message": "Does this impact incoming packets as well? Meaning, if the peer occasionally sends non-redundant payload types, will the new code reject/dump the packets? I think that\u0027s an important distinction, because while I can understand simplifying the \"how do we send stuff\" code, it should be prepared to receive either once, e.g., RED is negotiated for an Opus stream. I\u0027ve been tinkering with RED just recently to add support to Janus, a WebRTC server, and this sort of considerations came out in the different ways you can handle bridging users: e.g., a non-RED participant sending media to a RED-compliant subscriber could be handled by either having the server add RED itself, or relaying raw Opus assuming the RED-compliant subscriber can process it anyway. Besides, considering the overhead RED adds, the server may decide not to always use RED, but only when some losses are detected, and this only works if the browser is willing to accept both.",
+      "revId": "f4a9378e5baf54815f55a982a0b6f9f4579fb1b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a575eb1_36fdf44b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-06-04T12:05:19Z",
+      "side": 1,
+      "message": "from Lorenzo\u0027s question in the other CL! Comment a few lines above should be fine as is, this is a change in payload type.",
+      "revId": "8637f3388200b3c1808b919cf38536799e00d093",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

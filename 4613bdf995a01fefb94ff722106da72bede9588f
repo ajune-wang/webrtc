@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19ed2539_f0f1c8a5",
+        "filename": "media/engine/webrtcvoiceengine.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1154,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-06-06T14:05:22Z",
+      "side": 1,
+      "message": "in the spirit of better late than never - do you remember if you intended to call RecreateAudioReceiveStream here as well? As is the code only calls Reconfigure, not Recreate, so I\u0027m wondering if that was intentional or (judging by the function name change) if that got unintentionally dropped.",
+      "revId": "4613bdf995a01fefb94ff722106da72bede9588f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

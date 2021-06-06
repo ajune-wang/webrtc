@@ -231,7 +231,7 @@ class RTC_EXPORT BasicPortAllocatorSession : public PortAllocatorSession {
   void OnProtocolEnabled(AllocationSequence* seq, ProtocolType proto);
   void OnPortDestroyed(PortInterface* port);
   void MaybeSignalCandidatesAllocationDone();
-  void OnPortAllocationComplete(AllocationSequence* seq);
+  void OnPortAllocationComplete();
   PortData* FindPort(Port* port);
   std::vector<rtc::Network*> GetNetworks();
   std::vector<rtc::Network*> GetFailedNetworks();
@@ -332,10 +332,18 @@ class AllocationSequence : public rtc::MessageHandler,
 
     // kInit --> kRunning --> {kCompleted|kStopped}
   };
+  // |port_allocation_complete_callback| is called when AllocationSequence is
+  // done with allocating ports. This signal is useful, when port allocation
+  // fails which doesn't result in any candidates. Using this signal
+  // BasicPortAllocatorSession can send its candidate discovery conclusion
+  // signal. Without this signal, BasicPortAllocatorSession doesn't have any
+  // event to trigger signal. This can also be achieved by starting timer in
+  // BPAS.
   AllocationSequence(BasicPortAllocatorSession* session,
                      rtc::Network* network,
                      PortConfiguration* config,
-                     uint32_t flags);
+                     uint32_t flags,
+                     std::function<void()> port_allocation_complete_callback);
   ~AllocationSequence() override;
   void Init();
   void Clear();
@@ -360,14 +368,6 @@ class AllocationSequence : public rtc::MessageHandler,
 
   // MessageHandler
   void OnMessage(rtc::Message* msg) override;
-
-  // Signal from AllocationSequence, when it's done with allocating ports.
-  // This signal is useful, when port allocation fails which doesn't result
-  // in any candidates. Using this signal BasicPortAllocatorSession can send
-  // its candidate discovery conclusion signal. Without this signal,
-  // BasicPortAllocatorSession doesn't have any event to trigger signal. This
-  // can also be achieved by starting timer in BPAS.
-  sigslot::signal1<AllocationSequence*> SignalPortAllocationComplete;
 
  protected:
   // For testing.
@@ -404,6 +404,7 @@ class AllocationSequence : public rtc::MessageHandler,
   UDPPort* udp_port_;
   std::vector<Port*> relay_ports_;
   int phase_;
+  std::function<void()> port_allocation_complete_callback_;
 };
 
 }  // namespace cricket

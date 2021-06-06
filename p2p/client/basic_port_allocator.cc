@@ -804,9 +804,11 @@ void BasicPortAllocatorSession::DoAllocate(bool disable_equivalent) {
       }
 
       AllocationSequence* sequence =
-          new AllocationSequence(this, networks[i], config, sequence_flags);
-      sequence->SignalPortAllocationComplete.connect(
-          this, &BasicPortAllocatorSession::OnPortAllocationComplete);
+          new AllocationSequence(this, networks[i], config, sequence_flags,
+                                 [this, safety_flag = network_safety_.flag()] {
+                                   if (safety_flag->alive())
+                                     OnPortAllocationComplete();
+                                 });
       sequence->Init();
       sequence->Start();
       sequences_.push_back(sequence);
@@ -1119,8 +1121,7 @@ bool BasicPortAllocatorSession::CandidatePairable(const Candidate& c,
           !host_candidates_disabled);
 }
 
-void BasicPortAllocatorSession::OnPortAllocationComplete(
-    AllocationSequence* seq) {
+void BasicPortAllocatorSession::OnPortAllocationComplete() {
   RTC_DCHECK_RUN_ON(network_thread_);
   // Send candidate allocation complete signal if all ports are done.
   MaybeSignalCandidatesAllocationDone();
@@ -1211,10 +1212,12 @@ void BasicPortAllocatorSession::PrunePortsAndRemoveCandidates(
 
 // AllocationSequence
 
-AllocationSequence::AllocationSequence(BasicPortAllocatorSession* session,
-                                       rtc::Network* network,
-                                       PortConfiguration* config,
-                                       uint32_t flags)
+AllocationSequence::AllocationSequence(
+    BasicPortAllocatorSession* session,
+    rtc::Network* network,
+    PortConfiguration* config,
+    uint32_t flags,
+    std::function<void()> port_allocation_complete_callback)
     : session_(session),
       network_(network),
       config_(config),
@@ -1381,7 +1384,7 @@ void AllocationSequence::OnMessage(rtc::Message* msg) {
     // If all phases in AllocationSequence are completed, no allocation
     // steps needed further. Canceling  pending signal.
     session_->network_thread()->Clear(this, MSG_ALLOCATION_PHASE);
-    SignalPortAllocationComplete(this);
+    port_allocation_complete_callback_();
   }
 }
 

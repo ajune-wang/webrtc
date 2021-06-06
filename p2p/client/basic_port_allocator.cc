@@ -1225,7 +1225,9 @@ AllocationSequence::AllocationSequence(
       flags_(flags),
       udp_socket_(),
       udp_port_(NULL),
-      phase_(0) {}
+      phase_(0),
+      port_allocation_complete_callback_(
+          std::move(port_allocation_complete_callback)) {}
 
 void AllocationSequence::Init() {
   if (IsFlagSet(PORTALLOCATOR_ENABLE_SHARED_SOCKET)) {

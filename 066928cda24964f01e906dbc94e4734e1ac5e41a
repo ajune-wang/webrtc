@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3cd77e7_393868f1",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-06-06T20:48:46Z",
+      "side": 1,
+      "message": "According to a power formula, 100 Hz more wakeups would yield 1W extra consumption if the worker thread is woken up. Can we change so that |playout_delay_|, acm_receiver_.TargetDelayMs(), acm_receiver_.FilteredCurrentDelayMs() use atomics?",
+      "range": {
+        "startLine": 461,
+        "startChar": 18,
+        "endLine": 461,
+        "endChar": 26
+      },
+      "revId": "066928cda24964f01e906dbc94e4734e1ac5e41a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

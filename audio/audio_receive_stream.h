@@ -11,6 +11,7 @@
 #ifndef AUDIO_AUDIO_RECEIVE_STREAM_H_
 #define AUDIO_AUDIO_RECEIVE_STREAM_H_
 
+#include <map>
 #include <memory>
 #include <vector>
 
@@ -85,6 +86,12 @@ class AudioReceiveStream final : public webrtc::AudioReceiveStream,
   void Start() override;
   void Stop() override;
   bool IsRunning() const override;
+  void SetDepacketizerToDecoderFrameTransformer(
+      rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer)
+      override;
+  void SetDecoderMap(std::map<int, SdpAudioFormat> decoder_map) override;
+  void SetUseTransportCcAndNackHistory(bool use_transport_cc,
+                                       int history_ms) override;
 
   webrtc::AudioReceiveStream::Stats GetStats(
       bool get_and_clear_legacy_stats) const override;

@@ -177,7 +177,8 @@ class ChannelReceive : public ChannelReceiveInterface {
  private:
   void ReceivePacket(const uint8_t* packet,
                      size_t packet_length,
-                     const RTPHeader& header);
+                     const RTPHeader& header)
+      RTC_RUN_ON(worker_thread_checker_);
   int ResendPackets(const uint16_t* sequence_numbers, int length);
   void UpdatePlayoutTimestamp(bool rtcp, int64_t now_ms);
 
@@ -185,15 +186,12 @@ class ChannelReceive : public ChannelReceiveInterface {
   int64_t GetRTT() const;
 
   void OnReceivedPayloadData(rtc::ArrayView<const uint8_t> payload,
-                             const RTPHeader& rtpHeader);
+                             const RTPHeader& rtpHeader)
+      RTC_RUN_ON(worker_thread_checker_);
 
   void InitFrameTransformerDelegate(
-      rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer);
-
-  bool Playing() const {
-    MutexLock lock(&playing_lock_);
-    return playing_;
-  }
+      rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer)
+      RTC_RUN_ON(worker_thread_checker_);
 
   // Thread checkers document and lock usage of some methods to specific threads
   // we know about. The goal is to eventually split up voe::ChannelReceive into
@@ -211,8 +209,7 @@ class ChannelReceive : public ChannelReceiveInterface {
   Mutex callback_mutex_;
   Mutex volume_settings_mutex_;
 
-  mutable Mutex playing_lock_;
-  bool playing_ RTC_GUARDED_BY(&playing_lock_) = false;
+  bool playing_ RTC_GUARDED_BY(worker_thread_checker_) = false;
 
   RtcEventLog* const event_log_;
 
@@ -226,11 +223,10 @@ class ChannelReceive : public ChannelReceiveInterface {
 
   // Info for GetSyncInfo is updated on network or worker thread, and queried on
   // the worker thread.
-  mutable Mutex sync_info_lock_;
   absl::optional<uint32_t> last_received_rtp_timestamp_
-      RTC_GUARDED_BY(&sync_info_lock_);
+      RTC_GUARDED_BY(&worker_thread_checker_);
   absl::optional<int64_t> last_received_rtp_system_time_ms_
-      RTC_GUARDED_BY(&sync_info_lock_);
+      RTC_GUARDED_BY(&worker_thread_checker_);
 
   // The AcmReceiver is thread safe, using its own lock.
   acm2::AcmReceiver acm_receiver_;
@@ -288,7 +284,7 @@ class ChannelReceive : public ChannelReceiveInterface {
 void ChannelReceive::OnReceivedPayloadData(
     rtc::ArrayView<const uint8_t> payload,
     const RTPHeader& rtpHeader) {
-  if (!Playing()) {
+  if (!playing_) {
     // Avoid inserting into NetEQ when we are not playing. Count the
     // packet as discarded.
 
@@ -337,6 +333,7 @@ void ChannelReceive::InitFrameTransformerDelegate(
   ChannelReceiveFrameTransformerDelegate::ReceiveFrameCallback
       receive_audio_callback = [this](rtc::ArrayView<const uint8_t> packet,
                                       const RTPHeader& header) {
+        RTC_DCHECK_RUN_ON(&worker_thread_checker_);
         OnReceivedPayloadData(packet, header);
       };
   frame_transformer_delegate_ =
@@ -582,13 +579,11 @@ void ChannelReceive::SetSink(AudioSinkInterface* sink) {
 
 void ChannelReceive::StartPlayout() {
   RTC_DCHECK_RUN_ON(&worker_thread_checker_);
-  MutexLock lock(&playing_lock_);
   playing_ = true;
 }
 
 void ChannelReceive::StopPlayout() {
   RTC_DCHECK_RUN_ON(&worker_thread_checker_);
-  MutexLock lock(&playing_lock_);
   playing_ = false;
   _outputAudioLevel.ResetLevelFullRange();
 }
@@ -616,11 +611,8 @@ void ChannelReceive::OnRtpPacket(const RtpPacketReceived& packet) {
   // UpdatePlayoutTimestamp and
   int64_t now_ms = rtc::TimeMillis();
 
-  {
-    MutexLock lock(&sync_info_lock_);
-    last_received_rtp_timestamp_ = packet.Timestamp();
-    last_received_rtp_system_time_ms_ = now_ms;
-  }
+  last_received_rtp_timestamp_ = packet.Timestamp();
+  last_received_rtp_system_time_ms_ = now_ms;
 
   // Store playout timestamp for the received RTP packet
   UpdatePlayoutTimestamp(false, now_ms);
@@ -974,14 +966,11 @@ absl::optional<Syncable::Info> ChannelReceive::GetSyncInfo() const {
     return absl::nullopt;
   }
 
-  {
-    MutexLock lock(&sync_info_lock_);
-    if (!last_received_rtp_timestamp_ || !last_received_rtp_system_time_ms_) {
-      return absl::nullopt;
-    }
-    info.latest_received_capture_timestamp = *last_received_rtp_timestamp_;
-    info.latest_receive_time_ms = *last_received_rtp_system_time_ms_;
+  if (!last_received_rtp_timestamp_ || !last_received_rtp_system_time_ms_) {
+    return absl::nullopt;
   }
+  info.latest_received_capture_timestamp = *last_received_rtp_timestamp_;
+  info.latest_receive_time_ms = *last_received_rtp_system_time_ms_;
 
   int jitter_buffer_delay = acm_receiver_.FilteredCurrentDelayMs();
   {

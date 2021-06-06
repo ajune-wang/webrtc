@@ -101,6 +101,11 @@ void FakeAudioReceiveStream::Reconfigure(
   config_ = config;
 }
 
+void FakeAudioReceiveStream::SetDepacketizerToDecoderFrameTransformer(
+    rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer) {
+  config_.frame_transformer = std::move(frame_transformer);
+}
+
 webrtc::AudioReceiveStream::Stats FakeAudioReceiveStream::GetStats(
     bool get_and_clear_legacy_stats) const {
   return stats_;

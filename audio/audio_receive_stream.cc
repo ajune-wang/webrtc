@@ -172,16 +172,15 @@ void AudioReceiveStream::Reconfigure(
     const webrtc::AudioReceiveStream::Config& config) {
   RTC_DCHECK(worker_thread_checker_.IsCurrent());
 
+  // SSRC can't be changed mid-stream.
+  RTC_DCHECK_EQ(config_.rtp.remote_ssrc, config.rtp.remote_ssrc);
+  RTC_DCHECK_EQ(config_.rtp.local_ssrc, config.rtp.local_ssrc);
+
   // Configuration parameters which cannot be changed.
-  RTC_DCHECK(config_.rtp.remote_ssrc == config.rtp.remote_ssrc);
   RTC_DCHECK(config_.rtcp_send_transport == config.rtcp_send_transport);
   // Decoder factory cannot be changed because it is configured at
   // voe::Channel construction time.
   RTC_DCHECK(config_.decoder_factory == config.decoder_factory);
-
-  // SSRC can't be changed mid-stream.
-  RTC_DCHECK_EQ(config_.rtp.local_ssrc, config.rtp.local_ssrc);
-  RTC_DCHECK_EQ(config_.rtp.remote_ssrc, config.rtp.remote_ssrc);
 
   // TODO(solenberg): Config NACK history window (which is a packet count),
   // using the actual packet size for the configured codec.
@@ -194,6 +193,7 @@ void AudioReceiveStream::Reconfigure(
   }
 
   if (config_.frame_transformer != config.frame_transformer) {
+    RTC_NOTREACHED() << "Use SetDepacketizerToDecoderFrameTransformer";
     channel_receive_->SetDepacketizerToDecoderFrameTransformer(
         config.frame_transformer);
   }
@@ -224,6 +224,19 @@ void AudioReceiveStream::Stop() {
 bool AudioReceiveStream::IsRunning() const {
   RTC_DCHECK_RUN_ON(&worker_thread_checker_);
   return playing_;
+}
+
+void AudioReceiveStream::SetDepacketizerToDecoderFrameTransformer(
+    rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer) {
+  RTC_DCHECK_RUN_ON(&worker_thread_checker_);
+  if (config_.frame_transformer == frame_transformer) {
+    RTC_NOTREACHED();
+    return;
+  }
+
+  config_.frame_transformer = std::move(frame_transformer);
+  channel_receive_->SetDepacketizerToDecoderFrameTransformer(
+      config_.frame_transformer);
 }
 
 webrtc::AudioReceiveStream::Stats AudioReceiveStream::GetStats(

@@ -165,7 +165,11 @@ class AudioReceiveStream {
   };
 
   // Reconfigure the stream according to the Configuration.
+  // TODO(tommi): Deprecate.
   virtual void Reconfigure(const Config& config) = 0;
+  virtual void SetDepacketizerToDecoderFrameTransformer(
+      rtc::scoped_refptr<webrtc::FrameTransformerInterface>
+          frame_transformer) = 0;
 
   // Starts stream activity.
   // When a stream is active, it can receive, process and deliver packets.

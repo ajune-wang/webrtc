@@ -985,6 +985,7 @@ webrtc::AudioReceiveStream* Call::CreateAudioReceiveStream(
       clock_, transport_send_->packet_router(),
       module_process_thread_->process_thread(), config_.neteq_factory, config,
       config_.audio_state, event_log_);
+  audio_receive_streams_.insert(receive_stream);
 
   // TODO(bugs.webrtc.org/11993): Make the registration on the network thread
   // (asynchronously). The registration and `audio_receiver_controller_` need
@@ -995,7 +996,6 @@ webrtc::AudioReceiveStream* Call::CreateAudioReceiveStream(
   // We could possibly set up the audio_receiver_controller_ association up
   // as part of the async setup.
   receive_rtp_config_.emplace(config.rtp.remote_ssrc, ReceiveRtpConfig(config));
-  audio_receive_streams_.insert(receive_stream);
 
   ConfigureSync(config.sync_group);
 
@@ -1444,6 +1444,7 @@ void Call::OnAllocationLimitsChanged(BitrateAllocationLimits limits) {
                                             std::memory_order_relaxed);
 }
 
+// RTC_RUN_ON(worker_thread_)
 void Call::ConfigureSync(const std::string& sync_group) {
   // TODO(bugs.webrtc.org/11993): Expect to be called on the network thread.
   // Set sync only if there was no previous one.

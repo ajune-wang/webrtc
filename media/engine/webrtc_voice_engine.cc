@@ -1339,8 +1339,8 @@ class WebRtcVoiceMediaChannel::WebRtcAudioReceiveStream {
   void SetDepacketizerToDecoderFrameTransformer(
       rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer) {
     RTC_DCHECK_RUN_ON(&worker_thread_checker_);
+    stream_->SetDepacketizerToDecoderFrameTransformer(frame_transformer);
     config_.frame_transformer = std::move(frame_transformer);
-    ReconfigureAudioReceiveStream();
   }
 
  private:

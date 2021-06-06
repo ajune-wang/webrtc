@@ -38,10 +38,6 @@ using rtc::CreateRandomId;
 namespace cricket {
 namespace {
 
-enum {
-  MSG_ALLOCATION_PHASE,
-};
-
 const int PHASE_UDP = 0;
 const int PHASE_RELAY = 1;
 const int PHASE_TCP = 2;
@@ -1256,10 +1252,6 @@ void AllocationSequence::OnNetworkFailed() {
   Stop();
 }
 
-AllocationSequence::~AllocationSequence() {
-  session_->network_thread()->Clear(this);
-}
-
 void AllocationSequence::DisableEquivalentPhases(rtc::Network* network,
                                                  PortConfiguration* config,
                                                  uint32_t* flags) {
@@ -1334,7 +1326,9 @@ void AllocationSequence::DisableEquivalentPhases(rtc::Network* network,
 
 void AllocationSequence::Start() {
   state_ = kRunning;
-  session_->network_thread()->Post(RTC_FROM_HERE, this, MSG_ALLOCATION_PHASE);
+
+  session_->network_thread()->PostTask(webrtc::ToQueuedTask(
+      safety_, [this, epoch = epoch_] { Process(epoch); }));
   // Take a snapshot of the best IP, so that when DisableEquivalentPhases is
   // called next time, we enable all phases if the best IP has since changed.
   previous_best_ip_ = network_->GetBestIP();
@@ -1344,15 +1338,17 @@ void AllocationSequence::Stop() {
   // If the port is completed, don't set it to stopped.
   if (state_ == kRunning) {
     state_ = kStopped;
-    session_->network_thread()->Clear(this, MSG_ALLOCATION_PHASE);
+    // Cancel further Process calls.
+    ++epoch_;
   }
 }
 
-void AllocationSequence::OnMessage(rtc::Message* msg) {
+void AllocationSequence::Process(int epoch) {
   RTC_DCHECK(rtc::Thread::Current() == session_->network_thread());
-  RTC_DCHECK(msg->message_id == MSG_ALLOCATION_PHASE);
-
   const char* const PHASE_NAMES[kNumPhases] = {"Udp", "Relay", "Tcp"};
+
+  if (epoch != epoch_)
+    return;
 
   // Perform all of the phases in the current step.
   RTC_LOG(LS_INFO) << network_->ToString()
@@ -1379,13 +1375,14 @@ void AllocationSequence::OnMessage(rtc::Message* msg) {
 
   if (state() == kRunning) {
     ++phase_;
-    session_->network_thread()->PostDelayed(RTC_FROM_HERE,
-                                            session_->allocator()->step_delay(),
-                                            this, MSG_ALLOCATION_PHASE);
+    session_->network_thread()->PostDelayedTask(
+        webrtc::ToQueuedTask(safety_,
+                             [this, epoch = epoch_] { Process(epoch); }),
+        session_->allocator()->step_delay());
   } else {
     // If all phases in AllocationSequence are completed, no allocation
-    // steps needed further. Canceling  pending signal.
-    session_->network_thread()->Clear(this, MSG_ALLOCATION_PHASE);
+    // steps needed further. Cancel future Process calls.
+    ++epoch_;
     port_allocation_complete_callback_();
   }
 }

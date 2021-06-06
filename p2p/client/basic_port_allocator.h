@@ -321,8 +321,7 @@ class TurnPort;
 
 // Performs the allocation of ports, in a sequenced (timed) manner, for a given
 // network and IP address.
-class AllocationSequence : public rtc::MessageHandler,
-                           public sigslot::has_slots<> {
+class AllocationSequence : public sigslot::has_slots<> {
  public:
   enum State {
     kInit,       // Initial state.
@@ -344,7 +343,6 @@ class AllocationSequence : public rtc::MessageHandler,
                      PortConfiguration* config,
                      uint32_t flags,
                      std::function<void()> port_allocation_complete_callback);
-  ~AllocationSequence() override;
   void Init();
   void Clear();
   void OnNetworkFailed();
@@ -366,9 +364,6 @@ class AllocationSequence : public rtc::MessageHandler,
   void Start();
   void Stop();
 
-  // MessageHandler
-  void OnMessage(rtc::Message* msg) override;
-
  protected:
   // For testing.
   void CreateTurnPort(const RelayServerConfig& config);
@@ -376,6 +371,7 @@ class AllocationSequence : public rtc::MessageHandler,
  private:
   typedef std::vector<ProtocolType> ProtocolList;
 
+  void Process(int epoch);
   bool IsFlagSet(uint32_t flag) { return ((flags_ & flag) != 0); }
   void CreateUDPPorts();
   void CreateTCPPorts();
@@ -405,6 +401,8 @@ class AllocationSequence : public rtc::MessageHandler,
   std::vector<Port*> relay_ports_;
   int phase_;
   std::function<void()> port_allocation_complete_callback_;
+  int epoch_ = 0;
+  webrtc::ScopedTaskSafety safety_;
 };
 
 }  // namespace cricket

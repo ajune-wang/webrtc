@@ -328,11 +328,12 @@ TEST(AudioReceiveStreamTest, StreamsShouldBeAddedToMixerOnceOnStart) {
   }
 }
 
+// TODO(tommi): Remove test?
 TEST(AudioReceiveStreamTest, ReconfigureWithSameConfig) {
   for (bool use_null_audio_processing : {false, true}) {
     ConfigHelper helper(use_null_audio_processing);
     auto recv_stream = helper.CreateAudioReceiveStream();
-    recv_stream->Reconfigure(helper.config());
+    recv_stream->ReconfigureForTesting(helper.config());
     recv_stream->UnregisterFromTransport();
   }
 }
@@ -343,6 +344,8 @@ TEST(AudioReceiveStreamTest, ReconfigureWithUpdatedConfig) {
     auto recv_stream = helper.CreateAudioReceiveStream();
 
     auto new_config = helper.config();
+    // TODO(tommi): Use SetUseTransportCcAndNackHistory, SetDecoderMap and
+    // SetDepacketizerToDecoderFrameTransformer methods instead of Reconfigure.
     new_config.rtp.nack.rtp_history_ms = 300 + 20;
     new_config.rtp.extensions.clear();
     new_config.rtp.extensions.push_back(
@@ -356,7 +359,7 @@ TEST(AudioReceiveStreamTest, ReconfigureWithUpdatedConfig) {
     EXPECT_CALL(channel_receive, SetNACKStatus(true, 15 + 1)).Times(1);
     EXPECT_CALL(channel_receive, SetReceiveCodecs(new_config.decoder_map));
 
-    recv_stream->Reconfigure(new_config);
+    recv_stream->ReconfigureForTesting(new_config);
     recv_stream->UnregisterFromTransport();
   }
 }
@@ -371,14 +374,14 @@ TEST(AudioReceiveStreamTest, ReconfigureWithFrameDecryptor) {
         rtc::make_ref_counted<MockFrameDecryptor>());
     new_config_0.frame_decryptor = mock_frame_decryptor_0;
 
-    recv_stream->Reconfigure(new_config_0);
+    recv_stream->ReconfigureForTesting(new_config_0);
 
     auto new_config_1 = helper.config();
     rtc::scoped_refptr<FrameDecryptorInterface> mock_frame_decryptor_1(
         rtc::make_ref_counted<MockFrameDecryptor>());
     new_config_1.frame_decryptor = mock_frame_decryptor_1;
     new_config_1.crypto_options.sframe.require_frame_encryption = true;
-    recv_stream->Reconfigure(new_config_1);
+    recv_stream->ReconfigureForTesting(new_config_1);
     recv_stream->UnregisterFromTransport();
   }
 }

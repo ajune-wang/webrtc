@@ -22,6 +22,30 @@
       },
       "revId": "066928cda24964f01e906dbc94e4734e1ac5e41a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1af5886d_3ec72a1f",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-06-07T06:57:35Z",
+      "side": 1,
+      "message": "I would like to change TargetDelayMs() and FilteredCurrentDelayMs() so that they don\u0027t grab the same lock that has already been taken a few times during the same operation. AcmReceiver also seems to add a lock on top of NetEq\u0027s lock (but a comment in the header says \"NetEq is thread-safe; no lock needed\").\n\nEach histogram has an atomic operation + mutex lock, which means that there are already several of those happening here on the audio thread. I\u0027d rather not add more. Reporting the stats on the worker is also more consistent with how things work on the video side.\n\n\"100 Hz more wakeups\" is true if the worker is always idle, that\u0027s not super likely to be the case during a call though, but there is some amount of wakeups for sure. What I was wondering about is if we could rather do is report the stats fewer times, e.g. 1Hz. We could batch them up on the callback thread and then std::move them to a reporting task on the worker.\n\nHowever in this CL I was thinking to not make changes as far as this goes but do those separately along with making a few changes to NetEq and AcmReceiver to reduce the locking (e.g. return the delay values when GetAudio() is called, don\u0027t call last_output_sample_rate_hz() right after `neteq_-\u003eGetAudio()`, etc.\n\nwdyt?",
+      "parentUuid": "b3cd77e7_393868f1",
+      "range": {
+        "startLine": 461,
+        "startChar": 18,
+        "endLine": 461,
+        "endChar": 26
+      },
+      "revId": "066928cda24964f01e906dbc94e4734e1ac5e41a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -33,6 +33,23 @@
       "message": "And +Harald",
       "revId": "bb3fb06c25f8758556059b2b7c4661d52724c38e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "91fa6457_4dd19fa0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-07T11:06:25Z",
+      "side": 1,
+      "message": "I assume that we just need someone with approval rights for the files. OK, I\u0027ll trust you.\n",
+      "revId": "bb3fb06c25f8758556059b2b7c4661d52724c38e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

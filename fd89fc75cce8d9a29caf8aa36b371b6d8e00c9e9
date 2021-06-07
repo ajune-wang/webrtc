@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccd79509_c7cfac49",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-06-07T17:46:00Z",
+      "side": 1,
+      "message": "Awesome! FYI this also contributes to fixing webrtc:9702",
+      "revId": "fd89fc75cce8d9a29caf8aa36b371b6d8e00c9e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

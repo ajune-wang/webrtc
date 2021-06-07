@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b11b46c_8163a2af",
+        "filename": "p2p/client/basic_port_allocator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-07T10:52:08Z",
+      "side": 1,
+      "message": "ABSL_DEPRECATED?",
+      "revId": "3a7629a26e3cede82ed87a114ab73e98f34e5f26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

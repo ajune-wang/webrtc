@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fdbe6d95_4b8ef8df",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-07T11:23:15Z",
+      "side": 1,
+      "message": "Don\u0027t see much reason not to add these.\n",
+      "revId": "699badac9ad9e9421db3c91bc92c2f879f0a770f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f002fdd5_f2160c3d",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1516,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-07T11:23:15Z",
+      "side": 1,
+      "message": "Note that these functions do nearly nothing. It\u0027s the DoSet* functions (invoked on the operations chain) that are likely to be time hogs.",
+      "revId": "699badac9ad9e9421db3c91bc92c2f879f0a770f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

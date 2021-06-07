@@ -595,6 +595,14 @@ VideoStreamAdapter::RestrictionsOrState VideoStreamAdapter::IncreaseFramerate(
           : absl::nullopt);
   --new_restrictions.counters.fps_adaptations;
   RTC_DCHECK_GE(new_restrictions.counters.fps_adaptations, 0);
+  // For BALANCED, fewer framerate adaptation steps up than down may be needed.
+  // Reset fps adaptations if framerate is unrestricted.
+  if (degradation_preference_ == DegradationPreference::BALANCED &&
+      max_frame_rate == std::numeric_limits<int>::max() &&
+      new_restrictions.counters.fps_adaptations > 0) {
+    RTC_LOG(LS_INFO) << "Resetting fps adaptation count to zero.";
+    new_restrictions.counters.fps_adaptations = 0;
+  }
   return new_restrictions;
 }
 

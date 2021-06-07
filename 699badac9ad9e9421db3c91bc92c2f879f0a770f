@@ -33,6 +33,24 @@
       "message": "Note that these functions do nearly nothing. It\u0027s the DoSet* functions (invoked on the operations chain) that are likely to be time hogs.",
       "revId": "699badac9ad9e9421db3c91bc92c2f879f0a770f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2af84190_162a7387",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1516,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-06-07T11:31:10Z",
+      "side": 1,
+      "message": "OK - removed!",
+      "parentUuid": "f002fdd5_f2160c3d",
+      "revId": "699badac9ad9e9421db3c91bc92c2f879f0a770f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

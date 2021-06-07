@@ -332,7 +332,6 @@ void ChannelReceive::InitFrameTransformerDelegate(
     rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer) {
   RTC_DCHECK(frame_transformer);
   RTC_DCHECK(!frame_transformer_delegate_);
-  RTC_DCHECK(worker_thread_);
   RTC_DCHECK(worker_thread_->IsCurrent());
 
   // Pass a callback to ChannelReceive::OnReceivedPayloadData, to be called by
@@ -457,7 +456,6 @@ AudioMixer::Source::AudioFrameInfo ChannelReceive::GetAudioFrameWithInfo(
   }
   audio_frame->packet_infos_ = RtpPacketInfos(packet_infos);
 
-  RTC_DCHECK(worker_thread_);
   worker_thread_->PostTask(ToQueuedTask(worker_safety_, [this]() {
     RTC_DCHECK_RUN_ON(&worker_thread_checker_);
     RTC_HISTOGRAM_COUNTS_1000("WebRTC.Audio.TargetJitterBufferDelayMs",

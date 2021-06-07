@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "06efc4bd_a3fe15bf",
+        "filename": "p2p/client/basic_port_allocator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-06-07T10:27:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "315832f3_a488cfc9",
+      "revId": "5de3fa6bccdd3e2da8519f6ccb04b0e2472beb90",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "38b61bf5_468de780",
@@ -48,6 +66,24 @@
       "writtenOn": "2021-06-07T08:09:01Z",
       "side": 1,
       "message": "Nit: \"by starting a timer\"\nI think \", but this is less deterministic\" would be appropriate.",
+      "revId": "5de3fa6bccdd3e2da8519f6ccb04b0e2472beb90",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70ab79c4_e8a62aa3",
+        "filename": "p2p/client/basic_port_allocator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-06-07T10:27:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38b61bf5_468de780",
       "revId": "5de3fa6bccdd3e2da8519f6ccb04b0e2472beb90",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

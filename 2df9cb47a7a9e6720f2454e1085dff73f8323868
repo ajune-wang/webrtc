@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d609ed8_c00642bf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-06-07T10:45:55Z",
+      "side": 1,
+      "message": "Yeah seems so. Documented it as thread-compatible.",
+      "parentUuid": "0ccb890b_6e15908d",
+      "revId": "2df9cb47a7a9e6720f2454e1085dff73f8323868",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eee0b014_a134531f",

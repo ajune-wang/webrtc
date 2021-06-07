@@ -70,6 +70,30 @@
       },
       "revId": "066928cda24964f01e906dbc94e4734e1ac5e41a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d464736_33e44b42",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-06-07T14:13:21Z",
+      "side": 1,
+      "message": "I think the 1Hz approach is the way to go. Are you thinking with or without batching of samples or simply skip recording 99/100 samples?\nBtw, the docs for the sample gathering today states that the samples are gathered every 10ms, so that would need to be corrected if we don\u0027t batch.",
+      "parentUuid": "36288a19_7d5041ff",
+      "range": {
+        "startLine": 461,
+        "startChar": 18,
+        "endLine": 461,
+        "endChar": 26
+      },
+      "revId": "066928cda24964f01e906dbc94e4734e1ac5e41a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

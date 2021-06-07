@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48e1f182_87ba00ae",
+        "filename": "api/video/nv12_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-06-07T10:19:38Z",
+      "side": 0,
+      "message": "This comment is not entirely true. kFilterBox is still used for the scaling of the Y-plane, it\u0027s just the UV-plane that gets the kFilterBilinear treatment, but that does not stop us from unifying all scaling functions to use box.",
+      "revId": "a94a4cc197b2aeaa8040ca575d7a3b838df8e995",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0c79a64_f002bfa0",
+        "filename": "p2p/client/basic_port_allocator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1341,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-06-07T10:41:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eee0b014_a134531f",
+      "revId": "2df9cb47a7a9e6720f2454e1085dff73f8323868",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ac6c05ba_2058ef35",
@@ -48,6 +66,24 @@
       "writtenOn": "2021-06-07T08:16:44Z",
       "side": 1,
       "message": "Add a comment on what epoch_ means in this case. It\u0027s an overloaded word.",
+      "revId": "2df9cb47a7a9e6720f2454e1085dff73f8323868",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "463e4825_db37c715",
+        "filename": "p2p/client/basic_port_allocator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-06-07T10:41:55Z",
+      "side": 1,
+      "message": "Makes sense. Added docs.",
+      "parentUuid": "ac6c05ba_2058ef35",
       "revId": "2df9cb47a7a9e6720f2454e1085dff73f8323868",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb3d5fcb_39dcefd1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-07T08:09:01Z",
+      "side": 1,
+      "message": "Just spelling nits. Go for it!\n",
+      "revId": "5de3fa6bccdd3e2da8519f6ccb04b0e2472beb90",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "315832f3_a488cfc9",
+        "filename": "p2p/client/basic_port_allocator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-07T08:09:01Z",
+      "side": 1,
+      "message": "This comma doesn\u0027t belong here.",
+      "revId": "5de3fa6bccdd3e2da8519f6ccb04b0e2472beb90",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38b61bf5_468de780",
+        "filename": "p2p/client/basic_port_allocator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-07T08:09:01Z",
+      "side": 1,
+      "message": "Nit: \"by starting a timer\"\nI think \", but this is less deterministic\" would be appropriate.",
+      "revId": "5de3fa6bccdd3e2da8519f6ccb04b0e2472beb90",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

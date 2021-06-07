@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0a0c814_5f3010e3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-07T08:06:44Z",
+      "side": 1,
+      "message": "Only one thing that I think you should fix while you\u0027re at it.\n\nOtherwise - wonderful simplification. Messages-Be-Gone!\n",
+      "revId": "9930ce0c84fe8633be8d86241efd6d8f81064597",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6cc59d35_61059056",
+        "filename": "p2p/client/basic_port_allocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-07T08:06:44Z",
+      "side": 1,
+      "message": "\u003cscreech\u003e\nwrapping a raw pointer with absl::WrapUnique far away from its allocation is a code smell. There are two callers that cs.chromium.org finds - can you make them pass a std::unique_ptr instead? (It seems both are easy to make sane.)",
+      "revId": "9930ce0c84fe8633be8d86241efd6d8f81064597",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eef95598_e15f5e71",
+        "filename": "p2p/client/basic_port_allocator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-07T08:06:44Z",
+      "side": 1,
+      "message": "while you\u0027re digging around and probably have it on top of mind: can you add a comment saying which thread the BPAS is created and destroyed on?\n(It\u0027s apparently the network thread, since the network_safety_ wouldn\u0027t work if that was not the case, but there\u0027s no CHECk in the constructor that this has to be so.)",
+      "revId": "9930ce0c84fe8633be8d86241efd6d8f81064597",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

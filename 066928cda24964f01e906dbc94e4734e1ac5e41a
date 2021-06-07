@@ -46,6 +46,30 @@
       },
       "revId": "066928cda24964f01e906dbc94e4734e1ac5e41a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36288a19_7d5041ff",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-06-07T07:35:11Z",
+      "side": 1,
+      "message": "Mutex removal looks good.\n\nIt\u0027s just that I think that unless RTC_HISTOGRAM takes time to execute the PostTask here is just frequent and unfortunate. IIRC the context we call in here on is based of the sound card clock which isn\u0027t synchronized to other activity on the worker so it\u0027s likely to yield close to 100% wakeups.\n\n\u003e I\u0027d rather not add more.\n\nWe only need relaxed consistency here. Using relaxed memory ordering access will just emit loads and stores without any barriers.\n\nSpeaking about collection frequency. We\u0027re collecting samples at 100 Hz, but collecting them at say 1 Hz would give the same shape of the histograms. How about just dropping the frequency?",
+      "parentUuid": "1af5886d_3ec72a1f",
+      "range": {
+        "startLine": 461,
+        "startChar": 18,
+        "endLine": 461,
+        "endChar": 26
+      },
+      "revId": "066928cda24964f01e906dbc94e4734e1ac5e41a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -16,6 +16,24 @@
       "message": "in the spirit of better late than never - do you remember if you intended to call RecreateAudioReceiveStream here as well? As is the code only calls Reconfigure, not Recreate, so I\u0027m wondering if that was intentional or (judging by the function name change) if that got unintentionally dropped.",
       "revId": "4613bdf995a01fefb94ff722106da72bede9588f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6620a81_a3fbba82",
+        "filename": "media/engine/webrtcvoiceengine.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1154,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2021-06-07T07:46:22Z",
+      "side": 1,
+      "message": "AFAICT (and my memory is not very good TBH), Reconfigure() works in this case so the name should probably be changed. The naming must have been an oversight, so \"AndRecreateStream\" should just be removed, in order to align with the other methods.\n\nOne curious bit however is that use_transport_cc no longer appears to be used in AudioReceiveStream. I wonder if that has subsequently been removed but not dropped from the interface?",
+      "parentUuid": "19ed2539_f0f1c8a5",
+      "revId": "4613bdf995a01fefb94ff722106da72bede9588f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

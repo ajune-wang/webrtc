@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ccb890b_6e15908d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-07T08:16:44Z",
+      "side": 1,
+      "message": "I think this is migrating from messsages to PostTask, so the description might be a little misleading.\n\nLooks like a nice simplification, but I think you need to document \"epoch\" better.\n\nIs this class entirely free of threading considerations?\n",
+      "revId": "2df9cb47a7a9e6720f2454e1085dff73f8323868",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eee0b014_a134531f",
+        "filename": "p2p/client/basic_port_allocator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1341,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-07T08:16:44Z",
+      "side": 1,
+      "message": "I think the correct formulation is \"Cause further Process calls in the previous epoch to be ignored\".",
+      "revId": "2df9cb47a7a9e6720f2454e1085dff73f8323868",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac6c05ba_2058ef35",
+        "filename": "p2p/client/basic_port_allocator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-07T08:16:44Z",
+      "side": 1,
+      "message": "Add a comment on what epoch_ means in this case. It\u0027s an overloaded word.",
+      "revId": "2df9cb47a7a9e6720f2454e1085dff73f8323868",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

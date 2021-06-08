@@ -50,6 +50,23 @@
       "message": "Åsa, could you take a look?",
       "revId": "06f0f75ad303c18cee674e27f726756035aed00d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5c6d2e2_f3687908",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-06-08T13:19:00Z",
+      "side": 1,
+      "message": "looks to me that source being nullptr is a valid input and must be handled properly.",
+      "revId": "06f0f75ad303c18cee674e27f726756035aed00d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

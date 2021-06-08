@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b391b9d8_afa47dd6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2021-06-08T15:15:16Z",
+      "side": 1,
+      "message": "The changes all seem legit. The histogram distribution will remain the same with reduced polling frequency, but it will of course affect the number of samples recorded. This will nevertheless create a shift in the UMA metric, albeit not in the distribution. What do we think about that?\n\nMinyue, Ivo, Jakob: Do you see any problems with a changed number of samples for these four UMA metrics?\nWebRTC.Audio.TargetJitterBufferDelayMs\nWebRTC.Audio.ReceiverDelayEstimateMs\nWebRTC.Audio.ReceiverJitterBufferDelayMs\nWebRTC.Audio.ReceiverDeviceDelayMs\n",
+      "revId": "88449718e0090a0de1f00b7807d0c8de1b920457",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

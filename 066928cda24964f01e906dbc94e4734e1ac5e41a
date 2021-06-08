@@ -36,6 +36,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9962dc3_230a79c7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-06-08T15:00:07Z",
+      "side": 1,
+      "message": "Markus - wdyt about moving the reporting frequency question over to\nhttps://webrtc-review.googlesource.com/c/src/+/221371\n?\n\nMinyue and Chen are taking a look there as well.",
+      "revId": "066928cda24964f01e906dbc94e4734e1ac5e41a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b3cd77e7_393868f1",

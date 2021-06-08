@@ -53,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd424029_b351ebb5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-06-08T18:02:03Z",
+      "side": 1,
+      "message": "Sounds good!",
+      "parentUuid": "b9962dc3_230a79c7",
+      "revId": "066928cda24964f01e906dbc94e4734e1ac5e41a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b3cd77e7_393868f1",
@@ -186,6 +204,30 @@
       "side": 1,
       "message": "Commenting in the follow-up CL.",
       "parentUuid": "394ca082_77aa0e6e",
+      "range": {
+        "startLine": 461,
+        "startChar": 18,
+        "endLine": 461,
+        "endChar": 26
+      },
+      "revId": "066928cda24964f01e906dbc94e4734e1ac5e41a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3215cb4_0c970259",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-06-08T18:02:03Z",
+      "side": 1,
+      "message": "If 1 Hz collection frequency is okay then I\u0027m okay with the PostTask. Otherwise I\u0027m afraid I think 100 wakeups per sec (times 3 for popular downstream product) is an awful lot to add and works against the goal of reducing these (see the connection to the power consumption formula).",
+      "parentUuid": "a760791e_959d18cf",
       "range": {
         "startLine": 461,
         "startChar": 18,

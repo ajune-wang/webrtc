@@ -22,6 +22,30 @@
       },
       "revId": "59e4f0c598a004c420071f55f6f7131ce6c1da1a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5959d579_e2604b4c",
+        "filename": "call/adaptation/video_stream_adapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2021-06-09T15:21:31Z",
+      "side": 1,
+      "message": "I think more than one additional step could be needed, e.g.\n640 maxfps\n640 15fps (fps count:1)\n480 15fps (source request)\n480 10fps (fps count:2)\n320 10fps (source request)\n320 7fps  (fps count:3)\n640 7fps (source request)\n640 maxfps",
+      "parentUuid": "31bc7f85_0e41194f",
+      "range": {
+        "startLine": 577,
+        "startChar": 24,
+        "endLine": 577,
+        "endChar": 69
+      },
+      "revId": "59e4f0c598a004c420071f55f6f7131ce6c1da1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

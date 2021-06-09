@@ -22,6 +22,30 @@
       },
       "revId": "904617c10810f74e579da1bfeacf3ce51e54f785",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "514207d6_6108f1f7",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-06-09T14:26:12Z",
+      "side": 1,
+      "message": "Encoders actually check callback value early in Encode() call: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc;drc\u003d0a0f5cb6f9820754390d319ccce4ae3865f954d1;l\u003d926.\n\nIs there encoder which doesn\u0027t do that?",
+      "parentUuid": "04409d70_e9b551f5",
+      "range": {
+        "startLine": 726,
+        "startChar": 31,
+        "endLine": 726,
+        "endChar": 61
+      },
+      "revId": "904617c10810f74e579da1bfeacf3ce51e54f785",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -16,6 +16,23 @@
       "message": "Sam - ping",
       "revId": "3b213fc4dc4d765e9b643e1e3b914ef40217ab9d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc232209_5b80a1ae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-06-09T09:37:11Z",
+      "side": 1,
+      "message": "Submitting - Sam, please ping me if there\u0027s anything I missed.",
+      "revId": "3b213fc4dc4d765e9b643e1e3b914ef40217ab9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

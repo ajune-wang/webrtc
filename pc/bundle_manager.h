@@ -11,13 +11,17 @@
 #ifndef PC_BUNDLE_MANAGER_H_
 #define PC_BUNDLE_MANAGER_H_
 
+#include <map>
 #include <memory>
 #include <string>
+#include <utility>
 #include <vector>
 
+#include "pc/jsep_transport.h"
 #include "pc/session_description.h"
 
 namespace webrtc {
+
 // This class manages information about RFC 8843 BUNDLE bundles
 // in SDP descriptions.
 
@@ -32,8 +36,13 @@ namespace webrtc {
 // 6) Change the logic to do what's right.
 class BundleManager {
  public:
+  BundleManager() {
+    // Allow constructor to be called on a different thread.
+    sequence_checker_.Detach();
+  }
   const std::vector<std::unique_ptr<cricket::ContentGroup>>& bundle_groups()
       const {
+    RTC_DCHECK_RUN_ON(&sequence_checker_);
     return bundle_groups_;
   }
   // Update the groups description. This completely replaces the group
@@ -46,7 +55,71 @@ class BundleManager {
   void DeleteGroup(const cricket::ContentGroup* bundle_group);
 
  private:
-  std::vector<std::unique_ptr<cricket::ContentGroup>> bundle_groups_;
+  RTC_NO_UNIQUE_ADDRESS SequenceChecker sequence_checker_;
+  std::vector<std::unique_ptr<cricket::ContentGroup>> bundle_groups_
+      RTC_GUARDED_BY(sequence_checker_);
+};
+
+// This class keeps the mapping of MIDs to transports.
+// It is pulled out here because a lot of the code that deals with
+// bundles end up modifying this map, and the two need to be consistent;
+// the managers may merge.
+class MidToTransportMap {
+  typedef std::function<bool(const std::string&,
+                             RtpTransportInternal*,
+                             rtc::scoped_refptr<DtlsTransport>,
+                             DataChannelTransportInterface*)>
+      ObserverCallback;
+
+ public:
+  MidToTransportMap(ObserverCallback callback,
+                    std::function<void()> state_change_callback)
+      : observer_callback_(callback),
+        state_change_callback_(state_change_callback) {
+    // Allow constructor to be called on a different thread.
+    sequence_checker_.Detach();
+  }
+
+  void RegisterTransport(const std::string& mid,
+                         std::unique_ptr<cricket::JsepTransport> transport);
+  std::vector<cricket::JsepTransport*> Transports();
+  void DestroyAllTransports();
+  // Lookup a JsepTransport by the MID that was used to register it.
+  cricket::JsepTransport* GetTransportByName(const std::string& mid);
+  const cricket::JsepTransport* GetTransportByName(
+      const std::string& mid) const;
+  // Lookup a JsepTransport by any MID that refers to it.
+  cricket::JsepTransport* GetTransportForMid(const std::string& mid);
+  const cricket::JsepTransport* GetTransportForMid(
+      const std::string& mid) const;
+  bool SetTransportForMid(const std::string& mid,
+                          cricket::JsepTransport* jsep_transport);
+  void RemoveTransportForMid(const std::string& mid);
+  // Roll back pending mid-to-transport mappings.
+  void RollbackTransports();
+  // Commit pending mid-transport mappings (rollback is no longer possible)
+  void CommitTransports();
+  // Returns true if any mid currently maps to this transport.
+  bool TransportInUse(cricket::JsepTransport* jsep_transport) const;
+  // Destroy a transport if it's no longer in use
+  void MaybeDestroyJsepTransport(const std::string& mid);
+
+ private:
+  RTC_NO_UNIQUE_ADDRESS SequenceChecker sequence_checker_;
+  // This member owns the JSEP transports.
+  std::map<std::string, std::unique_ptr<cricket::JsepTransport>>
+      jsep_transports_by_name_ RTC_GUARDED_BY(sequence_checker_);
+
+  // This keeps track of the mapping between media section
+  // (BaseChannel/SctpTransport) and the JsepTransport underneath.
+  std::map<std::string, cricket::JsepTransport*> mid_to_transport_
+      RTC_GUARDED_BY(sequence_checker_);
+  // Keep track of mids that have been mapped to transports. Used for rollback.
+  std::vector<std::string> pending_mids_ RTC_GUARDED_BY(sequence_checker_);
+  // Callback used to inform subscribers of altered transports
+  const ObserverCallback observer_callback_;
+  // Callback used to inform subscribers of possibly altered state
+  const std::function<void()> state_change_callback_;
 };
 
 }  // namespace webrtc

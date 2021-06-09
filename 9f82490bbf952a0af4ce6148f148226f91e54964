@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "29ee690c_ca85971e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-09T09:13:58Z",
+      "side": 1,
+      "message": "There\u0027s some polishing to be done, including naming. Suggestions welcome!\n\nAnd the refactoring pointed out some really bizarre potential inconsistencies, that I want to address\nwhen actually changing things. But this is a pure shuffle-the-bits-around CL.\n",
+      "revId": "9f82490bbf952a0af4ce6148f148226f91e54964",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

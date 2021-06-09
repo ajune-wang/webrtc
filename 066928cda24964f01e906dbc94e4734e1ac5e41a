@@ -284,6 +284,30 @@
       },
       "revId": "066928cda24964f01e906dbc94e4734e1ac5e41a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ab087b3_59c0b8de",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-06-09T13:16:20Z",
+      "side": 1,
+      "message": "I see that the follow-up 1Hz CL is approved. With that frequency I don\u0027t have concerns with the PostTask anymore.",
+      "parentUuid": "702c4c14_db486c3d",
+      "range": {
+        "startLine": 461,
+        "startChar": 18,
+        "endLine": 461,
+        "endChar": 26
+      },
+      "revId": "066928cda24964f01e906dbc94e4734e1ac5e41a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5586adae_bded7501",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-06-09T13:16:20Z",
+      "side": 1,
+      "message": "lgtm % that the follow-up CL lands.",
+      "revId": "96b2025f07c51e85687ffb15721882c83234451d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

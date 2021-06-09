@@ -236,6 +236,30 @@
       },
       "revId": "066928cda24964f01e906dbc94e4734e1ac5e41a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c782165_4d1a01e2",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-06-09T09:52:03Z",
+      "side": 1,
+      "message": "Have you checked if that assumption is true (or \"how true\" it is in practice)? I.e. check if the number of posted tasks is the same as the number of idle wakeups?",
+      "parentUuid": "a3215cb4_0c970259",
+      "range": {
+        "startLine": 461,
+        "startChar": 18,
+        "endLine": 461,
+        "endChar": 26
+      },
+      "revId": "066928cda24964f01e906dbc94e4734e1ac5e41a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

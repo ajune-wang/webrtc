@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9cf27c4a_4de9cda0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-06-09T14:23:12Z",
+      "side": 1,
+      "message": "JsepTransportCollection makes sense I think",
+      "parentUuid": "d42700e7_25a9ceca",
+      "revId": "9f82490bbf952a0af4ce6148f148226f91e54964",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c3d01202_e88b10c1",
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "Existing code didn\u0027t check. Overwriting would also delete the old transport, and that isn\u0027t visible here.\n\nI think we should remove this map entirely and just keep an owner vector for active transports + the non-owning mid_to_transport_ map. Having two maps is a footgun.\nNext step.",
       "parentUuid": "c3d01202_e88b10c1",
+      "revId": "9f82490bbf952a0af4ce6148f148226f91e54964",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a160070_657e666e",
+        "filename": "pc/bundle_manager.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-06-09T14:23:12Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "95dda488_67d3e07a",
       "revId": "9f82490bbf952a0af4ce6148f148226f91e54964",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -105,6 +141,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fdb654fc_81980db1",
+        "filename": "pc/bundle_manager.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-06-09T14:23:12Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "544121a6_aec5b754",
+      "revId": "9f82490bbf952a0af4ce6148f148226f91e54964",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b2691452_6c1709c4",
@@ -136,6 +190,24 @@
       "side": 1,
       "message": "RemoveTransportForMid() called several times is actually a no-op. Agree that DCHECK is more appropriate than present behavior; again, this is a no-change CL.\n\nThe more basic bug here is that rollback doesn\u0027t restore the old mid-\u003etransport mapping, it just deletes the mid-\u003etransport mapping. Which means rollbacks of renegotiations are likely to have surprising results in some cases.",
       "parentUuid": "b2691452_6c1709c4",
+      "revId": "9f82490bbf952a0af4ce6148f148226f91e54964",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fda6f748_e9f9aee4",
+        "filename": "pc/bundle_manager.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-06-09T14:23:12Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "387d3010_3156cdc0",
       "revId": "9f82490bbf952a0af4ce6148f148226f91e54964",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -328,6 +400,24 @@
       "side": 1,
       "message": "Passing functions that bind this without lambda seems to require std::bind, which a) is still forbidden in the style guide, and b) confused me a lot when I tried to compile it. Sticking with the lambdas for now, but made most of it a function.",
       "parentUuid": "3169acc7_2b8e8166",
+      "revId": "9f82490bbf952a0af4ce6148f148226f91e54964",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e77d638f_04089551",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-06-09T14:23:12Z",
+      "side": 1,
+      "message": "A lambda calling a function SGTM",
+      "parentUuid": "488e57dc_415f5e86",
       "revId": "9f82490bbf952a0af4ce6148f148226f91e54964",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

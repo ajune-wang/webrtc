@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d42700e7_25a9ceca",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-09T11:21:36Z",
+      "side": 1,
+      "message": "No good suggestions on naming? :-)\n\nI was wondering if MidToTransportMap should be renamed JsepTransportCollection and the file changed to jsep_transport_collection. We already have stream_collection as a precedent; jsep_transport_controller is already taken :-)\n\nA lot below is pushback saying \"let\u0027s first move code, then fix the bugs\".\n",
+      "revId": "9f82490bbf952a0af4ce6148f148226f91e54964",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c3d01202_e88b10c1",
@@ -31,6 +48,24 @@
       "writtenOn": "2021-06-09T09:46:57Z",
       "side": 1,
       "message": "There is a risk of overwriting an old transport that is already mapped by this mid. Can we DCHECK or return whether or not a replacement happened so that the caller can DCHECK whether or not the overwrite was on purpose?",
+      "revId": "9f82490bbf952a0af4ce6148f148226f91e54964",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95dda488_67d3e07a",
+        "filename": "pc/bundle_manager.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-09T11:21:36Z",
+      "side": 1,
+      "message": "Existing code didn\u0027t check. Overwriting would also delete the old transport, and that isn\u0027t visible here.\n\nI think we should remove this map entirely and just keep an owner vector for active transports + the non-owning mid_to_transport_ map. Having two maps is a footgun.\nNext step.",
+      "parentUuid": "c3d01202_e88b10c1",
       "revId": "9f82490bbf952a0af4ce6148f148226f91e54964",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -54,6 +89,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "544121a6_aec5b754",
+        "filename": "pc/bundle_manager.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-09T11:21:36Z",
+      "side": 1,
+      "message": "Existing code didn\u0027t. I think it should; behavior change, so next step.",
+      "parentUuid": "8d5f8515_9d4bcf71",
+      "revId": "9f82490bbf952a0af4ce6148f148226f91e54964",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b2691452_6c1709c4",
         "filename": "pc/bundle_manager.cc",
         "patchSetId": 1
@@ -65,6 +118,24 @@
       "writtenOn": "2021-06-09T09:46:57Z",
       "side": 1,
       "message": "Would we ever get the pending mid set multiple times? Should we DCHECK?\n\nOtherwise RollbackTransport() could do RemoveTransportForMid() for the same mid several times, that seems unexpected.",
+      "revId": "9f82490bbf952a0af4ce6148f148226f91e54964",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "387d3010_3156cdc0",
+        "filename": "pc/bundle_manager.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-09T11:21:36Z",
+      "side": 1,
+      "message": "RemoveTransportForMid() called several times is actually a no-op. Agree that DCHECK is more appropriate than present behavior; again, this is a no-change CL.\n\nThe more basic bug here is that rollback doesn\u0027t restore the old mid-\u003etransport mapping, it just deletes the mid-\u003etransport mapping. Which means rollbacks of renegotiations are likely to have surprising results in some cases.",
+      "parentUuid": "b2691452_6c1709c4",
       "revId": "9f82490bbf952a0af4ce6148f148226f91e54964",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -105,6 +176,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e8717ca0_cca8a1f5",
+        "filename": "pc/bundle_manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-09T11:21:36Z",
+      "side": 1,
+      "message": "I think I can skip the typedef altogether and make this a std::function(mid, jseptransport) - that\u0027s short enough that I can type it accurately in 2 places.\nTurns out it\u0027s called with subelements of cricket::JsepTransport, we can move the fetching of subelements up into the lambda.",
+      "parentUuid": "08c5e40b_1de5ad09",
+      "revId": "9f82490bbf952a0af4ce6148f148226f91e54964",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "60f816bc_2808a582",
         "filename": "pc/bundle_manager.h",
         "patchSetId": 1
@@ -116,6 +205,24 @@
       "writtenOn": "2021-06-09T09:46:57Z",
       "side": 1,
       "message": "I think this can be a const method? But maybe that\u0027s \"dishonest\" if the ptr is non-const",
+      "revId": "9f82490bbf952a0af4ce6148f148226f91e54964",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8cf3bffd_bafb6d48",
+        "filename": "pc/bundle_manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-09T11:21:36Z",
+      "side": 1,
+      "message": "Fredrik taught me to not create footguns of that type :-)\nit\u0027s an OK requirement on the caller that he has a non-const reference to |this| if he wants a non-const transport pointer.",
+      "parentUuid": "60f816bc_2808a582",
       "revId": "9f82490bbf952a0af4ce6148f148226f91e54964",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -137,6 +244,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a54b2f41_be9eff86",
+        "filename": "pc/bundle_manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-09T11:21:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4297b0f_25e0557a",
+      "revId": "9f82490bbf952a0af4ce6148f148226f91e54964",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5126425a_8768546b",
@@ -150,6 +275,24 @@
       "writtenOn": "2021-06-09T09:46:57Z",
       "side": 1,
       "message": "nit: end comments with . for these two as well",
+      "revId": "9f82490bbf952a0af4ce6148f148226f91e54964",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db13c112_ed78948d",
+        "filename": "pc/bundle_manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-09T11:21:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5126425a_8768546b",
       "revId": "9f82490bbf952a0af4ce6148f148226f91e54964",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -173,6 +316,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "488e57dc_415f5e86",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-09T11:21:36Z",
+      "side": 1,
+      "message": "Passing functions that bind this without lambda seems to require std::bind, which a) is still forbidden in the style guide, and b) confused me a lot when I tried to compile it. Sticking with the lambdas for now, but made most of it a function.",
+      "parentUuid": "3169acc7_2b8e8166",
+      "revId": "9f82490bbf952a0af4ce6148f148226f91e54964",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "73efcd09_ac47f01f",
         "filename": "pc/jsep_transport_controller.h",
         "patchSetId": 1
@@ -184,6 +345,24 @@
       "writtenOn": "2021-06-09T09:46:57Z",
       "side": 1,
       "message": "This is commented out",
+      "revId": "9f82490bbf952a0af4ce6148f148226f91e54964",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e28f39ad_e17370f8",
+        "filename": "pc/jsep_transport_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-09T11:21:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "73efcd09_ac47f01f",
       "revId": "9f82490bbf952a0af4ce6148f148226f91e54964",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

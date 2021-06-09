@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31bc7f85_0e41194f",
+        "filename": "call/adaptation/video_stream_adapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2021-06-09T13:58:07Z",
+      "side": 1,
+      "message": "Does this have to be the counter here? Can it just be - 1 instead?",
+      "range": {
+        "startLine": 577,
+        "startChar": 24,
+        "endLine": 577,
+        "endChar": 69
+      },
+      "revId": "59e4f0c598a004c420071f55f6f7131ce6c1da1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

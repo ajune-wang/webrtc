@@ -260,6 +260,30 @@
       },
       "revId": "066928cda24964f01e906dbc94e4734e1ac5e41a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "702c4c14_db486c3d",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-06-09T10:00:23Z",
+      "side": 1,
+      "message": "Unfortunately not yet, but a PostTask is one of the ways you can wake a thread, i.e. absence is good. Can you check if this change makes a noticeable difference in a group call with active speakers? It\u0027s visible in Activity Monitor. (video can be muted of course). From what I remember in Chrome, Idle Wakeups are at about 1400-1700/s in large group calls.",
+      "parentUuid": "5c782165_4d1a01e2",
+      "range": {
+        "startLine": 461,
+        "startChar": 18,
+        "endLine": 461,
+        "endChar": 26
+      },
+      "revId": "066928cda24964f01e906dbc94e4734e1ac5e41a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

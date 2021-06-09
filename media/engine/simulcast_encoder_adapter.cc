@@ -722,8 +722,11 @@ SimulcastEncoderAdapter::FetchOrCreateEncoderContext(
         std::move(encoder), prefer_temporal_support);
   }
 
-  encoder_context->encoder().RegisterEncodeCompleteCallback(
-      encoded_complete_callback_);
+  if (encoded_complete_callback_) {
+    encoder_context->encoder().RegisterEncodeCompleteCallback(
+        encoded_complete_callback_);
+  }
+
   return encoder_context;
 }
 

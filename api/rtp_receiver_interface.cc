@@ -25,14 +25,6 @@ std::vector<RtpSource> RtpReceiverInterface::GetSources() const {
   return {};
 }
 
-void RtpReceiverInterface::SetFrameDecryptor(
-    rtc::scoped_refptr<FrameDecryptorInterface> frame_decryptor) {}
-
-rtc::scoped_refptr<FrameDecryptorInterface>
-RtpReceiverInterface::GetFrameDecryptor() const {
-  return nullptr;
-}
-
 rtc::scoped_refptr<DtlsTransportInterface>
 RtpReceiverInterface::dtls_transport() const {
   return nullptr;

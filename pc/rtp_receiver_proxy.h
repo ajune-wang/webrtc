@@ -37,13 +37,6 @@ PROXY_SECONDARY_METHOD1(void,
                         SetJitterBufferMinimumDelay,
                         absl::optional<double>)
 PROXY_SECONDARY_CONSTMETHOD0(std::vector<RtpSource>, GetSources)
-// TODO(bugs.webrtc.org/12772): Remove.
-PROXY_SECONDARY_METHOD1(void,
-                        SetFrameDecryptor,
-                        rtc::scoped_refptr<FrameDecryptorInterface>)
-// TODO(bugs.webrtc.org/12772): Remove.
-PROXY_SECONDARY_CONSTMETHOD0(rtc::scoped_refptr<FrameDecryptorInterface>,
-                             GetFrameDecryptor)
 PROXY_SECONDARY_METHOD1(void,
                         SetDepacketizerToDecoderFrameTransformer,
                         rtc::scoped_refptr<FrameTransformerInterface>)

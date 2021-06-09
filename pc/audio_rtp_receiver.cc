@@ -138,22 +138,6 @@ RtpParameters AudioRtpReceiver::GetParameters() const {
                : media_channel_->GetDefaultRtpReceiveParameters();
 }
 
-void AudioRtpReceiver::SetFrameDecryptor(
-    rtc::scoped_refptr<FrameDecryptorInterface> frame_decryptor) {
-  RTC_DCHECK_RUN_ON(worker_thread_);
-  frame_decryptor_ = std::move(frame_decryptor);
-  // Special Case: Set the frame decryptor to any value on any existing channel.
-  if (media_channel_ && ssrc_) {
-    media_channel_->SetFrameDecryptor(*ssrc_, frame_decryptor_);
-  }
-}
-
-rtc::scoped_refptr<FrameDecryptorInterface>
-AudioRtpReceiver::GetFrameDecryptor() const {
-  RTC_DCHECK_RUN_ON(worker_thread_);
-  return frame_decryptor_;
-}
-
 void AudioRtpReceiver::Stop() {
   RTC_DCHECK_RUN_ON(&signaling_thread_checker_);
   // TODO(deadbeef): Need to do more here to fully stop receiving packets.

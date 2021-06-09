@@ -82,12 +82,6 @@ class AudioRtpReceiver : public ObserverInterface,
 
   RtpParameters GetParameters() const override;
 
-  void SetFrameDecryptor(
-      rtc::scoped_refptr<FrameDecryptorInterface> frame_decryptor) override;
-
-  rtc::scoped_refptr<FrameDecryptorInterface> GetFrameDecryptor()
-      const override;
-
   // RtpReceiverInternal implementation.
   void Stop() override;
   void StopAndEndTrack() override;

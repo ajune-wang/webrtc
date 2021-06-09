@@ -86,22 +86,6 @@ RtpParameters VideoRtpReceiver::GetParameters() const {
                : media_channel_->GetDefaultRtpReceiveParameters();
 }
 
-void VideoRtpReceiver::SetFrameDecryptor(
-    rtc::scoped_refptr<FrameDecryptorInterface> frame_decryptor) {
-  RTC_DCHECK_RUN_ON(worker_thread_);
-  frame_decryptor_ = std::move(frame_decryptor);
-  // Special Case: Set the frame decryptor to any value on any existing channel.
-  if (media_channel_ && ssrc_) {
-    media_channel_->SetFrameDecryptor(*ssrc_, frame_decryptor_);
-  }
-}
-
-rtc::scoped_refptr<FrameDecryptorInterface>
-VideoRtpReceiver::GetFrameDecryptor() const {
-  RTC_DCHECK_RUN_ON(worker_thread_);
-  return frame_decryptor_;
-}
-
 void VideoRtpReceiver::SetDepacketizerToDecoderFrameTransformer(
     rtc::scoped_refptr<FrameTransformerInterface> frame_transformer) {
   RTC_DCHECK_RUN_ON(worker_thread_);

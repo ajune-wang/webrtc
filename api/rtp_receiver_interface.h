@@ -95,19 +95,6 @@ class RTC_EXPORT RtpReceiverInterface : public rtc::RefCountInterface {
   // content::FakeRtpReceiver in Chromium.
   virtual std::vector<RtpSource> GetSources() const;
 
-  // Sets a user defined frame decryptor that will decrypt the entire frame
-  // before it is sent across the network. This will decrypt the entire frame
-  // using the user provided decryption mechanism regardless of whether SRTP is
-  // enabled or not.
-  // TODO(bugs.webrtc.org/12772): Remove.
-  virtual void SetFrameDecryptor(
-      rtc::scoped_refptr<FrameDecryptorInterface> frame_decryptor);
-
-  // Returns a pointer to the frame decryptor set previously by the
-  // user. This can be used to update the state of the object.
-  // TODO(bugs.webrtc.org/12772): Remove.
-  virtual rtc::scoped_refptr<FrameDecryptorInterface> GetFrameDecryptor() const;
-
   // Sets a frame transformer between the depacketizer and the decoder to enable
   // client code to transform received frames according to their own processing
   // logic.

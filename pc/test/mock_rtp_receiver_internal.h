@@ -46,14 +46,6 @@ class MockRtpReceiverInternal : public RtpReceiverInternal {
               (absl::optional<double>),
               (override));
   MOCK_METHOD(std::vector<RtpSource>, GetSources, (), (const, override));
-  MOCK_METHOD(void,
-              SetFrameDecryptor,
-              (rtc::scoped_refptr<FrameDecryptorInterface>),
-              (override));
-  MOCK_METHOD(rtc::scoped_refptr<FrameDecryptorInterface>,
-              GetFrameDecryptor,
-              (),
-              (const, override));
 
   // RtpReceiverInternal methods.
   MOCK_METHOD(void, Stop, (), (override));

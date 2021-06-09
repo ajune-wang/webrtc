@@ -308,6 +308,30 @@
       },
       "revId": "066928cda24964f01e906dbc94e4734e1ac5e41a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56e86e8f_0f803ca9",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-06-09T14:43:17Z",
+      "side": 1,
+      "message": "ok cool - I\u0027d really like to understand the power impact of frequent post tasks though. I see that there is a mechanism to get the stats (at least on Mac), so it\u0027d be interesting to do some measurements both in Chrome as well as with our native GCD implementation. Perhaps reporting that ratio for our key threads (tasks vs wakeups) could lead to some interesting power saving opportunities.",
+      "parentUuid": "2ab087b3_59c0b8de",
+      "range": {
+        "startLine": 461,
+        "startChar": 18,
+        "endLine": 461,
+        "endChar": 26
+      },
+      "revId": "066928cda24964f01e906dbc94e4734e1ac5e41a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

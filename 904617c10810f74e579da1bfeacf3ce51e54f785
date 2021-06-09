@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04409d70_e9b551f5",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-06-09T14:22:33Z",
+      "side": 1,
+      "message": "Is not it is fine to pass null to RegisterEncodeCompleteCallback? This way you unregister the callback.\n\nWhat would happen if client unregister callback for SEA but this is not propagated to underlaying encoder? Encoder will call old, invalid callback.",
+      "range": {
+        "startLine": 726,
+        "startChar": 31,
+        "endLine": 726,
+        "endChar": 61
+      },
+      "revId": "904617c10810f74e579da1bfeacf3ce51e54f785",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

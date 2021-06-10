@@ -46,6 +46,30 @@
       },
       "revId": "59e4f0c598a004c420071f55f6f7131ce6c1da1a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ebcbb536_589aecc0",
+        "filename": "call/adaptation/video_stream_adapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2021-06-10T13:58:54Z",
+      "side": 1,
+      "message": "ok, then it makes sense.",
+      "parentUuid": "5959d579_e2604b4c",
+      "range": {
+        "startLine": 577,
+        "startChar": 24,
+        "endLine": 577,
+        "endChar": 69
+      },
+      "revId": "59e4f0c598a004c420071f55f6f7131ce6c1da1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -89,6 +89,8 @@ class MockStreamFeedbackObserver : public webrtc::StreamFeedbackObserver {
               (override));
 };
 
+constexpr uint32_t kSsrc = 8492;
+
 class TransportFeedbackAdapterTest : public ::testing::Test {
  public:
   TransportFeedbackAdapterTest() : clock_(0) {}
@@ -121,8 +123,6 @@ class TransportFeedbackAdapterTest : public ::testing::Test {
         packet_feedback.sent_packet.sequence_number,
         packet_feedback.sent_packet.send_time.ms(), rtc::PacketInfo()));
   }
-
-  static constexpr uint32_t kSsrc = 8492;
 
   SimulatedClock clock_;
   std::unique_ptr<TransportFeedbackAdapter> adapter_;

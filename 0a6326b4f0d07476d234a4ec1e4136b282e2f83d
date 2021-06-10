@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "602e80d6_2c065d63",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_demuxer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-10T10:53:30Z",
+      "side": 1,
+      "message": "this change looks unrelated, I would rather see it in a separate CL.\n\nthere are some subtle issues. for some operations unordered_map is actually slower than map. So to take a more careful measurements it is better not mix this shift with other changes.\n\nBesides, for this history_ it might be more efficient to use different structure: if span between min stored sequence number and max stored sequence number is small, then circular buffer would likely be much faster.)",
+      "range": {
+        "startLine": 37,
+        "startChar": 7,
+        "endLine": 37,
+        "endChar": 17
+      },
+      "revId": "0a6326b4f0d07476d234a4ec1e4136b282e2f83d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df5e4707_547c6b75",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_demuxer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-10T10:53:30Z",
+      "side": 1,
+      "message": "nit: separate \u0027using\u0027 section and \u0027constant(s)\u0027 section with an empty line",
+      "revId": "0a6326b4f0d07476d234a4ec1e4136b282e2f83d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfe46849_8125baa4",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_demuxer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-10T10:53:30Z",
+      "side": 1,
+      "message": "Unrelated to this change, but types for the sequence numbers looks odd...\nrtp_sequence_number in particular (I would expect it to be uint16_t).\n\nint64_t is reasonable as long as it represents unwrapped sequence number",
+      "range": {
+        "startLine": 34,
+        "startChar": 31,
+        "endLine": 35,
+        "endChar": 38
+      },
+      "revId": "0a6326b4f0d07476d234a4ec1e4136b282e2f83d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0481790b_f00f4509",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_demuxer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-10T10:53:30Z",
+      "side": 1,
+      "message": "over time I find this construct hard to read.\nHere it is still ok, not that much text to scroll up to see what each parameter mean. but with more text, with more code between call to CreatePacket and it\u0027s definition, the meaning of the parameter become cryptic.\n\nOne of the ways to address it is to annotate each non-obvious parameter:\ndemuxer.AddPacket(CraetePacket(kSsrc, /*rtp_sequence_number\u003d*/56, /*transport_sequence_number\u003d*/2, /*is_retransmission\u003d*/false));",
+      "range": {
+        "startLine": 52,
+        "startChar": 39,
+        "endLine": 52,
+        "endChar": 52
+      },
+      "revId": "0a6326b4f0d07476d234a4ec1e4136b282e2f83d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04c4ff55_aa614a1e",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-10T10:53:30Z",
+      "side": 1,
+      "message": "personally I find it easier to understand if conditions are in reverse order, i.e \u0027precondition\u0027 is written before \u0027conclusion\u0027.\n\n(I read this dcheck as \"if packet is a kRetransmission, then retransmitted_sequence_number must be set\")\n\nMay be even write it as such:\n  if (packet_type \u003d\u003d kRetransmission) {\n    DCHECK(packet-\u003ereturansmitted_sequnecne_number().has_value());\n  }",
+      "range": {
+        "startLine": 145,
+        "startChar": 13,
+        "endLine": 146,
+        "endChar": 73
+      },
+      "revId": "0a6326b4f0d07476d234a4ec1e4136b282e2f83d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d4a1ed5_7d54b07d",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-10T10:53:30Z",
+      "side": 1,
+      "message": "Can you avoid adding to bugs.webrtc.org/8694 ?\nwould it make sense to set ssrc to packet.Ssrc() here and ignore rtx ssrc later?",
+      "range": {
+        "startLine": 433,
+        "startChar": 20,
+        "endLine": 433,
+        "endChar": 28
+      },
+      "revId": "0a6326b4f0d07476d234a4ec1e4136b282e2f83d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9afcc16a_bd5dd642",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-10T10:53:30Z",
+      "side": 1,
+      "message": "nothing special about sequence number 0.\nmay be add a comment why do you set it to this \u0027magic number\u0027",
+      "range": {
+        "startLine": 434,
+        "startChar": 20,
+        "endLine": 434,
+        "endChar": 43
+      },
+      "revId": "0a6326b4f0d07476d234a4ec1e4136b282e2f83d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a4dfe6e_2d060e82",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 865,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-10T10:53:30Z",
+      "side": 1,
+      "message": "sequence numbers are normally 16 bits",
+      "range": {
+        "startLine": 865,
+        "startChar": 2,
+        "endLine": 865,
+        "endChar": 10
+      },
+      "revId": "0a6326b4f0d07476d234a4ec1e4136b282e2f83d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

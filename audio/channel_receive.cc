@@ -177,6 +177,9 @@ class ChannelReceive : public ChannelReceiveInterface {
       rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer)
       override;
 
+  void SetFrameDecryptor(rtc::scoped_refptr<webrtc::FrameDecryptorInterface>
+                             frame_decryptor) override;
+
  private:
   void ReceivePacket(const uint8_t* packet,
                      size_t packet_length,
@@ -275,10 +278,12 @@ class ChannelReceive : public ChannelReceiveInterface {
   SequenceChecker construction_thread_;
 
   // E2EE Audio Frame Decryption
-  rtc::scoped_refptr<FrameDecryptorInterface> frame_decryptor_;
+  rtc::scoped_refptr<FrameDecryptorInterface> frame_decryptor_
+      RTC_GUARDED_BY(worker_thread_checker_);
   webrtc::CryptoOptions crypto_options_;
 
-  webrtc::AbsoluteCaptureTimeInterpolator absolute_capture_time_interpolator_;
+  webrtc::AbsoluteCaptureTimeInterpolator absolute_capture_time_interpolator_
+      RTC_GUARDED_BY(worker_thread_checker_);
 
   webrtc::CaptureClockOffsetUpdater capture_clock_offset_updater_;
 
@@ -887,6 +892,11 @@ void ChannelReceive::SetDepacketizerToDecoderFrameTransformer(
   }
 
   InitFrameTransformerDelegate(std::move(frame_transformer));
+}
+
+void ChannelReceive::SetFrameDecryptor(
+    rtc::scoped_refptr<webrtc::FrameDecryptorInterface> frame_decryptor) {
+  RTC_NOTREACHED() << "TODO: implement.";
 }
 
 NetworkStatistics ChannelReceive::GetNetworkStatistics(

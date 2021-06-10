@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e33695fd_5fc3b339",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-10T06:53:06Z",
+      "side": 1,
+      "message": "Might as well ask for LGTM while I use internal-compile to flush out the internal configs that need changing.\n",
+      "revId": "2b008d283415ce50552d87a13d700db8267b5f03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

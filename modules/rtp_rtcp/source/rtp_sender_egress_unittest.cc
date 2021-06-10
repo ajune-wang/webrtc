@@ -854,6 +854,118 @@ TEST_P(RtpSenderEgressTest, SendPacketUpdatesStats) {
   EXPECT_EQ(rtx_stats.retransmitted.packets, 1u);
 }
 
+TEST_P(RtpSenderEgressTest, TransportFeedbackObserverWithRetransmission) {
+  const uint16_t kTransportSequenceNumber = 17;
+  header_extensions_.RegisterByUri(kTransportSequenceNumberExtensionId,
+                                   TransportSequenceNumber::kUri);
+  std::unique_ptr<RtpPacketToSend> retransmission = BuildRtpPacket();
+  retransmission->set_packet_type(RtpPacketMediaType::kRetransmission);
+  retransmission->SetExtension<TransportSequenceNumber>(
+      kTransportSequenceNumber);
+  uint32_t retransmitted_seq = retransmission->SequenceNumber() - 2;
+  retransmission->set_retransmitted_sequence_number(retransmitted_seq);
+
+  std::unique_ptr<RtpSenderEgress> sender = CreateRtpSenderEgress();
+  EXPECT_CALL(
+      feedback_observer_,
+      OnAddPacket(AllOf(
+          Field(&RtpPacketSendInfo::ssrc, kSsrc),
+          Field(&RtpPacketSendInfo::rtp_sequence_number, retransmitted_seq),
+          Field(&RtpPacketSendInfo::transport_sequence_number,
+                kTransportSequenceNumber))));
+  sender->SendPacket(retransmission.get(), PacedPacketInfo());
+}
+
+TEST_P(RtpSenderEgressTest, TransportFeedbackObserverWithRtxRetransmission) {
+  const uint16_t kTransportSequenceNumber = 17;
+  header_extensions_.RegisterByUri(kTransportSequenceNumberExtensionId,
+                                   TransportSequenceNumber::kUri);
+
+  std::unique_ptr<RtpPacketToSend> rtx_retransmission = BuildRtpPacket();
+  rtx_retransmission->SetSsrc(kRtxSsrc);
+  rtx_retransmission->SetExtension<TransportSequenceNumber>(
+      kTransportSequenceNumber);
+  rtx_retransmission->set_packet_type(RtpPacketMediaType::kRetransmission);
+  uint32_t rtx_retransmitted_seq = rtx_retransmission->SequenceNumber() - 2;
+  rtx_retransmission->set_retransmitted_sequence_number(rtx_retransmitted_seq);
+
+  std::unique_ptr<RtpSenderEgress> sender = CreateRtpSenderEgress();
+  EXPECT_CALL(
+      feedback_observer_,
+      OnAddPacket(AllOf(
+          Field(&RtpPacketSendInfo::ssrc, kSsrc),
+          Field(&RtpPacketSendInfo::rtp_sequence_number, rtx_retransmitted_seq),
+          Field(&RtpPacketSendInfo::transport_sequence_number,
+                kTransportSequenceNumber))));
+  sender->SendPacket(rtx_retransmission.get(), PacedPacketInfo());
+}
+
+TEST_P(RtpSenderEgressTest, TransportFeedbackObserverPadding) {
+  const uint16_t kTransportSequenceNumber = 17;
+  header_extensions_.RegisterByUri(kTransportSequenceNumberExtensionId,
+                                   TransportSequenceNumber::kUri);
+  std::unique_ptr<RtpPacketToSend> padding = BuildRtpPacket();
+  padding->SetPadding(224);
+  padding->set_packet_type(RtpPacketMediaType::kPadding);
+  padding->SetExtension<TransportSequenceNumber>(kTransportSequenceNumber);
+
+  std::unique_ptr<RtpSenderEgress> sender = CreateRtpSenderEgress();
+  EXPECT_CALL(
+      feedback_observer_,
+      OnAddPacket(AllOf(Field(&RtpPacketSendInfo::ssrc, 0u),
+                        Field(&RtpPacketSendInfo::rtp_sequence_number, 0u),
+                        Field(&RtpPacketSendInfo::transport_sequence_number,
+                              kTransportSequenceNumber))));
+  sender->SendPacket(padding.get(), PacedPacketInfo());
+}
+
+TEST_P(RtpSenderEgressTest, TransportFeedbackObserverRtxPadding) {
+  const uint16_t kTransportSequenceNumber = 17;
+  header_extensions_.RegisterByUri(kTransportSequenceNumberExtensionId,
+                                   TransportSequenceNumber::kUri);
+
+  std::unique_ptr<RtpPacketToSend> rtx_padding = BuildRtpPacket();
+  rtx_padding->SetPadding(224);
+  rtx_padding->SetSsrc(kRtxSsrc);
+  rtx_padding->set_packet_type(RtpPacketMediaType::kPadding);
+  rtx_padding->SetExtension<TransportSequenceNumber>(kTransportSequenceNumber);
+
+  std::unique_ptr<RtpSenderEgress> sender = CreateRtpSenderEgress();
+  EXPECT_CALL(
+      feedback_observer_,
+      OnAddPacket(AllOf(Field(&RtpPacketSendInfo::ssrc, 0u),
+                        Field(&RtpPacketSendInfo::rtp_sequence_number, 0u),
+                        Field(&RtpPacketSendInfo::transport_sequence_number,
+                              kTransportSequenceNumber))));
+  sender->SendPacket(rtx_padding.get(), PacedPacketInfo());
+}
+
+TEST_P(RtpSenderEgressTest, TransportFeedbackObserverFec) {
+  const uint16_t kTransportSequenceNumber = 17;
+  header_extensions_.RegisterByUri(kTransportSequenceNumberExtensionId,
+                                   TransportSequenceNumber::kUri);
+
+  std::unique_ptr<RtpPacketToSend> fec_packet = BuildRtpPacket();
+  fec_packet->SetSsrc(kFlexFecSsrc);
+  fec_packet->set_packet_type(RtpPacketMediaType::kForwardErrorCorrection);
+  fec_packet->SetExtension<TransportSequenceNumber>(kTransportSequenceNumber);
+
+  const rtc::ArrayView<const RtpExtensionSize> kNoRtpHeaderExtensionSizes;
+  FlexfecSender flexfec(kFlexfectPayloadType, kFlexFecSsrc, kSsrc, /*mid=*/"",
+                        /*header_extensions=*/{}, kNoRtpHeaderExtensionSizes,
+                        /*rtp_state=*/nullptr, time_controller_.GetClock());
+  RtpRtcpInterface::Configuration config = DefaultConfig();
+  config.fec_generator = &flexfec;
+  auto sender = std::make_unique<RtpSenderEgress>(config, &packet_history_);
+  EXPECT_CALL(
+      feedback_observer_,
+      OnAddPacket(AllOf(Field(&RtpPacketSendInfo::ssrc, 0u),
+                        Field(&RtpPacketSendInfo::rtp_sequence_number, 0u),
+                        Field(&RtpPacketSendInfo::transport_sequence_number,
+                              kTransportSequenceNumber))));
+  sender->SendPacket(fec_packet.get(), PacedPacketInfo());
+}
+
 INSTANTIATE_TEST_SUITE_P(WithAndWithoutOverhead,
                          RtpSenderEgressTest,
                          ::testing::Values(TestConfig(false),

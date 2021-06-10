@@ -142,6 +142,8 @@ void RtpSenderEgress::SendPacket(RtpPacketToSend* packet,
 
   RTC_DCHECK(packet->packet_type().has_value());
   RTC_DCHECK(HasCorrectSsrc(*packet));
+  RTC_DCHECK(packet->retransmitted_sequence_number() ||
+             packet->packet_type() != RtpPacketMediaType::kRetransmission);
 
   const uint32_t packet_ssrc = packet->Ssrc();
   const int64_t now_ms = clock_->TimeInMilliseconds();
@@ -409,13 +411,30 @@ void RtpSenderEgress::AddPacketToTransportFeedback(
     }
 
     RtpPacketSendInfo packet_info;
-    packet_info.ssrc = ssrc_;
     packet_info.transport_sequence_number = packet_id;
-    packet_info.rtp_sequence_number = packet.SequenceNumber();
     packet_info.rtp_timestamp = packet.Timestamp();
     packet_info.length = packet_size;
     packet_info.pacing_info = pacing_info;
     packet_info.packet_type = packet.packet_type();
+
+    switch (*packet_info.packet_type) {
+      case RtpPacketMediaType::kAudio:
+      case RtpPacketMediaType::kVideo:
+        packet_info.ssrc = ssrc_;
+        packet_info.rtp_sequence_number = packet.SequenceNumber();
+        break;
+      case RtpPacketMediaType::kRetransmission:
+        packet_info.ssrc = ssrc_;
+        packet_info.rtp_sequence_number =
+            *packet.retransmitted_sequence_number();
+        break;
+      case RtpPacketMediaType::kPadding:
+      case RtpPacketMediaType::kForwardErrorCorrection:
+        packet_info.ssrc = 0;
+        packet_info.rtp_sequence_number = 0;
+        break;
+    }
+
     transport_feedback_observer_->OnAddPacket(packet_info);
   }
 }

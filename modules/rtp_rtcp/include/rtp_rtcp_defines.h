@@ -270,6 +270,7 @@ class StreamFeedbackObserver {
     uint32_t ssrc;
     uint16_t rtp_sequence_number;
     bool received;
+    bool is_retransmission;
   };
   virtual ~StreamFeedbackObserver() = default;
 

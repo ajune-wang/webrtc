@@ -43,6 +43,8 @@ void TransportFeedbackDemuxer::AddPacket(const RtpPacketSendInfo& packet_info) {
     info.ssrc = packet_info.ssrc;
     info.rtp_sequence_number = packet_info.rtp_sequence_number;
     info.received = false;
+    info.is_retransmission =
+        packet_info.packet_type == RtpPacketMediaType::kRetransmission;
     history_.insert(
         {seq_num_unwrapper_.Unwrap(packet_info.transport_sequence_number),
          info});

@@ -10,7 +10,7 @@
 #ifndef MODULES_CONGESTION_CONTROLLER_RTP_TRANSPORT_FEEDBACK_DEMUXER_H_
 #define MODULES_CONGESTION_CONTROLLER_RTP_TRANSPORT_FEEDBACK_DEMUXER_H_
 
-#include <map>
+#include <unordered_map>
 #include <utility>
 #include <vector>
 
@@ -34,7 +34,7 @@ class TransportFeedbackDemuxer : public StreamFeedbackProvider {
  private:
   Mutex lock_;
   SequenceNumberUnwrapper seq_num_unwrapper_ RTC_GUARDED_BY(&lock_);
-  std::map<int64_t, StreamFeedbackObserver::StreamPacketInfo> history_
+  std::unordered_map<int64_t, StreamFeedbackObserver::StreamPacketInfo> history_
       RTC_GUARDED_BY(&lock_);
 
   // Maps a set of ssrcs to corresponding observer. Vectors are used rather than

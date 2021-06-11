@@ -102,6 +102,9 @@ class FakeAudioReceiveStream final : public webrtc::AudioReceiveStream {
 
  private:
   // webrtc::AudioReceiveStream implementation.
+  webrtc::MediaType media_type() const override {
+    return webrtc::MediaType::AUDIO;
+  }
   void Start() override { started_ = true; }
   void Stop() override { started_ = false; }
   bool IsRunning() const override { return started_; }
@@ -251,6 +254,7 @@ class FakeVideoReceiveStream final : public webrtc::VideoReceiveStream {
 
  private:
   // webrtc::VideoReceiveStream implementation.
+  webrtc::MediaType media_type() const override;
   void Start() override;
   void Stop() override;
 

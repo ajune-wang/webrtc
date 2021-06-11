@@ -123,6 +123,10 @@ void FakeAudioReceiveStream::SetRtpExtensions(
   config_.rtp.extensions = std::move(extensions);
 }
 
+void FakeAudioReceiveStream::SetLocalSsrc(uint32_t local_ssrc) {
+  config_.rtp.local_ssrc = local_ssrc;
+}
+
 webrtc::AudioReceiveStream::Stats FakeAudioReceiveStream::GetStats(
     bool get_and_clear_legacy_stats) const {
   return stats_;

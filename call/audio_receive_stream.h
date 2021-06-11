@@ -160,6 +160,9 @@ class AudioReceiveStream : public MediaReceiveStream {
   // delivery thread.
   virtual void SetRtpExtensions(std::vector<RtpExtension> extensions) = 0;
 
+  // Set/change the local ssrc. Must be called on the packet delivery thread.
+  virtual void SetLocalSsrc(uint32_t local_ssrc) = 0;
+
   // Returns true if the stream has been started.
   virtual bool IsRunning() const = 0;
 

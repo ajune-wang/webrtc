@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ec5bd9a_45f7e5f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-11T13:05:32Z",
+      "side": 1,
+      "message": "Using the API split to impose some discipline.\n",
+      "revId": "a4fe55f6f67ac036daf1b5d9380ad4bb717d0215",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd604278_57d99c08",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-11T10:33:44Z",
+      "side": 1,
+      "message": "put the constant into unnamed namespace, or mark it static\nto avoid potential collisions with same named constant in some other compilation unit.\n(side note: there seems to be too many namespaces in this file,\nmay be removing subnamespace test and puting everything into unnamed namespace would make it easier to spot the right place for the constants)",
+      "revId": "803502b69eb07cdcb52b6eca0dba2c79b3c09add",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4244724_0af623b6",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-11T10:33:44Z",
+      "side": 1,
+      "message": "is StreamPacketInfo is helpful at all when \u0027received\u0027 is the only valid member?",
+      "range": {
+        "startLine": 272,
+        "startChar": 4,
+        "endLine": 273,
+        "endChar": 20
+      },
+      "revId": "803502b69eb07cdcb52b6eca0dba2c79b3c09add",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

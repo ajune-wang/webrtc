@@ -255,6 +255,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "255df336_cf23e393",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-11T10:33:44Z",
+      "side": 1,
+      "message": "yes, optional looks good.",
+      "parentUuid": "b55bbdf6_a636fc25",
+      "range": {
+        "startLine": 433,
+        "startChar": 20,
+        "endLine": 433,
+        "endChar": 28
+      },
+      "revId": "0a6326b4f0d07476d234a4ec1e4136b282e2f83d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "9afcc16a_bd5dd642",
         "filename": "modules/rtp_rtcp/source/rtp_sender_egress.cc",
         "patchSetId": 1

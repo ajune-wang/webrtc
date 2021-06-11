@@ -16,6 +16,69 @@
       "message": "looks good? I *think* I don\u0027t need to check for local_description and remote_description being null at at point.",
       "revId": "b7debe5491badd06edad48748d0bfd143f51b232",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ca1b35e_19aacdb2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9067
+      },
+      "writtenOn": "2021-06-11T09:46:52Z",
+      "side": 1,
+      "message": "LGTM % comments",
+      "revId": "b7debe5491badd06edad48748d0bfd143f51b232",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90783db2_ace28e4d",
+        "filename": "api/uma_metrics.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 9067
+      },
+      "writtenOn": "2021-06-11T09:46:52Z",
+      "side": 1,
+      "message": "Append this to the comment:\n// These values are persisted to logs. Entries should not be renumbered and\n// numeric values should never be reused.",
+      "range": {
+        "startLine": 205,
+        "startChar": 0,
+        "endLine": 206,
+        "endChar": 65
+      },
+      "revId": "b7debe5491badd06edad48748d0bfd143f51b232",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11eccc2c_8a3b5aa0",
+        "filename": "api/uma_metrics.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 9067
+      },
+      "writtenOn": "2021-06-11T09:46:52Z",
+      "side": 1,
+      "message": "Change to enum class with entries\nkNotUsed \u003d 0,\nkLocal \u003d 1,\netc",
+      "range": {
+        "startLine": 207,
+        "startChar": 0,
+        "endLine": 207,
+        "endChar": 27
+      },
+      "revId": "b7debe5491badd06edad48748d0bfd143f51b232",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

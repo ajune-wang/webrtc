@@ -124,6 +124,7 @@ class VideoReceiveStream2
   void SetSync(Syncable* audio_syncable);
 
   // Implements webrtc::VideoReceiveStream.
+  MediaType media_type() const override { return MediaType::VIDEO; }
   void Start() override;
   void Stop() override;
 

@@ -104,6 +104,7 @@ std::string RtpDemuxer::DescribePacket(const RtpPacketReceived& packet) {
 RtpDemuxer::RtpDemuxer(bool use_mid /* = true*/) : use_mid_(use_mid) {}
 
 RtpDemuxer::~RtpDemuxer() {
+  RTC_LOG(LS_ERROR) << "DEBUG: sink_by_mid_ size " << sink_by_mid_.size();
   RTC_DCHECK(sink_by_mid_.empty());
   RTC_DCHECK(sink_by_ssrc_.empty());
   RTC_DCHECK(sinks_by_pt_.empty());

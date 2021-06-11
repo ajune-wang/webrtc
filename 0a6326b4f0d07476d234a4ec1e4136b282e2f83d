@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "ed1fab15_1492efe1",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_demuxer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-06-11T07:44:35Z",
+      "side": 1,
+      "message": "Fair point, reverted.",
+      "parentUuid": "602e80d6_2c065d63",
+      "range": {
+        "startLine": 37,
+        "startChar": 7,
+        "endLine": 37,
+        "endChar": 17
+      },
+      "revId": "0a6326b4f0d07476d234a4ec1e4136b282e2f83d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "df5e4707_547c6b75",
         "filename": "modules/congestion_controller/rtp/transport_feedback_demuxer_unittest.cc",
         "patchSetId": 1
@@ -64,6 +88,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5feb0d3b_aa08299f",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_demuxer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-06-11T07:44:35Z",
+      "side": 1,
+      "message": "Yeah, that looks like a typo. Fixed it.\nI believe transport seq is unwrapped, yes.",
+      "parentUuid": "bfe46849_8125baa4",
+      "range": {
+        "startLine": 34,
+        "startChar": 31,
+        "endLine": 35,
+        "endChar": 38
+      },
+      "revId": "0a6326b4f0d07476d234a4ec1e4136b282e2f83d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0481790b_f00f4509",
@@ -77,6 +125,30 @@
       "writtenOn": "2021-06-10T10:53:30Z",
       "side": 1,
       "message": "over time I find this construct hard to read.\nHere it is still ok, not that much text to scroll up to see what each parameter mean. but with more text, with more code between call to CreatePacket and it\u0027s definition, the meaning of the parameter become cryptic.\n\nOne of the ways to address it is to annotate each non-obvious parameter:\ndemuxer.AddPacket(CraetePacket(kSsrc, /*rtp_sequence_number\u003d*/56, /*transport_sequence_number\u003d*/2, /*is_retransmission\u003d*/false));",
+      "range": {
+        "startLine": 52,
+        "startChar": 39,
+        "endLine": 52,
+        "endChar": 52
+      },
+      "revId": "0a6326b4f0d07476d234a4ec1e4136b282e2f83d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98316a0a_53c3036e",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_demuxer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-06-11T07:44:35Z",
+      "side": 1,
+      "message": "Added named constants and offsets, referenced both here and in the verification below.",
+      "parentUuid": "0481790b_f00f4509",
       "range": {
         "startLine": 52,
         "startChar": 39,
@@ -110,6 +182,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca20eb8c_e75baf4c",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-06-11T07:44:35Z",
+      "side": 1,
+      "message": "Change to if statement.",
+      "parentUuid": "04c4ff55_aa614a1e",
+      "range": {
+        "startLine": 145,
+        "startChar": 13,
+        "endLine": 146,
+        "endChar": 73
+      },
+      "revId": "0a6326b4f0d07476d234a4ec1e4136b282e2f83d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1d4a1ed5_7d54b07d",
@@ -123,6 +219,30 @@
       "writtenOn": "2021-06-10T10:53:30Z",
       "side": 1,
       "message": "Can you avoid adding to bugs.webrtc.org/8694 ?\nwould it make sense to set ssrc to packet.Ssrc() here and ignore rtx ssrc later?",
+      "range": {
+        "startLine": 433,
+        "startChar": 20,
+        "endLine": 433,
+        "endChar": 28
+      },
+      "revId": "0a6326b4f0d07476d234a4ec1e4136b282e2f83d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b55bbdf6_a636fc25",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-06-11T07:44:35Z",
+      "side": 1,
+      "message": "If get\u0027s tricky to reason about what\u0027s the right thing to do if I defer that to later. E.g. it\u0027s not enough to see if it\u0027s the rtx ssrc, we\u0027d need to propagate the packet type and move this whole switch to rtp_video_sender, where testing is really difficult.\nI\u0027ll make this field an optional instead, ok?",
+      "parentUuid": "1d4a1ed5_7d54b07d",
       "range": {
         "startLine": 433,
         "startChar": 20,
@@ -169,6 +289,30 @@
       "writtenOn": "2021-06-10T10:53:30Z",
       "side": 1,
       "message": "sequence numbers are normally 16 bits",
+      "range": {
+        "startLine": 865,
+        "startChar": 2,
+        "endLine": 865,
+        "endChar": 10
+      },
+      "revId": "0a6326b4f0d07476d234a4ec1e4136b282e2f83d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99c1844f_bb83e379",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 865,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-06-11T07:44:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a4dfe6e_2d060e82",
       "range": {
         "startLine": 865,
         "startChar": 2,

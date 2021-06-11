@@ -1218,7 +1218,7 @@ class WebRtcVoiceMediaChannel::WebRtcAudioReceiveStream {
       rtc::scoped_refptr<webrtc::FrameDecryptorInterface> frame_decryptor) {
     RTC_DCHECK_RUN_ON(&worker_thread_checker_);
     config_.frame_decryptor = frame_decryptor;
-    RecreateAudioReceiveStream();
+    stream_->SetFrameDecryptor(std::move(frame_decryptor));
   }
 
   void SetLocalSsrc(uint32_t local_ssrc) {
@@ -1242,6 +1242,8 @@ class WebRtcVoiceMediaChannel::WebRtcAudioReceiveStream {
       const std::vector<webrtc::RtpExtension>& extensions) {
     RTC_DCHECK_RUN_ON(&worker_thread_checker_);
     config_.rtp.extensions = extensions;
+
+    // stream_->SetRtpExtensions(extensions);
     RecreateAudioReceiveStream();
   }
 
@@ -1472,6 +1474,8 @@ bool WebRtcVoiceMediaChannel::SetRecvParameters(
   if (recv_rtp_extensions_ != filtered_extensions) {
     recv_rtp_extensions_.swap(filtered_extensions);
     for (auto& it : recv_streams_) {
+      // TODO(tommi): See if it's actually necessary to set this on the stream
+      // or if we should rather update Call's data for these streams.
       it.second->SetRtpExtensionsAndRecreateStream(recv_rtp_extensions_);
     }
   }
@@ -1567,6 +1571,7 @@ webrtc::RtpParameters WebRtcVoiceMediaChannel::GetRtpReceiveParameters(
     return webrtc::RtpParameters();
   }
   rtp_params = it->second->GetRtpParameters();
+  RTC_DCHECK(rtp_params.header_extensions == recv_rtp_extensions_);
 
   for (const AudioCodec& codec : recv_codecs_) {
     rtp_params.codecs.push_back(codec.ToCodecParameters());

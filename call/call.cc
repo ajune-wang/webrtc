@@ -413,26 +413,38 @@ class Call final : public webrtc::Call,
   // TODO(nisse): In the RTP transport refactoring, we should have a
   // single mapping from ssrc to a more abstract receive stream, with
   // accessor methods for all configuration we need at this level.
-  struct ReceiveRtpConfig {
+  class ReceiveRtpConfig {
+   public:
     explicit ReceiveRtpConfig(const webrtc::AudioReceiveStream::Config& config)
-        : extensions(config.rtp.extensions),
-          use_send_side_bwe(UseSendSideBwe(config)) {}
+        : extensions_(config.rtp.extensions),
+          use_send_side_bwe_(UseSendSideBwe(config)) {}
     explicit ReceiveRtpConfig(const webrtc::VideoReceiveStream::Config& config)
-        : extensions(config.rtp.extensions),
-          use_send_side_bwe(UseSendSideBwe(config)) {}
+        : extensions_(config.rtp.extensions),
+          use_send_side_bwe_(UseSendSideBwe(config)) {}
     explicit ReceiveRtpConfig(const FlexfecReceiveStream::Config& config)
-        : extensions(config.rtp_header_extensions),
-          use_send_side_bwe(UseSendSideBwe(config)) {}
+        : extensions_(config.rtp_header_extensions),
+          use_send_side_bwe_(UseSendSideBwe(config)) {}
 
+    ReceiveRtpConfig(ReceiveRtpConfig&& other) = default;
+
+    const RtpHeaderExtensionMap& extensions() const { return extensions_; }
+
+    bool use_send_side_bwe() const { return use_send_side_bwe_; }
+
+   private:
     // Registered RTP header extensions for each stream. Note that RTP header
     // extensions are negotiated per track ("m= line") in the SDP, but we have
     // no notion of tracks at the Call level. We therefore store the RTP header
     // extensions per SSRC instead, which leads to some storage overhead.
-    const RtpHeaderExtensionMap extensions;
+    RtpHeaderExtensionMap extensions_;
     // Set if both RTP extension the RTCP feedback message needed for
     // send side BWE are negotiated.
-    const bool use_send_side_bwe;
+    const bool use_send_side_bwe_;
   };
+
+  void RegisterRtpConfig(uint32_t ssrc, ReceiveRtpConfig config)
+      RTC_RUN_ON(worker_thread_);
+  bool IdentifyExtensions(RtpPacketReceived& packet) RTC_RUN_ON(worker_thread_);
 
   // TODO(bugs.webrtc.org/11993): Move receive_rtp_config_ over to the
   // network thread.
@@ -906,6 +918,33 @@ PacketReceiver* Call::Receiver() {
   return this;
 }
 
+// RTC_RUN_ON(worker_thread_)
+void Call::RegisterRtpConfig(uint32_t ssrc, ReceiveRtpConfig config) {
+  // TODO(bugs.webrtc.org/11993): This should run on the network thread.
+  RTC_DCHECK(receive_rtp_config_.find(ssrc) == receive_rtp_config_.end());
+  receive_rtp_config_.emplace(ssrc, std::move(config));
+}
+
+// RTC_RUN_ON(worker_thread_)
+bool Call::IdentifyExtensions(RtpPacketReceived& packet) {
+  // TODO(bugs.webrtc.org/11993): This should run on the network thread.
+  auto it = receive_rtp_config_.find(packet.Ssrc());
+  if (it == receive_rtp_config_.end()) {
+    RTC_LOG(LS_ERROR) << "receive_rtp_config_ lookup failed for ssrc "
+                      << packet.Ssrc();
+    // Destruction of the receive stream, including deregistering from the
+    // RtpDemuxer, is not protected by the |worker_thread_|.
+    // But deregistering in the |receive_rtp_config_| map is. So by not
+    // passing the packet on to demuxing in this case, we prevent incoming
+    // packets to be passed on via the demuxer to a receive stream which is
+    // being torned down.
+    return false;
+  }
+
+  packet.IdentifyExtensions(it->second.extensions());
+  return true;
+}
+
 webrtc::AudioSendStream* Call::CreateAudioSendStream(
     const webrtc::AudioSendStream::Config& config) {
   TRACE_EVENT0("webrtc", "Call::CreateAudioSendStream");
@@ -995,7 +1034,7 @@ webrtc::AudioReceiveStream* Call::CreateAudioReceiveStream(
   // TODO(bugs.webrtc.org/11993): Update the below on the network thread.
   // We could possibly set up the audio_receiver_controller_ association up
   // as part of the async setup.
-  receive_rtp_config_.emplace(config.rtp.remote_ssrc, ReceiveRtpConfig(config));
+  RegisterRtpConfig(config.rtp.remote_ssrc, ReceiveRtpConfig(config));
 
   ConfigureSync(config.sync_group);
 
@@ -1177,9 +1216,9 @@ webrtc::VideoReceiveStream* Call::CreateVideoReceiveStream(
     // stream. Since the transport_send_cc negotiation is per payload
     // type, we may get an incorrect value for the rtx stream, but
     // that is unlikely to matter in practice.
-    receive_rtp_config_.emplace(config.rtp.rtx_ssrc, ReceiveRtpConfig(config));
+    RegisterRtpConfig(config.rtp.rtx_ssrc, ReceiveRtpConfig(config));
   }
-  receive_rtp_config_.emplace(config.rtp.remote_ssrc, ReceiveRtpConfig(config));
+  RegisterRtpConfig(config.rtp.remote_ssrc, ReceiveRtpConfig(config));
   video_receive_streams_.insert(receive_stream);
   ConfigureSync(config.sync_group);
 
@@ -1240,10 +1279,7 @@ FlexfecReceiveStream* Call::CreateFlexfecReceiveStream(
   // TODO(bugs.webrtc.org/11993): Set this up asynchronously on the network
   // thread.
   receive_stream->RegisterWithTransport(&video_receiver_controller_);
-
-  RTC_DCHECK(receive_rtp_config_.find(config.remote_ssrc) ==
-             receive_rtp_config_.end());
-  receive_rtp_config_.emplace(config.remote_ssrc, ReceiveRtpConfig(config));
+  RegisterRtpConfig(config.remote_ssrc, ReceiveRtpConfig(config));
 
   // TODO(brandtr): Store config in RtcEventLog here.
 
@@ -1579,19 +1615,8 @@ PacketReceiver::DeliveryStatus Call::DeliverRtp(MediaType media_type,
   RTC_DCHECK(media_type == MediaType::AUDIO || media_type == MediaType::VIDEO ||
              is_keep_alive_packet);
 
-  auto it = receive_rtp_config_.find(parsed_packet.Ssrc());
-  if (it == receive_rtp_config_.end()) {
-    RTC_LOG(LS_ERROR) << "receive_rtp_config_ lookup failed for ssrc "
-                      << parsed_packet.Ssrc();
-    // Destruction of the receive stream, including deregistering from the
-    // RtpDemuxer, is not protected by the |worker_thread_|.
-    // But deregistering in the |receive_rtp_config_| map is. So by not passing
-    // the packet on to demuxing in this case, we prevent incoming packets to be
-    // passed on via the demuxer to a receive stream which is being torned down.
+  if (!IdentifyExtensions(parsed_packet))
     return DELIVERY_UNKNOWN_SSRC;
-  }
-
-  parsed_packet.IdentifyExtensions(it->second.extensions);
 
   NotifyBweOfReceivedPacket(parsed_packet, media_type);
 
@@ -1644,19 +1669,8 @@ void Call::OnRecoveredPacket(const uint8_t* packet, size_t length) {
 
   parsed_packet.set_recovered(true);
 
-  auto it = receive_rtp_config_.find(parsed_packet.Ssrc());
-  if (it == receive_rtp_config_.end()) {
-    RTC_LOG(LS_ERROR) << "receive_rtp_config_ lookup failed for ssrc "
-                      << parsed_packet.Ssrc();
-    // Destruction of the receive stream, including deregistering from the
-    // RtpDemuxer, is not protected by the |worker_thread_|.
-    // But deregistering in the |receive_rtp_config_| map is.
-    // So by not passing the packet on to demuxing in this case, we prevent
-    // incoming packets to be passed on via the demuxer to a receive stream
-    // which is being torn down.
+  if (!IdentifyExtensions(parsed_packet))
     return;
-  }
-  parsed_packet.IdentifyExtensions(it->second.extensions);
 
   // TODO(brandtr): Update here when we support protecting audio packets too.
   parsed_packet.set_payload_type_frequency(kVideoPayloadTypeFrequency);
@@ -1668,7 +1682,7 @@ void Call::NotifyBweOfReceivedPacket(const RtpPacketReceived& packet,
                                      MediaType media_type) {
   auto it = receive_rtp_config_.find(packet.Ssrc());
   bool use_send_side_bwe =
-      (it != receive_rtp_config_.end()) && it->second.use_send_side_bwe;
+      (it != receive_rtp_config_.end()) && it->second.use_send_side_bwe();
 
   RTPHeader header;
   packet.GetHeader(&header);

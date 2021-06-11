@@ -27,9 +27,9 @@ using ::testing::_;
 using ::testing::Invoke;
 
 namespace webrtc {
-namespace webrtc_cc {
 
 namespace {
+constexpr uint32_t kSsrc = 8492;
 const PacedPacketInfo kPacingInfo0(0, 5, 2000);
 const PacedPacketInfo kPacingInfo1(1, 8, 4000);
 const PacedPacketInfo kPacingInfo2(2, 14, 7000);
@@ -77,10 +77,6 @@ PacketResult CreatePacket(int64_t receive_time_ms,
   return res;
 }
 
-}  // namespace
-
-namespace test {
-
 class MockStreamFeedbackObserver : public webrtc::StreamFeedbackObserver {
  public:
   MOCK_METHOD(void,
@@ -88,6 +84,8 @@ class MockStreamFeedbackObserver : public webrtc::StreamFeedbackObserver {
               (std::vector<StreamPacketInfo> packet_feedback_vector),
               (override));
 };
+
+}  // namespace
 
 class TransportFeedbackAdapterTest : public ::testing::Test {
  public:
@@ -121,8 +119,6 @@ class TransportFeedbackAdapterTest : public ::testing::Test {
         packet_feedback.sent_packet.sequence_number,
         packet_feedback.sent_packet.send_time.ms(), rtc::PacketInfo()));
   }
-
-  static constexpr uint32_t kSsrc = 8492;
 
   SimulatedClock clock_;
   std::unique_ptr<TransportFeedbackAdapter> adapter_;
@@ -412,6 +408,4 @@ TEST_F(TransportFeedbackAdapterTest, IgnoreDuplicatePacketSentCalls) {
   EXPECT_FALSE(duplicate_packet.has_value());
 }
 
-}  // namespace test
-}  // namespace webrtc_cc
 }  // namespace webrtc

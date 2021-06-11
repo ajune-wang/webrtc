@@ -228,8 +228,8 @@ struct RtpPacketSendInfo {
   RtpPacketSendInfo() = default;
 
   uint16_t transport_sequence_number = 0;
-  uint32_t ssrc = 0;
-  uint16_t rtp_sequence_number = 0;
+  absl::optional<uint32_t> ssrc;
+  uint16_t rtp_sequence_number = 0;  // Only valid if |ssrc| is set.
   uint32_t rtp_timestamp = 0;
   size_t length = 0;
   absl::optional<RtpPacketMediaType> packet_type;
@@ -267,9 +267,13 @@ class RtcpFeedbackSenderInterface {
 class StreamFeedbackObserver {
  public:
   struct StreamPacketInfo {
-    uint32_t ssrc;
-    uint16_t rtp_sequence_number;
     bool received;
+
+    // |rtp_sequence_number| and |is_retransmission| are only valid if |ssrc|
+    // is populated.
+    absl::optional<uint32_t> ssrc;
+    uint16_t rtp_sequence_number;
+    bool is_retransmission;
   };
   virtual ~StreamFeedbackObserver() = default;
 

@@ -46,6 +46,30 @@
       },
       "revId": "904617c10810f74e579da1bfeacf3ce51e54f785",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "acf7e07b_54371b56",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 5670
+      },
+      "writtenOn": "2021-06-11T14:46:40Z",
+      "side": 1,
+      "message": "Thanks Sergey. I have updated the patch to cover the null case properly.",
+      "parentUuid": "514207d6_6108f1f7",
+      "range": {
+        "startLine": 726,
+        "startChar": 31,
+        "endLine": 726,
+        "endChar": 61
+      },
+      "revId": "904617c10810f74e579da1bfeacf3ce51e54f785",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

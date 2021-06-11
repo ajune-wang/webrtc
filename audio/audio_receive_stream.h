@@ -82,6 +82,7 @@ class AudioReceiveStream final : public webrtc::AudioReceiveStream,
   void UnregisterFromTransport();
 
   // webrtc::AudioReceiveStream implementation.
+  MediaType media_type() const override { return MediaType::AUDIO; }
   void Start() override;
   void Stop() override;
   bool IsRunning() const override;

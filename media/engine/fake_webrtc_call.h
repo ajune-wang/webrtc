@@ -117,6 +117,7 @@ class FakeAudioReceiveStream final : public webrtc::AudioReceiveStream {
   void SetFrameDecryptor(rtc::scoped_refptr<webrtc::FrameDecryptorInterface>
                              frame_decryptor) override;
   void SetRtpExtensions(std::vector<webrtc::RtpExtension> extensions) override;
+  void SetLocalSsrc(uint32_t local_ssrc) override;
 
   webrtc::AudioReceiveStream::Stats GetStats(
       bool get_and_clear_legacy_stats) const override;

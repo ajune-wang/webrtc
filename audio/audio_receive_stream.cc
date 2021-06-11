@@ -262,6 +262,11 @@ void AudioReceiveStream::SetRtpExtensions(
   config_.rtp.extensions = std::move(extensions);
 }
 
+void AudioReceiveStream::SetLocalSsrc(uint32_t local_ssrc) {
+  RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
+  config_.rtp.local_ssrc = local_ssrc;
+}
+
 webrtc::AudioReceiveStream::Stats AudioReceiveStream::GetStats(
     bool get_and_clear_legacy_stats) const {
   RTC_DCHECK_RUN_ON(&worker_thread_checker_);
@@ -443,6 +448,13 @@ void AudioReceiveStream::DeliverRtcp(const uint8_t* packet, size_t length) {
   // thread. Then this check can be enabled.
   // RTC_DCHECK(!thread_checker_.IsCurrent());
   channel_receive_->ReceivedRTCPPacket(packet, length);
+}
+
+uint32_t AudioReceiveStream::local_ssrc() const {
+  RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
+  // The local_ssrc member variable of config_ may change and when it does
+  // it must be on the packet delivery thread.
+  return config_.rtp.local_ssrc;
 }
 
 const webrtc::AudioReceiveStream::Config& AudioReceiveStream::config() const {

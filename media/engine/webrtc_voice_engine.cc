@@ -1225,7 +1225,7 @@ class WebRtcVoiceMediaChannel::WebRtcAudioReceiveStream {
     RTC_DCHECK_RUN_ON(&worker_thread_checker_);
     if (local_ssrc != config_.rtp.local_ssrc) {
       config_.rtp.local_ssrc = local_ssrc;
-      RecreateAudioReceiveStream();
+      stream_->SetLocalSsrc(local_ssrc);
     }
   }
 

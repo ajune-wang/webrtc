@@ -985,6 +985,7 @@ webrtc::AudioReceiveStream* Call::CreateAudioReceiveStream(
       clock_, transport_send_->packet_router(),
       module_process_thread_->process_thread(), config_.neteq_factory, config,
       config_.audio_state, event_log_);
+  RTC_DCHECK_EQ(receive_stream->media_type(), MediaType::AUDIO);
   audio_receive_streams_.insert(receive_stream);
 
   // TODO(bugs.webrtc.org/11993): Make the registration on the network thread
@@ -1167,6 +1168,7 @@ webrtc::VideoReceiveStream* Call::CreateVideoReceiveStream(
       transport_send_->packet_router(), std::move(configuration),
       module_process_thread_->process_thread(), call_stats_.get(), clock_,
       new VCMTiming(clock_));
+  RTC_DCHECK_EQ(receive_stream->media_type(), MediaType::VIDEO);
   // TODO(bugs.webrtc.org/11993): Set this up asynchronously on the network
   // thread.
   receive_stream->RegisterWithTransport(&video_receiver_controller_);

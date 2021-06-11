@@ -363,6 +363,10 @@ webrtc::VideoReceiveStream::Stats FakeVideoReceiveStream::GetStats() const {
   return stats_;
 }
 
+webrtc::MediaType FakeVideoReceiveStream::media_type() const {
+  return webrtc::MediaType::VIDEO;
+}
+
 void FakeVideoReceiveStream::Start() {
   receiving_ = true;
 }

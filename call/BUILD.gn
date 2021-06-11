@@ -323,6 +323,7 @@ rtc_library("call") {
 
 rtc_library("video_stream_api") {
   sources = [
+    "receive_stream.h",  # This isn't video specific.
     "video_receive_stream.cc",
     "video_receive_stream.h",
     "video_send_stream.cc",

@@ -20,17 +20,14 @@
 #include "api/audio_codecs/audio_decoder_factory.h"
 #include "api/call/transport.h"
 #include "api/crypto/crypto_options.h"
-#include "api/crypto/frame_decryptor_interface.h"
-#include "api/frame_transformer_interface.h"
 #include "api/rtp_parameters.h"
-#include "api/scoped_refptr.h"
-#include "api/transport/rtp/rtp_source.h"
+#include "call/receive_stream.h"
 #include "call/rtp_config.h"
 
 namespace webrtc {
 class AudioSinkInterface;
 
-class AudioReceiveStream {
+class AudioReceiveStream : public ReceiveStream {
  public:
   struct Stats {
     Stats();
@@ -171,21 +168,9 @@ class AudioReceiveStream {
   };
 
   // Methods that support reconfiguring the stream post initialization.
-  virtual void SetDepacketizerToDecoderFrameTransformer(
-      rtc::scoped_refptr<webrtc::FrameTransformerInterface>
-          frame_transformer) = 0;
   virtual void SetDecoderMap(std::map<int, SdpAudioFormat> decoder_map) = 0;
   virtual void SetUseTransportCcAndNackHistory(bool use_transport_cc,
                                                int history_ms) = 0;
-  virtual void SetFrameDecryptor(
-      rtc::scoped_refptr<webrtc::FrameDecryptorInterface> frame_decryptor) = 0;
-
-  // Starts stream activity.
-  // When a stream is active, it can receive, process and deliver packets.
-  virtual void Start() = 0;
-  // Stops stream activity.
-  // When a stream is stopped, it can't receive, process or deliver packets.
-  virtual void Stop() = 0;
 
   // Returns true if the stream has been started.
   virtual bool IsRunning() const = 0;
@@ -214,8 +199,6 @@ class AudioReceiveStream {
 
   // Returns current value of base minimum delay in milliseconds.
   virtual int GetBaseMinimumPlayoutDelayMs() const = 0;
-
-  virtual std::vector<RtpSource> GetSources() const = 0;
 
  protected:
   virtual ~AudioReceiveStream() {}

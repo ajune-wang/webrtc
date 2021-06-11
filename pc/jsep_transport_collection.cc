@@ -55,7 +55,9 @@ void JsepTransportCollection::RegisterTransport(
     const std::string& mid,
     std::unique_ptr<cricket::JsepTransport> transport) {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
+  SetTransportForMid(mid, transport.get());
   jsep_transports_by_name_[mid] = std::move(transport);
+  RTC_DCHECK(IsConsistent());
 }
 
 std::vector<cricket::JsepTransport*> JsepTransportCollection::Transports() {
@@ -73,6 +75,7 @@ void JsepTransportCollection::DestroyAllTransports() {
     map_change_callback_(jsep_transport.first, nullptr);
   }
   jsep_transports_by_name_.clear();
+  RTC_DCHECK(IsConsistent());
 }
 
 const cricket::JsepTransport* JsepTransportCollection::GetTransportByName(
@@ -118,8 +121,11 @@ bool JsepTransportCollection::SetTransportForMid(
   if (it == mid_to_transport_.end()) {
     mid_to_transport_.insert(std::make_pair(mid, jsep_transport));
   } else {
+    auto old_transport = it->second;
     it->second = jsep_transport;
+    MaybeDestroyJsepTransport(old_transport);
   }
+  RTC_DCHECK(IsConsistent());
 
   return map_change_callback_(mid, jsep_transport);
 }
@@ -131,16 +137,18 @@ void JsepTransportCollection::RemoveTransportForMid(const std::string& mid) {
   // only expected to fail when adding media to a transport (not removing).
   RTC_DCHECK(ret);
 
-  mid_to_transport_.erase(mid);
+  auto old_transport = GetTransportForMid(mid);
+  if (old_transport) {
+    mid_to_transport_.erase(mid);
+    MaybeDestroyJsepTransport(old_transport);
+  }
+  RTC_DCHECK(IsConsistent());
 }
 
 void JsepTransportCollection::RollbackTransports() {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
   for (auto&& mid : pending_mids_) {
     RemoveTransportForMid(mid);
-  }
-  for (auto&& mid : pending_mids_) {
-    MaybeDestroyJsepTransport(mid);
   }
   pending_mids_.clear();
 }
@@ -162,21 +170,37 @@ bool JsepTransportCollection::TransportInUse(
 }
 
 void JsepTransportCollection::MaybeDestroyJsepTransport(
-    const std::string& mid) {
+    cricket::JsepTransport* transport) {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
-  auto it = jsep_transports_by_name_.find(mid);
-  if (it == jsep_transports_by_name_.end()) {
-    return;
-  }
-
   // Don't destroy the JsepTransport if there are still media sections referring
   // to it.
-  if (TransportInUse(it->second.get())) {
+  if (TransportInUse(transport)) {
     return;
   }
+  for (const auto& it : jsep_transports_by_name_) {
+    if (it.second.get() == transport) {
+      jsep_transports_by_name_.erase(it.first);
+      state_change_callback_();
+      break;
+    }
+  }
+  RTC_DCHECK(IsConsistent());
+}
 
-  jsep_transports_by_name_.erase(mid);
-  state_change_callback_();
+bool JsepTransportCollection::IsConsistent() {
+  RTC_DCHECK_RUN_ON(&sequence_checker_);
+  for (const auto& it : jsep_transports_by_name_) {
+    const auto& lookup = mid_to_transport_.find(it.first);
+    if (lookup == mid_to_transport_.end()) {
+      RTC_LOG(LS_ERROR) << "Mid " << it.first << " is not in use";
+      return false;
+    }
+    if (lookup->second != it.second.get()) {
+      RTC_LOG(LS_ERROR) << "Mid " << it.first << " maps to wrong transport";
+      return false;
+    }
+  }
+  return true;
 }
 
 }  // namespace webrtc

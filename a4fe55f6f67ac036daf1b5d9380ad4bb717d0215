@@ -16,6 +16,23 @@
       "message": "Using the API split to impose some discipline.\n",
       "revId": "a4fe55f6f67ac036daf1b5d9380ad4bb717d0215",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42f8e5fd_1b515093",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-11T13:32:29Z",
+      "side": 1,
+      "message": "Tagging deadbeef, in case he gets to it before hbos does.\n",
+      "revId": "a4fe55f6f67ac036daf1b5d9380ad4bb717d0215",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

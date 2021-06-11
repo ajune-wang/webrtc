@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7bca818_0fe41cb0",
+        "filename": "modules/audio_processing/agc/clipping_predictor.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-06-11T10:38:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "587e018d_ad0fcce6",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 44
+      },
+      "revId": "255b126a1d7d77ff60ea823d614b5badaa08c33d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f427e221_28f030de",
@@ -71,6 +95,30 @@
       "writtenOn": "2021-06-10T14:46:23Z",
       "side": 1,
       "message": "multi-channel frames",
+      "range": {
+        "startLine": 24,
+        "startChar": 9,
+        "endLine": 24,
+        "endChar": 30
+      },
+      "revId": "255b126a1d7d77ff60ea823d614b5badaa08c33d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70d113e3_75d6b3db",
+        "filename": "modules/audio_processing/agc/clipping_predictor.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-06-11T10:38:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f427e221_28f030de",
       "range": {
         "startLine": 24,
         "startChar": 9,
@@ -104,6 +152,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1e9e849_dc08cbda",
+        "filename": "modules/audio_processing/agc/clipping_predictor.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-06-11T10:38:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46014c8c_cf4c8bb7",
+      "range": {
+        "startLine": 33,
+        "startChar": 5,
+        "endLine": 33,
+        "endChar": 13
+      },
+      "revId": "255b126a1d7d77ff60ea823d614b5badaa08c33d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0e9c8257_f2d2655c",
@@ -117,6 +189,30 @@
       "writtenOn": "2021-06-10T14:46:23Z",
       "side": 1,
       "message": "This threshold is for clipping prediction. How about: \"Clipping prediction threshold (dBFS).\"?",
+      "range": {
+        "startLine": 365,
+        "startChar": 13,
+        "endLine": 365,
+        "endChar": 49
+      },
+      "revId": "255b126a1d7d77ff60ea823d614b5badaa08c33d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f20d4027_68df811e",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-06-11T10:38:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e9c8257_f2d2655c",
       "range": {
         "startLine": 365,
         "startChar": 13,

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40ac63da_9284c456",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-06-11T16:59:35Z",
+      "side": 1,
+      "message": "Sebastian and Christoffer, could you please re-lgtm this reland now that I have fixed downstream tests?",
+      "revId": "085888eadfe227dafe4a7370addfd04a911610e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1257,6 +1257,7 @@ class WebRtcVoiceMediaChannel::WebRtcAudioReceiveStream {
       RTC_LOG(LS_INFO) << "Recreating AudioReceiveStream for SSRC="
                        << config_.rtp.remote_ssrc
                        << " because of sync group change.";
+      RTC_NOTREACHED();
       config_.sync_group = sync_group;
       RecreateAudioReceiveStream();
     }

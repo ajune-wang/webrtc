@@ -671,6 +671,9 @@ void FakeCall::OnAudioTransportOverheadChanged(
 void FakeCall::OnLocalSsrcUpdated(webrtc::AudioReceiveStream* stream,
                                   uint32_t local_ssrc) {}
 
+void FakeCall::OnUpdateSyncGroup(webrtc::AudioReceiveStream* stream,
+                                 const std::string& sync_group) {}
+
 void FakeCall::OnSentPacket(const rtc::SentPacket& sent_packet) {
   last_sent_packet_ = sent_packet;
   if (sent_packet.packet_id >= 0) {

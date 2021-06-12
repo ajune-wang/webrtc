@@ -269,6 +269,9 @@ class Call final : public webrtc::Call,
   void OnAudioTransportOverheadChanged(
       int transport_overhead_per_packet) override;
 
+  void OnLocalSsrcUpdated(webrtc::AudioReceiveStream* stream,
+                          uint32_t local_ssrc) override;
+
   void OnSentPacket(const rtc::SentPacket& sent_packet) override;
 
   // Implements TargetTransferRateObserver,
@@ -1355,6 +1358,20 @@ void Call::UpdateAggregateNetworkState() {
   aggregate_network_up_ = aggregate_network_up;
 
   transport_send_->OnNetworkAvailability(aggregate_network_up);
+}
+
+void Call::OnLocalSsrcUpdated(webrtc::AudioReceiveStream* stream,
+                              uint32_t local_ssrc) {
+  RTC_DCHECK_RUN_ON(worker_thread_);
+  RTC_DCHECK(stream);
+  webrtc::internal::AudioReceiveStream* receive_stream =
+      static_cast<webrtc::internal::AudioReceiveStream*>(stream);
+
+  receive_stream->SetLocalSsrc(local_ssrc);
+  auto it = audio_send_ssrcs_.find(local_ssrc);
+  if (it != audio_send_ssrcs_.end()) {
+    receive_stream->AssociateSendStream(it->second);
+  }
 }
 
 void Call::OnSentPacket(const rtc::SentPacket& sent_packet) {

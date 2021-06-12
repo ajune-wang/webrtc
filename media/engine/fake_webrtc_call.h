@@ -390,6 +390,8 @@ class FakeCall final : public webrtc::Call, public webrtc::PacketReceiver {
                                  webrtc::NetworkState state) override;
   void OnAudioTransportOverheadChanged(
       int transport_overhead_per_packet) override;
+  void OnLocalSsrcUpdated(webrtc::AudioReceiveStream* stream,
+                          uint32_t local_ssrc) override;
   void OnSentPacket(const rtc::SentPacket& sent_packet) override;
 
   webrtc::TaskQueueBase* const network_thread_;

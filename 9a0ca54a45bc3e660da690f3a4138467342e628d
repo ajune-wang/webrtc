@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ffe420b_2e665e68",
+        "filename": "audio/audio_receive_stream.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-13T21:31:26Z",
+      "side": 1,
+      "message": "local ssrc is also passed in here (which is later propagated into rtp_rtcp module).\nThat module also needs to know when local ssrc changes (otherwise it would keep sending rtcp messages using old ssrc, as well as filter out some rtcp messages based on old local ssrc)\n\ni.e. update of local ssrc should also be propagated to channel_receive_ (might be complicated)",
+      "range": {
+        "startLine": 83,
+        "startChar": 17,
+        "endLine": 83,
+        "endChar": 38
+      },
+      "revId": "9a0ca54a45bc3e660da690f3a4138467342e628d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7e50db3_fac3350e",
+        "filename": "call/call.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1366,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-13T21:31:26Z",
+      "side": 1,
+      "message": "because stream can\u0027t be nullptr and doesn\u0027t need to outlive the call, \npass it by reference.\n(style guide used to ban non-const reference parameters, but it encourages them now)\n\nhttps://google.github.io/styleguide/cppguide.html#Inputs_and_Outputs\n\"non-optional output and input/output parameters should usually be references (which cannot be null)\"",
+      "range": {
+        "startLine": 1366,
+        "startChar": 2,
+        "endLine": 1366,
+        "endChar": 21
+      },
+      "revId": "9a0ca54a45bc3e660da690f3a4138467342e628d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

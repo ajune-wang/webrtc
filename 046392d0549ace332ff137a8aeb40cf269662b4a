@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "40c615cf_585c6b37",
+        "filename": "call/flexfec_receive_stream.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-06-14T08:54:54Z",
+      "side": 1,
+      "message": "Both are OK since this is is a pod struct and no virtual methods. There are still a few things that aren\u0027t consistent across all configs, so I expect this to evolve somewhat over time.",
+      "parentUuid": "ef3ad183_074cda3b",
+      "range": {
+        "startLine": 53,
+        "startChar": 4,
+        "endLine": 53,
+        "endChar": 18
+      },
+      "revId": "046392d0549ace332ff137a8aeb40cf269662b4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e7b67d6a_80961eaf",
         "filename": "call/flexfec_receive_stream.h",
         "patchSetId": 9
@@ -37,6 +61,30 @@
       "writtenOn": "2021-06-14T07:40:07Z",
       "side": 1,
       "message": "Leftover? Delete.",
+      "range": {
+        "startLine": 54,
+        "startChar": 1,
+        "endLine": 63,
+        "endChar": 54
+      },
+      "revId": "046392d0549ace332ff137a8aeb40cf269662b4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "687f329f_81df12a2",
+        "filename": "call/flexfec_receive_stream.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-06-14T08:54:54Z",
+      "side": 1,
+      "message": "oops, thanks, yes removed.",
+      "parentUuid": "e7b67d6a_80961eaf",
       "range": {
         "startLine": 54,
         "startChar": 1,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "11e6efb5_da24c34e",
+        "filename": "call/receive_stream.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-06-14T08:54:54Z",
+      "side": 1,
+      "message": "Yes, Flexfec inherits from ReceiveStream directly. (No Start/Stop or other setters).",
+      "parentUuid": "a0ff20ab_8e07e5a5",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 43
+      },
+      "revId": "046392d0549ace332ff137a8aeb40cf269662b4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "64dfe66b_7f9b2167",
         "filename": "call/receive_stream.h",
         "patchSetId": 9
@@ -83,6 +155,30 @@
       "writtenOn": "2021-06-14T07:40:07Z",
       "side": 1,
       "message": "I think the docs could be improved here. When a stream is stopped, what happens if it gets a packet from the demuxer? Is that an error, or will incoming packets be silently ignored?\n\nIs it possible to restart a stream after it has been stopped?",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 26
+      },
+      "revId": "046392d0549ace332ff137a8aeb40cf269662b4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5d196e5_10fe7075",
+        "filename": "call/receive_stream.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-06-14T08:54:54Z",
+      "side": 1,
+      "message": "Attempted clarification. As far I as I can tell, we do not call Start() on a stream that has previously been Stop()ped. However, I don\u0027t see specific checks that prevent that, so I\u0027m not sure I can draw conclusions strong enough to document them here.\n\nI think that if we end up being able to decide that one should not call Start on a previously stopped stream, then we could remove the Start() and Stop() methods and rely on construction/destruction instead.",
+      "parentUuid": "64dfe66b_7f9b2167",
       "range": {
         "startLine": 53,
         "startChar": 0,

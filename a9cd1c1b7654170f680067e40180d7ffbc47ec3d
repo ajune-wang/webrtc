@@ -147,6 +147,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8fa8e9db_2c00a953",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-14T12:17:44Z",
+      "side": 1,
+      "message": "I still prefer Ssrc.\nIt makes harder to shift code to follow style when local consistency is used as a reason to do things old way. \n\nLately style guide was updated to reflect that:\nhttps://google.github.io/styleguide/cppguide.html#Goals\n\"Consistency should not generally be used as a justification to do things in an old style without considering the benefits of the new style, or the tendency of the codebase to converge on newer styles over time.\"",
+      "parentUuid": "29d0825f_5c2605d4",
+      "range": {
+        "startLine": 71,
+        "startChar": 15,
+        "endLine": 71,
+        "endChar": 19
+      },
+      "revId": "a9cd1c1b7654170f680067e40180d7ffbc47ec3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "015504f1_ff803fec",
@@ -231,6 +255,30 @@
       "side": 1,
       "message": "Added specific checks to make sure that this is only used for the receiver_only configuration. If we end up needing this functionality also for the other configuration, we can follow up on it when we get to it.",
       "parentUuid": "41295869_5b9701ed",
+      "range": {
+        "startLine": 655,
+        "startChar": 14,
+        "endLine": 655,
+        "endChar": 21
+      },
+      "revId": "a9cd1c1b7654170f680067e40180d7ffbc47ec3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98de9d7a_6219d7bc",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-14T12:17:44Z",
+      "side": 1,
+      "message": "in (rtp) receiver_only configuration we still send rtcp packets.\nin particular rrtr/dlrr mechanic I\u0027ve mention is primarly for the (rtp) receiver_only configuration.",
+      "parentUuid": "0ffb8107_3197aedb",
       "range": {
         "startLine": 655,
         "startChar": 14,

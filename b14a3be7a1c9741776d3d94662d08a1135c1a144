@@ -16,6 +16,23 @@
       "message": "ping",
       "revId": "b14a3be7a1c9741776d3d94662d08a1135c1a144",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "29a1d67e_d54fe0cc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-14T10:22:54Z",
+      "side": 1,
+      "message": "Looks reasonable. It seems sensible to let the media types have the decision on whether changing the decryptor is a disruptive operation or not.\n",
+      "revId": "b14a3be7a1c9741776d3d94662d08a1135c1a144",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -650,6 +650,12 @@ void ModuleRtpRtcpImpl2::SetRemoteSSRC(const uint32_t ssrc) {
   rtcp_receiver_.SetRemoteSSRC(ssrc);
 }
 
+void ModuleRtpRtcpImpl2::SetLocalSsrc(uint32_t local_ssrc) {
+  RTC_DCHECK_RUN_ON(worker_queue_);
+  rtcp_receiver_.SetMediaSsrc(local_ssrc);
+  rtcp_sender_.SetSsrc(local_ssrc);
+}
+
 RtpSendRates ModuleRtpRtcpImpl2::GetSendRates() const {
   // Typically called on the `rtp_transport_queue_` owned by an
   // RtpTransportControllerSendInterface instance.

@@ -16,6 +16,8 @@
 
 #include "absl/memory/memory.h"
 #include "api/rtp_headers.h"
+#include "api/test/create_time_controller.h"
+#include "api/test/time_controller.h"
 #include "api/units/time_delta.h"
 #include "api/units/timestamp.h"
 #include "api/video/video_bitrate_allocation.h"
@@ -25,15 +27,14 @@
 #include "modules/rtp_rtcp/source/rtcp_packet/bye.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/compound_packet.h"
 #include "modules/rtp_rtcp/source/time_util.h"
-#include "rtc_base/event.h"
-#include "rtc_base/task_queue_for_test.h"
-#include "rtc_base/time_utils.h"
+#include "rtc_base/task_utils/to_queued_task.h"
 #include "system_wrappers/include/clock.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 #include "test/mock_transport.h"
 #include "test/rtcp_packet_parser.h"
 
+namespace webrtc {
 namespace {
 
 using ::testing::_;
@@ -41,19 +42,6 @@ using ::testing::ElementsAre;
 using ::testing::Return;
 using ::testing::SizeIs;
 using ::testing::StrictMock;
-using ::webrtc::CompactNtp;
-using ::webrtc::CompactNtpRttToMs;
-using ::webrtc::MockRtcpRttStats;
-using ::webrtc::MockTransport;
-using ::webrtc::NtpTime;
-using ::webrtc::RtcpTransceiverConfig;
-using ::webrtc::RtcpTransceiverImpl;
-using ::webrtc::SaturatedUsToCompactNtp;
-using ::webrtc::SimulatedClock;
-using ::webrtc::TaskQueueForTest;
-using ::webrtc::TimeDelta;
-using ::webrtc::Timestamp;
-using ::webrtc::VideoBitrateAllocation;
 using ::webrtc::rtcp::Bye;
 using ::webrtc::rtcp::CompoundPacket;
 using ::webrtc::rtcp::ReportBlock;
@@ -75,20 +63,16 @@ class MockMediaReceiverRtcpObserver : public webrtc::MediaReceiverRtcpObserver {
               (override));
 };
 
-// Since some tests will need to wait for this period, make it small to avoid
-// slowing tests too much. As long as there are test bots with high scheduler
-// granularity, small period should be ok.
-constexpr int kReportPeriodMs = 10;
-// On some systems task queue might be slow, instead of guessing right
-// grace period, use very large timeout, 100x larger expected wait time.
-// Use finite timeout to fail tests rather than hang them.
-constexpr int kAlmostForeverMs = 1000;
+constexpr int kReportPeriodMs = 1000;
+constexpr TimeDelta kAlmostForever = TimeDelta::Seconds(2);
 
 // Helper to wait for an rtcp packet produced on a different thread/task queue.
 class FakeRtcpTransport : public webrtc::Transport {
  public:
+  explicit FakeRtcpTransport(TimeController& time) : time_(time) {}
+
   bool SendRtcp(const uint8_t* data, size_t size) override {
-    sent_rtcp_.Set();
+    sent_rtcp_ = true;
     return true;
   }
   bool SendRtp(const uint8_t*, size_t, const webrtc::PacketOptions&) override {
@@ -98,17 +82,17 @@ class FakeRtcpTransport : public webrtc::Transport {
 
   // Returns true when packet was received by the transport.
   bool WaitPacket() {
-    // Normally packet should be sent fast, long before the timeout.
-    bool packet_sent = sent_rtcp_.Wait(kAlmostForeverMs);
-    // Disallow tests to wait almost forever for no packets.
-    EXPECT_TRUE(packet_sent);
+    bool got_packet = time_.Wait([this] { return sent_rtcp_; }, kAlmostForever);
+    // Clear the 'event' to allow waiting for multiple packets.
+    sent_rtcp_ = false;
     // Return wait result even though it is expected to be true, so that
     // individual tests can EXPECT on it for better error message.
-    return packet_sent;
+    return got_packet;
   }
 
  private:
-  rtc::Event sent_rtcp_;
+  TimeController& time_;
+  bool sent_rtcp_ = false;
 };
 
 class RtcpParserTransport : public webrtc::Transport {
@@ -133,174 +117,182 @@ class RtcpParserTransport : public webrtc::Transport {
   int num_packets_ = 0;
 };
 
-RtcpTransceiverConfig DefaultTestConfig() {
-  // RtcpTransceiverConfig default constructor sets default values for prod.
-  // Test doesn't need to support all key features: Default test config returns
-  // valid config with all features turned off.
-  static MockTransport null_transport;
-  RtcpTransceiverConfig config;
-  config.outgoing_transport = &null_transport;
-  config.schedule_periodic_compound_packets = false;
-  config.initial_report_delay_ms = 10;
-  config.report_period_ms = kReportPeriodMs;
-  return config;
-}
+class RtcpTransceiverImplTest : public ::testing::Test {
+ public:
+  RtcpTransceiverImplTest() : time_(CreateSimulatedTimeController()) {}
 
-TEST(RtcpTransceiverImplTest, NeedToStopPeriodicTaskToDestroyOnTaskQueue) {
-  SimulatedClock clock(0);
-  FakeRtcpTransport transport;
-  TaskQueueForTest queue("rtcp");
+  RtcpTransceiverConfig DefaultTestConfig() {
+    // RtcpTransceiverConfig default constructor sets default values for prod.
+    // Test doesn't need to support all key features: Default test config
+    // returns valid config with all features turned off.
+    RtcpTransceiverConfig config;
+    config.outgoing_transport = &null_transport_;
+    config.schedule_periodic_compound_packets = false;
+    config.initial_report_delay_ms = kReportPeriodMs / 2;
+    config.report_period_ms = kReportPeriodMs;
+    config.clock = time_->GetClock();
+    return config;
+  }
+
+  TimeController& time_controller() { return *time_; }
+  Timestamp CurrentTime() { return time_->GetClock()->CurrentTime(); }
+  std::unique_ptr<TaskQueueBase, TaskQueueDeleter> CreateTaskQueue() {
+    return time_->GetTaskQueueFactory()->CreateTaskQueue(
+        "rtcp", TaskQueueFactory::Priority::NORMAL);
+  }
+
+ private:
+  MockTransport null_transport_;
+  std::unique_ptr<TimeController> time_;
+};
+
+TEST_F(RtcpTransceiverImplTest, NeedToStopPeriodicTaskToDestroyOnTaskQueue) {
+  FakeRtcpTransport transport(time_controller());
+  auto queue = CreateTaskQueue();
   RtcpTransceiverConfig config = DefaultTestConfig();
-  config.clock = &clock;
-  config.task_queue = queue.Get();
+  config.task_queue = queue.get();
   config.schedule_periodic_compound_packets = true;
   config.outgoing_transport = &transport;
   auto* rtcp_transceiver = new RtcpTransceiverImpl(config);
   // Wait for a periodic packet.
   EXPECT_TRUE(transport.WaitPacket());
 
-  rtc::Event done;
-  queue.PostTask([rtcp_transceiver, &done] {
+  bool done = false;
+  queue->PostTask(ToQueuedTask([rtcp_transceiver, &done] {
     rtcp_transceiver->StopPeriodicTask();
     delete rtcp_transceiver;
-    done.Set();
-  });
-  ASSERT_TRUE(done.Wait(/*milliseconds=*/1000));
+    done = true;
+  }));
+  ASSERT_TRUE(time_controller().Wait([&] { return done; }, kAlmostForever));
 }
 
-TEST(RtcpTransceiverImplTest, CanDestroyAfterTaskQueue) {
-  SimulatedClock clock(0);
-  FakeRtcpTransport transport;
-  auto* queue = new TaskQueueForTest("rtcp");
+TEST_F(RtcpTransceiverImplTest, CanDestroyAfterTaskQueue) {
+  FakeRtcpTransport transport(time_controller());
+  auto queue = CreateTaskQueue();
   RtcpTransceiverConfig config = DefaultTestConfig();
-  config.clock = &clock;
-  config.task_queue = queue->Get();
+  config.task_queue = queue.get();
   config.schedule_periodic_compound_packets = true;
   config.outgoing_transport = &transport;
   auto* rtcp_transceiver = new RtcpTransceiverImpl(config);
   // Wait for a periodic packet.
   EXPECT_TRUE(transport.WaitPacket());
 
-  delete queue;
+  queue = nullptr;
   delete rtcp_transceiver;
 }
 
-TEST(RtcpTransceiverImplTest, DelaysSendingFirstCompondPacket) {
-  SimulatedClock clock(0);
-  TaskQueueForTest queue("rtcp");
-  FakeRtcpTransport transport;
-  RtcpTransceiverConfig config;
-  config.clock = &clock;
+TEST_F(RtcpTransceiverImplTest, DelaysSendingFirstCompondPacket) {
+  auto queue = CreateTaskQueue();
+  FakeRtcpTransport transport(time_controller());
+  RtcpTransceiverConfig config = DefaultTestConfig();
+  config.schedule_periodic_compound_packets = true;
   config.outgoing_transport = &transport;
   config.initial_report_delay_ms = 10;
-  config.task_queue = queue.Get();
+  config.task_queue = queue.get();
   absl::optional<RtcpTransceiverImpl> rtcp_transceiver;
 
-  int64_t started_ms = rtc::TimeMillis();
-  queue.PostTask([&] { rtcp_transceiver.emplace(config); });
+  Timestamp started = CurrentTime();
+  queue->PostTask(ToQueuedTask([&] { rtcp_transceiver.emplace(config); }));
   EXPECT_TRUE(transport.WaitPacket());
 
-  EXPECT_GE(rtc::TimeMillis() - started_ms, config.initial_report_delay_ms);
+  EXPECT_GE(CurrentTime() - started,
+            TimeDelta::Millis(config.initial_report_delay_ms));
 
   // Cleanup.
-  rtc::Event done;
-  queue.PostTask([&] {
+  bool done = false;
+  queue->PostTask(ToQueuedTask([&] {
     rtcp_transceiver->StopPeriodicTask();
     rtcp_transceiver.reset();
-    done.Set();
-  });
-  ASSERT_TRUE(done.Wait(kAlmostForeverMs));
+    done = true;
+  }));
+  ASSERT_TRUE(time_controller().Wait([&] { return done; }, kAlmostForever));
 }
 
-TEST(RtcpTransceiverImplTest, PeriodicallySendsPackets) {
-  SimulatedClock clock(0);
-  TaskQueueForTest queue("rtcp");
-  FakeRtcpTransport transport;
-  RtcpTransceiverConfig config;
-  config.clock = &clock;
+TEST_F(RtcpTransceiverImplTest, PeriodicallySendsPackets) {
+  auto queue = CreateTaskQueue();
+  FakeRtcpTransport transport(time_controller());
+  RtcpTransceiverConfig config = DefaultTestConfig();
+  config.schedule_periodic_compound_packets = true;
   config.outgoing_transport = &transport;
   config.initial_report_delay_ms = 0;
   config.report_period_ms = kReportPeriodMs;
-  config.task_queue = queue.Get();
+  config.task_queue = queue.get();
   absl::optional<RtcpTransceiverImpl> rtcp_transceiver;
-  int64_t time_just_before_1st_packet_ms = 0;
-  queue.PostTask([&] {
+  Timestamp time_just_before_1st_packet = Timestamp::MinusInfinity();
+  queue->PostTask(ToQueuedTask([&] {
     // Because initial_report_delay_ms is set to 0, time_just_before_the_packet
     // should be very close to the time_of_the_packet.
-    time_just_before_1st_packet_ms = rtc::TimeMillis();
+    time_just_before_1st_packet = CurrentTime();
     rtcp_transceiver.emplace(config);
-  });
+  }));
 
   EXPECT_TRUE(transport.WaitPacket());
   EXPECT_TRUE(transport.WaitPacket());
-  int64_t time_just_after_2nd_packet_ms = rtc::TimeMillis();
+  Timestamp time_just_after_2nd_packet = CurrentTime();
 
-  EXPECT_GE(time_just_after_2nd_packet_ms - time_just_before_1st_packet_ms,
-            config.report_period_ms - 1);
+  EXPECT_GE(time_just_after_2nd_packet - time_just_before_1st_packet,
+            TimeDelta::Millis(config.report_period_ms));
 
   // Cleanup.
-  rtc::Event done;
-  queue.PostTask([&] {
+  bool done = false;
+  queue->PostTask(ToQueuedTask([&] {
     rtcp_transceiver->StopPeriodicTask();
     rtcp_transceiver.reset();
-    done.Set();
-  });
-  ASSERT_TRUE(done.Wait(kAlmostForeverMs));
+    done = true;
+  }));
+  ASSERT_TRUE(time_controller().Wait([&] { return done; }, kAlmostForever));
 }
 
-TEST(RtcpTransceiverImplTest, SendCompoundPacketDelaysPeriodicSendPackets) {
-  SimulatedClock clock(0);
-  TaskQueueForTest queue("rtcp");
-  FakeRtcpTransport transport;
-  RtcpTransceiverConfig config;
-  config.clock = &clock;
+TEST_F(RtcpTransceiverImplTest, SendCompoundPacketDelaysPeriodicSendPackets) {
+  auto queue = CreateTaskQueue();
+  FakeRtcpTransport transport(time_controller());
+  RtcpTransceiverConfig config = DefaultTestConfig();
+  config.schedule_periodic_compound_packets = true;
   config.outgoing_transport = &transport;
   config.initial_report_delay_ms = 0;
   config.report_period_ms = kReportPeriodMs;
-  config.task_queue = queue.Get();
+  config.task_queue = queue.get();
   absl::optional<RtcpTransceiverImpl> rtcp_transceiver;
-  queue.PostTask([&] { rtcp_transceiver.emplace(config); });
+  queue->PostTask(ToQueuedTask([&] { rtcp_transceiver.emplace(config); }));
 
-  // Wait for first packet.
+  // Wait for the first packet.
   EXPECT_TRUE(transport.WaitPacket());
   // Send non periodic one after half period.
-  rtc::Event non_periodic;
-  int64_t time_of_non_periodic_packet_ms = 0;
-  queue.PostDelayedTask(
-      [&] {
-        time_of_non_periodic_packet_ms = rtc::TimeMillis();
-        rtcp_transceiver->SendCompoundPacket();
-        non_periodic.Set();
-      },
-      config.report_period_ms / 2);
+  bool non_periodic = false;
+  Timestamp time_of_non_periodic_packet = Timestamp::MinusInfinity();
+  queue->PostDelayedTask(ToQueuedTask([&] {
+                           time_of_non_periodic_packet = CurrentTime();
+                           rtcp_transceiver->SendCompoundPacket();
+                           non_periodic = true;
+                         }),
+                         config.report_period_ms / 2);
   // Though non-periodic packet is scheduled just in between periodic, due to
   // small period and task queue flakiness it migth end-up 1ms after next
   // periodic packet. To be sure duration after non-periodic packet is tested
   // wait for transport after ensuring non-periodic packet was sent.
-  EXPECT_TRUE(non_periodic.Wait(kAlmostForeverMs));
+  EXPECT_TRUE(
+      time_controller().Wait([&] { return non_periodic; }, kAlmostForever));
   EXPECT_TRUE(transport.WaitPacket());
   // Wait for next periodic packet.
   EXPECT_TRUE(transport.WaitPacket());
-  int64_t time_of_last_periodic_packet_ms = rtc::TimeMillis();
+  Timestamp time_of_last_periodic_packet = CurrentTime();
 
-  EXPECT_GE(time_of_last_periodic_packet_ms - time_of_non_periodic_packet_ms,
-            config.report_period_ms - 1);
+  EXPECT_GE(time_of_last_periodic_packet - time_of_non_periodic_packet,
+            TimeDelta::Millis(config.report_period_ms));
 
   // Cleanup.
-  rtc::Event done;
-  queue.PostTask([&] {
+  bool done = false;
+  queue->PostTask(ToQueuedTask([&] {
     rtcp_transceiver->StopPeriodicTask();
     rtcp_transceiver.reset();
-    done.Set();
-  });
-  ASSERT_TRUE(done.Wait(kAlmostForeverMs));
+    done = true;
+  }));
+  ASSERT_TRUE(time_controller().Wait([&] { return done; }, kAlmostForever));
 }
 
-TEST(RtcpTransceiverImplTest, SendsNoRtcpWhenNetworkStateIsDown) {
-  SimulatedClock clock(0);
+TEST_F(RtcpTransceiverImplTest, SendsNoRtcpWhenNetworkStateIsDown) {
   MockTransport mock_transport;
   RtcpTransceiverConfig config = DefaultTestConfig();
-  config.clock = &clock;
   config.initial_ready_to_send = false;
   config.outgoing_transport = &mock_transport;
   RtcpTransceiverImpl rtcp_transceiver(config);
@@ -317,11 +309,9 @@ TEST(RtcpTransceiverImplTest, SendsNoRtcpWhenNetworkStateIsDown) {
   rtcp_transceiver.SendFullIntraRequest(ssrcs, true);
 }
 
-TEST(RtcpTransceiverImplTest, SendsRtcpWhenNetworkStateIsUp) {
-  SimulatedClock clock(0);
+TEST_F(RtcpTransceiverImplTest, SendsRtcpWhenNetworkStateIsUp) {
   MockTransport mock_transport;
   RtcpTransceiverConfig config = DefaultTestConfig();
-  config.clock = &clock;
   config.initial_ready_to_send = false;
   config.outgoing_transport = &mock_transport;
   RtcpTransceiverImpl rtcp_transceiver(config);
@@ -340,38 +330,35 @@ TEST(RtcpTransceiverImplTest, SendsRtcpWhenNetworkStateIsUp) {
   rtcp_transceiver.SendFullIntraRequest(ssrcs, true);
 }
 
-TEST(RtcpTransceiverImplTest, SendsPeriodicRtcpWhenNetworkStateIsUp) {
-  SimulatedClock clock(0);
-  TaskQueueForTest queue("rtcp");
-  FakeRtcpTransport transport;
+TEST_F(RtcpTransceiverImplTest, SendsPeriodicRtcpWhenNetworkStateIsUp) {
+  auto queue = CreateTaskQueue();
+  FakeRtcpTransport transport(time_controller());
   RtcpTransceiverConfig config = DefaultTestConfig();
-  config.clock = &clock;
   config.schedule_periodic_compound_packets = true;
   config.initial_ready_to_send = false;
   config.outgoing_transport = &transport;
-  config.task_queue = queue.Get();
+  config.task_queue = queue.get();
   absl::optional<RtcpTransceiverImpl> rtcp_transceiver;
   rtcp_transceiver.emplace(config);
 
-  queue.PostTask([&] { rtcp_transceiver->SetReadyToSend(true); });
+  queue->PostTask(
+      ToQueuedTask([&] { rtcp_transceiver->SetReadyToSend(true); }));
 
   EXPECT_TRUE(transport.WaitPacket());
 
   // Cleanup.
-  rtc::Event done;
-  queue.PostTask([&] {
+  bool done = false;
+  queue->PostTask(ToQueuedTask([&] {
     rtcp_transceiver->StopPeriodicTask();
     rtcp_transceiver.reset();
-    done.Set();
-  });
-  ASSERT_TRUE(done.Wait(kAlmostForeverMs));
+    done = true;
+  }));
+  ASSERT_TRUE(time_controller().Wait([&] { return done; }, kAlmostForever));
 }
 
-TEST(RtcpTransceiverImplTest, SendsMinimalCompoundPacket) {
+TEST_F(RtcpTransceiverImplTest, SendsMinimalCompoundPacket) {
   const uint32_t kSenderSsrc = 12345;
-  SimulatedClock clock(0);
-  RtcpTransceiverConfig config;
-  config.clock = &clock;
+  RtcpTransceiverConfig config = DefaultTestConfig();
   config.feedback_ssrc = kSenderSsrc;
   config.cname = "cname";
   RtcpPacketParser rtcp_parser;
@@ -392,11 +379,9 @@ TEST(RtcpTransceiverImplTest, SendsMinimalCompoundPacket) {
   EXPECT_EQ(rtcp_parser.sdes()->chunks()[0].cname, config.cname);
 }
 
-TEST(RtcpTransceiverImplTest, SendsNoRembInitially) {
+TEST_F(RtcpTransceiverImplTest, SendsNoRembInitially) {
   const uint32_t kSenderSsrc = 12345;
-  SimulatedClock clock(0);
-  RtcpTransceiverConfig config;
-  config.clock = &clock;
+  RtcpTransceiverConfig config = DefaultTestConfig();
   config.feedback_ssrc = kSenderSsrc;
   RtcpPacketParser rtcp_parser;
   RtcpParserTransport transport(&rtcp_parser);
@@ -410,11 +395,9 @@ TEST(RtcpTransceiverImplTest, SendsNoRembInitially) {
   EXPECT_EQ(rtcp_parser.remb()->num_packets(), 0);
 }
 
-TEST(RtcpTransceiverImplTest, SetRembIncludesRembInNextCompoundPacket) {
+TEST_F(RtcpTransceiverImplTest, SetRembIncludesRembInNextCompoundPacket) {
   const uint32_t kSenderSsrc = 12345;
-  SimulatedClock clock(0);
-  RtcpTransceiverConfig config;
-  config.clock = &clock;
+  RtcpTransceiverConfig config = DefaultTestConfig();
   config.feedback_ssrc = kSenderSsrc;
   RtcpPacketParser rtcp_parser;
   RtcpParserTransport transport(&rtcp_parser);
@@ -431,11 +414,9 @@ TEST(RtcpTransceiverImplTest, SetRembIncludesRembInNextCompoundPacket) {
   EXPECT_THAT(rtcp_parser.remb()->ssrcs(), ElementsAre(54321, 64321));
 }
 
-TEST(RtcpTransceiverImplTest, SetRembUpdatesValuesToSend) {
+TEST_F(RtcpTransceiverImplTest, SetRembUpdatesValuesToSend) {
   const uint32_t kSenderSsrc = 12345;
-  SimulatedClock clock(0);
-  RtcpTransceiverConfig config;
-  config.clock = &clock;
+  RtcpTransceiverConfig config = DefaultTestConfig();
   config.feedback_ssrc = kSenderSsrc;
   RtcpPacketParser rtcp_parser;
   RtcpParserTransport transport(&rtcp_parser);
@@ -458,11 +439,9 @@ TEST(RtcpTransceiverImplTest, SetRembUpdatesValuesToSend) {
   EXPECT_THAT(rtcp_parser.remb()->ssrcs(), ElementsAre(67321));
 }
 
-TEST(RtcpTransceiverImplTest, SetRembSendsImmediatelyIfSendRembOnChange) {
+TEST_F(RtcpTransceiverImplTest, SetRembSendsImmediatelyIfSendRembOnChange) {
   const uint32_t kSenderSsrc = 12345;
-  SimulatedClock clock(0);
-  RtcpTransceiverConfig config;
-  config.clock = &clock;
+  RtcpTransceiverConfig config = DefaultTestConfig();
   config.send_remb_on_change = true;
   config.feedback_ssrc = kSenderSsrc;
   RtcpPacketParser rtcp_parser;
@@ -485,12 +464,10 @@ TEST(RtcpTransceiverImplTest, SetRembSendsImmediatelyIfSendRembOnChange) {
   EXPECT_EQ(rtcp_parser.remb()->bitrate_bps(), 20000);
 }
 
-TEST(RtcpTransceiverImplTest,
-     SetRembSendsImmediatelyIfSendRembOnChangeReducedSize) {
+TEST_F(RtcpTransceiverImplTest,
+       SetRembSendsImmediatelyIfSendRembOnChangeReducedSize) {
   const uint32_t kSenderSsrc = 12345;
-  SimulatedClock clock(0);
-  RtcpTransceiverConfig config;
-  config.clock = &clock;
+  RtcpTransceiverConfig config = DefaultTestConfig();
   config.send_remb_on_change = true;
   config.rtcp_mode = webrtc::RtcpMode::kReducedSize;
   config.feedback_ssrc = kSenderSsrc;
@@ -506,11 +483,9 @@ TEST(RtcpTransceiverImplTest,
   EXPECT_EQ(rtcp_parser.remb()->bitrate_bps(), 10000);
 }
 
-TEST(RtcpTransceiverImplTest, SetRembIncludesRembInAllCompoundPackets) {
+TEST_F(RtcpTransceiverImplTest, SetRembIncludesRembInAllCompoundPackets) {
   const uint32_t kSenderSsrc = 12345;
-  SimulatedClock clock(0);
-  RtcpTransceiverConfig config;
-  config.clock = &clock;
+  RtcpTransceiverConfig config = DefaultTestConfig();
   config.feedback_ssrc = kSenderSsrc;
   RtcpPacketParser rtcp_parser;
   RtcpParserTransport transport(&rtcp_parser);
@@ -526,11 +501,9 @@ TEST(RtcpTransceiverImplTest, SetRembIncludesRembInAllCompoundPackets) {
   EXPECT_EQ(rtcp_parser.remb()->num_packets(), 2);
 }
 
-TEST(RtcpTransceiverImplTest, SendsNoRembAfterUnset) {
+TEST_F(RtcpTransceiverImplTest, SendsNoRembAfterUnset) {
   const uint32_t kSenderSsrc = 12345;
-  SimulatedClock clock(0);
-  RtcpTransceiverConfig config;
-  config.clock = &clock;
+  RtcpTransceiverConfig config = DefaultTestConfig();
   config.feedback_ssrc = kSenderSsrc;
   RtcpPacketParser rtcp_parser;
   RtcpParserTransport transport(&rtcp_parser);
@@ -550,7 +523,7 @@ TEST(RtcpTransceiverImplTest, SendsNoRembAfterUnset) {
   EXPECT_EQ(rtcp_parser.remb()->num_packets(), 1);
 }
 
-TEST(RtcpTransceiverImplTest, ReceiverReportUsesReceiveStatistics) {
+TEST_F(RtcpTransceiverImplTest, ReceiverReportUsesReceiveStatistics) {
   const uint32_t kSenderSsrc = 12345;
   const uint32_t kMediaSsrc = 54321;
   MockReceiveStatisticsProvider receive_statistics;
@@ -559,9 +532,7 @@ TEST(RtcpTransceiverImplTest, ReceiverReportUsesReceiveStatistics) {
   EXPECT_CALL(receive_statistics, RtcpReportBlocks(_))
       .WillRepeatedly(Return(report_blocks));
 
-  SimulatedClock clock(0);
-  RtcpTransceiverConfig config;
-  config.clock = &clock;
+  RtcpTransceiverConfig config = DefaultTestConfig();
   config.feedback_ssrc = kSenderSsrc;
   RtcpPacketParser rtcp_parser;
   RtcpParserTransport transport(&rtcp_parser);
@@ -580,13 +551,11 @@ TEST(RtcpTransceiverImplTest, ReceiverReportUsesReceiveStatistics) {
             kMediaSsrc);
 }
 
-TEST(RtcpTransceiverImplTest, MultipleObserversOnSameSsrc) {
+TEST_F(RtcpTransceiverImplTest, MultipleObserversOnSameSsrc) {
   const uint32_t kRemoteSsrc = 12345;
-  SimulatedClock clock(0);
   StrictMock<MockMediaReceiverRtcpObserver> observer1;
   StrictMock<MockMediaReceiverRtcpObserver> observer2;
   RtcpTransceiverConfig config = DefaultTestConfig();
-  config.clock = &clock;
   RtcpTransceiverImpl rtcp_transceiver(config);
   rtcp_transceiver.AddMediaReceiverRtcpObserver(kRemoteSsrc, &observer1);
   rtcp_transceiver.AddMediaReceiverRtcpObserver(kRemoteSsrc, &observer2);
@@ -604,13 +573,11 @@ TEST(RtcpTransceiverImplTest, MultipleObserversOnSameSsrc) {
   rtcp_transceiver.ReceivePacket(raw_packet, Timestamp::Micros(0));
 }
 
-TEST(RtcpTransceiverImplTest, DoesntCallsObserverAfterRemoved) {
+TEST_F(RtcpTransceiverImplTest, DoesntCallsObserverAfterRemoved) {
   const uint32_t kRemoteSsrc = 12345;
-  SimulatedClock clock(0);
   StrictMock<MockMediaReceiverRtcpObserver> observer1;
   StrictMock<MockMediaReceiverRtcpObserver> observer2;
   RtcpTransceiverConfig config = DefaultTestConfig();
-  config.clock = &clock;
   RtcpTransceiverImpl rtcp_transceiver(config);
   rtcp_transceiver.AddMediaReceiverRtcpObserver(kRemoteSsrc, &observer1);
   rtcp_transceiver.AddMediaReceiverRtcpObserver(kRemoteSsrc, &observer2);
@@ -626,14 +593,12 @@ TEST(RtcpTransceiverImplTest, DoesntCallsObserverAfterRemoved) {
   rtcp_transceiver.ReceivePacket(raw_packet, Timestamp::Micros(0));
 }
 
-TEST(RtcpTransceiverImplTest, CallsObserverOnSenderReportBySenderSsrc) {
+TEST_F(RtcpTransceiverImplTest, CallsObserverOnSenderReportBySenderSsrc) {
   const uint32_t kRemoteSsrc1 = 12345;
   const uint32_t kRemoteSsrc2 = 22345;
-  SimulatedClock clock(0);
   StrictMock<MockMediaReceiverRtcpObserver> observer1;
   StrictMock<MockMediaReceiverRtcpObserver> observer2;
   RtcpTransceiverConfig config = DefaultTestConfig();
-  config.clock = &clock;
   RtcpTransceiverImpl rtcp_transceiver(config);
   rtcp_transceiver.AddMediaReceiverRtcpObserver(kRemoteSsrc1, &observer1);
   rtcp_transceiver.AddMediaReceiverRtcpObserver(kRemoteSsrc2, &observer2);
@@ -647,18 +612,16 @@ TEST(RtcpTransceiverImplTest, CallsObserverOnSenderReportBySenderSsrc) {
   auto raw_packet = sr.Build();
 
   EXPECT_CALL(observer1, OnSenderReport(kRemoteSsrc1, kRemoteNtp, kRemoteRtp));
-  EXPECT_CALL(observer2, OnSenderReport(_, _, _)).Times(0);
+  EXPECT_CALL(observer2, OnSenderReport).Times(0);
   rtcp_transceiver.ReceivePacket(raw_packet, Timestamp::Micros(0));
 }
 
-TEST(RtcpTransceiverImplTest, CallsObserverOnByeBySenderSsrc) {
+TEST_F(RtcpTransceiverImplTest, CallsObserverOnByeBySenderSsrc) {
   const uint32_t kRemoteSsrc1 = 12345;
   const uint32_t kRemoteSsrc2 = 22345;
-  SimulatedClock clock(0);
   StrictMock<MockMediaReceiverRtcpObserver> observer1;
   StrictMock<MockMediaReceiverRtcpObserver> observer2;
   RtcpTransceiverConfig config = DefaultTestConfig();
-  config.clock = &clock;
   RtcpTransceiverImpl rtcp_transceiver(config);
   rtcp_transceiver.AddMediaReceiverRtcpObserver(kRemoteSsrc1, &observer1);
   rtcp_transceiver.AddMediaReceiverRtcpObserver(kRemoteSsrc2, &observer2);
@@ -672,14 +635,12 @@ TEST(RtcpTransceiverImplTest, CallsObserverOnByeBySenderSsrc) {
   rtcp_transceiver.ReceivePacket(raw_packet, Timestamp::Micros(0));
 }
 
-TEST(RtcpTransceiverImplTest, CallsObserverOnTargetBitrateBySenderSsrc) {
+TEST_F(RtcpTransceiverImplTest, CallsObserverOnTargetBitrateBySenderSsrc) {
   const uint32_t kRemoteSsrc1 = 12345;
   const uint32_t kRemoteSsrc2 = 22345;
-  SimulatedClock clock(0);
   StrictMock<MockMediaReceiverRtcpObserver> observer1;
   StrictMock<MockMediaReceiverRtcpObserver> observer2;
   RtcpTransceiverConfig config = DefaultTestConfig();
-  config.clock = &clock;
   RtcpTransceiverImpl rtcp_transceiver(config);
   rtcp_transceiver.AddMediaReceiverRtcpObserver(kRemoteSsrc1, &observer1);
   rtcp_transceiver.AddMediaReceiverRtcpObserver(kRemoteSsrc2, &observer2);
@@ -704,12 +665,10 @@ TEST(RtcpTransceiverImplTest, CallsObserverOnTargetBitrateBySenderSsrc) {
   rtcp_transceiver.ReceivePacket(raw_packet, Timestamp::Micros(0));
 }
 
-TEST(RtcpTransceiverImplTest, SkipsIncorrectTargetBitrateEntries) {
+TEST_F(RtcpTransceiverImplTest, SkipsIncorrectTargetBitrateEntries) {
   const uint32_t kRemoteSsrc = 12345;
-  SimulatedClock clock(0);
   MockMediaReceiverRtcpObserver observer;
   RtcpTransceiverConfig config = DefaultTestConfig();
-  config.clock = &clock;
   RtcpTransceiverImpl rtcp_transceiver(config);
   rtcp_transceiver.AddMediaReceiverRtcpObserver(kRemoteSsrc, &observer);
 
@@ -729,12 +688,10 @@ TEST(RtcpTransceiverImplTest, SkipsIncorrectTargetBitrateEntries) {
   rtcp_transceiver.ReceivePacket(raw_packet, Timestamp::Micros(0));
 }
 
-TEST(RtcpTransceiverImplTest, CallsObserverOnByeBehindSenderReport) {
+TEST_F(RtcpTransceiverImplTest, CallsObserverOnByeBehindSenderReport) {
   const uint32_t kRemoteSsrc = 12345;
-  SimulatedClock clock(0);
   MockMediaReceiverRtcpObserver observer;
   RtcpTransceiverConfig config = DefaultTestConfig();
-  config.clock = &clock;
   RtcpTransceiverImpl rtcp_transceiver(config);
   rtcp_transceiver.AddMediaReceiverRtcpObserver(kRemoteSsrc, &observer);
 
@@ -752,12 +709,10 @@ TEST(RtcpTransceiverImplTest, CallsObserverOnByeBehindSenderReport) {
   rtcp_transceiver.ReceivePacket(raw_packet, Timestamp::Micros(0));
 }
 
-TEST(RtcpTransceiverImplTest, CallsObserverOnByeBehindUnknownRtcpPacket) {
+TEST_F(RtcpTransceiverImplTest, CallsObserverOnByeBehindUnknownRtcpPacket) {
   const uint32_t kRemoteSsrc = 12345;
-  SimulatedClock clock(0);
   MockMediaReceiverRtcpObserver observer;
   RtcpTransceiverConfig config = DefaultTestConfig();
-  config.clock = &clock;
   RtcpTransceiverImpl rtcp_transceiver(config);
   rtcp_transceiver.AddMediaReceiverRtcpObserver(kRemoteSsrc, &observer);
 
@@ -774,8 +729,8 @@ TEST(RtcpTransceiverImplTest, CallsObserverOnByeBehindUnknownRtcpPacket) {
   rtcp_transceiver.ReceivePacket(raw_packet, Timestamp::Micros(0));
 }
 
-TEST(RtcpTransceiverImplTest,
-     WhenSendsReceiverReportSetsLastSenderReportTimestampPerRemoteSsrc) {
+TEST_F(RtcpTransceiverImplTest,
+       WhenSendsReceiverReportSetsLastSenderReportTimestampPerRemoteSsrc) {
   const uint32_t kRemoteSsrc1 = 4321;
   const uint32_t kRemoteSsrc2 = 5321;
   std::vector<ReportBlock> statistics_report_blocks(2);
@@ -785,9 +740,7 @@ TEST(RtcpTransceiverImplTest,
   EXPECT_CALL(receive_statistics, RtcpReportBlocks(_))
       .WillOnce(Return(statistics_report_blocks));
 
-  SimulatedClock clock(0);
-  RtcpTransceiverConfig config;
-  config.clock = &clock;
+  RtcpTransceiverConfig config = DefaultTestConfig();
   config.schedule_periodic_compound_packets = false;
   RtcpPacketParser rtcp_parser;
   RtcpParserTransport transport(&rtcp_parser);
@@ -820,8 +773,8 @@ TEST(RtcpTransceiverImplTest,
   EXPECT_EQ(report_blocks[1].last_sr(), 0u);
 }
 
-TEST(RtcpTransceiverImplTest,
-     WhenSendsReceiverReportCalculatesDelaySinceLastSenderReport) {
+TEST_F(RtcpTransceiverImplTest,
+       WhenSendsReceiverReportCalculatesDelaySinceLastSenderReport) {
   const uint32_t kRemoteSsrc1 = 4321;
   const uint32_t kRemoteSsrc2 = 5321;
 
@@ -832,9 +785,7 @@ TEST(RtcpTransceiverImplTest,
   EXPECT_CALL(receive_statistics, RtcpReportBlocks(_))
       .WillOnce(Return(statistics_report_blocks));
 
-  SimulatedClock clock(0);
-  RtcpTransceiverConfig config;
-  config.clock = &clock;
+  RtcpTransceiverConfig config = DefaultTestConfig();
   config.schedule_periodic_compound_packets = false;
   RtcpPacketParser rtcp_parser;
   RtcpParserTransport transport(&rtcp_parser);
@@ -842,19 +793,17 @@ TEST(RtcpTransceiverImplTest,
   config.receive_statistics = &receive_statistics;
   RtcpTransceiverImpl rtcp_transceiver(config);
 
-  auto receive_sender_report = [&rtcp_transceiver,
-                                &clock](uint32_t remote_ssrc) {
+  auto receive_sender_report = [&](uint32_t remote_ssrc) {
     SenderReport sr;
     sr.SetSenderSsrc(remote_ssrc);
-    auto raw_packet = sr.Build();
-    rtcp_transceiver.ReceivePacket(raw_packet, clock.CurrentTime());
+    rtcp_transceiver.ReceivePacket(sr.Build(), CurrentTime());
   };
 
   receive_sender_report(kRemoteSsrc1);
-  clock.AdvanceTime(TimeDelta::Millis(100));
+  time_controller().AdvanceTime(TimeDelta::Millis(100));
 
   receive_sender_report(kRemoteSsrc2);
-  clock.AdvanceTime(TimeDelta::Millis(100));
+  time_controller().AdvanceTime(TimeDelta::Millis(100));
 
   // Trigger ReceiverReport back.
   rtcp_transceiver.SendCompoundPacket();
@@ -872,13 +821,11 @@ TEST(RtcpTransceiverImplTest,
   EXPECT_EQ(CompactNtpRttToMs(report_blocks[1].delay_since_last_sr()), 100);
 }
 
-TEST(RtcpTransceiverImplTest, SendsNack) {
+TEST_F(RtcpTransceiverImplTest, SendsNack) {
   const uint32_t kSenderSsrc = 1234;
   const uint32_t kRemoteSsrc = 4321;
   std::vector<uint16_t> kMissingSequenceNumbers = {34, 37, 38};
-  SimulatedClock clock(0);
-  RtcpTransceiverConfig config;
-  config.clock = &clock;
+  RtcpTransceiverConfig config = DefaultTestConfig();
   config.feedback_ssrc = kSenderSsrc;
   config.schedule_periodic_compound_packets = false;
   RtcpPacketParser rtcp_parser;
@@ -894,12 +841,10 @@ TEST(RtcpTransceiverImplTest, SendsNack) {
   EXPECT_EQ(rtcp_parser.nack()->packet_ids(), kMissingSequenceNumbers);
 }
 
-TEST(RtcpTransceiverImplTest, RequestKeyFrameWithPictureLossIndication) {
+TEST_F(RtcpTransceiverImplTest, RequestKeyFrameWithPictureLossIndication) {
   const uint32_t kSenderSsrc = 1234;
   const uint32_t kRemoteSsrc = 4321;
-  SimulatedClock clock(0);
-  RtcpTransceiverConfig config;
-  config.clock = &clock;
+  RtcpTransceiverConfig config = DefaultTestConfig();
   config.feedback_ssrc = kSenderSsrc;
   config.schedule_periodic_compound_packets = false;
   RtcpPacketParser rtcp_parser;
@@ -915,12 +860,10 @@ TEST(RtcpTransceiverImplTest, RequestKeyFrameWithPictureLossIndication) {
   EXPECT_EQ(rtcp_parser.pli()->media_ssrc(), kRemoteSsrc);
 }
 
-TEST(RtcpTransceiverImplTest, RequestKeyFrameWithFullIntraRequest) {
+TEST_F(RtcpTransceiverImplTest, RequestKeyFrameWithFullIntraRequest) {
   const uint32_t kSenderSsrc = 1234;
   const uint32_t kRemoteSsrcs[] = {4321, 5321};
-  SimulatedClock clock(0);
-  RtcpTransceiverConfig config;
-  config.clock = &clock;
+  RtcpTransceiverConfig config = DefaultTestConfig();
   config.feedback_ssrc = kSenderSsrc;
   config.schedule_periodic_compound_packets = false;
   RtcpPacketParser rtcp_parser;
@@ -936,10 +879,8 @@ TEST(RtcpTransceiverImplTest, RequestKeyFrameWithFullIntraRequest) {
   EXPECT_EQ(rtcp_parser.fir()->requests()[1].ssrc, kRemoteSsrcs[1]);
 }
 
-TEST(RtcpTransceiverImplTest, RequestKeyFrameWithFirIncreaseSeqNoPerSsrc) {
-  SimulatedClock clock(0);
-  RtcpTransceiverConfig config;
-  config.clock = &clock;
+TEST_F(RtcpTransceiverImplTest, RequestKeyFrameWithFirIncreaseSeqNoPerSsrc) {
+  RtcpTransceiverConfig config = DefaultTestConfig();
   config.schedule_periodic_compound_packets = false;
   RtcpPacketParser rtcp_parser;
   RtcpParserTransport transport(&rtcp_parser);
@@ -968,10 +909,8 @@ TEST(RtcpTransceiverImplTest, RequestKeyFrameWithFirIncreaseSeqNoPerSsrc) {
   EXPECT_EQ(rtcp_parser.fir()->requests()[1].seq_nr, fir_sequence_number1 + 1);
 }
 
-TEST(RtcpTransceiverImplTest, SendFirDoesNotIncreaseSeqNoIfOldRequest) {
-  SimulatedClock clock(0);
-  RtcpTransceiverConfig config;
-  config.clock = &clock;
+TEST_F(RtcpTransceiverImplTest, SendFirDoesNotIncreaseSeqNoIfOldRequest) {
+  RtcpTransceiverConfig config = DefaultTestConfig();
   config.schedule_periodic_compound_packets = false;
   RtcpPacketParser rtcp_parser;
   RtcpParserTransport transport(&rtcp_parser);
@@ -995,11 +934,9 @@ TEST(RtcpTransceiverImplTest, SendFirDoesNotIncreaseSeqNoIfOldRequest) {
   EXPECT_EQ(rtcp_parser.fir()->requests()[1].seq_nr, fir_sequence_number1);
 }
 
-TEST(RtcpTransceiverImplTest, KeyFrameRequestCreatesCompoundPacket) {
+TEST_F(RtcpTransceiverImplTest, KeyFrameRequestCreatesCompoundPacket) {
   const uint32_t kRemoteSsrcs[] = {4321};
-  SimulatedClock clock(0);
-  RtcpTransceiverConfig config;
-  config.clock = &clock;
+  RtcpTransceiverConfig config = DefaultTestConfig();
   // Turn periodic off to ensure sent rtcp packet is explicitly requested.
   config.schedule_periodic_compound_packets = false;
   RtcpPacketParser rtcp_parser;
@@ -1016,11 +953,9 @@ TEST(RtcpTransceiverImplTest, KeyFrameRequestCreatesCompoundPacket) {
   EXPECT_EQ(rtcp_parser.receiver_report()->num_packets(), 1);
 }
 
-TEST(RtcpTransceiverImplTest, KeyFrameRequestCreatesReducedSizePacket) {
+TEST_F(RtcpTransceiverImplTest, KeyFrameRequestCreatesReducedSizePacket) {
   const uint32_t kRemoteSsrcs[] = {4321};
-  SimulatedClock clock(0);
-  RtcpTransceiverConfig config;
-  config.clock = &clock;
+  RtcpTransceiverConfig config = DefaultTestConfig();
   // Turn periodic off to ensure sent rtcp packet is explicitly requested.
   config.schedule_periodic_compound_packets = false;
   RtcpPacketParser rtcp_parser;
@@ -1037,11 +972,9 @@ TEST(RtcpTransceiverImplTest, KeyFrameRequestCreatesReducedSizePacket) {
   EXPECT_EQ(rtcp_parser.receiver_report()->num_packets(), 0);
 }
 
-TEST(RtcpTransceiverImplTest, SendsXrRrtrWhenEnabled) {
+TEST_F(RtcpTransceiverImplTest, SendsXrRrtrWhenEnabled) {
   const uint32_t kSenderSsrc = 4321;
-  SimulatedClock clock(0);
-  RtcpTransceiverConfig config;
-  config.clock = &clock;
+  RtcpTransceiverConfig config = DefaultTestConfig();
   config.feedback_ssrc = kSenderSsrc;
   config.schedule_periodic_compound_packets = false;
   RtcpPacketParser rtcp_parser;
@@ -1051,7 +984,7 @@ TEST(RtcpTransceiverImplTest, SendsXrRrtrWhenEnabled) {
   RtcpTransceiverImpl rtcp_transceiver(config);
 
   rtcp_transceiver.SendCompoundPacket();
-  NtpTime ntp_time_now = clock.CurrentNtpTime();
+  NtpTime ntp_time_now = config.clock->CurrentNtpTime();
 
   EXPECT_EQ(rtcp_parser.xr()->num_packets(), 1);
   EXPECT_EQ(rtcp_parser.xr()->sender_ssrc(), kSenderSsrc);
@@ -1059,10 +992,8 @@ TEST(RtcpTransceiverImplTest, SendsXrRrtrWhenEnabled) {
   EXPECT_EQ(rtcp_parser.xr()->rrtr()->ntp(), ntp_time_now);
 }
 
-TEST(RtcpTransceiverImplTest, SendsNoXrRrtrWhenDisabled) {
-  SimulatedClock clock(0);
-  RtcpTransceiverConfig config;
-  config.clock = &clock;
+TEST_F(RtcpTransceiverImplTest, SendsNoXrRrtrWhenDisabled) {
+  RtcpTransceiverConfig config = DefaultTestConfig();
   config.schedule_periodic_compound_packets = false;
   RtcpPacketParser rtcp_parser;
   RtcpParserTransport transport(&rtcp_parser);
@@ -1078,13 +1009,11 @@ TEST(RtcpTransceiverImplTest, SendsNoXrRrtrWhenDisabled) {
   EXPECT_FALSE(rtcp_parser.xr()->rrtr());
 }
 
-TEST(RtcpTransceiverImplTest, CalculatesRoundTripTimeOnDlrr) {
+TEST_F(RtcpTransceiverImplTest, CalculatesRoundTripTimeOnDlrr) {
   const uint32_t kSenderSsrc = 4321;
-  SimulatedClock clock(0);
   MockRtcpRttStats rtt_observer;
   MockTransport null_transport;
-  RtcpTransceiverConfig config;
-  config.clock = &clock;
+  RtcpTransceiverConfig config = DefaultTestConfig();
   config.feedback_ssrc = kSenderSsrc;
   config.schedule_periodic_compound_packets = false;
   config.outgoing_transport = &null_transport;
@@ -1095,7 +1024,7 @@ TEST(RtcpTransceiverImplTest, CalculatesRoundTripTimeOnDlrr) {
   Timestamp time = Timestamp::Micros(12345678);
   webrtc::rtcp::ReceiveTimeInfo rti;
   rti.ssrc = kSenderSsrc;
-  rti.last_rr = CompactNtp(clock.ConvertTimestampToNtpTime(time));
+  rti.last_rr = CompactNtp(config.clock->ConvertTimestampToNtpTime(time));
   rti.delay_since_last_rr = SaturatedUsToCompactNtp(10 * 1000);
   webrtc::rtcp::ExtendedReports xr;
   xr.AddDlrrItem(rti);
@@ -1105,14 +1034,12 @@ TEST(RtcpTransceiverImplTest, CalculatesRoundTripTimeOnDlrr) {
   rtcp_transceiver.ReceivePacket(raw_packet, time + TimeDelta::Millis(110));
 }
 
-TEST(RtcpTransceiverImplTest, IgnoresUnknownSsrcInDlrr) {
+TEST_F(RtcpTransceiverImplTest, IgnoresUnknownSsrcInDlrr) {
   const uint32_t kSenderSsrc = 4321;
   const uint32_t kUnknownSsrc = 4322;
-  SimulatedClock clock(0);
   MockRtcpRttStats rtt_observer;
   MockTransport null_transport;
-  RtcpTransceiverConfig config;
-  config.clock = &clock;
+  RtcpTransceiverConfig config = DefaultTestConfig();
   config.feedback_ssrc = kSenderSsrc;
   config.schedule_periodic_compound_packets = false;
   config.outgoing_transport = &null_transport;
@@ -1123,7 +1050,7 @@ TEST(RtcpTransceiverImplTest, IgnoresUnknownSsrcInDlrr) {
   Timestamp time = Timestamp::Micros(12345678);
   webrtc::rtcp::ReceiveTimeInfo rti;
   rti.ssrc = kUnknownSsrc;
-  rti.last_rr = CompactNtp(clock.ConvertTimestampToNtpTime(time));
+  rti.last_rr = CompactNtp(config.clock->ConvertTimestampToNtpTime(time));
   webrtc::rtcp::ExtendedReports xr;
   xr.AddDlrrItem(rti);
   auto raw_packet = xr.Build();
@@ -1133,3 +1060,4 @@ TEST(RtcpTransceiverImplTest, IgnoresUnknownSsrcInDlrr) {
 }
 
 }  // namespace
+}  // namespace webrtc

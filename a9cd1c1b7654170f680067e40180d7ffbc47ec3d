@@ -16,6 +16,138 @@
       "message": "Thanks Danil - I wired up propagation and consistency checking between the stream, channel and module.",
       "revId": "a9cd1c1b7654170f680067e40180d7ffbc47ec3d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e679aba_a495d415",
+        "filename": "audio/channel_receive.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-14T08:59:30Z",
+      "side": 1,
+      "message": "this naming style is for \"Accessors and mutators\".\nI do not feel comfortable when virtual function declared to be accessor, prefer to use regular function name.\n\nMay be because when I see use of an accessor, I assume it is very cheap, there is no point to cache value returned from it:\ne.g. code like this one looks fine to me:\n if (object.local_ssrc() !\u003d kSomeSsrc \u0026\u0026\n     object.local_ssrc() !\u003d kOtherSsrc) { \n   DoSomething(object.local_ssrc());\n }\n \nTo avoid extra cost of calling virtual function it might be slightly better to cache the result:\n uint32_t local_ssrc \u003d object.LocalSsrc();\n if (local_ssrc !\u003d kSomeSsrc \u0026\u0026 local_ssrc !\u003d kOtherSsrc) {\n   DoSomething(local_ssrc);\n }",
+      "range": {
+        "startLine": 167,
+        "startChar": 19,
+        "endLine": 167,
+        "endChar": 29
+      },
+      "revId": "a9cd1c1b7654170f680067e40180d7ffbc47ec3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73c6200b_4c499b93",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-14T08:59:30Z",
+      "side": 1,
+      "message": "until c++17, class static constants require a defintion,\ni.e. add \nconstexpr size_t RTCPReceiver::RegisteredSsrcs::kLocalSsrcIndex;\n\n(side note from another comment: it likely should be kMediaSsrcIndex)",
+      "revId": "a9cd1c1b7654170f680067e40180d7ffbc47ec3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1073aa87_b5a80155",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-14T08:59:30Z",
+      "side": 1,
+      "message": "Ssrc\n\nhttp://go/cpp-style#General_Naming_Rules\n\"prefer to capitalize abbreviations as single words, e.g., StartRpc() rather than StartRPC().\"",
+      "range": {
+        "startLine": 71,
+        "startChar": 15,
+        "endLine": 71,
+        "endChar": 19
+      },
+      "revId": "a9cd1c1b7654170f680067e40180d7ffbc47ec3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "015504f1_ff803fec",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-14T08:59:30Z",
+      "side": 1,
+      "message": "all of the ssrcs_ are local\ndid you mean media_ssrc? (to distinct it with rtx and flexfec ssrcs)",
+      "range": {
+        "startLine": 145,
+        "startChar": 13,
+        "endLine": 145,
+        "endChar": 23
+      },
+      "revId": "a9cd1c1b7654170f680067e40180d7ffbc47ec3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41295869_5b9701ed",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-14T08:59:30Z",
+      "side": 1,
+      "message": "why?\nrtcp_sender_ also needs an ssrc (to put into sender_ssrc field of the outgoing ReceiverReport and eXtendedReport)\nIf that ssrc mismatch local ssrc of the receiver, then rrtr/dlrr mechanic (estimating rtt as media receiver) would be broken",
+      "range": {
+        "startLine": 655,
+        "startChar": 14,
+        "endLine": 655,
+        "endChar": 21
+      },
+      "revId": "a9cd1c1b7654170f680067e40180d7ffbc47ec3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c740064e_479b50ee",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-14T08:59:30Z",
+      "side": 1,
+      "message": "I think SSRC() should be the (main/media) local SSRC, so this extra function looks confusing.\n\nIf you\u0027re sure these two functions are different, please comment how they are different.",
+      "range": {
+        "startLine": 113,
+        "startChar": 2,
+        "endLine": 114,
+        "endChar": 76
+      },
+      "revId": "a9cd1c1b7654170f680067e40180d7ffbc47ec3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

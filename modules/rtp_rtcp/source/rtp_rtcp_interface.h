@@ -180,6 +180,10 @@ class RtpRtcpInterface : public RtcpFeedbackSenderInterface {
 
   virtual void SetRemoteSSRC(uint32_t ssrc) = 0;
 
+  // Called when the local ssrc changes (post initialization) for receive
+  // streams to match with send. Called on the packet receive thread/tq.
+  virtual void SetLocalSSRC(uint32_t ssrc) = 0;
+
   // **************************************************************************
   // Sender
   // **************************************************************************
@@ -235,6 +239,9 @@ class RtpRtcpInterface : public RtcpFeedbackSenderInterface {
 
   // Returns SSRC.
   virtual uint32_t SSRC() const = 0;
+
+  // Returns the local receive SSRC.
+  virtual uint32_t LocalSSRC() const = 0;
 
   // Sets the value for sending in the RID (and Repaired) RTP header extension.
   // RIDs are used to identify an RTP stream if SSRCs are not negotiated.

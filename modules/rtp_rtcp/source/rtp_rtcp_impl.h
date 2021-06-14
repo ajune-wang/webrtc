@@ -63,6 +63,7 @@ class ModuleRtpRtcpImpl : public RtpRtcp, public RTCPReceiver::ModuleRtpRtcp {
                           size_t incoming_packet_length) override;
 
   void SetRemoteSSRC(uint32_t ssrc) override;
+  void SetLocalSSRC(uint32_t ssrc) override;
 
   // Sender part.
   void RegisterSendPayloadFrequency(int payload_type,
@@ -97,6 +98,7 @@ class ModuleRtpRtcpImpl : public RtpRtcp, public RTCPReceiver::ModuleRtpRtcp {
   RtpState GetRtxState() const override;
 
   uint32_t SSRC() const override { return rtcp_sender_.SSRC(); }
+  uint32_t LocalSSRC() const override { return rtcp_receiver_.MediaSSRC(); }
 
   void SetRid(const std::string& rid) override;
 

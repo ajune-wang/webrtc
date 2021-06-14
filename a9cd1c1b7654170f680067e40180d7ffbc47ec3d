@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "79b11d5a_512546b6",
+        "filename": "audio/channel_receive.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-06-14T12:06:58Z",
+      "side": 1,
+      "message": "My intention is for the accessor_naming convention to imply that it\u0027s supposed to be very cheap. However, I\u0027m personally not _that_ used to the convention being used on virtual methods, but we have several cases of it in the source code - but there are actually situations there where those accessors are indeed not cheap at all (e.g. ones that go through api proxies).",
+      "parentUuid": "5e679aba_a495d415",
+      "range": {
+        "startLine": 167,
+        "startChar": 19,
+        "endLine": 167,
+        "endChar": 29
+      },
+      "revId": "a9cd1c1b7654170f680067e40180d7ffbc47ec3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "73c6200b_4c499b93",
@@ -58,6 +82,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff92306b_cb83aa07",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-06-14T12:06:58Z",
+      "side": 1,
+      "message": "Done and changed to kMediaSsrcIndex. Also fixed kMaxSsrcs.",
+      "parentUuid": "73c6200b_4c499b93",
+      "revId": "a9cd1c1b7654170f680067e40180d7ffbc47ec3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1073aa87_b5a80155",
@@ -71,6 +113,30 @@
       "writtenOn": "2021-06-14T08:59:30Z",
       "side": 1,
       "message": "Ssrc\n\nhttp://go/cpp-style#General_Naming_Rules\n\"prefer to capitalize abbreviations as single words, e.g., StartRpc() rather than StartRPC().\"",
+      "range": {
+        "startLine": 71,
+        "startChar": 15,
+        "endLine": 71,
+        "endChar": 19
+      },
+      "revId": "a9cd1c1b7654170f680067e40180d7ffbc47ec3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29d0825f_5c2605d4",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-06-14T12:06:58Z",
+      "side": 1,
+      "message": "Since this interface already has:\n\n  void SetRemoteSSRC(uint32_t ssrc);\n  uint32_t RemoteSSRC() const;\n  \nI figured I\u0027d follow that convention. Still prefer Ssrc()?",
+      "parentUuid": "1073aa87_b5a80155",
       "range": {
         "startLine": 71,
         "startChar": 15,
@@ -104,6 +170,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aea29aee_89452302",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-06-14T12:06:58Z",
+      "side": 1,
+      "message": "yes, sorry, this was a naming leak from the audio receive streams. fixed.",
+      "parentUuid": "015504f1_ff803fec",
+      "range": {
+        "startLine": 145,
+        "startChar": 13,
+        "endLine": 145,
+        "endChar": 23
+      },
+      "revId": "a9cd1c1b7654170f680067e40180d7ffbc47ec3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "41295869_5b9701ed",
@@ -117,6 +207,30 @@
       "writtenOn": "2021-06-14T08:59:30Z",
       "side": 1,
       "message": "why?\nrtcp_sender_ also needs an ssrc (to put into sender_ssrc field of the outgoing ReceiverReport and eXtendedReport)\nIf that ssrc mismatch local ssrc of the receiver, then rrtr/dlrr mechanic (estimating rtt as media receiver) would be broken",
+      "range": {
+        "startLine": 655,
+        "startChar": 14,
+        "endLine": 655,
+        "endChar": 21
+      },
+      "revId": "a9cd1c1b7654170f680067e40180d7ffbc47ec3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ffb8107_3197aedb",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-06-14T12:06:58Z",
+      "side": 1,
+      "message": "Added specific checks to make sure that this is only used for the receiver_only configuration. If we end up needing this functionality also for the other configuration, we can follow up on it when we get to it.",
+      "parentUuid": "41295869_5b9701ed",
       "range": {
         "startLine": 655,
         "startChar": 14,

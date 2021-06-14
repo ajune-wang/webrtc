@@ -16,6 +16,23 @@
       "message": "+philipel for modules/congestion_controller",
       "revId": "95d85a127f715a08ecacef94bac85ad4919d1fbd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff55905a_7b200bdf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-06-14T09:28:31Z",
+      "side": 1,
+      "message": "RS-LGTM",
+      "revId": "95d85a127f715a08ecacef94bac85ad4919d1fbd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

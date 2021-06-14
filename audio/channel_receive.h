@@ -162,6 +162,8 @@ class ChannelReceiveInterface : public RtpPacketSinkInterface {
 
   virtual void SetFrameDecryptor(
       rtc::scoped_refptr<webrtc::FrameDecryptorInterface> frame_decryptor) = 0;
+
+  virtual void OnLocalSsrcChange(uint32_t local_ssrc) = 0;
 };
 
 std::unique_ptr<ChannelReceiveInterface> CreateChannelReceive(

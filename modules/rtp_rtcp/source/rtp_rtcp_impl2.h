@@ -77,6 +77,8 @@ class ModuleRtpRtcpImpl2 final : public RtpRtcpInterface,
 
   void SetRemoteSSRC(uint32_t ssrc) override;
 
+  void SetLocalSSRC(uint32_t local_ssrc) override;
+
   // Sender part.
   void RegisterSendPayloadFrequency(int payload_type,
                                     int payload_frequency) override;

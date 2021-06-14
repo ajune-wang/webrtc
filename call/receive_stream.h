@@ -43,6 +43,10 @@ class ReceiveStream {
     std::vector<RtpExtension> extensions;
   };
 
+  // Called on the packet delivery thread. Return value can be assumed to only
+  // be used in the calling context (on the stack basically).
+  virtual const RtpConfig& rtp_config() const = 0;
+
  protected:
   virtual ~ReceiveStream() {}
 };

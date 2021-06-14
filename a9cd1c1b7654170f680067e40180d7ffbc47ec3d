@@ -262,6 +262,30 @@
       },
       "revId": "a9cd1c1b7654170f680067e40180d7ffbc47ec3d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba23c6ef_40ca03e1",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-06-14T12:08:47Z",
+      "side": 1,
+      "message": "Would LocalMediaSSRC() work? Having access to this may also be receive_only specific.",
+      "parentUuid": "c740064e_479b50ee",
+      "range": {
+        "startLine": 113,
+        "startChar": 2,
+        "endLine": 114,
+        "endChar": 76
+      },
+      "revId": "a9cd1c1b7654170f680067e40180d7ffbc47ec3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

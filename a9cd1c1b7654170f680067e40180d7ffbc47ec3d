@@ -171,6 +171,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4270d8f4_0d682ce3",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-06-14T16:17:36Z",
+      "side": 1,
+      "message": "Changed to Ssrc. Also changed from e.g. LocalSsrc() to GetLocalSsrc() for more consistency with Get/Set method elsewhere. local_ssrc() in a virtual interface similarly also changed now to GetLocalSsrc().",
+      "parentUuid": "8fa8e9db_2c00a953",
+      "range": {
+        "startLine": 71,
+        "startChar": 15,
+        "endLine": 71,
+        "endChar": 19
+      },
+      "revId": "a9cd1c1b7654170f680067e40180d7ffbc47ec3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "015504f1_ff803fec",
@@ -291,6 +315,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3a0435ce_7ed26235",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-06-14T16:17:36Z",
+      "side": 1,
+      "message": "I thought it wasn\u0027t being changed previously but you\u0027re right. I\u0027ve updated the CL to also update the sender.",
+      "parentUuid": "98de9d7a_6219d7bc",
+      "range": {
+        "startLine": 655,
+        "startChar": 14,
+        "endLine": 655,
+        "endChar": 21
+      },
+      "revId": "a9cd1c1b7654170f680067e40180d7ffbc47ec3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c740064e_479b50ee",
         "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.h",
         "patchSetId": 9
@@ -350,6 +398,30 @@
       "side": 1,
       "message": "it still won\u0027t explain me what SSRC without any prefixes is.\nhow it is different to this one. (and I still believe it must be the same)",
       "parentUuid": "ba23c6ef_40ca03e1",
+      "range": {
+        "startLine": 113,
+        "startChar": 2,
+        "endLine": 114,
+        "endChar": 76
+      },
+      "revId": "a9cd1c1b7654170f680067e40180d7ffbc47ec3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f5bac82_4eb1561b",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-06-14T16:17:36Z",
+      "side": 1,
+      "message": "Yes, it is the same. I thought it hadn\u0027t been changed in this case but you\u0027re right that it needs to be updated.",
+      "parentUuid": "85a08208_374678e7",
       "range": {
         "startLine": 113,
         "startChar": 2,

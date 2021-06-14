@@ -87,6 +87,8 @@ bool ResetTimestampIfExpired(const Timestamp now,
 RTCPReceiver::RegisteredSsrcs::RegisteredSsrcs(
     const RtpRtcpInterface::Configuration& config) {
   ssrcs_.push_back(config.local_media_ssrc);
+  // Sanity check since `local_ssrc()` indexes `ssrcs_`.
+  RTC_DCHECK_EQ(local_ssrc(), config.local_media_ssrc);
   if (config.rtx_send_ssrc) {
     ssrcs_.push_back(*config.rtx_send_ssrc);
   }
@@ -98,6 +100,22 @@ RTCPReceiver::RegisteredSsrcs::RegisteredSsrcs(
   }
   // Ensure that the RegisteredSsrcs can inline the SSRCs.
   RTC_DCHECK_LE(ssrcs_.size(), RTCPReceiver::RegisteredSsrcs::kMaxSsrcs);
+  packet_sequence_checker_.Detach();
+}
+
+bool RTCPReceiver::RegisteredSsrcs::contains(uint32_t ssrc) const {
+  RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
+  return absl::c_linear_search(ssrcs_, ssrc);
+}
+
+uint32_t RTCPReceiver::RegisteredSsrcs::local_ssrc() const {
+  RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
+  return ssrcs_[kLocalSsrcIndex];
+}
+
+void RTCPReceiver::RegisteredSsrcs::set_local_ssrc(uint32_t ssrc) {
+  RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
+  ssrcs_[kLocalSsrcIndex] = ssrc;
 }
 
 struct RTCPReceiver::PacketInformation {
@@ -176,6 +194,14 @@ void RTCPReceiver::SetRemoteSSRC(uint32_t ssrc) {
   // New SSRC reset old reports.
   last_received_sr_ntp_.Reset();
   remote_ssrc_ = ssrc;
+}
+
+void RTCPReceiver::SetLocalSSRC(uint32_t ssrc) {
+  registered_ssrcs_.set_local_ssrc(ssrc);
+}
+
+uint32_t RTCPReceiver::LocalSSRC() const {
+  return registered_ssrcs_.local_ssrc();
 }
 
 uint32_t RTCPReceiver::RemoteSSRC() const {

@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc9e8ac9_4fb40f22",
+        "filename": "call/call.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1223,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-06-14T09:25:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ecd55f4c_36cc1ac0",
+      "range": {
+        "startLine": 1223,
+        "startChar": 63,
+        "endLine": 1223,
+        "endChar": 72
+      },
+      "revId": "da239170a42c364e49adef67e522ad790deaf273",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "43d536c5_719b4b57",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-06-14T06:36:04Z",
       "side": 1,
       "message": "Longer term, I would like to move lookup of extensions (as well as the payload type frequency) closer to the demuxer.",
+      "range": {
+        "startLine": 1555,
+        "startChar": 28,
+        "endLine": 1555,
+        "endChar": 63
+      },
+      "revId": "da239170a42c364e49adef67e522ad790deaf273",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38803fe5_f9fa2a51",
+        "filename": "call/call.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1555,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-06-14T09:25:38Z",
+      "side": 1,
+      "message": "Agree. This is a bit awkward as is, since we basically end up looking up the same objects twice.",
+      "parentUuid": "43d536c5_719b4b57",
       "range": {
         "startLine": 1555,
         "startChar": 28,
@@ -87,6 +135,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bec6903c_7892a4fb",
+        "filename": "call/flexfec_receive_stream_impl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-06-14T09:25:38Z",
+      "side": 1,
+      "message": "good eye - nope it\u0027s not needed anymore except for tests, so I\u0027ve removed it from the interface and added a non virtual GetConfig() method to the test classes so that the tests can still be satisfied.",
+      "parentUuid": "321bcff0_552413b1",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 43
+      },
+      "revId": "da239170a42c364e49adef67e522ad790deaf273",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5f37e15d_80fb7b8b",
@@ -110,6 +182,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5634f6a9_dffa7904",
+        "filename": "call/flexfec_receive_stream_impl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-06-14T09:25:38Z",
+      "side": 1,
+      "message": "done - in this case it makes sense since it\u0027s intentional that this is the public interface of the class (rather than inheriting from an interface to meet downstream implementation specific requirements).",
+      "parentUuid": "5f37e15d_80fb7b8b",
+      "range": {
+        "startLine": 65,
+        "startChar": 2,
+        "endLine": 65,
+        "endChar": 24
+      },
+      "revId": "da239170a42c364e49adef67e522ad790deaf273",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5a80453f_dd23ffb7",
@@ -123,6 +219,30 @@
       "writtenOn": "2021-06-14T06:36:04Z",
       "side": 1,
       "message": "I think it would be good to document which parts of the config can be changed mid-stream, and on which thread that mutation happens.",
+      "range": {
+        "startLine": 48,
+        "startChar": 27,
+        "endLine": 48,
+        "endChar": 37
+      },
+      "revId": "da239170a42c364e49adef67e522ad790deaf273",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2fadd7e2_7a525195",
+        "filename": "call/receive_stream.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-06-14T09:25:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a80453f_dd23ffb7",
       "range": {
         "startLine": 48,
         "startChar": 27,

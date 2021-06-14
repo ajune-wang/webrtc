@@ -112,6 +112,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "422cb24c_912dfaf7",
+        "filename": "call/call.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1555,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-06-14T09:36:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "38803fe5_f9fa2a51",
+      "range": {
+        "startLine": 1555,
+        "startChar": 28,
+        "endLine": 1555,
+        "endChar": 63
+      },
+      "revId": "da239170a42c364e49adef67e522ad790deaf273",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "321bcff0_552413b1",
@@ -196,6 +220,30 @@
       "side": 1,
       "message": "done - in this case it makes sense since it\u0027s intentional that this is the public interface of the class (rather than inheriting from an interface to meet downstream implementation specific requirements).",
       "parentUuid": "5f37e15d_80fb7b8b",
+      "range": {
+        "startLine": 65,
+        "startChar": 2,
+        "endLine": 65,
+        "endChar": 24
+      },
+      "revId": "da239170a42c364e49adef67e522ad790deaf273",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe2fd39f_06614ae5",
+        "filename": "call/flexfec_receive_stream_impl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-06-14T09:36:07Z",
+      "side": 1,
+      "message": "Can you check it\u0027s done consistently in the other implementations of the interface (AudioReceiveStream and VideoReceiveStream) ? Not sure in which of the cls those changes are.",
+      "parentUuid": "5634f6a9_dffa7904",
       "range": {
         "startLine": 65,
         "startChar": 2,

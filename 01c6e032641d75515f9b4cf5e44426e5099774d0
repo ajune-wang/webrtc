@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "727d75e2_3e19f257",
+        "filename": "call/call.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 1372,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-06-15T15:15:07Z",
+      "side": 1,
+      "message": "good point - done",
+      "parentUuid": "dbd3262d_700a1a3b",
+      "range": {
+        "startLine": 1372,
+        "startChar": 2,
+        "endLine": 1372,
+        "endChar": 3
+      },
+      "revId": "01c6e032641d75515f9b4cf5e44426e5099774d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6890df68_5eca7cdc",
@@ -49,6 +73,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "23b3d341_6a1d544f",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 1932,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-06-15T15:15:07Z",
+      "side": 1,
+      "message": "Done:\n\n  webrtc::AudioReceiveStream\u0026 stream() {\n    RTC_DCHECK(stream_);\n    return *stream_;\n  }",
+      "parentUuid": "6890df68_5eca7cdc",
+      "range": {
+        "startLine": 1932,
+        "startChar": 44,
+        "endLine": 1932,
+        "endChar": 50
+      },
+      "revId": "01c6e032641d75515f9b4cf5e44426e5099774d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "de9e891d_6f1f0009",
         "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
         "patchSetId": 16
@@ -60,6 +108,30 @@
       "writtenOn": "2021-06-15T10:27:43Z",
       "side": 1,
       "message": "I\u0027m a bit worried this can trigger in downstream code where rtcp packets may arrive on different threads.\n\nI\u0027ll trust tests to catch it if it happens.",
+      "range": {
+        "startLine": 108,
+        "startChar": 21,
+        "endLine": 108,
+        "endChar": 45
+      },
+      "revId": "01c6e032641d75515f9b4cf5e44426e5099774d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ed9aff2_f244db45",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-06-15T15:15:07Z",
+      "side": 1,
+      "message": "Yes indeed, I\u0027m looking into options for such cases.",
+      "parentUuid": "de9e891d_6f1f0009",
       "range": {
         "startLine": 108,
         "startChar": 21,
@@ -95,6 +167,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "e2956d7d_5e45e217",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-06-15T15:15:07Z",
+      "side": 1,
+      "message": "Names changed:\n\nvoid set_local_media_ssrc(uint32_t ssrc);\nuint32_t local_media_ssrc() const;",
+      "parentUuid": "cdc6fead_64a1db82",
+      "range": {
+        "startLine": 71,
+        "startChar": 7,
+        "endLine": 71,
+        "endChar": 19
+      },
+      "revId": "01c6e032641d75515f9b4cf5e44426e5099774d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "19a10e4a_10a7b0a7",
         "filename": "modules/rtp_rtcp/source/rtcp_receiver.h",
         "patchSetId": 16
@@ -106,6 +202,30 @@
       "writtenOn": "2021-06-15T10:27:43Z",
       "side": 1,
       "message": "generally I find Get prefix redundant\n\nhttps://google.github.io/styleguide/cppguide.html#Function_Names\nexample shows \u0027set\u0027 prefix for the setter and not prefix for the getter.\n\nSometimes I see \u0027Get\u0027 prefix to avoid collision with a type name, but that is not a a case here.",
+      "range": {
+        "startLine": 72,
+        "startChar": 11,
+        "endLine": 72,
+        "endChar": 14
+      },
+      "revId": "01c6e032641d75515f9b4cf5e44426e5099774d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "caa094ea_b9e0be98",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-06-15T15:15:07Z",
+      "side": 1,
+      "message": "Get removed.",
+      "parentUuid": "19a10e4a_10a7b0a7",
       "range": {
         "startLine": 72,
         "startChar": 11,
@@ -141,6 +261,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "71a48cea_9d21f1b1",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-06-15T15:15:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f6a6306_74d5dc67",
+      "range": {
+        "startLine": 687,
+        "startChar": 2,
+        "endLine": 687,
+        "endChar": 49
+      },
+      "revId": "01c6e032641d75515f9b4cf5e44426e5099774d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "2d7cbe04_46302354",
         "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.h",
         "patchSetId": 16
@@ -152,6 +296,30 @@
       "writtenOn": "2021-06-15T10:27:43Z",
       "side": 1,
       "message": "because it is code example, may be enclose it into ``",
+      "range": {
+        "startLine": 257,
+        "startChar": 31,
+        "endLine": 257,
+        "endChar": 37
+      },
+      "revId": "01c6e032641d75515f9b4cf5e44426e5099774d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42feccd4_d3102cb4",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-06-15T15:15:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d7cbe04_46302354",
       "range": {
         "startLine": 257,
         "startChar": 31,
@@ -175,6 +343,30 @@
       "writtenOn": "2021-06-15T10:27:43Z",
       "side": 1,
       "message": "insert `::`",
+      "range": {
+        "startLine": 259,
+        "startChar": 35,
+        "endLine": 259,
+        "endChar": 37
+      },
+      "revId": "01c6e032641d75515f9b4cf5e44426e5099774d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04a01940_ded62055",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-06-15T15:15:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99b091aa_c78e1a57",
       "range": {
         "startLine": 259,
         "startChar": 35,
@@ -221,6 +413,54 @@
       "writtenOn": "2021-06-15T10:27:43Z",
       "side": 1,
       "message": "because they are semantically identical, may be add this function next to the SSRC() function. (would be easier to choose correct one to call, and easier to refactor one of those two away)",
+      "range": {
+        "startLine": 260,
+        "startChar": 2,
+        "endLine": 260,
+        "endChar": 30
+      },
+      "revId": "01c6e032641d75515f9b4cf5e44426e5099774d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d32a79b_e96e8566",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-06-15T15:15:07Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "9561af9f_cf55debb",
+      "range": {
+        "startLine": 260,
+        "startChar": 11,
+        "endLine": 260,
+        "endChar": 21
+      },
+      "revId": "01c6e032641d75515f9b4cf5e44426e5099774d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03a74984_addb98bf",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-06-15T15:15:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c71ff014_768b7760",
       "range": {
         "startLine": 260,
         "startChar": 2,

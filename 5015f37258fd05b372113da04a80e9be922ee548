@@ -16,6 +16,23 @@
       "message": "+terelius as owner for rtc_tools/rtc_event_log_visualizer",
       "revId": "5015f37258fd05b372113da04a80e9be922ee548",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e0221bf_e0e25022",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-06-15T15:07:55Z",
+      "side": 1,
+      "message": "rtc_tools/ lgtm",
+      "revId": "5015f37258fd05b372113da04a80e9be922ee548",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

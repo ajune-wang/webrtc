@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbd3262d_700a1a3b",
+        "filename": "call/call.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 1372,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-15T10:27:43Z",
+      "side": 1,
+      "message": "probably should have an else branch here:\n  } else {\n    receive_stream.AssociateSendStream(nullptr);\n  }",
+      "range": {
+        "startLine": 1372,
+        "startChar": 2,
+        "endLine": 1372,
+        "endChar": 3
+      },
+      "revId": "01c6e032641d75515f9b4cf5e44426e5099774d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6890df68_5eca7cdc",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 1932,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-15T10:27:43Z",
+      "side": 1,
+      "message": "can stream() even be nullptr?\n\nif yes, then need to check it before dereferencing,\nif no, then may be stream() accesor should return reference (and do a DCHECK inside itself).\nif \u0027yes in general for WebRtcAudioReceiveStream, but not for streams placed into recv_streams_\u0027, then may be good idea to DCHECK here it is not null",
+      "range": {
+        "startLine": 1932,
+        "startChar": 44,
+        "endLine": 1932,
+        "endChar": 50
+      },
+      "revId": "01c6e032641d75515f9b4cf5e44426e5099774d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de9e891d_6f1f0009",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-15T10:27:43Z",
+      "side": 1,
+      "message": "I\u0027m a bit worried this can trigger in downstream code where rtcp packets may arrive on different threads.\n\nI\u0027ll trust tests to catch it if it happens.",
+      "range": {
+        "startLine": 108,
+        "startChar": 21,
+        "endLine": 108,
+        "endChar": 45
+      },
+      "revId": "01c6e032641d75515f9b4cf5e44426e5099774d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdc6fead_64a1db82",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-15T10:27:43Z",
+      "side": 1,
+      "message": "I think having extra \"Local\" prefix would help here\n(rtcp_receiver aware both of local and remote ssrcs. both can be media and repair)",
+      "range": {
+        "startLine": 71,
+        "startChar": 7,
+        "endLine": 71,
+        "endChar": 19
+      },
+      "revId": "01c6e032641d75515f9b4cf5e44426e5099774d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19a10e4a_10a7b0a7",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-15T10:27:43Z",
+      "side": 1,
+      "message": "generally I find Get prefix redundant\n\nhttps://google.github.io/styleguide/cppguide.html#Function_Names\nexample shows \u0027set\u0027 prefix for the setter and not prefix for the getter.\n\nSometimes I see \u0027Get\u0027 prefix to avoid collision with a type name, but that is not a a case here.",
+      "range": {
+        "startLine": 72,
+        "startChar": 11,
+        "endLine": 72,
+        "endChar": 14
+      },
+      "revId": "01c6e032641d75515f9b4cf5e44426e5099774d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f6a6306_74d5dc67",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-15T10:27:43Z",
+      "side": 1,
+      "message": "I think this comment should be removed.",
+      "range": {
+        "startLine": 687,
+        "startChar": 2,
+        "endLine": 687,
+        "endChar": 49
+      },
+      "revId": "01c6e032641d75515f9b4cf5e44426e5099774d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d7cbe04_46302354",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-15T10:27:43Z",
+      "side": 1,
+      "message": "because it is code example, may be enclose it into ``",
+      "range": {
+        "startLine": 257,
+        "startChar": 31,
+        "endLine": 257,
+        "endChar": 37
+      },
+      "revId": "01c6e032641d75515f9b4cf5e44426e5099774d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99b091aa_c78e1a57",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-15T10:27:43Z",
+      "side": 1,
+      "message": "insert `::`",
+      "range": {
+        "startLine": 259,
+        "startChar": 35,
+        "endLine": 259,
+        "endChar": 37
+      },
+      "revId": "01c6e032641d75515f9b4cf5e44426e5099774d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9561af9f_cf55debb",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-15T10:27:43Z",
+      "side": 1,
+      "message": "because RtpRtcpImpl deals both with local and remote ssrcs,\nmay be call the accessor local_media_ssrc()",
+      "range": {
+        "startLine": 260,
+        "startChar": 11,
+        "endLine": 260,
+        "endChar": 21
+      },
+      "revId": "01c6e032641d75515f9b4cf5e44426e5099774d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c71ff014_768b7760",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-15T10:27:43Z",
+      "side": 1,
+      "message": "because they are semantically identical, may be add this function next to the SSRC() function. (would be easier to choose correct one to call, and easier to refactor one of those two away)",
+      "range": {
+        "startLine": 260,
+        "startChar": 2,
+        "endLine": 260,
+        "endChar": 30
+      },
+      "revId": "01c6e032641d75515f9b4cf5e44426e5099774d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

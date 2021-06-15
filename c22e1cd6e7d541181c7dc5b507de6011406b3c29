@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d35e25ff_49c48d74",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-15T05:58:41Z",
+      "side": 1,
+      "message": "Please make sure you have added yourself to the AUTHORS file and signed the CLA agreement.\nSee https://webrtc.org/support/contributing for more details on the contributor agreement.\n\nCan you tell us about your plans to make sure the RISC architecture continues to work (continuous integration testing and so on)?\n",
+      "revId": "c22e1cd6e7d541181c7dc5b507de6011406b3c29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

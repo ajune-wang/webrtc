@@ -77,6 +77,8 @@ class ModuleRtpRtcpImpl2 final : public RtpRtcpInterface,
 
   void SetRemoteSSRC(uint32_t ssrc) override;
 
+  void SetLocalSsrc(uint32_t local_ssrc) override;
+
   // Sender part.
   void RegisterSendPayloadFrequency(int payload_type,
                                     int payload_frequency) override;
@@ -252,6 +254,11 @@ class ModuleRtpRtcpImpl2 final : public RtpRtcpInterface,
   RTPSender* RtpSender() override;
   const RTPSender* RtpSender() const override;
 
+  // Semantically identical to SSRC() but must be called on the packet delivery
+  // thread/tq and returns the ssrc that maps to
+  // RtpRtcpInterface::Configurationlocal_media_ssrc.
+  uint32_t media_ssrc() const;
+
  private:
   FRIEND_TEST_ALL_PREFIXES(RtpRtcpImpl2Test, Rtt);
   FRIEND_TEST_ALL_PREFIXES(RtpRtcpImpl2Test, RttForReceiverOnly);
@@ -284,6 +291,7 @@ class ModuleRtpRtcpImpl2 final : public RtpRtcpInterface,
 
   TaskQueueBase* const worker_queue_;
   RTC_NO_UNIQUE_ADDRESS SequenceChecker process_thread_checker_;
+  RTC_NO_UNIQUE_ADDRESS SequenceChecker packet_sequence_checker_;
 
   std::unique_ptr<RtpSenderContext> rtp_sender_;
 

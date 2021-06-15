@@ -430,6 +430,30 @@
       },
       "revId": "a9cd1c1b7654170f680067e40180d7ffbc47ec3d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebd4b09d_7270eb8f",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-06-15T07:16:40Z",
+      "side": 1,
+      "message": "Removed GetLocalSsrc() from the interface, kept a media_ssrc() accessor in ModuleRtpRtcpImpl2 with a comment that explains that the returned value is identical to the SSRC() accessor but the calling requirements are slightly different (media_ssrc() must be called on the packet delivery thread).\n\nThe threading of ModuleRtpRtcpImpl2 still needs some work since it\u0027s not consistently using the network, worker or process threads for network packets. media_ssrc() is a way to get the ssrc that\u0027s at least consistent with the upstream model all the way up to Call. The \"packet delivery thread\" concept is currently \"worker\", but we\u0027re working towards changing that to be the network thread, so while we\u0027re doing that, the \"packet delivery\" concept is abstract but can still be used to guard state.",
+      "parentUuid": "7f5bac82_4eb1561b",
+      "range": {
+        "startLine": 113,
+        "startChar": 2,
+        "endLine": 114,
+        "endChar": 76
+      },
+      "revId": "a9cd1c1b7654170f680067e40180d7ffbc47ec3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

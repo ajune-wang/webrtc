@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31ff3436_18509d73",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-06-15T07:46:49Z",
+      "side": 1,
+      "message": "+terelius as owner for rtc_tools/rtc_event_log_visualizer",
+      "revId": "5015f37258fd05b372113da04a80e9be922ee548",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

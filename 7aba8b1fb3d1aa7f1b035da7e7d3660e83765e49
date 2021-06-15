@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2cb2abbb_8fb4d151",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-06-15T17:04:55Z",
+      "side": 1,
+      "message": "Reland, patchset 2 has a workaround for downstream project.\nptal",
+      "revId": "7aba8b1fb3d1aa7f1b035da7e7d3660e83765e49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

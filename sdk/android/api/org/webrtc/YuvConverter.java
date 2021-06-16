@@ -12,6 +12,7 @@ package org.webrtc;
 
 import android.graphics.Matrix;
 import android.opengl.GLES20;
+import android.support.annotation.Nullable;
 import java.nio.ByteBuffer;
 import org.webrtc.VideoFrame.I420Buffer;
 import org.webrtc.VideoFrame.TextureBuffer;
@@ -122,6 +123,7 @@ public class YuvConverter {
   }
 
   /** Converts the texture buffer to I420. */
+  @Nullable
   public I420Buffer convert(TextureBuffer inputTextureBuffer) {
     threadChecker.checkIsOnValidThread();
 

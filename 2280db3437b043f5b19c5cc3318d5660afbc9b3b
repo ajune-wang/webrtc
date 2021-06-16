@@ -1,0 +1,216 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1cb0d508_7929776c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-16T13:52:56Z",
+      "side": 1,
+      "message": "https://google.github.io/eng-practices/review/developer/small-cls.html\n\"1000 lines is usually too large\"\n\nCan you please split this CL into several steps.\ne.g.\n1st trivial fixes in packetizers and VideoTiming extension (in particular to have less files in the change. each extra file makes it harder to navigate the change)\n2nd - expose helper classes to create AV1 frames with obus (expanding visibility, moving such functions out of unnamed namespace might require more thoughts on the naming and api in general, still doesn\u0027t require too much as long as it stays internal inside webrtc)\n3rd - create api for the Assembler (i.e. FrameAssemblerClass with no implementation and thus no unittests) - public api require own attention, in particular more documentation.\n4th, final - implement that class and tests for it.\n(though it might be also good idea to add some tests as disabled during 3rd stage. Tests also can be used as documentation, writing tests in advance also helps with cleaner api)\n\n(it might be good idea to keep current CL as is as reference to the bigger picture)",
+      "revId": "2280db3437b043f5b19c5cc3318d5660afbc9b3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47c2ffb4_f80837d1",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-16T13:52:56Z",
+      "side": 1,
+      "message": "This look like a lot of headers for a public api.\nIt might be good idea to hide most of them (using https://en.cppreference.com/w/cpp/language/pimpl or some other technique)",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 0
+      },
+      "revId": "2280db3437b043f5b19c5cc3318d5660afbc9b3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8568b84_930addf3",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-16T13:52:56Z",
+      "side": 1,
+      "message": "For a class in the api a documentation would be really nice.",
+      "range": {
+        "startLine": 32,
+        "startChar": 6,
+        "endLine": 32,
+        "endChar": 28
+      },
+      "revId": "2280db3437b043f5b19c5cc3318d5660afbc9b3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b15bb32_0f32c8c8",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-16T13:52:56Z",
+      "side": 1,
+      "message": "http://go/cpp-style#Aliases\n\n\"Public aliases are for the benefit of an API\u0027s user, and should be clearly documented.\"",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 20
+      },
+      "revId": "2280db3437b043f5b19c5cc3318d5660afbc9b3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acc784a9_e1dc6bec",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-16T13:52:56Z",
+      "side": 1,
+      "message": "do not we already have several similar enums? I\u0027m worried about yet another one.\nMay be to make api simpler/more generic use `absl::string_view payload_format_name` instead of this enum.",
+      "range": {
+        "startLine": 35,
+        "startChar": 2,
+        "endLine": 35,
+        "endChar": 65
+      },
+      "revId": "2280db3437b043f5b19c5cc3318d5660afbc9b3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "987a9c53_c1983190",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-16T13:52:56Z",
+      "side": 1,
+      "message": "delete copy constructor and copy assign operator.\n\nhttp://go/cpp-style#Copy_Constructors\n\n\"A class\u0027s public API must make clear whether the class is copyable, move-only, or neither copyable nor movable.\"",
+      "revId": "2280db3437b043f5b19c5cc3318d5660afbc9b3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cbc080f_ad5679d1",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-16T13:52:56Z",
+      "side": 1,
+      "message": "may be make it clear that there is nothing special about the desturctor:\n(i.e. user shouldn\u0027t check if it is hidden in the private section)\n~RtpVideoFrameAssembler() \u003d default;",
+      "revId": "2280db3437b043f5b19c5cc3318d5660afbc9b3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e66cd53_c7210917",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-16T13:52:56Z",
+      "side": 1,
+      "message": "Document the function, in particular what frame_id is. (Is there some accessor in the RtpFrameObject classs this `frame_id` align with?)",
+      "range": {
+        "startLine": 40,
+        "startChar": 2,
+        "endLine": 40,
+        "endChar": 32
+      },
+      "revId": "2280db3437b043f5b19c5cc3318d5660afbc9b3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba6e05e0_1348042e",
+        "filename": "modules/rtp_rtcp/source/rtp_packetizer_av1_unittest_helper.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-16T13:52:56Z",
+      "side": 1,
+      "message": "avoid child namespaces\nhttps://abseil.io/tips/130\n\"When introducing a new namespace, ... introduce it as a top-level.\"",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 16
+      },
+      "revId": "2280db3437b043f5b19c5cc3318d5660afbc9b3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95621135_89d0aefd",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_vp8.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-16T13:52:56Z",
+      "side": 1,
+      "message": "thank you fixing this, do you mind splitting these trivial fixes into own small cl\n(to submit it and avoid looking at it again)",
+      "range": {
+        "startLine": 28,
+        "startChar": 37,
+        "endLine": 28,
+        "endChar": 43
+      },
+      "revId": "2280db3437b043f5b19c5cc3318d5660afbc9b3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

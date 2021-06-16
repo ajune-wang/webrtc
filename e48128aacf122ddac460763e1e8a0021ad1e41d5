@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e92369d_236f1dc5",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-06-16T11:23:30Z",
+      "side": 1,
+      "message": "nit: .has_value() to be consistent with above?\nalt last_frame_capture_time_ \u003d capture_time.value_or(clock_-\u003eCurrentTime());",
+      "range": {
+        "startLine": 321,
+        "startChar": 7,
+        "endLine": 321,
+        "endChar": 19
+      },
+      "revId": "e48128aacf122ddac460763e1e8a0021ad1e41d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

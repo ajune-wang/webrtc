@@ -11,6 +11,11 @@
 #ifndef API_VIDEO_CODECS_SPATIAL_LAYER_H_
 #define API_VIDEO_CODECS_SPATIAL_LAYER_H_
 
+#include <string>
+
+#include "absl/types/optional.h"
+#include "rtc_base/system/rtc_export.h"
+
 namespace webrtc {
 
 struct SpatialLayer {
@@ -27,6 +32,9 @@ struct SpatialLayer {
   unsigned int qpMax;          // minimum quality
   bool active;                 // encoded and sent.
 };
+
+RTC_EXPORT absl::optional<int> ScalabilityModeToSpatialLayers(
+    const std::string& scalability_mode);
 
 }  // namespace webrtc
 #endif  // API_VIDEO_CODECS_SPATIAL_LAYER_H_

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34e92665_6ecb375a",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-16T10:00:25Z",
+      "side": 1,
+      "message": "you\u0027re disabling thread checks when RTCPReceiver created not as a member of ModuleRtpRtcpImpl2\n\nI think cleaner way to add checks to RTCPReceiver when it is part of ModuleRtpRtcpImpl2\nis to add thread checks into ModuleRtpRtcpImpl2 rather than into RTCPReceiver.\n\nThread checks might be ignored unless set_local_media_ssrc is called, so may be add a log into that setter when RTCPReceiver is not member of ModuleRtpRtcpImpl2.\nOr.... make set_local_media_ssrc private but add ModuleRtpRtcpImpl2 as friend of the RTCPReceiver. Then no logs are required.",
+      "range": {
+        "startLine": 181,
+        "startChar": 24,
+        "endLine": 181,
+        "endChar": 28
+      },
+      "revId": "23f37f3e8c8111f6c1b1a3890459f0e1251d65c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

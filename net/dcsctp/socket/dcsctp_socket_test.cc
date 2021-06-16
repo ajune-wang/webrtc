@@ -494,6 +494,53 @@ TEST_F(DcSctpSocketTest, ResendingCookieEchoTooManyTimesAborts) {
   EXPECT_EQ(sock_a_.state(), SocketState::kClosed);
 }
 
+TEST_F(DcSctpSocketTest, DoesntSendMorePacketsUntilCookieAckHasBeenReceived) {
+  sock_a_.Send(DcSctpMessage(StreamID(1), PPID(53),
+                             std::vector<uint8_t>(kLargeMessageSize)),
+               kSendOptions);
+  sock_a_.Connect();
+
+  // Z reads INIT, produces INIT_ACK
+  sock_z_.ReceivePacket(cb_a_.ConsumeSentPacket());
+  // A reads INIT_ACK, produces COOKIE_ECHO
+  sock_a_.ReceivePacket(cb_z_.ConsumeSentPacket());
+
+  // COOKIE_ECHO is never received by Z.
+  ASSERT_HAS_VALUE_AND_ASSIGN(SctpPacket cookie_echo_packet1,
+                              SctpPacket::Parse(cb_a_.ConsumeSentPacket()));
+  EXPECT_THAT(cookie_echo_packet1.descriptors(), SizeIs(2));
+  EXPECT_EQ(cookie_echo_packet1.descriptors()[0].type, CookieEchoChunk::kType);
+  EXPECT_EQ(cookie_echo_packet1.descriptors()[1].type, DataChunk::kType);
+
+  EXPECT_THAT(cb_a_.ConsumeSentPacket(), IsEmpty());
+
+  AdvanceTime(options_.t1_cookie_timeout);
+  RunTimers();
+
+  ASSERT_HAS_VALUE_AND_ASSIGN(SctpPacket cookie_echo_packet2,
+                              SctpPacket::Parse(cb_a_.ConsumeSentPacket()));
+  EXPECT_THAT(cookie_echo_packet2.descriptors(), SizeIs(2));
+  EXPECT_EQ(cookie_echo_packet2.descriptors()[0].type, CookieEchoChunk::kType);
+  EXPECT_EQ(cookie_echo_packet2.descriptors()[1].type, DataChunk::kType);
+
+  EXPECT_THAT(cb_a_.ConsumeSentPacket(), IsEmpty());
+
+  AdvanceTime(options_.t1_cookie_timeout * 2);
+  RunTimers();
+
+  // Z reads COOKIE_ECHO, produces COOKIE_ACK
+  sock_z_.ReceivePacket(cb_a_.ConsumeSentPacket());
+  // A reads COOKIE_ACK.
+  sock_a_.ReceivePacket(cb_z_.ConsumeSentPacket());
+
+  EXPECT_EQ(sock_a_.state(), SocketState::kConnected);
+  EXPECT_EQ(sock_z_.state(), SocketState::kConnected);
+
+  ExchangeMessages(sock_a_, cb_a_, sock_z_, cb_z_);
+  EXPECT_THAT(cb_z_.ConsumeReceivedMessage()->payload(),
+              SizeIs(kLargeMessageSize));
+}
+
 TEST_F(DcSctpSocketTest, ShutdownConnection) {
   ConnectSockets();
 

@@ -450,7 +450,7 @@ TEST_F(DcSctpSocketTest, ResendCookieEchoAndEstablishConnection) {
                               SctpPacket::Parse(cb_a_.ConsumeSentPacket()));
   EXPECT_EQ(init_packet.descriptors()[0].type, CookieEchoChunk::kType);
 
-  AdvanceTime(options_.t1_init_timeout);
+  AdvanceTime(options_.t1_cookie_timeout);
   RunTimers();
 
   // Z reads COOKIE_ECHO, produces COOKIE_ACK

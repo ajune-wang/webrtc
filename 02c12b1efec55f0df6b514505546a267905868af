@@ -16,6 +16,23 @@
       "message": "thank you!",
       "revId": "02c12b1efec55f0df6b514505546a267905868af",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53daafea_92b2b283",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-06-16T16:19:01Z",
+      "side": 1,
+      "message": "looks like only my other account is allowed to say \"CR+1\"... so manual LGTM",
+      "revId": "02c12b1efec55f0df6b514505546a267905868af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

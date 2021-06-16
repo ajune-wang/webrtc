@@ -16,6 +16,23 @@
       "message": "Stefan and Asa, could you please help to review? I need owner review then can proceed this CL.",
       "revId": "712788000f1b78f126f437b0afa39d94a0908261",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4898f39f_e67cacf7",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 779,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-06-16T08:45:31Z",
+      "side": 1,
+      "message": "If we don\u0027t have a source, shouldn\u0027t we send black frames?\nhttps://w3c.github.io/webrtc-pc/#dom-rtcrtpsender-track\n\nIf the encoder is configured not to send and this is negotiated, then I\u0027m pretty sure that the VideoStreamEncoder will be stopped.\n\nI\u0027m not sure this CL is correct.",
+      "revId": "712788000f1b78f126f437b0afa39d94a0908261",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

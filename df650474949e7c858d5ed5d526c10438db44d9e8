@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c54040f_2c978bf0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-06-16T13:48:34Z",
+      "side": 1,
+      "message": "Danil, can you take a look at this CL if it makes sense.\nQueryCodecSupport() is called by the MediaCapabilities API to determine what modes are supported. The primary reason to have scalability_mode here is to be able to determine if there\u0027s HW support for spatial layers. So the implementation in RTCVideoDecoderFactory/RTCVideoEncoderFactory will return unsupported for most platform if the configuration requires spatial layers.",
+      "revId": "df650474949e7c858d5ed5d526c10438db44d9e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

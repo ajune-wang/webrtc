@@ -15,9 +15,12 @@
 #include <string>
 #include <vector>
 
+#include "absl/strings/match.h"
 #include "absl/types/optional.h"
 #include "api/units/data_rate.h"
 #include "api/video_codecs/sdp_video_format.h"
+#include "api/video_codecs/spatial_layer.h"
+#include "api/video_codecs/video_codec.h"
 
 namespace webrtc {
 
@@ -95,12 +98,27 @@ class VideoEncoderFactory {
       const SdpVideoFormat& format,
       absl::optional<std::string> scalability_mode) const {
     // Default implementation, query for supported formats and check if the
-    // specified format is supported. Returns false if scalability_mode is
-    // specified.
-    CodecSupport codec_support;
-    if (!scalability_mode) {
-      codec_support.is_supported = format.IsCodecInList(GetSupportedFormats());
+    // specified format is supported. Returns false if an unsupported
+    // scalability_mode is specified.
+    if (scalability_mode) {
+      absl::optional<int> spatial_layers =
+          ScalabilityModeToSpatialLayers(*scalability_mode);
+
+      // Check that the scalability mode was correctly parsed and that the
+      // configuration is valid (e.g., H264 doesn't support SVC at all and VP8
+      // doesn't support spatial layers).
+      VideoCodecType codec = PayloadStringToCodecType(format.name);
+      if (!spatial_layers ||
+          (codec != kVideoCodecVP8 && codec != kVideoCodecVP9 &&
+           codec != kVideoCodecAV1) ||
+          (codec == kVideoCodecVP8 && *spatial_layers > 1)) {
+        // Ivalid scalability_mode, return unsupported.
+        return {false, false};
+      }
     }
+
+    CodecSupport codec_support;
+    codec_support.is_supported = format.IsCodecInList(GetSupportedFormats());
     return codec_support;
   }
 

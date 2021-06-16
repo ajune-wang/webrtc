@@ -16,6 +16,24 @@
       "message": "What\u0027s the effect of actual sync on this?\nGiven that we have little code that depends on sync groups, it doesn\u0027t seem to be a critical thing, but it would be nice to ensure that what should stay in sync actually stays in sync after this change.\n\n+1\u0027ing anyway.\n",
       "revId": "9460d49e9f712f442cbc20838ff74b531cc1ed76",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "429f52f4_65b15949",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-06-16T14:33:15Z",
+      "side": 1,
+      "message": "In the end it boils down to a call to ReceiveStatisticsProxy::OnSyncOffsetUpdated() where member variables get updated that are then used when reporting stats. It\u0027s not actually used for synchronization.",
+      "parentUuid": "f96fdb97_2ffdd626",
+      "revId": "9460d49e9f712f442cbc20838ff74b531cc1ed76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

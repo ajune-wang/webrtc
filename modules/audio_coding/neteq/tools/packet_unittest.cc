@@ -42,16 +42,15 @@ void MakeRtpHeader(int payload_type,
 
 TEST(TestPacket, RegularPacket) {
   const size_t kPacketLengthBytes = 100;
-  uint8_t* packet_memory = new uint8_t[kPacketLengthBytes];
+  rtc::CopyOnWriteBuffer packet_memory(kPacketLengthBytes);
   const uint8_t kPayloadType = 17;
   const uint16_t kSequenceNumber = 4711;
   const uint32_t kTimestamp = 47114711;
   const uint32_t kSsrc = 0x12345678;
   MakeRtpHeader(kPayloadType, kSequenceNumber, kTimestamp, kSsrc,
-                packet_memory);
+                packet_memory.MutableData());
   const double kPacketTime = 1.0;
-  // Hand over ownership of |packet_memory| to |packet|.
-  Packet packet(packet_memory, kPacketLengthBytes, kPacketTime);
+  Packet packet(std::move(packet_memory), kPacketTime);
   ASSERT_TRUE(packet.valid_header());
   EXPECT_EQ(kPayloadType, packet.header().payloadType);
   EXPECT_EQ(kSequenceNumber, packet.header().sequenceNumber);
@@ -70,16 +69,15 @@ TEST(TestPacket, RegularPacket) {
 TEST(TestPacket, DummyPacket) {
   const size_t kPacketLengthBytes = kHeaderLengthBytes;  // Only RTP header.
   const size_t kVirtualPacketLengthBytes = 100;
-  uint8_t* packet_memory = new uint8_t[kPacketLengthBytes];
+  rtc::CopyOnWriteBuffer packet_memory(kPacketLengthBytes);
   const uint8_t kPayloadType = 17;
   const uint16_t kSequenceNumber = 4711;
   const uint32_t kTimestamp = 47114711;
   const uint32_t kSsrc = 0x12345678;
   MakeRtpHeader(kPayloadType, kSequenceNumber, kTimestamp, kSsrc,
-                packet_memory);
+                packet_memory.MutableData());
   const double kPacketTime = 1.0;
-  // Hand over ownership of |packet_memory| to |packet|.
-  Packet packet(packet_memory, kPacketLengthBytes, kVirtualPacketLengthBytes,
+  Packet packet(std::move(packet_memory), kVirtualPacketLengthBytes,
                 kPacketTime);
   ASSERT_TRUE(packet.valid_header());
   EXPECT_EQ(kPayloadType, packet.header().payloadType);
@@ -133,19 +131,19 @@ int MakeRedHeader(int payload_type,
 
 TEST(TestPacket, RED) {
   const size_t kPacketLengthBytes = 100;
-  uint8_t* packet_memory = new uint8_t[kPacketLengthBytes];
+  rtc::CopyOnWriteBuffer packet_memory(kPacketLengthBytes);
   const uint8_t kRedPayloadType = 17;
   const uint16_t kSequenceNumber = 4711;
   const uint32_t kTimestamp = 47114711;
   const uint32_t kSsrc = 0x12345678;
   MakeRtpHeader(kRedPayloadType, kSequenceNumber, kTimestamp, kSsrc,
-                packet_memory);
+                packet_memory.MutableData());
   // Create four RED headers.
   // Payload types are just the same as the block index the offset is 100 times
   // the block index.
   const int kRedBlocks = 4;
-  uint8_t* payload_ptr =
-      &packet_memory[kHeaderLengthBytes];  // First byte after header.
+  uint8_t* payload_ptr = packet_memory.MutableData() +
+                         kHeaderLengthBytes;  // First byte after header.
   for (int i = 0; i < kRedBlocks; ++i) {
     int payload_type = i;
     // Offset value is not used for the last block.

@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "725269df_48994fa3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-16T14:45:07Z",
+      "side": 1,
+      "message": "I think it is a step in the right direction, but it is not there yet to claim scalability mode support is queried correctly.",
+      "range": {
+        "startLine": 7,
+        "startChar": 24,
+        "endLine": 7,
+        "endChar": 33
+      },
+      "revId": "df650474949e7c858d5ed5d526c10438db44d9e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "3c54040f_2c978bf0",
@@ -14,6 +37,259 @@
       "writtenOn": "2021-06-16T13:48:34Z",
       "side": 1,
       "message": "Danil, can you take a look at this CL if it makes sense.\nQueryCodecSupport() is called by the MediaCapabilities API to determine what modes are supported. The primary reason to have scalability_mode here is to be able to determine if there\u0027s HW support for spatial layers. So the implementation in RTCVideoDecoderFactory/RTCVideoEncoderFactory will return unsupported for most platform if the configuration requires spatial layers.",
+      "revId": "df650474949e7c858d5ed5d526c10438db44d9e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f614ded_38b86d12",
+        "filename": "api/video_codecs/spatial_layer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-16T14:45:07Z",
+      "side": 1,
+      "message": "or absl::string_view - it also can be constexpr and also has a trivial destructor.",
+      "range": {
+        "startLine": 20,
+        "startChar": 2,
+        "endLine": 20,
+        "endChar": 13
+      },
+      "revId": "df650474949e7c858d5ed5d526c10438db44d9e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3203456a_37dddd0f",
+        "filename": "api/video_codecs/spatial_layer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-16T14:45:07Z",
+      "side": 1,
+      "message": "what this list maps to?\nit has more modes than currently CreateScalabilityStructure supports,\nbut doesn\u0027t list all modes from the webrtc-svc spec (e.g. L3T3_KEY_SHIFT is missing)\n\nMore importantly, how this list can be kept in sync?",
+      "range": {
+        "startLine": 25,
+        "startChar": 5,
+        "endLine": 34,
+        "endChar": 62
+      },
+      "revId": "df650474949e7c858d5ed5d526c10438db44d9e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5784f26a_d2712eeb",
+        "filename": "api/video_codecs/spatial_layer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-16T14:45:07Z",
+      "side": 1,
+      "message": "may be for now this hack might be ok (with proper comment):\n  if (scalability_mode.size() \u003e\u003d4 \u0026\u0026 \n      scalability_mode[1] \u003e\u003d \u00271\u0027 \u0026\u0026\n      scalability_mode[1] \u003c\u003d \u00273\u0027) {\n    return scalability_mode[1] - \u00270\u0027;\n  }\n  return absl::nullopt;\nIt is also future proof for future structures that would uses similar naming (e.g. \"L3T1h\" is not mentioned in the standard, but is a reasonable structure)\n\nBut I\u0027m worried about plans to add vp9 screenshare scalability structures that are not in the list above (and do not have a name in the svc standard).\nGuess will need to remember about this function while adding them.\n\nlater it might be expanded to \n  if (some_fast_check) { return scalability_mode[1] - \u00270\u0027; }\n  if (scalability_mode \u003d\u003d \"NONE\") return 1;\n  // expensive extract, may be LOG WARNING to remind adding a fast check or extending a list of known structures above.\n  if (auto structure \u003d CreateScalabilityStructure(scalability_mode)) {\n    return structure-\u003eStreamConfig().num_spatial_layers;\n  }\n  return absl::nullopt;",
+      "range": {
+        "startLine": 51,
+        "startChar": 2,
+        "endLine": 56,
+        "endChar": 23
+      },
+      "revId": "df650474949e7c858d5ed5d526c10438db44d9e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5acb23c7_875588a7",
+        "filename": "api/video_codecs/spatial_layer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-16T14:45:07Z",
+      "side": 1,
+      "message": "may be add documentation for this api function.\nin particular what does result of nullopt mean.\n\nI\u0027m also a bit concern of the name that suggests it is convert function, or function that does something with the struct just above.\nmay be name like this one is better: \u0027NumSpatialLayersInScalabilityMode\u0027",
+      "range": {
+        "startLine": 36,
+        "startChar": 31,
+        "endLine": 36,
+        "endChar": 61
+      },
+      "revId": "df650474949e7c858d5ed5d526c10438db44d9e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a154792_ae2ec1b0",
+        "filename": "api/video_codecs/spatial_layer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-16T14:45:07Z",
+      "side": 1,
+      "message": "absl::string_view usually better parameter type than reference to std::string\nhttps://abseil.io/tips/1",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 22
+      },
+      "revId": "df650474949e7c858d5ed5d526c10438db44d9e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f8bb220_f9972001",
+        "filename": "media/engine/internal_decoder_factory.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-16T14:45:07Z",
+      "side": 1,
+      "message": "why Decoder is queried for scalability mode support?\nIf encoder can produce valid bitstream using certain scalability mode, decoder should be able to understand it.\n(there are still exceptions.... e.g. some hardwarde vp9 decoders do not support KSVC structure, but that is more like a bug than something to design around)",
+      "range": {
+        "startLine": 50,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 39
+      },
+      "revId": "df650474949e7c858d5ed5d526c10438db44d9e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e20b9d7_833e67fe",
+        "filename": "media/engine/internal_decoder_factory_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-16T14:45:07Z",
+      "side": 1,
+      "message": "it is right to remove \u0027Test\u0027 prefix from the name of the test.\nMay be also move it as suffix of the suite name:\nTEST(InternalDecoderFactoryTest, Vp8)",
+      "range": {
+        "startLine": 42,
+        "startChar": 29,
+        "endLine": 42,
+        "endChar": 31
+      },
+      "revId": "df650474949e7c858d5ed5d526c10438db44d9e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06285a5d_78889a09",
+        "filename": "media/engine/internal_encoder_factory.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-16T14:45:07Z",
+      "side": 1,
+      "message": "That is just a guess. and sometimes it is wrong.\nTo make it correct, EncoderFactory really should ask the encoder implementation.\nE.g. hardware vp9 encoder probably doesn\u0027t support multiple spatial layers.\n(but then chromium vp9 hardward encoder with temporal layers use some own structure, not the L1T3 or any other from the webrtc-svc standard)\nSimulcast Vp8 encoder might be able to support S3Tx structures (and decode won\u0027t even need to know how many spatial layers there were before filtering)\nVp9 encoders likely won\u0027t ever support KEY_SHIFT structures (incompatible with the vp9 rtp descriptor)\nav1 encoder haven\u0027t yet implemented L3T3_KEY_SHIFT structure (I will add it eventually, but right now it is not there)",
+      "range": {
+        "startLine": 71,
+        "startChar": 4,
+        "endLine": 73,
+        "endChar": 39
+      },
+      "revId": "df650474949e7c858d5ed5d526c10438db44d9e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fec6680c_bd3d778f",
+        "filename": "media/engine/internal_encoder_factory_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-16T14:45:07Z",
+      "side": 1,
+      "message": "move into unnamed namespace, before the constants\n\nhttps://abseil.io/tips/119#summary\n\n\"Declare namespace aliases and using-declarations inside the innermost namespace, whether named or anonymous\"",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 0
+      },
+      "revId": "df650474949e7c858d5ed5d526c10438db44d9e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8c37856_c4df65ed",
+        "filename": "media/engine/internal_encoder_factory_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-16T14:45:07Z",
+      "side": 1,
+      "message": "name it InternalEncoderFactoryTest\n(otherwise there might be name collision with the object under test)",
+      "range": {
+        "startLine": 42,
+        "startChar": 5,
+        "endLine": 42,
+        "endChar": 27
+      },
+      "revId": "df650474949e7c858d5ed5d526c10438db44d9e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d68e174_74455d5e",
+        "filename": "media/engine/internal_encoder_factory_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-16T14:45:07Z",
+      "side": 1,
+      "message": "should we already support the av1 using registered \u0027AV1\u0027 name\n(and for legacy reason keep accepting name \u0027AV1X\u0027 too)",
+      "range": {
+        "startLine": 58,
+        "startChar": 29,
+        "endLine": 58,
+        "endChar": 32
+      },
       "revId": "df650474949e7c858d5ed5d526c10438db44d9e8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

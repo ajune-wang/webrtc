@@ -206,6 +206,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "22e4affc_84c831bc",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-17T10:22:07Z",
+      "side": 1,
+      "message": "I think there was an enum for payload types, but to reduce confusion it was merged with one of the codec enums.\n\nAnother idea of adding flexibility without exposing too much is to have a two-step construction:\n\n// forward declare to avoid making it public.\nclass VideoRtpDepacketizer;\nstatic std::unique\u003cVideoRtpDepacketizer\u003e CreateRtpDepacketizer(absl::string_view codec_name);\nstatic std::unique\u003cVideoRtpDepacketizer\u003e CreateRawRtpDepacketizer();\n\nRtpVideoFrameAssembler::RtpVideoFrameAssembler(std::unique\u003cVideoRtpDepacketizer\u003e);\n\nbut from api point of view that likely doesn\u0027t add much.",
+      "parentUuid": "173febb1_1ff1e4e6",
+      "range": {
+        "startLine": 35,
+        "startChar": 2,
+        "endLine": 35,
+        "endChar": 65
+      },
+      "revId": "2280db3437b043f5b19c5cc3318d5660afbc9b3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "987a9c53_c1983190",

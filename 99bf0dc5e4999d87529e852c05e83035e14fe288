@@ -1,0 +1,251 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a080f7c_3fd85d8f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-17T10:22:07Z",
+      "side": 1,
+      "message": "took a look mostly at the header, i.e. api.\nWhen it come to spliting he CL I would rather see\nno implementation, or added tests\n(or better both. In such a case tests would likely be disabled and be there to demonstrate usage of the api without validating absent implementation)\n",
+      "revId": "99bf0dc5e4999d87529e852c05e83035e14fe288",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3e72fbd_acdc9f01",
+        "filename": "api/video/rtp_video_frame_assembler.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-17T10:22:07Z",
+      "side": 1,
+      "message": "why variant, and not simpler std::unique_ptr\u003cVideoRtpDepacketizer\u003e ?\n\nLook like you\u0027re always using depacketizer through that interface anyway,\ni.e. each call pays both variant fee (to do the switch) and interface fee (to do the virtual call))\n\ngo/totw/155",
+      "range": {
+        "startLine": 63,
+        "startChar": 2,
+        "endLine": 68,
+        "endChar": 44
+      },
+      "revId": "99bf0dc5e4999d87529e852c05e83035e14fe288",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "582322e1_64143b05",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-17T10:22:07Z",
+      "side": 1,
+      "message": "no longer need to be present in the header",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 14
+      },
+      "revId": "99bf0dc5e4999d87529e852c05e83035e14fe288",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a118499a_92e820df",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-17T10:22:07Z",
+      "side": 1,
+      "message": "Is there a plan to make RtpFrameObject a public class?\nthis interface de-facto makes it public.\n\n(for RtpPacketReceieved I can guess an answer - yes, there is a desire to make that one public, or at least the RtpPacket)",
+      "range": {
+        "startLine": 21,
+        "startChar": 31,
+        "endLine": 21,
+        "endChar": 43
+      },
+      "revId": "99bf0dc5e4999d87529e852c05e83035e14fe288",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49b925d3_bd147b17",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-17T10:22:07Z",
+      "side": 1,
+      "message": "Likely it is better to put it as child class rather than have it in an internal namespace:\n\n// .h\nclass RtpVideoFrameAssembler {\n public:\n  ...\n private:\n  class Impl;\n  std::unique_ptr\u003cImpl\u003e impl_;\n}\n\n// .cc\nclass RtpVideoFrameAssembler::Impl {\n  ...\n};",
+      "range": {
+        "startLine": 25,
+        "startChar": 6,
+        "endLine": 25,
+        "endChar": 32
+      },
+      "revId": "99bf0dc5e4999d87529e852c05e83035e14fe288",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "537ec1b8_84fa32c2",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-17T10:22:07Z",
+      "side": 1,
+      "message": "do you also mean RtpVideoFrameAssembler emits frames in frame IDs order?\nOr is it just a description what Frame ID is? [sequenuce number to define decode order]",
+      "range": {
+        "startLine": 31,
+        "startChar": 49,
+        "endLine": 31,
+        "endChar": 71
+      },
+      "revId": "99bf0dc5e4999d87529e852c05e83035e14fe288",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94569036_8127ec4a",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-17T10:22:07Z",
+      "side": 1,
+      "message": "nit: known",
+      "range": {
+        "startLine": 31,
+        "startChar": 43,
+        "endLine": 31,
+        "endChar": 47
+      },
+      "revId": "99bf0dc5e4999d87529e852c05e83035e14fe288",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "540daf2d_da946f95",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-17T10:22:07Z",
+      "side": 1,
+      "message": "it is probably more than that.\nOr rather here is a question I would like to be answered in the comment:\nIs it guaranteed the ReturnVector would always be an InlinedVector [with 3 local elements]?\nProbably not. probably all that is promised is that it is a \u0027vector-like container of the unique_ptr\u003cRtpFrameObject\u003e\u0027",
+      "range": {
+        "startLine": 35,
+        "startChar": 5,
+        "endLine": 35,
+        "endChar": 22
+      },
+      "revId": "99bf0dc5e4999d87529e852c05e83035e14fe288",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76dee2c1_de9dd045",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-17T10:22:07Z",
+      "side": 1,
+      "message": "alterative name ideas\n(I doubt word \u0027Return\u0027 is helpful in this name.\nword Vector is helpful - it indicates it is an std::vector-like class )\n\nVectorOfRtpFrameObjects  (looks similar to vector\u003cRtpFrameObject\u003e)\nVectorOfRtpFrames (can RtpFrameObject be renamed? or may be there can be a cleaner RtpFrame class instead)\nVectorOfEncodedChunks\nRtpFrameVector",
+      "range": {
+        "startLine": 36,
+        "startChar": 8,
+        "endLine": 36,
+        "endChar": 20
+      },
+      "revId": "99bf0dc5e4999d87529e852c05e83035e14fe288",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d44d336_522780f5",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-17T10:22:07Z",
+      "side": 1,
+      "message": "why RtpPacketReceived?\ncan it be a smaller class RtpPacket instead?\n\n(RtpPacket would be easier to make public than RtpPacketReceived, may be not that much though)",
+      "range": {
+        "startLine": 46,
+        "startChar": 34,
+        "endLine": 46,
+        "endChar": 51
+      },
+      "revId": "99bf0dc5e4999d87529e852c05e83035e14fe288",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df7fcf92_ada4d702",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-17T10:22:07Z",
+      "side": 1,
+      "message": "imho that is a bit too specific (I can easily imaging implementation where rtp sequence number wrap around is not an issue. I probably would recommend such implementation.)\nmay be use more generic \u0027to free up resources used by those incomplete frame\u0027\n(where resources may mean many things: memory, rtp sequence numbers, place in internal map that makes it larger and thus slower to search)",
+      "range": {
+        "startLine": 52,
+        "startChar": 42,
+        "endLine": 53,
+        "endChar": 60
+      },
+      "revId": "99bf0dc5e4999d87529e852c05e83035e14fe288",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

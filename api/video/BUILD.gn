@@ -143,6 +143,27 @@ rtc_library("encoded_frame") {
   deps = [ "../../modules/video_coding:encoded_frame" ]
 }
 
+rtc_library("rtp_video_frame_assembler") {
+  visibility = [ "*" ]
+  sources = [
+    "rtp_video_frame_assembler.cc",
+    "rtp_video_frame_assembler.h",
+  ]
+
+  deps = [
+    ":encoded_frame",
+    "../../modules/rtp_rtcp:rtp_rtcp",
+    "../../modules/rtp_rtcp:rtp_rtcp_format",
+    "../../modules/video_coding:video_coding",
+    "../../rtc_base:logging",
+  ]
+
+  absl_deps = [
+    "//third_party/abseil-cpp/absl/container:inlined_vector",
+    "//third_party/abseil-cpp/absl/types:variant",
+  ]
+}
+
 rtc_source_set("video_codec_constants") {
   visibility = [ "*" ]
   sources = [ "video_codec_constants.h" ]

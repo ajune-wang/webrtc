@@ -22,6 +22,30 @@
       },
       "revId": "99491de4ce9b4aae16f5b121949dce53f86acd99",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f86e04bb_54d71f80",
+        "filename": "sdk/android/api/org/webrtc/YuvConverter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 10653
+      },
+      "writtenOn": "2021-06-17T09:55:41Z",
+      "side": 1,
+      "message": "Evan is working on allowing on supporting ToI420 to return null in WebRTC.\n\nChanged convert to catch the GlException and return null. Currently this would change the GlException to a NPE.",
+      "parentUuid": "0de9fba6_f2ac9a59",
+      "range": {
+        "startLine": 126,
+        "startChar": 3,
+        "endLine": 126,
+        "endChar": 11
+      },
+      "revId": "99491de4ce9b4aae16f5b121949dce53f86acd99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -299,6 +299,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "9abd789b_658ed532",
+        "filename": "media/engine/internal_decoder_factory.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-17T15:40:22Z",
+      "side": 1,
+      "message": "I doubt scalability mode is important for the question \u0027video will playback smoothly\u0027. scalability_mode is really for encoder to decide how to organise frame dependencies and layers. Decoder doesn\u0027t need to know about layers.\n\ncurrent code seems to return false for configuration that encoder won\u0027t be able to produce, configurations decoder would never ever see.\n\nfor av1 I know there are levels and tiers to communicate decoder capabilities (see Annex A in https://aomediacodec.github.io/av1-spec/av1-spec.pdf for more details)",
+      "parentUuid": "0c480a58_1a0e67b6",
+      "range": {
+        "startLine": 50,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 39
+      },
+      "revId": "df650474949e7c858d5ed5d526c10438db44d9e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "3e20b9d7_833e67fe",
@@ -359,6 +383,30 @@
       "side": 1,
       "message": "If there is a hardware encoder/decoder it will be queried first to see if it supports the codec and selected mode.\n\nIt sounds like I need a hardcoded list per encoder?",
       "parentUuid": "06285a5d_78889a09",
+      "range": {
+        "startLine": 71,
+        "startChar": 4,
+        "endLine": 73,
+        "endChar": 39
+      },
+      "revId": "df650474949e7c858d5ed5d526c10438db44d9e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c44cbf5c_7f2c4fb3",
+        "filename": "media/engine/internal_encoder_factory.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-17T15:40:22Z",
+      "side": 1,
+      "message": "Yep, I think each encoder implementations should have a function that returns list of supported structures. (it is then up to that encoder wrapper to decide if the list is hardcoded or assembled on the fly)\nI.e. something that would be propagated to \nhttps://w3c.github.io/webrtc-svc/#rtcrtpcodeccapability*\n\nCurrent code is okeish first approximation: I think it is ok to submit it and leave a TODO to pull more accurate list from the encoders.",
+      "parentUuid": "6c37360c_ecc69bcb",
       "range": {
         "startLine": 71,
         "startChar": 4,

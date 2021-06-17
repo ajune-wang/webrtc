@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "77290427_af81b852",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-06-17T09:02:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "47c2ffb4_f80837d1",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 0
+      },
+      "revId": "2280db3437b043f5b19c5cc3318d5660afbc9b3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f8568b84_930addf3",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-06-16T13:52:56Z",
       "side": 1,
       "message": "For a class in the api a documentation would be really nice.",
+      "range": {
+        "startLine": 32,
+        "startChar": 6,
+        "endLine": 32,
+        "endChar": 28
+      },
+      "revId": "2280db3437b043f5b19c5cc3318d5660afbc9b3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92eb10df_502b7d27",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-06-17T09:02:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8568b84_930addf3",
       "range": {
         "startLine": 32,
         "startChar": 6,
@@ -87,6 +135,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8555944_95d0369c",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-06-17T09:02:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b15bb32_0f32c8c8",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 20
+      },
+      "revId": "2280db3437b043f5b19c5cc3318d5660afbc9b3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "acc784a9_e1dc6bec",
@@ -100,6 +172,30 @@
       "writtenOn": "2021-06-16T13:52:56Z",
       "side": 1,
       "message": "do not we already have several similar enums? I\u0027m worried about yet another one.\nMay be to make api simpler/more generic use `absl::string_view payload_format_name` instead of this enum.",
+      "range": {
+        "startLine": 35,
+        "startChar": 2,
+        "endLine": 35,
+        "endChar": 65
+      },
+      "revId": "2280db3437b043f5b19c5cc3318d5660afbc9b3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "173febb1_1ff1e4e6",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-06-17T09:02:57Z",
+      "side": 1,
+      "message": "We have several codec enums, but no enum specifying payload format.\n\nI also had the idea of passing a VideoRtpDepacketizer in the ctor (makes using a payload-specific format easy), but that would require us to make that public as well, so for now I use the enum.",
+      "parentUuid": "acc784a9_e1dc6bec",
       "range": {
         "startLine": 35,
         "startChar": 2,
@@ -129,6 +225,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "9951fd61_762f1dbe",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-06-17T09:02:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "987a9c53_c1983190",
+      "revId": "2280db3437b043f5b19c5cc3318d5660afbc9b3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "3cbc080f_ad5679d1",
         "filename": "api/video/rtp_video_frame_assembler.h",
         "patchSetId": 7
@@ -140,6 +254,24 @@
       "writtenOn": "2021-06-16T13:52:56Z",
       "side": 1,
       "message": "may be make it clear that there is nothing special about the desturctor:\n(i.e. user shouldn\u0027t check if it is hidden in the private section)\n~RtpVideoFrameAssembler() \u003d default;",
+      "revId": "2280db3437b043f5b19c5cc3318d5660afbc9b3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b53ca609_012a73c1",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-06-17T09:02:57Z",
+      "side": 1,
+      "message": "Now that I\u0027m using std::unique_ptr\u003cRtpVideoFrameAssemblerImpl\u003e the destructor has to be defined in the .cc file.",
+      "parentUuid": "3cbc080f_ad5679d1",
       "revId": "2280db3437b043f5b19c5cc3318d5660afbc9b3b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -157,6 +289,30 @@
       "writtenOn": "2021-06-16T13:52:56Z",
       "side": 1,
       "message": "Document the function, in particular what frame_id is. (Is there some accessor in the RtpFrameObject classs this `frame_id` align with?)",
+      "range": {
+        "startLine": 40,
+        "startChar": 2,
+        "endLine": 40,
+        "endChar": 32
+      },
+      "revId": "2280db3437b043f5b19c5cc3318d5660afbc9b3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c267d4e_3c7f4441",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-06-17T09:02:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e66cd53_c7210917",
       "range": {
         "startLine": 40,
         "startChar": 2,
@@ -190,6 +346,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c02eb5f7_c6e16255",
+        "filename": "modules/rtp_rtcp/source/rtp_packetizer_av1_unittest_helper.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-06-17T09:02:57Z",
+      "side": 1,
+      "message": "Fixed in the followup CL.",
+      "parentUuid": "ba6e05e0_1348042e",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 16
+      },
+      "revId": "2280db3437b043f5b19c5cc3318d5660afbc9b3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "95621135_89d0aefd",
@@ -203,6 +383,30 @@
       "writtenOn": "2021-06-16T13:52:56Z",
       "side": 1,
       "message": "thank you fixing this, do you mind splitting these trivial fixes into own small cl\n(to submit it and avoid looking at it again)",
+      "range": {
+        "startLine": 28,
+        "startChar": 37,
+        "endLine": 28,
+        "endChar": 43
+      },
+      "revId": "2280db3437b043f5b19c5cc3318d5660afbc9b3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70ff91d6_edd04dca",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_vp8.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-06-17T09:02:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "95621135_89d0aefd",
       "range": {
         "startLine": 28,
         "startChar": 37,

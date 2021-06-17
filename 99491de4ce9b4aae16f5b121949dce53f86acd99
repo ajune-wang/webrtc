@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0de9fba6_f2ac9a59",
+        "filename": "sdk/android/api/org/webrtc/YuvConverter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2021-06-17T09:10:53Z",
+      "side": 1,
+      "message": "This method only returns JavaI420Buffer.wrap, which itself never returns null: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/sdk/android/api/org/webrtc/JavaI420Buffer.java;l\u003d74-75;drc\u003d69540f44196eba13cb7c9046aa838c461eba9029\n\nIs there another change ongoing that would make this method able to return null?",
+      "range": {
+        "startLine": 126,
+        "startChar": 3,
+        "endLine": 126,
+        "endChar": 11
+      },
+      "revId": "99491de4ce9b4aae16f5b121949dce53f86acd99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

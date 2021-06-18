@@ -323,6 +323,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3837830_9ed5c2e7",
+        "filename": "media/engine/internal_decoder_factory.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-06-18T07:51:49Z",
+      "side": 1,
+      "message": "I will try to rephrase myself:\nA particular client has a weak CPU but a GPU that can do HW decoding of VP9 without spatial layers. This means that the client can handle VP9 without spatial layers smoothly at a certain resolution, however it cannot handle VP9 with spatial layers since this will be done in SW. Because of this scalability mode is important to answer the question if it will play smoothly. Although it\u0027s an exception, it\u0027s an important one and will be so for quite some time.",
+      "parentUuid": "9abd789b_658ed532",
+      "range": {
+        "startLine": 50,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 39
+      },
+      "revId": "df650474949e7c858d5ed5d526c10438db44d9e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "3e20b9d7_833e67fe",
@@ -407,6 +431,30 @@
       "side": 1,
       "message": "Yep, I think each encoder implementations should have a function that returns list of supported structures. (it is then up to that encoder wrapper to decide if the list is hardcoded or assembled on the fly)\nI.e. something that would be propagated to \nhttps://w3c.github.io/webrtc-svc/#rtcrtpcodeccapability*\n\nCurrent code is okeish first approximation: I think it is ok to submit it and leave a TODO to pull more accurate list from the encoders.",
       "parentUuid": "6c37360c_ecc69bcb",
+      "range": {
+        "startLine": 71,
+        "startChar": 4,
+        "endLine": 73,
+        "endChar": 39
+      },
+      "revId": "df650474949e7c858d5ed5d526c10438db44d9e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f97f861_c596f228",
+        "filename": "media/engine/internal_encoder_factory.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-06-18T07:51:49Z",
+      "side": 1,
+      "message": "Thanks, I\u0027ll add a TODO.\n\nWhen I proposed the extension of MediaCapabilties to WebRTC, it was also considered to instead put this functionality in RTCRtpSender/RTCRtpReceiver.getCapabilities(), but it seemed to be a consensus that getCapabilities() has some problems due to it being synchronous and that it was better to take the MediaCapabilities path.",
+      "parentUuid": "c44cbf5c_7f2c4fb3",
       "range": {
         "startLine": 71,
         "startChar": 4,

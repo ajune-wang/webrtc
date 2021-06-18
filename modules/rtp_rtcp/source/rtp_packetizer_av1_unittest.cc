@@ -21,6 +21,7 @@
 #include "api/scoped_refptr.h"
 #include "api/video/encoded_image.h"
 #include "modules/rtp_rtcp/source/rtp_packet_to_send.h"
+#include "modules/rtp_rtcp/source/rtp_packetizer_av1_test_helper.h"
 #include "modules/rtp_rtcp/source/video_rtp_depacketizer_av1.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
@@ -34,18 +35,19 @@ using ::testing::ElementsAreArray;
 using ::testing::Le;
 using ::testing::SizeIs;
 
-constexpr uint8_t kNewCodedVideoSequenceBit = 0b00'00'1000;
-// All obu types offset by 3 to take correct position in the obu_header.
-constexpr uint8_t kObuTypeSequenceHeader = 1 << 3;
-constexpr uint8_t kObuTypeTemporalDelimiter = 2 << 3;
-constexpr uint8_t kObuTypeFrameHeader = 3 << 3;
-constexpr uint8_t kObuTypeTileGroup = 4 << 3;
-constexpr uint8_t kObuTypeMetadata = 5 << 3;
-constexpr uint8_t kObuTypeFrame = 6 << 3;
-constexpr uint8_t kObuTypeTileList = 8 << 3;
-constexpr uint8_t kObuExtensionPresentBit = 0b0'0000'100;
-constexpr uint8_t kObuSizePresentBit = 0b0'0000'010;
-constexpr uint8_t kObuExtensionS1T1 = 0b001'01'000;
+using webrtc_test::BuildAv1Frame;
+using webrtc_test::kNewCodedVideoSequenceBit;
+using webrtc_test::kObuExtensionPresentBit;
+using webrtc_test::kObuExtensionS1T1;
+using webrtc_test::kObuSizePresentBit;
+using webrtc_test::kObuTypeFrame;
+using webrtc_test::kObuTypeFrameHeader;
+using webrtc_test::kObuTypeMetadata;
+using webrtc_test::kObuTypeSequenceHeader;
+using webrtc_test::kObuTypeTemporalDelimiter;
+using webrtc_test::kObuTypeTileGroup;
+using webrtc_test::kObuTypeTileList;
+using webrtc_test::Obu;
 
 // Wrapper around rtp_packet to make it look like container of payload bytes.
 struct RtpPayload {
@@ -107,54 +109,6 @@ Av1Frame ReassembleFrame(rtc::ArrayView<const RtpPayload> rtp_payloads) {
     payloads[i] = rtp_payloads[i];
   }
   return Av1Frame(VideoRtpDepacketizerAv1().AssembleFrame(payloads));
-}
-
-class Obu {
- public:
-  explicit Obu(uint8_t obu_type) : header_(obu_type | kObuSizePresentBit) {
-    EXPECT_EQ(obu_type & 0b0'1111'000, obu_type);
-  }
-
-  Obu& WithExtension(uint8_t extension) {
-    extension_ = extension;
-    header_ |= kObuExtensionPresentBit;
-    return *this;
-  }
-  Obu& WithoutSize() {
-    header_ &= ~kObuSizePresentBit;
-    return *this;
-  }
-  Obu& WithPayload(std::vector<uint8_t> payload) {
-    payload_ = std::move(payload);
-    return *this;
-  }
-
- private:
-  friend std::vector<uint8_t> BuildAv1Frame(std::initializer_list<Obu> obus);
-  uint8_t header_;
-  uint8_t extension_ = 0;
-  std::vector<uint8_t> payload_;
-};
-
-std::vector<uint8_t> BuildAv1Frame(std::initializer_list<Obu> obus) {
-  std::vector<uint8_t> raw;
-  for (const Obu& obu : obus) {
-    raw.push_back(obu.header_);
-    if (obu.header_ & kObuExtensionPresentBit) {
-      raw.push_back(obu.extension_);
-    }
-    if (obu.header_ & kObuSizePresentBit) {
-      // write size in leb128 format.
-      size_t payload_size = obu.payload_.size();
-      while (payload_size >= 0x80) {
-        raw.push_back(0x80 | (payload_size & 0x7F));
-        payload_size >>= 7;
-      }
-      raw.push_back(payload_size);
-    }
-    raw.insert(raw.end(), obu.payload_.begin(), obu.payload_.end());
-  }
-  return raw;
 }
 
 TEST(RtpPacketizerAv1Test, PacketizeOneObuWithoutSizeAndExtension) {

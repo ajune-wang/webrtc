@@ -184,6 +184,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "3834ea68_889a6a24",
+        "filename": "api/video_codecs/spatial_layer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-06-18T15:03:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5d9f3aa_20be49d9",
+      "range": {
+        "startLine": 51,
+        "startChar": 2,
+        "endLine": 56,
+        "endChar": 23
+      },
+      "revId": "df650474949e7c858d5ed5d526c10438db44d9e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "5acb23c7_875588a7",
         "filename": "api/video_codecs/spatial_layer.h",
         "patchSetId": 3
@@ -229,6 +253,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d64b0576_b2090cfc",
+        "filename": "api/video_codecs/spatial_layer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-06-18T15:03:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "65b11bb9_8d3e3211",
+      "range": {
+        "startLine": 36,
+        "startChar": 31,
+        "endLine": 36,
+        "endChar": 61
+      },
+      "revId": "df650474949e7c858d5ed5d526c10438db44d9e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9a154792_ae2ec1b0",
@@ -242,6 +290,30 @@
       "writtenOn": "2021-06-16T14:45:07Z",
       "side": 1,
       "message": "absl::string_view usually better parameter type than reference to std::string\nhttps://abseil.io/tips/1",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 22
+      },
+      "revId": "df650474949e7c858d5ed5d526c10438db44d9e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c050b2dc_5830f6fe",
+        "filename": "api/video_codecs/spatial_layer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-06-18T15:03:28Z",
+      "side": 1,
+      "message": "Fixed. My first implementation was in chromium, where absl::string_view is not allowed yet. Maybe should push for that.",
+      "parentUuid": "9a154792_ae2ec1b0",
       "range": {
         "startLine": 37,
         "startChar": 4,
@@ -465,6 +537,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d36e8b0_8ebc117f",
+        "filename": "media/engine/internal_encoder_factory.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-06-18T15:03:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f97f861_c596f228",
+      "range": {
+        "startLine": 71,
+        "startChar": 4,
+        "endLine": 73,
+        "endChar": 39
+      },
+      "revId": "df650474949e7c858d5ed5d526c10438db44d9e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fec6680c_bd3d778f",
@@ -478,6 +574,30 @@
       "writtenOn": "2021-06-16T14:45:07Z",
       "side": 1,
       "message": "move into unnamed namespace, before the constants\n\nhttps://abseil.io/tips/119#summary\n\n\"Declare namespace aliases and using-declarations inside the innermost namespace, whether named or anonymous\"",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 0
+      },
+      "revId": "df650474949e7c858d5ed5d526c10438db44d9e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "399e36c8_a5d6a8fd",
+        "filename": "media/engine/internal_encoder_factory_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-06-18T15:03:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fec6680c_bd3d778f",
       "range": {
         "startLine": 37,
         "startChar": 0,
@@ -511,6 +631,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "17bdd310_2fd59cd4",
+        "filename": "media/engine/internal_encoder_factory_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-06-18T15:03:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e8c37856_c4df65ed",
+      "range": {
+        "startLine": 42,
+        "startChar": 5,
+        "endLine": 42,
+        "endChar": 27
+      },
+      "revId": "df650474949e7c858d5ed5d526c10438db44d9e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3d68e174_74455d5e",
@@ -524,6 +668,30 @@
       "writtenOn": "2021-06-16T14:45:07Z",
       "side": 1,
       "message": "should we already support the av1 using registered \u0027AV1\u0027 name\n(and for legacy reason keep accepting name \u0027AV1X\u0027 too)",
+      "range": {
+        "startLine": 58,
+        "startChar": 29,
+        "endLine": 58,
+        "endChar": 32
+      },
+      "revId": "df650474949e7c858d5ed5d526c10438db44d9e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5c18dfe_e3f7c367",
+        "filename": "media/engine/internal_encoder_factory_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-06-18T15:03:28Z",
+      "side": 1,
+      "message": "I have no idea about AV1X vs AV1 and how that transition will happen. I\u0027ll change to use cricket::kAv1CodecName.",
+      "parentUuid": "3d68e174_74455d5e",
       "range": {
         "startLine": 58,
         "startChar": 29,

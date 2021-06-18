@@ -120,6 +120,11 @@ public class VideoFrame implements RefCounted {
     Matrix getTransformMatrix();
   }
 
+  @CalledByNative
+  static boolean isI420Buffer(Buffer buffer) {
+    return buffer instanceof I420Buffer;
+  }
+
   private final Buffer buffer;
   private final int rotation;
   private final long timestampNs;

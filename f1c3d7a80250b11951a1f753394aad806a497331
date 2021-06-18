@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4fc35f18_adf4604e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-18T07:58:16Z",
+      "side": 1,
+      "message": "Seems tidier. Messaging stuff makes reading the code harder.\n",
+      "revId": "f1c3d7a80250b11951a1f753394aad806a497331",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

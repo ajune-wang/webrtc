@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ead32074_bcfd93ed",
+        "filename": "p2p/base/port.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-18T07:58:16Z",
+      "side": 0,
+      "message": "Good riddance!",
+      "revId": "9f9bf38805e14688acef01fe6814b8ce3a98c09c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

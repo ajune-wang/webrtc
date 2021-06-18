@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9538f435_c1553da1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-06-18T13:25:45Z",
+      "side": 1,
+      "message": "It appears you deleted last use of this class. PTAL.",
+      "revId": "cf3ed5e5e3927e7ae32ffa73ba1f89d8333f03ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

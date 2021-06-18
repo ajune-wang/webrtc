@@ -28,13 +28,6 @@ class AndroidVideoBuffer : public VideoFrameBuffer {
       JNIEnv* jni,
       const JavaRef<jobject>& j_video_frame_buffer);
 
-  // Similar to the Create() above, but adopts and takes ownership of the Java
-  // VideoFrame.Buffer. I.e. retain() will not be called, but release() will be
-  // called when the returned AndroidVideoBuffer is destroyed.
-  static rtc::scoped_refptr<AndroidVideoBuffer> Adopt(
-      JNIEnv* jni,
-      const JavaRef<jobject>& j_video_frame_buffer);
-
   ~AndroidVideoBuffer() override;
 
   const ScopedJavaGlobalRef<jobject>& video_frame_buffer() const;
@@ -54,6 +47,13 @@ class AndroidVideoBuffer : public VideoFrameBuffer {
   AndroidVideoBuffer(JNIEnv* jni, const JavaRef<jobject>& j_video_frame_buffer);
 
  private:
+  // Similar to the Create() above, but adopts and takes ownership of the Java
+  // VideoFrame.Buffer. I.e. retain() will not be called, but release() will be
+  // called when the returned AndroidVideoBuffer is destroyed.
+  static rtc::scoped_refptr<AndroidVideoBuffer> Adopt(
+      JNIEnv* jni,
+      const JavaRef<jobject>& j_video_frame_buffer);
+
   Type type() const override;
   int width() const override;
   int height() const override;

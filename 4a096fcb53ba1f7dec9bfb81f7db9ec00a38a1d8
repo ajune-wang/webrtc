@@ -106,6 +106,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "20487787_854bb293",
+        "filename": "modules/audio_coding/neteq/neteq_impl_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 961,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-06-18T11:04:07Z",
+      "side": 1,
+      "message": "Please use a regular int here, see the C++ style guide for reference: https://google.github.io/styleguide/cppguide.html#Integer_Types",
+      "range": {
+        "startLine": 961,
+        "startChar": 7,
+        "endLine": 961,
+        "endChar": 13
+      },
+      "revId": "4a096fcb53ba1f7dec9bfb81f7db9ec00a38a1d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9eeebab6_0973e962",
+        "filename": "modules/audio_coding/neteq/neteq_impl_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 965,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-06-18T11:04:07Z",
+      "side": 1,
+      "message": "Since this isn\u0027t used outside of the loop, please move it into the loop.",
+      "range": {
+        "startLine": 965,
+        "startChar": 2,
+        "endLine": 965,
+        "endChar": 13
+      },
+      "revId": "4a096fcb53ba1f7dec9bfb81f7db9ec00a38a1d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4cf8c8ff_77b102e3",
         "filename": "modules/audio_coding/neteq/neteq_impl_unittest.cc",
         "patchSetId": 2
@@ -122,6 +168,29 @@
         "startChar": 15,
         "endLine": 976,
         "endChar": 16
+      },
+      "revId": "4a096fcb53ba1f7dec9bfb81f7db9ec00a38a1d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1013afa5_a8eb70c4",
+        "filename": "modules/audio_coding/neteq/neteq_impl_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 978,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-06-18T11:04:07Z",
+      "side": 1,
+      "message": "Please start comments with a capital letter and end with a period. This also applies to the comments below.",
+      "range": {
+        "startLine": 978,
+        "startChar": 5,
+        "endLine": 978,
+        "endChar": 41
       },
       "revId": "4a096fcb53ba1f7dec9bfb81f7db9ec00a38a1d8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"

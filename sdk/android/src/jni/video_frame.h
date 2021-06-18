@@ -24,14 +24,7 @@ namespace jni {
 class AndroidVideoBuffer : public VideoFrameBuffer {
  public:
   // Creates a native VideoFrameBuffer from a Java VideoFrame.Buffer.
-  static rtc::scoped_refptr<AndroidVideoBuffer> Create(
-      JNIEnv* jni,
-      const JavaRef<jobject>& j_video_frame_buffer);
-
-  // Similar to the Create() above, but adopts and takes ownership of the Java
-  // VideoFrame.Buffer. I.e. retain() will not be called, but release() will be
-  // called when the returned AndroidVideoBuffer is destroyed.
-  static rtc::scoped_refptr<AndroidVideoBuffer> Adopt(
+  static rtc::scoped_refptr<VideoFrameBuffer> Create(
       JNIEnv* jni,
       const JavaRef<jobject>& j_video_frame_buffer);
 
@@ -54,6 +47,13 @@ class AndroidVideoBuffer : public VideoFrameBuffer {
   AndroidVideoBuffer(JNIEnv* jni, const JavaRef<jobject>& j_video_frame_buffer);
 
  private:
+  // Similar to the Create() above, but adopts and takes ownership of the Java
+  // VideoFrame.Buffer. I.e. retain() will not be called, but release() will be
+  // called when the returned AndroidVideoBuffer is destroyed.
+  static rtc::scoped_refptr<VideoFrameBuffer> Adopt(
+      JNIEnv* jni,
+      const JavaRef<jobject>& j_video_frame_buffer);
+
   Type type() const override;
   int width() const override;
   int height() const override;

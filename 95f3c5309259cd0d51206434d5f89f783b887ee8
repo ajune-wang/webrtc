@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c3291e9_63b5a7e9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-18T07:52:27Z",
+      "side": 1,
+      "message": "Looks good - nice test!\n",
+      "revId": "95f3c5309259cd0d51206434d5f89f783b887ee8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a62c04d_69236c85",
+        "filename": "net/dcsctp/socket/dcsctp_socket_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-18T07:52:27Z",
+      "side": 1,
+      "message": "What are the relative values of T1-COOKIE and T3-RTX?\nT3-RTX \u003d\u003d options_.rto_initial?",
+      "revId": "95f3c5309259cd0d51206434d5f89f783b887ee8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0380efd5_c698d844",
+        "filename": "net/dcsctp/socket/transmission_control_block.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-18T07:52:27Z",
+      "side": 1,
+      "message": "Nice to see \"only_one_packet removed from this function - it didn\u0027t make me happy on a previous round of review.",
+      "revId": "95f3c5309259cd0d51206434d5f89f783b887ee8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

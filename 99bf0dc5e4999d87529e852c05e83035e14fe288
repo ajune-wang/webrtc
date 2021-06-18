@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "aac9c1e0_da8ba615",
+        "filename": "api/video/rtp_video_frame_assembler.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-06-18T14:16:37Z",
+      "side": 1,
+      "message": "This is just a way to store some VideoRtpDepacketizer inline instead of on the heap. The double cost could easily be worked around with an additional `VideoRtpDepacketizer* depacketizer_` member set once instead of the GetDepacketizer() function.\n\nIt limits which depacketizers that are possible to use though, and given that application specific formats might be a thing \"soon\" then a unique_ptr might be better (and simpler for sure).\n\nThinking ahead about H264 interactions with the DD and/or raw packetization this might have to be revisited. Fuck I hate H264 RTP...",
+      "parentUuid": "c3e72fbd_acdc9f01",
+      "range": {
+        "startLine": 63,
+        "startChar": 2,
+        "endLine": 68,
+        "endChar": 44
+      },
+      "revId": "99bf0dc5e4999d87529e852c05e83035e14fe288",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "582322e1_64143b05",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-06-17T10:22:07Z",
       "side": 1,
       "message": "no longer need to be present in the header",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 14
+      },
+      "revId": "99bf0dc5e4999d87529e852c05e83035e14fe288",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2e1e65a_b1f97324",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-06-18T14:16:37Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "582322e1_64143b05",
       "range": {
         "startLine": 14,
         "startChar": 0,
@@ -87,6 +135,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "927286b5_8972691c",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-06-18T14:16:37Z",
+      "side": 1,
+      "message": "If I could choose I would not use any of our current frame classes, but that\u0027s another discussion :)\n\nI don\u0027t want to make RtpFrameObject public, in fact I want to remove it. For some reason I thought VideoStreamDecoderInterface (https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/video/video_stream_decoder.h;l\u003d49;drc\u003dca18809ee52648335d7ea03df18fa3fd5d120bb2) took RtpFrameObject, but ofc it only needs the already public EncodedFrame.\n\nChanged to EncodedFrame.",
+      "parentUuid": "a118499a_92e820df",
+      "range": {
+        "startLine": 21,
+        "startChar": 31,
+        "endLine": 21,
+        "endChar": 43
+      },
+      "revId": "99bf0dc5e4999d87529e852c05e83035e14fe288",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "49b925d3_bd147b17",
@@ -100,6 +172,30 @@
       "writtenOn": "2021-06-17T10:22:07Z",
       "side": 1,
       "message": "Likely it is better to put it as child class rather than have it in an internal namespace:\n\n// .h\nclass RtpVideoFrameAssembler {\n public:\n  ...\n private:\n  class Impl;\n  std::unique_ptr\u003cImpl\u003e impl_;\n}\n\n// .cc\nclass RtpVideoFrameAssembler::Impl {\n  ...\n};",
+      "range": {
+        "startLine": 25,
+        "startChar": 6,
+        "endLine": 25,
+        "endChar": 32
+      },
+      "revId": "99bf0dc5e4999d87529e852c05e83035e14fe288",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "407e538a_ddbacd17",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-06-18T14:16:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49b925d3_bd147b17",
       "range": {
         "startLine": 25,
         "startChar": 6,
@@ -156,6 +252,54 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8466305_8a0ff286",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-06-18T14:16:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94569036_8127ec4a",
+      "range": {
+        "startLine": 31,
+        "startChar": 43,
+        "endLine": 31,
+        "endChar": 47
+      },
+      "revId": "99bf0dc5e4999d87529e852c05e83035e14fe288",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6706017_d7a8917c",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-06-18T14:16:37Z",
+      "side": 1,
+      "message": "It just explains what frame IDs are",
+      "parentUuid": "537ec1b8_84fa32c2",
+      "range": {
+        "startLine": 31,
+        "startChar": 49,
+        "endLine": 31,
+        "endChar": 71
+      },
+      "revId": "99bf0dc5e4999d87529e852c05e83035e14fe288",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "540daf2d_da946f95",
@@ -169,6 +313,30 @@
       "writtenOn": "2021-06-17T10:22:07Z",
       "side": 1,
       "message": "it is probably more than that.\nOr rather here is a question I would like to be answered in the comment:\nIs it guaranteed the ReturnVector would always be an InlinedVector [with 3 local elements]?\nProbably not. probably all that is promised is that it is a \u0027vector-like container of the unique_ptr\u003cRtpFrameObject\u003e\u0027",
+      "range": {
+        "startLine": 35,
+        "startChar": 5,
+        "endLine": 35,
+        "endChar": 22
+      },
+      "revId": "99bf0dc5e4999d87529e852c05e83035e14fe288",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2c7b508_c161406a",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-06-18T14:16:37Z",
+      "side": 1,
+      "message": "I commented on the need for a vector-like return type in the documentation of \u0027InsertPacket\u0027",
+      "parentUuid": "540daf2d_da946f95",
       "range": {
         "startLine": 35,
         "startChar": 5,
@@ -204,6 +372,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "e5858316_56c8011f",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-06-18T14:16:37Z",
+      "side": 1,
+      "message": "Changed to FrameVector",
+      "parentUuid": "76dee2c1_de9dd045",
+      "range": {
+        "startLine": 36,
+        "startChar": 8,
+        "endLine": 36,
+        "endChar": 20
+      },
+      "revId": "99bf0dc5e4999d87529e852c05e83035e14fe288",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "9d44d336_522780f5",
         "filename": "api/video/rtp_video_frame_assembler.h",
         "patchSetId": 8
@@ -227,6 +419,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "c5d1fa3a_d02e2dd9",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-06-18T14:16:37Z",
+      "side": 1,
+      "message": "I see two possible ways RtpPacketReceived will evolve.\n\nThe first is that RtpPacketInfo is used as the primary class to carry meta data regarding a received RtpPacket, in which case RtpPacketReceived could probably be removed (and RtpPacketInfo being propagated alongside the RtpPacket).\n\nThe second is that RtpPacketReceived will live on and be the primary class to carry meta data, which in the long term case would mean that I would like to return the set of RtpPacketsReceived to the caller so that other could do useful stuff with it, like look at receive times and stuff.\n\nOne refactoring I hope to do soon is to refactor the PacketBuffer to hold RtpPacketReceived instead of it\u0027s own Packet class (which was used to make the transition from the old, now removed, RTP packet class). That requires some H264 fiddling to be done first though...",
+      "parentUuid": "9d44d336_522780f5",
+      "range": {
+        "startLine": 46,
+        "startChar": 34,
+        "endLine": 46,
+        "endChar": 51
+      },
+      "revId": "99bf0dc5e4999d87529e852c05e83035e14fe288",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "df7fcf92_ada4d702",
         "filename": "api/video/rtp_video_frame_assembler.h",
         "patchSetId": 8
@@ -238,6 +454,30 @@
       "writtenOn": "2021-06-17T10:22:07Z",
       "side": 1,
       "message": "imho that is a bit too specific (I can easily imaging implementation where rtp sequence number wrap around is not an issue. I probably would recommend such implementation.)\nmay be use more generic \u0027to free up resources used by those incomplete frame\u0027\n(where resources may mean many things: memory, rtp sequence numbers, place in internal map that makes it larger and thus slower to search)",
+      "range": {
+        "startLine": 52,
+        "startChar": 42,
+        "endLine": 53,
+        "endChar": 60
+      },
+      "revId": "99bf0dc5e4999d87529e852c05e83035e14fe288",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c409c370_413b8b46",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-06-18T14:16:37Z",
+      "side": 1,
+      "message": "If this was an interface then I would say it\u0027s too specific, but given that this is an implementation then I don\u0027t think it is.\n\nI agree that the best solution would be to make it not rely on this function being called, and in that case even remove it.\n\nLet me do that in a followup CL.",
+      "parentUuid": "df7fcf92_ada4d702",
       "range": {
         "startLine": 52,
         "startChar": 42,

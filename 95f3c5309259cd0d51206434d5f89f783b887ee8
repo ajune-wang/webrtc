@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb26ec16_ea7463ee",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-06-18T08:48:34Z",
+      "side": 1,
+      "message": "Thanks for reviewing!",
+      "revId": "95f3c5309259cd0d51206434d5f89f783b887ee8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7a62c04d_69236c85",
@@ -35,6 +52,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a4bf730_75a6cc9f",
+        "filename": "net/dcsctp/socket/dcsctp_socket_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-06-18T08:48:34Z",
+      "side": 1,
+      "message": "Yes, T3-RTX \u003d options.rto_initial initially. When it has done a RTT measurement, that value will be used, but during handshake, it would be too early for that, and T3-RTX would be optiona.rto_initial.\n\nT1-COOKIE is a fixed duration in this implementation, and set to be default 1 second. It is likely to be 3 seconds in many other implementations, but that\u0027s a long time to wait to finish the handshaking if you lost a packet with a COOKIE_ECHO chunk in it.\n\nYou could argue that you would want T1-INIT and T1-COOKIE duration to be the same as RTO_INITIAL, as its purpose is to retransmit missing packets. That\u0027s something I can A/B test.",
+      "parentUuid": "7a62c04d_69236c85",
+      "revId": "95f3c5309259cd0d51206434d5f89f783b887ee8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0380efd5_c698d844",
@@ -48,6 +83,24 @@
       "writtenOn": "2021-06-18T07:52:27Z",
       "side": 1,
       "message": "Nice to see \"only_one_packet removed from this function - it didn\u0027t make me happy on a previous round of review.",
+      "revId": "95f3c5309259cd0d51206434d5f89f783b887ee8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "798cf82c_7c3bca4d",
+        "filename": "net/dcsctp/socket/transmission_control_block.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-06-18T08:48:34Z",
+      "side": 1,
+      "message": "Agree :)",
+      "parentUuid": "0380efd5_c698d844",
       "revId": "95f3c5309259cd0d51206434d5f89f783b887ee8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

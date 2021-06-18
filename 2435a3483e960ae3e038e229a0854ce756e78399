@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2e6bf2e_07510319",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-06-18T13:37:00Z",
+      "side": 1,
+      "message": "PTAL. Tests seems to pass now (except for occasional usrsctp tsan errors):",
+      "revId": "2435a3483e960ae3e038e229a0854ce756e78399",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

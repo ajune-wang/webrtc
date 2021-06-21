@@ -16,6 +16,24 @@
       "message": "Please make sure you have added yourself to the AUTHORS file and signed the CLA agreement.\nSee https://webrtc.org/support/contributing for more details on the contributor agreement.\n\nCan you tell us about your plans to make sure the RISC architecture continues to work (continuous integration testing and so on)?\n",
       "revId": "c22e1cd6e7d541181c7dc5b507de6011406b3c29",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a02a0067_eea8e664",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17829
+      },
+      "writtenOn": "2021-06-21T17:38:47Z",
+      "side": 1,
+      "message": "(Didn\u0027t realize this was saved as draft instead of being sent)\n\nOops. Just pushed the updated patchset. Regarding CI testing, this is actually a good question as Linux-capable RISC-V hardware isn\u0027t widely available or performant enough for rapid feedback. The fastest RISC-V SoC available, SiFive FU740, has roughly the same single-core performance as the Cortex A53 (emulation is even worse). Furthermore, Chromium doesn\u0027t build on RISC-V yet.\n\nFor more context, I did this as part of the effort to port NixOS to RISC-V, and the patch was initially submitted to PulseAudio\u0027s downstream fork of WebRTC [1].\n\n[1] https://gitlab.freedesktop.org/pulseaudio/webrtc-audio-processing/-/merge_requests/19",
+      "parentUuid": "d35e25ff_49c48d74",
+      "revId": "c22e1cd6e7d541181c7dc5b507de6011406b3c29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

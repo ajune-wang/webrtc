@@ -50,6 +50,24 @@
       "message": "Not for this CL, but perhaps a TODO: listen_queue_ is managed by new() and delete() within this class. Can we make it a std::unique_ptr rather than a raw pointer?",
       "revId": "2435a3483e960ae3e038e229a0854ce756e78399",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dce399b9_03f9397f",
+        "filename": "rtc_base/virtual_socket_server.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-06-21T06:46:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "620b2359_136abd22",
+      "revId": "2435a3483e960ae3e038e229a0854ce756e78399",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

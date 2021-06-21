@@ -2835,6 +2835,7 @@ WebRtcVideoChannel::WebRtcVideoReceiveStream::WebRtcVideoReceiveStream(
       sink_(NULL),
       first_frame_timestamp_(-1),
       estimated_remote_start_ntp_time_ms_(0) {
+  RTC_DCHECK_EQ(decoder_factory_, config_.decoder_factory);
   config_.renderer = this;
   ConfigureCodecs(recv_codecs);
   flexfec_config_.payload_type = flexfec_config.payload_type;
@@ -2879,16 +2880,13 @@ WebRtcVideoChannel::WebRtcVideoReceiveStream::GetRtpParameters() const {
 void WebRtcVideoChannel::WebRtcVideoReceiveStream::ConfigureCodecs(
     const std::vector<VideoCodecSettings>& recv_codecs) {
   RTC_DCHECK(!recv_codecs.empty());
+  RTC_DCHECK_EQ(config_.decoder_factory, decoder_factory_);
+
   config_.decoders.clear();
   config_.rtp.rtx_associated_payload_types.clear();
   config_.rtp.raw_payload_types.clear();
-  config_.decoder_factory = decoder_factory_;
   for (const auto& recv_codec : recv_codecs) {
-    webrtc::SdpVideoFormat video_format(recv_codec.codec.name,
-                                        recv_codec.codec.params);
-
     webrtc::VideoReceiveStream::Decoder decoder;
-    decoder.video_format = video_format;
     decoder.payload_type = recv_codec.codec.id;
     decoder.video_format =
         webrtc::SdpVideoFormat(recv_codec.codec.name, recv_codec.codec.params);
@@ -2984,7 +2982,8 @@ void WebRtcVideoChannel::WebRtcVideoReceiveStream::SetRecvParameters(
   if (params.rtp_header_extensions) {
     config_.rtp.extensions = *params.rtp_header_extensions;
     flexfec_config_.rtp.extensions = *params.rtp_header_extensions;
-    video_needs_recreation = true;
+    if (flexfec_config_.IsCompleteAndEnabled())
+      video_needs_recreation = true;
   }
   if (params.flexfec_payload_type) {
     flexfec_config_.payload_type = *params.flexfec_payload_type;
@@ -2992,7 +2991,8 @@ void WebRtcVideoChannel::WebRtcVideoReceiveStream::SetRecvParameters(
     // configured and instead of recreating the video stream, reconfigure the
     // flexfec object from within the rtp callback (soon to be on the network
     // thread).
-    video_needs_recreation = true;
+    if (flexfec_config_.IsCompleteAndEnabled())
+      video_needs_recreation = true;
   }
   if (video_needs_recreation) {
     RecreateWebRtcVideoStream();

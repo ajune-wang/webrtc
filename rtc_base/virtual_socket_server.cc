@@ -164,7 +164,7 @@ int VirtualSocket::Close() {
   }
 
   if (SOCK_STREAM == type_) {
-    CritScope cs(&crit_);
+    webrtc::MutexLock lock(&mutex_);
 
     // Cancel pending sockets
     if (listen_queue_) {
@@ -175,7 +175,6 @@ int VirtualSocket::Close() {
         server_->Disconnect(addr);
         listen_queue_->pop_front();
       }
-      delete listen_queue_;
       listen_queue_ = nullptr;
     }
     // Disconnect stream sockets
@@ -234,7 +233,7 @@ int VirtualSocket::RecvFrom(void* pv,
     *timestamp = -1;
   }
 
-  CritScope cs(&crit_);
+  webrtc::MutexLock lock(&mutex_);
   // If we don't have a packet, then either error or wait for one to arrive.
   if (recv_buffer_.empty()) {
     if (async_) {
@@ -277,7 +276,7 @@ int VirtualSocket::RecvFrom(void* pv,
 }
 
 int VirtualSocket::Listen(int backlog) {
-  CritScope cs(&crit_);
+  webrtc::MutexLock lock(&mutex_);
   RTC_DCHECK(SOCK_STREAM == type_);
   RTC_DCHECK(CS_CLOSED == state_);
   if (local_addr_.IsNil()) {
@@ -285,13 +284,13 @@ int VirtualSocket::Listen(int backlog) {
     return -1;
   }
   RTC_DCHECK(nullptr == listen_queue_);
-  listen_queue_ = new ListenQueue;
+  listen_queue_ = std::make_unique<ListenQueue>();
   state_ = CS_CONNECTING;
   return 0;
 }
 
 VirtualSocket* VirtualSocket::Accept(SocketAddress* paddr) {
-  CritScope cs(&crit_);
+  webrtc::MutexLock lock(&mutex_);
   if (nullptr == listen_queue_) {
     error_ = EINVAL;
     return nullptr;
@@ -351,7 +350,7 @@ void VirtualSocket::OnMessage(Message* pmsg) {
   bool signal_close_event = false;
   int error_to_signal = 0;
   {
-    CritScope cs(&crit_);
+    webrtc::MutexLock lock(&mutex_);
     if (pmsg->message_id == MSG_ID_PACKET) {
       RTC_DCHECK(nullptr != pmsg->pdata);
       Packet* packet = static_cast<Packet*>(pmsg->pdata);
@@ -486,7 +485,7 @@ void VirtualSocket::OnSocketServerReadyToSend() {
 }
 
 void VirtualSocket::SetToBlocked() {
-  CritScope cs(&crit_);
+  webrtc::MutexLock lock(&mutex_);
   ready_to_send_ = false;
   error_ = EWOULDBLOCK;
 }
@@ -536,7 +535,7 @@ int64_t VirtualSocket::UpdateOrderedDelivery(int64_t ts) {
 }
 
 size_t VirtualSocket::PurgeNetworkPackets(int64_t cur_time) {
-  CritScope cs(&crit_);
+  webrtc::MutexLock lock(&mutex_);
 
   while (!network_.empty() && (network_.front().done_time <= cur_time)) {
     RTC_DCHECK(network_size_ >= network_.front().size);

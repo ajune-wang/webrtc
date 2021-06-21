@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d0e1406_87b4d67d",
+        "filename": "api/video_codecs/spatial_layer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-21T10:27:01Z",
+      "side": 1,
+      "message": "not needed now",
+      "revId": "ca247f38eddd4823d0f265bd78febe463ba7600b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

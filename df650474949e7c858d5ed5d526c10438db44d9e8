@@ -324,6 +324,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3b4689d_78b31c2b",
+        "filename": "api/video_codecs/spatial_layer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-21T10:27:01Z",
+      "side": 1,
+      "message": "absl::string_view in chromium was already pushed back:\nhttp://chromium-cpp.appspot.com/#absl-blocklist\n(But sure, nothing is final)",
+      "parentUuid": "c050b2dc_5830f6fe",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 22
+      },
+      "revId": "df650474949e7c858d5ed5d526c10438db44d9e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2f8bb220_f9972001",
@@ -409,6 +433,30 @@
       "side": 1,
       "message": "I will try to rephrase myself:\nA particular client has a weak CPU but a GPU that can do HW decoding of VP9 without spatial layers. This means that the client can handle VP9 without spatial layers smoothly at a certain resolution, however it cannot handle VP9 with spatial layers since this will be done in SW. Because of this scalability mode is important to answer the question if it will play smoothly. Although it\u0027s an exception, it\u0027s an important one and will be so for quite some time.",
       "parentUuid": "9abd789b_658ed532",
+      "range": {
+        "startLine": 50,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 39
+      },
+      "revId": "df650474949e7c858d5ed5d526c10438db44d9e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66fc88b1_8e38ea8f",
+        "filename": "media/engine/internal_decoder_factory.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-21T10:27:01Z",
+      "side": 1,
+      "message": "Are there any other special cases where choice between SW and HW decoders depend on structure?\n\nafaik vp9 HW decoder not supporting spatial layers is a bug (crbug.com/1022359)\nIf you want to have a workaround for that particular bug, may be call the functions accordingly, make it clear it is just about this case.\n\nBesides, the answer is a bit more nuanced even in that case:\nwhen sender produces structure S3Tx, the receiving side should see only single spatial layer (other two spatial layers should be filtered somewhere). That spatial layer should be decodable with HW decoding.\nsimilarly, HW decoding is possible when client receivers only bottom spatial layer of L3Tx(_KEY)? structures, i.e. whenever there are no spatial dependencies.",
+      "parentUuid": "a3837830_9ed5c2e7",
       "range": {
         "startLine": 50,
         "startChar": 4,

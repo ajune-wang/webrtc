@@ -348,6 +348,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b6e2978_921b73fc",
+        "filename": "api/video_codecs/spatial_layer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-06-22T09:07:54Z",
+      "side": 1,
+      "message": "I see, thanks for the info!",
+      "parentUuid": "c3b4689d_78b31c2b",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 22
+      },
+      "revId": "df650474949e7c858d5ed5d526c10438db44d9e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2f8bb220_f9972001",
@@ -457,6 +481,30 @@
       "side": 1,
       "message": "Are there any other special cases where choice between SW and HW decoders depend on structure?\n\nafaik vp9 HW decoder not supporting spatial layers is a bug (crbug.com/1022359)\nIf you want to have a workaround for that particular bug, may be call the functions accordingly, make it clear it is just about this case.\n\nBesides, the answer is a bit more nuanced even in that case:\nwhen sender produces structure S3Tx, the receiving side should see only single spatial layer (other two spatial layers should be filtered somewhere). That spatial layer should be decodable with HW decoding.\nsimilarly, HW decoding is possible when client receivers only bottom spatial layer of L3Tx(_KEY)? structures, i.e. whenever there are no spatial dependencies.",
       "parentUuid": "a3837830_9ed5c2e7",
+      "range": {
+        "startLine": 50,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 39
+      },
+      "revId": "df650474949e7c858d5ed5d526c10438db44d9e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1eb6abc9_b8f9da0e",
+        "filename": "media/engine/internal_decoder_factory.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-06-22T09:07:54Z",
+      "side": 1,
+      "message": "There are no other special cases that I know of.\n\nThanks for the clarification of S3Tx, so the check in the equivalent function for the hardware decoder factory should be if there are spatial dependent layers.\n\nThere\u0027s also another bug related to this, https://crbug.com/webrtc/9304\n\nAgain, although it is a bug, it will remain for years to come. What do you mean with \"call the functions accordingly\"? Although the decode side could be narrowed down to perhaps have num_spatial_layers or something like that as input parameter, I think that there are some benefits to have similar APIs for the encoder and decoder.",
+      "parentUuid": "66fc88b1_8e38ea8f",
       "range": {
         "startLine": 50,
         "startChar": 4,

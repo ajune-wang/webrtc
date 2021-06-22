@@ -515,6 +515,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "08cd3d4c_795091ea",
+        "filename": "media/engine/internal_decoder_factory.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-22T11:23:35Z",
+      "side": 1,
+      "message": "This function, does it guess support for software or hardware decoder?\n\nIt if is software, then I do not understand the point of the function. All it does is duplicate check of the encoder support, which doesn\u0027t make sense to me on the decoder side (all legal streams encoder can produce should be supported by the software decoder. I do not understand value in returning \u0027false\u0027 for VP8 L2T2 structures because VP8 encoder is unable to produce such structure anyway. Even if it can, it would produce it in such a way software decoder can understand it.)\nMore practical example: if later (or different) browser adds support for temporal layering in H264 (e.g. using DD extension), then decoder should be able to understand that stream.\n\nif it is hardware, then I would prefer it to be just about vp9:\n  bool SupportVp9SpatialLayers() { return software_ || !chipset.IsOld(); }\n\nIf this function has to keep current signature (why?)\nthen probably it should be simpler:\n  if (scalability_mode \u0026\u0026\n    NumSpatialLayersInScalabilityMode(*scalability_mode) \u003e 1 \u0026\u0026\n    StrCaseCmp(format.name,cricket::Vp9) \u003d\u003d 0) {\n    // Due to the bugs crbug.com/123 and bugs.webrtc.org/567 VP9 hardware doesn\u0027t\n    // support spatial scalability.\n    return {false, false};\n  }\n\n(then again, this check likely should be more complicated: \ncrbug.com/1022359 is about predicting from different resolution. Multiple spatial layers with the same resolution are supported)",
+      "parentUuid": "1eb6abc9_b8f9da0e",
+      "range": {
+        "startLine": 50,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 39
+      },
+      "revId": "df650474949e7c858d5ed5d526c10438db44d9e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "3e20b9d7_833e67fe",

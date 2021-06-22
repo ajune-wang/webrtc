@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7344466_1ff58d7c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-22T11:23:35Z",
+      "side": 1,
+      "message": "Suggestion: do you mind spiting this CL into encoder and decoder parts?\n\nencoder sides generally looks good to me, but decoder side still looks debatable.",
+      "revId": "0f491c2b5decdaaf4ca31bd5f3469667c9d5ada8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e0f5f49_3cc5d57a",
+        "filename": "media/engine/internal_encoder_factory.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-22T11:23:35Z",
+      "side": 1,
+      "message": "nit: Invalid",
+      "range": {
+        "startLine": 81,
+        "startChar": 9,
+        "endLine": 81,
+        "endChar": 15
+      },
+      "revId": "0f491c2b5decdaaf4ca31bd5f3469667c9d5ada8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "150cbde5_b7727888",
+        "filename": "media/engine/internal_encoder_factory_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-22T11:23:35Z",
+      "side": 1,
+      "message": "nit: personally I prefer to put TESTs inside unnamed namespace too.\nI do not have a strong reason for that though, just a general \"put as much as possible into unnamed namespace\"",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 15
+      },
+      "revId": "0f491c2b5decdaaf4ca31bd5f3469667c9d5ada8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77939af8_9e35f6a7",
+        "filename": "media/engine/internal_encoder_factory_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-22T11:23:35Z",
+      "side": 1,
+      "message": "H264 and VP8 are",
+      "range": {
+        "startLine": 114,
+        "startChar": 36,
+        "endLine": 114,
+        "endChar": 42
+      },
+      "revId": "0f491c2b5decdaaf4ca31bd5f3469667c9d5ada8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3328a1f4_57ea28b4",
+        "filename": "media/engine/internal_encoder_factory_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-22T11:23:35Z",
+      "side": 1,
+      "message": "add an expectation H264 without scalability is supported",
+      "range": {
+        "startLine": 116,
+        "startChar": 40,
+        "endLine": 116,
+        "endChar": 63
+      },
+      "revId": "0f491c2b5decdaaf4ca31bd5f3469667c9d5ada8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

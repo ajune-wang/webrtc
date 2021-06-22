@@ -16,6 +16,40 @@
       "message": "PTAL. I don\u0027t really know this code, but main fix (in this cl and the previous one) is to make sure to release the lock before invoking signals.",
       "revId": "e206250e3a5cddaf13a6906c70efaec7f5aeacdc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "431be487_5d400761",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-22T07:51:14Z",
+      "side": 1,
+      "message": "LGTM. Cleanup proceeds!\n",
+      "revId": "e206250e3a5cddaf13a6906c70efaec7f5aeacdc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75c885dd_ce4bbc91",
+        "filename": "rtc_base/virtual_socket_server.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-22T07:51:14Z",
+      "side": 1,
+      "message": "Update comment to read \"mutex_\".",
+      "revId": "e206250e3a5cddaf13a6906c70efaec7f5aeacdc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

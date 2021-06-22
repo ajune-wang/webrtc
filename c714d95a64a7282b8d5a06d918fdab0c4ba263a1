@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf1e6dd8_de1d22d5",
+        "filename": "api/video/DEPS",
+        "patchSetId": 9
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-22T11:56:26Z",
+      "side": 1,
+      "message": "no longer needed",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 43
+      },
+      "revId": "c714d95a64a7282b8d5a06d918fdab0c4ba263a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64ea035a_4728664f",
+        "filename": "api/video/rtp_video_frame_assembler.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-22T11:56:26Z",
+      "side": 1,
+      "message": "nit:\nafter the switch add\nRTC_NOT_REACHABLE and return nullptr;\nto have a defined behaviour if someone tries to create RtpVideoFrameAssembler with an invalid enum value [according to c++ spec it is legal to use enum values that do not have names as long as that value is withing certain range. When there are 6 named values, that range is [0, 7].]",
+      "range": {
+        "startLine": 51,
+        "startChar": 2,
+        "endLine": 51,
+        "endChar": 3
+      },
+      "revId": "c714d95a64a7282b8d5a06d918fdab0c4ba263a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0d9920d_5c27dbfd",
+        "filename": "api/video/rtp_video_frame_assembler.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-22T11:56:26Z",
+      "side": 1,
+      "message": "nit: std::make_unique\u003cImpl\u003e(...)",
+      "range": {
+        "startLine": 324,
+        "startChar": 29,
+        "endLine": 324,
+        "endChar": 54
+      },
+      "revId": "c714d95a64a7282b8d5a06d918fdab0c4ba263a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "417d0fcd_f204951b",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-22T11:56:26Z",
+      "side": 1,
+      "message": "keep a comment explaining this public alias,\nin particular have a comment what is promised and what is not about the right side.\nSomething like \u0027FrameVector is promised to be a vector-like container of unique_ptr\u003cEncodedFrame\u003e, but actual container type may change without notice\u0027",
+      "range": {
+        "startLine": 29,
+        "startChar": 2,
+        "endLine": 29,
+        "endChar": 19
+      },
+      "revId": "c714d95a64a7282b8d5a06d918fdab0c4ba263a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffa9e248_ab579634",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-22T11:56:26Z",
+      "side": 1,
+      "message": "when I see \u0027then\u0027 I see matching \u0027when\u0027 or expect events that happen one after another without causation.\n\nanyway, would you find wording like this one better:\n\u0027When RTP packets are inserted out of order, multiple frame may be completed at the same time, hence `InsertPacket` returns (array of|several) frames.",
+      "range": {
+        "startLine": 39,
+        "startChar": 53,
+        "endLine": 39,
+        "endChar": 57
+      },
+      "revId": "c714d95a64a7282b8d5a06d918fdab0c4ba263a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e64cf6c5_2a1bf4e4",
+        "filename": "api/video/rtp_video_frame_assembler_unittests.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-22T11:56:26Z",
+      "side": 1,
+      "message": "usually perfect forwarding is done using std::forward:\nstd::forward\u003cArgs\u003e(args)...\n\n(not that important in private test code though)",
+      "range": {
+        "startLine": 66,
+        "startChar": 36,
+        "endLine": 66,
+        "endChar": 40
+      },
+      "revId": "c714d95a64a7282b8d5a06d918fdab0c4ba263a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca82672a_16c10769",
+        "filename": "api/video/rtp_video_frame_assembler_unittests.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-22T11:56:26Z",
+      "side": 1,
+      "message": "what is this function? Isn\u0027t it enough to have\nMATCHER_P(PayloadIs, payload, \"\") ?",
+      "range": {
+        "startLine": 103,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 0
+      },
+      "revId": "c714d95a64a7282b8d5a06d918fdab0c4ba263a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d73c67a0_9bd2535f",
+        "filename": "api/video/rtp_video_frame_assembler_unittests.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-22T11:56:26Z",
+      "side": 1,
+      "message": "all comments should be important 😊\nI would probably drop that word.\nnote+ASSERTs looks good enough.",
+      "range": {
+        "startLine": 120,
+        "startChar": 5,
+        "endLine": 120,
+        "endChar": 16
+      },
+      "revId": "c714d95a64a7282b8d5a06d918fdab0c4ba263a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c93ec57_d05f8365",
+        "filename": "api/video/rtp_video_frame_assembler_unittests.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-22T11:56:26Z",
+      "side": 1,
+      "message": "Doesn\u0027t look generic to me.\nmay be vp8_header (or just vp8)",
+      "range": {
+        "startLine": 132,
+        "startChar": 8,
+        "endLine": 132,
+        "endChar": 15
+      },
+      "revId": "c714d95a64a7282b8d5a06d918fdab0c4ba263a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf54d0a3_5c3bf027",
+        "filename": "api/video/rtp_video_frame_assembler_unittests.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-22T11:56:26Z",
+      "side": 1,
+      "message": "or create a monstrous expectation:\n  EXPECT_THAT(frames, ElementsAre(\n    AllOf(PayloadIs(...), IdAndRefsAre(...)),\n    AllOf(PayloadIs(...), IdAndRefsAre(...))));",
+      "range": {
+        "startLine": 150,
+        "startChar": 2,
+        "endLine": 154,
+        "endChar": 49
+      },
+      "revId": "c714d95a64a7282b8d5a06d918fdab0c4ba263a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e121da5_9ad78ba6",
+        "filename": "api/video/rtp_video_frame_assembler_unittests.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-22T11:56:26Z",
+      "side": 1,
+      "message": "ditto, name it vp9(_header)?",
+      "range": {
+        "startLine": 164,
+        "startChar": 8,
+        "endLine": 164,
+        "endChar": 15
+      },
+      "revId": "c714d95a64a7282b8d5a06d918fdab0c4ba263a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -443,6 +443,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "7026210f_5aa31071",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-22T11:56:26Z",
+      "side": 1,
+      "message": "So the short answer is that you do use some metadata from the RtpPacketReceived?\ni.e. something besides rtp header extensions and other data derived directly from the bytes arrived on the wire.\nCan you please comment what extra fields caller need to fill?\n\nI wasn\u0027t able to spot which metadata is used.",
+      "parentUuid": "c5d1fa3a_d02e2dd9",
+      "range": {
+        "startLine": 46,
+        "startChar": 34,
+        "endLine": 46,
+        "endChar": 51
+      },
+      "revId": "99bf0dc5e4999d87529e852c05e83035e14fe288",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "df7fcf92_ada4d702",
         "filename": "api/video/rtp_video_frame_assembler.h",
         "patchSetId": 8
@@ -478,6 +502,30 @@
       "side": 1,
       "message": "If this was an interface then I would say it\u0027s too specific, but given that this is an implementation then I don\u0027t think it is.\n\nI agree that the best solution would be to make it not rely on this function being called, and in that case even remove it.\n\nLet me do that in a followup CL.",
       "parentUuid": "df7fcf92_ada4d702",
+      "range": {
+        "startLine": 52,
+        "startChar": 42,
+        "endLine": 53,
+        "endChar": 60
+      },
+      "revId": "99bf0dc5e4999d87529e852c05e83035e14fe288",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36f8b3c2_32068cd5",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-22T11:56:26Z",
+      "side": 1,
+      "message": "header file is still an interface. leaving decision up to you.\n\nhttp://go/cpp-style#Function_Comments\n\n\"Declaration comments describe use of the function (when it is non-obvious); comments at the definition of a function describe operation.\"",
+      "parentUuid": "c409c370_413b8b46",
       "range": {
         "startLine": 52,
         "startChar": 42,

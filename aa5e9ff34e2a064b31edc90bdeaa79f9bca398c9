@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65b28026_4b7b0ad7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-22T08:35:34Z",
+      "side": 1,
+      "message": "adding mbonadei@ as reviewer (the master of all things build).\n\nMirko, do we have a place (in documentation?) where we make note of who to contact for issues with various platforms? If we can point to somewhere that says \"For RISC-V issues, contact zhaofeng\", I would be inclined to accept this patch; if we don\u0027t have such a place, I\u0027m more worried about the support burden.\n",
+      "revId": "aa5e9ff34e2a064b31edc90bdeaa79f9bca398c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

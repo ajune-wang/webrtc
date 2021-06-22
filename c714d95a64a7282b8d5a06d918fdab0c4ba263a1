@@ -118,6 +118,29 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "e15854e2_294d2c8f",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-22T11:59:33Z",
+      "side": 1,
+      "message": "Another api idea (not sure it is a good one):\n\nembed rtp parser into this class, i.e. have a function\nFrameVector InsertPacket(rtc::CopyOnWriteBuffer packet);\nor\nFrameVector InsertPacket(rtc::ArrayView\u003cconst uint8_t\u003e packet);\n(or both)\n\nand bunch of functions\nvoid RegisterRtpHeaderExtension(int id, absl::string_view uri);\n\nThe only benefit of that approach is avoidance of the RtpPacketReceived class.",
+      "range": {
+        "startLine": 42,
+        "startChar": 2,
+        "endLine": 42,
+        "endChar": 60
+      },
+      "revId": "c714d95a64a7282b8d5a06d918fdab0c4ba263a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "e64cf6c5_2a1bf4e4",
         "filename": "api/video/rtp_video_frame_assembler_unittests.cc",
         "patchSetId": 9

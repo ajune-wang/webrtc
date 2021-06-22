@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06889b15_49e92afa",
+        "filename": "tools_webrtc/autoroller/roll_deps.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-06-22T11:30:05Z",
+      "side": 1,
+      "message": "Let\u0027s rename the method as well.",
+      "range": {
+        "startLine": 571,
+        "startChar": 18,
+        "endLine": 571,
+        "endChar": 24
+      },
+      "revId": "6c63b0e0f4272de51dd2e4c6ef748d4da6189bbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

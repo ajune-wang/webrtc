@@ -16,6 +16,23 @@
       "message": "good call",
       "revId": "4ef0a8a75d640acccfc78e6aaa8f8bbdad348396",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e41f7fb3_451348b0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-06-22T11:57:45Z",
+      "side": 1,
+      "message": "Hi Danil,\n\nCould you help take a look again on this?",
+      "revId": "4ef0a8a75d640acccfc78e6aaa8f8bbdad348396",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

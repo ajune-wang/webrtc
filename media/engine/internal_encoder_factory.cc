@@ -14,6 +14,8 @@
 
 #include "absl/strings/match.h"
 #include "api/video_codecs/sdp_video_format.h"
+#include "api/video_codecs/spatial_layer.h"
+#include "api/video_codecs/video_codec.h"
 #include "media/base/codec.h"
 #include "media/base/media_constants.h"
 #include "modules/video_coding/codecs/av1/libaom_av1_encoder.h"
@@ -55,6 +57,35 @@ std::unique_ptr<VideoEncoder> InternalEncoderFactory::CreateVideoEncoder(
   RTC_LOG(LS_ERROR) << "Trying to created encoder of unsupported format "
                     << format.name;
   return nullptr;
+}
+
+VideoEncoderFactory::CodecSupport InternalEncoderFactory::QueryCodecSupport(
+    const SdpVideoFormat& format,
+    absl::optional<std::string> scalability_mode) const {
+  // Query for supported formats and check if the specified format is supported.
+  // Return false if an invalid scalability_mode is specified.
+  // TODO(crbug.com/1187565): Query the encoders for a more accurate list of
+  // supported scalability modes.
+  if (scalability_mode) {
+    absl::optional<int> spatial_layers =
+        NumSpatialLayersInScalabilityMode(*scalability_mode);
+
+    // Check that the scalability mode was correctly parsed and that the
+    // configuration is valid (e.g., H264 doesn't support SVC at all and VP8
+    // doesn't support spatial layers).
+    VideoCodecType codec = PayloadStringToCodecType(format.name);
+    if (!spatial_layers ||
+        (codec != kVideoCodecVP8 && codec != kVideoCodecVP9 &&
+         codec != kVideoCodecAV1) ||
+        (codec == kVideoCodecVP8 && *spatial_layers > 1)) {
+      // Invalid scalability_mode, return unsupported.
+      return {false, false};
+    }
+  }
+
+  CodecSupport codec_support;
+  codec_support.is_supported = format.IsCodecInList(GetSupportedFormats());
+  return codec_support;
 }
 
 }  // namespace webrtc

@@ -10,6 +10,8 @@
 
 #include "api/video_codecs/spatial_layer.h"
 
+#include "absl/types/optional.h"
+
 namespace webrtc {
 
 bool SpatialLayer::operator==(const SpatialLayer& other) const {
@@ -20,6 +22,17 @@ bool SpatialLayer::operator==(const SpatialLayer& other) const {
           targetBitrate == other.targetBitrate &&
           minBitrate == other.minBitrate && qpMax == other.qpMax &&
           active == other.active);
+}
+
+absl::optional<int> NumSpatialLayersInScalabilityMode(
+    absl::string_view scalability_mode) {
+  if (scalability_mode.size() >= 4 &&
+      (scalability_mode[0] == 'L' || scalability_mode[0] == 'S') &&
+      (scalability_mode[2] == 'T') && scalability_mode[1] >= '1' &&
+      scalability_mode[1] <= '3') {
+    return scalability_mode[1] - '0';
+  }
+  return absl::nullopt;
 }
 
 }  // namespace webrtc

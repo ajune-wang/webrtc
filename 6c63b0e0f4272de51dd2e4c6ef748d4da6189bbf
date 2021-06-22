@@ -22,6 +22,30 @@
       },
       "revId": "6c63b0e0f4272de51dd2e4c6ef748d4da6189bbf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b474846_d436e760",
+        "filename": "tools_webrtc/autoroller/roll_deps.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 6192
+      },
+      "writtenOn": "2021-06-22T12:24:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06889b15_49e92afa",
+      "range": {
+        "startLine": 571,
+        "startChar": 18,
+        "endLine": 571,
+        "endChar": 24
+      },
+      "revId": "6c63b0e0f4272de51dd2e4c6ef748d4da6189bbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

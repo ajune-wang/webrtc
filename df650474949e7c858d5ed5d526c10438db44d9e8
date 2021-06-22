@@ -563,6 +563,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d3896f4_5d6005c4",
+        "filename": "media/engine/internal_decoder_factory.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-22T17:23:07Z",
+      "side": 1,
+      "message": "Reading the introduction, I understand the part\n\"Since ... codecs implemented in browsers require that compliant decoders be capable of decoding any legal encoding sent by an encoder, this specification does not support decoder configuration.\"\nnormally decoder is not even aware of the used scalability mode.\n\nnext sentence sort of contradicts the previous one, I\u0027m still trying to understand it.\n\"However, it is possible for decoders that cannot decode any legal bitstream to describe the supported scalability modes\".\n\nlet me think a bit more about it...\nIn my mind scalability_mode plays negligible role in deciding if stream can be decoded smoothly, resolution and framerate, cpu capabilities and cpu load, hw decoder capabilities plays much higher roles. (I\u0027m not sure any hw decoder can smoothly decode 4k stream without scalability)",
+      "parentUuid": "0f8b991d_daa20f9a",
+      "range": {
+        "startLine": 50,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 39
+      },
+      "revId": "df650474949e7c858d5ed5d526c10438db44d9e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "3e20b9d7_833e67fe",

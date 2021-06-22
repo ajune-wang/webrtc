@@ -64,6 +64,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "06df9072_c54882b8",
+        "filename": "media/engine/internal_encoder_factory_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-06-22T12:32:18Z",
+      "side": 1,
+      "message": "Sure, why not :)",
+      "parentUuid": "150cbde5_b7727888",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 15
+      },
+      "revId": "0f491c2b5decdaaf4ca31bd5f3469667c9d5ada8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "77939af8_9e35f6a7",
@@ -87,6 +111,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aeee1521_eae256e9",
+        "filename": "media/engine/internal_encoder_factory_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-06-22T12:32:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77939af8_9e35f6a7",
+      "range": {
+        "startLine": 114,
+        "startChar": 36,
+        "endLine": 114,
+        "endChar": 42
+      },
+      "revId": "0f491c2b5decdaaf4ca31bd5f3469667c9d5ada8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3328a1f4_57ea28b4",
@@ -100,6 +148,30 @@
       "writtenOn": "2021-06-22T11:23:35Z",
       "side": 1,
       "message": "add an expectation H264 without scalability is supported",
+      "range": {
+        "startLine": 116,
+        "startChar": 40,
+        "endLine": 116,
+        "endChar": 63
+      },
+      "revId": "0f491c2b5decdaaf4ca31bd5f3469667c9d5ada8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f96d3dae_4bef6054",
+        "filename": "media/engine/internal_encoder_factory_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-06-22T12:32:18Z",
+      "side": 1,
+      "message": "Fixed.\nI excluded it initially because the HW decoder factory has a strange condition if H264 is enabled or not, but that\u0027s not the case here.",
+      "parentUuid": "3328a1f4_57ea28b4",
       "range": {
         "startLine": 116,
         "startChar": 40,

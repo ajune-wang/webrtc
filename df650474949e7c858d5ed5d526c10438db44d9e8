@@ -539,6 +539,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f8b991d_daa20f9a",
+        "filename": "media/engine/internal_decoder_factory.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-06-22T12:32:18Z",
+      "side": 1,
+      "message": "The MediaCapabilities API is called by the user from JavaScript, so that\u0027s why it seems relevant to be able to respond correctly to VP8 L2T2 even though there\u0027s no encoder that can produce it.\n\nThere should be as little guessing as possible, RTCVideoDecoderFactory responds about HW capabilities and InternalDecoderFactory responds about SW capabilities.\n\nI just read https://www.w3.org/TR/webrtc-svc/#intro again, and it seems to be in line with that document that decoders may list there supported scalability modes as well.",
+      "parentUuid": "08cd3d4c_795091ea",
+      "range": {
+        "startLine": 50,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 39
+      },
+      "revId": "df650474949e7c858d5ed5d526c10438db44d9e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "3e20b9d7_833e67fe",

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "277bb381_f133d3f0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-06-22T06:36:57Z",
+      "side": 1,
+      "message": "PTAL. I don\u0027t really know this code, but main fix (in this cl and the previous one) is to make sure to release the lock before invoking signals.",
+      "revId": "e206250e3a5cddaf13a6906c70efaec7f5aeacdc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

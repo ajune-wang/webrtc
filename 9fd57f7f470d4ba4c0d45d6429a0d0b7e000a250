@@ -22,6 +22,30 @@
       },
       "revId": "9fd57f7f470d4ba4c0d45d6429a0d0b7e000a250",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "27dd1a4d_2851f074",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-06-22T08:07:56Z",
+      "side": 1,
+      "message": "Basically yes. It was only used to assign to the decoder_factory pointer in the config struct (see now-deleted line 2885 in webrtc_video_engine.cc).",
+      "parentUuid": "bbef202d_7a819b8b",
+      "range": {
+        "startLine": 167,
+        "startChar": 0,
+        "endLine": 168,
+        "endChar": 51
+      },
+      "revId": "9fd57f7f470d4ba4c0d45d6429a0d0b7e000a250",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

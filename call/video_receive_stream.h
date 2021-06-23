@@ -59,6 +59,7 @@ class VideoReceiveStream : public MediaReceiveStream {
   // TODO(mflodman) Move all these settings to VideoDecoder and move the
   // declaration to common_types.h.
   struct Decoder {
+    Decoder(SdpVideoFormat video_format, int payload_type);
     Decoder();
     Decoder(const Decoder&);
     ~Decoder();

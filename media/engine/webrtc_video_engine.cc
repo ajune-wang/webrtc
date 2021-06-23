@@ -2883,13 +2883,11 @@ void WebRtcVideoChannel::WebRtcVideoReceiveStream::ConfigureCodecs(
   config_.rtp.rtx_associated_payload_types.clear();
   config_.rtp.raw_payload_types.clear();
   for (const auto& recv_codec : recv_codecs) {
-    webrtc::VideoReceiveStream::Decoder decoder;
-    decoder.payload_type = recv_codec.codec.id;
-    decoder.video_format =
-        webrtc::SdpVideoFormat(recv_codec.codec.name, recv_codec.codec.params);
-    config_.decoders.push_back(decoder);
-    config_.rtp.rtx_associated_payload_types[recv_codec.rtx_payload_type] =
-        recv_codec.codec.id;
+    config_.decoders.emplace_back(
+        webrtc::SdpVideoFormat(recv_codec.codec.name, recv_codec.codec.params),
+        recv_codec.codec.id);
+    config_.rtp.rtx_associated_payload_types.insert(
+        {recv_codec.rtx_payload_type, recv_codec.codec.id});
     if (recv_codec.codec.packetization == kPacketizationParamRaw) {
       config_.rtp.raw_payload_types.insert(recv_codec.codec.id);
     }

@@ -16,6 +16,23 @@
       "message": "PTAL. Drops unneeded dependencies, and one left-over include.",
       "revId": "3f5a9872b93216bbd0fbfc34f8a3d7b2bc1b9d0b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a9f592f_c66f37a8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-23T01:24:48Z",
+      "side": 1,
+      "message": "Good removals!\n",
+      "revId": "3f5a9872b93216bbd0fbfc34f8a3d7b2bc1b9d0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -53,6 +53,7 @@ constexpr int kSctpErrorReturn = 0;
 #include "rtc_base/thread_annotations.h"
 #include "rtc_base/trace_event.h"
 
+namespace cricket {
 namespace {
 
 // The biggest SCTP packet. Starting from a 'safe' wire MTU value of 1280,
@@ -236,9 +237,39 @@ sctp_sendv_spa CreateSctpSendParams(int sid,
   }
   return spa;
 }
-}  // namespace
 
-namespace cricket {
+std::string SctpErrorCauseCodeToString(SctpErrorCauseCode code) {
+  switch (code) {
+    case kInvalidStreamIdentifier:
+      return "Invalid Stream Identifier";
+    case kMissingMandatoryParameter:
+      return "Missing Mandatory Parameter";
+    case kStaleCookieError:
+      return "Stale Cookie Error";
+    case kOutOfResource:
+      return "Out of Resource";
+    case kUnresolvableAddress:
+      return "Unresolvable Address";
+    case kUnrecognizedChunkType:
+      return "Unrecognized Chunk Type";
+    case kInvalidMandatoryParameter:
+      return "Invalid Mandatory Parameter";
+    case kUnrecognizedParameters:
+      return "Unrecognized Parameters";
+    case kNoUserData:
+      return "No User Data";
+    case kCookieReceivedWhileShuttingDown:
+      return "Cookie Received Whilte Shutting Down";
+    case kRestartWithNewAddresses:
+      return "Restart With New Addresses";
+    case kUserInitiatedAbort:
+      return "User Initiated Abort";
+    case kProtocolViolation:
+      return "Protocol Violation";
+  }
+  return "Unknown error";
+}
+}  // namespace
 
 // Maps SCTP transport ID to UsrsctpTransport object, necessary in send
 // threshold callback and outgoing packet callback. It also provides a facility
@@ -1211,7 +1242,11 @@ void UsrsctpTransport::OnPacketRead(rtc::PacketTransportInternal* transport,
 }
 
 void UsrsctpTransport::OnClosed(rtc::PacketTransportInternal* transport) {
-  SignalClosedAbruptly();
+  webrtc::RTCError error =
+      webrtc::RTCError(webrtc::RTCErrorType::OPERATION_ERROR_WITH_DATA,
+                       "Transport channel closed");
+  error.set_error_detail(webrtc::RTCErrorDetailType::SCTP_FAILURE);
+  SignalClosedAbruptly(error);
 }
 
 void UsrsctpTransport::OnSendThresholdCallback() {
@@ -1497,9 +1532,17 @@ void UsrsctpTransport::OnNotificationAssocChange(
       // came up, send any queued resets.
       SendQueuedStreamResets();
       break;
-    case SCTP_COMM_LOST:
+    case SCTP_COMM_LOST: {
+      webrtc::RTCError error = webrtc::RTCError(
+          webrtc::RTCErrorType::OPERATION_ERROR_WITH_DATA,
+          SctpErrorCauseCodeToString(
+              static_cast<SctpErrorCauseCode>(change.sac_error)));
+      error.set_error_detail(webrtc::RTCErrorDetailType::SCTP_FAILURE);
+      error.set_sctp_cause_code(change.sac_error);
+      SignalClosedAbruptly(error);
       RTC_LOG(LS_INFO) << "Association change SCTP_COMM_LOST";
       break;
+    }
     case SCTP_RESTART:
       RTC_LOG(LS_INFO) << "Association change SCTP_RESTART";
       break;

@@ -467,6 +467,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "9b1624c3_8390190b",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-06-23T10:28:53Z",
+      "side": 1,
+      "message": "This class won\u0027t use the metadata, but others later in the pipeline will.",
+      "parentUuid": "7026210f_5aa31071",
+      "range": {
+        "startLine": 46,
+        "startChar": 34,
+        "endLine": 46,
+        "endChar": 51
+      },
+      "revId": "99bf0dc5e4999d87529e852c05e83035e14fe288",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "df7fcf92_ada4d702",
         "filename": "api/video/rtp_video_frame_assembler.h",
         "patchSetId": 8

@@ -42,15 +42,6 @@ class RtpVideoFrameAssembler {
   // frames could be completed from a single packet, hence the 'FrameVector'
   // return type.
   FrameVector InsertPacket(const RtpPacketReceived& packet);
-
-  // When the receiver is no longer interested in frames past a certain point
-  // (typically after the decoding of a frame) then `ClearTo` should be called
-  // to discard incomplete frames that are prior to the frame with `frame_id`
-  // in decode order. It is not critical that `ClearTo` is called immediately
-  // but it should be called regularly to avoid old packets conflicting with new
-  // packets after an RTP packet sequence number wraparound.
-  void ClearTo(int64_t frame_id);
-
  private:
   class Impl;
   std::unique_ptr<Impl> impl_;

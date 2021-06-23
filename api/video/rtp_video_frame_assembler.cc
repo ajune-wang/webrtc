@@ -74,6 +74,7 @@ class RtpVideoFrameAssembler::Impl {
                                             RTPVideoHeader& video_header);
   bool ParseGenericDescriptorExtension(const RtpPacketReceived& rtp_packet,
                                        RTPVideoHeader& video_header);
+  void ClearOldData(uint16_t incoming_seq_num);
 
   std::unique_ptr<FrameDependencyStructure> video_structure_;
   SeqNumUnwrapper<uint16_t> frame_id_unwrapper_;
@@ -86,7 +87,7 @@ class RtpVideoFrameAssembler::Impl {
 
 RtpVideoFrameAssembler::Impl::Impl(
     std::unique_ptr<VideoRtpDepacketizer> depacketizer)
-    : depacketizer_(std::move(depacketizer)), packet_buffer_(512, 2048) {}
+    : depacketizer_(std::move(depacketizer)), packet_buffer_(2048, 2048) {}
 
 RtpVideoFrameAssembler::FrameVector RtpVideoFrameAssembler::Impl::InsertPacket(
     const RtpPacketReceived& rtp_packet) {
@@ -98,6 +99,7 @@ RtpVideoFrameAssembler::FrameVector RtpVideoFrameAssembler::Impl::InsertPacket(
   }
 
   if (parsed_payload->video_payload.size() == 0) {
+    ClearOldData(rtp_packet.SequenceNumber());
     return UpdateWithPadding(rtp_packet.SequenceNumber());
   }
 
@@ -119,17 +121,16 @@ RtpVideoFrameAssembler::FrameVector RtpVideoFrameAssembler::Impl::InsertPacket(
       rtp_packet, parsed_payload->video_header);
   packet->video_payload = std::move(parsed_payload->video_payload);
 
+  ClearOldData(rtp_packet.SequenceNumber());
   return FindReferences(
       AssembleFrames(packet_buffer_.InsertPacket(std::move(packet))));
 }
 
-void RtpVideoFrameAssembler::Impl::ClearTo(int64_t frame_id) {
-  auto it = frame_id_to_seq_num_.find(frame_id);
-  if (it != frame_id_to_seq_num_.end()) {
-    packet_buffer_.ClearTo(it->second);
-    reference_finder_.ClearTo(it->second);
-    frame_id_to_seq_num_.erase(frame_id_to_seq_num_.begin(), it);
-  }
+void RtpVideoFrameAssembler::Impl::ClearOldData(uint16_t incoming_seq_num) {
+  constexpr uint16_t kOldSeqNumThreshold = 2000;
+  uint16_t old_seq_num = incoming_seq_num - kOldSeqNumThreshold;
+  packet_buffer_.ClearTo(old_seq_num);
+  reference_finder_.ClearTo(old_seq_num);
 }
 
 RtpVideoFrameAssembler::Impl::RtpFrameVector
@@ -330,9 +331,6 @@ RtpVideoFrameAssembler::~RtpVideoFrameAssembler() = default;
 RtpVideoFrameAssembler::FrameVector RtpVideoFrameAssembler::InsertPacket(
     const RtpPacketReceived& packet) {
   return impl_->InsertPacket(packet);
-}
-void RtpVideoFrameAssembler::ClearTo(int64_t frame_id) {
-  return impl_->ClearTo(frame_id);
 }
 
 }  // namespace webrtc

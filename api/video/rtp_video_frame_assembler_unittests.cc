@@ -380,52 +380,81 @@ TEST(RtpVideoFrameAssembler, Padding) {
   EXPECT_THAT(frames[1], IdAndRefsAre(125, {123}));
 }
 
-TEST(RtpVideoFrameAssembler, ClearTo) {
+TEST(RtpVideoFrameAssembler, ClearOldPackets) {
   RtpVideoFrameAssembler assembler(RtpVideoFrameAssembler::kGeneric);
-  RtpVideoFrameAssembler::FrameVector frames;
-  uint8_t kPayload[] = "SomePayload";
+
+  // If we don't have a payload the packet will be counted as a padding packet.
+  uint8_t kPayload[] = "DontCare";
 
   RTPVideoHeader video_header;
-
   video_header.frame_type = VideoFrameType::kVideoFrameKey;
-  AppendFrames(assembler.InsertPacket(PacketBuilder(kVideoCodecGeneric)
-                                          .WithPayload(kPayload)
-                                          .WithVideoHeader(video_header)
-                                          .WithSeqNum(123)
-                                          .Build()),
-               frames);
+  EXPECT_THAT(assembler.InsertPacket(PacketBuilder(kVideoCodecGeneric)
+                                         .WithPayload(kPayload)
+                                         .WithVideoHeader(video_header)
+                                         .WithSeqNum(0)
+                                         .Build()),
+              SizeIs(1));
 
-  video_header.frame_type = VideoFrameType::kVideoFrameDelta;
-  AppendFrames(assembler.InsertPacket(PacketBuilder(kVideoCodecGeneric)
-                                          .WithPayload(kPayload)
-                                          .WithVideoHeader(video_header)
-                                          .WithSeqNum(125)
-                                          .Build()),
-               frames);
+  EXPECT_THAT(assembler.InsertPacket(PacketBuilder(kVideoCodecGeneric)
+                                         .WithPayload(kPayload)
+                                         .WithVideoHeader(video_header)
+                                         .WithSeqNum(2000)
+                                         .Build()),
+              SizeIs(1));
 
+  EXPECT_THAT(assembler.InsertPacket(PacketBuilder(kVideoCodecGeneric)
+                                         .WithPayload(kPayload)
+                                         .WithVideoHeader(video_header)
+                                         .WithSeqNum(0)
+                                         .Build()),
+              SizeIs(0));
+
+  EXPECT_THAT(assembler.InsertPacket(PacketBuilder(kVideoCodecGeneric)
+                                         .WithPayload(kPayload)
+                                         .WithVideoHeader(video_header)
+                                         .WithSeqNum(1)
+                                         .Build()),
+              SizeIs(1));
+}
+
+TEST(RtpVideoFrameAssembler, ClearOldPacketsWithPadding) {
+  RtpVideoFrameAssembler assembler(RtpVideoFrameAssembler::kGeneric);
+  uint8_t kPayload[] = "DontCare";
+
+  RTPVideoHeader video_header;
   video_header.frame_type = VideoFrameType::kVideoFrameKey;
-  AppendFrames(assembler.InsertPacket(PacketBuilder(kVideoCodecGeneric)
-                                          .WithPayload(kPayload)
-                                          .WithVideoHeader(video_header)
-                                          .WithSeqNum(126)
-                                          .Build()),
-               frames);
+  EXPECT_THAT(assembler.InsertPacket(PacketBuilder(kVideoCodecGeneric)
+                                         .WithPayload(kPayload)
+                                         .WithVideoHeader(video_header)
+                                         .WithSeqNum(0)
+                                         .Build()),
+              SizeIs(1));
 
-  ASSERT_THAT(frames, SizeIs(2));
-  EXPECT_THAT(frames[0], IdAndRefsAre(123, {}));
-  EXPECT_THAT(frames[1], IdAndRefsAre(126, {}));
+  // Padding packets have no bitstream data. An easy way to generate one is to
+  // build a normal packet and then simply remove the bitstream portion of the
+  // payload.
+  RtpPacketReceived padding_packet = PacketBuilder(kVideoCodecGeneric)
+                                         .WithPayload(kPayload)
+                                         .WithVideoHeader(video_header)
+                                         .WithSeqNum(2000)
+                                         .Build();
+  // The payload descriptor is one byte, keep it.
+  padding_packet.SetPayloadSize(1);
+  EXPECT_THAT(assembler.InsertPacket(padding_packet), SizeIs(0));
 
-  assembler.ClearTo(126);
+  EXPECT_THAT(assembler.InsertPacket(PacketBuilder(kVideoCodecGeneric)
+                                         .WithPayload(kPayload)
+                                         .WithVideoHeader(video_header)
+                                         .WithSeqNum(0)
+                                         .Build()),
+              SizeIs(0));
 
-  video_header.frame_type = VideoFrameType::kVideoFrameDelta;
-  AppendFrames(assembler.InsertPacket(PacketBuilder(kVideoCodecGeneric)
-                                          .WithPayload(kPayload)
-                                          .WithVideoHeader(video_header)
-                                          .WithSeqNum(124)
-                                          .Build()),
-               frames);
-
-  ASSERT_THAT(frames, SizeIs(2));
+  EXPECT_THAT(assembler.InsertPacket(PacketBuilder(kVideoCodecGeneric)
+                                         .WithPayload(kPayload)
+                                         .WithVideoHeader(video_header)
+                                         .WithSeqNum(1)
+                                         .Build()),
+              SizeIs(1));
 }
 
 }  // namespace

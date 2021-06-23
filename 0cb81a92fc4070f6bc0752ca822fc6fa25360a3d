@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "196f7f83_4400f798",
+        "filename": "modules/rtp_rtcp/source/rtp_packetizer_av1_test_helper.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-06-23T09:45:17Z",
+      "side": 1,
+      "message": "Changed to ::webrtc",
+      "parentUuid": "db96ee47_73f0de23",
+      "range": {
+        "startLine": 20,
+        "startChar": 10,
+        "endLine": 20,
+        "endChar": 21
+      },
+      "revId": "0cb81a92fc4070f6bc0752ca822fc6fa25360a3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "d5f88f79_e825b969",
         "filename": "modules/rtp_rtcp/source/rtp_packetizer_av1_test_helper.h",
         "patchSetId": 1
@@ -37,6 +61,30 @@
       "writtenOn": "2021-06-22T10:25:11Z",
       "side": 1,
       "message": "e.g. constants can have an extra Av1 prefix:\nkAv1ObuTypeSequenceHeader\nAll those constants may also be reused in non-test code (except, may be, the last one)\n\nor, to avoid filling namespace, may be these constants can be inside the Obu class\nclass Obu {\n  static constexpr uint8_t kTypeSequenceHeader \u003d 1 \u003c\u003c 3;\n  ...\n}\nor\nclass Obu {\n  enum Type : uint8_t {\n    kSequenceHeader \u003d 1 \u003c\u003c 3;\n    ...\n  };\n  ...\n}\n\nI\u0027m ok with either of 4 naming solutions (including keep current names as is but in the webrtc namespace)",
+      "range": {
+        "startLine": 24,
+        "startChar": 18,
+        "endLine": 24,
+        "endChar": 40
+      },
+      "revId": "0cb81a92fc4070f6bc0752ca822fc6fa25360a3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59d3d2a3_348a909d",
+        "filename": "modules/rtp_rtcp/source/rtp_packetizer_av1_test_helper.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-06-23T09:45:17Z",
+      "side": 1,
+      "message": "`kObu...` --\u003e `kAv1Obu...`",
+      "parentUuid": "d5f88f79_e825b969",
       "range": {
         "startLine": 24,
         "startChar": 18,
@@ -72,6 +120,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "36963997_0f4cad07",
+        "filename": "modules/rtp_rtcp/source/rtp_packetizer_av1_test_helper.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-06-23T09:45:17Z",
+      "side": 1,
+      "message": "I changed this to Av1Obu as well",
+      "parentUuid": "49fe4b81_ab377a7c",
+      "range": {
+        "startLine": 35,
+        "startChar": 6,
+        "endLine": 35,
+        "endChar": 9
+      },
+      "revId": "0cb81a92fc4070f6bc0752ca822fc6fa25360a3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "45609c88_198cac0c",
         "filename": "modules/rtp_rtcp/source/rtp_packetizer_av1_test_helper.h",
         "patchSetId": 1
@@ -83,6 +155,30 @@
       "writtenOn": "2021-06-22T10:25:11Z",
       "side": 1,
       "message": "alternative design might be to have a builder:\n\nclass TestAv1Frame {\n public:\n  TestAv1Frame\u0026 WithObu(const Obu\u0026 obu);\n  std::vector\u003cuint8_t\u003e Build() const;\n};\n\n(If designated initializers would be allowed in webrtc (might happen shortly), it would be possible to go a bit further and make Obu a child class:\n\nclass TestAv1Frame {\n public:\n  struct Obu {\n    bool has_size \u003d false;\n    uint8_t extension \u003d 0;\n    std::vector\u003cuint8_t\u003e payload;\n  };\n   \n  TestAv1Frame\u0026 WithObu(const Obu\u0026 obu);\n  std::vector\u003cuint8_t\u003e Build() const;\n  // or instead of Build function make TestAv1Frame convertable\n  // to rtc::ArrayView\u003cconst uint8_t\u003e :\n  const uint8_t* data() const;\n  size_t size() const;\n};\n...\n\nTestAv1Frame()\n  .WithObu({.has_size \u003d true, .payload \u003d {1, 2, 3})\n  .WithObu({.extension \u003d kObuExtensionS1T1})\n  .Build();",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 68
+      },
+      "revId": "0cb81a92fc4070f6bc0752ca822fc6fa25360a3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f232074c_eb5e66fa",
+        "filename": "modules/rtp_rtcp/source/rtp_packetizer_av1_test_helper.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-06-23T09:45:17Z",
+      "side": 1,
+      "message": "Tried updating to a builder, having data() and size() member is not sufficient for all gtest magic to work, adding iterators and value_type worked but is a bit messy. Also a bit confusing having a TestAv1Frame class and a Av1Frame in the unittests.\n\nI feel like that type of refactoring could be a separate CL.",
+      "parentUuid": "45609c88_198cac0c",
       "range": {
         "startLine": 50,
         "startChar": 0,

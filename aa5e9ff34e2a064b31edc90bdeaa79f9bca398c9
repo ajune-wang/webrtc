@@ -57,6 +57,30 @@
       },
       "revId": "aa5e9ff34e2a064b31edc90bdeaa79f9bca398c9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbc14c42_b5457ee4",
+        "filename": "rtc_base/system/arch.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 17829
+      },
+      "writtenOn": "2021-06-23T04:01:00Z",
+      "side": 1,
+      "message": "Oh wow, that\u0027s a major oversight on my part and thanks for catching it. Apparently PulseAudio\u0027s downstream fork does not have this commit added, but my patch still applied on upstream WebRTC so I went with the assumption that it is not present. I\u0027ll amend this changeset to just add the check for older toolchains.",
+      "parentUuid": "63c16756_5bfd91fc",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 33
+      },
+      "revId": "aa5e9ff34e2a064b31edc90bdeaa79f9bca398c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

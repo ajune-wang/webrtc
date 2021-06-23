@@ -635,7 +635,9 @@ TEST_F(SctpDataChannelTest, TransportDestroyedWhileDataBuffered) {
   // Tell the data channel that its transport is being destroyed.
   // It should then stop using the transport (allowing us to delete it) and
   // transition to the "closed" state.
-  webrtc_data_channel_->OnTransportChannelClosed();
+  webrtc::RTCError error(webrtc::RTCErrorType::OPERATION_ERROR_WITH_DATA, "");
+  error.set_error_detail(webrtc::RTCErrorDetailType::SCTP_FAILURE);
+  webrtc_data_channel_->OnTransportChannelClosed(error);
   provider_.reset(nullptr);
   EXPECT_EQ_WAIT(webrtc::DataChannelInterface::kClosed,
                  webrtc_data_channel_->state(), kDefaultTimeout);
@@ -644,6 +646,28 @@ TEST_F(SctpDataChannelTest, TransportDestroyedWhileDataBuffered) {
             webrtc_data_channel_->error().type());
   EXPECT_EQ(webrtc::RTCErrorDetailType::SCTP_FAILURE,
             webrtc_data_channel_->error().error_detail());
+}
+
+TEST_F(SctpDataChannelTest, TransportGotErrorCode) {
+  SetChannelReady();
+
+  // Tell the data channel that its transport is being destroyed with an
+  // error code.
+  // It should then report that error code.
+  webrtc::RTCError error(webrtc::RTCErrorType::OPERATION_ERROR_WITH_DATA,
+                         "Transport channel closed");
+  error.set_error_detail(webrtc::RTCErrorDetailType::SCTP_FAILURE);
+  error.set_sctp_cause_code(5);
+  webrtc_data_channel_->OnTransportChannelClosed(error);
+  provider_.reset(nullptr);
+  EXPECT_EQ_WAIT(webrtc::DataChannelInterface::kClosed,
+                 webrtc_data_channel_->state(), kDefaultTimeout);
+  EXPECT_FALSE(webrtc_data_channel_->error().ok());
+  EXPECT_EQ(webrtc::RTCErrorType::OPERATION_ERROR_WITH_DATA,
+            webrtc_data_channel_->error().type());
+  EXPECT_EQ(webrtc::RTCErrorDetailType::SCTP_FAILURE,
+            webrtc_data_channel_->error().error_detail());
+  EXPECT_EQ(5, webrtc_data_channel_->error().sctp_cause_code());
 }
 
 class SctpSidAllocatorTest : public ::testing::Test {

@@ -16,6 +16,24 @@
       "message": "This allow list file has to be updated in chromium then we can re-land:\nhttps://source.chromium.org/chromium/chromium/src/+/main:chrome/test/data/webrtc/peerconnection_getstats.js;l\u003d268?q\u003dpeerconnection_getstats.js\u0026originalUrl\u003dhttps:%2F%2Fcs.chromium.org%2F\n\nTake a look if this affects any WPTs, for example this expectations file might need to be updated:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/web_tests/external/wpt/webrtc-stats/supported-stats-expected.txt;l\u003d203?q\u003df:wpt%20echoReturnLoss\u0026originalUrl\u003dhttps:%2F%2Fcs.chromium.org%2F\n\nIn that case you have to mark external/wpt/webrtc-stats/supported-stats.html as both [ Pass Failure ] in TestExpectations",
       "revId": "a27cfbffdfa0bf359628d2164db5b9d6321f9c9c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25df63b1_49f9562f",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-06-24T01:25:39Z",
+      "side": 0,
+      "message": "I tried running supported-stats.html but surprisingly the output didn\u0027t change (echoReturnLoss is still missing). I even tried hard coding it (so it will be set even if there is no audio processor) and it\u0027s still missing. Do you have any clue what could be going on? I know my changes are being picked up because if I comment out another stat being set it does show up as missing.",
+      "parentUuid": "83f5b75e_1a52d3cd",
+      "revId": "a27cfbffdfa0bf359628d2164db5b9d6321f9c9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

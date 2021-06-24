@@ -461,6 +461,11 @@ void VideoReceiveStream2::Stop() {
   transport_adapter_.Disable();
 }
 
+void VideoReceiveStream2::SetRtpExtensions(
+    std::vector<RtpExtension> extensions) {
+  RTC_NOTREACHED();
+}
+
 void VideoReceiveStream2::CreateAndRegisterExternalDecoder(
     const Decoder& decoder) {
   TRACE_EVENT0("webrtc",

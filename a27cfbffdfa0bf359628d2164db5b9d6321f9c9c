@@ -34,6 +34,24 @@
       "parentUuid": "83f5b75e_1a52d3cd",
       "revId": "a27cfbffdfa0bf359628d2164db5b9d6321f9c9c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5a0903c_f84ad1d8",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-06-24T01:53:31Z",
+      "side": 0,
+      "message": "Nevermind, hardcoding actually did work. I haven\u0027t drilled down into why, but the audio tracks in content_shell don\u0027t have audio processors. Which means the WPT tests don\u0027t need to be updated I suppose.",
+      "parentUuid": "25df63b1_49f9562f",
+      "revId": "a27cfbffdfa0bf359628d2164db5b9d6321f9c9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

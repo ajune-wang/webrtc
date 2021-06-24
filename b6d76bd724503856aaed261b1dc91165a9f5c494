@@ -37,6 +37,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "58a42793_0adbf374",
+        "filename": "api/video/BUILD.gn",
+        "patchSetId": 11
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-06-24T12:20:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2a5c672a_65112aec",
+      "revId": "b6d76bd724503856aaed261b1dc91165a9f5c494",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "8162a480_5ca6ab78",
         "filename": "api/video/rtp_video_frame_assembler.cc",
         "patchSetId": 11
@@ -48,6 +66,30 @@
       "writtenOn": "2021-06-23T16:39:56Z",
       "side": 1,
       "message": "nit: may be move it private section.\n(not that important as the class itself is private, but still would help to note it is not used by the RtpVideoFrameAssembler, it is not the same as FrameVector",
+      "range": {
+        "startLine": 59,
+        "startChar": 2,
+        "endLine": 59,
+        "endChar": 22
+      },
+      "revId": "b6d76bd724503856aaed261b1dc91165a9f5c494",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33f298f7_a5a8c4f7",
+        "filename": "api/video/rtp_video_frame_assembler.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-06-24T12:20:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8162a480_5ca6ab78",
       "range": {
         "startLine": 59,
         "startChar": 2,
@@ -83,6 +125,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "dcfd3804_13fa9a35",
+        "filename": "api/video/rtp_video_frame_assembler.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-06-24T12:20:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c380645_08b26464",
+      "range": {
+        "startLine": 80,
+        "startChar": 2,
+        "endLine": 80,
+        "endChar": 16
+      },
+      "revId": "b6d76bd724503856aaed261b1dc91165a9f5c494",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "28e43c1b_a6ae7fea",
         "filename": "api/video/rtp_video_frame_assembler.cc",
         "patchSetId": 11
@@ -94,6 +160,30 @@
       "writtenOn": "2021-06-23T16:39:56Z",
       "side": 1,
       "message": "may be note what these magic numbers are:\npacket_buffer_(/*start_buffer_size\u003d*/512, /*max_buffer_size\u003d*/2048)",
+      "range": {
+        "startLine": 89,
+        "startChar": 61,
+        "endLine": 89,
+        "endChar": 70
+      },
+      "revId": "b6d76bd724503856aaed261b1dc91165a9f5c494",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccb9876f_d11c84b6",
+        "filename": "api/video/rtp_video_frame_assembler.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-06-24T12:20:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "28e43c1b_a6ae7fea",
       "range": {
         "startLine": 89,
         "startChar": 61,
@@ -153,6 +243,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "55b2a948_a359c55d",
+        "filename": "api/video/rtp_video_frame_assembler.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-06-24T12:20:20Z",
+      "side": 1,
+      "message": "Good point, but I removed ClearTo, clearing old data is now done internally.",
+      "parentUuid": "5eb94451_be0bfe75",
+      "range": {
+        "startLine": 127,
+        "startChar": 32,
+        "endLine": 127,
+        "endChar": 47
+      },
+      "revId": "b6d76bd724503856aaed261b1dc91165a9f5c494",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "95df0c08_0939588e",
         "filename": "api/video/rtp_video_frame_assembler.cc",
         "patchSetId": 11
@@ -164,6 +278,30 @@
       "writtenOn": "2021-06-23T16:39:56Z",
       "side": 1,
       "message": "fill also generic_descriptor_info.chain_diffs \nand generic_descriptor_info.active_decode_targets?",
+      "range": {
+        "startLine": 257,
+        "startChar": 2,
+        "endLine": 257,
+        "endChar": 3
+      },
+      "revId": "b6d76bd724503856aaed261b1dc91165a9f5c494",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d848907d_90d18006",
+        "filename": "api/video/rtp_video_frame_assembler.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-06-24T12:20:20Z",
+      "side": 1,
+      "message": "Hm.... Since frames are returned as EncodedFrame (instead of RtpFrameObject, so GetRtpVideoHeader can\u0027t be reached) there is no way to retrieve this information. I could actually populate less fields (only those used by the RtpVideoFrameAssembler).\n\nNot sure if updating EncodedFrame to have chain_diffs/active_decode_target bitmask is the right thing or just changing the return type to a more \"raw\" and less structured frame type is the right way to go. One insight I had when working with classes representing encoded frames is that there is no single frame class that works well throughout the whole receive pipeline, I would probably prefer translating between several smaller classes as the frame is propagated.\n\nI added chain_diffs and active_decode_targets anyway.",
+      "parentUuid": "95df0c08_0939588e",
       "range": {
         "startLine": 257,
         "startChar": 2,
@@ -187,6 +325,24 @@
       "writtenOn": "2021-06-23T16:39:56Z",
       "side": 1,
       "message": "no longer needed",
+      "revId": "b6d76bd724503856aaed261b1dc91165a9f5c494",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c7f0edf_3e239d5d",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-06-24T12:20:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08dc54c2_9080e762",
       "revId": "b6d76bd724503856aaed261b1dc91165a9f5c494",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -216,6 +372,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "c3155850_fd180502",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-06-24T12:20:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bad020a0_233c5110",
+      "range": {
+        "startLine": 52,
+        "startChar": 15,
+        "endLine": 52,
+        "endChar": 22
+      },
+      "revId": "b6d76bd724503856aaed261b1dc91165a9f5c494",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "e61b924b_bca03eb2",
         "filename": "api/video/rtp_video_frame_assembler_unittests.cc",
         "patchSetId": 11
@@ -227,6 +407,30 @@
       "writtenOn": "2021-06-23T16:39:56Z",
       "side": 1,
       "message": "or absl::make_optional(codec_)\nor make codec_ member be an optional\u003cVideoCodecType\u003e and change AsRaw accessor to set it to nullopt (but then, do you need to force codec in the constructor?)",
+      "range": {
+        "startLine": 67,
+        "startChar": 31,
+        "endLine": 67,
+        "endChar": 69
+      },
+      "revId": "b6d76bd724503856aaed261b1dc91165a9f5c494",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bc62a5a_c821e211",
+        "filename": "api/video/rtp_video_frame_assembler_unittests.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-06-24T12:20:20Z",
+      "side": 1,
+      "message": "Changed ctor to take RtpVideoFrameAssembler::PayloadFormat instead and removed AsRaw()",
+      "parentUuid": "e61b924b_bca03eb2",
       "range": {
         "startLine": 67,
         "startChar": 31,
@@ -262,6 +466,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "59b87bb0_a3bd7ea2",
+        "filename": "api/video/rtp_video_frame_assembler_unittests.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-06-24T12:20:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56bd685e_78152726",
+      "range": {
+        "startLine": 73,
+        "startChar": 19,
+        "endLine": 73,
+        "endChar": 65
+      },
+      "revId": "b6d76bd724503856aaed261b1dc91165a9f5c494",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "c18ab4ba_a7171c10",
         "filename": "api/video/rtp_video_frame_assembler_unittests.cc",
         "patchSetId": 11
@@ -273,6 +501,30 @@
       "writtenOn": "2021-06-23T16:39:56Z",
       "side": 1,
       "message": "make const (to stress it must be initialized in the constructor, and thus left uninitialized here)\n[which contradicts suggestion above....]",
+      "range": {
+        "startLine": 78,
+        "startChar": 2,
+        "endLine": 78,
+        "endChar": 16
+      },
+      "revId": "b6d76bd724503856aaed261b1dc91165a9f5c494",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f9f89ad_8015223d",
+        "filename": "api/video/rtp_video_frame_assembler_unittests.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-06-24T12:20:20Z",
+      "side": 1,
+      "message": "now:\n    const RtpVideoFrameAssembler::PayloadFormat format_;",
+      "parentUuid": "c18ab4ba_a7171c10",
       "range": {
         "startLine": 78,
         "startChar": 2,
@@ -308,6 +560,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "b1f6606b_619f5cec",
+        "filename": "api/video/rtp_video_frame_assembler_unittests.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-06-24T12:20:20Z",
+      "side": 1,
+      "message": "Good point, updated.",
+      "parentUuid": "a54e4db2_95eb1660",
+      "range": {
+        "startLine": 81,
+        "startChar": 2,
+        "endLine": 81,
+        "endChar": 31
+      },
+      "revId": "b6d76bd724503856aaed261b1dc91165a9f5c494",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "5df745e7_2c6f4d9a",
         "filename": "api/video/rtp_video_frame_assembler_unittests.cc",
         "patchSetId": 11
@@ -319,6 +595,30 @@
       "writtenOn": "2021-06-23T16:39:56Z",
       "side": 1,
       "message": "does this expression mean the same as\narg-\u003eId() \u003d\u003d id\n\nWould you find it more readable not to mix checking Id and Refs together?\ne.g. add a different helper\n\n  rtc::ArrayView\u003cconst int64_t\u003e\n  References(const std::unique_ptr\u003cEncodedFrame\u003e\u0026 frame) {\n    return rtc::MakeArrayView(frame-\u003ereferences, frame-\u003enum_references);\n  }\n\nand in tests write \n\n  EXPECT_THAT(frames[0]-\u003eId(), Eq(10)); or EXPECT_EQ(frames[1]-\u003eId(), 20);\n  EXPECT_THAT(References(frames[0]), IsEmpty());\n  EXPECT_THAT(References(frames[1]), UnorderedElementsAre(10, 20));",
+      "range": {
+        "startLine": 103,
+        "startChar": 9,
+        "endLine": 103,
+        "endChar": 35
+      },
+      "revId": "b6d76bd724503856aaed261b1dc91165a9f5c494",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b95f57e_3f68c3ef",
+        "filename": "api/video/rtp_video_frame_assembler_unittests.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-06-24T12:20:20Z",
+      "side": 1,
+      "message": "\u003e does this expression mean the same as\n\u003e arg-\u003eId() \u003d\u003d id\n\nYes, it means the same thing.\n\n\u003e ...\n\u003e  EXPECT_THAT(frames[0]-\u003eId(), Eq(10)); or EXPECT_EQ(frames[1]-\u003eId(), 20);\n\u003e  EXPECT_THAT(References(frames[0]), IsEmpty());\n\u003e  EXPECT_THAT(References(frames[1]), UnorderedElementsAre(10, 20));\n\nI find it less concise and a bit harder to read, but I also know that the gtest error messages will be way more useful, updated.",
+      "parentUuid": "5df745e7_2c6f4d9a",
       "range": {
         "startLine": 103,
         "startChar": 9,
@@ -342,6 +642,24 @@
       "writtenOn": "2021-06-23T16:39:56Z",
       "side": 1,
       "message": "I didn\u0027t spot any test where frame span across multiple packets.",
+      "revId": "b6d76bd724503856aaed261b1dc91165a9f5c494",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b4314cf_3e882098",
+        "filename": "api/video/rtp_video_frame_assembler_unittests.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-06-24T12:20:20Z",
+      "side": 1,
+      "message": "I don\u0027t aim to test the PacketBuffer or RtpFrameReferenceFinder in these tests, just make sure that everything is wired up as it should be.",
+      "parentUuid": "9c6a8efc_6c71acd5",
       "revId": "b6d76bd724503856aaed261b1dc91165a9f5c494",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66922633_7e5c502b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-24T11:59:46Z",
+      "side": 1,
+      "message": "Looks good, a few nits to address.\n",
+      "revId": "09a1dd342a3b3bf23cfa61f77ffb616a15274535",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f668b0e_230a6954",
+        "filename": "media/sctp/sctp_transport_internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-24T11:59:46Z",
+      "side": 1,
+      "message": "What\u0027s the argument for using enum and not enum class here?\n\nI could see an argument that we might have to handle unknown numbers, and that we should be able to convert them from integers anyway, but I\u0027d like to see the argument in a comment; the counterargument is that we\u0027re polluting the namespace with all the k values (enums don\u0027t need SctpErrorCauseCode:: in front of them).",
+      "revId": "09a1dd342a3b3bf23cfa61f77ffb616a15274535",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88853ecc_0dc6efe1",
+        "filename": "media/sctp/usrsctp_transport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1543,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-24T11:59:46Z",
+      "side": 1,
+      "message": "For consistency, move the log statement before the code handling the error.",
+      "revId": "09a1dd342a3b3bf23cfa61f77ffb616a15274535",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71be01f2_ae999714",
+        "filename": "pc/data_channel_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 660,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-24T11:59:46Z",
+      "side": 1,
+      "message": "Can you use an enum value instead of 5 here? kUnrcognizedChunkType is probably as good as any.",
+      "revId": "09a1dd342a3b3bf23cfa61f77ffb616a15274535",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "269fe5d7_7a22172a",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3401,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-24T11:59:46Z",
+      "side": 1,
+      "message": "I think this should be \"Rejected data channel transport\" - the function is badly named.",
+      "revId": "09a1dd342a3b3bf23cfa61f77ffb616a15274535",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a4b722a_fb13ceca",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 4377,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-24T11:59:46Z",
+      "side": 1,
+      "message": "It seems more logical to do this as if (!data_info) ... else if (data_info-\u003erejected), given that they are handled differently.",
+      "revId": "09a1dd342a3b3bf23cfa61f77ffb616a15274535",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8455339_a41dd0dd",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 4380,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-24T11:59:46Z",
+      "side": 1,
+      "message": "This should probalby be \"There is no data channel section in the description\" - you don\u0027t know why at this point.",
+      "revId": "09a1dd342a3b3bf23cfa61f77ffb616a15274535",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

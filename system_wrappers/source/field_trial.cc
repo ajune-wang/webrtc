@@ -14,10 +14,10 @@
 #include <map>
 #include <string>
 
+#include "absl/strings/str_split.h"
 #include "absl/strings/string_view.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
-#include "rtc_base/string_encode.h"
 
 // Simple field trial implementation, which allows client to
 // specify desired flags in InitFieldTrialsFromString.
@@ -78,8 +78,7 @@ void InsertOrReplaceFieldTrialStringsInMap(
     std::map<std::string, std::string>* fieldtrial_map,
     const absl::string_view trials_string) {
   if (FieldTrialsStringIsValidInternal(trials_string)) {
-    std::vector<std::string> tokens;
-    rtc::split(std::string(trials_string), '/', &tokens);
+    std::vector<std::string> tokens = absl::StrSplit(trials_string, '/');
     // Skip last token which is empty due to trailing '/'.
     for (size_t idx = 0; idx < tokens.size() - 1; idx += 2) {
       (*fieldtrial_map)[tokens[idx]] = tokens[idx + 1];

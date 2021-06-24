@@ -25,6 +25,10 @@
 #include <vector>
 
 #include "absl/algorithm/container.h"
+#include "absl/memory/memory.h"
+#include "absl/strings/match.h"
+#include "absl/strings/numbers.h"
+#include "absl/strings/str_split.h"
 #include "api/candidate.h"
 #include "api/crypto_params.h"
 #include "api/jsep_ice_candidate.h"
@@ -205,9 +209,9 @@ static const char kCandidatePrflx[] = "prflx";
 static const char kCandidateRelay[] = "relay";
 static const char kTcpCandidateType[] = "tcptype";
 
-// rtc::StringBuilder doesn't have a << overload for chars, while rtc::split and
-// rtc::tokenize_first both take a char delimiter. To handle both cases these
-// constants come in pairs of a chars and length-one strings.
+// rtc::StringBuilder doesn't have a << overload for chars, while absl::StrSplit
+// and rtc::tokenize_first both take a char delimiter. To handle both cases
+// these constants come in pairs of a chars and length-one strings.
 static const char kSdpDelimiterEqual[] = "=";
 static const char kSdpDelimiterEqualChar = '=';
 static const char kSdpDelimiterSpace[] = " ";
@@ -662,6 +666,19 @@ static bool GetValueFromString(const std::string& line,
   return true;
 }
 
+template <class T>
+static bool GetNumberFromStringView(const std::string& line,
+                                    absl::string_view s,
+                                    T* t,
+                                    SdpParseError* error) {
+  if (!absl::SimpleAtoi(s, t)) {
+    rtc::StringBuilder description;
+    description << "Invalid value: " << s << ".";
+    return ParseFailed(line, description.str(), error);
+  }
+  return true;
+}
+
 static bool GetPayloadTypeFromString(const std::string& line,
                                      const std::string& s,
                                      int* payload_type,
@@ -1087,8 +1104,8 @@ bool ParseCandidate(const std::string& message,
     }
   }
 
-  std::vector<std::string> fields;
-  rtc::split(candidate_value, kSdpDelimiterSpaceChar, &fields);
+  std::vector<absl::string_view> fields =
+      absl::StrSplit(candidate_value, kSdpDelimiterSpaceChar);
 
   // RFC 5245
   // a=candidate:<foundation> <component-id> <transport> <priority>
@@ -1100,29 +1117,30 @@ bool ParseCandidate(const std::string& message,
       (fields[6] != kAttributeCandidateTyp)) {
     return ParseFailedExpectMinFieldNum(first_line, expected_min_fields, error);
   }
-  const std::string& foundation = fields[0];
+  absl::string_view foundation = fields[0];
 
   int component_id = 0;
-  if (!GetValueFromString(first_line, fields[1], &component_id, error)) {
+  if (!GetNumberFromStringView(first_line, fields[1], &component_id, error)) {
     return false;
   }
-  const std::string& transport = fields[2];
+  absl::string_view transport = fields[2];
   uint32_t priority = 0;
-  if (!GetValueFromString(first_line, fields[3], &priority, error)) {
+  if (!GetNumberFromStringView(first_line, fields[3], &priority, error)) {
     return false;
   }
-  const std::string& connection_address = fields[4];
+  absl::string_view connection_address = fields[4];
   int port = 0;
-  if (!GetValueFromString(first_line, fields[5], &port, error)) {
+  if (!GetNumberFromStringView(first_line, fields[5], &port, error)) {
     return false;
   }
   if (!IsValidPort(port)) {
     return ParseFailed(first_line, "Invalid port number.", error);
   }
-  SocketAddress address(connection_address, port);
+  SocketAddress address(std::string(connection_address), port);
 
   cricket::ProtocolType protocol;
-  if (!StringToProto(transport.c_str(), &protocol)) {
+  // TODO(nisse): StringToProto should also accept a string_view.
+  if (!StringToProto(std::string(transport).c_str(), &protocol)) {
     return ParseFailed(first_line, "Unsupported transport type.", error);
   }
   bool tcp_protocol = false;
@@ -1139,7 +1157,7 @@ bool ParseCandidate(const std::string& message,
   }
 
   std::string candidate_type;
-  const std::string& type = fields[7];
+  absl::string_view type = fields[7];
   if (type == kCandidateHost) {
     candidate_type = cricket::LOCAL_PORT_TYPE;
   } else if (type == kCandidateSrflx) {
@@ -1158,14 +1176,14 @@ bool ParseCandidate(const std::string& message,
   // [raddr <connection-address>] [rport <port>]
   if (fields.size() >= (current_position + 2) &&
       fields[current_position] == kAttributeCandidateRaddr) {
-    related_address.SetIP(fields[++current_position]);
+    related_address.SetIP(std::string(fields[++current_position]));
     ++current_position;
   }
   if (fields.size() >= (current_position + 2) &&
       fields[current_position] == kAttributeCandidateRport) {
     int port = 0;
-    if (!GetValueFromString(first_line, fields[++current_position], &port,
-                            error)) {
+    if (!GetNumberFromStringView(first_line, fields[++current_position], &port,
+                                 error)) {
       return false;
     }
     if (!IsValidPort(port)) {
@@ -1180,7 +1198,7 @@ bool ParseCandidate(const std::string& message,
   std::string tcptype;
   if (fields.size() >= (current_position + 2) &&
       fields[current_position] == kTcpCandidateType) {
-    tcptype = fields[++current_position];
+    tcptype = std::string(fields[++current_position]);
     ++current_position;
 
     if (tcptype != cricket::TCPTYPE_ACTIVE_STR &&
@@ -1206,39 +1224,45 @@ bool ParseCandidate(const std::string& message,
   std::string username;
   std::string password;
   uint32_t generation = 0;
-  uint16_t network_id = 0;
-  uint16_t network_cost = 0;
+  uint32_t network_id = 0;    // TODO(nisse): XXX Should be uint16_t.
+  uint32_t network_cost = 0;  // TODO(nisse): XXX Should maybe be uint16_t.
   for (size_t i = current_position; i + 1 < fields.size(); ++i) {
     // RFC 5245
     // *(SP extension-att-name SP extension-att-value)
     if (fields[i] == kAttributeCandidateGeneration) {
-      if (!GetValueFromString(first_line, fields[++i], &generation, error)) {
+      if (!GetNumberFromStringView(first_line, fields[++i], &generation,
+                                   error)) {
         return false;
       }
     } else if (fields[i] == kAttributeCandidateUfrag) {
-      username = fields[++i];
+      username = std::string(fields[++i]);
     } else if (fields[i] == kAttributeCandidatePwd) {
-      password = fields[++i];
+      password = std::string(fields[++i]);
     } else if (fields[i] == kAttributeCandidateNetworkId) {
-      if (!GetValueFromString(first_line, fields[++i], &network_id, error)) {
+      if (!GetNumberFromStringView(first_line, fields[++i], &network_id,
+                                   error)) {
         return false;
       }
     } else if (fields[i] == kAttributeCandidateNetworkCost) {
-      if (!GetValueFromString(first_line, fields[++i], &network_cost, error)) {
+      if (!GetNumberFromStringView(first_line, fields[++i], &network_cost,
+                                   error)) {
         return false;
       }
-      network_cost = std::min(network_cost, rtc::kNetworkCostMax);
+      network_cost =
+          std::min(network_cost, static_cast<uint32_t>(rtc::kNetworkCostMax));
     } else {
       // Skip the unknown extension.
       ++i;
     }
   }
 
-  *candidate = Candidate(component_id, cricket::ProtoToString(protocol),
-                         address, priority, username, password, candidate_type,
-                         generation, foundation, network_id, network_cost);
+  *candidate =
+      Candidate(component_id, cricket::ProtoToString(protocol), address,
+                priority, username, password, candidate_type, generation,
+                std::string(foundation), network_id, network_cost);
   candidate->set_related_address(related_address);
-  candidate->set_tcptype(tcptype);
+  // TODO(nisse): Should take either string by value, or string_view.
+  candidate->set_tcptype(std::string(tcptype));
   return true;
 }
 
@@ -1249,10 +1273,9 @@ bool ParseIceOptions(const std::string& line,
   if (!GetValue(line, kAttributeIceOption, &ice_options, error)) {
     return false;
   }
-  std::vector<std::string> fields;
-  rtc::split(ice_options, kSdpDelimiterSpaceChar, &fields);
-  for (size_t i = 0; i < fields.size(); ++i) {
-    transport_options->push_back(fields[i]);
+  for (absl::string_view field :
+       absl::StrSplit(ice_options, kSdpDelimiterSpaceChar)) {
+    transport_options->push_back(std::string(field));
   }
   return true;
 }
@@ -1262,17 +1285,17 @@ bool ParseSctpPort(const std::string& line,
                    SdpParseError* error) {
   // draft-ietf-mmusic-sctp-sdp-26
   // a=sctp-port
-  std::vector<std::string> fields;
+  std::vector<absl::string_view> fields =
+      absl::StrSplit(line.substr(kLinePrefixLength), kSdpDelimiterColonChar);
   const size_t expected_min_fields = 2;
-  rtc::split(line.substr(kLinePrefixLength), kSdpDelimiterColonChar, &fields);
   if (fields.size() < expected_min_fields) {
-    fields.resize(0);
-    rtc::split(line.substr(kLinePrefixLength), kSdpDelimiterSpaceChar, &fields);
+    fields =
+        absl::StrSplit(line.substr(kLinePrefixLength), kSdpDelimiterSpaceChar);
   }
   if (fields.size() < expected_min_fields) {
     return ParseFailedExpectMinFieldNum(line, expected_min_fields, error);
   }
-  if (!rtc::FromString(fields[1], sctp_port)) {
+  if (!absl::SimpleAtoi(fields[1], sctp_port)) {
     return ParseFailed(line, "Invalid sctp port value.", error);
   }
   return true;
@@ -1283,13 +1306,14 @@ bool ParseSctpMaxMessageSize(const std::string& line,
                              SdpParseError* error) {
   // draft-ietf-mmusic-sctp-sdp-26
   // a=max-message-size:199999
-  std::vector<std::string> fields;
+  std::vector<absl::string_view> fields =
+      absl::StrSplit(line.substr(kLinePrefixLength), kSdpDelimiterColonChar);
   const size_t expected_min_fields = 2;
-  rtc::split(line.substr(kLinePrefixLength), kSdpDelimiterColonChar, &fields);
+
   if (fields.size() < expected_min_fields) {
     return ParseFailedExpectMinFieldNum(line, expected_min_fields, error);
   }
-  if (!rtc::FromString(fields[1], max_message_size)) {
+  if (!absl::SimpleAtoi(fields[1], max_message_size)) {
     return ParseFailed(line, "Invalid SCTP max message size.", error);
   }
   return true;
@@ -1300,22 +1324,23 @@ bool ParseExtmap(const std::string& line,
                  SdpParseError* error) {
   // RFC 5285
   // a=extmap:<value>["/"<direction>] <URI> <extensionattributes>
-  std::vector<std::string> fields;
-  rtc::split(line.substr(kLinePrefixLength), kSdpDelimiterSpaceChar, &fields);
+  std::vector<absl::string_view> fields =
+      absl::StrSplit(line.substr(kLinePrefixLength), kSdpDelimiterSpaceChar);
   const size_t expected_min_fields = 2;
   if (fields.size() < expected_min_fields) {
     return ParseFailedExpectMinFieldNum(line, expected_min_fields, error);
   }
-  std::string uri = fields[1];
+  absl::string_view uri = fields[1];
 
   std::string value_direction;
-  if (!GetValue(fields[0], kAttributeExtmap, &value_direction, error)) {
+  if (!GetValue(std::string(fields[0]), kAttributeExtmap, &value_direction,
+                error)) {
     return false;
   }
-  std::vector<std::string> sub_fields;
-  rtc::split(value_direction, kSdpDelimiterSlashChar, &sub_fields);
+  std::vector<absl::string_view> sub_fields =
+      absl::StrSplit(value_direction, kSdpDelimiterSlashChar);
   int value = 0;
-  if (!GetValueFromString(line, sub_fields[0], &value, error)) {
+  if (!GetNumberFromStringView(line, sub_fields[0], &value, error)) {
     return false;
   }
 
@@ -1337,7 +1362,7 @@ bool ParseExtmap(const std::string& line,
     }
   }
 
-  *extmap = RtpExtension(uri, value, encrypted);
+  *extmap = RtpExtension(std::string(uri), value, encrypted);
   return true;
 }
 
@@ -2131,14 +2156,14 @@ bool ParseSessionDescription(const std::string& message,
     return ParseFailedExpectLine(message, *pos, kLineTypeOrigin, std::string(),
                                  error);
   }
-  std::vector<std::string> fields;
-  rtc::split(line.substr(kLinePrefixLength), kSdpDelimiterSpaceChar, &fields);
+  std::vector<absl::string_view> fields =
+      absl::StrSplit(line.substr(kLinePrefixLength), kSdpDelimiterSpaceChar);
   const size_t expected_fields = 6;
   if (fields.size() != expected_fields) {
     return ParseFailedExpectFieldNum(line, expected_fields, error);
   }
-  *session_id = fields[1];
-  *session_version = fields[2];
+  *session_id = std::string(fields[1]);
+  *session_version = std::string(fields[2]);
 
   // RFC 4566
   // s=  (session name)
@@ -2275,15 +2300,15 @@ bool ParseGroupAttribute(const std::string& line,
 
   // RFC 5888 and draft-holmberg-mmusic-sdp-bundle-negotiation-00
   // a=group:BUNDLE video voice
-  std::vector<std::string> fields;
-  rtc::split(line.substr(kLinePrefixLength), kSdpDelimiterSpaceChar, &fields);
+  std::vector<absl::string_view> fields =
+      absl::StrSplit(line.substr(kLinePrefixLength), kSdpDelimiterSpaceChar);
   std::string semantics;
-  if (!GetValue(fields[0], kAttributeGroup, &semantics, error)) {
+  if (!GetValue(std::string(fields[0]), kAttributeGroup, &semantics, error)) {
     return false;
   }
   cricket::ContentGroup group(semantics);
   for (size_t i = 1; i < fields.size(); ++i) {
-    group.AddContentName(fields[i]);
+    group.AddContentName(std::string(fields[i]));
   }
   desc->AddGroup(group);
   return true;
@@ -2293,8 +2318,8 @@ static bool ParseFingerprintAttribute(
     const std::string& line,
     std::unique_ptr<rtc::SSLFingerprint>* fingerprint,
     SdpParseError* error) {
-  std::vector<std::string> fields;
-  rtc::split(line.substr(kLinePrefixLength), kSdpDelimiterSpaceChar, &fields);
+  std::vector<absl::string_view> fields =
+      absl::StrSplit(line.substr(kLinePrefixLength), kSdpDelimiterSpaceChar);
   const size_t expected_fields = 2;
   if (fields.size() != expected_fields) {
     return ParseFailedExpectFieldNum(line, expected_fields, error);
@@ -2302,7 +2327,8 @@ static bool ParseFingerprintAttribute(
 
   // The first field here is "fingerprint:<hash>.
   std::string algorithm;
-  if (!GetValue(fields[0], kAttributeFingerprint, &algorithm, error)) {
+  if (!GetValue(std::string(fields[0]), kAttributeFingerprint, &algorithm,
+                error)) {
     return false;
   }
 
@@ -2311,8 +2337,8 @@ static bool ParseFingerprintAttribute(
   absl::c_transform(algorithm, algorithm.begin(), ::tolower);
 
   // The second field is the digest value. De-hexify it.
-  *fingerprint =
-      rtc::SSLFingerprint::CreateUniqueFromRfc4572(algorithm, fields[1]);
+  *fingerprint = rtc::SSLFingerprint::CreateUniqueFromRfc4572(
+      algorithm, std::string(fields[1]));
   if (!*fingerprint) {
     return ParseFailed(line, "Failed to create fingerprint from the digest.",
                        error);
@@ -2326,13 +2352,13 @@ static bool ParseDtlsSetup(const std::string& line,
                            SdpParseError* error) {
   // setup-attr           =  "a=setup:" role
   // role                 =  "active" / "passive" / "actpass" / "holdconn"
-  std::vector<std::string> fields;
-  rtc::split(line.substr(kLinePrefixLength), kSdpDelimiterColonChar, &fields);
+  std::vector<absl::string_view> fields =
+      absl::StrSplit(line.substr(kLinePrefixLength), kSdpDelimiterColonChar);
   const size_t expected_fields = 2;
   if (fields.size() != expected_fields) {
     return ParseFailedExpectFieldNum(line, expected_fields, error);
   }
-  std::string role_str = fields[1];
+  std::string role_str = std::string(fields[1]);
   if (!cricket::StringToConnectionRole(role_str, role)) {
     return ParseFailed(line, "Invalid attribute value.", error);
   }
@@ -2635,8 +2661,8 @@ bool ParseMediaDescription(
   while (GetLineWithType(message, pos, &line, kLineTypeMedia)) {
     ++mline_index;
 
-    std::vector<std::string> fields;
-    rtc::split(line.substr(kLinePrefixLength), kSdpDelimiterSpaceChar, &fields);
+    std::vector<absl::string_view> fields =
+        absl::StrSplit(line.substr(kLinePrefixLength), kSdpDelimiterSpaceChar);
 
     const size_t expected_min_fields = 4;
     if (fields.size() < expected_min_fields) {
@@ -2651,17 +2677,18 @@ bool ParseMediaDescription(
     }
 
     int port = 0;
-    if (!rtc::FromString<int>(fields[1], &port) || !IsValidPort(port)) {
+    if (!absl::SimpleAtoi(fields[1], &port) || !IsValidPort(port)) {
       return ParseFailed(line, "The port number is invalid", error);
     }
-    const std::string& protocol = fields[2];
+    const std::string protocol = std::string(fields[2]);
 
     // <fmt>
     std::vector<int> payload_types;
     if (cricket::IsRtpProtocol(protocol)) {
       for (size_t j = 3; j < fields.size(); ++j) {
         int pl = 0;
-        if (!GetPayloadTypeFromString(line, fields[j], &pl, error)) {
+        if (!GetPayloadTypeFromString(line, std::string(fields[j]), &pl,
+                                      error)) {
           return false;
         }
         payload_types.push_back(pl);
@@ -2679,7 +2706,7 @@ bool ParseMediaDescription(
     std::string content_name;
     bool bundle_only = false;
     int section_msid_signaling = 0;
-    const std::string& media_type = fields[0];
+    const std::string media_type = std::string(fields[0]);
     if ((media_type == kMediaTypeVideo || media_type == kMediaTypeAudio) &&
         !cricket::IsRtpProtocol(protocol)) {
       return ParseFailed(line, "Unsupported protocol for media type", error);
@@ -2707,7 +2734,7 @@ bool ParseMediaDescription(
         // according to draft-ietf-mmusic-sctp-sdp-26
         data_desc->set_max_message_size(kDefaultSctpMaxMessageSize);
         int p;
-        if (rtc::FromString(fields[3], &p)) {
+        if (absl::SimpleAtoi(fields[3], &p)) {
           data_desc->set_port(p);
         } else if (fields[3] == kDefaultSctpmapProtocol) {
           data_desc->set_use_sctpmap(false);
@@ -3451,15 +3478,15 @@ bool ParseSsrcAttribute(const std::string& line,
   } else if (attribute == kSsrcAttributeMsid) {
     // draft-alvestrand-mmusic-msid-00
     // msid:identifier [appdata]
-    std::vector<std::string> fields;
-    rtc::split(value, kSdpDelimiterSpaceChar, &fields);
+    std::vector<absl::string_view> fields =
+        absl::StrSplit(value, kSdpDelimiterSpaceChar);
     if (fields.size() < 1 || fields.size() > 2) {
       return ParseFailed(
           line, "Expected format \"msid:<identifier>[ <appdata>]\".", error);
     }
-    ssrc_info.stream_id = fields[0];
+    ssrc_info.stream_id = std::string(fields[0]);
     if (fields.size() == 2) {
-      ssrc_info.track_id = fields[1];
+      ssrc_info.track_id = std::string(fields[1]);
     }
     *msid_signaling |= cricket::kMsidSignalingSsrcAttribute;
   } else if (attribute == kSsrcAttributeMslabel) {
@@ -3480,20 +3507,21 @@ bool ParseSsrcGroupAttribute(const std::string& line,
   RTC_DCHECK(ssrc_groups != NULL);
   // RFC 5576
   // a=ssrc-group:<semantics> <ssrc-id> ...
-  std::vector<std::string> fields;
-  rtc::split(line.substr(kLinePrefixLength), kSdpDelimiterSpaceChar, &fields);
+  std::vector<absl::string_view> fields =
+      absl::StrSplit(line.substr(kLinePrefixLength), kSdpDelimiterSpaceChar);
   const size_t expected_min_fields = 2;
   if (fields.size() < expected_min_fields) {
     return ParseFailedExpectMinFieldNum(line, expected_min_fields, error);
   }
   std::string semantics;
-  if (!GetValue(fields[0], kAttributeSsrcGroup, &semantics, error)) {
+  if (!GetValue(std::string(fields[0]), kAttributeSsrcGroup, &semantics,
+                error)) {
     return false;
   }
   std::vector<uint32_t> ssrcs;
   for (size_t i = 1; i < fields.size(); ++i) {
     uint32_t ssrc = 0;
-    if (!GetValueFromString(line, fields[i], &ssrc, error)) {
+    if (!GetNumberFromStringView(line, fields[i], &ssrc, error)) {
       return false;
     }
     ssrcs.push_back(ssrc);
@@ -3505,8 +3533,8 @@ bool ParseSsrcGroupAttribute(const std::string& line,
 bool ParseCryptoAttribute(const std::string& line,
                           MediaContentDescription* media_desc,
                           SdpParseError* error) {
-  std::vector<std::string> fields;
-  rtc::split(line.substr(kLinePrefixLength), kSdpDelimiterSpaceChar, &fields);
+  std::vector<absl::string_view> fields =
+      absl::StrSplit(line.substr(kLinePrefixLength), kSdpDelimiterSpaceChar);
   // RFC 4568
   // a=crypto:<tag> <crypto-suite> <key-params> [<session-params>]
   const size_t expected_min_fields = 3;
@@ -3514,18 +3542,18 @@ bool ParseCryptoAttribute(const std::string& line,
     return ParseFailedExpectMinFieldNum(line, expected_min_fields, error);
   }
   std::string tag_value;
-  if (!GetValue(fields[0], kAttributeCrypto, &tag_value, error)) {
+  if (!GetValue(std::string(fields[0]), kAttributeCrypto, &tag_value, error)) {
     return false;
   }
   int tag = 0;
-  if (!GetValueFromString(line, tag_value, &tag, error)) {
+  if (!GetNumberFromStringView(line, tag_value, &tag, error)) {
     return false;
   }
-  const std::string& crypto_suite = fields[1];
-  const std::string& key_params = fields[2];
+  std::string crypto_suite = std::string(fields[1]);
+  std::string key_params = std::string(fields[2]);
   std::string session_params;
   if (fields.size() > 3) {
-    session_params = fields[3];
+    session_params = std::string(fields[3]);
   }
   media_desc->AddCrypto(
       CryptoParams(tag, crypto_suite, key_params, session_params));
@@ -3571,8 +3599,8 @@ bool ParseRtpmapAttribute(const std::string& line,
                           const std::vector<int>& payload_types,
                           MediaContentDescription* media_desc,
                           SdpParseError* error) {
-  std::vector<std::string> fields;
-  rtc::split(line.substr(kLinePrefixLength), kSdpDelimiterSpaceChar, &fields);
+  std::vector<absl::string_view> fields =
+      absl::StrSplit(line.substr(kLinePrefixLength), kSdpDelimiterSpaceChar);
   // RFC 4566
   // a=rtpmap:<payload type> <encoding name>/<clock rate>[/<encodingparameters>]
   const size_t expected_min_fields = 2;
@@ -3580,7 +3608,8 @@ bool ParseRtpmapAttribute(const std::string& line,
     return ParseFailedExpectMinFieldNum(line, expected_min_fields, error);
   }
   std::string payload_type_value;
-  if (!GetValue(fields[0], kAttributeRtpmap, &payload_type_value, error)) {
+  if (!GetValue(std::string(fields[0]), kAttributeRtpmap, &payload_type_value,
+                error)) {
     return false;
   }
   int payload_type = 0;
@@ -3595,9 +3624,8 @@ bool ParseRtpmapAttribute(const std::string& line,
                         << line;
     return true;
   }
-  const std::string& encoder = fields[1];
-  std::vector<std::string> codec_params;
-  rtc::split(encoder, '/', &codec_params);
+  absl::string_view encoder = fields[1];
+  std::vector<std::string> codec_params = absl::StrSplit(encoder, '/');
   // <encoding name>/<clock rate>[/<encodingparameters>]
   // 2 mandatory fields
   if (codec_params.size() < 2 || codec_params.size() > 3) {
@@ -3606,9 +3634,9 @@ bool ParseRtpmapAttribute(const std::string& line,
                        "[/<encodingparameters>]\".",
                        error);
   }
-  const std::string& encoding_name = codec_params[0];
+  std::string encoding_name = std::string(codec_params[0]);
   int clock_rate = 0;
-  if (!GetValueFromString(line, codec_params[1], &clock_rate, error)) {
+  if (!GetNumberFromStringView(line, codec_params[1], &clock_rate, error)) {
     return false;
   }
   if (media_type == cricket::MEDIA_TYPE_VIDEO) {
@@ -3622,7 +3650,7 @@ bool ParseRtpmapAttribute(const std::string& line,
     // additional parameters are needed.
     size_t channels = 1;
     if (codec_params.size() == 3) {
-      if (!GetValueFromString(line, codec_params[2], &channels, error)) {
+      if (!GetNumberFromStringView(line, codec_params[2], &channels, error)) {
         return false;
       }
     }
@@ -3683,14 +3711,13 @@ bool ParseFmtpAttributes(const std::string& line,
   }
 
   // Parse out format specific parameters.
-  std::vector<std::string> fields;
-  rtc::split(line_params, kSdpDelimiterSemicolonChar, &fields);
-
   cricket::CodecParameterMap codec_params;
-  for (auto& iter : fields) {
+  for (absl::string_view field :
+       absl::StrSplit(line_params, kSdpDelimiterSemicolonChar)) {
     std::string name;
     std::string value;
-    if (!ParseFmtpParam(rtc::string_trim(iter), &name, &value, error)) {
+    if (!ParseFmtpParam(rtc::string_trim(std::string(field)), &name, &value,
+                        error)) {
       return false;
     }
     if (codec_params.find(name) != codec_params.end()) {
@@ -3717,13 +3744,13 @@ bool ParsePacketizationAttribute(const std::string& line,
   if (media_type != cricket::MEDIA_TYPE_VIDEO) {
     return true;
   }
-  std::vector<std::string> packetization_fields;
-  rtc::split(line.c_str(), kSdpDelimiterSpaceChar, &packetization_fields);
+  std::vector<absl::string_view> packetization_fields =
+      absl::StrSplit(line.c_str(), kSdpDelimiterSpaceChar);
   if (packetization_fields.size() < 2) {
     return ParseFailedGetValue(line, kAttributePacketization, error);
   }
   std::string payload_type_string;
-  if (!GetValue(packetization_fields[0], kAttributePacketization,
+  if (!GetValue(std::string(packetization_fields[0]), kAttributePacketization,
                 &payload_type_string, error)) {
     return false;
   }
@@ -3732,7 +3759,7 @@ bool ParsePacketizationAttribute(const std::string& line,
                                 error)) {
     return false;
   }
-  std::string packetization = packetization_fields[1];
+  std::string packetization = std::string(packetization_fields[1]);
   UpdateVideoCodecPacketization(media_desc->as_video(), payload_type,
                                 packetization);
   return true;
@@ -3746,14 +3773,14 @@ bool ParseRtcpFbAttribute(const std::string& line,
       media_type != cricket::MEDIA_TYPE_VIDEO) {
     return true;
   }
-  std::vector<std::string> rtcp_fb_fields;
-  rtc::split(line.c_str(), kSdpDelimiterSpaceChar, &rtcp_fb_fields);
+  std::vector<absl::string_view> rtcp_fb_fields =
+      absl::StrSplit(line.c_str(), kSdpDelimiterSpaceChar);
   if (rtcp_fb_fields.size() < 2) {
     return ParseFailedGetValue(line, kAttributeRtcpFb, error);
   }
   std::string payload_type_string;
-  if (!GetValue(rtcp_fb_fields[0], kAttributeRtcpFb, &payload_type_string,
-                error)) {
+  if (!GetValue(std::string(rtcp_fb_fields[0]), kAttributeRtcpFb,
+                &payload_type_string, error)) {
     return false;
   }
   int payload_type = kWildcardPayloadType;
@@ -3763,11 +3790,11 @@ bool ParseRtcpFbAttribute(const std::string& line,
       return false;
     }
   }
-  std::string id = rtcp_fb_fields[1];
+  std::string id = std::string(rtcp_fb_fields[1]);
   std::string param = "";
-  for (std::vector<std::string>::iterator iter = rtcp_fb_fields.begin() + 2;
-       iter != rtcp_fb_fields.end(); ++iter) {
-    param.append(*iter);
+  for (auto iter = rtcp_fb_fields.begin() + 2; iter != rtcp_fb_fields.end();
+       ++iter) {
+    param.append(iter->data(), iter->size());
   }
   const cricket::FeedbackParam feedback_param(id, param);
 

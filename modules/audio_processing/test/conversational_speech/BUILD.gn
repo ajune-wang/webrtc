@@ -50,6 +50,10 @@ rtc_library("lib") {
     "../../../../rtc_base:rtc_base_approved",
     "../../../../test:fileutils",
   ]
+  absl_deps = [
+    "//third_party/abseil-cpp/absl/memory",
+    "//third_party/abseil-cpp/absl/strings",
+  ]
   visibility = [ ":*" ]  # Only targets in this file can depend on this.
 }
 

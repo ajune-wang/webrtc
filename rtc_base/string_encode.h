@@ -61,12 +61,6 @@ size_t hex_decode_with_delimiter(char* buffer,
 std::string join(const std::vector<std::string>& source, char delimiter);
 
 // Splits the source string into multiple fields separated by delimiter,
-// with duplicates of delimiter creating empty fields.
-size_t split(const std::string& source,
-             char delimiter,
-             std::vector<std::string>* fields);
-
-// Splits the source string into multiple fields separated by delimiter,
 // with duplicates of delimiter ignored.  Trailing delimiter ignored.
 size_t tokenize(const std::string& source,
                 char delimiter,

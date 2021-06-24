@@ -926,7 +926,7 @@ class RTC_EXPORT PeerConnectionInterface : public rtc::RefCountInterface {
   }
   // TODO(crbug.com/788659): Remove "virtual" below and default implementation
   // above once mock in Chrome is fixed.
-  ABSL_DEPRECATED("Use CreateDataChannelOrError")
+  // ABSL_DEPRECATED("Use CreateDataChannelOrError")
   virtual rtc::scoped_refptr<DataChannelInterface> CreateDataChannel(
       const std::string& label,
       const DataChannelInit* config) {
@@ -1464,7 +1464,7 @@ class RTC_EXPORT PeerConnectionFactoryInterface
       PeerConnectionDependencies dependencies);
   // Deprecated creator - does not return an error code on error.
   // TODO(bugs.webrtc.org:12238): Deprecate and remove.
-  ABSL_DEPRECATED("Use CreatePeerConnectionOrError")
+  // ABSL_DEPRECATED("Use CreatePeerConnectionOrError")
   virtual rtc::scoped_refptr<PeerConnectionInterface> CreatePeerConnection(
       const PeerConnectionInterface::RTCConfiguration& configuration,
       PeerConnectionDependencies dependencies);
@@ -1478,7 +1478,7 @@ class RTC_EXPORT PeerConnectionFactoryInterface
   // responsibility of the caller to delete it. It can be safely deleted after
   // Close has been called on the returned PeerConnection, which ensures no
   // more observer callbacks will be invoked.
-  ABSL_DEPRECATED("Use CreatePeerConnectionOrError")
+  // ABSL_DEPRECATED("Use CreatePeerConnectionOrError")
   virtual rtc::scoped_refptr<PeerConnectionInterface> CreatePeerConnection(
       const PeerConnectionInterface::RTCConfiguration& configuration,
       std::unique_ptr<cricket::PortAllocator> allocator,

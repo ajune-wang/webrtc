@@ -187,6 +187,9 @@ rtc_library("common_audio_c") {
     "third_party/ooura:fft_size_256",
     "third_party/spl_sqrt_floor",
   ]
+  if (rtc_build_with_neon) {
+    deps += [ ":common_audio_neon" ]
+  }
 }
 
 rtc_library("common_audio_cc") {

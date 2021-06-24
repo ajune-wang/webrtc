@@ -16,6 +16,23 @@
       "message": "hta@ for an early review.",
       "revId": "0466c160151c217d95b86acbeda06d198fe779b9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0407586_94b38a1c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-24T19:26:11Z",
+      "side": 1,
+      "message": "This looks good to me (without knowing too much about JSON API or their deprecated versions).\n",
+      "revId": "0466c160151c217d95b86acbeda06d198fe779b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

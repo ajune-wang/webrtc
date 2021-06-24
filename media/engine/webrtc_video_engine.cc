@@ -2875,43 +2875,165 @@ WebRtcVideoChannel::WebRtcVideoReceiveStream::GetRtpParameters() const {
   return rtp_parameters;
 }
 
-void WebRtcVideoChannel::WebRtcVideoReceiveStream::ConfigureCodecs(
+bool WebRtcVideoChannel::WebRtcVideoReceiveStream::ConfigureCodecs(
     const std::vector<VideoCodecSettings>& recv_codecs) {
   RTC_DCHECK(!recv_codecs.empty());
 
-  config_.decoders.clear();
-  config_.rtp.rtx_associated_payload_types.clear();
-  config_.rtp.raw_payload_types.clear();
+  std::map<int, int> rtx_associated_payload_types;
+  std::set<int> raw_payload_types;
+  std::vector<webrtc::VideoReceiveStream::Decoder> decoders;
+
   for (const auto& recv_codec : recv_codecs) {
-    webrtc::VideoReceiveStream::Decoder decoder;
-    decoder.payload_type = recv_codec.codec.id;
-    decoder.video_format =
-        webrtc::SdpVideoFormat(recv_codec.codec.name, recv_codec.codec.params);
-    config_.decoders.push_back(decoder);
-    config_.rtp.rtx_associated_payload_types[recv_codec.rtx_payload_type] =
-        recv_codec.codec.id;
+    decoders.emplace_back(
+        webrtc::SdpVideoFormat(recv_codec.codec.name, recv_codec.codec.params),
+        recv_codec.codec.id);
+    rtx_associated_payload_types.insert(
+        {recv_codec.rtx_payload_type, recv_codec.codec.id});
     if (recv_codec.codec.packetization == kPacketizationParamRaw) {
-      config_.rtp.raw_payload_types.insert(recv_codec.codec.id);
+      raw_payload_types.insert(recv_codec.codec.id);
     }
   }
 
-  const auto& codec = recv_codecs.front();
-  config_.rtp.ulpfec_payload_type = codec.ulpfec.ulpfec_payload_type;
-  config_.rtp.red_payload_type = codec.ulpfec.red_payload_type;
+  bool recreate_needed = (stream_ == nullptr);
+  bool payload_update = recreate_needed;
 
-  config_.rtp.lntf.enabled = HasLntf(codec.codec);
-  config_.rtp.nack.rtp_history_ms = HasNack(codec.codec) ? kNackHistoryMs : 0;
+  const auto& codec = recv_codecs.front();
+  if (config_.rtp.ulpfec_payload_type != codec.ulpfec.ulpfec_payload_type) {
+    RTC_LOG(LS_WARNING) << "recreate needed - ulpfec_payload_type from="
+                        << config_.rtp.ulpfec_payload_type
+                        << " to=" << codec.ulpfec.ulpfec_payload_type;
+    config_.rtp.ulpfec_payload_type = codec.ulpfec.ulpfec_payload_type;
+    // recreate_needed = true;
+    payload_update = true;
+  }
+
+  if (config_.rtp.red_payload_type != codec.ulpfec.red_payload_type) {
+    RTC_LOG(LS_WARNING) << "recreate needed - red_payload_type from="
+                        << config_.rtp.red_payload_type
+                        << " to=" << codec.ulpfec.red_payload_type;
+    config_.rtp.red_payload_type = codec.ulpfec.red_payload_type;
+    // recreate_needed = true;
+    payload_update = true;
+  }
+
+  const bool has_lntf = HasLntf(codec.codec);
+  if (config_.rtp.lntf.enabled != has_lntf) {
+    config_.rtp.lntf.enabled = has_lntf;
+    RTC_LOG(LS_WARNING) << "recreate needed - lntf.enabled";
+    recreate_needed = true;
+  }
+
+  const int rtp_history_ms = HasNack(codec.codec) ? kNackHistoryMs : 0;
+  if (rtp_history_ms != config_.rtp.nack.rtp_history_ms) {
+    config_.rtp.nack.rtp_history_ms = rtp_history_ms;
+    RTC_LOG(LS_WARNING) << "recreate needed - rtp_history_ms";
+    recreate_needed = true;
+  }
+
   // The rtx-time parameter can be used to override the hardcoded default for
   // the NACK buffer length.
   if (codec.rtx_time != -1 && config_.rtp.nack.rtp_history_ms != 0) {
     config_.rtp.nack.rtp_history_ms = codec.rtx_time;
+    RTC_LOG(LS_WARNING) << "recreate needed - rtp_history_ms";
+    recreate_needed = true;
   }
-  config_.rtp.rtcp_xr.receiver_reference_time_report = HasRrtr(codec.codec);
+
+  const bool has_rtr = HasRrtr(codec.codec);
+  if (has_rtr != config_.rtp.rtcp_xr.receiver_reference_time_report) {
+    config_.rtp.rtcp_xr.receiver_reference_time_report = has_rtr;
+    RTC_LOG(LS_WARNING) << "recreate needed - receiver_reference_time_report";
+    recreate_needed = true;
+  }
+
   if (codec.ulpfec.red_rtx_payload_type != -1) {
-    config_.rtp
-        .rtx_associated_payload_types[codec.ulpfec.red_rtx_payload_type] =
+    rtx_associated_payload_types[codec.ulpfec.red_rtx_payload_type] =
         codec.ulpfec.red_payload_type;
   }
+
+  if (config_.rtp.rtx_associated_payload_types !=
+      rtx_associated_payload_types) {
+    char buf[2 * 1024];
+    rtc::SimpleStringBuilder ss(buf);
+    ss << "\n  from: {";
+    for (const auto& kv : config_.rtp.rtx_associated_payload_types)
+      ss << kv.first << "(pt)->" << kv.second << "(apt), ";
+    ss << "}\n  to:   {";
+    for (const auto& kv : rtx_associated_payload_types)
+      ss << kv.first << "(pt)->" << kv.second << "(apt), ";
+    ss << "}";
+
+    RTC_LOG(LS_WARNING) << "recreate needed - rtx_associated_payload_types"
+                        << ss.str();
+    rtx_associated_payload_types.swap(config_.rtp.rtx_associated_payload_types);
+    // recreate_needed = true;
+    payload_update = true;
+  }
+
+  if (raw_payload_types != config_.rtp.raw_payload_types) {
+    raw_payload_types.swap(config_.rtp.raw_payload_types);
+    RTC_LOG(LS_WARNING) << "recreate needed - raw_payload_types";
+    recreate_needed = true;
+  }
+
+  if (decoders != config_.decoders) {
+    for (const auto& a : decoders) {
+      bool found = false;
+      bool same_payload = false;
+      for (const auto& b : config_.decoders) {
+        if (a == b) {
+          found = true;
+          same_payload = true;
+          break;
+        }
+        if (a.video_format.IsSameCodec(b.video_format)) {
+          found = true;
+          payload_update = true;
+          break;
+        }
+      }
+
+      if (found) {
+        RTC_LOG(LS_WARNING)
+            << "Codec repeated with "
+            << (same_payload ? " same payload:" : " different payload:")
+            << a.ToString();
+      } else {
+        RTC_LOG(LS_WARNING) << "New decoder introduced: " << a.ToString();
+        recreate_needed = true;
+      }
+    }
+
+    for (const auto& a : config_.decoders) {
+      bool found = false;
+      bool same_payload = false;
+      for (const auto& b : decoders) {
+        if (a == b) {
+          found = true;
+          same_payload = true;
+          break;
+        }
+        if (a.video_format.IsSameCodec(b.video_format)) {
+          found = true;
+          payload_update = true;
+          break;
+        }
+      }
+
+      if (!found) {
+        RTC_LOG(LS_WARNING) << "Old decoder removed: " << a.ToString();
+      }
+    }
+
+    decoders.swap(config_.decoders);
+    if (payload_update) {
+      RTC_LOG(LS_WARNING) << "payload_update needed - decoders";
+    }
+
+    if (recreate_needed)
+      RTC_LOG(LS_WARNING) << "recreate needed - decoders";
+  }
+
+  return true;  // recreate_needed
 }
 
 void WebRtcVideoChannel::WebRtcVideoReceiveStream::SetLocalSsrc(
@@ -2973,20 +3095,22 @@ void WebRtcVideoChannel::WebRtcVideoReceiveStream::SetRecvParameters(
     const ChangedRecvParameters& params) {
   bool video_needs_recreation = false;
   if (params.codec_settings) {
-    ConfigureCodecs(*params.codec_settings);
-    video_needs_recreation = true;
+    video_needs_recreation = ConfigureCodecs(*params.codec_settings);
   }
 
   if (params.rtp_header_extensions) {
     if (config_.rtp.extensions != *params.rtp_header_extensions) {
       config_.rtp.extensions = *params.rtp_header_extensions;
+      RTC_LOG(LS_WARNING) << "**** recreate: rtp_header_extensions";
       video_needs_recreation = true;
     }
 
     if (flexfec_config_.rtp.extensions != *params.rtp_header_extensions) {
       flexfec_config_.rtp.extensions = *params.rtp_header_extensions;
-      if (flexfec_stream_ || flexfec_config_.IsCompleteAndEnabled())
+      if (flexfec_stream_ || flexfec_config_.IsCompleteAndEnabled()) {
+        RTC_LOG(LS_WARNING) << "**** recreate: rtp_header_extensions (flexfec)";
         video_needs_recreation = true;
+      }
     }
   }
   if (params.flexfec_payload_type) {
@@ -2995,11 +3119,15 @@ void WebRtcVideoChannel::WebRtcVideoReceiveStream::SetRecvParameters(
     // configured and instead of recreating the video stream, reconfigure the
     // flexfec object from within the rtp callback (soon to be on the network
     // thread).
-    if (flexfec_stream_ || flexfec_config_.IsCompleteAndEnabled())
+    if (flexfec_stream_ || flexfec_config_.IsCompleteAndEnabled()) {
+      RTC_LOG(LS_WARNING) << "**** recreate: flexfec_payload_type";
       video_needs_recreation = true;
+    }
   }
   if (video_needs_recreation) {
     RecreateWebRtcVideoStream();
+  } else {
+    RTC_LOG(LS_WARNING) << "**** NOT video_needs_recreation ****";
   }
 }
 

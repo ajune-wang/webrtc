@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "08b2ef3b_bdfaa303",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6192
+      },
+      "writtenOn": "2021-06-24T08:05:46Z",
+      "side": 1,
+      "message": "Do you know why the length differs based on architecture?",
+      "revId": "c70c144bfd4c4215f810808890e2d2dd4281acb8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -70,6 +70,24 @@
       "parentUuid": "d5a0903c_f84ad1d8",
       "revId": "a27cfbffdfa0bf359628d2164db5b9d6321f9c9c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a29ad11f_93190e8f",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-06-24T20:26:10Z",
+      "side": 0,
+      "message": "It doesn\u0027t look like webrtc-internals includes media source stats, but I do see it when I call getStats. And clearly it\u0027s working in browser_tests, hence this revert.",
+      "parentUuid": "7ad7ae52_af80f174",
+      "revId": "a27cfbffdfa0bf359628d2164db5b9d6321f9c9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

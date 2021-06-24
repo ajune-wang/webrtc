@@ -68,6 +68,24 @@
       "message": "Any instructions of what you want me to try exactly? With and without this patch and compare?",
       "revId": "748b9d2e09bf9ffeeb280608f4112b4f7df76264",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd6235b7_793bb00a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-06-24T09:15:49Z",
+      "side": 1,
+      "message": "I need help to test if the peerconnection_client and peerconnection_server utilities work, on windows. Before and after this cl. Like, start peerconnection_server, start two instances of peerconnection_client, and get media flowing in at least one direction (not sure if bidirectional is possible with a single camera).",
+      "parentUuid": "8f2854f6_1997e168",
+      "revId": "748b9d2e09bf9ffeeb280608f4112b4f7df76264",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -840,9 +840,12 @@ class AcmReceiverBitExactnessOldApi : public ::testing::Test {
                                       std::string win64,
                                       std::string android_arm32,
                                       std::string android_arm64,
-                                      std::string android_arm64_clang) {
+                                      std::string android_arm64_clang,
+                                      std::string mac_arm64) {
 #if defined(_WIN32) && defined(WEBRTC_ARCH_64_BITS)
     return win64;
+#elif defined(WEBRTC_MAC && defined(WEBRTC_ARCH_ARM64)
+    return mac_arm64;
 #elif defined(WEBRTC_ANDROID) && defined(WEBRTC_ARCH_ARM)
     return android_arm32;
 #elif defined(WEBRTC_ANDROID) && defined(WEBRTC_ARCH_ARM64)
@@ -926,7 +929,8 @@ TEST_F(AcmReceiverBitExactnessOldApi, 8kHzOutput) {
       PlatformChecksum(others_checksum_reference, win64_checksum_reference,
                        "b892ed69c38b21b16c132ec2ce03aa7b",
                        "4598140b5e4f7ee66c5adad609e65a3e",
-                       "5fec8d770778ef7969ec98c56d9eb10f"));
+                       "5fec8d770778ef7969ec98c56d9eb10f",
+                       "636efe6d0a148f22c5383f356da3deac"));
 }
 
 TEST_F(AcmReceiverBitExactnessOldApi, 16kHzOutput) {
@@ -940,7 +944,8 @@ TEST_F(AcmReceiverBitExactnessOldApi, 16kHzOutput) {
       PlatformChecksum(others_checksum_reference, win64_checksum_reference,
                        "3cea9abbeabbdea9a79719941b241af5",
                        "f2aad418af974a3b1694d5ae5cc2c3c7",
-                       "9d4b92c31c00e321a4cff29ad002d6a2"));
+                       "9d4b92c31c00e321a4cff29ad002d6a2",
+                       "1e2d1b482fdc924f79a838503ee7ead5"));
 }
 
 TEST_F(AcmReceiverBitExactnessOldApi, 32kHzOutput) {
@@ -954,7 +959,8 @@ TEST_F(AcmReceiverBitExactnessOldApi, 32kHzOutput) {
       PlatformChecksum(others_checksum_reference, win64_checksum_reference,
                        "4df55b3b62bcbf4328786d474ae87f61",
                        "100869c8dcde51346c2073e52a272d98",
-                       "ff58d3153d2780a3df6bc2068844cb2d"));
+                       "ff58d3153d2780a3df6bc2068844cb2d",
+                       "51788e9784a10ae14a030f075a039205"));
 }
 
 TEST_F(AcmReceiverBitExactnessOldApi, 48kHzOutput) {
@@ -968,7 +974,8 @@ TEST_F(AcmReceiverBitExactnessOldApi, 48kHzOutput) {
       PlatformChecksum(others_checksum_reference, win64_checksum_reference,
                        "f52bc7bf0f499c9da25932fdf176c4ec",
                        "bd44bf97e7899186532f91235cef444d",
-                       "364d403dae55d73cd69e6dbd6b723a4d"));
+                       "364d403dae55d73cd69e6dbd6b723a4d",
+                       "71bc5c15a151400517c2119d1602ee9f"));
 }
 
 TEST_F(AcmReceiverBitExactnessOldApi, 48kHzOutputExternalDecoder) {
@@ -1056,7 +1063,8 @@ TEST_F(AcmReceiverBitExactnessOldApi, 48kHzOutputExternalDecoder) {
       PlatformChecksum(others_checksum_reference, win64_checksum_reference,
                        "f52bc7bf0f499c9da25932fdf176c4ec",
                        "bd44bf97e7899186532f91235cef444d",
-                       "364d403dae55d73cd69e6dbd6b723a4d"),
+                       "364d403dae55d73cd69e6dbd6b723a4d",
+                       "71bc5c15a151400517c2119d1602ee9f"),
       factory, [](AudioCodingModule* acm) {
         acm->SetReceiveCodecs({{0, {"MockPCMu", 8000, 1}},
                                {103, {"ISAC", 16000, 1}},

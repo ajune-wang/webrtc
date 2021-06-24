@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2762300_2aacb5f1",
+        "filename": "api/video/rtp_video_frame_assembler.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-06-24T12:41:48Z",
+      "side": 1,
+      "message": "Oops, removed.",
+      "parentUuid": "a80c95b6_42e4dc8a",
+      "revId": "4236561b90a128ccbf06f91a988570cfea3e61ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "d4a958bd_330ffa12",
@@ -31,6 +49,30 @@
       "writtenOn": "2021-06-24T12:36:51Z",
       "side": 1,
       "message": "is it intended you\u0027ve increased start buffer size?",
+      "range": {
+        "startLine": 92,
+        "startChar": 43,
+        "endLine": 92,
+        "endChar": 47
+      },
+      "revId": "4236561b90a128ccbf06f91a988570cfea3e61ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2059e30d_ec663dd1",
+        "filename": "api/video/rtp_video_frame_assembler.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-06-24T12:41:48Z",
+      "side": 1,
+      "message": "Yes, this was intended",
+      "parentUuid": "d4a958bd_330ffa12",
       "range": {
         "startLine": 92,
         "startChar": 43,

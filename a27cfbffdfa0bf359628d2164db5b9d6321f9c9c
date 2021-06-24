@@ -52,6 +52,24 @@
       "parentUuid": "25df63b1_49f9562f",
       "revId": "a27cfbffdfa0bf359628d2164db5b9d6321f9c9c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ad7ae52_af80f174",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-06-24T12:27:02Z",
+      "side": 0,
+      "message": "Oh, OK... but can you see the stats in chrome://webrtc-internals/ at least if you run a call?",
+      "parentUuid": "d5a0903c_f84ad1d8",
+      "revId": "a27cfbffdfa0bf359628d2164db5b9d6321f9c9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

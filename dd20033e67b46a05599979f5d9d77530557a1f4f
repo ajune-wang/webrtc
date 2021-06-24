@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3aeaf35d_bfea5f01",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-06-24T11:51:36Z",
+      "side": 1,
+      "message": "Ouch, there is a circular dep. Let\u0027s wait to review.",
+      "revId": "dd20033e67b46a05599979f5d9d77530557a1f4f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

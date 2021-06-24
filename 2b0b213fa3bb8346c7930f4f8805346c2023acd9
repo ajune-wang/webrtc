@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79847bbe_cfb9b11d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-06-24T12:52:56Z",
+      "side": 1,
+      "message": "Per, RSLGTM please :)",
+      "revId": "2b0b213fa3bb8346c7930f4f8805346c2023acd9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

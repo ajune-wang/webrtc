@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b61cf829_8bc166f4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-25T13:51:01Z",
+      "side": 1,
+      "message": "Assuming you\u0027ll sort out the bot issues before landing.\n",
+      "revId": "a70798d97879572d3fd3bfe0574ad58ae1723b8b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

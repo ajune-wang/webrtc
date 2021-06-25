@@ -312,7 +312,7 @@ bool PeerConnectionInterface::RTCConfiguration::operator==(
     ContinualGatheringPolicy continual_gathering_policy;
     bool prioritize_most_likely_ice_candidate_pairs;
     struct cricket::MediaConfig media_config;
-    bool prune_turn_ports;
+    bool DEPRECATED_prune_turn_ports;
     PortPrunePolicy turn_port_prune_policy;
     bool presume_writable_when_fully_relayed;
     bool enable_ice_renomination;
@@ -368,7 +368,7 @@ bool PeerConnectionInterface::RTCConfiguration::operator==(
          combined_audio_video_bwe == o.combined_audio_video_bwe &&
          enable_dtls_srtp == o.enable_dtls_srtp &&
          ice_candidate_pool_size == o.ice_candidate_pool_size &&
-         prune_turn_ports == o.prune_turn_ports &&
+         DEPRECATED_prune_turn_ports == o.DEPRECATED_prune_turn_ports &&
          turn_port_prune_policy == o.turn_port_prune_policy &&
          presume_writable_when_fully_relayed ==
              o.presume_writable_when_fully_relayed &&
@@ -1406,7 +1406,8 @@ RTCError PeerConnection::SetConfiguration(
   modified_config.type = configuration.type;
   modified_config.ice_candidate_pool_size =
       configuration.ice_candidate_pool_size;
-  modified_config.prune_turn_ports = configuration.prune_turn_ports;
+  modified_config.DEPRECATED_prune_turn_ports =
+      configuration.DEPRECATED_prune_turn_ports;
   modified_config.turn_port_prune_policy = configuration.turn_port_prune_policy;
   modified_config.surface_ice_candidates_on_ice_transport_type_changed =
       configuration.surface_ice_candidates_on_ice_transport_type_changed;
@@ -1599,10 +1600,11 @@ RTCError PeerConnection::SetBitrate(const BitrateSettings& bitrate) {
   return RTCError::OK();
 }
 
-void PeerConnection::SetAudioPlayout(bool playout) {
+void PeerConnection::DEPRECATED_SetAudioPlayout(bool playout) {
   if (!worker_thread()->IsCurrent()) {
-    worker_thread()->Invoke<void>(
-        RTC_FROM_HERE, [this, playout] { SetAudioPlayout(playout); });
+    worker_thread()->Invoke<void>(RTC_FROM_HERE, [this, playout] {
+      DEPRECATED_SetAudioPlayout(playout);
+    });
     return;
   }
   auto audio_state =
@@ -1610,10 +1612,11 @@ void PeerConnection::SetAudioPlayout(bool playout) {
   audio_state->SetPlayout(playout);
 }
 
-void PeerConnection::SetAudioRecording(bool recording) {
+void PeerConnection::DEPRECATED_SetAudioRecording(bool recording) {
   if (!worker_thread()->IsCurrent()) {
-    worker_thread()->Invoke<void>(
-        RTC_FROM_HERE, [this, recording] { SetAudioRecording(recording); });
+    worker_thread()->Invoke<void>(RTC_FROM_HERE, [this, recording] {
+      DEPRECATED_SetAudioRecording(recording);
+    });
     return;
   }
   auto audio_state =

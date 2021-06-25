@@ -114,7 +114,7 @@
         config.ice_backup_candidate_pair_ping_interval;
     _keyType = RTCEncryptionKeyTypeECDSA;
     _iceCandidatePoolSize = config.ice_candidate_pool_size;
-    _shouldPruneTurnPorts = config.prune_turn_ports;
+    _shouldPruneTurnPorts = config.DEPRECATED_prune_turn_ports;
     _shouldPresumeWritableWhenFullyRelayed =
         config.presume_writable_when_fully_relayed;
     _shouldSurfaceIceCandidatesOnIceTransportTypeChanged =

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c3ef628_32404b05",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2021-06-25T09:22:21Z",
+      "side": 1,
+      "message": "Let me know if you need links to the extensive usage of these APIs (SetAudioPlayout and SetAudioRecording). IMO, it adds no value given where we are today to mark them as deprecated.",
+      "revId": "2b66394821befb8125cddeb025879768eb89a15f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

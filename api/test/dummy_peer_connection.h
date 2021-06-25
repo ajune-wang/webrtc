@@ -194,8 +194,12 @@ class DummyPeerConnection : public PeerConnectionInterface {
     return RTCError(RTCErrorType::UNSUPPORTED_OPERATION, "Not implemented");
   }
 
-  void SetAudioPlayout(bool playout) override { RTC_CHECK_NOTREACHED(); }
-  void SetAudioRecording(bool recording) override { RTC_CHECK_NOTREACHED(); }
+  void DEPRECATED_SetAudioPlayout(bool playout) override {
+    RTC_CHECK_NOTREACHED();
+  }
+  void DEPRECATED_SetAudioRecording(bool recording) override {
+    RTC_CHECK_NOTREACHED();
+  }
 
   rtc::scoped_refptr<DtlsTransportInterface> LookupDtlsTransportByMid(
       const std::string& mid) override {

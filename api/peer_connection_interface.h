@@ -497,14 +497,17 @@ class RTC_EXPORT PeerConnectionInterface : public rtc::RefCountInterface {
     // can be used to cut down on the number of candidate pairings.
     // Deprecated. TODO(webrtc:11026) Remove this flag once the downstream
     // dependency is removed.
-    bool prune_turn_ports = false;
+    union {
+      ABSL_DEPRECATED("Don't use this") bool prune_turn_ports = false;
+      bool DEPRECATED_prune_turn_ports;
+    };
 
     // The policy used to prune turn port.
     PortPrunePolicy turn_port_prune_policy = NO_PRUNE;
 
     PortPrunePolicy GetTurnPortPrunePolicy() const {
-      return prune_turn_ports ? PRUNE_BASED_ON_PRIORITY
-                              : turn_port_prune_policy;
+      return DEPRECATED_prune_turn_ports ? PRUNE_BASED_ON_PRIORITY
+                                         : turn_port_prune_policy;
     }
 
     // If set to true, this means the ICE transport should presume TURN-to-TURN
@@ -1106,14 +1109,20 @@ class RTC_EXPORT PeerConnectionInterface : public rtc::RefCountInterface {
   // playout of the underlying audio device but starts a task which will poll
   // for audio data every 10ms to ensure that audio processing happens and the
   // audio statistics are updated.
-  // TODO(henrika): deprecate and remove this.
-  virtual void SetAudioPlayout(bool playout) {}
+  // TODO(bugs.webrtc.org/12916): deprecate and remove this.
+  ABSL_DEPRECATED("Don't use this") void SetAudioPlayout(bool playout) {
+    DEPRECATED_SetAudioPlayout(playout);
+  }
+  virtual void DEPRECATED_SetAudioPlayout(bool playout) {}
 
   // Enable/disable recording of transmitted audio streams. Enabled by default.
   // Note that even if recording is enabled, streams will only be recorded if
   // the appropriate SDP is also applied.
-  // TODO(henrika): deprecate and remove this.
-  virtual void SetAudioRecording(bool recording) {}
+  // TODO(bugs.webrtc.org/12916): deprecate and remove this.
+  ABSL_DEPRECATED("Don't use this") void SetAudioRecording(bool recording) {
+    DEPRECATED_SetAudioRecording(recording);
+  }
+  virtual void DEPRECATED_SetAudioRecording(bool recording) {}
 
   // Looks up the DtlsTransport associated with a MID value.
   // In the Javascript API, DtlsTransport is a property of a sender, but

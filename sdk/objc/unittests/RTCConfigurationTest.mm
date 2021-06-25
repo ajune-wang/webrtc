@@ -80,7 +80,7 @@
   EXPECT_EQ(interval, nativeConfig->ice_backup_candidate_pair_ping_interval);
   EXPECT_EQ(webrtc::PeerConnectionInterface::GATHER_CONTINUALLY,
             nativeConfig->continual_gathering_policy);
-  EXPECT_EQ(true, nativeConfig->prune_turn_ports);
+  EXPECT_EQ(true, nativeConfig->DEPRECATED_prune_turn_ports);
   EXPECT_EQ(true, nativeConfig->crypto_options->srtp.enable_gcm_crypto_suites);
   EXPECT_EQ(true, nativeConfig->crypto_options->srtp.enable_aes128_sha1_32_crypto_cipher);
   EXPECT_EQ(true, nativeConfig->crypto_options->srtp.enable_encrypted_rtp_header_extensions);

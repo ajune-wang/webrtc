@@ -919,6 +919,7 @@ public class PeerConnection {
    * the appropriate SDP is also applied. The main purpose of this API is to
    * be able to control the exact time when audio playout starts.
    */
+  @Deprecated
   public void setAudioPlayout(boolean playout) {
     nativeSetAudioPlayout(playout);
   }
@@ -930,6 +931,7 @@ public class PeerConnection {
    * the appropriate SDP is also applied. The main purpose of this API is to
    * be able to control the exact time when audio recording starts.
    */
+  @Deprecated
   public void setAudioRecording(boolean recording) {
     nativeSetAudioRecording(recording);
   }

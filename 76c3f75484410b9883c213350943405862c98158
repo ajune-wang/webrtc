@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb3a88f3_7e9e4176",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-25T20:22:42Z",
+      "side": 1,
+      "message": "If this changes anything significant, that should be a bug.\nBot errors seem like they\u0027ll solve themselves sooner or later.",
+      "revId": "76c3f75484410b9883c213350943405862c98158",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

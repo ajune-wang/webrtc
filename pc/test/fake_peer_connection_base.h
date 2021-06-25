@@ -191,9 +191,9 @@ class FakePeerConnectionBase : public PeerConnectionInternal {
     return RTCError(RTCErrorType::UNSUPPORTED_OPERATION, "Not implemented");
   }
 
-  void SetAudioPlayout(bool playout) override {}
+  void DEPRECATED_SetAudioPlayout(bool playout) override {}
 
-  void SetAudioRecording(bool recording) override {}
+  void DEPRECATED_SetAudioRecording(bool recording) override {}
 
   rtc::scoped_refptr<DtlsTransportInterface> LookupDtlsTransportByMid(
       const std::string& mid) {

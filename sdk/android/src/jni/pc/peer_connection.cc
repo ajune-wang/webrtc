@@ -201,7 +201,7 @@ void JavaToNativeRTCConfiguration(
       JavaToNativeContinualGatheringPolicy(jni, j_continual_gathering_policy);
   rtc_config->ice_candidate_pool_size =
       Java_RTCConfiguration_getIceCandidatePoolSize(jni, j_rtc_config);
-  rtc_config->prune_turn_ports =
+  rtc_config->DEPRECATED_prune_turn_ports =
       Java_RTCConfiguration_getPruneTurnPorts(jni, j_rtc_config);
   rtc_config->turn_port_prune_policy =
       JavaToNativePortPrunePolicy(jni, j_turn_port_prune_policy);

@@ -52,6 +52,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "776e1ac4_56cf51a8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-25T14:03:03Z",
+      "side": 1,
+      "message": "Thanks for the feedback!\nAbandoning this CL and submitting another to remove the TODOs.\n\nI have (with my webrtc-core hat on) an item that says \"if we said we\u0027d deprecate something, we should get it done and get it over with\", so this was the result of doing \"grep -i deprec api/peerconnection_interface.h\" and digging at the result.",
+      "parentUuid": "68b197a8_9f6e7d41",
+      "revId": "ba54ab1dc9e575f6b393281bb2e2536a27128dd4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5e8abe57_634b92e6",

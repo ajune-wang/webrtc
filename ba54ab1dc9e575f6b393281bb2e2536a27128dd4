@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "68b197a8_9f6e7d41",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2021-06-25T09:18:12Z",
+      "side": 1,
+      "message": "I don\u0027t think this work is needed and the markup does not add much value given how common the usage\nof these APIs are today. \n\nThey are now used extensively by several 1st party clients and support have been added for the same APIs both in Java and in ObjC.\n\nIf any work is needed, the best I can suggest is to remove the TODO. Yes, we could also clean up the complete architecture and provide the same sort of functionality in a more clean way but doing so would be very risky given the current usage.\n\nTo summarize: when these APIs were added they were considered like a hack but time has shown that they work well and that they are stable and have solved many tricky problems. They are now extensively used and are VERY hard to remove.",
+      "revId": "ba54ab1dc9e575f6b393281bb2e2536a27128dd4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5e8abe57_634b92e6",
@@ -48,6 +65,30 @@
       "writtenOn": "2021-06-25T09:08:52Z",
       "side": 1,
       "message": "Are there any alternatives or are these features being remove (so there is no \"use that instead\")?",
+      "range": {
+        "startLine": 1113,
+        "startChar": 18,
+        "endLine": 1113,
+        "endChar": 34
+      },
+      "revId": "ba54ab1dc9e575f6b393281bb2e2536a27128dd4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61c980f3_41df8f77",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1113,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2021-06-25T09:18:12Z",
+      "side": 1,
+      "message": "https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d12916#c2",
+      "parentUuid": "5e8abe57_634b92e6",
       "range": {
         "startLine": 1113,
         "startChar": 18,

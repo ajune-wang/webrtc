@@ -86,6 +86,41 @@
       "parentUuid": "8f2854f6_1997e168",
       "revId": "748b9d2e09bf9ffeeb280608f4112b4f7df76264",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65fc5cdf_cd682661",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2021-06-27T14:06:10Z",
+      "side": 1,
+      "message": "Got it. Will run some tests on Monday if that is OK.",
+      "parentUuid": "fd6235b7_793bb00a",
+      "revId": "748b9d2e09bf9ffeeb280608f4112b4f7df76264",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0e8e152_07c35722",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2021-06-27T14:06:10Z",
+      "side": 1,
+      "message": "I am unable to even get the server app working according to https://webrtc.github.io/webrtc-org/native-code/development/.\n\nI should see \"Server listening on port 8888\" but my server stops with:\n\n$ ./out/Debug/peerconnection_server.exe\n(field_trial.cc:140): Setting field trial string:\n\nNiels. Can you sort out what is expected to work here and what is not. I can assist in trying things out but can\u0027t start debugging both the server and client side applications right now.",
+      "revId": "748b9d2e09bf9ffeeb280608f4112b4f7df76264",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

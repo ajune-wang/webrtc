@@ -138,6 +138,23 @@
       "message": "I ignored that I did not get a message from the server, started a client and then opened two file:///C:/src/webrtc/src/examples/peerconnection/server/server_test.html in Chrome.\n\nThings then worked but only with your patch. The client side would crash without it like so:\n\n$ ./out/Debug/peerconnection_client.exe\n(field_trial.cc:140): Setting field trial string:\n(win32_socket_server.cc:600): WSAAsync:connect (1 ms)\n(peer_connection_client.cc:300): Headers received\n(peer_connection_client.cc:475): OnClose\n(conductor.cc:255): OnSignedIn\n(conductor.cc:497): SEND_MESSAGE_TO_PEER\n(win32_socket_server.cc:600): WSAAsync:connect (0 ms)\n(win32_socket_server.cc:600): WSAAsync:connect (8 ms)\n(peer_connection_client.cc:300): Headers received\n(peer_connection_client.cc:475): OnClose\n(conductor.cc:260): OnDisconnected\n\nBut when I applied your patch, things worked and I could monitor logs at the server side and I could send messages between the two tabs:\n\n(field_trial.cc:140): Setting field trial string:\nServer listening on port 8888\nNew connection...\nNew member added (total\u003d1): henrika@henrika1\nDisconnecting socket\nTotal connected: 1\nNew connection...\nDisconnecting socket\nTotal connected: 1\nNew connection...\nDisconnecting socket\nMember disconnected: henrika@henrika1\nTotal connected: 0\nNew connection...\nNew member added (total\u003d1): my_name\nDisconnecting socket\nTotal connected: 1\nNew connection...\nNew connection...\nNew member added (total\u003d2): my_name2\nDisconnecting socket\nTotal connected: 2\nDisconnecting socket\nTotal connected: 2\nNew connection...\nNew connection...\nNew connection...\n",
       "revId": "748b9d2e09bf9ffeeb280608f4112b4f7df76264",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6c8e08e_9db8b7b9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2021-06-27T14:26:20Z",
+      "side": 1,
+      "message": "To summarize: the patch works well for me on Windows :-)",
+      "revId": "748b9d2e09bf9ffeeb280608f4112b4f7df76264",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

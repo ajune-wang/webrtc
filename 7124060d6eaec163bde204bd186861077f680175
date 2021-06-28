@@ -52,6 +52,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "34492fe7_fa397958",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2021-06-28T15:11:40Z",
+      "side": 1,
+      "message": "NACK can be enabled for audio streams by adding rtcp-fb nack to the SDP.\n\nnack_packets is updated here: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/rtp_rtcp/source/rtcp_sender.cc;l\u003d605;drc\u003dc14f6f4b9c44fe479a8d004576b42723b2a5feb6",
+      "parentUuid": "8f9d6d27_ba1ef837",
+      "revId": "7124060d6eaec163bde204bd186861077f680175",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "66b0f5e2_157148f4",
@@ -65,6 +83,30 @@
       "writtenOn": "2021-06-28T14:45:30Z",
       "side": 1,
       "message": "Is this called anywhere?",
+      "range": {
+        "startLine": 880,
+        "startChar": 0,
+        "endLine": 880,
+        "endChar": 51
+      },
+      "revId": "7124060d6eaec163bde204bd186861077f680175",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ca19287_433884b3",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 880,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2021-06-28T15:11:40Z",
+      "side": 1,
+      "message": "Yes, it is called from here: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/rtp_rtcp/source/rtcp_sender.cc;l\u003d750;drc\u003dc14f6f4b9c44fe479a8d004576b42723b2a5feb6\n\nSorry I had missed to add the rtcp_packet_type_counter_observer to the RtpRtcpInterface::Configuration :)",
+      "parentUuid": "66b0f5e2_157148f4",
       "range": {
         "startLine": 880,
         "startChar": 0,

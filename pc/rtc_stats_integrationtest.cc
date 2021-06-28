@@ -812,6 +812,7 @@ class RTCStatsReportVerifier {
       verifier.TestMemberIsUndefined(inbound_stream.decoder_implementation);
     }
     verifier.TestMemberIsNonNegative<uint32_t>(inbound_stream.packets_received);
+    verifier.TestMemberIsNonNegative<uint32_t>(inbound_stream.nack_count);
     if (inbound_stream.media_type.is_defined() &&
         *inbound_stream.media_type == "audio") {
       verifier.TestMemberIsNonNegative<uint64_t>(
@@ -859,11 +860,9 @@ class RTCStatsReportVerifier {
       verifier.TestMemberIsNonNegative<int32_t>(inbound_stream.frames_received);
       verifier.TestMemberIsNonNegative<uint32_t>(inbound_stream.fir_count);
       verifier.TestMemberIsNonNegative<uint32_t>(inbound_stream.pli_count);
-      verifier.TestMemberIsNonNegative<uint32_t>(inbound_stream.nack_count);
     } else {
       verifier.TestMemberIsUndefined(inbound_stream.fir_count);
       verifier.TestMemberIsUndefined(inbound_stream.pli_count);
-      verifier.TestMemberIsUndefined(inbound_stream.nack_count);
       verifier.TestMemberIsNonNegative<double>(
           inbound_stream.jitter_buffer_delay);
       verifier.TestMemberIsNonNegative<uint64_t>(

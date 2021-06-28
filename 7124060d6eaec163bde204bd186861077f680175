@@ -33,6 +33,46 @@
       "message": "RTCStats side of things LGTM.\n\nI looks like we already pass the web platform test for nackCount:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/web_tests/external/wpt/webrtc-stats/supported-stats-expected.txt;l\u003d37\n\nSo I guess the chromium test was not looking at the mediaType. Then I think you can land this without updating chromium expectations :)",
       "revId": "7124060d6eaec163bde204bd186861077f680175",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f9d6d27_ba1ef837",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-06-28T14:45:30Z",
+      "side": 1,
+      "message": "The declaration in call/ looks good, but I don\u0027t quite get a clear birds-eye picture of the entire CL. Do we NACK audio streams? Where does the actual NACK counting (e.g. nacks++) take place?",
+      "revId": "7124060d6eaec163bde204bd186861077f680175",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66b0f5e2_157148f4",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 880,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-06-28T14:45:30Z",
+      "side": 1,
+      "message": "Is this called anywhere?",
+      "range": {
+        "startLine": 880,
+        "startChar": 0,
+        "endLine": 880,
+        "endChar": 51
+      },
+      "revId": "7124060d6eaec163bde204bd186861077f680175",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

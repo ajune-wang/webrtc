@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc147150_b9421ce5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-28T11:21:53Z",
+      "side": 1,
+      "message": "Should add to the first \"but patches...\" para something like \", unless they make maintaining the code more difficult on the main platforms\" - we don\u0027t want patches that (for instance) remove use of C++\u002717 features that we have decided are useful.\n",
+      "revId": "16fe8d9a95f158026d7e89ae16f5c9d4c3319751",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "692df091_01373574",

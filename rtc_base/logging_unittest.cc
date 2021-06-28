@@ -76,7 +76,7 @@ TEST(LogTest, SingleStream) {
   std::string str;
   LogSinkImpl stream(&str);
   LogMessage::AddLogToStream(&stream, LS_INFO);
-  EXPECT_EQ(LS_INFO, LogMessage::GetLogToStream(&stream));
+  EXPECT_EQ(LS_WARNING, LogMessage::GetLogToStream(&stream));
 
   RTC_LOG(LS_INFO) << "INFO";
   RTC_LOG(LS_VERBOSE) << "VERBOSE";

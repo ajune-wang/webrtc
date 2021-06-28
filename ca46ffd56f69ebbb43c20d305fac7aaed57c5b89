@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97b94701_78389489",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-06-28T11:49:05Z",
+      "side": 1,
+      "message": "Sorry, I put the file under the wrong folder.",
+      "revId": "ca46ffd56f69ebbb43c20d305fac7aaed57c5b89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

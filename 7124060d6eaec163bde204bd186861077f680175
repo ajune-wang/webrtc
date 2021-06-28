@@ -151,6 +151,30 @@
       },
       "revId": "7124060d6eaec163bde204bd186861077f680175",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff2e6844_79f87a1e",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 880,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-06-28T15:43:51Z",
+      "side": 1,
+      "message": "Ok, now it makes more sense to me. :) Thanks\n\nOne question though: Since the existing unit tests passed, should we add some additional unit test or integration test to cover the wire up/propagation?",
+      "parentUuid": "8ca19287_433884b3",
+      "range": {
+        "startLine": 880,
+        "startChar": 0,
+        "endLine": 880,
+        "endChar": 51
+      },
+      "revId": "7124060d6eaec163bde204bd186861077f680175",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

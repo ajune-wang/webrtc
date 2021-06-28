@@ -496,6 +496,43 @@ void ApplyEncoderBitrateLimitsIfSingleActiveStream(
                encoder_bitrate_limits->max_bitrate_bps);
 }
 
+std::string ToString(const VideoCodec& codec) {
+  char buf[4 * 1024];
+  rtc::SimpleStringBuilder sb(buf);
+  sb << "ReconfigureEncoder:\n";
+  sb << "Simulcast streams:\n";
+  for (size_t i = 0; i < codec.numberOfSimulcastStreams; ++i) {
+    sb << i << ": " << codec.simulcastStream[i].width << "x"
+       << codec.simulcastStream[i].height
+       << " fps: " << codec.simulcastStream[i].maxFramerate
+       << " min_kbps: " << codec.simulcastStream[i].minBitrate
+       << " target_kbps: " << codec.simulcastStream[i].targetBitrate
+       << " max_kbps: " << codec.simulcastStream[i].maxBitrate
+       << " max_fps: " << codec.simulcastStream[i].maxFramerate
+       << " max_qp: " << codec.simulcastStream[i].qpMax
+       << " num_tl: " << codec.simulcastStream[i].numberOfTemporalLayers
+       << " active: " << (codec.simulcastStream[i].active ? "true" : "false")
+       << "\n";
+  }
+  if (codec.codecType == kVideoCodecVP9) {
+    size_t num_spatial_layers = codec.VP9().numberOfSpatialLayers;
+    sb << "Spatial layers:\n";
+    for (size_t i = 0; i < num_spatial_layers; ++i) {
+      sb << i << ": " << codec.spatialLayers[i].width << "x"
+         << codec.spatialLayers[i].height
+         << " fps: " << codec.spatialLayers[i].maxFramerate
+         << " min_kbps: " << codec.spatialLayers[i].minBitrate
+         << " target_kbps: " << codec.spatialLayers[i].targetBitrate
+         << " max_kbps: " << codec.spatialLayers[i].maxBitrate
+         << " max_qp: " << codec.spatialLayers[i].qpMax
+         << " num_tl: " << codec.spatialLayers[i].numberOfTemporalLayers
+         << " active: " << (codec.spatialLayers[i].active ? "true" : "false")
+         << "\n";
+    }
+  }
+  return sb.str();
+}
+
 }  //  namespace
 
 VideoStreamEncoder::EncoderRateSettings::EncoderRateSettings()
@@ -928,8 +965,7 @@ void VideoStreamEncoder::ReconfigureEncoder() {
       // or/and can be provided by encoder. In presence of both set of limits,
       // the final set is derived as their intersection.
       int min_bitrate_bps;
-      if (encoder_config_.simulcast_layers.empty() ||
-          encoder_config_.simulcast_layers[0].min_bitrate_bps <= 0) {
+      if (encoder_config_.simulcast_layers[0].min_bitrate_bps <= 0) {
         min_bitrate_bps = encoder_bitrate_limits->min_bitrate_bps;
       } else {
         min_bitrate_bps = std::max(encoder_bitrate_limits->min_bitrate_bps,
@@ -987,40 +1023,7 @@ void VideoStreamEncoder::ReconfigureEncoder() {
                           encoder_config_, &codec);
   }
 
-  char log_stream_buf[4 * 1024];
-  rtc::SimpleStringBuilder log_stream(log_stream_buf);
-  log_stream << "ReconfigureEncoder:\n";
-  log_stream << "Simulcast streams:\n";
-  for (size_t i = 0; i < codec.numberOfSimulcastStreams; ++i) {
-    log_stream << i << ": " << codec.simulcastStream[i].width << "x"
-               << codec.simulcastStream[i].height
-               << " fps: " << codec.simulcastStream[i].maxFramerate
-               << " min_kbps: " << codec.simulcastStream[i].minBitrate
-               << " target_kbps: " << codec.simulcastStream[i].targetBitrate
-               << " max_kbps: " << codec.simulcastStream[i].maxBitrate
-               << " max_fps: " << codec.simulcastStream[i].maxFramerate
-               << " max_qp: " << codec.simulcastStream[i].qpMax
-               << " num_tl: " << codec.simulcastStream[i].numberOfTemporalLayers
-               << " active: "
-               << (codec.simulcastStream[i].active ? "true" : "false") << "\n";
-  }
-  if (encoder_config_.codec_type == kVideoCodecVP9) {
-    size_t num_spatial_layers = codec.VP9()->numberOfSpatialLayers;
-    log_stream << "Spatial layers:\n";
-    for (size_t i = 0; i < num_spatial_layers; ++i) {
-      log_stream << i << ": " << codec.spatialLayers[i].width << "x"
-                 << codec.spatialLayers[i].height
-                 << " fps: " << codec.spatialLayers[i].maxFramerate
-                 << " min_kbps: " << codec.spatialLayers[i].minBitrate
-                 << " target_kbps: " << codec.spatialLayers[i].targetBitrate
-                 << " max_kbps: " << codec.spatialLayers[i].maxBitrate
-                 << " max_qp: " << codec.spatialLayers[i].qpMax
-                 << " num_tl: " << codec.spatialLayers[i].numberOfTemporalLayers
-                 << " active: "
-                 << (codec.spatialLayers[i].active ? "true" : "false") << "\n";
-    }
-  }
-  RTC_LOG(LS_INFO) << log_stream.str();
+  RTC_LOG(LS_INFO) << ToString(codec);
 
   codec.startBitrate = std::max(encoder_target_bitrate_bps_.value_or(0) / 1000,
                                 codec.minBitrate);

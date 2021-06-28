@@ -22,6 +22,30 @@
       },
       "revId": "30c19cc7aba337c9dda05a503e45d363fa84972a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "67717875_c6428b6b",
+        "filename": "g3doc/supported-platforms.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-06-28T12:02:37Z",
+      "side": 1,
+      "message": "Done + I also renamed the file.",
+      "parentUuid": "0ec6b39c_0fc37f8f",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 16
+      },
+      "revId": "30c19cc7aba337c9dda05a503e45d363fa84972a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

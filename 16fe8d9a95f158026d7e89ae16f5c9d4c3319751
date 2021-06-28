@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "382f0242_f49a8463",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-28T11:20:41Z",
+      "side": 1,
+      "message": "LGTM, modulo nits.\n",
+      "revId": "16fe8d9a95f158026d7e89ae16f5c9d4c3319751",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "692df091_01373574",
+        "filename": "supported-platforms.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-28T11:20:41Z",
+      "side": 1,
+      "message": "armeabi is a name I have never heard before... is it spelled right?",
+      "revId": "16fe8d9a95f158026d7e89ae16f5c9d4c3319751",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2db5544_5120c043",
+        "filename": "supported-platforms.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-28T11:20:41Z",
+      "side": 1,
+      "message": "Nit: s/welcome/welcomed",
+      "revId": "16fe8d9a95f158026d7e89ae16f5c9d4c3319751",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66e95a84_8cecbb3a",
+        "filename": "supported-platforms.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-28T11:20:41Z",
+      "side": 1,
+      "message": "closed -\u003e close",
+      "revId": "16fe8d9a95f158026d7e89ae16f5c9d4c3319751",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc4c9af2_0bb965b3",
+        "filename": "supported-platforms.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-28T11:20:41Z",
+      "side": 1,
+      "message": "welcome/welcomed",
+      "revId": "16fe8d9a95f158026d7e89ae16f5c9d4c3319751",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

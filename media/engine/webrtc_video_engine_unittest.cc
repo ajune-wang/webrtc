@@ -1918,7 +1918,7 @@ TEST_F(WebRtcVideoChannelBaseTest, GetStats) {
   // EXPECT_EQ(0, info.receivers[0].packets_concealed);
   EXPECT_EQ(0, info.receivers[0].firs_sent);
   EXPECT_EQ(0, info.receivers[0].plis_sent);
-  EXPECT_EQ(0, info.receivers[0].nacks_sent);
+  EXPECT_EQ(0U, info.receivers[0].nacks_sent);
   EXPECT_EQ(kVideoWidth, info.receivers[0].frame_width);
   EXPECT_EQ(kVideoHeight, info.receivers[0].frame_height);
   EXPECT_GT(info.receivers[0].framerate_rcvd, 0);

@@ -333,6 +333,7 @@ void SetInboundRTPStreamStatsFromMediaReceiverInfo(
       static_cast<uint64_t>(media_receiver_info.header_and_padding_bytes_rcvd);
   inbound_stats->packets_lost =
       static_cast<int32_t>(media_receiver_info.packets_lost);
+  inbound_stats->nack_count = media_receiver_info.nacks_sent;
 }
 
 std::unique_ptr<RTCInboundRTPStreamStats> CreateInboundAudioStreamStats(
@@ -454,8 +455,6 @@ void SetInboundRTPStreamStatsFromVideoReceiverInfo(
       static_cast<uint32_t>(video_receiver_info.firs_sent);
   inbound_video->pli_count =
       static_cast<uint32_t>(video_receiver_info.plis_sent);
-  inbound_video->nack_count =
-      static_cast<uint32_t>(video_receiver_info.nacks_sent);
   inbound_video->frames_received = video_receiver_info.frames_received;
   inbound_video->frames_decoded = video_receiver_info.frames_decoded;
   inbound_video->frames_dropped = video_receiver_info.frames_dropped;

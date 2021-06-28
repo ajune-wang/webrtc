@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ec6b39c_0fc37f8f",
+        "filename": "g3doc/supported-platforms.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-06-28T11:58:40Z",
+      "side": 1,
+      "message": "Please fix these lines, formatting broke them",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 16
+      },
+      "revId": "30c19cc7aba337c9dda05a503e45d363fa84972a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

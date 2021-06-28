@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8fa118ac_9458c9b2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2021-06-28T13:48:55Z",
+      "side": 1,
+      "message": "PTAL:\n\n- hbos: api/ pc/\n- saza: audio/ media/\n- terelius: call/\n\nThanks!",
+      "revId": "7124060d6eaec163bde204bd186861077f680175",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

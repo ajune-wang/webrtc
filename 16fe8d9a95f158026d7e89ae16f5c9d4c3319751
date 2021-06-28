@@ -52,6 +52,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0cfd6da_9dc00bae",
+        "filename": "supported-platforms.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-06-28T11:43:07Z",
+      "side": 1,
+      "message": "Yes, see https://developer.android.com/ndk/guides/abis#v7a.",
+      "parentUuid": "692df091_01373574",
+      "revId": "16fe8d9a95f158026d7e89ae16f5c9d4c3319751",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f2db5544_5120c043",
@@ -65,6 +83,24 @@
       "writtenOn": "2021-06-28T11:20:41Z",
       "side": 1,
       "message": "Nit: s/welcome/welcomed",
+      "revId": "16fe8d9a95f158026d7e89ae16f5c9d4c3319751",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c11e87ad_6c9b0e2c",
+        "filename": "supported-platforms.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-06-28T11:43:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2db5544_5120c043",
       "revId": "16fe8d9a95f158026d7e89ae16f5c9d4c3319751",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -86,6 +122,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef688c4a_602e4029",
+        "filename": "supported-platforms.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-06-28T11:43:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66e95a84_8cecbb3a",
+      "revId": "16fe8d9a95f158026d7e89ae16f5c9d4c3319751",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bc4c9af2_0bb965b3",
@@ -99,6 +153,24 @@
       "writtenOn": "2021-06-28T11:20:41Z",
       "side": 1,
       "message": "welcome/welcomed",
+      "revId": "16fe8d9a95f158026d7e89ae16f5c9d4c3319751",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "495a8f84_41d2a164",
+        "filename": "supported-platforms.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-06-28T11:43:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc4c9af2_0bb965b3",
       "revId": "16fe8d9a95f158026d7e89ae16f5c9d4c3319751",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -88,6 +88,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "01add96d_781523a3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2021-06-28T15:34:06Z",
+      "side": 1,
+      "message": "Remote description for NACKing packets on audio receive streams.\n\nFor retransmitting packets on the sender side, munging local description is needed. So we will likely need to figure out some other way of enabling that :)",
+      "parentUuid": "e78952bf_947d4b88",
+      "revId": "7124060d6eaec163bde204bd186861077f680175",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "66b0f5e2_157148f4",

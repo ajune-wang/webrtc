@@ -587,6 +587,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c562cf5_6705c1c8",
+        "filename": "media/engine/internal_decoder_factory.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-06-28T13:04:52Z",
+      "side": 1,
+      "message": "I read through the webrtc-svc spec a bit more to find clarification about decoder capabilities. As I understand it, it is not supposed to be used for codecs like VP8 and VP9, but might be feasible for other codecs (H264?)\n\n\"Codecs such as VP8, VP9 and AV1 mandate support for SVC and require a compliant decoder to be able to decode any compliant encoding that an encoder can send. Therefore, for these codecs there is no need to configure the decoder or to negotiate SVC support within Offer/Answer\"\"\n\nLater same is repeated with the different words:\n\"In response to a call to RTCRtpReceiver.getCapabilities(kind), decoders that do not support decoding of scalability modes or that are required to decode any scalability mode (such as compliant VP8, VP9 and AV1 decoders) omit the scalabilityModes member.\"\n\nIt seems there is a gray area because there are non-compliant HW VP9 decoders.\nHowever software decoder is complaint and thus doesn\u0027t need to explicitly list supported scalability modes.\n\nSuggestion: ignore scalability_mode parameter when codec is VP8, VP9 or AV1.",
+      "parentUuid": "2d3896f4_5d6005c4",
+      "range": {
+        "startLine": 50,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 39
+      },
+      "revId": "df650474949e7c858d5ed5d526c10438db44d9e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "3e20b9d7_833e67fe",

@@ -124,6 +124,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b1df963_8ecf6ecf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-06-29T06:54:38Z",
+      "side": 1,
+      "message": "You get video NACKs by default, but not audio NACKs? Isn\u0027t this the same thing basically? Are they negotiated differently?",
+      "parentUuid": "cb543343_6196bc92",
+      "revId": "7124060d6eaec163bde204bd186861077f680175",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "66b0f5e2_157148f4",

@@ -33,6 +33,24 @@
       "message": "LGTM thanks! Shall I +2?",
       "revId": "c0bfe0e39547927d5de0a7114241225e55f5f0e5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7df3ee0f_5e2edab1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-06-29T20:55:59Z",
+      "side": 1,
+      "message": "I think we\u0027ll have to wait for LGTM of the media owner.",
+      "parentUuid": "f7a7e62b_def339ca",
+      "revId": "c0bfe0e39547927d5de0a7114241225e55f5f0e5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

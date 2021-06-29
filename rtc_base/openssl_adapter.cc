@@ -289,8 +289,15 @@ int OpenSSLAdapter::BeginSSL() {
   RTC_LOG(LS_INFO) << "OpenSSLAdapter::BeginSSL: " << ssl_host_name_;
   RTC_DCHECK(state_ == SSL_CONNECTING);
 
-  int err = 0;
-  BIO* bio = nullptr;
+  auto dealloc_func = [this](int* ptr) {
+    delete ptr;
+    Cleanup();
+  };
+  std::unique_ptr<BIO, decltype(&::BIO_free)> bio{nullptr, ::BIO_free};
+  // Cleanup action wrapped in unique_ptr to deal with on error cleanup a bit
+  // cleaner.
+  std::unique_ptr<int, decltype(dealloc_func)> cleanup_war{new int(1),
+                                                           dealloc_func};
 
   // First set up the context. We should either have a factory, with its own
   // pre-existing context, or be running standalone, in which case we will
@@ -301,26 +308,22 @@ int OpenSSLAdapter::BeginSSL() {
   }
 
   if (!ssl_ctx_) {
-    err = -1;
-    goto ssl_error;
+    return -1;
   }
 
   if (identity_ && !identity_->ConfigureIdentity(ssl_ctx_)) {
     SSL_CTX_free(ssl_ctx_);
-    err = -1;
-    goto ssl_error;
+    return -1;
   }
 
-  bio = BIO_new_socket(socket_);
+  bio.reset(BIO_new_socket(socket_));
   if (!bio) {
-    err = -1;
-    goto ssl_error;
+    return -1;
   }
 
   ssl_ = SSL_new(ssl_ctx_);
   if (!ssl_) {
-    err = -1;
-    goto ssl_error;
+    return -1;
   }
 
   SSL_set_app_data(ssl_, this);
@@ -346,8 +349,7 @@ int OpenSSLAdapter::BeginSSL() {
       if (cached) {
         if (SSL_set_session(ssl_, cached) == 0) {
           RTC_LOG(LS_WARNING) << "Failed to apply SSL session from cache";
-          err = -1;
-          goto ssl_error;
+          return -1;
         }
 
         RTC_LOG(LS_INFO) << "Attempting to resume SSL session to "
@@ -377,23 +379,15 @@ int OpenSSLAdapter::BeginSSL() {
 
   // Now that the initial config is done, transfer ownership of |bio| to the
   // SSL object. If ContinueSSL() fails, the bio will be freed in Cleanup().
-  SSL_set_bio(ssl_, bio, bio);
-  bio = nullptr;
+  SSL_set_bio(ssl_, bio.get(), bio.get());
+  bio.release();
 
   // Do the connect.
-  err = ContinueSSL();
+  int err = ContinueSSL();
   if (err != 0) {
-    goto ssl_error;
+    return err;
   }
-
-  return err;
-
-ssl_error:
-  Cleanup();
-  if (bio) {
-    BIO_free(bio);
-  }
-
+  delete cleanup_war.release();
   return err;
 }
 

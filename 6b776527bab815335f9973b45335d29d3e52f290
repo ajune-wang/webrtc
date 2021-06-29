@@ -36,6 +36,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d3352b0_20e8932d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-29T09:16:34Z",
+      "side": 1,
+      "message": "it SHOULD be in audio/channel_receive_unittest.cc, but that file does not exist (problematic...). Creating that file might be a Good Thing, even for this single function; then the next person to come along will know where to add more unit tests.\n\naudio_receive_stream_unittest.cc uses a mock ChannelReceive, so isn\u0027t useful.\n\nAnother possibility is to add something to modules/rtp_rtcp/source/rtp_sender_unittest that uses a real audio ChannelReceive.",
+      "parentUuid": "24d4bec6_457108d5",
+      "revId": "6b776527bab815335f9973b45335d29d3e52f290",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5920c058_652bc1d5",

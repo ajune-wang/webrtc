@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "24d4bec6_457108d5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2021-06-29T08:28:33Z",
+      "side": 1,
+      "message": "Any pointers to where one could add such a test? Note that this is metric counts number of nack packets sent.",
+      "parentUuid": "ce1c327b_39dcde60",
+      "revId": "6b776527bab815335f9973b45335d29d3e52f290",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5920c058_652bc1d5",
@@ -31,6 +49,24 @@
       "writtenOn": "2021-06-29T07:16:26Z",
       "side": 1,
       "message": "If Nack support has not been negotiated, nackCount SHOULD be missing. See https://w3c.github.io/webrtc-stats/#guidelines-for-implementing-stats-objects\n\nHave we negotiated Nack support in this test?",
+      "revId": "6b776527bab815335f9973b45335d29d3e52f290",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4a1317a_59771f80",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 815,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2021-06-29T08:28:33Z",
+      "side": 1,
+      "message": "For video, not for audio. I\u0027ll make it optional then (conditioned on nack enabled) and revert the changes to this test.",
+      "parentUuid": "5920c058_652bc1d5",
       "revId": "6b776527bab815335f9973b45335d29d3e52f290",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

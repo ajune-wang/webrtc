@@ -54,6 +54,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bb1b5c3_b39dabdb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2021-06-29T10:41:06Z",
+      "side": 1,
+      "message": "Hello! channel_receive (and channel_send) are actually leftovers from the time we had but one single, duplex, voice_channel class. New functionality should ideally go in audio_*_stream, which have their associated *_unittest files. I would suggest not creating a new _unittest file for the channel class as that would cement its existence.\n\nIn this case that looks like a possibility (if I\u0027m not mistaken AudioReceiveStream could implement the callback and send over \"this\" to the channel class\u0027 c-tor to set up the rtprtcp module\u0027s config.\n\nCaveat: I didn\u0027t look through the whole CL yet...",
+      "parentUuid": "0d3352b0_20e8932d",
+      "revId": "6b776527bab815335f9973b45335d29d3e52f290",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5920c058_652bc1d5",

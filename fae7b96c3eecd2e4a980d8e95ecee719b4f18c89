@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f79f335_f851a102",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2021-06-29T12:05:08Z",
+      "side": 1,
+      "message": "Harald, another one for you to enjoy :)",
+      "revId": "fae7b96c3eecd2e4a980d8e95ecee719b4f18c89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

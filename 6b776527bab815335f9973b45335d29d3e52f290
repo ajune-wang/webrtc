@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce1c327b_39dcde60",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-29T07:16:26Z",
+      "side": 1,
+      "message": "If integration tests are needed, they need to cover negotiation - an incoming offer SDP with \"a\u003drtcp-fb:nack\" (https://datatracker.ietf.org/doc/html/rfc4585#section-9) should be the remote side asking for nack support; the responding answer should indicate nack support.\n\nI\u0027m not sure integration tests are needed here; it may be sufficient to use lower level structures to set up a transport and an RTP session, and fire a nack across the wire, in which case this CL doesn\u0027t need to do SDP.\n\nBut I do think there should be at least one unit test actually receiving a nack, and verifying that the counter is incremented.",
+      "revId": "6b776527bab815335f9973b45335d29d3e52f290",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5920c058_652bc1d5",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 815,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-29T07:16:26Z",
+      "side": 1,
+      "message": "If Nack support has not been negotiated, nackCount SHOULD be missing. See https://w3c.github.io/webrtc-stats/#guidelines-for-implementing-stats-objects\n\nHave we negotiated Nack support in this test?",
+      "revId": "6b776527bab815335f9973b45335d29d3e52f290",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

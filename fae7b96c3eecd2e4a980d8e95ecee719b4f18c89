@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0cea2f5e_e5056ec7",
+        "filename": "rtc_base/openssl_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 17619
+      },
+      "writtenOn": "2021-06-29T18:35:48Z",
+      "side": 1,
+      "message": "To do this I can go about 2 ways:\n1) use std::bind to get function bound to Cleanup() which I can pass as a deleter function\n2) use lambdas same as now\n\nAs far as I know lambdas are bit more performant than std::bind.\nIn both scenarios I would create a local SSL_CTX which I would release to ssl_ctx_ at the end of happy path.",
+      "parentUuid": "84409f59_9389c0eb",
+      "revId": "fae7b96c3eecd2e4a980d8e95ecee719b4f18c89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1187de0c_f08d5e07",
         "filename": "rtc_base/openssl_adapter.cc",
         "patchSetId": 1

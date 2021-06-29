@@ -33,6 +33,24 @@
       "message": "I\u0027m concerned that this new behavior is triggered even with no field trial (with 0 value). Is it as intended?",
       "revId": "cdb1ad5db9ce26bb11e68d238d425409fde4000d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93a6d500_95a19ded",
+        "filename": "modules/video_coding/timing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-06-29T09:37:20Z",
+      "side": 1,
+      "message": "What happened before was that MaxWaitingTime() returned a negative value, more or less -now_ms. This was later capped to zero in a max(0, x) operation,\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/video_coding/frame_buffer2.cc;drc\u003dc14f6f4b9c44fe479a8d004576b42723b2a5feb6;l\u003d226\n\nI see now that the line above is affected by this change, since there\u0027s\nif(wait_time \u003c -5) continue;\n\nIn practice I don\u0027t think this changes anything but to be on the safe side, I\u0027ll add a condition on zero_playout_delay_min_pacing_ being greater than zero.",
+      "parentUuid": "5dabb230_b5eb9695",
+      "revId": "cdb1ad5db9ce26bb11e68d238d425409fde4000d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

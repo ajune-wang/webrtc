@@ -67,6 +67,24 @@
       "message": "You don\u0027t need bio until you get down here, which means that you can make it const.",
       "revId": "fae7b96c3eecd2e4a980d8e95ecee719b4f18c89",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa02c1b0_3e535fcb",
+        "filename": "rtc_base/openssl_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 17619
+      },
+      "writtenOn": "2021-06-29T13:51:27Z",
+      "side": 1,
+      "message": "What do you mean by this?\nI tried doing this with const but .release() after SSL_set_bio to transfer ownership of bio to ssl can\u0027t be called on const uniqe_ptr.",
+      "parentUuid": "1187de0c_f08d5e07",
+      "revId": "fae7b96c3eecd2e4a980d8e95ecee719b4f18c89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

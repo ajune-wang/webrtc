@@ -142,6 +142,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "434a3fbb_30cd6292",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2021-06-29T07:14:46Z",
+      "side": 1,
+      "message": "It\u0027s not a header extension, it\u0027s rtcp feedback attribute in the SDP (https://datatracker.ietf.org/doc/html/rfc4585#section-4.2). Is there another API controlling these?\n\n\u003e You get video NACKs by default, but not audio NACKs? Isn\u0027t this the same thing basically? Are they negotiated differently?\n\nNACKs are enabled by default for video since video frames have dependencies on previous frames for decoding. This is not true for audio frames (that can be decoded independently) but it might make sense to nack for some applications that can tolerate a bit higher latency to achieve higher quality.",
+      "parentUuid": "6b1df963_8ecf6ecf",
+      "revId": "7124060d6eaec163bde204bd186861077f680175",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "66b0f5e2_157148f4",
@@ -203,6 +221,30 @@
       "side": 1,
       "message": "Ok, now it makes more sense to me. :) Thanks\n\nOne question though: Since the existing unit tests passed, should we add some additional unit test or integration test to cover the wire up/propagation?",
       "parentUuid": "8ca19287_433884b3",
+      "range": {
+        "startLine": 880,
+        "startChar": 0,
+        "endLine": 880,
+        "endChar": 51
+      },
+      "revId": "7124060d6eaec163bde204bd186861077f680175",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94f80bbe_520cceb2",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 880,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2021-06-29T07:14:46Z",
+      "side": 1,
+      "message": "Yes, I will add internal integration test.",
+      "parentUuid": "ff2e6844_79f87a1e",
       "range": {
         "startLine": 880,
         "startChar": 0,

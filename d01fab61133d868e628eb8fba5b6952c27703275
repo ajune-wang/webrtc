@@ -16,6 +16,23 @@
       "message": "Hello, I changed PRESUBMIT.py to run pylint only on changed files.\nI know you\u0027re not the owner of this file, but I think you understand the situation best, so I\u0027ve added you as a reviewer. Please take a look and add other appropriate reviewer(s). Thank you.",
       "revId": "d01fab61133d868e628eb8fba5b6952c27703275",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3b9dfc9_ae6d0b47",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-06-29T09:59:52Z",
+      "side": 1,
+      "message": "mbonadei, frendly ping",
+      "revId": "d01fab61133d868e628eb8fba5b6952c27703275",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

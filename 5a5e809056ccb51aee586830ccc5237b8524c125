@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a70422ee_f3af11b3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-06-30T07:06:19Z",
+      "side": 1,
+      "message": "Please file and reference an open bug for nackCount",
+      "revId": "5a5e809056ccb51aee586830ccc5237b8524c125",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

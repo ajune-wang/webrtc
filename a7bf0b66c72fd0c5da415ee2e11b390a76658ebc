@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fd51639f_bfb26605",
+        "filename": "rtc_base/openssl_adapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 17619
+      },
+      "writtenOn": "2021-06-30T11:54:01Z",
+      "side": 1,
+      "message": "I\u0027ll do this once we agree on previous comment.",
+      "parentUuid": "d9e2f048_bfbcfec8",
+      "revId": "a7bf0b66c72fd0c5da415ee2e11b390a76658ebc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8a7dbb1e_654fb2f4",
         "filename": "rtc_base/openssl_adapter.h",
         "patchSetId": 2
@@ -48,6 +66,24 @@
       "writtenOn": "2021-06-30T11:03:36Z",
       "side": 1,
       "message": "Can you put this in an anonymous namespace in the .cc file?\nI don\u0027t want to expose implementation details like this in a .h file if I can avoid it.\n\nThis also allows you to make the implemementation inline without causing the linker heartburn.",
+      "revId": "a7bf0b66c72fd0c5da415ee2e11b390a76658ebc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4891e369_2f047e44",
+        "filename": "rtc_base/openssl_adapter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 17619
+      },
+      "writtenOn": "2021-06-30T11:54:01Z",
+      "side": 1,
+      "message": "Initially I wanted to do that but I ran into 2 problems.\n1) For some reason ninja was complaining even though I added new file in BUILD\u003egn:\nninja: error: \u0027../../../rtc_base/early_exit_catcher.cc\u0027, needed by \u0027obj/rtc_base/rtc_base/early_exit_catcher.obj\u0027, missing and no known rule to make it \n2) I can\u0027t make EarlyExitCatcher a friend class of OpenSSLAdapter if it\u0027s not in same namespace. Other option is to make Cleanup public, which didn\u0027t seam like the right thing to do.\n\nAny suggestions?",
+      "parentUuid": "8a7dbb1e_654fb2f4",
       "revId": "a7bf0b66c72fd0c5da415ee2e11b390a76658ebc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

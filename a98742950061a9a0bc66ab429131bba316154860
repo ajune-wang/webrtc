@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8535d7f1_5abc64a9",
+        "filename": "api/video_codecs/vp9_profile.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-30T05:59:29Z",
+      "side": 0,
+      "message": "Somewhat worried if this will break our MSVC compilation - we had a CL a year (?) ago where an external contributor added a lot of extra returns for this.\nBut with the number of CLs already landed in webrtc on this bug, I assume it\u0027s OK.",
+      "revId": "a98742950061a9a0bc66ab429131bba316154860",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4536cb6d_848918ee",
+        "filename": "modules/video_coding/utility/vp9_uncompressed_header_parser.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-30T05:59:29Z",
+      "side": 0,
+      "message": "For this particular deletion, I\u0027d like sprang@ (original author, April) to comment. I can\u0027t quite imagine what he was thinking. But he\u0027s out, so I\u0027ll file a bug and CC him instead.",
+      "revId": "a98742950061a9a0bc66ab429131bba316154860",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

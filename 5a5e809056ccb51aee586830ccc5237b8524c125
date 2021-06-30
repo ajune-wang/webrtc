@@ -16,6 +16,24 @@
       "message": "Please file and reference an open bug for nackCount",
       "revId": "5a5e809056ccb51aee586830ccc5237b8524c125",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "587ed506_87e7a909",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2021-06-30T07:19:20Z",
+      "side": 1,
+      "message": "Isn\u0027t reusing 7066 a cleaner option?\nIt fits the changes, is indirectly referenced in the TODO in rtcstats_objects.h, seems to have been closed for unrelated reasons, and leaves a more informative paper trail (unless there are new reasons motivating this change, @jakobi).",
+      "parentUuid": "a70422ee_f3af11b3",
+      "revId": "5a5e809056ccb51aee586830ccc5237b8524c125",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

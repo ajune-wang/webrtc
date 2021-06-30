@@ -105,6 +105,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b59a17da_b42d326e",
+        "filename": "rtc_base/openssl_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 17619
+      },
+      "writtenOn": "2021-06-30T10:43:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44118d8d_a2c37855",
+      "revId": "fae7b96c3eecd2e4a980d8e95ecee719b4f18c89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1187de0c_f08d5e07",
@@ -154,6 +172,24 @@
       "side": 1,
       "message": "Ah, the .release destroys the possibility of using const. Thanks for catching my error. But if you move the declaration down to here, you can write \"std::unique_ptr\u003cBIO, decltype(\u0026::BIO_free)\u003e bio{nullptr, ::BIO_free} \u003d BIO_new_socket(socket_)\", so that you have no code that can ever see a null bio.\n\nhttps://google.github.io/styleguide/cppguide.html#Local_Variables - \"we encourage you to declare them ... as close to the first use as possible.\"",
       "parentUuid": "aa02c1b0_3e535fcb",
+      "revId": "fae7b96c3eecd2e4a980d8e95ecee719b4f18c89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11b9aff1_c8aa4cb6",
+        "filename": "rtc_base/openssl_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 17619
+      },
+      "writtenOn": "2021-06-30T10:43:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48431f3b_126451e8",
       "revId": "fae7b96c3eecd2e4a980d8e95ecee719b4f18c89",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

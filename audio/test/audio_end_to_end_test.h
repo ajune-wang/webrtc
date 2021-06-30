@@ -27,8 +27,8 @@ class AudioEndToEndTest : public test::EndToEndTest {
 
  protected:
   TestAudioDeviceModule* send_audio_device() { return send_audio_device_; }
-  const AudioSendStream* send_stream() const { return send_stream_; }
-  const AudioReceiveStream* receive_stream() const { return receive_stream_; }
+  AudioSendStream* send_stream() { return send_stream_; }
+  AudioReceiveStream* receive_stream() { return receive_stream_; }
 
   virtual BuiltInNetworkBehaviorConfig GetNetworkPipeConfig() const;
 

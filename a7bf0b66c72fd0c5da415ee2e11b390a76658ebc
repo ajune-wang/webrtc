@@ -70,6 +70,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "52478169_21b9f31e",
+        "filename": "rtc_base/openssl_adapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 17619
+      },
+      "writtenOn": "2021-06-30T12:23:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fd51639f_bfb26605",
+      "revId": "a7bf0b66c72fd0c5da415ee2e11b390a76658ebc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a7dbb1e_654fb2f4",
@@ -119,6 +137,24 @@
       "side": 1,
       "message": "Sigh. Every time I start loving C++ a bit more, it finds a new way to bite me :-(\n\nYes, exposing Cleanup() is ugly.\n\nOne possibility is to make EarlyExitCatcher a private class inside OpenSSLAdapter - that will make it obvious in the header file that it\u0027s not for general use, and means that you don\u0027t have to make it a friend.\n\nI\u0027m not clear on whether C++ allows you to forward-declare the class in the .h file and do the rest of the class definition in the .cc file; if that doesn\u0027t work, let\u0027s live with having it in the private part of the OpenSSLAdapter class.",
       "parentUuid": "4891e369_2f047e44",
+      "revId": "a7bf0b66c72fd0c5da415ee2e11b390a76658ebc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06840ce3_af6716f6",
+        "filename": "rtc_base/openssl_adapter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 17619
+      },
+      "writtenOn": "2021-06-30T12:23:02Z",
+      "side": 1,
+      "message": "I\u0027ll go with private class option.\nInitially I wanted to add TODO to make EarlyExitCatcher template class, building for the future 😊\nBut that would require a bit more thought, aka what can be public or some way with lambdas to circumvent reachability of Cleanup...\n\nDone",
+      "parentUuid": "c9c6228a_fd018371",
       "revId": "a7bf0b66c72fd0c5da415ee2e11b390a76658ebc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

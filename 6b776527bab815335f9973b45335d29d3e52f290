@@ -141,6 +141,24 @@
       "parentUuid": "5920c058_652bc1d5",
       "revId": "6b776527bab815335f9973b45335d29d3e52f290",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c04aa2a_a063f94a",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 815,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2021-06-30T09:58:28Z",
+      "side": 1,
+      "message": "Fixed.",
+      "parentUuid": "d4a1317a_59771f80",
+      "revId": "6b776527bab815335f9973b45335d29d3e52f290",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

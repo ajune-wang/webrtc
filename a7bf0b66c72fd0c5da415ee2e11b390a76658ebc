@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e19360d7_c66318b6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-30T11:03:36Z",
+      "side": 1,
+      "message": "Now it looks quite readable to me - and is a definite improvement!\n\nOnly remaining comment is to hide the helper file in the .cc file.\n\n",
+      "revId": "a7bf0b66c72fd0c5da415ee2e11b390a76658ebc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9e2f048_bfbcfec8",
+        "filename": "rtc_base/openssl_adapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-30T11:03:36Z",
+      "side": 1,
+      "message": "we could replace this with \"return 0\" to make it 100% obvious that this is the success exit, given that we return on anything non-zero before this.",
+      "revId": "a7bf0b66c72fd0c5da415ee2e11b390a76658ebc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a7dbb1e_654fb2f4",
+        "filename": "rtc_base/openssl_adapter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-30T11:03:36Z",
+      "side": 1,
+      "message": "Can you put this in an anonymous namespace in the .cc file?\nI don\u0027t want to expose implementation details like this in a .h file if I can avoid it.\n\nThis also allows you to make the implemementation inline without causing the linker heartburn.",
+      "revId": "a7bf0b66c72fd0c5da415ee2e11b390a76658ebc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

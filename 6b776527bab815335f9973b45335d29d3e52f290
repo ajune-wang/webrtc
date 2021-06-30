@@ -108,6 +108,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b24208d1_b76648ad",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2021-06-30T10:23:41Z",
+      "side": 1,
+      "message": "Thanks for the context! I think so, maybe I can throw together a cl :)",
+      "parentUuid": "a7cbc031_3cabaef6",
+      "revId": "6b776527bab815335f9973b45335d29d3e52f290",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5920c058_652bc1d5",

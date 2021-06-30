@@ -34,6 +34,24 @@
       "parentUuid": "a70422ee_f3af11b3",
       "revId": "5a5e809056ccb51aee586830ccc5237b8524c125",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99900f2a_6dba5830",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-06-30T07:48:23Z",
+      "side": 1,
+      "message": "The referenced bug was a \"catch-all\" bug with too big scope as it did not relate to any particular work effort and as such did not have any sensible milestone.\n\nWith a crbug for a particular work effort then we can close the bug when this feature lands and close the bug for that milestone, that way it will show up in the release notes instead of being forgotten, and we will have paper trail for \"which version was nackCount released in?\"\n\nBut you are allowed to reference multiple bugs if you want additional paper trail",
+      "parentUuid": "587ed506_87e7a909",
+      "revId": "5a5e809056ccb51aee586830ccc5237b8524c125",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -50,6 +50,23 @@
       "message": "Approved, with worries.\n",
       "revId": "481decdd13f9fd375a128c239470cc2517c29e1b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "26a3b3e7_b09ee3a5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-30T06:12:34Z",
+      "side": 1,
+      "message": "Resolving comments.\n",
+      "revId": "481decdd13f9fd375a128c239470cc2517c29e1b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

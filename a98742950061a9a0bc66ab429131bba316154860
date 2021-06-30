@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8017b647_3f76b2e6",
+        "filename": "api/video_codecs/vp9_profile.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-30T06:12:34Z",
+      "side": 0,
+      "message": "Ack",
+      "parentUuid": "8535d7f1_5abc64a9",
+      "revId": "a98742950061a9a0bc66ab429131bba316154860",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4536cb6d_848918ee",
@@ -31,6 +49,24 @@
       "writtenOn": "2021-06-30T05:59:29Z",
       "side": 0,
       "message": "For this particular deletion, I\u0027d like sprang@ (original author, April) to comment. I can\u0027t quite imagine what he was thinking. But he\u0027s out, so I\u0027ll file a bug and CC him instead.",
+      "revId": "a98742950061a9a0bc66ab429131bba316154860",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b8ed71e_7f6e99dd",
+        "filename": "modules/video_coding/utility/vp9_uncompressed_header_parser.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-30T06:12:34Z",
+      "side": 0,
+      "message": "Filed https://crbug.com/webrtc/12924.",
+      "parentUuid": "4536cb6d_848918ee",
       "revId": "a98742950061a9a0bc66ab429131bba316154860",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

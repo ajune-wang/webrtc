@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b866ccc_43b2a0a6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-30T12:08:37Z",
+      "side": 1,
+      "message": "C++, let me count the ways I love you in an unsigned int.... \u003c\u003c\u003cunderflow error\u003e\u003e\u003e\n",
+      "revId": "a7bf0b66c72fd0c5da415ee2e11b390a76658ebc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d9e2f048_bfbcfec8",
@@ -84,6 +101,24 @@
       "side": 1,
       "message": "Initially I wanted to do that but I ran into 2 problems.\n1) For some reason ninja was complaining even though I added new file in BUILD\u003egn:\nninja: error: \u0027../../../rtc_base/early_exit_catcher.cc\u0027, needed by \u0027obj/rtc_base/rtc_base/early_exit_catcher.obj\u0027, missing and no known rule to make it \n2) I can\u0027t make EarlyExitCatcher a friend class of OpenSSLAdapter if it\u0027s not in same namespace. Other option is to make Cleanup public, which didn\u0027t seam like the right thing to do.\n\nAny suggestions?",
       "parentUuid": "8a7dbb1e_654fb2f4",
+      "revId": "a7bf0b66c72fd0c5da415ee2e11b390a76658ebc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9c6228a_fd018371",
+        "filename": "rtc_base/openssl_adapter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-06-30T12:08:37Z",
+      "side": 1,
+      "message": "Sigh. Every time I start loving C++ a bit more, it finds a new way to bite me :-(\n\nYes, exposing Cleanup() is ugly.\n\nOne possibility is to make EarlyExitCatcher a private class inside OpenSSLAdapter - that will make it obvious in the header file that it\u0027s not for general use, and means that you don\u0027t have to make it a friend.\n\nI\u0027m not clear on whether C++ allows you to forward-declare the class in the .h file and do the rest of the class definition in the .cc file; if that doesn\u0027t work, let\u0027s live with having it in the private part of the OpenSSLAdapter class.",
+      "parentUuid": "4891e369_2f047e44",
       "revId": "a7bf0b66c72fd0c5da415ee2e11b390a76658ebc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

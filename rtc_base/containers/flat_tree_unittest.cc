@@ -1,10 +1,20 @@
+/*
+ *  Copyright (c) 2021 The WebRTC project authors. All Rights Reserved.
+ *
+ *  Use of this source code is governed by a BSD-style license
+ *  that can be found in the LICENSE file in the root of the source
+ *  tree. An additional intellectual property rights grant can be found
+ *  in the file PATENTS.  All contributing project authors may
+ *  be found in the AUTHORS file in the root of the source tree.
+ */
+
 // Copyright 2017 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
 // Extracted from Chromium's src/base/containers/flat_tree_unittest.cc.
 
-#include "base/containers/flat_tree.h"
+#include "rtc_base/containers/flat_tree.h"
 
 // Following tests are ported and extended tests from libcpp for std::set.
 // They can be found here:
@@ -30,6 +40,7 @@
 // * No tests with min_allocator and no tests counting allocations.
 //   Flat sets currently don't support allocators.
 
+#include <array>
 #include <deque>
 #include <forward_list>
 #include <functional>
@@ -38,17 +49,13 @@
 #include <string>
 #include <vector>
 
-#include "base/functional/identity.h"
-#include "base/ranges/algorithm.h"
-#include "base/template_util.h"
-#include "base/test/gtest_util.h"
-#include "base/test/move_only_int.h"
-#include "testing/gmock/include/gmock/gmock.h"
-#include "testing/gtest/include/gtest/gtest.h"
+#include "rtc_base/containers/identity.h"
+#include "rtc_base/containers/move_only_int.h"
+#include "test/gmock.h"
+#include "test/gtest.h"
 
-namespace base {
-namespace internal {
-
+namespace webrtc {
+namespace flat_containers_internal {
 namespace {
 
 template <class It>
@@ -126,7 +133,7 @@ class Emplaceable {
 
 struct TemplateConstructor {
   template <typename T>
-  TemplateConstructor(const T&) {}
+  explicit TemplateConstructor(const T&) {}
 
   friend bool operator<(const TemplateConstructor&,
                         const TemplateConstructor&) {
@@ -154,35 +161,25 @@ struct LessByFirst {
 // Common test trees.
 template <typename ContainerT>
 using TypedTree = flat_tree<typename ContainerT::value_type,
-                            base::identity,
+                            identity,
                             std::less<>,
                             ContainerT>;
 using IntTree = TypedTree<std::vector<int>>;
 using IntPair = std::pair<int, int>;
-using IntPairTree = flat_tree<IntPair,
-                              base::identity,
-                              LessByFirst<IntPair>,
-                              std::vector<IntPair>>;
-using MoveOnlyTree = flat_tree<MoveOnlyInt,
-                               base::identity,
-                               std::less<>,
-                               std::vector<MoveOnlyInt>>;
-using EmplaceableTree = flat_tree<Emplaceable,
-                                  base::identity,
-                                  std::less<>,
-                                  std::vector<Emplaceable>>;
+using IntPairTree =
+    flat_tree<IntPair, identity, LessByFirst<IntPair>, std::vector<IntPair>>;
+using MoveOnlyTree =
+    flat_tree<MoveOnlyInt, identity, std::less<>, std::vector<MoveOnlyInt>>;
+using EmplaceableTree =
+    flat_tree<Emplaceable, identity, std::less<>, std::vector<Emplaceable>>;
 using ReversedTree =
-    flat_tree<int, base::identity, std::greater<int>, std::vector<int>>;
+    flat_tree<int, identity, std::greater<int>, std::vector<int>>;
 
-using TreeWithStrangeCompare = flat_tree<int,
-                                         base::identity,
-                                         NonDefaultConstructibleCompare,
-                                         std::vector<int>>;
+using TreeWithStrangeCompare =
+    flat_tree<int, identity, NonDefaultConstructibleCompare, std::vector<int>>;
 
 using ::testing::ElementsAre;
 using ::testing::IsEmpty;
-
-}  // namespace
 
 template <typename T>
 class FlatTreeTest : public testing::Test {};
@@ -210,8 +207,8 @@ TEST(FlatTree, NoExcept) {
     MoveThrows& operator=(MoveThrows&&) noexcept(false) { return *this; }
   };
 
-  using MoveThrowsTree = flat_tree<MoveThrows, base::identity, std::less<>,
-                                   std::array<MoveThrows, 1>>;
+  using MoveThrowsTree =
+      flat_tree<MoveThrows, identity, std::less<>, std::array<MoveThrows, 1>>;
 
   static_assert(std::is_nothrow_move_constructible<IntTree>::value,
                 "Error: IntTree is not nothrow move constructible");
@@ -232,7 +229,7 @@ TEST(FlatTree, NoExcept) {
 
 TEST(FlatTree, IncompleteType) {
   struct A {
-    using Tree = flat_tree<A, base::identity, std::less<A>, std::vector<A>>;
+    using Tree = flat_tree<A, identity, std::less<A>, std::vector<A>>;
     int data;
     Tree set_with_incomplete_type;
     Tree::iterator it;
@@ -247,14 +244,13 @@ TEST(FlatTree, IncompleteType) {
 TEST(FlatTree, Stability) {
   using Pair = std::pair<int, int>;
 
-  using Tree =
-      flat_tree<Pair, base::identity, LessByFirst<Pair>, std::vector<Pair>>;
+  using Tree = flat_tree<Pair, identity, LessByFirst<Pair>, std::vector<Pair>>;
 
   // Constructors are stable.
   Tree cont({{0, 0}, {1, 0}, {0, 1}, {2, 0}, {0, 2}, {1, 1}});
 
   auto AllOfSecondsAreZero = [&cont] {
-    return ranges::all_of(cont,
+    return absl::c_all_of(cont,
                           [](const Pair& elem) { return elem.second == 0; });
   };
 
@@ -396,8 +392,7 @@ TEST(FlatTree, ContainerMoveConstructor) {
   storage.push_back(Pair(1, MoveOnlyInt(0)));
   storage.push_back(Pair(2, MoveOnlyInt(1)));
 
-  using Tree =
-      flat_tree<Pair, base::identity, LessByFirst<Pair>, std::vector<Pair>>;
+  using Tree = flat_tree<Pair, identity, LessByFirst<Pair>, std::vector<Pair>>;
   Tree tree(std::move(storage));
 
   // The list should be two items long, with only the first "2" saved.
@@ -479,8 +474,7 @@ TEST(FlatTree, SortedUniqueVectorMoveConstructor) {
   storage.push_back(Pair(1, MoveOnlyInt(0)));
   storage.push_back(Pair(2, MoveOnlyInt(0)));
 
-  using Tree =
-      flat_tree<Pair, base::identity, LessByFirst<Pair>, std::vector<Pair>>;
+  using Tree = flat_tree<Pair, identity, LessByFirst<Pair>, std::vector<Pair>>;
   Tree tree(sorted_unique, std::move(storage));
 
   ASSERT_EQ(2u, tree.size());
@@ -1007,7 +1001,7 @@ TYPED_TEST_P(FlatTreeTest, ErasePosition) {
   {
     using T = TemplateConstructor;
 
-    flat_tree<T, base::identity, std::less<>, std::vector<T>> cont;
+    flat_tree<T, identity, std::less<>, std::vector<T>> cont;
     T v(0);
 
     auto it = cont.find(v);
@@ -1096,11 +1090,11 @@ TYPED_TEST_P(FlatTreeTest, EraseEndDeath) {
 TEST(FlatTree, KeyComp) {
   ReversedTree cont({1, 2, 3, 4, 5});
 
-  EXPECT_TRUE(ranges::is_sorted(cont, cont.key_comp()));
+  EXPECT_TRUE(absl::c_is_sorted(cont, cont.key_comp()));
   int new_elements[] = {6, 7, 8, 9, 10};
   std::copy(std::begin(new_elements), std::end(new_elements),
             std::inserter(cont, cont.end()));
-  EXPECT_TRUE(ranges::is_sorted(cont, cont.key_comp()));
+  EXPECT_TRUE(absl::c_is_sorted(cont, cont.key_comp()));
 }
 
 // value_compare value_comp() const
@@ -1108,11 +1102,11 @@ TEST(FlatTree, KeyComp) {
 TEST(FlatTree, ValueComp) {
   ReversedTree cont({1, 2, 3, 4, 5});
 
-  EXPECT_TRUE(ranges::is_sorted(cont, cont.value_comp()));
+  EXPECT_TRUE(absl::c_is_sorted(cont, cont.value_comp()));
   int new_elements[] = {6, 7, 8, 9, 10};
   std::copy(std::begin(new_elements), std::end(new_elements),
             std::inserter(cont, cont.end()));
-  EXPECT_TRUE(ranges::is_sorted(cont, cont.value_comp()));
+  EXPECT_TRUE(absl::c_is_sorted(cont, cont.value_comp()));
 }
 
 // ----------------------------------------------------------------------------
@@ -1439,63 +1433,18 @@ TEST(FlatTree, Comparison) {
   EXPECT_GE(biggest, biggest);
 }
 
-TYPED_TEST_P(FlatTreeTest, EraseIf) {
+TYPED_TEST_P(FlatTreeTest, SupportsEraseIf) {
   TypedTree<TypeParam> x;
-  EXPECT_EQ(0u, base::EraseIf(x, [](int) { return false; }));
+  EXPECT_EQ(0u, EraseIf(x, [](int) { return false; }));
   EXPECT_THAT(x, ElementsAre());
 
   x = {1, 2, 3};
-  EXPECT_EQ(1u, base::EraseIf(x, [](int elem) { return !(elem & 1); }));
+  EXPECT_EQ(1u, EraseIf(x, [](int elem) { return !(elem & 1); }));
   EXPECT_THAT(x, ElementsAre(1, 3));
 
   x = {1, 2, 3, 4};
-  EXPECT_EQ(2u, base::EraseIf(x, [](int elem) { return elem & 1; }));
+  EXPECT_EQ(2u, EraseIf(x, [](int elem) { return elem & 1; }));
   EXPECT_THAT(x, ElementsAre(2, 4));
-}
-
-// Test unsorted containers or containers with repeated elements cause a DCHECK
-// if used with the sorted_unique tag.
-TYPED_TEST_P(FlatTreeTest, SortedUniqueRangeConstructorDCHECKs) {
-  int unsorted[] = {2, 1};
-  EXPECT_DCHECK_DEATH(TypedTree<TypeParam>(sorted_unique, std::begin(unsorted),
-                                           std::end(unsorted)));
-
-  int repeated[] = {1, 2, 2};
-  EXPECT_DCHECK_DEATH(TypedTree<TypeParam>(sorted_unique, std::begin(repeated),
-                                           std::end(repeated)));
-}
-
-TYPED_TEST_P(FlatTreeTest, SortedUniqueVectorCopyConstructorDCHECKs) {
-  TypeParam unsorted = {2, 1};
-  EXPECT_DCHECK_DEATH(TypedTree<TypeParam>(sorted_unique, unsorted));
-
-  TypeParam repeated = {1, 2, 2};
-  EXPECT_DCHECK_DEATH(TypedTree<TypeParam>(sorted_unique, repeated));
-}
-
-TYPED_TEST_P(FlatTreeTest, SortedUniqueVectorMoveConstructorDCHECKs) {
-  TypeParam unsorted = {2, 1};
-  EXPECT_DCHECK_DEATH(TypedTree<TypeParam>(sorted_unique, std::move(unsorted)));
-
-  TypeParam repeated = {1, 2, 2};
-  EXPECT_DCHECK_DEATH(TypedTree<TypeParam>(sorted_unique, std::move(repeated)));
-}
-
-TYPED_TEST_P(FlatTreeTest, SortedUniqueInitializerListConstructorDCHECKs) {
-  std::initializer_list<int> unsorted = {2, 1};
-  EXPECT_DCHECK_DEATH(TypedTree<TypeParam>(sorted_unique, unsorted));
-
-  std::initializer_list<int> repeated = {1, 2, 2};
-  EXPECT_DCHECK_DEATH(TypedTree<TypeParam>(sorted_unique, repeated));
-}
-
-TYPED_TEST_P(FlatTreeTest, ReplaceDCHECKs) {
-  TypedTree<TypeParam> tree;
-  TypeParam unsorted = {2, 1};
-  EXPECT_DCHECK_DEATH(tree.replace(std::move(unsorted)));
-
-  TypeParam repeated = {1, 2, 2};
-  EXPECT_DCHECK_DEATH(tree.replace(std::move(repeated)));
 }
 
 REGISTER_TYPED_TEST_SUITE_P(FlatTreeTest,
@@ -1528,16 +1477,12 @@ REGISTER_TYPED_TEST_SUITE_P(FlatTreeTest,
                             LowerBound,
                             UpperBound,
                             Swap,
-                            EraseIf,
-                            SortedUniqueRangeConstructorDCHECKs,
-                            SortedUniqueVectorCopyConstructorDCHECKs,
-                            SortedUniqueVectorMoveConstructorDCHECKs,
-                            SortedUniqueInitializerListConstructorDCHECKs,
-                            ReplaceDCHECKs);
+                            SupportsEraseIf);
 
 using IntSequenceContainers =
     ::testing::Types<std::deque<int>, std::vector<int>>;
 INSTANTIATE_TYPED_TEST_SUITE_P(My, FlatTreeTest, IntSequenceContainers);
 
-}  // namespace internal
-}  // namespace base
+}  // namespace
+}  // namespace flat_containers_internal
+}  // namespace webrtc

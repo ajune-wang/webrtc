@@ -1,11 +1,21 @@
+/*
+ *  Copyright (c) 2021 The WebRTC project authors. All Rights Reserved.
+ *
+ *  Use of this source code is governed by a BSD-style license
+ *  that can be found in the LICENSE file in the root of the source
+ *  tree. An additional intellectual property rights grant can be found
+ *  in the file PATENTS.  All contributing project authors may
+ *  be found in the AUTHORS file in the root of the source tree.
+ */
+
 // Copyright 2017 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
 // Extracted from Chromium's src/base/containers/flat_tree.h.
 
-#ifndef BASE_CONTAINERS_FLAT_TREE_H_
-#define BASE_CONTAINERS_FLAT_TREE_H_
+#ifndef RTC_BASE_CONTAINERS_FLAT_TREE_H_
+#define RTC_BASE_CONTAINERS_FLAT_TREE_H_
 
 #include <algorithm>
 #include <iterator>
@@ -13,32 +23,32 @@
 #include <utility>
 #include <vector>
 
-#include "base/as_const.h"
-#include "base/compiler_specific.h"
-#include "base/functional/not_fn.h"
-#include "base/ranges/algorithm.h"
-#include "base/template_util.h"
+#include "absl/algorithm/container.h"
+#include "rtc_base/checks.h"
+#include "rtc_base/containers/as_const.h"
+#include "rtc_base/containers/not_fn.h"
+#include "rtc_base/containers/void_t.h"
+#include "rtc_base/system/no_unique_address.h"
 
-namespace base {
-
+namespace webrtc {
 // Tag type that allows skipping the sort_and_unique step when constructing a
 // flat_tree in case the underlying container is already sorted and has no
 // duplicate elements.
 struct sorted_unique_t {
-  constexpr explicit sorted_unique_t() = default;
+  constexpr sorted_unique_t() = default;
 };
 extern sorted_unique_t sorted_unique;
 
-namespace internal {
+namespace flat_containers_internal {
 
-// Helper functions used in DCHECKs below to make sure that inputs tagged with
-// sorted_unique are indeed sorted and unique.
+// Helper functions used in RTC_DCHECKs below to make sure that inputs tagged
+// with sorted_unique are indeed sorted and unique.
 template <typename Range, typename Comp>
 constexpr bool is_sorted_and_unique(const Range& range, Comp comp) {
   // Being unique implies that there are no adjacent elements that
   // compare equal. So this checks that each element is strictly less
   // than the element after it.
-  return ranges::adjacent_find(range, base::not_fn(comp)) == ranges::end(range);
+  return absl::c_adjacent_find(range, webrtc::not_fn(comp)) == std::end(range);
 }
 
 // This is a convenience trait inheriting from std::true_type if Iterator is at
@@ -153,7 +163,7 @@ class flat_tree {
       return comp(extractor(left), extractor(right));
     }
 
-    NO_UNIQUE_ADDRESS key_compare comp;
+    RTC_NO_UNIQUE_ADDRESS key_compare comp;
   };
 
   using pointer = typename Container::pointer;
@@ -180,8 +190,8 @@ class flat_tree {
   // The constructors that take ranges, lists, and vectors do not require that
   // the input be sorted.
   //
-  // When passing the base::sorted_unique tag as the first argument no sort and
-  // unique step takes places. This is useful if the underlying container
+  // When passing the webrtc::sorted_unique tag as the first argument no sort
+  // and unique step takes places. This is useful if the underlying container
   // already has the required properties.
 
   flat_tree() = default;
@@ -198,7 +208,8 @@ class flat_tree {
   flat_tree(const container_type& items,
             const key_compare& comp = key_compare());
 
-  flat_tree(container_type&& items, const key_compare& comp = key_compare());
+  explicit flat_tree(container_type&& items,
+                     const key_compare& comp = key_compare());
 
   flat_tree(std::initializer_list<value_type> ilist,
             const key_compare& comp = key_compare());
@@ -327,7 +338,7 @@ class flat_tree {
   // erase(position), erase(first, last) can take O(size).
   // erase(key) may take O(size) + O(log(size)).
   //
-  // Prefer base::EraseIf() or some other variation on erase(remove(), end())
+  // Prefer webrtc::EraseIf() or some other variation on erase(remove(), end())
   // idiom when deleting multiple non-consecutive elements.
 
   iterator erase(iterator position);
@@ -536,7 +547,7 @@ class flat_tree {
     std::stable_sort(first, last, value_comp());
 
     // lhs is already <= rhs due to sort, therefore !(lhs < rhs) <=> lhs == rhs.
-    auto equal_comp = base::not_fn(value_comp());
+    auto equal_comp = webrtc::not_fn(value_comp());
     erase(std::unique(first, last, equal_comp), last);
   }
 
@@ -544,8 +555,8 @@ class flat_tree {
 
   // To support comparators that may not be possible to default-construct, we
   // have to store an instance of Compare. Since Compare commonly is stateless,
-  // we use the NO_UNIQUE_ADDRESS attribute to save space.
-  NO_UNIQUE_ADDRESS key_compare comp_;
+  // we use the RTC_NO_UNIQUE_ADDRESS attribute to save space.
+  RTC_NO_UNIQUE_ADDRESS key_compare comp_;
   // Declare after |key_compare_comp_| to workaround GCC ICE. For details
   // see https://crbug.com/1156268
   container_type body_;
@@ -604,7 +615,7 @@ flat_tree<Key, GetKeyFromValue, KeyCompare, Container>::flat_tree(
     InputIterator last,
     const KeyCompare& comp)
     : comp_(comp), body_(first, last) {
-  DCHECK(is_sorted_and_unique(*this, value_comp()));
+  RTC_DCHECK(is_sorted_and_unique(*this, value_comp()));
 }
 
 template <class Key, class GetKeyFromValue, class KeyCompare, class Container>
@@ -613,7 +624,7 @@ flat_tree<Key, GetKeyFromValue, KeyCompare, Container>::flat_tree(
     const container_type& items,
     const KeyCompare& comp)
     : comp_(comp), body_(items) {
-  DCHECK(is_sorted_and_unique(*this, value_comp()));
+  RTC_DCHECK(is_sorted_and_unique(*this, value_comp()));
 }
 
 template <class Key, class GetKeyFromValue, class KeyCompare, class Container>
@@ -622,7 +633,7 @@ constexpr flat_tree<Key, GetKeyFromValue, KeyCompare, Container>::flat_tree(
     container_type&& items,
     const KeyCompare& comp)
     : comp_(comp), body_(std::move(items)) {
-  DCHECK(is_sorted_and_unique(*this, value_comp()));
+  RTC_DCHECK(is_sorted_and_unique(*this, value_comp()));
 }
 
 template <class Key, class GetKeyFromValue, class KeyCompare, class Container>
@@ -702,7 +713,7 @@ auto flat_tree<Key, GetKeyFromValue, KeyCompare, Container>::begin()
 template <class Key, class GetKeyFromValue, class KeyCompare, class Container>
 constexpr auto flat_tree<Key, GetKeyFromValue, KeyCompare, Container>::begin()
     const -> const_iterator {
-  return ranges::begin(body_);
+  return std::begin(body_);
 }
 
 template <class Key, class GetKeyFromValue, class KeyCompare, class Container>
@@ -719,7 +730,7 @@ auto flat_tree<Key, GetKeyFromValue, KeyCompare, Container>::end() -> iterator {
 template <class Key, class GetKeyFromValue, class KeyCompare, class Container>
 constexpr auto flat_tree<Key, GetKeyFromValue, KeyCompare, Container>::end()
     const -> const_iterator {
-  return ranges::end(body_);
+  return std::end(body_);
 }
 
 template <class Key, class GetKeyFromValue, class KeyCompare, class Container>
@@ -868,7 +879,7 @@ void flat_tree<Key, GetKeyFromValue, KeyCompare, Container>::replace(
     container_type&& body) {
   // Ensure that `body` is sorted and has no repeated elements according to
   // `value_comp()`.
-  DCHECK(is_sorted_and_unique(body, value_comp()));
+  RTC_DCHECK(is_sorted_and_unique(body, value_comp()));
   body_ = std::move(body);
 }
 
@@ -878,7 +889,7 @@ void flat_tree<Key, GetKeyFromValue, KeyCompare, Container>::replace(
 template <class Key, class GetKeyFromValue, class KeyCompare, class Container>
 auto flat_tree<Key, GetKeyFromValue, KeyCompare, Container>::erase(
     iterator position) -> iterator {
-  CHECK(position != body_.end());
+  RTC_CHECK(position != body_.end());
   return body_.erase(position);
 }
 
@@ -886,7 +897,7 @@ template <class Key, class GetKeyFromValue, class KeyCompare, class Container>
 template <typename DummyT>
 auto flat_tree<Key, GetKeyFromValue, KeyCompare, Container>::erase(
     const_iterator position) -> iterator {
-  CHECK(position != body_.end());
+  RTC_CHECK(position != body_.end());
   return body_.erase(position);
 }
 
@@ -939,7 +950,7 @@ template <class Key, class GetKeyFromValue, class KeyCompare, class Container>
 template <typename K>
 auto flat_tree<Key, GetKeyFromValue, KeyCompare, Container>::find(const K& key)
     -> iterator {
-  return const_cast_it(base::as_const(*this).find(key));
+  return const_cast_it(webrtc::as_const(*this).find(key));
 }
 
 template <class Key, class GetKeyFromValue, class KeyCompare, class Container>
@@ -962,7 +973,7 @@ template <class Key, class GetKeyFromValue, class KeyCompare, class Container>
 template <typename K>
 auto flat_tree<Key, GetKeyFromValue, KeyCompare, Container>::equal_range(
     const K& key) -> std::pair<iterator, iterator> {
-  auto res = base::as_const(*this).equal_range(key);
+  auto res = webrtc::as_const(*this).equal_range(key);
   return {const_cast_it(res.first), const_cast_it(res.second)};
 }
 
@@ -983,7 +994,7 @@ template <class Key, class GetKeyFromValue, class KeyCompare, class Container>
 template <typename K>
 auto flat_tree<Key, GetKeyFromValue, KeyCompare, Container>::lower_bound(
     const K& key) -> iterator {
-  return const_cast_it(base::as_const(*this).lower_bound(key));
+  return const_cast_it(webrtc::as_const(*this).lower_bound(key));
 }
 
 template <class Key, class GetKeyFromValue, class KeyCompare, class Container>
@@ -997,14 +1008,14 @@ auto flat_tree<Key, GetKeyFromValue, KeyCompare, Container>::lower_bound(
   const KeyTypeOrK<K>& key_ref = key;
 
   KeyValueCompare comp(comp_);
-  return ranges::lower_bound(*this, key_ref, comp);
+  return absl::c_lower_bound(*this, key_ref, comp);
 }
 
 template <class Key, class GetKeyFromValue, class KeyCompare, class Container>
 template <typename K>
 auto flat_tree<Key, GetKeyFromValue, KeyCompare, Container>::upper_bound(
     const K& key) -> iterator {
-  return const_cast_it(base::as_const(*this).upper_bound(key));
+  return const_cast_it(webrtc::as_const(*this).upper_bound(key));
 }
 
 template <class Key, class GetKeyFromValue, class KeyCompare, class Container>
@@ -1018,7 +1029,7 @@ auto flat_tree<Key, GetKeyFromValue, KeyCompare, Container>::upper_bound(
   const KeyTypeOrK<K>& key_ref = key;
 
   KeyValueCompare comp(comp_);
-  return ranges::upper_bound(*this, key_ref, comp);
+  return absl::c_upper_bound(*this, key_ref, comp);
 }
 
 // ----------------------------------------------------------------------------
@@ -1069,7 +1080,7 @@ auto flat_tree<Key, GetKeyFromValue, KeyCompare, Container>::
   return emplace_key_args(key, std::forward<Args>(args)...);
 }
 
-}  // namespace internal
+}  // namespace flat_containers_internal
 
 // ----------------------------------------------------------------------------
 // Free functions.
@@ -1081,15 +1092,15 @@ template <class Key,
           class Container,
           typename Predicate>
 size_t EraseIf(
-    base::internal::flat_tree<Key, GetKeyFromValue, KeyCompare, Container>&
-        container,
+    webrtc::flat_containers_internal::
+        flat_tree<Key, GetKeyFromValue, KeyCompare, Container>& container,
     Predicate pred) {
-  auto it = ranges::remove_if(container, pred);
+  auto it = std::remove_if(container.begin(), container.end(), pred);
   size_t removed = std::distance(it, container.end());
   container.erase(it, container.end());
   return removed;
 }
 
-}  // namespace base
+}  // namespace webrtc
 
-#endif  // BASE_CONTAINERS_FLAT_TREE_H_
+#endif  // RTC_BASE_CONTAINERS_FLAT_TREE_H_

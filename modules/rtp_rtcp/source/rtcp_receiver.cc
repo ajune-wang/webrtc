@@ -19,6 +19,7 @@
 #include <utility>
 #include <vector>
 
+#include "absl/algorithm/container.h"
 #include "api/video/video_bitrate_allocation.h"
 #include "api/video/video_bitrate_allocator.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/bye.h"
@@ -425,9 +426,18 @@ RTCPReceiver::ConsumeReceivedXrReferenceTimeInfo() {
 std::vector<ReportBlockData> RTCPReceiver::GetLatestReportBlockData() const {
   std::vector<ReportBlockData> result;
   MutexLock lock(&rtcp_receiver_lock_);
-  for (const auto& reports_per_receiver : received_report_blocks_)
-    for (const auto& report : reports_per_receiver.second)
-      result.push_back(report.second);
+  for (const auto& reports_per_receiver : received_report_blocks_) {
+    const ReportBlockDataMap& reports = reports_per_receiver.second;
+    if (reports.empty()) {
+      continue;
+    }
+    // Add only the latest report block.
+    result.push_back(
+        absl::c_max_element(reports, [](const auto& lhs, const auto& rhs) {
+          return lhs.second.report_block_timestamp_utc_us() <
+                 rhs.second.report_block_timestamp_utc_us();
+        })->second);
+  }
   return result;
 }
 

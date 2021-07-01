@@ -117,9 +117,8 @@ class RTCPReceiver final {
                                                 bool sending);
 
   // A snapshot of Report Blocks with additional data of interest to statistics.
-  // Within this list, the sender-source SSRC pair is unique and per-pair the
-  // ReportBlockData represents the latest Report Block that was received for
-  // that pair.
+  // Within this list, the source SSRC is unique and ReportBlockData represents
+  // the latest Report Block that was received for that SSRC.
   std::vector<ReportBlockData> GetLatestReportBlockData() const;
 
   // Returns true if we haven't received an RTCP RR for several RTCP

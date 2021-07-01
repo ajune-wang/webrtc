@@ -10,10 +10,16 @@ import("../../webrtc.gni")
 
 rtc_library("containers") {
   sources = [
-    #"flat_map.h",
-    #"flat_set.h",
-    #"flat_tree.cc",
-    #"flat_tree.h",
+    "as_const.h",
+    "flat_map.h",
+    "flat_set.h",
+    "flat_tree.cc",
+    "flat_tree.h",
+    "identity.h",
+    "invoke.h",
+    "move_only_int.h",
+    "not_fn.h",
+    "void_t.h",
   ]
   deps = [
     "..:checks",
@@ -25,9 +31,9 @@ rtc_library("containers") {
 rtc_library("unittests") {
   testonly = true
   sources = [
-    #"flat_map_unittest.cc",
-    #"flat_set_unittest.cc",
-    #"flat_tree_unittest.cc",
+    "flat_map_unittest.cc",
+    "flat_set_unittest.cc",
+    "flat_tree_unittest.cc",
   ]
   deps = [
     ":containers",

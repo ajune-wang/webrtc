@@ -1,20 +1,24 @@
-// Copyright 2017 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
+/*
+ *  Copyright (c) 2021 The WebRTC project authors. All Rights Reserved.
+ *
+ *  Use of this source code is governed by a BSD-style license
+ *  that can be found in the LICENSE file in the root of the source
+ *  tree. An additional intellectual property rights grant can be found
+ *  in the file PATENTS.  All contributing project authors may
+ *  be found in the AUTHORS file in the root of the source tree.
+ */
 
-// Extracted from Chromium's src/base/containers/flat_map_unittest.cc.
+// This implementation is borrowed from Chromium.
 
-#include "base/containers/flat_map.h"
+#include "rtc_base/containers/flat_map.h"
 
+#include <algorithm>
 #include <string>
 #include <vector>
 
-#include "base/macros.h"
-#include "base/ranges/algorithm.h"
-#include "base/strings/string_piece.h"
-#include "base/test/move_only_int.h"
-#include "testing/gmock/include/gmock/gmock.h"
-#include "testing/gtest/include/gtest/gtest.h"
+#include "rtc_base/containers/move_only_int.h"
+#include "test/gmock.h"
+#include "test/gtest.h"
 
 // A flat_map is basically a interface to flat_tree. So several basic
 // operations are tested to make sure things are set up properly, but the bulk
@@ -22,7 +26,7 @@
 
 using ::testing::ElementsAre;
 
-namespace base {
+namespace webrtc {
 
 namespace {
 
@@ -38,8 +42,6 @@ bool operator<(const Unsortable& lhs, const Unsortable& rhs) = delete;
 bool operator<=(const Unsortable& lhs, const Unsortable& rhs) = delete;
 bool operator>(const Unsortable& lhs, const Unsortable& rhs) = delete;
 bool operator>=(const Unsortable& lhs, const Unsortable& rhs) = delete;
-
-}  // namespace
 
 TEST(FlatMap, IncompleteType) {
   struct A {
@@ -141,7 +143,7 @@ TEST(FlatMap, InitializerListAssignment) {
 }
 
 TEST(FlatMap, InsertFindSize) {
-  base::flat_map<int, int> s;
+  flat_map<int, int> s;
   s.insert(std::make_pair(1, 1));
   s.insert(std::make_pair(1, 1));
   s.insert(std::make_pair(2, 2));
@@ -153,13 +155,13 @@ TEST(FlatMap, InsertFindSize) {
 }
 
 TEST(FlatMap, CopySwap) {
-  base::flat_map<int, int> original;
+  flat_map<int, int> original;
   original.insert({1, 1});
   original.insert({2, 2});
   EXPECT_THAT(original,
               ElementsAre(std::make_pair(1, 1), std::make_pair(2, 2)));
 
-  base::flat_map<int, int> copy(original);
+  flat_map<int, int> copy(original);
   EXPECT_THAT(copy, ElementsAre(std::make_pair(1, 1), std::make_pair(2, 2)));
 
   copy.erase(copy.begin());
@@ -174,7 +176,7 @@ TEST(FlatMap, CopySwap) {
 
 // operator[](const Key&)
 TEST(FlatMap, SubscriptConstKey) {
-  base::flat_map<std::string, int> m;
+  flat_map<std::string, int> m;
 
   // Default construct elements that don't exist yet.
   int& s = m["a"];
@@ -192,7 +194,7 @@ TEST(FlatMap, SubscriptConstKey) {
 
 // operator[](Key&&)
 TEST(FlatMap, SubscriptMoveOnlyKey) {
-  base::flat_map<MoveOnlyInt, int> m;
+  flat_map<MoveOnlyInt, int> m;
 
   // Default construct elements that don't exist yet.
   int& s = m[MoveOnlyInt(1)];
@@ -211,14 +213,14 @@ TEST(FlatMap, SubscriptMoveOnlyKey) {
 // Mapped& at(const Key&)
 // const Mapped& at(const Key&) const
 TEST(FlatMap, AtFunction) {
-  base::flat_map<int, std::string> m = {{1, "a"}, {2, "b"}};
+  flat_map<int, std::string> m = {{1, "a"}, {2, "b"}};
 
   // Basic Usage.
   EXPECT_EQ("a", m.at(1));
   EXPECT_EQ("b", m.at(2));
 
   // Const reference works.
-  const std::string& const_ref = base::as_const(m).at(1);
+  const std::string& const_ref = as_const(m).at(1);
   EXPECT_EQ("a", const_ref);
 
   // Reference works, can operate on the string.
@@ -230,14 +232,14 @@ TEST(FlatMap, AtFunction) {
   EXPECT_DEATH_IF_SUPPORTED({ m.at(-1)[0] = 'z'; }, "");
 
   // Heterogeneous look-up works.
-  base::flat_map<std::string, int> m2 = {{"a", 1}, {"b", 2}};
-  EXPECT_EQ(1, m2.at(base::StringPiece("a")));
-  EXPECT_EQ(2, base::as_const(m2).at(base::StringPiece("b")));
+  flat_map<std::string, int> m2 = {{"a", 1}, {"b", 2}};
+  EXPECT_EQ(1, m2.at(absl::string_view("a")));
+  EXPECT_EQ(2, as_const(m2).at(absl::string_view("b")));
 }
 
 // insert_or_assign(K&&, M&&)
 TEST(FlatMap, InsertOrAssignMoveOnlyKey) {
-  base::flat_map<MoveOnlyInt, MoveOnlyInt> m;
+  flat_map<MoveOnlyInt, MoveOnlyInt> m;
 
   // Initial insertion should return an iterator to the element and set the
   // second pair member to |true|. The inserted key and value should be moved
@@ -267,16 +269,16 @@ TEST(FlatMap, InsertOrAssignMoveOnlyKey) {
   EXPECT_EQ(0, val.data());  // moved from
 
   // Check that random insertion results in sorted range.
-  base::flat_map<MoveOnlyInt, int> map;
+  flat_map<MoveOnlyInt, int> map;
   for (int i : {3, 1, 5, 6, 8, 7, 0, 9, 4, 2}) {
     map.insert_or_assign(MoveOnlyInt(i), i);
-    EXPECT_TRUE(ranges::is_sorted(map));
+    EXPECT_TRUE(absl::c_is_sorted(map));
   }
 }
 
 // insert_or_assign(const_iterator hint, K&&, M&&)
 TEST(FlatMap, InsertOrAssignMoveOnlyKeyWithHint) {
-  base::flat_map<MoveOnlyInt, MoveOnlyInt> m;
+  flat_map<MoveOnlyInt, MoveOnlyInt> m;
 
   // Initial insertion should return an iterator to the element. The inserted
   // key and value should be moved from.
@@ -302,16 +304,16 @@ TEST(FlatMap, InsertOrAssignMoveOnlyKeyWithHint) {
   EXPECT_EQ(0, val.data());  // moved from
 
   // Check that random insertion results in sorted range.
-  base::flat_map<MoveOnlyInt, int> map;
+  flat_map<MoveOnlyInt, int> map;
   for (int i : {3, 1, 5, 6, 8, 7, 0, 9, 4, 2}) {
     map.insert_or_assign(map.end(), MoveOnlyInt(i), i);
-    EXPECT_TRUE(ranges::is_sorted(map));
+    EXPECT_TRUE(absl::c_is_sorted(map));
   }
 }
 
 // try_emplace(K&&, Args&&...)
 TEST(FlatMap, TryEmplaceMoveOnlyKey) {
-  base::flat_map<MoveOnlyInt, std::pair<MoveOnlyInt, MoveOnlyInt>> m;
+  flat_map<MoveOnlyInt, std::pair<MoveOnlyInt, MoveOnlyInt>> m;
 
   // Trying to emplace into an empty map should succeed. Insertion should return
   // an iterator to the element and set the second pair member to |true|. The
@@ -347,16 +349,16 @@ TEST(FlatMap, TryEmplaceMoveOnlyKey) {
   EXPECT_EQ(55, paired_val.second.data());  // not moved from
 
   // Check that random insertion results in sorted range.
-  base::flat_map<MoveOnlyInt, int> map;
+  flat_map<MoveOnlyInt, int> map;
   for (int i : {3, 1, 5, 6, 8, 7, 0, 9, 4, 2}) {
     map.try_emplace(MoveOnlyInt(i), i);
-    EXPECT_TRUE(ranges::is_sorted(map));
+    EXPECT_TRUE(absl::c_is_sorted(map));
   }
 }
 
 // try_emplace(const_iterator hint, K&&, Args&&...)
 TEST(FlatMap, TryEmplaceMoveOnlyKeyWithHint) {
-  base::flat_map<MoveOnlyInt, std::pair<MoveOnlyInt, MoveOnlyInt>> m;
+  flat_map<MoveOnlyInt, std::pair<MoveOnlyInt, MoveOnlyInt>> m;
 
   // Trying to emplace into an empty map should succeed. Insertion should return
   // an iterator to the element. The inserted key and value should be moved
@@ -393,16 +395,16 @@ TEST(FlatMap, TryEmplaceMoveOnlyKeyWithHint) {
   EXPECT_EQ(55, paired_val.second.data());  // not moved from
 
   // Check that random insertion results in sorted range.
-  base::flat_map<MoveOnlyInt, int> map;
+  flat_map<MoveOnlyInt, int> map;
   for (int i : {3, 1, 5, 6, 8, 7, 0, 9, 4, 2}) {
     map.try_emplace(map.end(), MoveOnlyInt(i), i);
-    EXPECT_TRUE(ranges::is_sorted(map));
+    EXPECT_TRUE(absl::c_is_sorted(map));
   }
 }
 
 TEST(FlatMap, UsingTransparentCompare) {
-  using ExplicitInt = base::MoveOnlyInt;
-  base::flat_map<ExplicitInt, int> m;
+  using ExplicitInt = MoveOnlyInt;
+  flat_map<ExplicitInt, int> m;
   const auto& m1 = m;
   int x = 0;
 
@@ -427,4 +429,5 @@ TEST(FlatMap, UsingTransparentCompare) {
   m.erase(m.cbegin());
 }
 
-}  // namespace base
+}  // namespace
+}  // namespace webrtc

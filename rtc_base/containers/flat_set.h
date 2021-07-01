@@ -1,20 +1,25 @@
-// Copyright 2017 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
+/*
+ *  Copyright (c) 2021 The WebRTC project authors. All Rights Reserved.
+ *
+ *  Use of this source code is governed by a BSD-style license
+ *  that can be found in the LICENSE file in the root of the source
+ *  tree. An additional intellectual property rights grant can be found
+ *  in the file PATENTS.  All contributing project authors may
+ *  be found in the AUTHORS file in the root of the source tree.
+ */
 
-// Extracted from Chromium's src/base/containers/flat_set.h.
+// This implementation is borrowed from Chromium.
 
-#ifndef BASE_CONTAINERS_FLAT_SET_H_
-#define BASE_CONTAINERS_FLAT_SET_H_
+#ifndef RTC_BASE_CONTAINERS_FLAT_SET_H_
+#define RTC_BASE_CONTAINERS_FLAT_SET_H_
 
 #include <functional>
 #include <vector>
 
-#include "base/containers/flat_tree.h"
-#include "base/functional/identity.h"
-#include "base/template_util.h"
+#include "rtc_base/containers/flat_tree.h"
+#include "rtc_base/containers/identity.h"
 
-namespace base {
+namespace webrtc {
 
 // flat_set is a container with a std::set-like interface that stores its
 // contents in a sorted container, by default a vector.
@@ -155,9 +160,9 @@ namespace base {
 template <class Key,
           class Compare = std::less<>,
           class Container = std::vector<Key>>
-using flat_set = typename ::base::internal::
-    flat_tree<Key, base::identity, Compare, Container>;
+using flat_set = typename ::webrtc::flat_containers_internal::
+    flat_tree<Key, webrtc::identity, Compare, Container>;
 
-}  // namespace base
+}  // namespace webrtc
 
-#endif  // BASE_CONTAINERS_FLAT_SET_H_
+#endif  // RTC_BASE_CONTAINERS_FLAT_SET_H_

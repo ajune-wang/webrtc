@@ -16,6 +16,24 @@
       "message": "Assuming you\u0027ll sort out the bot issues before landing.\n",
       "revId": "a70798d97879572d3fd3bfe0574ad58ae1723b8b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7a8c39c_0d592b16",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-07-01T07:19:30Z",
+      "side": 1,
+      "message": "At first look, the failures look unrelated. I\u0027ll rerun.",
+      "parentUuid": "b61cf829_8bc166f4",
+      "revId": "a70798d97879572d3fd3bfe0574ad58ae1723b8b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

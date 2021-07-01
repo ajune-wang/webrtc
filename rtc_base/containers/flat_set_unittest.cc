@@ -1,19 +1,29 @@
+/*
+ *  Copyright (c) 2021 The WebRTC project authors. All Rights Reserved.
+ *
+ *  Use of this source code is governed by a BSD-style license
+ *  that can be found in the LICENSE file in the root of the source
+ *  tree. An additional intellectual property rights grant can be found
+ *  in the file PATENTS.  All contributing project authors may
+ *  be found in the AUTHORS file in the root of the source tree.
+ */
+
 // Copyright 2017 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
 // Extracted from Chromium's src/base/containers/flat_set_unittest.cc.
 
-#include "base/containers/flat_set.h"
+#include "rtc_base/containers/flat_set.h"
 
+#include <algorithm>
 #include <string>
+#include <utility>
 #include <vector>
 
-#include "base/macros.h"
-#include "base/memory/ptr_util.h"
-#include "base/test/move_only_int.h"
-#include "testing/gmock/include/gmock/gmock.h"
-#include "testing/gtest/include/gtest/gtest.h"
+#include "rtc_base/containers/move_only_int.h"
+#include "test/gmock.h"
+#include "test/gtest.h"
 
 // A flat_set is basically a interface to flat_tree. So several basic
 // operations are tested to make sure things are set up properly, but the bulk
@@ -21,7 +31,7 @@
 
 using ::testing::ElementsAre;
 
-namespace base {
+namespace webrtc {
 
 TEST(FlatSet, IncompleteType) {
   struct A {
@@ -63,7 +73,7 @@ TEST(FlatSet, InitializerListConstructor) {
 }
 
 TEST(FlatSet, InsertFindSize) {
-  base::flat_set<int> s;
+  webrtc::flat_set<int> s;
   s.insert(1);
   s.insert(1);
   s.insert(2);
@@ -75,12 +85,12 @@ TEST(FlatSet, InsertFindSize) {
 }
 
 TEST(FlatSet, CopySwap) {
-  base::flat_set<int> original;
+  webrtc::flat_set<int> original;
   original.insert(1);
   original.insert(2);
   EXPECT_THAT(original, ElementsAre(1, 2));
 
-  base::flat_set<int> copy(original);
+  webrtc::flat_set<int> copy(original);
   EXPECT_THAT(copy, ElementsAre(1, 2));
 
   copy.erase(copy.begin());
@@ -93,8 +103,8 @@ TEST(FlatSet, CopySwap) {
 }
 
 TEST(FlatSet, UsingTransparentCompare) {
-  using ExplicitInt = base::MoveOnlyInt;
-  base::flat_set<ExplicitInt> s;
+  using ExplicitInt = webrtc::MoveOnlyInt;
+  webrtc::flat_set<ExplicitInt> s;
   const auto& s1 = s;
   int x = 0;
 
@@ -119,4 +129,4 @@ TEST(FlatSet, UsingTransparentCompare) {
   s.erase(s.cbegin());
 }
 
-}  // namespace base
+}  // namespace webrtc

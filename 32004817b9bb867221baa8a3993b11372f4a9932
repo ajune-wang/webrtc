@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1c213ec_038b670a",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-07-01T15:16:46Z",
+      "side": 1,
+      "message": "Added a couple of tests. However, in the long term, I think we should use a regular vector of pointers or perhaps templatize the code, instead of using this DerefencingVector class.",
+      "parentUuid": "88ebd327_88b48a01",
+      "range": {
+        "startLine": 68,
+        "startChar": 6,
+        "endLine": 68,
+        "endChar": 25
+      },
+      "revId": "32004817b9bb867221baa8a3993b11372f4a9932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "70612ce6_3d09d82c",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-07-01T11:37:06Z",
       "side": 1,
       "message": "Maybe add some bounds checking in debug mode (e.g. https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/rtc_base/copy_on_write_buffer.h;l\u003d150;drc\u003d8df643b38785f9b6fe8ae4bbf295839d28136d08)?\n\nI know Chromium would like to have them in release mode as well (similar to https://source.chromium.org/chromium/chromium/src/+/main:third_party/abseil-cpp/absl/container/inlined_vector.h;l\u003d313;drc\u003d2faa72f5a1eb824c2d52639fec7368ef25489a40), but that is out of the scope of this CL.",
+      "range": {
+        "startLine": 181,
+        "startChar": 2,
+        "endLine": 183,
+        "endChar": 60
+      },
+      "revId": "32004817b9bb867221baa8a3993b11372f4a9932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6145fab5_98279083",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-07-01T15:16:46Z",
+      "side": 1,
+      "message": "Done. However, wouldn\u0027t it be better to add debug mode checks to std::vector?",
+      "parentUuid": "70612ce6_3d09d82c",
       "range": {
         "startLine": 181,
         "startChar": 2,

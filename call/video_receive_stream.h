@@ -292,6 +292,9 @@ class DEPRECATED_VideoReceiveStream : public VideoReceiveStream {
   // themselves as secondary sinks.
   virtual void AddSecondarySink(RtpPacketSinkInterface* sink) = 0;
   virtual void RemoveSecondarySink(const RtpPacketSinkInterface* sink) = 0;
+
+ private:
+  void SetRtpExtensions(std::vector<RtpExtension> extensions) override {}
 };
 
 }  // namespace webrtc

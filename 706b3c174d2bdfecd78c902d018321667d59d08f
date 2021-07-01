@@ -16,6 +16,29 @@
       "message": "Resolving comments.",
       "revId": "706b3c174d2bdfecd78c902d018321667d59d08f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63aa27b3_c9fb7f48",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-01T13:11:22Z",
+      "side": 1,
+      "message": "Nit:\n\n\"\"\"Ensure warning suppression flags are not added wihtout a reason.\"\"\"",
+      "range": {
+        "startLine": 495,
+        "startChar": 4,
+        "endLine": 496,
+        "endChar": 14
+      },
+      "revId": "706b3c174d2bdfecd78c902d018321667d59d08f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

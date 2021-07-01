@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37a7c87b_634ca7fb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-01T11:37:06Z",
+      "side": 1,
+      "message": "Overall it looks great, just two small comments.",
+      "revId": "32004817b9bb867221baa8a3993b11372f4a9932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88ebd327_88b48a01",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-01T11:37:06Z",
+      "side": 1,
+      "message": "I know there were no tests for PacketView, but since we are doing this (thanks!) we might want to add some unit tests (like we do for rtc::ArrayView here https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/array_view_unittest.cc).",
+      "range": {
+        "startLine": 68,
+        "startChar": 6,
+        "endLine": 68,
+        "endChar": 25
+      },
+      "revId": "32004817b9bb867221baa8a3993b11372f4a9932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70612ce6_3d09d82c",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-01T11:37:06Z",
+      "side": 1,
+      "message": "Maybe add some bounds checking in debug mode (e.g. https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/rtc_base/copy_on_write_buffer.h;l\u003d150;drc\u003d8df643b38785f9b6fe8ae4bbf295839d28136d08)?\n\nI know Chromium would like to have them in release mode as well (similar to https://source.chromium.org/chromium/chromium/src/+/main:third_party/abseil-cpp/absl/container/inlined_vector.h;l\u003d313;drc\u003d2faa72f5a1eb824c2d52639fec7368ef25489a40), but that is out of the scope of this CL.",
+      "range": {
+        "startLine": 181,
+        "startChar": 2,
+        "endLine": 183,
+        "endChar": 60
+      },
+      "revId": "32004817b9bb867221baa8a3993b11372f4a9932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

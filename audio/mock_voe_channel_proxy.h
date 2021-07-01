@@ -19,94 +19,12 @@
 
 #include "api/crypto/frame_decryptor_interface.h"
 #include "api/test/mock_frame_encryptor.h"
-#include "audio/channel_receive.h"
 #include "audio/channel_send.h"
 #include "modules/rtp_rtcp/source/rtp_packet_received.h"
 #include "test/gmock.h"
 
 namespace webrtc {
 namespace test {
-
-class MockChannelReceive : public voe::ChannelReceiveInterface {
- public:
-  MOCK_METHOD(void, SetNACKStatus, (bool enable, int max_packets), (override));
-  MOCK_METHOD(void,
-              RegisterReceiverCongestionControlObjects,
-              (PacketRouter*),
-              (override));
-  MOCK_METHOD(void, ResetReceiverCongestionControlObjects, (), (override));
-  MOCK_METHOD(CallReceiveStatistics, GetRTCPStatistics, (), (const, override));
-  MOCK_METHOD(NetworkStatistics,
-              GetNetworkStatistics,
-              (bool),
-              (const, override));
-  MOCK_METHOD(AudioDecodingCallStats,
-              GetDecodingCallStatistics,
-              (),
-              (const, override));
-  MOCK_METHOD(int, GetSpeechOutputLevelFullRange, (), (const, override));
-  MOCK_METHOD(double, GetTotalOutputEnergy, (), (const, override));
-  MOCK_METHOD(double, GetTotalOutputDuration, (), (const, override));
-  MOCK_METHOD(uint32_t, GetDelayEstimate, (), (const, override));
-  MOCK_METHOD(void, SetSink, (AudioSinkInterface*), (override));
-  MOCK_METHOD(void, OnRtpPacket, (const RtpPacketReceived& packet), (override));
-  MOCK_METHOD(void,
-              ReceivedRTCPPacket,
-              (const uint8_t*, size_t length),
-              (override));
-  MOCK_METHOD(void, SetChannelOutputVolumeScaling, (float scaling), (override));
-  MOCK_METHOD(AudioMixer::Source::AudioFrameInfo,
-              GetAudioFrameWithInfo,
-              (int sample_rate_hz, AudioFrame*),
-              (override));
-  MOCK_METHOD(int, PreferredSampleRate, (), (const, override));
-  MOCK_METHOD(void, SetSourceTracker, (SourceTracker*), (override));
-  MOCK_METHOD(void,
-              SetAssociatedSendChannel,
-              (const voe::ChannelSendInterface*),
-              (override));
-  MOCK_METHOD(bool,
-              GetPlayoutRtpTimestamp,
-              (uint32_t*, int64_t*),
-              (const, override));
-  MOCK_METHOD(void,
-              SetEstimatedPlayoutNtpTimestampMs,
-              (int64_t ntp_timestamp_ms, int64_t time_ms),
-              (override));
-  MOCK_METHOD(absl::optional<int64_t>,
-              GetCurrentEstimatedPlayoutNtpTimestampMs,
-              (int64_t now_ms),
-              (const, override));
-  MOCK_METHOD(absl::optional<Syncable::Info>,
-              GetSyncInfo,
-              (),
-              (const, override));
-  MOCK_METHOD(bool, SetMinimumPlayoutDelay, (int delay_ms), (override));
-  MOCK_METHOD(bool, SetBaseMinimumPlayoutDelayMs, (int delay_ms), (override));
-  MOCK_METHOD(int, GetBaseMinimumPlayoutDelayMs, (), (const, override));
-  MOCK_METHOD((absl::optional<std::pair<int, SdpAudioFormat>>),
-              GetReceiveCodec,
-              (),
-              (const, override));
-  MOCK_METHOD(void,
-              SetReceiveCodecs,
-              ((const std::map<int, SdpAudioFormat>& codecs)),
-              (override));
-  MOCK_METHOD(void, StartPlayout, (), (override));
-  MOCK_METHOD(void, StopPlayout, (), (override));
-  MOCK_METHOD(
-      void,
-      SetDepacketizerToDecoderFrameTransformer,
-      (rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer),
-      (override));
-  MOCK_METHOD(
-      void,
-      SetFrameDecryptor,
-      (rtc::scoped_refptr<webrtc::FrameDecryptorInterface> frame_decryptor),
-      (override));
-  MOCK_METHOD(void, OnLocalSsrcChange, (uint32_t local_ssrc), (override));
-  MOCK_METHOD(uint32_t, GetLocalSsrc, (), (const, override));
-};
 
 class MockChannelSend : public voe::ChannelSendInterface {
  public:

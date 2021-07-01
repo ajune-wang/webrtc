@@ -458,12 +458,12 @@ int32_t ModuleRtpRtcpImpl2::RemoteNTP(uint32_t* received_ntpsecs,
 // actually used in practice (some callers ask for it but don't use it). It
 // could be that only |rtt| is needed and if so, then the fast path could be to
 // just call rtt_ms() and rely on the calculation being done periodically.
-int32_t ModuleRtpRtcpImpl2::RTT(const uint32_t remote_ssrc,
+int32_t ModuleRtpRtcpImpl2::RTT(uint32_t /*remote_ssrc*/,
                                 int64_t* rtt,
                                 int64_t* avg_rtt,
                                 int64_t* min_rtt,
                                 int64_t* max_rtt) const {
-  int32_t ret = rtcp_receiver_.RTT(remote_ssrc, rtt, avg_rtt, min_rtt, max_rtt);
+  int32_t ret = rtcp_receiver_.RTT(rtt, avg_rtt, min_rtt, max_rtt);
   if (rtt && *rtt == 0) {
     // Try to get RTT from RtcpRttStats class.
     *rtt = rtt_ms();
@@ -478,8 +478,7 @@ int64_t ModuleRtpRtcpImpl2::ExpectedRetransmissionTimeMs() const {
   }
   // No rtt available (|kRttUpdateInterval| not yet passed?), so try to
   // poll avg_rtt_ms directly from rtcp receiver.
-  if (rtcp_receiver_.RTT(rtcp_receiver_.RemoteSSRC(), nullptr,
-                         &expected_retransmission_time_ms, nullptr,
+  if (rtcp_receiver_.RTT(nullptr, &expected_retransmission_time_ms, nullptr,
                          nullptr) == 0) {
     return expected_retransmission_time_ms;
   }
@@ -603,7 +602,7 @@ bool ModuleRtpRtcpImpl2::TimeToSendFullNackList(int64_t now) const {
   // Use RTT from RtcpRttStats class if provided.
   int64_t rtt = rtt_ms();
   if (rtt == 0) {
-    rtcp_receiver_.RTT(rtcp_receiver_.RemoteSSRC(), NULL, &rtt, NULL, NULL);
+    rtcp_receiver_.RTT(NULL, &rtt, NULL, NULL);
   }
 
   const int64_t kStartUpRttMs = 100;
@@ -677,7 +676,7 @@ void ModuleRtpRtcpImpl2::OnReceivedNack(
   // Use RTT from RtcpRttStats class if provided.
   int64_t rtt = rtt_ms();
   if (rtt == 0) {
-    rtcp_receiver_.RTT(rtcp_receiver_.RemoteSSRC(), NULL, &rtt, NULL, NULL);
+    rtcp_receiver_.RTT(NULL, &rtt, NULL, NULL);
   }
   rtp_sender_->packet_generator.OnReceivedNack(nack_sequence_numbers, rtt);
 }

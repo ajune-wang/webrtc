@@ -103,8 +103,7 @@ class RTCPReceiver final {
   std::vector<rtcp::ReceiveTimeInfo> ConsumeReceivedXrReferenceTimeInfo();
 
   // Get rtt.
-  int32_t RTT(uint32_t remote_ssrc,
-              int64_t* last_rtt_ms,
+  int32_t RTT(int64_t* last_rtt_ms,
               int64_t* avg_rtt_ms,
               int64_t* min_rtt_ms,
               int64_t* max_rtt_ms) const;
@@ -117,9 +116,8 @@ class RTCPReceiver final {
                                                 bool sending);
 
   // A snapshot of Report Blocks with additional data of interest to statistics.
-  // Within this list, the sender-source SSRC pair is unique and per-pair the
-  // ReportBlockData represents the latest Report Block that was received for
-  // that pair.
+  // Within this list, the source SSRC is unique the ReportBlockData represents
+  // the latest Report Block that was received for that ssrc.
   std::vector<ReportBlockData> GetLatestReportBlockData() const;
 
   // Returns true if we haven't received an RTCP RR for several RTCP
@@ -224,15 +222,6 @@ class RTCPReceiver final {
     int64_t request_ms;
     uint8_t sequence_number;
   };
-
-  // TODO(boivie): `ReportBlockDataMap` and `ReportBlockMap` should be converted
-  // to std::unordered_map, but as there are too many tests that assume a
-  // specific order, it's not easily done.
-
-  // RTCP report blocks mapped by remote SSRC.
-  using ReportBlockDataMap = std::map<uint32_t, ReportBlockData>;
-  // RTCP report blocks map mapped by source SSRC.
-  using ReportBlockMap = std::map<uint32_t, ReportBlockDataMap>;
 
   bool ParseCompoundPacket(rtc::ArrayView<const uint8_t> packet,
                            PacketInformation* packet_information);
@@ -369,7 +358,13 @@ class RTCPReceiver final {
   std::unordered_map<uint32_t, TmmbrInformation> tmmbr_infos_
       RTC_GUARDED_BY(rtcp_receiver_lock_);
 
-  ReportBlockMap received_report_blocks_ RTC_GUARDED_BY(rtcp_receiver_lock_);
+  // TODO(boivie): `received_report_blocks_` should be converted
+  // to std::unordered_map, but as there are too many tests that assume a
+  // specific order, it's not easily done.
+
+  // RTCP report blocks map mapped by source SSRC.
+  std::map<uint32_t, ReportBlockData> received_report_blocks_
+      RTC_GUARDED_BY(rtcp_receiver_lock_);
   std::unordered_map<uint32_t, LastFirStatus> last_fir_
       RTC_GUARDED_BY(rtcp_receiver_lock_);
 

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "500b5941_00d66054",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-07-01T14:24:47Z",
+      "side": 1,
+      "message": "LGTM with optional comment asking if we want to keep the old blocks around in the map",
+      "revId": "1c9cb882cb52a11af71efc3b1f91a436497e2466",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8cbea7af_d860e517",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-07-01T14:24:47Z",
+      "side": 1,
+      "message": "Filtering it out on GetLatestReportBlockData() sounds good to me, but alternatively is there any reason to keep the old blocks around?\n\nFor example when you insert new block upon reception you could also just erase any old blocks that have become obsolete so that they no longer exist.\n\nLet me know what you think about that and if you want me to take another look, otherwise I am happy with he CL as-is. Giving my LGTM.",
+      "revId": "1c9cb882cb52a11af71efc3b1f91a436497e2466",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

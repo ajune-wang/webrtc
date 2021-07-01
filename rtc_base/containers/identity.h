@@ -12,12 +12,27 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-// Extracted from Chromium's src/base/containers/flat_tree.cc.
+#ifndef RTC_BASE_CONTAINERS_IDENTITY_H_
+#define RTC_BASE_CONTAINERS_IDENTITY_H_
 
-#include "rtc_base/containers/flat_tree.h"
+#include <utility>
 
-namespace base {
+namespace webrtc {
 
-webrtc::sorted_unique_t sorted_unique;
+// Implementation of C++20's std::identity.
+//
+// Reference:
+// - https://en.cppreference.com/w/cpp/utility/functional/identity
+// - https://wg21.link/func.identity
+struct identity {
+  template <typename T>
+  constexpr T&& operator()(T&& t) const noexcept {
+    return std::forward<T>(t);
+  }
 
-}  // namespace base
+  using is_transparent = void;
+};
+
+}  // namespace webrtc
+
+#endif  // RTC_BASE_CONTAINERS_IDENTITY_H_

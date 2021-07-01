@@ -8,16 +8,27 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-// Copyright 2020 The Chromium Authors. All rights reserved.
+// Copyright 2021 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-// Extracted from Chromium's src/base/containers/flat_tree.cc.
+#ifndef RTC_BASE_CONTAINERS_AS_CONST_H_
+#define RTC_BASE_CONTAINERS_AS_CONST_H_
 
-#include "rtc_base/containers/flat_tree.h"
+#include <type_traits>
 
-namespace base {
+namespace webrtc {
 
-webrtc::sorted_unique_t sorted_unique;
+// C++14 implementation of C++17's std::as_const():
+// https://en.cppreference.com/w/cpp/utility/as_const
+template <typename T>
+constexpr std::add_const_t<T>& as_const(T& t) noexcept {
+  return t;
+}
 
-}  // namespace base
+template <typename T>
+void as_const(const T&& t) = delete;
+
+}  // namespace webrtc
+
+#endif  // RTC_BASE_CONTAINERS_AS_CONST_H_

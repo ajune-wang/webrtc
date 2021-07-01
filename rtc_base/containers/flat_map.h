@@ -1,22 +1,31 @@
+/*
+ *  Copyright (c) 2021 The WebRTC project authors. All Rights Reserved.
+ *
+ *  Use of this source code is governed by a BSD-style license
+ *  that can be found in the LICENSE file in the root of the source
+ *  tree. An additional intellectual property rights grant can be found
+ *  in the file PATENTS.  All contributing project authors may
+ *  be found in the AUTHORS file in the root of the source tree.
+ */
+
 // Copyright 2017 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
 // Extracted from Chromium's src/base/containers/flat_map.h.
 
-#ifndef BASE_CONTAINERS_FLAT_MAP_H_
-#define BASE_CONTAINERS_FLAT_MAP_H_
+#ifndef RTC_BASE_CONTAINERS_FLAT_MAP_H_
+#define RTC_BASE_CONTAINERS_FLAT_MAP_H_
 
 #include <functional>
 #include <tuple>
 #include <utility>
 #include <vector>
 
-#include "base/check.h"
-#include "base/containers/flat_tree.h"
-#include "base/template_util.h"
+#include "rtc_base/checks.h"
+#include "rtc_base/containers/flat_tree.h"
 
-namespace base {
+namespace webrtc {
 
 namespace internal {
 
@@ -181,10 +190,10 @@ template <class Key,
           class Mapped,
           class Compare = std::less<>,
           class Container = std::vector<std::pair<Key, Mapped>>>
-class flat_map : public ::base::internal::
+class flat_map : public ::webrtc::internal::
                      flat_tree<Key, internal::GetFirst, Compare, Container> {
  private:
-  using tree = typename ::base::internal::
+  using tree = typename ::webrtc::internal::
       flat_tree<Key, internal::GetFirst, Compare, Container>;
 
  public:
@@ -262,7 +271,7 @@ template <class K>
 auto flat_map<Key, Mapped, Compare, Container>::at(const K& key)
     -> mapped_type& {
   iterator found = tree::find(key);
-  CHECK(found != tree::end());
+  RTC_CHECK(found != tree::end());
   return found->second;
 }
 
@@ -271,7 +280,7 @@ template <class K>
 auto flat_map<Key, Mapped, Compare, Container>::at(const K& key) const
     -> const mapped_type& {
   const_iterator found = tree::find(key);
-  CHECK(found != tree::cend());
+  RTC_CHECK(found != tree::cend());
   return found->second;
 }
 
@@ -354,6 +363,6 @@ void flat_map<Key, Mapped, Compare, Container>::swap(flat_map& other) noexcept {
   tree::swap(other);
 }
 
-}  // namespace base
+}  // namespace webrtc
 
-#endif  // BASE_CONTAINERS_FLAT_MAP_H_
+#endif  // RTC_BASE_CONTAINERS_FLAT_MAP_H_

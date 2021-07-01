@@ -466,10 +466,6 @@ TEST_P(RtpRtcpImpl2Test, Rtt) {
   EXPECT_NEAR(2 * kOneWayNetworkDelay.ms(), min_rtt, 1);
   EXPECT_NEAR(2 * kOneWayNetworkDelay.ms(), max_rtt, 1);
 
-  // No RTT from other ssrc.
-  EXPECT_EQ(-1, sender_.impl_->RTT(kReceiverSsrc + 1, &rtt, &avg_rtt, &min_rtt,
-                                   &max_rtt));
-
   // Verify RTT from rtt_stats config.
   EXPECT_EQ(0, sender_.rtt_stats_.LastProcessedRtt());
   EXPECT_EQ(0, sender_.impl_->rtt_ms());

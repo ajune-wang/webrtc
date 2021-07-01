@@ -65,6 +65,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "19932642_ac44e94e",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-01T15:36:35Z",
+      "side": 1,
+      "message": "Ok, maybe should we add a TODO to capture this idea (I will forget without that).",
+      "parentUuid": "a1c213ec_038b670a",
+      "range": {
+        "startLine": 68,
+        "startChar": 6,
+        "endLine": 68,
+        "endChar": 25
+      },
+      "revId": "32004817b9bb867221baa8a3993b11372f4a9932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "70612ce6_3d09d82c",
@@ -102,6 +126,30 @@
       "side": 1,
       "message": "Done. However, wouldn\u0027t it be better to add debug mode checks to std::vector?",
       "parentUuid": "70612ce6_3d09d82c",
+      "range": {
+        "startLine": 181,
+        "startChar": 2,
+        "endLine": 183,
+        "endChar": 60
+      },
+      "revId": "32004817b9bb867221baa8a3993b11372f4a9932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df42fb78_d56707d7",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-01T15:36:35Z",
+      "side": 1,
+      "message": "Yes, there is an attempt from palmer@ to add something like that to libc++ (https://reviews.llvm.org/D70343) and there should be a crbug somewhere.\n\nThe idea is to have that also for release builds (like the absl one).",
+      "parentUuid": "6145fab5_98279083",
       "range": {
         "startLine": 181,
         "startChar": 2,

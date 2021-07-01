@@ -52,6 +52,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6299b5d6_632d6eb0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-01T07:39:21Z",
+      "side": 1,
+      "message": "Also, thanks for the CL.",
+      "parentUuid": "c355f72a_72cd5174",
+      "revId": "d01fab61133d868e628eb8fba5b6952c27703275",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a182b81_992a2d01",

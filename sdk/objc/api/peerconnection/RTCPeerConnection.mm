@@ -555,9 +555,8 @@ void PeerConnectionDelegateAdapter::OnRemoveTrack(
 - (void)offerForConstraints:(RTC_OBJC_TYPE(RTCMediaConstraints) *)constraints
           completionHandler:(RTCCreateSessionDescriptionCompletionHandler)completionHandler {
   RTC_DCHECK(completionHandler != nil);
-  rtc::scoped_refptr<webrtc::CreateSessionDescriptionObserverAdapter>
-      observer(new rtc::RefCountedObject
-          <webrtc::CreateSessionDescriptionObserverAdapter>(completionHandler));
+  auto observer =
+      rtc::make_ref_counted<webrtc::CreateSessionDescriptionObserverAdapter>(completionHandler);
   webrtc::PeerConnectionInterface::RTCOfferAnswerOptions options;
   CopyConstraintsIntoOfferAnswerOptions(constraints.nativeConstraints.get(), &options);
 
@@ -567,9 +566,8 @@ void PeerConnectionDelegateAdapter::OnRemoveTrack(
 - (void)answerForConstraints:(RTC_OBJC_TYPE(RTCMediaConstraints) *)constraints
            completionHandler:(RTCCreateSessionDescriptionCompletionHandler)completionHandler {
   RTC_DCHECK(completionHandler != nil);
-  rtc::scoped_refptr<webrtc::CreateSessionDescriptionObserverAdapter>
-      observer(new rtc::RefCountedObject
-          <webrtc::CreateSessionDescriptionObserverAdapter>(completionHandler));
+  auto observer =
+      rtc::make_ref_counted<webrtc::CreateSessionDescriptionObserverAdapter>(completionHandler);
   webrtc::PeerConnectionInterface::RTCOfferAnswerOptions options;
   CopyConstraintsIntoOfferAnswerOptions(constraints.nativeConstraints.get(), &options);
 
@@ -579,24 +577,21 @@ void PeerConnectionDelegateAdapter::OnRemoveTrack(
 - (void)setLocalDescription:(RTC_OBJC_TYPE(RTCSessionDescription) *)sdp
           completionHandler:(RTCSetSessionDescriptionCompletionHandler)completionHandler {
   RTC_DCHECK(completionHandler != nil);
-  rtc::scoped_refptr<webrtc::SetLocalDescriptionObserverInterface> observer(
-      new rtc::RefCountedObject<::SetSessionDescriptionObserver>(completionHandler));
+  auto observer = rtc::make_ref_counted<::SetSessionDescriptionObserver>(completionHandler);
   _peerConnection->SetLocalDescription(sdp.nativeDescription->Clone(), observer);
 }
 
 - (void)setLocalDescriptionWithCompletionHandler:
     (RTCSetSessionDescriptionCompletionHandler)completionHandler {
   RTC_DCHECK(completionHandler != nil);
-  rtc::scoped_refptr<webrtc::SetLocalDescriptionObserverInterface> observer(
-      new rtc::RefCountedObject<::SetSessionDescriptionObserver>(completionHandler));
+  auto observer = rtc::make_ref_counted<::SetSessionDescriptionObserver>(completionHandler);
   _peerConnection->SetLocalDescription(observer);
 }
 
 - (void)setRemoteDescription:(RTC_OBJC_TYPE(RTCSessionDescription) *)sdp
            completionHandler:(RTCSetSessionDescriptionCompletionHandler)completionHandler {
   RTC_DCHECK(completionHandler != nil);
-  rtc::scoped_refptr<webrtc::SetRemoteDescriptionObserverInterface> observer(
-      new rtc::RefCountedObject<::SetSessionDescriptionObserver>(completionHandler));
+  auto observer = rtc::make_ref_counted<::SetSessionDescriptionObserver>(completionHandler);
   _peerConnection->SetRemoteDescription(sdp.nativeDescription->Clone(), observer);
 }
 

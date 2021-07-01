@@ -30,7 +30,7 @@ AudioProcessing* AudioProcessingBuilderForTesting::Create() {
 
 AudioProcessing* AudioProcessingBuilderForTesting::Create(
     const webrtc::Config& config) {
-  return new rtc::RefCountedObject<AudioProcessingImpl>(
+  return rtc::make_ref_counted<AudioProcessingImpl>(
       config, std::move(capture_post_processing_),
       std::move(render_pre_processing_), std::move(echo_control_factory_),
       std::move(echo_detector_), std::move(capture_analyzer_));

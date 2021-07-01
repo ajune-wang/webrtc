@@ -148,7 +148,7 @@ TEST(WebRtcVoiceEngineTestStubLibrary, StartupShutdown) {
     AdmSetupExpectations(adm);
     rtc::scoped_refptr<StrictMock<webrtc::test::MockAudioProcessing>> apm =
         use_null_apm ? nullptr
-                     : new rtc::RefCountedObject<
+                     : rtc::make_ref_counted<
                            StrictMock<webrtc::test::MockAudioProcessing>>();
 
     webrtc::AudioProcessing::Config apm_config;
@@ -188,7 +188,7 @@ class WebRtcVoiceEngineTestFake : public ::testing::TestWithParam<bool> {
         adm_(webrtc::test::MockAudioDeviceModule::CreateStrict()),
         apm_(use_null_apm_
                  ? nullptr
-                 : new rtc::RefCountedObject<
+                 : rtc::make_ref_counted<
                        StrictMock<webrtc::test::MockAudioProcessing>>()),
         call_(),
         override_field_trials_(field_trials) {
@@ -3841,10 +3841,10 @@ TEST(WebRtcVoiceEngineTest, CollectRecvCodecs) {
 
     std::unique_ptr<webrtc::TaskQueueFactory> task_queue_factory =
         webrtc::CreateDefaultTaskQueueFactory();
-    rtc::scoped_refptr<webrtc::MockAudioEncoderFactory> unused_encoder_factory =
+    auto unused_encoder_factory =
         webrtc::MockAudioEncoderFactory::CreateUnusedFactory();
-    rtc::scoped_refptr<webrtc::MockAudioDecoderFactory> mock_decoder_factory =
-        new rtc::RefCountedObject<webrtc::MockAudioDecoderFactory>;
+    auto mock_decoder_factory =
+        rtc::make_ref_counted<webrtc::MockAudioDecoderFactory>();
     EXPECT_CALL(*mock_decoder_factory.get(), GetSupportedDecoders())
         .WillOnce(Return(specs));
     rtc::scoped_refptr<webrtc::test::MockAudioDeviceModule> adm =

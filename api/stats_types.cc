@@ -22,7 +22,7 @@
 // generate strongly typed inline C++ code that forces the correct type to be
 // used for a given name at compile time.
 
-using rtc::RefCountedObject;
+using rtc::make_ref_counted;
 
 namespace webrtc {
 namespace {
@@ -689,17 +689,17 @@ StatsReport::~StatsReport() = default;
 
 // static
 StatsReport::Id StatsReport::NewBandwidthEstimationId() {
-  return Id(new RefCountedObject<BandwidthEstimationId>());
+  return Id(make_ref_counted<BandwidthEstimationId>());
 }
 
 // static
 StatsReport::Id StatsReport::NewTypedId(StatsType type, const std::string& id) {
-  return Id(new RefCountedObject<TypedId>(type, id));
+  return Id(make_ref_counted<TypedId>(type, id));
 }
 
 // static
 StatsReport::Id StatsReport::NewTypedIntId(StatsType type, int id) {
-  return Id(new RefCountedObject<TypedIntId>(type, id));
+  return Id(make_ref_counted<TypedIntId>(type, id));
 }
 
 // static
@@ -707,26 +707,25 @@ StatsReport::Id StatsReport::NewIdWithDirection(
     StatsType type,
     const std::string& id,
     StatsReport::Direction direction) {
-  return Id(new RefCountedObject<IdWithDirection>(type, id, direction));
+  return Id(make_ref_counted<IdWithDirection>(type, id, direction));
 }
 
 // static
 StatsReport::Id StatsReport::NewCandidateId(bool local, const std::string& id) {
-  return Id(new RefCountedObject<CandidateId>(local, id));
+  return Id(make_ref_counted<CandidateId>(local, id));
 }
 
 // static
 StatsReport::Id StatsReport::NewComponentId(const std::string& content_name,
                                             int component) {
-  return Id(new RefCountedObject<ComponentId>(content_name, component));
+  return Id(make_ref_counted<ComponentId>(content_name, component));
 }
 
 // static
 StatsReport::Id StatsReport::NewCandidatePairId(const std::string& content_name,
                                                 int component,
                                                 int index) {
-  return Id(
-      new RefCountedObject<CandidatePairId>(content_name, component, index));
+  return Id(make_ref_counted<CandidatePairId>(content_name, component, index));
 }
 
 const char* StatsReport::TypeToString() const {

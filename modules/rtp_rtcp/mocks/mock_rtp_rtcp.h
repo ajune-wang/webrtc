@@ -128,6 +128,7 @@ class MockRtpRtcpInterface : public RtpRtcpInterface {
                uint32_t* rtcp_arrival_time_frac,
                uint32_t* rtcp_timestamp),
               (const, override));
+  MOCK_METHOD(TimeDelta, LatestRtt, (), (const, override));
   MOCK_METHOD(int32_t,
               RTT,
               (uint32_t remote_ssrc,

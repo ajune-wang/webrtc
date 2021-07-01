@@ -102,12 +102,16 @@ class RTCPReceiver final {
 
   std::vector<rtcp::ReceiveTimeInfo> ConsumeReceivedXrReferenceTimeInfo();
 
+  // Returns average round trip time or minus infitity if rtt is not yet
+  // available.
+  TimeDelta LatestRtt() const;
+  TimeDelta AverageRtt() const;
   // Get rtt.
-  int32_t RTT(uint32_t remote_ssrc,
-              int64_t* last_rtt_ms,
-              int64_t* avg_rtt_ms,
-              int64_t* min_rtt_ms,
-              int64_t* max_rtt_ms) const;
+  int32_t DEPRECATED_RTT(uint32_t remote_ssrc,
+                         int64_t* last_rtt_ms,
+                         int64_t* avg_rtt_ms,
+                         int64_t* min_rtt_ms,
+                         int64_t* max_rtt_ms) const;
 
   bool GetAndResetXrRrRtt(int64_t* rtt_ms);
 

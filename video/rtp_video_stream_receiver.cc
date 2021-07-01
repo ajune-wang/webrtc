@@ -1091,9 +1091,8 @@ bool RtpVideoStreamReceiver::DeliverRtcp(const uint8_t* rtcp_packet,
 
   rtp_rtcp_->IncomingRtcpPacket(rtcp_packet, rtcp_packet_length);
 
-  int64_t rtt = 0;
-  rtp_rtcp_->RTT(config_.rtp.remote_ssrc, &rtt, nullptr, nullptr, nullptr);
-  if (rtt == 0) {
+  TimeDelta rtt = rtp_rtcp_->LatestRtt();
+  if (rtt < TimeDelta::Zero()) {
     // Waiting for valid rtt.
     return true;
   }
@@ -1112,7 +1111,8 @@ bool RtpVideoStreamReceiver::DeliverRtcp(const uint8_t* rtcp_packet,
       clock_->CurrentNtpInMilliseconds() - recieved_ntp.ToMs();
   // Don't use old SRs to estimate time.
   if (time_since_recieved <= 1) {
-    ntp_estimator_.UpdateRtcpTimestamp(rtt, ntp_secs, ntp_frac, rtp_timestamp);
+    ntp_estimator_.UpdateRtcpTimestamp(rtt.ms(), ntp_secs, ntp_frac,
+                                       rtp_timestamp);
     absl::optional<int64_t> remote_to_local_clock_offset_ms =
         ntp_estimator_.EstimateRemoteToLocalClockOffsetMs();
     if (remote_to_local_clock_offset_ms.has_value()) {

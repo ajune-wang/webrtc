@@ -16,6 +16,24 @@
       "message": "the return type needs to be changed to match what make_ref_counted returns (scoped_refptr).",
       "revId": "8a974454172fb5286d7559c8bec03af24deea7e2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7de6265_5a2656bd",
+        "filename": "modules/audio_processing/audio_processing_builder_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-07-01T15:29:45Z",
+      "side": 1,
+      "message": "Ouch. I\u0027m forgetting about that implicit conversion.\n\nReturn type changed. Running tests, to see if it breaks something downstream.",
+      "parentUuid": "07056985_90524f10",
+      "revId": "8a974454172fb5286d7559c8bec03af24deea7e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

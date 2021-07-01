@@ -502,13 +502,21 @@ int32_t ModuleRtpRtcpImpl::RemoteNTP(uint32_t* received_ntpsecs,
              : -1;
 }
 
-// Get RoundTripTime.
+TimeDelta ModuleRtpRtcpImpl::LatestRtt() const {
+  TimeDelta rtt = rtcp_receiver_.LatestRtt();
+  if (rtt < TimeDelta::Zero()) {
+    rtt = TimeDelta::Millis(rtt_ms());
+  }
+  return rtt;
+}
+
 int32_t ModuleRtpRtcpImpl::RTT(const uint32_t remote_ssrc,
                                int64_t* rtt,
                                int64_t* avg_rtt,
                                int64_t* min_rtt,
                                int64_t* max_rtt) const {
-  int32_t ret = rtcp_receiver_.RTT(remote_ssrc, rtt, avg_rtt, min_rtt, max_rtt);
+  int32_t ret = rtcp_receiver_.DEPRECATED_RTT(remote_ssrc, rtt, avg_rtt,
+                                              min_rtt, max_rtt);
   if (rtt && *rtt == 0) {
     // Try to get RTT from RtcpRttStats class.
     *rtt = rtt_ms();
@@ -523,12 +531,8 @@ int64_t ModuleRtpRtcpImpl::ExpectedRetransmissionTimeMs() const {
   }
   // No rtt available (|kRtpRtcpRttProcessTimeMs| not yet passed?), so try to
   // poll avg_rtt_ms directly from rtcp receiver.
-  if (rtcp_receiver_.RTT(rtcp_receiver_.RemoteSSRC(), nullptr,
-                         &expected_retransmission_time_ms, nullptr,
-                         nullptr) == 0) {
-    return expected_retransmission_time_ms;
-  }
-  return kDefaultExpectedRetransmissionTimeMs;
+  return rtcp_receiver_.AverageRtt().ms_or(
+      kDefaultExpectedRetransmissionTimeMs);
 }
 
 // Force a send of an RTCP packet.
@@ -648,7 +652,7 @@ bool ModuleRtpRtcpImpl::TimeToSendFullNackList(int64_t now) const {
   // Use RTT from RtcpRttStats class if provided.
   int64_t rtt = rtt_ms();
   if (rtt == 0) {
-    rtcp_receiver_.RTT(rtcp_receiver_.RemoteSSRC(), NULL, &rtt, NULL, NULL);
+    rtt = rtcp_receiver_.AverageRtt().ms_or(0);
   }
 
   const int64_t kStartUpRttMs = 100;
@@ -719,7 +723,7 @@ void ModuleRtpRtcpImpl::OnReceivedNack(
   // Use RTT from RtcpRttStats class if provided.
   int64_t rtt = rtt_ms();
   if (rtt == 0) {
-    rtcp_receiver_.RTT(rtcp_receiver_.RemoteSSRC(), NULL, &rtt, NULL, NULL);
+    rtt = rtcp_receiver_.AverageRtt().ms_or(0);
   }
   rtp_sender_->packet_generator.OnReceivedNack(nack_sequence_numbers, rtt);
 }

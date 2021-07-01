@@ -341,10 +341,9 @@ void ChannelReceive::OnReceivedPayloadData(
     return;
   }
 
-  int64_t round_trip_time = 0;
-  rtp_rtcp_->RTT(remote_ssrc_, &round_trip_time, NULL, NULL, NULL);
+  int64_t rtt_ms = rtp_rtcp_->LatestRtt().ms_or(0);
 
-  std::vector<uint16_t> nack_list = acm_receiver_.GetNackList(round_trip_time);
+  std::vector<uint16_t> nack_list = acm_receiver_.GetNackList(rtt_ms);
   if (!nack_list.empty()) {
     // Can't use nack_list.data() since it's not supported by all
     // compilers.

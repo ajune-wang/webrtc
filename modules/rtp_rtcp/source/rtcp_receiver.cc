@@ -260,11 +260,43 @@ uint32_t RTCPReceiver::RemoteSSRC() const {
   return remote_ssrc_;
 }
 
-int32_t RTCPReceiver::RTT(uint32_t remote_ssrc,
-                          int64_t* last_rtt_ms,
-                          int64_t* avg_rtt_ms,
-                          int64_t* min_rtt_ms,
-                          int64_t* max_rtt_ms) const {
+TimeDelta RTCPReceiver::LatestRtt() const {
+  MutexLock lock(&rtcp_receiver_lock_);
+  auto it = received_report_blocks_.find(main_ssrc_);
+  if (it == received_report_blocks_.end() || it->second.empty()) {
+    return TimeDelta::MinusInfinity();
+  }
+
+  const ReportBlockData& latest_block =
+      absl::c_max_element(it->second, [](const auto& lhs, const auto& rhs) {
+        return lhs.second.report_block_timestamp_utc_us() <
+               rhs.second.report_block_timestamp_utc_us();
+      })->second;
+  return TimeDelta::Millis(latest_block.last_rtt_ms());
+}
+
+TimeDelta RTCPReceiver::AverageRtt() const {
+  MutexLock lock(&rtcp_receiver_lock_);
+  auto it = received_report_blocks_.find(main_ssrc_);
+  if (it == received_report_blocks_.end()) {
+    return TimeDelta::MinusInfinity();
+  }
+
+  auto it_info = it->second.find(remote_ssrc_);
+  if (it_info == it->second.end()) {
+    return TimeDelta::MinusInfinity();
+  }
+
+  const ReportBlockData& report_block = it_info->second;
+
+  return TimeDelta::Millis(report_block.sum_rtt_ms()) / report_block.num_rtts();
+}
+
+int32_t RTCPReceiver::DEPRECATED_RTT(uint32_t remote_ssrc,
+                                     int64_t* last_rtt_ms,
+                                     int64_t* avg_rtt_ms,
+                                     int64_t* min_rtt_ms,
+                                     int64_t* max_rtt_ms) const {
   MutexLock lock(&rtcp_receiver_lock_);
 
   auto it = received_report_blocks_.find(main_ssrc_);

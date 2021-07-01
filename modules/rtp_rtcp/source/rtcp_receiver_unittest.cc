@@ -247,8 +247,7 @@ TEST(RtcpReceiverTest, InjectSrPacketCalculatesRTT) {
   const uint32_t kDelayNtp = 0x4321;
   const int64_t kDelayMs = CompactNtpRttToMs(kDelayNtp);
 
-  int64_t rtt_ms = 0;
-  EXPECT_EQ(-1, receiver.RTT(kSenderSsrc, &rtt_ms, nullptr, nullptr, nullptr));
+  EXPECT_EQ(receiver.LatestRtt(), TimeDelta::MinusInfinity());
 
   uint32_t sent_ntp = CompactNtp(mocks.clock.CurrentNtpTime());
   mocks.clock.AdvanceTimeMilliseconds(kRttMs + kDelayMs);
@@ -265,8 +264,7 @@ TEST(RtcpReceiverTest, InjectSrPacketCalculatesRTT) {
   EXPECT_CALL(mocks.bandwidth_observer, OnReceivedRtcpReceiverReport);
   receiver.IncomingPacket(sr.Build());
 
-  EXPECT_EQ(0, receiver.RTT(kSenderSsrc, &rtt_ms, nullptr, nullptr, nullptr));
-  EXPECT_NEAR(kRttMs, rtt_ms, 1);
+  EXPECT_NEAR(receiver.LatestRtt().ms(), kRttMs, 1);
 }
 
 TEST(RtcpReceiverTest, InjectSrPacketCalculatesNegativeRTTAsOne) {
@@ -278,8 +276,7 @@ TEST(RtcpReceiverTest, InjectSrPacketCalculatesNegativeRTTAsOne) {
   const uint32_t kDelayNtp = 0x4321;
   const int64_t kDelayMs = CompactNtpRttToMs(kDelayNtp);
 
-  int64_t rtt_ms = 0;
-  EXPECT_EQ(-1, receiver.RTT(kSenderSsrc, &rtt_ms, nullptr, nullptr, nullptr));
+  EXPECT_EQ(receiver.LatestRtt(), TimeDelta::MinusInfinity());
 
   uint32_t sent_ntp = CompactNtp(mocks.clock.CurrentNtpTime());
   mocks.clock.AdvanceTimeMilliseconds(kRttMs + kDelayMs);
@@ -297,8 +294,7 @@ TEST(RtcpReceiverTest, InjectSrPacketCalculatesNegativeRTTAsOne) {
               OnReceivedRtcpReceiverReport(SizeIs(1), _, _));
   receiver.IncomingPacket(sr.Build());
 
-  EXPECT_EQ(0, receiver.RTT(kSenderSsrc, &rtt_ms, nullptr, nullptr, nullptr));
-  EXPECT_EQ(1, rtt_ms);
+  EXPECT_EQ(receiver.LatestRtt(), TimeDelta::Millis(1));
 }
 
 TEST(RtcpReceiverTest,
@@ -578,7 +574,7 @@ TEST(RtcpReceiverTest, GetRtt) {
   receiver.SetRemoteSSRC(kSenderSsrc);
 
   // No report block received.
-  EXPECT_EQ(-1, receiver.RTT(kSenderSsrc, nullptr, nullptr, nullptr, nullptr));
+  EXPECT_EQ(receiver.LatestRtt(), TimeDelta::MinusInfinity());
 
   rtcp::ReportBlock rb;
   rb.SetMediaSsrc(kReceiverMainSsrc);
@@ -595,7 +591,7 @@ TEST(RtcpReceiverTest, GetRtt) {
   receiver.IncomingPacket(rr.Build());
 
   EXPECT_EQ(now, receiver.LastReceivedReportBlockMs());
-  EXPECT_EQ(0, receiver.RTT(kSenderSsrc, nullptr, nullptr, nullptr, nullptr));
+  EXPECT_GE(receiver.LatestRtt(), TimeDelta::Zero());
 }
 
 // Ij packets are ignored.

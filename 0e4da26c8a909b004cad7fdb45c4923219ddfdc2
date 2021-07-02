@@ -16,6 +16,23 @@
       "message": "PTAL. I\u0027m a bit disappointed by the binary size increase. I guess passing const std::string\u0026 is cheaper at the call sites?\n\nIf we could use absl::string_view further up in the call tree, I think we could avoid quite a lot of string copying and allocation.",
       "revId": "0e4da26c8a909b004cad7fdb45c4923219ddfdc2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7aee0b61_8f3c7fb9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-07-02T10:13:12Z",
+      "side": 1,
+      "message": "I trust your judgment that these changes are at least as fast - given that they\u0027re errors, I don\u0027t expect them to be performance critical at all.\n\nI don\u0027t understand the bot errors, so suspect they are flakes.\n",
+      "revId": "0e4da26c8a909b004cad7fdb45c4923219ddfdc2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

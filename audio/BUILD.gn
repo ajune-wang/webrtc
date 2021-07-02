@@ -24,8 +24,6 @@ rtc_library("audio") {
     "audio_state.h",
     "audio_transport_impl.cc",
     "audio_transport_impl.h",
-    "channel_receive.cc",
-    "channel_receive.h",
     "channel_receive_frame_transformer_delegate.cc",
     "channel_receive_frame_transformer_delegate.h",
     "channel_send.cc",
@@ -165,6 +163,7 @@ if (rtc_include_tests) {
       "../call:rtp_sender",
       "../common_audio",
       "../logging:mocks",
+      "../modules/audio_coding:default_neteq_factory",
       "../modules/audio_device:audio_device_impl",  # For TestAudioDeviceModule
       "../modules/audio_device:mock_audio_device",
       "../modules/audio_mixer:audio_mixer_impl",

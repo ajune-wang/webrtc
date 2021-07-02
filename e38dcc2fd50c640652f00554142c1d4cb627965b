@@ -90,6 +90,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3ad2dd4e_7e759525",
+        "filename": "rtc_base/containers/as_const.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-07-02T11:41:49Z",
+      "side": 1,
+      "message": "ianal but I don\u0027t think that repeating the copyright is necessary. WebRTC follows the same license. I\u0027d follow the existing case you linked to.",
+      "parentUuid": "61d37e3a_daf30ad4",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 29
+      },
+      "revId": "e38dcc2fd50c640652f00554142c1d4cb627965b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c705a667_554ac857",
         "filename": "rtc_base/containers/as_const.h",
         "patchSetId": 4

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f4d0000_d981316d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2021-07-02T14:35:20Z",
+      "side": 1,
+      "message": "Happy friday 😊\n\nI took a stab at refactoring audio receive stream as discussed in https://webrtc-review.googlesource.com/c/src/+/224085/12#message-d45667997fef584204cd35dc3de4db489f9aa438\n\nThere is no logical reason for these classes to co-exist (such as different responsibilities) and some state was even duplicated between the classes.\n\nThis will remove one step when wiring lower level things like parameters and stats to peerconnection.",
+      "revId": "0daaba787f2d617f05bad9ff8facd9984bd63b5a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

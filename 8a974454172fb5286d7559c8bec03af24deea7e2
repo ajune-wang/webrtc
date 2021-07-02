@@ -34,6 +34,24 @@
       "parentUuid": "07056985_90524f10",
       "revId": "8a974454172fb5286d7559c8bec03af24deea7e2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66a0882a_34efbb45",
+        "filename": "modules/audio_processing/audio_processing_builder_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-07-02T09:56:16Z",
+      "side": 1,
+      "message": "Seems to pass tests now. It\u0027s a bit disturbing that none of the problems were detected at compile time. It seems \"fine\" to, e.g., construct a std::unique_ptr from an rtc::scoped_refptr.",
+      "parentUuid": "c7de6265_5a2656bd",
+      "revId": "8a974454172fb5286d7559c8bec03af24deea7e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

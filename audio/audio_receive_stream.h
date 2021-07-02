@@ -16,13 +16,30 @@
 #include <string>
 #include <vector>
 
+#include "absl/types/optional.h"
 #include "api/audio/audio_mixer.h"
+#include "api/audio_codecs/audio_decoder_factory.h"
+#include "api/call/audio_sink.h"
+#include "api/call/transport.h"
+#include "api/crypto/crypto_options.h"
+#include "api/frame_transformer_interface.h"
 #include "api/neteq/neteq_factory.h"
 #include "api/rtp_headers.h"
 #include "api/sequence_checker.h"
+#include "api/transport/rtp/rtp_source.h"
+#include "audio/audio_level.h"
 #include "audio/audio_state.h"
+#include "audio/channel_receive_frame_transformer_delegate.h"
+#include "audio/channel_send.h"
 #include "call/audio_receive_stream.h"
+#include "call/rtp_packet_sink_interface.h"
 #include "call/syncable.h"
+#include "modules/audio_coding/acm2/acm_receiver.h"
+#include "modules/audio_coding/include/audio_coding_module_typedefs.h"
+#include "modules/rtp_rtcp/include/remote_ntp_time_estimator.h"
+#include "modules/rtp_rtcp/source/absolute_capture_time_interpolator.h"
+#include "modules/rtp_rtcp/source/capture_clock_offset_updater.h"
+#include "modules/rtp_rtcp/source/rtp_rtcp_impl2.h"
 #include "modules/rtp_rtcp/source/source_tracker.h"
 #include "rtc_base/system/no_unique_address.h"
 #include "system_wrappers/include/clock.h"
@@ -35,16 +52,14 @@ class RtpPacketReceived;
 class RtpStreamReceiverControllerInterface;
 class RtpStreamReceiverInterface;
 
-namespace voe {
-class ChannelReceiveInterface;
-}  // namespace voe
-
 namespace internal {
 class AudioSendStream;
 
 class AudioReceiveStream final : public webrtc::AudioReceiveStream,
                                  public AudioMixer::Source,
-                                 public Syncable {
+                                 public Syncable,
+                                 public RtcpPacketTypeCounterObserver,
+                                 public RtpPacketSinkInterface {
  public:
   AudioReceiveStream(Clock* clock,
                      PacketRouter* packet_router,
@@ -52,14 +67,6 @@ class AudioReceiveStream final : public webrtc::AudioReceiveStream,
                      const webrtc::AudioReceiveStream::Config& config,
                      const rtc::scoped_refptr<webrtc::AudioState>& audio_state,
                      webrtc::RtcEventLog* event_log);
-  // For unit tests, which need to supply a mock channel receive.
-  AudioReceiveStream(
-      Clock* clock,
-      PacketRouter* packet_router,
-      const webrtc::AudioReceiveStream::Config& config,
-      const rtc::scoped_refptr<webrtc::AudioState>& audio_state,
-      webrtc::RtcEventLog* event_log,
-      std::unique_ptr<voe::ChannelReceiveInterface> channel_receive);
 
   AudioReceiveStream() = delete;
   AudioReceiveStream(const AudioReceiveStream&) = delete;
@@ -137,12 +144,49 @@ class AudioReceiveStream final : public webrtc::AudioReceiveStream,
   const webrtc::AudioReceiveStream::Config& config() const;
   const AudioSendStream* GetAssociatedSendStreamForTesting() const;
 
+  // RtpPacketSinkInterface.
+  void OnRtpPacket(const RtpPacketReceived& packet) override;
+  // RtcpPacketTypeCounterObserver.
+  void RtcpPacketTypesCounterUpdated(
+      uint32_t ssrc,
+      const RtcpPacketTypeCounter& packet_counter) override;
+
   // TODO(tommi): Remove this method.
   void ReconfigureForTesting(const webrtc::AudioReceiveStream::Config& config);
 
  private:
+  void SetReceiveCodecs(const std::map<int, SdpAudioFormat>& codecs);
+
+  // Audio+Video Sync.
+  absl::optional<int64_t> GetCurrentEstimatedPlayoutNtpTimestampMs(
+      int64_t now_ms) const;
+
+  void RegisterReceiverCongestionControlObjects(PacketRouter* packet_router);
+  void ResetReceiverCongestionControlObjects();
+
+  void SetNACKStatus(bool enable, int maxNumberOfPackets);
+
   AudioState* audio_state() const;
 
+  void UpdatePlayoutTimestamp(bool rtcp, int64_t now_ms)
+      RTC_RUN_ON(worker_thread_checker_);
+
+  int GetRtpTimestampRateHz() const;
+  int64_t GetRTT() const;
+
+  void OnReceivedPayloadData(rtc::ArrayView<const uint8_t> payload,
+                             const RTPHeader& rtpHeader)
+      RTC_RUN_ON(worker_thread_checker_);
+
+  void InitFrameTransformerDelegate(
+      rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer)
+      RTC_RUN_ON(worker_thread_checker_);
+
+  // Thread checkers document and lock usage of some methods to specific threads
+  // we know about. The goal is to eventually split up voe::ChannelReceive into
+  // parts with single-threaded semantics, and thereby reduce the need for
+  // locks.
+  RTC_NO_UNIQUE_ADDRESS SequenceChecker network_thread_checker_;
   RTC_NO_UNIQUE_ADDRESS SequenceChecker worker_thread_checker_;
   // TODO(bugs.webrtc.org/11993): This checker conceptually represents
   // operations that belong to the network thread. The Call class is currently
@@ -153,9 +197,9 @@ class AudioReceiveStream final : public webrtc::AudioReceiveStream,
   // on the network thread, this comment will be deleted.
   RTC_NO_UNIQUE_ADDRESS SequenceChecker packet_sequence_checker_;
   webrtc::AudioReceiveStream::Config config_;
+  Clock* const clock_;
   rtc::scoped_refptr<webrtc::AudioState> audio_state_;
   SourceTracker source_tracker_;
-  const std::unique_ptr<voe::ChannelReceiveInterface> channel_receive_;
   AudioSendStream* associated_send_stream_
       RTC_GUARDED_BY(packet_sequence_checker_) = nullptr;
 
@@ -163,6 +207,95 @@ class AudioReceiveStream final : public webrtc::AudioReceiveStream,
 
   std::unique_ptr<RtpStreamReceiverInterface> rtp_stream_receiver_
       RTC_GUARDED_BY(packet_sequence_checker_);
+
+  TaskQueueBase* const worker_thread_;
+  ScopedTaskSafety worker_safety_;
+
+  // Methods accessed from audio and video threads are checked for sequential-
+  // only access. We don't necessarily own and control these threads, so thread
+  // checkers cannot be used. E.g. Chromium may transfer "ownership" from one
+  // audio thread to another, but access is still sequential.
+  rtc::RaceChecker audio_thread_race_checker_;
+  Mutex callback_mutex_;
+  Mutex volume_settings_mutex_;
+
+  RtcEventLog* const event_log_;
+
+  // Indexed by payload type.
+  std::map<uint8_t, int> payload_type_frequencies_;
+
+  std::unique_ptr<ReceiveStatistics> rtp_receive_statistics_;
+  std::unique_ptr<ModuleRtpRtcpImpl2> rtp_rtcp_;
+  const uint32_t remote_ssrc_;
+
+  // Info for GetSyncInfo is updated on network or worker thread, and queried on
+  // the worker thread.
+  absl::optional<uint32_t> last_received_rtp_timestamp_
+      RTC_GUARDED_BY(&worker_thread_checker_);
+  absl::optional<int64_t> last_received_rtp_system_time_ms_
+      RTC_GUARDED_BY(&worker_thread_checker_);
+
+  // The AcmReceiver is thread safe, using its own lock.
+  acm2::AcmReceiver acm_receiver_;
+  AudioSinkInterface* audio_sink_ = nullptr;
+  voe::AudioLevel output_audio_level_;
+
+  RemoteNtpTimeEstimator ntp_estimator_ RTC_GUARDED_BY(ts_stats_lock_);
+
+  // Timestamp of the audio pulled from NetEq.
+  absl::optional<uint32_t> jitter_buffer_playout_timestamp_;
+
+  uint32_t playout_timestamp_rtp_ RTC_GUARDED_BY(worker_thread_checker_);
+  absl::optional<int64_t> playout_timestamp_rtp_time_ms_
+      RTC_GUARDED_BY(worker_thread_checker_);
+  uint32_t playout_delay_ms_ RTC_GUARDED_BY(worker_thread_checker_);
+  absl::optional<int64_t> playout_timestamp_ntp_
+      RTC_GUARDED_BY(worker_thread_checker_);
+  absl::optional<int64_t> playout_timestamp_ntp_time_ms_
+      RTC_GUARDED_BY(worker_thread_checker_);
+
+  mutable Mutex ts_stats_lock_;
+
+  std::unique_ptr<rtc::TimestampWrapAroundHandler> rtp_ts_wraparound_handler_;
+  // The rtp timestamp of the first played out audio frame.
+  int64_t capture_start_rtp_time_stamp_;
+  // The capture ntp time (in local timebase) of the first played out audio
+  // frame.
+  int64_t capture_start_ntp_time_ms_ RTC_GUARDED_BY(ts_stats_lock_);
+
+  AudioDeviceModule* audio_device_module_;
+  float output_gain_ RTC_GUARDED_BY(volume_settings_mutex_);
+
+  const voe::ChannelSendInterface* associated_send_channel_
+      RTC_GUARDED_BY(network_thread_checker_);
+
+  PacketRouter* packet_router_ = nullptr;
+
+  // E2EE Audio Frame Decryption
+  rtc::scoped_refptr<FrameDecryptorInterface> frame_decryptor_
+      RTC_GUARDED_BY(worker_thread_checker_);
+  webrtc::CryptoOptions crypto_options_;
+
+  webrtc::AbsoluteCaptureTimeInterpolator absolute_capture_time_interpolator_
+      RTC_GUARDED_BY(worker_thread_checker_);
+
+  webrtc::CaptureClockOffsetUpdater capture_clock_offset_updater_;
+
+  rtc::scoped_refptr<ChannelReceiveFrameTransformerDelegate>
+      frame_transformer_delegate_;
+
+  // Counter that's used to control the frequency of reporting histograms
+  // from the `GetAudioFrameWithInfo` callback.
+  int audio_frame_interval_count_ RTC_GUARDED_BY(audio_thread_race_checker_) =
+      0;
+  // Controls how many callbacks we let pass by before reporting callback stats.
+  // A value of 100 means 100 callbacks, each one of which represents 10ms worth
+  // of data, so the stats reporting frequency will be 1Hz (modulo failures).
+  constexpr static int kHistogramReportingInterval = 100;
+
+  mutable Mutex rtcp_counter_mutex_;
+  RtcpPacketTypeCounter rtcp_packet_type_counter_
+      RTC_GUARDED_BY(rtcp_counter_mutex_);
 };
 }  // namespace internal
 }  // namespace webrtc

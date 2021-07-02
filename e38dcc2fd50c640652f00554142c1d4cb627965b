@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "028f954a_669a0734",
+        "filename": "rtc_base/containers/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-07-02T08:55:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99f2f5db_8ff6e720",
+      "range": {
+        "startLine": 11,
+        "startChar": 13,
+        "endLine": 11,
+        "endChar": 21
+      },
+      "revId": "e38dcc2fd50c640652f00554142c1d4cb627965b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "61d37e3a_daf30ad4",
@@ -89,6 +113,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3e3cd7b8_4768927f",
+        "filename": "rtc_base/containers/as_const.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-07-02T08:55:13Z",
+      "side": 1,
+      "message": "Agree. Let\u0027s keep them here.",
+      "parentUuid": "c705a667_554ac857",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 53
+      },
+      "revId": "e38dcc2fd50c640652f00554142c1d4cb627965b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "15b035bd_6607637f",
         "filename": "rtc_base/containers/flat_map_unittest.cc",
         "patchSetId": 4
@@ -100,6 +148,24 @@
       "writtenOn": "2021-07-02T08:21:51Z",
       "side": 1,
       "message": "Maybe we should drop this one (different from what Chromium does) and only keep the anonymous one?\n\nIn the code we have both flat_map and webrtc::flat_map, so probably more clear to pick one or the other (if doesn\u0027t require too many namespace spelling I think webrtc::flat_map is more clear in tests).",
+      "revId": "e38dcc2fd50c640652f00554142c1d4cb627965b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1b94526_56dec034",
+        "filename": "rtc_base/containers/flat_map_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-07-02T08:55:13Z",
+      "side": 1,
+      "message": "The usual pattern is to use the specific namespace, but keep the tests in an anonymous namespace, so I changed the tests to align with the other code for consistency reasons.",
+      "parentUuid": "15b035bd_6607637f",
       "revId": "e38dcc2fd50c640652f00554142c1d4cb627965b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -117,6 +183,24 @@
       "writtenOn": "2021-07-02T08:21:51Z",
       "side": 1,
       "message": "Same here (we have both flat_set and webrtc::flat_set in the file).",
+      "revId": "e38dcc2fd50c640652f00554142c1d4cb627965b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4126bc59_121a9057",
+        "filename": "rtc_base/containers/flat_set_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-07-02T08:55:13Z",
+      "side": 1,
+      "message": "I fixed it, to be consistent.",
+      "parentUuid": "e1847847_8e1dad82",
       "revId": "e38dcc2fd50c640652f00554142c1d4cb627965b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

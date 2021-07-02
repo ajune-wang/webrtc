@@ -33,6 +33,23 @@
       "message": "Hi, I don\u0027t know if these are still relevant for android code. I have to let Xavier review that. If he\u0027s happy, I\u0027d be happy to approve the api/video/ changes.",
       "revId": "db78c53654ed9a269b0497fa53ebf30b23320a52",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a0c732f_b41b5bd7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-07-02T01:04:04Z",
+      "side": 1,
+      "message": "Hello, Xavier. Friendly ping.",
+      "revId": "db78c53654ed9a269b0497fa53ebf30b23320a52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

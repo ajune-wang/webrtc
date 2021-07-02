@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "audio/channel_receive_frame_transformer_delegate.h"
+#include "audio/audio_receive_frame_transformer_delegate.h"
 
 #include <memory>
 #include <utility>
@@ -25,26 +25,26 @@ namespace {
 using ::testing::NiceMock;
 using ::testing::SaveArg;
 
-class MockChannelReceive {
+class MockAudioReceive {
  public:
   MOCK_METHOD(void,
               ReceiveFrame,
               (rtc::ArrayView<const uint8_t> packet, const RTPHeader& header));
 
-  ChannelReceiveFrameTransformerDelegate::ReceiveFrameCallback callback() {
+  AudioReceiveFrameTransformerDelegate::ReceiveFrameCallback callback() {
     return [this](rtc::ArrayView<const uint8_t> packet,
                   const RTPHeader& header) { ReceiveFrame(packet, header); };
   }
 };
 
 // Test that the delegate registers itself with the frame transformer on Init().
-TEST(ChannelReceiveFrameTransformerDelegateTest,
+TEST(AudioReceiveFrameTransformerDelegateTest,
      RegisterTransformedFrameCallbackOnInit) {
   rtc::scoped_refptr<MockFrameTransformer> mock_frame_transformer =
       rtc::make_ref_counted<MockFrameTransformer>();
-  rtc::scoped_refptr<ChannelReceiveFrameTransformerDelegate> delegate =
-      rtc::make_ref_counted<ChannelReceiveFrameTransformerDelegate>(
-          ChannelReceiveFrameTransformerDelegate::ReceiveFrameCallback(),
+  rtc::scoped_refptr<AudioReceiveFrameTransformerDelegate> delegate =
+      rtc::make_ref_counted<AudioReceiveFrameTransformerDelegate>(
+          AudioReceiveFrameTransformerDelegate::ReceiveFrameCallback(),
           mock_frame_transformer, nullptr);
   EXPECT_CALL(*mock_frame_transformer, RegisterTransformedFrameCallback);
   delegate->Init();
@@ -52,13 +52,13 @@ TEST(ChannelReceiveFrameTransformerDelegateTest,
 
 // Test that the delegate unregisters itself from the frame transformer on
 // Reset().
-TEST(ChannelReceiveFrameTransformerDelegateTest,
+TEST(AudioReceiveFrameTransformerDelegateTest,
      UnregisterTransformedFrameCallbackOnReset) {
   rtc::scoped_refptr<MockFrameTransformer> mock_frame_transformer =
       rtc::make_ref_counted<MockFrameTransformer>();
-  rtc::scoped_refptr<ChannelReceiveFrameTransformerDelegate> delegate =
-      rtc::make_ref_counted<ChannelReceiveFrameTransformerDelegate>(
-          ChannelReceiveFrameTransformerDelegate::ReceiveFrameCallback(),
+  rtc::scoped_refptr<AudioReceiveFrameTransformerDelegate> delegate =
+      rtc::make_ref_counted<AudioReceiveFrameTransformerDelegate>(
+          AudioReceiveFrameTransformerDelegate::ReceiveFrameCallback(),
           mock_frame_transformer, nullptr);
   EXPECT_CALL(*mock_frame_transformer, UnregisterTransformedFrameCallback);
   delegate->Reset();
@@ -66,13 +66,13 @@ TEST(ChannelReceiveFrameTransformerDelegateTest,
 
 // Test that when the delegate receives a transformed frame from the frame
 // transformer, it passes it to the channel using the ReceiveFrameCallback.
-TEST(ChannelReceiveFrameTransformerDelegateTest,
-     TransformRunsChannelReceiveCallback) {
+TEST(AudioReceiveFrameTransformerDelegateTest,
+     TransformRunsAudioReceiveCallback) {
   rtc::scoped_refptr<MockFrameTransformer> mock_frame_transformer =
       rtc::make_ref_counted<NiceMock<MockFrameTransformer>>();
-  MockChannelReceive mock_channel;
-  rtc::scoped_refptr<ChannelReceiveFrameTransformerDelegate> delegate =
-      rtc::make_ref_counted<ChannelReceiveFrameTransformerDelegate>(
+  MockAudioReceive mock_channel;
+  rtc::scoped_refptr<AudioReceiveFrameTransformerDelegate> delegate =
+      rtc::make_ref_counted<AudioReceiveFrameTransformerDelegate>(
           mock_channel.callback(), mock_frame_transformer,
           rtc::Thread::Current());
   rtc::scoped_refptr<TransformedFrameCallback> callback;
@@ -97,13 +97,13 @@ TEST(ChannelReceiveFrameTransformerDelegateTest,
 // Test that if the delegate receives a transformed frame after it has been
 // reset, it does not run the ReceiveFrameCallback, as the channel is destroyed
 // after resetting the delegate.
-TEST(ChannelReceiveFrameTransformerDelegateTest,
-     OnTransformedDoesNotRunChannelReceiveCallbackAfterReset) {
+TEST(AudioReceiveFrameTransformerDelegateTest,
+     OnTransformedDoesNotRunAudioReceiveCallbackAfterReset) {
   rtc::scoped_refptr<MockFrameTransformer> mock_frame_transformer =
       rtc::make_ref_counted<testing::NiceMock<MockFrameTransformer>>();
-  MockChannelReceive mock_channel;
-  rtc::scoped_refptr<ChannelReceiveFrameTransformerDelegate> delegate =
-      rtc::make_ref_counted<ChannelReceiveFrameTransformerDelegate>(
+  MockAudioReceive mock_channel;
+  rtc::scoped_refptr<AudioReceiveFrameTransformerDelegate> delegate =
+      rtc::make_ref_counted<AudioReceiveFrameTransformerDelegate>(
           mock_channel.callback(), mock_frame_transformer,
           rtc::Thread::Current());
 

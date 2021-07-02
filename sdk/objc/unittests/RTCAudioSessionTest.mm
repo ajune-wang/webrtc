@@ -229,9 +229,7 @@ OCMLocation *OCMMakeLocation(id testCase, const char *fileCString, int line){
   void (^setActiveBlock)(NSInvocation *invocation) = ^(NSInvocation *invocation) {
     __autoreleasing NSError **retError;
     [invocation getArgument:&retError atIndex:4];
-    *retError = [NSError errorWithDomain:@"AVAudioSession"
-                                    code:AVAudioSessionErrorInsufficientPriority
-                                userInfo:nil];
+    *retError = [NSError errorWithDomain:@"AVAudioSession" code:cannotInterruptOthers userInfo:nil];
     BOOL failure = NO;
     [invocation setReturnValue:&failure];
   };

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2198510b_47486066",
+        "filename": "examples/objc/AppRTCMobile/ARDSettingsModel.m",
+        "patchSetId": 11
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5670
+      },
+      "writtenOn": "2021-07-02T13:48:18Z",
+      "side": 1,
+      "message": "My fault, these NO/YES should be the other way around: return YES if there\u0027s no error, otherwise return NO.",
+      "range": {
+        "startLine": 101,
+        "startChar": 11,
+        "endLine": 103,
+        "endChar": 12
+      },
+      "revId": "3efa4bbac4a5fd445951daa24af97a22377912f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

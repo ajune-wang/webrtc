@@ -77,15 +77,29 @@ NS_ASSUME_NONNULL_BEGIN
 - (RTC_OBJC_TYPE(RTCVideoCodecInfo) *)currentVideoCodecSettingFromStore {
   [self registerStoreDefaults];
   NSData *codecData = [[self settingsStore] videoCodec];
-  return [NSKeyedUnarchiver unarchiveObjectWithData:codecData];
+  Class expectedClass = +[RTC_OBJC_TYPE(RTCVideoCodecInfo) class];
+  NSError *error;
+  RTC_OBJC_TYPE(RTCVideoCodecInfo) *videoCodecSetting =
+      [NSKeyedUnarchiver unarchivedObjectOfClass:expectedClass fromData:codecData error:&error];
+  if (!error) {
+    return videoCodecSetting;
+  }
+  return nil;
 }
 
 - (BOOL)storeVideoCodecSetting:(RTC_OBJC_TYPE(RTCVideoCodecInfo) *)videoCodec {
   if (![[self availableVideoCodecs] containsObject:videoCodec]) {
     return NO;
   }
-  NSData *codecData = [NSKeyedArchiver archivedDataWithRootObject:videoCodec];
-  [[self settingsStore] setVideoCodec:codecData];
+
+  NSError *error;
+  NSData *codecData = [NSKeyedArchiver archivedDataWithRootObject:videoCodec
+                                            requiringSecureCoding:NO
+                                                            error:&error];
+  if (!error) {
+    [[self settingsStore] setVideoCodec:codecData];
+    return NO;
+  }
   return YES;
 }
 
@@ -165,14 +179,18 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)registerStoreDefaults {
-  NSData *codecData = [NSKeyedArchiver archivedDataWithRootObject:[self defaultVideoCodecSetting]];
-  [ARDSettingsStore setDefaultsForVideoResolution:[self defaultVideoResolutionSetting]
-                                       videoCodec:codecData
-                                          bitrate:nil
-                                        audioOnly:NO
-                                    createAecDump:NO
-                             useManualAudioConfig:YES];
+  NSError *error;
+  NSData *codecData = [NSKeyedArchiver archivedDataWithRootObject:[self defaultVideoCodecSetting]
+                                            requiringSecureCoding:NO
+                                                            error:&error];
+  if (!error) {
+    [ARDSettingsStore setDefaultsForVideoResolution:[self defaultVideoResolutionSetting]
+                                         videoCodec:codecData
+                                            bitrate:nil
+                                          audioOnly:NO
+                                      createAecDump:NO
+                               useManualAudioConfig:YES];
+  }
 }
-
 @end
 NS_ASSUME_NONNULL_END

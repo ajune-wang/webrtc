@@ -69,6 +69,24 @@
       "parentUuid": "ece5c6ad_bc1fe6b4",
       "revId": "1c9cb882cb52a11af71efc3b1f91a436497e2466",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "163b4b38_0c4b755f",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-02T11:58:35Z",
+      "side": 1,
+      "message": "It seems I was too hasty... some tests failed with the previous approach.\n\nFor some tests comparing time to detect the latest report is not good enough.\nSo I rethink the approach once more time and keeping just the latest report now looks like the safest approach.\n\nHowever I feel a need to add a separate map to keep rtts per remote_ssrc. (In practice most of that functionality is not needed, but... changing api and assumptions callers make is a long road. I\u0027m taking that long road too, but as a separate effort.)\n\nAll tests seems to pass now (patchset#3). Mind taking another look?",
+      "parentUuid": "d29d4fbf_30e279d0",
+      "revId": "1c9cb882cb52a11af71efc3b1f91a436497e2466",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

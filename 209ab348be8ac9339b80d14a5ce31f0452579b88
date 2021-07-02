@@ -56,6 +56,30 @@
       },
       "revId": "209ab348be8ac9339b80d14a5ce31f0452579b88",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cad1a029_0dcec71c",
+        "filename": "tools_webrtc/perf/catapult_uploader.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 12419
+      },
+      "writtenOn": "2021-07-02T09:50:25Z",
+      "side": 1,
+      "message": "Reason in terms of `response.reason` is \"OK\" and meaningless - since it is about the poll request itself, not the upload status.\n\nThe actual reason is loged by the poller. E.g. `print \u0027Full upload info: %s.\u0027 % json.dumps(resp_json, indent\u003d4)`. I don\u0027t think there is a reason to print it once again here, it\u0027s literally the next line :)",
+      "parentUuid": "9a4f64e7_e63057a1",
+      "range": {
+        "startLine": 256,
+        "startChar": 8,
+        "endLine": 256,
+        "endChar": 30
+      },
+      "revId": "209ab348be8ac9339b80d14a5ce31f0452579b88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -50,6 +50,23 @@
       "message": "Hello, Xavier. Friendly ping.",
       "revId": "db78c53654ed9a269b0497fa53ebf30b23320a52",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd7f5a60_3da6abe8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-07-02T07:10:28Z",
+      "side": 1,
+      "message": "api/ lgtm (I\u0027ll be out of office next week). ",
+      "revId": "db78c53654ed9a269b0497fa53ebf30b23320a52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

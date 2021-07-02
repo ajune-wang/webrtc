@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "audio/channel_receive_frame_transformer_delegate.h"
+#include "audio/audio_receive_frame_transformer_delegate.h"
 
 #include <utility>
 
@@ -44,7 +44,7 @@ class TransformableAudioFrame : public TransformableAudioFrameInterface {
 };
 }  // namespace
 
-ChannelReceiveFrameTransformerDelegate::ChannelReceiveFrameTransformerDelegate(
+AudioReceiveFrameTransformerDelegate::AudioReceiveFrameTransformerDelegate(
     ReceiveFrameCallback receive_frame_callback,
     rtc::scoped_refptr<FrameTransformerInterface> frame_transformer,
     TaskQueueBase* channel_receive_thread)
@@ -52,20 +52,20 @@ ChannelReceiveFrameTransformerDelegate::ChannelReceiveFrameTransformerDelegate(
       frame_transformer_(std::move(frame_transformer)),
       channel_receive_thread_(channel_receive_thread) {}
 
-void ChannelReceiveFrameTransformerDelegate::Init() {
+void AudioReceiveFrameTransformerDelegate::Init() {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
   frame_transformer_->RegisterTransformedFrameCallback(
       rtc::scoped_refptr<TransformedFrameCallback>(this));
 }
 
-void ChannelReceiveFrameTransformerDelegate::Reset() {
+void AudioReceiveFrameTransformerDelegate::Reset() {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
   frame_transformer_->UnregisterTransformedFrameCallback();
   frame_transformer_ = nullptr;
   receive_frame_callback_ = ReceiveFrameCallback();
 }
 
-void ChannelReceiveFrameTransformerDelegate::Transform(
+void AudioReceiveFrameTransformerDelegate::Transform(
     rtc::ArrayView<const uint8_t> packet,
     const RTPHeader& header,
     uint32_t ssrc) {
@@ -74,16 +74,16 @@ void ChannelReceiveFrameTransformerDelegate::Transform(
       std::make_unique<TransformableAudioFrame>(packet, header, ssrc));
 }
 
-void ChannelReceiveFrameTransformerDelegate::OnTransformedFrame(
+void AudioReceiveFrameTransformerDelegate::OnTransformedFrame(
     std::unique_ptr<TransformableFrameInterface> frame) {
-  rtc::scoped_refptr<ChannelReceiveFrameTransformerDelegate> delegate = this;
+  rtc::scoped_refptr<AudioReceiveFrameTransformerDelegate> delegate = this;
   channel_receive_thread_->PostTask(ToQueuedTask(
       [delegate = std::move(delegate), frame = std::move(frame)]() mutable {
         delegate->ReceiveFrame(std::move(frame));
       }));
 }
 
-void ChannelReceiveFrameTransformerDelegate::ReceiveFrame(
+void AudioReceiveFrameTransformerDelegate::ReceiveFrame(
     std::unique_ptr<TransformableFrameInterface> frame) const {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
   if (!receive_frame_callback_)

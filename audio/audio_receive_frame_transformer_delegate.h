@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef AUDIO_CHANNEL_RECEIVE_FRAME_TRANSFORMER_DELEGATE_H_
-#define AUDIO_CHANNEL_RECEIVE_FRAME_TRANSFORMER_DELEGATE_H_
+#ifndef AUDIO_AUDIO_RECEIVE_FRAME_TRANSFORMER_DELEGATE_H_
+#define AUDIO_AUDIO_RECEIVE_FRAME_TRANSFORMER_DELEGATE_H_
 
 #include <memory>
 
@@ -22,14 +22,14 @@
 namespace webrtc {
 
 // Delegates calls to FrameTransformerInterface to transform frames, and to
-// ChannelReceive to receive the transformed frames using the
+// AudioReceive to receive the transformed frames using the
 // |receive_frame_callback_| on the |channel_receive_thread_|.
-class ChannelReceiveFrameTransformerDelegate : public TransformedFrameCallback {
+class AudioReceiveFrameTransformerDelegate : public TransformedFrameCallback {
  public:
   using ReceiveFrameCallback =
       std::function<void(rtc::ArrayView<const uint8_t> packet,
                          const RTPHeader& header)>;
-  ChannelReceiveFrameTransformerDelegate(
+  AudioReceiveFrameTransformerDelegate(
       ReceiveFrameCallback receive_frame_callback,
       rtc::scoped_refptr<FrameTransformerInterface> frame_transformer,
       TaskQueueBase* channel_receive_thread);
@@ -40,7 +40,7 @@ class ChannelReceiveFrameTransformerDelegate : public TransformedFrameCallback {
 
   // Unregisters and releases the |frame_transformer_| reference, and resets
   // |receive_frame_callback_| on |channel_receive_thread_|. Called from
-  // ChannelReceive destructor to prevent running the callback on a dangling
+  // AudioReceive destructor to prevent running the callback on a dangling
   // channel.
   void Reset();
 
@@ -54,12 +54,12 @@ class ChannelReceiveFrameTransformerDelegate : public TransformedFrameCallback {
   void OnTransformedFrame(
       std::unique_ptr<TransformableFrameInterface> frame) override;
 
-  // Delegates the call to ChannelReceive::OnReceivedPayloadData on the
+  // Delegates the call to AudioReceive::OnReceivedPayloadData on the
   // |channel_receive_thread_|, by calling |receive_frame_callback_|.
   void ReceiveFrame(std::unique_ptr<TransformableFrameInterface> frame) const;
 
  protected:
-  ~ChannelReceiveFrameTransformerDelegate() override = default;
+  ~AudioReceiveFrameTransformerDelegate() override = default;
 
  private:
   RTC_NO_UNIQUE_ADDRESS SequenceChecker sequence_checker_;
@@ -71,4 +71,4 @@ class ChannelReceiveFrameTransformerDelegate : public TransformedFrameCallback {
 };
 
 }  // namespace webrtc
-#endif  // AUDIO_CHANNEL_RECEIVE_FRAME_TRANSFORMER_DELEGATE_H_
+#endif  // AUDIO_AUDIO_RECEIVE_FRAME_TRANSFORMER_DELEGATE_H_

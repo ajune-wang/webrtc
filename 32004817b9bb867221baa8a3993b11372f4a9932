@@ -89,6 +89,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "65384b96_9d3120fd",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-07-02T07:19:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19932642_ac44e94e",
+      "range": {
+        "startLine": 68,
+        "startChar": 6,
+        "endLine": 68,
+        "endChar": 25
+      },
+      "revId": "32004817b9bb867221baa8a3993b11372f4a9932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "70612ce6_3d09d82c",

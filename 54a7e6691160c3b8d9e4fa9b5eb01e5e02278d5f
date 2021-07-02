@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0fa997b0_eb18554d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-02T12:39:44Z",
+      "side": 1,
+      "message": "As we are discussing offline, mostly about nested namespace, I think this CL should not be blocked on that since it is new code, easy to update and change. So feel free to move forward and squash this one with its parent commit.\n\nWhatever namespace decision we make it is easy to update (not used externally).",
+      "revId": "54a7e6691160c3b8d9e4fa9b5eb01e5e02278d5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

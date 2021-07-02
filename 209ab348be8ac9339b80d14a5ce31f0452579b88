@@ -16,6 +16,46 @@
       "message": "FYI: presubmit failures are unrelated",
       "revId": "209ab348be8ac9339b80d14a5ce31f0452579b88",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c70729a_802f0c39",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-02T09:45:20Z",
+      "side": 1,
+      "message": "LGTM, just a question to be sure I understand.",
+      "revId": "209ab348be8ac9339b80d14a5ce31f0452579b88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a4f64e7_e63057a1",
+        "filename": "tools_webrtc/perf/catapult_uploader.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-02T09:45:20Z",
+      "side": 1,
+      "message": "Don\u0027t we maybe want to at least print the reason? (since the status is 200 and misleading, I guess the reason might still have sense or is it \"OK\" and meaningless?).",
+      "range": {
+        "startLine": 256,
+        "startChar": 8,
+        "endLine": 256,
+        "endChar": 30
+      },
+      "revId": "209ab348be8ac9339b80d14a5ce31f0452579b88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -33,6 +33,23 @@
       "message": "This looks fine with me, adding saza@ to double check.",
       "revId": "3707e64b0dcb93c864175509a3441ce5e4bc8b1d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c553c07_4019557c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2021-07-02T15:05:57Z",
+      "side": 1,
+      "message": "I will have to do some thinking here, and get back next week...\n\nThe current code on ToT is broken in the sense that it holds refcounted AudioProcessing instances (with reference count \u003d\u003d 0) in unique_ptrs, which is 1) confusing since its API clearly says it is supposed to be refcounted and 2) dangerous since some unsuspecting piece of code might receive a raw pointer to it and wrap it in a scoped_refptr.\n\nI think that long-term, there is a desire to have webrtc::AudioProcessing not be refcounted, to make ownership clearer. Complicated Chrome code has blocked, but I am not sure that it is still the case. If I recall correctly, AudioProcessingBuilder::Create() returns a raw pointer to allow successively moving pieces of the code over to unique_ptr.\n\nThis CL makes the current code uniform and less confusing, but can be argued to push the long-term goal further away.",
+      "revId": "3707e64b0dcb93c864175509a3441ce5e4bc8b1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

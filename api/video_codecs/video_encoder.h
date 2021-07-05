@@ -179,8 +179,10 @@ class RTC_EXPORT VideoEncoder {
     // Note that scale factors |scale_resolution_down_by| may be adjusted so a
     // common multiple is not too large to avoid largely cropped frames and
     // possibly with an aspect ratio far from the original.
-    // Warning: large values of scale_resolution_down_by could be changed
+    // WARNING: Large values of scale_resolution_down_by could be changed
     // considerably, especially if |requested_resolution_alignment| is large.
+    // NOTE: Only supported if the value is provided at encoder construction
+    // time (i.e. before InitEncode is called).
     bool apply_alignment_to_all_simulcast_layers;
 
     // If true, encoder supports working with a native handle (e.g. texture

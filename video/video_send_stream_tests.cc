@@ -25,6 +25,8 @@
 #include "call/rtp_transport_controller_send.h"
 #include "call/simulated_network.h"
 #include "call/video_send_stream.h"
+#include "media/engine/internal_encoder_factory.h"
+#include "media/engine/simulcast_encoder_adapter.h"
 #include "modules/rtp_rtcp/include/rtp_header_extension_map.h"
 #include "modules/rtp_rtcp/source/rtcp_sender.h"
 #include "modules/rtp_rtcp/source/rtp_header_extensions.h"
@@ -91,6 +93,7 @@ enum : int {  // The first valid value is 1.
 };
 
 constexpr int64_t kRtcpIntervalMs = 1000;
+constexpr double kScaleFactor = 2.0;
 
 enum VideoFormat {
   kGeneric,
@@ -122,6 +125,11 @@ class VideoSendStreamTest : public test::CallTest {
                           uint8_t num_spatial_layers);
 
   void TestRequestSourceRotateVideo(bool support_orientation_ext);
+
+  void TestRequestResolutionAlignment(VideoEncoderFactory* encoder_factory,
+                                      const std::string& payload_name,
+                                      const std::vector<bool>& streams_active,
+                                      int expected_alignment);
 };
 
 TEST_F(VideoSendStreamTest, CanStartStartedStream) {
@@ -3632,6 +3640,152 @@ TEST_F(VideoSendStreamTest, EncoderConfigMaxFramerateReportedToSource) {
   } test;
 
   RunBaseTest(&test);
+}
+
+void VideoSendStreamTest::TestRequestResolutionAlignment(
+    VideoEncoderFactory* encoder_factory,
+    const std::string& payload_name,
+    const std::vector<bool>& streams_active,
+    int expected_alignment) {
+  class AlignmentObserver
+      : public test::SendTest,
+        public test::FrameGeneratorCapturer::SinkWantsObserver {
+   public:
+    AlignmentObserver(VideoEncoderFactory* encoder_factory,
+                      const std::string& payload_name,
+                      const std::vector<bool>& streams_active,
+                      int expected_alignment)
+        : SendTest(kDefaultTimeoutMs),
+          encoder_factory_(encoder_factory),
+          payload_name_(payload_name),
+          streams_active_(streams_active),
+          expected_alignment_(expected_alignment) {}
+
+    void OnFrameGeneratorCapturerCreated(
+        test::FrameGeneratorCapturer* frame_generator_capturer) override {
+      frame_generator_capturer->SetSinkWantsObserver(this);
+      frame_generator_capturer->ChangeResolution(1280, 720);
+    }
+
+    void OnSinkWantsChanged(rtc::VideoSinkInterface<VideoFrame>* sink,
+                            const rtc::VideoSinkWants& wants) override {
+      if (wants.resolution_alignment == expected_alignment_)
+        observation_complete_.Set();
+    }
+
+    size_t GetNumVideoStreams() const override {
+      return streams_active_.size();
+    }
+
+    void ModifyVideoConfigs(
+        VideoSendStream::Config* send_config,
+        std::vector<VideoReceiveStream::Config>* receive_configs,
+        VideoEncoderConfig* encoder_config) override {
+      send_config->encoder_settings.encoder_factory = encoder_factory_;
+      send_config->rtp.payload_name = payload_name_;
+      send_config->rtp.payload_type = test::CallTest::kVideoSendPayloadType;
+      encoder_config->video_format.name = payload_name_;
+      encoder_config->codec_type = PayloadStringToCodecType(payload_name_);
+      double scale_factor = 1.0;
+      for (int i = streams_active_.size() - 1; i >= 0; --i) {
+        VideoStream& stream = encoder_config->simulcast_layers[i];
+        stream.active = streams_active_[i];
+        stream.scale_resolution_down_by = scale_factor;
+        scale_factor *= kScaleFactor;
+      }
+    }
+
+    void PerformTest() override {
+      EXPECT_TRUE(Wait())
+          << "Timed out while waiting for alignment to be reported.";
+    }
+
+    VideoEncoderFactory* const encoder_factory_;
+    const std::string payload_name_;
+    const std::vector<bool> streams_active_;
+    const int expected_alignment_;
+  } test(encoder_factory, payload_name, streams_active, expected_alignment);
+
+  RunBaseTest(&test);
+}
+
+TEST_F(VideoSendStreamTest, RequestedAlignmentReportedToSourceVp8) {
+  test::ScopedFieldTrials field_trials(
+      "WebRTC-VP8-GetEncoderInfoOverride/requested_resolution_alignment:2/");
+
+  test::FunctionVideoEncoderFactory encoder_factory(
+      []() { return VP8Encoder::Create(); });
+
+  TestRequestResolutionAlignment(&encoder_factory, "VP8",
+                                 /*streams_active=*/{true},
+                                 /*expected_alignment=*/2);
+}
+
+TEST_F(VideoSendStreamTest, RequestedAlignmentReportedToSourceVp8TwoStreams) {
+  test::ScopedFieldTrials field_trials(
+      "WebRTC-VP8-GetEncoderInfoOverride/requested_resolution_alignment:3,"
+      "apply_alignment_to_all_simulcast_layers/");
+
+  test::FunctionVideoEncoderFactory encoder_factory(
+      []() { return VP8Encoder::Create(); });
+
+  TestRequestResolutionAlignment(&encoder_factory, "VP8",
+                                 /*streams_active=*/{true, true},
+                                 /*expected_alignment=*/3 * kScaleFactor);
+}
+
+TEST_F(VideoSendStreamTest, RequestedAlignmentReportedToSourceVp8SimAdapter) {
+  test::ScopedFieldTrials field_trials(
+      "WebRTC-SimulcastEncoderAdapter-GetEncoderInfoOverride/"
+      "requested_resolution_alignment:4,"
+      "apply_alignment_to_all_simulcast_layers/");
+
+  InternalEncoderFactory internal_encoder_factory;
+  test::FunctionVideoEncoderFactory encoder_factory(
+      [&internal_encoder_factory]() {
+        return std::make_unique<SimulcastEncoderAdapter>(
+            &internal_encoder_factory, SdpVideoFormat("VP8"));
+      });
+
+  TestRequestResolutionAlignment(&encoder_factory, "VP8",
+                                 /*streams_active=*/{true},
+                                 /*expected_alignment=*/4);
+}
+
+TEST_F(VideoSendStreamTest,
+       RequestedAlignmentReportedToSourceVp8SimAdapterTwoStreams) {
+  test::ScopedFieldTrials field_trials(
+      "WebRTC-SimulcastEncoderAdapter-GetEncoderInfoOverride/"
+      "requested_resolution_alignment:4,"
+      "apply_alignment_to_all_simulcast_layers/");
+
+  InternalEncoderFactory internal_encoder_factory;
+  test::FunctionVideoEncoderFactory encoder_factory(
+      [&internal_encoder_factory]() {
+        return std::make_unique<SimulcastEncoderAdapter>(
+            &internal_encoder_factory, SdpVideoFormat("VP8"));
+      });
+
+  TestRequestResolutionAlignment(&encoder_factory, "VP8",
+                                 /*streams_active=*/{true, true},
+                                 /*expected_alignment=*/4 * kScaleFactor);
+}
+
+TEST_F(VideoSendStreamTest,
+       RequestedAlignmentFromUnderlyingEncoderReportedToSourceVp8SimAdapter) {
+  test::ScopedFieldTrials field_trials(
+      "WebRTC-VP8-GetEncoderInfoOverride/requested_resolution_alignment:5/");
+
+  InternalEncoderFactory internal_encoder_factory;
+  test::FunctionVideoEncoderFactory encoder_factory(
+      [&internal_encoder_factory]() {
+        return std::make_unique<SimulcastEncoderAdapter>(
+            &internal_encoder_factory, SdpVideoFormat("VP8"));
+      });
+
+  TestRequestResolutionAlignment(&encoder_factory, "VP8",
+                                 /*streams_active=*/{true},
+                                 /*expected_alignment=*/5);
 }
 
 // This test verifies that overhead is removed from the bandwidth estimate by

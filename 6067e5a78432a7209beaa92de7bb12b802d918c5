@@ -78,6 +78,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "25acc858_8960c2b0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-07-05T12:05:22Z",
+      "side": 1,
+      "message": "Yeah, GetRTT is another example, and the fact that double thread checking is maintained looks good to me. I found other examples that seemed to check both threads before but take off one now. See \n\nAssociateSendStream: which checked packet_sequence_checker and then worker_thread_checker, now only packet_sequence_checker\n\nSetLocalSsrc: which checked packet_sequence_checker and then worker_thread_checker, now only worker_thread_checker\n\nI noticed the comment on packet_sequence_checker. I could not judge from the meanings and intentions of the two checkers, and only tried to compare the code before and after the CL.",
+      "parentUuid": "915258fd_cbbc481a",
+      "revId": "6067e5a78432a7209beaa92de7bb12b802d918c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0fec00ec_c7c1fb4b",
         "filename": "audio/audio_receive_stream.cc",
         "patchSetId": 8

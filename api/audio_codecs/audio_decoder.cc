@@ -162,7 +162,7 @@ AudioDecoder::SpeechType AudioDecoder::ConvertSpeechType(int16_t type) {
     case 2:
       return kComfortNoise;
     default:
-      assert(false);
+      RTC_DCHECK(false);
       return kSpeech;
   }
 }

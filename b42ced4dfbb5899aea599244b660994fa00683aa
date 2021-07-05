@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c2480ad_57cd0711",
+        "filename": "audio/audio_receive_stream_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2021-07-05T11:32:49Z",
+      "side": 0,
+      "message": "It looks like these functions are no longer tested in any way:\n- DeliverRtcp\n- GetStats\n- SetGain\n- SetDecoderMap\n\nI understand that the previous test mostly (only?) propagated calls to a mocked ChannelReceive, but I still wonder. What meaningful tests can be added for these functions?",
+      "range": {
+        "startLine": 214,
+        "startChar": 17,
+        "endLine": 214,
+        "endChar": 28
+      },
+      "revId": "b42ced4dfbb5899aea599244b660994fa00683aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

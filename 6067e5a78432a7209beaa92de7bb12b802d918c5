@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc2714e7_c178f1e8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2021-07-05T11:32:49Z",
+      "side": 1,
+      "message": "Can you create a bug for this refactoring work, and link this and the follow-up CL to it? Makes it easier to associate the CLs (and potential side work or further follow ups) and to point to this work.\n\nIf the follow-up CL is not in progress yet, maybe even add a TODO in ChannelSend linking to that bug in case some other future archaeologist takes up the torch.",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 9
+      },
+      "revId": "6067e5a78432a7209beaa92de7bb12b802d918c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "e1a86062_63de3e8e",
@@ -14,6 +37,46 @@
       "writtenOn": "2021-07-05T11:22:20Z",
       "side": 1,
       "message": "Drop-by: can I expect packet sequence thread checker to be identical to worker thread checker?\n\nIf not, some choices between the two after merging are not very obvious to me. (maybe an easy solution for this refactoring CL is to check both, leave the work of adding the proper one as follow up work for bug 11993)",
+      "revId": "6067e5a78432a7209beaa92de7bb12b802d918c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5eff61ff_aadc3d81",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2021-07-05T11:32:49Z",
+      "side": 1,
+      "message": "I started looking, but this is a pretty big ",
+      "revId": "6067e5a78432a7209beaa92de7bb12b802d918c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0fec00ec_c7c1fb4b",
+        "filename": "audio/audio_receive_stream.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2021-07-05T11:32:49Z",
+      "side": 1,
+      "message": "RTC_DCHECK(audio_device_module_) ?",
+      "range": {
+        "startLine": 130,
+        "startChar": 6,
+        "endLine": 130,
+        "endChar": 26
+      },
       "revId": "6067e5a78432a7209beaa92de7bb12b802d918c5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -34,6 +34,24 @@
       "parentUuid": "3f4d0000_d981316d",
       "revId": "0daaba787f2d617f05bad9ff8facd9984bd63b5a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7fd2fa7a_76d149ad",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2021-07-05T11:32:49Z",
+      "side": 1,
+      "message": "I started looking and this is a pretty big CL (although I understand it is mainly moving logic from ChannelReceive into AudioReceiveStream.) I would like to see it split into smaller refactorings. For example:\n\n1.\nCan either of the interfaces (RtpPacketSinkInterface or RtcpPacketTypeCounterObserver) be split off independently?\n\n2.\nAfter this CL, audio_receive_stream.cc is over 1000 lines of code which sounds like slightly more than a single responsibility, what pieces can really be split off into separete objects or utilities? channel_receive.cc has this comment in the same vein, and looks like a good place to start:\n  // Thread checkers document and lock usage of some methods to specific threads\n  // we know about. The goal is to eventually split up voe::ChannelReceive into\n  // parts with single-threaded semantics, and thereby reduce the need for\n  // locks.\n\nDoing these things after this CL is more difficult since all AudioReceiveStream and all ChannelReceive state is merged, making it difficult to track which pieces belong together due to the sheer size of the class.\n\n\nDoes that seem doable?",
+      "parentUuid": "800acd43_03d6a973",
+      "revId": "0daaba787f2d617f05bad9ff8facd9984bd63b5a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "072e7eb9_2b9edc13",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1118,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-07-05T09:15:32Z",
+      "side": 1,
+      "message": "I don\u0027t like this change, because now the |alignment| may be computed in different places based on complicated and unobvious logic. \n\nAlso it won\u0027t work like that: before the alignment is communicated to the source, the resolution here may be not good, and the InitEncode() call will fail (as in https://chromium-review.googlesource.com/c/chromium/src/+/2995112). Then encoder will be released at line 1100. Then the GetEncoderInfo() call below will cause segfault.\n\n+cc dalecurtis@\n\nDale, What information is the RtcVideoEncoder missing, so it can\u0027t provide alignment info before the InitEncode call? Is it waiting for the actual selected codec (vp8 vs h264)? But that information is there at the creation time. And webrtc guarantees that it will pass the same codec to the encode, which was used during creation time.\n\nI believe more logical change is to return correct alignment in RtcVideoEncoder even before InitEncode is called (based on |profile_|).\n\nMaybe you can create |impl_| at the creation of RtcVideoEncoder? When set video_content_mode_ separately at the initialization?",
+      "revId": "6e1b5fd9977b5292fd406c77a1cdb5e62c7609eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

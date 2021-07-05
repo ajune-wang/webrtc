@@ -52,6 +52,24 @@
       "parentUuid": "800acd43_03d6a973",
       "revId": "0daaba787f2d617f05bad9ff8facd9984bd63b5a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5fd0410_17bb2dd6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2021-07-05T13:56:56Z",
+      "side": 1,
+      "message": "I agree that the class is too big but I\u0027d argue that there is no difference between before and after this cl (audio_receive_stream is the same size as channel receive was). I\u0027d argue that this change makes it easier to read and write code, since there is no need to jump back and forth between the classes.\n\nI think we can probably split it up in to logical pieces, e.g. receiving packets and pulling audio, but that is not really what this cl tries to achieve. This cl only removes a seemingly unnecessary layer that only exists for legacy reasons.",
+      "parentUuid": "7fd2fa7a_76d149ad",
+      "revId": "0daaba787f2d617f05bad9ff8facd9984bd63b5a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

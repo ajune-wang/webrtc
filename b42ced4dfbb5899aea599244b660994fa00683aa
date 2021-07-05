@@ -22,6 +22,30 @@
       },
       "revId": "b42ced4dfbb5899aea599244b660994fa00683aa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28e6cbcc_fac75912",
+        "filename": "audio/audio_receive_stream_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2021-07-05T13:56:56Z",
+      "side": 0,
+      "message": "As you say, the tests were not useful since they only tested the propagation between the classes.\n\nI\u0027m sure we can add better tests, either by mocking RtpRtcp module and/or AudioCodingModule or more integration style tests. Not really relevant to this cl though.",
+      "parentUuid": "2c2480ad_57cd0711",
+      "range": {
+        "startLine": 214,
+        "startChar": 17,
+        "endLine": 214,
+        "endChar": 28
+      },
+      "revId": "b42ced4dfbb5899aea599244b660994fa00683aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

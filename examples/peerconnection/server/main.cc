@@ -41,8 +41,8 @@ ABSL_FLAG(int, port, 8888, "default: 8888");
 static const size_t kMaxConnections = (FD_SETSIZE - 2);
 
 void HandleBrowserRequest(DataSocket* ds, bool* quit) {
-  assert(ds && ds->valid());
-  assert(quit);
+  RTC_DCHECK(ds && ds->valid());
+  RTC_DCHECK(quit);
 
   const std::string& path = ds->request_path();
 
@@ -162,7 +162,7 @@ int main(int argc, char* argv[]) {
       if (socket_done) {
         printf("Disconnecting socket\n");
         clients.OnClosing(s);
-        assert(s->valid());  // Close must not have been called yet.
+        RTC_DCHECK(s->valid());  // Close must not have been called yet.
         FD_CLR(s->socket(), &socket_set);
         delete (*i);
         i = sockets.erase(i);

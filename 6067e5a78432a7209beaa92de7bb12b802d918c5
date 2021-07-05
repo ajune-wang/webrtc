@@ -58,6 +58,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "915258fd_cbbc481a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2021-07-05T11:33:27Z",
+      "side": 1,
+      "message": "Do you mean in the context GetRTT? As you can see that was a problem with the current implementation. I have not made any changes regarding that, only renamed network_thread_checker-\u003epacket_sequence_checker since that was done in AudioReceiveStream recently. There is an explainer above the declaration of packet_sequence_checker.",
+      "parentUuid": "e1a86062_63de3e8e",
+      "revId": "6067e5a78432a7209beaa92de7bb12b802d918c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0fec00ec_c7c1fb4b",

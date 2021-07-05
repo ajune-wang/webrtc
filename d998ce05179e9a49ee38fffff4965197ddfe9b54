@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e13227f_0d0f9237",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-05T14:38:25Z",
+      "side": 1,
+      "message": "iOS issues are unrelated. Let me send you a CL for that.",
+      "revId": "d998ce05179e9a49ee38fffff4965197ddfe9b54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f13a3563_a1153a5b",
+        "filename": "rtc_base/containers/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-07-05T18:38:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d40d4a21_01cfeb23",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 18
+      },
+      "revId": "d998ce05179e9a49ee38fffff4965197ddfe9b54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dd0a78eb_ffcddaaf",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-07-05T15:12:11Z",
       "side": 1,
       "message": "This is a Chromium link (in their //base), I wonder we might want to remove this one and provide something for WebRTC since we fore example don\u0027t have small_map.",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 13
+      },
+      "revId": "d998ce05179e9a49ee38fffff4965197ddfe9b54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ddc882e_46569b6d",
+        "filename": "rtc_base/containers/flat_map.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-07-05T18:38:13Z",
+      "side": 1,
+      "message": "Removed it completely. Once we have settled on the which maps to use, we should include that in our g3docs.",
+      "parentUuid": "dd0a78eb_ffcddaaf",
       "range": {
         "startLine": 46,
         "startChar": 0,
@@ -87,6 +135,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "099e4d42_46bfc59f",
+        "filename": "rtc_base/containers/flat_map.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-07-05T18:38:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "473e06c9_bfa4ae7a",
+      "range": {
+        "startLine": 54,
+        "startChar": 15,
+        "endLine": 54,
+        "endChar": 25
+      },
+      "revId": "d998ce05179e9a49ee38fffff4965197ddfe9b54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b2bf4a58_cba15bbf",
@@ -110,6 +182,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7cd4810_96267093",
+        "filename": "rtc_base/containers/flat_set.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-07-05T18:38:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2bf4a58_cba15bbf",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 13
+      },
+      "revId": "d998ce05179e9a49ee38fffff4965197ddfe9b54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e37c3f72_5db22dd0",
@@ -123,6 +219,30 @@
       "writtenOn": "2021-07-05T15:12:11Z",
       "side": 1,
       "message": "Same as in the flat_map header.",
+      "range": {
+        "startLine": 38,
+        "startChar": 6,
+        "endLine": 38,
+        "endChar": 25
+      },
+      "revId": "d998ce05179e9a49ee38fffff4965197ddfe9b54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e72a6ae3_a9febcc4",
+        "filename": "rtc_base/containers/flat_set.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-07-05T18:38:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e37c3f72_5db22dd0",
       "range": {
         "startLine": 38,
         "startChar": 6,

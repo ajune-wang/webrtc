@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1a86062_63de3e8e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-07-05T11:22:20Z",
+      "side": 1,
+      "message": "Drop-by: can I expect packet sequence thread checker to be identical to worker thread checker?\n\nIf not, some choices between the two after merging are not very obvious to me. (maybe an easy solution for this refactoring CL is to check both, leave the work of adding the proper one as follow up work for bug 11993)",
+      "revId": "6067e5a78432a7209beaa92de7bb12b802d918c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

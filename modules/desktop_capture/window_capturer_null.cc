@@ -49,8 +49,8 @@ bool WindowCapturerNull::SelectSource(SourceId id) {
 }
 
 void WindowCapturerNull::Start(Callback* callback) {
-  assert(!callback_);
-  assert(callback);
+  RTC_DCHECK(!callback_);
+  RTC_DCHECK(callback);
 
   callback_ = callback;
 }

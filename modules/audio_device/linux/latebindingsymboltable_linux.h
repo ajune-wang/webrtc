@@ -59,7 +59,7 @@ class LateBindingSymbolTable {
 
   // We do not use this, but we offer it for theoretical convenience.
   static const char* GetSymbolName(int index) {
-    assert(index < NumSymbols());
+    RTC_DCHECK(index < NumSymbols());
     return kSymbolNames[index];
   }
 
@@ -100,8 +100,8 @@ class LateBindingSymbolTable {
   // Retrieves the given symbol. NOTE: Recommended to use LATESYM_GET below
   // instead of this.
   void* GetSymbol(int index) const {
-    assert(IsLoaded());
-    assert(index < NumSymbols());
+    RTC_DCHECK(IsLoaded());
+    RTC_DCHECK(index < NumSymbols());
     return symbols_[index];
   }
 

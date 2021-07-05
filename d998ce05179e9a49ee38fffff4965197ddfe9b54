@@ -16,6 +16,121 @@
       "message": "iOS issues are unrelated. Let me send you a CL for that.",
       "revId": "d998ce05179e9a49ee38fffff4965197ddfe9b54",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d40d4a21_01cfeb23",
+        "filename": "rtc_base/containers/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-05T15:12:11Z",
+      "side": 1,
+      "message": "What about splitting this in 3?\n\nSomething like:\n\nrtc_library(\"flat_map\") {}\nrtc_library(\"flat_set\") {}\nrtc_library(\"flat_containers_internal\") {\n  visibility \u003d [\":*\"]\n}\n\n(more in line with the GN style we use)",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 18
+      },
+      "revId": "d998ce05179e9a49ee38fffff4965197ddfe9b54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd0a78eb_ffcddaaf",
+        "filename": "rtc_base/containers/flat_map.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-05T15:12:11Z",
+      "side": 1,
+      "message": "This is a Chromium link (in their //base), I wonder we might want to remove this one and provide something for WebRTC since we fore example don\u0027t have small_map.",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 13
+      },
+      "revId": "d998ce05179e9a49ee38fffff4965197ddfe9b54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "473e06c9_bfa4ae7a",
+        "filename": "rtc_base/containers/flat_map.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-05T15:12:11Z",
+      "side": 1,
+      "message": "If we remove the link above, add it here and mention this is Chromium docs with some performance measurements.",
+      "range": {
+        "startLine": 54,
+        "startChar": 15,
+        "endLine": 54,
+        "endChar": 25
+      },
+      "revId": "d998ce05179e9a49ee38fffff4965197ddfe9b54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2bf4a58_cba15bbf",
+        "filename": "rtc_base/containers/flat_set.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-05T15:12:11Z",
+      "side": 1,
+      "message": "Same as in the flat_map header.",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 13
+      },
+      "revId": "d998ce05179e9a49ee38fffff4965197ddfe9b54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e37c3f72_5db22dd0",
+        "filename": "rtc_base/containers/flat_set.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-05T15:12:11Z",
+      "side": 1,
+      "message": "Same as in the flat_map header.",
+      "range": {
+        "startLine": 38,
+        "startChar": 6,
+        "endLine": 38,
+        "endChar": 25
+      },
+      "revId": "d998ce05179e9a49ee38fffff4965197ddfe9b54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

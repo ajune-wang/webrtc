@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec0fec07_5447e367",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-07-05T14:14:30Z",
+      "side": 1,
+      "message": "So this is the (hopefully) the last revision before I squash them, and then use the previous commit\u0027s ChangeID as the one to use, and abandon this. This can then be used as a reference for easier understanding what I was doing.",
+      "revId": "94c4aa3cb4078d73cb6a5bfaa5a19942fe765162",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

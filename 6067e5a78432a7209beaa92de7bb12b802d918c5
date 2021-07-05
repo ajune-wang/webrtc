@@ -136,6 +136,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1912ca4c_dce2093b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-07-05T19:27:21Z",
+      "side": 1,
+      "message": "acked",
+      "parentUuid": "4ad0caba_a4b0d21b",
+      "revId": "6067e5a78432a7209beaa92de7bb12b802d918c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0fec00ec_c7c1fb4b",

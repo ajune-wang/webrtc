@@ -889,6 +889,8 @@ void VideoStreamEncoder::ReconfigureEncoder() {
   // Get alignment when actual number of layers are known.
   int alignment = AlignmentAdjuster::GetAlignmentAndMaybeAdjustScaleFactors(
       encoder_->GetEncoderInfo(), &encoder_config_, streams.size());
+  const bool initial_apply_alignment_to_all_simulcast_layers =
+      encoder_->GetEncoderInfo().apply_alignment_to_all_simulcast_layers;
 
   // Check that the higher layers do not try to set number of temporal layers
   // to less than 1.
@@ -1046,22 +1048,6 @@ void VideoStreamEncoder::ReconfigureEncoder() {
     encoder_resolutions.emplace_back(simulcastStream.width,
                                      simulcastStream.height);
   }
-  main_queue_->PostTask(ToQueuedTask(
-      task_safety_, [this, max_framerate, alignment,
-                     encoder_resolutions = std::move(encoder_resolutions)]() {
-        RTC_DCHECK_RUN_ON(main_queue_);
-        if (max_framerate !=
-                video_source_sink_controller_.frame_rate_upper_limit() ||
-            alignment != video_source_sink_controller_.resolution_alignment() ||
-            encoder_resolutions !=
-                video_source_sink_controller_.resolutions()) {
-          video_source_sink_controller_.SetFrameRateUpperLimit(max_framerate);
-          video_source_sink_controller_.SetResolutionAlignment(alignment);
-          video_source_sink_controller_.SetResolutions(
-              std::move(encoder_resolutions));
-          video_source_sink_controller_.PushSourceSinkSettings();
-        }
-      }));
 
   if (codec.maxBitrate == 0) {
     // max is one bit per pixel
@@ -1128,6 +1114,30 @@ void VideoStreamEncoder::ReconfigureEncoder() {
     last_encode_info_ms_ = absl::nullopt;
     was_encode_called_since_last_initialization_ = false;
   }
+
+  // If apply_alignment_to_all_simulcast_layers is disabled, get alignment after
+  // encoder is initialized (e.g. alignment is only known after InitEncode is
+  // called when using SimulcastEncoderAdapter).
+  if (!initial_apply_alignment_to_all_simulcast_layers &&
+      !encoder_->GetEncoderInfo().apply_alignment_to_all_simulcast_layers) {
+    alignment = encoder_->GetEncoderInfo().requested_resolution_alignment;
+  }
+  main_queue_->PostTask(ToQueuedTask(
+      task_safety_, [this, max_framerate, alignment,
+                     encoder_resolutions = std::move(encoder_resolutions)]() {
+        RTC_DCHECK_RUN_ON(main_queue_);
+        if (max_framerate !=
+                video_source_sink_controller_.frame_rate_upper_limit() ||
+            alignment != video_source_sink_controller_.resolution_alignment() ||
+            encoder_resolutions !=
+                video_source_sink_controller_.resolutions()) {
+          video_source_sink_controller_.SetFrameRateUpperLimit(max_framerate);
+          video_source_sink_controller_.SetResolutionAlignment(alignment);
+          video_source_sink_controller_.SetResolutions(
+              std::move(encoder_resolutions));
+          video_source_sink_controller_.PushSourceSinkSettings();
+        }
+      }));
 
   // Inform dependents of updated encoder settings.
   OnEncoderSettingsChanged();

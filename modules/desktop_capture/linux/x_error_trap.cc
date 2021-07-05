@@ -22,7 +22,7 @@ static bool g_xserver_error_trap_enabled = false;
 static int g_last_xserver_error_code = 0;
 
 int XServerErrorHandler(Display* display, XErrorEvent* error_event) {
-  assert(g_xserver_error_trap_enabled);
+  RTC_DCHECK(g_xserver_error_trap_enabled);
   g_last_xserver_error_code = error_event->error_code;
   return 0;
 }
@@ -31,7 +31,7 @@ int XServerErrorHandler(Display* display, XErrorEvent* error_event) {
 
 XErrorTrap::XErrorTrap(Display* display)
     : original_error_handler_(NULL), enabled_(true) {
-  assert(!g_xserver_error_trap_enabled);
+  RTC_DCHECK(!g_xserver_error_trap_enabled);
   original_error_handler_ = XSetErrorHandler(&XServerErrorHandler);
   g_xserver_error_trap_enabled = true;
   g_last_xserver_error_code = 0;
@@ -39,7 +39,7 @@ XErrorTrap::XErrorTrap(Display* display)
 
 int XErrorTrap::GetLastErrorAndDisable() {
   enabled_ = false;
-  assert(g_xserver_error_trap_enabled);
+  RTC_DCHECK(g_xserver_error_trap_enabled);
   XSetErrorHandler(original_error_handler_);
   g_xserver_error_trap_enabled = false;
   return g_last_xserver_error_code;

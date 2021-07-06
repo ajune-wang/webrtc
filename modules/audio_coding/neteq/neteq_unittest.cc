@@ -83,9 +83,9 @@ TEST_F(NetEqDecodingTest, MAYBE_TestBitExactness) {
       webrtc::test::ResourcePath("audio_coding/neteq_universal_new", "rtp");
 
   const std::string output_checksum =
-      PlatformChecksum("6c35140ce4d75874bdd60aa1872400b05fd05ca2",
+      PlatformChecksum("8d9c177b7f2f9398c0944a851edffae214de2c56",
                        "ab451bb8301d9a92fbf4de91556b56f1ea38b4ce", "not used",
-                       "6c35140ce4d75874bdd60aa1872400b05fd05ca2",
+                       "8d9c177b7f2f9398c0944a851edffae214de2c56",
                        "64b46bb3c1165537a880ae8404afce2efba456c0");
 
   const std::string network_stats_checksum =

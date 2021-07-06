@@ -1038,6 +1038,7 @@ if (is_ios || is_mac) {
             "objc/unittests/frame_buffer_helpers.mm",
             "objc/unittests/nalu_rewriter_xctest.mm",
           ]
+          defines = [ "GLES_SILENCE_DEPRECATION" ]
 
           # TODO(peterhanspers): Reenable these tests on simulator.
           # See bugs.webrtc.org/7812

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "932bf6eb_e7943e28",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-06T11:48:28Z",
+      "side": 1,
+      "message": "Ivo, I think the new clang version is what is causing bit-exactness test failures.\n\nDo you want to manually check audio or this is good to go?",
+      "revId": "5a00aae606c72bcd229d2ad0434101c0b40c64d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -113,7 +113,7 @@ int WebRtcSpl_ComplexFFT(int16_t frfi[], int stages, int mode)
                     j = i + l;
 
 #ifdef WEBRTC_ARCH_ARM_V7
-                    register int32_t frfi_r;
+                    int32_t frfi_r;
                     __asm __volatile(
                         "pkhbt %[frfi_r], %[frfi_even], %[frfi_odd],"
                         " lsl #16\n\t"
@@ -255,7 +255,7 @@ int WebRtcSpl_ComplexIFFT(int16_t frfi[], int stages, int mode)
                     j = i + l;
 
 #ifdef WEBRTC_ARCH_ARM_V7
-                    register int32_t frfi_r;
+                    int32_t frfi_r;
                     __asm __volatile(
                       "pkhbt %[frfi_r], %[frfi_even], %[frfi_odd], lsl #16\n\t"
                       "smlsd %[tr32], %[wri], %[frfi_r], %[cifftrnd]\n\t"

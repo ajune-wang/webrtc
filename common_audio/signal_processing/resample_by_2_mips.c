@@ -37,14 +37,14 @@ void WebRtcSpl_DownsampleBy2(const int16_t* in,
   int32_t out32;
   size_t i, len1;
 
-  register int32_t state0 = filtState[0];
-  register int32_t state1 = filtState[1];
-  register int32_t state2 = filtState[2];
-  register int32_t state3 = filtState[3];
-  register int32_t state4 = filtState[4];
-  register int32_t state5 = filtState[5];
-  register int32_t state6 = filtState[6];
-  register int32_t state7 = filtState[7];
+  int32_t state0 = filtState[0];
+  int32_t state1 = filtState[1];
+  int32_t state2 = filtState[2];
+  int32_t state3 = filtState[3];
+  int32_t state4 = filtState[4];
+  int32_t state5 = filtState[5];
+  int32_t state6 = filtState[6];
+  int32_t state7 = filtState[7];
 
 #if defined(MIPS_DSP_R2_LE)
   int32_t k1Res0, k1Res1, k1Res2, k2Res0, k2Res1, k2Res2;

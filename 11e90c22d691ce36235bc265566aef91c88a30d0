@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d2655c3_76285327",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-07-06T11:09:32Z",
+      "side": 1,
+      "message": "mbonadei, it would be nice to approve this CL and then send to CQ again.",
+      "revId": "11e90c22d691ce36235bc265566aef91c88a30d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

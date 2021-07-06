@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "403442b5_7375fe29",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-06T09:42:38Z",
+      "side": 1,
+      "message": "\u003e Per recent change of build_ios_libs.py,\n\u003e ( https://webrtc-review.googlesource.com/c/src/+/224843 )\n\u003e I\u0027ve changed ENABLED_ARCHS and DEFAULT_ARCHS.\n\u003e \n\u003e For tracking binary size in ios_api_framework.py,\n\u003e I recommend using the following file to track size:\n\u003e out_ios_libs/WebRTC.xcframework/ios-arm64/WebRTC.framework/WebRTC\n\nhttps://chromium-review.googlesource.com/c/chromium/tools/build/+/3006804",
+      "parentUuid": "d9b6401e_5afc98cf",
+      "revId": "37a4997561afb45e0b5a1a842b35d19e04bff75a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aa1d6930_87f8c887",

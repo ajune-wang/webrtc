@@ -16,6 +16,29 @@
       "message": "Per recent change of build_ios_libs.py,\n( https://webrtc-review.googlesource.com/c/src/+/224843 )\nI\u0027ve changed ENABLED_ARCHS and DEFAULT_ARCHS.\n\nFor tracking binary size in ios_api_framework.py,\nI recommend using the following file to track size:\nout_ios_libs/WebRTC.xcframework/ios-arm64/WebRTC.framework/WebRTC",
       "revId": "37a4997561afb45e0b5a1a842b35d19e04bff75a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa1d6930_87f8c887",
+        "filename": "tools_webrtc/ios/build_ios_libs.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-06T09:37:06Z",
+      "side": 1,
+      "message": "Remove?",
+      "range": {
+        "startLine": 139,
+        "startChar": 28,
+        "endLine": 139,
+        "endChar": 45
+      },
+      "revId": "37a4997561afb45e0b5a1a842b35d19e04bff75a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

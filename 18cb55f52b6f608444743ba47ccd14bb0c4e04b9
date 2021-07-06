@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c066b0ab_7d424931",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-06T14:34:36Z",
+      "side": 1,
+      "message": "Now it should be ready for review (but I am still unsure if we need to listen to the output or not).",
+      "revId": "18cb55f52b6f608444743ba47ccd14bb0c4e04b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

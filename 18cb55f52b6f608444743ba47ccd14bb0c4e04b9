@@ -16,6 +16,23 @@
       "message": "Now it should be ready for review (but I am still unsure if we need to listen to the output or not).",
       "revId": "18cb55f52b6f608444743ba47ccd14bb0c4e04b9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "134f991b_52fcf728",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-07-06T15:32:03Z",
+      "side": 1,
+      "message": "I\u0027ve listened to the output audio, and it sounds good to me. It\u0027s a bit unfortunate that we have even more checksums to maintain now, but I guess that can\u0027t be helped.",
+      "revId": "18cb55f52b6f608444743ba47ccd14bb0c4e04b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

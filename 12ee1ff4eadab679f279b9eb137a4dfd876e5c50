@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a9d7ead_579a77af",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-06T14:35:40Z",
+      "side": 1,
+      "message": "Harald, here is the first step to remove assert() from the codebase. Please take a look to all the files since while partially automated, I had to do some manual changes to improve the choice of RTC_DCHECKs variants.",
+      "revId": "12ee1ff4eadab679f279b9eb137a4dfd876e5c50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

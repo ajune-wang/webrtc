@@ -641,9 +641,7 @@ TEST_F(AudioDecoderG722StereoTest, SetTargetBitrate) {
   TestSetAndGetTargetBitratesWithFixedCodec(audio_encoder_.get(), 128000);
 }
 
-// TODO(http://bugs.webrtc.org/12518): Enable the test after Opus has been
-// updated.
-TEST_P(AudioDecoderOpusTest, DISABLED_EncodeDecode) {
+TEST_P(AudioDecoderOpusTest, EncodeDecode) {
   constexpr int tolerance = 6176;
   constexpr int channel_diff_tolerance = 6;
   constexpr double mse = 238630.0;

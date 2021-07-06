@@ -966,7 +966,13 @@ TEST_F(AcmReceiverBitExactnessOldApi, 32kHzOutput) {
 TEST_F(AcmReceiverBitExactnessOldApi, 48kHzOutput) {
   std::string others_checksum_reference =
       GetCPUInfo(kAVX2) != 0 ? "7a55700b7ca9aa60237db58b33e55606"
+// TODO(bugs.webrtc.org/12941): Linux x86 optimized builds have a different
+// checksum.
+#if defined(WEBRTC_LINUX) && !defined(NDEBUG)
+                             : "a2459749062f96297283cce4a8c7e6db";
+#else
                              : "57d1d316c88279f4f3da3511665069a9";
+#endif
   std::string win64_checksum_reference =
       GetCPUInfo(kAVX2) != 0 ? "f59833d9b0924f4b0704707dd3589f80"
                              : "74cbe7345e2b6b45c1e455a5d1e921ca";
@@ -1055,7 +1061,13 @@ TEST_F(AcmReceiverBitExactnessOldApi, 48kHzOutputExternalDecoder) {
       new rtc::RefCountedObject<ADFactory>);
   std::string others_checksum_reference =
       GetCPUInfo(kAVX2) != 0 ? "7a55700b7ca9aa60237db58b33e55606"
+// TODO(bugs.webrtc.org/12941): Linux x86 optimized builds have a different
+// checksum.
+#if defined(WEBRTC_LINUX) && !defined(NDEBUG)
+                             : "a2459749062f96297283cce4a8c7e6db";
+#else
                              : "57d1d316c88279f4f3da3511665069a9";
+#endif
   std::string win64_checksum_reference =
       GetCPUInfo(kAVX2) != 0 ? "f59833d9b0924f4b0704707dd3589f80"
                              : "74cbe7345e2b6b45c1e455a5d1e921ca";

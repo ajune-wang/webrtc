@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b8bb427_9a5bd741",
+        "filename": "common_audio/signal_processing/complex_fft.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-06T09:23:22Z",
+      "side": 0,
+      "message": "One thing I forgot to mention is that \"register\" still has meaning in C.\n\nSo we might want to keep it around. I can abandon the change, what do you think?",
+      "range": {
+        "startLine": 116,
+        "startChar": 20,
+        "endLine": 116,
+        "endChar": 28
+      },
+      "revId": "93ce46fc6374cf9e1ba3c94105adb1e6dcb57108",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

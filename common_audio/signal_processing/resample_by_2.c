@@ -72,14 +72,14 @@ void WebRtcSpl_DownsampleBy2(const int16_t* in, size_t len,
   int32_t tmp1, tmp2, diff, in32, out32;
   size_t i;
 
-  register int32_t state0 = filtState[0];
-  register int32_t state1 = filtState[1];
-  register int32_t state2 = filtState[2];
-  register int32_t state3 = filtState[3];
-  register int32_t state4 = filtState[4];
-  register int32_t state5 = filtState[5];
-  register int32_t state6 = filtState[6];
-  register int32_t state7 = filtState[7];
+  int32_t state0 = filtState[0];
+  int32_t state1 = filtState[1];
+  int32_t state2 = filtState[2];
+  int32_t state3 = filtState[3];
+  int32_t state4 = filtState[4];
+  int32_t state5 = filtState[5];
+  int32_t state6 = filtState[6];
+  int32_t state7 = filtState[7];
 
   for (i = (len >> 1); i > 0; i--) {
     // lower allpass filter
@@ -130,14 +130,14 @@ void WebRtcSpl_UpsampleBy2(const int16_t* in, size_t len,
   int32_t tmp1, tmp2, diff, in32, out32;
   size_t i;
 
-  register int32_t state0 = filtState[0];
-  register int32_t state1 = filtState[1];
-  register int32_t state2 = filtState[2];
-  register int32_t state3 = filtState[3];
-  register int32_t state4 = filtState[4];
-  register int32_t state5 = filtState[5];
-  register int32_t state6 = filtState[6];
-  register int32_t state7 = filtState[7];
+  int32_t state0 = filtState[0];
+  int32_t state1 = filtState[1];
+  int32_t state2 = filtState[2];
+  int32_t state3 = filtState[3];
+  int32_t state4 = filtState[4];
+  int32_t state5 = filtState[5];
+  int32_t state6 = filtState[6];
+  int32_t state7 = filtState[7];
 
   for (i = len; i > 0; i--) {
     // lower allpass filter

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bad48f66_f34fd3a2",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-07-07T19:11:15Z",
+      "side": 1,
+      "message": "should be double, or maybe give \"std::round(clipping_ratio * 100.0f)\" as input, because std::round(clipping_ratio * 100.0f) appears twice, and a bit redundant.",
+      "range": {
+        "startLine": 163,
+        "startChar": 24,
+        "endLine": 163,
+        "endChar": 27
+      },
+      "revId": "0f8b5566f42a8484e2b75487c76f5b1cfb869de7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

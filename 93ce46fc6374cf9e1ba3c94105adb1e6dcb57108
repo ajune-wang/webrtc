@@ -22,6 +22,30 @@
       },
       "revId": "93ce46fc6374cf9e1ba3c94105adb1e6dcb57108",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90460ae1_d07e63fd",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-07-07T14:55:15Z",
+      "side": 0,
+      "message": "I think it\u0027s good to move it so that which class it is on is the same as which dictionary in the spec it is on.\n\nIt is harmless to put it there, the packets_discarded member of the RTCRemoteInboundRtpStreamStats object will simply be undefined (!is_defined()) which means it won\u0027t show up on the JavaScript object anyway.",
+      "parentUuid": "9f50d698_b0965d32",
+      "range": {
+        "startLine": 466,
+        "startChar": 0,
+        "endLine": 466,
+        "endChar": 45
+      },
+      "revId": "93ce46fc6374cf9e1ba3c94105adb1e6dcb57108",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

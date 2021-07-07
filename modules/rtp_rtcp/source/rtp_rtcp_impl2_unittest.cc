@@ -499,6 +499,26 @@ TEST_P(RtpRtcpImpl2Test, RttForReceiverOnly) {
   EXPECT_NEAR(2 * kOneWayNetworkDelay.ms(), receiver_.impl_->rtt_ms(), 1);
 }
 
+// Same test as above, but we explicitly disable receive-side RTT.
+TEST_P(RtpRtcpImpl2Test, DisableReceiverRtt) {
+  // Receive-side RTT is enabled by default in the test, explicitly disable it.
+  receiver_.impl_->SetRecvRttEnabled(false);
+  // Receiver module should not send a Receiver time reference report (RTRR).
+  EXPECT_EQ(0, receiver_.impl_->SendRTCP(kRtcpReport));
+
+  AdvanceTime(TimeDelta::Millis(1000));
+  // Send Frame before sending a SR.
+  EXPECT_TRUE(SendFrame(&sender_, sender_video_.get(), kBaseLayerTid));
+  EXPECT_EQ(0, sender_.impl_->SendRTCP(kRtcpReport));
+
+  // Verify that the receiver will not get a valid RTT.
+  EXPECT_EQ(0, receiver_.rtt_stats_.LastProcessedRtt());
+  EXPECT_EQ(0, receiver_.impl_->rtt_ms());
+  AdvanceTime(TimeDelta::Millis(1000));
+  EXPECT_EQ(0, receiver_.rtt_stats_.LastProcessedRtt());
+  EXPECT_EQ(0, receiver_.impl_->rtt_ms());
+}
+
 TEST_P(RtpRtcpImpl2Test, NoSrBeforeMedia) {
   // Ignore fake transport delays in this test.
   sender_.transport_.SimulateNetworkDelay(TimeDelta::Millis(0));

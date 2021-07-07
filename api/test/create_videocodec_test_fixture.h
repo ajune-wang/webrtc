@@ -12,6 +12,7 @@
 #define API_TEST_CREATE_VIDEOCODEC_TEST_FIXTURE_H_
 
 #include <memory>
+#include <vector>
 
 #include "api/test/videocodec_test_fixture.h"
 #include "api/video_codecs/video_decoder_factory.h"
@@ -27,6 +28,11 @@ std::unique_ptr<VideoCodecTestFixture> CreateVideoCodecTestFixture(
     const VideoCodecTestFixture::Config& config,
     std::unique_ptr<VideoDecoderFactory> decoder_factory,
     std::unique_ptr<VideoEncoderFactory> encoder_factory);
+
+std::unique_ptr<VideoCodecTestFixture> CreateVideoCodecTestFixture(
+    const VideoCodecTestFixture::Config& config,
+    std::vector<std::unique_ptr<VideoDecoder>> decoders,
+    std::unique_ptr<VideoEncoder> encoder);
 
 }  // namespace test
 }  // namespace webrtc

@@ -65,9 +65,9 @@ const int kMaxQp = 56;
 void ConfigureSimulcast(VideoCodec* codec_settings) {
   FieldTrialBasedConfig trials;
   const std::vector<webrtc::VideoStream> streams = cricket::GetSimulcastConfig(
-      /*min_layer=*/1, codec_settings->numberOfSimulcastStreams,
+      /*min_layers=*/1, codec_settings->numberOfSimulcastStreams,
       codec_settings->width, codec_settings->height, kBitratePriority, kMaxQp,
-      /* is_screenshare = */ false, true, trials);
+      /*is_screenshare_with_conference_mode=*/false, true, trials);
 
   for (size_t i = 0; i < streams.size(); ++i) {
     SpatialLayer* ss = &codec_settings->simulcastStream[i];
@@ -90,7 +90,7 @@ void ConfigureSvc(VideoCodec* codec_settings) {
       codec_settings->width, codec_settings->height, kDefaultMaxFramerateFps,
       /*first_active_layer=*/0, codec_settings->VP9()->numberOfSpatialLayers,
       codec_settings->VP9()->numberOfTemporalLayers,
-      /* is_screen_sharing = */ false);
+      /*is_screen_sharing=*/false);
   ASSERT_EQ(codec_settings->VP9()->numberOfSpatialLayers, layers.size())
       << "GetSvcConfig returned fewer spatial layers than configured.";
 
@@ -395,6 +395,14 @@ VideoCodecTestFixtureImpl::VideoCodecTestFixtureImpl(
       decoder_factory_(std::move(decoder_factory)),
       config_(config) {}
 
+VideoCodecTestFixtureImpl::VideoCodecTestFixtureImpl(
+    Config config,
+    std::vector<std::unique_ptr<VideoDecoder>> decoders,
+    std::unique_ptr<VideoEncoder> encoder)
+    : encoder_(std::move(encoder)),
+      decoders_(std::move(decoders)),
+      config_(config) {}
+
 VideoCodecTestFixtureImpl::~VideoCodecTestFixtureImpl() = default;
 
 // Processes all frames in the clip and verifies the result.
@@ -605,40 +613,52 @@ void VideoCodecTestFixtureImpl::VerifyVideoStatistic(
 }
 
 bool VideoCodecTestFixtureImpl::CreateEncoderAndDecoder() {
-  SdpVideoFormat::Parameters params;
-  if (config_.codec_settings.codecType == kVideoCodecH264) {
-    const char* packetization_mode =
-        config_.h264_codec_settings.packetization_mode ==
-                H264PacketizationMode::NonInterleaved
-            ? "1"
-            : "0";
-    params = {{cricket::kH264FmtpProfileLevelId,
-               *H264ProfileLevelIdToString(H264ProfileLevelId(
-                   config_.h264_codec_settings.profile, H264Level::kLevel3_1))},
-              {cricket::kH264FmtpPacketizationMode, packetization_mode}};
-  } else {
-    params = {};
-  }
-  SdpVideoFormat format(config_.codec_name, params);
-
-  encoder_ = encoder_factory_->CreateVideoEncoder(format);
-  EXPECT_TRUE(encoder_) << "Encoder not successfully created.";
+  // Use codecs provided by user. Otherwise, if not provided, create them.
   if (encoder_ == nullptr) {
-    return false;
+    SdpVideoFormat::Parameters params;
+    if (config_.codec_settings.codecType == kVideoCodecH264) {
+      const char* packetization_mode =
+          config_.h264_codec_settings.packetization_mode ==
+                  H264PacketizationMode::NonInterleaved
+              ? "1"
+              : "0";
+      params = {
+          {cricket::kH264FmtpProfileLevelId,
+           *H264ProfileLevelIdToString(H264ProfileLevelId(
+               config_.h264_codec_settings.profile, H264Level::kLevel3_1))},
+          {cricket::kH264FmtpPacketizationMode, packetization_mode}};
+    } else {
+      params = {};
+    }
+    SdpVideoFormat format(config_.codec_name, params);
+
+    encoder_ = encoder_factory_->CreateVideoEncoder(format);
+    EXPECT_TRUE(encoder_) << "Failed to create encoder.";
+    if (encoder_ == nullptr) {
+      return false;
+    }
   }
 
   const size_t num_simulcast_or_spatial_layers = std::max(
       config_.NumberOfSimulcastStreams(), config_.NumberOfSpatialLayers());
-  for (size_t i = 0; i < num_simulcast_or_spatial_layers; ++i) {
-    decoders_.push_back(std::unique_ptr<VideoDecoder>(
-        decoder_factory_->CreateVideoDecoder(format)));
+
+  if (decoders_.empty()) {
+    for (size_t i = 0; i < num_simulcast_or_spatial_layers; ++i) {
+      auto decoder = decoder_factory_->CreateVideoDecoder(
+          SdpVideoFormat(config_.codec_name));
+      EXPECT_TRUE(decoder) << "Failed to create decoder.";
+      if (decoder == nullptr) {
+        return false;
+      }
+      decoders_.push_back(std::move(decoder));
+    }
   }
 
-  for (const auto& decoder : decoders_) {
-    EXPECT_TRUE(decoder) << "Decoder not successfully created.";
-    if (decoder == nullptr) {
-      return false;
-    }
+  EXPECT_EQ(decoders_.size(), num_simulcast_or_spatial_layers)
+      << "Number of decoders is less than number of simulcast streams or "
+         "spatial layers.";
+  if (decoders_.size() < num_simulcast_or_spatial_layers) {
+    return false;
   }
 
   return true;

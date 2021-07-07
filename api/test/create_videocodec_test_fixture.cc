@@ -10,7 +10,6 @@
 
 #include "api/test/create_videocodec_test_fixture.h"
 
-#include <memory>
 #include <utility>
 
 #include "api/test/videocodec_test_fixture.h"
@@ -32,6 +31,14 @@ std::unique_ptr<VideoCodecTestFixture> CreateVideoCodecTestFixture(
     std::unique_ptr<VideoEncoderFactory> encoder_factory) {
   return std::make_unique<VideoCodecTestFixtureImpl>(
       config, std::move(decoder_factory), std::move(encoder_factory));
+}
+
+std::unique_ptr<VideoCodecTestFixture> CreateVideoCodecTestFixture(
+    const Config& config,
+    std::vector<std::unique_ptr<VideoDecoder>> decoders,
+    std::unique_ptr<VideoEncoder> encoder) {
+  return std::make_unique<VideoCodecTestFixtureImpl>(
+      config, std::move(decoders), std::move(encoder));
 }
 
 }  // namespace test

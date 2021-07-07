@@ -43,10 +43,16 @@ class VideoCodecTestFixtureImpl : public VideoCodecTestFixture {
   };
 
   explicit VideoCodecTestFixtureImpl(Config config);
+
   VideoCodecTestFixtureImpl(
       Config config,
       std::unique_ptr<VideoDecoderFactory> decoder_factory,
       std::unique_ptr<VideoEncoderFactory> encoder_factory);
+
+  VideoCodecTestFixtureImpl(Config config,
+                            std::vector<std::unique_ptr<VideoDecoder>> decoders,
+                            std::unique_ptr<VideoEncoder> encoder);
+
   ~VideoCodecTestFixtureImpl() override;
 
   void RunTest(const std::vector<RateProfile>& rate_profiles,

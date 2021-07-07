@@ -947,6 +947,7 @@ if (rtc_include_tests) {
     sources = [
       "chain_diff_calculator_unittest.cc",
       "codecs/test/videocodec_test_fixture_config_unittest.cc",
+      "codecs/test/videocodec_test_fixture_impl_unittest.cc",
       "codecs/test/videocodec_test_stats_impl_unittest.cc",
       "codecs/test/videoprocessor_unittest.cc",
       "codecs/vp8/default_temporal_layers_unittest.cc",
@@ -1036,6 +1037,8 @@ if (rtc_include_tests) {
       "../../api/video:video_frame",
       "../../api/video:video_frame_type",
       "../../api/video:video_rtp_headers",
+      "../../api/video_codecs:builtin_video_decoder_factory",
+      "../../api/video_codecs:builtin_video_encoder_factory",
       "../../api/video_codecs:video_codecs_api",
       "../../api/video_codecs:vp8_temporal_layers_factory",
       "../../common_video",

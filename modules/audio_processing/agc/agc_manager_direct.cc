@@ -160,6 +160,14 @@ void LogClippingPredictorMetrics(const ClippingPredictorEvaluator& evaluator) {
   }
 }
 
+void LogClippingMetrics(int clipping_ratio) {
+  RTC_LOG(LS_INFO) << "Clipping ratio: " << std::round(clipping_ratio * 100.0f)
+                   << "%";
+  RTC_HISTOGRAM_COUNTS_LINEAR("WebRTC.Audio.Agc.ClippingRatio",
+                              std::round(clipping_ratio * 100.0f), /*min=*/0,
+                              /*max=*/100, /*bucket_count=*/50);
+}
+
 }  // namespace
 
 MonoAgc::MonoAgc(ApmDataDumper* data_dumper,
@@ -480,7 +488,9 @@ AgcManagerDirect::AgcManagerDirect(
       use_clipping_predictor_step_(!!clipping_predictor_ &&
                                    clipping_config.use_predicted_step),
       clipping_predictor_evaluator_(kClippingPredictorEvaluatorHistorySize),
-      clipping_predictor_log_counter_(0) {
+      clipping_predictor_log_counter_(0),
+      clipping_ratio_log_(0.0f),
+      clipping_ratio_log_counter_(0) {
   const int min_mic_level = GetMinMicLevel();
   for (size_t ch = 0; ch < channel_agcs_.size(); ++ch) {
     ApmDataDumper* data_dumper_ch = ch == 0 ? data_dumper_.get() : nullptr;
@@ -511,6 +521,8 @@ void AgcManagerDirect::Initialize() {
   AggregateChannelLevels();
   clipping_predictor_evaluator_.Reset();
   clipping_predictor_log_counter_ = 0;
+  clipping_ratio_log_ = 0.0f;
+  clipping_ratio_log_counter_ = 0;
 }
 
 void AgcManagerDirect::SetupDigitalGainControl(
@@ -570,6 +582,15 @@ void AgcManagerDirect::AnalyzePreProcess(const float* const* audio,
   float clipped_ratio =
       ComputeClippedRatio(audio, num_capture_channels_, samples_per_channel);
   const bool clipping_detected = clipped_ratio > clipped_ratio_threshold_;
+  clipping_ratio_log_ += clipped_ratio;
+  constexpr int kNumFramesIn30Seconds = 3000;
+  clipping_ratio_log_counter_++;
+  if (clipping_ratio_log_counter_ == kNumFramesIn30Seconds) {
+    LogClippingMetrics(clipping_ratio_log_ /
+                       static_cast<float>(kNumFramesIn30Seconds));
+    clipping_ratio_log_ = 0.0f;
+    clipping_ratio_log_counter_ = 0;
+  }
   bool clipping_predicted = false;
   int predicted_step = 0;
   if (!!clipping_predictor_) {
@@ -592,7 +613,6 @@ void AgcManagerDirect::AnalyzePreProcess(const float* const* audio,
           prediction_interval.value(), /*min=*/0,
           /*max=*/49, /*bucket_count=*/50);
     }
-    constexpr int kNumFramesIn30Seconds = 3000;
     clipping_predictor_log_counter_++;
     if (clipping_predictor_log_counter_ == kNumFramesIn30Seconds) {
       LogClippingPredictorMetrics(clipping_predictor_evaluator_);

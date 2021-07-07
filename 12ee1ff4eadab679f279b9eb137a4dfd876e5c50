@@ -16,6 +16,74 @@
       "message": "Harald, here is the first step to remove assert() from the codebase. Please take a look to all the files since while partially automated, I had to do some manual changes to improve the choice of RTC_DCHECKs variants.",
       "revId": "12ee1ff4eadab679f279b9eb137a4dfd876e5c50",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbb0fa36_f9a4355a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-07-07T12:27:52Z",
+      "side": 1,
+      "message": "Pattern of RTC_DCHECK(smartpointer.get()) should probably be eliminated; I don\u0027t think I saw them all.\n\nOne scary bit. The rest looks normal.\n",
+      "revId": "12ee1ff4eadab679f279b9eb137a4dfd876e5c50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4d169cd_bda8626f",
+        "filename": "examples/peerconnection/server/peer_channel.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-07-07T12:27:52Z",
+      "side": 1,
+      "message": "Checking against \u003d\u003d NULL - shouldn\u0027t that be \"RTC_DCHECK(!waiting_socket_) ?\n\n(Scary if no test failed!)",
+      "revId": "12ee1ff4eadab679f279b9eb137a4dfd876e5c50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16d15517_d0915755",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1595,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-07-07T12:27:52Z",
+      "side": 1,
+      "message": "RTC_DCHECK(normal_) enough?",
+      "revId": "12ee1ff4eadab679f279b9eb137a4dfd876e5c50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4dcf8404_a7919bc2",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1618,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-07-07T12:27:52Z",
+      "side": 1,
+      "message": "RTC_DCHECK(merge_)?",
+      "revId": "12ee1ff4eadab679f279b9eb137a4dfd876e5c50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

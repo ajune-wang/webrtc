@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5079dde_1b3c0745",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-07-07T14:53:02Z",
+      "side": 1,
+      "message": "Thank you!\n\nI assume this will impact the expectation files for the chromium WPT where lines go from FAIL to PASS?\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/web_tests/external/wpt/webrtc-stats/supported-stats-expected.txt;l\u003d62?q\u003dexternal%2Fwpt%2Fwebrtc-stats%2Fsupported-stats\u0026originalUrl\u003dhttps:%2F%2Fcs.chromium.org%2F\n\nYou\u0027ll need to temporarily disable it by modifying TestExpectations to unblock rolling webrtc with this change into chromium, then you can re-enable and adjust the expectations file.",
+      "revId": "67155fea7236f8f94d0b814a35b503d1e7276fe6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d63d787_c4f7b074",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-07-07T14:53:02Z",
+      "side": 1,
+      "message": "LGTM with regards to stats collector layers, but see comments. Thanks for improving stats!",
+      "revId": "67155fea7236f8f94d0b814a35b503d1e7276fe6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "906f5c0b_2d904719",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-07-07T14:53:02Z",
+      "side": 1,
+      "message": "In rtc_stats_collector.cc you are setting the value of packetsDiscarded for RTCInboundRtpStreamStats objects, but not for RTCRemoteInboundRtpStreamStats. So. this TODO should still mention packetsDiscarded unless it is available and you forgot to set it",
+      "revId": "67155fea7236f8f94d0b814a35b503d1e7276fe6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

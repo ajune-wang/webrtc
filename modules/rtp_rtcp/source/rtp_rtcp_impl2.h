@@ -104,6 +104,8 @@ class ModuleRtpRtcpImpl2 final : public RtpRtcpInterface,
   RtpState GetRtpState() const override;
   RtpState GetRtxState() const override;
 
+  void SetRecvRttEnabled(bool enabled) override;
+
   uint32_t SSRC() const override { return rtcp_sender_.SSRC(); }
 
   // Semantically identical to `SSRC()` but must be called on the packet
@@ -257,6 +259,7 @@ class ModuleRtpRtcpImpl2 final : public RtpRtcpInterface,
  private:
   FRIEND_TEST_ALL_PREFIXES(RtpRtcpImpl2Test, Rtt);
   FRIEND_TEST_ALL_PREFIXES(RtpRtcpImpl2Test, RttForReceiverOnly);
+  FRIEND_TEST_ALL_PREFIXES(RtpRtcpImpl2Test, DisableReceiverRtt);
 
   struct RtpSenderContext : public SequenceNumberAssigner {
     explicit RtpSenderContext(const RtpRtcpInterface::Configuration& config);

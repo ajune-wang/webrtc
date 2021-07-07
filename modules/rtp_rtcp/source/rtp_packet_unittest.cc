@@ -504,6 +504,70 @@ TEST(RtpPacketTest, ParseWithExtension) {
   EXPECT_EQ(0u, packet.padding_size());
 }
 
+TEST(RtpPacketTest, ParseHeaderOnly) {
+  // clang-format off
+  constexpr uint8_t kPaddingHeader[] = {
+      0x80, kPayloadType, kSeqNumFirstByte, kSeqNumSecondByte,
+      0x65, 0x43, 0x12, 0x78,
+      0x12, 0x34, 0x56, 0x78};
+  // clang-format on
+
+  RtpPacket packet;
+  EXPECT_TRUE(packet.Parse(rtc::CopyOnWriteBuffer(kPaddingHeader)));
+  EXPECT_EQ(packet.SequenceNumber(), kSeqNum);
+  EXPECT_FALSE(packet.has_padding());
+  EXPECT_EQ(packet.padding_size(), 0u);
+  EXPECT_EQ(packet.payload_size(), 0u);
+}
+
+TEST(RtpPacketTest, ParseHeaderOnlyWithPadding) {
+  // clang-format off
+  constexpr uint8_t kPaddingHeader[] = {
+      0xa0, kPayloadType, kSeqNumFirstByte, kSeqNumSecondByte,
+      0x65, 0x43, 0x12, 0x78,
+      0x12, 0x34, 0x56, 0x78};
+  // clang-format on
+
+  RtpPacket packet;
+  EXPECT_TRUE(packet.Parse(rtc::CopyOnWriteBuffer(kPaddingHeader)));
+  EXPECT_EQ(packet.SequenceNumber(), kSeqNum);
+  EXPECT_TRUE(packet.has_padding());
+  EXPECT_EQ(packet.padding_size(), 0u);
+}
+
+TEST(RtpPacketTest, ParseHeaderOnlyWithExtensionAndPadding) {
+  // clang-format off
+  constexpr uint8_t kPaddingHeader[] = {
+      0xb0, kPayloadType, kSeqNumFirstByte, kSeqNumSecondByte,
+      0x65, 0x43, 0x12, 0x78,
+      0x12, 0x34, 0x56, 0x78,
+      0xbe, 0xde, 0x00, 0x01,
+      0x11, 0x00, 0x00, 0x00};
+  // clang-format on
+
+  RtpPacket packet;
+  EXPECT_TRUE(packet.Parse(rtc::CopyOnWriteBuffer(kPaddingHeader)));
+  EXPECT_EQ(packet.SequenceNumber(), kSeqNum);
+  EXPECT_TRUE(packet.has_padding());
+  EXPECT_EQ(packet.padding_size(), 0u);
+}
+
+TEST(RtpPacketTest, ParsePaddingOnlyPacket) {
+  // clang-format off
+  constexpr uint8_t kPaddingHeader[] = {
+      0xa0, kPayloadType, kSeqNumFirstByte, kSeqNumSecondByte,
+      0x65, 0x43, 0x12, 0x78,
+      0x12, 0x34, 0x56, 0x78,
+      0, 0, 3};
+  // clang-format on
+
+  RtpPacket packet;
+  EXPECT_TRUE(packet.Parse(rtc::CopyOnWriteBuffer(kPaddingHeader)));
+  EXPECT_EQ(packet.SequenceNumber(), kSeqNum);
+  EXPECT_TRUE(packet.has_padding());
+  EXPECT_EQ(packet.padding_size(), 3u);
+}
+
 TEST(RtpPacketTest, GetExtensionWithoutParametersReturnsOptionalValue) {
   RtpPacket::ExtensionManager extensions;
   extensions.Register<TransmissionOffset>(kTransmissionOffsetExtensionId);

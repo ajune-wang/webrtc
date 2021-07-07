@@ -50,6 +50,29 @@
       "message": "In rtc_stats_collector.cc you are setting the value of packetsDiscarded for RTCInboundRtpStreamStats objects, but not for RTCRemoteInboundRtpStreamStats. So. this TODO should still mention packetsDiscarded unless it is available and you forgot to set it",
       "revId": "67155fea7236f8f94d0b814a35b503d1e7276fe6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f756c6c_559b9a7a",
+        "filename": "modules/audio_coding/acm2/acm_receiver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2021-07-07T14:53:10Z",
+      "side": 1,
+      "message": "I\u0027m wondering if we should move this one to lifetime_stats instead?",
+      "range": {
+        "startLine": 311,
+        "startChar": 6,
+        "endLine": 311,
+        "endChar": 58
+      },
+      "revId": "67155fea7236f8f94d0b814a35b503d1e7276fe6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

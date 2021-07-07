@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f50d698_b0965d32",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2021-07-07T14:53:10Z",
+      "side": 0,
+      "message": "Keep in InboundRTPStreamStats since it is only implemented for that currently?",
+      "range": {
+        "startLine": 466,
+        "startChar": 0,
+        "endLine": 466,
+        "endChar": 45
+      },
+      "revId": "93ce46fc6374cf9e1ba3c94105adb1e6dcb57108",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

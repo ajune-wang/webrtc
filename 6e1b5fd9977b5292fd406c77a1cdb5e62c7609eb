@@ -52,6 +52,24 @@
       "parentUuid": "66757862_e09c702f",
       "revId": "6e1b5fd9977b5292fd406c77a1cdb5e62c7609eb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70b8174f_ae449483",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1118,
+      "author": {
+        "id": 6008
+      },
+      "writtenOn": "2021-07-08T17:15:00Z",
+      "side": 1,
+      "message": "Unfortunately it\u0027s not the override, there\u0027s no override applied in my local build. You can test this for yourself by hardcoding 16 here https://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/platform/peerconnection/rtc_video_encoder.cc;l\u003d1576;drc\u003d4a2c8763aaa2388f64612baa3d7a83e1a06a3a86 on any platform (doesn\u0027t need to be Android) and using the stats test page from the bug.",
+      "parentUuid": "799cfe50_8d0f12f9",
+      "revId": "6e1b5fd9977b5292fd406c77a1cdb5e62c7609eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

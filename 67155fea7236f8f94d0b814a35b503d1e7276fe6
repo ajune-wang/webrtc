@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "988f7dbd_31ce048c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-07-08T08:04:21Z",
+      "side": 1,
+      "message": "thanks for pointing this out! I will be careful about it before landing.",
+      "parentUuid": "b5079dde_1b3c0745",
+      "revId": "67155fea7236f8f94d0b814a35b503d1e7276fe6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "8d63d787_c4f7b074",
@@ -48,6 +66,24 @@
       "writtenOn": "2021-07-07T14:53:02Z",
       "side": 1,
       "message": "In rtc_stats_collector.cc you are setting the value of packetsDiscarded for RTCInboundRtpStreamStats objects, but not for RTCRemoteInboundRtpStreamStats. So. this TODO should still mention packetsDiscarded unless it is available and you forgot to set it",
+      "revId": "67155fea7236f8f94d0b814a35b503d1e7276fe6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "645d1427_17e89899",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-07-08T08:04:21Z",
+      "side": 1,
+      "message": "yes, absolutely. Added back",
+      "parentUuid": "906f5c0b_2d904719",
       "revId": "67155fea7236f8f94d0b814a35b503d1e7276fe6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

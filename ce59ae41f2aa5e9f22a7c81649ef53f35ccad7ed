@@ -16,6 +16,23 @@
       "message": "something wrong on a unit for linux_rel. ",
       "revId": "ce59ae41f2aa5e9f22a7c81649ef53f35ccad7ed",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1d148f0_2d06b406",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-07-08T11:04:21Z",
+      "side": 1,
+      "message": "yeah, I am fixing webtests in chromium now. As you see, some chromium bots still fail, and should become green before we submit the code.",
+      "revId": "ce59ae41f2aa5e9f22a7c81649ef53f35ccad7ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

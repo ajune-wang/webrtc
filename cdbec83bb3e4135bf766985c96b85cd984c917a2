@@ -16,6 +16,52 @@
       "message": "Fills gap between legacy rtp header parser and parsing with an RtpPacket.\nLegacy parser has a special parameter to allow such packets, but for simplicity I suggest to always accept such packets.",
       "revId": "cdbec83bb3e4135bf766985c96b85cd984c917a2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bdbe46ce_52055141",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 540,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-07-08T12:51:42Z",
+      "side": 1,
+      "message": "nit: not sure if you need to re-verify this here?",
+      "range": {
+        "startLine": 537,
+        "startChar": 0,
+        "endLine": 540,
+        "endChar": 40
+      },
+      "revId": "cdbec83bb3e4135bf766985c96b85cd984c917a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "961b8e81_e1c42742",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-07-08T12:51:42Z",
+      "side": 1,
+      "message": "nit: Check packet.HasExtension() too?",
+      "range": {
+        "startLine": 547,
+        "startChar": 20,
+        "endLine": 547,
+        "endChar": 58
+      },
+      "revId": "cdbec83bb3e4135bf766985c96b85cd984c917a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

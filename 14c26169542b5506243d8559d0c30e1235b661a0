@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf83f995_2554a531",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-07-08T13:50:45Z",
+      "side": 1,
+      "message": "Hi Danil, PTAL at this CL to introduce a setter for receive-side RTT.",
+      "revId": "14c26169542b5506243d8559d0c30e1235b661a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

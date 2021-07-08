@@ -56,6 +56,30 @@
       },
       "revId": "2406c8ba3c6ab45b3bad28ff770e797cee07c0dc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecc87c7c_27359701",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-07-08T15:29:07Z",
+      "side": 1,
+      "message": "Moved this later in the code.",
+      "parentUuid": "267d58c4_d5dd03b7",
+      "range": {
+        "startLine": 577,
+        "startChar": 0,
+        "endLine": 577,
+        "endChar": 74
+      },
+      "revId": "2406c8ba3c6ab45b3bad28ff770e797cee07c0dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

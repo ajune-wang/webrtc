@@ -22,6 +22,30 @@
       },
       "revId": "0f8b5566f42a8484e2b75487c76f5b1cfb869de7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1bb15c1_1f8dd800",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-07-08T14:49:03Z",
+      "side": 1,
+      "message": "Thanks for finding this! I kept this one as an int and moved the percentage calculation elsewhere.",
+      "parentUuid": "bad48f66_f34fd3a2",
+      "range": {
+        "startLine": 163,
+        "startChar": 24,
+        "endLine": 163,
+        "endChar": 27
+      },
+      "revId": "0f8b5566f42a8484e2b75487c76f5b1cfb869de7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

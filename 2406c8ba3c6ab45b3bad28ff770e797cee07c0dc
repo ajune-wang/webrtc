@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4614720_be061961",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-07-08T14:49:03Z",
+      "side": 1,
+      "message": "Thank you for the comments Minyue! I\u0027ve changed the aggregation from average to max and done some other minor changes.",
+      "revId": "2406c8ba3c6ab45b3bad28ff770e797cee07c0dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

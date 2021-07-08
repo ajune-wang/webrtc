@@ -241,7 +241,7 @@ int32_t H264EncoderImpl::InitEncode(const VideoCodec* inst,
     configurations_[i].frame_dropping_on = codec_.H264()->frameDroppingOn;
     configurations_[i].key_frame_interval = codec_.H264()->keyFrameInterval;
     configurations_[i].num_temporal_layers =
-        codec_.simulcastStream[idx].numberOfTemporalLayers;
+        codec_.H264()->numberOfTemporalLayers;
 
     // Create downscaled image buffers.
     if (i > 0) {
@@ -578,7 +578,7 @@ SEncParamExt H264EncoderImpl::CreateEncoderParams(size_t i) const {
       encoder_params.iMaxBitrate;
   encoder_params.iTemporalLayerNum = configurations_[i].num_temporal_layers;
   if (encoder_params.iTemporalLayerNum > 1) {
-    encoder_params.iNumRefFrame = 1;
+    encoder_params.iNumRefFrame = encoder_params.iTemporalLayerNum - 1;
   }
   RTC_LOG(INFO) << "OpenH264 version is " << OPENH264_MAJOR << "."
                 << OPENH264_MINOR;

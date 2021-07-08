@@ -34,6 +34,24 @@
       "parentUuid": "072e7eb9_2b9edc13",
       "revId": "6e1b5fd9977b5292fd406c77a1cdb5e62c7609eb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "799cfe50_8d0f12f9",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1118,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-07-08T08:43:29Z",
+      "side": 1,
+      "message": "It\u0027s not sufficient probably because of this finch trial: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/media/engine/simulcast_encoder_adapter.cc;l\u003d791;drc\u003d8f93beff3b0c31250766e3a1b4e1313b00a7507f\n\nIt\u0027s configured from \"WebRTC-SimulcastEncoderAdapter-GetEncoderInfoOverride\" field trial.\n\nPlease check what the alignment is 16 at the beginning of this function.",
+      "parentUuid": "66757862_e09c702f",
+      "revId": "6e1b5fd9977b5292fd406c77a1cdb5e62c7609eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

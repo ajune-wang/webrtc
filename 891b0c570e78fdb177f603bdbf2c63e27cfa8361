@@ -16,6 +16,23 @@
       "message": "Discovered by accident this fuzzer never run and wasn\u0027t even compiled.",
       "revId": "891b0c570e78fdb177f603bdbf2c63e27cfa8361",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3de633df_ba04ff9a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2021-07-09T13:16:07Z",
+      "side": 1,
+      "message": "Good catch!",
+      "revId": "891b0c570e78fdb177f603bdbf2c63e27cfa8361",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

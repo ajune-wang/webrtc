@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "f5bc517d_fc9e3029",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-07-09T08:25:31Z",
+      "side": 1,
+      "message": "iNumRefFrame specifies number of total reference buffers, not number of references to use for prediction.\n\n\u003e\u003eLooks like there\u0027s a bug - a missed LOG call.\nYes, good catch. For \u003e\u003d4 temp layers it allocates more than needed. But should not affect WebRTC since we never use more than 3 layers.\n\n\u003e\u003eDoes H264 not support using only one temporal reference at all?\nYes, the spec support this feature. But there is no control for that in OpenH264 as I can see.",
+      "parentUuid": "ccbaa186_48d7a914",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 51
+      },
+      "revId": "a5971117183d6f1fb6295d523ab1b38922b0e3e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "3d7dfa07_06168d24",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2

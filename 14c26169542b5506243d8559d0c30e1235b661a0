@@ -365,6 +365,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b66dff28_7a28fed8",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-09T15:41:43Z",
+      "side": 1,
+      "message": "Sorry for beeing unclear about my issues with this block of code.\n\nI haven\u0027t explicitly ask to add the comment because wasn\u0027t sure it is a right decision.\nimho changing the logic [always start the task] improves code clarity much more than the added comment.",
+      "parentUuid": "603c2547_cad12d67",
+      "range": {
+        "startLine": 106,
+        "startChar": 16,
+        "endLine": 107,
+        "endChar": 62
+      },
+      "revId": "14c26169542b5506243d8559d0c30e1235b661a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "445d4435_f3b22f4e",

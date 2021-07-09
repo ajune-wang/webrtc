@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e71a5a41_8ea5fb82",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1315,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-09T13:35:14Z",
+      "side": 1,
+      "message": "This might even be an RTC_CHECK_LT() before line 1319, but inside this block, if allow_incomplete_logs\u003dfalse (hence we didn\u0027t return at line 1313) we already know we cannot skip to the next event so returning an error message here is maybe good as well.",
+      "range": {
+        "startLine": 1315,
+        "startChar": 6,
+        "endLine": 1315,
+        "endChar": 61
+      },
+      "revId": "8cdb0dd1e2edb39d79f8be5c49b5bd2397136211",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

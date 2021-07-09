@@ -73,6 +73,24 @@
       "message": "I ",
       "revId": "a5971117183d6f1fb6295d523ab1b38922b0e3e1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d860518_63bab429",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-07-09T08:15:37Z",
+      "side": 1,
+      "message": "We need to distinguish between number of reference buffers and number of references used for prediction of a frame.\n\nIf we want top temporal layer to be able to use the previous temporal layer for prediction (T2 to refer T1 in case of 3 temporal layers) then we need N\u003dnum_temp_layers-1 reference buffers at least.\n\nIn VP8/9 number of reference buffers is hardcoded by the spec: 3 for VP8 and 8 for VP9. There is no such parameter as number of reference buffers in VP8/9 bitstream. In H264 that varies between 0 and 16, and is controlled by iNumRefFrame in OpenH264.\n\nI couldn\u0027t find a control for number of references to use for prediction in OpenH264. In libvpx VP8/9 there are flags for that.\n\nNote that, as the description says, OpenH264 has logic that overrides iNumRefFrame to max(iNumRefFrame, num_temp_layers - 1). I.e., even if you set it to 1 the final value written into the bitstream will be 2 when 3 temporal layers are requested.",
+      "parentUuid": "19deca4e_8fd2ac23",
+      "revId": "a5971117183d6f1fb6295d523ab1b38922b0e3e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

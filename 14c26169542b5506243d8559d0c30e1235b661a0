@@ -295,6 +295,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7c6a5de1_eedbf704",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-09T13:13:22Z",
+      "side": 1,
+      "message": "My main point: the block of code at least deserves a explanation comment.\n\nThe logic basicly say: \"if someone is interested in the rtt, or if this is a receiver-only endpoing\".\nThat doesn\u0027t feel very logical. Can rtt be needed if there is no rtt observer, and it is sender endpoint (and rtt is queried using the accessor).\n\nI\u0027m not sure it is correct. e.g. this is called during the construction, so if NonSenderRttMeasurement is enabled after construction (that what this CL is about, right?), then this periodic task won\u0027t be started.\n\nMay be it would be more logical to always start this task,\nor change the rtt_ms() accessor to query rtt from rtcp_receiver when rtt_ms_ doesn\u0027t contain the rtt.",
+      "parentUuid": "231955a7_b409138f",
+      "range": {
+        "startLine": 106,
+        "startChar": 16,
+        "endLine": 107,
+        "endChar": 62
+      },
+      "revId": "14c26169542b5506243d8559d0c30e1235b661a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "445d4435_f3b22f4e",
         "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.h",
         "patchSetId": 2

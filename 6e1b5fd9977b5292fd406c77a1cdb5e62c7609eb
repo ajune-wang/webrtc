@@ -124,6 +124,24 @@
       "parentUuid": "3db82633_09514755",
       "revId": "6e1b5fd9977b5292fd406c77a1cdb5e62c7609eb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d1af9f8_b00c23a7",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1118,
+      "author": {
+        "id": 6008
+      },
+      "writtenOn": "2021-07-09T21:35:48Z",
+      "side": 1,
+      "message": "As I noted on the other code review (https://chromium-review.googlesource.com/c/chromium/src/+/2995112/4..5/third_party/blink/renderer/platform/peerconnection/rtc_video_encoder.cc#b589) at least on Android the bad alignment comes from here: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/media/engine/simulcast_encoder_adapter.cc;l\u003d820;drc\u003d70cd086644f883d28eb1f01d859c2950abe08e47\n\nHere\u0027s the logs showing that:\nhttps://bugs.chromium.org/p/chromium/issues/detail?id\u003d1084702#c43",
+      "parentUuid": "56760b16_fa50136c",
+      "revId": "6e1b5fd9977b5292fd406c77a1cdb5e62c7609eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

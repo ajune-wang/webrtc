@@ -319,6 +319,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "293c26a2_d47241ee",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-09T13:28:46Z",
+      "side": 1,
+      "message": "side quote:\nhttps://google.github.io/eng-practices/review/developer/handling-comments.html#code\n\n\"If a reviewer didn’t understand some piece of your code, it’s likely other future readers of the code won’t understand either. Writing a response in the code review tool doesn’t help future code readers, but clarifying your code or adding code comments does help them.\"",
+      "parentUuid": "7c6a5de1_eedbf704",
+      "range": {
+        "startLine": 106,
+        "startChar": 16,
+        "endLine": 107,
+        "endChar": 62
+      },
+      "revId": "14c26169542b5506243d8559d0c30e1235b661a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "445d4435_f3b22f4e",
         "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.h",
         "patchSetId": 2

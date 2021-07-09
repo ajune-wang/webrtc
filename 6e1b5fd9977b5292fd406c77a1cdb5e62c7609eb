@@ -88,6 +88,24 @@
       "parentUuid": "70b8174f_ae449483",
       "revId": "6e1b5fd9977b5292fd406c77a1cdb5e62c7609eb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3db82633_09514755",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1118,
+      "author": {
+        "id": 6008
+      },
+      "writtenOn": "2021-07-09T17:53:23Z",
+      "side": 1,
+      "message": "Interesting. That definitely doesn\u0027t work on Android, here\u0027s the patch I just tested:\nhttps://chromium-review.googlesource.com/c/chromium/src/+/2995112/5/third_party/blink/renderer/platform/peerconnection/rtc_video_encoder.cc\n\n[ERROR:video_adapter.cc(272)] AdaptFrameResolution: 480x640, align\u003d1\n[ERROR:android_video_encode_accelerator.cc(243)] Encode: format:PIXEL_FORMAT_I420 storage_type:MOJO_SHARED_BUFFER coded_size:480x640 visible_rect:0,0 480x640 natural_size:480x640 timestamp:88918725823\n\n(I deleted the field trial overrides to be sure they weren\u0027t effecting anything).",
+      "parentUuid": "7df40db0_efeb8383",
+      "revId": "6e1b5fd9977b5292fd406c77a1cdb5e62c7609eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

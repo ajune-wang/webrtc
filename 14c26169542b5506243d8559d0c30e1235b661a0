@@ -60,6 +60,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "0adf0ba6_d4fbfaab",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 954,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-07-09T12:20:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c122538_39bb2a6f",
+      "range": {
+        "startLine": 954,
+        "startChar": 2,
+        "endLine": 954,
+        "endChar": 42
+      },
+      "revId": "14c26169542b5506243d8559d0c30e1235b661a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "fceb5cf1_27c882ef",
         "filename": "modules/rtp_rtcp/source/rtcp_receiver_unittest.cc",
         "patchSetId": 2
@@ -104,6 +128,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1e3ab5d_db0f9271",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 980,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-07-09T12:20:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6502159a_e6fcae73",
+      "range": {
+        "startLine": 980,
+        "startChar": 26,
+        "endLine": 980,
+        "endChar": 32
+      },
+      "revId": "14c26169542b5506243d8559d0c30e1235b661a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "347c4213_e6ff0120",
@@ -117,6 +165,30 @@
       "writtenOn": "2021-07-08T15:15:12Z",
       "side": 1,
       "message": "May be something like DoesntCalculateRttOnReceivedDlrr\n\nhttps://testing.googleblog.com/2014/10/testing-on-toilet-writing-descriptive.html\n\n\"Make sure test names contain both the scenario being tested and the expected outcome.\"",
+      "range": {
+        "startLine": 982,
+        "startChar": 23,
+        "endLine": 982,
+        "endChar": 48
+      },
+      "revId": "14c26169542b5506243d8559d0c30e1235b661a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3b8e712_9a15b539",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 982,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-07-09T12:20:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "347c4213_e6ff0120",
       "range": {
         "startLine": 982,
         "startChar": 23,
@@ -150,6 +222,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1e4ceb4_bceecfdf",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-07-09T12:20:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c7dcba3_3a82fcd3",
+      "range": {
+        "startLine": 552,
+        "startChar": 23,
+        "endLine": 552,
+        "endChar": 31
+      },
+      "revId": "14c26169542b5506243d8559d0c30e1235b661a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b71009cf_d378bcc8",
@@ -163,6 +259,30 @@
       "writtenOn": "2021-07-08T15:15:12Z",
       "side": 1,
       "message": "why this change?",
+      "range": {
+        "startLine": 106,
+        "startChar": 16,
+        "endLine": 107,
+        "endChar": 62
+      },
+      "revId": "14c26169542b5506243d8559d0c30e1235b661a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "231955a7_b409138f",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-07-09T12:20:33Z",
+      "side": 1,
+      "message": "The PeriodicUpdate() method is needed to get the receive-side RTT from the RTCPReceiver and set it as the RTT for ModuleRtpRtcp2. Also, in ChannelReceive (which is used by AudioReceiveStream), we do not currently pass in an RtcpRttStats object when we create the ModuleRtpRtcpImpl2, see https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/audio/channel_receive.cc;l\u003d580;drc\u003de54914a79eb055da85592ae5eb3ea3e27ceeb00f\n\nThis means that in the case of AudioReceiveStream, rtt_stats_ will be a nullptr, while it would still be useful to use the receive-side RTT when it is available.",
+      "parentUuid": "b71009cf_d378bcc8",
       "range": {
         "startLine": 106,
         "startChar": 16,
@@ -196,6 +316,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "319840d1_b23f8f68",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-07-09T12:20:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "445d4435_f3b22f4e",
+      "range": {
+        "startLine": 262,
+        "startChar": 2,
+        "endLine": 262,
+        "endChar": 13
+      },
+      "revId": "14c26169542b5506243d8559d0c30e1235b661a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "52a56c1e_c974b230",
@@ -209,6 +353,30 @@
       "writtenOn": "2021-07-08T15:15:12Z",
       "side": 1,
       "message": "This feels a strange property to validate. Is there any code that would rely on it?\n[I would prefer no test for the RtpRtcpImpl2 for this change.\nProper test via public api might be too complicated.]",
+      "range": {
+        "startLine": 514,
+        "startChar": 4,
+        "endLine": 514,
+        "endChar": 54
+      },
+      "revId": "14c26169542b5506243d8559d0c30e1235b661a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e98209a1_f2ebca2d",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-07-09T12:20:33Z",
+      "side": 1,
+      "message": "Good point, I deleted this test.",
+      "parentUuid": "52a56c1e_c974b230",
       "range": {
         "startLine": 514,
         "startChar": 4,
@@ -255,6 +423,30 @@
       "writtenOn": "2021-07-08T15:15:12Z",
       "side": 1,
       "message": "https://google.github.io/styleguide/cppguide.html#General_Naming_Rules\n\"Do not abbreviate by deleting letters within a word.\"\n\nMay be name it similar to the configuration paramater because it is the same thing:\nEnableNonSenderRttMeasurement(bool value)",
+      "range": {
+        "startLine": 241,
+        "startChar": 18,
+        "endLine": 241,
+        "endChar": 22
+      },
+      "revId": "14c26169542b5506243d8559d0c30e1235b661a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbdef365_62760598",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-07-09T12:20:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40e28c9e_a33716ee",
       "range": {
         "startLine": 241,
         "startChar": 18,

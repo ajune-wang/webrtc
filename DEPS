@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'a5d70b42f26bdba72c279a8bef8b8ad57a478bfa',
+  'chromium_revision': 'e78d70429b8882f8afac278518d023538b7ef9fe',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -31,13 +31,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@00e6af5206b38467d8ecfe6ed0c8fe7521afdc9d',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@1745ac74ee3428b82fcdaec1bb68b9ab35c44d0b',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@e1152a2ffc6cf32d0c809df420b3335a7eab1423',
+    'https://chromium.googlesource.com/chromium/src/testing@e569d7e376dfb5eb26a68b5d4784ccd9f86dc834',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@bdfe12f8e03e3d1eab30b4efc82ff87766032d46',
+    'https://chromium.googlesource.com/chromium/src/third_party@ed2642f8fb933704b92bfb522a9d4a1644e3c49c',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -271,7 +271,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@813923797e86c5b4a46c5e7d11e550552d6c8990',
+    'https://chromium.googlesource.com/chromium/src/tools@201eb0cba2436f73ab6b38407221363956b4f116',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@a32a1607f6093d338f756c7e7c7b4333b0c50c9c',
 
@@ -372,7 +372,7 @@ deps = {
     'packages': [
       {
           'package': 'chromium/third_party/androidx',
-          'version': '7rK3FRn0Lb5wAO4thkxAj_sMaGdwXTOhMCY4YUPpWrIC',
+          'version': 'uccVuUSPH9HYcz89Z2rxHMT53HRmJZOrZ7oEj5Ds9vEC',
       },
     ],
     'condition': 'checkout_android',

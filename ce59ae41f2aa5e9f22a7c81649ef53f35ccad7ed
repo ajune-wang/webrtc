@@ -33,6 +33,23 @@
       "message": "yeah, I am fixing webtests in chromium now. As you see, some chromium bots still fail, and should become green before we submit the code.",
       "revId": "ce59ae41f2aa5e9f22a7c81649ef53f35ccad7ed",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f98a141_1d3836f9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-07-09T14:18:07Z",
+      "side": 1,
+      "message": "Hi Harald,\n\nRelevant tests have been disabled to unblock this from rolled Chromium. It would be good to get your approval to be submitted.",
+      "revId": "ce59ae41f2aa5e9f22a7c81649ef53f35ccad7ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

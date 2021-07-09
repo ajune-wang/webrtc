@@ -22,6 +22,30 @@
       },
       "revId": "e2c1cbe920437e92b1368c3710d5d84bb2b4a226",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18907522_12f3ce22",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1322,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-09T14:32:22Z",
+      "side": 1,
+      "message": "I have a doubt here as well.\n\nIs it better to RTC_CHECK_LT() and crash or RTC_PARSE_CHECK_OR_RETURN_LT() and return an error Status?",
+      "parentUuid": "cba396f6_252699ad",
+      "range": {
+        "startLine": 1322,
+        "startChar": 4,
+        "endLine": 1322,
+        "endChar": 33
+      },
+      "revId": "e2c1cbe920437e92b1368c3710d5d84bb2b4a226",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

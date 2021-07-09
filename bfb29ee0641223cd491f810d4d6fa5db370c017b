@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e0c0114_7f09ef9b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2021-07-09T06:22:04Z",
+      "side": 1,
+      "message": "g3doc deserves an entry in the toplevel readme!",
+      "revId": "bfb29ee0641223cd491f810d4d6fa5db370c017b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

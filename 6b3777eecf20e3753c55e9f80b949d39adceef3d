@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b3b0ba5_064bc475",
+        "filename": "net/dcsctp/public/text_pcap_packet_observer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-07-09T13:11:45Z",
+      "side": 1,
+      "message": "nit: Add empty line before",
+      "revId": "6b3777eecf20e3753c55e9f80b949d39adceef3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

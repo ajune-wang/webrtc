@@ -25,7 +25,6 @@
 
 namespace cricket {
 
-static const uint8_t kRtpVersion = 2;
 static const size_t kRtpFlagsOffset = 0;
 static const size_t kRtpPayloadTypeOffset = 1;
 static const size_t kRtpSeqNumOffset = 2;
@@ -210,34 +209,6 @@ bool GetRtpSsrc(const void* data, size_t len, uint32_t* value) {
   return GetUint32(data, kRtpSsrcOffset, value);
 }
 
-bool GetRtpHeaderLen(const void* data, size_t len, size_t* value) {
-  if (!data || len < kMinRtpPacketLen || !value)
-    return false;
-  const uint8_t* header = static_cast<const uint8_t*>(data);
-  // Get base header size + length of CSRCs (not counting extension yet).
-  size_t header_size = kMinRtpPacketLen + (header[0] & 0xF) * sizeof(uint32_t);
-  if (len < header_size)
-    return false;
-  // If there's an extension, read and add in the extension size.
-  if (header[0] & 0x10) {
-    if (len < header_size + sizeof(uint32_t))
-      return false;
-    header_size +=
-        ((rtc::GetBE16(header + header_size + 2) + 1) * sizeof(uint32_t));
-    if (len < header_size)
-      return false;
-  }
-  *value = header_size;
-  return true;
-}
-
-bool GetRtpHeader(const void* data, size_t len, RtpHeader* header) {
-  return (GetRtpPayloadType(data, len, &(header->payload_type)) &&
-          GetRtpSeqNum(data, len, &(header->seq_num)) &&
-          GetRtpTimestamp(data, len, &(header->timestamp)) &&
-          GetRtpSsrc(data, len, &(header->ssrc)));
-}
-
 bool GetRtcpType(const void* data, size_t len, int* value) {
   if (len < kMinRtcpPacketLen) {
     return false;
@@ -260,24 +231,6 @@ bool GetRtcpSsrc(const void* data, size_t len, uint32_t* value) {
     return false;
   *value = rtc::GetBE32(static_cast<const uint8_t*>(data) + 4);
   return true;
-}
-
-bool SetRtpSsrc(void* data, size_t len, uint32_t value) {
-  return SetUint32(data, kRtpSsrcOffset, value);
-}
-
-// Assumes version 2, no padding, no extensions, no csrcs.
-bool SetRtpHeader(void* data, size_t len, const RtpHeader& header) {
-  if (!IsValidRtpPayloadType(header.payload_type) || header.seq_num < 0 ||
-      header.seq_num > static_cast<int>(UINT16_MAX)) {
-    return false;
-  }
-  return (SetUint8(data, kRtpFlagsOffset, kRtpVersion << 6) &&
-          SetUint8(data, kRtpPayloadTypeOffset, header.payload_type & 0x7F) &&
-          SetUint16(data, kRtpSeqNumOffset,
-                    static_cast<uint16_t>(header.seq_num)) &&
-          SetUint32(data, kRtpTimestampOffset, header.timestamp) &&
-          SetRtpSsrc(data, len, header.ssrc));
 }
 
 bool IsValidRtpPayloadType(int payload_type) {

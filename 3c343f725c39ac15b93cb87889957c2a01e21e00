@@ -64,6 +64,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "484c1ec9_8bcb4fdd",
+        "filename": "modules/video_coding/codecs/h264/h264_encoder_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-07-09T11:45:58Z",
+      "side": 1,
+      "message": "We do the same for VP8: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/video_coding/utility/simulcast_utility.cc;drc\u003d0ec17e4452120719f6bf5f86f50c781123ee8f5d;l\u003d97\n\n\u003e\u003eIs there a bug with \u003e3 temporal layers, or just suboptimal in that we allocate more buffers than we use?\nIt is just a suboptimal allocation. Should not cause any issue.",
+      "parentUuid": "b1d9741d_91118af7",
+      "range": {
+        "startLine": 245,
+        "startChar": 0,
+        "endLine": 246,
+        "endChar": 69
+      },
+      "revId": "3c343f725c39ac15b93cb87889957c2a01e21e00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "552e3177_bfb4a3d0",
@@ -77,6 +101,30 @@
       "writtenOn": "2021-07-09T11:40:55Z",
       "side": 1,
       "message": "6",
+      "range": {
+        "startLine": 586,
+        "startChar": 42,
+        "endLine": 586,
+        "endChar": 43
+      },
+      "revId": "3c343f725c39ac15b93cb87889957c2a01e21e00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a6fa8c5_94918fd8",
+        "filename": "modules/video_coding/codecs/h264/h264_encoder_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-07-09T11:45:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "552e3177_bfb4a3d0",
       "range": {
         "startLine": 586,
         "startChar": 42,

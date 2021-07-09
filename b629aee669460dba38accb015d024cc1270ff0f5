@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf581c91_7bc593fc",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1317,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-07-09T14:13:24Z",
+      "side": 0,
+      "message": "I sugegst that we keep this, but add the additional check.",
+      "range": {
+        "startLine": 1317,
+        "startChar": 6,
+        "endLine": 1317,
+        "endChar": 66
+      },
+      "revId": "b629aee669460dba38accb015d024cc1270ff0f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

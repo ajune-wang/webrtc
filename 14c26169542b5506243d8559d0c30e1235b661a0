@@ -341,6 +341,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "603c2547_cad12d67",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-07-09T14:22:17Z",
+      "side": 1,
+      "message": "Thanks for the comment about correctness, you\u0027re right that the setter can enable the feature after construction, so the previous version of the code was indeed incorrect. I changed it so that the PeriodicUpdate() task always runs. That seemed simpler than the alternative you mentioned, since getting the receive-side RTT from the RtcpReceiver seems non-trivial (mainly because PeriodicUpdate() will reset it to 0 regularly).\n\nThanks for the advice about how to handle questions from reviewers, I will take it under consideration in the future. I would like to point out that as a reviewer you can also make this easier by being explicit and directly asking for a clarifying comment.",
+      "parentUuid": "293c26a2_d47241ee",
+      "range": {
+        "startLine": 106,
+        "startChar": 16,
+        "endLine": 107,
+        "endChar": 62
+      },
+      "revId": "14c26169542b5506243d8559d0c30e1235b661a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "445d4435_f3b22f4e",

@@ -151,6 +151,24 @@
       "parentUuid": "6a282c2e_6b1f75b3",
       "revId": "a5971117183d6f1fb6295d523ab1b38922b0e3e1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5b91090_d1450384",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-07-09T11:34:36Z",
+      "side": 1,
+      "message": "Updated the description and commented in the code:\n    // iNumRefFrame specifies total number of reference buffers to allocate.\n    // For N temporal layers we need at least (N - 1) buffers to store last\n    // encoded frames of all reference temporal layers.\n    // Note that there is no API in OpenH254 encoder to specify exact set of\n    // references to be used to prediction of a given frame. Encoder can\n    // theoretically use all available reference buffers.",
+      "parentUuid": "64c7fd32_f77ef336",
+      "revId": "a5971117183d6f1fb6295d523ab1b38922b0e3e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

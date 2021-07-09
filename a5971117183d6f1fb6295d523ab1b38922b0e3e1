@@ -133,6 +133,24 @@
       "parentUuid": "2d860518_63bab429",
       "revId": "a5971117183d6f1fb6295d523ab1b38922b0e3e1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64c7fd32_f77ef336",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9338
+      },
+      "writtenOn": "2021-07-09T08:48:42Z",
+      "side": 1,
+      "message": "Ack. Thanks. I and Ilya misunderstood the meaning. :)",
+      "parentUuid": "6a282c2e_6b1f75b3",
+      "revId": "a5971117183d6f1fb6295d523ab1b38922b0e3e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -16,6 +16,23 @@
       "message": "Asa is OOO. Erik, could you please take a look?",
       "revId": "a5971117183d6f1fb6295d523ab1b38922b0e3e1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19deca4e_8fd2ac23",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9338
+      },
+      "writtenOn": "2021-07-09T01:25:02Z",
+      "side": 1,
+      "message": "I think, by setting the number of frames to 1, we make OpenH264 encoder produce the same temporal layer reference structure as vp8 and vp9.\nAlthough OpenH264 encoder README states it uses multiple reference frames in the case of 3 and 4 temporal layers. https://github.com/cisco/openh264#encoder-features\n\nWell, it may not be a big deal to use multiple reference frames. But doesn\u0027t using one reference frames help encoding fast?",
+      "revId": "a5971117183d6f1fb6295d523ab1b38922b0e3e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

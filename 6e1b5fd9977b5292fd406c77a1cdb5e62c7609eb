@@ -70,6 +70,24 @@
       "parentUuid": "799cfe50_8d0f12f9",
       "revId": "6e1b5fd9977b5292fd406c77a1cdb5e62c7609eb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7df40db0_efeb8383",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1118,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-07-09T14:31:11Z",
+      "side": 1,
+      "message": "I tried to do this. I used this page [2] to select h264, since it\u0027s the only HW supported codec on my windows machine (without it RtcVideoEncoder was skipped).\n\nAfter hardcoding alignment\u003d16 and all_simulcast_layers\u003dtrue there, I get 16 all the way at the source [1]\n\nNote, at the very beginning, before the actual encoder is initialized, there\u0027s some default encoder being initialized with alignment request 1 and the source does send a couple frames unaligned. However, no such frame makes it to the RtcVideoEncoder ever. I\u0027m not sure why this happens, but if you only look at the very first line in the logs you might see alignment\u003d1. Check the actual resolution at the RtcVideoEncoder.\n\n[1] https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/media/base/video_adapter.cc;l\u003d256;drc\u003dc2cc4d305a7c05a5de2cc957ffc94806a45d54a8\n\n[2] https://webrtc.github.io/samples/src/content/peerconnection/change-codecs/",
+      "parentUuid": "70b8174f_ae449483",
+      "revId": "6e1b5fd9977b5292fd406c77a1cdb5e62c7609eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

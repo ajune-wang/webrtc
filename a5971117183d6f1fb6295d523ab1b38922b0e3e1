@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "ccbaa186_48d7a914",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-07-09T08:13:31Z",
+      "side": 1,
+      "message": "That\u0027s weird. For vp8/vp9 we use only 1 temporal reference all the time.\n\nAlso the code in openH264 doesn\u0027t even compute the same thing. It takes half the GOP size (which is 2^(tl_number-1)) [1] \nLooks like there\u0027s a bug - a missed LOG call.\n\nSo, for 2 layers it will currently overwrite the requested reference number with 1, for 3 layers - with 2. for 4 layers - with 4.\n\nThis seems like a very counter-intuitive and weird behavior.\nDoes H264 not support using only one temporal reference at all?\n\nIf anything, I would press openh264 to remove this check.\n\n[1] https://source.chromium.org/chromium/chromium/src/+/main:third_party/openh264/src/codec/encoder/core/src/au_set.cpp;l\u003d105;drc\u003d8e90a2775c5b9448324fe8fef11d177cb65f36cc",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 51
+      },
+      "revId": "a5971117183d6f1fb6295d523ab1b38922b0e3e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "3d7dfa07_06168d24",
@@ -31,6 +54,23 @@
       "writtenOn": "2021-07-09T01:25:02Z",
       "side": 1,
       "message": "I think, by setting the number of frames to 1, we make OpenH264 encoder produce the same temporal layer reference structure as vp8 and vp9.\nAlthough OpenH264 encoder README states it uses multiple reference frames in the case of 3 and 4 temporal layers. https://github.com/cisco/openh264#encoder-features\n\nWell, it may not be a big deal to use multiple reference frames. But doesn\u0027t using one reference frames help encoding fast?",
+      "revId": "a5971117183d6f1fb6295d523ab1b38922b0e3e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "022c7a8a_0b0fd146",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-07-09T08:13:31Z",
+      "side": 1,
+      "message": "I ",
       "revId": "a5971117183d6f1fb6295d523ab1b38922b0e3e1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

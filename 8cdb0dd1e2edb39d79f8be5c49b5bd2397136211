@@ -22,6 +22,30 @@
       },
       "revId": "8cdb0dd1e2edb39d79f8be5c49b5bd2397136211",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f83aacdb_6e47b922",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1315,
+      "author": {
+        "id": 5677
+      },
+      "writtenOn": "2021-07-09T14:35:12Z",
+      "side": 1,
+      "message": "Beg pardon, I might be a bit sleep-deprived, but:\nWhat\u0027s the meaning of checking (x \u003c y) inside of a block that can only be entered if (x \u003e y)?",
+      "parentUuid": "e71a5a41_8ea5fb82",
+      "range": {
+        "startLine": 1315,
+        "startChar": 6,
+        "endLine": 1315,
+        "endChar": 61
+      },
+      "revId": "8cdb0dd1e2edb39d79f8be5c49b5bd2397136211",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

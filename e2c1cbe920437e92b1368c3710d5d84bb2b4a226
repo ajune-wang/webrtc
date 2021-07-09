@@ -46,6 +46,30 @@
       },
       "revId": "e2c1cbe920437e92b1368c3710d5d84bb2b4a226",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db2b2354_8391b924",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1322,
+      "author": {
+        "id": 5677
+      },
+      "writtenOn": "2021-07-09T14:35:12Z",
+      "side": 1,
+      "message": "Could you explain what out of bounds read is referenced here? Line 1313 guaranteed that (message_length \u003c\u003d s.size()).\n\n  // string_view::substr()\n  //\n  // Returns a \"substring\" of the `string_view` (at offset `pos` and length\n  // `n`) as another string_view. This function throws `std::out_of_bounds` if\n  // `pos \u003e size`.\n  \nThe comment here (https://source.chromium.org/chromium/chromium/src/+/main:third_party/abseil-cpp/absl/strings/string_view.h;l\u003d390-394;drc\u003dcc487f7f23be5e781436228eb114544393517db9), quoted above, claims (pos \u003d\u003d size) is valid. Or what am I missing?",
+      "parentUuid": "cba396f6_252699ad",
+      "range": {
+        "startLine": 1322,
+        "startChar": 4,
+        "endLine": 1322,
+        "endChar": 33
+      },
+      "revId": "e2c1cbe920437e92b1368c3710d5d84bb2b4a226",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

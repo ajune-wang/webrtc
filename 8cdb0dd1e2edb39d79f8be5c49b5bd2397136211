@@ -46,6 +46,30 @@
       },
       "revId": "8cdb0dd1e2edb39d79f8be5c49b5bd2397136211",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "204fe462_4be53635",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1315,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-09T15:04:40Z",
+      "side": 1,
+      "message": "Your question is legit. :)\n\nMaybe something like:\n\n        return ParseStatus::Error(\n            \"The log is incomplete and parser is not allowed to parse \"\n            \"incomplete logs.\",\n            __FILE__, __LINE__);\n\n      \nIn general, if we pass line 1315 (allow_incomplete_logs_\u003dfalse) we will OOB on line 1322 so maybe we can even return directly (not sure about line 1317 then).",
+      "parentUuid": "f83aacdb_6e47b922",
+      "range": {
+        "startLine": 1315,
+        "startChar": 6,
+        "endLine": 1315,
+        "endChar": 61
+      },
+      "revId": "8cdb0dd1e2edb39d79f8be5c49b5bd2397136211",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

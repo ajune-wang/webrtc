@@ -70,6 +70,30 @@
       },
       "revId": "e2c1cbe920437e92b1368c3710d5d84bb2b4a226",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "673b9e44_ae0693c2",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1322,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-09T15:04:40Z",
+      "side": 1,
+      "message": "See previous message.\n\nIf we enter 1313 and don\u0027t exit the function, this is a OOB because if allow_incomplete_logs_\u003dfalse, the function just goes on unless \"RTC_PARSE_CHECK_OR_RETURN_LE(message_length, kMaxEventSize)\" (line 1317) which can not trigger and still get OOB here.",
+      "parentUuid": "db2b2354_8391b924",
+      "range": {
+        "startLine": 1322,
+        "startChar": 4,
+        "endLine": 1322,
+        "endChar": 33
+      },
+      "revId": "e2c1cbe920437e92b1368c3710d5d84bb2b4a226",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -91,6 +91,24 @@
       "parentUuid": "19deca4e_8fd2ac23",
       "revId": "a5971117183d6f1fb6295d523ab1b38922b0e3e1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a282c2e_6b1f75b3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-07-09T08:20:06Z",
+      "side": 1,
+      "message": "Ah, so this is number of reference buffers and not the number of references per frame? Then it makes sense (still, calculations inside openh264 seem to be missing a LOG call). \n\nSergey, could you please update the description to clear that ambiguation.",
+      "parentUuid": "2d860518_63bab429",
+      "revId": "a5971117183d6f1fb6295d523ab1b38922b0e3e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

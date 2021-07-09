@@ -106,6 +106,24 @@
       "parentUuid": "7df40db0_efeb8383",
       "revId": "6e1b5fd9977b5292fd406c77a1cdb5e62c7609eb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56760b16_fa50136c",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1118,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-07-09T20:28:28Z",
+      "side": 1,
+      "message": "Interesting, now we need to bisect, where exactly is the pipeline broken. Maybe there\u0027s some other place which overrides it.\n\nCheck this:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/video/video_stream_encoder.cc;l\u003d890;drc\u003db6d50e3a1758a808118170e6c6a6119e96356f3b\n\nIf it\u0027s broken here, (always 1) check this:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/video/alignment_adjuster.cc;l\u003d71;drc\u003d8324b2da4aa6ce3c38ead55ff1f3c2844c21a0e5\n\nThe if both are correct - it\u0027s webrtc messed up. If the second is correct, it\u0027s  AlignmentAdjuster issue. If both are 1, then add the debug output on return value in GetEncodeInfo in SimulcastEncoderAdapter and VideoEncoderSoftwareFallbackWrapper",
+      "parentUuid": "3db82633_09514755",
+      "revId": "6e1b5fd9977b5292fd406c77a1cdb5e62c7609eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

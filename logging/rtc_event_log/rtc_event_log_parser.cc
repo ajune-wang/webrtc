@@ -1266,8 +1266,6 @@ ParsedRtcEventLog::ParseStatus ParsedRtcEventLog::ParseStream(
 
 ParsedRtcEventLog::ParseStatus ParsedRtcEventLog::ParseStreamInternal(
     absl::string_view s) {
-  constexpr uint64_t kMaxEventSize = 10000000;  // Sanity check.
-
   while (!s.empty()) {
     absl::string_view event_start = s;
     bool success = false;
@@ -1314,7 +1312,7 @@ ParsedRtcEventLog::ParseStatus ParsedRtcEventLog::ParseStreamInternal(
       RTC_LOG(LS_WARNING) << "Protobuf message length is too large.";
       RTC_PARSE_WARN_AND_RETURN_SUCCESS_IF(allow_incomplete_logs_,
                                            kIncompleteLogError);
-      RTC_PARSE_CHECK_OR_RETURN_LE(message_length, kMaxEventSize);
+      RTC_PARSE_CHECK_OR_RETURN_LT(message_length, s.size());
     }
 
     // Skip forward to the start of the next event.

@@ -11,6 +11,7 @@
 #ifndef PC_JSEP_TRANSPORT_H_
 #define PC_JSEP_TRANSPORT_H_
 
+#include <functional>
 #include <map>
 #include <memory>
 #include <string>
@@ -47,7 +48,6 @@
 #include "rtc_base/rtc_certificate.h"
 #include "rtc_base/ssl_fingerprint.h"
 #include "rtc_base/ssl_stream_adapter.h"
-#include "rtc_base/third_party/sigslot/sigslot.h"
 #include "rtc_base/thread.h"
 #include "rtc_base/thread_annotations.h"
 
@@ -86,7 +86,7 @@ struct JsepTransportDescription {
 //
 // On Threading: JsepTransport performs work solely on the network thread, and
 // so its methods should only be called on the network thread.
-class JsepTransport : public sigslot::has_slots<> {
+class JsepTransport {
  public:
   // |mid| is just used for log statements in order to identify the Transport.
   // Note that |local_certificate| is allowed to be null since a remote
@@ -101,9 +101,10 @@ class JsepTransport : public sigslot::has_slots<> {
       std::unique_ptr<webrtc::DtlsSrtpTransport> dtls_srtp_transport,
       std::unique_ptr<DtlsTransportInternal> rtp_dtls_transport,
       std::unique_ptr<DtlsTransportInternal> rtcp_dtls_transport,
-      std::unique_ptr<SctpTransportInternal> sctp_transport);
+      std::unique_ptr<SctpTransportInternal> sctp_transport,
+      std::function<void()> rtcp_mux_active_callback);
 
-  ~JsepTransport() override;
+  ~JsepTransport();
 
   // Returns the MID of this transport. This is only used for logging.
   const std::string& mid() const { return mid_; }
@@ -325,6 +326,7 @@ class JsepTransport : public sigslot::has_slots<> {
       RTC_GUARDED_BY(network_thread_);
   absl::optional<std::vector<int>> recv_extension_ids_
       RTC_GUARDED_BY(network_thread_);
+  std::function<void()> rtcp_mux_active_callback_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(JsepTransport);
 };

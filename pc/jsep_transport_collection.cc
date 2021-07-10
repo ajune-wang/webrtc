@@ -20,16 +20,45 @@
 
 namespace webrtc {
 
-void BundleManager::Update(const cricket::SessionDescription* description) {
+void BundleManager::Update(const cricket::SessionDescription* description,
+                           SdpType type) {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
-  bundle_groups_.clear();
-  for (const cricket::ContentGroup* new_bundle_group :
-       description->GetGroupsByName(cricket::GROUP_TYPE_BUNDLE)) {
-    bundle_groups_.push_back(
-        std::make_unique<cricket::ContentGroup>(*new_bundle_group));
-    RTC_DLOG(LS_VERBOSE) << "Establishing bundle group "
-                         << new_bundle_group->ToString();
+  if (bundle_policy_ == PeerConnectionInterface::kBundlePolicyMaxBundle ||
+      type == SdpType::kAnswer) {
+    // If our policy is "max-bundle" or this is an on answer, update all
+    // bundle groups.
+    bundle_groups_.clear();
+    for (const cricket::ContentGroup* new_bundle_group :
+         description->GetGroupsByName(cricket::GROUP_TYPE_BUNDLE)) {
+      bundle_groups_.push_back(
+          std::make_unique<cricket::ContentGroup>(*new_bundle_group));
+      RTC_DLOG(LS_VERBOSE) << "Establishing bundle group "
+                           << new_bundle_group->ToString();
+    }
+  } else if (type == SdpType::kOffer) {
+    // Is this is an offer, update existing bundle groups.
+    // We do this because as per RFC 8843, section 7.3.2, the answerer cannot
+    // remove an m= section from an existing BUNDLE group without rejecting it.
+    // Thus any m= sections added to the BUNDLE group in this offer can
+    // preemptively start using the bundled transport, as there is no possible
+    // non-bundled fallback.
+    for (const cricket::ContentGroup* new_bundle_group :
+         description->GetGroupsByName(cricket::GROUP_TYPE_BUNDLE)) {
+      // Attempt to find a matching existing group.
+      for (const std::string& mid : new_bundle_group->content_names()) {
+        auto it = established_bundle_groups_by_mid_.find(mid);
+        if (it != established_bundle_groups_by_mid_.end()) {
+          *it->second = *new_bundle_group;
+          RTC_DLOG(LS_VERBOSE)
+              << "Establishing bundle group " << new_bundle_group->ToString();
+          break;
+        }
+      }
+    }
+  } else {
+    return;
   }
+
   established_bundle_groups_by_mid_.clear();
   for (const auto& bundle_group : bundle_groups_) {
     for (const std::string& content_name : bundle_group->content_names()) {

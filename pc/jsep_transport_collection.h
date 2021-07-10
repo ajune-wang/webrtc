@@ -18,6 +18,7 @@
 #include <utility>
 #include <vector>
 
+#include "api/peer_connection_interface.h"
 #include "api/sequence_checker.h"
 #include "pc/jsep_transport.h"
 #include "pc/session_description.h"
@@ -41,7 +42,8 @@ namespace webrtc {
 // 6) Change the logic to do what's right.
 class BundleManager {
  public:
-  BundleManager() {
+  explicit BundleManager(PeerConnectionInterface::BundlePolicy bundle_policy)
+      : bundle_policy_(bundle_policy) {
     // Allow constructor to be called on a different thread.
     sequence_checker_.Detach();
   }
@@ -58,7 +60,7 @@ class BundleManager {
   bool IsFirstMidInGroup(const std::string& mid) const;
   // Update the groups description. This completely replaces the group
   // description with the one from the SessionDescription.
-  void Update(const cricket::SessionDescription* description);
+  void Update(const cricket::SessionDescription* description, SdpType type);
   // Delete a MID from the group that contains it.
   void DeleteMid(const cricket::ContentGroup* bundle_group,
                  const std::string& mid);
@@ -67,6 +69,7 @@ class BundleManager {
 
  private:
   RTC_NO_UNIQUE_ADDRESS SequenceChecker sequence_checker_;
+  PeerConnectionInterface::BundlePolicy bundle_policy_;
   std::vector<std::unique_ptr<cricket::ContentGroup>> bundle_groups_
       RTC_GUARDED_BY(sequence_checker_);
   std::map<std::string, cricket::ContentGroup*>

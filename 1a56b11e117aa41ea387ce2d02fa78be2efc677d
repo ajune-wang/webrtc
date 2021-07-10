@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbe4dfcc_ecef3137",
+        "filename": "pc/jsep_transport_collection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-07-10T00:26:13Z",
+      "side": 1,
+      "message": "Note that this is safe due to the additional validation I added, which ensures there is a 1:1 mapping between existing and new bundle groups.",
+      "revId": "1a56b11e117aa41ea387ce2d02fa78be2efc677d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

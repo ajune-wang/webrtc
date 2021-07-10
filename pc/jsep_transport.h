@@ -86,7 +86,7 @@ struct JsepTransportDescription {
 //
 // On Threading: JsepTransport performs work solely on the network thread, and
 // so its methods should only be called on the network thread.
-class JsepTransport : public sigslot::has_slots<> {
+class JsepTransport {
  public:
   // |mid| is just used for log statements in order to identify the Transport.
   // Note that |local_certificate| is allowed to be null since a remote
@@ -103,7 +103,7 @@ class JsepTransport : public sigslot::has_slots<> {
       std::unique_ptr<DtlsTransportInternal> rtcp_dtls_transport,
       std::unique_ptr<SctpTransportInternal> sctp_transport);
 
-  ~JsepTransport() override;
+  ~JsepTransport();
 
   // Returns the MID of this transport. This is only used for logging.
   const std::string& mid() const { return mid_; }

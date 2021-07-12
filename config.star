@@ -878,7 +878,6 @@ cron_builder(
 )
 
 skipped_lkgr_bots = [
-    "iOS API Framework Builder",
     "iOS64 Sim Debug (iOS 14.0)",
     "iOS64 Sim Debug (iOS 13)",
     "iOS64 Sim Debug (iOS 12)",

@@ -33,6 +33,46 @@
       "message": "Please take a look. Thanks in advance!",
       "revId": "fd0bc45d16b62973cfe8b24d9e3401d7e0ac4951",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8b1ce89_0e8f4ce5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-07-12T08:36:14Z",
+      "side": 1,
+      "message": "An alternative could have been new factory helpers that just return pre-created instances. But perhaps explicitness isn\u0027t a bad idea...\n\nlgtm with struct initializer fixed",
+      "revId": "fd0bc45d16b62973cfe8b24d9e3401d7e0ac4951",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2a49aa5_84107f4d",
+        "filename": "modules/video_coding/codecs/test/videocodec_test_fixture_impl_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-07-12T08:36:14Z",
+      "side": 1,
+      "message": "Designated initializers seem to still be banned in webrtc 😞\nhttps://chromium.googlesource.com/external/webrtc/+/master/g3doc/style-guide.md",
+      "range": {
+        "startLine": 31,
+        "startChar": 34,
+        "endLine": 33,
+        "endChar": 48
+      },
+      "revId": "fd0bc45d16b62973cfe8b24d9e3401d7e0ac4951",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

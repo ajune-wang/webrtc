@@ -50,6 +50,24 @@
       "message": "I will have to do some thinking here, and get back next week...\n\nThe current code on ToT is broken in the sense that it holds refcounted AudioProcessing instances (with reference count \u003d\u003d 0) in unique_ptrs, which is 1) confusing since its API clearly says it is supposed to be refcounted and 2) dangerous since some unsuspecting piece of code might receive a raw pointer to it and wrap it in a scoped_refptr.\n\nI think that long-term, there is a desire to have webrtc::AudioProcessing not be refcounted, to make ownership clearer. Complicated Chrome code has blocked, but I am not sure that it is still the case. If I recall correctly, AudioProcessingBuilder::Create() returns a raw pointer to allow successively moving pieces of the code over to unique_ptr.\n\nThis CL makes the current code uniform and less confusing, but can be argued to push the long-term goal further away.",
       "revId": "3707e64b0dcb93c864175509a3441ce5e4bc8b1d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a782b0f5_44461bf1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-07-12T07:29:40Z",
+      "side": 1,
+      "message": "\u003e I will have to do some thinking here, and get back next week...\n\u003e \n\u003e The current code on ToT is broken in the sense that it holds refcounted AudioProcessing instances (with reference count \u003d\u003d 0) in unique_ptrs, which is 1) confusing since its API clearly says it is supposed to be refcounted and 2) dangerous since some unsuspecting piece of code might receive a raw pointer to it and wrap it in a scoped_refptr.\n\nThe aim of the cl is to (i) improve consistency, and (ii) remove some explicit usage of RefCountedObject. But it turned out to be a bit more complicated than I initially expected.\n\n\u003e I think that long-term, there is a desire to have webrtc::AudioProcessing not be refcounted, to make ownership clearer.\n\nSounds reasonable to me, but I\u0027m not that familiar with this code. What are the main owners of the APM object? There\u0027s some interfaces for injecting it from the application? Will switching to unique_ptr be a complicated api change?\n\n\u003e Complicated Chrome code has blocked, but I am not sure that it is still the case. \n\nFor what it\u0027s worth, no breakage detected by the chromium compile bots (but on the other hand, most other breakage I had to fix didn\u0027t happen until runtime). What\u0027s the easiest way to run relevant chromium tests with this cl applied?\n \n\u003e This CL makes the current code uniform and less confusing, but can be argued to push the long-term goal further away.\n\nNot sure about this particular case, but in general, reducing confusion tends to make later refactoring easier.",
+      "parentUuid": "3c553c07_4019557c",
+      "revId": "3707e64b0dcb93c864175509a3441ce5e4bc8b1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

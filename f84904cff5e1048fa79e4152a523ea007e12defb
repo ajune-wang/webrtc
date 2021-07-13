@@ -206,6 +206,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "53a95e95_30514d21",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-07-13T14:38:53Z",
+      "side": 1,
+      "message": "Ok. My gut feeling is that there\u0027s something wrong with the design if a const method on the adapter needs to do non-const things.\n\nBut I haven\u0027t tried to grok all the fine details. As long as things are properly documented, it\u0027s fine with me.",
+      "parentUuid": "9c66d6cf_515be3c0",
+      "range": {
+        "startLine": 697,
+        "startChar": 35,
+        "endLine": 697,
+        "endChar": 40
+      },
+      "revId": "f84904cff5e1048fa79e4152a523ea007e12defb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "da348c2f_6a1e467d",

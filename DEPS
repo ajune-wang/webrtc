@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'fca17b97760a8c391ac7865e20e1cf9243ba8b89',
+  'chromium_revision': '9cf78921f9d87ee2765b0ce905c7f868c6e0c732',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -20,7 +20,7 @@ deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@0fce7279af597d8a149914c52e446cec4e5d0a53',
+    'https://chromium.googlesource.com/chromium/src/base@52627be4ba70e12c7b761a485db51d056156d01b',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@826926008327af276adbaafcfa92b525eb5bf326',
   'src/buildtools':
@@ -31,13 +31,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@f52bcbaa5884e2a51fb00fbc84b9f2c9dee46795',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@ad054ac42230ef16c4b8999f7ebf74a536742b19',
     'condition': 'checkout_ios',
   },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@b9b3552b27bf3467b98b0bcf0cee657fc3217825',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@f5db6b1b4e45ad1147ddda1c13884685e0ba59c0',
+    'https://chromium.googlesource.com/chromium/src/third_party@7097dfa0f76f3a01a91b13759ca5e4061c04cc0c',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -271,7 +271,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@c93f12de192a8e60b81f30b427a0623d215902d0',
+    'https://chromium.googlesource.com/chromium/src/tools@600efbab2068615a25c641404c71ad964136f979',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@a32a1607f6093d338f756c7e7c7b4333b0c50c9c',
 
@@ -372,7 +372,7 @@ deps = {
     'packages': [
       {
           'package': 'chromium/third_party/androidx',
-          'version': '-umIXLPTAdxRy2iaK4QFSeOf4t7PAKglJP7ggvWhfRwC',
+          'version': '_WEcXceOuK2XsUUyrM5doOfE06y8TtpBiamn4PkQp1YC',
       },
     ],
     'condition': 'checkout_android',

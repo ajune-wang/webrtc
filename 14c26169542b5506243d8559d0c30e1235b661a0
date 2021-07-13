@@ -389,6 +389,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aae770e1_f079d33d",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-07-13T11:40:06Z",
+      "side": 1,
+      "message": "Right, that makes sense and I agree. I decided to remove the comment again, since it doesn\u0027t add much.",
+      "parentUuid": "b66dff28_7a28fed8",
+      "range": {
+        "startLine": 106,
+        "startChar": 16,
+        "endLine": 107,
+        "endChar": 62
+      },
+      "revId": "14c26169542b5506243d8559d0c30e1235b661a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "445d4435_f3b22f4e",

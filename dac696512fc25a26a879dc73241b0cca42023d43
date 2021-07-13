@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a055f2e_a12f5cf9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-07-13T17:40:37Z",
+      "side": 1,
+      "message": "Ilya: can you take a look? This makes sense to me",
+      "revId": "dac696512fc25a26a879dc73241b0cca42023d43",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

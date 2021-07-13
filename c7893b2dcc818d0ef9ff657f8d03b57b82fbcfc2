@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3208118_0e5ec92a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17964
+      },
+      "writtenOn": "2021-07-13T19:52:35Z",
+      "side": 1,
+      "message": "This fixes the assert described in webrtc:12978.  However, now video_replay spits out\n(rtcp_sender.cc:281): Can\u0027t send rtcp if it is disabled.\nevery 200 ms or so.  This is better, but still not great...\n",
+      "revId": "c7893b2dcc818d0ef9ff657f8d03b57b82fbcfc2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

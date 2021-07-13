@@ -16,6 +16,23 @@
       "message": "Ilya: can you take a look? This makes sense to me",
       "revId": "dac696512fc25a26a879dc73241b0cca42023d43",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59194333_3a8ea230",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2021-07-13T17:57:51Z",
+      "side": 1,
+      "message": "Mirko, can you do a owner LGTM please? If you could also check that Jonathans email is covered by the CCLA (the corporate one with wildcard emails is not always caught by presubmit)",
+      "revId": "dac696512fc25a26a879dc73241b0cca42023d43",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

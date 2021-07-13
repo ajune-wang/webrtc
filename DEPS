@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '2bb5b1a1b150baf169b5a7255b01c778bc4897f0',
+  'chromium_revision': '190cd81711977cc5d9687a2ad1689ca5934d1a38',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -20,7 +20,7 @@ deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@d51b8338d36dec2c363357f61115c9ffd469cf40',
+    'https://chromium.googlesource.com/chromium/src/base@8adfd1a72588aea33abcb072a5a7fe2e28005066',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@9c63d2e3b0affb24a7bb1ffccfd13d750349a6d0',
   'src/buildtools':
@@ -35,9 +35,9 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@bc1396c8b8eb1db73f24845322f0058422fc0c22',
+    'https://chromium.googlesource.com/chromium/src/testing@d749d1b98b475ea15face1c9d2311ed6b8e4b91f',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@bc78b5f00d56ef6bee0252ff7d9cdbc38ad925aa',
+    'https://chromium.googlesource.com/chromium/src/third_party@f6d52c5fe9001ee33ab34b75fc939903d053d4a5',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -128,7 +128,7 @@ deps = {
   'src/third_party/breakpad/breakpad':
     'https://chromium.googlesource.com/breakpad/breakpad.git@b95c4868b10f69e642666742233aede1eb653012',
   'src/third_party/catapult':
-    'https://chromium.googlesource.com/catapult.git@4a3ec1268ebbfd6b268be5a643f1461fb96c920a',
+    'https://chromium.googlesource.com/catapult.git@3345f09ed65020a999e108ea37d30b49c87e14ed',
   'src/third_party/ced/src': {
     'url': 'https://chromium.googlesource.com/external/github.com/google/compact_enc_det.git@ba412eaaacd3186085babcd901679a48863c7dd5',
   },
@@ -271,7 +271,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@4b3261e487c1712f05c38cbba82c4a2ff18b65dc',
+    'https://chromium.googlesource.com/chromium/src/tools@c45da41b3949683af64ff276eb2230928f37dd5a',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@a32a1607f6093d338f756c7e7c7b4333b0c50c9c',
 
@@ -477,15 +477,15 @@ deps = {
       'packages': [
         {
           'package': 'infra/tools/luci/isolate/${{platform}}',
-          'version': 'git_revision:01aa19ce019f7bf94712f3dd2538cf72a2a3451b',
+          'version': 'git_revision:2ac8bd9cbc20824bb04a39b0f1b77178ace930b3',
         },
         {
           'package': 'infra/tools/luci/isolated/${{platform}}',
-          'version': 'git_revision:01aa19ce019f7bf94712f3dd2538cf72a2a3451b',
+          'version': 'git_revision:2ac8bd9cbc20824bb04a39b0f1b77178ace930b3',
         },
         {
           'package': 'infra/tools/luci/swarming/${{platform}}',
-          'version': 'git_revision:01aa19ce019f7bf94712f3dd2538cf72a2a3451b',
+          'version': 'git_revision:2ac8bd9cbc20824bb04a39b0f1b77178ace930b3',
         },
       ],
       'dep_type': 'cipd',

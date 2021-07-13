@@ -35,6 +35,24 @@ namespace webrtc {
 
 namespace {
 
+int GreatestCommonDivisor(int a, int b) {
+  RTC_DCHECK_GE(a, 0);
+  RTC_DCHECK_GT(b, 0);
+  int c = a % b;
+  while (c != 0) {
+    a = b;
+    b = c;
+    c = a % b;
+  }
+  return b;
+}
+
+int LeastCommonMultiple(int a, int b) {
+  RTC_DCHECK_GT(a, 0);
+  RTC_DCHECK_GT(b, 0);
+  return a * (b / GreatestCommonDivisor(a, b));
+}
+
 // If forced fallback is allowed, either:
 //
 // 1) The forced fallback is requested if the resolution is less than or equal
@@ -416,6 +434,13 @@ VideoEncoder::EncoderInfo VideoEncoderSoftwareFallbackWrapper::GetEncoderInfo()
 
   EncoderInfo info =
       IsFallbackActive() ? fallback_encoder_info : default_encoder_info;
+
+  info.requested_resolution_alignment =
+      LeastCommonMultiple(fallback_encoder_info.requested_resolution_alignment,
+                          default_encoder_info.requested_resolution_alignment);
+  info.apply_alignment_to_all_simulcast_layers =
+      fallback_encoder_info.apply_alignment_to_all_simulcast_layers ||
+      default_encoder_info.apply_alignment_to_all_simulcast_layers;
 
   if (fallback_params_.has_value()) {
     const auto settings = (encoder_state_ == EncoderState::kForcedFallback)

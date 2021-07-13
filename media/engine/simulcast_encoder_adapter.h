@@ -71,16 +71,24 @@ class RTC_EXPORT SimulcastEncoderAdapter : public VideoEncoder {
   class EncoderContext {
    public:
     EncoderContext(std::unique_ptr<VideoEncoder> encoder,
-                   bool prefer_temporal_support);
+                   bool prefer_temporal_support,
+                   VideoEncoder::EncoderInfo&& primary_info,
+                   VideoEncoder::EncoderInfo&& fallback_info);
     EncoderContext& operator=(EncoderContext&&) = delete;
 
     VideoEncoder& encoder() { return *encoder_; }
     bool prefer_temporal_support() { return prefer_temporal_support_; }
     void Release();
 
+    const VideoEncoder::EncoderInfo& PrimaryInfo() { return primary_info_; }
+
+    const VideoEncoder::EncoderInfo& FallbackInfo() { return fallback_info_; }
+
    private:
     std::unique_ptr<VideoEncoder> encoder_;
     bool prefer_temporal_support_;
+    const VideoEncoder::EncoderInfo primary_info_;
+    const VideoEncoder::EncoderInfo fallback_info_;
   };
 
   class StreamContext : public EncodedImageCallback {
@@ -139,7 +147,7 @@ class RTC_EXPORT SimulcastEncoderAdapter : public VideoEncoder {
   void DestroyStoredEncoders();
 
   std::unique_ptr<EncoderContext> FetchOrCreateEncoderContext(
-      bool is_lowest_quality_stream);
+      bool is_lowest_quality_stream) const;
 
   webrtc::VideoCodec MakeStreamCodec(const webrtc::VideoCodec& codec,
                                      int stream_idx,
@@ -171,7 +179,7 @@ class RTC_EXPORT SimulcastEncoderAdapter : public VideoEncoder {
 
   // Store encoders in between calls to Release and InitEncode, so they don't
   // have to be recreated. Remaining encoders are destroyed by the destructor.
-  std::list<std::unique_ptr<EncoderContext>> cached_encoder_contexts_;
+  mutable std::list<std::unique_ptr<EncoderContext>> cached_encoder_contexts_;
 
   const absl::optional<unsigned int> experimental_boosted_screenshare_qp_;
   const bool boost_base_layer_quality_;

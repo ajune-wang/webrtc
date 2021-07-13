@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "74d71239_789cdc7c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-07-13T17:51:57Z",
+      "side": 1,
+      "message": "I\u0027ve uploaded another CL, which made all the encoder wrappers to report alignment correctly, even before InitEncode is called. So I believe, this one is not needed anymore.",
+      "revId": "6e1b5fd9977b5292fd406c77a1cdb5e62c7609eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "072e7eb9_2b9edc13",

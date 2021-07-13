@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b992ced_149b02a6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-07-13T14:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6fdf8dd7_f60c1e21",
+      "range": {
+        "startLine": 9,
+        "startChar": 38,
+        "endLine": 9,
+        "endChar": 41
+      },
+      "revId": "f84904cff5e1048fa79e4152a523ea007e12defb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5aed0cc1_4eba3e9b",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-07-13T14:11:14Z",
       "side": 1,
       "message": "Spelling",
+      "range": {
+        "startLine": 10,
+        "startChar": 24,
+        "endLine": 10,
+        "endChar": 31
+      },
+      "revId": "f84904cff5e1048fa79e4152a523ea007e12defb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f04abe7_92847d73",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-07-13T14:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5aed0cc1_4eba3e9b",
       "range": {
         "startLine": 10,
         "startChar": 24,
@@ -87,6 +135,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8cad9cad_07eeba0a",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-07-13T14:27:38Z",
+      "side": 1,
+      "message": "We already have cricket::LCM in other parts - reusing it.",
+      "parentUuid": "641ad620_c769d159",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 40
+      },
+      "revId": "f84904cff5e1048fa79e4152a523ea007e12defb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c0a881d6_a0dd6320",
@@ -112,6 +184,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9c66d6cf_515be3c0",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-07-13T14:27:38Z",
+      "side": 1,
+      "message": "It just creates encoders, but as an optimization it tries to reuse previously created encoders from the cache.\n\nIt\u0027s idempotent, if the created encoder is returned to the cache before the next call (this is exactly GetEncoderInfo use-case).\n\nThe issue is that we must create an encoder in GetEncoderInfo - this is the core of this change to correctly query alignment requirements.\n\nHowever, GetEncoderInfo is const, and changing that part of API to non-const seems weird.\n\nI can split CreateEncoderContext part out of FetchOrCreateEncoderContext, and there will be no weird |const| or |mutable| in the code. However, each getEncoderInfo call before InitEncode() will create an encoder and immediately destroy it. This will break a lot of tests, which assume that only one encoder will be created. Also, it makes const GetEncoderInfo unexpectedly a very costly operation, because HW encoders will be created en masse. I really don\u0027t like that solution.\n\nAdded comment about that in the header. Is that OK?",
+      "parentUuid": "c0a881d6_a0dd6320",
+      "range": {
+        "startLine": 697,
+        "startChar": 35,
+        "endLine": 697,
+        "endChar": 40
+      },
+      "revId": "f84904cff5e1048fa79e4152a523ea007e12defb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "da348c2f_6a1e467d",
         "filename": "media/engine/simulcast_encoder_adapter.h",
         "patchSetId": 3
@@ -123,6 +219,30 @@
       "writtenOn": "2021-07-13T14:11:14Z",
       "side": 1,
       "message": "Can this be a plain pass-by-value argument instead of an rvalue reference? See https://google.github.io/styleguide/cppguide.html#Rvalue_references, \"Do not use rvalue references (or apply the \u0026\u0026 qualifier to methods), except as ...\", and I don\u0027t think this usage matches the given exceptions.",
+      "range": {
+        "startLine": 75,
+        "startChar": 19,
+        "endLine": 75,
+        "endChar": 47
+      },
+      "revId": "f84904cff5e1048fa79e4152a523ea007e12defb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38085ded_35799aea",
+        "filename": "media/engine/simulcast_encoder_adapter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-07-13T14:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da348c2f_6a1e467d",
       "range": {
         "startLine": 75,
         "startChar": 19,

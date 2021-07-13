@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "67168051_eb9111ed",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5362
+      },
+      "writtenOn": "2021-07-13T01:20:45Z",
+      "side": 1,
+      "message": "FYI I suspect that this could be causing a bug, see crbug.com/1228462",
+      "revId": "e2ab77ba57bff5db8eaa7a8442fa6b2f43914b69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1315,6 +1315,8 @@ ParsedRtcEventLog::ParseStatus ParsedRtcEventLog::ParseStreamInternal(
       RTC_PARSE_WARN_AND_RETURN_SUCCESS_IF(allow_incomplete_logs_,
                                            kIncompleteLogError);
       RTC_PARSE_CHECK_OR_RETURN_LE(message_length, kMaxEventSize);
+      RTC_LOG(LS_ERROR) << "Incomplete log when allow_incomplete_logs_=false";
+      RTC_PARSE_CHECK_OR_RETURN(false);
     }
 
     // Skip forward to the start of the next event.

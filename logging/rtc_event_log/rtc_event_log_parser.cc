@@ -1314,6 +1314,9 @@ ParsedRtcEventLog::ParseStatus ParsedRtcEventLog::ParseStreamInternal(
       RTC_LOG(LS_WARNING) << "Protobuf message length is too large.";
       RTC_PARSE_WARN_AND_RETURN_SUCCESS_IF(allow_incomplete_logs_,
                                            kIncompleteLogError);
+      RTC_LOG(LS_ERROR)
+          << "Incomplete log detected but allow_incomplete_logs_=false";
+      RTC_PARSE_CHECK_OR_RETURN(allow_incomplete_logs_);
       RTC_PARSE_CHECK_OR_RETURN_LE(message_length, kMaxEventSize);
     }
 

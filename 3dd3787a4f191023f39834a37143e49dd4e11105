@@ -16,6 +16,24 @@
       "message": "The old link was broken, but I believe this is the page it should point to.",
       "revId": "3dd3787a4f191023f39834a37143e49dd4e11105",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b52b9e9_d68e6562",
+        "filename": "docs/faq.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-14T14:19:16Z",
+      "side": 1,
+      "message": "Ah, good catch!\n\nI guess we can use https://webrtc.googlesource.com/src/+/refs/heads/main/LICENSE?",
+      "parentUuid": "0fd65cc8_3eb159d6",
+      "revId": "3dd3787a4f191023f39834a37143e49dd4e11105",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

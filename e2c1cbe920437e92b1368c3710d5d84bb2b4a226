@@ -94,6 +94,30 @@
       },
       "revId": "e2c1cbe920437e92b1368c3710d5d84bb2b4a226",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8de143a9_eae071ed",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1322,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-14T13:52:35Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "673b9e44_ae0693c2",
+      "range": {
+        "startLine": 1322,
+        "startChar": 4,
+        "endLine": 1322,
+        "endChar": 33
+      },
+      "revId": "e2c1cbe920437e92b1368c3710d5d84bb2b4a226",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

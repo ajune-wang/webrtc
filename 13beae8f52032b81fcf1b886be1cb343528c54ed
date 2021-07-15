@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04ebf626_29f1a9ab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-07-15T05:12:14Z",
+      "side": 1,
+      "message": "Hello, Harald.\n\nI create a CL for fixing a regression on rollback using SLD/SRD on iOS. Please take a look. Thank you.",
+      "revId": "13beae8f52032b81fcf1b886be1cb343528c54ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

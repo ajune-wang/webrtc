@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12b0ea61_ccf92761",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-15T09:17:06Z",
+      "side": 1,
+      "message": "LGTM, I am not a root //OWNER but I think TBR Harald is fine (I am doing it, so you can land when you prefer).",
+      "revId": "1ef7198a219714aa3597a337ea5403351895d8d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

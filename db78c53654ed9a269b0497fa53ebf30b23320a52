@@ -67,6 +67,23 @@
       "message": "api/ lgtm (I\u0027ll be out of office next week). ",
       "revId": "db78c53654ed9a269b0497fa53ebf30b23320a52",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e952f68d_0e70e2d8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-07-15T18:19:13Z",
+      "side": 1,
+      "message": "Can someone send this to CQ? I don\u0027t have permission to do that. Thank you.",
+      "revId": "db78c53654ed9a269b0497fa53ebf30b23320a52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

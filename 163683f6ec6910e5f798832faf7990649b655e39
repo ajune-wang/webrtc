@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "392e1033_375d4c6a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-07-15T18:07:06Z",
+      "side": 1,
+      "message": "Hello, Harald.\n\nI made a small CL related to running pylint in PRESUBMIT.py. Please take a look. Thank you.",
+      "revId": "163683f6ec6910e5f798832faf7990649b655e39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

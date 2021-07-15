@@ -34,6 +34,24 @@
       "parentUuid": "0fd65cc8_3eb159d6",
       "revId": "3dd3787a4f191023f39834a37143e49dd4e11105",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e52ad461_fec7c8fe",
+        "filename": "docs/faq.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 17594
+      },
+      "writtenOn": "2021-07-15T09:11:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b52b9e9_d68e6562",
+      "revId": "3dd3787a4f191023f39834a37143e49dd4e11105",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

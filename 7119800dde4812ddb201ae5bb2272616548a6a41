@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "729b9967_65d376fa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-07-15T18:24:34Z",
+      "side": 1,
+      "message": "Hello, Xavier.\n\nThis is another CL to prepare for the improvement of Java-\u003eC++ video frame conversion.\nNo intention to change behavior, for now. Please take a look. Thank you.",
+      "revId": "7119800dde4812ddb201ae5bb2272616548a6a41",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

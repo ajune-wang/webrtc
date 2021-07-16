@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4fd7c3b_d5351833",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-07-16T09:34:12Z",
+      "side": 1,
+      "message": "I wonder, how did this even land, if some of CQ bots are red?\n\nThis CL changes which Getstats WPT tests pass, but the tests are in chromium, and because the expectations are hardcoded, correct way to land this CL is to first disable tests in chromium via TestExpectations, when land and roll this CL, when reenable the WPT tests back with updated expectations for this GetStats test to pass.",
+      "revId": "28a2c63526f471558bc93cdcae9fab42b84b10a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

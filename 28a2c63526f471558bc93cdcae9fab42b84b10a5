@@ -16,6 +16,23 @@
       "message": "I wonder, how did this even land, if some of CQ bots are red?\n\nThis CL changes which Getstats WPT tests pass, but the tests are in chromium, and because the expectations are hardcoded, correct way to land this CL is to first disable tests in chromium via TestExpectations, when land and roll this CL, when reenable the WPT tests back with updated expectations for this GetStats test to pass.",
       "revId": "28a2c63526f471558bc93cdcae9fab42b84b10a5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "73ea2d7c_6a2aa921",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-07-16T09:48:20Z",
+      "side": 1,
+      "message": "Ah, I see, the failing bots are chromium fyi, non blocking for CQ.\n\nI\u0027m fixing the tests. Only because most of the people are OOO. Normally, don\u0027t submit a CL which clearly breaks chromium bots and expect it not to be reverted.",
+      "revId": "28a2c63526f471558bc93cdcae9fab42b84b10a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

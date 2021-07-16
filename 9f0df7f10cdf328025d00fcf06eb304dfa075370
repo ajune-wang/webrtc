@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1025aa53_eba03468",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-16T15:04:58Z",
+      "side": 1,
+      "message": "Added 2 comments, they apply to other CLs as well.",
+      "revId": "9f0df7f10cdf328025d00fcf06eb304dfa075370",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00649182_c5b60aef",
+        "filename": "api/test/mock_video_track.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-16T15:04:58Z",
+      "side": 1,
+      "message": "#include https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/rtc_base/ref_counted_object.h",
+      "range": {
+        "startLine": 22,
+        "startChar": 18,
+        "endLine": 22,
+        "endChar": 34
+      },
+      "revId": "9f0df7f10cdf328025d00fcf06eb304dfa075370",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c0cb02a_74d3ddc7",
+        "filename": "api/test/mock_video_track.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-16T15:04:58Z",
+      "side": 1,
+      "message": "#include https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/scoped_refptr.h.",
+      "range": {
+        "startLine": 24,
+        "startChar": 14,
+        "endLine": 24,
+        "endChar": 27
+      },
+      "revId": "9f0df7f10cdf328025d00fcf06eb304dfa075370",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

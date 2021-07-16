@@ -33,6 +33,23 @@
       "message": "Ah, I see, the failing bots are chromium fyi, non blocking for CQ.\n\nI\u0027m fixing the tests. Only because most of the people are OOO. Normally, don\u0027t submit a CL which clearly breaks chromium bots and expect it not to be reverted.",
       "revId": "28a2c63526f471558bc93cdcae9fab42b84b10a5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dec3535f_d08cce22",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-07-16T09:52:32Z",
+      "side": 1,
+      "message": "yes,the failing bot was manually evoked before a fix in chromium was made. It continued to fail even though I tried to make sure that webrtc import won\u0027t fail. It was likely due to a delay in reverse roll of chromium to webrtc.",
+      "revId": "28a2c63526f471558bc93cdcae9fab42b84b10a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

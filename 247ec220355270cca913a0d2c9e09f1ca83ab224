@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3d89fe4_27685925",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-07-17T00:59:04Z",
+      "side": 1,
+      "message": "I notice there are a bunch of other mock objects without global visibility; what\u0027s the criteria for making them visible? Is it something like whether the API is stable enough, or do we just increase visibility as needed for tests?",
+      "revId": "247ec220355270cca913a0d2c9e09f1ca83ab224",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

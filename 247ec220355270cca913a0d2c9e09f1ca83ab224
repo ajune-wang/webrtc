@@ -16,6 +16,24 @@
       "message": "I notice there are a bunch of other mock objects without global visibility; what\u0027s the criteria for making them visible? Is it something like whether the API is stable enough, or do we just increase visibility as needed for tests?",
       "revId": "247ec220355270cca913a0d2c9e09f1ca83ab224",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15e2f3e6_6e13d652",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-07-17T09:36:48Z",
+      "side": 1,
+      "message": "I noticed it as well and I\u0027m not sure. I just added that specific mock to address some internal code redundancy, so we probably want to have that discussion in the core group soon.",
+      "parentUuid": "a3d89fe4_27685925",
+      "revId": "247ec220355270cca913a0d2c9e09f1ca83ab224",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -11,6 +11,7 @@
 #ifndef MODULES_RTP_RTCP_SOURCE_RTP_SENDER_H_
 #define MODULES_RTP_RTCP_SOURCE_RTP_SENDER_H_
 
+#include <functional>
 #include <map>
 #include <memory>
 #include <string>
@@ -46,7 +47,8 @@ class RTPSender {
  public:
   RTPSender(const RtpRtcpInterface::Configuration& config,
             RtpPacketHistory* packet_history,
-            RtpPacketSender* packet_sender);
+            RtpPacketSender* packet_sender,
+            PacketSequencer* sequencer);
 
   RTPSender() = delete;
   RTPSender(const RTPSender&) = delete;
@@ -90,9 +92,13 @@ class RTPSender {
   bool SupportsPadding() const RTC_LOCKS_EXCLUDED(send_mutex_);
   bool SupportsRtxPayloadPadding() const RTC_LOCKS_EXCLUDED(send_mutex_);
 
+  // |can_send_padding_on_media_ssrc| passed via lambda, since |sequnecer_|
+  // may be protected by |send_mutex_|.
   std::vector<std::unique_ptr<RtpPacketToSend>> GeneratePadding(
       size_t target_size_bytes,
-      bool media_has_been_sent) RTC_LOCKS_EXCLUDED(send_mutex_);
+      bool media_has_been_sent,
+      std::function<bool()> can_send_padding_on_media_ssrc)
+      RTC_LOCKS_EXCLUDED(send_mutex_);
 
   // NACK.
   void OnReceivedNack(const std::vector<uint16_t>& nack_sequence_numbers,
@@ -209,7 +215,7 @@ class RTPSender {
 
   // RTP variables
   uint32_t timestamp_offset_ RTC_GUARDED_BY(send_mutex_);
-  PacketSequencer sequencer_ RTC_GUARDED_BY(send_mutex_);
+  PacketSequencer* const sequencer_ RTC_GUARDED_BY(send_mutex_);
   // RID value to send in the RID or RepairedRID header extension.
   std::string rid_ RTC_GUARDED_BY(send_mutex_);
   // MID value to send in the MID header extension.

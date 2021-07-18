@@ -177,7 +177,8 @@ RTPSenderVideo::RTPSenderVideo(const Config& config)
               : nullptr),
       include_capture_clock_offset_(absl::StartsWith(
           config.field_trials->Lookup(kIncludeCaptureClockOffset),
-          "Enabled")) {
+          "Enabled")),
+      deferred_sequencing_(config.use_deferred_sequencing) {
   if (frame_transformer_delegate_)
     frame_transformer_delegate_->Init();
 }
@@ -477,6 +478,10 @@ bool RTPSenderVideo::SendVideo(
   if (payload.empty())
     return false;
 
+  if (!rtp_sender_->SendingMedia()) {
+    return false;
+  }
+
   int32_t retransmission_settings = retransmission_settings_;
   if (codec_type == VideoCodecType::kVideoCodecH264) {
     // Backward compatibility for older receivers without temporal layer logic.
@@ -697,8 +702,10 @@ bool RTPSenderVideo::SendVideo(
     }
   }
 
-  if (!rtp_sender_->AssignSequenceNumbersAndStoreLastPacketState(rtp_packets)) {
+  if (!deferred_sequencing_ &&
+      !rtp_sender_->AssignSequenceNumbersAndStoreLastPacketState(rtp_packets)) {
     // Media not being sent.
+    // TODO(sprang): Should not happen, can we DCHECK this?
     return false;
   }
 

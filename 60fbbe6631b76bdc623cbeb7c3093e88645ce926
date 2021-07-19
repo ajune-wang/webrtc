@@ -68,6 +68,93 @@
       "message": "Ilya, PTAL",
       "revId": "60fbbe6631b76bdc623cbeb7c3093e88645ce926",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f6258cc_67e5dc75",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-19T14:14:15Z",
+      "side": 1,
+      "message": "Philip, you\u0027re an owner of the modules/video_coding/...",
+      "parentUuid": "fbb979f6_00467f15",
+      "revId": "60fbbe6631b76bdc623cbeb7c3093e88645ce926",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a504c44d_e80045e8",
+        "filename": "modules/video_coding/rtp_vp9_ref_finder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-19T14:14:15Z",
+      "side": 1,
+      "message": "May be\nif (frame-\u003eframe_type() \u003d\u003d kVideoFrameKey) {\n  ...UnwrapForward(...);\n} else {\n  ...Unwrap(...);\n}\n\nwhen there are gaps in tl0, there might as well be gaps in rtp sequence number. \nas I understand the bug, frames after gap start with a key frame. That seems a stronger indication tl0 sequence should be \u0027reset\u0027 instead of \u0027check if broken\u0027",
+      "range": {
+        "startLine": 87,
+        "startChar": 6,
+        "endLine": 88,
+        "endChar": 65
+      },
+      "revId": "60fbbe6631b76bdc623cbeb7c3093e88645ce926",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90ebf05d_64fa3787",
+        "filename": "modules/video_coding/rtp_vp9_ref_finder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 674,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-19T14:14:15Z",
+      "side": 1,
+      "message": "This sequence doesn\u0027t look valid.\nI would expect a key frame after a pause (or pid/tl0pid properly continued)",
+      "range": {
+        "startLine": 674,
+        "startChar": 2,
+        "endLine": 674,
+        "endChar": 61
+      },
+      "revId": "60fbbe6631b76bdc623cbeb7c3093e88645ce926",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fba375b_9e9e9ff7",
+        "filename": "modules/video_coding/rtp_vp9_ref_finder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-19T14:14:15Z",
+      "side": 1,
+      "message": "EXPECT_THAT(frames_, SizeIs(1));\n\ngo/c-readability-advice#expect-vs-assert\ngo/c-readability-advice#expect-that-vs-other-expect-\ngo/c-readability-advice#avoid-yoda-style-comparisons",
+      "range": {
+        "startLine": 677,
+        "startChar": 2,
+        "endLine": 677,
+        "endChar": 33
+      },
+      "revId": "60fbbe6631b76bdc623cbeb7c3093e88645ce926",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

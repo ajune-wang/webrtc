@@ -463,6 +463,10 @@
       'gn_args': 'dcheck_always_on=true',
     },
 
+    'dcheck_always_off': {
+      'gn_args': 'dcheck_always_on=false',
+    },
+
     'debug': {
       'gn_args': 'is_debug=true',
     },
@@ -540,7 +544,7 @@
     },
 
     'pure_release_bot': {
-      'mixins': ['release', 'goma'],
+      'mixins': ['release', 'goma', 'dcheck_always_off'],
     },
 
     'release': {
@@ -548,7 +552,7 @@
     },
 
     'release_bot': {
-      'mixins': ['pure_release_bot', 'dcheck_always_on'],
+      'mixins': ['release', 'goma', 'dcheck_always_on'],
     },
 
     'release_bot_no_goma': {

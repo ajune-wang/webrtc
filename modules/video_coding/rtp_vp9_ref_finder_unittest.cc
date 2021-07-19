@@ -661,6 +661,22 @@ TEST_F(RtpVp9RefFinderTest, GofTl0Jump) {
   Insert(Frame().Pid(1).SidAndTid(0, 0).Tl0(0).Gof(&ss));
 }
 
+TEST_F(RtpVp9RefFinderTest, Tl0JumpAfterPacketLoss) {
+  GofInfoVP9 ss;
+  ss.SetGofInfoVP9(kTemporalStructureMode1);
+
+  Insert(
+      Frame().Pid(0).SidAndTid(0, 0).Tl0(2).SeqNum(0, 0).AsKeyFrame().Gof(&ss));
+
+  // After packet loss, new frame have "older" Tl0 but are newer in SeqNum
+  // order. These frames should not be considered continous with the frame
+  // before the loss.
+  Insert(Frame().Pid(2).SidAndTid(0, 0).Tl0(1).SeqNum(2, 2));
+  Insert(Frame().Pid(3).SidAndTid(0, 0).Tl0(2).SeqNum(3, 3));
+  Insert(Frame().Pid(4).SidAndTid(0, 0).Tl0(3).SeqNum(4, 4));
+  ASSERT_EQ(1UL, frames_.size());
+}
+
 TEST_F(RtpVp9RefFinderTest, GofTidTooHigh) {
   const int kMaxTemporalLayers = 5;
   GofInfoVP9 ss;

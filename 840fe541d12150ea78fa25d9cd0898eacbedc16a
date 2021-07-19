@@ -63,6 +63,30 @@
       },
       "revId": "840fe541d12150ea78fa25d9cd0898eacbedc16a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08205014_6249d333",
+        "filename": "rtc_base/synchronization/mutex_pthread.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-19T13:26:47Z",
+      "side": 1,
+      "message": "\u003e Changing it to do the run time check only in debug builds makes sense to me (I hadn\u0027t expected abseil\u0027s AssertHeld to be an unconditional check). About naming, should it be consistent with abseil (AssertLocked) or with chromium (AssertAcquired)?\n\nI prefer the abseil one, but that is just a personal thing. :) \n\n\u003e Implementing it for other mutex implementations looks a bit subtle; I did a quick check of pthreads and window\u0027s critical section, and couldn\u0027t find any easy advertised way to do it. So it would need some additional atomic member to record owning thread, with writes protected by the mutex but readable from arbitrary threads.\n\u003e \n\u003e I think we have reasonable test coverage with abseil\u0027s mutex (but perhaps not on the publicly visible bots; maybe we should add a configuration to do that)? For local tests, I use \n\u003e \n\u003e rtc_use_absl_mutex \u003d true\n\u003e treat_warnings_as_errors \u003d false\n\u003e \n\u003e in args.gn.\n\nOk, sounds good to me. Maybe we just add a TSan bot which uses absl::Mutex as implementation?",
+      "parentUuid": "b5e6754e_7df58976",
+      "range": {
+        "startLine": 46,
+        "startChar": 48,
+        "endLine": 46,
+        "endChar": 50
+      },
+      "revId": "840fe541d12150ea78fa25d9cd0898eacbedc16a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

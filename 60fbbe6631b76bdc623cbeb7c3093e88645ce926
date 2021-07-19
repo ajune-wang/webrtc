@@ -16,6 +16,23 @@
       "message": "Danil, PTAL\nMirko, RSLGTM please :)",
       "revId": "60fbbe6631b76bdc623cbeb7c3093e88645ce926",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65083dd9_34941a6a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-19T13:57:13Z",
+      "side": 1,
+      "message": "LGTM but I am not an owner. :) ",
+      "revId": "60fbbe6631b76bdc623cbeb7c3093e88645ce926",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

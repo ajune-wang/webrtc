@@ -3,6 +3,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "86ff36d6_68964fcd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-07-19T23:05:07Z",
+      "side": 1,
+      "message": "\u003e Patch Set 4:\n\u003e \n\u003e On vacation without PC, but check for performance regression before submitting.\n\nWhen doing 100-transceiver negotiations, the additional offer validation took an average of 20us, which seems acceptable to me.",
+      "revId": "1a56b11e117aa41ea387ce2d02fa78be2efc677d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "fbe4dfcc_ecef3137",
         "filename": "pc/jsep_transport_collection.cc",
         "patchSetId": 4

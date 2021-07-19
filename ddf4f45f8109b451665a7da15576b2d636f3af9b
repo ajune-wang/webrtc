@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d6bae85_179715cd",
+        "filename": "modules/video_coding/nack_module2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-07-19T15:59:46Z",
+      "side": 1,
+      "message": "Does this comment do anything here?\nI vote in favor of adding this DCHECK inside. Otherwise it\u0027s unclear if some race on modules_ can happen.",
+      "revId": "ddf4f45f8109b451665a7da15576b2d636f3af9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b7e5497_fd43c911",
+        "filename": "video/video_receive_stream2.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-07-19T15:59:46Z",
+      "side": 1,
+      "message": "There\u0027s so many global variables passed in here now. Is it possible to make the NackProcessor a part of Call and expose it from there?",
+      "range": {
+        "startLine": 102,
+        "startChar": 22,
+        "endLine": 102,
+        "endChar": 68
+      },
+      "revId": "ddf4f45f8109b451665a7da15576b2d636f3af9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

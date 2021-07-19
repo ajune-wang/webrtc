@@ -155,6 +155,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "76dd735c_95d79e1a",
+        "filename": "modules/video_coding/rtp_vp9_ref_finder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-19T15:18:14Z",
+      "side": 1,
+      "message": "I\u0027m not sure how this change address it then.\nShouldn\u0027t you rely on picture ids to ensure frames become continuous? (without key frame that would require 15bit picture id wrap around)\n\nI think this code is an improvement, but I still do not understand the scenario it improves.",
+      "parentUuid": "b4f0a915_5aa11afa",
+      "range": {
+        "startLine": 87,
+        "startChar": 6,
+        "endLine": 88,
+        "endChar": 65
+      },
+      "revId": "60fbbe6631b76bdc623cbeb7c3093e88645ce926",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "90ebf05d_64fa3787",
         "filename": "modules/video_coding/rtp_vp9_ref_finder_unittest.cc",
         "patchSetId": 1
@@ -190,6 +214,30 @@
       "side": 1,
       "message": "This tests represent packet loss.",
       "parentUuid": "90ebf05d_64fa3787",
+      "range": {
+        "startLine": 674,
+        "startChar": 2,
+        "endLine": 674,
+        "endChar": 61
+      },
+      "revId": "60fbbe6631b76bdc623cbeb7c3093e88645ce926",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9cae5a0b_251a4feb",
+        "filename": "modules/video_coding/rtp_vp9_ref_finder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 674,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-19T15:18:14Z",
+      "side": 1,
+      "message": "Can you select sequence numbers (pid, tl0pid, rtp sn) to show that?\nMay be add a comment what packets were lost.\n\nAs it is now I do not understand what loss it represents (and even got confused that it reperesents loss, not filtering by a server that rewrites sequence numbers, but not tl0pid)\n\nside question, what whould happen in this scenario:\nInsert(Frame().Pid(0).SidAndTid(0, 0).Tl0(0).SeqNum(0, 0));\n// loss 256 packets \u003d frames\nInsert(Frame().Pid(257).SidAndTid(0, 0).Tl0(1).SeqNum(257, 257));\n\nhow is it different to \nInsert(Frame().Pid(0).SidAndTid(0, 0).Tl0(0).SeqNum(0, 0));\n// loss 254 packets \u003d frames\nInsert(Frame().Pid(255).SidAndTid(0, 0).Tl0(255).SeqNum(255, 255));",
+      "parentUuid": "1bcf7e59_88bc27aa",
       "range": {
         "startLine": 674,
         "startChar": 2,
@@ -237,6 +285,30 @@
       "side": 1,
       "message": "Consistent with style in this file, it is.\n\nEh, updated :)",
       "parentUuid": "9fba375b_9e9e9ff7",
+      "range": {
+        "startLine": 677,
+        "startChar": 2,
+        "endLine": 677,
+        "endChar": 33
+      },
+      "revId": "60fbbe6631b76bdc623cbeb7c3093e88645ce926",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b796a86_b1293a48",
+        "filename": "modules/video_coding/rtp_vp9_ref_finder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-19T15:18:14Z",
+      "side": 1,
+      "message": "https://google.github.io/styleguide/cppguide.html#Goals\n\n\"Consistency should not generally be used as a justification to do things in an old style without considering the benefits of the new style, or the tendency of the codebase to converge on newer styles over time.\"",
+      "parentUuid": "6f1a17c9_7fbb367a",
       "range": {
         "startLine": 677,
         "startChar": 2,

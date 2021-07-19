@@ -179,6 +179,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "41a91e8e_b600bae9",
+        "filename": "modules/video_coding/rtp_vp9_ref_finder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-07-19T16:45:27Z",
+      "side": 1,
+      "message": "It improves the situation where after packet loss the TL0 of the newer frames looks old.\n\nI realize the test I added (internally unwrapped tl0 forward) didn\u0027t accurately reflect what I was trying to change (don\u0027t discard newer frames based on TL0), I updated the test.",
+      "parentUuid": "76dd735c_95d79e1a",
+      "range": {
+        "startLine": 87,
+        "startChar": 6,
+        "endLine": 88,
+        "endChar": 65
+      },
+      "revId": "60fbbe6631b76bdc623cbeb7c3093e88645ce926",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "90ebf05d_64fa3787",
         "filename": "modules/video_coding/rtp_vp9_ref_finder_unittest.cc",
         "patchSetId": 1
@@ -238,6 +262,30 @@
       "side": 1,
       "message": "Can you select sequence numbers (pid, tl0pid, rtp sn) to show that?\nMay be add a comment what packets were lost.\n\nAs it is now I do not understand what loss it represents (and even got confused that it reperesents loss, not filtering by a server that rewrites sequence numbers, but not tl0pid)\n\nside question, what whould happen in this scenario:\nInsert(Frame().Pid(0).SidAndTid(0, 0).Tl0(0).SeqNum(0, 0));\n// loss 256 packets \u003d frames\nInsert(Frame().Pid(257).SidAndTid(0, 0).Tl0(1).SeqNum(257, 257));\n\nhow is it different to \nInsert(Frame().Pid(0).SidAndTid(0, 0).Tl0(0).SeqNum(0, 0));\n// loss 254 packets \u003d frames\nInsert(Frame().Pid(255).SidAndTid(0, 0).Tl0(255).SeqNum(255, 255));",
       "parentUuid": "1bcf7e59_88bc27aa",
+      "range": {
+        "startLine": 674,
+        "startChar": 2,
+        "endLine": 674,
+        "endChar": 61
+      },
+      "revId": "60fbbe6631b76bdc623cbeb7c3093e88645ce926",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4efc0058_9760a70a",
+        "filename": "modules/video_coding/rtp_vp9_ref_finder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 674,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-07-19T16:45:27Z",
+      "side": 1,
+      "message": "In the first test we can\u0027t detect the wrap, so 257 will use the gof info of 0, and by doing so potentially use the wrong dependency structure. However, the max P_DIFF is only 127 so it can\u0027t point back to 0, so it will not be decoded.\n\nIn the second example we can detect the wrap, and then unwrap TL0 forward to avoid discarding the frame. If 255 was a keyframe we would effectively throw away the restarted stream.",
+      "parentUuid": "9cae5a0b_251a4feb",
       "range": {
         "startLine": 674,
         "startChar": 2,

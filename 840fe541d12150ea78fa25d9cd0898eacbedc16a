@@ -16,6 +16,29 @@
       "message": "PTAL.",
       "revId": "840fe541d12150ea78fa25d9cd0898eacbedc16a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76e116c4_35aac3b8",
+        "filename": "rtc_base/synchronization/mutex_pthread.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-19T09:30:07Z",
+      "side": 1,
+      "message": "What I am worried in this case, is that we kind of deceive the compile time check into thinking that after the call, the mutex is held, while we do nothing.\n\nI wonder if we should implement this check or do something similar to Chromium (https://source.chromium.org/chromium/chromium/src/+/main:base/synchronization/lock.h;l\u003d38;drc\u003da82378c43085272634cd20f92cfb11a1c65f3897) which has the check in debug builds and not in release builds.\n\nWhat do you think?",
+      "range": {
+        "startLine": 46,
+        "startChar": 48,
+        "endLine": 46,
+        "endChar": 50
+      },
+      "revId": "840fe541d12150ea78fa25d9cd0898eacbedc16a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d4de93fd_cb1e5f2c",
+        "filename": "modules/rtp_rtcp/source/rtp_util.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-19T12:12:41Z",
+      "side": 1,
+      "message": "our-of-bound read is also a security vulnerability.\nI\u0027m unsure if these cheap functions should include the CHECK, instead I move requirement to validate the data to the caller (which can be done once even when two of those functions are called after that)\n\n(similar to how we do not always validate accessing array in the [] operator, but rely on some outer code to ensure that is not out of bound)\n\nDo you still think it is better to be overprotective? (over saving a bit of binary size)\nabsolute cost of RTC_CHECK might not be large, but relative cost [to the function implementation] would be large.",
+      "parentUuid": "768594cf_ba308992",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 31
+      },
+      "revId": "998d962f6f22d04d829f41c397e693a3901e2348",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "75e14c3a_dcc037d2",
         "filename": "modules/rtp_rtcp/source/rtp_util.h",
         "patchSetId": 3
@@ -54,6 +78,30 @@
       "writtenOn": "2021-07-19T11:42:59Z",
       "side": 1,
       "message": "Does this mean the functions will crash (RTC_CHECK) if the input is too short? Are there any other potential reason for them to fail?",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 37
+      },
+      "revId": "998d962f6f22d04d829f41c397e693a3901e2348",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a6bbf55_a12da377",
+        "filename": "modules/rtp_rtcp/source/rtp_util.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-19T12:12:41Z",
+      "side": 1,
+      "message": "For user of these functions it is a bug to call one of them when `!IsRtpPacket(rtp_packet)`\nbehaviour is undefined in such case.\n(requirement is stronger than it is need to be technically, but appropriate conceptually)\n\nchanged the comment. better?",
+      "parentUuid": "75e14c3a_dcc037d2",
       "range": {
         "startLine": 23,
         "startChar": 0,

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b5d541d_d38f7b59",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-07-19T13:53:04Z",
+      "side": 1,
+      "message": "Danil, PTAL\nMirko, RSLGTM please :)",
+      "revId": "60fbbe6631b76bdc623cbeb7c3093e88645ce926",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

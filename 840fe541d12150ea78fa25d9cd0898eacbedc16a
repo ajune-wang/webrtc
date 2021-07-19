@@ -87,6 +87,30 @@
       },
       "revId": "840fe541d12150ea78fa25d9cd0898eacbedc16a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43ae4a47_8ac3af2d",
+        "filename": "rtc_base/synchronization/mutex_pthread.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-07-19T14:15:12Z",
+      "side": 1,
+      "message": "Added #if RTC_DCHECK_ON logic.\n\nFYI, the warnings I get when compiling with abseil\u0027s mutex is \n\n../../media/sctp/usrsctp_transport.cc:77:37: warning: declaration requires an exit-time de\\\nstructor [-Wexit-time-destructors]\nABSL_CONST_INIT webrtc::GlobalMutex g_usrsctp_lock_(absl::kConstInit);                     \n                                    ^\n../../media/sctp/usrsctp_transport.cc:77:37: warning: declaration requires a global destru\\\nctor [-Wglobal-constructors]\n2 warnings generated.",
+      "parentUuid": "08205014_6249d333",
+      "range": {
+        "startLine": 46,
+        "startChar": 48,
+        "endLine": 46,
+        "endChar": 50
+      },
+      "revId": "840fe541d12150ea78fa25d9cd0898eacbedc16a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

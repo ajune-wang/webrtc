@@ -46,6 +46,7 @@ class RTC_LOCKABLE MutexImpl final {
     bool was_free = free_.exchange(false, std::memory_order_acquire);
     return was_free;
   }
+  void AssertHeld() RTC_ASSERT_EXCLUSIVE_LOCK() {}
   void Unlock() RTC_UNLOCK_FUNCTION() {
     free_.store(true, std::memory_order_release);
   }

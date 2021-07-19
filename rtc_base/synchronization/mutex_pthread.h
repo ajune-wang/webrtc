@@ -43,6 +43,7 @@ class RTC_LOCKABLE MutexImpl final {
   ABSL_MUST_USE_RESULT bool TryLock() RTC_EXCLUSIVE_TRYLOCK_FUNCTION(true) {
     return pthread_mutex_trylock(&mutex_) == 0;
   }
+  void AssertHeld() RTC_ASSERT_EXCLUSIVE_LOCK() {}
   void Unlock() RTC_UNLOCK_FUNCTION() { pthread_mutex_unlock(&mutex_); }
 
  private:

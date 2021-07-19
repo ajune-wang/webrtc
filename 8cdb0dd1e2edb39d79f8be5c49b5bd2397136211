@@ -118,6 +118,30 @@
       },
       "revId": "8cdb0dd1e2edb39d79f8be5c49b5bd2397136211",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c102d8e_8d972a10",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1315,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-19T10:11:19Z",
+      "side": 1,
+      "message": "Discussed offline with terelius@ and updated the CL.",
+      "parentUuid": "0abf6d21_e923e360",
+      "range": {
+        "startLine": 1315,
+        "startChar": 6,
+        "endLine": 1315,
+        "endChar": 61
+      },
+      "revId": "8cdb0dd1e2edb39d79f8be5c49b5bd2397136211",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

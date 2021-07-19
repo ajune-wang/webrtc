@@ -196,8 +196,6 @@ rtc_library("rtp_test_utils") {
     "rtp_file_reader.h",
     "rtp_file_writer.cc",
     "rtp_file_writer.h",
-    "rtp_header_parser.cc",
-    "rtp_header_parser.h",
   ]
 
   deps = [

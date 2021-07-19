@@ -13,7 +13,7 @@
 #include <iomanip>
 
 #include "absl/base/attributes.h"
-#include "media/base/rtp_utils.h"
+#include "modules/rtp_rtcp/source/rtp_util.h"
 #include "pc/external_hmac.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/ssl_stream_adapter.h"
@@ -96,8 +96,8 @@ bool SrtpSession::ProtectRtp(void* p, int in_len, int max_len, int* out_len) {
 
   *out_len = in_len;
   int err = srtp_protect(session_, p, out_len);
-  int seq_num;
-  GetRtpSeqNum(p, in_len, &seq_num);
+  int seq_num = webrtc::ParseRtpSequenceNumber(
+      rtc::MakeArrayView(reinterpret_cast<const uint8_t*>(p), in_len));
   if (err != srtp_err_status_ok) {
     RTC_LOG(LS_WARNING) << "Failed to protect SRTP packet, seqnum=" << seq_num
                         << ", err=" << err

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "429bf023_3388a417",
+        "filename": "tools_webrtc/mb/mb_config.pyl",
+        "patchSetId": 1
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-19T09:13:04Z",
+      "side": 1,
+      "message": "This will be removed in a follow-up, since it will be the default.",
+      "range": {
+        "startLine": 555,
+        "startChar": 36,
+        "endLine": 555,
+        "endChar": 54
+      },
+      "revId": "1705df32c1d558effa24f7801110bc6a59dde89a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

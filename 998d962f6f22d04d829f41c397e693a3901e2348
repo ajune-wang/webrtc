@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bd95d021_53907416",
+        "filename": "modules/rtp_rtcp/source/rtp_util.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-07-19T12:23:27Z",
+      "side": 1,
+      "message": "I don\u0027t have a strong opinion. DCHECK is appropriate if we think of it as debug tool and documentation, in addition to security-relevant checks elsewhere. So lgtm as is.\n\nI would hope that the lack of a way to return failure would be a strong hint to current and future callers that data must be validated prior to calling these functions.",
+      "parentUuid": "d4de93fd_cb1e5f2c",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 31
+      },
+      "revId": "998d962f6f22d04d829f41c397e693a3901e2348",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "75e14c3a_dcc037d2",
         "filename": "modules/rtp_rtcp/source/rtp_util.h",
         "patchSetId": 3

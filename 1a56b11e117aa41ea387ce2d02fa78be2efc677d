@@ -20,6 +20,40 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "4a413955_ad1b69bd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-07-20T08:25:53Z",
+      "side": 1,
+      "message": "LGTM with comments",
+      "revId": "1a56b11e117aa41ea387ce2d02fa78be2efc677d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "364d6cdc_2c76cf48",
+        "filename": "pc/jsep_transport_collection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-07-20T08:25:53Z",
+      "side": 1,
+      "message": "nit: \"If this is an offer\"",
+      "revId": "1a56b11e117aa41ea387ce2d02fa78be2efc677d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "fbe4dfcc_ecef3137",
         "filename": "pc/jsep_transport_collection.cc",
         "patchSetId": 4
@@ -31,6 +65,40 @@
       "writtenOn": "2021-07-10T00:26:13Z",
       "side": 1,
       "message": "Note that this is safe due to the additional validation I added, which ensures there is a 1:1 mapping between existing and new bundle groups.",
+      "revId": "1a56b11e117aa41ea387ce2d02fa78be2efc677d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c949dd5_efee1f08",
+        "filename": "pc/jsep_transport_collection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-07-20T08:25:53Z",
+      "side": 1,
+      "message": "A thought not related to this CL specifically... so no action needed in this CL but I\u0027m curious what you think:\n\nI wonder how well \"rollback\" works together with bundle groups considering we store states for which bundle group certain MIDs belong to?\n\nE.g. glare happening when the two endpoints are trying to add different types of tracks: apply an offer putting a MID in VIDEO group, roll back, and then put the same MID in AUDIO group instead.",
+      "revId": "1a56b11e117aa41ea387ce2d02fa78be2efc677d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "369233c4_cfc4495e",
+        "filename": "pc/peer_connection_bundle_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 967,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-07-20T08:25:53Z",
+      "side": 1,
+      "message": "This covers 3_audio not being part of the group, which is good.\n\nBut either here or in jsep_transport_controller_unittest.cc: can you also add a test for when the new track is added to a different group than the first one and that it succeeds?\n\nTo cover the \"all audio in one group and all video in one group\" case and adding more tracks after the initial negotiation since that is probably what people who have starred https://crbug.com/webrtc/10208 would like to do.",
       "revId": "1a56b11e117aa41ea387ce2d02fa78be2efc677d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ae63fc7_71d1b5fd",
+        "filename": "test/rtp_file_reader.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-07-20T09:43:55Z",
+      "side": 1,
+      "message": "nit: Would be more consistent with surrounding members to stick to uint8_t, matching the type on the wire.\n\nAnd maybe add a comment on the usage for rtcp (where it\u0027s not quite a payload type, right?).",
+      "range": {
+        "startLine": 360,
+        "startChar": 4,
+        "endLine": 360,
+        "endChar": 7
+      },
+      "revId": "af3814eb1c4485cab7a6f4f12e9dd22483d50fac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

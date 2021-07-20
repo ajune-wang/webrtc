@@ -47,6 +47,7 @@
 #include "logging/rtc_event_log/logged_events.h"
 #include "modules/rtp_rtcp/include/rtp_header_extension_map.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/common_header.h"
+#include "rtc_base/copy_on_write_buffer.h"
 #include "rtc_base/ignore_wundef.h"
 
 // Files generated at build-time by the protobuf compiler.
@@ -627,17 +628,12 @@ class ParsedRtcEventLog {
   template <typename T>
   void StoreFirstAndLastTimestamp(const std::vector<T>& v);
 
-  // Reads the header, direction, header length and packet length from the RTP
-  // event at |index|, and stores the values in the corresponding output
-  // parameters. Each output parameter can be set to nullptr if that value
-  // isn't needed.
-  // NB: The header must have space for at least IP_PACKET_SIZE bytes.
+  // Reads the direction, header, and packet length from the RTP `event`,
+  // and stores the values in the corresponding output parameters.
   ParseStatus GetRtpHeader(const rtclog::Event& event,
-                           PacketDirection* incoming,
-                           uint8_t* header,
-                           size_t* header_length,
-                           size_t* total_length,
-                           int* probe_cluster_id) const;
+                           PacketDirection& incoming,
+                           rtc::CopyOnWriteBuffer& header,
+                           size_t& total_length) const;
 
   // Returns: a pointer to a header extensions map acquired from parsing
   // corresponding Audio/Video Sender/Receiver config events.

@@ -16,6 +16,24 @@
       "message": "Wow, it looks like this CL allowed us to discover a bug in the \"webrtc_fuzzer_test\" GN template, which doesn\u0027t use the same configs as all the other targets in WebRTC (in this case \"common_config\" is not used). This is why there is a linker error.\n\nI am going to fix this issue in a separate CL and then land this one.",
       "revId": "5168f59390cb07a32ae34e0b71dbc00e08931a7e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e5b092d_599305a2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-20T07:45:09Z",
+      "side": 1,
+      "message": "Fix here: https://webrtc-review.googlesource.com/c/src/+/226540.",
+      "parentUuid": "2253d29b_6d4794f4",
+      "revId": "5168f59390cb07a32ae34e0b71dbc00e08931a7e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

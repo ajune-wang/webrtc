@@ -22,6 +22,30 @@
       },
       "revId": "a473c97193eba36b029fc91af79ead2c618ec7a9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "345a0da9_c1822d00",
+        "filename": "modules/video_coding/rtp_vp9_ref_finder_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-07-20T09:32:14Z",
+      "side": 1,
+      "message": "No, after loss it could be a delta frame or a keyframe. The important thing is that we don\u0027t stash (and eventually throw away) newer frames based on TL0 as that could prevent the stream from being restarted.",
+      "parentUuid": "6891932a_430c21c5",
+      "range": {
+        "startLine": 677,
+        "startChar": 0,
+        "endLine": 677,
+        "endChar": 26
+      },
+      "revId": "a473c97193eba36b029fc91af79ead2c618ec7a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

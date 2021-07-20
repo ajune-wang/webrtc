@@ -54,6 +54,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "db045b02_f460d1c7",
+        "filename": "pc/jsep_transport_collection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-07-20T21:11:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "364d6cdc_2c76cf48",
+      "revId": "1a56b11e117aa41ea387ce2d02fa78be2efc677d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "fbe4dfcc_ecef3137",
         "filename": "pc/jsep_transport_collection.cc",
         "patchSetId": 4
@@ -88,6 +106,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bbb85eb6_c0e1c3b5",
+        "filename": "pc/jsep_transport_collection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-07-20T21:11:05Z",
+      "side": 1,
+      "message": "This concern is actually very related to this CL. Previously an offer could only update a bundle group if using max-bundle, but now it always can. The example you provide is a situation where the extra offer validation would now say \"the new MID is moving between groups\".\n\nAnd even ignoring the fact that established_bundle_groups_by_mid_/bundle_groups_ are not being rolled back, in some corner cases this has consequences that potentially aren\u0027t being handled by RollbackTransports. What if the offer causes an existing m\u003d section to be bundled on a different or new MID? Such as going from:\n\n[1,2],3(unbundled)\n|\nv\n[1,2,3]\n\nRollbackTransports will not undo this bundling. And it can\u0027t, because 3\u0027s transport will already have been destroyed...\n\nSo it seems like we need to:\n1. Keep transports that otherwise would be deleted around until an answer has been applied.\n2. Don\u0027t only keep track of \"pending_mids_\"; keep track of all mid-\u003etransport mappings from the last stable state.\n\nI don\u0027t think this should be too hard. But if it ends up being too involved, I\u0027ll leave this as is (or maybe just make sure bundle_groups_/established_bundle_groups_by_mid_ are rolled back).",
+      "parentUuid": "7c949dd5_efee1f08",
+      "revId": "1a56b11e117aa41ea387ce2d02fa78be2efc677d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "369233c4_cfc4495e",
         "filename": "pc/peer_connection_bundle_unittest.cc",
         "patchSetId": 4
@@ -99,6 +135,24 @@
       "writtenOn": "2021-07-20T08:25:53Z",
       "side": 1,
       "message": "This covers 3_audio not being part of the group, which is good.\n\nBut either here or in jsep_transport_controller_unittest.cc: can you also add a test for when the new track is added to a different group than the first one and that it succeeds?\n\nTo cover the \"all audio in one group and all video in one group\" case and adding more tracks after the initial negotiation since that is probably what people who have starred https://crbug.com/webrtc/10208 would like to do.",
+      "revId": "1a56b11e117aa41ea387ce2d02fa78be2efc677d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37ca89f7_09ba9b2f",
+        "filename": "pc/peer_connection_bundle_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 967,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-07-20T21:11:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "369233c4_cfc4495e",
       "revId": "1a56b11e117aa41ea387ce2d02fa78be2efc677d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

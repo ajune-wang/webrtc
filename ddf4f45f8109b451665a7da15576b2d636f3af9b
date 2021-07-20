@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5e539344_2fc9a53a",
+        "filename": "modules/video_coding/nack_module2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-07-20T08:12:53Z",
+      "side": 1,
+      "message": "Wait, does DCHECK result in a compile error in case of a thread annotation?\n\nThen I\u0027ve suggest to copy the thread annotation like in [1]:\n// RTC_RUN_ON(sequence_)\n\n[1] https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/call/call.cc;l\u003d1478;drc\u003d00ca0044d4e06fa95706f6ec22c4fbeef9c679f9",
+      "parentUuid": "b50a3297_c9ea98f6",
+      "revId": "ddf4f45f8109b451665a7da15576b2d636f3af9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3b7e5497_fd43c911",
         "filename": "video/video_receive_stream2.h",
         "patchSetId": 1
@@ -73,6 +91,30 @@
       "side": 1,
       "message": "That would add dependencies on Call from low-level unit tests. I\u0027d rather keep it this way.",
       "parentUuid": "3b7e5497_fd43c911",
+      "range": {
+        "startLine": 102,
+        "startChar": 22,
+        "endLine": 102,
+        "endChar": 68
+      },
+      "revId": "ddf4f45f8109b451665a7da15576b2d636f3af9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76d9e043_3a028c02",
+        "filename": "video/video_receive_stream2.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-07-20T08:12:53Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d99d3fb3_c949c756",
       "range": {
         "startLine": 102,
         "startChar": 22,

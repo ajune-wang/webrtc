@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b50a3297_c9ea98f6",
+        "filename": "modules/video_coding/nack_module2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-07-20T07:40:12Z",
+      "side": 1,
+      "message": "I can\u0027t since it\u0027s already added as thread annotation. How should I phrase the comment in order to not confuse?",
+      "parentUuid": "5d6bae85_179715cd",
+      "revId": "ddf4f45f8109b451665a7da15576b2d636f3af9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3b7e5497_fd43c911",
         "filename": "video/video_receive_stream2.h",
         "patchSetId": 1
@@ -31,6 +49,30 @@
       "writtenOn": "2021-07-19T15:59:46Z",
       "side": 1,
       "message": "There\u0027s so many global variables passed in here now. Is it possible to make the NackProcessor a part of Call and expose it from there?",
+      "range": {
+        "startLine": 102,
+        "startChar": 22,
+        "endLine": 102,
+        "endChar": 68
+      },
+      "revId": "ddf4f45f8109b451665a7da15576b2d636f3af9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d99d3fb3_c949c756",
+        "filename": "video/video_receive_stream2.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-07-20T07:40:12Z",
+      "side": 1,
+      "message": "That would add dependencies on Call from low-level unit tests. I\u0027d rather keep it this way.",
+      "parentUuid": "3b7e5497_fd43c911",
       "range": {
         "startLine": 102,
         "startChar": 22,

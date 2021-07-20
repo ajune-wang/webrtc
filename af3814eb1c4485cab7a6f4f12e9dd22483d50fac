@@ -22,6 +22,30 @@
       },
       "revId": "af3814eb1c4485cab7a6f4f12e9dd22483d50fac",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4fad615_37df56c1",
+        "filename": "test/rtp_file_reader.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-20T10:04:37Z",
+      "side": 1,
+      "message": "https://google.github.io/styleguide/cppguide.html#Integer_Types\n\"You should not use the unsigned integer types such as uint32_t, unless there is a valid reason such as representing a bit pattern rather than a number, or you need defined overflow modulo 2^N.\"\n\nalso, unlike ports, range [0, 255] doesn\u0027t accurately represent valid payload types, thus I do not see a good reason to use uint8_t.\nIn my experience uint8_t type has an extra problem: when printing it out as it (forgetting to convert it to int), it is treated as char, making error messages unreadable.\n\nfor rtcp it is still a payload type: it describes type of the payload of the first rtcp message. [hm. RFC3550 though call it \u0027packet type\u0027, not \u0027payload type\u0027]\nSo comment still would be helpful, this member is de-facto a variant\u003cRtpPayloadType, RtcpPacketType\u003e.\nComment added.",
+      "parentUuid": "1ae63fc7_71d1b5fd",
+      "range": {
+        "startLine": 360,
+        "startChar": 4,
+        "endLine": 360,
+        "endChar": 7
+      },
+      "revId": "af3814eb1c4485cab7a6f4f12e9dd22483d50fac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

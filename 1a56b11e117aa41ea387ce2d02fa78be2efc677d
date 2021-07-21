@@ -124,6 +124,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "50395de8_d7eeb4a2",
+        "filename": "pc/jsep_transport_collection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-07-21T01:35:26Z",
+      "side": 1,
+      "message": "I\u0027m wondering now, if this CL is too complex/risky, maybe we just revert https://webrtc-review.googlesource.com/c/src/+/221601 for M93? Anyone who really wants to avoid the redundant transports can already use max-bundle.",
+      "parentUuid": "bbb85eb6_c0e1c3b5",
+      "revId": "1a56b11e117aa41ea387ce2d02fa78be2efc677d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "369233c4_cfc4495e",
         "filename": "pc/peer_connection_bundle_unittest.cc",
         "patchSetId": 4

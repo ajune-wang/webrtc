@@ -94,6 +94,30 @@
       },
       "revId": "35307d3a78ed83d7edcf93ef2c7965d2d16f8682",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "863ad11b_c52ea977",
+        "filename": "modules/rtp_rtcp/source/rtp_video_layers_allocation_extension.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2021-07-21T11:02:04Z",
+      "side": 1,
+      "message": "\u003e `ReadLeb128(read_at, end) * 1\u0027000`\n\u003e still can overflow. (uint64_t is the largest buildin integer type)\n\nTrue, that wouldn\u0027t be caught by saturated_cast.\n\n\u003e (and then\n\u003e `DataRate::BitsPerSec(rate_bps)`\n\u003e can overflow too, because internally DataRate uses int64_t)\n\nNot if IsValueInRangeForNumericType\u003cint64_t\u003e(rate_bps) is checked first.\n\n\u003e Max value for DataRate is not defined. So I see two approaches: either rely on  DataRate implementation details (and compare bitrate_kbps with numeric_limits\u003cint64_t\u003e::max_value() / 1\u0027000)\n\u003e or use some smaller constant. I prefer latter.\n\u003e My guess it will be a while before 1Gbps limit would become a practical issue.\n\u003e \n\u003e (and yep, to save binary size and log spam, this parser avoids any logging on failure)\n\nI don\u0027t have a strong opinion but if you claim it\u0027s impractical at least it wouldn\u0027t cause log spam. Can\u0027t say if it\u0027s worth the increased binary size or not.",
+      "parentUuid": "6f031fac_60508612",
+      "range": {
+        "startLine": 359,
+        "startChar": 17,
+        "endLine": 359,
+        "endChar": 35
+      },
+      "revId": "35307d3a78ed83d7edcf93ef2c7965d2d16f8682",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -70,6 +70,30 @@
       },
       "revId": "35307d3a78ed83d7edcf93ef2c7965d2d16f8682",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f031fac_60508612",
+        "filename": "modules/rtp_rtcp/source/rtp_video_layers_allocation_extension.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-21T09:49:11Z",
+      "side": 1,
+      "message": "`ReadLeb128(read_at, end) * 1\u0027000`\nstill can overflow. (uint64_t is the largest buildin integer type)\n(and then\n`DataRate::BitsPerSec(rate_bps)`\ncan overflow too, because internally DataRate uses int64_t)\n\nMax value for DataRate is not defined. So I see two approaches: either rely on  DataRate implementation details (and compare bitrate_kbps with numeric_limits\u003cint64_t\u003e::max_value() / 1\u0027000)\nor use some smaller constant. I prefer latter.\nMy guess it will be a while before 1Gbps limit would become a practical issue.\n\n(and yep, to save binary size and log spam, this parser avoids any logging on failure)",
+      "parentUuid": "3e9aa54d_6e4021bd",
+      "range": {
+        "startLine": 359,
+        "startChar": 17,
+        "endLine": 359,
+        "endChar": 35
+      },
+      "revId": "35307d3a78ed83d7edcf93ef2c7965d2d16f8682",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

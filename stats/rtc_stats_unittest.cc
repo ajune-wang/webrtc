@@ -31,7 +31,7 @@ const double JSON_EPSILON = 1e-15;
 
 // We do this since Google Test doesn't support relative error.
 // This is computed as follows:
-// If |a - b| / |a| < EPS, then |a - b| < |a| * EPS, so |a| * EPS is the
+// If |a - b| / `a` < EPS, then |a - b| < `a` * EPS, so `a` * EPS is the
 // maximum expected error.
 double GetExpectedError(const double expected_value) {
   return JSON_EPSILON * fabs(expected_value);

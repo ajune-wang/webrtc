@@ -24,9 +24,9 @@
 // Payload descriptor
 //       0 1 2 3 4 5 6 7
 //      +-+-+-+-+-+-+-+-+
-//      |X|R|N|S|PartID | (REQUIRED)
+//      `X`R`N`S|PartID | (REQUIRED)
 //      +-+-+-+-+-+-+-+-+
-// X:   |I|L|T|K|  RSV  | (OPTIONAL)
+// X:   `I`L`T`K|  RSV  | (OPTIONAL)
 //      +-+-+-+-+-+-+-+-+
 // I:   |   PictureID   | (OPTIONAL)
 //      +-+-+-+-+-+-+-+-+
@@ -38,7 +38,7 @@
 // Payload header (considered part of the actual payload, sent to decoder)
 //       0 1 2 3 4 5 6 7
 //      +-+-+-+-+-+-+-+-+
-//      |Size0|H| VER |P|
+//      `Size0`H| VER `P`
 //      +-+-+-+-+-+-+-+-+
 //      |      ...      |
 //      +               +

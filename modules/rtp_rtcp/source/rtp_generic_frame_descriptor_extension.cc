@@ -20,7 +20,7 @@ constexpr uint8_t kFlagEndOfSubframe = 0x40;
 
 // In version 00, the flags F and L in the first byte correspond to
 // kFlagFirstSubframeV00 and kFlagLastSubframeV00. In practice, they were
-// always set to |true|.
+// always set to `true`.
 constexpr uint8_t kFlagFirstSubframeV00 = 0x20;
 constexpr uint8_t kFlagLastSubframeV00 = 0x10;
 
@@ -32,7 +32,7 @@ constexpr uint8_t kFlageXtendedOffset = 0x02;
 }  // namespace
 //       0 1 2 3 4 5 6 7
 //      +-+-+-+-+-+-+-+-+
-//      |B|E|F|L|D|  T  |
+//      `B`E`F`L`D`  T  |
 //      +-+-+-+-+-+-+-+-+
 // B:   |       S       |
 //      +-+-+-+-+-+-+-+-+
@@ -48,11 +48,11 @@ constexpr uint8_t kFlageXtendedOffset = 0x02;
 //      +     Height    +
 //      |               |
 //      +-+-+-+-+-+-+-+-+
-// D:   |    FDIFF  |X|M|
+// D:   |    FDIFF  `X`M|
 //      +---------------+
 // X:   |      ...      |
 //      +-+-+-+-+-+-+-+-+
-// M:   |    FDIFF  |X|M|
+// M:   |    FDIFF  `X`M|
 //      +---------------+
 //      |      ...      |
 //      +-+-+-+-+-+-+-+-+

@@ -23,7 +23,7 @@ namespace rtcp {
 //     0                   1                   2                   3
 //     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 //    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-//    |V=2|P| FMT=15  |   PT=206      |             length            |
+//    |V=2`P` FMT=15  |   PT=206      |             length            |
 //    +=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+
 //  0 |                  SSRC of packet sender                        |
 //    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -31,7 +31,7 @@ namespace rtcp {
 //    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 //  8 |  Unique identifier 'L' 'N' 'T' 'F'                            |
 //    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-// 12 | Last Decoded Sequence Number  | Last Received SeqNum Delta  |D|
+// 12 | Last Decoded Sequence Number  | Last Received SeqNum Delta  `D`
 //    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
 LossNotification::LossNotification()
@@ -63,7 +63,7 @@ bool LossNotification::Create(uint8_t* packet,
 
   const size_t index_end = *index + BlockLength();
 
-  // Note: |index| updated by the function below.
+  // Note: `index` updated by the function below.
   CreateHeader(Psfb::kAfbMessageType, kPacketType, HeaderLength(), packet,
                index);
 

@@ -628,7 +628,7 @@ class ParsedRtcEventLog {
   void StoreFirstAndLastTimestamp(const std::vector<T>& v);
 
   // Reads the header, direction, header length and packet length from the RTP
-  // event at |index|, and stores the values in the corresponding output
+  // event at `index`, and stores the values in the corresponding output
   // parameters. Each output parameter can be set to nullptr if that value
   // isn't needed.
   // NB: The header must have space for at least IP_PACKET_SIZE bytes.
@@ -647,7 +647,7 @@ class ParsedRtcEventLog {
       PacketDirection direction,
       uint32_t ssrc);
 
-  // Reads packet, direction and packet length from the RTCP event at |index|,
+  // Reads packet, direction and packet length from the RTCP event at `index`,
   // and stores the values in the corresponding output parameters.
   // Each output parameter can be set to nullptr if that value isn't needed.
   // NB: The packet must have space for at least IP_PACKET_SIZE bytes.

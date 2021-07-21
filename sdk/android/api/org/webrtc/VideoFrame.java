@@ -51,8 +51,8 @@ public class VideoFrame implements RefCounted {
     @Override @CalledByNative("Buffer") void release();
 
     /**
-     * Crops a region defined by |cropx|, |cropY|, |cropWidth| and |cropHeight|. Scales it to size
-     * |scaleWidth| x |scaleHeight|.
+     * Crops a region defined by `cropx`, `cropY`, `cropWidth` and `cropHeight`. Scales it to size
+     * `scaleWidth` x `scaleHeight`.
      */
     @CalledByNative("Buffer")
     Buffer cropAndScale(

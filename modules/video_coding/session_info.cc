@@ -293,7 +293,7 @@ bool VCMSessionInfo::complete() const {
   return complete_;
 }
 
-// Find the end of the NAL unit which the packet pointed to by |packet_it|
+// Find the end of the NAL unit which the packet pointed to by `packet_it`
 // belongs to. Returns an iterator to the last packet of the frame if the end
 // of the NAL unit wasn't found.
 VCMSessionInfo::PacketIterator VCMSessionInfo::FindNaluEnd(
@@ -492,7 +492,7 @@ int VCMSessionInfo::InsertPacket(const VCMPacket& packet,
     }
   }
 
-  // The insert operation invalidates the iterator |rit|.
+  // The insert operation invalidates the iterator `rit`.
   PacketIterator packet_list_it = packets_.insert(rit.base(), packet);
 
   size_t returnLength = InsertBuffer(frame_buffer, packet_list_it);

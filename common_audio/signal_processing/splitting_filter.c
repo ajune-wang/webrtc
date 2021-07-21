@@ -41,7 +41,7 @@ static const uint16_t WebRtcSpl_kAllPassFilter2[3] = {21333, 49062, 63010};
 //
 // Output:
 //    - out_data            : Output data sequence (Q10), length equal to
-//                            |data_length|
+//                            `data_length`
 //
 
 static void WebRtcSpl_AllPassQMF(int32_t* in_data,
@@ -57,14 +57,14 @@ static void WebRtcSpl_AllPassQMF(int32_t* in_data,
     // y[n] =  -----------   -----------   -----------   x[n]
     //         1 + a_3q^-1   1 + a_2q^-1   1 + a_1q^-1
     //
-    // The input vector |filter_coefficients| includes these three filter coefficients.
+    // The input vector `filter_coefficients` includes these three filter coefficients.
     // The filter state contains the in_data state, in_data[-1], followed by
     // the out_data state, out_data[-1]. This is repeated for each cascade.
-    // The first cascade filter will filter the |in_data| and store the output in
-    // |out_data|. The second will the take the |out_data| as input and make an
-    // intermediate storage in |in_data|, to save memory. The third, and final, cascade
-    // filter operation takes the |in_data| (which is the output from the previous cascade
-    // filter) and store the output in |out_data|.
+    // The first cascade filter will filter the `in_data` and store the output in
+    // `out_data`. The second will the take the `out_data` as input and make an
+    // intermediate storage in `in_data`, to save memory. The third, and final, cascade
+    // filter operation takes the `in_data` (which is the output from the previous cascade
+    // filter) and store the output in `out_data`.
     // Note that the input vector values are changed during the process.
     size_t k;
     int32_t diff;

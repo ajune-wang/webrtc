@@ -49,7 +49,7 @@ constexpr int64_t kTimeWrapPeriodUs = (1ll << 24) * kBaseScaleFactor;
 //     0                   1                   2                   3
 //     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 //    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-//    |V=2|P|  FMT=15 |    PT=205     |           length              |
+//    |V=2`P`  FMT=15 |    PT=205     |           length              |
 //    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 //  0 |                     SSRC of packet sender                     |
 //    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -129,7 +129,7 @@ uint16_t TransportFeedback::LastChunk::Emit() {
   }
   RTC_DCHECK_GE(size_, kMaxTwoBitCapacity);
   uint16_t chunk = EncodeTwoBit(kMaxTwoBitCapacity);
-  // Remove |kMaxTwoBitCapacity| encoded delta sizes:
+  // Remove `kMaxTwoBitCapacity` encoded delta sizes:
   // Shift remaining delta sizes and recalculate all_same_ && has_large_delta_.
   size_ -= kMaxTwoBitCapacity;
   all_same_ = true;
@@ -153,7 +153,7 @@ uint16_t TransportFeedback::LastChunk::EncodeLast() const {
   return EncodeOneBit();
 }
 
-// Appends content of the Lastchunk to |deltas|.
+// Appends content of the Lastchunk to `deltas`.
 void TransportFeedback::LastChunk::AppendTo(
     std::vector<DeltaSize>* deltas) const {
   if (all_same_) {
@@ -178,7 +178,7 @@ void TransportFeedback::LastChunk::Decode(uint16_t chunk, size_t max_size) {
 //  0                   1
 //  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5
 //  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-//  |T|S|       symbol list         |
+//  `T`S|       symbol list         |
 //  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 //
 //  T = 1
@@ -208,7 +208,7 @@ void TransportFeedback::LastChunk::DecodeOneBit(uint16_t chunk,
 //  0                   1
 //  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5
 //  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-//  |T|S|       symbol list         |
+//  `T`S|       symbol list         |
 //  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 //
 //  T = 1
@@ -237,7 +237,7 @@ void TransportFeedback::LastChunk::DecodeTwoBit(uint16_t chunk,
 //  0                   1
 //  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5
 //  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-//  |T| S |       Run Length        |
+//  `T` S |       Run Length        |
 //  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 //
 //  T = 0
@@ -441,7 +441,7 @@ bool TransportFeedback::Parse(const CommonHeader& packet) {
     last_chunk_.Decode(chunk, status_count - delta_sizes.size());
     last_chunk_.AppendTo(&delta_sizes);
   }
-  // Last chunk is stored in the |last_chunk_|.
+  // Last chunk is stored in the `last_chunk_`.
   encoded_chunks_.pop_back();
   RTC_DCHECK_EQ(delta_sizes.size(), status_count);
   num_seq_no_ = status_count;

@@ -130,7 +130,7 @@ public class VideoFrameBufferTest {
   }
 
   /**
-   * Create an RGB texture buffer available in |eglContext| with the same pixel content as the given
+   * Create an RGB texture buffer available in `eglContext` with the same pixel content as the given
    * I420 buffer.
    */
   public static VideoFrame.TextureBuffer createRgbTextureBuffer(
@@ -168,7 +168,7 @@ public class VideoFrameBufferTest {
   }
 
   /**
-   * Create an OES texture buffer available in |eglContext| with the same pixel content as the given
+   * Create an OES texture buffer available in `eglContext` with the same pixel content as the given
    * I420 buffer.
    */
   public static VideoFrame.TextureBuffer createOesTextureBuffer(

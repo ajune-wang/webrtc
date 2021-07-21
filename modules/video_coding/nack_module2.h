@@ -98,7 +98,7 @@ class NackModule2 final {
       RTC_EXCLUSIVE_LOCKS_REQUIRED(worker_thread_);
 
   // Returns how many packets we have to wait in order to receive the packet
-  // with probability |probabilty| or higher.
+  // with probability `probabilty` or higher.
   int WaitNumberOfPackets(float probability) const
       RTC_EXCLUSIVE_LOCKS_REQUIRED(worker_thread_);
 
@@ -113,7 +113,7 @@ class NackModule2 final {
   KeyFrameRequestSender* const keyframe_request_sender_;
 
   // TODO(philipel): Some of the variables below are consistently used on a
-  // known thread (e.g. see |initialized_|). Those probably do not need
+  // known thread (e.g. see `initialized_`). Those probably do not need
   // synchronized access.
   std::map<uint16_t, NackInfo, DescendingSeqNumComp<uint16_t>> nack_list_
       RTC_GUARDED_BY(worker_thread_);

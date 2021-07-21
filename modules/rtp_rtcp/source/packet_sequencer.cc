@@ -75,7 +75,7 @@ void PacketSequencer::PupulateRtpState(RtpState& state) const {
 
 void PacketSequencer::UpdateLastPacketState(const RtpPacketToSend& packet) {
   // Remember marker bit to determine if padding can be inserted with
-  // sequence number following |packet|.
+  // sequence number following `packet`.
   last_packet_marker_bit_ = packet.Marker();
   // Remember media payload type to use in the padding packet if rtx is
   // disabled.

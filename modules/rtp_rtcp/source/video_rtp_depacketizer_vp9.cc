@@ -32,7 +32,7 @@ constexpr int kFailedToParse = 0;
 // Picture ID:
 //
 //      +-+-+-+-+-+-+-+-+
-// I:   |M| PICTURE ID  |   M:0 => picture id is 7 bits.
+// I:   `M` PICTURE ID  |   M:0 => picture id is 7 bits.
 //      +-+-+-+-+-+-+-+-+   M:1 => picture id is 15 bits.
 // M:   | EXTENDED PID  |
 //      +-+-+-+-+-+-+-+-+
@@ -55,7 +55,7 @@ bool ParsePictureId(rtc::BitBuffer* parser, RTPVideoHeaderVP9* vp9) {
 // Layer indices (flexible mode):
 //
 //      +-+-+-+-+-+-+-+-+
-// L:   |  T  |U|  S  |D|
+// L:   |  T  `U`  S  `D`
 //      +-+-+-+-+-+-+-+-+
 //
 bool ParseLayerInfoCommon(rtc::BitBuffer* parser, RTPVideoHeaderVP9* vp9) {
@@ -76,7 +76,7 @@ bool ParseLayerInfoCommon(rtc::BitBuffer* parser, RTPVideoHeaderVP9* vp9) {
 // Layer indices (non-flexible mode):
 //
 //      +-+-+-+-+-+-+-+-+
-// L:   |  T  |U|  S  |D|
+// L:   |  T  `U`  S  `D`
 //      +-+-+-+-+-+-+-+-+
 //      |   TL0PICIDX   |
 //      +-+-+-+-+-+-+-+-+
@@ -102,7 +102,7 @@ bool ParseLayerInfo(rtc::BitBuffer* parser, RTPVideoHeaderVP9* vp9) {
 // Reference indices:
 //
 //      +-+-+-+-+-+-+-+-+                P=1,F=1: At least one reference index
-// P,F: | P_DIFF      |N|  up to 3 times          has to be specified.
+// P,F: | P_DIFF      `N`  up to 3 times          has to be specified.
 //      +-+-+-+-+-+-+-+-+                    N=1: An additional P_DIFF follows
 //                                                current P_DIFF.
 //
@@ -135,7 +135,7 @@ bool ParseRefIndices(rtc::BitBuffer* parser, RTPVideoHeaderVP9* vp9) {
 // Scalability structure (SS).
 //
 //      +-+-+-+-+-+-+-+-+
-// V:   | N_S |Y|G|-|-|-|
+// V:   | N_S `Y`G|-|-|-|
 //      +-+-+-+-+-+-+-+-+              -|
 // Y:   |     WIDTH     | (OPTIONAL)    .
 //      +               +               .
@@ -147,7 +147,7 @@ bool ParseRefIndices(rtc::BitBuffer* parser, RTPVideoHeaderVP9* vp9) {
 //      +-+-+-+-+-+-+-+-+              -|
 // G:   |      N_G      | (OPTIONAL)
 //      +-+-+-+-+-+-+-+-+                           -|
-// N_G: |  T  |U| R |-|-| (OPTIONAL)                 .
+// N_G: |  T  `U` R |-|-| (OPTIONAL)                 .
 //      +-+-+-+-+-+-+-+-+              -|            . N_G times
 //      |    P_DIFF     | (OPTIONAL)    . R times    .
 //      +-+-+-+-+-+-+-+-+              -|           -|

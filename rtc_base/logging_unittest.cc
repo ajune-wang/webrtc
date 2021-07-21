@@ -104,14 +104,14 @@ TEST(LogTest, SingleStream) {
                    << "|";
 
   // Signed integers
-  EXPECT_NE(std::string::npos, str.find("|1|"));
-  EXPECT_NE(std::string::npos, str.find("|2|"));
-  EXPECT_NE(std::string::npos, str.find("|3|"));
+  EXPECT_NE(std::string::npos, str.find("`1`"));
+  EXPECT_NE(std::string::npos, str.find("`2`"));
+  EXPECT_NE(std::string::npos, str.find("`3`"));
 
   // Unsigned integers
-  EXPECT_NE(std::string::npos, str.find("|4|"));
-  EXPECT_NE(std::string::npos, str.find("|5|"));
-  EXPECT_NE(std::string::npos, str.find("|6|"));
+  EXPECT_NE(std::string::npos, str.find("`4`"));
+  EXPECT_NE(std::string::npos, str.find("`5`"));
+  EXPECT_NE(std::string::npos, str.find("`6`"));
 
   // Strings
   EXPECT_NE(std::string::npos, str.find("|char*|"));
@@ -119,10 +119,10 @@ TEST(LogTest, SingleStream) {
   EXPECT_NE(std::string::npos, str.find("|absl::stringview|"));
 
   // void*
-  EXPECT_NE(std::string::npos, str.find("|abcd|"));
+  EXPECT_NE(std::string::npos, str.find("`abcd`"));
 
   // null char*
-  EXPECT_NE(std::string::npos, str.find("|(null)|"));
+  EXPECT_NE(std::string::npos, str.find("`(null)`"));
 
   LogMessage::RemoveLogToStream(&stream);
   EXPECT_EQ(LS_NONE, LogMessage::GetLogToStream(&stream));

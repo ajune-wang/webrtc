@@ -47,7 +47,7 @@ int16_t Tl0PicIdxField(const RTPVideoHeaderVP9& hdr, uint8_t def) {
 // Picture ID:
 //
 //      +-+-+-+-+-+-+-+-+
-// I:   |M| PICTURE ID  |   M:0 => picture id is 7 bits.
+// I:   `M` PICTURE ID  |   M:0 => picture id is 7 bits.
 //      +-+-+-+-+-+-+-+-+   M:1 => picture id is 15 bits.
 // M:   | EXTENDED PID  |
 //      +-+-+-+-+-+-+-+-+
@@ -67,7 +67,7 @@ bool PictureIdPresent(const RTPVideoHeaderVP9& hdr) {
 // Flexible mode (F=1):     Non-flexible mode (F=0):
 //
 //      +-+-+-+-+-+-+-+-+   +-+-+-+-+-+-+-+-+
-// L:   |  T  |U|  S  |D|   |  T  |U|  S  |D|
+// L:   |  T  `U`  S  `D`   |  T  `U`  S  `D`
 //      +-+-+-+-+-+-+-+-+   +-+-+-+-+-+-+-+-+
 //                          |   TL0PICIDX   |
 //                          +-+-+-+-+-+-+-+-+
@@ -86,7 +86,7 @@ bool LayerInfoPresent(const RTPVideoHeaderVP9& hdr) {
 // Reference indices:
 //
 //      +-+-+-+-+-+-+-+-+                P=1,F=1: At least one reference index
-// P,F: | P_DIFF      |N|  up to 3 times          has to be specified.
+// P,F: | P_DIFF      `N`  up to 3 times          has to be specified.
 //      +-+-+-+-+-+-+-+-+                    N=1: An additional P_DIFF follows
 //                                                current P_DIFF.
 //
@@ -102,7 +102,7 @@ size_t RefIndicesLength(const RTPVideoHeaderVP9& hdr) {
 // Scalability structure (SS).
 //
 //      +-+-+-+-+-+-+-+-+
-// V:   | N_S |Y|G|-|-|-|
+// V:   | N_S `Y`G|-|-|-|
 //      +-+-+-+-+-+-+-+-+              -|
 // Y:   |     WIDTH     | (OPTIONAL)    .
 //      +               +               .
@@ -114,7 +114,7 @@ size_t RefIndicesLength(const RTPVideoHeaderVP9& hdr) {
 //      +-+-+-+-+-+-+-+-+              -|
 // G:   |      N_G      | (OPTIONAL)
 //      +-+-+-+-+-+-+-+-+                           -|
-// N_G: |  T  |U| R |-|-| (OPTIONAL)                 .
+// N_G: |  T  `U` R |-|-| (OPTIONAL)                 .
 //      +-+-+-+-+-+-+-+-+              -|            . N_G times
 //      |    P_DIFF     | (OPTIONAL)    . R times    .
 //      +-+-+-+-+-+-+-+-+              -|           -|
@@ -150,7 +150,7 @@ size_t PayloadDescriptorLengthMinusSsData(const RTPVideoHeaderVP9& hdr) {
 // Picture ID:
 //
 //      +-+-+-+-+-+-+-+-+
-// I:   |M| PICTURE ID  |   M:0 => picture id is 7 bits.
+// I:   `M` PICTURE ID  |   M:0 => picture id is 7 bits.
 //      +-+-+-+-+-+-+-+-+   M:1 => picture id is 15 bits.
 // M:   | EXTENDED PID  |
 //      +-+-+-+-+-+-+-+-+
@@ -168,7 +168,7 @@ bool WritePictureId(const RTPVideoHeaderVP9& vp9,
 // Flexible mode (F=1):
 //
 //      +-+-+-+-+-+-+-+-+
-// L:   |  T  |U|  S  |D|
+// L:   |  T  `U`  S  `D`
 //      +-+-+-+-+-+-+-+-+
 //
 bool WriteLayerInfoCommon(const RTPVideoHeaderVP9& vp9,
@@ -184,7 +184,7 @@ bool WriteLayerInfoCommon(const RTPVideoHeaderVP9& vp9,
 // Non-flexible mode (F=0):
 //
 //      +-+-+-+-+-+-+-+-+
-// L:   |  T  |U|  S  |D|
+// L:   |  T  `U`  S  `D`
 //      +-+-+-+-+-+-+-+-+
 //      |   TL0PICIDX   |
 //      +-+-+-+-+-+-+-+-+
@@ -209,7 +209,7 @@ bool WriteLayerInfo(const RTPVideoHeaderVP9& vp9,
 // Reference indices:
 //
 //      +-+-+-+-+-+-+-+-+                P=1,F=1: At least one reference index
-// P,F: | P_DIFF      |N|  up to 3 times          has to be specified.
+// P,F: | P_DIFF      `N`  up to 3 times          has to be specified.
 //      +-+-+-+-+-+-+-+-+                    N=1: An additional P_DIFF follows
 //                                                current P_DIFF.
 //
@@ -230,7 +230,7 @@ bool WriteRefIndices(const RTPVideoHeaderVP9& vp9,
 // Scalability structure (SS).
 //
 //      +-+-+-+-+-+-+-+-+
-// V:   | N_S |Y|G|-|-|-|
+// V:   | N_S `Y`G|-|-|-|
 //      +-+-+-+-+-+-+-+-+              -|
 // Y:   |     WIDTH     | (OPTIONAL)    .
 //      +               +               .
@@ -242,7 +242,7 @@ bool WriteRefIndices(const RTPVideoHeaderVP9& vp9,
 //      +-+-+-+-+-+-+-+-+              -|
 // G:   |      N_G      | (OPTIONAL)
 //      +-+-+-+-+-+-+-+-+                           -|
-// N_G: |  T  |U| R |-|-| (OPTIONAL)                 .
+// N_G: |  T  `U` R |-|-| (OPTIONAL)                 .
 //      +-+-+-+-+-+-+-+-+              -|            . N_G times
 //      |    P_DIFF     | (OPTIONAL)    . R times    .
 //      +-+-+-+-+-+-+-+-+              -|           -|
@@ -369,15 +369,15 @@ bool RtpPacketizerVp9::NextPacket(RtpPacketToSend* packet) {
 // Payload descriptor for F = 1 (flexible mode)
 //       0 1 2 3 4 5 6 7
 //      +-+-+-+-+-+-+-+-+
-//      |I|P|L|F|B|E|V|Z| (REQUIRED)
+//      `I`P`L`F`B`E`V`Z| (REQUIRED)
 //      +-+-+-+-+-+-+-+-+
-// I:   |M| PICTURE ID  | (RECOMMENDED)
+// I:   `M` PICTURE ID  | (RECOMMENDED)
 //      +-+-+-+-+-+-+-+-+
 // M:   | EXTENDED PID  | (RECOMMENDED)
 //      +-+-+-+-+-+-+-+-+
-// L:   |  T  |U|  S  |D| (CONDITIONALLY RECOMMENDED)
+// L:   |  T  `U`  S  `D` (CONDITIONALLY RECOMMENDED)
 //      +-+-+-+-+-+-+-+-+                             -|
-// P,F: | P_DIFF      |N| (CONDITIONALLY RECOMMENDED)  . up to 3 times
+// P,F: | P_DIFF      `N` (CONDITIONALLY RECOMMENDED)  . up to 3 times
 //      +-+-+-+-+-+-+-+-+                             -|
 // V:   | SS            |
 //      | ..            |
@@ -386,13 +386,13 @@ bool RtpPacketizerVp9::NextPacket(RtpPacketToSend* packet) {
 // Payload descriptor for F = 0 (non-flexible mode)
 //       0 1 2 3 4 5 6 7
 //      +-+-+-+-+-+-+-+-+
-//      |I|P|L|F|B|E|V|Z| (REQUIRED)
+//      `I`P`L`F`B`E`V`Z| (REQUIRED)
 //      +-+-+-+-+-+-+-+-+
-// I:   |M| PICTURE ID  | (RECOMMENDED)
+// I:   `M` PICTURE ID  | (RECOMMENDED)
 //      +-+-+-+-+-+-+-+-+
 // M:   | EXTENDED PID  | (RECOMMENDED)
 //      +-+-+-+-+-+-+-+-+
-// L:   |  T  |U|  S  |D| (CONDITIONALLY RECOMMENDED)
+// L:   |  T  `U`  S  `D` (CONDITIONALLY RECOMMENDED)
 //      +-+-+-+-+-+-+-+-+
 //      |   TL0PICIDX   | (CONDITIONALLY REQUIRED)
 //      +-+-+-+-+-+-+-+-+

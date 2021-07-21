@@ -213,7 +213,7 @@ TEST(ScalabilityStructureL2T2KeyShiftTest, DisableS0AfterFewFrames) {
 //         / | | /
 // S1T0   1  | |6
 //        |  | ||
-// S0T1   |  |4||
+// S0T1   |  `4`|
 //        |  / ||
 // S0T0   0-2| |5-7
 // Time-> 0 1 2 3 4 5

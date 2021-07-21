@@ -287,7 +287,7 @@ def _FindChangedCipdPackages(path, old_pkgs, new_pkgs):
 
 
 def _FindNewDeps(old, new):
-    """ Gather dependencies only in |new| and return corresponding paths. """
+    """ Gather dependencies only in `new` and return corresponding paths. """
     old_entries = set(BuildDepsentryDict(old))
     new_entries = set(BuildDepsentryDict(new))
     return [
@@ -304,7 +304,7 @@ def FindAddedDeps(webrtc_deps, new_cr_deps):
   but transitively used in WebRTC.
 
   Since it's hard to compute, we restrict ourselves to a well defined subset:
-  deps sitting in |ANDROID_DEPS_PATH|.
+  deps sitting in `ANDROID_DEPS_PATH`.
   Otherwise, assumes that's a Chromium-only dependency.
 
   Args:
@@ -315,7 +315,7 @@ def FindAddedDeps(webrtc_deps, new_cr_deps):
 
   Returns:
     A tuple consisting of:
-      A list of paths added dependencies sitting in |ANDROID_DEPS_PATH|.
+      A list of paths added dependencies sitting in `ANDROID_DEPS_PATH`.
       A list of paths for other added dependencies.
   """
     all_added_deps = _FindNewDeps(webrtc_deps, new_cr_deps)
@@ -337,7 +337,7 @@ def FindRemovedDeps(webrtc_deps, new_cr_deps):
 
   Since it's hard to compute:
    1/ We restrict ourselves to a well defined subset:
-      deps sitting in |ANDROID_DEPS_PATH|.
+      deps sitting in `ANDROID_DEPS_PATH`.
    2/ We rely on existing behavior of CalculateChangeDeps.
       I.e. Assumes non-CIPD dependencies are WebRTC-only, don't remove them.
 
@@ -349,7 +349,7 @@ def FindRemovedDeps(webrtc_deps, new_cr_deps):
 
   Returns:
     A tuple consisting of:
-      A list of paths of dependencies removed from |ANDROID_DEPS_PATH|.
+      A list of paths of dependencies removed from `ANDROID_DEPS_PATH`.
       A list of paths of unexpected disappearing dependencies.
   """
     all_removed_deps = _FindNewDeps(new_cr_deps, webrtc_deps)

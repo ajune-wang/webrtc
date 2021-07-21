@@ -22,7 +22,7 @@
 // are used similarly to the other FieldTrialParameters, but take a variable
 // number of parameters. A FieldTrialList<T> parses a |-delimeted string into a
 // list of T, using ParseTypedParameter to parse the individual tokens.
-// Example string: "my_list:1|2|3,empty_list,other_list:aardvark".
+// Example string: "my_list:1`2`3,empty_list,other_list:aardvark".
 
 // A FieldTrialStructList combines multiple lists into a list-of-structs. It
 // ensures that all its sublists parse correctly and have the same length, then

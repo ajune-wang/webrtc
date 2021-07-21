@@ -573,7 +573,7 @@ bool RTPSenderVideo::SendVideo(
       first_packet->HasExtension<RtpDependencyDescriptorExtension>();
 
   // Minimization of the vp8 descriptor may erase temporal_id, so use
-  // |temporal_id| rather than reference |video_header| beyond this point.
+  // `temporal_id` rather than reference `video_header` beyond this point.
   if (has_generic_descriptor) {
     MinimizeDescriptor(&video_header);
   }
@@ -676,7 +676,7 @@ bool RTPSenderVideo::SendVideo(
       red_packet->SetPayloadType(*red_payload_type_);
       red_packet->set_is_red(true);
 
-      // Append |red_packet| instead of |packet| to output.
+      // Append `red_packet` instead of `packet` to output.
       red_packet->set_packet_type(RtpPacketMediaType::kVideo);
       red_packet->set_allow_retransmission(packet->allow_retransmission());
       rtp_packets.emplace_back(std::move(red_packet));

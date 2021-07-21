@@ -50,7 +50,7 @@ FecPacketCounter UlpfecReceiverImpl::GetPacketCounter() const {
 //     0                   1                    2                   3
 //     0 1 2 3 4 5 6 7 8 9 0 1 2 3  4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 //    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-//    |F|   block PT  |  timestamp offset         |   block length    |
+//    `F`   block PT  |  timestamp offset         |   block length    |
 //    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 //
 //
@@ -157,10 +157,10 @@ bool UlpfecReceiverImpl::AddReceivedRedPacket(
 int32_t UlpfecReceiverImpl::ProcessReceivedFec() {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
 
-  // If we iterate over |received_packets_| and it contains a packet that cause
+  // If we iterate over `received_packets_` and it contains a packet that cause
   // us to recurse back to this function (for example a RED packet encapsulating
   // a RED packet), then we will recurse forever. To avoid this we swap
-  // |received_packets_| with an empty vector so that the next recursive call
+  // `received_packets_` with an empty vector so that the next recursive call
   // wont iterate over the same packet again. This also solves the problem of
   // not modifying the vector we are currently iterating over (packets are added
   // in AddReceivedRedPacket).

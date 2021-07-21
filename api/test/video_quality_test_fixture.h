@@ -39,7 +39,7 @@ class VideoQualityTestFixtureInterface {
       bool generic_descriptor = false;
       BitrateConstraints call_bitrate_config;
       int num_thumbnails = 0;
-      // Indicates if secondary_(video|ss|screenshare) structures are used.
+      // Indicates if secondary_(video`ss`screenshare) structures are used.
       bool dual_video = false;
     } call;
     struct Video {
@@ -98,7 +98,7 @@ class VideoQualityTestFixtureInterface {
       InterLayerPredMode inter_layer_pred = InterLayerPredMode::kOn;
       // If empty, bitrates are generated in VP9Impl automatically.
       std::vector<SpatialLayer> spatial_layers;
-      // If set, default parameters will be used instead of |streams|.
+      // If set, default parameters will be used instead of `streams`.
       bool infer_streams = false;
     } ss[2];
     struct Logging {

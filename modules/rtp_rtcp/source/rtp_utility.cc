@@ -349,7 +349,7 @@ void RtpHeaderParser::ParseOneByteExtensionHeader(
           //  0                   1
           //  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5
           // +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-          // |  ID   | len=0 |V|   level     |
+          // |  ID   | len=0 `V`   level     |
           // +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
           //
           header->extension.audioLevel = ptr[0] & 0x7f;

@@ -22,7 +22,7 @@ namespace webrtc {
 // This class is not thread safe, the caller must provide that.
 class PacketSequencer {
  public:
-  // If |require_marker_before_media_padding_| is true, padding packets on the
+  // If `require_marker_before_media_padding_` is true, padding packets on the
   // media ssrc is not allowed unless the last sequenced media packet had the
   // marker bit set (i.e. don't insert padding packets between the first and
   // last packets of a video frame).

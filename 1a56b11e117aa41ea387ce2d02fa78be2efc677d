@@ -142,6 +142,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "17692697_c240187f",
+        "filename": "pc/jsep_transport_collection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-07-21T08:17:42Z",
+      "side": 1,
+      "message": "I don\u0027t think rollback of multi-bundle is a common use case since rollback is a Unified Plan-only feature and multiple bundle groups was not supported in Unified Plan prior to M92. So the Plan B users who are used to multiple transports wouldn\u0027t have used rollback anyway, and the Unified Plan users who used rollback wouldn\u0027t have used it for multi-bundle since multi-bundle didn\u0027t exist prior to M92. So the intersection of multiple bundle groups and rollback is a \"new\" M92 feature IIUC.\n\nSo breaking rollback of multi-bundle might be an edge case where we don\u0027t have users yet. If we break rollback for \"normal\" bundle paths that would be a problem though, but I don\u0027t think we do that? This has more to do with legacy endpoints, right? And legacy endpoints probably don\u0027t do rollback? Safari stable doesn\u0027t even have rollback yet, though it\u0027s in their tech preview I think.\n\nWhat I think is a must-have for M93 is that it is possible to add new m\u003d sections in either bundle group, but I\u0027m not sure rollback of the multi-bundle is as important since multi-bundle doesn\u0027t happen by default?\n\nhttps://webrtc-review.googlesource.com/c/src/+/221601 on the other hand brought down negotiation time by an order of magnitude for many m\u003d sections (in Chrome the PostTasks for each candidate caused A LOT of delay) and is definitely a nice-to-have on M93. While \"max-bundle\" doesn\u0027t have this issue, it does require opting in to it, which users might not understand they have to do.\n\nSo what do you say? Do we still want to revert? Or should we aim to do the simple fix of https://crbug.com/webrtc/12906 for M93 and fix multi-bundle rollback in M94?",
+      "parentUuid": "50395de8_d7eeb4a2",
+      "revId": "1a56b11e117aa41ea387ce2d02fa78be2efc677d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "369233c4_cfc4495e",
         "filename": "pc/peer_connection_bundle_unittest.cc",
         "patchSetId": 4

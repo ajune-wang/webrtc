@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cae61ca5_704d846b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-21T11:13:22Z",
+      "side": 1,
+      "message": "Ok, I fixed the ODR problem. The CL is ready to go.",
+      "revId": "aea091865dbdc840113d1f417a2eb266ae12f8bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

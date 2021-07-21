@@ -22,6 +22,30 @@
       },
       "revId": "35307d3a78ed83d7edcf93ef2c7965d2d16f8682",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "384643af_12eab1ef",
+        "filename": "modules/rtp_rtcp/source/rtp_video_layers_allocation_extension.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-21T08:45:06Z",
+      "side": 1,
+      "message": "main issue with that: it doesn\u0027t solve overflow issue:\nrate_bps still might overflow (e.g. when ReadLeb128 returns max\u003cuint64_t\u003e / 3)\n\nanother (minor) issue - that code assumes implementation detail about DataRate - that internally it stores bps with int64_t.\n\nit might be more appropriate to use something like\n`bitrate_kbps \u003e max\u003cDataRate\u003e.kbps()`, but max value for DataRate is not defined.",
+      "parentUuid": "a2d3702a_b43a932a",
+      "range": {
+        "startLine": 359,
+        "startChar": 17,
+        "endLine": 359,
+        "endChar": 35
+      },
+      "revId": "35307d3a78ed83d7edcf93ef2c7965d2d16f8682",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

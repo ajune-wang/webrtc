@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2d3702a_b43a932a",
+        "filename": "modules/rtp_rtcp/source/rtp_video_layers_allocation_extension.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2021-07-21T07:47:51Z",
+      "side": 1,
+      "message": "Instead of choosing some arbitrary value as \"unreasonably large\" you could instead do something like\n\n```\nuint64_t rate_bps \u003d ReadLeb128(read_at, end) * 1\u0027000;\nif (read_at \u003d\u003d nullptr ||\n    !rtc::IsValueInRangeForNumericType\u003cint64_t\u003e(rate_bps)) {\n  return false;\n}\nrate \u003d DataRate::BitsPerSec(rate_bps);\n```",
+      "range": {
+        "startLine": 359,
+        "startChar": 17,
+        "endLine": 359,
+        "endChar": 35
+      },
+      "revId": "35307d3a78ed83d7edcf93ef2c7965d2d16f8682",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

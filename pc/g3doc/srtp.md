@@ -20,8 +20,8 @@ PeerConnections [`disable_encryption`][1] option to true.
 The implementation supports the following cipher suites:
 
 *   SRTP_AES128_CM_HMAC_SHA1_80
-*   SRTP_AEAD_AES_128_GCM
-*   SRTP_AEAD_AES_256_GCM
+*   kSrtpAeadAes128Gcm
+*   kSrtpAeadAes256Gcm
 
 The SRTP_AES128_CM_HMAC_SHA1_32 cipher suite is accepted for audio-only
 connections if offered by the other side. It is not actively supported, see

@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_VIDEO_CODING_NACK_MODULE2_H_
-#define MODULES_VIDEO_CODING_NACK_MODULE2_H_
+#ifndef MODULES_VIDEO_CODING_NACK_REQUESTER_H_
+#define MODULES_VIDEO_CODING_NACK_REQUESTER_H_
 
 #include <stdint.h>
 
@@ -30,19 +30,16 @@
 
 namespace webrtc {
 
-// TODO(bugs.webrtc.org/11594): This class no longer implements the Module
-// interface and therefore "NackModule" may not be a descriptive name anymore.
-// Consider renaming to e.g. NackTracker or NackRequester.
-class NackModule2 final {
+class NackRequester final {
  public:
   static constexpr TimeDelta kUpdateInterval = TimeDelta::Millis(20);
 
-  NackModule2(TaskQueueBase* current_queue,
-              Clock* clock,
-              NackSender* nack_sender,
-              KeyFrameRequestSender* keyframe_request_sender,
-              TimeDelta update_interval = kUpdateInterval);
-  ~NackModule2();
+  NackRequester(TaskQueueBase* current_queue,
+                Clock* clock,
+                NackSender* nack_sender,
+                KeyFrameRequestSender* keyframe_request_sender,
+                TimeDelta update_interval = kUpdateInterval);
+  ~NackRequester();
 
   int OnReceivedPacket(uint16_t seq_num, bool is_keyframe);
   int OnReceivedPacket(uint16_t seq_num, bool is_keyframe, bool is_recovered);
@@ -137,4 +134,4 @@ class NackModule2 final {
 
 }  // namespace webrtc
 
-#endif  // MODULES_VIDEO_CODING_NACK_MODULE2_H_
+#endif  // MODULES_VIDEO_CODING_NACK_REQUESTER_H_

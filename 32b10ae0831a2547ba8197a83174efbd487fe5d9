@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32b72973_8ab6543f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-07-22T00:50:04Z",
+      "side": 1,
+      "message": "Rollback support is now improved. Isn\u0027t all that complicated, but if you think it\u0027s better in a separate CL I can split it.",
+      "revId": "32b10ae0831a2547ba8197a83174efbd487fe5d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

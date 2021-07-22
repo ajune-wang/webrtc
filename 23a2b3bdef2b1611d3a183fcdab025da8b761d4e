@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4627f3c7_221974b4",
+        "filename": "pc/jsep_transport_collection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-07-22T00:50:04Z",
+      "side": 0,
+      "message": "This condition will now be hit even in normal circumstances due to transports being kept alive in case of rollback, and I couldn\u0027t think of a simple way to adjust it so I just removed it.",
+      "revId": "23a2b3bdef2b1611d3a183fcdab025da8b761d4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

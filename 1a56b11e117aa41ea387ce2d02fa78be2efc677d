@@ -194,6 +194,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "42d05f7e_2c427698",
+        "filename": "pc/jsep_transport_collection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-07-22T00:50:04Z",
+      "side": 1,
+      "message": "Rollback issues (at least the ones in JsepTransportController) should be resolved.\n\nOne consequence is that if a transport is kept in a limbo state just in case it\u0027s needed for rollback, it will be factored into the aggregated transport state. I don\u0027t think it\u0027s a problem, and it seems like it agrees with the spec if you take it literally, but I just wanted to point it out.",
+      "parentUuid": "471f3d46_e4ce92ca",
+      "revId": "1a56b11e117aa41ea387ce2d02fa78be2efc677d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "369233c4_cfc4495e",

@@ -36,6 +36,41 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac4dbff2_8ba7f06e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-07-22T11:35:47Z",
+      "side": 1,
+      "message": "Even with optimizations, renegotiation takes \u003e 100 ms, so the old nacks would be scattered pretty randomly within the 20-ms window, I think. But I\u0027m not very worried.",
+      "parentUuid": "cbf95d13_bb4900c4",
+      "revId": "a632ad2e07950fe46646da23f9a41281ecdce048",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49a6dfa5_60958d5e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-07-22T11:35:47Z",
+      "side": 1,
+      "message": "Go!",
+      "revId": "a632ad2e07950fe46646da23f9a41281ecdce048",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "23fb05c9_eaf588ca",
@@ -67,6 +102,24 @@
       "side": 1,
       "message": "Yep - can do in a follow-up CL. What would be your favorite name? Perhaps NackProcessor?",
       "parentUuid": "23fb05c9_eaf588ca",
+      "revId": "a632ad2e07950fe46646da23f9a41281ecdce048",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7957ad6_8d70c000",
+        "filename": "modules/video_coding/nack_module2.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-07-22T11:35:47Z",
+      "side": 1,
+      "message": "Sounds good to me!",
+      "parentUuid": "35c7bb97_410906c6",
       "revId": "a632ad2e07950fe46646da23f9a41281ecdce048",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

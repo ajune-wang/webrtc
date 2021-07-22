@@ -135,6 +135,30 @@
       },
       "revId": "840fe541d12150ea78fa25d9cd0898eacbedc16a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05ed9ff4_17c5e1f5",
+        "filename": "rtc_base/synchronization/mutex_pthread.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-07-22T09:31:32Z",
+      "side": 1,
+      "message": "This warning is fine and expected. The variable goes against Chrome\u0027s global constructor rules, but is necessary with the library, so it\u0027s tolerated here.",
+      "parentUuid": "7894e675_da9e997d",
+      "range": {
+        "startLine": 46,
+        "startChar": 48,
+        "endLine": 46,
+        "endChar": 50
+      },
+      "revId": "840fe541d12150ea78fa25d9cd0898eacbedc16a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

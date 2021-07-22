@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "619e1f4a_94b219c4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-07-22T10:07:28Z",
+      "side": 1,
+      "message": "can you take a look? I don\u0027t think that restriction makes sense but then i\u0027m a big fan of spending a little effort on preserving the payload descriptiors :-)",
+      "revId": "90a9b655d7cbd9acf5f8b4daf946c7e06fb206c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

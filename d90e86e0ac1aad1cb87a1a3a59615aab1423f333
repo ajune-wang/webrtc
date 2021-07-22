@@ -16,6 +16,24 @@
       "message": "I don\u0027t think we have to worry about this failing in the general case, where things become more bundled over time.\n\nBut you could think of a theoretical situation like:\n\n1. A and B are bundled.\n2. New offer *unbundles* them and gives them the same SSRC.\n3. Rollback re-bundles them, now there is an SSRC conflict (since it doesn\u0027t appear that rollback restores the BaseChannel state?)",
       "revId": "d90e86e0ac1aad1cb87a1a3a59615aab1423f333",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a52da050_1576f105",
+        "filename": "pc/jsep_transport_collection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-07-22T10:15:02Z",
+      "side": 1,
+      "message": "Man, rollback sure is tricky. Thanks for improving it by a lot!\n\nProbably not worth worrying about atm, but filing a crbug might be a good idea?",
+      "parentUuid": "4b1cd407_210045d2",
+      "revId": "d90e86e0ac1aad1cb87a1a3a59615aab1423f333",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

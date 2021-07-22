@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbf95d13_bb4900c4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-07-22T10:32:01Z",
+      "side": 1,
+      "message": "Thanks. First, I\u0027m not 100% sure about the \"randomly\" statement being fully accurate. Unless I\u0027m missing something, receive streams are created from renegotiation, so they were previously created in a very short time window (which got shorter with your optimizations :-) ). I\u0027m imagining that in the case where a majority of the streams do need to send NACKs, and we have a weak uplink, it\u0027ll not be that much different from before since it takes time to send packets on a weak link.",
+      "parentUuid": "c06c84ab_f0ff33db",
+      "revId": "a632ad2e07950fe46646da23f9a41281ecdce048",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "23fb05c9_eaf588ca",
@@ -31,6 +49,24 @@
       "writtenOn": "2021-07-22T09:54:58Z",
       "side": 1,
       "message": "Perhaps this is the time to address bugs.webrtc.org/11594 and lose the \"Module\"?",
+      "revId": "a632ad2e07950fe46646da23f9a41281ecdce048",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35c7bb97_410906c6",
+        "filename": "modules/video_coding/nack_module2.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-07-22T10:32:01Z",
+      "side": 1,
+      "message": "Yep - can do in a follow-up CL. What would be your favorite name? Perhaps NackProcessor?",
+      "parentUuid": "23fb05c9_eaf588ca",
       "revId": "a632ad2e07950fe46646da23f9a41281ecdce048",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

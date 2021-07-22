@@ -51,6 +51,24 @@
       "parentUuid": "59194333_3a8ea230",
       "revId": "dac696512fc25a26a879dc73241b0cca42023d43",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3284d000_d84d8860",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17964
+      },
+      "writtenOn": "2021-07-22T14:04:45Z",
+      "side": 1,
+      "message": "I should be covered under the 8x8 CCLA.\n\nI might be listed as jonathan@sip-communicator.org rather than jonathan.lennox@8x8.com.",
+      "parentUuid": "766705bb_268ade55",
+      "revId": "dac696512fc25a26a879dc73241b0cca42023d43",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

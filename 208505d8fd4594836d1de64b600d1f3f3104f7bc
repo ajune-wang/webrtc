@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3aeaad46_f3dab51e",
+        "filename": "p2p/base/stun_port.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-22T17:55:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "179b1779_bf5cc348",
+      "revId": "208505d8fd4594836d1de64b600d1f3f3104f7bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "837a82b9_3d5ab71c",
@@ -48,6 +66,24 @@
       "writtenOn": "2021-07-22T15:49:22Z",
       "side": 1,
       "message": "Not really for this CL, but I wonder what thread this is being called on.",
+      "revId": "208505d8fd4594836d1de64b600d1f3f3104f7bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd2808f5_e990d3d0",
+        "filename": "p2p/base/stun_port.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-22T17:55:32Z",
+      "side": 1,
+      "message": "Hmm, I expect this to run on the thread on which the port runs its I/O but we need to double check.",
+      "parentUuid": "837a82b9_3d5ab71c",
       "revId": "208505d8fd4594836d1de64b600d1f3f3104f7bc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

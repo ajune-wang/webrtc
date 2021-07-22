@@ -16,6 +16,23 @@
       "message": "Hello, Harald.\n\nI made a small CL related to running pylint in PRESUBMIT.py. Please take a look. Thank you.",
       "revId": "163683f6ec6910e5f798832faf7990649b655e39",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a05df911_22de49ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-07-22T12:30:45Z",
+      "side": 1,
+      "message": "For PRESUBMIT.py magic, I prefer mbonadei as a a reviewer.\n",
+      "revId": "163683f6ec6910e5f798832faf7990649b655e39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

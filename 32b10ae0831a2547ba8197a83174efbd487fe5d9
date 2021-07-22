@@ -36,6 +36,74 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "602f7ecc_94fd66d0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-07-22T13:02:35Z",
+      "side": 1,
+      "message": "I think structure is just-about-right, but lots of detail comments.\nHope the review helps!\n",
+      "revId": "32b10ae0831a2547ba8197a83174efbd487fe5d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "722ca10f_0dd1a54b",
+        "filename": "pc/jsep_transport_collection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-07-22T13:02:35Z",
+      "side": 1,
+      "message": "nit: an on -\u003e an",
+      "revId": "32b10ae0831a2547ba8197a83174efbd487fe5d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5bdd3fd1_bb0ff769",
+        "filename": "pc/jsep_transport_collection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-07-22T13:02:35Z",
+      "side": 1,
+      "message": "If you don\u0027t want to make the stable_ copy in Commit(), you can replace this line with stable_bundle_groups_ \u003d std::move(bundle_groups_), I think.",
+      "revId": "32b10ae0831a2547ba8197a83174efbd487fe5d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4b48cf4_2dafc3ed",
+        "filename": "pc/jsep_transport_collection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-07-22T13:02:35Z",
+      "side": 1,
+      "message": "This returns on kRollback and kPrAnswer. Is that right?",
+      "revId": "32b10ae0831a2547ba8197a83174efbd487fe5d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "296dad7e_f4a2ab2b",
@@ -49,6 +117,125 @@
       "writtenOn": "2021-07-22T10:15:02Z",
       "side": 1,
       "message": "Do we not need to RefreshEstablishedBundleGroupsByMid() if we are applying an answer even if the bundle policy is something other than \"max-bundle\"?\nIf we want to skip the refresh can we add a comment about why it is not needed since this might not be obvious?\n\nI think it\u0027s not needed because any groups added would have already been processed at offer-time, and any groups rejected would already have been handled by DeleteMid/DeleteGroup, so it should be up-to-date already. Can you confirm?\n\nWould be nice to see a comment or a DCHECK or a refresh even if not needed.",
+      "revId": "32b10ae0831a2547ba8197a83174efbd487fe5d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c4aca81_2844403a",
+        "filename": "pc/jsep_transport_collection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-07-22T13:02:35Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be \"bundle_groups_ \u003d std::move(stable_bundle_groups_)\"?\nI\u0027m not clear on whether std::vector\u003c\u003e is movable for this case; it seems that it should be.",
+      "revId": "32b10ae0831a2547ba8197a83174efbd487fe5d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91b90aa8_8620268a",
+        "filename": "pc/jsep_transport_collection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-07-22T13:02:35Z",
+      "side": 1,
+      "message": "this makes stable_bundle_groups_ a copy of bundle_groups_.\nThere\u0027s limited value in having 2 copies around in the stable state.",
+      "revId": "32b10ae0831a2547ba8197a83174efbd487fe5d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56025824_f1976f47",
+        "filename": "pc/jsep_transport_collection.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-07-22T13:02:35Z",
+      "side": 1,
+      "message": "API shape question: Why isn\u0027t Rollback() an implementation detail of Update(type\u003drollback), and Commit() a side effect of Update(type\u003danswer)?",
+      "revId": "32b10ae0831a2547ba8197a83174efbd487fe5d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08f5e2f1_17512161",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-07-22T13:02:35Z",
+      "side": 1,
+      "message": "I\u0027m not sure this is right for all cases. The 2 for loops came about after looking into a number of edge cases, but OTOH I think they were all covered by unit tests, so it may be OK.",
+      "revId": "32b10ae0831a2547ba8197a83174efbd487fe5d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3de88fb_a8bbda2d",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 720,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-07-22T13:02:35Z",
+      "side": 1,
+      "message": "What about pr-answer here?",
+      "revId": "32b10ae0831a2547ba8197a83174efbd487fe5d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72316afe_f48f8a90",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 800,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-07-22T13:02:35Z",
+      "side": 1,
+      "message": "This is now called for offer, answer and rollback.",
+      "revId": "32b10ae0831a2547ba8197a83174efbd487fe5d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e62cdbe7_5d9c25ae",
+        "filename": "pc/peer_connection_bundle_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 959,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-07-22T13:02:35Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this one also be in an EXPECT_TRUE? (happens more than once)",
       "revId": "32b10ae0831a2547ba8197a83174efbd487fe5d9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

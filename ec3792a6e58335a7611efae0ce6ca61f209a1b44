@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ac2eb3e_28536b4c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2021-07-22T12:12:42Z",
+      "side": 1,
+      "message": "PTAL, I got nagged by coverity because of this :-)\nmove constructors are not deleted but... this is not really production code.",
+      "revId": "ec3792a6e58335a7611efae0ce6ca61f209a1b44",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad6c6ebd_f8cd5f42",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-07-22T12:34:45Z",
+      "side": 1,
+      "message": "Do we write tests for PRESUBMIT.py? Should we?\n",
+      "revId": "08ba527cf325b7eaf869446c017172103441572b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

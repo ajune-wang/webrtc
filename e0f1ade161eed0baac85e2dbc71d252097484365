@@ -51,6 +51,23 @@
       "message": "Björn, can I please get your approval for call/",
       "revId": "e0f1ade161eed0baac85e2dbc71d252097484365",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e5dd364_d5e98660",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-07-22T09:13:39Z",
+      "side": 1,
+      "message": "call/ LGTM",
+      "revId": "e0f1ade161eed0baac85e2dbc71d252097484365",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

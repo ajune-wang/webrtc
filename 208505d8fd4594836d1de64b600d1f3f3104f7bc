@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "968d829a_8651707d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-07-22T15:49:22Z",
+      "side": 1,
+      "message": "Nits only.\n",
+      "revId": "208505d8fd4594836d1de64b600d1f3f3104f7bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "179b1779_bf5cc348",
+        "filename": "p2p/base/stun_port.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-07-22T15:49:22Z",
+      "side": 1,
+      "message": "s/signal is sent/function is called/",
+      "revId": "208505d8fd4594836d1de64b600d1f3f3104f7bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "837a82b9_3d5ab71c",
+        "filename": "p2p/base/stun_port.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-07-22T15:49:22Z",
+      "side": 1,
+      "message": "Not really for this CL, but I wonder what thread this is being called on.",
+      "revId": "208505d8fd4594836d1de64b600d1f3f3104f7bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

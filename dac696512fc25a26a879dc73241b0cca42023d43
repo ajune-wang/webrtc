@@ -69,6 +69,24 @@
       "parentUuid": "766705bb_268ade55",
       "revId": "dac696512fc25a26a879dc73241b0cca42023d43",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80aa8a7a_edcf88a4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-22T14:06:54Z",
+      "side": 1,
+      "message": "Yes, that is ok. Can you re-upload the CL with the correct email? Or just sign CLA with the 8x8 email address as well.",
+      "parentUuid": "3284d000_d84d8860",
+      "revId": "dac696512fc25a26a879dc73241b0cca42023d43",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

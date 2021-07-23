@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7f805f0_6f272cae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-07-23T21:21:00Z",
+      "side": 1,
+      "message": "It seems like I should use RTC_CHECK_NOTREACHED instead of RTC_NOTREACHED when the switch statement isn\u0027t exhaustive and returning something else doesn\u0027t make sense.",
+      "revId": "09125016d2be1d3aedcdfb65300031f05fda78c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

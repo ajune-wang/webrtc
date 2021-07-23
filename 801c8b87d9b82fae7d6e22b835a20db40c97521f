@@ -39,6 +39,23 @@
       },
       "revId": "801c8b87d9b82fae7d6e22b835a20db40c97521f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11bdf6b4_5650687e",
+        "filename": "sdk/android/src/jni/video_frame.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-07-23T21:21:00Z",
+      "side": 1,
+      "message": "It seems like I should use RTC_CHECK_NOTREACHED instead of RTC_NOTREACHED when the switch statement isn\u0027t exhaustive and returning something else doesn\u0027t make sense.",
+      "revId": "801c8b87d9b82fae7d6e22b835a20db40c97521f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

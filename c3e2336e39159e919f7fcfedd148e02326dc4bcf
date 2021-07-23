@@ -80,6 +80,30 @@
       },
       "revId": "c3e2336e39159e919f7fcfedd148e02326dc4bcf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c8f792f_5a205888",
+        "filename": "rtc_base/synchronization/mutex.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-23T08:44:27Z",
+      "side": 1,
+      "message": "I can do that but I will need some days, on the other hand I am still tempted to say that supporting AssertHeld on all the mutexes is probably a better solution. You looked into it and it sounds non trivial but can we maybe spend more time and achieve this solution?",
+      "parentUuid": "22f5818b_058022a4",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 55
+      },
+      "revId": "c3e2336e39159e919f7fcfedd148e02326dc4bcf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

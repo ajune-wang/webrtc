@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0085143_a86b04d3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-07-23T07:41:56Z",
+      "side": 1,
+      "message": "Hello, this CL is for ensuring VideoFrameBuffer::ToI420() Java api returns the correct type, not kNative.\nPlease take a look. Thank you.",
+      "revId": "801c8b87d9b82fae7d6e22b835a20db40c97521f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

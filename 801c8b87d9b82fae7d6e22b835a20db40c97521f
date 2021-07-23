@@ -16,6 +16,29 @@
       "message": "Hello, this CL is for ensuring VideoFrameBuffer::ToI420() Java api returns the correct type, not kNative.\nPlease take a look. Thank you.",
       "revId": "801c8b87d9b82fae7d6e22b835a20db40c97521f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3952e5ff_cf7440b4",
+        "filename": "sdk/android/src/jni/video_frame.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-07-23T07:57:44Z",
+      "side": 1,
+      "message": "Consider renaming this class to something like AndroidVideoTextureBuffer. (But not needed for this cl).",
+      "range": {
+        "startLine": 190,
+        "startChar": 31,
+        "endLine": 190,
+        "endChar": 49
+      },
+      "revId": "801c8b87d9b82fae7d6e22b835a20db40c97521f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

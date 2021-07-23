@@ -33,6 +33,29 @@
       "message": "audio_processing/ lgtm",
       "revId": "c3e2336e39159e919f7fcfedd148e02326dc4bcf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9da132f3_3dc7b79b",
+        "filename": "rtc_base/synchronization/mutex.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-23T08:14:34Z",
+      "side": 1,
+      "message": "Ok, after talking with some thread annotations expert I am a bit concerned about this annotation being added by default while the function doesn\u0027t actually always assert.\n\nWhile this should not result in any UB, I am concerned this will become a way to silence the compiler warning without getting a crash.\n\nSo before landing this one we should set up a bot to always run tests with absl::Mutex, but even in that case I am still not sure this is a good thing to do since we open a possibility to lie to the compiler which brings us to the second option of implementing AssertHeld on all the Mutex classes and let the assert happen in all build modes.",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 55
+      },
+      "revId": "c3e2336e39159e919f7fcfedd148e02326dc4bcf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

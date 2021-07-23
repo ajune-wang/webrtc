@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c37c5a01_1cc541a4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-07-23T14:34:28Z",
+      "side": 1,
+      "message": "I don\u0027t know the background of this feature, bu tif it\u0027s unused, deletion seems right.\n\nThere was no way to enable the feature from gn settings?",
+      "revId": "d12e67ea78452f70530140f973cfdda6c1bbbaec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

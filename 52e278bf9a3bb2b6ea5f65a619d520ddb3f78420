@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "01af7510_e883d8b5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-23T19:11:55Z",
+      "side": 1,
+      "message": "Nico PTAL (trying to cleanup some duplicated flags we already set globally).",
+      "revId": "52e278bf9a3bb2b6ea5f65a619d520ddb3f78420",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

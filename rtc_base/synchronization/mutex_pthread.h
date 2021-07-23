@@ -34,18 +34,43 @@ class RTC_LOCKABLE MutexImpl final {
 #endif
     pthread_mutex_init(&mutex_, &mutex_attribute);
     pthread_mutexattr_destroy(&mutex_attribute);
+    owner_.store(kNoThread);
   }
   MutexImpl(const MutexImpl&) = delete;
   MutexImpl& operator=(const MutexImpl&) = delete;
   ~MutexImpl() { pthread_mutex_destroy(&mutex_); }
 
-  void Lock() RTC_EXCLUSIVE_LOCK_FUNCTION() { pthread_mutex_lock(&mutex_); }
-  ABSL_MUST_USE_RESULT bool TryLock() RTC_EXCLUSIVE_TRYLOCK_FUNCTION(true) {
-    return pthread_mutex_trylock(&mutex_) == 0;
+  void Lock() RTC_EXCLUSIVE_LOCK_FUNCTION() {
+    pthread_mutex_lock(&mutex_);
+    owner_.store(pthread_self());
   }
-  void Unlock() RTC_UNLOCK_FUNCTION() { pthread_mutex_unlock(&mutex_); }
+  ABSL_MUST_USE_RESULT bool TryLock() RTC_EXCLUSIVE_TRYLOCK_FUNCTION(true) {
+    if (pthread_mutex_trylock(&mutex_) != 0) {
+      return false;
+    }
+    owner_.store(pthread_self());
+    return true;
+  }
+  void AssertHeld() const RTC_ASSERT_EXCLUSIVE_LOCK() {
+    RTC_CHECK(pthread_self() == owner_.load());
+  }
+  void Unlock() RTC_UNLOCK_FUNCTION() {
+    owner_.store(kNoThread);
+    pthread_mutex_unlock(&mutex_);
+  }
 
  private:
+  // NOTE: Using a magic value for no thread is not posix portable. The
+  // implementation of AssertHeld works only if pthread_t is an arithmetic type,
+  // no valid thread has id zero, and std::atomic<pthread_t> is lockfree. We
+  // could maybe use non-atomic variables, and accept a data race and
+  // potentially unreliable behavior in the AssertHeld failure case? That seems
+  // to be what chromium's AssertAcquired is doing. Abseil's AssertHeld is doing
+  // something considerably more complex.
+  static constexpr pthread_t kNoThread = 0;
+  // Stores the owning thread, when the mutex is locked. Can be read from
+  // an arbitrary thread in the case that AssertHeld fails.
+  std::atomic<pthread_t> owner_;
   pthread_mutex_t mutex_;
 };
 

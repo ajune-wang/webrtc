@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0bc45e29_b08573a6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-07-23T11:53:48Z",
+      "side": 1,
+      "message": "Hello, I re-uploaded an old CL [1] that tried to migrate from android.support to androidx.\nThis change can be tested using the recently updated tools_webrtc/android/test_aar.py.\nPlease take a look. Thank you.\n[1] https://webrtc-review.googlesource.com/c/src/+/192740",
+      "revId": "eaa322d0c242f9147e807a89eca98c534107ab34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

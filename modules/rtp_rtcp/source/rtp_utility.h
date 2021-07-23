@@ -27,9 +27,6 @@ const uint8_t kRtpMarkerBitMask = 0x80;
 
 namespace RtpUtility {
 
-// Round up to the nearest size that is a multiple of 4.
-size_t Word32Align(size_t size);
-
 class RtpHeaderParser {
  public:
   RtpHeaderParser(const uint8_t* rtpData, size_t rtpDataLength);

@@ -228,6 +228,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ec4486b_c62aeb78",
+        "filename": "pc/jsep_transport_collection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-07-23T06:54:44Z",
+      "side": 1,
+      "message": "OK.\nNot keeping track while in stable state would require saving the stable state when offer is applied, rather than when the state goes into stable.\n\nLet\u0027s commit this version.",
+      "parentUuid": "f79c8702_4905e4f5",
+      "revId": "32b10ae0831a2547ba8197a83174efbd487fe5d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "91b90aa8_8620268a",
@@ -294,6 +312,24 @@
       "side": 1,
       "message": "Rollback isn\u0027t an implementation detail of Update(type\u003drollback) because rollback goes through JsepTransportController::RollbackTransports(), with no associated session description. And then as long as Rollback is a separate method, it made sense for Commit to be a separate method as well for symmetry.\n\nThough I don\u0027t have strong opinions. I could have RollbackTransports call Update(type\u003drollback) with a null session description.",
       "parentUuid": "56025824_f1976f47",
+      "revId": "32b10ae0831a2547ba8197a83174efbd487fe5d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c510884_81f95f58",
+        "filename": "pc/jsep_transport_collection.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-07-23T06:54:44Z",
+      "side": 1,
+      "message": "OK, let\u0027s do it this way for now. Doing it differently would require removing RollbackTransports from the jsep_transport_controller public API, and it\u0027s currently called from sdp_offer_answer.",
+      "parentUuid": "95728ced_33e79118",
       "revId": "32b10ae0831a2547ba8197a83174efbd487fe5d9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

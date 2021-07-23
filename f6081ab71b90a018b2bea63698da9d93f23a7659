@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0bf7a0f6_d3d0c67f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-07-23T14:33:30Z",
+      "side": 1,
+      "message": "Not sure if **** is a good choice. Feel free to suggest a better code.",
+      "revId": "f6081ab71b90a018b2bea63698da9d93f23a7659",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

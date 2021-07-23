@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e548fae_41cb8395",
+        "filename": "modules/audio_coding/neteq/red_payload_splitter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-07-23T08:04:32Z",
+      "side": 0,
+      "message": "while I\u0027m not very interested, it might make sense to copy as well for the sake of consistency?",
+      "revId": "67468c5b926b39cf1962395bc990101ce3e2ea2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

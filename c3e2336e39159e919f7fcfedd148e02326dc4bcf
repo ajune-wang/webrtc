@@ -56,6 +56,30 @@
       },
       "revId": "c3e2336e39159e919f7fcfedd148e02326dc4bcf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22f5818b_058022a4",
+        "filename": "rtc_base/synchronization/mutex.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-07-23T08:28:57Z",
+      "side": 1,
+      "message": "My intended use cases are (i) replacing RTC_NO_THREAD_SAFETY_ANALYSIS (not sure we currently have other easily replacable uses than the one in this cl), and (ii) untangle locking on call chains that currently depend on recursive locking.\n\nIn most cases RTC_EXCLUSIVE_LOCKS_REQUIRED (strict compile-only check) is a better tool, but we have a few cases where locking assumptions on call chains involving several classes. E.g., a method A::Foo that is always called from class B, with some lock held, which calls back into class B, method B::bar. We can\u0027t easily tell the compiler that calling A::Foo requires that some lock belonging to another class B is held, and therefore B::Foo can\u0027t be annotated with RTC_EXCLUSIVE_LOCKS_REQUIRED. But B::bar can use AssertHeld.\n\nBut I agree it would be great to have a test bot running with absl::Mutex up first.",
+      "parentUuid": "9da132f3_3dc7b79b",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 55
+      },
+      "revId": "c3e2336e39159e919f7fcfedd148e02326dc4bcf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

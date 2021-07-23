@@ -104,6 +104,30 @@
       },
       "revId": "c3e2336e39159e919f7fcfedd148e02326dc4bcf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1ea9ecf_89f47d29",
+        "filename": "rtc_base/synchronization/mutex.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-07-23T09:53:56Z",
+      "side": 1,
+      "message": "Given it a try in cl https://webrtc-review.googlesource.com/c/src/+/226860.\n\nI wonder if it is fine to have a data race in the case that AssertHeld fails.",
+      "parentUuid": "2c8f792f_5a205888",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 55
+      },
+      "revId": "c3e2336e39159e919f7fcfedd148e02326dc4bcf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

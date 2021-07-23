@@ -70,6 +70,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad9a10ce_ea72bf3e",
+        "filename": "pc/jsep_transport_collection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-07-23T00:52:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "722ca10f_0dd1a54b",
+      "revId": "32b10ae0831a2547ba8197a83174efbd487fe5d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5bdd3fd1_bb0ff769",
@@ -83,6 +101,24 @@
       "writtenOn": "2021-07-22T13:02:35Z",
       "side": 1,
       "message": "If you don\u0027t want to make the stable_ copy in Commit(), you can replace this line with stable_bundle_groups_ \u003d std::move(bundle_groups_), I think.",
+      "revId": "32b10ae0831a2547ba8197a83174efbd487fe5d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7cde36a8_181d96af",
+        "filename": "pc/jsep_transport_collection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-07-23T00:52:18Z",
+      "side": 1,
+      "message": "See other comments. I don\u0027t think we can avoid keeping track of both lists.",
+      "parentUuid": "5bdd3fd1_bb0ff769",
       "revId": "32b10ae0831a2547ba8197a83174efbd487fe5d9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -104,6 +140,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3722d277_9cc5765e",
+        "filename": "pc/jsep_transport_collection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-07-23T00:52:18Z",
+      "side": 1,
+      "message": "kRollback will never be passed into this function (added a DCHECK).\n\nkPrAnswer will require a tiny bit more work. Suppose you have an offer that proposes BUNDLE group [1,2,3], then a PRANSWER that accepts said group, then an answer that decides to leave 3 out of the group. With the code as is, 3\u0027s transport would already have been destroyed, causing an issue at answer time.\n\nSo we\u0027d need to make sure PRANSWERs don\u0027t destroy JsepTransports. This shouldn\u0027t be hard, but because this CL is large as-is, I\u0027d prefer to do this in a follow up CL.",
+      "parentUuid": "b4b48cf4_2dafc3ed",
+      "revId": "32b10ae0831a2547ba8197a83174efbd487fe5d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "296dad7e_f4a2ab2b",
@@ -117,6 +171,24 @@
       "writtenOn": "2021-07-22T10:15:02Z",
       "side": 1,
       "message": "Do we not need to RefreshEstablishedBundleGroupsByMid() if we are applying an answer even if the bundle policy is something other than \"max-bundle\"?\nIf we want to skip the refresh can we add a comment about why it is not needed since this might not be obvious?\n\nI think it\u0027s not needed because any groups added would have already been processed at offer-time, and any groups rejected would already have been handled by DeleteMid/DeleteGroup, so it should be up-to-date already. Can you confirm?\n\nWould be nice to see a comment or a DCHECK or a refresh even if not needed.",
+      "revId": "32b10ae0831a2547ba8197a83174efbd487fe5d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30c4017e_b74aca82",
+        "filename": "pc/jsep_transport_collection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-07-23T00:52:18Z",
+      "side": 1,
+      "message": "Only *preexisting* groups would have been updated at offer time. I made the code a little more clear though.",
+      "parentUuid": "296dad7e_f4a2ab2b",
       "revId": "32b10ae0831a2547ba8197a83174efbd487fe5d9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -138,6 +210,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f79c8702_4905e4f5",
+        "filename": "pc/jsep_transport_collection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-07-23T00:52:18Z",
+      "side": 1,
+      "message": "But then we lose the knowledge of what the last stable bundle groups were.\n\nIf you are in a stable state, apply an offer, roll it back, apply another offer, and roll it back again, you should return to the same stable state. If we cleared stable_bundle_groups_ after the first rollback, the second rollback would revert to an empty list.",
+      "parentUuid": "7c4aca81_2844403a",
+      "revId": "32b10ae0831a2547ba8197a83174efbd487fe5d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "91b90aa8_8620268a",
@@ -151,6 +241,24 @@
       "writtenOn": "2021-07-22T13:02:35Z",
       "side": 1,
       "message": "this makes stable_bundle_groups_ a copy of bundle_groups_.\nThere\u0027s limited value in having 2 copies around in the stable state.",
+      "revId": "32b10ae0831a2547ba8197a83174efbd487fe5d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "85ce9db4_28f5e7a7",
+        "filename": "pc/jsep_transport_collection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-07-23T00:52:18Z",
+      "side": 1,
+      "message": "There is value if/when they diverge, though. See above.",
+      "parentUuid": "91b90aa8_8620268a",
       "revId": "32b10ae0831a2547ba8197a83174efbd487fe5d9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -174,6 +282,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "95728ced_33e79118",
+        "filename": "pc/jsep_transport_collection.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-07-23T00:52:18Z",
+      "side": 1,
+      "message": "Rollback isn\u0027t an implementation detail of Update(type\u003drollback) because rollback goes through JsepTransportController::RollbackTransports(), with no associated session description. And then as long as Rollback is a separate method, it made sense for Commit to be a separate method as well for symmetry.\n\nThough I don\u0027t have strong opinions. I could have RollbackTransports call Update(type\u003drollback) with a null session description.",
+      "parentUuid": "56025824_f1976f47",
+      "revId": "32b10ae0831a2547ba8197a83174efbd487fe5d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "08f5e2f1_17512161",
         "filename": "pc/jsep_transport_controller.cc",
         "patchSetId": 9
@@ -185,6 +311,24 @@
       "writtenOn": "2021-07-22T13:02:35Z",
       "side": 1,
       "message": "I\u0027m not sure this is right for all cases. The 2 for loops came about after looking into a number of edge cases, but OTOH I think they were all covered by unit tests, so it may be OK.",
+      "revId": "32b10ae0831a2547ba8197a83174efbd487fe5d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61ff25b9_f7c38a0f",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-07-23T00:52:18Z",
+      "side": 1,
+      "message": "The for loop above was necessary because MaybeCreateJsepTransport was attaching a MID to a BUNDLE group without updating bundles_. Which meant that in HandleRejectedContent, RemoveTransportForMid was not being called for the new MID, resulting in a dangling pointer to the transport.\n\nThis is no longer an issue since bundles_ and transports_ are once again kept in sync.",
+      "parentUuid": "08f5e2f1_17512161",
       "revId": "32b10ae0831a2547ba8197a83174efbd487fe5d9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -206,6 +350,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "26ef8a82_b8563bea",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 720,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-07-23T00:52:18Z",
+      "side": 1,
+      "message": "See other comment.",
+      "parentUuid": "c3de88fb_a8bbda2d",
+      "revId": "32b10ae0831a2547ba8197a83174efbd487fe5d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "72316afe_f48f8a90",
@@ -223,6 +385,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e6bf1e0_5bbceaea",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 800,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-07-23T00:52:18Z",
+      "side": 1,
+      "message": "Actually only offer and answer, since rollback goes through a different method.",
+      "parentUuid": "72316afe_f48f8a90",
+      "revId": "32b10ae0831a2547ba8197a83174efbd487fe5d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e62cdbe7_5d9c25ae",
@@ -236,6 +416,24 @@
       "writtenOn": "2021-07-22T13:02:35Z",
       "side": 1,
       "message": "Shouldn\u0027t this one also be in an EXPECT_TRUE? (happens more than once)",
+      "revId": "32b10ae0831a2547ba8197a83174efbd487fe5d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43b58a4b_647b06be",
+        "filename": "pc/peer_connection_bundle_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 959,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-07-23T00:52:18Z",
+      "side": 1,
+      "message": "Done, also fixed the test I copied this from.",
+      "parentUuid": "e62cdbe7_5d9c25ae",
       "revId": "32b10ae0831a2547ba8197a83174efbd487fe5d9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

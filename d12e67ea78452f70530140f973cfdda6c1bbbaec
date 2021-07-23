@@ -16,6 +16,24 @@
       "message": "I don\u0027t know the background of this feature, bu tif it\u0027s unused, deletion seems right.\n\nThere was no way to enable the feature from gn settings?",
       "revId": "d12e67ea78452f70530140f973cfdda6c1bbbaec",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d5a0d75_5956e770",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-23T19:16:28Z",
+      "side": 1,
+      "message": "Correct, this was expected to be enabled via a global macro definition.",
+      "parentUuid": "c37c5a01_1cc541a4",
+      "revId": "d12e67ea78452f70530140f973cfdda6c1bbbaec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

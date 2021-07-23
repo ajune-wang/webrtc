@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34965018_4913772b",
+        "filename": "rtc_base/synchronization/mutex.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-23T12:36:38Z",
+      "side": 1,
+      "message": "Remove and dry-run CQ?",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 20
+      },
+      "revId": "315a1466eda7f336649fc1a869f706607e1982bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

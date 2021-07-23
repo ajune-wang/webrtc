@@ -128,6 +128,30 @@
       },
       "revId": "c3e2336e39159e919f7fcfedd148e02326dc4bcf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0104d046_fc451053",
+        "filename": "rtc_base/synchronization/mutex.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-23T12:35:51Z",
+      "side": 1,
+      "message": "\u003e Given it a try in cl https://webrtc-review.googlesource.com/c/src/+/226860.\n\nThanks, that looks nice.\n\n\u003e I wonder if it is fine to have a data race in the case that AssertHeld fails.\n\nHmm, looks like Chromium is doing that as you pointed out in the comment. The data race only happens if not held which results in a CHECK so it is not a real problem since the program is going to terminate. That said, data races are UB. The compiler is probably not able to exploit it to get more optimization but that might happen in the future so I am tempted to say the std::atomic solution is better.\n\nThis code was added 10 years ago in Chromium: https://codereview.chromium.org/2196001 and changed 7 years ago (https://codereview.chromium.org/292873002).",
+      "parentUuid": "d1ea9ecf_89f47d29",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 55
+      },
+      "revId": "c3e2336e39159e919f7fcfedd148e02326dc4bcf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

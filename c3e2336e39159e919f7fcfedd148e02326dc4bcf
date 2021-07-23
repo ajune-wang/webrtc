@@ -152,6 +152,30 @@
       },
       "revId": "c3e2336e39159e919f7fcfedd148e02326dc4bcf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73908093_1bafe519",
+        "filename": "rtc_base/synchronization/mutex.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-07-23T12:57:21Z",
+      "side": 1,
+      "message": "The problem with the atomic solution is that according to posix, there\u0027s no reserved pthread_t value to represent \"no thread\". So to be portable, we\u0027d need a pthread_t + a bool, and then we can\u0027t read both in an atomic and lock-less way (maybe there\u0027s a way to use two separate atomics and read and write in the right order, but those subtleties make my head spin). \n\n(One could add one more mutex for the owner reference, but I think that\u0027s a bit too much overhead).\n\nTo have a race in the failure case only seems easier to reason about; in practice it\u0027s pretty unlikely to do anything other than crashing. In theory, it\u0027s UB, but since the desired behavior is to crash, that\u0027s probably acceptable.",
+      "parentUuid": "0104d046_fc451053",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 55
+      },
+      "revId": "c3e2336e39159e919f7fcfedd148e02326dc4bcf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

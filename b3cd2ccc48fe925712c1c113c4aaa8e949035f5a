@@ -50,6 +50,24 @@
       "message": "Can we enforce the deprecation with ABSL_DEPRECATED, or is that for the next pass?",
       "revId": "b3cd2ccc48fe925712c1c113c4aaa8e949035f5a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "516237be_3619427d",
+        "filename": "rtc_base/thread_message.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-25T10:16:17Z",
+      "side": 1,
+      "message": "Yes, I think it is for the next pass (I need to remove deprecated usage downstream before triggering the warning) but my plan is to rename inner_data to data right after that and just remove it (I think this is not a supporter API so I consider it an internal change).",
+      "parentUuid": "1080916e_4b18a2a2",
+      "revId": "b3cd2ccc48fe925712c1c113c4aaa8e949035f5a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

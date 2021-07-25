@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf9e24d2_de7d4c2d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-25T09:41:19Z",
+      "side": 1,
+      "message": "First CL of this cleanup, when this lands I will fix downstream projects using the deprecated methods.",
+      "revId": "b3cd2ccc48fe925712c1c113c4aaa8e949035f5a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -16,6 +16,23 @@
       "message": "Nico PTAL (trying to cleanup some duplicated flags we already set globally).",
       "revId": "52e278bf9a3bb2b6ea5f65a619d520ddb3f78420",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a508604_c486eff0",
+        "filename": "BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 5509
+      },
+      "writtenOn": "2021-07-25T00:58:42Z",
+      "side": 1,
+      "message": "I think this one is part of -Wall or maybe even default enabled fwiw. I don\u0027t think passing it explicitly has an effect.",
+      "revId": "52e278bf9a3bb2b6ea5f65a619d520ddb3f78420",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

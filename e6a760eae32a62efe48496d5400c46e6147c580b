@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7fd39e8_1c75051c",
+        "filename": "rtc_base/synchronization/mutex.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-25T10:05:24Z",
+      "side": 1,
+      "message": "Update, or maybe even remove since the RTC_DCHECK_IS_ON logic is implemented in the OwnerRecord class?",
+      "range": {
+        "startLine": 52,
+        "startChar": 5,
+        "endLine": 52,
+        "endChar": 75
+      },
+      "revId": "e6a760eae32a62efe48496d5400c46e6147c580b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0a7cba6_7b3239a7",
+        "filename": "rtc_base/synchronization/mutex_pthread.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-25T10:05:24Z",
+      "side": 1,
+      "message": "Maybe mention this can also only happen in debug builds (of when RTC_DCHECK_IS_ON\u003d1)?\n\nI would also like to involve someone from Chromium and ask for an opinion about this. Maybe gab@?",
+      "range": {
+        "startLine": 95,
+        "startChar": 24,
+        "endLine": 96,
+        "endChar": 24
+      },
+      "revId": "e6a760eae32a62efe48496d5400c46e6147c580b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

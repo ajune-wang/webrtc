@@ -296,6 +296,30 @@
       },
       "revId": "c3e2336e39159e919f7fcfedd148e02326dc4bcf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f4c2f6c_d6ff70e4",
+        "filename": "rtc_base/synchronization/mutex.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-26T14:44:08Z",
+      "side": 1,
+      "message": "My concern was to keep the feedback loop short and have an error in presubmit but since we have implemented this for pthread we should be covered (not covering win yet though).",
+      "parentUuid": "8450c9d3_e6b594fd",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 55
+      },
+      "revId": "c3e2336e39159e919f7fcfedd148e02326dc4bcf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

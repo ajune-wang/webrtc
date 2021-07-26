@@ -39,6 +39,30 @@
       },
       "revId": "9c9ccd2d97b6252023eb7f136ee75cd0ed376870",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d83c18e3_fbb08794",
+        "filename": "test/ios/google_test_runner_delegate.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-07-26T07:33:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d94e1d5_d5ec3403",
+      "range": {
+        "startLine": 17,
+        "startChar": 3,
+        "endLine": 17,
+        "endChar": 39
+      },
+      "revId": "9c9ccd2d97b6252023eb7f136ee75cd0ed376870",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

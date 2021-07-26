@@ -16,6 +16,29 @@
       "message": "Danil, PTAL.",
       "revId": "03c237d3504d9424a42ae749cfe58e6f62280257",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bd0961f_3c9ba2bf",
+        "filename": "rtc_base/synchronization/mutex_pthread.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-26T13:09:00Z",
+      "side": 1,
+      "message": "Maybe mention again this is a dbg build (or RTC_DCHECK_ALWAYS_ON\u003d\u003d1) thing and not a production thing.",
+      "range": {
+        "startLine": 95,
+        "startChar": 55,
+        "endLine": 96,
+        "endChar": 46
+      },
+      "revId": "03c237d3504d9424a42ae749cfe58e6f62280257",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

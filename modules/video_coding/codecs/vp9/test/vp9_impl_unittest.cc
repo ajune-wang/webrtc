@@ -257,8 +257,6 @@ TEST(Vp9ImplTest, ParserQpEqualsEncodedQp) {
 }
 
 TEST(Vp9ImplTest, EncodeAttachesTemplateStructureWithSvcController) {
-  test::ScopedFieldTrials override_field_trials(
-      "WebRTC-Vp9DependencyDescriptor/Enabled/");
   std::unique_ptr<VideoEncoder> encoder = VP9Encoder::Create();
   VideoCodec codec_settings = DefaultCodecSettings();
   EXPECT_EQ(encoder->InitEncode(&codec_settings, kSettings),
@@ -301,8 +299,6 @@ TEST(Vp9ImplTest, EncoderWith2TemporalLayers) {
 }
 
 TEST(Vp9ImplTest, EncodeTemporalLayersWithSvcController) {
-  test::ScopedFieldTrials override_field_trials(
-      "WebRTC-Vp9DependencyDescriptor/Enabled/");
   std::unique_ptr<VideoEncoder> encoder = VP9Encoder::Create();
   VideoCodec codec_settings = DefaultCodecSettings();
   codec_settings.VP9()->numberOfTemporalLayers = 2;
@@ -350,8 +346,6 @@ TEST(Vp9ImplTest, EncoderWith2SpatialLayers) {
 }
 
 TEST(Vp9ImplTest, EncodeSpatialLayersWithSvcController) {
-  test::ScopedFieldTrials override_field_trials(
-      "WebRTC-Vp9DependencyDescriptor/Enabled/");
   std::unique_ptr<VideoEncoder> encoder = VP9Encoder::Create();
   VideoCodec codec_settings = DefaultCodecSettings();
   codec_settings.VP9()->numberOfSpatialLayers = 2;
@@ -487,8 +481,6 @@ TEST_F(TestVp9Impl, EnableDisableSpatialLayers) {
 }
 
 TEST(Vp9ImplTest, EnableDisableSpatialLayersWithSvcController) {
-  test::ScopedFieldTrials override_field_trials(
-      "WebRTC-Vp9DependencyDescriptor/Enabled/");
   const int num_spatial_layers = 3;
   // Configure encoder to produce 3 spatial layers. Encode frames of layer 0
   // then enable layer 1 and encode more frames and so on.
@@ -563,8 +555,6 @@ MATCHER_P2(GenericLayerIs, spatial_id, temporal_id, "") {
 }
 
 TEST(Vp9ImplTest, SpatialUpswitchNotAtGOFBoundary) {
-  test::ScopedFieldTrials override_field_trials(
-      "WebRTC-Vp9DependencyDescriptor/Enabled/");
   std::unique_ptr<VideoEncoder> encoder = VP9Encoder::Create();
   VideoCodec codec_settings = DefaultCodecSettings();
   ConfigureSvc(codec_settings, /*num_spatial_layers=*/3,
@@ -763,8 +753,6 @@ TEST_F(TestVp9Impl, DisableEnableBaseLayerTriggersKeyFrame) {
 TEST(Vp9ImplTest, DisableEnableBaseLayerWithSvcControllerTriggersKeyFrame) {
   // Configure encoder to produce N spatial layers. Encode frames for all
   // layers. Then disable all but the last layer. Then reenable all back again.
-  test::ScopedFieldTrials override_field_trials(
-      "WebRTC-Vp9DependencyDescriptor/Enabled/");
   const size_t num_spatial_layers = 3;
   const size_t num_temporal_layers = 3;
   // Must not be multiple of temporal period to exercise all code paths.

@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6b28732c_fd5622dc",
+        "filename": "rtc_base/synchronization/mutex.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-07-26T12:42:34Z",
+      "side": 1,
+      "message": "Done. But then the #if is moved to to mutex_absl.h, if we want the check enabled only together with DCHECK.",
+      "parentUuid": "b7fd39e8_1c75051c",
+      "range": {
+        "startLine": 52,
+        "startChar": 5,
+        "endLine": 52,
+        "endChar": 75
+      },
+      "revId": "e6a760eae32a62efe48496d5400c46e6147c580b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d0a7cba6_7b3239a7",
         "filename": "rtc_base/synchronization/mutex_pthread.h",
         "patchSetId": 2
@@ -37,6 +61,30 @@
       "writtenOn": "2021-07-25T10:05:24Z",
       "side": 1,
       "message": "Maybe mention this can also only happen in debug builds (of when RTC_DCHECK_IS_ON\u003d1)?\n\nI would also like to involve someone from Chromium and ask for an opinion about this. Maybe gab@?",
+      "range": {
+        "startLine": 95,
+        "startChar": 24,
+        "endLine": 96,
+        "endChar": 24
+      },
+      "revId": "e6a760eae32a62efe48496d5400c46e6147c580b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10c02b29_9474063a",
+        "filename": "rtc_base/synchronization/mutex_pthread.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-07-26T12:42:34Z",
+      "side": 1,
+      "message": "Comment updated.",
+      "parentUuid": "d0a7cba6_7b3239a7",
       "range": {
         "startLine": 95,
         "startChar": 24,

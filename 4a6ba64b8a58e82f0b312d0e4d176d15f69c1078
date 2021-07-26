@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4bf9b48_43ea68ea",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-07-26T12:42:34Z",
+      "side": 1,
+      "message": "I intend to merge these changes into cl https://webrtc-review.googlesource.com/c/src/+/226328 before landing.",
+      "revId": "4a6ba64b8a58e82f0b312d0e4d176d15f69c1078",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

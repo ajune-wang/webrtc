@@ -33,6 +33,24 @@
       "message": "Pre-submission failed :(\nI think test/ios/google_test_runner_delegate.h should not be handled by cpplint,\nand there is also code for it [1] but it checks and create an error.\n[1] https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/PRESUBMIT.py;l\u003d17",
       "revId": "3481041ac4e0a3f2fbb4e257967b45fe2095aaef",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "71d05c2e_ef06afa9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-26T07:46:03Z",
+      "side": 1,
+      "message": "Hmm, yes something seems wrong. Can you make a quick investigation? It might be something changed in the code triggering cpplint and the exceptions don\u0027t apply anymore?",
+      "parentUuid": "f0b1d0ad_da9c2030",
+      "revId": "3481041ac4e0a3f2fbb4e257967b45fe2095aaef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -44,6 +44,11 @@ class RTC_LOCKABLE Mutex final {
   ABSL_MUST_USE_RESULT bool TryLock() RTC_EXCLUSIVE_TRYLOCK_FUNCTION(true) {
     return impl_.TryLock();
   }
+  // Return immediately if this thread holds the mutex, or RTC_DCHECK_IS_ON==0.
+  // Otherwise, may report an error (typically by crashing with a diagnostic),
+  // or may return immediately. Actual run time check currently implemented for
+  // pthreads and absl mutexes.
+  void AssertHeld() const RTC_ASSERT_EXCLUSIVE_LOCK() { impl_.AssertHeld(); }
   void Unlock() RTC_UNLOCK_FUNCTION() {
     impl_.Unlock();
   }

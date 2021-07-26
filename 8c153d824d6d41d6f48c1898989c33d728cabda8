@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b84b8c27_4c64c58a",
+        "filename": "rtc_base/synchronization/mutex.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-26T14:21:18Z",
+      "side": 1,
+      "message": "because you document it here, may be put this check here too, rather than duplicate it in each implementation:\nvoid AssertHeld() const RTC_ASSERT_EXCLUSIVE_LOCK() {\n#if RTC_DCHECK_IS_ON\n  impl_.AssertHeld();\n#endif\n}\n...\n\nvoid AbslMutexImpl::AssertHeld() const ASSERT_LOCK() { mutex_.AssertHeld(); }",
+      "range": {
+        "startLine": 47,
+        "startChar": 56,
+        "endLine": 47,
+        "endChar": 79
+      },
+      "revId": "8c153d824d6d41d6f48c1898989c33d728cabda8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa5e5c0d_7abacd3f",
+        "filename": "rtc_base/synchronization/mutex.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-26T14:21:18Z",
+      "side": 1,
+      "message": "this line would be hard to keep up to date.\nI would prefer it to be absent (so that reader would check implementation they care about, rather than make assumption base on this comment)",
+      "range": {
+        "startLine": 49,
+        "startChar": 31,
+        "endLine": 50,
+        "endChar": 31
+      },
+      "revId": "8c153d824d6d41d6f48c1898989c33d728cabda8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ca28294_0446980c",
+        "filename": "rtc_base/synchronization/mutex_pthread.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-26T14:21:18Z",
+      "side": 1,
+      "message": "or\npthread_t latest_owner_ \u003d pthread_self();\nand remove the only constructor.\n\nbut is it even needed?\nlatest_owner_ is checked only when is_owned_ \u003d\u003d true, so might be ok to leave it\nuninitialized.",
+      "range": {
+        "startLine": 80,
+        "startChar": 4,
+        "endLine": 80,
+        "endChar": 28
+      },
+      "revId": "8c153d824d6d41d6f48c1898989c33d728cabda8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62ec4c30_4120041b",
+        "filename": "rtc_base/synchronization/mutex_pthread.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-26T14:21:18Z",
+      "side": 1,
+      "message": "can you swap #if and #else branch,\nor move (and duplicate) \u0027public:\u0027 keyword inside those branches,\notherwise it looks like SetOwner/etc are located in the private section.",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 5
+      },
+      "revId": "8c153d824d6d41d6f48c1898989c33d728cabda8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

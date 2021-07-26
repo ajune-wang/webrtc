@@ -16,6 +16,29 @@
       "message": "Hello, mbonadei@, I think these unittest failures [1] will keep happening without this CL.\n\n[1] https://ci.chromium.org/ui/p/webrtc/builders/try/ios_sim_x64_dbg_ios14/2486/overview",
       "revId": "9c9ccd2d97b6252023eb7f136ee75cd0ed376870",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d94e1d5_d5ec3403",
+        "filename": "test/ios/google_test_runner_delegate.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-26T07:12:40Z",
+      "side": 1,
+      "message": "Is this the correct bug?",
+      "range": {
+        "startLine": 17,
+        "startChar": 3,
+        "endLine": 17,
+        "endChar": 39
+      },
+      "revId": "9c9ccd2d97b6252023eb7f136ee75cd0ed376870",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

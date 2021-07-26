@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c6cd543_c85e1297",
+        "filename": "rtc_base/synchronization/mutex.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-07-26T15:17:14Z",
+      "side": 1,
+      "message": "I did that in an earlier iteration. But then I still need to have the #if:s in the pthread implementation, to take out owner updates at compile time. So the current way is in some ways more consistent.\n\nBut I\u0027m happy to change back, if reviewers agree.",
+      "parentUuid": "b84b8c27_4c64c58a",
+      "range": {
+        "startLine": 47,
+        "startChar": 56,
+        "endLine": 47,
+        "endChar": 79
+      },
+      "revId": "8c153d824d6d41d6f48c1898989c33d728cabda8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "aa5e5c0d_7abacd3f",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-07-26T14:21:18Z",
       "side": 1,
       "message": "this line would be hard to keep up to date.\nI would prefer it to be absent (so that reader would check implementation they care about, rather than make assumption base on this comment)",
+      "range": {
+        "startLine": 49,
+        "startChar": 31,
+        "endLine": 50,
+        "endChar": 31
+      },
+      "revId": "8c153d824d6d41d6f48c1898989c33d728cabda8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03ba768c_ab0c55df",
+        "filename": "rtc_base/synchronization/mutex.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-07-26T15:17:14Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "aa5e5c0d_7abacd3f",
       "range": {
         "startLine": 49,
         "startChar": 31,
@@ -70,6 +118,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "026cdb77_6b31bff6",
+        "filename": "rtc_base/synchronization/mutex_pthread.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-07-26T15:17:14Z",
+      "side": 1,
+      "message": "Done. I prefer to initialize, to not think about uninitialized reads in case first call after construction is an (incorrect) call to AssertHeld, racing with a Lock call that says owned_ \u003d true.",
+      "parentUuid": "8ca28294_0446980c",
+      "range": {
+        "startLine": 80,
+        "startChar": 4,
+        "endLine": 80,
+        "endChar": 28
+      },
+      "revId": "8c153d824d6d41d6f48c1898989c33d728cabda8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "62ec4c30_4120041b",
@@ -83,6 +155,30 @@
       "writtenOn": "2021-07-26T14:21:18Z",
       "side": 1,
       "message": "can you swap #if and #else branch,\nor move (and duplicate) \u0027public:\u0027 keyword inside those branches,\notherwise it looks like SetOwner/etc are located in the private section.",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 5
+      },
+      "revId": "8c153d824d6d41d6f48c1898989c33d728cabda8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94009735_2a8b36e1",
+        "filename": "rtc_base/synchronization/mutex_pthread.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-07-26T15:17:14Z",
+      "side": 1,
+      "message": "Done. I chose the swap option,",
+      "parentUuid": "62ec4c30_4120041b",
       "range": {
         "startLine": 81,
         "startChar": 0,

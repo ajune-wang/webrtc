@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "8efa64cf_84d0c6a2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-26T15:09:23Z",
+      "side": 1,
+      "message": "I am adding the backwards compatible constants for now, so I can land this and then I will remove usage and the backwards compatible constants.",
+      "parentUuid": "839ef6f6_ae7d48fa",
+      "revId": "bbd7e0f1cec8bbc429e1912542b5dfcd1e628a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "3dfbf47a_259dbf41",
         "filename": "pc/media_session_unittest.cc",
         "patchSetId": 4
@@ -31,6 +49,24 @@
       "writtenOn": "2021-07-26T14:25:27Z",
       "side": 1,
       "message": "Those 2 are a departure from the style guide, but I can\u0027t figure out a better way to do this either - \"Sha132\" is just wrong...",
+      "revId": "bbd7e0f1cec8bbc429e1912542b5dfcd1e628a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53c6b56d_fe2587ed",
+        "filename": "pc/media_session_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-26T15:09:23Z",
+      "side": 1,
+      "message": "I think we are covered, see https://google.github.io/styleguide/cppguide.html#Constant_Names where there is an example like:\n\nconst int kAndroid8_0_0 \u003d 24;  // Android 8.0.0",
+      "parentUuid": "3dfbf47a_259dbf41",
       "revId": "bbd7e0f1cec8bbc429e1912542b5dfcd1e628a19",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

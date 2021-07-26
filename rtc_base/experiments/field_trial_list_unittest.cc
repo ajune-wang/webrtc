@@ -35,11 +35,11 @@ TEST(FieldTrialListTest, ParsesListParameter) {
   FieldTrialList<int> my_list("l", {5});
   EXPECT_THAT(my_list.Get(), ElementsAre(5));
   // If one element is invalid the list is unchanged.
-  ParseFieldTrial({&my_list}, "l:1|2|hat");
+  ParseFieldTrial({&my_list}, "l:1`2`hat");
   EXPECT_THAT(my_list.Get(), ElementsAre(5));
   ParseFieldTrial({&my_list}, "l");
   EXPECT_THAT(my_list.Get(), IsEmpty());
-  ParseFieldTrial({&my_list}, "l:1|2|3");
+  ParseFieldTrial({&my_list}, "l:1`2`3");
   EXPECT_THAT(my_list.Get(), ElementsAre(1, 2, 3));
   ParseFieldTrial({&my_list}, "l:-1");
   EXPECT_THAT(my_list.Get(), ElementsAre(-1));
@@ -50,7 +50,7 @@ TEST(FieldTrialListTest, ParsesListParameter) {
   EXPECT_THAT(another_list.Get(), IsEmpty());
   ParseFieldTrial({&another_list}, "l:");
   EXPECT_THAT(another_list.Get(), ElementsAre(""));
-  ParseFieldTrial({&another_list}, "l:scarf|hat|mittens");
+  ParseFieldTrial({&another_list}, "l:scarf`hat`mittens");
   EXPECT_THAT(another_list.Get(), ElementsAre("scarf", "hat", "mittens"));
   ParseFieldTrial({&another_list}, "l:scarf");
   EXPECT_THAT(another_list.Get(), ElementsAre("scarf"));
@@ -64,8 +64,8 @@ TEST(FieldTrialListTest, ParsesStructList) {
       {{1, "blue"}, {2, "red"}});
 
   ParseFieldTrial({&my_list},
-                  "color:mauve|red|gold,"
-                  "price:10|20|30,"
+                  "color:mauve`red`gold,"
+                  "price:10`20`30,"
                   "other_param:asdf");
 
   ASSERT_THAT(my_list.Get(),
@@ -83,9 +83,9 @@ TEST(FieldTrialListTest, StructListKeepsDefaultWithMismatchingLength) {
       {{1, "blue"}, {2, "red"}});
 
   ParseFieldTrial({&my_list},
-                  "wrong_length:mauve|magenta|chartreuse|indigo,"
-                  "garment:hat|hat|crown,"
-                  "price:10|20|30");
+                  "wrong_length:mauve`magenta`chartreuse|indigo,"
+                  "garment:hat`hat`crown,"
+                  "price:10`20`30");
 
   ASSERT_THAT(my_list.Get(),
               ElementsAre(Garment{1, "blue"}, Garment{2, "red"}));
@@ -99,7 +99,7 @@ TEST(FieldTrialListTest, StructListUsesDefaultForMissingList) {
        FieldTrialStructMember("price", [](Garment* g) { return &g->price; })},
       {{1, "blue"}, {2, "red"}});
 
-  ParseFieldTrial({&my_list}, "price:10|20|30");
+  ParseFieldTrial({&my_list}, "price:10`20`30");
 
   ASSERT_THAT(my_list.Get(),
               ElementsAre(Garment{10, ""}, Garment{20, ""}, Garment{30, ""}));

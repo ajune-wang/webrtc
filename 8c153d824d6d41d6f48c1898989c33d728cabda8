@@ -50,6 +50,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "d65a7c11_112098bd",
+        "filename": "rtc_base/synchronization/mutex.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-26T15:53:44Z",
+      "side": 1,
+      "message": "I do not have a strong opinion.\nYou\u0027ve considered both options, pick the one that looks nicer to you.",
+      "parentUuid": "6c6cd543_c85e1297",
+      "range": {
+        "startLine": 47,
+        "startChar": 56,
+        "endLine": 47,
+        "endChar": 79
+      },
+      "revId": "8c153d824d6d41d6f48c1898989c33d728cabda8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "aa5e5c0d_7abacd3f",
         "filename": "rtc_base/synchronization/mutex.h",
         "patchSetId": 6

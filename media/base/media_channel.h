@@ -528,6 +528,9 @@ struct VoiceReceiverInfo : public MediaReceiverInfo {
   uint32_t sender_reports_packets_sent = 0;
   uint64_t sender_reports_bytes_sent = 0;
   uint64_t sender_reports_reports_count = 0;
+  absl::optional<double> round_trip_time;
+  double total_round_trip_time = 0.0;
+  uint64_t round_trip_time_measurements = 0;
 };
 
 struct VideoSenderInfo : public MediaSenderInfo {

@@ -58,6 +58,32 @@ class RTCPReceiver final {
    protected:
     virtual ~ModuleRtpRtcp() = default;
   };
+  // Standardized stats derived from the non-sender RTT. All times are measured
+  // in seconds.
+  class NonSenderRttStats {
+   public:
+    NonSenderRttStats() = default;
+    ~NonSenderRttStats() = default;
+    void Update(double non_sender_rtt_seconds) {
+      round_trip_time_ = non_sender_rtt_seconds;
+      total_round_trip_time_ += non_sender_rtt_seconds;
+      round_trip_time_measurements_++;
+    }
+    void Invalidate() { round_trip_time_.reset(); }
+    // https://www.w3.org/TR/webrtc-stats/#dom-rtcremoteoutboundrtpstreamstats-roundtriptime
+    absl::optional<double> round_trip_time() { return round_trip_time_; }
+    // https://www.w3.org/TR/webrtc-stats/#dom-rtcremoteoutboundrtpstreamstats-totalroundtriptime
+    double total_round_trip_time() { return total_round_trip_time_; }
+    // https://www.w3.org/TR/webrtc-stats/#dom-rtcremoteoutboundrtpstreamstats-roundtriptimemeasurements
+    uint64_t round_trip_time_measurements() {
+      return round_trip_time_measurements_;
+    }
+
+   private:
+    absl::optional<double> round_trip_time_;
+    double total_round_trip_time_ = 0.0;
+    uint64_t round_trip_time_measurements_ = 0;
+  };
 
   RTCPReceiver(const RtpRtcpInterface::Configuration& config,
                ModuleRtpRtcp* owner);
@@ -107,6 +133,9 @@ class RTCPReceiver final {
               int64_t* avg_rtt_ms,
               int64_t* min_rtt_ms,
               int64_t* max_rtt_ms) const;
+
+  // Returns non-sender RTT metrics for the remote SSRC.
+  NonSenderRttStats GetNonSenderRTT() const;
 
   void SetNonSenderRttMeasurement(bool enabled);
   bool GetAndResetXrRrRtt(int64_t* rtt_ms);
@@ -284,7 +313,7 @@ class RTCPReceiver final {
                                     const rtcp::Rrtr& rrtr)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(rtcp_receiver_lock_);
 
-  void HandleXrDlrrReportBlock(const rtcp::ReceiveTimeInfo& rti)
+  void HandleXrDlrrReportBlock(uint32_t ssrc, const rtcp::ReceiveTimeInfo& rti)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(rtcp_receiver_lock_);
 
   void HandleXrTargetBitrate(uint32_t ssrc,
@@ -382,6 +411,9 @@ class RTCPReceiver final {
 
   // Round-Trip Time per remote sender ssrc.
   flat_map<uint32_t, RttStats> rtts_ RTC_GUARDED_BY(rtcp_receiver_lock_);
+  // Non-sender Round-trip time per remote ssrc.
+  flat_map<uint32_t, NonSenderRttStats> non_sender_rtts_
+      RTC_GUARDED_BY(rtcp_receiver_lock_);
 
   // Report blocks per local source ssrc.
   flat_map<uint32_t, ReportBlockData> received_report_blocks_

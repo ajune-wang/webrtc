@@ -153,7 +153,7 @@ class RtpRtcpInterface : public RtcpFeedbackSenderInterface {
   // Stats for RTCP sender reports (SR) for a specific SSRC.
   // Refer to https://tools.ietf.org/html/rfc3550#section-6.4.1.
   struct SenderReportStats {
-    // Arrival NPT timestamp for the last received RTCP SR.
+    // Arrival NTP timestamp for the last received RTCP SR.
     NtpTime last_arrival_timestamp;
     // Received (a.k.a., remote) NTP timestamp for the last received RTCP SR.
     NtpTime last_remote_timestamp;
@@ -169,6 +169,12 @@ class RtpRtcpInterface : public RtcpFeedbackSenderInterface {
     // Total number of RTCP SR blocks received.
     // https://www.w3.org/TR/webrtc-stats/#dom-rtcremoteoutboundrtpstreamstats-reportssent.
     uint64_t reports_count;
+    // https://www.w3.org/TR/webrtc-stats/#dom-rtcremoteoutboundrtpstreamstats-roundtriptime
+    absl::optional<double> round_trip_time;
+    // https://www.w3.org/TR/webrtc-stats/#dom-rtcremoteoutboundrtpstreamstats-totalroundtriptime
+    double total_round_trip_time = 0.0;
+    // https://www.w3.org/TR/webrtc-stats/#dom-rtcremoteoutboundrtpstreamstats-roundtriptimemeasurements
+    int64_t round_trip_time_measurements = 0;
   };
 
   // **************************************************************************

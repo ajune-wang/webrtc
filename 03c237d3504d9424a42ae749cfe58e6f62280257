@@ -87,6 +87,30 @@
       },
       "revId": "03c237d3504d9424a42ae749cfe58e6f62280257",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a879dbf8_a1d62145",
+        "filename": "rtc_base/synchronization/mutex_pthread.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-07-26T13:31:56Z",
+      "side": 1,
+      "message": "Done. If we\u0027re really concerned about avoiding UB also in the failure case, one compromise might be to use std::atomic with memory_order_relaxed. Leaves the essence of the race, but guarantees that each load sees one of the values that were previously stored (and most likely, *recently* stored), with nothing stranger going on.",
+      "parentUuid": "e61750b2_1b33d50f",
+      "range": {
+        "startLine": 95,
+        "startChar": 55,
+        "endLine": 96,
+        "endChar": 46
+      },
+      "revId": "03c237d3504d9424a42ae749cfe58e6f62280257",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

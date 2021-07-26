@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4b1f7d4_49fda950",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-26T15:43:21Z",
+      "side": 1,
+      "message": "The Linux measurement is not really relevant (it is an .a file, we should try to get a .so for it as well). The Android one is a small reduction.",
+      "parentUuid": "11ba9e1c_badaf4f9",
+      "revId": "86f5bf8ceac8ad07633e7921d4970b511f910621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1ad9ad8a_e6d73837",
@@ -35,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6745ce8_49461daa",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 867,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-26T15:43:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ad9ad8a_e6d73837",
+      "revId": "86f5bf8ceac8ad07633e7921d4970b511f910621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3ad0fbc9_b44d35ac",
@@ -48,6 +84,24 @@
       "writtenOn": "2021-07-26T14:30:42Z",
       "side": 1,
       "message": "This wrapper seems unnecessary.",
+      "revId": "86f5bf8ceac8ad07633e7921d4970b511f910621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f22a1d94_b2c3957f",
+        "filename": "rtc_base/network_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-26T15:43:21Z",
+      "side": 1,
+      "message": "It is needed because at line 1133 the test forces the callback to trigger even if the network monitor is not doing it (sigslot members are public, I moved the callback to be private and not accessible except in the test where this method can call the protected invoker).\n\nOr did I misunderstood?",
+      "parentUuid": "3ad0fbc9_b44d35ac",
       "revId": "86f5bf8ceac8ad07633e7921d4970b511f910621",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

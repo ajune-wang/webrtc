@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "145e1f78_26b412fd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-26T07:36:32Z",
+      "side": 1,
+      "message": "Let\u0027s trigger a full CQ dry-run.",
+      "revId": "3481041ac4e0a3f2fbb4e257967b45fe2095aaef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

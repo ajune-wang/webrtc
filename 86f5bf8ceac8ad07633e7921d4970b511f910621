@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11ba9e1c_badaf4f9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-07-26T14:30:42Z",
+      "side": 1,
+      "message": "Some minor improvements seem possible.\nSurprised that this increased binary size....\n",
+      "revId": "86f5bf8ceac8ad07633e7921d4970b511f910621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ad9ad8a_e6d73837",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 867,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-07-26T14:30:42Z",
+      "side": 1,
+      "message": "can you limit capture to \"this\" rather than \"all symbols in scope, by reference\"?",
+      "revId": "86f5bf8ceac8ad07633e7921d4970b511f910621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ad0fbc9_b44d35ac",
+        "filename": "rtc_base/network_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-07-26T14:30:42Z",
+      "side": 1,
+      "message": "This wrapper seems unnecessary.",
+      "revId": "86f5bf8ceac8ad07633e7921d4970b511f910621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

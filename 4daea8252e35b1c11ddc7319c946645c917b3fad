@@ -39,6 +39,30 @@
       },
       "revId": "4daea8252e35b1c11ddc7319c946645c917b3fad",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd309bba_d7afe3ac",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1438,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-27T14:03:27Z",
+      "side": 1,
+      "message": "Yes.\nrtp_header.header_size() in theory might be smaller (in practice - shouldn\u0027t be),\nbut rtp_header.size() would always be the size of the passed buffer.",
+      "parentUuid": "fe05b089_5fb16501",
+      "range": {
+        "startLine": 1438,
+        "startChar": 31,
+        "endLine": 1438,
+        "endChar": 69
+      },
+      "revId": "4daea8252e35b1c11ddc7319c946645c917b3fad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

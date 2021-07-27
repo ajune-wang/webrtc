@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "0319e30c_652cfa18",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-07-27T14:42:35Z",
+      "side": 1,
+      "message": "I don\u0027t quite see how this CL fits into the bug description. Should you file a new bug for \"simplify the inheritance hierarchy around Socket\" and refer that instead?",
+      "revId": "88ef52f0417257d55fc34d4e520dbe36abe0d2c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "607e185a_7bf87904",
@@ -35,6 +52,40 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fae89308_48af6078",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-07-27T14:42:35Z",
+      "side": 1,
+      "message": "Looks good. A couple of small comments.\nOnly significant one is probably that a new bug is needed to explain why you\u0027re doing it.",
+      "revId": "88ef52f0417257d55fc34d4e520dbe36abe0d2c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24db8e95_fad93ee9",
+        "filename": "p2p/base/async_stun_tcp_socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-07-27T14:42:35Z",
+      "side": 1,
+      "message": "Is it part of your plan to remove the \"Async\" part from all these subsidiary classes too?\nOr is that just make-work?",
+      "revId": "88ef52f0417257d55fc34d4e520dbe36abe0d2c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "27a50232_205b31e7",
@@ -60,6 +111,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ddbdb97b_445754e9",
+        "filename": "rtc_base/socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-07-27T14:42:35Z",
+      "side": 1,
+      "message": "or \"the SocketDispatcher may be signaling\"?",
+      "parentUuid": "27a50232_205b31e7",
+      "range": {
+        "startLine": 131,
+        "startChar": 77,
+        "endLine": 131,
+        "endChar": 78
+      },
+      "revId": "88ef52f0417257d55fc34d4e520dbe36abe0d2c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d530bdb9_1229061d",
         "filename": "rtc_base/socket.h",
         "patchSetId": 1
@@ -71,6 +146,30 @@
       "writtenOn": "2021-07-27T14:21:56Z",
       "side": 1,
       "message": "Do you have CLs ready to go?\n\nIf not, I suggest we hold this CL until we know we can remove this quickly.",
+      "range": {
+        "startLine": 146,
+        "startChar": 0,
+        "endLine": 148,
+        "endChar": 0
+      },
+      "revId": "88ef52f0417257d55fc34d4e520dbe36abe0d2c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ad14d42_4221d9df",
+        "filename": "rtc_base/socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-07-27T14:42:35Z",
+      "side": 1,
+      "message": "Is it possible to mark using statements ABSL_DEPRECATED?\nI know it\u0027s possible for classes.",
+      "parentUuid": "d530bdb9_1229061d",
       "range": {
         "startLine": 146,
         "startChar": 0,

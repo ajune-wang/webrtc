@@ -18,6 +18,40 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "71e34b7f_888c63ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-07-27T14:25:18Z",
+      "side": 1,
+      "message": "+1 because it\u0027s a significant improvement, but there\u0027s more to fix....\n",
+      "revId": "523010879a8f36361cabdc17f1f52e975e24e374",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "239b9816_e0395b19",
+        "filename": "rtc_base/async_socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-07-27T14:25:18Z",
+      "side": 1,
+      "message": "Wrapping a pointer of uncertain ownership is not happy-making.\nCan you make a constructor that takes a std::unique_ptr\u003c\u003e and mark the raw-pointer one as RTC_DEPRECATED - alternatively add a TODO to do so later?",
+      "revId": "523010879a8f36361cabdc17f1f52e975e24e374",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ae53b238_cad85897",
@@ -37,6 +71,47 @@
         "endLine": 29,
         "endChar": 77
       },
+      "revId": "523010879a8f36361cabdc17f1f52e975e24e374",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e77e685_d0c2dc3c",
+        "filename": "rtc_base/async_socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-07-27T14:25:18Z",
+      "side": 1,
+      "message": "If we can\u0027t find any usages of null wrapped-socket, I think it\u0027s good to prevent it in the future. Should we make it a CHECK rather than DCHECK?",
+      "parentUuid": "ae53b238_cad85897",
+      "range": {
+        "startLine": 25,
+        "startChar": 2,
+        "endLine": 29,
+        "endChar": 77
+      },
+      "revId": "523010879a8f36361cabdc17f1f52e975e24e374",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "629896b9_03ee88cd",
+        "filename": "rtc_base/async_socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-07-27T14:25:18Z",
+      "side": 1,
+      "message": "\u003csigh of relief\u003e - good to see this!",
       "revId": "523010879a8f36361cabdc17f1f52e975e24e374",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

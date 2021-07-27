@@ -16,6 +16,29 @@
       "message": "Smaller cleanup. A bit unclear to me what\u0027s the point of this \"adapter\" class. Looks like it just hooks the sigslots to virtual methods on the class itself. But the Attach feature appears unused.",
       "revId": "523010879a8f36361cabdc17f1f52e975e24e374",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae53b238_cad85897",
+        "filename": "rtc_base/async_socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-27T14:12:24Z",
+      "side": 1,
+      "message": "The original code tolerates nullptr and this might be interesting in release builds, where DCHECK doesn\u0027t trigger and WebRTC avoids to dereference socket_ but here we removed that. Is that ok?",
+      "range": {
+        "startLine": 25,
+        "startChar": 2,
+        "endLine": 29,
+        "endChar": 77
+      },
+      "revId": "523010879a8f36361cabdc17f1f52e975e24e374",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

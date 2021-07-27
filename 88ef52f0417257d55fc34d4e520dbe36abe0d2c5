@@ -16,6 +16,69 @@
       "message": "PTAL. Sorry for a large cl...",
       "revId": "88ef52f0417257d55fc34d4e520dbe36abe0d2c5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ed25f05_f2343f98",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-27T14:21:56Z",
+      "side": 1,
+      "message": "I assume this is not an API change (no api/ code is changed here) but maybe socket leaks the API boundary. Is this assumption correct?",
+      "revId": "88ef52f0417257d55fc34d4e520dbe36abe0d2c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27a50232_205b31e7",
+        "filename": "rtc_base/socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-27T14:21:56Z",
+      "side": 1,
+      "message": "Should this be \"is\"?",
+      "range": {
+        "startLine": 131,
+        "startChar": 77,
+        "endLine": 131,
+        "endChar": 78
+      },
+      "revId": "88ef52f0417257d55fc34d4e520dbe36abe0d2c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d530bdb9_1229061d",
+        "filename": "rtc_base/socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-27T14:21:56Z",
+      "side": 1,
+      "message": "Do you have CLs ready to go?\n\nIf not, I suggest we hold this CL until we know we can remove this quickly.",
+      "range": {
+        "startLine": 146,
+        "startChar": 0,
+        "endLine": 148,
+        "endChar": 0
+      },
+      "revId": "88ef52f0417257d55fc34d4e520dbe36abe0d2c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -39,6 +39,30 @@
       },
       "revId": "760b8b55b1f2982f29aa02c404e9bc20c68b2efe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "598d8534_e4d4db2b",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1899,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-07-27T08:21:21Z",
+      "side": 1,
+      "message": "No, this is still a problem AFAIKT. Maybe move this to line 1830?",
+      "parentUuid": "58bf4f0f_3b2fc4b3",
+      "range": {
+        "startLine": 1899,
+        "startChar": 2,
+        "endLine": 1899,
+        "endChar": 35
+      },
+      "revId": "760b8b55b1f2982f29aa02c404e9bc20c68b2efe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

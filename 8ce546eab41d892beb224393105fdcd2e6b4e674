@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddda6692_839c6c38",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-07-27T13:28:13Z",
+      "side": 1,
+      "message": "Hi, I made a CL to get rid of multiple ToI420() calls due to Android implementation issues.\nThis has been fixed from https://webrtc-review.googlesource.com/c/src/+/223080.\nPlease take a look. Thank you.",
+      "revId": "8ce546eab41d892beb224393105fdcd2e6b4e674",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

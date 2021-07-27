@@ -28,6 +28,7 @@
 #include "modules/include/module_fec_types.h"
 #include "modules/remote_bitrate_estimator/include/remote_bitrate_estimator.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"  // RTCPPacketType
+#include "modules/rtp_rtcp/source/packet_sequencer.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/tmmb_item.h"
 #include "modules/rtp_rtcp/source/rtcp_receiver.h"
 #include "modules/rtp_rtcp/source/rtcp_sender.h"
@@ -265,6 +266,11 @@ class ModuleRtpRtcpImpl2 final : public RtpRtcpInterface,
     void AssignSequenceNumber(RtpPacketToSend* packet) override;
     // Storage of packets, for retransmissions and padding, if applicable.
     RtpPacketHistory packet_history;
+    // If false, sequencing is owned by |packet_generator| and can happen on
+    // several threads. If true, sequencing always happens on the pacer thread.
+    const bool deferred_sequencing_;
+    // Handles sequence number assignment and padding timestamp generation.
+    PacketSequencer sequencer_;
     // Handles final time timestamping/stats/etc and handover to Transport.
     RtpSenderEgress packet_sender;
     // If no paced sender configured, this class will be used to pass packets
@@ -305,6 +311,7 @@ class ModuleRtpRtcpImpl2 final : public RtpRtcpInterface,
 
   TaskQueueBase* const worker_queue_;
   RTC_NO_UNIQUE_ADDRESS SequenceChecker packet_sequence_checker_;
+  RTC_NO_UNIQUE_ADDRESS SequenceChecker pacer_thread_checker_;
 
   std::unique_ptr<RtpSenderContext> rtp_sender_;
   RTCPSender rtcp_sender_;

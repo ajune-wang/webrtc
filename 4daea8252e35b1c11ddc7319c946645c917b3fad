@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c94c37ea_f0043b73",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5522
+      },
+      "writtenOn": "2021-07-27T11:17:39Z",
+      "side": 1,
+      "message": "LGTM % one question",
+      "revId": "4daea8252e35b1c11ddc7319c946645c917b3fad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe05b089_5fb16501",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1438,
+      "author": {
+        "id": 5522
+      },
+      "writtenOn": "2021-07-27T11:17:39Z",
+      "side": 1,
+      "message": "Is rtp_header.size() always equal to rtp_packet.header().size()?",
+      "range": {
+        "startLine": 1438,
+        "startChar": 31,
+        "endLine": 1438,
+        "endChar": 69
+      },
+      "revId": "4daea8252e35b1c11ddc7319c946645c917b3fad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -16,6 +16,173 @@
       "message": "This CL is a bit complex at the moment, but provides the full context for what it\u0027s trying to do. I could possibly break some things out to smaller CLs (rtp_sender.*, the RtpState tests from rtp_rtcp_impl2) but for most of the glue code that makes little sense. Let me know what you prefer.",
       "revId": "355b66b558b85ee6ac586b2129c444f26b573aa8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f65234c7_1995943a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-27T14:47:18Z",
+      "side": 1,
+      "message": "breaking would be nice:\nwhich changes split over 10+ files I\u0027m not sure what order to read them to understand what\u0027s going on.\ne.g. I see \u0027deferred_sequencing_\u0027 boolean added to several classes. if you can split out lower level class first with this new member, it would be easier to swallow.\nalso it seems some classes slightly change behaviour (e.g. PacketSequencer) but that is not reflected with unit tests.\nhttps://testing.googleblog.com/2010/08/test-driven-code-review.html",
+      "parentUuid": "0f7745fa_9de55200",
+      "revId": "355b66b558b85ee6ac586b2129c444f26b573aa8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "22c3484c_d9ce0c04",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-27T14:47:18Z",
+      "side": 1,
+      "message": "may be comment why max is 15 bits, while valid value is 16 bits",
+      "range": {
+        "startLine": 82,
+        "startChar": 4,
+        "endLine": 82,
+        "endChar": 41
+      },
+      "revId": "355b66b558b85ee6ac586b2129c444f26b573aa8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5954d09b_bda145d0",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-27T14:47:18Z",
+      "side": 1,
+      "message": "personally I prefer to write this constant as 0x7fff;",
+      "range": {
+        "startLine": 83,
+        "startChar": 46,
+        "endLine": 83,
+        "endChar": 65
+      },
+      "revId": "355b66b558b85ee6ac586b2129c444f26b573aa8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a128fd29_d756101a",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-27T14:47:18Z",
+      "side": 1,
+      "message": "this section is wrong: members shouldn\u0027t be public.\ncan you please avoid expanding the wrong section and put the new member down into private section\nhttps://google.github.io/styleguide/cppguide.html#Access_Control",
+      "revId": "355b66b558b85ee6ac586b2129c444f26b573aa8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f7ca40d_1a55f195",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-27T14:47:18Z",
+      "side": 1,
+      "message": "or\n  if (is_sender_) \n    config.rtx_send_ssrc \u003d kRtxSenderSsrc\nor\n  config.rtx_send_ssrc \u003d\n        is_sender_ ? absl::make_optional(kRtxSenderSsrc) : absl::nullopt;\n        \npeak any of the 3 you find nicer.",
+      "range": {
+        "startLine": 286,
+        "startChar": 4,
+        "endLine": 287,
+        "endChar": 78
+      },
+      "revId": "355b66b558b85ee6ac586b2129c444f26b573aa8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "458be71a_55423268",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-27T14:47:18Z",
+      "side": 1,
+      "message": "Keep members private",
+      "revId": "355b66b558b85ee6ac586b2129c444f26b573aa8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2dfbcc22_65505324",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 1110,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-27T14:47:18Z",
+      "side": 1,
+      "message": "you probably do not need to spell std::list type explicitly, `OnReceivedRtcpReportBlocks({ack});` should work.\n\nIf someone would later decide to switch std::list to std::vector or some other container, this test won\u0027t need an update.",
+      "range": {
+        "startLine": 1110,
+        "startChar": 44,
+        "endLine": 1110,
+        "endChar": 70
+      },
+      "revId": "355b66b558b85ee6ac586b2129c444f26b573aa8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9a6d3d0_a265b791",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-27T14:47:18Z",
+      "side": 1,
+      "message": "this function doesn\u0027t need to outlive call to the GeneratePadding?\nconsider passing rtc::FunctionView\u003cbool()\u003e instead",
+      "range": {
+        "startLine": 105,
+        "startChar": 6,
+        "endLine": 105,
+        "endChar": 19
+      },
+      "revId": "355b66b558b85ee6ac586b2129c444f26b573aa8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

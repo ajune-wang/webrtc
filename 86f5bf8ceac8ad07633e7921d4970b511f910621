@@ -104,6 +104,24 @@
       "parentUuid": "3ad0fbc9_b44d35ac",
       "revId": "86f5bf8ceac8ad07633e7921d4970b511f910621",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9edb5df_ed886aa2",
+        "filename": "rtc_base/network_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-07-27T14:31:50Z",
+      "side": 1,
+      "message": "Aha. InvokeNetworksChangedCallback is protected not public (and shouldn\u0027t be public), so the test couldn\u0027t just call InvokeNetworksChangedCallback. Can you name the wrapper InovkeNetworksChangedCallbackForTesting?",
+      "parentUuid": "f22a1d94_b2c3957f",
+      "revId": "86f5bf8ceac8ad07633e7921d4970b511f910621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

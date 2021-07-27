@@ -73,7 +73,7 @@
   // Make sure we don't have this renderer yet.
   for (RTCVideoRendererAdapter *adapter in _adapters) {
     if (adapter.videoRenderer == renderer) {
-      NSAssert(NO, @"|renderer| is already attached to this track");
+      NSAssert(NO, @"`renderer` is already attached to this track");
       return;
     }
   }

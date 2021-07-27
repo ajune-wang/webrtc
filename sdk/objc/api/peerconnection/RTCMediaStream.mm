@@ -62,7 +62,7 @@
 - (void)removeAudioTrack:(RTC_OBJC_TYPE(RTCAudioTrack) *)audioTrack {
   NSUInteger index = [_audioTracks indexOfObjectIdenticalTo:audioTrack];
   NSAssert(index != NSNotFound,
-           @"|removeAudioTrack| called on unexpected RTC_OBJC_TYPE(RTCAudioTrack)");
+           @"`removeAudioTrack` called on unexpected RTC_OBJC_TYPE(RTCAudioTrack)");
   if (index != NSNotFound &&
       _nativeMediaStream->RemoveTrack(audioTrack.nativeAudioTrack)) {
     [_audioTracks removeObjectAtIndex:index];
@@ -72,7 +72,7 @@
 - (void)removeVideoTrack:(RTC_OBJC_TYPE(RTCVideoTrack) *)videoTrack {
   NSUInteger index = [_videoTracks indexOfObjectIdenticalTo:videoTrack];
   NSAssert(index != NSNotFound,
-           @"|removeVideoTrack| called on unexpected RTC_OBJC_TYPE(RTCVideoTrack)");
+           @"`removeVideoTrack` called on unexpected RTC_OBJC_TYPE(RTCVideoTrack)");
   if (index != NSNotFound &&
       _nativeMediaStream->RemoveTrack(videoTrack.nativeVideoTrack)) {
     [_videoTracks removeObjectAtIndex:index];

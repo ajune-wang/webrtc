@@ -173,8 +173,8 @@ void ValidateParams(
             !video_config.simulcast_config->encoding_params.empty()) {
           RTC_CHECK_EQ(video_config.simulcast_config->simulcast_streams_count,
                        video_config.simulcast_config->encoding_params.size())
-              << "|encoding_params| have to be specified for each simulcast "
-              << "stream in |simulcast_config|.";
+              << "`encoding_params` have to be specified for each simulcast "
+              << "stream in `simulcast_config`.";
         }
       }
     }

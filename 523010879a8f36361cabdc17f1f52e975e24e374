@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1277c863_5b59ab39",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-07-27T13:53:28Z",
+      "side": 1,
+      "message": "Smaller cleanup. A bit unclear to me what\u0027s the point of this \"adapter\" class. Looks like it just hooks the sigslots to virtual methods on the class itself. But the Attach feature appears unused.",
+      "revId": "523010879a8f36361cabdc17f1f52e975e24e374",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

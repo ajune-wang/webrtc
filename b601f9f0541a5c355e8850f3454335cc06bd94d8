@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c47208b7_77edd769",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-27T16:12:15Z",
+      "side": 1,
+      "message": "LGTM (CQ is slow because we are landing a lot of CLs) :) ",
+      "revId": "b601f9f0541a5c355e8850f3454335cc06bd94d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

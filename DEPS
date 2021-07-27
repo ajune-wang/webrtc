@@ -402,12 +402,12 @@ deps = {
               'version': '8tF0AOj7Dwlv4j7_nfkhxWB0jzrvWWYjEIpirt8FIWYC',
           },
           {
-              'package': 'chromium/third_party/android_sdk/public/platforms/android-30',
-              'version': 'YMUu9EHNZ__2Xcxl-KsaSf-dI5TMt_P62IseUVsxktMC',
+              'package': 'chromium/third_party/android_sdk/public/sources/android-30',
+              'version': 'n7svc8KYah-i4s8zwkVa85SI3_H0WFOniP0mpwNdFO0C',
           },
           {
-              'package': 'chromium/third_party/android_sdk/public/sources/android-29',
-              'version': '4gxhM8E62bvZpQs7Q3d0DinQaW0RLCIefhXrQBFkNy8C',
+              'package': 'chromium/third_party/android_sdk/public/platforms/android-31',
+              'version': 'lL3IGexKjYlwjO_1Ga-xwxgwbE_w-lmi2Zi1uOlWUIAC',
           },
           {
               'package': 'chromium/third_party/android_sdk/public/cmdline-tools',

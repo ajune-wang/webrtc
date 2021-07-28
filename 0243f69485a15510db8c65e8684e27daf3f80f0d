@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "da6597c3_bdb8a520",
+        "filename": "modules/video_coding/codecs/vp9/test/vp9_impl_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2350,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2021-07-28T11:06:52Z",
+      "side": 1,
+      "message": "I verified that it actually sets the same bitrate for all temporal layers, but I agree it\u0027s not clear that happens.\n\nI changed the test to configure bitrate on all layers.",
+      "parentUuid": "3ad2afca_9ba356b4",
+      "range": {
+        "startLine": 2350,
+        "startChar": 12,
+        "endLine": 2350,
+        "endChar": 13
+      },
+      "revId": "0243f69485a15510db8c65e8684e27daf3f80f0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "bf7c53f6_929fb4af",
         "filename": "modules/video_coding/codecs/vp9/test/vp9_impl_unittest.cc",
         "patchSetId": 4
@@ -37,6 +61,30 @@
       "writtenOn": "2021-07-28T10:51:09Z",
       "side": 1,
       "message": "nit: may be instead of using DoAll,\nadd `return VPX_CODEC_OK;` statement inside this lambda",
+      "range": {
+        "startLine": 2365,
+        "startChar": 57,
+        "endLine": 2365,
+        "endChar": 58
+      },
+      "revId": "0243f69485a15510db8c65e8684e27daf3f80f0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "165accf2_d659d1e9",
+        "filename": "modules/video_coding/codecs/vp9/test/vp9_impl_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2365,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2021-07-28T11:06:52Z",
+      "side": 1,
+      "message": "Nice, fixed",
+      "parentUuid": "bf7c53f6_929fb4af",
       "range": {
         "startLine": 2365,
         "startChar": 57,

@@ -16,6 +16,23 @@
       "message": "Michael, can you take a look if I get this right? :) ",
       "revId": "1574b463793d7da116698300429f3432a249a65d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d92de0c_ac4ef0f5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6756
+      },
+      "writtenOn": "2021-07-28T21:32:25Z",
+      "side": 1,
+      "message": "Probably all good. But I can\u0027t CR+1 in this project. So I say LGTM!\n\nAlso deferring to folks that commented on the bug you refer to. According to docu it looks right to me ~ some nit picking.\n\nThe last one depends on if it indeed meant all .lua files in the project or some specific .lua files in the main dir. For gn I believe it means all. Guess the same for lua.\n\nCan the BUILD.gn rule not be reduced to one rule saying ...BUILD.gn? Or are you afraid it matches my/path/FOO-BUILD.gn?\n\nFrom the docu it\u0027s not clear to me if 4 dots always resolve the 3 dots first? Eg. can ....gni match `.my/cool/yagni` ?",
+      "revId": "1574b463793d7da116698300429f3432a249a65d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

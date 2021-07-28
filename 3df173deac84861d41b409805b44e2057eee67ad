@@ -16,6 +16,24 @@
       "message": "PTAL",
       "revId": "3df173deac84861d41b409805b44e2057eee67ad",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c6dceef_975c810b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5310
+      },
+      "writtenOn": "2021-07-28T00:16:28Z",
+      "side": 1,
+      "message": "Haha nm, didn\u0027t realize I can send to CQ directly in this repo...",
+      "parentUuid": "98dfa407_7f390b08",
+      "revId": "3df173deac84861d41b409805b44e2057eee67ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

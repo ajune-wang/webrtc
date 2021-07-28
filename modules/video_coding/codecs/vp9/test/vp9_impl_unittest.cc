@@ -538,7 +538,7 @@ TEST(Vp9ImplTest, EnableDisableSpatialLayersWithSvcController) {
         bitrate_allocation, codec_settings.maxFramerate));
 
     frames = producer.SetNumInputFrames(num_frames_to_encode).Encode();
-    // With |sl_idx| spatial layer disabled, there are |sl_idx| spatial layers
+    // With `sl_idx` spatial layer disabled, there are `sl_idx` spatial layers
     // left.
     ASSERT_THAT(frames, SizeIs(num_frames_to_encode * sl_idx));
     for (size_t i = 0; i < frames.size(); ++i) {
@@ -1725,10 +1725,10 @@ TEST_F(TestVp9Impl, EncoderInfoWithoutResolutionBitrateLimits) {
 TEST_F(TestVp9Impl, EncoderInfoWithBitrateLimitsFromFieldTrial) {
   test::ScopedFieldTrials field_trials(
       "WebRTC-VP9-GetEncoderInfoOverride/"
-      "frame_size_pixels:123|456|789,"
-      "min_start_bitrate_bps:11000|22000|33000,"
-      "min_bitrate_bps:44000|55000|66000,"
-      "max_bitrate_bps:77000|88000|99000/");
+      "frame_size_pixels:123`456`789,"
+      "min_start_bitrate_bps:11000`22000`33000,"
+      "min_bitrate_bps:44000`55000`66000,"
+      "max_bitrate_bps:77000`88000`99000/");
   SetUp();
 
   EXPECT_THAT(

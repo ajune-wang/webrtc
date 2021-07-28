@@ -548,10 +548,10 @@ TEST(LibvpxVp8EncoderTest, RequestedResolutionAlignmentFromFieldTrial) {
 TEST(LibvpxVp8EncoderTest, ResolutionBitrateLimitsFromFieldTrial) {
   test::ScopedFieldTrials field_trials(
       "WebRTC-VP8-GetEncoderInfoOverride/"
-      "frame_size_pixels:123|456|789,"
-      "min_start_bitrate_bps:11000|22000|33000,"
-      "min_bitrate_bps:44000|55000|66000,"
-      "max_bitrate_bps:77000|88000|99000/");
+      "frame_size_pixels:123`456`789,"
+      "min_start_bitrate_bps:11000`22000`33000,"
+      "min_bitrate_bps:44000`55000`66000,"
+      "max_bitrate_bps:77000`88000`99000/");
 
   auto* const vpx = new NiceMock<MockLibvpxInterface>();
   LibvpxVp8Encoder encoder((std::unique_ptr<LibvpxInterface>(vpx)),

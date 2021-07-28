@@ -16,6 +16,23 @@
       "message": "LGTM (CQ is slow because we are landing a lot of CLs) :) ",
       "revId": "b601f9f0541a5c355e8850f3454335cc06bd94d8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "916b248e_1e057640",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-28T13:51:29Z",
+      "side": 1,
+      "message": "Hmm, I think the best way to land this is to do a full roll. I didn\u0027t realize it was failing.\n\nCan you checkout main and then comment out the assertion causing the issue (keeping the log) and then run:\n\n$ ./tools_webrtc/autoroller/roll_deps.py\n\nThis will create a new branch and roll all DEPS. After this uncomment the assert (basically reverting the commit on main).",
+      "revId": "b601f9f0541a5c355e8850f3454335cc06bd94d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

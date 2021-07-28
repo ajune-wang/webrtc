@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ad2afca_9ba356b4",
+        "filename": "modules/video_coding/codecs/vp9/test/vp9_impl_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2350,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-28T10:51:09Z",
+      "side": 1,
+      "message": "3 temporal layers are configured above, but bitrate is set just for the base temporal layer, thus disabling higher temporal layers.\nI\u0027m worried that make test pass for a wrong reason.",
+      "range": {
+        "startLine": 2350,
+        "startChar": 12,
+        "endLine": 2350,
+        "endChar": 13
+      },
+      "revId": "0243f69485a15510db8c65e8684e27daf3f80f0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf7c53f6_929fb4af",
+        "filename": "modules/video_coding/codecs/vp9/test/vp9_impl_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2365,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-28T10:51:09Z",
+      "side": 1,
+      "message": "nit: may be instead of using DoAll,\nadd `return VPX_CODEC_OK;` statement inside this lambda",
+      "range": {
+        "startLine": 2365,
+        "startChar": 57,
+        "endLine": 2365,
+        "endChar": 58
+      },
+      "revId": "0243f69485a15510db8c65e8684e27daf3f80f0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

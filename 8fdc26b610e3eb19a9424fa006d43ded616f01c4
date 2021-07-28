@@ -16,6 +16,173 @@
       "message": "PTAL, thanks!",
       "revId": "8fdc26b610e3eb19a9424fa006d43ded616f01c4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37f6c88b_df1532d5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-28T14:35:05Z",
+      "side": 1,
+      "message": "you asked to take a look, but haven\u0027t assign any reviewers.\nWho do you want to look at it?\n\n(I took a look at the modules/rtp_rtcp part)",
+      "parentUuid": "07357a79_6b3047d5",
+      "revId": "8fdc26b610e3eb19a9424fa006d43ded616f01c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "678a0535_248893c9",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-28T14:35:05Z",
+      "side": 1,
+      "message": "this sender report might from unrelated ssrc",
+      "range": {
+        "startLine": 471,
+        "startChar": 8,
+        "endLine": 471,
+        "endChar": 19
+      },
+      "revId": "8fdc26b610e3eb19a9424fa006d43ded616f01c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90fb7e5b_01bb1812",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-28T14:35:05Z",
+      "side": 1,
+      "message": "spec mentions sender report without matching DLRR block inside eXtendedReport, but extended report (in theory) may contain other blocks (currently it supports also RRTR and TargetBitrate. those those two unlikely will be send to this receiver, another XR block might be implemented in the future)\n\nplus same issue as with sender report: might be good idea to double check sender_ssrc of this ExcendedReports message.",
+      "range": {
+        "startLine": 481,
+        "startChar": 8,
+        "endLine": 481,
+        "endChar": 19
+      },
+      "revId": "8fdc26b610e3eb19a9424fa006d43ded616f01c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4be214f_d49b45d6",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 871,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-28T14:35:05Z",
+      "side": 1,
+      "message": "why this block?\n(spec doesn\u0027t mention \u0027received XR without DLRR\u0027 as valid scenario to reset latest RTT)",
+      "revId": "8fdc26b610e3eb19a9424fa006d43ded616f01c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a956d22_daca7462",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-28T14:35:05Z",
+      "side": 1,
+      "message": "thought at the api level RTT is reported as double, inside webrtc it might be more convenient/safer to pass it using TimeDelta type\n(to avoid issues with forgetting to convert it between s/ms/us)",
+      "range": {
+        "startLine": 83,
+        "startChar": 19,
+        "endLine": 83,
+        "endChar": 25
+      },
+      "revId": "8fdc26b610e3eb19a9424fa006d43ded616f01c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3da1fb25_f11c825a",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-28T14:35:05Z",
+      "side": 1,
+      "message": "may be size_t or int\nhttps://google.github.io/styleguide/cppguide.html#Integer_Types\n\n\"You should not use the unsigned integer types such as uint32_t, unless there is a valid reason such as representing a bit pattern rather than a number, or you need defined overflow modulo 2^N.\"",
+      "range": {
+        "startLine": 85,
+        "startChar": 4,
+        "endLine": 85,
+        "endChar": 12
+      },
+      "revId": "8fdc26b610e3eb19a9424fa006d43ded616f01c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93a7cdfe_8eb5bf68",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-28T14:35:05Z",
+      "side": 1,
+      "message": "prefer to write type explicitly here (that makes it easier to read/navigate code)\n\nhttps://google.github.io/styleguide/cppguide.html#Type_deduction\n\n\"use type deduction only to make the code clearer or safer, and do not use it merely to avoid the inconvenience of writing an explicit type\"",
+      "range": {
+        "startLine": 516,
+        "startChar": 2,
+        "endLine": 516,
+        "endChar": 6
+      },
+      "revId": "8fdc26b610e3eb19a9424fa006d43ded616f01c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a7e95ad_25cfb080",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-28T14:35:05Z",
+      "side": 1,
+      "message": "these fields feels misplaced: they are not part of or derived from Sender Report as described in RFC3550\n\nThey are derived from ExtendedReport rtcp message and are covered by a different spec.\n\nI\u0027m not sure what is a better place.\nAlternative solution would be to rename this struct (to something like RemoteSenderStats) and update comment/documentation what this struct is.",
+      "revId": "8fdc26b610e3eb19a9424fa006d43ded616f01c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

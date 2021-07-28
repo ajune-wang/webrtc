@@ -46,6 +46,13 @@ declare_args() {
   # expand to code that will manage symbols visibility.
   rtc_enable_symbol_export = false
 
+  # Setting this to true will make RTC_OBJC_EXPORT expand to code that will
+  # manage symbols visibility. By default, Obj-C/Obj-C++ symbols are exported
+  # if C++ symbols are but setting this arg to true while keeping
+  # rtc_enable_symbol_export=false will only export RTC_OBJC_EXPORT
+  # annotated symbols.
+  rtc_enable_objc_symbol_export = rtc_enable_symbol_export
+
   # Setting this to true will define WEBRTC_EXCLUDE_FIELD_TRIAL_DEFAULT which
   # will tell the pre-processor to remove the default definition of symbols
   # needed to use field_trial. In that case a new implementation needs to be

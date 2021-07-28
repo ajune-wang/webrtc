@@ -36,6 +36,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "55357f75_af8ec9ca",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-07-28T19:13:44Z",
+      "side": 1,
+      "message": "Sorry, I added the reviewers to CC by accident. I have now added you and hta@ as reviewers. Thanks for the comments!",
+      "parentUuid": "37f6c88b_df1532d5",
+      "revId": "8fdc26b610e3eb19a9424fa006d43ded616f01c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "678a0535_248893c9",
@@ -49,6 +67,30 @@
       "writtenOn": "2021-07-28T14:35:05Z",
       "side": 1,
       "message": "this sender report might from unrelated ssrc",
+      "range": {
+        "startLine": 471,
+        "startChar": 8,
+        "endLine": 471,
+        "endChar": 19
+      },
+      "revId": "8fdc26b610e3eb19a9424fa006d43ded616f01c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "322421f8_6dbea94f",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-07-28T19:13:44Z",
+      "side": 1,
+      "message": "Ah, thanks for pointing that out. I\u0027m not that familiar with RTCP, so I didn\u0027t realize that was a possibility. I noticed that inside HandleSenderReport we store the SSRC from the sender report in packet_information-\u003eremote_ssrc, so I assumed that this remote_ssrc would be valid for all the report blocks.\n\nI\u0027ve now updated to code to add some more bookkeeping to match the SSRCs of the SR and DLRR blocks. PTAL.",
+      "parentUuid": "678a0535_248893c9",
       "range": {
         "startLine": 471,
         "startChar": 8,
@@ -84,6 +126,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "98fd75bf_f98d5137",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-07-28T19:13:44Z",
+      "side": 1,
+      "message": "Good point, I\u0027ve now updated this code. PTAL.",
+      "parentUuid": "90fb7e5b_01bb1812",
+      "range": {
+        "startLine": 481,
+        "startChar": 8,
+        "endLine": 481,
+        "endChar": 19
+      },
+      "revId": "8fdc26b610e3eb19a9424fa006d43ded616f01c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a4be214f_d49b45d6",
         "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
         "patchSetId": 1
@@ -95,6 +161,24 @@
       "writtenOn": "2021-07-28T14:35:05Z",
       "side": 1,
       "message": "why this block?\n(spec doesn\u0027t mention \u0027received XR without DLRR\u0027 as valid scenario to reset latest RTT)",
+      "revId": "8fdc26b610e3eb19a9424fa006d43ded616f01c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "145c3a59_931541bb",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 871,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-07-28T19:13:44Z",
+      "side": 1,
+      "message": "Agreed, I\u0027ve removed this code. Now invalidation only happens in the ParseCompoundPacket() method.",
+      "parentUuid": "a4be214f_d49b45d6",
       "revId": "8fdc26b610e3eb19a9424fa006d43ded616f01c4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -112,6 +196,30 @@
       "writtenOn": "2021-07-28T14:35:05Z",
       "side": 1,
       "message": "thought at the api level RTT is reported as double, inside webrtc it might be more convenient/safer to pass it using TimeDelta type\n(to avoid issues with forgetting to convert it between s/ms/us)",
+      "range": {
+        "startLine": 83,
+        "startChar": 19,
+        "endLine": 83,
+        "endChar": 25
+      },
+      "revId": "8fdc26b610e3eb19a9424fa006d43ded616f01c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fec9ce0_2319522e",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-07-28T19:13:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a956d22_daca7462",
       "range": {
         "startLine": 83,
         "startChar": 19,
@@ -145,6 +253,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bff289dd_1ccd6eb7",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-07-28T19:13:44Z",
+      "side": 1,
+      "message": "Done. I only used uint64_t because that is the type that is specified in the standard. But you\u0027re right that it\u0027s fine to use a different type here.",
+      "parentUuid": "3da1fb25_f11c825a",
+      "range": {
+        "startLine": 85,
+        "startChar": 4,
+        "endLine": 85,
+        "endChar": 12
+      },
+      "revId": "8fdc26b610e3eb19a9424fa006d43ded616f01c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "93a7cdfe_8eb5bf68",
@@ -168,6 +300,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "992399c5_7c133209",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-07-28T19:13:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93a7cdfe_8eb5bf68",
+      "range": {
+        "startLine": 516,
+        "startChar": 2,
+        "endLine": 516,
+        "endChar": 6
+      },
+      "revId": "8fdc26b610e3eb19a9424fa006d43ded616f01c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7a7e95ad_25cfb080",
@@ -181,6 +337,24 @@
       "writtenOn": "2021-07-28T14:35:05Z",
       "side": 1,
       "message": "these fields feels misplaced: they are not part of or derived from Sender Report as described in RFC3550\n\nThey are derived from ExtendedReport rtcp message and are covered by a different spec.\n\nI\u0027m not sure what is a better place.\nAlternative solution would be to rename this struct (to something like RemoteSenderStats) and update comment/documentation what this struct is.",
+      "revId": "8fdc26b610e3eb19a9424fa006d43ded616f01c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "076d7e4b_7da45b08",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-07-28T19:13:44Z",
+      "side": 1,
+      "message": "Good point, I\u0027ve renamed the struct and updated the documentation. PTAL.",
+      "parentUuid": "7a7e95ad_25cfb080",
       "revId": "8fdc26b610e3eb19a9424fa006d43ded616f01c4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

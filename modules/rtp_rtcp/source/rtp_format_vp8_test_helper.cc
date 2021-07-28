@@ -24,17 +24,17 @@ constexpr RtpPacketToSend::ExtensionManager* kNoExtensions = nullptr;
 // Payload descriptor
 //       0 1 2 3 4 5 6 7
 //      +-+-+-+-+-+-+-+-+
-//      |X|R|N|S|PartID | (REQUIRED)
+//      `X`R`N`S|PartID | (REQUIRED)
 //      +-+-+-+-+-+-+-+-+
-// X:   |I|L|T|K|  RSV  | (OPTIONAL)
+// X:   `I`L`T`K|  RSV  | (OPTIONAL)
 //      +-+-+-+-+-+-+-+-+
-//      |M| PictureID   |
+//      `M` PictureID   |
 // I:   +-+-+-+-+-+-+-+-+ (OPTIONAL)
 //      |   PictureID   |
 //      +-+-+-+-+-+-+-+-+
 // L:   |   TL0PICIDX   | (OPTIONAL)
 //      +-+-+-+-+-+-+-+-+
-// T/K: |TID|Y| KEYIDX  | (OPTIONAL)
+// T/K: `TID`Y| KEYIDX  | (OPTIONAL)
 //      +-+-+-+-+-+-+-+-+
 
 int Bit(uint8_t byte, int position) {

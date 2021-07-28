@@ -98,9 +98,9 @@ bool RtpPacketizerVp8::NextPacket(RtpPacketToSend* packet) {
 //       0
 //       0 1 2 3 4 5 6 7 8
 //      +-+-+-+-+-+-+-+-+-+
-//      |X| |N|S| PART_ID |
+//      `X` `N`S| PART_ID |
 //      +-+-+-+-+-+-+-+-+-+
-// X:   |I|L|T|K|         | (mandatory if any of the below are used)
+// X:   `I`L`T`K|         | (mandatory if any of the below are used)
 //      +-+-+-+-+-+-+-+-+-+
 // I:   |PictureID   (16b)| (optional)
 //      +-+-+-+-+-+-+-+-+-+

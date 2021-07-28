@@ -152,7 +152,7 @@ SpatialLayersBitmasks SpatialLayersBitmasksPerRtpStream(
 }  // namespace
 
 //                           +-+-+-+-+-+-+-+-+
-//                           |RID| NS| sl_bm |
+//                           `RID` NS| sl_bm |
 //                           +-+-+-+-+-+-+-+-+
 // Spatial layer bitmask     |sl0_bm |sl1_bm |
 //   up to 2 bytes           |---------------|

@@ -28,13 +28,13 @@ namespace {
 // RTP payload syntax:
 //     0 1 2 3 4 5 6 7
 //    +-+-+-+-+-+-+-+-+
-//    |Z|Y| W |N|-|-|-| (REQUIRED)
+//    `Z`Y| W `N`-|-|-| (REQUIRED)
 //    +=+=+=+=+=+=+=+=+ (REPEATED W-1 times, or any times if W = 0)
-//    |1|             |
+//    `1`             |
 //    +-+ OBU fragment|
-//    |1|             | (REQUIRED, leb128 encoded)
+//    `1`             | (REQUIRED, leb128 encoded)
 //    +-+    size     |
-//    |0|             |
+//    `0`             |
 //    +-+-+-+-+-+-+-+-+
 //    |  OBU fragment |
 //    |     ...       |
@@ -49,15 +49,15 @@ namespace {
 // OBU syntax:
 //     0 1 2 3 4 5 6 7
 //    +-+-+-+-+-+-+-+-+
-//    |0| type  |X|S|-| (REQUIRED)
+//    `0` type  `X`S|-| (REQUIRED)
 //    +-+-+-+-+-+-+-+-+
-// X: | TID |SID|-|-|-| (OPTIONAL)
+// X: | TID `SID`-|-|-| (OPTIONAL)
 //    +-+-+-+-+-+-+-+-+
-//    |1|             |
+//    `1`             |
 //    +-+ OBU payload |
-// S: |1|             | (OPTIONAL, variable length leb128 encoded)
+// S: `1`             | (OPTIONAL, variable length leb128 encoded)
 //    +-+    size     |
-//    |0|             |
+//    `0`             |
 //    +-+-+-+-+-+-+-+-+
 //    |  OBU payload  |
 //    |     ...       |

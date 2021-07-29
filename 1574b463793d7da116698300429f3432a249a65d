@@ -33,6 +33,24 @@
       "message": "Probably all good. But I can\u0027t CR+1 in this project. So I say LGTM!\n\nAlso deferring to folks that commented on the bug you refer to. According to docu it looks right to me ~ some nit picking.\n\nThe last one depends on if it indeed meant all .lua files in the project or some specific .lua files in the main dir. For gn I believe it means all. Guess the same for lua.\n\nCan the BUILD.gn rule not be reduced to one rule saying ...BUILD.gn? Or are you afraid it matches my/path/FOO-BUILD.gn?\n\nFrom the docu it\u0027s not clear to me if 4 dots always resolve the 3 dots first? Eg. can ....gni match `.my/cool/yagni` ?",
       "revId": "1574b463793d7da116698300429f3432a249a65d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32727f57_de7b0610",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-29T07:43:27Z",
+      "side": 1,
+      "message": "\u003e Probably all good. But I can\u0027t CR+1 in this project. So I say LGTM!\n\u003e \n\u003e Also deferring to folks that commented on the bug you refer to. According to docu it looks right to me ~ some nit picking.\n\u003e \n\u003e The last one depends on if it indeed meant all .lua files in the project or some specific .lua files in the main dir. For gn I believe it means all. Guess the same for lua.\n\nYes, that should be all .lua files in the project.\n \n\u003e Can the BUILD.gn rule not be reduced to one rule saying ...BUILD.gn? Or are you afraid it matches my/path/FOO-BUILD.gn?\n\nYes, correct. By reading https://chromium-review.googlesource.com/plugins/code-owners/Documentation/path-expressions.html#simplePathExpressions it looks like that can happen (maybe that is not a realistic thing?), so I decided to use the double rule.\n \n\u003e From the docu it\u0027s not clear to me if 4 dots always resolve the 3 dots first? Eg. can ....gni match `.my/cool/yagni` ?\n\n+1, that part should be clarified.\n\nGavin, Edward, can you help us with this?",
+      "parentUuid": "9d92de0c_ac4ef0f5",
+      "revId": "1574b463793d7da116698300429f3432a249a65d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

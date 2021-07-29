@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9c1fc39_f4afe10e",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-07-29T12:32:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e645ed07_45746bf7",
+      "range": {
+        "startLine": 450,
+        "startChar": 9,
+        "endLine": 450,
+        "endChar": 13
+      },
+      "revId": "1cbe7d8b17c288c8d23b3669a4905bf979c6a925",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "23e3250a_921c39d6",
@@ -58,6 +82,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "687da233_3b7f9e01",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-07-29T12:32:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23e3250a_921c39d6",
+      "revId": "1cbe7d8b17c288c8d23b3669a4905bf979c6a925",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dffe2d15_14e1e37a",
@@ -71,6 +113,24 @@
       "writtenOn": "2021-07-29T09:36:21Z",
       "side": 1,
       "message": "add\nNonSenderRttStats(const NonSenderRttStats\u0026) \u003d default;\nNonSenderRttStats\u0026 operator\u003d(const NonSenderRttStats\u0026) \u003d default;\n\nhttps://google.github.io/styleguide/cppguide.html#Copy_Constructors\n\n\"Every class\u0027s public interface must make clear which copy and move operations the class supports.\"",
+      "revId": "1cbe7d8b17c288c8d23b3669a4905bf979c6a925",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8bf41b23_935306fd",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-07-29T12:32:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dffe2d15_14e1e37a",
       "revId": "1cbe7d8b17c288c8d23b3669a4905bf979c6a925",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -121,6 +181,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bf160e0_ca041880",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-07-29T12:32:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec1c6ab0_4e878b4b",
+      "range": {
+        "startLine": 308,
+        "startChar": 16,
+        "endLine": 309,
+        "endChar": 30
+      },
+      "revId": "1cbe7d8b17c288c8d23b3669a4905bf979c6a925",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6d5fba46_2323769c",
@@ -146,6 +230,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "513d2bf4_4b15b913",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-07-29T12:32:40Z",
+      "side": 1,
+      "message": "I\u0027m not super familiar with this part of the code, so please let me know if my understanding is incorrect here. \n\nIt seems to me that remote_ssrc_ can be changed by calling the SetRemoteSSRC() method. Since the remote SSRC can change, it made sense to me to keep track of these stats for all SSRCs so that the stats will continue to be correct after a switch.",
+      "parentUuid": "6d5fba46_2323769c",
+      "range": {
+        "startLine": 415,
+        "startChar": 2,
+        "endLine": 415,
+        "endChar": 19
+      },
+      "revId": "1cbe7d8b17c288c8d23b3669a4905bf979c6a925",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a24f2be0_a7137fa6",
         "filename": "modules/rtp_rtcp/source/rtp_rtcp_interface.h",
         "patchSetId": 2
@@ -157,6 +265,30 @@
       "writtenOn": "2021-07-29T09:36:21Z",
       "side": 1,
       "message": "Make url to ietf rfc consistent with the previous line.\n(i.e. both should use tools.ietf.org, or both should use datatracker.ietf.org)",
+      "range": {
+        "startLine": 156,
+        "startChar": 5,
+        "endLine": 156,
+        "endChar": 33
+      },
+      "revId": "1cbe7d8b17c288c8d23b3669a4905bf979c6a925",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64c09e86_557ce723",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-07-29T12:32:40Z",
+      "side": 1,
+      "message": "I\u0027ve updated the previous URL to datatracker.ietf.org, because it seems like tools.ietf.org forwards to datatracker.ietf.org.",
+      "parentUuid": "a24f2be0_a7137fa6",
       "range": {
         "startLine": 156,
         "startChar": 5,

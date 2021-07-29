@@ -783,24 +783,24 @@ TEST_P(RtpRtcpImpl2Test, StoresPacketInfoForSentPackets) {
                                           /*is_last=*/1)));
 }
 
-// Checks that the sender report stats are not available if no RTCP SR was sent.
-TEST_P(RtpRtcpImpl2Test, SenderReportStatsNotAvailable) {
-  EXPECT_THAT(receiver_.impl_->GetSenderReportStats(), Eq(absl::nullopt));
+// Checks that the remote sender stats are not available if no RTCP SR was sent.
+TEST_P(RtpRtcpImpl2Test, RemoteSenderStatsNotAvailable) {
+  EXPECT_THAT(receiver_.impl_->GetRemoteSenderStats(), Eq(absl::nullopt));
 }
 
-// Checks that the sender report stats are available if an RTCP SR was sent.
-TEST_P(RtpRtcpImpl2Test, SenderReportStatsAvailable) {
+// Checks that the remote sender stats are available if an RTCP SR was sent.
+TEST_P(RtpRtcpImpl2Test, RemoteSenderStatsAvailable) {
   // Send a frame in order to send an SR.
   EXPECT_TRUE(SendFrame(&sender_, sender_video_.get(), kBaseLayerTid));
   // Send an SR.
   ASSERT_THAT(sender_.impl_->SendRTCP(kRtcpReport), Eq(0));
   AdvanceTime(kOneWayNetworkDelay);
-  EXPECT_THAT(receiver_.impl_->GetSenderReportStats(), Not(Eq(absl::nullopt)));
+  EXPECT_THAT(receiver_.impl_->GetRemoteSenderStats(), Not(Eq(absl::nullopt)));
 }
 
-// Checks that the sender report stats are not available if an RTCP SR with an
+// Checks that the remote sender stats are not available if an RTCP SR with an
 // unexpected SSRC is received.
-TEST_P(RtpRtcpImpl2Test, SenderReportStatsNotUpdatedWithUnexpectedSsrc) {
+TEST_P(RtpRtcpImpl2Test, RemoteSenderStatsNotUpdatedWithUnexpectedSsrc) {
   constexpr uint32_t kUnexpectedSenderSsrc = 0x87654321;
   static_assert(kUnexpectedSenderSsrc != kSenderSsrc, "");
   // Forge a sender report and pass it to the receiver as if an RTCP SR were
@@ -812,12 +812,12 @@ TEST_P(RtpRtcpImpl2Test, SenderReportStatsNotUpdatedWithUnexpectedSsrc) {
   sr.SetOctetCount(456u);
   auto raw_packet = sr.Build();
   receiver_.impl_->IncomingRtcpPacket(raw_packet.data(), raw_packet.size());
-  EXPECT_THAT(receiver_.impl_->GetSenderReportStats(), Eq(absl::nullopt));
+  EXPECT_THAT(receiver_.impl_->GetRemoteSenderStats(), Eq(absl::nullopt));
 }
 
 // Checks the stats derived from the last received RTCP SR are set correctly.
-TEST_P(RtpRtcpImpl2Test, SenderReportStatsCheckStatsFromLastReport) {
-  using SenderReportStats = RtpRtcpInterface::SenderReportStats;
+TEST_P(RtpRtcpImpl2Test, RemoteSenderStatsCheckStatsFromLastReport) {
+  using RemoteSenderStats = RtpRtcpInterface::RemoteSenderStats;
   const NtpTime ntp(/*seconds=*/1u, /*fractions=*/1u << 31);
   constexpr uint32_t kPacketCount = 123u;
   constexpr uint32_t kOctetCount = 456u;
@@ -832,46 +832,46 @@ TEST_P(RtpRtcpImpl2Test, SenderReportStatsCheckStatsFromLastReport) {
   receiver_.impl_->IncomingRtcpPacket(raw_packet.data(), raw_packet.size());
 
   EXPECT_THAT(
-      receiver_.impl_->GetSenderReportStats(),
-      Optional(AllOf(Field(&SenderReportStats::last_remote_timestamp, Eq(ntp)),
-                     Field(&SenderReportStats::packets_sent, Eq(kPacketCount)),
-                     Field(&SenderReportStats::bytes_sent, Eq(kOctetCount)))));
+      receiver_.impl_->GetRemoteSenderStats(),
+      Optional(AllOf(Field(&RemoteSenderStats::last_remote_timestamp, Eq(ntp)),
+                     Field(&RemoteSenderStats::packets_sent, Eq(kPacketCount)),
+                     Field(&RemoteSenderStats::bytes_sent, Eq(kOctetCount)))));
 }
 
-// Checks that the sender report stats count equals the number of sent RTCP SRs.
-TEST_P(RtpRtcpImpl2Test, SenderReportStatsCount) {
-  using SenderReportStats = RtpRtcpInterface::SenderReportStats;
+// Checks that the remote sender stats count equals the number of sent RTCP SRs.
+TEST_P(RtpRtcpImpl2Test, RemoteSenderStatsCount) {
+  using RemoteSenderStats = RtpRtcpInterface::RemoteSenderStats;
   // Send a frame in order to send an SR.
   EXPECT_TRUE(SendFrame(&sender_, sender_video_.get(), kBaseLayerTid));
   // Send the first SR.
   ASSERT_THAT(sender_.impl_->SendRTCP(kRtcpReport), Eq(0));
   AdvanceTime(kOneWayNetworkDelay);
-  EXPECT_THAT(receiver_.impl_->GetSenderReportStats(),
-              Optional(Field(&SenderReportStats::reports_count, Eq(1u))));
+  EXPECT_THAT(receiver_.impl_->GetRemoteSenderStats(),
+              Optional(Field(&RemoteSenderStats::reports_count, Eq(1u))));
   // Send the second SR.
   ASSERT_THAT(sender_.impl_->SendRTCP(kRtcpReport), Eq(0));
   AdvanceTime(kOneWayNetworkDelay);
-  EXPECT_THAT(receiver_.impl_->GetSenderReportStats(),
-              Optional(Field(&SenderReportStats::reports_count, Eq(2u))));
+  EXPECT_THAT(receiver_.impl_->GetRemoteSenderStats(),
+              Optional(Field(&RemoteSenderStats::reports_count, Eq(2u))));
 }
 
-// Checks that the sender report stats include a valid arrival time if an RTCP
+// Checks that the remote sender stats include a valid arrival time if an RTCP
 // SR was sent.
-TEST_P(RtpRtcpImpl2Test, SenderReportStatsArrivalTimestampSet) {
+TEST_P(RtpRtcpImpl2Test, RemoteSenderStatsArrivalTimestampSet) {
   // Send a frame in order to send an SR.
   EXPECT_TRUE(SendFrame(&sender_, sender_video_.get(), kBaseLayerTid));
   // Send an SR.
   ASSERT_THAT(sender_.impl_->SendRTCP(kRtcpReport), Eq(0));
   AdvanceTime(kOneWayNetworkDelay);
-  auto stats = receiver_.impl_->GetSenderReportStats();
+  auto stats = receiver_.impl_->GetRemoteSenderStats();
   ASSERT_THAT(stats, Not(Eq(absl::nullopt)));
   EXPECT_TRUE(stats->last_arrival_timestamp.Valid());
 }
 
 // Checks that the packet and byte counters from an RTCP SR are not zero once
 // a frame is sent.
-TEST_P(RtpRtcpImpl2Test, SenderReportStatsPacketByteCounters) {
-  using SenderReportStats = RtpRtcpInterface::SenderReportStats;
+TEST_P(RtpRtcpImpl2Test, RemoteSenderStatsPacketByteCounters) {
+  using RemoteSenderStats = RtpRtcpInterface::RemoteSenderStats;
   // Send a frame in order to send an SR.
   EXPECT_TRUE(SendFrame(&sender_, sender_video_.get(), kBaseLayerTid));
   ASSERT_THAT(sender_.transport_.rtp_packets_sent_, Gt(0));
@@ -881,9 +881,9 @@ TEST_P(RtpRtcpImpl2Test, SenderReportStatsPacketByteCounters) {
   // Send an SR.
   ASSERT_THAT(sender_.impl_->SendRTCP(kRtcpReport), Eq(0));
   AdvanceTime(kOneWayNetworkDelay);
-  EXPECT_THAT(receiver_.impl_->GetSenderReportStats(),
-              Optional(AllOf(Field(&SenderReportStats::packets_sent, Gt(0u)),
-                             Field(&SenderReportStats::bytes_sent, Gt(0u)))));
+  EXPECT_THAT(receiver_.impl_->GetRemoteSenderStats(),
+              Optional(AllOf(Field(&RemoteSenderStats::packets_sent, Gt(0u)),
+                             Field(&RemoteSenderStats::bytes_sent, Gt(0u)))));
 }
 
 TEST_P(RtpRtcpImpl2Test, SendingVideoAdvancesSequenceNumber) {

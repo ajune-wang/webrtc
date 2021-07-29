@@ -20,7 +20,7 @@ using NackTest = CallTest;
 TEST_F(NackTest, ShouldNackInLossyNetwork) {
   class NackTest : public AudioEndToEndTest {
    public:
-    const int kTestDurationMs = 2000;
+    const int kTestDurationMs = 3000;
     const int64_t kRttMs = 30;
     const int64_t kLossPercent = 30;
     const int kNackHistoryMs = 1000;
@@ -37,7 +37,9 @@ TEST_F(NackTest, ShouldNackInLossyNetwork) {
         std::vector<AudioReceiveStream::Config>* receive_configs) override {
       ASSERT_EQ(receive_configs->size(), 1U);
       (*receive_configs)[0].rtp.nack.rtp_history_ms = kNackHistoryMs;
+      (*receive_configs)[0].enable_non_sender_rtt = true;
       AudioEndToEndTest::ModifyAudioConfigs(send_config, receive_configs);
+      send_config->send_codec_spec->enable_non_sender_rtt = true;
     }
 
     void PerformTest() override { SleepMs(kTestDurationMs); }
@@ -46,6 +48,10 @@ TEST_F(NackTest, ShouldNackInLossyNetwork) {
       AudioReceiveStream::Stats recv_stats =
           receive_stream()->GetStats(/*get_and_clear_legacy_stats=*/true);
       EXPECT_GT(recv_stats.nacks_sent, 0U);
+      EXPECT_GT(recv_stats.round_trip_time->ms(), 0);
+      EXPECT_GT(recv_stats.round_trip_time_measurements, 0);
+      EXPECT_GE(recv_stats.total_round_trip_time.ms(),
+                recv_stats.round_trip_time->ms());
       AudioSendStream::Stats send_stats = send_stream()->GetStats();
       EXPECT_GT(send_stats.retransmitted_packets_sent, 0U);
       EXPECT_GT(send_stats.nacks_rcvd, 0U);

@@ -270,6 +270,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fac81e81_a1fde798",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-29T12:57:26Z",
+      "side": 1,
+      "message": "In theory yes, remote ssrc may change.\nIn practice both video and audio receivers set it at construction time and never change afterwards. Only voip/audio_ingress changes it all the time (and I\u0027m worried it might change it too often)\n\nso if you store single object and filter based on remote_ssrc_, in some cases you would indeed lose some rtt measurements, but I\u0027m not sure how important that scenario is.\nOther fields (e.g. check last_received_sr_ntp_) support remote ssrc change in a simplified way.\n\nLeaving this choice up to you (but please document your choice whatever it will be, e.g. with tests)",
+      "parentUuid": "513d2bf4_4b15b913",
+      "range": {
+        "startLine": 415,
+        "startChar": 2,
+        "endLine": 415,
+        "endChar": 19
+      },
+      "revId": "1cbe7d8b17c288c8d23b3669a4905bf979c6a925",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a24f2be0_a7137fa6",

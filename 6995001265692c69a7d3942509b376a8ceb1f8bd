@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dff0a794_aa1745b1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-29T13:46:53Z",
+      "side": 1,
+      "message": "LGTM.\n\nMSVC failures are unrelated. Use \"No-Try: True\" to land.",
+      "revId": "6995001265692c69a7d3942509b376a8ceb1f8bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

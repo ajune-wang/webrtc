@@ -51,6 +51,24 @@
       "parentUuid": "9d92de0c_ac4ef0f5",
       "revId": "1574b463793d7da116698300429f3432a249a65d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f5fe1e7_da955b2b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17824
+      },
+      "writtenOn": "2021-07-29T21:10:07Z",
+      "side": 1,
+      "message": "From what I understand, the three dots are matched first. So ....gni would match [any string including slashes].gni and not .my/cool/yagni",
+      "parentUuid": "32727f57_de7b0610",
+      "revId": "1574b463793d7da116698300429f3432a249a65d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

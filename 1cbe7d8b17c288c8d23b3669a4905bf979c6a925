@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e645ed07_45746bf7",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-29T09:36:21Z",
+      "side": 1,
+      "message": "Rtcp\n\nhttps://google.github.io/styleguide/cppguide.html#General_Naming_Rules\n\n\"prefer to capitalize abbreviations as single words, e.g., StartRpc() rather than StartRPC().\"",
+      "range": {
+        "startLine": 450,
+        "startChar": 9,
+        "endLine": 450,
+        "endChar": 13
+      },
+      "revId": "1cbe7d8b17c288c8d23b3669a4905bf979c6a925",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23e3250a_921c39d6",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-29T09:36:21Z",
+      "side": 1,
+      "message": "#include \"absl/types/optional.h\"\n#include \"api/units/time_delta.h\"",
+      "revId": "1cbe7d8b17c288c8d23b3669a4905bf979c6a925",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dffe2d15_14e1e37a",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-29T09:36:21Z",
+      "side": 1,
+      "message": "add\nNonSenderRttStats(const NonSenderRttStats\u0026) \u003d default;\nNonSenderRttStats\u0026 operator\u003d(const NonSenderRttStats\u0026) \u003d default;\n\nhttps://google.github.io/styleguide/cppguide.html#Copy_Constructors\n\n\"Every class\u0027s public interface must make clear which copy and move operations the class supports.\"",
+      "revId": "1cbe7d8b17c288c8d23b3669a4905bf979c6a925",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c9ab199_ebf459a0",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-29T09:36:21Z",
+      "side": 1,
+      "message": "or\nTimeDelta::Zero()",
+      "range": {
+        "startLine": 82,
+        "startChar": 50,
+        "endLine": 82,
+        "endChar": 60
+      },
+      "revId": "1cbe7d8b17c288c8d23b3669a4905bf979c6a925",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec1c6ab0_4e878b4b",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-29T09:36:21Z",
+      "side": 1,
+      "message": "Does this function accepts nullptr?\nIf not - pass by reference\n\nhttps://google.github.io/styleguide/cppguide.html#Inputs_and_Outputs\n\n\"non-optional output and input/output parameters should usually be references (which cannot be null).\"",
+      "range": {
+        "startLine": 308,
+        "startChar": 16,
+        "endLine": 309,
+        "endChar": 30
+      },
+      "revId": "1cbe7d8b17c288c8d23b3669a4905bf979c6a925",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d5fba46_2323769c",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-29T09:36:21Z",
+      "side": 1,
+      "message": "why do you need stats per ssrc, when api only supports retrieving stats for single ssrc?",
+      "range": {
+        "startLine": 415,
+        "startChar": 2,
+        "endLine": 415,
+        "endChar": 19
+      },
+      "revId": "1cbe7d8b17c288c8d23b3669a4905bf979c6a925",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a24f2be0_a7137fa6",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-29T09:36:21Z",
+      "side": 1,
+      "message": "Make url to ietf rfc consistent with the previous line.\n(i.e. both should use tools.ietf.org, or both should use datatracker.ietf.org)",
+      "range": {
+        "startLine": 156,
+        "startChar": 5,
+        "endLine": 156,
+        "endChar": 33
+      },
+      "revId": "1cbe7d8b17c288c8d23b3669a4905bf979c6a925",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -196,6 +196,44 @@ TEST(BitBufferTest, ReadNonSymmetricSameNumberOfBitsWhenNumValuesPowerOf2) {
   EXPECT_THAT(values, ElementsAre(0xf, 0x3, 0xa, 0x0));
 }
 
+struct GetLastBitOffsetTestData {
+  int line;
+  std::vector<uint8_t> buffer;
+  bool expected_result;
+  size_t expected_last_one_byte_offset;
+  size_t expected_last_one_bit_offset;
+};
+
+TEST(BitBufferTest, GetLastBitOffsetTestData) {
+  const auto& testcases = *new std::vector<GetLastBitOffsetTestData>{
+      {__LINE__, {0xe8, 0x43, 0x82, 0x92, 0xc8, 0xb0}, true, 5, 3},
+      {__LINE__, {0xe8, 0x43, 0x82, 0x92, 0xc8, 0xb1}, true, 5, 7},
+      {__LINE__, {0xe8, 0x43, 0x82, 0x92, 0xc8, 0x00}, true, 4, 4},
+      {__LINE__, {0xe8, 0x43, 0x82, 0x92, 0xc0, 0x00}, true, 4, 1},
+      {__LINE__, {0x00, 0x00}, false, 0, 0},
+  };
+
+  for (const auto& testcase : testcases) {
+    // set the initial BitBuffer
+    rtc::BitBuffer bit_buffer(testcase.buffer.data(), testcase.buffer.size());
+    // check BitBuffer::GetCurrentOffset()
+    size_t expected_last_one_byte_offset = 0;
+    size_t expected_last_one_bit_offset = 0;
+    EXPECT_EQ(testcase.expected_result,
+              bit_buffer.GetLastBitOffset(1, &expected_last_one_byte_offset,
+                                          &expected_last_one_bit_offset))
+        << "line: " << testcase.line;
+    if (testcase.expected_result) {
+      EXPECT_EQ(testcase.expected_last_one_byte_offset,
+                expected_last_one_byte_offset)
+          << "line: " << testcase.line;
+      EXPECT_EQ(testcase.expected_last_one_bit_offset,
+                expected_last_one_bit_offset)
+          << "line: " << testcase.line;
+    }
+  }
+}
+
 TEST(BitBufferWriterTest,
      WriteNonSymmetricSameNumberOfBitsWhenNumValuesPowerOf2) {
   uint8_t bytes[2] = {};

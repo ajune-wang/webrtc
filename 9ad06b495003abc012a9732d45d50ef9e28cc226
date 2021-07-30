@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b37f01f2_053af011",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15079
+      },
+      "writtenOn": "2021-07-30T15:06:32Z",
+      "side": 1,
+      "message": "Fippo recommended you as a reviewer :-)",
+      "revId": "9ad06b495003abc012a9732d45d50ef9e28cc226",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

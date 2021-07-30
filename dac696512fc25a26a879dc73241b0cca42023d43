@@ -105,6 +105,24 @@
       "parentUuid": "80aa8a7a_edcf88a4",
       "revId": "dac696512fc25a26a879dc73241b0cca42023d43",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3dbb2563_10eb1dc7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17964
+      },
+      "writtenOn": "2021-07-30T15:43:03Z",
+      "side": 1,
+      "message": "Actually this account (jonathan.lennox@8x8.com) should now be added to the Jitsi webrtc-contributors group.  Can you check?",
+      "parentUuid": "253b6923_c67ed9e6",
+      "revId": "dac696512fc25a26a879dc73241b0cca42023d43",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

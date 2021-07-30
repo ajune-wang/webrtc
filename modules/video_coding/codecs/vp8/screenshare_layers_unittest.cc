@@ -28,12 +28,14 @@
 #include "test/gtest.h"
 #include "vpx/vp8cx.h"
 
+namespace webrtc {
+namespace {
+
 using ::testing::_;
 using ::testing::ElementsAre;
 using ::testing::NiceMock;
+using ::testing::SizeIs;
 
-namespace webrtc {
-namespace {
 // 5 frames per second at 90 kHz.
 const uint32_t kTimestampDelta5Fps = 90000 / 5;
 const int kDefaultQp = 54;
@@ -779,6 +781,58 @@ TEST_F(ScreenshareLayerTest, MaxQpRestoredAfterDoubleDrop) {
   layers_->OnRatesUpdated(0, kDefault2TlBitratesBpsAlt, kFrameRate);
   EXPECT_EQ(kTl1Flags, SkipUntilTlAndSync(1, false));
   EXPECT_EQ(cfg_.rc_max_quantizer, max_qp_);
+}
+
+TEST_F(ScreenshareLayerTest, GeneratesGenericFrameInfoFor1Layer) {
+  layers_ = std::make_unique<ScreenshareLayers>(1);
+  ConfigureBitrates();
+  static constexpr auto kSwitch = DecodeTargetIndication::kSwitch;
+
+  // Key frame
+  CodecSpecificInfo info_key;
+  EncodeFrame(/*base_sync=*/true, &info_key);
+  ASSERT_TRUE(info_key.generic_frame_info);
+  EXPECT_TRUE(info_key.template_structure);
+  EXPECT_EQ(info_key.generic_frame_info->temporal_id, 0);
+  EXPECT_THAT(info_key.generic_frame_info->decode_target_indications,
+              ElementsAre(kSwitch));
+  EXPECT_THAT(info_key.generic_frame_info->part_of_chain, ElementsAre(true));
+  timestamp_ += kTimestampDelta5Fps;
+
+  // Delta frame
+  CodecSpecificInfo info_delta;
+  EncodeFrame(/*base_sync=*/false, &info_delta);
+  ASSERT_TRUE(info_delta.generic_frame_info);
+  EXPECT_FALSE(info_delta.template_structure);
+  EXPECT_THAT(info_delta.generic_frame_info->decode_target_indications,
+              SizeIs(1));
+  EXPECT_THAT(info_delta.generic_frame_info->part_of_chain, SizeIs(1));
+}
+
+TEST_F(ScreenshareLayerTest, GeneratesGenericFrameInfoFor2Layers) {
+  layers_ = std::make_unique<ScreenshareLayers>(2);
+  ConfigureBitrates();
+  static constexpr auto kSwitch = DecodeTargetIndication::kSwitch;
+
+  // Key frame
+  CodecSpecificInfo info_key;
+  EncodeFrame(/*base_sync=*/true, &info_key);
+  ASSERT_TRUE(info_key.generic_frame_info);
+  EXPECT_TRUE(info_key.template_structure);
+  EXPECT_EQ(info_key.generic_frame_info->temporal_id, 0);
+  EXPECT_THAT(info_key.generic_frame_info->decode_target_indications,
+              ElementsAre(kSwitch, kSwitch));
+  EXPECT_THAT(info_key.generic_frame_info->part_of_chain, ElementsAre(true));
+  timestamp_ += kTimestampDelta5Fps;
+
+  // Delta frame
+  CodecSpecificInfo info_delta;
+  EncodeFrame(/*base_sync=*/false, &info_delta);
+  ASSERT_TRUE(info_delta.generic_frame_info);
+  EXPECT_FALSE(info_delta.template_structure);
+  EXPECT_THAT(info_delta.generic_frame_info->decode_target_indications,
+              SizeIs(2));
+  EXPECT_THAT(info_delta.generic_frame_info->part_of_chain, SizeIs(1));
 }
 
 }  // namespace webrtc

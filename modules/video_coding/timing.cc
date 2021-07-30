@@ -10,10 +10,10 @@
 
 #include "modules/video_coding/timing.h"
 
-
 #include <algorithm>
 
 #include "rtc_base/experiments/field_trial_parser.h"
+#include "rtc_base/logging.h"
 #include "rtc_base/time/timestamp_extrapolator.h"
 #include "system_wrappers/include/clock.h"
 #include "system_wrappers/include/field_trial.h"
@@ -35,11 +35,14 @@ VCMTiming::VCMTiming(Clock* clock)
       num_decoded_frames_(0),
       low_latency_renderer_enabled_("enabled", true),
       zero_playout_delay_min_pacing_("min_pacing", TimeDelta::Millis(0)),
-      earliest_next_decode_start_time_(0) {
+      last_decode_scheduled_ts_(0) {
   ParseFieldTrial({&low_latency_renderer_enabled_},
                   field_trial::FindFullName("WebRTC-LowLatencyRenderer"));
   ParseFieldTrial({&zero_playout_delay_min_pacing_},
                   field_trial::FindFullName("WebRTC-ZeroPlayoutDelay"));
+
+  RTC_LOG(LS_ERROR) << "ZeroPlayoutDelay "
+                    << zero_playout_delay_min_pacing_->ms() << "ms";
 }
 
 void VCMTiming::Reset() {
@@ -171,6 +174,12 @@ int64_t VCMTiming::RenderTimeMs(uint32_t frame_timestamp,
   return RenderTimeMsInternal(frame_timestamp, now_ms);
 }
 
+void VCMTiming::SetLastDecodeScheduledTimestamp(
+    int64_t last_decode_scheduled_ts) {
+  MutexLock lock(&mutex_);
+  last_decode_scheduled_ts_ = last_decode_scheduled_ts;
+}
+
 int64_t VCMTiming::RenderTimeMsInternal(uint32_t frame_timestamp,
                                         int64_t now_ms) const {
   constexpr int kLowLatencyRendererMaxPlayoutDelayMs = 500;
@@ -206,15 +215,20 @@ int64_t VCMTiming::MaxWaitingTime(int64_t render_time_ms, int64_t now_ms) {
   MutexLock lock(&mutex_);
 
   if (render_time_ms == 0 && zero_playout_delay_min_pacing_->us() > 0) {
+    if (last_decode_scheduled_ts_ == 0) {
+      // The last decode scheduled time is not set for the first frame. Return
+      // zero waiting time.
+      return 0;
+    }
     // |render_time_ms| == 0 indicates that the frame should be decoded and
     // rendered as soon as possible. However, the decoder can be choked if too
     // many frames are sent at ones. Therefore, limit the interframe delay to
     // |zero_playout_delay_min_pacing_|.
-    int64_t max_wait_time_ms = now_ms >= earliest_next_decode_start_time_
+    int64_t earliest_next_decode_start_time =
+        last_decode_scheduled_ts_ + zero_playout_delay_min_pacing_->ms();
+    int64_t max_wait_time_ms = now_ms >= earliest_next_decode_start_time
                                    ? 0
-                                   : earliest_next_decode_start_time_ - now_ms;
-    earliest_next_decode_start_time_ =
-        now_ms + max_wait_time_ms + zero_playout_delay_min_pacing_->ms();
+                                   : earliest_next_decode_start_time - now_ms;
     return max_wait_time_ms;
   }
   return render_time_ms - now_ms - RequiredDecodeTimeMs() - render_delay_ms_;

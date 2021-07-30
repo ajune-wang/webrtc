@@ -63,7 +63,12 @@ FrameBuffer::FrameBuffer(Clock* clock,
       last_log_non_decoded_ms_(-kLogNonDecodedIntervalMs),
       add_rtt_to_playout_delay_(
           webrtc::field_trial::IsEnabled("WebRTC-AddRttToPlayoutDelay")),
-      rtt_mult_settings_(RttMultExperiment::GetRttMultValue()) {
+      rtt_mult_settings_(RttMultExperiment::GetRttMultValue()),
+      max_queue_size_limit_pacing_delay_("max_queue_size_pacing", 12) {
+  ParseFieldTrial({&max_queue_size_limit_pacing_delay_},
+                  field_trial::FindFullName("WebRTC-ZeroPlayoutDelayPacing"));
+  RTC_LOG(LS_ERROR) << "MaxQueueSizeLimitForPacing "
+                    << max_queue_size_limit_pacing_delay_;
   callback_checker_.Detach();
 }
 
@@ -110,6 +115,8 @@ void FrameBuffer::StartWaitForNextFrameOnQueue() {
           if (!frames_to_decode_.empty()) {
             // We have frames, deliver!
             frame = absl::WrapUnique(GetNextFrame());
+            timing_->SetLastDecodeScheduledTimestamp(
+                clock_->TimeInMilliseconds());
           } else if (clock_->TimeInMilliseconds() < latest_return_time_ms_) {
             // If there's no frames to decode and there is still time left, it
             // means that the frame buffer was cleared between creation and
@@ -211,7 +218,10 @@ int64_t FrameBuffer::FindNextFrame(int64_t now_ms) {
       frame->SetRenderTime(timing_->RenderTimeMs(frame->Timestamp(), now_ms));
     }
     wait_ms = timing_->MaxWaitingTime(frame->RenderTime(), now_ms);
-
+    if (frame->RenderTime() == 0 &&
+        frames_.size() > max_queue_size_limit_pacing_delay_) {
+      wait_ms = 0;
+    }
     // This will cause the frame buffer to prefer high framerate rather
     // than high resolution in the case of the decoder not decoding fast
     // enough and the stream has multiple spatial and temporal layers.

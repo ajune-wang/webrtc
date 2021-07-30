@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "324ef49c_b233f692",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-30T09:48:11Z",
+      "side": 1,
+      "message": "No-Try because MSVC bots are failing at HEAD as well.",
+      "revId": "b731a65c14508335e884495fe0bc9c36286020b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -33,6 +33,24 @@
       "message": "it is suspicious resetting to -1 is needed during construction:\nit should be reset on key frame.\n\nwhile it fixes the the msan issue, I worried this change hides the root cause.",
       "revId": "697a6c321756c38c8ef75e4b7944c70589425b26",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7188b7b5_972cf0c1",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-30T09:04:25Z",
+      "side": 1,
+      "message": "actually it seems problematic scenario is when we start encoding with 1st key frame having spatial_index \u003e 0. \nIn such case chain#0 is inactive (protects no active decode targets) and chain_diff for it may contain any value, but it is sure better to store 0 in such case instead of uninitialised value.",
+      "parentUuid": "e953693f_0c1e34e4",
+      "revId": "697a6c321756c38c8ef75e4b7944c70589425b26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

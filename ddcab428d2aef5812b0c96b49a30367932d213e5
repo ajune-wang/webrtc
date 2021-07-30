@@ -16,6 +16,24 @@
       "message": "LGTM, don\u0027t know why one style is preferable to the other, it would be nice if the CL description said why, but I trust your judgment.",
       "revId": "ddcab428d2aef5812b0c96b49a30367932d213e5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6654aa0_458d665b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-07-30T12:06:36Z",
+      "side": 1,
+      "message": "Done (::testing::GTEST_FLAG is deprecated and it will be removed in future\nversions of gtest).",
+      "parentUuid": "10fc8967_849b5f79",
+      "revId": "ddcab428d2aef5812b0c96b49a30367932d213e5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

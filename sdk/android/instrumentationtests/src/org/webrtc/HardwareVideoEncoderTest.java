@@ -19,7 +19,7 @@ import android.annotation.TargetApi;
 import android.graphics.Matrix;
 import android.opengl.GLES11Ext;
 import android.support.annotation.Nullable;
-import android.support.test.filters.SmallTest;
+import androidx.test.filters.SmallTest;
 import android.util.Log;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;

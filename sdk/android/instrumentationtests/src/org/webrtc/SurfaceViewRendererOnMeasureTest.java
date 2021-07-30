@@ -17,7 +17,7 @@ import android.annotation.SuppressLint;
 import android.graphics.Point;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.annotation.UiThreadTest;
-import android.support.test.filters.MediumTest;
+import androidx.test.filters.MediumTest;
 import android.support.test.rule.UiThreadTestRule;
 import android.view.View.MeasureSpec;
 import java.nio.ByteBuffer;

@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af901fa3_f9c6cd38",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-07-30T12:07:23Z",
+      "side": 1,
+      "message": "I find .... quite unreadable, wonder if we can do better.\nBut since * doesn\u0027t match slashes any more, we do have to do something, so +1.\n",
+      "revId": "e2c7006ba3f24295b75724ae6d1bdaa7ad66276e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c5b7692_8a48895b",
+        "filename": "OWNERS",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-07-30T12:07:23Z",
+      "side": 1,
+      "message": "I don\u0027t see any special meaning of four dots in https://chromium-review.googlesource.com/plugins/code-owners/Documentation/path-expressions.html#simplePathExpressions, so I assume this is \"any string including slashes\" followed by a concrete dot - would this be more readable as .../*.gni? Or even two patterns, one for subdirs and one for same-dir?\n(.../*.gni would not match a .gni file in the current directory)",
+      "revId": "e2c7006ba3f24295b75724ae6d1bdaa7ad66276e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdbf320b_8f5c6c31",
+        "filename": "sdk/android/OWNERS",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-07-30T12:07:23Z",
+      "side": 1,
+      "message": "...* is similiary \"any string including slashes\" followed by \"any string not including slashes\". Since * matches empty string, the * is superfluous.",
+      "revId": "e2c7006ba3f24295b75724ae6d1bdaa7ad66276e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

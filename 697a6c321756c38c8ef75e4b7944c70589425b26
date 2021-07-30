@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36cfe4b7_5d199791",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-30T08:45:52Z",
+      "side": 1,
+      "message": "I\u0027m not an owner thought.",
+      "revId": "697a6c321756c38c8ef75e4b7944c70589425b26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e953693f_0c1e34e4",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-07-30T08:45:52Z",
+      "side": 1,
+      "message": "it is suspicious resetting to -1 is needed during construction:\nit should be reset on key frame.\n\nwhile it fixes the the msan issue, I worried this change hides the root cause.",
+      "revId": "697a6c321756c38c8ef75e4b7944c70589425b26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

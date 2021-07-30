@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "778a405b_807c3e37",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-07-30T12:09:49Z",
+      "side": 1,
+      "message": "Can you double-check that you did what you intended to do here?",
+      "revId": "9e2d95f716a48382fba2228ad72843a51566aa84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1753cc92_11620fd3",
+        "filename": "sdk/objc/base/RTCMacros.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-07-30T12:09:49Z",
+      "side": 1,
+      "message": "After the change, won\u0027t this leave OBJC symbols unexported if you only define WEBRTC_ENABLE_SYMBOL_EXPORT, in contradiction with the documentation?",
+      "revId": "9e2d95f716a48382fba2228ad72843a51566aa84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

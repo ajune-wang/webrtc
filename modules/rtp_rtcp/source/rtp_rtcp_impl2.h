@@ -19,6 +19,7 @@
 #include <string>
 #include <vector>
 
+#include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
 #include "api/rtp_headers.h"
 #include "api/sequence_checker.h"
@@ -113,9 +114,9 @@ class ModuleRtpRtcpImpl2 final : public RtpRtcpInterface,
   // RtpRtcpInterface::Configuration::local_media_ssrc.
   uint32_t local_media_ssrc() const;
 
-  void SetRid(const std::string& rid) override;
+  void SetRid(absl::string_view rid) override;
 
-  void SetMid(const std::string& mid) override;
+  void SetMid(absl::string_view mid) override;
 
   void SetCsrcs(const std::vector<uint32_t>& csrcs) override;
 

@@ -19,6 +19,7 @@
 #include <string>
 #include <utility>
 
+#include "absl/strings/string_view.h"
 #include "api/transport/field_trial_based_config.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/dlrr.h"
 #include "modules/rtp_rtcp/source/rtcp_sender.h"
@@ -276,13 +277,13 @@ RtpState ModuleRtpRtcpImpl::GetRtxState() const {
   return rtp_sender_->packet_generator.GetRtxRtpState();
 }
 
-void ModuleRtpRtcpImpl::SetRid(const std::string& rid) {
+void ModuleRtpRtcpImpl::SetRid(absl::string_view rid) {
   if (rtp_sender_) {
     rtp_sender_->packet_generator.SetRid(rid);
   }
 }
 
-void ModuleRtpRtcpImpl::SetMid(const std::string& mid) {
+void ModuleRtpRtcpImpl::SetMid(absl::string_view mid) {
   if (rtp_sender_) {
     rtp_sender_->packet_generator.SetMid(mid);
   }

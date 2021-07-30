@@ -13,6 +13,7 @@
 #include <memory>
 #include <vector>
 
+#include "absl/strings/string_view.h"
 #include "api/rtc_event_log/rtc_event.h"
 #include "api/transport/field_trial_based_config.h"
 #include "api/video/video_codec_constants.h"
@@ -249,14 +250,14 @@ class RtpSenderTest : public ::testing::Test {
 
   // Enable sending of the MID header extension for both the primary SSRC and
   // the RTX SSRC.
-  void EnableMidSending(const std::string& mid) {
+  void EnableMidSending(absl::string_view mid) {
     rtp_sender_->RegisterRtpHeaderExtension(RtpMid::kUri, kMidExtensionId);
     rtp_sender_->SetMid(mid);
   }
 
   // Enable sending of the RSID header extension for the primary SSRC and the
   // RRSID header extension for the RTX SSRC.
-  void EnableRidSending(const std::string& rid) {
+  void EnableRidSending(absl::string_view rid) {
     rtp_sender_->RegisterRtpHeaderExtension(RtpStreamId::kUri, kRidExtensionId);
     rtp_sender_->RegisterRtpHeaderExtension(RepairedRtpStreamId::kUri,
                                             kRepairedRidExtensionId);

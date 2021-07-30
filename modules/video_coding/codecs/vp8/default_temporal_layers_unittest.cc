@@ -31,6 +31,7 @@ namespace test {
 namespace {
 
 using ::testing::Each;
+using ::testing::ElementsAre;
 
 enum {
   kTemporalUpdateLast = VP8_EFLAG_NO_UPD_GF | VP8_EFLAG_NO_UPD_ARF |
@@ -683,6 +684,7 @@ TEST_F(TemporalLayersTest, KeyFrame) {
     EXPECT_THAT(info.generic_frame_info->decode_target_indications,
                 Each(DecodeTargetIndication::kSwitch))
         << "Key frame is universal switch";
+    EXPECT_THAT(info.generic_frame_info->part_of_chain, ElementsAre(true));
     EXPECT_TRUE(checker.CheckTemporalConfig(true, tl_config));
   }
 }

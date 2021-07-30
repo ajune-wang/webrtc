@@ -323,6 +323,10 @@ void ScreenshareLayers::OnEncodeDone(size_t stream_index,
     generic_frame_info.decode_target_indications = {kSwitch};
     generic_frame_info.encoder_buffers.emplace_back(
         0, /*referenced=*/!is_keyframe, /*updated=*/true);
+    generic_frame_info.part_of_chain = {true};
+    if (is_keyframe) {
+      info->template_structure = GetTemplateStructure(1);
+    }
   } else {
     int64_t unwrapped_timestamp = time_wrap_handler_.Unwrap(rtp_timestamp);
     if (dependency_info) {
@@ -349,6 +353,7 @@ void ScreenshareLayers::OnEncodeDone(size_t stream_index,
                                          TemporalLayer::State::kKeyFrame) {
       layers_[active_layer_].state = TemporalLayer::State::kNormal;
     }
+    generic_frame_info.part_of_chain = {vp8_info.temporalIdx == 0};
 
     vp8_info.useExplicitDependencies = true;
     RTC_DCHECK_EQ(vp8_info.referencedBuffersCount, 0u);
@@ -427,6 +432,8 @@ FrameDependencyStructure ScreenshareLayers::GetTemplateStructure(
 
   FrameDependencyStructure template_structure;
   template_structure.num_decode_targets = num_layers;
+  template_structure.num_chains = 1;
+  template_structure.decode_target_protected_by_chain.assign(num_layers, 0);
 
   switch (num_layers) {
     case 1: {

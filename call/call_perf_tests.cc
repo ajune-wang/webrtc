@@ -24,6 +24,8 @@
 #include "call/call.h"
 #include "call/fake_network_pipe.h"
 #include "call/simulated_network.h"
+#include "media/engine/internal_encoder_factory.h"
+#include "media/engine/simulcast_encoder_adapter.h"
 #include "modules/audio_coding/include/audio_coding_module.h"
 #include "modules/audio_device/include/test_audio_device.h"
 #include "modules/audio_mixer/audio_mixer_impl.h"
@@ -88,6 +90,9 @@ class CallPerfTest : public test::CallTest {
                                 int min_bwe,
                                 int start_bwe,
                                 int max_bwe);
+  void TestEncodeFramerate(VideoEncoderFactory* encoder_factory,
+                           const std::string& payload_name,
+                           const std::vector<int>& stream_framerates);
 };
 
 class VideoRtcpAndSyncObserver : public test::RtpRtcpObserver,
@@ -1044,6 +1049,129 @@ void CallPerfTest::TestMinAudioVideoBitrate(int test_bitrate_from,
 #endif
 TEST_F(CallPerfTest, MAYBE_Min_Bitrate_VideoAndAudio) {
   TestMinAudioVideoBitrate(110, 40, -10, 10000, 70000, 200000);
+}
+
+void CallPerfTest::TestEncodeFramerate(
+    VideoEncoderFactory* encoder_factory,
+    const std::string& payload_name,
+    const std::vector<int>& stream_framerates) {
+  static constexpr int64_t kMinGetStatsIntervalMs = 250;
+  static constexpr int kMaxBitrateBps = 1000000;
+
+  class FramerateObserver
+      : public test::EndToEndTest,
+        public test::FrameGeneratorCapturer::SinkWantsObserver {
+   public:
+    FramerateObserver(VideoEncoderFactory* encoder_factory,
+                      const std::string& payload_name,
+                      const std::vector<int>& stream_framerates,
+                      TaskQueueBase* task_queue)
+        : EndToEndTest(kDefaultTimeoutMs / 2),
+          clock_(Clock::GetRealTimeClock()),
+          encoder_factory_(encoder_factory),
+          payload_name_(payload_name),
+          stream_framerates_(stream_framerates),
+          task_queue_(task_queue),
+          send_stream_(nullptr),
+          last_getstats_ms_(clock_->TimeInMilliseconds()) {}
+
+    void OnFrameGeneratorCapturerCreated(
+        test::FrameGeneratorCapturer* frame_generator_capturer) override {
+      frame_generator_capturer->ChangeResolution(640, 360);
+    }
+
+    void OnSinkWantsChanged(rtc::VideoSinkInterface<VideoFrame>* sink,
+                            const rtc::VideoSinkWants& wants) override {}
+
+    void ModifySenderBitrateConfig(
+        BitrateConstraints* bitrate_config) override {
+      bitrate_config->start_bitrate_bps = kMaxBitrateBps / 2;
+    }
+
+    void OnVideoStreamsCreated(
+        VideoSendStream* send_stream,
+        const std::vector<VideoReceiveStream*>& receive_streams) override {
+      send_stream_ = send_stream;
+    }
+
+    size_t GetNumVideoStreams() const override {
+      return stream_framerates_.size();
+    }
+
+    void ModifyVideoConfigs(
+        VideoSendStream::Config* send_config,
+        std::vector<VideoReceiveStream::Config>* receive_configs,
+        VideoEncoderConfig* encoder_config) override {
+      send_config->encoder_settings.encoder_factory = encoder_factory_;
+      send_config->rtp.payload_name = payload_name_;
+      send_config->rtp.payload_type = test::CallTest::kVideoSendPayloadType;
+      encoder_config->video_format.name = payload_name_;
+      encoder_config->codec_type = PayloadStringToCodecType(payload_name_);
+      encoder_config->max_bitrate_bps = kMaxBitrateBps;
+
+      for (size_t i = 0; i < stream_framerates_.size(); ++i) {
+        VideoStream& stream = encoder_config->simulcast_layers[i];
+        stream.max_framerate = stream_framerates_[i];
+      }
+      for (size_t i = 0; i < send_config->rtp.ssrcs.size(); ++i) {
+        configured_framerates_[send_config->rtp.ssrcs[i]] =
+            stream_framerates_[i];
+      }
+    }
+
+    void PerformTest() override {
+      Wait();
+      for (const auto& encode_frame_rate_list : encode_frame_rate_lists_) {
+        const std::vector<double>& values = encode_frame_rate_list.second;
+        test::PrintResultList("substream", "", "encode_frame_rate", values,
+                              "fps", false);
+        double average_fps =
+            std::accumulate(values.begin(), values.end(), 0.0) / values.size();
+        uint32_t ssrc = encode_frame_rate_list.first;
+        double expected_fps = configured_framerates_.find(ssrc)->second;
+        EXPECT_NEAR(expected_fps, average_fps, 1.5);
+      }
+    }
+
+    Action OnSendRtp(const uint8_t* packet, size_t length) override {
+      int64_t now_ms = clock_->TimeInMilliseconds();
+      if (now_ms - last_getstats_ms_ > kMinGetStatsIntervalMs) {
+        last_getstats_ms_ = now_ms;
+        task_queue_->PostTask(ToQueuedTask([this]() {
+          VideoSendStream::Stats stats = send_stream_->GetStats();
+          for (const auto& stat : stats.substreams) {
+            encode_frame_rate_lists_[stat.first].push_back(
+                stat.second.encode_frame_rate);
+          }
+        }));
+      }
+      return SEND_PACKET;
+    }
+
+    Clock* const clock_;
+    VideoEncoderFactory* const encoder_factory_;
+    const std::string payload_name_;
+    const std::vector<int> stream_framerates_;
+    TaskQueueBase* const task_queue_;
+    VideoSendStream* send_stream_;
+    int64_t last_getstats_ms_;
+    std::map<uint32_t, std::vector<double>> encode_frame_rate_lists_;
+    std::map<uint32_t, double> configured_framerates_;
+  } test(encoder_factory, payload_name, stream_framerates, task_queue());
+
+  RunBaseTest(&test);
+}
+
+TEST_F(CallPerfTest, TestEncodeFramerateVp8Simulcast) {
+  InternalEncoderFactory internal_encoder_factory;
+  test::FunctionVideoEncoderFactory encoder_factory(
+      [&internal_encoder_factory]() {
+        return std::make_unique<SimulcastEncoderAdapter>(
+            &internal_encoder_factory, SdpVideoFormat("VP8"));
+      });
+
+  TestEncodeFramerate(&encoder_factory, "VP8",
+                      /*stream_framerates=*/{8, 10});
 }
 
 }  // namespace webrtc

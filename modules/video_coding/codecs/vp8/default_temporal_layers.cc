@@ -610,6 +610,7 @@ void DefaultTemporalLayers::OnEncodeDone(size_t stream_index,
         frame.dependency_info.decode_target_indications;
     generic_frame_info.temporal_id = frame_config.packetizer_temporal_idx;
   }
+  generic_frame_info.part_of_chain = {generic_frame_info.temporal_id == 0};
 
   if (!frame.expired) {
     for (Vp8BufferReference buffer : kAllBuffers) {
@@ -644,53 +645,140 @@ FrameDependencyStructure DefaultTemporalLayers::GetTemplateStructure(
 
   FrameDependencyStructure template_structure;
   template_structure.num_decode_targets = num_layers;
+  template_structure.num_chains = 1;
+  template_structure.decode_target_protected_by_chain.assign(num_layers, 0);
 
   switch (num_layers) {
     case 1: {
       template_structure.templates.resize(2);
-      template_structure.templates[0].T(0).Dtis("S");
-      template_structure.templates[1].T(0).Dtis("S").FrameDiffs({1});
+      template_structure.templates[0].T(0).Dtis("S").ChainDiffs({0});
+      template_structure.templates[1].T(0).Dtis("S").FrameDiffs({1}).ChainDiffs(
+          {1});
       return template_structure;
     }
     case 2: {
       template_structure.templates.resize(5);
-      template_structure.templates[0].T(0).Dtis("SS");
-      template_structure.templates[1].T(0).Dtis("SS").FrameDiffs({2});
-      template_structure.templates[2].T(0).Dtis("SR").FrameDiffs({2});
-      template_structure.templates[3].T(1).Dtis("-S").FrameDiffs({1});
-      template_structure.templates[4].T(1).Dtis("-D").FrameDiffs({2, 1});
+      template_structure.templates[0].T(0).Dtis("SS").ChainDiffs({0});
+      template_structure.templates[1]
+          .T(0)
+          .Dtis("SS")
+          .FrameDiffs({2})
+          .ChainDiffs({2});
+      template_structure.templates[2]
+          .T(0)
+          .Dtis("SR")
+          .FrameDiffs({2})
+          .ChainDiffs({2});
+      template_structure.templates[3]
+          .T(1)
+          .Dtis("-S")
+          .FrameDiffs({1})
+          .ChainDiffs({1});
+      template_structure.templates[4]
+          .T(1)
+          .Dtis("-D")
+          .FrameDiffs({2, 1})
+          .ChainDiffs({1});
       return template_structure;
     }
     case 3: {
       if (field_trial::IsEnabled("WebRTC-UseShortVP8TL3Pattern")) {
         template_structure.templates.resize(5);
-        template_structure.templates[0].T(0).Dtis("SSS");
-        template_structure.templates[1].T(0).Dtis("SSS").FrameDiffs({4});
-        template_structure.templates[2].T(1).Dtis("-DR").FrameDiffs({2});
-        template_structure.templates[3].T(2).Dtis("--S").FrameDiffs({1});
-        template_structure.templates[4].T(2).Dtis("--D").FrameDiffs({2, 1});
+        template_structure.templates[0].T(0).Dtis("SSS").ChainDiffs({0});
+        template_structure.templates[1]
+            .T(0)
+            .Dtis("SSS")
+            .FrameDiffs({4})
+            .ChainDiffs({4});
+        template_structure.templates[2]
+            .T(1)
+            .Dtis("-DR")
+            .FrameDiffs({2})
+            .ChainDiffs({2});
+        template_structure.templates[3]
+            .T(2)
+            .Dtis("--S")
+            .FrameDiffs({1})
+            .ChainDiffs({1});
+        template_structure.templates[4]
+            .T(2)
+            .Dtis("--D")
+            .FrameDiffs({2, 1})
+            .ChainDiffs({3});
       } else {
         template_structure.templates.resize(7);
-        template_structure.templates[0].T(0).Dtis("SSS");
-        template_structure.templates[1].T(0).Dtis("SSS").FrameDiffs({4});
-        template_structure.templates[2].T(0).Dtis("SRR").FrameDiffs({4});
-        template_structure.templates[3].T(1).Dtis("-SS").FrameDiffs({2});
-        template_structure.templates[4].T(1).Dtis("-DS").FrameDiffs({4, 2});
-        template_structure.templates[5].T(2).Dtis("--D").FrameDiffs({1});
-        template_structure.templates[6].T(2).Dtis("--D").FrameDiffs({3, 1});
+        template_structure.templates[0].T(0).Dtis("SSS").ChainDiffs({0});
+        template_structure.templates[1]
+            .T(0)
+            .Dtis("SSS")
+            .FrameDiffs({4})
+            .ChainDiffs({4});
+        template_structure.templates[2]
+            .T(0)
+            .Dtis("SRR")
+            .FrameDiffs({4})
+            .ChainDiffs({4});
+        template_structure.templates[3]
+            .T(1)
+            .Dtis("-SS")
+            .FrameDiffs({2})
+            .ChainDiffs({2});
+        template_structure.templates[4]
+            .T(1)
+            .Dtis("-DS")
+            .FrameDiffs({4, 2})
+            .ChainDiffs({2});
+        template_structure.templates[5]
+            .T(2)
+            .Dtis("--D")
+            .FrameDiffs({1})
+            .ChainDiffs({1});
+        template_structure.templates[6]
+            .T(2)
+            .Dtis("--D")
+            .FrameDiffs({3, 1})
+            .ChainDiffs({3});
       }
       return template_structure;
     }
     case 4: {
       template_structure.templates.resize(8);
-      template_structure.templates[0].T(0).Dtis("SSSS");
-      template_structure.templates[1].T(0).Dtis("SSSS").FrameDiffs({8});
-      template_structure.templates[2].T(1).Dtis("-SRR").FrameDiffs({4});
-      template_structure.templates[3].T(1).Dtis("-SRR").FrameDiffs({4, 8});
-      template_structure.templates[4].T(2).Dtis("--SR").FrameDiffs({2});
-      template_structure.templates[5].T(2).Dtis("--SR").FrameDiffs({2, 4});
-      template_structure.templates[6].T(3).Dtis("---D").FrameDiffs({1});
-      template_structure.templates[7].T(3).Dtis("---D").FrameDiffs({1, 3});
+      template_structure.templates[0].T(0).Dtis("SSSS").ChainDiffs({0});
+      template_structure.templates[1]
+          .T(0)
+          .Dtis("SSSS")
+          .FrameDiffs({8})
+          .ChainDiffs({8});
+      template_structure.templates[2]
+          .T(1)
+          .Dtis("-SRR")
+          .FrameDiffs({4})
+          .ChainDiffs({4});
+      template_structure.templates[3]
+          .T(1)
+          .Dtis("-SRR")
+          .FrameDiffs({4, 8})
+          .ChainDiffs({4});
+      template_structure.templates[4]
+          .T(2)
+          .Dtis("--SR")
+          .FrameDiffs({2})
+          .ChainDiffs({2});
+      template_structure.templates[5]
+          .T(2)
+          .Dtis("--SR")
+          .FrameDiffs({2, 4})
+          .ChainDiffs({6});
+      template_structure.templates[6]
+          .T(3)
+          .Dtis("---D")
+          .FrameDiffs({1})
+          .ChainDiffs({1});
+      template_structure.templates[7]
+          .T(3)
+          .Dtis("---D")
+          .FrameDiffs({1, 3})
+          .ChainDiffs({3});
       return template_structure;
     }
     default:

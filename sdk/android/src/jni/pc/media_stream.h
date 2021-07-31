@@ -21,7 +21,7 @@
 namespace webrtc {
 namespace jni {
 
-class JavaMediaStream : public sigslot::has_slots<> {
+class JavaMediaStream : public {
  public:
   explicit JavaMediaStream(
       JNIEnv* env,
@@ -41,6 +41,7 @@ class JavaMediaStream : public sigslot::has_slots<> {
                                      MediaStreamInterface* stream);
   void OnVideoTrackRemovedFromStream(VideoTrackInterface* track,
                                      MediaStreamInterface* stream);
+  std::unique_ptr<MediaStreamObserver> CreateMediaStreamObserver();
 
   ScopedJavaGlobalRef<jobject> j_media_stream_;
   std::unique_ptr<MediaStreamObserver> observer_;

@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c51e33a_99fcb4e7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-08-01T19:48:01Z",
+      "side": 1,
+      "message": "A couople of questions....",
+      "revId": "fd0d1f8bc71d640928848a7080e234e44142c727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f81a37af_b982faff",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2616,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-08-01T19:48:01Z",
+      "side": 1,
+      "message": "Creating the observer as a naked pointer and then wrapping it is not recommended. Can you do std::make_unique on line 2594 and std::move here?\n\n(Same question about `this` outliving `media_stream` here)",
+      "revId": "fd0d1f8bc71d640928848a7080e234e44142c727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e17c7b9e_532464f8",
+        "filename": "sdk/android/src/jni/pc/media_stream.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-08-01T19:48:01Z",
+      "side": 1,
+      "message": "Boring question: Given that this function returns control of observer\u0027s lifetime to the caller, are we guaranteed that `this` will outlive `media_stream`?",
+      "revId": "fd0d1f8bc71d640928848a7080e234e44142c727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

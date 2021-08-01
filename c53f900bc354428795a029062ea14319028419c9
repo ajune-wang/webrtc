@@ -16,6 +16,91 @@
       "message": "I know hbos is on vacation this week, but I want him to see all stats-related CLs.\n",
       "revId": "c53f900bc354428795a029062ea14319028419c9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e7da0c5_be963096",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-08-01T21:08:23Z",
+      "side": 1,
+      "message": "\nQuerying if we can do better. I\u0027m not happy with some of the names, and I\u0027m not happy with some of the structure.\n\nIn particular, I think this CL would be a lot simpler if you just turned on this reporting and left it on consistently; there\u0027s a huge number of lines that are simply concerned with turning it on when I can\u0027t see a reason to have it off.\n\n",
+      "revId": "c53f900bc354428795a029062ea14319028419c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3329a99_9d15b003",
+        "filename": "audio/audio_receive_stream.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-08-01T21:08:23Z",
+      "side": 1,
+      "message": "Question: Why does this exist?\nIt seems to be added to multiple objects calling each other, but the only place that seems to call it from something else is apparently WebRtcVoiceMediaChannel::SetSendCodecs (which is a horribly long function already).\n\nDoes it harm anything to always leave it on? Is it ever reasonable to turn it off?",
+      "revId": "c53f900bc354428795a029062ea14319028419c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0f8eefe_7ce75c8d",
+        "filename": "audio/test/nack_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-08-01T21:08:23Z",
+      "side": 1,
+      "message": "This seems like a really odd check to place into a tst called \"ShoudNackInLossyNetwork\". I recommend placing these statements in a new test, and add the machinery (and ONLY the machinery) needed to get those counters to increment.",
+      "revId": "c53f900bc354428795a029062ea14319028419c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d10ef30_6d1db000",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 875,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-08-01T21:08:23Z",
+      "side": 1,
+      "message": "I can\u0027t help but think that this is the wrong way of structuring this. You handle all the other XR blocks through a HandleXr.... function, but then for dlrr, you introduce two extra output arguments, and then do the processing at the layer above, in a completely different fashion to every other block.\n\nSince all these methods are member methods on RTCPReceiver, it seems to me that it is possible to do this more elegantly.",
+      "revId": "c53f900bc354428795a029062ea14319028419c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba16f465_59c51fda",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-08-01T21:08:23Z",
+      "side": 1,
+      "message": "I don\u0027t think I agree with this rename. If it starts out with an SR block, and depends on starting out with an SR block, the presence of additional XR blocks doesn\u0027t make it any less a Sender Report.\n\nRemoteSender isn\u0027t a well known RTP term; SenderReport is.",
+      "revId": "c53f900bc354428795a029062ea14319028419c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

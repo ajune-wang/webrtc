@@ -33,6 +33,24 @@
       "message": "Adding mbonadei@ to reviewers, to aid with figuring out how this interacted with the downstream projects.\n",
       "revId": "563590ac86410048c0527f311109b9f053d5989a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fd09a76_434df05d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-08-01T19:49:10Z",
+      "side": 1,
+      "message": "As with the old CL, changing the return type of a constructor to nullable will almost certainly break downstream projects. (both Objective-C and swift projects)\n\nI don\u0027t think this CL will be a problem as this doesn\u0027t modify public APIs.",
+      "parentUuid": "575ccfed_bfb77846",
+      "revId": "563590ac86410048c0527f311109b9f053d5989a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '1d5e4d014d45f3496cf4783682b076d5822b2770',
+  'chromium_revision': '8db2b6f1d6dd1a1873c0f5180c7e1c14d78eddf4',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -31,13 +31,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@cd27053eca0a540c0b51240ea1e9d74fe7419965',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@324ae11a44df56cc748dbe20a21a247a2d8b4289',
     'condition': 'checkout_ios',
   },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@8872b6cf61b00be7d8f7a34d0e2bc15ad404f7c1',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@1f8dac2588999cf7d2162965382ba573b281c786',
+    'https://chromium.googlesource.com/chromium/src/third_party@5c06d61a1bfaa61ba56627a61a867e9db934ec05',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -150,7 +150,7 @@ deps = {
       'condition': 'checkout_linux',
   },
   'src/third_party/freetype/src':
-    'https://chromium.googlesource.com/chromium/src/third_party/freetype2.git@47b1a541cb1943d85da3976b93f9a5ed490288e2',
+    'https://chromium.googlesource.com/chromium/src/third_party/freetype2.git@be6ab319009c5de7927adb0228412627783499e5',
   'src/third_party/harfbuzz-ng/src':
     'https://chromium.googlesource.com/external/github.com/harfbuzz/harfbuzz.git@cc9bb294919e846ef8a0731b5e9f304f95ef3bb8',
   'src/third_party/google_benchmark/src': {
@@ -214,7 +214,7 @@ deps = {
       'condition': 'checkout_android',
   },
   'src/third_party/perfetto':
-    'https://android.googlesource.com/platform/external/perfetto.git@5d5769f0b54a2a505a62194493f1047dc3b686d1',
+    'https://android.googlesource.com/platform/external/perfetto.git@70e408c9bc8610ab9a8484b2ed91461d8416166e',
   'src/third_party/libvpx/source/libvpx':
     'https://chromium.googlesource.com/webm/libvpx.git@977e77006ee175f23beb231d0de2968f5c9d17b0',
   'src/third_party/libyuv':

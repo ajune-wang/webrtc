@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5bd54d3b_ad461d52",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2616,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-08-02T07:40:24Z",
+      "side": 1,
+      "message": "\u003e Creating the observer as a naked pointer and then wrapping it is not recommended. Can you do std::make_unique on line 2594 and std::move here?\n\nDone.\n\n\u003e (Same question about `this` outliving `media_stream` here)\n\nYes, my understanding is that stream_observers_ owns the observer and the observer never gets transferred to another owner so when this gets destroyed, all the observers should get destroyed before this.",
+      "parentUuid": "f81a37af_b982faff",
+      "revId": "fd0d1f8bc71d640928848a7080e234e44142c727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e17c7b9e_532464f8",
         "filename": "sdk/android/src/jni/pc/media_stream.cc",
         "patchSetId": 5
@@ -48,6 +66,24 @@
       "writtenOn": "2021-08-01T19:48:01Z",
       "side": 1,
       "message": "Boring question: Given that this function returns control of observer\u0027s lifetime to the caller, are we guaranteed that `this` will outlive `media_stream`?",
+      "revId": "fd0d1f8bc71d640928848a7080e234e44142c727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d1666bb_4a0fd320",
+        "filename": "sdk/android/src/jni/pc/media_stream.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-08-02T07:40:24Z",
+      "side": 1,
+      "message": "This is a good question.\n\nIn this case yes, because this is a private method and the result is assigned to observer_ which will be destroyed before this. That said, in the future this might be used to do something that will cause the issue.\n\nI wonder if it is better to change this to be a InitializeMediaStreamObserver and invoke it in the ctor, return void and just initialize observer_ instead or returning. What do you think?",
+      "parentUuid": "e17c7b9e_532464f8",
       "revId": "fd0d1f8bc71d640928848a7080e234e44142c727",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

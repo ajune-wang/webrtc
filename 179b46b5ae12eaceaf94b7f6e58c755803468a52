@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64f33672_9fbdc76b",
+        "filename": "rtc_base/thread.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1035,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-08-02T16:37:02Z",
+      "side": 1,
+      "message": "I\u0027m curious, why was this change needed?\nThe non-const `data()` accessor exists - was that accessor not working?\n\nIf it did work, was there some other reason why the Release() method was needed?",
+      "revId": "179b46b5ae12eaceaf94b7f6e58c755803468a52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -506,13 +506,20 @@ std::vector<ReportBlockData> ModuleRtpRtcpImpl2::GetLatestReportBlockData()
   return rtcp_receiver_.GetLatestReportBlockData();
 }
 
-absl::optional<RtpRtcpInterface::SenderReportStats>
-ModuleRtpRtcpImpl2::GetSenderReportStats() const {
-  SenderReportStats stats;
+absl::optional<RtpRtcpInterface::RemoteSenderStats>
+ModuleRtpRtcpImpl2::GetRemoteSenderStats() const {
+  RemoteSenderStats stats;
   uint32_t remote_timestamp_secs;
   uint32_t remote_timestamp_frac;
   uint32_t arrival_timestamp_secs;
   uint32_t arrival_timestamp_frac;
+  RTCPReceiver::NonSenderRttStats non_sender_rtt_stats =
+      rtcp_receiver_.GetNonSenderRTT();
+  stats.round_trip_time = non_sender_rtt_stats.round_trip_time();
+  stats.round_trip_time_measurements =
+      non_sender_rtt_stats.round_trip_time_measurements();
+  stats.total_round_trip_time = non_sender_rtt_stats.total_round_trip_time();
+
   if (rtcp_receiver_.NTP(&remote_timestamp_secs, &remote_timestamp_frac,
                          &arrival_timestamp_secs, &arrival_timestamp_frac,
                          /*rtcp_timestamp=*/nullptr, &stats.packets_sent,

@@ -122,6 +122,24 @@
       "parentUuid": "8d1666bb_4a0fd320",
       "revId": "fd0d1f8bc71d640928848a7080e234e44142c727",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f2c31c4_0ed4ac21",
+        "filename": "sdk/android/src/jni/pc/media_stream.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-08-02T08:55:41Z",
+      "side": 1,
+      "message": "We cannot make it const because of https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/sdk/android/src/jni/pc/media_stream.cc;l\u003d60;drc\u003dd7ac58104583370d0106c41ba1fc3ee0eff818b6.\n\nBut I moved everything to the ctor anyway to remove the extra function. Now we need a .reset() on the unique_ptr (which I don\u0027t like) but we removed the extra private function. Not sure which one is preferred.",
+      "parentUuid": "ceafed86_58972705",
+      "revId": "fd0d1f8bc71d640928848a7080e234e44142c727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

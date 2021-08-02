@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13848245_e0b71a90",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2021-08-02T07:48:50Z",
+      "side": 1,
+      "message": "This LGTM, thanks! Let\u0027s wait for Mirko to confirm that this doesn\u0027t break anything downstream though.",
+      "revId": "cb5ad8c55bed871417fdf47a67cfc75bbbf438d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0dfdd55d_6e939df6",
+        "filename": "sdk/objc/api/peerconnection/RTCSessionDescription+Private.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2021-08-02T07:48:50Z",
+      "side": 1,
+      "message": "nit: can you fix the intentation here? I think the formatter is getting confused by the `RTC_OBJC_TYPE` macro.",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 34
+      },
+      "revId": "cb5ad8c55bed871417fdf47a67cfc75bbbf438d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

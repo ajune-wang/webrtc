@@ -16,6 +16,69 @@
       "message": "Hey Kári, any chance you could take a look at this when you have some time? Thank you!",
       "revId": "d54b8203b59f25602e49fe50a4cd7283b980d1a7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b3caea2_319e5ff3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2021-08-02T13:01:49Z",
+      "side": 1,
+      "message": "Thanks for taking the time to implement this!",
+      "revId": "d54b8203b59f25602e49fe50a4cd7283b980d1a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abb62545_29c8cd62",
+        "filename": "sdk/objc/api/peerconnection/RTCPeerConnectionFactory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2021-08-02T13:01:49Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 63,
+        "startChar": 40,
+        "endLine": 63,
+        "endChar": 45
+      },
+      "revId": "d54b8203b59f25602e49fe50a4cd7283b980d1a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2f7df03_6b6406cb",
+        "filename": "sdk/objc/native/src/objc_video_track_source.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2021-08-02T13:01:49Z",
+      "side": 1,
+      "message": "It\u0027s not clear to me that this needs to be atomic, since it\u0027s only set once at init and then read. Or am I missing something?",
+      "range": {
+        "startLine": 54,
+        "startChar": 2,
+        "endLine": 54,
+        "endChar": 35
+      },
+      "revId": "d54b8203b59f25602e49fe50a4cd7283b980d1a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

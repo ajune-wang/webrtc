@@ -53,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f76f00b_7134e2b7",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2616,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-08-02T08:07:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5bd54d3b_ad461d52",
+      "revId": "fd0d1f8bc71d640928848a7080e234e44142c727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e17c7b9e_532464f8",
@@ -84,6 +102,24 @@
       "side": 1,
       "message": "This is a good question.\n\nIn this case yes, because this is a private method and the result is assigned to observer_ which will be destroyed before this. That said, in the future this might be used to do something that will cause the issue.\n\nI wonder if it is better to change this to be a InitializeMediaStreamObserver and invoke it in the ctor, return void and just initialize observer_ instead or returning. What do you think?",
       "parentUuid": "e17c7b9e_532464f8",
+      "revId": "fd0d1f8bc71d640928848a7080e234e44142c727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ceafed86_58972705",
+        "filename": "sdk/android/src/jni/pc/media_stream.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-08-02T08:07:30Z",
+      "side": 1,
+      "message": "That seems better.\nGilding the lily: Can we make this part of the constructor somehow, so that we can make observer_ const? (if it is not otherwise used, that is).",
+      "parentUuid": "8d1666bb_4a0fd320",
       "revId": "fd0d1f8bc71d640928848a7080e234e44142c727",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

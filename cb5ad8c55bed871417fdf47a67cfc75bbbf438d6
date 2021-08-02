@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6991f7f0_75397170",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-08-02T07:57:07Z",
+      "side": 1,
+      "message": "Done, I checked and this should be fine to land.",
+      "parentUuid": "13848245_e0b71a90",
+      "revId": "cb5ad8c55bed871417fdf47a67cfc75bbbf438d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0dfdd55d_6e939df6",

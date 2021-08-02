@@ -39,6 +39,29 @@
       },
       "revId": "cb5ad8c55bed871417fdf47a67cfc75bbbf438d6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b9175ef_2696e4d6",
+        "filename": "sdk/objc/api/peerconnection/RTCSessionDescription.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2021-08-02T07:49:45Z",
+      "side": 1,
+      "message": "can you please use make_unique here instead? I\u0027m not a big fan of assigning to unique_ptr with reset.",
+      "range": {
+        "startLine": 52,
+        "startChar": 2,
+        "endLine": 53,
+        "endChar": 19
+      },
+      "revId": "cb5ad8c55bed871417fdf47a67cfc75bbbf438d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

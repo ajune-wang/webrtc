@@ -26,7 +26,7 @@ JavaMediaStream::JavaMediaStream(
           env,
           Java_MediaStream_Constructor(env,
                                        jlongFromPointer(media_stream.get()))),
-      observer_(std::make_unique<MediaStreamObserver>(media_stream)) {
+      observer_(CreateMediaStreamObserver(media_stream)) {
   for (rtc::scoped_refptr<AudioTrackInterface> track :
        media_stream->GetAudioTracks()) {
     Java_MediaStream_addNativeAudioTrack(env, j_media_stream_,
@@ -37,21 +37,33 @@ JavaMediaStream::JavaMediaStream(
     Java_MediaStream_addNativeVideoTrack(env, j_media_stream_,
                                          jlongFromPointer(track.release()));
   }
-
-  // Create an observer to update the Java stream when the native stream's set
-  // of tracks changes.
-  observer_->SignalAudioTrackRemoved.connect(
-      this, &JavaMediaStream::OnAudioTrackRemovedFromStream);
-  observer_->SignalVideoTrackRemoved.connect(
-      this, &JavaMediaStream::OnVideoTrackRemovedFromStream);
-  observer_->SignalAudioTrackAdded.connect(
-      this, &JavaMediaStream::OnAudioTrackAddedToStream);
-  observer_->SignalVideoTrackAdded.connect(
-      this, &JavaMediaStream::OnVideoTrackAddedToStream);
-
   // `j_media_stream` holds one reference. Corresponding Release() is in
   // MediaStream_free, triggered by MediaStream.dispose().
   media_stream.release();
+}
+
+std::unique_ptr<MediaStreamObserver> JavaMediaStream::CreateMediaStreamObserver(
+    rtc::scoped_refptr<MediaStreamInterface> media_stream) {
+  // Create an observer to update the Java stream when the native stream's set
+  // of tracks changes.
+  return std::make_unique<MediaStreamObserver>(
+      media_stream,
+      [this](AudioTrackInterface* audio_track,
+             MediaStreamInterface* media_stream) {
+        OnAudioTrackAddedToStream(audio_track, media_stream);
+      },
+      [this](AudioTrackInterface* audio_track,
+             MediaStreamInterface* media_stream) {
+        OnAudioTrackRemovedFromStream(audio_track, media_stream);
+      },
+      [this](VideoTrackInterface* video_track,
+             MediaStreamInterface* media_stream) {
+        OnVideoTrackAddedToStream(video_track, media_stream);
+      },
+      [this](VideoTrackInterface* video_track,
+             MediaStreamInterface* media_stream) {
+        OnVideoTrackRemovedFromStream(video_track, media_stream);
+      });
 }
 
 JavaMediaStream::~JavaMediaStream() {

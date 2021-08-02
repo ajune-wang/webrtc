@@ -174,7 +174,9 @@ RTPSender::RTPSender(const RtpRtcpInterface::Configuration& config,
       rtp_header_extension_map_(config.extmap_allow_mixed),
       // RTP variables
       sequencer_(config.local_media_ssrc,
-                 config.rtx_send_ssrc.value_or(config.local_media_ssrc),
+                 rtx_ssrc_,
+
+                 flexfec_ssrc_,
                  /*require_marker_before_media_padding_=*/!config.audio,
                  config.clock),
       always_send_mid_and_rid_(config.always_send_mid_and_rid),
@@ -446,6 +448,9 @@ std::vector<std::unique_ptr<RtpPacketToSend>> RTPSender::GeneratePadding(
     padding_packet->set_packet_type(RtpPacketMediaType::kPadding);
     padding_packet->SetMarker(false);
     if (rtx_ == kRtxOff) {
+      if (!sequencer_.CanSendPaddingOnMediaSsrc()) {
+        break;
+      }
       padding_packet->SetSsrc(ssrc_);
       if (!sequencer_.Sequence(*padding_packet)) {
         break;
@@ -464,9 +469,7 @@ std::vector<std::unique_ptr<RtpPacketToSend>> RTPSender::GeneratePadding(
       RTC_DCHECK(rtx_ssrc_);
       padding_packet->SetSsrc(*rtx_ssrc_);
       padding_packet->SetPayloadType(rtx_payload_type_map_.begin()->second);
-      if (!sequencer_.Sequence(*padding_packet)) {
-        break;
-      }
+      sequencer_.Sequence(*padding_packet);
     }
 
     if (rtp_header_extension_map_.IsRegistered(TransportSequenceNumber::kId)) {

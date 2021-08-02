@@ -57,14 +57,8 @@ void RtpSenderEgress::NonPacedPacketSender::EnqueuePackets(
   }
   auto fec_packets = sender_->FetchFecPackets();
   if (!fec_packets.empty()) {
-    // Don't generate sequence numbers for flexfec, they are already running on
-    // an internally maintained sequence.
-    const bool generate_sequence_numbers = !sender_->FlexFecSsrc().has_value();
-
     for (auto& packet : fec_packets) {
-      if (generate_sequence_numbers) {
-        sequence_number_assigner_->AssignSequenceNumber(packet.get());
-      }
+      sequence_number_assigner_->AssignSequenceNumber(packet.get());
       PrepareForSend(packet.get());
     }
     EnqueuePackets(std::move(fec_packets));

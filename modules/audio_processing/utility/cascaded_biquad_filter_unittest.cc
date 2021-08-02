@@ -154,4 +154,31 @@ TEST(CascadedBiquadFilter, BiQuadParamBandPass) {
   EXPECT_NEAR(filter.coefficients.a[1], 5.09525449e-01f, epsilon);
 }
 
+// Look for denormals.
+TEST(CascadedBiquadFilter, NoDenormals) {
+  constexpr int kInputSize = 1000;
+  const std::vector<float> input_linear =
+      CreateInputWithIncreasingValues(kInputSize);
+  const std::vector<float> input_silent(kInputSize, 0.0f);
+  std::vector<float> output(kInputSize);
+
+  CascadedBiQuadFilter filter(kHighPassFilterCoefficients, 2);
+
+  for (int i = 0; i < 1000; ++i) {
+    if (i == 0) {
+      // Populate filter memory with non-zero data.
+      filter.Process(input_linear, output);
+    } else {
+      // Simulate muting the signal to 0.0f.
+      filter.Process(input_silent, output);
+    }
+
+    for (size_t j = 0; j < output.size(); ++j) {
+      // test for denormal value.
+      ASSERT_FALSE(std::fpclassify(output[j]) == FP_SUBNORMAL)
+          << "at block " << i << ", index " << j;
+    }
+  }
+}
+
 }  // namespace webrtc

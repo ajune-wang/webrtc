@@ -87,8 +87,9 @@ void VideoCodecUnitTest::SetUp() {
                 &codec_settings_,
                 VideoEncoder::Settings(kCapabilities, 1 /* number of cores */,
                                        0 /* max payload size (unused) */)));
-  EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
-            decoder_->InitDecode(&codec_settings_, 1 /* number of cores */));
+  VideoDecoder::Config decoder_config;
+  decoder_config.set_codec(kVideoCodecVP8);
+  EXPECT_TRUE(decoder_->Init(decoder_config));
 }
 
 void VideoCodecUnitTest::ModifyCodecSettings(VideoCodec* codec_settings) {}

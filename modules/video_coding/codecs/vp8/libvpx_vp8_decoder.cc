@@ -138,10 +138,10 @@ LibvpxVp8Decoder::~LibvpxVp8Decoder() {
   Release();
 }
 
-int LibvpxVp8Decoder::InitDecode(const VideoCodec* inst, int number_of_cores) {
+bool LibvpxVp8Decoder::Init(const Config& config) {
   int ret_val = Release();
   if (ret_val < 0) {
-    return ret_val;
+    return false;
   }
   if (decoder_ == NULL) {
     decoder_ = new vpx_codec_ctx_t;
@@ -157,7 +157,7 @@ int LibvpxVp8Decoder::InitDecode(const VideoCodec* inst, int number_of_cores) {
   if (vpx_codec_dec_init(decoder_, vpx_codec_vp8_dx(), &cfg, flags)) {
     delete decoder_;
     decoder_ = nullptr;
-    return WEBRTC_VIDEO_CODEC_MEMORY;
+    return false;
   }
 
   propagation_cnt_ = -1;
@@ -165,12 +165,12 @@ int LibvpxVp8Decoder::InitDecode(const VideoCodec* inst, int number_of_cores) {
 
   // Always start with a complete key frame.
   key_frame_required_ = true;
-  if (inst && inst->buffer_pool_size) {
-    if (!buffer_pool_.Resize(*inst->buffer_pool_size)) {
-      return WEBRTC_VIDEO_CODEC_UNINITIALIZED;
+  if (auto buffer_pool_size = config.buffer_pool_size()) {
+    if (!buffer_pool_.Resize(*buffer_pool_size)) {
+      return false;
     }
   }
-  return WEBRTC_VIDEO_CODEC_OK;
+  return true;
 }
 
 int LibvpxVp8Decoder::Decode(const EncodedImage& input_image,

@@ -258,14 +258,14 @@ int32_t VCMGenericDecoder::InitDecode(const VideoCodec* settings,
   TRACE_EVENT0("webrtc", "VCMGenericDecoder::InitDecode");
   _codecType = settings->codecType;
 
-  int err = decoder_->InitDecode(settings, numberOfCores);
+  bool ok = decoder_->Init(VideoDecoder::LegacyConfig(settings, numberOfCores));
   decoder_info_ = decoder_->GetDecoderInfo();
   RTC_LOG(LS_INFO) << "Decoder implementation: " << decoder_info_.ToString();
   if (_callback) {
     _callback->OnDecoderImplementationName(
         decoder_info_.implementation_name.c_str());
   }
-  return err;
+  return ok ? WEBRTC_VIDEO_CODEC_OK : WEBRTC_VIDEO_CODEC_ERROR;
 }
 
 int32_t VCMGenericDecoder::Decode(const VCMEncodedFrame& frame, Timestamp now) {

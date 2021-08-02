@@ -104,24 +104,23 @@ MultiplexDecoderAdapter::~MultiplexDecoderAdapter() {
   Release();
 }
 
-int32_t MultiplexDecoderAdapter::InitDecode(const VideoCodec* codec_settings,
-                                            int32_t number_of_cores) {
-  RTC_DCHECK_EQ(kVideoCodecMultiplex, codec_settings->codecType);
-  VideoCodec settings = *codec_settings;
-  settings.codecType = PayloadStringToCodecType(associated_format_.name);
+bool MultiplexDecoderAdapter::Init(const VideoDecoder::Config& config) {
+  RTC_DCHECK_EQ(kVideoCodecMultiplex, config.codec());
+  VideoDecoder::Config settings = config;
+  settings.set_codec(PayloadStringToCodecType(associated_format_.name));
   for (size_t i = 0; i < kAlphaCodecStreams; ++i) {
     std::unique_ptr<VideoDecoder> decoder =
         factory_->CreateVideoDecoder(associated_format_);
-    const int32_t rv = decoder->InitDecode(&settings, number_of_cores);
-    if (rv)
-      return rv;
+    if (!decoder->Init(settings)) {
+      return false;
+    }
     adapter_callbacks_.emplace_back(
         new MultiplexDecoderAdapter::AdapterDecodedImageCallback(
             this, static_cast<AlphaCodecStream>(i)));
     decoder->RegisterDecodeCompleteCallback(adapter_callbacks_.back().get());
     decoders_.emplace_back(std::move(decoder));
   }
-  return WEBRTC_VIDEO_CODEC_OK;
+  return true;
 }
 
 int32_t MultiplexDecoderAdapter::Decode(const EncodedImage& input_image,

@@ -12,6 +12,11 @@ if (is_android) {
   import("//build/config/android/rules.gni")
 }
 
+rtc_library("render_resolution") {
+  visibility = [ "*" ]
+  public = [ "render_resolution.h" ]
+}
+
 rtc_library("video_rtp_headers") {
   visibility = [ "*" ]
   sources = [

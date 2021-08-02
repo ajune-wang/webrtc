@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "594cac3d_c6839db4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-08-02T15:46:00Z",
+      "side": 1,
+      "message": "As far as I\u0027m aware this feature (receive-side RTT based on the Receiver Reference Time Report) needs to be negotiated in SDP, which means that some code is necessary for turning it on when needed. The standard says (see https://datatracker.ietf.org/doc/html/rfc3611#section-5.1):\n   \"Round trip time (RTT) measurement is an example of collaborative\n   functionality.  An RTP data packet receiver sends a Receiver\n   Reference Time Report Block (Section 4.4).  A participant that\n   receives this block sends a DLRR Report Block (Section 4.5) in\n   response, allowing the receiver to calculate its RTT to that\n   participant.  As this example illustrates, collaborative\n   functionality may be implemented by two or more different XR blocks.\n   The collaborative functionality of several XR blocks may be governed\n   by a single \"rtcp-xr\" parameter.\"\n\nOur SDP-code seems to have already implemented this as a codec-specific parameter instead of the \"rtcp-xr\" parameter that the standard describes (I don\u0027t know why it was done that way), using the \"rrtr\" parameter, see https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/media/base/media_constants.cc;l\u003d92;drc\u003d48171ec264b01e712e70239ef009403826c3f0ef\n\nHowever, setting that parameter doesn\u0027t do anything at the moment (at least for audio). This CL makes it actually work.",
+      "parentUuid": "8e7da0c5_be963096",
+      "revId": "c53f900bc354428795a029062ea14319028419c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e3329a99_9d15b003",
@@ -52,6 +70,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f26a361f_9c64edad",
+        "filename": "audio/audio_receive_stream.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-08-02T15:46:00Z",
+      "side": 1,
+      "message": "See my other response.",
+      "parentUuid": "e3329a99_9d15b003",
+      "revId": "c53f900bc354428795a029062ea14319028419c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d0f8eefe_7ce75c8d",
@@ -65,6 +101,24 @@
       "writtenOn": "2021-08-01T21:08:23Z",
       "side": 1,
       "message": "This seems like a really odd check to place into a tst called \"ShoudNackInLossyNetwork\". I recommend placing these statements in a new test, and add the machinery (and ONLY the machinery) needed to get those counters to increment.",
+      "revId": "c53f900bc354428795a029062ea14319028419c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f58808ff_7e7eb592",
+        "filename": "audio/test/nack_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-08-02T15:46:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0f8eefe_7ce75c8d",
       "revId": "c53f900bc354428795a029062ea14319028419c9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -88,6 +142,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ea2d5475_7f0c2756",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 875,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-08-02T15:46:00Z",
+      "side": 1,
+      "message": "I agree that the code is awkward here. My knowledge of this part of the code is limited, this is my current understanding (please let me know if I\u0027m wrong about any of this):\n-According to the standard the RTT metric needs to be reset if we receive a SR but no XR with DLRR (see https://www.w3.org/TR/webrtc-stats/#dom-rtcremoteoutboundrtpstreamstats-roundtriptime).\n-When we receive a compound RTCP packet, it is possible that we get a SR from one SSRC and a XR (with or without DLRR) from another SSRC.\n\nTherefore we need this awkward bookkeeping to keep track of the SSRCs of every SR and every XR in the compound RTCP packet. This motivates adding the code in the layer above the HandleXr() method. Let me know if you can think of a better way to handle this, or if my understanding is wrong.",
+      "parentUuid": "6d10ef30_6d1db000",
+      "revId": "c53f900bc354428795a029062ea14319028419c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ba16f465_59c51fda",
         "filename": "modules/rtp_rtcp/source/rtp_rtcp_interface.h",
         "patchSetId": 4
@@ -99,6 +171,24 @@
       "writtenOn": "2021-08-01T21:08:23Z",
       "side": 1,
       "message": "I don\u0027t think I agree with this rename. If it starts out with an SR block, and depends on starting out with an SR block, the presence of additional XR blocks doesn\u0027t make it any less a Sender Report.\n\nRemoteSender isn\u0027t a well known RTP term; SenderReport is.",
+      "revId": "c53f900bc354428795a029062ea14319028419c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04253311_e4bb5df7",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-08-02T15:46:00Z",
+      "side": 1,
+      "message": "This was one of the suggestions from the other reviewer. \n\nDanil: are you okay with reverting to the previous name, or do you think it would be better to move the new metrics to a new struct?",
+      "parentUuid": "ba16f465_59c51fda",
       "revId": "c53f900bc354428795a029062ea14319028419c9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

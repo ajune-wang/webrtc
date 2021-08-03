@@ -1,0 +1,222 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0f48838_7d74a27f",
+        "filename": "modules/rtp_rtcp/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-03T10:20:51Z",
+      "side": 1,
+      "message": "actually remove: there is one (line above)",
+      "range": {
+        "startLine": 300,
+        "startChar": 0,
+        "endLine": 300,
+        "endChar": 41
+      },
+      "revId": "93567263224125044d356d5db710f16019396041",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b976c7b_c6644ace",
+        "filename": "modules/rtp_rtcp/source/packet_sequencer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-03T10:20:51Z",
+      "side": 1,
+      "message": "what should happen with packets that do not match either of the three ssrcs?\n\nIf nothing suppose to happen with those packets, may be no need to pass flexfec ssrc.",
+      "range": {
+        "startLine": 29,
+        "startChar": 37,
+        "endLine": 29,
+        "endChar": 58
+      },
+      "revId": "93567263224125044d356d5db710f16019396041",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35b55f55_6aa1cbef",
+        "filename": "modules/rtp_rtcp/source/packet_sequencer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-03T10:20:51Z",
+      "side": 1,
+      "message": "`",
+      "range": {
+        "startLine": 29,
+        "startChar": 22,
+        "endLine": 29,
+        "endChar": 23
+      },
+      "revId": "93567263224125044d356d5db710f16019396041",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "352518ee_b3834ba1",
+        "filename": "modules/rtp_rtcp/source/packet_sequencer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-03T10:20:51Z",
+      "side": 1,
+      "message": "is it the same as call to `Sequence` was made with packet with `media_ssrc` ?",
+      "range": {
+        "startLine": 54,
+        "startChar": 21,
+        "endLine": 54,
+        "endChar": 48
+      },
+      "revId": "93567263224125044d356d5db710f16019396041",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7cb7880_162b8216",
+        "filename": "modules/rtp_rtcp/source/packet_sequencer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-03T10:20:51Z",
+      "side": 1,
+      "message": "this comment feels like implementation detail.\nI\u0027m not sure this comment is needed. (alternatively it can be moved next to definition, but there it would just repeat the code. Looking at implementation I see it already has a better comment: it describes why this condition is needed to send padding on media ssrc)\n\nhttp://go/cpp-style#Function_Comments\n\"Declaration comments describe use of the function (when it is non-obvious)\"",
+      "range": {
+        "startLine": 54,
+        "startChar": 2,
+        "endLine": 56,
+        "endChar": 35
+      },
+      "revId": "93567263224125044d356d5db710f16019396041",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b678101e_7d7bdd66",
+        "filename": "modules/rtp_rtcp/source/packet_sequencer_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-03T10:20:51Z",
+      "side": 1,
+      "message": "personally I prefer to put everything into unnamed namespace in tests (i.e. including fixture and TESTs themselves)\n\nbased on general idea \u0027hide as much as possible\u0027",
+      "revId": "93567263224125044d356d5db710f16019396041",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a975358_301026e1",
+        "filename": "modules/rtp_rtcp/source/packet_sequencer_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-03T10:20:51Z",
+      "side": 1,
+      "message": "may be it would be clearer to avoid relying on assumption CreatePacket sets SequenceNumber to zero, e.g.:\n\npacket.SetSequenceNumber(0x1234);\nsequence_.Sequence(packet);\nEXPECT_EQ(packet.SequenceNumber(), 0x1234);",
+      "range": {
+        "startLine": 64,
+        "startChar": 2,
+        "endLine": 64,
+        "endChar": 40
+      },
+      "revId": "93567263224125044d356d5db710f16019396041",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebf1df26_e8cd9c9d",
+        "filename": "modules/rtp_rtcp/source/packet_sequencer_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-03T10:20:51Z",
+      "side": 1,
+      "message": "it would probably help not to rely on fixture constructor.\ne.g.\nsequencer_.set_rtx_sequence_number(kRtxStartSequenceNumber);\nsequencer_.Sequence(packet);\nEXPECT_EQ(packet.SequenceNumber(), kRtxStartSequenceNumber);\n\nhttps://testing.googleblog.com/2017/01/testing-on-toilet-keep-cause-and-effect.html\n(aka http://go/tott/503)\n\n(and remove setting sequence numbers into sequencer_ in the fixture constructor)",
+      "range": {
+        "startLine": 102,
+        "startChar": 2,
+        "endLine": 102,
+        "endChar": 62
+      },
+      "revId": "93567263224125044d356d5db710f16019396041",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba7cdb53_b93a6fa9",
+        "filename": "modules/rtp_rtcp/source/packet_sequencer_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-03T10:20:51Z",
+      "side": 1,
+      "message": ")",
+      "range": {
+        "startLine": 108,
+        "startChar": 31,
+        "endLine": 108,
+        "endChar": 32
+      },
+      "revId": "93567263224125044d356d5db710f16019396041",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bcfb847f_cf4f71b2",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-03T10:20:51Z",
+      "side": 1,
+      "message": "remove the empty line",
+      "revId": "93567263224125044d356d5db710f16019396041",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

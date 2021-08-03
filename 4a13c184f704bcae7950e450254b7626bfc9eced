@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b14b9f7e_c51690aa",
+        "filename": "modules/rtp_rtcp/source/packet_sequencer_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-03T12:33:51Z",
+      "side": 1,
+      "message": "may be clarify what this number mean:\n/*padding_size\u003d*/100\n\nThough actual value unimportant, it is clearer to see that when you know what that number mean.",
+      "range": {
+        "startLine": 160,
+        "startChar": 28,
+        "endLine": 160,
+        "endChar": 31
+      },
+      "revId": "4a13c184f704bcae7950e450254b7626bfc9eced",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74a4e094_ec5d30fa",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-03T12:33:51Z",
+      "side": 1,
+      "message": "to me it seems more logical to keep the check for flexfec outside the sequencer",
+      "revId": "4a13c184f704bcae7950e450254b7626bfc9eced",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

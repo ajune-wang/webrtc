@@ -144,6 +144,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "68eb154f_46385864",
+        "filename": "modules/rtp_rtcp/source/packet_sequencer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-03T12:33:51Z",
+      "side": 1,
+      "message": "to me it\u0027s weird to pass in extra construction parameter just to check there might be packets with that ssrc, but nothing should be done about them.\nPacketSequencer has no other logic to handle flexfec packet, it is up to upper classes to know that flexfec ssrc is sequenced differently, so I would prefer PacketSequencer not to know about it.\n\n(also, it builds on inaccurate implementation of the rtx and flexfec in webrtc: flexfec is a payload type, it doesn\u0027t have to have own ssrc.)",
+      "parentUuid": "30559bb9_2c70d3fa",
+      "range": {
+        "startLine": 29,
+        "startChar": 37,
+        "endLine": 29,
+        "endChar": 58
+      },
+      "revId": "93567263224125044d356d5db710f16019396041",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "352518ee_b3834ba1",
         "filename": "modules/rtp_rtcp/source/packet_sequencer.h",
         "patchSetId": 4

@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e89280c_4f98a1c4",
+        "filename": "modules/rtp_rtcp/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-03T11:55:34Z",
+      "side": 1,
+      "message": "Done, missed that clang format did this.",
+      "parentUuid": "f0f48838_7d74a27f",
+      "range": {
+        "startLine": 300,
+        "startChar": 0,
+        "endLine": 300,
+        "endChar": 41
+      },
+      "revId": "93567263224125044d356d5db710f16019396041",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9b976c7b_c6644ace",
@@ -70,6 +94,54 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce246c7d_315172bd",
+        "filename": "modules/rtp_rtcp/source/packet_sequencer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-03T11:55:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35b55f55_6aa1cbef",
+      "range": {
+        "startLine": 29,
+        "startChar": 22,
+        "endLine": 29,
+        "endChar": 23
+      },
+      "revId": "93567263224125044d356d5db710f16019396041",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30559bb9_2c70d3fa",
+        "filename": "modules/rtp_rtcp/source/packet_sequencer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-03T11:55:34Z",
+      "side": 1,
+      "message": "Right now we DCHECK that it\u0027s one of these. I\u0027d rather not make it a silent ignore, as it feels like an error condition to not explicitly account for the possible SSRCs that can be used.\nwdyt?",
+      "parentUuid": "9b976c7b_c6644ace",
+      "range": {
+        "startLine": 29,
+        "startChar": 37,
+        "endLine": 29,
+        "endChar": 58
+      },
+      "revId": "93567263224125044d356d5db710f16019396041",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "352518ee_b3834ba1",
@@ -83,6 +155,30 @@
       "writtenOn": "2021-08-03T10:20:51Z",
       "side": 1,
       "message": "is it the same as call to `Sequence` was made with packet with `media_ssrc` ?",
+      "range": {
+        "startLine": 54,
+        "startChar": 21,
+        "endLine": 54,
+        "endChar": 48
+      },
+      "revId": "93567263224125044d356d5db710f16019396041",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53c8a430_85b39f19",
+        "filename": "modules/rtp_rtcp/source/packet_sequencer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-03T11:55:34Z",
+      "side": 1,
+      "message": "Essentially yes. I\u0027ve rewritten this comment to not mention the implementation details.",
+      "parentUuid": "352518ee_b3834ba1",
       "range": {
         "startLine": 54,
         "startChar": 21,
@@ -135,6 +231,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "2a46740b_ba870bba",
+        "filename": "modules/rtp_rtcp/source/packet_sequencer_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-03T11:55:34Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "b678101e_7d7bdd66",
+      "revId": "93567263224125044d356d5db710f16019396041",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "4a975358_301026e1",
         "filename": "modules/rtp_rtcp/source/packet_sequencer_unittest.cc",
         "patchSetId": 4
@@ -146,6 +260,30 @@
       "writtenOn": "2021-08-03T10:20:51Z",
       "side": 1,
       "message": "may be it would be clearer to avoid relying on assumption CreatePacket sets SequenceNumber to zero, e.g.:\n\npacket.SetSequenceNumber(0x1234);\nsequence_.Sequence(packet);\nEXPECT_EQ(packet.SequenceNumber(), 0x1234);",
+      "range": {
+        "startLine": 64,
+        "startChar": 2,
+        "endLine": 64,
+        "endChar": 40
+      },
+      "revId": "93567263224125044d356d5db710f16019396041",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4404bea4_8ddea1e8",
+        "filename": "modules/rtp_rtcp/source/packet_sequencer_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-03T11:55:34Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "4a975358_301026e1",
       "range": {
         "startLine": 64,
         "startChar": 2,
@@ -179,6 +317,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c252a58_43729622",
+        "filename": "modules/rtp_rtcp/source/packet_sequencer_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-03T11:55:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ebf1df26_e8cd9c9d",
+      "range": {
+        "startLine": 102,
+        "startChar": 2,
+        "endLine": 102,
+        "endChar": 62
+      },
+      "revId": "93567263224125044d356d5db710f16019396041",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ba7cdb53_b93a6fa9",
@@ -202,6 +364,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a90fe5a_44195d99",
+        "filename": "modules/rtp_rtcp/source/packet_sequencer_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-03T11:55:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba7cdb53_b93a6fa9",
+      "range": {
+        "startLine": 108,
+        "startChar": 31,
+        "endLine": 108,
+        "endChar": 32
+      },
+      "revId": "93567263224125044d356d5db710f16019396041",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bcfb847f_cf4f71b2",
@@ -215,6 +401,24 @@
       "writtenOn": "2021-08-03T10:20:51Z",
       "side": 1,
       "message": "remove the empty line",
+      "revId": "93567263224125044d356d5db710f16019396041",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11a87370_21692238",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-03T11:55:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bcfb847f_cf4f71b2",
       "revId": "93567263224125044d356d5db710f16019396041",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

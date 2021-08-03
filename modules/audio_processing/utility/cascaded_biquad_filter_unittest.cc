@@ -10,6 +10,8 @@
 
 #include "modules/audio_processing/utility/cascaded_biquad_filter.h"
 
+#include <immintrin.h>
+
 #include <vector>
 
 #include "test/gtest.h"
@@ -152,6 +154,42 @@ TEST(CascadedBiquadFilter, BiQuadParamBandPass) {
   EXPECT_NEAR(filter.coefficients.b[2], -0.24523728f, epsilon);
   EXPECT_NEAR(filter.coefficients.a[0], -2.22044605e-16f, epsilon);
   EXPECT_NEAR(filter.coefficients.a[1], 5.09525449e-01f, epsilon);
+}
+
+// Look for denormals.
+// Runs APM's 48 kHz highpass filter through 1 block of non-zero data and a
+// few seconds of complete silence.
+TEST(CascadedBiquadFilter, NoDenormals) {
+  _MM_SET_FLUSH_ZERO_MODE(_MM_FLUSH_ZERO_ON);
+
+  constexpr int kFrameSize = 480;
+  const std::vector<float> input_linear =
+      CreateInputWithIncreasingValues(kFrameSize);
+  const std::vector<float> input_silent(kFrameSize, 0.0f);
+  std::vector<float> output(kFrameSize);
+
+  // Copied from high_pass_filter.cc:
+  constexpr CascadedBiQuadFilter::BiQuadCoefficients
+      kHighPassFilterCoefficients48kHz = {{0.99079f, -1.98157f, 0.99079f},
+                                          {-1.98149f, 0.98166f}};
+  constexpr size_t kNumberOfHighPassBiQuads = 1;
+  CascadedBiQuadFilter filter(kHighPassFilterCoefficients48kHz,
+                              kNumberOfHighPassBiQuads);
+
+  for (int i = 0; i < 100; ++i) {
+    if (i == 0) {
+      // Populate filter memory with non-zero data.
+      filter.Process(input_linear, output);
+    } else {
+      filter.Process(input_silent, output);
+    }
+
+    // Test each sample for denormalness.
+    for (size_t j = 0; j < output.size(); ++j) {
+      ASSERT_FALSE(std::fpclassify(output[j]) == FP_SUBNORMAL)
+          << "at block " << i << ", index " << j << ": " << output[j];
+    }
+  }
 }
 
 }  // namespace webrtc

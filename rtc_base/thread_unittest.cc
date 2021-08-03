@@ -17,6 +17,7 @@
 #include "rtc_base/async_invoker.h"
 #include "rtc_base/async_udp_socket.h"
 #include "rtc_base/atomic_ops.h"
+#include "rtc_base/checks.h"
 #include "rtc_base/event.h"
 #include "rtc_base/gunit.h"
 #include "rtc_base/internal/default_socket_server.h"
@@ -366,7 +367,7 @@ TEST(ThreadTest, Wrap) {
   ThreadManager::Instance()->SetCurrentThread(current_thread);
 }
 
-#if (!defined(NDEBUG) || defined(RTC_DCHECK_ALWAYS_ON))
+#if (!defined(NDEBUG) || RTC_DCHECK_IS_ON)
 TEST(ThreadTest, InvokeToThreadAllowedReturnsTrueWithoutPolicies) {
   // Create and start the thread.
   auto thread1 = Thread::CreateWithSocketServer();
@@ -410,7 +411,7 @@ TEST(ThreadTest, InvokesDisallowedWhenDisallowAllInvokes) {
   Thread* th_main = Thread::Current();
   th_main->ProcessMessages(100);
 }
-#endif  // (!defined(NDEBUG) || defined(RTC_DCHECK_ALWAYS_ON))
+#endif  // (!defined(NDEBUG) || RTC_DCHECK_IS_ON)
 
 TEST(ThreadTest, InvokesAllowedByDefault) {
   // Create and start the thread.
@@ -446,7 +447,7 @@ TEST(ThreadTest, Invoke) {
 // not deadlock but crash.
 #if RTC_DCHECK_IS_ON && GTEST_HAS_DEATH_TEST && !defined(WEBRTC_ANDROID)
 TEST(ThreadTest, TwoThreadsInvokeDeathTest) {
-  ::testing::GTEST_FLAG(death_test_style) = "threadsafe";
+  GTEST_FLAG_SET(death_test_style, "threadsafe");
   AutoThread thread;
   Thread* main_thread = Thread::Current();
   auto other_thread = Thread::CreateWithSocketServer();
@@ -457,7 +458,7 @@ TEST(ThreadTest, TwoThreadsInvokeDeathTest) {
 }
 
 TEST(ThreadTest, ThreeThreadsInvokeDeathTest) {
-  ::testing::GTEST_FLAG(death_test_style) = "threadsafe";
+  GTEST_FLAG_SET(death_test_style, "threadsafe");
   AutoThread thread;
   Thread* first = Thread::Current();
 

@@ -104,6 +104,30 @@
       },
       "revId": "cb5ad8c55bed871417fdf47a67cfc75bbbf438d6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "270186ae_cd0582e4",
+        "filename": "sdk/objc/api/peerconnection/RTCSessionDescription.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-08-03T01:08:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b9175ef_2696e4d6",
+      "range": {
+        "startLine": 52,
+        "startChar": 2,
+        "endLine": 53,
+        "endChar": 19
+      },
+      "revId": "cb5ad8c55bed871417fdf47a67cfc75bbbf438d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

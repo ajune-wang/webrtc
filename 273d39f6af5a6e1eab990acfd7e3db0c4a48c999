@@ -16,6 +16,24 @@
       "message": "Might be good with comments explaining that this returns true for the first the first frame seen with a particular identifying timestamp, which is how we track the overall fps.\nPerhaps also below, that `is_top_spatial_layer` pertains only to SVC - it will always be true for simulcast.",
       "revId": "273d39f6af5a6e1eab990acfd7e3db0c4a48c999",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "896d2cfd_a7bb5a0e",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1021,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2021-08-03T12:48:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eefd3b71_74c89a05",
+      "revId": "273d39f6af5a6e1eab990acfd7e3db0c4a48c999",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

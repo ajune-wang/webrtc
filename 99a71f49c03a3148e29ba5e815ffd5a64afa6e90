@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f9ab154_573095cd",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2021-08-03T17:30:53Z",
+      "side": 0,
+      "message": "If an embedder currently sets rtc_pipewire_version \u003d\u003d \"0.2\", will the compilation fail because the capturer code is only compatible with 0.3?\n\nOr will the failure only be found out at runtime if the 0.3 shared library is not installed?",
+      "revId": "99a71f49c03a3148e29ba5e815ffd5a64afa6e90",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0661de6_b9d5669f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2021-08-03T17:30:53Z",
+      "side": 1,
+      "message": "Don\u0027t have any code review rights in this repo, just one question.",
+      "revId": "001971e7d661e18126be3f03f15f74e41e7246eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

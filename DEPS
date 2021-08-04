@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'da805a7931aa24094025687b52be466b11d711ba',
+  'chromium_revision': 'd006c1cf3e44a619029605c609b65c37177d14dc',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -22,7 +22,7 @@ deps = {
   'src/base':
     'https://chromium.googlesource.com/chromium/src/base@f889b7f74de81b43cc96aa6de25bf3e2066ae57b',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@f8bccc27399545bdf7ca15195b446fb7a863f059',
+    'https://chromium.googlesource.com/chromium/src/build@fb31623114b03ba3c3d482cb21480da6c8a89d7e',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@37dc929ecb351687006a61744b116cda601753d7',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -35,9 +35,9 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@33faa936e37626bf0c478a1faef362d1bbd0ac26',
+    'https://chromium.googlesource.com/chromium/src/testing@86838d74a69f992ad1954d3fe63808023ad7103d',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@27b617d5a47c16c9bc364e56d6c36960350c7245',
+    'https://chromium.googlesource.com/chromium/src/third_party@72893938c2d1ef2001e441c0e02e2b20ae986d7d',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -271,7 +271,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@d082599cf099136df096633254ace68eb56b1a8c',
+    'https://chromium.googlesource.com/chromium/src/tools@d544059dd2fab50ef563632685a5d57d8d51e921',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@a32a1607f6093d338f756c7e7c7b4333b0c50c9c',
 
@@ -477,15 +477,15 @@ deps = {
       'packages': [
         {
           'package': 'infra/tools/luci/isolate/${{platform}}',
-          'version': 'git_revision:ef18edd2fa067d8bf14c006abc03993f2c1eb1b9',
+          'version': 'git_revision:6c7a31b42b70f548b5bbb8bb9924e4186108c88e',
         },
         {
           'package': 'infra/tools/luci/isolated/${{platform}}',
-          'version': 'git_revision:ef18edd2fa067d8bf14c006abc03993f2c1eb1b9',
+          'version': 'git_revision:6c7a31b42b70f548b5bbb8bb9924e4186108c88e',
         },
         {
           'package': 'infra/tools/luci/swarming/${{platform}}',
-          'version': 'git_revision:ef18edd2fa067d8bf14c006abc03993f2c1eb1b9',
+          'version': 'git_revision:6c7a31b42b70f548b5bbb8bb9924e4186108c88e',
         },
       ],
       'dep_type': 'cipd',

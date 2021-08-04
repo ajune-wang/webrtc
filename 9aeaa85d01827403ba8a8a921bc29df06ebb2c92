@@ -34,6 +34,116 @@
       "parentUuid": "90970909_c38df96d",
       "revId": "9aeaa85d01827403ba8a8a921bc29df06ebb2c92",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0bce5cd8_8caf28a5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-04T13:52:32Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "26de7a9c_e79c0f13",
+      "revId": "9aeaa85d01827403ba8a8a921bc29df06ebb2c92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64ad180a_dadaf2dc",
+        "filename": "rtc_base/framerate_controller.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-04T13:52:32Z",
+      "side": 1,
+      "message": "I think it would be a good idea to move to double or some other type allowing fraction frame rates. We\u0027re moving in that direction in the rate control elsewhere.",
+      "range": {
+        "startLine": 28,
+        "startChar": 23,
+        "endLine": 28,
+        "endChar": 27
+      },
+      "revId": "9aeaa85d01827403ba8a8a921bc29df06ebb2c92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "848f636e_f1a33b3c",
+        "filename": "rtc_base/framerate_controller.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-04T13:52:32Z",
+      "side": 1,
+      "message": "Would prefer Timestamp here, also to make merging with other rate controller easier. That would mean truncating from ns to us, but should be non-issue for fps...",
+      "range": {
+        "startLine": 31,
+        "startChar": 17,
+        "endLine": 31,
+        "endChar": 40
+      },
+      "revId": "9aeaa85d01827403ba8a8a921bc29df06ebb2c92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "218c8060_80f937ae",
+        "filename": "rtc_base/framerate_controller.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-04T13:52:32Z",
+      "side": 1,
+      "message": "I know it\u0027s called DropFrame in other places, but maybe we could consider a name that does not sound like a command. E.g. ShouldDropFrame() ?",
+      "range": {
+        "startLine": 31,
+        "startChar": 7,
+        "endLine": 31,
+        "endChar": 16
+      },
+      "revId": "9aeaa85d01827403ba8a8a921bc29df06ebb2c92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c39a9bfc_fcea37a9",
+        "filename": "rtc_base/framerate_controller.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-04T13:52:32Z",
+      "side": 1,
+      "message": "other benefit of Timestamp, can be set to Timestamp::MinusInfinity() here and avoid the need for optional.",
+      "range": {
+        "startLine": 37,
+        "startChar": 2,
+        "endLine": 37,
+        "endChar": 25
+      },
+      "revId": "9aeaa85d01827403ba8a8a921bc29df06ebb2c92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

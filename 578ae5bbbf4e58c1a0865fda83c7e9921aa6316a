@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "71de8bab_9e9e9788",
+        "filename": "modules/rtp_rtcp/source/packet_sequencer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-04T10:13:32Z",
+      "side": 1,
+      "message": "To answer a comment from an earlier CL, I don\u0027t know why this is 15 bits.\nCode is copied from RTPSender.\nCan\u0027t find any reason in the spec for doing it this way but am hesitant to change it, at least in this CL.",
+      "range": {
+        "startLine": 67,
+        "startChar": 44,
+        "endLine": 67,
+        "endChar": 65
+      },
+      "revId": "578ae5bbbf4e58c1a0865fda83c7e9921aa6316a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

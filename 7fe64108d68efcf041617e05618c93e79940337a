@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a1b74d4_dd4ac77e",
+        "filename": "modules/rtp_rtcp/source/packet_sequencer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-04T12:46:05Z",
+      "side": 1,
+      "message": "This is just moved from RTPSender. I agree that both the !\u003d 0 and \u003c 2^15 constraints are weird, but would prefer not to change any behavior in this CL.\nI\u0027ll add a TODO and follow up with that in a separate CL.",
+      "parentUuid": "4b2f0fb8_b8482f0d",
+      "range": {
+        "startLine": 66,
+        "startChar": 27,
+        "endLine": 66,
+        "endChar": 39
+      },
+      "revId": "7fe64108d68efcf041617e05618c93e79940337a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1b57357b_0aa3e9c1",
@@ -47,6 +71,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9265407_f828d09c",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-04T12:46:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b57357b_0aa3e9c1",
+      "range": {
+        "startLine": 49,
+        "startChar": 17,
+        "endLine": 49,
+        "endChar": 30
+      },
+      "revId": "7fe64108d68efcf041617e05618c93e79940337a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3b5ee428_908574d6",
@@ -60,6 +108,24 @@
       "writtenOn": "2021-08-04T11:33:28Z",
       "side": 1,
       "message": "remove empty line",
+      "revId": "7fe64108d68efcf041617e05618c93e79940337a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "68da62be_0e3a527a",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-04T12:46:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b5ee428_908574d6",
       "revId": "7fe64108d68efcf041617e05618c93e79940337a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -110,6 +176,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d65c57a_a14da492",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-04T12:46:05Z",
+      "side": 1,
+      "message": "You, mean why not make it part of the PacketSequencer ctor?\nYeah, that makes sense. Other usages of PacketSequencer can just set their wanted values explicitly.",
+      "parentUuid": "88479023_edb7552c",
+      "range": {
+        "startLine": 206,
+        "startChar": 2,
+        "endLine": 208,
+        "endChar": 79
+      },
+      "revId": "7fe64108d68efcf041617e05618c93e79940337a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fc0eed71_3f11f9d0",
@@ -133,6 +223,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7725963_320f3142",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-04T12:46:05Z",
+      "side": 1,
+      "message": "Done. Though I personally find it confusing the we have an optional that is definitely not optionally populated :)",
+      "parentUuid": "fc0eed71_3f11f9d0",
+      "range": {
+        "startLine": 203,
+        "startChar": 2,
+        "endLine": 203,
+        "endChar": 17
+      },
+      "revId": "7fe64108d68efcf041617e05618c93e79940337a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ae117bae_5266285c",
@@ -146,6 +260,30 @@
       "writtenOn": "2021-08-04T11:33:28Z",
       "side": 1,
       "message": "swap AllOf and Pointee (same as already done in previous tests)\nthen you\u0027ll need to write Pointee once instead of twice.",
+      "range": {
+        "startLine": 1440,
+        "startChar": 41,
+        "endLine": 1441,
+        "endChar": 26
+      },
+      "revId": "7fe64108d68efcf041617e05618c93e79940337a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a5e7489_c1b83fa7",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1441,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-04T12:46:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae117bae_5266285c",
       "range": {
         "startLine": 1440,
         "startChar": 41,

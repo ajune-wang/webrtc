@@ -16,6 +16,24 @@
       "message": "I\u0027ll have a deeper look shortly, but first a general question.\nWe already have another FramerateController class in modules/video_coding/utility/framerate_controller.h\nCan we merge these?",
       "revId": "9aeaa85d01827403ba8a8a921bc29df06ebb2c92",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26de7a9c_e79c0f13",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2021-08-04T11:28:46Z",
+      "side": 1,
+      "message": "The plan is to replace the FramerateController class in modules/video_coding/utility with the class in this CL in a later step (updating SimulcastEncoderAdapter to begin with).",
+      "parentUuid": "90970909_c38df96d",
+      "revId": "9aeaa85d01827403ba8a8a921bc29df06ebb2c92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

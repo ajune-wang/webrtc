@@ -48,6 +48,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6515e04e_ba20dd0d",
+        "filename": "modules/rtp_rtcp/source/packet_sequencer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-04T12:59:30Z",
+      "side": 1,
+      "message": "I wasn\u0027t really suggesting to allow 0 as valid starting sequence number. Agree better to (indefinitely) postpone it to another CL.\n\nI was suggesting to remove misleading comment \"Can\u0027t be 0\" that repeats code, but doesn\u0027t explain it. (if you can replace it with a comment that does explain why 0 is excluded - that would be even better)",
+      "parentUuid": "1a1b74d4_dd4ac77e",
+      "range": {
+        "startLine": 66,
+        "startChar": 27,
+        "endLine": 66,
+        "endChar": 39
+      },
+      "revId": "7fe64108d68efcf041617e05618c93e79940337a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1b57357b_0aa3e9c1",
@@ -237,6 +261,30 @@
       "side": 1,
       "message": "Done. Though I personally find it confusing the we have an optional that is definitely not optionally populated :)",
       "parentUuid": "fc0eed71_3f11f9d0",
+      "range": {
+        "startLine": 203,
+        "startChar": 2,
+        "endLine": 203,
+        "endChar": 17
+      },
+      "revId": "7fe64108d68efcf041617e05618c93e79940337a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c893040f_43daf7fb",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-04T12:59:30Z",
+      "side": 1,
+      "message": "it is nullopt right after construction, but before SetUp finished it work.\n\nWhile it is a bit weird, it is less weird than unique_ptr that is \u0027never\u0027 nullptr, never moved and the run-time type is always the same as compile-time type (i.e. unique_ptr doesn\u0027t point to an abstract interface)\n\nIf you can move construction into the constructor and make it non-optional, or move all the construction into individual tests so that there is no need to recreated it right after construction - that would be better, but right now tests are not structured that way.",
+      "parentUuid": "f7725963_320f3142",
       "range": {
         "startLine": 203,
         "startChar": 2,

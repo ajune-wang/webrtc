@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69c687b8_18db526f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-08-04T22:17:36Z",
+      "side": 1,
+      "message": "tommi, would you be able to take a look since all other eligible reviewers are OOO?\n\nIn short: this CL makes an optimization to not gather superfluous ICE candidates, but introduced a regression that may force people to use Plan B SDP.\n\nI don\u0027t believe reverting this will break anything, as it\u0027s just an optimization, and one that applications using \"max-bundle\" already benefit from without this CL.",
+      "revId": "607ea67a1a9c22260beca19277e5db4512676468",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

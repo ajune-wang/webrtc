@@ -16,6 +16,24 @@
       "message": "If an embedder currently sets rtc_pipewire_version \u003d\u003d \"0.2\", will the compilation fail because the capturer code is only compatible with 0.3?\n\nOr will the failure only be found out at runtime if the 0.3 shared library is not installed?",
       "revId": "99a71f49c03a3148e29ba5e815ffd5a64afa6e90",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21a3ee4c_9639f4d2",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-08-04T05:56:32Z",
+      "side": 0,
+      "message": "It will print a warning and just use the only available PW version we support. If the person has only PW 0.2, then his compilation will fail on missing libraries.\n\nWARNING at build arg file (use \"gn args \u003cout_dir\u003e\" to edit):6:22: Build argument has no effect.\nrtc_pipewire_version\u003d\"0.3\"",
+      "parentUuid": "3f9ab154_573095cd",
+      "revId": "99a71f49c03a3148e29ba5e815ffd5a64afa6e90",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

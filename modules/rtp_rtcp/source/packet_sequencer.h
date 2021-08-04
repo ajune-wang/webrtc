@@ -43,6 +43,8 @@ class PacketSequencer {
     rtx_sequence_number_ = sequence_number;
   }
 
+  void RandomizeSequencerNumbers();
+
   void SetRtpState(const RtpState& state);
   void PupulateRtpState(RtpState& state) const;
 

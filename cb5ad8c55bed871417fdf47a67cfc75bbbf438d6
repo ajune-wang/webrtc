@@ -85,6 +85,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "66303f22_2108f76a",
+        "filename": "sdk/objc/api/peerconnection/RTCSessionDescription+Private.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-08-04T12:03:21Z",
+      "side": 1,
+      "message": "All first property of interfaces in sdk/objc have 4 space indents. In my opinion, it should be handled using clang-format rather than using local workaround.\nSo I want to keep it as it is in this CL, what do you think?",
+      "parentUuid": "d147b22f_c7724780",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 34
+      },
+      "revId": "cb5ad8c55bed871417fdf47a67cfc75bbbf438d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1b9175ef_2696e4d6",
         "filename": "sdk/objc/api/peerconnection/RTCSessionDescription.mm",
         "patchSetId": 2

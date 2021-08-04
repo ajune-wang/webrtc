@@ -22,6 +22,30 @@
       },
       "revId": "578ae5bbbf4e58c1a0865fda83c7e9921aa6316a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b99adc85_01eec26d",
+        "filename": "modules/rtp_rtcp/source/packet_sequencer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-04T11:33:28Z",
+      "side": 1,
+      "message": "As I understand it, it is done to avoid having sequence number close to 2^16 - small delta, i.e. close to the wrap around, and thus to avoid wrap around confusing when some packets got delayed.\ne.g. if receiver sees packet with sequence numbers 1, 2, 0xffff, 0xfffe, 0, 3, \nthen receiver may incorrectly count number of wrap arounds.\n\n(I think receiver still should be able to handle it, but it is in a \u0027slow\u0027 branch, i.e. it first try to decrypt packets without sequence number wraparound, fails, then tries to decrypt again assuming single wrap around)",
+      "parentUuid": "71de8bab_9e9e9788",
+      "range": {
+        "startLine": 67,
+        "startChar": 44,
+        "endLine": 67,
+        "endChar": 65
+      },
+      "revId": "578ae5bbbf4e58c1a0865fda83c7e9921aa6316a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

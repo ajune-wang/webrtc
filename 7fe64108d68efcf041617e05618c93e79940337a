@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b2f0fb8_b8482f0d",
+        "filename": "modules/rtp_rtcp/source/packet_sequencer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-04T11:33:28Z",
+      "side": 1,
+      "message": "why? (tbh, I do not see a strong reason to avoid 0)\nthere might be a weak reason (e.g. debugability: 0 looks like we forgot to randomise it).\n\nEither remove this statement, or explain why 0 is avoided.",
+      "range": {
+        "startLine": 66,
+        "startChar": 27,
+        "endLine": 66,
+        "endChar": 39
+      },
+      "revId": "7fe64108d68efcf041617e05618c93e79940337a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b57357b_0aa3e9c1",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-04T11:33:28Z",
+      "side": 1,
+      "message": "here parameter meaning doesn\u0027t match passed value, so it would be a good idea to explain it:\n/*require_marker_before_media_padding_\u003d*/!config.audio,",
+      "range": {
+        "startLine": 49,
+        "startChar": 17,
+        "endLine": 49,
+        "endChar": 30
+      },
+      "revId": "7fe64108d68efcf041617e05618c93e79940337a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b5ee428_908574d6",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-04T11:33:28Z",
+      "side": 1,
+      "message": "remove empty line",
+      "revId": "7fe64108d68efcf041617e05618c93e79940337a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5340600e_7b55e87f",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-04T11:33:28Z",
+      "side": 1,
+      "message": "avoid .reset for unique_ptr, specially when parameter is not nullptr.\nowned_sequencer_ \u003d absl::WrapUnique(sequencer_);\n\n(on the other hand, I guess this code doesn\u0027t suppose to live long, so making it clean is not that important)",
+      "range": {
+        "startLine": 204,
+        "startChar": 2,
+        "endLine": 204,
+        "endChar": 37
+      },
+      "revId": "7fe64108d68efcf041617e05618c93e79940337a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88479023_edb7552c",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-04T11:33:28Z",
+      "side": 1,
+      "message": "sequencer_-\u003eRandomizeSequencerNumbers();\n\nbtw, it looks like \nRandomizeSequencerNumbers is always called and always called right after construction, why have it as separate function?",
+      "range": {
+        "startLine": 206,
+        "startChar": 2,
+        "endLine": 208,
+        "endChar": 79
+      },
+      "revId": "7fe64108d68efcf041617e05618c93e79940337a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc0eed71_3f11f9d0",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-04T11:33:28Z",
+      "side": 1,
+      "message": "https://abseil.io/tips/187#common-anti-pattern-delayed-initialization\n\n\"If delayed initialization is really important and unavoidable, consider using absl::optional with its emplace() method.\"",
+      "range": {
+        "startLine": 203,
+        "startChar": 2,
+        "endLine": 203,
+        "endChar": 17
+      },
+      "revId": "7fe64108d68efcf041617e05618c93e79940337a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae117bae_5266285c",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1441,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-04T11:33:28Z",
+      "side": 1,
+      "message": "swap AllOf and Pointee (same as already done in previous tests)\nthen you\u0027ll need to write Pointee once instead of twice.",
+      "range": {
+        "startLine": 1440,
+        "startChar": 41,
+        "endLine": 1441,
+        "endChar": 26
+      },
+      "revId": "7fe64108d68efcf041617e05618c93e79940337a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

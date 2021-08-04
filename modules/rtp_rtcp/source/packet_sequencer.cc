@@ -11,6 +11,7 @@
 #include "modules/rtp_rtcp/source/packet_sequencer.h"
 
 #include "rtc_base/checks.h"
+#include "rtc_base/random.h"
 
 namespace webrtc {
 
@@ -58,6 +59,14 @@ void PacketSequencer::Sequence(RtpPacketToSend& packet) {
   } else {
     RTC_NOTREACHED() << "Unexpected ssrc " << packet.Ssrc();
   }
+}
+
+void PacketSequencer::RandomizeSequencerNumbers() {
+  Random random(clock_->TimeInMicroseconds());
+  // Random start, 16 bits. Can't be 0.
+  constexpr uint16_t kMaxInitRtpSeqNumber = 0x7fff;  // 2^15 - 1.
+  media_sequence_number_ = random.Rand(1, kMaxInitRtpSeqNumber);
+  rtx_sequence_number_ = random.Rand(1, kMaxInitRtpSeqNumber);
 }
 
 void PacketSequencer::SetRtpState(const RtpState& state) {

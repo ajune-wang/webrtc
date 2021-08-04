@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92e718df_efa31261",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2021-08-04T09:43:20Z",
+      "side": 1,
+      "message": "can\u0027t decide whether this is \"t for typo\" or \"paddingt...on\" ;-)",
+      "revId": "b026ec9103ad2434c6f244580b95daed78619e94",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

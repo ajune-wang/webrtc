@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e546004_6ed2b753",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-08-05T17:08:35Z",
+      "side": 1,
+      "message": "Nit: \"If true, the analyzer will expect peers to receive their own video streams\".",
+      "range": {
+        "startLine": 186,
+        "startChar": 5,
+        "endLine": 186,
+        "endChar": 27
+      },
+      "revId": "8e3e8d14ff72a7de30c0d51241f47f5224625b9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

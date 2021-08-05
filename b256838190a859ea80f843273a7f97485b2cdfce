@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "535389c2_9e0bc410",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-05T14:51:08Z",
+      "side": 1,
+      "message": "why?",
+      "range": {
+        "startLine": 331,
+        "startChar": 0,
+        "endLine": 333,
+        "endChar": 5
+      },
+      "revId": "b256838190a859ea80f843273a7f97485b2cdfce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e995354_fd6b21f2",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_interface.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-05T14:51:08Z",
+      "side": 1,
+      "message": "may be rephrase to have less negations in the sentence, something like:\nWhen true, sequence number are assigned in RtpSenderEgress, after the pacer stage.",
+      "range": {
+        "startLine": 149,
+        "startChar": 7,
+        "endLine": 149,
+        "endChar": 49
+      },
+      "revId": "b256838190a859ea80f843273a7f97485b2cdfce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1eaf440d_892ac781",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-05T13:13:15Z",
+      "side": 1,
+      "message": "I believe this should be in a working state again, ptal!",
+      "revId": "07770bc85ba9a33adf4cbd3c86c19fad4390eed6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -16,6 +16,29 @@
       "message": "Kari, PTAL. 😊",
       "revId": "09c926f73a6474777c85239c1f23abb543bf2d98",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e90ced4c_9e1464fd",
+        "filename": "examples/objc/AppRTCMobile/third_party/SocketRocket/SRWebSocket.m",
+        "patchSetId": 1
+      },
+      "lineNbr": 1481,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2021-08-05T07:32:22Z",
+      "side": 1,
+      "message": "Just for my own education, would a `static int` not have worked here?",
+      "range": {
+        "startLine": 1481,
+        "startChar": 16,
+        "endLine": 1481,
+        "endChar": 57
+      },
+      "revId": "09c926f73a6474777c85239c1f23abb543bf2d98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

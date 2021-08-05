@@ -2205,36 +2205,6 @@ GetWrapImageFunction(vpx_image_t* img) {
   };
 }
 
-TEST(Vp9SpeedSettingsTrialsTest, SvcExtraCfgNotPopulatedByDefault) {
-  test::ExplicitKeyValueConfig trials("");
-
-  // Keep a raw pointer for EXPECT calls and the like. Ownership is otherwise
-  // passed on to LibvpxVp9Encoder.
-  auto* const vpx = new NiceMock<MockLibvpxInterface>();
-  LibvpxVp9Encoder encoder(cricket::VideoCodec(),
-                           absl::WrapUnique<LibvpxInterface>(vpx), trials);
-
-  VideoCodec settings = DefaultCodecSettings();
-  // Configure 3 spatial and three temporal ayers.
-  ConfigureSvc(settings, 3, 3);
-  vpx_image_t img;
-
-  ON_CALL(*vpx, img_wrap).WillByDefault(GetWrapImageFunction(&img));
-  ON_CALL(*vpx, codec_enc_config_default)
-      .WillByDefault(DoAll(WithArg<1>([](vpx_codec_enc_cfg_t* cfg) {
-                             memset(cfg, 0, sizeof(vpx_codec_enc_cfg_t));
-                           }),
-                           Return(VPX_CODEC_OK)));
-  EXPECT_CALL(*vpx,
-              codec_control(
-                  _, VP9E_SET_SVC_PARAMETERS,
-                  SafeMatcherCast<vpx_svc_extra_cfg_t*>(AllOf(
-                      Field(&vpx_svc_extra_cfg_t::speed_per_layer, Each(0)),
-                      Field(&vpx_svc_extra_cfg_t::loopfilter_ctrl, Each(0))))));
-
-  EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK, encoder.InitEncode(&settings, kSettings));
-}
-
 TEST(Vp9SpeedSettingsTrialsTest, NoSvcUsesGlobalSpeedFromTl0InLayerConfig) {
   // TL0 speed 8 at >= 480x270, 5 if below that.
   test::ExplicitKeyValueConfig trials(
@@ -2333,20 +2303,7 @@ TEST(Vp9SpeedSettingsTrialsTest,
   EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK, encoder.InitEncode(&settings, kSettings));
 }
 
-TEST(Vp9SpeedSettingsTrialsTest, PerLayerFlagsWithSvc) {
-  // Per-temporal and spatial layer speed settings:
-  // SL0:   TL0 = speed 5, TL1/TL2 = speed 8.
-  // SL1/2: TL0 = speed 7, TL1/TL2 = speed 9.
-  // Deblocking-mode per spatial layer:
-  // SL0: mode 1, SL1/2: mode 0.
-  test::ExplicitKeyValueConfig trials(
-      "WebRTC-VP9-PerformanceFlags/"
-      "use_per_layer_speed,"
-      "min_pixel_count:0|129600,"
-      "base_layer_speed:5|7,"
-      "high_layer_speed:8|9,"
-      "deblock_mode:1|0/");
-
+TEST(Vp9SpeedSettingsTrialsTest, DefaultPerLayerFlagsWithSvc) {
   // Keep a raw pointer for EXPECT calls and the like. Ownership is otherwise
   // passed on to LibvpxVp9Encoder.
   auto* const vpx = new NiceMock<MockLibvpxInterface>();

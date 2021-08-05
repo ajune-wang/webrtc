@@ -173,6 +173,7 @@ RTPSender::RTPSender(const RtpRtcpInterface::Configuration& config,
       max_packet_size_(IP_PACKET_SIZE - 28),  // Default is IP-v4/UDP.
       rtp_header_extension_map_(config.extmap_allow_mixed),
       // RTP variables
+      deferred_sequencing_(packet_sequencer == nullptr),
       sequencer_(packet_sequencer),
       always_send_mid_and_rid_(config.always_send_mid_and_rid),
       ssrc_has_acked_(false),
@@ -806,7 +807,7 @@ RtpState RTPSender::GetRtpState() const {
   state.start_timestamp = timestamp_offset_;
   state.ssrc_has_acked = ssrc_has_acked_;
   if (sequencer_) {
-    sequencer_->PupulateRtpState(state);
+    sequencer_->PopulateRtpState(state);
   }
   return state;
 }

@@ -44,7 +44,8 @@ class RtpSenderEgress {
   class NonPacedPacketSender : public RtpPacketSender {
    public:
     NonPacedPacketSender(RtpSenderEgress* sender,
-                         SequenceNumberAssigner* sequence_number_assigner);
+                         SequenceNumberAssigner* sequence_number_assigner,
+                         bool deferred_sequencing);
     virtual ~NonPacedPacketSender();
 
     void EnqueuePackets(
@@ -52,6 +53,7 @@ class RtpSenderEgress {
 
    private:
     void PrepareForSend(RtpPacketToSend* packet);
+    const bool deferred_sequencing_;
     uint16_t transport_sequence_number_;
     RtpSenderEgress* const sender_;
     SequenceNumberAssigner* sequence_number_assigner_;

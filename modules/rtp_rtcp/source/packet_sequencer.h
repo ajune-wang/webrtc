@@ -52,6 +52,7 @@ class PacketSequencer {
   // Checks whether it is allowed to send padding on the media SSRC at this
   // time, e.g. that we don't send padding in the middle of a video frame.
   bool CanSendPaddingOnMediaSsrc() const;
+  bool CanSequencePacket(const RtpPacketToSend& packet) const;
 
  private:
   void UpdateLastPacketState(const RtpPacketToSend& packet);

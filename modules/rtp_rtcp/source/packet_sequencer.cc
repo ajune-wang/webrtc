@@ -148,8 +148,15 @@ bool PacketSequencer::CanSendPaddingOnMediaSsrc() const {
   if (require_marker_before_media_padding_ && !last_packet_marker_bit_) {
     return false;
   }
-
   return true;
+}
+
+bool PacketSequencer::CanSequencePacket(const RtpPacketToSend& packet) const {
+  if (packet.packet_type() == RtpPacketMediaType::kPadding &&
+      packet.Ssrc() == media_ssrc_) {
+    return CanSendPaddingOnMediaSsrc();
+  }
+  return packet.Ssrc() == media_ssrc_ || packet.Ssrc() == rtx_ssrc_;
 }
 
 }  // namespace webrtc

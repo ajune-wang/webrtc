@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9bbfc75b_b95b155c",
+        "filename": "modules/audio_processing/aec3/echo_canceller3.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 749,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-08-05T15:12:52Z",
+      "side": 1,
+      "message": "Can we remove these log statements? They slow down the build bots and increase the size of the debug logs quite a bit. Example:\nhttps://logs.chromium.org/logs/webrtc/buildbucket/cr-buildbucket.appspot.com/8839732836697463616/+/steps/modules_unittests__iPhone_X_iOS_14.0__on_Mac-11/0/stdout",
+      "revId": "398def6828311a3b4b7534f015296462ff2bf45c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

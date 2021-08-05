@@ -54,18 +54,18 @@ VideoDecoderWrapper::VideoDecoderWrapper(JNIEnv* jni,
 
 VideoDecoderWrapper::~VideoDecoderWrapper() = default;
 
-int32_t VideoDecoderWrapper::InitDecode(const VideoCodec* codec_settings,
-                                        int32_t number_of_cores) {
+bool VideoDecoderWrapper::Init(const Config& config) {
   RTC_DCHECK_RUN_ON(&decoder_thread_checker_);
   JNIEnv* jni = AttachCurrentThreadIfNeeded();
-  codec_settings_ = *codec_settings;
-  number_of_cores_ = number_of_cores;
+  codec_settings_ = config;
   return InitDecodeInternal(jni);
 }
 
-int32_t VideoDecoderWrapper::InitDecodeInternal(JNIEnv* jni) {
+bool VideoDecoderWrapper::InitDecodeInternal(JNIEnv* jni) {
   ScopedJavaLocalRef<jobject> settings = Java_Settings_Constructor(
-      jni, number_of_cores_, codec_settings_.width, codec_settings_.height);
+      jni, codec_settings_.number_of_cores(),
+      codec_settings_.max_encoded_resolution().Width(),
+      codec_settings_.max_encoded_resolution().Height());
 
   ScopedJavaLocalRef<jobject> callback =
       Java_VideoDecoderWrapper_createDecoderCallback(jni,
@@ -82,7 +82,7 @@ int32_t VideoDecoderWrapper::InitDecodeInternal(JNIEnv* jni) {
   // providing QP values.
   qp_parsing_enabled_ = true;
 
-  return status;
+  return status == WEBRTC_VIDEO_CODEC_OK;
 }
 
 int32_t VideoDecoderWrapper::Decode(
@@ -228,7 +228,7 @@ absl::optional<uint8_t> VideoDecoderWrapper::ParseQP(
   }
 
   absl::optional<uint8_t> qp;
-  switch (codec_settings_.codecType) {
+  switch (codec_settings_.codec()) {
     case kVideoCodecVP8: {
       int qp_int;
       if (vp8::GetQp(input_image.data(), input_image.size(), &qp_int)) {

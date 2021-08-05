@@ -60,8 +60,7 @@ class VideoReceiver : public Module {
   ~VideoReceiver() override;
 
   int32_t RegisterReceiveCodec(uint8_t payload_type,
-                               const VideoCodec* receiveCodec,
-                               int32_t numberOfCores);
+                               const VideoDecoder::Config& config);
 
   void RegisterExternalDecoder(VideoDecoder* externalDecoder,
                                uint8_t payloadType);

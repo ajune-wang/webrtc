@@ -15,7 +15,9 @@
 #include <string>
 #include <vector>
 
+#include "absl/types/optional.h"
 #include "api/video/encoded_image.h"
+#include "api/video/render_resolution.h"
 #include "api/video/video_frame.h"
 #include "api/video_codecs/video_codec.h"
 #include "rtc_base/system/rtc_export.h"
@@ -42,6 +44,40 @@ class RTC_EXPORT DecodedImageCallback {
 
 class RTC_EXPORT VideoDecoder {
  public:
+  class Config {
+   public:
+    Config() = default;
+    Config(const Config&) = default;
+    Config& operator=(const Config&) = default;
+    ~Config() = default;
+
+    // The size of pool which is used to store video frame buffers inside
+    // decoder. If value isn't present some codec-default value will be used. If
+    // value is present and decoder doesn't have buffer pool the value will be
+    // ignored.
+    absl::optional<int> buffer_pool_size() const { return buffer_pool_size_; }
+    void set_buffer_pool_size(absl::optional<int> value) {
+      buffer_pool_size_ = value;
+    }
+
+    RenderResolution max_encoded_resolution() const { return resolution_; }
+    void set_max_encoded_resolution(RenderResolution value) {
+      resolution_ = value;
+    }
+
+    int number_of_cores() const { return number_of_cores_; }
+    void set_number_of_cores(int value) { number_of_cores_ = value; }
+
+    VideoCodecType codec() const { return codec_; }
+    void set_codec(VideoCodecType value) { codec_ = value; }
+
+   private:
+    absl::optional<int> buffer_pool_size_;
+    RenderResolution resolution_;
+    int number_of_cores_ = 1;
+    VideoCodecType codec_ = kVideoCodecGeneric;
+  };
+
   struct DecoderInfo {
     // Descriptive name of the decoder implementation.
     std::string implementation_name;
@@ -56,8 +92,12 @@ class RTC_EXPORT VideoDecoder {
 
   virtual ~VideoDecoder() {}
 
+  ABSL_DEPRECATED("Use Init instead")
   virtual int32_t InitDecode(const VideoCodec* codec_settings,
-                             int32_t number_of_cores) = 0;
+                             int32_t number_of_cores);
+
+  // Configures the decoder. Returns false on failure.
+  virtual bool Init(const Config& config) = 0;
 
   virtual int32_t Decode(const EncodedImage& input_image,
                          bool missing_frames,
@@ -72,6 +112,9 @@ class RTC_EXPORT VideoDecoder {
 
   // Deprecated, use GetDecoderInfo().implementation_name instead.
   virtual const char* ImplementationName() const;
+
+  static Config LegacyConfig(const VideoCodec* codec_settings,
+                             int32_t number_of_cores);
 };
 
 }  // namespace webrtc

@@ -42,14 +42,11 @@ int32_t InitEncoder(VideoCodecType codec_type, VideoEncoder* encoder) {
                                      1200 /* max_payload_size */));
 }
 
-int32_t InitDecoder(VideoCodecType codec_type, VideoDecoder* decoder) {
-  VideoCodec codec;
-  CodecSettings(codec_type, &codec);
-  codec.width = 640;
-  codec.height = 480;
-  codec.maxFramerate = 30;
-  RTC_CHECK(decoder);
-  return decoder->InitDecode(&codec, 1 /* number_of_cores */);
+bool InitDecoder(VideoCodecType codec_type, VideoDecoder& decoder) {
+  VideoDecoder::Config config;
+  config.set_codec(codec_type);
+  config.set_max_encoded_resolution({640, 480});
+  return decoder.Init(config);
 }
 
 }  // namespace
@@ -126,7 +123,7 @@ TEST_P(VideoEncoderDecoderInstantiationTest, DISABLED_InstantiateVp8Codecs) {
   for (int i = 0; i < num_decoders_; ++i) {
     std::unique_ptr<VideoDecoder> decoder =
         decoder_factory_->CreateVideoDecoder(vp8_format_);
-    EXPECT_EQ(0, InitDecoder(kVideoCodecVP8, decoder.get()));
+    EXPECT_TRUE(InitDecoder(kVideoCodecVP8, *decoder));
     decoders_.emplace_back(std::move(decoder));
   }
 }
@@ -143,7 +140,7 @@ TEST_P(VideoEncoderDecoderInstantiationTest,
   for (int i = 0; i < num_decoders_; ++i) {
     std::unique_ptr<VideoDecoder> decoder =
         decoder_factory_->CreateVideoDecoder(h264cbp_format_);
-    EXPECT_EQ(0, InitDecoder(kVideoCodecH264, decoder.get()));
+    EXPECT_TRUE(InitDecoder(kVideoCodecH264, *decoder));
     decoders_.emplace_back(std::move(decoder));
   }
 }

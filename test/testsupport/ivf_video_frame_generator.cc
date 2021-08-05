@@ -38,19 +38,16 @@ IvfVideoFrameGenerator::IvfVideoFrameGenerator(const std::string& file_name)
       width_(file_reader_->GetFrameWidth()),
       height_(file_reader_->GetFrameHeight()) {
   RTC_CHECK(video_decoder_) << "No decoder found for file's video codec type";
-  VideoCodec codec_settings;
-  codec_settings.codecType = file_reader_->GetVideoCodecType();
-  codec_settings.width = file_reader_->GetFrameWidth();
-  codec_settings.height = file_reader_->GetFrameHeight();
+  VideoDecoder::Config codec_settings;
+  codec_settings.set_codec(file_reader_->GetVideoCodecType());
+  codec_settings.set_max_encoded_resolution(RenderResolution(width_, height_));
   // Set buffer pool size to max value to ensure that if users of generator,
   // ex. test frameworks, will retain frames for quite a long time, decoder
   // won't crash with buffers pool overflow error.
-  codec_settings.buffer_pool_size = std::numeric_limits<int>::max();
+  codec_settings.set_buffer_pool_size(std::numeric_limits<int>::max());
   RTC_CHECK_EQ(video_decoder_->RegisterDecodeCompleteCallback(&callback_),
                WEBRTC_VIDEO_CODEC_OK);
-  RTC_CHECK_EQ(
-      video_decoder_->InitDecode(&codec_settings, /*number_of_cores=*/1),
-      WEBRTC_VIDEO_CODEC_OK);
+  RTC_CHECK(video_decoder_->Init(codec_settings));
 }
 IvfVideoFrameGenerator::~IvfVideoFrameGenerator() {
   MutexLock lock(&lock_);

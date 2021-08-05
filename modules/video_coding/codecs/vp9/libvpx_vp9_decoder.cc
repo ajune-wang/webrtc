@@ -120,10 +120,10 @@ LibvpxVp9Decoder::~LibvpxVp9Decoder() {
   }
 }
 
-int LibvpxVp9Decoder::InitDecode(const VideoCodec* inst, int number_of_cores) {
+bool LibvpxVp9Decoder::Init(const VideoDecoder::Config& config) {
   int ret_val = Release();
   if (ret_val < 0) {
-    return ret_val;
+    return false;
   }
 
   if (decoder_ == nullptr) {
@@ -140,47 +140,41 @@ int LibvpxVp9Decoder::InitDecode(const VideoCodec* inst, int number_of_cores) {
   //  - Make peak CPU usage under control (not depending on input)
   cfg.threads = 1;
 #else
-  if (!inst) {
-    // No config provided - don't know resolution to decode yet.
-    // Set thread count to one in the meantime.
-    cfg.threads = 1;
-  } else {
-    // We want to use multithreading when decoding high resolution videos. But
-    // not too many in order to avoid overhead when many stream are decoded
-    // concurrently.
-    // Set 2 thread as target for 1280x720 pixel count, and then scale up
-    // linearly from there - but cap at physical core count.
-    // For common resolutions this results in:
-    // 1 for 360p
-    // 2 for 720p
-    // 4 for 1080p
-    // 8 for 1440p
-    // 18 for 4K
-    int num_threads =
-        std::max(1, 2 * (inst->width * inst->height) / (1280 * 720));
-    cfg.threads = std::min(number_of_cores, num_threads);
-    current_codec_ = *inst;
-  }
+  RenderResolution resolution = config.max_encoded_resolution();
+  // We want to use multithreading when decoding high resolution videos. But
+  // not too many in order to avoid overhead when many stream are decoded
+  // concurrently.
+  // Set 2 thread as target for 1280x720 pixel count, and then scale up
+  // linearly from there - but cap at physical core count.
+  // For common resolutions this results in:
+  // 1 for 360p
+  // 2 for 720p
+  // 4 for 1080p
+  // 8 for 1440p
+  // 18 for 4K
+  int num_threads = std::max(
+      1, 2 * (resolution.Width() * resolution.Height()) / (1280 * 720));
+  cfg.threads = std::min(config.number_of_cores(), num_threads);
 #endif
 
-  num_cores_ = number_of_cores;
+  num_cores_ = config.number_of_cores();
 
   vpx_codec_flags_t flags = 0;
   if (vpx_codec_dec_init(decoder_, vpx_codec_vp9_dx(), &cfg, flags)) {
-    return WEBRTC_VIDEO_CODEC_MEMORY;
+    return false;
   }
 
   if (!libvpx_buffer_pool_.InitializeVpxUsePool(decoder_)) {
-    return WEBRTC_VIDEO_CODEC_MEMORY;
+    return false;
   }
 
   inited_ = true;
   // Always start with a complete key frame.
   key_frame_required_ = true;
-  if (inst && inst->buffer_pool_size) {
-    if (!libvpx_buffer_pool_.Resize(*inst->buffer_pool_size) ||
-        !output_buffer_pool_.Resize(*inst->buffer_pool_size)) {
-      return WEBRTC_VIDEO_CODEC_UNINITIALIZED;
+  if (absl::optional<int> buffer_pool_size = config.buffer_pool_size()) {
+    if (!libvpx_buffer_pool_.Resize(*buffer_pool_size) ||
+        !output_buffer_pool_.Resize(*buffer_pool_size)) {
+      return false;
     }
   }
 
@@ -189,10 +183,10 @@ int LibvpxVp9Decoder::InitDecode(const VideoCodec* inst, int number_of_cores) {
   if (status != VPX_CODEC_OK) {
     RTC_LOG(LS_ERROR) << "Failed to enable VP9D_SET_LOOP_FILTER_OPT. "
                       << vpx_codec_error(decoder_);
-    return WEBRTC_VIDEO_CODEC_UNINITIALIZED;
+    return false;
   }
 
-  return WEBRTC_VIDEO_CODEC_OK;
+  return true;
 }
 
 int LibvpxVp9Decoder::Decode(const EncodedImage& input_image,
@@ -214,12 +208,13 @@ int LibvpxVp9Decoder::Decode(const EncodedImage& input_image,
         // Resolution has changed, tear down and re-init a new decoder in
         // order to get correct sizing.
         Release();
-        current_codec_.width = frame_info->frame_width;
-        current_codec_.height = frame_info->frame_height;
-        int reinit_status = InitDecode(&current_codec_, num_cores_);
-        if (reinit_status != WEBRTC_VIDEO_CODEC_OK) {
+        VideoDecoder::Config decoder_config;
+        decoder_config.set_max_encoded_resolution(
+            {frame_info->frame_width, frame_info->frame_height});
+        decoder_config.set_number_of_cores(num_cores_);
+        if (!Init(decoder_config)) {
           RTC_LOG(LS_WARNING) << "Failed to re-init decoder.";
-          return reinit_status;
+          return WEBRTC_VIDEO_CODEC_ERROR;
         }
       }
     } else {

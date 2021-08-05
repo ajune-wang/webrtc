@@ -39,10 +39,7 @@ class MockVideoStreamDecoderCallbacks
 
 class StubVideoDecoder : public VideoDecoder {
  public:
-  MOCK_METHOD(int32_t,
-              InitDecode,
-              (const VideoCodec*, int32_t number_of_cores),
-              (override));
+  MOCK_METHOD(bool, Init, (const Config&), (override));
 
   int32_t Decode(const EncodedImage& input_image,
                  bool missing_frames,
@@ -81,10 +78,7 @@ class WrappedVideoDecoder : public VideoDecoder {
  public:
   explicit WrappedVideoDecoder(StubVideoDecoder* decoder) : decoder_(decoder) {}
 
-  int32_t InitDecode(const VideoCodec* codec_settings,
-                     int32_t number_of_cores) override {
-    return decoder_->InitDecode(codec_settings, number_of_cores);
-  }
+  bool Init(const Config& config) override { return decoder_->Init(config); }
   int32_t Decode(const EncodedImage& input_image,
                  bool missing_frames,
                  int64_t render_time_ms) override {
@@ -203,8 +197,7 @@ TEST_F(VideoStreamDecoderImplTest, InsertAndDecodeFrameWithKeyframeRequest) {
 
 TEST_F(VideoStreamDecoderImplTest, FailToInitDecoder) {
   video_stream_decoder_.OnFrame(FrameBuilder().WithPayloadType(1).Build());
-  ON_CALL(decoder_factory_.Vp8Decoder(), InitDecode)
-      .WillByDefault(Return(WEBRTC_VIDEO_CODEC_ERROR));
+  ON_CALL(decoder_factory_.Vp8Decoder(), Init).WillByDefault(Return(false));
   EXPECT_CALL(callbacks_, OnNonDecodableState);
   time_controller_.AdvanceTime(TimeDelta::Millis(1));
 }

@@ -56,9 +56,9 @@ class TestVideoReceiver : public ::testing::Test {
   virtual void SetUp() {
     // Register decoder.
     receiver_.RegisterExternalDecoder(&decoder_, kUnusedPayloadType);
-    webrtc::test::CodecSettings(kVideoCodecVP8, &settings_);
-    EXPECT_EQ(
-        0, receiver_.RegisterReceiveCodec(kUnusedPayloadType, &settings_, 1));
+    settings_.set_max_encoded_resolution({test::kTestWidth, test::kTestHeight});
+    settings_.set_codec(kVideoCodecVP8);
+    EXPECT_EQ(0, receiver_.RegisterReceiveCodec(kUnusedPayloadType, settings_));
 
     // Set protection mode.
     const size_t kMaxNackListSize = 250;
@@ -119,7 +119,7 @@ class TestVideoReceiver : public ::testing::Test {
   }
 
   SimulatedClock clock_;
-  VideoCodec settings_;
+  VideoDecoder::Config settings_;
   NiceMock<MockVideoDecoder> decoder_;
   NiceMock<MockPacketRequestCallback> packet_request_callback_;
   VCMTiming timing_;

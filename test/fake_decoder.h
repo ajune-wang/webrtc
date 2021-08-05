@@ -31,8 +31,10 @@ class FakeDecoder : public VideoDecoder {
   explicit FakeDecoder(TaskQueueFactory* task_queue_factory);
   virtual ~FakeDecoder() {}
 
+  ABSL_DEPRECATED("Use Init instead")
   int32_t InitDecode(const VideoCodec* config,
                      int32_t number_of_cores) override;
+  bool Init(const Config& config) override { return true; }
 
   int32_t Decode(const EncodedImage& input,
                  bool missing_frames,

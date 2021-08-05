@@ -26,6 +26,11 @@ void DecodedImageCallback::Decoded(VideoFrame& decodedImage,
   Decoded(decodedImage, decode_time_ms.value_or(-1));
 }
 
+int32_t VideoDecoder::InitDecode(const VideoCodec* codec_settings,
+                                 int32_t number_of_cores) {
+  return Init(LegacyConfig(codec_settings, number_of_cores)) ? 0 : -1;
+}
+
 VideoDecoder::DecoderInfo VideoDecoder::GetDecoderInfo() const {
   DecoderInfo info;
   info.implementation_name = ImplementationName();
@@ -51,6 +56,21 @@ std::string VideoDecoder::DecoderInfo::ToString() const {
 bool VideoDecoder::DecoderInfo::operator==(const DecoderInfo& rhs) const {
   return is_hardware_accelerated == rhs.is_hardware_accelerated &&
          implementation_name == rhs.implementation_name;
+}
+
+// static
+VideoDecoder::Config VideoDecoder::LegacyConfig(
+    const VideoCodec* codec_settings,
+    int32_t number_of_cores) {
+  VideoDecoder::Config config;
+  if (codec_settings != nullptr) {
+    config.set_buffer_pool_size(codec_settings->buffer_pool_size);
+    config.set_max_encoded_resolution(
+        {codec_settings->width, codec_settings->height});
+    config.set_codec(codec_settings->codecType);
+  }
+  config.set_number_of_cores(number_of_cores);
+  return config;
 }
 
 }  // namespace webrtc

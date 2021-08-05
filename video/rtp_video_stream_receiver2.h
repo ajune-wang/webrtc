@@ -101,7 +101,7 @@ class RtpVideoStreamReceiver2 : public LossNotificationSender,
   ~RtpVideoStreamReceiver2() override;
 
   void AddReceiveCodec(uint8_t payload_type,
-                       const VideoCodec& video_codec,
+                       VideoCodecType video_codec,
                        const std::map<std::string, std::string>& codec_params,
                        bool raw_payload);
 

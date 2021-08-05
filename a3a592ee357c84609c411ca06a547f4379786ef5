@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be2e12fb_30f1064d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-05T13:20:02Z",
+      "side": 1,
+      "message": "I\u0027ve made an exploration huge unreadable cl https://webrtc-review.googlesource.com/c/src/+/227347\nIt looks like an improvement to me, so I would like to start talking about moving into that direction, starting with the most important parts:\n\nDo you think it is important enough to do the api change?\nCan we discuss the new api (names, types, placement. e.g. should the new configuration struct be member of the VideoDecoder class, or do you think it is better to have it at webrtc namespace?)",
+      "revId": "a3a592ee357c84609c411ca06a547f4379786ef5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

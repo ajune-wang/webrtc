@@ -25,6 +25,7 @@
 #include "modules/audio_processing/aec_dump/aec_dump_factory.h"
 #include "modules/audio_processing/audio_buffer.h"
 #include "modules/audio_processing/common.h"
+#include "modules/audio_processing/denormal_disabler.h"
 #include "modules/audio_processing/include/audio_frame_view.h"
 #include "modules/audio_processing/logging/apm_data_dumper.h"
 #include "modules/audio_processing/optionally_built_submodule_creators.h"
@@ -1118,6 +1119,8 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
 
   AudioBuffer* capture_buffer = capture_.capture_audio.get();  // For brevity.
   AudioBuffer* linear_aec_buffer = capture_.linear_aec_output.get();
+
+  DenormalDisabler denormal_disabler;
 
   if (submodules_.high_pass_filter &&
       config_.high_pass_filter.apply_in_full_band &&

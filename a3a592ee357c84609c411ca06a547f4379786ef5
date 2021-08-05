@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "16d8b954_f7d4740d",
+        "filename": "api/video_codecs/video_decoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-05T15:24:11Z",
+      "side": 1,
+      "message": "webrtc is large actor. so I\u0027m using term \u0027user of the VideoDecoder interface\u0027. does it make it clearer?\n\nYep, my understand the main point to specify resolution here is so that decoder can allocate enough buffer.\nBecause modern codecs may change resolution without a key frame, I\u0027m relaxing it from \u0027exactly that resolution\u0027 to \u0027not larger than that\u0027.\nIt is also how it is defined in dependency descriptor rtp header extension.\n(Also modern codecs distinguish \u0027encoded\u0027 resolution and \u0027rendered\u0027 resolution. so specifying that here too)",
+      "parentUuid": "8f463a8b_ed5417cb",
+      "range": {
+        "startLine": 74,
+        "startChar": 4,
+        "endLine": 75,
+        "endChar": 24
+      },
+      "revId": "a3a592ee357c84609c411ca06a547f4379786ef5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a2e9ad7b_4145b5ab",
@@ -64,6 +88,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "55c3ebb9_3c8e21f4",
+        "filename": "api/video_codecs/video_decoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-05T15:24:11Z",
+      "side": 1,
+      "message": "That\u0027s the issue with lack of documentation: I don\u0027t know. I trust you know better what this parameter suppose to mean.",
+      "parentUuid": "a2e9ad7b_4145b5ab",
+      "range": {
+        "startLine": 79,
+        "startChar": 4,
+        "endLine": 79,
+        "endChar": 50
+      },
+      "revId": "a3a592ee357c84609c411ca06a547f4379786ef5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bc8f540c_cb5278e3",
@@ -77,6 +125,30 @@
       "writtenOn": "2021-08-05T14:29:35Z",
       "side": 1,
       "message": "We\u0027re moving away from the VideoCodec struct, would it be a good time to move away from the old constants in video_error_codes.h too?",
+      "range": {
+        "startLine": 98,
+        "startChar": 13,
+        "endLine": 98,
+        "endChar": 44
+      },
+      "revId": "a3a592ee357c84609c411ca06a547f4379786ef5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26c59ba6_a254fe49",
+        "filename": "api/video_codecs/video_decoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-05T15:24:11Z",
+      "side": 1,
+      "message": "I think yes. but what alternatives do we have?\nOne option is to return bool (success or failure). Do you think it is enough?\nText logging is the only place where exact error code is used as far as I can see.\n\nIf detailed error is desired, may be we can consider absl::Status, [or similar rtc::Error]. rtc::Error though has error space that doesn\u0027t look fitting for the encoder.\n\nI\u0027ll go with bool for now (like I did in the exploratory CL)",
+      "parentUuid": "bc8f540c_cb5278e3",
       "range": {
         "startLine": 98,
         "startChar": 13,

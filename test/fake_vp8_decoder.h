@@ -26,8 +26,7 @@ class FakeVp8Decoder : public VideoDecoder {
   FakeVp8Decoder();
   ~FakeVp8Decoder() override {}
 
-  int32_t InitDecode(const VideoCodec* config,
-                     int32_t number_of_cores) override;
+  bool Init(const Config& config) override;
 
   int32_t Decode(const EncodedImage& input,
                  bool missing_frames,

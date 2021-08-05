@@ -30,7 +30,7 @@ class LibvpxVp9Decoder : public VP9Decoder {
 
   virtual ~LibvpxVp9Decoder();
 
-  int InitDecode(const VideoCodec* inst, int number_of_cores) override;
+  bool Init(const Config& config) override;
 
   int Decode(const EncodedImage& input_image,
              bool missing_frames,

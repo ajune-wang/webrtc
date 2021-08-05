@@ -14,18 +14,10 @@
 #include <map>
 #include <memory>
 
+#include "api/video_codecs/video_decoder.h"
 #include "modules/video_coding/generic_decoder.h"
 
 namespace webrtc {
-
-struct VCMDecoderMapItem {
- public:
-  VCMDecoderMapItem(VideoCodec* settings, int number_of_cores);
-  ~VCMDecoderMapItem();
-
-  std::unique_ptr<VideoCodec> settings;
-  int number_of_cores;
-};
 
 struct VCMExtDecoderMapItem {
  public:
@@ -38,7 +30,7 @@ struct VCMExtDecoderMapItem {
 
 class VCMDecoderDataBase {
  public:
-  VCMDecoderDataBase();
+  VCMDecoderDataBase() = default;
   ~VCMDecoderDataBase();
 
   bool DeregisterExternalDecoder(uint8_t payload_type);
@@ -47,8 +39,7 @@ class VCMDecoderDataBase {
   bool IsExternalDecoderRegistered(uint8_t payload_type) const;
 
   bool RegisterReceiveCodec(uint8_t payload_type,
-                            const VideoCodec* receive_codec,
-                            int number_of_cores);
+                            const VideoDecoder::Config& decoder_config);
   bool DeregisterReceiveCodec(uint8_t payload_type);
 
   // Returns a decoder specified by frame.PayloadType. The decoded frame
@@ -61,22 +52,17 @@ class VCMDecoderDataBase {
       VCMDecodedFrameCallback* decoded_frame_callback);
 
  private:
-  typedef std::map<uint8_t, VCMDecoderMapItem*> DecoderMap;
   typedef std::map<uint8_t, VCMExtDecoderMapItem*> ExternalDecoderMap;
 
   std::unique_ptr<VCMGenericDecoder> CreateAndInitDecoder(
-      const VCMEncodedFrame& frame,
-      VideoCodec* new_codec) const;
-
-  const VCMDecoderMapItem* FindDecoderItem(uint8_t payload_type) const;
+      const VCMEncodedFrame& frame);
 
   const VCMExtDecoderMapItem* FindExternalDecoderItem(
       uint8_t payload_type) const;
 
-  uint8_t current_payload_type_;  // Corresponding to receive_codec_.
-  VideoCodec receive_codec_;
+  uint8_t current_payload_type_ = 0;  // Corresponding to receive_codec_.
   std::unique_ptr<VCMGenericDecoder> ptr_decoder_;
-  DecoderMap dec_map_;
+  std::map<uint8_t, VideoDecoder::Config> dec_map_;
   ExternalDecoderMap dec_external_map_;
 };
 

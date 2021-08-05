@@ -24,7 +24,7 @@ const uint8_t kTestPayloadType = 100;
 const int64_t kTestTimingFramesDelayMs = 200;
 const uint16_t kTestOutlierFrameSizePercent = 250;
 
-static void CodecSettings(VideoCodecType codec_type, VideoCodec* settings) {
+inline void CodecSettings(VideoCodecType codec_type, VideoCodec* settings) {
   *settings = {};
 
   settings->width = kTestWidth;
@@ -62,6 +62,7 @@ static void CodecSettings(VideoCodecType codec_type, VideoCodec* settings) {
       return;
   }
 }
+
 }  // namespace test
 }  // namespace webrtc
 

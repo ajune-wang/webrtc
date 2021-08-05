@@ -2170,9 +2170,7 @@ TEST_F(TestVp9Impl, ReenablingUpperLayerAfterKFWithInterlayerPredIsEnabled) {
 
 TEST_F(TestVp9Impl, HandlesEmptyInitDecode) {
   std::unique_ptr<VideoDecoder> decoder = CreateDecoder();
-  // Check that nullptr settings are ok for decoder.
-  EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
-            decoder->InitDecode(/*codec_settings=*/nullptr, 1));
+  EXPECT_TRUE(decoder->Init({}));
   EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK, decoder->Release());
 }
 

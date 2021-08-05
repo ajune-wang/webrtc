@@ -219,6 +219,30 @@
       },
       "revId": "355b66b558b85ee6ac586b2129c444f26b573aa8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fbec77a_8b1a9524",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-05T16:17:28Z",
+      "side": 1,
+      "message": "Obsolete.",
+      "parentUuid": "c9a6d3d0_a265b791",
+      "range": {
+        "startLine": 105,
+        "startChar": 6,
+        "endLine": 105,
+        "endChar": 19
+      },
+      "revId": "355b66b558b85ee6ac586b2129c444f26b573aa8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

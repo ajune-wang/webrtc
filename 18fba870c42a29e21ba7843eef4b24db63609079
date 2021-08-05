@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0e33325_d5cdecdb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 25
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-05T16:17:28Z",
+      "side": 1,
+      "message": "I have made two more changes since your review:\n1) Made deferred sequencing off by default\n2) Removed the flag from RtpSenderVideo::Config in favor of a RtpSender::deferred_sequencing() helper method\n\nThe first to make this a noop to reduce risk.\nThe second removes some boilerplate and makes it easier to enable for audio too.\nLet\u0027s enable if separate CLs\nok?",
+      "revId": "18fba870c42a29e21ba7843eef4b24db63609079",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

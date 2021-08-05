@@ -291,6 +291,8 @@ TEST(VideoStreamTest, SuspendsBelowMinBitrate) {
     c->stream.pad_to_rate = kMinVideoBitrate;
   });
 
+  RTC_LOG(LS_WARNING) << "Normal period.";
+
   // Run for a few seconds, check we have received at least one frame.
   s.RunFor(TimeDelta::Seconds(2));
   EXPECT_TRUE(last_frame_timestamp.load().IsFinite());
@@ -299,6 +301,8 @@ TEST(VideoStreamTest, SuspendsBelowMinBitrate) {
   send_net->UpdateConfig([&](NetworkSimulationConfig* c) {
     c->bandwidth = kMinVideoBitrate * 0.9;
   });
+
+  RTC_LOG(LS_WARNING) << "Constrained period.";
 
   // Run for 20s, verify that no frames arrive that were captured after the
   // first five seconds, allowing some margin for BWE backoff to trigger and
@@ -311,6 +315,8 @@ TEST(VideoStreamTest, SuspendsBelowMinBitrate) {
   send_net->UpdateConfig(
       [&](NetworkSimulationConfig* c) { c->bandwidth = kMinVideoBitrate * 4; });
   last_frame_timestamp = Timestamp::MinusInfinity();
+
+  RTC_LOG(LS_WARNING) << "Restored period.";
   s.RunFor(TimeDelta::Seconds(15));
   EXPECT_TRUE(last_frame_timestamp.load().IsFinite());
 }

@@ -52,10 +52,7 @@ class VideoDecoderProxyFactory final : public VideoDecoderFactory {
                    int64_t render_time_ms) override {
       return decoder_->Decode(input_image, missing_frames, render_time_ms);
     }
-    int32_t InitDecode(const VideoCodec* config,
-                       int32_t number_of_cores) override {
-      return decoder_->InitDecode(config, number_of_cores);
-    }
+    bool Init(const Config& config) override { return decoder_->Init(config); }
     int32_t RegisterDecodeCompleteCallback(
         DecodedImageCallback* callback) override {
       return decoder_->RegisterDecodeCompleteCallback(callback);

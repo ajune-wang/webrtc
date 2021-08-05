@@ -62,6 +62,7 @@ static void CodecSettings(VideoCodecType codec_type, VideoCodec* settings) {
       return;
   }
 }
+
 }  // namespace test
 }  // namespace webrtc
 

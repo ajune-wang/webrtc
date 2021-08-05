@@ -40,8 +40,7 @@ class LibaomAv1Decoder final : public VideoDecoder {
   ~LibaomAv1Decoder();
 
   // Implements VideoDecoder.
-  int32_t InitDecode(const VideoCodec* codec_settings,
-                     int number_of_cores) override;
+  bool Init(const Config& config) override;
 
   // Decode an encoded video frame.
   int32_t Decode(const EncodedImage& encoded_image,
@@ -74,23 +73,23 @@ LibaomAv1Decoder::~LibaomAv1Decoder() {
   Release();
 }
 
-int32_t LibaomAv1Decoder::InitDecode(const VideoCodec* codec_settings,
-                                     int number_of_cores) {
-  aom_codec_dec_cfg_t config = {
-      static_cast<unsigned int>(number_of_cores),  // Max # of threads.
-      0,                    // Frame width set after decode.
-      0,                    // Frame height set after decode.
-      kConfigLowBitDepth};  // Enable low-bit-depth code path.
+bool LibaomAv1Decoder::Init(const Config& settings) {
+  aom_codec_dec_cfg_t aom_config = {
+      static_cast<unsigned int>(
+          settings.number_of_cores()),  // Max # of threads.
+      0,                                // Frame width set after decode.
+      0,                                // Frame height set after decode.
+      kConfigLowBitDepth};              // Enable low-bit-depth code path.
 
   aom_codec_err_t ret =
-      aom_codec_dec_init(&context_, aom_codec_av1_dx(), &config, kDecFlags);
+      aom_codec_dec_init(&context_, aom_codec_av1_dx(), &aom_config, kDecFlags);
   if (ret != AOM_CODEC_OK) {
     RTC_LOG(LS_WARNING) << "LibaomAv1Decoder::InitDecode returned " << ret
                         << " on aom_codec_dec_init.";
-    return WEBRTC_VIDEO_CODEC_ERROR;
+    return false;
   }
   inited_ = true;
-  return WEBRTC_VIDEO_CODEC_OK;
+  return true;
 }
 
 int32_t LibaomAv1Decoder::Decode(const EncodedImage& encoded_image,

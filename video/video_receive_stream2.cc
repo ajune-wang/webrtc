@@ -156,10 +156,9 @@ VideoCodec CreateDecoderVideoCodec(const VideoReceiveStream::Decoder& decoder) {
 // but logs messages to LS_ERROR.
 class NullVideoDecoder : public webrtc::VideoDecoder {
  public:
-  int32_t InitDecode(const webrtc::VideoCodec* codec_settings,
-                     int32_t number_of_cores) override {
+  bool Init(const Config& /*config*/) override {
     RTC_LOG(LS_ERROR) << "Can't initialize NullVideoDecoder.";
-    return WEBRTC_VIDEO_CODEC_OK;
+    return true;
   }
 
   int32_t Decode(const webrtc::EncodedImage& input_image,

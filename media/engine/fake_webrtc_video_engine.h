@@ -44,7 +44,9 @@ class FakeWebRtcVideoDecoder : public webrtc::VideoDecoder {
   explicit FakeWebRtcVideoDecoder(FakeWebRtcVideoDecoderFactory* factory);
   ~FakeWebRtcVideoDecoder();
 
+  ABSL_DEPRECATED("Init")
   int32_t InitDecode(const webrtc::VideoCodec*, int32_t) override;
+  bool Init(const Config& config) override { return true; }
   int32_t Decode(const webrtc::EncodedImage&, bool, int64_t) override;
   int32_t RegisterDecodeCompleteCallback(
       webrtc::DecodedImageCallback*) override;

@@ -41,6 +41,7 @@ class MockVideoDecoder : public VideoDecoder {
               InitDecode,
               (const VideoCodec* codec_settings, int32_t number_of_cores),
               (override));
+  MOCK_METHOD(bool, Init, (const Config&), (override));
   MOCK_METHOD(int32_t,
               Decode,
               (const EncodedImage& input_image,

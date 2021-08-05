@@ -36,6 +36,7 @@ namespace {
 
 const int kDefaultWidth = 1280;
 const int kDefaultHeight = 720;
+// constexpr RenderResolution kDefaultResolution(1280, 720);
 const int kNumberOfSimulcastStreams = 3;
 const int kColorY = 66;
 const int kColorU = 22;
@@ -276,7 +277,9 @@ void SimulcastTestFixtureImpl::SetUpCodec(const int* temporal_layer_profile) {
   DefaultSettings(&settings_, temporal_layer_profile, codec_type_);
   SetUpRateAllocator();
   EXPECT_EQ(0, encoder_->InitEncode(&settings_, kSettings));
-  EXPECT_EQ(0, decoder_->InitDecode(&settings_, 1));
+  VideoDecoder::Config decoder_settings;
+  decoder_settings.set_codec(settings_.codecType);
+  EXPECT_TRUE(decoder_->Init(decoder_settings));
   input_buffer_ = I420Buffer::Create(kDefaultWidth, kDefaultHeight);
   input_buffer_->InitializeData();
   input_frame_ = std::make_unique<webrtc::VideoFrame>(

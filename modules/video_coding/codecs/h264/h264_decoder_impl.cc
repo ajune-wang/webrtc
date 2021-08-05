@@ -172,19 +172,18 @@ H264DecoderImpl::~H264DecoderImpl() {
   Release();
 }
 
-int32_t H264DecoderImpl::InitDecode(const VideoCodec* codec_settings,
-                                    int32_t number_of_cores) {
+bool H264DecoderImpl::Init(const Config& config) {
   ReportInit();
-  if (codec_settings && codec_settings->codecType != kVideoCodecH264) {
+  if (config.codec() != kVideoCodecH264) {
     ReportError();
-    return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
+    return false;
   }
 
   // Release necessary in case of re-initializing.
   int32_t ret = Release();
   if (ret != WEBRTC_VIDEO_CODEC_OK) {
     ReportError();
-    return ret;
+    return false;
   }
   RTC_DCHECK(!av_context_);
 
@@ -193,9 +192,9 @@ int32_t H264DecoderImpl::InitDecode(const VideoCodec* codec_settings,
 
   av_context_->codec_type = AVMEDIA_TYPE_VIDEO;
   av_context_->codec_id = AV_CODEC_ID_H264;
-  if (codec_settings) {
-    av_context_->coded_width = codec_settings->width;
-    av_context_->coded_height = codec_settings->height;
+  if (config.max_encoded_resolution().Valid()) {
+    av_context_->coded_width = config.max_encoded_resolution().Width();
+    av_context_->coded_height = config.max_encoded_resolution().Height();
   }
   av_context_->pix_fmt = kPixelFormatDefault;
   av_context_->extradata = nullptr;
@@ -219,25 +218,25 @@ int32_t H264DecoderImpl::InitDecode(const VideoCodec* codec_settings,
     RTC_LOG(LS_ERROR) << "FFmpeg H.264 decoder not found.";
     Release();
     ReportError();
-    return WEBRTC_VIDEO_CODEC_ERROR;
+    return false;
   }
   int res = avcodec_open2(av_context_.get(), codec, nullptr);
   if (res < 0) {
     RTC_LOG(LS_ERROR) << "avcodec_open2 error: " << res;
     Release();
     ReportError();
-    return WEBRTC_VIDEO_CODEC_ERROR;
+    return false;
   }
 
   av_frame_.reset(av_frame_alloc());
 
-  if (codec_settings && codec_settings->buffer_pool_size) {
-    if (!ffmpeg_buffer_pool_.Resize(*codec_settings->buffer_pool_size) ||
-        !output_buffer_pool_.Resize(*codec_settings->buffer_pool_size)) {
-      return WEBRTC_VIDEO_CODEC_UNINITIALIZED;
+  if (absl::optional<int> buffer_pool_size = config.buffer_pool_size()) {
+    if (!ffmpeg_buffer_pool_.Resize(*buffer_pool_size) ||
+        !output_buffer_pool_.Resize(*buffer_pool_size)) {
+      return false;
     }
   }
-  return WEBRTC_VIDEO_CODEC_OK;
+  return true;
 }
 
 int32_t H264DecoderImpl::Release() {

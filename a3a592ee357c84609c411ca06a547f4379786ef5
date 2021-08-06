@@ -181,6 +181,30 @@
       },
       "revId": "a3a592ee357c84609c411ca06a547f4379786ef5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58434a2c_3ca936b4",
+        "filename": "api/video_codecs/video_decoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-06T14:49:17Z",
+      "side": 1,
+      "message": "I can\u0027t find special treatment of that error code.\n\nhere are two non-passthrough non-test calls to InitDecode I found:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/video_coding/decoder_database.cc;l\u003d176;drc\u003d7a2023ef5b81378d8c7da91f4caf944c60618794\nand\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/video/video_stream_decoder_impl.cc;l\u003d106;drc\u003d7a2023ef5b81378d8c7da91f4caf944c60618794\n\nboth only check if status is ok or not (plus one of them logs the error code. so either log should be done by each decoder individually, or we should drop the logging. I\u0027m leaning to latter, making debugging harder, but code simpler and smaller)\n\nCould you misremember special treatment for Decode function instead?\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/video_codecs/video_decoder_software_fallback_wrapper.cc;l\u003d202;drc\u003dc12f6259384d5d7fa313296f5cf7f7998458984a",
+      "parentUuid": "0cd9db38_b9ab9ff1",
+      "range": {
+        "startLine": 98,
+        "startChar": 13,
+        "endLine": 98,
+        "endChar": 44
+      },
+      "revId": "a3a592ee357c84609c411ca06a547f4379786ef5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

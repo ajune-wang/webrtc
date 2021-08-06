@@ -12,8 +12,25 @@
 
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/trace_event.h"
 
 namespace webrtc {
+
+VCMDecoderDataBase::CurrentDecoderState::CurrentDecoderState(
+    uint8_t payload_type,
+    VideoDecoder* decoder)
+    : payload_type(payload_type), decoder(decoder) {
+  RTC_DCHECK(decoder);
+}
+
+VCMDecoderDataBase::CurrentDecoderState::~CurrentDecoderState() {
+  decoder->Release();
+}
+
+VCMDecoderDataBase::VCMDecoderDataBase(VCMDecodedFrameCallback* callback)
+    : callback_(callback) {
+  RTC_DCHECK(callback_);
+}
 
 bool VCMDecoderDataBase::DeregisterExternalDecoder(uint8_t payload_type) {
   auto it = decoders_.find(payload_type);
@@ -24,9 +41,9 @@ bool VCMDecoderDataBase::DeregisterExternalDecoder(uint8_t payload_type) {
   // We can't use payload_type to check if the decoder is currently in use,
   // because payload type may be out of date (e.g. before we decode the first
   // frame after RegisterReceiveCodec).
-  if (current_decoder_ && current_decoder_->IsSameDecoder(it->second)) {
+  if (current_ && current_->decoder == it->second) {
     // Release it if it was registered and in use.
-    current_decoder_ = absl::nullopt;
+    current_ = absl::nullopt;
   }
   decoders_.erase(it);
   return true;
@@ -44,7 +61,7 @@ void VCMDecoderDataBase::RegisterExternalDecoder(
 
 bool VCMDecoderDataBase::IsExternalDecoderRegistered(
     uint8_t payload_type) const {
-  return payload_type == current_payload_type_ ||
+  return (current_ && payload_type == current_->payload_type) ||
          decoders_.find(payload_type) != decoders_.end();
 }
 
@@ -55,8 +72,8 @@ bool VCMDecoderDataBase::RegisterReceiveCodec(uint8_t payload_type,
     return false;
   }
   // If payload value already exists, erase old and insert new.
-  if (payload_type == current_payload_type_) {
-    current_payload_type_ = absl::nullopt;
+  if (current_.has_value() && payload_type == current_->payload_type) {
+    current_ = absl::nullopt;
   }
   auto& entry = decoder_settings_[payload_type];
   entry.settings = receive_codec;
@@ -68,46 +85,81 @@ bool VCMDecoderDataBase::DeregisterReceiveCodec(uint8_t payload_type) {
   if (decoder_settings_.erase(payload_type) == 0) {
     return false;
   }
-  if (payload_type == current_payload_type_) {
+  if (current_.has_value() && payload_type == current_->payload_type) {
     // This codec is currently in use.
-    current_payload_type_ = absl::nullopt;
+    current_ = absl::nullopt;
   }
   return true;
 }
 
-VCMGenericDecoder* VCMDecoderDataBase::GetDecoder(
-    const VCMEncodedFrame& frame,
-    VCMDecodedFrameCallback* decoded_frame_callback) {
-  RTC_DCHECK(decoded_frame_callback->UserReceiveCallback());
-  uint8_t payload_type = frame.PayloadType();
-  if (payload_type == current_payload_type_ || payload_type == 0) {
-    return current_decoder_.has_value() ? &*current_decoder_ : nullptr;
+// Decodes frame with decoder registered with `payload_type' equals to
+// `frame.payloadType()`
+// Reinitializes the decoder when that payload type changes.
+// As return value forwards error code returned by `VideoDecoder::Decode`.
+int32_t VCMDecoderDataBase::Decode(const VCMEncodedFrame& frame,
+                                   Timestamp now) {
+  // Change decoder if payload type has changed
+  PickDecoder(frame);
+  if (!current_.has_value()) {
+    return VCM_NO_CODEC_REGISTERED;
   }
-  // If decoder exists - delete.
-  if (current_decoder_.has_value()) {
-    current_decoder_ = absl::nullopt;
-    current_payload_type_ = absl::nullopt;
-  }
+  TRACE_EVENT1("webrtc", "VCMDecoderDataBase::Decode", "timestamp",
+               frame.Timestamp());
+  VCMReceiveCallback* user_callback = callback_->UserReceiveCallback();
+  RTC_CHECK(user_callback);
 
-  CreateAndInitDecoder(frame);
-  if (current_decoder_ == absl::nullopt) {
-    return nullptr;
-  }
+  VCMFrameInformation frame_info;
+  frame_info.decodeStart = now;
+  frame_info.renderTimeMs = frame.RenderTimeMs();
+  frame_info.rotation = frame.rotation();
+  frame_info.timing = frame.video_timing();
+  frame_info.ntp_time_ms = frame.EncodedImage().ntp_time_ms_;
+  frame_info.packet_infos = frame.PacketInfos();
 
-  VCMReceiveCallback* callback = decoded_frame_callback->UserReceiveCallback();
-  callback->OnIncomingPayloadType(payload_type);
-  if (current_decoder_->RegisterDecodeCompleteCallback(decoded_frame_callback) <
-      0) {
-    current_decoder_ = absl::nullopt;
-    return nullptr;
+  // Set correctly only for key frames. Thus, use latest key frame
+  // content type. If the corresponding key frame was lost, decode will fail
+  // and content type will be ignored.
+  if (frame.FrameType() == VideoFrameType::kVideoFrameKey) {
+    frame_info.content_type = frame.contentType();
+    current_->content_type = frame.contentType();
+  } else {
+    frame_info.content_type = current_->content_type;
   }
+  callback_->Map(frame.Timestamp(), frame_info);
 
-  current_payload_type_ = payload_type;
-  return &*current_decoder_;
+  int32_t ret = current_->decoder->Decode(
+      frame.EncodedImage(), frame.MissingFrame(), frame.RenderTimeMs());
+  VideoDecoder::DecoderInfo decoder_info = current_->decoder->GetDecoderInfo();
+  if (decoder_info != current_->decoder_info) {
+    RTC_LOG(LS_INFO) << "Changed decoder implementation to: "
+                     << decoder_info.ToString();
+    current_->decoder_info = decoder_info;
+    user_callback->OnDecoderImplementationName(
+        decoder_info.implementation_name.empty()
+            ? "unknown"
+            : decoder_info.implementation_name.c_str());
+  }
+  if (ret < WEBRTC_VIDEO_CODEC_OK) {
+    RTC_LOG(LS_WARNING) << "Failed to decode frame with timestamp "
+                        << frame.Timestamp() << ", error code: " << ret;
+    callback_->ClearTimestampMap();
+  } else if (ret == WEBRTC_VIDEO_CODEC_NO_OUTPUT) {
+    // No output.
+    callback_->ClearTimestampMap();
+  }
+  return ret;
 }
 
-void VCMDecoderDataBase::CreateAndInitDecoder(const VCMEncodedFrame& frame) {
+void VCMDecoderDataBase::PickDecoder(const VCMEncodedFrame& frame) {
   uint8_t payload_type = frame.PayloadType();
+  if (payload_type == 0) {
+    return;
+  }
+  if (current_.has_value() && payload_type == current_->payload_type) {
+    return;
+  }
+  // If decoder exists - delete.
+  current_ = absl::nullopt;
   RTC_LOG(LS_INFO) << "Initializing decoder with payload type '"
                    << int{payload_type} << "'.";
   auto decoder_item = decoder_settings_.find(payload_type);
@@ -121,7 +173,7 @@ void VCMDecoderDataBase::CreateAndInitDecoder(const VCMEncodedFrame& frame) {
     RTC_LOG(LS_ERROR) << "No decoder of this type exists.";
     return;
   }
-  current_decoder_.emplace(external_dec_item->second);
+  current_.emplace(payload_type, external_dec_item->second);
 
   // Copy over input resolutions to prevent codec reinitialization due to
   // the first frame being of a different resolution than the database values.
@@ -132,11 +184,26 @@ void VCMDecoderDataBase::CreateAndInitDecoder(const VCMEncodedFrame& frame) {
     decoder_item->second.settings.width = frame.EncodedImage()._encodedWidth;
     decoder_item->second.settings.height = frame.EncodedImage()._encodedHeight;
   }
-  int err = current_decoder_->InitDecode(&decoder_item->second.settings,
-                                         decoder_item->second.number_of_cores);
+  int err = current_->decoder->InitDecode(&decoder_item->second.settings,
+                                          decoder_item->second.number_of_cores);
   if (err < 0) {
-    current_decoder_ = absl::nullopt;
+    current_ = absl::nullopt;
     RTC_LOG(LS_ERROR) << "Failed to initialize decoder. Error code: " << err;
+    return;
+  }
+
+  current_->decoder_info = current_->decoder->GetDecoderInfo();
+  RTC_LOG(LS_INFO) << "Decoder implementation: "
+                   << current_->decoder_info.ToString();
+
+  VCMReceiveCallback* receive_callback = callback_->UserReceiveCallback();
+  receive_callback->OnIncomingPayloadType(payload_type);
+  if (current_->decoder->RegisterDecodeCompleteCallback(callback_) < 0) {
+    current_ = absl::nullopt;
+  }
+  if (!current_->decoder_info.implementation_name.empty()) {
+    receive_callback->OnDecoderImplementationName(
+        current_->decoder_info.implementation_name.c_str());
   }
 }
 

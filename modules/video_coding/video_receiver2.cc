@@ -32,7 +32,7 @@ VideoReceiver2::VideoReceiver2(Clock* clock, VCMTiming* timing)
     : clock_(clock),
       timing_(timing),
       decodedFrameCallback_(timing_, clock_),
-      codecDataBase_() {
+      codecDataBase_(&decodedFrameCallback_) {
   decoder_sequence_checker_.Detach();
 }
 
@@ -100,13 +100,7 @@ void VideoReceiver2::DecoderThreadStopped() {
 int32_t VideoReceiver2::Decode(const VCMEncodedFrame* frame) {
   RTC_DCHECK_RUN_ON(&decoder_sequence_checker_);
   TRACE_EVENT0("webrtc", "VideoReceiver2::Decode");
-  // Change decoder if payload type has changed
-  VCMGenericDecoder* decoder =
-      codecDataBase_.GetDecoder(*frame, &decodedFrameCallback_);
-  if (decoder == nullptr) {
-    return VCM_NO_CODEC_REGISTERED;
-  }
-  return decoder->Decode(*frame, clock_->CurrentTime());
+  return codecDataBase_.Decode(*frame, clock_->CurrentTime());
 }
 
 // Register possible receive codecs, can be called multiple times

@@ -24,7 +24,7 @@ namespace webrtc {
 
 class VCMDecoderDataBase {
  public:
-  VCMDecoderDataBase() = default;
+  explicit VCMDecoderDataBase(VCMDecodedFrameCallback* callback);
   VCMDecoderDataBase(const VCMDecoderDataBase&) = delete;
   VCMDecoderDataBase& operator=(const VCMDecoderDataBase&) = delete;
   ~VCMDecoderDataBase() = default;
@@ -39,25 +39,34 @@ class VCMDecoderDataBase {
                             int number_of_cores);
   bool DeregisterReceiveCodec(uint8_t payload_type);
 
-  // Returns a decoder specified by frame.PayloadType. The decoded frame
-  // callback of the decoder is set to |decoded_frame_callback|. If no such
-  // decoder already exists an instance will be created and initialized.
-  // nullptr is returned if no decoder with the specified payload type was found
-  // and the function failed to create one.
-  VCMGenericDecoder* GetDecoder(
-      const VCMEncodedFrame& frame,
-      VCMDecodedFrameCallback* decoded_frame_callback);
+  // Decodes frame with decoder registered with `payload_type' equals to
+  // `frame.payloadType()`
+  // Reinitializes the decoder when that payload type changes.
+  // As return value forwards error code returned by `VideoDecoder::Decode`.
+  int32_t Decode(const VCMEncodedFrame& frame, Timestamp now);
 
  private:
   struct DecoderSettings {
     VideoCodec settings;
     int number_of_cores;
   };
+  struct CurrentDecoderState {
+    CurrentDecoderState(uint8_t payload_type, VideoDecoder* decoder);
+    ~CurrentDecoderState();
 
-  void CreateAndInitDecoder(const VCMEncodedFrame& frame);
+    const uint8_t payload_type = 0;
+    VideoDecoder* const decoder = nullptr;
+    VideoContentType content_type = VideoContentType::UNSPECIFIED;
+    VideoDecoder::DecoderInfo decoder_info;
+  };
 
-  absl::optional<uint8_t> current_payload_type_;
-  absl::optional<VCMGenericDecoder> current_decoder_;
+  // Sets current_ decoder specified by frame.PayloadType. The decoded frame
+  // callback of the decoder is set to `callback_`. If no such decoder exists
+  // current_ will be set to absl::nullopt.
+  void PickDecoder(const VCMEncodedFrame& frame);
+
+  VCMDecodedFrameCallback* const callback_;
+  absl::optional<CurrentDecoderState> current_;
   // Initialization paramaters for decoders keyed by payload type.
   std::map<uint8_t, DecoderSettings> decoder_settings_;
   // Decoders keyed by payload type.

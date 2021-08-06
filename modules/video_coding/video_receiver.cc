@@ -50,7 +50,7 @@ VideoReceiver::VideoReceiver(Clock* clock, VCMTiming* timing)
       _scheduleKeyRequest(false),
       drop_frames_until_keyframe_(false),
       max_nack_list_size_(0),
-      _codecDataBase(),
+      _codecDataBase(&_decodedFrameCallback),
       _retransmissionTimer(10, clock_),
       _keyRequestTimer(500, clock_) {
   decoder_thread_checker_.Detach();
@@ -236,13 +236,7 @@ int32_t VideoReceiver::RequestKeyFrame() {
 int32_t VideoReceiver::Decode(const VCMEncodedFrame& frame) {
   RTC_DCHECK_RUN_ON(&decoder_thread_checker_);
   TRACE_EVENT0("webrtc", "VideoReceiver::Decode");
-  // Change decoder if payload type has changed
-  VCMGenericDecoder* decoder =
-      _codecDataBase.GetDecoder(frame, &_decodedFrameCallback);
-  if (decoder == nullptr) {
-    return VCM_NO_CODEC_REGISTERED;
-  }
-  return decoder->Decode(frame, clock_->CurrentTime());
+  return _codecDataBase.Decode(frame, clock_->CurrentTime());
 }
 
 // Register possible receive codecs, can be called multiple times

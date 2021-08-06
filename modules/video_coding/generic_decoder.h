@@ -41,8 +41,6 @@ class VCMDecodedFrameCallback : public DecodedImageCallback {
                absl::optional<int32_t> decode_time_ms,
                absl::optional<uint8_t> qp) override;
 
-  void OnDecoderImplementationName(const char* implementation_name);
-
   void Map(uint32_t timestamp, const VCMFrameInformation& frameInfo);
   void ClearTimestampMap();
 
@@ -72,39 +70,6 @@ class VCMDecodedFrameCallback : public DecodedImageCallback {
   // taken into account when calculating maximum number of frames in composition
   // queue.
   FieldTrialParameter<bool> low_latency_renderer_include_predecode_buffer_;
-};
-
-class VCMGenericDecoder {
- public:
-  explicit VCMGenericDecoder(VideoDecoder* decoder);
-  ~VCMGenericDecoder();
-
-  /**
-   * Initialize the decoder with the information from the VideoCodec
-   */
-  int32_t InitDecode(const VideoCodec* settings, int32_t numberOfCores);
-
-  /**
-   * Decode to a raw I420 frame,
-   *
-   * inputVideoBuffer reference to encoded video frame
-   */
-  int32_t Decode(const VCMEncodedFrame& inputFrame, Timestamp now);
-
-  /**
-   * Set decode callback. Deregistering while decoding is illegal.
-   */
-  int32_t RegisterDecodeCompleteCallback(VCMDecodedFrameCallback* callback);
-
-  bool IsSameDecoder(VideoDecoder* decoder) const {
-    return decoder_ == decoder;
-  }
-
- private:
-  VCMDecodedFrameCallback* _callback = nullptr;
-  VideoDecoder* const decoder_;
-  VideoContentType _last_keyframe_content_type;
-  VideoDecoder::DecoderInfo decoder_info_;
 };
 
 }  // namespace webrtc

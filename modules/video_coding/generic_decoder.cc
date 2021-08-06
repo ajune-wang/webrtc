@@ -57,7 +57,7 @@ void VCMDecodedFrameCallback::SetUserReceiveCallback(
 }
 
 VCMReceiveCallback* VCMDecodedFrameCallback::UserReceiveCallback() {
-  // Called on the decode thread via VCMCodecDataBase::GetDecoder.
+  // Called on the decode thread via VCMCodecDataBase::Decode.
   // The callback must always have been set before this happens.
   RTC_DCHECK(_receiveCallback);
   return _receiveCallback;
@@ -202,11 +202,6 @@ void VCMDecodedFrameCallback::Decoded(VideoFrame& decodedImage,
                                   frameInfo->content_type);
 }
 
-void VCMDecodedFrameCallback::OnDecoderImplementationName(
-    const char* implementation_name) {
-  _receiveCallback->OnDecoderImplementationName(implementation_name);
-}
-
 void VCMDecodedFrameCallback::Map(uint32_t timestamp,
                                   const VCMFrameInformation& frameInfo) {
   int dropped_frames = 0;
@@ -232,87 +227,6 @@ void VCMDecodedFrameCallback::ClearTimestampMap() {
   if (dropped_frames > 0) {
     _receiveCallback->OnDroppedFrames(dropped_frames);
   }
-}
-
-VCMGenericDecoder::VCMGenericDecoder(VideoDecoder* decoder)
-    : _callback(NULL),
-      decoder_(decoder),
-      _last_keyframe_content_type(VideoContentType::UNSPECIFIED) {
-  RTC_DCHECK(decoder_);
-}
-
-VCMGenericDecoder::~VCMGenericDecoder() {
-  decoder_->Release();
-}
-
-int32_t VCMGenericDecoder::InitDecode(const VideoCodec* settings,
-                                      int32_t numberOfCores) {
-  TRACE_EVENT0("webrtc", "VCMGenericDecoder::InitDecode");
-
-  int err = decoder_->InitDecode(settings, numberOfCores);
-  decoder_info_ = decoder_->GetDecoderInfo();
-  RTC_LOG(LS_INFO) << "Decoder implementation: " << decoder_info_.ToString();
-  if (_callback) {
-    _callback->OnDecoderImplementationName(
-        decoder_info_.implementation_name.c_str());
-  }
-  return err;
-}
-
-int32_t VCMGenericDecoder::Decode(const VCMEncodedFrame& frame, Timestamp now) {
-  TRACE_EVENT1("webrtc", "VCMGenericDecoder::Decode", "timestamp",
-               frame.Timestamp());
-  VCMFrameInformation frame_info;
-  frame_info.decodeStart = now;
-  frame_info.renderTimeMs = frame.RenderTimeMs();
-  frame_info.rotation = frame.rotation();
-  frame_info.timing = frame.video_timing();
-  frame_info.ntp_time_ms = frame.EncodedImage().ntp_time_ms_;
-  frame_info.packet_infos = frame.PacketInfos();
-
-  // Set correctly only for key frames. Thus, use latest key frame
-  // content type. If the corresponding key frame was lost, decode will fail
-  // and content type will be ignored.
-  if (frame.FrameType() == VideoFrameType::kVideoFrameKey) {
-    frame_info.content_type = frame.contentType();
-    _last_keyframe_content_type = frame.contentType();
-  } else {
-    frame_info.content_type = _last_keyframe_content_type;
-  }
-  _callback->Map(frame.Timestamp(), frame_info);
-
-  int32_t ret = decoder_->Decode(frame.EncodedImage(), frame.MissingFrame(),
-                                 frame.RenderTimeMs());
-  VideoDecoder::DecoderInfo decoder_info = decoder_->GetDecoderInfo();
-  if (decoder_info != decoder_info_) {
-    RTC_LOG(LS_INFO) << "Changed decoder implementation to: "
-                     << decoder_info.ToString();
-    decoder_info_ = decoder_info;
-    _callback->OnDecoderImplementationName(
-        decoder_info.implementation_name.empty()
-            ? "unknown"
-            : decoder_info.implementation_name.c_str());
-  }
-  if (ret < WEBRTC_VIDEO_CODEC_OK) {
-    RTC_LOG(LS_WARNING) << "Failed to decode frame with timestamp "
-                        << frame.Timestamp() << ", error code: " << ret;
-    _callback->ClearTimestampMap();
-  } else if (ret == WEBRTC_VIDEO_CODEC_NO_OUTPUT) {
-    // No output.
-    _callback->ClearTimestampMap();
-  }
-  return ret;
-}
-
-int32_t VCMGenericDecoder::RegisterDecodeCompleteCallback(
-    VCMDecodedFrameCallback* callback) {
-  _callback = callback;
-  int32_t ret = decoder_->RegisterDecodeCompleteCallback(callback);
-  if (callback && !decoder_info_.implementation_name.empty()) {
-    callback->OnDecoderImplementationName(
-        decoder_info_.implementation_name.c_str());
-  }
-  return ret;
 }
 
 }  // namespace webrtc

@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0db17283_b5972565",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1125,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-08-06T13:08:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c3405be_e05821b9",
+      "range": {
+        "startLine": 1125,
+        "startChar": 1,
+        "endLine": 1125,
+        "endChar": 61
+      },
+      "revId": "19a5b1f117e0dc9fac7fd3357ebc7948e206610f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ba49ebd7_efd203b8",
@@ -71,6 +95,30 @@
       "writtenOn": "2021-08-06T08:14:39Z",
       "side": 1,
       "message": "A general comment on this file is that I think it belongs in rtc_base or system_wrappers, partly because it is not at all related to audio processing, or the rest of the audio processing code. \nBut also partly because it includes a lot of platfom specific implementations (#ifdefs) which would be good to keep outside of APM as it would be good to keep the APM code platform independent.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 53
+      },
+      "revId": "19a5b1f117e0dc9fac7fd3357ebc7948e206610f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3623d3b_f0bf461e",
+        "filename": "modules/audio_processing/denormal_disabler.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-08-06T13:08:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba49ebd7_efd203b8",
       "range": {
         "startLine": 11,
         "startChar": 0,
@@ -104,6 +152,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d128ae71_e4d26a8e",
+        "filename": "modules/audio_processing/denormal_disabler.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-08-06T13:08:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7559b855_682762aa",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 24
+      },
+      "revId": "19a5b1f117e0dc9fac7fd3357ebc7948e206610f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "88875d66_75fc9dd8",
@@ -117,6 +189,30 @@
       "writtenOn": "2021-08-06T08:47:27Z",
       "side": 1,
       "message": "Is this needed? It doesn\u0027t look like the tests access any private parts of the class.",
+      "range": {
+        "startLine": 42,
+        "startChar": 2,
+        "endLine": 42,
+        "endChar": 26
+      },
+      "revId": "19a5b1f117e0dc9fac7fd3357ebc7948e206610f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbf60b33_da6fdfdc",
+        "filename": "modules/audio_processing/denormal_disabler.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-08-06T13:08:14Z",
+      "side": 1,
+      "message": "EnableDenormals()",
+      "parentUuid": "88875d66_75fc9dd8",
       "range": {
         "startLine": 42,
         "startChar": 2,
@@ -150,6 +246,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f641bb91_7075c0cb",
+        "filename": "modules/audio_processing/denormal_disabler.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-08-06T13:08:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "21cc791d_c2bbd67c",
+      "range": {
+        "startLine": 62,
+        "startChar": 2,
+        "endLine": 62,
+        "endChar": 38
+      },
+      "revId": "19a5b1f117e0dc9fac7fd3357ebc7948e206610f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b6f53963_01fdee0c",
@@ -163,6 +283,30 @@
       "writtenOn": "2021-08-06T08:14:39Z",
       "side": 1,
       "message": "Would it make sense to instead return -1?\nOr to CHECK/DCHECK? A return value of 0 looks like a proper return value to me.",
+      "range": {
+        "startLine": 72,
+        "startChar": 4,
+        "endLine": 72,
+        "endChar": 15
+      },
+      "revId": "19a5b1f117e0dc9fac7fd3357ebc7948e206610f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bd0a622_8909f5a2",
+        "filename": "modules/audio_processing/denormal_disabler.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-08-06T13:08:14Z",
+      "side": 1,
+      "message": "I defined a constexpr and added a DCHECK in the caller.",
+      "parentUuid": "b6f53963_01fdee0c",
       "range": {
         "startLine": 72,
         "startChar": 4,
@@ -196,6 +340,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ab20fa5_dc4bc32d",
+        "filename": "modules/audio_processing/denormal_disabler.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-08-06T13:08:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ead79ca_3072b248",
+      "range": {
+        "startLine": 77,
+        "startChar": 21,
+        "endLine": 77,
+        "endChar": 34
+      },
+      "revId": "19a5b1f117e0dc9fac7fd3357ebc7948e206610f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "750802e9_d1e2620c",
@@ -219,6 +387,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "08415ab9_6af2a0d1",
+        "filename": "modules/audio_processing/denormal_disabler.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-08-06T13:08:14Z",
+      "side": 1,
+      "message": "As discussed offline, I documented that arch and compilers that are not supported will results in a no-op.",
+      "parentUuid": "750802e9_d1e2620c",
+      "range": {
+        "startLine": 85,
+        "startChar": 1,
+        "endLine": 85,
+        "endChar": 6
+      },
+      "revId": "19a5b1f117e0dc9fac7fd3357ebc7948e206610f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c214a002_4b7d8fe7",
@@ -232,6 +424,30 @@
       "writtenOn": "2021-08-06T08:14:39Z",
       "side": 1,
       "message": "Since DenormalDisabler is used for all other platforms as well (but very well make have no effect), it would be good to have some tests run for those as well.",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 70
+      },
+      "revId": "19a5b1f117e0dc9fac7fd3357ebc7948e206610f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24a60d15_9b39d9e2",
+        "filename": "modules/audio_processing/denormal_disabler_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-08-06T13:08:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c214a002_4b7d8fe7",
       "range": {
         "startLine": 21,
         "startChar": 0,
@@ -267,6 +483,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c1b8c9fb_756f0ff3",
+        "filename": "modules/audio_processing/denormal_disabler_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-08-06T13:08:14Z",
+      "side": 1,
+      "message": "Even if that were the default behavior, I wouldn\u0027t exclude that on the same thread another test may disable denormals without re-enabling them (e.g., a 3rd party library). Then this test fails and it\u0027d be hard to find the root cause.\n\nWDYT?",
+      "parentUuid": "cf8d8a5c_f37509f5",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 37
+      },
+      "revId": "19a5b1f117e0dc9fac7fd3357ebc7948e206610f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ae2f1bbe_50868a46",
         "filename": "modules/audio_processing/denormal_disabler_unittest.cc",
         "patchSetId": 2
@@ -278,6 +518,30 @@
       "writtenOn": "2021-08-06T08:14:39Z",
       "side": 1,
       "message": "Why not also test this for /*enabled\u003d*/false ?",
+      "range": {
+        "startLine": 45,
+        "startChar": 19,
+        "endLine": 45,
+        "endChar": 55
+      },
+      "revId": "19a5b1f117e0dc9fac7fd3357ebc7948e206610f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6bcc2f24_41358ada",
+        "filename": "modules/audio_processing/denormal_disabler_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-08-06T13:08:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae2f1bbe_50868a46",
       "range": {
         "startLine": 45,
         "startChar": 19,
@@ -301,6 +565,30 @@
       "writtenOn": "2021-08-06T08:14:39Z",
       "side": 1,
       "message": "Why not also test this for /*enabled\u003d*/false ?",
+      "range": {
+        "startLine": 54,
+        "startChar": 19,
+        "endLine": 54,
+        "endChar": 55
+      },
+      "revId": "19a5b1f117e0dc9fac7fd3357ebc7948e206610f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43ed65f9_cd108142",
+        "filename": "modules/audio_processing/denormal_disabler_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-08-06T13:08:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ea578a2_f714be62",
       "range": {
         "startLine": 54,
         "startChar": 19,

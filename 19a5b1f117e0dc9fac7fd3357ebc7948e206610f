@@ -16,6 +16,253 @@
       "message": "Hi Per and Ivo,\nCould you PTAL?\nAlessio",
       "revId": "19a5b1f117e0dc9fac7fd3357ebc7948e206610f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4909148_d18fe14d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-08-06T08:14:39Z",
+      "side": 1,
+      "message": "Awesome! Thanks for this CL!!!!",
+      "revId": "19a5b1f117e0dc9fac7fd3357ebc7948e206610f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c3405be_e05821b9",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1125,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-08-06T08:14:39Z",
+      "side": 1,
+      "message": "I would prefer to have this covering even more. There may be resampling done when the audiobuffers are populated so if possible it would be great to have this activated already there.\n\nSince this holds true both for the capture and render calls, I\u0027d suggest that this is also added for the render calls (AnalyzeReverseStream and ProcessReverseStream.",
+      "range": {
+        "startLine": 1125,
+        "startChar": 1,
+        "endLine": 1125,
+        "endChar": 61
+      },
+      "revId": "19a5b1f117e0dc9fac7fd3357ebc7948e206610f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba49ebd7_efd203b8",
+        "filename": "modules/audio_processing/denormal_disabler.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-08-06T08:14:39Z",
+      "side": 1,
+      "message": "A general comment on this file is that I think it belongs in rtc_base or system_wrappers, partly because it is not at all related to audio processing, or the rest of the audio processing code. \nBut also partly because it includes a lot of platfom specific implementations (#ifdefs) which would be good to keep outside of APM as it would be good to keep the APM code platform independent.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 53
+      },
+      "revId": "19a5b1f117e0dc9fac7fd3357ebc7948e206610f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7559b855_682762aa",
+        "filename": "modules/audio_processing/denormal_disabler.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-08-06T08:14:39Z",
+      "side": 1,
+      "message": "There is a fair amount of implementation in this header file and I think it would be good to move at least some of it to the a .cc file. \n\nThat would also allow using non-public constants for some of the values.",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 24
+      },
+      "revId": "19a5b1f117e0dc9fac7fd3357ebc7948e206610f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21cc791d_c2bbd67c",
+        "filename": "modules/audio_processing/denormal_disabler.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-08-06T08:14:39Z",
+      "side": 1,
+      "message": "Please document what the method does and what the output of this method means. In particular, this returns 0 as the only indication of an error when the platform is not supported. Since 0 often is a valid return value, this needs to be clearly documented.",
+      "range": {
+        "startLine": 62,
+        "startChar": 2,
+        "endLine": 62,
+        "endChar": 38
+      },
+      "revId": "19a5b1f117e0dc9fac7fd3357ebc7948e206610f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6f53963_01fdee0c",
+        "filename": "modules/audio_processing/denormal_disabler.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-08-06T08:14:39Z",
+      "side": 1,
+      "message": "Would it make sense to instead return -1?\nOr to CHECK/DCHECK? A return value of 0 looks like a proper return value to me.",
+      "range": {
+        "startLine": 72,
+        "startChar": 4,
+        "endLine": 72,
+        "endChar": 15
+      },
+      "revId": "19a5b1f117e0dc9fac7fd3357ebc7948e206610f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ead79ca_3072b248",
+        "filename": "modules/audio_processing/denormal_disabler.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-08-06T08:14:39Z",
+      "side": 1,
+      "message": "Please document the method and its input. Also please add a description for what happens if the platform is not supported.",
+      "range": {
+        "startLine": 77,
+        "startChar": 21,
+        "endLine": 77,
+        "endChar": 34
+      },
+      "revId": "19a5b1f117e0dc9fac7fd3357ebc7948e206610f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "750802e9_d1e2620c",
+        "filename": "modules/audio_processing/denormal_disabler.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-08-06T08:14:39Z",
+      "side": 1,
+      "message": "What if the platform is not supported? Should any action be taken then?",
+      "range": {
+        "startLine": 85,
+        "startChar": 1,
+        "endLine": 85,
+        "endChar": 6
+      },
+      "revId": "19a5b1f117e0dc9fac7fd3357ebc7948e206610f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c214a002_4b7d8fe7",
+        "filename": "modules/audio_processing/denormal_disabler_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-08-06T08:14:39Z",
+      "side": 1,
+      "message": "Since DenormalDisabler is used for all other platforms as well (but very well make have no effect), it would be good to have some tests run for those as well.",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 70
+      },
+      "revId": "19a5b1f117e0dc9fac7fd3357ebc7948e206610f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae2f1bbe_50868a46",
+        "filename": "modules/audio_processing/denormal_disabler_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-08-06T08:14:39Z",
+      "side": 1,
+      "message": "Why not also test this for /*enabled\u003d*/false ?",
+      "range": {
+        "startLine": 45,
+        "startChar": 19,
+        "endLine": 45,
+        "endChar": 55
+      },
+      "revId": "19a5b1f117e0dc9fac7fd3357ebc7948e206610f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ea578a2_f714be62",
+        "filename": "modules/audio_processing/denormal_disabler_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-08-06T08:14:39Z",
+      "side": 1,
+      "message": "Why not also test this for /*enabled\u003d*/false ?",
+      "range": {
+        "startLine": 54,
+        "startChar": 19,
+        "endLine": 54,
+        "endChar": 55
+      },
+      "revId": "19a5b1f117e0dc9fac7fd3357ebc7948e206610f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

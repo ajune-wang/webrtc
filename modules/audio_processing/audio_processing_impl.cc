@@ -35,6 +35,7 @@
 #include "rtc_base/ref_counted_object.h"
 #include "rtc_base/time_utils.h"
 #include "rtc_base/trace_event.h"
+#include "system_wrappers/include/denormal_disabler.h"
 #include "system_wrappers/include/field_trial.h"
 #include "system_wrappers/include/metrics.h"
 
@@ -254,6 +255,8 @@ AudioProcessingImpl::AudioProcessingImpl(
           new ApmDataDumper(rtc::AtomicOps::Increment(&instance_count_))),
       use_setup_specific_default_aec3_config_(
           UseSetupSpecificDefaultAec3Congfig()),
+      use_denormal_disabler_(
+          !field_trial::IsEnabled("WebRTC-ApmDenormalDisablerKillSwitch")),
       capture_runtime_settings_(RuntimeSettingQueueSize()),
       render_runtime_settings_(RuntimeSettingQueueSize()),
       capture_runtime_settings_enqueuer_(&capture_runtime_settings_),
@@ -791,6 +794,7 @@ int AudioProcessingImpl::ProcessStream(const float* const* src,
   RETURN_ON_ERR(MaybeInitializeCapture(input_config, output_config));
 
   MutexLock lock_capture(&mutex_capture_);
+  DenormalDisabler denormal_disabler(use_denormal_disabler_);
 
   if (aec_dump_) {
     RecordUnprocessedCaptureStream(src);
@@ -1080,6 +1084,7 @@ int AudioProcessingImpl::ProcessStream(const int16_t* const src,
   RETURN_ON_ERR(MaybeInitializeCapture(input_config, output_config));
 
   MutexLock lock_capture(&mutex_capture_);
+  DenormalDisabler denormal_disabler(use_denormal_disabler_);
 
   if (aec_dump_) {
     RecordUnprocessedCaptureStream(src, input_config);
@@ -1427,6 +1432,7 @@ int AudioProcessingImpl::AnalyzeReverseStream(
     const StreamConfig& reverse_config) {
   TRACE_EVENT0("webrtc", "AudioProcessing::AnalyzeReverseStream_StreamConfig");
   MutexLock lock(&mutex_render_);
+  DenormalDisabler denormal_disabler(use_denormal_disabler_);
   return AnalyzeReverseStreamLocked(data, reverse_config, reverse_config);
 }
 
@@ -1436,6 +1442,8 @@ int AudioProcessingImpl::ProcessReverseStream(const float* const* src,
                                               float* const* dest) {
   TRACE_EVENT0("webrtc", "AudioProcessing::ProcessReverseStream_StreamConfig");
   MutexLock lock(&mutex_render_);
+  DenormalDisabler denormal_disabler(use_denormal_disabler_);
+
   RETURN_ON_ERR(AnalyzeReverseStreamLocked(src, input_config, output_config));
   if (submodule_states_.RenderMultiBandProcessingActive() ||
       submodule_states_.RenderFullBandProcessingActive()) {

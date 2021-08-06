@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9dd9a604_b8bbaa82",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-08-06T07:22:12Z",
+      "side": 1,
+      "message": "Overall LGTM % 1 question for Ivo about testing dbg configs.\n\nI wonder if we can switch to performance tests here (e.g. is there a set of metrics we can measure post encoding/decoding to see if the audio is good quality?).",
+      "revId": "0fb88f5a8df20b939e58ef49721251fc7c775f1b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de0e4708_5c2c8f30",
+        "filename": "modules/audio_coding/acm2/audio_coding_module_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1317,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-08-06T07:22:12Z",
+      "side": 1,
+      "message": "Ivo, it looks like on Linux, debug builds deviate from release builds in the results they yield. Does it make sense to only run the test on release mode?\n\n(see all other tests as well).",
+      "range": {
+        "startLine": 1316,
+        "startChar": 0,
+        "endLine": 1317,
+        "endChar": 56
+      },
+      "revId": "0fb88f5a8df20b939e58ef49721251fc7c775f1b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f6513d6_58c8e127",
+        "filename": "modules/audio_coding/codecs/isac/isac_webrtc_api_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-08-06T07:22:12Z",
+      "side": 1,
+      "message": "Should this be more rounded?\n\nE.g. 2250",
+      "range": {
+        "startLine": 209,
+        "startChar": 50,
+        "endLine": 209,
+        "endChar": 54
+      },
+      "revId": "0fb88f5a8df20b939e58ef49721251fc7c775f1b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

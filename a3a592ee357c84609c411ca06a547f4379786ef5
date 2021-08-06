@@ -157,6 +157,30 @@
       },
       "revId": "a3a592ee357c84609c411ca06a547f4379786ef5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0cd9db38_b9ab9ff1",
+        "filename": "api/video_codecs/video_decoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-06T14:34:00Z",
+      "side": 1,
+      "message": "Yeah, I think boolean is enough together with text logging where required.\nrtc::Error def seems like overkill for this use case.\nThe only error that we really treat differently afaik is WEBRTC_VIDEO_CODEC_FALLBACK_SOFTWARE. Do we need to do something special there in that case? Looks like there is some chromium code that uses it...",
+      "parentUuid": "26c59ba6_a254fe49",
+      "range": {
+        "startLine": 98,
+        "startChar": 13,
+        "endLine": 98,
+        "endChar": 44
+      },
+      "revId": "a3a592ee357c84609c411ca06a547f4379786ef5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -46,6 +46,30 @@
       },
       "revId": "93ce46fc6374cf9e1ba3c94105adb1e6dcb57108",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "337e290a_9d552711",
+        "filename": "common_audio/signal_processing/complex_fft.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-08-06T07:18:33Z",
+      "side": 0,
+      "message": "\u003e I don\u0027t really know how big the impact can be from this.\n\u003e \n\u003e If there is no need from a compiler perspective (since it is C code) maybe we should just keep it?\n\nYes, agreed. I abandon this one. If you see something we can just resume it.",
+      "parentUuid": "116f53d4_5cec288b",
+      "range": {
+        "startLine": 116,
+        "startChar": 20,
+        "endLine": 116,
+        "endChar": 28
+      },
+      "revId": "93ce46fc6374cf9e1ba3c94105adb1e6dcb57108",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

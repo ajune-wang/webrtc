@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64c08d9c_40b8d459",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-06T11:27:35Z",
+      "side": 1,
+      "message": "I\u0027m sure there is more to cleanup about these classes, here concentrating on the easy parts, leaving existent logic untouched.",
+      "revId": "695c7d256c1ffe34fd95f2bc62a11aac7af24083",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

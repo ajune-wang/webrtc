@@ -507,6 +507,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ed32dacc_e84177b9",
+        "filename": "modules/audio_processing/denormal_disabler_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-08-06T13:31:36Z",
+      "side": 1,
+      "message": "I think it would actually be a good thing if this test fails if other code or a 3rd party library makes unexpected changes to the denormal settings (although you\u0027re right that it might be hard to pinpoint when using a large 3rd party lib). That actually means that the person who is trying to add this new code will notice that your test fails, and will be aware that there may be a conflict with the APM denormal settings.",
+      "parentUuid": "c1b8c9fb_756f0ff3",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 37
+      },
+      "revId": "19a5b1f117e0dc9fac7fd3357ebc7948e206610f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ae2f1bbe_50868a46",
         "filename": "modules/audio_processing/denormal_disabler_unittest.cc",
         "patchSetId": 2

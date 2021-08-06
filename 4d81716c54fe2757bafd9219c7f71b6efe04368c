@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "04613af6_f886db73",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-06T11:02:25Z",
+      "side": 1,
+      "message": "pointer itself is const.\nif you change RTC_GUARDED_BY to RTC_PT_GUARDED_BY, then checking pointer for nullness won\u0027t require the lock (dereferencing point still would require the lock)",
+      "parentUuid": "b1f18f7b_ae4cdf9c",
+      "range": {
+        "startLine": 176,
+        "startChar": 6,
+        "endLine": 176,
+        "endChar": 56
+      },
+      "revId": "4d81716c54fe2757bafd9219c7f71b6efe04368c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "aef9cd47_aeba8c53",
         "filename": "modules/rtp_rtcp/source/rtp_sender.h",
         "patchSetId": 27

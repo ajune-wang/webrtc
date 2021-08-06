@@ -36,6 +36,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7db94f5d_83ec1dce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-08-06T07:58:22Z",
+      "side": 1,
+      "message": "Sounds good, let\u0027s keep it like this and maybe just iterate on these tests to only run them if NDEBUG is defined, etc..",
+      "parentUuid": "2ce58b39_50ad8b1e",
+      "revId": "0fb88f5a8df20b939e58ef49721251fc7c775f1b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "edaf73e9_98c66b59",
@@ -96,6 +114,30 @@
       "side": 1,
       "message": "I think that makes sense, we care about bitexactness in release builds, so that\u0027s what we should be testing.",
       "parentUuid": "de0e4708_5c2c8f30",
+      "range": {
+        "startLine": 1316,
+        "startChar": 0,
+        "endLine": 1317,
+        "endChar": 56
+      },
+      "revId": "0fb88f5a8df20b939e58ef49721251fc7c775f1b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b50f03ba_01742f23",
+        "filename": "modules/audio_coding/acm2/audio_coding_module_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1317,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-08-06T07:58:22Z",
+      "side": 1,
+      "message": "Artem, can you skip the entire test with:\n\n#if (defined(WEBRTC_CODEC_ISAC) || defined(WEBRTC_CODEC_ISACFX)) \u0026\u0026 (defined(WEBRTC_LINUX) \u0026\u0026 !defined(NDEBUG))\n\nMaybe add a comment about why Linux dbg is not tested anymore.",
+      "parentUuid": "ee721736_a784bd4a",
       "range": {
         "startLine": 1316,
         "startChar": 0,

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c0e9977_14ca18e2",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-06T09:50:56Z",
+      "side": 0,
+      "message": "EnqueuePackets is recursive...\ndoes it mean that code before this CL calls PrepareForSend twice for fec packets?\nthat also smells like transport_sequence_number would have an artificial gap.",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 35
+      },
+      "revId": "51e30837d5d6a32691336c94f4909918f883af6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

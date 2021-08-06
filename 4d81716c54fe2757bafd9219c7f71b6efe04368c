@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7cdce9e2_f9876e48",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-06T09:50:56Z",
+      "side": 1,
+      "message": "sequencer_ can\u0027t change after construction, so instead of having extra boolean, you may change the helper implementation:\n\nbool deferred_sequence_numbering() const { return sequencer_ \u003d\u003d nullptr; }",
+      "range": {
+        "startLine": 176,
+        "startChar": 6,
+        "endLine": 176,
+        "endChar": 56
+      },
+      "revId": "4d81716c54fe2757bafd9219c7f71b6efe04368c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aef9cd47_aeba8c53",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.h",
+        "patchSetId": 27
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-06T09:50:56Z",
+      "side": 1,
+      "message": "small documentation might be helpful, something like\n// when true, rtp sequence number assigned before rtp packet emitted to the Transport, after the pacer.\n// when false, rtp sequence number assigned when rtp packet is created, before the pacer\n\nor (this flag suppose to be temporary, right?) just link to the bug:\n// See http://bugs.webrtc.org/11340 for more details",
+      "revId": "4d81716c54fe2757bafd9219c7f71b6efe04368c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

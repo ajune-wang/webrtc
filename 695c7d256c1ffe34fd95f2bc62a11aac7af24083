@@ -16,6 +16,23 @@
       "message": "I\u0027m sure there is more to cleanup about these classes, here concentrating on the easy parts, leaving existent logic untouched.",
       "revId": "695c7d256c1ffe34fd95f2bc62a11aac7af24083",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ba946df_052a8c3a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-06T14:25:10Z",
+      "side": 1,
+      "message": "Nice!\nAny chance we can get rid of GenericDecoder entirely down the line?",
+      "revId": "695c7d256c1ffe34fd95f2bc62a11aac7af24083",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

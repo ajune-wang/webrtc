@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1f18f7b_ae4cdf9c",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-06T10:42:28Z",
+      "side": 1,
+      "message": "That requires grabbing the lock though, which is why I added the extra boolean...\nRemoving the thread annotation for sequencer_ seems like a worse solution.\nI\u0027ll keep for now, can update later if necessary.",
+      "parentUuid": "7cdce9e2_f9876e48",
+      "range": {
+        "startLine": 176,
+        "startChar": 6,
+        "endLine": 176,
+        "endChar": 56
+      },
+      "revId": "4d81716c54fe2757bafd9219c7f71b6efe04368c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aef9cd47_aeba8c53",
@@ -37,6 +61,24 @@
       "writtenOn": "2021-08-06T09:50:56Z",
       "side": 1,
       "message": "small documentation might be helpful, something like\n// when true, rtp sequence number assigned before rtp packet emitted to the Transport, after the pacer.\n// when false, rtp sequence number assigned when rtp packet is created, before the pacer\n\nor (this flag suppose to be temporary, right?) just link to the bug:\n// See http://bugs.webrtc.org/11340 for more details",
+      "revId": "4d81716c54fe2757bafd9219c7f71b6efe04368c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7749f1e_0e134caa",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.h",
+        "patchSetId": 27
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-06T10:42:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aef9cd47_aeba8c53",
       "revId": "4d81716c54fe2757bafd9219c7f71b6efe04368c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

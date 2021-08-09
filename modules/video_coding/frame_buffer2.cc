@@ -63,7 +63,11 @@ FrameBuffer::FrameBuffer(Clock* clock,
       last_log_non_decoded_ms_(-kLogNonDecodedIntervalMs),
       add_rtt_to_playout_delay_(
           webrtc::field_trial::IsEnabled("WebRTC-AddRttToPlayoutDelay")),
-      rtt_mult_settings_(RttMultExperiment::GetRttMultValue()) {
+      rtt_mult_settings_(RttMultExperiment::GetRttMultValue()),
+      max_queue_size_pacing_delay_("max_queue_size_pacing",
+                                   kMaxFramesBuffered) {
+  ParseFieldTrial({&max_queue_size_pacing_delay_},
+                  field_trial::FindFullName("WebRTC-ZeroPlayoutDelay"));
   callback_checker_.Detach();
 }
 
@@ -213,6 +217,15 @@ int64_t FrameBuffer::FindNextFrame(int64_t now_ms) {
       frame->SetRenderTime(timing_->RenderTimeMs(frame->Timestamp(), now_ms));
     }
     wait_ms = timing_->MaxWaitingTime(frame->RenderTime(), now_ms);
+    if (frame->RenderTime() == 0 &&
+        frames_.size() > max_queue_size_pacing_delay_) {
+      // frame->RenderTime() == 0 indicates that the frame should be decoded and
+      // rendered as soon as possible. The interframe delay with the flag
+      // |zero_playout_delay_min_pacing_| reduces decoder choking. If there are
+      // too many frames waiting in the queue, allow pushing the frames to the
+      // decoder immediately to reduce latency.
+      wait_ms = 0;
+    }
 
     // This will cause the frame buffer to prefer high framerate rather
     // than high resolution in the case of the decoder not decoding fast

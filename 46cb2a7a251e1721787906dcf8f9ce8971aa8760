@@ -50,6 +50,23 @@
       "message": "Minyue, since Ivo on vacation, can I please use your approval for modules/audio_coding",
       "revId": "46cb2a7a251e1721787906dcf8f9ce8971aa8760",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3facac4_54d18d1a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-09T12:01:05Z",
+      "side": 1,
+      "message": "Nice! Great to finally be rid of that legacy code :)",
+      "revId": "46cb2a7a251e1721787906dcf8f9ce8971aa8760",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

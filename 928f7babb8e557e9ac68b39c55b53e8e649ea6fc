@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4148f3a_283e1219",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-09T13:13:17Z",
+      "side": 1,
+      "message": "Christoffer, can you please take a look as api owner",
+      "revId": "928f7babb8e557e9ac68b39c55b53e8e649ea6fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

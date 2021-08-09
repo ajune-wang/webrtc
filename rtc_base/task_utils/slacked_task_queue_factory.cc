@@ -10,6 +10,8 @@
 
 #include "rtc_base/task_utils/slacked_task_queue_factory.h"
 
+#include <CoreVideo/CoreVideo.h>
+
 #include <algorithm>
 #include <memory>
 #include <queue>
@@ -34,6 +36,7 @@
 #include "rtc_base/system/no_unique_address.h"
 #include "rtc_base/task_utils/pending_task_safety_flag.h"
 #include "rtc_base/task_utils/to_queued_task.h"
+#include "rtc_base/thread_annotations.h"
 #include "rtc_base/time_utils.h"
 #include "system_wrappers/include/clock.h"
 
@@ -343,6 +346,7 @@ class QuantumDelayedCallProvider : public DelayedCallProvider {
                          (void)task.release();
                      }),
         delay_milliseconds);
+    RTC_DLOG(LS_VERBOSE) << "Debug comment";
   }
 
  private:
@@ -351,6 +355,64 @@ class QuantumDelayedCallProvider : public DelayedCallProvider {
   const TimeDelta quantum_;
   RTC_NO_UNIQUE_ADDRESS SequenceChecker sequence_;
   ScopedTaskSafetyDetached safety_;
+};
+
+class VSyncDelayedCallProvider : public DelayedCallProvider {
+ public:
+  VSyncDelayedCallProvider() { sequence_.Detach(); }
+  ~VSyncDelayedCallProvider() {
+    RTC_DCHECK_RUN_ON(&sequence_);
+    if (link_) {
+      CVDisplayLinkStop(link_);
+    }
+  }
+
+  // DelayedCallProvider.
+  void ScheduleDelayedCall(std::unique_ptr<QueuedTask> task,
+                           uint32_t milliseconds) override {
+    RTC_DCHECK_RUN_ON(&sequence_);
+
+    if (!link_) {
+      CVReturn status = CVDisplayLinkCreateWithActiveCGDisplays(&link_);
+      if (status != noErr)
+        return;
+      CVDisplayLinkSetOutputCallback(
+          link_, &VSyncDelayedCallProvider::DisplayLinkCallback, this);
+      CVDisplayLinkStart(link_);
+    }
+
+    MutexLock lock(&mu_);
+    task_queue_ = TaskQueueBase::Current();
+    task_ = std::move(task);
+  }
+
+ private:
+  static CVReturn DisplayLinkCallback(CVDisplayLinkRef displayLink,
+                                      const CVTimeStamp* inNow,
+                                      const CVTimeStamp* inOutputTime,
+                                      CVOptionFlags flagsIn,
+                                      CVOptionFlags* flagsOut,
+                                      void* displayLinkContext) {
+    VSyncDelayedCallProvider* self =
+        (VSyncDelayedCallProvider*)displayLinkContext;
+    self->VSync();
+    return noErr;
+  }
+
+  void VSync() {
+    MutexLock lock(&mu_);
+    if (task_ && schedule_)
+      task_queue_->PostTask(std::move(task_));
+    schedule_ = !schedule_;
+  }
+
+  CVDisplayLinkRef link_ RTC_GUARDED_BY(sequence_) = nullptr;
+  Mutex mu_;
+  std::unique_ptr<QueuedTask> task_ RTC_GUARDED_BY(mu_);
+  TaskQueueBase* task_queue_ RTC_GUARDED_BY(mu_) = nullptr;
+  ScopedTaskSafetyDetached safety_;
+  bool schedule_ RTC_GUARDED_BY(mu_) = true;
+  RTC_NO_UNIQUE_ADDRESS SequenceChecker sequence_;
 };
 
 }  // namespace
@@ -371,6 +433,10 @@ std::unique_ptr<DelayedCallProvider> CreateQuantumDelayedCallProvider(
     Clock* clock,
     TimeDelta quantum) {
   return std::make_unique<QuantumDelayedCallProvider>(clock, quantum);
+}
+
+std::unique_ptr<DelayedCallProvider> CreateVSyncDelayedCallProvider() {
+  return std::make_unique<VSyncDelayedCallProvider>();
 }
 
 }  // namespace webrtc

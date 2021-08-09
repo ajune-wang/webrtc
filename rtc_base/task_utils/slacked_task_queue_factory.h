@@ -63,6 +63,8 @@ std::unique_ptr<DelayedCallProvider> CreateQuantumDelayedCallProvider(
     Clock* clock,
     TimeDelta quantum);
 
+std::unique_ptr<DelayedCallProvider> CreateVSyncDelayedCallProvider();
+
 }  // namespace webrtc
 
 #endif  // RTC_BASE_TASK_UTILS_SLACKED_TASK_QUEUE_FACTORY_H_

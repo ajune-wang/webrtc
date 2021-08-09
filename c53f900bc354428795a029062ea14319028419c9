@@ -71,6 +71,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cde2d307_1268e1f1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-08-09T12:25:56Z",
+      "side": 1,
+      "message": "The switch that I wired up in this CL does both the sending and the receiving part of this non-sender RTT measurement. This functionality was already previously implemented in the RTP/RTCP module, it was just not wired up. \n\nThe RTP/RTCP module could be changed so that the receive-side functionality would work even without the flag, but I think it would make sense to do that in another CL.",
+      "parentUuid": "0c1918ce_e88bf5df",
+      "revId": "c53f900bc354428795a029062ea14319028419c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e3329a99_9d15b003",
@@ -190,6 +208,24 @@
       "side": 1,
       "message": "Random thinking: You could clear the table of DLRR mappings every time you see an SR, and populate it when you see an xr with a dlrr. That would achieve the same effect, with less bookkeeping.",
       "parentUuid": "ea2d5475_7f0c2756",
+      "revId": "c53f900bc354428795a029062ea14319028419c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2359c87_78bd037b",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 875,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-08-09T12:25:56Z",
+      "side": 1,
+      "message": "I like your idea, but I don\u0027t think we can make assumptions about the order of the SRs and XRs in the compound RTCP packet, or can we? What if we first see the XR+DLRR (which populates the metric), and then later see the matching SR (which resets the metric)?",
+      "parentUuid": "76c7800c_386791ee",
       "revId": "c53f900bc354428795a029062ea14319028419c9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

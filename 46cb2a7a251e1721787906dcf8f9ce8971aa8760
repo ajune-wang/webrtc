@@ -16,6 +16,23 @@
       "message": "Erik, can you please get general review and approval for test/\nIvo, can I please get an approval for modules/audio_coding\nMirko, can I please get an approval for rtc_tools/",
       "revId": "46cb2a7a251e1721787906dcf8f9ce8971aa8760",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b69ead13_567ea54e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-08-09T10:18:15Z",
+      "side": 1,
+      "message": "rtc_tools/rtc_event_log_visualizer/analyzer.cc LGTM",
+      "revId": "46cb2a7a251e1721787906dcf8f9ce8971aa8760",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

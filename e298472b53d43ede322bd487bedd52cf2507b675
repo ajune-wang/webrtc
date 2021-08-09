@@ -1,0 +1,205 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2306b5f_5bb866ae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-08-09T19:51:49Z",
+      "side": 1,
+      "message": "Thanks for the new patchset!",
+      "revId": "e298472b53d43ede322bd487bedd52cf2507b675",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee2d4a06_03cb9cac",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-08-09T19:51:49Z",
+      "side": 1,
+      "message": "I would suggest dropping the enabled() method and instead rewrite this as\n\n\n // Log whether the denormal disabler will be in use or not.\n  DenormalDisabler denormal_disabler(use_denormal_disabler_);\n  RTC_LOG(LS_INFO) \u003c\u003c \"Denormal disabler: \"\n                   \u003c\u003c (use_denormal_disabler_ ? \"enabled\" : \"disabled\");\n                   \n                   \nI see the need for something that tests for the hardware-dependent behavior but that I think needs to be differently named. See more in the class implementation regarding that.",
+      "range": {
+        "startLine": 317,
+        "startChar": 1,
+        "endLine": 320,
+        "endChar": 77
+      },
+      "revId": "e298472b53d43ede322bd487bedd52cf2507b675",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "743096c1_db752b50",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 1481,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-08-09T19:51:49Z",
+      "side": 1,
+      "message": "In the ProcessStream methods this call is placed after the \nMaybeInitializeCapture methods. Would it be possible to do this in the same way for the capture and render methods?",
+      "range": {
+        "startLine": 1481,
+        "startChar": 2,
+        "endLine": 1481,
+        "endChar": 61
+      },
+      "revId": "e298472b53d43ede322bd487bedd52cf2507b675",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "346a9b8f_06d01f55",
+        "filename": "system_wrappers/include/denormal_disabler.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-08-09T19:51:49Z",
+      "side": 1,
+      "message": "I would suggest not putting #defines as part of the header but rather place them in the .cc file since they then won\u0027t leak into code that include denormal_disabler.h \n\nHerein, I don\u0027t see any needs of putting these defines in the header apart from the tests so I don\u0027t think we should have them here.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 6
+      },
+      "revId": "e298472b53d43ede322bd487bedd52cf2507b675",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8cc17949_8fb9517c",
+        "filename": "system_wrappers/include/denormal_disabler.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-08-09T19:51:49Z",
+      "side": 1,
+      "message": "There is no real need to put this beneath a build flag since it is so small. Please instead always keep it included.",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 6
+      },
+      "revId": "e298472b53d43ede322bd487bedd52cf2507b675",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69257279_f6c6e180",
+        "filename": "system_wrappers/source/denormal_disabler.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-08-09T19:51:49Z",
+      "side": 1,
+      "message": "Please explain these more in the comments\nE.g.: Bitmask for setting FTZ and DAZ.",
+      "range": {
+        "startLine": 25,
+        "startChar": 3,
+        "endLine": 25,
+        "endChar": 15
+      },
+      "revId": "e298472b53d43ede322bd487bedd52cf2507b675",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "662a36fb_157e814a",
+        "filename": "system_wrappers/source/denormal_disabler.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-08-09T19:51:49Z",
+      "side": 1,
+      "message": "The comment mentions FTZ and DAZ, but these constants only mentions Ftz. Please consider changing the names or the comments.",
+      "range": {
+        "startLine": 26,
+        "startChar": 15,
+        "endLine": 26,
+        "endChar": 18
+      },
+      "revId": "e298472b53d43ede322bd487bedd52cf2507b675",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99a214bc_3cd64be2",
+        "filename": "system_wrappers/source/denormal_disabler.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-08-09T19:51:49Z",
+      "side": 1,
+      "message": "This is read twice, here and on line 79.\nSince the result of this won\u0027t change inbetween, I\u0027d suggest instead storing a bool on the state that tells whether denormal deactivation is active. My suggestion would be to bundle that with enabled_\n\nE,g,\n\nDenormalDisabler::DenormalDisabler(bool enabled)\n    : status_word_(enabled_ ? ReadStatusWord() : kUnspecifiedStatusWord),\n      disabling_activated_(enabled_ \u0026\u0026 DenormalsEnabled(status_word_)) {\n  if (disabling_activated_) {\n    RTC_DCHECK_NE(status_word_, kUnspecifiedStatusWord);\n    SetStatusWord(status_word_ | kFtzControlBits);\n    RTC_DCHECK(!DenormalsEnabled(ReadStatusWord()));\n  }\n}\n\nDenormalDisabler::~DenormalDisabler() {\n  if (disabling_activated_) {\n    RTC_DCHECK_NE(status_word_, kUnspecifiedStatusWord);\n    SetStatusWord(status_word_);\n  }\n}\n\nor something similar",
+      "range": {
+        "startLine": 71,
+        "startChar": 18,
+        "endLine": 71,
+        "endChar": 48
+      },
+      "revId": "e298472b53d43ede322bd487bedd52cf2507b675",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55437398_3eec0c88",
+        "filename": "system_wrappers/source/denormal_disabler.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-08-09T19:51:49Z",
+      "side": 1,
+      "message": "I think I see the motivation behind storing enabled_ and having a getter- which returns it.\n\nHowever, it becomes very unintuitive to have a behavior where the specified value for enabled does not take effect.\n\nAs mentioned elsewhere, I\u0027d therefore suggest to skip the getter for enabled.\nInstead, my suggestion would be to use a test-only method that returns whether denormalization is active, but have the naming being different from \u0027enabled\u0027 to avoid the confusion with the constructor parameter",
+      "range": {
+        "startLine": 85,
+        "startChar": 35,
+        "endLine": 85,
+        "endChar": 67
+      },
+      "revId": "e298472b53d43ede322bd487bedd52cf2507b675",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

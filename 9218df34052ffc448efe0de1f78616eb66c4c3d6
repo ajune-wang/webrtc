@@ -16,6 +16,46 @@
       "message": "Hi Ilya,\nCan you review this small CL?",
       "revId": "9218df34052ffc448efe0de1f78616eb66c4c3d6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06c687b9_b2d58e1b",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-08-09T16:36:59Z",
+      "side": 1,
+      "message": "nit: the name for the paramter should be\nmax_decode_queue_size_ or something. And the finch parameter also. This isn\u0027t exactly the delay, since it\u0027s the frame amount.",
+      "range": {
+        "startLine": 67,
+        "startChar": 6,
+        "endLine": 67,
+        "endChar": 34
+      },
+      "revId": "9218df34052ffc448efe0de1f78616eb66c4c3d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80c9df97_29875bee",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-08-09T16:36:59Z",
+      "side": 1,
+      "message": "I don\u0027t like that the logic is spread between VCMTiming::MaxWaitingTime and here.\n\nCould you please instead add a new paramter to MaxWatingTime, named e.g. too_many_frames_queued? And inside there you force returning 0 if there are too many frames.\n\nThen here you pass true or false based on the max_queuesize_pacing_delay_.\n\nWDYT?",
+      "revId": "9218df34052ffc448efe0de1f78616eb66c4c3d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

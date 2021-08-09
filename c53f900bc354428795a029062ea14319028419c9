@@ -53,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c1918ce_e88bf5df",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-08-09T07:36:34Z",
+      "side": 1,
+      "message": "My thinking is that we should have a switch for turning on *sending* the RTT measurement in an xr-block. But we shouldn\u0027t need a switch for deciding whether or not we parse the RTT measurement when it\u0027s *incoming* - there\u0027s low overhead in parsing the xr-block, and I can\u0027t see how parsing it could be harmful.",
+      "parentUuid": "594cac3d_c6839db4",
+      "revId": "c53f900bc354428795a029062ea14319028419c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e3329a99_9d15b003",
@@ -154,6 +172,24 @@
       "side": 1,
       "message": "I agree that the code is awkward here. My knowledge of this part of the code is limited, this is my current understanding (please let me know if I\u0027m wrong about any of this):\n-According to the standard the RTT metric needs to be reset if we receive a SR but no XR with DLRR (see https://www.w3.org/TR/webrtc-stats/#dom-rtcremoteoutboundrtpstreamstats-roundtriptime).\n-When we receive a compound RTCP packet, it is possible that we get a SR from one SSRC and a XR (with or without DLRR) from another SSRC.\n\nTherefore we need this awkward bookkeeping to keep track of the SSRCs of every SR and every XR in the compound RTCP packet. This motivates adding the code in the layer above the HandleXr() method. Let me know if you can think of a better way to handle this, or if my understanding is wrong.",
       "parentUuid": "6d10ef30_6d1db000",
+      "revId": "c53f900bc354428795a029062ea14319028419c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76c7800c_386791ee",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 875,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-08-09T07:36:34Z",
+      "side": 1,
+      "message": "Random thinking: You could clear the table of DLRR mappings every time you see an SR, and populate it when you see an xr with a dlrr. That would achieve the same effect, with less bookkeeping.",
+      "parentUuid": "ea2d5475_7f0c2756",
       "revId": "c53f900bc354428795a029062ea14319028419c9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

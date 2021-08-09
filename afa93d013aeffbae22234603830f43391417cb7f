@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2eecb9b_cf18b79d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-09T11:16:18Z",
+      "side": 1,
+      "message": "Can you come up with unittests that would demonstrate the difference this changes make? (https://testing.googleblog.com/2010/08/test-driven-code-review.html)\n\ncaching likely makes no difference, it is just an optimisation, looks simple, so I won\u0027t ask if you have evidence this optimisation matters.\nBut other changes look like (extra) functional changes.",
+      "revId": "afa93d013aeffbae22234603830f43391417cb7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9f532eb_5a73f2be",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-09T11:16:18Z",
+      "side": 1,
+      "message": "push_back\n\nhttps://abseil.io/tips/112\n\nemplace_back(args...) is sort of a shortcut to push_back(T(args...));\nSame as you wouldn\u0027t write push_back(DataRate(delay_based_estimate)), don\u0027t use emplace_back. [it suggests an extra copy]\n\n(it seems same applies to the two emplace_backs above)",
+      "range": {
+        "startLine": 468,
+        "startChar": 15,
+        "endLine": 468,
+        "endChar": 27
+      },
+      "revId": "afa93d013aeffbae22234603830f43391417cb7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87423d98_9e2d7803",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-09T11:16:18Z",
+      "side": 1,
+      "message": "or\nreturn cached_tcp_fairness_limit_.value_or(DataRate::PlusInfinity());\n\nhttps://en.cppreference.com/w/cpp/utility/optional/value_or",
+      "range": {
+        "startLine": 605,
+        "startChar": 2,
+        "endLine": 608,
+        "endChar": 34
+      },
+      "revId": "afa93d013aeffbae22234603830f43391417cb7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

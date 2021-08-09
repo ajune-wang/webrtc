@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "80ff921f_4e4eec4b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2021-08-09T12:22:19Z",
+      "side": 1,
+      "message": "(Answering as Ying is helping me commit this due to broken HW my end).\n\nThe changes were indeed test-driven; I will get said tests in commit shape and submit as follow up. Note however that all changes herein (with marginal exception of the log-BW bias) are noops, enabled only by field trial. After downstream testing, it should be deleted/defaulted.",
+      "parentUuid": "f2eecb9b_cf18b79d",
+      "revId": "afa93d013aeffbae22234603830f43391417cb7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a9f532eb_5a73f2be",
         "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
         "patchSetId": 2
@@ -31,6 +49,30 @@
       "writtenOn": "2021-08-09T11:16:18Z",
       "side": 1,
       "message": "push_back\n\nhttps://abseil.io/tips/112\n\nemplace_back(args...) is sort of a shortcut to push_back(T(args...));\nSame as you wouldn\u0027t write push_back(DataRate(delay_based_estimate)), don\u0027t use emplace_back. [it suggests an extra copy]\n\n(it seems same applies to the two emplace_backs above)",
+      "range": {
+        "startLine": 468,
+        "startChar": 15,
+        "endLine": 468,
+        "endChar": 27
+      },
+      "revId": "afa93d013aeffbae22234603830f43391417cb7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6611463_cba75581",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2021-08-09T12:22:19Z",
+      "side": 1,
+      "message": "I suggest I change all three when I upload above-mentioned tests.",
+      "parentUuid": "a9f532eb_5a73f2be",
       "range": {
         "startLine": 468,
         "startChar": 15,
@@ -54,6 +96,30 @@
       "writtenOn": "2021-08-09T11:16:18Z",
       "side": 1,
       "message": "or\nreturn cached_tcp_fairness_limit_.value_or(DataRate::PlusInfinity());\n\nhttps://en.cppreference.com/w/cpp/utility/optional/value_or",
+      "range": {
+        "startLine": 605,
+        "startChar": 2,
+        "endLine": 608,
+        "endChar": 34
+      },
+      "revId": "afa93d013aeffbae22234603830f43391417cb7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2cf600b9_e0d3af0e",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2021-08-09T12:22:19Z",
+      "side": 1,
+      "message": "Nice, will do that together with the tests.",
+      "parentUuid": "87423d98_9e2d7803",
       "range": {
         "startLine": 605,
         "startChar": 2,

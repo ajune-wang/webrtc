@@ -209,7 +209,11 @@ int VCMTiming::RequiredDecodeTimeMs() const {
 }
 
 int64_t VCMTiming::MaxWaitingTime(int64_t render_time_ms,
-                                  int64_t now_ms) const {
+                                  int64_t now_ms,
+                                  bool too_many_frames_queued) const {
+  if (too_many_frames_queued) {
+    return 0;
+  }
   MutexLock lock(&mutex_);
 
   if (render_time_ms == 0 && zero_playout_delay_min_pacing_->us() > 0) {

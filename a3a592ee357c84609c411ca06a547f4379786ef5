@@ -205,6 +205,30 @@
       },
       "revId": "a3a592ee357c84609c411ca06a547f4379786ef5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ebbac86_42e2b19b",
+        "filename": "api/video_codecs/video_decoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-09T13:08:29Z",
+      "side": 1,
+      "message": "Ah you are right, it\u0027s on Decode(). On the encode side it\u0027s usually on InitEncode()...\n\nThen yes this should be ok.",
+      "parentUuid": "58434a2c_3ca936b4",
+      "range": {
+        "startLine": 98,
+        "startChar": 13,
+        "endLine": 98,
+        "endChar": 44
+      },
+      "revId": "a3a592ee357c84609c411ca06a547f4379786ef5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

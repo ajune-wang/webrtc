@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a9fbc79_3b8bde88",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-08-10T09:47:38Z",
+      "side": 1,
+      "message": "A few questions about initialization, MTU and meaningless members...\n",
+      "revId": "209dd3f9a0046e287aa265b9e3735ca97f308445",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b66df07e_2d94838f",
+        "filename": "net/dcsctp/public/dcsctp_socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-08-10T09:47:38Z",
+      "side": 1,
+      "message": "Should you enforce this by having \"\u003d 0\" on all the members?",
+      "revId": "209dd3f9a0046e287aa265b9e3735ca97f308445",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c0f6661_204acedd",
+        "filename": "net/dcsctp/public/dcsctp_socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-08-10T09:47:38Z",
+      "side": 1,
+      "message": "Some of these members are going to be meaningless until connected (like this one). Is there any value in distinguishing \"meaningless\" from \"zero\"?\n(I think the answer is probably \"no\", but want to make sure it\u0027s explicitly so.)",
+      "revId": "209dd3f9a0046e287aa265b9e3735ca97f308445",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d130b19b_99c8c6b6",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-08-10T09:47:38Z",
+      "side": 1,
+      "message": "I\u0027m reading about struct initialization and trying to find the statement that says subsequent members are initialized when you use a short initializer list, but can\u0027t find it. Is this a standard C++ feature, or should this really be {0, 0, 0....}?",
+      "revId": "209dd3f9a0046e287aa265b9e3735ca97f308445",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a48df906_c6cb54a4",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-08-10T09:47:38Z",
+      "side": 1,
+      "message": "Is the MTU from options the MTU size (with headers) or the data carrying capacity? If the former, you need to divide by (options_.mtu - header size).",
+      "revId": "209dd3f9a0046e287aa265b9e3735ca97f308445",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

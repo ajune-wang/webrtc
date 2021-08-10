@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0fd27d65_f411840d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-08-10T11:24:58Z",
+      "side": 1,
+      "message": "Thanks!\nAwesome CL!!!\n\nlgtm but please take a look at the minor additional comments.",
+      "revId": "26d4925bbf63aa41479d3e9c8938a706199d73bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40d7ce8a_f32ec45f",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-08-10T11:24:58Z",
+      "side": 1,
+      "message": "Nit:\nSorry, I should have spotted this earlier but I think it would be nice to put this log-line close to the other logging at 281.\n\nAlso, the value of logging the kill-switch is very limited and I would just omit it. On production builds, where there may be any uncertainty of the kill-switch, the logging is not included at this log-level. And in all other cases there should be no uncertainty at all about the value of the kill-switch so there the logging is redundant.",
+      "range": {
+        "startLine": 318,
+        "startChar": 19,
+        "endLine": 318,
+        "endChar": 73
+      },
+      "revId": "26d4925bbf63aa41479d3e9c8938a706199d73bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8761d5b5_012cd1db",
+        "filename": "system_wrappers/include/denormal_disabler.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-08-10T11:24:58Z",
+      "side": 1,
+      "message": "Activates?",
+      "range": {
+        "startLine": 18,
+        "startChar": 3,
+        "endLine": 18,
+        "endChar": 10
+      },
+      "revId": "26d4925bbf63aa41479d3e9c8938a706199d73bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b541295b_0e270d93",
+        "filename": "system_wrappers/source/denormal_disabler.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-08-10T11:24:58Z",
+      "side": 1,
+      "message": "Why is it needed to store status_word in a local variable in this case? \nPlease add a comment in case there is an explicit need to avoid that future changes modify this.",
+      "range": {
+        "startLine": 58,
+        "startChar": 2,
+        "endLine": 58,
+        "endChar": 30
+      },
+      "revId": "26d4925bbf63aa41479d3e9c8938a706199d73bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

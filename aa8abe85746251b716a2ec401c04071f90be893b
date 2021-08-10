@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20623d37_86bbc284",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-08-10T13:36:06Z",
+      "side": 1,
+      "message": "+Magnus as owner of system_wrappers",
+      "revId": "aa8abe85746251b716a2ec401c04071f90be893b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

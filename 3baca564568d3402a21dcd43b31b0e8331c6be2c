@@ -16,6 +16,23 @@
       "message": "that function doesn\u0027t seem to be used?",
       "revId": "3baca564568d3402a21dcd43b31b0e8331c6be2c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d9b5d8d_3d344c0d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-08-10T19:06:43Z",
+      "side": 1,
+      "message": "Thanks! (I\u0027ve been on vacation, thus the delay)",
+      "revId": "3baca564568d3402a21dcd43b31b0e8331c6be2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

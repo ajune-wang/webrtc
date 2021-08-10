@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4d53ecc_358a3f25",
+        "filename": "net/dcsctp/public/dcsctp_socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-08-10T12:30:56Z",
+      "side": 1,
+      "message": "Yes, that\u0027s better. Thanks",
+      "parentUuid": "b66df07e_2d94838f",
+      "revId": "209dd3f9a0046e287aa265b9e3735ca97f308445",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6c0f6661_204acedd",
@@ -48,6 +66,24 @@
       "writtenOn": "2021-08-10T09:47:38Z",
       "side": 1,
       "message": "Some of these members are going to be meaningless until connected (like this one). Is there any value in distinguishing \"meaningless\" from \"zero\"?\n(I think the answer is probably \"no\", but want to make sure it\u0027s explicitly so.)",
+      "revId": "209dd3f9a0046e287aa265b9e3735ca97f308445",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b57046d8_9369b6e3",
+        "filename": "net/dcsctp/public/dcsctp_socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-08-10T12:30:56Z",
+      "side": 1,
+      "message": "Explicit is good. While the client can always track the connection state through the fired callbacks, I opted to make some of these optional for unconnected sockets. \n\nhttps://w3c.github.io/webrtc-stats/#dom-rtcsctptransportstats-smoothedroundtriptime should be undefined when it\u0027s not known, and the value zero could possibly be a reasonable RTT for local tests (but in practice, even local tests have a much larger RTT unfortunately).",
+      "parentUuid": "6c0f6661_204acedd",
       "revId": "209dd3f9a0046e287aa265b9e3735ca97f308445",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -69,6 +105,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7f1208f_cb3f5aec",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-08-10T12:30:56Z",
+      "side": 1,
+      "message": "It\u0027s funny when you write something and you haven\u0027t really reflected on why... \n\nISO/IEC 9899:TC2, page 125:\n\n\"21 If there are fewer initializers in a brace-enclosed list than there are elements or members\nof an aggregate, or fewer characters in a string literal used to initialize an array of known\nsize than there are elements in the array, the remainder of the aggregate shall be\ninitialized implicitly the same as objects that have static storage duration.\"\n\nTIL... But now it will have default values for all members, so this is removed 😊",
+      "parentUuid": "d130b19b_99c8c6b6",
+      "revId": "209dd3f9a0046e287aa265b9e3735ca97f308445",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a48df906_c6cb54a4",
@@ -82,6 +136,24 @@
       "writtenOn": "2021-08-10T09:47:38Z",
       "side": 1,
       "message": "Is the MTU from options the MTU size (with headers) or the data carrying capacity? If the former, you need to divide by (options_.mtu - header size).",
+      "revId": "209dd3f9a0046e287aa265b9e3735ca97f308445",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62c31759_aa51fb1c",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-08-10T12:30:56Z",
+      "side": 1,
+      "message": "Correct. Thanks. It\u0027s still an approximation, though :) I added a unit test as well.",
+      "parentUuid": "a48df906_c6cb54a4",
       "revId": "209dd3f9a0046e287aa265b9e3735ca97f308445",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

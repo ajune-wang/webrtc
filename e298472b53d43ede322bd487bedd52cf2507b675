@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6db87ead_cf1d1c8d",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-08-10T10:54:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee2d4a06_03cb9cac",
+      "range": {
+        "startLine": 317,
+        "startChar": 1,
+        "endLine": 320,
+        "endChar": 77
+      },
+      "revId": "e298472b53d43ede322bd487bedd52cf2507b675",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "743096c1_db752b50",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-08-09T19:51:49Z",
       "side": 1,
       "message": "In the ProcessStream methods this call is placed after the \nMaybeInitializeCapture methods. Would it be possible to do this in the same way for the capture and render methods?",
+      "range": {
+        "startLine": 1481,
+        "startChar": 2,
+        "endLine": 1481,
+        "endChar": 61
+      },
+      "revId": "e298472b53d43ede322bd487bedd52cf2507b675",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6db2ed86_ed759f5a",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 1481,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-08-10T10:54:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "743096c1_db752b50",
       "range": {
         "startLine": 1481,
         "startChar": 2,
@@ -87,6 +135,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f459f91a_d4118803",
+        "filename": "system_wrappers/include/denormal_disabler.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-08-10T10:54:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "346a9b8f_06d01f55",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 6
+      },
+      "revId": "e298472b53d43ede322bd487bedd52cf2507b675",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8cc17949_8fb9517c",
@@ -100,6 +172,30 @@
       "writtenOn": "2021-08-09T19:51:49Z",
       "side": 1,
       "message": "There is no real need to put this beneath a build flag since it is so small. Please instead always keep it included.",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 6
+      },
+      "revId": "e298472b53d43ede322bd487bedd52cf2507b675",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "becd6c20_3cdda67b",
+        "filename": "system_wrappers/include/denormal_disabler.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-08-10T10:54:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8cc17949_8fb9517c",
       "range": {
         "startLine": 57,
         "startChar": 0,
@@ -133,6 +229,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea096a41_6c0487a2",
+        "filename": "system_wrappers/source/denormal_disabler.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-08-10T10:54:32Z",
+      "side": 1,
+      "message": "The comment in line 23 applies to all the architectures, but I\u0027ll clarify what FTZ and DAZ are.",
+      "parentUuid": "69257279_f6c6e180",
+      "range": {
+        "startLine": 25,
+        "startChar": 3,
+        "endLine": 25,
+        "endChar": 15
+      },
+      "revId": "e298472b53d43ede322bd487bedd52cf2507b675",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "662a36fb_157e814a",
@@ -146,6 +266,30 @@
       "writtenOn": "2021-08-09T19:51:49Z",
       "side": 1,
       "message": "The comment mentions FTZ and DAZ, but these constants only mentions Ftz. Please consider changing the names or the comments.",
+      "range": {
+        "startLine": 26,
+        "startChar": 15,
+        "endLine": 26,
+        "endChar": 18
+      },
+      "revId": "e298472b53d43ede322bd487bedd52cf2507b675",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "adb7f6c1_5d89b9f6",
+        "filename": "system_wrappers/source/denormal_disabler.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-08-10T10:54:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "662a36fb_157e814a",
       "range": {
         "startLine": 26,
         "startChar": 15,
@@ -179,6 +323,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a79b8bf_441af748",
+        "filename": "system_wrappers/source/denormal_disabler.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-08-10T10:54:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99a214bc_3cd64be2",
+      "range": {
+        "startLine": 71,
+        "startChar": 18,
+        "endLine": 71,
+        "endChar": 48
+      },
+      "revId": "e298472b53d43ede322bd487bedd52cf2507b675",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "55437398_3eec0c88",
@@ -192,6 +360,30 @@
       "writtenOn": "2021-08-09T19:51:49Z",
       "side": 1,
       "message": "I think I see the motivation behind storing enabled_ and having a getter- which returns it.\n\nHowever, it becomes very unintuitive to have a behavior where the specified value for enabled does not take effect.\n\nAs mentioned elsewhere, I\u0027d therefore suggest to skip the getter for enabled.\nInstead, my suggestion would be to use a test-only method that returns whether denormalization is active, but have the naming being different from \u0027enabled\u0027 to avoid the confusion with the constructor parameter",
+      "range": {
+        "startLine": 85,
+        "startChar": 35,
+        "endLine": 85,
+        "endChar": 67
+      },
+      "revId": "e298472b53d43ede322bd487bedd52cf2507b675",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "662fe442_666bbaaf",
+        "filename": "system_wrappers/source/denormal_disabler.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-08-10T10:54:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "55437398_3eec0c88",
       "range": {
         "startLine": 85,
         "startChar": 35,

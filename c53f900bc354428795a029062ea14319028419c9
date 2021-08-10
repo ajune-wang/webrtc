@@ -266,6 +266,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bce12dfd_d9dee44a",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 875,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-10T10:22:48Z",
+      "side": 1,
+      "message": "https://datatracker.ietf.org/doc/html/rfc5506\nallows to produce rtcp messages without SR/RR, (in particular that means XR could be send alone).",
+      "parentUuid": "eeffc17a_03f72e01",
+      "revId": "c53f900bc354428795a029062ea14319028419c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ba16f465_59c51fda",

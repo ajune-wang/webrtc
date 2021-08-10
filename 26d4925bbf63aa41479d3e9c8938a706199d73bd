@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "41892e35_57cac50b",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-08-10T13:30:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40d7ce8a_f32ec45f",
+      "range": {
+        "startLine": 318,
+        "startChar": 19,
+        "endLine": 318,
+        "endChar": 73
+      },
+      "revId": "26d4925bbf63aa41479d3e9c8938a706199d73bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8761d5b5_012cd1db",
@@ -64,6 +88,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9285ff1_6bc0d1bf",
+        "filename": "system_wrappers/include/denormal_disabler.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-08-10T13:30:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8761d5b5_012cd1db",
+      "range": {
+        "startLine": 18,
+        "startChar": 3,
+        "endLine": 18,
+        "endChar": 10
+      },
+      "revId": "26d4925bbf63aa41479d3e9c8938a706199d73bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b541295b_0e270d93",
@@ -77,6 +125,30 @@
       "writtenOn": "2021-08-10T11:24:58Z",
       "side": 1,
       "message": "Why is it needed to store status_word in a local variable in this case? \nPlease add a comment in case there is an explicit need to avoid that future changes modify this.",
+      "range": {
+        "startLine": 58,
+        "startChar": 2,
+        "endLine": 58,
+        "endChar": 30
+      },
+      "revId": "26d4925bbf63aa41479d3e9c8938a706199d73bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "01622f06_0c6470ab",
+        "filename": "system_wrappers/source/denormal_disabler.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-08-10T13:30:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b541295b_0e270d93",
       "range": {
         "startLine": 58,
         "startChar": 2,

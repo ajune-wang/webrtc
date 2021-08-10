@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "319f7e1e_5107bcbe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 11540
+      },
+      "writtenOn": "2021-08-10T10:27:15Z",
+      "side": 1,
+      "message": "Ivo who reviewed the previous changes is OOO, passing to Henrik.",
+      "revId": "ebce7cfe42f54de5d98e863f8735514bf5eea1cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -72,6 +72,13 @@ class TestVp8Impl : public VideoCodecUnitTest {
     return VP8Decoder::Create();
   }
 
+  VideoDecoder::Settings DecoderSettings() {
+    VideoDecoder::Settings settings;
+    settings.set_codec_type(kVideoCodecVP8);
+    settings.set_max_render_resolution({kWidth, kHeight});
+    return settings;
+  }
+
   void ModifyCodecSettings(VideoCodec* codec_settings) override {
     webrtc::test::CodecSettings(kVideoCodecVP8, codec_settings);
     codec_settings->width = kWidth;
@@ -244,10 +251,9 @@ TEST_F(TestVp8Impl, EncodeI420FrameAfterNv12Frame) {
             encoder_->Encode(NextInputFrame(), nullptr));
 }
 
-TEST_F(TestVp8Impl, InitDecode) {
+TEST_F(TestVp8Impl, Configure) {
   EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK, decoder_->Release());
-  EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
-            decoder_->InitDecode(&codec_settings_, kNumCores));
+  EXPECT_TRUE(decoder_->Configure(DecoderSettings()));
 }
 
 TEST_F(TestVp8Impl, OnEncodedImageReportsInfo) {

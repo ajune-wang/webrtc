@@ -55,7 +55,13 @@ class VCMTimingFake : public VCMTiming {
     return last_ms_;
   }
 
+<<<<<<< HEAD   (bc94ce [Merge M93] - Revert "Modify Bundle logic to not add & destr)
   int64_t MaxWaitingTime(int64_t render_time_ms, int64_t now_ms) override {
+=======
+  int64_t MaxWaitingTime(int64_t render_time_ms,
+                         int64_t now_ms,
+                         bool too_many_frames_queued) const override {
+>>>>>>> CHANGE (2ddc39 Add max pre-decode queue size threshold for pacing)
     return render_time_ms - now_ms - kDecodeTime;
   }
 

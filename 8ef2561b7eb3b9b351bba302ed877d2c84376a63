@@ -34,6 +34,24 @@
       "parentUuid": "2860c48f_0436f094",
       "revId": "8ef2561b7eb3b9b351bba302ed877d2c84376a63",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "825c7764_74554e7b",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-08-10T09:32:24Z",
+      "side": 1,
+      "message": "Well, the queue is in the FrameBuffer, so it\u0027s fine if it did check the size.\n\nHowever, the RenderTime is a signal to the VCMTiming.",
+      "parentUuid": "b00c557a_1734bf23",
+      "revId": "8ef2561b7eb3b9b351bba302ed877d2c84376a63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

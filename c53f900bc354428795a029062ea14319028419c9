@@ -89,6 +89,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b5399bf_220036b6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-08-10T09:55:53Z",
+      "side": 1,
+      "message": "Simplification is good. It seems a bit odd to add complexity in this CL and then tear it out later, but if that\u0027s what you want to do, go for it.",
+      "parentUuid": "cde2d307_1268e1f1",
+      "revId": "c53f900bc354428795a029062ea14319028419c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e3329a99_9d15b003",
@@ -226,6 +244,24 @@
       "side": 1,
       "message": "I like your idea, but I don\u0027t think we can make assumptions about the order of the SRs and XRs in the compound RTCP packet, or can we? What if we first see the XR+DLRR (which populates the metric), and then later see the matching SR (which resets the metric)?",
       "parentUuid": "76c7800c_386791ee",
+      "revId": "c53f900bc354428795a029062ea14319028419c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eeffc17a_03f72e01",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 875,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-08-10T09:55:53Z",
+      "side": 1,
+      "message": "Hm.\nI\u0027m trying to parse the RFC 3611 text to see if XR blocks can ever be sent in other places than after a SR/RR, but the RFC doesn\u0027t seem to say so.\nI think I\u0027ll leave this alone for now, to be thought about later.",
+      "parentUuid": "b2359c87_78bd037b",
       "revId": "c53f900bc354428795a029062ea14319028419c9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

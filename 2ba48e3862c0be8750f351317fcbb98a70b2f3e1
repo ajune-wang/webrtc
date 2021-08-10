@@ -33,6 +33,23 @@
       "message": "Back from another vacation week, hopefully we can resolve and land this quickly.\n",
       "revId": "2ba48e3862c0be8750f351317fcbb98a70b2f3e1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "459446f2_c4358689",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-08-10T09:55:53Z",
+      "side": 1,
+      "message": "Hm. Still unhappy with the terminology choices (\"non-sender\" in particular), but unblocking this CL.",
+      "revId": "2ba48e3862c0be8750f351317fcbb98a70b2f3e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -138,6 +138,24 @@
       "message": "Chromium update, https://chromium-review.googlesource.com/c/chromium/src/+/3031070, just landed. So I\u0027ll attempt to land this change now. Thanks in particular to Olga and Per for helping out.",
       "revId": "3707e64b0dcb93c864175509a3441ce5e4bc8b1d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c9e02c4_b06cdb4a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-08-11T15:14:57Z",
+      "side": 1,
+      "message": "\"I don\u0027t think it should be a concern (we\u0027ve been fine here for the last 8 years or something?)\"\nYes, I agree that it is not that unsafe. \n\n\"It\u0027s (obviously) prohibited to mix refcounting and unique_ptr for the same object.\"\nThat is actually what was done (but changed now in that CL). AudioProcessing is a refcounted object but it was worked around by storing its raw-pointer in unique_ptr.\n\n\n\"\"Very difficult to re-create APM during an ongoing call.\" - Could you clarify? And do you mean we actually need a refcounting here?\"\nNo, what I meant was basically that even though it is a unique_ptr the ownership is shared by the whole MediaStreamAudioProcessor class and accessed by different threads. So even though it is owned in a unique_ptr it is a shared resource that needs to always be available for the class to work.\nBut this type ownership is not what is discussed here.",
+      "parentUuid": "9b4583e7_f8244fb3",
+      "revId": "3707e64b0dcb93c864175509a3441ce5e4bc8b1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

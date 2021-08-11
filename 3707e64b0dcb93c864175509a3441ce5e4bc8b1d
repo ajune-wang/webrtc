@@ -85,6 +85,24 @@
       "message": "(I\u0027d like to point out to the reviewers that the consequence of this is bringing refcounting of AudioProcessing into Chrome, which is unfortunate, given that we want to eventually get rid of it in WebRTC. https://chromium-review.googlesource.com/c/chromium/src/+/3031070. So I\u0027m not sure of the value of this change.)",
       "revId": "3707e64b0dcb93c864175509a3441ce5e4bc8b1d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e65cc53_e9db060b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-08-11T12:23:10Z",
+      "side": 1,
+      "message": "I fully agree about the aspects of avoiding refcounting where it is not needed.\n\nHowever, the way it has been avoided in Chromium is risky in the sense that if any code therein would treat the AudioProcessing object as a scoped_refptr (which it actually is) it would unintentionally automatically be deleted.\n\nTreating the AudioProcessing object using a raw-pointer instead of as a scoped_refptr is IMO also risky in that it only works due to details for how scoped_refptr is implemented.\n\nTherefore I think a good step is to properly handle it as a scoped_refptr and adjust the code in Chromium to treat the AudioProcessing object as what it is.\n\nAn aspect for the Chromium code using this object is that even though its ownership is fairly clear, the way the raw pointer is shared in that code makes leveraging that ownership tricky. One such example is that it is very difficult to re-create APM during an ongoing call.",
+      "parentUuid": "a352ce7e_737bf230",
+      "revId": "3707e64b0dcb93c864175509a3441ce5e4bc8b1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

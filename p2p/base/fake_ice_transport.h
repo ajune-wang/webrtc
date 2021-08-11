@@ -302,6 +302,10 @@ class FakeIceTransport : public IceTransportInternal {
       return -1;
     }
 
+    if (error_ != 0) {
+      return -1;
+    }
+
     send_packet_.AppendData(data, len);
     if (!combine_outgoing_packets_ || send_packet_.size() > len) {
       rtc::CopyOnWriteBuffer packet(std::move(send_packet_));
@@ -338,7 +342,11 @@ class FakeIceTransport : public IceTransportInternal {
     }
   }
 
-  int GetError() override { return 0; }
+  // Sets the error that is returned by `GetError`. If an error is set (i.e.
+  // non-zero), `SendPacket` will return -1.
+  void SetError(int error) { error_ = error; }
+
+  int GetError() override { return error_; }
 
   rtc::CopyOnWriteBuffer last_sent_packet() {
     RTC_DCHECK_RUN_ON(network_thread_);
@@ -421,6 +429,7 @@ class FakeIceTransport : public IceTransportInternal {
   rtc::CopyOnWriteBuffer last_sent_packet_ RTC_GUARDED_BY(network_thread_);
   rtc::Thread* const network_thread_;
   webrtc::ScopedTaskSafetyDetached task_safety_;
+  int error_ = 0;
 };
 
 class FakeIceTransportWrapper : public webrtc::IceTransportInterface {

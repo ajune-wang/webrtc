@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1e112f2_f7939c50",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-08-11T20:22:04Z",
+      "side": 1,
+      "message": "Reland #2",
+      "revId": "48672f3e91e38e998bd359954edab84d0550c62a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

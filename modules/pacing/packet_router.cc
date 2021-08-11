@@ -72,6 +72,7 @@ void PacketRouter::AddSendRtpModuleToMap(RtpRtcpInterface* rtp_module,
   // iterate over the modules in order to find one that can send padding we
   // will prioritize video. This is important to make sure they are counted
   // into the bandwidth estimate properly.
+  rtp_module->OnRoutingStatusChanged();
   if (rtp_module->IsAudioConfigured()) {
     send_modules_list_.push_back(rtp_module);
   } else {
@@ -102,6 +103,7 @@ void PacketRouter::RemoveSendRtpModule(RtpRtcpInterface* rtp_module) {
   if (last_send_module_ == rtp_module) {
     last_send_module_ = nullptr;
   }
+  rtp_module->OnRoutingStatusChanged();
 }
 
 void PacketRouter::AddReceiveRtpModule(RtcpFeedbackSenderInterface* rtcp_sender,

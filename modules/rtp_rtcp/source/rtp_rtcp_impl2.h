@@ -169,6 +169,8 @@ class ModuleRtpRtcpImpl2 final : public RtpRtcpInterface,
 
   size_t ExpectedPerPacketOverhead() const override;
 
+  void OnRoutingStatusChanged() override;
+
   // RTCP part.
 
   // Get RTCP status.

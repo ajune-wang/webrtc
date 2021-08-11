@@ -167,10 +167,8 @@ TEST_F(AudioEncoderCopyRedTest, CheckNoOutput) {
 }
 
 // Checks that the correct payload sizes are populated into the redundancy
-// information. Variant with a redundancy level of 1.
-TEST_F(AudioEncoderCopyRedTest, CheckPayloadSizesSingle) {
-  webrtc::test::ScopedFieldTrials field_trials(
-      "WebRTC-Audio-Red-For-Opus/Enabled-1/");
+// information for a redundancy level of 1.
+TEST_F(AudioEncoderCopyRedTest, CheckPayloadSizes1) {
   // Recreate the RED encoder to take the new field trial setting into account.
   AudioEncoderCopyRed::Config config;
   config.payload_type = red_payload_type_;
@@ -202,8 +200,10 @@ TEST_F(AudioEncoderCopyRedTest, CheckPayloadSizesSingle) {
 }
 
 // Checks that the correct payload sizes are populated into the redundancy
-// information.
-TEST_F(AudioEncoderCopyRedTest, CheckPayloadSizes) {
+// information for a redundancy level of 2.
+TEST_F(AudioEncoderCopyRedTest, CheckPayloadSizes2) {
+  webrtc::test::ScopedFieldTrials field_trials(
+      "WebRTC-Audio-Red-For-Opus/Enabled-2/");
   // Let the mock encoder return payload sizes 1, 2, 3, ..., 10 for the sequence
   // of calls.
   static const int kNumPackets = 10;
@@ -236,8 +236,8 @@ TEST_F(AudioEncoderCopyRedTest, CheckPayloadSizes) {
 }
 
 // Checks that the correct payload sizes are populated into the redundancy
-// information. Variant with a redundancy level of 3.
-TEST_F(AudioEncoderCopyRedTest, CheckPayloadSizesTriple) {
+// information for a redundancy level of 3.
+TEST_F(AudioEncoderCopyRedTest, CheckPayloadSizes3) {
   webrtc::test::ScopedFieldTrials field_trials(
       "WebRTC-Audio-Red-For-Opus/Enabled-3/");
   // Recreate the RED encoder to take the new field trial setting into account.

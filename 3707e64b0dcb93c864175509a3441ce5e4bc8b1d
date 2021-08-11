@@ -103,6 +103,24 @@
       "parentUuid": "a352ce7e_737bf230",
       "revId": "3707e64b0dcb93c864175509a3441ce5e4bc8b1d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b4583e7_f8244fb3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5824
+      },
+      "writtenOn": "2021-08-11T12:56:29Z",
+      "side": 1,
+      "message": "Chrome policies are: unique_ptr\u003c\u003e - ownership; raw pointer - lifetime guaranteed by the design. It\u0027s (obviously) prohibited to mix refcounting and unique_ptr for the same object. Introducing refcounting at any point is always questioned during code reviews (lifetime complexity), so it\u0027s very hard for them to creep in - I don\u0027t think it should be a concern (we\u0027ve been fine here for the last 8 years or something?)\n\n\"Very difficult to re-create APM during an ongoing call.\" - Could you clarify? And do you mean we actually need a refcounting here?",
+      "parentUuid": "8e65cc53_e9db060b",
+      "revId": "3707e64b0dcb93c864175509a3441ce5e4bc8b1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

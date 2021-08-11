@@ -50,6 +50,253 @@
       "message": "Hm. Still unhappy with the terminology choices (\"non-sender\" in particular), but unblocking this CL.",
       "revId": "2ba48e3862c0be8750f351317fcbb98a70b2f3e1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a2d4b49_e58b048e",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 876,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-11T10:40:31Z",
+      "side": 1,
+      "message": "would this work?\ncontains_dlrr \u003d xr.dlrr();\nif not, then may be\ncontains_dlrr \u003d static_cast\u003cbool\u003e(xr.dlrr());\nor\ncontains_dlrr \u003d !!xr.dlrr();\nor leave as is.\n\nrtcp::Dlrr has explicit conversion to bool to signal if DLRR was present.\nchecking sub_blocks() is implementation detail of that.",
+      "range": {
+        "startLine": 876,
+        "startChar": 2,
+        "endLine": 876,
+        "endChar": 50
+      },
+      "revId": "2ba48e3862c0be8750f351317fcbb98a70b2f3e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9838e65f_039d0339",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-11T10:40:31Z",
+      "side": 1,
+      "message": "with delta time types changed to TimeDelta, this comment no longer looks relevant.",
+      "range": {
+        "startLine": 63,
+        "startChar": 57,
+        "endLine": 64,
+        "endChar": 16
+      },
+      "revId": "2ba48e3862c0be8750f351317fcbb98a70b2f3e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9d4a05d_21f29a8e",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-11T10:40:31Z",
+      "side": 1,
+      "message": "put destructor after copy constructor\u0026assign operator\nhttps://google.github.io/styleguide/cppguide.html#Declaration_Order",
+      "range": {
+        "startLine": 68,
+        "startChar": 4,
+        "endLine": 68,
+        "endChar": 35
+      },
+      "revId": "2ba48e3862c0be8750f351317fcbb98a70b2f3e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b0497c4_52966303",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-11T10:40:31Z",
+      "side": 1,
+      "message": "const\n(same for the next two accessor)",
+      "range": {
+        "startLine": 78,
+        "startChar": 47,
+        "endLine": 78,
+        "endChar": 48
+      },
+      "revId": "2ba48e3862c0be8750f351317fcbb98a70b2f3e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "321c43d9_1cb982a9",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 837,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-11T10:40:31Z",
+      "side": 1,
+      "message": "This two checks can be combined into one:\nEXPECT_GT(non_sender_rtt_stats.round_trip_time(), TimeDelta::Zero());\n(absl::nullopt is smaller than any value)\n\nhttps://en.cppreference.com/w/cpp/utility/optional/operator_cmp",
+      "range": {
+        "startLine": 836,
+        "startChar": 0,
+        "endLine": 837,
+        "endChar": 72
+      },
+      "revId": "2ba48e3862c0be8750f351317fcbb98a70b2f3e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b6b81e6_f8376269",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 839,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-11T10:40:31Z",
+      "side": 1,
+      "message": "can this be stricter?\nEXPECT_EQ(non_sender_rtt_stats.round_trip_time_measurements(), 1);",
+      "range": {
+        "startLine": 839,
+        "startChar": 1,
+        "endLine": 839,
+        "endChar": 68
+      },
+      "revId": "2ba48e3862c0be8750f351317fcbb98a70b2f3e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c052f27_280cbcbb",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 868,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-11T10:40:31Z",
+      "side": 1,
+      "message": "ditto, put single expectation on optional value",
+      "range": {
+        "startLine": 867,
+        "startChar": 0,
+        "endLine": 868,
+        "endChar": 72
+      },
+      "revId": "2ba48e3862c0be8750f351317fcbb98a70b2f3e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d63b5246_1e8a164d",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 898,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-11T10:40:31Z",
+      "side": 1,
+      "message": "I do not think you need to have the same expectation in every test that handle DLRR.\ne.g. this one validates that DLRR block is handled, single expectation \n`EXPECT_TRUE(receiver.GetAndResetXrRrRtt(\u0026rtt_ms));` is already enough for that.",
+      "range": {
+        "startLine": 893,
+        "startChar": 0,
+        "endLine": 898,
+        "endChar": 68
+      },
+      "revId": "2ba48e3862c0be8750f351317fcbb98a70b2f3e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65cfa6b8_23d18068",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1090,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-11T10:40:31Z",
+      "side": 1,
+      "message": "may be set to true in the config: This test is not about validating Rtt can be enabled dynamicly.",
+      "range": {
+        "startLine": 1090,
+        "startChar": 0,
+        "endLine": 1090,
+        "endChar": 44
+      },
+      "revId": "2ba48e3862c0be8750f351317fcbb98a70b2f3e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f875574_2de1f297",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1126,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-11T10:40:31Z",
+      "side": 1,
+      "message": "these two expectation looks redundant for this test.\n(too many expectation makes it harder to understand what the test focus on)\n\nhttps://testing.googleblog.com/2018/06/testing-on-toilet-keep-tests-focused.html",
+      "range": {
+        "startLine": 1125,
+        "startChar": 0,
+        "endLine": 1126,
+        "endChar": 68
+      },
+      "revId": "2ba48e3862c0be8750f351317fcbb98a70b2f3e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "347bc009_79c97684",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1138,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-11T10:40:31Z",
+      "side": 1,
+      "message": "Add a(t least one) test where\nEXPECT_EQ(non_sender_rtt_stats2.round_trip_time_measurements(), 2);\n(and check that total_round_trip_time is around the sum of two measurements)\n\nAdd a(t least one) test to verify behaviour \u0027Resets RTT on sender report without XR\u0027\n\nbehaviour \u0027reset when dlrr.last_sr\u003d0\u0027 also looks untested.",
+      "revId": "2ba48e3862c0be8750f351317fcbb98a70b2f3e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

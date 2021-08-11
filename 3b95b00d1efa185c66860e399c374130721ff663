@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e51f529_55475ed5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-08-11T10:39:10Z",
+      "side": 1,
+      "message": "nit: added",
+      "range": {
+        "startLine": 7,
+        "startChar": 29,
+        "endLine": 7,
+        "endChar": 34
+      },
+      "revId": "3b95b00d1efa185c66860e399c374130721ff663",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17b62079_7f4b449a",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-08-11T10:39:10Z",
+      "side": 1,
+      "message": "nit: its ?",
+      "range": {
+        "startLine": 526,
+        "startChar": 51,
+        "endLine": 526,
+        "endChar": 53
+      },
+      "revId": "3b95b00d1efa185c66860e399c374130721ff663",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b0019d3_0fa6bd51",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-08-11T10:39:10Z",
+      "side": 1,
+      "message": "This comment seem incomplete, do we need to add more?",
+      "range": {
+        "startLine": 541,
+        "startChar": 45,
+        "endLine": 542,
+        "endChar": 20
+      },
+      "revId": "3b95b00d1efa185c66860e399c374130721ff663",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

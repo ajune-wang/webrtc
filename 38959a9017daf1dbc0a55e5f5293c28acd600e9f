@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07bb5db0_37695866",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-11T18:57:57Z",
+      "side": 1,
+      "message": "I\u0027d really rather not update the legacy module, but it\u0027s going to block cleaning up the deferred sequencing otherwise, unless we make a DEPRECATE_RTPSender too or update a bunch of downstream code that appears non-trivial to fix....",
+      "revId": "38959a9017daf1dbc0a55e5f5293c28acd600e9f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

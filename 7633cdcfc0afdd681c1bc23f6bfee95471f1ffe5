@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fcd7913c_5d22f41a",
+        "filename": "rtc_base/third_party/sigslot/sigslot.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-08-11T07:39:17Z",
+      "side": 1,
+      "message": "Can we limit this to MSVC?\n\ne.g.\n\n#if defined(_MSC_VER) \u0026\u0026 !defined(__clang__)",
+      "range": {
+        "startLine": 293,
+        "startChar": 0,
+        "endLine": 295,
+        "endChar": 28
+      },
+      "revId": "7633cdcfc0afdd681c1bc23f6bfee95471f1ffe5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -34,6 +34,24 @@
       "parentUuid": "a2de6469_557a87a3",
       "revId": "4f888c4bb6e45b9b13af600df6d06b1e64084fa2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "063d5ab2_b73f03a0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-08-11T12:26:23Z",
+      "side": 1,
+      "message": "\u003e \u003e Binary size change is now a bit better. No change to apk size, but still 3.24kiB increase in arm64 .so file. \n\u003e \n\u003e Yes, my suspect is that std::move is what is causing that increase (we talked already in multiple threads) and I suspect there is nothing to do there. See the webrtc-core@ thread I started on this. Let\u0027s make a decision there.\n\nSince this inefficiency requires an ABI break to be fixed I think we should proceed and use std::move in a way that is in line with the style guide.",
+      "parentUuid": "53f8ff9d_a07a1280",
+      "revId": "4f888c4bb6e45b9b13af600df6d06b1e64084fa2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -22,6 +22,30 @@
       },
       "revId": "7633cdcfc0afdd681c1bc23f6bfee95471f1ffe5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e8593f1_ab67e788",
+        "filename": "rtc_base/third_party/sigslot/sigslot.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-08-11T08:07:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fcd7913c_5d22f41a",
+      "range": {
+        "startLine": 293,
+        "startChar": 0,
+        "endLine": 295,
+        "endChar": 28
+      },
+      "revId": "7633cdcfc0afdd681c1bc23f6bfee95471f1ffe5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

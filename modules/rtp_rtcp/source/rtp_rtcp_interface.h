@@ -347,6 +347,9 @@ class RtpRtcpInterface : public RtcpFeedbackSenderInterface {
   // when we expect to send them).
   virtual size_t ExpectedPerPacketOverhead() const = 0;
 
+  // Called when this module is registered or removed with the PacketRouter.
+  virtual void OnRoutingStatusChanged() = 0;
+
   // **************************************************************************
   // RTCP
   // **************************************************************************

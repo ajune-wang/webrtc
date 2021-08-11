@@ -466,6 +466,10 @@ size_t ModuleRtpRtcpImpl::ExpectedPerPacketOverhead() const {
   return rtp_sender_->packet_generator.ExpectedPerPacketOverhead();
 }
 
+void ModuleRtpRtcpImpl::OnRoutingStatusChanged() {
+  // Ingored for now.
+}
+
 size_t ModuleRtpRtcpImpl::MaxRtpPacketSize() const {
   RTC_DCHECK(rtp_sender_);
   return rtp_sender_->packet_generator.MaxRtpPacketSize();

@@ -40,10 +40,8 @@ QualityAnalyzingVideoDecoder::QualityAnalyzingVideoDecoder(
 }
 QualityAnalyzingVideoDecoder::~QualityAnalyzingVideoDecoder() = default;
 
-int32_t QualityAnalyzingVideoDecoder::InitDecode(
-    const VideoCodec* codec_settings,
-    int32_t number_of_cores) {
-  return delegate_->InitDecode(codec_settings, number_of_cores);
+bool QualityAnalyzingVideoDecoder::Configure(const Settings& settings) {
+  return delegate_->Configure(settings);
 }
 
 int32_t QualityAnalyzingVideoDecoder::Decode(const EncodedImage& input_image,

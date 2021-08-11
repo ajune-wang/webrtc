@@ -121,6 +121,23 @@
       "parentUuid": "8e65cc53_e9db060b",
       "revId": "3707e64b0dcb93c864175509a3441ce5e4bc8b1d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ed5fe1b_e7062d0e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-08-11T14:50:34Z",
+      "side": 1,
+      "message": "Chromium update, https://chromium-review.googlesource.com/c/chromium/src/+/3031070, just landed. So I\u0027ll attempt to land this change now. Thanks in particular to Olga and Per for helping out.",
+      "revId": "3707e64b0dcb93c864175509a3441ce5e4bc8b1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

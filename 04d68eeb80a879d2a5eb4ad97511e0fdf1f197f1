@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18355a00_d24743c1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-08-11T10:19:43Z",
+      "side": 1,
+      "message": "I found some typos while reading various parts of the code :-)\n\ncc mirko in case changes to the presubmit python are dangerous",
+      "revId": "04d68eeb80a879d2a5eb4ad97511e0fdf1f197f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

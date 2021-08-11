@@ -33,6 +33,24 @@
       "message": "This patch is failing on android_arm_dbg.\n\nI  422.213s Main  1 failed tests remain.\nC  422.228s Main  ********************************************************************************\nC  422.228s Main  Detailed Logs\nC  422.229s Main  ********************************************************************************\nC  422.230s Main  [FAILURE] AudioEncoderCopyRedTest.CheckPayloadSizesSingle:\nC  422.230s Main  [ RUN      ] AudioEncoderCopyRedTest.CheckPayloadSizesSingle\nC  422.230s Main  (line 140): Setting field trial string:WebRTC-Audio-Red-For-Opus/Enabled-1/\nC  422.230s Main  ../../modules/audio_coding/codecs/red/audio_encoder_copy_red_unittest.cc:195: Failure\nC  422.230s Main  Expected equality of these values:\nC  422.230s Main    1u\nC  422.230s Main      Which is: 1\nC  422.230s Main    encoded_info_.encoded_bytes\nC  422.230s Main      Which is: 2\nC  422.230s Main  (line 140): Setting field trial string:\nC  422.230s Main  [  FAILED  ] AudioEncoderCopyRedTest.CheckPayloadSizesSingle (2 ms)\nC  422.230s Main  [----------] 1 test from AudioEncoderCopyRedTest (3 ms total)\nC  422.230s Main  \nC  422.230s Main  [----------] Global test environment tear-down\nC  422.230s Main  [\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d] 1 test from 1 test suite ran. (5 ms total)\nC  422.230s Main  [  PASSED  ] 0 tests.\nC  422.230s Main  [  FAILED  ] 1 test, listed below:\nC  422.230s Main  [  FAILED  ] AudioEncoderCopyRedTest.CheckPayloadSizesSingle\nC  422.230s Main  ********************************************************************************\nC  422.230s Main  Summary\nC  422.230s Main  ********************************************************************************\nC  422.233s Main  [\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d] 934 tests ran.\nC  422.234s Main  [  PASSED  ] 933 tests.\nC  422.234s Main  [  FAILED  ] 1 test, listed below:\nC  422.234s Main  [  FAILED  ] AudioEncoderCopyRedTest.CheckPayloadSizesSingle\nC  422.234s Main  \nC  422.234s Main  1 FAILED TEST\nC  422.234s Main  ********************************************************************************",
       "revId": "b6f602cc8c0dc3cfe7b7ecf12c205ad01034cb2a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5669530d_394d779c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-08-11T09:11:06Z",
+      "side": 1,
+      "message": "that should be solved now. The bots will decide but it seems the rebase didn\u0027t trigger a full re-run. Lets wait a few hours for +2...",
+      "parentUuid": "94f40bca_030c7732",
+      "revId": "b6f602cc8c0dc3cfe7b7ecf12c205ad01034cb2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

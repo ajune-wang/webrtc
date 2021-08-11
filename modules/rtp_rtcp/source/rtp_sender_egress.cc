@@ -41,10 +41,8 @@ bool IsTrialSetTo(const WebRtcKeyValueConfig* field_trials,
 
 RtpSenderEgress::NonPacedPacketSender::NonPacedPacketSender(
     RtpSenderEgress* sender,
-    SequenceNumberAssigner* sequence_number_assigner,
-    bool deferred_sequencing)
-    : deferred_sequencing_(deferred_sequencing),
-      transport_sequence_number_(0),
+    SequenceNumberAssigner* sequence_number_assigner)
+    : transport_sequence_number_(0),
       sender_(sender),
       sequence_number_assigner_(sequence_number_assigner) {
   RTC_DCHECK(sequence_number_assigner_);
@@ -65,13 +63,9 @@ void RtpSenderEgress::NonPacedPacketSender::EnqueuePackets(
 
 void RtpSenderEgress::NonPacedPacketSender::PrepareForSend(
     RtpPacketToSend* packet) {
-  // Assign sequence numbers if deferred sequencing is used, but don't generate
-  // sequence numbers for flexfec, which is already running on an internally
-  // maintained sequence number series.
-  const bool is_flexfec = packet->Ssrc() == sender_->FlexFecSsrc();
-  if ((deferred_sequencing_ ||
-       packet->packet_type() == RtpPacketMediaType::kForwardErrorCorrection) &&
-      !is_flexfec) {
+  // Assign sequence numbers, but not for flexfec which is already running on
+  // an internally maintained sequence number series.
+  if (packet->Ssrc() != sender_->FlexFecSsrc()) {
     sequence_number_assigner_->AssignSequenceNumber(packet);
   }
   if (!packet->SetExtension<TransportSequenceNumber>(

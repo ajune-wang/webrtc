@@ -266,9 +266,6 @@ class ModuleRtpRtcpImpl2 final : public RtpRtcpInterface,
     void AssignSequenceNumber(RtpPacketToSend* packet) override;
     // Storage of packets, for retransmissions and padding, if applicable.
     RtpPacketHistory packet_history;
-    // If false, sequencing is owned by `packet_generator` and can happen on
-    // several threads. If true, sequencing always happens on the pacer thread.
-    const bool deferred_sequencing_;
     // Handles sequence number assignment and padding timestamp generation.
     PacketSequencer sequencer_;
     // Handles final time timestamping/stats/etc and handover to Transport.

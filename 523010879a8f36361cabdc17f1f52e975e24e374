@@ -101,6 +101,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b5613585_158208b3",
+        "filename": "rtc_base/async_socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-08-11T07:39:05Z",
+      "side": 1,
+      "message": "Since it is dereferenced immediately, I think it will crash on null in both release and debug builds. The DCHECK just provides a friendlier error message, when enabled. So I don\u0027t think changing to CHECK is warranted.\n\nAs you note, Mirko, it is a change in behavior. I would hope we have sufficient test coverage to identify (and fix) any callers passing null. My guess is that there used to be code that constructed the object will null, and later called Attach.\n\nAnyway, I\u0027d need to investigate current test failures before drawing any conclusions.",
+      "parentUuid": "9e77e685_d0c2dc3c",
+      "range": {
+        "startLine": 25,
+        "startChar": 2,
+        "endLine": 29,
+        "endChar": 77
+      },
+      "revId": "523010879a8f36361cabdc17f1f52e975e24e374",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "629896b9_03ee88cd",
         "filename": "rtc_base/async_socket.h",
         "patchSetId": 1

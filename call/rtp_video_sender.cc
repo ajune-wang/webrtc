@@ -451,6 +451,12 @@ RtpVideoSender::RtpVideoSender(
   // Signal congestion controller this object is ready for OnPacket* callbacks.
   transport_->GetStreamFeedbackProvider()->RegisterStreamFeedbackObserver(
       rtp_config_.ssrcs, this);
+
+  // Subsequent calls to RTP state may be on a different thread, detach the
+  // thread checkers.
+  for (const RtpStreamSender& stream : rtp_streams_) {
+    stream.rtp_rtcp->OnRoutingStatusChanged();
+  }
 }
 
 RtpVideoSender::~RtpVideoSender() {

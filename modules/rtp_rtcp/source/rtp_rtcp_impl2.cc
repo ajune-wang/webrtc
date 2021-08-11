@@ -206,6 +206,7 @@ void ModuleRtpRtcpImpl2::SetSequenceNumber(const uint16_t seq_num) {
 }
 
 void ModuleRtpRtcpImpl2::SetRtpState(const RtpState& rtp_state) {
+  RTC_DCHECK_RUN_ON(&pacer_thread_checker_);
   rtp_sender_->packet_generator.SetRtpState(rtp_state);
   if (rtp_sender_->deferred_sequencing_) {
     rtp_sender_->sequencer_.SetRtpState(rtp_state);
@@ -214,6 +215,7 @@ void ModuleRtpRtcpImpl2::SetRtpState(const RtpState& rtp_state) {
 }
 
 void ModuleRtpRtcpImpl2::SetRtxState(const RtpState& rtp_state) {
+  RTC_DCHECK_RUN_ON(&pacer_thread_checker_);
   rtp_sender_->packet_generator.SetRtxRtpState(rtp_state);
   if (rtp_sender_->deferred_sequencing_) {
     rtp_sender_->sequencer_.set_rtx_sequence_number(rtp_state.sequence_number);
@@ -221,6 +223,7 @@ void ModuleRtpRtcpImpl2::SetRtxState(const RtpState& rtp_state) {
 }
 
 RtpState ModuleRtpRtcpImpl2::GetRtpState() const {
+  RTC_DCHECK_RUN_ON(&pacer_thread_checker_);
   RtpState state = rtp_sender_->packet_generator.GetRtpState();
   if (rtp_sender_->deferred_sequencing_) {
     rtp_sender_->sequencer_.PopulateRtpState(state);
@@ -229,6 +232,7 @@ RtpState ModuleRtpRtcpImpl2::GetRtpState() const {
 }
 
 RtpState ModuleRtpRtcpImpl2::GetRtxState() const {
+  RTC_DCHECK_RUN_ON(&pacer_thread_checker_);
   RtpState state = rtp_sender_->packet_generator.GetRtxRtpState();
   if (rtp_sender_->deferred_sequencing_) {
     state.sequence_number = rtp_sender_->sequencer_.rtx_sequence_number();
@@ -328,12 +332,6 @@ bool ModuleRtpRtcpImpl2::Sending() const {
 // updated.
 void ModuleRtpRtcpImpl2::SetSendingMediaStatus(const bool sending) {
   if (rtp_sender_) {
-    // Turning on or off sending status indicates module being set
-    // up or torn down, detach thread checker since subsequent calls
-    // may be from a different thread.
-    if (rtp_sender_->packet_generator.SendingMedia() != sending) {
-      pacer_thread_checker_.Detach();
-    }
     rtp_sender_->packet_generator.SetSendingMediaStatus(sending);
   } else {
     RTC_DCHECK(!sending);
@@ -481,6 +479,11 @@ size_t ModuleRtpRtcpImpl2::ExpectedPerPacketOverhead() const {
     return 0;
   }
   return rtp_sender_->packet_generator.ExpectedPerPacketOverhead();
+}
+
+void ModuleRtpRtcpImpl2::OnRoutingStatusChanged() {
+  // Module has been added or removed from the PacketRouter.
+  pacer_thread_checker_.Detach();
 }
 
 size_t ModuleRtpRtcpImpl2::MaxRtpPacketSize() const {

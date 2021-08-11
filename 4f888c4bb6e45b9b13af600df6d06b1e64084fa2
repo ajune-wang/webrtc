@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2de6469_557a87a3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-08-11T09:56:34Z",
+      "side": 1,
+      "message": "Binary size change is now a bit better. No change to apk size, but still 3.24kiB increase in arm64 .so file. ",
+      "revId": "4f888c4bb6e45b9b13af600df6d06b1e64084fa2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

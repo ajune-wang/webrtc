@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eaf2543c_5bd368fa",
+        "filename": "p2p/base/fake_ice_transport.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-08-12T08:46:46Z",
+      "side": 1,
+      "message": "there\u0027s no thread check for `error_`. Can we add that since there\u0027s no guard against incorrect use of the methods.",
+      "revId": "f8295f61b5100c02ee6c0b973e5ac18fd8c1d55f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0db1f5c2_d212f889",
+        "filename": "p2p/base/fake_ice_transport.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-08-12T08:46:46Z",
+      "side": 1,
+      "message": "can this be RTC_GUARDED_BY(network_thread_)?",
+      "revId": "f8295f61b5100c02ee6c0b973e5ac18fd8c1d55f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "647d0285_57147ed1",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_cpu_measurer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-08-12T14:28:28Z",
+      "side": 1,
+      "message": "Remove?\n\n(we have the private build target)",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 25
+      },
+      "revId": "44e5e330c6ee12fd282a631ca033d0b43e8d6997",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d92e52bc_2af3e0c1",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_cpu_measurer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-08-12T14:28:28Z",
+      "side": 1,
+      "message": "Should we mention this is thread safe in a comment to the class?",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 46
+      },
+      "revId": "44e5e330c6ee12fd282a631ca033d0b43e8d6997",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

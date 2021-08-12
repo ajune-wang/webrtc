@@ -22,6 +22,30 @@
       },
       "revId": "d2ff1bf6ce8b0eb8e9f7d39f48556d8f302a31cf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a33dd1d7_0bd22277",
+        "filename": "api/video_codecs/test/video_decoder_software_fallback_wrapper_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-12T09:05:59Z",
+      "side": 1,
+      "message": "Yep, those names align nicely with InitDecode-\u003eConfigure change. Done.\n\n(tbh CountingFakeDecoder probably shouldn\u0027t exist at all: it\u0027s just a custom way to implement a mock/stub)",
+      "parentUuid": "e53e3808_3f578dd2",
+      "range": {
+        "startLine": 69,
+        "startChar": 9,
+        "endLine": 69,
+        "endChar": 33
+      },
+      "revId": "d2ff1bf6ce8b0eb8e9f7d39f48556d8f302a31cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca6186bd_68d1838a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-12T15:43:58Z",
+      "side": 1,
+      "message": "How does this address race between GetRtpState on destruction and sequencing a late packet?\n\nI only see silencing thread checker.",
+      "revId": "d07df0846e8d5c701b0bc5220c946dada4f47dcc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

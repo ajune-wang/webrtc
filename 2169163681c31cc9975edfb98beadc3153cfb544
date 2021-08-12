@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65de060c_9ce33113",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-08-12T18:43:53Z",
+      "side": 1,
+      "message": "LGTM % comment",
+      "revId": "2169163681c31cc9975edfb98beadc3153cfb544",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99324f4f_cac3d5d3",
+        "filename": "tools_webrtc/perf/catapult_uploader.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-08-12T18:43:53Z",
+      "side": 1,
+      "message": "Maybe also log which particular metrics failed to upload? In case if we\u0027ll see data loss for long duration in some particular metrics, we will be able to check that it\u0027s not upload problem. Or maybe there is another way to check it? If so, then we can skip so detailed logging here.",
+      "range": {
+        "startLine": 166,
+        "startChar": 19,
+        "endLine": 166,
+        "endChar": 31
+      },
+      "revId": "2169163681c31cc9975edfb98beadc3153cfb544",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

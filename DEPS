@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'ea375c193d14f80da37627a9b7e7b1691328bca7',
+  'chromium_revision': 'd05f10a8e732e506ddbd4850a78c06443d487d8c',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -20,7 +20,7 @@ deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@c0e983f5dbea7e191a791b5342eafa02f09e7bee',
+    'https://chromium.googlesource.com/chromium/src/base@33bf1cd941938330fd24c91e22514efe58d225e6',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@923d7f828af567b6cc11640142743e6267f0da51',
   'src/buildtools':
@@ -31,13 +31,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@af3143e15aaba482413a643e93d2451760f1d19b',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@bd2de2f3e5bf655e24064663e13eb9f4a7754018',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@fd265d480938a5db5ad9e7261090532ed288a35e',
+    'https://chromium.googlesource.com/chromium/src/testing@34add9c9beb7cb23a489c02fe6d2fae8fe46bef7',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@d1a75c47c8d0cd47ad1f4a47fa9d43de614c3553',
+    'https://chromium.googlesource.com/chromium/src/third_party@d15982af3695f8ec02db96fb70f23b3201364548',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -172,7 +172,7 @@ deps = {
   'src/third_party/googletest/src':
     'https://chromium.googlesource.com/external/github.com/google/googletest.git@47f819c3ca54fb602f432904443e00a0a1fe2f42',
   'src/third_party/icu': {
-    'url': 'https://chromium.googlesource.com/chromium/deps/icu.git@75e34bcccea0be165c31fdb278b3712c516c5876',
+    'url': 'https://chromium.googlesource.com/chromium/deps/icu.git@a38aef9142ace942a8bf166020c569f4cda0f8d3',
   },
   'src/third_party/jdk': {
       'packages': [
@@ -271,7 +271,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@2c3524bb30ff2b4fa34b74cf4054a0a592928a13',
+    'https://chromium.googlesource.com/chromium/src/tools@4ee1a32dd54717e248b94189f91088f5103a9586',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@a32a1607f6093d338f756c7e7c7b4333b0c50c9c',
 

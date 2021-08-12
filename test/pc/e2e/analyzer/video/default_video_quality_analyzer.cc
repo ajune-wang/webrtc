@@ -19,12 +19,12 @@
 #include "api/units/time_delta.h"
 #include "api/video/i420_buffer.h"
 #include "common_video/libyuv/include/webrtc_libyuv.h"
-#include "rtc_base/cpu_time.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/platform_thread.h"
 #include "rtc_base/strings/string_builder.h"
 #include "rtc_base/time_utils.h"
 #include "rtc_tools/frame_analyzer/video_geometry_aligner.h"
+#include "test/pc/e2e/analyzer/video/default_video_quality_analyzer_internal_shared_objects.h"
 #include "test/pc/e2e/analyzer/video/default_video_quality_analyzer_shared_objects.h"
 
 namespace webrtc {
@@ -131,7 +131,7 @@ void DefaultVideoQualityAnalyzer::Start(
     state_ = State::kActive;
     start_time_ = Now();
   }
-  StartMeasuringCpuProcessTime();
+  cpu_measurer_.StartMeasuringCpuProcessTime();
 }
 
 uint16_t DefaultVideoQualityAnalyzer::OnFrameCaptured(
@@ -556,7 +556,7 @@ void DefaultVideoQualityAnalyzer::Stop() {
     }
     state_ = State::kStopped;
   }
-  StopMeasuringCpuProcessTime();
+  cpu_measurer_.StopMeasuringCpuProcessTime();
   comparison_available_event_.Set();
   thread_pool_.clear();
 
@@ -662,7 +662,7 @@ void DefaultVideoQualityAnalyzer::AddComparison(
     absl::optional<VideoFrame> rendered,
     bool dropped,
     FrameStats frame_stats) {
-  StartExcludingCpuThreadTime();
+  cpu_measurer_.StartExcludingCpuThreadTime();
   analyzer_stats_.comparisons_queue_size.AddSample(
       StatsSample(comparisons_.size(), Now()));
   // If there too many computations waiting in the queue, we won't provide
@@ -681,7 +681,7 @@ void DefaultVideoQualityAnalyzer::AddComparison(
                               std::move(frame_stats), overload_reason);
   }
   comparison_available_event_.Set();
-  StopExcludingCpuThreadTime();
+  cpu_measurer_.StopExcludingCpuThreadTime();
 }
 
 void DefaultVideoQualityAnalyzer::ProcessComparisons() {
@@ -714,9 +714,9 @@ void DefaultVideoQualityAnalyzer::ProcessComparisons() {
       continue;
     }
 
-    StartExcludingCpuThreadTime();
+    cpu_measurer_.StartExcludingCpuThreadTime();
     ProcessComparison(comparison.value());
-    StopExcludingCpuThreadTime();
+    cpu_measurer_.StopExcludingCpuThreadTime();
   }
 }
 
@@ -1000,46 +1000,9 @@ std::string DefaultVideoQualityAnalyzer::StatsKeyToMetricName(
   return key.ToString();
 }
 
-void DefaultVideoQualityAnalyzer::StartMeasuringCpuProcessTime() {
-  MutexLock lock(&cpu_measurement_lock_);
-  cpu_time_ -= rtc::GetProcessCpuTimeNanos();
-  wallclock_time_ -= rtc::SystemTimeNanos();
-}
-
-void DefaultVideoQualityAnalyzer::StopMeasuringCpuProcessTime() {
-  MutexLock lock(&cpu_measurement_lock_);
-  cpu_time_ += rtc::GetProcessCpuTimeNanos();
-  wallclock_time_ += rtc::SystemTimeNanos();
-}
-
-void DefaultVideoQualityAnalyzer::StartExcludingCpuThreadTime() {
-  MutexLock lock(&cpu_measurement_lock_);
-  cpu_time_ += rtc::GetThreadCpuTimeNanos();
-}
-
-void DefaultVideoQualityAnalyzer::StopExcludingCpuThreadTime() {
-  MutexLock lock(&cpu_measurement_lock_);
-  cpu_time_ -= rtc::GetThreadCpuTimeNanos();
-}
-
 double DefaultVideoQualityAnalyzer::GetCpuUsagePercent() {
-  MutexLock lock(&cpu_measurement_lock_);
-  return static_cast<double>(cpu_time_) / wallclock_time_ * 100.0;
+  return cpu_measurer_.GetCpuUsagePercent();
 }
-
-DefaultVideoQualityAnalyzer::FrameComparison::FrameComparison(
-    InternalStatsKey stats_key,
-    absl::optional<VideoFrame> captured,
-    absl::optional<VideoFrame> rendered,
-    bool dropped,
-    FrameStats frame_stats,
-    OverloadReason overload_reason)
-    : stats_key(std::move(stats_key)),
-      captured(std::move(captured)),
-      rendered(std::move(rendered)),
-      dropped(dropped),
-      frame_stats(std::move(frame_stats)),
-      overload_reason(overload_reason) {}
 
 uint16_t DefaultVideoQualityAnalyzer::StreamState::PopFront(size_t peer) {
   absl::optional<uint16_t> frame_id = frame_ids_.PopFront(peer);
@@ -1217,8 +1180,8 @@ bool DefaultVideoQualityAnalyzer::FrameInFlight::HasRenderedTime(
   return it->second.rendered_time.IsFinite();
 }
 
-DefaultVideoQualityAnalyzer::FrameStats
-DefaultVideoQualityAnalyzer::FrameInFlight::GetStatsForPeer(size_t peer) const {
+FrameStats DefaultVideoQualityAnalyzer::FrameInFlight::GetStatsForPeer(
+    size_t peer) const {
   FrameStats stats(captured_time_);
   stats.pre_encode_time = pre_encode_time_;
   stats.encoded_time = encoded_time_;

@@ -84,6 +84,11 @@ void TransmissionControlBlock::MaybeSendSack() {
 
 void TransmissionControlBlock::SendBufferedPackets(SctpPacket::Builder& builder,
                                                    TimeMs now) {
+  if (!packet_sender_.PrepareToSend()) {
+    // The network isn't ready for more packets to be sent at this time.
+    return;
+  }
+
   for (int packet_idx = 0; packet_idx < options_.max_burst; ++packet_idx) {
     // Only add control chunks to the first packet that is sent, if sending
     // multiple packets in one go (as allowed by the congestion window).

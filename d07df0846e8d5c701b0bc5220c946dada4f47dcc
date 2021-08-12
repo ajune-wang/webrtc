@@ -16,6 +16,24 @@
       "message": "How does this address race between GetRtpState on destruction and sequencing a late packet?\n\nI only see silencing thread checker.",
       "revId": "d07df0846e8d5c701b0bc5220c946dada4f47dcc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d5618b6_a5134cc5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-12T15:52:59Z",
+      "side": 1,
+      "message": "Updated the CL description. The code that accessed rtp state while attached to\nthe packet router has been updated.",
+      "parentUuid": "ca6186bd_68d1838a",
+      "revId": "d07df0846e8d5c701b0bc5220c946dada4f47dcc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

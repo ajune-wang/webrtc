@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3810c60b_b18d0d0c",
+        "filename": "p2p/base/fake_ice_transport.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-08-12T08:52:45Z",
+      "side": 1,
+      "message": "Good point. Done.",
+      "parentUuid": "eaf2543c_5bd368fa",
+      "revId": "f8295f61b5100c02ee6c0b973e5ac18fd8c1d55f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0db1f5c2_d212f889",
@@ -31,6 +49,24 @@
       "writtenOn": "2021-08-12T08:46:46Z",
       "side": 1,
       "message": "can this be RTC_GUARDED_BY(network_thread_)?",
+      "revId": "f8295f61b5100c02ee6c0b973e5ac18fd8c1d55f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41606764_5bf7dcc2",
+        "filename": "p2p/base/fake_ice_transport.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-08-12T08:52:45Z",
+      "side": 1,
+      "message": "Absolutely. Done.",
+      "parentUuid": "0db1f5c2_d212f889",
       "revId": "f8295f61b5100c02ee6c0b973e5ac18fd8c1d55f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

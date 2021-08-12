@@ -23,16 +23,29 @@ constexpr VerificationTag kVerificationTag(123);
 
 class PacketSenderTest : public testing::Test {
  protected:
-  PacketSenderTest() : sender_(callbacks_, on_send_fn_.AsStdFunction()) {}
+  PacketSenderTest()
+      : timer_manager_([this]() { return callbacks_.CreateTimeout(); }),
+        sender_(timer_manager_, callbacks_, on_send_fn_.AsStdFunction()) {}
 
   SctpPacket::Builder PacketBuilder() const {
     return SctpPacket::Builder(kVerificationTag, options_);
+  }
+
+  void RunTimers() {
+    for (;;) {
+      absl::optional<TimeoutID> timeout_id = callbacks_.GetNextExpiredTimeout();
+      if (!timeout_id.has_value()) {
+        break;
+      }
+      timer_manager_.HandleTimeout(*timeout_id);
+    }
   }
 
   DcSctpOptions options_;
   testing::NiceMock<MockDcSctpSocketCallbacks> callbacks_;
   testing::MockFunction<void(rtc::ArrayView<const uint8_t>, SendPacketStatus)>
       on_send_fn_;
+  TimerManager timer_manager_;
   PacketSender sender_;
 };
 
@@ -44,6 +57,26 @@ TEST_F(PacketSenderTest, SendPacketCallsCallback) {
       .WillOnce(testing::Return(SendPacketStatus::kError));
   EXPECT_CALL(on_send_fn_, Call(_, SendPacketStatus::kError));
   EXPECT_FALSE(sender_.Send(PacketBuilder().Add(CookieAckChunk())));
+}
+
+TEST_F(PacketSenderTest, SendPacketWithTemporaryFailureQueuesPacket) {
+  EXPECT_CALL(callbacks_, SendPacketWithStatus)
+      .WillOnce(testing::Return(SendPacketStatus::kTemporaryFailure));
+
+  EXPECT_FALSE(sender_.Send(PacketBuilder().Add(CookieAckChunk())));
+
+  EXPECT_CALL(callbacks_, SendPacketWithStatus).Times(0);
+  RunTimers();
+
+  EXPECT_CALL(callbacks_, SendPacketWithStatus)
+      .WillOnce(testing::Return(SendPacketStatus::kSuccess));
+  callbacks_.AdvanceTime(DurationMs(1));
+  RunTimers();
+
+  // It's not enqueued any longer
+  EXPECT_CALL(callbacks_, SendPacketWithStatus).Times(0);
+  callbacks_.AdvanceTime(DurationMs(10));
+  RunTimers();
 }
 
 }  // namespace

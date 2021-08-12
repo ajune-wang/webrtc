@@ -12,14 +12,53 @@
 #include <utility>
 #include <vector>
 
+#include "absl/functional/bind_front.h"
 #include "net/dcsctp/public/types.h"
 
 namespace dcsctp {
 
-PacketSender::PacketSender(DcSctpSocketCallbacks& callbacks,
+PacketSender::PacketSender(TimerManager& timer_manager,
+                           DcSctpSocketCallbacks& callbacks,
                            std::function<void(rtc::ArrayView<const uint8_t>,
                                               SendPacketStatus)> on_sent_packet)
-    : callbacks_(callbacks), on_sent_packet_(std::move(on_sent_packet)) {}
+    : callbacks_(callbacks),
+      on_sent_packet_(std::move(on_sent_packet)),
+      retry_timer_(timer_manager.CreateTimer(
+          "packet-retry",
+          absl::bind_front(&PacketSender::OnRetryTimerExpiry, this),
+          TimerOptions(DurationMs(1)))) {}
+
+absl::optional<DurationMs> PacketSender::OnRetryTimerExpiry() {
+  RetrySendPackets();
+  return absl::nullopt;
+}
+
+bool PacketSender::RetrySendPackets() {
+  if (retry_queue_.empty()) {
+    RTC_DCHECK(!retry_timer_->is_running());
+    return true;
+  }
+
+  while (!retry_queue_.empty()) {
+    SendPacketStatus status =
+        callbacks_.SendPacketWithStatus(retry_queue_.front());
+    on_sent_packet_(retry_queue_.front(), status);
+    switch (status) {
+      case SendPacketStatus::kSuccess:
+        retry_queue_.pop_front();
+        continue;
+      case SendPacketStatus::kTemporaryFailure:
+        return false;
+      case SendPacketStatus::kError:
+        retry_queue_.pop_front();
+        return false;
+    }
+  }
+
+  RTC_DCHECK(retry_timer_->is_running());
+  retry_timer_->Stop();
+  return true;
+}
 
 bool PacketSender::Send(SctpPacket::Builder& builder) {
   if (builder.empty()) {
@@ -35,7 +74,10 @@ bool PacketSender::Send(SctpPacket::Builder& builder) {
       return true;
     }
     case SendPacketStatus::kTemporaryFailure: {
-      // TODO(boivie): Queue this packet to be retried to be sent later.
+      retry_queue_.emplace_back(std::move(payload));
+      if (!retry_timer_->is_running()) {
+        retry_timer_->Start();
+      }
       return false;
     }
 

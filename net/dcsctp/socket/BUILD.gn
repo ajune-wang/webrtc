@@ -87,7 +87,7 @@ rtc_library("packet_sender") {
     "packet_sender.cc",
     "packet_sender.h",
   ]
-  absl_deps = []
+  absl_deps = [ "//third_party/abseil-cpp/absl/functional:bind_front" ]
 }
 
 rtc_library("transmission_control_block") {

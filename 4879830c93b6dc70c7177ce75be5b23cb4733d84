@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fcca4c0_de1d553b",
+        "filename": "test/pc/e2e/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 621,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-08-12T11:33:54Z",
+      "side": 1,
+      "message": "It is fine to keep them here. If you plan to reuse it from other targets instead maybe creating a separate rtc_library now is easier.",
+      "range": {
+        "startLine": 620,
+        "startChar": 6,
+        "endLine": 621,
+        "endChar": 71
+      },
+      "revId": "4879830c93b6dc70c7177ce75be5b23cb4733d84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

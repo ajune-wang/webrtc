@@ -49,6 +49,8 @@ namespace {
 // The number of times a packet must be NACKed before it's retransmitted.
 // See https://tools.ietf.org/html/rfc4960#section-7.2.4
 constexpr size_t kNumberOfNacksForRetransmission = 3;
+// Allow sending only slightly less than an MTU, to account for headers.
+constexpr float kMinBytesRequiredToSendFactor = 0.9;
 }  // namespace
 
 RetransmissionQueue::RetransmissionQueue(
@@ -63,6 +65,7 @@ RetransmissionQueue::RetransmissionQueue(
     bool supports_partial_reliability,
     bool use_message_interleaving)
     : options_(options),
+      min_bytes_required_to_send_(options.mtu * kMinBytesRequiredToSendFactor),
       partial_reliability_(supports_partial_reliability),
       log_prefix_(std::string(log_prefix) + "tx: "),
       data_chunk_header_size_(use_message_interleaving
@@ -602,10 +605,8 @@ std::vector<std::pair<TSN, Data>> RetransmissionQueue::GetChunksToSend(
     // allowed to be sent), and fill that up first with chunks that are
     // scheduled to be retransmitted. If there is still budget, send new chunks
     // (which will have their TSN assigned here.)
-    size_t remaining_cwnd_bytes =
-        outstanding_bytes_ >= cwnd_ ? 0 : cwnd_ - outstanding_bytes_;
-    size_t max_bytes = RoundDownTo4(std::min(
-        std::min(bytes_remaining_in_packet, rwnd()), remaining_cwnd_bytes));
+    size_t max_bytes =
+        RoundDownTo4(std::min(max_bytes_to_send(), bytes_remaining_in_packet));
 
     to_be_sent = GetChunksToBeRetransmitted(max_bytes);
     max_bytes -= absl::c_accumulate(
@@ -831,6 +832,11 @@ void RetransmissionQueue::AbandonAllFor(
       other.Abandon();
     }
   }
+}
+
+size_t RetransmissionQueue::max_bytes_to_send() const {
+  size_t left = outstanding_bytes_ >= cwnd_ ? 0 : cwnd_ - outstanding_bytes_;
+  return std::min(rwnd(), left);
 }
 
 ForwardTsnChunk RetransmissionQueue::CreateForwardTsn() const {

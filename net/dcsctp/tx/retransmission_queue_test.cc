@@ -1211,5 +1211,38 @@ TEST_F(RetransmissionQueueTest, CwndRecoversWhenAcking) {
   EXPECT_EQ(queue.cwnd(), kCwnd + serialized_size);
 }
 
+// Verifies that it doesn't produce tiny packets, when getting close to
+// the full congestion window.
+TEST_F(RetransmissionQueueTest, OnlySendsLargePackets) {
+  RetransmissionQueue queue = CreateQueue();
+  static constexpr size_t kCwnd = 1300;
+  queue.set_cwnd(kCwnd);
+  EXPECT_EQ(queue.cwnd(), kCwnd);
+
+  constexpr size_t kChunkSize1 = 1000;
+  EXPECT_CALL(producer_, Produce)
+      .WillOnce([this](TimeMs, size_t) {
+        return SendQueue::DataToSend(
+            gen_.Ordered(std::vector<uint8_t>(kChunkSize1), "B"));
+      })
+      .WillRepeatedly([](TimeMs, size_t) { return absl::nullopt; });
+
+  EXPECT_TRUE(queue.can_send_data());
+  std::vector<std::pair<TSN, Data>> chunks_to_send =
+      queue.GetChunksToSend(now_, 1200);
+  EXPECT_THAT(chunks_to_send, ElementsAre(Pair(TSN(10), _)));
+  EXPECT_EQ(queue.outstanding_bytes(), kChunkSize1 + DataChunk::kHeaderSize);
+
+  // To little space left - will not send more.
+  EXPECT_FALSE(queue.can_send_data());
+
+  // But when the first chunk is acked, it will continue.
+  queue.HandleSack(now_, SackChunk(TSN(10), kArwnd, {}, {}));
+
+  EXPECT_TRUE(queue.can_send_data());
+  EXPECT_EQ(queue.outstanding_bytes(), 0u);
+  EXPECT_EQ(queue.cwnd(), kCwnd + kChunkSize1 + DataChunk::kHeaderSize);
+}
+
 }  // namespace
 }  // namespace dcsctp

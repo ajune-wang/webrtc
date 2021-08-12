@@ -157,6 +157,8 @@ class ModuleRtpRtcpImpl : public RtpRtcp, public RTCPReceiver::ModuleRtpRtcp {
 
   size_t ExpectedPerPacketOverhead() const override;
 
+  void OnPacketSendingThreadSwitch() override;
+
   // RTCP part.
 
   // Get RTCP status.

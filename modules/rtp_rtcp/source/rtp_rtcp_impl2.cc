@@ -78,7 +78,6 @@ ModuleRtpRtcpImpl2::RtpSenderContext::RtpSenderContext(
 void ModuleRtpRtcpImpl2::RtpSenderContext::AssignSequenceNumber(
     RtpPacketToSend* packet) {
   if (deferred_sequencing_) {
-    MutexLock lock(&mutex_sequencer_);
     sequencer_.Sequence(*packet);
   } else {
     packet_generator.AssignSequenceNumber(packet);
@@ -188,7 +187,7 @@ void ModuleRtpRtcpImpl2::SetStartTimestamp(const uint32_t timestamp) {
 
 uint16_t ModuleRtpRtcpImpl2::SequenceNumber() const {
   if (rtp_sender_->deferred_sequencing_) {
-    MutexLock lock(&rtp_sender_->mutex_sequencer_);
+    RTC_DCHECK_RUN_ON(&pacer_thread_checker_);
     return rtp_sender_->sequencer_.media_sequence_number();
   }
   return rtp_sender_->packet_generator.SequenceNumber();
@@ -198,7 +197,6 @@ uint16_t ModuleRtpRtcpImpl2::SequenceNumber() const {
 void ModuleRtpRtcpImpl2::SetSequenceNumber(const uint16_t seq_num) {
   if (rtp_sender_->deferred_sequencing_) {
     RTC_DCHECK_RUN_ON(&pacer_thread_checker_);
-    MutexLock lock(&rtp_sender_->mutex_sequencer_);
     if (rtp_sender_->sequencer_.media_sequence_number() != seq_num) {
       rtp_sender_->sequencer_.set_media_sequence_number(seq_num);
       rtp_sender_->packet_history.Clear();
@@ -209,35 +207,35 @@ void ModuleRtpRtcpImpl2::SetSequenceNumber(const uint16_t seq_num) {
 }
 
 void ModuleRtpRtcpImpl2::SetRtpState(const RtpState& rtp_state) {
+  RTC_DCHECK_RUN_ON(&pacer_thread_checker_);
   rtp_sender_->packet_generator.SetRtpState(rtp_state);
   if (rtp_sender_->deferred_sequencing_) {
-    MutexLock lock(&rtp_sender_->mutex_sequencer_);
     rtp_sender_->sequencer_.SetRtpState(rtp_state);
   }
   rtcp_sender_.SetTimestampOffset(rtp_state.start_timestamp);
 }
 
 void ModuleRtpRtcpImpl2::SetRtxState(const RtpState& rtp_state) {
+  RTC_DCHECK_RUN_ON(&pacer_thread_checker_);
   rtp_sender_->packet_generator.SetRtxRtpState(rtp_state);
   if (rtp_sender_->deferred_sequencing_) {
-    MutexLock lock(&rtp_sender_->mutex_sequencer_);
     rtp_sender_->sequencer_.set_rtx_sequence_number(rtp_state.sequence_number);
   }
 }
 
 RtpState ModuleRtpRtcpImpl2::GetRtpState() const {
+  RTC_DCHECK_RUN_ON(&pacer_thread_checker_);
   RtpState state = rtp_sender_->packet_generator.GetRtpState();
   if (rtp_sender_->deferred_sequencing_) {
-    MutexLock lock(&rtp_sender_->mutex_sequencer_);
     rtp_sender_->sequencer_.PopulateRtpState(state);
   }
   return state;
 }
 
 RtpState ModuleRtpRtcpImpl2::GetRtxState() const {
+  RTC_DCHECK_RUN_ON(&pacer_thread_checker_);
   RtpState state = rtp_sender_->packet_generator.GetRtxRtpState();
   if (rtp_sender_->deferred_sequencing_) {
-    MutexLock lock(&rtp_sender_->mutex_sequencer_);
     state.sequence_number = rtp_sender_->sequencer_.rtx_sequence_number();
   }
   return state;
@@ -335,12 +333,6 @@ bool ModuleRtpRtcpImpl2::Sending() const {
 // updated.
 void ModuleRtpRtcpImpl2::SetSendingMediaStatus(const bool sending) {
   if (rtp_sender_) {
-    // Turning on or off sending status indicates module being set
-    // up or torn down, detach thread checker since subsequent calls
-    // may be from a different thread.
-    if (rtp_sender_->packet_generator.SendingMedia() != sending) {
-      pacer_thread_checker_.Detach();
-    }
     rtp_sender_->packet_generator.SetSendingMediaStatus(sending);
   } else {
     RTC_DCHECK(!sending);
@@ -394,7 +386,6 @@ bool ModuleRtpRtcpImpl2::TrySendPacket(RtpPacketToSend* packet,
     if (!rtp_sender_->packet_generator.SendingMedia()) {
       return false;
     }
-    MutexLock lock(&rtp_sender_->mutex_sequencer_);
     if (packet->packet_type() == RtpPacketMediaType::kPadding &&
         packet->Ssrc() == rtp_sender_->packet_generator.SSRC() &&
         !rtp_sender_->sequencer_.CanSendPaddingOnMediaSsrc()) {
@@ -461,7 +452,6 @@ std::vector<std::unique_ptr<RtpPacketToSend>>
 ModuleRtpRtcpImpl2::GeneratePadding(size_t target_size_bytes) {
   RTC_DCHECK(rtp_sender_);
   RTC_DCHECK_RUN_ON(&pacer_thread_checker_);
-  MutexLock lock(&rtp_sender_->mutex_sequencer_);
 
   // `can_send_padding_on_media_ssrc` set to false when deferred sequencing
   // is off. It will be ignored in that case, RTPSender will internally query
@@ -486,6 +476,11 @@ size_t ModuleRtpRtcpImpl2::ExpectedPerPacketOverhead() const {
     return 0;
   }
   return rtp_sender_->packet_generator.ExpectedPerPacketOverhead();
+}
+
+void ModuleRtpRtcpImpl2::OnPacketSendingThreadSwitch() {
+  // Module has been initialized or added/removed from the PacketRouter.
+  pacer_thread_checker_.Detach();
 }
 
 size_t ModuleRtpRtcpImpl2::MaxRtpPacketSize() const {

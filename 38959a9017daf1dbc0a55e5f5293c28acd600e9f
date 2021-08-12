@@ -16,6 +16,47 @@
       "message": "I\u0027d really rather not update the legacy module, but it\u0027s going to block cleaning up the deferred sequencing otherwise, unless we make a DEPRECATE_RTPSender too or update a bunch of downstream code that appears non-trivial to fix....",
       "revId": "38959a9017daf1dbc0a55e5f5293c28acd600e9f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fb5c64e_999d021e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-12T09:02:47Z",
+      "side": 1,
+      "message": "that\u0027s the price of forking code. It will grow over time if don\u0027t cleanup usage of those deprecated classes.",
+      "parentUuid": "07bb5db0_37695866",
+      "revId": "38959a9017daf1dbc0a55e5f5293c28acd600e9f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54a3b53b_c80a3a03",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-12T09:02:47Z",
+      "side": 1,
+      "message": "drop trailing \u0027_\u0027 (this is a member of a struct, not a class)",
+      "range": {
+        "startLine": 278,
+        "startChar": 18,
+        "endLine": 278,
+        "endChar": 34
+      },
+      "revId": "38959a9017daf1dbc0a55e5f5293c28acd600e9f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

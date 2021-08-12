@@ -39,6 +39,30 @@
       },
       "revId": "2169163681c31cc9975edfb98beadc3153cfb544",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4c76955_7a6be0f7",
+        "filename": "tools_webrtc/perf/catapult_uploader.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 11540
+      },
+      "writtenOn": "2021-08-12T18:57:10Z",
+      "side": 1,
+      "message": "The full upload state is already logged above (line 153). It has all measurements statuses. There is no need to print it again.",
+      "parentUuid": "99324f4f_cac3d5d3",
+      "range": {
+        "startLine": 166,
+        "startChar": 19,
+        "endLine": 166,
+        "endChar": 31
+      },
+      "revId": "2169163681c31cc9975edfb98beadc3153cfb544",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

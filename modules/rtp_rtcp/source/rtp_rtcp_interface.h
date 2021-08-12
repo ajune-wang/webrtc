@@ -347,6 +347,11 @@ class RtpRtcpInterface : public RtcpFeedbackSenderInterface {
   // when we expect to send them).
   virtual size_t ExpectedPerPacketOverhead() const = 0;
 
+  // Called when this module should expect a new thread to call methods related
+  // packet sending and sequence numbering (TrySendPacket(), GetRtpstate() etc)
+  // due to e.g. the module being registered with or removed from PacketRouter.
+  virtual void OnPacketSendingThreadSwitch() = 0;
+
   // **************************************************************************
   // RTCP
   // **************************************************************************

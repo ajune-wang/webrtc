@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "85a3cf57_7e43b7ff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-08-13T13:35:24Z",
+      "side": 1,
+      "message": "I\u0027d like to use the #pragma trick in a few other places, to get (usually overlooked) deprecation warnings for other style-changed callbacks.\n\nBut it has conceptual costs. Asking nisse@ for comments.\n\nApart from that, LGTM.",
+      "revId": "915297e5808f36af39b174686fdd46a47870b6f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0121026b_91c0fc56",
+        "filename": "net/dcsctp/public/dcsctp_socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-08-13T13:35:24Z",
+      "side": 1,
+      "message": "We try to avoid using #pragma in general, and as a result, deprecating callbacks is a pain in the posterior. Calling on nisse@ to comment on this particuar case.",
+      "revId": "915297e5808f36af39b174686fdd46a47870b6f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

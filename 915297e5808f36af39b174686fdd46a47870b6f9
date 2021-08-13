@@ -33,6 +33,24 @@
       "message": "We try to avoid using #pragma in general, and as a result, deprecating callbacks is a pain in the posterior. Calling on nisse@ to comment on this particuar case.",
       "revId": "915297e5808f36af39b174686fdd46a47870b6f9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66a42af2_1deedf77",
+        "filename": "net/dcsctp/public/dcsctp_socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-08-13T13:57:47Z",
+      "side": 1,
+      "message": "My opinion is that #pragma is a poor tool, the gain is not worth the clutter. I would suggest one of these options:\n\n1. Keep it simple, just drop the RTC_DEPRECATED annotation and the pragmas.\n\n2. Change the return value of the existing method, without renaming it, and fix downstream using a template hack. (Simplest from webrtc point of view, pushes complexity downstream).\n\n3. Use _Pragma instead of #pragma, and encapsulate it into a macro, e.g., RTC_IGNORE_DEPRECATION_WARNIGNS(expr/block/statement).",
+      "parentUuid": "0121026b_91c0fc56",
+      "revId": "915297e5808f36af39b174686fdd46a47870b6f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

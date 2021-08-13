@@ -51,6 +51,24 @@
       "parentUuid": "0121026b_91c0fc56",
       "revId": "915297e5808f36af39b174686fdd46a47870b6f9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "127f00e8_1b83c011",
+        "filename": "net/dcsctp/public/dcsctp_socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-08-13T18:51:03Z",
+      "side": 1,
+      "message": "It will soon be migrated away from, and its usage is quite limited, so going for option 1.",
+      "parentUuid": "66a42af2_1deedf77",
+      "revId": "915297e5808f36af39b174686fdd46a47870b6f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

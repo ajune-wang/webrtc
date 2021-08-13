@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "192a9e1e_63870bf9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-08-13T12:03:21Z",
+      "side": 1,
+      "message": "PTAL. It seems this race was introduced in the refactoring in https://webrtc-review.googlesource.com/c/src/+/217222",
+      "revId": "97cea460d8f118781b69521bbd49a76c93ad5269",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

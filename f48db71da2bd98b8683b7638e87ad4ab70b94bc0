@@ -131,6 +131,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a05c999_f307a71f",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-13T14:21:05Z",
+      "side": 1,
+      "message": "I missed that SetRtpState is called during construction, attaching the sequence checker.\nMy incorrect assumption was that at this point in time sequence checker is still detached.\n\n(may be from threading point of view it would make sense to embed rtp state somewhere into the constructor, but I guess that is part of a different effort)",
+      "parentUuid": "6c53cc53_2fb5ead6",
+      "range": {
+        "startLine": 454,
+        "startChar": 0,
+        "endLine": 459,
+        "endChar": 3
+      },
+      "revId": "f48db71da2bd98b8683b7638e87ad4ab70b94bc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "976cae51_ae829e67",

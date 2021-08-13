@@ -16,6 +16,23 @@
       "message": "based on comment to\nhttps://webrtc-review.googlesource.com/c/src/+/228420",
       "revId": "d3cebcdcf373f6b3e38109e00dfe63d3311e6ac3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19cb9061_f1b7aa14",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-13T16:29:55Z",
+      "side": 1,
+      "message": "thanks!",
+      "revId": "d3cebcdcf373f6b3e38109e00dfe63d3311e6ac3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

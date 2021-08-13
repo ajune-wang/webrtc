@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a2e9496_64a6b4dc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-08-13T08:07:31Z",
+      "side": 1,
+      "message": "Hm. If I read it right, this will cease transmission when cwnd is 0.9*MTU.\n\nIf we are sending a stream of small packets (mouse movements), this will choke off the packet flow earlier than without this restriction.\n\nShould there be a second condition that says \"if the next packet fits in the cwnd and contains an end-of-message, send it anyway\"?\n",
+      "revId": "d681131f2e77f9e63d7c4f92a9637b0e72fefca3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

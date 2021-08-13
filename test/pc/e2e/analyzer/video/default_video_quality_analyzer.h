@@ -30,6 +30,7 @@
 #include "rtc_base/synchronization/mutex.h"
 #include "system_wrappers/include/clock.h"
 #include "test/pc/e2e/analyzer/video/default_video_quality_analyzer_cpu_measurer.h"
+#include "test/pc/e2e/analyzer/video/default_video_quality_analyzer_frames_comparator.h"
 #include "test/pc/e2e/analyzer/video/default_video_quality_analyzer_internal_shared_objects.h"
 #include "test/pc/e2e/analyzer/video/default_video_quality_analyzer_shared_objects.h"
 #include "test/pc/e2e/analyzer/video/multi_head_queue.h"
@@ -46,7 +47,7 @@ struct DefaultVideoQualityAnalyzerOptions {
   // computing PSNR and SSIM for them. In some cases picture may be shifted by
   // a few pixels after the encode/decode step. Those difference is invisible
   // for a human eye, but it affects the metrics. So the adjustment is used to
-  // get metrics that are closer to how human persepts the video. This feature
+  // get metrics that are closer to how human percepts the video. This feature
   // significantly slows down the comparison, so turn it on only when it is
   // needed.
   bool adjust_cropping_before_comparing_frames = false;
@@ -307,15 +308,6 @@ class DefaultVideoQualityAnalyzer : public VideoQualityAnalyzerInterface {
     std::map<absl::string_view, size_t> index_;
   };
 
-  void AddComparison(InternalStatsKey stats_key,
-                     absl::optional<VideoFrame> captured,
-                     absl::optional<VideoFrame> rendered,
-                     bool dropped,
-                     FrameStats frame_stats)
-      RTC_EXCLUSIVE_LOCKS_REQUIRED(comparison_lock_);
-  static void ProcessComparisonsThread(void* obj);
-  void ProcessComparisons();
-  void ProcessComparison(const FrameComparison& comparison);
   // Report results for all metrics for all streams.
   void ReportResults();
   void ReportResults(const std::string& test_case_name,
@@ -339,8 +331,7 @@ class DefaultVideoQualityAnalyzer : public VideoQualityAnalyzerInterface {
   std::string StatsKeyToMetricName(const StatsKey& key) const
       RTC_EXCLUSIVE_LOCKS_REQUIRED(lock_);
 
-  // TODO(titovartem) restore const when old constructor will be removed.
-  DefaultVideoQualityAnalyzerOptions options_;
+  const DefaultVideoQualityAnalyzerOptions options_;
   webrtc::Clock* const clock_;
   std::atomic<uint16_t> next_frame_id_{0};
 
@@ -354,7 +345,7 @@ class DefaultVideoQualityAnalyzer : public VideoQualityAnalyzerInterface {
   // extra string copying.
   NamesCollection streams_ RTC_GUARDED_BY(lock_);
   // Frames that were captured by all streams and still aren't rendered on
-  // receviers or deemed dropped. Frame with id X can be removed from this map
+  // receivers or deemed dropped. Frame with id X can be removed from this map
   // if:
   // 1. The frame with id X was received in OnFrameRendered by all expected
   //    receivers.
@@ -382,19 +373,10 @@ class DefaultVideoQualityAnalyzer : public VideoQualityAnalyzerInterface {
   // still encoding.
   std::map<size_t, std::set<uint16_t>> stream_to_frame_id_history_
       RTC_GUARDED_BY(lock_);
-
-  mutable Mutex comparison_lock_;
-  std::map<InternalStatsKey, StreamStats> stream_stats_
-      RTC_GUARDED_BY(comparison_lock_);
-  std::map<InternalStatsKey, Timestamp> stream_last_freeze_end_time_
-      RTC_GUARDED_BY(comparison_lock_);
-  std::deque<FrameComparison> comparisons_ RTC_GUARDED_BY(comparison_lock_);
-  AnalyzerStats analyzer_stats_ RTC_GUARDED_BY(comparison_lock_);
-
-  std::vector<rtc::PlatformThread> thread_pool_;
-  rtc::Event comparison_available_event_;
+  AnalyzerStats analyzer_stats_ RTC_GUARDED_BY(lock_);
 
   DefaultVideoQualityAnalyzerCpuMeasurer cpu_measurer_;
+  DefaultVideoQualityAnalyzerFramesComparator frames_comparator_;
 };
 
 }  // namespace webrtc_pc_e2e

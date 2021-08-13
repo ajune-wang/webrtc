@@ -83,6 +83,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3498c4b4_07102b42",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-13T13:52:55Z",
+      "side": 1,
+      "message": "I do not understand that... if modules were never attached, why thread checker would become attached then?\nand when tread checker is not attached, then it shouldn\u0027t crash during destruction.",
+      "parentUuid": "8f4ea008_c8b22e91",
+      "range": {
+        "startLine": 454,
+        "startChar": 0,
+        "endLine": 459,
+        "endChar": 3
+      },
+      "revId": "f48db71da2bd98b8683b7638e87ad4ab70b94bc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "976cae51_ae829e67",
@@ -179,6 +203,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "a7bc50e2_0309e0ba",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-13T13:52:55Z",
+      "side": 1,
+      "message": "changing name of the sequence checkers is imho better.\n(if e.g. we decide to handle rtcp packets on a different thread, then this class doesn\u0027t need to change, checker wouldn\u0027t need a rename)\n\nclass that \"perfectly fine to call these methods on any thread as long as it\u0027s only one thread at a time.\"\nis called http://go/thread-compatible \nUsually that imply that synchronisation (with a mutex or a thread) is up to the caller class, while class itself doesn\u0027t have any internal checks how exactly it is synchronised.\n\nIf you tried to have attached_ flag and didn\u0027t find it nicer, I trust it is not.\n(though issue of not synchronizing attached_ flag is the same as not synchronysing Detaching thread checker. With current threading model I do not see how it can be expressed nicely)",
+      "parentUuid": "c1ff03ab_e4add82f",
+      "range": {
+        "startLine": 227,
+        "startChar": 21,
+        "endLine": 227,
+        "endChar": 42
+      },
+      "revId": "f48db71da2bd98b8683b7638e87ad4ab70b94bc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "5e476360_5c94ca95",
         "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.cc",
         "patchSetId": 9
@@ -214,6 +262,30 @@
       "side": 1,
       "message": "We\u0027re really only explicitly verifying the current expected behavior.\nIf we want to change to a different threading model, it\u0027d be a good idea to change the checks too, no?",
       "parentUuid": "5e476360_5c94ca95",
+      "range": {
+        "startLine": 482,
+        "startChar": 2,
+        "endLine": 482,
+        "endChar": 72
+      },
+      "revId": "f48db71da2bd98b8683b7638e87ad4ab70b94bc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5655fce_6459bf2e",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-13T13:52:55Z",
+      "side": 1,
+      "message": "I just do not link reverse dependency (ModuleRtpRtcpImpl2 \u0027depends\u0027 on PacketRouter).\nNot that a bit issue for documentation \"dependency\".",
+      "parentUuid": "64d967ed_60f35dc7",
       "range": {
         "startLine": 482,
         "startChar": 2,

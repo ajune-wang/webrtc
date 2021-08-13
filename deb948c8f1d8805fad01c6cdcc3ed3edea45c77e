@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "22d21e14_3d30db6c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-13T13:52:55Z",
+      "side": 1,
+      "message": "I still find threading model for ModuleRtpRtcpImpl2 confusing,\nbut with this change I think it become a bit more clearer.",
+      "revId": "deb948c8f1d8805fad01c6cdcc3ed3edea45c77e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97b1c080_6fffe8f9",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-13T13:52:55Z",
+      "side": 1,
+      "message": "no trailing \u0027_\u0027 for struct members",
+      "range": {
+        "startLine": 274,
+        "startChar": 38,
+        "endLine": 274,
+        "endChar": 39
+      },
+      "revId": "deb948c8f1d8805fad01c6cdcc3ed3edea45c77e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

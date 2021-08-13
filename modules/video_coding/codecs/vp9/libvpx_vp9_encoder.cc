@@ -1669,7 +1669,6 @@ int LibvpxVp9Encoder::RegisterEncodeCompleteCallback(
 
 VideoEncoder::EncoderInfo LibvpxVp9Encoder::GetEncoderInfo() const {
   EncoderInfo info;
-  info.supports_native_handle = false;
   info.implementation_name = "libvpx";
   if (quality_scaler_experiment_.enabled && inited_ &&
       codec_.VP9().automaticResizeOn) {

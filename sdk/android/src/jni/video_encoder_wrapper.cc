@@ -100,7 +100,6 @@ int32_t VideoEncoderWrapper::InitEncodeInternal(JNIEnv* jni) {
 }
 
 void VideoEncoderWrapper::UpdateEncoderInfo(JNIEnv* jni) {
-  encoder_info_.supports_native_handle = true;
   encoder_info_.has_internal_source = false;
 
   encoder_info_.implementation_name = JavaToStdString(

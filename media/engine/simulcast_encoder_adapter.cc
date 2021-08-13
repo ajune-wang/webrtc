@@ -530,10 +530,7 @@ int SimulcastEncoderAdapter::Encode(
     // correctly sample/scale the source texture.
     // TODO(perkj): ensure that works going forward, and figure out how this
     // affects webrtc:5683.
-    if ((layer.width() == src_width && layer.height() == src_height) ||
-        (input_image.video_frame_buffer()->type() ==
-             VideoFrameBuffer::Type::kNative &&
-         layer.encoder().GetEncoderInfo().supports_native_handle)) {
+    if (layer.width() == src_width && layer.height() == src_height) {
       int ret = layer.encoder().Encode(input_image, &stream_frame_types);
       if (ret != WEBRTC_VIDEO_CODEC_OK) {
         return ret;
@@ -825,7 +822,6 @@ VideoEncoder::EncoderInfo SimulcastEncoderAdapter::GetEncoderInfo() const {
   encoder_info.implementation_name = "SimulcastEncoderAdapter";
   encoder_info.requested_resolution_alignment = 1;
   encoder_info.apply_alignment_to_all_simulcast_layers = false;
-  encoder_info.supports_native_handle = true;
   encoder_info.scaling_settings.thresholds = absl::nullopt;
 
   if (stream_contexts_.empty()) {
@@ -869,8 +865,6 @@ VideoEncoder::EncoderInfo SimulcastEncoderAdapter::GetEncoderInfo() const {
       encoder_info.implementation_name += " (";
       encoder_info.implementation_name += encoder_impl_info.implementation_name;
 
-      encoder_info.supports_native_handle =
-          encoder_impl_info.supports_native_handle;
       encoder_info.has_trusted_rate_controller =
           encoder_impl_info.has_trusted_rate_controller;
       encoder_info.is_hardware_accelerated =
@@ -880,10 +874,6 @@ VideoEncoder::EncoderInfo SimulcastEncoderAdapter::GetEncoderInfo() const {
     } else {
       encoder_info.implementation_name += ", ";
       encoder_info.implementation_name += encoder_impl_info.implementation_name;
-
-      // Native handle supported if any encoder supports it.
-      encoder_info.supports_native_handle |=
-          encoder_impl_info.supports_native_handle;
 
       // Trusted rate controller only if all encoders have it.
       encoder_info.has_trusted_rate_controller &=

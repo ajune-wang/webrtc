@@ -1656,10 +1656,7 @@ void VideoStreamEncoder::EncodeVideoFrame(const VideoFrame& video_frame,
   VideoFrame out_frame(video_frame);
   // Crop or scale the frame if needed. Dimension may be reduced to fit encoder
   // requirements, e.g. some encoders may require them to be divisible by 4.
-  if ((crop_width_ > 0 || crop_height_ > 0) &&
-      (out_frame.video_frame_buffer()->type() !=
-           VideoFrameBuffer::Type::kNative ||
-       !info.supports_native_handle)) {
+  if (crop_width_ > 0 || crop_height_ > 0) {
     int cropped_width = video_frame.width() - crop_width_;
     int cropped_height = video_frame.height() - crop_height_;
     rtc::scoped_refptr<VideoFrameBuffer> cropped_buffer;

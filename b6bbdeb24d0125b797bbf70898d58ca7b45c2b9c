@@ -22,6 +22,30 @@
       },
       "revId": "b6bbdeb24d0125b797bbf70898d58ca7b45c2b9c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "066968df_6fb2655b",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1380,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-13T16:24:47Z",
+      "side": 0,
+      "message": "It\u0027s already covered by the previous test cases.\n\nThe test fixture created a sender with non-deferred sequencing by default before this change. These tests just checked the behavior that differed. It got too messy trying to parameterize these test with-and-without deferring...\n\nE.g. SendPadding now covers PlainPaddingWithDeferredSequencing and is updated to sequence packets externally instead.",
+      "parentUuid": "61953973_0febbab4",
+      "range": {
+        "startLine": 1380,
+        "startChar": 34,
+        "endLine": 1380,
+        "endChar": 56
+      },
+      "revId": "b6bbdeb24d0125b797bbf70898d58ca7b45c2b9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

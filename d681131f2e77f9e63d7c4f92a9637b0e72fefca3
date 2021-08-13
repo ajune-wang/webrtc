@@ -34,6 +34,24 @@
       "parentUuid": "6a2e9496_64a6b4dc",
       "revId": "d681131f2e77f9e63d7c4f92a9637b0e72fefca3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37fb7061_9a38816d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-08-13T18:45:42Z",
+      "side": 1,
+      "message": "I decided to conditionally enable this feature when the congestion window has reached a reasonable size, in order to avoid the issue you mentioned when the congestion window is small.\n\nWhen the congestion window is this big, and it\u0027s almost full, it means that there are a lot of SACKs inflight that will soon be received, which reduces the number of outstanding bytes, and resumes transmission soon thereafter. \n\nI initially tried to make it more intelligent, to try to only avoid fragmenting packets that were large and to let small end fragments still be sent, but that was hard. The decision if a new packet should be built has to be taken early, because once e.g. a SACK is added to it, it _must_ be sent, so it\u0027s not enough to evaluate that condition in e.g. the send queue\u0027s Produce method, as it\u0027s invoked too late.\n\nAnd the information has to come from the send queue. \n\nThis should be a quite reasonable alternative.",
+      "parentUuid": "67a19735_0c901ce4",
+      "revId": "d681131f2e77f9e63d7c4f92a9637b0e72fefca3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

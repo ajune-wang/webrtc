@@ -16,6 +16,23 @@
       "message": "other than that lgtm",
       "revId": "cb89d9f5420cca93c295e0e86c3bfb6044d57703",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20426574_6588cfad",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-08-13T13:51:22Z",
+      "side": 1,
+      "message": "This seems basically to be a move of framerate_controller from video_coding/utility into rtc_base. Why is this a Good Thing?\n\nIf this is the right thing to do, can we delete or deprecate the one in video_coding/utility? Having two currently-active nearly-identical framerate controllers seems like a bad idea.\n",
+      "revId": "cb89d9f5420cca93c295e0e86c3bfb6044d57703",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

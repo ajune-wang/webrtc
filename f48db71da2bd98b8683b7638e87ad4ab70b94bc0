@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bd74cfe_88d26ef1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-13T10:02:13Z",
+      "side": 1,
+      "message": "I\u0027m ok with removing the mutex.\n\nbut I find confusing this way of treating thread checker. To me it feels better to just remove the mutex and postpone describing threading until later (e.g. when deferred_sequencing_ would always be true, some code would disappear and thread check would look more natural)",
+      "revId": "f48db71da2bd98b8683b7638e87ad4ab70b94bc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10931e22_bfa104d8",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-13T10:02:13Z",
+      "side": 1,
+      "message": "may be it is better to create pacer_thread_checker_ in the RtpRtcp module initially detached",
+      "range": {
+        "startLine": 454,
+        "startChar": 0,
+        "endLine": 459,
+        "endChar": 3
+      },
+      "revId": "f48db71da2bd98b8683b7638e87ad4ab70b94bc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "976cae51_ae829e67",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-13T10:02:13Z",
+      "side": 1,
+      "message": "why is this needed? \nshouldn\u0027t new (and removed) modules already have thread checker detached?",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 0
+      },
+      "revId": "f48db71da2bd98b8683b7638e87ad4ab70b94bc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed7028a4_2f528c93",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-13T10:02:13Z",
+      "side": 1,
+      "message": "this looks misleading: GetRtpState may be called on construction, not pacer thread.\nmay it would be clearer to have extra boolean \u0027attached_\u0027 (or may be rtp_sender_-\u003epacket_generator.SendingMedia() can be reused)\nand have have here checks like\n  if (attached_) {\n    RTC_DCHECK_RUN_ON(\u0026pacer_thread_checker_);\n  } else {\n    RTC_DCHECK_RUN_ON(\u0026contruction_thread_cheker_);\n  }\n\n  ...::SetAttached(bool value) override {\n    RTC_DCHECK_RUN_ON(\u0026construction_thread_checker_); // is it construction thread?\n    attached_ \u003d value;\n  }\n\n  ...::SequenceNumber() {\n    RTC_DCHECK(attached_);\n    RTC_DCHECK_RUN_ON(\u0026pacer_thread_checker_);\n  }\n\nThough that still leaves a question: can be there a race between detaching module and handling a packet?",
+      "range": {
+        "startLine": 227,
+        "startChar": 21,
+        "endLine": 227,
+        "endChar": 42
+      },
+      "revId": "f48db71da2bd98b8683b7638e87ad4ab70b94bc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e476360_5c94ca95",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-13T10:02:13Z",
+      "side": 1,
+      "message": "so ModuleRtpRtcpImpl2 aware how it is used by PacketRouter.\nThat would make it harder to use with anything else, or even used it differently by PacketRouter",
+      "range": {
+        "startLine": 482,
+        "startChar": 2,
+        "endLine": 482,
+        "endChar": 72
+      },
+      "revId": "f48db71da2bd98b8683b7638e87ad4ab70b94bc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

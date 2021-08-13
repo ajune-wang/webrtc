@@ -107,6 +107,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c53cc53_2fb5ead6",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-13T14:16:22Z",
+      "side": 1,
+      "message": "During construction, SetRtpState() is called, so the thread checker is assigned.\nMy initial idea was to just use PacketRouter.Register... as a point to detach the thread checker, and then on PacketRouter.Remove... we\u0027d detach the thread checker again so that on destruction, GetRtpState() can be called.\n\nThe problem is that for video, the construction happens on the worker queue and the destruction happens on the transport queue. If an RTP module is never set to active, it won\u0027t be registered on the PacketRouter so the thread checker was never detached and we crash on the GetRtpState().\n\nThat\u0027s why I added this extra call to always detach it after construction. Could maybe have piggy backed on the last config-call e.g. SetSendingMedia() or something instead, but that seems more fragile that this explicit call.\n\nI also had a look at changing where we create the RTP modules (would make more sense to me if that was done on the network queue) but that seems non-trivial to accomplish.\n\nDoes that explain it?",
+      "parentUuid": "3498c4b4_07102b42",
+      "range": {
+        "startLine": 454,
+        "startChar": 0,
+        "endLine": 459,
+        "endChar": 3
+      },
+      "revId": "f48db71da2bd98b8683b7638e87ad4ab70b94bc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "976cae51_ae829e67",
@@ -227,6 +251,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "42bc6916_868d8fd6",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-13T14:16:22Z",
+      "side": 1,
+      "message": "Right, the sequencing will be thread compatible when deferred.\nThere\u0027s plenty more shared mutable state here in the RTP code though so the whole of TrySendPacket() is not yet that...",
+      "parentUuid": "a7bc50e2_0309e0ba",
+      "range": {
+        "startLine": 227,
+        "startChar": 21,
+        "endLine": 227,
+        "endChar": 42
+      },
+      "revId": "f48db71da2bd98b8683b7638e87ad4ab70b94bc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "5e476360_5c94ca95",
         "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.cc",
         "patchSetId": 9
@@ -286,6 +334,30 @@
       "side": 1,
       "message": "I just do not link reverse dependency (ModuleRtpRtcpImpl2 \u0027depends\u0027 on PacketRouter).\nNot that a bit issue for documentation \"dependency\".",
       "parentUuid": "64d967ed_60f35dc7",
+      "range": {
+        "startLine": 482,
+        "startChar": 2,
+        "endLine": 482,
+        "endChar": 72
+      },
+      "revId": "f48db71da2bd98b8683b7638e87ad4ab70b94bc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05664ff8_80fd95af",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-13T14:16:22Z",
+      "side": 1,
+      "message": "Ah, yes that\u0027s true.",
+      "parentUuid": "c5655fce_6459bf2e",
       "range": {
         "startLine": 482,
         "startChar": 2,

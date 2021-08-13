@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f9e7d16_5d9cb53b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-13T12:37:29Z",
+      "side": 1,
+      "message": "The threading is the same with or without deferred sequencing. I\u0027ll move the DCHECK up one level where I had it in an if (deferred_sequencing_) since that was misleading.\n\nI\u0027m sort of hesitant to remove the lock without adding other safety barriers.",
+      "parentUuid": "1bd74cfe_88d26ef1",
+      "revId": "f48db71da2bd98b8683b7638e87ad4ab70b94bc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "10931e22_bfa104d8",
@@ -31,6 +49,30 @@
       "writtenOn": "2021-08-13T10:02:13Z",
       "side": 1,
       "message": "may be it is better to create pacer_thread_checker_ in the RtpRtcp module initially detached",
+      "range": {
+        "startLine": 454,
+        "startChar": 0,
+        "endLine": 459,
+        "endChar": 3
+      },
+      "revId": "f48db71da2bd98b8683b7638e87ad4ab70b94bc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f4ea008_c8b22e91",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-13T12:37:29Z",
+      "side": 1,
+      "message": "The problem I faced was that if modules were never attached then we\u0027d crash because construction happens on the worker queue by destruction happens on the transport queue... :/\nI\u0027ll update the comment.",
+      "parentUuid": "10931e22_bfa104d8",
       "range": {
         "startLine": 454,
         "startChar": 0,
@@ -64,6 +106,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "398ac1c8_4e6deaf6",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-13T12:37:29Z",
+      "side": 1,
+      "message": "Not for audio at the moment (it doesn\u0027t have the same construction/destruction thread issue as video). It could fix that, or I\u0027ll add the is_attached flag back.",
+      "parentUuid": "976cae51_ae829e67",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 0
+      },
+      "revId": "f48db71da2bd98b8683b7638e87ad4ab70b94bc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ed7028a4_2f528c93",
@@ -87,6 +153,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1ff03ab_e4add82f",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-13T12:37:29Z",
+      "side": 1,
+      "message": "I thought about this but decided against it:\n* guarding updates to attached_ would be tricky\n* the race that was fixed wouldn\u0027t necessarily be caught: packet sending happened on the pacer thread and GetState() on the transport thread - but we also need to guarantee that only one of the threads \"owns\" the state at a time.\n\nMay be clearer if we change the name of the thread checker to not mention a thread name but instead what is intended to be accesses on it. Eg. packet_state_thread_checker_\n\nI had an attached_ flag in an earlier code base but found that it didn\u0027t really add much value. It would be perfectly fine to call these methods on any thread (can be same for TrySendPacket() and GetRtpState() or two different ones) - as long as it\u0027s only one thread at a time.\nThe only extra we would get is that e.g. TrySendPacket() is only called while not attached to a packet sender (pacer or NonPacedPacketSender)",
+      "parentUuid": "ed7028a4_2f528c93",
+      "range": {
+        "startLine": 227,
+        "startChar": 21,
+        "endLine": 227,
+        "endChar": 42
+      },
+      "revId": "f48db71da2bd98b8683b7638e87ad4ab70b94bc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "5e476360_5c94ca95",
@@ -100,6 +190,30 @@
       "writtenOn": "2021-08-13T10:02:13Z",
       "side": 1,
       "message": "so ModuleRtpRtcpImpl2 aware how it is used by PacketRouter.\nThat would make it harder to use with anything else, or even used it differently by PacketRouter",
+      "range": {
+        "startLine": 482,
+        "startChar": 2,
+        "endLine": 482,
+        "endChar": 72
+      },
+      "revId": "f48db71da2bd98b8683b7638e87ad4ab70b94bc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64d967ed_60f35dc7",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-13T12:37:29Z",
+      "side": 1,
+      "message": "We\u0027re really only explicitly verifying the current expected behavior.\nIf we want to change to a different threading model, it\u0027d be a good idea to change the checks too, no?",
+      "parentUuid": "5e476360_5c94ca95",
       "range": {
         "startLine": 482,
         "startChar": 2,

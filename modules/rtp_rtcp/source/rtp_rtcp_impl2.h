@@ -261,20 +261,12 @@ class ModuleRtpRtcpImpl2 final : public RtpRtcpInterface,
   FRIEND_TEST_ALL_PREFIXES(RtpRtcpImpl2Test, Rtt);
   FRIEND_TEST_ALL_PREFIXES(RtpRtcpImpl2Test, RttForReceiverOnly);
 
-  struct RtpSenderContext : public SequenceNumberAssigner {
+  struct RtpSenderContext {
     explicit RtpSenderContext(const RtpRtcpInterface::Configuration& config);
-    void AssignSequenceNumber(RtpPacketToSend* packet) override;
     // Storage of packets, for retransmissions and padding, if applicable.
     RtpPacketHistory packet_history;
-    // If false, sequencing is owned by `packet_generator` and can happen on
-    // several threads. If true, sequencing always happens on the pacer thread.
-    const bool deferred_sequencing_;
-    // TODO(bugs.webrtc.org/11340): Remove lock one we can guarantee that
-    // setting/getting rtp state only happens after removal from packet sending
-    // code path.
-    mutable Mutex mutex_sequencer_;
     // Handles sequence number assignment and padding timestamp generation.
-    PacketSequencer sequencer_ RTC_GUARDED_BY(mutex_sequencer_);
+    PacketSequencer sequencer_;
     // Handles final time timestamping/stats/etc and handover to Transport.
     RtpSenderEgress packet_sender;
     // If no paced sender configured, this class will be used to pass packets

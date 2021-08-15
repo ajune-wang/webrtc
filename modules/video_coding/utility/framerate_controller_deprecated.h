@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_VIDEO_CODING_UTILITY_FRAMERATE_CONTROLLER_H_
-#define MODULES_VIDEO_CODING_UTILITY_FRAMERATE_CONTROLLER_H_
+#ifndef MODULES_VIDEO_CODING_UTILITY_FRAMERATE_CONTROLLER_DEPRECATED_H_
+#define MODULES_VIDEO_CODING_UTILITY_FRAMERATE_CONTROLLER_DEPRECATED_H_
 
 #include <stdint.h>
 
@@ -18,9 +18,9 @@
 
 namespace webrtc {
 
-class FramerateController {
+class FramerateControllerDeprecated {
  public:
-  explicit FramerateController(float target_framerate_fps);
+  explicit FramerateControllerDeprecated(float target_framerate_fps);
 
   void SetTargetRate(float target_framerate_fps);
   float GetTargetRate();
@@ -43,4 +43,4 @@ class FramerateController {
 
 }  // namespace webrtc
 
-#endif  // MODULES_VIDEO_CODING_UTILITY_FRAMERATE_CONTROLLER_H_
+#endif  // MODULES_VIDEO_CODING_UTILITY_FRAMERATE_CONTROLLER_DEPRECATED_H_

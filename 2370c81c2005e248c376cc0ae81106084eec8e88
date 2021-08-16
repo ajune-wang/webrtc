@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5303307c_44cdc848",
+        "filename": "net/dcsctp/public/dcsctp_socket.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-08-16T07:19:26Z",
+      "side": 1,
+      "message": "nit: This could have TODO(bugs.webrtc.org/12943) item pointing to the bug.",
+      "range": {
+        "startLine": 221,
+        "startChar": 4,
+        "endLine": 221,
+        "endChar": 65
+      },
+      "revId": "2370c81c2005e248c376cc0ae81106084eec8e88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -243,6 +243,7 @@ VideoStreamEncoderResourceManager::VideoStreamEncoderResourceManager(
           EncodeUsageResource::Create(std::move(overuse_detector))),
       quality_scaler_resource_(QualityScalerResource::Create()),
       pixel_limit_resource_(nullptr),
+      bandwidth_scaler_resource_(BandwidthScalerResource::Create()),
       encoder_queue_(nullptr),
       input_state_provider_(input_state_provider),
       adaptation_processor_(nullptr),
@@ -275,6 +276,7 @@ void VideoStreamEncoderResourceManager::Initialize(
   encoder_queue_ = encoder_queue;
   encode_usage_resource_->RegisterEncoderTaskQueue(encoder_queue_->Get());
   quality_scaler_resource_->RegisterEncoderTaskQueue(encoder_queue_->Get());
+  bandwidth_scaler_resource_->RegisterEncoderTaskQueue(encoder_queue_->Get());
 }
 
 void VideoStreamEncoderResourceManager::SetAdaptationProcessor(
@@ -453,7 +455,8 @@ void VideoStreamEncoderResourceManager::OnEncodeStarted(
 void VideoStreamEncoderResourceManager::OnEncodeCompleted(
     const EncodedImage& encoded_image,
     int64_t time_sent_in_us,
-    absl::optional<int> encode_duration_us) {
+    absl::optional<int> encode_duration_us,
+    DataSize frame_size) {
   RTC_DCHECK_RUN_ON(encoder_queue_);
   // Inform `encode_usage_resource_` of the encode completed event.
   uint32_t timestamp = encoded_image.Timestamp();
@@ -462,6 +465,8 @@ void VideoStreamEncoderResourceManager::OnEncodeCompleted(
   encode_usage_resource_->OnEncodeCompleted(
       timestamp, time_sent_in_us, capture_time_us, encode_duration_us);
   quality_scaler_resource_->OnEncodeCompleted(encoded_image, time_sent_in_us);
+  bandwidth_scaler_resource_->OnEncodeCompleted(encoded_image, time_sent_in_us,
+                                                frame_size.bytes());
 }
 
 void VideoStreamEncoderResourceManager::OnFrameDropped(
@@ -519,6 +524,26 @@ void VideoStreamEncoderResourceManager::UpdateQualityScalerSettings(
   initial_frame_dropper_->OnQualityScalerSettingsUpdated();
 }
 
+void VideoStreamEncoderResourceManager::UpdateBandwidthScalerSettings(
+    bool allow_bandwidth_start_check) {
+  RTC_DCHECK_RUN_ON(encoder_queue_);
+
+  if (!allow_bandwidth_start_check) {
+    if (bandwidth_scaler_resource_->is_started()) {
+      bandwidth_scaler_resource_->StopCheckForOveruse();
+      RemoveResource(bandwidth_scaler_resource_);
+    }
+  } else {
+    if (!bandwidth_scaler_resource_->is_started()) {
+      // Before execute "StartCheckForOveruse",we must execute "AddResource"
+      // firstly,because it can make the listener valid.
+      AddResource(bandwidth_scaler_resource_,
+                  webrtc::VideoAdaptationReason::kQuality);
+      bandwidth_scaler_resource_->StartCheckForOveruse();
+    }
+  }
+}
+
 void VideoStreamEncoderResourceManager::ConfigureQualityScaler(
     const VideoEncoder::EncoderInfo& encoder_info) {
   RTC_DCHECK_RUN_ON(encoder_queue_);
@@ -562,6 +587,16 @@ void VideoStreamEncoderResourceManager::ConfigureQualityScaler(
     }
   }
   UpdateStatsAdaptationSettings();
+}
+
+void VideoStreamEncoderResourceManager::ConfigureBandWidthScaler(
+    const VideoEncoder::EncoderInfo& encoder_info) {
+  RTC_DCHECK_RUN_ON(encoder_queue_);
+  const bool bandwidth_scaling_allowed =
+      !(!encoder_info.is_qp_trusted.has_value() ||
+        encoder_info.is_qp_trusted.value());
+
+  UpdateBandwidthScalerSettings(bandwidth_scaling_allowed);
 }
 
 VideoAdaptationReason VideoStreamEncoderResourceManager::GetReasonFromResource(

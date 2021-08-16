@@ -783,6 +783,8 @@ void VideoStreamEncoder::SetSource(
     if (encoder_) {
       stream_resource_manager_.ConfigureQualityScaler(
           encoder_->GetEncoderInfo());
+      stream_resource_manager_.ConfigureBandWidthScaler(
+          encoder_->GetEncoderInfo());
     }
   });
 }
@@ -1217,6 +1219,7 @@ void VideoStreamEncoder::ReconfigureEncoder() {
       encoder_config_.min_transmit_bitrate_bps);
 
   stream_resource_manager_.ConfigureQualityScaler(info);
+  stream_resource_manager_.ConfigureBandWidthScaler(info);
 }
 
 void VideoStreamEncoder::OnEncoderSettingsChanged() {
@@ -2159,7 +2162,7 @@ void VideoStreamEncoder::RunPostEncode(const EncodedImage& encoded_image,
   }
 
   stream_resource_manager_.OnEncodeCompleted(encoded_image, time_sent_us,
-                                             encode_duration_us);
+                                             encode_duration_us, frame_size);
   if (bitrate_adjuster_) {
     bitrate_adjuster_->OnEncodedFrame(
         frame_size, encoded_image.SpatialIndex().value_or(0), temporal_index);

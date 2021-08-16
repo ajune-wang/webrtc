@@ -313,8 +313,8 @@ VideoStatistics VideoCodecTestStatsImpl::SliceAndCalcVideoStatistic(
   video_stat.temporal_idx = temporal_idx;
 
   RTC_CHECK_GT(duration_sec, 0);
-  video_stat.bitrate_kbps =
-      static_cast<size_t>(8 * video_stat.length_bytes / 1000 / duration_sec);
+  const float bitrate_kbps = 8 * video_stat.length_bytes / 1000 / duration_sec;
+  video_stat.bitrate_kbps = static_cast<size_t>(bitrate_kbps);
   video_stat.framerate_fps = video_stat.num_encoded_frames / duration_sec;
 
   // http://bugs.webrtc.org/10400: On Windows, we only get millisecond
@@ -339,6 +339,12 @@ VideoStatistics VideoCodecTestStatsImpl::SliceAndCalcVideoStatistic(
   video_stat.avg_delay_sec = buffer_level_sec.GetMean().value_or(0);
   video_stat.max_key_frame_delay_sec = MaxDelaySec(key_frame_size_bytes);
   video_stat.max_delta_frame_delay_sec = MaxDelaySec(key_frame_size_bytes);
+
+  video_stat.avg_bitrate_mismatch_pct =
+      100 * (bitrate_kbps - target_bitrate_kbps) / target_bitrate_kbps;
+  video_stat.avg_framerate_mismatch_pct =
+      100 * (video_stat.framerate_fps - input_framerate_fps) /
+      input_framerate_fps;
 
   video_stat.avg_key_frame_size_bytes =
       key_frame_size_bytes.GetMean().value_or(0);

@@ -16,6 +16,23 @@
       "message": "LGTM. Please submit for review.",
       "revId": "9b61faac9b67786d5bf5c6b04145deb25b7be89c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dacc609d_cdc5a9bb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-08-16T06:41:35Z",
+      "side": 1,
+      "message": "This commit adds a bandwidth-based scaler when Qp-based scaler for AVC is not present.",
+      "revId": "9b61faac9b67786d5bf5c6b04145deb25b7be89c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

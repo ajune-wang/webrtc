@@ -43,6 +43,7 @@
 #include "rtc_base/thread_annotations.h"
 #include "system_wrappers/include/clock.h"
 #include "video/adaptation/balanced_constraint.h"
+#include "video/adaptation/bandwidth_scaler_resource.h"
 #include "video/adaptation/bitrate_constraint.h"
 #include "video/adaptation/encode_usage_resource.h"
 #include "video/adaptation/overuse_frame_detector.h"
@@ -109,6 +110,7 @@ class VideoStreamEncoderResourceManager
   // TODO(https://crbug.com/webrtc/11338): This can be made private if we
   // configure on SetDegredationPreference and SetEncoderSettings.
   void ConfigureQualityScaler(const VideoEncoder::EncoderInfo& encoder_info);
+  void ConfigureBandWidthScaler(const VideoEncoder::EncoderInfo& encoder_info);
 
   // Methods corresponding to different points in the encoding pipeline.
   void OnFrameDroppedDueToSize();
@@ -117,7 +119,8 @@ class VideoStreamEncoderResourceManager
                        int64_t time_when_first_seen_us);
   void OnEncodeCompleted(const EncodedImage& encoded_image,
                          int64_t time_sent_in_us,
-                         absl::optional<int> encode_duration_us);
+                         absl::optional<int> encode_duration_us,
+                         DataSize frame_size);
   void OnFrameDropped(EncodedImageCallback::DropReason reason);
 
   // Resources need to be mapped to an AdaptReason (kCpu or kQuality) in order
@@ -166,6 +169,8 @@ class VideoStreamEncoderResourceManager
   void UpdateQualityScalerSettings(
       absl::optional<VideoEncoder::QpThresholds> qp_thresholds);
 
+  void UpdateBandwidthScalerSettings(bool allow_bandwidth_start_check);
+
   void UpdateStatsAdaptationSettings() const;
 
   static std::string ActiveCountsToString(
@@ -180,6 +185,7 @@ class VideoStreamEncoderResourceManager
   const rtc::scoped_refptr<EncodeUsageResource> encode_usage_resource_;
   const rtc::scoped_refptr<QualityScalerResource> quality_scaler_resource_;
   rtc::scoped_refptr<PixelLimitResource> pixel_limit_resource_;
+  const rtc::scoped_refptr<BandwidthScalerResource> bandwidth_scaler_resource_;
 
   rtc::TaskQueue* encoder_queue_;
   VideoStreamInputStateProvider* const input_state_provider_

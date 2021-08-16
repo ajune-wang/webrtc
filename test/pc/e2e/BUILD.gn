@@ -657,19 +657,29 @@ if (!build_with_chromium) {
     sources = [
       "analyzer/video/default_video_quality_analyzer_cpu_measurer.cc",
       "analyzer/video/default_video_quality_analyzer_cpu_measurer.h",
+      "analyzer/video/default_video_quality_analyzer_frames_comparator.cc",
+      "analyzer/video/default_video_quality_analyzer_frames_comparator.h",
       "analyzer/video/default_video_quality_analyzer_internal_shared_objects.cc",
       "analyzer/video/default_video_quality_analyzer_internal_shared_objects.h",
     ]
 
     deps = [
       ":default_video_quality_analyzer_shared",
+      "../../../api:array_view",
+      "../../../api:scoped_refptr",
       "../../../api/numerics:numerics",
       "../../../api/units:timestamp",
       "../../../api/video:video_frame",
+      "../../../common_video",
+      "../../../rtc_base:checks",
+      "../../../rtc_base:rtc_base_approved",
       "../../../rtc_base:rtc_base_tests_utils",
+      "../../../rtc_base:rtc_event",
       "../../../rtc_base:stringutils",
       "../../../rtc_base:timeutils",
       "../../../rtc_base/synchronization:mutex",
+      "../../../rtc_tools:video_quality_analysis",
+      "../../../system_wrappers:system_wrappers",
     ]
     absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
   }

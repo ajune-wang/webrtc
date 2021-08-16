@@ -33,6 +33,29 @@
       "message": "Adding peah@ for owners approval.",
       "revId": "ec4b484e0bbf88387bbac874f4e61cc5a9b9450b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "129d5990_3c4965be",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-08-16T06:52:10Z",
+      "side": 1,
+      "message": "Nit:\nThis is a double negation which is tricky to read.\n\nIdeally it would be nice to have this as \n\"audio_red_for_opus_enabled_(\n          IsEnabled(trials, \"WebRTC-Audio-Red-For-Opus\")),\"\n          \nbut I see from the other code that that too is written in this way so it is probably good to keep it like this in this CL.\n\nHowever, if there is some nice way the double negation can be avoided that would be good I think.",
+      "range": {
+        "startLine": 313,
+        "startChar": 10,
+        "endLine": 313,
+        "endChar": 22
+      },
+      "revId": "ec4b484e0bbf88387bbac874f4e61cc5a9b9450b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

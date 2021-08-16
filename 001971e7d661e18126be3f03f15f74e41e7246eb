@@ -16,6 +16,23 @@
       "message": "Don\u0027t have any code review rights in this repo, just one question.",
       "revId": "001971e7d661e18126be3f03f15f74e41e7246eb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fec93169_4b587cb8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-08-16T06:31:38Z",
+      "side": 1,
+      "message": "Tommi, can you please give this second +1 since Mark doesn\u0027t have permissions to submit this to CQ? I would like to have this landed so I can rebase my other PR. Thank you.",
+      "revId": "001971e7d661e18126be3f03f15f74e41e7246eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

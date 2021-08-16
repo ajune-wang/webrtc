@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "447c9193_b61b6939",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-08-16T21:20:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cc093133_f5f39ffb",
+      "range": {
+        "startLine": 50,
+        "startChar": 46,
+        "endLine": 50,
+        "endChar": 54
+      },
+      "revId": "ec30be29d654b6e16751578851f838d6e0a511f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "932e2916_5215f278",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-08-14T16:34:36Z",
       "side": 1,
       "message": "Should we have an early return if state_ \u003d\u003d State::kActive (double Start)?",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 3
+      },
+      "revId": "ec30be29d654b6e16751578851f838d6e0a511f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af6d5a06_b5c9ede1",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_frames_comparator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-08-16T21:20:20Z",
+      "side": 1,
+      "message": "I decided to enforce single Start invocation per instance.",
+      "parentUuid": "932e2916_5215f278",
       "range": {
         "startLine": 48,
         "startChar": 0,
@@ -64,6 +112,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0551450_f2a1a972",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_frames_comparator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-08-16T21:20:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a7e4828_9c993cdb",
+      "revId": "ec30be29d654b6e16751578851f838d6e0a511f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "93e55063_a955b027",
@@ -77,6 +143,30 @@
       "writtenOn": "2021-08-14T16:34:36Z",
       "side": 1,
       "message": "\"humans perceive\"",
+      "range": {
+        "startLine": 38,
+        "startChar": 46,
+        "endLine": 38,
+        "endChar": 54
+      },
+      "revId": "ec30be29d654b6e16751578851f838d6e0a511f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4a926f3_0a45940f",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_frames_comparator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-08-16T21:20:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93e55063_a955b027",
       "range": {
         "startLine": 38,
         "startChar": 46,
@@ -104,6 +194,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c4cc676_36c3e049",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_frames_comparator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-08-16T21:20:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "871d1beb_e1c16c48",
+      "revId": "ec30be29d654b6e16751578851f838d6e0a511f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4928f01e_45952571",
@@ -117,6 +225,24 @@
       "writtenOn": "2021-08-14T16:34:36Z",
       "side": 1,
       "message": "I see this comes from DVQA so if it is working fine it might not be a problem but shouldn\u0027t we check the state is kActive every time we touch internal state?\n\nFor example, what happens if the comparator is stopped and we add a comparison? It will not be processed because process threads are stopped but we still change some state. Is that fine?",
+      "revId": "ec30be29d654b6e16751578851f838d6e0a511f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff7ce81c_532e0544",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_frames_comparator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-08-16T21:20:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4928f01e_45952571",
       "revId": "ec30be29d654b6e16751578851f838d6e0a511f8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

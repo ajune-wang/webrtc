@@ -22,6 +22,8 @@
 #include "api/sequence_checker.h"
 #include "api/task_queue/queued_task.h"
 #include "api/task_queue/task_queue_base.h"
+#include "api/units/time_delta.h"
+#include "api/units/timestamp.h"
 #include "api/video/encoded_image.h"
 #include "api/video/i420_buffer.h"
 #include "api/video/video_adaptation_reason.h"
@@ -44,6 +46,7 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/strings/string_builder.h"
 #include "rtc_base/system/no_unique_address.h"
+#include "rtc_base/task_utils/to_queued_task.h"
 #include "rtc_base/thread_annotations.h"
 #include "rtc_base/trace_event.h"
 #include "system_wrappers/include/field_trial.h"
@@ -557,6 +560,11 @@ class VideoStreamEncoder::DegradationPreferenceManager
     MaybeUpdateEffectiveDegradationPreference();
   }
 
+  bool IsScreenshare() const {
+    RTC_DCHECK_RUN_ON(&sequence_checker_);
+    return is_screenshare_;
+  }
+
  private:
   void MaybeUpdateEffectiveDegradationPreference()
       RTC_RUN_ON(&sequence_checker_) {
@@ -812,6 +820,8 @@ void VideoStreamEncoder::SetStartBitrate(int start_bitrate_bps) {
 
 void VideoStreamEncoder::ConfigureEncoder(VideoEncoderConfig config,
                                           size_t max_data_payload_length) {
+  is_screenshare_ =
+      config.content_type == VideoEncoderConfig::ContentType::kScreen;
   encoder_queue_.PostTask(
       [this, config = std::move(config), max_data_payload_length]() mutable {
         RTC_DCHECK_RUN_ON(&encoder_queue_);
@@ -1232,7 +1242,103 @@ void VideoStreamEncoder::OnEncoderSettingsChanged() {
 }
 
 void VideoStreamEncoder::OnFrame(const VideoFrame& video_frame) {
+  if (!is_screenshare_) {
+    RTC_DCHECK_RUNS_SERIALIZED(&incoming_frame_race_checker_);
+    ProcessReceivedFrame(video_frame);
+    return;
+  }
+  main_queue_->PostTask(ToQueuedTask(task_safety_, [this, video_frame] {
+    RTC_DCHECK_RUN_ON(main_queue_);
+    RTC_LOG(LS_ERROR) << __func__ << " this " << this
+                      << " ss onframe FRAME_DELAY " << FRAME_DELAY.ms();
+    received_frames_.push_back(
+        QueuedVideoFrame{video_frame, clock_->CurrentTime()});
+    repeated_frame_count_ = 0;
+    main_queue_->PostDelayedTask(ToQueuedTask(task_safety_,
+                                              [this] {
+                                                RTC_DCHECK_RUN_ON(main_queue_);
+                                                ProcessOnDelayedCadence();
+                                              }),
+                                 FRAME_DELAY.ms());
+  }));
+}
+
+// RTC_RUN_ON(main_queue_)
+void VideoStreamEncoder::ProcessOnDelayedCadence() {
   RTC_DCHECK_RUNS_SERIALIZED(&incoming_frame_race_checker_);
+  Timestamp now = clock_->CurrentTime();
+
+  RTC_DCHECK(!received_frames_.empty());
+  auto sz = received_frames_.size();
+  QueuedVideoFrame oldest_video_frame = std::move(received_frames_.front());
+  received_frames_.pop_front();
+  RTC_LOG(LS_ERROR) << __func__ << " this " << this << " sz " << sz
+                    << " oldest is_repeated " << oldest_video_frame.is_repeated
+                    << " NTP time " << oldest_video_frame.frame.ntp_time_ms();
+
+  // If there were two or more frames stored, it means we
+  // now have a duration and we may send off the oldest
+  // frame for encode.
+  if (!received_frames_.empty()) {
+    RTC_LOG(LS_ERROR) << __func__ << " this " << this
+                      << " sending frame (2 or more in q)";
+    return ProcessReceivedFrame(oldest_video_frame.frame);
+  }
+
+  // There's only one frame stored, which means the source hasn't delivered new
+  // stuff to us. Schedule a synthetic wakeup if:
+  // - the dequeued frame is an original, or
+  // - the dequeued frame is a repeated frame, and the QP hasn't yet converged.
+  //
+  // Otherwise halt the process here.
+  // HACKHACK
+  repeated_frame_count_++;
+  const bool qp_has_converged = repeated_frame_count_ > 5;
+  const bool do_wakeup_again =
+      !oldest_video_frame.is_repeated || !qp_has_converged;
+
+  RTC_LOG(LS_ERROR) << __func__ << " this " << this
+                    << " sending frame (q empty) converged " << qp_has_converged
+                    << " wake again " << do_wakeup_again;
+  ProcessReceivedFrame(oldest_video_frame.frame);
+
+  // Dropping out here causes the receivers to send KF requests at 1/3 Hz.
+  // if (!do_wakeup_again) {
+  //   RTC_LOG(LS_ERROR) << __func__ << " this " << this << " stopping repeating";
+  //   return;
+  // }
+
+  // Re-insert the dequeued frame.
+  // Adjust capture NTP time to avoid dropping it.
+  if (oldest_video_frame.is_repeated) {
+    oldest_video_frame.frame.set_ntp_time_ms(
+        GetVideoFrameCaptureTimeMs(oldest_video_frame.frame, now) +
+        /* REPLACE BY MAX_FPS */ 1000 / 30);
+  }
+  RTC_LOG(LS_ERROR) << __func__ << " this " << this
+                    << " queueing frame with capture timestamp "
+                    << GetVideoFrameCaptureTimeMs(oldest_video_frame.frame,
+                                                  now);
+  received_frames_.push_back(QueuedVideoFrame{
+      std::move(oldest_video_frame.frame),
+      now,
+      /*is_repeated=*/true});
+
+  main_queue_->PostDelayedTask(
+      ToQueuedTask(task_safety_,
+                   [this] {
+                     RTC_DCHECK_RUN_ON(main_queue_);
+                     ProcessOnDelayedCadence();
+                   }),
+      do_wakeup_again
+          ? /* REPLACE BY MAX_FPS */ 1000 / 30
+          : /* to ensure receivers dont spam us with KF requests */ 1000 * 5 /
+                2);
+}
+
+// RTC_RUN_ON(incoming_frame_race_checker_)
+void VideoStreamEncoder::ProcessReceivedFrame(const VideoFrame& video_frame) {
+  last_processed_video_frame_ = video_frame;
   VideoFrame incoming_frame = video_frame;
 
   // Local time in webrtc time base.
@@ -1246,14 +1352,7 @@ void VideoStreamEncoder::OnFrame(const VideoFrame& video_frame) {
     incoming_frame.set_timestamp_us(now.us());
 
   // Capture time may come from clock with an offset and drift from clock_.
-  int64_t capture_ntp_time_ms;
-  if (video_frame.ntp_time_ms() > 0) {
-    capture_ntp_time_ms = video_frame.ntp_time_ms();
-  } else if (video_frame.render_time_ms() != 0) {
-    capture_ntp_time_ms = video_frame.render_time_ms() + delta_ntp_internal_ms_;
-  } else {
-    capture_ntp_time_ms = now.ms() + delta_ntp_internal_ms_;
-  }
+  int64_t capture_ntp_time_ms = GetVideoFrameCaptureTimeMs(video_frame, now);
   incoming_frame.set_ntp_time_ms(capture_ntp_time_ms);
 
   // Convert NTP time, in ms, to RTP timestamp.
@@ -1405,13 +1504,15 @@ VideoStreamEncoder::UpdateBitrateAllocation(
 }
 
 uint32_t VideoStreamEncoder::GetInputFramerateFps() {
-  const uint32_t default_fps = max_framerate_ != -1 ? max_framerate_ : 30;
+  // const uint32_t default_fps = max_framerate_ != -1 ? max_framerate_ : 30;
   absl::optional<uint32_t> input_fps =
       input_framerate_.Rate(clock_->TimeInMilliseconds());
   if (!input_fps || *input_fps == 0) {
-    return default_fps;
+    return 30;
+    // return default_fps;
   }
-  return *input_fps;
+  return 30;
+  // return *input_fps;
 }
 
 void VideoStreamEncoder::SetEncoderRates(
@@ -1805,6 +1906,61 @@ void VideoStreamEncoder::SendKeyFrame() {
       std::fill(next_frame_types_.begin(), next_frame_types_.end(),
                 VideoFrameType::kVideoFrameDelta);
     }
+  }
+
+  // If we're screensharing and there are no queued frames, send off the last
+  // processed frame again.
+  if (is_screenshare_) {
+    main_queue_->PostTask(ToQueuedTask(task_safety_, [this] {
+      RTC_DCHECK_RUN_ON(main_queue_);
+      RTC_DCHECK_RUNS_SERIALIZED(&incoming_frame_race_checker_);
+      RTC_LOG(LS_ERROR) << __func__ << " requesting new keyframe";
+      if (received_frames_.empty() && !last_processed_video_frame_) {
+          // TODO: request refresh frame and let the process continue from
+          // reception of it
+          RTC_LOG(LS_ERROR) << __func__ << " (pretend) request refresh frame";
+          return;
+      }
+      
+      if (received_frames_.empty()) {
+        if (last_processed_video_frame_) {
+          VideoFrame frame = *last_processed_video_frame_;
+          // TODO: fix the timestamps for real.
+          auto cap_timestamp = GetVideoFrameCaptureTimeMs(frame, clock_->CurrentTime());
+          auto ren_timestamp = frame.render_time_ms();
+          RTC_LOG(LS_ERROR)
+              << __func__ << " this " << this << " NTP timestamp "
+              << frame.ntp_time_ms() << " cap timestamp " << cap_timestamp
+              << " ren_timestamp " << ren_timestamp;
+
+          frame.set_ntp_time_ms(0);
+          frame.set_timestamp_us(0);
+          frame.set_ntp_time_ms(
+              GetVideoFrameCaptureTimeMs(frame, clock_->CurrentTime()));
+          received_frames_.push_back(QueuedVideoFrame{
+              frame, clock_->CurrentTime(), /*is_repeated=*/true});
+          ProcessOnDelayedCadence();
+        } else {
+          // TODO: request refresh frame and let the process continue from
+          // reception of it
+          return;
+        }
+      } else {
+        // Dupe the last frame and trigger an encode.
+        auto frame = received_frames_.front().frame;
+          frame.set_ntp_time_ms(0);
+          frame.set_timestamp_us(0);
+          frame.set_ntp_time_ms(
+              GetVideoFrameCaptureTimeMs(frame, clock_->CurrentTime()));
+          received_frames_.push_front(QueuedVideoFrame{
+              frame, clock_->CurrentTime(), /*is_repeated=*/true});
+      }
+        // This is currently incorrect as ProcessOnDelayedCadence() tries to
+        // process anythin in queue, but with the new 1/2.5 Hz minimum rate
+        // it'll take a while otherwise.
+        // ProcessOnDelayedCadence();
+      }
+    }));
   }
 }
 

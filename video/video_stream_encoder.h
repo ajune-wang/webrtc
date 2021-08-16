@@ -12,15 +12,21 @@
 #define VIDEO_VIDEO_STREAM_ENCODER_H_
 
 #include <atomic>
+#include <cstdint>
+#include <deque>
 #include <map>
 #include <memory>
 #include <string>
 #include <vector>
 
+#include "absl/types/optional.h"
 #include "api/adaptation/resource.h"
 #include "api/sequence_checker.h"
 #include "api/units/data_rate.h"
+#include "api/units/time_delta.h"
+#include "api/units/timestamp.h"
 #include "api/video/video_bitrate_allocator.h"
+#include "api/video/video_frame.h"
 #include "api/video/video_rotation.h"
 #include "api/video/video_sink_interface.h"
 #include "api/video/video_stream_encoder_interface.h"
@@ -42,6 +48,7 @@
 #include "rtc_base/task_queue.h"
 #include "rtc_base/task_utils/pending_task_safety_flag.h"
 #include "rtc_base/thread_annotations.h"
+#include "rtc_base/time_utils.h"
 #include "system_wrappers/include/clock.h"
 #include "video/adaptation/video_stream_encoder_resource_manager.h"
 #include "video/encoder_bitrate_adjuster.h"
@@ -175,6 +182,8 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
 
   // Implements VideoSinkInterface.
   void OnFrame(const VideoFrame& video_frame) override;
+  void ProcessReceivedFrame(const VideoFrame& video_frame)
+      RTC_RUN_ON(incoming_frame_race_checker_);
   void OnDiscardedFrame() override;
 
   void MaybeEncodeVideoFrame(const VideoFrame& frame,
@@ -408,6 +417,37 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   // provided by encoder.
   QpParser qp_parser_;
   const bool qp_parsing_allowed_;
+
+  // Delay queue.
+  void ProcessOnDelayedCadence() RTC_RUN_ON(main_queue_);
+  int64_t GetVideoFrameCaptureTimeMs(const VideoFrame& video_frame,
+                                     Timestamp now)
+      RTC_RUN_ON(incoming_frame_race_checker_) {
+    int64_t capture_ntp_time_ms;
+    if (video_frame.ntp_time_ms() > 0) {
+      capture_ntp_time_ms = video_frame.ntp_time_ms();
+    } else if (video_frame.render_time_ms() != 0) {
+      capture_ntp_time_ms =
+          video_frame.render_time_ms() + delta_ntp_internal_ms_;
+    } else {
+      capture_ntp_time_ms = now.ms() + delta_ntp_internal_ms_;
+    }
+    return capture_ntp_time_ms;
+  }
+  struct QueuedVideoFrame {
+    VideoFrame frame;
+    Timestamp timestamp;
+    bool is_repeated = false;
+  };
+  // Delay: 1.5*max FPS (30 Hz)
+  bool is_screenshare_ = false;
+  const TimeDelta FRAME_DELAY =
+      TimeDelta::Micros((rtc::kNumMicrosecsPerSec * 3) / (30 * 2));
+  std::deque<QueuedVideoFrame> received_frames_ RTC_GUARDED_BY(main_queue_);
+  absl::optional<int> last_qp_ RTC_GUARDED_BY(main_queue_);
+  // SHOULD BE REMOVED WHEN REAL QP CONVERGENCE CAN BE FOUND
+  int repeated_frame_count_ = 0;
+  absl::optional<VideoFrame> last_processed_video_frame_;
 
   // Public methods are proxied to the task queues. The queues must be destroyed
   // first to make sure no tasks run that use other members.

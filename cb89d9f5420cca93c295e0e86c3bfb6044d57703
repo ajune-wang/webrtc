@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b8349a54_bd2a752a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-08-16T07:09:38Z",
+      "side": 1,
+      "message": "Thanks.\n\nhta@: I have not suggested ABSL_DEPRECATED because I assume the deprecated class is in use at the moment, and IIUC we are going to remove it in an upcoming CL.",
+      "parentUuid": "666fb19b_47de41c4",
+      "revId": "cb89d9f5420cca93c295e0e86c3bfb6044d57703",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4070d5d5_aa30b95d",
         "filename": "rtc_base/framerate_controller.h",
         "patchSetId": 5

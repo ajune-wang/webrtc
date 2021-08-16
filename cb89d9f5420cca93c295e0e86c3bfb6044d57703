@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "666fb19b_47de41c4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2021-08-16T07:03:28Z",
+      "side": 1,
+      "message": "Moved the new class to common_video. The old class will be switched to the new one in an upcoming CL.",
+      "parentUuid": "b6b86f7e_f2dba46f",
+      "revId": "cb89d9f5420cca93c295e0e86c3bfb6044d57703",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4070d5d5_aa30b95d",
         "filename": "rtc_base/framerate_controller.h",
         "patchSetId": 5
@@ -66,6 +84,30 @@
       "writtenOn": "2021-08-13T14:10:58Z",
       "side": 1,
       "message": "This introduces a class with an identical name to the one we have in the webrtc namespace. We are trying to unify namespaces so this will be a blocker some point.\n\nIs it possible to switch from the old one to the new one in one CL or in a set of CLs (to avoid keeping the old one around for long)?\n\nAlso, maybe let\u0027s keep both in the webrtc namespace and rename + deprecate the old one (e.g. webrtc::FramerateController and webrtc::FramerateControllerDeprecated)?",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 27
+      },
+      "revId": "cb89d9f5420cca93c295e0e86c3bfb6044d57703",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d4af0b0_34cd934f",
+        "filename": "rtc_base/framerate_controller.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2021-08-16T07:03:28Z",
+      "side": 1,
+      "message": "Renamed current FrameController to FrameControllerDeprecated.",
+      "parentUuid": "4070d5d5_aa30b95d",
       "range": {
         "startLine": 18,
         "startChar": 0,

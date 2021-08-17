@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b483d40d_fa26e097",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-17T08:19:24Z",
+      "side": 1,
+      "message": "-holmer +eshr, to have a say from resource manager perspective",
+      "revId": "545f588c7889dc8962b137eb578979d7770e1929",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

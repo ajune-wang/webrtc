@@ -167,15 +167,14 @@ int32_t VideoEncoderWrapper::Encode(
   return HandleReturnCode(jni, ret, "encode");
 }
 
-void VideoEncoderWrapper::SetRates(const RateControlParameters& parameters) {
+void VideoEncoderWrapper::SetRates(const RateControlParameters& rc_parameters) {
   JNIEnv* jni = AttachCurrentThreadIfNeeded();
 
-  ScopedJavaLocalRef<jobject> j_bitrate_allocation =
-      ToJavaBitrateAllocation(jni, parameters.bitrate);
-  ScopedJavaLocalRef<jobject> ret = Java_VideoEncoder_setRateAllocation(
-      jni, encoder_, j_bitrate_allocation,
-      (jint)(parameters.framerate_fps + 0.5));
-  HandleReturnCode(jni, ret, "setRateAllocation");
+  ScopedJavaLocalRef<jobject> j_rc_parameters =
+      ToJavaRateControlParameters(jni, rc_parameters);
+  ScopedJavaLocalRef<jobject> ret =
+      Java_VideoEncoder_setRates(jni, encoder_, j_rc_parameters);
+  HandleReturnCode(jni, ret, "setRates");
 }
 
 VideoEncoder::EncoderInfo VideoEncoderWrapper::GetEncoderInfo() const {
@@ -408,6 +407,32 @@ ScopedJavaLocalRef<jobject> VideoEncoderWrapper::ToJavaBitrateAllocation(
                                j_array_spatial_layer.obj());
   }
   return Java_BitrateAllocation_Constructor(jni, j_allocation_array);
+}
+
+ScopedJavaLocalRef<jobject> VideoEncoderWrapper::ToJavaRateControlParameters(
+    JNIEnv* jni,
+    const VideoEncoder::RateControlParameters& rc_parameters) {
+  ScopedJavaLocalRef<jobjectArray> j_allocation_array(
+      jni, jni->NewObjectArray(kMaxSpatialLayers, int_array_class_.obj(),
+                               nullptr /* initial */));
+  for (int spatial_i = 0; spatial_i < kMaxSpatialLayers; ++spatial_i) {
+    std::array<int32_t, kMaxTemporalStreams> spatial_layer;
+    for (int temporal_i = 0; temporal_i < kMaxTemporalStreams; ++temporal_i) {
+      spatial_layer[temporal_i] =
+          rc_parameters.bitrate.GetBitrate(spatial_i, temporal_i);
+    }
+
+    ScopedJavaLocalRef<jintArray> j_array_spatial_layer =
+        NativeToJavaIntArray(jni, spatial_layer);
+    jni->SetObjectArrayElement(j_allocation_array.obj(), spatial_i,
+                               j_array_spatial_layer.obj());
+  }
+
+  ScopedJavaLocalRef<jobject> j_bitrate_allocation =
+      Java_BitrateAllocation_Constructor(jni, j_allocation_array);
+
+  return Java_RateControlParameters_Constructor(jni, j_bitrate_allocation,
+                                                rc_parameters.framerate_fps);
 }
 
 std::unique_ptr<VideoEncoder> JavaToNativeVideoEncoder(

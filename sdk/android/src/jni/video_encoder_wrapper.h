@@ -74,6 +74,9 @@ class VideoEncoderWrapper : public VideoEncoder {
   ScopedJavaLocalRef<jobject> ToJavaBitrateAllocation(
       JNIEnv* jni,
       const VideoBitrateAllocation& allocation);
+  ScopedJavaLocalRef<jobject> ToJavaRateControlParameters(
+      JNIEnv* jni,
+      const VideoEncoder::RateControlParameters& rc_parameters);
 
   void UpdateEncoderInfo(JNIEnv* jni);
   ScalingSettings GetScalingSettingsInternal(JNIEnv* jni) const;

@@ -22,6 +22,30 @@
       },
       "revId": "883bd7fda6dab467e9af211d4e165b2cf08d18dd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6897c123_ca96f2e3",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-17T08:46:21Z",
+      "side": 1,
+      "message": "I tried, but there are two versions of the InitEncode with different number or parameters, so have to keep this so that gmock could pick one.",
+      "parentUuid": "19aca039_d2cfc1ea",
+      "range": {
+        "startLine": 71,
+        "startChar": 41,
+        "endLine": 71,
+        "endChar": 47
+      },
+      "revId": "883bd7fda6dab467e9af211d4e165b2cf08d18dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "736f9f12_21e1758b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-17T12:09:09Z",
+      "side": 1,
+      "message": "underneath both these two functions call the same parser:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/video_coding/utility/vp9_uncompressed_header_parser.cc;l\u003d501;drc\u003ddcd7fc7ea8ff4760b90f29ddd0c299d2f6e63249\n\nso you\u0027re only increasing coverage of a relatively trivial wrapper.\n\nIf you plan to diverge these two parsers, then may it would be better to create a new fuzzer. Current one named explicitly about qp parsing.\n\nOr, if it make sense to make qp extractor trivial wrapper around `ParseIntraFrameInfo`, then may be rename this fuzzer.\n\n(would it make sense to have have wrapper like?\n  optional\u003cint\u003e GetQp(rtc::ArrayView\u003cconst uint8_t\u003e buf) {\n    if (absl::optional\u003cFrameInfo\u003e frame_info \u003d ParseIntraFrameInfo(buf)) {\n      return frame_info-\u003ebase_qp;\n    } else {\n      return nullopt;\n    }\n  }\n)",
+      "revId": "b98ea1df30f7a103ef5a3eb6823ea686bb97d90b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

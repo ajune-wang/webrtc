@@ -12,7 +12,16 @@
 
 namespace webrtc {
 void FuzzOneInput(const uint8_t* data, size_t size) {
-  int qp;
-  vp9::GetQp(data, size, &qp);
+  // Use first bit to select if we parse just QP or the full header.
+  if (size < 1) {
+    return;
+  }
+
+  if (data[0] % 2 == 0) {
+    int qp;
+    vp9::GetQp(&data[1], size - 1, &qp);
+  } else {
+    vp9::ParseIntraFrameInfo(&data[1], size - 1);
+  }
 }
 }  // namespace webrtc

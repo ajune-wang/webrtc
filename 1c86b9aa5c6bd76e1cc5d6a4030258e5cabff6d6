@@ -16,6 +16,23 @@
       "message": "Hi Stefan, PTAL at this CL that works around a bug in the Windows.Graphics.Capture system.",
       "revId": "1c86b9aa5c6bd76e1cc5d6a4030258e5cabff6d6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da575db8_8dc71240",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13074
+      },
+      "writtenOn": "2021-08-17T21:38:22Z",
+      "side": 1,
+      "message": "LGTM, thanks Austin!",
+      "revId": "1c86b9aa5c6bd76e1cc5d6a4030258e5cabff6d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

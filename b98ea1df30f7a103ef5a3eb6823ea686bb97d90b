@@ -52,6 +52,24 @@
       "parentUuid": "62104894_41250805",
       "revId": "b98ea1df30f7a103ef5a3eb6823ea686bb97d90b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c938ded_fee23306",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-17T12:43:28Z",
+      "side": 1,
+      "message": "Ah, I reverted that change during the summer. Forgot about that :)",
+      "parentUuid": "da271452_cd9533b0",
+      "revId": "b98ea1df30f7a103ef5a3eb6823ea686bb97d90b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

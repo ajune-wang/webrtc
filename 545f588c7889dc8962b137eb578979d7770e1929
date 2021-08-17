@@ -16,6 +16,529 @@
       "message": "-holmer +eshr, to have a say from resource manager perspective",
       "revId": "545f588c7889dc8962b137eb578979d7770e1929",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "185f7df1_8cd72d9a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-17T10:00:01Z",
+      "side": 1,
+      "message": "First pass.\nA bunch of style nits, but biggest takeaway is that I suggest using an existing rate tracker rather than implementing a new way of measuring. You can still adjust e.g. window size for faster/slower response time if needed.",
+      "revId": "545f588c7889dc8962b137eb578979d7770e1929",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc48a9d4_d1a30588",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-17T10:00:01Z",
+      "side": 1,
+      "message": "The word Test here is confusing. Maybe GetDefaultResolutionBitrateLimits() ?",
+      "range": {
+        "startLine": 51,
+        "startChar": 6,
+        "endLine": 51,
+        "endChar": 26
+      },
+      "revId": "545f588c7889dc8962b137eb578979d7770e1929",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ab2ccb9_44a06aee",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-17T10:00:01Z",
+      "side": 1,
+      "message": "there are valid resolutions in between the selected ones in active use\nconsider using interpolation for values not exactly matching the default resolutions",
+      "range": {
+        "startLine": 54,
+        "startChar": 4,
+        "endLine": 54,
+        "endChar": 58
+      },
+      "revId": "545f588c7889dc8962b137eb578979d7770e1929",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d99673a_7a04310b",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-17T10:00:01Z",
+      "side": 1,
+      "message": "Is this intended to be weak pointer to avoid a shutdown race? Don\u0027t think that\u0027s enough...\n\nPlease consider if threading can be made more explicit.",
+      "range": {
+        "startLine": 64,
+        "startChar": 26,
+        "endLine": 64,
+        "endChar": 39
+      },
+      "revId": "545f588c7889dc8962b137eb578979d7770e1929",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8fe0800_3ded968a",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-17T10:00:01Z",
+      "side": 1,
+      "message": "avoid default for enum classes, in order to get a compiler error in case enum changes",
+      "range": {
+        "startLine": 86,
+        "startChar": 10,
+        "endLine": 87,
+        "endChar": 18
+      },
+      "revId": "545f588c7889dc8962b137eb578979d7770e1929",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c13738a_f9a835d6",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-17T10:00:01Z",
+      "side": 1,
+      "message": "use -\u003e instead of .value().\ni.e., frame_info-\u003e_encodedHeight\n\nAlso move these assignments into the if-block above",
+      "range": {
+        "startLine": 109,
+        "startChar": 15,
+        "endLine": 109,
+        "endChar": 23
+      },
+      "revId": "545f588c7889dc8962b137eb578979d7770e1929",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ca10e9f_5e8cda83",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-17T10:00:01Z",
+      "side": 1,
+      "message": "frame_info.emplace(width, height);",
+      "range": {
+        "startLine": 112,
+        "startChar": 4,
+        "endLine": 112,
+        "endChar": 58
+      },
+      "revId": "545f588c7889dc8962b137eb578979d7770e1929",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "572f9f28_1ab4af9d",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-17T10:00:01Z",
+      "side": 1,
+      "message": "I find this way of calculating the average strange, using en exponential filter for the frame size but a sort-of sliding window for frame count.\nSuggest looking into using one of the rate tracker classes that already exist, e.g. RateStatistics.",
+      "range": {
+        "startLine": 132,
+        "startChar": 0,
+        "endLine": 134,
+        "endChar": 51
+      },
+      "revId": "545f588c7889dc8962b137eb578979d7770e1929",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4fd7afca_2910bcfc",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-17T10:00:01Z",
+      "side": 1,
+      "message": "nit: should be able to fit on one line? Also suggest lining comments up.",
+      "range": {
+        "startLine": 39,
+        "startChar": 43,
+        "endLine": 39,
+        "endChar": 80
+      },
+      "revId": "545f588c7889dc8962b137eb578979d7770e1929",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47d4a09b_154362cb",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-17T10:00:01Z",
+      "side": 1,
+      "message": "This style is old and deprecated, use `encoded_width` or maybe just `width` instead.\nAlternatively use e.g. api/video/render_resolution.h instead of FrameInfo",
+      "range": {
+        "startLine": 50,
+        "startChar": 11,
+        "endLine": 50,
+        "endChar": 25
+      },
+      "revId": "545f588c7889dc8962b137eb578979d7770e1929",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c755caf4_8f7773de",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-17T10:00:01Z",
+      "side": 1,
+      "message": "This is the default alpha for the encode size expfilter, not the default size. Suggest renaming",
+      "range": {
+        "startLine": 54,
+        "startChar": 12,
+        "endLine": 54,
+        "endChar": 37
+      },
+      "revId": "545f588c7889dc8962b137eb578979d7770e1929",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70dd56ae_c3d07715",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-17T10:00:01Z",
+      "side": 1,
+      "message": "Start constant names with k. I also think the name could be more descriptive. This is the interval between bitrate checks.\ni.e. `kBitrateStateUpdateInterval` or something like that",
+      "range": {
+        "startLine": 55,
+        "startChar": 11,
+        "endLine": 55,
+        "endChar": 12
+      },
+      "revId": "545f588c7889dc8962b137eb578979d7770e1929",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5efcbecf_a3bc6294",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-17T10:00:01Z",
+      "side": 1,
+      "message": "Suggest using TimeStamp/TimeDelta unit types where possible, instead of int/float types.",
+      "range": {
+        "startLine": 55,
+        "startChar": 6,
+        "endLine": 55,
+        "endChar": 11
+      },
+      "revId": "545f588c7889dc8962b137eb578979d7770e1929",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35f89aae_528d5132",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-17T10:00:01Z",
+      "side": 1,
+      "message": "move into .cc and make constexpr",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 42
+      },
+      "revId": "545f588c7889dc8962b137eb578979d7770e1929",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55d37633_21c8dc74",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-17T10:00:01Z",
+      "side": 1,
+      "message": "avoid forward declarations\nperhaps the interface can be nested inside the BandwidthScaler and renamed to just UsageHandlerInterface, so from the outside it\u0027s BandwidthScaler::UsageHandlerInterface",
+      "range": {
+        "startLine": 57,
+        "startChar": 6,
+        "endLine": 57,
+        "endChar": 42
+      },
+      "revId": "545f588c7889dc8962b137eb578979d7770e1929",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5dc949fa_953c821d",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-17T10:00:01Z",
+      "side": 1,
+      "message": "Consider using DataSize. That together with unit types for time allows much easier conversions to rates.",
+      "range": {
+        "startLine": 67,
+        "startChar": 24,
+        "endLine": 67,
+        "endChar": 29
+      },
+      "revId": "545f588c7889dc8962b137eb578979d7770e1929",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15c12ba9_76736924",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-17T10:00:01Z",
+      "side": 1,
+      "message": "encoded_height",
+      "range": {
+        "startLine": 70,
+        "startChar": 33,
+        "endLine": 70,
+        "endChar": 47
+      },
+      "revId": "545f588c7889dc8962b137eb578979d7770e1929",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a025c22_0bb752a1",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-17T10:00:01Z",
+      "side": 1,
+      "message": "remove trailing _, that\u0027s only for member variables",
+      "range": {
+        "startLine": 73,
+        "startChar": 42,
+        "endLine": 73,
+        "endChar": 43
+      },
+      "revId": "545f588c7889dc8962b137eb578979d7770e1929",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c69750be_62766de9",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-17T10:00:01Z",
+      "side": 1,
+      "message": "Doesn\u0027t look like it needs to be a method?",
+      "range": {
+        "startLine": 88,
+        "startChar": 2,
+        "endLine": 88,
+        "endChar": 36
+      },
+      "revId": "545f588c7889dc8962b137eb578979d7770e1929",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e719cac_74d5ed17",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-17T10:00:01Z",
+      "side": 1,
+      "message": "Move this to an anonymous namespace in the .cc file",
+      "range": {
+        "startLine": 98,
+        "startChar": 53,
+        "endLine": 98,
+        "endChar": 73
+      },
+      "revId": "545f588c7889dc8962b137eb578979d7770e1929",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ac1f700_b8d22f8e",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-17T10:00:01Z",
+      "side": 1,
+      "message": "* const",
+      "range": {
+        "startLine": 109,
+        "startChar": 38,
+        "endLine": 109,
+        "endChar": 40
+      },
+      "revId": "545f588c7889dc8962b137eb578979d7770e1929",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "478e67eb_a2f55282",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-17T10:00:01Z",
+      "side": 1,
+      "message": "all class members should have names ending with with a trailing underscore\ni.e. `low_use_consequent_count_` etc",
+      "range": {
+        "startLine": 111,
+        "startChar": 6,
+        "endLine": 111,
+        "endChar": 30
+      },
+      "revId": "545f588c7889dc8962b137eb578979d7770e1929",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2bdba5e_4b2f895f",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-17T10:00:01Z",
+      "side": 1,
+      "message": "lower case `options`",
+      "range": {
+        "startLine": 113,
+        "startChar": 24,
+        "endLine": 113,
+        "endChar": 31
+      },
+      "revId": "545f588c7889dc8962b137eb578979d7770e1929",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

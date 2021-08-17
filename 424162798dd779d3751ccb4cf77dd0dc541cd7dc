@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68956eee_983ac6e6",
+        "filename": "modules/video_coding/utility/vp9_constants.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-17T13:57:20Z",
+      "side": 1,
+      "message": "nested namespaces are discouraged,\ndo you mind addressing it in advance and introduce new constants (each with \u0027Vp9\u0027 prefix in it) in the top webrtc namespace?\n\nhttps://webrtc-review.googlesource.com/c/src/+/228901",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 15
+      },
+      "revId": "424162798dd779d3751ccb4cf77dd0dc541cd7dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b549bbfe_ac2ca916",
+        "filename": "modules/video_coding/utility/vp9_constants.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-17T13:57:20Z",
+      "side": 1,
+      "message": "static is not needed\n\nhttps://abseil.io/tips/140#within-a-header-file-beware\n\"When at namespace scope, both const and constexpr objects implicitly have internal linkage (the same linkage used for unnamed-namespace variables and static variables not in a function or in a class)\"\n\n\n[side note: that article say \u0027beware\u0027 for constants in header file, but constants in this file looks ok - they are all simple types, and it doesn\u0027t look like any code would rely on their addresses]",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 6
+      },
+      "revId": "424162798dd779d3751ccb4cf77dd0dc541cd7dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aed720e1_fef6696e",
+        "filename": "modules/video_coding/utility/vp9_uncompressed_header_parser.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-17T13:57:20Z",
+      "side": 1,
+      "message": "mixing c-array and std::array in the same struct?\nmay be use std::array for constinency:\nstd::array\u003cstd::array\u003cabsl::optional\u003cint\u003e, kMaxSegments\u003e, kSegLvlMax\u003e\nsegmentation_features;",
+      "range": {
+        "startLine": 120,
+        "startChar": 43,
+        "endLine": 120,
+        "endChar": 69
+      },
+      "revId": "424162798dd779d3751ccb4cf77dd0dc541cd7dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88ce7bfe_b39daa9b",
+        "filename": "modules/video_coding/utility/vp9_uncompressed_header_parser.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-17T13:57:20Z",
+      "side": 1,
+      "message": "may be std::bitset\u003ckMaxRefFrames\u003e\nsince you\u0027re using bitset anyway.",
+      "range": {
+        "startLine": 128,
+        "startChar": 2,
+        "endLine": 128,
+        "endChar": 33
+      },
+      "revId": "424162798dd779d3751ccb4cf77dd0dc541cd7dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f890517_ba7e85e4",
+        "filename": "modules/video_coding/utility/vp9_uncompressed_header_parser.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-17T13:57:20Z",
+      "side": 1,
+      "message": "while renaming the function, may be also update the parameter to\nrtc::ArrayView\u003cconst uint8_t\u003e buf",
+      "range": {
+        "startLine": 150,
+        "startChar": 59,
+        "endLine": 151,
+        "endChar": 72
+      },
+      "revId": "424162798dd779d3751ccb4cf77dd0dc541cd7dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e69500c_060de225",
+        "filename": "modules/video_coding/utility/vp9_uncompressed_header_parser_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-17T13:57:20Z",
+      "side": 1,
+      "message": "add using ::testing::Optional alias above, like other matchers",
+      "range": {
+        "startLine": 60,
+        "startChar": 6,
+        "endLine": 60,
+        "endChar": 26
+      },
+      "revId": "424162798dd779d3751ccb4cf77dd0dc541cd7dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b4f7ade_f0969356",
+        "filename": "modules/video_coding/utility/vp9_uncompressed_header_parser_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-17T13:57:20Z",
+      "side": 1,
+      "message": "or \nElementsAre(205, 1, 1)",
+      "range": {
+        "startLine": 69,
+        "startChar": 23,
+        "endLine": 69,
+        "endChar": 52
+      },
+      "revId": "424162798dd779d3751ccb4cf77dd0dc541cd7dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

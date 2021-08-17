@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7207ff5_48234b01",
+        "filename": "modules/video_coding/codecs/test/videocodec_test_stats_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-17T08:04:04Z",
+      "side": 1,
+      "message": "nit: maybe bps (or DataRate) to avoid some rounding errors at low bitrates?",
+      "range": {
+        "startLine": 316,
+        "startChar": 14,
+        "endLine": 316,
+        "endChar": 26
+      },
+      "revId": "5d9214e181dd10b4645c31518e773343ccbee34f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

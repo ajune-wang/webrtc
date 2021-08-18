@@ -16,6 +16,23 @@
       "message": "Currently the auto roller is not working.\n\nhttps://ci.chromium.org/ui/p/webrtc/builders/cron/Auto-roll%20-%20WebRTC%20DEPS/15793/overview",
       "revId": "c61535d5637319da46244feb7830084a76b73302",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ca269f2_1b9f687b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-08-18T06:58:06Z",
+      "side": 1,
+      "message": "Thanks for the notification.\n\nYes, I am going to fix the autoroller in the next few hours and then it should come back to normal flow.",
+      "revId": "c61535d5637319da46244feb7830084a76b73302",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

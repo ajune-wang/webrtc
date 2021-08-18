@@ -39,10 +39,29 @@ class RTC_EXPORT VideoDecoderFactory {
   // Query whether the specifed format is supported or not and if it will be
   // power efficient, which is currently interpreted as if there is support for
   // hardware acceleration.
-  // See https://w3c.github.io/webrtc-svc/#scalabilitymodes* for a specification
-  // of valid values for `scalability_mode`.
-  // NOTE: QueryCodecSupport is currently an experimental feature that is
-  // subject to change without notice.
+  // The parameter `reference_scaling` is used to query support for prediction
+  // across spatial layers. An example where support for reference scaling is
+  // needed is if the video stream is produced with a scalability mode that has
+  // a dependency between the spatial layers. See
+  // https://w3c.github.io/webrtc-svc/#scalabilitymodes* for a specification of
+  // different scalabilty modes. NOTE: QueryCodecSupport is currently an
+  // experimental feature that is subject to change without notice.
+  virtual CodecSupport QueryCodecSupport(
+      const SdpVideoFormat& format,
+      absl::optional<bool> reference_scaling) const {
+    // Default implementation, query for supported formats and check if the
+    // specified format is supported. Returns false if `reference_scaling` is
+    // specified.
+    CodecSupport codec_support;
+    if (!reference_scaling) {
+      codec_support.is_supported = format.IsCodecInList(GetSupportedFormats());
+    }
+    return codec_support;
+  }
+
+  // TODO(kron): This function is deprecated and will be removed ASAP once
+  // downstream projects are updated to use `reference_scaling` instead of
+  // `scalability_mode`.
   virtual CodecSupport QueryCodecSupport(
       const SdpVideoFormat& format,
       absl::optional<std::string> scalability_mode) const {

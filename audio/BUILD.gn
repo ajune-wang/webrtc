@@ -98,6 +98,7 @@ rtc_library("audio") {
     "../rtc_base/task_utils:pending_task_safety_flag",
     "../rtc_base/task_utils:to_queued_task",
     "../system_wrappers",
+        "../rtc_base/containers:flat_set",
     "../system_wrappers:field_trial",
     "../system_wrappers:metrics",
     "utility:audio_frame_operations",

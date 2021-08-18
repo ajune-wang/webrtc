@@ -16,6 +16,29 @@
       "message": "I will follow up this CL with a corresponding change in the Chrome as well as updating the CL that started the discussion that led up to this change, https://webrtc-review.googlesource.com/c/src/+/222642",
       "revId": "3dffdcc1092e436f37dc5f07cf3da852caa013e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d65b9cd_445cb66a",
+        "filename": "api/video_codecs/video_decoder_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-18T14:06:01Z",
+      "side": 1,
+      "message": "optional\u003cbool\u003e is brittle type, usually it is better to avoid it.\nwhy do you need three states here?\nwhat is the difference between nullopt and false?",
+      "range": {
+        "startLine": 51,
+        "startChar": 6,
+        "endLine": 51,
+        "endChar": 26
+      },
+      "revId": "3dffdcc1092e436f37dc5f07cf3da852caa013e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

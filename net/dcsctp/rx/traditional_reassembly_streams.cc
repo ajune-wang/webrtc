@@ -16,7 +16,6 @@
 #include <iterator>
 #include <map>
 #include <numeric>
-#include <unordered_map>
 #include <utility>
 #include <vector>
 
@@ -123,7 +122,7 @@ size_t TraditionalReassemblyStreams::StreamBase::AssembleMessage(
     size_t payload_size = start->second.size();
     UnwrappedTSN tsns[1] = {start->first};
     DcSctpMessage message(data.stream_id, data.ppid, std::move(data.payload));
-    parent_.on_assembled_message_(tsns, std::move(message));
+    parent_->on_assembled_message_(tsns, std::move(message));
     return payload_size;
   }
 
@@ -145,7 +144,7 @@ size_t TraditionalReassemblyStreams::StreamBase::AssembleMessage(
 
   DcSctpMessage message(start->second.stream_id, start->second.ppid,
                         std::move(payload));
-  parent_.on_assembled_message_(tsns, std::move(message));
+  parent_->on_assembled_message_(tsns, std::move(message));
 
   return payload_size;
 }

@@ -49,6 +49,7 @@ rtc_library("traditional_reassembly_streams") {
     "../../../rtc_base",
     "../../../rtc_base:checks",
     "../../../rtc_base:rtc_base_approved",
+    "../../../rtc_base/containers:flat_map",
     "../common:sequence_numbers",
     "../packet:chunk",
     "../packet:data",

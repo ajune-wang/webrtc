@@ -14,7 +14,6 @@
 
 #include <map>
 #include <string>
-#include <unordered_map>
 
 #include "absl/strings/string_view.h"
 #include "api/array_view.h"
@@ -22,6 +21,7 @@
 #include "net/dcsctp/packet/chunk/forward_tsn_common.h"
 #include "net/dcsctp/packet/data.h"
 #include "net/dcsctp/rx/reassembly_streams.h"
+#include "rtc_base/containers/flat_map.h"
 
 namespace dcsctp {
 
@@ -50,11 +50,11 @@ class TraditionalReassemblyStreams : public ReassemblyStreams {
   class StreamBase {
    protected:
     explicit StreamBase(TraditionalReassemblyStreams* parent)
-        : parent_(*parent) {}
+        : parent_(parent) {}
 
     size_t AssembleMessage(const ChunkMap::iterator start,
                            const ChunkMap::iterator end);
-    TraditionalReassemblyStreams& parent_;
+    TraditionalReassemblyStreams* parent_;
   };
 
   // Manages all received data for a specific unordered stream, and assembles
@@ -63,6 +63,9 @@ class TraditionalReassemblyStreams : public ReassemblyStreams {
    public:
     explicit UnorderedStream(TraditionalReassemblyStreams* parent)
         : StreamBase(parent) {}
+    UnorderedStream(UnorderedStream&& other) = default;
+    UnorderedStream& operator=(UnorderedStream&& other) = default;
+
     int Add(UnwrappedTSN tsn, Data data);
     // Returns the number of bytes removed from the queue.
     size_t EraseTo(UnwrappedTSN tsn);
@@ -84,6 +87,9 @@ class TraditionalReassemblyStreams : public ReassemblyStreams {
    public:
     explicit OrderedStream(TraditionalReassemblyStreams* parent)
         : StreamBase(parent), next_ssn_(ssn_unwrapper_.Unwrap(SSN(0))) {}
+    OrderedStream(OrderedStream&& other) = default;
+    OrderedStream& operator=(OrderedStream&& other) = default;
+
     int Add(UnwrappedTSN tsn, Data data);
     size_t EraseTo(SSN ssn);
     void Reset() {
@@ -108,10 +114,8 @@ class TraditionalReassemblyStreams : public ReassemblyStreams {
   const OnAssembledMessage on_assembled_message_;
 
   // All unordered and ordered streams, managing not-yet-assembled data.
-  std::unordered_map<StreamID, UnorderedStream, StreamID::Hasher>
-      unordered_streams_;
-  std::unordered_map<StreamID, OrderedStream, StreamID::Hasher>
-      ordered_streams_;
+  webrtc::flat_map<StreamID, UnorderedStream> unordered_streams_;
+  webrtc::flat_map<StreamID, OrderedStream> ordered_streams_;
 };
 
 }  // namespace dcsctp

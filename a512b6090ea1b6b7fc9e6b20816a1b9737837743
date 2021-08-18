@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b2c3f10_6ec4e39b",
+        "filename": "sdk/android/src/jni/video_encoder_wrapper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-08-18T07:48:41Z",
+      "side": 0,
+      "message": "We should round frame rate up, not to the nearest int, to prevent overshoots. This is now done in VideoEncoder.java, L326 (for implementations which do not override setRates):\ndefault @CalledByNative VideoCodecStatus setRates(RateControlParameters parameters) {\n  // Round frame rate up to avoid overshoots.\n  int framerateFps \u003d (int) Math.ceil(parameters.framerateFps);\n  return setRateAllocation(parameters.bitrate, framerateFps);\n}",
+      "range": {
+        "startLine": 177,
+        "startChar": 37,
+        "endLine": 177,
+        "endChar": 43
+      },
+      "revId": "a512b6090ea1b6b7fc9e6b20816a1b9737837743",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

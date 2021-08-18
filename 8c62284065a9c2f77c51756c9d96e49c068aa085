@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e03776ce_20bec611",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-08-18T13:04:31Z",
+      "side": 1,
+      "message": "Good for interoperability. Should be harmless for chrome-to-chrome.\n",
+      "revId": "8c62284065a9c2f77c51756c9d96e49c068aa085",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

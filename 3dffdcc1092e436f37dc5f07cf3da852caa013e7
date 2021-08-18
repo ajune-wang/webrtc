@@ -63,6 +63,30 @@
       },
       "revId": "3dffdcc1092e436f37dc5f07cf3da852caa013e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ac09e00_41e5eea1",
+        "filename": "api/video_codecs/video_decoder_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-18T14:34:07Z",
+      "side": 1,
+      "message": "I would prefer single place to decide meaning of the absent parameter, instead of making each DecoderFactory to interpret nullopt in its own way.\n\nIt is not immediately obvious how absent of that parameter should be treated.\nas \u0027false\u0027 (does decoder support some [simple cases] of the \u0027format\u0027),\nor as \u0027true\u0027 (does decoder support anything of the \u0027format\u0027)\n\n\nAnother question (probably that one is the spec, rather than for documentation here) is expected behaviour of e.g.\n`QueryCodecSupport(\"VP8\", /*reference_scaling\u003d*/true)`;\nVP8 format itself doesn\u0027t support reference scaling, so,\nshould it return \u0027unsupported\u0027 (because reference scaling is not supported in vp8)?\nor should it return \u0027supported\u0027 (because all vp8 structures are supported).",
+      "parentUuid": "152df95c_4ea1eb02",
+      "range": {
+        "startLine": 51,
+        "startChar": 6,
+        "endLine": 51,
+        "endChar": 26
+      },
+      "revId": "3dffdcc1092e436f37dc5f07cf3da852caa013e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

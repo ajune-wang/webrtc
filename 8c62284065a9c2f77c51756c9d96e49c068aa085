@@ -16,6 +16,40 @@
       "message": "Good for interoperability. Should be harmless for chrome-to-chrome.\n",
       "revId": "8c62284065a9c2f77c51756c9d96e49c068aa085",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41519c9f_ded3efb1",
+        "filename": "p2p/base/transport_description_factory.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-08-18T20:46:20Z",
+      "side": 1,
+      "message": "Is it possible for the role to be CONNECTIONROLE_NONE here, or do we throw an error at some point earlier? If it is possible, we should do something other than crashing. This appears to be why tests are failing, though I don\u0027t know why the tests would be missing the setup attribute.",
+      "revId": "8c62284065a9c2f77c51756c9d96e49c068aa085",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7cc21542_2a3ee2eb",
+        "filename": "pc/jsep_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 658,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-08-18T20:46:20Z",
+      "side": 1,
+      "message": "nit: We are already in a `remote_connection_role !\u003d CONNECTIONROLE_ACTPASS` block",
+      "revId": "8c62284065a9c2f77c51756c9d96e49c068aa085",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

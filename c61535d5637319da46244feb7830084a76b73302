@@ -33,6 +33,24 @@
       "message": "Thanks for the notification.\n\nYes, I am going to fix the autoroller in the next few hours and then it should come back to normal flow.",
       "revId": "c61535d5637319da46244feb7830084a76b73302",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90d92a16_97b6f39c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-08-18T07:00:24Z",
+      "side": 1,
+      "message": "So should I close this?\nBTW, https://crbug.com/1066980 causes some compilation errors.",
+      "parentUuid": "3ca269f2_1b9f687b",
+      "revId": "c61535d5637319da46244feb7830084a76b73302",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

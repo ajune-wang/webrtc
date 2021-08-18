@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b2665a9_ccb657c9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-08-18T13:58:15Z",
+      "side": 1,
+      "message": "I will follow up this CL with a corresponding change in the Chrome as well as updating the CL that started the discussion that led up to this change, https://webrtc-review.googlesource.com/c/src/+/222642",
+      "revId": "3dffdcc1092e436f37dc5f07cf3da852caa013e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

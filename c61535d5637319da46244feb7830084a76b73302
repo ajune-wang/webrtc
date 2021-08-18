@@ -51,6 +51,24 @@
       "parentUuid": "3ca269f2_1b9f687b",
       "revId": "c61535d5637319da46244feb7830084a76b73302",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9db76e4_bff19ac0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-08-18T07:02:56Z",
+      "side": 1,
+      "message": "Yes, feel free to close it.\n\nI will try to fix all the issues in the next few hours.",
+      "parentUuid": "90d92a16_97b6f39c",
+      "revId": "c61535d5637319da46244feb7830084a76b73302",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

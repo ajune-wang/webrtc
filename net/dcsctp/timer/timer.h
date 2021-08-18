@@ -16,13 +16,13 @@
 #include <functional>
 #include <memory>
 #include <string>
-#include <unordered_map>
 #include <utility>
 
 #include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
 #include "net/dcsctp/public/strong_alias.h"
 #include "net/dcsctp/public/timeout.h"
+#include "rtc_base/containers/flat_map.h"
 
 namespace dcsctp {
 
@@ -176,7 +176,7 @@ class TimerManager {
 
  private:
   const std::function<std::unique_ptr<Timeout>()> create_timeout_;
-  std::unordered_map<TimerID, Timer*, TimerID::Hasher> timers_;
+  webrtc::flat_map<TimerID, Timer*> timers_;
   TimerID next_id_ = TimerID(0);
 };
 

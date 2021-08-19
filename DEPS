@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'e35a3c7a8acd3dcc1bbebc1b721b682ae9a822a4',
+  'chromium_revision': '9cff31c840a2b50a8dae52aa4479596f3fa5ba2f',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -37,7 +37,7 @@ deps = {
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@ec366b6184552699f682d63b5a9bb026c4b690c3',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@d01a28e22ca20fc6a74139a91b958a2e73bcde84',
+    'https://chromium.googlesource.com/chromium/src/third_party@b1fa646ce3abfb766f1768b364aa4b38c01f5910',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -372,7 +372,7 @@ deps = {
     'packages': [
       {
           'package': 'chromium/third_party/androidx',
-          'version': 'MHfls6SMbw1w9cf-Cbn_1lmIBXDCXFRTZEcYi8l-uwwC',
+          'version': 'qNxOD_a-lHa1BfSueMiiLe0m1Q-c2FJgkgkl9TxDYoUC',
       },
     ],
     'condition': 'checkout_android',

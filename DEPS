@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'e35a3c7a8acd3dcc1bbebc1b721b682ae9a822a4',
+  'chromium_revision': '5536461442ea67f4efa60170260fd42a13587df2',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -20,9 +20,9 @@ deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@724970ef620dac0f580f0dd5f4caa4f197d33b4d',
+    'https://chromium.googlesource.com/chromium/src/base@787b5e6bf72d53bb20fe0c2208109eb9620a37b7',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@fa02a0c3ece0a36a74ee5c8c4d68fa7772c20c59',
+    'https://chromium.googlesource.com/chromium/src/build@e7f7d181c6905a8533cd61e5004a773e3f874f07',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@88e9a2946f93d667d787e875c55537c568397f18',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -31,13 +31,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@2fe336757ec8f653d2a5791d7f21ccb61b8c511e',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@6d0df17d160c9195f69b391798fe44e9a33bb6ce',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@ec366b6184552699f682d63b5a9bb026c4b690c3',
+    'https://chromium.googlesource.com/chromium/src/testing@f6e1fd06268b166656ff8c00710473bad9052e99',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@d01a28e22ca20fc6a74139a91b958a2e73bcde84',
+    'https://chromium.googlesource.com/chromium/src/third_party@1500400d6de5876c50baa5ec1cd172f5aecd8ce9',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -137,7 +137,7 @@ deps = {
   'src/third_party/crc32c/src':
     'https://chromium.googlesource.com/external/github.com/google/crc32c.git@fa5ade41ee480003d9c5af6f43567ba22e4e17e6',
   'src/third_party/depot_tools':
-    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@77720f0d5afbc03d775b21798918625b43491fc4',
+    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@37848e30cebfdad49a1c1d6625491f12957f2fc9',
   'src/third_party/ffmpeg':
     'https://chromium.googlesource.com/chromium/third_party/ffmpeg.git@1f33e234be4e2823c663d02b3baa3e7a7cfc33cb',
   'src/third_party/findbugs': {
@@ -271,7 +271,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@7fedcd5492f8cab7e7dda3389985625894d0071a',
+    'https://chromium.googlesource.com/chromium/src/tools@acd4cd16cf613aad6151992eaba3044a5b147256',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@a32a1607f6093d338f756c7e7c7b4333b0c50c9c',
 
@@ -372,7 +372,7 @@ deps = {
     'packages': [
       {
           'package': 'chromium/third_party/androidx',
-          'version': 'MHfls6SMbw1w9cf-Cbn_1lmIBXDCXFRTZEcYi8l-uwwC',
+          'version': 'qNxOD_a-lHa1BfSueMiiLe0m1Q-c2FJgkgkl9TxDYoUC',
       },
     ],
     'condition': 'checkout_android',
@@ -477,15 +477,15 @@ deps = {
       'packages': [
         {
           'package': 'infra/tools/luci/isolate/${{platform}}',
-          'version': 'git_revision:a5735121c6339dee9b1b3644535e230744daaac9',
+          'version': 'git_revision:b92fd6736bd85375c825e6c096824d4005532240',
         },
         {
           'package': 'infra/tools/luci/isolated/${{platform}}',
-          'version': 'git_revision:a5735121c6339dee9b1b3644535e230744daaac9',
+          'version': 'git_revision:b92fd6736bd85375c825e6c096824d4005532240',
         },
         {
           'package': 'infra/tools/luci/swarming/${{platform}}',
-          'version': 'git_revision:a5735121c6339dee9b1b3644535e230744daaac9',
+          'version': 'git_revision:b92fd6736bd85375c825e6c096824d4005532240',
         },
       ],
       'dep_type': 'cipd',

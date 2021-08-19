@@ -87,6 +87,30 @@
       },
       "revId": "3dffdcc1092e436f37dc5f07cf3da852caa013e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fa8711b_92e38e56",
+        "filename": "api/video_codecs/video_decoder_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-08-19T08:15:13Z",
+      "side": 1,
+      "message": "I will change reference_scaling to be a required parameter.\n\nIn my opinion, VP8 with reference_scaling\u003dtrue is not supported 😊",
+      "parentUuid": "2ac09e00_41e5eea1",
+      "range": {
+        "startLine": 51,
+        "startChar": 6,
+        "endLine": 51,
+        "endChar": 26
+      },
+      "revId": "3dffdcc1092e436f37dc5f07cf3da852caa013e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

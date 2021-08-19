@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fea6db52_f73e4c5e",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-08-19T17:15:43Z",
+      "side": 1,
+      "message": "The string literals we return have static storage duration, so we can even return a absl::string_view here and avoid the copy.",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 11
+      },
+      "revId": "b46d5b8a23c1f53d76c30800939fb5e9d1648cc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7a9cdef_395b7a4d",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_shared_objects.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-08-19T17:15:43Z",
+      "side": 1,
+      "message": "You can add a sentinel value (e.g. kLastValue or something like that) and change the ctor to loop i \u003c static_cast\u003cint\u003e(FrameDropPhase::kLastValue).\n\nMaybe this is more future proof (but add a comment to not add values after kLastValue).",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 42
+      },
+      "revId": "b46d5b8a23c1f53d76c30800939fb5e9d1648cc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

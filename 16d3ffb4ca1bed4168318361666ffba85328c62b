@@ -22,6 +22,30 @@
       },
       "revId": "16d3ffb4ca1bed4168318361666ffba85328c62b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a8f3ea8_1340c6e2",
+        "filename": "api/video_codecs/video_decoder_factory.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-08-19T08:37:44Z",
+      "side": 1,
+      "message": "I changed according to your suggestion, I think that it makes it slightly easier to see that is_supported will be false in the cases where it\u0027s not set to true.",
+      "parentUuid": "82d8484c_196afefc",
+      "range": {
+        "startLine": 55,
+        "startChar": 4,
+        "endLine": 57,
+        "endChar": 5
+      },
+      "revId": "16d3ffb4ca1bed4168318361666ffba85328c62b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

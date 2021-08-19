@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34445ed8_030cbf90",
+        "filename": "rtc_base/virtual_socket_server.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-08-19T08:16:08Z",
+      "side": 1,
+      "message": "Since VirtualSocket is declared in this file, by reordering to make it fully declared before this class, inheritance is visible, and we can just use a covariant return type and delete the below CreateSocketInternal.",
+      "range": {
+        "startLine": 239,
+        "startChar": 0,
+        "endLine": 239,
+        "endChar": 61
+      },
+      "revId": "daa0c0819b9f83b334c3794a2510c5e333bf1ca6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

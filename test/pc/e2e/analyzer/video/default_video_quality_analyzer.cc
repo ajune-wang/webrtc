@@ -45,9 +45,26 @@ void LogFrameCounters(const std::string& name, const FrameCounters& counters) {
   RTC_LOG(INFO) << "[" << name << "] Dropped     : " << counters.dropped;
 }
 
+std::string ToString(FrameDropPhase phase) {
+  switch (phase) {
+    case FrameDropPhase::kBeforeEncoder:
+      return "kBeforeEncoder";
+    case FrameDropPhase::kAfterEncoder:
+      return "kAfterEncoder";
+    case FrameDropPhase::kTransport:
+      return "kTransport";
+    case FrameDropPhase::kAfterDecoder:
+      return "kAfterDecoder";
+  }
+}
+
 void LogStreamInternalStats(const std::string& name,
                             const StreamStats& stats,
                             Timestamp start_time) {
+  for (const auto& entry : stats.dropped_by_phase) {
+    RTC_LOG(INFO) << "[" << name << "] Dropped at " << ToString(entry.first)
+                  << ": " << entry.second;
+  }
   RTC_LOG(INFO) << "[" << name
                 << "] Dropped by encoder     : " << stats.dropped_by_encoder;
   RTC_LOG(INFO) << "[" << name << "] Dropped before encoder : "

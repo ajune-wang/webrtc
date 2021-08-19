@@ -14,7 +14,6 @@
 #include "rtc_base/strings/string_builder.h"
 
 namespace webrtc {
-namespace webrtc_pc_e2e {
 namespace {
 
 constexpr int kMicrosPerSecond = 1000000;
@@ -59,5 +58,4 @@ bool operator==(const StatsKey& a, const StatsKey& b) {
          a.receiver == b.receiver;
 }
 
-}  // namespace webrtc_pc_e2e
 }  // namespace webrtc

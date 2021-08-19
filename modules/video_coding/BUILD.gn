@@ -315,6 +315,8 @@ rtc_source_set("codec_globals_headers") {
 rtc_library("video_coding_utility") {
   visibility = [ "*" ]
   sources = [
+    "utility/bandwidth_scaler.cc",
+    "utility/bandwidth_scaler.h",
     "utility/decoded_frames_history.cc",
     "utility/decoded_frames_history.h",
     "utility/frame_dropper.cc",
@@ -977,6 +979,7 @@ if (rtc_include_tests) {
       "timestamp_map_unittest.cc",
       "timing_unittest.cc",
       "unique_timestamp_counter_unittest.cc",
+      "utility/bandwidth_scaler_unittest.cc",
       "utility/decoded_frames_history_unittest.cc",
       "utility/frame_dropper_unittest.cc",
       "utility/framerate_controller_unittest.cc",

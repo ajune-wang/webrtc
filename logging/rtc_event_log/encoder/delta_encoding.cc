@@ -21,6 +21,7 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/constructor_magic.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/memory/bit_reader.h"
 #include "rtc_base/numerics/safe_conversions.h"
 
 namespace webrtc {
@@ -688,13 +689,14 @@ bool FixedLengthDeltaDecoder::IsSuitableDecoderFor(const std::string& input) {
     return false;
   }
 
-  rtc::BitBuffer reader(reinterpret_cast<const uint8_t*>(&input[0]),
-                        kBitsInHeaderForEncodingType);
+  BitReader reader(
+      rtc::MakeArrayView(reinterpret_cast<const uint8_t*>(input.data()),
+                         kBitsInHeaderForEncodingType));
+  //  rtc::BitBuffer reader(reinterpret_cast<const uint8_t*>(&input[0]),
+  //                        kBitsInHeaderForEncodingType);
 
-  uint32_t encoding_type_bits;
-  const bool result =
-      reader.ReadBits(kBitsInHeaderForEncodingType, encoding_type_bits);
-  RTC_DCHECK(result);
+  uint32_t encoding_type_bits = reader.ReadBits(kBitsInHeaderForEncodingType);
+  RTC_DCHECK(reader.Ok());
 
   const auto encoding_type = static_cast<EncodingType>(encoding_type_bits);
   return encoding_type ==

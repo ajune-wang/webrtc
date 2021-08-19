@@ -15,7 +15,7 @@
 #include "api/video/video_codec_constants.h"
 #include "modules/rtp_rtcp/source/rtp_packet_to_send.h"
 #include "modules/video_coding/codecs/interface/common_constants.h"
-#include "rtc_base/bit_buffer.h"
+#include "rtc_base/byte_buffer.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 
@@ -37,18 +37,19 @@ constexpr int kFailedToParse = 0;
 // M:   | EXTENDED PID  |
 //      +-+-+-+-+-+-+-+-+
 //
-bool ParsePictureId(rtc::BitBuffer* parser, RTPVideoHeaderVP9* vp9) {
-  uint32_t picture_id;
-  uint32_t m_bit;
-  RETURN_FALSE_ON_ERROR(parser->ReadBits(1, m_bit));
-  if (m_bit) {
-    RETURN_FALSE_ON_ERROR(parser->ReadBits(15, picture_id));
+bool ParsePictureId(rtc::ByteBufferReader* parser, RTPVideoHeaderVP9* vp9) {
+  uint8_t first_byte;
+  RETURN_FALSE_ON_ERROR(parser->ReadUInt8(&first_byte));
+  if (first_byte & 0x80) {
+    first_byte &= ~0x80;
+    uint8_t second_byte;
+    RETURN_FALSE_ON_ERROR(parser->ReadUInt8(&second_byte));
+    vp9->picture_id = (uint16_t{first_byte} << 8) | second_byte;
     vp9->max_picture_id = kMaxTwoBytePictureId;
   } else {
-    RETURN_FALSE_ON_ERROR(parser->ReadBits(7, picture_id));
+    vp9->picture_id = first_byte;
     vp9->max_picture_id = kMaxOneBytePictureId;
   }
-  vp9->picture_id = picture_id;
   return true;
 }
 
@@ -58,18 +59,16 @@ bool ParsePictureId(rtc::BitBuffer* parser, RTPVideoHeaderVP9* vp9) {
 // L:   |  T  |U|  S  |D|
 //      +-+-+-+-+-+-+-+-+
 //
-bool ParseLayerInfoCommon(rtc::BitBuffer* parser, RTPVideoHeaderVP9* vp9) {
-  uint32_t t, u_bit, s, d_bit;
-  RETURN_FALSE_ON_ERROR(parser->ReadBits(3, t));
-  RETURN_FALSE_ON_ERROR(parser->ReadBits(1, u_bit));
-  RETURN_FALSE_ON_ERROR(parser->ReadBits(3, s));
-  RETURN_FALSE_ON_ERROR(parser->ReadBits(1, d_bit));
-  vp9->temporal_idx = t;
-  vp9->temporal_up_switch = u_bit ? true : false;
-  if (s >= kMaxSpatialLayers)
+bool ParseLayerInfoCommon(rtc::ByteBufferReader* parser,
+                          RTPVideoHeaderVP9* vp9) {
+  uint8_t l_byte;
+  RETURN_FALSE_ON_ERROR(parser->ReadUInt8(&l_byte));
+  vp9->temporal_idx = l_byte >> 5;
+  vp9->temporal_up_switch = (l_byte & 0b0001'0000) != 0;
+  vp9->spatial_idx = (l_byte >> 1) & 0b111;
+  if (vp9->spatial_idx >= kMaxSpatialLayers)
     return false;
-  vp9->spatial_idx = s;
-  vp9->inter_layer_predicted = d_bit ? true : false;
+  vp9->inter_layer_predicted = (l_byte & 0b0000'0001) != 0;
   return true;
 }
 
@@ -81,15 +80,15 @@ bool ParseLayerInfoCommon(rtc::BitBuffer* parser, RTPVideoHeaderVP9* vp9) {
 //      |   TL0PICIDX   |
 //      +-+-+-+-+-+-+-+-+
 //
-bool ParseLayerInfoNonFlexibleMode(rtc::BitBuffer* parser,
+bool ParseLayerInfoNonFlexibleMode(rtc::ByteBufferReader* parser,
                                    RTPVideoHeaderVP9* vp9) {
   uint8_t tl0picidx;
-  RETURN_FALSE_ON_ERROR(parser->ReadUInt8(tl0picidx));
+  RETURN_FALSE_ON_ERROR(parser->ReadUInt8(&tl0picidx));
   vp9->tl0_pic_idx = tl0picidx;
   return true;
 }
 
-bool ParseLayerInfo(rtc::BitBuffer* parser, RTPVideoHeaderVP9* vp9) {
+bool ParseLayerInfo(rtc::ByteBufferReader* parser, RTPVideoHeaderVP9* vp9) {
   if (!ParseLayerInfoCommon(parser, vp9))
     return false;
 
@@ -106,20 +105,18 @@ bool ParseLayerInfo(rtc::BitBuffer* parser, RTPVideoHeaderVP9* vp9) {
 //      +-+-+-+-+-+-+-+-+                    N=1: An additional P_DIFF follows
 //                                                current P_DIFF.
 //
-bool ParseRefIndices(rtc::BitBuffer* parser, RTPVideoHeaderVP9* vp9) {
+bool ParseRefIndices(rtc::ByteBufferReader* parser, RTPVideoHeaderVP9* vp9) {
   if (vp9->picture_id == kNoPictureId)
     return false;
 
   vp9->num_ref_pics = 0;
-  uint32_t n_bit;
+  uint8_t p_diff_and_next_bit;
   do {
     if (vp9->num_ref_pics == kMaxVp9RefPics)
       return false;
 
-    uint32_t p_diff;
-    RETURN_FALSE_ON_ERROR(parser->ReadBits(7, p_diff));
-    RETURN_FALSE_ON_ERROR(parser->ReadBits(1, n_bit));
-
+    RETURN_FALSE_ON_ERROR(parser->ReadUInt8(&p_diff_and_next_bit));
+    uint8_t p_diff = p_diff_and_next_bit >> 1;
     vp9->pid_diff[vp9->num_ref_pics] = p_diff;
     uint32_t scaled_pid = vp9->picture_id;
     if (p_diff > scaled_pid) {
@@ -127,7 +124,7 @@ bool ParseRefIndices(rtc::BitBuffer* parser, RTPVideoHeaderVP9* vp9) {
       scaled_pid += vp9->max_picture_id + 1;
     }
     vp9->ref_picture_id[vp9->num_ref_pics++] = scaled_pid - p_diff;
-  } while (n_bit);
+  } while (p_diff_and_next_bit & 0b1);
 
   return true;
 }
@@ -152,40 +149,37 @@ bool ParseRefIndices(rtc::BitBuffer* parser, RTPVideoHeaderVP9* vp9) {
 //      |    P_DIFF     | (OPTIONAL)    . R times    .
 //      +-+-+-+-+-+-+-+-+              -|           -|
 //
-bool ParseSsData(rtc::BitBuffer* parser, RTPVideoHeaderVP9* vp9) {
-  uint32_t n_s, y_bit, g_bit;
-  RETURN_FALSE_ON_ERROR(parser->ReadBits(3, n_s));
-  RETURN_FALSE_ON_ERROR(parser->ReadBits(1, y_bit));
-  RETURN_FALSE_ON_ERROR(parser->ReadBits(1, g_bit));
-  RETURN_FALSE_ON_ERROR(parser->ConsumeBits(3));
+bool ParseSsData(rtc::ByteBufferReader* parser, RTPVideoHeaderVP9* vp9) {
+  uint8_t l_byte;
+  RETURN_FALSE_ON_ERROR(parser->ReadUInt8(&l_byte));
+  uint32_t n_s = l_byte >> 5;
+  bool y_bit = (l_byte & 0b1'0000) != 0;
+  bool g_bit = (l_byte & 0b0'1000) != 0;
   vp9->num_spatial_layers = n_s + 1;
   vp9->spatial_layer_resolution_present = y_bit ? true : false;
   vp9->gof.num_frames_in_gof = 0;
 
   if (y_bit) {
     for (size_t i = 0; i < vp9->num_spatial_layers; ++i) {
-      RETURN_FALSE_ON_ERROR(parser->ReadUInt16(vp9->width[i]));
-      RETURN_FALSE_ON_ERROR(parser->ReadUInt16(vp9->height[i]));
+      RETURN_FALSE_ON_ERROR(parser->ReadUInt16(&vp9->width[i]));
+      RETURN_FALSE_ON_ERROR(parser->ReadUInt16(&vp9->height[i]));
     }
   }
   if (g_bit) {
     uint8_t n_g;
-    RETURN_FALSE_ON_ERROR(parser->ReadUInt8(n_g));
+    RETURN_FALSE_ON_ERROR(parser->ReadUInt8(&n_g));
     vp9->gof.num_frames_in_gof = n_g;
   }
   for (size_t i = 0; i < vp9->gof.num_frames_in_gof; ++i) {
-    uint32_t t, u_bit, r;
-    RETURN_FALSE_ON_ERROR(parser->ReadBits(3, t));
-    RETURN_FALSE_ON_ERROR(parser->ReadBits(1, u_bit));
-    RETURN_FALSE_ON_ERROR(parser->ReadBits(2, r));
-    RETURN_FALSE_ON_ERROR(parser->ConsumeBits(2));
-    vp9->gof.temporal_idx[i] = t;
-    vp9->gof.temporal_up_switch[i] = u_bit ? true : false;
-    vp9->gof.num_ref_pics[i] = r;
+    uint8_t g_byte;
+    RETURN_FALSE_ON_ERROR(parser->ReadUInt8(&g_byte));
+    vp9->gof.temporal_idx[i] = g_byte >> 5;
+    vp9->gof.temporal_up_switch[i] = (g_byte & 0b1'0000) != 0;
+    vp9->gof.num_ref_pics[i] = (g_byte >> 6) & 0b11;
 
     for (uint8_t p = 0; p < vp9->gof.num_ref_pics[i]; ++p) {
       uint8_t p_diff;
-      RETURN_FALSE_ON_ERROR(parser->ReadUInt8(p_diff));
+      RETURN_FALSE_ON_ERROR(parser->ReadUInt8(&p_diff));
       vp9->gof.pid_diff[i][p] = p_diff;
     }
   }
@@ -212,9 +206,10 @@ int VideoRtpDepacketizerVp9::ParseRtpPayload(
     RTPVideoHeader* video_header) {
   RTC_DCHECK(video_header);
   // Parse mandatory first byte of payload descriptor.
-  rtc::BitBuffer parser(rtp_payload.data(), rtp_payload.size());
+  rtc::ByteBufferReader parser(
+      reinterpret_cast<const char*>(rtp_payload.data()), rtp_payload.size());
   uint8_t first_byte;
-  if (!parser.ReadUInt8(first_byte)) {
+  if (!parser.ReadUInt8(&first_byte)) {
     RTC_LOG(LS_ERROR) << "Payload length is zero.";
     return kFailedToParse;
   }
@@ -273,15 +268,11 @@ int VideoRtpDepacketizerVp9::ParseRtpPayload(
   video_header->is_first_packet_in_frame =
       b_bit && (!l_bit || !vp9_header.inter_layer_predicted);
 
-  size_t byte_offset;
-  size_t bit_offset;
-  parser.GetCurrentOffset(&byte_offset, &bit_offset);
-  RTC_DCHECK_EQ(bit_offset, 0);
-  if (byte_offset == rtp_payload.size()) {
+  if (parser.Length() == 0) {
     // Empty vp9 payload data.
     return kFailedToParse;
   }
 
-  return byte_offset;
+  return rtp_payload.size() - parser.Length();
 }
 }  // namespace webrtc

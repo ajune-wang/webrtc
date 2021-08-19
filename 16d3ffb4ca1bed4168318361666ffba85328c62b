@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82d8484c_196afefc",
+        "filename": "api/video_codecs/video_decoder_factory.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-19T08:24:15Z",
+      "side": 1,
+      "message": "another way to write this is\ncodec_support.is_supported \u003d\n  !reference_scaling \u0026\u0026 format.IsCodecInList(GetSupportedFormats());\n  \n(not sure which one is better, not sure if that matter if this function suppose to be pure virtual anyway)",
+      "range": {
+        "startLine": 55,
+        "startChar": 4,
+        "endLine": 57,
+        "endChar": 5
+      },
+      "revId": "16d3ffb4ca1bed4168318361666ffba85328c62b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

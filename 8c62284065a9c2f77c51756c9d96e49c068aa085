@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "48823acd_6d5037b8",
+        "filename": "p2p/base/transport_description_factory.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-08-19T09:13:29Z",
+      "side": 1,
+      "message": "Yes, the error in peerconnection_unittests is due to this check. Some of our test SDP strings are missing a\u003dsetup: (a protocol violation).\n\nThe jsep_transport tests were because the tests were testing the things that changed.",
+      "parentUuid": "41519c9f_ded3efb1",
+      "revId": "8c62284065a9c2f77c51756c9d96e49c068aa085",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7cc21542_2a3ee2eb",
@@ -48,6 +66,24 @@
       "writtenOn": "2021-08-18T20:46:20Z",
       "side": 1,
       "message": "nit: We are already in a `remote_connection_role !\u003d CONNECTIONROLE_ACTPASS` block",
+      "revId": "8c62284065a9c2f77c51756c9d96e49c068aa085",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0e8bfc5_a1cf1288",
+        "filename": "pc/jsep_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 658,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-08-19T09:13:29Z",
+      "side": 1,
+      "message": "Point. Deleting this case.\n(could restructure this to merge the case and the if, but that turns the code messy in a different way)",
+      "parentUuid": "7cc21542_2a3ee2eb",
       "revId": "8c62284065a9c2f77c51756c9d96e49c068aa085",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

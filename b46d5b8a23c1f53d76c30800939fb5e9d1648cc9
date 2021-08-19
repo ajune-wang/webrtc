@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b494dcd_bf5928da",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-08-19T18:09:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fea6db52_f73e4c5e",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 11
+      },
+      "revId": "b46d5b8a23c1f53d76c30800939fb5e9d1648cc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e7a9cdef_395b7a4d",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-08-19T17:15:43Z",
       "side": 1,
       "message": "You can add a sentinel value (e.g. kLastValue or something like that) and change the ctor to loop i \u003c static_cast\u003cint\u003e(FrameDropPhase::kLastValue).\n\nMaybe this is more future proof (but add a comment to not add values after kLastValue).",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 42
+      },
+      "revId": "b46d5b8a23c1f53d76c30800939fb5e9d1648cc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02698f7f_d7276513",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_shared_objects.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-08-19T18:09:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7a9cdef_395b7a4d",
       "range": {
         "startLine": 89,
         "startChar": 0,

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6c493f2_000f3a62",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-08-20T14:52:42Z",
+      "side": 1,
+      "message": "Preparing the merge CL pending approval in the bug.",
+      "revId": "112f51d9cbaf2068d723347ea2c014adb2235724",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

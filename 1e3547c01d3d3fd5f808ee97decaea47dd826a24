@@ -34,6 +34,24 @@
       "parentUuid": "17f46ff0_03483b8d",
       "revId": "1e3547c01d3d3fd5f808ee97decaea47dd826a24",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b4201a2_50690677",
+        "filename": "rtc_base/socket_adapters.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-08-20T12:39:02Z",
+      "side": 1,
+      "message": "doesn\u0027t look different. Interesting to see that if len is smaller than sizeof(kSslClientHello) there, then the call is silently ignored.\n\nBut even if there\u0027s an example of doing this below, there\u0027s also an example of where such patterns could be problematic (and that we should perhaps not repeat that pattern). Consider the \"FIX\" comment following the SignalConnectEvent() call.",
+      "parentUuid": "b03ee4a8_cf4b7c8e",
+      "revId": "1e3547c01d3d3fd5f808ee97decaea47dd826a24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

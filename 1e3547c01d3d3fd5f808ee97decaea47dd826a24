@@ -16,6 +16,24 @@
       "message": "I\u0027m worried that this could introduce unwanted side effects. Consider code like this:\n\n  void MyOnConnectedHandler() {\n    SignalConnectEvent();  // triggers a call to OnConnectEvent.\n    connected_ \u003d true;\n  }\n  \nIf inside SignalConnectEvent() we call Close, signal the \u0027close event\u0027 etc, then when we get back to MyOnConnectedHandler, we would end up setting connected_ to true, which would be incorrect.\n\nI can\u0027t find an example of this though, but recursive state notifications feel potentially problematic.",
       "revId": "1e3547c01d3d3fd5f808ee97decaea47dd826a24",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b03ee4a8_cf4b7c8e",
+        "filename": "rtc_base/socket_adapters.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-08-20T09:32:36Z",
+      "side": 1,
+      "message": "Is it different from the Close+Signal code below, in ProcessInput, which is called from OnReadEvent, which is connected to SignalReadEvent?\n\nAs far as I understand, these signals are sent from one of the socket servers, but I don\u0027t know their exact requirements and expectations.\n\nI would also expect that the SignalCloseEvent is wired upwards in the (networking) stack, reaching different code than the source of the SignalConnectEvent which is below in the stack.",
+      "parentUuid": "17f46ff0_03483b8d",
+      "revId": "1e3547c01d3d3fd5f808ee97decaea47dd826a24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

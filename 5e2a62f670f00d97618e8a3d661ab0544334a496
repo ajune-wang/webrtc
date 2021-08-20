@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a27971d_a2b95ff6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-20T11:04:26Z",
+      "side": 1,
+      "message": "Not much, but does save a few bytes of binary size.",
+      "revId": "5e2a62f670f00d97618e8a3d661ab0544334a496",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

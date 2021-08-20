@@ -46,6 +46,30 @@
       },
       "revId": "daa0c0819b9f83b334c3794a2510c5e333bf1ca6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d1cbb51_2ad084e6",
+        "filename": "rtc_base/virtual_socket_server.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-08-20T10:50:49Z",
+      "side": 1,
+      "message": "We\u0027ll find out if/when we get to that. Maybe internal creation can just use the constructor directly.",
+      "parentUuid": "be51d751_980eb8a5",
+      "range": {
+        "startLine": 239,
+        "startChar": 0,
+        "endLine": 239,
+        "endChar": 61
+      },
+      "revId": "daa0c0819b9f83b334c3794a2510c5e333bf1ca6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

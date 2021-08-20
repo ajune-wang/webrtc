@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "68c92648_700460f8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-08-20T12:59:01Z",
+      "side": 1,
+      "message": "Adding Taylor, I think you\u0027re more familiar with the conventions and assumptions around the signals from the socket servers.\n\nLonger term, I *really* want to see the fake ssl code deleted.",
+      "revId": "1e3547c01d3d3fd5f808ee97decaea47dd826a24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "17f46ff0_03483b8d",
@@ -50,6 +67,24 @@
       "side": 1,
       "message": "doesn\u0027t look different. Interesting to see that if len is smaller than sizeof(kSslClientHello) there, then the call is silently ignored.\n\nBut even if there\u0027s an example of doing this below, there\u0027s also an example of where such patterns could be problematic (and that we should perhaps not repeat that pattern). Consider the \"FIX\" comment following the SignalConnectEvent() call.",
       "parentUuid": "b03ee4a8_cf4b7c8e",
+      "revId": "1e3547c01d3d3fd5f808ee97decaea47dd826a24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1474b5af_70a8ae8e",
+        "filename": "rtc_base/socket_adapters.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-08-20T12:59:01Z",
+      "side": 1,
+      "message": "\u003e Interesting to see that if len is smaller than sizeof(kSslClientHello) there, then the call is silently ignored.\n\nIf this comment is about below ProcessInput, my guess is that it will be called again after more data has been read into the buffer.\n\n\u003e But even if there\u0027s an example of doing this below, there\u0027s also an example of where such patterns could be problematic (and that we should perhaps not repeat that pattern). \n\nSo what do you suggest? I see to alternatives that are reasonable to me:\n\n1. Completely ignore return value of DirectSend. In case there\u0027s a network error, that will be detected on next use anyway.\n\n2. Keep the Close+Signal error handling in the current cl. Since these are all internal interfaces, related to the socket servers, maybe we can trust our tests to tell if it works, and detect if later refactoring would violate current assumptions?\n\n\u003e Consider the \"FIX\" comment following the SignalConnectEvent() call.\n\nThat makes me uneasy too.",
+      "parentUuid": "6b4201a2_50690677",
       "revId": "1e3547c01d3d3fd5f808ee97decaea47dd826a24",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

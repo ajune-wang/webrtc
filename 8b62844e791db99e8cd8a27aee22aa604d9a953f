@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f5afbb0_69cfd0c2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18194
+      },
+      "writtenOn": "2021-08-20T03:42:06Z",
+      "side": 1,
+      "message": "Dear Silkin,\nNow HardwareVideoEncoder class checks whether input frames are 16x16-aligned.\nRegards,\nJung",
+      "revId": "8b62844e791db99e8cd8a27aee22aa604d9a953f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

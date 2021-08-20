@@ -22,6 +22,30 @@
       },
       "revId": "daa0c0819b9f83b334c3794a2510c5e333bf1ca6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be51d751_980eb8a5",
+        "filename": "rtc_base/virtual_socket_server.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-08-20T10:47:17Z",
+      "side": 1,
+      "message": "Returning raw pointers from Create hurts my eyes. But that\u0027s how it used to be, and not for this CL to change.\n\nI suppose returning a std::unique_ptr\u003cVirtualSocket\u003e will resurrect the need for the CreateSocketInternal function, and be a larger refactoring?\nBut let\u0027s burn that bridge when we come to it.",
+      "parentUuid": "34445ed8_030cbf90",
+      "range": {
+        "startLine": 239,
+        "startChar": 0,
+        "endLine": 239,
+        "endChar": 61
+      },
+      "revId": "daa0c0819b9f83b334c3794a2510c5e333bf1ca6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

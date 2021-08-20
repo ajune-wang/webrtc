@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "391e2794_c4fcbe4c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-20T10:36:53Z",
+      "side": 1,
+      "message": "I will not be available for a few days, Sergey/Evan can you take over?",
+      "revId": "5326d4aeb6a2a12380c4402e7dc92f093f40bca7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74127af3_3c564550",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-20T10:36:53Z",
+      "side": 1,
+      "message": "I am concerned this may lead to a race where the periodic callback is triggered after the BandwidthScaler has been destroyed.\nNot sure if using a true weak pointer is best or if we can in some other way guarantee that this does not happen. Even if it does work as is, we need to document the threading expectations carefully.",
+      "range": {
+        "startLine": 83,
+        "startChar": 2,
+        "endLine": 83,
+        "endChar": 44
+      },
+      "revId": "5326d4aeb6a2a12380c4402e7dc92f093f40bca7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

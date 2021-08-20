@@ -149,6 +149,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b8643220_d613f41f",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-20T10:36:53Z",
+      "side": 1,
+      "message": "If the resolution is in between two data point, do a linear interpolation based on pixel count.\n\nFor instance if:\n* 640x360 (230400 pixels) is 300kbps\n* 1280x720 (921600 pixels) is 900kbps\n\n...and a limit is requested for an adapted 960x540 stream (518400 pixels) which is in between those limits do:\n\nfloat alpha \u003d (518400-230400) / (921600 - 230400);\nlimit \u003d (900kbps * alpha) + (300kbps * (1 - alpha));\n\nWhich is ~550kbps in this case.",
+      "parentUuid": "ca8004a2_5f3c9296",
+      "range": {
+        "startLine": 54,
+        "startChar": 4,
+        "endLine": 54,
+        "endChar": 58
+      },
+      "revId": "545f588c7889dc8962b137eb578979d7770e1929",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5d99673a_7a04310b",
         "filename": "modules/video_coding/utility/bandwidth_scaler.cc",
         "patchSetId": 6
@@ -372,6 +396,30 @@
       "side": 1,
       "message": "we have modified the way of calculating bps.we choose exponential filter instead of RateStatistics to put more scores on most recent samples.WDYT?",
       "parentUuid": "572f9f28_1ab4af9d",
+      "range": {
+        "startLine": 132,
+        "startChar": 0,
+        "endLine": 134,
+        "endChar": 51
+      },
+      "revId": "545f588c7889dc8962b137eb578979d7770e1929",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fa81d81_9442ee50",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-20T10:36:53Z",
+      "side": 1,
+      "message": "It might work, depending on the weight. Too much bias for new frames and we risk keyframes triggering oscillating up/down adaptation. In the reverse direction we might actually put more weight frames older than if we used a sliding averaging window.\n\nMight need some testing to validate the choices.",
+      "parentUuid": "c70e7f8c_6a4244f9",
       "range": {
         "startLine": 132,
         "startChar": 0,

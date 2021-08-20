@@ -105,6 +105,24 @@
       "parentUuid": "1474b5af_70a8ae8e",
       "revId": "1e3547c01d3d3fd5f808ee97decaea47dd826a24",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7574a56d_eceaa976",
+        "filename": "rtc_base/socket_adapters.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-08-20T21:00:32Z",
+      "side": 1,
+      "message": "I don\u0027t think Tommi\u0027s original concern is an issue. PhysicalSocketServer sets its \"connected\" state before calling SignalConnectEvent: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/rtc_base/physical_socket_server.cc;l\u003d767;drc\u003dd0b88797705cfc6c1d60ad325d1923f326f10de1\n\nAnd in general is written in such a way that callbacks can modify the socket without issue.\n\nThis could be a theoretical issue for non-PhysicalSocket implementations, but I don\u0027t expect there will be any.",
+      "parentUuid": "43ee340c_910eb8a1",
+      "revId": "1e3547c01d3d3fd5f808ee97decaea47dd826a24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

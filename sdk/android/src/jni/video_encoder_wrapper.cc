@@ -113,6 +113,12 @@ void VideoEncoderWrapper::UpdateEncoderInfo(JNIEnv* jni) {
 
   encoder_info_.resolution_bitrate_limits = JavaToNativeResolutionBitrateLimits(
       jni, Java_VideoEncoder_getResolutionBitrateLimits(jni, encoder_));
+
+  // Since our MediaCodec is guaranteed to encode 16-pixel-aligned frames only,
+  // these two properties should be set initially for the later simulcast
+  // encoding.
+  encoder_info_.requested_resolution_alignment = 16;
+  encoder_info_.apply_alignment_to_all_simulcast_layers = true;
 }
 
 int32_t VideoEncoderWrapper::RegisterEncodeCompleteCallback(

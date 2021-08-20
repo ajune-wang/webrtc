@@ -16,6 +16,29 @@
       "message": "Dear Silkin,\nNow HardwareVideoEncoder class checks whether input frames are 16x16-aligned.\nRegards,\nJung",
       "revId": "8b62844e791db99e8cd8a27aee22aa604d9a953f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df892310_be469aa4",
+        "filename": "sdk/android/src/jni/video_encoder_wrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-08-20T09:17:59Z",
+      "side": 1,
+      "message": "I\u0027m not sure we should do this for all encoders. Exynos encoders, for example, can handle resolutions non-multiple to 16.",
+      "range": {
+        "startLine": 117,
+        "startChar": 11,
+        "endLine": 117,
+        "endChar": 14
+      },
+      "revId": "8b62844e791db99e8cd8a27aee22aa604d9a953f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

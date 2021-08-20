@@ -123,6 +123,24 @@
       "parentUuid": "43ee340c_910eb8a1",
       "revId": "1e3547c01d3d3fd5f808ee97decaea47dd826a24",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82f353f0_08342947",
+        "filename": "rtc_base/socket_adapters.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-08-20T21:06:11Z",
+      "side": 1,
+      "message": "I didn\u0027t think that it was an issue, but I do think that it\u0027s the kind of thing that could easily regress. And if it does, it\u0027s not exactly obvious from the code what\u0027s going on. Basically I\u0027d prefer to avoid this sort of a pattern.\n\nHowever, if you\u0027re both fine with this as is, I\u0027m good too.",
+      "parentUuid": "7574a56d_eceaa976",
+      "revId": "1e3547c01d3d3fd5f808ee97decaea47dd826a24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

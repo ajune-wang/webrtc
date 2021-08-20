@@ -257,6 +257,8 @@ AudioProcessingImpl::AudioProcessingImpl(
           UseSetupSpecificDefaultAec3Congfig()),
       use_denormal_disabler_(
           !field_trial::IsEnabled("WebRTC-ApmDenormalDisablerKillSwitch")),
+      disable_analog_agc_(
+          field_trial::IsEnabled("WebRTC-ApmAnalogAgcKillSwitch")),
       capture_runtime_settings_(RuntimeSettingQueueSize()),
       render_runtime_settings_(RuntimeSettingQueueSize()),
       capture_runtime_settings_enqueuer_(&capture_runtime_settings_),
@@ -1896,7 +1898,11 @@ void AudioProcessingImpl::InitializeGainController1() {
   submodules_.gain_control->Initialize(num_proc_channels(),
                                        proc_sample_rate_hz());
 
-  if (!config_.gain_controller1.analog_gain_controller.enabled) {
+  if (!config_.gain_controller1.analog_gain_controller.enabled ||
+      disable_analog_agc_) {
+    if (disable_analog_agc_) {
+      RTC_LOG(LS_WARNING) << "Analog AGC disabled by kill-switch";
+    }
     int error = submodules_.gain_control->set_mode(
         Agc1ConfigModeToInterfaceMode(config_.gain_controller1.mode));
     RTC_DCHECK_EQ(kNoError, error);

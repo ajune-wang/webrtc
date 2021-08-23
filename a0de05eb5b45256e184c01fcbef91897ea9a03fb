@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b93a0c8d_3bd5bf42",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-08-23T08:22:30Z",
+      "side": 1,
+      "message": "As you note, one problem with pthreads, is that the spec doesn\u0027t define any magic value of pthread_t to represent \"no thread\" (and pthread_t isn\u0027t even required to be an arithmetic type), so a separate bool is needed to represent set/unset in a portable way.\n\nBut since this is code specific iOS (and Mac OS?), it doesn\u0027t need to be portable to an arbitrary pthreads implementation.\n\nHmm, maybe another approach would be to have a thread local variable, set to true in the thread that locks the mutex, and false in all others? Wouldn\u0027t need any synchronization, since each instance of the variable is accessible only to its corresponding thread. (Not sure if it\u0027s a good idea with thread local member variables, though).",
+      "parentUuid": "0d5bd5cd_74a0fdaa",
+      "revId": "a0de05eb5b45256e184c01fcbef91897ea9a03fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3c75dd1a_cd5e6fb4",
         "filename": "sdk/objc/components/audio/RTCAudioSession.mm",
         "patchSetId": 4

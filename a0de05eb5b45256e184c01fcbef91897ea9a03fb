@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0d5bd5cd_74a0fdaa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-08-23T08:10:36Z",
+      "side": 1,
+      "message": "Since this is code for configuration, I try to avoid race conditions or other undefined behavior whenever possible.\n\nInstead of introducing another mutex, it is possible to replace it with atomics.\npthread_from_mach_thread_np [1] can get (arbitrary) thread id as uint64_t.\nHowever, it has its own pitfalls (using undocumented behavior). See [2] for details.\n\n[1] https://www.manpagez.com/man/3/pthread_threadid_np/\n[2] https://webrtc-review.googlesource.com/c/src/+/229780",
+      "parentUuid": "99bb0909_592eea5a",
+      "revId": "a0de05eb5b45256e184c01fcbef91897ea9a03fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3c75dd1a_cd5e6fb4",
         "filename": "sdk/objc/components/audio/RTCAudioSession.mm",
         "patchSetId": 4

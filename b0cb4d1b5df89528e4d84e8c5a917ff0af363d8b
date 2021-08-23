@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "22434352_568a0e66",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-08-23T09:08:13Z",
+      "side": 1,
+      "message": "Late to the game .. happy with the actual action taken, but somewhat fearful of having handling of an unexpected event be done with no logging and no error signal that indicates that this is what happened. If we encounter this, it will be harder to debug than when we produced crash dumps when it happened.\n\nI\u0027d be happier if the \"if\" included an RTC_LOG(LS_ERROR).",
+      "revId": "b0cb4d1b5df89528e4d84e8c5a917ff0af363d8b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

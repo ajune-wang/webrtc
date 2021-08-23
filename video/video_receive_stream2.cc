@@ -202,7 +202,7 @@ VideoReceiveStream2::VideoReceiveStream2(
       clock_(clock),
       call_stats_(call_stats),
       source_tracker_(clock_),
-      stats_proxy_(&config_, clock_, call->worker_thread()),
+      stats_proxy_(config_.rtp.remote_ssrc, clock_, call->worker_thread()),
       rtp_receive_statistics_(ReceiveStatistics::Create(clock_)),
       timing_(timing),
       video_receiver_(clock_, timing_.get()),
@@ -440,6 +440,17 @@ void VideoReceiveStream2::Stop() {
   transport_adapter_.Disable();
 }
 
+void VideoReceiveStream2::SetRtpExtensions(
+    std::vector<RtpExtension> extensions) {
+  RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
+  rtp_video_stream_receiver_.SetRtpExtensions(extensions);
+  // RTC_NOTREACHED();
+  // TODO(tommi): We don't really use the `c.rtp.extensions` member.
+  VideoReceiveStream::Config& c =
+      const_cast<VideoReceiveStream::Config&>(config_);
+  c.rtp.extensions = std::move(extensions);
+}
+
 void VideoReceiveStream2::CreateAndRegisterExternalDecoder(
     const Decoder& decoder) {
   TRACE_EVENT0("webrtc",
@@ -467,7 +478,7 @@ void VideoReceiveStream2::CreateAndRegisterExternalDecoder(
     char filename_buffer[256];
     rtc::SimpleStringBuilder ssb(filename_buffer);
     ssb << decoded_output_file << "/webrtc_receive_stream_"
-        << this->config_.rtp.remote_ssrc << "-" << rtc::TimeMicros() << ".ivf";
+        << config_.rtp.remote_ssrc << "-" << rtc::TimeMicros() << ".ivf";
     video_decoder = CreateFrameDumpingDecoderWrapper(
         std::move(video_decoder), FileWrapper::OpenWriteOnly(ssb.str()));
   }

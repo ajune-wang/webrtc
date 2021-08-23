@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5bf028d0_5fa70bd5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-08-23T09:01:44Z",
+      "side": 1,
+      "message": "Using a thread local variable seems reasonable for me.\nAccording to the Google C++ style guide, thread_local variables are effectively global variables.\nHowever, since RTCAudioSession is already a singleton object, there is no problem at all.\n\nThere was a typo in my previous reply. pthread_threadid_np, not a pthread_from_mach_thread_np.",
+      "parentUuid": "b93a0c8d_3bd5bf42",
+      "revId": "a0de05eb5b45256e184c01fcbef91897ea9a03fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3c75dd1a_cd5e6fb4",
         "filename": "sdk/objc/components/audio/RTCAudioSession.mm",
         "patchSetId": 4

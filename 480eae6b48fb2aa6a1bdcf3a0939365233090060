@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7008f9f6_2d02ef71",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-08-23T17:19:21Z",
+      "side": 1,
+      "message": "rtc_event_filed_encoding is quite large, it makes it a bit hard to review as a whole. Would it be possible to split it into smaller, self-sufficient classes/tools living in separate files and reviewed as separate CLs?",
+      "revId": "480eae6b48fb2aa6a1bdcf3a0939365233090060",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2a84e062_e64b64b5",
         "filename": "logging/rtc_event_log/encoder/bit_writer.cc",
         "patchSetId": 3
@@ -105,6 +122,29 @@
         "startChar": 0,
         "endLine": 45,
         "endChar": 26
+      },
+      "revId": "480eae6b48fb2aa6a1bdcf3a0939365233090060",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "986142c5_468352ad",
+        "filename": "logging/rtc_event_log/events/rtc_event_field_encoding.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-08-23T17:19:21Z",
+      "side": 1,
+      "message": "Could this be moved to unit test?",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 46
       },
       "revId": "480eae6b48fb2aa6a1bdcf3a0939365233090060",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"

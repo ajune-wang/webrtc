@@ -53,46 +53,46 @@ enum SpsValidEvent {
     }                                                                  \
   } while (0)
 
-#define COPY_UINT8(src, dest, tmp)                   \
-  do {                                               \
-    RETURN_FALSE_ON_FAIL((src)->ReadUInt8(tmp));     \
-    if (dest)                                        \
-      RETURN_FALSE_ON_FAIL((dest)->WriteUInt8(tmp)); \
+#define COPY_UINT8(src, dest, tmp)                            \
+  do {                                                        \
+    tmp = (src).ReadUInt8() RETURN_FALSE_ON_FAIL((src).Ok()); \
+    if (dest)                                                 \
+      RETURN_FALSE_ON_FAIL((dest)->WriteUInt8(tmp));          \
   } while (0)
 
 #define COPY_EXP_GOLOMB(src, dest, tmp)                          \
   do {                                                           \
-    RETURN_FALSE_ON_FAIL((src)->ReadExponentialGolomb(tmp));     \
+    tmp = (src).ReadExponentialGolomb();                         \
+    RETURN_FALSE_ON_FAIL((src).Ok());                            \
     if (dest)                                                    \
       RETURN_FALSE_ON_FAIL((dest)->WriteExponentialGolomb(tmp)); \
   } while (0)
 
 #define COPY_BITS(src, dest, tmp, bits)                   \
   do {                                                    \
-    RETURN_FALSE_ON_FAIL((src)->ReadBits(bits, tmp));     \
+    tmp = (src).ReadBits(bits);                           \
+    RETURN_FALSE_ON_FAIL((src).Ok());                     \
     if (dest)                                             \
       RETURN_FALSE_ON_FAIL((dest)->WriteBits(tmp, bits)); \
   } while (0)
 
 bool CopyAndRewriteVui(const SpsParser::SpsState& sps,
-                       rtc::BitBuffer* source,
+                       BitReader& source,
                        rtc::BitBufferWriter* destination,
                        const webrtc::ColorSpace* color_space,
                        SpsVuiRewriter::ParseResult* out_vui_rewritten);
-bool CopyHrdParameters(rtc::BitBuffer* source,
-                       rtc::BitBufferWriter* destination);
+bool CopyHrdParameters(BitReader& source, rtc::BitBufferWriter* destination);
 bool AddBitstreamRestriction(rtc::BitBufferWriter* destination,
                              uint32_t max_num_ref_frames);
 bool IsDefaultColorSpace(const ColorSpace& color_space);
 bool AddVideoSignalTypeInfo(rtc::BitBufferWriter* destination,
                             const ColorSpace& color_space);
 bool CopyOrRewriteVideoSignalTypeInfo(
-    rtc::BitBuffer* source,
+    BitReader& source,
     rtc::BitBufferWriter* destination,
     const ColorSpace* color_space,
     SpsVuiRewriter::ParseResult* out_vui_rewritten);
-bool CopyRemainingBits(rtc::BitBuffer* source,
-                       rtc::BitBufferWriter* destination);
+bool CopyRemainingBits(BitReader& source, rtc::BitBufferWriter* destination);
 }  // namespace
 
 void SpsVuiRewriter::UpdateStats(ParseResult result, Direction direction) {
@@ -133,11 +133,12 @@ SpsVuiRewriter::ParseResult SpsVuiRewriter::ParseAndRewriteSps(
   // Create temporary RBSP decoded buffer of the payload (exlcuding the
   // leading nalu type header byte (the SpsParser uses only the payload).
   std::vector<uint8_t> rbsp_buffer = H264::ParseRbsp(buffer, length);
-  rtc::BitBuffer source_buffer(rbsp_buffer.data(), rbsp_buffer.size());
+  BitReader source_buffer(rbsp_buffer);
   absl::optional<SpsParser::SpsState> sps_state =
-      SpsParser::ParseSpsUpToVui(&source_buffer);
+      SpsParser::ParseSpsUpToVui(source_buffer);
   if (!sps_state)
     return ParseResult::kFailure;
+  RTC_DCHECK(source_buffer.Ok());
 
   *sps = sps_state;
 
@@ -147,9 +148,9 @@ SpsVuiRewriter::ParseResult SpsVuiRewriter::ParseAndRewriteSps(
   rtc::BitBufferWriter sps_writer(out_buffer.data(), out_buffer.size());
 
   // Check how far the SpsParser has read, and copy that data in bulk.
-  size_t byte_offset;
-  size_t bit_offset;
-  source_buffer.GetCurrentOffset(&byte_offset, &bit_offset);
+  size_t read_bits = rbsp_buffer.size() * 8 - source_buffer.RemainingBitCount();
+  size_t byte_offset = read_bits / 8;
+  size_t bit_offset = read_bits % 8;
   memcpy(out_buffer.data(), rbsp_buffer.data(),
          byte_offset + (bit_offset > 0 ? 1 : 0));  // OK to copy the last bits.
 
@@ -164,7 +165,7 @@ SpsVuiRewriter::ParseResult SpsVuiRewriter::ParseAndRewriteSps(
   sps_writer.Seek(byte_offset, bit_offset);
 
   ParseResult vui_updated;
-  if (!CopyAndRewriteVui(*sps_state, &source_buffer, &sps_writer, color_space,
+  if (!CopyAndRewriteVui(*sps_state, source_buffer, &sps_writer, color_space,
                          &vui_updated)) {
     RTC_LOG(LS_ERROR) << "Failed to parse/copy SPS VUI.";
     return ParseResult::kFailure;
@@ -175,7 +176,7 @@ SpsVuiRewriter::ParseResult SpsVuiRewriter::ParseAndRewriteSps(
     return vui_updated;
   }
 
-  if (!CopyRemainingBits(&source_buffer, &sps_writer)) {
+  if (!CopyRemainingBits(source_buffer, &sps_writer)) {
     RTC_LOG(LS_ERROR) << "Failed to parse/copy SPS VUI.";
     return ParseResult::kFailure;
   }
@@ -271,7 +272,7 @@ rtc::Buffer SpsVuiRewriter::ParseOutgoingBitstreamAndRewrite(
 
 namespace {
 bool CopyAndRewriteVui(const SpsParser::SpsState& sps,
-                       rtc::BitBuffer* source,
+                       BitReader& source,
                        rtc::BitBufferWriter* destination,
                        const webrtc::ColorSpace* color_space,
                        SpsVuiRewriter::ParseResult* out_vui_rewritten) {
@@ -370,8 +371,7 @@ bool CopyAndRewriteVui(const SpsParser::SpsState& sps,
     COPY_BITS(source, destination, bits_tmp, 1);
 
     // bitstream_restriction_flag: u(1)
-    uint32_t bitstream_restriction_flag;
-    RETURN_FALSE_ON_FAIL(source->ReadBits(1, bitstream_restriction_flag));
+    int bitstream_restriction_flag = source.ReadBit();
     RETURN_FALSE_ON_FAIL(destination->WriteBits(1, 1));
     if (bitstream_restriction_flag == 0) {
       // We're adding one from scratch.
@@ -396,11 +396,8 @@ bool CopyAndRewriteVui(const SpsParser::SpsState& sps,
       // max_dec_frame_buffering: ue(v)
       // However, if they are already set to no greater than the numbers we
       // want, then we don't need to be rewriting.
-      uint32_t max_num_reorder_frames, max_dec_frame_buffering;
-      RETURN_FALSE_ON_FAIL(
-          source->ReadExponentialGolomb(max_num_reorder_frames));
-      RETURN_FALSE_ON_FAIL(
-          source->ReadExponentialGolomb(max_dec_frame_buffering));
+      uint32_t max_num_reorder_frames = source.ReadExponentialGolomb();
+      uint32_t max_dec_frame_buffering = source.ReadExponentialGolomb();
       RETURN_FALSE_ON_FAIL(destination->WriteExponentialGolomb(0));
       RETURN_FALSE_ON_FAIL(
           destination->WriteExponentialGolomb(sps.max_num_ref_frames));
@@ -410,12 +407,11 @@ bool CopyAndRewriteVui(const SpsParser::SpsState& sps,
       }
     }
   }
-  return true;
+  return source.Ok();
 }
 
 // Copies a VUI HRD parameters segment.
-bool CopyHrdParameters(rtc::BitBuffer* source,
-                       rtc::BitBufferWriter* destination) {
+bool CopyHrdParameters(BitReader& source, rtc::BitBufferWriter* destination) {
   uint32_t golomb_tmp;
   uint32_t bits_tmp;
 
@@ -501,7 +497,7 @@ bool AddVideoSignalTypeInfo(rtc::BitBufferWriter* destination,
 }
 
 bool CopyOrRewriteVideoSignalTypeInfo(
-    rtc::BitBuffer* source,
+    BitReader& source,
     rtc::BitBufferWriter* destination,
     const ColorSpace* color_space,
     SpsVuiRewriter::ParseResult* out_vui_rewritten) {
@@ -513,15 +509,15 @@ bool CopyOrRewriteVideoSignalTypeInfo(
   uint8_t colour_primaries = 3;          // H264 default: unspecified
   uint8_t transfer_characteristics = 3;  // H264 default: unspecified
   uint8_t matrix_coefficients = 3;       // H264 default: unspecified
-  RETURN_FALSE_ON_FAIL(source->ReadBits(1, video_signal_type_present_flag));
-  if (video_signal_type_present_flag) {
-    RETURN_FALSE_ON_FAIL(source->ReadBits(3, video_format));
-    RETURN_FALSE_ON_FAIL(source->ReadBits(1, video_full_range_flag));
-    RETURN_FALSE_ON_FAIL(source->ReadBits(1, colour_description_present_flag));
+  video_signal_type_present_flag = source.ReadBit();
+  if (video_signal_type_present_flag != 0) {
+    video_format = source.ReadBits(3);
+    video_full_range_flag = source.ReadBit();
+    colour_description_present_flag = source.ReadBit();
     if (colour_description_present_flag) {
-      RETURN_FALSE_ON_FAIL(source->ReadUInt8(colour_primaries));
-      RETURN_FALSE_ON_FAIL(source->ReadUInt8(transfer_characteristics));
-      RETURN_FALSE_ON_FAIL(source->ReadUInt8(matrix_coefficients));
+      colour_primaries = source.Read<uint8_t>();
+      transfer_characteristics = source.Read<uint8_t>();
+      matrix_coefficients = source.Read<uint8_t>();
     }
   }
 
@@ -592,19 +588,18 @@ bool CopyOrRewriteVideoSignalTypeInfo(
     *out_vui_rewritten = SpsVuiRewriter::ParseResult::kVuiRewritten;
   }
 
-  return true;
+  return source.Ok();
 }
 
-bool CopyRemainingBits(rtc::BitBuffer* source,
-                       rtc::BitBufferWriter* destination) {
+bool CopyRemainingBits(BitReader& source, rtc::BitBufferWriter* destination) {
   uint32_t bits_tmp;
   // Try to get at least the destination aligned.
-  if (source->RemainingBitCount() > 0 && source->RemainingBitCount() % 8 != 0) {
-    size_t misaligned_bits = source->RemainingBitCount() % 8;
+  if (source.RemainingBitCount() > 0 && source.RemainingBitCount() % 8 != 0) {
+    size_t misaligned_bits = source.RemainingBitCount() % 8;
     COPY_BITS(source, destination, bits_tmp, misaligned_bits);
   }
-  while (source->RemainingBitCount() > 0) {
-    auto count = rtc::SafeMin<size_t>(32u, source->RemainingBitCount());
+  while (source.RemainingBitCount() > 0) {
+    auto count = rtc::SafeMin(32u, source.RemainingBitCount());
     COPY_BITS(source, destination, bits_tmp, count);
   }
   // TODO(noahric): The last byte could be all zeroes now, which we should just

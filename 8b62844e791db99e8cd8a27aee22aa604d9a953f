@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9eb37baa_cccb9596",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18194
+      },
+      "writtenOn": "2021-08-23T01:49:07Z",
+      "side": 1,
+      "message": "Added CC to get advice from similar issue in chromium.",
+      "revId": "8b62844e791db99e8cd8a27aee22aa604d9a953f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "df892310_be469aa4",
@@ -48,6 +65,30 @@
       "writtenOn": "2021-08-20T09:17:59Z",
       "side": 1,
       "message": "I\u0027m not sure we should do this for all encoders. Exynos encoders, for example, can handle resolutions non-multiple to 16.",
+      "range": {
+        "startLine": 117,
+        "startChar": 11,
+        "endLine": 117,
+        "endChar": 14
+      },
+      "revId": "8b62844e791db99e8cd8a27aee22aa604d9a953f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b699e01e_473a9710",
+        "filename": "sdk/android/src/jni/video_encoder_wrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 18194
+      },
+      "writtenOn": "2021-08-23T01:49:07Z",
+      "side": 1,
+      "message": "This patch was originally inspired from \"Issue 1084702: Mobile Chrome on Pixel 3 has video corruption for non-16-aligned resolutions in WebRTC calls : Hardware VP8 encoder bug\" (https://bugs.chromium.org/p/chromium/issues/detail?id\u003d1084702)\n\nSince Android CTS only guarantees normal behavior with 16 x 16 aligned input frames, following patchset has been applied to chormium to use aligned sizes when using H/W Encoders.\n\nhttps://webrtc-review.googlesource.com/c/src/+/225881\nhttps://chromium-review.googlesource.com/c/chromium/src/+/2995112",
+      "parentUuid": "df892310_be469aa4",
       "range": {
         "startLine": 117,
         "startChar": 11,

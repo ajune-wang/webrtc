@@ -276,6 +276,9 @@ class Connection : public CandidatePairInterface,
 
   uint32_t ComputeNetworkCost() const;
 
+  // Is connection using VPN locally.
+  bool local_vpn() const;
+
   // Update the ICE password and/or generation of the remote candidate if the
   // ufrag in `params` matches the candidate's ufrag, and the
   // candidate's password and/or ufrag has not been set.

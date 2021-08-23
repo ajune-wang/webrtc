@@ -739,6 +739,31 @@ int BasicIceController::CompareCandidatePairNetworks(
     return compare_a_b_by_network_preference;
   }
 
+  bool a_vpn = a->network()->IsVpn();
+  bool b_vpn = b->network()->IsVpn();
+  switch (config_.vpn_preference) {
+    case webrtc::VpnPreference::DEFAULT:
+      break;
+    case webrtc::VpnPreference::ONLY_USE_VPN:
+    case webrtc::VpnPreference::PREFER_VPN:
+      if (a_vpn && !b_vpn) {
+        return a_is_better;
+      } else if (!a_vpn && b_vpn) {
+        return b_is_better;
+      }
+      break;
+    case webrtc::VpnPreference::NEVER_USE_VPN:
+    case webrtc::VpnPreference::AVOID_VPN:
+      if (a_vpn && !b_vpn) {
+        return b_is_better;
+      } else if (!a_vpn && b_vpn) {
+        return a_is_better;
+      }
+      break;
+    default:
+      break;
+  }
+
   uint32_t a_cost = a->ComputeNetworkCost();
   uint32_t b_cost = b->ComputeNetworkCost();
   // Prefer lower network cost.

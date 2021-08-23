@@ -47,7 +47,7 @@ CreateSessionDescriptionObserver* SdpCreateObserver(
     }
     decltype(callback) callback_;
   };
-  return new rtc::RefCountedObject<SdpCreateObserver>(std::move(callback));
+  return rtc::make_ref_counted<SdpCreateObserver>(std::move(callback));
 }
 
 }  // namespace test

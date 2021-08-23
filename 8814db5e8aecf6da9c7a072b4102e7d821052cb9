@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5fa4a15_e0bb4877",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-08-23T05:52:01Z",
+      "side": 1,
+      "message": "Hi, this is the solution from https://bugs.webrtc.org/13091 which doesn\u0027t depend on the availability of DCHECK.\nPlease take a look. It may be awkward to introduce other lock.\nThank you.",
+      "revId": "8814db5e8aecf6da9c7a072b4102e7d821052cb9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

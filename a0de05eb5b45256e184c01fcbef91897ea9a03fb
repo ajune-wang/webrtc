@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99bb0909_592eea5a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-08-23T07:30:12Z",
+      "side": 1,
+      "message": "This needs review from objc owners. Change looks reasonable to me; another mutex is somewhat undesirable, but config logic should not be performance critical. \n\nThe mutex can be avoided if we\u0027re willing to accept a data race in the error case, like in this related code: https://webrtc-review.googlesource.com/c/src/+/226328/8/rtc_base/synchronization/mutex_pthread.h",
+      "revId": "a0de05eb5b45256e184c01fcbef91897ea9a03fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c75dd1a_cd5e6fb4",
+        "filename": "sdk/objc/components/audio/RTCAudioSession.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-08-23T07:30:12Z",
+      "side": 1,
+      "message": "I don\u0027t think ThreadChecker is a great name for this (there used to be an rtc::ThreadChecker, now replaced with webrtc::SequenceChecker, and that does something different).",
+      "range": {
+        "startLine": 33,
+        "startChar": 19,
+        "endLine": 33,
+        "endChar": 32
+      },
+      "revId": "a0de05eb5b45256e184c01fcbef91897ea9a03fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

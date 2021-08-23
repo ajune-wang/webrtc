@@ -37,7 +37,12 @@ suppported configuration however.
 ## macOS
 
 Xcode 9 or higher is required. Latest Xcode is recommended to be able to build
-all code.
+all code. You may use `xcode-select --install` to install it.
+
+Absence Xcode will cause errors like: 
+```
+xcrun: error: invalid active developer path (/Library/Developer/CommandLineTools), missing xcrun at: /Library/Developer/CommandLineTools/usr/bin/xcrun
+```
 
 ## Android
 

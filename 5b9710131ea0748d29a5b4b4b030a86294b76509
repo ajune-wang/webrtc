@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b819391_34b20794",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-08-23T16:09:31Z",
+      "side": 1,
+      "message": "I take it this is followup work for https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d10729 ? If so, please link.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 9
+      },
+      "revId": "5b9710131ea0748d29a5b4b4b030a86294b76509",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69ad0d15_bed5cd42",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-08-23T16:09:31Z",
+      "side": 1,
+      "message": "lgtm % message nit.",
+      "revId": "5b9710131ea0748d29a5b4b4b030a86294b76509",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

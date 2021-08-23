@@ -34,6 +34,16 @@ enum PortPrunePolicy {
                             // on the same network.
 };
 
+enum class VpnPreference {
+  DEFAULT,        // No VPN preference.
+  ONLY_USE_VPN,   // only use VPN connections.
+  NEVER_USE_VPN,  // never use VPN connections
+  PREFER_VPN,     // use a VPN connection if possible, i.e VPN connections sorts
+                  // higher than all other connections.
+  AVOID_VPN,      // only use VPN if there is no other connections, i.e VPN
+                  // connections sorts last.
+};
+
 }  // namespace webrtc
 
 #endif  // API_TRANSPORT_ENUMS_H_

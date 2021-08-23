@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "175358eb_59fde40f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-08-23T15:44:51Z",
+      "side": 1,
+      "message": "Just noticed that you were simply moving the bitwriter clas... Make what you will of the comments below, will continue to look at the actual changed code...",
+      "revId": "480eae6b48fb2aa6a1bdcf3a0939365233090060",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a84e062_e64b64b5",
+        "filename": "logging/rtc_event_log/encoder/bit_writer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-08-23T15:44:51Z",
+      "side": 1,
+      "message": "You could also check for buffer_.size() (!\u003d\u003d 0)",
+      "range": {
+        "startLine": 22,
+        "startChar": 13,
+        "endLine": 22,
+        "endChar": 19
+      },
+      "revId": "480eae6b48fb2aa6a1bdcf3a0939365233090060",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "330788d6_f0ec28ba",
+        "filename": "logging/rtc_event_log/encoder/bit_writer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-08-23T15:44:51Z",
+      "side": 1,
+      "message": "Is there any scenario when this is not uint8_t? Will the code still work as expected in that scenario? If you are adding the type logic here because youa re worried about that case in particular happening in the future, maybe a static assert would make sense, but using uint8_t in the code for clarity.",
+      "range": {
+        "startLine": 30,
+        "startChar": 8,
+        "endLine": 30,
+        "endChar": 27
+      },
+      "revId": "480eae6b48fb2aa6a1bdcf3a0939365233090060",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5a190c8_144974f3",
+        "filename": "logging/rtc_event_log/encoder/bit_writer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-08-23T15:44:51Z",
+      "side": 1,
+      "message": "Any particular reason to not go with string_view here?",
+      "range": {
+        "startLine": 41,
+        "startChar": 17,
+        "endLine": 41,
+        "endChar": 35
+      },
+      "revId": "480eae6b48fb2aa6a1bdcf3a0939365233090060",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25d10382_6adb9103",
+        "filename": "logging/rtc_event_log/encoder/bit_writer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-08-23T15:44:51Z",
+      "side": 1,
+      "message": "Suggestion, to reduce the need for the valid_ bool and allowing the type system to help us: instead add a friend function ConvertToString(BitWriter writer), keep move constructor but delete copy constructor.",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 26
+      },
+      "revId": "480eae6b48fb2aa6a1bdcf3a0939365233090060",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

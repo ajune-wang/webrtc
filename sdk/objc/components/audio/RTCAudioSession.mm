@@ -16,6 +16,7 @@
 
 #include "rtc_base/atomic_ops.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/platform_thread_types.h"
 #include "rtc_base/synchronization/mutex.h"
 
 #import "RTCAudioSessionConfiguration.h"
@@ -25,6 +26,57 @@ NSString *const kRTCAudioSessionErrorDomain = @"org.webrtc.RTC_OBJC_TYPE(RTCAudi
 NSInteger const kRTCAudioSessionErrorLockRequired = -1;
 NSInteger const kRTCAudioSessionErrorConfiguration = -2;
 NSString * const kRTCAudioSessionOutputVolumeSelector = @"outputVolume";
+
+namespace webrtc {
+namespace {
+
+class RTC_LOCKABLE ThreadChecker {
+ public:
+  ThreadChecker();
+  // Returns true if sequence checker is attached to the other thread.
+  bool IsAttachedByOtherThread();
+  // Attaches checker to the current thread.
+  void Attach();
+  // Detaches checker from the thread to which it is attached.
+  void Detach();
+
+ private:
+  static constexpr uint64_t kInvalidTid = 0;
+  // Use pthread_threadid_np to get the current thread ID. The returned tid
+  // is not always non-zero, although this is not documented behavior.
+  uint64_t GetCurrentTid();
+
+  std::atomic<uint64_t> valid_tid_;
+};
+
+ThreadChecker::ThreadChecker() : valid_tid_{kInvalidTid} {}
+
+bool ThreadChecker::IsAttachedByOtherThread() {
+  uint64_t valid_tid = valid_tid_.load(std::memory_order_acquire);
+  if (valid_tid == kInvalidTid) {  // Previously detached.
+    return false;
+  }
+  return valid_tid != GetCurrentTid();
+}
+
+void ThreadChecker::Attach() {
+  uint64_t tid = GetCurrentTid();
+  valid_tid_.store(tid, std::memory_order_release);
+}
+
+void ThreadChecker::Detach() {
+  valid_tid_.store(kInvalidTid, std::memory_order_release);
+}
+
+uint64_t ThreadChecker::GetCurrentTid() {
+  uint64_t tid;
+  RTC_DCHECK_EQ(pthread_threadid_np(pthread_self(), &tid), 0);
+  RTC_DCHECK_NE(tid, kInvalidTid);
+  return tid;
+}
+
+}  // namespace
+}  // namespace webrtc
 
 @interface RTC_OBJC_TYPE (RTCAudioSession)
 () @property(nonatomic,
@@ -36,6 +88,7 @@ NSString * const kRTCAudioSessionOutputVolumeSelector = @"outputVolume";
 // lock contention so coarse locks should be fine for now.
 @implementation RTC_OBJC_TYPE (RTCAudioSession) {
   webrtc::Mutex _mutex;
+  webrtc::ThreadChecker _threadChecker;
   AVAudioSession *_session;
   volatile int _activationCount;
   volatile int _webRTCSessionCount;
@@ -230,9 +283,11 @@ NSString * const kRTCAudioSessionOutputVolumeSelector = @"outputVolume";
 
 - (void)lockForConfiguration {
   _mutex.Lock();
+  _threadChecker.Attach();
 }
 
 - (void)unlockForConfiguration {
+  _threadChecker.Detach();
   _mutex.Unlock();
 }
 
@@ -334,6 +389,9 @@ NSString * const kRTCAudioSessionOutputVolumeSelector = @"outputVolume";
 
 - (BOOL)setActive:(BOOL)active
             error:(NSError **)outError {
+  if (![self checkLock:outError]) {
+    return NO;
+  }
   int activationCount = _activationCount;
   if (!active && activationCount == 0) {
     RTCLogWarning(@"Attempting to deactivate without prior activation.");
@@ -393,52 +451,85 @@ NSString * const kRTCAudioSessionOutputVolumeSelector = @"outputVolume";
 - (BOOL)setCategory:(NSString *)category
         withOptions:(AVAudioSessionCategoryOptions)options
               error:(NSError **)outError {
+  if (![self checkLock:outError]) {
+    return NO;
+  }
   return [self.session setCategory:category withOptions:options error:outError];
 }
 
 - (BOOL)setMode:(NSString *)mode error:(NSError **)outError {
+  if (![self checkLock:outError]) {
+    return NO;
+  }
   return [self.session setMode:mode error:outError];
 }
 
 - (BOOL)setInputGain:(float)gain error:(NSError **)outError {
+  if (![self checkLock:outError]) {
+    return NO;
+  }
   return [self.session setInputGain:gain error:outError];
 }
 
 - (BOOL)setPreferredSampleRate:(double)sampleRate error:(NSError **)outError {
+  if (![self checkLock:outError]) {
+    return NO;
+  }
   return [self.session setPreferredSampleRate:sampleRate error:outError];
 }
 
 - (BOOL)setPreferredIOBufferDuration:(NSTimeInterval)duration
                                error:(NSError **)outError {
+  if (![self checkLock:outError]) {
+    return NO;
+  }
   return [self.session setPreferredIOBufferDuration:duration error:outError];
 }
 
 - (BOOL)setPreferredInputNumberOfChannels:(NSInteger)count
                                     error:(NSError **)outError {
+  if (![self checkLock:outError]) {
+    return NO;
+  }
   return [self.session setPreferredInputNumberOfChannels:count error:outError];
 }
 - (BOOL)setPreferredOutputNumberOfChannels:(NSInteger)count
                                      error:(NSError **)outError {
+  if (![self checkLock:outError]) {
+    return NO;
+  }
   return [self.session setPreferredOutputNumberOfChannels:count error:outError];
 }
 
 - (BOOL)overrideOutputAudioPort:(AVAudioSessionPortOverride)portOverride
                           error:(NSError **)outError {
+  if (![self checkLock:outError]) {
+    return NO;
+  }
   return [self.session overrideOutputAudioPort:portOverride error:outError];
 }
 
 - (BOOL)setPreferredInput:(AVAudioSessionPortDescription *)inPort
                     error:(NSError **)outError {
+  if (![self checkLock:outError]) {
+    return NO;
+  }
   return [self.session setPreferredInput:inPort error:outError];
 }
 
 - (BOOL)setInputDataSource:(AVAudioSessionDataSourceDescription *)dataSource
                      error:(NSError **)outError {
+  if (![self checkLock:outError]) {
+    return NO;
+  }
   return [self.session setInputDataSource:dataSource error:outError];
 }
 
 - (BOOL)setOutputDataSource:(AVAudioSessionDataSourceDescription *)dataSource
                       error:(NSError **)outError {
+  if (![self checkLock:outError]) {
+    return NO;
+  }
   return [self.session setOutputDataSource:dataSource error:outError];
 }
 
@@ -559,6 +650,15 @@ NSString * const kRTCAudioSessionOutputVolumeSelector = @"outputVolume";
 
 #pragma mark - Private
 
++ (NSError *)lockError {
+  NSDictionary *userInfo =
+      @{NSLocalizedDescriptionKey : @"Must call lockForConfiguration before calling this method."};
+  NSError *error = [[NSError alloc] initWithDomain:kRTCAudioSessionErrorDomain
+                                              code:kRTCAudioSessionErrorLockRequired
+                                          userInfo:userInfo];
+  return error;
+}
+
 - (std::vector<__weak id<RTC_OBJC_TYPE(RTCAudioSessionDelegate)> >)delegates {
   @synchronized(self) {
     // Note: this returns a copy.
@@ -618,6 +718,16 @@ NSString * const kRTCAudioSessionOutputVolumeSelector = @"outputVolume";
    }
    _isInterrupted = isInterrupted;
   }
+}
+
+- (BOOL)checkLock:(NSError **)outError {
+  if (_threadChecker.IsAttachedByOtherThread()) {
+    if (outError) {
+      *outError = [RTC_OBJC_TYPE(RTCAudioSession) lockError];
+    }
+    return NO;
+  }
+  return YES;
 }
 
 - (BOOL)beginWebRTCSession:(NSError **)outError {

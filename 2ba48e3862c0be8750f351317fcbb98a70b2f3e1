@@ -54,6 +54,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "c1afe13f_947c2a76",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-08-23T13:14:46Z",
+      "side": 1,
+      "message": "It seems that this resolves webrtc:12714 too.",
+      "revId": "2ba48e3862c0be8750f351317fcbb98a70b2f3e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "3a2d4b49_e58b048e",
         "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
         "patchSetId": 6

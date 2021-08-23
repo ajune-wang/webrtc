@@ -16,6 +16,23 @@
       "message": "Forgot to upload this last week. Sorry.",
       "revId": "7ecd6e904bb5e82cfc6716c097c047494bf26e04",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b3fd1b4_75afb70e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-08-23T12:59:55Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "7ecd6e904bb5e82cfc6716c097c047494bf26e04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

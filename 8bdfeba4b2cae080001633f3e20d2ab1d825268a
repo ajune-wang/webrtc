@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f814cb7_e1a3058e",
+        "filename": "docs/native-code/development/prerequisite-sw/index.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-08-23T18:52:17Z",
+      "side": 1,
+      "message": "Hmm, give that on CI we use 12a7209, maybe let\u0027s change to 12 here while we are here.",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 7
+      },
+      "revId": "8bdfeba4b2cae080001633f3e20d2ab1d825268a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5874e4f8_4afed46d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2021-08-24T13:48:27Z",
+      "side": 1,
+      "message": "LGTM with nit",
+      "revId": "1241d9839ce07551fa02fe4d8decb78ab1db38ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77fe972d_64c85575",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1670,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2021-08-24T13:48:27Z",
+      "side": 1,
+      "message": "red_parameters",
+      "range": {
+        "startLine": 1670,
+        "startChar": 7,
+        "endLine": 1670,
+        "endChar": 20
+      },
+      "revId": "1241d9839ce07551fa02fe4d8decb78ab1db38ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

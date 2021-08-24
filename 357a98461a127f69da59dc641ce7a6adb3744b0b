@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df11e61b_080943b1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-08-24T14:05:01Z",
+      "side": 1,
+      "message": "PTAL. I\u0027m doing some prototyping with a separate ListenSocket class (if successful, Listen and Bind methods will be moved from Socket to the new class, and Accept method should be deleted and replaced with a callback).\n\nAnd then it\u0027s simpler to have a separate method for address assignment, rather than two Bind methods.",
+      "revId": "357a98461a127f69da59dc641ce7a6adb3744b0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

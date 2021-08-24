@@ -93,6 +93,30 @@
       },
       "revId": "a274fb6a6ff29c5d26e97720711eec632eba95f3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a5e5f7b_41190746",
+        "filename": "video/video_receive_stream2.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-08-24T09:43:52Z",
+      "side": 1,
+      "message": "Thanks. I still think returning absl::string_view rather than const std::string\u0026 would be appropriate (caller doesn\u0027t need to know that it\u0027s stored as a std::string internally), but that\u0027s a string opinion, not a strong opinion :-)",
+      "parentUuid": "30646979_80ebd48a",
+      "range": {
+        "startLine": 121,
+        "startChar": 2,
+        "endLine": 121,
+        "endChar": 20
+      },
+      "revId": "a274fb6a6ff29c5d26e97720711eec632eba95f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

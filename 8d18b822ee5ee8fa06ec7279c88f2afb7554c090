@@ -16,6 +16,52 @@
       "message": "ok, ptal",
       "revId": "8d18b822ee5ee8fa06ec7279c88f2afb7554c090",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "713f0e20_9bf10b7e",
+        "filename": "video/video_receive_stream2.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-08-24T09:43:52Z",
+      "side": 1,
+      "message": "This sounds a bit dangerous, but it looks like the `config_` member is const (see below), so shouldn\u0027t change (unless there are pointers or mutable declarations inside to bypass constness)? If we\u0027re willing to commit to that, thread checkers seem overkill, and accessors could be trivial and inlined.",
+      "range": {
+        "startLine": 124,
+        "startChar": 13,
+        "endLine": 124,
+        "endChar": 40
+      },
+      "revId": "8d18b822ee5ee8fa06ec7279c88f2afb7554c090",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88adde60_b84bf0ff",
+        "filename": "video/video_receive_stream2.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-08-24T09:43:52Z",
+      "side": 1,
+      "message": "It\u0027s const here, which is nice.",
+      "range": {
+        "startLine": 221,
+        "startChar": 2,
+        "endLine": 221,
+        "endChar": 43
+      },
+      "revId": "8d18b822ee5ee8fa06ec7279c88f2afb7554c090",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

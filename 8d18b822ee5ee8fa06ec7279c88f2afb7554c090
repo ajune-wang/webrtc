@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "995dcd28_db7b092f",
+        "filename": "video/video_receive_stream2.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-08-24T12:10:41Z",
+      "side": 1,
+      "message": "I agree with the problem statement, and it would be a good improvement if we could have a clear separation between construction time const settings and other state.\n\nDo you expect the pieces of the config exposed by these new accessors to change after construction?",
+      "parentUuid": "852b3784_5bed6c2b",
+      "range": {
+        "startLine": 124,
+        "startChar": 13,
+        "endLine": 124,
+        "endChar": 40
+      },
+      "revId": "8d18b822ee5ee8fa06ec7279c88f2afb7554c090",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "88adde60_b84bf0ff",
         "filename": "video/video_receive_stream2.h",
         "patchSetId": 4

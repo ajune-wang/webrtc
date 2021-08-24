@@ -16,6 +16,57 @@
       "message": "Is this in some way related to this TODO item?\n https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/rtp_rtcp/source/rtcp_receiver.cc;drc\u003dcfea2182f8e41c3d8293d4e26b291ef2abf23257;l\u003d639",
       "revId": "50cb6ae21048351524bd5351fcc332b2e2b52859",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "979eae56_c823732f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-08-24T08:16:22Z",
+      "side": 1,
+      "message": "Thanks for improving stats!",
+      "revId": "50cb6ae21048351524bd5351fcc332b2e2b52859",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4dfb3ce8_c0b33ec6",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1126,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-08-24T08:16:22Z",
+      "side": 1,
+      "message": "Since you are controlling the incoming packets, can you make the assertions more precise? I.e. assert exact number of measurements that have been made rather than that it is greater than 0.\n\nMake sure it increases for each measurement. And make sure the total RTTs is the sum of all RTTs.",
+      "revId": "50cb6ae21048351524bd5351fcc332b2e2b52859",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4fcaf0b7_d0be9ca5",
+        "filename": "stats/rtcstats_objects.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 969,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-08-24T08:16:22Z",
+      "side": 1,
+      "message": "In order to land this CL without breaking the Chromium importer, you\u0027ll need to make a Chromium CL that adds these metrics to the allow-list here:\nhttps://source.chromium.org/chromium/chromium/src/+/main:chrome/test/data/webrtc/peerconnection_getstats.js;l\u003d244?q\u003dpeerconnection_getstats.js\u0026originalUrl\u003dhttps:%2F%2Fcs.chromium.org%2F\n\nOtherwise a test that runs a loopback might detect the metric as not allowed and failed. Assuming the test runs for long enough that report blocks are exchanged, anyway.",
+      "revId": "50cb6ae21048351524bd5351fcc332b2e2b52859",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "852b3784_5bed6c2b",
+        "filename": "video/video_receive_stream2.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-08-24T11:07:14Z",
+      "side": 1,
+      "message": "The `config_` member either won\u0027t be const moving forward, or will be removed.\n\nThe config structs for the stream objects (audio/video, receive/send) have become a bit of a problem in that they were initially thought of as a utility for simplifying construction of complex (potentially hierarchies of) objects. Now they\u0027re actually also used for keeping and accessing the runtime state as well.\n\nOne problem with that is that because the config structs don\u0027t have a notion of synchronized access, that complicates things for the object that owns the state.\n\nAnother problem is that some of the config is only relevant during construction and misleading post construction as some of the config state is lost or moved to sub objects in a hierarchy.\n\nYet another thing is that the config structs are big and hold on to a lot of state unnecessarily. E.g. reference counted objects.\n\nThe documentation in RtpConfig is correct though. So as far as what is dangerous, I understand your point. A counterpoint could be that having an implementation that allows violations of the documented expectations, is also dangerous and costly, since it prevents progress from being made in the code base. As is, the fact that it\u0027s very hard to predict how the state is accessed, used, changed etc, is the reason why we have places where simple config changes result in having to delete and reconstruct whole stream object hierarchies (including decoder instances etc). That can really badly affect performance during operations such as renegotiation of multiple streams.",
+      "parentUuid": "713f0e20_9bf10b7e",
+      "range": {
+        "startLine": 124,
+        "startChar": 13,
+        "endLine": 124,
+        "endChar": 40
+      },
+      "revId": "8d18b822ee5ee8fa06ec7279c88f2afb7554c090",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "88adde60_b84bf0ff",
         "filename": "video/video_receive_stream2.h",
         "patchSetId": 4

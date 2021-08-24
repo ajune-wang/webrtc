@@ -91,6 +91,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3559f348_66294bce",
+        "filename": "video/video_receive_stream2.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-08-24T12:40:03Z",
+      "side": 1,
+      "message": "Initially I thought not but looking closer, actually yes, things exposed via the rtp() accessor will change after construction. Another thing too, and highlights the problem with using these structs for runtime state, is that the \u0027extensions\u0027 member of RtpConfig [1] can change, and the extensions aren\u0027t actually a part of the VideoReceiveStream2 (this class\u0027) state, but rather RtpVideoStreamReceiver2\u0027s state, where that state lives in `rtp_header_extensions_` - which will change, so the `config_` member in this class (and config_.rtp), can\u0027t really, or shouldn\u0027t have to, represent that state.\n\n[1]: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/call/receive_stream.h;l\u003d51?q\u003dRtpConfig\u0026ss\u003dchromium",
+      "parentUuid": "995dcd28_db7b092f",
+      "range": {
+        "startLine": 124,
+        "startChar": 13,
+        "endLine": 124,
+        "endChar": 40
+      },
+      "revId": "8d18b822ee5ee8fa06ec7279c88f2afb7554c090",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "88adde60_b84bf0ff",
         "filename": "video/video_receive_stream2.h",
         "patchSetId": 4

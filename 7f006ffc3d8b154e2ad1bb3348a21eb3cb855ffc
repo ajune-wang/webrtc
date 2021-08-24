@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5edb687_f72f9935",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-08-24T06:52:58Z",
+      "side": 1,
+      "message": "I\u0027d prefer to not change the SignalCloseEvent error code, since (i) I\u0027d prefer this code be just deleted, so I don\u0027t want to spend too much time on it, and (ii) I doubt the passed error code is ever examined.",
+      "parentUuid": "579d5cff_db03d2ab",
+      "revId": "7f006ffc3d8b154e2ad1bb3348a21eb3cb855ffc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "89ba2b66_383d0dad",

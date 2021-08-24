@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f8b2f5d_87f6f070",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-08-24T10:42:46Z",
+      "side": 1,
+      "message": "PTAL. I initially tried to just do the rtc::make_ref_counted change, but that failed to compile with errors that I didn\u0027t quite understand, but were related to the double rtc::RefCountInterface inheritance.",
+      "revId": "204402eee33af7ef4082b80b72f9654c2fccd2e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

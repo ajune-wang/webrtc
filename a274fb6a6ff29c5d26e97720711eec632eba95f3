@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1817d0bf_bf788a61",
+        "filename": "call/call.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1167,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-08-24T08:21:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78f33d01_f141c088",
+      "range": {
+        "startLine": 1167,
+        "startChar": 8,
+        "endLine": 1167,
+        "endChar": 12
+      },
+      "revId": "a274fb6a6ff29c5d26e97720711eec632eba95f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "18e7ded8_eb9b35ba",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-08-24T08:04:40Z",
       "side": 1,
       "message": "If this is unowned, it could be a string_view return type.\n\nAlso it would be nice with a comment on the validity of the returned references (for both accessors), will they stay valid and unmodified over the lifetime of the VideoReceiveStream2 instance?",
+      "range": {
+        "startLine": 121,
+        "startChar": 2,
+        "endLine": 121,
+        "endChar": 20
+      },
+      "revId": "a274fb6a6ff29c5d26e97720711eec632eba95f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30646979_80ebd48a",
+        "filename": "video/video_receive_stream2.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-08-24T08:21:33Z",
+      "side": 1,
+      "message": "`sync_group` is a std::string (owned) member of the config.\n\nAdded comments about the lifetime of the state returned by the accessors.",
+      "parentUuid": "18e7ded8_eb9b35ba",
       "range": {
         "startLine": 121,
         "startChar": 2,

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8d6bc14_3788a032",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-08-24T12:19:11Z",
+      "side": 1,
+      "message": "lgtm. I take it it\u0027s the +sharedInstance class method that signals that it\u0027s indeed a singleton?",
+      "revId": "f5620ea1c9867944e9bc49ac3b1c14180d6582e5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

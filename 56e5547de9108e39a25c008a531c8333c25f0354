@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0cd25cc_7c554db0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-08-24T08:27:05Z",
+      "side": 1,
+      "message": "Actually... let me change the comments. I\u0027d like them to rather match with the documentation in RtpConfig (receive_stream.h) and add a DCHECK for the calling thread.",
+      "revId": "56e5547de9108e39a25c008a531c8333c25f0354",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

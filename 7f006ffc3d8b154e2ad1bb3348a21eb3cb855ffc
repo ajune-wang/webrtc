@@ -16,6 +16,57 @@
       "message": "Adding log messages, as suggested.",
       "revId": "7f006ffc3d8b154e2ad1bb3348a21eb3cb855ffc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "579d5cff_db03d2ab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-08-24T06:05:11Z",
+      "side": 1,
+      "message": "Looks good (after verifying that ProcessInput will never get -1).\nSuggestions for arguments to SignalCloseEvent below, feel free to implement or ignore.\n",
+      "revId": "7f006ffc3d8b154e2ad1bb3348a21eb3cb855ffc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89ba2b66_383d0dad",
+        "filename": "rtc_base/socket_adapters.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-08-24T06:05:11Z",
+      "side": 1,
+      "message": "Here len is probably -1, so I would check against -1 and return socket-\u003eGetError(), or EWOULDBLOCK if it\u0027s not -1.",
+      "revId": "7f006ffc3d8b154e2ad1bb3348a21eb3cb855ffc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edb8c947_1cc79406",
+        "filename": "rtc_base/socket_adapters.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-08-24T06:05:11Z",
+      "side": 1,
+      "message": "The second argument to SignalCloseEvent seems to be from errno.h (SOCKET_EACCESS, which is aliased to EACCESS for Posix). What about returning EINVAL here?",
+      "revId": "7f006ffc3d8b154e2ad1bb3348a21eb3cb855ffc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be00336c_7fcd576f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-08-24T13:40:24Z",
+      "side": 1,
+      "message": "Looks good, this is my nitpicking pass.",
+      "revId": "3a85d6db0d48bf6aef682544cf9761dedd6464ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e6d30c3_b3625bd4",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 657,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-08-24T13:40:24Z",
+      "side": 1,
+      "message": "Since this is the only documentation of the feature most users will see, we should have some more text here. Something like\n\n// Whether this PeerConnection will avoid VPNs (AVOID_VPN), prefer VPNs (PREFR_VPN), only work over VPN or only work over non-VPN interfaces. This controls\nwhich local interfaces the PeerConnection will prefer to connect over. Since VPN detection is not perfect, adherence to this preference cannot be guaranteed.",
+      "revId": "3a85d6db0d48bf6aef682544cf9761dedd6464ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d233fdb_5a228b68",
+        "filename": "api/transport/enums.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-08-24T13:40:24Z",
+      "side": 1,
+      "message": "Can we conform to current C++ style guide and use kCamelCase for this enum?",
+      "revId": "3a85d6db0d48bf6aef682544cf9761dedd6464ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69c4e438_00ddf671",
+        "filename": "p2p/base/p2p_transport_channel_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3281,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-08-24T13:40:24Z",
+      "side": 1,
+      "message": "nit: switches -\u003e switch",
+      "revId": "3a85d6db0d48bf6aef682544cf9761dedd6464ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fb16495_cf412431",
+        "filename": "p2p/base/port_allocator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-08-24T13:40:24Z",
+      "side": 1,
+      "message": "I don\u0027t think this is accurate. The policy has five levels, network_ignore_mask doesn\u0027t (I think). Suggest:\n\n// Set whether VPN connections should be preferred, avoided, mandated or blocked.",
+      "revId": "3a85d6db0d48bf6aef682544cf9761dedd6464ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96885fe7_b647438f",
+        "filename": "p2p/client/basic_port_allocator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-08-24T13:40:24Z",
+      "side": 1,
+      "message": "Nit: Since this actually computes the mask from two inputs, it should be NetworkIgnoreMask().",
+      "revId": "3a85d6db0d48bf6aef682544cf9761dedd6464ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a2a4ff8_d27d9fe3",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-08-24T13:40:24Z",
+      "side": 1,
+      "message": "Did the formatter mess up?",
+      "revId": "3a85d6db0d48bf6aef682544cf9761dedd6464ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d4e7af0_8d17f3b4",
+        "filename": "rtc_base/fake_network.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-08-24T13:40:24Z",
+      "side": 1,
+      "message": "Happy to see this implicit type turn into an explicit type, but not so happy to see it be a struct... are there any members that could be const here, for instance?",
+      "revId": "3a85d6db0d48bf6aef682544cf9761dedd6464ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

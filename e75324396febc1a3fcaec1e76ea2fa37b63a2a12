@@ -131,6 +131,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9a347145_14ba9342",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-08-25T20:09:54Z",
+      "side": 1,
+      "message": "Ah, ok so transitive deps don\u0027t work.\n\nI think this can be a temporary solution but we need to cleanup because having .java files in more targets create issues with tooling and an unclear build graph.\n\nFixing WebRTC test targets should be doable in this CL. Downstram projects might need more CLs.",
+      "parentUuid": "17545720_4648b0c4",
+      "range": {
+        "startLine": 273,
+        "startChar": 6,
+        "endLine": 274,
+        "endChar": 57
+      },
+      "revId": "e75324396febc1a3fcaec1e76ea2fa37b63a2a12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a55bce3a_c0758812",
         "filename": "sdk/android/BUILD.gn",
         "patchSetId": 3

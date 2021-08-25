@@ -61,8 +61,7 @@ static webrtc::ObjCVideoTrackSource *getObjCVideoSource(
                 signalingThread:(rtc::Thread *)signalingThread
                    workerThread:(rtc::Thread *)workerThread
                    isScreenCast:(BOOL)isScreenCast {
-  rtc::scoped_refptr<webrtc::ObjCVideoTrackSource> objCVideoTrackSource(
-      new rtc::RefCountedObject<webrtc::ObjCVideoTrackSource>(isScreenCast));
+  auto objCVideoTrackSource = rtc::make_ref_counted<webrtc::ObjCVideoTrackSource>(isScreenCast);
 
   return [self initWithFactory:factory
              nativeVideoSource:webrtc::VideoTrackSourceProxy::Create(

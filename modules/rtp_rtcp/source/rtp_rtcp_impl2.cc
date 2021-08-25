@@ -513,6 +513,7 @@ ModuleRtpRtcpImpl2::GetSenderReportStats() const {
   uint32_t remote_timestamp_frac;
   uint32_t arrival_timestamp_secs;
   uint32_t arrival_timestamp_frac;
+
   if (rtcp_receiver_.NTP(&remote_timestamp_secs, &remote_timestamp_frac,
                          &arrival_timestamp_secs, &arrival_timestamp_frac,
                          /*rtcp_timestamp=*/nullptr, &stats.packets_sent,
@@ -524,6 +525,23 @@ ModuleRtpRtcpImpl2::GetSenderReportStats() const {
     return stats;
   }
   return absl::nullopt;
+}
+
+absl::optional<RtpRtcpInterface::NonSenderRttStats>
+ModuleRtpRtcpImpl2::GetNonSenderRttStats() const {
+  RTCPReceiver::NonSenderRttStats non_sender_rtt_stats =
+      rtcp_receiver_.GetNonSenderRTT();
+  // NonSenderRttStats stats;
+  // stats.round_trip_time = non_sender_rtt_stats.round_trip_time();
+  // stats.round_trip_time_measurements =
+  //     non_sender_rtt_stats.round_trip_time_measurements();
+  // stats.total_round_trip_time = non_sender_rtt_stats.total_round_trip_time();
+  return NonSenderRttStats{
+      .round_trip_time = non_sender_rtt_stats.round_trip_time(),
+      .total_round_trip_time = non_sender_rtt_stats.total_round_trip_time(),
+      .round_trip_time_measurements =
+          non_sender_rtt_stats.round_trip_time_measurements(),
+  };
 }
 
 // (REMB) Receiver Estimated Max Bitrate.

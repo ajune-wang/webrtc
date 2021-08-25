@@ -783,12 +783,12 @@ TEST_P(RtpRtcpImpl2Test, StoresPacketInfoForSentPackets) {
                                           /*is_last=*/1)));
 }
 
-// Checks that the sender report stats are not available if no RTCP SR was sent.
+// Checks that the remote sender stats are not available if no RTCP SR was sent.
 TEST_P(RtpRtcpImpl2Test, SenderReportStatsNotAvailable) {
   EXPECT_THAT(receiver_.impl_->GetSenderReportStats(), Eq(absl::nullopt));
 }
 
-// Checks that the sender report stats are available if an RTCP SR was sent.
+// Checks that the remote sender stats are available if an RTCP SR was sent.
 TEST_P(RtpRtcpImpl2Test, SenderReportStatsAvailable) {
   // Send a frame in order to send an SR.
   EXPECT_TRUE(SendFrame(&sender_, sender_video_.get(), kBaseLayerTid));
@@ -798,7 +798,7 @@ TEST_P(RtpRtcpImpl2Test, SenderReportStatsAvailable) {
   EXPECT_THAT(receiver_.impl_->GetSenderReportStats(), Not(Eq(absl::nullopt)));
 }
 
-// Checks that the sender report stats are not available if an RTCP SR with an
+// Checks that the remote sender stats are not available if an RTCP SR with an
 // unexpected SSRC is received.
 TEST_P(RtpRtcpImpl2Test, SenderReportStatsNotUpdatedWithUnexpectedSsrc) {
   constexpr uint32_t kUnexpectedSenderSsrc = 0x87654321;
@@ -838,7 +838,7 @@ TEST_P(RtpRtcpImpl2Test, SenderReportStatsCheckStatsFromLastReport) {
                      Field(&SenderReportStats::bytes_sent, Eq(kOctetCount)))));
 }
 
-// Checks that the sender report stats count equals the number of sent RTCP SRs.
+// Checks that the remote sender stats count equals the number of sent RTCP SRs.
 TEST_P(RtpRtcpImpl2Test, SenderReportStatsCount) {
   using SenderReportStats = RtpRtcpInterface::SenderReportStats;
   // Send a frame in order to send an SR.
@@ -855,7 +855,7 @@ TEST_P(RtpRtcpImpl2Test, SenderReportStatsCount) {
               Optional(Field(&SenderReportStats::reports_count, Eq(2u))));
 }
 
-// Checks that the sender report stats include a valid arrival time if an RTCP
+// Checks that the remote sender stats include a valid arrival time if an RTCP
 // SR was sent.
 TEST_P(RtpRtcpImpl2Test, SenderReportStatsArrivalTimestampSet) {
   // Send a frame in order to send an SR.

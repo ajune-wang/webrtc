@@ -49,7 +49,8 @@ if (is_android) {
       ":libvpx_vp8_java",
       ":libvpx_vp9_java",
       ":logging_java",
-      ":peerconnection_java",
+      ":network_monitor_java",
+      ":peerconnection_java_tmp",
       ":screencapturer_java",
       ":surfaceviewrenderer_java",
       ":swcodecs_java",
@@ -86,7 +87,8 @@ if (is_android) {
       ":filevideo_java",
       ":hwcodecs_java",
       ":java_audio_device_module_java",
-      ":peerconnection_java",
+      ":network_monitor_java",
+      ":peerconnection_java_tmp",
       ":screencapturer_java",
       ":surfaceviewrenderer_java",
       ":video_api_java",
@@ -325,6 +327,81 @@ if (is_android) {
     ]
   }
 
+  rtc_android_library("peerconnection_java_tmp") {
+    visibility = [ "*" ]
+    sources = [
+      "api/org/webrtc/AddIceObserver.java",
+      "api/org/webrtc/AudioProcessingFactory.java",
+      "api/org/webrtc/AudioSource.java",
+      "api/org/webrtc/AudioTrack.java",
+      "api/org/webrtc/CallSessionFileRotatingLogSink.java",
+      "api/org/webrtc/CandidatePairChangeEvent.java",
+      "api/org/webrtc/CryptoOptions.java",
+      "api/org/webrtc/DataChannel.java",
+      "api/org/webrtc/DtmfSender.java",
+      "api/org/webrtc/FecControllerFactoryFactoryInterface.java",
+      "api/org/webrtc/FrameDecryptor.java",
+      "api/org/webrtc/FrameEncryptor.java",
+      "api/org/webrtc/IceCandidate.java",
+      "api/org/webrtc/MediaConstraints.java",
+      "api/org/webrtc/MediaSource.java",
+      "api/org/webrtc/MediaStream.java",
+      "api/org/webrtc/MediaStreamTrack.java",
+      "api/org/webrtc/NativeLibraryLoader.java",
+      "api/org/webrtc/NativePeerConnectionFactory.java",
+      "api/org/webrtc/NetEqFactoryFactory.java",
+      "api/org/webrtc/NetworkControllerFactoryFactory.java",
+
+      # TODO(sakal): Break dependencies and move to base_java.
+      "api/org/webrtc/NetworkStatePredictorFactoryFactory.java",
+      "api/org/webrtc/PeerConnection.java",
+      "api/org/webrtc/PeerConnectionDependencies.java",
+      "api/org/webrtc/PeerConnectionFactory.java",
+      "api/org/webrtc/RTCStats.java",
+      "api/org/webrtc/RTCStatsCollectorCallback.java",
+      "api/org/webrtc/RTCStatsReport.java",
+      "api/org/webrtc/RtcCertificatePem.java",
+      "api/org/webrtc/RtpParameters.java",
+      "api/org/webrtc/RtpReceiver.java",
+      "api/org/webrtc/RtpSender.java",
+      "api/org/webrtc/RtpTransceiver.java",
+      "api/org/webrtc/SSLCertificateVerifier.java",
+      "api/org/webrtc/SdpObserver.java",
+      "api/org/webrtc/SessionDescription.java",
+      "api/org/webrtc/StatsObserver.java",
+      "api/org/webrtc/StatsReport.java",
+      "api/org/webrtc/TurnCustomizer.java",
+      "api/org/webrtc/VideoProcessor.java",
+      "api/org/webrtc/VideoSource.java",
+      "api/org/webrtc/VideoTrack.java",
+      "src/java/org/webrtc/NativeAndroidVideoTrackSource.java",
+      "src/java/org/webrtc/NativeCapturerObserver.java",
+      "src/java/org/webrtc/NativeLibrary.java",
+    ]
+
+    deps = [
+      ":audio_api_java",
+      ":base_java",
+      ":builtin_audio_codecs_java",
+      ":default_video_codec_factory_java",
+      ":network_monitor_java",
+
+      #TODO(bugs.webrtc.org/7452): Make injection mandatory and remove this dep.
+      ":java_audio_device_module_java",
+      ":logging_java",
+      ":swcodecs_java",
+      ":video_api_java",
+      ":video_java",
+      "//modules/audio_device:audio_device_java",
+      "//rtc_base:base_java",
+      "//third_party/androidx:androidx_annotation_annotation_java",
+    ]
+    srcjar_deps = [
+      "//api:priority_enums",
+      "//rtc_base:network_monitor_enums",
+    ]
+  }
+
   # Modules, in alphabetical order.
 
   rtc_android_library("camera_java") {
@@ -529,6 +606,24 @@ if (is_android) {
       "//rtc_base:base_java",
       "//third_party/androidx:androidx_annotation_annotation_java",
     ]
+  }
+
+  rtc_android_library("network_monitor_java") {
+    visibility = [ "*" ]
+    sources = [
+      "api/org/webrtc/NetworkChangeDetector.java",
+      "api/org/webrtc/NetworkChangeDetectorFactory.java",
+      "api/org/webrtc/NetworkMonitor.java",
+      "api/org/webrtc/NetworkMonitorAutoDetect.java",
+    ]
+    deps = [
+      ":base_java",
+      ":logging_java",
+      "//rtc_base:base_java",
+      "//third_party/android_deps:com_android_support_support_annotations_java",
+      "//third_party/androidx:androidx_annotation_annotation_java",
+    ]
+    srcjar_deps = [ "//rtc_base:network_monitor_enums" ]
   }
 }
 
@@ -1442,7 +1537,8 @@ if (is_android) {
         ":hwcodecs_java",
         ":libjingle_peerconnection_java",
         ":libjingle_peerconnection_metrics_default_java",
-        ":peerconnection_java",
+        ":network_monitor_java",
+        ":peerconnection_java_tmp",
         ":surfaceviewrenderer_java",
         ":swcodecs_java",
         ":video_api_java",
@@ -1580,7 +1676,8 @@ if (is_android) {
     deps = [
       ":base_java",
       ":java_audio_device_module_java",
-      ":peerconnection_java",
+      ":network_monitor_java",
+      ":peerconnection_java_tmp",
       ":video_api_java",
       ":video_java",
       "../../rtc_base:base_java",
@@ -1626,7 +1723,8 @@ if (is_android) {
       ":hwcodecs_java",
       ":java_audio_device_module_java",
       ":libjingle_peerconnection_java",
-      ":peerconnection_java",
+      ":network_monitor_java",
+      ":peerconnection_java_tmp",
       ":video_api_java",
       ":video_java",
       "//base:base_java_test_support",

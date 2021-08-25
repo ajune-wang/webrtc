@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59f213a9_bf62e287",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2021-08-25T00:08:41Z",
+      "side": 1,
+      "message": "PTAL! It\u0027s adding new network_montior_java library which is not used by internal webrtc code yet. Could that be an issue?",
+      "revId": "4f9d006e8d146f6e98b492f196301f608f15d85b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

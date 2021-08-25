@@ -99,6 +99,10 @@ RTC_OBJC_EXPORT
     failedToSetActive:(BOOL)active
                 error:(NSError *)error;
 
+/** Called when there was a problem starting an audio unit. */
+- (void)audioSession:(RTC_OBJC_TYPE(RTCAudioSession) *)audioSession
+    audioUnitStartFailedWithError:(NSError *)error;
+
 @end
 
 /** This is a protocol used to inform RTCAudioSession when the audio session

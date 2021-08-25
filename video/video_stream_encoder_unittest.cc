@@ -8200,36 +8200,6 @@ TEST_F(VideoStreamEncoderTest,
   video_stream_encoder_->Stop();
 }
 
-TEST_F(VideoStreamEncoderTest, QualityScalingAllowed_IsQpTrustedSetFalse) {
-  VideoEncoderConfig video_encoder_config = video_encoder_config_.Copy();
-
-  // Disable scaling settings in encoder info.
-  fake_encoder_.SetQualityScaling(false);
-  // Set QP not trusted in encoder info.
-  fake_encoder_.SetIsQpTrusted(false);
-  // Enable quality scaling in encoder config.
-  video_encoder_config.is_quality_scaling_allowed = true;
-  ConfigureEncoder(std::move(video_encoder_config));
-
-  video_stream_encoder_->OnBitrateUpdatedAndWaitForManagedResources(
-      DataRate::BitsPerSec(kTargetBitrateBps),
-      DataRate::BitsPerSec(kTargetBitrateBps),
-      DataRate::BitsPerSec(kTargetBitrateBps), 0, 0, 0);
-
-  test::FrameForwarder source;
-  video_stream_encoder_->SetSource(
-      &source, webrtc::DegradationPreference::MAINTAIN_FRAMERATE);
-  EXPECT_THAT(source.sink_wants(), UnlimitedSinkWants());
-  EXPECT_FALSE(stats_proxy_->GetStats().bw_limited_resolution);
-
-  source.IncomingCapturedFrame(CreateFrame(1, 1280, 720));
-  WaitForEncodedFrame(1);
-  video_stream_encoder_->TriggerQualityLow();
-  EXPECT_FALSE(stats_proxy_->GetStats().bw_limited_resolution);
-
-  video_stream_encoder_->Stop();
-}
-
 TEST_F(VideoStreamEncoderTest, QualityScalingNotAllowed_IsQpTrustedSetTrue) {
   VideoEncoderConfig video_encoder_config = video_encoder_config_.Copy();
 
@@ -8320,6 +8290,39 @@ TEST_F(VideoStreamEncoderTest, QualityScalingAllowed_IsQpTrustedSetTrue) {
 
   video_stream_encoder_->Stop();
 }
+
+TEST_F(VideoStreamEncoderTest, QualityScalingAllowed_IsQpTrustedSetFalse) {
+  VideoEncoderConfig video_encoder_config = video_encoder_config_.Copy();
+
+  // Disable scaling settings in encoder info.
+  fake_encoder_.SetQualityScaling(false);
+  // Set QP not trusted in encoder info.
+  fake_encoder_.SetIsQpTrusted(false);
+  // Enable quality scaling in encoder config.
+  video_encoder_config.is_quality_scaling_allowed = true;
+  ConfigureEncoder(std::move(video_encoder_config));
+
+  video_stream_encoder_->OnBitrateUpdatedAndWaitForManagedResources(
+      DataRate::BitsPerSec(kTargetBitrateBps),
+      DataRate::BitsPerSec(kTargetBitrateBps),
+      DataRate::BitsPerSec(kTargetBitrateBps), 0, 0, 0);
+
+  test::FrameForwarder source;
+  video_stream_encoder_->SetSource(
+      &source, webrtc::DegradationPreference::MAINTAIN_FRAMERATE);
+  EXPECT_THAT(source.sink_wants(), UnlimitedSinkWants());
+  EXPECT_FALSE(stats_proxy_->GetStats().bw_limited_resolution);
+
+  source.IncomingCapturedFrame(CreateFrame(1, 1280, 720));
+  WaitForEncodedFrame(1);
+  video_stream_encoder_->TriggerQualityLow();
+  // When quality_scaler doesn't work and is_quality_scaling_allowed is
+  // true,the bandwidth_scaler works,so bw_limited_resolution is true.
+  EXPECT_TRUE(stats_proxy_->GetStats().bw_limited_resolution);
+
+  video_stream_encoder_->Stop();
+}
+
 #endif
 
 // Test parameters: (VideoCodecType codec, bool allow_i420_conversion)

@@ -52,6 +52,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf9efdc7_04e176c9",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1126,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-08-25T14:49:02Z",
+      "side": 1,
+      "message": "Thanks for the suggestion, I decided to add another test for this (this also matches Danil\u0027s comment), since in this specific test there is only one measurement happening per SSRC, which makes it less interesting. PTAL",
+      "parentUuid": "4dfb3ce8_c0b33ec6",
+      "revId": "50cb6ae21048351524bd5351fcc332b2e2b52859",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4fcaf0b7_d0be9ca5",
@@ -65,6 +83,24 @@
       "writtenOn": "2021-08-24T08:16:22Z",
       "side": 1,
       "message": "In order to land this CL without breaking the Chromium importer, you\u0027ll need to make a Chromium CL that adds these metrics to the allow-list here:\nhttps://source.chromium.org/chromium/chromium/src/+/main:chrome/test/data/webrtc/peerconnection_getstats.js;l\u003d244?q\u003dpeerconnection_getstats.js\u0026originalUrl\u003dhttps:%2F%2Fcs.chromium.org%2F\n\nOtherwise a test that runs a loopback might detect the metric as not allowed and failed. Assuming the test runs for long enough that report blocks are exchanged, anyway.",
+      "revId": "50cb6ae21048351524bd5351fcc332b2e2b52859",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6eaecfd_dc596f48",
+        "filename": "stats/rtcstats_objects.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 969,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-08-25T14:49:02Z",
+      "side": 1,
+      "message": "Thanks! I wasn\u0027t aware that this allow-list exists. I made a CL to add these metrics: https://chromium-review.googlesource.com/c/chromium/src/+/3114070/2",
+      "parentUuid": "4fcaf0b7_d0be9ca5",
       "revId": "50cb6ae21048351524bd5351fcc332b2e2b52859",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -335,6 +335,24 @@
       "parentUuid": "04253311_e4bb5df7",
       "revId": "c53f900bc354428795a029062ea14319028419c9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75690892_3939b210",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-08-25T14:49:02Z",
+      "side": 1,
+      "message": "I\u0027ve restored this struct to it\u0027s former glory, and introduced a new struct for the new metrics. PTAL.",
+      "parentUuid": "6b7dbcf5_aa5dd680",
+      "revId": "c53f900bc354428795a029062ea14319028419c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

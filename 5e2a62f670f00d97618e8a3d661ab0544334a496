@@ -16,6 +16,23 @@
       "message": "Not much, but does save a few bytes of binary size.",
       "revId": "5e2a62f670f00d97618e8a3d661ab0544334a496",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15ae2f1a_6d78b475",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-25T15:42:40Z",
+      "side": 1,
+      "message": "It seems adding absl header to DEPS file require owner approval for the destination folder `absl` that doesn\u0027t exists (it is in fact third_party/abseil-cpp/absl, but presubmit script can\u0027t see that),\ni.e. can be workarounded with root approval.\n\nHarald, do you mind?",
+      "revId": "5e2a62f670f00d97618e8a3d661ab0544334a496",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -278,6 +278,24 @@
       "parentUuid": "2d4e7af0_8d17f3b4",
       "revId": "3a85d6db0d48bf6aef682544cf9761dedd6464ef",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52473dd7_6b1363c9",
+        "filename": "rtc_base/fake_network.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-08-25T07:07:16Z",
+      "side": 1,
+      "message": "You can put classes into a vector with the right amount of copy constructors (and I think they are all on-by-default as long as all members are copyable). But it\u0027s not that critical, so I\u0027ll LGTM it for now.",
+      "parentUuid": "06179b87_4d92fe41",
+      "revId": "3a85d6db0d48bf6aef682544cf9761dedd6464ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

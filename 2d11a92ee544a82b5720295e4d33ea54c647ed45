@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36d254f1_ccdce9af",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-08-25T07:07:16Z",
+      "side": 1,
+      "message": "You can have vectors of class objects. But LGTM, it\u0027s not that important.",
+      "revId": "2d11a92ee544a82b5720295e4d33ea54c647ed45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

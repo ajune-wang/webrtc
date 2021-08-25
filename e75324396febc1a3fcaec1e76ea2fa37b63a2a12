@@ -41,6 +41,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2727edd_0be1f65d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-08-25T10:16:22Z",
+      "side": 1,
+      "message": "Looks good. Please address Mirko\u0027s notes.",
+      "revId": "e75324396febc1a3fcaec1e76ea2fa37b63a2a12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7cd72603_6927e4af",

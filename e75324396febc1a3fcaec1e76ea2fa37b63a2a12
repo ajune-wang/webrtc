@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c2b2fd6_a248a04c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2021-08-25T00:13:21Z",
+      "side": 1,
+      "message": "I tried to use network_monitor_java within peerconnection_java as dependency but some project that depends on peerconnection_java only yet using NetworkMonitor class would fail to find the reference. I assume Java is not allowing that. I didn\u0027t want to go about changing every project to include network_monitor_java as new dependency.",
+      "revId": "e75324396febc1a3fcaec1e76ea2fa37b63a2a12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

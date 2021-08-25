@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "b547b16c_f441fa44",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-08-25T07:25:33Z",
+      "side": 1,
+      "message": "I forgot last time, but maybe we need a bug here to track the refactoring.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 8
+      },
+      "revId": "e75324396febc1a3fcaec1e76ea2fa37b63a2a12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "2c2b2fd6_a248a04c",
@@ -14,6 +37,52 @@
       "writtenOn": "2021-08-25T00:13:21Z",
       "side": 1,
       "message": "I tried to use network_monitor_java within peerconnection_java as dependency but some project that depends on peerconnection_java only yet using NetworkMonitor class would fail to find the reference. I assume Java is not allowing that. I didn\u0027t want to go about changing every project to include network_monitor_java as new dependency.",
+      "revId": "e75324396febc1a3fcaec1e76ea2fa37b63a2a12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7cd72603_6927e4af",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-08-25T07:25:33Z",
+      "side": 1,
+      "message": "Remove?",
+      "range": {
+        "startLine": 273,
+        "startChar": 6,
+        "endLine": 274,
+        "endChar": 57
+      },
+      "revId": "e75324396febc1a3fcaec1e76ea2fa37b63a2a12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a55bce3a_c0758812",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-08-25T07:25:33Z",
+      "side": 1,
+      "message": "Remove?",
+      "range": {
+        "startLine": 278,
+        "startChar": 0,
+        "endLine": 279,
+        "endChar": 53
+      },
       "revId": "e75324396febc1a3fcaec1e76ea2fa37b63a2a12",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

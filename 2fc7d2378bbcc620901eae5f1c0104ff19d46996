@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47f09abc_8949405c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-08-25T15:58:03Z",
+      "side": 1,
+      "message": "This looks reasonable to me, but I have a few questions on further direction.\n\n1. If the rtp extensions is the only mutable member of the various config structs, how difficult would it be to take it out from that struct, to make it properly const?\n\n2. Why do the receive streams need to know the extensions, and what effect does it have if the list is changed at that level? I had a quick look at current AudioReceiveStream::SetRtpExtensions, and it\u0027s not clear where the new value is used. It seems unused within the class, but exposed via the config() accessor, I\u0027m not sure how that is used.\n\nAs far as I\u0027m aware, the extension list is primarily needed for calling RtpPacketReceived::IdentifyExtensions, but that is done by call, which maintains its own map from ssrc to extensions. It makes some sense to move that responsibility away from Call, but in that case, I\u0027d prefer to move it towards the demuxer rather than towards the receive streams.",
+      "revId": "2fc7d2378bbcc620901eae5f1c0104ff19d46996",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

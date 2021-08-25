@@ -39,6 +39,30 @@
       },
       "revId": "5326d4aeb6a2a12380c4402e7dc92f093f40bca7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b505eb72_52df4963",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-08-25T11:40:13Z",
+      "side": 1,
+      "message": "You are right! Before performing bitrate check, we will first check if the weak pointer is empty. If pointer is empty, then execute return.",
+      "parentUuid": "74127af3_3c564550",
+      "range": {
+        "startLine": 83,
+        "startChar": 2,
+        "endLine": 83,
+        "endChar": 44
+      },
+      "revId": "5326d4aeb6a2a12380c4402e7dc92f093f40bca7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

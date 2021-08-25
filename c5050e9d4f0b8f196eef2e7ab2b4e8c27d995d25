@@ -16,6 +16,29 @@
       "message": "Fippo recommended you as a reviewer :-)",
       "revId": "c5050e9d4f0b8f196eef2e7ab2b4e8c27d995d25",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42b001b5_5fdc2cc5",
+        "filename": "sdk/android/api/org/webrtc/Camera2Enumerator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2021-08-25T12:32:55Z",
+      "side": 1,
+      "message": "While you’re here, could you change it to optimise allocations a bit? Something like:\n\nif (cameraSizes \u003d\u003d null || cameraSizes.length \u003d\u003d 0) {\n  return Collections.emptyList();\n}\nList\u003cSize\u003e sizes \u003d new ArrayList\u003c\u003e(cameraSizes.length);\n[...]",
+      "range": {
+        "startLine": 233,
+        "startChar": 0,
+        "endLine": 239,
+        "endChar": 17
+      },
+      "revId": "c5050e9d4f0b8f196eef2e7ab2b4e8c27d995d25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1074da76_80ec2d45",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_vp8.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-26T12:03:13Z",
+      "side": 1,
+      "message": "nit: 0x07\n(to better show 1st 4 bits are not included)",
+      "range": {
+        "startLine": 64,
+        "startChar": 30,
+        "endLine": 64,
+        "endChar": 33
+      },
+      "revId": "2b1593ca40f05cf88d0d870582d52d07a4d91961",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09173eda_753d869b",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_vp8.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-26T12:03:13Z",
+      "side": 1,
+      "message": "with partitionId read as `byte \u0026 0x07`, this check can be stronger \u0026 cheaper (e.g. RTC_DCHECK)",
+      "range": {
+        "startLine": 168,
+        "startChar": 2,
+        "endLine": 171,
+        "endChar": 3
+      },
+      "revId": "2b1593ca40f05cf88d0d870582d52d07a4d91961",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b27a8f10_762dcd40",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_vp8_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-26T12:03:13Z",
+      "side": 1,
+      "message": "please expand to `Partition Id`\n(PID often means Picture ID, thus might be confusing in this context)",
+      "range": {
+        "startLine": 53,
+        "startChar": 38,
+        "endLine": 53,
+        "endChar": 41
+      },
+      "revId": "2b1593ca40f05cf88d0d870582d52d07a4d91961",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b742e48_0414ba4a",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_vp8_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-26T12:03:13Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 156,
+        "startChar": 48,
+        "endLine": 156,
+        "endChar": 51
+      },
+      "revId": "2b1593ca40f05cf88d0d870582d52d07a4d91961",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

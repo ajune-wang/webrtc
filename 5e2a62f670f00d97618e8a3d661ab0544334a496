@@ -68,6 +68,42 @@
       "message": "This seems like a good idea. If I read the absl code rightly, it will reduce to a special machine instruction (lzcnt, cls) on ARM and X86, which is probably quite a bit better than the C++ code we\u0027re using.\n",
       "revId": "5e2a62f670f00d97618e8a3d661ab0544334a496",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76d848bc_e42c2bda",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-26T08:53:15Z",
+      "side": 1,
+      "message": "probably. It likely should come together with a README.md (that would also redirect people searching for absl/ includes).",
+      "parentUuid": "4f274d8c_5efb215f",
+      "revId": "5e2a62f670f00d97618e8a3d661ab0544334a496",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f120380_b32534e4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-26T08:53:15Z",
+      "side": 1,
+      "message": "and in c++20 it is an alias to std::bit_width\nhttps://en.cppreference.com/w/cpp/numeric/bit_width",
+      "parentUuid": "b8725334_3314384f",
+      "revId": "5e2a62f670f00d97618e8a3d661ab0544334a496",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

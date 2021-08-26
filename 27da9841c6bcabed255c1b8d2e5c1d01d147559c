@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f08666b_77d1ef5d",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_vp8.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-26T12:44:40Z",
+      "side": 1,
+      "message": "RTC_DCHECK_LT(vp8_header.partitionId, 8);",
+      "range": {
+        "startLine": 169,
+        "startChar": 2,
+        "endLine": 169,
+        "endChar": 42
+      },
+      "revId": "27da9841c6bcabed255c1b8d2e5c1d01d147559c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

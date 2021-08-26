@@ -95,6 +95,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce96be7b_cbc694bd",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_vp8.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-26T12:44:40Z",
+      "side": 1,
+      "message": "previous it was checking for corrupt header (thus it had to be runtime check - data arrived from network could be anything).\nNow it serves mostly as a bit of extra documentation.\n(together with fuzzer tests it also guards against changes in parser that may accept other values)",
+      "parentUuid": "edebf44d_1254cc32",
+      "range": {
+        "startLine": 168,
+        "startChar": 2,
+        "endLine": 171,
+        "endChar": 3
+      },
+      "revId": "2b1593ca40f05cf88d0d870582d52d07a4d91961",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b27a8f10_762dcd40",

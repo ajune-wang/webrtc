@@ -39,6 +39,30 @@
       },
       "revId": "0f03ccb1a973cf6079ba065aefe33013673e31cd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6508141a_e33c040b",
+        "filename": "sdk/android/src/java/org/webrtc/Camera1Session.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 15079
+      },
+      "writtenOn": "2021-08-26T08:51:17Z",
+      "side": 1,
+      "message": "Thanks for the review! Addressed in patchset 2.",
+      "parentUuid": "f51ca06e_6a9b5acb",
+      "range": {
+        "startLine": 128,
+        "startChar": 50,
+        "endLine": 128,
+        "endChar": 73
+      },
+      "revId": "0f03ccb1a973cf6079ba065aefe33013673e31cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

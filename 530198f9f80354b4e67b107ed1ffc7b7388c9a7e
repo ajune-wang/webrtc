@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7053fe3c_0f832ac1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15079
+      },
+      "writtenOn": "2021-08-26T09:12:12Z",
+      "side": 1,
+      "message": "Updated patch as per the review.",
+      "revId": "530198f9f80354b4e67b107ed1ffc7b7388c9a7e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

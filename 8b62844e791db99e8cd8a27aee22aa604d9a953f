@@ -232,6 +232,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c1e2ccfe_66b9f697",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18194
+      },
+      "writtenOn": "2021-08-26T13:31:33Z",
+      "side": 1,
+      "message": "Got it. I\u0027ll change the implementation not to ruin the intended concept.",
+      "parentUuid": "0e7d2e69_faa6e2f6",
+      "revId": "8b62844e791db99e8cd8a27aee22aa604d9a953f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "df892310_be469aa4",
         "filename": "sdk/android/src/jni/video_encoder_wrapper.cc",
         "patchSetId": 1

@@ -51,6 +51,23 @@
       "parentUuid": "15ae2f1a_6d78b475",
       "revId": "5e2a62f670f00d97618e8a3d661ab0544334a496",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8725334_3314384f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-08-26T07:05:25Z",
+      "side": 1,
+      "message": "This seems like a good idea. If I read the absl code rightly, it will reduce to a special machine instruction (lzcnt, cls) on ARM and X86, which is probably quite a bit better than the C++ code we\u0027re using.\n",
+      "revId": "5e2a62f670f00d97618e8a3d661ab0544334a496",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

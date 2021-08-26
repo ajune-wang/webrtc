@@ -57,6 +57,30 @@
       },
       "revId": "f5620ea1c9867944e9bc49ac3b1c14180d6582e5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f139e298_b9700f32",
+        "filename": "sdk/objc/components/audio/RTCAudioSession.mm",
+        "patchSetId": 5
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-08-26T11:51:29Z",
+      "side": 1,
+      "message": "Well, it wasn\u0027t me, but it makes sense.",
+      "parentUuid": "142f8deb_a954192c",
+      "range": {
+        "startLine": 243,
+        "startChar": 0,
+        "endLine": 243,
+        "endChar": 16
+      },
+      "revId": "f5620ea1c9867944e9bc49ac3b1c14180d6582e5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

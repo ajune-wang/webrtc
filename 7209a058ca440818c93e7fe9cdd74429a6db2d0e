@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb12bba4_d8e69f49",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6039
+      },
+      "writtenOn": "2021-08-26T08:46:50Z",
+      "side": 1,
+      "message": "I tried but was not able to make it work either with or without your patch.\n\nThe server starts https://screenshot.googleplex.com/BriJgXo8wmFXTbc.png\n\nBut I can\u0027t connect any client. Will send a screenshot of the error message.",
+      "revId": "7209a058ca440818c93e7fe9cdd74429a6db2d0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

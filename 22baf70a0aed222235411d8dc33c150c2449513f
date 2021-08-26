@@ -16,6 +16,350 @@
       "message": "Hi Erik.Could you PTAL?",
       "revId": "22baf70a0aed222235411d8dc33c150c2449513f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ace02e1_43249b71",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-26T09:40:11Z",
+      "side": 1,
+      "message": "Thanks for the changes! Looks pretty good to me at this point.\nSergey/Evan wdyt?",
+      "revId": "22baf70a0aed222235411d8dc33c150c2449513f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74612309_95fe85dd",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-26T09:40:11Z",
+      "side": 1,
+      "message": "Refer to the bug instead:\n// TODO(bugs.webrtc.org/12942): ...",
+      "range": {
+        "startLine": 35,
+        "startChar": 8,
+        "endLine": 35,
+        "endChar": 14
+      },
+      "revId": "22baf70a0aed222235411d8dc33c150c2449513f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30781b14_418b93ec",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-26T09:40:11Z",
+      "side": 1,
+      "message": "drop `static`",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 6
+      },
+      "revId": "22baf70a0aed222235411d8dc33c150c2449513f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31f4cbb0_74c320e7",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-26T09:40:11Z",
+      "side": 1,
+      "message": "linear_interpolate()",
+      "range": {
+        "startLine": 52,
+        "startChar": 11,
+        "endLine": 52,
+        "endChar": 30
+      },
+      "revId": "22baf70a0aed222235411d8dc33c150c2449513f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13f0f2c4_79cc8c0c",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-26T09:40:11Z",
+      "side": 1,
+      "message": ".empty()",
+      "range": {
+        "startLine": 88,
+        "startChar": 12,
+        "endLine": 88,
+        "endChar": 24
+      },
+      "revId": "22baf70a0aed222235411d8dc33c150c2449513f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35c16636_66b965d3",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-26T09:40:11Z",
+      "side": 1,
+      "message": "You can reduce the nesting level here by dropping the else (since you always return in the main if-body).\nSame below",
+      "range": {
+        "startLine": 104,
+        "startChar": 4,
+        "endLine": 104,
+        "endChar": 10
+      },
+      "revId": "22baf70a0aed222235411d8dc33c150c2449513f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bcfb2957_c2505838",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-26T09:40:11Z",
+      "side": 1,
+      "message": "I think might be easier to read without the helper method since you only need to calculate the alpha once then, and can use more explicit variable naming e.g.:\n\nint lower_pixel_count \u003d limits[interpolation_index - 1].frame_size_pixels;\nint upper_pixel_count \u003d limits[interpolation_index].frame_size_pixels;\nfloat alpha \u003d ((width * height) - lower_pixel_count) / (upper_pixel_count - lower_pixel_count);\nint min_bps \u003d static_cast\u003cint\u003e(limits[interpolation_index].min_bitrate_bps * alpha + limits[interpolation_index - 1].min_bitrate_bps * (1.0 - alpha));\nint max_bps \u003d static_cast\u003cint\u003e(limits[interpolation_index].max_bitrate_bps * alpha + limits[interpolation_index - 1].max_bitrate_bps * (1.0 - alpha));",
+      "range": {
+        "startLine": 108,
+        "startChar": 6,
+        "endLine": 118,
+        "endChar": 71
+      },
+      "revId": "22baf70a0aed222235411d8dc33c150c2449513f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3be899e_f8258b49",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-26T09:40:11Z",
+      "side": 1,
+      "message": "Since you already DCHECK I don\u0027t think you need this extra if/else",
+      "range": {
+        "startLine": 121,
+        "startChar": 6,
+        "endLine": 121,
+        "endChar": 59
+      },
+      "revId": "22baf70a0aed222235411d8dc33c150c2449513f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78ccd937_96f9340f",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-26T09:40:11Z",
+      "side": 1,
+      "message": "Don\u0027t think you need this log. Just add a comment in the code instead that don\u0027t have a valid bitrate due to not enough data points.",
+      "revId": "22baf70a0aed222235411d8dc33c150c2449513f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "091fc577_ab8b4862",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-26T09:40:11Z",
+      "side": 1,
+      "message": "Usually avoid protected for this reason.\nI think both of these would be fine as public.",
+      "range": {
+        "startLine": 57,
+        "startChar": 2,
+        "endLine": 58,
+        "endChar": 11
+      },
+      "revId": "22baf70a0aed222235411d8dc33c150c2449513f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b15be36_89d4e0b1",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-26T09:40:11Z",
+      "side": 1,
+      "message": "nit: I think you mean limits, not limited (GetBitrateLimitsForResolution)",
+      "range": {
+        "startLine": 60,
+        "startChar": 2,
+        "endLine": 60,
+        "endChar": 32
+      },
+      "revId": "22baf70a0aed222235411d8dc33c150c2449513f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70629e2d_fd362bed",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-26T09:40:11Z",
+      "side": 1,
+      "message": "make method static?",
+      "range": {
+        "startLine": 59,
+        "startChar": 2,
+        "endLine": 60,
+        "endChar": 56
+      },
+      "revId": "22baf70a0aed222235411d8dc33c150c2449513f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec49a2b6_04c64a71",
+        "filename": "modules/video_coding/utility/bandwidth_scaler_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-26T09:40:11Z",
+      "side": 1,
+      "message": "`scale`",
+      "range": {
+        "startLine": 118,
+        "startChar": 8,
+        "endLine": 118,
+        "endChar": 13
+      },
+      "revId": "22baf70a0aed222235411d8dc33c150c2449513f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "feb9e249_b10d20e7",
+        "filename": "modules/video_coding/utility/bandwidth_scaler_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-26T09:40:11Z",
+      "side": 1,
+      "message": "if the test assumes this in order to work, make it a DCHECK or EXPECT/ASSERT",
+      "revId": "22baf70a0aed222235411d8dc33c150c2449513f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75bb8f52_78bb1d9f",
+        "filename": "modules/video_coding/utility/bandwidth_scaler_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-26T09:40:11Z",
+      "side": 1,
+      "message": "DCHECK or EXPECT/ASSERT here too",
+      "range": {
+        "startLine": 165,
+        "startChar": 4,
+        "endLine": 169,
+        "endChar": 5
+      },
+      "revId": "22baf70a0aed222235411d8dc33c150c2449513f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b501b4b4_fab7e4d3",
+        "filename": "modules/video_coding/utility/bandwidth_scaler_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-26T09:40:11Z",
+      "side": 1,
+      "message": "Since you\u0027re going to the trouble if parameterizing the test perhaps use more than once parameter value? Otherwise that limit can just be a plain const member.",
+      "revId": "22baf70a0aed222235411d8dc33c150c2449513f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

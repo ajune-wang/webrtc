@@ -122,6 +122,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1ffdc12_d9a89e4f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18194
+      },
+      "writtenOn": "2021-08-26T05:56:18Z",
+      "side": 1,
+      "message": "Sorry for misunderstanding. I though you had some doubts about setting it as default.\n\nI agree with you that we\u0027d better enable this feature as default and see if any unpredicted cases occur. However, I\u0027m bit worried if ordinary users would accept the limitation of alignment although Android CTS only tests 16 x 16 alignment frames already.\n\nYou\u0027ve applied patchset similar to this one, so all of you have agreed to apply limitations by default in chromium, Right?",
+      "parentUuid": "24df7540_e7ce8714",
+      "revId": "8b62844e791db99e8cd8a27aee22aa604d9a953f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "df892310_be469aa4",

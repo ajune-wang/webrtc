@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "674a3477_bec1144f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-08-26T07:12:43Z",
+      "side": 1,
+      "message": "I am now happy with the naming. +1 stands.\n",
+      "revId": "f742751749c31759a2b893da7f4be6b151f18c3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80257f20_dd146090",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-08-26T07:12:43Z",
+      "side": 1,
+      "message": "Function comment?\n\"Round trip time statistics computed from the XR block contained in the last report\"?",
+      "revId": "f742751749c31759a2b893da7f4be6b151f18c3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -194,6 +194,10 @@ class RTC_EXPORT NetworkManagerBase : public NetworkManager {
 
   bool GetDefaultLocalAddress(int family, IPAddress* ipaddr) const override;
 
+  // Check if MAC address in |bytes| is one of the pre-defined
+  // MAC addresses for know VPNs.
+  static bool IsVpnMacAddress(const void* bytes, int length);
+
  protected:
   typedef std::map<std::string, Network*> NetworkMap;
   // Updates `networks_` with the networks listed in `list`. If

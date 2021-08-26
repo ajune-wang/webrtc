@@ -1434,4 +1434,16 @@ TEST_F(NetworkTest, VpnListOverrideAdapterType) {
 }
 #endif  // defined(WEBRTC_POSIX)
 
+TEST_F(NetworkTest, HardcodedVpn) {
+  EXPECT_TRUE(NetworkManagerBase::IsVpnMacAddress(
+      (uint8_t[]){0x0, 0x5, 0x9A, 0x3C, 0x7A, 0x0}, 6));
+  EXPECT_TRUE(NetworkManagerBase::IsVpnMacAddress(
+      (uint8_t[]){0x2, 0x50, 0x41, 0x0, 0x0, 0x1}, 6));
+
+  EXPECT_FALSE(NetworkManagerBase::IsVpnMacAddress(
+      (uint8_t[]){0x2, 0x50, 0x41, 0x0, 0x0, 0x1}, 5));
+  EXPECT_FALSE(NetworkManagerBase::IsVpnMacAddress(
+      (uint8_t[]){0x2, 0x50, 0x41, 0x0, 0x0, 0x0}, 6));
+}
+
 }  // namespace rtc

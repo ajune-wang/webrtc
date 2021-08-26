@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "add96a94_4b4ace4f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-26T11:54:59Z",
+      "side": 1,
+      "message": "I\u0027m not happy with current usages of BitBuffer. They\u0027re using macros that are discouraged by style guide, or generally hard to read.\n\nI would like to propose to spread pattern I\u0027m using while parsing DD for the other  bitstream parsers. \n\nI\u0027ve sketched https://webrtc-review.googlesource.com/c/src/+/229383 to demonstrate how that new reader can be used. In particular it shows ~10k binary size reduction.\n\nWould like to get your opinion about such idea.",
+      "revId": "dfe9d228a56ebb203182404258e1fce755e8a460",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

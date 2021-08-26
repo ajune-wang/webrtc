@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f92bbc04_6de0d65e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-08-26T07:20:17Z",
+      "side": 1,
+      "message": "Henrik, when you get some time, can you have another look at testing this change on windows? Ilya made some test runs during the summer, and on his windows machine it seemed to fail both before and after this change (possibly working better before the previous change). Not urgent, but I see no good reason this example code should use different socket glue than production targets do on windows.",
+      "revId": "8e70fd221935715f7ae20c97293e7298f10006d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

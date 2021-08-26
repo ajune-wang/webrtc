@@ -214,6 +214,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0e7d2e69_faa6e2f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-08-26T12:31:21Z",
+      "side": 1,
+      "message": "VideoEncoderWrapper is used with Java encoder which can be HardwareVideoEncoder or other (injected) implementation. Setting alignment requirement in VideoEncoderWrapper will affect all Java encoders. We want to avoid that and restrict the change to HardwareVideoEncoder.",
+      "parentUuid": "e9808718_c3b4e0b2",
+      "revId": "8b62844e791db99e8cd8a27aee22aa604d9a953f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "df892310_be469aa4",
         "filename": "sdk/android/src/jni/video_encoder_wrapper.cc",
         "patchSetId": 1

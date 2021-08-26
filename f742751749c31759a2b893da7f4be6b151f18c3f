@@ -18,6 +18,86 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "04f491d5_9ee1378e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-26T11:48:42Z",
+      "side": 1,
+      "message": "rtp_rtcp lgtm",
+      "revId": "f742751749c31759a2b893da7f4be6b151f18c3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2cb63271_b2bc88da",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-26T11:48:42Z",
+      "side": 1,
+      "message": "in theory there might be two XR blocks for the same ssrc. One with the DLRR, another one - without.\n\nif you want to support that weird (but valid) rtcp packet, may be instead write\n  if (contains_dlrr) received_blocks[ssrc].dlrr \u003d true;",
+      "range": {
+        "startLine": 489,
+        "startChar": 8,
+        "endLine": 489,
+        "endChar": 51
+      },
+      "revId": "f742751749c31759a2b893da7f4be6b151f18c3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c98d14cb_ecae8a19",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1163,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-26T11:48:42Z",
+      "side": 1,
+      "message": "when all paramter matchers are wildcard, you do not have to write them (see http://go/totw/150)\ni.e. \n\n  EXPECT_CALL(mocks.rtp_rtcp_impl, OnReceivedRtcpReportBlocks);\n  EXPECT_CALL(mocks.bandwidth_observer, OnReceivedRtcpReceiverReport);",
+      "range": {
+        "startLine": 1163,
+        "startChar": 68,
+        "endLine": 1163,
+        "endChar": 77
+      },
+      "revId": "f742751749c31759a2b893da7f4be6b151f18c3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42804b74_2a183ad1",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-26T11:48:42Z",
+      "side": 1,
+      "message": "may be mention with a comment that it is not implemented for this legacy class.",
+      "revId": "f742751749c31759a2b893da7f4be6b151f18c3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "80257f20_dd146090",
@@ -31,6 +111,52 @@
       "writtenOn": "2021-08-26T07:12:43Z",
       "side": 1,
       "message": "Function comment?\n\"Round trip time statistics computed from the XR block contained in the last report\"?",
+      "revId": "f742751749c31759a2b893da7f4be6b151f18c3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c1c1393_d3f8d113",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-26T11:48:42Z",
+      "side": 1,
+      "message": "if you are using braced initialization, you might as well skip mentioning `NonSenderRttStats` type explicetly:\nreturn {{ non_sender_rtt_stats.round_trip_time(), ... }};",
+      "range": {
+        "startLine": 533,
+        "startChar": 9,
+        "endLine": 533,
+        "endChar": 27
+      },
+      "revId": "f742751749c31759a2b893da7f4be6b151f18c3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b2b906b_1dfb5bbc",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 534,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-26T11:48:42Z",
+      "side": 1,
+      "message": "https://webrtc.googlesource.com/src/+/refs/heads/main/g3doc/style-guide.md#c_version\n\n\"Unlike the Chromium and Google C++ style guides, we do not allow C++20-style designated initializers\"\n\n(last time I\u0027ve checked we still have bots that do not support them)",
+      "range": {
+        "startLine": 533,
+        "startChar": 26,
+        "endLine": 534,
+        "endChar": 22
+      },
       "revId": "f742751749c31759a2b893da7f4be6b151f18c3f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

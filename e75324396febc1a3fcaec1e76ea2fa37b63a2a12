@@ -203,6 +203,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "417903d0_9a741464",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-08-26T19:06:49Z",
+      "side": 1,
+      "message": "I actually meant to keep the code as is and land but if it was possible to temporarily remove these two files (comment out), run all the tests and add the missing dependency to fix them. So at least WebRTC will be clean, then uncomment the two files and land.",
+      "parentUuid": "59d8e52d_af05bed6",
+      "range": {
+        "startLine": 273,
+        "startChar": 6,
+        "endLine": 274,
+        "endChar": 57
+      },
+      "revId": "e75324396febc1a3fcaec1e76ea2fa37b63a2a12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a55bce3a_c0758812",
         "filename": "sdk/android/BUILD.gn",
         "patchSetId": 3

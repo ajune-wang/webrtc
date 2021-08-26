@@ -178,6 +178,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9b61334f_3a268449",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-08-26T08:46:27Z",
+      "side": 1,
+      "message": "We discussed this with asapersson@, mirtad@ and ilnik@ and identified at least two undesired consequences:\n\n1. This change increases alignment requirement for the top spatial layer up to \u003d16\u003c\u003c(N-1) pixels, where N is number of simulcast streams. For example, for 1280x720 capture resolution and N\u003d3, we will get: 1280x704, 640x352 and 320x176. I.e., we lose 16 pixels on the top layer and get non standard resolutions which may break downstream projects;\n\n2. This change cancels downscaling when layer scaling factors (RTCRtpEncodingParameters::scaleResolutionDownBy) are set explicitly. For example, for N\u003d3 and scaleResolutionDownBy\u003d[1,2,4] we will get final scaleResolutionDownBy\u003d[1,1,1].\n\nBoth (1) and (2) refer to the logic in https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/video/alignment_adjuster.cc;l\u003d67-125;drc\u003dab30d72b724b185c6d3404d5f52096ce0b1f76a0.\n\nTo minimize the potential negative impact, we recommend to implement this in a different way:\n1. Add API to query EncodeInfo to VideoEncoder;\n2. Fetch EncoderInfo from Java encoder in VideoEncoderWrapper;\n3. Hardcode EncodeInfo::requested_resolution_alignment\u003d16 in HardwareVideoEncoder;\n4. Set apply_alignment_to_all_simulcast_layers in SimucastEncoderAdapter based on alignment requirements of underlaying encoders.",
+      "parentUuid": "3f4a995e_5846c4c1",
+      "revId": "8b62844e791db99e8cd8a27aee22aa604d9a953f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "df892310_be469aa4",
         "filename": "sdk/android/src/jni/video_encoder_wrapper.cc",
         "patchSetId": 1

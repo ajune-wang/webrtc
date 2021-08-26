@@ -16,6 +16,23 @@
       "message": "Fippo recommended you as a reviewer :-)",
       "revId": "0a3bf216eec163fb135e17f44f063b52197ce1e6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc1e5e94_cf5a9dbc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15079
+      },
+      "writtenOn": "2021-08-26T14:52:02Z",
+      "side": 1,
+      "message": "I don\u0027t see how the test timeout could be related. But clicking the retry button doesn\u0027t work.",
+      "revId": "0a3bf216eec163fb135e17f44f063b52197ce1e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

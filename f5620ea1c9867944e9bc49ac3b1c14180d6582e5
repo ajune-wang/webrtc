@@ -34,6 +34,29 @@
       "parentUuid": "f8d6bc14_3788a032",
       "revId": "f5620ea1c9867944e9bc49ac3b1c14180d6582e5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "142f8deb_a954192c",
+        "filename": "sdk/objc/components/audio/RTCAudioSession.mm",
+        "patchSetId": 5
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-08-26T11:43:25Z",
+      "side": 1,
+      "message": "Did you want to crash (rather than deadlock) on attempted recursive locking? If so, an RTC_CHECK(!mutex_locked) before the Lock() call should do, I think.",
+      "range": {
+        "startLine": 243,
+        "startChar": 0,
+        "endLine": 243,
+        "endChar": 16
+      },
+      "revId": "f5620ea1c9867944e9bc49ac3b1c14180d6582e5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

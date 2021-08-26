@@ -1434,4 +1434,17 @@ TEST_F(NetworkTest, VpnListOverrideAdapterType) {
 }
 #endif  // defined(WEBRTC_POSIX)
 
+TEST_F(NetworkTest, HardcodedVpn) {
+  const uint8_t cisco[] = {0x0, 0x5, 0x9A, 0x3C, 0x7A, 0x0};
+  const uint8_t global[] = {0x2, 0x50, 0x41, 0x0, 0x0, 0x1};
+  const uint8_t unknown[] = {0x2, 0x50, 0x41, 0x0, 0x0, 0x0};
+  EXPECT_TRUE(NetworkManagerBase::IsVpnMacAddress(cisco, 6));
+  EXPECT_TRUE(NetworkManagerBase::IsVpnMacAddress(global, 6));
+
+  EXPECT_FALSE(NetworkManagerBase::IsVpnMacAddress(cisco, 5));
+  EXPECT_FALSE(NetworkManagerBase::IsVpnMacAddress(unknown, 6));
+
+  EXPECT_FALSE(NetworkManagerBase::IsVpnMacAddress(nullptr, 6));
+}
+
 }  // namespace rtc

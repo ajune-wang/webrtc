@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c006919_1bb7f210",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_vp8.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2021-08-26T12:33:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1074da76_80ec2d45",
+      "range": {
+        "startLine": 64,
+        "startChar": 30,
+        "endLine": 64,
+        "endChar": 33
+      },
+      "revId": "2b1593ca40f05cf88d0d870582d52d07a4d91961",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "09173eda_753d869b",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-08-26T12:03:13Z",
       "side": 1,
       "message": "with partitionId read as `byte \u0026 0x07`, this check can be stronger \u0026 cheaper (e.g. RTC_DCHECK)",
+      "range": {
+        "startLine": 168,
+        "startChar": 2,
+        "endLine": 171,
+        "endChar": 3
+      },
+      "revId": "2b1593ca40f05cf88d0d870582d52d07a4d91961",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edebf44d_1254cc32",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_vp8.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2021-08-26T12:33:55Z",
+      "side": 1,
+      "message": "True, changed it to RTC_DCHECK. But maybe it\u0027s better to remove it altogether, in hindsight I don\u0027t see it happening in practice?\n\nIf the goal is to check for a corrupt header, maybe one could (ab)use the other reserved R bit (bit number 1, next to X)?",
+      "parentUuid": "09173eda_753d869b",
       "range": {
         "startLine": 168,
         "startChar": 2,
@@ -70,6 +118,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "31bd8cd8_d3dd2b4c",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_vp8_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2021-08-26T12:33:55Z",
+      "side": 1,
+      "message": "Good point, fixed",
+      "parentUuid": "b27a8f10_762dcd40",
+      "range": {
+        "startLine": 53,
+        "startChar": 38,
+        "endLine": 53,
+        "endChar": 41
+      },
+      "revId": "2b1593ca40f05cf88d0d870582d52d07a4d91961",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9b742e48_0414ba4a",
@@ -83,6 +155,30 @@
       "writtenOn": "2021-08-26T12:03:13Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 156,
+        "startChar": 48,
+        "endLine": 156,
+        "endChar": 51
+      },
+      "revId": "2b1593ca40f05cf88d0d870582d52d07a4d91961",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c33c4a5_824af0e4",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_vp8_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2021-08-26T12:33:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b742e48_0414ba4a",
       "range": {
         "startLine": 156,
         "startChar": 48,

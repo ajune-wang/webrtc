@@ -63,6 +63,30 @@
       },
       "revId": "c5050e9d4f0b8f196eef2e7ab2b4e8c27d995d25",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c653298_fa332343",
+        "filename": "sdk/android/api/org/webrtc/Camera2Enumerator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 15079
+      },
+      "writtenOn": "2021-08-26T09:12:31Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "90d46f9a_a4b42c9a",
+      "range": {
+        "startLine": 233,
+        "startChar": 0,
+        "endLine": 239,
+        "endChar": 17
+      },
+      "revId": "c5050e9d4f0b8f196eef2e7ab2b4e8c27d995d25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

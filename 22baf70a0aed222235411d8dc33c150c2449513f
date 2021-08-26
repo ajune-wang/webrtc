@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b8f29ba_03951956",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-08-26T12:03:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74612309_95fe85dd",
+      "range": {
+        "startLine": 35,
+        "startChar": 8,
+        "endLine": 35,
+        "endChar": 14
+      },
+      "revId": "22baf70a0aed222235411d8dc33c150c2449513f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "30781b14_418b93ec",
@@ -104,6 +128,54 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6bd75e99_6bfc4bc3",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-08-26T12:03:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "31f4cbb0_74c320e7",
+      "range": {
+        "startLine": 52,
+        "startChar": 11,
+        "endLine": 52,
+        "endChar": 30
+      },
+      "revId": "22baf70a0aed222235411d8dc33c150c2449513f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "404c9820_2f205bdd",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-08-26T12:03:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30781b14_418b93ec",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 6
+      },
+      "revId": "22baf70a0aed222235411d8dc33c150c2449513f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "13f0f2c4_79cc8c0c",
@@ -117,6 +189,30 @@
       "writtenOn": "2021-08-26T09:40:11Z",
       "side": 1,
       "message": ".empty()",
+      "range": {
+        "startLine": 88,
+        "startChar": 12,
+        "endLine": 88,
+        "endChar": 24
+      },
+      "revId": "22baf70a0aed222235411d8dc33c150c2449513f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb696416_5094a606",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-08-26T12:03:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "13f0f2c4_79cc8c0c",
       "range": {
         "startLine": 88,
         "startChar": 12,
@@ -150,6 +246,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "39f9fa31_36593f6f",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-08-26T12:03:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35c16636_66b965d3",
+      "range": {
+        "startLine": 104,
+        "startChar": 4,
+        "endLine": 104,
+        "endChar": 10
+      },
+      "revId": "22baf70a0aed222235411d8dc33c150c2449513f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bcfb2957_c2505838",
@@ -163,6 +283,30 @@
       "writtenOn": "2021-08-26T09:40:11Z",
       "side": 1,
       "message": "I think might be easier to read without the helper method since you only need to calculate the alpha once then, and can use more explicit variable naming e.g.:\n\nint lower_pixel_count \u003d limits[interpolation_index - 1].frame_size_pixels;\nint upper_pixel_count \u003d limits[interpolation_index].frame_size_pixels;\nfloat alpha \u003d ((width * height) - lower_pixel_count) / (upper_pixel_count - lower_pixel_count);\nint min_bps \u003d static_cast\u003cint\u003e(limits[interpolation_index].min_bitrate_bps * alpha + limits[interpolation_index - 1].min_bitrate_bps * (1.0 - alpha));\nint max_bps \u003d static_cast\u003cint\u003e(limits[interpolation_index].max_bitrate_bps * alpha + limits[interpolation_index - 1].max_bitrate_bps * (1.0 - alpha));",
+      "range": {
+        "startLine": 108,
+        "startChar": 6,
+        "endLine": 118,
+        "endChar": 71
+      },
+      "revId": "22baf70a0aed222235411d8dc33c150c2449513f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e86b50b8_5dd559be",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-08-26T12:03:49Z",
+      "side": 1,
+      "message": "Right!",
+      "parentUuid": "bcfb2957_c2505838",
       "range": {
         "startLine": 108,
         "startChar": 6,
@@ -196,6 +340,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bff9e016_d3741ad0",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-08-26T12:03:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b3be899e_f8258b49",
+      "range": {
+        "startLine": 121,
+        "startChar": 6,
+        "endLine": 121,
+        "endChar": 59
+      },
+      "revId": "22baf70a0aed222235411d8dc33c150c2449513f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "78ccd937_96f9340f",
@@ -213,6 +381,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ceaa19de_f7a19408",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-08-26T12:03:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78ccd937_96f9340f",
+      "revId": "22baf70a0aed222235411d8dc33c150c2449513f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "091fc577_ab8b4862",
@@ -226,6 +412,30 @@
       "writtenOn": "2021-08-26T09:40:11Z",
       "side": 1,
       "message": "Usually avoid protected for this reason.\nI think both of these would be fine as public.",
+      "range": {
+        "startLine": 57,
+        "startChar": 2,
+        "endLine": 58,
+        "endChar": 11
+      },
+      "revId": "22baf70a0aed222235411d8dc33c150c2449513f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2421614_c721b416",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-08-26T12:03:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "091fc577_ab8b4862",
       "range": {
         "startLine": 57,
         "startChar": 2,
@@ -282,6 +492,54 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "69692015_e9d2825c",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-08-26T12:03:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b15be36_89d4e0b1",
+      "range": {
+        "startLine": 60,
+        "startChar": 2,
+        "endLine": 60,
+        "endChar": 32
+      },
+      "revId": "22baf70a0aed222235411d8dc33c150c2449513f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50a3de4b_99b31b99",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-08-26T12:03:49Z",
+      "side": 1,
+      "message": "Good Catch! Done",
+      "parentUuid": "70629e2d_fd362bed",
+      "range": {
+        "startLine": 59,
+        "startChar": 2,
+        "endLine": 60,
+        "endChar": 56
+      },
+      "revId": "22baf70a0aed222235411d8dc33c150c2449513f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ec49a2b6_04c64a71",
@@ -295,6 +553,30 @@
       "writtenOn": "2021-08-26T09:40:11Z",
       "side": 1,
       "message": "`scale`",
+      "range": {
+        "startLine": 118,
+        "startChar": 8,
+        "endLine": 118,
+        "endChar": 13
+      },
+      "revId": "22baf70a0aed222235411d8dc33c150c2449513f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5beeaab_506e0bd0",
+        "filename": "modules/video_coding/utility/bandwidth_scaler_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-08-26T12:03:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec49a2b6_04c64a71",
       "range": {
         "startLine": 118,
         "startChar": 8,
@@ -322,6 +604,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b0bb066_6c3735e3",
+        "filename": "modules/video_coding/utility/bandwidth_scaler_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-08-26T12:03:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "feb9e249_b10d20e7",
+      "revId": "22baf70a0aed222235411d8dc33c150c2449513f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "75bb8f52_78bb1d9f",
@@ -345,6 +645,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "05915655_db96c40b",
+        "filename": "modules/video_coding/utility/bandwidth_scaler_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-08-26T12:03:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75bb8f52_78bb1d9f",
+      "range": {
+        "startLine": 165,
+        "startChar": 4,
+        "endLine": 169,
+        "endChar": 5
+      },
+      "revId": "22baf70a0aed222235411d8dc33c150c2449513f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b501b4b4_fab7e4d3",
@@ -358,6 +682,24 @@
       "writtenOn": "2021-08-26T09:40:11Z",
       "side": 1,
       "message": "Since you\u0027re going to the trouble if parameterizing the test perhaps use more than once parameter value? Otherwise that limit can just be a plain const member.",
+      "revId": "22baf70a0aed222235411d8dc33c150c2449513f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2af8b313_8d8ea411",
+        "filename": "modules/video_coding/utility/bandwidth_scaler_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-08-26T12:03:49Z",
+      "side": 1,
+      "message": "It works normally when we use more than once parameters. I hope that we can quickly adjust the |bitrate_state_update_interval| during the testing, so that we don\u0027t need to modify the .cc file and run unittest quickly(we needn\u0027t wait 5s in some test cases). And it can flexibly deal with more tests parameters in the future.\n\nDetailed(in bandwidth_scaler.cc):\n kBitrateStateUpdateInterval(\n          TimeDelta::Seconds(BandwidthScalerSettings::ParseFromFieldTrials()\n                                 .BitrateStateUpdateInterval()\n                                 .value_or(5)))",
+      "parentUuid": "b501b4b4_fab7e4d3",
       "revId": "22baf70a0aed222235411d8dc33c150c2449513f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

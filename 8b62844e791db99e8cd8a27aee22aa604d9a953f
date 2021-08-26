@@ -69,6 +69,41 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "173ecfcb_9f278ab2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18194
+      },
+      "writtenOn": "2021-08-26T01:25:49Z",
+      "side": 1,
+      "message": "Please share any predictable side effects when we apply this patchset by default. ",
+      "revId": "8b62844e791db99e8cd8a27aee22aa604d9a953f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38e2ef35_ebe311fd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18194
+      },
+      "writtenOn": "2021-08-26T01:25:49Z",
+      "side": 1,
+      "message": "I think it\u0027s quite inefficient to run an additional allow list since we have tons of Android devices to deal with.\n\nAs we can see in the similar patch like this(https://chromium.googlesource.com/chromium/src/+/719b4cde1d74ba5364d74538a35809eca3de8250), I think we\u0027d better apply this patchset by default for all Android devices using HardwareEncoder with MediaCodec.\n\nWould please you explain any problems you concern about when we apply this by default?",
+      "parentUuid": "27308ca2_cc17e843",
+      "revId": "8b62844e791db99e8cd8a27aee22aa604d9a953f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "df892310_be469aa4",

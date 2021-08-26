@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "87cad830_de04ab74",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_vp8.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-26T12:46:43Z",
+      "side": 1,
+      "message": "corrupt payload shouldn\u0027t be able to make partitionId be larger than 7.\nI would probably remove the comment now as no longer accurate.\nWe might think about comment that is accurate, but I do not think it would add much value.",
+      "range": {
+        "startLine": 168,
+        "startChar": 20,
+        "endLine": 168,
+        "endChar": 35
+      },
+      "revId": "27da9841c6bcabed255c1b8d2e5c1d01d147559c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4f08666b_77d1ef5d",
         "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_vp8.cc",
         "patchSetId": 2

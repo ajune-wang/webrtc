@@ -16,6 +16,24 @@
       "message": "This looks reasonable to me, but I have a few questions on further direction.\n\n1. If the rtp extensions is the only mutable member of the various config structs, how difficult would it be to take it out from that struct, to make it properly const?\n\n2. Why do the receive streams need to know the extensions, and what effect does it have if the list is changed at that level? I had a quick look at current AudioReceiveStream::SetRtpExtensions, and it\u0027s not clear where the new value is used. It seems unused within the class, but exposed via the config() accessor, I\u0027m not sure how that is used.\n\nAs far as I\u0027m aware, the extension list is primarily needed for calling RtpPacketReceived::IdentifyExtensions, but that is done by call, which maintains its own map from ssrc to extensions. It makes some sense to move that responsibility away from Call, but in that case, I\u0027d prefer to move it towards the demuxer rather than towards the receive streams.",
       "revId": "2fc7d2378bbcc620901eae5f1c0104ff19d46996",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dba1aff8_1a7ff428",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-08-26T20:03:53Z",
+      "side": 1,
+      "message": "Great questions!\n\nAs far as the direction, I\u0027d like to go away from the current state of big const config structs for runtime state and into the direction of not using those structs for runtime state at all and rather have more fine grained control over the things that may change (separate from the const state). The problem we have today with the config structs is that as soon as we need to make a small change in state, we don\u0027t have any other option than tearing everything down and starting over since so much state maps to a single member variable.\n\n+1 on moving the responsibility away from Call - as is, thing work in non-obvious ways. If we can move this state away from the receive streams and at the same time avoid affecting the lifetime of those streams (like I\u0027m trying to do), then that would make many things much simpler.\n\nAnyway, for posterity, here are hopefully some answers to your questions (I think you know all/most of this already), more tomorrow.\n\n1. There are more mutable members. The RtpConfig struct has 4 members, two are documented to not change and two may change [1]. Note that (confusingly) there are more than one struct called RtpConfig, this is not the one from call/rtp_config.h. Regardless though, rtp header extensions are not the only mutable member.\n\n2. It\u0027s used by RtpVideoStreamReceiver2 in OnRecoveredPacket, Call::DeliverRtp and OnRecoveredPacket. The extension headers for audio/video receive streams can be set at runtime via SetRecvParameters that gets called via SetLocalContent.\n\nIt\u0027s also used when constructing rtclog::StreamConfig via CreateRtcLogStreamConfig when a receive stream is constructed, which makes me\nwonder if we should be adding to the log when we do these config changes... Looks like we do that for send streams (UpdateEventLogStreamConfig), but not receive streams afaict.\n\nAlso during construction of the receive streams, it\u0027s used to configure `receive_side_cc_`. That\u0027s actually something I need to check. Changing kTransportSequenceNumberV2Uri at runtime, would affect that state and same goes for UseSendSideBwe (which also checks kTransportSequenceNumberUri). I\u0027ll add a check for those.\n\n[1]: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/call/receive_stream.h;drc\u003dd350006b70927b19afa43e9c11e0bf3fdb0cdf15;l\u003d29",
+      "parentUuid": "47f09abc_8949405c",
+      "revId": "2fc7d2378bbcc620901eae5f1c0104ff19d46996",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

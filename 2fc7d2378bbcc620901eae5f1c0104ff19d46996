@@ -34,6 +34,24 @@
       "parentUuid": "47f09abc_8949405c",
       "revId": "2fc7d2378bbcc620901eae5f1c0104ff19d46996",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de46328f_1b512428",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-08-27T12:55:14Z",
+      "side": 1,
+      "message": "\u003e 2. It\u0027s used by RtpVideoStreamReceiver2 in OnRecoveredPacket, Call::DeliverRtp and OnRecoveredPacket. The extension headers for audio/video receive streams can be set at runtime via SetRecvParameters that gets called via SetLocalContent.\n\nSo it\u0027s all about packet parsing, but in three places:\n\nIncoming RTP (Call::DeliverRtp), packets recovered by Flexfec (Call::OnRecoveredPacket), and packets recovered by Ulpfec (RtpVideoStreamReceiver(2)::OnRecoveredPacket).\n\nMid-stream changes has to update both Call and the video receive classes. Luckily, audio receive streams appear to not need to know. Could you delete the SetRtpExtension method from audio/audio_receive_stream.*, or is that in some of the other cls?\n\n\u003e It\u0027s also used when constructing rtclog::StreamConfig via CreateRtcLogStreamConfig when a receive stream is constructed, which makes me\n\u003e wonder if we should be adding to the log when we do these config changes... Looks like we do that for send streams (UpdateEventLogStreamConfig), but not receive streams afaict.\n\nMakes sense, but I\u0027m not sure how those logs of that information is used.\n \n\u003e Also during construction of the receive streams, it\u0027s used to configure `receive_side_cc_`. That\u0027s actually something I need to check. Changing kTransportSequenceNumberV2Uri at runtime, would affect that state and same goes for UseSendSideBwe (which also checks kTransportSequenceNumberUri). I\u0027ll add a check for those.\n\nIdeally, we should deal with whatever information we get in the packets. With no difference between \"no transport sequence numbers negotiated\" and \"transport sequence numbers negotiated, but nevertheless not present in received packets\". But I\u0027ve forgotten the subtleties around the UseSendSideBwe check.",
+      "parentUuid": "dba1aff8_1a7ff428",
+      "revId": "2fc7d2378bbcc620901eae5f1c0104ff19d46996",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

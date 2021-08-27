@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6afb86b8_9301899d",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2021-08-27T08:00:44Z",
+      "side": 1,
+      "message": "used rtc::ArrayView since it\u0027s uint8_t.\nDone",
+      "parentUuid": "b767119b_2a7ab571",
+      "revId": "b9ecde632ed34697c0295a0acacc56a6191a560a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e1189968_3a740fe1",
@@ -48,6 +66,24 @@
       "writtenOn": "2021-08-27T06:18:49Z",
       "side": 1,
       "message": "This will access undefined memory if \"length\" is larger than the values in the table. If you trust that \"length\" is always 6, assert that.",
+      "revId": "b9ecde632ed34697c0295a0acacc56a6191a560a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e8f6151_62938015",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2021-08-27T08:00:44Z",
+      "side": 1,
+      "message": "it checks that the length matches _before_ doing memcmp,\nit should be safe.",
+      "parentUuid": "e1189968_3a740fe1",
       "revId": "b9ecde632ed34697c0295a0acacc56a6191a560a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

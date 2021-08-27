@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0116b06_fd074ca0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-08-27T06:18:49Z",
+      "side": 1,
+      "message": "Some worries about trusting the hardware address to be 6 bytes long; otherwise looks good.\n",
+      "revId": "b9ecde632ed34697c0295a0acacc56a6191a560a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b767119b_2a7ab571",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-08-27T06:18:49Z",
+      "side": 1,
+      "message": "Can you use a StringView argument here instead? Just because the underlying fields use a two-variable representation, there\u0027s no reason why this code should use it.",
+      "revId": "b9ecde632ed34697c0295a0acacc56a6191a560a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1189968_3a740fe1",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-08-27T06:18:49Z",
+      "side": 1,
+      "message": "This will access undefined memory if \"length\" is larger than the values in the table. If you trust that \"length\" is always 6, assert that.",
+      "revId": "b9ecde632ed34697c0295a0acacc56a6191a560a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

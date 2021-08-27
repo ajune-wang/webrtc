@@ -233,9 +233,17 @@ class PeerConnectionE2EQualityTestFixture {
     // written to the dump file. The value must be greater than 0.
     int input_dump_sampling_modulo = 1;
     // If specified this file will be used as output on the receiver side for
-    // this stream. If multiple streams will be produced by input stream,
-    // output files will be appended with indexes. The produced files contains
-    // what was rendered for this video stream on receiver side.
+    // this stream.
+    //
+    // If multiple output streams will be produced by this stream, output files
+    // will be appended with receiver names. If the second and other receivers
+    // will be added in the middle of the call after the first frame for this
+    // stream has been already written to the output file, then only their dumps
+    // will be appended with receiver name, the dump for the first receiver will
+    // have name equal to the specified one.
+    //
+    // The produced files contains what was rendered for this video stream on
+    // receiver side.
     absl::optional<std::string> output_dump_file_name;
     // Used only if `output_dump_file_name` is set. Specifies the module for the
     // video frames to be dumped. Modulo equals X means every Xth frame will be

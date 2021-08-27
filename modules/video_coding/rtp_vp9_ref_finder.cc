@@ -77,6 +77,7 @@ RtpVp9RefFinder::FrameDecision RtpVp9RefFinder::ManageFrameInternal(
   }
 
   GofInfo* info;
+<<<<<<< HEAD   (6882a3 Discard over large DataRates in VideoLayersAllocation rtp he)
 
   // The VP9 `tl0_pic_idx` is 8 bits and therefor wraps often. In the case of
   // packet loss the next received frame could have a `tl0_pic_idx` that looks
@@ -92,6 +93,10 @@ RtpVp9RefFinder::FrameDecision RtpVp9RefFinder::ManageFrameInternal(
     unwrapped_tl0 = tl0_unwrapper_.Unwrap(codec_header.tl0_pic_idx & 0xFF);
   }
 
+=======
+  int64_t unwrapped_tl0 =
+      tl0_unwrapper_.Unwrap(codec_header.tl0_pic_idx & 0xFF);
+>>>>>>> CHANGE (0d1753 Revert "Always unwrap VP9 TL0PicIdx forward if the frame is )
   if (codec_header.ss_data_available) {
     if (codec_header.temporal_idx != 0) {
       RTC_LOG(LS_WARNING) << "Received scalability structure on a non base "
@@ -117,9 +122,9 @@ RtpVp9RefFinder::FrameDecision RtpVp9RefFinder::ManageFrameInternal(
       current_ss_idx_ = Add<kMaxGofSaved>(current_ss_idx_, 1);
       scalability_structures_[current_ss_idx_] = gof;
       scalability_structures_[current_ss_idx_].pid_start = frame->Id();
-      gof_info_.emplace(unwrapped_tl0,
-                        GofInfo(&scalability_structures_[current_ss_idx_],
-                                frame->Id(), frame->last_seq_num()));
+      gof_info_.emplace(
+          unwrapped_tl0,
+          GofInfo(&scalability_structures_[current_ss_idx_], frame->Id()));
     }
 
     const auto gof_info_it = gof_info_.find(unwrapped_tl0);
@@ -160,8 +165,7 @@ RtpVp9RefFinder::FrameDecision RtpVp9RefFinder::ManageFrameInternal(
     if (codec_header.temporal_idx == 0) {
       gof_info_it = gof_info_
                         .emplace(unwrapped_tl0,
-                                 GofInfo(gof_info_it->second.gof, frame->Id(),
-                                         frame->last_seq_num()))
+                                 GofInfo(gof_info_it->second.gof, frame->Id()))
                         .first;
     }
 

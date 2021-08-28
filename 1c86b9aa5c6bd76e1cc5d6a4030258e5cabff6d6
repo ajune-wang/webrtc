@@ -67,6 +67,23 @@
       "message": "Hi Henrik, can you PTAL at this CL that avoids a bug in a Windows component?",
       "revId": "1c86b9aa5c6bd76e1cc5d6a4030258e5cabff6d6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15c075a0_4aeed499",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2021-08-28T09:37:18Z",
+      "side": 1,
+      "message": "Thanks for fixing!",
+      "revId": "1c86b9aa5c6bd76e1cc5d6a4030258e5cabff6d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

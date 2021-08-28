@@ -249,6 +249,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f89bb99e_2cdd6273",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2021-08-28T04:10:14Z",
+      "side": 1,
+      "message": "k, patchset 8 shows that at least it worked as expected when network_monitor_java is used as dependency.",
+      "parentUuid": "5ccfc842_98286ca7",
+      "range": {
+        "startLine": 273,
+        "startChar": 6,
+        "endLine": 274,
+        "endChar": 57
+      },
+      "revId": "e75324396febc1a3fcaec1e76ea2fa37b63a2a12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a55bce3a_c0758812",

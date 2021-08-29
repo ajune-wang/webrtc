@@ -33,12 +33,7 @@ class StateCookie {
               TSN initial_tsn,
               uint32_t a_rwnd,
               TieTag tie_tag,
-              Capabilities capabilities)
-      : initiate_tag_(initiate_tag),
-        initial_tsn_(initial_tsn),
-        a_rwnd_(a_rwnd),
-        tie_tag_(tie_tag),
-        capabilities_(capabilities) {}
+              Capabilities capabilities);
 
   // Returns a serialized version of this cookie.
   std::vector<uint8_t> Serialize();

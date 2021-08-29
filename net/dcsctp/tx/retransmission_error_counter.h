@@ -26,9 +26,7 @@ namespace dcsctp {
 class RetransmissionErrorCounter {
  public:
   RetransmissionErrorCounter(absl::string_view log_prefix,
-                             const DcSctpOptions& options)
-      : log_prefix_(std::string(log_prefix) + "rtx-errors: "),
-        limit_(options.max_retransmissions) {}
+                             const DcSctpOptions& options);
 
   // Increments the retransmission timer. If the maximum error count has been
   // reached, `false` will be returned.

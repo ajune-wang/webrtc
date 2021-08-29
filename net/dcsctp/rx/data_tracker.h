@@ -53,11 +53,7 @@ class DataTracker {
 
   explicit DataTracker(absl::string_view log_prefix,
                        Timer* delayed_ack_timer,
-                       TSN peer_initial_tsn)
-      : log_prefix_(std::string(log_prefix) + "dtrack: "),
-        delayed_ack_timer_(*delayed_ack_timer),
-        last_cumulative_acked_tsn_(
-            tsn_unwrapper_.Unwrap(TSN(*peer_initial_tsn - 1))) {}
+                       TSN peer_initial_tsn);
 
   // Indicates if the provided TSN is valid. If this return false, the data
   // should be dropped and not added to any other buffers, which essentially

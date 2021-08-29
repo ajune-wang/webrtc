@@ -26,6 +26,17 @@ constexpr uint32_t kMagic1 = 1684230979;
 constexpr uint32_t kMagic2 = 1414541360;
 constexpr size_t StateCookie::kCookieSize;
 
+StateCookie::StateCookie(VerificationTag initiate_tag,
+                         TSN initial_tsn,
+                         uint32_t a_rwnd,
+                         TieTag tie_tag,
+                         Capabilities capabilities)
+    : initiate_tag_(initiate_tag),
+      initial_tsn_(initial_tsn),
+      a_rwnd_(a_rwnd),
+      tie_tag_(tie_tag),
+      capabilities_(capabilities) {}
+
 std::vector<uint8_t> StateCookie::Serialize() {
   std::vector<uint8_t> cookie;
   cookie.resize(kCookieSize);

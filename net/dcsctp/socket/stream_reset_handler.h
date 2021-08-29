@@ -70,19 +70,7 @@ class StreamResetHandler {
                      TimerManager* timer_manager,
                      DataTracker* data_tracker,
                      ReassemblyQueue* reassembly_queue,
-                     RetransmissionQueue* retransmission_queue)
-      : log_prefix_(std::string(log_prefix) + "reset: "),
-        ctx_(context),
-        data_tracker_(data_tracker),
-        reassembly_queue_(reassembly_queue),
-        retransmission_queue_(retransmission_queue),
-        reconfig_timer_(timer_manager->CreateTimer(
-            "re-config",
-            absl::bind_front(&StreamResetHandler::OnReconfigTimerExpiry, this),
-            TimerOptions(DurationMs(0)))),
-        next_outgoing_req_seq_nbr_(ReconfigRequestSN(*ctx_->my_initial_tsn())),
-        last_processed_req_seq_nbr_(
-            ReconfigRequestSN(*ctx_->peer_initial_tsn() - 1)) {}
+                     RetransmissionQueue* retransmission_queue);
 
   // Initiates reset of the provided streams. While there can only be one
   // ongoing stream reset request at any time, this method can be called at any

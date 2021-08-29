@@ -726,6 +726,15 @@ bool RetransmissionQueue::ShouldSendForwardTsn(TimeMs now) {
   return false;
 }
 
+RetransmissionQueue::TxData::TxData(Data data,
+                                    absl::optional<size_t> max_retransmissions,
+                                    TimeMs time_sent,
+                                    absl::optional<TimeMs> expires_at)
+    : max_retransmissions_(max_retransmissions),
+      time_sent_(time_sent),
+      expires_at_(expires_at),
+      data_(std::move(data)) {}
+
 void RetransmissionQueue::TxData::Ack() {
   ack_state_ = AckState::kAcked;
   should_be_retransmitted_ = false;
@@ -918,5 +927,8 @@ void RetransmissionQueue::CommitResetStreams() {
 void RetransmissionQueue::RollbackResetStreams() {
   send_queue_.RollbackResetStreams();
 }
+
+RetransmissionQueue::AckInfo::AckInfo(UnwrappedTSN cumulative_tsn_ack)
+    : highest_tsn_acked(cumulative_tsn_ack) {}
 
 }  // namespace dcsctp

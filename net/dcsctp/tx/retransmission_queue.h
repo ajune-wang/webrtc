@@ -155,14 +155,10 @@ class RetransmissionQueue {
       kAbandon,
     };
 
-    explicit TxData(Data data,
-                    absl::optional<size_t> max_retransmissions,
-                    TimeMs time_sent,
-                    absl::optional<TimeMs> expires_at)
-        : max_retransmissions_(max_retransmissions),
-          time_sent_(time_sent),
-          expires_at_(expires_at),
-          data_(std::move(data)) {}
+    TxData(Data data,
+           absl::optional<size_t> max_retransmissions,
+           TimeMs time_sent,
+           absl::optional<TimeMs> expires_at);
 
     TimeMs time_sent() const { return time_sent_; }
 
@@ -231,8 +227,7 @@ class RetransmissionQueue {
 
   // Contains variables scoped to a processing of an incoming SACK.
   struct AckInfo {
-    explicit AckInfo(UnwrappedTSN cumulative_tsn_ack)
-        : highest_tsn_acked(cumulative_tsn_ack) {}
+    explicit AckInfo(UnwrappedTSN cumulative_tsn_ack);
 
     // All TSNs that have been acked (for the first time) in this SACK.
     std::vector<TSN> acked_tsns;

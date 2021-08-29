@@ -48,6 +48,18 @@ DurationMs GetBackoffDuration(TimerBackoffAlgorithm algorithm,
 
 constexpr DurationMs Timer::kMaxTimerDuration;
 
+TimerOptions::TimerOptions(DurationMs duration)
+    : TimerOptions(duration, TimerBackoffAlgorithm::kExponential) {}
+TimerOptions::TimerOptions(DurationMs duration,
+                           TimerBackoffAlgorithm backoff_algorithm)
+    : TimerOptions(duration, backoff_algorithm, -1) {}
+TimerOptions::TimerOptions(DurationMs duration,
+                           TimerBackoffAlgorithm backoff_algorithm,
+                           int max_restarts)
+    : duration(duration),
+      backoff_algorithm(backoff_algorithm),
+      max_restarts(max_restarts) {}
+
 Timer::Timer(TimerID id,
              absl::string_view name,
              OnExpired on_expired,
@@ -120,6 +132,10 @@ void Timer::Trigger(TimerGeneration generation) {
     }
   }
 }
+
+TimerManager::TimerManager(
+    std::function<std::unique_ptr<Timeout>()> create_timeout)
+    : create_timeout_(std::move(create_timeout)) {}
 
 void TimerManager::HandleTimeout(TimeoutID timeout_id) {
   TimerID timer_id(*timeout_id >> 32);

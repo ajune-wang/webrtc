@@ -39,16 +39,11 @@ enum class TimerBackoffAlgorithm {
 };
 
 struct TimerOptions {
-  explicit TimerOptions(DurationMs duration)
-      : TimerOptions(duration, TimerBackoffAlgorithm::kExponential) {}
-  TimerOptions(DurationMs duration, TimerBackoffAlgorithm backoff_algorithm)
-      : TimerOptions(duration, backoff_algorithm, -1) {}
+  explicit TimerOptions(DurationMs duration);
+  TimerOptions(DurationMs duration, TimerBackoffAlgorithm backoff_algorithm);
   TimerOptions(DurationMs duration,
                TimerBackoffAlgorithm backoff_algorithm,
-               int max_restarts)
-      : duration(duration),
-        backoff_algorithm(backoff_algorithm),
-        max_restarts(max_restarts) {}
+               int max_restarts);
 
   // The initial timer duration. Can be overridden with `set_duration`.
   const DurationMs duration;
@@ -162,12 +157,12 @@ class Timer {
 class TimerManager {
  public:
   explicit TimerManager(
-      std::function<std::unique_ptr<Timeout>()> create_timeout)
-      : create_timeout_(std::move(create_timeout)) {}
+      std::function<std::unique_ptr<Timeout>()> create_timeout);
 
-  // Creates a timer with name `name` that will expire (when started) after
-  // `options.duration` and call `on_expired`. There are more `options` that
-  // affects the behavior. Note that timers are created initially stopped.
+  // Creates a timer with name `name` that will expire (when started)
+  // after `options.duration` and call `on_expired`. There are more
+  // `options` that affects the behavior. Note that timers are created
+  // initially stopped.
   std::unique_ptr<Timer> CreateTimer(absl::string_view name,
                                      Timer::OnExpired on_expired,
                                      const TimerOptions& options);

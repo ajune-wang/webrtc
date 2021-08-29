@@ -30,8 +30,7 @@ namespace dcsctp {
 class TraditionalReassemblyStreams : public ReassemblyStreams {
  public:
   TraditionalReassemblyStreams(absl::string_view log_prefix,
-                               OnAssembledMessage on_assembled_message)
-      : log_prefix_(log_prefix), on_assembled_message_(on_assembled_message) {}
+                               OnAssembledMessage on_assembled_message);
 
   int Add(UnwrappedTSN tsn, Data data) override;
 
@@ -60,8 +59,7 @@ class TraditionalReassemblyStreams : public ReassemblyStreams {
   // messages when possible.
   class UnorderedStream : StreamBase {
    public:
-    explicit UnorderedStream(TraditionalReassemblyStreams* parent)
-        : StreamBase(parent) {}
+    explicit UnorderedStream(TraditionalReassemblyStreams* parent);
     int Add(UnwrappedTSN tsn, Data data);
     // Returns the number of bytes removed from the queue.
     size_t EraseTo(UnwrappedTSN tsn);
@@ -81,8 +79,7 @@ class TraditionalReassemblyStreams : public ReassemblyStreams {
   // messages when possible.
   class OrderedStream : StreamBase {
    public:
-    explicit OrderedStream(TraditionalReassemblyStreams* parent)
-        : StreamBase(parent), next_ssn_(ssn_unwrapper_.Unwrap(SSN(0))) {}
+    explicit OrderedStream(TraditionalReassemblyStreams* parent);
     int Add(UnwrappedTSN tsn, Data data);
     size_t EraseTo(SSN ssn);
     void Reset() {

@@ -78,6 +78,15 @@ absl::optional<std::map<UnwrappedTSN, Data>::iterator> FindEnd(
 }
 }  // namespace
 
+TraditionalReassemblyStreams::TraditionalReassemblyStreams(
+    absl::string_view log_prefix,
+    OnAssembledMessage on_assembled_message)
+    : log_prefix_(log_prefix), on_assembled_message_(on_assembled_message) {}
+
+TraditionalReassemblyStreams::UnorderedStream::UnorderedStream(
+    TraditionalReassemblyStreams* parent)
+    : StreamBase(parent) {}
+
 int TraditionalReassemblyStreams::UnorderedStream::Add(UnwrappedTSN tsn,
                                                        Data data) {
   int queued_bytes = data.size();
@@ -159,6 +168,10 @@ size_t TraditionalReassemblyStreams::UnorderedStream::EraseTo(
   chunks_.erase(chunks_.begin(), end_iter);
   return removed_bytes;
 }
+
+TraditionalReassemblyStreams::OrderedStream::OrderedStream(
+    TraditionalReassemblyStreams* parent)
+    : StreamBase(parent), next_ssn_(ssn_unwrapper_.Unwrap(SSN(0))) {}
 
 size_t TraditionalReassemblyStreams::OrderedStream::TryToAssembleMessage() {
   if (chunks_by_ssn_.empty() || chunks_by_ssn_.begin()->first != next_ssn_) {

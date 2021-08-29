@@ -13,6 +13,13 @@
 #include "rtc_base/logging.h"
 
 namespace dcsctp {
+
+RetransmissionErrorCounter::RetransmissionErrorCounter(
+    absl::string_view log_prefix,
+    const DcSctpOptions& options)
+    : log_prefix_(std::string(log_prefix) + "rtx-errors: "),
+      limit_(options.max_retransmissions) {}
+
 bool RetransmissionErrorCounter::Increment(absl::string_view reason) {
   ++counter_;
   if (counter_ > limit_) {

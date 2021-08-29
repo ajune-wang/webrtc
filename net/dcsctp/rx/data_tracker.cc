@@ -31,6 +31,14 @@ namespace dcsctp {
 constexpr size_t DataTracker::kMaxDuplicateTsnReported;
 constexpr size_t DataTracker::kMaxGapAckBlocksReported;
 
+DataTracker::DataTracker(absl::string_view log_prefix,
+                         Timer* delayed_ack_timer,
+                         TSN peer_initial_tsn)
+    : log_prefix_(std::string(log_prefix) + "dtrack: "),
+      delayed_ack_timer_(*delayed_ack_timer),
+      last_cumulative_acked_tsn_(
+          tsn_unwrapper_.Unwrap(TSN(*peer_initial_tsn - 1))) {}
+
 bool DataTracker::AdditionalTsnBlocks::Add(UnwrappedTSN tsn) {
   // Find any block to expand. It will look for any block that includes (also
   // when expanded) the provided `tsn`. It will return the block that is greater

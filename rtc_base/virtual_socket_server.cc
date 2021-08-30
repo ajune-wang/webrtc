@@ -722,18 +722,6 @@ VirtualSocket* VirtualSocketServer::LookupBinding(const SocketAddress& addr) {
   if (it != bindings_->end()) {
     return it->second;
   }
-
-  IPAddress default_ip = GetDefaultRoute(addr.ipaddr().family());
-  if (!IPIsUnspec(default_ip) && addr.ipaddr() == default_ip) {
-    // If we can't find a binding for the packet which is sent to the interface
-    // corresponding to the default route, it should match a binding with the
-    // correct port to the any address.
-    SocketAddress sock_addr =
-        EmptySocketAddressWithFamily(addr.ipaddr().family());
-    sock_addr.SetPort(addr.port());
-    return LookupBinding(sock_addr);
-  }
-
   return nullptr;
 }
 
@@ -906,6 +894,20 @@ int VirtualSocketServer::SendUdp(VirtualSocket* socket,
 
   VirtualSocket* recipient = LookupBinding(remote_addr);
   if (!recipient) {
+    // If we can't find a binding for the packet which is sent to the interface
+    // corresponding to the default source address, it should match a binding
+    // with the correct port to the any address.
+    IPAddress default_ip =
+        GetDefaultSourceAddress(remote_addr.ipaddr().family());
+    if (!IPIsUnspec(default_ip) && remote_addr.ipaddr() == default_ip) {
+      SocketAddress sock_addr =
+          EmptySocketAddressWithFamily(remote_addr.ipaddr().family());
+      sock_addr.SetPort(remote_addr.port());
+      recipient = LookupBinding(sock_addr);
+    }
+  }
+
+  if (!recipient) {
     // Make a fake recipient for address family checking.
     std::unique_ptr<VirtualSocket> dummy_socket(
         CreateSocket(AF_INET, SOCK_DGRAM));
@@ -1016,7 +1018,7 @@ void VirtualSocketServer::AddPacketToNetwork(VirtualSocket* sender,
   // to the default route here such that the recipient will see the default
   // route.
   SocketAddress sender_addr = sender->GetLocalAddress();
-  IPAddress default_ip = GetDefaultRoute(sender_addr.ipaddr().family());
+  IPAddress default_ip = GetDefaultSourceAddress(sender_addr.ipaddr().family());
   if (sender_addr.IsAnyIP() && !IPIsUnspec(default_ip)) {
     sender_addr.SetIP(default_ip);
   }
@@ -1227,7 +1229,7 @@ bool VirtualSocketServer::CanInteractWith(VirtualSocket* local,
   return false;
 }
 
-IPAddress VirtualSocketServer::GetDefaultRoute(int family) {
+IPAddress VirtualSocketServer::GetDefaultSourceAddress(int family) {
   if (family == AF_INET) {
     return default_route_v4_;
   }
@@ -1236,7 +1238,7 @@ IPAddress VirtualSocketServer::GetDefaultRoute(int family) {
   }
   return IPAddress();
 }
-void VirtualSocketServer::SetDefaultRoute(const IPAddress& from_addr) {
+void VirtualSocketServer::SetDefaultSourceAddress(const IPAddress& from_addr) {
   RTC_DCHECK(!IPIsAny(from_addr));
   if (from_addr.family() == AF_INET) {
     default_route_v4_ = from_addr;

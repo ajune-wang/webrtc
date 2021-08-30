@@ -1397,7 +1397,8 @@ TEST(PCFullStackTest, Pc_Screenshare_Slides_Vp9_3sl_High_Fps) {
 TEST(PCFullStackTest, Pc_Vp9svc_3sl_High) {
   webrtc::test::ScopedFieldTrials override_trials(
       AppendFieldTrials("WebRTC-Vp9InterLayerPred/"
-                        "Enabled,inter_layer_pred_mode:on/"));
+                        "Enabled,inter_layer_pred_mode:on/"
+                        "WebRTC-Vp9DependencyDescriptor/Enabled/"));
   std::unique_ptr<NetworkEmulationManager> network_emulation_manager =
       CreateNetworkEmulationManager();
   auto fixture = CreateTestFixture(

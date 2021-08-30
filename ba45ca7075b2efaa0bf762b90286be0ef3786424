@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1e65288_5d2d64f9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18194
+      },
+      "writtenOn": "2021-08-30T09:58:59Z",
+      "side": 1,
+      "message": "This issue has been seperated from https://webrtc-review.googlesource.com/c/src/+/229460\n\nThis patch fixes cases of undesirable output of GetAlignmentAndMaybeAdjustScaleFactors()",
+      "revId": "ba45ca7075b2efaa0bf762b90286be0ef3786424",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aef4cbb5_dcc6d6cc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-08-30T13:17:39Z",
+      "side": 1,
+      "message": "Thanks. Broke out actual encoding and parsing to a separate CL. PTAL",
+      "revId": "11c0e649b935b633489a9e00d57517a7c5d1ae45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

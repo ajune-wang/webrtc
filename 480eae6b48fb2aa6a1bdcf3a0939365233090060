@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cffb489_11975329",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-08-30T13:17:39Z",
+      "side": 1,
+      "message": "It is somewhat tricky to break up into independent pieces in a nice way. To be testable, we need both encoding and parsing in the same CL. To parse a field, we need to be aware of both optional and non-optional fields (since we may need to skip fields of other types), which kind-of means that optional and non-optional fields should be in the same CL.\n\nThere are however, a number of helper functions related to extracting fields from a RtcEvent and those can be tested independently, so I removed the actual encoding and parsing and made this CL more of a preparation CL.",
+      "parentUuid": "7008f9f6_2d02ef71",
+      "revId": "480eae6b48fb2aa6a1bdcf3a0939365233090060",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2a84e062_e64b64b5",
@@ -48,6 +66,30 @@
       "writtenOn": "2021-08-23T15:44:51Z",
       "side": 1,
       "message": "You could also check for buffer_.size() (!\u003d\u003d 0)",
+      "range": {
+        "startLine": 22,
+        "startChar": 13,
+        "endLine": 22,
+        "endChar": 19
+      },
+      "revId": "480eae6b48fb2aa6a1bdcf3a0939365233090060",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48be5ba4_b6852985",
+        "filename": "logging/rtc_event_log/encoder/bit_writer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-08-30T13:17:39Z",
+      "side": 1,
+      "message": "You mean instead of `valid_`? Yeah, that should work. But I think it would be slightly less clear as it relies on std::swap in GetString. I don\u0027t think it would be guaranteed to work if swap was changed to a move assignment, for example.",
+      "parentUuid": "2a84e062_e64b64b5",
       "range": {
         "startLine": 22,
         "startChar": 13,
@@ -81,6 +123,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a4a600a_6704c795",
+        "filename": "logging/rtc_event_log/encoder/bit_writer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-08-30T13:17:39Z",
+      "side": 1,
+      "message": "The code should be correct, but you are right that it probably is redundant. Changed to unsigned char instead (and also fixed a hypothetical issue if char is more than 8 bits).",
+      "parentUuid": "330788d6_f0ec28ba",
+      "range": {
+        "startLine": 30,
+        "startChar": 8,
+        "endLine": 30,
+        "endChar": 27
+      },
+      "revId": "480eae6b48fb2aa6a1bdcf3a0939365233090060",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f5a190c8_144974f3",
@@ -94,6 +160,30 @@
       "writtenOn": "2021-08-23T15:44:51Z",
       "side": 1,
       "message": "Any particular reason to not go with string_view here?",
+      "range": {
+        "startLine": 41,
+        "startChar": 17,
+        "endLine": 41,
+        "endChar": 35
+      },
+      "revId": "480eae6b48fb2aa6a1bdcf3a0939365233090060",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab0705ca_e4b61ed5",
+        "filename": "logging/rtc_event_log/encoder/bit_writer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-08-30T13:17:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5a190c8_144974f3",
       "range": {
         "startLine": 41,
         "startChar": 17,
@@ -127,6 +217,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "60011f86_245413e2",
+        "filename": "logging/rtc_event_log/encoder/bit_writer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-08-30T13:17:39Z",
+      "side": 1,
+      "message": "Sounds reasonable, but I\u0027d rather not change the existing API in this CL.",
+      "parentUuid": "25d10382_6adb9103",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 26
+      },
+      "revId": "480eae6b48fb2aa6a1bdcf3a0939365233090060",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "986142c5_468352ad",
@@ -140,6 +254,30 @@
       "writtenOn": "2021-08-23T17:19:21Z",
       "side": 1,
       "message": "Could this be moved to unit test?",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 46
+      },
+      "revId": "480eae6b48fb2aa6a1bdcf3a0939365233090060",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0542d689_39ed87ff",
+        "filename": "logging/rtc_event_log/events/rtc_event_field_encoding.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-08-30T13:17:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "986142c5_468352ad",
       "range": {
         "startLine": 91,
         "startChar": 0,

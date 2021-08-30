@@ -16,6 +16,23 @@
       "message": "This issue has been seperated from https://webrtc-review.googlesource.com/c/src/+/229460\n\nThis patch fixes cases of undesirable output of GetAlignmentAndMaybeAdjustScaleFactors()",
       "revId": "ba45ca7075b2efaa0bf762b90286be0ef3786424",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c80dca7_e34c82eb",
+        "filename": "video/alignment_adjuster.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-08-30T10:22:12Z",
+      "side": 1,
+      "message": "I don\u0027t understand that comment. best alignment \u003d\u003d requested_alignment just means that |requested_alignment| would require the least adjustment to the scaling factors. Maybe because it was the only one of them (requested_alignment \u003d\u003d kMaxAlignment), or it was some weird case like: requested_alignment\u003d8, scaling_factors\u003d{1, 8/7}. The only way to get both layers aligned is to round the second scaling factor to 1. The loop above will always \u0027touch\u0027 kMaxAlignment.\n\nWhat you are doing here is actually breaking the function: it stops doing what it claims at lines 57-65 in some cases.\n\nI understand the problem you are trying to solve (16x16 alignment), but that may be not the best way to do it.\n\nA better way may be to explicitly check the min_diff and bail out of rounding the scaling factors if it can be done without too much blood.",
+      "revId": "ba45ca7075b2efaa0bf762b90286be0ef3786424",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

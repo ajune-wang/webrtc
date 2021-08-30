@@ -11,13 +11,13 @@
 #include "p2p/base/test_stun_server.h"
 
 #include "rtc_base/socket.h"
-#include "rtc_base/socket_server.h"
+#include "rtc_base/socket_factory.h"
 
 namespace cricket {
 
-TestStunServer* TestStunServer::Create(rtc::SocketServer* ss,
+TestStunServer* TestStunServer::Create(rtc::SocketFactory* sf,
                                        const rtc::SocketAddress& addr) {
-  rtc::Socket* socket = ss->CreateSocket(addr.family(), SOCK_DGRAM);
+  rtc::Socket* socket = sf->CreateSocket(addr.family(), SOCK_DGRAM);
   rtc::AsyncUDPSocket* udp_socket = rtc::AsyncUDPSocket::Create(socket, addr);
 
   return new TestStunServer(udp_socket);

@@ -301,12 +301,12 @@ class RTC_EXPORT BasicNetworkManager : public NetworkManagerBase,
   // Determines if a network should be ignored. This should only be determined
   // based on the network's property instead of any individual IP.
   bool IsIgnoredNetwork(const Network& network) const RTC_RUN_ON(thread_);
-
+#if 0
   // This function connects a UDP socket to a public address and returns the
   // local address associated it. Since it binds to the "any" address
   // internally, it returns the default local address on a multi-homed endpoint.
   IPAddress QueryDefaultLocalAddress(int family) const RTC_RUN_ON(thread_);
-
+#endif
  private:
   friend class NetworkTest;
 

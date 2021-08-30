@@ -178,11 +178,13 @@ bool ShouldAdapterChangeTriggerNetworkChange(rtc::AdapterType old_type,
 
 }  // namespace
 
+#if 0
 // These addresses are used as the targets to find out the default local address
 // on a multi-homed endpoint. They are actually DNS servers.
 const char kPublicIPv4Host[] = "8.8.8.8";
 const char kPublicIPv6Host[] = "2001:4860:4860::8888";
 const int kPublicPort = 53;  // DNS port.
+#endif
 
 std::string MakeNetworkKey(const std::string& name,
                            const IPAddress& prefix,
@@ -930,7 +932,7 @@ void BasicNetworkManager::OnMessage(Message* msg) {
       RTC_NOTREACHED();
   }
 }
-
+#if 0
 IPAddress BasicNetworkManager::QueryDefaultLocalAddress(int family) const {
   RTC_DCHECK(thread_->socketserver() != nullptr);
   RTC_DCHECK(family == AF_INET || family == AF_INET6);
@@ -955,7 +957,7 @@ IPAddress BasicNetworkManager::QueryDefaultLocalAddress(int family) const {
   }
   return socket->GetLocalAddress().ipaddr();
 }
-
+#endif
 void BasicNetworkManager::UpdateNetworksOnce() {
   if (!start_count_)
     return;
@@ -967,8 +969,10 @@ void BasicNetworkManager::UpdateNetworksOnce() {
     bool changed;
     NetworkManager::Stats stats;
     MergeNetworkList(list, &changed, &stats);
+#if 0
     set_default_local_addresses(QueryDefaultLocalAddress(AF_INET),
                                 QueryDefaultLocalAddress(AF_INET6));
+#endif
     if (changed || !sent_first_update_) {
       SignalNetworksChanged();
       sent_first_update_ = true;

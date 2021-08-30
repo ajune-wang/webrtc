@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57042fbc_87ddc81b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-08-30T10:19:59Z",
+      "side": 1,
+      "message": "PTAL.",
+      "revId": "f7eedf6f8ecc4aeadc8752badf374cc92739dd04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ea3fad9_bee7a866",
+        "filename": "p2p/client/basic_port_allocator_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-08-30T10:19:59Z",
+      "side": 1,
+      "message": "I\u0027m afraid I don\u0027t understand this part of the comment. Clarification welcome.",
+      "range": {
+        "startLine": 181,
+        "startChar": 40,
+        "endLine": 184,
+        "endChar": 72
+      },
+      "revId": "f7eedf6f8ecc4aeadc8752badf374cc92739dd04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

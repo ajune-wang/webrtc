@@ -76,6 +76,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a331ca38_3feca430",
+        "filename": "rtc_base/bitstream_reader.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-30T13:01:45Z",
+      "side": 1,
+      "message": "you mean dtor? (there are two constructors that are not in this #ifdef clause)\nusually compiler can detect empty destructors and treat class as trivially destructible. But then again, optimising destruction of this class is likely not important.",
+      "parentUuid": "64cbf99e_72ee86f7",
+      "range": {
+        "startLine": 124,
+        "startChar": 0,
+        "endLine": 124,
+        "endChar": 23
+      },
+      "revId": "8e135f2589805786646df9f1f749961cf22a99fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3072fed5_5904169c",
@@ -89,6 +113,30 @@
       "writtenOn": "2021-08-30T12:32:24Z",
       "side": 1,
       "message": "nit: spelling",
+      "range": {
+        "startLine": 199,
+        "startChar": 51,
+        "endLine": 199,
+        "endChar": 61
+      },
+      "revId": "8e135f2589805786646df9f1f749961cf22a99fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8dfa8bc_6256dfe7",
+        "filename": "rtc_base/bitstream_reader_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-30T13:01:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3072fed5_5904169c",
       "range": {
         "startLine": 199,
         "startChar": 51,

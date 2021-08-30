@@ -12,10 +12,8 @@
 #define COMMON_VIDEO_H264_SPS_PARSER_H_
 
 #include "absl/types/optional.h"
-
-namespace rtc {
-class BitBuffer;
-}
+#include "api/array_view.h"
+#include "rtc_base/memory/bit_reader.h"
 
 namespace webrtc {
 
@@ -48,7 +46,7 @@ class SpsParser {
  protected:
   // Parse the SPS state, up till the VUI part, for a bit buffer where RBSP
   // decoding has already been performed.
-  static absl::optional<SpsState> ParseSpsUpToVui(rtc::BitBuffer* buffer);
+  static absl::optional<SpsState> ParseSpsUpToVui(BitReader& reader);
 };
 
 }  // namespace webrtc

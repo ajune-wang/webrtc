@@ -20,6 +20,21 @@ rtc_library("aligned_malloc") {
   deps = [ "..:checks" ]
 }
 
+rtc_library("bit_reader") {
+  sources = [
+    "bit_reader.cc",
+    "bit_reader.h",
+  ]
+  deps = [
+    "..:checks",
+    "../../api:array_view",
+  ]
+  absl_deps = [
+    "//third_party/abseil-cpp/absl/numeric:bits",
+    "//third_party/abseil-cpp/absl/strings",
+  ]
+}
+
 # Test only utility.
 rtc_library("fifo_buffer") {
   testonly = true
@@ -45,11 +60,14 @@ rtc_library("unittests") {
   testonly = true
   sources = [
     "aligned_malloc_unittest.cc",
+    "bit_reader_unittest.cc",
     "fifo_buffer_unittest.cc",
   ]
   deps = [
     ":aligned_malloc",
+    ":bit_reader",
     ":fifo_buffer",
+    "..:rtc_base_approved",
     "../../test:test_support",
   ]
 }

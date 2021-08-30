@@ -364,6 +364,7 @@ rtc_library("video_coding_utility") {
     "../../rtc_base/experiments:quality_scaling_experiment",
     "../../rtc_base/experiments:rate_control_settings",
     "../../rtc_base/experiments:stable_target_rate_experiment",
+    "../../rtc_base/memory:bit_reader",
     "../../rtc_base/synchronization:mutex",
     "../../rtc_base/system:arch",
     "../../rtc_base/system:file_wrapper",

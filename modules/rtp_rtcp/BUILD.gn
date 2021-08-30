@@ -121,6 +121,7 @@ rtc_library("rtp_rtcp_format") {
     "../../rtc_base:checks",
     "../../rtc_base:divide_round",
     "../../rtc_base:rtc_base_approved",
+    "../../rtc_base/memory:bit_reader",
     "../../system_wrappers",
     "../video_coding:codec_globals_headers",
   ]

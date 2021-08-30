@@ -213,6 +213,7 @@ rtc_library("rtc_event_log_impl_encoder") {
     "../rtc_base:checks",
     "../rtc_base:ignore_wundef",
     "../rtc_base:rtc_base_approved",
+    "../rtc_base/memory:bit_reader",
   ]
   absl_deps = [
     "//third_party/abseil-cpp/absl/memory",

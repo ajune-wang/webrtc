@@ -16,6 +16,23 @@
       "message": "Xavier, could you please land this CL?",
       "revId": "76a55c8590381fd4023ef86de9870b2dee382a14",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b11f21e7_8e508542",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17729
+      },
+      "writtenOn": "2021-08-30T09:22:39Z",
+      "side": 1,
+      "message": "Xavier, please retry \"mac_chromium_compile\". Thank you.",
+      "revId": "76a55c8590381fd4023ef86de9870b2dee382a14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

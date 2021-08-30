@@ -310,6 +310,8 @@ void RtpPayloadParams::GenericToGeneric(int64_t shared_frame_id,
   generic.frame_id = shared_frame_id;
 
   if (is_keyframe) {
+    // generic.chain_diffs.push_back(0);
+    // generic.
     last_shared_frame_id_[0].fill(-1);
   } else {
     int64_t frame_id = last_shared_frame_id_[0][0];
@@ -408,10 +410,10 @@ void RtpPayloadParams::Vp8ToGeneric(const CodecSpecificInfoVP8& vp8_info,
   }
 }
 
-FrameDependencyStructure RtpPayloadParams::MinimalisticVp9Structure(
-    const CodecSpecificInfoVP9& vp9) {
-  const int num_spatial_layers = vp9.num_spatial_layers;
-  const int num_temporal_layers = kMaxTemporalStreams;
+FrameDependencyStructure RtpPayloadParams::MinimalisticStructure(
+    int num_spatial_layers,
+    int num_temporal_layers,
+    rtc::ArrayView<const RenderResolution> spatial_resolutions) {
   FrameDependencyStructure structure;
   structure.num_decode_targets = num_spatial_layers * num_temporal_layers;
   structure.num_chains = num_spatial_layers;
@@ -440,9 +442,12 @@ FrameDependencyStructure RtpPayloadParams::MinimalisticVp9Structure(
 
       structure.decode_target_protected_by_chain.push_back(sid);
     }
-    if (vp9.ss_data_available && vp9.spatial_layer_resolution_present) {
-      structure.resolutions.emplace_back(vp9.width[sid], vp9.height[sid]);
-    }
+  }
+  RTC_DCHECK(spatial_resolutions.size() == 0 ||
+             static_cast<int>(spatial_resolutions.size()) ==
+                 num_spatial_layers);
+  for (const RenderResolution& res : spatial_resolutions) {
+    structure.resolutions.emplace_back(res.Width(), res.Height());
   }
   return structure;
 }

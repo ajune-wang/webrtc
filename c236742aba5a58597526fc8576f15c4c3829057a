@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "324a3620_354a2441",
+        "filename": "config.star",
+        "patchSetId": 1
+      },
+      "lineNbr": 828,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-08-30T08:52:56Z",
+      "side": 1,
+      "message": "nit: crbug.com/1244375",
+      "range": {
+        "startLine": 828,
+        "startChar": 7,
+        "endLine": 828,
+        "endChar": 23
+      },
+      "revId": "c236742aba5a58597526fc8576f15c4c3829057a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

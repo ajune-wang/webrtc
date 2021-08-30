@@ -34,6 +34,69 @@
       "parentUuid": "5dba85d9_68981dfc",
       "revId": "8e135f2589805786646df9f1f749961cf22a99fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc556c4f_3fc95ba8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-30T12:32:24Z",
+      "side": 1,
+      "message": "lgtm with the caveat that I\u0027m not super well versed in how the nonsymmetric case works.",
+      "revId": "8e135f2589805786646df9f1f749961cf22a99fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64cbf99e_72ee86f7",
+        "filename": "rtc_base/bitstream_reader.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-30T12:32:24Z",
+      "side": 1,
+      "message": "nit: since `last_read_is_verified_` is initialized to true and never updated in the non-dchecked case, you could move the ctor out of here and only have the assignment `last_read_is_verified_ \u003d value;` within an #ifdef clause",
+      "range": {
+        "startLine": 124,
+        "startChar": 0,
+        "endLine": 124,
+        "endChar": 23
+      },
+      "revId": "8e135f2589805786646df9f1f749961cf22a99fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3072fed5_5904169c",
+        "filename": "rtc_base/bitstream_reader_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-30T12:32:24Z",
+      "side": 1,
+      "message": "nit: spelling",
+      "range": {
+        "startLine": 199,
+        "startChar": 51,
+        "endLine": 199,
+        "endChar": 61
+      },
+      "revId": "8e135f2589805786646df9f1f749961cf22a99fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

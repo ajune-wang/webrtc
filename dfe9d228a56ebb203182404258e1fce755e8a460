@@ -53,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "45aac109_5170b0f5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-30T12:32:24Z",
+      "side": 1,
+      "message": "Nah. I was thinking I wanted to look further into how it would be used in other cases, but let\u0027s land and iterate instead since I don\u0027t see any immediate issues.",
+      "parentUuid": "1b118767_66c02e27",
+      "revId": "dfe9d228a56ebb203182404258e1fce755e8a460",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "440bbf60_2b5fca28",
@@ -194,6 +212,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c8ce86b_b7d9927d",
+        "filename": "rtc_base/bitstream_reader.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-30T12:32:24Z",
+      "side": 1,
+      "message": "Ack. It was more a comment around that fact that we intentionally allow a pointer to potentially invalid memory, but we promise not to dereference it in that case.",
+      "parentUuid": "7989c369_8cd4d567",
+      "range": {
+        "startLine": 83,
+        "startChar": 2,
+        "endLine": 85,
+        "endChar": 61
+      },
+      "revId": "dfe9d228a56ebb203182404258e1fce755e8a460",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b7bcc54d_0eeb8f59",
@@ -231,6 +273,30 @@
       "side": 1,
       "message": "It makes it easier sometimes, without complicating ReadBits function itself.\ne.g. ReadNonSymmetric(/*max_number\u003d*/1) reads 0 bits.\nDisallowing 0 in ReadBits would require an extra branch in ReadNonSymmetric instead.\n\nwhat would be a reason to disallow it?\n(0 bits returns a value in range [0, 2^0 - 1] \u003d [0, 0], so conceptually it is not an exception)",
       "parentUuid": "b7bcc54d_0eeb8f59",
+      "range": {
+        "startLine": 56,
+        "startChar": 53,
+        "endLine": 56,
+        "endChar": 54
+      },
+      "revId": "dfe9d228a56ebb203182404258e1fce755e8a460",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f9c0983_19791dc7",
+        "filename": "rtc_base/bitstream_reader.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-30T12:32:24Z",
+      "side": 1,
+      "message": "Alright, if it makes things easier.\n\nIntuitively I would find the output of a zero-bit read to be undefined rather than 0. But I don\u0027t have strong opinions against it as long as the behavior is well defined.",
+      "parentUuid": "1b189691_01128c59",
       "range": {
         "startLine": 56,
         "startChar": 53,
@@ -372,6 +438,30 @@
       "side": 1,
       "message": "yep, I guess extra size (3 pointer-size instead of 2 pointer size) is not important for this classes that is not supposed to be stored in large numbers or copied often.\n\nhowever I would still prefer to keep `RemainingBitCount` extra cheap (and thus \u0027Ok\u0027 to be extra cheap).",
       "parentUuid": "418fb9a1_49bca0fe",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 23
+      },
+      "revId": "dfe9d228a56ebb203182404258e1fce755e8a460",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d482a448_c72c4f13",
+        "filename": "rtc_base/bitstream_reader.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-08-30T12:32:24Z",
+      "side": 1,
+      "message": "sgtm",
+      "parentUuid": "4b647a1e_4e7fb90b",
       "range": {
         "startLine": 106,
         "startChar": 0,

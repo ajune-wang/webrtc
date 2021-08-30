@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5dba85d9_68981dfc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-08-30T11:20:46Z",
+      "side": 1,
+      "message": "If it is intended to be efficient, I would recommend keeping an uint64_t member variable to cache bits read from the input (below I\u0027m assuming normalized, with the msb always being next bit to read, but it might be better to leave cache_ unmodified and instead have an and operation to eliminate unwanted bits), and an inline ReadBits method like\n\nuint64_t ReadBits(int bits) {\n  if (bits \u003e\u003d remaining_bits_) {\n     remaining_bits -\u003d bits; \n     uint64_t val \u003d cache_ \u003e\u003e remaining_bits;\n     cache_ \u003c\u003c\u003d bits;\n     return val;\n   } else {\n     return ReadBitsSlow();\n   }\n}\n\nwhere ReadBitsSlow isn\u0027t inlined, and responsible for filling the cache when it runs out, as well as handling of end of buffer or any other errors. The intention is that the common case should be a single well-predicted branch and a few arithmetic instructions.",
+      "revId": "8e135f2589805786646df9f1f749961cf22a99fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

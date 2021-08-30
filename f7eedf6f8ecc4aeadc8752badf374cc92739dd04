@@ -39,6 +39,64 @@
       },
       "revId": "f7eedf6f8ecc4aeadc8752badf374cc92739dd04",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11c0b798_8996bd96",
+        "filename": "p2p/client/basic_port_allocator_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-08-30T20:07:51Z",
+      "side": 1,
+      "message": "I think this is referring to something that happens in chromium, where we bind a socket to 0.0.0.0 and connect to 8.8.8.8 then use getsockname to see what local address is used, and use this for local STUN candidates. Apparently this address is sometimes different from the one that\u0027s used to connect to the STUN server?",
+      "parentUuid": "5ea3fad9_bee7a866",
+      "range": {
+        "startLine": 181,
+        "startChar": 40,
+        "endLine": 184,
+        "endChar": 72
+      },
+      "revId": "f7eedf6f8ecc4aeadc8752badf374cc92739dd04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76e001aa_5bb4c62f",
+        "filename": "rtc_base/virtual_socket_server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 900,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-08-30T20:07:51Z",
+      "side": 1,
+      "message": "Why do we only want to do this for UDP?",
+      "revId": "f7eedf6f8ecc4aeadc8752badf374cc92739dd04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ede3ded5_726e537d",
+        "filename": "rtc_base/virtual_socket_server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1234,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-08-30T20:07:51Z",
+      "side": 1,
+      "message": "Change variable naming as well?",
+      "revId": "f7eedf6f8ecc4aeadc8752badf374cc92739dd04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

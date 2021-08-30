@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ebff791e_1ad9eb40",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-08-30T14:38:43Z",
+      "side": 1,
+      "message": "downstream dependency (chrome) was fixed. mac_chromium_compile shouldn\u0027t be retriggered in CQ, see https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d13122",
+      "revId": "3b7d15adcdffed7814e681e35a9bea146ab2d296",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

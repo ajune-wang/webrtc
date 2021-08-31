@@ -16,6 +16,138 @@
       "message": "PTAL",
       "revId": "6d0b752e26293b4b1d6cce7ab22172cef01ed9c2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9d436ad_361219f1",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-31T14:29:47Z",
+      "side": 1,
+      "message": "chain is added here to align with the MinimalisticStructure?",
+      "revId": "6d0b752e26293b4b1d6cce7ab22172cef01ed9c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec4603f4_f587397a",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-31T14:29:47Z",
+      "side": 1,
+      "message": "prefer .empty()\nhttps://clang.llvm.org/extra/clang-tidy/checks/readability-container-size-empty.html",
+      "range": {
+        "startLine": 447,
+        "startChar": 33,
+        "endLine": 447,
+        "endChar": 44
+      },
+      "revId": "6d0b752e26293b4b1d6cce7ab22172cef01ed9c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7817bb31_ada3b8e0",
+        "filename": "call/rtp_payload_params.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-31T14:29:47Z",
+      "side": 1,
+      "message": "(if you want to keep this parameter)\n#include \"api/array_view.h\"\n#include \"api/video/render_resolution.h\"",
+      "range": {
+        "startLine": 53,
+        "startChar": 6,
+        "endLine": 53,
+        "endChar": 44
+      },
+      "revId": "6d0b752e26293b4b1d6cce7ab22172cef01ed9c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72ffdc5a_6428558c",
+        "filename": "call/rtp_payload_params_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 870,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-31T14:29:47Z",
+      "side": 1,
+      "message": "why do you need fixture for a single test?\n\nhttps://abseil.io/tips/122#five-easy-steps\n\"Avoid fixtures where reasonable.\"",
+      "range": {
+        "startLine": 870,
+        "startChar": 6,
+        "endLine": 870,
+        "endChar": 58
+      },
+      "revId": "6d0b752e26293b4b1d6cce7ab22172cef01ed9c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23d3c1d0_80e48e05",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-31T14:29:47Z",
+      "side": 1,
+      "message": "may be instead of passing resolution parameter to copy it into structure, add resolution post-factum (that also better aligns with how ScalableVideoControllers returns structures):\n\n  FrameDependencyStructure structure \u003d\n          RtpPayloadParams::MinimalisticStructure(\n              vp9.num_spatial_layers, kMaxTemporalStream);\n  if (vp9.ss_data_available \u0026\u0026 vp9.spatial_layer_resolution_present) {\n     for (size_t i \u003d 0; i \u003c vp9.num_spatial_layers; ++i) {\n        structure.resolutions.emplace_back(vp9.width[i], vp9.height[i]);\n     }\n  }",
+      "range": {
+        "startLine": 591,
+        "startChar": 59,
+        "endLine": 591,
+        "endChar": 70
+      },
+      "revId": "6d0b752e26293b4b1d6cce7ab22172cef01ed9c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2358fa81_abe637a5",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-31T14:29:47Z",
+      "side": 1,
+      "message": "#include \"modules/video_coding/svc/scalable_video_controller_no_layering.h\"\nScalableVideoControllerNoLayering().DependencyStructure();\nlikely a better fit in this case.\n\n(may be ScalableVideoControllerNoLayering should have a static function to get the structure...)",
+      "range": {
+        "startLine": 596,
+        "startChar": 10,
+        "endLine": 599,
+        "endChar": 41
+      },
+      "revId": "6d0b752e26293b4b1d6cce7ab22172cef01ed9c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

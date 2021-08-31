@@ -33,6 +33,24 @@
       "message": "I don\u0027t understand that comment. best alignment \u003d\u003d requested_alignment just means that |requested_alignment| would require the least adjustment to the scaling factors. Maybe because it was the only one of them (requested_alignment \u003d\u003d kMaxAlignment), or it was some weird case like: requested_alignment\u003d8, scaling_factors\u003d{1, 8/7}. The only way to get both layers aligned is to round the second scaling factor to 1. The loop above will always \u0027touch\u0027 kMaxAlignment.\n\nWhat you are doing here is actually breaking the function: it stops doing what it claims at lines 57-65 in some cases.\n\nI understand the problem you are trying to solve (16x16 alignment), but that may be not the best way to do it.\n\nA better way may be to explicitly check the min_diff and bail out of rounding the scaling factors if it can be done without too much blood.",
       "revId": "ba45ca7075b2efaa0bf762b90286be0ef3786424",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a21cd8e1_f54a539c",
+        "filename": "video/alignment_adjuster.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 18194
+      },
+      "writtenOn": "2021-08-31T05:24:29Z",
+      "side": 1,
+      "message": "The comment \"touched the kMaxAlignment at the first try\" means that in this case, our first alignment value is already same to kMaxAlignment so we cannot determine if newly calculated scaling factors are better than original ones because loop only runs for once.\n\nWhat I wanted to was pruning out the cases when requested_alignment \u003d\u003d kMaxAlignment. So as you suggested there might be two ways for better implementation.\n\n1)We check if our loop runs for once. This can be done by measuring increment of alignment. If it runs for once, we can bypass the updating the config\u0027s scaling factors this time.\n\n2)Or, we can examine the finally chosen min_diff after all jobs. We compare the min_diff_threshold(e.g., num_layers * 1.0) with min_diff and update the config\u0027s scaling factors if min_diff is smaller than min_diff_threshold.\n\nI\u0027m wondering if original purpose of GetAlignmentAndMaybeAdjustScaleFactors() is just to force rounding scaling factors to meet the statement \"A / S\u0027[i] are integers divisible by K\" claimed in lines 57-65 anyway. If not, I think one of above solutions will work better for this |requested_alignment \u003d\u003d kMaxAlignment| case.",
+      "parentUuid": "2c80dca7_e34c82eb",
+      "revId": "ba45ca7075b2efaa0bf762b90286be0ef3786424",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

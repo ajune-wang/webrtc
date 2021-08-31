@@ -311,6 +311,7 @@ rtc_library("call") {
     "../rtc_base/network:sent_packet",
     "../rtc_base/system:no_unique_address",
     "../rtc_base/task_utils:pending_task_safety_flag",
+    "../rtc_base/task_utils:slacked_task_queue_factory",
     "../system_wrappers",
     "../system_wrappers:field_trial",
     "../system_wrappers:metrics",

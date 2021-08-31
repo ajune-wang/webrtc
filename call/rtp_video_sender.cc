@@ -370,6 +370,9 @@ RtpVideoSender::RtpVideoSender(
       simulate_vp9_structure_(absl::StartsWith(
           field_trials_.Lookup("WebRTC-Vp9DependencyDescriptor"),
           "Enabled")),
+      simulate_generic_structure_(absl::StartsWith(
+          field_trials_.Lookup("WebRTC-GenericCodecDependencyDescriptor"),
+          "Enabled")),
       active_(false),
       suspended_ssrcs_(std::move(suspended_ssrcs)),
       fec_controller_(std::move(fec_controller)),
@@ -575,9 +578,25 @@ EncodedImageCallback::Result RtpVideoSender::OnEncodedImage(
       sender_video.SetVideoStructure(&*codec_specific_info->template_structure);
     } else if (simulate_vp9_structure_ && codec_specific_info &&
                codec_specific_info->codecType == kVideoCodecVP9) {
+      const CodecSpecificInfoVP9& vp9 = codec_specific_info->codecSpecific.VP9;
+
+      std::vector<RenderResolution> resolutions;
+      if (vp9.ss_data_available && vp9.spatial_layer_resolution_present) {
+        for (size_t i = 0; i < vp9.num_spatial_layers; ++i) {
+          resolutions.emplace_back(vp9.width[i], vp9.height[i]);
+        }
+      }
       FrameDependencyStructure structure =
-          RtpPayloadParams::MinimalisticVp9Structure(
-              codec_specific_info->codecSpecific.VP9);
+          RtpPayloadParams::MinimalisticStructure(
+              vp9.num_spatial_layers, kMaxTemporalStreams, resolutions);
+      sender_video.SetVideoStructure(&structure);
+    } else if (simulate_generic_structure_ &&
+               codec_specific_info->codecType == kVideoCodecGeneric) {
+      FrameDependencyStructure structure =
+          RtpPayloadParams::MinimalisticStructure(
+              /*num_spatial_layers=*/1,
+              /*num_temporal_layers=*/1,
+              /*spatial_resolutions=*/{});
       sender_video.SetVideoStructure(&structure);
     } else {
       sender_video.SetVideoStructure(nullptr);

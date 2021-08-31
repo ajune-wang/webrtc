@@ -867,6 +867,48 @@ TEST_F(RtpPayloadParamsVp9ToGenericTest, SpatialScalabilityKSvc) {
   EXPECT_THAT(headers[3].generic->chain_diffs, ElementsAre(2, 4));
 }
 
+TEST(RtpPayloadParamsGenericCodecDependencyDescriptorTest, NoScalability) {
+  RtpPayloadState state;
+  RtpPayloadParams params(
+      /*ssrc=*/123, &state,
+      test::ExplicitKeyValueConfig(
+          "WebRTC-GenericCodecDependencyDescriptor/Enabled/"));
+
+  EncodedImage encoded_image;
+  CodecSpecificInfo codec_info;
+  codec_info.codecType = kVideoCodecGeneric;
+  codec_info.end_of_picture = true;
+
+  // Key frame.
+  encoded_image._frameType = VideoFrameType::kVideoFrameKey;
+  RTPVideoHeader header = params.GetRtpVideoHeader(encoded_image, &codec_info,
+                                                   /*shared_frame_id=*/1);
+
+  ASSERT_TRUE(header.generic);
+  EXPECT_EQ(header.generic->spatial_index, 0);
+  EXPECT_EQ(header.generic->temporal_index, 0);
+  EXPECT_EQ(header.generic->frame_id, 1);
+  EXPECT_THAT(header.generic->decode_target_indications,
+              ElementsAre(DecodeTargetIndication::kSwitch));
+  EXPECT_THAT(header.generic->dependencies, IsEmpty());
+  EXPECT_THAT(header.generic->chain_diffs, ElementsAre(0));
+
+  // Delta frame.
+  encoded_image._frameType = VideoFrameType::kVideoFrameDelta;
+  header = params.GetRtpVideoHeader(encoded_image, &codec_info,
+                                    /*shared_frame_id=*/3);
+
+  ASSERT_TRUE(header.generic);
+  EXPECT_EQ(header.generic->spatial_index, 0);
+  EXPECT_EQ(header.generic->temporal_index, 0);
+  EXPECT_EQ(header.generic->frame_id, 3);
+  EXPECT_THAT(header.generic->decode_target_indications,
+              ElementsAre(DecodeTargetIndication::kSwitch));
+  EXPECT_THAT(header.generic->dependencies, ElementsAre(1));
+  // previous frame in the chain was frame#1,
+  EXPECT_THAT(header.generic->chain_diffs, ElementsAre(3 - 1));
+}
+
 class RtpPayloadParamsH264ToGenericTest : public ::testing::Test {
  public:
   enum LayerSync { kNoSync, kSync };

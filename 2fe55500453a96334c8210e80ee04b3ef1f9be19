@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b669a39_d528c0d0",
+        "filename": "modules/audio_coding/neteq/delay_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-08-31T11:38:18Z",
+      "side": 1,
+      "message": "Is there a risk of overflows here?",
+      "range": {
+        "startLine": 211,
+        "startChar": 21,
+        "endLine": 211,
+        "endChar": 28
+      },
+      "revId": "2fe55500453a96334c8210e80ee04b3ef1f9be19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

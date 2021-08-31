@@ -16,6 +16,40 @@
       "message": "LGTM but lets wait for Andrii\u0027s input.",
       "revId": "cf87c168d399aaa22589cbbe615b6cdb59a9abcd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ea206af_551fd229",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5533
+      },
+      "writtenOn": "2021-08-31T15:35:36Z",
+      "side": 1,
+      "message": "lgtm",
+      "revId": "cf87c168d399aaa22589cbbe615b6cdb59a9abcd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46008a0c_273c96c6",
+        "filename": "config.star",
+        "patchSetId": 2
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5533
+      },
+      "writtenOn": "2021-08-31T15:35:36Z",
+      "side": 1,
+      "message": "nit: I\u0027d move it one line above, as both bindings are required for led to work.",
+      "revId": "cf87c168d399aaa22589cbbe615b6cdb59a9abcd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

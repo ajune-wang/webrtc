@@ -53,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7745be1a_7c432e31",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-31T16:45:18Z",
+      "side": 1,
+      "message": "just ensuring that this change is related to the one described in the description.\n\n(on a related topic: for unscalable stream specifying chain might be just waste of bits. but that not what this change is about)",
+      "parentUuid": "75132049_b110ecd1",
+      "revId": "6d0b752e26293b4b1d6cce7ab22172cef01ed9c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ec4603f4_f587397a",
@@ -278,6 +296,30 @@
       "side": 1,
       "message": "Don\u0027t agree about this one, prefer to generate \"best guess\" structures from one place.",
       "parentUuid": "2358fa81_abe637a5",
+      "range": {
+        "startLine": 596,
+        "startChar": 10,
+        "endLine": 599,
+        "endChar": 41
+      },
+      "revId": "6d0b752e26293b4b1d6cce7ab22172cef01ed9c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76e364d5_e3b9b024",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-31T16:45:18Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ef6bf589_c90fb67e",
       "range": {
         "startLine": 596,
         "startChar": 10,

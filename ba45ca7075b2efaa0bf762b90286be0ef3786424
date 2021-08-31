@@ -51,6 +51,24 @@
       "parentUuid": "2c80dca7_e34c82eb",
       "revId": "ba45ca7075b2efaa0bf762b90286be0ef3786424",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "800df0bc_ebe1f2d6",
+        "filename": "video/alignment_adjuster.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-08-31T14:51:25Z",
+      "side": 1,
+      "message": "The original purpose is of this code is to bend scaling factors a little which may allow to actually fulfil all the alignment requirements. E.g. scaling factors are {1.0, 2.01} and requested_alignment is 2 on both layers. If we instead do {1.0, 2.0}, then we can fulfil requirements by asking the source for 4x4 aligned resolution. With the original scaling factors to get integer values on the second layer we would need to get 402x402 aligned input resolution (it\u0027s the smallest one divisible by 2.01 and leaving even numbers). If scaling is done on the resolution which isn\u0027t divisible like that, then lower layers would have a different aspect ratio/visible area. That would lead to very noticeable changes when the receiver switches between layers.\n\nThe issue with the current code is that it strongly prefers keeping the resulting alignment below kMaxAlignment, even if that would mean drastically changing the scaling factors.\n\nIt was not an issue before, because the requested alignment was always at most 2 before, and that worked in a vast majority of possible scaling factors very well.\n\nI repeat my suggestions: if you are fixing only 16x16 case, then fix only it explicitly (and update the comment before the function to mention that special case). Current patch looks like it does some general things, but it doesn\u0027t: the comment is factually false, it\u0027s roundabout way to check things, and it goes against the function logic. Change the if statement to |if (requested_alignment \u003d\u003d kMaxAlignment)|. Maybe put it at the top of the function, since all the work is ignored anyway. It\u0027s exactly the case \"We check if our loop runs for once\" you mention.\n\n\nOtherwise, a proper fix to the underlying code is to also limit possible changes to the scaling factors. That\u0027s your second suggestion. However, I would put a threshold on the maximum relative change of the factors. If someone asks for 101.0 it\u0027s not a big change to actually scale down by 100.0.\n\nFeel free to do any of these.",
+      "parentUuid": "a21cd8e1_f54a539c",
+      "revId": "ba45ca7075b2efaa0bf762b90286be0ef3786424",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

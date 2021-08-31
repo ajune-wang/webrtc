@@ -16,6 +16,29 @@
       "message": "Andrii PTAL (I am not an expert with realms).",
       "revId": "5b6c6ae3511b309a7d61e9fc453cde40e5c85119",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "615e8d60_28992415",
+        "filename": "config.star",
+        "patchSetId": 1
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-08-31T10:20:42Z",
+      "side": 1,
+      "message": "Do you confirm this is not needed in the pools/perf realm?",
+      "range": {
+        "startLine": 193,
+        "startChar": 13,
+        "endLine": 193,
+        "endChar": 35
+      },
+      "revId": "5b6c6ae3511b309a7d61e9fc453cde40e5c85119",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

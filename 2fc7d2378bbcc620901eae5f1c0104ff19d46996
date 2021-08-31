@@ -52,6 +52,24 @@
       "parentUuid": "dba1aff8_1a7ff428",
       "revId": "2fc7d2378bbcc620901eae5f1c0104ff19d46996",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2f17a72_f20269ae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-08-31T14:11:11Z",
+      "side": 1,
+      "message": "\u003e Incoming RTP (Call::DeliverRtp), packets recovered by Flexfec (Call::OnRecoveredPacket), and packets recovered by Ulpfec (RtpVideoStreamReceiver(2)::OnRecoveredPacket).\n\u003e \n\u003e Mid-stream changes has to update both Call and the video receive classes. Luckily, audio receive streams appear to not need to know. Could you delete the SetRtpExtension method from audio/audio_receive_stream.*, or is that in some of the other cls?\n\nIt seems Call::DeliverRtp gets the extensions via the receive stream (receive_rtp_config_ now points to the stream). So to delete AudioReceiveStream::SetRtpExtension we\u0027d need to move that info back to Call, and add some method for updating it mid-stream. So not that easy.",
+      "parentUuid": "de46328f_1b512428",
+      "revId": "2fc7d2378bbcc620901eae5f1c0104ff19d46996",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

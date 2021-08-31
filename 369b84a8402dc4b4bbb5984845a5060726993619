@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10a5f343_93fa0d82",
+        "filename": "rtc_base/task_utils/slacked_task_queue_factory.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-08-31T07:29:56Z",
+      "side": 1,
+      "message": "While it feels mentally correct to dispatch tasks with 0 delay immediately, it leads to occasional decodes not happening on VSync instants which we want.",
+      "range": {
+        "startLine": 253,
+        "startChar": 4,
+        "endLine": 253,
+        "endChar": 31
+      },
+      "revId": "369b84a8402dc4b4bbb5984845a5060726993619",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

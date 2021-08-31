@@ -53,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee1e8f1f_55909b3b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-08-31T07:53:21Z",
+      "side": 1,
+      "message": "\u003e That\u0027s a good advice, however efficiency is not the goal of this effort. Readability and binary size are.\n\nFair enough. Maybe rephrase commit message, \"optimized for\" made me think efficiency was a goal.",
+      "parentUuid": "f7916d6a_bfcb8d5c",
+      "revId": "8e135f2589805786646df9f1f749961cf22a99fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "64cbf99e_72ee86f7",

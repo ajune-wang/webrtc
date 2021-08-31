@@ -334,6 +334,8 @@ bool ScreenCapturerX11::HandleXEvent(const XEvent& event) {
     RTC_LOG(LS_INFO) << "XRandR screen change event received.";
     return true;
   } else if (event.type == ConfigureNotify) {
+    // Adding/removing monitors raises a ConfigureNotify event.
+    UpdateMonitors();
     ScreenConfigurationChanged();
     return true;
   }

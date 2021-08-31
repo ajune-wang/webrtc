@@ -308,13 +308,16 @@ void RtpPayloadParams::GenericToGeneric(int64_t shared_frame_id,
       rtp_video_header->generic.emplace();
 
   generic.frame_id = shared_frame_id;
+  generic.decode_target_indications.push_back(DecodeTargetIndication::kSwitch);
 
   if (is_keyframe) {
+    generic.chain_diffs.push_back(0);
     last_shared_frame_id_[0].fill(-1);
   } else {
     int64_t frame_id = last_shared_frame_id_[0][0];
     RTC_DCHECK_NE(frame_id, -1);
     RTC_DCHECK_LT(frame_id, shared_frame_id);
+    generic.chain_diffs.push_back(shared_frame_id - frame_id);
     generic.dependencies.push_back(frame_id);
   }
 
@@ -408,10 +411,10 @@ void RtpPayloadParams::Vp8ToGeneric(const CodecSpecificInfoVP8& vp8_info,
   }
 }
 
-FrameDependencyStructure RtpPayloadParams::MinimalisticVp9Structure(
-    const CodecSpecificInfoVP9& vp9) {
-  const int num_spatial_layers = vp9.num_spatial_layers;
-  const int num_temporal_layers = kMaxTemporalStreams;
+FrameDependencyStructure RtpPayloadParams::MinimalisticStructure(
+    int num_spatial_layers,
+    int num_temporal_layers,
+    rtc::ArrayView<const RenderResolution> spatial_resolutions) {
   FrameDependencyStructure structure;
   structure.num_decode_targets = num_spatial_layers * num_temporal_layers;
   structure.num_chains = num_spatial_layers;
@@ -440,9 +443,12 @@ FrameDependencyStructure RtpPayloadParams::MinimalisticVp9Structure(
 
       structure.decode_target_protected_by_chain.push_back(sid);
     }
-    if (vp9.ss_data_available && vp9.spatial_layer_resolution_present) {
-      structure.resolutions.emplace_back(vp9.width[sid], vp9.height[sid]);
-    }
+  }
+  RTC_DCHECK(spatial_resolutions.size() == 0 ||
+             static_cast<int>(spatial_resolutions.size()) ==
+                 num_spatial_layers);
+  for (const RenderResolution& res : spatial_resolutions) {
+    structure.resolutions.emplace_back(res.Width(), res.Height());
   }
   return structure;
 }

@@ -121,9 +121,6 @@ ConnectionContext::ConnectionContext(
   default_network_manager_ = std::make_unique<rtc::BasicNetworkManager>(
       network_monitor_factory_.get());
 
-  default_socket_factory_ =
-      std::make_unique<rtc::BasicPacketSocketFactory>(network_thread());
-
   worker_thread_->Invoke<void>(RTC_FROM_HERE, [&]() {
     channel_manager_ = cricket::ChannelManager::Create(
         std::move(dependencies->media_engine),
@@ -146,8 +143,7 @@ ConnectionContext::~ConnectionContext() {
                                [&]() { channel_manager_.reset(nullptr); });
 
   // Make sure `worker_thread()` and `signaling_thread()` outlive
-  // `default_socket_factory_` and `default_network_manager_`.
-  default_socket_factory_ = nullptr;
+  // `default_network_manager_`.
   default_network_manager_ = nullptr;
 
   if (wraps_current_thread_)

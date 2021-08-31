@@ -201,6 +201,9 @@ PeerConnectionFactory::CreatePeerConnectionOrError(
   RTC_DCHECK(!(dependencies.allocator && dependencies.packet_socket_factory))
       << "You can't set both allocator and packet_socket_factory; "
          "the former is going away (see bugs.webrtc.org/7447";
+  RTC_CHECK(dependencies.allocator || dependencies.packet_socket_factory)
+      << "You must set one of allocator and packet_socket_factory; "
+         "the former is going away (see bugs.webrtc.org/7447";
 
   // Set internal defaults if optional dependencies are not set.
   if (!dependencies.cert_generator) {
@@ -209,14 +212,9 @@ PeerConnectionFactory::CreatePeerConnectionOrError(
                                                        network_thread());
   }
   if (!dependencies.allocator) {
-    rtc::PacketSocketFactory* packet_socket_factory;
-    if (dependencies.packet_socket_factory)
-      packet_socket_factory = dependencies.packet_socket_factory.get();
-    else
-      packet_socket_factory = context_->default_socket_factory();
-
     dependencies.allocator = std::make_unique<cricket::BasicPortAllocator>(
-        context_->default_network_manager(), packet_socket_factory,
+        context_->default_network_manager(),
+        dependencies.packet_socket_factory.get(),
         configuration.turn_customizer);
   }
 

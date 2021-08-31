@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "75132049_b110ecd1",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-08-31T15:42:06Z",
+      "side": 1,
+      "message": "In the sense that there is one chain, yes.\n\nNot sure I get the question?",
+      "parentUuid": "f9d436ad_361219f1",
+      "revId": "6d0b752e26293b4b1d6cce7ab22172cef01ed9c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ec4603f4_f587397a",
         "filename": "call/rtp_payload_params.cc",
         "patchSetId": 3
@@ -48,6 +66,30 @@
       "writtenOn": "2021-08-31T14:29:47Z",
       "side": 1,
       "message": "prefer .empty()\nhttps://clang.llvm.org/extra/clang-tidy/checks/readability-container-size-empty.html",
+      "range": {
+        "startLine": 447,
+        "startChar": 33,
+        "endLine": 447,
+        "endChar": 44
+      },
+      "revId": "6d0b752e26293b4b1d6cce7ab22172cef01ed9c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f12c4da8_80888952",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-08-31T15:42:06Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "ec4603f4_f587397a",
       "range": {
         "startLine": 447,
         "startChar": 33,
@@ -81,6 +123,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec8d3c1c_25f154df",
+        "filename": "call/rtp_payload_params.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-08-31T15:42:06Z",
+      "side": 1,
+      "message": "Decided to skip this and go with your suggestion below.",
+      "parentUuid": "7817bb31_ada3b8e0",
+      "range": {
+        "startLine": 53,
+        "startChar": 6,
+        "endLine": 53,
+        "endChar": 44
+      },
+      "revId": "6d0b752e26293b4b1d6cce7ab22172cef01ed9c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "72ffdc5a_6428558c",
@@ -94,6 +160,30 @@
       "writtenOn": "2021-08-31T14:29:47Z",
       "side": 1,
       "message": "why do you need fixture for a single test?\n\nhttps://abseil.io/tips/122#five-easy-steps\n\"Avoid fixtures where reasonable.\"",
+      "range": {
+        "startLine": 870,
+        "startChar": 6,
+        "endLine": 870,
+        "endChar": 58
+      },
+      "revId": "6d0b752e26293b4b1d6cce7ab22172cef01ed9c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f675924_83cc72c0",
+        "filename": "call/rtp_payload_params_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 870,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-08-31T15:42:06Z",
+      "side": 1,
+      "message": "because copy pasting without thinking... fixed :)",
+      "parentUuid": "72ffdc5a_6428558c",
       "range": {
         "startLine": 870,
         "startChar": 6,
@@ -127,6 +217,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "112cc1a2_ecfb7299",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-08-31T15:42:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23d3c1d0_80e48e05",
+      "range": {
+        "startLine": 591,
+        "startChar": 59,
+        "endLine": 591,
+        "endChar": 70
+      },
+      "revId": "6d0b752e26293b4b1d6cce7ab22172cef01ed9c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2358fa81_abe637a5",
@@ -140,6 +254,30 @@
       "writtenOn": "2021-08-31T14:29:47Z",
       "side": 1,
       "message": "#include \"modules/video_coding/svc/scalable_video_controller_no_layering.h\"\nScalableVideoControllerNoLayering().DependencyStructure();\nlikely a better fit in this case.\n\n(may be ScalableVideoControllerNoLayering should have a static function to get the structure...)",
+      "range": {
+        "startLine": 596,
+        "startChar": 10,
+        "endLine": 599,
+        "endChar": 41
+      },
+      "revId": "6d0b752e26293b4b1d6cce7ab22172cef01ed9c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef6bf589_c90fb67e",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-08-31T15:42:06Z",
+      "side": 1,
+      "message": "Don\u0027t agree about this one, prefer to generate \"best guess\" structures from one place.",
+      "parentUuid": "2358fa81_abe637a5",
       "range": {
         "startLine": 596,
         "startChar": 10,

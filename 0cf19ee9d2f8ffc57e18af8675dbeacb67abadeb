@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24611f86_6ce6deb1",
+        "filename": "media/engine/internal_decoder_factory_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-31T15:04:32Z",
+      "side": 1,
+      "message": "or cast using compare\nEXPECT_EQ(decoder !\u003d nullptr, kVp9Enabled);",
+      "range": {
+        "startLine": 59,
+        "startChar": 12,
+        "endLine": 59,
+        "endChar": 38
+      },
+      "revId": "0cf19ee9d2f8ffc57e18af8675dbeacb67abadeb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eac3d25c_867fffd5",
+        "filename": "media/engine/internal_decoder_factory_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-31T15:04:32Z",
+      "side": 1,
+      "message": "May be rename: SVC is not the same as ReferenceScaling",
+      "range": {
+        "startLine": 92,
+        "startChar": 50,
+        "endLine": 92,
+        "endChar": 55
+      },
+      "revId": "0cf19ee9d2f8ffc57e18af8675dbeacb67abadeb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e749013e_235b303e",
+        "filename": "media/engine/internal_decoder_factory_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-31T15:04:32Z",
+      "side": 1,
+      "message": "if this expectation fails, you won\u0027t see what QueryCodecSupport returned.\nit might be better instead of helepr \u0027Equals\u0027 to introduce custom matcher:\n  MATCHER_P(Support, p, \"\") {\n    return arg.is_supported \u003d\u003d p.is_supported \u0026\u0026\n           arg.is_power_efficient \u003d\u003d b.is_power_efficient;\n  }\n  ...\n  EXPECT_THAT(factory.QueryCodecSupport(...), Support(kSuported));\n\nor put expectation just on one member:\n  EXPECT_TRUE(factory.QueryCodecSupport(...).supported);\n  \nor add compare operator into the CodecSupport struct, and rely on it here:\n  struct CodecSupport {\n    friend bool operator\u003d\u003d(const CodecSupport\u0026 rhs, const CodecSupport\u0026 lhs) {\n      return ...;\n    } \n    friend bool operator!\u003d(const CodecSupport\u0026 rhs, const CodecSupport\u0026 lhs) {\n      return !(lhs \u003d\u003d rhs);\n    }\n    bool is_supported;\n  };\n  ...\n  EXPECT_EQ(factory.QueryCodecSupport(...), kSupported);",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 26
+      },
+      "revId": "0cf19ee9d2f8ffc57e18af8675dbeacb67abadeb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d7b9185_6dbd669d",
+        "filename": "media/engine/internal_encoder_factory.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-08-31T15:04:32Z",
+      "side": 1,
+      "message": "this condition looks complicated, I think it would be easier to read it if it is split into several smaller checks:\nstatic constexpr VideoEncoderFactory::CodecSupport kUnsupported \u003d {false};\nif (!spatial_layers) {\n  // Unknown scalability mode.\n  return kUnsupported;\n}\n\nif (codec !\u003d VP8 \u0026\u0026 codec !\u003d VP9 \u0026\u0026 codec !\u003d AV1) {\n  // comment explaining this case.\n  return kUnsupported;\n}\n\nif (codec \u003d\u003d VP8 \u0026\u0026 *spatial_layers \u003e 1) {\n  return kUnsupported;\n}",
+      "range": {
+        "startLine": 77,
+        "startChar": 8,
+        "endLine": 80,
+        "endChar": 56
+      },
+      "revId": "0cf19ee9d2f8ffc57e18af8675dbeacb67abadeb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

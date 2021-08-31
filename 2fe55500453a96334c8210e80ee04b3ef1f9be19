@@ -22,6 +22,30 @@
       },
       "revId": "2fe55500453a96334c8210e80ee04b3ef1f9be19",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "474c3247_7b15ace8",
+        "filename": "modules/audio_coding/neteq/delay_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2021-08-31T11:44:05Z",
+      "side": 1,
+      "message": "The conversion to int32_t is done on purpose to obtain a negative value if `timestamp \u003c delay_history_.front().timestamp` (this is not really an overflow and does not result in UB).",
+      "parentUuid": "8b669a39_d528c0d0",
+      "range": {
+        "startLine": 211,
+        "startChar": 21,
+        "endLine": 211,
+        "endChar": 28
+      },
+      "revId": "2fe55500453a96334c8210e80ee04b3ef1f9be19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

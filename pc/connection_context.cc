@@ -17,6 +17,7 @@
 #include "api/transport/field_trial_based_config.h"
 #include "media/sctp/sctp_transport_factory.h"
 #include "rtc_base/helpers.h"
+#include "rtc_base/internal/default_socket_server.h"
 #include "rtc_base/task_utils/to_queued_task.h"
 #include "rtc_base/time_utils.h"
 
@@ -93,6 +94,7 @@ ConnectionContext::ConnectionContext(
       network_monitor_factory_(
           std::move(dependencies->network_monitor_factory)),
       call_factory_(std::move(dependencies->call_factory)),
+      socket_factory_(rtc::CreateDefaultSocketServer()),
       sctp_factory_(
           MaybeCreateSctpFactory(std::move(dependencies->sctp_factory),
                                  network_thread())),
@@ -122,7 +124,7 @@ ConnectionContext::ConnectionContext(
       network_monitor_factory_.get());
 
   default_socket_factory_ =
-      std::make_unique<rtc::BasicPacketSocketFactory>(network_thread());
+      std::make_unique<rtc::BasicPacketSocketFactory>(socket_factory_.get());
 
   worker_thread_->Invoke<void>(RTC_FROM_HERE, [&]() {
     channel_manager_ = cricket::ChannelManager::Create(

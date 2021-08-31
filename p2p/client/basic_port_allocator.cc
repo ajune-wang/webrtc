@@ -281,6 +281,7 @@ BasicPortAllocatorSession::BasicPortAllocatorSession(
       turn_port_prune_policy_(allocator->turn_port_prune_policy()) {
   TRACE_EVENT0("webrtc",
                "BasicPortAllocatorSession::BasicPortAllocatorSession");
+  RTC_DCHECK(socket_factory_);
   allocator_->network_manager()->SignalNetworksChanged.connect(
       this, &BasicPortAllocatorSession::OnNetworksChanged);
   allocator_->network_manager()->StartUpdating();
@@ -376,12 +377,6 @@ void BasicPortAllocatorSession::SetCandidateFilter(uint32_t filter) {
 void BasicPortAllocatorSession::StartGettingPorts() {
   RTC_DCHECK_RUN_ON(network_thread_);
   state_ = SessionState::GATHERING;
-  if (!socket_factory_) {
-    owned_socket_factory_.reset(
-        new rtc::BasicPacketSocketFactory(network_thread_));
-    socket_factory_ = owned_socket_factory_.get();
-  }
-
   network_thread_->PostTask(webrtc::ToQueuedTask(
       network_safety_, [this] { GetPortConfigurations(); }));
 

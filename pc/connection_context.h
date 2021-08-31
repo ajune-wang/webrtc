@@ -119,6 +119,7 @@ class ConnectionContext final
   std::unique_ptr<webrtc::CallFactoryInterface> const call_factory_
       RTC_GUARDED_BY(worker_thread_);
 
+  const std::unique_ptr<rtc::SocketFactory> socket_factory_;
   std::unique_ptr<rtc::BasicPacketSocketFactory> default_socket_factory_
       RTC_GUARDED_BY(signaling_thread_);
   std::unique_ptr<SctpTransportFactoryInterface> const sctp_factory_;

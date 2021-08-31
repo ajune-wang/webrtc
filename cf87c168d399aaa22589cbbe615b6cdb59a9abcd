@@ -50,6 +50,24 @@
       "message": "nit: I\u0027d move it one line above, as both bindings are required for led to work.",
       "revId": "cf87c168d399aaa22589cbbe615b6cdb59a9abcd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7182f94f_c0d74c14",
+        "filename": "config.star",
+        "patchSetId": 2
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-08-31T15:39:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46008a0c_273c96c6",
+      "revId": "cf87c168d399aaa22589cbbe615b6cdb59a9abcd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

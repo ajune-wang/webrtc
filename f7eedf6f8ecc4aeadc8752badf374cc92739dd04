@@ -65,6 +65,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a96b771b_cd3c69ca",
+        "filename": "p2p/client/basic_port_allocator_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-08-31T07:39:08Z",
+      "side": 1,
+      "message": "Makes some sense (and webrtc does something similar in BasicNetworkManager::QueryDefaultLocalAddress). \n\nBut I don\u0027t get the phrase \"default local address\". I understand different source addresses might be used depending on destination address (even though it\u0027ll probably not be desirable behavior to use a different source address to the stun server, e.g., because it appears to be reachable some relatively local path).\n\nAnd in the case of the VirtualSocketServer, won\u0027t the specified source address be used in all cases where a socket is bound to the any address?",
+      "parentUuid": "11c0b798_8996bd96",
+      "range": {
+        "startLine": 181,
+        "startChar": 40,
+        "endLine": 184,
+        "endChar": 72
+      },
+      "revId": "f7eedf6f8ecc4aeadc8752badf374cc92739dd04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "76e001aa_5bb4c62f",
@@ -84,6 +108,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "45b43db9_84330afe",
+        "filename": "rtc_base/virtual_socket_server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 900,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-08-31T07:39:08Z",
+      "side": 1,
+      "message": "Hmm. I was under the impression TCP used the LookupConnection method instead, but it seems it uses both.\n\nI was also thinking that the selected source address was exposed only via RecvFrom, which isn\u0027t used with TCP. But I see now that it may have a subtle effect also on Accept and Disconnect code paths. \n\nI\u0027ve reverted this move, to keep the cl as a pure rename.",
+      "parentUuid": "76e001aa_5bb4c62f",
+      "revId": "f7eedf6f8ecc4aeadc8752badf374cc92739dd04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ede3ded5_726e537d",
         "filename": "rtc_base/virtual_socket_server.cc",
         "patchSetId": 2
@@ -95,6 +137,24 @@
       "writtenOn": "2021-08-30T20:07:51Z",
       "side": 1,
       "message": "Change variable naming as well?",
+      "revId": "f7eedf6f8ecc4aeadc8752badf374cc92739dd04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "674059e1_b64e401e",
+        "filename": "rtc_base/virtual_socket_server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1234,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-08-31T07:39:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ede3ded5_726e537d",
       "revId": "f7eedf6f8ecc4aeadc8752badf374cc92739dd04",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

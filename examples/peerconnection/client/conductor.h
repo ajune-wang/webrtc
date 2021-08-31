@@ -26,6 +26,10 @@ namespace webrtc {
 class VideoCaptureModule;
 }  // namespace webrtc
 
+namespace rtc {
+class Thread;
+}
+
 namespace cricket {
 class VideoRenderer;
 }  // namespace cricket
@@ -129,6 +133,7 @@ class Conductor : public webrtc::PeerConnectionObserver,
   MainWindow* main_wnd_;
   std::deque<std::string*> pending_messages_;
   std::string server_;
+  std::unique_ptr<rtc::Thread> signaling_thread_;
 };
 
 #endif  // EXAMPLES_PEERCONNECTION_CLIENT_CONDUCTOR_H_

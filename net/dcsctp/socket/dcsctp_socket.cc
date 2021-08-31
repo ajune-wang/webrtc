@@ -528,18 +528,12 @@ bool DcSctpSocket::ValidatePacket(const SctpPacket& packet) {
     // if it is set to its peer's tag and the T bit is set in the Chunk Flags.
     // Otherwise, the receiver MUST silently discard the packet and take no
     // further action."
-    bool t_bit = (packet.descriptors()[0].flags & 0x01) != 0;
-    if (t_bit && tcb_ == nullptr) {
-      // Can't verify the tag - assume it's okey.
-      return true;
-    }
-    if ((!t_bit && header.verification_tag == my_verification_tag) ||
-        (t_bit && header.verification_tag == tcb_->peer_verification_tag())) {
-      return true;
-    }
-    callbacks_.OnError(ErrorKind::kParseFailed,
-                       "ABORT chunk verification tag was wrong");
-    return false;
+
+    // Due to reconnection issues and early ABORTs, it has proven hard to rely
+    // on the peers agreeing on what is the verification tag. The rules in the
+    // RFC are to protect against issues that DTLS already solves, so accept all
+    // tag to avoid ignoring a valid ABORT request.
+    return true;
   }
 
   if (packet.descriptors()[0].type == InitAckChunk::kType) {

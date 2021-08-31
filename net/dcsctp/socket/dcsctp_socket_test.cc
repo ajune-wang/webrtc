@@ -21,6 +21,7 @@
 #include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
 #include "api/array_view.h"
+#include "net/dcsctp/packet/chunk/abort_chunk.h"
 #include "net/dcsctp/packet/chunk/chunk.h"
 #include "net/dcsctp/packet/chunk/cookie_echo_chunk.h"
 #include "net/dcsctp/packet/chunk/data_chunk.h"
@@ -34,6 +35,7 @@
 #include "net/dcsctp/packet/chunk/sack_chunk.h"
 #include "net/dcsctp/packet/chunk/shutdown_chunk.h"
 #include "net/dcsctp/packet/error_cause/error_cause.h"
+#include "net/dcsctp/packet/error_cause/protocol_violation_cause.h"
 #include "net/dcsctp/packet/error_cause/unrecognized_chunk_type_cause.h"
 #include "net/dcsctp/packet/parameter/heartbeat_info_parameter.h"
 #include "net/dcsctp/packet/parameter/parameter.h"
@@ -1844,6 +1846,22 @@ TEST_F(DcSctpSocketTest, DoesntBundleForwardTsnWithData) {
 
   EXPECT_THAT(packet4.descriptors(), SizeIs(1));
   EXPECT_EQ(packet4.descriptors()[0].type, ForwardTsnChunk::kType);
+}
+
+TEST_F(DcSctpSocketTest, AcceptsAnyVerificationTagInAbortChunk) {
+  ConnectSockets();
+
+  // Use a verification tag that is unknown.
+  SctpPacket::Builder b(VerificationTag(*sock_a_.verification_tag() + 1),
+                        DcSctpOptions());
+  b.Add(AbortChunk(
+      /*filled_in_verification_tag=*/true,
+      Parameters::Builder()
+          .Add(ProtocolViolationCause("Something went wrong"))
+          .Build()));
+
+  EXPECT_CALL(cb_a_, OnAborted).Times(1);
+  sock_a_.ReceivePacket(b.Build());
 }
 
 }  // namespace

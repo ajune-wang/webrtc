@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6966d964_21f478f4",
+        "filename": "tools_webrtc/mb/mb.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-08-31T10:04:56Z",
+      "side": 1,
+      "message": "I am relying on the error coming from ACLs here instead of not setting a default and raising an error when used. WDYT?",
+      "range": {
+        "startLine": 99,
+        "startChar": 49,
+        "endLine": 99,
+        "endChar": 61
+      },
+      "revId": "e26c79630900ce05c64a55cc90ae737455c66fa0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

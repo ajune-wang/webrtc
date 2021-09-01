@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7b83e61_86b60423",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-09-01T11:12:01Z",
+      "side": 1,
+      "message": "LGTM, but I\u0027d like hta@ to check this as well.",
+      "revId": "4ec9285945211c93904ff8a1e68bcdb7db2fdc64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

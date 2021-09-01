@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8bcd8f97_1fe7938c",
+        "filename": "call/rtp_payload_params_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-09-01T09:07:01Z",
+      "side": 1,
+      "message": "Good find!\n\n(I should probably had spent a few more minutes reading existing code rather than just focusing on generalizing the VP9 specific logic...)",
+      "parentUuid": "c93032d1_260d8a54",
+      "range": {
+        "startLine": 304,
+        "startChar": 27,
+        "endLine": 304,
+        "endChar": 59
+      },
+      "revId": "a70d961190de14b9a660c08319a29fbc0b8d49fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ecd0857c_0f16be2e",
         "filename": "call/rtp_payload_params_unittest.cc",
         "patchSetId": 4
@@ -37,6 +61,30 @@
       "writtenOn": "2021-08-31T16:45:18Z",
       "side": 1,
       "message": "this field trials converts generation of the scalability structure,\nbut that particular feature is not verified in this test.\n\nmay be remove this trial as practically unrelated to the rest of the test.",
+      "range": {
+        "startLine": 875,
+        "startChar": 10,
+        "endLine": 875,
+        "endChar": 60
+      },
+      "revId": "a70d961190de14b9a660c08319a29fbc0b8d49fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "baf6f3ae_3d358f9c",
+        "filename": "call/rtp_payload_params_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 875,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-09-01T09:07:01Z",
+      "side": 1,
+      "message": "Updated the test above and removed this one. Also added a RtpVideoSender test to make sure DD is generated for generic codecs",
+      "parentUuid": "ecd0857c_0f16be2e",
       "range": {
         "startLine": 875,
         "startChar": 10,

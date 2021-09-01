@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac58cb3d_3916c5e9",
+        "filename": "logging/rtc_event_log/events/rtc_event_field_extraction.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-09-01T07:28:44Z",
+      "side": 1,
+      "message": "ConvertToUnsignedIfSigned is not clear about what happens for unsigned. Maybe simply say ConvertToUnsigned? Or something like UnsignedRepresentation? EncodeAsUnsigned (more accurate, you can\u0027t convert signed to unsigned, but you can encode it)",
+      "range": {
+        "startLine": 32,
+        "startChar": 9,
+        "endLine": 32,
+        "endChar": 34
+      },
+      "revId": "062f02774df79c250aa44ff5116c4bd06eaf120c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b64f71a_6792297a",
+        "filename": "logging/rtc_event_log/events/rtc_event_field_extraction.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-09-01T07:28:44Z",
+      "side": 1,
+      "message": "Maybe DecodeFromUnsigned?",
+      "range": {
+        "startLine": 42,
+        "startChar": 2,
+        "endLine": 42,
+        "endChar": 29
+      },
+      "revId": "062f02774df79c250aa44ff5116c4bd06eaf120c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79fb80e4_d2dcf8a6",
+        "filename": "logging/rtc_event_log/events/rtc_event_field_extraction.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-09-01T07:28:44Z",
+      "side": 1,
+      "message": "Super generic name, could it be more detailed? And/or add a short doc comment?",
+      "range": {
+        "startLine": 61,
+        "startChar": 22,
+        "endLine": 61,
+        "endChar": 29
+      },
+      "revId": "062f02774df79c250aa44ff5116c4bd06eaf120c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

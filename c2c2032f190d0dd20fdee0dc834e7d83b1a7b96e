@@ -16,6 +16,24 @@
       "message": "Sorry for not catching this at the previous pass.\n\nThis might lead to a weird situation. Imagine requested_alignment\u003d9, size\u003d2. 18\u003e16 so we will fallback to kMaxAlignment here, which is quite bad. 9 would make more sense here (at least on the top layer the request would be honoured).\n\nI suggest this:\n\nint alignment \u003d requested_alignment;\n// Multiply by 2 while result fits in the constraints.\n// Upto size-1 multiplications are done.\nwhile (size \u003e 1 \u0026\u0026 alignment * 2 \u003c\u003d kMaxAlignment) {\n  alignment *\u003d 2;\n  --size;\n}\nreturn alignment;\n\nAlso, could you please add a test for that case?",
       "revId": "c2c2032f190d0dd20fdee0dc834e7d83b1a7b96e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd273f58_209bd445",
+        "filename": "video/alignment_adjuster.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 18194
+      },
+      "writtenOn": "2021-09-01T12:34:22Z",
+      "side": 1,
+      "message": "Above suggestion\u0027s main idea is to multiply the original alignment value by 2 until the calculated alignment value reaches the kMaxAlignment or size value touches the ground(0).\n\nFor example, if we have 9 for requested_alignment and 3 for size, we\u0027ll get 9 for the result. And if we have 7 for requested_alignment and 2 for size, we\u0027ll get 14 for the result. Am I right?",
+      "parentUuid": "083cc866_1ae33f73",
+      "revId": "c2c2032f190d0dd20fdee0dc834e7d83b1a7b96e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

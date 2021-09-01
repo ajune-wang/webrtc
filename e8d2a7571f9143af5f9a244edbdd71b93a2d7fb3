@@ -33,6 +33,24 @@
       "message": "is the diff of addressing the problem in any of the patch sets?\n(usually when reverting+fixing, we upload the original patch set first, then the fix, so that the diff is easier to see)",
       "revId": "e8d2a7571f9143af5f9a244edbdd71b93a2d7fb3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "73201bd2_5c0ab78b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-09-01T15:50:52Z",
+      "side": 1,
+      "message": "It\u0027s not, I didn\u0027t know that. Do you want me to do it this way? Basically the difference is the one line I mentioned in the first comment.",
+      "parentUuid": "7da74d0a_948bc095",
+      "revId": "e8d2a7571f9143af5f9a244edbdd71b93a2d7fb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

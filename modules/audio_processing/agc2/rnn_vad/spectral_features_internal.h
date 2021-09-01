@@ -67,32 +67,21 @@ class SpectralCorrelator {
       rtc::ArrayView<const float> x,
       rtc::ArrayView<const float> y,
       rtc::ArrayView<float, kOpusBands24kHz> cross_corr) const;
-
- private:
-  const std::vector<float> weights_;  // Weights for each Fourier coefficient.
 };
 
 // TODO(bugs.webrtc.org/10480): Move to anonymous namespace in
 // spectral_features.cc. Given a vector of Opus-bands energy coefficients,
 // computes the log magnitude spectrum applying smoothing both over time and
-// over frequency. Declared here for unit testing.
+// over frequency.
 void ComputeSmoothedLogMagnitudeSpectrum(
     rtc::ArrayView<const float> bands_energy,
     rtc::ArrayView<float, kNumBands> log_bands_energy);
 
 // TODO(bugs.webrtc.org/10480): Move to anonymous namespace in
-// spectral_features.cc. Creates a DCT table for arrays having size equal to
-// `kNumBands`. Declared here for unit testing.
-std::array<float, kNumBands * kNumBands> ComputeDctTable();
-
-// TODO(bugs.webrtc.org/10480): Move to anonymous namespace in
-// spectral_features.cc. Computes DCT for `in` given a pre-computed DCT table.
+// spectral_features.cc. Computes DCT for `in` for a hard-coded DCT table.
 // In-place computation is not allowed and `out` can be smaller than `in` in
-// order to only compute the first DCT coefficients. Declared here for unit
-// testing.
-void ComputeDct(rtc::ArrayView<const float> in,
-                rtc::ArrayView<const float, kNumBands * kNumBands> dct_table,
-                rtc::ArrayView<float> out);
+// order to only compute the first DCT coefficients.
+void ComputeDct(rtc::ArrayView<const float> in, rtc::ArrayView<float> out);
 
 }  // namespace rnn_vad
 }  // namespace webrtc

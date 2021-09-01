@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fbea37d_82cb5569",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-09-01T13:09:12Z",
+      "side": 1,
+      "message": "PTAL.",
+      "revId": "6d5b0459e43ef6cf922240a387cc1421f0c69a5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e88f015a_6a537221",
+        "filename": "pc/test/integration_test_helpers.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-09-01T13:09:12Z",
+      "side": 1,
+      "message": "Should this comment be deleted or rephrased? There\u0027s a set of different factory methods on the friend class PeerConnectionIntegrationBaseTest, all using the private constructor of this class.",
+      "range": {
+        "startLine": 217,
+        "startChar": 0,
+        "endLine": 223,
+        "endChar": 37
+      },
+      "revId": "6d5b0459e43ef6cf922240a387cc1421f0c69a5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

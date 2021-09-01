@@ -36,9 +36,6 @@ class RTC_EXPORT BasicPortAllocator : public PortAllocator {
                      rtc::PacketSocketFactory* socket_factory,
                      webrtc::TurnCustomizer* customizer = nullptr,
                      RelayPortFactoryInterface* relay_port_factory = nullptr);
-  explicit BasicPortAllocator(rtc::NetworkManager* network_manager);
-  BasicPortAllocator(rtc::NetworkManager* network_manager,
-                     const ServerAddresses& stun_servers);
   BasicPortAllocator(rtc::NetworkManager* network_manager,
                      rtc::PacketSocketFactory* socket_factory,
                      const ServerAddresses& stun_servers);
@@ -262,7 +259,6 @@ class RTC_EXPORT BasicPortAllocatorSession : public PortAllocatorSession {
 
   BasicPortAllocator* allocator_;
   rtc::Thread* network_thread_;
-  std::unique_ptr<rtc::PacketSocketFactory> owned_socket_factory_;
   rtc::PacketSocketFactory* socket_factory_;
   bool allocation_started_;
   bool network_manager_started_;

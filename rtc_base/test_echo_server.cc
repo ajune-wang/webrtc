@@ -10,13 +10,11 @@
 
 #include "rtc_base/test_echo_server.h"
 
-#include "rtc_base/socket_server.h"
-
 namespace rtc {
 
-TestEchoServer::TestEchoServer(Thread* thread, const SocketAddress& addr)
-    : server_socket_(
-          thread->socketserver()->CreateSocket(addr.family(), SOCK_STREAM)) {
+TestEchoServer::TestEchoServer(SocketFactory* socket_factory,
+                               const SocketAddress& addr)
+    : server_socket_(socket_factory->CreateSocket(addr.family(), SOCK_STREAM)) {
   server_socket_->Bind(addr);
   server_socket_->Listen(5);
   server_socket_->SignalReadEvent.connect(this, &TestEchoServer::OnAccept);

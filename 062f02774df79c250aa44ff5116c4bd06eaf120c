@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "38987dd4_09ee9546",
+        "filename": "logging/rtc_event_log/events/rtc_event_field_extraction.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-09-01T07:33:01Z",
+      "side": 1,
+      "message": "Seems like you have bit_mask as input instead, is this runtime variant, maybe using a template argument \u003cwidth\u003e would make sense?",
+      "range": {
+        "startLine": 92,
+        "startChar": 34,
+        "endLine": 92,
+        "endChar": 39
+      },
+      "revId": "062f02774df79c250aa44ff5116c4bd06eaf120c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ac58cb3d_3916c5e9",
         "filename": "logging/rtc_event_log/events/rtc_event_field_extraction.h",
         "patchSetId": 7

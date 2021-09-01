@@ -16,6 +16,23 @@
       "message": "I\u0027m trying to reland this change, which failed when rolling into chromiun on:\nERROR at //third_party/webrtc/modules/desktop_capture/linux/egl_dmabuf.cc:26:11: Include not allowed.\n#include \"rtc_base/sanitizer.h\"\n          ^-------------------\nIt is not in any dependency of\n  //third_party/webrtc/modules/desktop_capture:desktop_capture_generic\nThe include file is in the target(s):\n  //third_party/webrtc/rtc_base:sanitizer\nwhich should somehow be reachable.\n\n\nThe addition which should fix this is in BUILD.gn:\n+  deps +\u003d [ \"../../rtc_base:sanitizer\" ]",
       "revId": "e8d2a7571f9143af5f9a244edbdd71b93a2d7fb3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7da74d0a_948bc095",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-09-01T13:52:12Z",
+      "side": 1,
+      "message": "is the diff of addressing the problem in any of the patch sets?\n(usually when reverting+fixing, we upload the original patch set first, then the fix, so that the diff is easier to see)",
+      "revId": "e8d2a7571f9143af5f9a244edbdd71b93a2d7fb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

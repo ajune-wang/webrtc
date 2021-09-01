@@ -65,6 +65,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d62ae25_6046ed24",
+        "filename": "api/video_codecs/spatial_layer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-09-01T13:59:55Z",
+      "side": 1,
+      "message": "Right. Still not really a fan of the string representation as a whole. Since it\u0027s a string straight from the internets I would feel better if we had strict parsing in one place and translate to a known support type, where mapping to layers counts is easier.\nRight now we\u0027re ok with e.g. \"LWT3XHUFE\" parsing ok as 3. Might not be an issues per say but the more places we add with string parsing...\n\nI don\u0027t want to delay this feature unnecessarily though.",
+      "parentUuid": "efd6c1b6_a17aea77",
+      "range": {
+        "startLine": 29,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 3
+      },
+      "revId": "c3093d766aff99c6eb9416a7532bf118f1c92d1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "74ea97e5_f6eff3e5",
@@ -160,6 +184,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a77404b5_a23eb6a0",
+        "filename": "media/engine/internal_encoder_factory.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-09-01T13:59:55Z",
+      "side": 1,
+      "message": "Ah, missed that. Why delay it?",
+      "parentUuid": "c9c7442a_9936b472",
+      "range": {
+        "startLine": 74,
+        "startChar": 31,
+        "endLine": 75,
+        "endChar": 37
+      },
+      "revId": "c3093d766aff99c6eb9416a7532bf118f1c92d1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "53dedf8c_8d9147bf",
         "filename": "media/engine/internal_encoder_factory.cc",
         "patchSetId": 10
@@ -194,6 +242,24 @@
       "writtenOn": "2021-09-01T13:28:43Z",
       "side": 1,
       "message": "Our h264 encoder supports simulcast..?",
+      "revId": "c3093d766aff99c6eb9416a7532bf118f1c92d1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce25dc68_80b86f52",
+        "filename": "media/engine/internal_encoder_factory.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-09-01T13:59:55Z",
+      "side": 1,
+      "message": "...and temporal layers which is what matters according to comment below :)",
+      "parentUuid": "018f8844_ab85da82",
       "revId": "c3093d766aff99c6eb9416a7532bf118f1c92d1a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -235,6 +301,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b7744cd5_32d9d869",
+        "filename": "media/engine/internal_encoder_factory.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-09-01T13:59:55Z",
+      "side": 1,
+      "message": "Sorry, meant the S?T? ones. Ah, that\u0027s the distinction. So VP8 is included just for temporal layer support?",
+      "parentUuid": "b2d68018_fbfffa85",
+      "revId": "c3093d766aff99c6eb9416a7532bf118f1c92d1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "21580a86_1d4f58c6",
         "filename": "media/engine/internal_encoder_factory.h",
         "patchSetId": 10
@@ -270,6 +354,30 @@
       "side": 1,
       "message": "probably not: the input string comes all the way from js api.",
       "parentUuid": "21580a86_1d4f58c6",
+      "range": {
+        "startLine": 32,
+        "startChar": 6,
+        "endLine": 32,
+        "endChar": 50
+      },
+      "revId": "c3093d766aff99c6eb9416a7532bf118f1c92d1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af398b1c_490a884e",
+        "filename": "media/engine/internal_encoder_factory.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-09-01T13:59:55Z",
+      "side": 1,
+      "message": "Imo all the more reason to translate it in one place, as close to js as possible.\nBut I see that might be out of scope here. Something to add to the refactoring backlog maybe.",
+      "parentUuid": "edf6d31c_a41b135a",
       "range": {
         "startLine": 32,
         "startChar": 6,

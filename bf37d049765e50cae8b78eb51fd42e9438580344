@@ -75,6 +75,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e0f67fe_b4334a32",
+        "filename": "call/rtp_payload_params.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-09-01T13:22:03Z",
+      "side": 1,
+      "message": "Updated the comment and added DCECK",
+      "parentUuid": "60387989_dee4d2c6",
+      "range": {
+        "startLine": 46,
+        "startChar": 58,
+        "endLine": 47,
+        "endChar": 20
+      },
+      "revId": "bf37d049765e50cae8b78eb51fd42e9438580344",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d6a9610c_fa0c7980",
@@ -88,6 +112,30 @@
       "writtenOn": "2021-09-01T09:34:51Z",
       "side": 1,
       "message": "Could you come up with a more descriptive name? Maybe NoStructure, if the main feature of this method is that it doesn\u0027t specify any particular structure ;-)",
+      "range": {
+        "startLine": 50,
+        "startChar": 34,
+        "endLine": 50,
+        "endChar": 55
+      },
+      "revId": "bf37d049765e50cae8b78eb51fd42e9438580344",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a6a36cf_55efbeec",
+        "filename": "call/rtp_payload_params.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-09-01T13:22:03Z",
+      "side": 1,
+      "message": "The structure generated is minimal in the sense that it has enough templates to support the number of temporal and spatial layers specified. The templates generated also is also similar to the commonly used simulcast structure (which will hopefully save some bits on the wire). There is a structure, but other structures are supported too (but require some more overhead).",
+      "parentUuid": "d6a9610c_fa0c7980",
       "range": {
         "startLine": 50,
         "startChar": 34,

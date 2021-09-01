@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "efd6c1b6_a17aea77",
+        "filename": "api/video_codecs/spatial_layer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-01T13:38:14Z",
+      "side": 1,
+      "message": "there is also check `scalability_mode[1] \u003c\u003d \u00273\u0027` to avoid too large values of the spatial_id.\n\nproblem with known fixed strings is that that list need to be kept up to date with the scalability modes we support.\nCurrent expression (cheap regexp) cover them all and also future modes that would use same or similar naming scheme.",
+      "parentUuid": "de9d4b22_adb2ff7a",
+      "range": {
+        "startLine": 29,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 3
+      },
+      "revId": "c3093d766aff99c6eb9416a7532bf118f1c92d1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "74ea97e5_f6eff3e5",
         "filename": "media/engine/internal_decoder_factory_unittest.cc",
         "patchSetId": 10
@@ -112,6 +136,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c9c7442a_9936b472",
+        "filename": "media/engine/internal_encoder_factory.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-01T13:38:14Z",
+      "side": 1,
+      "message": "There is a TODO few lines above for exactly that.",
+      "parentUuid": "9901af23_d9de53cd",
+      "range": {
+        "startLine": 74,
+        "startChar": 31,
+        "endLine": 75,
+        "endChar": 37
+      },
+      "revId": "c3093d766aff99c6eb9416a7532bf118f1c92d1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "53dedf8c_8d9147bf",
         "filename": "media/engine/internal_encoder_factory.cc",
         "patchSetId": 10
@@ -169,6 +217,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b2d68018_fbfffa85",
+        "filename": "media/engine/internal_encoder_factory.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-01T13:38:14Z",
+      "side": 1,
+      "message": "L?T? are full svc modes.\nS?T? are simulcast over _same_ ssrc modes.\nscalability mode doesn\u0027t describe simulcast over _multiple_ ssrcs (there should be scalability mode per ssrc)",
+      "parentUuid": "c2fccfdb_0573df15",
+      "revId": "c3093d766aff99c6eb9416a7532bf118f1c92d1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "21580a86_1d4f58c6",
         "filename": "media/engine/internal_encoder_factory.h",
         "patchSetId": 10
@@ -180,6 +246,30 @@
       "writtenOn": "2021-09-01T13:28:43Z",
       "side": 1,
       "message": "Could this be an enum instead, e.g. media/base/svc_scalability_mode.h ?",
+      "range": {
+        "startLine": 32,
+        "startChar": 6,
+        "endLine": 32,
+        "endChar": 50
+      },
+      "revId": "c3093d766aff99c6eb9416a7532bf118f1c92d1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edf6d31c_a41b135a",
+        "filename": "media/engine/internal_encoder_factory.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-01T13:38:14Z",
+      "side": 1,
+      "message": "probably not: the input string comes all the way from js api.",
+      "parentUuid": "21580a86_1d4f58c6",
       "range": {
         "startLine": 32,
         "startChar": 6,

@@ -34,6 +34,24 @@
       "parentUuid": "083cc866_1ae33f73",
       "revId": "c2c2032f190d0dd20fdee0dc834e7d83b1a7b96e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80d1dc50_aace68a1",
+        "filename": "video/alignment_adjuster.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-09-01T12:51:45Z",
+      "side": 1,
+      "message": "Yes, exactly. Instead of multiplying by 2^(size-1) we multiply by the highest possible power, without exceeding the kMaxAlignment.\n\nThat might be a better comment, actually.",
+      "parentUuid": "fd273f58_209bd445",
+      "revId": "c2c2032f190d0dd20fdee0dc834e7d83b1a7b96e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

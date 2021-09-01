@@ -89,6 +89,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c85eb5ca_3d83487d",
+        "filename": "api/video_codecs/spatial_layer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-01T14:42:42Z",
+      "side": 1,
+      "message": "in \"LWT3XHUFE\"\nscalability_mode[1] \u003d\u003d \u0027W\u0027 which is larger than \u00273\u0027.\nbut for the strings\n\"L3T3_SCREENSHARE\u0027 or \"L3T1T1T3\" this function would return 3 spatial layers.\n\n\u0027proper\u0027 solution is do something like\nauto svc_controller \u003d CreateScalabilityStructure(scalability_mode);\nif (!svc_controller) return absl::nullopt;\nreturn svc_controller-\u003eStreamConfig().num_spatial_layers;\n\nbut that seems a bit heavy to me.",
+      "parentUuid": "2d62ae25_6046ed24",
+      "range": {
+        "startLine": 29,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 3
+      },
+      "revId": "c3093d766aff99c6eb9416a7532bf118f1c92d1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "74ea97e5_f6eff3e5",

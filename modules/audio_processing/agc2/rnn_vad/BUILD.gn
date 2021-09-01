@@ -199,6 +199,7 @@ rtc_library("rnn_vad_spectral_features") {
     ":rnn_vad_symmetric_matrix_buffer",
     "../../../../api:array_view",
     "../../../../rtc_base:checks",
+    "../../../../rtc_base:macromagic",
     "../../../../rtc_base:safe_compare",
     "../../utility:pffft_wrapper",
   ]

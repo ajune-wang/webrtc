@@ -63,11 +63,9 @@ class SpectralFeaturesExtractor {
   std::unique_ptr<Pffft::FloatBuffer> fft_buffer_;
   std::unique_ptr<Pffft::FloatBuffer> reference_frame_fft_;
   std::unique_ptr<Pffft::FloatBuffer> lagged_frame_fft_;
-  SpectralCorrelator spectral_correlator_;
   std::array<float, kOpusBands24kHz> reference_frame_bands_energy_;
   std::array<float, kOpusBands24kHz> lagged_frame_bands_energy_;
   std::array<float, kOpusBands24kHz> bands_cross_corr_;
-  const std::array<float, kNumBands * kNumBands> dct_table_;
   RingBuffer<float, kNumBands, kCepstralCoeffsHistorySize>
       cepstral_coeffs_ring_buf_;
   SymmetricMatrixBuffer<float, kCepstralCoeffsHistorySize> cepstral_diffs_buf_;

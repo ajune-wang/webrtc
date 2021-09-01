@@ -48,7 +48,7 @@ void UpdateCepstralDifferenceStats(
 
 // Computes the first half of the Vorbis window.
 std::array<float, kFrameSize20ms24kHz / 2> ComputeScaledHalfVorbisWindow(
-    float scaling = 1.f) {
+    float scaling = 1.0f) {
   constexpr int kHalfSize = kFrameSize20ms24kHz / 2;
   std::array<float, kHalfSize> half_window{};
   for (int i = 0; i < kHalfSize; ++i) {
@@ -80,7 +80,13 @@ void ComputeWindowedForwardFft(
   fft->ForwardTransform(*fft_input_buffer, fft_output_buffer, /*ordered=*/true);
   // Set the Nyquist frequency coefficient to zero.
   auto out = fft_output_buffer->GetView();
-  out[1] = 0.f;
+  out[1] = 0.0f;
+}
+
+void ComputeSpectralAutoCorrelation(
+    rtc::ArrayView<const float> x,
+    rtc::ArrayView<float, kOpusBands24kHz> auto_correlation) {
+  ComputeSpectralCrossCorrelation(x, x, auto_correlation);
 }
 
 }  // namespace
@@ -91,8 +97,7 @@ SpectralFeaturesExtractor::SpectralFeaturesExtractor()
       fft_(kFrameSize20ms24kHz, Pffft::FftType::kReal),
       fft_buffer_(fft_.CreateBuffer()),
       reference_frame_fft_(fft_.CreateBuffer()),
-      lagged_frame_fft_(fft_.CreateBuffer()),
-      dct_table_(ComputeDctTable()) {}
+      lagged_frame_fft_(fft_.CreateBuffer()) {}
 
 SpectralFeaturesExtractor::~SpectralFeaturesExtractor() = default;
 
@@ -113,30 +118,30 @@ bool SpectralFeaturesExtractor::CheckSilenceComputeFeatures(
   // Compute the Opus band energies for the reference frame.
   ComputeWindowedForwardFft(reference_frame, half_window_, fft_buffer_.get(),
                             reference_frame_fft_.get(), &fft_);
-  spectral_correlator_.ComputeAutoCorrelation(
-      reference_frame_fft_->GetConstView(), reference_frame_bands_energy_);
+  ComputeSpectralAutoCorrelation(reference_frame_fft_->GetConstView(),
+                                 reference_frame_bands_energy_);
   // Check if the reference frame has silence.
   const float tot_energy =
       std::accumulate(reference_frame_bands_energy_.begin(),
-                      reference_frame_bands_energy_.end(), 0.f);
+                      reference_frame_bands_energy_.end(), 0.0f);
   if (tot_energy < kSilenceThreshold) {
     return true;
   }
   // Compute the Opus band energies for the lagged frame.
   ComputeWindowedForwardFft(lagged_frame, half_window_, fft_buffer_.get(),
                             lagged_frame_fft_.get(), &fft_);
-  spectral_correlator_.ComputeAutoCorrelation(lagged_frame_fft_->GetConstView(),
-                                              lagged_frame_bands_energy_);
+  ComputeSpectralAutoCorrelation(lagged_frame_fft_->GetConstView(),
+                                 lagged_frame_bands_energy_);
   // Log of the band energies for the reference frame.
   std::array<float, kNumBands> log_bands_energy;
   ComputeSmoothedLogMagnitudeSpectrum(reference_frame_bands_energy_,
                                       log_bands_energy);
   // Reference frame cepstrum.
   std::array<float, kNumBands> cepstrum;
-  ComputeDct(log_bands_energy, dct_table_, cepstrum);
+  ComputeDct(log_bands_energy, cepstrum);
   // Ad-hoc correction terms for the first two cepstral coefficients.
-  cepstrum[0] -= 12.f;
-  cepstrum[1] -= 4.f;
+  cepstrum[0] -= 12.0f;
+  cepstrum[1] -= 4.0f;
   // Update the ring buffer and the cepstral difference stats.
   cepstral_coeffs_ring_buf_.Push(cepstrum);
   UpdateCepstralDifferenceStats(cepstrum, cepstral_coeffs_ring_buf_,
@@ -175,9 +180,9 @@ void SpectralFeaturesExtractor::ComputeAvgAndDerivatives(
 
 void SpectralFeaturesExtractor::ComputeNormalizedCepstralCorrelation(
     rtc::ArrayView<float, kNumLowerBands> bands_cross_corr) {
-  spectral_correlator_.ComputeCrossCorrelation(
-      reference_frame_fft_->GetConstView(), lagged_frame_fft_->GetConstView(),
-      bands_cross_corr_);
+  ComputeSpectralCrossCorrelation(reference_frame_fft_->GetConstView(),
+                                  lagged_frame_fft_->GetConstView(),
+                                  bands_cross_corr_);
   // Normalize.
   for (int i = 0; rtc::SafeLt(i, bands_cross_corr_.size()); ++i) {
     bands_cross_corr_[i] =
@@ -186,7 +191,7 @@ void SpectralFeaturesExtractor::ComputeNormalizedCepstralCorrelation(
                                lagged_frame_bands_energy_[i]);
   }
   // Cepstrum.
-  ComputeDct(bands_cross_corr_, dct_table_, bands_cross_corr);
+  ComputeDct(bands_cross_corr_, bands_cross_corr);
   // Ad-hoc correction terms for the first two cepstral coefficients.
   bands_cross_corr[0] -= 1.3f;
   bands_cross_corr[1] -= 0.9f;

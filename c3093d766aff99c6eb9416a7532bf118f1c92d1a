@@ -16,6 +16,178 @@
       "message": "Thanks for the thorough review Danil!",
       "revId": "c3093d766aff99c6eb9416a7532bf118f1c92d1a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de9d4b22_adb2ff7a",
+        "filename": "api/video_codecs/spatial_layer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-09-01T13:28:43Z",
+      "side": 1,
+      "message": "This feels a bit fragile to me. Do we have guarantees on sanity of input? Otherwise eg scalability_mode[1] \u003e\u003d \u00271\u0027 could trigger on lots of different chars, and scalability_mode[1] - \u00270\u0027 could be way out of range too.\n\nUnless this method is designed to be called very often, I think I\u0027d prefer either just matching against the known fixed strings. Alternatively using something like sscanf or even a regexp and validating the layer counts.",
+      "range": {
+        "startLine": 29,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 3
+      },
+      "revId": "c3093d766aff99c6eb9416a7532bf118f1c92d1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74ea97e5_f6eff3e5",
+        "filename": "media/engine/internal_decoder_factory_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-09-01T13:28:43Z",
+      "side": 1,
+      "message": "nite: maybe comment what the parameters are",
+      "range": {
+        "startLine": 37,
+        "startChar": 58,
+        "endLine": 37,
+        "endChar": 69
+      },
+      "revId": "c3093d766aff99c6eb9416a7532bf118f1c92d1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa5a6c16_e5aab23c",
+        "filename": "media/engine/internal_encoder_factory.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-09-01T13:28:43Z",
+      "side": 1,
+      "message": "nit: a little misleading comment",
+      "range": {
+        "startLine": 66,
+        "startChar": 5,
+        "endLine": 66,
+        "endChar": 17
+      },
+      "revId": "c3093d766aff99c6eb9416a7532bf118f1c92d1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9901af23_d9de53cd",
+        "filename": "media/engine/internal_encoder_factory.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-09-01T13:28:43Z",
+      "side": 1,
+      "message": "Maybe it would be better to delegate this knowledge the the codec classes instead? E.g. something like:\nif (absl::EqualsIgnoreCase(format.name, cricket::kVp8CodecName))\n    return VP8Encoder::SupportsScalabilityMode(scalability_mode);\n\n...since I think the H264 format can support SVC, but our OpenH264 implementation does not. Maintaining that knowledge in the codec class instead of the factory seems easier to me.",
+      "range": {
+        "startLine": 74,
+        "startChar": 31,
+        "endLine": 75,
+        "endChar": 37
+      },
+      "revId": "c3093d766aff99c6eb9416a7532bf118f1c92d1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53dedf8c_8d9147bf",
+        "filename": "media/engine/internal_encoder_factory.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-09-01T13:28:43Z",
+      "side": 1,
+      "message": "nit: {/*is_supported\u003d*/false, /*is_power_efficient\u003d*/false} ?",
+      "range": {
+        "startLine": 77,
+        "startChar": 71,
+        "endLine": 77,
+        "endChar": 76
+      },
+      "revId": "c3093d766aff99c6eb9416a7532bf118f1c92d1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "018f8844_ab85da82",
+        "filename": "media/engine/internal_encoder_factory.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-09-01T13:28:43Z",
+      "side": 1,
+      "message": "Our h264 encoder supports simulcast..?",
+      "revId": "c3093d766aff99c6eb9416a7532bf118f1c92d1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2fccfdb_0573df15",
+        "filename": "media/engine/internal_encoder_factory.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-09-01T13:28:43Z",
+      "side": 1,
+      "message": "The L?T? modes (i.e. pure simulcast) are supported by vp8 and h264",
+      "revId": "c3093d766aff99c6eb9416a7532bf118f1c92d1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21580a86_1d4f58c6",
+        "filename": "media/engine/internal_encoder_factory.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-09-01T13:28:43Z",
+      "side": 1,
+      "message": "Could this be an enum instead, e.g. media/base/svc_scalability_mode.h ?",
+      "range": {
+        "startLine": 32,
+        "startChar": 6,
+        "endLine": 32,
+        "endChar": 50
+      },
+      "revId": "c3093d766aff99c6eb9416a7532bf118f1c92d1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

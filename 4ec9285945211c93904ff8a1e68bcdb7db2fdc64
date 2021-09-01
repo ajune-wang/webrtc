@@ -16,6 +16,40 @@
       "message": "LGTM, but I\u0027d like hta@ to check this as well.",
       "revId": "4ec9285945211c93904ff8a1e68bcdb7db2fdc64",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b7663bc_d827b775",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-09-01T12:15:10Z",
+      "side": 1,
+      "message": "I think we can be a little more conservative in handling this protocol violation. At least we can warn that it\u0027s happening.\n",
+      "revId": "4ec9285945211c93904ff8a1e68bcdb7db2fdc64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ee1793f_b9bf6ed2",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-09-01T12:15:10Z",
+      "side": 1,
+      "message": "I would prefer to keep the original logic except that instead of \"return false\", we do a LOG(ERROR) \u003c\u003c \"usrsctp is still messing up\" and \"return true\", with a comment in the source pointing to the bug filed on usrsctp.\n\nI agree that there\u0027s little chance of getting a third party ABORT into a DTLS session, but we should not be making the assumption that nobody will ever try to deploy dcSCTP without DTLS.",
+      "revId": "4ec9285945211c93904ff8a1e68bcdb7db2fdc64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

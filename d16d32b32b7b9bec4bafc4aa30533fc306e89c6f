@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70834095_ea813672",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-01T12:23:27Z",
+      "side": 1,
+      "message": "would your consider this an api change that require an announcement?\nor can it be landed now as a follow up cleanup.",
+      "revId": "d16d32b32b7b9bec4bafc4aa30533fc306e89c6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

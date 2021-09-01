@@ -70,6 +70,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa1f14a7_a94decd3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-09-01T13:27:29Z",
+      "side": 1,
+      "message": "Not clear why I have been asked to review.... but where\u0027s the logic that chooses either the bandwidth scaler or the QP scaler to be chosen?\n",
+      "revId": "83ec522c75c502e094effb32acf68551ef0ae8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "92106f96_8087fa4c",

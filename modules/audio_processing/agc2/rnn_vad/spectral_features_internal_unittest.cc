@@ -12,11 +12,13 @@
 
 #include <algorithm>
 #include <array>
+#include <cmath>
 #include <complex>
 #include <numeric>
 #include <vector>
 
 #include "api/array_view.h"
+#include "modules/audio_processing/agc2/rnn_vad/common.h"
 #include "modules/audio_processing/agc2/rnn_vad/test_utils.h"
 #include "modules/audio_processing/utility/pffft_wrapper.h"
 #include "rtc_base/numerics/safe_compare.h"
@@ -145,13 +147,29 @@ TEST(RnnVadTest, ComputeDctWithinTolerance) {
        -0.388507157564f, -0.032798115164f, 0.044605545700f,  0.112466648221f,
        -0.050096966326f, 0.045971218497f,  -0.029815061018f, -0.410366982222f,
        -0.209233760834f, -0.128037497401f}};
-  auto dct_table = ComputeDctTable();
   std::array<float, kNumBands> computed_output;
   {
     // TODO(bugs.webrtc.org/8948): Add when the issue is fixed.
     // FloatingPointExceptionObserver fpe_observer;
-    ComputeDct(input, dct_table, computed_output);
+    ComputeDct(input, computed_output);
     ExpectNearAbsolute(expected_output, computed_output, 1e-5f);
+  }
+}
+
+// Computes and prints the DCT table values to be hard-coded in
+// `spectral_features.cc`.
+TEST(RnnVadTest, DISABLED_ComputeDctTable) {
+  const float kDctScalingFactor = std::sqrt(2.0 / kNumBands);
+  std::array<float, kNumBands * kNumBands> dct_table;
+  const double k = std::sqrt(0.5);
+  for (int i = 0; i < kNumBands; ++i) {
+    for (int j = 0; j < kNumBands; ++j) {
+      dct_table[i * kNumBands + j] = std::cos((i + 0.5) * j * kPi / kNumBands);
+    }
+    dct_table[i * kNumBands] *= k;
+  }
+  for (float x : dct_table) {
+    printf("%.12ff, ", x * kDctScalingFactor);
   }
 }
 

@@ -69,6 +69,24 @@
       "parentUuid": "a21cd8e1_f54a539c",
       "revId": "ba45ca7075b2efaa0bf762b90286be0ef3786424",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2b096d4_fedac361",
+        "filename": "video/alignment_adjuster.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 18194
+      },
+      "writtenOn": "2021-09-01T08:15:58Z",
+      "side": 1,
+      "message": "I\u0027ve read your reply and understood original purpose of the function.\n\nAs you said, we have two options to break through the problems with value 16. However I think the second one needs some fixed threshold even if we use relative values to check closeness with the original scaling factors, and that fixed threshold may lead to another unexpected behavior.\n\nSo I\u0027d take the first option which adds additional if statement to check if requested_alignment is equal to kMaxAlignment.\n\nI apologize for some ambiguous comments which had let you feel complicated about the issue.",
+      "parentUuid": "800df0bc_ebe1f2d6",
+      "revId": "ba45ca7075b2efaa0bf762b90286be0ef3786424",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

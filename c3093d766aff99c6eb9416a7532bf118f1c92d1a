@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "307b71cf_bbea01a3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-09-02T10:50:10Z",
+      "side": 1,
+      "message": "Stating a strong opinion on how layer IDs should be handled....",
+      "revId": "c3093d766aff99c6eb9416a7532bf118f1c92d1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "de9d4b22_adb2ff7a",
@@ -172,6 +189,23 @@
         "endLine": 66,
         "endChar": 17
       },
+      "revId": "c3093d766aff99c6eb9416a7532bf118f1c92d1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6855fa3_e734d41d",
+        "filename": "media/engine/internal_encoder_factory.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-09-02T10:50:10Z",
+      "side": 1,
+      "message": "This is going to haunt you forever.\n\nIt is *much* better and more maintainable if you create a table here per codec with\n{\"NAME\", \"spatial layers\", \"temporal layers\", \"other info you need}\n\nand query that for number of layers when needed. ie:\n\n{kVideoCodecVP8, {\n  {\"L1T2\", 1, 2},\n  {\"L1T3\", 1, 3},\n}}\n\nOnce codecs support being queried for this info, you can delete your compiled-in table.\n\nScalability modes are user data and should not be trusted; if someone can cause interesting effects by passing you L9S7, they will. Matching them against an explicit supported list is *far* more maintainable.",
       "revId": "c3093d766aff99c6eb9416a7532bf118f1c92d1a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

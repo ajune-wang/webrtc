@@ -273,6 +273,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "db227eb3_9259ca2e",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-09-02T12:21:23Z",
+      "side": 1,
+      "message": "Ok, let\u0027s talk later in our meeting.\n\nI think we can land this one but please open a bug about removing the fact that 4 files have 2 targets owning them.",
+      "parentUuid": "f89bb99e_2cdd6273",
+      "range": {
+        "startLine": 273,
+        "startChar": 6,
+        "endLine": 274,
+        "endChar": 57
+      },
+      "revId": "e75324396febc1a3fcaec1e76ea2fa37b63a2a12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a55bce3a_c0758812",

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1b616fd_1c9f7602",
+        "filename": "video/alignment_adjuster.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2021-09-02T13:47:49Z",
+      "side": 1,
+      "message": "If the requested alignment is not needed on all layers, shouldn’t apply_alignment_to_all_simulcast_layers just be set to false?",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 3
+      },
+      "revId": "84d6a67547616204c52ece2c85fa722d0902a5d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

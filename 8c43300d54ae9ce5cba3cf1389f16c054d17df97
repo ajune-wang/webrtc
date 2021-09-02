@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8c7c10d8_c2de4ee6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-02T14:13:53Z",
+      "side": 1,
+      "message": "right now S2T1 and L2T1 return exactly the same config.\n\nSure, I can add new fields to the ScalableVideoController::StreamLayersConfig.\nbut I would like to understand the meaning of each new field.\n\nhow do you want to distinguish them?\nWhich bucket do you want _KEY structures be in?\n\nfor bandwidth allocation, _KEY structures are like \u0027simulcast\u0027,\nfor \u0027may_require_reference_scaling\u0027 - they are more like full svc.\nwhat about [future] screenshare structures where there will be dependencies between spatial layers, but all frames would have the same resolution?",
+      "parentUuid": "0e0c7198_736ffc36",
+      "revId": "8c43300d54ae9ce5cba3cf1389f16c054d17df97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1c2ca95b_4366feff",
         "filename": "modules/video_coding/svc/create_scalability_structure.cc",
         "patchSetId": 1
@@ -48,6 +66,54 @@
       "writtenOn": "2021-09-02T13:37:02Z",
       "side": 1,
       "message": "spatial",
+      "range": {
+        "startLine": 49,
+        "startChar": 10,
+        "endLine": 49,
+        "endChar": 18
+      },
+      "revId": "8c43300d54ae9ce5cba3cf1389f16c054d17df97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d005acd8_e4b0e548",
+        "filename": "modules/video_coding/svc/create_scalability_structure.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-02T14:13:53Z",
+      "side": 1,
+      "message": "oops, thank you! Done.",
+      "parentUuid": "1c2ca95b_4366feff",
+      "range": {
+        "startLine": 49,
+        "startChar": 10,
+        "endLine": 49,
+        "endChar": 18
+      },
+      "revId": "8c43300d54ae9ce5cba3cf1389f16c054d17df97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98db931b_db5e3386",
+        "filename": "modules/video_coding/svc/create_scalability_structure.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-02T14:13:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c2ca95b_4366feff",
       "range": {
         "startLine": 49,
         "startChar": 10,

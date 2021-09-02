@@ -27,14 +27,14 @@ Candidate::Candidate()
       network_cost_(0) {}
 
 Candidate::Candidate(int component,
-                     const std::string& protocol,
+                     absl::string_view protocol,
                      const rtc::SocketAddress& address,
                      uint32_t priority,
-                     const std::string& username,
-                     const std::string& password,
-                     const std::string& type,
+                     absl::string_view username,
+                     absl::string_view password,
+                     absl::string_view type,
                      uint32_t generation,
-                     const std::string& foundation,
+                     absl::string_view foundation,
                      uint16_t network_id,
                      uint16_t network_cost)
     : id_(rtc::CreateRandomString(8)),

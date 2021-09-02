@@ -232,7 +232,7 @@ size_t tokenize(const std::string& source,
   return tokenize_append(remain_source, delimiter, fields);
 }
 
-bool tokenize_first(const std::string& source,
+bool tokenize_first(absl::string_view source,
                     const char delimiter,
                     std::string* token,
                     std::string* rest) {
@@ -244,12 +244,12 @@ bool tokenize_first(const std::string& source,
 
   // Look for additional occurrances of delimiter.
   size_t right_pos = left_pos + 1;
-  while (source[right_pos] == delimiter) {
+  while (right_pos < source.size() && source[right_pos] == delimiter) {
     right_pos++;
   }
 
-  *token = source.substr(0, left_pos);
-  *rest = source.substr(right_pos);
+  *token = std::string(source.substr(0, left_pos));
+  *rest = std::string(source.substr(right_pos));
   return true;
 }
 
@@ -275,7 +275,7 @@ std::string join(const std::vector<std::string>& source, char delimiter) {
   return joined_string;
 }
 
-size_t split(const std::string& source,
+size_t split(absl::string_view source,
              char delimiter,
              std::vector<std::string>* fields) {
   RTC_DCHECK(fields);
@@ -283,11 +283,11 @@ size_t split(const std::string& source,
   size_t last = 0;
   for (size_t i = 0; i < source.length(); ++i) {
     if (source[i] == delimiter) {
-      fields->push_back(source.substr(last, i - last));
+      fields->emplace_back(source.substr(last, i - last));
       last = i + 1;
     }
   }
-  fields->push_back(source.substr(last, source.length() - last));
+  fields->emplace_back(source.substr(last));
   return fields->size();
 }
 

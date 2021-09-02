@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "01d71b7d_26d0bf5e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-02T13:02:15Z",
+      "side": 1,
+      "message": "would you find this function helpful for your\nhttps://webrtc-review.googlesource.com/c/src/+/222642\n\nthen instead of calling\nif (absl::optional\u003cint\u003e num_spatial_layers \u003d \n    NumSpatialLayersInScalabilityMode(scalability_mode)) { \n  DoSomething(num_spatial_layers);\n}\n\nyou could write \nif (auto svc_config \u003d ScalabilityStructureConfig(scalability_mode)) {\n  DoSomething(svc_config-\u003enum_spatial_layers);\n}\n\nAnd the way this function is implemented, it will be kept in sync with new scalability modes webrtc would support.\n",
+      "revId": "8c43300d54ae9ce5cba3cf1389f16c054d17df97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

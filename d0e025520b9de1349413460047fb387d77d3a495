@@ -16,6 +16,47 @@
       "message": " Joe, please +1 when Jamie approves (or review it yourself and +1) ?\n I\u0027m not sure what\u0027s going on with WebRTC committer permissions?\n ",
       "revId": "d0e025520b9de1349413460047fb387d77d3a495",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e350fc0_e417faff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13849
+      },
+      "writtenOn": "2021-09-02T21:26:04Z",
+      "side": 1,
+      "message": "My permissions are straightened out, my problem whic morning was due to an administrative issue that was sorted out when I raised the problems I was having.",
+      "parentUuid": "4f2ff39e_a013ef60",
+      "revId": "d0e025520b9de1349413460047fb387d77d3a495",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08e7fbad_dfa09089",
+        "filename": "modules/desktop_capture/linux/screen_capturer_x11.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 13849
+      },
+      "writtenOn": "2021-09-02T21:26:04Z",
+      "side": 1,
+      "message": "Would it make sense to call UpdateMonitors() inside ScreenConfigurationChanged()?\n\nIf anything triggers a Screen config change, should we also update the set of known monitors?",
+      "range": {
+        "startLine": 337,
+        "startChar": 4,
+        "endLine": 338,
+        "endChar": 21
+      },
+      "revId": "d0e025520b9de1349413460047fb387d77d3a495",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

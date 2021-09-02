@@ -52,6 +52,24 @@
       "parentUuid": "fd273f58_209bd445",
       "revId": "c2c2032f190d0dd20fdee0dc834e7d83b1a7b96e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42130a3f_64e083c6",
+        "filename": "video/alignment_adjuster.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 18194
+      },
+      "writtenOn": "2021-09-02T06:16:36Z",
+      "side": 1,
+      "message": "Ok. I\u0027ll apply the improvements to adjust the request_alignment to be the multiple of power of 2.",
+      "parentUuid": "80d1dc50_aace68a1",
+      "revId": "c2c2032f190d0dd20fdee0dc834e7d83b1a7b96e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

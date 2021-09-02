@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66f8186b_9dcb2803",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-09-02T20:11:09Z",
+      "side": 1,
+      "message": "Nice progress!",
+      "revId": "a2f5872f12a2bcc47e053328a4392ffedc2a560f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d70535c_08cd0421",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/HardwareVideoEncoderTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-09-02T20:11:09Z",
+      "side": 1,
+      "message": "This frame is not passed to encoder.",
+      "range": {
+        "startLine": 459,
+        "startChar": 4,
+        "endLine": 459,
+        "endChar": 9
+      },
+      "revId": "a2f5872f12a2bcc47e053328a4392ffedc2a560f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fca3883_63529a6a",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/HardwareVideoEncoderTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-09-02T20:11:09Z",
+      "side": 1,
+      "message": "Could you please test getEncoderInfo() as well?",
+      "revId": "a2f5872f12a2bcc47e053328a4392ffedc2a560f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "740f0479_587ed09f",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-09-02T20:11:09Z",
+      "side": 1,
+      "message": "This encoder produces single stream. It doesn\u0027t know anything about simulcast and should not require alignment for all layers (a SW encoder, which doesn\u0027t require alignment, can be used to encode other layer). We either need to remove this field from Java EncoderInfo or set it to \u003dfalse here.\n\nCan we have a logic in SimulcastEncoderAdapter that would sets apply_alignment_to_all_simulcast_layers based on requirements of underlaying encoders? apply_alignment_to_all_simulcast_layers should \u003dtrue if a lower layer encoder requires alignment.",
+      "range": {
+        "startLine": 511,
+        "startChar": 31,
+        "endLine": 511,
+        "endChar": 35
+      },
+      "revId": "a2f5872f12a2bcc47e053328a4392ffedc2a560f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73f91ded_9a7def53",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-09-02T20:11:09Z",
+      "side": 1,
+      "message": "/* requestedResolutionAlignment\u003d */ 16",
+      "range": {
+        "startLine": 511,
+        "startChar": 27,
+        "endLine": 511,
+        "endChar": 29
+      },
+      "revId": "a2f5872f12a2bcc47e053328a4392ffedc2a560f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -25,6 +25,7 @@
 #include <vector>
 
 #include "absl/algorithm/container.h"
+#include "absl/strings/numbers.h"
 #include "api/candidate.h"
 #include "api/crypto_params.h"
 #include "api/jsep_ice_candidate.h"
@@ -322,14 +323,14 @@ static bool ParseContent(
     TransportDescription* transport,
     std::vector<std::unique_ptr<JsepIceCandidate>>* candidates,
     SdpParseError* error);
-static bool ParseGroupAttribute(const std::string& line,
+static bool ParseGroupAttribute(absl::string_view line,
                                 cricket::SessionDescription* desc,
                                 SdpParseError* error);
-static bool ParseSsrcAttribute(const std::string& line,
+static bool ParseSsrcAttribute(absl::string_view,
                                SsrcInfoVec* ssrc_infos,
                                int* msid_signaling,
                                SdpParseError* error);
-static bool ParseSsrcGroupAttribute(const std::string& line,
+static bool ParseSsrcGroupAttribute(absl::string_view,
                                     SsrcGroupVec* ssrc_groups,
                                     SdpParseError* error);
 static bool ParseCryptoAttribute(const std::string& line,
@@ -655,6 +656,19 @@ static bool GetValueFromString(const std::string& line,
                                T* t,
                                SdpParseError* error) {
   if (!rtc::FromString(s, t)) {
+    rtc::StringBuilder description;
+    description << "Invalid value: " << s << ".";
+    return ParseFailed(line, description.Release(), error);
+  }
+  return true;
+}
+
+template <class T>
+static bool GetValueFromString(absl::string_view line,
+                               absl::string_view s,
+                               T* t,
+                               SdpParseError* error) {
+  if (!absl::SimpleAtoi(s, t)) {
     rtc::StringBuilder description;
     description << "Invalid value: " << s << ".";
     return ParseFailed(line, description.Release(), error);
@@ -2267,7 +2281,7 @@ bool ParseSessionDescription(const std::string& message,
   return true;
 }
 
-bool ParseGroupAttribute(const std::string& line,
+bool ParseGroupAttribute(absl::string_view line,
                          cricket::SessionDescription* desc,
                          SdpParseError* error) {
   RTC_DCHECK(desc != NULL);
@@ -3393,7 +3407,7 @@ bool ParseContent(const std::string& message,
   return true;
 }
 
-bool ParseSsrcAttribute(const std::string& line,
+bool ParseSsrcAttribute(absl::string_view line,
                         SsrcInfoVec* ssrc_infos,
                         int* msid_signaling,
                         SdpParseError* error) {
@@ -3473,7 +3487,7 @@ bool ParseSsrcAttribute(const std::string& line,
   return true;
 }
 
-bool ParseSsrcGroupAttribute(const std::string& line,
+bool ParseSsrcGroupAttribute(absl::string_view line,
                              SsrcGroupVec* ssrc_groups,
                              SdpParseError* error) {
   RTC_DCHECK(ssrc_groups != NULL);

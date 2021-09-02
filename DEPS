@@ -2661,6 +2661,7 @@ include_rules = [
   "+absl/numeric/bits.h",
   "+absl/strings/ascii.h",
   "+absl/strings/match.h",
+  "+absl/strings/numbers.h",
   "+absl/strings/str_replace.h",
   "+absl/strings/string_view.h",
   "+absl/types/optional.h",

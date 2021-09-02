@@ -51,6 +51,24 @@
       "parentUuid": "7da74d0a_948bc095",
       "revId": "e8d2a7571f9143af5f9a244edbdd71b93a2d7fb3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b58452f7_11f50599",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-09-02T07:56:11Z",
+      "side": 1,
+      "message": "The change fixing the Chrome roll is now in a separate patchset.",
+      "parentUuid": "73201bd2_5c0ab78b",
+      "revId": "e8d2a7571f9143af5f9a244edbdd71b93a2d7fb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

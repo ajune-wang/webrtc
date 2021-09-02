@@ -16,6 +16,46 @@
       "message": "would you find this function helpful for your\nhttps://webrtc-review.googlesource.com/c/src/+/222642\n\nthen instead of calling\nif (absl::optional\u003cint\u003e num_spatial_layers \u003d \n    NumSpatialLayersInScalabilityMode(scalability_mode)) { \n  DoSomething(num_spatial_layers);\n}\n\nyou could write \nif (auto svc_config \u003d ScalabilityStructureConfig(scalability_mode)) {\n  DoSomething(svc_config-\u003enum_spatial_layers);\n}\n\nAnd the way this function is implemented, it will be kept in sync with new scalability modes webrtc would support.\n",
       "revId": "8c43300d54ae9ce5cba3cf1389f16c054d17df97",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e0c7198_736ffc36",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-09-02T13:37:02Z",
+      "side": 1,
+      "message": "Thanks! I think that this will be really useful.\n\nWhat do you think of adding either bool simulcast or int num_dependent_spatial_layers to StreamLayersConfig to make it possible to distinguish between simulcast and dependent spatial layers? For example, S2T1 vs L2T1.\n\nOr is there any other way to tell them apart?",
+      "revId": "8c43300d54ae9ce5cba3cf1389f16c054d17df97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c2ca95b_4366feff",
+        "filename": "modules/video_coding/svc/create_scalability_structure.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-09-02T13:37:02Z",
+      "side": 1,
+      "message": "spatial",
+      "range": {
+        "startLine": 49,
+        "startChar": 10,
+        "endLine": 49,
+        "endChar": 18
+      },
+      "revId": "8c43300d54ae9ce5cba3cf1389f16c054d17df97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

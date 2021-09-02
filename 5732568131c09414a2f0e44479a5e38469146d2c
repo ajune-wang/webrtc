@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ecceea0_8880ff7e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6092
+      },
+      "writtenOn": "2021-09-02T07:01:06Z",
+      "side": 1,
+      "message": "Patchset #2 only logs in debug builds - I was concerned that it might be spammy in release builds (in other apps as well as CRD).",
+      "revId": "5732568131c09414a2f0e44479a5e38469146d2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

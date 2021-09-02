@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "215515ed_2943240e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-09-02T10:11:05Z",
+      "side": 1,
+      "message": "Thanks for all feedback!\n\nIt\u0027s a bit unclear to me what modes are supported on especially the encode side, so I\u0027ll create a small doc just to the list the supported modes for each codec and encoder/decoder.\n",
+      "revId": "c3093d766aff99c6eb9416a7532bf118f1c92d1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "de9d4b22_adb2ff7a",

@@ -22,6 +22,30 @@
       },
       "revId": "84d6a67547616204c52ece2c85fa722d0902a5d8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9dce8798_6503795e",
+        "filename": "video/alignment_adjuster.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 18194
+      },
+      "writtenOn": "2021-09-03T06:32:37Z",
+      "side": 1,
+      "message": "We\u0027ve reached this line because |apply_alignment_to_all_simulcast_layers| was true.\n\nHowever, after the if statement, the function just returns with the original |requested_alignment| and bypasses all the adjustments on scaling factors. \n\nI\u0027m wondering if you just want to modify the  |apply_alignment_to_all_simulcast_layers| to false since we don\u0027t go further to apply alignment to all the layers.\n\nAm I right?",
+      "parentUuid": "b1b616fd_1c9f7602",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 3
+      },
+      "revId": "84d6a67547616204c52ece2c85fa722d0902a5d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

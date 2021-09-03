@@ -147,6 +147,7 @@ class BasicPortAllocatorTestBase : public ::testing::Test,
   BasicPortAllocatorTestBase()
       : vss_(new rtc::VirtualSocketServer()),
         fss_(new rtc::FirewallSocketServer(vss_.get())),
+        packet_socket_factory_(vss_.get()),
         thread_(fss_.get()),
         // Note that the NAT is not used by default. ResetWithStunServerAndNat
         // must be called.
@@ -470,7 +471,8 @@ class BasicPortAllocatorTestBase : public ::testing::Test,
           rtc::NAT_OPEN_CONE, vss_.get(), kNatUdpAddr, kNatTcpAddr, vss_.get(),
           rtc::SocketAddress(kNatUdpAddr.ipaddr(), 0)));
     } else {
-      nat_socket_factory_.reset(new rtc::BasicPacketSocketFactory());
+      nat_socket_factory_ =
+          std::make_unique<rtc::BasicPacketSocketFactory>(fss_.get());
     }
 
     ServerAddresses stun_servers;
@@ -485,6 +487,7 @@ class BasicPortAllocatorTestBase : public ::testing::Test,
 
   std::unique_ptr<rtc::VirtualSocketServer> vss_;
   std::unique_ptr<rtc::FirewallSocketServer> fss_;
+  rtc::BasicPacketSocketFactory packet_socket_factory_;
   rtc::AutoSocketServerThread thread_;
   std::unique_ptr<rtc::NATServer> nat_server_;
   rtc::NATSocketFactory nat_factory_;

@@ -16,6 +16,24 @@
       "message": "Adding Thomas and Dirk to give some advice about how to reland this CL (since this seems to be a sysroot related thing).",
       "revId": "4d6a76d7815830f11a9ca9898f1aeaaa64591ebb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01fa3564_46109cf7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7254
+      },
+      "writtenOn": "2021-09-03T20:59:16Z",
+      "side": 1,
+      "message": "This is unrelated to the sysroot.  The issue is a new binary dependency (libepoxy) is added.  Though I can\u0027t see any references to epoxy in the code.  Is it possible to remove //modules/desktop_capture:expoy altogether?",
+      "parentUuid": "6a740b66_bfc8e8f4",
+      "revId": "4d6a76d7815830f11a9ca9898f1aeaaa64591ebb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

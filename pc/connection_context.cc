@@ -17,6 +17,7 @@
 #include "api/transport/field_trial_based_config.h"
 #include "media/sctp/sctp_transport_factory.h"
 #include "rtc_base/helpers.h"
+#include "rtc_base/internal/default_socket_server.h"
 #include "rtc_base/task_utils/to_queued_task.h"
 #include "rtc_base/time_utils.h"
 
@@ -26,13 +27,14 @@ namespace {
 
 rtc::Thread* MaybeStartThread(rtc::Thread* old_thread,
                               const std::string& thread_name,
-                              bool with_socket_server,
+                              rtc::SocketServer* socket_server,
                               std::unique_ptr<rtc::Thread>& thread_holder) {
   if (old_thread) {
     return old_thread;
   }
-  if (with_socket_server) {
-    thread_holder = rtc::Thread::CreateWithSocketServer();
+  if (socket_server) {
+    // SocketServer ownership kept in this class.
+    thread_holder = std::make_unique<rtc::Thread>(socket_server);
   } else {
     thread_holder = rtc::Thread::Create();
   }
@@ -80,13 +82,14 @@ rtc::scoped_refptr<ConnectionContext> ConnectionContext::Create(
 
 ConnectionContext::ConnectionContext(
     PeerConnectionFactoryDependencies* dependencies)
-    : network_thread_(MaybeStartThread(dependencies->network_thread,
+    : socket_server_(rtc::CreateDefaultSocketServer()),
+      network_thread_(MaybeStartThread(dependencies->network_thread,
                                        "pc_network_thread",
-                                       true,
+                                       socket_server_.get(),
                                        owned_network_thread_)),
       worker_thread_(MaybeStartThread(dependencies->worker_thread,
                                       "pc_worker_thread",
-                                      false,
+                                      nullptr,
                                       owned_worker_thread_)),
       signaling_thread_(MaybeWrapThread(dependencies->signaling_thread,
                                         wraps_current_thread_)),
@@ -122,7 +125,7 @@ ConnectionContext::ConnectionContext(
       network_monitor_factory_.get());
 
   default_socket_factory_ =
-      std::make_unique<rtc::BasicPacketSocketFactory>(network_thread());
+      std::make_unique<rtc::BasicPacketSocketFactory>(socket_server_.get());
 
   worker_thread_->Invoke<void>(RTC_FROM_HERE, [&]() {
     channel_manager_ = cricket::ChannelManager::Create(

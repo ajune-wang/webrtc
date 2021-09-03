@@ -23,7 +23,6 @@ class Thread;
 
 class BasicPacketSocketFactory : public PacketSocketFactory {
  public:
-  explicit BasicPacketSocketFactory(Thread* thread);
   explicit BasicPacketSocketFactory(SocketFactory* socket_factory);
   ~BasicPacketSocketFactory() override;
 
@@ -51,7 +50,6 @@ class BasicPacketSocketFactory : public PacketSocketFactory {
 
   SocketFactory* socket_factory();
 
-  Thread* thread_;
   SocketFactory* socket_factory_;
 };
 

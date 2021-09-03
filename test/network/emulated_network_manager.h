@@ -50,6 +50,9 @@ class EmulatedNetworkManager : public rtc::NetworkManagerBase,
   // EmulatedNetworkManagerInterface API
   rtc::Thread* network_thread() override { return network_thread_.get(); }
   rtc::NetworkManager* network_manager() override { return this; }
+  rtc::PacketSocketFactory* packet_socket_factory() override {
+    return packet_socket_factory_.get();
+  }
   std::vector<EmulatedEndpoint*> endpoints() const override {
     return endpoints_container_->GetEndpoints();
   }
@@ -63,7 +66,7 @@ class EmulatedNetworkManager : public rtc::NetworkManagerBase,
   TaskQueueForTest* const task_queue_;
   const EndpointsContainer* const endpoints_container_;
   std::unique_ptr<rtc::Thread> network_thread_;
-
+  std::unique_ptr<rtc::PacketSocketFactory> packet_socket_factory_;
   bool sent_first_update_ RTC_GUARDED_BY(network_thread_);
   int start_count_ RTC_GUARDED_BY(network_thread_);
 };

@@ -221,25 +221,6 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
   //     WrapperBuilder.WithConfig(...).WithOptions(...).build();
   //
   // To reduce some code duplication.
-  static PeerConnectionIntegrationWrapper* CreateWithDtlsIdentityStore(
-      const std::string& debug_name,
-      std::unique_ptr<rtc::RTCCertificateGeneratorInterface> cert_generator,
-      rtc::Thread* network_thread,
-      rtc::Thread* worker_thread) {
-    PeerConnectionIntegrationWrapper* client(
-        new PeerConnectionIntegrationWrapper(debug_name));
-    webrtc::PeerConnectionDependencies dependencies(nullptr);
-    dependencies.cert_generator = std::move(cert_generator);
-    if (!client->Init(nullptr, nullptr, std::move(dependencies), network_thread,
-                      worker_thread, nullptr,
-                      /*reset_encoder_factory=*/false,
-                      /*reset_decoder_factory=*/false)) {
-      delete client;
-      return nullptr;
-    }
-    return client;
-  }
-
   webrtc::PeerConnectionFactoryInterface* pc_factory() const {
     return peer_connection_factory_.get();
   }
@@ -717,6 +698,7 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
   bool Init(const PeerConnectionFactory::Options* options,
             const PeerConnectionInterface::RTCConfiguration* config,
             webrtc::PeerConnectionDependencies dependencies,
+            rtc::PacketSocketFactory* socket_factory,
             rtc::Thread* network_thread,
             rtc::Thread* worker_thread,
             std::unique_ptr<webrtc::FakeRtcEventLogFactory> event_log_factory,
@@ -730,7 +712,8 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
     fake_network_manager_->AddInterface(kDefaultLocalAddress);
 
     std::unique_ptr<cricket::PortAllocator> port_allocator(
-        new cricket::BasicPortAllocator(fake_network_manager_.get()));
+        new cricket::BasicPortAllocator(fake_network_manager_.get(),
+                                        socket_factory));
     port_allocator_ = port_allocator.get();
     fake_audio_capture_module_ = FakeAudioCaptureModule::Create();
     if (!fake_audio_capture_module_) {
@@ -1348,6 +1331,7 @@ class PeerConnectionIntegrationBaseTest : public ::testing::Test {
       : sdp_semantics_(sdp_semantics),
         ss_(new rtc::VirtualSocketServer()),
         fss_(new rtc::FirewallSocketServer(ss_.get())),
+        packet_socket_factory_(fss_.get()),
         network_thread_(new rtc::Thread(fss_.get())),
         worker_thread_(rtc::Thread::Create()),
         field_trials_(field_trials.has_value()
@@ -1426,9 +1410,9 @@ class PeerConnectionIntegrationBaseTest : public ::testing::Test {
         new PeerConnectionIntegrationWrapper(debug_name));
 
     if (!client->Init(options, &modified_config, std::move(dependencies),
-                      network_thread_.get(), worker_thread_.get(),
-                      std::move(event_log_factory), reset_encoder_factory,
-                      reset_decoder_factory)) {
+                      &packet_socket_factory_, network_thread_.get(),
+                      worker_thread_.get(), std::move(event_log_factory),
+                      reset_encoder_factory, reset_decoder_factory)) {
       return nullptr;
     }
     return client;
@@ -1573,12 +1557,14 @@ class PeerConnectionIntegrationBaseTest : public ::testing::Test {
       cricket::ProtocolType type = cricket::ProtocolType::PROTO_UDP,
       const std::string& common_name = "test turn server") {
     rtc::Thread* thread = network_thread();
+    rtc::SocketFactory* socket_factory = fss_.get();
     std::unique_ptr<cricket::TestTurnServer> turn_server =
         network_thread()->Invoke<std::unique_ptr<cricket::TestTurnServer>>(
-            RTC_FROM_HERE,
-            [thread, internal_address, external_address, type, common_name] {
+            RTC_FROM_HERE, [thread, socket_factory, internal_address,
+                            external_address, type, common_name] {
               return std::make_unique<cricket::TestTurnServer>(
-                  thread, internal_address, external_address, type,
+                  thread, socket_factory, internal_address, external_address,
+                  type,
                   /*ignore_bad_certs=*/true, common_name);
             });
     turn_servers_.push_back(std::move(turn_server));
@@ -1844,6 +1830,7 @@ class PeerConnectionIntegrationBaseTest : public ::testing::Test {
   // `ss_` is used by `network_thread_` so it must be destroyed later.
   std::unique_ptr<rtc::VirtualSocketServer> ss_;
   std::unique_ptr<rtc::FirewallSocketServer> fss_;
+  rtc::BasicPacketSocketFactory packet_socket_factory_;
   // `network_thread_` and `worker_thread_` are used by both
   // `caller_` and `callee_` so they must be destroyed
   // later.

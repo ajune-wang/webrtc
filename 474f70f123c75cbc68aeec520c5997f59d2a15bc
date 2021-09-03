@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "328c8da0_35249ef4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-09-03T17:26:42Z",
+      "side": 1,
+      "message": "I\u0027ve revised the description to match with the current state of the CL.",
+      "parentUuid": "b17c97b7_037a008f",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 64
+      },
+      "revId": "474f70f123c75cbc68aeec520c5997f59d2a15bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "6f645690_1e55e16b",
@@ -128,6 +152,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f3dee6e_44bb89ef",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 624,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-09-03T17:26:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9cba87a1_0ea9d6eb",
+      "range": {
+        "startLine": 624,
+        "startChar": 39,
+        "endLine": 624,
+        "endChar": 57
+      },
+      "revId": "474f70f123c75cbc68aeec520c5997f59d2a15bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2de6a353_eda82c9f",
@@ -141,6 +189,30 @@
       "writtenOn": "2021-09-03T14:00:06Z",
       "side": 1,
       "message": "Thanks for adding unit tests! I think it\u0027s better to set a different expectation though, since this one sound a bit counterintuitive to me - if clipping prediction is disabled, then I would test that the analog gain is NOT lowered. Let  me clarify and propose an alternative.\n\nFirst of all, the tests should cover 3 cases:\n#1 ClippingPredictorConfig::enabled false (then ::use_predicted_step does not matter since there is nothing to evaluate)\n#2 ClippingPredictorConfig::enabled true\n  #2.a ::use_predicted_step false\n  #2.b ::use_predicted_step true\n\nCurrently, #1 and #2.b are tested, but not #2.a.\n\nNow let\u0027s think about the expectations.\n\nInstead of individually testing those 3 cases, we could add two tests to compare the behavior of #1 vs #2.a and #1 vs #2.b using the same sequence of `CallPreProcessAudioBuffer()` calls.\n\n\"#1 vs #2.a\"\nBoth controllers will produce the same sequence for `stream_analog_level()` because if clipping is predicted, but the predictions are not used, then the analog AGC behavior must not change.\nTEST(AgcManagerDirectStandaloneTest, UnusedClippingPredictionsProduceSameAnalogLevels)\n\n\"#1 vs #2.b\"\nIn this case instead we must observe lower values for `stream_analog_level()` in case #2.b compared to case #1.\nTEST(AgcManagerDirectStandaloneTest, UsedClippingPredictionsProduceLowerAnalogLevels)\n\nThose tests could replace `DetectedClippingWithUnusedPredictedStepLowersVolume` and `EnableClippingPredictorLowersVolume`. WDYT?\n\nPS: obviously the \"input\" sequence (I mean the `CallPreProcessAudioBuffer()` calls) should be tailored to reproduce the behavior we want to test and in the future the expectations might need to be adapted if the predictor accuracy changes",
+      "range": {
+        "startLine": 977,
+        "startChar": 5,
+        "endLine": 977,
+        "endChar": 56
+      },
+      "revId": "474f70f123c75cbc68aeec520c5997f59d2a15bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d33be52a_3d1544b3",
+        "filename": "modules/audio_processing/agc/agc_manager_direct_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 977,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-09-03T17:26:42Z",
+      "side": 1,
+      "message": "Thank you for the detailed comments!\n\nFirst, the new test was intended to check that the changes of this CL won\u0027t affect clipping detection when `use_predicted_step` is false but clipping prediction is still enabled. I\u0027ve fixed this now, let me know what you think.\n\nSecond, we should refactor the unit tests to guarantee all parameter combinations are tested. Since this CL also introduces other code changes I\u0027d suggest to do the refactoring in a separate CL without other changes.",
+      "parentUuid": "2de6a353_eda82c9f",
       "range": {
         "startLine": 977,
         "startChar": 5,

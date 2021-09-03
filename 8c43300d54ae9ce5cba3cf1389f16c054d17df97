@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1aaa0869_590c9a50",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-09-03T12:09:44Z",
+      "side": 1,
+      "message": "I would prefer \u0027may_require_reference_scaling\u0027 interpretation since that\u0027s the problem we\u0027re trying to solve at the moment.\n\nThe future screenshare structure sounds interesting, but isn\u0027t that a generalization of L1T-something?",
+      "parentUuid": "8c7c10d8_c2de4ee6",
+      "revId": "8c43300d54ae9ce5cba3cf1389f16c054d17df97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1c2ca95b_4366feff",
         "filename": "modules/video_coding/svc/create_scalability_structure.cc",
         "patchSetId": 1

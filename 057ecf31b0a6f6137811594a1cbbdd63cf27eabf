@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa929002_9632d355",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-03T10:40:50Z",
+      "side": 1,
+      "message": "Hi Sergey,\n\nThanks for your review. Comments addressed/replied, PT-Another-L.\n\nShuhai\n",
+      "revId": "057ecf31b0a6f6137811594a1cbbdd63cf27eabf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

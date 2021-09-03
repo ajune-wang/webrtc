@@ -87,6 +87,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "613cef4f_92de3cac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-03T10:40:50Z",
+      "side": 1,
+      "message": "I\u0027m sorry for not replying to you in time. I don’t know why that unknown person has the permission to add reviewers. Thanks for your Commit-Queue.\n\nRegarding to this question \"where\u0027s the logic that chooses either the bandwidth scaler or the QP scaler to be chosen?\". You can see the code \u0027encoder_info.is_qp_trusted.value_or(true)\u0027 in file video_stream_encoder_resource_manager.cc. If qp is trusted, quality will work, or bandwidth quality will work.",
+      "parentUuid": "aa1f14a7_a94decd3",
+      "revId": "83ec522c75c502e094effb32acf68551ef0ae8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "92106f96_8087fa4c",
@@ -100,6 +118,30 @@
       "writtenOn": "2021-08-30T16:50:37Z",
       "side": 1,
       "message": "Resolution bitrate limits can be provided by encoder (it\u0027s part of EncoderInfo): https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/video_codecs/video_encoder.h;drc\u003dcfea2182f8e41c3d8293d4e26b291ef2abf23257;l\u003d244\n\nCan we use the bitrate provided by encoder (when available) instead the defaults?",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 33
+      },
+      "revId": "83ec522c75c502e094effb32acf68551ef0ae8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc2b09e1_4f9b3389",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-03T10:40:50Z",
+      "side": 1,
+      "message": "Good catch! It is a good idea use the bitrate provided by encoder (when available) instead the defaults. In fact, there is no encoder has filled the |resolution_bitrate_limits| data. \n\nhttps://source.chromium.org/chromium/chromium/src/+/main:media/video/video_encoder_info.h;l\u003d50;bpv\u003d0;bpt\u003d1",
+      "parentUuid": "92106f96_8087fa4c",
       "range": {
         "startLine": 38,
         "startChar": 0,
@@ -133,6 +175,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a805667b_093da784",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-03T10:40:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5de9b6c1_227b42ac",
+      "range": {
+        "startLine": 42,
+        "startChar": 22,
+        "endLine": 42,
+        "endChar": 36
+      },
+      "revId": "83ec522c75c502e094effb32acf68551ef0ae8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3224dd63_77e6301f",
@@ -146,6 +212,30 @@
       "writtenOn": "2021-08-30T16:50:37Z",
       "side": 1,
       "message": "bitrate_limits",
+      "range": {
+        "startLine": 77,
+        "startChar": 60,
+        "endLine": 77,
+        "endChar": 66
+      },
+      "revId": "83ec522c75c502e094effb32acf68551ef0ae8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3254b58f_5bbca1ad",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-03T10:40:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3224dd63_77e6301f",
       "range": {
         "startLine": 77,
         "startChar": 60,
@@ -179,6 +269,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d39a6c8d_2a803275",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-03T10:40:50Z",
+      "side": 1,
+      "message": "We should get the |interpolation_index| value to do a linear interpolation, so we should adopt the current loop mode.",
+      "parentUuid": "b4b104bf_02a2feec",
+      "range": {
+        "startLine": 85,
+        "startChar": 2,
+        "endLine": 85,
+        "endChar": 46
+      },
+      "revId": "83ec522c75c502e094effb32acf68551ef0ae8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "70a0925e_e53f02ac",
@@ -192,6 +306,30 @@
       "writtenOn": "2021-08-30T16:50:37Z",
       "side": 1,
       "message": "min_bitrate_bps",
+      "range": {
+        "startLine": 108,
+        "startChar": 6,
+        "endLine": 108,
+        "endChar": 13
+      },
+      "revId": "83ec522c75c502e094effb32acf68551ef0ae8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7877ed91_f1bc09a2",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-03T10:40:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "70a0925e_e53f02ac",
       "range": {
         "startLine": 108,
         "startChar": 6,
@@ -225,6 +363,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5811917a_718723e6",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-03T10:40:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab1eacb9_0fcf9f01",
+      "range": {
+        "startLine": 111,
+        "startChar": 6,
+        "endLine": 111,
+        "endChar": 13
+      },
+      "revId": "83ec522c75c502e094effb32acf68551ef0ae8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "22de7b0b_f25564eb",
@@ -238,6 +400,30 @@
       "writtenOn": "2021-08-30T16:50:37Z",
       "side": 1,
       "message": "just \"frame_size_pixels_ \u003d encoded_width * encode_height;\"",
+      "range": {
+        "startLine": 167,
+        "startChar": 2,
+        "endLine": 175,
+        "endChar": 3
+      },
+      "revId": "83ec522c75c502e094effb32acf68551ef0ae8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccaac564_0d38bf08",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-03T10:40:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22de7b0b_f25564eb",
       "range": {
         "startLine": 167,
         "startChar": 2,
@@ -271,6 +457,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8207bd3_463c56f4",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-03T10:40:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1aa8f562_825c1162",
+      "range": {
+        "startLine": 185,
+        "startChar": 26,
+        "endLine": 185,
+        "endChar": 45
+      },
+      "revId": "83ec522c75c502e094effb32acf68551ef0ae8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "feae8a8b_72a160f8",
@@ -284,6 +494,30 @@
       "writtenOn": "2021-08-30T16:50:37Z",
       "side": 1,
       "message": "We should cache last time_sent_in_ms from ReportEncodeInfo() and use it instead of real clock.",
+      "range": {
+        "startLine": 186,
+        "startChar": 32,
+        "endLine": 186,
+        "endChar": 49
+      },
+      "revId": "83ec522c75c502e094effb32acf68551ef0ae8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9c48cd9_8169dcf8",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-03T10:40:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "feae8a8b_72a160f8",
       "range": {
         "startLine": 186,
         "startChar": 32,
@@ -319,6 +553,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "97680094_d938259c",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-03T10:40:50Z",
+      "side": 1,
+      "message": "Thanks for you review. This is a key point! I think if different resoluiton use same |target_bitrate_bps|, it will cause bandwidth_quality_sacler doesn\u0027t work.\n\nFor BandwidthQualityScaler, its implement based on a certain pixel_count correspond a certain bps interval. In fact, WebRTC default max_bps is 2500Kbps when width * height \u003e 960 * 540. For example, we assume:\n1.the camera support 1080p.\n2.ResolutionBitrateLimits set 720p bps interval is [1500Kbps,2000Kbps].\n3.ResolutionBitrateLimits set 1080p bps interval is [2000Kbps,2500Kbps].\n\nWe will never be stable at 720p due to actual encoding bps of 720p and 1080p are both 2500Kbps. So it is necessary to do a linear interpolation to get a certain bitrate for certain pixel_count. It also doesn\u0027t work for 960*540 and 640*520, we will nerver be stable at 640*520 due to their |target_bitrate_bps| are both 2000Kbps. I have add some code in the \u0027video_stream_encoder.cc\u0027 ans \u0027video_stream_encoder_unittests.cc\u0027 to handle it.\n\nThere is another change. In order to avoid frequent adjustment of the resolution caused by the critical value. I have add |kLowerMinBitrateTolerationFactor| and |kHigherMaxBitrateTolerationFactor|. WDYT?",
+      "parentUuid": "4ca91707_d1d4bec5",
+      "range": {
+        "startLine": 200,
+        "startChar": 52,
+        "endLine": 200,
+        "endChar": 67
+      },
+      "revId": "83ec522c75c502e094effb32acf68551ef0ae8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "33d04dcc_f6a21bc9",
         "filename": "modules/video_coding/utility/bandwidth_scaler.h",
         "patchSetId": 14
@@ -330,6 +588,30 @@
       "writtenOn": "2021-08-30T16:50:37Z",
       "side": 1,
       "message": "This name is misleading. This module doesn\u0027t scale bandwidth. It suggests to adapt video resolution or/and framerate based on bandwidth. Can we find a better name? BandwidthQualityScaler or something like that?",
+      "range": {
+        "startLine": 47,
+        "startChar": 6,
+        "endLine": 47,
+        "endChar": 21
+      },
+      "revId": "83ec522c75c502e094effb32acf68551ef0ae8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58825f6e_a2a2189f",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-03T10:40:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33d04dcc_f6a21bc9",
       "range": {
         "startLine": 47,
         "startChar": 6,
@@ -363,6 +645,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "09a46d2e_58b362d7",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-03T10:40:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "407608a4_f683f0dc",
+      "range": {
+        "startLine": 52,
+        "startChar": 28,
+        "endLine": 52,
+        "endChar": 38
+      },
+      "revId": "83ec522c75c502e094effb32acf68551ef0ae8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "29a79003_d70a2bee",
@@ -376,6 +682,30 @@
       "writtenOn": "2021-08-30T16:50:37Z",
       "side": 1,
       "message": "lowercase \"u\". Overuse is one word. Some for Underusing below.",
+      "range": {
+        "startLine": 81,
+        "startChar": 9,
+        "endLine": 81,
+        "endChar": 18
+      },
+      "revId": "83ec522c75c502e094effb32acf68551ef0ae8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65a68511_67358a1a",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-03T10:40:50Z",
+      "side": 1,
+      "message": "I\u0027m sorry for that these two function is never used. I have deleted them.",
+      "parentUuid": "29a79003_d70a2bee",
       "range": {
         "startLine": 81,
         "startChar": 9,
@@ -409,6 +739,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "00a62b18_c50bd5a6",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-03T10:40:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61391457_5919fcb3",
+      "range": {
+        "startLine": 88,
+        "startChar": 17,
+        "endLine": 88,
+        "endChar": 37
+      },
+      "revId": "83ec522c75c502e094effb32acf68551ef0ae8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6f49d2ce_2236313c",
@@ -422,6 +776,30 @@
       "writtenOn": "2021-08-30T16:50:37Z",
       "side": 1,
       "message": "I would suggest to replace this with \"absl::optional\u003cint\u003e frame_size_pixels_\" and get rid of FrameInfo.",
+      "range": {
+        "startLine": 89,
+        "startChar": 2,
+        "endLine": 89,
+        "endChar": 39
+      },
+      "revId": "83ec522c75c502e094effb32acf68551ef0ae8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a415f7f0_64e96e4c",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-03T10:40:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f49d2ce_2236313c",
       "range": {
         "startLine": 89,
         "startChar": 2,
@@ -478,6 +856,54 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "99b337f7_65721916",
+        "filename": "modules/video_coding/utility/bandwidth_scaler_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-03T10:40:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97e48951_c92f2f19",
+      "range": {
+        "startLine": 26,
+        "startChar": 17,
+        "endLine": 26,
+        "endChar": 34
+      },
+      "revId": "83ec522c75c502e094effb32acf68551ef0ae8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53c2e66d_9995ba2d",
+        "filename": "modules/video_coding/utility/bandwidth_scaler_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-03T10:40:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e25a8ae_09df90b7",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 12
+      },
+      "revId": "83ec522c75c502e094effb32acf68551ef0ae8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f5d3018b_eb8d1fdd",
@@ -491,6 +917,30 @@
       "writtenOn": "2021-08-30T16:50:37Z",
       "side": 1,
       "message": ".._event_count_?",
+      "range": {
+        "startLine": 46,
+        "startChar": 2,
+        "endLine": 47,
+        "endChar": 29
+      },
+      "revId": "83ec522c75c502e094effb32acf68551ef0ae8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e2a2458_a1cd23b0",
+        "filename": "modules/video_coding/utility/bandwidth_scaler_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-03T10:40:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5d3018b_eb8d1fdd",
       "range": {
         "startLine": 46,
         "startChar": 2,
@@ -524,6 +974,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f103413_7ed6ce3e",
+        "filename": "modules/video_coding/utility/bandwidth_scaler_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-03T10:40:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96494098_a547b82e",
+      "range": {
+        "startLine": 76,
+        "startChar": 9,
+        "endLine": 76,
+        "endChar": 26
+      },
+      "revId": "83ec522c75c502e094effb32acf68551ef0ae8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cbb75f5c_9aa2d4b4",
@@ -537,6 +1011,30 @@
       "writtenOn": "2021-08-30T16:50:37Z",
       "side": 1,
       "message": "GetFrameSizeBits",
+      "range": {
+        "startLine": 112,
+        "startChar": 6,
+        "endLine": 112,
+        "endChar": 18
+      },
+      "revId": "83ec522c75c502e094effb32acf68551ef0ae8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f386731_e026e32d",
+        "filename": "modules/video_coding/utility/bandwidth_scaler_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-03T10:40:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cbb75f5c_9aa2d4b4",
       "range": {
         "startLine": 112,
         "startChar": 6,
@@ -570,6 +1068,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a852333d_2f580099",
+        "filename": "modules/video_coding/utility/bandwidth_scaler_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-03T10:40:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c25ab1ad_2dedf7e4",
+      "range": {
+        "startLine": 115,
+        "startChar": 8,
+        "endLine": 115,
+        "endChar": 18
+      },
+      "revId": "83ec522c75c502e094effb32acf68551ef0ae8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "27a311f9_e4a23a24",
@@ -583,6 +1105,30 @@
       "writtenOn": "2021-08-30T16:50:37Z",
       "side": 1,
       "message": "frame_configs",
+      "range": {
+        "startLine": 143,
+        "startChar": 44,
+        "endLine": 143,
+        "endChar": 62
+      },
+      "revId": "83ec522c75c502e094effb32acf68551ef0ae8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6528acfc_6dfc79d5",
+        "filename": "modules/video_coding/utility/bandwidth_scaler_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-03T10:40:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "27a311f9_e4a23a24",
       "range": {
         "startLine": 143,
         "startChar": 44,
@@ -616,6 +1162,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "daad56ea_810717eb",
+        "filename": "modules/video_coding/utility/bandwidth_scaler_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-03T10:40:50Z",
+      "side": 1,
+      "message": "Done. Thank you for explaining in detail!",
+      "parentUuid": "850dcac3_c5c11bea",
+      "range": {
+        "startLine": 146,
+        "startChar": 8,
+        "endLine": 146,
+        "endChar": 12
+      },
+      "revId": "83ec522c75c502e094effb32acf68551ef0ae8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f00f7a33_143c201a",
@@ -639,6 +1209,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4720f23_f45027de",
+        "filename": "modules/video_coding/utility/bandwidth_scaler_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-03T10:40:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f00f7a33_143c201a",
+      "range": {
+        "startLine": 147,
+        "startChar": 4,
+        "endLine": 147,
+        "endChar": 60
+      },
+      "revId": "83ec522c75c502e094effb32acf68551ef0ae8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ddba7d65_bb434bd1",
@@ -652,6 +1246,30 @@
       "writtenOn": "2021-08-30T16:50:37Z",
       "side": 1,
       "message": "timestamp_ms? no need underscore in the end.",
+      "range": {
+        "startLine": 161,
+        "startChar": 4,
+        "endLine": 161,
+        "endChar": 27
+      },
+      "revId": "83ec522c75c502e094effb32acf68551ef0ae8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "55e7076f_5654ff9e",
+        "filename": "modules/video_coding/utility/bandwidth_scaler_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-03T10:40:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ddba7d65_bb434bd1",
       "range": {
         "startLine": 161,
         "startChar": 4,
@@ -708,6 +1326,54 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe6f2fd4_1da0cab0",
+        "filename": "modules/video_coding/utility/bandwidth_scaler_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-03T10:40:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9815b379_a8b18d35",
+      "range": {
+        "startLine": 166,
+        "startChar": 46,
+        "endLine": 166,
+        "endChar": 62
+      },
+      "revId": "83ec522c75c502e094effb32acf68551ef0ae8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d58c07d_e21b1143",
+        "filename": "modules/video_coding/utility/bandwidth_scaler_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-03T10:40:50Z",
+      "side": 1,
+      "message": "I rename frame_size as frame_size_bytes.",
+      "parentUuid": "5dd3fc10_cd7b7428",
+      "range": {
+        "startLine": 166,
+        "startChar": 12,
+        "endLine": 166,
+        "endChar": 22
+      },
+      "revId": "83ec522c75c502e094effb32acf68551ef0ae8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1216956b_3aeefd69",
@@ -721,6 +1387,30 @@
       "writtenOn": "2021-08-30T16:50:37Z",
       "side": 1,
       "message": "Normal",
+      "range": {
+        "startLine": 189,
+        "startChar": 31,
+        "endLine": 189,
+        "endChar": 37
+      },
+      "revId": "83ec522c75c502e094effb32acf68551ef0ae8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b31dc5c_db199b62",
+        "filename": "modules/video_coding/utility/bandwidth_scaler_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-03T10:40:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1216956b_3aeefd69",
       "range": {
         "startLine": 189,
         "startChar": 31,
@@ -754,6 +1444,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ad8358b_9ae68710",
+        "filename": "modules/video_coding/utility/bandwidth_scaler_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-03T10:40:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55007ba7_82aea79e",
+      "range": {
+        "startLine": 190,
+        "startChar": 2,
+        "endLine": 191,
+        "endChar": 14
+      },
+      "revId": "83ec522c75c502e094effb32acf68551ef0ae8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7949e9ea_1dffd7e1",
@@ -767,6 +1481,30 @@
       "writtenOn": "2021-08-30T16:50:37Z",
       "side": 1,
       "message": "Space after comma.",
+      "range": {
+        "startLine": 198,
+        "startChar": 31,
+        "endLine": 198,
+        "endChar": 35
+      },
+      "revId": "83ec522c75c502e094effb32acf68551ef0ae8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b84afcff_e0dba509",
+        "filename": "modules/video_coding/utility/bandwidth_scaler_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-03T10:40:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7949e9ea_1dffd7e1",
       "range": {
         "startLine": 198,
         "startChar": 31,
@@ -800,6 +1538,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ebd9ce36_78be5476",
+        "filename": "modules/video_coding/utility/bandwidth_scaler_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-03T10:40:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d096a10_2f525803",
+      "range": {
+        "startLine": 207,
+        "startChar": 64,
+        "endLine": 207,
+        "endChar": 65
+      },
+      "revId": "83ec522c75c502e094effb32acf68551ef0ae8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cc493214_76620d48",
@@ -823,6 +1585,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e2bac2f_637472d4",
+        "filename": "rtc_base/experiments/bandwidth_scaler_settings.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-03T10:40:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cc493214_76620d48",
+      "range": {
+        "startLine": 20,
+        "startChar": 6,
+        "endLine": 20,
+        "endChar": 35
+      },
+      "revId": "83ec522c75c502e094effb32acf68551ef0ae8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bca3d629_063aa70f",
@@ -836,6 +1622,30 @@
       "writtenOn": "2021-08-30T16:50:37Z",
       "side": 1,
       "message": "with units please",
+      "range": {
+        "startLine": 27,
+        "startChar": 7,
+        "endLine": 27,
+        "endChar": 36
+      },
+      "revId": "83ec522c75c502e094effb32acf68551ef0ae8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "199388d6_2892a0fa",
+        "filename": "rtc_base/experiments/bandwidth_scaler_settings_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-03T10:40:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bca3d629_063aa70f",
       "range": {
         "startLine": 27,
         "startChar": 7,
@@ -871,6 +1681,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c786685e_5d3db586",
+        "filename": "video/adaptation/bandwidth_scaler_resource.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-03T10:40:50Z",
+      "side": 1,
+      "message": "You can see the function \"VideoStreamEncoder::OnEncodedImage\" in file \"video_stream_encoder.cc\". \n\nBefore executing \"RunPostEncode\", someone has already executed \"image_copy.ClearEncodedData()\" and cache the |frame_size|.\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/video/video_stream_encoder.cc;l\u003d1912",
+      "parentUuid": "6dec8a53_06e905de",
+      "range": {
+        "startLine": 44,
+        "startChar": 33,
+        "endLine": 44,
+        "endChar": 50
+      },
+      "revId": "83ec522c75c502e094effb32acf68551ef0ae8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "96bf056d_68e0d305",
         "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
         "patchSetId": 14
@@ -882,6 +1716,30 @@
       "writtenOn": "2021-08-30T16:50:37Z",
       "side": 1,
       "message": "bandwidth_quality_scaling...?",
+      "range": {
+        "startLine": 598,
+        "startChar": 13,
+        "endLine": 598,
+        "endChar": 38
+      },
+      "revId": "83ec522c75c502e094effb32acf68551ef0ae8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50d9b91c_fae8e9c8",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-03T10:40:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96bf056d_68e0d305",
       "range": {
         "startLine": 598,
         "startChar": 13,
@@ -915,6 +1773,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "055dcf64_07c4278e",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-03T10:40:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d8c0c77_9c9291fb",
+      "range": {
+        "startLine": 113,
+        "startChar": 7,
+        "endLine": 113,
+        "endChar": 31
+      },
+      "revId": "83ec522c75c502e094effb32acf68551ef0ae8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2bfdfcd9_cfa0c010",
@@ -928,6 +1810,30 @@
       "writtenOn": "2021-08-30T16:50:37Z",
       "side": 1,
       "message": "Not needed. This can be fetched from encoded_image.size()",
+      "range": {
+        "startLine": 123,
+        "startChar": 25,
+        "endLine": 123,
+        "endChar": 44
+      },
+      "revId": "83ec522c75c502e094effb32acf68551ef0ae8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b703bab5_69afd979",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-03T10:40:50Z",
+      "side": 1,
+      "message": "Same as #44.",
+      "parentUuid": "2bfdfcd9_cfa0c010",
       "range": {
         "startLine": 123,
         "startChar": 25,
@@ -961,6 +1867,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0bc7dec_0a4b0821",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-03T10:40:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78c9aca3_4b3942e6",
+      "range": {
+        "startLine": 172,
+        "startChar": 7,
+        "endLine": 172,
+        "endChar": 36
+      },
+      "revId": "83ec522c75c502e094effb32acf68551ef0ae8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3dadfa2c_ed3b59f7",
@@ -974,6 +1904,24 @@
       "writtenOn": "2021-08-30T16:50:37Z",
       "side": 1,
       "message": "Please add tests for BW based quality scaler here (verify that it is enabled/disable as expected).",
+      "revId": "83ec522c75c502e094effb32acf68551ef0ae8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "594c71e8_5a208efb",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 8292,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-03T10:40:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3dadfa2c_ed3b59f7",
       "revId": "83ec522c75c502e094effb32acf68551ef0ae8f7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

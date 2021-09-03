@@ -317,6 +317,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "74ec7b9c_287786f6",
+        "filename": "modules/video_coding/utility/bandwidth_scaler.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-03T10:40:50Z",
+      "side": 1,
+      "message": "In this code, we need to *1.0 😊\nfloat alpha \u003d ((width * height) - lower_pixel_count) * 1.0 / (upper_pixel_count - lower_pixel_count);",
+      "parentUuid": "e86b50b8_5dd559be",
+      "range": {
+        "startLine": 108,
+        "startChar": 6,
+        "endLine": 118,
+        "endChar": 71
+      },
+      "revId": "22baf70a0aed222235411d8dc33c150c2449513f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b3be899e_f8258b49",

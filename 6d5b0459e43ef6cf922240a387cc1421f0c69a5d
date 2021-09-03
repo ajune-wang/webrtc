@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b2f4d96_355021c0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-09-03T06:55:56Z",
+      "side": 1,
+      "message": "I could +1, but got a popup saying that self-votes may prevent commit.",
+      "parentUuid": "fe588fb9_f0c96668",
+      "revId": "6d5b0459e43ef6cf922240a387cc1421f0c69a5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e88f015a_6a537221",

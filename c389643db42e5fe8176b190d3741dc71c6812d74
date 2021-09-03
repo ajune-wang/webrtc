@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba2be172_444fa048",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6092
+      },
+      "writtenOn": "2021-09-03T02:35:02Z",
+      "side": 1,
+      "message": "PTAL at latest patch and CQ+2 if it looks OK ?\n",
+      "revId": "c389643db42e5fe8176b190d3741dc71c6812d74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

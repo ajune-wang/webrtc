@@ -57,6 +57,30 @@
       },
       "revId": "d0e025520b9de1349413460047fb387d77d3a495",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34cc6cf0_53e88ade",
+        "filename": "modules/desktop_capture/linux/screen_capturer_x11.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 6092
+      },
+      "writtenOn": "2021-09-03T02:35:02Z",
+      "side": 1,
+      "message": "Done! This error was actually causing a DCHECK in XServerPixelBuffer::CaptureRect(). As an extra precaution, I am cropping the selected monitor rect to lie within the pixel-buffer.",
+      "parentUuid": "08e7fbad_dfa09089",
+      "range": {
+        "startLine": 337,
+        "startChar": 4,
+        "endLine": 338,
+        "endChar": 21
+      },
+      "revId": "d0e025520b9de1349413460047fb387d77d3a495",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -46,6 +46,30 @@
       },
       "revId": "84d6a67547616204c52ece2c85fa722d0902a5d8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f452da5_d7b16338",
+        "filename": "video/alignment_adjuster.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2021-09-03T14:20:00Z",
+      "side": 1,
+      "message": "Right, when apply_alignment_to_all_simulcast_layers is true, this method is used to ensure that each layer is divisible by the requested alignment (which could lead to scale factors being changed considerably, especially if alignment is large). If the requested alignment is for example set to 16 and this is not desirable, then maybe apply_alignment_to_all_simulcast_layers should be set to false?",
+      "parentUuid": "9dce8798_6503795e",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 3
+      },
+      "revId": "84d6a67547616204c52ece2c85fa722d0902a5d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

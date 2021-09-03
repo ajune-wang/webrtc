@@ -597,27 +597,30 @@ void AgcManagerDirect::AnalyzePreProcess(const float* const* audio,
       const auto step = clipping_predictor_->EstimateClippedLevelStep(
           channel, stream_analog_level_, clipped_level_step_,
           channel_agcs_[channel]->min_mic_level(), kMaxMicLevel);
-      if (use_clipping_predictor_step_ && step.has_value()) {
+      if (step.has_value()) {
         predicted_step = std::max(predicted_step, step.value());
         clipping_predicted = true;
       }
     }
     // Clipping prediction evaluation.
-    absl::optional<int> prediction_interval =
-        clipping_predictor_evaluator_.Observe(clipping_detected,
-                                              clipping_predicted);
-    if (prediction_interval.has_value()) {
-      RTC_HISTOGRAM_COUNTS_LINEAR(
-          "WebRTC.Audio.Agc.ClippingPredictor.PredictionInterval",
-          prediction_interval.value(), /*min=*/0,
-          /*max=*/49, /*bucket_count=*/50);
-    }
-    clipping_predictor_log_counter_++;
-    if (clipping_predictor_log_counter_ == kNumFramesIn30Seconds) {
-      LogClippingPredictorMetrics(clipping_predictor_evaluator_);
-      clipping_predictor_log_counter_ = 0;
+    if (!use_clipping_predictor_step_) {
+      absl::optional<int> prediction_interval =
+          clipping_predictor_evaluator_.Observe(clipping_detected,
+                                                clipping_predicted);
+      if (prediction_interval.has_value()) {
+        RTC_HISTOGRAM_COUNTS_LINEAR(
+            "WebRTC.Audio.Agc.ClippingPredictor.PredictionInterval",
+            prediction_interval.value(), /*min=*/0,
+            /*max=*/49, /*bucket_count=*/50);
+      }
+      clipping_predictor_log_counter_++;
+      if (clipping_predictor_log_counter_ == kNumFramesIn30Seconds) {
+        LogClippingPredictorMetrics(clipping_predictor_evaluator_);
+        clipping_predictor_log_counter_ = 0;
+      }
     }
   }
+  clipping_predicted &= use_clipping_predictor_step_;
   if (clipping_detected || clipping_predicted) {
     int step = clipped_level_step_;
     if (clipping_detected) {
@@ -628,13 +631,15 @@ void AgcManagerDirect::AnalyzePreProcess(const float* const* audio,
       step = std::max(predicted_step, clipped_level_step_);
       RTC_DLOG(LS_INFO) << "[agc] Clipping predicted. step=" << step;
     }
-    for (auto& state_ch : channel_agcs_) {
-      state_ch->HandleClipping(step);
-    }
-    frames_since_clipped_ = 0;
-    if (!!clipping_predictor_) {
-      clipping_predictor_->Reset();
-      clipping_predictor_evaluator_.Reset();
+    if (clipping_detected || clipping_predicted) {
+      for (auto& state_ch : channel_agcs_) {
+        state_ch->HandleClipping(step);
+      }
+      frames_since_clipped_ = 0;
+      if (!!clipping_predictor_) {
+        clipping_predictor_->Reset();
+        clipping_predictor_evaluator_.Reset();
+      }
     }
   }
   AggregateChannelLevels();

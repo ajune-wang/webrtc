@@ -110,6 +110,8 @@ class AgcManagerDirect final {
       AgcManagerDirectStandaloneTest,
       EnableClippingPredictorWithUnusedPredictedStepDoesNotLowerVolume);
   FRIEND_TEST_ALL_PREFIXES(AgcManagerDirectStandaloneTest,
+                           DetectedClippingWithUnusedPredictedStepLowersVolume);
+  FRIEND_TEST_ALL_PREFIXES(AgcManagerDirectStandaloneTest,
                            EnableClippingPredictorLowersVolume);
 
   // Dependency injection for testing. Don't delete `agc` as the memory is owned

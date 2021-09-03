@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a782fdf1_d6d1a9d7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-09-03T12:12:26Z",
+      "side": 1,
+      "message": "lgtm, but I\u0027m not really familiar with the objc synchronization primitives.",
+      "revId": "47706bb41c77a1555dabfcc7013bb50f939bb0eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

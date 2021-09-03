@@ -81,6 +81,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c01b381_2152a803",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 606,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-09-03T14:51:49Z",
+      "side": 1,
+      "message": "agreed offline to eval only when clipping predictions remain unused",
+      "parentUuid": "ba505378_8006f3b3",
+      "range": {
+        "startLine": 606,
+        "startChar": 8,
+        "endLine": 606,
+        "endChar": 37
+      },
+      "revId": "474f70f123c75cbc68aeec520c5997f59d2a15bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9cba87a1_0ea9d6eb",

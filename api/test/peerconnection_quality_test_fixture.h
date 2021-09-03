@@ -465,6 +465,13 @@ class PeerConnectionE2EQualityTestFixture {
     virtual void StopAndReportResults() = 0;
   };
 
+  // Represents single participant in call and can be used to perform different
+  // in-call actions. Might be extended in future.
+  class Peer {
+   public:
+    virtual ~Peer() = default;
+  };
+
   virtual ~PeerConnectionE2EQualityTestFixture() = default;
 
   // Add activity that will be executed on the best effort at least after
@@ -491,9 +498,10 @@ class PeerConnectionE2EQualityTestFixture {
   // `network_manager` will be used to provide network interfaces for peer's
   // peer connection.
   // `configurer` function will be used to configure peer in the call.
-  virtual void AddPeer(rtc::Thread* network_thread,
-                       rtc::NetworkManager* network_manager,
-                       rtc::FunctionView<void(PeerConfigurer*)> configurer) = 0;
+  virtual Peer* AddPeer(
+      rtc::Thread* network_thread,
+      rtc::NetworkManager* network_manager,
+      rtc::FunctionView<void(PeerConfigurer*)> configurer) = 0;
   // Runs the media quality test, which includes setting up the call with
   // configured participants, running it according to provided `run_params` and
   // terminating it properly at the end. During call duration media quality

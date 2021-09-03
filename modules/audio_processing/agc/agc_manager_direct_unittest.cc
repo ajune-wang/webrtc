@@ -973,6 +973,33 @@ TEST(AgcManagerDirectStandaloneTest,
   EXPECT_EQ(manager.stream_analog_level(), 255);
 }
 
+TEST(AgcManagerDirectStandaloneTest,
+     DetectedClippingWithUnusedPredictedStepLowersVolume) {
+  // TODO(bugs.webrtc.org/12874): Use designated initializers one fixed.
+  ClippingPredictorConfig config;
+  config.enabled = false;
+  config.use_predicted_step = false;
+  AgcManagerDirect manager(new ::testing::NiceMock<MockAgc>(), kInitialVolume,
+                           kClippedMin, kSampleRateHz, kClippedLevelStep,
+                           kClippedRatioThreshold, kClippedWaitFrames, config);
+  manager.Initialize();
+  manager.set_stream_analog_level(/*level=*/255);
+  EXPECT_FALSE(manager.clipping_predictor_enabled());
+  EXPECT_FALSE(manager.use_clipping_predictor_step());
+  EXPECT_EQ(manager.stream_analog_level(), 255);
+  manager.Process(nullptr);
+  CallPreProcessAudioBuffer(/*num_calls=*/1, /*peak_ratio=*/1.0f, manager);
+  EXPECT_EQ(manager.stream_analog_level(), 240);
+  CallPreProcessAudioBuffer(/*num_calls=*/300, /*peak_ratio=*/1.0f, manager);
+  EXPECT_EQ(manager.stream_analog_level(), 240);
+  CallPreProcessAudioBuffer(/*num_calls=*/1, /*peak_ratio=*/1.0f, manager);
+  EXPECT_EQ(manager.stream_analog_level(), 225);
+  CallPreProcessAudioBuffer(/*num_calls=*/300, /*peak_ratio=*/1.0f, manager);
+  EXPECT_EQ(manager.stream_analog_level(), 225);
+  CallPreProcessAudioBuffer(/*num_calls=*/1, /*peak_ratio=*/1.0f, manager);
+  EXPECT_EQ(manager.stream_analog_level(), 210);
+}
+
 TEST(AgcManagerDirectStandaloneTest, EnableClippingPredictorLowersVolume) {
   // TODO(bugs.webrtc.org/12874): Use designated initializers one fixed.
   ClippingPredictorConfig config;
@@ -993,6 +1020,10 @@ TEST(AgcManagerDirectStandaloneTest, EnableClippingPredictorLowersVolume) {
   EXPECT_EQ(manager.stream_analog_level(), 240);
   CallPreProcessAudioBuffer(/*num_calls=*/10, /*peak_ratio=*/0.99f, manager);
   EXPECT_EQ(manager.stream_analog_level(), 225);
+  CallPreProcessAudioBuffer(/*num_calls=*/300, /*peak_ratio=*/0.99f, manager);
+  EXPECT_EQ(manager.stream_analog_level(), 225);
+  CallPreProcessAudioBuffer(/*num_calls=*/10, /*peak_ratio=*/0.99f, manager);
+  EXPECT_EQ(manager.stream_analog_level(), 210);
 }
 
 }  // namespace webrtc

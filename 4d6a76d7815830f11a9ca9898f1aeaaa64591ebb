@@ -34,6 +34,24 @@
       "parentUuid": "6a740b66_bfc8e8f4",
       "revId": "4d6a76d7815830f11a9ca9898f1aeaaa64591ebb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db478740_8f2030f0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-09-04T06:43:12Z",
+      "side": 1,
+      "message": "I\u0027m already working on that, rewriting it to use dlopen() for libepoxy and libdrm, which is the same thing we did with pipewire back then.",
+      "parentUuid": "01fa3564_46109cf7",
+      "revId": "4d6a76d7815830f11a9ca9898f1aeaaa64591ebb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

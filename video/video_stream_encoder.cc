@@ -1215,8 +1215,6 @@ void VideoStreamEncoder::ReconfigureEncoder() {
   sink_->OnEncoderConfigurationChanged(
       std::move(streams), is_svc, encoder_config_.content_type,
       encoder_config_.min_transmit_bitrate_bps);
-
-  stream_resource_manager_.ConfigureQualityScaler(info);
 }
 
 void VideoStreamEncoder::OnEncoderSettingsChanged() {
@@ -1225,6 +1223,8 @@ void VideoStreamEncoder::OnEncoderSettingsChanged() {
           encoder_->GetEncoderInfo(), encoder_config_, default_limits_allowed_),
       encoder_config_.Copy(), send_codec_);
   stream_resource_manager_.SetEncoderSettings(encoder_settings);
+  stream_resource_manager_.ConfigureQualityScaler(encoder_->GetEncoderInfo());
+  stream_resource_manager_.ConfigureEncodeUsageResource();
   input_state_provider_.OnEncoderSettingsChanged(encoder_settings);
   bool is_screenshare = encoder_settings.encoder_config().content_type ==
                         VideoEncoderConfig::ContentType::kScreen;
@@ -1636,8 +1636,8 @@ void VideoStreamEncoder::EncodeVideoFrame(const VideoFrame& video_frame,
   }
 
   if (encoder_info_ != info) {
-    OnEncoderSettingsChanged();
-    stream_resource_manager_.ConfigureEncodeUsageResource();
+    pending_encoder_reconfiguration_ = true;
+    ReconfigureEncoder();
     RTC_LOG(LS_INFO) << "Encoder settings changed from "
                      << encoder_info_.ToString() << " to " << info.ToString();
   }

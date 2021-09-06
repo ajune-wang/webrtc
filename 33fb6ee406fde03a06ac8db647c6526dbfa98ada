@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eea76234_5f9356d6",
+        "filename": "modules/audio_coding/neteq/delay_manager.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-09-06T15:36:17Z",
+      "side": 1,
+      "message": "I think it would be nicer to move the UnderrunOptimizer to it\u0027s own .cc/.h file, which would make it unnecessary to expose a function like this. I\u0027m also not convinced that the DelayOptimizer interface and unique_ptr member in DelayManager are really necessary. Why not just have a UnderrunOptimizer as a regular member in DelayManager (just like the RelativeArrivalDelayTracker)?",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 56
+      },
+      "revId": "33fb6ee406fde03a06ac8db647c6526dbfa98ada",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

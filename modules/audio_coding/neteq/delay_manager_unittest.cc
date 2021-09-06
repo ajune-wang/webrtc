@@ -30,14 +30,12 @@ namespace webrtc {
 namespace {
 constexpr int kMaxNumberOfPackets = 240;
 constexpr int kMinDelayMs = 0;
-constexpr int kMaxHistoryMs = 2000;
 constexpr int kTimeStepMs = 10;
 constexpr int kFs = 8000;
 constexpr int kFrameSizeMs = 20;
 constexpr int kTsIncrement = kFrameSizeMs * kFs / 1000;
 constexpr int kMaxBufferSizeMs = kMaxNumberOfPackets * kFrameSizeMs;
 constexpr int kDefaultHistogramQuantile = 1020054733;
-constexpr int kNumBuckets = 100;
 constexpr int kForgetFactor = 32745;
 }  // namespace
 
@@ -45,17 +43,12 @@ class DelayManagerTest : public ::testing::Test {
  protected:
   DelayManagerTest();
   virtual void SetUp();
-  void RecreateDelayManager();
   absl::optional<int> InsertNextPacket();
   void IncreaseTime(int inc_ms);
 
   std::unique_ptr<DelayManager> dm_;
   TickTimer tick_timer_;
-  MockStatisticsCalculator stats_;
-  MockHistogram* mock_histogram_;
   uint32_t ts_;
-  bool use_mock_histogram_ = false;
-  absl::optional<int> resample_interval_ms_;
 };
 
 DelayManagerTest::DelayManagerTest()
@@ -63,20 +56,7 @@ DelayManagerTest::DelayManagerTest()
       ts_(0x12345678) {}
 
 void DelayManagerTest::SetUp() {
-  RecreateDelayManager();
-}
-
-void DelayManagerTest::RecreateDelayManager() {
-  if (use_mock_histogram_) {
-    mock_histogram_ = new MockHistogram(kNumBuckets, kForgetFactor);
-    std::unique_ptr<Histogram> histogram(mock_histogram_);
-    dm_ = std::make_unique<DelayManager>(kMaxNumberOfPackets, kMinDelayMs,
-                                         kDefaultHistogramQuantile,
-                                         resample_interval_ms_, kMaxHistoryMs,
-                                         &tick_timer_, std::move(histogram));
-  } else {
-    dm_ = DelayManager::Create(kMaxNumberOfPackets, kMinDelayMs, &tick_timer_);
-  }
+  dm_ = DelayManager::Create(kMaxNumberOfPackets, kMinDelayMs, &tick_timer_);
   dm_->SetPacketAudioLength(kFrameSizeMs);
 }
 
@@ -344,112 +324,6 @@ TEST_F(DelayManagerTest, Failures) {
   EXPECT_FALSE(dm_->SetMaximumDelay(60));
 }
 
-TEST_F(DelayManagerTest, DelayHistogramFieldTrial) {
-  {
-    test::ScopedFieldTrials field_trial(
-        "WebRTC-Audio-NetEqDelayHistogram/Enabled-96-0.998/");
-    RecreateDelayManager();
-    EXPECT_EQ(1030792151, dm_->histogram_quantile());  // 0.96 in Q30.
-    EXPECT_EQ(
-        32702,
-        dm_->histogram()->base_forget_factor_for_testing());  // 0.998 in Q15.
-    EXPECT_FALSE(dm_->histogram()->start_forget_weight_for_testing());
-  }
-  {
-    test::ScopedFieldTrials field_trial(
-        "WebRTC-Audio-NetEqDelayHistogram/Enabled-97.5-0.998/");
-    RecreateDelayManager();
-    EXPECT_EQ(1046898278, dm_->histogram_quantile());  // 0.975 in Q30.
-    EXPECT_EQ(
-        32702,
-        dm_->histogram()->base_forget_factor_for_testing());  // 0.998 in Q15.
-    EXPECT_FALSE(dm_->histogram()->start_forget_weight_for_testing());
-  }
-  // Test parameter for new call start adaptation.
-  {
-    test::ScopedFieldTrials field_trial(
-        "WebRTC-Audio-NetEqDelayHistogram/Enabled-96-0.998-1/");
-    RecreateDelayManager();
-    EXPECT_EQ(dm_->histogram()->start_forget_weight_for_testing().value(), 1.0);
-  }
-  {
-    test::ScopedFieldTrials field_trial(
-        "WebRTC-Audio-NetEqDelayHistogram/Enabled-96-0.998-1.5/");
-    RecreateDelayManager();
-    EXPECT_EQ(dm_->histogram()->start_forget_weight_for_testing().value(), 1.5);
-  }
-  {
-    test::ScopedFieldTrials field_trial(
-        "WebRTC-Audio-NetEqDelayHistogram/Enabled-96-0.998-0.5/");
-    RecreateDelayManager();
-    EXPECT_FALSE(dm_->histogram()->start_forget_weight_for_testing());
-  }
-}
-
-TEST_F(DelayManagerTest, RelativeArrivalDelay) {
-  use_mock_histogram_ = true;
-  RecreateDelayManager();
-
-  InsertNextPacket();
-
-  IncreaseTime(kFrameSizeMs);
-  EXPECT_CALL(*mock_histogram_, Add(0));  // Not delayed.
-  InsertNextPacket();
-
-  IncreaseTime(2 * kFrameSizeMs);
-  EXPECT_CALL(*mock_histogram_, Add(1));  // 20ms delayed.
-  dm_->Update(ts_, kFs);
-
-  EXPECT_CALL(*mock_histogram_, Add(3));  // Reordered, 60ms delayed.
-  dm_->Update(ts_ - 2 * kTsIncrement, kFs);
-
-  IncreaseTime(2 * kFrameSizeMs);
-  EXPECT_CALL(*mock_histogram_, Add(2));  // 40ms delayed.
-  dm_->Update(ts_ + kTsIncrement, kFs);
-}
-
-TEST_F(DelayManagerTest, ReorderedPackets) {
-  use_mock_histogram_ = true;
-  RecreateDelayManager();
-
-  // Insert first packet.
-  InsertNextPacket();
-
-  // Insert reordered packet.
-  EXPECT_CALL(*mock_histogram_, Add(4));
-  dm_->Update(ts_ - 5 * kTsIncrement, kFs);
-
-  // Insert another reordered packet.
-  EXPECT_CALL(*mock_histogram_, Add(1));
-  dm_->Update(ts_ - 2 * kTsIncrement, kFs);
-
-  // Insert the next packet in order and verify that the relative delay is
-  // estimated based on the first inserted packet.
-  IncreaseTime(4 * kFrameSizeMs);
-  EXPECT_CALL(*mock_histogram_, Add(3));
-  InsertNextPacket();
-}
-
-TEST_F(DelayManagerTest, MaxDelayHistory) {
-  use_mock_histogram_ = true;
-  RecreateDelayManager();
-
-  InsertNextPacket();
-
-  // Insert 20 ms iat delay in the delay history.
-  IncreaseTime(2 * kFrameSizeMs);
-  EXPECT_CALL(*mock_histogram_, Add(1));  // 20ms delayed.
-  InsertNextPacket();
-
-  // Insert next packet with a timestamp difference larger than maximum history
-  // size. This removes the previously inserted iat delay from the history.
-  constexpr int kMaxHistoryMs = 2000;
-  IncreaseTime(kMaxHistoryMs + kFrameSizeMs);
-  ts_ += kFs * kMaxHistoryMs / 1000;
-  EXPECT_CALL(*mock_histogram_, Add(0));  // Not delayed.
-  dm_->Update(ts_, kFs);
-}
-
 TEST_F(DelayManagerTest, RelativeArrivalDelayStatistic) {
   EXPECT_EQ(absl::nullopt, InsertNextPacket());
   IncreaseTime(kFrameSizeMs);
@@ -459,31 +333,22 @@ TEST_F(DelayManagerTest, RelativeArrivalDelayStatistic) {
   EXPECT_EQ(20, InsertNextPacket());
 }
 
-TEST_F(DelayManagerTest, ResamplePacketDelays) {
-  use_mock_histogram_ = true;
-  resample_interval_ms_ = 500;
-  RecreateDelayManager();
+TEST(UnderrunOptimizerTest, ResamplePacketDelays) {
+  TickTimer tick_timer;
+  constexpr int kResampleIntervalMs = 500;
+  std::unique_ptr<DelayOptimizer> underrun_optimizer = CreateUnderrunOptimizer(
+      &tick_timer, kDefaultHistogramQuantile, kForgetFactor, absl::nullopt,
+      kResampleIntervalMs);
 
   // The histogram should be updated once with the maximum delay observed for
-  // the following sequence of packets.
-  EXPECT_CALL(*mock_histogram_, Add(5)).Times(1);
-
-  EXPECT_EQ(absl::nullopt, InsertNextPacket());
-
-  IncreaseTime(kFrameSizeMs);
-  EXPECT_EQ(0, InsertNextPacket());
-  IncreaseTime(3 * kFrameSizeMs);
-  EXPECT_EQ(2 * kFrameSizeMs, InsertNextPacket());
-  IncreaseTime(4 * kFrameSizeMs);
-  EXPECT_EQ(5 * kFrameSizeMs, InsertNextPacket());
-
-  for (int i = 4; i >= 0; --i) {
-    EXPECT_EQ(i * kFrameSizeMs, InsertNextPacket());
+  // the following sequence of updates.
+  for (int i = 0; i < 500; i += 20) {
+    underrun_optimizer->Update(i);
+    EXPECT_FALSE(underrun_optimizer->GetOptimalDelayMs());
   }
-  for (int i = 0; i < *resample_interval_ms_ / kFrameSizeMs; ++i) {
-    IncreaseTime(kFrameSizeMs);
-    EXPECT_EQ(0, InsertNextPacket());
-  }
+  tick_timer.Increment(kResampleIntervalMs / tick_timer.ms_per_tick() + 1);
+  underrun_optimizer->Update(0);
+  EXPECT_EQ(underrun_optimizer->GetOptimalDelayMs(), 500);
 }
 
 }  // namespace webrtc

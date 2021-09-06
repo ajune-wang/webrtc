@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5090edbe_795bf191",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-09-06T09:13:20Z",
+      "side": 1,
+      "message": "Not for this CL, but I wonder if it\u0027s possible to unit-test this using the VirtualSocketServer.\n\nFor instance, set up a Datachannel and dial the virtual socket server to {5 ms, 200 ms, 1000 ms} delay, and verify that goodput (data received / data sent) is acceptable.\n\nIf we have a few test cases for the corner cases where we think things can go bad, we should have a lot more confidence when tweaking these constants that we\u0027re not breaking other scenarios too badly.\n",
+      "revId": "e038e77cca31a16b40823e0be41ef24e24eac572",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

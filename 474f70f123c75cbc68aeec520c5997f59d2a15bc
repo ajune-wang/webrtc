@@ -50,6 +50,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "6ecf788c_fe977161",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-09-06T13:58:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "328c8da0_35249ef4",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 64
+      },
+      "revId": "474f70f123c75cbc68aeec520c5997f59d2a15bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "6f645690_1e55e16b",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -213,6 +237,30 @@
       "side": 1,
       "message": "Thank you for the detailed comments!\n\nFirst, the new test was intended to check that the changes of this CL won\u0027t affect clipping detection when `use_predicted_step` is false but clipping prediction is still enabled. I\u0027ve fixed this now, let me know what you think.\n\nSecond, we should refactor the unit tests to guarantee all parameter combinations are tested. Since this CL also introduces other code changes I\u0027d suggest to do the refactoring in a separate CL without other changes.",
       "parentUuid": "2de6a353_eda82c9f",
+      "range": {
+        "startLine": 977,
+        "startChar": 5,
+        "endLine": 977,
+        "endChar": 56
+      },
+      "revId": "474f70f123c75cbc68aeec520c5997f59d2a15bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fee38394_c5ee8a82",
+        "filename": "modules/audio_processing/agc/agc_manager_direct_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 977,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-09-06T13:58:00Z",
+      "side": 1,
+      "message": "The unit tests are refactored in https://webrtc-review.googlesource.com/c/src/+/231225. All unit test changes removed from this CL.",
+      "parentUuid": "d33be52a_3d1544b3",
       "range": {
         "startLine": 977,
         "startChar": 5,

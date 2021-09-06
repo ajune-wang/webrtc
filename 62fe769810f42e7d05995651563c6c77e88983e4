@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9d0191e8_efc34487",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-09-06T12:51:24Z",
+      "side": 1,
+      "message": "Looks some Khronos and EGL stuff is Apach license, anyway, I will try to look into writing all the stuff myself, let\u0027s see how much work this is going to be.",
+      "parentUuid": "b397e289_5a6049dd",
+      "revId": "62fe769810f42e7d05995651563c6c77e88983e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cb9a8571_a3600bdd",
         "filename": "modules/desktop_capture/DEPS",
         "patchSetId": 2

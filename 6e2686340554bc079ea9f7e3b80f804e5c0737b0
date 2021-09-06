@@ -16,6 +16,161 @@
       "message": "Hi Alessio, can you please take a look? Thanks!",
       "revId": "6e2686340554bc079ea9f7e3b80f804e5c0737b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a5c7532_a1b19dc1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-09-06T14:53:48Z",
+      "side": 1,
+      "message": "Thanks for your CL Hanna!\nLGTM % some comments",
+      "revId": "6e2686340554bc079ea9f7e3b80f804e5c0737b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03f93c62_18fba463",
+        "filename": "modules/audio_processing/agc/agc_manager_direct_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-09-06T14:53:48Z",
+      "side": 1,
+      "message": "sorry for missing this earlier\nit\u0027d be great to describe what this function does\nI believe it can help to better understand the changes in the unit test code below in this file",
+      "range": {
+        "startLine": 88,
+        "startChar": 5,
+        "endLine": 88,
+        "endChar": 30
+      },
+      "revId": "6e2686340554bc079ea9f7e3b80f804e5c0737b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1dbdfda8_48bf8961",
+        "filename": "modules/audio_processing/agc/agc_manager_direct_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 984,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-09-06T14:53:48Z",
+      "side": 1,
+      "message": "nit the prediction step",
+      "range": {
+        "startLine": 984,
+        "startChar": 46,
+        "endLine": 984,
+        "endChar": 56
+      },
+      "revId": "6e2686340554bc079ea9f7e3b80f804e5c0737b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1dcfb39d_4f41b029",
+        "filename": "modules/audio_processing/agc/agc_manager_direct_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 984,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-09-06T14:53:48Z",
+      "side": 1,
+      "message": "nit end comments with . (same below)",
+      "range": {
+        "startLine": 984,
+        "startChar": 65,
+        "endLine": 984,
+        "endChar": 69
+      },
+      "revId": "6e2686340554bc079ea9f7e3b80f804e5c0737b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe16b897_c6bc54db",
+        "filename": "modules/audio_processing/agc/agc_manager_direct_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 991,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-09-06T14:53:48Z",
+      "side": 1,
+      "message": "related to the comment about adding a docstring for `CallPreProcessAudioBuffer()`\n\nI asked about adding the docstring because here it\u0027s not immediately clear to me why the input triggers an adaptation when the predictor is used. Feel free to address this comment in a separate CL so that we can land the fixes asap.\n\nMaybe one simple change that could help is the following: rename `kNonClippingPeakRatio` to something like `kCloseToClippingPeakRatio`. WDYT?",
+      "range": {
+        "startLine": 985,
+        "startChar": 0,
+        "endLine": 991,
+        "endChar": 77
+      },
+      "revId": "6e2686340554bc079ea9f7e3b80f804e5c0737b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3cce433_569e97ff",
+        "filename": "modules/audio_processing/agc/agc_manager_direct_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 992,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-09-06T14:53:48Z",
+      "side": 1,
+      "message": "oh right, great to also test this!",
+      "range": {
+        "startLine": 992,
+        "startChar": 2,
+        "endLine": 992,
+        "endChar": 36
+      },
+      "revId": "6e2686340554bc079ea9f7e3b80f804e5c0737b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf148005_fa008955",
+        "filename": "modules/audio_processing/agc/agc_manager_direct_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1082,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-09-06T14:53:48Z",
+      "side": 1,
+      "message": "in this test I would just check \n\nEXPECT_EQ(manager_with_prediction.stream_analog_level(),\n          manager_without_prediction.stream_analog_level());\n \nat each step since we are not testing how the analog controller reacts on detected clipping\n          \n(same below)",
+      "range": {
+        "startLine": 1081,
+        "startChar": 0,
+        "endLine": 1082,
+        "endChar": 77
+      },
+      "revId": "6e2686340554bc079ea9f7e3b80f804e5c0737b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6dd6e135_04b47586",
+        "filename": "modules/audio_processing/agc/agc_manager_direct_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-09-06T16:00:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "03f93c62_18fba463",
+      "range": {
+        "startLine": 88,
+        "startChar": 5,
+        "endLine": 88,
+        "endChar": 30
+      },
+      "revId": "6e2686340554bc079ea9f7e3b80f804e5c0737b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1dbdfda8_48bf8961",
@@ -104,6 +128,54 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e10b80a_a23d92c9",
+        "filename": "modules/audio_processing/agc/agc_manager_direct_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 984,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-09-06T16:00:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1dbdfda8_48bf8961",
+      "range": {
+        "startLine": 984,
+        "startChar": 46,
+        "endLine": 984,
+        "endChar": 56
+      },
+      "revId": "6e2686340554bc079ea9f7e3b80f804e5c0737b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6ce1224_7f726a74",
+        "filename": "modules/audio_processing/agc/agc_manager_direct_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 984,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-09-06T16:00:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1dcfb39d_4f41b029",
+      "range": {
+        "startLine": 984,
+        "startChar": 65,
+        "endLine": 984,
+        "endChar": 69
+      },
+      "revId": "6e2686340554bc079ea9f7e3b80f804e5c0737b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fe16b897_c6bc54db",
@@ -117,6 +189,30 @@
       "writtenOn": "2021-09-06T14:53:48Z",
       "side": 1,
       "message": "related to the comment about adding a docstring for `CallPreProcessAudioBuffer()`\n\nI asked about adding the docstring because here it\u0027s not immediately clear to me why the input triggers an adaptation when the predictor is used. Feel free to address this comment in a separate CL so that we can land the fixes asap.\n\nMaybe one simple change that could help is the following: rename `kNonClippingPeakRatio` to something like `kCloseToClippingPeakRatio`. WDYT?",
+      "range": {
+        "startLine": 985,
+        "startChar": 0,
+        "endLine": 991,
+        "endChar": 77
+      },
+      "revId": "6e2686340554bc079ea9f7e3b80f804e5c0737b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c93debec_76d864bc",
+        "filename": "modules/audio_processing/agc/agc_manager_direct_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 991,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-09-06T16:00:46Z",
+      "side": 1,
+      "message": "That\u0027s a good idea. `kNonClippingPeakRatio` is now renamed but the docstring left for future work.",
+      "parentUuid": "fe16b897_c6bc54db",
       "range": {
         "startLine": 985,
         "startChar": 0,
@@ -163,6 +259,30 @@
       "writtenOn": "2021-09-06T14:53:48Z",
       "side": 1,
       "message": "in this test I would just check \n\nEXPECT_EQ(manager_with_prediction.stream_analog_level(),\n          manager_without_prediction.stream_analog_level());\n \nat each step since we are not testing how the analog controller reacts on detected clipping\n          \n(same below)",
+      "range": {
+        "startLine": 1081,
+        "startChar": 0,
+        "endLine": 1082,
+        "endChar": 77
+      },
+      "revId": "6e2686340554bc079ea9f7e3b80f804e5c0737b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c0810fc_983b6eb8",
+        "filename": "modules/audio_processing/agc/agc_manager_direct_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1082,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-09-06T16:00:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf148005_fa008955",
       "range": {
         "startLine": 1081,
         "startChar": 0,

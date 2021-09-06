@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6615cd96_6815bdf2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5670
+      },
+      "writtenOn": "2021-09-06T14:18:48Z",
+      "side": 1,
+      "message": "This change does not prevent threads from updating the audio session simultaneously. If thread 1 calls lockForConfiguration, any other thread is free to call setCategory without calling lockForConfiguration, since the lock is not checked in checkLock.",
+      "revId": "77c676bbe643d88ec9aa2fcea815d4d42a53c3f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

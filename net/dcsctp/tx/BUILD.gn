@@ -57,6 +57,7 @@ rtc_library("retransmission_error_counter") {
 
 rtc_library("retransmission_timeout") {
   deps = [
+    "../../../api/units:time_delta",
     "../../../rtc_base:checks",
     "../../../rtc_base:rtc_base_approved",
     "../public:types",
@@ -116,6 +117,7 @@ if (rtc_include_tests) {
       ":rr_send_queue",
       ":send_queue",
       "../../../api:array_view",
+      "../../../api/units:time_delta",
       "../../../rtc_base:checks",
       "../../../rtc_base:gunit_helpers",
       "../../../rtc_base:rtc_base_approved",

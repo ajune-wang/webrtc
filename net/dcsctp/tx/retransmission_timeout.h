@@ -13,6 +13,7 @@
 #include <cstdint>
 #include <functional>
 
+#include "api/units/time_delta.h"
 #include "net/dcsctp/public/dcsctp_options.h"
 
 namespace dcsctp {
@@ -32,13 +33,15 @@ class RetransmissionTimeout {
   explicit RetransmissionTimeout(const DcSctpOptions& options);
 
   // To be called when a RTT has been measured, to update the RTO value.
-  void ObserveRTT(DurationMs measured_rtt);
+  void ObserveRTT(webrtc::TimeDelta measured_rtt);
 
   // Returns the Retransmission Timeout (RTO) value, in milliseconds.
-  DurationMs rto() const { return DurationMs(rto_); }
+  webrtc::TimeDelta rto() const { return webrtc::TimeDelta::Millis(rto_); }
 
   // Returns the smoothed RTT value, in milliseconds.
-  DurationMs srtt() const { return DurationMs(scaled_srtt_ >> kRttShift); }
+  webrtc::TimeDelta srtt() const {
+    return webrtc::TimeDelta::Millis(scaled_srtt_ >> kRttShift);
+  }
 
  private:
   const int32_t min_rto_;

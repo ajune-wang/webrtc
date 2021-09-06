@@ -9,24 +9,26 @@
  */
 #include "net/dcsctp/tx/retransmission_timeout.h"
 
+#include "api/units/time_delta.h"
 #include "net/dcsctp/public/dcsctp_options.h"
 #include "rtc_base/gunit.h"
 #include "test/gmock.h"
 
 namespace dcsctp {
 namespace {
+using ::webrtc::TimeDelta;
 
-constexpr DurationMs kMaxRtt = DurationMs(8'000);
-constexpr DurationMs kInitialRto = DurationMs(200);
-constexpr DurationMs kMaxRto = DurationMs(800);
-constexpr DurationMs kMinRto = DurationMs(120);
+constexpr webrtc::TimeDelta kMaxRtt = webrtc::TimeDelta::Seconds(8);
+constexpr webrtc::TimeDelta kInitialRto = webrtc::TimeDelta::Millis(200);
+constexpr webrtc::TimeDelta kMaxRto = webrtc::TimeDelta::Millis(800);
+constexpr webrtc::TimeDelta kMinRto = webrtc::TimeDelta::Millis(120);
 
 DcSctpOptions MakeOptions() {
   DcSctpOptions options;
-  options.rtt_max = kMaxRtt;
-  options.rto_initial = kInitialRto;
-  options.rto_max = kMaxRto;
-  options.rto_min = kMinRto;
+  options.rtt_max = DurationMs(kMaxRtt.ms());
+  options.rto_initial = DurationMs(kInitialRto.ms());
+  options.rto_max = DurationMs(kMaxRto.ms());
+  options.rto_min = DurationMs(kMinRto.ms());
   return options;
 }
 
@@ -38,31 +40,31 @@ TEST(RetransmissionTimeoutTest, HasValidInitialRto) {
 TEST(RetransmissionTimeoutTest, NegativeValuesDoNotAffectRTO) {
   RetransmissionTimeout rto_(MakeOptions());
   // Initial negative value
-  rto_.ObserveRTT(DurationMs(-10));
+  rto_.ObserveRTT(webrtc::TimeDelta::Millis(-10));
   EXPECT_EQ(rto_.rto(), kInitialRto);
-  rto_.ObserveRTT(DurationMs(124));
-  EXPECT_EQ(*rto_.rto(), 372);
+  rto_.ObserveRTT(webrtc::TimeDelta::Millis(124));
+  EXPECT_EQ(rto_.rto().ms(), 372);
   // Subsequent negative value
-  rto_.ObserveRTT(DurationMs(-10));
-  EXPECT_EQ(*rto_.rto(), 372);
+  rto_.ObserveRTT(webrtc::TimeDelta::Millis(-10));
+  EXPECT_EQ(rto_.rto().ms(), 372);
 }
 
 TEST(RetransmissionTimeoutTest, TooLargeValuesDoNotAffectRTO) {
   RetransmissionTimeout rto_(MakeOptions());
   // Initial too large value
-  rto_.ObserveRTT(kMaxRtt + DurationMs(100));
+  rto_.ObserveRTT(kMaxRtt + webrtc::TimeDelta::Millis(100));
   EXPECT_EQ(rto_.rto(), kInitialRto);
-  rto_.ObserveRTT(DurationMs(124));
-  EXPECT_EQ(*rto_.rto(), 372);
+  rto_.ObserveRTT(webrtc::TimeDelta::Millis(124));
+  EXPECT_EQ(rto_.rto().ms(), 372);
   // Subsequent too large value
-  rto_.ObserveRTT(kMaxRtt + DurationMs(100));
-  EXPECT_EQ(*rto_.rto(), 372);
+  rto_.ObserveRTT(kMaxRtt + webrtc::TimeDelta::Millis(100));
+  EXPECT_EQ(rto_.rto().ms(), 372);
 }
 
 TEST(RetransmissionTimeoutTest, WillNeverGoBelowMinimumRto) {
   RetransmissionTimeout rto_(MakeOptions());
   for (int i = 0; i < 1000; ++i) {
-    rto_.ObserveRTT(DurationMs(1));
+    rto_.ObserveRTT(webrtc::TimeDelta::Millis(1));
   }
   EXPECT_GE(rto_.rto(), kMinRto);
 }
@@ -70,67 +72,67 @@ TEST(RetransmissionTimeoutTest, WillNeverGoBelowMinimumRto) {
 TEST(RetransmissionTimeoutTest, WillNeverGoAboveMaximumRto) {
   RetransmissionTimeout rto_(MakeOptions());
   for (int i = 0; i < 1000; ++i) {
-    rto_.ObserveRTT(kMaxRtt - DurationMs(1));
+    rto_.ObserveRTT(kMaxRtt - webrtc::TimeDelta::Millis(1));
     // Adding jitter, which would make it RTO be well above RTT.
-    rto_.ObserveRTT(kMaxRtt - DurationMs(100));
+    rto_.ObserveRTT(kMaxRtt - webrtc::TimeDelta::Millis(100));
   }
   EXPECT_LE(rto_.rto(), kMaxRto);
 }
 
 TEST(RetransmissionTimeoutTest, CalculatesRtoForStableRtt) {
   RetransmissionTimeout rto_(MakeOptions());
-  rto_.ObserveRTT(DurationMs(124));
-  EXPECT_EQ(*rto_.rto(), 372);
-  rto_.ObserveRTT(DurationMs(128));
-  EXPECT_EQ(*rto_.rto(), 314);
-  rto_.ObserveRTT(DurationMs(123));
-  EXPECT_EQ(*rto_.rto(), 268);
-  rto_.ObserveRTT(DurationMs(125));
-  EXPECT_EQ(*rto_.rto(), 233);
-  rto_.ObserveRTT(DurationMs(127));
-  EXPECT_EQ(*rto_.rto(), 209);
+  rto_.ObserveRTT(TimeDelta::Millis(124));
+  EXPECT_EQ(rto_.rto().ms(), 372);
+  rto_.ObserveRTT(TimeDelta::Millis(128));
+  EXPECT_EQ(rto_.rto().ms(), 314);
+  rto_.ObserveRTT(TimeDelta::Millis(123));
+  EXPECT_EQ(rto_.rto().ms(), 268);
+  rto_.ObserveRTT(TimeDelta::Millis(125));
+  EXPECT_EQ(rto_.rto().ms(), 233);
+  rto_.ObserveRTT(TimeDelta::Millis(127));
+  EXPECT_EQ(rto_.rto().ms(), 209);
 }
 
 TEST(RetransmissionTimeoutTest, CalculatesRtoForUnstableRtt) {
   RetransmissionTimeout rto_(MakeOptions());
-  rto_.ObserveRTT(DurationMs(124));
-  EXPECT_EQ(*rto_.rto(), 372);
-  rto_.ObserveRTT(DurationMs(402));
-  EXPECT_EQ(*rto_.rto(), 622);
-  rto_.ObserveRTT(DurationMs(728));
-  EXPECT_EQ(*rto_.rto(), 800);
-  rto_.ObserveRTT(DurationMs(89));
-  EXPECT_EQ(*rto_.rto(), 800);
-  rto_.ObserveRTT(DurationMs(126));
-  EXPECT_EQ(*rto_.rto(), 800);
+  rto_.ObserveRTT(webrtc::TimeDelta::Millis(124));
+  EXPECT_EQ(rto_.rto().ms(), 372);
+  rto_.ObserveRTT(webrtc::TimeDelta::Millis(402));
+  EXPECT_EQ(rto_.rto().ms(), 622);
+  rto_.ObserveRTT(webrtc::TimeDelta::Millis(728));
+  EXPECT_EQ(rto_.rto().ms(), 800);
+  rto_.ObserveRTT(webrtc::TimeDelta::Millis(89));
+  EXPECT_EQ(rto_.rto().ms(), 800);
+  rto_.ObserveRTT(webrtc::TimeDelta::Millis(126));
+  EXPECT_EQ(rto_.rto().ms(), 800);
 }
 
 TEST(RetransmissionTimeoutTest, WillStabilizeAfterAWhile) {
   RetransmissionTimeout rto_(MakeOptions());
-  rto_.ObserveRTT(DurationMs(124));
-  rto_.ObserveRTT(DurationMs(402));
-  rto_.ObserveRTT(DurationMs(728));
-  rto_.ObserveRTT(DurationMs(89));
-  rto_.ObserveRTT(DurationMs(126));
-  EXPECT_EQ(*rto_.rto(), 800);
-  rto_.ObserveRTT(DurationMs(124));
-  EXPECT_EQ(*rto_.rto(), 800);
-  rto_.ObserveRTT(DurationMs(122));
-  EXPECT_EQ(*rto_.rto(), 710);
-  rto_.ObserveRTT(DurationMs(123));
-  EXPECT_EQ(*rto_.rto(), 631);
-  rto_.ObserveRTT(DurationMs(124));
-  EXPECT_EQ(*rto_.rto(), 562);
-  rto_.ObserveRTT(DurationMs(122));
-  EXPECT_EQ(*rto_.rto(), 505);
-  rto_.ObserveRTT(DurationMs(124));
-  EXPECT_EQ(*rto_.rto(), 454);
-  rto_.ObserveRTT(DurationMs(124));
-  EXPECT_EQ(*rto_.rto(), 410);
-  rto_.ObserveRTT(DurationMs(124));
-  EXPECT_EQ(*rto_.rto(), 372);
-  rto_.ObserveRTT(DurationMs(124));
-  EXPECT_EQ(*rto_.rto(), 340);
+  rto_.ObserveRTT(TimeDelta::Millis(124));
+  rto_.ObserveRTT(TimeDelta::Millis(402));
+  rto_.ObserveRTT(TimeDelta::Millis(728));
+  rto_.ObserveRTT(TimeDelta::Millis(89));
+  rto_.ObserveRTT(TimeDelta::Millis(126));
+  EXPECT_EQ(rto_.rto().ms(), 800);
+  rto_.ObserveRTT(TimeDelta::Millis(124));
+  EXPECT_EQ(rto_.rto().ms(), 800);
+  rto_.ObserveRTT(TimeDelta::Millis(122));
+  EXPECT_EQ(rto_.rto().ms(), 710);
+  rto_.ObserveRTT(TimeDelta::Millis(123));
+  EXPECT_EQ(rto_.rto().ms(), 631);
+  rto_.ObserveRTT(TimeDelta::Millis(124));
+  EXPECT_EQ(rto_.rto().ms(), 562);
+  rto_.ObserveRTT(TimeDelta::Millis(122));
+  EXPECT_EQ(rto_.rto().ms(), 505);
+  rto_.ObserveRTT(TimeDelta::Millis(124));
+  EXPECT_EQ(rto_.rto().ms(), 454);
+  rto_.ObserveRTT(TimeDelta::Millis(124));
+  EXPECT_EQ(rto_.rto().ms(), 410);
+  rto_.ObserveRTT(TimeDelta::Millis(124));
+  EXPECT_EQ(rto_.rto().ms(), 372);
+  rto_.ObserveRTT(TimeDelta::Millis(124));
+  EXPECT_EQ(rto_.rto().ms(), 340);
 }
 
 TEST(RetransmissionTimeoutTest, WillAlwaysStayAboveRTT) {
@@ -142,9 +144,9 @@ TEST(RetransmissionTimeoutTest, WillAlwaysStayAboveRTT) {
   RetransmissionTimeout rto_(MakeOptions());
 
   for (int i = 0; i < 100; ++i) {
-    rto_.ObserveRTT(DurationMs(124));
+    rto_.ObserveRTT(webrtc::TimeDelta::Millis(124));
   }
-  EXPECT_GT(*rto_.rto(), 124);
+  EXPECT_GT(rto_.rto().ms(), 124);
 }
 
 }  // namespace

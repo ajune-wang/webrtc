@@ -38,15 +38,16 @@
 namespace dcsctp {
 
 void TransmissionControlBlock::ObserveRTT(DurationMs rtt) {
-  DurationMs prev_rto = rto_.rto();
-  rto_.ObserveRTT(rtt);
+  webrtc::TimeDelta prev_rto = rto_.rto();
+  rto_.ObserveRTT(webrtc::TimeDelta::Millis(*rtt));
   RTC_DLOG(LS_VERBOSE) << log_prefix_ << "new rtt=" << *rtt
-                       << ", srtt=" << *rto_.srtt() << ", rto=" << *rto_.rto()
-                       << " (" << *prev_rto << ")";
-  t3_rtx_->set_duration(rto_.rto());
+                       << ", srtt=" << rto_.srtt().ms()
+                       << ", rto=" << rto_.rto().ms() << " (" << prev_rto.ms()
+                       << ")";
+  t3_rtx_->set_duration(DurationMs(rto_.rto().ms()));
 
-  DurationMs delayed_ack_tmo =
-      std::min(rto_.rto() * 0.5, options_.delayed_ack_max_timeout);
+  DurationMs delayed_ack_tmo = std::min(DurationMs(rto_.rto().ms() * 0.5),
+                                        options_.delayed_ack_max_timeout);
   delayed_ack_timer_->set_duration(delayed_ack_tmo);
 }
 
@@ -98,7 +99,8 @@ void TransmissionControlBlock::MaybeSendForwardTsn(SctpPacket::Builder& builder,
     // sending a duplicate FORWARD TSN."
     // "Any delay applied to the sending of FORWARD TSN chunk SHOULD NOT exceed
     // 200ms and MUST NOT exceed 500ms".
-    limit_forward_tsn_until_ = now + std::min(DurationMs(200), rto_.srtt());
+    limit_forward_tsn_until_ =
+        now + std::min(DurationMs(200), DurationMs(rto_.srtt().ms()));
   }
 }
 

@@ -12,6 +12,7 @@
 #include <algorithm>
 #include <cstdint>
 
+#include "api/units/time_delta.h"
 #include "net/dcsctp/public/dcsctp_options.h"
 
 namespace dcsctp {
@@ -22,12 +23,12 @@ RetransmissionTimeout::RetransmissionTimeout(const DcSctpOptions& options)
       max_rtt_(*options.rtt_max),
       rto_(*options.rto_initial) {}
 
-void RetransmissionTimeout::ObserveRTT(DurationMs measured_rtt) {
-  int32_t rtt = *measured_rtt;
+void RetransmissionTimeout::ObserveRTT(webrtc::TimeDelta measured_rtt) {
+  int32_t rtt = measured_rtt.ms();
 
-  // Unrealistic values will be skipped. If a wrongly measured (or otherwise
-  // corrupt) value was processed, it could change the state in a way that would
-  // take a very long time to recover.
+  // Unrealistic values will be skipped. If a wrongly measured (or
+  // otherwise corrupt) value was processed, it could change the
+  // state in a way that would take a very long time to recover.
   if (rtt < 0 || rtt > max_rtt_) {
     return;
   }

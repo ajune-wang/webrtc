@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "740ac98d_886874b6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-06T10:32:09Z",
+      "side": 1,
+      "message": "Hi Stefan and Magnus. This Cl fixes a logical bug about the value change of |encoder_info_|. PTAL.",
+      "revId": "0cd553317453c03745c2e05edc71372a597091a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -70,6 +70,30 @@
       },
       "revId": "84d6a67547616204c52ece2c85fa722d0902a5d8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b85a56c_84b0a5f2",
+        "filename": "video/alignment_adjuster.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 18194
+      },
+      "writtenOn": "2021-09-06T06:08:54Z",
+      "side": 1,
+      "message": "With the patch subsequent to this CL, @Silkin and I agreed to set apply_alignment_to_all_simulcast_layers to false when using HardwareVideoEncoder in JAVA. \n\nsee:\nhttps://webrtc-review.googlesource.com/c/src/+/229460/comments/740f0479_587ed09f\n\nI think this modification would stop us right before the further adjustments of scaling factors on other layers if we have any.\n\nThe reason I cannot explicitly announce that we should not apply requested_alignment to all simulcast layers if the requested_alignemnt is same to kMaxAlignment(16) is that I\u0027m not sure about that value \"16\" is an absolute criteria since we haven\u0027t gone through tests with other resolutions.\n\nSo, setting the value in HardwareVideoEncoder seems adequate in current situation. Would you please take a look on the above option?",
+      "parentUuid": "2f452da5_d7b16338",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 3
+      },
+      "revId": "84d6a67547616204c52ece2c85fa722d0902a5d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

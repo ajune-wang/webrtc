@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5859da0_308096d9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-09-06T10:09:46Z",
+      "side": 1,
+      "message": "This is yet another attempt to land this. The previus one failed on:\n1) Unexpected new dependency libepoxy.so.0()(64bit) on distro Fedora [31/32/33] caused by binary chrome\n2) Dependency libepoxy0 (\u003e\u003d 1.0) not satisfiable on distro Debian 10 (Buster) caused by binary chrome\nDependency libdrm2 (\u003e\u003d 2.4.75) not satisfiable on distro Debian 8 (Jessie) caused by binary chrome\n\nThe libepoxy library is used for handlig OpenGL function pointers so I don\u0027t have to dlopen() libGL myself and cast all functions myself. Since it\u0027s better to reduce dependencies, I decided to use glad library instead. This one works the same way, but you can use their website to generate the code to be bundled with your application. I generated code I need for DMA-BUF support and bundled the code here. The generator can be found here [1] and there are projects which already bundle glad library same way I do, for example OBS studio or some 3rd party libraries in Chromium do the same too.\n\nRegarding the libdrm library, I now use dlopen to load it as there is no way how it can be dropped completely.\n\n[1] - https://glad.dav1d.de/\n",
+      "revId": "62fe769810f42e7d05995651563c6c77e88983e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -16,6 +16,41 @@
       "message": "Not for this CL, but I wonder if it\u0027s possible to unit-test this using the VirtualSocketServer.\n\nFor instance, set up a Datachannel and dial the virtual socket server to {5 ms, 200 ms, 1000 ms} delay, and verify that goodput (data received / data sent) is acceptable.\n\nIf we have a few test cases for the corner cases where we think things can go bad, we should have a lot more confidence when tweaking these constants that we\u0027re not breaking other scenarios too badly.\n",
       "revId": "e038e77cca31a16b40823e0be41ef24e24eac572",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5c8c7d2_2e088e49",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-09-06T09:32:56Z",
+      "side": 1,
+      "message": "I actually do have a unit test using VirtualSocketServer, but it hasn\u0027t yet been committed - mainly due to lack of bandwidth (see what I did there!)\n\nIt\u0027s at https://webrtc-review.googlesource.com/c/src/+/225201, and I agree - I\u0027ll work on getting this committed during this week.",
+      "parentUuid": "5090edbe_795bf191",
+      "revId": "e038e77cca31a16b40823e0be41ef24e24eac572",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b3b179f_f4bbfb2e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-09-06T09:32:56Z",
+      "side": 1,
+      "message": "Thanks for reviewing!",
+      "revId": "e038e77cca31a16b40823e0be41ef24e24eac572",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

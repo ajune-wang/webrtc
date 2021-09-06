@@ -16,6 +16,29 @@
       "message": "LGTM",
       "revId": "f71ad9e57941e111d7d076b23003d0b4f8a40557",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1bc391a2_682934a4",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2021-09-06T22:08:54Z",
+      "side": 1,
+      "message": "do we want to log this or not, when clipping is predicted.\n\nIf we do, should we better remove line 621 and only apply use_clipping_predictor_step_ on reassigning `step`. Also better in readability IMO.",
+      "range": {
+        "startLine": 628,
+        "startChar": 1,
+        "endLine": 631,
+        "endChar": 5
+      },
+      "revId": "f71ad9e57941e111d7d076b23003d0b4f8a40557",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

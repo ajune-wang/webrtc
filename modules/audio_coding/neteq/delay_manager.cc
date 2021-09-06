@@ -91,27 +91,98 @@ struct DelayManagerConfig {
   }
 };
 
+// Estimates probability of buffer underrun due to late packet arrival.
+// The optimal delay is decided such that the probability of underrun is lower
+// than 1 - `histogram_quantile`.
+class UnderrunOptimizer : public DelayOptimizer {
+ public:
+  UnderrunOptimizer(const TickTimer* tick_timer,
+                    int histogram_quantile,
+                    int forget_factor,
+                    absl::optional<int> start_forget_weight,
+                    absl::optional<int> resample_interval_ms)
+      : tick_timer_(tick_timer),
+        histogram_(kDelayBuckets, forget_factor, start_forget_weight),
+        histogram_quantile_(histogram_quantile),
+        resample_interval_ms_(resample_interval_ms) {}
+
+  void Update(int relative_delay_ms) override {
+    absl::optional<int> histogram_update;
+    if (resample_interval_ms_) {
+      if (!resample_stopwatch_) {
+        resample_stopwatch_ = tick_timer_->GetNewStopwatch();
+      }
+      if (static_cast<int>(resample_stopwatch_->ElapsedMs()) >
+          *resample_interval_ms_) {
+        histogram_update = max_delay_in_interval_ms_;
+        resample_stopwatch_ = tick_timer_->GetNewStopwatch();
+        max_delay_in_interval_ms_ = 0;
+      }
+      max_delay_in_interval_ms_ =
+          std::max(max_delay_in_interval_ms_, relative_delay_ms);
+    } else {
+      histogram_update = relative_delay_ms;
+    }
+    if (!histogram_update) {
+      return;
+    }
+
+    const int index = *histogram_update / kBucketSizeMs;
+    if (index < histogram_.NumBuckets()) {
+      // Maximum delay to register is 2000 ms.
+      histogram_.Add(index);
+    }
+    int bucket_index = histogram_.Quantile(histogram_quantile_);
+    optimal_delay_ms_ = (1 + bucket_index) * kBucketSizeMs;
+  }
+
+  absl::optional<int> GetOptimalDelayMs() const override {
+    return optimal_delay_ms_;
+  }
+
+  void Reset() override {
+    histogram_.Reset();
+    resample_stopwatch_ = tick_timer_->GetNewStopwatch();
+    max_delay_in_interval_ms_ = 0;
+    optimal_delay_ms_.reset();
+  }
+
+ private:
+  const TickTimer* tick_timer_;
+  Histogram histogram_;
+  const int histogram_quantile_;  // In Q30.
+  const absl::optional<int> resample_interval_ms_;
+  std::unique_ptr<TickTimer::Stopwatch> resample_stopwatch_;
+  int max_delay_in_interval_ms_ = 0;
+  absl::optional<int> optimal_delay_ms_;
+};
+
 }  // namespace
+
+std::unique_ptr<DelayOptimizer> CreateUnderrunOptimizer(
+    const TickTimer* tick_timer,
+    int histogram_quantile,
+    int forget_factor,
+    absl::optional<int> start_forget_weight,
+    absl::optional<int> resample_interval_ms) {
+  return std::make_unique<UnderrunOptimizer>(tick_timer, histogram_quantile,
+                                             forget_factor, start_forget_weight,
+                                             resample_interval_ms);
+}
 
 DelayManager::DelayManager(int max_packets_in_buffer,
                            int base_minimum_delay_ms,
-                           int histogram_quantile,
-                           absl::optional<int> resample_interval_ms,
+                           std::unique_ptr<DelayOptimizer> underrun_optimizer,
                            int max_history_ms,
-                           const TickTimer* tick_timer,
-                           std::unique_ptr<Histogram> histogram)
+                           const TickTimer* tick_timer)
     : max_packets_in_buffer_(max_packets_in_buffer),
-      histogram_(std::move(histogram)),
-      histogram_quantile_(histogram_quantile),
-      tick_timer_(tick_timer),
-      resample_interval_ms_(resample_interval_ms),
-      max_history_ms_(max_history_ms),
+      underrun_optimizer_(std::move(underrun_optimizer)),
+      relative_arrival_delay_tracker_(tick_timer, max_history_ms),
       base_minimum_delay_ms_(base_minimum_delay_ms),
       effective_minimum_delay_ms_(base_minimum_delay_ms),
       minimum_delay_ms_(0),
       maximum_delay_ms_(0),
       target_level_ms_(kStartDelayMs) {
-  RTC_CHECK(histogram_);
   RTC_DCHECK_GE(base_minimum_delay_ms_, 0);
 
   Reset();
@@ -124,12 +195,12 @@ std::unique_ptr<DelayManager> DelayManager::Create(
   DelayManagerConfig config;
   int forget_factor_q15 = (1 << 15) * config.forget_factor;
   int quantile_q30 = (1 << 30) * config.quantile;
-  std::unique_ptr<Histogram> histogram = std::make_unique<Histogram>(
-      kDelayBuckets, forget_factor_q15, config.start_forget_weight);
+  std::unique_ptr<DelayOptimizer> underrun_optimizer = CreateUnderrunOptimizer(
+      tick_timer, quantile_q30, forget_factor_q15, config.start_forget_weight,
+      config.resample_interval_ms);
   return std::make_unique<DelayManager>(
-      max_packets_in_buffer, base_minimum_delay_ms, quantile_q30,
-      config.resample_interval_ms, config.max_history_ms, tick_timer,
-      std::move(histogram));
+      max_packets_in_buffer, base_minimum_delay_ms,
+      std::move(underrun_optimizer), config.max_history_ms, tick_timer);
 }
 
 DelayManager::~DelayManager() {}
@@ -137,52 +208,18 @@ DelayManager::~DelayManager() {}
 absl::optional<int> DelayManager::Update(uint32_t timestamp,
                                          int sample_rate_hz,
                                          bool reset) {
-  if (sample_rate_hz <= 0) {
+  if (reset) {
+    relative_arrival_delay_tracker_.Reset();
+  }
+  absl::optional<int> relative_delay =
+      relative_arrival_delay_tracker_.Update(timestamp, sample_rate_hz);
+  if (!relative_delay) {
     return absl::nullopt;
   }
 
-  if (!last_timestamp_ || reset) {
-    // Restart relative delay esimation from this packet.
-    delay_history_.clear();
-    packet_iat_stopwatch_ = tick_timer_->GetNewStopwatch();
-    last_timestamp_ = timestamp;
-    resample_stopwatch_ = tick_timer_->GetNewStopwatch();
-    max_delay_in_interval_ms_ = 0;
-    return absl::nullopt;
-  }
-
-  const int expected_iat_ms =
-      1000ll * static_cast<int32_t>(timestamp - *last_timestamp_) /
-      sample_rate_hz;
-  const int iat_ms = packet_iat_stopwatch_->ElapsedMs();
-  const int iat_delay_ms = iat_ms - expected_iat_ms;
-  UpdateDelayHistory(iat_delay_ms, timestamp, sample_rate_hz);
-  int relative_delay = CalculateRelativePacketArrivalDelay();
-
-  absl::optional<int> histogram_update;
-  if (resample_interval_ms_) {
-    if (static_cast<int>(resample_stopwatch_->ElapsedMs()) >
-        *resample_interval_ms_) {
-      histogram_update = max_delay_in_interval_ms_;
-      resample_stopwatch_ = tick_timer_->GetNewStopwatch();
-      max_delay_in_interval_ms_ = 0;
-    }
-    max_delay_in_interval_ms_ =
-        std::max(max_delay_in_interval_ms_, relative_delay);
-  } else {
-    histogram_update = relative_delay;
-  }
-  if (histogram_update) {
-    const int index = *histogram_update / kBucketSizeMs;
-    if (index < histogram_->NumBuckets()) {
-      // Maximum delay to register is 2000 ms.
-      histogram_->Add(index);
-    }
-  }
-
-  // Calculate new `target_level_ms_` based on updated statistics.
-  int bucket_index = histogram_->Quantile(histogram_quantile_);
-  target_level_ms_ = (1 + bucket_index) * kBucketSizeMs;
+  underrun_optimizer_->Update(*relative_delay);
+  target_level_ms_ =
+      underrun_optimizer_->GetOptimalDelayMs().value_or(kStartDelayMs);
   target_level_ms_ = std::max(target_level_ms_, effective_minimum_delay_ms_);
   if (maximum_delay_ms_ > 0) {
     target_level_ms_ = std::min(target_level_ms_, maximum_delay_ms_);
@@ -195,37 +232,9 @@ absl::optional<int> DelayManager::Update(uint32_t timestamp,
         target_level_ms_, 3 * max_packets_in_buffer_ * packet_len_ms_ / 4);
   }
 
-  // Prepare for next packet arrival.
-  packet_iat_stopwatch_ = tick_timer_->GetNewStopwatch();
-  last_timestamp_ = timestamp;
   return relative_delay;
 }
 
-void DelayManager::UpdateDelayHistory(int iat_delay_ms,
-                                      uint32_t timestamp,
-                                      int sample_rate_hz) {
-  PacketDelay delay;
-  delay.iat_delay_ms = iat_delay_ms;
-  delay.timestamp = timestamp;
-  delay_history_.push_back(delay);
-  while (static_cast<int32_t>(timestamp - delay_history_.front().timestamp) >
-         max_history_ms_ * sample_rate_hz / 1000) {
-    delay_history_.pop_front();
-  }
-}
-
-int DelayManager::CalculateRelativePacketArrivalDelay() const {
-  // This effectively calculates arrival delay of a packet relative to the
-  // packet preceding the history window. If the arrival delay ever becomes
-  // smaller than zero, it means the reference packet is invalid, and we
-  // move the reference.
-  int relative_delay = 0;
-  for (const PacketDelay& delay : delay_history_) {
-    relative_delay += delay.iat_delay_ms;
-    relative_delay = std::max(relative_delay, 0);
-  }
-  return relative_delay;
-}
 
 int DelayManager::SetPacketAudioLength(int length_ms) {
   if (length_ms <= 0) {
@@ -238,13 +247,9 @@ int DelayManager::SetPacketAudioLength(int length_ms) {
 
 void DelayManager::Reset() {
   packet_len_ms_ = 0;
-  histogram_->Reset();
-  delay_history_.clear();
+  underrun_optimizer_->Reset();
+  relative_arrival_delay_tracker_.Reset();
   target_level_ms_ = kStartDelayMs;
-  packet_iat_stopwatch_ = tick_timer_->GetNewStopwatch();
-  last_timestamp_ = absl::nullopt;
-  resample_stopwatch_ = tick_timer_->GetNewStopwatch();
-  max_delay_in_interval_ms_ = 0;
 }
 
 int DelayManager::TargetDelayMs() const {

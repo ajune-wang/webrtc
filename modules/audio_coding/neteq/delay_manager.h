@@ -19,19 +19,33 @@
 #include "absl/types/optional.h"
 #include "api/neteq/tick_timer.h"
 #include "modules/audio_coding/neteq/histogram.h"
+#include "modules/audio_coding/neteq/relative_arrival_delay_tracker.h"
 #include "rtc_base/constructor_magic.h"
 
 namespace webrtc {
+
+class DelayOptimizer {
+ public:
+  virtual ~DelayOptimizer() = default;
+  virtual void Update(int relative_delay_ms) = 0;
+  virtual absl::optional<int> GetOptimalDelayMs() const = 0;
+  virtual void Reset() = 0;
+};
+
+std::unique_ptr<DelayOptimizer> CreateUnderrunOptimizer(
+    const TickTimer* tick_timer,
+    int histogram_quantile,
+    int forget_factor,
+    absl::optional<int> start_forget_weight,
+    absl::optional<int> resample_interval_ms);
 
 class DelayManager {
  public:
   DelayManager(int max_packets_in_buffer,
                int base_minimum_delay_ms,
-               int histogram_quantile,
-               absl::optional<int> resample_interval_ms,
+               std::unique_ptr<DelayOptimizer> underrun_optimizer,
                int max_history_ms,
-               const TickTimer* tick_timer,
-               std::unique_ptr<Histogram> histogram);
+               const TickTimer* tick_timer);
 
   // Create a DelayManager object. Notify the delay manager that the packet
   // buffer can hold no more than `max_packets_in_buffer` packets (i.e., this
@@ -73,21 +87,11 @@ class DelayManager {
   int effective_minimum_delay_ms_for_test() const {
     return effective_minimum_delay_ms_;
   }
-  int histogram_quantile() const { return histogram_quantile_; }
-  Histogram* histogram() const { return histogram_.get(); }
 
  private:
   // Provides value which minimum delay can't exceed based on current buffer
   // size and given `maximum_delay_ms_`. Lower bound is a constant 0.
   int MinimumDelayUpperBound() const;
-
-  // Updates `delay_history_`.
-  void UpdateDelayHistory(int iat_delay_ms,
-                          uint32_t timestamp,
-                          int sample_rate_hz);
-
-  // Calculate relative packet arrival delay from `delay_history_`.
-  int CalculateRelativePacketArrivalDelay() const;
 
   // Updates `effective_minimum_delay_ms_` delay based on current
   // `minimum_delay_ms_`, `base_minimum_delay_ms_` and `maximum_delay_ms_`
@@ -103,11 +107,8 @@ class DelayManager {
 
   // TODO(jakobi): set maximum buffer delay instead of number of packets.
   const int max_packets_in_buffer_;
-  std::unique_ptr<Histogram> histogram_;
-  const int histogram_quantile_;
-  const TickTimer* tick_timer_;
-  const absl::optional<int> resample_interval_ms_;
-  const int max_history_ms_;
+  std::unique_ptr<DelayOptimizer> underrun_optimizer_;
+  RelativeArrivalDelayTracker relative_arrival_delay_tracker_;
 
   int base_minimum_delay_ms_;
   int effective_minimum_delay_ms_;  // Used as lower bound for target delay.
@@ -115,19 +116,7 @@ class DelayManager {
   int maximum_delay_ms_;            // Externally set maximum allowed delay.
 
   int packet_len_ms_ = 0;
-  std::unique_ptr<TickTimer::Stopwatch>
-      packet_iat_stopwatch_;  // Time elapsed since last packet.
   int target_level_ms_;       // Currently preferred buffer level.
-  absl::optional<uint32_t>
-      last_timestamp_;  // Timestamp for the last received packet.
-  int max_delay_in_interval_ms_ = 0;
-  std::unique_ptr<TickTimer::Stopwatch> resample_stopwatch_;
-
-  struct PacketDelay {
-    int iat_delay_ms;
-    uint32_t timestamp;
-  };
-  std::deque<PacketDelay> delay_history_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(DelayManager);
 };

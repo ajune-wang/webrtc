@@ -20,22 +20,26 @@
 
 namespace webrtc {
 
+class MockDelayOptimizer : public DelayOptimizer {
+  MOCK_METHOD(void, Update, (int));
+  MOCK_METHOD(absl::optional<int>, GetOptimalDelayMs, (), (const));
+  MOCK_METHOD(void, Reset, ());
+};
+
 class MockDelayManager : public DelayManager {
  public:
+  // TODO(jakobi): Make delay manager pure virtual interface and remove this
+  // constructor.
   MockDelayManager(size_t max_packets_in_buffer,
                    int base_minimum_delay_ms,
-                   int histogram_quantile,
-                   absl::optional<int> resample_interval_ms,
+                   std::unique_ptr<DelayOptimizer> underrun_optimizer,
                    int max_history_ms,
-                   const TickTimer* tick_timer,
-                   std::unique_ptr<Histogram> histogram)
+                   const TickTimer* tick_timer)
       : DelayManager(max_packets_in_buffer,
                      base_minimum_delay_ms,
-                     histogram_quantile,
-                     resample_interval_ms,
+                     std::move(underrun_optimizer),
                      max_history_ms,
-                     tick_timer,
-                     std::move(histogram)) {}
+                     tick_timer) {}
   MOCK_METHOD(int, TargetDelayMs, (), (const));
 };
 

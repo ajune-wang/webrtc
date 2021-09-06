@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "48235cbe_85b0dcb0",
+        "filename": "logging/rtc_event_log/events/rtc_event_field_extraction.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-09-06T14:12:32Z",
+      "side": 1,
+      "message": "Updated documentation. Using a template argument is possible but would require templatizing several other functions, and I don\u0027t want to risk the binary size increase.",
+      "parentUuid": "38987dd4_09ee9546",
+      "range": {
+        "startLine": 92,
+        "startChar": 34,
+        "endLine": 92,
+        "endChar": 39
+      },
+      "revId": "062f02774df79c250aa44ff5116c4bd06eaf120c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ac58cb3d_3916c5e9",

@@ -71,6 +71,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "20c98afc_2782ab56",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-06T14:38:24Z",
+      "side": 1,
+      "message": "Added the flag.\n\n(I wouldn\u0027t call vp9 screen share a generalisation of L1Tx structure, but let\u0027s discuss them when they are introduced within svc controller and get associated scalability mode name)",
+      "parentUuid": "1aaa0869_590c9a50",
+      "revId": "8c43300d54ae9ce5cba3cf1389f16c054d17df97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1c2ca95b_4366feff",

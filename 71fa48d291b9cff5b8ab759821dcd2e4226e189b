@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7cad40ad_1904f1d4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-09-06T16:39:42Z",
+      "side": 1,
+      "message": "Thank you Alessio! LGTM",
+      "revId": "71fa48d291b9cff5b8ab759821dcd2e4226e189b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2d13962_fcc0bfd0",
+        "filename": "modules/audio_processing/agc/clipping_predictor_evaluator_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-09-06T16:39:42Z",
+      "side": 1,
+      "message": "recall",
+      "range": {
+        "startLine": 634,
+        "startChar": 27,
+        "endLine": 634,
+        "endChar": 36
+      },
+      "revId": "71fa48d291b9cff5b8ab759821dcd2e4226e189b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

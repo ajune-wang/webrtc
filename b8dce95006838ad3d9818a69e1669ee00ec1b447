@@ -140,6 +140,30 @@
       },
       "revId": "b8dce95006838ad3d9818a69e1669ee00ec1b447",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "145b0e5c_cb2588f3",
+        "filename": "logging/rtc_event_log/encoder/delta_encoding.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 810,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-07T13:20:40Z",
+      "side": 0,
+      "message": "I\u0027m not sure how much value it would add, but it won\u0027t hurt.\n(as I see Decode function is always called right after the constructor)\n\nAdded. if it would trigger, it might help to bisect a problem.",
+      "parentUuid": "55759dfb_5a7befc1",
+      "range": {
+        "startLine": 810,
+        "startChar": 0,
+        "endLine": 810,
+        "endChar": 22
+      },
+      "revId": "b8dce95006838ad3d9818a69e1669ee00ec1b447",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

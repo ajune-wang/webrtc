@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ab485deb_373e9c52",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-09-07T08:00:29Z",
+      "side": 1,
+      "message": "Do you mean for the log text or in general? For the first option, we can use either the predicted or the max step. For the second option, `predicted_step` is overwritten to make sure that the clipping prediction doesn\u0027t introduce unnecessary small gain changes.",
+      "parentUuid": "321e9950_24fd0fcd",
+      "range": {
+        "startLine": 628,
+        "startChar": 16,
+        "endLine": 628,
+        "endChar": 24
+      },
+      "revId": "a01206e0a3747db843bb721ec68c8b5dccc5a275",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c6881b26_5e2cfad0",
         "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
         "patchSetId": 8
@@ -54,6 +78,30 @@
       "writtenOn": "2021-09-07T07:43:45Z",
       "side": 1,
       "message": "no need to change the log text?",
+      "range": {
+        "startLine": 629,
+        "startChar": 54,
+        "endLine": 629,
+        "endChar": 62
+      },
+      "revId": "a01206e0a3747db843bb721ec68c8b5dccc5a275",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15c6a36d_d4be63a5",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 629,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-09-07T08:00:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c6881b26_5e2cfad0",
       "range": {
         "startLine": 629,
         "startChar": 54,
@@ -77,6 +125,54 @@
       "writtenOn": "2021-09-07T07:43:45Z",
       "side": 1,
       "message": "line 621 seems useless.\n\nline 622 can be moved before 627.",
+      "range": {
+        "startLine": 634,
+        "startChar": 0,
+        "endLine": 644,
+        "endChar": 5
+      },
+      "revId": "a01206e0a3747db843bb721ec68c8b5dccc5a275",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04cfaba8_cb661f2d",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-09-07T08:00:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f882f9d_551be2ca",
+      "range": {
+        "startLine": 634,
+        "startChar": 0,
+        "endLine": 644,
+        "endChar": 5
+      },
+      "revId": "a01206e0a3747db843bb721ec68c8b5dccc5a275",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ab0dfe7_57759490",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-09-07T08:00:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f882f9d_551be2ca",
       "range": {
         "startLine": 634,
         "startChar": 0,

@@ -90,6 +90,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "40a9bf31_f9f64300",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-09-07T11:27:25Z",
+      "side": 1,
+      "message": "Thanks.\n\nI triggered a CQ dry run to see how it goes.",
+      "parentUuid": "b3e3e8a5_17a0118a",
+      "revId": "62fe769810f42e7d05995651563c6c77e88983e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cb9a8571_a3600bdd",

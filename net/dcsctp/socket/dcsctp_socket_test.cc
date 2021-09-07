@@ -254,10 +254,14 @@ class DcSctpSocketTest : public testing::Test {
       : options_(MakeOptionsForTest(enable_message_interleaving)),
         cb_a_("A"),
         cb_z_("Z"),
-        sock_a_(std::make_unique<DcSctpSocket>(
-            "A", cb_a_, GetPacketObserver("A"), options_)),
-        sock_z_(std::make_unique<DcSctpSocket>(
-            "Z", cb_z_, GetPacketObserver("Z"), options_)) {}
+        sock_a_(std::make_unique<DcSctpSocket>("A",
+                                               cb_a_,
+                                               GetPacketObserver("A"),
+                                               options_)),
+        sock_z_(std::make_unique<DcSctpSocket>("Z",
+                                               cb_z_,
+                                               GetPacketObserver("Z"),
+                                               options_)) {}
 
   void AdvanceTime(DurationMs duration) {
     cb_a_.AdvanceTime(duration);
@@ -566,8 +570,8 @@ TEST_F(DcSctpSocketTest, ResendingCookieEchoTooManyTimesAborts) {
 
 TEST_F(DcSctpSocketTest, DoesntSendMorePacketsUntilCookieAckHasBeenReceived) {
   sock_a_->Send(DcSctpMessage(StreamID(1), PPID(53),
-                             std::vector<uint8_t>(kLargeMessageSize)),
-               kSendOptions);
+                              std::vector<uint8_t>(kLargeMessageSize)),
+                kSendOptions);
   sock_a_->Connect();
 
   // Z reads INIT, produces INIT_ACK
@@ -1457,15 +1461,15 @@ TEST_F(DcSctpSocketTest, HasReasonableBufferedAmountValues) {
   EXPECT_EQ(sock_a_->buffered_amount(StreamID(1)), 0u);
 
   sock_a_->Send(DcSctpMessage(StreamID(1), PPID(53),
-                             std::vector<uint8_t>(kSmallMessageSize)),
-               kSendOptions);
+                              std::vector<uint8_t>(kSmallMessageSize)),
+                kSendOptions);
   // Sending a small message will directly send it as a single packet, so
   // nothing is left in the queue.
   EXPECT_EQ(sock_a_->buffered_amount(StreamID(1)), 0u);
 
   sock_a_->Send(DcSctpMessage(StreamID(1), PPID(53),
-                             std::vector<uint8_t>(kLargeMessageSize)),
-               kSendOptions);
+                              std::vector<uint8_t>(kLargeMessageSize)),
+                kSendOptions);
 
   // Sending a message will directly start sending a few packets, so the
   // buffered amount is not the full message size.
@@ -1483,8 +1487,8 @@ TEST_F(DcSctpSocketTest, TriggersOnBufferedAmountLowWithDefaultValueZero) {
 
   EXPECT_CALL(cb_a_, OnBufferedAmountLow(StreamID(1)));
   sock_a_->Send(DcSctpMessage(StreamID(1), PPID(53),
-                             std::vector<uint8_t>(kSmallMessageSize)),
-               kSendOptions);
+                              std::vector<uint8_t>(kSmallMessageSize)),
+                kSendOptions);
   ExchangeMessages(*sock_a_, cb_a_, *sock_z_, cb_z_);
 }
 
@@ -1493,7 +1497,7 @@ TEST_F(DcSctpSocketTest, DoesntTriggerOnBufferedAmountLowIfBelowThreshold) {
   static constexpr size_t kBufferedAmountLowThreshold = kMessageSize * 10;
 
   sock_a_->SetBufferedAmountLowThreshold(StreamID(1),
-                                        kBufferedAmountLowThreshold);
+                                         kBufferedAmountLowThreshold);
   EXPECT_CALL(cb_a_, OnBufferedAmountLow).Times(0);
   ConnectSockets();
 
@@ -1514,7 +1518,7 @@ TEST_F(DcSctpSocketTest, TriggersOnBufferedAmountMultipleTimes) {
   static constexpr size_t kBufferedAmountLowThreshold = kMessageSize / 2;
 
   sock_a_->SetBufferedAmountLowThreshold(StreamID(1),
-                                        kBufferedAmountLowThreshold);
+                                         kBufferedAmountLowThreshold);
   EXPECT_CALL(cb_a_, OnBufferedAmountLow).Times(0);
   ConnectSockets();
 
@@ -1551,7 +1555,7 @@ TEST_F(DcSctpSocketTest, TriggersOnBufferedAmountLowOnlyWhenCrossingThreshold) {
   static constexpr size_t kBufferedAmountLowThreshold = kMessageSize * 1.5;
 
   sock_a_->SetBufferedAmountLowThreshold(StreamID(1),
-                                        kBufferedAmountLowThreshold);
+                                         kBufferedAmountLowThreshold);
   EXPECT_CALL(cb_a_, OnBufferedAmountLow).Times(0);
   ConnectSockets();
 
@@ -1561,8 +1565,8 @@ TEST_F(DcSctpSocketTest, TriggersOnBufferedAmountLowOnlyWhenCrossingThreshold) {
   // messages will start to be fully buffered.
   while (sock_a_->buffered_amount(StreamID(1)) <= kBufferedAmountLowThreshold) {
     sock_a_->Send(DcSctpMessage(StreamID(1), PPID(53),
-                               std::vector<uint8_t>(kMessageSize)),
-                 kSendOptions);
+                                std::vector<uint8_t>(kMessageSize)),
+                  kSendOptions);
   }
   size_t initial_buffered = sock_a_->buffered_amount(StreamID(1));
   ASSERT_GT(initial_buffered, kBufferedAmountLowThreshold);
@@ -1579,8 +1583,8 @@ TEST_F(DcSctpSocketTest, DoesntTriggerOnTotalBufferAmountLowWhenBelow) {
   EXPECT_CALL(cb_a_, OnTotalBufferedAmountLow).Times(0);
 
   sock_a_->Send(DcSctpMessage(StreamID(1), PPID(53),
-                             std::vector<uint8_t>(kLargeMessageSize)),
-               kSendOptions);
+                              std::vector<uint8_t>(kLargeMessageSize)),
+                kSendOptions);
 
   ExchangeMessages(*sock_a_, cb_a_, *sock_z_, cb_z_);
 }
@@ -1593,8 +1597,8 @@ TEST_F(DcSctpSocketTest, TriggersOnTotalBufferAmountLowWhenCrossingThreshold) {
   // Fill up the send queue completely.
   for (;;) {
     if (sock_a_->Send(DcSctpMessage(StreamID(1), PPID(53),
-                                   std::vector<uint8_t>(kLargeMessageSize)),
-                     kSendOptions) == SendStatus::kErrorResourceExhaustion) {
+                                    std::vector<uint8_t>(kLargeMessageSize)),
+                      kSendOptions) == SendStatus::kErrorResourceExhaustion) {
       break;
     }
   }
@@ -1650,8 +1654,8 @@ TEST_F(DcSctpSocketTest, RxAndTxPacketMetricsIncrease) {
 
   // Send one more (large - fragmented), and receive the delayed SACK.
   sock_a_->Send(DcSctpMessage(StreamID(1), PPID(53),
-                             std::vector<uint8_t>(options_.mtu * 2 + 1)),
-               kSendOptions);
+                              std::vector<uint8_t>(options_.mtu * 2 + 1)),
+                kSendOptions);
   EXPECT_EQ(sock_a_->GetMetrics().unack_data_count, 3u);
 
   sock_z_->ReceivePacket(cb_a_.ConsumeSentPacket());  // DATA
@@ -1687,8 +1691,8 @@ TEST_F(DcSctpSocketTest, UnackDataAlsoIncludesSendQueue) {
   ConnectSockets();
 
   sock_a_->Send(DcSctpMessage(StreamID(1), PPID(53),
-                             std::vector<uint8_t>(kLargeMessageSize)),
-               kSendOptions);
+                              std::vector<uint8_t>(kLargeMessageSize)),
+                kSendOptions);
   size_t payload_bytes =
       options_.mtu - SctpPacket::kHeaderSize - DataChunk::kHeaderSize;
 
@@ -1712,8 +1716,8 @@ TEST_F(DcSctpSocketTest, DoesntSendMoreThanMaxBurstPackets) {
   ConnectSockets();
 
   sock_a_->Send(DcSctpMessage(StreamID(1), PPID(53),
-                             std::vector<uint8_t>(kLargeMessageSize)),
-               kSendOptions);
+                              std::vector<uint8_t>(kLargeMessageSize)),
+                kSendOptions);
 
   for (int i = 0; i < kMaxBurstPackets; ++i) {
     std::vector<uint8_t> packet = cb_a_.ConsumeSentPacket();

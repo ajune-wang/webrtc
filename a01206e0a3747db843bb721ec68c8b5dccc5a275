@@ -91,6 +91,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4d02165e_ea433a60",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-09-07T08:25:01Z",
+      "side": 1,
+      "message": "Sure :) That\u0027s fixed now.",
+      "parentUuid": "a97e5c8d_dc24d54c",
+      "range": {
+        "startLine": 628,
+        "startChar": 16,
+        "endLine": 628,
+        "endChar": 24
+      },
+      "revId": "a01206e0a3747db843bb721ec68c8b5dccc5a275",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c6881b26_5e2cfad0",
         "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
         "patchSetId": 8

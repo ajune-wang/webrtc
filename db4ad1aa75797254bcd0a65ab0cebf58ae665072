@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "60e50650_323a3d3c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-09-07T14:23:34Z",
+      "side": 1,
+      "message": "Thanks!",
+      "revId": "db4ad1aa75797254bcd0a65ab0cebf58ae665072",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ed4c20b7_ade0848c",
@@ -41,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "74a006d2_2a9d2e7c",
+        "filename": "modules/audio_processing/agc/clipping_predictor_evaluator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-09-07T14:23:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed4c20b7_ade0848c",
+      "range": {
+        "startLine": 62,
+        "startChar": 5,
+        "endLine": 62,
+        "endChar": 10
+      },
+      "revId": "db4ad1aa75797254bcd0a65ab0cebf58ae665072",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6a8d6dc7_b7fe69b1",
@@ -54,6 +95,30 @@
       "writtenOn": "2021-09-07T13:28:32Z",
       "side": 1,
       "message": "Previously these tests checked all four prediction groups: `true_positives` / `false_positives` / `true_negatives` / `false_negatives`. Can you please give some more details on why they are removed?",
+      "range": {
+        "startLine": 337,
+        "startChar": 0,
+        "endLine": 338,
+        "endChar": 53
+      },
+      "revId": "db4ad1aa75797254bcd0a65ab0cebf58ae665072",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76fb5d4f_fe85c0a1",
+        "filename": "modules/audio_processing/agc/clipping_predictor_evaluator_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-09-07T14:23:34Z",
+      "side": 1,
+      "message": "One good practice is to test behaviors independently. It\u0027d be bad if for instance a bug is introduced in the implementation or if we change the contract (e.g., this CL) and then all (or too many) tests fail because one aspect of how a component behaves is covered by several tests.\n\nSo, since the true negatives are separately tested elsewhere, I reduced the number of expectations. Sorry for not providing a formal proof that coverage is not reduced and thanks for asking!",
+      "parentUuid": "6a8d6dc7_b7fe69b1",
       "range": {
         "startLine": 337,
         "startChar": 0,

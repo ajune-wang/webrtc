@@ -22,6 +22,54 @@
       },
       "revId": "33fb6ee406fde03a06ac8db647c6526dbfa98ada",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e9c9ec7_91cf50f9",
+        "filename": "modules/audio_coding/neteq/delay_manager.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2021-09-07T11:58:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eea76234_5f9356d6",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 56
+      },
+      "revId": "33fb6ee406fde03a06ac8db647c6526dbfa98ada",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c303d69e_d8b84cda",
+        "filename": "modules/audio_coding/neteq/delay_manager.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2021-09-07T11:58:41Z",
+      "side": 1,
+      "message": "Done, PTAL :)",
+      "parentUuid": "eea76234_5f9356d6",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 56
+      },
+      "revId": "33fb6ee406fde03a06ac8db647c6526dbfa98ada",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

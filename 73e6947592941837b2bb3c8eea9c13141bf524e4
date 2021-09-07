@@ -22,6 +22,30 @@
       },
       "revId": "73e6947592941837b2bb3c8eea9c13141bf524e4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aeb6c819_23daa56b",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-07T21:03:10Z",
+      "side": 1,
+      "message": "braces are fine.\n\njust a small nit for the future (no need to update this code).\nyou may put break outside the braces:\n\n  case kConstant: {\n    bool new_variable;\n    Code();\n  } break;\n  case kNextConstant:\n    JustCode();\n    break;\n  case kYetAnotherConstant:\n    ...\n\npersonally I find it slightly neater.",
+      "parentUuid": "ddec8e62_9bc97e35",
+      "range": {
+        "startLine": 485,
+        "startChar": 46,
+        "endLine": 485,
+        "endChar": 48
+      },
+      "revId": "73e6947592941837b2bb3c8eea9c13141bf524e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

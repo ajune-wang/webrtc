@@ -34,6 +34,41 @@
       "parentUuid": "6615cd96_6815bdf2",
       "revId": "77c676bbe643d88ec9aa2fcea815d4d42a53c3f6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ebd81564_fc43d982",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-09-07T00:01:06Z",
+      "side": 1,
+      "message": "Added Mirko as a reviewer for sdk/BUILD.gn.",
+      "revId": "77c676bbe643d88ec9aa2fcea815d4d42a53c3f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6db57fbe_5f777a1e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-09-07T00:01:06Z",
+      "side": 1,
+      "message": "Niels is right. If a thread calls lockForConfiguration and another thread calls setCategory, checkLock raises an error because the thread local variable *mutex_locked* is true only if the underlying mutex named *_mutex* is locked.",
+      "parentUuid": "631a4f61_64929b99",
+      "revId": "77c676bbe643d88ec9aa2fcea815d4d42a53c3f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

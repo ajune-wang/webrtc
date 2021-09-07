@@ -24,6 +24,54 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7be9a116_c87ee2a4",
+        "filename": "logging/rtc_event_log/encoder/delta_encoding.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-09-07T13:05:20Z",
+      "side": 0,
+      "message": "Ack. Thanks.",
+      "parentUuid": "7ee5abc0_828a7cf3",
+      "range": {
+        "startLine": 687,
+        "startChar": 2,
+        "endLine": 687,
+        "endChar": 52
+      },
+      "revId": "b8dce95006838ad3d9818a69e1669ee00ec1b447",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "449a916c_c7103741",
+        "filename": "logging/rtc_event_log/encoder/delta_encoding.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-09-07T13:05:20Z",
+      "side": 0,
+      "message": "Ack",
+      "parentUuid": "7ee5abc0_828a7cf3",
+      "range": {
+        "startLine": 687,
+        "startChar": 2,
+        "endLine": 687,
+        "endChar": 52
+      },
+      "revId": "b8dce95006838ad3d9818a69e1669ee00ec1b447",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "62a28c92_c918aa6c",
@@ -42,6 +90,53 @@
         "startChar": 2,
         "endLine": 722,
         "endChar": 52
+      },
+      "revId": "b8dce95006838ad3d9818a69e1669ee00ec1b447",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecd597eb_46dff7ef",
+        "filename": "logging/rtc_event_log/encoder/delta_encoding.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 722,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-09-07T13:05:20Z",
+      "side": 0,
+      "message": "Ack",
+      "parentUuid": "62a28c92_c918aa6c",
+      "range": {
+        "startLine": 722,
+        "startChar": 2,
+        "endLine": 722,
+        "endChar": 52
+      },
+      "revId": "b8dce95006838ad3d9818a69e1669ee00ec1b447",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55759dfb_5a7befc1",
+        "filename": "logging/rtc_event_log/encoder/delta_encoding.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 810,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-09-07T13:05:20Z",
+      "side": 0,
+      "message": "Is there a reason for not DCHECK(reader_.Ok())?",
+      "range": {
+        "startLine": 810,
+        "startChar": 0,
+        "endLine": 810,
+        "endChar": 22
       },
       "revId": "b8dce95006838ad3d9818a69e1669ee00ec1b447",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"

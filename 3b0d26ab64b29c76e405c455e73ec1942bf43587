@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "68c1063c_47c4e4aa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-09-07T13:05:20Z",
+      "side": 1,
+      "message": "LGTM % a couple of questions/nits",
+      "revId": "3b0d26ab64b29c76e405c455e73ec1942bf43587",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49dc8ebf_6d732940",
+        "filename": "logging/rtc_event_log/encoder/delta_encoding.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-09-07T13:05:20Z",
+      "side": 1,
+      "message": "nit: I\u0027d prefer this comment to be before the ReadBits above.",
+      "range": {
+        "startLine": 713,
+        "startChar": 5,
+        "endLine": 713,
+        "endChar": 13
+      },
+      "revId": "3b0d26ab64b29c76e405c455e73ec1942bf43587",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

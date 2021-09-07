@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddec8e62_9bc97e35",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-09-07T20:58:45Z",
+      "side": 1,
+      "message": "I had to add braces here to make it compile. Let me know if you dislike it or prefer another option and I will fix it in another CL. I\u0027m submitting this quickly since the bug is a marked as ReleaseBlock-Stable for Chromium.",
+      "range": {
+        "startLine": 485,
+        "startChar": 46,
+        "endLine": 485,
+        "endChar": 48
+      },
+      "revId": "73e6947592941837b2bb3c8eea9c13141bf524e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

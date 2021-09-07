@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a97e5c8d_dc24d54c",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 7102
+      },
+      "writtenOn": "2021-09-07T08:15:57Z",
+      "side": 1,
+      "message": "I mean if line 628 can be simply\n\npredicted_step \u003d std::max(predicted_step, clipped_level_step_)",
+      "parentUuid": "ab485deb_373e9c52",
+      "range": {
+        "startLine": 628,
+        "startChar": 16,
+        "endLine": 628,
+        "endChar": 24
+      },
+      "revId": "a01206e0a3747db843bb721ec68c8b5dccc5a275",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c6881b26_5e2cfad0",
         "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
         "patchSetId": 8

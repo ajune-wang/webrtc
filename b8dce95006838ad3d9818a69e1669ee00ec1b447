@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ee5abc0_828a7cf3",
+        "filename": "logging/rtc_event_log/encoder/delta_encoding.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-07T11:47:44Z",
+      "side": 0,
+      "message": "I\u0027m changing this condition: as it is now it compares number of bytes to number of bits.\ninstead I just try to read that number of bits and return false on failure.\n(BitstreamReader constructor is cheap. reading too many bits is also cheap.)",
+      "range": {
+        "startLine": 687,
+        "startChar": 2,
+        "endLine": 687,
+        "endChar": 52
+      },
+      "revId": "b8dce95006838ad3d9818a69e1669ee00ec1b447",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62a28c92_c918aa6c",
+        "filename": "logging/rtc_event_log/encoder/delta_encoding.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 722,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-07T11:47:44Z",
+      "side": 0,
+      "message": "same here.",
+      "range": {
+        "startLine": 722,
+        "startChar": 2,
+        "endLine": 722,
+        "endChar": 52
+      },
+      "revId": "b8dce95006838ad3d9818a69e1669ee00ec1b447",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

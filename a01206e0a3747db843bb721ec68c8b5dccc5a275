@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3aef33fa_1de137fc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-09-07T05:21:00Z",
+      "side": 1,
+      "message": "Thank you for the comments!\n\nAlessio, the code was changed after your LGTM, could you please take a look again? Thanks!\n\n",
+      "revId": "a01206e0a3747db843bb721ec68c8b5dccc5a275",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

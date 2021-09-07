@@ -39,6 +39,30 @@
       },
       "revId": "f71ad9e57941e111d7d076b23003d0b4f8a40557",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e040822d_e45b67bc",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-09-07T05:21:00Z",
+      "side": 1,
+      "message": "Thanks for pointing this out! This is changed now, it also required another check for `use_clipping_predictor_step_` a few lines later.",
+      "parentUuid": "1bc391a2_682934a4",
+      "range": {
+        "startLine": 628,
+        "startChar": 1,
+        "endLine": 631,
+        "endChar": 5
+      },
+      "revId": "f71ad9e57941e111d7d076b23003d0b4f8a40557",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

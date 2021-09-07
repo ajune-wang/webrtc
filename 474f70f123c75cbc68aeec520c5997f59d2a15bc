@@ -200,6 +200,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5e4b5d8_420671fb",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-09-07T11:20:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e040822d_e45b67bc",
+      "range": {
+        "startLine": 628,
+        "startChar": 1,
+        "endLine": 631,
+        "endChar": 5
+      },
+      "revId": "474f70f123c75cbc68aeec520c5997f59d2a15bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2de6a353_eda82c9f",
@@ -261,6 +285,30 @@
       "side": 1,
       "message": "The unit tests are refactored in https://webrtc-review.googlesource.com/c/src/+/231225. All unit test changes removed from this CL.",
       "parentUuid": "d33be52a_3d1544b3",
+      "range": {
+        "startLine": 977,
+        "startChar": 5,
+        "endLine": 977,
+        "endChar": 56
+      },
+      "revId": "474f70f123c75cbc68aeec520c5997f59d2a15bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "257b46db_cb3eef08",
+        "filename": "modules/audio_processing/agc/agc_manager_direct_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 977,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-09-07T11:20:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fee38394_c5ee8a82",
       "range": {
         "startLine": 977,
         "startChar": 5,

@@ -18,6 +18,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1b67552_9c47bea2",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-09-07T11:20:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d02165e_ea433a60",
+      "range": {
+        "startLine": 628,
+        "startChar": 16,
+        "endLine": 628,
+        "endChar": 24
+      },
+      "revId": "f71ad9e57941e111d7d076b23003d0b4f8a40557",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1bc391a2_682934a4",

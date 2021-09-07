@@ -2145,7 +2145,7 @@ bool MediaSessionDescriptionFactory::AddAudioContentForOffer(
     // Add the codecs from the current transceiver's codec preferences.
     // They override any existing codecs from previous negotiations.
     filtered_codecs = MatchCodecPreference(
-        media_description_options.codec_preferences, supported_audio_codecs);
+        media_description_options.codec_preferences, audio_codecs);
   } else {
     // Add the codecs from current content if it exists and is not rejected nor
     // recycled.
@@ -2234,7 +2234,7 @@ bool MediaSessionDescriptionFactory::AddVideoContentForOffer(
     // Add the codecs from the current transceiver's codec preferences.
     // They override any existing codecs from previous negotiations.
     filtered_codecs = MatchCodecPreference(
-        media_description_options.codec_preferences, supported_video_codecs);
+        media_description_options.codec_preferences, video_codecs);
   } else {
     // Add the codecs from current content if it exists and is not rejected nor
     // recycled.

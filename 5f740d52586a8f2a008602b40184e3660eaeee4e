@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a2328a2_196336f8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-09-08T14:50:38Z",
+      "side": 1,
+      "message": "Looks good! Just one note.",
+      "revId": "5f740d52586a8f2a008602b40184e3660eaeee4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5563baf_6e141ac8",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-09-08T14:50:38Z",
+      "side": 1,
+      "message": "Since this value is used in 5 different places in this class, I suggest we define a constant and use it instead.",
+      "range": {
+        "startLine": 211,
+        "startChar": 25,
+        "endLine": 211,
+        "endChar": 27
+      },
+      "revId": "5f740d52586a8f2a008602b40184e3660eaeee4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

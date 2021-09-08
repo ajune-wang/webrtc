@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f40468a6_b0692669",
+        "filename": "modules/audio_coding/neteq/reorder_optimizer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-09-08T13:44:51Z",
+      "side": 1,
+      "message": "Previously we discussed the option to subtract the optimal unordered delay here (or something like max(0, delay_ms - optimal_unordered_delay) ). Is that still something we should look into, or do you think we should first try it like this?",
+      "range": {
+        "startLine": 57,
+        "startChar": 19,
+        "endLine": 57,
+        "endChar": 27
+      },
+      "revId": "e5324cb8058f4cf912b63007fe87440ecc76894a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b94721c2_7abd4bbe",
+        "filename": "modules/audio_coding/neteq/reorder_optimizer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-09-08T13:44:51Z",
+      "side": 1,
+      "message": "I don\u0027t think this captures what the class does very well. Maybe \"Calculates an optimal delay to reduce the chance of missing reordered packets.\"?",
+      "range": {
+        "startLine": 19,
+        "startChar": 3,
+        "endLine": 19,
+        "endChar": 59
+      },
+      "revId": "e5324cb8058f4cf912b63007fe87440ecc76894a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -156,7 +156,6 @@ class RtpVideoSender : public RtpVideoSenderInterface,
   void UpdateModuleSendingState() RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_);
   void ConfigureProtection();
   void ConfigureSsrcs();
-  void ConfigureRids();
   bool NackEnabled() const;
   uint32_t GetPacketizationOverheadRate() const;
   DataRate CalculateOverheadRate(DataRate data_rate,

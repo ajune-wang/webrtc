@@ -126,6 +126,8 @@ AudioSendStream::AudioSendStream(
                           config.rtp.extmap_allow_mixed,
                           config.rtcp_report_interval_ms,
                           config.rtp.ssrc,
+                          config.rtp.rid,
+                          config.rtp.mid,
                           config.frame_transformer,
                           rtp_transport->transport_feedback_observer())) {}
 
@@ -236,6 +238,8 @@ void AudioSendStream::ConfigureStream(
   RTC_DCHECK(first_time ||
              old_config.send_transport == new_config.send_transport);
   RTC_DCHECK(first_time || old_config.rtp.ssrc == new_config.rtp.ssrc);
+  RTC_DCHECK(first_time || old_config.rtp.rid == new_config.rtp.rid);
+  RTC_DCHECK(first_time || old_config.rtp.mid == new_config.rtp.mid);
   if (suspended_rtp_state_ && first_time) {
     rtp_rtcp_module_->SetRtpState(*suspended_rtp_state_);
   }
@@ -305,17 +309,14 @@ void AudioSendStream::ConfigureStream(
                                                           bandwidth_observer);
   }
   // MID RTP header extension.
-  if ((first_time || new_ids.mid != old_ids.mid ||
-       new_config.rtp.mid != old_config.rtp.mid) &&
-      new_ids.mid != 0 && !new_config.rtp.mid.empty()) {
+  if ((first_time || new_ids.mid != old_ids.mid) && new_ids.mid != 0 &&
+      !new_config.rtp.mid.empty()) {
     rtp_rtcp_module_->RegisterRtpHeaderExtension(RtpMid::kUri, new_ids.mid);
-    rtp_rtcp_module_->SetMid(new_config.rtp.mid);
   }
 
   // RID RTP header extension
   if ((first_time || new_ids.rid != old_ids.rid ||
-       new_ids.repaired_rid != old_ids.repaired_rid ||
-       new_config.rtp.rid != old_config.rtp.rid)) {
+       new_ids.repaired_rid != old_ids.repaired_rid)) {
     if (new_ids.rid != 0 || new_ids.repaired_rid != 0) {
       if (new_config.rtp.rid.empty()) {
         rtp_rtcp_module_->DeregisterSendRtpHeaderExtension(RtpStreamId::kUri);
@@ -327,7 +328,6 @@ void AudioSendStream::ConfigureStream(
                                                      new_ids.rid);
       }
     }
-    rtp_rtcp_module_->SetRid(new_config.rtp.rid);
   }
 
   if (first_time || new_ids.abs_capture_time != old_ids.abs_capture_time) {

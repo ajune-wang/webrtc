@@ -232,11 +232,18 @@ std::vector<RtpStreamSender> CreateRtpStreamSenders(
   configuration.extmap_allow_mixed = rtp_config.extmap_allow_mixed;
   configuration.rtcp_report_interval_ms = rtcp_report_interval_ms;
   configuration.field_trials = &trials;
+  configuration.mid = rtp_config.mid;
 
   std::vector<RtpStreamSender> rtp_streams;
 
   RTC_DCHECK(rtp_config.rtx.ssrcs.empty() ||
              rtp_config.rtx.ssrcs.size() == rtp_config.ssrcs.size());
+
+  // Some streams could have been disabled, but the rids are still there.
+  // This will occur when simulcast has been disabled for a codec (e.g. VP9)
+  RTC_DCHECK(rtp_config.rids.empty() ||
+             rtp_config.rids.size() >= rtp_config.ssrcs.size());
+
   for (size_t i = 0; i < rtp_config.ssrcs.size(); ++i) {
     RTPSenderVideo::Config video_config;
     configuration.local_media_ssrc = rtp_config.ssrcs[i];
@@ -249,6 +256,8 @@ std::vector<RtpStreamSender> CreateRtpStreamSenders(
         rtp_config.GetRtxSsrcAssociatedWithMediaSsrc(rtp_config.ssrcs[i]);
     RTC_DCHECK_EQ(configuration.rtx_send_ssrc.has_value(),
                   !rtp_config.rtx.ssrcs.empty());
+
+    configuration.rid = (i < rtp_config.rids.size()) ? rtp_config.rids[i] : "";
 
     configuration.need_rtp_packet_infos = rtp_config.lntf.enabled;
 
@@ -425,13 +434,6 @@ RtpVideoSender::RtpVideoSender(
   }
 
   ConfigureSsrcs();
-  ConfigureRids();
-
-  if (!rtp_config_.mid.empty()) {
-    for (const RtpStreamSender& stream : rtp_streams_) {
-      stream.rtp_rtcp->SetMid(rtp_config_.mid);
-    }
-  }
 
   bool fec_enabled = false;
   for (const RtpStreamSender& stream : rtp_streams_) {
@@ -729,18 +731,6 @@ void RtpVideoSender::ConfigureSsrcs() {
           rtp_config_.ulpfec.red_rtx_payload_type,
           rtp_config_.ulpfec.red_payload_type);
     }
-  }
-}
-
-void RtpVideoSender::ConfigureRids() {
-  if (rtp_config_.rids.empty())
-    return;
-
-  // Some streams could have been disabled, but the rids are still there.
-  // This will occur when simulcast has been disabled for a codec (e.g. VP9)
-  RTC_DCHECK(rtp_config_.rids.size() >= rtp_streams_.size());
-  for (size_t i = 0; i < rtp_streams_.size(); ++i) {
-    rtp_streams_[i].rtp_rtcp->SetRid(rtp_config_.rids[i]);
   }
 }
 

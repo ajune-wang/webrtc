@@ -32,9 +32,8 @@ class SimpleStringBuilder {
   SimpleStringBuilder(const SimpleStringBuilder&) = delete;
   SimpleStringBuilder& operator=(const SimpleStringBuilder&) = delete;
 
-  SimpleStringBuilder& operator<<(const char* str);
   SimpleStringBuilder& operator<<(char ch);
-  SimpleStringBuilder& operator<<(const std::string& str);
+  SimpleStringBuilder& operator<<(absl::string_view str);
   SimpleStringBuilder& operator<<(int i);
   SimpleStringBuilder& operator<<(unsigned i);
   SimpleStringBuilder& operator<<(long i);                // NOLINT
@@ -81,6 +80,15 @@ class SimpleStringBuilder {
   size_t size_ = 0;
 };
 
+inline SimpleStringBuilder& SimpleStringBuilder::operator<<(char c) {
+  return Append(&c, 1);
+}
+
+inline SimpleStringBuilder& SimpleStringBuilder::operator<<(
+    absl::string_view str) {
+  return Append(str.data(), str.size());
+}
+
 // A string builder that supports dynamic resizing while building a string.
 // The class is based around an instance of std::string and allows moving
 // ownership out of the class once the string has been built.
@@ -95,7 +103,7 @@ class StringBuilder {
   StringBuilder(const StringBuilder&) = delete;
   StringBuilder& operator=(const StringBuilder&) = delete;
 
-  StringBuilder& operator<<(const absl::string_view str) {
+  StringBuilder& operator<<(absl::string_view str) {
     str_.append(str.data(), str.length());
     return *this;
   }

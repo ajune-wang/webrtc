@@ -29,12 +29,9 @@
 
 namespace rtc {
 
-BasicPacketSocketFactory::BasicPacketSocketFactory(Thread* thread)
-    : thread_(thread), socket_factory_(NULL) {}
-
 BasicPacketSocketFactory::BasicPacketSocketFactory(
     SocketFactory* socket_factory)
-    : thread_(NULL), socket_factory_(socket_factory) {}
+    : socket_factory_(socket_factory) {}
 
 BasicPacketSocketFactory::~BasicPacketSocketFactory() {}
 
@@ -217,12 +214,7 @@ int BasicPacketSocketFactory::BindSocket(Socket* socket,
 }
 
 SocketFactory* BasicPacketSocketFactory::socket_factory() {
-  if (thread_) {
-    RTC_DCHECK(thread_ == Thread::Current());
-    return thread_->socketserver();
-  } else {
-    return socket_factory_;
-  }
+  return socket_factory_;
 }
 
 }  // namespace rtc

@@ -129,7 +129,8 @@ PeerConnectionE2EQualityTest::PeerConnectionE2EQualityTest(
       task_queue_factory_(time_controller_.CreateTaskQueueFactory()),
       test_case_name_(std::move(test_case_name)),
       executor_(std::make_unique<TestActivitiesExecutor>(
-          time_controller_.GetClock())) {
+          time_controller_.GetClock())),
+      socket_factory_(&socket_server_) {
   // Create default video quality analyzer. We will always create an analyzer,
   // even if there are no video streams, because it will be installed into video
   // encoder/decoder factories.
@@ -173,8 +174,8 @@ PeerConnectionE2EQualityTest::PeerHandle* PeerConnectionE2EQualityTest::AddPeer(
     rtc::Thread* network_thread,
     rtc::NetworkManager* network_manager,
     rtc::FunctionView<void(PeerConfigurer*)> configurer) {
-  peer_configurations_.push_back(
-      std::make_unique<PeerConfigurerImpl>(network_thread, network_manager));
+  peer_configurations_.push_back(std::make_unique<PeerConfigurerImpl>(
+      network_thread, network_manager, &socket_factory_));
   configurer(peer_configurations_.back().get());
   peer_handles_.push_back(PeerHandleImpl());
   return &peer_handles_.back();

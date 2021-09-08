@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2347ea48_81163612",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-09-08T07:38:16Z",
+      "side": 1,
+      "message": "Harald, PTAL. Need OWNER\u0027s approval for pc/.",
+      "revId": "d354857d675dde1eac495853424704496d846134",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

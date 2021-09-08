@@ -332,7 +332,7 @@ VideoReceiveStream::Config CreateVideoReceiveStreamConfig(
   VideoReceiveStream::Config recv(feedback_transport);
   recv.rtp.transport_cc = config.stream.packet_feedback;
   recv.rtp.local_ssrc = local_ssrc;
-  recv.rtp.extensions = GetVideoRtpExtensions(config);
+  recv.rtp.set_extensions(GetVideoRtpExtensions(config));
 
   RTC_DCHECK(!config.stream.use_rtx ||
              config.stream.nack_history_time > TimeDelta::Zero());

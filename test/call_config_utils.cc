@@ -60,11 +60,13 @@ VideoReceiveStream::Config ParseVideoReceiveStreamJsonConfig(
     receive_config.rtp.rtx_associated_payload_types[std::stoi(members[0])] =
         rtx_payload_type.asInt64();
   }
+  std::vector<RtpExtension> extensions;
   for (const auto& ext_json : json["rtp"]["extensions"]) {
-    receive_config.rtp.extensions.emplace_back(ext_json["uri"].asString(),
-                                               ext_json["id"].asInt64(),
-                                               ext_json["encrypt"].asBool());
+    extensions.emplace_back(ext_json["uri"].asString(),
+                            ext_json["id"].asInt64(),
+                            ext_json["encrypt"].asBool());
   }
+  receive_config.rtp.set_extensions(std::move(extensions));
   return receive_config;
 }
 
@@ -107,7 +109,7 @@ Json::Value GenerateVideoReceiveStreamJsonConfig(
   }
 
   rtp_json["extensions"] = Json::Value(Json::arrayValue);
-  for (auto& ext : config.rtp.extensions) {
+  for (auto& ext : config.rtp.extensions()) {
     Json::Value ext_json;
     ext_json["uri"] = ext.uri;
     ext_json["id"] = ext.id;

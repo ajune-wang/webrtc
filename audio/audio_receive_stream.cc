@@ -41,9 +41,10 @@ std::string AudioReceiveStream::Config::Rtp::ToString() const {
   ss << ", transport_cc: " << (transport_cc ? "on" : "off");
   ss << ", nack: " << nack.ToString();
   ss << ", extensions: [";
-  for (size_t i = 0; i < extensions.size(); ++i) {
-    ss << extensions[i].ToString();
-    if (i != extensions.size() - 1) {
+  const auto& exts = extensions();
+  for (size_t i = 0; i < exts.size(); ++i) {
+    ss << exts[i].ToString();
+    if (i != exts.size() - 1) {
       ss << ", ";
     }
   }
@@ -211,6 +212,12 @@ void AudioReceiveStream::Stop() {
   audio_state()->RemoveReceivingStream(this);
 }
 
+const std::vector<RtpExtension>& AudioReceiveStream::rtp_extensions() const {
+  // TODO(bugs.webrtc.org/11993): Expect to be called on the network thread.
+  RTC_DCHECK_RUN_ON(&worker_thread_checker_);
+  return config_.rtp.extensions();
+}
+
 bool AudioReceiveStream::IsRunning() const {
   RTC_DCHECK_RUN_ON(&worker_thread_checker_);
   return playing_;
@@ -262,7 +269,7 @@ void AudioReceiveStream::SetRtpExtensions(
   // TODO(bugs.webrtc.org/11993): This is called via WebRtcAudioReceiveStream,
   // expect to be called on the network thread.
   RTC_DCHECK_RUN_ON(&worker_thread_checker_);
-  config_.rtp.extensions = std::move(extensions);
+  config_.rtp.set_extensions(std::move(extensions));
 }
 
 webrtc::AudioReceiveStream::Stats AudioReceiveStream::GetStats(

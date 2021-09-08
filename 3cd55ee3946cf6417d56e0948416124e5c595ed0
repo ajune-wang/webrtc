@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "796c1098_797258d8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-08T09:47:22Z",
+      "side": 1,
+      "message": "as I understand this scenario is rare enough, so saving is not that large, but still seems like a good idea not to produce a frame rather than drop it right after it was produced.",
+      "revId": "3cd55ee3946cf6417d56e0948416124e5c595ed0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

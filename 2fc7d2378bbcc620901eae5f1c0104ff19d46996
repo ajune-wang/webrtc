@@ -70,6 +70,24 @@
       "parentUuid": "de46328f_1b512428",
       "revId": "2fc7d2378bbcc620901eae5f1c0104ff19d46996",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28babb8b_a0f6debe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-09-08T08:49:56Z",
+      "side": 1,
+      "message": "Yes it\u0027s quite a bit of work unfortunately, but I think we should move in that direction (not mix the rtp header extensions with the stream classes, keep it closer to the packet parsing logic).\n\nThis CL doesn\u0027t aim to solve that though, but rather reduce the chance of having to recreate the video streams, so I think we should still land it. Ultimately that\u0027ll be what happens too when the header extensions aren\u0027t a part of the stream classes.",
+      "parentUuid": "b2f17a72_f20269ae",
+      "revId": "2fc7d2378bbcc620901eae5f1c0104ff19d46996",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

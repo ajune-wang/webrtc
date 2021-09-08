@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "67d62a41_3553fd17",
+        "filename": "modules/audio_coding/neteq/reorder_optimizer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2021-09-08T14:36:37Z",
+      "side": 1,
+      "message": "Ah right, I forgot. Added :)",
+      "parentUuid": "f40468a6_b0692669",
+      "range": {
+        "startLine": 57,
+        "startChar": 19,
+        "endLine": 57,
+        "endChar": 27
+      },
+      "revId": "e5324cb8058f4cf912b63007fe87440ecc76894a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b94721c2_7abd4bbe",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-09-08T13:44:51Z",
       "side": 1,
       "message": "I don\u0027t think this captures what the class does very well. Maybe \"Calculates an optimal delay to reduce the chance of missing reordered packets.\"?",
+      "range": {
+        "startLine": 19,
+        "startChar": 3,
+        "endLine": 19,
+        "endChar": 59
+      },
+      "revId": "e5324cb8058f4cf912b63007fe87440ecc76894a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f9cd22f_4a6d9ce6",
+        "filename": "modules/audio_coding/neteq/reorder_optimizer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2021-09-08T14:36:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b94721c2_7abd4bbe",
       "range": {
         "startLine": 19,
         "startChar": 3,

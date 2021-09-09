@@ -6140,8 +6140,10 @@ TEST_F(VideoStreamEncoderTest,
 
 TEST_F(VideoStreamEncoderTest, RampsUpInQualityWhenBwIsHigh) {
   webrtc::test::ScopedFieldTrials field_trials(
-      "WebRTC-Video-QualityRampupSettings/min_pixels:1,min_duration_ms:2000/");
-
+      "WebRTC-Video-QualityRampupSettings/"
+      "min_pixels:921600,min_duration_ms:2000/");
+  const int kWidth = 1280;
+  const int kHeight = 720;
   // Reset encoder for field trials to take effect.
   VideoEncoderConfig config = video_encoder_config_.Copy();
   config.max_bitrate_bps = kTargetBitrateBps;
@@ -6163,8 +6165,6 @@ TEST_F(VideoStreamEncoderTest, RampsUpInQualityWhenBwIsHigh) {
       DataRate::BitsPerSec(kLowBitrateBps), 0, 0, 0);
 
   // Expect first frame to be dropped and resolution to be limited.
-  const int kWidth = 1280;
-  const int kHeight = 720;
   const int64_t kFrameIntervalMs = 100;
   int64_t timestamp_ms = kFrameIntervalMs;
   source.IncomingCapturedFrame(CreateFrame(timestamp_ms, kWidth, kHeight));

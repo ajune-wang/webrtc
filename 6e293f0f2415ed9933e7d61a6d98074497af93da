@@ -16,6 +16,24 @@
       "message": "Is there a second step planned to remove all those hacks from the places where they currently exist? I couldn\u0027t read the referenced bug as envisioning such a step, but it seems like a Good Thing to do.\n\n(Duplicating all the hacks in 2 places ... not so much.)",
       "revId": "6e293f0f2415ed9933e7d61a6d98074497af93da",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "447c3819_5a2927f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-09-09T15:23:41Z",
+      "side": 1,
+      "message": "Yes, that\u0027s the intention :)\n\nThe following classes can be:\n  - Simplified: https://source.chromium.org/chromium/_/webrtc/src.git/+/3ed2b8d0b4deeafb51abe1e51aa0a7c241bfc1ba:modules/video_coding/packet_buffer.cc\n  - Removed (almost, need to move some more things into H264PacketBuffer) https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/video_coding/h264_sps_pps_tracker.cc\n  - Simplified: https://source.chromium.org/chromium/_/webrtc/src.git/+/3ed2b8d0b4deeafb51abe1e51aa0a7c241bfc1ba:video/rtp_video_stream_receiver2.cc\n  \nJust search for H264 and you will find a bunch of H264 specific handling going on.",
+      "parentUuid": "e7c42b75_555f8fe4",
+      "revId": "6e293f0f2415ed9933e7d61a6d98074497af93da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

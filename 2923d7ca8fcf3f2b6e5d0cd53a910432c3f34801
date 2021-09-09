@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9cb166ef_8fccd557",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-09-09T07:25:31Z",
+      "side": 1,
+      "message": "Can we test this?\n\nI saw that there is already a mock verifier in the _unittests.cc file; if we can figure out what test calls the function that calls the function that calls the function that calls the verifier, it shoujld be simple to clone that test and pass in a mock, telling the mock to return false or true as appropriate for the test.\n\nWhatever isn\u0027t tested breaks.....",
+      "revId": "2923d7ca8fcf3f2b6e5d0cd53a910432c3f34801",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "19fe39d6_268a5a6a",

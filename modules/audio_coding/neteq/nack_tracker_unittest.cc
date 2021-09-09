@@ -16,6 +16,7 @@
 #include <memory>
 
 #include "modules/audio_coding/include/audio_coding_module_typedefs.h"
+#include "test/field_trial.h"
 #include "test/gtest.h"
 
 namespace webrtc {
@@ -477,6 +478,38 @@ TEST(NackTrackerTest, RoudTripTimeIsApplied) {
   ASSERT_EQ(2u, nack_list.size());
   EXPECT_EQ(4, nack_list[0]);
   EXPECT_EQ(5, nack_list[1]);
+}
+
+// Set never_nack_multiple_times to true with a field trial and verify that
+// packets are not nacked multiple times.
+TEST(NackTrackerTest, DoNotNackMultipleTimes) {
+  test::ScopedFieldTrials field_trials(
+      "WebRTC-Audio-NetEqNackTrackerConfig/"
+      "packet_loss_forget_factor:0.996,ms_per_loss_percent:20,"
+      "never_nack_multiple_times:true/");
+  const int kNackListSize = 200;
+  std::unique_ptr<NackTracker> nack(NackTracker::Create(0));
+  nack->UpdateSampleRate(kSampleRateHz);
+  nack->SetMaxNackListSize(kNackListSize);
+
+  uint16_t seq_num = 0;
+  uint32_t timestamp = 0x87654321;
+  nack->UpdateLastReceivedPacket(seq_num, timestamp);
+
+  uint16_t kNumLostPackets = 3;
+
+  seq_num += (1 + kNumLostPackets);
+  timestamp += (1 + kNumLostPackets) * kTimestampIncrement;
+  nack->UpdateLastReceivedPacket(seq_num, timestamp);
+
+  std::vector<uint16_t> nack_list = nack->GetNackList(10);
+  ASSERT_EQ(3u, nack_list.size());
+  EXPECT_EQ(1, nack_list[0]);
+  EXPECT_EQ(2, nack_list[1]);
+  EXPECT_EQ(3, nack_list[2]);
+  // When we get the nack list again, it should be empty.
+  std::vector<uint16_t> nack_list2 = nack->GetNackList(10);
+  EXPECT_TRUE(nack_list2.empty());
 }
 
 }  // namespace webrtc

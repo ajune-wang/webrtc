@@ -18,6 +18,40 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "545a576d_ffb674df",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-09-09T12:23:26Z",
+      "side": 1,
+      "message": "These are not the OKs you are looking for....\n",
+      "revId": "2923d7ca8fcf3f2b6e5d0cd53a910432c3f34801",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03d77496_6f2cb579",
+        "filename": "rtc_base/openssl_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 869,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-09-09T12:23:26Z",
+      "side": 1,
+      "message": "Here\u0027s where the magic happens. \"ok\" isn\u0027t a constant, it\u0027s a variable that is passed in - the value seems to be zero in the tests. The function returns 1 for success, so 0 is presumably seen as failiure.\n\nAnd of course this is all #if WEBRTC_USE_CRYPTO_BUFFER_CALLBACK\u0027s else branch. Which one is in use in production?",
+      "revId": "2923d7ca8fcf3f2b6e5d0cd53a910432c3f34801",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "19fe39d6_268a5a6a",

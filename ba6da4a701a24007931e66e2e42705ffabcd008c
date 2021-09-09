@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d9d56e29_a7466646",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-09-09T13:55:35Z",
+      "side": 1,
+      "message": "Maybe, but I want to stay consistent with nearby methods.",
+      "parentUuid": "d9b11475_2dd2e807",
+      "revId": "ba6da4a701a24007931e66e2e42705ffabcd008c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "efb7bd81_22a48e6f",
         "filename": "test/network/emulated_network_manager.cc",
         "patchSetId": 1
@@ -71,6 +89,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "316aa494_50330f0a",
+        "filename": "test/network/emulated_network_manager.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-09-09T13:55:35Z",
+      "side": 1,
+      "message": "rtc::Thread has two constructors, where you can choose whether or not to pass ownership (in itself not that nice). So if we used rtc::Thread constructor directly, we could keep ownership in this class. But the TimeController::CreateThread constructor doesn\u0027t have that option.\n\nSince we give it away to an object we do own, maybe it\u0027s ok?",
+      "parentUuid": "efb7bd81_22a48e6f",
+      "revId": "ba6da4a701a24007931e66e2e42705ffabcd008c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4389dc18_61a2321d",
         "filename": "test/network/emulated_network_manager.h",
         "patchSetId": 1
@@ -82,6 +118,24 @@
       "writtenOn": "2021-09-09T13:32:34Z",
       "side": 1,
       "message": "Should we also add a comment that these are const except that it\u0027s hard to write the constructor if we mark them as such?",
+      "revId": "ba6da4a701a24007931e66e2e42705ffabcd008c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0c00af6_99dffa2a",
+        "filename": "test/network/emulated_network_manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-09-09T13:55:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4389dc18_61a2321d",
       "revId": "ba6da4a701a24007931e66e2e42705ffabcd008c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

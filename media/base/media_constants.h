@@ -13,6 +13,7 @@
 
 #include <stddef.h>
 
+#include "absl/base/attributes.h"
 #include "rtc_base/system/rtc_export.h"
 
 // This file contains constants related to media.
@@ -122,6 +123,9 @@ extern const char kComfortNoiseCodecName[];
 RTC_EXPORT extern const char kVp8CodecName[];
 RTC_EXPORT extern const char kVp9CodecName[];
 RTC_EXPORT extern const char kAv1CodecName[];
+// TODO(bugs.webrtc.org/13166): Delete after all dependent projects updated.
+ABSL_DEPRECATED("Use kAv1CodecName instead.")
+RTC_EXPORT extern const char kAv1xCodecName[];
 RTC_EXPORT extern const char kH264CodecName[];
 
 // RFC 6184 RTP Payload Format for H.264 video

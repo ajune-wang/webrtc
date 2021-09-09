@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb40ee4c_968088fc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-09-09T09:24:15Z",
+      "side": 1,
+      "message": "Please consider clearing the experiment in the same CL, effectively hardcoding the best experiment config.",
+      "revId": "2642c438654a9fd3b947455d2ab8371dc018a5ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94b5dcf3_f70434f8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-09-09T14:26:48Z",
+      "side": 1,
+      "message": "Please add a comment into CL description that we are going to remove network_thread() in future and replace it with a newly added accessor.",
+      "revId": "99f62d2d87fb0fbb28263b6dd359b3e71a72922e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -16,6 +16,41 @@
       "message": "Please consider clearing the experiment in the same CL, effectively hardcoding the best experiment config.",
       "revId": "2642c438654a9fd3b947455d2ab8371dc018a5ef",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce1da2d2_d02382d7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-09-09T09:31:16Z",
+      "side": 1,
+      "message": "I\u0027m considering doing a second experiment with the setting 0. I\u0027ve added a reminder to clean it up in the event I\u0027m not proceeding with a second experiment.",
+      "parentUuid": "fb40ee4c_968088fc",
+      "revId": "2642c438654a9fd3b947455d2ab8371dc018a5ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41f1b8e0_cc4b9226",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-09-09T09:31:16Z",
+      "side": 1,
+      "message": "Thanks for the review!",
+      "revId": "2642c438654a9fd3b947455d2ab8371dc018a5ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

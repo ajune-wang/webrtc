@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40c62458_77e7d5fd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-09-09T08:55:31Z",
+      "side": 1,
+      "message": "Verified that chromium CQ is green with this change: https://chromium-review.googlesource.com/c/chromium/src/+/3149992.\n\nI would like to get LGTMs before sending a PSA and land the change after PSA\u0027s feedback is addressed (if there will be any).",
+      "revId": "fb487bd518b802b1dab2be95d1c9a2fc253fc070",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

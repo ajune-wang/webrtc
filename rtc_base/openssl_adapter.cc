@@ -909,7 +909,7 @@ int OpenSSLAdapter::SSLVerifyInternal(int ok, SSL* ssl, X509_STORE_CTX* store) {
 #endif
   if (!ssl_cert_verifier_->Verify(cert)) {
     RTC_LOG(LS_INFO) << "Failed to verify certificate using custom callback";
-    return ok;
+    return ssl_verify_invalid;
   }
 
   custom_cert_verifier_status_ = true;

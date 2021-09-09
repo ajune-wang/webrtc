@@ -16,6 +16,98 @@
       "message": "Hi Jakob, PTAL.",
       "revId": "b0b9de881ad2b165a44e51f5cb7ff3e7e389471d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d391d9bf_bc3cb049",
+        "filename": "modules/audio_coding/neteq/nack_tracker.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2021-09-09T14:03:12Z",
+      "side": 1,
+      "message": "Similar to clearing the nack list, this will remove entries that are older than the playout timestamp, which may have not been marked missing yet.\n\nThis is fine if we only nack packets once and nack_threshold is set to 0, but will otherwise result in some packets not being nacked.",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 150,
+        "endChar": 0
+      },
+      "revId": "b0b9de881ad2b165a44e51f5cb7ff3e7e389471d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e5b2554_4b95a61b",
+        "filename": "modules/audio_coding/neteq/nack_tracker.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2021-09-09T14:03:12Z",
+      "side": 1,
+      "message": "Maybe make this configurable and rename to `ms_per_loss_percent`?",
+      "range": {
+        "startLine": 227,
+        "startChar": 0,
+        "endLine": 227,
+        "endChar": 33
+      },
+      "revId": "b0b9de881ad2b165a44e51f5cb7ff3e7e389471d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "565496e6_e21aeece",
+        "filename": "modules/audio_coding/neteq/nack_tracker.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2021-09-09T14:03:12Z",
+      "side": 1,
+      "message": "Is it possible that we miss to nack packets due to this? For example if nack_threshold \u003e 0 then a lost packet can be marked missing after a couple of packets have been received.",
+      "range": {
+        "startLine": 240,
+        "startChar": 4,
+        "endLine": 240,
+        "endChar": 23
+      },
+      "revId": "b0b9de881ad2b165a44e51f5cb7ff3e7e389471d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5aa4ad54_c9ff2649",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2021-09-09T14:03:12Z",
+      "side": 1,
+      "message": "Would it make sense to make this configurable via field trial?",
+      "range": {
+        "startLine": 516,
+        "startChar": 0,
+        "endLine": 516,
+        "endChar": 40
+      },
+      "revId": "b0b9de881ad2b165a44e51f5cb7ff3e7e389471d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

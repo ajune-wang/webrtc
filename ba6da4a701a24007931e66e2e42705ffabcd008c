@@ -16,6 +16,74 @@
       "message": "PTAL.",
       "revId": "ba6da4a701a24007931e66e2e42705ffabcd008c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e151eaf_8672a38a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-09-09T13:32:34Z",
+      "side": 1,
+      "message": "Good preparation, I see we don\u0027t use it yet.\n\nJust comments on comments, more or less.",
+      "revId": "ba6da4a701a24007931e66e2e42705ffabcd008c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9b11475_2dd2e807",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-09-09T13:32:34Z",
+      "side": 1,
+      "message": "If we\u0027re guaranteed that it\u0027s non-null, should we return a reference in order to document that?",
+      "revId": "ba6da4a701a24007931e66e2e42705ffabcd008c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efb7bd81_22a48e6f",
+        "filename": "test/network/emulated_network_manager.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-09-09T13:32:34Z",
+      "side": 1,
+      "message": "A pointer to an object you\u0027re giving away is usually a code smell.\nAdd a TODO referring to the bug saying \"stop passing socket_server and make it\nowned by pakcet_socket_factory when we can\"?",
+      "revId": "ba6da4a701a24007931e66e2e42705ffabcd008c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4389dc18_61a2321d",
+        "filename": "test/network/emulated_network_manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-09-09T13:32:34Z",
+      "side": 1,
+      "message": "Should we also add a comment that these are const except that it\u0027s hard to write the constructor if we mark them as such?",
+      "revId": "ba6da4a701a24007931e66e2e42705ffabcd008c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

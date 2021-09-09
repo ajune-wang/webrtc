@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20fe6168_46f1e12e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-09-09T07:35:03Z",
+      "side": 1,
+      "message": "Interesting. Essentially, you\u0027re doing the calculation in fixed-point binary with 2-3 decimals.\n\nOne of the things Matt Mathis has recently (last few years) worked on leading up to BBR is reworking the TCP congestion control modelling from fixed-point to floating-point; it turned out to have an effect. I\u0027d actually want to drop a line to mattmathis@google.com and ask if he thinks this looks right.\n",
+      "revId": "3ed2b8d0b4deeafb51abe1e51aa0a7c241bfc1ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

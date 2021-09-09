@@ -18,9 +18,7 @@ import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-/**
- * Display the video stream on a SurfaceView.
- */
+/** Display the video stream on a SurfaceView. */
 public class SurfaceViewRenderer extends SurfaceView
     implements SurfaceHolder.Callback, VideoSink, RendererCommon.RendererEvents {
   private static final String TAG = "SurfaceViewRenderer";
@@ -41,9 +39,7 @@ public class SurfaceViewRenderer extends SurfaceView
   private int surfaceWidth;
   private int surfaceHeight;
 
-  /**
-   * Standard View constructor. In order to render something, you must first call init().
-   */
+  /** Standard View constructor. In order to render something, you must first call init(). */
   public SurfaceViewRenderer(Context context) {
     super(context);
     this.resourceName = getResourceName();
@@ -52,9 +48,7 @@ public class SurfaceViewRenderer extends SurfaceView
     getHolder().addCallback(eglRenderer);
   }
 
-  /**
-   * Standard View constructor. In order to render something, you must first call init().
-   */
+  /** Standard View constructor. In order to render something, you must first call init(). */
   public SurfaceViewRenderer(Context context, AttributeSet attrs) {
     super(context, attrs);
     this.resourceName = getResourceName();
@@ -101,10 +95,9 @@ public class SurfaceViewRenderer extends SurfaceView
    * Register a callback to be invoked when a new video frame has been received.
    *
    * @param listener The callback to be invoked. The callback will be invoked on the render thread.
-   *                 It should be lightweight and must not call removeFrameListener.
-   * @param scale    The scale of the Bitmap passed to the callback, or 0 if no Bitmap is
-   *                 required.
-   * @param drawer   Custom drawer to use for this frame listener.
+   *     It should be lightweight and must not call removeFrameListener.
+   * @param scale The scale of the Bitmap passed to the callback, or 0 if no Bitmap is required.
+   * @param drawer Custom drawer to use for this frame listener.
    */
   public void addFrameListener(
       EglRenderer.FrameListener listener, float scale, RendererCommon.GlDrawer drawerParam) {
@@ -116,9 +109,8 @@ public class SurfaceViewRenderer extends SurfaceView
    * the drawer of the EglRenderer that was passed in init.
    *
    * @param listener The callback to be invoked. The callback will be invoked on the render thread.
-   *                 It should be lightweight and must not call removeFrameListener.
-   * @param scale    The scale of the Bitmap passed to the callback, or 0 if no Bitmap is
-   *                 required.
+   *     It should be lightweight and must not call removeFrameListener.
+   * @param scale The scale of the Bitmap passed to the callback, or 0 if no Bitmap is required.
    */
   public void addFrameListener(EglRenderer.FrameListener listener, float scale) {
     eglRenderer.addFrameListener(listener, scale);
@@ -138,16 +130,12 @@ public class SurfaceViewRenderer extends SurfaceView
     updateSurfaceSize();
   }
 
-  /**
-   * Set if the video stream should be mirrored or not.
-   */
+  /** Set if the video stream should be mirrored or not. */
   public void setMirror(final boolean mirror) {
     eglRenderer.setMirror(mirror);
   }
 
-  /**
-   * Set how the video will fill the allowed layout area.
-   */
+  /** Set how the video will fill the allowed layout area. */
   public void setScalingType(RendererCommon.ScalingType scalingType) {
     ThreadUtils.checkIsOnMainThread();
     videoLayoutMeasure.setScalingType(scalingType);
@@ -165,7 +153,7 @@ public class SurfaceViewRenderer extends SurfaceView
    * Limit render framerate.
    *
    * @param fps Limit render framerate to this value, or use Float.POSITIVE_INFINITY to disable fps
-   *            reduction.
+   *     reduction.
    */
   public void setFpsReduction(float fps) {
     eglRenderer.setFpsReduction(fps);
@@ -256,9 +244,7 @@ public class SurfaceViewRenderer extends SurfaceView
     }
   }
 
-  /**
-   * Post a task to clear the SurfaceView to a transparent uniform color.
-   */
+  /** Post a task to clear the SurfaceView to a transparent uniform color. */
   public void clearImage() {
     eglRenderer.clearImage();
   }

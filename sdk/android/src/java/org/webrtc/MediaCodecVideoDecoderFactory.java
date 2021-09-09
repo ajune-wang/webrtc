@@ -33,9 +33,9 @@ class MediaCodecVideoDecoderFactory implements VideoDecoderFactory {
    * MediaCodecVideoDecoderFactory with support of codecs filtering.
    *
    * @param sharedContext The textures generated will be accessible from this context. May be null,
-   *                      this disables texture support.
+   *     this disables texture support.
    * @param codecAllowedPredicate optional predicate to test if codec allowed. All codecs are
-   *                              allowed when predicate is not provided.
+   *     allowed when predicate is not provided.
    */
   public MediaCodecVideoDecoderFactory(@Nullable EglBase.Context sharedContext,
       @Nullable Predicate<MediaCodecInfo> codecAllowedPredicate) {

@@ -26,7 +26,6 @@ import org.webrtc.ThreadUtils;
 import org.webrtc.audio.JavaAudioDeviceModule.AudioTrackErrorCallback;
 import org.webrtc.audio.JavaAudioDeviceModule.AudioTrackStartErrorCode;
 import org.webrtc.audio.JavaAudioDeviceModule.AudioTrackStateCallback;
-import org.webrtc.audio.LowLatencyAudioBufferManager;
 
 class WebRtcAudioTrack {
   private static final String TAG = "WebRtcAudioTrackExternal";
@@ -87,10 +86,9 @@ class WebRtcAudioTrack {
   private final @Nullable AudioTrackStateCallback stateCallback;
 
   /**
-   * Audio thread which keeps calling AudioTrack.write() to stream audio.
-   * Data is periodically acquired from the native WebRTC layer using the
-   * nativeGetPlayoutData callback function.
-   * This thread uses a Process.THREAD_PRIORITY_URGENT_AUDIO priority.
+   * Audio thread which keeps calling AudioTrack.write() to stream audio. Data is periodically
+   * acquired from the native WebRTC layer using the nativeGetPlayoutData callback function. This
+   * thread uses a Process.THREAD_PRIORITY_URGENT_AUDIO priority.
    */
   private class AudioTrackThread extends Thread {
     private volatile boolean keepAlive = true;
@@ -557,6 +555,7 @@ class WebRtcAudioTrack {
 
   private static native void nativeCacheDirectBufferAddress(
       long nativeAudioTrackJni, ByteBuffer byteBuffer);
+
   private static native void nativeGetPlayoutData(long nativeAudioTrackJni, int bytes);
 
   // Sets all samples to be played out to zero if `mute` is true, i.e.,

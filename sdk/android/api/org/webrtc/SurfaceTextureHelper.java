@@ -53,8 +53,8 @@ public class SurfaceTextureHelper {
    * initialize a pixel buffer surface and make it current. If alignTimestamps is true, the frame
    * timestamps will be aligned to rtc::TimeNanos(). If frame timestamps are aligned to
    * rtc::TimeNanos() there is no need for aligning timestamps again in
-   * PeerConnectionFactory.createVideoSource(). This makes the timestamps more accurate and
-   * closer to actual creation time.
+   * PeerConnectionFactory.createVideoSource(). This makes the timestamps more accurate and closer
+   * to actual creation time.
    */
   public static SurfaceTextureHelper create(final String threadName,
       final EglBase.Context sharedContext, boolean alignTimestamps, final YuvConverter yuvConverter,
@@ -89,7 +89,8 @@ public class SurfaceTextureHelper {
    */
   public static SurfaceTextureHelper create(
       final String threadName, final EglBase.Context sharedContext) {
-    return create(threadName, sharedContext, /* alignTimestamps= */ false, new YuvConverter(),
+    return create(threadName, sharedContext,
+        /* alignTimestamps= */ false, new YuvConverter(),
         /*frameRefMonitor=*/null);
   }
 

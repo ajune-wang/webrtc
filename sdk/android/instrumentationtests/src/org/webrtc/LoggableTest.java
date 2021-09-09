@@ -19,9 +19,7 @@ import androidx.test.filters.SmallTest;
 import java.util.ArrayList;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.webrtc.Loggable;
 import org.webrtc.Logging.Severity;
-import org.webrtc.PeerConnectionFactory;
 
 @RunWith(AndroidJUnit4.class)
 public class LoggableTest {

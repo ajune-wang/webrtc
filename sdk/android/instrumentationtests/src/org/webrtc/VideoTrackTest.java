@@ -83,9 +83,10 @@ public class VideoTrackTest {
     }
     final FrameCounter frameCounter = new FrameCounter();
 
-    final VideoFrame videoFrame = new VideoFrame(
-        JavaI420Buffer.allocate(/* width= */ 32, /* height= */ 32), /* rotation= */ 0,
-        /* timestampNs= */ 0);
+    final VideoFrame videoFrame =
+        new VideoFrame(JavaI420Buffer.allocate(/* width= */ 32, /* height= */ 32),
+            /* rotation= */ 0,
+            /* timestampNs= */ 0);
 
     videoTrack.addSink(frameCounter);
     videoTrack.addSink(frameCounter);
@@ -98,9 +99,10 @@ public class VideoTrackTest {
   @Test
   @SmallTest
   public void testAddingAndRemovingVideoSink() {
-    final VideoFrame videoFrame = new VideoFrame(
-        JavaI420Buffer.allocate(/* width= */ 32, /* height= */ 32), /* rotation= */ 0,
-        /* timestampNs= */ 0);
+    final VideoFrame videoFrame =
+        new VideoFrame(JavaI420Buffer.allocate(/* width= */ 32, /* height= */ 32),
+            /* rotation= */ 0,
+            /* timestampNs= */ 0);
 
     final VideoSink failSink = new VideoSink() {
       @Override

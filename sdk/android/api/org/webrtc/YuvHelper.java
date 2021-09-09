@@ -133,16 +133,20 @@ public class YuvHelper {
 
   private static native void nativeCopyPlane(
       ByteBuffer src, int srcStride, ByteBuffer dst, int dstStride, int width, int height);
+
   private static native void nativeI420Copy(ByteBuffer srcY, int srcStrideY, ByteBuffer srcU,
       int srcStrideU, ByteBuffer srcV, int srcStrideV, ByteBuffer dstY, int dstStrideY,
       ByteBuffer dstU, int dstStrideU, ByteBuffer dstV, int dstStrideV, int width, int height);
+
   private static native void nativeI420ToNV12(ByteBuffer srcY, int srcStrideY, ByteBuffer srcU,
       int srcStrideU, ByteBuffer srcV, int srcStrideV, ByteBuffer dstY, int dstStrideY,
       ByteBuffer dstUV, int dstStrideUV, int width, int height);
+
   private static native void nativeI420Rotate(ByteBuffer srcY, int srcStrideY, ByteBuffer srcU,
       int srcStrideU, ByteBuffer srcV, int srcStrideV, ByteBuffer dstY, int dstStrideY,
       ByteBuffer dstU, int dstStrideU, ByteBuffer dstV, int dstStrideV, int srcWidth, int srcHeight,
       int rotationMode);
+
   private static native void nativeABGRToI420(ByteBuffer src, int srcStride, ByteBuffer dstY,
       int dstStrideY, ByteBuffer dstU, int dstStrideU, ByteBuffer dstV, int dstStrideV, int width,
       int height);

@@ -10,11 +10,11 @@
 
 package org.webrtc;
 
-/** Interface to handle completion of addIceCandidate  */
+/** Interface to handle completion of addIceCandidate */
 public interface AddIceObserver {
-  /** Called when ICE candidate added successfully.*/
+  /** Called when ICE candidate added successfully. */
   @CalledByNative public void onAddSuccess();
 
-  /** Called when ICE candidate addition failed.*/
+  /** Called when ICE candidate addition failed. */
   @CalledByNative public void onAddFailure(String error);
 }

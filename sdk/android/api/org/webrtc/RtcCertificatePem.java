@@ -10,11 +10,7 @@
 
 package org.webrtc;
 
-import org.webrtc.PeerConnection;
-
-/**
- * Easily storable/serializable version of a native C++ RTCCertificatePEM.
- */
+/** Easily storable/serializable version of a native C++ RTCCertificatePEM. */
 public class RtcCertificatePem {
   /** PEM string representation of the private key. */
   public final String privateKey;
@@ -41,24 +37,24 @@ public class RtcCertificatePem {
   }
 
   /**
-   * Generate a new RtcCertificatePem with the default settings of KeyType = ECDSA and
-   * expires = 30 days.
+   * Generate a new RtcCertificatePem with the default settings of KeyType = ECDSA and expires = 30
+   * days.
    */
   public static RtcCertificatePem generateCertificate() {
     return nativeGenerateCertificate(PeerConnection.KeyType.ECDSA, DEFAULT_EXPIRY);
   }
 
   /**
-   * Generate a new RtcCertificatePem with a custom KeyType and the default setting of
-   * expires = 30 days.
+   * Generate a new RtcCertificatePem with a custom KeyType and the default setting of expires = 30
+   * days.
    */
   public static RtcCertificatePem generateCertificate(PeerConnection.KeyType keyType) {
     return nativeGenerateCertificate(keyType, DEFAULT_EXPIRY);
   }
 
   /**
-   * Generate a new RtcCertificatePem with a custom expires and the default setting of
-   * KeyType = ECDSA.
+   * Generate a new RtcCertificatePem with a custom expires and the default setting of KeyType =
+   * ECDSA.
    */
   public static RtcCertificatePem generateCertificate(long expires) {
     return nativeGenerateCertificate(PeerConnection.KeyType.ECDSA, expires);

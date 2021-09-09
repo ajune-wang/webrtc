@@ -18,7 +18,7 @@ import org.webrtc.CameraEnumerationAndroid.CaptureFormat;
 
 @SuppressWarnings("deprecation")
 public class Camera1Enumerator implements CameraEnumerator {
-  private final static String TAG = "Camera1Enumerator";
+  private static final String TAG = "Camera1Enumerator";
   // Each entry contains the supported formats for corresponding camera index. The formats for all
   // cameras are enumerated on the first call to getSupportedFormats(), and cached for future
   // reference.
@@ -133,7 +133,8 @@ public class Camera1Enumerator implements CameraEnumerator {
     }
 
     final long endTimeMs = SystemClock.elapsedRealtime();
-    Logging.d(TAG, "Get supported formats for camera index " + cameraId + " done."
+    Logging.d(TAG,
+        "Get supported formats for camera index " + cameraId + " done."
             + " Time spent: " + (endTimeMs - startTimeMs) + " ms.");
     return formatList;
   }

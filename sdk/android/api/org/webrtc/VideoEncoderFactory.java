@@ -42,19 +42,15 @@ public interface VideoEncoderFactory {
   @CalledByNative VideoCodecInfo[] getSupportedCodecs();
 
   /**
-   * Enumerates the list of supported video codecs that can also be tagged with
-   * implementation information. This method will only be called once and the
-   * result will be cached.
+   * Enumerates the list of supported video codecs that can also be tagged with implementation
+   * information. This method will only be called once and the result will be cached.
    */
   @CalledByNative
   default VideoCodecInfo[] getImplementations() {
     return getSupportedCodecs();
   }
 
-  /**
-   * Returns a VideoEncoderSelector if implemented by the VideoEncoderFactory,
-   * null otherwise.
-   */
+  /** Returns a VideoEncoderSelector if implemented by the VideoEncoderFactory, null otherwise. */
   @CalledByNative
   default VideoEncoderSelector getEncoderSelector() {
     return null;

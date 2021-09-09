@@ -36,35 +36,38 @@ import org.junit.runner.RunWith;
 // EmptyActivity is needed for the surface.
 @RunWith(BaseJUnit4ClassRunner.class)
 public class EglRendererTest {
-  private final static String TAG = "EglRendererTest";
-  private final static int RENDER_WAIT_MS = 1000;
-  private final static int SURFACE_WAIT_MS = 1000;
-  private final static int TEST_FRAME_WIDTH = 4;
-  private final static int TEST_FRAME_HEIGHT = 4;
-  private final static int REMOVE_FRAME_LISTENER_RACY_NUM_TESTS = 10;
+  private static final String TAG = "EglRendererTest";
+  private static final int RENDER_WAIT_MS = 1000;
+  private static final int SURFACE_WAIT_MS = 1000;
+  private static final int TEST_FRAME_WIDTH = 4;
+  private static final int TEST_FRAME_HEIGHT = 4;
+  private static final int REMOVE_FRAME_LISTENER_RACY_NUM_TESTS = 10;
   // Some arbitrary frames.
-  private final static byte[][][] TEST_FRAMES_DATA = {
+  private static final byte[][][] TEST_FRAMES_DATA = {
       {
           new byte[] {
               -99, -93, -88, -83, -78, -73, -68, -62, -56, -52, -46, -41, -36, -31, -26, -20},
-          new byte[] {110, 113, 116, 118}, new byte[] {31, 45, 59, 73},
+          new byte[] {110, 113, 116, 118},
+          new byte[] {31, 45, 59, 73},
       },
       {
           new byte[] {
               -108, -103, -98, -93, -87, -82, -77, -72, -67, -62, -56, -50, -45, -40, -35, -30},
-          new byte[] {120, 123, 125, -127}, new byte[] {87, 100, 114, 127},
+          new byte[] {120, 123, 125, -127},
+          new byte[] {87, 100, 114, 127},
       },
       {
           new byte[] {
               -117, -112, -107, -102, -97, -92, -87, -81, -75, -71, -65, -60, -55, -50, -44, -39},
-          new byte[] {113, 116, 118, 120}, new byte[] {45, 59, 73, 87},
+          new byte[] {113, 116, 118, 120},
+          new byte[] {45, 59, 73, 87},
       },
   };
-  private final static ByteBuffer[][] TEST_FRAMES =
+  private static final ByteBuffer[][] TEST_FRAMES =
       copyTestDataToDirectByteBuffers(TEST_FRAMES_DATA);
 
   private static class TestFrameListener implements EglRenderer.FrameListener {
-    final private ArrayList<Bitmap> bitmaps = new ArrayList<Bitmap>();
+    private final ArrayList<Bitmap> bitmaps = new ArrayList<Bitmap>();
     boolean bitmapReceived;
     Bitmap storedBitmap;
 
@@ -183,12 +186,12 @@ public class EglRendererTest {
   }
 
   /**
-   * Converts test data YUV frame to expected RGBA frame. Tries to match the behavior of OpenGL
-   * YUV drawer shader. Does linear sampling on the U- and V-planes.
+   * Converts test data YUV frame to expected RGBA frame. Tries to match the behavior of OpenGL YUV
+   * drawer shader. Does linear sampling on the U- and V-planes.
    *
    * @param yuvFrame Array of size 3 containing Y-, U-, V-planes for image of size
-   *                 (TEST_FRAME_WIDTH, TEST_FRAME_HEIGHT). U- and V-planes should be half the size
-   *                 of the Y-plane.
+   *     (TEST_FRAME_WIDTH, TEST_FRAME_HEIGHT). U- and V-planes should be half the size of the
+   *     Y-plane.
    */
   private static byte[] convertYUVFrameToRGBA(ByteBuffer[] yuvFrame) {
     final byte[] argbFrame = new byte[TEST_FRAME_WIDTH * TEST_FRAME_HEIGHT * 4];

@@ -17,13 +17,13 @@ import java.util.ArrayList;
 import javax.microedition.khronos.egl.EGL10;
 
 /**
- * Holds EGL state and utility methods for handling an egl 1.0 EGLContext, an EGLDisplay,
- * and an EGLSurface.
+ * Holds EGL state and utility methods for handling an egl 1.0 EGLContext, an EGLDisplay, and an
+ * EGLSurface.
  */
 public interface EglBase {
   // EGL wrapper for an actual EGLContext.
   public interface Context {
-    public final static long NO_CONTEXT = 0;
+    public static final long NO_CONTEXT = 0;
 
     /**
      * Returns an EGL context that can be used by native code. Returns NO_CONTEXT if the method is
@@ -193,8 +193,8 @@ public interface EglBase {
   }
 
   /**
-   * Explicitly create a root EGl 1.0 context with the specified config attributes
-   * and shared context.
+   * Explicitly create a root EGl 1.0 context with the specified config attributes and shared
+   * context.
    */
   public static EglBase10 createEgl10(
       javax.microedition.khronos.egl.EGLContext sharedContext, int[] configAttributes) {
@@ -216,8 +216,8 @@ public interface EglBase {
   }
 
   /**
-   * Explicitly create a root EGl 1.4 context with the specified config attributes
-   * and shared context.
+   * Explicitly create a root EGl 1.4 context with the specified config attributes and shared
+   * context.
    */
   public static EglBase14 createEgl14(
       android.opengl.EGLContext sharedContext, int[] configAttributes) {

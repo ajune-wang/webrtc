@@ -151,9 +151,13 @@ public class MediaStream {
 
   private static native boolean nativeAddAudioTrackToNativeStream(
       long stream, long nativeAudioTrack);
+
   private static native boolean nativeAddVideoTrackToNativeStream(
       long stream, long nativeVideoTrack);
+
   private static native boolean nativeRemoveAudioTrack(long stream, long nativeAudioTrack);
+
   private static native boolean nativeRemoveVideoTrack(long stream, long nativeVideoTrack);
+
   private static native String nativeGetId(long stream);
 }

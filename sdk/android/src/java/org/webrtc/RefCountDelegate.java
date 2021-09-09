@@ -13,16 +13,12 @@ package org.webrtc;
 import androidx.annotation.Nullable;
 import java.util.concurrent.atomic.AtomicInteger;
 
-/**
- * Implementation of RefCounted that executes a Runnable once the ref count reaches zero.
- */
+/** Implementation of RefCounted that executes a Runnable once the ref count reaches zero. */
 class RefCountDelegate implements RefCounted {
   private final AtomicInteger refCount = new AtomicInteger(1);
   private final @Nullable Runnable releaseCallback;
 
-  /**
-   * @param releaseCallback Callback that will be executed once the ref count reaches zero.
-   */
+  /** @param releaseCallback Callback that will be executed once the ref count reaches zero. */
   public RefCountDelegate(@Nullable Runnable releaseCallback) {
     this.releaseCallback = releaseCallback;
   }

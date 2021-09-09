@@ -17,17 +17,16 @@ import androidx.annotation.Nullable;
 import java.nio.ByteBuffer;
 
 /**
- * Helper class to draw VideoFrames. Calls either drawer.drawOes, drawer.drawRgb, or
- * drawer.drawYuv depending on the type of the buffer. The frame will be rendered with rotation
- * taken into account. You can supply an additional render matrix for custom transformations.
+ * Helper class to draw VideoFrames. Calls either drawer.drawOes, drawer.drawRgb, or drawer.drawYuv
+ * depending on the type of the buffer. The frame will be rendered with rotation taken into account.
+ * You can supply an additional render matrix for custom transformations.
  */
 public class VideoFrameDrawer {
   public static final String TAG = "VideoFrameDrawer";
   /**
-   * Draws a VideoFrame.TextureBuffer. Calls either drawer.drawOes or drawer.drawRgb
-   * depending on the type of the buffer. You can supply an additional render matrix. This is
-   * used multiplied together with the transformation matrix of the frame. (M = renderMatrix *
-   * transformationMatrix)
+   * Draws a VideoFrame.TextureBuffer. Calls either drawer.drawOes or drawer.drawRgb depending on
+   * the type of the buffer. You can supply an additional render matrix. This is used multiplied
+   * together with the transformation matrix of the frame. (M = renderMatrix * transformationMatrix)
    */
   public static void drawTexture(RendererCommon.GlDrawer drawer, VideoFrame.TextureBuffer buffer,
       Matrix renderMatrix, int frameWidth, int frameHeight, int viewportX, int viewportY,
@@ -138,7 +137,7 @@ public class VideoFrameDrawer {
   }
 
   // These points are used to calculate the size of the part of the frame we are rendering.
-  final static float[] srcPoints =
+  static final float[] srcPoints =
       new float[] {0f /* x0 */, 0f /* y0 */, 1f /* x1 */, 0f /* y1 */, 0f /* x2 */, 1f /* y2 */};
   private final float[] dstPoints = new float[6];
   private final Point renderSize = new Point();

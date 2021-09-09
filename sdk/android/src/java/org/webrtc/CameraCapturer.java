@@ -26,9 +26,9 @@ abstract class CameraCapturer implements CameraVideoCapturer {
   }
 
   private static final String TAG = "CameraCapturer";
-  private final static int MAX_OPEN_CAMERA_ATTEMPTS = 3;
-  private final static int OPEN_CAMERA_DELAY_MS = 500;
-  private final static int OPEN_CAMERA_TIMEOUT = 10000;
+  private static final int MAX_OPEN_CAMERA_ATTEMPTS = 3;
+  private static final int OPEN_CAMERA_DELAY_MS = 500;
+  private static final int OPEN_CAMERA_TIMEOUT = 10000;
 
   private final CameraEnumerator cameraEnumerator;
   private final CameraEventsHandler eventsHandler;
@@ -204,14 +204,19 @@ abstract class CameraCapturer implements CameraVideoCapturer {
       eventsHandler = new CameraEventsHandler() {
         @Override
         public void onCameraError(String errorDescription) {}
+
         @Override
         public void onCameraDisconnected() {}
+
         @Override
         public void onCameraFreezed(String errorDescription) {}
+
         @Override
         public void onCameraOpening(String cameraName) {}
+
         @Override
         public void onFirstFrameAvailable() {}
+
         @Override
         public void onCameraClosed() {}
       };
@@ -451,7 +456,7 @@ abstract class CameraCapturer implements CameraVideoCapturer {
     }
   }
 
-  abstract protected void createCameraSession(
+  protected abstract void createCameraSession(
       CameraSession.CreateSessionCallback createSessionCallback, CameraSession.Events events,
       Context applicationContext, SurfaceTextureHelper surfaceTextureHelper, String cameraName,
       int width, int height, int framerate);

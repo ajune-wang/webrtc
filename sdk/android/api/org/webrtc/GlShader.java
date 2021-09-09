@@ -11,7 +11,6 @@
 package org.webrtc;
 
 import android.opengl.GLES20;
-
 import java.nio.FloatBuffer;
 
 // Helper class for handling OpenGL shaders and shader programs.

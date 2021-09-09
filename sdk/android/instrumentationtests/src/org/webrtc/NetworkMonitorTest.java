@@ -22,17 +22,13 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.os.Build;
-import android.os.Handler;
-import android.os.Looper;
 import android.support.test.InstrumentationRegistry;
-import androidx.annotation.Nullable;
 import androidx.test.filters.MediumTest;
 import androidx.test.filters.SmallTest;
 import java.util.List;
 import org.chromium.base.test.BaseJUnit4ClassRunner;
 import org.chromium.base.test.UiThreadTest;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.webrtc.NetworkChangeDetector.ConnectionType;
@@ -43,9 +39,8 @@ import org.webrtc.NetworkMonitorAutoDetect.NetworkState;
 /**
  * Tests for org.webrtc.NetworkMonitor.
  *
- * TODO(deadbeef): These tests don't cover the interaction between
- * NetworkManager.java and androidnetworkmonitor.cc, which is how this
- * class is used in practice in WebRTC.
+ * <p>TODO(deadbeef): These tests don't cover the interaction between NetworkManager.java and
+ * androidnetworkmonitor.cc, which is how this class is used in practice in WebRTC.
  */
 @SuppressLint("NewApi")
 @RunWith(BaseJUnit4ClassRunner.class)
@@ -53,9 +48,7 @@ public class NetworkMonitorTest {
   private static final long INVALID_NET_ID = -1;
   private NetworkChangeDetector detector;
 
-  /**
-   * Listens for alerts fired by the NetworkMonitor when network status changes.
-   */
+  /** Listens for alerts fired by the NetworkMonitor when network status changes. */
   private static class NetworkMonitorTestObserver implements NetworkMonitor.NetworkObserver {
     private boolean receivedNotification;
 
@@ -73,9 +66,7 @@ public class NetworkMonitorTest {
     }
   }
 
-  /**
-   * Mocks out calls to the ConnectivityManager.
-   */
+  /** Mocks out calls to the ConnectivityManager. */
   private static class MockConnectivityManagerDelegate extends ConnectivityManagerDelegate {
     private boolean activeNetworkExists;
     private int networkType;
@@ -127,9 +118,7 @@ public class NetworkMonitorTest {
     }
   }
 
-  /**
-   * Mocks out calls to the WifiManager.
-   */
+  /** Mocks out calls to the WifiManager. */
   private static class MockWifiManagerDelegate
       extends NetworkMonitorAutoDetect.WifiManagerDelegate {
     private String wifiSSID;
@@ -165,9 +154,7 @@ public class NetworkMonitorTest {
   private MockConnectivityManagerDelegate connectivityDelegate;
   private MockWifiManagerDelegate wifiDelegate;
 
-  /**
-   * Helper method to create a network monitor and delegates for testing.
-   */
+  /** Helper method to create a network monitor and delegates for testing. */
   private void createTestMonitor() {
     Context context = InstrumentationRegistry.getTargetContext();
 
@@ -204,9 +191,7 @@ public class NetworkMonitorTest {
     createTestMonitor();
   }
 
-  /**
-   * Tests that the receiver registers for connectivity intents during construction.
-   */
+  /** Tests that the receiver registers for connectivity intents during construction. */
   @Test
   @UiThreadTest
   @SmallTest
@@ -268,8 +253,8 @@ public class NetworkMonitorTest {
 
   /**
    * Tests that ConnectivityManagerDelegate doesn't crash. This test cannot rely on having any
-   * active network connections so it cannot usefully check results, but it can at least check
-   * that the functions don't crash.
+   * active network connections so it cannot usefully check results, but it can at least check that
+   * the functions don't crash.
    */
   @Test
   @UiThreadTest
@@ -289,9 +274,9 @@ public class NetworkMonitorTest {
   }
 
   /**
-   * Tests that NetworkMonitorAutoDetect queryable APIs don't crash. This test cannot rely
-   * on having any active network connections so it cannot usefully check results, but it can at
-   * least check that the functions don't crash.
+   * Tests that NetworkMonitorAutoDetect queryable APIs don't crash. This test cannot rely on having
+   * any active network connections so it cannot usefully check results, but it can at least check
+   * that the functions don't crash.
    */
   @Test
   @UiThreadTest

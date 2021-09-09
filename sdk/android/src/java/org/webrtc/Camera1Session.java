@@ -53,8 +53,8 @@ class Camera1Session implements CameraSession {
   @SuppressWarnings("ByteBufferBackingArray")
   public static void create(final CreateSessionCallback callback, final Events events,
       final boolean captureToTexture, final Context applicationContext,
-      final SurfaceTextureHelper surfaceTextureHelper, final String cameraName,
-      final int width, final int height, final int framerate) {
+      final SurfaceTextureHelper surfaceTextureHelper, final String cameraName, final int width,
+      final int height, final int framerate) {
     final long constructionTimeNs = System.nanoTime();
     Logging.d(TAG, "Open camera " + cameraName);
     events.onCameraOpening();

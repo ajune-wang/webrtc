@@ -22,15 +22,15 @@ import android.view.Surface;
 import androidx.annotation.Nullable;
 
 /**
- * An implementation of VideoCapturer to capture the screen content as a video stream.
- * Capturing is done by {@code MediaProjection} on a {@code SurfaceTexture}. We interact with this
- * {@code SurfaceTexture} using a {@code SurfaceTextureHelper}.
- * The {@code SurfaceTextureHelper} is created by the native code and passed to this capturer in
- * {@code VideoCapturer.initialize()}. On receiving a new frame, this capturer passes it
- * as a texture to the native code via {@code CapturerObserver.onFrameCaptured()}. This takes
- * place on the HandlerThread of the given {@code SurfaceTextureHelper}. When done with each frame,
- * the native code returns the buffer to the  {@code SurfaceTextureHelper} to be used for new
- * frames. At any time, at most one frame is being processed.
+ * An implementation of VideoCapturer to capture the screen content as a video stream. Capturing is
+ * done by {@code MediaProjection} on a {@code SurfaceTexture}. We interact with this {@code
+ * SurfaceTexture} using a {@code SurfaceTextureHelper}. The {@code SurfaceTextureHelper} is created
+ * by the native code and passed to this capturer in {@code VideoCapturer.initialize()}. On
+ * receiving a new frame, this capturer passes it as a texture to the native code via {@code
+ * CapturerObserver.onFrameCaptured()}. This takes place on the HandlerThread of the given {@code
+ * SurfaceTextureHelper}. When done with each frame, the native code returns the buffer to the
+ * {@code SurfaceTextureHelper} to be used for new frames. At any time, at most one frame is being
+ * processed.
  *
  * @note This class is only supported on Android Lollipop and above.
  */
@@ -60,9 +60,9 @@ public class ScreenCapturerAndroid implements VideoCapturer, VideoSink {
    * @param mediaProjectionPermissionResultData the result data of MediaProjection permission
    *     activity; the calling app must validate that result code is Activity.RESULT_OK before
    *     calling this method.
-   * @param mediaProjectionCallback MediaProjection callback to implement application specific
-   *     logic in events such as when the user revokes a previously granted capture permission.
-  **/
+   * @param mediaProjectionCallback MediaProjection callback to implement application specific logic
+   *     in events such as when the user revokes a previously granted capture permission.
+   */
   public ScreenCapturerAndroid(Intent mediaProjectionPermissionResultData,
       MediaProjection.Callback mediaProjectionCallback) {
     this.mediaProjectionPermissionResultData = mediaProjectionPermissionResultData;
@@ -157,8 +157,8 @@ public class ScreenCapturerAndroid implements VideoCapturer, VideoSink {
   }
 
   /**
-   * Changes output video format. This method can be used to scale the output
-   * video, or to change orientation when the captured screen is rotated for example.
+   * Changes output video format. This method can be used to scale the output video, or to change
+   * orientation when the captured screen is rotated for example.
    *
    * @param width new output video width
    * @param height new output video height

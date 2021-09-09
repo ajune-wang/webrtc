@@ -10,12 +10,8 @@
 
 package org.webrtc;
 
-/**
- * Implementations of this interface can create a native {@code webrtc::AudioEncoderFactory}.
- */
+/** Implementations of this interface can create a native {@code webrtc::AudioEncoderFactory}. */
 public interface AudioEncoderFactoryFactory {
-  /**
-   * Returns a pointer to a {@code webrtc::AudioEncoderFactory}. The caller takes ownership.
-   */
+  /** Returns a pointer to a {@code webrtc::AudioEncoderFactory}. The caller takes ownership. */
   long createNativeAudioEncoderFactory();
 }

@@ -122,8 +122,12 @@ public class MediaStreamTrack {
   }
 
   private static native String nativeGetId(long track);
+
   private static native String nativeGetKind(long track);
+
   private static native boolean nativeGetEnabled(long track);
+
   private static native boolean nativeSetEnabled(long track, boolean enabled);
+
   private static native State nativeGetState(long track);
 }

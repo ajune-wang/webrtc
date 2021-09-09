@@ -15,9 +15,7 @@ import java.util.Arrays;
 import java.util.Locale;
 import java.util.Map;
 
-/**
- * Represent a video codec as encoded in SDP.
- */
+/** Represent a video codec as encoded in SDP. */
 public class VideoCodecInfo {
   // Keys for H264 VideoCodecInfo properties.
   public static final String H264_FMTP_PROFILE_LEVEL_ID = "profile-level-id";

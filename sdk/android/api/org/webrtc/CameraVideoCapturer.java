@@ -69,8 +69,8 @@ public interface CameraVideoCapturer extends VideoCapturer {
 
   /**
    * MediaRecorder add/remove handler - one of these functions are invoked with the result of
-   * addMediaRecorderToCamera() or removeMediaRecorderFromCamera calls.
-   * The callback may be called on an arbitrary thread.
+   * addMediaRecorderToCamera() or removeMediaRecorderFromCamera calls. The callback may be called
+   * on an arbitrary thread.
    */
   @Deprecated
   public interface MediaRecorderHandler {
@@ -82,9 +82,9 @@ public interface CameraVideoCapturer extends VideoCapturer {
   }
 
   /**
-   * Add MediaRecorder to camera pipeline. This can only be called while the camera is running.
-   * Once MediaRecorder is added to camera pipeline camera switch is not allowed.
-   * This function can be called from any thread.
+   * Add MediaRecorder to camera pipeline. This can only be called while the camera is running. Once
+   * MediaRecorder is added to camera pipeline camera switch is not allowed. This function can be
+   * called from any thread.
    */
   @Deprecated
   default void addMediaRecorderToCamera(
@@ -107,9 +107,9 @@ public interface CameraVideoCapturer extends VideoCapturer {
    * thread.
    */
   public static class CameraStatistics {
-    private final static String TAG = "CameraStatistics";
-    private final static int CAMERA_OBSERVER_PERIOD_MS = 2000;
-    private final static int CAMERA_FREEZE_REPORT_TIMOUT_MS = 4000;
+    private static final String TAG = "CameraStatistics";
+    private static final int CAMERA_OBSERVER_PERIOD_MS = 2000;
+    private static final int CAMERA_FREEZE_REPORT_TIMOUT_MS = 4000;
 
     private final SurfaceTextureHelper surfaceTextureHelper;
     private final CameraEventsHandler eventsHandler;

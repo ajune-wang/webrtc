@@ -23,28 +23,21 @@ import java.util.Arrays;
 import java.util.List;
 import org.chromium.base.test.BaseJUnit4ClassRunner;
 import org.chromium.base.test.UiThreadTest;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(BaseJUnit4ClassRunner.class)
 public class SurfaceViewRendererOnMeasureTest {
-  /**
-   * List with all possible scaling types.
-   */
+  /** List with all possible scaling types. */
   private static final List<RendererCommon.ScalingType> scalingTypes = Arrays.asList(
       RendererCommon.ScalingType.SCALE_ASPECT_FIT, RendererCommon.ScalingType.SCALE_ASPECT_FILL,
       RendererCommon.ScalingType.SCALE_ASPECT_BALANCED);
 
-  /**
-   * List with MeasureSpec modes.
-   */
+  /** List with MeasureSpec modes. */
   private static final List<Integer> measureSpecModes =
       Arrays.asList(MeasureSpec.EXACTLY, MeasureSpec.AT_MOST);
 
-  /**
-   * Returns a dummy YUV frame.
-   */
+  /** Returns a dummy YUV frame. */
   static VideoFrame createFrame(int width, int height, int rotationDegree) {
     final int[] yuvStrides = new int[] {width, (width + 1) / 2, (width + 1) / 2};
     final int[] yuvHeights = new int[] {height, (height + 1) / 2, (height + 1) / 2};
@@ -58,9 +51,7 @@ public class SurfaceViewRendererOnMeasureTest {
     return new VideoFrame(buffer, rotationDegree, 0 /* timestamp */);
   }
 
-  /**
-   * Assert onMeasure() with given parameters will result in expected measured size.
-   */
+  /** Assert onMeasure() with given parameters will result in expected measured size. */
   @SuppressLint("WrongCall")
   private static void assertMeasuredSize(SurfaceViewRenderer surfaceViewRenderer,
       RendererCommon.ScalingType scalingType, String frameDimensions, int expectedWidth,
@@ -78,9 +69,7 @@ public class SurfaceViewRendererOnMeasureTest {
     }
   }
 
-  /**
-   * Test how SurfaceViewRenderer.onMeasure() behaves when no frame has been delivered.
-   */
+  /** Test how SurfaceViewRenderer.onMeasure() behaves when no frame has been delivered. */
   @Test
   @UiThreadTest
   @MediumTest
@@ -117,18 +106,14 @@ public class SurfaceViewRendererOnMeasureTest {
     surfaceViewRenderer.release();
   }
 
-  /**
-   * Test how SurfaceViewRenderer.onMeasure() behaves with a 1280x720 frame.
-   */
+  /** Test how SurfaceViewRenderer.onMeasure() behaves with a 1280x720 frame. */
   @Test
   @UiThreadTest
   @MediumTest
   public void testFrame1280x720() throws InterruptedException {
     final SurfaceViewRenderer surfaceViewRenderer =
         new SurfaceViewRenderer(InstrumentationRegistry.getContext());
-    /**
-     * Mock renderer events with blocking wait functionality for frame size changes.
-     */
+    /** Mock renderer events with blocking wait functionality for frame size changes. */
     class MockRendererEvents implements RendererCommon.RendererEvents {
       private int frameWidth;
       private int frameHeight;

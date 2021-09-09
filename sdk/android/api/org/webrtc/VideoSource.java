@@ -12,9 +12,7 @@ package org.webrtc;
 
 import androidx.annotation.Nullable;
 
-/**
- * Java wrapper of native AndroidVideoTrackSource.
- */
+/** Java wrapper of native AndroidVideoTrackSource. */
 public class VideoSource extends MediaSource {
   /** Simple aspect ratio clas for use in constraining output format. */
   public static class AspectRatio {
@@ -94,9 +92,9 @@ public class VideoSource extends MediaSource {
   }
 
   /**
-   * Same as above, but allows setting two different target resolutions depending on incoming
-   * frame orientation. This gives more fine-grained control and can e.g. be used to force landscape
-   * video to be cropped to portrait video.
+   * Same as above, but allows setting two different target resolutions depending on incoming frame
+   * orientation. This gives more fine-grained control and can e.g. be used to force landscape video
+   * to be cropped to portrait video.
    */
   public void adaptOutputFormat(
       int landscapeWidth, int landscapeHeight, int portraitWidth, int portraitHeight, int fps) {
@@ -122,8 +120,8 @@ public class VideoSource extends MediaSource {
    * Hook for injecting a custom video processor before frames are passed onto WebRTC. The frames
    * will be cropped and scaled depending on CPU and network conditions before they are passed to
    * the video processor. Frames will be delivered to the video processor on the same thread they
-   * are passed to this object. The video processor is allowed to deliver the processed frames
-   * back on any thread.
+   * are passed to this object. The video processor is allowed to deliver the processed frames back
+   * on any thread.
    */
   public void setVideoProcessor(@Nullable VideoProcessor newVideoProcessor) {
     synchronized (videoProcessorLock) {

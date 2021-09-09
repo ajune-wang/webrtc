@@ -11,16 +11,14 @@
 package org.webrtc;
 
 /**
- * The FrameDecryptor interface allows Java API users to provide a
- * pointer to their native implementation of the FrameDecryptorInterface.
- * FrameDecryptors are extremely performance sensitive as they must process all
- * incoming video and audio frames. Due to this reason they should always be
- * backed by a native implementation
+ * The FrameDecryptor interface allows Java API users to provide a pointer to their native
+ * implementation of the FrameDecryptorInterface. FrameDecryptors are extremely performance
+ * sensitive as they must process all incoming video and audio frames. Due to this reason they
+ * should always be backed by a native implementation
+ *
  * @note Not ready for production use.
  */
 public interface FrameDecryptor {
-  /**
-   * @return A FrameDecryptorInterface pointer.
-   */
+  /** @return A FrameDecryptorInterface pointer. */
   long getNativeFrameDecryptor();
 }

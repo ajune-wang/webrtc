@@ -10,9 +10,7 @@
 
 package org.webrtc;
 
-/**
- * Java version of rtc::VideoSinkInterface.
- */
+/** Java version of rtc::VideoSinkInterface. */
 public interface VideoSink {
   /**
    * Implementations should call frame.retain() if they need to hold a reference to the frame after

@@ -32,8 +32,8 @@ import org.webrtc.CameraEnumerationAndroid.CaptureFormat;
 
 @TargetApi(21)
 public class Camera2Enumerator implements CameraEnumerator {
-  private final static String TAG = "Camera2Enumerator";
-  private final static double NANO_SECONDS_PER_SECOND = 1.0e9;
+  private static final String TAG = "Camera2Enumerator";
+  private static final double NANO_SECONDS_PER_SECOND = 1.0e9;
 
   // Each entry contains the supported formats for a given camera index. The formats are enumerated
   // lazily in getSupportedFormats(), and cached for future reference.
@@ -103,9 +103,7 @@ public class Camera2Enumerator implements CameraEnumerator {
     }
   }
 
-  /**
-   * Checks if API is supported and all cameras have better than legacy support.
-   */
+  /** Checks if API is supported and all cameras have better than legacy support. */
   public static boolean isSupported(Context context) {
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
       return false;
@@ -124,7 +122,8 @@ public class Camera2Enumerator implements CameraEnumerator {
       // On Android OS pre 4.4.2, a class will not load because of VerifyError if it contains a
       // catch statement with an Exception from a newer API, even if the code is never executed.
       // https://code.google.com/p/android/issues/detail?id=209129
-    } catch (/* CameraAccessException */ AndroidException | RuntimeException e) {
+    } catch (
+        /* CameraAccessException */ AndroidException | RuntimeException e) {
       Logging.e(TAG, "Failed to check if camera2 is supported", e);
       return false;
     }
@@ -223,7 +222,8 @@ public class Camera2Enumerator implements CameraEnumerator {
 
       cachedSupportedFormats.put(cameraId, formatList);
       final long endTimeMs = SystemClock.elapsedRealtime();
-      Logging.d(TAG, "Get supported formats for camera index " + cameraId + " done."
+      Logging.d(TAG,
+          "Get supported formats for camera index " + cameraId + " done."
               + " Time spent: " + (endTimeMs - startTimeMs) + " ms.");
       return formatList;
     }

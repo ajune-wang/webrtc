@@ -14,12 +14,11 @@ import android.view.SurfaceHolder;
 import java.util.concurrent.CountDownLatch;
 
 /**
- * Display the video stream on a Surface.
- * renderFrame() is asynchronous to avoid blocking the calling thread.
- * This class is thread safe and handles access from potentially three different threads:
- * Interaction from the main app in init, release and setMirror.
- * Interaction from C++ rtc::VideoSinkInterface in renderFrame.
- * Interaction from SurfaceHolder lifecycle in surfaceCreated, surfaceChanged, and surfaceDestroyed.
+ * Display the video stream on a Surface. renderFrame() is asynchronous to avoid blocking the
+ * calling thread. This class is thread safe and handles access from potentially three different
+ * threads: Interaction from the main app in init, release and setMirror. Interaction from C++
+ * rtc::VideoSinkInterface in renderFrame. Interaction from SurfaceHolder lifecycle in
+ * surfaceCreated, surfaceChanged, and surfaceDestroyed.
  */
 public class SurfaceEglRenderer extends EglRenderer implements SurfaceHolder.Callback {
   private static final String TAG = "SurfaceEglRenderer";
@@ -34,9 +33,7 @@ public class SurfaceEglRenderer extends EglRenderer implements SurfaceHolder.Cal
   private int rotatedFrameHeight;
   private int frameRotation;
 
-  /**
-   * In order to render something, you must first call init().
-   */
+  /** In order to render something, you must first call init(). */
   public SurfaceEglRenderer(String name) {
     super(name);
   }
@@ -71,7 +68,7 @@ public class SurfaceEglRenderer extends EglRenderer implements SurfaceHolder.Cal
    * Limit render framerate.
    *
    * @param fps Limit render framerate to this value, or use Float.POSITIVE_INFINITY to disable fps
-   *            reduction.
+   *     reduction.
    */
   @Override
   public void setFpsReduction(float fps) {

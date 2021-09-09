@@ -88,9 +88,8 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver implements Netwo
     }
   }
   /**
-   * The methods in this class get called when the network changes if the callback
-   * is registered with a proper network request. It is only available in Android Lollipop
-   * and above.
+   * The methods in this class get called when the network changes if the callback is registered
+   * with a proper network request. It is only available in Android Lollipop and above.
    */
   @SuppressLint("NewApi")
   private class SimpleNetworkCallback extends NetworkCallback {
@@ -144,8 +143,8 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver implements Netwo
   /** Queries the ConnectivityManager for information about the current connection. */
   static class ConnectivityManagerDelegate {
     /**
-     *  Note: In some rare Android systems connectivityManager is null.  We handle that
-     *  gracefully below.
+     * Note: In some rare Android systems connectivityManager is null. We handle that gracefully
+     * below.
      */
     @Nullable private final ConnectivityManager connectivityManager;
 
@@ -160,10 +159,7 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver implements Netwo
       connectivityManager = null;
     }
 
-    /**
-     * Returns connection type and status information about the current
-     * default network.
-     */
+    /** Returns connection type and status information about the current default network. */
     NetworkState getNetworkState() {
       if (connectivityManager == null) {
         return new NetworkState(false, -1, -1, -1, -1);
@@ -172,8 +168,8 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver implements Netwo
     }
 
     /**
-     * Returns connection type and status information about `network`.
-     * Only callable on Lollipop and newer releases.
+     * Returns connection type and status information about `network`. Only callable on Lollipop and
+     * newer releases.
      */
     @SuppressLint("NewApi")
     NetworkState getNetworkState(@Nullable Network network) {
@@ -256,10 +252,7 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver implements Netwo
       return new NetworkState(true, networkInfo.getType(), networkInfo.getSubtype(), -1, -1);
     }
 
-    /**
-     * Returns all connected networks.
-     * Only callable on Lollipop and newer releases.
-     */
+    /** Returns all connected networks. Only callable on Lollipop and newer releases. */
     @SuppressLint("NewApi")
     Network[] getAllNetworks() {
       if (connectivityManager == null) {
@@ -284,9 +277,8 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver implements Netwo
     }
 
     /**
-     * Returns the NetID of the current default network. Returns
-     * INVALID_NET_ID if no current default network connected.
-     * Only callable on Lollipop and newer releases.
+     * Returns the NetID of the current default network. Returns INVALID_NET_ID if no current
+     * default network connected. Only callable on Lollipop and newer releases.
      */
     @SuppressLint("NewApi")
     long getDefaultNetId() {
@@ -355,7 +347,8 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver implements Netwo
       // which appears to be usable. Just log them here.
       if (connectionType == NetworkChangeDetector.ConnectionType.CONNECTION_UNKNOWN
           || connectionType == NetworkChangeDetector.ConnectionType.CONNECTION_UNKNOWN_CELLULAR) {
-        Logging.d(TAG, "Network " + network.toString() + " connection type is " + connectionType
+        Logging.d(TAG,
+            "Network " + network.toString() + " connection type is " + connectionType
                 + " because it has type " + networkState.getNetworkType() + " and subtype "
                 + networkState.getNetworkSubType());
       }
@@ -372,8 +365,8 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver implements Netwo
     }
 
     /**
-     * Returns true if {@code network} can provide Internet access. Can be used to
-     * ignore specialized networks (e.g. IMS, FOTA).
+     * Returns true if {@code network} can provide Internet access. Can be used to ignore
+     * specialized networks (e.g. IMS, FOTA).
      */
     @SuppressLint("NewApi")
     boolean hasInternetCapability(Network network) {
@@ -431,6 +424,7 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver implements Netwo
   /** Queries the WifiManager for SSID of the current Wifi connection. */
   static class WifiManagerDelegate {
     @Nullable private final Context context;
+
     WifiManagerDelegate(Context context) {
       this.context = context;
     }
@@ -618,23 +612,19 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver implements Netwo
     return connectivityManagerDelegate.supportNetworkCallback();
   }
 
-  /**
-   * Allows overriding the ConnectivityManagerDelegate for tests.
-   */
+  /** Allows overriding the ConnectivityManagerDelegate for tests. */
   void setConnectivityManagerDelegateForTests(ConnectivityManagerDelegate delegate) {
     connectivityManagerDelegate = delegate;
   }
 
-  /**
-   * Allows overriding the WifiManagerDelegate for tests.
-   */
+  /** Allows overriding the WifiManagerDelegate for tests. */
   void setWifiManagerDelegateForTests(WifiManagerDelegate delegate) {
     wifiManagerDelegate = delegate;
   }
 
   /**
-   * Returns whether the object has registered to receive network connectivity intents.
-   * Visible for testing.
+   * Returns whether the object has registered to receive network connectivity intents. Visible for
+   * testing.
    */
   boolean isReceiverRegisteredForTesting() {
     return isRegistered;
@@ -670,9 +660,7 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver implements Netwo
     unregisterReceiver();
   }
 
-  /**
-   * Registers a BroadcastReceiver in the given context.
-   */
+  /** Registers a BroadcastReceiver in the given context. */
   private void registerReceiver() {
     if (isRegistered)
       return;
@@ -681,9 +669,7 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver implements Netwo
     context.registerReceiver(this, intentFilter);
   }
 
-  /**
-   * Unregisters the BroadcastReceiver in the given context.
-   */
+  /** Unregisters the BroadcastReceiver in the given context. */
   private void unregisterReceiver() {
     if (!isRegistered)
       return;
@@ -697,10 +683,8 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver implements Netwo
   }
 
   /**
-   * Returns NetID of device's current default connected network used for
-   * communication.
-   * Only implemented on Lollipop and newer releases, returns INVALID_NET_ID
-   * when not implemented.
+   * Returns NetID of device's current default connected network used for communication. Only
+   * implemented on Lollipop and newer releases, returns INVALID_NET_ID when not implemented.
    */
   public long getDefaultNetId() {
     return connectivityManagerDelegate.getDefaultNetId();
@@ -805,9 +789,9 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver implements Netwo
   }
 
   /**
-   * Extracts NetID of network on Lollipop and NetworkHandle (which is mungled
-   * NetID) on Marshmallow and newer releases. Only available on Lollipop and
-   * newer releases. Returns long since getNetworkHandle returns long.
+   * Extracts NetID of network on Lollipop and NetworkHandle (which is mungled NetID) on Marshmallow
+   * and newer releases. Only available on Lollipop and newer releases. Returns long since
+   * getNetworkHandle returns long.
    */
   @SuppressLint("NewApi")
   private static long networkToNetId(Network network) {

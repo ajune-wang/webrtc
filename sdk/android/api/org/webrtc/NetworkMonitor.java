@@ -15,11 +15,9 @@ import android.os.Build;
 import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
-import org.webrtc.NetworkChangeDetector;
 
 /**
- * Borrowed from Chromium's
- * src/net/android/java/src/org/chromium/net/NetworkChangeNotifier.java
+ * Borrowed from Chromium's src/net/android/java/src/org/chromium/net/NetworkChangeNotifier.java
  *
  * <p>Triggers updates to the underlying network state from OS networking events.
  *
@@ -72,8 +70,8 @@ public class NetworkMonitor {
   }
 
   /**
-   * Set the factory that will be used to create the network change detector.
-   * Needs to be called before the monitoring is starts.
+   * Set the factory that will be used to create the network change detector. Needs to be called
+   * before the monitoring is starts.
    */
   public void setNetworkChangeDetectorFactory(NetworkChangeDetectorFactory factory) {
     assertIsTrue(numObservers == 0);

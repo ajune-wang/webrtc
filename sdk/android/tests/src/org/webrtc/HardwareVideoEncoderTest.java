@@ -34,16 +34,12 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.annotation.Config;
-import org.webrtc.EncodedImage;
 import org.webrtc.EncodedImage.FrameType;
 import org.webrtc.FakeMediaCodecWrapper.State;
-import org.webrtc.VideoCodecStatus;
-import org.webrtc.VideoEncoder;
 import org.webrtc.VideoEncoder.BitrateAllocation;
 import org.webrtc.VideoEncoder.CodecSpecificInfo;
 import org.webrtc.VideoEncoder.EncodeInfo;
 import org.webrtc.VideoEncoder.Settings;
-import org.webrtc.VideoFrame;
 import org.webrtc.VideoFrame.Buffer;
 import org.webrtc.VideoFrame.I420Buffer;
 

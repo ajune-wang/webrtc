@@ -35,10 +35,11 @@ public class GlRectDrawerTest {
 
   // clang-format off
   private static final float[] IDENTITY_MATRIX = {
-      1, 0, 0, 0,
-      0, 1, 0, 0,
-      0, 0, 1, 0,
-      0, 0, 0, 1};
+    1, 0, 0, 0,
+    0, 1, 0, 0,
+    0, 0, 1, 0,
+    0, 0, 0, 1
+  };
   // clang-format on
 
   private static float normalizedByte(byte b) {
@@ -214,25 +215,19 @@ public class GlRectDrawerTest {
   /**
    * The purpose here is to test GlRectDrawer.oesDraw(). Unfortunately, there is no easy way to
    * create an OES texture, which is needed for input to oesDraw(). Most of the test is concerned
-   * with creating OES textures in the following way:
-   *  - Create SurfaceTexture with help from SurfaceTextureHelper.
-   *  - Create an EglBase with the SurfaceTexture as EGLSurface.
-   *  - Upload RGB texture with known content.
-   *  - Draw the RGB texture onto the EglBase with the SurfaceTexture as target.
-   *  - Wait for an OES texture to be produced.
-   * The actual oesDraw() test is this:
-   *  - Create an EglBase with a pixel buffer as target.
-   *  - Render the OES texture onto the pixel buffer.
-   *  - Read back the pixel buffer and compare it with the known RGB data.
+   * with creating OES textures in the following way: - Create SurfaceTexture with help from
+   * SurfaceTextureHelper. - Create an EglBase with the SurfaceTexture as EGLSurface. - Upload RGB
+   * texture with known content. - Draw the RGB texture onto the EglBase with the SurfaceTexture as
+   * target. - Wait for an OES texture to be produced. The actual oesDraw() test is this: - Create
+   * an EglBase with a pixel buffer as target. - Render the OES texture onto the pixel buffer. -
+   * Read back the pixel buffer and compare it with the known RGB data.
    */
   // TODO(titovartem) make correct fix during webrtc:9175
   @SuppressWarnings("ByteBufferBackingArray")
   @Test
   @MediumTest
   public void testOesRendering() throws InterruptedException {
-    /**
-     * Stub class to convert RGB ByteBuffers to OES textures by drawing onto a SurfaceTexture.
-     */
+    /** Stub class to convert RGB ByteBuffers to OES textures by drawing onto a SurfaceTexture. */
     class StubOesTextureProducer {
       private final EglBase eglBase;
       private final GlRectDrawer drawer;

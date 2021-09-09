@@ -23,10 +23,9 @@ public class VideoTrack extends MediaStreamTrack {
   /**
    * Adds a VideoSink to the track.
    *
-   * A track can have any number of VideoSinks. VideoSinks will replace
-   * renderers. However, converting old style texture frames will involve costly
-   * conversion to I420 so it is not recommended to upgrade before all your
-   * sources produce VideoFrames.
+   * <p>A track can have any number of VideoSinks. VideoSinks will replace renderers. However,
+   * converting old style texture frames will involve costly conversion to I420 so it is not
+   * recommended to upgrade before all your sources produce VideoFrames.
    */
   public void addSink(VideoSink sink) {
     if (sink == null) {
@@ -44,7 +43,7 @@ public class VideoTrack extends MediaStreamTrack {
   /**
    * Removes a VideoSink from the track.
    *
-   * If the VideoSink was not attached to the track, this is a no-op.
+   * <p>If the VideoSink was not attached to the track, this is a no-op.
    */
   public void removeSink(VideoSink sink) {
     final Long nativeSink = sinks.remove(sink);
@@ -70,7 +69,10 @@ public class VideoTrack extends MediaStreamTrack {
   }
 
   private static native void nativeAddSink(long track, long nativeSink);
+
   private static native void nativeRemoveSink(long track, long nativeSink);
+
   private static native long nativeWrapSink(VideoSink sink);
+
   private static native void nativeFreeSink(long sink);
 }

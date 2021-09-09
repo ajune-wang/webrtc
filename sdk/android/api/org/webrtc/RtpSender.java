@@ -33,17 +33,15 @@ public class RtpSender {
 
   /**
    * Starts sending a new track, without requiring additional SDP negotiation.
-   * <p>
-   * Note: This is equivalent to replaceTrack in the official WebRTC API. It
-   * was just implemented before the standards group settled on a name.
    *
-   * @param takeOwnership If true, the RtpSender takes ownership of the track
-   *                      from the caller, and will auto-dispose of it when no
-   *                      longer needed. `takeOwnership` should only be used if
-   *                      the caller owns the track; it is not appropriate when
-   *                      the track is owned by, for example, another RtpSender
-   *                      or a MediaStream.
-   * @return              true on success and false on failure.
+   * <p>Note: This is equivalent to replaceTrack in the official WebRTC API. It was just implemented
+   * before the standards group settled on a name.
+   *
+   * @param takeOwnership If true, the RtpSender takes ownership of the track from the caller, and
+   *     will auto-dispose of it when no longer needed. `takeOwnership` should only be used if the
+   *     caller owns the track; it is not appropriate when the track is owned by, for example,
+   *     another RtpSender or a MediaStream.
+   * @return true on success and false on failure.
    */
   public boolean setTrack(@Nullable MediaStreamTrack track, boolean takeOwnership) {
     checkRtpSenderExists();

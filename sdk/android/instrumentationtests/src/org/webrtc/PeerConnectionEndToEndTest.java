@@ -1357,16 +1357,15 @@ public class PeerConnectionEndToEndTest {
 
   /**
    * Test that a Java MediaStream is updated when the native stream is.
-   * <p>
-   * Specifically, test that when remote tracks are indicated as being added or
-   * removed from a MediaStream (via "a=ssrc" or "a=msid" in a remote
-   * description), the existing remote MediaStream object is updated.
-   * <p>
-   * This test starts with just an audio track, adds a video track, then
-   * removes it. It only applies remote offers, which is sufficient to test
-   * this functionality and simplifies the test. This means that no media will
-   * actually be sent/received; we're just testing that the Java MediaStream
-   * object gets updated when the native object changes.
+   *
+   * <p>Specifically, test that when remote tracks are indicated as being added or removed from a
+   * MediaStream (via "a=ssrc" or "a=msid" in a remote description), the existing remote MediaStream
+   * object is updated.
+   *
+   * <p>This test starts with just an audio track, adds a video track, then removes it. It only
+   * applies remote offers, which is sufficient to test this functionality and simplifies the test.
+   * This means that no media will actually be sent/received; we're just testing that the Java
+   * MediaStream object gets updated when the native object changes.
    */
   @Test
   @MediumTest

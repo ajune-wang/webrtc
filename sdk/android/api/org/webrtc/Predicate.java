@@ -10,9 +10,7 @@
 
 package org.webrtc;
 
-/**
- * Represents a predicate (boolean-valued function) of one argument.
- */
+/** Represents a predicate (boolean-valued function) of one argument. */
 public interface Predicate<T> {
   /**
    * Evaluates this predicate on the given argument.

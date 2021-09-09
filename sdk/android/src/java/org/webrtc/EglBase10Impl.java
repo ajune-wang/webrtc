@@ -23,8 +23,8 @@ import javax.microedition.khronos.egl.EGLDisplay;
 import javax.microedition.khronos.egl.EGLSurface;
 
 /**
- * Holds EGL state and utility methods for handling an egl 1.0 EGLContext, an EGLDisplay,
- * and an EGLSurface.
+ * Holds EGL state and utility methods for handling an egl 1.0 EGLContext, an EGLDisplay, and an
+ * EGLSurface.
  */
 class EglBase10Impl implements EglBase10 {
   private static final String TAG = "EglBase10Impl";

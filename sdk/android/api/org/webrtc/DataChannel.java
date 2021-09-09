@@ -57,15 +57,12 @@ public class DataChannel {
     }
   }
 
-  /** Java version of C++ DataBuffer.  The atom of data in a DataChannel. */
+  /** Java version of C++ DataBuffer. The atom of data in a DataChannel. */
   public static class Buffer {
     /** The underlying data. */
     public final ByteBuffer data;
 
-    /**
-     * Indicates whether `data` contains UTF-8 text or "binary data"
-     * (i.e. anything else).
-     */
+    /** Indicates whether `data` contains UTF-8 text or "binary data" (i.e. anything else). */
     public final boolean binary;
 
     @CalledByNative("Buffer")
@@ -82,9 +79,8 @@ public class DataChannel {
     /** The data channel state has changed. */
     @CalledByNative("Observer") public void onStateChange();
     /**
-     * A data buffer was successfully received.  NOTE: `buffer.data` will be
-     * freed once this function returns so callers who want to use the data
-     * asynchronously must make sure to copy it first.
+     * A data buffer was successfully received. NOTE: `buffer.data` will be freed once this function
+     * returns so callers who want to use the data asynchronously must make sure to copy it first.
      */
     @CalledByNative("Observer") public void onMessage(Buffer buffer);
   }
@@ -142,9 +138,8 @@ public class DataChannel {
   }
 
   /**
-   * Return the number of bytes of application data (UTF-8 text and binary data)
-   * that have been queued using SendBuffer but have not yet been transmitted
-   * to the network.
+   * Return the number of bytes of application data (UTF-8 text and binary data) that have been
+   * queued using SendBuffer but have not yet been transmitted to the network.
    */
   public long bufferedAmount() {
     checkDataChannelExists();
@@ -186,11 +181,18 @@ public class DataChannel {
   }
 
   private native long nativeRegisterObserver(Observer observer);
+
   private native void nativeUnregisterObserver(long observer);
+
   private native String nativeLabel();
+
   private native int nativeId();
+
   private native State nativeState();
+
   private native long nativeBufferedAmount();
+
   private native void nativeClose();
+
   private native boolean nativeSend(byte[] data, boolean binary);
 };

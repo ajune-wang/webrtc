@@ -14,9 +14,6 @@ import android.opengl.GLES11Ext;
 import android.opengl.GLES20;
 import androidx.annotation.Nullable;
 import java.nio.FloatBuffer;
-import org.webrtc.GlShader;
-import org.webrtc.GlUtil;
-import org.webrtc.RendererCommon;
 
 /**
  * Helper class to implement an instance of RendererCommon.GlDrawer that can accept multiple input
@@ -24,12 +21,10 @@ import org.webrtc.RendererCommon;
  * should sample pixel values from the function "sample" that will be provided by this class and
  * provides an abstraction for the input source type (OES, RGB, or YUV). The texture coordinate
  * variable name will be "tc" and the texture matrix in the vertex shader will be "tex_mat". The
- * simplest possible generic shader that just draws pixel from the frame unmodified looks like:
- * void main() {
- *   gl_FragColor = sample(tc);
- * }
- * This class covers the cases for most simple shaders and generates the necessary boiler plate.
- * Advanced shaders can always implement RendererCommon.GlDrawer directly.
+ * simplest possible generic shader that just draws pixel from the frame unmodified looks like: void
+ * main() { gl_FragColor = sample(tc); } This class covers the cases for most simple shaders and
+ * generates the necessary boiler plate. Advanced shaders can always implement
+ * RendererCommon.GlDrawer directly.
  */
 class GlGenericDrawer implements RendererCommon.GlDrawer {
   /**
@@ -250,19 +245,24 @@ class GlGenericDrawer implements RendererCommon.GlDrawer {
 
     // Upload the vertex coordinates.
     GLES20.glEnableVertexAttribArray(inPosLocation);
-    GLES20.glVertexAttribPointer(inPosLocation, /* size= */ 2,
-        /* type= */ GLES20.GL_FLOAT, /* normalized= */ false, /* stride= */ 0,
-        FULL_RECTANGLE_BUFFER);
+    GLES20.glVertexAttribPointer(inPosLocation,
+        /* size= */ 2,
+        /* type= */ GLES20.GL_FLOAT,
+        /* normalized= */ false,
+        /* stride= */ 0, FULL_RECTANGLE_BUFFER);
 
     // Upload the texture coordinates.
     GLES20.glEnableVertexAttribArray(inTcLocation);
-    GLES20.glVertexAttribPointer(inTcLocation, /* size= */ 2,
-        /* type= */ GLES20.GL_FLOAT, /* normalized= */ false, /* stride= */ 0,
-        FULL_RECTANGLE_TEXTURE_BUFFER);
+    GLES20.glVertexAttribPointer(inTcLocation,
+        /* size= */ 2,
+        /* type= */ GLES20.GL_FLOAT,
+        /* normalized= */ false,
+        /* stride= */ 0, FULL_RECTANGLE_TEXTURE_BUFFER);
 
     // Upload the texture transformation matrix.
     GLES20.glUniformMatrix4fv(
-        texMatrixLocation, 1 /* count= */, false /* transpose= */, texMatrix, 0 /* offset= */);
+        texMatrixLocation, 1 /* count= */, false /* transpose= */, texMatrix, 0
+        /* offset= */);
 
     // Do custom per-frame shader preparation.
     shaderCallbacks.onPrepareShader(

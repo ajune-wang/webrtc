@@ -11,20 +11,16 @@
 package org.webrtc;
 
 import androidx.annotation.Nullable;
-import java.lang.Double;
-import java.lang.String;
 import java.util.List;
 import java.util.Map;
-import org.webrtc.MediaStreamTrack;
 
 /**
  * The parameters for an {@code RtpSender}, as defined in
  * http://w3c.github.io/webrtc-pc/#rtcrtpsender-interface.
  *
- * Note: These structures use nullable Integer/etc. types because in the
- * future, they may be used to construct ORTC RtpSender/RtpReceivers, in
- * which case "null" will be used to represent "choose the implementation
- * default value".
+ * <p>Note: These structures use nullable Integer/etc. types because in the future, they may be used
+ * to construct ORTC RtpSender/RtpReceivers, in which case "null" will be used to represent "choose
+ * the implementation default value".
  */
 public class RtpParameters {
   public enum DegradationPreference {

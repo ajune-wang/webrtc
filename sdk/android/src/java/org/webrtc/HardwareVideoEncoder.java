@@ -666,9 +666,7 @@ class HardwareVideoEncoder implements VideoEncoder {
     yuvFormat.fillBuffer(buffer, videoFrameBuffer);
   }
 
-  /**
-   * Enumeration of supported YUV color formats used for MediaCodec's input.
-   */
+  /** Enumeration of supported YUV color formats used for MediaCodec's input. */
   private enum YuvFormat {
     I420 {
       @Override

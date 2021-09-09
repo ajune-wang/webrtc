@@ -113,9 +113,7 @@ public final class YuvConverter {
   private final GlGenericDrawer drawer = new GlGenericDrawer(FRAGMENT_SHADER, shaderCallbacks);
   private final VideoFrameDrawer videoFrameDrawer;
 
-  /**
-   * This class should be constructed on a thread that has an active EGL context.
-   */
+  /** This class should be constructed on a thread that has an active EGL context. */
   public YuvConverter() {
     this(new VideoFrameDrawer());
   }
@@ -194,19 +192,22 @@ public final class YuvConverter {
     // Draw Y.
     shaderCallbacks.setPlaneY();
     VideoFrameDrawer.drawTexture(drawer, preparedBuffer, renderMatrix, frameWidth, frameHeight,
-        /* viewportX= */ 0, /* viewportY= */ 0, viewportWidth,
+        /* viewportX= */ 0,
+        /* viewportY= */ 0, viewportWidth,
         /* viewportHeight= */ frameHeight);
 
     // Draw U.
     shaderCallbacks.setPlaneU();
     VideoFrameDrawer.drawTexture(drawer, preparedBuffer, renderMatrix, frameWidth, frameHeight,
-        /* viewportX= */ 0, /* viewportY= */ frameHeight, viewportWidth / 2,
+        /* viewportX= */ 0,
+        /* viewportY= */ frameHeight, viewportWidth / 2,
         /* viewportHeight= */ uvHeight);
 
     // Draw V.
     shaderCallbacks.setPlaneV();
     VideoFrameDrawer.drawTexture(drawer, preparedBuffer, renderMatrix, frameWidth, frameHeight,
-        /* viewportX= */ viewportWidth / 2, /* viewportY= */ frameHeight, viewportWidth / 2,
+        /* viewportX= */ viewportWidth / 2,
+        /* viewportY= */ frameHeight, viewportWidth / 2,
         /* viewportHeight= */ uvHeight);
 
     GLES20.glReadPixels(0, 0, i420TextureFrameBuffer.getWidth(), i420TextureFrameBuffer.getHeight(),

@@ -14,20 +14,14 @@ import android.graphics.Point;
 import android.opengl.Matrix;
 import android.view.View;
 
-/**
- * Static helper functions for renderer implementations.
- */
+/** Static helper functions for renderer implementations. */
 public class RendererCommon {
   /** Interface for reporting rendering events. */
   public static interface RendererEvents {
-    /**
-     * Callback fired once first frame is rendered.
-     */
+    /** Callback fired once first frame is rendered. */
     public void onFirstFrameRendered();
 
-    /**
-     * Callback fired when rendered frame resolution or rotation has changed.
-     */
+    /** Callback fired when rendered frame resolution or rotation has changed. */
     public void onFrameResolutionChanged(int videoWidth, int videoHeight, int rotation);
   }
 
@@ -39,20 +33,20 @@ public class RendererCommon {
    */
   public static interface GlDrawer {
     /**
-     * Functions for drawing frames with different sources. The rendering surface target is
-     * implied by the current EGL context of the calling thread and requires no explicit argument.
-     * The coordinates specify the viewport location on the surface target.
+     * Functions for drawing frames with different sources. The rendering surface target is implied
+     * by the current EGL context of the calling thread and requires no explicit argument. The
+     * coordinates specify the viewport location on the surface target.
      */
     void drawOes(int oesTextureId, float[] texMatrix, int frameWidth, int frameHeight,
         int viewportX, int viewportY, int viewportWidth, int viewportHeight);
+
     void drawRgb(int textureId, float[] texMatrix, int frameWidth, int frameHeight, int viewportX,
         int viewportY, int viewportWidth, int viewportHeight);
+
     void drawYuv(int[] yuvTextures, float[] texMatrix, int frameWidth, int frameHeight,
         int viewportX, int viewportY, int viewportWidth, int viewportHeight);
 
-    /**
-     * Release all GL resources. This needs to be done manually, otherwise resources may leak.
-     */
+    /** Release all GL resources. This needs to be done manually, otherwise resources may leak. */
     void release();
   }
 
@@ -70,7 +64,8 @@ public class RendererCommon {
         convertScalingTypeToVisibleFraction(ScalingType.SCALE_ASPECT_BALANCED);
 
     public void setScalingType(ScalingType scalingType) {
-      setScalingType(/* scalingTypeMatchOrientation= */ scalingType,
+      setScalingType(
+          /* scalingTypeMatchOrientation= */ scalingType,
           /* scalingTypeMismatchOrientation= */ scalingType);
     }
 
@@ -130,8 +125,8 @@ public class RendererCommon {
   private static float BALANCED_VISIBLE_FRACTION = 0.5625f;
 
   /**
-   * Returns layout transformation matrix that applies an optional mirror effect and compensates
-   * for video vs display aspect ratio.
+   * Returns layout transformation matrix that applies an optional mirror effect and compensates for
+   * video vs display aspect ratio.
    */
   public static float[] getLayoutMatrix(
       boolean mirror, float videoAspectRatio, float displayAspectRatio) {
@@ -158,9 +153,9 @@ public class RendererCommon {
   public static android.graphics.Matrix convertMatrixToAndroidGraphicsMatrix(float[] matrix4x4) {
     // clang-format off
     float[] values = {
-        matrix4x4[0 * 4 + 0], matrix4x4[1 * 4 + 0], matrix4x4[3 * 4 + 0],
-        matrix4x4[0 * 4 + 1], matrix4x4[1 * 4 + 1], matrix4x4[3 * 4 + 1],
-        matrix4x4[0 * 4 + 3], matrix4x4[1 * 4 + 3], matrix4x4[3 * 4 + 3],
+      matrix4x4[0 * 4 + 0], matrix4x4[1 * 4 + 0], matrix4x4[3 * 4 + 0],
+      matrix4x4[0 * 4 + 1], matrix4x4[1 * 4 + 1], matrix4x4[3 * 4 + 1],
+      matrix4x4[0 * 4 + 3], matrix4x4[1 * 4 + 3], matrix4x4[3 * 4 + 3],
     };
     // clang-format on
 
@@ -190,18 +185,28 @@ public class RendererCommon {
     //  w1 w2 0 w3]
     // clang-format off
     float[] matrix4x4 = {
-        values[0 * 3 + 0],  values[1 * 3 + 0], 0,  values[2 * 3 + 0],
-        values[0 * 3 + 1],  values[1 * 3 + 1], 0,  values[2 * 3 + 1],
-        0,                  0,                 1,  0,
-        values[0 * 3 + 2],  values[1 * 3 + 2], 0,  values[2 * 3 + 2],
+      values[0 * 3 + 0],
+      values[1 * 3 + 0],
+      0,
+      values[2 * 3 + 0],
+      values[0 * 3 + 1],
+      values[1 * 3 + 1],
+      0,
+      values[2 * 3 + 1],
+      0,
+      0,
+      1,
+      0,
+      values[0 * 3 + 2],
+      values[1 * 3 + 2],
+      0,
+      values[2 * 3 + 2],
     };
     // clang-format on
     return matrix4x4;
   }
 
-  /**
-   * Calculate display size based on scaling type, video aspect ratio, and maximum display size.
-   */
+  /** Calculate display size based on scaling type, video aspect ratio, and maximum display size. */
   public static Point getDisplaySize(
       ScalingType scalingType, float videoAspectRatio, int maxDisplayWidth, int maxDisplayHeight) {
     return getDisplaySize(convertScalingTypeToVisibleFraction(scalingType), videoAspectRatio,
@@ -240,8 +245,8 @@ public class RendererCommon {
   }
 
   /**
-   * Calculate display size based on minimum fraction of the video that must remain visible,
-   * video aspect ratio, and maximum display size.
+   * Calculate display size based on minimum fraction of the video that must remain visible, video
+   * aspect ratio, and maximum display size.
    */
   public static Point getDisplaySize(
       float minVisibleFraction, float videoAspectRatio, int maxDisplayWidth, int maxDisplayHeight) {

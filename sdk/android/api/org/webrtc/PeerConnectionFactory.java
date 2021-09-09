@@ -15,13 +15,12 @@ import android.os.Process;
 import androidx.annotation.Nullable;
 import java.util.List;
 import org.webrtc.Logging.Severity;
-import org.webrtc.PeerConnection;
 import org.webrtc.audio.AudioDeviceModule;
 import org.webrtc.audio.JavaAudioDeviceModule;
 
 /**
- * Java wrapper for a C++ PeerConnectionFactoryInterface.  Main entry point to
- * the PeerConnection API for clients.
+ * Java wrapper for a C++ PeerConnectionFactoryInterface. Main entry point to the PeerConnection API
+ * for clients.
  */
 public class PeerConnectionFactory {
   public static final String TRIAL_ENABLED = "Enabled";
@@ -247,10 +246,9 @@ public class PeerConnectionFactory {
     }
 
     /**
-     * Sets a NetEqFactoryFactory for the PeerConnectionFactory. When using a
-     * custom NetEqFactoryFactory, the AudioDecoderFactoryFactory will be set
-     * to null. The AudioDecoderFactoryFactory should be wrapped in the
-     * NetEqFactoryFactory.
+     * Sets a NetEqFactoryFactory for the PeerConnectionFactory. When using a custom
+     * NetEqFactoryFactory, the AudioDecoderFactoryFactory will be set to null. The
+     * AudioDecoderFactoryFactory should be wrapped in the NetEqFactoryFactory.
      */
     public Builder setNetEqFactoryFactory(NetEqFactoryFactory neteqFactoryFactory) {
       this.neteqFactoryFactory = neteqFactoryFactory;
@@ -286,8 +284,8 @@ public class PeerConnectionFactory {
 
   /**
    * Loads and initializes WebRTC. This must be called at least once before creating a
-   * PeerConnectionFactory. Replaces all the old initialization methods. Must not be called while
-   * a PeerConnectionFactory is alive.
+   * PeerConnectionFactory. Replaces all the old initialization methods. Must not be called while a
+   * PeerConnectionFactory is alive.
    */
   public static void initialize(InitializationOptions options) {
     ContextUtils.initialize(options.applicationContext);
@@ -363,9 +361,7 @@ public class PeerConnectionFactory {
     this.nativeFactory = nativeFactory;
   }
 
-  /**
-   * Internal helper function to pass the parameters down into the native JNI bridge.
-   */
+  /** Internal helper function to pass the parameters down into the native JNI bridge. */
   @Nullable
   PeerConnection createPeerConnectionInternal(PeerConnection.RTCConfiguration rtcConfig,
       MediaConstraints constraints, PeerConnection.Observer observer,
@@ -582,13 +578,18 @@ public class PeerConnectionFactory {
   // Must be called at least once before creating a PeerConnectionFactory
   // (for example, at application startup time).
   private static native void nativeInitializeAndroidGlobals();
+
   private static native void nativeInitializeFieldTrials(String fieldTrialsInitString);
+
   private static native String nativeFindFieldTrialsFullName(String name);
+
   private static native void nativeInitializeInternalTracer();
   // Internal tracing shutdown, called to prevent resource leaks. Must be called after
   // PeerConnectionFactory is gone to prevent races with code performing tracing.
   private static native void nativeShutdownInternalTracer();
+
   private static native boolean nativeStartInternalTracingCapture(String tracingFilename);
+
   private static native void nativeStopInternalTracingCapture();
 
   private static native PeerConnectionFactory nativeCreatePeerConnectionFactory(Context context,
@@ -601,20 +602,33 @@ public class PeerConnectionFactory {
   private static native long nativeCreatePeerConnection(long factory,
       PeerConnection.RTCConfiguration rtcConfig, MediaConstraints constraints, long nativeObserver,
       SSLCertificateVerifier sslCertificateVerifier);
+
   private static native long nativeCreateLocalMediaStream(long factory, String label);
+
   private static native long nativeCreateVideoSource(
       long factory, boolean is_screencast, boolean alignTimestamps);
+
   private static native long nativeCreateVideoTrack(
       long factory, String id, long nativeVideoSource);
+
   private static native long nativeCreateAudioSource(long factory, MediaConstraints constraints);
+
   private static native long nativeCreateAudioTrack(long factory, String id, long nativeSource);
+
   private static native boolean nativeStartAecDump(
       long factory, int file_descriptor, int filesize_limit_bytes);
+
   private static native void nativeStopAecDump(long factory);
+
   private static native void nativeFreeFactory(long factory);
+
   private static native long nativeGetNativePeerConnectionFactory(long factory);
+
   private static native void nativeInjectLoggable(JNILogging jniLogging, int severity);
+
   private static native void nativeDeleteLoggable();
+
   private static native void nativePrintStackTrace(int tid);
+
   private static native void nativePrintStackTracesOfRegisteredThreads();
 }

@@ -11,7 +11,7 @@
 package org.webrtc;
 
 /**
- * BitrateAdjuster that adjusts the bitrate to compensate for changes in the framerate.  Used with
+ * BitrateAdjuster that adjusts the bitrate to compensate for changes in the framerate. Used with
  * hardware codecs that assume the framerate never changes.
  */
 class FramerateBitrateAdjuster extends BaseBitrateAdjuster {

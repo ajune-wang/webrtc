@@ -14,10 +14,7 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Description of media constraints for {@code MediaStream} and
- * {@code PeerConnection}.
- */
+/** Description of media constraints for {@code MediaStream} and {@code PeerConnection}. */
 public class MediaConstraints {
   /** Simple String key/value pair. */
   public static class KeyValuePair {
@@ -83,8 +80,8 @@ public class MediaConstraints {
 
   @Override
   public String toString() {
-    return "mandatory: " + stringifyKeyValuePairList(mandatory) + ", optional: "
-        + stringifyKeyValuePairList(optional);
+    return "mandatory: " + stringifyKeyValuePairList(mandatory)
+        + ", optional: " + stringifyKeyValuePairList(optional);
   }
 
   @CalledByNative

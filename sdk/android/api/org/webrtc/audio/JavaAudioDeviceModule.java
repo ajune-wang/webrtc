@@ -76,18 +76,14 @@ public class JavaAudioDeviceModule implements AudioDeviceModule {
       return this;
     }
 
-    /**
-     * Call this method to specifically override input sample rate.
-     */
+    /** Call this method to specifically override input sample rate. */
     public Builder setInputSampleRate(int inputSampleRate) {
       Logging.d(TAG, "Input sample rate overridden to: " + inputSampleRate);
       this.inputSampleRate = inputSampleRate;
       return this;
     }
 
-    /**
-     * Call this method to specifically override output sample rate.
-     */
+    /** Call this method to specifically override output sample rate. */
     public Builder setOutputSampleRate(int outputSampleRate) {
       Logging.d(TAG, "Output sample rate overridden to: " + outputSampleRate);
       this.outputSampleRate = outputSampleRate;
@@ -106,41 +102,33 @@ public class JavaAudioDeviceModule implements AudioDeviceModule {
     /**
      * Call this to change the audio format. The argument should be one of the values from
      * android.media.AudioFormat ENCODING_PCM_8BIT, ENCODING_PCM_16BIT or ENCODING_PCM_FLOAT.
-     * Default audio data format is PCM 16 bit per sample.
-     * Guaranteed to be supported by all devices.
+     * Default audio data format is PCM 16 bit per sample. Guaranteed to be supported by all
+     * devices.
      */
     public Builder setAudioFormat(int audioFormat) {
       this.audioFormat = audioFormat;
       return this;
     }
 
-    /**
-     * Set a callback to retrieve errors from the AudioTrack.
-     */
+    /** Set a callback to retrieve errors from the AudioTrack. */
     public Builder setAudioTrackErrorCallback(AudioTrackErrorCallback audioTrackErrorCallback) {
       this.audioTrackErrorCallback = audioTrackErrorCallback;
       return this;
     }
 
-    /**
-     * Set a callback to retrieve errors from the AudioRecord.
-     */
+    /** Set a callback to retrieve errors from the AudioRecord. */
     public Builder setAudioRecordErrorCallback(AudioRecordErrorCallback audioRecordErrorCallback) {
       this.audioRecordErrorCallback = audioRecordErrorCallback;
       return this;
     }
 
-    /**
-     * Set a callback to listen to the raw audio input from the AudioRecord.
-     */
+    /** Set a callback to listen to the raw audio input from the AudioRecord. */
     public Builder setSamplesReadyCallback(SamplesReadyCallback samplesReadyCallback) {
       this.samplesReadyCallback = samplesReadyCallback;
       return this;
     }
 
-    /**
-     * Set a callback to retrieve information from the AudioTrack on when audio starts and stop.
-     */
+    /** Set a callback to retrieve information from the AudioTrack on when audio starts and stop. */
     public Builder setAudioTrackStateCallback(AudioTrackStateCallback audioTrackStateCallback) {
       this.audioTrackStateCallback = audioTrackStateCallback;
       return this;
@@ -181,33 +169,25 @@ public class JavaAudioDeviceModule implements AudioDeviceModule {
       return this;
     }
 
-    /**
-     * Control if stereo input should be used or not. The default is mono.
-     */
+    /** Control if stereo input should be used or not. The default is mono. */
     public Builder setUseStereoInput(boolean useStereoInput) {
       this.useStereoInput = useStereoInput;
       return this;
     }
 
-    /**
-     * Control if stereo output should be used or not. The default is mono.
-     */
+    /** Control if stereo output should be used or not. The default is mono. */
     public Builder setUseStereoOutput(boolean useStereoOutput) {
       this.useStereoOutput = useStereoOutput;
       return this;
     }
 
-    /**
-     * Control if the low-latency mode should be used. The default is disabled.
-     */
+    /** Control if the low-latency mode should be used. The default is disabled. */
     public Builder setUseLowLatency(boolean useLowLatency) {
       this.useLowLatency = useLowLatency;
       return this;
     }
 
-    /**
-     * Set custom {@link AudioAttributes} to use.
-     */
+    /** Set custom {@link AudioAttributes} to use. */
     public Builder setAudioAttributes(AudioAttributes audioAttributes) {
       this.audioAttributes = audioAttributes;
       return this;
@@ -264,19 +244,20 @@ public class JavaAudioDeviceModule implements AudioDeviceModule {
 
   public static interface AudioRecordErrorCallback {
     void onWebRtcAudioRecordInitError(String errorMessage);
+
     void onWebRtcAudioRecordStartError(AudioRecordStartErrorCode errorCode, String errorMessage);
+
     void onWebRtcAudioRecordError(String errorMessage);
   }
 
   /** Called when audio recording starts and stops. */
   public static interface AudioRecordStateCallback {
     void onWebRtcAudioRecordStart();
+
     void onWebRtcAudioRecordStop();
   }
 
-  /**
-   * Contains audio sample information.
-   */
+  /** Contains audio sample information. */
   public static class AudioSamples {
     /** See {@link AudioRecord#getAudioFormat()} */
     private final int audioFormat;
@@ -325,13 +306,16 @@ public class JavaAudioDeviceModule implements AudioDeviceModule {
 
   public static interface AudioTrackErrorCallback {
     void onWebRtcAudioTrackInitError(String errorMessage);
+
     void onWebRtcAudioTrackStartError(AudioTrackStartErrorCode errorCode, String errorMessage);
+
     void onWebRtcAudioTrackError(String errorMessage);
   }
 
   /** Called when audio playout starts and stops. */
   public static interface AudioTrackStateCallback {
     void onWebRtcAudioTrackStart();
+
     void onWebRtcAudioTrackStop();
   }
 

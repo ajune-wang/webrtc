@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import org.webrtc.CameraEnumerationAndroid.CaptureFormat;
-import org.webrtc.VideoFrame;
 
 class CameraVideoCapturerTestFixtures {
   static final String TAG = "CameraVideoCapturerTestFixtures";
@@ -30,7 +29,7 @@ class CameraVideoCapturerTestFixtures {
   static final int DEFAULT_HEIGHT = 480;
   static final int DEFAULT_FPS = 15;
 
-  static private class RendererCallbacks implements VideoSink {
+  private static class RendererCallbacks implements VideoSink {
     private final Object frameLock = new Object();
     private int framesRendered;
     private int width;
@@ -70,7 +69,7 @@ class CameraVideoCapturerTestFixtures {
     }
   }
 
-  static private class FakeAsyncRenderer implements VideoSink {
+  private static class FakeAsyncRenderer implements VideoSink {
     private final List<VideoFrame> pendingFrames = new ArrayList<VideoFrame>();
 
     @Override
@@ -94,13 +93,13 @@ class CameraVideoCapturerTestFixtures {
     }
   }
 
-  static private class FakeCapturerObserver implements CapturerObserver {
+  private static class FakeCapturerObserver implements CapturerObserver {
     private int framesCaptured;
     private @Nullable VideoFrame videoFrame;
-    final private Object frameLock = new Object();
-    final private Object capturerStartLock = new Object();
+    private final Object frameLock = new Object();
+    private final Object capturerStartLock = new Object();
     private Boolean capturerStartResult;
-    final private List<Long> timestamps = new ArrayList<Long>();
+    private final List<Long> timestamps = new ArrayList<Long>();
 
     @Override
     public void onCapturerStarted(boolean success) {
@@ -248,10 +247,8 @@ class CameraVideoCapturerTestFixtures {
     }
   }
 
-  /**
-   * Class to collect all classes related to single capturer instance.
-   */
-  static private class CapturerInstance {
+  /** Class to collect all classes related to single capturer instance. */
+  private static class CapturerInstance {
     public CameraVideoCapturer capturer;
     public CameraEvents cameraEvents;
     public SurfaceTextureHelper surfaceTextureHelper;
@@ -261,10 +258,10 @@ class CameraVideoCapturerTestFixtures {
   }
 
   /**
-   * Class used for collecting a VideoSource, a VideoTrack and a renderer. The class
-   * is used for testing local rendering from a capturer.
+   * Class used for collecting a VideoSource, a VideoTrack and a renderer. The class is used for
+   * testing local rendering from a capturer.
    */
-  static private class VideoTrackWithRenderer {
+  private static class VideoTrackWithRenderer {
     public SurfaceTextureHelper surfaceTextureHelper;
     public VideoSource source;
     public VideoTrack track;
@@ -313,13 +310,15 @@ class CameraVideoCapturerTestFixtures {
       return true;
     }
 
-    abstract public CameraEnumerator getCameraEnumerator();
-    abstract public Context getAppContext();
+    public abstract CameraEnumerator getCameraEnumerator();
+
+    public abstract Context getAppContext();
 
     // CameraVideoCapturer API is too slow for some of our tests where we need to open a competing
     // camera. These methods are used instead.
-    abstract public Object rawOpenCamera(String cameraName);
-    abstract public void rawCloseCamera(Object camera);
+    public abstract Object rawOpenCamera(String cameraName);
+
+    public abstract void rawCloseCamera(Object camera);
   }
 
   private PeerConnectionFactory peerConnectionFactory;
@@ -498,6 +497,7 @@ class CameraVideoCapturerTestFixtures {
             cameraSwitchSuccessful[0] = true;
             barrier.countDown();
           }
+
           @Override
           public void onCameraSwitchError(String errorDescription) {
             cameraSwitchSuccessful[0] = false;
@@ -584,9 +584,9 @@ class CameraVideoCapturerTestFixtures {
               && capturerInstance.observer.frameHeight() == capturerInstance.format.width);
       if (!identicalResolution && !flippedResolution) {
         fail("Wrong resolution, got: " + capturerInstance.observer.frameWidth() + "x"
-            + capturerInstance.observer.frameHeight() + " expected: "
-            + capturerInstance.format.width + "x" + capturerInstance.format.height + " or "
-            + capturerInstance.format.height + "x" + capturerInstance.format.width);
+            + capturerInstance.observer.frameHeight()
+            + " expected: " + capturerInstance.format.width + "x" + capturerInstance.format.height
+            + " or " + capturerInstance.format.height + "x" + capturerInstance.format.width);
       }
 
       capturerInstance.capturer.stopCapture();
@@ -726,7 +726,7 @@ class CameraVideoCapturerTestFixtures {
 
       gotExpectedOrientation = (cropWidth > cropHeight)
           == (videoTrackWithRenderer.rendererCallbacks.frameWidth()
-                 > videoTrackWithRenderer.rendererCallbacks.frameHeight());
+              > videoTrackWithRenderer.rendererCallbacks.frameHeight());
     } while (!gotExpectedOrientation && numberOfInspectedFrames < 30);
 
     disposeCapturer(capturerInstance);

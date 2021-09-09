@@ -21,7 +21,7 @@ import java.util.List;
 
 @SuppressWarnings("deprecation")
 public class CameraEnumerationAndroid {
-  private final static String TAG = "CameraEnumerationAndroid";
+  private static final String TAG = "CameraEnumerationAndroid";
 
   static final ArrayList<Size> COMMON_RESOLUTIONS = new ArrayList<Size>(Arrays.asList(
       // 0, Unknown resolution
@@ -142,7 +142,7 @@ public class CameraEnumerationAndroid {
   // Helper class for finding the closest supported format for the two functions below. It creates a
   // comparator based on the difference to some requested parameters, where the element with the
   // minimum difference is the element that is closest to the requested parameters.
-  private static abstract class ClosestComparator<T> implements Comparator<T> {
+  private abstract static class ClosestComparator<T> implements Comparator<T> {
     // Difference between supported and requested parameter.
     abstract int diff(T supportedParameter);
 

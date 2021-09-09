@@ -36,9 +36,7 @@ import org.junit.runner.RunWith;
 public class Camera2CapturerTest {
   static final String TAG = "Camera2CapturerTest";
 
-  /**
-   * Simple camera2 implementation that only knows how to open the camera and close it.
-   */
+  /** Simple camera2 implementation that only knows how to open the camera and close it. */
   private class SimpleCamera2 {
     final CameraManager cameraManager;
     final LooperThread looperThread;

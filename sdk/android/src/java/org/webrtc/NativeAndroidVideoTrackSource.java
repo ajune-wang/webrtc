@@ -11,16 +11,13 @@
 package org.webrtc;
 
 import androidx.annotation.Nullable;
-import org.webrtc.VideoFrame;
-import org.webrtc.VideoProcessor;
 
 /**
  * This class is meant to be a simple layer that only handles the JNI wrapping of a C++
  * AndroidVideoTrackSource, that can easily be mocked out in Java unit tests. Refrain from adding
- * any unnecessary logic to this class.
- * This class is thred safe and methods can be called from any thread, but if frames A, B, ..., are
- * sent to adaptFrame(), the adapted frames adaptedA, adaptedB, ..., needs to be passed in the same
- * order to onFrameCaptured().
+ * any unnecessary logic to this class. This class is thred safe and methods can be called from any
+ * thread, but if frames A, B, ..., are sent to adaptFrame(), the adapted frames adaptedA, adaptedB,
+ * ..., needs to be passed in the same order to onFrameCaptured().
  */
 class NativeAndroidVideoTrackSource {
   // Pointer to webrtc::jni::AndroidVideoTrackSource.
@@ -31,8 +28,8 @@ class NativeAndroidVideoTrackSource {
   }
 
   /**
-   * Set the state for the native MediaSourceInterface. Maps boolean to either
-   * SourceState::kLive or SourceState::kEnded.
+   * Set the state for the native MediaSourceInterface. Maps boolean to either SourceState::kLive or
+   * SourceState::kEnded.
    */
   public void setState(boolean isLive) {
     nativeSetState(nativeAndroidVideoTrackSource, isLive);
@@ -51,8 +48,8 @@ class NativeAndroidVideoTrackSource {
   }
 
   /**
-   * Pass an adapted frame to the native AndroidVideoTrackSource. Note that adaptFrame() is
-   * expected to be called first and that the passed frame conforms to those parameters.
+   * Pass an adapted frame to the native AndroidVideoTrackSource. Note that adaptFrame() is expected
+   * to be called first and that the passed frame conforms to those parameters.
    */
   public void onFrameCaptured(VideoFrame frame) {
     nativeOnFrameCaptured(nativeAndroidVideoTrackSource, frame.getRotation(),
@@ -86,14 +83,18 @@ class NativeAndroidVideoTrackSource {
 
   private static native void nativeSetIsScreencast(
       long nativeAndroidVideoTrackSource, boolean isScreencast);
+
   private static native void nativeSetState(long nativeAndroidVideoTrackSource, boolean isLive);
+
   private static native void nativeAdaptOutputFormat(long nativeAndroidVideoTrackSource,
       int landscapeWidth, int landscapeHeight, @Nullable Integer maxLandscapePixelCount,
       int portraitWidth, int portraitHeight, @Nullable Integer maxPortraitPixelCount,
       @Nullable Integer maxFps);
+
   @Nullable
   private static native VideoProcessor.FrameAdaptationParameters nativeAdaptFrame(
       long nativeAndroidVideoTrackSource, int width, int height, int rotation, long timestampNs);
+
   private static native void nativeOnFrameCaptured(
       long nativeAndroidVideoTrackSource, int rotation, long timestampNs, VideoFrame.Buffer buffer);
 }

@@ -35,7 +35,9 @@ public class EglRenderer implements VideoSink {
   private static final String TAG = "EglRenderer";
   private static final long LOG_INTERVAL_SEC = 4;
 
-  public interface FrameListener { void onFrame(Bitmap frame); }
+  public interface FrameListener {
+    void onFrame(Bitmap frame);
+  }
 
   /** Callback for clients to be notified about errors encountered during rendering. */
   public static interface ErrorCallback {
@@ -328,9 +330,7 @@ public class EglRenderer implements VideoSink {
     logD("Releasing done.");
   }
 
-  /**
-   * Reset the statistics logged in logStatistics().
-   */
+  /** Reset the statistics logged in logStatistics(). */
   private void resetStatistics(long currentTimeNs) {
     synchronized (statisticsLock) {
       statisticsStartTimeNs = currentTimeNs;
@@ -358,9 +358,7 @@ public class EglRenderer implements VideoSink {
     }
   }
 
-  /**
-   * Set if the video stream should be mirrored horizontally or not.
-   */
+  /** Set if the video stream should be mirrored horizontally or not. */
   public void setMirror(final boolean mirror) {
     logD("setMirrorHorizontally: " + mirror);
     synchronized (layoutLock) {
@@ -368,9 +366,7 @@ public class EglRenderer implements VideoSink {
     }
   }
 
-  /**
-   * Set if the video stream should be mirrored vertically or not.
-   */
+  /** Set if the video stream should be mirrored vertically or not. */
   public void setMirrorVertically(final boolean mirrorVertically) {
     logD("setMirrorVertically: " + mirrorVertically);
     synchronized (layoutLock) {
@@ -393,7 +389,7 @@ public class EglRenderer implements VideoSink {
    * Limit render framerate.
    *
    * @param fps Limit render framerate to this value, or use Float.POSITIVE_INFINITY to disable fps
-   *            reduction.
+   *     reduction.
    */
   public void setFpsReduction(float fps) {
     logD("setFpsReduction: " + fps);
@@ -424,9 +420,8 @@ public class EglRenderer implements VideoSink {
    * the drawer of the EglRenderer that was passed in init.
    *
    * @param listener The callback to be invoked. The callback will be invoked on the render thread.
-   *                 It should be lightweight and must not call removeFrameListener.
-   * @param scale    The scale of the Bitmap passed to the callback, or 0 if no Bitmap is
-   *                 required.
+   *     It should be lightweight and must not call removeFrameListener.
+   * @param scale The scale of the Bitmap passed to the callback, or 0 if no Bitmap is required.
    */
   public void addFrameListener(final FrameListener listener, final float scale) {
     addFrameListener(listener, scale, null, false /* applyFpsReduction */);
@@ -436,10 +431,9 @@ public class EglRenderer implements VideoSink {
    * Register a callback to be invoked when a new video frame has been received.
    *
    * @param listener The callback to be invoked. The callback will be invoked on the render thread.
-   *                 It should be lightweight and must not call removeFrameListener.
-   * @param scale    The scale of the Bitmap passed to the callback, or 0 if no Bitmap is
-   *                 required.
-   * @param drawer   Custom drawer to use for this frame listener or null to use the default one.
+   *     It should be lightweight and must not call removeFrameListener.
+   * @param scale The scale of the Bitmap passed to the callback, or 0 if no Bitmap is required.
+   * @param drawer Custom drawer to use for this frame listener or null to use the default one.
    */
   public void addFrameListener(
       final FrameListener listener, final float scale, final RendererCommon.GlDrawer drawerParam) {
@@ -450,12 +444,11 @@ public class EglRenderer implements VideoSink {
    * Register a callback to be invoked when a new video frame has been received.
    *
    * @param listener The callback to be invoked. The callback will be invoked on the render thread.
-   *                 It should be lightweight and must not call removeFrameListener.
-   * @param scale    The scale of the Bitmap passed to the callback, or 0 if no Bitmap is
-   *                 required.
-   * @param drawer   Custom drawer to use for this frame listener or null to use the default one.
+   *     It should be lightweight and must not call removeFrameListener.
+   * @param scale The scale of the Bitmap passed to the callback, or 0 if no Bitmap is required.
+   * @param drawer Custom drawer to use for this frame listener or null to use the default one.
    * @param applyFpsReduction This callback will not be called for frames that have been dropped by
-   *                          FPS reduction.
+   *     FPS reduction.
    */
   public void addFrameListener(final FrameListener listener, final float scale,
       @Nullable final RendererCommon.GlDrawer drawerParam, final boolean applyFpsReduction) {
@@ -467,9 +460,8 @@ public class EglRenderer implements VideoSink {
   }
 
   /**
-   * Remove any pending callback that was added with addFrameListener. If the callback is not in
-   * the queue, nothing happens. It is ensured that callback won't be called after this method
-   * returns.
+   * Remove any pending callback that was added with addFrameListener. If the callback is not in the
+   * queue, nothing happens. It is ensured that callback won't be called after this method returns.
    *
    * @param runnable The callback to remove.
    */
@@ -519,7 +511,7 @@ public class EglRenderer implements VideoSink {
         }
         pendingFrame = frame;
         pendingFrame.retain();
-        renderThreadHandler.post(this ::renderFrameOnRenderThread);
+        renderThreadHandler.post(this::renderFrameOnRenderThread);
       }
     }
     if (dropOldFrame) {
@@ -529,9 +521,7 @@ public class EglRenderer implements VideoSink {
     }
   }
 
-  /**
-   * Release EGL surface. This function will block until the EGL surface is released.
-   */
+  /** Release EGL surface. This function will block until the EGL surface is released. */
   public void releaseEglSurface(final Runnable completionCallback) {
     // Ensure that the render thread is no longer touching the Surface before returning from this
     // function.
@@ -552,9 +542,7 @@ public class EglRenderer implements VideoSink {
     completionCallback.run();
   }
 
-  /**
-   * Private helper function to post tasks safely.
-   */
+  /** Private helper function to post tasks safely. */
   private void postToRenderThread(Runnable runnable) {
     synchronized (handlerLock) {
       if (renderThreadHandler != null) {
@@ -572,16 +560,12 @@ public class EglRenderer implements VideoSink {
     }
   }
 
-  /**
-   * Post a task to clear the surface to a transparent uniform color.
-   */
+  /** Post a task to clear the surface to a transparent uniform color. */
   public void clearImage() {
     clearImage(0 /* red */, 0 /* green */, 0 /* blue */, 0 /* alpha */);
   }
 
-  /**
-   * Post a task to clear the surface to a specific color.
-   */
+  /** Post a task to clear the surface to a specific color. */
   public void clearImage(final float r, final float g, final float b, final float a) {
     synchronized (handlerLock) {
       if (renderThreadHandler == null) {
@@ -591,9 +575,7 @@ public class EglRenderer implements VideoSink {
     }
   }
 
-  /**
-   * Renders and releases `pendingFrame`.
-   */
+  /** Renders and releases `pendingFrame`. */
   private void renderFrameOnRenderThread() {
     // Fetch and render `pendingFrame`.
     final VideoFrame frame;

@@ -16,7 +16,6 @@ import org.chromium.testing.local.LocalRobolectricTestRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.annotation.Config;
-import org.webrtc.IceCandidate;
 
 @RunWith(LocalRobolectricTestRunner.class)
 @Config(manifest = Config.NONE)

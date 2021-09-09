@@ -22,7 +22,6 @@ import android.os.Build;
 import android.os.Process;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import java.lang.System;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -108,10 +107,9 @@ class WebRtcAudioRecord {
   private final boolean isNoiseSuppressorSupported;
 
   /**
-   * Audio thread which keeps calling ByteBuffer.read() waiting for audio
-   * to be recorded. Feeds recorded data to the native counterpart as a
-   * periodic sequence of callbacks using DataIsRecorded().
-   * This thread uses a Process.THREAD_PRIORITY_URGENT_AUDIO priority.
+   * Audio thread which keeps calling ByteBuffer.read() waiting for audio to be recorded. Feeds
+   * recorded data to the native counterpart as a periodic sequence of callbacks using
+   * DataIsRecorded(). This thread uses a Process.THREAD_PRIORITY_URGENT_AUDIO priority.
    */
   private class AudioRecordThread extends Thread {
     private volatile boolean keepAlive = true;
@@ -489,6 +487,7 @@ class WebRtcAudioRecord {
 
   private native void nativeCacheDirectBufferAddress(
       long nativeAudioRecordJni, ByteBuffer byteBuffer);
+
   private native void nativeDataIsRecorded(long nativeAudioRecordJni, int bytes);
 
   // Sets all recorded samples to zero if `mute` is true, i.e., ensures that
@@ -715,9 +714,7 @@ class WebRtcAudioRecord {
   static ScheduledExecutorService newDefaultScheduler() {
     AtomicInteger nextThreadId = new AtomicInteger(0);
     return Executors.newScheduledThreadPool(0, new ThreadFactory() {
-      /**
-       * Constructs a new {@code Thread}
-       */
+      /** Constructs a new {@code Thread} */
       @Override
       public Thread newThread(Runnable r) {
         Thread thread = Executors.defaultThreadFactory().newThread(r);

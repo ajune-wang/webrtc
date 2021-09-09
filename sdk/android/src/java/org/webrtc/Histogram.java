@@ -14,9 +14,8 @@ package org.webrtc;
  * Class for holding the native pointer of a histogram. Since there is no way to destroy a
  * histogram, please don't create unnecessary instances of this object. This class is thread safe.
  *
- * Usage example:
- * private static final Histogram someMetricHistogram =
- *     Histogram.createCounts("WebRTC.Video.SomeMetric", 1, 10000, 50);
+ * <p>Usage example: private static final Histogram someMetricHistogram =
+ * Histogram.createCounts("WebRTC.Video.SomeMetric", 1, 10000, 50);
  * someMetricHistogram.addSample(someVariable);
  */
 class Histogram {
@@ -26,11 +25,11 @@ class Histogram {
     this.handle = handle;
   }
 
-  static public Histogram createCounts(String name, int min, int max, int bucketCount) {
+  public static Histogram createCounts(String name, int min, int max, int bucketCount) {
     return new Histogram(nativeCreateCounts(name, min, max, bucketCount));
   }
 
-  static public Histogram createEnumeration(String name, int max) {
+  public static Histogram createEnumeration(String name, int max) {
     return new Histogram(nativeCreateEnumeration(name, max));
   }
 
@@ -39,6 +38,8 @@ class Histogram {
   }
 
   private static native long nativeCreateCounts(String name, int min, int max, int bucketCount);
+
   private static native long nativeCreateEnumeration(String name, int max);
+
   private static native void nativeAddSample(long handle, int sample);
 }

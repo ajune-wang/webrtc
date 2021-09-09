@@ -28,9 +28,7 @@ import org.junit.runner.RunWith;
 
 @RunWith(BaseJUnit4ClassRunner.class)
 public class SurfaceTextureHelperTest {
-  /**
-   * Mock texture listener with blocking wait functionality.
-   */
+  /** Mock texture listener with blocking wait functionality. */
   public static final class MockTextureListener implements VideoSink {
     private final Object lock = new Object();
     private @Nullable VideoFrame.TextureBuffer textureBuffer;
@@ -86,13 +84,12 @@ public class SurfaceTextureHelperTest {
     }
   }
 
-  /** Assert that two integers are close, with difference at most
-   * {@code threshold}. */
+  /** Assert that two integers are close, with difference at most {@code threshold}. */
   public static void assertClose(int threshold, int expected, int actual) {
     if (Math.abs(expected - actual) <= threshold)
       return;
-    fail("Not close enough, threshold " + threshold + ". Expected: " + expected + " Actual: "
-        + actual);
+    fail("Not close enough, threshold " + threshold + ". Expected: " + expected
+        + " Actual: " + actual);
   }
 
   @Before
@@ -278,8 +275,8 @@ public class SurfaceTextureHelperTest {
   }
 
   /**
-   * Test disposing the SurfaceTextureHelper immediately after is has been setup to use a
-   * shared context. No frames should be delivered to the listener.
+   * Test disposing the SurfaceTextureHelper immediately after is has been setup to use a shared
+   * context. No frames should be delivered to the listener.
    */
   @Test
   @SmallTest
@@ -328,9 +325,7 @@ public class SurfaceTextureHelperTest {
     eglBase.release();
   }
 
-  /**
-   * Test stopListening() immediately after the SurfaceTextureHelper has been setup.
-   */
+  /** Test stopListening() immediately after the SurfaceTextureHelper has been setup. */
   @Test
   @SmallTest
   public void testStopListeningImmediately() throws InterruptedException {
@@ -386,9 +381,7 @@ public class SurfaceTextureHelperTest {
     surfaceTextureHelper.dispose();
   }
 
-  /**
-   * Test calling startListening() with a new listener after stopListening() has been called.
-   */
+  /** Test calling startListening() with a new listener after stopListening() has been called. */
   @Test
   @MediumTest
   public void testRestartListeningWithNewListener() throws InterruptedException {

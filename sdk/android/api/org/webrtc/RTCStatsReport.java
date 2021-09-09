@@ -13,9 +13,9 @@ package org.webrtc;
 import java.util.Map;
 
 /**
- * Java version of webrtc::RTCStatsReport. Each RTCStatsReport produced by
- * getStats contains multiple RTCStats objects; one for each underlying object
- * (codec, stream, transport, etc.) that was inspected to produce the stats.
+ * Java version of webrtc::RTCStatsReport. Each RTCStatsReport produced by getStats contains
+ * multiple RTCStats objects; one for each underlying object (codec, stream, transport, etc.) that
+ * was inspected to produce the stats.
  */
 public class RTCStatsReport {
   private final long timestampUs;

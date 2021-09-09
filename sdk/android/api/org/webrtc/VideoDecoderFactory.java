@@ -20,9 +20,7 @@ public interface VideoDecoderFactory {
    */
   @Nullable @CalledByNative VideoDecoder createDecoder(VideoCodecInfo info);
 
-  /**
-   * Enumerates the list of supported video codecs.
-   */
+  /** Enumerates the list of supported video codecs. */
   @CalledByNative
   default VideoCodecInfo[] getSupportedCodecs() {
     return new VideoCodecInfo[0];

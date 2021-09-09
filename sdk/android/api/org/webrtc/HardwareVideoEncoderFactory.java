@@ -47,7 +47,7 @@ public class HardwareVideoEncoderFactory implements VideoEncoderFactory {
    * Creates a HardwareVideoEncoderFactory that supports surface texture encoding.
    *
    * @param sharedContext The textures generated will be accessible from this context. May be null,
-   *                      this disables texture support.
+   *     this disables texture support.
    * @param enableIntelVp8Encoder true if Intel's VP8 encoder enabled.
    * @param enableH264HighProfile true if H264 High Profile enabled.
    */
@@ -61,11 +61,11 @@ public class HardwareVideoEncoderFactory implements VideoEncoderFactory {
    * Creates a HardwareVideoEncoderFactory that supports surface texture encoding.
    *
    * @param sharedContext The textures generated will be accessible from this context. May be null,
-   *                      this disables texture support.
+   *     this disables texture support.
    * @param enableIntelVp8Encoder true if Intel's VP8 encoder enabled.
    * @param enableH264HighProfile true if H264 High Profile enabled.
-   * @param codecAllowedPredicate optional predicate to filter codecs. All codecs are allowed
-   *                              when predicate is not provided.
+   * @param codecAllowedPredicate optional predicate to filter codecs. All codecs are allowed when
+   *     predicate is not provided.
    */
   public HardwareVideoEncoderFactory(EglBase.Context sharedContext, boolean enableIntelVp8Encoder,
       boolean enableH264HighProfile, @Nullable Predicate<MediaCodecInfo> codecAllowedPredicate) {
@@ -216,7 +216,7 @@ public class HardwareVideoEncoderFactory implements VideoEncoderFactory {
         || (name.startsWith(EXYNOS_PREFIX) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
         // Intel Vp8 encoder is supported in LOLLIPOP or later, with the intel encoder enabled.
         || (name.startsWith(INTEL_PREFIX) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
-               && enableIntelVp8Encoder);
+            && enableIntelVp8Encoder);
   }
 
   private boolean isHardwareSupportedInCurrentSdkVp9(MediaCodecInfo info) {
@@ -236,7 +236,7 @@ public class HardwareVideoEncoderFactory implements VideoEncoderFactory {
     return (name.startsWith(QCOM_PREFIX) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
         // Exynos H264 encoder is supported in LOLLIPOP or later.
         || (name.startsWith(EXYNOS_PREFIX)
-               && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP);
+            && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP);
   }
 
   private boolean isMediaCodecAllowed(MediaCodecInfo info) {

@@ -12,8 +12,8 @@ package org.webrtc;
 
 import android.content.Context;
 import android.graphics.Matrix;
-import android.view.WindowManager;
 import android.view.Surface;
+import android.view.WindowManager;
 
 interface CameraSession {
   enum FailureType { ERROR, DISCONNECTED }
@@ -21,21 +21,26 @@ interface CameraSession {
   // Callbacks are fired on the camera thread.
   interface CreateSessionCallback {
     void onDone(CameraSession session);
+
     void onFailure(FailureType failureType, String error);
   }
 
   // Events are fired on the camera thread.
   interface Events {
     void onCameraOpening();
+
     void onCameraError(CameraSession session, String error);
+
     void onCameraDisconnected(CameraSession session);
+
     void onCameraClosed(CameraSession session);
+
     void onFrameCaptured(CameraSession session, VideoFrame frame);
   }
 
   /**
-   * Stops the capture. Waits until no more calls to capture observer will be made.
-   * If waitCameraStop is true, also waits for the camera to stop.
+   * Stops the capture. Waits until no more calls to capture observer will be made. If
+   * waitCameraStop is true, also waits for the camera to stop.
    */
   void stop();
 

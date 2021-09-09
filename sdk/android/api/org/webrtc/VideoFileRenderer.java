@@ -18,9 +18,7 @@ import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.util.concurrent.CountDownLatch;
 
-/**
- * Can be used to save the video frames to file.
- */
+/** Can be used to save the video frames to file. */
 public class VideoFileRenderer implements VideoSink {
   private static final String TAG = "VideoFileRenderer";
 
@@ -128,9 +126,7 @@ public class VideoFileRenderer implements VideoSink {
     });
   }
 
-  /**
-   * Release all resources. All already posted frames will be rendered first.
-   */
+  /** Release all resources. All already posted frames will be rendered first. */
   public void release() {
     final CountDownLatch cleanupBarrier = new CountDownLatch(1);
     renderThreadHandler.post(() -> {

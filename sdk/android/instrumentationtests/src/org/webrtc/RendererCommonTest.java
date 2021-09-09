@@ -109,11 +109,15 @@ public class RendererCommonTest {
     // u' = u.
     // v' = v.
     // clang-format off
-    assertArrayEquals(new double[] {
-        1, 0, 0, 0,
-        0, 1, 0, 0,
-        0, 0, 1, 0,
-        0, 0, 0, 1}, round(layoutMatrix), 0.0);
+    assertArrayEquals(
+        new double[] {
+          1, 0, 0, 0,
+          0, 1, 0, 0,
+          0, 0, 1, 0,
+          0, 0, 0, 1
+        },
+        round(layoutMatrix),
+        0.0);
     // clang-format on
   }
 
@@ -125,11 +129,8 @@ public class RendererCommonTest {
     // u' = 1 - u.
     // v' = v.
     // clang-format off
-    assertArrayEquals(new double[] {
-        -1, 0, 0, 0,
-         0, 1, 0, 0,
-         0, 0, 1, 0,
-         1, 0, 0, 1}, round(layoutMatrix), 0.0);
+    assertArrayEquals(
+        new double[] {-1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1}, round(layoutMatrix), 0.0);
     // clang-format on
   }
 
@@ -143,11 +144,10 @@ public class RendererCommonTest {
     // u' = 0.25 + 0.5 u.
     // v' = v.
     // clang-format off
-    assertArrayEquals(new double[] {
-         0.5, 0, 0, 0,
-           0, 1, 0, 0,
-           0, 0, 1, 0,
-        0.25, 0, 0, 1}, round(layoutMatrix), 0.0);
+    assertArrayEquals(
+        new double[] {0.5, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0.25, 0, 0, 1},
+        round(layoutMatrix),
+        0.0);
     // clang-format on
   }
 }

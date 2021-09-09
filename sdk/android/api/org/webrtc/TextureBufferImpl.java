@@ -21,7 +21,9 @@ import androidx.annotation.Nullable;
 public class TextureBufferImpl implements VideoFrame.TextureBuffer {
   interface RefCountMonitor {
     void onRetain(TextureBufferImpl textureBuffer);
+
     void onRelease(TextureBufferImpl textureBuffer);
+
     void onDestroy(TextureBufferImpl textureBuffer);
   }
 
@@ -165,14 +167,16 @@ public class TextureBufferImpl implements VideoFrame.TextureBuffer {
   }
 
   /**
-   * Create a new TextureBufferImpl with an applied transform matrix and a new size. The
-   * existing buffer is unchanged. The given transform matrix is applied first when texture
-   * coordinates are still in the unmodified [0, 1] range.
+   * Create a new TextureBufferImpl with an applied transform matrix and a new size. The existing
+   * buffer is unchanged. The given transform matrix is applied first when texture coordinates are
+   * still in the unmodified [0, 1] range.
    */
   public TextureBufferImpl applyTransformMatrix(
       Matrix transformMatrix, int newWidth, int newHeight) {
-    return applyTransformMatrix(transformMatrix, /* unscaledWidth= */ newWidth,
-        /* unscaledHeight= */ newHeight, /* scaledWidth= */ newWidth,
+    return applyTransformMatrix(transformMatrix,
+        /* unscaledWidth= */ newWidth,
+        /* unscaledHeight= */ newHeight,
+        /* scaledWidth= */ newWidth,
         /* scaledHeight= */ newHeight);
   }
 

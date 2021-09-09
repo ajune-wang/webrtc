@@ -21,11 +21,10 @@ import android.opengl.EGLSurface;
 import android.os.Build;
 import android.view.Surface;
 import androidx.annotation.Nullable;
-import org.webrtc.EglBase;
 
 /**
- * Holds EGL state and utility methods for handling an EGL14 EGLContext, an EGLDisplay,
- * and an EGLSurface.
+ * Holds EGL state and utility methods for handling an EGL14 EGLContext, an EGLDisplay, and an
+ * EGLSurface.
  */
 @SuppressWarnings("ReferenceEquality") // We want to compare to EGL14 constants.
 @TargetApi(18)

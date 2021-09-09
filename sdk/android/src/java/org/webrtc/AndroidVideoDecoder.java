@@ -23,9 +23,7 @@ import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.TimeUnit;
 import org.webrtc.ThreadUtils.ThreadChecker;
 
-/**
- * Android hardware video decoder.
- */
+/** Android hardware video decoder. */
 @SuppressWarnings("deprecation")
 // Cannot support API 16 without using deprecated methods.
 // TODO(sakal): Rename to MediaCodecVideoDecoder once the deprecated implementation is removed.

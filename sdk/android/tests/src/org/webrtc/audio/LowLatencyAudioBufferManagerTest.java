@@ -10,7 +10,6 @@
 
 package org.webrtc.audio;
 
-import static org.junit.Assert.assertTrue;
 import static org.mockito.AdditionalMatchers.gt;
 import static org.mockito.AdditionalMatchers.lt;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -27,11 +26,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.annotation.Config;
-import org.webrtc.audio.LowLatencyAudioBufferManager;
 
-/**
- * Tests for LowLatencyAudioBufferManager.
- */
+/** Tests for LowLatencyAudioBufferManager. */
 @RunWith(LocalRobolectricTestRunner.class)
 @Config(manifest = Config.NONE, sdk = Build.VERSION_CODES.O)
 public class LowLatencyAudioBufferManagerTest {

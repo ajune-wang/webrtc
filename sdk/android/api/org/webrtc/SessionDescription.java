@@ -13,9 +13,8 @@ package org.webrtc;
 import java.util.Locale;
 
 /**
- * Description of an RFC 4566 Session.
- * SDPs are passed as serialized Strings in Java-land and are materialized
- * to SessionDescriptionInterface as appropriate in the JNI layer.
+ * Description of an RFC 4566 Session. SDPs are passed as serialized Strings in Java-land and are
+ * materialized to SessionDescriptionInterface as appropriate in the JNI layer.
  */
 public class SessionDescription {
   /** Java-land enum version of SessionDescriptionInterface's type() string. */

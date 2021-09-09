@@ -12,7 +12,7 @@ package org.webrtc;
 
 /**
  * BitrateAdjuster that tracks the bandwidth produced by an encoder and dynamically adjusts the
- * bitrate.  Used for hardware codecs that pay attention to framerate but still deviate from the
+ * bitrate. Used for hardware codecs that pay attention to framerate but still deviate from the
  * target bitrate by unacceptable margins.
  */
 class DynamicBitrateAdjuster extends BaseBitrateAdjuster {

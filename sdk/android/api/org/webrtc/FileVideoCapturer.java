@@ -24,12 +24,11 @@ import java.util.concurrent.TimeUnit;
 public class FileVideoCapturer implements VideoCapturer {
   private interface VideoReader {
     VideoFrame getNextFrame();
+
     void close();
   }
 
-  /**
-   * Read video data from file for the .y4m container.
-   */
+  /** Read video data from file for the .y4m container. */
   @SuppressWarnings("StringSplitter")
   private static class VideoReaderY4M implements VideoReader {
     private static final String TAG = "VideoReaderY4M";
@@ -141,7 +140,7 @@ public class FileVideoCapturer implements VideoCapturer {
     }
   }
 
-  private final static String TAG = "FileVideoCapturer";
+  private static final String TAG = "FileVideoCapturer";
   private final VideoReader videoReader;
   private CapturerObserver capturerObserver;
   private final Timer timer = new Timer();

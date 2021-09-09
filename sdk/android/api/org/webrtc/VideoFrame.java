@@ -18,12 +18,11 @@ import java.nio.ByteBuffer;
 /**
  * Java version of webrtc::VideoFrame and webrtc::VideoFrameBuffer. A difference from the C++
  * version is that no explicit tag is used, and clients are expected to use 'instanceof' to find the
- * right subclass of the buffer. This allows clients to create custom VideoFrame.Buffer in
- * arbitrary format in their custom VideoSources, and then cast it back to the correct subclass in
- * their custom VideoSinks. All implementations must also implement the toI420() function,
- * converting from the underlying representation if necessary. I420 is the most widely accepted
- * format and serves as a fallback for video sinks that can only handle I420, e.g. the internal
- * WebRTC software encoders.
+ * right subclass of the buffer. This allows clients to create custom VideoFrame.Buffer in arbitrary
+ * format in their custom VideoSources, and then cast it back to the correct subclass in their
+ * custom VideoSinks. All implementations must also implement the toI420() function, converting from
+ * the underlying representation if necessary. I420 is the most widely accepted format and serves as
+ * a fallback for video sinks that can only handle I420, e.g. the internal WebRTC software encoders.
  */
 public class VideoFrame implements RefCounted {
   /**
@@ -34,19 +33,16 @@ public class VideoFrame implements RefCounted {
    * and the buffer needs to be returned to the VideoSource as soon as all references are gone.
    */
   public interface Buffer extends RefCounted {
-    /**
-     * Representation of the underlying buffer. Currently, only NATIVE and I420 are supported.
-     */
+    /** Representation of the underlying buffer. Currently, only NATIVE and I420 are supported. */
     @CalledByNative("Buffer")
     @VideoFrameBufferType
     default int getBufferType() {
       return VideoFrameBufferType.NATIVE;
     }
 
-    /**
-     * Resolution of the buffer in pixels.
-     */
+    /** Resolution of the buffer in pixels. */
     @CalledByNative("Buffer") int getWidth();
+
     @CalledByNative("Buffer") int getHeight();
 
     /**
@@ -57,6 +53,7 @@ public class VideoFrame implements RefCounted {
     @CalledByNative("Buffer") I420Buffer toI420();
 
     @Override @CalledByNative("Buffer") void retain();
+
     @Override @CalledByNative("Buffer") void release();
 
     /**
@@ -68,9 +65,7 @@ public class VideoFrame implements RefCounted {
         int cropX, int cropY, int cropWidth, int cropHeight, int scaleWidth, int scaleHeight);
   }
 
-  /**
-   * Interface for I420 buffers.
-   */
+  /** Interface for I420 buffers. */
   public interface I420Buffer extends Buffer {
     @Override
     default int getBufferType() {
@@ -79,8 +74,8 @@ public class VideoFrame implements RefCounted {
 
     /**
      * Returns a direct ByteBuffer containing Y-plane data. The buffer capacity is at least
-     * getStrideY() * getHeight() bytes. The position of the returned buffer is ignored and must
-     * be 0. Callers may mutate the ByteBuffer (eg. through relative-read operations), so
+     * getStrideY() * getHeight() bytes. The position of the returned buffer is ignored and must be
+     * 0. Callers may mutate the ByteBuffer (eg. through relative-read operations), so
      * implementations must return a new ByteBuffer or slice for each call.
      */
     @CalledByNative("I420Buffer") ByteBuffer getDataY();
@@ -100,13 +95,13 @@ public class VideoFrame implements RefCounted {
     @CalledByNative("I420Buffer") ByteBuffer getDataV();
 
     @CalledByNative("I420Buffer") int getStrideY();
+
     @CalledByNative("I420Buffer") int getStrideU();
+
     @CalledByNative("I420Buffer") int getStrideV();
   }
 
-  /**
-   * Interface for buffers that are stored as a single texture, either in OES or RGB format.
-   */
+  /** Interface for buffers that are stored as a single texture, either in OES or RGB format. */
   public interface TextureBuffer extends Buffer {
     enum Type {
       OES(GLES11Ext.GL_TEXTURE_EXTERNAL_OES),
@@ -124,6 +119,7 @@ public class VideoFrame implements RefCounted {
     }
 
     Type getType();
+
     int getTextureId();
 
     /**
@@ -161,17 +157,13 @@ public class VideoFrame implements RefCounted {
     return buffer;
   }
 
-  /**
-   * Rotation of the frame in degrees.
-   */
+  /** Rotation of the frame in degrees. */
   @CalledByNative
   public int getRotation() {
     return rotation;
   }
 
-  /**
-   * Timestamp of the frame in nano seconds.
-   */
+  /** Timestamp of the frame in nano seconds. */
   @CalledByNative
   public long getTimestampNs() {
     return timestampNs;

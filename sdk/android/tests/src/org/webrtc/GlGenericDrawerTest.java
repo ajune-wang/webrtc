@@ -22,7 +22,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.annotation.Config;
-import org.webrtc.GlShader;
 
 @RunWith(LocalRobolectricTestRunner.class)
 @Config(manifest = Config.NONE)

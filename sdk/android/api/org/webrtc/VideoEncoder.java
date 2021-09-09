@@ -11,7 +11,6 @@
 package org.webrtc;
 
 import androidx.annotation.Nullable;
-import org.webrtc.EncodedImage;
 
 /**
  * Interface for a video encoder that can be used with WebRTC. All calls will be made on the
@@ -105,9 +104,7 @@ public interface VideoEncoder {
       this.bitratesBbs = bitratesBbs;
     }
 
-    /**
-     * Gets the total bitrate allocated for all layers.
-     */
+    /** Gets the total bitrate allocated for all layers. */
     public int getSum() {
       int sum = 0;
       for (int[] spatialLayer : bitratesBbs) {
@@ -125,9 +122,7 @@ public interface VideoEncoder {
     @Nullable public final Integer low;
     @Nullable public final Integer high;
 
-    /**
-     * Settings to disable quality based scaling.
-     */
+    /** Settings to disable quality based scaling. */
     public static final ScalingSettings OFF = new ScalingSettings();
 
     /**
@@ -183,28 +178,18 @@ public interface VideoEncoder {
     }
   }
 
-  /**
-   * Bitrate limits for resolution.
-   */
+  /** Bitrate limits for resolution. */
   public class ResolutionBitrateLimits {
-    /**
-     * Maximum size of video frame, in pixels, the bitrate limits are intended for.
-     */
+    /** Maximum size of video frame, in pixels, the bitrate limits are intended for. */
     public final int frameSizePixels;
 
-    /**
-     * Recommended minimum bitrate to start encoding.
-     */
+    /** Recommended minimum bitrate to start encoding. */
     public final int minStartBitrateBps;
 
-    /**
-     * Recommended minimum bitrate.
-     */
+    /** Recommended minimum bitrate. */
     public final int minBitrateBps;
 
-    /**
-     * Recommended maximum bitrate.
-     */
+    /** Recommended maximum bitrate. */
     public final int maxBitrateBps;
 
     public ResolutionBitrateLimits(
@@ -265,7 +250,7 @@ public interface VideoEncoder {
      * to make its own copy. We want to move to a model where no copying is needed, and instead use
      * retain()/release() to signal to the encoder when it is safe to reuse the buffer.
      *
-     * Over the transition, implementations of this class should use the maybeRetain() method if
+     * <p>Over the transition, implementations of this class should use the maybeRetain() method if
      * they want to keep a reference to the buffer, and fall back to copying if that method returns
      * false.
      */
@@ -273,48 +258,37 @@ public interface VideoEncoder {
   }
 
   /**
-   * The encoder implementation backing this interface is either 1) a Java
-   * encoder (e.g., an Android platform encoder), or alternatively 2) a native
-   * encoder (e.g., a software encoder or a C++ encoder adapter).
+   * The encoder implementation backing this interface is either 1) a Java encoder (e.g., an Android
+   * platform encoder), or alternatively 2) a native encoder (e.g., a software encoder or a C++
+   * encoder adapter).
    *
-   * For case 1), createNativeVideoEncoder() should return zero.
-   * In this case, we expect the native library to call the encoder through
-   * JNI using the Java interface declared below.
+   * <p>For case 1), createNativeVideoEncoder() should return zero. In this case, we expect the
+   * native library to call the encoder through JNI using the Java interface declared below.
    *
-   * For case 2), createNativeVideoEncoder() should return a non-zero value.
-   * In this case, we expect the native library to treat the returned value as
-   * a raw pointer of type webrtc::VideoEncoder* (ownership is transferred to
-   * the caller). The native library should then directly call the
-   * webrtc::VideoEncoder interface without going through JNI. All calls to
-   * the Java interface methods declared below should thus throw an
-   * UnsupportedOperationException.
+   * <p>For case 2), createNativeVideoEncoder() should return a non-zero value. In this case, we
+   * expect the native library to treat the returned value as a raw pointer of type
+   * webrtc::VideoEncoder* (ownership is transferred to the caller). The native library should then
+   * directly call the webrtc::VideoEncoder interface without going through JNI. All calls to the
+   * Java interface methods declared below should thus throw an UnsupportedOperationException.
    */
   @CalledByNative
   default long createNativeVideoEncoder() {
     return 0;
   }
 
-  /**
-   * Returns true if the encoder is backed by hardware.
-   */
+  /** Returns true if the encoder is backed by hardware. */
   @CalledByNative
   default boolean isHardwareEncoder() {
     return true;
   }
 
-  /**
-   * Initializes the encoding process. Call before any calls to encode.
-   */
+  /** Initializes the encoding process. Call before any calls to encode. */
   @CalledByNative VideoCodecStatus initEncode(Settings settings, Callback encodeCallback);
 
-  /**
-   * Releases the encoder. No more calls to encode will be made after this call.
-   */
+  /** Releases the encoder. No more calls to encode will be made after this call. */
   @CalledByNative VideoCodecStatus release();
 
-  /**
-   * Requests the encoder to encode a frame.
-   */
+  /** Requests the encoder to encode a frame. */
   @CalledByNative VideoCodecStatus encode(VideoFrame frame, EncodeInfo info);
 
   /** Sets the bitrate allocation and the target framerate for the encoder. */

@@ -16,9 +16,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
-/**
- * Some OpenGL static utility functions.
- */
+/** Some OpenGL static utility functions. */
 public class GlUtil {
   private GlUtil() {}
 
@@ -48,9 +46,7 @@ public class GlUtil {
     return fb;
   }
 
-  /**
-   * Generate texture with standard parameters.
-   */
+  /** Generate texture with standard parameters. */
   public static int generateTexture(int target) {
     final int textureArray[] = new int[1];
     GLES20.glGenTextures(1, textureArray, 0);

@@ -32,7 +32,6 @@ import org.chromium.base.test.params.ParameterizedRunner;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.webrtc.VideoFrame;
 
 /**
  * Test VideoFrame buffers of different kind of formats: I420, RGB, OES, NV12, NV21, and verify
@@ -118,9 +117,7 @@ public class VideoFrameBufferTest {
     return createBufferWithType(this.bufferType, i420Buffer);
   }
 
-  /**
-   * Creates a 16x16 I420 buffer that varies smoothly and spans all RGB values.
-   */
+  /** Creates a 16x16 I420 buffer that varies smoothly and spans all RGB values. */
   public static VideoFrame.I420Buffer createTestI420Buffer() {
     final int width = 16;
     final int height = 16;
@@ -147,7 +144,8 @@ public class VideoFrameBufferTest {
         114, 128, 141, 155, 168, 182, 100, 114, 128, 141, 155, 168, 182, 197, 114, 127, 141, 155,
         168, 182, 196, 210, 127, 141, 155, 168, 182, 196, 210, 224};
     return JavaI420Buffer.wrap(width, height, toByteBuffer(yData),
-        /* strideY= */ width, toByteBuffer(uData), /* strideU= */ width / 2, toByteBuffer(vData),
+        /* strideY= */ width, toByteBuffer(uData),
+        /* strideU= */ width / 2, toByteBuffer(vData),
         /* strideV= */ width / 2,
         /* releaseCallback= */ null);
   }
@@ -289,7 +287,9 @@ public class VideoFrameBufferTest {
         nv12Buffer.put(ySize + y * chromaStride + 2 * x + 1, vValue);
       }
     }
-    return new NV12Buffer(width, height, /* stride= */ width, /* sliceHeight= */ height, nv12Buffer,
+    return new NV12Buffer(width, height,
+        /* stride= */ width,
+        /* sliceHeight= */ height, nv12Buffer,
         /* releaseCallback */ null);
   }
 
@@ -426,8 +426,8 @@ public class VideoFrameBufferTest {
   }
 
   /**
-   * Draw an I420 buffer on the currently bound frame buffer, allocating and releasing any
-   * resources necessary.
+   * Draw an I420 buffer on the currently bound frame buffer, allocating and releasing any resources
+   * necessary.
    */
   private static void drawI420Buffer(VideoFrame.I420Buffer i420Buffer) {
     final GlRectDrawer drawer = new GlRectDrawer();
@@ -485,48 +485,84 @@ public class VideoFrameBufferTest {
   @SmallTest
   /** Pure 2x scaling with no cropping. */
   public void testScale2x() {
-    testCropAndScale(0 /* cropX= */, 0 /* cropY= */, /* cropWidth= */ 16, /* cropHeight= */ 16,
-        /* scaleWidth= */ 8, /* scaleHeight= */ 8);
+    testCropAndScale(0
+        /* cropX= */,
+        0
+        /* cropY= */,
+        /* cropWidth= */ 16,
+        /* cropHeight= */ 16,
+        /* scaleWidth= */ 8,
+        /* scaleHeight= */ 8);
   }
 
   @Test
   @SmallTest
   /** Test cropping only X direction, with no scaling. */
   public void testCropX() {
-    testCropAndScale(8 /* cropX= */, 0 /* cropY= */, /* cropWidth= */ 8, /* cropHeight= */ 16,
-        /* scaleWidth= */ 8, /* scaleHeight= */ 16);
+    testCropAndScale(8
+        /* cropX= */,
+        0
+        /* cropY= */,
+        /* cropWidth= */ 8,
+        /* cropHeight= */ 16,
+        /* scaleWidth= */ 8,
+        /* scaleHeight= */ 16);
   }
 
   @Test
   @SmallTest
   /** Test cropping only Y direction, with no scaling. */
   public void testCropY() {
-    testCropAndScale(0 /* cropX= */, 8 /* cropY= */, /* cropWidth= */ 16, /* cropHeight= */ 8,
-        /* scaleWidth= */ 16, /* scaleHeight= */ 8);
+    testCropAndScale(0
+        /* cropX= */,
+        8
+        /* cropY= */,
+        /* cropWidth= */ 16,
+        /* cropHeight= */ 8,
+        /* scaleWidth= */ 16,
+        /* scaleHeight= */ 8);
   }
 
   @Test
   @SmallTest
   /** Test center crop, with no scaling. */
   public void testCenterCrop() {
-    testCropAndScale(4 /* cropX= */, 4 /* cropY= */, /* cropWidth= */ 8, /* cropHeight= */ 8,
-        /* scaleWidth= */ 8, /* scaleHeight= */ 8);
+    testCropAndScale(4
+        /* cropX= */,
+        4
+        /* cropY= */,
+        /* cropWidth= */ 8,
+        /* cropHeight= */ 8,
+        /* scaleWidth= */ 8,
+        /* scaleHeight= */ 8);
   }
 
   @Test
   @SmallTest
   /** Test non-center crop for right bottom corner, with no scaling. */
   public void testRightBottomCornerCrop() {
-    testCropAndScale(8 /* cropX= */, 8 /* cropY= */, /* cropWidth= */ 8, /* cropHeight= */ 8,
-        /* scaleWidth= */ 8, /* scaleHeight= */ 8);
+    testCropAndScale(8
+        /* cropX= */,
+        8
+        /* cropY= */,
+        /* cropWidth= */ 8,
+        /* cropHeight= */ 8,
+        /* scaleWidth= */ 8,
+        /* scaleHeight= */ 8);
   }
 
   @Test
   @SmallTest
   /** Test combined cropping and scaling. */
   public void testCropAndScale() {
-    testCropAndScale(4 /* cropX= */, 4 /* cropY= */, /* cropWidth= */ 12, /* cropHeight= */ 12,
-        /* scaleWidth= */ 8, /* scaleHeight= */ 8);
+    testCropAndScale(4
+        /* cropX= */,
+        4
+        /* cropY= */,
+        /* cropWidth= */ 12,
+        /* cropHeight= */ 12,
+        /* scaleWidth= */ 8,
+        /* scaleHeight= */ 8);
   }
 
   @VideoFrameBufferType private static native int nativeGetBufferType(VideoFrame.Buffer buffer);

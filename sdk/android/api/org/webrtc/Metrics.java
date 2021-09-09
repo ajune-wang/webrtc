@@ -37,9 +37,7 @@ public class Metrics {
   @CalledByNative
   Metrics() {}
 
-  /**
-   * Class holding histogram information.
-   */
+  /** Class holding histogram information. */
   public static class HistogramInfo {
     public final int min;
     public final int max;
@@ -77,5 +75,6 @@ public class Metrics {
   }
 
   private static native void nativeEnable();
+
   private static native Metrics nativeGetAndReset();
 }

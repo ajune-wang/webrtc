@@ -17,8 +17,8 @@ import android.media.AudioManager;
 import android.media.AudioRecord;
 import android.media.AudioTrack;
 import android.os.Build;
-import org.webrtc.Logging;
 import org.webrtc.CalledByNative;
+import org.webrtc.Logging;
 
 /**
  * This class contains static functions to query sample rate and input/output audio buffer sizes.
@@ -67,9 +67,7 @@ class WebRtcAudioManager {
     return Build.VERSION.SDK_INT >= 21 && isLowLatencyOutputSupported(context);
   }
 
-  /**
-   * Returns the native input/output sample rate for this device's output stream.
-   */
+  /** Returns the native input/output sample rate for this device's output stream. */
   @CalledByNative
   static int getSampleRate(AudioManager audioManager) {
     // Override this if we're running on an old emulator image which only

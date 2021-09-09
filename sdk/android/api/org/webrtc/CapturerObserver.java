@@ -14,7 +14,7 @@ package org.webrtc;
  * Interface for observering a capturer. Passed to {@link VideoCapturer#initialize}. Provided by
  * {@link VideoSource#getCapturerObserver}.
  *
- * All callbacks must be executed on a single thread.
+ * <p>All callbacks must be executed on a single thread.
  */
 public interface CapturerObserver {
   /** Notify if the capturer have been started successfully or not. */

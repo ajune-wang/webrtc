@@ -20,9 +20,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.annotation.Config;
 import org.webrtc.CameraEnumerationAndroid.CaptureFormat.FramerateRange;
 
-/**
- * Tests for CameraEnumerationAndroid.
- */
+/** Tests for CameraEnumerationAndroid. */
 @RunWith(LocalRobolectricTestRunner.class)
 @Config(manifest = Config.NONE)
 public class CameraEnumerationTest {

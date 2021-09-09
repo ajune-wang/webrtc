@@ -12,9 +12,7 @@ package org.webrtc;
 
 import java.nio.ByteBuffer;
 
-/**
- * This class wraps a webrtc::I420BufferInterface into a VideoFrame.I420Buffer.
- */
+/** This class wraps a webrtc::I420BufferInterface into a VideoFrame.I420Buffer. */
 class WrappedNativeI420Buffer implements VideoFrame.I420Buffer {
   private final int width;
   private final int height;

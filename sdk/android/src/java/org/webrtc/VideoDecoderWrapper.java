@@ -10,11 +10,7 @@
 
 package org.webrtc;
 
-import org.webrtc.VideoDecoder;
-
-/**
- * This class contains the Java glue code for JNI generation of VideoDecoder.
- */
+/** This class contains the Java glue code for JNI generation of VideoDecoder. */
 class VideoDecoderWrapper {
   @CalledByNative
   static VideoDecoder.Callback createDecoderCallback(final long nativeDecoder) {

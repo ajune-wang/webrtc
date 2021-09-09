@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba7f8e71_e9d37639",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6192
+      },
+      "writtenOn": "2021-09-09T11:47:08Z",
+      "side": 1,
+      "message": "I think they are doing this one tomorrow (only the chrome-internal/chrome/tools/build have been migrated but not the non internal one AFAIK)",
+      "revId": "f62944cce5248e97888adaa053821a2c710cb230",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

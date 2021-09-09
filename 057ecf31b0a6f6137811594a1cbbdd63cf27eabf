@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e15981a_60b3b616",
+        "filename": "modules/video_coding/utility/bandwidth_quality_scaler.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-09T08:03:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5676f82a_2fac6a15",
+      "range": {
+        "startLine": 134,
+        "startChar": 5,
+        "endLine": 134,
+        "endChar": 15
+      },
+      "revId": "057ecf31b0a6f6137811594a1cbbdd63cf27eabf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5f76d76f_e37b0f86",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-09-08T15:44:07Z",
       "side": 1,
       "message": "This raises the threshold. Don\u0027t we need to lower it? WebRTC may cap the max encode target bitrate at max_bitrate_bps. In such case current_bitrate_bps will never exceed max_bitrate_bps. We want to increase the resolution when current_bitrate_bps is approaching max_bitrate_bps. I.e., should be:\ncurrent_bitrate_bps \u003e suitable_bitrate_limit-\u003emax_bitrate_bps * (1 - kHigherMaxBitrateTolerationFactor).\n\nI would suggest to set kHigherMaxBitrateTolerationFactor to final desired value (like \u003d0.8) and avoid extra math in the code. Just:\ncurrent_bitrate_bps \u003e suitable_bitrate_limit-\u003emax_bitrate_bps * kHigherMaxBitrateTolerationFactor. Same for kLowerMinBitrateTolerationFactor.",
+      "range": {
+        "startLine": 136,
+        "startChar": 28,
+        "endLine": 137,
+        "endChar": 71
+      },
+      "revId": "057ecf31b0a6f6137811594a1cbbdd63cf27eabf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90791a9e_31a2e8df",
+        "filename": "modules/video_coding/utility/bandwidth_quality_scaler.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-09T08:03:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f76d76f_e37b0f86",
       "range": {
         "startLine": 136,
         "startChar": 28,
@@ -87,6 +135,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f951700_5fd46246",
+        "filename": "modules/video_coding/utility/bandwidth_quality_scaler.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-09T08:03:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d894845_4ea16317",
+      "range": {
+        "startLine": 60,
+        "startChar": 8,
+        "endLine": 60,
+        "endChar": 21
+      },
+      "revId": "057ecf31b0a6f6137811594a1cbbdd63cf27eabf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5e03827c_261e7ebd",
@@ -100,6 +172,30 @@
       "writtenOn": "2021-09-08T15:44:07Z",
       "side": 1,
       "message": "delete",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 40
+      },
+      "revId": "057ecf31b0a6f6137811594a1cbbdd63cf27eabf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7250ce69_6c90f02d",
+        "filename": "modules/video_coding/utility/bandwidth_quality_scaler.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-09T08:03:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e03827c_261e7ebd",
       "range": {
         "startLine": 67,
         "startChar": 0,
@@ -133,6 +229,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6456fc70_175204a5",
+        "filename": "modules/video_coding/utility/bandwidth_quality_scaler.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-09T08:03:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "572926f7_f299b3ad",
+      "range": {
+        "startLine": 94,
+        "startChar": 22,
+        "endLine": 94,
+        "endChar": 40
+      },
+      "revId": "057ecf31b0a6f6137811594a1cbbdd63cf27eabf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f19b148b_500eea5c",
@@ -146,6 +266,30 @@
       "writtenOn": "2021-09-08T15:44:07Z",
       "side": 1,
       "message": "\"experimental working bitrate range is [500000, 800000] bps\" ?",
+      "range": {
+        "startLine": 206,
+        "startChar": 33,
+        "endLine": 206,
+        "endChar": 67
+      },
+      "revId": "057ecf31b0a6f6137811594a1cbbdd63cf27eabf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15a768f9_c8e74881",
+        "filename": "modules/video_coding/utility/bandwidth_quality_scaler_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-09T08:03:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f19b148b_500eea5c",
       "range": {
         "startLine": 206,
         "startChar": 33,
@@ -202,6 +346,54 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "09f19670_8500e3dc",
+        "filename": "modules/video_coding/utility/bandwidth_quality_scaler_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-09T08:03:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f937eb6_6611b48e",
+      "range": {
+        "startLine": 207,
+        "startChar": 20,
+        "endLine": 208,
+        "endChar": 11
+      },
+      "revId": "057ecf31b0a6f6137811594a1cbbdd63cf27eabf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93f024c4_bbf0c753",
+        "filename": "modules/video_coding/utility/bandwidth_quality_scaler_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-09T08:03:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44966240_cd1467bc",
+      "range": {
+        "startLine": 208,
+        "startChar": 67,
+        "endLine": 208,
+        "endChar": 68
+      },
+      "revId": "057ecf31b0a6f6137811594a1cbbdd63cf27eabf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "255bfa52_17014b2c",
@@ -215,6 +407,30 @@
       "writtenOn": "2021-09-08T15:44:07Z",
       "side": 1,
       "message": "interval? Or maybe just \"suitable bitrate limits\"",
+      "range": {
+        "startLine": 66,
+        "startChar": 37,
+        "endLine": 66,
+        "endChar": 45
+      },
+      "revId": "057ecf31b0a6f6137811594a1cbbdd63cf27eabf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a1db68c_01e5e519",
+        "filename": "rtc_base/experiments/encoder_info_settings.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-09T08:03:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "255bfa52_17014b2c",
       "range": {
         "startLine": 66,
         "startChar": 37,

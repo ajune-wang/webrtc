@@ -60,6 +60,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "1de57d65_a8e5417b",
+        "filename": "api/video_codecs/video_codec.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-09-09T12:24:26Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "aaacaa66_c7bfeb4f",
+      "revId": "fb487bd518b802b1dab2be95d1c9a2fc253fc070",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "28783b1d_9f67f318",
         "filename": "media/base/media_constants.cc",
         "patchSetId": 3
@@ -71,6 +89,30 @@
       "writtenOn": "2021-09-09T09:07:01Z",
       "side": 1,
       "message": "This comment would fit better in the header together with ABSL_DEPRECATED",
+      "range": {
+        "startLine": 103,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 11
+      },
+      "revId": "fb487bd518b802b1dab2be95d1c9a2fc253fc070",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecc2348b_148b494b",
+        "filename": "media/base/media_constants.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-09-09T12:24:26Z",
+      "side": 1,
+      "message": "Moved to media_constants.h",
+      "parentUuid": "28783b1d_9f67f318",
       "range": {
         "startLine": 103,
         "startChar": 0,
@@ -94,6 +136,24 @@
       "writtenOn": "2021-09-09T09:07:01Z",
       "side": 1,
       "message": "Also add: ABSL_DEPRECATED(\"Use kAv1CodecName instead.\")",
+      "revId": "fb487bd518b802b1dab2be95d1c9a2fc253fc070",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a61c91e_4c3ec367",
+        "filename": "media/base/media_constants.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-09-09T12:24:26Z",
+      "side": 1,
+      "message": "Skipping this since kAv1xCodecName is still used in WebRTC (to support injected AV1X).",
+      "parentUuid": "327b6aed_8611622c",
       "revId": "fb487bd518b802b1dab2be95d1c9a2fc253fc070",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

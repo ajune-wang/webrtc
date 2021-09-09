@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7c42b75_555f8fe4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-09-09T15:07:33Z",
+      "side": 1,
+      "message": "Is there a second step planned to remove all those hacks from the places where they currently exist? I couldn\u0027t read the referenced bug as envisioning such a step, but it seems like a Good Thing to do.\n\n(Duplicating all the hacks in 2 places ... not so much.)",
+      "revId": "6e293f0f2415ed9933e7d61a6d98074497af93da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

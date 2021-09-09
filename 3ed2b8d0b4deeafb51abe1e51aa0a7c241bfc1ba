@@ -16,6 +16,24 @@
       "message": "Interesting. Essentially, you\u0027re doing the calculation in fixed-point binary with 2-3 decimals.\n\nOne of the things Matt Mathis has recently (last few years) worked on leading up to BBR is reworking the TCP congestion control modelling from fixed-point to floating-point; it turned out to have an effect. I\u0027d actually want to drop a line to mattmathis@google.com and ask if he thinks this looks right.\n",
       "revId": "3ed2b8d0b4deeafb51abe1e51aa0a7c241bfc1ba",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1cf6dd8d_0959279f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-09-09T08:06:10Z",
+      "side": 1,
+      "message": "Thanks - I\u0027ll send him a mail!\n\nIt\u0027s correct that this might offset it one millisecond from previously, but the timer precision isn\u0027t very good in userspace anyway (I can understand how it could have an effect for TCP in the kernel). \n\nOne thing that usrsctp does (that I don\u0027t) is to actually put a limit on the measured variance, so that it doesn\u0027t go below what they believe the timer precision is.\n\nFinally, the RTO calculation (which is used for the retransmission timer) often ends up too small anyway, because it doesn\u0027t take into account the delayed acking. In TCP (in normal Linux), I think that timer is set to 40ms, but the defaults in usrsctp is 200ms - quite a lot. The thing that usually saves us is the RTT measurements usually include the delayed acking, but it\u0027s no guarantee as only packets without retransmissions should be measured, and if we end up with a too low RTO (possibly because the RTT increased?), suddenly the delayed acks result in retransmissions, and we don\u0027t use retransmitted packets for RTT calculations. Suddenly, the RTT is more often measured by the heartbeat instead, and that one isn\u0027t affected by the delayed ack, and now RTO converges to the true RTT, which means that every delayed ack-packet will result in a retransmission.\n\nLong rant. I\u0027ve seen this effect in a few packet captures now, which made me increase the min RTO value, but what I possibly should do is to set the retransmission timer value to be the RTO + an offset, which could be a function of the expected timer precision and expected external delays, such as delayed ack. I should discuss this with Matt.",
+      "parentUuid": "20fe6168_46f1e12e",
+      "revId": "3ed2b8d0b4deeafb51abe1e51aa0a7c241bfc1ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -33,6 +33,184 @@
       "message": "friendly ping",
       "revId": "5c4d10d2650d3f7696e658e99d7d8890f734b5f3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09773429_84ff161b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-09-09T12:17:56Z",
+      "side": 1,
+      "message": "Thanks for the CL!\nI\u0027ve added some comments.\n\nPTAL",
+      "revId": "5c4d10d2650d3f7696e658e99d7d8890f734b5f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30fe9cd9_83a69b0f",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-09-09T12:17:56Z",
+      "side": 1,
+      "message": "This will increase the binary size with 800 bytes. Would it instead be an option to create this table at setup-time using the code in ComputeScaledHalfVorbisWindow?",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 36
+      },
+      "revId": "5c4d10d2650d3f7696e658e99d7d8890f734b5f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2adfc58_56422d0f",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-09-09T12:17:56Z",
+      "side": 1,
+      "message": "I know that this is not changed by this CL, but I\u0027d prefer not to have an auto here.\nAs a reader of the code I\u0027d be very much helped by seeing the type of `in` rather than having to look up the GetView method to see what type it returns.",
+      "range": {
+        "startLine": 125,
+        "startChar": 2,
+        "endLine": 125,
+        "endChar": 10
+      },
+      "revId": "5c4d10d2650d3f7696e658e99d7d8890f734b5f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14f05aeb_621522a4",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-09-09T12:17:56Z",
+      "side": 1,
+      "message": "This table increases the binary footprint by about 2 kB. What is the main advantage of having it tabularized compared to the former way of computing it during setup?",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 28
+      },
+      "revId": "5c4d10d2650d3f7696e658e99d7d8890f734b5f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ed5c166_509b0442",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-09-09T12:17:56Z",
+      "side": 1,
+      "message": "\"20 ms frames sampled at 24 kHz\"\n-\u003e\n\"20 ms frames of audio sampled at 24 kHz\"",
+      "range": {
+        "startLine": 41,
+        "startChar": 24,
+        "endLine": 41,
+        "endChar": 54
+      },
+      "revId": "5c4d10d2650d3f7696e658e99d7d8890f734b5f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ed8320b_1d160da4",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-09-09T12:17:56Z",
+      "side": 1,
+      "message": "Can\u0027t this be enforced using \nrtc::ArrayView\u003cconst float, kFrameSize20ms24kHz\u003e x,\n    rtc::ArrayView\u003cconst float, kFrameSize20ms24kHz\u003e y,",
+      "range": {
+        "startLine": 44,
+        "startChar": 5,
+        "endLine": 44,
+        "endChar": 47
+      },
+      "revId": "5c4d10d2650d3f7696e658e99d7d8890f734b5f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd3f699a_dbada7ab",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-09-09T12:17:56Z",
+      "side": 1,
+      "message": "This seems like an implementation detail that is not really needed to describe here.",
+      "range": {
+        "startLine": 61,
+        "startChar": 51,
+        "endLine": 61,
+        "endChar": 74
+      },
+      "revId": "5c4d10d2650d3f7696e658e99d7d8890f734b5f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2601fd3_73f215e5",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-09-09T12:17:56Z",
+      "side": 1,
+      "message": "I think it would be good to describe this in more detail.\nI guess what is meant is that the out.size() number of DCT coefficients are computed, right?\nIn that case, that is a good thing to describe here.",
+      "range": {
+        "startLine": 62,
+        "startChar": 43,
+        "endLine": 63,
+        "endChar": 51
+      },
+      "revId": "5c4d10d2650d3f7696e658e99d7d8890f734b5f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

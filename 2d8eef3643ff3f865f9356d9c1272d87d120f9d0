@@ -16,6 +16,24 @@
       "message": "Updated description. There\u0027s no hurry, but with some luck, I could land this tomorrow.",
       "revId": "2d8eef3643ff3f865f9356d9c1272d87d120f9d0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57bdeefe_f0392536",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-09-09T14:33:44Z",
+      "side": 1,
+      "message": "Looks good, thank you",
+      "parentUuid": "3195d244_c91f6fcf",
+      "revId": "2d8eef3643ff3f865f9356d9c1272d87d120f9d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

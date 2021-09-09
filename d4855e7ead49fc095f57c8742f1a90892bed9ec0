@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0180b95_61ab6d37",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-09-09T08:56:32Z",
+      "side": 1,
+      "message": "LGTM! Thanks for adding this!\n\nSorry for the delay. I have to check my settings, for some reason I don\u0027t get notifications about CL updates.\n",
+      "revId": "d4855e7ead49fc095f57c8742f1a90892bed9ec0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

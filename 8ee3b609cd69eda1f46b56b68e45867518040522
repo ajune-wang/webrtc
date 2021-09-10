@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "901798f5_954f6b7c",
+        "filename": "test/fuzzers/vp9_encoder_references_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2021-09-10T14:30:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bdfb6350_6d8de657",
+      "range": {
+        "startLine": 227,
+        "startChar": 36,
+        "endLine": 227,
+        "endChar": 54
+      },
+      "revId": "8ee3b609cd69eda1f46b56b68e45867518040522",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "7a61eca6_4a0057c0",
         "filename": "test/fuzzers/vp9_encoder_references_fuzzer.cc",
         "patchSetId": 1
@@ -37,6 +61,30 @@
       "writtenOn": "2021-09-10T12:40:46Z",
       "side": 1,
       "message": "what is this check about?",
+      "range": {
+        "startLine": 434,
+        "startChar": 10,
+        "endLine": 435,
+        "endChar": 43
+      },
+      "revId": "8ee3b609cd69eda1f46b56b68e45867518040522",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fb587d0_9f259e16",
+        "filename": "test/fuzzers/vp9_encoder_references_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2021-09-10T14:30:22Z",
+      "side": 1,
+      "message": "Never mind, just me misunderstanding targetBitrate",
+      "parentUuid": "7a61eca6_4a0057c0",
       "range": {
         "startLine": 434,
         "startChar": 10,
@@ -83,6 +131,30 @@
       "writtenOn": "2021-09-10T13:54:23Z",
       "side": 1,
       "message": "as discussed offline, this dropping likely shouldn\u0027t take framedrop_mode into account.\nThis is what encoder wrapper request encoder not to produce.",
+      "parentUuid": "655189d8_cd0acd4b",
+      "range": {
+        "startLine": 462,
+        "startChar": 12,
+        "endLine": 463,
+        "endChar": 21
+      },
+      "revId": "8ee3b609cd69eda1f46b56b68e45867518040522",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c71a1e44_be372004",
+        "filename": "test/fuzzers/vp9_encoder_references_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2021-09-10T14:30:22Z",
+      "side": 1,
+      "message": "I doesn\u0027t need to since the encoder shouldn\u0027t even try to produce this frame in the first place.",
       "parentUuid": "655189d8_cd0acd4b",
       "range": {
         "startLine": 462,

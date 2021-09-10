@@ -44,6 +44,7 @@ class ReverbFrequencyResponse {
               int filter_delay_blocks,
               float linear_filter_quality);
 
+  const bool use_conservative_tail_frequency_response_;
   float average_decay_ = 0.f;
   std::array<float, kFftLengthBy2Plus1> tail_response_;
 };

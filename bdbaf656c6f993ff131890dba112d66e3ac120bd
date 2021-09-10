@@ -16,6 +16,40 @@
       "message": "Hi Per, \ncould you have a look at this CL?",
       "revId": "bdbaf656c6f993ff131890dba112d66e3ac120bd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dafee554_4dfda8a8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-09-10T09:40:03Z",
+      "side": 1,
+      "message": "Awesome!\n\nlgtm",
+      "revId": "bdbaf656c6f993ff131890dba112d66e3ac120bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29ebb018_7bb51f68",
+        "filename": "modules/audio_processing/aec3/reverb_frequency_response.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-09-10T09:40:03Z",
+      "side": 1,
+      "message": "Nit: what about\n\n  for (size_t k \u003d 0; k \u003c kFftLengthBy2Plus1; ++k) {\n    tail_response_[k] \u003d freq_resp_direct_path[k] * average_decay_;\n  }\n\n  if (use_conservative_tail_frequency_response_) {\n    for (size_t k \u003d 0; k \u003c kFftLengthBy2Plus1; ++k) {\n      tail_response_[k] \u003d std::max(freq_resp_tail[k], tail_response_[k]);\n    }\n  }",
+      "revId": "bdbaf656c6f993ff131890dba112d66e3ac120bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea7eb7c6_3fdb5f09",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2021-09-10T14:29:34Z",
+      "side": 1,
+      "message": "Continuing from https://webrtc-review.googlesource.com/c/src/+/231687 that din\u0027t have Change-Id which confused Gerrit.",
+      "revId": "38cd04eaf68fd2924b420fce103d1464a99031c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

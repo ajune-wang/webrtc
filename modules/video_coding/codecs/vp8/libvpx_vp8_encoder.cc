@@ -49,6 +49,12 @@ constexpr char kVP8IosMaxNumberOfThreadFieldTrial[] =
 constexpr char kVP8IosMaxNumberOfThreadFieldTrialParameter[] = "max_thread";
 #endif
 
+struct ScalabilityMode {
+  const char* name;
+};
+
+constexpr ScalabilityMode kSupportedScalabilityModes[] = {{"L1T2"}, {"L1T3"}};
+
 constexpr char kVp8ForcePartitionResilience[] =
     "WebRTC-VP8-ForcePartitionResilience";
 
@@ -228,6 +234,15 @@ std::unique_ptr<VideoEncoder> VP8Encoder::Create(
       std::move(frame_buffer_controller_factory);
   return std::make_unique<LibvpxVp8Encoder>(LibvpxInterface::Create(),
                                             std::move(settings));
+}
+
+bool VP8Encoder::SupportsScalabilityMode(absl::string_view scalability_mode) {
+  for (const auto& entry : kSupportedScalabilityModes) {
+    if (entry.name == scalability_mode) {
+      return true;
+    }
+  }
+  return false;
 }
 
 vpx_enc_frame_flags_t LibvpxVp8Encoder::EncodeFlags(

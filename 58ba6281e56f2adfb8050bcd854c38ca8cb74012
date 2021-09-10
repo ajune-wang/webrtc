@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80c6259c_dcee8bb4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-10T12:07:50Z",
+      "side": 1,
+      "message": "see code in comment:\nit is really about misassembling `VideoBitrateAllocation`, not so much about svc controller",
+      "range": {
+        "startLine": 9,
+        "startChar": 19,
+        "endLine": 9,
+        "endChar": 41
+      },
+      "revId": "58ba6281e56f2adfb8050bcd854c38ca8cb74012",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5cb145e_781a51ad",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-10T12:07:50Z",
+      "side": 1,
+      "message": "I would say that VideoBitrateAllocation structure mandates them to be separated (per layer),\nsvc_controller just relies on the description of VideoBitrateAllocation format.",
+      "range": {
+        "startLine": 404,
+        "startChar": 15,
+        "endLine": 404,
+        "endChar": 67
+      },
+      "revId": "58ba6281e56f2adfb8050bcd854c38ca8cb74012",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c70db94_7c34b7a9",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-10T12:07:50Z",
+      "side": 1,
+      "message": "may be layer_bitrate_kbps or single_layer_bitrate_kbps",
+      "range": {
+        "startLine": 409,
+        "startChar": 12,
+        "endLine": 409,
+        "endChar": 21
+      },
+      "revId": "58ba6281e56f2adfb8050bcd854c38ca8cb74012",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20e6add2_c0226baf",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-10T12:07:50Z",
+      "side": 1,
+      "message": "if this is negative more than by rounding error, there is some bug.",
+      "range": {
+        "startLine": 410,
+        "startChar": 24,
+        "endLine": 410,
+        "endChar": 72
+      },
+      "revId": "58ba6281e56f2adfb8050bcd854c38ca8cb74012",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "251a3c76_b9171636",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-10T12:07:50Z",
+      "side": 1,
+      "message": "isn\u0027t previous_bitrate_kbps \u003d\u003d accumulated_bitrate_kbps?",
+      "range": {
+        "startLine": 413,
+        "startChar": 8,
+        "endLine": 413,
+        "endChar": 29
+      },
+      "revId": "58ba6281e56f2adfb8050bcd854c38ca8cb74012",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

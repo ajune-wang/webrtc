@@ -14,6 +14,7 @@
 #include <cstdint>
 
 #include "api/array_view.h"
+#include "api/rtp_parameters.h"
 #include "api/transport/rtp/dependency_descriptor.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 

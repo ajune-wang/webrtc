@@ -11,6 +11,7 @@
 #ifndef MODULES_RTP_RTCP_SOURCE_RTP_VIDEO_LAYERS_ALLOCATION_EXTENSION_H_
 #define MODULES_RTP_RTCP_SOURCE_RTP_VIDEO_LAYERS_ALLOCATION_EXTENSION_H_
 
+#include "api/rtp_parameters.h"
 #include "api/video/video_layers_allocation.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 

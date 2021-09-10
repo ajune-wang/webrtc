@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a981707d_1e548ef3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-09-10T08:52:23Z",
+      "side": 1,
+      "message": "CL description is very helpful - I think it would be good to get some of that context into the code as well.\n\nAs a side note I think we should move VSS into a \u0027test/\u0027 directory.",
+      "revId": "07df56a3c21933774fee2068a4bea1b9a6fc9d06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5fccfcc_c0972fb0",
+        "filename": "rtc_base/virtual_socket_server.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-09-10T08:52:23Z",
+      "side": 1,
+      "message": "nit: add a short note on why one might want to do this?",
+      "revId": "07df56a3c21933774fee2068a4bea1b9a6fc9d06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3427404_d4bc769e",
+        "filename": "rtc_base/virtual_socket_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 724,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-09-10T08:52:23Z",
+      "side": 1,
+      "message": "nit: comment would be nice",
+      "revId": "07df56a3c21933774fee2068a4bea1b9a6fc9d06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

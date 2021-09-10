@@ -50,6 +50,23 @@
       "message": "Adding nisse@ as template specialist.\nTriggered CQ dry run.\n",
       "revId": "8b239d667ac56c30e2fde7ad21389e84210773f0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c0316da_33dfc309",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-09-10T07:24:35Z",
+      "side": 1,
+      "message": "Danil, please have a look. These template subtleties are a bit over my head.",
+      "revId": "8b239d667ac56c30e2fde7ad21389e84210773f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

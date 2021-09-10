@@ -105,6 +105,11 @@ bool H264Encoder::IsSupported() {
   return IsH264CodecSupported();
 }
 
+bool H264Encoder::SupportsScalabilityMode(absl::string_view scalability_mode) {
+  // No scalability mode is supported by the current implementation.
+  return scalability_mode.empty();
+}
+
 std::unique_ptr<H264Decoder> H264Decoder::Create() {
   RTC_DCHECK(H264Decoder::IsSupported());
 #if defined(WEBRTC_USE_H264)

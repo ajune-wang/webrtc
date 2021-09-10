@@ -19,10 +19,16 @@
 #include "api/array_view.h"
 #include "modules/audio_processing/aec3/aec3_common.h"
 #include "rtc_base/checks.h"
+#include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
 
 namespace {
+
+bool UseConservativeTailFreqResponse() {
+  return !field_trial::IsEnabled(
+      "WebRTC-Aec3ConservativeTailFreqResponseKillSwitch");
+}
 
 // Computes the ratio of the energies between the direct path and the tail. The
 // energy is computed in the power spectrum domain discarding the DC
@@ -49,9 +55,12 @@ float AverageDecayWithinFilter(
 
 }  // namespace
 
-ReverbFrequencyResponse::ReverbFrequencyResponse() {
-  tail_response_.fill(0.f);
+ReverbFrequencyResponse::ReverbFrequencyResponse()
+    : use_conservative_tail_frequency_response_(
+          UseConservativeTailFreqResponse()) {
+  tail_response_.fill(0.0f);
 }
+
 ReverbFrequencyResponse::~ReverbFrequencyResponse() = default;
 
 void ReverbFrequencyResponse::Update(
@@ -84,8 +93,15 @@ void ReverbFrequencyResponse::Update(
   const float smoothing = 0.2f * linear_filter_quality;
   average_decay_ += smoothing * (average_decay - average_decay_);
 
-  for (size_t k = 0; k < kFftLengthBy2Plus1; ++k) {
-    tail_response_[k] = freq_resp_direct_path[k] * average_decay_;
+  if (use_conservative_tail_frequency_response_) {
+    for (size_t k = 0; k < kFftLengthBy2Plus1; ++k) {
+      tail_response_[k] = std::max(freq_resp_tail[k],
+                                   freq_resp_direct_path[k] * average_decay_);
+    }
+  } else {
+    for (size_t k = 0; k < kFftLengthBy2Plus1; ++k) {
+      tail_response_[k] = freq_resp_direct_path[k] * average_decay_;
+    }
   }
 
   for (size_t k = 1; k < kFftLengthBy2; ++k) {

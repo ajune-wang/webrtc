@@ -21,6 +21,28 @@ namespace {
 using ::testing::IsEmpty;
 using ::testing::SizeIs;
 
+TEST(ScalabilityStructureL3T3Test, SkipT0FrameByEncoderKeepsReferencesValid) {
+  std::vector<GenericFrameInfo> frames;
+  ScalabilityStructureL3T3 structure;
+  ScalabilityStructureWrapper wrapper(structure);
+
+  // Only S0T0 decode target is enabled.
+  structure.OnRatesUpdated(EnableTemporalLayers(/*s0=*/1, /*s1=*/0));
+  // Encoder generates S0T0 key frame.
+  wrapper.GenerateFrames(/*num_temporal_units=*/1, frames);
+  EXPECT_THAT(frames, SizeIs(1));
+  // Spatial layers 1 is enabled.
+  structure.OnRatesUpdated(EnableTemporalLayers(/*s0=*/1, /*s1=*/1));
+  // Encoder tries to generate S0 delta frames but it gets dropped.
+  structure.NextFrameConfig(/*restart=*/false);
+  ASSERT_THAT(frames, SizeIs(1));
+  // Encoder successfully generates all S0 delta frames.
+  wrapper.GenerateFrames(/*num_temporal_units=*/1, frames);
+  EXPECT_THAT(frames, SizeIs(3));
+
+  EXPECT_TRUE(wrapper.FrameReferencesAreValid(frames));
+}
+
 TEST(ScalabilityStructureL3T3Test, SkipS1T1FrameKeepsStructureValid) {
   ScalabilityStructureL3T3 structure;
   ScalabilityStructureWrapper wrapper(structure);

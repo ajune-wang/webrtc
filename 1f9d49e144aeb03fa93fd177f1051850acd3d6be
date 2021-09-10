@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a82502de_d8e6be02",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-09-10T15:28:01Z",
+      "side": 1,
+      "message": "degenerate test case I found while working on JS tests. It actually showed a potential crash (which can\u0027t happen currently)",
+      "revId": "1f9d49e144aeb03fa93fd177f1051850acd3d6be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

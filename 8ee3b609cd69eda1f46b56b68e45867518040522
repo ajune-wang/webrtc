@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bdfb6350_6d8de657",
+        "filename": "test/fuzzers/vp9_encoder_references_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-10T12:40:46Z",
+      "side": 1,
+      "message": "this should probably be\n  kBitrateEnableBps * num_temporal_layers",
+      "range": {
+        "startLine": 227,
+        "startChar": 36,
+        "endLine": 227,
+        "endChar": 54
+      },
+      "revId": "8ee3b609cd69eda1f46b56b68e45867518040522",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a61eca6_4a0057c0",
+        "filename": "test/fuzzers/vp9_encoder_references_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-10T12:40:46Z",
+      "side": 1,
+      "message": "what is this check about?",
+      "range": {
+        "startLine": 434,
+        "startChar": 10,
+        "endLine": 435,
+        "endChar": 43
+      },
+      "revId": "8ee3b609cd69eda1f46b56b68e45867518040522",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "655189d8_cd0acd4b",
+        "filename": "test/fuzzers/vp9_encoder_references_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-10T12:40:46Z",
+      "side": 1,
+      "message": "this doesn\u0027t take framedrop_mode into account,\ndroping one spatial layer may require to drop some other layers too.",
+      "range": {
+        "startLine": 462,
+        "startChar": 12,
+        "endLine": 463,
+        "endChar": 21
+      },
+      "revId": "8ee3b609cd69eda1f46b56b68e45867518040522",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

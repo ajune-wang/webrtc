@@ -34,6 +34,316 @@
       "parentUuid": "e7c42b75_555f8fe4",
       "revId": "6e293f0f2415ed9933e7d61a6d98074497af93da",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86c513a4_fea306a8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-10T14:05:48Z",
+      "side": 1,
+      "message": "haven\u0027t read all of it, will resume on Monday",
+      "revId": "6e293f0f2415ed9933e7d61a6d98074497af93da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1426007f_8bc7c015",
+        "filename": "modules/video_coding/BUILD.gn",
+        "patchSetId": 9
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-10T14:05:48Z",
+      "side": 1,
+      "message": "why public visibility for a library not in api/ ?",
+      "revId": "6e293f0f2415ed9933e7d61a6d98074497af93da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10c5b22c_be30fcec",
+        "filename": "modules/video_coding/h264_packet_buffer.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-10T14:05:48Z",
+      "side": 1,
+      "message": "what does this name mean?\n\n(I guess I understand \u0027Mod\u0027 suffix, but what is \u0027Euc\u0027 prefix?)",
+      "range": {
+        "startLine": 35,
+        "startChar": 8,
+        "endLine": 35,
+        "endChar": 14
+      },
+      "revId": "6e293f0f2415ed9933e7d61a6d98074497af93da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a263b1f_c4333bd2",
+        "filename": "modules/video_coding/h264_packet_buffer.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-10T14:05:48Z",
+      "side": 1,
+      "message": "https://google.github.io/styleguide/cppguide.html#Aliases\n\n\"Public aliases are for the benefit of an API\u0027s user, and should be clearly documented.\"",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 0
+      },
+      "revId": "6e293f0f2415ed9933e7d61a6d98074497af93da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "906fe762_32428d16",
+        "filename": "modules/video_coding/h264_packet_buffer_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-10T14:05:48Z",
+      "side": 1,
+      "message": "when implementation of the function is empty, I find it cleaner not to comment out unused parameters (obviously, with empty implementation all parameters are unused)",
+      "range": {
+        "startLine": 42,
+        "startChar": 49,
+        "endLine": 42,
+        "endChar": 59
+      },
+      "revId": "6e293f0f2415ed9933e7d61a6d98074497af93da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2efc2df_1b304ab3",
+        "filename": "modules/video_coding/h264_packet_buffer_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-10T14:05:48Z",
+      "side": 1,
+      "message": "personally I prefer to pass connected parameters as a single parameter.\n(e.g. ArrayView instead of (data, size) tuple,\nin this case - RenderResolution can be passed instead of (width, height) pair.\n\nIt require slightly more typing to pass resolution:\nSpsWithResolution({360, 180}, {\u0027p\u0027,\u0027a\u0027,\u0027y\u0027,\u0027l\u0027,\u0027o\u0027,\u0027a\u0027,\u0027d\u0027});\nbut imho it is as readable as \nSpsWithResolution(360, 180, {\u0027p\u0027,\u0027a\u0027,\u0027y\u0027,\u0027l\u0027,\u0027o\u0027,\u0027a\u0027,\u0027d\u0027});\n\nand more readable when there is a source variable of the right type.\ne.g. \nconstexpr RenderResolution k360p(360, 180);\n...\nSpsWithResolution(k360p);",
+      "range": {
+        "startLine": 59,
+        "startChar": 28,
+        "endLine": 60,
+        "endChar": 38
+      },
+      "revId": "6e293f0f2415ed9933e7d61a6d98074497af93da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0d352a8_0a618e5a",
+        "filename": "modules/video_coding/h264_packet_buffer_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-10T14:05:48Z",
+      "side": 1,
+      "message": "https://google.github.io/styleguide/cppguide.html#Implicit_Conversions\n\n\"Do not define implicit conversions. Use the explicit keyword for conversion operators and single-argument constructors.\"",
+      "range": {
+        "startLine": 69,
+        "startChar": 2,
+        "endLine": 69,
+        "endChar": 55
+      },
+      "revId": "6e293f0f2415ed9933e7d61a6d98074497af93da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42d213fa_886ef1b6",
+        "filename": "modules/video_coding/h264_packet_buffer_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-10T14:05:48Z",
+      "side": 1,
+      "message": "where does it reference to? into video_header_?\nthen may be write it as accessor:\n\nRTPVideoHeaderH264\u0026 h264_header() { return video_header_.codec_spcitic.h264; }",
+      "range": {
+        "startLine": 78,
+        "startChar": 2,
+        "endLine": 78,
+        "endChar": 35
+      },
+      "revId": "6e293f0f2415ed9933e7d61a6d98074497af93da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bcbca6d_2964e5f8",
+        "filename": "modules/video_coding/h264_packet_buffer_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-10T14:05:48Z",
+      "side": 1,
+      "message": "or (imho cleaner, and, in theory, faster)\nnalu_payloads_.push_back(std::move(payload));",
+      "range": {
+        "startLine": 93,
+        "startChar": 2,
+        "endLine": 93,
+        "endChar": 62
+      },
+      "revId": "6e293f0f2415ed9933e7d61a6d98074497af93da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "155883f7_7ff98dc3",
+        "filename": "modules/video_coding/h264_packet_buffer_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-10T14:05:48Z",
+      "side": 1,
+      "message": "is it a const operator?",
+      "range": {
+        "startLine": 151,
+        "startChar": 60,
+        "endLine": 151,
+        "endChar": 61
+      },
+      "revId": "6e293f0f2415ed9933e7d61a6d98074497af93da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7564cf1f_7baeb705",
+        "filename": "modules/video_coding/h264_packet_buffer_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-10T14:05:48Z",
+      "side": 1,
+      "message": "side comment:\nseems like COWBuffer lacks method AppendData(rtc::ArrayView\u003cconst uint8_t\u003e) ....",
+      "range": {
+        "startLine": 189,
+        "startChar": 2,
+        "endLine": 189,
+        "endChar": 69
+      },
+      "revId": "6e293f0f2415ed9933e7d61a6d98074497af93da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c615986_e8804eaa",
+        "filename": "modules/video_coding/h264_packet_buffer_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-10T14:05:48Z",
+      "side": 1,
+      "message": "or\nreturn rtc::CopyOnWriteBuffer(nalu_payloads_[0].data(), nalu_payloads_[0].size());",
+      "range": {
+        "startLine": 188,
+        "startChar": 2,
+        "endLine": 190,
+        "endChar": 13
+      },
+      "revId": "6e293f0f2415ed9933e7d61a6d98074497af93da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac11bab1_88eb22ac",
+        "filename": "modules/video_coding/h264_packet_buffer_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-10T14:05:48Z",
+      "side": 1,
+      "message": "why do you need explicit conversion?\ne.g. would this work?:\n  return res.packets[index]-\u003evideo_payload;",
+      "range": {
+        "startLine": 221,
+        "startChar": 9,
+        "endLine": 221,
+        "endChar": 38
+      },
+      "revId": "6e293f0f2415ed9933e7d61a6d98074497af93da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "615c3e5c_b4517996",
+        "filename": "modules/video_coding/h264_packet_buffer_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-10T14:05:48Z",
+      "side": 1,
+      "message": "RTC_UNUSED is a canonical way to ignore result that normally shouldn\u0027t be ignored.\n\nhttps://source.chromium.org/chromium/_/webrtc/src.git/+/fb501792ebb6474f9055fce4d8f8581aa47eadc8:rtc_base/system/unused.h;l\u003d21;drc\u003d25ab3228f3e473f2226f219531ec617d2daa175e",
+      "range": {
+        "startLine": 292,
+        "startChar": 2,
+        "endLine": 292,
+        "endChar": 14
+      },
+      "revId": "6e293f0f2415ed9933e7d61a6d98074497af93da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

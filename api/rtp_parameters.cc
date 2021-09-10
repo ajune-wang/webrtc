@@ -182,6 +182,48 @@ bool RtpExtension::IsEncryptionSupported(absl::string_view uri) {
       uri != webrtc::RtpExtension::kEncryptHeaderExtensionsUri;
 }
 
+RTPExtensionType RtpExtension::TypeFromUri(absl::string_view uri) {
+  struct {
+    const char* uri;
+    const RTPExtensionType type;
+  } const lookup[] = {
+      {kTimestampOffsetUri, kRtpExtensionTransmissionTimeOffset},
+      {kAudioLevelUri, kRtpExtensionAudioLevel},
+      {kCsrcAudioLevelsUri, kRtpExtensionCsrcAudioLevel},
+      {"http://www.webrtc.org/experiments/rtp-hdrext/inband-cn",
+       kRtpExtensionInbandComfortNoise},
+      {kAbsSendTimeUri, kRtpExtensionAbsoluteSendTime},
+      {kAbsoluteCaptureTimeUri, kRtpExtensionAbsoluteCaptureTime},
+      {kVideoRotationUri, kRtpExtensionVideoRotation},
+      {kTransportSequenceNumberUri, kRtpExtensionTransportSequenceNumber},
+      {kTransportSequenceNumberV2Uri, kRtpExtensionTransportSequenceNumber02},
+      {kPlayoutDelayUri, kRtpExtensionPlayoutDelay},
+      {kVideoContentTypeUri, kRtpExtensionVideoContentType},
+      {kVideoLayersAllocationUri, kRtpExtensionVideoLayersAllocation},
+      {kVideoTimingUri, kRtpExtensionVideoTiming},
+      {kRidUri, kRtpExtensionRtpStreamId},
+      {kRepairedRidUri, kRtpExtensionRepairedRtpStreamId},
+      {kMidUri, kRtpExtensionMid},
+      // kRtpExtensionGenericFrameDescriptor ==
+      // kRtpExtensionGenericFrameDescriptor00
+      {kGenericFrameDescriptorUri00, kRtpExtensionGenericFrameDescriptor00},
+      {kDependencyDescriptorUri, kRtpExtensionGenericFrameDescriptor02},
+      {kColorSpaceUri, kRtpExtensionColorSpace},
+      {kVideoFrameTrackingIdUri, kRtpExtensionVideoFrameTrackingId},
+  };
+
+  for (const auto& i : lookup) {
+    if (uri == i.uri)
+      return i.type;
+  }
+
+  return kRtpExtensionNone;
+}
+
+absl::string_view RtpExtension::UriFromType(RTPExtensionType) {
+  return "";
+}
+
 // Returns whether a header extension with the given URI exists.
 // Note: This does not differentiate between encrypted and non-encrypted
 // extensions, so use with care!

@@ -244,6 +244,35 @@ struct RTC_EXPORT RtpHeaderExtensionCapability {
   }
 };
 
+// This enum must not have any gaps, i.e., all integers between
+// kRtpExtensionNone and kRtpExtensionNumberOfExtensions must be valid enum
+// entries.
+enum RTPExtensionType : int {
+  kRtpExtensionNone,
+  kRtpExtensionTransmissionTimeOffset,
+  kRtpExtensionAudioLevel,
+  kRtpExtensionCsrcAudioLevel,
+  kRtpExtensionInbandComfortNoise,
+  kRtpExtensionAbsoluteSendTime,
+  kRtpExtensionAbsoluteCaptureTime,
+  kRtpExtensionVideoRotation,
+  kRtpExtensionTransportSequenceNumber,
+  kRtpExtensionTransportSequenceNumber02,
+  kRtpExtensionPlayoutDelay,
+  kRtpExtensionVideoContentType,
+  kRtpExtensionVideoLayersAllocation,
+  kRtpExtensionVideoTiming,
+  kRtpExtensionRtpStreamId,
+  kRtpExtensionRepairedRtpStreamId,
+  kRtpExtensionMid,
+  kRtpExtensionGenericFrameDescriptor00,
+  kRtpExtensionGenericFrameDescriptor = kRtpExtensionGenericFrameDescriptor00,
+  kRtpExtensionGenericFrameDescriptor02,
+  kRtpExtensionColorSpace,
+  kRtpExtensionVideoFrameTrackingId,
+  kRtpExtensionNumberOfExtensions  // Must be the last entity in the enum.
+};
+
 // RTP header extension, see RFC8285.
 struct RTC_EXPORT RtpExtension {
   enum Filter {
@@ -271,6 +300,8 @@ struct RTC_EXPORT RtpExtension {
   static bool IsSupportedForVideo(absl::string_view uri);
   // Return "true" if the given RTP header extension URI may be encrypted.
   static bool IsEncryptionSupported(absl::string_view uri);
+  static RTPExtensionType TypeFromUri(absl::string_view uri);
+  static absl::string_view UriFromType(RTPExtensionType type);
 
   // Returns the header extension with the given URI or nullptr if not found.
   static const RtpExtension* FindHeaderExtensionByUri(

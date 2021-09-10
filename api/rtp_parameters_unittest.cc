@@ -23,6 +23,10 @@ static const RtpExtension kExtension1(kExtensionUri1, 1);
 static const RtpExtension kExtension1Encrypted(kExtensionUri1, 10, true);
 static const RtpExtension kExtension2(kExtensionUri2, 2);
 
+TEST(RtpExtensionTest, Utilities) {
+  printf("%s\n", RtpExtension::kEncryptHeaderExtensionsUri);
+}
+
 TEST(RtpExtensionTest, DeduplicateHeaderExtensions) {
   std::vector<RtpExtension> extensions;
   std::vector<RtpExtension> filtered;

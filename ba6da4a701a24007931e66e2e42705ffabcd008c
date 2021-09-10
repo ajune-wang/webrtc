@@ -143,6 +143,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "200fc3ee_f8516e1f",
+        "filename": "test/network/emulated_network_manager.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-09-10T09:23:49Z",
+      "side": 1,
+      "message": "That will not happen soon, though. Currently, Threads needs to call the Wait and WakeUp methods on it\u0027s associated SocketServer.",
+      "parentUuid": "ea45d9c5_75451def",
+      "revId": "ba6da4a701a24007931e66e2e42705ffabcd008c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4389dc18_61a2321d",
         "filename": "test/network/emulated_network_manager.h",
         "patchSetId": 1

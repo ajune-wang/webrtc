@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6f484443_cee47739",
+        "filename": "modules/audio_coding/neteq/nack_tracker.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2021-09-10T08:19:21Z",
+      "side": 1,
+      "message": "One thing could be to completely remove the erase here and in `UpdateLastDecodedPacket` and instead rely on `LimitNackListSize`.",
+      "parentUuid": "516f0230_3837282e",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 150,
+        "endChar": 0
+      },
+      "revId": "b0b9de881ad2b165a44e51f5cb7ff3e7e389471d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3e5b2554_4b95a61b",
         "filename": "modules/audio_coding/neteq/nack_tracker.cc",
         "patchSetId": 1

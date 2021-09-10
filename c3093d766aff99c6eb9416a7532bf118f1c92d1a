@@ -170,6 +170,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a66865d4_39260164",
+        "filename": "media/engine/internal_decoder_factory_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-09-10T09:14:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74ea97e5_f6eff3e5",
+      "range": {
+        "startLine": 37,
+        "startChar": 58,
+        "endLine": 37,
+        "endChar": 69
+      },
+      "revId": "c3093d766aff99c6eb9416a7532bf118f1c92d1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aa5a6c16_e5aab23c",
@@ -193,6 +217,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "64209891_35364d8c",
+        "filename": "media/engine/internal_encoder_factory.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-09-10T09:14:24Z",
+      "side": 1,
+      "message": "Fixed!",
+      "parentUuid": "aa5a6c16_e5aab23c",
+      "range": {
+        "startLine": 66,
+        "startChar": 5,
+        "endLine": 66,
+        "endChar": 17
+      },
+      "revId": "c3093d766aff99c6eb9416a7532bf118f1c92d1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e6855fa3_e734d41d",
@@ -206,6 +254,24 @@
       "writtenOn": "2021-09-02T10:50:10Z",
       "side": 1,
       "message": "This is going to haunt you forever.\n\nIt is *much* better and more maintainable if you create a table here per codec with\n{\"NAME\", \"spatial layers\", \"temporal layers\", \"other info you need}\n\nand query that for number of layers when needed. ie:\n\n{kVideoCodecVP8, {\n  {\"L1T2\", 1, 2},\n  {\"L1T3\", 1, 3},\n}}\n\nOnce codecs support being queried for this info, you can delete your compiled-in table.\n\nScalability modes are user data and should not be trusted; if someone can cause interesting effects by passing you L9S7, they will. Matching them against an explicit supported list is *far* more maintainable.",
+      "revId": "c3093d766aff99c6eb9416a7532bf118f1c92d1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a90fdd2_0bd07dda",
+        "filename": "media/engine/internal_encoder_factory.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-09-10T09:14:24Z",
+      "side": 1,
+      "message": "Thanks for the comment! I agree, that sounds much better, combining this with Erik\u0027s comment below, I moved this knowledge to the encoder objects.",
+      "parentUuid": "e6855fa3_e734d41d",
       "revId": "c3093d766aff99c6eb9416a7532bf118f1c92d1a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -281,6 +347,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "30e3a704_7eaa10fe",
+        "filename": "media/engine/internal_encoder_factory.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-09-10T09:14:24Z",
+      "side": 1,
+      "message": "I agree, it\u0027s better to do this right away.\nFixed.",
+      "parentUuid": "a77404b5_a23eb6a0",
+      "range": {
+        "startLine": 74,
+        "startChar": 31,
+        "endLine": 75,
+        "endChar": 37
+      },
+      "revId": "c3093d766aff99c6eb9416a7532bf118f1c92d1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "53dedf8c_8d9147bf",
@@ -294,6 +384,30 @@
       "writtenOn": "2021-09-01T13:28:43Z",
       "side": 1,
       "message": "nit: {/*is_supported\u003d*/false, /*is_power_efficient\u003d*/false} ?",
+      "range": {
+        "startLine": 77,
+        "startChar": 71,
+        "endLine": 77,
+        "endChar": 76
+      },
+      "revId": "c3093d766aff99c6eb9416a7532bf118f1c92d1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b09389a_14193c95",
+        "filename": "media/engine/internal_encoder_factory.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-09-10T09:14:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "53dedf8c_8d9147bf",
       "range": {
         "startLine": 77,
         "startChar": 71,
@@ -335,6 +449,24 @@
       "side": 1,
       "message": "...and temporal layers which is what matters according to comment below :)",
       "parentUuid": "018f8844_ab85da82",
+      "revId": "c3093d766aff99c6eb9416a7532bf118f1c92d1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd5dbd37_33e56103",
+        "filename": "media/engine/internal_encoder_factory.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-09-10T09:14:24Z",
+      "side": 1,
+      "message": "Does our H264 encoder support the L1T2 and L1T3 scalability modes?",
+      "parentUuid": "ce25dc68_80b86f52",
       "revId": "c3093d766aff99c6eb9416a7532bf118f1c92d1a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -388,6 +520,24 @@
       "side": 1,
       "message": "Sorry, meant the S?T? ones. Ah, that\u0027s the distinction. So VP8 is included just for temporal layer support?",
       "parentUuid": "b2d68018_fbfffa85",
+      "revId": "c3093d766aff99c6eb9416a7532bf118f1c92d1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d81d1e8_d4a7ca53",
+        "filename": "media/engine/internal_encoder_factory.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-09-10T09:14:24Z",
+      "side": 1,
+      "message": "Yes, that\u0027s right.\nI moved this knowledge to the encoder objects according to your suggestion.",
+      "parentUuid": "b7744cd5_32d9d869",
       "revId": "c3093d766aff99c6eb9416a7532bf118f1c92d1a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

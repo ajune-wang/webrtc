@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac2a0d9f_6aaabdc6",
+        "filename": "modules/video_coding/svc/scalability_structure_full_svc_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2021-09-10T14:30:24Z",
+      "side": 1,
+      "message": "Just to make it clear that no additional frame should\u0027ve been produced.",
+      "parentUuid": "03370f95_5c5541d9",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 33
+      },
+      "revId": "817b9e8cde6bc1fbed40244e682bd2d4bf1cbfd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e928749d_700ec60b",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-09-10T12:49:50Z",
       "side": 1,
       "message": "all T0 delta frames.\n(i.e. S0T0 and S1T0)",
+      "range": {
+        "startLine": 39,
+        "startChar": 36,
+        "endLine": 39,
+        "endChar": 42
+      },
+      "revId": "817b9e8cde6bc1fbed40244e682bd2d4bf1cbfd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "663591fc_1df08a39",
+        "filename": "modules/video_coding/svc/scalability_structure_full_svc_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2021-09-10T14:30:24Z",
+      "side": 1,
+      "message": "Ops, fixed",
+      "parentUuid": "e928749d_700ec60b",
       "range": {
         "startLine": 39,
         "startChar": 36,

@@ -16,6 +16,23 @@
       "message": "downstream test was hopefully fixed by https://webrtc-review.googlesource.com/c/src/+/231620",
       "revId": "22b337b13d4b8de60fc2361ff27441a025ed5247",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de250c9c_72073b25",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-09-10T09:09:32Z",
+      "side": 1,
+      "message": "Since mbonadei@ did the checking...\n",
+      "revId": "22b337b13d4b8de60fc2361ff27441a025ed5247",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

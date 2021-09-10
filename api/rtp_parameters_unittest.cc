@@ -23,6 +23,33 @@ static const RtpExtension kExtension1(kExtensionUri1, 1);
 static const RtpExtension kExtension1Encrypted(kExtensionUri1, 10, true);
 static const RtpExtension kExtension2(kExtensionUri2, 2);
 
+TEST(RtpExtensionTest, UriFromType) {
+  // Check that we get a valid string for all enum values in the contiguous
+  // enumeration.
+  for (int i = kRtpExtensionTransmissionTimeOffset;
+       i < kRtpExtensionNumberOfExtensions; ++i) {
+    absl::string_view uri =
+        RtpExtension::UriFromType(static_cast<RTPExtensionType>(i));
+    EXPECT_FALSE(uri.empty());
+  }
+}
+
+TEST(RtpExtensionTest, LookupUri) {
+  // Look up the uri for the audio level enum value.
+  absl::string_view uri = RtpExtension::UriFromType(kRtpExtensionAudioLevel);
+  // The returned string view should point to the static string matching
+  // with kRtpExtensionAudioLevel, no string copying etc.
+  EXPECT_EQ(uri.data(), &RtpExtension::kAudioLevelUri[0]);
+}
+
+TEST(RtpExtensionTest, LookupType) {
+  RTPExtensionType type =
+      RtpExtension::TypeFromUri(RtpExtension::kAudioLevelUri);
+  // The returned string view should point to the static string matching
+  // with kRtpExtensionAudioLevel, no string copying etc.
+  EXPECT_EQ(type, kRtpExtensionAudioLevel);
+}
+
 TEST(RtpExtensionTest, DeduplicateHeaderExtensions) {
   std::vector<RtpExtension> extensions;
   std::vector<RtpExtension> filtered;

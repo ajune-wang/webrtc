@@ -23,6 +23,18 @@
 #include "vpx/vpx_codec.h"
 
 namespace webrtc {
+namespace {
+struct ScalabilityMode {
+  const char* name;
+};
+
+constexpr ScalabilityMode kSupportedScalabilityModes[] = {
+    {"L1T2"},     {"L1T3"},     {"L2T1"},    {"L2T2"},  {"L2T3"},  {"L2T1h"},
+    {"L2T2h"},    {"L2T3h"},    {"S2T1"},    {"S2T2"},  {"S2T3"},  {"S2T1h"},
+    {"S2T2h"},    {"S2T3h"},    {"L3T1"},    {"L3T2"},  {"L3T3"},  {"S3T1"},
+    {"S3T2"},     {"S3T3"},     {"S3T1h"},   {"S3T2h"}, {"S3T3h"}, {"L2T2_KEY"},
+    {"L2T3_KEY"}, {"L3T2_KEY"}, {"L3T3_KEY"}};
+}  // namespace
 
 std::vector<SdpVideoFormat> SupportedVP9Codecs() {
 #ifdef RTC_ENABLE_VP9
@@ -84,6 +96,15 @@ std::unique_ptr<VP9Encoder> VP9Encoder::Create(
   RTC_NOTREACHED();
   return nullptr;
 #endif
+}
+
+bool VP9Encoder::SupportsScalabilityMode(absl::string_view scalability_mode) {
+  for (const auto& entry : kSupportedScalabilityModes) {
+    if (entry.name == scalability_mode) {
+      return true;
+    }
+  }
+  return false;
 }
 
 std::unique_ptr<VP9Decoder> VP9Decoder::Create() {

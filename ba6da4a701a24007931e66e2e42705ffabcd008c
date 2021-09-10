@@ -70,6 +70,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6ed0367_9b8e9ba9",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-09-10T09:12:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d9d56e29_a7466646",
+      "revId": "ba6da4a701a24007931e66e2e42705ffabcd008c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "efb7bd81_22a48e6f",
@@ -101,6 +119,24 @@
       "side": 1,
       "message": "rtc::Thread has two constructors, where you can choose whether or not to pass ownership (in itself not that nice). So if we used rtc::Thread constructor directly, we could keep ownership in this class. But the TimeController::CreateThread constructor doesn\u0027t have that option.\n\nSince we give it away to an object we do own, maybe it\u0027s ok?",
       "parentUuid": "efb7bd81_22a48e6f",
+      "revId": "ba6da4a701a24007931e66e2e42705ffabcd008c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea45d9c5_75451def",
+        "filename": "test/network/emulated_network_manager.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-09-10T09:12:41Z",
+      "side": 1,
+      "message": "I assume that once you\u0027re finished with the changes, CreateThread() will no longer take a SocketServer argument; that was the TODO I was thinking of referencing.\n\nNot important enough to block on.",
+      "parentUuid": "316aa494_50330f0a",
       "revId": "ba6da4a701a24007931e66e2e42705ffabcd008c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

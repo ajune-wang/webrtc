@@ -33,6 +33,23 @@
       "message": "+Philip for OWNER review",
       "revId": "d4855e7ead49fc095f57c8742f1a90892bed9ec0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33c74d00_f4c9aa0d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-09-10T13:30:26Z",
+      "side": 1,
+      "message": "There\u0027s a problem with android_arm_rel, it\u0027s temporarily removed from the CQ. http://b/199499601 ",
+      "revId": "d4855e7ead49fc095f57c8742f1a90892bed9ec0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

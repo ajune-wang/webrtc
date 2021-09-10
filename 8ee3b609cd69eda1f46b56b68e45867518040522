@@ -68,6 +68,30 @@
       },
       "revId": "8ee3b609cd69eda1f46b56b68e45867518040522",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a65b238_4ddb286d",
+        "filename": "test/fuzzers/vp9_encoder_references_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-10T13:54:23Z",
+      "side": 1,
+      "message": "as discussed offline, this dropping likely shouldn\u0027t take framedrop_mode into account.\nThis is what encoder wrapper request encoder not to produce.",
+      "parentUuid": "655189d8_cd0acd4b",
+      "range": {
+        "startLine": 462,
+        "startChar": 12,
+        "endLine": 463,
+        "endChar": 21
+      },
+      "revId": "8ee3b609cd69eda1f46b56b68e45867518040522",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

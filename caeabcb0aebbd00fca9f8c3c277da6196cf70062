@@ -33,6 +33,86 @@
       "message": "Please prefix bug with webrtc:\n\nie \nBug : webrtc:13104",
       "revId": "caeabcb0aebbd00fca9f8c3c277da6196cf70062",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7718454d_6d742620",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2021-09-11T09:08:51Z",
+      "side": 1,
+      "message": "lgtm % comments below.\n\nIn the description, refer to the webrtc bug instead of a chrome bug. \ni.e\nBug : webrtc:13104",
+      "revId": "caeabcb0aebbd00fca9f8c3c277da6196cf70062",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa2a202d_dcd84097",
+        "filename": "examples/peerconnection/client/conductor.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2021-09-11T09:08:51Z",
+      "side": 1,
+      "message": "include in the header file instead.",
+      "revId": "caeabcb0aebbd00fca9f8c3c277da6196cf70062",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed472ca9_0133d626",
+        "filename": "examples/peerconnection/client/conductor.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2021-09-11T09:08:51Z",
+      "side": 1,
+      "message": "please include the header file instead.",
+      "range": {
+        "startLine": 30,
+        "startChar": 6,
+        "endLine": 30,
+        "endChar": 12
+      },
+      "revId": "caeabcb0aebbd00fca9f8c3c277da6196cf70062",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed110439_006f3859",
+        "filename": "examples/peerconnection/client/conductor.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2021-09-11T09:08:51Z",
+      "side": 1,
+      "message": "declare before the factory and peer_connection to ensure at least the unique ptr outlives  peer_connection_ reference",
+      "range": {
+        "startLine": 136,
+        "startChar": 31,
+        "endLine": 136,
+        "endChar": 48
+      },
+      "revId": "caeabcb0aebbd00fca9f8c3c277da6196cf70062",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

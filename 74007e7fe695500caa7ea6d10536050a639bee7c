@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f7db510_33268cda",
+        "filename": "test/fuzzers/rtp_video_layers_allocation_fuzzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2021-09-12T08:50:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d676de6_47e81216",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "74007e7fe695500caa7ea6d10536050a639bee7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eaa571f8_9a14aa8e",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-09-10T08:40:33Z",
       "side": 1,
       "message": "unlike DD, VideoLayersAllocation do not need state to parse next extension,\nso there is no value in treating input as series of extensions.\n\nmake it simpler: remove while loop, parse fuzz_data as single extension.",
+      "range": {
+        "startLine": 27,
+        "startChar": 2,
+        "endLine": 30,
+        "endChar": 49
+      },
+      "revId": "74007e7fe695500caa7ea6d10536050a639bee7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a633f60_2eaa4e2c",
+        "filename": "test/fuzzers/rtp_video_layers_allocation_fuzzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2021-09-12T08:50:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eaa571f8_9a14aa8e",
       "range": {
         "startLine": 27,
         "startChar": 2,

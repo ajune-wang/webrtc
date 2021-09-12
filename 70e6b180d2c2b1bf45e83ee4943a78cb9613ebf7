@@ -56,6 +56,24 @@
       "message": "Please remove other reviewers, one owner is enough.\nlgtm with cl description updated.",
       "revId": "70e6b180d2c2b1bf45e83ee4943a78cb9613ebf7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63c20ac7_3e0413e6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-09-12T16:33:13Z",
+      "side": 1,
+      "message": "Add this line to CL description instead:\n\nBug: webrtc:13156",
+      "parentUuid": "b4c16c52_36444c99",
+      "revId": "70e6b180d2c2b1bf45e83ee4943a78cb9613ebf7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

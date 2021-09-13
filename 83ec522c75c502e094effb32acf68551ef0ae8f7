@@ -1703,6 +1703,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0bbc549a_d5a87182",
+        "filename": "video/adaptation/bandwidth_scaler_resource.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-09-13T11:10:39Z",
+      "side": 1,
+      "message": "Ah, I see.",
+      "parentUuid": "c786685e_5d3db586",
+      "range": {
+        "startLine": 44,
+        "startChar": 33,
+        "endLine": 44,
+        "endChar": 50
+      },
+      "revId": "83ec522c75c502e094effb32acf68551ef0ae8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "96bf056d_68e0d305",

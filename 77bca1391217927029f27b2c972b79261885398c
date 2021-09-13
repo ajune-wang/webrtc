@@ -16,6 +16,69 @@
       "message": "Sergey, PTAL!",
       "revId": "77bca1391217927029f27b2c972b79261885398c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02899b28_514c7c4f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-09-13T11:10:39Z",
+      "side": 1,
+      "message": "LGTM! Just two notes.",
+      "revId": "77bca1391217927029f27b2c972b79261885398c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "042e7c9f_0656d1d3",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 924,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-09-13T11:10:39Z",
+      "side": 1,
+      "message": "I would suggest to change this back to: encoder_-\u003eGetEncoderInfo().is_qp_trusted.value_or(false)\n\nUnless there was a reason to unfold that.",
+      "range": {
+        "startLine": 923,
+        "startChar": 6,
+        "endLine": 924,
+        "endChar": 55
+      },
+      "revId": "77bca1391217927029f27b2c972b79261885398c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f284804c_cacec43b",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 1373,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-09-13T11:10:39Z",
+      "side": 1,
+      "message": "Was this formatted by \"git cl format\"?",
+      "range": {
+        "startLine": 1367,
+        "startChar": 10,
+        "endLine": 1373,
+        "endChar": 70
+      },
+      "revId": "77bca1391217927029f27b2c972b79261885398c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

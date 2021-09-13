@@ -52,6 +52,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d3f92d1_895769d0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7654
+      },
+      "writtenOn": "2021-09-13T15:03:53Z",
+      "side": 1,
+      "message": "I think we can land it. Shuhai, please confirm that it is ready and I will submit it.",
+      "revId": "77bca1391217927029f27b2c972b79261885398c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "042e7c9f_0656d1d3",
@@ -99,6 +116,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "311b21e5_edc783a1",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 924,
+      "author": {
+        "id": 7654
+      },
+      "writtenOn": "2021-09-13T15:03:53Z",
+      "side": 1,
+      "message": "Right, it would be value_or(true). Ok, let it be 2 calls.",
+      "parentUuid": "00f09297_569c084b",
+      "range": {
+        "startLine": 923,
+        "startChar": 6,
+        "endLine": 924,
+        "endChar": 55
+      },
+      "revId": "77bca1391217927029f27b2c972b79261885398c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f284804c_cacec43b",
@@ -136,6 +177,30 @@
       "side": 1,
       "message": "Yes, I will definitely do this, and the working tree is clear. Maybe format detection tool think it is ok.\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/video/video_stream_encoder.cc;l\u003d1323?q\u003dvideo%20stream%20encoder\u0026ss\u003dchromium%2Fchromium%2Fsrc",
       "parentUuid": "f284804c_cacec43b",
+      "range": {
+        "startLine": 1367,
+        "startChar": 10,
+        "endLine": 1373,
+        "endChar": 70
+      },
+      "revId": "77bca1391217927029f27b2c972b79261885398c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "583468bc_acb02883",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 1373,
+      "author": {
+        "id": 7654
+      },
+      "writtenOn": "2021-09-13T15:03:53Z",
+      "side": 1,
+      "message": "I think the formatting is actually correct. Sorry.",
+      "parentUuid": "42f2665e_79a2be6d",
       "range": {
         "startLine": 1367,
         "startChar": 10,

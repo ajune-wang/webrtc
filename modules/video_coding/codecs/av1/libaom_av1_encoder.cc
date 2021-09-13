@@ -49,6 +49,20 @@ constexpr int kLagInFrames = 0;  // No look ahead.
 constexpr int kRtpTicksPerSecond = 90000;
 constexpr float kMinimumFrameRate = 1.0;
 
+struct ScalabilityMode {
+  const char* name;
+};
+
+constexpr ScalabilityMode kSupportedScalabilityModes[] = {
+    {"L1T2"},     {"L1T3"},           {"L2T1"},     {"L2T2"},
+    {"L2T3"},     {"L2T1h"},          {"L2T2h"},    {"L2T3h"},
+    {"S2T1"},     {"S2T2"},           {"S2T3"},     {"S2T1h"},
+    {"S2T2h"},    {"S2T3h"},          {"L3T1"},     {"L3T2"},
+    {"L3T3"},     {"S3T1"},           {"S3T2"},     {"S3T3"},
+    {"S3T1h"},    {"S3T2h"},          {"S3T3h"},    {"L2T2_KEY"},
+    {"L2T3_KEY"}, {"L2T3_KEY_SHIFT"}, {"L3T2_KEY"}, {"L3T2_KEY_SHIFT"},
+    {"L3T3_KEY"}, {"L3T3_KEY_SHIFT"}};
+
 // Only positive speeds, range for real-time coding currently is: 6 - 8.
 // Lower means slower/better quality, higher means fastest/lower quality.
 int GetCpuSpeed(int width, int height, int number_of_cores) {
@@ -804,6 +818,15 @@ const bool kIsLibaomAv1EncoderSupported = true;
 
 std::unique_ptr<VideoEncoder> CreateLibaomAv1Encoder() {
   return std::make_unique<LibaomAv1Encoder>();
+}
+
+bool Av1EncoderSupportsScalabilityMode(absl::string_view scalability_mode) {
+  for (const auto& entry : kSupportedScalabilityModes) {
+    if (entry.name == scalability_mode) {
+      return true;
+    }
+  }
+  return false;
 }
 
 }  // namespace webrtc

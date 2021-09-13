@@ -51,6 +51,23 @@
       "parentUuid": "e28fe4b2_aab9bc91",
       "revId": "4be63113983b017f4537ef10e7eac35d42cf06b7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0799dc1_ec198989",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-13T15:54:54Z",
+      "side": 1,
+      "message": "Stefan, can you please approve changes to common_video/BUILD.gn file",
+      "revId": "4be63113983b017f4537ef10e7eac35d42cf06b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

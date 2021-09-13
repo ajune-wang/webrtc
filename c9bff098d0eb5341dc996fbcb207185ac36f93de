@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4aeadd81_57e0541e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-13T15:29:17Z",
+      "side": 1,
+      "message": "I\u0027m currently migrating all webrtc bit parsers from BitBuffer to BitstreamReader\nwith intent to deprecate and then delete BitBuffer.\n(BitstreamReader allows to write more compact parsers, both in code and in binary size)\n\nAs such I prefer not to add more functions to the BitBuffer.\n\nIt seems to me H264 specific function \u0027more_rbsp_data()\u0027 can be implemented without adding anything extra to the buffer reader class itself. e.g. with BitstreamReader it could look like:\n\n  bool MoreRbspData(BitstreamReader reader) {\n    // Take reader by value to avoid modifying original reader\n    int remaining_bits \u003d reader.RemainigBitcount();\n    if (remaining_bits \u003c\u003d 0) return false;\n    // rbsp_trailing_bits can\u0027t take more than a byte.\n    if (remaining_bits \u003e 8) return true;\n    uint64_t remaining \u003d reader.ReadBits(remaining_bits);\n    RTC_DCHECK(reader.Ok());\n    bool is_rbsp_trailing_bits \u003d (remaining \u003d\u003d (1 \u003c\u003c (remaining_bits - 1)));\n    return !is_rbsp_trailing_bits;\n  }\n\n",
+      "revId": "c9bff098d0eb5341dc996fbcb207185ac36f93de",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ccfb5eba_32c99c73",

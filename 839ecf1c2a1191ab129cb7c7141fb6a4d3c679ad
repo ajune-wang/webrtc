@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "22f8ae92_90b19e4a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-09-13T13:42:39Z",
+      "side": 1,
+      "message": "nice!",
+      "revId": "839ecf1c2a1191ab129cb7c7141fb6a4d3c679ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e860e6ce_55e7a8f4",
+        "filename": "common_video/h264/pps_parser.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-09-13T13:42:39Z",
+      "side": 1,
+      "message": "nit: 0..pic_size_in_map_units-1\nor somehow comment to make it clear this consumes an array",
+      "range": {
+        "startLine": 117,
+        "startChar": 24,
+        "endLine": 117,
+        "endChar": 25
+      },
+      "revId": "839ecf1c2a1191ab129cb7c7141fb6a4d3c679ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

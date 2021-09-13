@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "237a0562_65918316",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-09-13T11:41:15Z",
+      "side": 1,
+      "message": "This is still a bit wordy, but not going to block you on that.\nSuggest changing at least the first line to something like\n\n\"Fix potential crash during SimulcastEncoderAdapter tear down.\"",
+      "parentUuid": "b0a481b7_d3f328ad",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 0
+      },
+      "revId": "70e6b180d2c2b1bf45e83ee4943a78cb9613ebf7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "b4c16c52_36444c99",

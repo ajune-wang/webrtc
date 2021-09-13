@@ -887,7 +887,9 @@ int OpenSSLAdapter::SSLVerifyInternal(int status_on_failure,
                       << X509_verify_cert_error_string(err);
   }
 #endif
-  if (ssl_cert_verifier_ == nullptr) {
+  // `ssl_cert_verifier_` is used to override errors; if there is no error
+  // there is no reason to call it.
+  if (status_on_failure || ssl_cert_verifier_ == nullptr) {
     return status_on_failure;
   }
 

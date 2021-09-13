@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9560df52_a23c6d73",
+        "filename": "modules/audio_coding/neteq/nack_tracker.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2021-09-13T09:13:57Z",
+      "side": 1,
+      "message": "Hm...are we calculating this expression in floating point (due to the constant) and then casting back to an integer here? Is that intentional? I guess we would have an overflow here otherwize.",
+      "range": {
+        "startLine": 244,
+        "startChar": 0,
+        "endLine": 246,
+        "endChar": 0
+      },
+      "revId": "3a9640a5aa939b137fde2f39baeed07245c85647",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

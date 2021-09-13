@@ -22,6 +22,30 @@
       },
       "revId": "3a9640a5aa939b137fde2f39baeed07245c85647",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5915e8d1_89522ae1",
+        "filename": "modules/audio_coding/neteq/nack_tracker.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-09-13T09:47:32Z",
+      "side": 1,
+      "message": "Yes, I did that on purpose to avoid issues with overflow. Although perhaps it would have been nicer to use a 64-bit integer constant (so 100ll), which would also work (and it would probably make the code a bit faster). Think I should make a CL to fix this?",
+      "parentUuid": "9560df52_a23c6d73",
+      "range": {
+        "startLine": 244,
+        "startChar": 0,
+        "endLine": 246,
+        "endChar": 0
+      },
+      "revId": "3a9640a5aa939b137fde2f39baeed07245c85647",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

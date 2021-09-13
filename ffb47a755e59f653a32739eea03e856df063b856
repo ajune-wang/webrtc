@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5014f974_6c08762f",
+        "filename": "modules/audio_coding/neteq/nack_tracker.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-09-13T15:13:45Z",
+      "side": 1,
+      "message": "Do we need to consider padding here as well? If so, maybe we should check against kMinPacketSizeMs, or even check if the ms_per_packet matches one of the supported formats (although it\u0027s easy to forget to update such a list).",
+      "range": {
+        "startLine": 113,
+        "startChar": 6,
+        "endLine": 114,
+        "endChar": 62
+      },
+      "revId": "ffb47a755e59f653a32739eea03e856df063b856",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

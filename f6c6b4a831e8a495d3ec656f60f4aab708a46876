@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44e9f4f6_94efda90",
+        "filename": "common_video/h264/pps_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-13T12:05:50Z",
+      "side": 0,
+      "message": "I run a small test to ensure old code and new code give the same result for slice_group_id_bits when num_slice_groups_minus1 in range [1, 0x10000]\nThey would give different answer when num_slice_groups_minus1 \u003d 0, but there is a check above it is not.",
+      "range": {
+        "startLine": 137,
+        "startChar": 15,
+        "endLine": 137,
+        "endChar": 34
+      },
+      "revId": "f6c6b4a831e8a495d3ec656f60f4aab708a46876",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

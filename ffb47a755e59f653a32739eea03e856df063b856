@@ -46,6 +46,30 @@
       },
       "revId": "ffb47a755e59f653a32739eea03e856df063b856",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7200173_f1c9f856",
+        "filename": "modules/audio_coding/neteq/nack_tracker.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-09-13T15:35:07Z",
+      "side": 1,
+      "message": "Good point, it\u0027s probably fine to keep it like this. I was thinking of a case where the padding packet gets lost, in which case it will look like the packet afterwards has half the samples than it actually does. It\u0027s probably not worth supporting such rare edge cases. I guess the same thing can happen around frame length changes (i.e. if the first packet with a new frame length gets lost), and I think it\u0027s not really possible to always get a 100% correct result here.",
+      "parentUuid": "eaa8da9a_c75fb8a7",
+      "range": {
+        "startLine": 113,
+        "startChar": 6,
+        "endLine": 114,
+        "endChar": 62
+      },
+      "revId": "ffb47a755e59f653a32739eea03e856df063b856",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

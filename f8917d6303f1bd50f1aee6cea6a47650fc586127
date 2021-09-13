@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c88de80e_26cc2935",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-13T09:40:35Z",
+      "side": 1,
+      "message": "Can you share more details how do you plan to use this enum in the api?\n\nthe linked bug may be confuses id and type of an extension. They are not the same.\nThere is 1:1 relation between type and uri, but id has a different meaning\n(there is 1:1 relation between uri and id, but that mapping is local to a webrtc session)\n\nRTPExtensionType enum is sort-of internal representation of a known extension uri.\nRtpExtension is designed to also carry uris that are not known.\nfor internal webrtc usage there is RtpHeaderExtensionMap class that does id\u003c-\u003etype mapping.\n",
+      "revId": "f8917d6303f1bd50f1aee6cea6a47650fc586127",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

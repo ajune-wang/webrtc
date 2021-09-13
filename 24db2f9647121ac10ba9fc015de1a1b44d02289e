@@ -16,6 +16,29 @@
       "message": "ptal",
       "revId": "24db2f9647121ac10ba9fc015de1a1b44d02289e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48168ce9_eb81b87f",
+        "filename": "test/fuzzers/rtp_video_layers_allocation_fuzzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-13T09:23:38Z",
+      "side": 1,
+      "message": "you don\u0027t need FuzzDataHelper to read all of the bytes once:\n\nauto raw \u003d rtc::MakeArrayView(data, size);",
+      "range": {
+        "startLine": 24,
+        "startChar": 2,
+        "endLine": 24,
+        "endChar": 60
+      },
+      "revId": "24db2f9647121ac10ba9fc015de1a1b44d02289e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

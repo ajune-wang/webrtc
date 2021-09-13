@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11fc71eb_c17b5c95",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-09-13T11:36:58Z",
+      "side": 1,
+      "message": "adding xalep@ as owner according to https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/examples/androidapp/OWNERS\n\nplease remove magjed@ and sakal@",
+      "revId": "1948a046f27c9acc0ed2b51705797a3ced039477",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

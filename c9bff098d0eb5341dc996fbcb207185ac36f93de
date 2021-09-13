@@ -16,6 +16,142 @@
       "message": "Hi Harald, any chance you can take a look at this?",
       "revId": "c9bff098d0eb5341dc996fbcb207185ac36f93de",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea0f0751_3b2e063f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-09-13T14:50:32Z",
+      "side": 1,
+      "message": "Adding danilchap@ as reviewer, since he did some bit stuff here recently.\n\nA bunch of questions here ... I would very much like to see at least one usage of the function in the same CL, since some of the questions are dependent on the context in which it is intended to be used.",
+      "revId": "c9bff098d0eb5341dc996fbcb207185ac36f93de",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ccfb5eba_32c99c73",
+        "filename": "rtc_base/bit_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-09-13T14:50:32Z",
+      "side": 1,
+      "message": "Why is the bit_val an uint_32? A bool would seem like a more natural represnetation.",
+      "revId": "c9bff098d0eb5341dc996fbcb207185ac36f93de",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a74de19_647c5264",
+        "filename": "rtc_base/bit_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-09-13T14:50:32Z",
+      "side": 1,
+      "message": "The current guidance in the style guide is to use reference arguments as output parameters, not pointers.",
+      "revId": "c9bff098d0eb5341dc996fbcb207185ac36f93de",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fd47341_3cb267e1",
+        "filename": "rtc_base/bit_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-09-13T14:50:32Z",
+      "side": 1,
+      "message": "This scans through the whole buffer, disregarding the byte and bit offsets of the current read position. Is this what you want to achieve?",
+      "revId": "c9bff098d0eb5341dc996fbcb207185ac36f93de",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab2d06d3_b7ed88ba",
+        "filename": "rtc_base/bit_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-09-13T14:50:32Z",
+      "side": 1,
+      "message": "I\u0027d suggest using absl::CountTrailingZeroes if all the usages are zero-counting. That reduces to a native machine instruction on any architectures.",
+      "revId": "c9bff098d0eb5341dc996fbcb207185ac36f93de",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a29aaa8_02ed8b59",
+        "filename": "rtc_base/bit_buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-09-13T14:50:32Z",
+      "side": 1,
+      "message": "This name is a bit confusing. I\u0027d suggest using CountTrailingZeroes and CountTrailingOnes exposed in the .h file, and merging the implementations in the .cc file.\n\nNote that BitBuffer does not have any way to have an odd number of bits in the last byte. This may or may not matter; the usage will determine this.",
+      "revId": "c9bff098d0eb5341dc996fbcb207185ac36f93de",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f51c938f_ddffe5ed",
+        "filename": "rtc_base/bit_buffer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-09-13T14:50:32Z",
+      "side": 1,
+      "message": "I would recommend not using __LINE__ to identify the test. It is impossible for the casual reader to figure out what these test cases represent. Instead, use a string describing how this particular test datum is different from the others - like \"five trailing zero bits\" or \"nine trailing zero bits\".",
+      "revId": "c9bff098d0eb5341dc996fbcb207185ac36f93de",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "243a8890_e94297da",
+        "filename": "rtc_base/bit_buffer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-09-13T14:50:32Z",
+      "side": 1,
+      "message": "You only test trailing zeroes here. Since you have an argument to the function, you need to have tests for trailing ones as well. If you keep the non-bool argument format, you also need tests for values different from 0 or 1.",
+      "revId": "c9bff098d0eb5341dc996fbcb207185ac36f93de",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

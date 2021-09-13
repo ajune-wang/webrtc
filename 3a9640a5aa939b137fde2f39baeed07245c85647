@@ -46,6 +46,30 @@
       },
       "revId": "3a9640a5aa939b137fde2f39baeed07245c85647",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca516de7_e758cbbd",
+        "filename": "modules/audio_coding/neteq/nack_tracker.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2021-09-13T11:46:20Z",
+      "side": 1,
+      "message": "Alright, it\u0027s fine as long as it works as expected :) I don\u0027t think we need to worry about performance here since it will only be called once per received packet.",
+      "parentUuid": "5915e8d1_89522ae1",
+      "range": {
+        "startLine": 244,
+        "startChar": 0,
+        "endLine": 246,
+        "endChar": 0
+      },
+      "revId": "3a9640a5aa939b137fde2f39baeed07245c85647",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

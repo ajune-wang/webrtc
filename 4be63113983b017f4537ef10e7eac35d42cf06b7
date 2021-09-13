@@ -16,6 +16,23 @@
       "message": "Sergey, ptal as OWNER",
       "revId": "4be63113983b017f4537ef10e7eac35d42cf06b7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e28fe4b2_aab9bc91",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-09-13T14:52:31Z",
+      "side": 1,
+      "message": "Nice change! LGTM.\n\nI wanted to refactor BitBuffer for long time. I can point to this JS version as another example of how it can be implemented: https://github.com/ssilkin/bsparser/blob/master/parser.js#L15-L90. It doesn\u0027t have error handling which would be a matter of setting a flag in load() using it for early exits in other methods.\n\nI see that you are using % in ReadBit: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/rtc_base/bitstream_reader.cc;drc\u003da9641800e0e8f7a2ea9a5f55f831b632e990a0e0;l\u003d70. It is expensive unless compiler substitutes it with (x \u0026 0x7).",
+      "revId": "4be63113983b017f4537ef10e7eac35d42cf06b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

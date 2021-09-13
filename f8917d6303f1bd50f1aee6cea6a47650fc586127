@@ -16,6 +16,23 @@
       "message": "Can you share more details how do you plan to use this enum in the api?\n\nthe linked bug may be confuses id and type of an extension. They are not the same.\nThere is 1:1 relation between type and uri, but id has a different meaning\n(there is 1:1 relation between uri and id, but that mapping is local to a webrtc session)\n\nRTPExtensionType enum is sort-of internal representation of a known extension uri.\nRtpExtension is designed to also carry uris that are not known.\nfor internal webrtc usage there is RtpHeaderExtensionMap class that does id\u003c-\u003etype mapping.\n",
       "revId": "f8917d6303f1bd50f1aee6cea6a47650fc586127",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e01d546_7e623eaf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-09-13T10:09:25Z",
+      "side": 1,
+      "message": "Instinctively, I\u0027d prefer to keep this enum an implementation detail.\n\nRTP header extensions is a \"no registration needed\" field (identified by URI), so we are guaranteed to encounter extensions that we haven\u0027t seen before, and we\u0027re guaranteed to want to expand the list over time. Both actions cause breakages with an API-exposed enum that covers all the RTP extensions we support.\n\nThe ID in the header is a negotiated value; it does not map to the enum.\n\n",
+      "revId": "f8917d6303f1bd50f1aee6cea6a47650fc586127",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2730c3bd_6f4579d1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2021-09-14T09:38:12Z",
+      "side": 1,
+      "message": "Let\u0027s try this again... Manually running a perf test on Swarming didn\u0027t reveal any problems this time around: https://chromium-swarm.appspot.com/task?id\u003d55fc26260a2eff10\n\nAnd for good measure I also ran\n\n$ webrtc_perf_tests \\\n    --gtest_filter\u003d\u0027PCFullStackTest.*\u0027 \\\n    --gtest_repeat\u003d-1 \\\n    --gtest_break_on_failure\n\nfor a few hours on my workstation without any issues.",
+      "revId": "17450b99dd23094fb1c857e4ef2fffe33c5b8713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

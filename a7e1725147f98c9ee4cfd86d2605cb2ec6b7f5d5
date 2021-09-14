@@ -169,6 +169,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "934a7fb4_4597edea",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 826,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-09-14T14:25:31Z",
+      "side": 1,
+      "message": "What should I do with the entries in the list above that are not in kFactories?\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/video_coding/svc/create_scalability_structure.cc;drc\u003d5d3bf6ae2aea1c6c72f995ba6d29220e6605b323;l\u003d116\n\nI see now that I\u0027ve lost at least one of the entries from\nhttps://www.w3.org/TR/webrtc-svc/#scalabilitymodes*\n\nAnd L2T1_KEY is listed in kFactories but not in the webrtc-svc spec.\n...or I found the dependency diagram but not in the list of scalability modes :)\n\nI will go through the list to make sure that it\u0027s consistent; I just want to know what the expected overlap between the list here, kFactories and webrtc-svc is supposed to be.",
+      "parentUuid": "755f39ff_f75fffa5",
+      "revId": "a7e1725147f98c9ee4cfd86d2605cb2ec6b7f5d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a0347a80_6fb6215c",

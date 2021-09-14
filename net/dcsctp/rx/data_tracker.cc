@@ -356,4 +356,20 @@ absl::string_view DataTracker::ToString(AckState ack_state) {
   }
 }
 
+HandoverReadinessStatus DataTracker::GetHandoverReadiness() const {
+  HandoverReadinessStatus status;
+  if (ack_state_ != AckState::kIdle) {
+    status.Add(HandoverUnreadinessReason::kDataTrackerNotIdle);
+  }
+  if (!additional_tsn_blocks_.empty()) {
+    status.Add(HandoverUnreadinessReason::kDataTrackerTsnBlocksPending);
+  }
+  return status;
+}
+
+void DataTracker::AddHandoverState(DcSctpSocketHandoverState& state) {
+  state.rx.last_cumulative_acked_tsn = last_cumulative_acked_tsn().value();
+  state.rx.seen_packet = seen_packet_;
+}
+
 }  // namespace dcsctp

@@ -32,6 +32,8 @@ struct DcSctpSocketHandoverState {
     uint32_t id = 0;
   };
   struct Receive {
+    bool seen_packet = false;
+    uint32_t last_cumulative_acked_tsn = 0;
     std::vector<OrderedStream> ordered_streams;
     std::vector<UnorderedStream> unordered_streams;
   };

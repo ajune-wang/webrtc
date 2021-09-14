@@ -21,6 +21,7 @@
 #include "api/peer_connection_interface.h"
 #include "examples/peerconnection/client/main_wnd.h"
 #include "examples/peerconnection/client/peer_connection_client.h"
+#include "rtc_base/thread.h"
 
 namespace webrtc {
 class VideoCaptureModule;
@@ -123,6 +124,7 @@ class Conductor : public webrtc::PeerConnectionObserver,
   int peer_id_;
   bool loopback_;
   rtc::scoped_refptr<webrtc::PeerConnectionInterface> peer_connection_;
+  std::unique_ptr<rtc::Thread> signaling_thread_;
   rtc::scoped_refptr<webrtc::PeerConnectionFactoryInterface>
       peer_connection_factory_;
   PeerConnectionClient* client_;

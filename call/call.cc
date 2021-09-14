@@ -196,6 +196,80 @@ class ResourceVideoSendStreamForwarder {
       adapter_resources_;
 };
 
+constexpr int kFramePullFrequency = 60;  // Runs at 60Hz
+
+class DecoderTaskQueue {
+ public:
+  DecoderTaskQueue(Clock* clock, TaskQueueFactory* task_queue_factory)
+      : clock_(clock),
+        decoder_queue_(task_queue_factory->CreateTaskQueue(
+            "DecodingQueue",
+            TaskQueueFactory::Priority::HIGH)) {
+    DCHECK(clock_);
+  }
+
+  void AddVideoReceiveStream(VideoReceiveStream2* video_receive_stream) {
+    MutexLock lock(&mutex_);
+    bool inserted;
+    std::tie(std::ignore, inserted) =
+        receive_streams_.insert(video_receive_stream);
+    DCHECK(inserted) << "Receive stream already inserted.";
+  }
+
+  void RemoveVideoReceiveStream(VideoReceiveStream2* video_receive_stream) {
+    MutexLock lock(&mutex_);
+    int removed = receive_streams_.erase(video_receive_stream);
+    DCHECK_EQ(removed, 1);
+  }
+
+  void Start() {
+    MutexLock lock(&mutex_);
+    RTC_DLOG(WARNING) << "Starting";
+    decode_task_handle_ =
+        RepeatingTaskHandle::Start(decoder_queue_.Get(), [this] {
+          RTC_DCHECK_RUN_ON(&decoder_queue_);
+          const TimeDelta kDecodeDelay =
+              TimeDelta::Seconds(1) / kFramePullFrequency;
+          const Timestamp start = clock_->CurrentTime();
+          const Timestamp next_decode_time = start + kDecodeDelay;
+          // Do decoding in sequence for all streams.
+          {
+            MutexLock lock(&mutex_);
+            int i = 0;
+            for (VideoReceiveStream2* receive_stream : receive_streams_) {
+              RTC_DLOG(WARNING) << "Start decode stream " << ++i;
+              receive_stream->StartNextDecode();
+            }
+          }
+
+          // Check update frequency.
+          const Timestamp now = clock_->CurrentTime();
+          const TimeDelta sleep_time = next_decode_time - now;
+          RTC_DLOG(WARNING)
+              << "Scheduling next decode in " << sleep_time.ms() << "ms.";
+          if (sleep_time <= TimeDelta::Zero()) {
+            RTC_LOG(LS_ERROR) << "Decoding took " << (now - start).ms()
+                              << "ms which was longer than our deadline of "
+                              << kDecodeDelay.ms() << "ms";
+            return TimeDelta::Zero();
+          }
+          return sleep_time;
+        });
+  }
+
+  void Stop() {
+    MutexLock lock(&mutex_);
+    decode_task_handle_.Stop();
+  }
+
+ private:
+  Mutex mutex_;
+  Clock* clock_;
+  std::set<VideoReceiveStream2*> receive_streams_ RTC_GUARDED_BY(mutex_);
+  RepeatingTaskHandle decode_task_handle_ RTC_GUARDED_BY(mutex_);
+  rtc::TaskQueue decoder_queue_;
+};
+
 class Call final : public webrtc::Call,
                    public PacketReceiver,
                    public RecoveredPacketReceiver,
@@ -387,6 +461,7 @@ class Call final : public webrtc::Call,
       RTC_GUARDED_BY(worker_thread_);
   std::set<VideoReceiveStream2*> video_receive_streams_
       RTC_GUARDED_BY(worker_thread_);
+  DecoderTaskQueue decoder_task_queue_;
   std::map<std::string, AudioReceiveStream*> sync_stream_mapping_
       RTC_GUARDED_BY(worker_thread_);
 
@@ -794,6 +869,7 @@ Call::Call(Clock* clock,
       audio_network_state_(kNetworkDown),
       video_network_state_(kNetworkDown),
       aggregate_network_up_(false),
+      decoder_task_queue_(clock_, task_queue_factory_),
       event_log_(config.event_log),
       receive_stats_(clock_),
       send_stats_(clock_),
@@ -854,6 +930,7 @@ void Call::EnsureStarted() {
   is_started_ = true;
 
   call_stats_->EnsureStarted();
+  decoder_task_queue_.Start();
 
   // This call seems to kick off a number of things, so probably better left
   // off being kicked off on request rather than in the ctor.
@@ -1132,6 +1209,7 @@ webrtc::VideoReceiveStream* Call::CreateVideoReceiveStream(
       transport_send_->packet_router(), std::move(configuration),
       call_stats_.get(), clock_, new VCMTiming(clock_),
       &nack_periodic_processor_);
+
   // TODO(bugs.webrtc.org/11993): Set this up asynchronously on the network
   // thread.
   receive_stream->RegisterWithTransport(&video_receiver_controller_);
@@ -1146,6 +1224,7 @@ webrtc::VideoReceiveStream* Call::CreateVideoReceiveStream(
   }
   receive_rtp_config_.emplace(rtp.remote_ssrc, receive_stream);
   video_receive_streams_.insert(receive_stream);
+  decoder_task_queue_.AddVideoReceiveStream(receive_stream);
 
   ConfigureSync(receive_stream->sync_group());
 
@@ -1174,6 +1253,7 @@ void Call::DestroyVideoReceiveStream(
     receive_rtp_config_.erase(rtp.rtx_ssrc);
   }
   video_receive_streams_.erase(receive_stream_impl);
+  decoder_task_queue_.RemoveVideoReceiveStream(receive_stream_impl);
   ConfigureSync(receive_stream_impl->sync_group());
 
   receive_side_cc_.GetRemoteBitrateEstimator(UseSendSideBwe(rtp))

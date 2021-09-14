@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "24be0375_a092ee8e",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 863,
+      "author": {
+        "id": 7654
+      },
+      "writtenOn": "2021-09-14T12:34:10Z",
+      "side": 1,
+      "message": "You can specify color space, primaries and range in VP9. There is no way to specify transfer (aka transfer function). I guess default function specified by a standard indicated by \"primaries\" is supposed to be used.",
+      "parentUuid": "33ffd0b6_78a61782",
+      "range": {
+        "startLine": 863,
+        "startChar": 22,
+        "endLine": 863,
+        "endChar": 31
+      },
+      "revId": "e9f00cf2eb03ea5c363ee028c4d213510bee9d93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8cd19837_46be2296",
         "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
         "patchSetId": 1
@@ -37,6 +61,24 @@
       "writtenOn": "2021-09-14T11:53:51Z",
       "side": 1,
       "message": "REVIEWER QUESTION:\n\nIs this the correct way to use codec_control? I see from the code I try to set a 2 here (BT709), but the bitstream analyzer says the value is \"unknown\" (0).",
+      "revId": "e9f00cf2eb03ea5c363ee028c4d213510bee9d93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8a022c7_4fb4b16a",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1162,
+      "author": {
+        "id": 7654
+      },
+      "writtenOn": "2021-09-14T12:34:10Z",
+      "side": 1,
+      "message": "I thought maybe this is needed to be configured before vpx_codec_enc_init(). Tried locally. I still get \u003dCS_UNKNOW. Looks like a libvpx issue.",
+      "parentUuid": "8cd19837_46be2296",
       "revId": "e9f00cf2eb03ea5c363ee028c4d213510bee9d93",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

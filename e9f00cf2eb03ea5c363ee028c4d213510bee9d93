@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d9501d09_d79eb9b2",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 863,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-09-14T16:08:05Z",
+      "side": 1,
+      "message": "Wait, I see that I can set VP9E_SET_COLOR_SPACE, but how to I set primary?",
+      "parentUuid": "24be0375_a092ee8e",
+      "range": {
+        "startLine": 863,
+        "startChar": 22,
+        "endLine": 863,
+        "endChar": 31
+      },
+      "revId": "e9f00cf2eb03ea5c363ee028c4d213510bee9d93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8cd19837_46be2296",
         "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
         "patchSetId": 1

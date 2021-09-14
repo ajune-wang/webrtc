@@ -78,6 +78,16 @@ int AlignmentAdjuster::GetAlignmentAndMaybeAdjustScaleFactors(
     return requested_alignment;
   }
 
+  // Alignment limitation.
+  const int kMaxAlignment = 16;
+
+  // When |requested_alignment| is equal to |kMaxAlignment|,
+  // we immediately stop right here to avoid radical changes of the scaling
+  // factors.
+  if (requested_alignment == kMaxAlignment) {
+    return requested_alignment;
+  }
+
   // Update alignment to also apply to simulcast layers.
   const bool has_scale_resolution_down_by = absl::c_any_of(
       config->simulcast_layers, [](const webrtc::VideoStream& layer) {
@@ -90,15 +100,22 @@ int AlignmentAdjuster::GetAlignmentAndMaybeAdjustScaleFactors(
     if (max_layers && *max_layers > 0 && *max_layers < size) {
       size = *max_layers;
     }
-    return requested_alignment * (1 << (size - 1));
+
+    // Instead of multiplying by 2^(size - 1) directly, we multiply gradually
+    // to get the highest possible power, without exceeding the kMaxAlignment.
+    int alignment = requested_alignment;
+    while (size > 1 && alignment * 2 <= kMaxAlignment) {
+      alignment *= 2;
+      --size;
+    }
+
+    return alignment;
   }
 
   // Get alignment for downscaled layers.
   // Adjust `scale_resolution_down_by` to a common multiple to limit the
   // alignment value (to avoid largely cropped frames and possibly with an
   // aspect ratio far from the original).
-  const int kMaxAlignment = 16;
-
   for (auto& layer : config->simulcast_layers) {
     layer.scale_resolution_down_by =
         std::max(layer.scale_resolution_down_by, 1.0);

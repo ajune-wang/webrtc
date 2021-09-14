@@ -2371,7 +2371,7 @@ INSTANTIATE_TEST_SUITE_P(
     AlignmentAndScaleFactors,
     ResolutionAlignmentTest,
     ::testing::Combine(
-        ::testing::Values(1, 2, 3, 4, 5, 6, 16, 22),  // requested_alignment_
+        ::testing::Values(1, 2, 3, 4, 5, 6),          // requested_alignment_
         ::testing::Values(std::vector<double>{-1.0},  // scale_factors_
                           std::vector<double>{-1.0, -1.0},
                           std::vector<double>{-1.0, -1.0, -1.0},

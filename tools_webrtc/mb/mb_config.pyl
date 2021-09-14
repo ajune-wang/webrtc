@@ -399,7 +399,7 @@
       'ios_code_signing_identity_description', 'xctest',
     ],
     'ios_debug_bot_x64': [
-      'ios', 'debug_bot', 'x64', 'ios_use_goma_rbe', 'xctest',
+      'ios', 'debug_bot', 'x64', 'ios_use_goma_rbe', 'xctest', 'ios_roll_check',
     ],
 
     # More configs
@@ -493,6 +493,10 @@
 
     'ios_use_goma_rbe': {
       'gn_args': 'ios_use_goma_rbe=true',
+    },
+
+    'ios_roll_check': {
+      'gn_args': 'use_lld = false',
     },
 
     'ios': {

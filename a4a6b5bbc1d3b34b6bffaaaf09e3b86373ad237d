@@ -16,6 +16,24 @@
       "message": "Wasn\u0027t there a  mode for \"invoke the verifier unconditionally\"? Mirko?\n\nThe name status_on_failure seems to be wrong again with this change.",
       "revId": "a4a6b5bbc1d3b34b6bffaaaf09e3b86373ad237d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95fe9418_595724a6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-09-14T20:04:48Z",
+      "side": 1,
+      "message": "It\u0027s used unconditionally only when using the CRYPTO_BUFFER callback, which means you don\u0027t have built-in certificate verification and the custom verifier *must* be used. Otherwise, I don\u0027t see such a mode. Though there is ignore_bad_cert_ which does the opposite (always ignore errors) and is only used for testing.",
+      "parentUuid": "a2b60da1_8298d12c",
+      "revId": "a4a6b5bbc1d3b34b6bffaaaf09e3b86373ad237d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

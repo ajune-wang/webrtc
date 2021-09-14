@@ -88,6 +88,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b2056391_e3c5c928",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 976,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-09-14T19:09:02Z",
+      "side": 1,
+      "message": "overall it feels a bit like the separate loops should be merged into one?",
+      "revId": "58b2b11dd3570d6d9c53eac7eec25f48207fe76a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3cc0d51_f489c79e",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1012,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-09-14T19:09:02Z",
+      "side": 1,
+      "message": "this was missing a FindMatchingCodec call (but not fully clear whether that is required). Also see above wrt merging)",
+      "revId": "58b2b11dd3570d6d9c53eac7eec25f48207fe76a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "665bdee3_84c27f25",
         "filename": "pc/peer_connection_media_unittest.cc",
         "patchSetId": 6

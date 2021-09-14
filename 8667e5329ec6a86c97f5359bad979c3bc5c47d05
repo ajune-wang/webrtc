@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "828e55c8_92afe53e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-09-14T19:09:02Z",
+      "side": 1,
+      "message": "slight change in behaviour:\nremote red without fmtp will not match local red with fmtp anymore. Actually that solves backward compat even.",
+      "revId": "8667e5329ec6a86c97f5359bad979c3bc5c47d05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -52,6 +52,41 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d7ae84f_1bf177b3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12359
+      },
+      "writtenOn": "2021-09-14T19:00:12Z",
+      "side": 1,
+      "message": "Thanks for the review",
+      "revId": "c9bff098d0eb5341dc996fbcb207185ac36f93de",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9bf55ec_b7f38c5d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12359
+      },
+      "writtenOn": "2021-09-14T19:00:12Z",
+      "side": 1,
+      "message": "I read Danil\u0027s solution, and it should be equivalent to the standard definition. Therefore I\u0027m abandoning this patch. \n\nOnly minor issue with the solution is that it is reading the bits, and we probably want to just peek them: `more_rbsp_data()` is a const function. \n\nThis raises a second (also minor) issue, which is that `BitBuffer::PeekBits()` is not declared `const`. Is this intended?\n\nI added a full solution in the original user (h264nal): https://github.com/chemag/h264nal/commit/fbaf983959b7894fc29cbd080afc53d6196fc7c2\n\nThanks for the review!",
+      "parentUuid": "4aeadd81_57e0541e",
+      "revId": "c9bff098d0eb5341dc996fbcb207185ac36f93de",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ccfb5eba_32c99c73",

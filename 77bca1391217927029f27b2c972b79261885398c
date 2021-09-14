@@ -69,6 +69,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c25dae3_f1830159",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-14T07:58:39Z",
+      "side": 1,
+      "message": "Hi Sergey, plz hold. Need some time to check corner cases before we finally submit this.\n\nBest wishes,\nShuhai",
+      "revId": "77bca1391217927029f27b2c972b79261885398c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "042e7c9f_0656d1d3",

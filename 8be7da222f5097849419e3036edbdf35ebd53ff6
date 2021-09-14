@@ -56,6 +56,30 @@
       },
       "revId": "8be7da222f5097849419e3036edbdf35ebd53ff6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25d0b62a_ae25ae88",
+        "filename": "modules/audio_coding/neteq/nack_tracker.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-09-14T14:21:58Z",
+      "side": 1,
+      "message": "Good point, this method is not doing much anymore. I decided to copy the contents of AddToList into this method and remove that one instead. Does that look okay?",
+      "parentUuid": "09e522c5_c6f46baa",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 0
+      },
+      "revId": "8be7da222f5097849419e3036edbdf35ebd53ff6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

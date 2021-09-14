@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "599d1627_6e8453a0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18194
+      },
+      "writtenOn": "2021-09-14T10:45:11Z",
+      "side": 1,
+      "message": "Dear @Nikolaevskiy, @Persson,\n\nAs you already know, We\u0027ve modified the GetAlignmentAndMaybeAdjustScaleFactors() in alignment_adjuster.cc not to adjust scaling factors in simulcast layers when requested_alignment is same as kMaxAlignemnt(16).\n\nHowever, I\u0027ve encountered some issues with TEST_P(ResolutionAlignmentTest, SinkWantsAlignmentApplied) in video_stream_encoder_unittest.cc since it requires adjustments of scaling factors with requested_alignment greater than or equal to kMaxAlignment(16).\n\nSo I\u0027d like to suggest below alternatives to break down the obstacle.\n\n1. Simply eliminate the test cases with request_alignment \u003e\u003d 16\n2. Change the kMaxAlignment from 16 to 32(or greater) to recalculate the scaling factors and requested_alignment although we would suffer from modification of scaling factors from original ones.\n3. Adjust the simulcast layers\u0027s width \u0026 height to be mutiple of GCD of original width/height and also be divisible by request_alignment in CreateSimulcastOrConferenceModeScreenshareStreams() in webrtc_video_engine.cc\n\nSince we\u0027ve let Android HardwareVideoEncoder\u0027s apply_alignment_to_all_simulcast_layers to False in following patch(http), there would hardly be case of using request_alignment \u003d 16 with apply_alignment_to_all_simulcast_layers \u003d true. However, I\u0027d like to ask you for opinions before I go through. Any ideas would be appreciated.",
+      "revId": "a9aed6e3e6615079c08ab15cf9675e05eee2ff55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

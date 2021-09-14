@@ -39,6 +39,30 @@
       },
       "revId": "5f740d52586a8f2a008602b40184e3660eaeee4e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19be4b03_816ec53c",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 18194
+      },
+      "writtenOn": "2021-09-14T10:45:11Z",
+      "side": 1,
+      "message": "Dear @Silkin,\n\nI\u0027ve cleared out duplicate values with \u002716\u0027 and let REQUESTED_RESOLUTION_ALIGNMENT to replace those ones.",
+      "parentUuid": "d5563baf_6e141ac8",
+      "range": {
+        "startLine": 211,
+        "startChar": 25,
+        "endLine": 211,
+        "endChar": 27
+      },
+      "revId": "5f740d52586a8f2a008602b40184e3660eaeee4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -654,6 +654,11 @@ static bool ContainsRtxCodec(const std::vector<C>& codecs) {
 }
 
 template <class C>
+static bool IsRedCodec(const C& codec) {
+  return absl::EqualsIgnoreCase(codec.name, kRedCodecName);
+}
+
+template <class C>
 static bool IsRtxCodec(const C& codec) {
   return absl::EqualsIgnoreCase(codec.name, kRtxCodecName);
 }
@@ -800,6 +805,11 @@ static void NegotiateCodecs(const std::vector<C>& local_codecs,
         if (rtx_time_it != theirs.params.end()) {
           negotiated.SetParam(kCodecParamRtxTime, rtx_time_it->second);
         }
+      } else if (IsRedCodec(negotiated)) {
+        const auto red_it = theirs.params.find(kCodecParamNotInNameValueFormat);
+        if (red_it != theirs.params.end()) {
+          negotiated.SetParam(kCodecParamNotInNameValueFormat, red_it->second);
+        }
       }
       if (absl::EqualsIgnoreCase(ours.name, kH264CodecName)) {
         webrtc::H264GenerateProfileLevelIdForAnswer(ours.params, theirs.params,
@@ -829,15 +839,16 @@ static void NegotiateCodecs(const std::vector<C>& local_codecs,
 }
 
 // Finds a codec in `codecs2` that matches `codec_to_match`, which is
-// a member of `codecs1`. If `codec_to_match` is an RTX codec, both
+// a member of `codecs1`. If `codec_to_match` is an RED or RTX codec, both
 // the codecs themselves and their associated codecs must match.
 template <class C>
 static bool FindMatchingCodec(const std::vector<C>& codecs1,
                               const std::vector<C>& codecs2,
                               const C& codec_to_match,
                               C* found_codec) {
-  // `codec_to_match` should be a member of `codecs1`, in order to look up RTX
-  // codecs' associated codecs correctly. If not, that's a programming error.
+  // `codec_to_match` should be a member of `codecs1`, in order to look up
+  // RED/RTX codecs' associated codecs correctly. If not, that's a programming
+  // error.
   RTC_DCHECK(absl::c_any_of(codecs1, [&codec_to_match](const C& codec) {
     return &codec == &codec_to_match;
   }));
@@ -857,6 +868,34 @@ static bool FindMatchingCodec(const std::vector<C>& codecs1,
                                    apt_value_2)) {
           continue;
         }
+      } else if (IsRedCodec(codec_to_match)) {
+        auto red_parameters_1 =
+            codec_to_match.params.find(kCodecParamNotInNameValueFormat);
+        auto red_parameters_2 =
+            potential_match.params.find(kCodecParamNotInNameValueFormat);
+        bool has_parameters_1 = red_parameters_1 != codec_to_match.params.end();
+        bool has_parameters_2 =
+            red_parameters_2 != potential_match.params.end();
+        if (has_parameters_1 && has_parameters_2) {
+          std::vector<std::string> redundant_payloads_1;
+          std::vector<std::string> redundant_payloads_2;
+          rtc::split(red_parameters_1->second, '/', &redundant_payloads_1);
+          rtc::split(red_parameters_2->second, '/', &redundant_payloads_2);
+          if (redundant_payloads_1.size() > 0 &&
+              redundant_payloads_2.size() > 0) {
+            int red_value_1;
+            int red_value_2;
+            if (rtc::FromString(redundant_payloads_1[0], &red_value_1) &&
+                rtc::FromString(redundant_payloads_2[0], &red_value_2)) {
+              if (!ReferencedCodecsMatch(codecs1, red_value_1, codecs2,
+                                         red_value_2)) {
+                continue;
+              }
+            }
+          }
+        } else if (has_parameters_1 != has_parameters_2) {
+          continue;
+        }
       }
       if (found_codec) {
         *found_codec = potential_match;
@@ -869,8 +908,8 @@ static bool FindMatchingCodec(const std::vector<C>& codecs1,
 
 // Find the codec in `codec_list` that `rtx_codec` is associated with.
 template <class C>
-static const C* GetAssociatedCodec(const std::vector<C>& codec_list,
-                                   const C& rtx_codec) {
+static const C* GetAssociatedCodecForRtx(const std::vector<C>& codec_list,
+                                         const C& rtx_codec) {
   std::string associated_pt_str;
   if (!rtx_codec.GetParam(kCodecParamAssociatedPayloadType,
                           &associated_pt_str)) {
@@ -887,11 +926,48 @@ static const C* GetAssociatedCodec(const std::vector<C>& codec_list,
     return nullptr;
   }
 
-  // Find the associated reference codec for the reference RTX codec.
+  // Find the associated codec for the RTX codec.
   const C* associated_codec = FindCodecById(codec_list, associated_pt);
   if (!associated_codec) {
     RTC_LOG(LS_WARNING) << "Couldn't find associated codec with payload type "
                         << associated_pt << " for RTX codec " << rtx_codec.name
+                        << ".";
+  }
+  return associated_codec;
+}
+
+// Find the codec in `codec_list` that `red_codec` is associated with.
+template <class C>
+static const C* GetAssociatedCodecForRed(const std::vector<C>& codec_list,
+                                         const C& red_codec) {
+  std::string fmtp;
+  if (!red_codec.GetParam(kCodecParamNotInNameValueFormat, &fmtp)) {
+    // Normal for video/RED.
+    RTC_LOG(LS_WARNING) << "RED codec " << red_codec.name
+                        << " is missing an associated payload type.";
+    return nullptr;
+  }
+
+  std::vector<std::string> redundant_payloads;
+  rtc::split(fmtp, '/', &redundant_payloads);
+  if (redundant_payloads.size() < 2) {
+    return nullptr;
+  }
+
+  std::string associated_pt_str = redundant_payloads[0];
+  int associated_pt;
+  if (!rtc::FromString(associated_pt_str, &associated_pt)) {
+    RTC_LOG(LS_WARNING) << "Couldn't convert first payload type "
+                        << associated_pt_str << " of RED codec "
+                        << red_codec.name << " to an integer.";
+    return nullptr;
+  }
+
+  // Find the associated codec for the RED codec.
+  const C* associated_codec = FindCodecById(codec_list, associated_pt);
+  if (!associated_codec) {
+    RTC_LOG(LS_WARNING) << "Couldn't find associated codec with payload type "
+                        << associated_pt << " for RED codec " << red_codec.name
                         << ".";
   }
   return associated_codec;
@@ -906,7 +982,7 @@ static void MergeCodecs(const std::vector<C>& reference_codecs,
                         UsedPayloadTypes* used_pltypes) {
   // Add all new codecs that are not RTX codecs.
   for (const C& reference_codec : reference_codecs) {
-    if (!IsRtxCodec(reference_codec) &&
+    if (!IsRtxCodec(reference_codec) && !IsRedCodec(reference_codec) &&
         !FindMatchingCodec<C>(reference_codecs, *offered_codecs,
                               reference_codec, nullptr)) {
       C codec = reference_codec;
@@ -915,14 +991,14 @@ static void MergeCodecs(const std::vector<C>& reference_codecs,
     }
   }
 
-  // Add all new RTX codecs.
+  // Add all new RTX or RED codecs.
   for (const C& reference_codec : reference_codecs) {
     if (IsRtxCodec(reference_codec) &&
         !FindMatchingCodec<C>(reference_codecs, *offered_codecs,
                               reference_codec, nullptr)) {
       C rtx_codec = reference_codec;
       const C* associated_codec =
-          GetAssociatedCodec(reference_codecs, rtx_codec);
+          GetAssociatedCodecForRtx(reference_codecs, rtx_codec);
       if (!associated_codec) {
         continue;
       }
@@ -940,6 +1016,27 @@ static void MergeCodecs(const std::vector<C>& reference_codecs,
           rtc::ToString(matching_codec.id);
       used_pltypes->FindAndSetIdUsed(&rtx_codec);
       offered_codecs->push_back(rtx_codec);
+    } else if (IsRedCodec(reference_codec) &&
+               !FindMatchingCodec<C>(reference_codecs, *offered_codecs,
+                                     reference_codec, nullptr)) {
+      C red_codec = reference_codec;
+      const C* associated_codec =
+          GetAssociatedCodecForRed(reference_codecs, red_codec);
+      if (associated_codec) {
+        C matching_codec;
+        if (!FindMatchingCodec<C>(reference_codecs, *offered_codecs,
+                                  *associated_codec, &matching_codec)) {
+          RTC_LOG(LS_WARNING) << "Couldn't find matching "
+                              << associated_codec->name << " codec.";
+          continue;
+        }
+
+        red_codec.params[kCodecParamNotInNameValueFormat] =
+            rtc::ToString(matching_codec.id) + "/" +
+            rtc::ToString(matching_codec.id);
+      }
+      used_pltypes->FindAndSetIdUsed(&red_codec);
+      offered_codecs->push_back(red_codec);
     }
   }
 }

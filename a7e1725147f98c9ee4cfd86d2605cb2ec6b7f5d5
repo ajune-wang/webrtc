@@ -106,6 +106,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "523fbff9_0ae4d51a",
+        "filename": "media/engine/internal_encoder_factory.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-09-14T22:07:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd108e1e_0b757f80",
+      "revId": "a7e1725147f98c9ee4cfd86d2605cb2ec6b7f5d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8dc90ed3_0a54677b",
@@ -129,6 +147,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "40553563_266f2591",
+        "filename": "media/engine/internal_encoder_factory_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-09-14T22:07:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8dc90ed3_0a54677b",
+      "range": {
+        "startLine": 74,
+        "startChar": 4,
+        "endLine": 74,
+        "endChar": 44
+      },
+      "revId": "a7e1725147f98c9ee4cfd86d2605cb2ec6b7f5d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1215c6cd_6f44d0ac",
@@ -142,6 +184,30 @@
       "writtenOn": "2021-09-14T13:39:15Z",
       "side": 1,
       "message": "may be\n  constexpr absl::string_view kSupportedScalabilityModes[] \u003d {\n    \"L1T2\", ...\n  };",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 25
+      },
+      "revId": "a7e1725147f98c9ee4cfd86d2605cb2ec6b7f5d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c17bd9a8_4d78d5fb",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-09-14T22:07:17Z",
+      "side": 1,
+      "message": "This code is removed, but I\u0027ve changed the implementation for the other codecs.",
+      "parentUuid": "1215c6cd_6f44d0ac",
       "range": {
         "startLine": 56,
         "startChar": 0,
@@ -205,6 +271,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "55bd88ea_90cc6cde",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 826,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-09-14T22:07:17Z",
+      "side": 1,
+      "message": "I\u0027ve changed the code for AV1 to check against ScalabilityStructureConfig.",
+      "parentUuid": "5faa6157_252ee045",
+      "revId": "a7e1725147f98c9ee4cfd86d2605cb2ec6b7f5d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a0347a80_6fb6215c",
@@ -228,6 +312,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9656a766_0c1e0d48",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-09-14T22:07:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0347a80_6fb6215c",
+      "range": {
+        "startLine": 24,
+        "startChar": 5,
+        "endLine": 24,
+        "endChar": 15
+      },
+      "revId": "a7e1725147f98c9ee4cfd86d2605cb2ec6b7f5d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e485ae1a_14c27883",
@@ -241,6 +349,30 @@
       "writtenOn": "2021-09-14T13:24:06Z",
       "side": 1,
       "message": "I think this should be the same as vp8: {{\"L1T2\"}, {\"L1T3\"}};\n\nSee e.g. https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/video_coding/codecs/h264/h264_encoder_impl.cc;l\u003d244",
+      "range": {
+        "startLine": 109,
+        "startChar": 2,
+        "endLine": 110,
+        "endChar": 34
+      },
+      "revId": "a7e1725147f98c9ee4cfd86d2605cb2ec6b7f5d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f0e111c_10ea9221",
+        "filename": "modules/video_coding/codecs/h264/h264.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-09-14T22:07:17Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e485ae1a_14c27883",
       "range": {
         "startLine": 109,
         "startChar": 2,

@@ -471,6 +471,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f830f65_08850537",
+        "filename": "media/engine/internal_encoder_factory.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-09-14T22:07:17Z",
+      "side": 1,
+      "message": "H264 support updated with L1T2 and L1T3.",
+      "parentUuid": "cd5dbd37_33e56103",
+      "revId": "c3093d766aff99c6eb9416a7532bf118f1c92d1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c2fccfdb_0573df15",

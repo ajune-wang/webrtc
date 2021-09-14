@@ -187,6 +187,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5faa6157_252ee045",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 826,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-14T14:42:44Z",
+      "side": 1,
+      "message": "AV1 currently supports modes that are listed in kFactories. no more, no less.\n(so for now it would work to check if ScalabilityStructureConfig returns not absl::nullopt instead of manually listing all the modes)\n\nL2T1_KEY not listed in https://www.w3.org/TR/webrtc-svc/#scalabilitymodes* is probably an oversight in the webrtc-svc spec (same as L3T1_KEY).\n\nIn the future may be there will be modes that wouldn\u0027t be supported by AV1. I\u0027m currently unaware of such scalability modes.\n\nVP9 currently may support modes that don\u0027t have associated svc controller, in particular it supports some modes that are not even listed in the webrtc-svc spec, and do not have a name.",
+      "parentUuid": "934a7fb4_4597edea",
+      "revId": "a7e1725147f98c9ee4cfd86d2605cb2ec6b7f5d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a0347a80_6fb6215c",

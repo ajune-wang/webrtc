@@ -80,6 +80,30 @@
       },
       "revId": "8be7da222f5097849419e3036edbdf35ebd53ff6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7497824f_931df4c0",
+        "filename": "modules/audio_coding/neteq/nack_tracker.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2021-09-14T14:48:54Z",
+      "side": 1,
+      "message": "Great. One nit: I prefer early return here instead of nesting if-statement.",
+      "parentUuid": "25d0b62a_ae25ae88",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 0
+      },
+      "revId": "8be7da222f5097849419e3036edbdf35ebd53ff6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

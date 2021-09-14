@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd907805_93e6b20c",
+        "filename": "modules/audio_coding/neteq/nack_tracker.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2021-09-14T14:48:54Z",
+      "side": 1,
+      "message": "I guess this check is not needed if we have the if statement above.",
+      "range": {
+        "startLine": 121,
+        "startChar": 0,
+        "endLine": 123,
+        "endChar": 0
+      },
+      "revId": "886b308d8061f0b105cb0c8912138dbf64e8a0de",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

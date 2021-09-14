@@ -68,6 +68,24 @@
       "message": "can you rename status_on_failure to previous_status, since that is what it represents now?\n\nAn interesting question is whether this has other legal values than 0 (failure) or 1 (success). I hope nobody passes in -1.",
       "revId": "a4a6b5bbc1d3b34b6bffaaaf09e3b86373ad237d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b37e335_4301fe70",
+        "filename": "rtc_base/openssl_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 892,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-09-14T22:27:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85b03d34_986e36e1",
+      "revId": "a4a6b5bbc1d3b34b6bffaaaf09e3b86373ad237d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

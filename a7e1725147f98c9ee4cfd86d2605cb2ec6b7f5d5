@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2537a12b_b887ba40",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-09-14T13:42:14Z",
+      "side": 1,
+      "message": "Do you mean that we for each potentially supported scalability mode try to create a scalability structure config using ScalabilityStructureConfig(absl::string_view name):\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/video_coding/svc/create_scalability_structure.cc;drc\u003d5d3bf6ae2aea1c6c72f995ba6d29220e6605b323;l\u003d148",
+      "parentUuid": "139a1007_085bc8d0",
+      "revId": "a7e1725147f98c9ee4cfd86d2605cb2ec6b7f5d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b625da75_35abe8bc",
         "filename": "media/engine/internal_encoder_factory.cc",
         "patchSetId": 14

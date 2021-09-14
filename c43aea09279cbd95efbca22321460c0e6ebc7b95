@@ -16,6 +16,23 @@
       "message": "Sam - can you please review the fuzzer changes as an owner?",
       "revId": "c43aea09279cbd95efbca22321460c0e6ebc7b95",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70a9d0b0_da13458c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2021-09-14T06:39:45Z",
+      "side": 1,
+      "message": "lgtm!",
+      "revId": "c43aea09279cbd95efbca22321460c0e6ebc7b95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

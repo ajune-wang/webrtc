@@ -36,6 +36,41 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1889d2dd_0e42b511",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-09-14T13:59:56Z",
+      "side": 1,
+      "message": "lgtm % h264 comment",
+      "revId": "a7e1725147f98c9ee4cfd86d2605cb2ec6b7f5d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7feac3dd_cbc44ee1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-09-14T13:59:56Z",
+      "side": 1,
+      "message": "Hm, not sure it\u0027s really needed when we have the lists for av1/vp9 already hard-coded. If we generalize codec control further the we can update at that time.",
+      "parentUuid": "2537a12b_b887ba40",
+      "revId": "a7e1725147f98c9ee4cfd86d2605cb2ec6b7f5d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b625da75_35abe8bc",

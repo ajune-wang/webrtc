@@ -33,6 +33,23 @@
       "message": "Instinctively, I\u0027d prefer to keep this enum an implementation detail.\n\nRTP header extensions is a \"no registration needed\" field (identified by URI), so we are guaranteed to encounter extensions that we haven\u0027t seen before, and we\u0027re guaranteed to want to expand the list over time. Both actions cause breakages with an API-exposed enum that covers all the RTP extensions we support.\n\nThe ID in the header is a negotiated value; it does not map to the enum.\n\n",
       "revId": "f8917d6303f1bd50f1aee6cea6a47650fc586127",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c9a7361_50a89d81",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-09-14T09:36:18Z",
+      "side": 1,
+      "message": "Thanks both - yes, I was misunderstanding (or rather, getting confused by) the enum and use of both constants and literals for the uris in the code. The uris seem to be what we should be using consistently and enforcing use of the constants somehow, ideally. I\u0027ll abandon this CL and rethink the approach (not urgent).",
+      "revId": "f8917d6303f1bd50f1aee6cea6a47650fc586127",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

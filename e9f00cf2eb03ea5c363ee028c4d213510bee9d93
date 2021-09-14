@@ -122,6 +122,24 @@
       "parentUuid": "8cd19837_46be2296",
       "revId": "e9f00cf2eb03ea5c363ee028c4d213510bee9d93",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3387e537_77bbd859",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1162,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-09-14T19:59:35Z",
+      "side": 1,
+      "message": "I mistook codec_control being similar to ancient APIs passing everything by pointer. Turns out the pointer based version doesn\u0027t react on VP9E_SET_COLOR_SPACE or VP9E_SET_COLOR_RANGE.",
+      "parentUuid": "a8a022c7_4fb4b16a",
+      "revId": "e9f00cf2eb03ea5c363ee028c4d213510bee9d93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

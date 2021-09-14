@@ -22,6 +22,30 @@
       },
       "revId": "886b308d8061f0b105cb0c8912138dbf64e8a0de",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e211deb0_6fdbc7b5",
+        "filename": "modules/audio_coding/neteq/nack_tracker.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-09-14T15:17:49Z",
+      "side": 1,
+      "message": "I think this DCHECK should never trigger (it\u0027s probably a sanity check), but it\u0027s not checking exactly the same thing as the if-statement, or is it? It looks like it\u0027s comparing to the last decoded seq nr instead of the last received seq nr. Maybe we can just leave it?",
+      "parentUuid": "cd907805_93e6b20c",
+      "range": {
+        "startLine": 121,
+        "startChar": 0,
+        "endLine": 123,
+        "endChar": 0
+      },
+      "revId": "886b308d8061f0b105cb0c8912138dbf64e8a0de",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

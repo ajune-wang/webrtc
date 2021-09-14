@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11d68590_b77c9b42",
+        "filename": "modules/video_coding/h264_packet_buffer.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-14T15:24:19Z",
+      "side": 1,
+      "message": "what this header is for?\n\n(usually it is there for memcpy, that is better to avoid)",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 19
+      },
+      "revId": "5d7d1cbe79492eac21f2a978c9dc25f3004febee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dab208d5_cb4ed600",
+        "filename": "modules/video_coding/h264_packet_buffer.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-14T15:24:19Z",
+      "side": 1,
+      "message": "#include \"absl/base/attributes.h\"",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 22
+      },
+      "revId": "5d7d1cbe79492eac21f2a978c9dc25f3004febee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d56e781_c286b8fe",
+        "filename": "modules/video_coding/h264_packet_buffer_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-14T15:24:19Z",
+      "side": 1,
+      "message": "push_back\nhttps://abseil.io/tips/112",
+      "range": {
+        "startLine": 125,
+        "startChar": 17,
+        "endLine": 125,
+        "endChar": 29
+      },
+      "revId": "5d7d1cbe79492eac21f2a978c9dc25f3004febee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4baf2609_9e2402d7",
+        "filename": "modules/video_coding/h264_packet_buffer_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-14T15:24:19Z",
+      "side": 1,
+      "message": "const auto\u0026\nto stress elem is not modified in the process",
+      "range": {
+        "startLine": 241,
+        "startChar": 7,
+        "endLine": 241,
+        "endChar": 12
+      },
+      "revId": "5d7d1cbe79492eac21f2a978c9dc25f3004febee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

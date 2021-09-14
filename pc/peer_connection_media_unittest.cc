@@ -1303,6 +1303,48 @@ TEST_P(PeerConnectionMediaTest,
             audio_options.combined_audio_video_bwe);
 }
 
+// Test that if a RED codec refers to another codec in its fmtp line, but that
+// codec's payload type was reassigned for some reason (either the remote
+// endpoint selected a different payload type or there was a conflict), the RED
+// fmtp line is modified to refer to the correct payload type.
+TEST_P(PeerConnectionMediaTest, RedFmtpPayloadTypeReassigned) {
+  std::vector<cricket::AudioCodec> caller_fake_codecs;
+  caller_fake_codecs.push_back(cricket::AudioCodec(100, "foo", 0, 0, 1));
+  auto caller_fake_engine = std::make_unique<FakeMediaEngine>();
+  caller_fake_engine->SetAudioCodecs(caller_fake_codecs);
+  auto caller = CreatePeerConnectionWithAudio(std::move(caller_fake_engine));
+
+  std::vector<cricket::AudioCodec> callee_fake_codecs;
+  callee_fake_codecs.push_back(cricket::AudioCodec(120, "foo", 0, 0, 1));
+  callee_fake_codecs.push_back(
+      cricket::AudioCodec(121, cricket::kRedCodecName, 0, 0, 1));
+  callee_fake_codecs.back().SetParam("", "120/120");
+  auto callee_fake_engine = std::make_unique<FakeMediaEngine>();
+  callee_fake_engine->SetAudioCodecs(callee_fake_codecs);
+  auto callee = CreatePeerConnectionWithAudio(std::move(callee_fake_engine));
+
+  // Offer from the caller establishes 100 as the "foo" payload type.
+  auto offer = caller->CreateOfferAndSetAsLocal();
+  callee->SetRemoteDescription(std::move(offer));
+  callee->CreateAnswerAndSetAsLocal();
+
+  // Offer from the callee should respect the established payload type, and
+  // attempt to add RED, which should refer to the correct payload type.
+  offer = callee->CreateOfferAndSetAsLocal();
+  auto* offer_description =
+      cricket::GetFirstAudioContentDescription(offer->description());
+  ASSERT_EQ(2u, offer_description->codecs().size());
+  for (const auto& codec : offer_description->codecs()) {
+    if (codec.name == "foo") {
+      ASSERT_EQ(100, codec.id);
+    } else if (codec.name == cricket::kRedCodecName) {
+      std::string fmtp;
+      ASSERT_TRUE(codec.GetParam("", &fmtp));
+      EXPECT_EQ("100/100", fmtp);
+    }
+  }
+}
+
 template <typename C>
 bool CompareCodecs(const std::vector<webrtc::RtpCodecCapability>& capabilities,
                    const std::vector<C>& codecs) {

@@ -50,6 +50,41 @@
       "message": "Thanks both - yes, I was misunderstanding (or rather, getting confused by) the enum and use of both constants and literals for the uris in the code. The uris seem to be what we should be using consistently and enforcing use of the constants somehow, ideally. I\u0027ll abandon this CL and rethink the approach (not urgent).",
       "revId": "f8917d6303f1bd50f1aee6cea6a47650fc586127",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bdedd99_1596c946",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-09-14T09:55:46Z",
+      "side": 1,
+      "message": "What I\u0027d be thinking about is a single registry for supported URLs in some module (possibly with register-on-load or register-in-linker if possible, so that supported URLs can be in the source together with the code that supports them) that can map an URL to an internal representation that is a) unique and b) fast to compare.\n\nThen everything that parses URLs coming from external sources go to this single registry in order to get the answer to 1) is it supported, and 2) what code do I use when passing it to other places.\n\nAn opaque type that has a hidden inner value that is a pointer to the registry entry would do fine (and make the \"map this to its text representation\" function very quick).",
+      "parentUuid": "0c9a7361_50a89d81",
+      "revId": "f8917d6303f1bd50f1aee6cea6a47650fc586127",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "298bf4e1_a982c534",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-09-14T09:55:46Z",
+      "side": 1,
+      "message": "Trying to exercise imagination....\n",
+      "revId": "f8917d6303f1bd50f1aee6cea6a47650fc586127",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

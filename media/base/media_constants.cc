@@ -39,6 +39,7 @@ const char kCodecParamRtxTime[] = "rtx-time";
 const char kCodecParamAssociatedPayloadType[] = "apt";
 
 const char kCodecParamAssociatedCodecName[] = "acn";
+const char kCodecParamEmpty[] = "";
 
 const char kOpusCodecName[] = "opus";
 const char kIsacCodecName[] = "ISAC";

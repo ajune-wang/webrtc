@@ -34,6 +34,24 @@
       "parentUuid": "60fb6c9a_d2c743e3",
       "revId": "f1ab3aca68e3365d258d90213ddcdec06451c9db",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "386e10d0_4dd0f935",
+        "filename": "tools_webrtc/mb/mb_config.pyl",
+        "patchSetId": 1
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 5509
+      },
+      "writtenOn": "2021-09-14T15:02:42Z",
+      "side": 1,
+      "message": "Shouldn\u0027t that be in your build/config/ios/ios_sdk_overrides.gni then though?",
+      "parentUuid": "bbb753db_a243a40d",
+      "revId": "f1ab3aca68e3365d258d90213ddcdec06451c9db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

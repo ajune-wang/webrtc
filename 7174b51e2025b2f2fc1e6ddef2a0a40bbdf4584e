@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4ed2427_d64603ea",
+        "filename": "logging/rtc_event_log/events/rtc_event_field_extraction.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-09-14T11:14:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d91a7e3_43575378",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 3
+      },
+      "revId": "7174b51e2025b2f2fc1e6ddef2a0a40bbdf4584e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "af78252e_2efb5692",
@@ -65,6 +89,54 @@
         "startChar": 43,
         "endLine": 38,
         "endChar": 65
+      },
+      "revId": "7174b51e2025b2f2fc1e6ddef2a0a40bbdf4584e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "060d5f58_ce23d60f",
+        "filename": "logging/rtc_event_log/events/rtc_event_field_extraction.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-09-14T11:14:26Z",
+      "side": 1,
+      "message": "We use both versions, but you are right that the version is known at compile time. The \"true\" case is only used in a single place, so I made an explicit \"x\u003e0?...\" check there instead.",
+      "parentUuid": "977fe820_1d57c878",
+      "range": {
+        "startLine": 38,
+        "startChar": 43,
+        "endLine": 38,
+        "endChar": 65
+      },
+      "revId": "7174b51e2025b2f2fc1e6ddef2a0a40bbdf4584e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4deb115_78a9b12a",
+        "filename": "logging/rtc_event_log/events/rtc_event_field_extraction.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-09-14T11:14:26Z",
+      "side": 1,
+      "message": "Added explanation. I think the current names make it clearer that we have two versions and the difference between them, namely that the functions compute bitwidths for signed and unsigned representations respectively.",
+      "parentUuid": "af78252e_2efb5692",
+      "range": {
+        "startLine": 38,
+        "startChar": 9,
+        "endLine": 38,
+        "endChar": 25
       },
       "revId": "7174b51e2025b2f2fc1e6ddef2a0a40bbdf4584e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
@@ -116,6 +188,54 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "564c3370_5a3a70e9",
+        "filename": "logging/rtc_event_log/events/rtc_event_field_extraction.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-09-14T11:14:26Z",
+      "side": 1,
+      "message": "Yes, it is (the integer part of) the base-2 logarithm.",
+      "parentUuid": "340e9857_0d4bf129",
+      "range": {
+        "startLine": 39,
+        "startChar": 11,
+        "endLine": 39,
+        "endChar": 14
+      },
+      "revId": "7174b51e2025b2f2fc1e6ddef2a0a40bbdf4584e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c70e5bb_a4b05756",
+        "filename": "logging/rtc_event_log/events/rtc_event_field_extraction.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-09-14T11:14:26Z",
+      "side": 1,
+      "message": "Yes, it is (the integer part of) the base-2 logarithm.",
+      "parentUuid": "19b66913_2755d732",
+      "range": {
+        "startLine": 39,
+        "startChar": 11,
+        "endLine": 39,
+        "endChar": 14
+      },
+      "revId": "7174b51e2025b2f2fc1e6ddef2a0a40bbdf4584e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "87ca0e71_7898b1e2",
@@ -129,6 +249,30 @@
       "writtenOn": "2021-09-09T16:06:57Z",
       "side": 1,
       "message": "It\u0027s a bit odd to me that we get a batch of RtcEvent* but later on we assume that they\u0027re all E*. I\u0027d prefer to see rtc::ArrayView\u003cconst E*\u003e as the argument type here, even if it means that we need to do some ugly casting before calling this. Ideally we\u0027d ensure type safety throughout if possible.",
+      "range": {
+        "startLine": 70,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 41
+      },
+      "revId": "7174b51e2025b2f2fc1e6ddef2a0a40bbdf4584e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7838ce0_e8b02051",
+        "filename": "logging/rtc_event_log/events/rtc_event_field_extraction.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-09-14T11:14:26Z",
+      "side": 1,
+      "message": "The log is supposed to ensure that the batch only contains events of type E. That this is indeed the case, and that the (type to encoder) mapping is correct, is CHECKed below.\n\nThe events are tracked by the RtcEvent* pointer in two places:\n\n1. All events are placed in a RtcEvent* buffer to cache the most recent events when logging isn\u0027t enabled. This would be somewhat difficult to avoid.\n\n2. My intention is to group events into batches based on event-\u003eType() and dispatch each batch to an encode function, when output is enabled. To create a map from event type to encode function, the encoder needs to have the same signature for all event types.\nThis part could be changed, but there are some downsides.\na) Explicitly using full types would require a non-negligible amount of boilerplate code for each event type. Since we have a lot of event types, this adds up to a substantial amount of code. It also makes it more cumbersome to add new event types compared to just registering the encoder function in a (event type to encoder) map.\nb) Alternatively, I think we could create a templatized wrapper which holds a function pointer (with the full type) and, given a vector/ArrayView of RtcEvents*, forwards that. The complication here is that, afaik, it\u0027s not possible to cast an ArrayView\u003cBase*\u003e to ArrayView\u003cDerived*\u003e since the value of each individual pointer may need to be updated based on the offset between Base and Derived. Thus, this approach requires an additional copy of the input vector.\n\nSince this decision largely depends on the how the encoder is wired up to the log, I propose we leave as-is for now and revisit in that CL.",
+      "parentUuid": "87ca0e71_7898b1e2",
       "range": {
         "startLine": 70,
         "startChar": 4,
@@ -162,6 +306,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0e22f42_f1eb3619",
+        "filename": "logging/rtc_event_log/events/rtc_event_field_extraction.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-09-14T11:14:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "18fa8a28_f95a4a90",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 52
+      },
+      "revId": "7174b51e2025b2f2fc1e6ddef2a0a40bbdf4584e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0a3007db_eb7da576",
@@ -175,6 +343,30 @@
       "writtenOn": "2021-09-09T16:06:57Z",
       "side": 1,
       "message": "nit: E::kType",
+      "range": {
+        "startLine": 76,
+        "startChar": 36,
+        "endLine": 76,
+        "endChar": 49
+      },
+      "revId": "7174b51e2025b2f2fc1e6ddef2a0a40bbdf4584e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af0d46fa_9f94c1ac",
+        "filename": "logging/rtc_event_log/events/rtc_event_field_extraction.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-09-14T11:14:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a3007db_eb7da576",
       "range": {
         "startLine": 76,
         "startChar": 36,
@@ -208,6 +400,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "12e4484c_cd880fcb",
+        "filename": "logging/rtc_event_log/events/rtc_event_field_extraction.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-09-14T11:14:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "07a35047_87cc5b1a",
+      "range": {
+        "startLine": 105,
+        "startChar": 3,
+        "endLine": 110,
+        "endChar": 5
+      },
+      "revId": "7174b51e2025b2f2fc1e6ddef2a0a40bbdf4584e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a4f7c241_6348f951",
@@ -221,6 +437,30 @@
       "writtenOn": "2021-09-09T16:06:57Z",
       "side": 1,
       "message": "nit: should be reference since we don\u0027t allow nullptr.",
+      "range": {
+        "startLine": 123,
+        "startChar": 42,
+        "endLine": 123,
+        "endChar": 43
+      },
+      "revId": "7174b51e2025b2f2fc1e6ddef2a0a40bbdf4584e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79f24b41_ed1c5886",
+        "filename": "logging/rtc_event_log/events/rtc_event_field_extraction.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-09-14T11:14:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4f7c241_6348f951",
       "range": {
         "startLine": 123,
         "startChar": 42,
@@ -277,6 +517,54 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef6e6d46_64e06d58",
+        "filename": "logging/rtc_event_log/events/rtc_event_field_extraction.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-09-14T11:14:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b883c5de_bcc79d8f",
+      "range": {
+        "startLine": 127,
+        "startChar": 37,
+        "endLine": 127,
+        "endChar": 40
+      },
+      "revId": "7174b51e2025b2f2fc1e6ddef2a0a40bbdf4584e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf3bdc60_2fa00145",
+        "filename": "logging/rtc_event_log/events/rtc_event_field_extraction.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-09-14T11:14:26Z",
+      "side": 1,
+      "message": "Done. It would be great if that gave a speed boost :)",
+      "parentUuid": "b883c5de_bcc79d8f",
+      "range": {
+        "startLine": 127,
+        "startChar": 37,
+        "endLine": 127,
+        "endChar": 40
+      },
+      "revId": "7174b51e2025b2f2fc1e6ddef2a0a40bbdf4584e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fce77afd_628542ea",
@@ -290,6 +578,30 @@
       "writtenOn": "2021-09-09T16:06:57Z",
       "side": 1,
       "message": "Looks like we\u0027re allowing to fill in one batch at a time, could we document this behavior? Or maybe preferred, provide a std::span\u003cE\u003e which has already been sliced to match the batch size. (can use an assert to check that target.size() \u003d\u003d values.size() making this specific part of the code slightly clearer)",
+      "range": {
+        "startLine": 129,
+        "startChar": 14,
+        "endLine": 129,
+        "endChar": 45
+      },
+      "revId": "7174b51e2025b2f2fc1e6ddef2a0a40bbdf4584e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e71947f9_fe66bd5a",
+        "filename": "logging/rtc_event_log/events/rtc_event_field_extraction.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-09-14T11:14:26Z",
+      "side": 1,
+      "message": "Good idea, but std::span is c++20 right? How about a non-const ArrayView?",
+      "parentUuid": "fce77afd_628542ea",
       "range": {
         "startLine": 129,
         "startChar": 14,

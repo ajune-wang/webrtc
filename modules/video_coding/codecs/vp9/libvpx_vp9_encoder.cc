@@ -9,6 +9,7 @@
  *
  */
 
+#include "vpx/vpx_image.h"
 #ifdef RTC_ENABLE_VP9
 
 #include "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.h"
@@ -853,6 +854,41 @@ int LibvpxVp9Encoder::InitAndSetControlSettings(const VideoCodec* inst) {
   return WEBRTC_VIDEO_CODEC_OK;
 }
 
+struct VpxColorSpace {
+  int primary_id = VPX_CS_UNKNOWN;
+  absl::optional<int> range_id;
+};
+VpxColorSpace WebRtcToVP9ColorSpace(const webrtc::ColorSpace& color_space) {
+  VpxColorSpace cs;
+  switch (color_space.primaries()) {
+    case webrtc::ColorSpace::PrimaryID::kBT709:
+      cs.primary_id = VPX_CS_BT_709;
+      break;
+    case webrtc::ColorSpace::PrimaryID::kSMPTE170M:
+      cs.primary_id = VPX_CS_SMPTE_170;
+      break;
+    case webrtc::ColorSpace::PrimaryID::kSMPTE240M:
+      cs.primary_id = VPX_CS_SMPTE_240;
+      break;
+    case webrtc::ColorSpace::PrimaryID::kBT2020:
+      cs.primary_id = VPX_CS_BT_2020;
+      break;
+    default:
+      break;
+  }
+  switch (color_space.range()) {
+    case webrtc::ColorSpace::RangeID::kLimited:
+      cs.range_id = VPX_CR_STUDIO_RANGE;
+      break;
+    case webrtc::ColorSpace::RangeID::kFull:
+      cs.range_id = VPX_CR_FULL_RANGE;
+      break;
+    default:
+      break;
+  }
+  return cs;
+}
+
 uint32_t LibvpxVp9Encoder::MaxIntraTarget(uint32_t optimal_buffer_size) {
   // Set max to the optimal buffer level (normalized by target BR),
   // and scaled by a scale_par.
@@ -1119,6 +1155,28 @@ int LibvpxVp9Encoder::Encode(const VideoFrame& input_image,
   }
 
   first_frame_in_picture_ = true;
+
+  // Colorspace setup - imply colorspace by primaries.
+  if (input_image.color_space().has_value()) {
+    VpxColorSpace cs = WebRtcToVP9ColorSpace(*input_image.color_space());
+    libvpx_->codec_control(encoder_, VP9E_SET_COLOR_SPACE, &cs.primary_id);
+    if (cs.range_id.has_value()) {
+      int range_id = *cs.range_id;
+      libvpx_->codec_control(encoder_, VP9E_SET_COLOR_RANGE, &range_id);
+    }
+    RTC_LOG(LS_ERROR) << __func__ << " vps cs " << cs.primary_id << " rg "
+                      << (cs.range_id.has_value() ? *cs.range_id : -1);
+  }
+  // RTC_LOG(LS_ERROR) << __func__ << " colorspace? "
+  //                   << input_image.color_space().has_value();
+  // if (input_image.color_space().has_value()) {
+  //   RTC_LOG(LS_ERROR) << __func__ << " primaries "
+  //                     << (int)input_image.color_space()->primaries()
+  //                     << " matrix " << (int)input_image.color_space()->matrix()
+  //                     << " transfer "
+  //                     << (int)input_image.color_space()->transfer() << " range "
+  //                     << (int)input_image.color_space()->range();
+  // }
 
   // TODO(ssilkin): Frame duration should be specified per spatial layer
   // since their frame rate can be different. For now calculate frame duration

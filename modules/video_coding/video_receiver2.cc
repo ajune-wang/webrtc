@@ -24,6 +24,7 @@
 #include "modules/video_coding/timing.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/trace_event.h"
+#include "rtc_base/logging.h"
 #include "system_wrappers/include/clock.h"
 
 namespace webrtc {
@@ -100,6 +101,11 @@ void VideoReceiver2::DecoderThreadStopped() {
 int32_t VideoReceiver2::Decode(const VCMEncodedFrame* frame) {
   RTC_DCHECK_RUN_ON(&decoder_sequence_checker_);
   TRACE_EVENT0("webrtc", "VideoReceiver2::Decode");
+  // RTC_LOG(LS_ERROR) << __func__ << " primaries "
+  //                   << (int)frame->ColorSpace()->primaries() << " transfer "
+  //                   << (int)frame->ColorSpace()->transfer() << " matrix "
+  //                   << (int)frame->ColorSpace()->matrix() << " range "
+  //                   << (int)frame->ColorSpace()->range();
   // Change decoder if payload type has changed
   VCMGenericDecoder* decoder =
       codecDataBase_.GetDecoder(*frame, &decodedFrameCallback_);

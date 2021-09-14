@@ -347,6 +347,15 @@ int LibvpxVp9Decoder::ReturnFrame(
   auto builder = VideoFrame::Builder()
                      .set_video_frame_buffer(img_wrapped_buffer)
                      .set_timestamp_rtp(timestamp);
+  webrtc::ColorSpace cs =
+      explicit_color_space
+          ? *explicit_color_space
+          : ExtractVP9ColorSpace(img->cs, img->range, img->bit_depth);
+  RTC_LOG(LS_ERROR) << __func__ << " explicit? "
+                    << (explicit_color_space != nullptr) << " primaries "
+                    << (int)cs.primaries() << " transfer " << (int)cs.transfer()
+                    << " matrix " << (int)cs.matrix() << " range "
+                    << (int)cs.range();
   if (explicit_color_space) {
     builder.set_color_space(*explicit_color_space);
   } else {

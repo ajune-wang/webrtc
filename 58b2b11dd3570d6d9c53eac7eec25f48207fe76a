@@ -16,6 +16,91 @@
       "message": "test cherry-picked from https://webrtc-review.googlesource.com/c/src/+/231863",
       "revId": "58b2b11dd3570d6d9c53eac7eec25f48207fe76a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1831802f_5902c3bb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-09-14T17:25:31Z",
+      "side": 1,
+      "message": "Nits, mostly. But if you create an obvoius error path, I want it exercised in a test!\n",
+      "revId": "58b2b11dd3570d6d9c53eac7eec25f48207fe76a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8be4424b_c61390af",
+        "filename": "media/base/media_constants.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-09-14T17:25:31Z",
+      "side": 1,
+      "message": "Since this is a trigger for special handling, not a true value, what about calling it kCodecParamNotInNameValueFormat?",
+      "revId": "58b2b11dd3570d6d9c53eac7eec25f48207fe76a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09ef04d4_5dee355a",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 934,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-09-14T17:25:31Z",
+      "side": 1,
+      "message": "I think GetAssociatedCodecForRed is easier to read; matter of taste.",
+      "revId": "58b2b11dd3570d6d9c53eac7eec25f48207fe76a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bebeee49_a4fba040",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 959,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-09-14T17:25:31Z",
+      "side": 1,
+      "message": "Too many references. \"Find the associated codec for this RED codec\" should be sufficient.",
+      "revId": "58b2b11dd3570d6d9c53eac7eec25f48207fe76a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "665bdee3_84c27f25",
+        "filename": "pc/peer_connection_media_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1346,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-09-14T17:25:31Z",
+      "side": 1,
+      "message": "Should we have tests that exercise the path of not finding a matching codec in an incoming offer (which should either lead to rejecting the offer or ignoring the RED codec when generating the answer; I\u0027m not sure which)?",
+      "revId": "58b2b11dd3570d6d9c53eac7eec25f48207fe76a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

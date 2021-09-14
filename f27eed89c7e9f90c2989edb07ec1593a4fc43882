@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "5501fd0d_b03f4c3d",
+        "filename": "modules/video_coding/h264_packet_buffer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-09-14T14:50:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "213f54a1_d8fbd613",
+      "range": {
+        "startLine": 124,
+        "startChar": 9,
+        "endLine": 124,
+        "endChar": 12
+      },
+      "revId": "f27eed89c7e9f90c2989edb07ec1593a4fc43882",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "b73de853_95186d19",
         "filename": "modules/video_coding/h264_packet_buffer.cc",
         "patchSetId": 10
@@ -72,6 +96,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "150157e9_8c3f030f",
+        "filename": "modules/video_coding/h264_packet_buffer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-09-14T14:50:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c95d6943_d1f6b15a",
+      "range": {
+        "startLine": 149,
+        "startChar": 2,
+        "endLine": 149,
+        "endChar": 65
+      },
+      "revId": "f27eed89c7e9f90c2989edb07ec1593a4fc43882",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "870c088f_cd354ffe",
         "filename": "modules/video_coding/h264_packet_buffer.cc",
         "patchSetId": 10
@@ -83,6 +131,30 @@
       "writtenOn": "2021-09-13T14:20:45Z",
       "side": 1,
       "message": "not just in case of rtx. without rtx packets can be retransmitted with old sequence number too. May be even multiplied by the network in some corner case scenarios.",
+      "range": {
+        "startLine": 207,
+        "startChar": 7,
+        "endLine": 207,
+        "endChar": 21
+      },
+      "revId": "f27eed89c7e9f90c2989edb07ec1593a4fc43882",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b4e66fc_6f133377",
+        "filename": "modules/video_coding/h264_packet_buffer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-09-14T14:50:38Z",
+      "side": 1,
+      "message": "Updated the comment",
+      "parentUuid": "870c088f_cd354ffe",
       "range": {
         "startLine": 207,
         "startChar": 7,
@@ -118,6 +190,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "ee513fbf_8cd98cdd",
+        "filename": "modules/video_coding/h264_packet_buffer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-09-14T14:50:38Z",
+      "side": 1,
+      "message": "Had another look at this and realized there was a way to simplify the clearing of old packets so now ClearOldPacketsBeforeInsertingNewPacket has be removed.\n\nPackets that were never returned as part of a completed frame will stay in the `buffer`.\n\nHere are two tests where old packets are left in the buffer where this check matters.\nOldFramesAreNotCompletedAfterBufferWrap\nOldPacketDoesntCompleteFrame",
+      "parentUuid": "e9442572_270af858",
+      "range": {
+        "startLine": 207,
+        "startChar": 70,
+        "endLine": 208,
+        "endChar": 79
+      },
+      "revId": "f27eed89c7e9f90c2989edb07ec1593a4fc43882",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "0d55ba75_40d4032e",
         "filename": "modules/video_coding/h264_packet_buffer.cc",
         "patchSetId": 10
@@ -129,6 +225,30 @@
       "writtenOn": "2021-09-13T14:20:45Z",
       "side": 1,
       "message": "May be\n  Packet* prev_packet \u003d GetPacket(seq_num_start - 1).get();\n  \n(to avoid hiding type with auto)",
+      "range": {
+        "startLine": 221,
+        "startChar": 8,
+        "endLine": 221,
+        "endChar": 13
+      },
+      "revId": "f27eed89c7e9f90c2989edb07ec1593a4fc43882",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d3d8e91_a1ee3f95",
+        "filename": "modules/video_coding/h264_packet_buffer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-09-14T14:50:38Z",
+      "side": 1,
+      "message": "auto\u0026 is used everywhere else, except for \u0027packet\u0027 where I use a pointer so that it can be reassigned.\n\nstd::unique_ptr\u003cH264PacketBuffer::Packet\u003e\u0026 is kind of long",
+      "parentUuid": "0d55ba75_40d4032e",
       "range": {
         "startLine": 221,
         "startChar": 8,

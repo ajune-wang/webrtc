@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b58774ac_2e493d77",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-09-14T18:00:23Z",
+      "side": 1,
+      "message": "All is good, but let\u0027s resolve the handover readiness!",
+      "revId": "ce3db6a18dd2629b7bc0e93e0631e3c26718587b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22db8d7a_acacf6f9",
+        "filename": "net/dcsctp/rx/data_tracker.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-09-14T18:00:23Z",
+      "side": 1,
+      "message": "I don\u0027t think you need to block handover readiness on this. Even if you would handover the socket while the delayed ack timer is running, it might result in a SACK not being sent after the socket has handed over. SACKs can always get lost, so the peer will just re-send the DATA in case, which would immediately trigger a SACK as it would be receiving a duplicate DATA already received.\n\nRequiring the ack timer to be idle would delay readiness until it fires (~100ms) and becomes idle.",
+      "range": {
+        "startLine": 361,
+        "startChar": 6,
+        "endLine": 361,
+        "endChar": 35
+      },
+      "revId": "ce3db6a18dd2629b7bc0e93e0631e3c26718587b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18cada75_bf8eba93",
+        "filename": "net/dcsctp/rx/data_tracker_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-09-14T18:00:23Z",
+      "side": 1,
+      "message": "Thanks. DataTracker was called something else in the past (RxAckBuffer I think), and renamed last minute - but forgot to rename this member.",
+      "range": {
+        "startLine": 65,
+        "startChar": 31,
+        "endLine": 65,
+        "endChar": 39
+      },
+      "revId": "ce3db6a18dd2629b7bc0e93e0631e3c26718587b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

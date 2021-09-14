@@ -23,12 +23,12 @@ namespace {
 
 struct ExtensionInfo {
   RTPExtensionType type;
-  const char* uri;
+  absl::string_view uri;
 };
 
 template <typename Extension>
 constexpr ExtensionInfo CreateExtensionInfo() {
-  return {Extension::kId, Extension::kUri};
+  return {Extension::kId, Extension::Uri()};
 }
 
 constexpr ExtensionInfo kExtensions[] = {
@@ -135,7 +135,7 @@ void RtpHeaderExtensionMap::Deregister(absl::string_view uri) {
 
 bool RtpHeaderExtensionMap::Register(int id,
                                      RTPExtensionType type,
-                                     const char* uri) {
+                                     absl::string_view uri) {
   RTC_DCHECK_GT(type, kRtpExtensionNone);
   RTC_DCHECK_LT(type, kRtpExtensionNumberOfExtensions);
 

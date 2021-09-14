@@ -42,6 +42,7 @@ extern const char kCodecParamRtxTime[];
 extern const char kCodecParamAssociatedPayloadType[];
 
 extern const char kCodecParamAssociatedCodecName[];
+extern const char kCodecParamEmpty[];
 
 extern const char kOpusCodecName[];
 extern const char kIsacCodecName[];

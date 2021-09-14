@@ -105,6 +105,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1c0036c0_361d4489",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 976,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-09-14T23:11:45Z",
+      "side": 1,
+      "message": "We intentionally do two passes in case the RTX codec is listed before its referenced codec for whatever reason. I know this was a problem in some corner case at one point.",
+      "parentUuid": "b2056391_e3c5c928",
+      "revId": "58b2b11dd3570d6d9c53eac7eec25f48207fe76a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c3cc0d51_f489c79e",
         "filename": "pc/media_session.cc",
         "patchSetId": 6
@@ -133,6 +151,24 @@
       "writtenOn": "2021-09-14T17:25:31Z",
       "side": 1,
       "message": "Should we have tests that exercise the path of not finding a matching codec in an incoming offer (which should either lead to rejecting the offer or ignoring the RED codec when generating the answer; I\u0027m not sure which)?",
+      "revId": "58b2b11dd3570d6d9c53eac7eec25f48207fe76a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c716942_b7cb4f79",
+        "filename": "pc/peer_connection_media_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1346,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-09-14T23:11:45Z",
+      "side": 1,
+      "message": "It should be the latter. I\u0027m sure we have tests for this for other codecs, so it might not be necessary.",
+      "parentUuid": "665bdee3_84c27f25",
       "revId": "58b2b11dd3570d6d9c53eac7eec25f48207fe76a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

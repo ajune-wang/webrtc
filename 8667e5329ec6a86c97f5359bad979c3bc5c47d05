@@ -16,6 +16,165 @@
       "message": "slight change in behaviour:\nremote red without fmtp will not match local red with fmtp anymore. Actually that solves backward compat even.",
       "revId": "8667e5329ec6a86c97f5359bad979c3bc5c47d05",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "635c65c4_8279828c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-09-14T23:11:45Z",
+      "side": 1,
+      "message": "Good job figuring out how this code works for the most part, took me a lot longer.\n\nMy main comments are:\n\n* If we assume the referenced payload types are always identical, we need to enforce that assumption somewhere and not add RED if they\u0027re different. Though my preference would be to make this more robust and handle any number of unique payload types.\n* Is it a requirement that the encapsulated payload types are identical between the two peers? I don\u0027t see anything in RFC2198 which indicates that. Harald?",
+      "revId": "8667e5329ec6a86c97f5359bad979c3bc5c47d05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa9d75d0_7d3ab62d",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 809,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-09-14T23:11:45Z",
+      "side": 1,
+      "message": "It\u0027s not sufficient to just copy the parameters from the remote offer, as the offerer may want to receive a different codec than we do. Really we need to parse our own fmtp line, then figure out what payload type the offerer used for the same codec, if it even exists in the offer.",
+      "revId": "8667e5329ec6a86c97f5359bad979c3bc5c47d05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be246b75_a6cc14b0",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 843,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-09-14T23:11:45Z",
+      "side": 1,
+      "message": "It *is* a requirement that they match when codecs1 and codecs2 are both from our local lists (e.g. reference_codecs and offered_codecs), but *not* when one is remote and the other is local. The remote offerer should be able to say it prefers different primary/secondary codecs than we do. So there needs to be a \"bool match_red\" flag or something along those lines.",
+      "revId": "8667e5329ec6a86c97f5359bad979c3bc5c47d05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a78e7592_97a7fd19",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 888,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-09-14T23:11:45Z",
+      "side": 1,
+      "message": "Wouldn\u0027t you need to do this for for each payload type, not just [0]?",
+      "revId": "8667e5329ec6a86c97f5359bad979c3bc5c47d05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa528bc9_33dfca20",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 957,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-09-14T23:11:45Z",
+      "side": 1,
+      "message": "Same here; if we are assuming that redundant_payloads[0]\u003dredundant_payloads[1] we should at least enforce that assumption somewhere.",
+      "revId": "8667e5329ec6a86c97f5359bad979c3bc5c47d05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11a0ddc2_fcbc8eb1",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1049,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-09-14T23:11:45Z",
+      "side": 1,
+      "message": "Still need to deal with RED here.",
+      "range": {
+        "startLine": 1049,
+        "startChar": 14,
+        "endLine": 1049,
+        "endChar": 34
+      },
+      "revId": "8667e5329ec6a86c97f5359bad979c3bc5c47d05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75a8f911_197f309d",
+        "filename": "pc/peer_connection_media_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1379,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-09-14T23:11:45Z",
+      "side": 1,
+      "message": "Second part of this comment doesn\u0027t seem to apply.",
+      "revId": "8667e5329ec6a86c97f5359bad979c3bc5c47d05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f57c02d_33ebf67f",
+        "filename": "pc/peer_connection_media_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1414,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-09-14T23:11:45Z",
+      "side": 1,
+      "message": "Why not?",
+      "revId": "8667e5329ec6a86c97f5359bad979c3bc5c47d05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "761c8f65_242de372",
+        "filename": "pc/peer_connection_media_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1439,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-09-14T23:11:45Z",
+      "side": 1,
+      "message": "Also test with different referenced codecs?",
+      "revId": "8667e5329ec6a86c97f5359bad979c3bc5c47d05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

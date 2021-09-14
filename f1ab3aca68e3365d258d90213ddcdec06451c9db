@@ -16,6 +16,24 @@
       "message": "Can you add a `# TODO(crbug.com/1249456): Remove use_lld\u003dfalse` here please? And also please add 1249456 to the Bug: line.\n\nDo you need both of these toggles or is `use_lld\u003dfalse` enough?",
       "revId": "f1ab3aca68e3365d258d90213ddcdec06451c9db",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbb753db_a243a40d",
+        "filename": "tools_webrtc/mb/mb_config.pyl",
+        "patchSetId": 1
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-09-14T14:49:10Z",
+      "side": 1,
+      "message": "As I see from https://webrtc-review.googlesource.com/c/src/+/231951/3 use_lld\u003dfalse should be enough, but while we want to keep iOS 12 available, I think it\u0027s better to ensure that iOS target will be at least 12.",
+      "parentUuid": "60fb6c9a_d2c743e3",
+      "revId": "f1ab3aca68e3365d258d90213ddcdec06451c9db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

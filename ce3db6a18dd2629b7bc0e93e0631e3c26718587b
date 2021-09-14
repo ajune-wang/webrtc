@@ -43,6 +43,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "b26ea1e2_1f9599c7",
+        "filename": "net/dcsctp/rx/data_tracker.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 18169
+      },
+      "writtenOn": "2021-09-14T20:12:29Z",
+      "side": 1,
+      "message": "Thanks! Removed the state from readiness check.",
+      "parentUuid": "22db8d7a_acacf6f9",
+      "range": {
+        "startLine": 361,
+        "startChar": 6,
+        "endLine": 361,
+        "endChar": 35
+      },
+      "revId": "ce3db6a18dd2629b7bc0e93e0631e3c26718587b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "18cada75_bf8eba93",
         "filename": "net/dcsctp/rx/data_tracker_test.cc",
         "patchSetId": 1

@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "34c2799f_fd81f36b",
+        "filename": "modules/desktop_capture/linux/base_capturer_pipewire.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 621,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-09-15T08:53:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9dd89806_8da5698c",
+      "range": {
+        "startLine": 621,
+        "startChar": 2,
+        "endLine": 621,
+        "endChar": 45
+      },
+      "revId": "8bb4966b9e649786b93cc59cf734b82e8a9f1b21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "88cf41b5_77e31534",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-09-15T08:39:01Z",
       "side": 1,
       "message": "current_frame_ not _current_frame",
+      "range": {
+        "startLine": 98,
+        "startChar": 32,
+        "endLine": 98,
+        "endChar": 46
+      },
+      "revId": "8bb4966b9e649786b93cc59cf734b82e8a9f1b21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "503e577e_e9d6075f",
+        "filename": "modules/desktop_capture/linux/base_capturer_pipewire.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-09-15T08:53:17Z",
+      "side": 1,
+      "message": "How could I not notice I have it different from all the other variables. Thanks.",
+      "parentUuid": "88cf41b5_77e31534",
       "range": {
         "startLine": 98,
         "startChar": 32,

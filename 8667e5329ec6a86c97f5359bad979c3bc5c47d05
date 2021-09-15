@@ -72,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "26aae9d6_755a6055",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 809,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-09-15T20:59:28Z",
+      "side": 1,
+      "message": "We only want to send RTX for codec A if the receiver says it wants to receive RTX for codec A. But I was assuming it should be possible to send RED for codec A but receive it for codec B.\n\nMaybe this is ambiguous due to the lack of specification of offer/answer semantics. But something that definitely seems like it should work is having an offer with no fmtp line but in answer with one. Otherwise this CL could break situations where RED is currently working.",
+      "parentUuid": "e88c309f_9afd92ad",
+      "revId": "8667e5329ec6a86c97f5359bad979c3bc5c47d05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "be246b75_a6cc14b0",
         "filename": "pc/media_session.cc",
         "patchSetId": 7
@@ -177,6 +195,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9a5bc73a_0b406b9b",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 957,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-09-15T20:59:28Z",
+      "side": 1,
+      "message": "That happens after SDP generation though. If your interpretation of the spec is that offering \"100/120\" and answering \"100/100\" is illegal, then this code has a problem; even if the voice engine sees \"100/120\" and decides not to use RED, we are still generating illegal SDP (or not depending on the interpretation).",
+      "parentUuid": "1ef2b3b5_a616dead",
+      "revId": "8667e5329ec6a86c97f5359bad979c3bc5c47d05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "11a0ddc2_fcbc8eb1",
         "filename": "pc/media_session.cc",
         "patchSetId": 7
@@ -253,6 +289,24 @@
       "side": 1,
       "message": "-v please",
       "parentUuid": "75a8f911_197f309d",
+      "revId": "8667e5329ec6a86c97f5359bad979c3bc5c47d05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a07a67e_d6ed6975",
+        "filename": "pc/peer_connection_media_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1379,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-09-15T20:59:28Z",
+      "side": 1,
+      "message": "\"which should refer to the correct payload type\" isn\u0027t relevant because there is no fmtp line that\u0027s referring to another payload type",
+      "parentUuid": "0b93226a_9ecf5966",
       "revId": "8667e5329ec6a86c97f5359bad979c3bc5c47d05",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

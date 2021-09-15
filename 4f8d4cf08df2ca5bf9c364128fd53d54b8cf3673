@@ -22,6 +22,30 @@
       },
       "revId": "4f8d4cf08df2ca5bf9c364128fd53d54b8cf3673",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33b199cf_94ae1557",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-09-15T11:41:09Z",
+      "side": 1,
+      "message": "classic one! Changed the condition below, the same applies to the kRedMaxPacketSize.",
+      "parentUuid": "2d3a155e_769a20be",
+      "range": {
+        "startLine": 28,
+        "startChar": 4,
+        "endLine": 28,
+        "endChar": 11
+      },
+      "revId": "4f8d4cf08df2ca5bf9c364128fd53d54b8cf3673",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

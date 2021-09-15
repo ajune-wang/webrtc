@@ -1217,6 +1217,7 @@ void VideoStreamEncoder::ReconfigureEncoder() {
       encoder_config_.min_transmit_bitrate_bps);
 
   stream_resource_manager_.ConfigureQualityScaler(info);
+  stream_resource_manager_.ConfigureEncodeUsageResource();
 }
 
 void VideoStreamEncoder::OnEncoderSettingsChanged() {
@@ -1636,8 +1637,8 @@ void VideoStreamEncoder::EncodeVideoFrame(const VideoFrame& video_frame,
   }
 
   if (encoder_info_ != info) {
-    OnEncoderSettingsChanged();
-    stream_resource_manager_.ConfigureEncodeUsageResource();
+    pending_encoder_reconfiguration_ = true;
+    ReconfigureEncoder();
     RTC_LOG(LS_INFO) << "Encoder settings changed from "
                      << encoder_info_.ToString() << " to " << info.ToString();
   }

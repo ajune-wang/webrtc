@@ -33,6 +33,41 @@
       "message": "I don\u0027t think you want to do the full reconfiguration on any change. We\u0027re in fact actively trying to reduce the number of full reconfigurations. More likely you want check if a particular subset of EncodingInfo has changed.\nWhat problem in particular are you looking into? Linking to a bug with context would help.",
       "revId": "8048fa350d7a88d42d317472d25834c60025358a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d4f4b60_7bfb708b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-15T13:11:33Z",
+      "side": 1,
+      "message": "Linking to a bug with context would help\n: It is related to this bug, https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d12942.\n\nWhat problem in particular are you looking into?\n: When I working with this patch https://webrtc-review.googlesource.com/c/src/+/228860, I try to get the |is_qp_trusted| when ReconfigureEncoder(), but find the value obtained from GetEncoderInfo() is different at the beginning and the end of the function, because the value of GetEncoderInfo() may changes at runtime. \n\nFYI:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/platform/peerconnection/rtc_video_encoder.cc;l\u003d739;drc\u003dfd868478b30bbaac33521981de69a256320db0bd;bpv\u003d0;bpt\u003d1\n\n_______________________________\n\nIn this link:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/video/video_stream_encoder.cc?q\u003dvideo_stream_encoder.cc\u0026ss\u003dchromium, lines 878, 886, 917, 965 , 980, 1171, 1215 in ReconfigureEncoder(), they are initialized with GetEncoderInfo(). When encoder_info_ change, we should initialize them again, or abstract all logic relative to GetEncoderInfo() into the function like \"OnEncoderInfoChange()\" to reduce the number of full reconfigurations. WDYT?",
+      "parentUuid": "3675ba07_c0a54fb4",
+      "revId": "8048fa350d7a88d42d317472d25834c60025358a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3579e2b7_22cbadf3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-15T13:11:33Z",
+      "side": 1,
+      "message": "Erik, PTAL :)",
+      "revId": "8048fa350d7a88d42d317472d25834c60025358a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

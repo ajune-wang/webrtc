@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d3a155e_769a20be",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2021-09-15T07:16:25Z",
+      "side": 1,
+      "message": "This should be (1 \u003c\u003c 14) - 1, right?",
+      "range": {
+        "startLine": 28,
+        "startChar": 4,
+        "endLine": 28,
+        "endChar": 11
+      },
+      "revId": "4f8d4cf08df2ca5bf9c364128fd53d54b8cf3673",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

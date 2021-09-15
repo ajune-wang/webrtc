@@ -87,6 +87,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8d6460d_4402f21e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-15T08:43:15Z",
+      "side": 1,
+      "message": "yes, more_rbsp_data() should peek, not read, shouldn\u0027t modify original bit reader\n(and yep, BitBuffer::PeekBits() should probably be const)\n\nThe example I\u0027ve provided uses BitstreamReader, not BitBuffer.\nBitstreamReader doesn\u0027t have PeekBits function, instead peeking is done by taking copy of the BitstreamReader object, reading from that copy, then discarding it.\n(See https://source.chromium.org/chromium/_/webrtc/src.git/+/7ca630f8dd0c1c8179a635660c0265bb5f4ea179:rtc_base/bitstream_reader_unittest.cc;l\u003d233;drc\u003d5af152c214987f55b747cdb407546b0625da6802 )",
+      "parentUuid": "b9bf55ec_b7f38c5d",
+      "revId": "c9bff098d0eb5341dc996fbcb207185ac36f93de",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ccfb5eba_32c99c73",

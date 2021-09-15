@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ef2a8b3_8cff2074",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-09-15T08:39:01Z",
+      "side": 1,
+      "message": "lgtm % comments",
+      "revId": "8bb4966b9e649786b93cc59cf734b82e8a9f1b21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9dd89806_8da5698c",
+        "filename": "modules/desktop_capture/linux/base_capturer_pipewire.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 621,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-09-15T08:39:01Z",
+      "side": 1,
+      "message": "nit: usually prefer current_frame_ \u003d std::make_unique\u003cBasicDesktopFrame\u003e(\nUnless something prevents that. I guess in this case that fact that current_frame_ is a std::unique_ptr\u003cDesktopFrame\u003e may be a problem, though is there a reason it can\u0027t be a std::unique_ptr\u003cBasicDesktopFrame\u003e?",
+      "range": {
+        "startLine": 621,
+        "startChar": 2,
+        "endLine": 621,
+        "endChar": 45
+      },
+      "revId": "8bb4966b9e649786b93cc59cf734b82e8a9f1b21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88cf41b5_77e31534",
+        "filename": "modules/desktop_capture/linux/base_capturer_pipewire.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-09-15T08:39:01Z",
+      "side": 1,
+      "message": "current_frame_ not _current_frame",
+      "range": {
+        "startLine": 98,
+        "startChar": 32,
+        "endLine": 98,
+        "endChar": 46
+      },
+      "revId": "8bb4966b9e649786b93cc59cf734b82e8a9f1b21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

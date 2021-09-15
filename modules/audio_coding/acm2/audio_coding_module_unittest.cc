@@ -1315,24 +1315,14 @@ class AcmSenderBitExactnessNewApi : public AcmSenderBitExactnessOldApi {};
 TEST_F(AcmSenderBitExactnessOldApi, IsacWb30ms) {
   ASSERT_NO_FATAL_FAILURE(SetUpTest("ISAC", 16000, 1, 103, 480, 480));
   Run(AcmReceiverBitExactnessOldApi::PlatformChecksum(
-#if defined(WEBRTC_WIN) && defined(_MSC_VER) && !defined(__clang__) && \
-    defined(WEBRTC_ARCH_X86)
           /*others=*/"2c9cb15d4ed55b5a0cadd04883bc73b0",
-#else
-          /*others=*/"6f7f227f4e2ace7027257eecb7b17e08",
-#endif
           /*win64=*/"9336a9b993cbd8a751f0e8958e66c89c",
           /*android_arm32=*/"5c2eb46199994506236f68b2c8e51b0d",
           /*android_arm64=*/"343f1f42be0607c61e6516aece424609",
           /*android_arm64_clang=*/"2c9cb15d4ed55b5a0cadd04883bc73b0",
           /*mac_arm64=*/"6f7f227f4e2ace7027257eecb7b17e08"),
       AcmReceiverBitExactnessOldApi::PlatformChecksum(
-#if defined(WEBRTC_WIN) && defined(_MSC_VER) && !defined(__clang__) && \
-    defined(WEBRTC_ARCH_X86)
           /*others=*/"3c79f16f34218271f3dca4e2b1dfe1bb",
-#else
-          /*others=*/"3fbb620556a08bcb88d9134e846bbb8e",
-#endif
           /*win64=*/"d42cb5195463da26c8129bbfe73a22e6",
           /*android_arm32=*/"83de248aea9c3c2bd680b6952401b4ca",
           /*android_arm64=*/"3c79f16f34218271f3dca4e2b1dfe1bb",
@@ -1344,24 +1334,14 @@ TEST_F(AcmSenderBitExactnessOldApi, IsacWb30ms) {
 TEST_F(AcmSenderBitExactnessOldApi, IsacWb60ms) {
   ASSERT_NO_FATAL_FAILURE(SetUpTest("ISAC", 16000, 1, 103, 960, 960));
   Run(AcmReceiverBitExactnessOldApi::PlatformChecksum(
-#if defined(WEBRTC_WIN) && defined(_MSC_VER) && !defined(__clang__) && \
-    defined(WEBRTC_ARCH_X86)
           /*others=*/"1ad29139a04782a33daad8c2b9b35875",
-#else
-          /*others=*/"8b4377f3048d946d69b771c1e5fa8839",
-#endif
           /*win64=*/"14d63c5f08127d280e722e3191b73bdd",
           /*android_arm32=*/"9a81e467eb1485f84aca796f8ea65011",
           /*android_arm64=*/"ef75e900e6f375e3061163c53fd09a63",
           /*android_arm64_clang=*/"1ad29139a04782a33daad8c2b9b35875",
           /*mac_arm64=*/"8b4377f3048d946d69b771c1e5fa8839"),
       AcmReceiverBitExactnessOldApi::PlatformChecksum(
-#if defined(WEBRTC_WIN) && defined(_MSC_VER) && !defined(__clang__) && \
-    defined(WEBRTC_ARCH_X86)
           /*others=*/"9e0a0ab743ad987b55b8e14802769c56",
-#else
-          /*others=*/"080f341c0d498e7a60522084bf8264ae",
-#endif
           /*win64=*/"ebe04a819d3a9d83a83a17f271e1139a",
           /*android_arm32=*/"97aeef98553b5a4b5a68f8b716e8eaf0",
           /*android_arm64=*/"9e0a0ab743ad987b55b8e14802769c56",
@@ -1385,22 +1365,14 @@ TEST_F(AcmSenderBitExactnessOldApi, MAYBE_IsacSwb30ms) {
 // checksum.
 #if defined(WEBRTC_LINUX) && defined(WEBRTC_ARCH_X86)
           /*others=*/"521a04159bb991fa2f32f550d5184f60",
-#elif defined(WEBRTC_WIN) && defined(_MSC_VER) && !defined(__clang__) && \
-    defined(WEBRTC_ARCH_X86)
-          /*others=*/"5683b58da0fbf2063c7adc2e6bfb3fb8",
 #else
-          /*others=*/"c1858ba5d734df6fe52e715eb1b25f31",
+          /*others=*/"5683b58da0fbf2063c7adc2e6bfb3fb8",
 #endif
           /*win64=*/"2b3c387d06f00b7b7aad4c9be56fb83d", "android_arm32_audio",
           "android_arm64_audio", "android_arm64_clang_audio",
           /*mac_arm64=*/"c1858ba5d734df6fe52e715eb1b25f31"),
       AcmReceiverBitExactnessOldApi::PlatformChecksum(
-#if defined(WEBRTC_WIN) && defined(_MSC_VER) && !defined(__clang__) && \
-    defined(WEBRTC_ARCH_X86)
           /*others=*/"ce86106a93419aefb063097108ec94ab",
-#else
-          /*others=*/"127e24a1005ac80394b1f88d0cbc72a8",
-#endif
           /*win64=*/"bcc2041e7744c7ebd9f701866856849c", "android_arm32_payload",
           "android_arm64_payload", "android_arm64_clang_payload",
           /*mac_arm64=*/"127e24a1005ac80394b1f88d0cbc72a8"),

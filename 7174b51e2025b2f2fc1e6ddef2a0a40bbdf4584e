@@ -283,6 +283,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4dda1fe_c9d9d480",
+        "filename": "logging/rtc_event_log/events/rtc_event_field_extraction.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-09-15T09:56:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d7838ce0_e8b02051",
+      "range": {
+        "startLine": 70,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 41
+      },
+      "revId": "7174b51e2025b2f2fc1e6ddef2a0a40bbdf4584e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "18fa8a28_f95a4a90",
@@ -602,6 +626,30 @@
       "side": 1,
       "message": "Good idea, but std::span is c++20 right? How about a non-const ArrayView?",
       "parentUuid": "fce77afd_628542ea",
+      "range": {
+        "startLine": 129,
+        "startChar": 14,
+        "endLine": 129,
+        "endChar": 45
+      },
+      "revId": "7174b51e2025b2f2fc1e6ddef2a0a40bbdf4584e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cf8c7da_d48fcc8e",
+        "filename": "logging/rtc_event_log/events/rtc_event_field_extraction.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-09-15T09:56:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e71947f9_fe66bd5a",
       "range": {
         "startLine": 129,
         "startChar": 14,

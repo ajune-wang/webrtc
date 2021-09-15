@@ -16,6 +16,23 @@
       "message": "Hi Sergey/Erik/Evan, PTAL!\n\n",
       "revId": "8048fa350d7a88d42d317472d25834c60025358a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3675ba07_c0a54fb4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-09-15T10:51:27Z",
+      "side": 1,
+      "message": "I don\u0027t think you want to do the full reconfiguration on any change. We\u0027re in fact actively trying to reduce the number of full reconfigurations. More likely you want check if a particular subset of EncodingInfo has changed.\nWhat problem in particular are you looking into? Linking to a bug with context would help.",
+      "revId": "8048fa350d7a88d42d317472d25834c60025358a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

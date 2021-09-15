@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e88c309f_9afd92ad",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 809,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-09-15T20:22:33Z",
+      "side": 1,
+      "message": "why don\u0027t we need to do so for rtx? (asymmetric payload type usage is a rabbit hole I don\u0027t want to go down, i think we know there are bugs there)",
+      "parentUuid": "fa9d75d0_7d3ab62d",
+      "revId": "8667e5329ec6a86c97f5359bad979c3bc5c47d05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "be246b75_a6cc14b0",
         "filename": "pc/media_session.cc",
         "patchSetId": 7
@@ -71,6 +89,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dba61ac0_c59b73be",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 843,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-09-15T20:22:33Z",
+      "side": 1,
+      "message": "see above. We don\u0027t support that for rtx (I think)?",
+      "parentUuid": "be246b75_a6cc14b0",
+      "revId": "8667e5329ec6a86c97f5359bad979c3bc5c47d05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a78e7592_97a7fd19",
         "filename": "pc/media_session.cc",
         "patchSetId": 7
@@ -82,6 +118,24 @@
       "writtenOn": "2021-09-14T23:11:45Z",
       "side": 1,
       "message": "Wouldn\u0027t you need to do this for for each payload type, not just [0]?",
+      "revId": "8667e5329ec6a86c97f5359bad979c3bc5c47d05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42206c5b_21163342",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 888,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-09-15T20:22:33Z",
+      "side": 1,
+      "message": "see below.",
+      "parentUuid": "a78e7592_97a7fd19",
       "revId": "8667e5329ec6a86c97f5359bad979c3bc5c47d05",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -105,6 +159,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1ef2b3b5_a616dead",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 957,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-09-15T20:22:33Z",
+      "side": 1,
+      "message": "done as part of CheckRedParameters since https://webrtc-review.googlesource.com/c/src/+/229583/9/media/engine/webrtc_voice_engine.cc",
+      "parentUuid": "fa528bc9_33dfca20",
+      "revId": "8667e5329ec6a86c97f5359bad979c3bc5c47d05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "11a0ddc2_fcbc8eb1",
         "filename": "pc/media_session.cc",
         "patchSetId": 7
@@ -116,6 +188,30 @@
       "writtenOn": "2021-09-14T23:11:45Z",
       "side": 1,
       "message": "Still need to deal with RED here.",
+      "range": {
+        "startLine": 1049,
+        "startChar": 14,
+        "endLine": 1049,
+        "endChar": 34
+      },
+      "revId": "8667e5329ec6a86c97f5359bad979c3bc5c47d05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b61563a4_a2093da5",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1049,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-09-15T20:22:33Z",
+      "side": 1,
+      "message": "Ack but ... how to test this?",
+      "parentUuid": "11a0ddc2_fcbc8eb1",
       "range": {
         "startLine": 1049,
         "startChar": 14,
@@ -145,6 +241,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0b93226a_9ecf5966",
+        "filename": "pc/peer_connection_media_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1379,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-09-15T20:22:33Z",
+      "side": 1,
+      "message": "-v please",
+      "parentUuid": "75a8f911_197f309d",
+      "revId": "8667e5329ec6a86c97f5359bad979c3bc5c47d05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6f57c02d_33ebf67f",
         "filename": "pc/peer_connection_media_unittest.cc",
         "patchSetId": 7
@@ -162,6 +276,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "376fdbf7_98c89e00",
+        "filename": "pc/peer_connection_media_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1414,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-09-15T20:22:33Z",
+      "side": 1,
+      "message": "The assumption I make is that red-without-fmtp means something that is not compatible with red-with-fmtp.\n\nHandling red-without-fmtp is a requirement because of video/red.",
+      "parentUuid": "6f57c02d_33ebf67f",
+      "revId": "8667e5329ec6a86c97f5359bad979c3bc5c47d05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "761c8f65_242de372",
         "filename": "pc/peer_connection_media_unittest.cc",
         "patchSetId": 7
@@ -173,6 +305,24 @@
       "writtenOn": "2021-09-14T23:11:45Z",
       "side": 1,
       "message": "Also test with different referenced codecs?",
+      "revId": "8667e5329ec6a86c97f5359bad979c3bc5c47d05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dab58cfc_8289ca41",
+        "filename": "pc/peer_connection_media_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1439,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-09-15T20:22:33Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "761c8f65_242de372",
       "revId": "8667e5329ec6a86c97f5359bad979c3bc5c47d05",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

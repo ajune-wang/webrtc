@@ -123,6 +123,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0ea78af9_76500d76",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 976,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-09-15T20:22:33Z",
+      "side": 1,
+      "message": "ah, that makes sense. This would also behave differently with respect to collisions and running out of payload types. The current variant prefers actual codecs. So two loops are a bit better. Will document.",
+      "parentUuid": "1c0036c0_361d4489",
+      "revId": "58b2b11dd3570d6d9c53eac7eec25f48207fe76a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c3cc0d51_f489c79e",
         "filename": "pc/media_session.cc",
         "patchSetId": 6

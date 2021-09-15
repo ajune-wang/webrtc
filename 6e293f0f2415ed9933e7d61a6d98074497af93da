@@ -980,6 +980,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc923cb2_5f816e11",
+        "filename": "modules/video_coding/h264_packet_buffer_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-09-15T08:59:19Z",
+      "side": 1,
+      "message": "IDR only keyframes should not really be used but we support it since it\u0027s allowed by the standard. Instantiating a H264PacketBuffer with `allow_idr_only_keyframe` should be an exception.",
+      "parentUuid": "31ab19f1_5a6b572c",
+      "range": {
+        "startLine": 379,
+        "startChar": 33,
+        "endLine": 379,
+        "endChar": 67
+      },
+      "revId": "6e293f0f2415ed9933e7d61a6d98074497af93da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "78a32a38_38e703db",
@@ -1028,6 +1052,30 @@
       "writtenOn": "2021-09-13T14:20:45Z",
       "side": 1,
       "message": "or 0xffff\n(not sure which version you consider more readable)",
+      "range": {
+        "startLine": 518,
+        "startChar": 44,
+        "endLine": 518,
+        "endChar": 57
+      },
+      "revId": "6e293f0f2415ed9933e7d61a6d98074497af93da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b91dc3ff_86359cad",
+        "filename": "modules/video_coding/h264_packet_buffer_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-09-15T08:59:19Z",
+      "side": 1,
+      "message": "Hex is cleaner, updated",
+      "parentUuid": "354979e6_8691e3c4",
       "range": {
         "startLine": 518,
         "startChar": 44,
@@ -1192,6 +1240,30 @@
       "writtenOn": "2021-09-13T14:20:45Z",
       "side": 1,
       "message": "I\u0027m worried this helper might hide a bit too much (what was the 2nd parameter again?)\nMay be it would be cleaner without the helper\n\n  auto packets \u003d packet_buffer.InsertPacket(...).packets;\n  ...\n  ASSERT_THAT(packets, SizeIs(1));\n  EXPECT_THAT(packets[0]-\u003evideo_payload, ElementsAre....);\n  \nor with a simpler helper:\n  EXPECT_THAT(PacketPayload(packets[0]), ElementsAre....);",
+      "range": {
+        "startLine": 550,
+        "startChar": 14,
+        "endLine": 550,
+        "endChar": 35
+      },
+      "revId": "6e293f0f2415ed9933e7d61a6d98074497af93da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c26f2fa_e13e96a3",
+        "filename": "modules/video_coding/h264_packet_buffer_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-09-15T08:59:19Z",
+      "side": 1,
+      "message": "Simplified the helper",
+      "parentUuid": "4b3e462e_67263c60",
       "range": {
         "startLine": 550,
         "startChar": 14,

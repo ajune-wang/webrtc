@@ -69,6 +69,23 @@
       "parentUuid": "631a4f61_64929b99",
       "revId": "77c676bbe643d88ec9aa2fcea815d4d42a53c3f6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5d0e6b3_91250fdd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-09-16T09:55:46Z",
+      "side": 1,
+      "message": "Mirko is ooo, Henrik, can you lgtm sdk/BUILD?",
+      "revId": "77c676bbe643d88ec9aa2fcea815d4d42a53c3f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

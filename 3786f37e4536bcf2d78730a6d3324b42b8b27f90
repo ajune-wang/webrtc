@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93b515e8_8b75725b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-09-16T13:07:00Z",
+      "side": 1,
+      "message": "PTAL. Needed for downstream code that constructs a BasicPacketSocketFactory from the OwnedFactoryAndThreads state.",
+      "revId": "3786f37e4536bcf2d78730a6d3324b42b8b27f90",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

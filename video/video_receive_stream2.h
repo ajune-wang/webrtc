@@ -183,10 +183,12 @@ class VideoReceiveStream2
                                          bool generate_key_frame) override;
   void GenerateKeyFrame() override;
 
+  void StartNextDecode();
+
  private:
+  void StartNextDecodeOnDecoderThread() RTC_RUN_ON(decode_queue_);
   void CreateAndRegisterExternalDecoder(const Decoder& decoder);
   int64_t GetMaxWaitMs() const RTC_RUN_ON(decode_queue_);
-  void StartNextDecode() RTC_RUN_ON(decode_queue_);
   void HandleEncodedFrame(std::unique_ptr<EncodedFrame> frame)
       RTC_RUN_ON(decode_queue_);
   void HandleFrameBufferTimeout(int64_t now_ms, int64_t wait_ms)
@@ -228,7 +230,7 @@ class VideoReceiveStream2
   CallStats* const call_stats_;
 
   bool decoder_running_ RTC_GUARDED_BY(worker_sequence_checker_) = false;
-  bool decoder_stopped_ RTC_GUARDED_BY(decode_queue_) = true;
+  bool decoder_stopped_ RTC_GUARDED_BY(decode_mutex_) = true;
 
   SourceTracker source_tracker_;
   ReceiveStatisticsProxy stats_proxy_;
@@ -264,9 +266,12 @@ class VideoReceiveStream2
   // If we have successfully decoded any frame.
   bool frame_decoded_ RTC_GUARDED_BY(decode_queue_) = false;
 
-  int64_t last_keyframe_request_ms_ RTC_GUARDED_BY(decode_queue_) = 0;
+  webrtc::Mutex decode_mutex_;
+  int64_t last_keyframe_request_ms_ RTC_GUARDED_BY(decode_mutex_) = 0;
   int64_t last_complete_frame_time_ms_
       RTC_GUARDED_BY(worker_sequence_checker_) = 0;
+  Timestamp last_decoded_frame_timestamp_ RTC_GUARDED_BY(decode_queue_) =
+      Timestamp::MinusInfinity();
 
   // Keyframe request intervals are configurable through field trials.
   const int max_wait_for_keyframe_ms_;
@@ -292,7 +297,7 @@ class VideoReceiveStream2
 
   // Function that is triggered with encoded frames, if not empty.
   std::function<void(const RecordableEncodedFrame&)>
-      encoded_frame_buffer_function_ RTC_GUARDED_BY(decode_queue_);
+      encoded_frame_buffer_function_ RTC_GUARDED_BY(decode_mutex_);
   // Set to true while we're requesting keyframes but not yet received one.
   bool keyframe_generation_requested_ RTC_GUARDED_BY(packet_sequence_checker_) =
       false;
@@ -322,7 +327,6 @@ class VideoReceiveStream2
   // any video frame has been received.
   FieldTrialParameter<int> maximum_pre_stream_decoders_;
 
-  // Defined last so they are destroyed before all other members.
   rtc::TaskQueue decode_queue_;
 
   // Used to signal destruction to potentially pending tasks.

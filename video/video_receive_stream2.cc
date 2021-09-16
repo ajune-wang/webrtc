@@ -231,8 +231,8 @@ VideoReceiveStream2::VideoReceiveStream2(
                                                      true),
       maximum_pre_stream_decoders_("max", kDefaultMaximumPreStreamDecoders),
       decode_queue_(task_queue_factory_->CreateTaskQueue(
-          "DecodingQueue",
-          TaskQueueFactory::Priority::HIGH)) {
+          "DecoderQueue",
+          TaskQueueFactory::Priority::NORMAL)) {
   RTC_LOG(LS_INFO) << "VideoReceiveStream2: " << config_.ToString();
 
   RTC_DCHECK(call_->worker_thread());
@@ -394,12 +394,11 @@ void VideoReceiveStream2::Start() {
   // Start decoding on task queue.
   video_receiver_.DecoderThreadStarting();
   stats_proxy_.DecoderThreadStarting();
-  decode_queue_.PostTask([this] {
-    RTC_DCHECK_RUN_ON(&decode_queue_);
-    decoder_stopped_ = false;
-    StartNextDecode();
-  });
   decoder_running_ = true;
+  {
+    webrtc::MutexLock lock(&decode_mutex_);
+    decoder_stopped_ = false;
+  }
 
   {
     // TODO(bugs.webrtc.org/11993): Make this call on the network thread.
@@ -421,19 +420,13 @@ void VideoReceiveStream2::Stop() {
   stats_proxy_.OnUniqueFramesCounted(
       rtp_video_stream_receiver_.GetUniqueFramesSeen());
 
-  decode_queue_.PostTask([this] { frame_buffer_->Stop(); });
-
   call_stats_->DeregisterStatsObserver(this);
 
   if (decoder_running_) {
-    rtc::Event done;
-    decode_queue_.PostTask([this, &done] {
-      RTC_DCHECK_RUN_ON(&decode_queue_);
-      decoder_stopped_ = true;
-      done.Set();
-    });
-    done.Wait(rtc::Event::kForever);
-
+    {
+      webrtc::MutexLock lock(&decode_mutex_);
+      decoder_stopped_ = false;
+    }
     decoder_running_ = false;
     video_receiver_.DecoderThreadStopped();
     stats_proxy_.DecoderThreadStopped();
@@ -631,10 +624,8 @@ void VideoReceiveStream2::RequestKeyFrame(int64_t timestamp_ms) {
   // Called from RtpVideoStreamReceiver (rtp_video_stream_receiver_ is
   // ultimately responsible).
   rtp_video_stream_receiver_.RequestKeyFrame();
-  decode_queue_.PostTask([this, timestamp_ms]() {
-    RTC_DCHECK_RUN_ON(&decode_queue_);
-    last_keyframe_request_ms_ = timestamp_ms;
-  });
+  webrtc::MutexLock lock(&decode_mutex_);
+  last_keyframe_request_ms_ = timestamp_ms;
 }
 
 void VideoReceiveStream2::OnCompleteFrame(std::unique_ptr<EncodedFrame> frame) {
@@ -717,37 +708,64 @@ int64_t VideoReceiveStream2::GetMaxWaitMs() const {
                             : max_wait_for_frame_ms_;
 }
 
-void VideoReceiveStream2::StartNextDecode() {
+void VideoReceiveStream2::StartNextDecodeOnDecoderThread() {
   // Running on the decode thread.
   TRACE_EVENT0("webrtc", "VideoReceiveStream2::StartNextDecode");
-  frame_buffer_->NextFrame(
-      GetMaxWaitMs(), keyframe_required_, &decode_queue_,
-      /* encoded frame handler */
-      [this](std::unique_ptr<EncodedFrame> frame, ReturnReason res) {
-        RTC_DCHECK_EQ(frame == nullptr, res == ReturnReason::kTimeout);
-        RTC_DCHECK_EQ(frame != nullptr, res == ReturnReason::kFrameFound);
-        RTC_DCHECK_RUN_ON(&decode_queue_);
-        if (decoder_stopped_)
-          return;
-        if (frame) {
-          HandleEncodedFrame(std::move(frame));
-        } else {
-          int64_t now_ms = clock_->TimeInMilliseconds();
-          // TODO(bugs.webrtc.org/11993): PostTask to the network thread.
-          call_->worker_thread()->PostTask(ToQueuedTask(
-              task_safety_, [this, now_ms, wait_ms = GetMaxWaitMs()]() {
-                RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
-                HandleFrameBufferTimeout(now_ms, wait_ms);
-              }));
-        }
-        StartNextDecode();
-      });
+
+  // TODO: Fix this to make more sense.
+  if (last_decoded_frame_timestamp_.IsMinusInfinity()) {
+    last_decoded_frame_timestamp_ = clock_->CurrentTime();
+  }
+  RTC_DLOG(WARNING) << "last decode time "
+                    << last_decoded_frame_timestamp_.ms();
+
+  {
+    webrtc::MutexLock lock(&decode_mutex_);
+    if (decoder_stopped_) {
+      RTC_DLOG(WARNING) << "decoder_stopped";
+      return;
+    }
+  }
+
+  const Timestamp encode_start = clock_->CurrentTime();
+
+  const auto wait_ms = GetMaxWaitMs();
+  const auto latest_return_time_ms = encode_start.ms() + wait_ms;
+  std::unique_ptr<EncodedFrame> next_frame =
+      frame_buffer_->GetNextFrame2(keyframe_required_, latest_return_time_ms);
+  RTC_DLOG(WARNING) << "fetched frame. encode start " << encode_start.ms();
+  if (!next_frame) {
+    RTC_DLOG(WARNING) << "no frame.";
+    // Handle timeout or just skip cancel.
+    if (encode_start - last_decoded_frame_timestamp_ >
+        TimeDelta::Millis(wait_ms)) {
+      // TODO(bugs.webrtc.org/11993): PostTask to the network thread.
+      RTC_DLOG(WARNING) << "timeout. waited more than wait " << wait_ms;
+      call_->worker_thread()->PostTask(ToQueuedTask(
+          task_safety_, [this, now_ms = clock_->TimeInMilliseconds(),
+                         wait_ms = GetMaxWaitMs()]() {
+            RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
+            HandleFrameBufferTimeout(now_ms, wait_ms);
+          }));
+    }
+    return;
+  }
+  last_decoded_frame_timestamp_ = clock_->CurrentTime();
+  HandleEncodedFrame(std::move(next_frame));
+}
+
+void VideoReceiveStream2::StartNextDecode() {
+  decode_queue_.PostTask([this]() {
+    RTC_DCHECK_RUN_ON(&decode_queue_);
+    StartNextDecodeOnDecoderThread();
+  });
 }
 
 void VideoReceiveStream2::HandleEncodedFrame(
     std::unique_ptr<EncodedFrame> frame) {
   // Running on `decode_queue_`.
   int64_t now_ms = clock_->TimeInMilliseconds();
+  RTC_DLOG(WARNING) << "encoding frame.";
 
   // Current OnPreDecode only cares about QP for VP8.
   int qp = -1;
@@ -761,8 +779,14 @@ void VideoReceiveStream2::HandleEncodedFrame(
   bool force_request_key_frame = false;
   int64_t decoded_frame_picture_id = -1;
 
+  int last_keyframe_request_ms;
+  {
+    webrtc::MutexLock lock(&decode_mutex_);
+    last_keyframe_request_ms = last_keyframe_request_ms_;
+  }
+
   const bool keyframe_request_is_due =
-      now_ms >= (last_keyframe_request_ms_ + max_wait_for_keyframe_ms_);
+      now_ms >= (last_keyframe_request_ms + max_wait_for_keyframe_ms_);
 
   if (!video_receiver_.IsExternalDecoderRegistered(frame->PayloadType())) {
     // Look for the decoder with this payload type.
@@ -816,6 +840,7 @@ void VideoReceiveStream2::HandleEncodedFrame(
 int VideoReceiveStream2::DecodeAndMaybeDispatchEncodedFrame(
     std::unique_ptr<EncodedFrame> frame) {
   // Running on decode_queue_.
+  webrtc::MutexLock lock(&decode_mutex_);
 
   // If `buffered_encoded_frames_` grows out of control (=60 queued frames),
   // maybe due to a stuck decoder, we just halt the process here and log the
@@ -976,26 +1001,19 @@ VideoReceiveStream2::RecordingState
 VideoReceiveStream2::SetAndGetRecordingState(RecordingState state,
                                              bool generate_key_frame) {
   RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
-  rtc::Event event;
 
   // Save old state, set the new state.
   RecordingState old_state;
 
-  decode_queue_.PostTask(
-      [this, &event, &old_state, callback = std::move(state.callback),
-       generate_key_frame,
-       last_keyframe_request = state.last_keyframe_request_ms.value_or(0)] {
-        RTC_DCHECK_RUN_ON(&decode_queue_);
-        old_state.callback = std::move(encoded_frame_buffer_function_);
-        encoded_frame_buffer_function_ = std::move(callback);
-
-        old_state.last_keyframe_request_ms = last_keyframe_request_ms_;
-        last_keyframe_request_ms_ = generate_key_frame
-                                        ? clock_->TimeInMilliseconds()
-                                        : last_keyframe_request;
-
-        event.Set();
-      });
+  {
+    webrtc::MutexLock lock(&decode_mutex_);
+    old_state.callback = std::move(encoded_frame_buffer_function_);
+    encoded_frame_buffer_function_ = std::move(state.callback);
+    old_state.last_keyframe_request_ms = last_keyframe_request_ms_;
+    last_keyframe_request_ms_ =
+        generate_key_frame ? clock_->TimeInMilliseconds()
+                           : state.last_keyframe_request_ms.value_or(0);
+  }
 
   if (generate_key_frame) {
     rtp_video_stream_receiver_.RequestKeyFrame();
@@ -1006,7 +1024,6 @@ VideoReceiveStream2::SetAndGetRecordingState(RecordingState state,
     }
   }
 
-  event.Wait(rtc::Event::kForever);
   return old_state;
 }
 

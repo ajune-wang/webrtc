@@ -90,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "333e727e_7283958a",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 809,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-09-16T09:44:43Z",
+      "side": 1,
+      "message": "ah... but it hasn\u0027t been on by default for audio before M94. And we can either merge this, back out the default-enable or use the kill-switch.\nFor video there is just the variant without any fmtp which continues to work.\nHarald, thoughts?",
+      "parentUuid": "26aae9d6_755a6055",
+      "revId": "8667e5329ec6a86c97f5359bad979c3bc5c47d05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "be246b75_a6cc14b0",
         "filename": "pc/media_session.cc",
         "patchSetId": 7
@@ -213,6 +231,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c8cc467b_c1e0fa89",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 957,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-09-16T09:44:43Z",
+      "side": 1,
+      "message": "Got you, this one is tricky. I do not want to forbid having a different level of redundancy, at the same time it should enforce the \"all the same\" here. Done with test.",
+      "parentUuid": "9a5bc73a_0b406b9b",
+      "revId": "8667e5329ec6a86c97f5359bad979c3bc5c47d05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "11a0ddc2_fcbc8eb1",
         "filename": "pc/media_session.cc",
         "patchSetId": 7
@@ -307,6 +343,24 @@
       "side": 1,
       "message": "\"which should refer to the correct payload type\" isn\u0027t relevant because there is no fmtp line that\u0027s referring to another payload type",
       "parentUuid": "0b93226a_9ecf5966",
+      "revId": "8667e5329ec6a86c97f5359bad979c3bc5c47d05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a65cfbc_ae7be6fe",
+        "filename": "pc/peer_connection_media_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1379,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-09-16T09:44:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a07a67e_d6ed6975",
       "revId": "8667e5329ec6a86c97f5359bad979c3bc5c47d05",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

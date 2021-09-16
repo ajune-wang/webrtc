@@ -68,6 +68,24 @@
       "message": "Erik, PTAL :)",
       "revId": "8048fa350d7a88d42d317472d25834c60025358a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9afbc17f_3500e3f4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-16T07:53:12Z",
+      "side": 1,
+      "message": "Hi Erik, you are right. I agree that full reconfigurations is a big cost. In fact, what I need is only setRates() instead of full reconfigurations. \n\nBut in the link https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/video/video_stream_encoder.cc?q\u003dvideo_stream_encoder.cc\u0026ss\u003dchromium, like the line 1215 should be updated again when encoder_info changes. Maybe we should add some comments as a reminder when the encoder info changes?",
+      "parentUuid": "5d4f4b60_7bfb708b",
+      "revId": "8048fa350d7a88d42d317472d25834c60025358a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

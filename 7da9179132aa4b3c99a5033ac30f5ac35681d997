@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e838b867_fb57502f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6092
+      },
+      "writtenOn": "2021-09-16T03:10:07Z",
+      "side": 1,
+      "message": "Please take a look - I think this should be the final CL that enables CRD Linux multimon to work properly 🎉\n\n+Jamie FYI\n",
+      "revId": "7da9179132aa4b3c99a5033ac30f5ac35681d997",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90d9bad0_ef69c6e7",
+        "filename": "modules/desktop_capture/linux/screen_capturer_x11.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 6092
+      },
+      "writtenOn": "2021-09-16T03:10:07Z",
+      "side": 1,
+      "message": "I added this DCHECK just to document here that these 2 things are equal.\nIf the selected monitor changes (or the screen resolution changes), queue_ should always be reset, so any frames in queue_ must match the monitor\u0027s size and top_left offset, before this CaptureScreen() method gets called.",
+      "revId": "7da9179132aa4b3c99a5033ac30f5ac35681d997",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ac2df06_7a9a8cee",
+        "filename": "modules/desktop_capture/linux/screen_capturer_x11.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 6092
+      },
+      "writtenOn": "2021-09-16T03:10:07Z",
+      "side": 1,
+      "message": "It\u0027s kinda annoying to undo the previous translation here. I haven\u0027t looked into what helper_ does exactly, but perhaps it might mutate updated_region, which prevents me from simplifying this code?",
+      "revId": "7da9179132aa4b3c99a5033ac30f5ac35681d997",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

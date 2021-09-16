@@ -61,13 +61,17 @@ class FrameBuffer {
   // of the last continuous frame or -1 if there is no continuous frame.
   int64_t InsertFrame(std::unique_ptr<EncodedFrame> frame);
 
-  // Get the next frame for decoding. Will return at latest after
-  // `max_wait_time_ms`.
-  void NextFrame(
-      int64_t max_wait_time_ms,
-      bool keyframe_required,
-      rtc::TaskQueue* callback_queue,
-      std::function<void(std::unique_ptr<EncodedFrame>, ReturnReason)> handler);
+  // // Get the next frame for decoding. Will return at latest after
+  // // `max_wait_time_ms`.
+  // void NextFrame(
+  //     int64_t max_wait_time_ms,
+  //     bool keyframe_required,
+  //     rtc::TaskQueue* callback_queue,
+  //     std::function<void(std::unique_ptr<EncodedFrame>, ReturnReason)>
+  //     handler);
+
+  std::unique_ptr<EncodedFrame> GetNextFrame2(bool keyframe_required,
+                                              int64_t latest_return_time_ms);
 
   // Tells the FrameBuffer which protection mode that is in use. Affects
   // the frame timing.
@@ -123,7 +127,7 @@ class FrameBuffer {
   int64_t FindNextFrame(int64_t now_ms) RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_);
   EncodedFrame* GetNextFrame() RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_);
 
-  void StartWaitForNextFrameOnQueue() RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_);
+  // void StartWaitForNextFrameOnQueue() RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_);
   void CancelCallback() RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_);
 
   // Update all directly dependent and indirectly dependent frames and mark

@@ -26,7 +26,6 @@
 #include "rtc_base/system/rtc_export.h"
 
 namespace rtc {
-
 class RTC_EXPORT CopyOnWriteBuffer {
  public:
   // An empty buffer.
@@ -69,6 +68,15 @@ class RTC_EXPORT CopyOnWriteBuffer {
                 internal::BufferCompat<uint8_t, T>::value>::type* = nullptr>
   CopyOnWriteBuffer(const T (&array)[N])  // NOLINT: runtime/explicit
       : CopyOnWriteBuffer(array, N) {}
+
+  // Construct a buffer from a vector like type.
+  template <typename V,
+            typename E = typename std::remove_pointer<
+                decltype(std::declval<V>().data())>::type,
+            typename std::enable_if_t<
+                HasDataAndSize<V, E>::value &&
+                internal::BufferCompat<uint8_t, E>::value>* = nullptr>
+  CopyOnWriteBuffer(const V& v) : CopyOnWriteBuffer(v.data(), v.size()) {}
 
   ~CopyOnWriteBuffer();
 
@@ -219,6 +227,16 @@ class RTC_EXPORT CopyOnWriteBuffer {
                 internal::BufferCompat<uint8_t, T>::value>::type* = nullptr>
   void AppendData(const T (&array)[N]) {
     AppendData(array, N);
+  }
+
+  template <typename V,
+            typename E = typename std::remove_pointer<
+                decltype(std::declval<V>().data())>::type,
+            typename std::enable_if_t<
+                HasDataAndSize<V, E>::value &&
+                internal::BufferCompat<uint8_t, E>::value>* = nullptr>
+  void AppendData(const V& v) {
+    AppendData(v.data(), v.size());
   }
 
   void AppendData(const CopyOnWriteBuffer& buf) {

@@ -800,6 +800,8 @@ class RTC_EXPORT AudioProcessingBuilder {
   // This creates an APM instance using the previously set components. Calling
   // the Create function resets the AudioProcessingBuilder to its initial state.
   rtc::scoped_refptr<AudioProcessing> Create();
+  // Deprecated. Calls `Create()` ignoring `config`.
+  // TODO(bugs.webrtc.org/5298): Remove method because `config` is unused.
   rtc::scoped_refptr<AudioProcessing> Create(const webrtc::Config& config);
 
  private:

@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46d6cccc_e84bdf11",
+        "filename": "rtc_base/copy_on_write_buffer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-17T13:23:47Z",
+      "side": 1,
+      "message": "likely you\u0027ll need to add clause\n\u0026\u0026 !std::is_same\u003cV, CopyOnWriteBuffer\u003e\n\nto avoid conflict the copy constructor.\n(copy constructor avoid memcpy, unlike this constructor)",
+      "range": {
+        "startLine": 79,
+        "startChar": 60,
+        "endLine": 79,
+        "endChar": 62
+      },
+      "revId": "c571f527221f52fa67db748a7fa5fd7b5bbe49a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1b98233_1342de0b",
+        "filename": "rtc_base/copy_on_write_buffer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-17T13:23:47Z",
+      "side": 1,
+      "message": "why this constructor is implicit?\ndo you have an example where you rely on it beeing implicit?",
+      "range": {
+        "startLine": 82,
+        "startChar": 2,
+        "endLine": 82,
+        "endChar": 19
+      },
+      "revId": "c571f527221f52fa67db748a7fa5fd7b5bbe49a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b5d9b0d_b2e24aad",
+        "filename": "rtc_base/copy_on_write_buffer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-17T13:23:47Z",
+      "side": 1,
+      "message": "you can remove this version in favor of the template just above",
+      "range": {
+        "startLine": 246,
+        "startChar": 0,
+        "endLine": 249,
+        "endChar": 0
+      },
+      "revId": "c571f527221f52fa67db748a7fa5fd7b5bbe49a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

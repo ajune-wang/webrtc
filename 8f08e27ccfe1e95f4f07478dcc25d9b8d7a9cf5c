@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a9fc9021_b21fa7b5",
+        "filename": "net/dcsctp/public/dcsctp_socket.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 18169
+      },
+      "writtenOn": "2021-09-17T13:39:07Z",
+      "side": 1,
+      "message": "I think AndClose is good because it does not introduce new logical state. \"Closed\" state is already supported: DcSctpSocketInterface::state(), DcSctpSocketCallbacks::OnClosed.",
+      "parentUuid": "c16a7cb6_7e067af6",
+      "range": {
+        "startLine": 442,
+        "startChar": 2,
+        "endLine": 442,
+        "endChar": 26
+      },
+      "revId": "8f08e27ccfe1e95f4f07478dcc25d9b8d7a9cf5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0a4e37e6_a8ab7216",
         "filename": "net/dcsctp/socket/dcsctp_socket.cc",
         "patchSetId": 3
@@ -54,6 +78,30 @@
       "writtenOn": "2021-09-17T13:20:43Z",
       "side": 1,
       "message": "constexpr absl::string_view?",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 11
+      },
+      "revId": "8f08e27ccfe1e95f4f07478dcc25d9b8d7a9cf5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "483f5e64_062df214",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 18169
+      },
+      "writtenOn": "2021-09-17T13:39:07Z",
+      "side": 1,
+      "message": "Done.\nI used std::string to quickly fix inability to append() string_view to std::string.\nNow changed to string_view for consistency with other ToString functions and fixed the appending instead.",
+      "parentUuid": "0a4e37e6_a8ab7216",
       "range": {
         "startLine": 142,
         "startChar": 0,

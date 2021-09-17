@@ -16,6 +16,23 @@
       "message": "PTAL. There\u0027s a small penalty in binary size.",
       "revId": "8e925c48403257eac7612cc918b43f18ac0ad933",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1dde8ec8_c1376a40",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-09-17T08:21:40Z",
+      "side": 1,
+      "message": "Nice that this is possible without modifying any call site at all.\n",
+      "revId": "8e925c48403257eac7612cc918b43f18ac0ad933",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

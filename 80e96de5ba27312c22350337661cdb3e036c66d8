@@ -46,6 +46,30 @@
       },
       "revId": "80e96de5ba27312c22350337661cdb3e036c66d8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f998871_ac47c220",
+        "filename": "test/fuzzers/audio_processing_configs_fuzzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-09-17T06:17:48Z",
+      "side": 0,
+      "message": "Good question.\n\nYes. When `use_agc` is true, then the analog controller is also tested since the default value for `gain_controller1.analog_gain_controller` is true (see https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/audio_processing/include/audio_processing.h;l\u003d331;drc\u003d00a8ca06f8f356e7e25ad9eac59364d51884af30).\n\nWhat I can do is adding back `exp_agc`, which I removed in https://webrtc-review.googlesource.com/c/src/+/219463, to enable/disable the analog controller. But I don\u0027t think that would be critical to improve fuzzing. WDYT?",
+      "parentUuid": "b96980fc_3fe4d9a2",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 57
+      },
+      "revId": "80e96de5ba27312c22350337661cdb3e036c66d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -121,6 +121,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a64ece96_8737bba9",
+        "filename": "logging/rtc_event_log/events/rtc_event_field_extraction.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-09-17T13:46:54Z",
+      "side": 1,
+      "message": "Did you consider the other formulation?",
+      "parentUuid": "3fcdfee8_4e0cd88c",
+      "range": {
+        "startLine": 23,
+        "startChar": 2,
+        "endLine": 27,
+        "endChar": 17
+      },
+      "revId": "ff1d06fc5f199e1949e9cb27389155142d2c292b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1b29a40b_a6fa78de",
         "filename": "logging/rtc_event_log/events/rtc_event_field_extraction.cc",
         "patchSetId": 11
@@ -260,6 +284,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "05f59b09_b35b3f12",
+        "filename": "logging/rtc_event_log/events/rtc_event_field_extraction.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-09-17T13:46:54Z",
+      "side": 1,
+      "message": "Fine by me, but maybe worth to think about as a potential future improvement.",
+      "parentUuid": "ffc6f613_893b162d",
+      "range": {
+        "startLine": 75,
+        "startChar": 4,
+        "endLine": 75,
+        "endChar": 45
+      },
+      "revId": "ff1d06fc5f199e1949e9cb27389155142d2c292b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cf299027_766ff3ab",
@@ -297,6 +345,30 @@
       "side": 1,
       "message": "It\u0027s not quite a mask. A mask would imply that mask[i] say something about value[i]. In this case, the index of the i\u0027th set bit in positions is the position that value[i] had in the original list. Do you have another naming suggestion?",
       "parentUuid": "cf299027_766ff3ab",
+      "range": {
+        "startLine": 83,
+        "startChar": 20,
+        "endLine": 83,
+        "endChar": 29
+      },
+      "revId": "ff1d06fc5f199e1949e9cb27389155142d2c292b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9456f289_f8ca642e",
+        "filename": "logging/rtc_event_log/events/rtc_event_field_extraction.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-09-17T13:46:54Z",
+      "side": 1,
+      "message": "maybe position_mask to avoid confusion.",
+      "parentUuid": "de7830da_05831a85",
       "range": {
         "startLine": 83,
         "startChar": 20,

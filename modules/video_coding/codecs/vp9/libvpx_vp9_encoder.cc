@@ -14,6 +14,7 @@
 #include "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.h"
 
 #include <algorithm>
+#include <array>
 #include <limits>
 #include <utility>
 #include <vector>
@@ -62,6 +63,10 @@ const int kMaxAllowedPidDiff = 30;
 // for 300kbps resolution converged to 270p instead of 360p.
 constexpr int kLowVp9QpThreshold = 149;
 constexpr int kHighVp9QpThreshold = 205;
+
+// Maximum number of spatial and temporal layers supported by this encoder.
+constexpr int kMaxNumTemporalLayers = 3;
+constexpr int kMaxNumSpatialLayers = 3;
 
 std::pair<size_t, size_t> GetActiveLayers(
     const VideoBitrateAllocation& allocation) {
@@ -399,6 +404,10 @@ bool LibvpxVp9Encoder::SetSvcRates(
   }
 
   if (svc_controller_) {
+    // Smallest spatial id that has non-zero bitrate for given temporal id,
+    // or negative value if temporal layer is disabled.
+    std::array<int, kMaxNumTemporalLayers> lowest_spatial_id;
+    absl::c_fill(lowest_spatial_id, -1);
     for (int sid = 0; sid < num_spatial_layers_; ++sid) {
       // Bitrates in `layer_target_bitrate` are accumulated for each temporal
       // layer but in `VideoBitrateAllocation` they should be separated.
@@ -412,6 +421,21 @@ bool LibvpxVp9Encoder::SetSvcRates(
         current_bitrate_allocation_.SetBitrate(
             sid, tid, single_layer_bitrate_kbps * 1'000);
         previous_bitrate_kbps = accumulated_bitrate_kbps;
+        if (single_layer_bitrate_kbps > 0 && lowest_spatial_id[tid] < 0) {
+          lowest_spatial_id[tid] = sid;
+        }
+      }
+    }
+    if (!is_flexible_mode_ && lowest_spatial_id[/*tid=*/0] >= 0) {
+      // In non-flexible mode it is not allowed to turn off temporal layers
+      // because code that assign picture ids doesn't support picture skipping.
+      // Ensure that each temporal layer has some non-zero bitrate.
+      for (int tid = 1; tid < num_temporal_layers_; ++tid) {
+        if (lowest_spatial_id[tid] < 0) {
+          current_bitrate_allocation_.SetBitrate(lowest_spatial_id[tid - 1],
+                                                 tid, 1'024);
+          lowest_spatial_id[tid] = lowest_spatial_id[tid - 1];
+        }
       }
     }
     svc_controller_->OnRatesUpdated(current_bitrate_allocation_);
@@ -548,6 +572,10 @@ int LibvpxVp9Encoder::InitEncode(const VideoCodec* inst,
   num_temporal_layers_ = inst->VP9().numberOfTemporalLayers;
   if (num_temporal_layers_ == 0) {
     num_temporal_layers_ = 1;
+  }
+  if (num_spatial_layers_ > kMaxNumSpatialLayers ||
+      num_temporal_layers_ > kMaxNumTemporalLayers) {
+    return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
   }
 
   if (use_svc_controller_) {

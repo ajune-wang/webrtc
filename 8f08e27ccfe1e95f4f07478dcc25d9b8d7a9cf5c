@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6395aa88_da70d130",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-09-17T13:20:43Z",
+      "side": 1,
+      "message": "Sorry for the late review. All is good - just the naming really. ",
+      "revId": "8f08e27ccfe1e95f4f07478dcc25d9b8d7a9cf5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c16a7cb6_7e067af6",
+        "filename": "net/dcsctp/public/dcsctp_socket.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-09-17T13:20:43Z",
+      "side": 1,
+      "message": "I wonder if this can be named differently, to indicate that the socket is defunct. Similar to how we usually name those functions that \"Get and modify\" to \"Consume\". Let me know what you think.",
+      "range": {
+        "startLine": 442,
+        "startChar": 2,
+        "endLine": 442,
+        "endChar": 26
+      },
+      "revId": "8f08e27ccfe1e95f4f07478dcc25d9b8d7a9cf5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a4e37e6_a8ab7216",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-09-17T13:20:43Z",
+      "side": 1,
+      "message": "constexpr absl::string_view?",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 11
+      },
+      "revId": "8f08e27ccfe1e95f4f07478dcc25d9b8d7a9cf5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

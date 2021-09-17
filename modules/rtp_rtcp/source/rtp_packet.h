@@ -45,7 +45,6 @@ class RtpPacket {
   // read or allocate extensions in methods GetExtension, AllocateExtension,
   // etc.)
   bool Parse(const uint8_t* buffer, size_t size);
-  bool Parse(rtc::ArrayView<const uint8_t> packet);
 
   // Parse and move given buffer into Packet.
   bool Parse(rtc::CopyOnWriteBuffer packet);

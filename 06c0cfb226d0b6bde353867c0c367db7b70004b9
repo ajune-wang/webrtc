@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f44f1ff_cf0e1ec7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 22
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-17T05:25:53Z",
+      "side": 1,
+      "message": "Sergey, I have confirmed that it is time to land.\n\nHandle two cases:\n1.Consider the influence of fps on |ActualEncBitrate|. (Uploaded patch set 19)\n2.Consider the case of screen sharing.(Uploaded patch set 20)\n\nBy the way, another patch will handle the |encoder_info_| changes. (https://webrtc-review.googlesource.com/c/src/+/231325)\n\nBest wishes,\nShuhai\n\n",
+      "revId": "06c0cfb226d0b6bde353867c0c367db7b70004b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

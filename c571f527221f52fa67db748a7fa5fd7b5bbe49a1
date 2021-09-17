@@ -119,6 +119,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "af4cbb19_a0f66cc1",
+        "filename": "rtc_base/copy_on_write_buffer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-09-17T14:51:20Z",
+      "side": 1,
+      "message": "Updated, had a look at c-array ctor as well, looks like it shouldn\u0027t be too hard to mark it explicit as well.",
+      "parentUuid": "5a7bb602_ef421d09",
+      "range": {
+        "startLine": 82,
+        "startChar": 2,
+        "endLine": 82,
+        "endChar": 19
+      },
+      "revId": "c571f527221f52fa67db748a7fa5fd7b5bbe49a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2b5d9b0d_b2e24aad",

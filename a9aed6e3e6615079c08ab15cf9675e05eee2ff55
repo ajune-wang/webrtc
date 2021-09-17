@@ -53,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "40064f82_76befd0d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18194
+      },
+      "writtenOn": "2021-09-17T01:07:07Z",
+      "side": 1,
+      "message": "\u003e Jiwon, I believe that the best way to proceed would be to file another CL with a solution and discuss it there.\n\nDear @Silkin,\n\nAbove inquiry is related to another CL(ttps://webrtc-review.googlesource.com/c/src/+/230660_ and already have been posted in the discussion thread.\n\nYou can ignore this one. 😊",
+      "parentUuid": "5b7da9b0_ac018481",
+      "revId": "a9aed6e3e6615079c08ab15cf9675e05eee2ff55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "73a2a4b0_e9ff454b",
@@ -66,6 +84,30 @@
       "writtenOn": "2021-09-16T16:31:10Z",
       "side": 1,
       "message": "nit: REQUIRED_RESOLUTION_ALIGNMENT",
+      "range": {
+        "startLine": 58,
+        "startChar": 27,
+        "endLine": 58,
+        "endChar": 57
+      },
+      "revId": "a9aed6e3e6615079c08ab15cf9675e05eee2ff55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "517459d3_957a6e5f",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 18194
+      },
+      "writtenOn": "2021-09-17T01:07:07Z",
+      "side": 1,
+      "message": "\u003e nit: REQUIRED_RESOLUTION_ALIGNMENT\n\nOkay. I\u0027ll change the name from \"REQUESTED_RESOLUTION_ALIGNMENT\" to \"REQUIRED_RESOLUTION_ALIGNMENT\".",
+      "parentUuid": "73a2a4b0_e9ff454b",
       "range": {
         "startLine": 58,
         "startChar": 27,

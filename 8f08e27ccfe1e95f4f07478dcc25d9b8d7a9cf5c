@@ -65,6 +65,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "20d4d961_ccd912fd",
+        "filename": "net/dcsctp/public/dcsctp_socket.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-09-17T14:05:58Z",
+      "side": 1,
+      "message": "Yes, \"AndClose\" is the key here, so I think this is good enough. The socket is still valid after this method has called - it\u0027s just closed and could be reconnected if you want.",
+      "parentUuid": "a9fc9021_b21fa7b5",
+      "range": {
+        "startLine": 442,
+        "startChar": 2,
+        "endLine": 442,
+        "endChar": 26
+      },
+      "revId": "8f08e27ccfe1e95f4f07478dcc25d9b8d7a9cf5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0a4e37e6_a8ab7216",

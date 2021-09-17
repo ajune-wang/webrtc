@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5a7bb602_ef421d09",
+        "filename": "rtc_base/copy_on_write_buffer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-17T14:22:42Z",
+      "side": 1,
+      "message": "I disagree: unlike ArrayView, point of COWBuffer is not type erasure.\nthe main point of COWBuffer is shared ownership of the underlying memory (cheap copy and slice)\nin particular this COWBuffer constructor is expensive (memcpy), so I think it should be explicit.\n\n(in particular I think it is currently a mistake that CopyOnWriteBuffer that takes array of bytes is implicit)",
+      "parentUuid": "d3a51f58_ba6ace84",
+      "range": {
+        "startLine": 82,
+        "startChar": 2,
+        "endLine": 82,
+        "endChar": 19
+      },
+      "revId": "c571f527221f52fa67db748a7fa5fd7b5bbe49a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2b5d9b0d_b2e24aad",
         "filename": "rtc_base/copy_on_write_buffer.h",
         "patchSetId": 6

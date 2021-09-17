@@ -24,6 +24,54 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2cbed833_26c66944",
+        "filename": "logging/rtc_event_log/events/rtc_event_field_extraction.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-09-17T13:20:58Z",
+      "side": 1,
+      "message": "Done. However, note that treating all bitwidths as uint8_t makes it harder to check that the inputs are in the correct [1,64] range, as a potentially large int/unsigned may be mapped to the correct range by an implicit cast.",
+      "parentUuid": "1de27d3d_7e600492",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 8
+      },
+      "revId": "ff1d06fc5f199e1949e9cb27389155142d2c292b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96afd75d_7aecd153",
+        "filename": "logging/rtc_event_log/events/rtc_event_field_extraction.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-09-17T13:20:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1de27d3d_7e600492",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 8
+      },
+      "revId": "ff1d06fc5f199e1949e9cb27389155142d2c292b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7ad75598_be7910fe",
@@ -37,6 +85,30 @@
       "writtenOn": "2021-09-15T09:56:46Z",
       "side": 1,
       "message": "log is still not super clear, and the fact that i happens to become the 2-logarithm isn\u0027t super relevant in this context. Id suggest something like:\n\nuint64_t required_bits \u003d 1; // We need one bit to encode zero\nwhile(max_magnitude \u003e\u003e\u003d 1){\n ++required_bits;\n}\nreturn required_bits;\n\nOr considering how it\u0027s used below:\n\nuint64_t required_bits \u003d 0;\nwhile(max_magnitude){\n ++required_bits;\n max_magnitude \u003e\u003e\u003d 1;\n}\nreturn required_bits;",
+      "range": {
+        "startLine": 23,
+        "startChar": 2,
+        "endLine": 27,
+        "endChar": 17
+      },
+      "revId": "ff1d06fc5f199e1949e9cb27389155142d2c292b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fcdfee8_4e0cd88c",
+        "filename": "logging/rtc_event_log/events/rtc_event_field_extraction.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-09-17T13:20:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ad75598_be7910fe",
       "range": {
         "startLine": 23,
         "startChar": 2,
@@ -70,6 +142,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a763335_3a70a7f1",
+        "filename": "logging/rtc_event_log/events/rtc_event_field_extraction.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-09-17T13:20:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b29a40b_a6fa78de",
+      "range": {
+        "startLine": 35,
+        "startChar": 17,
+        "endLine": 35,
+        "endChar": 29
+      },
+      "revId": "ff1d06fc5f199e1949e9cb27389155142d2c292b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e88a1ee6_e763ab49",
@@ -83,6 +179,30 @@
       "writtenOn": "2021-09-15T09:56:46Z",
       "side": 1,
       "message": "bitwidth_negative",
+      "range": {
+        "startLine": 37,
+        "startChar": 17,
+        "endLine": 37,
+        "endChar": 29
+      },
+      "revId": "ff1d06fc5f199e1949e9cb27389155142d2c292b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e16b9f2b_6d88180f",
+        "filename": "logging/rtc_event_log/events/rtc_event_field_extraction.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-09-17T13:20:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e88a1ee6_e763ab49",
       "range": {
         "startLine": 37,
         "startChar": 17,
@@ -118,6 +238,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ffc6f613_893b162d",
+        "filename": "logging/rtc_event_log/events/rtc_event_field_extraction.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-09-17T13:20:58Z",
+      "side": 1,
+      "message": "It is a virtual function call, so sure, it will increase the time to extract the values. However, the time to extract the values is dominated by the time to encode the values anyway, so I suspect it won\u0027t make much difference to the total time. I can measure it with and without the CHECK if you want.",
+      "parentUuid": "ee7fb9a9_b9d151a0",
+      "range": {
+        "startLine": 75,
+        "startChar": 4,
+        "endLine": 75,
+        "endChar": 45
+      },
+      "revId": "ff1d06fc5f199e1949e9cb27389155142d2c292b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cf299027_766ff3ab",
         "filename": "logging/rtc_event_log/events/rtc_event_field_extraction.h",
         "patchSetId": 11
@@ -129,6 +273,30 @@
       "writtenOn": "2021-09-15T09:56:46Z",
       "side": 1,
       "message": "nit: mask positions would imply using an int for the position, while this is a mask for what values are defined, (compare to numpy masked arrays: https://numpy.org/doc/stable/reference/maskedarray.html)",
+      "range": {
+        "startLine": 83,
+        "startChar": 20,
+        "endLine": 83,
+        "endChar": 29
+      },
+      "revId": "ff1d06fc5f199e1949e9cb27389155142d2c292b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de7830da_05831a85",
+        "filename": "logging/rtc_event_log/events/rtc_event_field_extraction.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-09-17T13:20:58Z",
+      "side": 1,
+      "message": "It\u0027s not quite a mask. A mask would imply that mask[i] say something about value[i]. In this case, the index of the i\u0027th set bit in positions is the position that value[i] had in the original list. Do you have another naming suggestion?",
+      "parentUuid": "cf299027_766ff3ab",
       "range": {
         "startLine": 83,
         "startChar": 20,
@@ -175,6 +343,30 @@
       "writtenOn": "2021-09-15T09:56:46Z",
       "side": 1,
       "message": "nit: one line...",
+      "range": {
+        "startLine": 125,
+        "startChar": 0,
+        "endLine": 126,
+        "endChar": 30
+      },
+      "revId": "ff1d06fc5f199e1949e9cb27389155142d2c292b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95d0323b_32056fc5",
+        "filename": "logging/rtc_event_log/events/rtc_event_field_extraction.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-09-17T13:20:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ed416f8_bb545292",
       "range": {
         "startLine": 125,
         "startChar": 0,

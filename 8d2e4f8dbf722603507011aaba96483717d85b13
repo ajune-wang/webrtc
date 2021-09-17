@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e36d1363_dc2bea15",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-09-17T14:37:43Z",
+      "side": 1,
+      "message": "PTAL. Small Friday-afternoon-hack.",
+      "revId": "8d2e4f8dbf722603507011aaba96483717d85b13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9885b6e8_c7d1bb2d",
+        "filename": "p2p/base/basic_packet_socket_factory.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-09-17T14:37:43Z",
+      "side": 1,
+      "message": "Only place I\u0027ve found where we pass OPT_STUN is here: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/p2p/base/turn_port.cc;drc\u003d0c2a9caf8fe823e8e8b23364b0f8ae37c877c516;l\u003d401\n\nIn code creating a client socket, not a server socket.",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 53
+      },
+      "revId": "8d2e4f8dbf722603507011aaba96483717d85b13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

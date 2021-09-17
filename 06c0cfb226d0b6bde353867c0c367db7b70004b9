@@ -16,6 +16,29 @@
       "message": "Sergey, I have confirmed that it is time to land.\n\nHandle two cases:\n1.Consider the influence of fps on |ActualEncBitrate|. (Uploaded patch set 19)\n2.Consider the case of screen sharing.(Uploaded patch set 20)\n\nBy the way, another patch will handle the |encoder_info_| changes. (https://webrtc-review.googlesource.com/c/src/+/231325)\n\nBest wishes,\nShuhai\n\n",
       "revId": "06c0cfb226d0b6bde353867c0c367db7b70004b9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f893b36d_232e0b9d",
+        "filename": "modules/video_coding/utility/bandwidth_quality_scaler.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-09-17T11:49:22Z",
+      "side": 1,
+      "message": "RateStatistics is agnostic to frame rate. It simply computes rate as number_of_bits / time_passed_s. Assuming time_sent_in_ms represents framerate-adjusted frame durations, the bitrate calculated by RateStatistics doesn\u0027t need any correction.",
+      "range": {
+        "startLine": 148,
+        "startChar": 8,
+        "endLine": 148,
+        "endChar": 28
+      },
+      "revId": "06c0cfb226d0b6bde353867c0c367db7b70004b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

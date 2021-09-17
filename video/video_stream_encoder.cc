@@ -1231,6 +1231,12 @@ void VideoStreamEncoder::OnEncoderSettingsChanged() {
   degradation_preference_manager_->SetIsScreenshare(is_screenshare);
 }
 
+void VideoStreamEncoder::OnEncoderInfoChanged() {
+  const VideoEncoder::EncoderInfo encoder_info = encoder_->GetEncoderInfo();
+  stream_resource_manager_.ConfigureEncodeUsageResource();
+  stream_resource_manager_.ConfigureQualityScaler(encoder_info);
+}
+
 void VideoStreamEncoder::OnFrame(const VideoFrame& video_frame) {
   RTC_DCHECK_RUNS_SERIALIZED(&incoming_frame_race_checker_);
   VideoFrame incoming_frame = video_frame;
@@ -1636,8 +1642,19 @@ void VideoStreamEncoder::EncodeVideoFrame(const VideoFrame& video_frame,
   }
 
   if (encoder_info_ != info) {
-    OnEncoderSettingsChanged();
-    stream_resource_manager_.ConfigureEncodeUsageResource();
+    // A full reconfiguration will be triggered if and only if the
+    // |is_qp_trusted| value changes and the final value is false. It only
+    // happens when H264 encoding is switched from software to hardware. In most
+    // cases, it will only happen once. Unless constantly switch frome software
+    // to hardware encoding, this shouldn't happen.
+    if (info.is_qp_trusted.has_value() && !info.is_qp_trusted.value() &&
+        info.is_qp_trusted.value() != encoder_info_.is_qp_trusted) {
+      ReconfigureEncoder();
+    } else {
+      OnEncoderSettingsChanged();
+      OnEncoderInfoChanged();
+    }
+
     RTC_LOG(LS_INFO) << "Encoder settings changed from "
                      << encoder_info_.ToString() << " to " << info.ToString();
   }

@@ -172,6 +172,7 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
 
   void ReconfigureEncoder() RTC_RUN_ON(&encoder_queue_);
   void OnEncoderSettingsChanged() RTC_RUN_ON(&encoder_queue_);
+  void OnEncoderInfoChanged() RTC_RUN_ON(&encoder_queue_);
 
   // Implements VideoSinkInterface.
   void OnFrame(const VideoFrame& video_frame) override;

@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "04962ad5_47cc3a4a",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2021-09-17T06:29:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fbbb2e95_8ad4a22d",
+      "revId": "cf5a4d7c6951a1adc182c213a450cc37330c43e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "db1ba513_84d8db93",
@@ -48,6 +66,24 @@
       "writtenOn": "2021-09-16T15:58:58Z",
       "side": 1,
       "message": "instant_upper_bound_limit",
+      "revId": "cf5a4d7c6951a1adc182c213a450cc37330c43e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee1e0e76_5664dba7",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2021-09-17T06:29:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db1ba513_84d8db93",
       "revId": "cf5a4d7c6951a1adc182c213a450cc37330c43e6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -69,6 +105,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7101c044_d56de81a",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2021-09-17T06:29:22Z",
+      "side": 1,
+      "message": "cached_instant_upper_bound_ suffices.",
+      "parentUuid": "013fe87e_32509bd5",
+      "revId": "cf5a4d7c6951a1adc182c213a450cc37330c43e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3230635b_f44e4203",
@@ -82,6 +136,24 @@
       "writtenOn": "2021-09-16T15:58:58Z",
       "side": 1,
       "message": "`instant_upper_bound_temporal_weights_`?",
+      "revId": "cf5a4d7c6951a1adc182c213a450cc37330c43e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e84bfe9_82005529",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2021-09-17T06:29:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3230635b_f44e4203",
       "revId": "cf5a4d7c6951a1adc182c213a450cc37330c43e6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

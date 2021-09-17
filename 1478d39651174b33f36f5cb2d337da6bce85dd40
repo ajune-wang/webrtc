@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3476cad0_e4eb1152",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2021-09-17T05:09:18Z",
+      "side": 1,
+      "message": "Please refer to webrtc:12269.\n\n",
+      "revId": "1478d39651174b33f36f5cb2d337da6bce85dd40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

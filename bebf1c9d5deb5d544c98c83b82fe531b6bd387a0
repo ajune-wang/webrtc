@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a734ee79_e7a918cc",
+        "filename": "rtc_base/copy_on_write_buffer.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-17T15:28:33Z",
+      "side": 1,
+      "message": "what \u0027V\u0027 and \u0027E\u0027 stand for? this short names look unfamiliar to me.\nmay be instead of V use general \u0027T\u0027 (stands for Type, common first template parameter) or \u0027C\u0027 (Container, though that one might deserve a comment as not a common name).\n\u0027E\u0027 I can guess is \u0027Element\u0027, but that might deserve a small comment.\nOr don\u0027t abbreviate: write out Container and Element (or ValueType) explicitly.",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 0
+      },
+      "revId": "bebf1c9d5deb5d544c98c83b82fe531b6bd387a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a157089_11aa064e",
+        "filename": "rtc_base/copy_on_write_buffer_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-17T15:28:33Z",
+      "side": 1,
+      "message": "did you mean to append a/b/c/d?\ninstead of appending CopyOnWriteBuffer 4 times.",
+      "range": {
+        "startLine": 368,
+        "startChar": 0,
+        "endLine": 371,
+        "endChar": 24
+      },
+      "revId": "bebf1c9d5deb5d544c98c83b82fe531b6bd387a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -188,6 +188,30 @@
       },
       "revId": "c571f527221f52fa67db748a7fa5fd7b5bbe49a1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67a528d1_a88bee2f",
+        "filename": "rtc_base/copy_on_write_buffer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-17T15:28:33Z",
+      "side": 1,
+      "message": "for AppendData I think it is better to remove this version right away.\ntreat set of function overloads as single entity.\n\nif you replace template magic with simple overload:\nvoid AppendData(rtc::ArrayView\u003cconst uint8_t\u003e buf);\nvoid AppendData(rtc::ArrayView\u003cconst int8_t\u003e buf);\n\nthen you can remove AppendData for c array too.\n\n(i.e. why re-implement type erasure that ArrayView does?)\n\nFor constructors I also think it is better to declare single set in the same CL.",
+      "parentUuid": "f6b1f53a_c083e3d9",
+      "range": {
+        "startLine": 246,
+        "startChar": 0,
+        "endLine": 249,
+        "endChar": 0
+      },
+      "revId": "c571f527221f52fa67db748a7fa5fd7b5bbe49a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

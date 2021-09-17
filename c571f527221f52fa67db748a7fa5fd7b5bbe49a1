@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9c955163_55b5f662",
+        "filename": "rtc_base/copy_on_write_buffer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-09-17T14:06:20Z",
+      "side": 1,
+      "message": "Good point!\n\nupdated",
+      "parentUuid": "46d6cccc_e84bdf11",
+      "range": {
+        "startLine": 79,
+        "startChar": 60,
+        "endLine": 79,
+        "endChar": 62
+      },
+      "revId": "c571f527221f52fa67db748a7fa5fd7b5bbe49a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f1b98233_1342de0b",
         "filename": "rtc_base/copy_on_write_buffer.h",
         "patchSetId": 6
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d3a51f58_ba6ace84",
+        "filename": "rtc_base/copy_on_write_buffer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-09-17T14:06:20Z",
+      "side": 1,
+      "message": "I think it\u0027s more consistent if you can use a COW buffer like this:\n\n    void fun(rtc::CopyOnWriteBuffer b) {\n      ...\n    }\n\n    uint8_t foo[] \u003d {1,2,3};\n    std::vector\u003cint8_t\u003e bar \u003d {4,5,6};\n    std::string baz \u003d \"MetaProgrammingIsFun\"\n\n    fun(\"abc\");\n    fun(\"baz\");\n    fun(foo);\n    fun(bar);\n    fun(CopyOnWriteBuffer(bar));  // don\u0027t wanna have to do this",
+      "parentUuid": "f1b98233_1342de0b",
+      "range": {
+        "startLine": 82,
+        "startChar": 2,
+        "endLine": 82,
+        "endChar": 19
+      },
+      "revId": "c571f527221f52fa67db748a7fa5fd7b5bbe49a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2b5d9b0d_b2e24aad",
         "filename": "rtc_base/copy_on_write_buffer.h",
         "patchSetId": 6
@@ -60,6 +108,30 @@
       "writtenOn": "2021-09-17T13:23:47Z",
       "side": 1,
       "message": "you can remove this version in favor of the template just above",
+      "range": {
+        "startLine": 246,
+        "startChar": 0,
+        "endLine": 249,
+        "endChar": 0
+      },
+      "revId": "c571f527221f52fa67db748a7fa5fd7b5bbe49a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6b1f53a_c083e3d9",
+        "filename": "rtc_base/copy_on_write_buffer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-09-17T14:06:20Z",
+      "side": 1,
+      "message": "Maybe I\u0027m just complicating things, but my plan was to do a followup CL where this and the std::string ctor was removed.",
+      "parentUuid": "2b5d9b0d_b2e24aad",
       "range": {
         "startLine": 246,
         "startChar": 0,

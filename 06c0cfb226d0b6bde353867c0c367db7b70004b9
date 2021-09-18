@@ -39,6 +39,30 @@
       },
       "revId": "06c0cfb226d0b6bde353867c0c367db7b70004b9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2233be82_ebb0668d",
+        "filename": "modules/video_coding/utility/bandwidth_quality_scaler.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-18T04:56:04Z",
+      "side": 1,
+      "message": "I\u0027m sorry for not explaining clearly. In fact, |fps_influence_factor| is applied on the default bitrate ladder(which lists expected bitrate limits when encoding at 30fps).  When we compare the actual encoding bitrate got from RateStatistics, we apply that factor on the |min_start_bitrate_bps| and |max_bitrate_bps| retrieved from the default bitrate ladder table, so those limits will be adjusted to reflect actual expected bitrate values when we\u0027re actually encoding at non-30fps (for example, 15fps or 60fps). We do not apply the factor on results we get from RateStatistics.\n\nWhy add this factor?\nCurrently even gUM is requesting capturing at 30fps(ideal), some cameras are actually outputing at 15fps or lower. This leads to encoder output at half of the configured target bitrate. As a result, the bandwidth quality scaler would assume quality of the frame is too low if we\u0027re using the 30fps bitrate ladder, and triggers adaptation down.\n\nNow I have reverted it, but this factor can enhance adaptive capabilities. Sergey\u0027s status changed to OOO. Erik/Evan, could you please take another look?",
+      "parentUuid": "f893b36d_232e0b9d",
+      "range": {
+        "startLine": 148,
+        "startChar": 8,
+        "endLine": 148,
+        "endChar": 28
+      },
+      "revId": "06c0cfb226d0b6bde353867c0c367db7b70004b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

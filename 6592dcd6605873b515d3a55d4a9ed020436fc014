@@ -16,6 +16,24 @@
       "message": "Mirko - do you mind taking a look?",
       "revId": "6592dcd6605873b515d3a55d4a9ed020436fc014",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f6508a6_85d0d56e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-09-20T15:10:35Z",
+      "side": 1,
+      "message": "Yes, this LGTM.",
+      "parentUuid": "0615456c_57448611",
+      "revId": "6592dcd6605873b515d3a55d4a9ed020436fc014",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

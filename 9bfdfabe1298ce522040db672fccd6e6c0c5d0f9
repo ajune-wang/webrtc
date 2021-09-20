@@ -88,6 +88,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a33432c_6bde6fe4",
+        "filename": "modules/desktop_capture/linux/base_capturer_pipewire.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 727,
+      "author": {
+        "id": 18279
+      },
+      "writtenOn": "2021-09-20T11:56:39Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8d14b06d_c6c56fcc",
+      "revId": "9bfdfabe1298ce522040db672fccd6e6c0c5d0f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "837aab3f_d9365636",
@@ -101,6 +119,24 @@
       "writtenOn": "2021-09-20T10:06:20Z",
       "side": 1,
       "message": "s/session_handle/session_handle.get()/",
+      "revId": "9bfdfabe1298ce522040db672fccd6e6c0c5d0f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e5bf14f_7c48026b",
+        "filename": "modules/desktop_capture/linux/base_capturer_pipewire.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 18279
+      },
+      "writtenOn": "2021-09-20T11:56:39Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "837aab3f_d9365636",
       "revId": "9bfdfabe1298ce522040db672fccd6e6c0c5d0f9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

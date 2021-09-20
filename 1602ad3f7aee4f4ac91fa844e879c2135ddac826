@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f05fa83_b27c46f8",
+        "filename": "api/video/video_frame_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2021-09-20T12:00:39Z",
+      "side": 1,
+      "message": "I think many would be surprised that this could fail so some context here could be useful to help understand why this can happen.\n\nAdding, \"Conversion may fail for example if reading the pixel data from a texture fails.\"",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 50
+      },
+      "revId": "1602ad3f7aee4f4ac91fa844e879c2135ddac826",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2c5822e_d8959f87",
+        "filename": "sdk/android/api/org/webrtc/VideoFrame.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2021-09-20T12:00:39Z",
+      "side": 1,
+      "message": "Add to the docs here too why it may return null.",
+      "range": {
+        "startLine": 58,
+        "startChar": 5,
+        "endLine": 58,
+        "endChar": 13
+      },
+      "revId": "1602ad3f7aee4f4ac91fa844e879c2135ddac826",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

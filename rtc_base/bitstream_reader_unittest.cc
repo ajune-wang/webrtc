@@ -75,6 +75,17 @@ TEST(BitstreamReaderTest, ConsumeBits) {
   EXPECT_LT(reader.RemainingBitCount(), 0);
 }
 
+TEST(BitstreamReaderTest, ConsumeLotsOfBits) {
+  const uint8_t bytes[1] = {};
+  BitstreamReader reader(bytes);
+
+  reader.ConsumeBits(8);
+  reader.ConsumeBits(std::numeric_limits<int>::max());
+  reader.ConsumeBits(std::numeric_limits<int>::max());
+  EXPECT_GE(reader.ReadBit(), 0);
+  EXPECT_FALSE(reader.Ok());
+}
+
 TEST(BitstreamReaderTest, ReadBit) {
   const uint8_t bytes[] = {0b0100'0001, 0b1011'0001};
   BitstreamReader reader(bytes);

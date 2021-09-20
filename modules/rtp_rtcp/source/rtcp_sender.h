@@ -33,6 +33,7 @@
 #include "modules/rtp_rtcp/source/rtcp_packet/report_block.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/tmmb_item.h"
 #include "modules/rtp_rtcp/source/rtp_rtcp_interface.h"
+#include "rtc_base/containers/flat_map.h"
 #include "rtc_base/random.h"
 #include "rtc_base/synchronization/mutex.h"
 #include "rtc_base/thread_annotations.h"
@@ -323,7 +324,7 @@ class RTCPSender final {
 
   typedef void (RTCPSender::*BuilderFunc)(const RtcpContext&, PacketSender&);
   // Map from RTCPPacketType to builder.
-  std::map<uint32_t, BuilderFunc> builders_;
+  flat_map<uint32_t, BuilderFunc> builders_;
 };
 }  // namespace webrtc
 

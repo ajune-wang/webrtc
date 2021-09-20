@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "27af839e_e64a167e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-20T09:45:06Z",
+      "side": 1,
+      "message": "Stefan, can you please give an approval while Sergey OOO",
+      "revId": "e16de6cb85fb2729ab814bd0296a983fc623c7cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'd2004ccb64feeced7bc3f879cc7a8c8642a303ab',
+  'chromium_revision': '3e65607ac7c13d0d115ae87f0513a7fb5f486761',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -31,7 +31,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@582c6d5fd0f288b4dafdf9ccc9a5578230cc761e',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@653948f148e7769318d21cd92a0dc3bfd8c9b850',
     'condition': 'checkout_ios',
   },
   'src/testing':
@@ -128,7 +128,7 @@ deps = {
   'src/third_party/breakpad/breakpad':
     'https://chromium.googlesource.com/breakpad/breakpad.git@1147c2fcf09cf150e6d7891e94bd390c6c8a9def',
   'src/third_party/catapult':
-    'https://chromium.googlesource.com/catapult.git@bb0675d8485993a155f7450aa496b7330b00f114',
+    'https://chromium.googlesource.com/catapult.git@2c91d8f11cf564e4bbff8a401244b2326a600907',
   'src/third_party/ced/src': {
     'url': 'https://chromium.googlesource.com/external/github.com/google/compact_enc_det.git@ba412eaaacd3186085babcd901679a48863c7dd5',
   },
@@ -271,7 +271,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@edbfb2c70568092f5e1eb45ca142d840ada3e0cb',
+    'https://chromium.googlesource.com/chromium/src/tools@66c9b612a3feef8889cf341af9298c4303a28c1e',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

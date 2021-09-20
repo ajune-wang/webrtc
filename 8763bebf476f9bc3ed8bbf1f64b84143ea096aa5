@@ -33,6 +33,24 @@
       "message": "Nitpick: can you replace NULL with nullptr for consistency with the rest of the code?",
       "revId": "8763bebf476f9bc3ed8bbf1f64b84143ea096aa5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2374919a_c1a79c24",
+        "filename": "modules/desktop_capture/linux/base_capturer_pipewire.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 727,
+      "author": {
+        "id": 18279
+      },
+      "writtenOn": "2021-09-20T13:18:15Z",
+      "side": 1,
+      "message": "Ack! Sorry, too much context switching between C and C++ :)",
+      "parentUuid": "e54b78be_09a43f3e",
+      "revId": "8763bebf476f9bc3ed8bbf1f64b84143ea096aa5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -46,6 +46,30 @@
       },
       "revId": "cf6de86cfb1c66fdda2594f54278f8871b75d5f0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ae8b301_6a94de2f",
+        "filename": "tools_webrtc/ios/build_ios_libs.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-09-20T12:57:13Z",
+      "side": 1,
+      "message": "I see. Then maybe it\u0027s fine. Just in case, can you ping thakis@, so he will be aware of it at least.",
+      "parentUuid": "46bba11d_31a1465a",
+      "range": {
+        "startLine": 163,
+        "startChar": 36,
+        "endLine": 163,
+        "endChar": 43
+      },
+      "revId": "cf6de86cfb1c66fdda2594f54278f8871b75d5f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

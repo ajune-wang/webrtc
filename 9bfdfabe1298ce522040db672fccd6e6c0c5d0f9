@@ -53,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6e6a986_7791fbf3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-09-20T10:11:04Z",
+      "side": 1,
+      "message": "Otherwise it works without any issue. Thank you. Just fix what I said and it\u0027s good to go.",
+      "parentUuid": "feed2734_2958a429",
+      "revId": "9bfdfabe1298ce522040db672fccd6e6c0c5d0f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8d14b06d_c6c56fcc",

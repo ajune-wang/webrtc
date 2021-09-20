@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "42f6bb78_a28acb3e",
+        "filename": "rtc_base/copy_on_write_buffer.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-09-20T09:26:36Z",
+      "side": 1,
+      "message": "Updated to VecT and ElemT",
+      "parentUuid": "a734ee79_e7a918cc",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 0
+      },
+      "revId": "bebf1c9d5deb5d544c98c83b82fe531b6bd387a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1a157089_11aa064e",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-09-17T15:28:33Z",
       "side": 1,
       "message": "did you mean to append a/b/c/d?\ninstead of appending CopyOnWriteBuffer 4 times.",
+      "range": {
+        "startLine": 368,
+        "startChar": 0,
+        "endLine": 371,
+        "endChar": 24
+      },
+      "revId": "bebf1c9d5deb5d544c98c83b82fe531b6bd387a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3e39506_0b8c2e78",
+        "filename": "rtc_base/copy_on_write_buffer_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-09-20T09:26:36Z",
+      "side": 1,
+      "message": "oops, yes, updated",
+      "parentUuid": "1a157089_11aa064e",
       "range": {
         "startLine": 368,
         "startChar": 0,

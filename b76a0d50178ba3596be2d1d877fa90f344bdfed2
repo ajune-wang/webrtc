@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13b3bb47_9f7c260f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-20T20:49:27Z",
+      "side": 1,
+      "message": "this particular member might be replaceable with a plain array, it can also be static, though latter probably less important for the performance.\nHowever currently rtcp enum used as key has too large gaps, so changing this to plain array would require some refactoring.",
+      "revId": "b76a0d50178ba3596be2d1d877fa90f344bdfed2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a521011e_30130070",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-09-20T20:49:27Z",
+      "side": 1,
+      "message": "drop namespace",
+      "range": {
+        "startLine": 327,
+        "startChar": 2,
+        "endLine": 327,
+        "endChar": 10
+      },
+      "revId": "b76a0d50178ba3596be2d1d877fa90f344bdfed2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

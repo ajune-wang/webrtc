@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7417065_8a07b941",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18279
+      },
+      "writtenOn": "2021-09-20T08:31:37Z",
+      "side": 1,
+      "message": "I haven\u0027t yet been able to build this locally, so a smoke test / try build would be good. The change itself already landed in Firefox and OBS, i.e. got some testing already.",
+      "revId": "9bfdfabe1298ce522040db672fccd6e6c0c5d0f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

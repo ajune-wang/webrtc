@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a44ac15e_f35e61e7",
+        "filename": "tools_webrtc/ios/build_ios_libs.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-09-20T08:35:52Z",
+      "side": 1,
+      "message": "I think we might want to add it here as it was done for iOS sim bots:\n# TODO(crbug.com/1249456): Remove use_lld\u003dfalse\nAlso specify this bug in the description please",
+      "range": {
+        "startLine": 163,
+        "startChar": 36,
+        "endLine": 163,
+        "endChar": 43
+      },
+      "revId": "cf6de86cfb1c66fdda2594f54278f8871b75d5f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

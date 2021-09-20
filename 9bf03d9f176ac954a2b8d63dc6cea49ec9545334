@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09e40526_8d4f921e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-09-20T10:11:44Z",
+      "side": 1,
+      "message": "If there are cases when the ToI420 can\u0027t succeed, please update the docs\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/video/video_frame_buffer.h;drc\u003d0e61fdd27c3371b75dba81252511ce0becfa78a0;l\u003d72\n\nto say that it may fail and return null. \n\nWhat error handling to you expect, just ignore the frame for which conversion failed? Do you expect errors to be transient, or will it typically fail for all frames of the stream?",
+      "revId": "9bf03d9f176ac954a2b8d63dc6cea49ec9545334",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

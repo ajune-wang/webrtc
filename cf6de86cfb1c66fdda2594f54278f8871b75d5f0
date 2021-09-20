@@ -22,6 +22,30 @@
       },
       "revId": "cf6de86cfb1c66fdda2594f54278f8871b75d5f0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46bba11d_31a1465a",
+        "filename": "tools_webrtc/ios/build_ios_libs.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-09-20T12:05:26Z",
+      "side": 1,
+      "message": "I am not sure this is the same bug, because IIUC the xcode toolchain (which we partially support on this bot, but Chromium doesn\u0027t) doesn\u0027t have lld support at the moment (and I am not sure when it will have it).",
+      "parentUuid": "a44ac15e_f35e61e7",
+      "range": {
+        "startLine": 163,
+        "startChar": 36,
+        "endLine": 163,
+        "endChar": 43
+      },
+      "revId": "cf6de86cfb1c66fdda2594f54278f8871b75d5f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

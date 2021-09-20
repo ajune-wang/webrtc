@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "5dca3ede_42dd2a38",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-09-20T07:17:11Z",
+      "side": 1,
+      "message": "Done. I figured that test-only class isn\u0027t that important, though.",
+      "parentUuid": "ee7b9bae_10cdc269",
+      "revId": "8d2e4f8dbf722603507011aaba96483717d85b13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "e36d1363_dc2bea15",

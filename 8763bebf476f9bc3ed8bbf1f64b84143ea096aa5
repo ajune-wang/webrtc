@@ -16,6 +16,23 @@
       "message": "Thanks, done!",
       "revId": "8763bebf476f9bc3ed8bbf1f64b84143ea096aa5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e54b78be_09a43f3e",
+        "filename": "modules/desktop_capture/linux/base_capturer_pipewire.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 727,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-09-20T13:11:53Z",
+      "side": 1,
+      "message": "Nitpick: can you replace NULL with nullptr for consistency with the rest of the code?",
+      "revId": "8763bebf476f9bc3ed8bbf1f64b84143ea096aa5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

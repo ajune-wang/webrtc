@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "40604436_d0595927",
+        "filename": "modules/desktop_capture/linux/base_capturer_pipewire.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-09-21T11:03:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e6195151_5e3e87a1",
+      "revId": "31fb9848a0093ae3b41f459505f96d32d68ec202",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4545622e_d2a2df72",
@@ -31,6 +49,24 @@
       "writtenOn": "2021-09-21T09:42:00Z",
       "side": 1,
       "message": "uint8_t?",
+      "revId": "31fb9848a0093ae3b41f459505f96d32d68ec202",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0544bf3b_7a1f49e2",
+        "filename": "modules/desktop_capture/linux/base_capturer_pipewire.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-09-21T11:03:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4545622e_d2a2df72",
       "revId": "31fb9848a0093ae3b41f459505f96d32d68ec202",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -52,6 +88,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8fec65a4_64267cca",
+        "filename": "modules/desktop_capture/linux/base_capturer_pipewire.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-09-21T11:03:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "661e2bfd_24768980",
+      "revId": "31fb9848a0093ae3b41f459505f96d32d68ec202",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e3fefde4_8fc0066e",
@@ -69,6 +123,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "10b37b53_146edca6",
+        "filename": "modules/desktop_capture/linux/base_capturer_pipewire.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-09-21T11:03:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3fefde4_8fc0066e",
+      "revId": "31fb9848a0093ae3b41f459505f96d32d68ec202",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4c93282b_e3c8156d",
@@ -82,6 +154,24 @@
       "writtenOn": "2021-09-21T09:42:00Z",
       "side": 1,
       "message": "intentionally pushing potentially the same format again? (could also have been pushed with modifiers in line 499)",
+      "revId": "31fb9848a0093ae3b41f459505f96d32d68ec202",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e2c7535_51bd21d3",
+        "filename": "modules/desktop_capture/linux/base_capturer_pipewire.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-09-21T11:03:03Z",
+      "side": 1,
+      "message": "Yes, this is intentional. We need each format combined with modifiers and without modifiers as fallback to negotiate MemFd and MemPtr buffer types.",
+      "parentUuid": "4c93282b_e3c8156d",
       "revId": "31fb9848a0093ae3b41f459505f96d32d68ec202",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -120,6 +210,42 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fe1b024_d11f282e",
+        "filename": "modules/desktop_capture/linux/base_capturer_pipewire.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-09-21T11:03:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6aff5c0_2e321975",
+      "revId": "31fb9848a0093ae3b41f459505f96d32d68ec202",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e8fc9db_01d3d122",
+        "filename": "modules/desktop_capture/linux/base_capturer_pipewire.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-09-21T11:03:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "416d5547_8bafff20",
+      "revId": "31fb9848a0093ae3b41f459505f96d32d68ec202",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c87fc1b5_48609307",
@@ -133,6 +259,24 @@
       "writtenOn": "2021-09-21T09:42:00Z",
       "side": 1,
       "message": "technically most of these variable names don\u0027t follow the style guide. However, since they\u0027re named after the exported functions they map to, I suggest to just add a comment that explains why we don\u0027t follow the style guide for those names (and what the rule is).",
+      "revId": "31fb9848a0093ae3b41f459505f96d32d68ec202",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bad3ed30_16cfecd5",
+        "filename": "modules/desktop_capture/linux/egl_dmabuf.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-09-21T11:03:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c87fc1b5_48609307",
       "revId": "31fb9848a0093ae3b41f459505f96d32d68ec202",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -154,6 +298,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfe02a7d_66174521",
+        "filename": "modules/desktop_capture/linux/egl_dmabuf.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-09-21T11:03:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "daf6c234_9d6a4509",
+      "revId": "31fb9848a0093ae3b41f459505f96d32d68ec202",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a9117d6_96565767",
@@ -167,6 +329,42 @@
       "writtenOn": "2021-09-21T09:42:00Z",
       "side": 1,
       "message": "should libEGL (or g_lib_egl) be a local static in this function rather than at global scope?\nAs is, dlopen() will be called every time OpenEGL() is called - a local static, would guarantee only once.",
+      "revId": "31fb9848a0093ae3b41f459505f96d32d68ec202",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb385aff_1e7bfb22",
+        "filename": "modules/desktop_capture/linux/egl_dmabuf.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-09-21T11:03:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a9117d6_96565767",
+      "revId": "31fb9848a0093ae3b41f459505f96d32d68ec202",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "658e4725_e50c2977",
+        "filename": "modules/desktop_capture/linux/egl_dmabuf.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-09-21T11:03:03Z",
+      "side": 1,
+      "message": "OpenEGL() (same as OpenGL()) is called only once when EglDmaBuf is created. Also, making it global I can call dlclose() in the destructor of EglDmaBuf.",
+      "parentUuid": "8a9117d6_96565767",
       "revId": "31fb9848a0093ae3b41f459505f96d32d68ec202",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -188,6 +386,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0cdcee74_7d665c9c",
+        "filename": "modules/desktop_capture/linux/egl_dmabuf.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-09-21T11:03:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c87f3ec_18c97ab6",
+      "revId": "31fb9848a0093ae3b41f459505f96d32d68ec202",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3d2c131d_fc3fcaf5",
@@ -201,6 +417,24 @@
       "writtenOn": "2021-09-21T09:42:00Z",
       "side": 1,
       "message": "why is this method static and not others? Should it be in an anonymous namespace at the top of the file?",
+      "revId": "31fb9848a0093ae3b41f459505f96d32d68ec202",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdccb4eb_ab895144",
+        "filename": "modules/desktop_capture/linux/egl_dmabuf.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-09-21T11:03:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d2c131d_fc3fcaf5",
       "revId": "31fb9848a0093ae3b41f459505f96d32d68ec202",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -222,6 +456,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc04bb22_7bcfd36e",
+        "filename": "modules/desktop_capture/linux/egl_dmabuf.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-09-21T11:03:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "20523a5b_5237eeb3",
+      "revId": "31fb9848a0093ae3b41f459505f96d32d68ec202",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "40a5fbad_decfb16c",
@@ -235,6 +487,24 @@
       "writtenOn": "2021-09-21T09:42:00Z",
       "side": 1,
       "message": "initialize and define at the same place.",
+      "revId": "31fb9848a0093ae3b41f459505f96d32d68ec202",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3598704f_46a9a483",
+        "filename": "modules/desktop_capture/linux/egl_dmabuf.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-09-21T11:03:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40a5fbad_decfb16c",
       "revId": "31fb9848a0093ae3b41f459505f96d32d68ec202",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

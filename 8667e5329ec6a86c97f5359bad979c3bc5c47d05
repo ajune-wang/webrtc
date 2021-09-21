@@ -108,6 +108,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e462081d_f27fd241",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 809,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-09-21T21:37:20Z",
+      "side": 1,
+      "message": "Seems like a reasonably safe change - if anyone depended on the nonstandard RED for audio without fmtp, they need to adapt. There shouldn\u0027t be too many of them.",
+      "parentUuid": "333e727e_7283958a",
+      "revId": "8667e5329ec6a86c97f5359bad979c3bc5c47d05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "be246b75_a6cc14b0",
         "filename": "pc/media_session.cc",
         "patchSetId": 7

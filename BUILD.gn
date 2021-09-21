@@ -249,7 +249,7 @@ config("rtc_prod_config") {
 }
 
 config("common_config") {
-  cflags = []
+  cflags = [ "-Wno-shadow" ]
   cflags_c = []
   cflags_cc = []
   cflags_objc = []
@@ -304,8 +304,6 @@ config("common_config") {
   if (rtc_exclude_audio_processing_module) {
     defines += [ "WEBRTC_EXCLUDE_AUDIO_PROCESSING_MODULE" ]
   }
-
-  cflags = []
 
   if (build_with_chromium) {
     defines += [

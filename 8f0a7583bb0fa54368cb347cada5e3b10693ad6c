@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3b5261d8_b35a7183",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5509
+      },
+      "writtenOn": "2021-09-21T20:47:38Z",
+      "side": 1,
+      "message": "I filed https://bugs.chromium.org/p/chromium/issues/detail?id\u003d1251763 for this. I\u0027ll try to look at it. Is there anything special I need to know to be able to build webrtc rtc_unittests for ios simulator? Or should it be fairly standard?",
+      "parentUuid": "041f41ca_58e3bd9e",
+      "revId": "8f0a7583bb0fa54368cb347cada5e3b10693ad6c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cdf40042_bbbf22f5",
         "filename": "sdk/objc/unittests/RTCCameraVideoCapturerTests.mm",
         "patchSetId": 2

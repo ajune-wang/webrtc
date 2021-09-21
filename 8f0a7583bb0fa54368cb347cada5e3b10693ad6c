@@ -16,6 +16,29 @@
       "message": "The build step now passes but there are tests failures that seem to be caused by this change which is actually really strange.\n\nPeter, can you take a look at these tests?",
       "revId": "8f0a7583bb0fa54368cb347cada5e3b10693ad6c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdf40042_bbbf22f5",
+        "filename": "sdk/objc/unittests/RTCCameraVideoCapturerTests.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-09-21T13:15:16Z",
+      "side": 1,
+      "message": "See https://ci.chromium.org/ui/p/webrtc/builders/try/ios_sim_x64_dbg_ios13/3056/overview for failures.",
+      "range": {
+        "startLine": 312,
+        "startChar": 0,
+        "endLine": 312,
+        "endChar": 76
+      },
+      "revId": "8f0a7583bb0fa54368cb347cada5e3b10693ad6c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

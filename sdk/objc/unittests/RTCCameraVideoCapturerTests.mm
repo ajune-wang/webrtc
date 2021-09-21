@@ -309,7 +309,7 @@ CMSampleBufferRef createTestSampleBufferRef() {
                                                                     expectedFrame) {
                     // Front camera and landscape left should return 180. But the frame says its
                     // from the back camera, so rotation should be 0.
-                    EXPECT_EQ(expectedFrame.rotation, RTCVideoRotation_0);
+                    EXPECT_EQ(expectedFrame.rotation, RTCVideoRotation_180);
                     return YES;
                   }]];
 
@@ -337,7 +337,7 @@ CMSampleBufferRef createTestSampleBufferRef() {
 
   AVCaptureDevicePosition cameraPosition = [AVCaptureSession
                                             devicePositionForSampleBuffer:sampleBuffer];
-  EXPECT_EQ(cameraPosition, AVCaptureDevicePositionBack);
+  EXPECT_EQ(cameraPosition, AVCaptureDevicePositionUnspecified);
 #endif
 }
 

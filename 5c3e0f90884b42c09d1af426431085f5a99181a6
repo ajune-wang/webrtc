@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3d6a3d3_5dc48cbc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-09-21T21:40:09Z",
+      "side": 1,
+      "message": "Not entering an inconsistent state seems like a great idea.\n",
+      "revId": "5c3e0f90884b42c09d1af426431085f5a99181a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a4a1b7f_e94d053f",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-09-21T21:40:09Z",
+      "side": 1,
+      "message": "You should name this as close to the variable that it is setting: kMaxTimerBackoffDuration.",
+      "revId": "5c3e0f90884b42c09d1af426431085f5a99181a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

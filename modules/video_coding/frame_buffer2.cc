@@ -53,11 +53,9 @@ FrameBuffer::FrameBuffer(Clock* clock,
                          VCMReceiveStatisticsCallback* stats_callback)
     : decoded_frames_history_(kMaxFramesHistory),
       clock_(clock),
-      callback_queue_(nullptr),
       jitter_estimator_(clock),
       timing_(timing),
       inter_frame_delay_(clock_->TimeInMilliseconds()),
-      stopped_(false),
       protection_mode_(kProtectionNack),
       stats_callback_(stats_callback),
       last_log_non_decoded_ms_(-kLogNonDecodedIntervalMs),
@@ -75,62 +73,28 @@ FrameBuffer::~FrameBuffer() {
   RTC_DCHECK_RUN_ON(&construction_checker_);
 }
 
-void FrameBuffer::NextFrame(
-    int64_t max_wait_time_ms,
+std::unique_ptr<EncodedFrame> FrameBuffer::GetNextFrame2(
     bool keyframe_required,
-    rtc::TaskQueue* callback_queue,
-    std::function<void(std::unique_ptr<EncodedFrame>, ReturnReason)> handler) {
+    int64_t latest_return_time_ms) {
   RTC_DCHECK_RUN_ON(&callback_checker_);
-  RTC_DCHECK(callback_queue->IsCurrent());
-  TRACE_EVENT0("webrtc", "FrameBuffer::NextFrame");
-  int64_t latest_return_time_ms =
-      clock_->TimeInMilliseconds() + max_wait_time_ms;
-
+  std::unique_ptr<EncodedFrame> frame;
   MutexLock lock(&mutex_);
-  if (stopped_) {
-    return;
-  }
-  latest_return_time_ms_ = latest_return_time_ms;
   keyframe_required_ = keyframe_required;
-  frame_handler_ = handler;
-  callback_queue_ = callback_queue;
-  StartWaitForNextFrameOnQueue();
-}
-
-void FrameBuffer::StartWaitForNextFrameOnQueue() {
-  RTC_DCHECK(callback_queue_);
-  RTC_DCHECK(!callback_task_.Running());
+  latest_return_time_ms_ = latest_return_time_ms;
   int64_t wait_ms = FindNextFrame(clock_->TimeInMilliseconds());
-  callback_task_ = RepeatingTaskHandle::DelayedStart(
-      callback_queue_->Get(), TimeDelta::Millis(wait_ms), [this] {
-        RTC_DCHECK_RUN_ON(&callback_checker_);
-        // If this task has not been cancelled, we did not get any new frames
-        // while waiting. Continue with frame delivery.
-        std::unique_ptr<EncodedFrame> frame;
-        std::function<void(std::unique_ptr<EncodedFrame>, ReturnReason)>
-            frame_handler;
-        {
-          MutexLock lock(&mutex_);
-          if (!frames_to_decode_.empty()) {
-            // We have frames, deliver!
-            frame = absl::WrapUnique(GetNextFrame());
-            timing_->SetLastDecodeScheduledTimestamp(
-                clock_->TimeInMilliseconds());
-          } else if (clock_->TimeInMilliseconds() < latest_return_time_ms_) {
-            // If there's no frames to decode and there is still time left, it
-            // means that the frame buffer was cleared between creation and
-            // execution of this task. Continue waiting for the remaining time.
-            int64_t wait_ms = FindNextFrame(clock_->TimeInMilliseconds());
-            return TimeDelta::Millis(wait_ms);
-          }
-          frame_handler = std::move(frame_handler_);
-          CancelCallback();
-        }
-        // Deliver frame, if any. Otherwise signal timeout.
-        ReturnReason reason = frame ? kFrameFound : kTimeout;
-        frame_handler(std::move(frame), reason);
-        return TimeDelta::Zero();  // Ignored.
-      });
+  // TODO(eshr): HACK: Frames are getting dropped when wait_ms is less than time
+  // to next update time. Update this using some parameter or deadline.
+  constexpr int64_t kUpdateTime60fps = 1000 / 60;
+  if (wait_ms > kUpdateTime60fps / 2) {
+    RTC_DLOG(WARNING) << "Returning no frame since wait is " << wait_ms;
+    return nullptr;
+  }
+  if (!frames_to_decode_.empty()) {
+    // We have frames, deliver!
+    frame = absl::WrapUnique(GetNextFrame());
+    timing_->SetLastDecodeScheduledTimestamp(clock_->TimeInMilliseconds());
+  }
+  return frame;
 }
 
 int64_t FrameBuffer::FindNextFrame(int64_t now_ms) {
@@ -353,16 +317,6 @@ void FrameBuffer::SetProtectionMode(VCMVideoProtection mode) {
   protection_mode_ = mode;
 }
 
-void FrameBuffer::Stop() {
-  TRACE_EVENT0("webrtc", "FrameBuffer::Stop");
-  MutexLock lock(&mutex_);
-  if (stopped_)
-    return;
-  stopped_ = true;
-
-  CancelCallback();
-}
-
 void FrameBuffer::Clear() {
   MutexLock lock(&mutex_);
   ClearFramesAndHistory();
@@ -390,14 +344,6 @@ bool FrameBuffer::ValidReferences(const EncodedFrame& frame) const {
   }
 
   return true;
-}
-
-void FrameBuffer::CancelCallback() {
-  // Called from the callback queue or from within Stop().
-  frame_handler_ = {};
-  callback_task_.Stop();
-  callback_queue_ = nullptr;
-  callback_checker_.Detach();
 }
 
 int64_t FrameBuffer::InsertFrame(std::unique_ptr<EncodedFrame> frame) {
@@ -486,19 +432,6 @@ int64_t FrameBuffer::InsertFrame(std::unique_ptr<EncodedFrame> frame) {
     info->second.continuous = true;
     PropagateContinuity(info);
     last_continuous_frame_id = *last_continuous_frame_;
-
-    // Since we now have new continuous frames there might be a better frame
-    // to return from NextFrame.
-    if (callback_queue_) {
-      callback_queue_->PostTask([this] {
-        MutexLock lock(&mutex_);
-        if (!callback_task_.Running())
-          return;
-        RTC_CHECK(frame_handler_);
-        callback_task_.Stop();
-        StartWaitForNextFrameOnQueue();
-      });
-    }
   }
 
   return last_continuous_frame_id;

@@ -16,6 +16,23 @@
       "message": "Sergey\u0027s status changed to OOO. Erik/Evan, could you please take another look?",
       "revId": "0bf2e7a2bca5c096d4ad32a75b89beab8aef5766",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e6368f4_79eef8d7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 23
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2021-09-22T13:08:53Z",
+      "side": 1,
+      "message": "Still lgtm from the resource point-of-view, but need sprang or sergey to confirm that the bandwidth scaler makes sense.",
+      "revId": "0bf2e7a2bca5c096d4ad32a75b89beab8aef5766",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

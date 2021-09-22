@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "62677b2c_5743a68f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-09-22T07:16:08Z",
+      "side": 1,
+      "message": "Thanks!\n\nI CC\u0027d some WebRTC iOS experts on the bug.",
+      "parentUuid": "3b5261d8_b35a7183",
+      "revId": "8f0a7583bb0fa54368cb347cada5e3b10693ad6c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cdf40042_bbbf22f5",
         "filename": "sdk/objc/unittests/RTCCameraVideoCapturerTests.mm",
         "patchSetId": 2

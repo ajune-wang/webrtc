@@ -143,6 +143,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c36d32c_084ea754",
+        "filename": "logging/rtc_event_log/events/rtc_event_field_extraction.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-09-22T17:43:43Z",
+      "side": 1,
+      "message": "The function is also used in the follow up CL. We could of course add a special case there, but I think it\u0027s cleaner to say that it requires at least one bit to encode 0.",
+      "parentUuid": "a64ece96_8737bba9",
+      "range": {
+        "startLine": 23,
+        "startChar": 2,
+        "endLine": 27,
+        "endChar": 17
+      },
+      "revId": "ff1d06fc5f199e1949e9cb27389155142d2c292b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1b29a40b_a6fa78de",
@@ -379,6 +403,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a972d8f3_b48ff0c1",
+        "filename": "logging/rtc_event_log/events/rtc_event_field_extraction.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-09-22T17:43:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9456f289_f8ca642e",
+      "range": {
+        "startLine": 83,
+        "startChar": 20,
+        "endLine": 83,
+        "endChar": 29
+      },
+      "revId": "ff1d06fc5f199e1949e9cb27389155142d2c292b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7c161a24_832a7bc3",
@@ -392,6 +440,30 @@
       "writtenOn": "2021-09-15T09:56:46Z",
       "side": 1,
       "message": "Is this for error reporting? Maybe return optional\u003cError\u003e? Or ideally, avoid getting into the error state and simply CHECK/DCHECK. IF you really can\u0027t avoid using a bool for error handling, it should be documented and have an annotation to enforce usage of the return value at the call site.",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 4
+      },
+      "revId": "ff1d06fc5f199e1949e9cb27389155142d2c292b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2232ac46_5dd3d642",
+        "filename": "logging/rtc_event_log/events/rtc_event_field_extraction.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-09-22T17:43:43Z",
+      "side": 1,
+      "message": "With the current code, we can verify the parsed data and return a status in the ParseField method, and thus just CHECK in this function (and the one below). I\u0027ve rewritten in this way, and it\u0027s indeed much nicer.\n\nHowever, if we want to verify the range of the parsed values, (e.g. that the values are in the range [0, 255] when we populate a uint8_t) we may have to reconsider this in the future. Currently, the parser will just print a warning to stderr and static_cast the parsed uint64_t to the requested type.",
+      "parentUuid": "7c161a24_832a7bc3",
       "range": {
         "startLine": 118,
         "startChar": 0,

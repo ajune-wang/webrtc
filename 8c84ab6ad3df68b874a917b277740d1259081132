@@ -51,6 +51,23 @@
       "parentUuid": "f7daee01_e98a192e",
       "revId": "8c84ab6ad3df68b874a917b277740d1259081132",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5d3740d_9082baf8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-09-22T19:35:37Z",
+      "side": 1,
+      "message": "Which one of this and https://webrtc-review.googlesource.com/c/src/+/232760 should be submitted? They seem to address the same issue.\n\n+1 on both to remove myself from the critical path.",
+      "revId": "8c84ab6ad3df68b874a917b277740d1259081132",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

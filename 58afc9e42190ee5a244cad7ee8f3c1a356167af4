@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4b0f63e_6510b3f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-09-22T19:34:47Z",
+      "side": 1,
+      "message": "Which one of this and https://webrtc-review.googlesource.com/c/src/+/232333 should be submitted?\n\nThey seem to be addressing the same issue.",
+      "revId": "58afc9e42190ee5a244cad7ee8f3c1a356167af4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

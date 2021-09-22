@@ -75,6 +75,54 @@
       },
       "revId": "8f0a7583bb0fa54368cb347cada5e3b10693ad6c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6918c2cd_b723f502",
+        "filename": "sdk/objc/unittests/RTCCameraVideoCapturerTests.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-09-22T15:03:40Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "cdf40042_bbbf22f5",
+      "range": {
+        "startLine": 312,
+        "startChar": 0,
+        "endLine": 312,
+        "endChar": 76
+      },
+      "revId": "8f0a7583bb0fa54368cb347cada5e3b10693ad6c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c7a5d19_0cbf5340",
+        "filename": "sdk/objc/unittests/RTCCameraVideoCapturerTests.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-09-22T15:03:40Z",
+      "side": 1,
+      "message": "Ack (see https://bugs.chromium.org/p/chromium/issues/detail?id\u003d1251763#c9).",
+      "parentUuid": "cdf40042_bbbf22f5",
+      "range": {
+        "startLine": 312,
+        "startChar": 0,
+        "endLine": 312,
+        "endChar": 76
+      },
+      "revId": "8f0a7583bb0fa54368cb347cada5e3b10693ad6c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

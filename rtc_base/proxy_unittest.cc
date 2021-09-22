@@ -49,8 +49,7 @@ TEST_F(ProxyTest, TestSocks5Connect) {
       socket, kSocksProxyIntAddr, "", rtc::CryptString());
   // TODO: IPv6-ize these tests when proxy supports IPv6.
 
-  rtc::TestEchoServer server(rtc::Thread::Current(),
-                             SocketAddress(INADDR_ANY, 0));
+  rtc::TestEchoServer server(ss(), SocketAddress(INADDR_ANY, 0));
 
   std::unique_ptr<rtc::AsyncTCPSocket> packet_socket(
       rtc::AsyncTCPSocket::Create(proxy_socket, SocketAddress(INADDR_ANY, 0),

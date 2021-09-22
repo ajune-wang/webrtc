@@ -51,18 +51,16 @@ class TestTurnRedirector : public TurnRedirectInterface {
 class TestTurnServer : public TurnAuthInterface {
  public:
   TestTurnServer(rtc::Thread* thread,
+                 rtc::SocketFactory* socket_factory,
                  const rtc::SocketAddress& int_addr,
                  const rtc::SocketAddress& udp_ext_addr,
                  ProtocolType int_protocol = PROTO_UDP,
                  bool ignore_bad_cert = true,
                  const std::string& common_name = "test turn server")
-      : server_(thread), thread_(thread) {
+      : server_(thread), socket_factory_(socket_factory) {
     AddInternalSocket(int_addr, int_protocol, ignore_bad_cert, common_name);
-    // TODO(bugs.webrtc.org/13145): Take a SocketFactory as argument, so we
-    // don't need thread_->socketserver().
     server_.SetExternalSocketFactory(
-        new rtc::BasicPacketSocketFactory(thread_->socketserver()),
-        udp_ext_addr);
+        new rtc::BasicPacketSocketFactory(socket_factory), udp_ext_addr);
     server_.set_realm(kTestRealm);
     server_.set_software(kTestSoftware);
     server_.set_auth_hook(this);
@@ -97,13 +95,11 @@ class TestTurnServer : public TurnAuthInterface {
     RTC_DCHECK(thread_checker_.IsCurrent());
     if (proto == cricket::PROTO_UDP) {
       server_.AddInternalSocket(
-          rtc::AsyncUDPSocket::Create(thread_->socketserver(), int_addr),
-          proto);
+          rtc::AsyncUDPSocket::Create(socket_factory_, int_addr), proto);
     } else if (proto == cricket::PROTO_TCP || proto == cricket::PROTO_TLS) {
       // For TCP we need to create a server socket which can listen for incoming
       // new connections.
-      rtc::Socket* socket =
-          thread_->socketserver()->CreateSocket(AF_INET, SOCK_STREAM);
+      rtc::Socket* socket = socket_factory_->CreateSocket(AF_INET, SOCK_STREAM);
       if (proto == cricket::PROTO_TLS) {
         // For TLS, wrap the TCP socket with an SSL adapter. The adapter must
         // be configured with a self-signed certificate for testing.
@@ -149,7 +145,7 @@ class TestTurnServer : public TurnAuthInterface {
   }
 
   TurnServer server_;
-  rtc::Thread* thread_;
+  rtc::SocketFactory* socket_factory_;
   webrtc::SequenceChecker thread_checker_;
 };
 

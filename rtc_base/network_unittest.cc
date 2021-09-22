@@ -159,13 +159,13 @@ class NetworkTest : public ::testing::Test, public sigslot::has_slots<> {
     RTC_DCHECK_RUN_ON(network_manager.thread_);
     return network_manager.IsIgnoredNetwork(network);
   }
-
+#if 0
   IPAddress QueryDefaultLocalAddress(BasicNetworkManager& network_manager,
                                      int family) {
     RTC_DCHECK_RUN_ON(network_manager.thread_);
     return network_manager.QueryDefaultLocalAddress(family);
   }
-
+#endif
   NetworkManager::NetworkList GetNetworks(
       const BasicNetworkManager& network_manager,
       bool include_ignored) {
@@ -315,7 +315,9 @@ class TestBasicNetworkManager : public BasicNetworkManager {
  public:
   TestBasicNetworkManager(NetworkMonitorFactory* network_monitor_factory)
       : BasicNetworkManager(network_monitor_factory) {}
+#if 0
   using BasicNetworkManager::QueryDefaultLocalAddress;
+#endif
   using BasicNetworkManager::set_default_local_addresses;
 };
 
@@ -1166,6 +1168,7 @@ TEST_F(NetworkTest, MAYBE_DefaultLocalAddress) {
   std::vector<Network*> networks;
   manager.GetNetworks(&networks);
   EXPECT_TRUE(!networks.empty());
+#if 0
   for (const auto* network : networks) {
     if (network->GetBestIP().family() == AF_INET) {
       EXPECT_TRUE(QueryDefaultLocalAddress(manager, AF_INET) != IPAddress());
@@ -1176,7 +1179,7 @@ TEST_F(NetworkTest, MAYBE_DefaultLocalAddress) {
       EXPECT_TRUE(QueryDefaultLocalAddress(manager, AF_INET6) != IPAddress());
     }
   }
-
+#endif
   // GetDefaultLocalAddress should return the valid default address after set.
   manager.set_default_local_addresses(GetLoopbackIP(AF_INET),
                                       GetLoopbackIP(AF_INET6));

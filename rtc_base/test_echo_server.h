@@ -23,6 +23,7 @@
 #include "rtc_base/constructor_magic.h"
 #include "rtc_base/socket.h"
 #include "rtc_base/socket_address.h"
+#include "rtc_base/socket_factory.h"
 #include "rtc_base/third_party/sigslot/sigslot.h"
 #include "rtc_base/thread.h"
 
@@ -32,7 +33,7 @@ namespace rtc {
 // Useful for unit tests.
 class TestEchoServer : public sigslot::has_slots<> {
  public:
-  TestEchoServer(Thread* thread, const SocketAddress& addr);
+  TestEchoServer(SocketFactory* socket_factory, const SocketAddress& addr);
   ~TestEchoServer() override;
 
   SocketAddress address() const { return server_socket_->GetLocalAddress(); }

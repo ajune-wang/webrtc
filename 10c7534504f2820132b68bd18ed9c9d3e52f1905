@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c147c793_ea76f204",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-09-23T14:49:11Z",
+      "side": 1,
+      "message": "PTAL. Do you have any ideas on how to rework the two problem tests?\n\nSharing SignalAddressReady between udp sockets and tcp server sockets makes it more complicated to take out the tcp listen functionality to its own class. And as far as I can tell, it\u0027s not used for tcp.",
+      "revId": "10c7534504f2820132b68bd18ed9c9d3e52f1905",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69b4a85c_f3460e44",
+        "filename": "p2p/base/port_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1518,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-09-23T14:49:11Z",
+      "side": 1,
+      "message": "This call no longer has any effect, and makes this test fail.",
+      "range": {
+        "startLine": 1518,
+        "startChar": 2,
+        "endLine": 1518,
+        "endChar": 52
+      },
+      "revId": "10c7534504f2820132b68bd18ed9c9d3e52f1905",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5bdda0b_0d29a7f6",
+        "filename": "p2p/base/port_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1568,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-09-23T14:49:11Z",
+      "side": 1,
+      "message": "This has no effect for TCP, and makes the test TestSkipCrossFamilyTcp below fail.",
+      "range": {
+        "startLine": 1568,
+        "startChar": 4,
+        "endLine": 1568,
+        "endChar": 53
+      },
+      "revId": "10c7534504f2820132b68bd18ed9c9d3e52f1905",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

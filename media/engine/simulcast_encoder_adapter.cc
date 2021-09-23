@@ -263,6 +263,8 @@ SimulcastEncoderAdapter::SimulcastEncoderAdapter(
           "WebRTC-Video-PreferTemporalSupportOnBaseLayer")) {
   RTC_DCHECK(primary_factory);
 
+  RTC_LOG(LS_ERROR) << __func__ << " this " << this << " ctor";
+
   // The adapter is typically created on the worker thread, but operated on
   // the encoder task queue.
   encoder_queue_.Detach();

@@ -640,6 +640,10 @@ bool RTPSenderVideo::SendVideo(
     return false;
 
   bool first_frame = first_frame_sent_();
+  RTC_LOG(LS_ERROR) << __func__ << " this " << this << " num_packets "
+                    << num_packets << " rtp_timestamp " << rtp_timestamp
+                    << " payload size " << payload.size();
+
   std::vector<std::unique_ptr<RtpPacketToSend>> rtp_packets;
   for (size_t i = 0; i < num_packets; ++i) {
     std::unique_ptr<RtpPacketToSend> packet;

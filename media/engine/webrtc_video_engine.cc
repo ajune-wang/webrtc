@@ -1148,9 +1148,9 @@ webrtc::RtpParameters WebRtcVideoChannel::GetDefaultRtpReceiveParameters()
   RTC_DCHECK_RUN_ON(&thread_checker_);
   webrtc::RtpParameters rtp_params;
   if (!default_unsignalled_ssrc_handler_.GetDefaultSink()) {
-    RTC_LOG(LS_WARNING) << "Attempting to get RTP parameters for the default, "
-                           "unsignaled video receive stream, but not yet "
-                           "configured to receive such a stream.";
+    // RTC_LOG(LS_WARNING) << "Attempting to get RTP parameters for the default, "
+    //                        "unsignaled video receive stream, but not yet "
+    //                        "configured to receive such a stream.";
     return rtp_params;
   }
   rtp_params.encodings.emplace_back();

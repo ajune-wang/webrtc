@@ -539,6 +539,14 @@ void VideoSendStreamImpl::OnEncoderConfigurationChanged(
 EncodedImageCallback::Result VideoSendStreamImpl::OnEncodedImage(
     const EncodedImage& encoded_image,
     const CodecSpecificInfo* codec_specific_info) {
+  RTC_LOG(LS_ERROR)
+      << __func__ << " eop " << codec_specific_info->end_of_picture << " nr "
+      << codec_specific_info->codecSpecific.VP8.nonReference << " ti "
+      << codec_specific_info->codecSpecific.VP8.temporalIdx << " ls "
+      << codec_specific_info->codecSpecific.VP8.layerSync << " ki "
+      << codec_specific_info->codecSpecific.VP8.keyIdx << " ubc "
+      << codec_specific_info->codecSpecific.VP8.updatedBuffersCount;
+
   // Encoded is called on whatever thread the real encoder implementation run
   // on. In the case of hardware encoders, there might be several encoders
   // running in parallel on different threads.

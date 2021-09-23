@@ -63,7 +63,7 @@ constexpr int kTokenPartitions = VP8_ONE_TOKENPARTITION;
 constexpr uint32_t kVp832ByteAlign = 32u;
 
 constexpr int kRtpTicksPerSecond = 90000;
-constexpr int kRtpTicksPerMs = kRtpTicksPerSecond / 1000;
+// constexpr int kRtpTicksPerMs = kRtpTicksPerSecond / 1000;
 
 // VP8 denoiser states.
 enum denoiserState : uint32_t {
@@ -955,14 +955,14 @@ int LibvpxVp8Encoder::Encode(const VideoFrame& frame,
     }
   }
 
-  if (frame.update_rect().IsEmpty() && num_steady_state_frames_ >= 3 &&
-      !key_frame_requested) {
-    if (variable_framerate_experiment_.enabled &&
-        framerate_controller_.DropFrame(frame.timestamp() / kRtpTicksPerMs)) {
-      return WEBRTC_VIDEO_CODEC_OK;
-    }
-    framerate_controller_.AddFrame(frame.timestamp() / kRtpTicksPerMs);
-  }
+  // if (frame.update_rect().IsEmpty() && num_steady_state_frames_ >= 3 &&
+  //     !key_frame_requested) {
+  //   if (variable_framerate_experiment_.enabled &&
+  //       framerate_controller_.DropFrame(frame.timestamp() / kRtpTicksPerMs)) {
+  //     return WEBRTC_VIDEO_CODEC_OK;
+  //   }
+  //   framerate_controller_.AddFrame(frame.timestamp() / kRtpTicksPerMs);
+  // }
 
   bool send_key_frame = key_frame_requested;
   bool drop_frame = false;
@@ -973,12 +973,20 @@ int LibvpxVp8Encoder::Encode(const VideoFrame& frame,
         frame_buffer_controller_->NextFrameConfig(i, frame.timestamp());
     send_key_frame |= tl_configs[i].IntraFrame();
     drop_frame |= tl_configs[i].drop_frame;
+
     RTC_DCHECK(i == 0 ||
                retransmission_allowed == tl_configs[i].retransmission_allowed);
     retransmission_allowed = tl_configs[i].retransmission_allowed;
+    RTC_LOG(LS_ERROR) << this << " NextFrameConfig: i " << i << " send_key_frame "
+                      << send_key_frame << " drop_frame " << drop_frame
+                      << " retransmission_allowed " << retransmission_allowed;
   }
 
+  RTC_LOG(LS_ERROR) << this << " NextFrameConfig TOTALS key_frame_requested "
+                    << key_frame_requested;
+
   if (drop_frame && !send_key_frame) {
+    RTC_LOG(LS_ERROR) << "Drop frame";
     return WEBRTC_VIDEO_CODEC_OK;
   }
 
@@ -994,6 +1002,7 @@ int LibvpxVp8Encoder::Encode(const VideoFrame& frame,
   std::vector<rtc::scoped_refptr<VideoFrameBuffer>> prepared_buffers =
       PrepareBuffers(frame.video_frame_buffer());
   if (prepared_buffers.empty()) {
+    RTC_LOG(LS_ERROR) << "Error";
     return WEBRTC_VIDEO_CODEC_ERROR;
   }
   struct CleanUpOnExit {
@@ -1033,8 +1042,10 @@ int LibvpxVp8Encoder::Encode(const VideoFrame& frame,
     const size_t stream_idx = encoders_.size() - 1 - i;
 
     if (UpdateVpxConfiguration(stream_idx)) {
-      if (libvpx_->codec_enc_config_set(&encoders_[i], &vpx_configs_[i]))
+      if (libvpx_->codec_enc_config_set(&encoders_[i], &vpx_configs_[i])) {
+        RTC_LOG(LS_ERROR) << "Error";
         return WEBRTC_VIDEO_CODEC_ERROR;
+      }
     }
 
     libvpx_->codec_control(&encoders_[i], VP8E_SET_FRAME_FLAGS,
@@ -1049,6 +1060,12 @@ int LibvpxVp8Encoder::Encode(const VideoFrame& frame,
   // frame rate to calculate an average duration for now.
   RTC_DCHECK_GT(codec_.maxFramerate, 0);
   uint32_t duration = kRtpTicksPerSecond / codec_.maxFramerate;
+  RTC_LOG(LS_ERROR) << __func__ << " " << this << " max_fr "
+                    << codec_.maxFramerate << " duration " << duration
+                    << " rc_target_bitrate[0] "
+                    << vpx_configs_[0].rc_target_bitrate
+                    << " rc_max_quantizer[0] "
+                    << vpx_configs_[0].rc_max_quantizer;
 
   int error = WEBRTC_VIDEO_CODEC_OK;
   int num_tries = 0;
@@ -1062,6 +1079,7 @@ int LibvpxVp8Encoder::Encode(const VideoFrame& frame,
     // Note we must pass 0 for `flags` field in encode call below since they are
     // set above in `libvpx_interface_->vpx_codec_control_` function for each
     // encoder/spatial layer.
+    RTC_LOG(LS_ERROR) << __func__ << " " << this << " send to encoder";
     error = libvpx_->codec_encode(&encoders_[0], &raw_images_[0], timestamp_,
                                   duration, 0, VPX_DL_REALTIME);
     // Reset specific intra frame thresholds, following the key frame.
@@ -1069,11 +1087,14 @@ int LibvpxVp8Encoder::Encode(const VideoFrame& frame,
       libvpx_->codec_control(&(encoders_[0]), VP8E_SET_MAX_INTRA_BITRATE_PCT,
                              rc_max_intra_target_);
     }
-    if (error)
+    if (error) {
+      RTC_LOG(LS_ERROR) << "Error";
       return WEBRTC_VIDEO_CODEC_ERROR;
+    }
     // Examines frame timestamps only.
     error = GetEncodedPartitions(frame, retransmission_allowed);
   }
+  RTC_LOG(LS_ERROR) << __func__ << " *** ENCODED num_tries " << num_tries << " error " << error;
   // TODO(sprang): Shouldn't we use the frame timestamp instead?
   timestamp_ += duration;
   return error;
@@ -1116,6 +1137,8 @@ void LibvpxVp8Encoder::PopulateCodecSpecific(CodecSpecificInfo* codec_specific,
 
 int LibvpxVp8Encoder::GetEncodedPartitions(const VideoFrame& input_image,
                                            bool retransmission_allowed) {
+  RTC_LOG(LS_ERROR) << __func__ << " " << this << " encoders "
+                    << encoders_.size();
   int stream_idx = static_cast<int>(encoders_.size()) - 1;
   int result = WEBRTC_VIDEO_CODEC_OK;
   for (size_t encoder_idx = 0; encoder_idx < encoders_.size();
@@ -1174,6 +1197,9 @@ int LibvpxVp8Encoder::GetEncodedPartitions(const VideoFrame& input_image,
 
     if (send_stream_[stream_idx]) {
       if (encoded_images_[encoder_idx].size() > 0) {
+        RTC_LOG(LS_ERROR) << __func__ << " " << this
+                          << " Got encoded image enc_idx " << encoder_idx
+                          << " stream_idx " << stream_idx;
         TRACE_COUNTER_ID1("webrtc", "EncodedFrameSize", encoder_idx,
                           encoded_images_[encoder_idx].size());
         encoded_images_[encoder_idx]._encodedHeight =
@@ -1196,12 +1222,22 @@ int LibvpxVp8Encoder::GetEncodedPartitions(const VideoFrame& input_image,
         }
       } else if (!frame_buffer_controller_->SupportsEncoderFrameDropping(
                      stream_idx)) {
+        RTC_LOG(LS_ERROR) << __func__ << " " << this
+                          << " Bitrate overshoot enc_idx " << encoder_idx
+                          << " stream_idx " << stream_idx;
         result = WEBRTC_VIDEO_CODEC_TARGET_BITRATE_OVERSHOOT;
         if (encoded_images_[encoder_idx].size() == 0) {
+          RTC_LOG(LS_ERROR)
+              << __func__ << " " << this << " Callign OnFrameDropped enc_idx "
+              << encoder_idx << " stream_idx " << stream_idx;
           // Dropped frame that will be re-encoded.
           frame_buffer_controller_->OnFrameDropped(stream_idx,
                                                    input_image.timestamp());
         }
+      } else {
+        RTC_LOG(LS_ERROR) << __func__ << " " << this
+                          << " Fell out of if statements enc_idx "
+                          << encoder_idx << " stream_idx " << stream_idx;
       }
     }
   }

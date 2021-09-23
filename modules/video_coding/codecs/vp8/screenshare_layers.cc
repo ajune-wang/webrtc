@@ -132,8 +132,8 @@ Vp8FrameConfig ScreenshareLayers::NextFrameConfig(size_t stream_index,
     // If input frame rate exceeds target frame rate, either over a one second
     // averaging window, or if frame interval is below 90% of desired value,
     // drop frame.
-    if (encode_framerate_.Rate(now_ms).value_or(0) > *target_framerate_)
-      return Vp8FrameConfig(kNone, kNone, kNone);
+    // if (encode_framerate_.Rate(now_ms).value_or(0) > *target_framerate_)
+    //   return Vp8FrameConfig(kNone, kNone, kNone);
 
     // Primarily check if frame interval is too short using frame timestamps,
     // as if they are correct they won't be affected by queuing in webrtc.
@@ -141,7 +141,10 @@ Vp8FrameConfig ScreenshareLayers::NextFrameConfig(size_t stream_index,
         kOneSecond90Khz / *target_framerate_;
     if (last_timestamp_ != -1 && ts_diff > 0) {
       if (ts_diff < 85 * expected_frame_interval_90khz / 100) {
-        return Vp8FrameConfig(kNone, kNone, kNone);
+        // RTC_LOG(LS_ERROR)
+        //     << __func__
+        //     << " DROP DUE TO FRAME OUT OF expected_frame_interval_90khz";
+        // return Vp8FrameConfig(kNone, kNone, kNone);
       }
     } else {
       // Timestamps looks off, use realtime clock here instead.
@@ -149,7 +152,10 @@ Vp8FrameConfig ScreenshareLayers::NextFrameConfig(size_t stream_index,
       if (last_frame_time_ms_ != -1 &&
           now_ms - last_frame_time_ms_ <
               (85 * expected_frame_interval_ms) / 100) {
-        return Vp8FrameConfig(kNone, kNone, kNone);
+        // RTC_LOG(LS_ERROR)
+        //     << __func__
+        //     << " DROP DUE TO FRAME TIMESTAMPS LOOKING OFF";
+        // return Vp8FrameConfig(kNone, kNone, kNone);
       }
     }
   }
@@ -162,6 +168,8 @@ Vp8FrameConfig ScreenshareLayers::NextFrameConfig(size_t stream_index,
   layers_[1].UpdateDebt(ts_diff / 90);
   last_timestamp_ = timestamp;
   last_frame_time_ms_ = now_ms;
+
+  // layers_[0].debt_bytes_ = layers_[1].debt_bytes_ = 0;
 
   TemporalLayerState layer_state = TemporalLayerState::kDrop;
 
@@ -186,6 +194,7 @@ Vp8FrameConfig ScreenshareLayers::NextFrameConfig(size_t stream_index,
       active_layer_ = 0;
     }
   }
+  RTC_LOG(LS_ERROR) << __func__ << " active_layer_ " << active_layer_;
 
   switch (active_layer_) {
     case 0:
@@ -536,7 +545,7 @@ Vp8EncoderConfig ScreenshareLayers::UpdateConfiguration(size_t stream_index) {
 
     if (capture_framerate_) {
       int avg_frame_size =
-          (target_bitrate_kbps * 1000) / (8 * *capture_framerate_);
+          (target_bitrate_kbps * 1000) / (8 * 5);//*capture_framerate_);
       // Allow max debt to be the size of a single optimal frame.
       // TODO(sprang): Determine if this needs to be adjusted by some factor.
       // (Lower values may cause more frame drops, higher may lead to queuing

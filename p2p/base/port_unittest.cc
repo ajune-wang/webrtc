@@ -1503,22 +1503,6 @@ TEST_F(PortTest, TestDelayedBindingUdp) {
   EXPECT_EQ(1U, port->Candidates().size());
 }
 
-TEST_F(PortTest, TestDelayedBindingTcp) {
-  FakeAsyncPacketSocket* socket = new FakeAsyncPacketSocket();
-  FakePacketSocketFactory socket_factory;
-
-  socket_factory.set_next_server_tcp_socket(socket);
-  auto port = CreateTcpPort(kLocalAddr1, &socket_factory);
-
-  socket->set_state(AsyncPacketSocket::STATE_BINDING);
-  port->PrepareAddress();
-
-  EXPECT_EQ(0U, port->Candidates().size());
-  socket->SignalAddressReady(socket, kLocalAddr2);
-
-  EXPECT_EQ(1U, port->Candidates().size());
-}
-
 TEST_F(PortTest, TestDisableInterfaceOfTcpPort) {
   FakeAsyncPacketSocket* lsocket = new FakeAsyncPacketSocket();
   FakeAsyncPacketSocket* rsocket = new FakeAsyncPacketSocket();

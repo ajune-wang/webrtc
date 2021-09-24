@@ -16,6 +16,46 @@
       "message": "stefan: Friendly ping",
       "revId": "b3b0a7e7869431e58407b852cf0cb5dcbc590046",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a4e0642_7b32d9fb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-09-24T17:49:44Z",
+      "side": 1,
+      "message": "I should be able to LGTM BUILD.gn files so +1 % comment.",
+      "revId": "b3b0a7e7869431e58407b852cf0cb5dcbc590046",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3dd5863d_d1930f83",
+        "filename": "BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-09-24T17:49:44Z",
+      "side": 1,
+      "message": "Can you open a bugs.webrtc.org bug and assign it to me (and add a TODO(webrtc:XXXX) comment here)?",
+      "range": {
+        "startLine": 308,
+        "startChar": 0,
+        "endLine": 310,
+        "endChar": 3
+      },
+      "revId": "b3b0a7e7869431e58407b852cf0cb5dcbc590046",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

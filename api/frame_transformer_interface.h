@@ -34,7 +34,20 @@ class TransformableFrameInterface {
   virtual void SetData(rtc::ArrayView<const uint8_t> data) = 0;
 
   virtual uint32_t GetTimestamp() const = 0;
+<<<<<<< HEAD   (b83487 Revert "Always unwrap VP9 TL0PicIdx forward if the frame is )
   virtual uint32_t GetSsrc() const = 0;
+=======
+
+  enum class Direction {
+    kUnknown,
+    kReceiver,
+    kSender,
+  };
+  // TODO(crbug.com/1250638): Remove this distinction between receiver and
+  // sender frames to allow received frames to be directly re-transmitted on
+  // other PeerConnectionss.
+  virtual Direction GetDirection() const { return Direction::kUnknown; }
+>>>>>>> CHANGE (ed7810 Add Direction indicator to TransformableFrames)
 };
 
 class TransformableVideoFrameInterface : public TransformableFrameInterface {

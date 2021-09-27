@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25ff7c58_f290dd0b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-09-27T09:54:42Z",
+      "side": 1,
+      "message": "On binary size, and increase of 1-2 KiB on .so files, but none on .apk files. Not clear to me why.",
+      "revId": "b656e3df1da7e139707bc6ffbbccf0e80d4d4abe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

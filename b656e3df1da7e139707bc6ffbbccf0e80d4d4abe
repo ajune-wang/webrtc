@@ -34,6 +34,24 @@
       "parentUuid": "25ff7c58_f290dd0b",
       "revId": "b656e3df1da7e139707bc6ffbbccf0e80d4d4abe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6bc6e13_e9813114",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-09-27T11:36:07Z",
+      "side": 1,
+      "message": "Do we know if this is a per-site increase?\n\nE.g. if we add 10 more of these, are we getting to 4 KiB?",
+      "parentUuid": "424739c2_95230192",
+      "revId": "b656e3df1da7e139707bc6ffbbccf0e80d4d4abe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

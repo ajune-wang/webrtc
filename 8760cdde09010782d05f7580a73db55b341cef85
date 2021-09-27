@@ -16,6 +16,24 @@
       "message": "Harald, we have need of your expertise on this.\n\nIs it legal for RED fmtp lines to be asymmetrical between the offer/answer? And what about the fmtp line being absent from the offer but present in the answer (or vice versa)?\n\nIf it\u0027s not specified anywhere and implementations are not consistent, should we err on the restrictive side and require them to be symmetrical?",
       "revId": "8760cdde09010782d05f7580a73db55b341cef85",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b821642f_96a3cddb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-09-27T11:31:54Z",
+      "side": 1,
+      "message": "I think RED is older than offer/answer. Let\u0027s call it declarative.",
+      "parentUuid": "5ea92346_3768a899",
+      "revId": "8760cdde09010782d05f7580a73db55b341cef85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

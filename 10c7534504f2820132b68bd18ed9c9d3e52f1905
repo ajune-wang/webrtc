@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5552f9d_669baff9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-09-27T14:00:02Z",
+      "side": 1,
+      "message": "Would it be an option to remove SignalAddressReady from AsyncPacketSocket and move it to the subclass that actually uses it?\n",
+      "revId": "10c7534504f2820132b68bd18ed9c9d3e52f1905",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "69b4a85c_f3460e44",
@@ -31,6 +48,30 @@
       "writtenOn": "2021-09-23T14:49:11Z",
       "side": 1,
       "message": "This call no longer has any effect, and makes this test fail.",
+      "range": {
+        "startLine": 1518,
+        "startChar": 2,
+        "endLine": 1518,
+        "endChar": 52
+      },
+      "revId": "10c7534504f2820132b68bd18ed9c9d3e52f1905",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73636beb_69bfd01b",
+        "filename": "p2p/base/port_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1518,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-09-27T14:00:02Z",
+      "side": 1,
+      "message": "What\u0027s this comment meant to say? That the CL isn\u0027t ready for review?",
+      "parentUuid": "69b4a85c_f3460e44",
       "range": {
         "startLine": 1518,
         "startChar": 2,

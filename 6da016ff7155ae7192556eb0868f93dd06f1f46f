@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42d36358_94494c2d",
+        "filename": "p2p/base/tcp_port.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-09-27T14:00:02Z",
+      "side": 0,
+      "message": "Please remove this from tcp_port.h as well.",
+      "revId": "6da016ff7155ae7192556eb0868f93dd06f1f46f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

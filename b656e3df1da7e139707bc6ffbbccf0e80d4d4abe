@@ -16,6 +16,24 @@
       "message": "On binary size, and increase of 1-2 KiB on .so files, but none on .apk files. Not clear to me why.",
       "revId": "b656e3df1da7e139707bc6ffbbccf0e80d4d4abe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "424739c2_95230192",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-09-27T11:02:35Z",
+      "side": 1,
+      "message": "The APK is compressed, that might explain this. But 2 KiB for this is a lot. Where does it come from?\n\nWe don\u0027t have the std::move() issue in this CL.",
+      "parentUuid": "25ff7c58_f290dd0b",
+      "revId": "b656e3df1da7e139707bc6ffbbccf0e80d4d4abe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

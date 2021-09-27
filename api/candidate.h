@@ -17,6 +17,7 @@
 #include <algorithm>
 #include <string>
 
+#include "absl/strings/string_view.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/network_constants.h"
 #include "rtc_base/socket_address.h"
@@ -33,32 +34,34 @@ class RTC_EXPORT Candidate {
   // TODO(pthatcher): Match the ordering and param list as per RFC 5245
   // candidate-attribute syntax. http://tools.ietf.org/html/rfc5245#section-15.1
   Candidate(int component,
-            const std::string& protocol,
+            absl::string_view protocol,
             const rtc::SocketAddress& address,
             uint32_t priority,
-            const std::string& username,
-            const std::string& password,
-            const std::string& type,
+            absl::string_view username,
+            absl::string_view password,
+            absl::string_view type,
             uint32_t generation,
-            const std::string& foundation,
+            absl::string_view foundation,
             uint16_t network_id = 0,
             uint16_t network_cost = 0);
   Candidate(const Candidate&);
   ~Candidate();
 
   const std::string& id() const { return id_; }
-  void set_id(const std::string& id) { id_ = id; }
+  void set_id(absl::string_view id) { id_ = std::string(id); }
 
   int component() const { return component_; }
   void set_component(int component) { component_ = component; }
 
   const std::string& protocol() const { return protocol_; }
-  void set_protocol(const std::string& protocol) { protocol_ = protocol; }
+  void set_protocol(absl::string_view protocol) {
+    protocol_ = std::string(protocol);
+  }
 
   // The protocol used to talk to relay.
   const std::string& relay_protocol() const { return relay_protocol_; }
-  void set_relay_protocol(const std::string& protocol) {
-    relay_protocol_ = protocol;
+  void set_relay_protocol(absl::string_view protocol) {
+    relay_protocol_ = std::string(protocol);
   }
 
   const rtc::SocketAddress& address() const { return address_; }
@@ -90,17 +93,21 @@ class RTC_EXPORT Candidate {
 
   // TODO(honghaiz): Change to usernameFragment or ufrag.
   const std::string& username() const { return username_; }
-  void set_username(const std::string& username) { username_ = username; }
+  void set_username(absl::string_view username) {
+    username_ = std::string(username);
+  }
 
   const std::string& password() const { return password_; }
-  void set_password(const std::string& password) { password_ = password; }
+  void set_password(absl::string_view password) {
+    password_ = std::string(password);
+  }
 
   const std::string& type() const { return type_; }
-  void set_type(const std::string& type) { type_ = type; }
+  void set_type(absl::string_view type) { type_ = std::string(type); }
 
   const std::string& network_name() const { return network_name_; }
-  void set_network_name(const std::string& network_name) {
-    network_name_ = network_name;
+  void set_network_name(absl::string_view network_name) {
+    network_name_ = std::string(network_name);
   }
 
   rtc::AdapterType network_type() const { return network_type_; }
@@ -126,8 +133,8 @@ class RTC_EXPORT Candidate {
   void set_network_id(uint16_t network_id) { network_id_ = network_id; }
 
   const std::string& foundation() const { return foundation_; }
-  void set_foundation(const std::string& foundation) {
-    foundation_ = foundation;
+  void set_foundation(absl::string_view foundation) {
+    foundation_ = std::string(foundation);
   }
 
   const rtc::SocketAddress& related_address() const { return related_address_; }
@@ -135,18 +142,20 @@ class RTC_EXPORT Candidate {
     related_address_ = related_address;
   }
   const std::string& tcptype() const { return tcptype_; }
-  void set_tcptype(const std::string& tcptype) { tcptype_ = tcptype; }
+  void set_tcptype(absl::string_view tcptype) {
+    tcptype_ = std::string(tcptype);
+  }
 
   // The name of the transport channel of this candidate.
   // TODO(phoglund): remove.
   const std::string& transport_name() const { return transport_name_; }
-  void set_transport_name(const std::string& transport_name) {
-    transport_name_ = transport_name;
+  void set_transport_name(absl::string_view transport_name) {
+    transport_name_ = std::string(transport_name);
   }
 
   // The URL of the ICE server which this candidate is gathered from.
   const std::string& url() const { return url_; }
-  void set_url(const std::string& url) { url_ = url; }
+  void set_url(absl::string_view url) { url_ = std::string(url); }
 
   // Determines whether this candidate is equivalent to the given one.
   bool IsEquivalent(const Candidate& c) const;

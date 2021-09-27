@@ -124,6 +124,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f44ef9c3_b5e6f48b",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 809,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-09-27T20:00:13Z",
+      "side": 1,
+      "message": "Marking as resolved due to decision that the FMTP codecs must be symmetrical.",
+      "parentUuid": "e462081d_f27fd241",
+      "revId": "8667e5329ec6a86c97f5359bad979c3bc5c47d05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "be246b75_a6cc14b0",
@@ -155,6 +173,24 @@
       "side": 1,
       "message": "see above. We don\u0027t support that for rtx (I think)?",
       "parentUuid": "be246b75_a6cc14b0",
+      "revId": "8667e5329ec6a86c97f5359bad979c3bc5c47d05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25498793_d99b2aad",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 843,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-09-27T20:00:13Z",
+      "side": 1,
+      "message": "Marking as resolved due to decision that the FMTP codecs must be symmetrical.",
+      "parentUuid": "dba61ac0_c59b73be",
       "revId": "8667e5329ec6a86c97f5359bad979c3bc5c47d05",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -261,6 +297,24 @@
       "side": 1,
       "message": "Got you, this one is tricky. I do not want to forbid having a different level of redundancy, at the same time it should enforce the \"all the same\" here. Done with test.",
       "parentUuid": "9a5bc73a_0b406b9b",
+      "revId": "8667e5329ec6a86c97f5359bad979c3bc5c47d05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4cc34f06_97d788a2",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 957,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-09-27T20:00:13Z",
+      "side": 1,
+      "message": "Marking as resolved due to decision that the FMTP codecs must be symmetrical.",
+      "parentUuid": "c8cc467b_c1e0fa89",
       "revId": "8667e5329ec6a86c97f5359bad979c3bc5c47d05",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

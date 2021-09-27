@@ -1552,8 +1552,18 @@ void RTCStatsCollector::ProduceIceCandidateAndPairStats_n(
         // false after a certain amount of time without a response passes.
         // https://crbug.com/633550
         candidate_pair_stats->writable = info.writable;
+        // Note that sent_total_packet_attempts includes discarded packets but
+        // sent_total_bytes does not.
+        candidate_pair_stats->packets_sent = static_cast<uint64_t>(
+            info.sent_total_packet_attempts - info.sent_discarded_packets);
+        candidate_pair_stats->packets_discarded_on_send =
+            static_cast<uint64_t>(info.sent_discarded_packets);
+        candidate_pair_stats->packets_received =
+            static_cast<uint64_t>(info.packets_received);
         candidate_pair_stats->bytes_sent =
             static_cast<uint64_t>(info.sent_total_bytes);
+        candidate_pair_stats->bytes_discarded_on_send =
+            static_cast<uint64_t>(info.sent_discarded_bytes);
         candidate_pair_stats->bytes_received =
             static_cast<uint64_t>(info.recv_total_bytes);
         candidate_pair_stats->total_round_trip_time =
@@ -2022,7 +2032,7 @@ void RTCStatsCollector::ProduceTransportStats_n(
            channel_stats.ice_transport_stats.connection_infos) {
         *transport_stats->bytes_sent += info.sent_total_bytes;
         *transport_stats->packets_sent +=
-            info.sent_total_packets - info.sent_discarded_packets;
+            info.sent_total_packet_attempts - info.sent_discarded_packets;
         *transport_stats->bytes_received += info.recv_total_bytes;
         *transport_stats->packets_received += info.packets_received;
         if (info.best_connection) {

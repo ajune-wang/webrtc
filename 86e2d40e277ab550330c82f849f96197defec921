@@ -16,6 +16,23 @@
       "message": "Tests seem to pass now.",
       "revId": "86e2d40e277ab550330c82f849f96197defec921",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40b6f20a_9e94503d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-09-28T08:41:21Z",
+      "side": 1,
+      "message": "OK, I guess this is as good as it gets for this iteration.\n",
+      "revId": "86e2d40e277ab550330c82f849f96197defec921",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

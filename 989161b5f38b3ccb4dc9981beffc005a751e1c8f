@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8fe6128_bd10dcb1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-09-28T08:29:28Z",
+      "side": 1,
+      "message": "Again, caveat that I don\u0027t know these APIs - but as far as I can see lgtm.",
+      "revId": "989161b5f38b3ccb4dc9981beffc005a751e1c8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

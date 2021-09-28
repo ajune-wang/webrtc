@@ -68,6 +68,24 @@
       "parentUuid": "24f8a1e6_cf035034",
       "revId": "90a5edd4d04983b2cc613a9af084bb57fe8b3dd7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9402e6f_66c51dfc",
+        "filename": "p2p/base/connection_info.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-09-28T22:11:45Z",
+      "side": 1,
+      "message": "Had to revert this because internal code references the existing name. Not sure if it\u0027s worth the effort to rename it in stages.",
+      "parentUuid": "89ace500_6da31547",
+      "revId": "90a5edd4d04983b2cc613a9af084bb57fe8b3dd7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

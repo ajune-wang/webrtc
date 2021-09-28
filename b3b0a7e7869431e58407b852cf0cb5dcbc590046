@@ -56,6 +56,30 @@
       },
       "revId": "b3b0a7e7869431e58407b852cf0cb5dcbc590046",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03ddf124_cf714823",
+        "filename": "BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 5310
+      },
+      "writtenOn": "2021-09-28T17:09:16Z",
+      "side": 1,
+      "message": "I opened https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d13219 but I don\u0027t have the ability to assign it.",
+      "parentUuid": "3dd5863d_d1930f83",
+      "range": {
+        "startLine": 308,
+        "startChar": 0,
+        "endLine": 310,
+        "endChar": 3
+      },
+      "revId": "b3b0a7e7869431e58407b852cf0cb5dcbc590046",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

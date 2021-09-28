@@ -782,7 +782,8 @@ StatsReport* StatsCollector::AddConnectionInfoReport(
   const Int64ForAdd int64s[] = {
       {StatsReport::kStatsValueNameBytesReceived, info.recv_total_bytes},
       {StatsReport::kStatsValueNameBytesSent, info.sent_total_bytes},
-      {StatsReport::kStatsValueNamePacketsSent, info.sent_total_packets},
+      {StatsReport::kStatsValueNamePacketsSent,
+       info.sent_total_packet_attempts},
       {StatsReport::kStatsValueNameRtt, info.rtt},
       {StatsReport::kStatsValueNameSendPacketsDiscarded,
        info.sent_discarded_packets},

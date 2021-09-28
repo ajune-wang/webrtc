@@ -161,6 +161,7 @@ rtc_library("dcsctp_socket") {
   ]
   sources = [
     "callback_deferrer.h",
+    "callback_deferrer.cc",
     "dcsctp_socket.cc",
     "dcsctp_socket.h",
     "state_cookie.cc",

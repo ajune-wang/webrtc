@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5571bae3_53a875c5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-09-28T20:24:15Z",
+      "side": 1,
+      "message": "Chromium should be ready now; landed this (https://chromium-review.googlesource.com/c/chromium/src/+/3188654) and the supported-stats.html web platform test was already disabled by ivoc.",
+      "revId": "e828be742572cd1895158d1095deb434f37a713d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

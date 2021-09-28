@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1578ca2c_37e3bf09",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-09-28T08:31:54Z",
+      "side": 1,
+      "message": "Not with the current interface hierarchy, AsyncPacketSocket is the one-size-fits-all interface. If I manage to take out tcp server ports to a different class, that one will not have this signal.",
+      "parentUuid": "a5552f9d_669baff9",
+      "revId": "10c7534504f2820132b68bd18ed9c9d3e52f1905",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "69b4a85c_f3460e44",

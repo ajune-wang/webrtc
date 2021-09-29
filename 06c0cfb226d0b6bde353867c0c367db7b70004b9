@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "254ed34c_930a8169",
+        "filename": "modules/video_coding/utility/bandwidth_quality_scaler.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-29T09:29:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d3e2d834_6a15846d",
+      "range": {
+        "startLine": 45,
+        "startChar": 24,
+        "endLine": 45,
+        "endChar": 65
+      },
+      "revId": "06c0cfb226d0b6bde353867c0c367db7b70004b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f893b36d_232e0b9d",
@@ -102,6 +126,30 @@
       "side": 1,
       "message": "Camera input fps is indeed variable, it can even change dynamically due to lighting conditions etc.\nFor that reason, VideoStreamEncoder continuously monitors the capture fps and reconfigures the encoders with new targets to make sure they produce the correct bitrate. You should thus not try to correct the rate here.",
       "parentUuid": "2233be82_ebb0668d",
+      "range": {
+        "startLine": 148,
+        "startChar": 8,
+        "endLine": 148,
+        "endChar": 28
+      },
+      "revId": "06c0cfb226d0b6bde353867c0c367db7b70004b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "faa91b66_d9966529",
+        "filename": "modules/video_coding/utility/bandwidth_quality_scaler.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2021-09-29T09:29:58Z",
+      "side": 1,
+      "message": "Ah, I get it.",
+      "parentUuid": "7e303253_dcd9361a",
       "range": {
         "startLine": 148,
         "startChar": 8,

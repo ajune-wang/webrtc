@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b107e90_5bd24515",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-09-29T19:59:53Z",
+      "side": 1,
+      "message": "fixing the comment *and* removing the source of my misunderstanding. Terminology...",
+      "revId": "1209d2fb5a0f3cb7855e8ca982602794cf642470",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

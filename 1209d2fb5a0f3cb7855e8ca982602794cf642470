@@ -16,6 +16,23 @@
       "message": "fixing the comment *and* removing the source of my misunderstanding. Terminology...",
       "revId": "1209d2fb5a0f3cb7855e8ca982602794cf642470",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "391f6933_d05e901a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-09-29T20:09:05Z",
+      "side": 1,
+      "message": "Roping in the ICE expert.\n",
+      "revId": "1209d2fb5a0f3cb7855e8ca982602794cf642470",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

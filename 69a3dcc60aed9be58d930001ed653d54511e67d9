@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62577fdf_9655ce2c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-09-30T07:47:03Z",
+      "side": 1,
+      "message": "Micro optimization, since constructing a temporary std::string from a string_view is remarkably costly in binary size.",
+      "revId": "69a3dcc60aed9be58d930001ed653d54511e67d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

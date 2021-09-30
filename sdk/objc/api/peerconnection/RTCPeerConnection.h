@@ -332,6 +332,20 @@ RTC_OBJC_EXPORT
           currentBitrateBps:(nullable NSNumber *)currentBitrateBps
               maxBitrateBps:(nullable NSNumber *)maxBitrateBps;
 
+/** Enables/disables playout of received audio streams. Enabled by default.
+ *  Note that even if playout is enabled, streams will only be played out if
+ *  the appropriate SDP is also applied. The main purpose of this API is to
+ *  be able to control the exact time when audio playout starts.
+ */
+- (void)setAudioPlayout:(BOOL)enabled;
+
+/** Enables/disables recording of transmitted audio streams. Enabled by default.
+ *  Note that even if recording is enabled, streams will only be recorded if
+ *  the appropriate SDP is also applied. The main purpose of this API is to
+ *  be able to control the exact time when audio recording starts.
+ */
+- (void)setAudioRecording:(BOOL)enabled;
+
 /** Start or stop recording an Rtc EventLog. */
 - (BOOL)startRtcEventLogWithFilePath:(NSString *)filePath maxSizeInBytes:(int64_t)maxSizeInBytes;
 - (void)stopRtcEventLog;

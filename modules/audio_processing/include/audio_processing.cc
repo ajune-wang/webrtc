@@ -107,9 +107,12 @@ bool Agc2Config::operator==(const Agc2Config& rhs) const {
 
 bool AudioProcessing::Config::CaptureLevelAdjustment::operator==(
     const AudioProcessing::Config::CaptureLevelAdjustment& rhs) const {
-  return enabled == rhs.enabled && pre_gain_factor == rhs.pre_gain_factor &&
-         post_gain_factor && rhs.post_gain_factor &&
+  // clang-format off
+  return enabled == rhs.enabled &&
+         pre_gain_factor == rhs.pre_gain_factor &&
+         post_gain_factor == rhs.post_gain_factor &&
          analog_mic_gain_emulation == rhs.analog_mic_gain_emulation;
+  // clang-format on
 }
 
 bool AudioProcessing::Config::CaptureLevelAdjustment::AnalogMicGainEmulation::

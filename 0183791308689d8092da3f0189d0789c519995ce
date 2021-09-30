@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55b60fdd_0c13eb43",
+        "filename": "api/candidate.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-09-30T07:42:10Z",
+      "side": 1,
+      "message": "I wonder if it\u0027s possibly these constructor operations that give binary bloat. The other possibility I see is bloat at call sites, where passing a string_view needs populating two registers, but a const std::string\u0026 only needs one.",
+      "range": {
+        "startLine": 42,
+        "startChar": 6,
+        "endLine": 42,
+        "endChar": 25
+      },
+      "revId": "0183791308689d8092da3f0189d0789c519995ce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

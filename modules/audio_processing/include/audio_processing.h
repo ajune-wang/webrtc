@@ -379,6 +379,12 @@ class RTC_EXPORT AudioProcessing : public rtc::RefCountInterface {
         int adjacent_speech_frames_threshold = 12;
         float max_gain_change_db_per_second = 3.0f;
         float max_output_noise_level_dbfs = -50.0f;
+        // Noise level threshold below which a fast gain adaptation speed is
+        // used.
+        float fast_adapt_noise_level_threshold_dbfs = -75.0f;
+        // Multiplier applied to `max_gain_change_db_per_second` when the fast
+        // gain adaptation is allowed.
+        int fast_adapt_max_gain_change_multiplier = 3;
       } adaptive_digital;
     } gain_controller2;
 

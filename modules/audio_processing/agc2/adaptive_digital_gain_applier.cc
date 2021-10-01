@@ -11,13 +11,16 @@
 #include "modules/audio_processing/agc2/adaptive_digital_gain_applier.h"
 
 #include <algorithm>
+#include <string>
 
 #include "common_audio/include/audio_util.h"
 #include "modules/audio_processing/agc2/agc2_common.h"
 #include "modules/audio_processing/logging/apm_data_dumper.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/experiments/field_trial_parser.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_minmax.h"
+#include "system_wrappers/include/field_trial.h"
 #include "system_wrappers/include/metrics.h"
 
 namespace webrtc {
@@ -124,11 +127,17 @@ AdaptiveDigitalGainApplier::AdaptiveDigitalGainApplier(
       config_(config),
       max_gain_change_db_per_10ms_(config_.max_gain_change_db_per_second *
                                    kFrameDurationMs / 1000.0f),
+      hold_low_noise_num_frames_(fast_adaptation_.hold_low_noise_ms /
+                                 kFrameDurationMs),
       calls_since_last_gain_log_(0),
       frames_to_gain_increase_allowed_(
           config_.adjacent_speech_frames_threshold),
-      last_gain_db_(config_.initial_gain_db) {
+      last_gain_db_(config_.initial_gain_db),
+      frames_to_low_noise_(hold_low_noise_num_frames_) {
   RTC_DCHECK_GT(max_gain_change_db_per_10ms_, 0.0f);
+  RTC_DCHECK_LT(fast_adaptation_.noise_level_threshold_dbfs, 0.0f);
+  RTC_DCHECK_GT(fast_adaptation_.max_gain_change_multiplier, 0);
+  RTC_DCHECK_GT(hold_low_noise_num_frames_, 0);
   RTC_DCHECK_GE(frames_to_gain_increase_allowed_, 1);
   RTC_DCHECK_GE(config_.max_output_noise_level_dbfs, -90.0f);
   RTC_DCHECK_LE(config_.max_output_noise_level_dbfs, 0.0f);
@@ -201,6 +210,9 @@ void AdaptiveDigitalGainApplier::Process(const FrameInfo& info,
     RTC_DCHECK(gain_increase_allowed);
     max_gain_increase_db *= config_.adjacent_speech_frames_threshold;
   }
+  if (FastAdaptationAllowed(info.noise_rms_dbfs)) {
+    max_gain_increase_db *= fast_adaptation_.max_gain_change_multiplier;
+  }
 
   const float gain_change_this_frame_db = ComputeGainChangeThisFrameDb(
       target_gain_db, last_gain_db_, gain_increase_allowed,
@@ -258,6 +270,48 @@ void AdaptiveDigitalGainApplier::Process(const FrameInfo& info,
                      << " | headroom_db: " << info.headroom_db
                      << " | gain_db: " << last_gain_db_;
   }
+}
+
+bool AdaptiveDigitalGainApplier::FastAdaptationAllowed(float noise_rms_dbfs) {
+  if (!fast_adaptation_.enabled) {
+    return false;
+  }
+  // Keep track of whether the noise level remained under a threshold for long
+  // enough.
+  if (noise_rms_dbfs > fast_adaptation_.noise_level_threshold_dbfs) {
+    frames_to_low_noise_ = hold_low_noise_num_frames_;
+  } else if (frames_to_low_noise_ > 0) {
+    frames_to_low_noise_--;
+  }
+  apm_data_dumper_->DumpRaw(
+      "agc2_adaptive_gain_applier_hold_low_noise_num_frames_",
+      frames_to_gain_increase_allowed_);
+  // Allow fast adaptation if the noise level has been below the threshold for
+  // long enough and if enough adjacent speech frames have been observed.
+  return frames_to_low_noise_ == 0 && frames_to_gain_increase_allowed_ == 0;
+}
+
+AdaptiveDigitalGainApplier::FastAdaptationConfig::FastAdaptationConfig()
+    : enabled(field_trial::IsDisabled("WebRTC-Agc2FastAdaptationKillSwitch")) {
+  if (!enabled) {
+    return;
+  }
+  // Check if parameters are overridden.
+  const std::string trial_string =
+      field_trial::FindFullName("WebRTC-Agc2FastAdaptationTuningOverride");
+  FieldTrialParameter<double> param_noise_level_threshold_dbfs(
+      "noise_level_threshold_dbfs", noise_level_threshold_dbfs);
+  FieldTrialParameter<int> param_hold_low_noise_ms("hold_low_noise_ms",
+                                                   hold_low_noise_ms);
+  FieldTrialParameter<int> param_max_gain_change_multiplier(
+      "max_gain_change_multiplier", max_gain_change_multiplier);
+  ParseFieldTrial({&param_noise_level_threshold_dbfs, &param_hold_low_noise_ms,
+                   &param_max_gain_change_multiplier},
+                  trial_string);
+  noise_level_threshold_dbfs =
+      static_cast<float>(param_noise_level_threshold_dbfs.Get());
+  hold_low_noise_ms = param_hold_low_noise_ms.Get();
+  max_gain_change_multiplier = param_max_gain_change_multiplier.Get();
 }
 
 }  // namespace webrtc

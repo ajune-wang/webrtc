@@ -50,15 +50,32 @@ class AdaptiveDigitalGainApplier {
   void Process(const FrameInfo& info, AudioFrameView<float> frame);
 
  private:
+  // Returns true if fast adaptation is allowed.
+  bool FastAdaptationAllowed(float noise_rms_dbfs);
+
   ApmDataDumper* const apm_data_dumper_;
   GainApplier gain_applier_;
 
   const AudioProcessing::Config::GainController2::AdaptiveDigital config_;
   const float max_gain_change_db_per_10ms_;
+  const struct FastAdaptationConfig {
+    FastAdaptationConfig();
+    bool enabled = true;
+    // Noise level threshold below which a fast gain adaptation speed is used.
+    float noise_level_threshold_dbfs = -75.0f;
+    // Minimum observation period with noise level below the threshold to allow
+    // fast gain adaptation.
+    int hold_low_noise_ms = 1000;
+    // Multiplier applied to the normal gain adaptation speed when the fast gain
+    // adaptation is allowed.
+    int max_gain_change_multiplier = 4;
+  } fast_adaptation_;
+  const int hold_low_noise_num_frames_;
 
   int calls_since_last_gain_log_;
   int frames_to_gain_increase_allowed_;
   float last_gain_db_;
+  int frames_to_low_noise_;
 
   std::vector<std::vector<float>> dry_run_frame_;
   std::vector<float*> dry_run_channels_;

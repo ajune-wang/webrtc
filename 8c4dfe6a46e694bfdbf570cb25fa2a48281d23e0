@@ -16,6 +16,23 @@
       "message": "*sob*",
       "revId": "8c4dfe6a46e694bfdbf570cb25fa2a48281d23e0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3454bf9d_e7360215",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2021-10-01T12:04:33Z",
+      "side": 1,
+      "message": "I have no powers here, but LGTM.",
+      "revId": "8c4dfe6a46e694bfdbf570cb25fa2a48281d23e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

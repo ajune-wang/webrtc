@@ -102,10 +102,7 @@ bool Agc2Config::AdaptiveDigital::operator==(
          adjacent_speech_frames_threshold ==
              rhs.adjacent_speech_frames_threshold &&
          max_gain_change_db_per_second == rhs.max_gain_change_db_per_second &&
-         max_output_noise_level_dbfs == rhs.max_output_noise_level_dbfs &&
-         sse2_allowed == rhs.sse2_allowed &&
-         avx2_allowed == rhs.avx2_allowed &&
-         neon_allowed == rhs.neon_allowed;
+         max_output_noise_level_dbfs == rhs.max_output_noise_level_dbfs;
   // clang-format on
 }
 
@@ -219,9 +216,6 @@ std::string AudioProcessing::Config::ToString() const {
       << gain_controller2.adaptive_digital.max_gain_change_db_per_second
       << ", max_output_noise_level_dbfs: "
       << gain_controller2.adaptive_digital.max_output_noise_level_dbfs
-      << ", sse2_allowed: " << gain_controller2.adaptive_digital.sse2_allowed
-      << ", avx2_allowed: " << gain_controller2.adaptive_digital.avx2_allowed
-      << ", neon_allowed: " << gain_controller2.adaptive_digital.neon_allowed
       << "}}, residual_echo_detector: { enabled: "
       << residual_echo_detector.enabled
       << " }, level_estimation: { enabled: " << level_estimation.enabled

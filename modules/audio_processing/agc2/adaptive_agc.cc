@@ -16,6 +16,7 @@
 #include "modules/audio_processing/logging/apm_data_dumper.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
+#include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
 namespace {
@@ -27,13 +28,13 @@ using AdaptiveDigitalConfig =
 AvailableCpuFeatures GetAllowedCpuFeatures(
     const AdaptiveDigitalConfig& config) {
   AvailableCpuFeatures features = GetAvailableCpuFeatures();
-  if (!config.sse2_allowed) {
+  if (field_trial::IsEnabled("WebRTC-Agc2DisallowSimdSse2KillSwitch")) {
     features.sse2 = false;
   }
-  if (!config.avx2_allowed) {
+  if (field_trial::IsEnabled("WebRTC-Agc2DisallowSimdAvx2KillSwitch")) {
     features.avx2 = false;
   }
-  if (!config.neon_allowed) {
+  if (field_trial::IsEnabled("WebRTC-Agc2DisallowSimdNeonKillSwitch")) {
     features.neon = false;
   }
   return features;

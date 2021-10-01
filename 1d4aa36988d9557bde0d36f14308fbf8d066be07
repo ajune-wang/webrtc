@@ -16,6 +16,23 @@
       "message": "veillez sécurisé site",
       "revId": "1d4aa36988d9557bde0d36f14308fbf8d066be07",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa204364_cce17d0d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18394
+      },
+      "writtenOn": "2021-10-01T12:47:46Z",
+      "side": 1,
+      "message": "vie privé sécurisé",
+      "revId": "1d4aa36988d9557bde0d36f14308fbf8d066be07",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

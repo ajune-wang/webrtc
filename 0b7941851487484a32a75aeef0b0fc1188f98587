@@ -16,6 +16,69 @@
       "message": "Hi Jesús,\nCould you PTAL?\nAlessio",
       "revId": "0b7941851487484a32a75aeef0b0fc1188f98587",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "77c26677_632cbc15",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2021-10-01T14:04:22Z",
+      "side": 1,
+      "message": "Thanks for this change. I have a couple of questions. ",
+      "revId": "0b7941851487484a32a75aeef0b0fc1188f98587",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e492c371_0b6fc5f8",
+        "filename": "modules/audio_processing/agc2/adaptive_agc.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2021-10-01T14:04:22Z",
+      "side": 1,
+      "message": "should we not keep checking the configuration: e.g.\nif (!config.sse2_allowed || field_trial::IsEnabled(\"WebRTC-Agc2DisallowSimdSse2KillSwitch\")",
+      "range": {
+        "startLine": 31,
+        "startChar": 5,
+        "endLine": 31,
+        "endChar": 69
+      },
+      "revId": "0b7941851487484a32a75aeef0b0fc1188f98587",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "defe8cc4_1c4e6fd3",
+        "filename": "modules/audio_processing/agc2/adaptive_agc.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2021-10-01T14:04:22Z",
+      "side": 1,
+      "message": "I am getting confused about the names: \nWebRTC-Agc2DisallowSimdAvx2 -\u003e Not allow SimdAvx2\nWebRTC-Agc2DisallowSimdAvx2KillSwitch -\u003e Allow SimdAvx2",
+      "range": {
+        "startLine": 34,
+        "startChar": 30,
+        "endLine": 34,
+        "endChar": 67
+      },
+      "revId": "0b7941851487484a32a75aeef0b0fc1188f98587",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

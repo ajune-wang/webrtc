@@ -214,6 +214,12 @@ class MockRtpReceiverObserver : public webrtc::RtpReceiverObserverInterface {
 class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
                                          public SignalingMessageReceiver {
  public:
+  ~PeerConnectionIntegrationWrapper() {
+    if (peer_connection_) {
+      peer_connection_->Close();
+    }
+  }
+
   webrtc::PeerConnectionFactoryInterface* pc_factory() const {
     return peer_connection_factory_.get();
   }

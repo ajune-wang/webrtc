@@ -16,6 +16,24 @@
       "message": "Lots of potential misreadings can be avoided, I think....\n",
       "revId": "2d015de08417de77c70562d7e5001d37d956d1d7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a81ce73d_afab1102",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-10-03T11:22:20Z",
+      "side": 1,
+      "message": "Yes, I think this is a really good warning to enable.\n\nI took a look and the cleanup requires some work, but it is mostly trivial.",
+      "parentUuid": "fdc57c5a_e1fead4a",
+      "revId": "2d015de08417de77c70562d7e5001d37d956d1d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

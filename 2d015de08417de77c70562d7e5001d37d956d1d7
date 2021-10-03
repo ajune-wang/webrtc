@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fdc57c5a_e1fead4a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-10-03T10:44:42Z",
+      "side": 1,
+      "message": "Lots of potential misreadings can be avoided, I think....\n",
+      "revId": "2d015de08417de77c70562d7e5001d37d956d1d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

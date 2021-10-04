@@ -16,6 +16,46 @@
       "message": "Hi Per,\nCould you PTAL?\nAlessio",
       "revId": "c49052140496a3287c1c481a582d0481ab4cbda2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "033fe4bf_c3b4cfcb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-10-04T09:42:20Z",
+      "side": 1,
+      "message": "Thanks for spotting and fixing this!!!",
+      "revId": "c49052140496a3287c1c481a582d0481ab4cbda2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0327d12_733cd81d",
+        "filename": "modules/audio_processing/include/audio_processing.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-10-04T09:42:20Z",
+      "side": 1,
+      "message": "I would very much prefer to avoid excluding the clang-formatting.\nI agree that its formatting is not perfect for if-statements, but I don\u0027t think excluding it is something that scales well (i.e., we should not do it for all if-statements where we are unhappy with its formatting).\n\nAlso, since the formatting is highly subjective, I\u0027d prefer to use the clang-variant as the standard one.\n\n(Also, IMO these clang-format comments adds extra noise to the code)",
+      "range": {
+        "startLine": 110,
+        "startChar": 2,
+        "endLine": 110,
+        "endChar": 21
+      },
+      "revId": "c49052140496a3287c1c481a582d0481ab4cbda2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

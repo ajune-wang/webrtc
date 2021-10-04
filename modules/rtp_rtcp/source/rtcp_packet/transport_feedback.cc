@@ -12,6 +12,7 @@
 
 #include <algorithm>
 #include <cstdint>
+#include <numeric>
 #include <utility>
 
 #include "modules/include/module_common_types_public.h"
@@ -447,10 +448,8 @@ bool TransportFeedback::Parse(const CommonHeader& packet) {
   num_seq_no_ = status_count;
 
   uint16_t seq_no = base_seq_no_;
-  size_t recv_delta_size = 0;
-  for (size_t delta_size : delta_sizes) {
-    recv_delta_size += delta_size;
-  }
+  size_t recv_delta_size =
+      std::accumulate(delta_sizes.begin(), delta_sizes.end(), 0);
 
   // Determine if timestamps, that is, recv_delta are included in the packet.
   if (end_index >= index + recv_delta_size) {

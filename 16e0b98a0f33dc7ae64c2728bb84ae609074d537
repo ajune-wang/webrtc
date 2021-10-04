@@ -16,6 +16,29 @@
       "message": "danil, can you help reviewing?",
       "revId": "16e0b98a0f33dc7ae64c2728bb84ae609074d537",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33b9c10f_ced7e626",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/transport_feedback.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-10-04T10:40:25Z",
+      "side": 1,
+      "message": "even more modern way is to\n#include \"absl/algorithm/container.h\"\nand use\nabsl::c_accumulate(delta_sizes, 0);\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/abseil-cpp/absl/algorithm/container.h;l\u003d1677;drc\u003dcff91a77fb64d951c6819fadaf098ca489d9ebd4)",
+      "range": {
+        "startLine": 452,
+        "startChar": 6,
+        "endLine": 452,
+        "endChar": 64
+      },
+      "revId": "16e0b98a0f33dc7ae64c2728bb84ae609074d537",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -56,6 +56,54 @@
       },
       "revId": "c49052140496a3287c1c481a582d0481ab4cbda2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1fae763_a7d29e01",
+        "filename": "modules/audio_processing/include/audio_processing.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-10-04T09:52:18Z",
+      "side": 1,
+      "message": "Done.\n\nI believe that, in this particular case of operator\u003d\u003d, one param per row improves readability and helps to avoid the small bug fixed by this CL - BTW I was a reviewer when the code was added, so my bad :) But I see your point, so I removed clang-format off.",
+      "parentUuid": "b0327d12_733cd81d",
+      "range": {
+        "startLine": 110,
+        "startChar": 2,
+        "endLine": 110,
+        "endChar": 21
+      },
+      "revId": "c49052140496a3287c1c481a582d0481ab4cbda2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7627baa7_9445b198",
+        "filename": "modules/audio_processing/include/audio_processing.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-10-04T09:52:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0327d12_733cd81d",
+      "range": {
+        "startLine": 110,
+        "startChar": 2,
+        "endLine": 110,
+        "endChar": 21
+      },
+      "revId": "c49052140496a3287c1c481a582d0481ab4cbda2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

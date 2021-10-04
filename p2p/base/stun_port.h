@@ -178,14 +178,14 @@ class UDPPort : public Port {
 
  private:
   // A helper class which can be called repeatedly to resolve multiple
-  // addresses, as opposed to rtc::AsyncResolverInterface, which can only
+  // addresses, as opposed to rtc::AsyncDnsResolverInterface, which can only
   // resolve one address per instance.
   class AddressResolver : public sigslot::has_slots<> {
    public:
     explicit AddressResolver(
         rtc::PacketSocketFactory* factory,
         std::function<void(const rtc::SocketAddress&, int)> done_callback);
-    ~AddressResolver() override;
+    ~AddressResolver() override = default;
 
     void Resolve(const rtc::SocketAddress& address);
     bool GetResolvedAddress(const rtc::SocketAddress& input,
@@ -193,10 +193,9 @@ class UDPPort : public Port {
                             rtc::SocketAddress* output) const;
 
    private:
-    typedef std::map<rtc::SocketAddress, rtc::AsyncResolverInterface*>
+    typedef std::map<rtc::SocketAddress,
+                     std::unique_ptr<webrtc::AsyncDnsResolverInterface>>
         ResolverMap;
-
-    void OnResolveResult(rtc::AsyncResolverInterface* resolver);
 
     rtc::PacketSocketFactory* socket_factory_;
     ResolverMap resolvers_;

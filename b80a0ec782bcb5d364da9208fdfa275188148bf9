@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b47e325_b9bbda4d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-10-04T10:49:48Z",
+      "side": 1,
+      "message": "I\u0027ve seen a common habit of adding [Merge to xx] in front of the subject line of the CL for merges. Makes it easier to see what\u0027s what.",
+      "revId": "b80a0ec782bcb5d364da9208fdfa275188148bf9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

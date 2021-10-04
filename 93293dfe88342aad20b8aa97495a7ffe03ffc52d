@@ -16,6 +16,29 @@
       "message": "Dropping the other shoe.\n",
       "revId": "93293dfe88342aad20b8aa97495a7ffe03ffc52d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0a428d0_8d85e6a2",
+        "filename": "p2p/base/stun_port.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-10-04T09:10:49Z",
+      "side": 1,
+      "message": "Do we need task safety here to prevent accidental completion when the object is gone?",
+      "range": {
+        "startLine": 134,
+        "startChar": 15,
+        "endLine": 134,
+        "endChar": 29
+      },
+      "revId": "93293dfe88342aad20b8aa97495a7ffe03ffc52d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

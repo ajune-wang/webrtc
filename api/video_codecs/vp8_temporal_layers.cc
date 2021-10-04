@@ -14,6 +14,7 @@
 
 #include "absl/algorithm/container.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 
 namespace webrtc {
 
@@ -65,6 +66,8 @@ Vp8EncoderConfig Vp8TemporalLayers::UpdateConfiguration(size_t stream_index) {
 
 Vp8FrameConfig Vp8TemporalLayers::NextFrameConfig(size_t stream_index,
                                                   uint32_t rtp_timestamp) {
+  RTC_LOG(LS_ERROR) << __func__ << " this " << this << " stream_index "
+                    << stream_index << " rtp_timestamp " << rtp_timestamp;
   RTC_DCHECK_LT(stream_index, controllers_.size());
   return controllers_[stream_index]->NextFrameConfig(0, rtp_timestamp);
 }

@@ -20,6 +20,7 @@
 #include "modules/video_coding/codecs/vp8/screenshare_layers.h"
 #include "modules/video_coding/utility/simulcast_utility.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 
 namespace webrtc {
 
@@ -41,9 +42,14 @@ std::unique_ptr<Vp8FrameBufferController> Vp8TemporalLayersFactory::Create(
       num_temporal_layers = std::max(2, num_temporal_layers);
       controllers.push_back(
           std::make_unique<ScreenshareLayers>(num_temporal_layers));
+      RTC_LOG(LS_ERROR) << __func__ << " this " << this
+                        << " Create ScreenshareLayers " << num_temporal_layers;
     } else {
       controllers.push_back(
           std::make_unique<DefaultTemporalLayers>(num_temporal_layers));
+      RTC_LOG(LS_ERROR) << __func__ << " this " << this
+                        << " Create DefaultTemporalLayers "
+                        << num_temporal_layers;
     }
   }
 

@@ -265,6 +265,10 @@ void RtpSenderEgress::SendPacket(RtpPacketToSend* packet,
 
   if (packet->packet_type() != RtpPacketMediaType::kPadding &&
       packet->packet_type() != RtpPacketMediaType::kRetransmission) {
+    RTC_LOG(LS_ERROR) << __func__ << " YYYYYYYYYYYYYYYY cap_ms "
+                      << packet->capture_time_ms() << " now " << now_ms
+                      << " age " << (now_ms - packet->capture_time_ms())
+                      << " ssrc " << packet_ssrc;
     UpdateDelayStatistics(packet->capture_time_ms(), now_ms, packet_ssrc);
     UpdateOnSendPacket(options.packet_id, packet->capture_time_ms(),
                        packet_ssrc);

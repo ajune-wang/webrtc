@@ -53,7 +53,7 @@ std::vector<VideoStream> CreateVideoStreams(
     stream_settings[i].height =
         (i + 1) * height / encoder_config.number_of_streams;
     stream_settings[i].max_framerate = 30;
-    stream_settings[i].max_qp = 56;
+    stream_settings[i].max_qp = 112;
     stream_settings[i].min_bitrate_bps =
         DefaultVideoStreamFactory::kDefaultMinBitratePerStream[i];
 

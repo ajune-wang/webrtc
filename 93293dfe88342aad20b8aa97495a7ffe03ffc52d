@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e7bc012_b9745ff3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-10-04T08:14:14Z",
+      "side": 1,
+      "message": "Dropping the other shoe.\n",
+      "revId": "93293dfe88342aad20b8aa97495a7ffe03ffc52d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

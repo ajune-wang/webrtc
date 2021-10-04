@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2dd20bf1_e7ad8d31",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-10-04T09:51:11Z",
+      "side": 1,
+      "message": "Two tests are failing:\n\n1. ForemanMixedRes100kbpsVp8H264 https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/video_coding/codecs/test/videocodec_test_mediacodec.cc;drc\u003dc3fcee7c3a7714afc3e37d4753b40f4fdbc3653e;l\u003d117. Please remove resolutions not multiple to 16 from the set;\n\n2. JavaToNativeResolutionBitrateLimits https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/sdk/android/native_unittests/codecs/wrapper_unittest.cc;drc\u003d3d642f8442abc2e53ce80e1e82619277aa70898f;l\u003d38. Not sure why it fails. Try to run/debug it locally.",
+      "revId": "c006c0ca5d1747d3a46fc54325e6e41058a39245",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58c338a0_e2c5c3f4",
+        "filename": "sdk/android/api/org/webrtc/VideoEncoder.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-10-04T09:51:11Z",
+      "side": 1,
+      "message": "Please annotate values. /* requestedResolutionAlignment\u003d */..",
+      "range": {
+        "startLine": 382,
+        "startChar": 27,
+        "endLine": 382,
+        "endChar": 35
+      },
+      "revId": "c006c0ca5d1747d3a46fc54325e6e41058a39245",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

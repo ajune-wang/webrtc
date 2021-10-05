@@ -515,7 +515,7 @@ rtc_library("desktop_capture_generic") {
       "d3d11.lib",
       "dxgi.lib",
     ]
-    deps += [ "../../rtc_base:win32" ]
+    deps += [ "../../rtc_base:rtc_base_approved" ]
   }
 
   absl_deps = [

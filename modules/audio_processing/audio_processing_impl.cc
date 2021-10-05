@@ -51,6 +51,8 @@ namespace webrtc {
 
 namespace {
 
+constexpr int kFramesIn60Seconds = 6000;
+
 static bool LayoutHasKeyboard(AudioProcessing::ChannelLayout layout) {
   switch (layout) {
     case AudioProcessing::kMono:
@@ -117,6 +119,92 @@ GainControl::Mode Agc1ConfigModeToInterfaceMode(
 
 bool MinimizeProcessingForUnusedOutput() {
   return !field_trial::IsEnabled("WebRTC-MutedStateKillSwitch");
+}
+
+void LogGainUpdateMetrics(float sum_decreases,
+                          float sum_increases,
+                          int num_decreases,
+                          int num_increases) {
+  constexpr int kMaxUpdate = 255;
+  RTC_DCHECK_GE(sum_decreases, 0);
+  RTC_DCHECK_LE(sum_decreases, kMaxUpdate * kFramesIn60Seconds);
+  RTC_DCHECK_GE(sum_increases, 0);
+  RTC_DCHECK_LE(sum_increases, kMaxUpdate * kFramesIn60Seconds);
+  RTC_DCHECK_GE(num_decreases, 0);
+  RTC_DCHECK_LE(num_decreases, kFramesIn60Seconds);
+  RTC_DCHECK_GE(num_increases, 0);
+  RTC_DCHECK_LE(num_increases, kFramesIn60Seconds);
+  const int num_updates = num_decreases + num_increases;
+  RTC_DCHECK_LE(num_updates, kFramesIn60Seconds);
+  const float average_decrease =
+      (num_decreases > 0) ? std::round(static_cast<float>(sum_decreases) /
+                                       static_cast<float>(num_decreases))
+                          : 0.0f;
+  const float average_increase =
+      (num_increases > 0) ? std::round(static_cast<float>(sum_increases) /
+                                       static_cast<float>(num_increases))
+                          : 0.0f;
+  const float average_update =
+      (num_updates > 0)
+          ? std::round(static_cast<float>(sum_decreases + sum_increases) /
+                       static_cast<float>(num_updates))
+          : 0.0f;
+  RTC_DCHECK_GE(average_decrease, 0.0f);
+  RTC_DCHECK_LE(average_decrease, kMaxUpdate);
+  RTC_DCHECK_GE(average_increase, 0.0f);
+  RTC_DCHECK_LE(average_increase, kMaxUpdate);
+  if (num_updates > 0) {
+    RTC_DLOG(LS_INFO) << "Analog gain update rate (updates in 60 seconds): "
+                      << "num_updates=" << num_updates
+                      << ", num_decreases=" << num_decreases
+                      << ", num_increases=" << num_increases;
+    RTC_DLOG(LS_INFO) << "Analog gain update average: "
+                      << "average_update=" << average_update
+                      << ", average_decrease=" << average_decrease
+                      << ", average_increase=" << average_increase;
+  }
+  RTC_HISTOGRAM_COUNTS_LINEAR(
+      /*name=*/"WebRTC.Audio.ApmAnalogGainDecreaseRate",
+      /*sample=*/num_decreases,
+      /*min=*/1,
+      /*max=*/kFramesIn60Seconds,
+      /*bucket_count=*/50);
+  if (num_decreases > 0) {
+    RTC_HISTOGRAM_COUNTS_LINEAR(
+        /*name=*/"WebRTC.Audio.ApmAnalogGainDecreaseAverage",
+        /*sample=*/average_decrease,
+        /*min=*/1,
+        /*max=*/kMaxUpdate,
+        /*bucket_count=*/50);
+  }
+  RTC_HISTOGRAM_COUNTS_LINEAR(
+      /*name=*/"WebRTC.Audio.ApmAnalogGainIncreaseRate",
+      /*sample=*/num_increases,
+      /*min=*/1,
+      /*max=*/kFramesIn60Seconds,
+      /*bucket_count=*/50);
+  if (num_increases > 0) {
+    RTC_HISTOGRAM_COUNTS_LINEAR(
+        /*name=*/"WebRTC.Audio.ApmAnalogGainIncreaseAverage",
+        /*sample=*/average_increase,
+        /*min=*/1,
+        /*max=*/kMaxUpdate,
+        /*bucket_count=*/50);
+  }
+  RTC_HISTOGRAM_COUNTS_LINEAR(
+      /*name=*/"WebRTC.Audio.ApmAnalogGainUpdateRate",
+      /*sample=*/num_updates,
+      /*min=*/1,
+      /*max=*/kFramesIn60Seconds,
+      /*bucket_count=*/50);
+  if (num_updates > 0) {
+    RTC_HISTOGRAM_COUNTS_LINEAR(
+        /*name=*/"WebRTC.Audio.ApmAnalogGainUpdateAverage",
+        /*sample=*/average_update,
+        /*min=*/1,
+        /*max=*/kMaxUpdate,
+        /*bucket_count=*/50);
+  }
 }
 
 // Maximum lengths that frame of samples being passed from the render side to
@@ -1171,7 +1259,25 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
     capture_.echo_path_gain_change =
         capture_.prev_analog_mic_level != analog_mic_level &&
         capture_.prev_analog_mic_level != -1;
+    if (capture_.echo_path_gain_change) {
+      const int level_change =
+          analog_mic_level - capture_.prev_analog_mic_level;
+      if (level_change < 0) {
+        ++analog_gain_update_metrics_.num_decreases;
+        analog_gain_update_metrics_.sum_decreases -= level_change;
+      } else {
+        ++analog_gain_update_metrics_.num_increases;
+        analog_gain_update_metrics_.sum_increases += level_change;
+      }
+    }
     capture_.prev_analog_mic_level = analog_mic_level;
+    if (++analog_gain_update_metrics_.interval_counter >= kFramesIn60Seconds) {
+      LogGainUpdateMetrics(analog_gain_update_metrics_.sum_decreases,
+                           analog_gain_update_metrics_.sum_increases,
+                           analog_gain_update_metrics_.num_decreases,
+                           analog_gain_update_metrics_.num_increases);
+      analog_gain_update_metrics_.Reset();
+    }
 
     // Detect and flag any change in the capture level adjustment pre-gain.
     if (submodules_.capture_levels_adjuster) {

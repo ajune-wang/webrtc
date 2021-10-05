@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64195b45_57ce4af9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-10-05T14:04:48Z",
+      "side": 1,
+      "message": "lgtm % nit\n\nnice!",
+      "revId": "b8d2979d96ef1dee22495ecbb8c84acc359461df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "694c5260_c4fbc85c",
+        "filename": "api/async_dns_resolver.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-10-05T14:04:48Z",
+      "side": 1,
+      "message": "s/thread/sequence if this is what\u0027s meant",
+      "range": {
+        "startLine": 56,
+        "startChar": 12,
+        "endLine": 56,
+        "endChar": 18
+      },
+      "revId": "b8d2979d96ef1dee22495ecbb8c84acc359461df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

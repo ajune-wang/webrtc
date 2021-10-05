@@ -312,13 +312,89 @@ INSTANTIATE_TEST_SUITE_P(GainController2,
                          AdaptiveDigitalGainApplierTest,
                          ::testing::Values(1, 7, 31));
 
+// Checks that fast upward adaptation is faster than the normal adaptation
+// speed.
+TEST(GainController2GainApplier, FastAdaptationIncreasesFaster) {
+  constexpr float kPcmSamples = 1.0f;
+  constexpr int kNumFramesToAdapt = 120;
+
+  AdaptiveDigitalGainApplier::FrameInfo info =
+      GetFrameInfoToNotAdapt(kDefaultConfig);
+  // Lower the speech level to trigger upward adaptation.
+  info.speech_level_dbfs -= 20.0f;
+
+  // Simulate an input signal with low SNR to trigger normal gain adaptation.
+  AdaptiveDigitalGainApplier::FrameInfo info_snr_low = info;
+  info_snr_low.noise_rms_dbfs = -65.0f;
+  GainApplierHelper helper_snr_low(kDefaultConfig);
+  float output_level_snr_low = 0.0f;
+  for (int i = 0; i < kNumFramesToAdapt; ++i) {
+    VectorFloatFrame fake_audio(kMono, kFrameLen10ms8kHz, kPcmSamples);
+    helper_snr_low.gain_applier->Process(info_snr_low,
+                                         fake_audio.float_frame_view());
+    output_level_snr_low = fake_audio.float_frame_view().channel(0)[0];
+  }
+
+  // Simulate an input signal with high SNR to trigger normal gain adaptation.
+  AdaptiveDigitalGainApplier::FrameInfo info_snr_high = info;
+  info_snr_high.noise_rms_dbfs = -85.0f;
+  GainApplierHelper helper_snr_high(kDefaultConfig);
+  float output_level_snr_high = 0.0f;
+  for (int i = 0; i < kNumFramesToAdapt; ++i) {
+    VectorFloatFrame fake_audio(kMono, kFrameLen10ms8kHz, kPcmSamples);
+    helper_snr_high.gain_applier->Process(info_snr_high,
+                                          fake_audio.float_frame_view());
+    output_level_snr_high = fake_audio.float_frame_view().channel(0)[0];
+  }
+
+  EXPECT_GT(output_level_snr_high, output_level_snr_low);
+}
+
+// Checks that fast downward adaptation is faster than the normal adaptation
+// speed.
+TEST(GainController2GainApplier, FastAdaptationDecreasesFaster) {
+  constexpr float kPcmSamples = 1.0f;
+  constexpr int kNumFramesToAdapt = 120;
+
+  AdaptiveDigitalGainApplier::FrameInfo info =
+      GetFrameInfoToNotAdapt(kDefaultConfig);
+  // Increase the speech level to trigger downward adaptation.
+  info.speech_level_dbfs += 20.0f;
+
+  // Simulate an input signal with low SNR to trigger normal gain adaptation.
+  AdaptiveDigitalGainApplier::FrameInfo info_snr_low = info;
+  info_snr_low.noise_rms_dbfs = -65.0f;
+  GainApplierHelper helper_snr_low(kDefaultConfig);
+  float output_level_snr_low = 0.0f;
+  for (int i = 0; i < kNumFramesToAdapt; ++i) {
+    VectorFloatFrame fake_audio(kMono, kFrameLen10ms8kHz, kPcmSamples);
+    helper_snr_low.gain_applier->Process(info_snr_low,
+                                         fake_audio.float_frame_view());
+    output_level_snr_low = fake_audio.float_frame_view().channel(0)[0];
+  }
+
+  // Simulate an input signal with high SNR to trigger normal gain adaptation.
+  AdaptiveDigitalGainApplier::FrameInfo info_snr_high = info;
+  info_snr_high.noise_rms_dbfs = -85.0f;
+  GainApplierHelper helper_snr_high(kDefaultConfig);
+  float output_level_snr_high = 0.0f;
+  for (int i = 0; i < kNumFramesToAdapt; ++i) {
+    VectorFloatFrame fake_audio(kMono, kFrameLen10ms8kHz, kPcmSamples);
+    helper_snr_high.gain_applier->Process(info_snr_high,
+                                          fake_audio.float_frame_view());
+    output_level_snr_high = fake_audio.float_frame_view().channel(0)[0];
+  }
+
+  EXPECT_LT(output_level_snr_high, output_level_snr_low);
+}
+
 // Checks that the input is never modified when running in dry run mode.
 TEST(GainController2GainApplier, DryRunDoesNotChangeInput) {
   AdaptiveDigitalConfig config;
   config.dry_run = true;
   GainApplierHelper helper(config);
 
-  // Simulate an input signal with log speech level.
+  // Simulate an input signal with low speech level.
   AdaptiveDigitalGainApplier::FrameInfo info = GetFrameInfoToNotAdapt(config);
   info.speech_level_dbfs = -60.0f;
   const int num_frames_to_adapt =

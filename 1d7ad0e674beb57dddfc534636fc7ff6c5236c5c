@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "693a9a52_a5f0673c",
+        "filename": "p2p/base/stun_port.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-10-05T14:08:03Z",
+      "side": 1,
+      "message": "It wasn\u0027t. Deleted.",
+      "parentUuid": "2fc52cd0_dc5211e3",
+      "range": {
+        "startLine": 184,
+        "startChar": 24,
+        "endLine": 184,
+        "endChar": 53
+      },
+      "revId": "1d7ad0e674beb57dddfc534636fc7ff6c5236c5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cb31c0f8_d96af5df",
@@ -64,6 +88,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "145d4c9e_3df2b06f",
+        "filename": "p2p/base/stun_port.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-10-05T14:08:03Z",
+      "side": 1,
+      "message": "It\u0027s better if the DNS class (the one that actually does thread-jumping) documents this.\n\nTo the last point, I think documenting the threading assumption is worthwhile, but should be done in a separate CL.",
+      "parentUuid": "cb31c0f8_d96af5df",
+      "range": {
+        "startLine": 186,
+        "startChar": 4,
+        "endLine": 189,
+        "endChar": 42
+      },
+      "revId": "1d7ad0e674beb57dddfc534636fc7ff6c5236c5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2281acd6_03a8275a",
@@ -77,6 +125,30 @@
       "writtenOn": "2021-10-05T13:34:13Z",
       "side": 1,
       "message": "In the event this is needed, I think this needs to go last, otherwise the attributes below this point could be destroyed while accessed.",
+      "range": {
+        "startLine": 201,
+        "startChar": 0,
+        "endLine": 201,
+        "endChar": 42
+      },
+      "revId": "1d7ad0e674beb57dddfc534636fc7ff6c5236c5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45867347_2f06e158",
+        "filename": "p2p/base/stun_port.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-10-05T14:08:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2281acd6_03a8275a",
       "range": {
         "startLine": 201,
         "startChar": 0,

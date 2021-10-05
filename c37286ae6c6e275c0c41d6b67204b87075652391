@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d8f2a62_203beb6b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5509
+      },
+      "writtenOn": "2021-10-05T19:41:33Z",
+      "side": 1,
+      "message": "(cq redness looks unrelated)",
+      "revId": "c37286ae6c6e275c0c41d6b67204b87075652391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

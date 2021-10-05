@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "66b05267_91e8e3e1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18194
+      },
+      "writtenOn": "2021-10-05T10:19:49Z",
+      "side": 1,
+      "message": "Dear @Silkin,\n\n1. ForemanMixedRes100kbpsVp8H264 : Modified the resolutions to be multiple of 16.\n\n2. JavaToNativeResolutionBitrateLimits : It seems that FakeVideoEncoder.java couldn\u0027t find the default declaration of \"getEncoderInfo()\" defined in VideoEncoder.java during rumtime.\n\nDevice(0249f79459bc4393) 10-04 09:03:19.404 10512 10512 W System.err: java.lang.AbstractMethodError: abstract method \"org.webrtc.VideoEncoder$EncoderInfo org.webrtc.VideoEncoder.getEncoderInfo()\"\n\nSo, I explicitly added the import statement in the FakeVideoEncoder.java.",
+      "parentUuid": "2dd20bf1_e7ad8d31",
+      "revId": "c006c0ca5d1747d3a46fc54325e6e41058a39245",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "58c338a0_e2c5c3f4",
@@ -31,6 +49,30 @@
       "writtenOn": "2021-10-04T09:51:11Z",
       "side": 1,
       "message": "Please annotate values. /* requestedResolutionAlignment\u003d */..",
+      "range": {
+        "startLine": 382,
+        "startChar": 27,
+        "endLine": 382,
+        "endChar": 35
+      },
+      "revId": "c006c0ca5d1747d3a46fc54325e6e41058a39245",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac693a13_5af803c2",
+        "filename": "sdk/android/api/org/webrtc/VideoEncoder.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 18194
+      },
+      "writtenOn": "2021-10-05T10:19:49Z",
+      "side": 1,
+      "message": "Dear @Silkin,\n\nAdded the annotation like below:\n\nreturn new EncoderInfo(/* requestedResolutionAlignment\u003d */ 1, /* applyAlignmentToAllSimulcastLayers\u003d */ false);",
+      "parentUuid": "58c338a0_e2c5c3f4",
       "range": {
         "startLine": 382,
         "startChar": 27,

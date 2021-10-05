@@ -48,7 +48,7 @@ class FieldTrialParameterInterface {
   explicit FieldTrialParameterInterface(std::string key);
   friend void ParseFieldTrial(
       std::initializer_list<FieldTrialParameterInterface*> fields,
-      std::string raw_string);
+      std::string trial_string);
   void MarkAsUsed() { used_ = true; }
   virtual bool Parse(absl::optional<std::string> str_value) = 0;
 
@@ -65,7 +65,7 @@ class FieldTrialParameterInterface {
 // with extracted values if available.
 void ParseFieldTrial(
     std::initializer_list<FieldTrialParameterInterface*> fields,
-    std::string raw_string);
+    std::string trial_string);
 
 // Specialize this in code file for custom types. Should return absl::nullopt if
 // the given string cannot be properly parsed.

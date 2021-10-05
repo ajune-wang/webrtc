@@ -16,6 +16,7 @@
 #include <type_traits>
 #include <utility>
 
+#include "absl/strings/match.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_conversions.h"
@@ -83,10 +84,19 @@ void ParseFieldTrial(
         RTC_LOG(LS_WARNING) << "Failed to read empty key field with value '"
                             << key << "' in trial: \"" << trial_string << "\"";
       }
-    } else if (key.empty() || key[0] != '_') {
-      // "_" is be used to prefix keys that are part of the string for
-      // debugging purposes but not neccessarily used.
-      // e.g. WebRTC-Experiment/param: value, _DebuggingString
+    } else if (key.empty()) {
+      RTC_LOG(LS_INFO) << "Key is empty. The value will be ignored. The empty "
+                          "key was found in the field trial string: '"
+                       << trial_string << "'.";
+    } else if (absl::StartsWith(key, "_")) {
+      // "_" is used to prefix keys that are part of the string for debugging
+      // purposes but not neccessarily used, e.g.,
+      // `WebRTC-Experiment/param:value,_DebuggingString`.
+      RTC_LOG(LS_VERBOSE)
+          << "Key is treated as a debugging key since it "
+             "starts with '_'. The key and its value will be ignored: '"
+          << key << "'.";
+    } else {
       RTC_LOG(LS_INFO) << "No field with key: '" << key
                        << "' (found in trial: \"" << trial_string << "\")";
       std::string valid_keys;

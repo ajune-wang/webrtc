@@ -188,10 +188,7 @@ class TransmissionControlBlock : public Context {
   // As above, but without passing in a builder. If `cookie_echo_chunk_` is
   // present, then only one packet will be sent, with this chunk as the first
   // chunk.
-  void SendBufferedPackets(TimeMs now) {
-    SctpPacket::Builder builder(peer_verification_tag_, options_);
-    SendBufferedPackets(builder, now);
-  }
+  void SendBufferedPackets(TimeMs now);
 
   // Returns a textual representation of this object, for logging.
   std::string ToString() const;

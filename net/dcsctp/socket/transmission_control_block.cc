@@ -163,6 +163,11 @@ void TransmissionControlBlock::SendBufferedPackets(SctpPacket::Builder& builder,
   }
 }
 
+void TransmissionControlBlock::SendBufferedPackets(TimeMs now) {
+  SctpPacket::Builder builder(peer_verification_tag_, options_);
+  SendBufferedPackets(builder, now);
+}
+
 std::string TransmissionControlBlock::ToString() const {
   rtc::StringBuilder sb;
 

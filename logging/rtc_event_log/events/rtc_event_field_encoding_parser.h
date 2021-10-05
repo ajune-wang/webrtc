@@ -50,14 +50,16 @@ class RtcEventLogParseStatus {
 template <typename T>
 class RtcEventLogParseStatusOr {
  public:
-  explicit RtcEventLogParseStatusOr(RtcEventLogParseStatus status)
+  RtcEventLogParseStatusOr(RtcEventLogParseStatus status)  // NOLINT
       : status_(status), value_() {}
-  explicit RtcEventLogParseStatusOr(const T& value)
+  RtcEventLogParseStatusOr(const T& value)  // NOLINT
       : status_(), value_(value) {}
 
   bool ok() const { return status_.ok(); }
 
   std::string message() const { return status_.message(); }
+
+  RtcEventLogParseStatus status() const { return status_; }
 
   const T& value() const {
     RTC_DCHECK(ok());

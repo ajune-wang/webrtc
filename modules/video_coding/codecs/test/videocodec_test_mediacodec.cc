@@ -26,6 +26,7 @@ namespace test {
 namespace {
 const int kForemanNumFrames = 300;
 const int kForemanFramerateFps = 30;
+const int kPixelAlignmentRequired = 16;
 
 VideoCodecTestFixture::Config CreateConfig() {
   VideoCodecTestFixture::Config config;
@@ -114,13 +115,28 @@ TEST(VideoCodecTestMediaCodec, DISABLED_ForemanCif500kbpsH264CHP) {
   fixture->RunTest(rate_profiles, &rc_thresholds, &quality_thresholds, nullptr);
 }
 
+int getAlignedNumber(int number, int alignment) {
+  return (number / alignment) * alignment;
+}
+
 TEST(VideoCodecTestMediaCodec, ForemanMixedRes100kbpsVp8H264) {
   auto config = CreateConfig();
   const int kNumFrames = 30;
   const std::vector<std::string> codecs = {cricket::kVp8CodecName,
                                            cricket::kH264CodecName};
   const std::vector<std::tuple<int, int>> resolutions = {
-      {128, 96}, {160, 120}, {176, 144}, {240, 136}, {320, 240}, {480, 272}};
+      {getAlignedNumber(128, kPixelAlignmentRequired),
+       getAlignedNumber(96, kPixelAlignmentRequired)},
+      {getAlignedNumber(160, kPixelAlignmentRequired),
+       getAlignedNumber(120, kPixelAlignmentRequired)},
+      {getAlignedNumber(176, kPixelAlignmentRequired),
+       getAlignedNumber(144, kPixelAlignmentRequired)},
+      {getAlignedNumber(240, kPixelAlignmentRequired),
+       getAlignedNumber(136, kPixelAlignmentRequired)},
+      {getAlignedNumber(320, kPixelAlignmentRequired),
+       getAlignedNumber(240, kPixelAlignmentRequired)},
+      {getAlignedNumber(480, kPixelAlignmentRequired),
+       getAlignedNumber(272, kPixelAlignmentRequired)}};
   const std::vector<RateProfile> rate_profiles = {
       {100, kForemanFramerateFps, 0}};
   const std::vector<QualityThresholds> quality_thresholds = {

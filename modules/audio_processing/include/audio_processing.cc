@@ -56,7 +56,9 @@ void CustomProcessing::SetRuntimeSetting(
 bool Agc1Config::operator==(const Agc1Config& rhs) const {
   const auto& analog_lhs = analog_gain_controller;
   const auto& analog_rhs = rhs.analog_gain_controller;
-  return enabled == rhs.enabled && mode == rhs.mode &&
+  // clang-format off
+  return enabled == rhs.enabled &&
+         mode == rhs.mode &&
          target_level_dbfs == rhs.target_level_dbfs &&
          compression_gain_db == rhs.compression_gain_db &&
          enable_limiter == rhs.enable_limiter &&
@@ -85,6 +87,7 @@ bool Agc1Config::operator==(const Agc1Config& rhs) const {
              analog_rhs.clipping_predictor.crest_factor_margin &&
          analog_lhs.clipping_predictor.use_predicted_step ==
              analog_rhs.clipping_predictor.use_predicted_step;
+  // clang-format on
 }
 
 bool Agc2Config::AdaptiveDigital::operator==(

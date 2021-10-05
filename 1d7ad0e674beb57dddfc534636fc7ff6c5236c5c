@@ -16,6 +16,75 @@
       "message": "Looks better?",
       "revId": "1d7ad0e674beb57dddfc534636fc7ff6c5236c5c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fc52cd0_dc5211e3",
+        "filename": "p2p/base/stun_port.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-10-05T13:34:13Z",
+      "side": 1,
+      "message": "Is this still needed?",
+      "range": {
+        "startLine": 184,
+        "startChar": 24,
+        "endLine": 184,
+        "endChar": 53
+      },
+      "revId": "1d7ad0e674beb57dddfc534636fc7ff6c5236c5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb31c0f8_d96af5df",
+        "filename": "p2p/base/stun_port.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-10-05T13:34:13Z",
+      "side": 1,
+      "message": "The way task_safety_ is used here assumes the same sequence is used in ctors, dtors, and executes the lambda passed in AsyncDnsResolverInterface::Start (ctor can be relaxed). I see from the AsyncDnsResolverFactoryInterface::CreateAndResolve interface that the assumption is valid (https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/async_dns_resolver.h;l\u003d73?q\u003dasyncdnsresolverinte\u0026ss\u003dchromium) but the Create/Start combo (used in the code below) isn\u0027t defined by docs in the same manner. But it looks like it\u0027s checked by the WrappingAsyncDnsResolver impl.\n\nDoes it make sense to update the docs on Start (https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/async_dns_resolver.h;l\u003d58?q\u003dasyncdnsresolverinte\u0026ss\u003dchromium) to require the same sequence be used in it\u0027s ctor \u0026 Start?\n\nIt\u0027s also not clear to me from the AsyncDnsResolver docs (both the factory convenience method \u0026 Start) if the passed callback can be invoked past destruction of AsyncDnsResolverInterface instances. If it\u0027s guaranteed that it can\u0027t be executed past destruction, we don\u0027t need task safety in this class due to the ctor/dtor/lambda assumption \u0026 checks in the wrapper impl. Otherwise we do need the task safety.\n\nAlso, do you think it\u0027s worth documenting the threading assumptions this class does by seq checker + DCHECK_RUN_ON + RTC_GUARDED_BY?",
+      "range": {
+        "startLine": 186,
+        "startChar": 4,
+        "endLine": 189,
+        "endChar": 42
+      },
+      "revId": "1d7ad0e674beb57dddfc534636fc7ff6c5236c5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2281acd6_03a8275a",
+        "filename": "p2p/base/stun_port.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-10-05T13:34:13Z",
+      "side": 1,
+      "message": "In the event this is needed, I think this needs to go last, otherwise the attributes below this point could be destroyed while accessed.",
+      "range": {
+        "startLine": 201,
+        "startChar": 0,
+        "endLine": 201,
+        "endChar": 42
+      },
+      "revId": "1d7ad0e674beb57dddfc534636fc7ff6c5236c5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

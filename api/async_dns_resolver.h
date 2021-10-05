@@ -51,6 +51,11 @@ class AsyncDnsResolverResult {
   virtual int GetError() const = 0;
 };
 
+// The API for a single name query.
+// The constructor, destructor and all functions must be called from
+// the same thread, and the callback will also be called on that thread.
+// The class guarantees that the callback will not be called if the
+// resolver's destructor has been called.
 class RTC_EXPORT AsyncDnsResolverInterface {
  public:
   virtual ~AsyncDnsResolverInterface() = default;

@@ -33,6 +33,46 @@
       "message": "Oh, and:\nmbonadei: rtc_base\njoedow: modules/desktop_capture\n\n:)",
       "revId": "c37286ae6c6e275c0c41d6b67204b87075652391",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "932254fe_01fed34a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6515
+      },
+      "writtenOn": "2021-10-05T20:14:21Z",
+      "side": 1,
+      "message": "desktop_capture lgtm\n\nThanks!",
+      "revId": "c37286ae6c6e275c0c41d6b67204b87075652391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3238b573_8917b5e8",
+        "filename": "modules/desktop_capture/win/window_capturer_win_gdi.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 6515
+      },
+      "writtenOn": "2021-10-05T20:14:21Z",
+      "side": 1,
+      "message": "With you change it looks like I need to come back and change this to VERSION_WIN8_1 based on the comment.  I think your change should land as-is since it is functionally the same as before I just wanted to point out that we can/should make this logic cleaner because of it.",
+      "range": {
+        "startLine": 298,
+        "startChar": 59,
+        "endLine": 298,
+        "endChar": 71
+      },
+      "revId": "c37286ae6c6e275c0c41d6b67204b87075652391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

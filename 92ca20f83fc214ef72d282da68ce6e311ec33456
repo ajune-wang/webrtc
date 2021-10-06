@@ -33,6 +33,23 @@
       "message": "Good riddance.\n",
       "revId": "92ca20f83fc214ef72d282da68ce6e311ec33456",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "123d365c_4d4c0831",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-10-06T20:32:02Z",
+      "side": 1,
+      "message": "planning to land after the branch cut. Maybe send a PSA before.",
+      "revId": "92ca20f83fc214ef72d282da68ce6e311ec33456",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

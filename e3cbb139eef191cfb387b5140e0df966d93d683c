@@ -16,6 +16,98 @@
       "message": "PTAL",
       "revId": "e3cbb139eef191cfb387b5140e0df966d93d683c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0cefbc54_38d1da7b",
+        "filename": "logging/rtc_event_log/events/rtc_event_begin_log.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-10-06T07:27:37Z",
+      "side": 1,
+      "message": "I don\u0027t understand this comment, the code below doesn\u0027t refer to the order. The comment might be correct but as it stands it\u0027s still more confusing that enlightening. I\u0027d remove it, but if it is necessary I suggest: \"EncodeField will encode the fields in order of increasing IDs.\"",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 52
+      },
+      "revId": "e3cbb139eef191cfb387b5140e0df966d93d683c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4627c258_d1607134",
+        "filename": "logging/rtc_event_log/events/rtc_event_begin_log.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-10-06T07:27:37Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 61,
+        "startChar": 2,
+        "endLine": 61,
+        "endChar": 51
+      },
+      "revId": "e3cbb139eef191cfb387b5140e0df966d93d683c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07b26c57_8a03ff54",
+        "filename": "logging/rtc_event_log/events/rtc_event_end_log.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-10-06T07:27:37Z",
+      "side": 1,
+      "message": "Looks like you forgot the encoding.",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 52
+      },
+      "revId": "e3cbb139eef191cfb387b5140e0df966d93d683c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "615ea6f6_caf37bd4",
+        "filename": "logging/rtc_event_log/events/rtc_event_end_log.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2021-10-06T07:27:37Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 51
+      },
+      "revId": "e3cbb139eef191cfb387b5140e0df966d93d683c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

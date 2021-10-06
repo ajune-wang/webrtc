@@ -67,7 +67,7 @@ class Parameters {
   Parameters(Parameters&& other) = default;
   Parameters& operator=(Parameters&& other) = default;
 
-  rtc::ArrayView<const uint8_t> data() const { return data_; }
+  const std::vector<uint8_t>& data() const { return data_; }
   std::vector<ParameterDescriptor> descriptors() const;
 
   template <typename P>

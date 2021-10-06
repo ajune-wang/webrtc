@@ -136,7 +136,7 @@ void RetransmissionQueue::RemoveAcked(UnwrappedTSN cumulative_tsn_ack,
 
 void RetransmissionQueue::AckGapBlocks(
     UnwrappedTSN cumulative_tsn_ack,
-    rtc::ArrayView<const SackChunk::GapAckBlock> gap_ack_blocks,
+    const std::vector<SackChunk::GapAckBlock>& gap_ack_blocks,
     AckInfo& ack_info) {
   // Mark all non-gaps as ACKED (but they can't be removed) as (from RFC)
   // "SCTP considers the information carried in the Gap Ack Blocks in the
@@ -176,7 +176,7 @@ void RetransmissionQueue::AckChunk(
 
 void RetransmissionQueue::NackBetweenAckBlocks(
     UnwrappedTSN cumulative_tsn_ack,
-    rtc::ArrayView<const SackChunk::GapAckBlock> gap_ack_blocks,
+    const std::vector<SackChunk::GapAckBlock>& gap_ack_blocks,
     AckInfo& ack_info) {
   // Mark everything between the blocks as NACKED/TO_BE_RETRANSMITTED.
   // https://tools.ietf.org/html/rfc4960#section-7.2.4

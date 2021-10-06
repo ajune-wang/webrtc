@@ -77,7 +77,7 @@ absl::optional<IForwardTsnChunk> IForwardTsnChunk::Parse(
 }
 
 void IForwardTsnChunk::SerializeTo(std::vector<uint8_t>& out) const {
-  rtc::ArrayView<const SkippedStream> skipped = skipped_streams();
+  const std::vector<SkippedStream>& skipped = skipped_streams();
   size_t variable_size = skipped.size() * kSkippedStreamBufferSize;
   BoundedByteWriter<kHeaderSize> writer = AllocateTLV(out, variable_size);
 

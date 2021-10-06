@@ -95,7 +95,7 @@ class SctpPacket {
   const CommonHeader& common_header() const { return common_header_; }
 
   // Returns the chunks (types and offsets) within the packet.
-  rtc::ArrayView<const ChunkDescriptor> descriptors() const {
+  const std::vector<ChunkDescriptor>& descriptors() const {
     return descriptors_;
   }
 

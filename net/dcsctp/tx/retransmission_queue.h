@@ -291,7 +291,7 @@ class RetransmissionQueue {
   // Will mark the chunks covered by the `gap_ack_blocks` from an incoming SACK
   // as "acked" and update `ack_info` by adding new TSNs to `added_tsns`.
   void AckGapBlocks(UnwrappedTSN cumulative_tsn_ack,
-                    rtc::ArrayView<const SackChunk::GapAckBlock> gap_ack_blocks,
+                    const std::vector<SackChunk::GapAckBlock>& gap_ack_blocks,
                     AckInfo& ack_info);
 
   // Acks the chunk referenced by `iter` and updates state in `ack_info` and the
@@ -305,7 +305,7 @@ class RetransmissionQueue {
   // nacked/retransmitted. The method will set `ack_info.has_packet_loss`.
   void NackBetweenAckBlocks(
       UnwrappedTSN cumulative_tsn_ack,
-      rtc::ArrayView<const SackChunk::GapAckBlock> gap_ack_blocks,
+      const std::vector<SackChunk::GapAckBlock>& gap_ack_blocks,
       AckInfo& ack_info);
 
   // When a SACK chunk is received, this method will be called which _may_ call

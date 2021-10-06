@@ -53,7 +53,7 @@ class AnyForwardTsnChunk : public Chunk {
 
   TSN new_cumulative_tsn() const { return new_cumulative_tsn_; }
 
-  rtc::ArrayView<const SkippedStream> skipped_streams() const {
+  const std::vector<SkippedStream>& skipped_streams() const {
     return skipped_streams_;
   }
 

@@ -61,7 +61,7 @@ class SackChunk : public Chunk, public TLVTrait<SackChunkConfig> {
 
   TSN cumulative_tsn_ack() const { return cumulative_tsn_ack_; }
   uint32_t a_rwnd() const { return a_rwnd_; }
-  rtc::ArrayView<const GapAckBlock> gap_ack_blocks() const {
+  const std::vector<GapAckBlock>& gap_ack_blocks() const {
     return gap_ack_blocks_;
   }
   const std::set<TSN>& duplicate_tsns() const { return duplicate_tsns_; }

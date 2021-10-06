@@ -57,7 +57,7 @@ absl::optional<ReConfigChunk> ReConfigChunk::Parse(
 }
 
 void ReConfigChunk::SerializeTo(std::vector<uint8_t>& out) const {
-  rtc::ArrayView<const uint8_t> parameters = parameters_.data();
+  const std::vector<uint8_t>& parameters = parameters_.data();
   BoundedByteWriter<kHeaderSize> writer = AllocateTLV(out, parameters.size());
   writer.CopyToVariableData(parameters);
 }

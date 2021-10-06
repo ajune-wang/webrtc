@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69f11c50_dc45ba1d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2021-10-06T11:37:19Z",
+      "side": 1,
+      "message": "Thanks, nice to have clearer logs for the parser",
+      "revId": "739720806078547315504cab879e69ccc87e9a73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

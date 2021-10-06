@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f2ed024_d01622d9",
+        "filename": "config.star",
+        "patchSetId": 1
+      },
+      "lineNbr": 894,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-10-06T13:19:13Z",
+      "side": 1,
+      "message": "Maybe add a TODO on bug 13232 to remove these.",
+      "revId": "e0d8cc781465404cfedc80192de27170bded7169",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

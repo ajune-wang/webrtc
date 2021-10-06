@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdcb5d35_0138a6ae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-10-06T11:41:51Z",
+      "side": 1,
+      "message": "Tomas, can you please submit this one more time? It just failed presubmit check because of missing bug in the description. Thank you.",
+      "revId": "723e3c2d49b7d3f6daf48f61456097c8822e6a07",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

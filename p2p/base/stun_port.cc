@@ -13,6 +13,7 @@
 #include <utility>
 #include <vector>
 
+#include "absl/memory/memory.h"
 #include "api/transport/stun.h"
 #include "p2p/base/connection.h"
 #include "p2p/base/p2p_constants.h"
@@ -173,7 +174,6 @@ UDPPort::UDPPort(rtc::Thread* thread,
                  rtc::AsyncPacketSocket* socket,
                  const std::string& username,
                  const std::string& password,
-                 const std::string& origin,
                  bool emit_local_for_anyaddress)
     : Port(thread, LOCAL_PORT_TYPE, factory, network, username, password),
       requests_(thread),
@@ -183,7 +183,6 @@ UDPPort::UDPPort(rtc::Thread* thread,
       stun_keepalive_delay_(STUN_KEEPALIVE_INTERVAL),
       dscp_(rtc::DSCP_NO_CHANGE),
       emit_local_for_anyaddress_(emit_local_for_anyaddress) {
-  requests_.set_origin(origin);
 }
 
 UDPPort::UDPPort(rtc::Thread* thread,
@@ -193,7 +192,6 @@ UDPPort::UDPPort(rtc::Thread* thread,
                  uint16_t max_port,
                  const std::string& username,
                  const std::string& password,
-                 const std::string& origin,
                  bool emit_local_for_anyaddress)
     : Port(thread,
            LOCAL_PORT_TYPE,
@@ -210,7 +208,6 @@ UDPPort::UDPPort(rtc::Thread* thread,
       stun_keepalive_delay_(STUN_KEEPALIVE_INTERVAL),
       dscp_(rtc::DSCP_NO_CHANGE),
       emit_local_for_anyaddress_(emit_local_for_anyaddress) {
-  requests_.set_origin(origin);
 }
 
 bool UDPPort::Init() {
@@ -627,12 +624,11 @@ std::unique_ptr<StunPort> StunPort::Create(
     const std::string& username,
     const std::string& password,
     const ServerAddresses& servers,
-    const std::string& origin,
     absl::optional<int> stun_keepalive_interval) {
   // Using `new` to access a non-public constructor.
-  auto port = absl::WrapUnique(new StunPort(thread, factory, network, min_port,
-                                            max_port, username, password,
-                                            servers, origin));
+  auto port =
+      absl::WrapUnique(new StunPort(thread, factory, network, min_port,
+                                    max_port, username, password, servers));
   port->set_stun_keepalive_delay(stun_keepalive_interval);
   if (!port->Init()) {
     return nullptr;
@@ -647,8 +643,7 @@ StunPort::StunPort(rtc::Thread* thread,
                    uint16_t max_port,
                    const std::string& username,
                    const std::string& password,
-                   const ServerAddresses& servers,
-                   const std::string& origin)
+                   const ServerAddresses& servers)
     : UDPPort(thread,
               factory,
               network,
@@ -656,7 +651,6 @@ StunPort::StunPort(rtc::Thread* thread,
               max_port,
               username,
               password,
-              origin,
               false) {
   // UDPPort will set these to local udp, updating these to STUN.
   set_type(STUN_PORT_TYPE);

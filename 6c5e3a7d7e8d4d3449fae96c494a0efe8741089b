@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e21d792c_14c92c31",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-10-06T11:32:02Z",
+      "side": 1,
+      "message": "Great work Hanna! Nice that the new metrics will be logged for any analog controller :)\nI left some comments.",
+      "revId": "6c5e3a7d7e8d4d3449fae96c494a0efe8741089b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1aa2a537_e8d240f4",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-10-06T11:32:02Z",
+      "side": 1,
+      "message": "LogAnalogGainUpdateMetrics",
+      "range": {
+        "startLine": 124,
+        "startChar": 5,
+        "endLine": 124,
+        "endChar": 25
+      },
+      "revId": "6c5e3a7d7e8d4d3449fae96c494a0efe8741089b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1693167b_162f2bee",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1274,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-10-06T11:32:02Z",
+      "side": 1,
+      "message": "this is not reset to zero, so it only log once and not every 60 seconds, right?\n\n```\n++hold_log_analog_gain_update_metrics_;\nif (hold_log_analog_gain_update_metrics_ \u003e\u003d kFramesIn60Seconds) {\n  hold_log_analog_gain_update_metrics_ \u003d 0;\n  LogGainUpdateMetrics(analog_gain_update_metrics_);\n  analog_gain_update_metrics_ \u003d {};\n}\n```",
+      "range": {
+        "startLine": 1274,
+        "startChar": 10,
+        "endLine": 1274,
+        "endChar": 54
+      },
+      "revId": "6c5e3a7d7e8d4d3449fae96c494a0efe8741089b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b81320a1_d20f03da",
+        "filename": "modules/audio_processing/audio_processing_impl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-10-06T11:32:02Z",
+      "side": 1,
+      "message": "could you add a docstring?\nin this way the reader doesn\u0027t need to check how these numbers are updated",
+      "range": {
+        "startLine": 542,
+        "startChar": 4,
+        "endLine": 545,
+        "endChar": 26
+      },
+      "revId": "6c5e3a7d7e8d4d3449fae96c494a0efe8741089b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27e23322_034eace7",
+        "filename": "modules/audio_processing/audio_processing_impl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-10-06T11:32:02Z",
+      "side": 1,
+      "message": "move this outside of the struct and name it e.g., `hold_log_analog_gain_update_metrics_`",
+      "range": {
+        "startLine": 546,
+        "startChar": 8,
+        "endLine": 546,
+        "endChar": 24
+      },
+      "revId": "6c5e3a7d7e8d4d3449fae96c494a0efe8741089b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

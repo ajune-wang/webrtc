@@ -16,6 +16,98 @@
       "message": "Hi Alessio and Per,\n\nCan you please take a look?\n\nThanks!\nHanna",
       "revId": "01983cc7e23b7c83ebcdc1f3bf26c8f88526d315",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c887e3c2_86c02be3",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-10-06T11:32:02Z",
+      "side": 1,
+      "message": "pass `const AnalogGainUpdateMetrics\u0026?`",
+      "range": {
+        "startLine": 124,
+        "startChar": 26,
+        "endLine": 127,
+        "endChar": 43
+      },
+      "revId": "01983cc7e23b7c83ebcdc1f3bf26c8f88526d315",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "130c7737_77ed2c24",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-10-06T11:32:02Z",
+      "side": 1,
+      "message": "+ comment\n// Largest analog gain variation.",
+      "range": {
+        "startLine": 128,
+        "startChar": 16,
+        "endLine": 128,
+        "endChar": 26
+      },
+      "revId": "01983cc7e23b7c83ebcdc1f3bf26c8f88526d315",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62eb2910_c7f6e9fe",
+        "filename": "modules/audio_processing/audio_processing_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 534,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-10-06T11:32:02Z",
+      "side": 1,
+      "message": "- `AnalogGainUpdateMetrics`\n- Could you add a docstring that describes this struct?",
+      "range": {
+        "startLine": 534,
+        "startChar": 9,
+        "endLine": 534,
+        "endChar": 26
+      },
+      "revId": "01983cc7e23b7c83ebcdc1f3bf26c8f88526d315",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74228dba_eef55018",
+        "filename": "modules/audio_processing/audio_processing_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-10-06T11:32:02Z",
+      "side": 1,
+      "message": "nit: maybe it\u0027s better to remove this method since `analog_gain_update_metrics_ \u003d {};` does the same",
+      "range": {
+        "startLine": 535,
+        "startChar": 4,
+        "endLine": 541,
+        "endChar": 5
+      },
+      "revId": "01983cc7e23b7c83ebcdc1f3bf26c8f88526d315",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

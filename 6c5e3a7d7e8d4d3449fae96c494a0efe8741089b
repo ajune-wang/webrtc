@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ff418a6_6ae72f47",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-10-06T13:56:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1aa2a537_e8d240f4",
+      "range": {
+        "startLine": 124,
+        "startChar": 5,
+        "endLine": 124,
+        "endChar": 25
+      },
+      "revId": "6c5e3a7d7e8d4d3449fae96c494a0efe8741089b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1693167b_162f2bee",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-10-06T11:32:02Z",
       "side": 1,
       "message": "this is not reset to zero, so it only log once and not every 60 seconds, right?\n\n```\n++hold_log_analog_gain_update_metrics_;\nif (hold_log_analog_gain_update_metrics_ \u003e\u003d kFramesIn60Seconds) {\n  hold_log_analog_gain_update_metrics_ \u003d 0;\n  LogGainUpdateMetrics(analog_gain_update_metrics_);\n  analog_gain_update_metrics_ \u003d {};\n}\n```",
+      "range": {
+        "startLine": 1274,
+        "startChar": 10,
+        "endLine": 1274,
+        "endChar": 54
+      },
+      "revId": "6c5e3a7d7e8d4d3449fae96c494a0efe8741089b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e444793_1cf2f566",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1274,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-10-06T13:56:28Z",
+      "side": 1,
+      "message": "The counter was set to zero in Reset(). It\u0027s now outside the struct so it needs to be set to zero.",
+      "parentUuid": "1693167b_162f2bee",
       "range": {
         "startLine": 1274,
         "startChar": 10,
@@ -87,6 +135,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a8aa3eb_d8acda5e",
+        "filename": "modules/audio_processing/audio_processing_impl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-10-06T13:56:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b81320a1_d20f03da",
+      "range": {
+        "startLine": 542,
+        "startChar": 4,
+        "endLine": 545,
+        "endChar": 26
+      },
+      "revId": "6c5e3a7d7e8d4d3449fae96c494a0efe8741089b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "27e23322_034eace7",
@@ -100,6 +172,30 @@
       "writtenOn": "2021-10-06T11:32:02Z",
       "side": 1,
       "message": "move this outside of the struct and name it e.g., `hold_log_analog_gain_update_metrics_`",
+      "range": {
+        "startLine": 546,
+        "startChar": 8,
+        "endLine": 546,
+        "endChar": 24
+      },
+      "revId": "6c5e3a7d7e8d4d3449fae96c494a0efe8741089b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "086b2bd5_88f3e19e",
+        "filename": "modules/audio_processing/audio_processing_impl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-10-06T13:56:28Z",
+      "side": 1,
+      "message": "I\u0027ve renamed and placed the counter outside the struct.",
+      "parentUuid": "27e23322_034eace7",
       "range": {
         "startLine": 546,
         "startChar": 8,

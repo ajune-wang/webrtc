@@ -129,6 +129,7 @@ static const size_t kMaxAllowedValuesOfSamplesPerFrame = 480;
 // reverse and forward call numbers.
 static const size_t kMaxNumFramesToBuffer = 100;
 
+constexpr int kFramesIn60Seconds = 6000;
 }  // namespace
 
 // Throughout webrtc, it's assumed that success is represented by zero.
@@ -680,6 +681,99 @@ void AudioProcessingImpl::HandleCaptureOutputUsedSetting(
   }
 }
 
+void AudioProcessingImpl::LogAnalogGainUpdateMetrics() const {
+  constexpr int kMaxUpdate = 255;  // Largest analog gain variation.
+  RTC_DCHECK_GE(analog_gain_update_metrics_.sum_decreases, 0);
+  RTC_DCHECK_LE(analog_gain_update_metrics_.sum_decreases,
+                kMaxUpdate * kFramesIn60Seconds);
+  RTC_DCHECK_GE(analog_gain_update_metrics_.sum_increases, 0);
+  RTC_DCHECK_LE(analog_gain_update_metrics_.sum_increases,
+                kMaxUpdate * kFramesIn60Seconds);
+  RTC_DCHECK_GE(analog_gain_update_metrics_.num_decreases, 0);
+  RTC_DCHECK_LE(analog_gain_update_metrics_.num_decreases, kFramesIn60Seconds);
+  RTC_DCHECK_GE(analog_gain_update_metrics_.num_increases, 0);
+  RTC_DCHECK_LE(analog_gain_update_metrics_.num_increases, kFramesIn60Seconds);
+  const int num_updates = analog_gain_update_metrics_.num_decreases +
+                          analog_gain_update_metrics_.num_increases;
+  RTC_DCHECK_LE(num_updates, kFramesIn60Seconds);
+  const float average_decrease =
+      (analog_gain_update_metrics_.num_decreases > 0)
+          ? std::round(
+                static_cast<float>(analog_gain_update_metrics_.sum_decreases) /
+                static_cast<float>(analog_gain_update_metrics_.num_decreases))
+          : 0.0f;
+  const float average_increase =
+      (analog_gain_update_metrics_.num_increases > 0)
+          ? std::round(
+                static_cast<float>(analog_gain_update_metrics_.sum_increases) /
+                static_cast<float>(analog_gain_update_metrics_.num_increases))
+          : 0.0f;
+  const float average_update =
+      (num_updates > 0)
+          ? std::round(
+                static_cast<float>(analog_gain_update_metrics_.sum_decreases +
+                                   analog_gain_update_metrics_.sum_increases) /
+                static_cast<float>(num_updates))
+          : 0.0f;
+  RTC_DCHECK_GE(average_decrease, 0.0f);
+  RTC_DCHECK_LE(average_decrease, kMaxUpdate);
+  RTC_DCHECK_GE(average_increase, 0.0f);
+  RTC_DCHECK_LE(average_increase, kMaxUpdate);
+  if (num_updates > 0) {
+    RTC_DLOG(LS_INFO) << "Analog gain update rate: "
+                      << "num_updates=" << num_updates << ", num_decreases="
+                      << analog_gain_update_metrics_.num_decreases
+                      << ", num_increases="
+                      << analog_gain_update_metrics_.num_increases;
+    RTC_DLOG(LS_INFO) << "Analog gain update average: "
+                      << "average_update=" << average_update
+                      << ", average_decrease=" << average_decrease
+                      << ", average_increase=" << average_increase;
+  }
+  RTC_HISTOGRAM_COUNTS_LINEAR(
+      /*name=*/"WebRTC.Audio.ApmAnalogGainDecreaseRate",
+      /*sample=*/analog_gain_update_metrics_.num_decreases,
+      /*min=*/1,
+      /*max=*/kFramesIn60Seconds,
+      /*bucket_count=*/50);
+  if (analog_gain_update_metrics_.num_decreases > 0) {
+    RTC_HISTOGRAM_COUNTS_LINEAR(
+        /*name=*/"WebRTC.Audio.ApmAnalogGainDecreaseAverage",
+        /*sample=*/average_decrease,
+        /*min=*/1,
+        /*max=*/kMaxUpdate,
+        /*bucket_count=*/50);
+  }
+  RTC_HISTOGRAM_COUNTS_LINEAR(
+      /*name=*/"WebRTC.Audio.ApmAnalogGainIncreaseRate",
+      /*sample=*/analog_gain_update_metrics_.num_increases,
+      /*min=*/1,
+      /*max=*/kFramesIn60Seconds,
+      /*bucket_count=*/50);
+  if (analog_gain_update_metrics_.num_increases > 0) {
+    RTC_HISTOGRAM_COUNTS_LINEAR(
+        /*name=*/"WebRTC.Audio.ApmAnalogGainIncreaseAverage",
+        /*sample=*/average_increase,
+        /*min=*/1,
+        /*max=*/kMaxUpdate,
+        /*bucket_count=*/50);
+  }
+  RTC_HISTOGRAM_COUNTS_LINEAR(
+      /*name=*/"WebRTC.Audio.ApmAnalogGainUpdateRate",
+      /*sample=*/num_updates,
+      /*min=*/1,
+      /*max=*/kFramesIn60Seconds,
+      /*bucket_count=*/50);
+  if (num_updates > 0) {
+    RTC_HISTOGRAM_COUNTS_LINEAR(
+        /*name=*/"WebRTC.Audio.ApmAnalogGainUpdateAverage",
+        /*sample=*/average_update,
+        /*min=*/1,
+        /*max=*/kMaxUpdate,
+        /*bucket_count=*/50);
+  }
+}
+
 void AudioProcessingImpl::SetRuntimeSetting(RuntimeSetting setting) {
   PostRuntimeSetting(setting);
 }
@@ -1151,6 +1245,21 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
   const bool analog_mic_level_changed =
       capture_.prev_analog_mic_level != analog_mic_level &&
       capture_.prev_analog_mic_level != -1;
+  if (analog_mic_level_changed) {
+    const int level_change = analog_mic_level - capture_.prev_analog_mic_level;
+    if (level_change < 0) {
+      ++analog_gain_update_metrics_.num_decreases;
+      analog_gain_update_metrics_.sum_decreases -= level_change;
+    } else {
+      ++analog_gain_update_metrics_.num_increases;
+      analog_gain_update_metrics_.sum_increases += level_change;
+    }
+  }
+  if (++log_analog_gain_update_metrics_counter_ >= kFramesIn60Seconds) {
+    LogAnalogGainUpdateMetrics();
+    analog_gain_update_metrics_ = {};
+    log_analog_gain_update_metrics_counter_ = 0;
+  }
   capture_.prev_analog_mic_level = analog_mic_level;
 
   if (submodules_.echo_controller) {

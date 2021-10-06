@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c05871c_436b252f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-10-06T05:36:20Z",
+      "side": 1,
+      "message": "Next step. I think this is the last operational use of AsyncResolver API in webrtc outside of the WrappingAsyncResolver (the rest are mocks and tests).\n",
+      "revId": "c2107dabbf04d8b8aff7a5d045b5312374620aef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

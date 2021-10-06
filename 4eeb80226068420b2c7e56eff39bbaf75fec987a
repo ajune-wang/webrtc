@@ -16,6 +16,69 @@
       "message": "Thank you for the comments Alessio!",
       "revId": "4eeb80226068420b2c7e56eff39bbaf75fec987a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fac6255b_d66bdc57",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-10-06T14:40:10Z",
+      "side": 1,
+      "message": "Thanks for the changes Hanna! I notice one more thing that I didn\u0027t comment on earlier. Let me know what you think.",
+      "revId": "4eeb80226068420b2c7e56eff39bbaf75fec987a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb697683_9d13203f",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-10-06T14:40:10Z",
+      "side": 1,
+      "message": "nit: we never print the frequency, I would remove this part",
+      "range": {
+        "startLine": 157,
+        "startChar": 50,
+        "endLine": 157,
+        "endChar": 73
+      },
+      "revId": "4eeb80226068420b2c7e56eff39bbaf75fec987a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7b4d094_58329262",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1272,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-10-06T14:40:10Z",
+      "side": 1,
+      "message": "this only runs if `submodules_.echo_controller` and the echo path gain may change because of other reasons than an analog gain change - that\u0027s not the case in lines 1259-1261, but for instance it is the case below in lines 1287-1291\n\nso, let\u0027s move the analog gain change detection to line 1255 so that it always runs\nto do this safely, I recommend to add a separate parent CL for that change; for instance, you could define `const bool analog_level_had_changed` in line 1255 and you also move up `capture_.prev_analog_mic_level \u003d analog_mic_level;`\n\nthen, after rebasing, you can use `analog_level_had_changed` and `level_change` to update the metrics and log even if `submodules_.echo_controller` is not set.\n\nWDYT?",
+      "range": {
+        "startLine": 1262,
+        "startChar": 4,
+        "endLine": 1272,
+        "endChar": 5
+      },
+      "revId": "4eeb80226068420b2c7e56eff39bbaf75fec987a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8c0c5a68_9a21cae8",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-10-06T14:40:10Z",
+      "side": 1,
+      "message": "Then add a private method `void AudioProcessingImpl::LogAnalogGainUpdateMetrics() const`",
+      "parentUuid": "a6b6605e_f480f66f",
+      "range": {
+        "startLine": 124,
+        "startChar": 26,
+        "endLine": 127,
+        "endChar": 43
+      },
+      "revId": "01983cc7e23b7c83ebcdc1f3bf26c8f88526d315",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "130c7737_77ed2c24",
         "filename": "modules/audio_processing/audio_processing_impl.cc",
         "patchSetId": 1

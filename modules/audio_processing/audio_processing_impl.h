@@ -531,6 +531,18 @@ class AudioProcessingImpl : public AudioProcessing {
   RmsLevel capture_output_rms_ RTC_GUARDED_BY(mutex_capture_);
   int capture_rms_interval_counter_ RTC_GUARDED_BY(mutex_capture_) = 0;
 
+  // Stores analog gain update metrics to enable calculation of update rate and
+  // average update separately for gain increases and decreases. Reset every 60
+  // seconds.
+  struct AnalogGainUpdateMetrics {
+    int num_decreases = 0;
+    int num_increases = 0;
+    int sum_decreases = 0;
+    int sum_increases = 0;
+  } analog_gain_update_metrics_ RTC_GUARDED_BY(mutex_capture_);
+  int log_analog_gain_update_metrics_counter_ RTC_GUARDED_BY(mutex_capture_) =
+      0;
+
   // Lock protection not needed.
   std::unique_ptr<
       SwapQueue<std::vector<int16_t>, RenderQueueItemVerifier<int16_t>>>

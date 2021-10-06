@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e840086_723b344e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-10-06T15:29:10Z",
+      "side": 1,
+      "message": "Thanks Hanna! LGTM % 1 nit",
+      "revId": "d8caf46ad736d9b48606cc82d889704606207417",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c06c84be_f1d7d4b0",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1168,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-10-06T15:29:10Z",
+      "side": 1,
+      "message": "add comment\n// Detect an analog gain change.",
+      "range": {
+        "startLine": 1168,
+        "startChar": 2,
+        "endLine": 1168,
+        "endChar": 66
+      },
+      "revId": "d8caf46ad736d9b48606cc82d889704606207417",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "347b3001_abecd28c",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1175,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-10-06T15:29:10Z",
+      "side": 1,
+      "message": "this comment can be removed",
+      "range": {
+        "startLine": 1175,
+        "startChar": 4,
+        "endLine": 1175,
+        "endChar": 53
+      },
+      "revId": "d8caf46ad736d9b48606cc82d889704606207417",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

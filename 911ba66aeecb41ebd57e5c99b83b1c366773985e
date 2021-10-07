@@ -16,6 +16,23 @@
       "message": "Hi Hanna,\nCould you PTAL?\nAlessio",
       "revId": "911ba66aeecb41ebd57e5c99b83b1c366773985e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43fe605e_a6dd3a1a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-10-07T11:43:54Z",
+      "side": 1,
+      "message": "Thanks Alessio! LGTM",
+      "revId": "911ba66aeecb41ebd57e5c99b83b1c366773985e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

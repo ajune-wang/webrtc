@@ -16,6 +16,69 @@
       "message": "Thanks for the comments!",
       "revId": "f3d0992b3d8620d8fef674f7bc80c452fe36e87e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddace6cc_e466aafb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-10-07T06:42:03Z",
+      "side": 1,
+      "message": "Great! LGTM % 1 more nit",
+      "revId": "f3d0992b3d8620d8fef674f7bc80c452fe36e87e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "209e60bb_d7bac0fd",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1258,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-10-07T06:42:03Z",
+      "side": 1,
+      "message": "comment above\n// Periodically log analog gain change metrics.",
+      "range": {
+        "startLine": 1258,
+        "startChar": 2,
+        "endLine": 1258,
+        "endChar": 72
+      },
+      "revId": "f3d0992b3d8620d8fef674f7bc80c452fe36e87e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bed5e880_0a61e261",
+        "filename": "modules/audio_processing/audio_processing_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-10-07T06:42:03Z",
+      "side": 1,
+      "message": "This part can be removed since the reset period can change and the comment becomes stale.",
+      "range": {
+        "startLine": 538,
+        "startChar": 65,
+        "endLine": 539,
+        "endChar": 13
+      },
+      "revId": "f3d0992b3d8620d8fef674f7bc80c452fe36e87e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

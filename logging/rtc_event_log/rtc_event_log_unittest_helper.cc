@@ -47,27 +47,16 @@ namespace test {
 
 namespace {
 
-struct ExtensionPair {
-  RTPExtensionType type;
-  const char* name;
-};
-
 constexpr int kMaxCsrcs = 3;
 
 // Maximum serialized size of a header extension, including 1 byte ID.
 constexpr int kMaxExtensionSizeBytes = 4;
 constexpr int kMaxNumExtensions = 5;
 
-constexpr ExtensionPair kExtensions[kMaxNumExtensions] = {
-    {RTPExtensionType::kRtpExtensionTransmissionTimeOffset,
-     RtpExtension::kTimestampOffsetUri},
-    {RTPExtensionType::kRtpExtensionAbsoluteSendTime,
-     RtpExtension::kAbsSendTimeUri},
-    {RTPExtensionType::kRtpExtensionTransportSequenceNumber,
-     RtpExtension::kTransportSequenceNumberUri},
-    {RTPExtensionType::kRtpExtensionAudioLevel, RtpExtension::kAudioLevelUri},
-    {RTPExtensionType::kRtpExtensionVideoRotation,
-     RtpExtension::kVideoRotationUri}};
+constexpr absl::string_view kExtensions[kMaxNumExtensions] = {
+    RtpExtension::kTimestampOffsetUri, RtpExtension::kAbsSendTimeUri,
+    RtpExtension::kTransportSequenceNumberUri, RtpExtension::kAudioLevelUri,
+    RtpExtension::kVideoRotationUri};
 
 template <typename T>
 void ShuffleInPlace(Random* prng, rtc::ArrayView<T> array) {
@@ -79,7 +68,7 @@ void ShuffleInPlace(Random* prng, rtc::ArrayView<T> array) {
 }
 
 absl::optional<int> GetExtensionId(const std::vector<RtpExtension>& extensions,
-                                   const std::string& uri) {
+                                   absl::string_view uri) {
   for (const auto& extension : extensions) {
     if (extension.uri == uri)
       return extension.id;
@@ -580,27 +569,27 @@ void EventGenerator::RandomizeRtpPacket(
   }
   rtp_packet->SetCsrcs(csrcs);
 
-  if (extension_map.IsRegistered(TransmissionOffset::kId) &&
+  if (extension_map.IsRegistered<TransmissionOffset>() &&
       (all_configured_exts || prng_.Rand<bool>())) {
     rtp_packet->SetExtension<TransmissionOffset>(prng_.Rand(0x00ffffff));
   }
 
-  if (extension_map.IsRegistered(AudioLevel::kId) &&
+  if (extension_map.IsRegistered<AudioLevel>() &&
       (all_configured_exts || prng_.Rand<bool>())) {
     rtp_packet->SetExtension<AudioLevel>(prng_.Rand<bool>(), prng_.Rand(127));
   }
 
-  if (extension_map.IsRegistered(AbsoluteSendTime::kId) &&
+  if (extension_map.IsRegistered<AbsoluteSendTime>() &&
       (all_configured_exts || prng_.Rand<bool>())) {
     rtp_packet->SetExtension<AbsoluteSendTime>(prng_.Rand(0x00ffffff));
   }
 
-  if (extension_map.IsRegistered(VideoOrientation::kId) &&
+  if (extension_map.IsRegistered<VideoOrientation>() &&
       (all_configured_exts || prng_.Rand<bool>())) {
     rtp_packet->SetExtension<VideoOrientation>(prng_.Rand(3));
   }
 
-  if (extension_map.IsRegistered(TransportSequenceNumber::kId) &&
+  if (extension_map.IsRegistered<TransportSequenceNumber>() &&
       (all_configured_exts || prng_.Rand<bool>())) {
     rtp_packet->SetExtension<TransportSequenceNumber>(prng_.Rand<uint16_t>());
   }
@@ -712,13 +701,9 @@ EventGenerator::NewAudioReceiveStreamConfig(
   config->remote_ssrc = ssrc;
   config->local_ssrc = prng_.Rand<uint32_t>();
   // Add header extensions.
-  for (size_t i = 0; i < kMaxNumExtensions; i++) {
-    uint8_t id = extensions.GetId(kExtensions[i].type);
-    if (id != RtpHeaderExtensionMap::kInvalidId) {
-      config->rtp_extensions.emplace_back(kExtensions[i].name, id);
-    }
-  }
-
+  extensions.ListRegisteredExtensions([&](int id, absl::string_view uri) {
+    config->rtp_extensions.emplace_back(uri, id);
+  });
   return std::make_unique<RtcEventAudioReceiveStreamConfig>(std::move(config));
 }
 
@@ -730,12 +715,9 @@ EventGenerator::NewAudioSendStreamConfig(
   // Add SSRC to the stream.
   config->local_ssrc = ssrc;
   // Add header extensions.
-  for (size_t i = 0; i < kMaxNumExtensions; i++) {
-    uint8_t id = extensions.GetId(kExtensions[i].type);
-    if (id != RtpHeaderExtensionMap::kInvalidId) {
-      config->rtp_extensions.emplace_back(kExtensions[i].name, id);
-    }
-  }
+  extensions.ListRegisteredExtensions([&](int id, absl::string_view uri) {
+    config->rtp_extensions.emplace_back(uri, id);
+  });
   return std::make_unique<RtcEventAudioSendStreamConfig>(std::move(config));
 }
 
@@ -756,12 +738,9 @@ EventGenerator::NewVideoReceiveStreamConfig(
   config->codecs.emplace_back(prng_.Rand<bool>() ? "VP8" : "H264",
                               prng_.Rand(127), prng_.Rand(127));
   // Add header extensions.
-  for (size_t i = 0; i < kMaxNumExtensions; i++) {
-    uint8_t id = extensions.GetId(kExtensions[i].type);
-    if (id != RtpHeaderExtensionMap::kInvalidId) {
-      config->rtp_extensions.emplace_back(kExtensions[i].name, id);
-    }
-  }
+  extensions.ListRegisteredExtensions([&](int id, absl::string_view uri) {
+    config->rtp_extensions.emplace_back(uri, id);
+  });
   return std::make_unique<RtcEventVideoReceiveStreamConfig>(std::move(config));
 }
 
@@ -776,12 +755,9 @@ EventGenerator::NewVideoSendStreamConfig(
   config->local_ssrc = ssrc;
   config->rtx_ssrc = prng_.Rand<uint32_t>();
   // Add header extensions.
-  for (size_t i = 0; i < kMaxNumExtensions; i++) {
-    uint8_t id = extensions.GetId(kExtensions[i].type);
-    if (id != RtpHeaderExtensionMap::kInvalidId) {
-      config->rtp_extensions.emplace_back(kExtensions[i].name, id);
-    }
-  }
+  extensions.ListRegisteredExtensions([&](int id, absl::string_view uri) {
+    config->rtp_extensions.emplace_back(uri, id);
+  });
   return std::make_unique<RtcEventVideoSendStreamConfig>(std::move(config));
 }
 
@@ -1306,11 +1282,11 @@ void VerifyLoggedStreamConfig(const rtclog::StreamConfig& original_config,
   size_t recognized_extensions = 0;
   for (size_t i = 0; i < kMaxNumExtensions; i++) {
     auto original_id =
-        GetExtensionId(original_config.rtp_extensions, kExtensions[i].name);
+        GetExtensionId(original_config.rtp_extensions, kExtensions[i]);
     auto logged_id =
-        GetExtensionId(logged_config.rtp_extensions, kExtensions[i].name);
+        GetExtensionId(logged_config.rtp_extensions, kExtensions[i]);
     EXPECT_EQ(original_id, logged_id)
-        << "IDs for " << kExtensions[i].name << " don't match. Original ID "
+        << "IDs for " << kExtensions[i] << " don't match. Original ID "
         << original_id.value_or(-1) << ". Parsed ID " << logged_id.value_or(-1)
         << ".";
     if (original_id) {

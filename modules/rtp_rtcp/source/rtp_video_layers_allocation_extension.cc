@@ -19,9 +19,6 @@
 #include "rtc_base/checks.h"
 
 namespace webrtc {
-
-constexpr RTPExtensionType RtpVideoLayersAllocationExtension::kId;
-
 namespace {
 
 constexpr int kMaxNumRtpStreams = 4;

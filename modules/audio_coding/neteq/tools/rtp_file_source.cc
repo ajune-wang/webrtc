@@ -45,9 +45,9 @@ bool RtpFileSource::ValidPcap(const std::string& file_name) {
 
 RtpFileSource::~RtpFileSource() {}
 
-bool RtpFileSource::RegisterRtpHeaderExtension(RTPExtensionType type,
+bool RtpFileSource::RegisterRtpHeaderExtension(absl::string_view uri,
                                                uint8_t id) {
-  return rtp_header_extension_map_.RegisterByType(id, type);
+  return rtp_header_extension_map_.RegisterByUri(id, uri);
 }
 
 std::unique_ptr<Packet> RtpFileSource::NextPacket() {

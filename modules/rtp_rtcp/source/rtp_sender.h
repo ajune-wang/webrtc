@@ -86,9 +86,7 @@ class RTPSender {
   // RTP header extension
   bool RegisterRtpHeaderExtension(absl::string_view uri, int id)
       RTC_LOCKS_EXCLUDED(send_mutex_);
-  bool IsRtpHeaderExtensionRegistered(RTPExtensionType type) const
-      RTC_LOCKS_EXCLUDED(send_mutex_);
-  int32_t DeregisterRtpHeaderExtension(RTPExtensionType type)
+  bool IsRtpHeaderExtensionRegistered(absl::string_view uri) const
       RTC_LOCKS_EXCLUDED(send_mutex_);
   void DeregisterRtpHeaderExtension(absl::string_view uri)
       RTC_LOCKS_EXCLUDED(send_mutex_);

@@ -92,9 +92,9 @@ bool ParseArgsAndSetupRtpReader(
   }
   fprintf(stderr, "Input file: %s\n\n", filename.c_str());
 
-  webrtc::RTPExtensionType extension = webrtc::kRtpExtensionAbsoluteSendTime;
+  absl::string_view extension_uri = webrtc::RtpExtension::kAbsSendTimeUri;
   if (ExtensionType() == "tsoffset") {
-    extension = webrtc::kRtpExtensionTransmissionTimeOffset;
+    extension_uri = webrtc::RtpExtension::kTimestampOffsetUri;
     fprintf(stderr, "Extension: toffset\n");
   } else if (ExtensionType() == "abs") {
     fprintf(stderr, "Extension: abs\n");
@@ -103,7 +103,7 @@ bool ParseArgsAndSetupRtpReader(
     return false;
   }
 
-  rtp_header_extensions.RegisterByType(ExtensionId(), extension);
+  rtp_header_extensions.RegisterByUri(ExtensionId(), extension_uri);
 
   return true;
 }

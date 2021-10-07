@@ -27,7 +27,7 @@ class RtpFileSource;
 // An adapter class to dress up a PacketSource object as a NetEqInput.
 class NetEqPacketSourceInput : public NetEqInput {
  public:
-  using RtpHeaderExtensionMap = std::map<int, webrtc::RTPExtensionType>;
+  using RtpHeaderExtensionMap = std::map<int, absl::string_view>;
 
   NetEqPacketSourceInput();
   absl::optional<int64_t> NextPacketTime() const override;

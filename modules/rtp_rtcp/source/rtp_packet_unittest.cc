@@ -855,7 +855,6 @@ struct UncopyableValue {
   UncopyableValue& operator=(const UncopyableValue&) = delete;
 };
 struct UncopyableExtension {
-  static constexpr RTPExtensionType kId = kRtpExtensionGenericFrameDescriptor02;
   static constexpr absl::string_view Uri() { return "uri"; }
 
   static size_t ValueSize(const UncopyableValue& value) { return 1; }
@@ -868,7 +867,6 @@ struct UncopyableExtension {
     return true;
   }
 };
-constexpr RTPExtensionType UncopyableExtension::kId;
 
 TEST(RtpPacketTest, SetUncopyableExtension) {
   RtpPacket::ExtensionManager extensions;
@@ -1172,12 +1170,12 @@ TEST(RtpPacketTest, RemoveMultipleExtensions) {
               ElementsAreArray(packet.data(), packet.size()));
 
   // Remove one of two extensions.
-  EXPECT_TRUE(packet.RemoveExtension(kRtpExtensionAudioLevel));
+  EXPECT_TRUE(packet.RemoveExtension<AudioLevel>());
 
   EXPECT_THAT(kPacketWithTO, ElementsAreArray(packet.data(), packet.size()));
 
   // Remove remaining extension.
-  EXPECT_TRUE(packet.RemoveExtension(kRtpExtensionTransmissionTimeOffset));
+  EXPECT_TRUE(packet.RemoveExtension<TransmissionOffset>());
 
   EXPECT_THAT(kMinimumPacket, ElementsAreArray(packet.data(), packet.size()));
 }
@@ -1205,10 +1203,10 @@ TEST(RtpPacketTest, RemoveExtensionPreservesOtherUnregisteredExtensions) {
   packet.IdentifyExtensions(extensions1);
 
   // Make sure we can not delete extension which is set but not registered.
-  EXPECT_FALSE(packet.RemoveExtension(kRtpExtensionTransmissionTimeOffset));
+  EXPECT_FALSE(packet.RemoveExtension<TransmissionOffset>());
 
   // Remove registered extension.
-  EXPECT_TRUE(packet.RemoveExtension(kRtpExtensionAudioLevel));
+  EXPECT_TRUE(packet.RemoveExtension<AudioLevel>());
 
   EXPECT_THAT(kPacketWithTO, ElementsAreArray(packet.data(), packet.size()));
 }
@@ -1229,12 +1227,12 @@ TEST(RtpPacketTest, RemoveExtensionFailure) {
   EXPECT_THAT(kPacketWithTO, ElementsAreArray(packet.data(), packet.size()));
 
   // Try to remove extension, which was registered, but not set.
-  EXPECT_FALSE(packet.RemoveExtension(kRtpExtensionAudioLevel));
+  EXPECT_FALSE(packet.RemoveExtension<AudioLevel>());
 
   EXPECT_THAT(kPacketWithTO, ElementsAreArray(packet.data(), packet.size()));
 
   // Try to remove extension, which was not registered.
-  EXPECT_FALSE(packet.RemoveExtension(kRtpExtensionPlayoutDelay));
+  EXPECT_FALSE(packet.RemoveExtension<PlayoutDelayLimits>());
 
   EXPECT_THAT(kPacketWithTO, ElementsAreArray(packet.data(), packet.size()));
 }

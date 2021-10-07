@@ -42,7 +42,7 @@ class RtpFileSource : public PacketSource {
   ~RtpFileSource() override;
 
   // Registers an RTP header extension and binds it to `id`.
-  virtual bool RegisterRtpHeaderExtension(RTPExtensionType type, uint8_t id);
+  virtual bool RegisterRtpHeaderExtension(absl::string_view uri, uint8_t id);
 
   std::unique_ptr<Packet> NextPacket() override;
 

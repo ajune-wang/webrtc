@@ -50,35 +50,6 @@ const uint8_t kRtpHeaderSize = 12;
 bool IsLegalMidName(absl::string_view name);
 bool IsLegalRsidName(absl::string_view name);
 
-// This enum must not have any gaps, i.e., all integers between
-// kRtpExtensionNone and kRtpExtensionNumberOfExtensions must be valid enum
-// entries.
-enum RTPExtensionType : int {
-  kRtpExtensionNone,
-  kRtpExtensionTransmissionTimeOffset,
-  kRtpExtensionAudioLevel,
-  kRtpExtensionCsrcAudioLevel,
-  kRtpExtensionInbandComfortNoise,
-  kRtpExtensionAbsoluteSendTime,
-  kRtpExtensionAbsoluteCaptureTime,
-  kRtpExtensionVideoRotation,
-  kRtpExtensionTransportSequenceNumber,
-  kRtpExtensionTransportSequenceNumber02,
-  kRtpExtensionPlayoutDelay,
-  kRtpExtensionVideoContentType,
-  kRtpExtensionVideoLayersAllocation,
-  kRtpExtensionVideoTiming,
-  kRtpExtensionRtpStreamId,
-  kRtpExtensionRepairedRtpStreamId,
-  kRtpExtensionMid,
-  kRtpExtensionGenericFrameDescriptor00,
-  kRtpExtensionGenericFrameDescriptor = kRtpExtensionGenericFrameDescriptor00,
-  kRtpExtensionGenericFrameDescriptor02,
-  kRtpExtensionColorSpace,
-  kRtpExtensionVideoFrameTrackingId,
-  kRtpExtensionNumberOfExtensions  // Must be the last entity in the enum.
-};
-
 enum RTCPAppSubTypes { kAppSubtypeBwe = 0x00 };
 
 // TODO(sprang): Make this an enum class once rtcp_receiver has been cleaned up.

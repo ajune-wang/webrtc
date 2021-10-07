@@ -127,11 +127,11 @@ std::unique_ptr<NetEqTest> NetEqTestFactory::InitializeTestFromFile(
     const Config& config) {
   // Gather RTP header extensions in a map.
   NetEqPacketSourceInput::RtpHeaderExtensionMap rtp_ext_map = {
-      {config.audio_level, kRtpExtensionAudioLevel},
-      {config.abs_send_time, kRtpExtensionAbsoluteSendTime},
-      {config.transport_seq_no, kRtpExtensionTransportSequenceNumber},
-      {config.video_content_type, kRtpExtensionVideoContentType},
-      {config.video_timing, kRtpExtensionVideoTiming}};
+      {config.audio_level, RtpExtension::kAudioLevelUri},
+      {config.abs_send_time, RtpExtension::kAbsSendTimeUri},
+      {config.transport_seq_no, RtpExtension::kTransportSequenceNumberUri},
+      {config.video_content_type, RtpExtension::kVideoContentTypeUri},
+      {config.video_timing, RtpExtension::kVideoTimingUri}};
 
   std::unique_ptr<NetEqInput> input;
   if (RtpFileSource::ValidRtpDump(input_file_name) ||

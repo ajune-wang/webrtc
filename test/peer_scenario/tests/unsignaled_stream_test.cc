@@ -205,7 +205,7 @@ TEST_P(UnsignaledStreamTest, ReplacesUnsignaledStreamOnCompletedSignaling) {
                 break;
               case MidTestConfiguration::kMidNegotiatedButMissingFromPackets:
                 EXPECT_TRUE(parsed_packet.HasExtension<RtpMid>());
-                ASSERT_TRUE(parsed_packet.RemoveExtension(RtpMid::kId));
+                ASSERT_TRUE(parsed_packet.RemoveExtension<RtpMid>());
                 break;
               case MidTestConfiguration::kMidNegotiatedAndPresentInPackets:
                 EXPECT_TRUE(parsed_packet.HasExtension<RtpMid>());

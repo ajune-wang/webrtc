@@ -23,7 +23,7 @@ int RtpHeaderExtensionSize(rtc::ArrayView<const RtpExtensionSize> extensions,
   int num_extensions = 0;
   int each_extension_header_size = 1;
   for (const RtpExtensionSize& extension : extensions) {
-    int id = registered_extensions.GetId(extension.type);
+    int id = registered_extensions.Id(extension.uri);
     if (id == RtpHeaderExtensionMap::kInvalidId)
       continue;
     // All extensions should use same size header. Check if the `extension`

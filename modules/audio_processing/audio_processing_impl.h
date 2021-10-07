@@ -356,6 +356,10 @@ class AudioProcessingImpl : public AudioProcessing {
   void HandleOverrunInCaptureRuntimeSettingsQueue()
       RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_capture_);
 
+  // Logs analog gain update metrics into a histogram.
+  void LogAnalogGainUpdateMetrics() const
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_capture_);
+
   // AecDump instance used for optionally logging APM config, input
   // and output to file in the AEC-dump format defined in debug.proto.
   std::unique_ptr<AecDump> aec_dump_;
@@ -529,6 +533,17 @@ class AudioProcessingImpl : public AudioProcessing {
   RmsLevel capture_input_rms_ RTC_GUARDED_BY(mutex_capture_);
   RmsLevel capture_output_rms_ RTC_GUARDED_BY(mutex_capture_);
   int capture_rms_interval_counter_ RTC_GUARDED_BY(mutex_capture_) = 0;
+
+  // Stores analog gain update metrics to enable calculation of update rate and
+  // average update separately for gain increases and decreases.
+  struct AnalogGainUpdateMetrics {
+    int num_decreases = 0;
+    int num_increases = 0;
+    int sum_decreases = 0;
+    int sum_increases = 0;
+  } analog_gain_update_metrics_ RTC_GUARDED_BY(mutex_capture_);
+  int log_analog_gain_update_metrics_counter_ RTC_GUARDED_BY(mutex_capture_) =
+      0;
 
   // Lock protection not needed.
   std::unique_ptr<

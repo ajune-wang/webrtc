@@ -79,9 +79,9 @@ class RTC_EXPORT I420Buffer : public I420BufferInterface {
   int StrideU() const override;
   int StrideV() const override;
 
-  uint8_t* MutableDataY();
-  uint8_t* MutableDataU();
-  uint8_t* MutableDataV();
+  uint8_t* MutableDataY() override;
+  uint8_t* MutableDataU() override;
+  uint8_t* MutableDataV() override;
 
   // Scale the cropped area of `src` to the size of `this` buffer, and
   // write the result into `this`.

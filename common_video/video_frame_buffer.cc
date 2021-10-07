@@ -59,6 +59,12 @@ class WrappedYuvBuffer : public Base {
 
   int StrideV() const override { return v_stride_; }
 
+  uint8_t* MutableDataY() override { return const_cast<uint8_t*>(y_plane_); }
+
+  uint8_t* MutableDataU() override { return const_cast<uint8_t*>(u_plane_); }
+
+  uint8_t* MutableDataV() override { return const_cast<uint8_t*>(v_plane_); }
+
  private:
   friend class rtc::RefCountedObject<WrappedYuvBuffer>;
 

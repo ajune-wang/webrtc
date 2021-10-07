@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2bb268e_49470f1f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-10-07T15:12:25Z",
+      "side": 1,
+      "message": "Hi Hanna,\nCould you PTAL?\nAlessio\n\nPS: sorry that git decided to mark vad_with_level(.h|.cc|_unittest.cc) as deleted files instead of marking them as renamed; let me know if you want me to split the CL (rename first, modify separately) in order to more easily see my changes",
+      "revId": "6385eb90ca92d668f9a5f8624d8996ea5393813f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

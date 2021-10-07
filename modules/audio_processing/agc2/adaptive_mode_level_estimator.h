@@ -15,7 +15,6 @@
 #include <type_traits>
 
 #include "modules/audio_processing/agc2/agc2_common.h"
-#include "modules/audio_processing/agc2/vad_with_level.h"
 #include "modules/audio_processing/include/audio_processing.h"
 
 namespace webrtc {
@@ -32,7 +31,7 @@ class AdaptiveModeLevelEstimator {
       delete;
 
   // Updates the level estimation.
-  void Update(const VadLevelAnalyzer::Result& vad_data);
+  void Update(float rms_dbfs, float peak_dbfs, float speech_probability);
   // Returns the estimated speech plus noise level.
   float level_dbfs() const { return level_dbfs_; }
   // Returns true if the estimator is confident on its current estimate.

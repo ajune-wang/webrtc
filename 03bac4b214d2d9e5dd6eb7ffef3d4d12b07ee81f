@@ -22,6 +22,30 @@
       },
       "revId": "03bac4b214d2d9e5dd6eb7ffef3d4d12b07ee81f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c771090_aeb2cb72",
+        "filename": "modules/video_coding/codecs/test/videocodec_test_mediacodec.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-10-07T10:56:32Z",
+      "side": 1,
+      "message": "Yes, removing the resolutions should be ok.",
+      "parentUuid": "72db9365_55837198",
+      "range": {
+        "startLine": 127,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 56
+      },
+      "revId": "03bac4b214d2d9e5dd6eb7ffef3d4d12b07ee81f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

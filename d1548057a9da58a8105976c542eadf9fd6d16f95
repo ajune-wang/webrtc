@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc3986da_a512ca88",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-10-07T14:57:05Z",
+      "side": 1,
+      "message": "if this looks good then wait with submitting until the branch has been cut",
+      "revId": "d1548057a9da58a8105976c542eadf9fd6d16f95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

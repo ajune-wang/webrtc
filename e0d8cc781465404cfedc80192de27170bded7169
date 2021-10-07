@@ -16,6 +16,24 @@
       "message": "Maybe add a TODO on bug 13232 to remove these.",
       "revId": "e0d8cc781465404cfedc80192de27170bded7169",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42c98de2_2283e899",
+        "filename": "config.star",
+        "patchSetId": 1
+      },
+      "lineNbr": 894,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-10-07T08:06:54Z",
+      "side": 1,
+      "message": "Done in followup CL",
+      "parentUuid": "2f2ed024_d01622d9",
+      "revId": "e0d8cc781465404cfedc80192de27170bded7169",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

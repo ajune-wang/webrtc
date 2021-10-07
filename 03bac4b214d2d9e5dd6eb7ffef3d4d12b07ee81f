@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72db9365_55837198",
+        "filename": "modules/video_coding/codecs/test/videocodec_test_mediacodec.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 18194
+      },
+      "writtenOn": "2021-10-07T09:33:51Z",
+      "side": 1,
+      "message": "Dear @Silkin,\n\nI\u0027ve encountered with failure in unittest \"ForemanMixedRes100kbpsVp8H264\". And with the log, unittest couldn\u0027t find the target videofile name with newly calculated resolution to meet 16px alignment.\n\nI think if I just remove the resolutions like {160, 120} which don\u0027t fulfill  requirements, unittest will find the right target videofile. Am I pointing out right?",
+      "range": {
+        "startLine": 127,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 56
+      },
+      "revId": "03bac4b214d2d9e5dd6eb7ffef3d4d12b07ee81f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

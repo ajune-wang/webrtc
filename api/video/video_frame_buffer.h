@@ -149,6 +149,10 @@ class PlanarYuv8Buffer : public PlanarYuvBuffer {
   virtual const uint8_t* DataU() const = 0;
   virtual const uint8_t* DataV() const = 0;
 
+  virtual uint8_t* MutableDataY() = 0;
+  virtual uint8_t* MutableDataU() = 0;
+  virtual uint8_t* MutableDataV() = 0;
+
  protected:
   ~PlanarYuv8Buffer() override {}
 };

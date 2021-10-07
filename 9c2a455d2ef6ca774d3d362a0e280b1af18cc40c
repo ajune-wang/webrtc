@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9d02bc7d_634fddf4",
+        "filename": "api/video/i444_buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 18414
+      },
+      "writtenOn": "2021-10-07T16:10:54Z",
+      "side": 1,
+      "message": "I hope Wikipedia is an acceptable source for what I444 stands for. 😊",
+      "parentUuid": "8ce27deb_a398b7dd",
+      "range": {
+        "startLine": 26,
+        "startChar": 9,
+        "endLine": 26,
+        "endChar": 14
+      },
+      "revId": "9c2a455d2ef6ca774d3d362a0e280b1af18cc40c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "612bf8ad_a5f452d8",
         "filename": "api/video/i444_buffer.h",
         "patchSetId": 1
@@ -54,6 +78,30 @@
       "writtenOn": "2021-10-07T14:16:04Z",
       "side": 1,
       "message": "Is this (and the other deprecated function below) really needed?",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 35
+      },
+      "revId": "9c2a455d2ef6ca774d3d362a0e280b1af18cc40c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3deb182c_247dc682",
+        "filename": "api/video/i444_buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 18414
+      },
+      "writtenOn": "2021-10-07T16:10:54Z",
+      "side": 1,
+      "message": "They are not, I just checked. They were inherited because we wanted to preserve the same functionality as I420Buffer. They will be removed.\nThe ones from I420Buffer however are in use by several unit tests and could be removed if those tests were to be refactored.",
+      "parentUuid": "612bf8ad_a5f452d8",
       "range": {
         "startLine": 38,
         "startChar": 0,
@@ -89,6 +137,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c087668f_79464cb0",
+        "filename": "api/video/i444_buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 18414
+      },
+      "writtenOn": "2021-10-07T16:10:54Z",
+      "side": 1,
+      "message": "We could move the implementation to i444_buffer.h/.cc and have common_video/video_frame_buffer.cc use it instead, same as i420_buffer?",
+      "parentUuid": "40edc032_3d5a17cc",
+      "range": {
+        "startLine": 64,
+        "startChar": 1,
+        "endLine": 66,
+        "endChar": 3
+      },
+      "revId": "9c2a455d2ef6ca774d3d362a0e280b1af18cc40c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fa3e2f02_78296a7e",
         "filename": "api/video/video_frame_buffer.h",
         "patchSetId": 1
@@ -100,6 +172,30 @@
       "writtenOn": "2021-10-07T14:16:04Z",
       "side": 1,
       "message": "Please don\u0027t add these methods here. Writing to the buffer should only be done close to construction, and there you should know the concrete type.",
+      "range": {
+        "startLine": 152,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 38
+      },
+      "revId": "9c2a455d2ef6ca774d3d362a0e280b1af18cc40c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33ed731c_80c69717",
+        "filename": "api/video/video_frame_buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 18414
+      },
+      "writtenOn": "2021-10-07T16:10:54Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fa3e2f02_78296a7e",
       "range": {
         "startLine": 152,
         "startChar": 0,
@@ -133,6 +229,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7fc5e8f4_fb8cc12d",
+        "filename": "common_video/video_frame_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 18414
+      },
+      "writtenOn": "2021-10-07T16:10:54Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "16c8118f_88676480",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 0
+      },
+      "revId": "9c2a455d2ef6ca774d3d362a0e280b1af18cc40c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "72730c99_3851b5ac",
@@ -146,6 +266,30 @@
       "writtenOn": "2021-10-07T14:16:04Z",
       "side": 1,
       "message": "Update comment.",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 78
+      },
+      "revId": "9c2a455d2ef6ca774d3d362a0e280b1af18cc40c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51a72648_14020434",
+        "filename": "common_video/video_frame_buffer_pool.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 18414
+      },
+      "writtenOn": "2021-10-07T16:10:54Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "72730c99_3851b5ac",
       "range": {
         "startLine": 23,
         "startChar": 0,

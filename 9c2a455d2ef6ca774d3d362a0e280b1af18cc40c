@@ -16,6 +16,144 @@
       "message": "Hello,\n\nFirst commit to the project for myself and the company. We need H264 YUV444 support in WebRTC and we took it upon ourselves to create and submit a patch. Any and all criticism is more than welcome.\n\nRegards,\nStefan",
       "revId": "9c2a455d2ef6ca774d3d362a0e280b1af18cc40c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ce27deb_a398b7dd",
+        "filename": "api/video/i444_buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-10-07T14:16:04Z",
+      "side": 1,
+      "message": "Please describe briefly what I444 means, and link to specification of this format.",
+      "range": {
+        "startLine": 26,
+        "startChar": 9,
+        "endLine": 26,
+        "endChar": 14
+      },
+      "revId": "9c2a455d2ef6ca774d3d362a0e280b1af18cc40c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "612bf8ad_a5f452d8",
+        "filename": "api/video/i444_buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-10-07T14:16:04Z",
+      "side": 1,
+      "message": "Is this (and the other deprecated function below) really needed?",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 35
+      },
+      "revId": "9c2a455d2ef6ca774d3d362a0e280b1af18cc40c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40edc032_3d5a17cc",
+        "filename": "api/video/i444_buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-10-07T14:16:04Z",
+      "side": 1,
+      "message": "This method is required part of the api, it shouldn\u0027t return always null.\n\nThere\u0027s an I444BufferBase::ToI420 in common_video/video_frame_buffer.cc, I wonder if I444Buffer should inherit that?",
+      "range": {
+        "startLine": 64,
+        "startChar": 1,
+        "endLine": 66,
+        "endChar": 3
+      },
+      "revId": "9c2a455d2ef6ca774d3d362a0e280b1af18cc40c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa3e2f02_78296a7e",
+        "filename": "api/video/video_frame_buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-10-07T14:16:04Z",
+      "side": 1,
+      "message": "Please don\u0027t add these methods here. Writing to the buffer should only be done close to construction, and there you should know the concrete type.",
+      "range": {
+        "startLine": 152,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 38
+      },
+      "revId": "9c2a455d2ef6ca774d3d362a0e280b1af18cc40c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16c8118f_88676480",
+        "filename": "common_video/video_frame_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-10-07T14:16:04Z",
+      "side": 1,
+      "message": "WrappedYuvBuffer should not have these methods. Any modifications to the pixeldata should be done before wrapping.",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 0
+      },
+      "revId": "9c2a455d2ef6ca774d3d362a0e280b1af18cc40c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72730c99_3851b5ac",
+        "filename": "common_video/video_frame_buffer_pool.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-10-07T14:16:04Z",
+      "side": 1,
+      "message": "Update comment.",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 78
+      },
+      "revId": "9c2a455d2ef6ca774d3d362a0e280b1af18cc40c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

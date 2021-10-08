@@ -65,6 +65,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c312fefe_8cf7b61d",
+        "filename": "api/video/i444_buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-10-08T13:36:56Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9d02bc7d_634fddf4",
+      "range": {
+        "startLine": 26,
+        "startChar": 9,
+        "endLine": 26,
+        "endChar": 14
+      },
+      "revId": "9c2a455d2ef6ca774d3d362a0e280b1af18cc40c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "612bf8ad_a5f452d8",
@@ -149,6 +173,30 @@
       "side": 1,
       "message": "We could move the implementation to i444_buffer.h/.cc and have common_video/video_frame_buffer.cc use it instead, same as i420_buffer?",
       "parentUuid": "40edc032_3d5a17cc",
+      "range": {
+        "startLine": 64,
+        "startChar": 1,
+        "endLine": 66,
+        "endChar": 3
+      },
+      "revId": "9c2a455d2ef6ca774d3d362a0e280b1af18cc40c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c3b267e_aed4f496",
+        "filename": "api/video/i444_buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-10-08T13:36:56Z",
+      "side": 1,
+      "message": "I don\u0027t know what the plan was with the I444BufferBase class. There seems to be no *BufferBase classes in api/video. \n\nBut its ToI420 method is just a thin wrapper around libyuv::I444ToI420, so maybe easiest to just copy that to api/video/i444_buffer.cc ?",
+      "parentUuid": "c087668f_79464cb0",
       "range": {
         "startLine": 64,
         "startChar": 1,

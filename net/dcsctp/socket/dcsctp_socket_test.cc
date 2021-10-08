@@ -746,6 +746,65 @@ TEST_F(DcSctpSocketTest, ShutdownTimerExpiresTooManyTimeClosesConnection) {
   EXPECT_TRUE(cb_a_.ConsumeSentPacket().empty());
 }
 
+TEST_P(DcSctpSocketParametrizedTest, ShutdownConnectionOutstandingData) {
+  ConnectSockets();
+  MaybeHandoverSocketZ();
+
+  sock_a_->Send(DcSctpMessage(StreamID(1), PPID(53), {1, 2}), kSendOptions);
+
+  EXPECT_CALL(cb_a_, OnClosed).Times(0);
+  EXPECT_CALL(cb_z_, OnClosed).Times(0);
+  sock_a_->Shutdown();
+
+  // Z reads DATA
+  sock_z_->ReceivePacket(cb_a_.ConsumeSentPacket());
+  // A reads SACK
+  sock_a_->ReceivePacket(cb_z_.ConsumeSentPacket());
+
+  // Z reads SHUTDOWN, produces SHUTDOWN_ACK
+  sock_z_->ReceivePacket(cb_a_.ConsumeSentPacket());
+  // A reads SHUTDOWN_ACK, produces SHUTDOWN_COMPLETE
+  EXPECT_CALL(cb_a_, OnClosed).Times(1);
+  sock_a_->ReceivePacket(cb_z_.ConsumeSentPacket());
+  // Z reads SHUTDOWN_COMPLETE.
+  EXPECT_CALL(cb_z_, OnClosed).Times(1);
+  sock_z_->ReceivePacket(cb_a_.ConsumeSentPacket());
+}
+
+TEST_P(DcSctpSocketParametrizedTest, ShutdownMustAckOutstandingData) {
+  ConnectSockets();
+  MaybeHandoverSocketZ();
+
+  sock_a_->Send(DcSctpMessage(StreamID(1), PPID(53), {1, 2}), kSendOptions);
+
+  EXPECT_CALL(cb_a_, OnClosed).Times(0);
+  EXPECT_CALL(cb_z_, OnClosed).Times(0);
+  sock_a_->Shutdown();
+
+  // Z reads DATA
+  sock_z_->ReceivePacket(cb_a_.ConsumeSentPacket());
+  // A reads SACK (dropped!)
+  cb_z_.ConsumeSentPacket();
+
+  // Expire T3-RTX
+  AdvanceTime(options_.rto_initial);
+  RunTimers();
+
+  // A re-sends DATA to Z
+  sock_z_->ReceivePacket(cb_a_.ConsumeSentPacket());
+  // A reads SACK (dropped!)
+  sock_a_->ReceivePacket(cb_z_.ConsumeSentPacket());
+
+  // Z reads SHUTDOWN, produces SHUTDOWN_ACK
+  sock_z_->ReceivePacket(cb_a_.ConsumeSentPacket());
+  // A reads SHUTDOWN_ACK, produces SHUTDOWN_COMPLETE
+  EXPECT_CALL(cb_a_, OnClosed).Times(1);
+  sock_a_->ReceivePacket(cb_z_.ConsumeSentPacket());
+  // Z reads SHUTDOWN_COMPLETE.
+  EXPECT_CALL(cb_z_, OnClosed).Times(1);
+  sock_z_->ReceivePacket(cb_a_.ConsumeSentPacket());
+}
+
 TEST_F(DcSctpSocketTest, EstablishConnectionWhileSendingData) {
   sock_a_->Connect();
 

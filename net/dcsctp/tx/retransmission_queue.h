@@ -121,6 +121,8 @@ class RetransmissionQueue {
   // Returns the number of DATA chunks that are in-flight.
   size_t outstanding_items() const { return outstanding_items_; }
 
+  bool IsEmpty() const { return outstanding_data_.empty(); }
+
   // Indicates if the congestion control algorithm allows data to be sent.
   bool can_send_data() const;
 

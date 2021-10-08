@@ -127,6 +127,7 @@ TEST_F(RetransmissionQueueTest, SendOneChunk) {
 
   EXPECT_THAT(GetSentPacketTSNs(queue), testing::ElementsAre(TSN(10)));
 
+  EXPECT_FALSE(queue.IsEmpty());
   EXPECT_THAT(queue.GetChunkStatesForTesting(),
               ElementsAre(Pair(TSN(9), State::kAcked),  //
                           Pair(TSN(10), State::kInFlight)));
@@ -139,9 +140,11 @@ TEST_F(RetransmissionQueueTest, SendOneChunkAndAck) {
       .WillRepeatedly([](TimeMs, size_t) { return absl::nullopt; });
 
   EXPECT_THAT(GetSentPacketTSNs(queue), testing::ElementsAre(TSN(10)));
+  EXPECT_FALSE(queue.IsEmpty());
 
   queue.HandleSack(now_, SackChunk(TSN(10), kArwnd, {}, {}));
 
+  EXPECT_TRUE(queue.IsEmpty());
   EXPECT_THAT(queue.GetChunkStatesForTesting(),
               ElementsAre(Pair(TSN(10), State::kAcked)));
 }
@@ -159,9 +162,16 @@ TEST_F(RetransmissionQueueTest, SendThreeChunksAndAckTwo) {
 
   queue.HandleSack(now_, SackChunk(TSN(11), kArwnd, {}, {}));
 
+  EXPECT_FALSE(queue.IsEmpty());
   EXPECT_THAT(queue.GetChunkStatesForTesting(),
               ElementsAre(Pair(TSN(11), State::kAcked),  //
                           Pair(TSN(12), State::kInFlight)));
+
+  // Restore to pristine state.
+  queue.HandleSack(now_, SackChunk(TSN(12), kArwnd, {}, {}));
+  EXPECT_TRUE(queue.IsEmpty());
+  EXPECT_THAT(queue.GetChunkStatesForTesting(),
+              ElementsAre(Pair(TSN(12), State::kAcked)));
 }
 
 TEST_F(RetransmissionQueueTest, AckWithGapBlocksFromRFC4960Section334) {
@@ -186,6 +196,7 @@ TEST_F(RetransmissionQueueTest, AckWithGapBlocksFromRFC4960Section334) {
                                     SackChunk::GapAckBlock(5, 5)},
                                    {}));
 
+  EXPECT_FALSE(queue.IsEmpty());
   EXPECT_THAT(queue.GetChunkStatesForTesting(),
               ElementsAre(Pair(TSN(12), State::kAcked),   //
                           Pair(TSN(13), State::kNacked),  //
@@ -193,6 +204,12 @@ TEST_F(RetransmissionQueueTest, AckWithGapBlocksFromRFC4960Section334) {
                           Pair(TSN(15), State::kAcked),   //
                           Pair(TSN(16), State::kNacked),  //
                           Pair(TSN(17), State::kAcked)));
+
+  // Restore to pristine state.
+  queue.HandleSack(now_, SackChunk(TSN(17), kArwnd, {}, {}));
+  EXPECT_TRUE(queue.IsEmpty());
+  EXPECT_THAT(queue.GetChunkStatesForTesting(),
+              ElementsAre(Pair(TSN(17), State::kAcked)));
 }
 
 TEST_F(RetransmissionQueueTest, ResendPacketsWhenNackedThreeTimes) {
@@ -287,6 +304,12 @@ TEST_F(RetransmissionQueueTest, ResendPacketsWhenNackedThreeTimes) {
                           Pair(TSN(18), State::kAcked),     //
                           Pair(TSN(19), State::kAcked),     //
                           Pair(TSN(20), State::kAcked)));
+
+  // Restore to pristine state.
+  queue.HandleSack(now_, SackChunk(TSN(20), kArwnd, {}, {}));
+  EXPECT_TRUE(queue.IsEmpty());
+  EXPECT_THAT(queue.GetChunkStatesForTesting(),
+              ElementsAre(Pair(TSN(20), State::kAcked)));
 }
 
 TEST_F(RetransmissionQueueTest, CanOnlyProduceTwoPacketsButWantsToSendThree) {
@@ -304,10 +327,17 @@ TEST_F(RetransmissionQueueTest, CanOnlyProduceTwoPacketsButWantsToSendThree) {
       queue.GetChunksToSend(now_, 1000);
   EXPECT_THAT(chunks_to_send, ElementsAre(Pair(TSN(10), _), Pair(TSN(11), _)));
 
+  EXPECT_FALSE(queue.IsEmpty());
   EXPECT_THAT(queue.GetChunkStatesForTesting(),
               ElementsAre(Pair(TSN(9), State::kAcked),      //
                           Pair(TSN(10), State::kInFlight),  //
                           Pair(TSN(11), State::kInFlight)));
+
+  // Restore to pristine state.
+  queue.HandleSack(now_, SackChunk(TSN(11), kArwnd, {}, {}));
+  EXPECT_TRUE(queue.IsEmpty());
+  EXPECT_THAT(queue.GetChunkStatesForTesting(),
+              ElementsAre(Pair(TSN(11), State::kAcked)));
 }
 
 TEST_F(RetransmissionQueueTest, RetransmitsOnT3Expiry) {
@@ -345,6 +375,12 @@ TEST_F(RetransmissionQueueTest, RetransmitsOnT3Expiry) {
   EXPECT_THAT(queue.GetChunkStatesForTesting(),
               ElementsAre(Pair(TSN(9), State::kAcked),  //
                           Pair(TSN(10), State::kInFlight)));
+
+  // Restore to pristine state.
+  queue.HandleSack(now_, SackChunk(TSN(10), kArwnd, {}, {}));
+  EXPECT_TRUE(queue.IsEmpty());
+  EXPECT_THAT(queue.GetChunkStatesForTesting(),
+              ElementsAre(Pair(TSN(10), State::kAcked)));
 }
 
 TEST_F(RetransmissionQueueTest, LimitedRetransmissionOnlyWithRfc3758Support) {
@@ -376,7 +412,13 @@ TEST_F(RetransmissionQueueTest, LimitedRetransmissionOnlyWithRfc3758Support) {
   EXPECT_CALL(producer_, Discard(IsUnordered(false), StreamID(1), MID(42)))
       .Times(0);
   EXPECT_FALSE(queue.ShouldSendForwardTsn(now_));
-}  // namespace dcsctp
+
+  // Restore to pristine state.
+  queue.HandleSack(now_, SackChunk(TSN(10), kArwnd, {}, {}));
+  EXPECT_TRUE(queue.IsEmpty());
+  EXPECT_THAT(queue.GetChunkStatesForTesting(),
+              ElementsAre(Pair(TSN(10), State::kAcked)));
+}
 
 TEST_F(RetransmissionQueueTest, LimitsRetransmissionsAsUdp) {
   RetransmissionQueue queue = CreateQueue();
@@ -407,6 +449,7 @@ TEST_F(RetransmissionQueueTest, LimitsRetransmissionsAsUdp) {
                           Pair(TSN(10), State::kAbandoned)));
 
   EXPECT_TRUE(queue.ShouldSendForwardTsn(now_));
+  EXPECT_EQ(queue.CreateForwardTsn().new_cumulative_tsn(), TSN(10));
 
   EXPECT_THAT(queue.GetChunkStatesForTesting(),
               ElementsAre(Pair(TSN(9), State::kAcked),  //
@@ -418,6 +461,12 @@ TEST_F(RetransmissionQueueTest, LimitsRetransmissionsAsUdp) {
   EXPECT_THAT(queue.GetChunkStatesForTesting(),
               ElementsAre(Pair(TSN(9), State::kAcked),  //
                           Pair(TSN(10), State::kAbandoned)));
+
+  // Restore to pristine state.
+  queue.HandleSack(now_, SackChunk(TSN(10), kArwnd, {}, {}));
+  EXPECT_TRUE(queue.IsEmpty());
+  EXPECT_THAT(queue.GetChunkStatesForTesting(),
+              ElementsAre(Pair(TSN(10), State::kAcked)));
 }
 
 TEST_F(RetransmissionQueueTest, LimitsRetransmissionsToThreeSends) {
@@ -461,11 +510,18 @@ TEST_F(RetransmissionQueueTest, LimitsRetransmissionsToThreeSends) {
       .Times(1);
   queue.HandleT3RtxTimerExpiry();
   EXPECT_TRUE(queue.ShouldSendForwardTsn(now_));
+  EXPECT_EQ(queue.CreateForwardTsn().new_cumulative_tsn(), TSN(10));
   EXPECT_THAT(queue.GetChunksToSend(now_, 1000), IsEmpty());
 
   EXPECT_THAT(queue.GetChunkStatesForTesting(),
               ElementsAre(Pair(TSN(9), State::kAcked),  //
                           Pair(TSN(10), State::kAbandoned)));
+
+  // Restore to pristine state.
+  queue.HandleSack(now_, SackChunk(TSN(10), kArwnd, {}, {}));
+  EXPECT_TRUE(queue.IsEmpty());
+  EXPECT_THAT(queue.GetChunkStatesForTesting(),
+              ElementsAre(Pair(TSN(10), State::kAcked)));
 }
 
 TEST_F(RetransmissionQueueTest, RetransmitsWhenSendBufferIsFullT3Expiry) {
@@ -509,6 +565,12 @@ TEST_F(RetransmissionQueueTest, RetransmitsWhenSendBufferIsFullT3Expiry) {
                           Pair(TSN(10), State::kInFlight)));
   EXPECT_EQ(queue.outstanding_bytes(), payload.size() + DataChunk::kHeaderSize);
   EXPECT_EQ(queue.outstanding_items(), 1u);
+
+  // Restore to pristine state.
+  queue.HandleSack(now_, SackChunk(TSN(10), kArwnd, {}, {}));
+  EXPECT_TRUE(queue.IsEmpty());
+  EXPECT_THAT(queue.GetChunkStatesForTesting(),
+              ElementsAre(Pair(TSN(10), State::kAcked)));
 }
 
 TEST_F(RetransmissionQueueTest, ProducesValidForwardTsn) {
@@ -564,6 +626,12 @@ TEST_F(RetransmissionQueueTest, ProducesValidForwardTsn) {
   EXPECT_THAT(forward_tsn.skipped_streams(),
               UnorderedElementsAre(
                   ForwardTsnChunk::SkippedStream(StreamID(1), SSN(42))));
+
+  // Restore to pristine state.
+  queue.HandleSack(now_, SackChunk(TSN(13), kArwnd, {}, {}));
+  EXPECT_TRUE(queue.IsEmpty());
+  EXPECT_THAT(queue.GetChunkStatesForTesting(),
+              ElementsAre(Pair(TSN(13), State::kAcked)));
 }
 
 TEST_F(RetransmissionQueueTest, ProducesValidForwardTsnWhenFullySent) {
@@ -617,6 +685,12 @@ TEST_F(RetransmissionQueueTest, ProducesValidForwardTsnWhenFullySent) {
   EXPECT_THAT(forward_tsn.skipped_streams(),
               UnorderedElementsAre(
                   ForwardTsnChunk::SkippedStream(StreamID(1), SSN(42))));
+
+  // Restore to pristine state.
+  queue.HandleSack(now_, SackChunk(TSN(12), kArwnd, {}, {}));
+  EXPECT_TRUE(queue.IsEmpty());
+  EXPECT_THAT(queue.GetChunkStatesForTesting(),
+              ElementsAre(Pair(TSN(12), State::kAcked)));
 }
 
 TEST_F(RetransmissionQueueTest, ProducesValidIForwardTsn) {
@@ -726,6 +800,7 @@ TEST_F(RetransmissionQueueTest, ProducesValidIForwardTsn) {
 
   IForwardTsnChunk forward_tsn2 = queue.CreateIForwardTsn();
   EXPECT_EQ(forward_tsn2.new_cumulative_tsn(), TSN(16));
+  EXPECT_FALSE(queue.IsEmpty());
   EXPECT_THAT(
       forward_tsn2.skipped_streams(),
       UnorderedElementsAre(IForwardTsnChunk::SkippedStream(
@@ -734,6 +809,12 @@ TEST_F(RetransmissionQueueTest, ProducesValidIForwardTsn) {
                                IsUnordered(true), StreamID(2), MID(42)),
                            IForwardTsnChunk::SkippedStream(
                                IsUnordered(false), StreamID(3), MID(42))));
+
+  // Restore to pristine state.
+  queue.HandleSack(now_, SackChunk(TSN(16), kArwnd, {}, {}));
+  EXPECT_TRUE(queue.IsEmpty());
+  EXPECT_THAT(queue.GetChunkStatesForTesting(),
+              ElementsAre(Pair(TSN(16), State::kAcked)));
 }
 
 TEST_F(RetransmissionQueueTest, MeasureRTT) {
@@ -1380,6 +1461,7 @@ TEST_F(RetransmissionQueueTest, ReadyForHandoverWhenNothingToRetransmit) {
 
   // Ack 20 to confirm the retransmission
   queue.HandleSack(now_, SackChunk(TSN(20), kArwnd, {}, {}));
+  EXPECT_TRUE(queue.IsEmpty());
   EXPECT_EQ(queue.GetHandoverReadiness(), HandoverReadinessStatus());
 }
 
@@ -1408,5 +1490,9 @@ TEST_F(RetransmissionQueueTest, HandoverTest) {
                           Pair(TSN(14), State::kInFlight)));
 }
 
+TEST_F(RetransmissionQueueTest, IsInitiallyEmpty) {
+  RetransmissionQueue queue = CreateQueue();
+  EXPECT_TRUE(queue.IsEmpty());
+}
 }  // namespace
 }  // namespace dcsctp

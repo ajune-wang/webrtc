@@ -31,6 +31,11 @@ rtc_library("adaptive_digital") {
 
   configs += [ "..:apm_debug_dump" ]
 
+  visibility = [
+    "..:gain_controller2",
+    "./*",
+  ]
+
   deps = [
     ":common",
     ":cpu_features",
@@ -47,7 +52,6 @@ rtc_library("adaptive_digital") {
     "../../../rtc_base:rtc_base_approved",
     "../../../rtc_base:safe_compare",
     "../../../rtc_base:safe_minmax",
-    "../../../system_wrappers:field_trial",
     "../../../system_wrappers:metrics",
   ]
 
@@ -80,6 +84,12 @@ rtc_library("fixed_digital") {
     "limiter.h",
   ]
 
+  visibility = [
+    "..:gain_controller2",
+    "../../audio_mixer:audio_mixer_impl",
+    "./*",
+  ]
+
   configs += [ "..:apm_debug_dump" ]
 
   deps = [
@@ -101,6 +111,10 @@ rtc_library("gain_applier") {
   sources = [
     "gain_applier.cc",
     "gain_applier.h",
+  ]
+  visibility = [
+    "..:gain_controller2",
+    "./*",
   ]
   deps = [
     ":common",
@@ -133,6 +147,11 @@ rtc_library("vad_wrapper") {
     "vad_wrapper.h",
   ]
 
+  visibility = [
+    "..:gain_controller2",
+    "./*",
+  ]
+
   defines = []
   if (rtc_build_with_neon && current_cpu != "arm64") {
     suppressed_configs += [ "//build/config/compiler:compiler_arm_fpu" ]
@@ -156,7 +175,10 @@ rtc_library("cpu_features") {
     "cpu_features.cc",
     "cpu_features.h",
   ]
-  visibility = [ "./*" ]
+  visibility = [
+    "..:gain_controller2",
+    "./*",
+  ]
   deps = [
     "../../../rtc_base:stringutils",
     "../../../rtc_base/system:arch",

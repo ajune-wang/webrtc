@@ -54,11 +54,18 @@ class VoiceActivityDetectorWrapper {
       delete;
   ~VoiceActivityDetectorWrapper();
 
+  // Initializes the VAD wrapper. Must be called before `Analyze()`.
+  void Initialize(int sample_rate_hz);
+
   // Analyzes the first channel of `frame` and returns the speech probability.
+  // The number of samples per channel in `frame` must match the sample rate
+  // provided when `Initialize()` was called.
   float Analyze(AudioFrameView<const float> frame);
 
  private:
   const int vad_reset_period_frames_;
+  bool initialized_;
+  int frame_size_;
   int time_to_vad_reset_;
   PushResampler<float> resampler_;
   std::unique_ptr<MonoVad> vad_;

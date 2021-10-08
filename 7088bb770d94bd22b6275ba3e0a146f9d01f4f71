@@ -16,6 +16,46 @@
       "message": "Thank you for the comments Alessio!",
       "revId": "7088bb770d94bd22b6275ba3e0a146f9d01f4f71",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "606485df_12e1655a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-10-08T06:43:18Z",
+      "side": 1,
+      "message": "Thanks for this CL!",
+      "revId": "7088bb770d94bd22b6275ba3e0a146f9d01f4f71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "151a0679_2aefe105",
+        "filename": "modules/audio_processing/audio_processing_impl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-10-08T06:43:18Z",
+      "side": 1,
+      "message": "My suggestion is to make this a separate class, and put all logic added in this CL into that, including the \n\nAs I see it, none of the code added in this CL affects the rest of AudioProcessingImpl in any way and therefore I think it is better to separate it into a separate class, and a separate file\n\nAs I see it, that class could have a single logging function that takes one single parameter as input(analog_mic_level). Then it could keep track of all logging details separately.\n\nWDYT?",
+      "range": {
+        "startLine": 539,
+        "startChar": 9,
+        "endLine": 539,
+        "endChar": 32
+      },
+      "revId": "7088bb770d94bd22b6275ba3e0a146f9d01f4f71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

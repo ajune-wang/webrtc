@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'e2c8b6114cdb84e26cd44c82d095eb6976795697',
+  'chromium_revision': '9e189b3e8d944c37889428308d363ef19323e842',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -2578,7 +2578,7 @@ hooks = [
                 "--no_resume",
                 "--no_auth",
                 "--bucket", "chromium-instrumented-libraries",
-                "-s", "src/third_party/instrumented_libraries/binaries/msan-chained-origins-trusty.tgz.sha1",
+                "-s", "src/third_party/instrumented_libraries/binaries/msan-chained-origins-xenial.tgz.sha1",
               ],
   },
   {
@@ -2590,7 +2590,7 @@ hooks = [
                 "--no_resume",
                 "--no_auth",
                 "--bucket", "chromium-instrumented-libraries",
-                "-s", "src/third_party/instrumented_libraries/binaries/msan-no-origins-trusty.tgz.sha1",
+                "-s", "src/third_party/instrumented_libraries/binaries/msan-no-origins-xenial.tgz.sha1",
               ],
   },
   {

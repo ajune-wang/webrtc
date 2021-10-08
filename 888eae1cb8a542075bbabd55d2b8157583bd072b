@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b62ee2f_164189e0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18194
+      },
+      "writtenOn": "2021-10-08T07:46:45Z",
+      "side": 1,
+      "message": "Dear @Silkin,\n\nI\u0027ve updated the resolution values for ForemanMixedRes100kbpsVp8H264 unittest.\nAlso double-checked the complete cases of modules_tests, rtc_unittests and android_instrumentation_test_apk. \n\nThank you for your patience.",
+      "revId": "888eae1cb8a542075bbabd55d2b8157583bd072b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

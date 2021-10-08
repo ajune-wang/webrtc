@@ -51,6 +51,24 @@
       "parentUuid": "b9278454_e27dcc94",
       "revId": "330e16cbbc89e7f94084144d93d7814165d1bd3b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95e6d68c_32c296ae",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1683,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-10-08T14:51:01Z",
+      "side": 1,
+      "message": "Fair enough, if we want to improve testability of this class maybe we want to think about that separately.\n\nShall I land this CL for you?",
+      "parentUuid": "ce4dfbd2_322287c9",
+      "revId": "330e16cbbc89e7f94084144d93d7814165d1bd3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

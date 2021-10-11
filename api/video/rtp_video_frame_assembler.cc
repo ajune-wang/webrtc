@@ -21,6 +21,7 @@
 #include "absl/types/optional.h"
 #include "modules/rtp_rtcp/source/rtp_dependency_descriptor_extension.h"
 #include "modules/rtp_rtcp/source/rtp_generic_frame_descriptor_extension.h"
+#include "modules/rtp_rtcp/source/rtp_header_extensions.h"
 #include "modules/rtp_rtcp/source/rtp_packet_received.h"
 #include "modules/rtp_rtcp/source/video_rtp_depacketizer_av1.h"
 #include "modules/rtp_rtcp/source/video_rtp_depacketizer_generic.h"
@@ -115,6 +116,9 @@ RtpVideoFrameAssembler::FrameVector RtpVideoFrameAssembler::Impl::InsertPacket(
       return {};
     }
   }
+
+  parsed_payload->video_header.video_frame_tracking_id =
+      rtp_packet.GetExtension<VideoFrameTrackingIdExtension>();
 
   parsed_payload->video_header.is_last_packet_in_frame |= rtp_packet.Marker();
 

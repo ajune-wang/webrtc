@@ -331,6 +331,27 @@ TEST(RtpVideoFrameAssembler, RawPacketizationGenericDescriptor00Extension) {
   EXPECT_THAT(References(frames[1]), UnorderedElementsAre(100));
 }
 
+TEST(RtpVideoFrameAssembler, VideoFrameTrackingId) {
+  RtpVideoFrameAssembler assembler(RtpVideoFrameAssembler::kGeneric);
+  RtpVideoFrameAssembler::FrameVector frames;
+  uint8_t kPayload[] = "SomePayload";
+
+  RTPVideoHeader video_header;
+
+  video_header.frame_type = VideoFrameType::kVideoFrameKey;
+  AppendFrames(assembler.InsertPacket(
+                   PacketBuilder(PayloadFormat::kGeneric)
+                       .WithPayload(kPayload)
+                       .WithVideoHeader(video_header)
+                       .WithExtension<VideoFrameTrackingIdExtension>(1, 1234)
+                       .WithSeqNum(1)
+                       .Build()),
+               frames);
+
+  ASSERT_THAT(frames, SizeIs(1));
+  EXPECT_THAT(frames[0]->VideoFrameTrackingId().value(), Eq(1234));
+}
+
 TEST(RtpVideoFrameAssembler, RawPacketizationGenericPayloadDescriptor) {
   RtpVideoFrameAssembler assembler(RtpVideoFrameAssembler::kGeneric);
   RtpVideoFrameAssembler::FrameVector frames;

@@ -77,6 +77,7 @@ AdaptiveAgc::~AdaptiveAgc() = default;
 
 void AdaptiveAgc::Initialize(int sample_rate_hz, int num_channels) {
   gain_controller_.Initialize(sample_rate_hz, num_channels);
+  vad_.Initialize(sample_rate_hz);
 }
 
 void AdaptiveAgc::Process(AudioFrameView<float> frame, float limiter_envelope) {
@@ -85,6 +86,7 @@ void AdaptiveAgc::Process(AudioFrameView<float> frame, float limiter_envelope) {
   AdaptiveDigitalGainApplier::FrameInfo info;
 
   info.speech_probability = vad_.Analyze(frame);
+
   apm_data_dumper_->DumpRaw("agc2_speech_probability", info.speech_probability);
   apm_data_dumper_->DumpRaw("agc2_input_rms_dbfs", levels.rms_dbfs);
   apm_data_dumper_->DumpRaw("agc2_input_peak_dbfs", levels.peak_dbfs);

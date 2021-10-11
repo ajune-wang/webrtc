@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "84e9b3f5_74c66a25",
+        "filename": "api/video/i444_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 18414
+      },
+      "writtenOn": "2021-10-11T11:40:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42574965_bb7ca86c",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 183,
+        "endChar": 41
+      },
+      "revId": "9ffe0fc2d065f72e0db718d0fe39e333633db00f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ed55eed8_33fa9f5c",
@@ -66,6 +90,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6987edb1_75086a55",
+        "filename": "api/video/i444_buffer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 18414
+      },
+      "writtenOn": "2021-10-11T11:40:08Z",
+      "side": 1,
+      "message": "It is used in VideoFrameBufferPool to zero initialize new buffers if the VideoFrameBufferPool::zero_initialize_ member is set to true. However, I can\u0027t find any instance where this member is being set to true. \nRemoving it would require changing the constructors for VideoFrameBufferPool which will require changes in several locations that are using these constructors. \nDon\u0027t know what the policy on a CL making changes that are not required for its functionality but I am happy to remove it if that\u0027s ok.",
+      "parentUuid": "ed55eed8_33fa9f5c",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 24
+      },
+      "revId": "9ffe0fc2d065f72e0db718d0fe39e333633db00f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1f339805_b1453f3e",
         "filename": "common_video/video_frame_buffer_pool.cc",
         "patchSetId": 3
@@ -77,6 +125,30 @@
       "writtenOn": "2021-10-08T13:36:56Z",
       "side": 1,
       "message": "Replace, I420 --\u003e I444.",
+      "range": {
+        "startLine": 132,
+        "startChar": 41,
+        "endLine": 133,
+        "endChar": 70
+      },
+      "revId": "9ffe0fc2d065f72e0db718d0fe39e333633db00f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "29da910e_d62c0516",
+        "filename": "common_video/video_frame_buffer_pool.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 18414
+      },
+      "writtenOn": "2021-10-11T11:40:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f339805_b1453f3e",
       "range": {
         "startLine": 132,
         "startChar": 41,

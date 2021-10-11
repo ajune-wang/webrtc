@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "888267e8_9b2e7cb1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-10-11T08:59:35Z",
+      "side": 1,
+      "message": "Please rephrase. I can\u0027t understand what\u0027s said here.",
+      "range": {
+        "startLine": 14,
+        "startChar": 3,
+        "endLine": 14,
+        "endChar": 34
+      },
+      "revId": "330e16cbbc89e7f94084144d93d7814165d1bd3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "571edf0e_d0f9ca0c",
@@ -31,6 +54,23 @@
       "writtenOn": "2021-10-11T06:53:07Z",
       "side": 1,
       "message": "Still need owners approval to land. Ilya can you take a look at this CL from Intel?",
+      "revId": "330e16cbbc89e7f94084144d93d7814165d1bd3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7fbb5414_4a5391a4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-10-11T08:59:35Z",
+      "side": 1,
+      "message": "Looks good. However, please edit the CL description - currently it\u0027s not very easy to understand.\n\nAfter that I will approve and land this CL.",
       "revId": "330e16cbbc89e7f94084144d93d7814165d1bd3b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -102,6 +142,29 @@
       "side": 1,
       "message": "Yes, please land it. Thanks for your help.",
       "parentUuid": "95e6d68c_32c296ae",
+      "revId": "330e16cbbc89e7f94084144d93d7814165d1bd3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "112acba7_f2bb323d",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1685,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-10-11T08:59:35Z",
+      "side": 1,
+      "message": "Nit: That might be too spammy. Consider just printing the new info with \"Encoder info changed to \".",
+      "range": {
+        "startLine": 1685,
+        "startChar": 3,
+        "endLine": 1685,
+        "endChar": 52
+      },
       "revId": "330e16cbbc89e7f94084144d93d7814165d1bd3b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

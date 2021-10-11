@@ -29,11 +29,6 @@ rtc_library("adaptive_digital") {
     "saturation_protector_buffer.h",
   ]
 
-  visibility = [
-    "..:gain_controller2",
-    "./*",
-  ]
-
   configs += [ "..:apm_debug_dump" ]
 
   deps = [
@@ -85,12 +80,6 @@ rtc_library("fixed_digital") {
     "limiter.h",
   ]
 
-  visibility = [
-    "..:gain_controller2",
-    "../../audio_mixer:audio_mixer_impl",
-    "./*",
-  ]
-
   configs += [ "..:apm_debug_dump" ]
 
   deps = [
@@ -113,12 +102,6 @@ rtc_library("gain_applier") {
     "gain_applier.cc",
     "gain_applier.h",
   ]
-
-  visibility = [
-    "..:gain_controller2",
-    "./*",
-  ]
-
   deps = [
     ":common",
     "..:audio_frame_view",
@@ -132,7 +115,6 @@ rtc_library("noise_level_estimator") {
     "noise_level_estimator.cc",
     "noise_level_estimator.h",
   ]
-  visibility = [ "./*" ]
   deps = [
     ":biquad_filter",
     "..:apm_logging",
@@ -150,7 +132,6 @@ rtc_library("vad_wrapper") {
     "vad_wrapper.cc",
     "vad_wrapper.h",
   ]
-  visibility = [ "./*" ]
 
   defines = []
   if (rtc_build_with_neon && current_cpu != "arm64") {
@@ -175,12 +156,7 @@ rtc_library("cpu_features") {
     "cpu_features.cc",
     "cpu_features.h",
   ]
-
-  visibility = [
-    "..:gain_controller2",
-    "./*",
-  ]
-
+  visibility = [ "./*" ]
   deps = [
     "../../../rtc_base:stringutils",
     "../../../rtc_base/system:arch",
@@ -280,7 +256,6 @@ rtc_library("vad_wrapper_unittests") {
     ":common",
     ":vad_wrapper",
     "..:audio_frame_view",
-    "../../../rtc_base:checks",
     "../../../rtc_base:gunit_helpers",
     "../../../rtc_base:safe_compare",
     "../../../test:test_support",

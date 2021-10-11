@@ -57,16 +57,15 @@ AdaptiveModeLevelEstimator::AdaptiveModeLevelEstimator(
   Reset();
 }
 
-void AdaptiveModeLevelEstimator::Update(float rms_dbfs,
-                                        float peak_dbfs,
-                                        float speech_probability) {
-  RTC_DCHECK_GT(rms_dbfs, -150.f);
-  RTC_DCHECK_LT(rms_dbfs, 50.f);
-  RTC_DCHECK_GT(peak_dbfs, -150.f);
-  RTC_DCHECK_LT(peak_dbfs, 50.f);
-  RTC_DCHECK_GE(speech_probability, 0.f);
-  RTC_DCHECK_LE(speech_probability, 1.f);
-  if (speech_probability < kVadConfidenceThreshold) {
+void AdaptiveModeLevelEstimator::Update(
+    const VadLevelAnalyzer::Result& vad_level) {
+  RTC_DCHECK_GT(vad_level.rms_dbfs, -150.f);
+  RTC_DCHECK_LT(vad_level.rms_dbfs, 50.f);
+  RTC_DCHECK_GT(vad_level.peak_dbfs, -150.f);
+  RTC_DCHECK_LT(vad_level.peak_dbfs, 50.f);
+  RTC_DCHECK_GE(vad_level.speech_probability, 0.f);
+  RTC_DCHECK_LE(vad_level.speech_probability, 1.f);
+  if (vad_level.speech_probability < kVadConfidenceThreshold) {
     // Not a speech frame.
     if (adjacent_speech_frames_threshold_ > 1) {
       // When two or more adjacent speech frames are required in order to update
@@ -94,14 +93,14 @@ void AdaptiveModeLevelEstimator::Update(float rms_dbfs,
       preliminary_state_.time_to_confidence_ms -= kFrameDurationMs;
     }
     // Weighted average of levels with speech probability as weight.
-    RTC_DCHECK_GT(speech_probability, 0.f);
+    RTC_DCHECK_GT(vad_level.speech_probability, 0.f);
     const float leak_factor = buffer_is_full ? kLevelEstimatorLeakFactor : 1.f;
     preliminary_state_.level_dbfs.numerator =
         preliminary_state_.level_dbfs.numerator * leak_factor +
-        rms_dbfs * speech_probability;
+        vad_level.rms_dbfs * vad_level.speech_probability;
     preliminary_state_.level_dbfs.denominator =
         preliminary_state_.level_dbfs.denominator * leak_factor +
-        speech_probability;
+        vad_level.speech_probability;
 
     const float level_dbfs = preliminary_state_.level_dbfs.GetRatio();
 

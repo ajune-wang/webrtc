@@ -10,10 +10,13 @@
 
 #include "modules/audio_processing/agc2/vad_wrapper.h"
 
+#include <algorithm>
 #include <array>
+#include <cmath>
 #include <utility>
 
 #include "api/array_view.h"
+#include "common_audio/include/audio_util.h"
 #include "common_audio/resampler/include/push_resampler.h"
 #include "modules/audio_processing/agc2/agc2_common.h"
 #include "modules/audio_processing/agc2/rnn_vad/common.h"
@@ -24,79 +27,82 @@
 namespace webrtc {
 namespace {
 
-class MonoVadImpl : public VoiceActivityDetectorWrapper::MonoVad {
- public:
-  explicit MonoVadImpl(const AvailableCpuFeatures& cpu_features)
-      : features_extractor_(cpu_features), rnn_vad_(cpu_features) {}
-  MonoVadImpl(const MonoVadImpl&) = delete;
-  MonoVadImpl& operator=(const MonoVadImpl&) = delete;
-  ~MonoVadImpl() = default;
+using VoiceActivityDetector = VadLevelAnalyzer::VoiceActivityDetector;
 
-  int SampleRateHz() const override { return rnn_vad::kSampleRate24kHz; }
+// Default VAD that combines a resampler and the RNN VAD.
+// Computes the speech probability on the first channel.
+class Vad : public VoiceActivityDetector {
+ public:
+  explicit Vad(const AvailableCpuFeatures& cpu_features)
+      : features_extractor_(cpu_features), rnn_vad_(cpu_features) {}
+  Vad(const Vad&) = delete;
+  Vad& operator=(const Vad&) = delete;
+  ~Vad() = default;
+
   void Reset() override { rnn_vad_.Reset(); }
-  float Analyze(rtc::ArrayView<const float> frame) override {
-    RTC_DCHECK_EQ(frame.size(), rnn_vad::kFrameSize10ms24kHz);
+
+  float ComputeProbability(AudioFrameView<const float> frame) override {
+    // The source number of channels is 1, because we always use the 1st
+    // channel.
+    resampler_.InitializeIfNeeded(
+        /*sample_rate_hz=*/static_cast<int>(frame.samples_per_channel() * 100),
+        rnn_vad::kSampleRate24kHz,
+        /*num_channels=*/1);
+
+    std::array<float, rnn_vad::kFrameSize10ms24kHz> work_frame;
+    // Feed the 1st channel to the resampler.
+    resampler_.Resample(frame.channel(0).data(), frame.samples_per_channel(),
+                        work_frame.data(), rnn_vad::kFrameSize10ms24kHz);
+
     std::array<float, rnn_vad::kFeatureVectorSize> feature_vector;
     const bool is_silence = features_extractor_.CheckSilenceComputeFeatures(
-        /*samples=*/{frame.data(), rnn_vad::kFrameSize10ms24kHz},
-        feature_vector);
+        work_frame, feature_vector);
     return rnn_vad_.ComputeVadProbability(feature_vector, is_silence);
   }
 
  private:
+  PushResampler<float> resampler_;
   rnn_vad::FeaturesExtractor features_extractor_;
   rnn_vad::RnnVad rnn_vad_;
 };
 
 }  // namespace
 
-VoiceActivityDetectorWrapper::VoiceActivityDetectorWrapper(
-    int vad_reset_period_ms,
-    const AvailableCpuFeatures& cpu_features)
-    : VoiceActivityDetectorWrapper(
-          vad_reset_period_ms,
-          std::make_unique<MonoVadImpl>(cpu_features)) {}
+VadLevelAnalyzer::VadLevelAnalyzer(int vad_reset_period_ms,
+                                   const AvailableCpuFeatures& cpu_features)
+    : VadLevelAnalyzer(vad_reset_period_ms,
+                       std::make_unique<Vad>(cpu_features)) {}
 
-VoiceActivityDetectorWrapper::VoiceActivityDetectorWrapper(
-    int vad_reset_period_ms,
-    std::unique_ptr<MonoVad> vad)
-    : vad_reset_period_frames_(
+VadLevelAnalyzer::VadLevelAnalyzer(int vad_reset_period_ms,
+                                   std::unique_ptr<VoiceActivityDetector> vad)
+    : vad_(std::move(vad)),
+      vad_reset_period_frames_(
           rtc::CheckedDivExact(vad_reset_period_ms, kFrameDurationMs)),
-      initialized_(false),
-      frame_size_(0),
-      time_to_vad_reset_(vad_reset_period_frames_),
-      vad_(std::move(vad)) {
+      time_to_vad_reset_(vad_reset_period_frames_) {
   RTC_DCHECK(vad_);
   RTC_DCHECK_GT(vad_reset_period_frames_, 1);
-  resampled_buffer_.resize(rtc::CheckedDivExact(vad_->SampleRateHz(), 100));
 }
 
-VoiceActivityDetectorWrapper::~VoiceActivityDetectorWrapper() = default;
+VadLevelAnalyzer::~VadLevelAnalyzer() = default;
 
-void VoiceActivityDetectorWrapper::Initialize(int sample_rate_hz) {
-  RTC_DCHECK_GT(sample_rate_hz, 0);
-  frame_size_ = rtc::CheckedDivExact(sample_rate_hz, 100);
-  int status = resampler_.InitializeIfNeeded(
-      sample_rate_hz, vad_->SampleRateHz(), /*num_channels=*/1);
-  constexpr int kOkStatus = 0;
-  RTC_DCHECK_EQ(status, kOkStatus);
-  vad_->Reset();
-  initialized_ = true;
-}
-
-float VoiceActivityDetectorWrapper::Analyze(AudioFrameView<const float> frame) {
-  RTC_DCHECK(initialized_);
+VadLevelAnalyzer::Result VadLevelAnalyzer::AnalyzeFrame(
+    AudioFrameView<const float> frame) {
   // Periodically reset the VAD.
   time_to_vad_reset_--;
   if (time_to_vad_reset_ <= 0) {
     vad_->Reset();
     time_to_vad_reset_ = vad_reset_period_frames_;
   }
-  // Resample the first channel of `frame`.
-  RTC_DCHECK_EQ(frame.samples_per_channel(), frame_size_);
-  resampler_.Resample(frame.channel(0).data(), frame_size_,
-                      resampled_buffer_.data(), resampled_buffer_.size());
-  return vad_->Analyze(resampled_buffer_);
+  // Compute levels.
+  float peak = 0.0f;
+  float rms = 0.0f;
+  for (const auto& x : frame.channel(0)) {
+    peak = std::max(std::fabs(x), peak);
+    rms += x * x;
+  }
+  return {vad_->ComputeProbability(frame),
+          FloatS16ToDbfs(std::sqrt(rms / frame.samples_per_channel())),
+          FloatS16ToDbfs(peak)};
 }
 
 }  // namespace webrtc

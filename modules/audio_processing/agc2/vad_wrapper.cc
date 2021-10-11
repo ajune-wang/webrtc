@@ -76,9 +76,8 @@ VoiceActivityDetectorWrapper::~VoiceActivityDetectorWrapper() = default;
 void VoiceActivityDetectorWrapper::Initialize(int sample_rate_hz) {
   RTC_DCHECK_GT(sample_rate_hz, 0);
   frame_size_ = rtc::CheckedDivExact(sample_rate_hz, 100);
-  int status =
-      resampler_.InitializeIfNeeded(sample_rate_hz, vad_->SampleRateHz(),
-                                    /*num_channels=*/1);
+  int status = resampler_.InitializeIfNeeded(
+      sample_rate_hz, vad_->SampleRateHz(), /*num_channels=*/1);
   constexpr int kStatusOk = 0;
   RTC_DCHECK_EQ(status, kStatusOk);
   vad_->Reset();
@@ -97,7 +96,6 @@ float VoiceActivityDetectorWrapper::Analyze(AudioFrameView<const float> frame) {
   RTC_DCHECK_EQ(frame.samples_per_channel(), frame_size_);
   resampler_.Resample(frame.channel(0).data(), frame_size_,
                       resampled_buffer_.data(), resampled_buffer_.size());
-
   return vad_->Analyze(resampled_buffer_);
 }
 

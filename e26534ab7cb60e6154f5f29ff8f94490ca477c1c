@@ -22,6 +22,30 @@
       },
       "revId": "e26534ab7cb60e6154f5f29ff8f94490ca477c1c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa033bbc_2f79c030",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2021-10-11T16:15:13Z",
+      "side": 1,
+      "message": "It is not stable. The input in more than one product is an averaged encoder fps. The input can vary with a few fps and we dont care about that.",
+      "parentUuid": "38f630de_76f3fce7",
+      "range": {
+        "startLine": 9,
+        "startChar": 50,
+        "endLine": 9,
+        "endChar": 82
+      },
+      "revId": "e26534ab7cb60e6154f5f29ff8f94490ca477c1c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

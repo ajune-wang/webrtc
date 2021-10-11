@@ -24,7 +24,6 @@ namespace webrtc {
 class RtpGenericFrameDescriptorExtension00 {
  public:
   using value_type = RtpGenericFrameDescriptor;
-  static constexpr RTPExtensionType kId = kRtpExtensionGenericFrameDescriptor00;
   static constexpr absl::string_view Uri() {
     return RtpExtension::kGenericFrameDescriptorUri00;
   }

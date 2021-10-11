@@ -15,6 +15,7 @@
 
 #include "absl/flags/flag.h"
 #include "absl/flags/parse.h"
+#include "api/rtp_parameters.h"
 #include "modules/audio_coding/neteq/tools/packet.h"
 #include "modules/audio_coding/neteq/tools/rtp_file_source.h"
 
@@ -60,14 +61,14 @@ int main(int argc, char* argv[]) {
   bool print_audio_level = false;
   if (absl::GetFlag(FLAGS_audio_level) != -1) {
     print_audio_level = true;
-    file_source->RegisterRtpHeaderExtension(webrtc::kRtpExtensionAudioLevel,
-                                            absl::GetFlag(FLAGS_audio_level));
+    file_source->RegisterRtpHeaderExtension(
+        webrtc::RtpExtension::kAudioLevelUri, absl::GetFlag(FLAGS_audio_level));
   }
   bool print_abs_send_time = false;
   if (absl::GetFlag(FLAGS_abs_send_time) != -1) {
     print_abs_send_time = true;
     file_source->RegisterRtpHeaderExtension(
-        webrtc::kRtpExtensionAbsoluteSendTime,
+        webrtc::RtpExtension::kAbsSendTimeUri,
         absl::GetFlag(FLAGS_abs_send_time));
   }
 

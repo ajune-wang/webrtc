@@ -82,11 +82,10 @@ TEST(RemoteEstimateEndToEnd, AudioUsesAbsSendTimeExtension) {
   signaling.NegotiateSdp(
       [&extension_map](SessionDescriptionInterface* offer) {
         extension_map = AudioExtensions(*offer);
-        EXPECT_TRUE(extension_map.IsRegistered(kRtpExtensionAbsoluteSendTime));
+        EXPECT_TRUE(extension_map.IsRegistered<AbsoluteSendTime>());
       },
       [&](const SessionDescriptionInterface& answer) {
-        EXPECT_TRUE(AudioExtensions(answer).IsRegistered(
-            kRtpExtensionAbsoluteSendTime));
+        EXPECT_TRUE(AudioExtensions(answer).IsRegistered<AbsoluteSendTime>());
         offer_exchange_done = true;
       });
   RTC_CHECK(s.WaitAndProcess(&offer_exchange_done));

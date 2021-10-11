@@ -17,25 +17,16 @@
 
 namespace webrtc {
 
-TEST(RtpHeaderExtensionTest, RegisterByType) {
-  RtpHeaderExtensionMap map;
-  EXPECT_FALSE(map.IsRegistered(TransmissionOffset::kId));
-
-  EXPECT_TRUE(map.RegisterByType(3, TransmissionOffset::kId));
-
-  EXPECT_TRUE(map.IsRegistered(TransmissionOffset::kId));
-  EXPECT_EQ(3, map.GetId(TransmissionOffset::kId));
-  EXPECT_EQ(TransmissionOffset::kId, map.GetType(3));
-}
-
 TEST(RtpHeaderExtensionTest, RegisterByUri) {
   RtpHeaderExtensionMap map;
+  {
+    std::string uri(TransmissionOffset::Uri());
+    EXPECT_TRUE(map.RegisterByUri(3, uri));
+  }
 
-  EXPECT_TRUE(map.RegisterByUri(3, TransmissionOffset::Uri()));
-
-  EXPECT_TRUE(map.IsRegistered(TransmissionOffset::kId));
-  EXPECT_EQ(3, map.GetId(TransmissionOffset::kId));
-  EXPECT_EQ(TransmissionOffset::kId, map.GetType(3));
+  EXPECT_TRUE(map.IsRegistered<TransmissionOffset>());
+  EXPECT_EQ(3, map.Id<TransmissionOffset>());
+  EXPECT_EQ(TransmissionOffset::Uri().data(), map.Uri(3).data());
 }
 
 TEST(RtpHeaderExtensionTest, RegisterWithTrait) {
@@ -43,9 +34,9 @@ TEST(RtpHeaderExtensionTest, RegisterWithTrait) {
 
   EXPECT_TRUE(map.Register<TransmissionOffset>(3));
 
-  EXPECT_TRUE(map.IsRegistered(TransmissionOffset::kId));
-  EXPECT_EQ(3, map.GetId(TransmissionOffset::kId));
-  EXPECT_EQ(TransmissionOffset::kId, map.GetType(3));
+  EXPECT_TRUE(map.IsRegistered<TransmissionOffset>());
+  EXPECT_EQ(3, map.Id(TransmissionOffset::Uri()));
+  EXPECT_EQ(TransmissionOffset::Uri(), map.Uri(3));
 }
 
 TEST(RtpHeaderExtensionTest, RegisterDuringContruction) {
@@ -53,8 +44,8 @@ TEST(RtpHeaderExtensionTest, RegisterDuringContruction) {
                                             {AbsoluteSendTime::Uri(), 3}};
   const RtpHeaderExtensionMap map(config);
 
-  EXPECT_EQ(1, map.GetId(TransmissionOffset::kId));
-  EXPECT_EQ(3, map.GetId(AbsoluteSendTime::kId));
+  EXPECT_EQ(1, map.Id<TransmissionOffset>());
+  EXPECT_EQ(3, map.Id<AbsoluteSendTime>());
 }
 
 TEST(RtpHeaderExtensionTest, RegisterTwoByteHeaderExtensions) {
@@ -89,21 +80,13 @@ TEST(RtpHeaderExtensionTest, NonUniqueId) {
   EXPECT_TRUE(map.Register<AudioLevel>(4));
 }
 
-TEST(RtpHeaderExtensionTest, GetType) {
-  RtpHeaderExtensionMap map;
-  EXPECT_EQ(RtpHeaderExtensionMap::kInvalidType, map.GetType(3));
-  EXPECT_TRUE(map.Register<TransmissionOffset>(3));
-
-  EXPECT_EQ(TransmissionOffset::kId, map.GetType(3));
-}
-
 TEST(RtpHeaderExtensionTest, GetId) {
   RtpHeaderExtensionMap map;
   EXPECT_EQ(RtpHeaderExtensionMap::kInvalidId,
-            map.GetId(TransmissionOffset::kId));
+            map.Id(TransmissionOffset::Uri()));
   EXPECT_TRUE(map.Register<TransmissionOffset>(3));
 
-  EXPECT_EQ(3, map.GetId(TransmissionOffset::kId));
+  EXPECT_EQ(3, map.Id(TransmissionOffset::Uri()));
 }
 
 }  // namespace webrtc

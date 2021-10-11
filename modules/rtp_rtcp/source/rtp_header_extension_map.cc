@@ -22,17 +22,12 @@
 namespace webrtc {
 namespace {
 
-struct ExtensionInfo {
-  RTPExtensionType type;
-  absl::string_view uri;
-};
-
 template <typename Extension>
-constexpr ExtensionInfo CreateExtensionInfo() {
-  return {Extension::kId, Extension::Uri()};
+constexpr absl::string_view CreateExtensionInfo() {
+  return Extension::Uri();
 }
 
-constexpr ExtensionInfo kExtensions[] = {
+constexpr absl::string_view kExtensions[] = {
     CreateExtensionInfo<TransmissionOffset>(),
     CreateExtensionInfo<AudioLevel>(),
     CreateExtensionInfo<CsrcAudioLevel>(),
@@ -55,24 +50,20 @@ constexpr ExtensionInfo kExtensions[] = {
     CreateExtensionInfo<VideoFrameTrackingIdExtension>(),
 };
 
-// Because of kRtpExtensionNone, NumberOfExtension is 1 bigger than the actual
-// number of known extensions.
-static_assert(arraysize(kExtensions) ==
-                  static_cast<int>(kRtpExtensionNumberOfExtensions) - 1,
-              "kExtensions expect to list all known extensions");
-
 }  // namespace
 
-constexpr RTPExtensionType RtpHeaderExtensionMap::kInvalidType;
 constexpr int RtpHeaderExtensionMap::kInvalidId;
+constexpr absl::string_view RtpHeaderExtensionMap::kInvalidUri;
+
+rtc::ArrayView<const absl::string_view>
+RtpHeaderExtensionMap::KnownExtensions() {
+  return kExtensions;
+}
 
 RtpHeaderExtensionMap::RtpHeaderExtensionMap() : RtpHeaderExtensionMap(false) {}
 
 RtpHeaderExtensionMap::RtpHeaderExtensionMap(bool extmap_allow_mixed)
-    : extmap_allow_mixed_(extmap_allow_mixed) {
-  for (auto& id : ids_)
-    id = kInvalidId;
-}
+    : extmap_allow_mixed_(extmap_allow_mixed) {}
 
 RtpHeaderExtensionMap::RtpHeaderExtensionMap(
     rtc::ArrayView<const RtpExtension> extensions)
@@ -83,82 +74,92 @@ RtpHeaderExtensionMap::RtpHeaderExtensionMap(
 
 void RtpHeaderExtensionMap::Reset(
     rtc::ArrayView<const RtpExtension> extensions) {
-  for (auto& id : ids_)
-    id = kInvalidId;
+  mapping_ = {};
   for (const RtpExtension& extension : extensions)
     RegisterByUri(extension.id, extension.uri);
 }
 
-bool RtpHeaderExtensionMap::RegisterByType(int id, RTPExtensionType type) {
-  for (const ExtensionInfo& extension : kExtensions)
-    if (type == extension.type)
-      return Register(id, extension.type, extension.uri);
-  RTC_NOTREACHED();
-  return false;
-}
-
 bool RtpHeaderExtensionMap::RegisterByUri(int id, absl::string_view uri) {
-  for (const ExtensionInfo& extension : kExtensions)
-    if (uri == extension.uri)
-      return Register(id, extension.type, extension.uri);
+  for (absl::string_view extension : kExtensions)
+    if (uri == extension)
+      return UnsafeRegisterByUri(id, extension);
   RTC_LOG(LS_WARNING) << "Unknown extension uri:'" << uri << "', id: " << id
                       << '.';
   return false;
 }
 
-RTPExtensionType RtpHeaderExtensionMap::GetType(int id) const {
-  RTC_DCHECK_GE(id, RtpExtension::kMinId);
-  RTC_DCHECK_LE(id, RtpExtension::kMaxId);
-  for (int type = kRtpExtensionNone + 1; type < kRtpExtensionNumberOfExtensions;
-       ++type) {
-    if (ids_[type] == id) {
-      return static_cast<RTPExtensionType>(type);
-    }
-  }
-  return kInvalidType;
-}
-
 void RtpHeaderExtensionMap::Deregister(absl::string_view uri) {
-  for (const ExtensionInfo& extension : kExtensions) {
-    if (extension.uri == uri) {
-      ids_[extension.type] = kInvalidId;
-      break;
+  for (auto it = mapping_.begin(); it != mapping_.end(); ++it) {
+    if (it->uri == uri) {
+      mapping_.erase(it);
+      return;
     }
   }
 }
 
-bool RtpHeaderExtensionMap::Register(int id,
-                                     RTPExtensionType type,
-                                     absl::string_view uri) {
-  RTC_DCHECK_GT(type, kRtpExtensionNone);
-  RTC_DCHECK_LT(type, kRtpExtensionNumberOfExtensions);
-
+bool RtpHeaderExtensionMap::UnsafeRegisterByUri(int id, absl::string_view uri) {
   if (id < RtpExtension::kMinId || id > RtpExtension::kMaxId) {
     RTC_LOG(LS_WARNING) << "Failed to register extension uri:'" << uri
                         << "' with invalid id:" << id << ".";
     return false;
   }
 
-  RTPExtensionType registered_type = GetType(id);
-  if (registered_type == type) {  // Same type/id pair already registered.
-    RTC_LOG(LS_VERBOSE) << "Reregistering extension uri:'" << uri
-                        << "', id:" << id;
-    return true;
+  for (const auto& entry : mapping_) {
+    if (entry.uri == uri) {
+      RTC_DCHECK_EQ(entry.uri.data(), uri.data());
+      if (entry.id == id) {
+        // Already registered with the same id.
+        return true;
+      }
+      RTC_LOG(LS_WARNING) << "Failed to register extension uri:'" << uri
+                          << "', id:" << id
+                          << ". Uri already in use by extension id "
+                          << entry.id;
+      return false;
+    }
+
+    if (entry.id == id) {
+      RTC_LOG(LS_WARNING) << "Failed to register extension uri:'" << uri
+                          << "', id:" << id
+                          << ". Id already in use by extension " << entry.uri;
+      return false;
+    }
   }
 
-  if (registered_type !=
-      kInvalidType) {  // `id` used by another extension type.
-    RTC_LOG(LS_WARNING) << "Failed to register extension uri:'" << uri
-                        << "', id:" << id
-                        << ". Id already in use by extension type "
-                        << static_cast<int>(registered_type);
-    return false;
-  }
-  RTC_DCHECK(!IsRegistered(type));
-
-  // There is a run-time check above id fits into uint8_t.
-  ids_[type] = static_cast<uint8_t>(id);
+  Entry new_entry;
+  new_entry.id = id;
+  new_entry.uri = uri;
+  mapping_.push_back(new_entry);
   return true;
+}
+
+int RtpHeaderExtensionMap::UnsafeId(absl::string_view uri) const {
+  for (const auto& entry : mapping_) {
+    if (entry.uri.data() == uri.data()) {
+      RTC_DCHECK_EQ(entry.uri.size(), uri.size());
+      return entry.id;
+    }
+    RTC_DCHECK_NE(entry.uri, uri);
+  }
+  return kInvalidId;
+}
+
+int RtpHeaderExtensionMap::Id(absl::string_view uri) const {
+  for (const auto& entry : mapping_) {
+    if (entry.uri == uri) {
+      return entry.id;
+    }
+  }
+  return kInvalidId;
+}
+
+absl::string_view RtpHeaderExtensionMap::Uri(int id) const {
+  for (const auto& entry : mapping_) {
+    if (entry.id == id) {
+      return entry.uri;
+    }
+  }
+  return kInvalidUri;
 }
 
 }  // namespace webrtc

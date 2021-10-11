@@ -39,7 +39,6 @@ namespace webrtc {
 //   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 //   |  ID   | len=2 |              absolute send time               |
 //   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-constexpr RTPExtensionType AbsoluteSendTime::kId;
 constexpr uint8_t AbsoluteSendTime::kValueSizeBytes;
 
 bool AbsoluteSendTime::Parse(rtc::ArrayView<const uint8_t> data,
@@ -93,7 +92,6 @@ bool AbsoluteSendTime::Write(rtc::ArrayView<uint8_t> data,
 //   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 //   |  ... (56-63)  |
 //   +-+-+-+-+-+-+-+-+
-constexpr RTPExtensionType AbsoluteCaptureTimeExtension::kId;
 constexpr uint8_t AbsoluteCaptureTimeExtension::kValueSizeBytes;
 constexpr uint8_t AbsoluteCaptureTimeExtension::
     kValueSizeBytesWithoutEstimatedCaptureClockOffset;
@@ -159,8 +157,6 @@ bool AbsoluteCaptureTimeExtension::Write(rtc::ArrayView<uint8_t> data,
 // |      ID       |     len=1     |V|    level    |
 // +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 // Sample Audio Level Encoding Using the Two-Byte Header Format
-
-constexpr RTPExtensionType AudioLevel::kId;
 constexpr uint8_t AudioLevel::kValueSizeBytes;
 
 bool AudioLevel::Parse(rtc::ArrayView<const uint8_t> data,
@@ -205,7 +201,6 @@ bool AudioLevel::Write(rtc::ArrayView<uint8_t> data,
 // |0|   level 3   |    0 (pad)    |               ...             |
 // +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 // Sample Audio Level Encoding Using the Two-Byte Header Format
-constexpr RTPExtensionType CsrcAudioLevel::kId;
 constexpr uint8_t CsrcAudioLevel::kMaxValueSizeBytes;
 
 bool CsrcAudioLevel::Parse(rtc::ArrayView<const uint8_t> data,
@@ -253,7 +248,6 @@ bool CsrcAudioLevel::Write(rtc::ArrayView<uint8_t> data,
 //   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 //   |  ID   | len=2 |              transmission offset              |
 //   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-constexpr RTPExtensionType TransmissionOffset::kId;
 constexpr uint8_t TransmissionOffset::kValueSizeBytes;
 
 bool TransmissionOffset::Parse(rtc::ArrayView<const uint8_t> data,
@@ -278,7 +272,6 @@ bool TransmissionOffset::Write(rtc::ArrayView<uint8_t> data, int32_t rtp_time) {
 //  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 //  |  ID   | L=1   |transport-wide sequence number |
 //  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-constexpr RTPExtensionType TransportSequenceNumber::kId;
 constexpr uint8_t TransportSequenceNumber::kValueSizeBytes;
 
 bool TransportSequenceNumber::Parse(rtc::ArrayView<const uint8_t> data,
@@ -313,7 +306,6 @@ bool TransportSequenceNumber::Write(rtc::ArrayView<uint8_t> data,
 // or not and `seq_count` determines how many packets the feedback packet should
 // cover including the current packet. If `seq_count` is zero no feedback is
 // requested.
-constexpr RTPExtensionType TransportSequenceNumberV2::kId;
 constexpr uint8_t TransportSequenceNumberV2::kValueSizeBytes;
 constexpr uint8_t
     TransportSequenceNumberV2::kValueSizeBytesWithoutFeedbackRequest;
@@ -376,7 +368,6 @@ bool TransportSequenceNumberV2::Write(
 //   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 //   |  ID   | len=0 |0 0 0 0 C F R R|
 //   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-constexpr RTPExtensionType VideoOrientation::kId;
 constexpr uint8_t VideoOrientation::kValueSizeBytes;
 
 bool VideoOrientation::Parse(rtc::ArrayView<const uint8_t> data,
@@ -413,7 +404,6 @@ bool VideoOrientation::Write(rtc::ArrayView<uint8_t> data, uint8_t value) {
 //  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 //  |  ID   | len=2 |   MIN delay           |   MAX delay           |
 //  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-constexpr RTPExtensionType PlayoutDelayLimits::kId;
 constexpr uint8_t PlayoutDelayLimits::kValueSizeBytes;
 
 bool PlayoutDelayLimits::Parse(rtc::ArrayView<const uint8_t> data,
@@ -454,7 +444,6 @@ bool PlayoutDelayLimits::Write(rtc::ArrayView<uint8_t> data,
 //   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 //   |  ID   | len=0 | Content type  |
 //   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-constexpr RTPExtensionType VideoContentTypeExtension::kId;
 constexpr uint8_t VideoContentTypeExtension::kValueSizeBytes;
 
 bool VideoContentTypeExtension::Parse(rtc::ArrayView<const uint8_t> data,
@@ -495,8 +484,6 @@ bool VideoContentTypeExtension::Write(rtc::ArrayView<uint8_t> data,
 //   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 //   |  network2 timestamp ms delta  |
 //   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
-constexpr RTPExtensionType VideoTimingExtension::kId;
 constexpr uint8_t VideoTimingExtension::kValueSizeBytes;
 constexpr uint8_t VideoTimingExtension::kFlagsOffset;
 constexpr uint8_t VideoTimingExtension::kEncodeStartDeltaOffset;
@@ -604,8 +591,6 @@ bool VideoTimingExtension::Write(rtc::ArrayView<uint8_t> data,
 //   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 //   |range+chr.sit. |
 //   +-+-+-+-+-+-+-+-+
-
-constexpr RTPExtensionType ColorSpaceExtension::kId;
 constexpr uint8_t ColorSpaceExtension::kValueSizeBytes;
 
 bool ColorSpaceExtension::Parse(rtc::ArrayView<const uint8_t> data,
@@ -810,11 +795,6 @@ bool BaseRtpStringExtension::Write(rtc::ArrayView<uint8_t> data,
   return true;
 }
 
-// Constant declarations for RTP header extension types.
-constexpr RTPExtensionType RtpStreamId::kId;
-constexpr RTPExtensionType RepairedRtpStreamId::kId;
-constexpr RTPExtensionType RtpMid::kId;
-
 // An RTP Header Extension for Inband Comfort Noise
 //
 // The form of the audio level extension block:
@@ -832,8 +812,6 @@ constexpr RTPExtensionType RtpMid::kId;
 // |      ID       |     len=1     |N|    level    |
 // +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 // Sample Audio Level Encoding Using the Two-Byte Header Format
-
-constexpr RTPExtensionType InbandComfortNoiseExtension::kId;
 constexpr uint8_t InbandComfortNoiseExtension::kValueSizeBytes;
 constexpr const char InbandComfortNoiseExtension::kUri[];
 
@@ -867,8 +845,6 @@ bool InbandComfortNoiseExtension::Write(rtc::ArrayView<uint8_t> data,
 //  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 //  |  ID   | L=1   |    video-frame-tracking-id    |
 //  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
-constexpr RTPExtensionType VideoFrameTrackingIdExtension::kId;
 constexpr uint8_t VideoFrameTrackingIdExtension::kValueSizeBytes;
 
 bool VideoFrameTrackingIdExtension::Parse(rtc::ArrayView<const uint8_t> data,

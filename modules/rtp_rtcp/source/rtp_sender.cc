@@ -46,96 +46,60 @@ constexpr size_t kRtpHeaderLength = 12;
 constexpr int kMinPayloadPaddingBytes = 50;
 
 template <typename Extension>
-constexpr RtpExtensionSize CreateExtensionSize() {
-  return {Extension::kId, Extension::kValueSizeBytes};
+constexpr RtpExtensionSize CreateExtensionSize(bool is_volatile) {
+  return {Extension::Uri(), Extension::kValueSizeBytes, is_volatile};
 }
 
 template <typename Extension>
-constexpr RtpExtensionSize CreateMaxExtensionSize() {
-  return {Extension::kId, Extension::kMaxValueSizeBytes};
+constexpr RtpExtensionSize CreateMaxExtensionSize(bool is_volatile) {
+  return {Extension::Uri(), Extension::kMaxValueSizeBytes, is_volatile};
 }
 
 // Size info for header extensions that might be used in padding or FEC packets.
 constexpr RtpExtensionSize kFecOrPaddingExtensionSizes[] = {
-    CreateExtensionSize<AbsoluteSendTime>(),
-    CreateExtensionSize<TransmissionOffset>(),
-    CreateExtensionSize<TransportSequenceNumber>(),
-    CreateExtensionSize<PlayoutDelayLimits>(),
-    CreateMaxExtensionSize<RtpMid>(),
-    CreateExtensionSize<VideoTimingExtension>(),
+    CreateExtensionSize<AbsoluteSendTime>(false),
+    CreateExtensionSize<TransmissionOffset>(false),
+    CreateExtensionSize<TransportSequenceNumber>(false),
+    CreateExtensionSize<PlayoutDelayLimits>(true),
+    CreateMaxExtensionSize<RtpMid>(false),
+    CreateExtensionSize<VideoTimingExtension>(true),
 };
 
 // Size info for header extensions that might be used in video packets.
 constexpr RtpExtensionSize kVideoExtensionSizes[] = {
-    CreateExtensionSize<AbsoluteSendTime>(),
-    CreateExtensionSize<AbsoluteCaptureTimeExtension>(),
-    CreateExtensionSize<TransmissionOffset>(),
-    CreateExtensionSize<TransportSequenceNumber>(),
-    CreateExtensionSize<PlayoutDelayLimits>(),
-    CreateExtensionSize<VideoOrientation>(),
-    CreateExtensionSize<VideoContentTypeExtension>(),
-    CreateExtensionSize<VideoTimingExtension>(),
-    CreateMaxExtensionSize<RtpStreamId>(),
-    CreateMaxExtensionSize<RepairedRtpStreamId>(),
-    CreateMaxExtensionSize<RtpMid>(),
-    {RtpGenericFrameDescriptorExtension00::kId,
-     RtpGenericFrameDescriptorExtension00::kMaxSizeBytes},
+    CreateExtensionSize<AbsoluteSendTime>(false),
+    CreateExtensionSize<AbsoluteCaptureTimeExtension>(true),
+    CreateExtensionSize<TransmissionOffset>(false),
+    CreateExtensionSize<TransportSequenceNumber>(false),
+    CreateExtensionSize<PlayoutDelayLimits>(true),
+    CreateExtensionSize<VideoOrientation>(true),
+    CreateExtensionSize<VideoContentTypeExtension>(true),
+    CreateExtensionSize<VideoTimingExtension>(true),
+    CreateMaxExtensionSize<RtpStreamId>(false),
+    CreateMaxExtensionSize<RepairedRtpStreamId>(true),
+    CreateMaxExtensionSize<RtpMid>(false),
+    {RtpGenericFrameDescriptorExtension00::Uri(),
+     RtpGenericFrameDescriptorExtension00::kMaxSizeBytes, false},
 };
 
 // Size info for header extensions that might be used in audio packets.
 constexpr RtpExtensionSize kAudioExtensionSizes[] = {
-    CreateExtensionSize<AbsoluteSendTime>(),
-    CreateExtensionSize<AbsoluteCaptureTimeExtension>(),
-    CreateExtensionSize<AudioLevel>(),
-    CreateExtensionSize<InbandComfortNoiseExtension>(),
-    CreateExtensionSize<TransmissionOffset>(),
-    CreateExtensionSize<TransportSequenceNumber>(),
-    CreateMaxExtensionSize<RtpStreamId>(),
-    CreateMaxExtensionSize<RepairedRtpStreamId>(),
-    CreateMaxExtensionSize<RtpMid>(),
+    CreateExtensionSize<AbsoluteSendTime>(false),
+    CreateExtensionSize<AbsoluteCaptureTimeExtension>(true),
+    CreateExtensionSize<AudioLevel>(false),
+    CreateExtensionSize<InbandComfortNoiseExtension>(true),
+    CreateExtensionSize<TransmissionOffset>(false),
+    CreateExtensionSize<TransportSequenceNumber>(false),
+    CreateMaxExtensionSize<RtpStreamId>(false),
+    CreateMaxExtensionSize<RepairedRtpStreamId>(true),
+    CreateMaxExtensionSize<RtpMid>(false),
 };
 
-// Non-volatile extensions can be expected on all packets, if registered.
-// Volatile ones, such as VideoContentTypeExtension which is only set on
-// key-frames, are removed to simplify overhead calculations at the expense of
-// some accuracy.
-bool IsNonVolatile(RTPExtensionType type) {
-  switch (type) {
-    case kRtpExtensionTransmissionTimeOffset:
-    case kRtpExtensionAudioLevel:
-    case kRtpExtensionCsrcAudioLevel:
-    case kRtpExtensionAbsoluteSendTime:
-    case kRtpExtensionTransportSequenceNumber:
-    case kRtpExtensionTransportSequenceNumber02:
-    case kRtpExtensionRtpStreamId:
-    case kRtpExtensionMid:
-    case kRtpExtensionGenericFrameDescriptor00:
-    case kRtpExtensionGenericFrameDescriptor02:
-      return true;
-    case kRtpExtensionInbandComfortNoise:
-    case kRtpExtensionAbsoluteCaptureTime:
-    case kRtpExtensionVideoRotation:
-    case kRtpExtensionPlayoutDelay:
-    case kRtpExtensionVideoContentType:
-    case kRtpExtensionVideoLayersAllocation:
-    case kRtpExtensionVideoTiming:
-    case kRtpExtensionRepairedRtpStreamId:
-    case kRtpExtensionColorSpace:
-    case kRtpExtensionVideoFrameTrackingId:
-      return false;
-    case kRtpExtensionNone:
-    case kRtpExtensionNumberOfExtensions:
-      RTC_NOTREACHED();
-      return false;
-  }
-  RTC_CHECK_NOTREACHED();
-}
-
 bool HasBweExtension(const RtpHeaderExtensionMap& extensions_map) {
-  return extensions_map.IsRegistered(kRtpExtensionTransportSequenceNumber) ||
-         extensions_map.IsRegistered(kRtpExtensionTransportSequenceNumber02) ||
-         extensions_map.IsRegistered(kRtpExtensionAbsoluteSendTime) ||
-         extensions_map.IsRegistered(kRtpExtensionTransmissionTimeOffset);
+  return extensions_map.IsRegistered<TransportSequenceNumber>() ||
+         extensions_map.IsRegistered<TransportSequenceNumberV2>() ||
+         extensions_map.IsRegistered<AbsoluteSendTime>() ||
+         extensions_map.IsRegistered<TransmissionOffset>();
 }
 
 double GetMaxPaddingSizeFactor(const WebRtcKeyValueConfig* field_trials) {
@@ -233,9 +197,9 @@ bool RTPSender::RegisterRtpHeaderExtension(absl::string_view uri, int id) {
   return registered;
 }
 
-bool RTPSender::IsRtpHeaderExtensionRegistered(RTPExtensionType type) const {
+bool RTPSender::IsRtpHeaderExtensionRegistered(absl::string_view uri) const {
   MutexLock lock(&send_mutex_);
-  return rtp_header_extension_map_.IsRegistered(type);
+  return rtp_header_extension_map_.IsRegistered(uri);
 }
 
 void RTPSender::DeregisterRtpHeaderExtension(absl::string_view uri) {
@@ -446,9 +410,9 @@ std::vector<std::unique_ptr<RtpPacketToSend>> RTPSender::GeneratePadding(
       // must be sent before padding so that the timestamps used for
       // estimation are correct.
       if (!media_has_been_sent &&
-          !(rtp_header_extension_map_.IsRegistered(AbsoluteSendTime::kId) ||
-            rtp_header_extension_map_.IsRegistered(
-                TransportSequenceNumber::kId))) {
+          !(rtp_header_extension_map_.IsRegistered<AbsoluteSendTime>() ||
+            rtp_header_extension_map_
+                .IsRegistered<TransportSequenceNumber>())) {
         break;
       }
 
@@ -457,13 +421,13 @@ std::vector<std::unique_ptr<RtpPacketToSend>> RTPSender::GeneratePadding(
       padding_packet->SetPayloadType(rtx_payload_type_map_.begin()->second);
     }
 
-    if (rtp_header_extension_map_.IsRegistered(TransportSequenceNumber::kId)) {
+    if (rtp_header_extension_map_.IsRegistered<TransportSequenceNumber>()) {
       padding_packet->ReserveExtension<TransportSequenceNumber>();
     }
-    if (rtp_header_extension_map_.IsRegistered(TransmissionOffset::kId)) {
+    if (rtp_header_extension_map_.IsRegistered<TransmissionOffset>()) {
       padding_packet->ReserveExtension<TransmissionOffset>();
     }
-    if (rtp_header_extension_map_.IsRegistered(AbsoluteSendTime::kId)) {
+    if (rtp_header_extension_map_.IsRegistered<AbsoluteSendTime>()) {
       padding_packet->ReserveExtension<AbsoluteSendTime>();
     }
 
@@ -622,38 +586,31 @@ static void CopyHeaderAndExtensionsToRtxPacket(const RtpPacketToSend& packet,
   // * Header extensions - replace Rid header with RepairedRid header.
   const std::vector<uint32_t> csrcs = packet.Csrcs();
   rtx_packet->SetCsrcs(csrcs);
-  for (int extension_num = kRtpExtensionNone + 1;
-       extension_num < kRtpExtensionNumberOfExtensions; ++extension_num) {
-    auto extension = static_cast<RTPExtensionType>(extension_num);
+  packet.ListRtpHeaderExtensions(
+      [&](int id, const void* type, rtc::ArrayView<const uint8_t> value) {
+        // Stream ID header extensions (MID, RSID) are sent per-SSRC. Since RTX
+        // operates on a different SSRC, the presence and values of these header
+        // extensions should be determined separately and not blindly copied.
+        if (type == RtpMid::Uri().data()) {
+          return;
+        }
+        if (type == RtpStreamId::Uri().data()) {
+          type = RepairedRtpStreamId::Uri().data();
+        }
 
-    // Stream ID header extensions (MID, RSID) are sent per-SSRC. Since RTX
-    // operates on a different SSRC, the presence and values of these header
-    // extensions should be determined separately and not blindly copied.
-    if (extension == kRtpExtensionMid ||
-        extension == kRtpExtensionRtpStreamId) {
-      continue;
-    }
+        rtc::ArrayView<uint8_t> destination =
+            rtx_packet->UnsafeAllocateExtension(type, value.size());
 
-    // Empty extensions should be supported, so not checking `source.empty()`.
-    if (!packet.HasExtension(extension)) {
-      continue;
-    }
+        // Could happen if any:
+        // 1. Extension has 0 length.
+        // 2. Extension is not registered in destination.
+        // 3. Allocating extension in destination failed.
+        if (destination.empty() || value.size() != destination.size()) {
+          return;
+        }
 
-    rtc::ArrayView<const uint8_t> source = packet.FindExtension(extension);
-
-    rtc::ArrayView<uint8_t> destination =
-        rtx_packet->AllocateExtension(extension, source.size());
-
-    // Could happen if any:
-    // 1. Extension has 0 length.
-    // 2. Extension is not registered in destination.
-    // 3. Allocating extension in destination failed.
-    if (destination.empty() || source.size() != destination.size()) {
-      continue;
-    }
-
-    std::memcpy(destination.begin(), source.begin(), destination.size());
-  }
+        std::memcpy(destination.data(), value.data(), destination.size());
+      });
 }
 
 std::unique_ptr<RtpPacketToSend> RTPSender::BuildRtxPacket(
@@ -774,21 +731,16 @@ void RTPSender::UpdateHeaderSizes() {
   std::vector<RtpExtensionSize> non_volatile_extensions;
   for (auto& extension :
        audio_configured_ ? AudioExtensionSizes() : VideoExtensionSizes()) {
-    if (IsNonVolatile(extension.type)) {
-      switch (extension.type) {
-        case RTPExtensionType::kRtpExtensionMid:
-          if (send_mid_rid && !mid_.empty()) {
-            non_volatile_extensions.push_back(extension);
-          }
-          break;
-        case RTPExtensionType::kRtpExtensionRtpStreamId:
-          if (send_mid_rid && !rid_.empty()) {
-            non_volatile_extensions.push_back(extension);
-          }
-          break;
-        default:
-          non_volatile_extensions.push_back(extension);
+    if (extension.uri == RtpMid::Uri()) {
+      if (send_mid_rid && !mid_.empty()) {
+        non_volatile_extensions.push_back(extension);
       }
+    } else if (extension.uri == RtpStreamId::Uri()) {
+      if (send_mid_rid && !rid_.empty()) {
+        non_volatile_extensions.push_back(extension);
+      }
+    } else if (!extension.is_volatile) {
+      non_volatile_extensions.push_back(extension);
     }
   }
   max_media_packet_header_ =

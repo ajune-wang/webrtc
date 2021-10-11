@@ -1081,14 +1081,14 @@ TEST(NetEqNoTimeStretchingMode, RunTest) {
   config.for_test_no_time_stretching = true;
   auto codecs = NetEqTest::StandardDecoderMap();
   NetEqPacketSourceInput::RtpHeaderExtensionMap rtp_ext_map = {
-      {1, kRtpExtensionAudioLevel},
-      {3, kRtpExtensionAbsoluteSendTime},
-      {5, kRtpExtensionTransportSequenceNumber},
-      {7, kRtpExtensionVideoContentType},
-      {8, kRtpExtensionVideoTiming}};
-  std::unique_ptr<NetEqInput> input(new NetEqRtpDumpInput(
+      {1, RtpExtension::kAudioLevelUri},
+      {3, RtpExtension::kAbsSendTimeUri},
+      {5, RtpExtension::kTransportSequenceNumberUri},
+      {7, RtpExtension::kVideoContentTypeUri},
+      {8, RtpExtension::kVideoTimingUri}};
+  std::unique_ptr<NetEqInput> input = std::make_unique<NetEqRtpDumpInput>(
       webrtc::test::ResourcePath("audio_coding/neteq_universal_new", "rtp"),
-      rtp_ext_map, absl::nullopt /*No SSRC filter*/));
+      rtp_ext_map, absl::nullopt /*No SSRC filter*/);
   std::unique_ptr<TimeLimitedNetEqInput> input_time_limit(
       new TimeLimitedNetEqInput(std::move(input), 20000));
   std::unique_ptr<AudioSink> output(new VoidAudioSink);
@@ -1158,11 +1158,11 @@ TestResult DelayLineNetEqTest(int delay_ms,
   config.extra_output_delay_ms = delay_ms;
   auto codecs = NetEqTest::StandardDecoderMap();
   NetEqPacketSourceInput::RtpHeaderExtensionMap rtp_ext_map = {
-      {1, kRtpExtensionAudioLevel},
-      {3, kRtpExtensionAbsoluteSendTime},
-      {5, kRtpExtensionTransportSequenceNumber},
-      {7, kRtpExtensionVideoContentType},
-      {8, kRtpExtensionVideoTiming}};
+      {1, RtpExtension::kAudioLevelUri},
+      {3, RtpExtension::kAbsSendTimeUri},
+      {5, RtpExtension::kTransportSequenceNumberUri},
+      {7, RtpExtension::kVideoContentTypeUri},
+      {8, RtpExtension::kVideoTimingUri}};
   std::unique_ptr<NetEqInput> input = std::make_unique<NetEqRtpDumpInput>(
       webrtc::test::ResourcePath("audio_coding/neteq_universal_new", "rtp"),
       rtp_ext_map, absl::nullopt /*No SSRC filter*/);

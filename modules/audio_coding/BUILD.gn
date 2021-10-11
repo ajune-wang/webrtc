@@ -1730,6 +1730,7 @@ if (rtc_include_tests) {
         ":neteq",
         ":neteq_test_tools",
         ":pcm16b",
+        "../../api:rtp_parameters",
         "//testing/gtest",
         "//third_party/abseil-cpp/absl/flags:flag",
         "//third_party/abseil-cpp/absl/flags:parse",

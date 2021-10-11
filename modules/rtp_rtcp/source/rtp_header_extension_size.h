@@ -10,15 +10,20 @@
 #ifndef MODULES_RTP_RTCP_SOURCE_RTP_HEADER_EXTENSION_SIZE_H_
 #define MODULES_RTP_RTCP_SOURCE_RTP_HEADER_EXTENSION_SIZE_H_
 
+#include "absl/strings/string_view.h"
 #include "api/array_view.h"
 #include "modules/rtp_rtcp/include/rtp_header_extension_map.h"
-#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 
 namespace webrtc {
 
 struct RtpExtensionSize {
-  RTPExtensionType type;
+  absl::string_view uri;
   int value_size;
+  // Non-volatile extensions can be expected on all packets, if registered.
+  // Volatile ones, such as VideoContentTypeExtension which is only set on
+  // key-frames, are removed to simplify overhead calculations at the expense of
+  // some accuracy.
+  bool is_volatile = false;
 };
 
 // Calculates rtp header extension size in bytes assuming packet contain

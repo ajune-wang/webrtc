@@ -14,6 +14,7 @@
 #include <stdint.h>
 
 #include <string>
+#include <vector>
 
 #include "absl/strings/string_view.h"
 #include "api/array_view.h"
@@ -23,35 +24,47 @@
 
 namespace webrtc {
 
+// Keeps id<->uri mapping for the rtp header extensions
 class RtpHeaderExtensionMap {
  public:
-  static constexpr RTPExtensionType kInvalidType = kRtpExtensionNone;
+  static constexpr absl::string_view kInvalidUri = "";
   static constexpr int kInvalidId = 0;
 
   RtpHeaderExtensionMap();
   explicit RtpHeaderExtensionMap(bool extmap_allow_mixed);
   explicit RtpHeaderExtensionMap(rtc::ArrayView<const RtpExtension> extensions);
 
+  static rtc::ArrayView<const absl::string_view> KnownExtensions();
+
   void Reset(rtc::ArrayView<const RtpExtension> extensions);
 
   template <typename Extension>
   bool Register(int id) {
-    return Register(id, Extension::kId, Extension::Uri());
+    return UnsafeRegisterByUri(id, Extension::Uri());
   }
-  bool RegisterByType(int id, RTPExtensionType type);
+  // Registers an extension known by webrtc library.
   bool RegisterByUri(int id, absl::string_view uri);
 
-  bool IsRegistered(RTPExtensionType type) const {
-    return GetId(type) != kInvalidId;
+  template <typename Extension>
+  bool IsRegistered() const {
+    return Id<Extension>() != kInvalidId;
   }
-  // Return kInvalidType if not found.
-  RTPExtensionType GetType(int id) const;
-  // Return kInvalidId if not found.
-  uint8_t GetId(RTPExtensionType type) const {
-    RTC_DCHECK_GT(type, kRtpExtensionNone);
-    RTC_DCHECK_LT(type, kRtpExtensionNumberOfExtensions);
-    return ids_[type];
+  bool IsRegistered(absl::string_view uri) const {
+    return Id(uri) != kInvalidId;
   }
+
+  // Returns uri of the registered extension, or an empty string view if
+  // id is not used.
+  absl::string_view Uri(int id) const;
+
+  // Returns id of the the registered extension, or `kInvalidId` if extension is
+  // not registered.
+  template <typename Extension>
+  int Id() const {
+    return UnsafeId(Extension::Uri());
+  }
+
+  int Id(absl::string_view uri) const;
 
   void Deregister(absl::string_view uri);
 
@@ -63,11 +76,32 @@ class RtpHeaderExtensionMap {
     extmap_allow_mixed_ = extmap_allow_mixed;
   }
 
- private:
-  bool Register(int id, RTPExtensionType type, absl::string_view uri);
+  template <typename Functor>
+  void ListRegisteredExtensions(const Functor& f) const {
+    for (const auto& entry : mapping_) {
+      f(entry.id, entry.uri);
+    }
+  }
 
-  uint8_t ids_[kRtpExtensionNumberOfExtensions];
-  bool extmap_allow_mixed_;
+ protected:
+  // `uri` must point to a string that is valid until end of process/while any
+  // of webrtc functions are are used, in particular uri might be used by webrtc
+  // code after `this` is destroyed. Two uris that points to the same string
+  // should also have to point to the same memory. Can be used to register rtp
+  // header extension unkown to the webrtc library.
+  bool UnsafeRegisterByUri(int id, absl::string_view uri);
+
+  // Returns id of the the registered extension, or 0 if uri is not registered.
+  // uri must points to the same memory as string passed to UnsafeRegisterByUri
+  int UnsafeId(absl::string_view uri) const;
+
+ private:
+  struct Entry {
+    int id;
+    absl::string_view uri;
+  };
+  std::vector<Entry> mapping_;
+  bool extmap_allow_mixed_ = false;
 };
 
 }  // namespace webrtc

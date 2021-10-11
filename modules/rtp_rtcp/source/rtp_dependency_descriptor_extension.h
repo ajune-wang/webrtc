@@ -26,7 +26,6 @@ namespace webrtc {
 // compatibility.
 class RtpDependencyDescriptorExtension {
  public:
-  static constexpr RTPExtensionType kId = kRtpExtensionGenericFrameDescriptor02;
   static constexpr absl::string_view Uri() {
     return RtpExtension::kDependencyDescriptorUri;
   }

@@ -166,7 +166,7 @@ TEST(RtxReceiveStreamTest, CopiesRtpHeaderExtensions) {
   StrictMock<MockRtpPacketSink> media_sink;
   RtxReceiveStream rtx_sink(&media_sink, PayloadTypeMapping(), kMediaSSRC);
   RtpHeaderExtensionMap extension_map;
-  extension_map.RegisterByType(3, kRtpExtensionVideoRotation);
+  extension_map.Register<VideoOrientation>(3);
   RtpPacketReceived rtx_packet(&extension_map);
   EXPECT_TRUE(
       rtx_packet.Parse(rtc::ArrayView<const uint8_t>(kRtxPacketWithCVO)));

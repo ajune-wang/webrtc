@@ -23,7 +23,6 @@ namespace webrtc {
 class RtpVideoLayersAllocationExtension {
  public:
   using value_type = VideoLayersAllocation;
-  static constexpr RTPExtensionType kId = kRtpExtensionVideoLayersAllocation;
   static constexpr absl::string_view Uri() {
     return RtpExtension::kVideoLayersAllocationUri;
   }

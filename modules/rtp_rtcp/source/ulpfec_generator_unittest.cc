@@ -86,8 +86,7 @@ TEST_F(UlpfecGeneratorTest, NoEmptyFecWithSeqNumGaps) {
   for (Packet p : protected_packets) {
     RtpPacketToSend packet(nullptr);
     packet.SetMarker(p.marker_bit);
-    packet.AllocateExtension(RTPExtensionType::kRtpExtensionMid,
-                             p.header_size - packet.headers_size());
+    packet.AllocateExtension<RtpMid>(p.header_size - packet.headers_size());
     packet.SetSequenceNumber(p.seq_num);
     packet.AllocatePayload(p.payload_size);
     ulpfec_generator_.AddPacketAndGenerateFec(packet);

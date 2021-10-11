@@ -31,7 +31,6 @@ namespace webrtc {
 class AbsoluteSendTime {
  public:
   using value_type = uint32_t;
-  static constexpr RTPExtensionType kId = kRtpExtensionAbsoluteSendTime;
   static constexpr uint8_t kValueSizeBytes = 3;
   static constexpr absl::string_view Uri() {
     return RtpExtension::kAbsSendTimeUri;
@@ -49,7 +48,6 @@ class AbsoluteSendTime {
 class AbsoluteCaptureTimeExtension {
  public:
   using value_type = AbsoluteCaptureTime;
-  static constexpr RTPExtensionType kId = kRtpExtensionAbsoluteCaptureTime;
   static constexpr uint8_t kValueSizeBytes = 16;
   static constexpr uint8_t kValueSizeBytesWithoutEstimatedCaptureClockOffset =
       8;
@@ -66,7 +64,6 @@ class AbsoluteCaptureTimeExtension {
 
 class AudioLevel {
  public:
-  static constexpr RTPExtensionType kId = kRtpExtensionAudioLevel;
   static constexpr uint8_t kValueSizeBytes = 1;
   static constexpr absl::string_view Uri() {
     return RtpExtension::kAudioLevelUri;
@@ -85,7 +82,6 @@ class AudioLevel {
 
 class CsrcAudioLevel {
  public:
-  static constexpr RTPExtensionType kId = kRtpExtensionCsrcAudioLevel;
   static constexpr uint8_t kMaxValueSizeBytes = 15;
   static constexpr absl::string_view Uri() {
     return RtpExtension::kCsrcAudioLevelsUri;
@@ -101,7 +97,6 @@ class CsrcAudioLevel {
 class TransmissionOffset {
  public:
   using value_type = int32_t;
-  static constexpr RTPExtensionType kId = kRtpExtensionTransmissionTimeOffset;
   static constexpr uint8_t kValueSizeBytes = 3;
   static constexpr absl::string_view Uri() {
     return RtpExtension::kTimestampOffsetUri;
@@ -115,7 +110,6 @@ class TransmissionOffset {
 class TransportSequenceNumber {
  public:
   using value_type = uint16_t;
-  static constexpr RTPExtensionType kId = kRtpExtensionTransportSequenceNumber;
   static constexpr uint8_t kValueSizeBytes = 2;
   static constexpr absl::string_view Uri() {
     return RtpExtension::kTransportSequenceNumberUri;
@@ -132,8 +126,6 @@ class TransportSequenceNumber {
 
 class TransportSequenceNumberV2 {
  public:
-  static constexpr RTPExtensionType kId =
-      kRtpExtensionTransportSequenceNumber02;
   static constexpr uint8_t kValueSizeBytes = 4;
   static constexpr uint8_t kValueSizeBytesWithoutFeedbackRequest = 2;
   static constexpr absl::string_view Uri() {
@@ -160,7 +152,6 @@ class TransportSequenceNumberV2 {
 class VideoOrientation {
  public:
   using value_type = VideoRotation;
-  static constexpr RTPExtensionType kId = kRtpExtensionVideoRotation;
   static constexpr uint8_t kValueSizeBytes = 1;
   static constexpr absl::string_view Uri() {
     return RtpExtension::kVideoRotationUri;
@@ -177,7 +168,6 @@ class VideoOrientation {
 class PlayoutDelayLimits {
  public:
   using value_type = VideoPlayoutDelay;
-  static constexpr RTPExtensionType kId = kRtpExtensionPlayoutDelay;
   static constexpr uint8_t kValueSizeBytes = 3;
   static constexpr absl::string_view Uri() {
     return RtpExtension::kPlayoutDelayUri;
@@ -200,7 +190,6 @@ class PlayoutDelayLimits {
 class VideoContentTypeExtension {
  public:
   using value_type = VideoContentType;
-  static constexpr RTPExtensionType kId = kRtpExtensionVideoContentType;
   static constexpr uint8_t kValueSizeBytes = 1;
   static constexpr absl::string_view Uri() {
     return RtpExtension::kVideoContentTypeUri;
@@ -216,7 +205,6 @@ class VideoContentTypeExtension {
 class VideoTimingExtension {
  public:
   using value_type = VideoSendTiming;
-  static constexpr RTPExtensionType kId = kRtpExtensionVideoTiming;
   static constexpr uint8_t kValueSizeBytes = 13;
   static constexpr absl::string_view Uri() {
     return RtpExtension::kVideoTimingUri;
@@ -250,7 +238,6 @@ class VideoTimingExtension {
 class ColorSpaceExtension {
  public:
   using value_type = ColorSpace;
-  static constexpr RTPExtensionType kId = kRtpExtensionColorSpace;
   static constexpr uint8_t kValueSizeBytes = 28;
   static constexpr uint8_t kValueSizeBytesWithoutHdrMetadata = 4;
   static constexpr absl::string_view Uri() {
@@ -303,13 +290,11 @@ class BaseRtpStringExtension {
 
 class RtpStreamId : public BaseRtpStringExtension {
  public:
-  static constexpr RTPExtensionType kId = kRtpExtensionRtpStreamId;
   static constexpr absl::string_view Uri() { return RtpExtension::kRidUri; }
 };
 
 class RepairedRtpStreamId : public BaseRtpStringExtension {
  public:
-  static constexpr RTPExtensionType kId = kRtpExtensionRepairedRtpStreamId;
   static constexpr absl::string_view Uri() {
     return RtpExtension::kRepairedRidUri;
   }
@@ -317,7 +302,6 @@ class RepairedRtpStreamId : public BaseRtpStringExtension {
 
 class RtpMid : public BaseRtpStringExtension {
  public:
-  static constexpr RTPExtensionType kId = kRtpExtensionMid;
   static constexpr absl::string_view Uri() { return RtpExtension::kMidUri; }
 };
 
@@ -325,7 +309,6 @@ class InbandComfortNoiseExtension {
  public:
   using value_type = absl::optional<uint8_t>;
 
-  static constexpr RTPExtensionType kId = kRtpExtensionInbandComfortNoise;
   static constexpr uint8_t kValueSizeBytes = 1;
   static constexpr const char kUri[] =
       "http://www.webrtc.org/experiments/rtp-hdrext/inband-cn";
@@ -343,7 +326,6 @@ class InbandComfortNoiseExtension {
 class VideoFrameTrackingIdExtension {
  public:
   using value_type = uint16_t;
-  static constexpr RTPExtensionType kId = kRtpExtensionVideoFrameTrackingId;
   static constexpr uint8_t kValueSizeBytes = 2;
   static constexpr absl::string_view Uri() {
     return RtpExtension::kVideoFrameTrackingIdUri;

@@ -21,6 +21,7 @@
 
 namespace webrtc {
 namespace {
+constexpr int kUnspecifiedAnalogLevel = -1;
 constexpr int kLogLimiterStatsPeriodMs = 30'000;
 constexpr int kFrameLengthMs = 10;
 constexpr int kLogLimiterStatsPeriodNumFrames =
@@ -29,15 +30,22 @@ constexpr int kLogLimiterStatsPeriodNumFrames =
 
 int GainController2::instance_count_ = 0;
 
-GainController2::GainController2()
-    : data_dumper_(rtc::AtomicOps::Increment(&instance_count_)),
+GainController2::GainController2(
+    const AudioProcessing::Config::GainController2& config)
+    : initialized_(false),
+      data_dumper_(rtc::AtomicOps::Increment(&instance_count_)),
       fixed_gain_applier_(/*hard_clip_samples=*/false,
                           /*initial_gain_factor=*/0.0f),
-      limiter_(static_cast<size_t>(48000), &data_dumper_, "Agc2"),
-      calls_since_last_limiter_log_(0) {
-  if (config_.adaptive_digital.enabled) {
+      limiter_(/*sample_rate_hz=*/48000,
+               &data_dumper_,
+               /*histogram_name_prefix=*/"Agc2"),
+      calls_since_last_limiter_log_(0),
+      analog_level_(kUnspecifiedAnalogLevel) {
+  RTC_DCHECK(Validate(config));
+  fixed_gain_applier_.SetGainFactor(DbToRatio(config.fixed_digital.gain_db));
+  if (config.adaptive_digital.enabled) {
     adaptive_digital_controller_ =
-        std::make_unique<AdaptiveAgc>(&data_dumper_, config_.adaptive_digital);
+        std::make_unique<AdaptiveAgc>(&data_dumper_, config.adaptive_digital);
   }
 }
 
@@ -55,9 +63,11 @@ void GainController2::Initialize(int sample_rate_hz, int num_channels) {
   data_dumper_.InitiateNewSetOfRecordings();
   data_dumper_.DumpRaw("sample_rate_hz", sample_rate_hz);
   calls_since_last_limiter_log_ = 0;
+  initialized_ = true;
 }
 
 void GainController2::Process(AudioBuffer* audio) {
+  RTC_DCHECK(initialized_);
   data_dumper_.DumpRaw("agc2_notified_analog_level", analog_level_);
   AudioFrameView<float> float_frame(audio->channels(), audio->num_channels(),
                                     audio->num_frames());
@@ -85,25 +95,6 @@ void GainController2::NotifyAnalogLevel(int level) {
     adaptive_digital_controller_->HandleInputGainChange();
   }
   analog_level_ = level;
-}
-
-void GainController2::ApplyConfig(
-    const AudioProcessing::Config::GainController2& config) {
-  RTC_DCHECK(Validate(config));
-
-  config_ = config;
-  if (config.fixed_digital.gain_db != config_.fixed_digital.gain_db) {
-    // Reset the limiter to quickly react on abrupt level changes caused by
-    // large changes of the fixed gain.
-    limiter_.Reset();
-  }
-  fixed_gain_applier_.SetGainFactor(DbToRatio(config_.fixed_digital.gain_db));
-  if (config_.adaptive_digital.enabled) {
-    adaptive_digital_controller_ =
-        std::make_unique<AdaptiveAgc>(&data_dumper_, config_.adaptive_digital);
-  } else {
-    adaptive_digital_controller_.reset();
-  }
 }
 
 bool GainController2::Validate(

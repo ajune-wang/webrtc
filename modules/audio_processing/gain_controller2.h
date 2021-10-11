@@ -29,27 +29,32 @@ class AudioBuffer;
 // microphone gain and/or applying digital gain.
 class GainController2 {
  public:
-  GainController2();
+  explicit GainController2(
+      const AudioProcessing::Config::GainController2& config);
   GainController2(const GainController2&) = delete;
   GainController2& operator=(const GainController2&) = delete;
   ~GainController2();
 
+  // Handles changes of sample rate and/or number of channels.
   void Initialize(int sample_rate_hz, int num_channels);
+
+  // Applies fixed and adaptive digital gains to `audio` and runs a limiter.
   void Process(AudioBuffer* audio);
+
+  // Handles analog level changes.
   void NotifyAnalogLevel(int level);
 
-  void ApplyConfig(const AudioProcessing::Config::GainController2& config);
   static bool Validate(const AudioProcessing::Config::GainController2& config);
 
  private:
   static int instance_count_;
+  bool initialized_;
   ApmDataDumper data_dumper_;
-  AudioProcessing::Config::GainController2 config_;
   GainApplier fixed_gain_applier_;
   std::unique_ptr<AdaptiveAgc> adaptive_digital_controller_;
   Limiter limiter_;
   int calls_since_last_limiter_log_;
-  int analog_level_ = -1;
+  int analog_level_;
 };
 
 }  // namespace webrtc

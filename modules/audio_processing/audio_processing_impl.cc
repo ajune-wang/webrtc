@@ -579,14 +579,8 @@ void AudioProcessingImpl::ApplyConfig(const AudioProcessing::Config& config) {
     InitializeGainController1();
   }
 
-  const bool config_ok = GainController2::Validate(config_.gain_controller2);
-  if (!config_ok) {
-    RTC_LOG(LS_ERROR)
-        << "Invalid Gain Controller 2 config; using the default config.";
-    config_.gain_controller2 = AudioProcessing::Config::GainController2();
-  }
-
   if (agc2_config_changed) {
+    submodules_.gain_controller2.reset();
     InitializeGainController2();
   }
 
@@ -1934,19 +1928,16 @@ void AudioProcessingImpl::InitializeGainController1() {
 }
 
 void AudioProcessingImpl::InitializeGainController2() {
-  if (config_.gain_controller2.enabled) {
-    if (!submodules_.gain_controller2) {
-      // TODO(alessiob): Move the injected gain controller once injection is
-      // implemented.
-      submodules_.gain_controller2.reset(new GainController2());
-    }
-
-    submodules_.gain_controller2->Initialize(proc_fullband_sample_rate_hz(),
-                                             num_input_channels());
-    submodules_.gain_controller2->ApplyConfig(config_.gain_controller2);
-  } else {
+  if (!config_.gain_controller2.enabled) {
     submodules_.gain_controller2.reset();
+    return;
   }
+  if (!submodules_.gain_controller2) {
+    submodules_.gain_controller2 =
+        std::make_unique<GainController2>(config_.gain_controller2);
+  }
+  submodules_.gain_controller2->Initialize(proc_fullband_sample_rate_hz(),
+                                           num_input_channels());
 }
 
 void AudioProcessingImpl::InitializeNoiseSuppressor() {

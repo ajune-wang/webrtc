@@ -19,75 +19,83 @@
 #include "rtc_base/gunit.h"
 
 namespace webrtc {
-TEST(AutomaticGainController2GainApplier, InitialGainIsRespected) {
-  constexpr float initial_signal_level = 123.f;
-  constexpr float gain_factor = 10.f;
-  VectorFloatFrame fake_audio(1, 1, initial_signal_level);
-  GainApplier gain_applier(true, gain_factor);
+namespace {
 
-  gain_applier.ApplyGain(fake_audio.float_frame_view());
-  EXPECT_NEAR(fake_audio.float_frame_view().channel(0)[0],
-              initial_signal_level * gain_factor, 0.1f);
+constexpr int kMono = 1;
+constexpr int kSampleRateHz = 8000;
+constexpr bool kHardClip = true;
+constexpr bool kNoHardClip = false;
+
+// TODO(bugs.webrtc.org/7494): Parametrized test: # channels, sample rate.
+
+// Checks that the gain specified when `GainApplier` is constructed is applied.
+TEST(AutomaticGainController2GainApplier, InitialGainIsApplied) {
+  constexpr float kInitialSignalLevel = 123.0f;
+  constexpr float kGainFactor = 10.0f;
+  VectorFloatFrame audio(kMono, kSampleRateHz, kInitialSignalLevel);
+  GainApplier gain_applier(kGainFactor, kHardClip, kSampleRateHz);
+  gain_applier.ApplyGain(audio.float_frame_view());
+  EXPECT_NEAR(audio.float_frame_view().channel(0)[0],
+              kInitialSignalLevel * kGainFactor, 0.1f);
 }
 
 TEST(AutomaticGainController2GainApplier, ClippingIsDone) {
-  constexpr float initial_signal_level = 30000.f;
-  constexpr float gain_factor = 10.f;
-  VectorFloatFrame fake_audio(1, 1, initial_signal_level);
-  GainApplier gain_applier(true, gain_factor);
+  constexpr float kInitialSignalLevel = 30000.0f;
+  constexpr float kGainFactor = 10.0f;
+  VectorFloatFrame audio(kMono, kSampleRateHz, kInitialSignalLevel);
+  GainApplier gain_applier(kGainFactor, kHardClip, kSampleRateHz);
 
-  gain_applier.ApplyGain(fake_audio.float_frame_view());
-  EXPECT_NEAR(fake_audio.float_frame_view().channel(0)[0],
+  gain_applier.ApplyGain(audio.float_frame_view());
+  EXPECT_NEAR(audio.float_frame_view().channel(0)[0],
               std::numeric_limits<int16_t>::max(), 0.1f);
 }
 
 TEST(AutomaticGainController2GainApplier, ClippingIsNotDone) {
-  constexpr float initial_signal_level = 30000.f;
-  constexpr float gain_factor = 10.f;
-  VectorFloatFrame fake_audio(1, 1, initial_signal_level);
-  GainApplier gain_applier(false, gain_factor);
+  constexpr float kInitialSignalLevel = 30000.0f;
+  constexpr float kGainFactor = 10.f;
+  VectorFloatFrame audio(kMono, kSampleRateHz, kInitialSignalLevel);
+  GainApplier gain_applier(kGainFactor, kNoHardClip, kSampleRateHz);
 
-  gain_applier.ApplyGain(fake_audio.float_frame_view());
+  gain_applier.ApplyGain(audio.float_frame_view());
 
-  EXPECT_NEAR(fake_audio.float_frame_view().channel(0)[0],
-              initial_signal_level * gain_factor, 0.1f);
+  EXPECT_NEAR(audio.float_frame_view().channel(0)[0],
+              kInitialSignalLevel * kGainFactor, 0.1f);
 }
 
 TEST(AutomaticGainController2GainApplier, RampingIsDone) {
-  constexpr float initial_signal_level = 30000.f;
-  constexpr float initial_gain_factor = 1.f;
-  constexpr float target_gain_factor = 0.5f;
-  constexpr int num_channels = 3;
-  constexpr int samples_per_channel = 4;
-  VectorFloatFrame fake_audio(num_channels, samples_per_channel,
-                              initial_signal_level);
-  GainApplier gain_applier(false, initial_gain_factor);
+  constexpr float kInitialSignalLevel = 30000.0f;
+  constexpr float kInitialGainFactor = 1.0f;
+  constexpr float kTargetGainFactor = 0.5f;
+  constexpr int kNumChannels = 3;
+  VectorFloatFrame audio(kNumChannels, kSampleRateHz, kInitialSignalLevel);
+  GainApplier gain_applier(kInitialGainFactor, kNoHardClip, kSampleRateHz);
 
-  gain_applier.SetGainFactor(target_gain_factor);
-  gain_applier.ApplyGain(fake_audio.float_frame_view());
+  gain_applier.SetGainFactor(kTargetGainFactor);
+  gain_applier.ApplyGain(audio.float_frame_view());
 
   // The maximal gain change should be close to that in linear interpolation.
-  for (size_t channel = 0; channel < num_channels; ++channel) {
-    float max_signal_change = 0.f;
-    float last_signal_level = initial_signal_level;
-    for (const auto sample : fake_audio.float_frame_view().channel(channel)) {
+  for (size_t channel = 0; channel < kNumChannels; ++channel) {
+    float max_signal_change = 0.0f;
+    float last_signal_level = kInitialSignalLevel;
+    for (const auto sample : audio.float_frame_view().channel(channel)) {
       const float current_change = fabs(last_signal_level - sample);
       max_signal_change = std::max(max_signal_change, current_change);
       last_signal_level = sample;
     }
     const float total_gain_change =
-        fabs((initial_gain_factor - target_gain_factor) * initial_signal_level);
-    EXPECT_NEAR(max_signal_change, total_gain_change / samples_per_channel,
-                0.1f);
+        fabs((kInitialGainFactor - kTargetGainFactor) * kInitialSignalLevel);
+    EXPECT_NEAR(max_signal_change, total_gain_change / kSampleRateHz, 0.1f);
   }
 
   // Next frame should have the desired level.
-  VectorFloatFrame next_fake_audio_frame(num_channels, samples_per_channel,
-                                         initial_signal_level);
-  gain_applier.ApplyGain(next_fake_audio_frame.float_frame_view());
+  VectorFloatFrame next_audio_frame(kNumChannels, kSampleRateHz,
+                                    kInitialSignalLevel);
+  gain_applier.ApplyGain(next_audio_frame.float_frame_view());
 
   // The last sample should have the new gain.
-  EXPECT_NEAR(next_fake_audio_frame.float_frame_view().channel(0)[0],
-              initial_signal_level * target_gain_factor, 0.1f);
+  EXPECT_NEAR(next_audio_frame.float_frame_view().channel(0)[0],
+              kInitialSignalLevel * kTargetGainFactor, 0.1f);
 }
+
+}  // namespace
 }  // namespace webrtc

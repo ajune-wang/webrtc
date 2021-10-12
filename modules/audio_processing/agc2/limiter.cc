@@ -138,7 +138,7 @@ InterpolatedGainCurve::Stats Limiter::GetGainCurveStats() const {
   return interp_gain_curve_.get_stats();
 }
 
-void Limiter::SetSampleRate(int sample_rate_hz) {
+void Limiter::Initialize(int sample_rate_hz) {
   CheckLimiterSampleRate(sample_rate_hz);
   level_estimator_.SetSampleRate(sample_rate_hz);
 }

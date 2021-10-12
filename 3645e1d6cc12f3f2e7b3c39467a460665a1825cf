@@ -16,6 +16,167 @@
       "message": "api/ changes lgtm\n\nBTW, it seems I reviewed the addition of PasteFrom/PasteFromBuffer in https://webrtc-review.googlesource.com/c/src/+/115300/ . But I can\u0027t find any current use, neither in webrtc or chromium. From https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d10152#c17, maybe not actually needed?\n",
       "revId": "3645e1d6cc12f3f2e7b3c39467a460665a1825cf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d40eeee4_cac346f1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-10-12T10:20:38Z",
+      "side": 1,
+      "message": "Yep, they were added at some point but then video capture API got changed and they were not needed. Unfortunately, I\u0027ve forgotten to remove them. Filed the bug https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d13262.\n\nI will remove them soon.",
+      "parentUuid": "54d1fa63_6453eea2",
+      "revId": "3645e1d6cc12f3f2e7b3c39467a460665a1825cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "73025c57_db85d29b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-10-12T10:20:38Z",
+      "side": 1,
+      "message": "Please add unittests for the new code.\n\nEither copy third_party/webrtc/api/video/test/nv12_buffer_unittest.cc\nor add kI444 to third_party/webrtc/common_video/video_frame_unittest.cc",
+      "revId": "3645e1d6cc12f3f2e7b3c39467a460665a1825cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e16c322f_4c67a745",
+        "filename": "api/video/i444_buffer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-10-12T10:20:38Z",
+      "side": 1,
+      "message": "Firstly, with no subsampling offset isn\u0027t required to be even.\nSecondly, this code does nothing. \n\nThis seems to be a copy-paste oversight. Please update.",
+      "range": {
+        "startLine": 199,
+        "startChar": 3,
+        "endLine": 203,
+        "endChar": 25
+      },
+      "revId": "3645e1d6cc12f3f2e7b3c39467a460665a1825cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "faa8f212_e32e41a7",
+        "filename": "api/video/i444_buffer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-10-12T10:20:38Z",
+      "side": 1,
+      "message": "Again, a copy-paste oversight. Division by 2 is required here to center the cropped image. Without it, the cropped image would be in the lower right corner.\n\nMaybe remove this method altogether. You should model I444Buffer on NV12Buffer, not I420Buffer, which is default format and is used in tests. NV12Buffer has only the full CropAndScale method.",
+      "range": {
+        "startLine": 227,
+        "startChar": 23,
+        "endLine": 227,
+        "endChar": 50
+      },
+      "revId": "3645e1d6cc12f3f2e7b3c39467a460665a1825cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13c7bcc0_22c8b44d",
+        "filename": "api/video/i444_buffer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-10-12T10:20:38Z",
+      "side": 1,
+      "message": "As above, this method is not needed.",
+      "range": {
+        "startLine": 231,
+        "startChar": 0,
+        "endLine": 231,
+        "endChar": 60
+      },
+      "revId": "3645e1d6cc12f3f2e7b3c39467a460665a1825cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "572f4509_8cd95ccf",
+        "filename": "api/video/i444_buffer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-10-12T10:20:38Z",
+      "side": 1,
+      "message": "You also need to add override to CropAndScale method in\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/video/video_frame_buffer.h;l\u003d186;drc\u003de882b8e4a8272f65cb14c608d3d2bc4f0512aa20\n\nSee NV12 for example:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/video/video_frame_buffer.h;l\u003d249;drc\u003de882b8e4a8272f65cb14c608d3d2bc4f0512aa20\n\nWithout it pre-encoder scaling would downgrade I444 to I420 in VideoStreamEncoder.",
+      "revId": "3645e1d6cc12f3f2e7b3c39467a460665a1825cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0186884_0c0a3dc2",
+        "filename": "common_video/video_frame_buffer_pool.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-10-12T10:20:38Z",
+      "side": 1,
+      "message": "please combine lines",
+      "range": {
+        "startLine": 134,
+        "startChar": 4,
+        "endLine": 135,
+        "endChar": 15
+      },
+      "revId": "3645e1d6cc12f3f2e7b3c39467a460665a1825cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fa467cf_364fdeeb",
+        "filename": "modules/video_coding/codecs/h264/h264.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-10-12T10:20:38Z",
+      "side": 1,
+      "message": "You also need to add I444 to the list of supported input formats here:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/video_coding/codecs/h264/h264_encoder_impl.cc;l\u003d640;drc\u003dcfea2182f8e41c3d8293d4e26b291ef2abf23257\n\nSee this for example:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc;l\u003d1247;drc\u003db26863ed0cd3ae890271424f01e560baeb380e64\n\nOtherwise webrtc would convert incoming I444 to I420.",
+      "revId": "3645e1d6cc12f3f2e7b3c39467a460665a1825cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

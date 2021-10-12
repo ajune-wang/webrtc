@@ -107,14 +107,11 @@ int H264DecoderImpl::AVGetBuffer2(AVCodecContext* context,
 
   // The video frame is stored in `frame_buffer`. `av_frame` is FFmpeg's version
   // of a video frame and will be set up to reference `frame_buffer`'s data.
-
-  // FFmpeg expects the initial allocation to be zero-initialized according to
-  // http://crbug.com/390941. Our pool is set up to zero-initialize new buffers.
-  // TODO(nisse): Delete that feature from the video pool, instead add
-  // an explicit call to InitializeData here.
   rtc::scoped_refptr<I420Buffer> frame_buffer =
       decoder->ffmpeg_buffer_pool_.CreateI420Buffer(width, height);
-
+  // FFmpeg expects the initial allocation to be zero-initialized according to
+  // http://crbug.com/390941.
+  frame_buffer->InitializeData();
   int y_size = width * height;
   int uv_size = frame_buffer->ChromaWidth() * frame_buffer->ChromaHeight();
   // DCHECK that we have a continuous buffer as is required.
@@ -160,8 +157,7 @@ void H264DecoderImpl::AVFreeBuffer2(void* opaque, uint8_t* data) {
 }
 
 H264DecoderImpl::H264DecoderImpl()
-    : ffmpeg_buffer_pool_(true),
-      decoded_image_callback_(nullptr),
+    : decoded_image_callback_(nullptr),
       has_reported_init_(false),
       has_reported_error_(false),
       preferred_output_format_(field_trial::IsEnabled("WebRTC-NV12Decode")

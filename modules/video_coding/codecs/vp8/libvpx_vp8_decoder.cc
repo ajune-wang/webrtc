@@ -118,7 +118,7 @@ LibvpxVp8Decoder::LibvpxVp8Decoder()
     : use_postproc_(
           kIsArm ? webrtc::field_trial::IsEnabled(kVp8PostProcArmFieldTrial)
                  : true),
-      buffer_pool_(false, 300 /* max_number_of_buffers*/),
+      buffer_pool_(/*max_number_of_buffers=*/300),
       decode_complete_callback_(NULL),
       inited_(false),
       decoder_(NULL),

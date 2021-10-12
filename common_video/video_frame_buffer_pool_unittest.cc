@@ -40,7 +40,7 @@ TEST(TestVideoFrameBufferPool, SimpleFrameReuse) {
 
 TEST(TestVideoFrameBufferPool, FailToReuseWrongSize) {
   // Set max frames to 1, just to make sure the first buffer is being released.
-  VideoFrameBufferPool pool(/*zero_initialize=*/false, 1);
+  VideoFrameBufferPool pool(/*max_number_of_buffers=*/1);
   auto buffer = pool.CreateI420Buffer(16, 16);
   EXPECT_EQ(16, buffer->width());
   EXPECT_EQ(16, buffer->height());
@@ -67,20 +67,20 @@ TEST(TestVideoFrameBufferPool, FrameValidAfterPoolDestruction) {
 }
 
 TEST(TestVideoFrameBufferPool, MaxNumberOfBuffers) {
-  VideoFrameBufferPool pool(false, 1);
+  VideoFrameBufferPool pool(/*max_number_of_buffers=*/1);
   auto buffer = pool.CreateI420Buffer(16, 16);
   EXPECT_NE(nullptr, buffer.get());
   EXPECT_EQ(nullptr, pool.CreateI420Buffer(16, 16).get());
 }
 
 TEST(TestVideoFrameBufferPool, ProducesNv12) {
-  VideoFrameBufferPool pool(false, 1);
+  VideoFrameBufferPool pool(/*max_number_of_buffers=*/1);
   auto buffer = pool.CreateNV12Buffer(16, 16);
   EXPECT_NE(nullptr, buffer.get());
 }
 
 TEST(TestVideoFrameBufferPool, SwitchingPixelFormat) {
-  VideoFrameBufferPool pool(false, 1);
+  VideoFrameBufferPool pool(/*max_number_of_buffers=*/1);
   auto buffer = pool.CreateNV12Buffer(16, 16);
   EXPECT_EQ(nullptr, pool.CreateNV12Buffer(16, 16).get());
   auto buffer2 = pool.CreateI420Buffer(16, 16);

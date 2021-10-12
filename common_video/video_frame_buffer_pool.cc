@@ -38,16 +38,11 @@ bool HasOneRef(const rtc::scoped_refptr<VideoFrameBuffer>& buffer) {
 
 }  // namespace
 
-VideoFrameBufferPool::VideoFrameBufferPool() : VideoFrameBufferPool(false) {}
+VideoFrameBufferPool::VideoFrameBufferPool()
+    : VideoFrameBufferPool(std::numeric_limits<size_t>::max()) {}
 
-VideoFrameBufferPool::VideoFrameBufferPool(bool zero_initialize)
-    : VideoFrameBufferPool(zero_initialize,
-                           std::numeric_limits<size_t>::max()) {}
-
-VideoFrameBufferPool::VideoFrameBufferPool(bool zero_initialize,
-                                           size_t max_number_of_buffers)
-    : zero_initialize_(zero_initialize),
-      max_number_of_buffers_(max_number_of_buffers) {}
+VideoFrameBufferPool::VideoFrameBufferPool(size_t max_number_of_buffers)
+    : max_number_of_buffers_(max_number_of_buffers) {}
 
 VideoFrameBufferPool::~VideoFrameBufferPool() = default;
 
@@ -109,9 +104,6 @@ rtc::scoped_refptr<I420Buffer> VideoFrameBufferPool::CreateI420Buffer(
   rtc::scoped_refptr<I420Buffer> buffer =
       rtc::make_ref_counted<I420Buffer>(width, height);
 
-  if (zero_initialize_)
-    buffer->InitializeData();
-
   buffers_.push_back(buffer);
   return buffer;
 }
@@ -139,9 +131,6 @@ rtc::scoped_refptr<NV12Buffer> VideoFrameBufferPool::CreateNV12Buffer(
   // Allocate new buffer.
   rtc::scoped_refptr<NV12Buffer> buffer =
       rtc::make_ref_counted<NV12Buffer>(width, height);
-
-  if (zero_initialize_)
-    buffer->InitializeData();
 
   buffers_.push_back(buffer);
   return buffer;

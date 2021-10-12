@@ -65,7 +65,7 @@ class LibaomAv1Decoder final : public VideoDecoder {
 LibaomAv1Decoder::LibaomAv1Decoder()
     : context_(),  // Force value initialization instead of default one.
       inited_(false),
-      buffer_pool_(false, /*max_number_of_buffers=*/150),
+      buffer_pool_(/*max_number_of_buffers=*/150),
       decode_complete_callback_(nullptr) {}
 
 LibaomAv1Decoder::~LibaomAv1Decoder() {

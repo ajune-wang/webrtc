@@ -35,8 +35,7 @@ namespace webrtc {
 class VideoFrameBufferPool {
  public:
   VideoFrameBufferPool();
-  explicit VideoFrameBufferPool(bool zero_initialize);
-  VideoFrameBufferPool(bool zero_initialize, size_t max_number_of_buffers);
+  explicit VideoFrameBufferPool(size_t max_number_of_buffers);
   ~VideoFrameBufferPool();
 
   // Returns a buffer from the pool. If no suitable buffer exist in the pool
@@ -60,12 +59,6 @@ class VideoFrameBufferPool {
 
   rtc::RaceChecker race_checker_;
   std::list<rtc::scoped_refptr<VideoFrameBuffer>> buffers_;
-  // If true, newly allocated buffers are zero-initialized. Note that recycled
-  // buffers are not zero'd before reuse. This is required of buffers used by
-  // FFmpeg according to http://crbug.com/390941, which only requires it for the
-  // initial allocation (as shown by FFmpeg's own buffer allocation code). It
-  // has to do with "Use-of-uninitialized-value" on "Linux_msan_chrome".
-  const bool zero_initialize_;
   // Max number of buffers this pool can have pending.
   size_t max_number_of_buffers_;
 };

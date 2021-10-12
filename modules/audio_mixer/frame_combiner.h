@@ -19,44 +19,47 @@
 #include "modules/audio_processing/agc2/limiter.h"
 
 namespace webrtc {
+
 class ApmDataDumper;
 
 class FrameCombiner {
  public:
-  enum class LimiterType { kNoLimiter, kApmAgcLimiter, kApmAgc2Limiter };
   explicit FrameCombiner(bool use_limiter);
+  FrameCombiner(const FrameCombiner&) = delete;
+  FrameCombiner& operator=(const FrameCombiner&) = delete;
   ~FrameCombiner();
 
-  // Combine several frames into one. Assumes sample_rate,
-  // samples_per_channel of the input frames match the parameters. The
-  // parameters 'number_of_channels' and 'sample_rate' are needed
-  // because 'mix_list' can be empty. The parameter
-  // 'number_of_streams' is used for determining whether to pass the
-  // data through a limiter.
+  // Combines the frames in `mix_list` into `audio_frame_for_mixing`.
+  // `num_channels` and `sample_rate_hz` are the desired properties for the
+  // mixed audio. If `use_limiter_` is true, a limiter is used to avoid
+  // clipping.
   void Combine(rtc::ArrayView<AudioFrame* const> mix_list,
-               size_t number_of_channels,
-               int sample_rate,
-               size_t number_of_streams,
+               int num_channels,
+               int sample_rate_hz,
                AudioFrame* audio_frame_for_mixing);
 
-  // Stereo, 48 kHz, 10 ms.
-  static constexpr size_t kMaximumNumberOfChannels = 8;
-  static constexpr size_t kMaximumChannelSize = 48 * 10;
-
-  using MixingBuffer = std::array<std::array<float, kMaximumChannelSize>,
-                                  kMaximumNumberOfChannels>;
-
  private:
-  void LogMixingStats(rtc::ArrayView<const AudioFrame* const> mix_list,
-                      int sample_rate,
-                      size_t number_of_streams) const;
+  // Creates a mix of `mix_list` and writes the output audio into
+  // `mixing_buffer_`.
+  void Mix(rtc::ArrayView<const AudioFrame* const> mix_list, int num_channels);
 
-  std::unique_ptr<ApmDataDumper> data_dumper_;
-  std::unique_ptr<MixingBuffer> mixing_buffer_;
-  Limiter limiter_;
+  // Maximum number of channels supported by the implementation.
+  static constexpr int kMaxNumChannels = 8;
+  // Maximum sample rate supported by the implementation.
+  static constexpr int kSampleRateHz = 48000;
+  static constexpr int kMaxChannelSize = kSampleRateHz / 100;  // 10 ms frames.
+
   const bool use_limiter_;
-  mutable int uma_logging_counter_ = 0;
+  int sample_rate_hz_;
+  int samples_per_channel_;
+  std::unique_ptr<ApmDataDumper> data_dumper_;
+  std::unique_ptr<
+      std::array<std::array<float, kMaxChannelSize>, kMaxNumChannels>>
+      mixing_buffer_;
+  Limiter limiter_;
+  int logging_counter_;
 };
+
 }  // namespace webrtc
 
 #endif  // MODULES_AUDIO_MIXER_FRAME_COMBINER_H_

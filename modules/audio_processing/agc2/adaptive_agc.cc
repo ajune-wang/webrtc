@@ -40,10 +40,12 @@ AvailableCpuFeatures GetAllowedCpuFeatures() {
 
 AdaptiveAgc::AdaptiveAgc(
     ApmDataDumper* apm_data_dumper,
-    const AudioProcessing::Config::GainController2::AdaptiveDigital& config)
+    const AudioProcessing::Config::GainController2::AdaptiveDigital& config,
+    int sample_rate_hz,
+    int num_channels)
     : speech_level_estimator_(apm_data_dumper, config),
       vad_(config.vad_reset_period_ms, GetAllowedCpuFeatures()),
-      gain_controller_(apm_data_dumper, config),
+      gain_controller_(apm_data_dumper, config, sample_rate_hz, num_channels),
       apm_data_dumper_(apm_data_dumper),
       noise_level_estimator_(CreateNoiseFloorEstimator(apm_data_dumper)),
       saturation_protector_(

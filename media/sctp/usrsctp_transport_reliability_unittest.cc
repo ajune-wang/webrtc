@@ -252,7 +252,7 @@ class SctpDataReceiver final : public sigslot::has_slots<> {
         target_messages_count_(target_messages_count) {}
 
   void OnDataReceived(const cricket::ReceiveDataParams& params,
-                      const rtc::CopyOnWriteBuffer& data) {
+                      rtc::CopyOnWriteBuffer data) {
     num_bytes_received_ += data.size();
     if (++num_messages_received_ == target_messages_count_) {
       received_target_messages_count_.Set();

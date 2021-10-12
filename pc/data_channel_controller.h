@@ -66,7 +66,7 @@ class DataChannelController : public SctpDataChannelProviderInterface,
   // Implements DataChannelSink.
   void OnDataReceived(int channel_id,
                       DataMessageType type,
-                      const rtc::CopyOnWriteBuffer& buffer) override;
+                      rtc::CopyOnWriteBuffer buffer) override;
   void OnChannelClosing(int channel_id) override;
   void OnChannelClosed(int channel_id) override;
   void OnReadyToSend() override;

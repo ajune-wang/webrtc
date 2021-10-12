@@ -16,6 +16,23 @@
       "message": "Jesús, could you please take a look?",
       "revId": "5b6331a4d683d88450f64fe23d3e41fd6da4ecc7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f828a31a_a601590b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2021-10-12T07:35:12Z",
+      "side": 1,
+      "message": "Thanks for this work. ",
+      "revId": "5b6331a4d683d88450f64fe23d3e41fd6da4ecc7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

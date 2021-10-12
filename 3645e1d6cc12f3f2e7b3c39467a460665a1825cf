@@ -53,6 +53,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e753055_138a7a66",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-10-12T10:25:20Z",
+      "side": 1,
+      "message": "Also, you\u0027ll need to make a lot of updates to third_party/webrtc/modules/video_coding/codecs/h264/h264_encoder_impl.cc.\n\nSee every place where I420 is in the code there - it now needs to also work with I444.\n\nIf you only care about decoding I444, when update the CL description to clearly state so.",
+      "revId": "3645e1d6cc12f3f2e7b3c39467a460665a1825cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e16c322f_4c67a745",

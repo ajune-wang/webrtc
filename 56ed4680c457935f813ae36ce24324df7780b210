@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bd20e00_a120442d",
+        "filename": "webrtc.gni",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-10-12T09:44:36Z",
+      "side": 1,
+      "message": "true",
+      "revId": "56ed4680c457935f813ae36ce24324df7780b210",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e458a70_86f24943",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-10-12T21:45:36Z",
+      "side": 1,
+      "message": "estimated_capture_clock_offset is already nullopt before this line, so may be write a simple if block:\n  if (include_capture_clock_offset_) {\n    absolute_capture_time-\u003eestimated_capture_clock_offset \u003d 0;\n  }",
+      "range": {
+        "startLine": 546,
+        "startChar": 4,
+        "endLine": 548,
+        "endChar": 54
+      },
+      "revId": "9a237097b5269ecaeba7f8cdd1ba4e2c97929a20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fcc8c87f_f7d9524c",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-10-12T21:45:36Z",
+      "side": 1,
+      "message": "what is special about this extension that it is passed as a separate parameter?\nall other extension related fields reside inside RTPVideoHeader struct.",
+      "range": {
+        "startLine": 106,
+        "startChar": 32,
+        "endLine": 106,
+        "endChar": 51
+      },
+      "revId": "9a237097b5269ecaeba7f8cdd1ba4e2c97929a20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2dd103d0_75d6a80a",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1199,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-10-12T21:45:36Z",
+      "side": 1,
+      "message": "ASSERT_TRUE\n(to avoid crushing the test next line should this expectation fail)",
+      "range": {
+        "startLine": 1199,
+        "startChar": 2,
+        "endLine": 1199,
+        "endChar": 13
+      },
+      "revId": "9a237097b5269ecaeba7f8cdd1ba4e2c97929a20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f14a5eff_bef8af61",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1210,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-10-12T21:45:36Z",
+      "side": 1,
+      "message": "don\u0027t use underscore in test names\n\nhttps://github.com/google/googletest/blob/master/docs/faq.md#why-should-test-suite-names-and-test-names-not-contain-underscore",
+      "range": {
+        "startLine": 1210,
+        "startChar": 46,
+        "endLine": 1210,
+        "endChar": 47
+      },
+      "revId": "9a237097b5269ecaeba7f8cdd1ba4e2c97929a20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5aa0bba7_a4a5e988",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1246,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-10-12T21:45:36Z",
+      "side": 1,
+      "message": "no need to wrap this into optional:\nEXPECT_EQ(absolute_capture_time-\u003eestimated_capture_clock_offset, 0);\nshould work as well\n\nbool operator\u003d\u003d(std::optional\u003cT\u003e, T) is well defined:\nhttps://en.cppreference.com/w/cpp/utility/optional/operator_cmp (21)",
+      "range": {
+        "startLine": 1246,
+        "startChar": 12,
+        "endLine": 1246,
+        "endChar": 38
+      },
+      "revId": "9a237097b5269ecaeba7f8cdd1ba4e2c97929a20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e909bd2_f483866e",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1252,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-10-12T21:45:36Z",
+      "side": 1,
+      "message": "or \nconstexpr AbsoluteCaptureTime kAbsoluteCaptureTime \u003d {123, {456}};",
+      "range": {
+        "startLine": 1252,
+        "startChar": 6,
+        "endLine": 1252,
+        "endChar": 35
+      },
+      "revId": "9a237097b5269ecaeba7f8cdd1ba4e2c97929a20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db0cd5f0_208bb139",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1279,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-10-12T21:45:36Z",
+      "side": 1,
+      "message": "ditto, no need to wrap 2nd parameter into optional",
+      "range": {
+        "startLine": 1279,
+        "startChar": 12,
+        "endLine": 1279,
+        "endChar": 48
+      },
+      "revId": "9a237097b5269ecaeba7f8cdd1ba4e2c97929a20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

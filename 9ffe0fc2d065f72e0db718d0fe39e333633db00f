@@ -180,6 +180,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "33b6be50_0ab87cbf",
+        "filename": "api/video/i444_buffer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-10-12T13:01:46Z",
+      "side": 1,
+      "message": "I\u0027m afraid the zero_initialize_ flag is set true here: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/video_coding/codecs/h264/h264_decoder_impl.cc;drc\u003d0c2a9caf8fe823e8e8b23364b0f8ae37c877c516;l\u003d163\n\nI don\u0027t know if that is still needed, it seems strange (the I420Buffer ought to be used for the *output* of ffmpeg\u0027s decoder, and why would that depend on the output buffers being initialized in any way)?\n\nAnd there seems to be some other calls to InitializeData, from test code.\n\nRegarding \"defect report from user\", when I try the \"New issue\" on bugs.webrtc.org I get a couple of other options in the Template drop down. But I don\u0027t think the template matters much.",
+      "parentUuid": "fcf59906_5b75366b",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 24
+      },
+      "revId": "9ffe0fc2d065f72e0db718d0fe39e333633db00f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1f339805_b1453f3e",
         "filename": "common_video/video_frame_buffer_pool.cc",
         "patchSetId": 3

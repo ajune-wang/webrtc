@@ -478,7 +478,7 @@ bool RTPSenderVideo::SendVideo(
     rtc::ArrayView<const uint8_t> payload,
     RTPVideoHeader video_header,
     absl::optional<int64_t> expected_retransmission_time_ms,
-    absl::optional<int64_t> estimated_capture_clock_offset_ms) {
+    absl::optional<AbsoluteCaptureTime> absolute_capture_time) {
 #if RTC_TRACE_EVENTS_ENABLED
   TRACE_EVENT_ASYNC_STEP1("webrtc", "Video", capture_time_ms, "Send", "type",
                           FrameTypeToString(video_header.frame_type));
@@ -538,16 +538,23 @@ bool RTPSenderVideo::SendVideo(
   single_packet->SetTimestamp(rtp_timestamp);
   single_packet->set_capture_time_ms(capture_time_ms);
 
-  const absl::optional<AbsoluteCaptureTime> absolute_capture_time =
-      absolute_capture_time_sender_.OnSendPacket(
-          AbsoluteCaptureTimeSender::GetSource(single_packet->Ssrc(),
-                                               single_packet->Csrcs()),
-          single_packet->Timestamp(), kVideoPayloadTypeFrequency,
-          Int64MsToUQ32x32(
-              clock_->ConvertTimestampToNtpTimeInMilliseconds(capture_time_ms)),
-          /*estimated_capture_clock_offset=*/
-          include_capture_clock_offset_ ? estimated_capture_clock_offset_ms
-                                        : absl::nullopt);
+  // Construct the absolute capture time extension if not provided.
+  if (!absolute_capture_time.has_value()) {
+    absolute_capture_time.emplace();
+    absolute_capture_time->absolute_capture_timestamp = Int64MsToUQ32x32(
+        clock_->ConvertTimestampToNtpTimeInMilliseconds(capture_time_ms));
+    absolute_capture_time->estimated_capture_clock_offset =
+        include_capture_clock_offset_ ? absl::optional<int64_t>(0)
+                                      : absl::nullopt;
+  }
+
+  // Let `absolute_capture_time_sender_` decide if the extension should be sent.
+  absolute_capture_time = absolute_capture_time_sender_.OnSendPacket(
+      AbsoluteCaptureTimeSender::GetSource(single_packet->Ssrc(),
+                                           single_packet->Csrcs()),
+      single_packet->Timestamp(), kVideoPayloadTypeFrequency,
+      absolute_capture_time->absolute_capture_timestamp,
+      absolute_capture_time->estimated_capture_clock_offset);
 
   auto first_packet = std::make_unique<RtpPacketToSend>(*single_packet);
   auto middle_packet = std::make_unique<RtpPacketToSend>(*single_packet);

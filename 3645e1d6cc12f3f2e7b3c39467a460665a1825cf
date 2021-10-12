@@ -183,6 +183,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e13aaa22_7b5f094d",
+        "filename": "api/video/i444_buffer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 18414
+      },
+      "writtenOn": "2021-10-12T14:46:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8b9bb0e_9ae2e8bd",
+      "range": {
+        "startLine": 199,
+        "startChar": 3,
+        "endLine": 203,
+        "endChar": 25
+      },
+      "revId": "3645e1d6cc12f3f2e7b3c39467a460665a1825cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "faa8f212_e32e41a7",
@@ -268,6 +292,30 @@
       "side": 1,
       "message": "I did update the code with Patchset 6.",
       "parentUuid": "5da410b4_81447a6b",
+      "range": {
+        "startLine": 227,
+        "startChar": 23,
+        "endLine": 227,
+        "endChar": 50
+      },
+      "revId": "3645e1d6cc12f3f2e7b3c39467a460665a1825cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00c94167_ad536bc1",
+        "filename": "api/video/i444_buffer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 18414
+      },
+      "writtenOn": "2021-10-12T14:46:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e2d1dd4c_cea2dde4",
       "range": {
         "startLine": 227,
         "startChar": 23,
@@ -403,6 +451,30 @@
       "side": 1,
       "message": "Please update the code.",
       "parentUuid": "f76a146d_1cf67694",
+      "range": {
+        "startLine": 134,
+        "startChar": 4,
+        "endLine": 135,
+        "endChar": 15
+      },
+      "revId": "3645e1d6cc12f3f2e7b3c39467a460665a1825cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30c025ff_284cf561",
+        "filename": "common_video/video_frame_buffer_pool.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 18414
+      },
+      "writtenOn": "2021-10-12T14:46:44Z",
+      "side": 1,
+      "message": "I did update the code with Patchset 6.",
+      "parentUuid": "11adf4e4_7e9fd86c",
       "range": {
         "startLine": 134,
         "startChar": 4,

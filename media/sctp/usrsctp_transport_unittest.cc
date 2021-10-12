@@ -53,7 +53,7 @@ class SctpFakeDataReceiver : public sigslot::has_slots<> {
   }
 
   void OnDataReceived(const ReceiveDataParams& params,
-                      const rtc::CopyOnWriteBuffer& data) {
+                      rtc::CopyOnWriteBuffer data) {
     num_messages_received_++;
     received_ = true;
     last_data_ = std::string(data.data<char>(), data.size());

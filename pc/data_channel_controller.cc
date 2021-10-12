@@ -99,16 +99,15 @@ bool DataChannelController::ReadyToSendData() const {
   return (data_channel_transport() && data_channel_transport_ready_to_send_);
 }
 
-void DataChannelController::OnDataReceived(
-    int channel_id,
-    DataMessageType type,
-    const rtc::CopyOnWriteBuffer& buffer) {
+void DataChannelController::OnDataReceived(int channel_id,
+                                           DataMessageType type,
+                                           rtc::CopyOnWriteBuffer buffer) {
   RTC_DCHECK_RUN_ON(network_thread());
   cricket::ReceiveDataParams params;
   params.sid = channel_id;
   params.type = type;
-  signaling_thread()->PostTask(
-      ToQueuedTask([self = weak_factory_.GetWeakPtr(), params, buffer] {
+  signaling_thread()->PostTask(ToQueuedTask(
+      [self = weak_factory_.GetWeakPtr(), params, buffer = std::move(buffer)] {
         if (self) {
           RTC_DCHECK_RUN_ON(self->signaling_thread());
           // TODO(bugs.webrtc.org/11547): The data being received should be

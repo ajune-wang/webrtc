@@ -100,7 +100,6 @@ class DcSctpTransport : public cricket::SctpTransportInternal,
   dcsctp::TaskQueueTimeoutFactory task_queue_timeout_factory_;
   std::unique_ptr<dcsctp::DcSctpSocketInterface> socket_;
   std::string debug_name_ = "DcSctpTransport";
-  rtc::CopyOnWriteBuffer receive_buffer_;
 
   bool ready_to_send_data_ = false;
 };

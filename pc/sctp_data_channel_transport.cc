@@ -83,9 +83,9 @@ void SctpDataChannelTransport::OnReadyToSendData() {
 
 void SctpDataChannelTransport::OnDataReceived(
     const cricket::ReceiveDataParams& params,
-    const rtc::CopyOnWriteBuffer& buffer) {
+    rtc::CopyOnWriteBuffer buffer) {
   if (sink_) {
-    sink_->OnDataReceived(params.sid, params.type, buffer);
+    sink_->OnDataReceived(params.sid, params.type, std::move(buffer));
   }
 }
 

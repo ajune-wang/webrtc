@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f253f57b_cb50a689",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7102
+      },
+      "writtenOn": "2021-10-12T19:53:51Z",
+      "side": 1,
+      "message": "Thanks for making this change!",
+      "revId": "bdecbb3cfaf4c334368cfcba96550e67914123d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68c3187a_7659bd5d",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 7102
+      },
+      "writtenOn": "2021-10-12T19:53:51Z",
+      "side": 1,
+      "message": "I think we need some comments here. Something like\n\n`absolute_capture_time`, when provided, is to be sent as RTP header extension according to http://www.webrtc.org/experiments/rtp-hdrext/abs-capture-time, when applicable. When `absolute_capture_time` is not provided, while the abs-capture-time RTP header extension is required, an abs-capture-time RTP header extension will be derived from other relevant information.",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 65
+      },
+      "revId": "bdecbb3cfaf4c334368cfcba96550e67914123d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

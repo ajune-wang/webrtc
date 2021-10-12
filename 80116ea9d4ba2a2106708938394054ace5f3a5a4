@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85f031e7_fe197eac",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-10-12T16:37:24Z",
+      "side": 1,
+      "message": "I like putting [Merge to M95] as a title prefix on merges - this should probably be [M95 branch] - just to make it easier to understand the list of CLs.",
+      "revId": "80116ea9d4ba2a2106708938394054ace5f3a5a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

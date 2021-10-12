@@ -144,7 +144,7 @@ class SctpTransportInternal {
   sigslot::signal0<> SignalAssociationChangeCommunicationUp;
   // ReceiveDataParams includes SID, seq num, timestamp, etc. CopyOnWriteBuffer
   // contains message payload.
-  sigslot::signal2<const ReceiveDataParams&, const rtc::CopyOnWriteBuffer&>
+  sigslot::signal2<const ReceiveDataParams&, rtc::CopyOnWriteBuffer>
       SignalDataReceived;
   // Parameter is SID; fired when we receive an incoming stream reset on an
   // open stream, indicating that the other side started the closing procedure.

@@ -66,7 +66,7 @@ class DataChannelController : public SctpDataChannelProviderInterface,
   // Implements DataChannelSink.
   void OnDataReceived(int channel_id,
                       DataMessageType type,
-                      const rtc::CopyOnWriteBuffer& buffer) override;
+                      rtc::CopyOnWriteBuffer buffer) override;
   void OnChannelClosing(int channel_id) override;
   void OnChannelClosed(int channel_id) override;
   void OnReadyToSend() override;
@@ -167,8 +167,7 @@ class DataChannelController : public SctpDataChannelProviderInterface,
   // network thread.
   sigslot::signal1<bool> SignalDataChannelTransportWritable_s
       RTC_GUARDED_BY(signaling_thread());
-  sigslot::signal2<const cricket::ReceiveDataParams&,
-                   const rtc::CopyOnWriteBuffer&>
+  sigslot::signal2<const cricket::ReceiveDataParams&, rtc::CopyOnWriteBuffer>
       SignalDataChannelTransportReceivedData_s
           RTC_GUARDED_BY(signaling_thread());
   sigslot::signal1<int> SignalDataChannelTransportChannelClosing_s

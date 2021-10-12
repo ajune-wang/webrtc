@@ -189,7 +189,7 @@ class SctpDataChannel : public DataChannelInterface,
   void OnTransportReady(bool writable);
 
   void OnDataReceived(const cricket::ReceiveDataParams& params,
-                      const rtc::CopyOnWriteBuffer& payload);
+                      rtc::CopyOnWriteBuffer payload);
 
   // Sets the SCTP sid and adds to transport layer if not set yet. Should only
   // be called once.

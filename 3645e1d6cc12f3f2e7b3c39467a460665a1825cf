@@ -70,6 +70,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a3dbb25_c64ae0f4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18414
+      },
+      "writtenOn": "2021-10-12T12:30:15Z",
+      "side": 1,
+      "message": "As far as I know open264 does not yet support I444. Will edit the CL description to reflect that this is only implementing I444 decoding.",
+      "parentUuid": "2e753055_138a7a66",
+      "revId": "3645e1d6cc12f3f2e7b3c39467a460665a1825cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e16c322f_4c67a745",
@@ -83,6 +101,30 @@
       "writtenOn": "2021-10-12T10:20:38Z",
       "side": 1,
       "message": "Firstly, with no subsampling offset isn\u0027t required to be even.\nSecondly, this code does nothing. \n\nThis seems to be a copy-paste oversight. Please update.",
+      "range": {
+        "startLine": 199,
+        "startChar": 3,
+        "endLine": 203,
+        "endChar": 25
+      },
+      "revId": "3645e1d6cc12f3f2e7b3c39467a460665a1825cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c00b21d6_dc6a6ab2",
+        "filename": "api/video/i444_buffer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 18414
+      },
+      "writtenOn": "2021-10-12T12:30:15Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e16c322f_4c67a745",
       "range": {
         "startLine": 199,
         "startChar": 3,
@@ -116,6 +158,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a87031b7_4e266547",
+        "filename": "api/video/i444_buffer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 18414
+      },
+      "writtenOn": "2021-10-12T12:30:15Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "faa8f212_e32e41a7",
+      "range": {
+        "startLine": 227,
+        "startChar": 23,
+        "endLine": 227,
+        "endChar": 50
+      },
+      "revId": "3645e1d6cc12f3f2e7b3c39467a460665a1825cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "13c7bcc0_22c8b44d",
@@ -129,6 +195,30 @@
       "writtenOn": "2021-10-12T10:20:38Z",
       "side": 1,
       "message": "As above, this method is not needed.",
+      "range": {
+        "startLine": 231,
+        "startChar": 0,
+        "endLine": 231,
+        "endChar": 60
+      },
+      "revId": "3645e1d6cc12f3f2e7b3c39467a460665a1825cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5280a4b_09753c53",
+        "filename": "api/video/i444_buffer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 18414
+      },
+      "writtenOn": "2021-10-12T12:30:15Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "13c7bcc0_22c8b44d",
       "range": {
         "startLine": 231,
         "startChar": 0,
@@ -179,6 +269,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f76a146d_1cf67694",
+        "filename": "common_video/video_frame_buffer_pool.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 18414
+      },
+      "writtenOn": "2021-10-12T12:30:15Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c0186884_0c0a3dc2",
+      "range": {
+        "startLine": 134,
+        "startChar": 4,
+        "endLine": 135,
+        "endChar": 15
+      },
+      "revId": "3645e1d6cc12f3f2e7b3c39467a460665a1825cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3fa467cf_364fdeeb",
@@ -192,6 +306,24 @@
       "writtenOn": "2021-10-12T10:20:38Z",
       "side": 1,
       "message": "You also need to add I444 to the list of supported input formats here:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/video_coding/codecs/h264/h264_encoder_impl.cc;l\u003d640;drc\u003dcfea2182f8e41c3d8293d4e26b291ef2abf23257\n\nSee this for example:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc;l\u003d1247;drc\u003db26863ed0cd3ae890271424f01e560baeb380e64\n\nOtherwise webrtc would convert incoming I444 to I420.",
+      "revId": "3645e1d6cc12f3f2e7b3c39467a460665a1825cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "884bac82_693902f9",
+        "filename": "modules/video_coding/codecs/h264/h264.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 18414
+      },
+      "writtenOn": "2021-10-12T12:30:15Z",
+      "side": 1,
+      "message": "This is just for the encoder implementation, right?",
+      "parentUuid": "3fa467cf_364fdeeb",
       "revId": "3645e1d6cc12f3f2e7b3c39467a460665a1825cf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -65,6 +65,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "164db2a5_0654cc55",
+        "filename": "api/video/i444_buffer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 18414
+      },
+      "writtenOn": "2021-10-12T12:30:15Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "572f4509_8cd95ccf",
+      "revId": "9ffe0fc2d065f72e0db718d0fe39e333633db00f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ed55eed8_33fa9f5c",
@@ -126,6 +144,30 @@
       "side": 1,
       "message": "Deleting zero_initialize_ and related code is best done in a separate cl. I was thinking you could maybe do without this method, and just ignore zero_initialize_ in the case of I444 buffers.\n\nBut feel free to leave as is, and delete later, if that looks better to you.",
       "parentUuid": "6987edb1_75086a55",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 24
+      },
+      "revId": "9ffe0fc2d065f72e0db718d0fe39e333633db00f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fcf59906_5b75366b",
+        "filename": "api/video/i444_buffer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 18414
+      },
+      "writtenOn": "2021-10-12T12:30:15Z",
+      "side": 1,
+      "message": "I will remove it and the call to it. I tried creating a bug report for the removal of zero_initializ_ and other instances of InitializeData() but could only file a \"Defect report from user\" is that the way to go?",
+      "parentUuid": "20bab1ae_80b995fc",
       "range": {
         "startLine": 62,
         "startChar": 0,

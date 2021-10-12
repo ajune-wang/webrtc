@@ -400,7 +400,7 @@ DataChannelStats SctpDataChannel::GetStats() const {
 }
 
 void SctpDataChannel::OnDataReceived(const cricket::ReceiveDataParams& params,
-                                     const rtc::CopyOnWriteBuffer& payload) {
+                                     rtc::CopyOnWriteBuffer payload) {
   RTC_DCHECK_RUN_ON(signaling_thread_);
   if (params.sid != config_.id) {
     return;

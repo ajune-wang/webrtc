@@ -396,12 +396,12 @@ void DcSctpTransport::OnMessageReceived(dcsctp::DcSctpMessage message) {
   receive_data_params.type = *type;
   // No seq_num available from dcSCTP
   receive_data_params.seq_num = 0;
-  receive_buffer_.Clear();
+  rtc::CopyOnWriteBuffer receive_buffer;
   if (!IsEmptyPPID(message.ppid()))
-    receive_buffer_.AppendData(message.payload().data(),
-                               message.payload().size());
+    receive_buffer.AppendData(message.payload().data(),
+                              message.payload().size());
 
-  SignalDataReceived(receive_data_params, receive_buffer_);
+  SignalDataReceived(receive_data_params, std::move(receive_buffer));
 }
 
 void DcSctpTransport::OnError(dcsctp::ErrorKind error,

@@ -38,7 +38,7 @@ class SctpDataChannelTransport : public DataChannelTransportInterface,
  private:
   void OnReadyToSendData();
   void OnDataReceived(const cricket::ReceiveDataParams& params,
-                      const rtc::CopyOnWriteBuffer& buffer);
+                      rtc::CopyOnWriteBuffer buffer);
   void OnClosingProcedureStartedRemotely(int channel_id);
   void OnClosingProcedureComplete(int channel_id);
   void OnClosedAbruptly(RTCError error);

@@ -64,7 +64,7 @@ class DataChannelSink {
   // Callback issued when data is received by the transport.
   virtual void OnDataReceived(int channel_id,
                               DataMessageType type,
-                              const rtc::CopyOnWriteBuffer& buffer) = 0;
+                              rtc::CopyOnWriteBuffer buffer) = 0;
 
   // Callback issued when a remote data channel begins the closing procedure.
   // Messages sent after the closing procedure begins will not be transmitted.

@@ -177,6 +177,7 @@ bool DcSctpTransport::Start(int local_sctp_port,
     dcsctp::DcSctpSocketFactory factory;
     socket_ =
         factory.Create(debug_name_, *this, std::move(packet_observer), options);
+    SetReadyToSend();
   } else {
     if (local_sctp_port != socket_->options().local_port ||
         remote_sctp_port != socket_->options().remote_port) {
@@ -372,6 +373,10 @@ uint32_t DcSctpTransport::GetRandomInt(uint32_t low, uint32_t high) {
 }
 
 void DcSctpTransport::OnTotalBufferedAmountLow() {
+  SetReadyToSend();
+}
+
+void DcSctpTransport::SetReadyToSend() {
   if (!ready_to_send_data_) {
     ready_to_send_data_ = true;
     SignalReadyToSendData();
@@ -429,8 +434,6 @@ void DcSctpTransport::OnAborted(dcsctp::ErrorKind error,
 
 void DcSctpTransport::OnConnected() {
   RTC_LOG(LS_INFO) << debug_name_ << "->OnConnected().";
-  ready_to_send_data_ = true;
-  SignalReadyToSendData();
   SignalAssociationChangeCommunicationUp();
 }
 

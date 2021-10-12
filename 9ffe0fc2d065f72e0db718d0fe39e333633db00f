@@ -204,6 +204,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a38ddced_0f094d57",
+        "filename": "api/video/i444_buffer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-10-12T13:26:59Z",
+      "side": 1,
+      "message": "Zero initialization is used in tests. IIRC without it there were ASAN errors in tests.",
+      "parentUuid": "33b6be50_0ab87cbf",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 24
+      },
+      "revId": "9ffe0fc2d065f72e0db718d0fe39e333633db00f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1f339805_b1453f3e",
         "filename": "common_video/video_frame_buffer_pool.cc",
         "patchSetId": 3

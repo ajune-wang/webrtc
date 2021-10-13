@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f33039f8_71718a3e",
+        "filename": "p2p/base/stun_port.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-10-13T18:18:26Z",
+      "side": 0,
+      "message": "Marking resolved.",
+      "parentUuid": "eff120a6_a0445606",
+      "revId": "5755f3edaf25493f0d52ad0878c106148d8489c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2570fdcb_b3eed5e3",
@@ -31,6 +49,24 @@
       "writtenOn": "2021-10-07T23:08:11Z",
       "side": 0,
       "message": "Sorry for not pointing it out earlier, but my comment about the Create methods applies here too.",
+      "revId": "5755f3edaf25493f0d52ad0878c106148d8489c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "834c30f3_1914db18",
+        "filename": "p2p/base/turn_port.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-10-13T18:18:26Z",
+      "side": 0,
+      "message": "Marking resolved.",
+      "parentUuid": "2570fdcb_b3eed5e3",
       "revId": "5755f3edaf25493f0d52ad0878c106148d8489c3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

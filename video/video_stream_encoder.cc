@@ -1369,6 +1369,18 @@ void VideoStreamEncoder::OnDiscardedFrame() {
       VideoStreamEncoderObserver::DropReason::kSource);
 }
 
+void VideoStreamEncoder::OnConstraintsChanged(
+    const webrtc::VideoTrackSourceConstraints& constraints) {
+  RTC_LOG(LS_INFO) << __func__ << " min_fps "
+                   << constraints.min_fps.value_or(-1) << " max_fps "
+                   << constraints.max_fps.value_or(-1);
+  // This method is called on the network thread.
+  main_queue_->PostTask(ToQueuedTask(task_safety_, [this, constraints] {
+    RTC_DCHECK_RUN_ON(main_queue_);
+    source_constraints_ = constraints;
+  }));
+}
+
 bool VideoStreamEncoder::EncoderPaused() const {
   RTC_DCHECK_RUN_ON(&encoder_queue_);
   // Pause video if paused by caller or as long as the network is down or the

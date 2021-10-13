@@ -11,6 +11,7 @@
 #ifndef MEDIA_BASE_VIDEO_BROADCASTER_H_
 #define MEDIA_BASE_VIDEO_BROADCASTER_H_
 
+#include "api/media_stream_interface.h"
 #include "api/scoped_refptr.h"
 #include "api/sequence_checker.h"
 #include "api/video/video_frame_buffer.h"
@@ -50,6 +51,10 @@ class VideoBroadcaster : public VideoSourceBase,
 
   void OnDiscardedFrame() override;
 
+  // Called when constraints changes.
+  void ProcessConstraints(
+      const webrtc::VideoTrackSourceConstraints& constraints);
+
  protected:
   void UpdateWants() RTC_EXCLUSIVE_LOCKS_REQUIRED(sinks_and_wants_lock_);
   const rtc::scoped_refptr<webrtc::VideoFrameBuffer>& GetBlackFrameBuffer(
@@ -62,6 +67,8 @@ class VideoBroadcaster : public VideoSourceBase,
   rtc::scoped_refptr<webrtc::VideoFrameBuffer> black_frame_buffer_;
   bool previous_frame_sent_to_all_sinks_ RTC_GUARDED_BY(sinks_and_wants_lock_) =
       true;
+  absl::optional<webrtc::VideoTrackSourceConstraints> last_constraints_
+      RTC_GUARDED_BY(sinks_and_wants_lock_);
 };
 
 }  // namespace rtc

@@ -106,6 +106,7 @@ rtc_library("gain_applier") {
     ":common",
     "..:audio_frame_view",
     "../../../api:array_view",
+    "../../../common_audio",
     "../../../rtc_base:safe_minmax",
   ]
 }

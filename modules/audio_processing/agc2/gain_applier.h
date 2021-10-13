@@ -21,8 +21,13 @@ class GainApplier {
   GainApplier(bool hard_clip_samples, float initial_gain_factor);
 
   void ApplyGain(AudioFrameView<float> signal);
-  void SetGainFactor(float gain_factor);
   float GetGainFactor() const { return current_gain_factor_; }
+
+  // TODO(bugs.webrtc.org/7494): Deprecated. Use `SetGainDb()`.
+  void SetGainFactor(float gain_factor);
+  void SetGainDb(float gain_db);
+
+  float gain_db() const { return gain_db_; }
 
  private:
   void Initialize(int samples_per_channel);
@@ -30,6 +35,7 @@ class GainApplier {
   // Whether to clip samples after gain is applied. If 'true', result
   // will fit in FloatS16 range.
   const bool hard_clip_samples_;
+  float gain_db_;
   float last_gain_factor_;
 
   // If this value is not equal to 'last_gain_factor', gain will be

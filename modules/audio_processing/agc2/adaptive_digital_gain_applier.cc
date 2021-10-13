@@ -118,11 +118,14 @@ void CopyAudio(AudioFrameView<const float> src,
 
 AdaptiveDigitalGainApplier::AdaptiveDigitalGainApplier(
     ApmDataDumper* apm_data_dumper,
-    const AudioProcessing::Config::GainController2::AdaptiveDigital& config)
+    const AudioProcessing::Config::GainController2::AdaptiveDigital& config,
+    int sample_rate_hz,
+    int num_channels)
     : apm_data_dumper_(apm_data_dumper),
       gain_applier_(
-          /*hard_clip_samples=*/false,
-          /*initial_gain_factor=*/DbToRatio(config.initial_gain_db)),
+          /*gain_factor=*/config.initial_gain_db,
+          /*hard_clip=*/false,
+          sample_rate_hz),
       config_(config),
       max_gain_change_db_per_10ms_(config_.max_gain_change_db_per_second *
                                    kFrameDurationMs / 1000.0f),
@@ -134,11 +137,12 @@ AdaptiveDigitalGainApplier::AdaptiveDigitalGainApplier(
   RTC_DCHECK_GE(frames_to_gain_increase_allowed_, 1);
   RTC_DCHECK_GE(config_.max_output_noise_level_dbfs, -90.0f);
   RTC_DCHECK_LE(config_.max_output_noise_level_dbfs, 0.0f);
-  Initialize(/*sample_rate_hz=*/48000, /*num_channels=*/1);
+  Initialize(sample_rate_hz, num_channels);
 }
 
 void AdaptiveDigitalGainApplier::Initialize(int sample_rate_hz,
                                             int num_channels) {
+  gain_applier_.Initialize(sample_rate_hz);
   if (!config_.dry_run) {
     return;
   }
@@ -216,9 +220,8 @@ void AdaptiveDigitalGainApplier::Process(const FrameInfo& info,
 
   // Optimization: avoid calling math functions if gain does not
   // change.
-  if (gain_change_this_frame_db != 0.f) {
-    gain_applier_.SetGainFactor(
-        DbToRatio(last_gain_db_ + gain_change_this_frame_db));
+  if (gain_change_this_frame_db != 0.0f) {
+    gain_applier_.SetGainDb(last_gain_db_ + gain_change_this_frame_db);
   }
 
   // Modify `frame` only if not running in "dry run" mode.

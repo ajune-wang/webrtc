@@ -16,29 +16,38 @@
 #include "modules/audio_processing/include/audio_frame_view.h"
 
 namespace webrtc {
+
+// Processes multi-channel audio by applying a fixed digital gain and then
+// hard-clipping if requested. Allows to change the fixed gain.
 class GainApplier {
  public:
-  GainApplier(bool hard_clip_samples, float initial_gain_factor);
+  // Ctor. `gain_db` is the gain applied by `ApplyGain()`. If `hard_clip` is
+  // true, `ApplyGain()` clamps `signal` after the fixed digital gain is
+  // applied.
+  GainApplier(float gain_db, bool hard_clip, int sample_rate_hz);
 
-  void ApplyGain(AudioFrameView<float> signal);
-  void SetGainFactor(float gain_factor);
-  float GetGainFactor() const { return current_gain_factor_; }
+  // Detects and handles sample rate changes.
+  void Initialize(int sample_rate_hz);
+
+  void SetGainDb(float gain_db);
+
+  float gain_db() const { return gain_db_; }
+
+  // Applies the fixed gain to all the channels of `frame` and then, if
+  // `hard_clip_` is true, clamps `signal` in the float S16 range. If the call
+  // follows a `SetGain()` call, the gain is linearly ramped down/up over
+  // `signal`.
+  void ApplyGain(AudioFrameView<float> frame);
 
  private:
-  void Initialize(int samples_per_channel);
-
-  // Whether to clip samples after gain is applied. If 'true', result
-  // will fit in FloatS16 range.
-  const bool hard_clip_samples_;
+  const bool hard_clip_;
+  float gain_db_;
+  bool apply_gain_;
   float last_gain_factor_;
-
-  // If this value is not equal to 'last_gain_factor', gain will be
-  // ramped from 'last_gain_factor_' to this value during the next
-  // 'ApplyGain'.
   float current_gain_factor_;
-  int samples_per_channel_ = -1;
-  float inverse_samples_per_channel_ = -1.f;
+  float inverse_samples_per_channel_;
 };
+
 }  // namespace webrtc
 
 #endif  // MODULES_AUDIO_PROCESSING_AGC2_GAIN_APPLIER_H_

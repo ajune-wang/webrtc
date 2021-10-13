@@ -35,12 +35,8 @@ class Limiter {
   void Process(AudioFrameView<float> signal);
   InterpolatedGainCurve::Stats GetGainCurveStats() const;
 
-  // Supported rates must be
-  // * supported by FixedDigitalLevelEstimator
-  // * below kMaximalNumberOfSamplesPerChannel*1000/kFrameDurationMs
-  //   so that samples_per_channel fit in the
-  //   per_sample_scaling_factors_ array.
-  void SetSampleRate(int sample_rate_hz);
+  // Detects and handles sample rate changes.
+  void Initialize(int sample_rate_hz);
 
   // Resets the internal state.
   void Reset();

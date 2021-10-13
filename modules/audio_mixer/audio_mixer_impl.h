@@ -34,9 +34,9 @@ class AudioMixerImpl : public AudioMixer {
   struct SourceStatus;
 
   // AudioProcessing only accepts 10 ms frames.
-  static const int kFrameDurationInMs = 10;
+  static constexpr int kFrameDurationInMs = 10;
 
-  static const int kDefaultNumberOfMixedAudioSources = 3;
+  static constexpr int kDefaultNumberOfMixedAudioSources = 3;
 
   static rtc::scoped_refptr<AudioMixerImpl> Create(
       int max_sources_to_mix = kDefaultNumberOfMixedAudioSources);

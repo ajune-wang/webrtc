@@ -174,7 +174,7 @@ void AudioMixerImpl::Mix(size_t number_of_channels,
 
   frame_combiner_.Combine(GetAudioFromSources(output_frequency),
                           number_of_channels, output_frequency,
-                          number_of_streams, audio_frame_for_mixing);
+                          audio_frame_for_mixing);
 }
 
 bool AudioMixerImpl::AddSource(Source* audio_source) {

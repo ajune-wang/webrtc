@@ -16,6 +16,24 @@
       "message": "hta: PTAL\nkron: do i recall correctly that you\u0027re into metrics? Chromium CL shall follow shortly\n\nusing two histograms to deal with the large crowd of unconnected connections as usual. For the unconnected ones this might give us a hint how big of a problem gathering srflx candidates is",
       "revId": "becc548d2936dab210092dd80c99f410ff856757",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e015316d_f684eab1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-10-13T09:09:37Z",
+      "side": 1,
+      "message": "Yes, that\u0027s correct.",
+      "parentUuid": "508cf033_fecd899c",
+      "revId": "becc548d2936dab210092dd80c99f410ff856757",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

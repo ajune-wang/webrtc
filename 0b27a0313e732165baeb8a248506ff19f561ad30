@@ -55,6 +55,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1d756e70_a6eece37",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 657,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-10-13T09:09:37Z",
+      "side": 1,
+      "message": "Do you need 256 buckets? Each bucket is preallocated in memory, so the memory usage is directly related to the number of buckets.\nIf there\u0027s a good reason you can have 256 buckets, but it would have to be reviewed by a top-level metrics owner.\n\nTwo alternatives are:\n-Use 50 (default) or maybe 100 buckets.\n-Use a sparse histogram (slower and more overhead per sample).",
+      "range": {
+        "startLine": 657,
+        "startChar": 69,
+        "endLine": 657,
+        "endChar": 72
+      },
+      "revId": "0b27a0313e732165baeb8a248506ff19f561ad30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c294b5bc_93f6db9a",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 2

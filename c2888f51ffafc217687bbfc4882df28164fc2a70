@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9090ae42_f51dccc5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18414
+      },
+      "writtenOn": "2021-10-13T15:18:03Z",
+      "side": 1,
+      "message": "The contribution guide kind of ends at the part where all the files get approved. :D What are the next steps on my part to get this to the trybots and merged?",
+      "revId": "c2888f51ffafc217687bbfc4882df28164fc2a70",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

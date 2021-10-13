@@ -10,7 +10,10 @@
 
 #include "modules/audio_processing/agc2/gain_applier.h"
 
+#include <cmath>
+
 #include "api/array_view.h"
+#include "common_audio/include/audio_util.h"
 #include "modules/audio_processing/agc2/agc2_common.h"
 #include "rtc_base/numerics/safe_minmax.h"
 
@@ -71,7 +74,12 @@ void ApplyGainWithRamping(float last_gain_linear,
 GainApplier::GainApplier(bool hard_clip_samples, float initial_gain_factor)
     : hard_clip_samples_(hard_clip_samples),
       last_gain_factor_(initial_gain_factor),
-      current_gain_factor_(initial_gain_factor) {}
+      current_gain_factor_(initial_gain_factor) {
+  // TODO(bugs.webrtc.org/7494): Remove once switched to gains in dB.
+  gain_db_ = initial_gain_factor > 0.0f
+                 ? (20.0f * std::log10(initial_gain_factor))
+                 : -91.0f;
+}
 
 void GainApplier::ApplyGain(AudioFrameView<float> signal) {
   if (static_cast<int>(signal.samples_per_channel()) != samples_per_channel_) {
@@ -88,9 +96,17 @@ void GainApplier::ApplyGain(AudioFrameView<float> signal) {
   }
 }
 
+// TODO(bugs.webrtc.org/7494): Remove once switched to gains in dB.
 void GainApplier::SetGainFactor(float gain_factor) {
   RTC_DCHECK_GT(gain_factor, 0.f);
   current_gain_factor_ = gain_factor;
+  gain_db_ = 20.0f * std::log10(gain_factor);
+}
+
+void GainApplier::SetGainDb(float gain_db) {
+  gain_db_ = gain_db;
+  current_gain_factor_ = DbToRatio(gain_db_);
+  RTC_DCHECK_GT(current_gain_factor_, 0.0f);
 }
 
 void GainApplier::Initialize(int samples_per_channel) {

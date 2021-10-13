@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eaeadc75_f9af2a6d",
+        "filename": "media/base/video_broadcaster.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-10-13T20:52:20Z",
+      "side": 1,
+      "message": "Done. Also updated docs for AddOrUpdateSink, and docs in video_sink_interface.h.",
+      "parentUuid": "94064894_e1b29fe2",
+      "revId": "833434d3583005c2eac29be43efe4e78019da6f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1b3cbd3c_a9864341",
@@ -35,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d925ba8_30a66377",
+        "filename": "media/base/video_broadcaster_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-10-13T20:52:20Z",
+      "side": 1,
+      "message": "Renamed it. Also added a new test.",
+      "parentUuid": "1b3cbd3c_a9864341",
+      "revId": "833434d3583005c2eac29be43efe4e78019da6f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c4ce4085_fe4e0090",
@@ -48,6 +84,24 @@
       "writtenOn": "2021-10-13T14:29:04Z",
       "side": 1,
       "message": "Don\u0027t know the details but can you confirm that somehow. Assume it is not done by the DCHECK below.",
+      "revId": "833434d3583005c2eac29be43efe4e78019da6f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de571b0b_9195a0a3",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1377,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-10-13T20:52:20Z",
+      "side": 1,
+      "message": "Yeah I can confirm this (and now it\u0027s also documented in video_sink_interface.h and video_broadcaster.h).",
+      "parentUuid": "c4ce4085_fe4e0090",
       "revId": "833434d3583005c2eac29be43efe4e78019da6f2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -148,6 +148,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "85df2bbe_be315cfa",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 657,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-10-13T10:07:47Z",
+      "side": 1,
+      "message": "It\u0027s unfortunately not possible/recommended to change the number of buckets since you get a mixture of data then. You would have to create a new histogram in that case, see https://chromium.googlesource.com/chromium/src.git/+/HEAD/tools/metrics/histograms/README.md#revising-histograms\n\nI don\u0027t think that one or two histograms makes that much difference. Perhaps the easiest thing is to eventually remove it if you don\u0027t need the data any more.",
+      "parentUuid": "385e1bb9_286a292f",
+      "range": {
+        "startLine": 657,
+        "startChar": 69,
+        "endLine": 657,
+        "endChar": 72
+      },
+      "revId": "0b27a0313e732165baeb8a248506ff19f561ad30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c294b5bc_93f6db9a",

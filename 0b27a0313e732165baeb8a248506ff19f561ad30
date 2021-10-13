@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "932c74f9_b39a5834",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-10-13T07:06:14Z",
+      "side": 1,
+      "message": "Good metrics.\nSo we\u0027ll have to wait until 97 is in beta before making an informed choice. Shouldn\u0027t be an issue, really.",
+      "revId": "0b27a0313e732165baeb8a248506ff19f561ad30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4844512_0b97ce2b",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 656,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-10-13T07:06:14Z",
+      "side": 1,
+      "message": "For consistency, can you make it \"Created\" rather than \"Create\"?\nOr perhaps \"Configured\"?",
+      "revId": "0b27a0313e732165baeb8a248506ff19f561ad30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c294b5bc_93f6db9a",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1904,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-10-13T07:06:14Z",
+      "side": 1,
+      "message": "Looking forward to seeing how you explain in the XML file that this is the number of configured servers for connected connections...",
+      "revId": "0b27a0313e732165baeb8a248506ff19f561ad30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

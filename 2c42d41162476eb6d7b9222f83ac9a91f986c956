@@ -82,6 +82,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4d53133_1a692c81",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 758,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-10-13T13:16:33Z",
+      "side": 1,
+      "message": "Hmm, I guess adding this won\u0027t hurt that much since it is so little code.\n\nHowever, reading the link above I think the only case when there is any benefit is when a temporary object is passed to this method.\nDo you have an example of when that would be the case?\nThe only example I can think of is SetConfig(AudioProcessing::Config()) (which never would be used in practice, apart from in tests.\n\nIn the interest of keeping the code as simple as possible, I would prefer to have a clear usecase where we know this helps and will be used by callers to SetConfig.\nIn particular so since this code is only called at setup-time where performance is not critical.",
+      "parentUuid": "b5a16d45_28a09c3b",
+      "range": {
+        "startLine": 755,
+        "startChar": 2,
+        "endLine": 758,
+        "endChar": 3
+      },
+      "revId": "2c42d41162476eb6d7b9222f83ac9a91f986c956",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "721ea080_fd5b2e78",

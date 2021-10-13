@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "778c9ef7_82f0b37b",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-10-13T13:41:55Z",
+      "side": 1,
+      "message": "I think this should be a class, (access fields with accessors rather than directly)\nclass is easier to evolve than struct, and the comment suggest this will need evolving.\n\nMay be even do not expose EncodedFrame, but instead expose only it\u0027s properties that are currently needed, while keeping std::unique_ptr\u003cEncodedFrame\u003e as an implementation detail.",
+      "range": {
+        "startLine": 32,
+        "startChar": 9,
+        "endLine": 32,
+        "endChar": 23
+      },
+      "revId": "e2959bc9a3d517cd0e74017bdf3c3921eae47c3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65e505be_24e39d87",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-10-13T13:41:55Z",
+      "side": 1,
+      "message": "Would it make sense to return unwrapped sequence numbers? so that user won\u0027t need to worry about complicated modulo comparison.",
+      "range": {
+        "startLine": 33,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 29
+      },
+      "revId": "e2959bc9a3d517cd0e74017bdf3c3921eae47c3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc4baf4c_9f37b43a",
+        "filename": "api/video/rtp_video_frame_assembler_unittests.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-10-13T13:41:55Z",
+      "side": 1,
+      "message": "is there any test where \nrtp_seq_num_start !\u003d rtp_seq_num_end ?",
+      "range": {
+        "startLine": 392,
+        "startChar": 0,
+        "endLine": 393,
+        "endChar": 50
+      },
+      "revId": "e2959bc9a3d517cd0e74017bdf3c3921eae47c3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d221a426_fb42e72c",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-10-13T10:19:10Z",
+      "side": 1,
+      "message": "keep dereferencing using \u0027*\u0027 instead of \u0027.value()\u0027:\nthere is already run-time check just above value is present.\n\nhttps://abseil.io/tips/181#solution\n\n\"Testing the absl::StatusOr object for validity (as you would a smart pointer or optional) and accessing it using operator* or operator-\u003e is readable, efficient, and safe.\"",
+      "range": {
+        "startLine": 372,
+        "startChar": 8,
+        "endLine": 372,
+        "endChar": 50
+      },
+      "revId": "d29e32ac5a848000ddd5c3b09ca109b41eb99559",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c41db3b3_666a3c34",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18414
+      },
+      "writtenOn": "2021-10-13T15:10:06Z",
+      "side": 1,
+      "message": "The company has already done this, as far as I know.",
+      "parentUuid": "4091ef45_36cf3bcd",
+      "revId": "4f1ae3246bac8e7b9745cf378c10010dd6facf47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e5f790e8_b72baf7a",

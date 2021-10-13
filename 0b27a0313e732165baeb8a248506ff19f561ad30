@@ -102,6 +102,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fa6e0b2d_91c349e8",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 657,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-10-13T09:28:47Z",
+      "side": 1,
+      "message": "The last bucket is used for the max number and everything above that number.\n\nYou also have the exponential histograms (e.g., RTC_HISTOGRAMS_COUNTS_100) that may be useful if you want high precision for the lower numbers and at the same time be able to have a high maximum value without using too many buckets.",
+      "parentUuid": "9cbaaa65_e228ab9e",
+      "range": {
+        "startLine": 657,
+        "startChar": 69,
+        "endLine": 657,
+        "endChar": 72
+      },
+      "revId": "0b27a0313e732165baeb8a248506ff19f561ad30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c294b5bc_93f6db9a",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 2

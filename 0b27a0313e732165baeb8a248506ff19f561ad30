@@ -126,6 +126,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "385e1bb9_286a292f",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 657,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-10-13T09:39:42Z",
+      "side": 1,
+      "message": "changed to 32.\n\nI also used 256 in  WebRTC.PeerConnection.CandidatePoolUsage, does it make sense to reduce that in hindsight (we have the data we wanted for that so removing that may be an option)",
+      "parentUuid": "fa6e0b2d_91c349e8",
+      "range": {
+        "startLine": 657,
+        "startChar": 69,
+        "endLine": 657,
+        "endChar": 72
+      },
+      "revId": "0b27a0313e732165baeb8a248506ff19f561ad30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c294b5bc_93f6db9a",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 2

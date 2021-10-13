@@ -26,9 +26,15 @@ namespace webrtc {
 // monotonic in decode order, dependencies are expressed as frame IDs.
 class RtpVideoFrameAssembler {
  public:
+  struct AssembledFrame {
+    uint16_t rtp_seq_num_start;
+    uint16_t rtp_seq_num_end;
+    std::unique_ptr<EncodedFrame> frame;
+  };
+
   // FrameVector is just a vector-like type of std::unique_ptr<EncodedFrame>.
   // The vector type may change without notice.
-  using FrameVector = absl::InlinedVector<std::unique_ptr<EncodedFrame>, 3>;
+  using FrameVector = absl::InlinedVector<AssembledFrame, 3>;
   enum PayloadFormat { kRaw, kH264, kVp8, kVp9, kAv1, kGeneric };
 
   explicit RtpVideoFrameAssembler(PayloadFormat payload_format);

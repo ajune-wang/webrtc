@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5a16d45_28a09c3b",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 758,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-10-13T11:41:32Z",
+      "side": 1,
+      "message": "example:\n```\nAudioProcessingBuilder builder;\nbuilder.SetConfig(GetApmConfig());\n```\n\nThis may spare an extra copy, which is especially useful with large arguments (and `AudioProcessing::Config` is not small). I see no harm with adding the r-value alternative of `SetConfig()` since those methods are really simple (just copy/move with no additional operation).\n\nBTW https://google.github.io/styleguide/cppguide.html#Rvalue_references says the followin:\n\nDo not use rvalue references (or apply the \u0026\u0026 qualifier to methods), except as follows:\n[...]\nYou may use them to define pairs of overloads, such as one taking Foo\u0026\u0026 and the other taking const Foo\u0026. Usually the preferred solution is just to pass by value, but an overloaded pair of functions sometimes yields better performance and is sometimes necessary in generic code that needs to support a wide variety of types. As always: if you\u0027re writing more complicated code for the sake of performance, make sure you have evidence that it actually helps.",
+      "parentUuid": "f32eb5f9_699ce490",
+      "range": {
+        "startLine": 755,
+        "startChar": 2,
+        "endLine": 758,
+        "endChar": 3
+      },
+      "revId": "2c42d41162476eb6d7b9222f83ac9a91f986c956",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "721ea080_fd5b2e78",
@@ -71,6 +95,30 @@
       "writtenOn": "2021-10-12T09:08:45Z",
       "side": 1,
       "message": "This comment seems very redundant. It basically a repetition of the method name.\n\nPlease remove or make it more descriptive.",
+      "range": {
+        "startLine": 760,
+        "startChar": 2,
+        "endLine": 760,
+        "endChar": 38
+      },
+      "revId": "2c42d41162476eb6d7b9222f83ac9a91f986c956",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e79a47cd_7ebea918",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-10-13T11:41:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "721ea080_fd5b2e78",
       "range": {
         "startLine": 760,
         "startChar": 2,

@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c99f5a5_376774df",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-10-13T14:50:58Z",
+      "side": 1,
+      "message": "Thank you Alessio! A few small comments, otherwise LGTM.",
+      "revId": "abf67eb474292bd4492e9cfee27831336c6f4f43",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce8dda3f_4a5ebd12",
+        "filename": "modules/audio_processing/agc2/vad_wrapper.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-10-13T14:50:58Z",
+      "side": 1,
+      "message": "Does this refer to the number of frames in a second? It\u0027s also used in Analyze() - what do you think, would defining a constant for it improve readability?",
+      "range": {
+        "startLine": 69,
+        "startChar": 70,
+        "endLine": 69,
+        "endChar": 73
+      },
+      "revId": "abf67eb474292bd4492e9cfee27831336c6f4f43",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75ff66f4_342cf559",
+        "filename": "modules/audio_processing/agc2/vad_wrapper.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-10-13T14:50:58Z",
+      "side": 1,
+      "message": "A short comment line",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 64
+      },
+      "revId": "abf67eb474292bd4492e9cfee27831336c6f4f43",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

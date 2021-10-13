@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0da1998b_76c8dbf9",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-10-13T14:50:58Z",
+      "side": 1,
+      "message": "-150.0f, 50.0f etc.",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 41
+      },
+      "revId": "7ce7115e5bf9ebcb8adc2ce43503aa0a9f4e8160",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c1c32f1_5436779b",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-10-13T14:50:58Z",
+      "side": 1,
+      "message": "0.0f",
+      "range": {
+        "startLine": 97,
+        "startChar": 38,
+        "endLine": 97,
+        "endChar": 41
+      },
+      "revId": "7ce7115e5bf9ebcb8adc2ce43503aa0a9f4e8160",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -78,6 +78,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9cbaaa65_e228ab9e",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 657,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-10-13T09:14:48Z",
+      "side": 1,
+      "message": "the limit we\u0027re currently aiming for is 64 but that is because we don\u0027t know.\nMeasuring with 50  (I assume everything above would go into the last bucket) should work too, I expect 99% (of the connected ones) to be below 10.",
+      "parentUuid": "1d756e70_a6eece37",
+      "range": {
+        "startLine": 657,
+        "startChar": 69,
+        "endLine": 657,
+        "endChar": 72
+      },
+      "revId": "0b27a0313e732165baeb8a248506ff19f561ad30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c294b5bc_93f6db9a",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 2

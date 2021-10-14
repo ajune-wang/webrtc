@@ -103,6 +103,23 @@
       "message": "danil, can you do the owner-lgtm?",
       "revId": "9c368f9b76f1db87a9ae1d4f9e944b83adbef678",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57e1b66e_4c3fe344",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-10-14T14:22:44Z",
+      "side": 1,
+      "message": "rs lgtm",
+      "revId": "9c368f9b76f1db87a9ae1d4f9e944b83adbef678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

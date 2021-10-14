@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25e7de6f_399c208e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-10-14T08:45:03Z",
+      "side": 1,
+      "message": "Hi Per,\n\nI moved the work in https://webrtc-review.googlesource.com/c/src/+/234754 in a new CL since the one you initially reviewed became bigger and I had to split it.\n\nI already addressed your comments from the other CL, namely:\n- GainController2 ctor requires sample rate and number of channels so that there\u0027s no need to call Initialize() after creation\n- added a flag indicating if the config has changed when AudioProcessingImpl::InitializeGainController2() is called\n\nCheers,\nAlessio",
+      "revId": "d99aa71ad79cd5207f69693e3f966eb19d1d7e9a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

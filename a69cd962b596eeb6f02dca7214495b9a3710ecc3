@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2fe8a3e5_ac841fb7",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-10-14T11:11:56Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e3842dd6_63214784",
+      "range": {
+        "startLine": 583,
+        "startChar": 4,
+        "endLine": 583,
+        "endChar": 41
+      },
+      "revId": "a69cd962b596eeb6f02dca7214495b9a3710ecc3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ee53aa08_d7d43bc4",
@@ -71,6 +95,30 @@
       "writtenOn": "2021-10-11T20:20:40Z",
       "side": 1,
       "message": "What about adding a bool stating whether this is a reconfiguration or not? That should allow the destruction done in ApplyConfig to be done herein.",
+      "range": {
+        "startLine": 1930,
+        "startChar": 26,
+        "endLine": 1930,
+        "endChar": 53
+      },
+      "revId": "a69cd962b596eeb6f02dca7214495b9a3710ecc3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb927431_fc4d508d",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1930,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-10-14T11:11:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee53aa08_d7d43bc4",
       "range": {
         "startLine": 1930,
         "startChar": 26,
@@ -104,6 +152,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca580861_2a8d2223",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1937,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-10-14T11:11:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d6164b2_f0e9aaed",
+      "range": {
+        "startLine": 1937,
+        "startChar": 25,
+        "endLine": 1937,
+        "endChar": 68
+      },
+      "revId": "a69cd962b596eeb6f02dca7214495b9a3710ecc3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c5d3d039_1f86f61b",
@@ -127,6 +199,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "81a6e088_7223fc80",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1939,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-10-14T11:11:56Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c5d3d039_1f86f61b",
+      "range": {
+        "startLine": 1939,
+        "startChar": 32,
+        "endLine": 1939,
+        "endChar": 42
+      },
+      "revId": "a69cd962b596eeb6f02dca7214495b9a3710ecc3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "67d3ef47_4cd7355b",
@@ -140,6 +236,30 @@
       "writtenOn": "2021-10-11T20:20:40Z",
       "side": 1,
       "message": "With the suggested changes, this logic/check should not be needed",
+      "range": {
+        "startLine": 81,
+        "startChar": 2,
+        "endLine": 81,
+        "endChar": 27
+      },
+      "revId": "a69cd962b596eeb6f02dca7214495b9a3710ecc3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "539b4a65_168b05c1",
+        "filename": "modules/audio_processing/gain_controller2.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-10-14T11:11:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "67d3ef47_4cd7355b",
       "range": {
         "startLine": 81,
         "startChar": 2,

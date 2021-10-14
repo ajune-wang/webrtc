@@ -16,6 +16,29 @@
       "message": "PTAL",
       "revId": "f68bd310265100c230c55905d26c83c2f73eeeb2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "209b4046_79e1aad5",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-10-14T14:28:46Z",
+      "side": 1,
+      "message": "Why this return type? If you want the caller to be able to move the frame out of this object, I think it\u0027s less surprising with (for lack of better naming)\n\nEncodedFrame* GetFrame() const { return frame_.get(); }\nstd::unique_ptr\u003cEncodedFrame\u003e GetMovedFrame() { return std::move(frame_); }",
+      "range": {
+        "startLine": 44,
+        "startChar": 4,
+        "endLine": 44,
+        "endChar": 34
+      },
+      "revId": "f68bd310265100c230c55905d26c83c2f73eeeb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

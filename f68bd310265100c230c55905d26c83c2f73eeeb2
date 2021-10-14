@@ -63,6 +63,30 @@
       },
       "revId": "f68bd310265100c230c55905d26c83c2f73eeeb2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8cb32fe_3277b484",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-10-14T15:07:03Z",
+      "side": 1,
+      "message": "(note on naming: I would argue that \u0027Extract\u0027 is better name than \u0027GetMoved\u0027,\nExtract is \u0027destructive getter\u0027\nsimilarity to c++17 std functions, e.g. https://en.cppreference.com/w/cpp/container/map/extract)",
+      "parentUuid": "3a3358c4_3eb5bf15",
+      "range": {
+        "startLine": 44,
+        "startChar": 4,
+        "endLine": 44,
+        "endChar": 34
+      },
+      "revId": "f68bd310265100c230c55905d26c83c2f73eeeb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

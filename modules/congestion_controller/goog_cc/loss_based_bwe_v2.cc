@@ -391,6 +391,12 @@ bool LossBasedBweV2::IsConfigValid() const {
         << config_->higher_bandwidth_bias_factor;
     valid = false;
   }
+  if (config_->higher_log_bandwidth_bias_factor < 0.0) {
+    RTC_LOG(LS_WARNING)
+        << "The higher log bandwidth bias factor must be non-negative: "
+        << config_->higher_log_bandwidth_bias_factor;
+    valid = false;
+  }
   if (config_->inherent_loss_lower_bound < 0.0 ||
       config_->inherent_loss_lower_bound >= 1.0) {
     RTC_LOG(LS_WARNING) << "The inherent loss lower bound must be in [0, 1): "

@@ -126,6 +126,24 @@
       "message": "Unrelated question: can assembler return the 2nd frame if packet#122 is lost (and being padding never re-transmitted).\nwhat could trigger it? timeout? presence of the DD?",
       "revId": "e51c1e6bb4f465b316ddf46c8b83a911ae0cb3d7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d6f33e0_2f26f275",
+        "filename": "api/video/rtp_video_frame_assembler_unittests.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-10-14T14:19:51Z",
+      "side": 1,
+      "message": "No, If you don\u0027t enough information the 2nd frame will never be returned. Having a DD would solve this, or even better, don\u0027t send padding on the media stream.",
+      "parentUuid": "b6f91ac3_e1372da2",
+      "revId": "e51c1e6bb4f465b316ddf46c8b83a911ae0cb3d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -165,8 +165,7 @@ UDPPort::UDPPort(rtc::Thread* thread,
       ready_(false),
       stun_keepalive_delay_(STUN_KEEPALIVE_INTERVAL),
       dscp_(rtc::DSCP_NO_CHANGE),
-      emit_local_for_anyaddress_(emit_local_for_anyaddress) {
-}
+      emit_local_for_anyaddress_(emit_local_for_anyaddress) {}
 
 UDPPort::UDPPort(rtc::Thread* thread,
                  rtc::PacketSocketFactory* factory,
@@ -190,8 +189,7 @@ UDPPort::UDPPort(rtc::Thread* thread,
       ready_(false),
       stun_keepalive_delay_(STUN_KEEPALIVE_INTERVAL),
       dscp_(rtc::DSCP_NO_CHANGE),
-      emit_local_for_anyaddress_(emit_local_for_anyaddress) {
-}
+      emit_local_for_anyaddress_(emit_local_for_anyaddress) {}
 
 bool UDPPort::Init() {
   stun_keepalive_lifetime_ = GetStunKeepaliveLifetime();

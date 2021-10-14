@@ -39,6 +39,30 @@
       },
       "revId": "0f2df47b7a400d63ade28c20ab4d876c178aa88c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2db501c_cd253e58",
+        "filename": "modules/audio_processing/agc2/vad_wrapper.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-10-14T13:48:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4896445a_f85b1b1e",
+      "range": {
+        "startLine": 46,
+        "startChar": 10,
+        "endLine": 46,
+        "endChar": 31
+      },
+      "revId": "0f2df47b7a400d63ade28c20ab4d876c178aa88c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

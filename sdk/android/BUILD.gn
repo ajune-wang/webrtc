@@ -1445,6 +1445,7 @@ if (is_android) {
         "instrumentationtests/src/org/webrtc/VideoFrameBufferTest.java",
         "instrumentationtests/src/org/webrtc/VideoTrackTest.java",
         "instrumentationtests/src/org/webrtc/WebRtcJniBootTest.java",
+        "instrumentationtests/src/org/webrtc/YuvConverterTest.java",
         "instrumentationtests/src/org/webrtc/YuvHelperTest.java",
       ]
 

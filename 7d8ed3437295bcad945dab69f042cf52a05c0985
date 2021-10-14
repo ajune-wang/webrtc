@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cf90a3a_2abb1752",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-10-14T11:37:59Z",
+      "side": 1,
+      "message": "Stefan, this CL has broken some internal buildbots. I\u0027ll take care of them and will create a reland of the CL for you after that.\n\nUnfortunately, it will take some time to land this CL, but don\u0027t worry, it will happen.\n\nYou don\u0027t need to do anything.",
+      "revId": "7d8ed3437295bcad945dab69f042cf52a05c0985",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

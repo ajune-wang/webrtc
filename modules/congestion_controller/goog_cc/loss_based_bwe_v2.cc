@@ -356,6 +356,35 @@ bool LossBasedBweV2::IsConfigValid() const {
         << config_->rampup_acceleration_maxout_time.seconds();
     valid = false;
   }
+  for (double candidate_factor : config_->candidate_factors) {
+    if (candidate_factor <= 0.0) {
+      RTC_LOG(LS_WARNING) << "All candidate factors must be greater than zero: "
+                          << candidate_factor;
+      valid = false;
+    }
+  }
+
+  // Ensure that the configuration allows generation of at least on candidate
+  // other than the current estimate.
+  if (!config_->append_acknowledged_rate_candidate &&
+      !config_->append_delay_based_estimate_candidate) {
+    bool candidate_factor_other_than_1_exist = false;
+    for (double candidate_factor : config_->candidate_factors) {
+      if (candidate_factor != 1.0) {
+        candidate_factor_other_than_1_exist = true;
+        break;
+      }
+    }
+    if (!candidate_factor_other_than_1_exist) {
+      RTC_LOG(LS_WARNING)
+          << "The configuration does not allow generating candidates. Specify "
+             "a candidate factor other than 1.0, allow the acknowledged rate "
+             "to be a candidate, or allow the delay based estimate to be a "
+             "candidate.";
+      valid = false;
+    }
+  }
+
   if (config_->higher_bandwidth_bias_factor < 0.0) {
     RTC_LOG(LS_WARNING)
         << "The higher bandwidth bias factor must be non-negative: "

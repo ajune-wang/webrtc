@@ -325,6 +325,7 @@ if (rtc_include_tests) {
         ":probe_controller",
         ":pushback_controller",
         ":send_side_bwe",
+        "../../../api:mock_key_value_config",
         "../../../api/rtc_event_log",
         "../../../api/test/network_emulation",
         "../../../api/test/network_emulation:create_cross_traffic",

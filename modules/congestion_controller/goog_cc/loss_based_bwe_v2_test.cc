@@ -12,6 +12,7 @@
 
 #include <string>
 
+#include "api/test/mock_key_value_config.h"
 #include "api/transport/network_types.h"
 #include "api/units/data_rate.h"
 #include "api/units/data_size.h"
@@ -19,11 +20,16 @@
 #include "api/units/timestamp.h"
 #include "rtc_base/strings/string_builder.h"
 #include "test/explicit_key_value_config.h"
+#include "test/gmock.h"
 #include "test/gtest.h"
 
 namespace webrtc {
 
 namespace {
+
+using ::testing::Return;
+using ::webrtc::test::ExplicitKeyValueConfig;
+using ::webrtc::test::MockKeyValueConfig;
 
 constexpr TimeDelta kObservationDurationLowerBound = TimeDelta::Millis(200);
 
@@ -65,7 +71,7 @@ std::string Config(bool enabled, bool valid) {
 }
 
 TEST(LossBasedBweV2Test, EnabledWhenGivenValidConfigurationValues) {
-  test::ExplicitKeyValueConfig key_value_config(
+  ExplicitKeyValueConfig key_value_config(
       Config(/*enabled=*/true, /*valid=*/true));
   LossBasedBweV2 loss_based_bandwidth_estimator(&key_value_config);
 
@@ -73,7 +79,7 @@ TEST(LossBasedBweV2Test, EnabledWhenGivenValidConfigurationValues) {
 }
 
 TEST(LossBasedBweV2Test, DisabledWhenGivenDisabledConfiguration) {
-  test::ExplicitKeyValueConfig key_value_config(
+  ExplicitKeyValueConfig key_value_config(
       Config(/*enabled=*/false, /*valid=*/true));
   LossBasedBweV2 loss_based_bandwidth_estimator(&key_value_config);
 
@@ -81,10 +87,37 @@ TEST(LossBasedBweV2Test, DisabledWhenGivenDisabledConfiguration) {
 }
 
 TEST(LossBasedBweV2Test, DisabledWhenGivenNonValidConfigurationValues) {
-  test::ExplicitKeyValueConfig key_value_config(
+  ExplicitKeyValueConfig key_value_config(
       Config(/*enabled=*/true, /*valid=*/false));
   LossBasedBweV2 loss_based_bandwidth_estimator(&key_value_config);
 
+  EXPECT_FALSE(loss_based_bandwidth_estimator.IsEnabled());
+}
+
+TEST(LossBasedBweV2Test, DisabledWhenGivenNonPositiveCandidateFactor) {
+  MockKeyValueConfig key_value_config_negative_candidate_factor;
+  EXPECT_CALL(key_value_config_negative_candidate_factor, Lookup)
+      .WillRepeatedly(Return("Enabled:true,CandidateFactors:-1.3|1.1"));
+  LossBasedBweV2 loss_based_bandwidth_estimator_1(
+      &key_value_config_negative_candidate_factor);
+  EXPECT_FALSE(loss_based_bandwidth_estimator_1.IsEnabled());
+
+  MockKeyValueConfig key_value_config_zero_candidate_factor;
+  EXPECT_CALL(key_value_config_zero_candidate_factor, Lookup)
+      .WillRepeatedly(Return("Enabled:true,CandidateFactors:0.0|1.1"));
+  LossBasedBweV2 loss_based_bandwidth_estimator_2(
+      &key_value_config_zero_candidate_factor);
+  EXPECT_FALSE(loss_based_bandwidth_estimator_2.IsEnabled());
+}
+
+TEST(LossBasedBweV2Test,
+     DisabledWhenGivenConfigurationThatDoesNotAllowGeneratingCandidates) {
+  MockKeyValueConfig key_value_config;
+  EXPECT_CALL(key_value_config, Lookup)
+      .WillRepeatedly(
+          Return("Enabled:true,CandidateFactors:1.0,AckedRateCandidate:false,"
+                 "DelayBasedCandidate:false"));
+  LossBasedBweV2 loss_based_bandwidth_estimator(&key_value_config);
   EXPECT_FALSE(loss_based_bandwidth_estimator.IsEnabled());
 }
 
@@ -100,7 +133,7 @@ TEST(LossBasedBweV2Test, BandwidthEstimateGivenInitializationAndThenFeedback) {
   enough_feedback[1].receive_time =
       Timestamp::Zero() + 2 * kObservationDurationLowerBound;
 
-  test::ExplicitKeyValueConfig key_value_config(
+  ExplicitKeyValueConfig key_value_config(
       Config(/*enabled=*/true, /*valid=*/true));
   LossBasedBweV2 loss_based_bandwidth_estimator(&key_value_config);
 
@@ -125,7 +158,7 @@ TEST(LossBasedBweV2Test, NoBandwidthEstimateGivenNoInitialization) {
   enough_feedback[1].receive_time =
       Timestamp::Zero() + 2 * kObservationDurationLowerBound;
 
-  test::ExplicitKeyValueConfig key_value_config(
+  ExplicitKeyValueConfig key_value_config(
       Config(/*enabled=*/true, /*valid=*/true));
   LossBasedBweV2 loss_based_bandwidth_estimator(&key_value_config);
 
@@ -151,7 +184,7 @@ TEST(LossBasedBweV2Test, NoBandwidthEstimateGivenNotEnoughFeedback) {
   not_enough_feedback[1].receive_time =
       Timestamp::Zero() + kObservationDurationLowerBound;
 
-  test::ExplicitKeyValueConfig key_value_config(
+  ExplicitKeyValueConfig key_value_config(
       Config(/*enabled=*/true, /*valid=*/true));
   LossBasedBweV2 loss_based_bandwidth_estimator(&key_value_config);
 
@@ -194,7 +227,7 @@ TEST(LossBasedBweV2Test,
   enough_feedback_2[1].receive_time =
       Timestamp::Zero() + 4 * kObservationDurationLowerBound;
 
-  test::ExplicitKeyValueConfig key_value_config(
+  ExplicitKeyValueConfig key_value_config(
       Config(/*enabled=*/true, /*valid=*/true));
   LossBasedBweV2 loss_based_bandwidth_estimator(&key_value_config);
 
@@ -243,7 +276,7 @@ TEST(LossBasedBweV2Test,
   enough_feedback_2[1].receive_time =
       Timestamp::Zero() + 4 * kObservationDurationLowerBound;
 
-  test::ExplicitKeyValueConfig key_value_config(
+  ExplicitKeyValueConfig key_value_config(
       Config(/*enabled=*/true, /*valid=*/true));
   LossBasedBweV2 loss_based_bandwidth_estimator_1(&key_value_config);
   LossBasedBweV2 loss_based_bandwidth_estimator_2(&key_value_config);
@@ -291,7 +324,7 @@ TEST(LossBasedBweV2Test,
   enough_feedback_no_received_packets[1].receive_time =
       Timestamp::PlusInfinity();
 
-  test::ExplicitKeyValueConfig key_value_config(
+  ExplicitKeyValueConfig key_value_config(
       Config(/*enabled=*/true, /*valid=*/true));
   LossBasedBweV2 loss_based_bandwidth_estimator(&key_value_config);
 

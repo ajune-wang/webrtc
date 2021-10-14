@@ -16,6 +16,92 @@
       "message": "PTAL",
       "revId": "e51c1e6bb4f465b316ddf46c8b83a911ae0cb3d7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d35d6cd_95789055",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-10-14T12:52:27Z",
+      "side": 1,
+      "message": "I would prefer to expose less of the internal state of the AssembledFrame,\nbut won\u0027t insist.\n\ne.g. have two accessors:\nconst EncodedFrame\u0026 Frame() const { return *frame_; }\nstd::unique_ptr\u003cEncodedFrame\u003e ExtractFrame() \u0026\u0026 { return std::move(frame_); }\n\nthat later might avoid breaking most existent users by turning into something like \nEncodedFrame Frame() const { return CreateLegacyEncodedFrame(); }\nstd::unique_ptr\u003cEncodedFrame\u003e ExtractFrame() { return CreateLegacyEncodedFramePtr(); }",
+      "range": {
+        "startLine": 44,
+        "startChar": 4,
+        "endLine": 44,
+        "endChar": 34
+      },
+      "revId": "e51c1e6bb4f465b316ddf46c8b83a911ae0cb3d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a20828d4_73c3f2ee",
+        "filename": "api/video/rtp_video_frame_assembler_unittests.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-10-14T12:52:27Z",
+      "side": 1,
+      "message": "why is it easier than to generate one directly?\nRtpPacketReceived padding_packet;\npadding_packet.SetSequenceNumber(seq_num);\npadding_packet.SetPaddingSize(224);\nreturn padding_packet;",
+      "range": {
+        "startLine": 110,
+        "startChar": 45,
+        "endLine": 110,
+        "endChar": 72
+      },
+      "revId": "e51c1e6bb4f465b316ddf46c8b83a911ae0cb3d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebd406e9_1d6589bb",
+        "filename": "api/video/rtp_video_frame_assembler_unittests.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-10-14T12:52:27Z",
+      "side": 1,
+      "message": "padding packets do not have descriptor either.\nmay be instead write\npadding_packet.SetPadding(/*padding_size\u003d*/224);",
+      "range": {
+        "startLine": 117,
+        "startChar": 9,
+        "endLine": 117,
+        "endChar": 27
+      },
+      "revId": "e51c1e6bb4f465b316ddf46c8b83a911ae0cb3d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6f91ac3_e1372da2",
+        "filename": "api/video/rtp_video_frame_assembler_unittests.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-10-14T12:52:27Z",
+      "side": 1,
+      "message": "Unrelated question: can assembler return the 2nd frame if packet#122 is lost (and being padding never re-transmitted).\nwhat could trigger it? timeout? presence of the DD?",
+      "revId": "e51c1e6bb4f465b316ddf46c8b83a911ae0cb3d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -121,6 +121,26 @@ TEST(LossBasedBweV2Test,
   EXPECT_FALSE(loss_based_bandwidth_estimator.IsEnabled());
 }
 
+TEST(LossBasedBweV2Test, EnabledWhenGivenAnEnabledConfigurationWithBadSyntax) {
+  // If a key is specified multiple times, the last valid one is used.
+  // Key value pairs with incorrect syntax are ignored.
+  MockKeyValueConfig key_value_config;
+  EXPECT_CALL(key_value_config, Lookup)
+      .WillRepeatedly(Return("Enabled:false,Enabled:true,AckedRateCandidate:"
+                             "ValueThatCannotBeConvertedToABoolean,"
+                             "InstantUpperBoundLossOffset:0.1,"
+                             "TcpFairnessUpperBoundLossOffset:0.1,"));
+  LossBasedBweV2 loss_based_bandwidth_estimator(&key_value_config);
+  EXPECT_TRUE(loss_based_bandwidth_estimator.IsEnabled());
+}
+
+TEST(LossBasedBweV2Test, DisabledWhenNotGivenAConfiguration) {
+  MockKeyValueConfig key_value_config;
+  EXPECT_CALL(key_value_config, Lookup).WillRepeatedly(Return(""));
+  LossBasedBweV2 loss_based_bandwidth_estimator(&key_value_config);
+  EXPECT_FALSE(loss_based_bandwidth_estimator.IsEnabled());
+}
+
 TEST(LossBasedBweV2Test, BandwidthEstimateGivenInitializationAndThenFeedback) {
   PacketResult enough_feedback[2];
   enough_feedback[0].sent_packet.size = DataSize::Bytes(15'000);

@@ -33,6 +33,41 @@
       "message": "ping",
       "revId": "9c368f9b76f1db87a9ae1d4f9e944b83adbef678",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32dcf51c_b09ebd54",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-10-14T10:26:35Z",
+      "side": 1,
+      "message": "I agree, this should never happen because of the if condition to enter this path of the code.\n\nSorry for the delay, I somehow missed this.",
+      "parentUuid": "83a43a1b_ae6be730",
+      "revId": "9c368f9b76f1db87a9ae1d4f9e944b83adbef678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a26bcc9_10f8b20f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-10-14T10:26:35Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "9c368f9b76f1db87a9ae1d4f9e944b83adbef678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -16,6 +16,23 @@
       "message": "Apparently my local build wasn\u0027t using all the parameters I provided, including is_clang and rtc_use_h264 which is why the build was passing on my machine and not in the dry run. Windows build is now fixed. Will check and fix iOS build.\n\nSorry for the inconvenience everyone.",
       "revId": "a787940c520e1fdf78d48857a10973e90019fa2d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f10c3dcc_00c22da2",
+        "filename": "api/video/i444_buffer.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-10-14T08:35:43Z",
+      "side": 1,
+      "message": "Sorry for the late comment, please delete this method: https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d13262\n\nIt won\u0027t ever be used i\u0027m currently removing all other copies of it.",
+      "revId": "a787940c520e1fdf78d48857a10973e90019fa2d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

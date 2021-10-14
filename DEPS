@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'b35194229662a74ee2a497ad5964d90e6cb87de3',
+  'chromium_revision': '8cff9cd6db7fe12c085e26f724349aede2679cd0',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -20,7 +20,7 @@ deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@322c762d76f259ee56b8d282f9b85fef2badc1ec',
+    'https://chromium.googlesource.com/chromium/src/base@5f60d627f72ba8078d6932ea297337decdae32cb',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@e55f2dd6929a3422dc496cc8c7c8516349b4b0a6',
   'src/buildtools':
@@ -31,13 +31,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@1a14470b8dddc47c23540e9c1dcd913cfe8392d2',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@9bc502f5aac590ceb28019260c6119ebefc283e1',
     'condition': 'checkout_ios',
   },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@5a3fcbea8007233f01cb4258966ec948e3a01090',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@42f721cbdea8d21587c78cda0eb49326831ac780',
+    'https://chromium.googlesource.com/chromium/src/third_party@a6d65d7ad6d03c9fc6c5ecc0b14371c95f948dbb',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -152,7 +152,7 @@ deps = {
   'src/third_party/freetype/src':
     'https://chromium.googlesource.com/chromium/src/third_party/freetype2.git@ede96b239b90bf9c9d9a01f06005ae09fb4fa19b',
   'src/third_party/harfbuzz-ng/src':
-    'https://chromium.googlesource.com/external/github.com/harfbuzz/harfbuzz.git@d58f1685cee7fef904f4149561a2dcf5ec519ac3',
+    'https://chromium.googlesource.com/external/github.com/harfbuzz/harfbuzz.git@9bd7ba5019381bb8584811ee63a0ba0cee7dca99',
   'src/third_party/google_benchmark/src': {
     'url': 'https://chromium.googlesource.com/external/github.com/google/benchmark.git@e991355c02b93fe17713efe04cbc2e278e00fdbd',
   },
@@ -271,7 +271,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@69e4123d0efc967dfddc8e93cfc62b733a54ab21',
+    'https://chromium.googlesource.com/chromium/src/tools@a729ead0a728f92cd558c21e1b5009cb96ed645d',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

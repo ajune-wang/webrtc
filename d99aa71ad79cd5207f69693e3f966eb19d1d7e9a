@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d1b23e2_cc234270",
+        "filename": "modules/audio_processing/gain_controller2.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-10-14T09:20:02Z",
+      "side": 1,
+      "message": "Good catch, I moved existing dumps without checking if they made any sense. I also removed line 90 below.",
+      "parentUuid": "de3a5051_6fdbe02d",
+      "range": {
+        "startLine": 72,
+        "startChar": 2,
+        "endLine": 72,
+        "endChar": 57
+      },
+      "revId": "d99aa71ad79cd5207f69693e3f966eb19d1d7e9a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "23f3914d_8479f789",
@@ -71,6 +95,30 @@
       "writtenOn": "2021-10-14T08:59:08Z",
       "side": 1,
       "message": "A comment on this is that the log function is not for free. If this is expected to be called often, in particular during runtime, I\u0027d advice revisiting the need of having this value in dB.\n\ndB is a nice to have, but if there is a performance cost I think it makes sense to keep using the linear value.",
+      "range": {
+        "startLine": 95,
+        "startChar": 22,
+        "endLine": 95,
+        "endChar": 36
+      },
+      "revId": "d99aa71ad79cd5207f69693e3f966eb19d1d7e9a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4b3faa8_6689e35e",
+        "filename": "modules/audio_processing/gain_controller2.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-10-14T09:20:02Z",
+      "side": 1,
+      "message": "Yes I agree; however, the fixed digital gain is not meant to be updated often and this change can only improve what we have today since `AudioProcessingImpl` was handling `RuntimeSetting::Type::kCaptureFixedPostGain` (line 871, which receives a gain in dB) by calling `GainController2::ApplyConfig()` to update the fixed gain at a huge price. Namely, `ApplyConfig()`, removed in this CL, was recreating the adaptive digital gain controller via `std::make_unique` ​(my bad when I added that code), whereas now we only update the fixed digital gain controller.",
+      "parentUuid": "23f3914d_8479f789",
       "range": {
         "startLine": 95,
         "startChar": 22,

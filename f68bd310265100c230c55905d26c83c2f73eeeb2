@@ -39,6 +39,30 @@
       },
       "revId": "f68bd310265100c230c55905d26c83c2f73eeeb2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a3358c4_3eb5bf15",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-10-14T14:40:30Z",
+      "side": 1,
+      "message": "I don\u0027t see any user of this class using GetFrame(), they would only move the frame.",
+      "parentUuid": "209b4046_79e1aad5",
+      "range": {
+        "startLine": 44,
+        "startChar": 4,
+        "endLine": 44,
+        "endChar": 34
+      },
+      "revId": "f68bd310265100c230c55905d26c83c2f73eeeb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -16,6 +16,23 @@
       "message": "can you take a look? I *think* it is impossible to hit but don\u0027t know if there is anything like code coverage analysis that would show this as dead code",
       "revId": "9c368f9b76f1db87a9ae1d4f9e944b83adbef678",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68b5b46c_82567b4e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2021-10-14T09:56:49Z",
+      "side": 1,
+      "message": "ping",
+      "revId": "9c368f9b76f1db87a9ae1d4f9e944b83adbef678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

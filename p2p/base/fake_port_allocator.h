@@ -212,12 +212,7 @@ class FakePortAllocator : public cricket::PortAllocator {
   FakePortAllocator(rtc::Thread* network_thread,
                     rtc::PacketSocketFactory* factory)
       : network_thread_(network_thread), factory_(factory) {
-    if (factory_ == NULL) {
-      owned_factory_.reset(new rtc::BasicPacketSocketFactory(
-          network_thread_ ? network_thread_->socketserver() : nullptr));
-      factory_ = owned_factory_.get();
-    }
-
+    RTC_CHECK(factory_);
     if (network_thread_ == nullptr) {
       network_thread_ = rtc::Thread::Current();
       Initialize();

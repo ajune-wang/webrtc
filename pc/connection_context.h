@@ -97,6 +97,7 @@ class ConnectionContext final
   ~ConnectionContext();
 
  private:
+  const std::unique_ptr<rtc::SocketServer> socket_server_;
   // The following three variables are used to communicate between the
   // constructor and the destructor, and are never exposed externally.
   bool wraps_current_thread_;

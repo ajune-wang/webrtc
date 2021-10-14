@@ -46,7 +46,8 @@ constexpr size_t kEthernetMtu = 1500;
 
 class TestController : public sigslot::has_slots<> {
  public:
-  TestController(int min_port,
+  TestController(rtc::SocketFactory* sf,
+                 int min_port,
                  int max_port,
                  const std::string& config_file_path,
                  const std::string& log_file_path);

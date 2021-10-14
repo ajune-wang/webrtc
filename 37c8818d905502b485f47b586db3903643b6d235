@@ -16,6 +16,23 @@
       "message": "this one is easier",
       "revId": "37c8818d905502b485f47b586db3903643b6d235",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cdc3affc_d1477615",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-10-14T10:04:59Z",
+      "side": 1,
+      "message": "mirko, any reason the bots would fail (this is a backmerge)? I would suspect something like the xcode update in issue 13221",
+      "revId": "37c8818d905502b485f47b586db3903643b6d235",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1226f86_a308a1f6",
+        "filename": "modules/audio_processing/agc2/vad_wrapper.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-10-14T11:09:46Z",
+      "side": 1,
+      "message": "Done and also used in line 84",
+      "parentUuid": "ce8dda3f_4a5ebd12",
+      "range": {
+        "startLine": 69,
+        "startChar": 70,
+        "endLine": 69,
+        "endChar": 73
+      },
+      "revId": "abf67eb474292bd4492e9cfee27831336c6f4f43",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "75ff66f4_342cf559",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-10-13T14:50:58Z",
       "side": 1,
       "message": "A short comment line",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 64
+      },
+      "revId": "abf67eb474292bd4492e9cfee27831336c6f4f43",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a53a519_f877ba2c",
+        "filename": "modules/audio_processing/agc2/vad_wrapper.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-10-14T11:09:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75ff66f4_342cf559",
       "range": {
         "startLine": 44,
         "startChar": 0,

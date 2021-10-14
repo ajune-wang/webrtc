@@ -68,6 +68,41 @@
       "message": "LGTM",
       "revId": "9c368f9b76f1db87a9ae1d4f9e944b83adbef678",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83bdd81f_e156ec1c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2021-10-14T14:18:55Z",
+      "side": 1,
+      "message": "no worries, i was more afraid that any answer had ended up flagged as spam in my mailbox which happens way too often ;-)",
+      "parentUuid": "32dcf51c_b09ebd54",
+      "revId": "9c368f9b76f1db87a9ae1d4f9e944b83adbef678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8a635ec_6ad5c3d0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2021-10-14T14:18:55Z",
+      "side": 1,
+      "message": "danil, can you do the owner-lgtm?",
+      "revId": "9c368f9b76f1db87a9ae1d4f9e944b83adbef678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

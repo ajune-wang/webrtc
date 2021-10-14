@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "800e627f_a445a9f4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-10-14T18:42:30Z",
+      "side": 1,
+      "message": "I think I\u0027ve removed all the references to this API in internal code.\nPlease check if it makes sense in other ways.\n",
+      "revId": "14c96b5c95d1e30728945697118acd7a5a91c0b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -106,6 +106,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "324c221e_419d57b6",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 758,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-10-14T08:57:19Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "d4d53133_1a692c81",
+      "range": {
+        "startLine": 755,
+        "startChar": 2,
+        "endLine": 758,
+        "endChar": 3
+      },
+      "revId": "2c42d41162476eb6d7b9222f83ac9a91f986c956",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "721ea080_fd5b2e78",

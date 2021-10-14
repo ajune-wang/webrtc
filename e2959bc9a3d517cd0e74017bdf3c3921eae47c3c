@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "b987db99_03230613",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-10-14T09:14:47Z",
+      "side": 1,
+      "message": "I don\u0027t want to implement a new frame class (by hiding EncodedFrame).\n\nI have some ideas how frame classes could evolve (how we can get rid of the bigger frame classes by having several smaller ones and using more composition).",
+      "parentUuid": "778c9ef7_82f0b37b",
+      "range": {
+        "startLine": 32,
+        "startChar": 9,
+        "endLine": 32,
+        "endChar": 23
+      },
+      "revId": "e2959bc9a3d517cd0e74017bdf3c3921eae47c3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "65e505be_24e39d87",
@@ -47,6 +71,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "48a6d8a0_56f82e35",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-10-14T09:14:47Z",
+      "side": 1,
+      "message": "I don\u0027t think so. If we are gonna use unwrapped sequence numbers in general then the unwrapped sequence number should be set in the RtpPacketReceived to begin with.",
+      "parentUuid": "65e505be_24e39d87",
+      "range": {
+        "startLine": 33,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 29
+      },
+      "revId": "e2959bc9a3d517cd0e74017bdf3c3921eae47c3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fc4baf4c_9f37b43a",
@@ -60,6 +108,30 @@
       "writtenOn": "2021-10-13T13:41:55Z",
       "side": 1,
       "message": "is there any test where \nrtp_seq_num_start !\u003d rtp_seq_num_end ?",
+      "range": {
+        "startLine": 392,
+        "startChar": 0,
+        "endLine": 393,
+        "endChar": 50
+      },
+      "revId": "e2959bc9a3d517cd0e74017bdf3c3921eae47c3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ab2445e_6e31194a",
+        "filename": "api/video/rtp_video_frame_assembler_unittests.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-10-14T09:14:47Z",
+      "side": 1,
+      "message": "Added",
+      "parentUuid": "fc4baf4c_9f37b43a",
       "range": {
         "startLine": 392,
         "startChar": 0,

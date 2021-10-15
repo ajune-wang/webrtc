@@ -33,6 +33,23 @@
       "message": "@stefan, please RS LGTM this. The PS#1 is a reland of already approved by you change (which got reverted due internal build failures, which I\u0027ve fixed).",
       "revId": "35db0c7ff82e7f6ce193d26e8b586479eab3c2bc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ba010d7_e25e8922",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18414
+      },
+      "writtenOn": "2021-10-15T12:35:17Z",
+      "side": 1,
+      "message": "LGTM. 😊",
+      "revId": "35db0c7ff82e7f6ce193d26e8b586479eab3c2bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

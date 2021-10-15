@@ -33,6 +33,24 @@
       "message": "lgtm\n\nbut I have one comment regarding\n\"However, to reduce the chance of incorrect\nestimation of the speech probability, the VAD should analyze the\naudio before any digital processing is applied inside AGC2.\"\n\nI don\u0027t see why the VAD necessarily should estimate a better probability if the gain is after the VAD.\n\nOn the one hand, that can be the case if the fixed gain is incorrectly set so that it saturates the signal. That will negatively impact the VAD decision.\nHowever, I think this is a fairly artifical scenario since the VAD and a digital AGC anyway is not really needed when such large gains are used.\n\nOn the other hand, VAD can instead be improved if the gain is applied before the VAD if the signal level is digitally very low.\nFor such setups, I think using the fixed gains to increase the signal level to reasonable levels and after that apply the digital AGC seems like a reasonable choice.\n\n\nTo conclude, given the signal levels likely involved here, I don\u0027t have a strong opinion on this since I think both placements of the gain would work.\nBut if I would choose one placement I would choose keeping the fixed gain before the VAD since I think  that maps to a clear usecase, while I cannot see what purpose the other variant would serve.\n\n\n\n\n\n",
       "revId": "80e6fe39f0a19968eed9de2545230710d299d17b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f28f0e0e_27b88d4c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-10-15T08:15:36Z",
+      "side": 1,
+      "message": "Thanks Per! \n\n\u003e lgtm\n\u003e \n\u003e but I have one comment regarding\n\u003e \"However, to reduce the chance of incorrect\n\u003e estimation of the speech probability, the VAD should analyze the\n\u003e audio before any digital processing is applied inside AGC2.\"\n\u003e \n\u003e I don\u0027t see why the VAD necessarily should estimate a better probability if the gain is after the VAD.\n\u003e \nyou\u0027re right, I didn\u0027t phrase that correctly\nsee my next reply\n\n\u003e On the one hand, that can be the case if the fixed gain is incorrectly set so that it saturates the signal. That will negatively impact the VAD decision.\n\nnote that clipping is not applied by the fixed digital controller because AGC2 relies on its limiter; it\u0027s the same for the adaptive digital controller, which is allowed to overshoot and it\u0027s the limiter job to avoid clipping as much as possible\n\nsince the output of the fixed digital can be beyond 0 dBFS, it\u0027s better to place the VAD before the fixed digital so that the samples are guaranteed to be in the S16 range\n\n\u003e However, I think this is a fairly artifical scenario since the VAD and a digital AGC anyway is not really needed when such large gains are used.\n\nRight, I don\u0027t expect to have a scenario in which we use both the fixed and the adaptive digital controllers\n\n\u003e \n\u003e On the other hand, VAD can instead be improved if the gain is applied before the VAD if the signal level is digitally very low.\n\u003e For such setups, I think using the fixed gains to increase the signal level to reasonable levels and after that apply the digital AGC seems like a reasonable choice.\n\u003e  \n\u003e To conclude, given the signal levels likely involved here, I don\u0027t have a strong opinion on this since I think both placements of the gain would work.\n\u003e But if I would choose one placement I would choose keeping the fixed gain before the VAD since I think  that maps to a clear usecase, while I cannot see what purpose the other variant would serve.\n\u003e",
+      "parentUuid": "beeff150_16af6965",
+      "revId": "80e6fe39f0a19968eed9de2545230710d299d17b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

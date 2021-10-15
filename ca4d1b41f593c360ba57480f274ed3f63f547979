@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c220b2a3_d7fff3af",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-10-15T07:33:05Z",
+      "side": 1,
+      "message": "I\u0027ve checked https://www.rfc-editor.org/rfc/rfc8859.html#section-5.13 and it says that the mux category of \"hdrext\" is SPECIAL - you have to understand each extension to understand which category applies.\n\nSo this makes sense - media types that can\u0027t use RID/RRID for anything shouldn\u0027t announce support for them either.\n",
+      "revId": "ca4d1b41f593c360ba57480f274ed3f63f547979",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

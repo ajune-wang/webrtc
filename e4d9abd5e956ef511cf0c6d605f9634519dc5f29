@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e7e8478_ab5ceeb8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-10-15T14:30:57Z",
+      "side": 1,
+      "message": "alas, one additional step is required before the dependency can be fully removed.",
+      "revId": "e4d9abd5e956ef511cf0c6d605f9634519dc5f29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -56,6 +56,30 @@
       },
       "revId": "7088bb770d94bd22b6275ba3e0a146f9d01f4f71",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9cabb6f_333ee754",
+        "filename": "modules/audio_processing/audio_processing_impl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-10-15T09:15:37Z",
+      "side": 1,
+      "message": "I\u0027ve added a class AnalogGainStatsReporter that computes the stats based on the mic level from AudioProcessingImpl and periodically logs the stats into histograms.",
+      "parentUuid": "151a0679_2aefe105",
+      "range": {
+        "startLine": 539,
+        "startChar": 9,
+        "endLine": 539,
+        "endChar": 32
+      },
+      "revId": "7088bb770d94bd22b6275ba3e0a146f9d01f4f71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ac75530_f61a0607",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-10-15T05:53:56Z",
+      "side": 1,
+      "message": "Looks good, nice test!\nOnly thing more I can think of is to verify that opening up the recv window has the expected effect (that you now can send multiple chunks, and aren\u0027t stuck in the one-chunk mode).",
+      "revId": "7f42b1e84ce2171a432e56beaf956f9d3cc61e83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db2a93fe_62ac6c3a",
+        "filename": "net/dcsctp/tx/retransmission_queue_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1469,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-10-15T05:53:56Z",
+      "side": 1,
+      "message": "To complete the scenario, should you open up the window (rwnd \u003e 0) and verify that you can now send 2 new chunks?",
+      "revId": "7f42b1e84ce2171a432e56beaf956f9d3cc61e83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

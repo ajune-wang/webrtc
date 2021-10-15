@@ -16,6 +16,92 @@
       "message": "Thank you for the comments!\n\nI\u0027ve refactored the code based on the comments from Per. Alessio \u0026 Per, can you please both take a look at the new version?",
       "revId": "43413963daf25940de1ceafdb40913583ac59b37",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c59128d7_d1f80c84",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-10-15T09:44:30Z",
+      "side": 1,
+      "message": "Great!\nThanks for this CL.\nlgtm\n",
+      "revId": "43413963daf25940de1ceafdb40913583ac59b37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98eee9c7_f0f34193",
+        "filename": "modules/audio_processing/agc/analog_gain_stats_reporter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-10-15T09:44:30Z",
+      "side": 1,
+      "message": "This name seems more narrow than it truly is\nIsn\u0027t it more like kMaxAnalogGain?\n\nIt is fine to have it, but as a reader I think it would be could be to have it as above since that shows that there is no additional capping of the update.",
+      "range": {
+        "startLine": 22,
+        "startChar": 14,
+        "endLine": 22,
+        "endChar": 24
+      },
+      "revId": "43413963daf25940de1ceafdb40913583ac59b37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6306af47_32721222",
+        "filename": "modules/audio_processing/agc/analog_gain_stats_reporter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-10-15T09:44:30Z",
+      "side": 1,
+      "message": "Nit:\nWould it be of value to also log when there are no updates?\nOr is it sufficient to deduce that from that no log output is then produced?",
+      "range": {
+        "startLine": 69,
+        "startChar": 5,
+        "endLine": 69,
+        "endChar": 22
+      },
+      "revId": "43413963daf25940de1ceafdb40913583ac59b37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2920205e_40514641",
+        "filename": "modules/audio_processing/agc/analog_gain_stats_reporter.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-10-15T09:44:30Z",
+      "side": 1,
+      "message": "I\u0027m ok with using -1 as an uninitialized value but an alternative is to use an optional for that.\n\nUsing an optional would also avoid that -1 is intermixed with a reported mic level (e.g., if analog_mic_level is reported as -1)",
+      "range": {
+        "startLine": 49,
+        "startChar": 6,
+        "endLine": 49,
+        "endChar": 32
+      },
+      "revId": "43413963daf25940de1ceafdb40913583ac59b37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

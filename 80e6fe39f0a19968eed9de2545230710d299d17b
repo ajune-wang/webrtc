@@ -16,6 +16,23 @@
       "message": "Hi Per, hi Hanna,\nCould you PTAL?\nAlessio",
       "revId": "80e6fe39f0a19968eed9de2545230710d299d17b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "beeff150_16af6965",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-10-15T06:48:08Z",
+      "side": 1,
+      "message": "lgtm\n\nbut I have one comment regarding\n\"However, to reduce the chance of incorrect\nestimation of the speech probability, the VAD should analyze the\naudio before any digital processing is applied inside AGC2.\"\n\nI don\u0027t see why the VAD necessarily should estimate a better probability if the gain is after the VAD.\n\nOn the one hand, that can be the case if the fixed gain is incorrectly set so that it saturates the signal. That will negatively impact the VAD decision.\nHowever, I think this is a fairly artifical scenario since the VAD and a digital AGC anyway is not really needed when such large gains are used.\n\nOn the other hand, VAD can instead be improved if the gain is applied before the VAD if the signal level is digitally very low.\nFor such setups, I think using the fixed gains to increase the signal level to reasonable levels and after that apply the digital AGC seems like a reasonable choice.\n\n\nTo conclude, given the signal levels likely involved here, I don\u0027t have a strong opinion on this since I think both placements of the gain would work.\nBut if I would choose one placement I would choose keeping the fixed gain before the VAD since I think  that maps to a clear usecase, while I cannot see what purpose the other variant would serve.\n\n\n\n\n\n",
+      "revId": "80e6fe39f0a19968eed9de2545230710d299d17b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

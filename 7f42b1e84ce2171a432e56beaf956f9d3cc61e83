@@ -33,6 +33,24 @@
       "message": "To complete the scenario, should you open up the window (rwnd \u003e 0) and verify that you can now send 2 new chunks?",
       "revId": "7f42b1e84ce2171a432e56beaf956f9d3cc61e83",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf553830_d03c7d10",
+        "filename": "net/dcsctp/tx/retransmission_queue_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1469,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-10-15T07:28:41Z",
+      "side": 1,
+      "message": "Good idea! Added that test.",
+      "parentUuid": "db2a93fe_62ac6c3a",
+      "revId": "7f42b1e84ce2171a432e56beaf956f9d3cc61e83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

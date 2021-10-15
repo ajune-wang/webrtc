@@ -87,6 +87,30 @@
       },
       "revId": "f68bd310265100c230c55905d26c83c2f73eeeb2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5df221ed_92779ee9",
+        "filename": "api/video/rtp_video_frame_assembler.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-10-15T06:58:00Z",
+      "side": 1,
+      "message": "Then I\u0027d suggest replacing with \n\nstd::unique_ptr\u003cEncodedFrame\u003e ExtractFrame() { return std::move(frame_); }\n\nreturning the unique_ptr by value.",
+      "parentUuid": "a8cb32fe_3277b484",
+      "range": {
+        "startLine": 44,
+        "startChar": 4,
+        "endLine": 44,
+        "endChar": 34
+      },
+      "revId": "f68bd310265100c230c55905d26c83c2f73eeeb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -89,6 +89,41 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "81a8133e_63b18031",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18414
+      },
+      "writtenOn": "2021-10-15T18:59:55Z",
+      "side": 1,
+      "message": "This one was kind of tricky to track down, but I think I got it now. I just don\u0027t know what is the root cause yet. \n\nIn short, when we create a union of supported send and receive codecs there are different codecs with the same ID in the union. In this case, since we populate the union with the send codecs at the front, when we are calling MediaSessionDescriptionFactory::GetCodecsForOffer(...) -\u003e MergeCodecs\u003cVideoCodec\u003e(...) -\u003e GetAssociatedCodecForRtx(...) -\u003e FindCodecById(...) (chain starts at media_session.cc:2080) the first codec with the requested id gets associated to the RTX entry, which might not be the right one.\n\nThe issue is kind of hard to explain without giving an example but I would be happy to do a vide call with someone to try and explain it better.\n\nAlso, I have no idea yet how and why this works without the separate SupportedH264Encoder/Decoder lists but I am guessing it has something to do with the asymmetrical number of available codecs between send and receive, which in my current test runs is always 6 (20 vs 26 respectively).\n\nHope this makes any sense. I will try and figure out the root cause but it might take me some time as I am not that familiar with this code base.",
+      "parentUuid": "ef3428b6_9b15b445",
+      "revId": "35db0c7ff82e7f6ce193d26e8b586479eab3c2bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce81239d_5c2b496a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18414
+      },
+      "writtenOn": "2021-10-15T18:59:55Z",
+      "side": 1,
+      "message": "Still investigating the problem that is causing the tests to fail but I have an update.",
+      "revId": "35db0c7ff82e7f6ce193d26e8b586479eab3c2bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0a9d02af_863a7b46",
         "filename": "modules/video_coding/codecs/h264/h264.cc",
         "patchSetId": 2
@@ -100,6 +135,30 @@
       "writtenOn": "2021-10-15T12:43:05Z",
       "side": 1,
       "message": "This may fail on some internal builders as well.\n\nI suggest you leave the name of this function intact.",
+      "range": {
+        "startLine": 70,
+        "startChar": 28,
+        "endLine": 70,
+        "endChar": 54
+      },
+      "revId": "35db0c7ff82e7f6ce193d26e8b586479eab3c2bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0dbb8a9c_faa1561a",
+        "filename": "modules/video_coding/codecs/h264/h264.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 18414
+      },
+      "writtenOn": "2021-10-15T18:59:55Z",
+      "side": 1,
+      "message": "Ack, will be reverted with the next PS.",
+      "parentUuid": "0a9d02af_863a7b46",
       "range": {
         "startLine": 70,
         "startChar": 28,

@@ -29,7 +29,8 @@ std::vector<SdpVideoFormat> InternalEncoderFactory::SupportedFormats() {
   supported_codecs.push_back(SdpVideoFormat(cricket::kVp8CodecName));
   for (const webrtc::SdpVideoFormat& format : webrtc::SupportedVP9Codecs())
     supported_codecs.push_back(format);
-  for (const webrtc::SdpVideoFormat& format : webrtc::SupportedH264Codecs())
+  for (const webrtc::SdpVideoFormat& format :
+       webrtc::SupportedH264EncoderCodecs())
     supported_codecs.push_back(format);
   if (kIsLibaomAv1EncoderSupported)
     supported_codecs.push_back(SdpVideoFormat(cricket::kAv1CodecName));

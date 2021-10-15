@@ -67,7 +67,7 @@ void DisableRtcUseH264() {
 #endif
 }
 
-std::vector<SdpVideoFormat> SupportedH264Codecs() {
+std::vector<SdpVideoFormat> SupportedH264EncoderCodecs() {
   TRACE_EVENT0("webrtc", __func__);
   if (!IsH264CodecSupported())
     return std::vector<SdpVideoFormat>();
@@ -88,6 +88,23 @@ std::vector<SdpVideoFormat> SupportedH264Codecs() {
                            H264Level::kLevel3_1, "1"),
           CreateH264Format(H264Profile::kProfileConstrainedBaseline,
                            H264Level::kLevel3_1, "0")};
+}
+
+std::vector<SdpVideoFormat> SupportedH264DecoderCodecs() {
+  TRACE_EVENT0("webrtc", __func__);
+  if (!IsH264CodecSupported())
+    return std::vector<SdpVideoFormat>();
+
+  std::vector<SdpVideoFormat> supportedCodecs = SupportedH264EncoderCodecs();
+
+  // OpenH264 doesn't yet support High Predictive 4:4:4 encoding but it does
+  // support decoding.
+  supportedCodecs.push_back(CreateH264Format(
+      H264Profile::kProfilePredictiveHigh444, H264Level::kLevel3_1, "1"));
+  supportedCodecs.push_back(CreateH264Format(
+      H264Profile::kProfilePredictiveHigh444, H264Level::kLevel3_1, "0"));
+
+  return supportedCodecs;
 }
 
 std::unique_ptr<H264Encoder> H264Encoder::Create(

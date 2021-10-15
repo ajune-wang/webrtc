@@ -123,6 +123,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d39e34eb_ff3f506c",
+        "filename": "modules/audio_processing/agc/analog_gain_stats_reporter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-10-15T15:05:17Z",
+      "side": 1,
+      "message": "Eventually added what Alessio suggested:\n\nconstexpr int kMinGain \u003d 0;\nconstexpr int kMaxGain \u003d 255;\nconstexpr int kMaxUpdate \u003d kMaxGain - kMinGain;",
+      "parentUuid": "9976c38b_1a32405d",
+      "range": {
+        "startLine": 22,
+        "startChar": 14,
+        "endLine": 22,
+        "endChar": 24
+      },
+      "revId": "43413963daf25940de1ceafdb40913583ac59b37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6306af47_32721222",

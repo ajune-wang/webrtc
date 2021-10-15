@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab938ea7_7490a4aa",
+        "filename": "modules/audio_processing/agc/analog_gain_stats_reporter.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-10-15T15:05:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "380de2b7_cabee4a7",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 34
+      },
+      "revId": "436ebb1d2ef7ce14b3ffcb134ca8a23cc8c2bf75",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5f5c9a25_5501d1d7",
@@ -71,6 +95,30 @@
       "writtenOn": "2021-10-15T14:00:11Z",
       "side": 1,
       "message": "declare in the .h file \nand then add AnalogGainStatsReporter::AnalogGainStatsReporter() \u003d default; in the .cc file",
+      "range": {
+        "startLine": 24,
+        "startChar": 2,
+        "endLine": 24,
+        "endChar": 30
+      },
+      "revId": "436ebb1d2ef7ce14b3ffcb134ca8a23cc8c2bf75",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9057df6_61c80c65",
+        "filename": "modules/audio_processing/agc/analog_gain_stats_reporter.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-10-15T15:05:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f5c9a25_5501d1d7",
       "range": {
         "startLine": 24,
         "startChar": 2,
@@ -104,6 +152,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "db22333d_2b09243f",
+        "filename": "modules/audio_processing/agc/analog_gain_stats_reporter.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-10-15T15:05:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "727e00eb_cc03dc9c",
+      "range": {
+        "startLine": 27,
+        "startChar": 2,
+        "endLine": 27,
+        "endChar": 31
+      },
+      "revId": "436ebb1d2ef7ce14b3ffcb134ca8a23cc8c2bf75",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7f96a3fe_997ce56a",
@@ -117,6 +189,30 @@
       "writtenOn": "2021-10-15T14:00:11Z",
       "side": 1,
       "message": "just kMicLevel is fine\n/*arg_name\u003d*/ works well with literals",
+      "range": {
+        "startLine": 22,
+        "startChar": 34,
+        "endLine": 22,
+        "endChar": 64
+      },
+      "revId": "436ebb1d2ef7ce14b3ffcb134ca8a23cc8c2bf75",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f7dab0e_4fa75fe6",
+        "filename": "modules/audio_processing/agc/analog_gain_stats_reporter_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-10-15T15:05:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f96a3fe_997ce56a",
       "range": {
         "startLine": 22,
         "startChar": 34,
@@ -150,6 +246,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8dcc647_3e288a44",
+        "filename": "modules/audio_processing/agc/analog_gain_stats_reporter_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-10-15T15:05:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6cb85afc_1317e03b",
+      "range": {
+        "startLine": 135,
+        "startChar": 34,
+        "endLine": 135,
+        "endChar": 55
+      },
+      "revId": "436ebb1d2ef7ce14b3ffcb134ca8a23cc8c2bf75",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a033143a_f2000fc3",
@@ -163,6 +283,30 @@
       "writtenOn": "2021-10-15T14:00:11Z",
       "side": 1,
       "message": "this is used elsewhere, you can define it once in the anon ns",
+      "range": {
+        "startLine": 137,
+        "startChar": 2,
+        "endLine": 137,
+        "endChar": 42
+      },
+      "revId": "436ebb1d2ef7ce14b3ffcb134ca8a23cc8c2bf75",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cea0fcf0_b685f364",
+        "filename": "modules/audio_processing/agc/analog_gain_stats_reporter_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-10-15T15:05:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a033143a_f2000fc3",
       "range": {
         "startLine": 137,
         "startChar": 2,

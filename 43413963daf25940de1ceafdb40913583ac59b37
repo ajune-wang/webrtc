@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e24bd49b_61ace235",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-10-15T10:02:28Z",
+      "side": 1,
+      "message": "Thanks Hanna, a couple of nits + one comment about the design of `AnalogGainStatsReporter`",
+      "revId": "43413963daf25940de1ceafdb40913583ac59b37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "98eee9c7_f0f34193",
@@ -48,6 +65,30 @@
       "writtenOn": "2021-10-15T09:44:30Z",
       "side": 1,
       "message": "This name seems more narrow than it truly is\nIsn\u0027t it more like kMaxAnalogGain?\n\nIt is fine to have it, but as a reader I think it would be could be to have it as above since that shows that there is no additional capping of the update.",
+      "range": {
+        "startLine": 22,
+        "startChar": 14,
+        "endLine": 22,
+        "endChar": 24
+      },
+      "revId": "43413963daf25940de1ceafdb40913583ac59b37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1591cd2d_6c2fada7",
+        "filename": "modules/audio_processing/agc/analog_gain_stats_reporter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-10-15T10:02:28Z",
+      "side": 1,
+      "message": "or\n\nconstexpr int kMinGain \u003d 0;\nconstexpr int kMaxGain \u003d 255;\nconstexpr int kMaxUpdate \u003d kMaxGain - kMinGain;",
+      "parentUuid": "98eee9c7_f0f34193",
       "range": {
         "startLine": 22,
         "startChar": 14,
@@ -83,6 +124,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c8200532_760f9a5b",
+        "filename": "modules/audio_processing/agc/analog_gain_stats_reporter.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-10-15T10:02:28Z",
+      "side": 1,
+      "message": "It\u0027s better to expose a minimal API; so, `AnalogGainStatsReporter::level_update_stats()`, which is only used for testing, should not be public.\n\nThere are different alternatives to achieve that, I\u0027ll share one which doesn\u0027t require too much boilerplate and that requires a few small changes.\n\n- Make `AnalogGainStatsReporter::LevelUpdateStats` private\n- Make `AnalogGainStatsReporter::level_update_stats()` private\n- Use FRIEND_TEST_ALL_PREFIXES so that the tests will be able to call `level_update_stats()` (example: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/audio_processing/agc2/rnn_vad/pitch_search.h;l\u003d38?q\u003dwebrtc%20agc2%20FRIEND_TEST)\n- Use EXPECT_METRIC_THAT so that you can test periodic logging and `ComputeAverageUpdate()`, which is defined in the anonymous namespace of analog_gain_stats_reporter.cc",
+      "range": {
+        "startLine": 39,
+        "startChar": 26,
+        "endLine": 39,
+        "endChar": 44
+      },
+      "revId": "43413963daf25940de1ceafdb40913583ac59b37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2920205e_40514641",
         "filename": "modules/audio_processing/agc/analog_gain_stats_reporter.h",
         "patchSetId": 7
@@ -94,6 +158,30 @@
       "writtenOn": "2021-10-15T09:44:30Z",
       "side": 1,
       "message": "I\u0027m ok with using -1 as an uninitialized value but an alternative is to use an optional for that.\n\nUsing an optional would also avoid that -1 is intermixed with a reported mic level (e.g., if analog_mic_level is reported as -1)",
+      "range": {
+        "startLine": 49,
+        "startChar": 6,
+        "endLine": 49,
+        "endChar": 32
+      },
+      "revId": "43413963daf25940de1ceafdb40913583ac59b37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5af2313_cda7d6b4",
+        "filename": "modules/audio_processing/agc/analog_gain_stats_reporter.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-10-15T10:02:28Z",
+      "side": 1,
+      "message": "+1\n\notherwise leave unspecified here, define `constexpr int kUnspecifiedAnalogLevel \u003d -1;` in the anon ns in the .cc file and use that in the ctor",
+      "parentUuid": "2920205e_40514641",
       "range": {
         "startLine": 49,
         "startChar": 6,

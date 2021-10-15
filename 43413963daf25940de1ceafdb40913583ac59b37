@@ -217,6 +217,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d5a4c2d_5a882189",
+        "filename": "modules/audio_processing/agc/analog_gain_stats_reporter.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-10-15T14:00:11Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6472054d_a772e230",
+      "range": {
+        "startLine": 39,
+        "startChar": 26,
+        "endLine": 39,
+        "endChar": 44
+      },
+      "revId": "43413963daf25940de1ceafdb40913583ac59b37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2920205e_40514641",

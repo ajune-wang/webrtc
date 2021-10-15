@@ -16,6 +16,23 @@
       "message": "As discussed in the bug report, I split the SupportedH264Codecs() function into two separate ones for decoding and encoding support. Tested using our in house app that uses High Predictive 4:4:4 as well as https://webrtc.github.io/samples/src/content/peerconnection/change-codecs/ and everything is working as expected.",
       "revId": "35db0c7ff82e7f6ce193d26e8b586479eab3c2bc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03ce0067_5a933287",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-10-15T12:34:02Z",
+      "side": 1,
+      "message": "@stefan, please RS LGTM this. The PS#1 is a reland of already approved by you change (which got reverted due internal build failures, which I\u0027ve fixed).",
+      "revId": "35db0c7ff82e7f6ce193d26e8b586479eab3c2bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

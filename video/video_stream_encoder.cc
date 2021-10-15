@@ -44,9 +44,11 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/strings/string_builder.h"
 #include "rtc_base/system/no_unique_address.h"
+#include "rtc_base/task_utils/to_queued_task.h"
 #include "rtc_base/thread_annotations.h"
 #include "rtc_base/trace_event.h"
 #include "system_wrappers/include/field_trial.h"
+#include "system_wrappers/include/metrics.h"
 #include "video/adaptation/video_stream_encoder_resource_manager.h"
 #include "video/alignment_adjuster.h"
 
@@ -1322,6 +1324,7 @@ void VideoStreamEncoder::OnFrame(const VideoFrame& video_frame) {
   encoder_queue_.PostTask(
       [this, incoming_frame, post_time_us, log_stats]() {
         RTC_DCHECK_RUN_ON(&encoder_queue_);
+        MaybeReportFrameRateConstraintUmas();
         encoder_stats_observer_->OnIncomingFrame(incoming_frame.width(),
                                                  incoming_frame.height());
         ++captured_frame_count_;
@@ -2350,6 +2353,61 @@ void VideoStreamEncoder::QueueRequestEncoderSwitch(
   main_queue_->PostTask(ToQueuedTask(task_safety_, [this, format]() {
     RTC_DCHECK_RUN_ON(main_queue_);
     settings_.encoder_switch_request_callback->RequestEncoderSwitch(format);
+  }));
+}
+
+// RTC_RUN_ON(&encoder_queue_)
+void VideoStreamEncoder::MaybeReportFrameRateConstraintUmas() {
+  if (has_reported_screenshare_frame_rate_umas_)
+    return;
+  has_reported_screenshare_frame_rate_umas_ = true;
+  bool is_screenshare =
+      encoder_config_.content_type == VideoEncoderConfig::ContentType::kScreen;
+  if (!is_screenshare)
+    return;
+  main_queue_->PostTask(ToQueuedTask(task_safety_, [this] {
+    RTC_DCHECK_RUN_ON(main_queue_);
+    RTC_HISTOGRAM_BOOLEAN("WebRTC.Screenshare.FrameRateConstraints.Exists",
+                          source_constraints_.has_value());
+    if (source_constraints_.has_value()) {
+      RTC_HISTOGRAM_BOOLEAN(
+          "WebRTC.Screenshare.FrameRateConstraints.Min.Exists",
+          source_constraints_->min_fps.has_value());
+      if (source_constraints_->min_fps.has_value()) {
+        RTC_HISTOGRAM_COUNTS_100(
+            "WebRTC.Screenshare.FrameRateConstraints.Min.Value",
+            source_constraints_->min_fps.value());
+      }
+      RTC_HISTOGRAM_BOOLEAN(
+          "WebRTC.Screenshare.FrameRateConstraints.Max.Exists",
+          source_constraints_->max_fps.has_value());
+      if (source_constraints_->max_fps.has_value()) {
+        RTC_HISTOGRAM_COUNTS_100(
+            "WebRTC.Screenshare.FrameRateConstraints.Max.Value",
+            source_constraints_->max_fps.value());
+      }
+      if (!source_constraints_->min_fps.has_value()) {
+        if (source_constraints_->max_fps.has_value()) {
+          RTC_HISTOGRAM_COUNTS_100(
+              "WebRTC.Screenshare.FrameRateConstraints.MinUnset.Max",
+              source_constraints_->max_fps.value());
+        }
+      } else if (source_constraints_->max_fps.has_value()) {
+        if (source_constraints_->min_fps.value() <
+            source_constraints_->max_fps.value()) {
+          RTC_HISTOGRAM_COUNTS_100(
+              "WebRTC.Screenshare.FrameRateConstraints.MinLessThanMax.Min",
+              source_constraints_->min_fps.value());
+          RTC_HISTOGRAM_COUNTS_100(
+              "WebRTC.Screenshare.FrameRateConstraints.MinLessThanMax.Max",
+              source_constraints_->max_fps.value());
+        }
+        RTC_HISTOGRAM_COUNTS_SPARSE_10000(
+            "WebRTC.Screenshare.FrameRateConstraints.120MinPlusMax",
+            source_constraints_->min_fps.value() * 120 +
+                source_constraints_->max_fps.value());
+      }
+    }
   }));
 }
 

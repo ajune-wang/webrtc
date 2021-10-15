@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb309395_9faf930f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-10-15T13:32:20Z",
+      "side": 1,
+      "message": "Artem PTAL",
+      "revId": "3065aded92fdfef7c7e7a432365224cac69b3b93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bf2a440_2581ceb0",
+        "filename": "config.star",
+        "patchSetId": 2
+      },
+      "lineNbr": 836,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-10-15T13:32:20Z",
+      "side": 1,
+      "message": "I am also restoring this one.",
+      "revId": "3065aded92fdfef7c7e7a432365224cac69b3b93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

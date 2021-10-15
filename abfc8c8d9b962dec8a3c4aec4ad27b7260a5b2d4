@@ -39,6 +39,30 @@
       },
       "revId": "abfc8c8d9b962dec8a3c4aec4ad27b7260a5b2d4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "053f4ba9_1144cc23",
+        "filename": "video/receive_statistics_proxy.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-10-15T14:31:55Z",
+      "side": 1,
+      "message": "It\u0027s still needed for the VideoReceiveStream::Stats type.",
+      "parentUuid": "cfa3a801_2899323a",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 38
+      },
+      "revId": "abfc8c8d9b962dec8a3c4aec4ad27b7260a5b2d4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

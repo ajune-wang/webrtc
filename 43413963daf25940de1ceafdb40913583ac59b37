@@ -99,6 +99,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9976c38b_1a32405d",
+        "filename": "modules/audio_processing/agc/analog_gain_stats_reporter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-10-15T13:42:09Z",
+      "side": 1,
+      "message": "I\u0027ve renamed this as kMaxAnalogGain.",
+      "parentUuid": "1591cd2d_6c2fada7",
+      "range": {
+        "startLine": 22,
+        "startChar": 14,
+        "endLine": 22,
+        "endChar": 24
+      },
+      "revId": "43413963daf25940de1ceafdb40913583ac59b37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6306af47_32721222",
@@ -122,6 +146,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f9d46aa_70e29648",
+        "filename": "modules/audio_processing/agc/analog_gain_stats_reporter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-10-15T13:42:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6306af47_32721222",
+      "range": {
+        "startLine": 69,
+        "startChar": 5,
+        "endLine": 69,
+        "endChar": 22
+      },
+      "revId": "43413963daf25940de1ceafdb40913583ac59b37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c8200532_760f9a5b",
@@ -135,6 +183,30 @@
       "writtenOn": "2021-10-15T10:02:28Z",
       "side": 1,
       "message": "It\u0027s better to expose a minimal API; so, `AnalogGainStatsReporter::level_update_stats()`, which is only used for testing, should not be public.\n\nThere are different alternatives to achieve that, I\u0027ll share one which doesn\u0027t require too much boilerplate and that requires a few small changes.\n\n- Make `AnalogGainStatsReporter::LevelUpdateStats` private\n- Make `AnalogGainStatsReporter::level_update_stats()` private\n- Use FRIEND_TEST_ALL_PREFIXES so that the tests will be able to call `level_update_stats()` (example: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/audio_processing/agc2/rnn_vad/pitch_search.h;l\u003d38?q\u003dwebrtc%20agc2%20FRIEND_TEST)\n- Use EXPECT_METRIC_THAT so that you can test periodic logging and `ComputeAverageUpdate()`, which is defined in the anonymous namespace of analog_gain_stats_reporter.cc",
+      "range": {
+        "startLine": 39,
+        "startChar": 26,
+        "endLine": 39,
+        "endChar": 44
+      },
+      "revId": "43413963daf25940de1ceafdb40913583ac59b37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6472054d_a772e230",
+        "filename": "modules/audio_processing/agc/analog_gain_stats_reporter.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-10-15T13:42:09Z",
+      "side": 1,
+      "message": "I\u0027ve moved the method and the struct declaration as suggested and used FRIEND_TEST_ALL_PREFIXES for the existing tests. This meant these tests were moved to webrtc namespace.\n\nI\u0027ve added two tests that use EXPECT_METRIC_THAT to check that the histograms are updated as intended.",
+      "parentUuid": "c8200532_760f9a5b",
       "range": {
         "startLine": 39,
         "startChar": 26,
@@ -182,6 +254,30 @@
       "side": 1,
       "message": "+1\n\notherwise leave unspecified here, define `constexpr int kUnspecifiedAnalogLevel \u003d -1;` in the anon ns in the .cc file and use that in the ctor",
       "parentUuid": "2920205e_40514641",
+      "range": {
+        "startLine": 49,
+        "startChar": 6,
+        "endLine": 49,
+        "endChar": 32
+      },
+      "revId": "43413963daf25940de1ceafdb40913583ac59b37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5d583f5_d34396aa",
+        "filename": "modules/audio_processing/agc/analog_gain_stats_reporter.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-10-15T13:42:09Z",
+      "side": 1,
+      "message": "Agreed, using optional works well for this. I\u0027ve changed the code accordingly.",
+      "parentUuid": "f5af2313_cda7d6b4",
       "range": {
         "startLine": 49,
         "startChar": 6,

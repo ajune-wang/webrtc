@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c7eb151_40f5cc7d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-10-15T13:42:09Z",
+      "side": 1,
+      "message": "Thank you for the comments!\n\nI\u0027ve revised the changes based on Alessio\u0027s comments. Can you please take a look at them again?\n\nThanks!",
+      "revId": "436ebb1d2ef7ce14b3ffcb134ca8a23cc8c2bf75",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

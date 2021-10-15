@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d427fc4_581d662f",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2363,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-10-15T16:45:42Z",
+      "side": 1,
+      "message": "Shouldn\u0027t you be resetting this in ConfigureEncoder(). Maybe only if is_screenshare has changed.\n\nAre you sure it\u0027s impossible to switch the stream of camera to screenshare. It\u0027s not happening in e.g. Meet now, but in theory just changing the source track for the transceiver could do it.\n\nOr maybe, a better place to report it is in OnConstraintsChanged() if there was any change? Also why do you report it only for screenshare?",
+      "range": {
+        "startLine": 2363,
+        "startChar": 2,
+        "endLine": 2363,
+        "endChar": 44
+      },
+      "revId": "3b0a24f620db578270f3c83caeb51ba1c22191aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c344eb33_55ba650e",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2377,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-10-15T16:45:42Z",
+      "side": 1,
+      "message": "FYI, all these have 50 buckets:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/system_wrappers/include/metrics.h;l\u003d105;drc\u003df0671921a12717388a575c023aa610e4088b588e\n\nShould be enough for your case, but you decide.",
+      "range": {
+        "startLine": 2377,
+        "startChar": 8,
+        "endLine": 2377,
+        "endChar": 32
+      },
+      "revId": "3b0a24f620db578270f3c83caeb51ba1c22191aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0e978ac_d438fa94",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2405,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-10-15T16:45:42Z",
+      "side": 1,
+      "message": "That macro creates a histogram with only 50 buckets:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/system_wrappers/include/metrics.h;l\u003d150;drc\u003df0671921a12717388a575c023aa610e4088b588e\n\nThat\u0027s far too low resolution for your purpose of encoding 2 values in one. It would basically be impossible to see max_fps value.\n\nAlso, you don\u0027t need slow (e.g. *_SPARSE\") methods - they are needed only if you were reporting different histograms dynamically at the same place in the code.\n\nYou should use |RTC_HISTOGRAM_COUNTS_LINEAR(\"...120MinPlusMax\", x*120+y, 1, max, max)| here.",
+      "range": {
+        "startLine": 2405,
+        "startChar": 8,
+        "endLine": 2405,
+        "endChar": 41
+      },
+      "revId": "3b0a24f620db578270f3c83caeb51ba1c22191aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

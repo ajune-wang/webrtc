@@ -140,10 +140,9 @@ class BitrateEstimatorTest : public test::CallTest {
       // receive_config_.decoders will be set by every stream separately.
       receive_config_.rtp.remote_ssrc = GetVideoSendConfig()->rtp.ssrcs[0];
       receive_config_.rtp.local_ssrc = kReceiverLocalVideoSsrc;
-      receive_config_.rtp.extensions.push_back(
-          RtpExtension(RtpExtension::kTimestampOffsetUri, kTOFExtensionId));
-      receive_config_.rtp.extensions.push_back(
-          RtpExtension(RtpExtension::kAbsSendTimeUri, kASTExtensionId));
+      receive_config_.rtp.set_extensions(
+          {RtpExtension(RtpExtension::kTimestampOffsetUri, kTOFExtensionId),
+           RtpExtension(RtpExtension::kAbsSendTimeUri, kASTExtensionId)});
     });
   }
 

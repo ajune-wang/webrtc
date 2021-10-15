@@ -135,10 +135,10 @@ struct ConfigHelper {
     stream_config_.rtp.local_ssrc = kLocalSsrc;
     stream_config_.rtp.remote_ssrc = kRemoteSsrc;
     stream_config_.rtp.nack.rtp_history_ms = 300;
-    stream_config_.rtp.extensions.push_back(
-        RtpExtension(RtpExtension::kAudioLevelUri, kAudioLevelId));
-    stream_config_.rtp.extensions.push_back(RtpExtension(
-        RtpExtension::kTransportSequenceNumberUri, kTransportSequenceNumberId));
+    stream_config_.rtp.set_extensions(
+        {RtpExtension(RtpExtension::kAudioLevelUri, kAudioLevelId),
+         RtpExtension(RtpExtension::kTransportSequenceNumberUri,
+                      kTransportSequenceNumberId)});
     stream_config_.rtcp_send_transport = &rtcp_send_transport_;
     stream_config_.decoder_factory =
         rtc::make_ref_counted<MockAudioDecoderFactory>();
@@ -210,8 +210,8 @@ TEST(AudioReceiveStreamTest, ConfigToString) {
   AudioReceiveStream::Config config;
   config.rtp.remote_ssrc = kRemoteSsrc;
   config.rtp.local_ssrc = kLocalSsrc;
-  config.rtp.extensions.push_back(
-      RtpExtension(RtpExtension::kAudioLevelUri, kAudioLevelId));
+  config.rtp.set_extensions(
+      {RtpExtension(RtpExtension::kAudioLevelUri, kAudioLevelId)});
   EXPECT_EQ(
       "{rtp: {remote_ssrc: 1234, local_ssrc: 5678, transport_cc: off, nack: "
       "{rtp_history_ms: 0}, extensions: [{uri: "
@@ -376,12 +376,10 @@ TEST(AudioReceiveStreamTest, ReconfigureWithUpdatedConfig) {
 
     auto new_config = helper.config();
 
-    new_config.rtp.extensions.clear();
-    new_config.rtp.extensions.push_back(
-        RtpExtension(RtpExtension::kAudioLevelUri, kAudioLevelId + 1));
-    new_config.rtp.extensions.push_back(
-        RtpExtension(RtpExtension::kTransportSequenceNumberUri,
-                     kTransportSequenceNumberId + 1));
+    new_config.rtp.set_extensions(
+        {RtpExtension(RtpExtension::kAudioLevelUri, kAudioLevelId + 1),
+         RtpExtension(RtpExtension::kTransportSequenceNumberUri,
+                      kTransportSequenceNumberId + 1)});
 
     MockChannelReceive& channel_receive = *helper.channel_receive();
 

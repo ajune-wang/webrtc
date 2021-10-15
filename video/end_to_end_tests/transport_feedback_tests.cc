@@ -203,10 +203,9 @@ TEST(TransportFeedbackMultiStreamTest, AssignsTransportSequenceNumbers) {
         size_t stream_index,
         VideoReceiveStream::Config* receive_config) override {
       receive_config->rtp.nack.rtp_history_ms = kNackRtpHistoryMs;
-      receive_config->rtp.extensions.clear();
-      receive_config->rtp.extensions.push_back(
-          RtpExtension(RtpExtension::kTransportSequenceNumberUri,
-                       kTransportSequenceNumberExtensionId));
+      receive_config->rtp.set_extensions(
+          {RtpExtension(RtpExtension::kTransportSequenceNumberUri,
+                        kTransportSequenceNumberExtensionId)});
       receive_config->renderer = &fake_renderer_;
     }
 
@@ -304,8 +303,7 @@ class TransportFeedbackTester : public test::EndToEndTest {
     send_config->rtp.extensions.push_back(
         RtpExtension(RtpExtension::kTransportSequenceNumberUri,
                      kTransportSequenceNumberExtensionId));
-    (*receive_configs)[0].rtp.extensions.clear();
-    (*receive_configs)[0].rtp.extensions = send_config->rtp.extensions;
+    (*receive_configs)[0].rtp.set_extensions(send_config->rtp.extensions);
     (*receive_configs)[0].rtp.transport_cc = feedback_enabled_;
   }
 

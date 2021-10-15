@@ -622,7 +622,7 @@ class UlpfecObserver : public test::EndToEndTest {
       send_config->rtp.extensions.push_back(
           RtpExtension(RtpExtension::kAbsSendTimeUri, kAbsSendTimeExtensionId));
     }
-    (*receive_configs)[0].rtp.extensions = send_config->rtp.extensions;
+    (*receive_configs)[0].rtp.set_extensions(send_config->rtp.extensions);
     encoder_config->codec_type = PayloadStringToCodecType(payload_name_);
     (*receive_configs)[0].rtp.red_payload_type =
         send_config->rtp.ulpfec.red_payload_type;
@@ -833,7 +833,7 @@ class FlexfecObserver : public test::EndToEndTest {
     } else {
       send_config->rtp.extensions.clear();
     }
-    (*receive_configs)[0].rtp.extensions = send_config->rtp.extensions;
+    (*receive_configs)[0].rtp.set_extensions(send_config->rtp.extensions);
     encoder_config->codec_type = PayloadStringToCodecType(payload_name_);
   }
 
@@ -1581,7 +1581,7 @@ TEST_F(VideoSendStreamTest, ChangingNetworkRoute) {
       send_config->rtp.extensions.clear();
       send_config->rtp.extensions.push_back(RtpExtension(
           RtpExtension::kTransportSequenceNumberUri, kExtensionId));
-      (*receive_configs)[0].rtp.extensions = send_config->rtp.extensions;
+      (*receive_configs)[0].rtp.set_extensions(send_config->rtp.extensions);
       (*receive_configs)[0].rtp.transport_cc = true;
     }
 
@@ -1592,8 +1592,7 @@ TEST_F(VideoSendStreamTest, ChangingNetworkRoute) {
       send_config->rtp.extensions.clear();
       send_config->rtp.extensions.push_back(RtpExtension(
           RtpExtension::kTransportSequenceNumberUri, kExtensionId));
-      (*receive_configs)[0].rtp.extensions.clear();
-      (*receive_configs)[0].rtp.extensions = send_config->rtp.extensions;
+      (*receive_configs)[0].rtp.set_extensions(send_config->rtp.extensions);
       (*receive_configs)[0].rtp.transport_cc = true;
     }
 

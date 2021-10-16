@@ -156,6 +156,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbd0ce42_88d1cad4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-10-16T11:10:57Z",
+      "side": 1,
+      "message": "surprising. Why is there rtx for ulpfec in the initial offer?!\n(peer_connection_quality_test.cc:622): Original offer: v\u003d0\n...\na\u003drtpmap:123 ulpfec/90000\n...\na\u003drtpmap:116 rtx/90000\na\u003dfmtp:116 apt\u003d123\n\nvideo_engine doesn\u0027t do that (see GetPayloadTypesAndDefaultCodecs)\n\nI\u0027ve submitted the change to put the new codecs into the lower range, if that helps... the problem we have about the exhaustion is not completly solved.",
+      "parentUuid": "8084b0f3_6595819d",
+      "revId": "35db0c7ff82e7f6ce193d26e8b586479eab3c2bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0a9d02af_863a7b46",

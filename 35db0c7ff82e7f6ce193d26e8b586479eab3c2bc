@@ -176,6 +176,41 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "00001eec_a719bcc7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-10-17T15:54:14Z",
+      "side": 1,
+      "message": "This made things a bit clearer at least. When dumping the reference codecs in mediasessions MergeCodecs I see the following:\n...\n(media_session.cc:1066): REF AV1/35\n(media_session.cc:1066): REF rtx/36\n(media_session.cc:1066): REF red/110\n(media_session.cc:1066): REF rtx/111\n(media_session.cc:1066): REF ulpfec/112\n(media_session.cc:1066): REF flexfec-03/37\n(media_session.cc:1066): REF VP9/102\n(media_session.cc:1066): REF rtx/103\n(media_session.cc:1066): REF H264/35\n(media_session.cc:1066): REF rtx/36\n(media_session.cc:1066): REF H264/37\n(media_session.cc:1066): REF rtx/38\nsomewhere later in the code (mapcodecs as described above probably) the RTX codec 38 (with an apt 37) gets matched with flexfec?\n\nGetPayloadTypesAndDefaultCodecs has a \nAddH264ConstrainedBaselineProfileToSupportedFormats\nwhich is done only for the decoder factory.\nShouldn\u0027t this also be done for the two new formats (or instead of the current changes)? That might avoid the collision which gets resolved incorrectly.\n\nAlso note that the e2e test stops failing if one comments out the actual SetCodecPreferences call in PeerConnectionE2EQualityTest::SetPeerCodecPreferences.",
+      "parentUuid": "fbd0ce42_88d1cad4",
+      "revId": "35db0c7ff82e7f6ce193d26e8b586479eab3c2bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ee7d76d_d8163b9a",
+        "filename": "api/video/i444_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-10-17T15:54:14Z",
+      "side": 1,
+      "message": "it looks like all added files have the dos/crlf line encoding. Surprising that the presubmit does not complain about this.\nAnyway, running `git cl format` should fix that.",
+      "revId": "35db0c7ff82e7f6ce193d26e8b586479eab3c2bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0a9d02af_863a7b46",
         "filename": "modules/video_coding/codecs/h264/h264.cc",
         "patchSetId": 2

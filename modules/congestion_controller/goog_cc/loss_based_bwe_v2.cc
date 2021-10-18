@@ -346,20 +346,26 @@ bool LossBasedBweV2::IsConfigValid() const {
   }
   if (config_->rampup_acceleration_max_factor < 0.0) {
     RTC_LOG(LS_WARNING)
-        << "The rampup acceleration max factor must be non-negative.: "
+        << "The rampup acceleration max factor must be non-negative: "
         << config_->rampup_acceleration_max_factor;
     valid = false;
   }
   if (config_->rampup_acceleration_maxout_time <= TimeDelta::Zero()) {
     RTC_LOG(LS_WARNING)
         << "The rampup acceleration maxout time must be above zero: "
-        << config_->rampup_acceleration_maxout_time.seconds();
+        << ToString(config_->rampup_acceleration_maxout_time);
     valid = false;
   }
   if (config_->higher_bandwidth_bias_factor < 0.0) {
     RTC_LOG(LS_WARNING)
         << "The higher bandwidth bias factor must be non-negative: "
         << config_->higher_bandwidth_bias_factor;
+    valid = false;
+  }
+  if (config_->higher_log_bandwidth_bias_factor < 0.0) {
+    RTC_LOG(LS_WARNING)
+        << "The higher log bandwidth bias factor must be non-negative: "
+        << config_->higher_log_bandwidth_bias_factor;
     valid = false;
   }
   if (config_->inherent_loss_lower_bound < 0.0 ||
@@ -425,7 +431,7 @@ bool LossBasedBweV2::IsConfigValid() const {
   if (config_->instant_upper_bound_temporal_weight_factor <= 0.0 ||
       config_->instant_upper_bound_temporal_weight_factor > 1.0) {
     RTC_LOG(LS_WARNING)
-        << "The instant upper bound temporal weight factor must be in (0, 1]"
+        << "The instant upper bound temporal weight factor must be in (0, 1]: "
         << config_->instant_upper_bound_temporal_weight_factor;
     valid = false;
   }

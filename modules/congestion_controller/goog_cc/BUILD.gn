@@ -351,6 +351,7 @@ if (rtc_include_tests) {
         "../../pacing",
         "//testing/gmock",
       ]
+      absl_deps = [ "//third_party/abseil-cpp/absl/strings" ]
     }
   }
 }

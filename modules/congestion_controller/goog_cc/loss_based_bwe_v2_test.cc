@@ -12,20 +12,30 @@
 
 #include <string>
 
+#include "absl/strings/string_view.h"
 #include "api/transport/network_types.h"
+#include "api/transport/webrtc_key_value_config.h"
 #include "api/units/data_rate.h"
 #include "api/units/data_size.h"
 #include "api/units/time_delta.h"
 #include "api/units/timestamp.h"
 #include "rtc_base/strings/string_builder.h"
 #include "test/explicit_key_value_config.h"
+#include "test/gmock.h"
 #include "test/gtest.h"
 
 namespace webrtc {
 
 namespace {
 
+using ::testing::Return;
+
 constexpr TimeDelta kObservationDurationLowerBound = TimeDelta::Millis(200);
+
+class MockKeyValueConfig : public WebRtcKeyValueConfig {
+ public:
+  MOCK_METHOD(std::string, Lookup, (absl::string_view key), (const, override));
+};
 
 std::string Config(bool enabled, bool valid) {
   char buffer[1024];
@@ -85,6 +95,46 @@ TEST(LossBasedBweV2Test, DisabledWhenGivenNonValidConfigurationValues) {
       Config(/*enabled=*/true, /*valid=*/false));
   LossBasedBweV2 loss_based_bandwidth_estimator(&key_value_config);
 
+  EXPECT_FALSE(loss_based_bandwidth_estimator.IsEnabled());
+}
+
+TEST(LossBasedBweV2Test, EnabledWhenGivenAnEnabledConfigurationWithBadSyntax) {
+  // Test that we don't break or disable on bad syntax.
+  test::ExplicitKeyValueConfig key_value_config(
+      "WebRTC-Bwe-LossBasedBweV2/"
+      // Last valid value is used. Value with colon.
+      "Enabled:false,Enabled:true,Enabled:fal:se,"
+      // Empty string.
+      ",,"
+      // Key and value is missing.
+      ",:,"
+      // Keyless value.
+      ":KeylessValue,"
+      // Unknown key.
+      "UnknownKey:Value,"
+      // Empty value.
+      "InstantUpperBoundLossOffset:,"
+      // List with empty element.
+      "CandidateFactors:10||5,"
+      // Boolean value is not a boolean.
+      "AckedRateCandidate:ValueThatCannotBeConvertedToABoolean,"
+      // Float with non-unit unit.
+      "InstantUpperBoundTemporalWeightFactor:0.8k,"
+      // `DataRate` without unit.
+      "InherentLossUpperBoundBwBalance:1,"
+      // `TimeDelta` without unit.
+      "ObservationDurationLowerBound:1,"
+      "/");
+  LossBasedBweV2 loss_based_bandwidth_estimator(&key_value_config);
+  EXPECT_TRUE(loss_based_bandwidth_estimator.IsEnabled());
+}
+
+TEST(LossBasedBweV2Test, DisabledWhenNotGivenAConfiguration) {
+  // Cannot use `ExplicitKeyValueConfig` here since it does not allow empty
+  // field trials.
+  MockKeyValueConfig key_value_config;
+  EXPECT_CALL(key_value_config, Lookup).WillRepeatedly(Return(""));
+  LossBasedBweV2 loss_based_bandwidth_estimator(&key_value_config);
   EXPECT_FALSE(loss_based_bandwidth_estimator.IsEnabled());
 }
 

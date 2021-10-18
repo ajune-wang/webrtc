@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f72886fa_5916be16",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-10-18T09:46:11Z",
+      "side": 1,
+      "message": "This was probably triggered by Chromium enabling -Wunused-but-set-variable on the toolchain level.",
+      "revId": "9e27351fa1d8a085f6dbd715c7d40cea2d379cdf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

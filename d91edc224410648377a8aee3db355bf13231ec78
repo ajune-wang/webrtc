@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20e0a1e8_43c9f787",
+        "filename": "modules/congestion_controller/pcc/monitor_interval.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-10-18T09:46:45Z",
+      "side": 0,
+      "message": "Let\u0027s remove also delay. :)",
+      "range": {
+        "startLine": 79,
+        "startChar": 18,
+        "endLine": 79,
+        "endChar": 23
+      },
+      "revId": "d91edc224410648377a8aee3db355bf13231ec78",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

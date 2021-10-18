@@ -16,6 +16,24 @@
       "message": "Code looks good. Checking: is the path adequately covered by tests?\n(in particular that the timing of the queue change is the same as the buffered_amount_)\n\n",
       "revId": "c9737e1aa6412527d0370787745e43349aee6028",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6df9172a_10a416e9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-10-18T10:37:49Z",
+      "side": 1,
+      "message": "I\u0027m not certain if the tests are precisely checking the timing. But I know we updated the value around the same places the queue is updated and it should still be consistent.",
+      "parentUuid": "5d1500ce_f666a0c1",
+      "revId": "c9737e1aa6412527d0370787745e43349aee6028",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

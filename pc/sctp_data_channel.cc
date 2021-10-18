@@ -254,7 +254,7 @@ bool SctpDataChannel::reliable() const {
 
 uint64_t SctpDataChannel::buffered_amount() const {
   RTC_DCHECK_RUN_ON(signaling_thread_);
-  return buffered_amount_;
+  return queued_send_data_.byte_count();
 }
 
 void SctpDataChannel::Close() {
@@ -305,8 +305,6 @@ bool SctpDataChannel::Send(const DataBuffer& buffer) {
   if (state_ != kOpen) {
     return false;
   }
-
-  buffered_amount_ += buffer.size();
 
   // If the queue is non-empty, we're waiting for SignalReadyToSend,
   // so just add to the end of the queue and keep waiting.
@@ -487,8 +485,6 @@ void SctpDataChannel::CloseAbruptlyWithError(RTCError error) {
   }
 
   // Closing abruptly means any queued data gets thrown away.
-  buffered_amount_ = 0;
-
   queued_send_data_.Clear();
   queued_control_data_.Clear();
 
@@ -644,8 +640,6 @@ bool SctpDataChannel::SendDataMessage(const DataBuffer& buffer,
     ++messages_sent_;
     bytes_sent_ += buffer.size();
 
-    RTC_DCHECK(buffered_amount_ >= buffer.size());
-    buffered_amount_ -= buffer.size();
     if (observer_ && buffer.size() > 0) {
       observer_->OnBufferedAmountChange(buffer.size());
     }

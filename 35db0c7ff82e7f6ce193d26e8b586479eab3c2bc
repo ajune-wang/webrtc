@@ -194,6 +194,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e3d3db69_f4eab352",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18414
+      },
+      "writtenOn": "2021-10-18T16:23:10Z",
+      "side": 1,
+      "message": "Yes, it gets mapped to flexfec in MapCodecs(...), and that is also where the check fails.\n\nHigh Predictive 4:4:4 is not a superset of Constrained Baseline so this \"workaround\" is required. \nYou will notice that the problem also extends to VP9 profile-level-id\u003d1 as it\u0027s RTX pair gets mapped to completely different codec (in the dump I provided it gets mapped to H264). So the collision is not just exclusive to the newly added codecs. The reason it doesn\u0027t fail is because it is a valid codec and not flexfec.\n\nLink to original post with data in case you missed it, took me a minute to find it myself as I am now to Gerrit :) : https://webrtc-review.googlesource.com/c/src/+/235340/comments/8772c4b5_ea922795",
+      "parentUuid": "00001eec_a719bcc7",
+      "revId": "35db0c7ff82e7f6ce193d26e8b586479eab3c2bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9ee7d76d_d8163b9a",
         "filename": "api/video/i444_buffer.h",
         "patchSetId": 2

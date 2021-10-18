@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be1c36eb_9d00bbd5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-10-18T16:42:35Z",
+      "side": 1,
+      "message": "Hi, sorry for being late to the review 😊",
+      "revId": "6b298fad28f54db074f78634bfbe211f1e4e5838",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d067aa2_d54d3dcc",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2409,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2021-10-18T16:42:35Z",
+      "side": 1,
+      "message": "Anything more than 100 buckets requires a review from a top-level metrics owner. You should probably use a sparse histogram here, see https://chromium.googlesource.com/chromium/src.git/+/HEAD/tools/metrics/histograms/README.md#multidimensional-histograms. \n\nI haven\u0027t tried this myself before, but the only RTC histogram that I\u0027ve found that maps to a chromium sparse histogram is:\nRTC_HISTOGRAM_ENUMERATION_SPARSE(value, /*boundary\u003d*/kMaxBucketCount);\n\nboundary seems to not be used at the moment,\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc_overrides/metrics.cc;drc\u003d819be2e0b403d46d15f015484114003a14fac272;l\u003d39",
+      "range": {
+        "startLine": 2409,
+        "startChar": 8,
+        "endLine": 2409,
+        "endChar": 36
+      },
+      "revId": "6b298fad28f54db074f78634bfbe211f1e4e5838",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

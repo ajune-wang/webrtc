@@ -1298,7 +1298,6 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
           rtc::ArrayView<const float>(capture_buffer->channels()[0],
                                       capture_buffer->num_frames()));
     }
-
     // TODO(aluebs): Investigate if the transient suppression placement should
     // be before or after the AGC.
     if (submodules_.transient_suppressor) {

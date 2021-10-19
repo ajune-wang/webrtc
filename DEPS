@@ -144,6 +144,9 @@ deps = {
     'url': 'https://chromium.googlesource.com/chromium/deps/findbugs.git@4275d9ac8610db6b1bc9a5e887f97e41b33fac67',
     'condition': 'checkout_android',
   },
+  'src/third_party/grpc/src': {
+    'url': 'https://chromium.googlesource.com/external/github.com/grpc/grpc.git@54dc182082db941aa67c7c3f93ad858c99a16d7d',
+  },
   # Used for embedded builds. CrOS & Linux use the system version.
   'src/third_party/fontconfig/src': {
       'url': 'https://chromium.googlesource.com/external/fontconfig.git@452be8125f0e2a18a7dfef469e05d19374d36307',

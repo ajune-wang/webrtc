@@ -1458,7 +1458,13 @@ TEST_F(VideoSendStreamTest, PaddingIsPrimarilyRetransmissions) {
 //
 // Note that the test starts at "high" bitrate and does not ramp up to "higher"
 // bitrate since no receiver block or remb is sent in the initial phase.
-TEST_F(VideoSendStreamTest, MinTransmitBitrateRespectsRemb) {
+#if defined(WEBRTC_MAC)
+#define MAYBE_MinTransmitBitrateRespectsRemb \
+  DISABLED_MinTransmitBitrateRespectsRemb
+#else
+#define MAYBE_MinTransmitBitrateRespectsRemb MinTransmitBitrateRespectsRemb
+#endif
+TEST_F(VideoSendStreamTest, MAYBE_MinTransmitBitrateRespectsRemb) {
   static const int kMinTransmitBitrateBps = 400000;
   static const int kHighBitrateBps = 150000;
   static const int kRembBitrateBps = 80000;

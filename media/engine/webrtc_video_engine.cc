@@ -3319,6 +3319,10 @@ WebRtcVideoChannel::MapCodecs(const std::vector<VideoCodec>& codecs) {
     return {};
   }
 
+  for (const VideoCodec& c : codecs) {
+    RTC_LOG(LS_ERROR) << "MAPCODECS " << c.name;
+  }
+
   std::vector<VideoCodecSettings> video_codecs;
   std::map<int, VideoCodec::CodecType> payload_codec_type;
   // `rtx_mapping` maps video payload type to rtx payload type.

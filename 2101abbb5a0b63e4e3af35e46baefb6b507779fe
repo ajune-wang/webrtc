@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1606801_7f5318ab",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-10-19T20:49:29Z",
+      "side": 1,
+      "message": "Please change subject line to [Merge to Mnn] dsctp: Support...",
+      "revId": "2101abbb5a0b63e4e3af35e46baefb6b507779fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

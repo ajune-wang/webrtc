@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8bd063e7_d3fde252",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-10-19T08:45:12Z",
+      "side": 1,
+      "message": "Hello, I created CL to inform you about this issue.\nPlease take a look at the related monorail issues and notify someone who can fix the deadlock. Thank you.",
+      "revId": "8cc6797eb70abafcf0379b4fde47d341791039d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

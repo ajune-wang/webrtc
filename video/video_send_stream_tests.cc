@@ -1458,7 +1458,8 @@ TEST_F(VideoSendStreamTest, PaddingIsPrimarilyRetransmissions) {
 //
 // Note that the test starts at "high" bitrate and does not ramp up to "higher"
 // bitrate since no receiver block or remb is sent in the initial phase.
-TEST_F(VideoSendStreamTest, MinTransmitBitrateRespectsRemb) {
+// TODO(bugs.webrtc.org/13291): Check why the deadlock occurs in this test.
+TEST_F(VideoSendStreamTest, DISABLED_MinTransmitBitrateRespectsRemb) {
   static const int kMinTransmitBitrateBps = 400000;
   static const int kHighBitrateBps = 150000;
   static const int kRembBitrateBps = 80000;

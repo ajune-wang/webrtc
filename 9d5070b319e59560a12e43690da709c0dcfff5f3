@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "92561603_11c65617",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-10-19T19:13:14Z",
+      "side": 1,
+      "message": "It\u0027s slightly misleading to say this retains the position, when really it ensures the RTX/RED codecs are listed immediately after the codecs they reference. They could have come in a different order from the remote offer though.",
+      "revId": "9d5070b319e59560a12e43690da709c0dcfff5f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "dd433477_257a4cc9",
@@ -14,6 +31,23 @@
       "writtenOn": "2021-10-19T17:37:20Z",
       "side": 1,
       "message": "makes the sdp more readable, makes the code a bit less readable ;-)",
+      "revId": "9d5070b319e59560a12e43690da709c0dcfff5f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46cbf2b6_b67d55bc",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1108,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-10-19T19:13:14Z",
+      "side": 1,
+      "message": "It\u0027s a little unfortunate this makes the algorithm O(N^2); I wonder if it\u0027s noticeably slower with a full list of codecs. Can you try timing it?",
       "revId": "9d5070b319e59560a12e43690da709c0dcfff5f3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

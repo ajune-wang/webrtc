@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd433477_257a4cc9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-10-19T17:37:20Z",
+      "side": 1,
+      "message": "makes the sdp more readable, makes the code a bit less readable ;-)",
+      "revId": "9d5070b319e59560a12e43690da709c0dcfff5f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

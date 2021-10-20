@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed963d90_451cf313",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18439
+      },
+      "writtenOn": "2021-10-20T08:55:23Z",
+      "side": 1,
+      "message": "Hello Magnus/Erik, we are merging this to the LTS branch but we don\u0027t have permissions for reviewing it; Could you please review/submit this change?",
+      "revId": "756f1a5ad251b73310cc72135a2c59b25961338a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

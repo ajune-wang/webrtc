@@ -260,7 +260,7 @@ void OutstandingData::AbandonAllFor(const Item& item) {
     UnwrappedTSN tsn = next_tsn();
     Data message_end(item.data().stream_id, item.data().ssn,
                      item.data().message_id, item.data().fsn, item.data().ppid,
-                     std::vector<uint8_t>(), Data::IsBeginning(false),
+                     rtc::CopyOnWriteBuffer(), Data::IsBeginning(false),
                      Data::IsEnd(true), item.data().is_unordered);
     outstanding_data_.emplace_back(std::move(message_end),
                                    MaxRetransmits::NoLimit(), TimeMs(0),
@@ -371,7 +371,7 @@ absl::optional<UnwrappedTSN> OutstandingData::Insert(
   size_t chunk_size = GetSerializedChunkSize(data);
   outstanding_bytes_ += chunk_size;
   ++outstanding_items_;
-  outstanding_data_.emplace_back(data.Clone(), max_retransmissions, time_sent,
+  outstanding_data_.emplace_back(data, max_retransmissions, time_sent,
                                  expires_at);
   Item& item = outstanding_data_.back();
 

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "655b2ea4_904b30a6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-10-20T06:22:42Z",
+      "side": 1,
+      "message": "iOS bots fail because of missing testing/scripts/variations_seed_access_helper.py which was added recently so we need to CP also a DEPS autoroller CL in order to make them green.\n\nCQ on branches is not really working (we should branch all the deps as well, instead we branch WebRTC and run it on an updated infra).",
+      "revId": "ee9083f6a2c3e0f1d9ae6d390f337489a0511d64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

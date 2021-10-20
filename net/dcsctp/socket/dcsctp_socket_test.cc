@@ -1397,7 +1397,7 @@ TEST_F(DcSctpSocketTest, PassingHighWatermarkWillOnlyAcceptCumAckTsn) {
   sock_z2.ReceivePacket(
       SctpPacket::Builder(sock_z2.verification_tag(), options)
           .Add(DataChunk(tsn, StreamID(1), SSN(0), PPID(53),
-                         std::vector<uint8_t>(kWatermarkLimit + 1), opts))
+                         rtc::CopyOnWriteBuffer(kWatermarkLimit + 1), opts))
           .Build());
 
   // First DATA will always trigger a SACK. It's not interesting.
@@ -1407,7 +1407,7 @@ TEST_F(DcSctpSocketTest, PassingHighWatermarkWillOnlyAcceptCumAckTsn) {
   // This DATA should be accepted - it's advancing cum ack tsn.
   sock_z2.ReceivePacket(SctpPacket::Builder(sock_z2.verification_tag(), options)
                             .Add(DataChunk(AddTo(tsn, 1), StreamID(1), SSN(0),
-                                           PPID(53), std::vector<uint8_t>(1),
+                                           PPID(53), rtc::CopyOnWriteBuffer(1),
                                            /*options=*/{}))
                             .Build());
 
@@ -1422,7 +1422,7 @@ TEST_F(DcSctpSocketTest, PassingHighWatermarkWillOnlyAcceptCumAckTsn) {
   // This DATA will not be accepted - it's not advancing cum ack tsn.
   sock_z2.ReceivePacket(SctpPacket::Builder(sock_z2.verification_tag(), options)
                             .Add(DataChunk(AddTo(tsn, 3), StreamID(1), SSN(0),
-                                           PPID(53), std::vector<uint8_t>(1),
+                                           PPID(53), rtc::CopyOnWriteBuffer(1),
                                            /*options=*/{}))
                             .Build());
 
@@ -1434,7 +1434,7 @@ TEST_F(DcSctpSocketTest, PassingHighWatermarkWillOnlyAcceptCumAckTsn) {
   // This DATA will not be accepted either.
   sock_z2.ReceivePacket(SctpPacket::Builder(sock_z2.verification_tag(), options)
                             .Add(DataChunk(AddTo(tsn, 4), StreamID(1), SSN(0),
-                                           PPID(53), std::vector<uint8_t>(1),
+                                           PPID(53), rtc::CopyOnWriteBuffer(1),
                                            /*options=*/{}))
                             .Build());
 
@@ -1447,7 +1447,7 @@ TEST_F(DcSctpSocketTest, PassingHighWatermarkWillOnlyAcceptCumAckTsn) {
   sock_z2.ReceivePacket(
       SctpPacket::Builder(sock_z2.verification_tag(), options)
           .Add(DataChunk(AddTo(tsn, 2), StreamID(1), SSN(0), PPID(53),
-                         std::vector<uint8_t>(kRemainingSize),
+                         rtc::CopyOnWriteBuffer(kRemainingSize),
                          /*options=*/{}))
           .Build());
 
@@ -1466,7 +1466,7 @@ TEST_F(DcSctpSocketTest, PassingHighWatermarkWillOnlyAcceptCumAckTsn) {
   sock_z2.ReceivePacket(
       SctpPacket::Builder(sock_z2.verification_tag(), options)
           .Add(DataChunk(AddTo(tsn, 3), StreamID(1), SSN(0), PPID(53),
-                         std::vector<uint8_t>(kSmallMessageSize),
+                         rtc::CopyOnWriteBuffer(kSmallMessageSize),
                          /*options=*/{}))
           .Build());
 }

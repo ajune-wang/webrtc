@@ -16,6 +16,23 @@
       "message": "Just felt like cleaning up something small.\n",
       "revId": "57b52543cc2a249085ff60ecfb292789c904fc32",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d2a51ad_4bdaba58",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-10-20T06:51:20Z",
+      "side": 1,
+      "message": "Some related suggestions: Private methods could be annotated with RTC_RUN_ON, replacing run time checks RTC_DCHECK_RUN_ON with a compile time check.\n\nIf SdpOfferAnswerer is single threaded (nothing ever called on any other thread but the signal thread), it might make sense to remove explicit references to signaling_thread and add a thread checker instead.\n\nWhere the class instance is declared, in peer_connection.h, I think the unique_ptr should be annotated RTC_PT_GUARDED_BY, since also contents of the object should be accessed only on the signaling thread.\n",
+      "revId": "57b52543cc2a249085ff60ecfb292789c904fc32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

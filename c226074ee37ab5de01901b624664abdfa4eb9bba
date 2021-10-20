@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45649ad7_7f4f62c0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-10-20T20:10:47Z",
+      "side": 1,
+      "message": "A function that can return a fail indication, should.\nThe layers above, though .... they can\u0027t.\n",
+      "revId": "c226074ee37ab5de01901b624664abdfa4eb9bba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

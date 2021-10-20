@@ -11,6 +11,9 @@
 #include "rtc_base/copy_on_write_buffer.h"
 
 #include <stddef.h>
+#if __has_feature(memory_sanitizer)
+#include <sanitizer/msan_interface.h>
+#endif
 
 namespace rtc {
 
@@ -35,6 +38,11 @@ CopyOnWriteBuffer::CopyOnWriteBuffer(size_t size)
     : buffer_(size > 0 ? new RefCountedBuffer(size) : nullptr),
       offset_(0),
       size_(size) {
+#if __has_feature(memory_sanitizer)
+  if (size > 0) {
+    __msan_poison(buffer_->data(), size);
+  }
+#endif
   RTC_DCHECK(IsConsistent());
 }
 

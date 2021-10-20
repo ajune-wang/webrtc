@@ -33,6 +33,24 @@
       "message": "Some related suggestions: Private methods could be annotated with RTC_RUN_ON, replacing run time checks RTC_DCHECK_RUN_ON with a compile time check.\n\nIf SdpOfferAnswerer is single threaded (nothing ever called on any other thread but the signal thread), it might make sense to remove explicit references to signaling_thread and add a thread checker instead.\n\nWhere the class instance is declared, in peer_connection.h, I think the unique_ptr should be annotated RTC_PT_GUARDED_BY, since also contents of the object should be accessed only on the signaling thread.\n",
       "revId": "57b52543cc2a249085ff60ecfb292789c904fc32",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b03b5d24_917de0fd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-10-20T07:13:01Z",
+      "side": 1,
+      "message": "Thanks!\n\nThe reason for using RTC_DCHECK_RUN_ON instead of RTC_RUN_ON is that these functions have been moved back and forth between modules a lot while refactoring, and I\u0027m not at all sure they have stopped moving; RTC_RUN_ON turned out to be a PITA when doing this kind of refactoring.\n\nThere\u0027s one variable left that is accessed on multiple threads (TODO exists). The class also dispatches to multiple other threads, which makes calling out signaling_thread() a bit more sensible. There\u0027s also 3 references to signaling_thread() that are not RTC_DCHECK_RUN_ON references - all of those are creating other objects, it\u0027s not clear if they need to know the signaling thread explicitly or whether they just need to know where they are created. If we can get rid of those, then the class doesn\u0027t need to know or care which thread it runs on any more. Later followup.\n\nRTC_PT_GUARDED_BY makes sense. Next CL.",
+      "parentUuid": "8d2a51ad_4bdaba58",
+      "revId": "57b52543cc2a249085ff60ecfb292789c904fc32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

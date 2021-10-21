@@ -20,6 +20,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "131a6853_a495bce5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-10-21T20:38:06Z",
+      "side": 1,
+      "message": "Thanks for the review!\n\nSome questions....",
+      "revId": "b0012247c2af83ccc77f7ca1c2fc0c6b80b17562",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "086e4684_0e2e1d4c",
         "filename": "media/engine/webrtc_media_engine.cc",
         "patchSetId": 3
@@ -43,6 +60,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "f0b0c183_d682e170",
+        "filename": "media/engine/webrtc_media_engine.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-10-21T20:38:06Z",
+      "side": 1,
+      "message": "RtpHeaderExtensionMap is within the modules/rtp_rtcp/ directory. I was hesitant about pulling in a dependency on that file, and also did not want to change the way current extensions are stored.",
+      "parentUuid": "086e4684_0e2e1d4c",
+      "range": {
+        "startLine": 110,
+        "startChar": 3,
+        "endLine": 115,
+        "endChar": 5
+      },
+      "revId": "b0012247c2af83ccc77f7ca1c2fc0c6b80b17562",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "9e573bd9_750ccad2",
         "filename": "media/engine/webrtc_media_engine.h",
         "patchSetId": 3
@@ -54,6 +95,30 @@
       "writtenOn": "2021-10-21T14:29:04Z",
       "side": 1,
       "message": "`rtc::ArrayView\u003cconst T\u003e`\nis usually better parameter type than\n`const std::vector\u003cT\u003e\u0026`\n\n(related tip: https://abseil.io/tips/93 talks about span, but ArrayView is de-facto the same)",
+      "range": {
+        "startLine": 69,
+        "startChar": 4,
+        "endLine": 69,
+        "endChar": 44
+      },
+      "revId": "b0012247c2af83ccc77f7ca1c2fc0c6b80b17562",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4d1feb2_62a755af",
+        "filename": "media/engine/webrtc_media_engine.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-10-21T20:38:06Z",
+      "side": 1,
+      "message": "Sorting out whether or not to remove absl::optional first...",
+      "parentUuid": "9e573bd9_750ccad2",
       "range": {
         "startLine": 69,
         "startChar": 4,
@@ -89,6 +154,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "479c0264_2a7302f6",
+        "filename": "media/engine/webrtc_media_engine.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-10-21T20:38:06Z",
+      "side": 1,
+      "message": "The reason for this format was that the vector is stored as an absl::optional in the calling site, and dealing with the two paths in the caller was more complex than dealing with it in the callee. (I started with send_rtp_extensions).\n\nNow that you point out that recv_rtp_extensions_ is an array, I wonder if I should instead refactor send_rtp_extensions_ to be an empty array rather than an optional when there are no headers present; I don\u0027t understand why an optional is used here.",
+      "parentUuid": "42944126_82376846",
+      "range": {
+        "startLine": 70,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 61
+      },
+      "revId": "b0012247c2af83ccc77f7ca1c2fc0c6b80b17562",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "95abab69_167210e6",
         "filename": "media/engine/webrtc_media_engine_unittest.cc",
         "patchSetId": 3
@@ -100,6 +189,30 @@
       "writtenOn": "2021-10-21T14:29:04Z",
       "side": 1,
       "message": "don\u0027t use underscore in test names\nhttps://github.com/google/googletest/blob/master/docs/faq.md#why-should-test-suite-names-and-test-names-not-contain-underscore",
+      "range": {
+        "startLine": 103,
+        "startChar": 49,
+        "endLine": 103,
+        "endChar": 50
+      },
+      "revId": "b0012247c2af83ccc77f7ca1c2fc0c6b80b17562",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e5e7fea_c988fdfb",
+        "filename": "media/engine/webrtc_media_engine_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-10-21T20:38:06Z",
+      "side": 1,
+      "message": "I was wondering about that .... tried to fit with existing code.\nCleaned the file of underscores throughout.",
+      "parentUuid": "95abab69_167210e6",
       "range": {
         "startLine": 103,
         "startChar": 49,

@@ -827,7 +827,7 @@ bool WebRtcVideoChannel::GetChangedSendParameters(
     const VideoSendParameters& params,
     ChangedSendParameters* changed_params) const {
   if (!ValidateCodecFormats(params.codecs) ||
-      !ValidateRtpExtensions(params.extensions)) {
+      !ValidateRtpExtensions(params.extensions, send_rtp_extensions_)) {
     return false;
   }
 
@@ -1186,7 +1186,7 @@ bool WebRtcVideoChannel::GetChangedRecvParameters(
     const VideoRecvParameters& params,
     ChangedRecvParameters* changed_params) const {
   if (!ValidateCodecFormats(params.codecs) ||
-      !ValidateRtpExtensions(params.extensions)) {
+      !ValidateRtpExtensions(params.extensions, recv_rtp_extensions_)) {
     return false;
   }
 

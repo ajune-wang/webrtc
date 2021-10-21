@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f96b9e4f_2b694afb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-10-21T14:22:22Z",
+      "side": 1,
+      "message": "Fix cl https://chromium-review.googlesource.com/c/chromium/src/+/3234728 just landed.",
+      "revId": "e8e38d47787d6997ec20256ad522897729ebedca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -34,6 +34,24 @@
       "parentUuid": "0dfc3c08_779e8adc",
       "revId": "1f30c2ba9ba5eac7849f22bb18febf6a2ac1d923",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "01841841_8892ba0f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-10-21T07:58:33Z",
+      "side": 1,
+      "message": "The nearby share code is the part I know about that a) uses WebRTC extensively and b) is only built for ChromeOS.\nIf it is cheap to set up (Tove might know), a compile-only bot that did the ChromeOS compile would be a good investment to safeguard against API changes that affect this link.",
+      "parentUuid": "ee1a3d54_c00608ad",
+      "revId": "1f30c2ba9ba5eac7849f22bb18febf6a2ac1d923",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

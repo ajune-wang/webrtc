@@ -16,6 +16,46 @@
       "message": "Tested by using \"ss -K\" to kill sockets, which closes the sockets with ECONNABORTED/ECONNRESET, and resulted in a busy loop before this change.",
       "revId": "dab90c0963b749eab4387eeacdccdbf36b890482",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b08ac8c0_d63b37ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-10-21T08:11:14Z",
+      "side": 1,
+      "message": "Lgtm, a few optional comments.",
+      "revId": "dab90c0963b749eab4387eeacdccdbf36b890482",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43ed2ec6_a1b3cd8d",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-10-21T08:11:14Z",
+      "side": 1,
+      "message": "This is a somewhat dangerous error; if we keep attempting to access the fd after close, it might just as well appear successful because it\u0027s been reopened for a different purpose. So I think it deserves an RTC_DCHECK.",
+      "range": {
+        "startLine": 735,
+        "startChar": 0,
+        "endLine": 736,
+        "endChar": 17
+      },
+      "revId": "dab90c0963b749eab4387eeacdccdbf36b890482",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

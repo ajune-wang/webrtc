@@ -16,6 +16,24 @@
       "message": "Could avoid this complexity if we stored \"bool was_added_\" on pdispatcher, but that seems messy since this would be a variable only PhysicalSocketServer (not Dispatcher) would use.",
       "revId": "d8c01a3ce633dc2cca6cd66f09f0d5a1e81e56c4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bec237a7_07ead508",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1434,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-10-21T08:11:14Z",
+      "side": 1,
+      "message": "I don\u0027t quote follow the flow of method calls. Agree a member on dispatcher doesn\u0027t sound good. Would it be possible to pass `was_added` as an argument to UpdateEpoll instead?",
+      "parentUuid": "a81379c0_fbc2b3ac",
+      "revId": "d8c01a3ce633dc2cca6cd66f09f0d5a1e81e56c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -16,6 +16,98 @@
       "message": "Found a real fix and applied it in the same CL. Can you take another look?\n",
       "revId": "b0012247c2af83ccc77f7ca1c2fc0c6b80b17562",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "086e4684_0e2e1d4c",
+        "filename": "media/engine/webrtc_media_engine.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-10-21T14:29:04Z",
+      "side": 1,
+      "message": "alternativly you may reuse RtpHeaderExtensionMap class that (now) does these checks:\n\n  RtpHeaderExtensionMap checker(*old_extensions);\n  for (const auto\u0026 extension : extensions) {\n    if (!checker.RegisterByUri(extension.id, extenion.type)) {\n      return false;\n    }\n  }",
+      "range": {
+        "startLine": 110,
+        "startChar": 3,
+        "endLine": 115,
+        "endChar": 5
+      },
+      "revId": "b0012247c2af83ccc77f7ca1c2fc0c6b80b17562",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e573bd9_750ccad2",
+        "filename": "media/engine/webrtc_media_engine.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-10-21T14:29:04Z",
+      "side": 1,
+      "message": "`rtc::ArrayView\u003cconst T\u003e`\nis usually better parameter type than\n`const std::vector\u003cT\u003e\u0026`\n\n(related tip: https://abseil.io/tips/93 talks about span, but ArrayView is de-facto the same)",
+      "range": {
+        "startLine": 69,
+        "startChar": 4,
+        "endLine": 69,
+        "endChar": 44
+      },
+      "revId": "b0012247c2af83ccc77f7ca1c2fc0c6b80b17562",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42944126_82376846",
+        "filename": "media/engine/webrtc_media_engine.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-10-21T14:29:04Z",
+      "side": 1,
+      "message": "`const optional\u003cT\u003e\u0026`\nis discouraged as parameter type,\nprefer to pass `T*` (if T is small size, then passing by value: `optional\u003cT\u003e` is good option too)\nor just take std::vector\u003cRtpExtension\u003e (or better rtc::ArrayView\u003cconst RtpExtension\u003e) and pass an empty array when validation against old extensions is not needed.\n\nIn particular currently passing e.g. recv_rtp_extensions_ (which is \n`std::vector\u003cwebrtc::RtpExtension\u003e`) would make a copy of that vector to wrap into temporary optional.\n\nhttps://abseil.io/tips/163",
+      "range": {
+        "startLine": 70,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 61
+      },
+      "revId": "b0012247c2af83ccc77f7ca1c2fc0c6b80b17562",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95abab69_167210e6",
+        "filename": "media/engine/webrtc_media_engine_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-10-21T14:29:04Z",
+      "side": 1,
+      "message": "don\u0027t use underscore in test names\nhttps://github.com/google/googletest/blob/master/docs/faq.md#why-should-test-suite-names-and-test-names-not-contain-underscore",
+      "range": {
+        "startLine": 103,
+        "startChar": 49,
+        "endLine": 103,
+        "endChar": 50
+      },
+      "revId": "b0012247c2af83ccc77f7ca1c2fc0c6b80b17562",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

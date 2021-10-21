@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4fc3914b_dcd2e0f7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-10-21T11:30:50Z",
+      "side": 1,
+      "message": "Found a real fix and applied it in the same CL. Can you take another look?\n",
+      "revId": "b0012247c2af83ccc77f7ca1c2fc0c6b80b17562",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

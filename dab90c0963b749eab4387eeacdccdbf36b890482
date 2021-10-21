@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "774c25a2_ae5cd76f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-10-21T01:30:16Z",
+      "side": 1,
+      "message": "Tested by using \"ss -K\" to kill sockets, which closes the sockets with ECONNABORTED/ECONNRESET, and resulted in a busy loop before this change.",
+      "revId": "dab90c0963b749eab4387eeacdccdbf36b890482",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0faf7dd_c0b0054c",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1212,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-10-21T01:30:16Z",
+      "side": 0,
+      "message": "Removing this because it\u0027s redundant, but not above where we call IsDescriptorClosed.\n\nMaybe we should be calling IsDescriptorClosed below regardless of whether readable, but I was concerned about changing too much.",
+      "revId": "46536e3da48a166935ef5e3caba3716af6e06ff8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

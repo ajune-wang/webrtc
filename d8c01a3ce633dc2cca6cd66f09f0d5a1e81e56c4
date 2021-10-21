@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a81379c0_fbc2b3ac",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1434,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-10-21T01:30:16Z",
+      "side": 1,
+      "message": "Could avoid this complexity if we stored \"bool was_added_\" on pdispatcher, but that seems messy since this would be a variable only PhysicalSocketServer (not Dispatcher) would use.",
+      "revId": "d8c01a3ce633dc2cca6cd66f09f0d5a1e81e56c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

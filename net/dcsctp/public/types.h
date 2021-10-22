@@ -105,6 +105,27 @@ constexpr inline DurationMs operator-(TimeMs lhs, TimeMs rhs) {
   return DurationMs(*lhs - *rhs);
 }
 
+// The maximum number of times the socket should attempt to retransmit a
+// message which fails the first time in unreliable mode.
+class MaxRetransmits : public webrtc::StrongAlias<class TimeMsTag, uint16_t> {
+ public:
+  constexpr explicit MaxRetransmits(const UnderlyingType& v)
+      : webrtc::StrongAlias<class TimeMsTag, uint16_t>(v) {}
+
+  // Convenience methods for working with time.
+  constexpr MaxRetransmits& operator+=(DurationMs d) {
+    value_ += *d;
+    return *this;
+  }
+  constexpr MaxRetransmits& operator-=(DurationMs d) {
+    value_ -= *d;
+    return *this;
+  }
+
+  static constexpr MaxRetransmits NoLimit() {
+    return MaxRetransmits(std::numeric_limits<uint16_t>::max());
+  }
+};
 }  // namespace dcsctp
 
 #endif  // NET_DCSCTP_PUBLIC_TYPES_H_

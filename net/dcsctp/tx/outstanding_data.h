@@ -114,11 +114,10 @@ class OutstandingData {
   // Schedules `data` to be sent, with the provided partial reliability
   // parameters. Returns the TSN if the item was actually added and scheduled to
   // be sent, and absl::nullopt if it shouldn't be sent.
-  absl::optional<UnwrappedTSN> Insert(
-      const Data& data,
-      absl::optional<size_t> max_retransmissions,
-      TimeMs time_sent,
-      absl::optional<TimeMs> expires_at);
+  absl::optional<UnwrappedTSN> Insert(const Data& data,
+                                      MaxRetransmits max_retransmissions,
+                                      TimeMs time_sent,
+                                      TimeMs expires_at);
 
   // Nacks all outstanding data.
   void NackAll();
@@ -154,9 +153,9 @@ class OutstandingData {
     };
 
     explicit Item(Data data,
-                  absl::optional<size_t> max_retransmissions,
+                  MaxRetransmits max_retransmissions,
                   TimeMs time_sent,
-                  absl::optional<TimeMs> expires_at)
+                  TimeMs expires_at)
         : max_retransmissions_(max_retransmissions),
           time_sent_(time_sent),
           expires_at_(expires_at),
@@ -212,17 +211,17 @@ class OutstandingData {
 
     // The number of times the DATA chunk has been nacked (by having received a
     // SACK which doesn't include it). Will be cleared on retransmissions.
-    size_t nack_count_ = 0;
+    uint8_t nack_count_ = 0;
     // The number of times the DATA chunk has been retransmitted.
-    size_t num_retransmissions_ = 0;
+    uint16_t num_retransmissions_ = 0;
     // If the message was sent with a maximum number of retransmissions, this is
     // set to that number. The value zero (0) means that it will never be
     // retransmitted.
-    absl::optional<size_t> max_retransmissions_;
+    MaxRetransmits max_retransmissions_;
     // When the packet was sent, and placed in this queue.
     TimeMs time_sent_;
     // If the message was sent with an expiration time, this is set.
-    absl::optional<TimeMs> expires_at_;
+    TimeMs expires_at_;
     // The actual data to send/retransmit.
     Data data_;
   };

@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70e100b7_c66b6a0b",
+        "filename": "media/engine/webrtc_media_engine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-10-22T10:46:57Z",
+      "side": 1,
+      "message": "do you also need validations that uris are unique for the new extensions,\nor is it validated somewhere else?\ni.e.\n  Validate(/*extensions\u003d*/{{.id \u003d 3, .uri \u003d \"toffset}, {.id \u003d 4, .uri \u003d \"toffset\"}},\n           /*old_extensions\u003d*/{});\n         \nwould return true, but trying to Register such extensions would fail.\n\n(simplest validation is probably to have one urimap and one idmap,\nand iterate both over extensions and old_extensions in the same way)",
+      "range": {
+        "startLine": 81,
+        "startChar": 31,
+        "endLine": 81,
+        "endChar": 41
+      },
+      "revId": "e5edddc430871de17598549546145a2bc66b06dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc8a5d2c_d808f4af",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 865,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-10-22T10:46:57Z",
+      "side": 1,
+      "message": "In theory these two checks are not the same:\nwhen send_rtp_extensions_ \u003d\u003d absl::nullopt;\nand filtered_extension.empty(),\nthem former code would go into the branch (and set rtp_header_extensions into non-optional)\nwhile new code wouldn\u0027t go (and leave rtp_header_extensions an empty array).\n\nI don\u0027t know how changed_params-\u003ertp_header_extensions is later used, but\nwill assume in practice it doesn\u0027t matter.\n(if it does, there should be a test to cover that edge case scenario)",
+      "revId": "e5edddc430871de17598549546145a2bc66b06dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

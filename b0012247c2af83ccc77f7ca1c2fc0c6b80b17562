@@ -193,6 +193,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "084ef7a1_5e462c89",
+        "filename": "media/engine/webrtc_media_engine.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-10-22T10:46:57Z",
+      "side": 1,
+      "message": "If that function would be better hidden (and thus easier to control which code call it), then reference to optional is reasonable parameter type as long as all callers already have the optional.\n\nI guess send_rtp_extensions_ doesn\u0027t have to be an optional.\noptional still good when \u0027no value\u0027 and \u0027empty value\u0027 has different meanings.\ne.g. \n  struct Change {\n    optional\u003cvector\u003cT\u003e\u003e v1;\n    other_fields_that_can_be_changed;\n  };\n  Update(Change c);\nwould do nothing when v1 is nullopt,\nbut would reset some value when v1.has_value() \u0026\u0026 v1-\u003eempty();",
+      "parentUuid": "479c0264_2a7302f6",
+      "range": {
+        "startLine": 70,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 61
+      },
+      "revId": "b0012247c2af83ccc77f7ca1c2fc0c6b80b17562",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "95abab69_167210e6",

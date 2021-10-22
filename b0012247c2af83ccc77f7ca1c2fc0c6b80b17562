@@ -217,6 +217,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c360a23e_0b82aa3b",
+        "filename": "media/engine/webrtc_media_engine.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-10-22T11:48:36Z",
+      "side": 1,
+      "message": "I looked at the only code that checked the optional, and it was exactly the same without it - an empty array and an empty optional\u003carray\u003e would amount to the same thing. So I refactored it.",
+      "parentUuid": "084ef7a1_5e462c89",
+      "range": {
+        "startLine": 70,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 61
+      },
+      "revId": "b0012247c2af83ccc77f7ca1c2fc0c6b80b17562",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "95abab69_167210e6",

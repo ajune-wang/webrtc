@@ -3,6 +3,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "0c3e2f43_b403c309",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-10-22T11:48:36Z",
+      "side": 1,
+      "message": "Thanks for the review!",
+      "revId": "e5edddc430871de17598549546145a2bc66b06dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "70e100b7_c66b6a0b",
         "filename": "media/engine/webrtc_media_engine.cc",
         "patchSetId": 4
@@ -14,6 +31,30 @@
       "writtenOn": "2021-10-22T10:46:57Z",
       "side": 1,
       "message": "do you also need validations that uris are unique for the new extensions,\nor is it validated somewhere else?\ni.e.\n  Validate(/*extensions\u003d*/{{.id \u003d 3, .uri \u003d \"toffset}, {.id \u003d 4, .uri \u003d \"toffset\"}},\n           /*old_extensions\u003d*/{});\n         \nwould return true, but trying to Register such extensions would fail.\n\n(simplest validation is probably to have one urimap and one idmap,\nand iterate both over extensions and old_extensions in the same way)",
+      "range": {
+        "startLine": 81,
+        "startChar": 31,
+        "endLine": 81,
+        "endChar": 41
+      },
+      "revId": "e5edddc430871de17598549546145a2bc66b06dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de83842c_3b518263",
+        "filename": "media/engine/webrtc_media_engine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-10-22T11:48:36Z",
+      "side": 1,
+      "message": "I think I\u0027ll add that in a new CL (coupled with a new WPT). This Cl is old enough as it is.",
+      "parentUuid": "70e100b7_c66b6a0b",
       "range": {
         "startLine": 81,
         "startChar": 31,

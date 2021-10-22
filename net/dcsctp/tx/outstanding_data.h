@@ -10,7 +10,7 @@
 #ifndef NET_DCSCTP_TX_OUTSTANDING_DATA_H_
 #define NET_DCSCTP_TX_OUTSTANDING_DATA_H_
 
-#include <map>
+#include <deque>
 #include <set>
 #include <utility>
 #include <vector>
@@ -73,7 +73,6 @@ class OutstandingData {
       UnwrappedTSN last_cumulative_tsn_ack,
       std::function<bool(IsUnordered, StreamID, MID)> discard_from_send_queue)
       : data_chunk_header_size_(data_chunk_header_size),
-        next_tsn_(next_tsn),
         last_cumulative_tsn_ack_(last_cumulative_tsn_ack),
         discard_from_send_queue_(std::move(discard_from_send_queue)) {}
 
@@ -105,7 +104,10 @@ class OutstandingData {
     return last_cumulative_tsn_ack_;
   }
 
-  UnwrappedTSN next_tsn() const { return next_tsn_; }
+  UnwrappedTSN next_tsn() const {
+    return UnwrappedTSN::AddTo(last_cumulative_tsn_ack(),
+                               outstanding_data_.size() + 1);
+  }
 
   UnwrappedTSN highest_outstanding_tsn() const;
 
@@ -216,17 +218,20 @@ class OutstandingData {
     // If the message was sent with a maximum number of retransmissions, this is
     // set to that number. The value zero (0) means that it will never be
     // retransmitted.
-    const absl::optional<size_t> max_retransmissions_;
+    absl::optional<size_t> max_retransmissions_;
     // When the packet was sent, and placed in this queue.
-    const TimeMs time_sent_;
+    TimeMs time_sent_;
     // If the message was sent with an expiration time, this is set.
-    const absl::optional<TimeMs> expires_at_;
+    absl::optional<TimeMs> expires_at_;
     // The actual data to send/retransmit.
     Data data_;
   };
 
   // Returns how large a chunk will be, serialized, carrying the data
   size_t GetSerializedChunkSize(const Data& data) const;
+
+  // Returns an index between [0, size]
+  size_t GetBoundedIndex(UnwrappedTSN tsn) const;
 
   // Given a `cumulative_tsn_ack` from an incoming SACK, will remove those items
   // in the retransmission queue up until this value and will update `ack_info`
@@ -251,7 +256,7 @@ class OutstandingData {
 
   // Acks the chunk referenced by `iter` and updates state in `ack_info` and the
   // object's state.
-  void AckChunk(AckInfo& ack_info, std::map<UnwrappedTSN, Item>::iterator iter);
+  void AckChunk(AckInfo& ack_info, UnwrappedTSN tsn, Item& item);
 
   // Helper method to nack an item and perform the correct operations given the
   // action indicated when nacking an item (e.g. retransmitting or abandoning).
@@ -268,14 +273,16 @@ class OutstandingData {
 
   // The size of the data chunk (DATA/I-DATA) header that is used.
   const size_t data_chunk_header_size_;
-  // Next TSN to used.
-  UnwrappedTSN next_tsn_;
+
   // The last cumulative TSN ack number.
   UnwrappedTSN last_cumulative_tsn_ack_;
+
+  // All outstanding items, following `last_cumulative_tsn_ack`.
+  std::deque<Item> outstanding_data_;
+
   // Callback when to discard items from the send queue.
   std::function<bool(IsUnordered, StreamID, MID)> discard_from_send_queue_;
 
-  std::map<UnwrappedTSN, Item> outstanding_data_;
   // The number of bytes that are in-flight (sent but not yet acked or nacked).
   size_t outstanding_bytes_ = 0;
   // The number of DATA chunks that are in-flight (sent but not yet acked or

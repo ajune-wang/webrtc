@@ -340,7 +340,11 @@ TEST_F(OutstandingDataTest, AckWithGapBlocksFromRFC4960Section334) {
 
   std::vector<SackChunk::GapAckBlock> gab = {SackChunk::GapAckBlock(2, 3),
                                              SackChunk::GapAckBlock(5, 5)};
-  buf_.HandleSack(unwrapper_.Unwrap(TSN(12)), gab, false);
+  OutstandingData::AckInfo ack =
+      buf_.HandleSack(unwrapper_.Unwrap(TSN(12)), gab, false);
+
+  EXPECT_THAT(ack.acked_tsns, ElementsAre(TSN(10), TSN(11), TSN(12), TSN(14),
+                                          TSN(15), TSN(17)));
 
   EXPECT_THAT(buf_.GetChunkStatesForTesting(),
               ElementsAre(Pair(TSN(12), State::kAcked),   //

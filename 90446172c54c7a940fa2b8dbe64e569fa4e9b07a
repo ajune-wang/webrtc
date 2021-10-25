@@ -16,6 +16,29 @@
       "message": "Activate blamelist notification to engage devs in failures faster. Since the number of changes in WebRTC is not that great, it should not burden devs to much, and if it does, we have to reconsider.",
       "revId": "90446172c54c7a940fa2b8dbe64e569fa4e9b07a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61d17c98_ab45eff8",
+        "filename": "luci-notify.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5522
+      },
+      "writtenOn": "2021-10-25T15:32:20Z",
+      "side": 1,
+      "message": "What does an empty notify_blamelist mean?",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 23
+      },
+      "revId": "90446172c54c7a940fa2b8dbe64e569fa4e9b07a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

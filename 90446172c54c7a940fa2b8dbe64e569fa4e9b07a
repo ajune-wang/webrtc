@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f2930e2_3bc7fd29",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6192
+      },
+      "writtenOn": "2021-10-25T14:34:21Z",
+      "side": 1,
+      "message": "Activate blamelist notification to engage devs in failures faster. Since the number of changes in WebRTC is not that great, it should not burden devs to much, and if it does, we have to reconsider.",
+      "revId": "90446172c54c7a940fa2b8dbe64e569fa4e9b07a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

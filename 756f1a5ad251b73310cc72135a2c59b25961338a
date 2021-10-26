@@ -16,6 +16,23 @@
       "message": "Hello Magnus/Erik, we are merging this to the LTS branch but we don\u0027t have permissions for reviewing it; Could you please review/submit this change?",
       "revId": "756f1a5ad251b73310cc72135a2c59b25961338a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ec3af10_14016cc6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5609
+      },
+      "writtenOn": "2021-10-26T12:42:24Z",
+      "side": 1,
+      "message": "toprice,\nIn case you want to take an extra look at this merge.",
+      "revId": "756f1a5ad251b73310cc72135a2c59b25961338a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

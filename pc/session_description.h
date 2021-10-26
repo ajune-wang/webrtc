@@ -22,7 +22,6 @@
 #include <vector>
 
 #include "absl/memory/memory.h"
-#include "api/crypto_params.h"
 #include "api/media_types.h"
 #include "api/rtp_parameters.h"
 #include "api/rtp_transceiver_direction.h"
@@ -44,7 +43,6 @@ namespace cricket {
 
 typedef std::vector<AudioCodec> AudioCodecs;
 typedef std::vector<VideoCodec> VideoCodecs;
-typedef std::vector<CryptoParams> CryptoParamsVec;
 typedef std::vector<webrtc::RtpExtension> RtpHeaderExtensions;
 
 // RTC4585 RTP/AVPF
@@ -133,14 +131,6 @@ class MediaContentDescription {
   virtual std::string bandwidth_type() const { return bandwidth_type_; }
   virtual void set_bandwidth_type(std::string bandwidth_type) {
     bandwidth_type_ = bandwidth_type;
-  }
-
-  virtual const std::vector<CryptoParams>& cryptos() const { return cryptos_; }
-  virtual void AddCrypto(const CryptoParams& params) {
-    cryptos_.push_back(params);
-  }
-  virtual void set_cryptos(const std::vector<CryptoParams>& cryptos) {
-    cryptos_ = cryptos;
   }
 
   // List of RTP header extensions. URIs are **NOT** guaranteed to be unique
@@ -266,7 +256,6 @@ class MediaContentDescription {
   int bandwidth_ = kAutoBandwidth;
   std::string bandwidth_type_ = kApplicationSpecificBandwidth;
   std::string protocol_;
-  std::vector<CryptoParams> cryptos_;
   std::vector<webrtc::RtpExtension> rtp_header_extensions_;
   bool rtp_header_extensions_set_ = false;
   StreamParamsVec send_streams_;

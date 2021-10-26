@@ -1,7 +1,26 @@
-# How to become WebRTC committer
+# How to get try job access or become WebRTC committer
 
 <?% config.freshness.owner = 'titovartem' %?>
 <?% config.freshness.reviewed = '2021-07-05' %?>
+
+## Overview
+
+There are two levels of WebRTC contributors access:
+
+1.  Try job access - permits contributor to run tests for their changes using
+    WebRTC infrastructure
+2.  WebRTC committer rights - permits to submit changes to the WebRTC code base.
+    This includes try job access.
+
+## Getting try job access
+
+To get try job access applicant has to do a contribution around 10-20 CLs to the
+WebRTC code base. After it they should file a bug using
+[Get tryjob access template][7], specifying the email which was used for
+contribution and to which access will be granted and listing contributed CLs.
+
+The access then will be granted when ticket will be resolved by one of the
+project members. In case of denial the explanation will be provided.
 
 ## WebRTC committer duties
 
@@ -62,3 +81,4 @@ recommended to apply for WebRTC committer rights obtaining process.
 [4]: https://developers.google.com/open-source/cla/individual?hl=en
 [5]: https://google.github.io/styleguide/cppguide.html
 [6]: https://bugs.chromium.org/p/webrtc/issues/entry?template=Become+WebRTC+committer
+[7]: https://bugs.chromium.org/p/webrtc/issues/entry?template=Get+tryjob+access

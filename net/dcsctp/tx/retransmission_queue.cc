@@ -342,7 +342,7 @@ void RetransmissionQueue::UpdateRTT(TimeMs now,
   }
 }
 
-void RetransmissionQueue::HandleT3RtxTimerExpiry() {
+void RetransmissionQueue::HandleT3RtxTimerExpiry(TimeMs now, DurationMs rto) {
   size_t old_cwnd = cwnd_;
   size_t old_outstanding_bytes = outstanding_bytes();
   // https://tools.ietf.org/html/rfc4960#section-6.3.3
@@ -371,7 +371,7 @@ void RetransmissionQueue::HandleT3RtxTimerExpiry() {
   // T3-rtx timer expired but did not fit in one MTU (rule E3 above) should be
   // marked for retransmission and sent as soon as cwnd allows (normally, when a
   // SACK arrives)."
-  outstanding_data_.NackAll();
+  outstanding_data_.NackAllSentBefore(now - rto);
 
   // https://tools.ietf.org/html/rfc4960#section-6.3.3
   // "Start the retransmission timer T3-rtx on the destination address

@@ -117,7 +117,7 @@ class OutstandingData {
                                       TimeMs expires_at);
 
   // Nacks all outstanding data.
-  void NackAll();
+  void NackAllSentBefore(TimeMs ts);
 
   // Creates a FORWARD-TSN chunk.
   ForwardTsnChunk CreateForwardTsn() const;

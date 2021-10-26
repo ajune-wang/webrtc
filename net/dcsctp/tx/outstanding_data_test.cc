@@ -325,7 +325,7 @@ TEST_F(OutstandingDataTest, CanGenerateForwardTsn) {
 
   EXPECT_CALL(on_discard_, Call(IsUnordered(false), StreamID(1), MID(42)))
       .WillOnce(Return(false));
-  buf_.NackAll();
+  buf_.NackAllSentBefore(kNow);
 
   EXPECT_FALSE(buf_.has_data_to_be_retransmitted());
   EXPECT_THAT(buf_.GetChunkStatesForTesting(),

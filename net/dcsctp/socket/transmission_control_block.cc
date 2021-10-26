@@ -60,7 +60,7 @@ absl::optional<DurationMs> TransmissionControlBlock::OnRtxTimerExpiry() {
     RTC_DLOG(LS_VERBOSE) << "Not retransmitting as T1-cookie is active.";
   } else {
     if (IncrementTxErrorCounter("t3-rtx expired")) {
-      retransmission_queue_.HandleT3RtxTimerExpiry();
+      retransmission_queue_.HandleT3RtxTimerExpiry(now, rto_.rto());
       SendBufferedPackets(now);
     }
   }

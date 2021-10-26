@@ -72,7 +72,7 @@ class RetransmissionQueue {
   bool HandleSack(TimeMs now, const SackChunk& sack);
 
   // Handles an expired retransmission timer.
-  void HandleT3RtxTimerExpiry();
+  void HandleT3RtxTimerExpiry(TimeMs now, DurationMs rto);
 
   // Returns a list of chunks to send that would fit in one SCTP packet with
   // `bytes_remaining_in_packet` bytes available. This may be further limited by

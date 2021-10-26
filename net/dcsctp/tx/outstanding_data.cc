@@ -390,11 +390,11 @@ absl::optional<UnwrappedTSN> OutstandingData::Insert(
   return tsn;
 }
 
-void OutstandingData::NackAll() {
+void OutstandingData::NackAllSentBefore(TimeMs ts) {
   UnwrappedTSN tsn = last_cumulative_tsn_ack_;
   for (Item& item : outstanding_data_) {
     tsn.Increment();
-    if (!item.is_acked()) {
+    if (!item.is_acked() && item.time_sent() < ts) {
       NackItem(tsn, item, /*retransmit_now=*/true);
     }
   }

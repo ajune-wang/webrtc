@@ -23,7 +23,6 @@
 #include "absl/memory/memory.h"
 #include "absl/strings/str_replace.h"
 #include "api/array_view.h"
-#include "api/crypto_params.h"
 #include "api/jsep_session_description.h"
 #include "api/media_types.h"
 #include "api/rtp_parameters.h"
@@ -55,7 +54,6 @@ using cricket::AudioContentDescription;
 using cricket::Candidate;
 using cricket::ContentGroup;
 using cricket::ContentInfo;
-using cricket::CryptoParams;
 using cricket::ICE_CANDIDATE_COMPONENT_RTCP;
 using cricket::ICE_CANDIDATE_COMPONENT_RTP;
 using cricket::kFecSsrcGroupSemantics;
@@ -141,9 +139,9 @@ struct CodecParams {
   int maxaveragebitrate;
 };
 
-// TODO(deadbeef): In these reference strings, use "a=fingerprint" by default
-// instead of "a=crypto", and have an explicit test for adding "a=crypto".
-// Currently it's the other way around.
+// Note: The reference strings do not contain a=fingerprint, which is
+// required for DTLS negotiation.
+// Neither do they contain the obsolete a=crypto lines.
 
 // Reference sdp string
 static const char kSdpFullString[] =
@@ -175,9 +173,6 @@ static const char kSdpFullString[] =
     "a=sendrecv\r\n"
     "a=rtcp-mux\r\n"
     "a=rtcp-rsize\r\n"
-    "a=crypto:1 AES_CM_128_HMAC_SHA1_32 "
-    "inline:NzB4d1BINUAvLEw6UzF3WSJ+PSdFcGdUJShpX1Zj|2^20|1:32 "
-    "dummy_session_params\r\n"
     "a=rtpmap:111 opus/48000/2\r\n"
     "a=rtpmap:103 ISAC/16000\r\n"
     "a=rtpmap:104 ISAC/32000\r\n"
@@ -203,8 +198,6 @@ static const char kSdpFullString[] =
     "a=ice-ufrag:ufrag_video\r\na=ice-pwd:pwd_video\r\n"
     "a=mid:video_content_name\r\n"
     "a=sendrecv\r\n"
-    "a=crypto:1 AES_CM_128_HMAC_SHA1_80 "
-    "inline:d0RmdmcmVCspeEc3QGZiNWpVLFJhQX1cfHAwJSoj|2^20|1:32\r\n"
     "a=rtpmap:120 VP8/90000\r\n"
     "a=ssrc-group:FEC 2 3\r\n"
     "a=ssrc:2 cname:stream_1_cname\r\n"
@@ -232,9 +225,6 @@ static const char kSdpString[] =
     "a=sendrecv\r\n"
     "a=rtcp-mux\r\n"
     "a=rtcp-rsize\r\n"
-    "a=crypto:1 AES_CM_128_HMAC_SHA1_32 "
-    "inline:NzB4d1BINUAvLEw6UzF3WSJ+PSdFcGdUJShpX1Zj|2^20|1:32 "
-    "dummy_session_params\r\n"
     "a=rtpmap:111 opus/48000/2\r\n"
     "a=rtpmap:103 ISAC/16000\r\n"
     "a=rtpmap:104 ISAC/32000\r\n"
@@ -248,8 +238,6 @@ static const char kSdpString[] =
     "a=ice-ufrag:ufrag_video\r\na=ice-pwd:pwd_video\r\n"
     "a=mid:video_content_name\r\n"
     "a=sendrecv\r\n"
-    "a=crypto:1 AES_CM_128_HMAC_SHA1_80 "
-    "inline:d0RmdmcmVCspeEc3QGZiNWpVLFJhQX1cfHAwJSoj|2^20|1:32\r\n"
     "a=rtpmap:120 VP8/90000\r\n"
     "a=ssrc-group:FEC 2 3\r\n"
     "a=ssrc:2 cname:stream_1_cname\r\n"
@@ -382,8 +370,6 @@ static const char kBundleOnlySdpFullString[] =
     "a=sendrecv\r\n"
     "a=rtcp-mux\r\n"
     "a=rtcp-rsize\r\n"
-    "a=crypto:1 AES_CM_128_HMAC_SHA1_32 "
-    "inline:NzB4d1BINUAvLEw6UzF3WSJ+PSdFcGdUJShpX1Zj|2^20|1:32 "
     "dummy_session_params\r\n"
     "a=rtpmap:111 opus/48000/2\r\n"
     "a=rtpmap:103 ISAC/16000\r\n"
@@ -398,8 +384,6 @@ static const char kBundleOnlySdpFullString[] =
     "a=bundle-only\r\n"
     "a=mid:video_content_name\r\n"
     "a=sendrecv\r\n"
-    "a=crypto:1 AES_CM_128_HMAC_SHA1_80 "
-    "inline:d0RmdmcmVCspeEc3QGZiNWpVLFJhQX1cfHAwJSoj|2^20|1:32\r\n"
     "a=rtpmap:120 VP8/90000\r\n"
     "a=ssrc-group:FEC 2 3\r\n"
     "a=ssrc:2 cname:stream_1_cname\r\n"
@@ -442,8 +426,6 @@ static const char kPlanBSdpFullString[] =
     "a=sendrecv\r\n"
     "a=rtcp-mux\r\n"
     "a=rtcp-rsize\r\n"
-    "a=crypto:1 AES_CM_128_HMAC_SHA1_32 "
-    "inline:NzB4d1BINUAvLEw6UzF3WSJ+PSdFcGdUJShpX1Zj|2^20|1:32 "
     "dummy_session_params\r\n"
     "a=rtpmap:111 opus/48000/2\r\n"
     "a=rtpmap:103 ISAC/16000\r\n"
@@ -474,8 +456,6 @@ static const char kPlanBSdpFullString[] =
     "a=ice-ufrag:ufrag_video\r\na=ice-pwd:pwd_video\r\n"
     "a=mid:video_content_name\r\n"
     "a=sendrecv\r\n"
-    "a=crypto:1 AES_CM_128_HMAC_SHA1_80 "
-    "inline:d0RmdmcmVCspeEc3QGZiNWpVLFJhQX1cfHAwJSoj|2^20|1:32\r\n"
     "a=rtpmap:120 VP8/90000\r\n"
     "a=ssrc-group:FEC 2 3\r\n"
     "a=ssrc:2 cname:stream_1_cname\r\n"
@@ -528,8 +508,6 @@ static const char kUnifiedPlanSdpFullString[] =
     "a=sendrecv\r\n"
     "a=rtcp-mux\r\n"
     "a=rtcp-rsize\r\n"
-    "a=crypto:1 AES_CM_128_HMAC_SHA1_32 "
-    "inline:NzB4d1BINUAvLEw6UzF3WSJ+PSdFcGdUJShpX1Zj|2^20|1:32 "
     "dummy_session_params\r\n"
     "a=rtpmap:111 opus/48000/2\r\n"
     "a=rtpmap:103 ISAC/16000\r\n"
@@ -555,8 +533,6 @@ static const char kUnifiedPlanSdpFullString[] =
     "a=mid:video_content_name\r\n"
     "a=msid:local_stream_1 video_track_id_1\r\n"
     "a=sendrecv\r\n"
-    "a=crypto:1 AES_CM_128_HMAC_SHA1_80 "
-    "inline:d0RmdmcmVCspeEc3QGZiNWpVLFJhQX1cfHAwJSoj|2^20|1:32\r\n"
     "a=rtpmap:120 VP8/90000\r\n"
     "a=ssrc-group:FEC 2 3\r\n"
     "a=ssrc:2 cname:stream_1_cname\r\n"
@@ -571,9 +547,6 @@ static const char kUnifiedPlanSdpFullString[] =
     "a=sendrecv\r\n"
     "a=rtcp-mux\r\n"
     "a=rtcp-rsize\r\n"
-    "a=crypto:1 AES_CM_128_HMAC_SHA1_32 "
-    "inline:NzB4d1BINUAvLEw6UzF3WSJ+PSdFcGdUJShpX1Zj|2^20|1:32 "
-    "dummy_session_params\r\n"
     "a=rtpmap:111 opus/48000/2\r\n"
     "a=rtpmap:103 ISAC/16000\r\n"
     "a=rtpmap:104 ISAC/32000\r\n"
@@ -586,8 +559,6 @@ static const char kUnifiedPlanSdpFullString[] =
     "a=mid:video_content_name_2\r\n"
     "a=msid:local_stream_2 video_track_id_2\r\n"
     "a=sendrecv\r\n"
-    "a=crypto:1 AES_CM_128_HMAC_SHA1_80 "
-    "inline:d0RmdmcmVCspeEc3QGZiNWpVLFJhQX1cfHAwJSoj|2^20|1:32\r\n"
     "a=rtpmap:120 VP8/90000\r\n"
     "a=ssrc:5 cname:stream_2_cname\r\n"
     // Video track 3, stream 2.
@@ -598,8 +569,6 @@ static const char kUnifiedPlanSdpFullString[] =
     "a=mid:video_content_name_3\r\n"
     "a=msid:local_stream_2 video_track_id_3\r\n"
     "a=sendrecv\r\n"
-    "a=crypto:1 AES_CM_128_HMAC_SHA1_80 "
-    "inline:d0RmdmcmVCspeEc3QGZiNWpVLFJhQX1cfHAwJSoj|2^20|1:32\r\n"
     "a=rtpmap:120 VP8/90000\r\n"
     "a=ssrc:6 cname:stream_2_cname\r\n";
 
@@ -641,9 +610,6 @@ static const char kUnifiedPlanSdpFullStringWithSpecialMsid[] =
     "a=msid:local_stream_1 audio_track_id_1\r\n"
     "a=rtcp-mux\r\n"
     "a=rtcp-rsize\r\n"
-    "a=crypto:1 AES_CM_128_HMAC_SHA1_32 "
-    "inline:NzB4d1BINUAvLEw6UzF3WSJ+PSdFcGdUJShpX1Zj|2^20|1:32 "
-    "dummy_session_params\r\n"
     "a=rtpmap:111 opus/48000/2\r\n"
     "a=rtpmap:103 ISAC/16000\r\n"
     "a=rtpmap:104 ISAC/32000\r\n"
@@ -662,9 +628,6 @@ static const char kUnifiedPlanSdpFullStringWithSpecialMsid[] =
     "a=msid:local_stream_2 audio_track_id_2\r\n"
     "a=rtcp-mux\r\n"
     "a=rtcp-rsize\r\n"
-    "a=crypto:1 AES_CM_128_HMAC_SHA1_32 "
-    "inline:NzB4d1BINUAvLEw6UzF3WSJ+PSdFcGdUJShpX1Zj|2^20|1:32 "
-    "dummy_session_params\r\n"
     "a=rtpmap:111 opus/48000/2\r\n"
     "a=rtpmap:103 ISAC/16000\r\n"
     "a=rtpmap:104 ISAC/32000\r\n"
@@ -684,9 +647,6 @@ static const char kUnifiedPlanSdpFullStringWithSpecialMsid[] =
     "a=msid:- audio_track_id_3\r\n"
     "a=rtcp-mux\r\n"
     "a=rtcp-rsize\r\n"
-    "a=crypto:1 AES_CM_128_HMAC_SHA1_32 "
-    "inline:NzB4d1BINUAvLEw6UzF3WSJ+PSdFcGdUJShpX1Zj|2^20|1:32 "
-    "dummy_session_params\r\n"
     "a=rtpmap:111 opus/48000/2\r\n"
     "a=rtpmap:103 ISAC/16000\r\n"
     "a=rtpmap:104 ISAC/32000\r\n"
@@ -726,9 +686,6 @@ static const char kUnifiedPlanSdpFullStringNoSsrc[] =
     "a=sendrecv\r\n"
     "a=rtcp-mux\r\n"
     "a=rtcp-rsize\r\n"
-    "a=crypto:1 AES_CM_128_HMAC_SHA1_32 "
-    "inline:NzB4d1BINUAvLEw6UzF3WSJ+PSdFcGdUJShpX1Zj|2^20|1:32 "
-    "dummy_session_params\r\n"
     "a=rtpmap:111 opus/48000/2\r\n"
     "a=rtpmap:103 ISAC/16000\r\n"
     "a=rtpmap:104 ISAC/32000\r\n"
@@ -752,8 +709,6 @@ static const char kUnifiedPlanSdpFullStringNoSsrc[] =
     "a=mid:video_content_name\r\n"
     "a=msid:local_stream_1 video_track_id_1\r\n"
     "a=sendrecv\r\n"
-    "a=crypto:1 AES_CM_128_HMAC_SHA1_80 "
-    "inline:d0RmdmcmVCspeEc3QGZiNWpVLFJhQX1cfHAwJSoj|2^20|1:32\r\n"
     "a=rtpmap:120 VP8/90000\r\n"
     // Audio track 2, stream 2.
     "m=audio 9 RTP/SAVPF 111 103 104\r\n"
@@ -765,9 +720,6 @@ static const char kUnifiedPlanSdpFullStringNoSsrc[] =
     "a=sendrecv\r\n"
     "a=rtcp-mux\r\n"
     "a=rtcp-rsize\r\n"
-    "a=crypto:1 AES_CM_128_HMAC_SHA1_32 "
-    "inline:NzB4d1BINUAvLEw6UzF3WSJ+PSdFcGdUJShpX1Zj|2^20|1:32 "
-    "dummy_session_params\r\n"
     "a=rtpmap:111 opus/48000/2\r\n"
     "a=rtpmap:103 ISAC/16000\r\n"
     "a=rtpmap:104 ISAC/32000\r\n"
@@ -779,8 +731,6 @@ static const char kUnifiedPlanSdpFullStringNoSsrc[] =
     "a=mid:video_content_name_2\r\n"
     "a=msid:local_stream_2 video_track_id_2\r\n"
     "a=sendrecv\r\n"
-    "a=crypto:1 AES_CM_128_HMAC_SHA1_80 "
-    "inline:d0RmdmcmVCspeEc3QGZiNWpVLFJhQX1cfHAwJSoj|2^20|1:32\r\n"
     "a=rtpmap:120 VP8/90000\r\n"
     // Video track 3, stream 2.
     "m=video 9 RTP/SAVPF 120\r\n"
@@ -790,8 +740,6 @@ static const char kUnifiedPlanSdpFullStringNoSsrc[] =
     "a=mid:video_content_name_3\r\n"
     "a=msid:local_stream_2 video_track_id_3\r\n"
     "a=sendrecv\r\n"
-    "a=crypto:1 AES_CM_128_HMAC_SHA1_80 "
-    "inline:d0RmdmcmVCspeEc3QGZiNWpVLFJhQX1cfHAwJSoj|2^20|1:32\r\n"
     "a=rtpmap:120 VP8/90000\r\n";
 
 // One candidate reference string as per W3c spec.
@@ -1271,10 +1219,6 @@ class WebRtcSdpTest : public ::testing::Test {
     AudioContentDescription* audio = new AudioContentDescription();
     audio->set_rtcp_mux(true);
     audio->set_rtcp_reduced_size(true);
-    audio->AddCrypto(CryptoParams(
-        1, "AES_CM_128_HMAC_SHA1_32",
-        "inline:NzB4d1BINUAvLEw6UzF3WSJ+PSdFcGdUJShpX1Zj|2^20|1:32",
-        "dummy_session_params"));
     audio->set_protocol(cricket::kMediaProtocolSavpf);
     audio->AddCodec(AudioCodec(111, "opus", 48000, 0, 2));
     audio->AddCodec(AudioCodec(103, "ISAC", 16000, 0, 1));
@@ -1348,9 +1292,6 @@ class WebRtcSdpTest : public ::testing::Test {
   // configuration.
   VideoContentDescription* CreateVideoContentDescription() {
     VideoContentDescription* video = new VideoContentDescription();
-    video->AddCrypto(CryptoParams(
-        1, "AES_CM_128_HMAC_SHA1_80",
-        "inline:d0RmdmcmVCspeEc3QGZiNWpVLFJhQX1cfHAwJSoj|2^20|1:32", ""));
     video->set_protocol(cricket::kMediaProtocolSavpf);
     video->AddCodec(
         VideoCodec(120, JsepSessionDescription::kDefaultVideoCodecName));
@@ -1370,20 +1311,6 @@ class WebRtcSdpTest : public ::testing::Test {
 
     // rtcp_reduced_size
     EXPECT_EQ(cd1->rtcp_reduced_size(), cd2->rtcp_reduced_size());
-
-    // cryptos
-    EXPECT_EQ(cd1->cryptos().size(), cd2->cryptos().size());
-    if (cd1->cryptos().size() != cd2->cryptos().size()) {
-      ADD_FAILURE();
-      return;
-    }
-    for (size_t i = 0; i < cd1->cryptos().size(); ++i) {
-      const CryptoParams c1 = cd1->cryptos().at(i);
-      const CryptoParams c2 = cd2->cryptos().at(i);
-      EXPECT_TRUE(c1.Matches(c2));
-      EXPECT_EQ(c1.key_params, c2.key_params);
-      EXPECT_EQ(c1.session_params, c2.session_params);
-    }
 
     // protocol
     // Use an equivalence class here, for old and new versions of the
@@ -1673,11 +1600,6 @@ class WebRtcSdpTest : public ::testing::Test {
                      absl::WrapUnique(audio_desc_));
     desc_.AddContent(kVideoContentName, MediaProtocolType::kRtp,
                      absl::WrapUnique(video_desc_));
-  }
-
-  void RemoveCryptos() {
-    audio_desc_->set_cryptos(std::vector<CryptoParams>());
-    video_desc_->set_cryptos(std::vector<CryptoParams>());
   }
 
   // Removes everything in StreamParams from the session description that is
@@ -2083,7 +2005,7 @@ TEST_F(WebRtcSdpTest, SerializeSessionDescriptionEmpty) {
   EXPECT_EQ("", webrtc::SdpSerialize(jdesc_empty));
 }
 
-// This tests serialization of SDP with a=crypto and a=fingerprint, as would be
+// This tests serialization of SDP with a=fingerprint, as would be
 // the case in a DTLS offer.
 TEST_F(WebRtcSdpTest, SerializeSessionDescriptionWithFingerprint) {
   AddFingerprint();
@@ -2102,7 +2024,6 @@ TEST_F(WebRtcSdpTest, SerializeSessionDescriptionWithFingerprint) {
 // be the case in a DTLS answer.
 TEST_F(WebRtcSdpTest, SerializeSessionDescriptionWithFingerprintNoCryptos) {
   AddFingerprint();
-  RemoveCryptos();
   JsepSessionDescription jdesc_with_fingerprint(kDummyType);
   MakeDescriptionWithoutCandidates(&jdesc_with_fingerprint);
   std::string message = webrtc::SdpSerialize(jdesc_with_fingerprint);

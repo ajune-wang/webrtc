@@ -41,6 +41,7 @@ class RobustThroughputEstimator : public AcknowledgedBitrateEstimatorInterface {
  private:
   const RobustThroughputEstimatorSettings settings_;
   std::deque<PacketResult> window_;
+  Timestamp latest_discarded_send_time_;
 };
 
 }  // namespace webrtc

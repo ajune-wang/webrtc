@@ -21,7 +21,8 @@ namespace webrtc {
 
 RobustThroughputEstimator::RobustThroughputEstimator(
     const RobustThroughputEstimatorSettings& settings)
-    : settings_(settings) {
+    : settings_(settings),
+      latest_discarded_send_time_(Timestamp::MinusInfinity()) {
   RTC_DCHECK(settings.enabled);
 }
 
@@ -33,6 +34,16 @@ void RobustThroughputEstimator::IncomingPacketFeedbackVector(
                             packet_feedback_vector.end(),
                             PacketResult::ReceiveTimeOrder()));
   for (const auto& packet : packet_feedback_vector) {
+    // Ignore packets without valid send or receive times.
+    // (This should not happen in production since lost packets are filtered
+    // out before passing the feedback vector to the throughput estimator.
+    // However, explicitly handling this case makes the estimator more robust
+    // and avoids a hard-to-detect bad state.)
+    if (packet.receive_time.IsInfinite() ||
+        packet.sent_packet.send_time.IsInfinite()) {
+      continue;
+    }
+
     // Insert the new packet.
     window_.push_back(packet);
     window_.back().sent_packet.prior_unacked_data =
@@ -45,18 +56,24 @@ void RobustThroughputEstimator::IncomingPacketFeedbackVector(
          i > 0 && window_[i].receive_time < window_[i - 1].receive_time; i--) {
       std::swap(window_[i], window_[i - 1]);
     }
+
     // Remove old packets.
+    Timestamp most_recent_receive_time = window_.back().receive_time;
     while (window_.size() > settings_.kMaxPackets ||
-           (window_.size() > settings_.min_packets &&
-            packet.receive_time - window_.front().receive_time >
-                settings_.window_duration)) {
+           most_recent_receive_time - window_.front().receive_time >
+               settings_.max_window_duration ||
+           (window_.size() > settings_.window_packets &&
+            most_recent_receive_time - window_.front().receive_time >
+                settings_.min_window_duration)) {
+      latest_discarded_send_time_ = std::max(
+          latest_discarded_send_time_, window_.front().sent_packet.send_time);
       window_.pop_front();
     }
   }
 }
 
 absl::optional<DataRate> RobustThroughputEstimator::bitrate() const {
-  if (window_.size() < settings_.initial_packets)
+  if (window_.size() < settings_.required_packets)
     return absl::nullopt;
 
   TimeDelta largest_recv_gap(TimeDelta::Millis(0));
@@ -72,63 +89,110 @@ absl::optional<DataRate> RobustThroughputEstimator::bitrate() const {
     }
   }
 
-  Timestamp min_send_time = window_[0].sent_packet.send_time;
-  Timestamp max_send_time = window_[0].sent_packet.send_time;
-  Timestamp min_recv_time = window_[0].receive_time;
-  Timestamp max_recv_time = window_[0].receive_time;
-  DataSize data_size = DataSize::Bytes(0);
+  Timestamp first_send_time = Timestamp::PlusInfinity();
+  Timestamp last_send_time = Timestamp::MinusInfinity();
+  Timestamp first_recv_time = Timestamp::PlusInfinity();
+  Timestamp last_recv_time = Timestamp::MinusInfinity();
+  DataSize recv_size = DataSize::Bytes(0);
+  DataSize send_size = DataSize::Bytes(0);
+  DataSize first_recv_size = DataSize::Bytes(0);
+  DataSize last_send_size = DataSize::Bytes(0);
+  size_t num_sent_packets_in_window = 0;
   for (const auto& packet : window_) {
-    min_send_time = std::min(min_send_time, packet.sent_packet.send_time);
-    max_send_time = std::max(max_send_time, packet.sent_packet.send_time);
-    min_recv_time = std::min(min_recv_time, packet.receive_time);
-    max_recv_time = std::max(max_recv_time, packet.receive_time);
-    data_size += packet.sent_packet.size;
-    data_size += packet.sent_packet.prior_unacked_data;
+    if (packet.receive_time < first_recv_time) {
+      first_recv_time = packet.receive_time;
+      first_recv_size =
+          packet.sent_packet.size + packet.sent_packet.prior_unacked_data;
+    }
+    last_recv_time = std::max(last_recv_time, packet.receive_time);
+    recv_size += packet.sent_packet.size;
+    recv_size += packet.sent_packet.prior_unacked_data;
+
+    if (packet.sent_packet.send_time < latest_discarded_send_time_) {
+      // If we have dropped packets from the window that were sent after
+      // this packet, then this packet was reordered. Ignore it from
+      // the send rate computation (since the send time may be very far
+      // in the past leading to underestimation of the send rate.)
+      // However, ignoring packets creates a risk that we end up without
+      // any packets left to compute a send rate.
+      continue;
+    }
+    if (packet.sent_packet.send_time > last_send_time) {
+      last_send_time = packet.sent_packet.send_time;
+      last_send_size =
+          packet.sent_packet.size + packet.sent_packet.prior_unacked_data;
+    }
+    first_send_time = std::min(first_send_time, packet.sent_packet.send_time);
+
+    send_size += packet.sent_packet.size;
+    send_size += packet.sent_packet.prior_unacked_data;
+    ++num_sent_packets_in_window;
   }
 
   // Suppose a packet of size S is sent every T milliseconds.
   // A window of N packets would contain N*S bytes, but the time difference
   // between the first and the last packet would only be (N-1)*T. Thus, we
-  // need to remove one packet.
-  DataSize recv_size = data_size;
-  DataSize send_size = data_size;
-  if (settings_.assume_shared_link) {
-    // Depending on how the bottleneck queue is implemented, a large packet
-    // may delay sending of sebsequent packets, so the delay between packets
-    // i and i+1  depends on the size of both packets. In this case we minimize
-    // the maximum error by removing half of both the first and last packet
-    // size.
-    DataSize first_last_average_size =
-        (window_.front().sent_packet.size +
-         window_.front().sent_packet.prior_unacked_data +
-         window_.back().sent_packet.size +
-         window_.back().sent_packet.prior_unacked_data) /
-        2;
-    recv_size -= first_last_average_size;
-    send_size -= first_last_average_size;
-  } else {
-    // In the simpler case where the delay between packets i and i+1 only
-    // depends on the size of packet i+1, the first packet doesn't give us
-    // any information. Analogously, we assume that the start send time
-    // for the last packet doesn't depend on the size of the packet.
-    recv_size -= (window_.front().sent_packet.size +
-                  window_.front().sent_packet.prior_unacked_data);
-    send_size -= (window_.back().sent_packet.size +
-                  window_.back().sent_packet.prior_unacked_data);
-  }
+  // need to remove the size of one packet to get the correct rate of S/T.
+  // Which packet to remove (if the packets have varying sizes),
+  // depends on the network model.
+  // Suppose that 2 packets with sizes s1 and s2, are received at times t1
+  // and t2, respectively. If the packets were transmitted back to back over
+  // a bottleneck with rate capacity r, then we'd expect t2 = t1 + r * s2.
+  // Thus, r = (t2-t1) / s2, so the size of the first packet doesn't affect
+  // the difference between t1 and t2.
+  // Analoguously, if the first packet is sent at time t1 and the sender
+  // paces the packets at rate r, then the second packet can be sent at time
+  // t2 = t1 + r * s1. Thus, the send rate estimate r = (t2-t1) / s1 doesn't
+  // depend on the size of the last packet.
+  recv_size -= first_recv_size;
+  send_size -= last_send_size;
 
-  // Remove the largest gap by replacing it by the second largest gap
-  // or the average gap.
-  TimeDelta send_duration = max_send_time - min_send_time;
-  TimeDelta recv_duration = (max_recv_time - min_recv_time) - largest_recv_gap;
-  if (settings_.reduce_bias) {
-    recv_duration += second_largest_recv_gap;
-  } else {
-    recv_duration += recv_duration / (window_.size() - 2);
-  }
+  // fprintf(stderr, "first,last sendtime %ld, %ld\n", first_send_time.ms(),
+  // last_send_time.ms()); fprintf(stderr, "first,last recvtime %ld, %ld\n",
+  // first_recv_time.ms(), last_recv_time.ms());
 
-  send_duration = std::max(send_duration, TimeDelta::Millis(1));
+  // Remove the largest gap by replacing it by the second largest gap.
+  RTC_DCHECK(first_recv_time.IsFinite());
+  RTC_DCHECK(last_recv_time.IsFinite());
+  TimeDelta recv_duration = (last_recv_time - first_recv_time) -
+                            largest_recv_gap + second_largest_recv_gap;
   recv_duration = std::max(recv_duration, TimeDelta::Millis(1));
+
+  if (num_sent_packets_in_window < settings_.required_packets) {
+    // Too few send times to calculate a reliable send rate.
+    if ((recv_size / recv_duration).kbps() < 20) {
+      fprintf(stderr, "num_sent_packets = %zu, num_recv_packets = %zu\n",
+              num_sent_packets_in_window, window_.size());
+      fprintf(stderr, "recv_size = %ld, recv_duration = %ld, recv_rate = %ld\n",
+              recv_size.bytes(), recv_duration.ms(),
+              (recv_size / recv_duration).bytes_per_sec());
+    }
+    return recv_size / recv_duration;
+  }
+
+  RTC_DCHECK(first_send_time.IsFinite());
+  RTC_DCHECK(last_send_time.IsFinite());
+  TimeDelta send_duration = last_send_time - first_send_time;
+  send_duration = std::max(send_duration, TimeDelta::Millis(1));
+
+  if ((recv_size / recv_duration).kbps() < 20 ||
+      (send_size / send_duration).kbps() < 20) {
+    fprintf(stderr, "num_sent_packets = %zu, num_recv_packets = %zu\n",
+            num_sent_packets_in_window, window_.size());
+    fprintf(stderr, "recv_size = %ld, recv_duration = %ld, recv_rate = %ld\n",
+            recv_size.bytes(), recv_duration.ms(),
+            (recv_size / recv_duration).bytes_per_sec());
+    fprintf(stderr, "send_size = %ld, send_duration = %ld, send_rate = %ld\n\n",
+            send_size.bytes(), send_duration.ms(),
+            (send_size / send_duration).bytes_per_sec());
+    fprintf(stderr, "window (sent, received, bytes) =\n");
+    for (auto& packet : window_) {
+      fprintf(stderr, "(%ld, %ld, %ld), ", packet.sent_packet.send_time.ms(),
+              packet.receive_time.ms(), packet.sent_packet.size.bytes());
+    }
+    fprintf(stderr, "\n");
+  }
+
   return std::min(send_size / send_duration, recv_size / recv_duration);
 }
 

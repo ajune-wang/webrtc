@@ -16,6 +16,24 @@
       "message": "Looks like there is some ASAN issues found on Windows. \n\n\u003d\u003d7536\u003d\u003dERROR: AddressSanitizer: heap-use-after-free on address 0x12fb9ceb6180 at pc 0x7ff6500f8ec6 bp 0x00f6421ff4c0 sp 0x00f6421ff508\n    #0 0x7ff6500f8ec5 in webrtc::RTCPSender::SendRTCP::\u003clambda_0\u003e::operator() C:\\b\\s\\w\\ir\\cache\\builder\\src\\modules\\rtp_rtcp\\source\\rtcp_sender.cc:665\n\nIs this some other issue that this has uncovered? ",
       "revId": "5daedc6a871f863eed254378f1fea34b6dc913fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e546e8d_a323e384",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-10-26T14:09:54Z",
+      "side": 1,
+      "message": "Yeah, that appears to be a different issue.\nFrom what I can tell, the test transport has been torn down when a delayed task tries to send RTCP.\nThe pacer is not involved in that stack trace.\n\nFiled https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d13315 for the other issue",
+      "parentUuid": "6a063019_c0911a06",
+      "revId": "5daedc6a871f863eed254378f1fea34b6dc913fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

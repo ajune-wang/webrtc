@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e9e83368_1c96bb62",
+        "filename": "g3doc/become_a_committer.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-10-26T13:36:12Z",
+      "side": 1,
+      "message": "tryjob (same below)",
+      "range": {
+        "startLine": 1,
+        "startChar": 13,
+        "endLine": 1,
+        "endChar": 20
+      },
+      "revId": "dbc3d48c920dc7169b5a8ca9ba39e55bede4e4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9fbbefc1_3bd94852",
         "filename": "g3doc/become_a_committer.md",
         "patchSetId": 1
@@ -31,6 +54,29 @@
       "writtenOn": "2021-10-26T13:34:53Z",
       "side": 1,
       "message": "Does an update like this count as \"review\"?",
+      "revId": "dbc3d48c920dc7169b5a8ca9ba39e55bede4e4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bee6550a_2798bec2",
+        "filename": "g3doc/become_a_committer.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-10-26T13:36:12Z",
+      "side": 1,
+      "message": "that,",
+      "range": {
+        "startLine": 18,
+        "startChar": 24,
+        "endLine": 18,
+        "endChar": 26
+      },
       "revId": "dbc3d48c920dc7169b5a8ca9ba39e55bede4e4c8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -54,6 +100,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1838f788_b045aeb9",
+        "filename": "g3doc/become_a_committer.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-10-26T13:36:12Z",
+      "side": 1,
+      "message": "the contributions",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 12
+      },
+      "revId": "dbc3d48c920dc7169b5a8ca9ba39e55bede4e4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "397b7440_3345eca6",
         "filename": "g3doc/become_a_committer.md",
         "patchSetId": 1
@@ -65,6 +134,52 @@
       "writtenOn": "2021-10-26T13:34:53Z",
       "side": 1,
       "message": "The access will be granted when the ticket is resolved by one of the project members.",
+      "revId": "dbc3d48c920dc7169b5a8ca9ba39e55bede4e4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc664e68_319e5bf8",
+        "filename": "g3doc/become_a_committer.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-10-26T13:36:12Z",
+      "side": 1,
+      "message": "the ticket (or the bug since we refer to a bug before)",
+      "range": {
+        "startLine": 22,
+        "startChar": 37,
+        "endLine": 22,
+        "endChar": 43
+      },
+      "revId": "dbc3d48c920dc7169b5a8ca9ba39e55bede4e4c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45677142_9e1b505a",
+        "filename": "g3doc/become_a_committer.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-10-26T13:36:12Z",
+      "side": 1,
+      "message": "rejection?",
+      "range": {
+        "startLine": 23,
+        "startChar": 28,
+        "endLine": 23,
+        "endChar": 34
+      },
       "revId": "dbc3d48c920dc7169b5a8ca9ba39e55bede4e4c8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

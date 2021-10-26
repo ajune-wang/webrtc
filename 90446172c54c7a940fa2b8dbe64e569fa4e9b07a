@@ -39,6 +39,30 @@
       },
       "revId": "90446172c54c7a940fa2b8dbe64e569fa4e9b07a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dfe22df9_1fc2e2c0",
+        "filename": "luci-notify.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 6192
+      },
+      "writtenOn": "2021-10-26T06:43:05Z",
+      "side": 1,
+      "message": "Well presumably it just activates the blamelist feature and then populates in case of a failure for a particular CL, no way it can be populated now.",
+      "parentUuid": "61d17c98_ab45eff8",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 23
+      },
+      "revId": "90446172c54c7a940fa2b8dbe64e569fa4e9b07a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

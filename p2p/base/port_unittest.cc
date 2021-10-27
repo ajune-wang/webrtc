@@ -1500,15 +1500,6 @@ TEST_F(PortTest, TestIceRoleConflict) {
   EXPECT_TRUE(role_conflict());
 }
 
-TEST_F(PortTest, TestTcpNoDelay) {
-  auto port1 = CreateTcpPort(kLocalAddr1);
-  port1->SetIceRole(cricket::ICEROLE_CONTROLLING);
-  int option_value = -1;
-  int success = port1->GetOption(rtc::Socket::OPT_NODELAY, &option_value);
-  ASSERT_EQ(0, success);  // GetOption() should complete successfully w/ 0
-  ASSERT_EQ(1, option_value);
-}
-
 TEST_F(PortTest, TestDelayedBindingUdp) {
   FakeAsyncPacketSocket* socket = new FakeAsyncPacketSocket();
   FakePacketSocketFactory socket_factory;
@@ -1676,10 +1667,6 @@ TEST_F(PortTest, TestDefaultDscpValue) {
   auto udpport = CreateUdpPort(kLocalAddr1);
   EXPECT_EQ(0, udpport->SetOption(rtc::Socket::OPT_DSCP, rtc::DSCP_CS6));
   EXPECT_EQ(0, udpport->GetOption(rtc::Socket::OPT_DSCP, &dscp));
-  auto tcpport = CreateTcpPort(kLocalAddr1);
-  EXPECT_EQ(0, tcpport->SetOption(rtc::Socket::OPT_DSCP, rtc::DSCP_AF31));
-  EXPECT_EQ(0, tcpport->GetOption(rtc::Socket::OPT_DSCP, &dscp));
-  EXPECT_EQ(rtc::DSCP_AF31, dscp);
   auto stunport = CreateStunPort(kLocalAddr1, nat_socket_factory1());
   EXPECT_EQ(0, stunport->SetOption(rtc::Socket::OPT_DSCP, rtc::DSCP_AF41));
   EXPECT_EQ(0, stunport->GetOption(rtc::Socket::OPT_DSCP, &dscp));

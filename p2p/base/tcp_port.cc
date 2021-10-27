@@ -243,19 +243,11 @@ int TCPPort::SendTo(const void* data,
 }
 
 int TCPPort::GetOption(rtc::Socket::Option opt, int* value) {
-  if (listen_socket_) {
-    return listen_socket_->GetOption(opt, value);
-  } else {
-    return SOCKET_ERROR;
-  }
+  return SOCKET_ERROR;
 }
 
 int TCPPort::SetOption(rtc::Socket::Option opt, int value) {
-  if (listen_socket_) {
-    return listen_socket_->SetOption(opt, value);
-  } else {
-    return SOCKET_ERROR;
-  }
+  return SOCKET_ERROR;
 }
 
 int TCPPort::GetError() {

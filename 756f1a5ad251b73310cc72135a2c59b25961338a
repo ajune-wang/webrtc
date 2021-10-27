@@ -33,6 +33,24 @@
       "message": "toprice,\nIn case you want to take an extra look at this merge.",
       "revId": "756f1a5ad251b73310cc72135a2c59b25961338a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd5cceab_ca539445",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18439
+      },
+      "writtenOn": "2021-10-27T08:26:56Z",
+      "side": 1,
+      "message": "Hi Magnus, thanks for reviewing it\nCould you also run the tryjobs for this CL/submit it? I don\u0027t have permissions to do it in this repository",
+      "parentUuid": "2ec3af10_14016cc6",
+      "revId": "756f1a5ad251b73310cc72135a2c59b25961338a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

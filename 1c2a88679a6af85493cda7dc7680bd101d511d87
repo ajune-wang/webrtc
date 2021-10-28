@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "878942ab_efddb448",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-10-28T11:32:30Z",
+      "side": 1,
+      "message": "Jerome, Marco, PTAL",
+      "revId": "1c2a88679a6af85493cda7dc7680bd101d511d87",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

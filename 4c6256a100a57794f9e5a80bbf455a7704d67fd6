@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "589399fa_cf136813",
+        "filename": "net/dcsctp/socket/dcsctp_socket_network_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-10-28T13:00:15Z",
+      "side": 1,
+      "message": "We have a lot of bot configurations in CI that have \"dcheck_always_on \u003d true\" so these will not run on a lot of them.\n\nI wonder if we should instead disable only on TSan (or other problematic sanitizers, or even better, maybe have a relaxed configuration for them, like send less data just to execute the code).",
+      "range": {
+        "startLine": 40,
+        "startChar": 32,
+        "endLine": 40,
+        "endChar": 49
+      },
+      "revId": "4c6256a100a57794f9e5a80bbf455a7704d67fd6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

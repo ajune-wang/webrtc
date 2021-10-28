@@ -137,6 +137,30 @@
       },
       "revId": "783fed63db75a2546680eee4687af4934a48ccc0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad02f8fa_6b53b7aa",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-10-28T11:49:34Z",
+      "side": 1,
+      "message": "since the purpose of this test is to check that the derivative is zero with constant input - i.e., not testing `is_silence` - let\u0027s remove `is_silence` and just call `sfe.CheckSilenceComputeFeatures()` without using its return value",
+      "parentUuid": "abeb1448_76c0b0c2",
+      "range": {
+        "startLine": 123,
+        "startChar": 0,
+        "endLine": 144,
+        "endChar": 27
+      },
+      "revId": "783fed63db75a2546680eee4687af4934a48ccc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

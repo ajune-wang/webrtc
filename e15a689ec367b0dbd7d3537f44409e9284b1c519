@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0db73340_74790a3d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2021-10-28T11:49:34Z",
+      "side": 1,
+      "message": "Thanks Mirko! LGTM % 1 nit",
+      "revId": "e15a689ec367b0dbd7d3537f44409e9284b1c519",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -37,12 +37,12 @@
 #include "rtc_base/time_utils.h"
 #include "test/gmock.h"
 
-#if !defined(WEBRTC_ANDROID) && defined(NDEBUG)
+#if !defined(WEBRTC_ANDROID) && !RTC_DCHECK_IS_ON
 #define DCSCTP_NDEBUG_TEST(t) t
 #else
-// In debug mode, these tests are too expensive to run due to extensive
-// consistency checks that iterate on all outstanding chunks. Same with low-end
-// Android devices, which have difficulties with these tests.
+// When DCHECK are enabled, these tests are too expensive to run due to
+// extensive consistency checks that iterate on all outstanding chunks. Same
+// with low-end Android devices, which have difficulties with these tests.
 #define DCSCTP_NDEBUG_TEST(t) DISABLED_##t
 #endif
 

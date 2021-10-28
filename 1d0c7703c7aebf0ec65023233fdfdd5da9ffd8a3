@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e31152d_7a01ece2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18494
+      },
+      "writtenOn": "2021-10-28T00:13:17Z",
+      "side": 1,
+      "message": "tommi@ can you please take a look/merge ?",
+      "revId": "1d0c7703c7aebf0ec65023233fdfdd5da9ffd8a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -129,6 +129,7 @@ TEST(RnnVadTest, CepstralFeaturesConstantAverageZeroDerivative) {
         GetSecondDerivative(&feature_vector),
         GetCepstralCrossCorrelation(&feature_vector),
         GetCepstralVariability(&feature_vector));
+    EXPECT_FALSE(is_silence);
   }
 
   // Feed the test data one last time but using a different output vector.
@@ -140,6 +141,7 @@ TEST(RnnVadTest, CepstralFeaturesConstantAverageZeroDerivative) {
       GetSecondDerivative(&feature_vector_last),
       GetCepstralCrossCorrelation(&feature_vector_last),
       GetCepstralVariability(&feature_vector_last));
+  EXPECT_FALSE(is_silence);
 
   // Average is unchanged.
   ExpectEqualFloatArray({feature_vector.data(), kNumLowerBands},

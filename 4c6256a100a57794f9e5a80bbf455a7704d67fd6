@@ -22,6 +22,30 @@
       },
       "revId": "4c6256a100a57794f9e5a80bbf455a7704d67fd6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d056443d_2edf8eb0",
+        "filename": "net/dcsctp/socket/dcsctp_socket_network_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-10-28T13:42:52Z",
+      "side": 1,
+      "message": "For each \"heavy test\", there is a more lightweight test in the network tests, to allow at least something to run with DCHECKs enabled. \n\nThe \"heavy tests\" are only intending to catch throughput regressions.\n\nBut you make a good point, so let\u0027s see how long it takes running the \"heavy\" tests with DCHECK enabled on my really fast CPU:\n\nFirst of all, let\u0027s skip anything with debug\u003dtrue as I haven\u0027t lived long enough to let the tests finish. So the entries below assume debug \u003d false.\n\n(no sanitizer) always_dcheck\u003dfalse: 2.5s\n(no sanitizer) always_dcheck\u003dtrue: 31s\ntsan\u003dtrue, always_dcheck\u003dfalse: 53s\ntsan\u003dtrue, always_dcheck\u003dtrue: 5m50s\nasan\u003dtrue, always_dcheck\u003dfalse: 13s\nasan\u003dtrue, always_dcheck\u003dtrue: 47s\nmsan\u003dtrue, always_dcheck\u003dfalse: 35s\nmsan\u003dtrue, always_dcheck\u003dtrue: 1m53s\n\nAssume that my machine is 2x-3x as fast as any buildbot machine.\n\nWhat is an acceptable runtime? Should I just disable it for tsan and msan? I updated the commit to reflect that.\n\nRelated question: Maybe we _should_ *additionally* run sanitizers with DCHECK disabled? I\u0027m guessing DCHECKs could have side effects that make the sanitizers not pick up issues that could happen in release mode, but I\u0027m not 100% sure about this.",
+      "parentUuid": "589399fa_cf136813",
+      "range": {
+        "startLine": 40,
+        "startChar": 32,
+        "endLine": 40,
+        "endChar": 49
+      },
+      "revId": "4c6256a100a57794f9e5a80bbf455a7704d67fd6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

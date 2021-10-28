@@ -46,6 +46,30 @@
       },
       "revId": "4c6256a100a57794f9e5a80bbf455a7704d67fd6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63821166_9e2d8154",
+        "filename": "net/dcsctp/socket/dcsctp_socket_network_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-10-28T13:59:37Z",
+      "side": 1,
+      "message": "This is a really good point! Let me look into that and ask around but to me it actually makes sense to run them on a binary that is as close as possible to release.\n\nLGTM to skip them only on the most slow configurations.",
+      "parentUuid": "d056443d_2edf8eb0",
+      "range": {
+        "startLine": 40,
+        "startChar": 32,
+        "endLine": 40,
+        "endChar": 49
+      },
+      "revId": "4c6256a100a57794f9e5a80bbf455a7704d67fd6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -50,6 +50,23 @@
       "message": "Give me please time until the end of this week to come with a fix for this. I\u0027m already looking into it. We can revert it if I\u0027m not able to fix it, but I would rather avoid relanding this (and the other change depending on this) again.",
       "revId": "1d0c7703c7aebf0ec65023233fdfdd5da9ffd8a3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca36bf73_663dab99",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-10-28T20:54:57Z",
+      "side": 1,
+      "message": "Fix for the issue is here: https://webrtc-review.googlesource.com/c/src/+/236587",
+      "revId": "1d0c7703c7aebf0ec65023233fdfdd5da9ffd8a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e41c91f_42b6d664",
+        "filename": "modules/desktop_capture/linux/egl_dmabuf.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2021-10-28T21:32:21Z",
+      "side": 1,
+      "message": "Can one of the WebRTC reviewers explain the purpose of this macro?",
+      "revId": "71c7164c658a9e7160fdbfe626da73f4bf48f5e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

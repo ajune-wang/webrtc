@@ -46,6 +46,30 @@
       },
       "revId": "ca9be22b0164ff6fb8528ff1ac5df76a3553a050",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb6d1de6_fb534edd",
+        "filename": "media/engine/webrtc_video_engine_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 8867,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-10-28T11:22:21Z",
+      "side": 0,
+      "message": "There are checks for max and target bitrates per layer. I don\u0027t think another check for total is needed.",
+      "parentUuid": "20b5f5a8_e1aee1d3",
+      "range": {
+        "startLine": 8863,
+        "startChar": 0,
+        "endLine": 8867,
+        "endChar": 7
+      },
+      "revId": "ca9be22b0164ff6fb8528ff1ac5df76a3553a050",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

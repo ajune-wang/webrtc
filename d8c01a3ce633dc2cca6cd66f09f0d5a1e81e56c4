@@ -34,6 +34,24 @@
       "parentUuid": "a81379c0_fbc2b3ac",
       "revId": "d8c01a3ce633dc2cca6cd66f09f0d5a1e81e56c4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d4ab041_e07ec514",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1434,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-10-28T21:14:23Z",
+      "side": 1,
+      "message": "Of course, but we\u0027d still need to store whether it was actually added (from the last call to UpdateEpoll or AddEpoll) somewhere.\n\nEither the dispatcher needs to be passed the result of AddEpoll so it can set a variable itself, or AddEpoll needs to set a variable (on the dispatcher or another map).\n\nGiven that this situation is rare (didn\u0027t occur at all in an end-to-end integration test), I\u0027m not too concerned about it and am inclined to leave things as is.",
+      "parentUuid": "bec237a7_07ead508",
+      "revId": "d8c01a3ce633dc2cca6cd66f09f0d5a1e81e56c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

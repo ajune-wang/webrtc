@@ -16,6 +16,23 @@
       "message": "tommi@ can you please take a look/merge ?",
       "revId": "1d0c7703c7aebf0ec65023233fdfdd5da9ffd8a3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3571feb1_ddbf1489",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-10-28T11:11:58Z",
+      "side": 1,
+      "message": "Can I see why this is being reverted? I don\u0027t seem to have access to the bug mentioned in the commit message.",
+      "revId": "1d0c7703c7aebf0ec65023233fdfdd5da9ffd8a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

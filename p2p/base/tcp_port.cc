@@ -243,19 +243,17 @@ int TCPPort::SendTo(const void* data,
 }
 
 int TCPPort::GetOption(rtc::Socket::Option opt, int* value) {
-  if (listen_socket_) {
-    return listen_socket_->GetOption(opt, value);
-  } else {
-    return SOCKET_ERROR;
+  auto const& it = socket_options_.find(opt);
+  if (it == socket_options_.end()) {
+    return -1;
   }
+  *value = it->second;
+  return 0;
 }
 
 int TCPPort::SetOption(rtc::Socket::Option opt, int value) {
-  if (listen_socket_) {
-    return listen_socket_->SetOption(opt, value);
-  } else {
-    return SOCKET_ERROR;
-  }
+  socket_options_[opt] = value;
+  return 0;
 }
 
 int TCPPort::GetError() {
@@ -274,6 +272,9 @@ void TCPPort::OnNewConnection(rtc::AsyncListenSocket* socket,
                               rtc::AsyncPacketSocket* new_socket) {
   RTC_DCHECK(socket == listen_socket_.get());
 
+  for (const auto& option : socket_options_) {
+    new_socket->SetOption(option.first, option.second);
+  }
   Incoming incoming;
   incoming.addr = new_socket->GetRemoteAddress();
   incoming.socket = new_socket;

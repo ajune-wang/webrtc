@@ -144,6 +144,8 @@ TEST_F(ExpandTest, LostPacketOutage) {
   }
   expand_.SetParametersForMergeAfterExpand();
   EXPECT_EQ(0, statistics_.last_outage_duration_samples());
+  EXPECT_EQ(rtc::checked_cast<int>(sum_output_len_samples),
+            statistics_.last_outage_duration_samples());
 }
 
 // This test is similar to the DelayedPacketOutage test above, but with the

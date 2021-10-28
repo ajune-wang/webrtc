@@ -33,6 +33,46 @@
       "message": "Let\u0027s wait for Kari\u0027s LGTM because I am not an owner of these files.",
       "revId": "698c91a8677de34f13fceaf263fa6003844c3ec7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5af29fcf_596c0afd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2021-10-28T12:19:12Z",
+      "side": 1,
+      "message": "Thanks!",
+      "revId": "698c91a8677de34f13fceaf263fa6003844c3ec7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44ea7b2b_ca0e7cf8",
+        "filename": "sdk/objc/unittests/RTCPeerConnectionTest.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2021-10-28T12:19:12Z",
+      "side": 1,
+      "message": "what on earth was this test testing before? 😅",
+      "range": {
+        "startLine": 139,
+        "startChar": 4,
+        "endLine": 139,
+        "endChar": 35
+      },
+      "revId": "698c91a8677de34f13fceaf263fa6003844c3ec7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

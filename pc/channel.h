@@ -64,6 +64,7 @@
 #include "rtc_base/thread_annotations.h"
 #include "rtc_base/thread_message.h"
 #include "rtc_base/unique_id_generator.h"
+#include "rtc_base/containers/flat_map.h"
 
 namespace webrtc {
 class AudioSinkInterface;
@@ -319,9 +320,9 @@ class BaseChannel : public ChannelInterface,
   webrtc::RtpTransportInternal* rtp_transport_
       RTC_GUARDED_BY(network_thread()) = nullptr;
 
-  std::vector<std::pair<rtc::Socket::Option, int> > socket_options_
+  webrtc::flat_map<rtc::Socket::Option, int> socket_options_
       RTC_GUARDED_BY(network_thread());
-  std::vector<std::pair<rtc::Socket::Option, int> > rtcp_socket_options_
+  webrtc::flat_map<rtc::Socket::Option, int> rtcp_socket_options_
       RTC_GUARDED_BY(network_thread());
   bool writable_ RTC_GUARDED_BY(network_thread()) = false;
   bool was_ever_writable_n_ RTC_GUARDED_BY(network_thread()) = false;

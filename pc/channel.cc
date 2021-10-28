@@ -330,12 +330,10 @@ int BaseChannel::SetOption(SocketType type,
   RTC_DCHECK(rtp_transport_);
   switch (type) {
     case ST_RTP:
-      socket_options_.push_back(
-          std::pair<rtc::Socket::Option, int>(opt, value));
+      socket_options_[opt] = value;
       return rtp_transport_->SetRtpOption(opt, value);
     case ST_RTCP:
-      rtcp_socket_options_.push_back(
-          std::pair<rtc::Socket::Option, int>(opt, value));
+      rtcp_socket_options_[opt] = value;
       return rtp_transport_->SetRtcpOption(opt, value);
   }
   return -1;

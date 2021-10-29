@@ -115,7 +115,9 @@ void AddDefaultFeedbackParams(VideoCodec* codec,
 bool IsCodecValidForLowerRange(const VideoCodec& codec) {
   if (absl::EqualsIgnoreCase(codec.name, kFlexfecCodecName) ||
       absl::EqualsIgnoreCase(codec.name, kAv1CodecName) ||
-      absl::EqualsIgnoreCase(codec.name, kAv1xCodecName)) {
+      // TODO(bugs.webrtc.org/13166): Remove AV1X when backwards compatibility
+      // is not needed.
+      absl::EqualsIgnoreCase(codec.name, "AV1X")) {
     return true;
   } else if (absl::EqualsIgnoreCase(codec.name, kH264CodecName)) {
     std::string profileLevelId;

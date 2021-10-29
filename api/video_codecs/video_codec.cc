@@ -22,8 +22,6 @@ namespace {
 constexpr char kPayloadNameVp8[] = "VP8";
 constexpr char kPayloadNameVp9[] = "VP9";
 constexpr char kPayloadNameAv1[] = "AV1";
-// TODO(bugs.webrtc.org/13166): Delete after all dependent projects updated.
-constexpr char kPayloadNameAv1x[] = "AV1X";
 constexpr char kPayloadNameH264[] = "H264";
 constexpr char kPayloadNameGeneric[] = "Generic";
 constexpr char kPayloadNameMultiplex[] = "Multiplex";
@@ -128,8 +126,7 @@ VideoCodecType PayloadStringToCodecType(const std::string& name) {
     return kVideoCodecVP8;
   if (absl::EqualsIgnoreCase(name, kPayloadNameVp9))
     return kVideoCodecVP9;
-  if (absl::EqualsIgnoreCase(name, kPayloadNameAv1) ||
-      absl::EqualsIgnoreCase(name, kPayloadNameAv1x))
+  if (absl::EqualsIgnoreCase(name, kPayloadNameAv1))
     return kVideoCodecAV1;
   if (absl::EqualsIgnoreCase(name, kPayloadNameH264))
     return kVideoCodecH264;

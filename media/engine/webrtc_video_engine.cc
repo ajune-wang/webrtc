@@ -114,8 +114,7 @@ void AddDefaultFeedbackParams(VideoCodec* codec,
 // Should be used when adding new codecs (or variants).
 bool IsCodecValidForLowerRange(const VideoCodec& codec) {
   if (absl::EqualsIgnoreCase(codec.name, kFlexfecCodecName) ||
-      absl::EqualsIgnoreCase(codec.name, kAv1CodecName) ||
-      absl::EqualsIgnoreCase(codec.name, kAv1xCodecName)) {
+      absl::EqualsIgnoreCase(codec.name, kAv1CodecName)) {
     return true;
   } else if (absl::EqualsIgnoreCase(codec.name, kH264CodecName)) {
     std::string profileLevelId;

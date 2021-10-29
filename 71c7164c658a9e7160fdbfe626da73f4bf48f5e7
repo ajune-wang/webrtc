@@ -34,6 +34,24 @@
       "parentUuid": "5e41c91f_42b6d664",
       "revId": "71c7164c658a9e7160fdbfe626da73f4bf48f5e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3203660_5d6abf7f",
+        "filename": "modules/desktop_capture/linux/egl_dmabuf.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-10-29T09:39:06Z",
+      "side": 1,
+      "message": "CFI has limitations and can\u0027t check functions pointers loaded with dlopen() / dlsym(). We don\u0027t link the libraries directly and load them at runtime instead for more flexibility.",
+      "parentUuid": "5eebeaca_4065d5d9",
+      "revId": "71c7164c658a9e7160fdbfe626da73f4bf48f5e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

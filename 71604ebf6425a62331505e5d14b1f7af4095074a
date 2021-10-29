@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "58e51af3_c994514c",
+        "filename": "api/video_codecs/video_codec.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2021-10-29T15:17:51Z",
+      "side": 0,
+      "message": "Done.\n\n\u003e Please leave as is until it usage can be completely deleted (hopefully soon?).\n\nI wouldn\u0027t hold my breath...\n\n\u003e For some other cl: It seems wrong to have duplicate definitions of these constants, kPayloadNameFoo here, and kFooCodecName in media_constants.*, below.\n\nAgreed.",
+      "parentUuid": "3f78bb69_802815df",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 43
+      },
+      "revId": "71604ebf6425a62331505e5d14b1f7af4095074a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "886583d1_2a4e629b",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-10-29T12:06:42Z",
       "side": 0,
       "message": "If you want to remove the declaration from this \"legacy api\" header file, please move the definition to the cc file where it is used, rather than using raw string literal.",
+      "range": {
+        "startLine": 126,
+        "startChar": 0,
+        "endLine": 127,
+        "endChar": 46
+      },
+      "revId": "71604ebf6425a62331505e5d14b1f7af4095074a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c589731c_c65b5179",
+        "filename": "media/base/media_constants.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2021-10-29T15:17:51Z",
+      "side": 0,
+      "message": "Done.",
+      "parentUuid": "886583d1_2a4e629b",
       "range": {
         "startLine": 126,
         "startChar": 0,

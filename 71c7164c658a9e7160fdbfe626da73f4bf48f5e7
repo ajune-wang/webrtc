@@ -16,6 +16,24 @@
       "message": "Can one of the WebRTC reviewers explain the purpose of this macro?",
       "revId": "71c7164c658a9e7160fdbfe626da73f4bf48f5e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5eebeaca_4065d5d9",
+        "filename": "modules/desktop_capture/linux/egl_dmabuf.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-10-29T06:34:12Z",
+      "side": 1,
+      "message": "It\u0027s this https://clang.llvm.org/docs/ControlFlowIntegrity.html thing. We also dlopen PipeWire libraries, but this is done through GN generated code where we only include function definitions. If you look into the generated code you will see it does the same thing, it adds this macro into each function.",
+      "parentUuid": "5e41c91f_42b6d664",
+      "revId": "71c7164c658a9e7160fdbfe626da73f4bf48f5e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

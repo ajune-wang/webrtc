@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17b372c1_1063a3b0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2021-10-29T11:44:14Z",
+      "side": 1,
+      "message": "PTAL again: Changed it to remove the constants but keep the functions as is for backwards compatibility.",
+      "revId": "11d852b5f2eee48b5e438a26eb1c374c19b13c1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

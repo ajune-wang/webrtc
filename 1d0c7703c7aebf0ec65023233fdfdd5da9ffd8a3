@@ -67,6 +67,24 @@
       "message": "Fix for the issue is here: https://webrtc-review.googlesource.com/c/src/+/236587",
       "revId": "1d0c7703c7aebf0ec65023233fdfdd5da9ffd8a3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b365913_f2c97a5f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-10-29T08:51:39Z",
+      "side": 1,
+      "message": "should we land that instead of this revert?",
+      "parentUuid": "ca36bf73_663dab99",
+      "revId": "1d0c7703c7aebf0ec65023233fdfdd5da9ffd8a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

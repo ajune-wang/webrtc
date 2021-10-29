@@ -16,6 +16,23 @@
       "message": "PTAL again: Changed it to remove the constants but keep the functions as is for backwards compatibility.",
       "revId": "11d852b5f2eee48b5e438a26eb1c374c19b13c1d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dcf875dc_c17c2b1c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-10-29T12:06:42Z",
+      "side": 1,
+      "message": "Hmm, I\u0027m not sure it\u0027s an improvement to delete the constants and replace usage with string literals.",
+      "revId": "11d852b5f2eee48b5e438a26eb1c374c19b13c1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

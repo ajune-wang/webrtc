@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd65099b_fe724de1",
+        "filename": "modules/audio_processing/agc/analog_gain_stats_reporter.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-10-29T12:57:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5aaf39aa_d256352d",
+      "range": {
+        "startLine": 45,
+        "startChar": 2,
+        "endLine": 45,
+        "endChar": 78
+      },
+      "revId": "b193bee798852f9dba1982c9a5dd2b70cf466ff5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bcb896b4_9205997d",
@@ -71,6 +95,30 @@
       "writtenOn": "2021-10-18T09:45:38Z",
       "side": 1,
       "message": "Extra parenthesis around this are not needed",
+      "range": {
+        "startLine": 46,
+        "startChar": 29,
+        "endLine": 46,
+        "endChar": 69
+      },
+      "revId": "b193bee798852f9dba1982c9a5dd2b70cf466ff5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "73dfab46_43ae8afb",
+        "filename": "modules/audio_processing/agc/analog_gain_stats_reporter.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-10-29T12:57:27Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "bcb896b4_9205997d",
       "range": {
         "startLine": 46,
         "startChar": 29,
@@ -104,6 +152,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "98b8dfec_e4f20da0",
+        "filename": "modules/audio_processing/agc/analog_gain_stats_reporter.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-10-29T12:57:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c0586af_6286baff",
+      "range": {
+        "startLine": 46,
+        "startChar": 2,
+        "endLine": 57,
+        "endChar": 5
+      },
+      "revId": "b193bee798852f9dba1982c9a5dd2b70cf466ff5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "34b082ee_3e80f988",
@@ -117,6 +189,30 @@
       "writtenOn": "2021-10-18T09:45:38Z",
       "side": 1,
       "message": "This is only for testing, right?\nPlease then make a comment on that.\n\nAlso, since LevelUpdateStats is so small and this is only used for testing, it may make sense to return a copy of that instead of a reference, since that that then will not leave any doubt on what would happen if the reference is held while the UpdateStatistics are simultaneously called.",
+      "range": {
+        "startLine": 54,
+        "startChar": 2,
+        "endLine": 54,
+        "endChar": 46
+      },
+      "revId": "b193bee798852f9dba1982c9a5dd2b70cf466ff5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf144892_ecc5e87f",
+        "filename": "modules/audio_processing/agc/analog_gain_stats_reporter.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2021-10-29T12:57:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34b082ee_3e80f988",
       "range": {
         "startLine": 54,
         "startChar": 2,

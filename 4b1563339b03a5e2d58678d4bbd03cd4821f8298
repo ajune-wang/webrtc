@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d313b9ea_167387f0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-10-29T20:38:12Z",
+      "side": 1,
+      "message": "The failure is unrelated (another infra failure from manycam).",
+      "revId": "4b1563339b03a5e2d58678d4bbd03cd4821f8298",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

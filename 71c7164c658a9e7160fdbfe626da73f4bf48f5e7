@@ -52,6 +52,24 @@
       "parentUuid": "5eebeaca_4065d5d9",
       "revId": "71c7164c658a9e7160fdbfe626da73f4bf48f5e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98b59052_ed04a4be",
+        "filename": "modules/desktop_capture/linux/egl_dmabuf.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2021-10-29T19:29:24Z",
+      "side": 1,
+      "message": "Got it.  Thanks!",
+      "parentUuid": "a3203660_5d6abf7f",
+      "revId": "71c7164c658a9e7160fdbfe626da73f4bf48f5e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

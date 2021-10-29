@@ -85,6 +85,24 @@
       "parentUuid": "ca36bf73_663dab99",
       "revId": "1d0c7703c7aebf0ec65023233fdfdd5da9ffd8a3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d89e9aa7_8fcc47ba",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-10-29T08:58:23Z",
+      "side": 1,
+      "message": "Yes please, it\u0027s a minor fix and definitely less work for me in the future if you revert all my changes.",
+      "parentUuid": "0b365913_f2c97a5f",
+      "revId": "1d0c7703c7aebf0ec65023233fdfdd5da9ffd8a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "adb2a961_cd3e92e3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-10-29T08:22:07Z",
+      "side": 1,
+      "message": "This gets a bit inconsistent with tcp client sockets, where BasicPacketSocketFactory sets OPT_NODELAY on the underlying rtc::Socket, before wrapping in in one of many possible ways in other classes.\n\nA possible later refactoring might be to let BasicPacketSocket factory somwhow be responsible for listening on the socket and move its wrapping to the accept path, but that\u0027s for after (if ever) we get an rtc::ListenSocket class, separate from rtc::Socket (I have a wip branch for that).",
+      "revId": "8838754683e94c419db259b4530bb0860a917bc8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

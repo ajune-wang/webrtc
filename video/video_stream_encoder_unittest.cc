@@ -18,6 +18,7 @@
 
 #include "absl/memory/memory.h"
 #include "api/task_queue/default_task_queue_factory.h"
+#include "api/task_queue/task_queue_factory.h"
 #include "api/test/mock_fec_controller_override.h"
 #include "api/test/mock_video_encoder.h"
 #include "api/test/mock_video_encoder_factory.h"
@@ -63,6 +64,7 @@
 #include "test/time_controller/simulated_time_controller.h"
 #include "test/video_encoder_proxy_factory.h"
 #include "video/send_statistics_proxy.h"
+#include "video/zero_hertz_encoder_adapter.h"
 
 namespace webrtc {
 
@@ -76,6 +78,7 @@ using ::testing::Gt;
 using ::testing::Le;
 using ::testing::Lt;
 using ::testing::Matcher;
+using ::testing::Mock;
 using ::testing::NiceMock;
 using ::testing::Return;
 using ::testing::SizeIs;
@@ -355,6 +358,7 @@ class VideoStreamEncoderUnderTest : public VideoStreamEncoder {
                            std::unique_ptr<OveruseFrameDetector>(
                                overuse_detector_proxy_ =
                                    new CpuOveruseDetectorProxy(stats_proxy)),
+                           ZeroHertzEncoderAdapterInterface::Create(),
                            task_queue_factory,
                            TaskQueueBase::Current(),
                            allocation_callback_type),
@@ -624,6 +628,83 @@ class MockableSendStatisticsProxy : public SendStatisticsProxy {
   mutable Mutex lock_;
   absl::optional<VideoSendStream::Stats> mock_stats_ RTC_GUARDED_BY(lock_);
   std::function<void(DropReason)> on_frame_dropped_;
+};
+
+class SimpleVideoStreamEncoderFactory {
+ public:
+  class AdaptedVideoStreamEncoder : public VideoStreamEncoder {
+   public:
+    using VideoStreamEncoder::VideoStreamEncoder;
+    ~AdaptedVideoStreamEncoder() { Stop(); }
+  };
+
+  SimpleVideoStreamEncoderFactory()
+      : time_controller_(Timestamp::Millis(0)),
+        task_queue_factory_(time_controller_.CreateTaskQueueFactory()),
+        stats_proxy_(std::make_unique<MockableSendStatisticsProxy>(
+            time_controller_.GetClock(),
+            VideoSendStream::Config(nullptr),
+            webrtc::VideoEncoderConfig::ContentType::kRealtimeVideo)),
+        encoder_settings_(
+            VideoEncoder::Capabilities(/*loss_notification=*/false)),
+        fake_encoder_(time_controller_.GetClock()),
+        encoder_factory_(&fake_encoder_) {
+    encoder_settings_.encoder_factory = &encoder_factory_;
+  }
+
+  std::unique_ptr<AdaptedVideoStreamEncoder> Create(
+      std::unique_ptr<ZeroHertzEncoderAdapterInterface> zero_hertz_adapter) {
+    auto result = std::make_unique<AdaptedVideoStreamEncoder>(
+        time_controller_.GetClock(),
+        /*number_of_cores=*/1,
+        /*stats_proxy=*/stats_proxy_.get(), encoder_settings_,
+        std::make_unique<CpuOveruseDetectorProxy>(/*stats_proxy=*/nullptr),
+        std::move(zero_hertz_adapter), task_queue_factory_.get(),
+        TaskQueueBase::Current(),
+        VideoStreamEncoder::BitrateAllocationCallbackType::
+            kVideoBitrateAllocation);
+    result->SetSink(&sink_, /*rotation_applied=*/false);
+    return result;
+  }
+
+ private:
+  class NullEncoderSink : public VideoStreamEncoderInterface::EncoderSink {
+   public:
+    ~NullEncoderSink() override = default;
+    void OnEncoderConfigurationChanged(
+        std::vector<VideoStream> streams,
+        bool is_svc,
+        VideoEncoderConfig::ContentType content_type,
+        int min_transmit_bitrate_bps) override {}
+    void OnBitrateAllocationUpdated(
+        const VideoBitrateAllocation& allocation) override {}
+    void OnVideoLayersAllocationUpdated(
+        VideoLayersAllocation allocation) override {}
+    Result OnEncodedImage(
+        const EncodedImage& encoded_image,
+        const CodecSpecificInfo* codec_specific_info) override {
+      return Result(EncodedImageCallback::Result::OK);
+    }
+  };
+
+  GlobalSimulatedTimeController time_controller_;
+  std::unique_ptr<TaskQueueFactory> task_queue_factory_;
+  std::unique_ptr<MockableSendStatisticsProxy> stats_proxy_;
+  VideoStreamEncoderSettings encoder_settings_;
+  test::FakeEncoder fake_encoder_;
+  test::VideoEncoderProxyFactory encoder_factory_;
+  NullEncoderSink sink_;
+};
+
+class MockZeroHertzEncoderAdapter : public ZeroHertzEncoderAdapterInterface {
+ public:
+  MOCK_METHOD(void,
+              Initialize,
+              (rtc::VideoSinkInterface<VideoFrame> & sink, Callback& callback),
+              (override));
+  MOCK_METHOD(void, SetEnabledByConstraints, (bool), (override));
+  MOCK_METHOD(void, SetEnabledByContentType, (bool), (override));
+  MOCK_METHOD(void, OnFrame, (const VideoFrame&), (override));
 };
 
 class MockEncoderSelector
@@ -8707,6 +8788,72 @@ TEST_F(ReconfigureEncoderTest, ReconfiguredIfScalabilityModeChanges) {
   config2.scalability_mode = "L1T2";
 
   RunTest({config1, config2}, /*expected_num_init_encode=*/2);
+}
+
+TEST(VideoStreamEncoderZeroHertzTest, ActivatesZeroHertzAdapterOnConstraints) {
+  auto adapter = std::make_unique<MockZeroHertzEncoderAdapter>();
+  auto* adapter_ptr = adapter.get();
+  SimpleVideoStreamEncoderFactory factory;
+  auto video_stream_encoder = factory.Create(std::move(adapter));
+  rtc::VideoSinkInterface<VideoFrame>* sink = video_stream_encoder.get();
+
+  EXPECT_CALL(*adapter_ptr, SetEnabledByConstraints(false));
+  sink->OnConstraintsChanged(VideoTrackSourceConstraints{1.0, 30.0});
+  Mock::VerifyAndClearExpectations(adapter_ptr);
+
+  EXPECT_CALL(*adapter_ptr, SetEnabledByConstraints(true));
+  sink->OnConstraintsChanged(VideoTrackSourceConstraints{0.0, 50.0});
+  Mock::VerifyAndClearExpectations(adapter_ptr);
+
+  EXPECT_CALL(*adapter_ptr, SetEnabledByConstraints(true));
+  sink->OnConstraintsChanged(VideoTrackSourceConstraints{0.0, 15.0});
+
+  EXPECT_CALL(*adapter_ptr, SetEnabledByConstraints(false));
+  sink->OnConstraintsChanged(
+      VideoTrackSourceConstraints{absl::nullopt, absl::nullopt});
+  Mock::VerifyAndClearExpectations(adapter_ptr);
+
+  EXPECT_CALL(*adapter_ptr, SetEnabledByConstraints(false));
+  sink->OnConstraintsChanged(VideoTrackSourceConstraints{absl::nullopt, 30.0});
+  Mock::VerifyAndClearExpectations(adapter_ptr);
+}
+
+TEST(VideoStreamEncoderZeroHertzTest, ActivatesZeroHertzOnContentType) {
+  auto adapter = std::make_unique<MockZeroHertzEncoderAdapter>();
+  auto* adapter_ptr = adapter.get();
+  SimpleVideoStreamEncoderFactory factory;
+  auto video_stream_encoder = factory.Create(std::move(adapter));
+
+  EXPECT_CALL(*adapter_ptr, SetEnabledByContentType(true));
+  VideoEncoderConfig config;
+  config.content_type = VideoEncoderConfig::ContentType::kScreen;
+  video_stream_encoder->ConfigureEncoder(std::move(config), 0);
+  Mock::VerifyAndClearExpectations(adapter_ptr);
+
+  EXPECT_CALL(*adapter_ptr, SetEnabledByContentType(false));
+  VideoEncoderConfig config2;
+  config2.content_type = VideoEncoderConfig::ContentType::kRealtimeVideo;
+  video_stream_encoder->ConfigureEncoder(std::move(config2), 0);
+}
+
+TEST(VideoStreamEncoderZeroHertzTest, ForwardsFramesIntoZeroHertzAdapter) {
+  auto adapter = std::make_unique<MockZeroHertzEncoderAdapter>();
+  auto* adapter_ptr = adapter.get();
+  SimpleVideoStreamEncoderFactory factory;
+  auto video_stream_encoder = factory.Create(std::move(adapter));
+  test::FrameForwarder video_source;
+  video_stream_encoder->SetSource(
+      &video_source, webrtc::DegradationPreference::MAINTAIN_FRAMERATE);
+
+  EXPECT_CALL(*adapter_ptr, OnFrame);
+  auto buffer = rtc::make_ref_counted<NV12Buffer>(/*width=*/16, /*height=*/16);
+  video_source.IncomingCapturedFrame(
+      VideoFrame::Builder()
+          .set_video_frame_buffer(std::move(buffer))
+          .set_ntp_time_ms(0)
+          .set_timestamp_ms(0)
+          .set_rotation(kVideoRotation_0)
+          .build());
 }
 
 }  // namespace webrtc

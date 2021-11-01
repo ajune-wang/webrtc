@@ -114,6 +114,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "ba0f8362_0ecdf85b",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 667,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-11-01T13:53:53Z",
+      "side": 1,
+      "message": "you\u0027re right, missed how local that variable is.",
+      "parentUuid": "5e34435e_9e9854e0",
+      "range": {
+        "startLine": 667,
+        "startChar": 8,
+        "endLine": 667,
+        "endChar": 31
+      },
+      "revId": "448231d6543adadb2b36e581c6adb46442abf03d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "f6bdc953_29f94732",
         "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
         "patchSetId": 9
@@ -149,6 +173,30 @@
       "side": 1,
       "message": "Not sure why this was moved at all, since the signature is `OnEncodeDone(const LayerFrameConfig\u0026 config)`.",
       "parentUuid": "f6bdc953_29f94732",
+      "range": {
+        "startLine": 730,
+        "startChar": 40,
+        "endLine": 730,
+        "endChar": 63
+      },
+      "revId": "448231d6543adadb2b36e581c6adb46442abf03d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81709ed9_3bdc1779",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 730,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-11-01T13:53:53Z",
+      "side": 1,
+      "message": "even better!",
+      "parentUuid": "a48ed9e8_77041d5e",
       "range": {
         "startLine": 730,
         "startChar": 40,

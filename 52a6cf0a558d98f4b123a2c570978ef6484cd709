@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f466bda_0ff43027",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5686
+      },
+      "writtenOn": "2021-11-01T19:48:13Z",
+      "side": 1,
+      "message": "The comments about outgoing/existing sockets could be left as todos, but ultimately calling SetOption on something like P2PTransportChannel *is* expected to cause the options to be applied to all current and future sockets.",
+      "revId": "52a6cf0a558d98f4b123a2c570978ef6484cd709",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62e93243_756da774",
+        "filename": "p2p/base/tcp_port.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5686
+      },
+      "writtenOn": "2021-11-01T19:48:13Z",
+      "side": 1,
+      "message": "nit: Copy the comment which was previously in basic_packet_socket_factory.cc?",
+      "revId": "52a6cf0a558d98f4b123a2c570978ef6484cd709",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3087a0e_244d4cec",
+        "filename": "p2p/base/tcp_port.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5686
+      },
+      "writtenOn": "2021-11-01T19:48:13Z",
+      "side": 1,
+      "message": "Should probably also set this option on existing sockets (accessible through connections_).",
+      "revId": "52a6cf0a558d98f4b123a2c570978ef6484cd709",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a37d896_dd9b13c6",
+        "filename": "p2p/base/tcp_port.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5686
+      },
+      "writtenOn": "2021-11-01T19:48:13Z",
+      "side": 1,
+      "message": "It would make sense to apply these options to outgoing connections as well.",
+      "revId": "52a6cf0a558d98f4b123a2c570978ef6484cd709",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

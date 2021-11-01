@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c9f4ea4_608ad5cb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-11-01T13:51:23Z",
+      "side": 1,
+      "message": "nit: word \u0027Some\u0027 is probably unhelpful.\nalternative suggestion: \u0027minor libaom AV1 encoder wrapper cleanup\u0027\nor \u0027cleanup libaom AV1 encoder wrapper\u0027",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 4
+      },
+      "revId": "0bf3a5954cd23827eca0c49469bba2f43ece253b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "851b67bf_7ede7735",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-11-01T13:51:23Z",
+      "side": 1,
+      "message": "Thank you for the explanation!",
+      "range": {
+        "startLine": 771,
+        "startChar": 5,
+        "endLine": 771,
+        "endChar": 68
+      },
+      "revId": "0bf3a5954cd23827eca0c49469bba2f43ece253b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

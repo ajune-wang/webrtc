@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05f073dc_07973afd",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-11-01T08:53:32Z",
+      "side": 1,
+      "message": "I prefer not to add this todo.\n-it is not reflected in the cl description\n-it is questionable. (e.g. naming/commenting variable by \u0027how it is used\u0027 instead of \u0027what it is\u0027 is discouraged: go/totw/138 )\n\n(this kind of improvements are better tracked by a bug; you already do)",
+      "range": {
+        "startLine": 18,
+        "startChar": 32,
+        "endLine": 19,
+        "endChar": 37
+      },
+      "revId": "12705177e7492d631ab88ee49bbde59595cf0a1b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

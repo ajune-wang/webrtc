@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fac996d3_0272431e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18514
+      },
+      "writtenOn": "2021-11-01T01:46:02Z",
+      "side": 1,
+      "message": " commit\td2b4d9aec1590dae5c33625a30878b5bcf423527\t[log] [tgz]\nauthor\tTim Van Patten \u003ctimvp@google.com\u003e\tSat Oct 30 00:27:56 2021\ncommitter\tAngle LUCI CQ \u003cangle-scoped@luci-project-accounts.iam.gserviceaccount.com\u003e\tSat Oct 30 00:28:39 2021\ntree\t90506dabe99bbb7ba0b7858f58e2c81111a6811e\nparent\t50fc2909d8535f7587fab8cc5b0133027abe5da2 [diff]\nRevert \"Vulkan: Don\u0027t expose MSRTT on SwiftShader\"\n\nThis reverts commit fb77afd3c76301e11f5c7397d9a63d283f86036c.\n\nReason for revert: Breaks ANGLE roll into Chromium:\nhttps://chromium-review.googlesource.com/c/chromium/src/+/3253966/\n\nPlease follow the directions here to update the reference images:\nhttps://chromium.googlesource.com/chromium/src/+/HEAD/docs/testing/web_test_expectations.md\n\nOriginal change\u0027s description:\n\u003e Vulkan: Don\u0027t expose MSRTT on SwiftShader\n\u003e\n\u003e Emulating this extension on SwiftShader is neither useful nor efficient\n\u003e (on the contrary, it hurts performance (which is true for all non-tiling\n\u003e architectures)).  This extension was exposed purely to increase testing\n\u003e coverage, but is being disabled now as OOMs resulting from allocating\n\u003e the implict multisampled image is confusing Chrome.  Note that\n\u003e SwiftShader exposes only a limited amount of memory",
+      "revId": "481698e6f56f945c566bb7222ebc77c681bc040b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

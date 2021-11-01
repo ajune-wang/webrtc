@@ -22,6 +22,30 @@
       },
       "revId": "32dae9d097359e6c30f29d73b24a4ab19ee0b02f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b36883e_c42528ac",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 740,
+      "author": {
+        "id": 5686
+      },
+      "writtenOn": "2021-11-01T20:02:59Z",
+      "side": 1,
+      "message": "In my opinion it\u0027s enough to leave as a DCHECK, so we will be alerted if some future change makes it possible for this to happen.\n\nIf this does somehow occur, immediately afterwards the socket will be signaled as closed and shouldn\u0027t enter this method again, so terminating at that point won\u0027t do any good.\n\nIf you disagree I\u0027m fine with changing it though",
+      "parentUuid": "dee511c7_a90ef2e7",
+      "range": {
+        "startLine": 740,
+        "startChar": 8,
+        "endLine": 740,
+        "endChar": 22
+      },
+      "revId": "32dae9d097359e6c30f29d73b24a4ab19ee0b02f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

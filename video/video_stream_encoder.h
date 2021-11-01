@@ -47,6 +47,7 @@
 #include "video/encoder_bitrate_adjuster.h"
 #include "video/frame_encode_metadata_writer.h"
 #include "video/video_source_sink_controller.h"
+#include "video/zero_hertz_encoder_adapter.h"
 
 namespace webrtc {
 
@@ -60,7 +61,8 @@ namespace webrtc {
 //  Call Stop() when done.
 class VideoStreamEncoder : public VideoStreamEncoderInterface,
                            private EncodedImageCallback,
-                           public VideoSourceRestrictionsListener {
+                           public VideoSourceRestrictionsListener,
+                           public ZeroHertzEncoderAdapterInterface::Callback {
  public:
   // TODO(bugs.webrtc.org/12000): Reporting of VideoBitrateAllocation is being
   // deprecated. Instead VideoLayersAllocation should be reported.
@@ -69,14 +71,16 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
     kVideoBitrateAllocationWhenScreenSharing,
     kVideoLayersAllocation
   };
-  VideoStreamEncoder(Clock* clock,
-                     uint32_t number_of_cores,
-                     VideoStreamEncoderObserver* encoder_stats_observer,
-                     const VideoStreamEncoderSettings& settings,
-                     std::unique_ptr<OveruseFrameDetector> overuse_detector,
-                     TaskQueueFactory* task_queue_factory,
-                     TaskQueueBase* network_queue,
-                     BitrateAllocationCallbackType allocation_cb_type);
+  VideoStreamEncoder(
+      Clock* clock,
+      uint32_t number_of_cores,
+      VideoStreamEncoderObserver* encoder_stats_observer,
+      const VideoStreamEncoderSettings& settings,
+      std::unique_ptr<OveruseFrameDetector> overuse_detector,
+      std::unique_ptr<ZeroHertzEncoderAdapterInterface> zero_hertz_adapter,
+      TaskQueueFactory* task_queue_factory,
+      TaskQueueBase* network_queue,
+      BitrateAllocationCallbackType allocation_cb_type);
   ~VideoStreamEncoder() override;
 
   void AddAdaptationResource(rtc::scoped_refptr<Resource> resource) override;
@@ -231,6 +235,9 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
 
   // Reports UMAs on frame rate constraints usage on the first call.
   void MaybeReportFrameRateConstraintUmas() RTC_RUN_ON(&encoder_queue_);
+
+  // ZeroHertzEncoderAdapterInterface::Callback overrides.
+  void OnZeroHertzModeDeactivated() override {}
 
   TaskQueueBase* const worker_queue_;
   TaskQueueBase* const network_queue_;
@@ -407,6 +414,9 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
       RTC_GUARDED_BY(&encoder_queue_);
   std::vector<rtc::scoped_refptr<Resource>> additional_resources_
       RTC_GUARDED_BY(&encoder_queue_);
+  // Zero-hertz encoder adapter. Frames enter this adapter first, and it then
+  // forwards them to our OnFrame method.
+  std::unique_ptr<ZeroHertzEncoderAdapterInterface> zero_hertz_adapter_;
   // Carries out the VideoSourceRestrictions provided by the
   // ResourceAdaptationProcessor, i.e. reconfigures the source of video frames
   // to provide us with different resolution or frame rate.

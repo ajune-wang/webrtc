@@ -22,6 +22,30 @@
       },
       "revId": "12705177e7492d631ab88ee49bbde59595cf0a1b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04f2f74c_1d9c01ec",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2021-11-01T09:19:54Z",
+      "side": 1,
+      "message": "Removed. Although the current naming is just wrong, this bug took way longer to find because of the name of this variable. I stared at this line without realizing that we actually compare sequence number diffs of in-order packets as well: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/rtp_rtcp/source/receive_statistics_impl.cc;l\u003d89;drc\u003d913cfa76ece2ebd91179fb149af857ee7df1614c",
+      "parentUuid": "05f073dc_07973afd",
+      "range": {
+        "startLine": 18,
+        "startChar": 32,
+        "endLine": 19,
+        "endChar": 37
+      },
+      "revId": "12705177e7492d631ab88ee49bbde59595cf0a1b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

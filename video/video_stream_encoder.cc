@@ -592,6 +592,7 @@ VideoStreamEncoder::VideoStreamEncoder(
     VideoStreamEncoderObserver* encoder_stats_observer,
     const VideoStreamEncoderSettings& settings,
     std::unique_ptr<OveruseFrameDetector> overuse_detector,
+    std::unique_ptr<ZeroHertzEncoderAdapterInterface> zero_hertz_adapter,
     TaskQueueFactory* task_queue_factory,
     TaskQueueBase* network_queue,
     BitrateAllocationCallbackType allocation_cb_type)
@@ -657,7 +658,8 @@ VideoStreamEncoder::VideoStreamEncoder(
                                settings_.experiment_cpu_load_estimator,
                                std::move(overuse_detector),
                                degradation_preference_manager_.get()),
-      video_source_sink_controller_(/*sink=*/this,
+      zero_hertz_adapter_(std::move(zero_hertz_adapter)),
+      video_source_sink_controller_(/*sink=*/zero_hertz_adapter_.get(),
                                     /*source=*/nullptr),
       default_limits_allowed_(
           !field_trial::IsEnabled("WebRTC-DefaultBitrateLimitsKillSwitch")),
@@ -671,6 +673,7 @@ VideoStreamEncoder::VideoStreamEncoder(
   RTC_DCHECK(encoder_stats_observer);
   RTC_DCHECK_GE(number_of_cores, 1);
 
+  zero_hertz_adapter_->Initialize(*this, *this);
   stream_resource_manager_.Initialize(&encoder_queue_);
 
   rtc::Event initialize_processor_event;
@@ -821,6 +824,8 @@ void VideoStreamEncoder::SetStartBitrate(int start_bitrate_bps) {
 void VideoStreamEncoder::ConfigureEncoder(VideoEncoderConfig config,
                                           size_t max_data_payload_length) {
   RTC_DCHECK_RUN_ON(worker_queue_);
+  zero_hertz_adapter_->SetEnabledByContentType(
+      config.content_type == VideoEncoderConfig::ContentType::kScreen);
   encoder_queue_.PostTask(
       [this, config = std::move(config), max_data_payload_length]() mutable {
         RTC_DCHECK_RUN_ON(&encoder_queue_);
@@ -1385,6 +1390,9 @@ void VideoStreamEncoder::OnDiscardedFrame() {
 void VideoStreamEncoder::OnConstraintsChanged(
     const webrtc::VideoTrackSourceConstraints& constraints) {
   RTC_DCHECK_RUN_ON(network_queue_);
+  zero_hertz_adapter_->SetEnabledByConstraints(
+      constraints.min_fps.value_or(-1) == 0 ? constraints.max_fps
+                                            : absl::nullopt);
   RTC_LOG(LS_INFO) << __func__ << " min_fps "
                    << constraints.min_fps.value_or(-1) << " max_fps "
                    << constraints.max_fps.value_or(-1);

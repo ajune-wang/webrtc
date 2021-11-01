@@ -55,6 +55,7 @@ rtc_library("video") {
   deps = [
     ":frame_dumping_decoder",
     ":video_stream_encoder_impl",
+    ":zero_hertz_encoder_adapter",
     "../api:array_view",
     "../api:fec_controller_api",
     "../api:frame_transformer_interface",
@@ -257,6 +258,21 @@ rtc_library("frame_dumping_decoder") {
   ]
 }
 
+rtc_library("zero_hertz_encoder_adapter") {
+  visibility = [ "*" ]
+  sources = [
+    "zero_hertz_encoder_adapter.cc",
+    "zero_hertz_encoder_adapter.h",
+  ]
+
+  deps = [
+    "../api/video:video_frame",
+    "../rtc_base:macromagic",
+    "../rtc_base/synchronization:mutex",
+    "../system_wrappers:field_trial",
+  ]
+}
+
 rtc_library("video_stream_encoder_impl") {
   visibility = [ "*" ]
 
@@ -277,6 +293,7 @@ rtc_library("video_stream_encoder_impl") {
   ]
 
   deps = [
+    ":zero_hertz_encoder_adapter",
     "../api:rtp_parameters",
     "../api:sequence_checker",
     "../api/adaptation:resource_adaptation_api",
@@ -633,6 +650,7 @@ if (rtc_include_tests) {
       "video_source_sink_controller_unittest.cc",
       "video_stream_decoder_impl_unittest.cc",
       "video_stream_encoder_unittest.cc",
+      "zero_hertz_encoder_adapter_unittest.cc",
     ]
     deps = [
       ":video",
@@ -640,6 +658,7 @@ if (rtc_include_tests) {
       ":video_mocks",
       ":video_stream_decoder_impl",
       ":video_stream_encoder_impl",
+      ":zero_hertz_encoder_adapter",
       "../api:create_frame_generator",
       "../api:fake_frame_decryptor",
       "../api:fake_frame_encryptor",

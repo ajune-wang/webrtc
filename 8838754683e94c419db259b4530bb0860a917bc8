@@ -86,6 +86,24 @@
       "parentUuid": "77e4ae36_658eaf60",
       "revId": "8838754683e94c419db259b4530bb0860a917bc8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7cb8bf40_bb082c69",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-11-01T11:23:03Z",
+      "side": 1,
+      "message": "I would be happy to see a test. (Always nice to see a test that fails before the fix and succeeds afterwards - gives assurance that the change in behavior is properly understood.)",
+      "parentUuid": "89bf8bf8_d5f99ffb",
+      "revId": "8838754683e94c419db259b4530bb0860a917bc8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

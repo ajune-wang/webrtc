@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09cb7e1a_423b0e88",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 621,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-11-01T09:21:34Z",
+      "side": 1,
+      "message": "or you can use iterator:\n  auto next_layer_frame \u003d layer_frames.begin();\n  ...\n  if (next_layer_frame !\u003d layer_frames.end() \u0026\u0026 \n      next_layer_frame-\u003eSpatialId() \u003d\u003d i) {\n    layer_frame \u003d \u0026*next_layer_frame;\n    ++next_layer_frame;\n  }\n  ...\n  end_of_picture \u003d next_layer_frame \u003d\u003d layer_frames.end();",
+      "range": {
+        "startLine": 621,
+        "startChar": 9,
+        "endLine": 621,
+        "endChar": 31
+      },
+      "revId": "448231d6543adadb2b36e581c6adb46442abf03d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a203bda9_5e1a6f44",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 667,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-11-01T09:21:34Z",
+      "side": 1,
+      "message": "you never reset it to nullopt, i.e.\nscenario S0, noS1, S2\n(or noS0, S1)\nwill output wrong number of layer frames.",
+      "range": {
+        "startLine": 667,
+        "startChar": 8,
+        "endLine": 667,
+        "endChar": 31
+      },
+      "revId": "448231d6543adadb2b36e581c6adb46442abf03d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6bdc953_29f94732",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 730,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-11-01T09:21:34Z",
+      "side": 1,
+      "message": "generally prefer move before dereferencing:\n  *std::move(layer_frame)\n  \nThat way compiler can mark \u0027layer_frame\u0027 as having \u0027moved out state\u0027 and warn if someone try to use it later.\nIf you deference first, compiler can\u0027t be sure and won\u0027t help.",
+      "range": {
+        "startLine": 730,
+        "startChar": 40,
+        "endLine": 730,
+        "endChar": 63
+      },
+      "revId": "448231d6543adadb2b36e581c6adb46442abf03d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed093523_539b3aa8",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 799,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-11-01T09:21:34Z",
+      "side": 1,
+      "message": "why you haven\u0027t move error handling too?\n\n(btw, what was the reason to move updating encoded context before setting svc parameters?)",
+      "range": {
+        "startLine": 796,
+        "startChar": 0,
+        "endLine": 799,
+        "endChar": 3
+      },
+      "revId": "448231d6543adadb2b36e581c6adb46442abf03d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c79f957b_5b0c918e",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-11-01T09:21:34Z",
+      "side": 1,
+      "message": "nit: may be it would be clearer to test that both frames are S0\n\n(it took me a bit of time to realize that 2 frames expected not because there are 2 spatial layers, but because there are 2 input frames.\nIn particular expectation in this test is the same as in previous test, but I think it would be clearer instead to have input the same [2 frames], and make expectation different)",
+      "range": {
+        "startLine": 128,
+        "startChar": 2,
+        "endLine": 129,
+        "endChar": 50
+      },
+      "revId": "448231d6543adadb2b36e581c6adb46442abf03d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

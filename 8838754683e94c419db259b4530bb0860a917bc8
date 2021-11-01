@@ -122,6 +122,24 @@
       "parentUuid": "7cb8bf40_bb082c69",
       "revId": "8838754683e94c419db259b4530bb0860a917bc8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f89e36d_1824fc9e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-11-01T15:16:36Z",
+      "side": 1,
+      "message": "In a WebRTC test, use EXPECT_TRUE_WAIT(variable flipped by the callback).\nAdd an observer that flips the state variable when the connection is accepted. Then loook at the resulting socket to see what status it has.",
+      "parentUuid": "7cd7b1f4_d4f75475",
+      "revId": "8838754683e94c419db259b4530bb0860a917bc8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

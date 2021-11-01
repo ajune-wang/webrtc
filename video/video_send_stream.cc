@@ -136,7 +136,7 @@ VideoSendStream::VideoSendStream(
           &stats_proxy_,
           config_.encoder_settings,
           std::make_unique<OveruseFrameDetector>(&stats_proxy_),
-          ZeroHertzEncoderAdapterInterface::Create(),
+          ZeroHertzEncoderAdapterInterface::Create(clock),
           task_queue_factory,
           network_queue,
           GetBitrateAllocationCallbackType(config_))),

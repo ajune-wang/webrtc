@@ -359,7 +359,8 @@ class VideoStreamEncoderUnderTest : public VideoStreamEncoder {
                            std::unique_ptr<OveruseFrameDetector>(
                                overuse_detector_proxy_ =
                                    new CpuOveruseDetectorProxy(stats_proxy)),
-                           ZeroHertzEncoderAdapterInterface::Create(),
+                           ZeroHertzEncoderAdapterInterface::Create(
+                               time_controller->GetClock()),
                            task_queue_factory,
                            TaskQueueBase::Current(),
                            allocation_callback_type),
@@ -709,6 +710,8 @@ class MockZeroHertzEncoderAdapter : public ZeroHertzEncoderAdapterInterface {
               (override));
   MOCK_METHOD(void, SetEnabledByContentType, (bool), (override));
   MOCK_METHOD(void, OnFrame, (const VideoFrame&), (override));
+  MOCK_METHOD(absl::optional<uint32_t>, GetInputFramerateFps, (), (override));
+  MOCK_METHOD(void, UpdateFrameRate, (), (override));
 };
 
 class MockEncoderSelector

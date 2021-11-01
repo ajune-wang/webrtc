@@ -17,6 +17,7 @@
 #include "api/video/video_sink_interface.h"
 #include "rtc_base/synchronization/mutex.h"
 #include "rtc_base/thread_annotations.h"
+#include "system_wrappers/include/clock.h"
 
 namespace webrtc {
 
@@ -27,6 +28,10 @@ namespace webrtc {
 class ZeroHertzEncoderAdapterInterface
     : public rtc::VideoSinkInterface<VideoFrame> {
  public:
+  // Averaging window spanning 90 frames at default 30fps, matching old media
+  // optimization module defaults.
+  static constexpr int64_t kFrameRateAvergingWindowSizeMs = (1000 / 30) * 90;
+
   // Callback interface used to inform instance owners.
   class Callback {
    public:
@@ -39,7 +44,8 @@ class ZeroHertzEncoderAdapterInterface
 
   // Factory function creating a production instance. Deletion of the returned
   // instance needs to happen on the same sequence that Create() was called on.
-  static std::unique_ptr<ZeroHertzEncoderAdapterInterface> Create();
+  static std::unique_ptr<ZeroHertzEncoderAdapterInterface> Create(
+      Clock* const clock);
 
   // Sets up sink and callback. This method must be called before the rest of
   // the API is used.
@@ -53,6 +59,14 @@ class ZeroHertzEncoderAdapterInterface
 
   // Pass true in |enabled| when the content type allows.
   virtual void SetEnabledByContentType(bool enabled) = 0;
+
+  // Returns the input framerate. This is measured by RateStatistics when
+  // zero-hertz mode is off, and returns the max framerate in zero-hertz mode.
+  virtual absl::optional<uint32_t> GetInputFramerateFps() = 0;
+
+  // Updates frame rate. This is done unconditionally wether in zero-hertz mode
+  // or not.
+  virtual void UpdateFrameRate() = 0;
 };
 
 }  // namespace webrtc

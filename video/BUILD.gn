@@ -268,7 +268,9 @@ rtc_library("zero_hertz_encoder_adapter") {
   deps = [
     "../api/video:video_frame",
     "../rtc_base:macromagic",
+    "../rtc_base:rtc_base_approved",
     "../rtc_base/synchronization:mutex",
+    "../system_wrappers",
     "../system_wrappers:field_trial",
   ]
 }

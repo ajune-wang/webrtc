@@ -16,15 +16,18 @@
 #include "api/video/nv12_buffer.h"
 #include "api/video/video_frame.h"
 #include "api/video/video_sink_interface.h"
+#include "rtc_base/rate_statistics.h"
 #include "rtc_base/ref_counted_object.h"
 #include "test/field_trial.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
+#include "test/time_controller/simulated_time_controller.h"
 
 namespace webrtc {
 namespace {
 
 using ::testing::Mock;
+using ::testing::Optional;
 using ::testing::Ref;
 
 VideoFrame CreateFrame(int64_t ntp_time_ms) {
@@ -57,7 +60,7 @@ TEST(ZeroHertzEncoderAdapterTest, ForwardsFramesOnConstruction) {
   MockCallback callback;
   MockSink sink;
   VideoFrame frame = CreateFrame(0);
-  auto adapter = ZeroHertzEncoderAdapterInterface::Create();
+  auto adapter = ZeroHertzEncoderAdapterInterface::Create(nullptr);
   adapter->Initialize(sink, callback);
   EXPECT_CALL(sink, OnFrame(Ref(frame))).Times(1);
   adapter->OnFrame(frame);
@@ -72,7 +75,7 @@ TEST(ZeroHertzEncoderAdapterTest, ForwardsFramesOnConstructionUnderFieldTrial) {
   MockSink sink;
   VideoFrame frame = CreateFrame(0);
   ZeroHertzFieldTrialEnabler enabler;
-  auto adapter = ZeroHertzEncoderAdapterInterface::Create();
+  auto adapter = ZeroHertzEncoderAdapterInterface::Create(nullptr);
   adapter->Initialize(sink, callback);
   EXPECT_CALL(sink, OnFrame(Ref(frame))).Times(1);
   adapter->OnFrame(frame);
@@ -89,7 +92,7 @@ TEST(ZeroHertzEncoderAdapterTest, IsDisabledOnConstruction1) {
   MockCallback callback;
   MockSink sink;
   VideoFrame frame = CreateFrame(0);
-  auto adapter = ZeroHertzEncoderAdapterInterface::Create();
+  auto adapter = ZeroHertzEncoderAdapterInterface::Create(nullptr);
   adapter->Initialize(sink, callback);
 
   for (const auto& deactivate_fn : std::vector<std::function<void()>>{
@@ -109,7 +112,7 @@ TEST(ZeroHertzEncoderAdapterTest, IsDisabledOnConstruction2) {
   MockCallback callback;
   MockSink sink;
   VideoFrame frame = CreateFrame(0);
-  auto adapter = ZeroHertzEncoderAdapterInterface::Create();
+  auto adapter = ZeroHertzEncoderAdapterInterface::Create(nullptr);
   adapter->Initialize(sink, callback);
 
   for (const auto& deactivate_fn : std::vector<std::function<void()>>{
@@ -127,7 +130,7 @@ TEST(ZeroHertzEncoderAdapterTest,
   MockCallback callback;
   MockSink sink;
   VideoFrame frame = CreateFrame(0);
-  auto adapter = ZeroHertzEncoderAdapterInterface::Create();
+  auto adapter = ZeroHertzEncoderAdapterInterface::Create(nullptr);
   adapter->Initialize(sink, callback);
 
   // Activate the adapter-> We should be transporting frames.
@@ -141,7 +144,7 @@ TEST(ZeroHertzEncoderAdapterTest,
 TEST(ZeroHertzEncoderAdapterTest, IsDisabledWhenNotUnderFieldTrial) {
   MockCallback callback;
   MockSink sink;
-  auto adapter = ZeroHertzEncoderAdapterInterface::Create();
+  auto adapter = ZeroHertzEncoderAdapterInterface::Create(nullptr);
   adapter->Initialize(sink, callback);
 
   // Perform a sequence that should activate the adapter->
@@ -169,7 +172,7 @@ TEST(ZeroHertzEncoderAdapterTest, IsEnabledWhenActivatedUnderFieldTrial) {
   MockCallback callback;
   MockSink sink;
   ZeroHertzFieldTrialEnabler enabler;
-  auto adapter = ZeroHertzEncoderAdapterInterface::Create();
+  auto adapter = ZeroHertzEncoderAdapterInterface::Create(nullptr);
   adapter->Initialize(sink, callback);
 
   // Activate the adapter-> We should be transporting frames.
@@ -189,6 +192,42 @@ TEST(ZeroHertzEncoderAdapterTest, IsEnabledWhenActivatedUnderFieldTrial) {
     // Re-enable.
     adapter->SetEnabledByConstraints(60.0);
     adapter->SetEnabledByContentType(true);
+  }
+}
+
+TEST(ZeroHertzEncoderAdapterTest, FrameRateIsMaxFpsUnderFieldTrial) {
+  ZeroHertzFieldTrialEnabler enabler;
+  auto adapter = ZeroHertzEncoderAdapterInterface::Create(nullptr);
+
+  // Activate the adapter.
+  adapter->SetEnabledByConstraints(123.0);
+  adapter->SetEnabledByContentType(true);
+
+  EXPECT_THAT(adapter->GetInputFramerateFps(), Optional(123.0));
+}
+
+TEST(ZeroHertzEncoderAdapterTest,
+     FrameRateFollowsRateStatisticsWhenInactivated) {
+  auto enabler = std::make_unique<ZeroHertzFieldTrialEnabler>();
+  for (int i = 0; i != 2; i++) {
+    GlobalSimulatedTimeController time_controller(Timestamp::Millis(0));
+    auto adapter =
+        ZeroHertzEncoderAdapterInterface::Create(time_controller.GetClock());
+
+    // Create an "oracle" rate statistics which should be followed on a sequence
+    // of frames.
+    RateStatistics rate(
+        ZeroHertzEncoderAdapterInterface::kFrameRateAvergingWindowSizeMs, 1000);
+
+    for (int frame = 0; frame != 10; frame++) {
+      time_controller.AdvanceTime(TimeDelta::Millis(10));
+      rate.Update(1, time_controller.GetClock()->TimeInMilliseconds());
+      adapter->UpdateFrameRate();
+      EXPECT_EQ(rate.Rate(time_controller.GetClock()->TimeInMilliseconds()),
+                adapter->GetInputFramerateFps())
+          << " failed for frame " << frame;
+    }
+    enabler = nullptr;
   }
 }
 

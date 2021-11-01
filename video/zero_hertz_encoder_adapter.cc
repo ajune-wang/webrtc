@@ -12,15 +12,20 @@
 
 #include <memory>
 
+#include "rtc_base/rate_statistics.h"
 #include "rtc_base/synchronization/mutex.h"
 #include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
+
+constexpr int64_t
+    ZeroHertzEncoderAdapterInterface::kFrameRateAvergingWindowSizeMs;
+
 namespace {
 
 class ZeroHertzEncoderAdapterImpl : public ZeroHertzEncoderAdapterInterface {
  public:
-  ZeroHertzEncoderAdapterImpl();
+  explicit ZeroHertzEncoderAdapterImpl(Clock* clock);
 
   // ZeroHertzEncoderAdapterInterface overrides.
   void Initialize(rtc::VideoSinkInterface<VideoFrame>& sink,
@@ -28,6 +33,8 @@ class ZeroHertzEncoderAdapterImpl : public ZeroHertzEncoderAdapterInterface {
   void SetEnabledByConstraints(
       absl::optional<double> max_framerate_fps) override;
   void SetEnabledByContentType(bool enabled) override;
+  absl::optional<uint32_t> GetInputFramerateFps() override;
+  void UpdateFrameRate() override;
 
   // VideoFrameSink overrides.
   void OnFrame(const VideoFrame& frame) override;
@@ -38,6 +45,8 @@ class ZeroHertzEncoderAdapterImpl : public ZeroHertzEncoderAdapterInterface {
   }
 
  private:
+  Clock* const clock_;
+
   // True if we support frame entry for screenshare with a minimum frequency of
   // 0 Hz.
   const bool enabled_by_field_trial_;
@@ -61,11 +70,16 @@ class ZeroHertzEncoderAdapterImpl : public ZeroHertzEncoderAdapterInterface {
 
   // True when zero-hertz was disabled by constraints or content type.
   bool was_disabled_ RTC_GUARDED_BY(mutex_) = false;
+
+  // Input frame rate statistics for use when not in zero-hertz mode.
+  RateStatistics input_framerate_ RTC_GUARDED_BY(mutex_);
 };
 
-ZeroHertzEncoderAdapterImpl::ZeroHertzEncoderAdapterImpl()
-    : enabled_by_field_trial_(
-          field_trial::IsEnabled("WebRTC-ZeroHertzScreenshare")) {}
+ZeroHertzEncoderAdapterImpl::ZeroHertzEncoderAdapterImpl(Clock* clock)
+    : clock_(clock),
+      enabled_by_field_trial_(
+          field_trial::IsEnabled("WebRTC-ZeroHertzScreenshare")),
+      input_framerate_(kFrameRateAvergingWindowSizeMs, 1000) {}
 
 void ZeroHertzEncoderAdapterImpl::Initialize(
     rtc::VideoSinkInterface<VideoFrame>& sink,
@@ -99,6 +113,18 @@ void ZeroHertzEncoderAdapterImpl::SetEnabledByContentType(bool enabled) {
   enabled_by_content_type_ = enabled;
 }
 
+absl::optional<uint32_t> ZeroHertzEncoderAdapterImpl::GetInputFramerateFps() {
+  MutexLock lock(&mutex_);
+  if (max_framerate_fps_.has_value() && enabled_by_content_type_)
+    return max_framerate_fps_.value();
+  return input_framerate_.Rate(clock_->TimeInMilliseconds());
+}
+
+void ZeroHertzEncoderAdapterImpl::UpdateFrameRate() {
+  MutexLock lock(&mutex_);
+  input_framerate_.Update(1, clock_->TimeInMilliseconds());
+}
+
 void ZeroHertzEncoderAdapterImpl::OnFrame(const VideoFrame& frame) {
   if (enabled_by_field_trial_) {
     MutexLock lock(&mutex_);
@@ -112,8 +138,8 @@ void ZeroHertzEncoderAdapterImpl::OnFrame(const VideoFrame& frame) {
 }  // namespace
 
 std::unique_ptr<ZeroHertzEncoderAdapterInterface>
-ZeroHertzEncoderAdapterInterface::Create() {
-  return std::make_unique<ZeroHertzEncoderAdapterImpl>();
+ZeroHertzEncoderAdapterInterface::Create(Clock* clock) {
+  return std::make_unique<ZeroHertzEncoderAdapterImpl>(clock);
 }
 
 }  // namespace webrtc

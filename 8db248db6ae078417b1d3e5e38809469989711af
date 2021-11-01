@@ -16,6 +16,23 @@
       "message": "\u003e\tSat Oct 30 00:28:39 2021\ntree\t90506dabe99bbb7ba0b7858f58e2c81111a6811e\nparent\t50fc2909d8535f7587fab8cc5b0133027abe5da2 [diff]\nRevert \"Vulkan: Don\u0027t expose MSRTT on SwiftShader",
       "revId": "8db248db6ae078417b1d3e5e38809469989711af",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0aacef4_dfec01ce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18514
+      },
+      "writtenOn": "2021-11-01T03:25:48Z",
+      "side": 1,
+      "message": "  fake_clock_.AdvanceTimeMilliseconds(1000);\n        rtcp_rtt_stats-\u003eOnRttUpdate(kHighRtt);  // Reported at T1 (1000ms).\n      }));\n  // TODO(tommi): This relies on the internal algorithms of call_stats.cc.\n  // There\u0027s a weight factor there (0.3), that weighs the previous average to\n  // the new one by 70%, so the number 103 in this case is arrived at like so:\n  // (100) / 1 * 0.7 + (100+120)/2 * 0.3 \u003d 103\n  static constexpr const int64_t kAvgRtt1 \u003d 103;\n  EXPECT_CALL(stats_observer, OnRttUpdate(kAvgRtt1, kHighRtt))\n      .Times(1)\n      .WillOnce(InvokeWithoutArgs([\u0026rtcp_rtt_stats, this] {\n        // This interacts with an internal implementation detail in call_stats\n        // that decays the oldest rtt value. See more below.\n        fake_clock_.AdvanceTimeMilliseconds(1000);\n        rtcp_rtt_stats-\u003eOnRttUpdate(kLowRtt);  // Reported at T2 (2000ms).\n      }));\n  // Increase time enough for a new update, but not too much to make the\n  // rtt invalid. Report a lower rtt and verify the old/high value still is sent\n  // in the callback.\n  // Here, enough time must have passed in order to remove exactly the first\n  // report and nothing else (\u003e1500ms has passed since the first rtt).\n  // So, this value is arrived by doing:\n  // (kAvgRtt1)/1 * 0.7 + (kHighRtt+kLowRtt)/2 * 0.3 \u003d 102.1\n  static constexpr const int64_t kAvgRtt2 \u003d 102;\n  EXPECT_CALL(stats_observer, OnRttUpdate(kAvgRtt2, kHighRtt))\n      .Times(1)\n      .WillOnce(InvokeWithoutArgs([this] {\n        // Advance time to make the high report invalid, the lower rtt should\n        // now be in the callback.\n        fake_clock_.AdvanceTimeMilliseconds(1000);\n      }));\n  static constexpr const int64_t kAvgRtt3 \u003d 95;\n  EXPECT_CALL(stats_observer, OnRttUpdate(kAvgRtt3, kLowRtt))\n      .Times(1)\n      .WillOnce(InvokeWithoutArgs([\u0026event] { event.Set(); }));\n  // Trigger the first rtt value and set off the chain of callbacks.\n  AsyncSimulateRttUpdate(kFirstRtt);  // Reported at T0 (0ms).\n  EXPECT_TRUE(event.Wait(1000));\n  call_stats_.DeregisterStatsObserver(\u0026stats_observer);\n}\nTEST_F(CallStatsTest, LastProcessedRtt) {\n  rtc::Event event;\n  MockStatsObserver stats_observer;\n  call_stats_.RegisterStatsObserver(\u0026stats_observer);\n  RtcpRttStats* rtcp_rtt_stats \u003d \u0026call_stats_;\n  static constexpr const int64_t kRttLow \u003d 10;\n  static constexpr const int64_t kRttHigh \u003d 30;\n  // The following two average numbers dependend on average + weight\n  // calculations in call_stats.cc.\n  static constexpr const int64_t kAvgRtt1 \u003d 13;\n  static constexpr const int64_t kAvgRtt2 \u003d 15;\n  EXPECT_CALL(stats_observer, OnRttUpdate(kRttLow, kRttLow))\n      .Times(1)\n      .WillOnce(InvokeWithoutArgs([rtcp_rtt_stats] {\n        EXPECT_EQ(kRttLow, rtcp_rtt_stats-\u003eLastProcessedRtt());\n        // Don\u0027t advance the clock to make sure that low and high rtt values\n        // are associated with the same time stamp.\n        rtcp_rtt_stats-\u003eOnRttUpdate(kRttHigh",
+      "revId": "8db248db6ae078417b1d3e5e38809469989711af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

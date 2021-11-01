@@ -104,6 +104,24 @@
       "parentUuid": "89bf8bf8_d5f99ffb",
       "revId": "8838754683e94c419db259b4530bb0860a917bc8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7cd7b1f4_d4f75475",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-11-01T14:29:00Z",
+      "side": 1,
+      "message": "Any advice on how to extend the PostTest.TestTcpNoDelay, at https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/p2p/base/port_unittest.cc;drc\u003dd30ece1804dc91e84850cf07100c27a8e7b00d81;l\u003d1503 ?\n\nI can create a client socket and attempt to connect (client \u003d ss_-\u003eCreateSocket, client-\u003eConnect(kLocalAddr1), but not so clear how reliably wait for accept. I would have to call TCPPort::CreateConnection, but not sure I understand its arguments, and it looks like it must be called *after* the socket has been accepted (via callbacks originating in VirtualSocketServer), or it will enter the code path for outgoing connections. I also had a look at the test method PortTest::TestConnectivity, and that\u0027s quite a lot of complexity I don\u0027t quite understand.",
+      "parentUuid": "7cb8bf40_bb082c69",
+      "revId": "8838754683e94c419db259b4530bb0860a917bc8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -15,7 +15,9 @@
 
 // Configuration file for RTP utilities (RTPSender, RTPReceiver ...)
 namespace webrtc {
-constexpr int kDefaultMaxReorderingThreshold = 5;  // In sequence numbers.
+// TODO(bugs.webrtc.org/13336): this should be called stream reset threshold to
+// more accurately reflect its usage.
+constexpr int kDefaultMaxReorderingThreshold = 50;  // In sequence numbers.
 constexpr int kRtcpMaxNackFields = 253;
 
 constexpr TimeDelta RTCP_SEND_BEFORE_KEY_FRAME = TimeDelta::Millis(100);

@@ -3,6 +3,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "e58da785_d183b1cf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-11-01T11:00:11Z",
+      "side": 1,
+      "message": "Cleanup CL: https://webrtc-review.googlesource.com/c/src/+/236843",
+      "revId": "448231d6543adadb2b36e581c6adb46442abf03d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "09cb7e1a_423b0e88",
         "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
         "patchSetId": 9
@@ -14,6 +31,30 @@
       "writtenOn": "2021-11-01T09:21:34Z",
       "side": 1,
       "message": "or you can use iterator:\n  auto next_layer_frame \u003d layer_frames.begin();\n  ...\n  if (next_layer_frame !\u003d layer_frames.end() \u0026\u0026 \n      next_layer_frame-\u003eSpatialId() \u003d\u003d i) {\n    layer_frame \u003d \u0026*next_layer_frame;\n    ++next_layer_frame;\n  }\n  ...\n  end_of_picture \u003d next_layer_frame \u003d\u003d layer_frames.end();",
+      "range": {
+        "startLine": 621,
+        "startChar": 9,
+        "endLine": 621,
+        "endChar": 31
+      },
+      "revId": "448231d6543adadb2b36e581c6adb46442abf03d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db98d0de_eb0a558b",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 621,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-11-01T11:00:11Z",
+      "side": 1,
+      "message": "cleaner, updated",
+      "parentUuid": "09cb7e1a_423b0e88",
       "range": {
         "startLine": 621,
         "startChar": 9,
@@ -49,6 +90,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "5e34435e_9e9854e0",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 667,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-11-01T11:00:11Z",
+      "side": 1,
+      "message": "`non_encoded_layer_frame` is initialized in the loop (line 626), so it resets.",
+      "parentUuid": "a203bda9_5e1a6f44",
+      "range": {
+        "startLine": 667,
+        "startChar": 8,
+        "endLine": 667,
+        "endChar": 31
+      },
+      "revId": "448231d6543adadb2b36e581c6adb46442abf03d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "f6bdc953_29f94732",
         "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
         "patchSetId": 9
@@ -60,6 +125,30 @@
       "writtenOn": "2021-11-01T09:21:34Z",
       "side": 1,
       "message": "generally prefer move before dereferencing:\n  *std::move(layer_frame)\n  \nThat way compiler can mark \u0027layer_frame\u0027 as having \u0027moved out state\u0027 and warn if someone try to use it later.\nIf you deference first, compiler can\u0027t be sure and won\u0027t help.",
+      "range": {
+        "startLine": 730,
+        "startChar": 40,
+        "endLine": 730,
+        "endChar": 63
+      },
+      "revId": "448231d6543adadb2b36e581c6adb46442abf03d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a48ed9e8_77041d5e",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 730,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-11-01T11:00:11Z",
+      "side": 1,
+      "message": "Not sure why this was moved at all, since the signature is `OnEncodeDone(const LayerFrameConfig\u0026 config)`.",
+      "parentUuid": "f6bdc953_29f94732",
       "range": {
         "startLine": 730,
         "startChar": 40,
@@ -95,6 +184,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "fb9d7ec6_eb2f8a75",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 799,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-11-01T11:00:11Z",
+      "side": 1,
+      "message": "Yes, this should have moved as well, also added a comment",
+      "parentUuid": "ed093523_539b3aa8",
+      "range": {
+        "startLine": 796,
+        "startChar": 0,
+        "endLine": 799,
+        "endChar": 3
+      },
+      "revId": "448231d6543adadb2b36e581c6adb46442abf03d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "c79f957b_5b0c918e",
         "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder_unittest.cc",
         "patchSetId": 9
@@ -106,6 +219,30 @@
       "writtenOn": "2021-11-01T09:21:34Z",
       "side": 1,
       "message": "nit: may be it would be clearer to test that both frames are S0\n\n(it took me a bit of time to realize that 2 frames expected not because there are 2 spatial layers, but because there are 2 input frames.\nIn particular expectation in this test is the same as in previous test, but I think it would be clearer instead to have input the same [2 frames], and make expectation different)",
+      "range": {
+        "startLine": 128,
+        "startChar": 2,
+        "endLine": 129,
+        "endChar": 50
+      },
+      "revId": "448231d6543adadb2b36e581c6adb46442abf03d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ca018be_5dc19e0e",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-11-01T11:00:11Z",
+      "side": 1,
+      "message": "The purpose of this test is to catch an error where frames in subsequent temporal units after the keyframe are encoded as keyframes as well. This is what can happen if `aom_codec_encode` is not called for every configured spatial layer.",
+      "parentUuid": "c79f957b_5b0c918e",
       "range": {
         "startLine": 128,
         "startChar": 2,

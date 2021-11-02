@@ -16,6 +16,29 @@
       "message": " nisse@ PTAL",
       "revId": "1753a8d6b8f080e4e2f707aa5847c81802f3c8ee",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e3f9eb6_73721bbe",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 3628,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-11-02T10:30:25Z",
+      "side": 1,
+      "message": "It seems this somewhat complex min-max-scale logic is used in four places. Consider defining a helper function, to keep them all in sync? Maybe ConstrainedScaleDownBy(layer_width, encoder_config.simulcast_layers[0].scale_resolution_down_by).\n\nIt seems we use size_t here and int below, does that mean such a helper needs to be templatized?",
+      "range": {
+        "startLine": 3623,
+        "startChar": 18,
+        "endLine": 3628,
+        "endChar": 28
+      },
+      "revId": "1753a8d6b8f080e4e2f707aa5847c81802f3c8ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

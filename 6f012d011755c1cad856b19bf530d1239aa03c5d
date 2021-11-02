@@ -33,6 +33,23 @@
       "message": "Hi, titovartem.\n\nCould you please take a look? sprang is OOO.",
       "revId": "6f012d011755c1cad856b19bf530d1239aa03c5d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e025c0fc_5ea7200e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-11-02T13:48:04Z",
+      "side": 1,
+      "message": "Hi, you still will need owners LGTM",
+      "revId": "6f012d011755c1cad856b19bf530d1239aa03c5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

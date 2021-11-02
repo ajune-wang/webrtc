@@ -15,11 +15,14 @@
 
 #include "api/video/nv12_buffer.h"
 #include "api/video/video_frame.h"
+#include "api/video_track_source_constraints.h"
+#include "rtc_base/rate_statistics.h"
 #include "rtc_base/ref_counted_object.h"
 #include "system_wrappers/include/metrics.h"
 #include "test/field_trial.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
+#include "test/time_controller/simulated_time_controller.h"
 
 namespace webrtc {
 namespace {
@@ -49,12 +52,18 @@ class ZeroHertzFieldTrialDisabler : public test::ScopedFieldTrials {
       : test::ScopedFieldTrials("WebRTC-ZeroHertzScreenshare/Disabled/") {}
 };
 
+class ZeroHertzFieldTrialEnabler : public test::ScopedFieldTrials {
+ public:
+  ZeroHertzFieldTrialEnabler()
+      : test::ScopedFieldTrials("WebRTC-ZeroHertzScreenshare/Enabled/") {}
+};
+
 TEST(FrameCadenceAdapterTest,
      ForwardsFramesOnConstructionAndUnderDisabledFieldTrial) {
   auto disabler = std::make_unique<ZeroHertzFieldTrialDisabler>();
   for (int i = 0; i != 2; i++) {
     MockCallback callback;
-    auto adapter = FrameCadenceAdapterInterface::Create();
+    auto adapter = FrameCadenceAdapterInterface::Create(nullptr);
     adapter->Initialize(&callback);
     VideoFrame frame = CreateFrame();
     EXPECT_CALL(callback, OnFrame(Ref(frame))).Times(1);
@@ -68,6 +77,46 @@ TEST(FrameCadenceAdapterTest,
   }
 }
 
+TEST(FrameCadenceAdapterTest, FrameRateFollowsRateStatisticsWhenInactivated) {
+  auto disabler = std::make_unique<ZeroHertzFieldTrialDisabler>();
+  for (int i = 0; i != 2; i++) {
+    GlobalSimulatedTimeController time_controller(Timestamp::Millis(0));
+    auto adapter =
+        FrameCadenceAdapterInterface::Create(time_controller.GetClock());
+
+    // Create an "oracle" rate statistics which should be followed on a sequence
+    // of frames.
+    RateStatistics rate(
+        FrameCadenceAdapterInterface::kFrameRateAvergingWindowSizeMs, 1000);
+
+    for (int frame = 0; frame != 10; frame++) {
+      time_controller.AdvanceTime(TimeDelta::Millis(10));
+      rate.Update(1, time_controller.GetClock()->TimeInMilliseconds());
+      adapter->UpdateFrameRate();
+      EXPECT_EQ(rate.Rate(time_controller.GetClock()->TimeInMilliseconds()),
+                adapter->GetInputFramerateFps())
+          << " failed for frame " << frame;
+    }
+    disabler = nullptr;
+  }
+}
+
+TEST(FrameCadenceAdapterTest, FrameRateFollowsMaxFpsWhenZeroHertzActivated) {
+  ZeroHertzFieldTrialEnabler enabler;
+  MockCallback callback;
+  GlobalSimulatedTimeController time_controller(Timestamp::Millis(0));
+  auto adapter =
+      FrameCadenceAdapterInterface::Create(time_controller.GetClock());
+  adapter->SetEnabledByContentType(true);
+  adapter->OnConstraintsChanged(VideoTrackSourceConstraints{0, 1});
+  for (int frame = 0; frame != 10; frame++) {
+    time_controller.AdvanceTime(TimeDelta::Millis(10));
+    adapter->UpdateFrameRate();
+    EXPECT_EQ(adapter->GetInputFramerateFps(), 1);
+  }
+}
+}  // namespace
+
 class FrameCadenceAdapterMetricsTest : public ::testing::Test {
  public:
   FrameCadenceAdapterMetricsTest() { metrics::Reset(); }
@@ -75,7 +124,7 @@ class FrameCadenceAdapterMetricsTest : public ::testing::Test {
 
 TEST_F(FrameCadenceAdapterMetricsTest, RecordsNoUmasWithNoFrameTransfer) {
   MockCallback callback;
-  auto adapter = FrameCadenceAdapterInterface::Create();
+  auto adapter = FrameCadenceAdapterInterface::Create(nullptr);
   adapter->Initialize(&callback);
   adapter->OnConstraintsChanged(
       VideoTrackSourceConstraints{absl::nullopt, absl::nullopt});
@@ -114,7 +163,7 @@ TEST_F(FrameCadenceAdapterMetricsTest, RecordsNoUmasWithNoFrameTransfer) {
 
 TEST_F(FrameCadenceAdapterMetricsTest, RecordsNoUmasWithoutEnabledContentType) {
   MockCallback callback;
-  auto adapter = FrameCadenceAdapterInterface::Create();
+  auto adapter = FrameCadenceAdapterInterface::Create(nullptr);
   adapter->Initialize(&callback);
   adapter->OnFrame(CreateFrame());
   adapter->OnConstraintsChanged(
@@ -154,7 +203,7 @@ TEST_F(FrameCadenceAdapterMetricsTest, RecordsNoUmasWithoutEnabledContentType) {
 
 TEST_F(FrameCadenceAdapterMetricsTest, RecordsNoConstraintsIfUnsetOnFrame) {
   MockCallback callback;
-  auto adapter = FrameCadenceAdapterInterface::Create();
+  auto adapter = FrameCadenceAdapterInterface::Create(nullptr);
   adapter->Initialize(&callback);
   adapter->SetEnabledByContentType(true);
   adapter->OnFrame(CreateFrame());
@@ -165,7 +214,7 @@ TEST_F(FrameCadenceAdapterMetricsTest, RecordsNoConstraintsIfUnsetOnFrame) {
 
 TEST_F(FrameCadenceAdapterMetricsTest, RecordsEmptyConstraintsIfSetOnFrame) {
   MockCallback callback;
-  auto adapter = FrameCadenceAdapterInterface::Create();
+  auto adapter = FrameCadenceAdapterInterface::Create(nullptr);
   adapter->Initialize(&callback);
   adapter->SetEnabledByContentType(true);
   adapter->OnConstraintsChanged(
@@ -203,7 +252,7 @@ TEST_F(FrameCadenceAdapterMetricsTest, RecordsEmptyConstraintsIfSetOnFrame) {
 
 TEST_F(FrameCadenceAdapterMetricsTest, RecordsMaxConstraintIfSetOnFrame) {
   MockCallback callback;
-  auto adapter = FrameCadenceAdapterInterface::Create();
+  auto adapter = FrameCadenceAdapterInterface::Create(nullptr);
   adapter->Initialize(&callback);
   adapter->SetEnabledByContentType(true);
   adapter->OnConstraintsChanged(
@@ -238,7 +287,7 @@ TEST_F(FrameCadenceAdapterMetricsTest, RecordsMaxConstraintIfSetOnFrame) {
 
 TEST_F(FrameCadenceAdapterMetricsTest, RecordsMinConstraintIfSetOnFrame) {
   MockCallback callback;
-  auto adapter = FrameCadenceAdapterInterface::Create();
+  auto adapter = FrameCadenceAdapterInterface::Create(nullptr);
   adapter->Initialize(&callback);
   adapter->SetEnabledByContentType(true);
   adapter->OnConstraintsChanged(
@@ -273,7 +322,7 @@ TEST_F(FrameCadenceAdapterMetricsTest, RecordsMinConstraintIfSetOnFrame) {
 
 TEST_F(FrameCadenceAdapterMetricsTest, RecordsMinGtMaxConstraintIfSetOnFrame) {
   MockCallback callback;
-  auto adapter = FrameCadenceAdapterInterface::Create();
+  auto adapter = FrameCadenceAdapterInterface::Create(nullptr);
   adapter->Initialize(&callback);
   adapter->SetEnabledByContentType(true);
   adapter->OnConstraintsChanged(VideoTrackSourceConstraints{5.0, 4.0});
@@ -307,7 +356,7 @@ TEST_F(FrameCadenceAdapterMetricsTest, RecordsMinGtMaxConstraintIfSetOnFrame) {
 
 TEST_F(FrameCadenceAdapterMetricsTest, RecordsMinLtMaxConstraintIfSetOnFrame) {
   MockCallback callback;
-  auto adapter = FrameCadenceAdapterInterface::Create();
+  auto adapter = FrameCadenceAdapterInterface::Create(nullptr);
   adapter->Initialize(&callback);
   adapter->SetEnabledByContentType(true);
   adapter->OnConstraintsChanged(VideoTrackSourceConstraints{4.0, 5.0});
@@ -324,5 +373,5 @@ TEST_F(FrameCadenceAdapterMetricsTest, RecordsMinLtMaxConstraintIfSetOnFrame) {
       ElementsAre(Pair(60 * 4.0 + 5.0 - 1, 1)));
 }
 
-}  // namespace
+}  // namespace webrtc
 }  // namespace webrtc

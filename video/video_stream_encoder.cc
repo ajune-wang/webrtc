@@ -64,10 +64,6 @@ const int64_t kPendingFrameTimeoutMs = 1000;
 
 constexpr char kFrameDropperFieldTrial[] = "WebRTC-FrameDropper";
 
-// Averaging window spanning 90 frames at default 30fps, matching old media
-// optimization module defaults.
-const int64_t kFrameRateAvergingWindowSizeMs = (1000 / 30) * 90;
-
 const size_t kDefaultPayloadSize = 1440;
 
 const int64_t kParameterUpdateIntervalMs = 1000;
@@ -586,12 +582,28 @@ class VideoStreamEncoder::DegradationPreferenceManager
   VideoStreamAdapter* video_stream_adapter_ RTC_GUARDED_BY(&sequence_checker_);
 };
 
+class VideoStreamEncoder::CadenceCallbackAdapter
+    : public FrameCadenceAdapterInterface::Callback {
+ public:
+  explicit CadenceCallbackAdapter(VideoStreamEncoder& video_stream_encoder)
+      : video_stream_encoder_(video_stream_encoder) {}
+  // FrameCadenceAdapterInterface::Callback overrides.
+  void OnFrame(const VideoFrame& frame) override {
+    video_stream_encoder_.OnFrame(frame);
+  }
+  void OnDiscardedFrame() override { video_stream_encoder_.OnDiscardedFrame(); }
+
+ private:
+  VideoStreamEncoder& video_stream_encoder_;
+};
+
 VideoStreamEncoder::VideoStreamEncoder(
     Clock* clock,
     uint32_t number_of_cores,
     VideoStreamEncoderObserver* encoder_stats_observer,
     const VideoStreamEncoderSettings& settings,
     std::unique_ptr<OveruseFrameDetector> overuse_detector,
+    std::unique_ptr<FrameCadenceAdapterInterface> zero_hertz_adapter,
     TaskQueueFactory* task_queue_factory,
     TaskQueueBase* network_queue,
     BitrateAllocationCallbackType allocation_cb_type)
@@ -604,6 +616,9 @@ VideoStreamEncoder::VideoStreamEncoder(
       rate_control_settings_(RateControlSettings::ParseFromFieldTrials()),
       encoder_selector_(settings.encoder_factory->GetEncoderSelector()),
       encoder_stats_observer_(encoder_stats_observer),
+      cadence_callback_adapter_(
+          std::make_unique<CadenceCallbackAdapter>(*this)),
+      frame_cadence_adapter_(std::move(zero_hertz_adapter)),
       encoder_initialized_(false),
       max_framerate_(-1),
       pending_encoder_reconfiguration_(false),
@@ -632,7 +647,6 @@ VideoStreamEncoder::VideoStreamEncoder(
       expect_resize_state_(ExpectResizeState::kNoResize),
       fec_controller_override_(nullptr),
       force_disable_frame_dropper_(false),
-      input_framerate_(kFrameRateAvergingWindowSizeMs, 1000),
       pending_frame_drops_(0),
       cwnd_frame_counter_(0),
       next_frame_types_(1, VideoFrameType::kVideoFrameDelta),
@@ -657,7 +671,7 @@ VideoStreamEncoder::VideoStreamEncoder(
                                settings_.experiment_cpu_load_estimator,
                                std::move(overuse_detector),
                                degradation_preference_manager_.get()),
-      video_source_sink_controller_(/*sink=*/this,
+      video_source_sink_controller_(/*sink=*/frame_cadence_adapter_.get(),
                                     /*source=*/nullptr),
       default_limits_allowed_(
           !field_trial::IsEnabled("WebRTC-DefaultBitrateLimitsKillSwitch")),
@@ -671,6 +685,7 @@ VideoStreamEncoder::VideoStreamEncoder(
   RTC_DCHECK(encoder_stats_observer);
   RTC_DCHECK_GE(number_of_cores, 1);
 
+  frame_cadence_adapter_->Initialize(cadence_callback_adapter_.get());
   stream_resource_manager_.Initialize(&encoder_queue_);
 
   rtc::Event initialize_processor_event;
@@ -821,6 +836,8 @@ void VideoStreamEncoder::SetStartBitrate(int start_bitrate_bps) {
 void VideoStreamEncoder::ConfigureEncoder(VideoEncoderConfig config,
                                           size_t max_data_payload_length) {
   RTC_DCHECK_RUN_ON(worker_queue_);
+  frame_cadence_adapter_->SetEnabledByContentType(
+      config.content_type == VideoEncoderConfig::ContentType::kScreen);
   encoder_queue_.PostTask(
       [this, config = std::move(config), max_data_payload_length]() mutable {
         RTC_DCHECK_RUN_ON(&encoder_queue_);
@@ -830,8 +847,6 @@ void VideoStreamEncoder::ConfigureEncoder(VideoEncoderConfig config,
         pending_encoder_creation_ =
             (!encoder_ || encoder_config_.video_format != config.video_format ||
              max_data_payload_length_ != max_data_payload_length);
-        if (encoder_config_.content_type != config.content_type)
-          has_reported_screenshare_frame_rate_umas_ = false;
         encoder_config_ = std::move(config);
         max_data_payload_length_ = max_data_payload_length;
         pending_encoder_reconfiguration_ = true;
@@ -1331,7 +1346,6 @@ void VideoStreamEncoder::OnFrame(const VideoFrame& video_frame) {
   encoder_queue_.PostTask(
       [this, incoming_frame, post_time_us, log_stats]() {
         RTC_DCHECK_RUN_ON(&encoder_queue_);
-        MaybeReportFrameRateConstraintUmas();
         encoder_stats_observer_->OnIncomingFrame(incoming_frame.width(),
                                                  incoming_frame.height());
         ++captured_frame_count_;
@@ -1380,18 +1394,6 @@ void VideoStreamEncoder::OnFrame(const VideoFrame& video_frame) {
 void VideoStreamEncoder::OnDiscardedFrame() {
   encoder_stats_observer_->OnFrameDropped(
       VideoStreamEncoderObserver::DropReason::kSource);
-}
-
-void VideoStreamEncoder::OnConstraintsChanged(
-    const webrtc::VideoTrackSourceConstraints& constraints) {
-  RTC_DCHECK_RUN_ON(network_queue_);
-  RTC_LOG(LS_INFO) << __func__ << " min_fps "
-                   << constraints.min_fps.value_or(-1) << " max_fps "
-                   << constraints.max_fps.value_or(-1);
-  worker_queue_->PostTask(ToQueuedTask(task_safety_, [this, constraints] {
-    RTC_DCHECK_RUN_ON(worker_queue_);
-    source_constraints_ = constraints;
-  }));
 }
 
 bool VideoStreamEncoder::EncoderPaused() const {
@@ -1462,7 +1464,7 @@ VideoStreamEncoder::UpdateBitrateAllocation(
 uint32_t VideoStreamEncoder::GetInputFramerateFps() {
   const uint32_t default_fps = max_framerate_ != -1 ? max_framerate_ : 30;
   absl::optional<uint32_t> input_fps =
-      input_framerate_.Rate(clock_->TimeInMilliseconds());
+      frame_cadence_adapter_->GetInputFramerateFps();
   if (!input_fps || *input_fps == 0) {
     return default_fps;
   }
@@ -1567,7 +1569,7 @@ void VideoStreamEncoder::MaybeEncodeVideoFrame(const VideoFrame& video_frame,
   // Poll the rate before updating, otherwise we risk the rate being estimated
   // a little too high at the start of the call when then window is small.
   uint32_t framerate_fps = GetInputFramerateFps();
-  input_framerate_.Update(1u, clock_->TimeInMilliseconds());
+  frame_cadence_adapter_->UpdateFrameRate();
 
   int64_t now_ms = clock_->TimeInMilliseconds();
   if (pending_encoder_reconfiguration_) {
@@ -2218,7 +2220,7 @@ void VideoStreamEncoder::RunPostEncode(const EncodedImage& encoded_image,
 
   if (HasInternalSource()) {
     // Update frame dropper after the fact for internal sources.
-    input_framerate_.Update(1u, clock_->TimeInMilliseconds());
+    frame_cadence_adapter_->UpdateFrameRate();
     frame_dropper_.Leak(GetInputFramerateFps());
     // Signal to encoder to drop next frame.
     if (frame_dropper_.DropFrame()) {
@@ -2361,64 +2363,6 @@ void VideoStreamEncoder::QueueRequestEncoderSwitch(
   worker_queue_->PostTask(ToQueuedTask(task_safety_, [this, format]() {
     RTC_DCHECK_RUN_ON(worker_queue_);
     settings_.encoder_switch_request_callback->RequestEncoderSwitch(format);
-  }));
-}
-
-// RTC_RUN_ON(&encoder_queue_)
-void VideoStreamEncoder::MaybeReportFrameRateConstraintUmas() {
-  if (has_reported_screenshare_frame_rate_umas_)
-    return;
-  has_reported_screenshare_frame_rate_umas_ = true;
-  bool is_screenshare =
-      encoder_config_.content_type == VideoEncoderConfig::ContentType::kScreen;
-  if (!is_screenshare)
-    return;
-  worker_queue_->PostTask(ToQueuedTask(task_safety_, [this] {
-    RTC_DCHECK_RUN_ON(worker_queue_);
-    RTC_HISTOGRAM_BOOLEAN("WebRTC.Screenshare.FrameRateConstraints.Exists",
-                          source_constraints_.has_value());
-    if (source_constraints_.has_value()) {
-      RTC_HISTOGRAM_BOOLEAN(
-          "WebRTC.Screenshare.FrameRateConstraints.Min.Exists",
-          source_constraints_->min_fps.has_value());
-      if (source_constraints_->min_fps.has_value()) {
-        RTC_HISTOGRAM_COUNTS_100(
-            "WebRTC.Screenshare.FrameRateConstraints.Min.Value",
-            source_constraints_->min_fps.value());
-      }
-      RTC_HISTOGRAM_BOOLEAN(
-          "WebRTC.Screenshare.FrameRateConstraints.Max.Exists",
-          source_constraints_->max_fps.has_value());
-      if (source_constraints_->max_fps.has_value()) {
-        RTC_HISTOGRAM_COUNTS_100(
-            "WebRTC.Screenshare.FrameRateConstraints.Max.Value",
-            source_constraints_->max_fps.value());
-      }
-      if (!source_constraints_->min_fps.has_value()) {
-        if (source_constraints_->max_fps.has_value()) {
-          RTC_HISTOGRAM_COUNTS_100(
-              "WebRTC.Screenshare.FrameRateConstraints.MinUnset.Max",
-              source_constraints_->max_fps.value());
-        }
-      } else if (source_constraints_->max_fps.has_value()) {
-        if (source_constraints_->min_fps.value() <
-            source_constraints_->max_fps.value()) {
-          RTC_HISTOGRAM_COUNTS_100(
-              "WebRTC.Screenshare.FrameRateConstraints.MinLessThanMax.Min",
-              source_constraints_->min_fps.value());
-          RTC_HISTOGRAM_COUNTS_100(
-              "WebRTC.Screenshare.FrameRateConstraints.MinLessThanMax.Max",
-              source_constraints_->max_fps.value());
-        }
-        constexpr int kMaxBucketCount =
-            60 * /*max min_fps=*/60 + /*max max_fps=*/60 - 1;
-        RTC_HISTOGRAM_ENUMERATION_SPARSE(
-            "WebRTC.Screenshare.FrameRateConstraints.60MinPlusMaxMinusOne",
-            source_constraints_->min_fps.value() * 60 +
-                source_constraints_->max_fps.value() - 1,
-            /*boundary=*/kMaxBucketCount);
-      }
-    }
   }));
 }
 

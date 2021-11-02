@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6705ab8_56933bb6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-11-02T10:51:15Z",
+      "side": 1,
+      "message": "Nice!",
+      "revId": "641d2716eed7dba74fe14fce48579895c3f29454",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a63dc09e_df338855",
+        "filename": "p2p/base/transport_description_factory.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-11-02T10:51:15Z",
+      "side": 1,
+      "message": "nit: Maybe explicit certificate_ !\u003d nullptr ?",
+      "range": {
+        "startLine": 55,
+        "startChar": 36,
+        "endLine": 55,
+        "endChar": 48
+      },
+      "revId": "641d2716eed7dba74fe14fce48579895c3f29454",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2358c28_e583a4e5",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-11-02T10:51:15Z",
+      "side": 1,
+      "message": "I don\u0027t see arguments with these names?",
+      "range": {
+        "startLine": 469,
+        "startChar": 3,
+        "endLine": 469,
+        "endChar": 27
+      },
+      "revId": "641d2716eed7dba74fe14fce48579895c3f29454",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2c2bbc1_f80b3356",
+        "filename": "pc/media_session.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-11-02T10:51:15Z",
+      "side": 1,
+      "message": "I don\u0027t quite get this part of the change. Commit description says \"Fixes some logic around bundled sessions and requirement for transport parameters.\", is that an independent fix that could go in its own cl?",
+      "range": {
+        "startLine": 275,
+        "startChar": 0,
+        "endLine": 275,
+        "endChar": 40
+      },
+      "revId": "641d2716eed7dba74fe14fce48579895c3f29454",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

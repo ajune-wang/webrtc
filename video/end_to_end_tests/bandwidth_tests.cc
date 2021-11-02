@@ -195,6 +195,7 @@ TEST_F(BandwidthEndToEndTest, RembWithSendSideBwe) {
    public:
     explicit BweObserver(TaskQueueBase* task_queue)
         : EndToEndTest(kDefaultTimeoutMs),
+          quit_(false),
           sender_call_(nullptr),
           clock_(Clock::GetRealTimeClock()),
           sender_ssrc_(0),
@@ -202,7 +203,9 @@ TEST_F(BandwidthEndToEndTest, RembWithSendSideBwe) {
           receive_transport_(nullptr),
           state_(kWaitForFirstRampUp),
           retransmission_rate_limiter_(clock_, 1000),
-          task_queue_(task_queue) {}
+          task_queue_(task_queue) {
+      task_queue_thread_.Detach();
+    }
 
     ~BweObserver() override {
       // Block until all already posted tasks run to avoid races when such task
@@ -213,6 +216,7 @@ TEST_F(BandwidthEndToEndTest, RembWithSendSideBwe) {
 
     std::unique_ptr<test::PacketTransport> CreateReceiveTransport(
         TaskQueueBase* task_queue) override {
+      RTC_DCHECK_RUN_ON(&task_queue_thread_);
       auto receive_transport = std::make_unique<test::PacketTransport>(
           task_queue, nullptr, this, test::PacketTransport::kReceiver,
           payload_type_map_,
@@ -225,6 +229,7 @@ TEST_F(BandwidthEndToEndTest, RembWithSendSideBwe) {
 
     void ModifySenderBitrateConfig(
         BitrateConstraints* bitrate_config) override {
+      RTC_DCHECK_RUN_ON(&task_queue_thread_);
       // Set a high start bitrate to reduce the test completion time.
       bitrate_config->start_bitrate_bps = remb_bitrate_bps_;
     }
@@ -233,6 +238,7 @@ TEST_F(BandwidthEndToEndTest, RembWithSendSideBwe) {
         VideoSendStream::Config* send_config,
         std::vector<VideoReceiveStream::Config>* receive_configs,
         VideoEncoderConfig* encoder_config) override {
+      RTC_DCHECK_RUN_ON(&task_queue_thread_);
       ASSERT_EQ(1u, send_config->rtp.ssrcs.size());
       sender_ssrc_ = send_config->rtp.ssrcs[0];
 
@@ -251,12 +257,17 @@ TEST_F(BandwidthEndToEndTest, RembWithSendSideBwe) {
     }
 
     void OnCallsCreated(Call* sender_call, Call* receiver_call) override {
+      RTC_DCHECK_RUN_ON(&task_queue_thread_);
       RTC_DCHECK(sender_call);
       sender_call_ = sender_call;
       task_queue_->PostTask(ToQueuedTask([this]() { PollStats(); }));
     }
 
     void PollStats() {
+      RTC_DCHECK_RUN_ON(&task_queue_thread_);
+      if (quit_.load()) {
+        return;
+      }
       Call::Stats stats = sender_call_->GetStats();
       switch (state_) {
         case kWaitForFirstRampUp:
@@ -295,11 +306,14 @@ TEST_F(BandwidthEndToEndTest, RembWithSendSideBwe) {
     void PerformTest() override {
       EXPECT_TRUE(Wait())
           << "Timed out while waiting for bitrate to change according to REMB.";
+      quit_ = true;
     }
 
    private:
     enum TestState { kWaitForFirstRampUp, kWaitForRemb, kWaitForSecondRampUp };
 
+    webrtc::SequenceChecker task_queue_thread_;
+    std::atomic<bool> quit_;
     Call* sender_call_;
     Clock* const clock_;
     uint32_t sender_ssrc_;
@@ -309,6 +323,7 @@ TEST_F(BandwidthEndToEndTest, RembWithSendSideBwe) {
     TestState state_;
     RateLimiter retransmission_rate_limiter_;
     TaskQueueBase* const task_queue_;
+    rtc::scoped_refptr<PendingTaskSafetyFlag> task_safety_flag_;
   } test(task_queue());
 
   RunBaseTest(&test);

@@ -588,8 +588,9 @@ class VideoStreamEncoder::CadenceCallbackAdapter
   explicit CadenceCallbackAdapter(VideoStreamEncoder& video_stream_encoder)
       : video_stream_encoder_(video_stream_encoder) {}
   // FrameCadenceAdapterInterface::Callback overrides.
-  void OnFrame(const VideoFrame& frame) override {
-    video_stream_encoder_.OnFrame(frame);
+  void OnFrame(const VideoFrame& frame,
+               absl::optional<TimeDelta> duration) override {
+    video_stream_encoder_.OnFrame(frame, duration);
   }
   void OnDiscardedFrame() override { video_stream_encoder_.OnDiscardedFrame(); }
 
@@ -1286,7 +1287,8 @@ void VideoStreamEncoder::OnEncoderSettingsChanged() {
   degradation_preference_manager_->SetIsScreenshare(is_screenshare);
 }
 
-void VideoStreamEncoder::OnFrame(const VideoFrame& video_frame) {
+void VideoStreamEncoder::OnFrame(const VideoFrame& video_frame,
+                                 absl::optional<TimeDelta> duration) {
   // Threading context here under Chromium is the network thread. Test
   // environments may currently call in from other alien contexts.
   RTC_DCHECK_RUNS_SERIALIZED(&incoming_frame_race_checker_);
@@ -1344,7 +1346,7 @@ void VideoStreamEncoder::OnFrame(const VideoFrame& video_frame) {
   ++posted_frames_waiting_for_encode_;
 
   encoder_queue_.PostTask(
-      [this, incoming_frame, post_time_us, log_stats]() {
+      [this, incoming_frame, post_time_us, log_stats, duration]() {
         RTC_DCHECK_RUN_ON(&encoder_queue_);
         encoder_stats_observer_->OnIncomingFrame(incoming_frame.width(),
                                                  incoming_frame.height());
@@ -1357,7 +1359,7 @@ void VideoStreamEncoder::OnFrame(const VideoFrame& video_frame) {
             cwnd_frame_drop_interval_ &&
             (cwnd_frame_counter_++ % cwnd_frame_drop_interval_.value() == 0);
         if (posted_frames_waiting_for_encode == 1 && !cwnd_frame_drop) {
-          MaybeEncodeVideoFrame(incoming_frame, post_time_us);
+          MaybeEncodeVideoFrame(incoming_frame, post_time_us, duration);
         } else {
           if (cwnd_frame_drop) {
             // Frame drop by congestion window pushback. Do not encode this
@@ -1538,8 +1540,10 @@ void VideoStreamEncoder::SetEncoderRates(
   }
 }
 
-void VideoStreamEncoder::MaybeEncodeVideoFrame(const VideoFrame& video_frame,
-                                               int64_t time_when_posted_us) {
+void VideoStreamEncoder::MaybeEncodeVideoFrame(
+    const VideoFrame& video_frame,
+    int64_t time_when_posted_us,
+    absl::optional<TimeDelta> duration) {
   RTC_DCHECK_RUN_ON(&encoder_queue_);
   input_state_provider_.OnFrameSizeObserved(video_frame.size());
 
@@ -1660,11 +1664,12 @@ void VideoStreamEncoder::MaybeEncodeVideoFrame(const VideoFrame& video_frame,
     return;
   }
 
-  EncodeVideoFrame(video_frame, time_when_posted_us);
+  EncodeVideoFrame(video_frame, time_when_posted_us, duration);
 }
 
 void VideoStreamEncoder::EncodeVideoFrame(const VideoFrame& video_frame,
-                                          int64_t time_when_posted_us) {
+                                          int64_t time_when_posted_us,
+                                          absl::optional<TimeDelta> duration) {
   RTC_DCHECK_RUN_ON(&encoder_queue_);
 
   // If the encoder fail we can't continue to encode frames. When this happens
@@ -1801,7 +1806,9 @@ void VideoStreamEncoder::EncodeVideoFrame(const VideoFrame& video_frame,
 
   frame_encode_metadata_writer_.OnEncodeStarted(out_frame);
 
-  const int32_t encode_status = encoder_->Encode(out_frame, &next_frame_types_);
+  const int32_t encode_status = encoder_->EncodeWithOptions(
+      out_frame, &next_frame_types_,
+      VideoEncoder::PerFrameEncodeOptions{duration});
   was_encode_called_since_last_initialization_ = true;
 
   if (encode_status < 0) {
@@ -2121,7 +2128,8 @@ void VideoStreamEncoder::OnBitrateUpdated(DataRate target_bitrate,
     int64_t pending_time_us =
         clock_->CurrentTime().us() - pending_frame_post_time_us_;
     if (pending_time_us < kPendingFrameTimeoutMs * 1000)
-      EncodeVideoFrame(*pending_frame_, pending_frame_post_time_us_);
+      EncodeVideoFrame(*pending_frame_, pending_frame_post_time_us_,
+                       /*duration=*/absl::nullopt);
     pending_frame_.reset();
   }
 }

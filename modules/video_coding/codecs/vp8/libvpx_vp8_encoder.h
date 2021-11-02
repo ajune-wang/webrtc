@@ -47,8 +47,16 @@ class LibvpxVp8Encoder : public VideoEncoder {
   int InitEncode(const VideoCodec* codec_settings,
                  const VideoEncoder::Settings& settings) override;
 
-  int Encode(const VideoFrame& input_image,
-             const std::vector<VideoFrameType>* frame_types) override;
+  int32_t Encode(const VideoFrame& frame,
+                 const std::vector<VideoFrameType>* frame_types) override {
+    return EncodeWithOptions(frame, frame_types, PerFrameEncodeOptions());
+  }
+
+  // Like encode, but supplies per-frame encode options.
+  // TODO(crbug.com/1255737): Make pure virtual once downstream projects adopt.
+  int32_t EncodeWithOptions(const VideoFrame& frame,
+                            const std::vector<VideoFrameType>* frame_types,
+                            const PerFrameEncodeOptions& options) override;
 
   int RegisterEncodeCompleteCallback(EncodedImageCallback* callback) override;
 

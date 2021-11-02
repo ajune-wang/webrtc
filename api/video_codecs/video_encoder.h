@@ -337,6 +337,13 @@ class RTC_EXPORT VideoEncoder {
     size_t max_payload_size;
   };
 
+  // Per-frame encode options.
+  struct PerFrameEncodeOptions {
+    // The duration of the frame. This helps supporting encoders stay within
+    // bitrate limits.
+    absl::optional<TimeDelta> duration;
+  };
+
   static VideoCodecVP8 GetDefaultVp8Settings();
   static VideoCodecVP9 GetDefaultVp9Settings();
   static VideoCodecH264 GetDefaultH264Settings();
@@ -402,6 +409,15 @@ class RTC_EXPORT VideoEncoder {
   //                                  WEBRTC_VIDEO_CODEC_ERROR
   virtual int32_t Encode(const VideoFrame& frame,
                          const std::vector<VideoFrameType>* frame_types) = 0;
+
+  // Like encode, but supplies per-frame encode options.
+  // TODO(crbug.com/1255737): Make pure virtual once downstream projects adopt.
+  virtual int32_t EncodeWithOptions(
+      const VideoFrame& frame,
+      const std::vector<VideoFrameType>* frame_types,
+      const PerFrameEncodeOptions& options) {
+    return Encode(frame, frame_types);
+  }
 
   // Sets rate control parameters: bitrate, framerate, etc. These settings are
   // instantaneous (i.e. not moving averages) and should apply from now until

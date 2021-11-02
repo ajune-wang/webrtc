@@ -20,6 +20,7 @@
 #include "api/adaptation/resource.h"
 #include "api/sequence_checker.h"
 #include "api/units/data_rate.h"
+#include "api/units/time_delta.h"
 #include "api/video/video_bitrate_allocator.h"
 #include "api/video/video_rotation.h"
 #include "api/video/video_sink_interface.h"
@@ -179,14 +180,17 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
 
   void ReconfigureEncoder() RTC_RUN_ON(&encoder_queue_);
   void OnEncoderSettingsChanged() RTC_RUN_ON(&encoder_queue_);
-  void OnFrame(const VideoFrame& video_frame);
+  void OnFrame(const VideoFrame& video_frame,
+               absl::optional<TimeDelta> duration);
   void OnDiscardedFrame();
 
   void MaybeEncodeVideoFrame(const VideoFrame& frame,
-                             int64_t time_when_posted_in_ms);
+                             int64_t time_when_posted_in_ms,
+                             absl::optional<TimeDelta> duration);
 
   void EncodeVideoFrame(const VideoFrame& frame,
-                        int64_t time_when_posted_in_ms);
+                        int64_t time_when_posted_in_ms,
+                        absl::optional<TimeDelta> duration);
   // Indicates whether frame should be dropped because the pixel count is too
   // large for the current bitrate configuration.
   bool DropDueToSize(uint32_t pixel_count) const RTC_RUN_ON(&encoder_queue_);

@@ -123,7 +123,7 @@ void FrameCadenceAdapterImpl::OnFrame(const VideoFrame& frame) {
   // This method is called on the network thread under Chromium, or other
   // various contexts in test.
   RTC_DCHECK_RUNS_SERIALIZED(&incoming_frame_race_checker_);
-  callback_->OnFrame(frame);
+  callback_->OnFrame(frame, absl::nullopt);
   MaybeReportFrameRateConstraintUmas();
 }
 

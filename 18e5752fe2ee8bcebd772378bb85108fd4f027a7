@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30e9dfcd_6f79d180",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-11-02T15:28:04Z",
+      "side": 1,
+      "message": "\"its\"",
+      "range": {
+        "startLine": 11,
+        "startChar": 33,
+        "endLine": 11,
+        "endChar": 38
+      },
+      "revId": "18e5752fe2ee8bcebd772378bb85108fd4f027a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08cec04d_84f3339f",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-11-02T15:28:04Z",
+      "side": 1,
+      "message": "nit: enabled_ or enabled_by_callee_",
+      "range": {
+        "startLine": 61,
+        "startChar": 7,
+        "endLine": 61,
+        "endChar": 32
+      },
+      "revId": "18e5752fe2ee8bcebd772378bb85108fd4f027a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b47fe30_78e99a17",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-11-02T15:28:04Z",
+      "side": 1,
+      "message": "Lock is guarded by itself?",
+      "range": {
+        "startLine": 66,
+        "startChar": 6,
+        "endLine": 66,
+        "endChar": 51
+      },
+      "revId": "18e5752fe2ee8bcebd772378bb85108fd4f027a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e18d0be9_f582b5a4",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-11-02T15:28:04Z",
+      "side": 1,
+      "message": "Maybe move it up and update |has_reported_| only if the state changed from disabled to enabled.",
+      "revId": "18e5752fe2ee8bcebd772378bb85108fd4f027a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef728c71_cbf00d5c",
+        "filename": "video/frame_cadence_adapter.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-11-02T15:28:04Z",
+      "side": 1,
+      "message": "I assume the delay logic will be added to this Callback?\n\nMaybe it would make sense to pass here a |rtc::VideoSinkInterface\u003cVideoFrame\u003e| interface for the actual VideoStreamEncoder? Then add the delay logic in here instead of a VSE::CadenceCallbackAdapter. Instead of callback this class would receive pointer to the VSE.\n\nThat way all the logic will be here and not spread between two classes. The VSE::CandenceCallbackAdapter would be some kind of internal callback in this file and not a part of VSE.",
+      "range": {
+        "startLine": 31,
+        "startChar": 8,
+        "endLine": 31,
+        "endChar": 17
+      },
+      "revId": "18e5752fe2ee8bcebd772378bb85108fd4f027a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fa51177_04b72302",
+        "filename": "video/frame_cadence_adapter.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-11-02T15:28:04Z",
+      "side": 1,
+      "message": "nit: Does it matter what it\u0027s enabled by the content type here? Since the actual check is outside, it makes sense to make it simply SetEnabled().",
+      "range": {
+        "startLine": 50,
+        "startChar": 15,
+        "endLine": 50,
+        "endChar": 38
+      },
+      "revId": "18e5752fe2ee8bcebd772378bb85108fd4f027a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9420d690_f47909cb",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-11-02T15:28:04Z",
+      "side": 1,
+      "message": "nit:\nThat\u0027s a little confusing between FrameCadenceAdapter and CadenceCallbackAdapter.\n\nMaybe name it just CadenceCallback?",
+      "range": {
+        "startLine": 144,
+        "startChar": 8,
+        "endLine": 144,
+        "endChar": 30
+      },
+      "revId": "18e5752fe2ee8bcebd772378bb85108fd4f027a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

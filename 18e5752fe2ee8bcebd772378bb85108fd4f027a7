@@ -226,6 +226,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "ea72915a_42ec97f7",
+        "filename": "video/frame_cadence_adapter.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-02T18:43:13Z",
+      "side": 1,
+      "message": "Oh sorry, now I read your top question. The delay logic will be added to the FrameCadenceAdapterImpl.",
+      "parentUuid": "572b797d_6343dfe8",
+      "range": {
+        "startLine": 31,
+        "startChar": 8,
+        "endLine": 31,
+        "endChar": 17
+      },
+      "revId": "18e5752fe2ee8bcebd772378bb85108fd4f027a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "5fa51177_04b72302",
         "filename": "video/frame_cadence_adapter.h",
         "patchSetId": 12

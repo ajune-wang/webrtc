@@ -272,6 +272,7 @@ rtc_library("frame_cadence_adapter") {
     "../rtc_base:macromagic",
     "../rtc_base:rtc_base_approved",
     "../rtc_base/synchronization:mutex",
+    "../system_wrappers",
     "../system_wrappers:field_trial",
     "../system_wrappers:metrics",
   ]
@@ -679,6 +680,7 @@ if (rtc_include_tests) {
       "../api:sequence_checker",
       "../api:simulated_network_api",
       "../api:transport_api",
+      "../api:video_track_source_constraints",
       "../api/adaptation:resource_adaptation_api",
       "../api/crypto:options",
       "../api/rtc_event_log",

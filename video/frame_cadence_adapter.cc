@@ -15,20 +15,26 @@
 #include "api/sequence_checker.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/race_checker.h"
+#include "rtc_base/rate_statistics.h"
 #include "rtc_base/synchronization/mutex.h"
 #include "system_wrappers/include/field_trial.h"
 #include "system_wrappers/include/metrics.h"
 
 namespace webrtc {
+
+constexpr int64_t FrameCadenceAdapterInterface::kFrameRateAvergingWindowSizeMs;
+
 namespace {
 
 class FrameCadenceAdapterImpl : public FrameCadenceAdapterInterface {
  public:
-  FrameCadenceAdapterImpl();
+  explicit FrameCadenceAdapterImpl(Clock* clock);
 
   // FrameCadenceAdapterInterface overrides.
   void Initialize(Callback* callback) override;
   void SetEnabledByContentType(bool enabled) override;
+  absl::optional<uint32_t> GetInputFramerateFps() override;
+  void UpdateFrameRate() override;
 
   // VideoFrameSink overrides.
   void OnFrame(const VideoFrame& frame) override;
@@ -37,6 +43,15 @@ class FrameCadenceAdapterImpl : public FrameCadenceAdapterInterface {
       const VideoTrackSourceConstraints& constraints) override;
 
  private:
+  Clock* const clock_;
+
+  // Returns true if
+  // - Zero-hertz screenshare fieltrial is on
+  // - Min FPS set and 0.
+  // - Max FPS set and >0.
+  // - Content type is enabled.
+  bool ZeroHertzModeEnabledLocked() const RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_);
+
   // Called to report on constraint UMAs.
   void MaybeReportFrameRateConstraintUmas()
       RTC_RUN_ON(&incoming_frame_race_checker_) RTC_LOCKS_EXCLUDED(mutex_);
@@ -65,11 +80,19 @@ class FrameCadenceAdapterImpl : public FrameCadenceAdapterInterface {
   rtc::RaceChecker incoming_frame_race_checker_
       RTC_GUARDED_BY(incoming_frame_race_checker_);
   bool has_reported_screenshare_frame_rate_umas_ RTC_GUARDED_BY(mutex_) = false;
+
+  rtc::RaceChecker encoder_sequence_race_checker_
+      RTC_GUARDED_BY(encoder_sequence_race_checker_);
+  // Input frame rate statistics for use when not in zero-hertz mode.
+  RateStatistics input_framerate_
+      RTC_GUARDED_BY(encoder_sequence_race_checker_);
 };
 
-FrameCadenceAdapterImpl::FrameCadenceAdapterImpl()
-    : enabled_by_field_trial_(
-          field_trial::IsEnabled("WebRTC-ZeroHertzScreenshare")) {}
+FrameCadenceAdapterImpl::FrameCadenceAdapterImpl(Clock* clock)
+    : clock_(clock),
+      enabled_by_field_trial_(
+          field_trial::IsEnabled("WebRTC-ZeroHertzScreenshare")),
+      input_framerate_(kFrameRateAvergingWindowSizeMs, 1000) {}
 
 void FrameCadenceAdapterImpl::Initialize(Callback* callback) {
   callback_ = callback;
@@ -81,6 +104,19 @@ void FrameCadenceAdapterImpl::SetEnabledByContentType(bool enabled) {
   enabled_by_content_type_ = enabled;
   if (enabled)
     has_reported_screenshare_frame_rate_umas_ = false;
+}
+
+absl::optional<uint32_t> FrameCadenceAdapterImpl::GetInputFramerateFps() {
+  RTC_DCHECK_RUNS_SERIALIZED(&encoder_sequence_race_checker_);
+  MutexLock lock(&mutex_);
+  if (ZeroHertzModeEnabledLocked())
+    return source_constraints_->max_fps.value();
+  return input_framerate_.Rate(clock_->TimeInMilliseconds());
+}
+
+void FrameCadenceAdapterImpl::UpdateFrameRate() {
+  RTC_DCHECK_RUNS_SERIALIZED(&encoder_sequence_race_checker_);
+  input_framerate_.Update(1, clock_->TimeInMilliseconds());
 }
 
 void FrameCadenceAdapterImpl::OnFrame(const VideoFrame& frame) {
@@ -98,6 +134,13 @@ void FrameCadenceAdapterImpl::OnConstraintsChanged(
                    << constraints.max_fps.value_or(-1);
   MutexLock lock(&mutex_);
   source_constraints_ = constraints;
+}
+
+bool FrameCadenceAdapterImpl::ZeroHertzModeEnabledLocked() const {
+  return enabled_by_field_trial_ && source_constraints_.has_value() &&
+         source_constraints_->min_fps.value_or(-1) == 0 &&
+         source_constraints_->max_fps.value_or(-1) > 0 &&
+         enabled_by_content_type_;
 }
 
 // RTC_RUN_ON(&incoming_frame_race_checker_)
@@ -155,8 +198,8 @@ void FrameCadenceAdapterImpl::MaybeReportFrameRateConstraintUmas() {
 }  // namespace
 
 std::unique_ptr<FrameCadenceAdapterInterface>
-FrameCadenceAdapterInterface::Create() {
-  return std::make_unique<FrameCadenceAdapterImpl>();
+FrameCadenceAdapterInterface::Create(Clock* clock) {
+  return std::make_unique<FrameCadenceAdapterImpl>(clock);
 }
 
 }  // namespace webrtc

@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f1826512_0a15e9b8",
+        "filename": "p2p/base/transport_description_factory.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-11-02T11:16:10Z",
+      "side": 1,
+      "message": "Hm. I thought I had seen advice that said \"check pointers without \u003d\u003d nullptr\", but I couldn\u0027t find anything about that in the style guides.\n\nActually I think it would have to be \"return certificate_.get() !\u003d nullptr\", because certificate_ is a std::unique_ptr - but in this place, that doesn\u0027t matter, so showing it in the code is not an advantage. WDYT?",
+      "parentUuid": "a63dc09e_df338855",
+      "range": {
+        "startLine": 55,
+        "startChar": 36,
+        "endLine": 55,
+        "endChar": 48
+      },
+      "revId": "641d2716eed7dba74fe14fce48579895c3f29454",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b2358c28_e583a4e5",
         "filename": "pc/media_session.cc",
         "patchSetId": 5
@@ -66,6 +90,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "95f86aaf_ea94e392",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-11-02T11:16:10Z",
+      "side": 1,
+      "message": "They\u0027re gone, and good riddance!\nThis argument list was seriously out of sync with the code, so I deleted it.\n\nBut I see that I should have deleted crypto_suites too; it\u0027s now meaningless.\nMore cuts!",
+      "parentUuid": "b2358c28_e583a4e5",
+      "range": {
+        "startLine": 469,
+        "startChar": 3,
+        "endLine": 469,
+        "endChar": 27
+      },
+      "revId": "641d2716eed7dba74fe14fce48579895c3f29454",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a2c2bbc1_f80b3356",
         "filename": "pc/media_session.h",
         "patchSetId": 5
@@ -77,6 +125,30 @@
       "writtenOn": "2021-11-02T10:51:15Z",
       "side": 1,
       "message": "I don\u0027t quite get this part of the change. Commit description says \"Fixes some logic around bundled sessions and requirement for transport parameters.\", is that an independent fix that could go in its own cl?",
+      "range": {
+        "startLine": 275,
+        "startChar": 0,
+        "endLine": 275,
+        "endChar": 40
+      },
+      "revId": "641d2716eed7dba74fe14fce48579895c3f29454",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2bc80cf5_2861a31d",
+        "filename": "pc/media_session.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-11-02T11:16:10Z",
+      "side": 1,
+      "message": "When I removed the ability to accept mixed mode, it turned out that the check for standards compliant bundle-only sections failed.\n\nThis was because the code that checked if transport parameters were needed was busted; it returned true for all but the first m-section in a bundle, and the reason it didn\u0027t cause a failure before was that we accepted non-encrypted sections in a place where we shouldn\u0027t have done that.\n\nSo I couldn\u0027t submit this CL without fixing that issue.",
+      "parentUuid": "a2c2bbc1_f80b3356",
       "range": {
         "startLine": 275,
         "startChar": 0,

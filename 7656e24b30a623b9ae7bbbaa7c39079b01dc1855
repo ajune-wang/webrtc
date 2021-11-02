@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "954f2d40_12dc38ec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-11-02T11:16:10Z",
+      "side": 1,
+      "message": "PTAL - deleted some more code and replied to comments.",
+      "revId": "7656e24b30a623b9ae7bbbaa7c39079b01dc1855",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

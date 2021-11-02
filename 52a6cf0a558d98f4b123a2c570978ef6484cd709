@@ -36,6 +36,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fe2a9d2_af8a7182",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-11-02T19:56:12Z",
+      "side": 1,
+      "message": "Acknowledged. If you do get rid of the SetOption in CreateClientTcpSocket, make sure you add it to all the callers (for example TurnPort).",
+      "parentUuid": "78bd5b30_4de8fa95",
+      "revId": "52a6cf0a558d98f4b123a2c570978ef6484cd709",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "62e93243_756da774",

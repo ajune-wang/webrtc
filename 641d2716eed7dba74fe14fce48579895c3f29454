@@ -89,6 +89,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ccd15f4_62d293ab",
+        "filename": "p2p/base/transport_description_factory.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-11-02T12:07:17Z",
+      "side": 1,
+      "message": "164 occurences of \"\u003d\u003d nullptr\" and 201 of \"!\u003d nullptr\". No way to count checks without it... OK.",
+      "parentUuid": "23bd45c0_49ce58ef",
+      "range": {
+        "startLine": 55,
+        "startChar": 36,
+        "endLine": 55,
+        "endChar": 48
+      },
+      "revId": "641d2716eed7dba74fe14fce48579895c3f29454",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b2358c28_e583a4e5",
@@ -197,6 +221,30 @@
       "side": 1,
       "message": "I see. I think this argument (and bundle_transport) could deserve a bit more docs. \n\nLooks like bundle_transport is only used to determine the `secure` and `rejected` flags, while a separate audio_transport is unconditionally created and attached to the answer.",
       "parentUuid": "2bc80cf5_2861a31d",
+      "range": {
+        "startLine": 275,
+        "startChar": 0,
+        "endLine": 275,
+        "endChar": 40
+      },
+      "revId": "641d2716eed7dba74fe14fce48579895c3f29454",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c79c6bc_cfef0ef2",
+        "filename": "pc/media_session.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-11-02T12:07:17Z",
+      "side": 1,
+      "message": "I think it\u0027s more complex than that ... to say that I dislike the code style here would be an understatement. The previous version of the code checked whether bundle_transport was null (which it was when it should have been present, and wasn\u0027t when it should have been), so I tried taking out that argument, but found that it was used in other ways in other places.\n\nMore documentation will have to wait for more analysis (and another CL).",
+      "parentUuid": "8c2dd317_0a1d6343",
       "range": {
         "startLine": 275,
         "startChar": 0,

@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "78bd5b30_4de8fa95",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-11-02T14:56:20Z",
+      "side": 1,
+      "message": "I\u0027d prefer to leave that out of this cl. When handling outgoing sockets, I think the SetOption call in BasicPacketSocketFactory::CreateClientTcpSocket should be deleted, and I\u0027m afraid that could get a bit subtle. Added a TODO comment.",
+      "parentUuid": "0f466bda_0ff43027",
+      "revId": "52a6cf0a558d98f4b123a2c570978ef6484cd709",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "62e93243_756da774",
@@ -49,6 +67,24 @@
       "side": 1,
       "message": "Done. Also added log on error.",
       "parentUuid": "62e93243_756da774",
+      "revId": "52a6cf0a558d98f4b123a2c570978ef6484cd709",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69b04c49_599410c6",
+        "filename": "p2p/base/tcp_port.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-11-02T14:56:20Z",
+      "side": 1,
+      "message": "Undid log on error, since SetOption here can\u0027t fail anyway.",
+      "parentUuid": "e8e73fd1_4e48bd16",
       "revId": "52a6cf0a558d98f4b123a2c570978ef6484cd709",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

@@ -22,6 +22,7 @@
 
 #include "absl/algorithm/container.h"
 #include "api/scoped_refptr.h"
+#include "api/units/time_delta.h"
 #include "api/video/video_content_type.h"
 #include "api/video/video_frame_buffer.h"
 #include "api/video/video_timing.h"
@@ -926,8 +927,10 @@ bool LibvpxVp8Encoder::UpdateVpxConfiguration(size_t stream_index) {
   return changes_made;
 }
 
-int LibvpxVp8Encoder::Encode(const VideoFrame& frame,
-                             const std::vector<VideoFrameType>* frame_types) {
+int LibvpxVp8Encoder::EncodeWithOptions(
+    const VideoFrame& frame,
+    const std::vector<VideoFrameType>* frame_types,
+    const PerFrameEncodeOptions& options) {
   RTC_DCHECK_EQ(frame.width(), codec_.width);
   RTC_DCHECK_EQ(frame.height(), codec_.height);
 
@@ -1042,13 +1045,11 @@ int LibvpxVp8Encoder::Encode(const VideoFrame& frame,
     libvpx_->codec_control(&encoders_[i], VP8E_SET_TEMPORAL_LAYER_ID,
                            tl_configs[i].encoder_layer_id);
   }
-  // TODO(holmer): Ideally the duration should be the timestamp diff of this
-  // frame and the next frame to be encoded, which we don't have. Instead we
-  // would like to use the duration of the previous frame. Unfortunately the
-  // rate control seems to be off with that setup. Using the average input
-  // frame rate to calculate an average duration for now.
+
   RTC_DCHECK_GT(codec_.maxFramerate, 0);
-  uint32_t duration = kRtpTicksPerSecond / codec_.maxFramerate;
+  uint32_t duration = options.duration.has_value()
+                          ? options.duration->ms() * kRtpTicksPerMs
+                          : kRtpTicksPerSecond / codec_.maxFramerate;
 
   int error = WEBRTC_VIDEO_CODEC_OK;
   int num_tries = 0;

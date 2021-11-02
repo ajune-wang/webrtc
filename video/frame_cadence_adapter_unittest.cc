@@ -28,6 +28,7 @@ namespace webrtc {
 namespace {
 
 using ::testing::ElementsAre;
+using ::testing::Eq;
 using ::testing::Mock;
 using ::testing::Pair;
 using ::testing::Ref;
@@ -42,7 +43,10 @@ VideoFrame CreateFrame() {
 
 class MockCallback : public FrameCadenceAdapterInterface::Callback {
  public:
-  MOCK_METHOD(void, OnFrame, (const VideoFrame&), (override));
+  MOCK_METHOD(void,
+              OnFrame,
+              (const VideoFrame&, absl::optional<TimeDelta>),
+              (override));
   MOCK_METHOD(void, OnDiscardedFrame, (), (override));
 };
 
@@ -66,7 +70,7 @@ TEST(FrameCadenceAdapterTest,
     auto adapter = FrameCadenceAdapterInterface::Create(nullptr);
     adapter->Initialize(&callback);
     VideoFrame frame = CreateFrame();
-    EXPECT_CALL(callback, OnFrame(Ref(frame))).Times(1);
+    EXPECT_CALL(callback, OnFrame(Ref(frame), Eq(absl::nullopt))).Times(1);
     adapter->OnFrame(frame);
     Mock::VerifyAndClearExpectations(&callback);
     EXPECT_CALL(callback, OnDiscardedFrame).Times(1);

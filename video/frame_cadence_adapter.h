@@ -13,6 +13,7 @@
 
 #include <memory>
 
+#include "api/units/time_delta.h"
 #include "api/video/video_frame.h"
 #include "api/video/video_sink_interface.h"
 #include "rtc_base/synchronization/mutex.h"
@@ -37,8 +38,10 @@ class FrameCadenceAdapterInterface
    public:
     virtual ~Callback() = default;
 
-    // Called when a frame arrives.
-    virtual void OnFrame(const VideoFrame& frame) = 0;
+    // Called when a frame arrives. If set, the |duration| specifies the minimum
+    // time until the next frame comes.
+    virtual void OnFrame(const VideoFrame& frame,
+                         absl::optional<TimeDelta> duration) = 0;
 
     // Called when the source has discarded a frame.
     virtual void OnDiscardedFrame() = 0;

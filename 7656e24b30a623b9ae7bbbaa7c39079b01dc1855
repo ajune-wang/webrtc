@@ -16,6 +16,23 @@
       "message": "PTAL - deleted some more code and replied to comments.",
       "revId": "7656e24b30a623b9ae7bbbaa7c39079b01dc1855",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7faa6899_395996b3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-11-02T11:54:22Z",
+      "side": 1,
+      "message": "lgtm % nits.",
+      "revId": "7656e24b30a623b9ae7bbbaa7c39079b01dc1855",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

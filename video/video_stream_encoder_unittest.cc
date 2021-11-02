@@ -352,17 +352,18 @@ class VideoStreamEncoderUnderTest : public VideoStreamEncoder {
                               const VideoStreamEncoderSettings& settings,
                               VideoStreamEncoder::BitrateAllocationCallbackType
                                   allocation_callback_type)
-      : VideoStreamEncoder(time_controller->GetClock(),
-                           1 /* number_of_cores */,
-                           stats_proxy,
-                           settings,
-                           std::unique_ptr<OveruseFrameDetector>(
-                               overuse_detector_proxy_ =
-                                   new CpuOveruseDetectorProxy(stats_proxy)),
-                           FrameCadenceAdapterInterface::Create(),
-                           task_queue_factory,
-                           TaskQueueBase::Current(),
-                           allocation_callback_type),
+      : VideoStreamEncoder(
+            time_controller->GetClock(),
+            1 /* number_of_cores */,
+            stats_proxy,
+            settings,
+            std::unique_ptr<OveruseFrameDetector>(
+                overuse_detector_proxy_ =
+                    new CpuOveruseDetectorProxy(stats_proxy)),
+            FrameCadenceAdapterInterface::Create(time_controller->GetClock()),
+            task_queue_factory,
+            TaskQueueBase::Current(),
+            allocation_callback_type),
         time_controller_(time_controller),
         fake_cpu_resource_(FakeResource::Create("FakeResource[CPU]")),
         fake_quality_resource_(FakeResource::Create("FakeResource[QP]")),
@@ -702,6 +703,8 @@ class MockFrameCadenceAdapter : public FrameCadenceAdapterInterface {
   MOCK_METHOD(void, Initialize, (Callback * callback), (override));
   MOCK_METHOD(void, SetEnabledByContentType, (bool), (override));
   MOCK_METHOD(void, OnFrame, (const VideoFrame&), (override));
+  MOCK_METHOD(absl::optional<uint32_t>, GetInputFramerateFps, (), (override));
+  MOCK_METHOD(void, UpdateFrameRate, (), (override));
 };
 
 class MockEncoderSelector

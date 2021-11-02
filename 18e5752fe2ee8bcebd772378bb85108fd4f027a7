@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2660d87e_65ee0f68",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-02T17:25:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30e9dfcd_6f79d180",
+      "range": {
+        "startLine": 11,
+        "startChar": 33,
+        "endLine": 11,
+        "endChar": 38
+      },
+      "revId": "18e5752fe2ee8bcebd772378bb85108fd4f027a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "08cec04d_84f3339f",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-11-02T15:28:04Z",
       "side": 1,
       "message": "nit: enabled_ or enabled_by_callee_",
+      "range": {
+        "startLine": 61,
+        "startChar": 7,
+        "endLine": 61,
+        "endChar": 32
+      },
+      "revId": "18e5752fe2ee8bcebd772378bb85108fd4f027a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a203a661_79d7361b",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-02T17:25:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08cec04d_84f3339f",
       "range": {
         "startLine": 61,
         "startChar": 7,
@@ -70,6 +118,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f093ce23_ecf83a59",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-02T17:25:06Z",
+      "side": 1,
+      "message": "Pattern copied from VSE, fixed.",
+      "parentUuid": "4b47fe30_78e99a17",
+      "range": {
+        "startLine": 66,
+        "startChar": 6,
+        "endLine": 66,
+        "endChar": 51
+      },
+      "revId": "18e5752fe2ee8bcebd772378bb85108fd4f027a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e18d0be9_f582b5a4",
@@ -87,6 +159,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bef33c87_0c7f56e8",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-02T17:25:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e18d0be9_f582b5a4",
+      "revId": "18e5752fe2ee8bcebd772378bb85108fd4f027a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ef728c71_cbf00d5c",
@@ -100,6 +190,30 @@
       "writtenOn": "2021-11-02T15:28:04Z",
       "side": 1,
       "message": "I assume the delay logic will be added to this Callback?\n\nMaybe it would make sense to pass here a |rtc::VideoSinkInterface\u003cVideoFrame\u003e| interface for the actual VideoStreamEncoder? Then add the delay logic in here instead of a VSE::CadenceCallbackAdapter. Instead of callback this class would receive pointer to the VSE.\n\nThat way all the logic will be here and not spread between two classes. The VSE::CandenceCallbackAdapter would be some kind of internal callback in this file and not a part of VSE.",
+      "range": {
+        "startLine": 31,
+        "startChar": 8,
+        "endLine": 31,
+        "endChar": 17
+      },
+      "revId": "18e5752fe2ee8bcebd772378bb85108fd4f027a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "572b797d_6343dfe8",
+        "filename": "video/frame_cadence_adapter.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-02T17:25:06Z",
+      "side": 1,
+      "message": "\u003e Maybe it would make sense to pass here a |rtc::VideoSinkInterface\u003cVideoFrame\u003e| interface for the actual VideoStreamEncoder?\n\nThis was actually the case at an earlier iteration! However, later CLs (see relation chain) extend the OnFrame signature to include frame duration, and VSE doesn\u0027t need the OnConstraintsChanged, so this is clearer IMO.\n\n\u003e Then add the delay logic in here instead of a VSE::CadenceCallbackAdapter.\n\nThe delay cadence will be done here.",
+      "parentUuid": "ef728c71_cbf00d5c",
       "range": {
         "startLine": 31,
         "startChar": 8,
@@ -146,6 +260,30 @@
       "writtenOn": "2021-11-02T15:28:04Z",
       "side": 1,
       "message": "nit:\nThat\u0027s a little confusing between FrameCadenceAdapter and CadenceCallbackAdapter.\n\nMaybe name it just CadenceCallback?",
+      "range": {
+        "startLine": 144,
+        "startChar": 8,
+        "endLine": 144,
+        "endChar": 30
+      },
+      "revId": "18e5752fe2ee8bcebd772378bb85108fd4f027a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7e2d56d_d4ca0361",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-02T17:25:06Z",
+      "side": 1,
+      "message": "Done!",
+      "parentUuid": "9420d690_f47909cb",
       "range": {
         "startLine": 144,
         "startChar": 8,

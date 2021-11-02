@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8e73fd1_4e48bd16",
+        "filename": "p2p/base/tcp_port.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-11-02T09:37:03Z",
+      "side": 1,
+      "message": "Done. Also added log on error.",
+      "parentUuid": "62e93243_756da774",
+      "revId": "52a6cf0a558d98f4b123a2c570978ef6484cd709",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b3087a0e_244d4cec",

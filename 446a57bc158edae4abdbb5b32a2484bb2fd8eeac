@@ -175,6 +175,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "395e8e16_2d8e93a3",
+        "filename": "video/frame_cadence_adapter.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-11-03T13:31:35Z",
+      "side": 1,
+      "message": "I\u0027m not entirely convinced (e.g., maybe it\u0027s better to add frame duration to the other metadata part of VideoFrame). But ok for now, we can revisit that later.",
+      "parentUuid": "08703558_68776579",
+      "range": {
+        "startLine": 31,
+        "startChar": 2,
+        "endLine": 31,
+        "endChar": 18
+      },
+      "revId": "446a57bc158edae4abdbb5b32a2484bb2fd8eeac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "89a32805_7bd9b5af",
@@ -212,6 +236,30 @@
       "side": 1,
       "message": "Ilya suggested the same (sorry for missing your comment Ilya!)\nThe problem is that it\u0027s not the only criterion needed to turn on zero-hertz mode, and wanted to make the \"prerequisite\" piece clearer. Do you have another name suggestion?",
       "parentUuid": "89a32805_7bd9b5af",
+      "range": {
+        "startLine": 50,
+        "startChar": 15,
+        "endLine": 50,
+        "endChar": 38
+      },
+      "revId": "446a57bc158edae4abdbb5b32a2484bb2fd8eeac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35e3f602_1a301169",
+        "filename": "video/frame_cadence_adapter.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-11-03T13:31:35Z",
+      "side": 1,
+      "message": "One option would be to move responsibility for recognizing relevant content types to this class, and replace it with a SetContentType method.\n\nSome other possible names: SetEnableZeroCaptureFrequency, SetEnalbEAutoCadence, SetEnableCadenceAdjustment. Ideally, the name should focus on what the method does on this class, rather than on what the call site looks like.\n\nLonger term, will it need to know the content type, or just figure out the right thing based on min capture frequency (not clear to me where that number comes from) and actual timing of incoming frames?",
+      "parentUuid": "e0d81500_dcc1a781",
       "range": {
         "startLine": 50,
         "startChar": 15,
@@ -271,6 +319,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "49127fce_5dfa4704",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-11-03T13:31:35Z",
+      "side": 1,
+      "message": "I think the VideoSourceSinkController was introduced in hbos\u0027 adaptation refactoring. I\u0027d like to hear his view. To me, it seems like it would be niceto take out the VideoSourceSinkConrtoller ownership from VSE, and delete VSE::SetSource, but not sure if that aligns with other\u0027s plans.",
+      "parentUuid": "8dc7bc2e_9ee8fbbb",
+      "range": {
+        "startLine": 589,
+        "startChar": 0,
+        "endLine": 602,
+        "endChar": 2
+      },
+      "revId": "446a57bc158edae4abdbb5b32a2484bb2fd8eeac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0944d7af_04938042",
         "filename": "video/video_stream_encoder.h",
         "patchSetId": 14
@@ -318,6 +390,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1393f0a4_51bc0e66",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-11-03T13:31:35Z",
+      "side": 1,
+      "message": "I\u0027m afraid I\u0027m not at all familiar with the \"god class\" concept, I just don\u0027t want to see friend declarations unless there\u0027s a very good reason.\n\nIn this case, do you need it at all? I\u0027m no real C++ guru, but I think a private \"inner class\" gets access to the outer class\u0027s private members by default.\n\nThen a separate issue is the forward declaration. I don\u0027t have a strong opinion about that, but it seems abit unnecessary, since a proper declaration of this small class is just a few lines, and it would also let you make it a direct member without going via a pointer. In general, chromium and webrtc coding style disagree on forward declarations. In webrtc, they\u0027re generally discouraged, while chromium is a bit more liberal (possibly due to the much longer compile time).",
+      "parentUuid": "3e93d990_3a338bbc",
+      "range": {
+        "startLine": 145,
+        "startChar": 2,
+        "endLine": 145,
+        "endChar": 31
+      },
+      "revId": "446a57bc158edae4abdbb5b32a2484bb2fd8eeac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ade7191e_09221ce0",
         "filename": "video/video_stream_encoder.h",
         "patchSetId": 14
@@ -353,6 +449,30 @@
       "side": 1,
       "message": "\u003e It\u0027s a bit unclear to me how the new adapter is wired in\n\nHm wdym, all the details are in this CL? The adapter is wired in between the VSE frame entry and the source by means of the VSE\u0027s VideoSourceSinkController, see the colon list in vse.cc.\n\nFrom what I read in the implementation the VSE is really not currently meant to be a general sink in some frame progression graph as it currently aggregates the VSSC connecting the source \u0026 sink together. Some instance mutation of the VSSC is currently buried in encoder reconfiguration guts...\n\nWhat I mean is that it\u0027s possible that the current aggregation form is the wrong design but I\u0027m not sure I\u0027d want to scope that type of refactoring in this project, is this what you\u0027re suggesting or something else?\n\nJust a peek into further evolution of the cadence adapter: I will need to integrate with input Hz rate estimation, modify frame duration logic, monitor QP convergence per-layer and integrate with keyframe requests so I need a tight integration with the VSE. Other classes around them should have no need to concern themselves with these details.",
       "parentUuid": "ade7191e_09221ce0",
+      "range": {
+        "startLine": 247,
+        "startChar": 0,
+        "endLine": 248,
+        "endChar": 15
+      },
+      "revId": "446a57bc158edae4abdbb5b32a2484bb2fd8eeac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c9602a6_86b35672",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-11-03T13:31:35Z",
+      "side": 1,
+      "message": "\u003e \u003e It\u0027s a bit unclear to me how the new adapter is wired in\n\u003e \n\u003e Hm wdym, all the details are in this CL? The adapter is wired in between the VSE frame entry and the source by means of the VSE\u0027s VideoSourceSinkController, see the colon list in vse.cc.\n\nOk, I was a bit confused by the SetSource method being unchanged. But it seems it\u0027s done via the VideoSourceSinkController, so it\u0027s the adapter that is passed to AddOrUpdateSink, on that code path.\n\n\u003e What I mean is that it\u0027s possible that the current aggregation form is the wrong design but I\u0027m not sure I\u0027d want to scope that type of refactoring in this project, is this what you\u0027re suggesting or something else?\n\nI don\u0027t want to request a huge refactoring as a prerequisite, I just want to make sure that changes are in line with desired evolution of the VSE.",
+      "parentUuid": "23d6be80_59e573f2",
       "range": {
         "startLine": 247,
         "startChar": 0,

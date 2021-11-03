@@ -11,12 +11,16 @@
 #include "video/frame_cadence_adapter.h"
 
 #include <memory>
+#include <utility>
 
 #include "api/sequence_checker.h"
+#include "api/task_queue/task_queue_base.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/race_checker.h"
 #include "rtc_base/rate_statistics.h"
 #include "rtc_base/synchronization/mutex.h"
+#include "rtc_base/task_utils/pending_task_safety_flag.h"
+#include "rtc_base/task_utils/to_queued_task.h"
 #include "system_wrappers/include/field_trial.h"
 #include "system_wrappers/include/metrics.h"
 
@@ -44,6 +48,7 @@ class FrameCadenceAdapterImpl : public FrameCadenceAdapterInterface {
 
  private:
   Clock* const clock_;
+  TaskQueueBase* const main_queue_;
 
   // Returns true if
   // - Zero-hertz screenshare fieltrial is on
@@ -51,6 +56,9 @@ class FrameCadenceAdapterImpl : public FrameCadenceAdapterInterface {
   // - Max FPS set and >0.
   // - Content type is enabled.
   bool ZeroHertzModeEnabledLocked() const RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_);
+
+  // Called from OnFrame in zero-hertz mode.
+  void OnFrameOnMainQueue(VideoFrame frame) RTC_RUN_ON(main_queue_);
 
   // Called to report on constraint UMAs.
   void MaybeReportFrameRateConstraintUmas()
@@ -85,10 +93,13 @@ class FrameCadenceAdapterImpl : public FrameCadenceAdapterInterface {
   // Input frame rate statistics for use when not in zero-hertz mode.
   RateStatistics input_framerate_
       RTC_GUARDED_BY(encoder_sequence_race_checker_);
+
+  ScopedTaskSafety safety_;
 };
 
 FrameCadenceAdapterImpl::FrameCadenceAdapterImpl(Clock* clock)
     : clock_(clock),
+      main_queue_(TaskQueueBase::Current()),
       enabled_by_field_trial_(
           field_trial::IsEnabled("WebRTC-ZeroHertzScreenshare")),
       input_framerate_(kFrameRateAvergingWindowSizeMs, 1000) {}
@@ -122,7 +133,10 @@ void FrameCadenceAdapterImpl::OnFrame(const VideoFrame& frame) {
   // This method is called on the network thread under Chromium, or other
   // various contexts in test.
   RTC_DCHECK_RUNS_SERIALIZED(&incoming_frame_race_checker_);
-  callback_->OnFrame(frame, absl::nullopt);
+  main_queue_->PostTask(ToQueuedTask(safety_, [this, frame] {
+    RTC_DCHECK_RUN_ON(main_queue_);
+    OnFrameOnMainQueue(std::move(frame));
+  }));
   MaybeReportFrameRateConstraintUmas();
 }
 
@@ -139,6 +153,11 @@ bool FrameCadenceAdapterImpl::ZeroHertzModeEnabledLocked() const {
   return enabled_by_field_trial_ && source_constraints_.has_value() &&
          source_constraints_->min_fps.value_or(-1) == 0 &&
          source_constraints_->max_fps.value_or(-1) > 0 && enabled_by_callee_;
+}
+
+// RTC_RUN_ON(main_queue_)
+void FrameCadenceAdapterImpl::OnFrameOnMainQueue(VideoFrame frame) {
+  callback_->OnFrame(frame, absl::nullopt);
 }
 
 // RTC_RUN_ON(&incoming_frame_race_checker_)

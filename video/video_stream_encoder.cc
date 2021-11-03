@@ -1288,8 +1288,7 @@ void VideoStreamEncoder::OnEncoderSettingsChanged() {
 
 void VideoStreamEncoder::OnFrame(const VideoFrame& video_frame,
                                  absl::optional<TimeDelta> duration) {
-  // Threading context here under Chromium is the network thread. Test
-  // environments may currently call in from other alien contexts.
+  RTC_DCHECK_RUN_ON(worker_queue_);
   RTC_DCHECK_RUNS_SERIALIZED(&incoming_frame_race_checker_);
   VideoFrame incoming_frame = video_frame;
 

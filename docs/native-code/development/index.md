@@ -184,9 +184,12 @@ To find the branch corresponding to a Chrome release check the
 
 ## Contributing Patches
 
-Please see [Contributing Fixes][webrtc-contributing] for information on how to run
+Please see [Contributing Fixes][contributing] for information on how to run
 `git cl upload`, getting your patch reviewed, and getting it submitted. You can also
 find info on how to run trybots and applying for try rights.
+
+[contributing]: https://webrtc.googlesource.com/src/+/refs/heads/main/docs/native-code/development/contributing.md
+ 
 
 ## Chromium Committers
 

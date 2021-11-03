@@ -16,6 +16,75 @@
       "message": "Nisse, it would be great if you could sanity check the interface changes here to make sure they align with the intended design of VideoStreamEncoder",
       "revId": "446a57bc158edae4abdbb5b32a2484bb2fd8eeac",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a866478e_683a3274",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2021-11-03T08:26:54Z",
+      "side": 1,
+      "message": "I wonder if we should have two implementations of this, one for the zero hertz mode and one simpler version for the non-zero hertz mode, and create the right one depending on content type and whether the zero-hertz flag is enabled or not. That way I think it would be easier to follow the code, as you don\u0027t have to go into the zero-hertz code when you don\u0027t care about it.",
+      "range": {
+        "startLine": 25,
+        "startChar": 6,
+        "endLine": 25,
+        "endChar": 29
+      },
+      "revId": "446a57bc158edae4abdbb5b32a2484bb2fd8eeac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b371975e_16fb7367",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2021-11-03T08:26:54Z",
+      "side": 1,
+      "message": "Pretty difficult to guess what we\u0027d use this for. Can you add a comment?",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 147,
+        "endChar": 71
+      },
+      "revId": "446a57bc158edae4abdbb5b32a2484bb2fd8eeac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce6a4f8c_3e605b69",
+        "filename": "video/frame_cadence_adapter.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2021-11-03T08:26:54Z",
+      "side": 1,
+      "message": "Should we not instead make sure it runs on a single task queue? Over time it\u0027s a risk this will get more complicated, and in the end difficult to get rid of the mutex.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 25
+      },
+      "revId": "446a57bc158edae4abdbb5b32a2484bb2fd8eeac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -60,6 +60,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "62c771fe_af718a81",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-03T15:15:22Z",
+      "side": 1,
+      "message": "It\u0027s a good suggestion, but in this CL there isn\u0027t any guts to place in the zero hertz mode yet. Would you be okay if I incorporate in a later CL?",
+      "parentUuid": "a866478e_683a3274",
+      "range": {
+        "startLine": 25,
+        "startChar": 6,
+        "endLine": 25,
+        "endChar": 29
+      },
+      "revId": "446a57bc158edae4abdbb5b32a2484bb2fd8eeac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b371975e_16fb7367",
         "filename": "video/frame_cadence_adapter.cc",
         "patchSetId": 14
@@ -118,6 +142,30 @@
       "writtenOn": "2021-11-03T08:26:54Z",
       "side": 1,
       "message": "Should we not instead make sure it runs on a single task queue? Over time it\u0027s a risk this will get more complicated, and in the end difficult to get rid of the mutex.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 25
+      },
+      "revId": "446a57bc158edae4abdbb5b32a2484bb2fd8eeac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf4f3c32_8a1d78b5",
+        "filename": "video/frame_cadence_adapter.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-03T15:15:22Z",
+      "side": 1,
+      "message": "The three-context nature isn\u0027t any worse than what the situation is already is inside the VSE.\n\nI don\u0027t see a nice way to get rid of |encoder_queue_| invocations happening in a later CL, or requiring ctor/dtor on the |encoder_queue_|, or requiring a special queue for this class.\n\nWhat I was planning to do for later CLs is to improve the situation internally as per Niels suggestion on https://webrtc-review.googlesource.com/c/src/+/236523 in https://webrtc-review.googlesource.com/c/src/+/237142.\n\nDoes that sound acceptable enough?",
+      "parentUuid": "ce6a4f8c_3e605b69",
       "range": {
         "startLine": 26,
         "startChar": 0,
@@ -199,6 +247,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4aee5529_f3d71bc7",
+        "filename": "video/frame_cadence_adapter.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-03T15:15:22Z",
+      "side": 1,
+      "message": "Yeah adding to the webrtc::VideoFrame is an option, but it has been quite abused as a general information carrier with loads of one-offs, because it takes a little more work to add the information in the context it\u0027s needed. Dale protects the media::VideoFrame by similar arguments and I agree with it.",
+      "parentUuid": "395e8e16_2d8e93a3",
+      "range": {
+        "startLine": 31,
+        "startChar": 2,
+        "endLine": 31,
+        "endChar": 18
+      },
+      "revId": "446a57bc158edae4abdbb5b32a2484bb2fd8eeac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "89a32805_7bd9b5af",
@@ -260,6 +332,30 @@
       "side": 1,
       "message": "One option would be to move responsibility for recognizing relevant content types to this class, and replace it with a SetContentType method.\n\nSome other possible names: SetEnableZeroCaptureFrequency, SetEnalbEAutoCadence, SetEnableCadenceAdjustment. Ideally, the name should focus on what the method does on this class, rather than on what the call site looks like.\n\nLonger term, will it need to know the content type, or just figure out the right thing based on min capture frequency (not clear to me where that number comes from) and actual timing of incoming frames?",
       "parentUuid": "e0d81500_dcc1a781",
+      "range": {
+        "startLine": 50,
+        "startChar": 15,
+        "endLine": 50,
+        "endChar": 38
+      },
+      "revId": "446a57bc158edae4abdbb5b32a2484bb2fd8eeac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec3cd6ad_cf79005e",
+        "filename": "video/frame_cadence_adapter.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-03T15:15:22Z",
+      "side": 1,
+      "message": "The feature shouldn\u0027t be enabled for regular camera capture, but it won\u0027t need to know the exact type. Fixed now in PS15.",
+      "parentUuid": "35e3f602_1a301169",
       "range": {
         "startLine": 50,
         "startChar": 15,
@@ -412,6 +508,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "84c2f5a6_da8996e3",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-03T15:15:22Z",
+      "side": 1,
+      "message": "https://en.wikipedia.org/wiki/God_object\n\nYoure quite right, no need for the friend declaration 😊\nPut it back in the declaration.",
+      "parentUuid": "1393f0a4_51bc0e66",
+      "range": {
+        "startLine": 145,
+        "startChar": 2,
+        "endLine": 145,
+        "endChar": 31
+      },
+      "revId": "446a57bc158edae4abdbb5b32a2484bb2fd8eeac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ade7191e_09221ce0",
@@ -473,6 +593,30 @@
       "side": 1,
       "message": "\u003e \u003e It\u0027s a bit unclear to me how the new adapter is wired in\n\u003e \n\u003e Hm wdym, all the details are in this CL? The adapter is wired in between the VSE frame entry and the source by means of the VSE\u0027s VideoSourceSinkController, see the colon list in vse.cc.\n\nOk, I was a bit confused by the SetSource method being unchanged. But it seems it\u0027s done via the VideoSourceSinkController, so it\u0027s the adapter that is passed to AddOrUpdateSink, on that code path.\n\n\u003e What I mean is that it\u0027s possible that the current aggregation form is the wrong design but I\u0027m not sure I\u0027d want to scope that type of refactoring in this project, is this what you\u0027re suggesting or something else?\n\nI don\u0027t want to request a huge refactoring as a prerequisite, I just want to make sure that changes are in line with desired evolution of the VSE.",
       "parentUuid": "23d6be80_59e573f2",
+      "range": {
+        "startLine": 247,
+        "startChar": 0,
+        "endLine": 248,
+        "endChar": 15
+      },
+      "revId": "446a57bc158edae4abdbb5b32a2484bb2fd8eeac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2ec8e86_a92e15b3",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-03T15:15:22Z",
+      "side": 1,
+      "message": "I see. Are we resolved here or is there anything outstanding?",
+      "parentUuid": "8c9602a6_86b35672",
       "range": {
         "startLine": 247,
         "startChar": 0,

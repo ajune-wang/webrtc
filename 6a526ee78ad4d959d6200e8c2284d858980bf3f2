@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7959c39_c128ab01",
+        "filename": "docs/native-code/development/contributing.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-11-03T11:06:58Z",
+      "side": 1,
+      "message": "nit: space",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 1
+      },
+      "revId": "6a526ee78ad4d959d6200e8c2284d858980bf3f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee734392_03a11798",
+        "filename": "docs/native-code/development/contributing.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-11-03T11:06:58Z",
+      "side": 1,
+      "message": "remove?",
+      "range": {
+        "startLine": 5,
+        "startChar": 23,
+        "endLine": 5,
+        "endChar": 29
+      },
+      "revId": "6a526ee78ad4d959d6200e8c2284d858980bf3f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c212912a_bad399e9",
+        "filename": "docs/native-code/development/contributing.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-11-03T11:06:58Z",
+      "side": 1,
+      "message": "nit: remove",
+      "range": {
+        "startLine": 20,
+        "startChar": 72,
+        "endLine": 20,
+        "endChar": 73
+      },
+      "revId": "6a526ee78ad4d959d6200e8c2284d858980bf3f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9fe95fd_0816090e",
+        "filename": "docs/native-code/development/contributing.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-11-03T11:06:58Z",
+      "side": 1,
+      "message": "I think this should be removed.",
+      "range": {
+        "startLine": 26,
+        "startChar": 44,
+        "endLine": 28,
+        "endChar": 4
+      },
+      "revId": "6a526ee78ad4d959d6200e8c2284d858980bf3f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4b4b0ec_8974c9f4",
+        "filename": "docs/native-code/development/contributing.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-11-03T11:06:58Z",
+      "side": 1,
+      "message": "I think Artem has created a template for this one as well.",
+      "range": {
+        "startLine": 97,
+        "startChar": 65,
+        "endLine": 98,
+        "endChar": 83
+      },
+      "revId": "6a526ee78ad4d959d6200e8c2284d858980bf3f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

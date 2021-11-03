@@ -106,6 +106,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7859273b_64f4c30d",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-03T23:08:13Z",
+      "side": 1,
+      "message": "100% agree.",
+      "parentUuid": "0832ccdb_e2d9577a",
+      "range": {
+        "startLine": 25,
+        "startChar": 6,
+        "endLine": 25,
+        "endChar": 29
+      },
+      "revId": "446a57bc158edae4abdbb5b32a2484bb2fd8eeac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b371975e_16fb7367",
@@ -214,6 +238,30 @@
       "side": 1,
       "message": "Sounds OK then.",
       "parentUuid": "cf4f3c32_8a1d78b5",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 25
+      },
+      "revId": "446a57bc158edae4abdbb5b32a2484bb2fd8eeac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2233a5e7_a10fd188",
+        "filename": "video/frame_cadence_adapter.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-03T23:08:13Z",
+      "side": 1,
+      "message": "Resolving for now.",
+      "parentUuid": "dd1a8721_66057c9d",
       "range": {
         "startLine": 26,
         "startChar": 0,

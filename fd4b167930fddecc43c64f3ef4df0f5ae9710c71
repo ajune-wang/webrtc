@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e183f8ac_b028f071",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-11-03T21:38:55Z",
+      "side": 1,
+      "message": "Only a small comment on the obviousness (or not) of the function used.\nLooks good (although I hope you get SendOrError() implemented soon).\n",
+      "revId": "fd4b167930fddecc43c64f3ef4df0f5ae9710c71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53476c82_b9b347a0",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-11-03T21:38:55Z",
+      "side": 1,
+      "message": "Is queue full truly the only possible reason to return false?\nIf so, that deserves a comment on the QueueSendDataMessage() function.\n(I see that it is private and that the implementation makes it obvious, so it\u0027s a judgment call whether it needs documenting.)",
+      "revId": "fd4b167930fddecc43c64f3ef4df0f5ae9710c71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

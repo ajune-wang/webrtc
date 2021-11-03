@@ -13,6 +13,7 @@ package org.webrtc;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.SurfaceTexture;
+import android.opengl.GLException;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import androidx.annotation.Nullable;
@@ -66,7 +67,7 @@ class EglBase10Impl implements EglBase10 {
           tempEglSurface =
               egl.eglCreatePbufferSurface(currentDisplay, eglContextConfig, surfaceAttribs);
           if (!egl.eglMakeCurrent(currentDisplay, tempEglSurface, tempEglSurface, eglContext)) {
-            throw new RuntimeException(
+            throw new GLException(
                 "Failed to make temporary EGL surface active: " + egl.eglGetError());
           }
         }
@@ -187,7 +188,7 @@ class EglBase10Impl implements EglBase10 {
     int[] surfaceAttribs = {EGL10.EGL_NONE};
     eglSurface = egl.eglCreateWindowSurface(eglDisplay, eglConfig, nativeWindow, surfaceAttribs);
     if (eglSurface == EGL10.EGL_NO_SURFACE) {
-      throw new RuntimeException(
+      throw new GLException(
           "Failed to create window surface: 0x" + Integer.toHexString(egl.eglGetError()));
     }
   }
@@ -207,7 +208,7 @@ class EglBase10Impl implements EglBase10 {
     int[] surfaceAttribs = {EGL10.EGL_WIDTH, width, EGL10.EGL_HEIGHT, height, EGL10.EGL_NONE};
     eglSurface = egl.eglCreatePbufferSurface(eglDisplay, eglConfig, surfaceAttribs);
     if (eglSurface == EGL10.EGL_NO_SURFACE) {
-      throw new RuntimeException("Failed to create pixel buffer surface with size " + width + "x"
+      throw new GLException("Failed to create pixel buffer surface with size " + width + "x"
           + height + ": 0x" + Integer.toHexString(egl.eglGetError()));
     }
   }
@@ -271,7 +272,7 @@ class EglBase10Impl implements EglBase10 {
     }
     synchronized (EglBase.lock) {
       if (!egl.eglMakeCurrent(eglDisplay, eglSurface, eglSurface, eglContext)) {
-        throw new RuntimeException(
+        throw new GLException(
             "eglMakeCurrent failed: 0x" + Integer.toHexString(egl.eglGetError()));
       }
     }
@@ -283,7 +284,7 @@ class EglBase10Impl implements EglBase10 {
     synchronized (EglBase.lock) {
       if (!egl.eglMakeCurrent(
               eglDisplay, EGL10.EGL_NO_SURFACE, EGL10.EGL_NO_SURFACE, EGL10.EGL_NO_CONTEXT)) {
-        throw new RuntimeException(
+        throw new GLException(
             "eglDetachCurrent failed: 0x" + Integer.toHexString(egl.eglGetError()));
       }
     }
@@ -310,12 +311,12 @@ class EglBase10Impl implements EglBase10 {
   private EGLDisplay getEglDisplay() {
     EGLDisplay eglDisplay = egl.eglGetDisplay(EGL10.EGL_DEFAULT_DISPLAY);
     if (eglDisplay == EGL10.EGL_NO_DISPLAY) {
-      throw new RuntimeException(
+      throw new GLException(
           "Unable to get EGL10 display: 0x" + Integer.toHexString(egl.eglGetError()));
     }
     int[] version = new int[2];
     if (!egl.eglInitialize(eglDisplay, version)) {
-      throw new RuntimeException(
+      throw new GLException(
           "Unable to initialize EGL10: 0x" + Integer.toHexString(egl.eglGetError()));
     }
     return eglDisplay;
@@ -326,7 +327,7 @@ class EglBase10Impl implements EglBase10 {
     EGLConfig[] configs = new EGLConfig[1];
     int[] numConfigs = new int[1];
     if (!egl.eglChooseConfig(eglDisplay, configAttributes, configs, configs.length, numConfigs)) {
-      throw new RuntimeException(
+      throw new GLException(
           "eglChooseConfig failed: 0x" + Integer.toHexString(egl.eglGetError()));
     }
     if (numConfigs[0] <= 0) {
@@ -352,7 +353,7 @@ class EglBase10Impl implements EglBase10 {
       eglContext = egl.eglCreateContext(eglDisplay, eglConfig, rootContext, contextAttributes);
     }
     if (eglContext == EGL10.EGL_NO_CONTEXT) {
-      throw new RuntimeException(
+      throw new GLException(
           "Failed to create EGL context: 0x" + Integer.toHexString(egl.eglGetError()));
     }
     return eglContext;

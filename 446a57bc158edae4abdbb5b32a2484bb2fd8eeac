@@ -81,6 +81,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "99619bf5_5a5b6ca6",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-03T12:34:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b371975e_16fb7367",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 147,
+        "endChar": 71
+      },
+      "revId": "446a57bc158edae4abdbb5b32a2484bb2fd8eeac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ce6a4f8c_3e605b69",
@@ -129,6 +153,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "08703558_68776579",
+        "filename": "video/frame_cadence_adapter.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-03T12:34:15Z",
+      "side": 1,
+      "message": "See the response I gave to Ilya, 1) VSE isn\u0027t interested in the constraints piece, 2) I will change the Callback::OnFrame prototype to include frame duration in later CLs.",
+      "parentUuid": "6388ef02_8510d6e8",
+      "range": {
+        "startLine": 31,
+        "startChar": 2,
+        "endLine": 31,
+        "endChar": 18
+      },
+      "revId": "446a57bc158edae4abdbb5b32a2484bb2fd8eeac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "89a32805_7bd9b5af",
         "filename": "video/frame_cadence_adapter.h",
         "patchSetId": 14
@@ -140,6 +188,30 @@
       "writtenOn": "2021-11-03T10:11:44Z",
       "side": 1,
       "message": "If the class doesn\u0027t know anything about content type, I think just SetEnabled is a better name.",
+      "range": {
+        "startLine": 50,
+        "startChar": 15,
+        "endLine": 50,
+        "endChar": 38
+      },
+      "revId": "446a57bc158edae4abdbb5b32a2484bb2fd8eeac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0d81500_dcc1a781",
+        "filename": "video/frame_cadence_adapter.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-03T12:34:15Z",
+      "side": 1,
+      "message": "Ilya suggested the same (sorry for missing your comment Ilya!)\nThe problem is that it\u0027s not the only criterion needed to turn on zero-hertz mode, and wanted to make the \"prerequisite\" piece clearer. Do you have another name suggestion?",
+      "parentUuid": "89a32805_7bd9b5af",
       "range": {
         "startLine": 50,
         "startChar": 15,
@@ -175,6 +247,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8dc7bc2e_9ee8fbbb",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-03T12:34:15Z",
+      "side": 1,
+      "message": "It avoids the VSE inheriting from VideoSinkInterface which is arguably an improvement to the readability of the interface of this class. As you can see in the CL, the sink features of VSE was really only used in the initialization of it\u0027s VideoSourceSinkController. The VSE looks really not intended to be something you can just hook up ad hoc to a source.\n\nNo plans to extend the functionality of this adapter further.",
+      "parentUuid": "81e8d3ce_e5b81484",
+      "range": {
+        "startLine": 589,
+        "startChar": 0,
+        "endLine": 602,
+        "endChar": 2
+      },
+      "revId": "446a57bc158edae4abdbb5b32a2484bb2fd8eeac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0944d7af_04938042",
         "filename": "video/video_stream_encoder.h",
         "patchSetId": 14
@@ -198,6 +294,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3e93d990_3a338bbc",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-03T12:34:15Z",
+      "side": 1,
+      "message": "This pattern is widely used in Chromium to cut down on the detail exposed in the header files. In this particular case the VSE is a \"god class\" and hiding the interface of this trival adapter is a good thing IMO. The cadence callback isn\u0027t used for more than transporting calls into private VSE methods and the fact is readily readable in the VSE implementation.",
+      "parentUuid": "0944d7af_04938042",
+      "range": {
+        "startLine": 145,
+        "startChar": 2,
+        "endLine": 145,
+        "endChar": 31
+      },
+      "revId": "446a57bc158edae4abdbb5b32a2484bb2fd8eeac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ade7191e_09221ce0",
         "filename": "video/video_stream_encoder.h",
         "patchSetId": 14
@@ -209,6 +329,30 @@
       "writtenOn": "2021-11-03T10:11:44Z",
       "side": 1,
       "message": "I think inheriting VideoSinkInterface is reasonable (after all, that\u0027s the VSE\u0027s main role in the video pipeline). But independent of that issue, I think it\u0027s preferable to keep using VideoSinkInterface as the attachment surface between the new adapter and the VSE.\n\nIt\u0027s a bit unclear to me how the new adapter is wired in, and how that relates to the VSE::SetSource method. Ideally, I\u0027d like the VSE to be unaware of the source (requires adaptation decisions to be made upstream of the VSE), and act as a plain sink to the rest of the pipeline. I\u0027m not up-to-date with recent adaptation refactoring, so adding hbos@.\n\nMy ideal structure would be something like\n\nCamera (VideoSourceInterface)\n          |   ^\n  OnFrame |   | AddOrUpdateSink\n          |   |\n          |   VideoStreamEncoderResourceManager (adaptation decisions)\n          |   ^\n          |   |  qp, encode timing, and similar signals\n          V   |\nVideoStreamEncoder (VideoSinkInterface)\n          |\n          |\n          V\nRtpVideoSenderInterface\n\nThe VideoSendStream class would own VideoStreamEncoderResourceManager, VideoStreamEncoder, and RtpVideoSender, and hook them together.\n\nTo get the new cadence adapter into this picture, it should be inserted on the OnFrame path between camera and VSE, but less clear if it should also be attached to the VideoStreamEncoderManager in some way?",
+      "range": {
+        "startLine": 247,
+        "startChar": 0,
+        "endLine": 248,
+        "endChar": 15
+      },
+      "revId": "446a57bc158edae4abdbb5b32a2484bb2fd8eeac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23d6be80_59e573f2",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-03T12:34:15Z",
+      "side": 1,
+      "message": "\u003e It\u0027s a bit unclear to me how the new adapter is wired in\n\nHm wdym, all the details are in this CL? The adapter is wired in between the VSE frame entry and the source by means of the VSE\u0027s VideoSourceSinkController, see the colon list in vse.cc.\n\nFrom what I read in the implementation the VSE is really not currently meant to be a general sink in some frame progression graph as it currently aggregates the VSSC connecting the source \u0026 sink together. Some instance mutation of the VSSC is currently buried in encoder reconfiguration guts...\n\nWhat I mean is that it\u0027s possible that the current aggregation form is the wrong design but I\u0027m not sure I\u0027d want to scope that type of refactoring in this project, is this what you\u0027re suggesting or something else?\n\nJust a peek into further evolution of the cadence adapter: I will need to integrate with input Hz rate estimation, modify frame duration logic, monitor QP convergence per-layer and integrate with keyframe requests so I need a tight integration with the VSE. Other classes around them should have no need to concern themselves with these details.",
+      "parentUuid": "ade7191e_09221ce0",
       "range": {
         "startLine": 247,
         "startChar": 0,

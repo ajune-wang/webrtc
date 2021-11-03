@@ -84,6 +84,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0832ccdb_e2d9577a",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2021-11-03T15:40:20Z",
+      "side": 1,
+      "message": "Sure, that\u0027s fine. What I\u0027d prefer in the end is that someone who wants to follow the default/simple path doesn\u0027t have to understand this implementation.",
+      "parentUuid": "62c771fe_af718a81",
+      "range": {
+        "startLine": 25,
+        "startChar": 6,
+        "endLine": 25,
+        "endChar": 29
+      },
+      "revId": "446a57bc158edae4abdbb5b32a2484bb2fd8eeac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b371975e_16fb7367",
         "filename": "video/frame_cadence_adapter.cc",
         "patchSetId": 14
@@ -166,6 +190,30 @@
       "side": 1,
       "message": "The three-context nature isn\u0027t any worse than what the situation is already is inside the VSE.\n\nI don\u0027t see a nice way to get rid of |encoder_queue_| invocations happening in a later CL, or requiring ctor/dtor on the |encoder_queue_|, or requiring a special queue for this class.\n\nWhat I was planning to do for later CLs is to improve the situation internally as per Niels suggestion on https://webrtc-review.googlesource.com/c/src/+/236523 in https://webrtc-review.googlesource.com/c/src/+/237142.\n\nDoes that sound acceptable enough?",
       "parentUuid": "ce6a4f8c_3e605b69",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 25
+      },
+      "revId": "446a57bc158edae4abdbb5b32a2484bb2fd8eeac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd1a8721_66057c9d",
+        "filename": "video/frame_cadence_adapter.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2021-11-03T15:40:20Z",
+      "side": 1,
+      "message": "Sounds OK then.",
+      "parentUuid": "cf4f3c32_8a1d78b5",
       "range": {
         "startLine": 26,
         "startChar": 0,

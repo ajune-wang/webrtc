@@ -46,6 +46,30 @@
       },
       "revId": "477dcca0d5b449f87d083958f438a3b291e191eb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09fc0ee8_70c46a6e",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-03T22:56:09Z",
+      "side": 1,
+      "message": "I don\u0027t follow the rationale. The onset of this feature\u0027s activation has several conditions happening from various contexts. Why would we want to complicate the VSE further with this, isn\u0027t VSE complicated and god-like as it is?\n\nI much more believe in Stefan\u0027s suggestion to splice in \"mode\" objects into the FrameCadenceAdapter which will cause them to individually contain their respective functionality, and leave the FrameCadenceAdapter to handle activation/deactivation/forwarding.",
+      "parentUuid": "30dc5458_aea7b55c",
+      "range": {
+        "startLine": 80,
+        "startChar": 6,
+        "endLine": 80,
+        "endChar": 36
+      },
+      "revId": "477dcca0d5b449f87d083958f438a3b291e191eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4eec2757_d71e0d77",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-11-03T15:36:25Z",
+      "side": 1,
+      "message": "I suggest to move all this logic to the VSE. It should own a const field trial flag and then combine it with whatever stream related logic as needed.\n\nThen this method could be just SetEnabled or current name works also.\n\nThat way we won\u0027t have plethora of confusing |enabled_by_whatever| flags.",
+      "range": {
+        "startLine": 80,
+        "startChar": 6,
+        "endLine": 80,
+        "endChar": 36
+      },
+      "revId": "477dcca0d5b449f87d083958f438a3b291e191eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

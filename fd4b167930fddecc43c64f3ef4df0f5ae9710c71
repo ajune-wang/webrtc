@@ -33,6 +33,24 @@
       "message": "Is queue full truly the only possible reason to return false?\nIf so, that deserves a comment on the QueueSendDataMessage() function.\n(I see that it is private and that the implementation makes it obvious, so it\u0027s a judgment call whether it needs documenting.)",
       "revId": "fd4b167930fddecc43c64f3ef4df0f5ae9710c71",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d25804a_852bfc23",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-11-04T11:38:27Z",
+      "side": 1,
+      "message": "I don\u0027t think it\u0027s needed now, but later on when implementing the Send call that returns an error, this function return type will be updated and it will become more obvious from the signature.",
+      "parentUuid": "53476c82_b9b347a0",
+      "revId": "fd4b167930fddecc43c64f3ef4df0f5ae9710c71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -3,6 +3,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b3afca15_64b087be",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-11-04T09:16:23Z",
+      "side": 1,
+      "message": "Do we really need multiple \"enabled\" variables? Also it is not clear what is enabled from the name.\n\nHow about is_zero_hertz_screenshare_enabled_?\n\nOr is the idea that we need both this flag to be true and for content type to be \"screenshare\" before the magic happens?\n\nIf so how about variables \"is_zero_hertz_screenshare_allwed_\" and \"content_type_\" instead of two flavours of \"enabled\"?",
+      "revId": "477dcca0d5b449f87d083958f438a3b291e191eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "553c4e54_f204b28c",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-11-04T09:16:23Z",
+      "side": 1,
+      "message": "Should this be \"VideoContentType content_type_\"?",
+      "revId": "477dcca0d5b449f87d083958f438a3b291e191eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4eec2757_d71e0d77",
         "filename": "video/frame_cadence_adapter.cc",
         "patchSetId": 15
@@ -92,6 +126,74 @@
         "endLine": 80,
         "endChar": 36
       },
+      "revId": "477dcca0d5b449f87d083958f438a3b291e191eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04e36631_f434ea00",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-11-04T09:16:23Z",
+      "side": 1,
+      "message": "Why are we maybe reporting constrains in \"OnFrame\"? Why not in \"OnConstraintsChanged\"?\n\nIf zero fps capture is the end goal, \"OnFrame\" wouldn\u0027t be called in some cases, right?",
+      "revId": "477dcca0d5b449f87d083958f438a3b291e191eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66c0f9a5_e6f3d259",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-11-04T09:16:23Z",
+      "side": 1,
+      "message": "Same question as above, but couldn\u0027t we just do this?\n\n  if (source_constraints_ \u003d\u003d constraints)\n    return;\n  source_constraints_ \u003d constraints;\n  ReportFrameRateConstraintUmas();",
+      "revId": "477dcca0d5b449f87d083958f438a3b291e191eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53b34d29_8bc45867",
+        "filename": "video/frame_cadence_adapter.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-11-04T09:16:23Z",
+      "side": 1,
+      "message": "When we do have zero hertz screenshare, would \"OnDiscardedFrame()\" happen instead of \"OnFrame()\"? Or when would FrameCadenceAdapterInterface discard frames?",
+      "revId": "477dcca0d5b449f87d083958f438a3b291e191eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "508391f5_d783e981",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-11-04T09:16:23Z",
+      "side": 1,
+      "message": "Can we rename zero_hertz_adapter to frame_cadence_adapter?",
       "revId": "477dcca0d5b449f87d083958f438a3b291e191eb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

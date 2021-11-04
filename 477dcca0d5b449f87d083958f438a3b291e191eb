@@ -70,6 +70,30 @@
       },
       "revId": "477dcca0d5b449f87d083958f438a3b291e191eb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7bc82f2_29b6a77d",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-11-04T08:44:14Z",
+      "side": 1,
+      "message": "I was thinking that it helps to have all the field trials affecting the operation of the VSE in one place. Let VSE decide what to do, and just leave the details of doing it to the FrameCadenceAdapter class(es).\n\nBut I don\u0027t have a strong opinion on this. There are already half a dozen field trials in VSE, so it would be nice if setup of new field trials are organized in a consistent way.",
+      "parentUuid": "09fc0ee8_70c46a6e",
+      "range": {
+        "startLine": 80,
+        "startChar": 6,
+        "endLine": 80,
+        "endChar": 36
+      },
+      "revId": "477dcca0d5b449f87d083958f438a3b291e191eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

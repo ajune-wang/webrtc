@@ -557,6 +557,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "93b871df_57bf978e",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-04T15:33:53Z",
+      "side": 1,
+      "message": "FrameCadenceAdapter (transitively through the 0hz mode) will get all the delay logic.",
+      "parentUuid": "ae9478a2_622fcd24",
+      "range": {
+        "startLine": 589,
+        "startChar": 0,
+        "endLine": 602,
+        "endChar": 2
+      },
+      "revId": "446a57bc158edae4abdbb5b32a2484bb2fd8eeac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0944d7af_04938042",

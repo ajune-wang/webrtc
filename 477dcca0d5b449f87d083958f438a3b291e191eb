@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "625816f3_99164fbc",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-04T15:33:53Z",
+      "side": 1,
+      "message": "\u003e Or is the idea that we need both this flag to be true and for content type to be \"screenshare\" before the magic happens?\n\n+ constraints need to be of a certain kind.\n\n\u003e If so how about variables \"is_zero_hertz_screenshare_allwed_\" and \"content_type_\" instead of two flavours of \"enabled\"?\n\nThe exact content type isn\u0027t needed. Only that we\u0027ve chosen to activate based on a prerequisite which happens to be \"content_type\u003d\u003denabled\".\n\nI\u0027ve renamed the field trial flag to |zero_hertz_screenshare_enabled_| in PS16.",
+      "parentUuid": "b3afca15_64b087be",
+      "revId": "477dcca0d5b449f87d083958f438a3b291e191eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "553c4e54_f204b28c",
@@ -31,6 +49,24 @@
       "writtenOn": "2021-11-04T09:16:23Z",
       "side": 1,
       "message": "Should this be \"VideoContentType content_type_\"?",
+      "revId": "477dcca0d5b449f87d083958f438a3b291e191eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6abb973_99019729",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-04T15:33:53Z",
+      "side": 1,
+      "message": "The frame cadence adapter has no use for the exact type of content. See also previous discussion with Niels and Ilya.",
+      "parentUuid": "553c4e54_f204b28c",
       "revId": "477dcca0d5b449f87d083958f438a3b291e191eb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -171,6 +207,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6200a35a_7ecea46a",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-04T15:33:53Z",
+      "side": 1,
+      "message": "\u003e Why are we maybe reporting constrains in \"OnFrame\"? Why not in \"OnConstraintsChanged\"?\n\nIt\u0027s not enough as I explained elsewhere (and also in the code), I need both constraints AND content type \u003d screenshare for the UMAs. As far as I can tell they could come in any order, and we get notified on the network resp. worker thread.\n\nNote that this code was moved over from VideoStreamEncoder...\n\n\u003e If zero fps capture is the end goal, \"OnFrame\" wouldn\u0027t be called in some cases, right?\n\nIn my testing the capturer does send an initial frame despite min fps 0. Should this turn out flaky I\u0027ll anyway need to add a \"VideoTrackSourceInterface::RequestRefreshFrame\" and plumb to chromium to solve keyframe requests fully.",
+      "parentUuid": "04e36631_f434ea00",
+      "revId": "477dcca0d5b449f87d083958f438a3b291e191eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "66c0f9a5_e6f3d259",
@@ -184,6 +238,24 @@
       "writtenOn": "2021-11-04T09:16:23Z",
       "side": 1,
       "message": "Same question as above, but couldn\u0027t we just do this?\n\n  if (source_constraints_ \u003d\u003d constraints)\n    return;\n  source_constraints_ \u003d constraints;\n  ReportFrameRateConstraintUmas();",
+      "revId": "477dcca0d5b449f87d083958f438a3b291e191eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab134301_ea671e0f",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-04T15:33:53Z",
+      "side": 1,
+      "message": "I think I answered this previously, but the UMAs describe screenshare, so I need to have received both constraints and \"content_type\u003d\u003dscreenshare\" (happening on various contexts) before reporting.",
+      "parentUuid": "66c0f9a5_e6f3d259",
       "revId": "477dcca0d5b449f87d083958f438a3b291e191eb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -205,6 +277,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a305cf2a_98bda21d",
+        "filename": "video/frame_cadence_adapter.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-04T15:33:53Z",
+      "side": 1,
+      "message": "No it would not happen instead. OnFrame leads to OnFrame. In my PoC I didn\u0027t deal with OnDiscardedFrame, but theres no logic in this CL to base that discussion.\n\nThis method is kept here because there\u0027s VSE |encoder_stats_observer_| processing related to OnDiscardedFrame which seems to be invoked from the VideoBroadcaster, and I removed VSE\u0027s dependency on VideoSinkInterface (see discussion with Niels).",
+      "parentUuid": "53b34d29_8bc45867",
+      "revId": "477dcca0d5b449f87d083958f438a3b291e191eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "508391f5_d783e981",
@@ -218,6 +308,24 @@
       "writtenOn": "2021-11-04T09:16:23Z",
       "side": 1,
       "message": "Can we rename zero_hertz_adapter to frame_cadence_adapter?",
+      "revId": "477dcca0d5b449f87d083958f438a3b291e191eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e1d5ab9_9a34ba48",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-04T15:33:53Z",
+      "side": 1,
+      "message": "Yikes, thanks for noting this leftover. Yes.",
+      "parentUuid": "508391f5_d783e981",
       "revId": "477dcca0d5b449f87d083958f438a3b291e191eb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

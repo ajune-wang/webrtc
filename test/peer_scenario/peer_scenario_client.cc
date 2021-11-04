@@ -172,13 +172,9 @@ class FakeVideoEncoderFactory : public VideoEncoderFactory {
   std::vector<SdpVideoFormat> GetSupportedFormats() const override {
     return {SdpVideoFormat("VP8")};
   }
-  CodecInfo QueryVideoEncoder(const SdpVideoFormat& format) const override {
-    RTC_CHECK_EQ(format.name, "VP8");
-    CodecInfo info;
-    return info;
-  }
   std::unique_ptr<VideoEncoder> CreateVideoEncoder(
       const SdpVideoFormat& format) override {
+    RTC_CHECK_EQ(format.name, "VP8");
     return std::make_unique<FakeVp8Encoder>(clock_);
   }
 

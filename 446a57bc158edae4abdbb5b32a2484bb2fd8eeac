@@ -535,6 +535,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ae9478a2_622fcd24",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-11-04T09:24:27Z",
+      "side": 1,
+      "message": "Is the FrameCadenceAdapter supposed to do anything with the frames in the future? Or is this simply a \"ReportFrameRatesToUmaHandler\"? Because if so it could probably be a standalone class rather than an in-between layer.",
+      "parentUuid": "49127fce_5dfa4704",
+      "range": {
+        "startLine": 589,
+        "startChar": 0,
+        "endLine": 602,
+        "endChar": 2
+      },
+      "revId": "446a57bc158edae4abdbb5b32a2484bb2fd8eeac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0944d7af_04938042",
         "filename": "video/video_stream_encoder.h",
         "patchSetId": 14

@@ -298,16 +298,13 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   bool encoder_failed_ RTC_GUARDED_BY(&encoder_queue_);
   Clock* const clock_;
 
-  rtc::RaceChecker incoming_frame_race_checker_
-      RTC_GUARDED_BY(incoming_frame_race_checker_);
   std::atomic<int> posted_frames_waiting_for_encode_;
   // Used to make sure incoming time stamp is increasing for every frame.
-  int64_t last_captured_timestamp_ RTC_GUARDED_BY(incoming_frame_race_checker_);
+  int64_t last_captured_timestamp_ RTC_GUARDED_BY(worker_queue_);
   // Delta used for translating between NTP and internal timestamps.
-  const int64_t delta_ntp_internal_ms_
-      RTC_GUARDED_BY(incoming_frame_race_checker_);
+  const int64_t delta_ntp_internal_ms_ RTC_GUARDED_BY(worker_queue_);
 
-  int64_t last_frame_log_ms_ RTC_GUARDED_BY(incoming_frame_race_checker_);
+  int64_t last_frame_log_ms_ RTC_GUARDED_BY(worker_queue_);
   int captured_frame_count_ RTC_GUARDED_BY(&encoder_queue_);
   int dropped_frame_cwnd_pushback_count_ RTC_GUARDED_BY(&encoder_queue_);
   int dropped_frame_encoder_block_count_ RTC_GUARDED_BY(&encoder_queue_);

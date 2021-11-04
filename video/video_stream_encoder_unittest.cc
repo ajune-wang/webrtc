@@ -407,9 +407,7 @@ class VideoStreamEncoderUnderTest : public VideoStreamEncoder {
   // This is used as a synchronisation mechanism, to make sure that the
   // encoder queue is not blocked before we start sending it frames.
   void WaitUntilTaskQueueIsIdle() {
-    rtc::Event event;
-    encoder_queue()->PostTask([&event] { event.Set(); });
-    ASSERT_TRUE(event.Wait(5000));
+    time_controller_->AdvanceTime(TimeDelta::Millis(0));
   }
 
   // Triggers resource usage measurements on the fake CPU resource.
@@ -1310,6 +1308,7 @@ class VideoStreamEncoderTest : public ::testing::Test {
 
     bool WaitForFrame(int64_t timeout_ms) {
       RTC_DCHECK(time_controller_->GetMainThread()->IsCurrent());
+      time_controller_->AdvanceTime(TimeDelta::Millis(0));
       bool ret = encoded_frame_event_.Wait(timeout_ms);
       time_controller_->AdvanceTime(TimeDelta::Millis(0));
       return ret;
@@ -1527,6 +1526,7 @@ TEST_F(VideoStreamEncoderTest, DropsFramesBeforeFirstOnBitrateUpdated) {
   video_source_.IncomingCapturedFrame(CreateFrame(1, &frame_destroyed_event));
   AdvanceTime(TimeDelta::Millis(10));
   video_source_.IncomingCapturedFrame(CreateFrame(2, nullptr));
+  AdvanceTime(TimeDelta::Millis(0));
   EXPECT_TRUE(frame_destroyed_event.Wait(kDefaultTimeoutMs));
 
   video_stream_encoder_->OnBitrateUpdatedAndWaitForManagedResources(
@@ -7495,6 +7495,7 @@ TEST_F(VideoStreamEncoderTest, EncoderSelectorCurrentEncoderIsSignaled) {
 
   video_source_.IncomingCapturedFrame(
       CreateFrame(kDontCare, kDontCare, kDontCare));
+  AdvanceTime(TimeDelta::Millis(0));
   video_stream_encoder_->Stop();
 
   // The encoders produces by the VideoEncoderProxyFactory have a pointer back

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd8bc583_d8bbaed4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-11-04T10:54:42Z",
+      "side": 1,
+      "message": "nit: Would passing -1 be the same as using NoLimit()?\n\nI think the public API part should be safe from this, possibly forcing sane values in the MaxRetransmits constructor, or using NoLimit().\n\nAlso, while absl::optional types make sense at the API boundary, it\u0027s certainly a good idea not to use them when we can internally.",
+      "revId": "e7321421873c496ec3052b7deab0d3c8fe626dcd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -2126,6 +2126,7 @@ TEST_F(VideoSendStreamTest, CanReconfigureToUseStartBitrateAbovePreviousMax) {
   CreateFrameGeneratorCapturer(kDefaultFramerate, kDefaultWidth,
                                kDefaultHeight);
   frame_generator_capturer_->Start();
+  rtc::Thread::Current()->ProcessMessages(1000);
 
   EXPECT_TRUE(encoder.WaitForStartBitrate());
   EXPECT_EQ(GetVideoEncoderConfig()->max_bitrate_bps / 1000,
@@ -2135,6 +2136,7 @@ TEST_F(VideoSendStreamTest, CanReconfigureToUseStartBitrateAbovePreviousMax) {
       2 * bitrate_config.start_bitrate_bps;
   GetVideoSendStream()->ReconfigureVideoEncoder(
       GetVideoEncoderConfig()->Copy());
+  rtc::Thread::Current()->ProcessMessages(1000);
 
   // New bitrate should be reconfigured above the previous max. As there's no
   // network connection this shouldn't be flaky, as no bitrate should've been

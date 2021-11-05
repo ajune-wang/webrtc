@@ -141,6 +141,30 @@
       },
       "revId": "0dbfa60aa9cc2e00fb3ea994d50894d3e8baf2bc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33fefc82_fd5ea6cd",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-05T11:30:14Z",
+      "side": 1,
+      "message": "\u003e I hope most of those are about dchecks rather than posting work.\n\nLook closer, these sites are all stemming from TaskQueueBase::Current():\n- https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/pc/rtp_transceiver.cc;l\u003d135?q\u003drtp_transceiver.cc\u0026ss\u003dchromium\n- https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/video/video_stream_encoder.cc;l\u003d598?q\u003dvideo_stream_encoder.cc\u0026ss\u003dchromium (beyond my superficial change)\n- https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/video/video_stream_encoder.cc;l\u003d597;drc\u003d8935a7e8ebb322114a2241f659eb776997fe853e\n- https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/video/adaptation/encode_usage_resource.cc;l\u003d47;drc\u003d8935a7e8ebb322114a2241f659eb776997fe853e?q\u003dencode_usage_resource.cc\u0026ss\u003dchromium%2Fchromium%2Fsrc\n- https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/audio/channel_receive.cc;l\u003d488;drc\u003d8935a7e8ebb322114a2241f659eb776997fe853e?q\u003dchannel_receive.cc\u0026ss\u003dchromium%2Fchromium%2Fsrc\n- https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/video/call_stats2.cc;l\u003d94;drc\u003de1712fe5e4cb5af066118968f3d8cb2fc13cb0d3\n- quality scalers\n- \n\n\u003e I now see you did add a ::Current call in the VSE constructor in previous cl. Sorry I didn\u0027t speak up, I think that\u0027s wrong for the same reasons. (Using Current for checks is fine, but for posting work I think it\u0027s very questionable). \n\nI did not add this call :-) it was there since before!\n\n\u003e If you make it a construction argument, it should be easy for VSE to just pass its worker queue to the constructor, no additional Current call needed? \n\nThe VSE doesn\u0027t create the adapter, the VideoSendStream ctor does. This would transport the Current call there - do you think that is better?",
+      "parentUuid": "3b040232_1f2ca4a4",
+      "range": {
+        "startLine": 76,
+        "startChar": 6,
+        "endLine": 76,
+        "endChar": 46
+      },
+      "revId": "0dbfa60aa9cc2e00fb3ea994d50894d3e8baf2bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

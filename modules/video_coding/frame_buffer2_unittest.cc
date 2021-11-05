@@ -148,7 +148,8 @@ class TestFrameBuffer2 : public ::testing::Test {
         timing_(time_controller_.GetClock()),
         buffer_(new FrameBuffer(time_controller_.GetClock(),
                                 &timing_,
-                                &stats_callback_)),
+                                &stats_callback_,
+                                &time_task_queue_)),
         rand_(0x34678213) {}
 
   template <typename... T>
@@ -198,7 +199,7 @@ class TestFrameBuffer2 : public ::testing::Test {
   void ExtractFrame(int64_t max_wait_time = 0, bool keyframe_required = false) {
     time_task_queue_.PostTask([this, max_wait_time, keyframe_required]() {
       buffer_->NextFrame(
-          max_wait_time, keyframe_required, &time_task_queue_,
+          max_wait_time, keyframe_required,
           [this](std::unique_ptr<EncodedFrame> frame,
                  video_coding::FrameBuffer::ReturnReason reason) {
             if (reason != FrameBuffer::ReturnReason::kStopped) {
@@ -272,8 +273,8 @@ TEST_F(TestFrameBuffer2, OneSuperFrame) {
 
 TEST_F(TestFrameBuffer2, ZeroPlayoutDelay) {
   VCMTiming timing(time_controller_.GetClock());
-  buffer_.reset(
-      new FrameBuffer(time_controller_.GetClock(), &timing, &stats_callback_));
+  buffer_ = std::make_unique<FrameBuffer>(time_controller_.GetClock(), &timing,
+                                          &stats_callback_, &time_task_queue_);
   const VideoPlayoutDelay kPlayoutDelayMs = {0, 0};
   std::unique_ptr<FrameObjectFake> test_frame(new FrameObjectFake());
   test_frame->SetId(0);

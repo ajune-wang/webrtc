@@ -253,8 +253,8 @@ VideoReceiveStream2::VideoReceiveStream2(
 
   timing_->set_render_delay(config_.render_delay_ms);
 
-  frame_buffer_.reset(
-      new video_coding::FrameBuffer(clock_, timing_.get(), &stats_proxy_));
+  frame_buffer_ = std::make_unique<video_coding::FrameBuffer>(
+      clock_, timing_.get(), &stats_proxy_, &decode_queue_);
 
   if (config_.rtp.rtx_ssrc) {
     rtx_receive_stream_ = std::make_unique<RtxReceiveStream>(
@@ -721,7 +721,7 @@ void VideoReceiveStream2::StartNextDecode() {
   // Running on the decode thread.
   TRACE_EVENT0("webrtc", "VideoReceiveStream2::StartNextDecode");
   frame_buffer_->NextFrame(
-      GetMaxWaitMs(), keyframe_required_, &decode_queue_,
+      GetMaxWaitMs(), keyframe_required_,
       /* encoded frame handler */
       [this](std::unique_ptr<EncodedFrame> frame, ReturnReason res) {
         RTC_DCHECK_EQ(frame == nullptr, res == ReturnReason::kTimeout);

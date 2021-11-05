@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c66b7086_37877934",
+        "filename": "media/engine/webrtc_video_engine_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-05T10:14:34Z",
+      "side": 1,
+      "message": "-\u003e https://webrtc-review.googlesource.com/c/src/+/237341",
+      "parentUuid": "e582e119_cf77b7ca",
+      "range": {
+        "startLine": 293,
+        "startChar": 0,
+        "endLine": 293,
+        "endChar": 57
+      },
+      "revId": "0dbfa60aa9cc2e00fb3ea994d50894d3e8baf2bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8edd68db_6dfecb3f",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-11-05T08:19:07Z",
       "side": 1,
       "message": "I don\u0027t think it\u0027s good practice to capture someone else\u0027s thread/queue via TaskQueueBase::Current(), and use to post work to. It\u0027s better to either uses an explicit constructor argument for the tq to use, or refactor so that the posting happens in the class that owns the queue. If you add a tq argument, you have to consider whether or not to dcheck that that constructor is called on that queue; not sure if that\u0027s something you depend on. It\u0027s usually safe to initialize state in the constructor even if that state is intended to be owned by a different thread.",
+      "range": {
+        "startLine": 76,
+        "startChar": 6,
+        "endLine": 76,
+        "endChar": 46
+      },
+      "revId": "0dbfa60aa9cc2e00fb3ea994d50894d3e8baf2bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d592b0f_61eb321b",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-05T10:14:34Z",
+      "side": 1,
+      "message": "TL;DR - to keep code complexity down I need to post into the same sequence that created this class (and created the VSE).\n\n\u003e I don\u0027t think it\u0027s good practice to capture someone else\u0027s thread/queue via TaskQueueBase::Current(), and use to post work to.\n\nFrom a quick search I see plenty of precedence in the VSE, rtp_rtcp_impl2, rtp_sender_egress, packet_sender, call, nack_requester, bandwidth_quality_scaler... \n\nThe alternatives don\u0027t seem any better to me. Forcing some potentially different queue will either cause thread proliferation + strange destruction sequence, or at best move the TaskQueue::Current() somewhere else. I just don\u0027t see how that\u0027s better.\n\nYou suggested to use the worker thread on the earlier CL, this is the effect. Though, honestly I was planning to do this anyway, just wasn\u0027t sure it\u0027s a good idea for frames in all modes.\n\n\u003e refactor so that the posting happens in the class that owns the queue\n\nThis would cause the VSE would have to call into us to insulate and you\u0027d have the same kind of arguments for that change all over again. The root cause is the threading environment the VSE \u0026 VideoFrameSink live under and those aren\u0027t easy to change.\n\nLater changes will add delay logic to this class so I really do need a target queue here.\n\n\u003e not sure if that\u0027s something you depend on\n\n|safety_| and the target queue for PostTasks (and coming PostDelayedTasks) requires the same thread as ctor/dtor. Using a detached safety would buy me nothing as I do want the worker thread.",
+      "parentUuid": "8edd68db_6dfecb3f",
       "range": {
         "startLine": 76,
         "startChar": 6,

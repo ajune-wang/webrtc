@@ -49,7 +49,8 @@ class FrameBuffer {
 
   FrameBuffer(Clock* clock,
               VCMTiming* timing,
-              VCMReceiveStatisticsCallback* stats_callback);
+              VCMReceiveStatisticsCallback* stats_callback,
+              rtc::TaskQueue* callback_queue);
 
   FrameBuffer() = delete;
   FrameBuffer(const FrameBuffer&) = delete;
@@ -66,7 +67,6 @@ class FrameBuffer {
   void NextFrame(
       int64_t max_wait_time_ms,
       bool keyframe_required,
-      rtc::TaskQueue* callback_queue,
       std::function<void(std::unique_ptr<EncodedFrame>, ReturnReason)> handler);
 
   // Tells the FrameBuffer which protection mode that is in use. Affects
@@ -168,7 +168,7 @@ class FrameBuffer {
   Mutex mutex_;
   Clock* const clock_;
 
-  rtc::TaskQueue* callback_queue_ RTC_GUARDED_BY(mutex_);
+  rtc::TaskQueue* const callback_queue_;
   RepeatingTaskHandle callback_task_ RTC_GUARDED_BY(mutex_);
   std::function<void(std::unique_ptr<EncodedFrame>, ReturnReason)>
       frame_handler_ RTC_GUARDED_BY(mutex_);

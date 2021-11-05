@@ -112,8 +112,8 @@ class VideoStreamDecoderImpl : public VideoStreamDecoderInterface {
   // `frame_buffer_` can be destructed.
   Mutex shut_down_mutex_;
   bool shut_down_ RTC_GUARDED_BY(shut_down_mutex_);
-  video_coding::FrameBuffer frame_buffer_ RTC_GUARDED_BY(bookkeeping_queue_);
   rtc::TaskQueue bookkeeping_queue_;
+  video_coding::FrameBuffer frame_buffer_ RTC_GUARDED_BY(bookkeeping_queue_);
   std::unique_ptr<VideoDecoder> decoder_ RTC_GUARDED_BY(decode_queue_);
   rtc::TaskQueue decode_queue_;
 };

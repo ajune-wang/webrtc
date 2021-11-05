@@ -27,6 +27,8 @@
 #include "rtc_base/experiments/rtt_mult_experiment.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/sequence_number_util.h"
+#include "rtc_base/synchronization/mutex.h"
+#include "rtc_base/task_queue.h"
 #include "rtc_base/trace_event.h"
 #include "system_wrappers/include/clock.h"
 #include "system_wrappers/include/field_trial.h"
@@ -54,10 +56,11 @@ constexpr int64_t kLogNonDecodedIntervalMs = 5000;
 
 FrameBuffer::FrameBuffer(Clock* clock,
                          VCMTiming* timing,
-                         VCMReceiveStatisticsCallback* stats_callback)
+                         VCMReceiveStatisticsCallback* stats_callback,
+                         rtc::TaskQueue* callback_queue)
     : decoded_frames_history_(kMaxFramesHistory),
       clock_(clock),
-      callback_queue_(nullptr),
+      callback_queue_(callback_queue),
       jitter_estimator_(clock),
       timing_(timing),
       inter_frame_delay_(clock_->TimeInMilliseconds()),
@@ -71,6 +74,7 @@ FrameBuffer::FrameBuffer(Clock* clock,
           kZeroPlayoutDelayDefaultMaxDecodeQueueSize) {
   ParseFieldTrial({&zero_playout_delay_max_decode_queue_size_},
                   field_trial::FindFullName("WebRTC-ZeroPlayoutDelay"));
+  RTC_DCHECK(callback_queue_);
   callback_checker_.Detach();
 }
 
@@ -81,10 +85,9 @@ FrameBuffer::~FrameBuffer() {
 void FrameBuffer::NextFrame(
     int64_t max_wait_time_ms,
     bool keyframe_required,
-    rtc::TaskQueue* callback_queue,
     std::function<void(std::unique_ptr<EncodedFrame>, ReturnReason)> handler) {
   RTC_DCHECK_RUN_ON(&callback_checker_);
-  RTC_DCHECK(callback_queue->IsCurrent());
+  RTC_DCHECK(callback_queue_->IsCurrent());
   TRACE_EVENT0("webrtc", "FrameBuffer::NextFrame");
   int64_t latest_return_time_ms =
       clock_->TimeInMilliseconds() + max_wait_time_ms;
@@ -96,7 +99,6 @@ void FrameBuffer::NextFrame(
   latest_return_time_ms_ = latest_return_time_ms;
   keyframe_required_ = keyframe_required;
   frame_handler_ = handler;
-  callback_queue_ = callback_queue;
   StartWaitForNextFrameOnQueue();
 }
 
@@ -399,8 +401,6 @@ void FrameBuffer::CancelCallback() {
   // Called from the callback queue or from within Stop().
   frame_handler_ = {};
   callback_task_.Stop();
-  callback_queue_ = nullptr;
-  callback_checker_.Detach();
 }
 
 int64_t FrameBuffer::InsertFrame(std::unique_ptr<EncodedFrame> frame) {

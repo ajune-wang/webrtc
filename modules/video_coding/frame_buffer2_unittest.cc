@@ -29,7 +29,9 @@
 #include "test/time_controller/simulated_time_controller.h"
 
 using ::testing::_;
+using ::testing::IsEmpty;
 using ::testing::Return;
+using ::testing::SizeIs;
 
 namespace webrtc {
 namespace video_coding {
@@ -257,6 +259,29 @@ TEST_F(TestFrameBuffer2, WaitForFrame) {
   InsertFrame(pid, 0, ts, true, kFrameSize);
   time_controller_.AdvanceTime(TimeDelta::Millis(50));
   CheckFrame(0, pid, 0);
+}
+
+TEST_F(TestFrameBuffer2, ClearWhileWaitingForFrame) {
+  const uint16_t pid = Rand();
+
+  // Insert a frame to be played out at 10ms
+  InsertFrame(pid, 0, 25, true, kFrameSize);
+  // Wait 50ms max.
+  ExtractFrame(100);
+
+  // After 5ms, clear the buffer.
+  time_controller_.AdvanceTime(TimeDelta::Millis(10));
+  buffer_->Clear();
+  // Check that the frame was not extracted for decoding after 10ms.
+  time_controller_.AdvanceTime(TimeDelta::Millis(15));
+  EXPECT_THAT(frames_, IsEmpty());
+
+  // Still 40ms to wait. Insert new frame, which should be rendered at 20ms.
+  InsertFrame(pid + 1, 0, 50, true, kFrameSize);
+  time_controller_.AdvanceTime(TimeDelta::Millis(25));
+  // We should have one frame returned.
+  ASSERT_THAT(frames_, SizeIs(1));
+  CheckFrame(0, pid + 1, 0);
 }
 
 TEST_F(TestFrameBuffer2, OneSuperFrame) {
@@ -661,6 +686,25 @@ TEST_F(TestFrameBuffer2, HigherSpatialLayerNonDecodable) {
   ExtractFrame();
   CheckFrame(1, pid + 3, 1);
   CheckFrame(2, pid + 4, 1);
+}
+
+TEST_F(TestFrameBuffer2, StopWhileWaitingForFrame) {
+  uint16_t pid = Rand();
+  uint32_t ts = Rand();
+
+  InsertFrame(pid, 0, ts, true, kFrameSize);
+  // TODO(https://bugs.webrtc.org/13346): Check for kStopped in callback if
+  // needed.
+  ExtractFrame(10);
+  buffer_->Stop();
+  time_controller_.AdvanceTime(TimeDelta::Millis(10));
+  EXPECT_THAT(frames_, IsEmpty());
+
+  // If the called asks for a new frame it should never finish.
+  // TODO(https://bugs.webrtc.org/13346): Check for kStopped in callback if
+  // needed.
+  ExtractFrame(0);
+  EXPECT_THAT(frames_, IsEmpty());
 }
 
 }  // namespace video_coding

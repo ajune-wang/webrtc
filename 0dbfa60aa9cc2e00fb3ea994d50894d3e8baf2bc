@@ -48,6 +48,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "107f20f9_d910ce6d",
+        "filename": "media/engine/webrtc_video_engine_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-11-05T11:09:49Z",
+      "side": 1,
+      "message": "Thanks.",
+      "parentUuid": "c66b7086_37877934",
+      "range": {
+        "startLine": 293,
+        "startChar": 0,
+        "endLine": 293,
+        "endChar": 57
+      },
+      "revId": "0dbfa60aa9cc2e00fb3ea994d50894d3e8baf2bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8edd68db_6dfecb3f",
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "TL;DR - to keep code complexity down I need to post into the same sequence that created this class (and created the VSE).\n\n\u003e I don\u0027t think it\u0027s good practice to capture someone else\u0027s thread/queue via TaskQueueBase::Current(), and use to post work to.\n\nFrom a quick search I see plenty of precedence in the VSE, rtp_rtcp_impl2, rtp_sender_egress, packet_sender, call, nack_requester, bandwidth_quality_scaler... \n\nThe alternatives don\u0027t seem any better to me. Forcing some potentially different queue will either cause thread proliferation + strange destruction sequence, or at best move the TaskQueue::Current() somewhere else. I just don\u0027t see how that\u0027s better.\n\nYou suggested to use the worker thread on the earlier CL, this is the effect. Though, honestly I was planning to do this anyway, just wasn\u0027t sure it\u0027s a good idea for frames in all modes.\n\n\u003e refactor so that the posting happens in the class that owns the queue\n\nThis would cause the VSE would have to call into us to insulate and you\u0027d have the same kind of arguments for that change all over again. The root cause is the threading environment the VSE \u0026 VideoFrameSink live under and those aren\u0027t easy to change.\n\nLater changes will add delay logic to this class so I really do need a target queue here.\n\n\u003e not sure if that\u0027s something you depend on\n\n|safety_| and the target queue for PostTasks (and coming PostDelayedTasks) requires the same thread as ctor/dtor. Using a detached safety would buy me nothing as I do want the worker thread.",
       "parentUuid": "8edd68db_6dfecb3f",
+      "range": {
+        "startLine": 76,
+        "startChar": 6,
+        "endLine": 76,
+        "endChar": 46
+      },
+      "revId": "0dbfa60aa9cc2e00fb3ea994d50894d3e8baf2bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b040232_1f2ca4a4",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-11-05T11:09:49Z",
+      "side": 1,
+      "message": "\u003e TL;DR - to keep code complexity down I need to post into the same sequence that created this class (and created the VSE).\n\u003e \n\u003e \u003e I don\u0027t think it\u0027s good practice to capture someone else\u0027s thread/queue via TaskQueueBase::Current(), and use to post work to.\n\u003e \n\u003e From a quick search I see plenty of precedence in the VSE, rtp_rtcp_impl2, rtp_sender_egress, packet_sender, call, nack_requester, bandwidth_quality_scaler... \n\nI disagree. If we exclude test code and the implementation of task queue and sequence checker, there are about a dozen call sites for TaskQueueBase::Current(), and I hope most of those are about dchecks rather than posting work.\n\nI now see you did add a ::Current call in the VSE constructor in previous cl. Sorry I didn\u0027t speak up, I think that\u0027s wrong for the same reasons. (Using Current for checks is fine, but for posting work I think it\u0027s very questionable). \n\n\u003e The alternatives don\u0027t seem any better to me. Forcing some potentially different queue will either cause thread proliferation + strange destruction sequence, or at best move the TaskQueue::Current() somewhere else. I just don\u0027t see how that\u0027s better.\n\nIf you make it a construction argument, it should be easy for VSE to just pass its worker queue to the constructor, no additional Current call needed? \n\nI think that is better, because it makes the dependency on the VSEs task queue explicit, rather than implicit via the thread local storage location that holds the \"current\" task queue.\n\nYou can keep an RTC_DCHECK(tq_-\u003eIsCurrent()) in constructor and destructor if that is needed, no objection there.\n  \n\u003e You suggested to use the worker thread on the earlier CL, this is the effect.\n\nI still agree that\u0027s an improvement (I just didn\u0027t realize that the VSE doesn\u0027t own uses the questionable ::Current route, rather than creating it or using an explicitly configured queue).",
+      "parentUuid": "1d592b0f_61eb321b",
       "range": {
         "startLine": 76,
         "startChar": 6,

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d092fb7_c77b9cd7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-11-05T11:56:56Z",
+      "side": 1,
+      "message": "I\u0027m afraid I\u0027m getting more confused the more I look at this code. I think we have to take a step back and discuss which thread/queue should own VSE state. I suspect it\u0027s a mistake to use RTC_GUARED_BY(worker_queue) for anything (set from TaskQueueBase::Current() in the constructor).",
+      "revId": "21b06d0745c63cf7c39bf6ec196c9b82c08f649b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

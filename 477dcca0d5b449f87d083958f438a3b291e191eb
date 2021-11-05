@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ca030678_3f9fc1a4",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-11-05T09:19:13Z",
+      "side": 1,
+      "message": "OK. But I still think you need a better variable name: what are we turning on? The class is framed pretty abstractly (it\u0027s just an adapter for frames), so we should say what functionality we are turning on/off.",
+      "parentUuid": "b6abb973_99019729",
+      "revId": "477dcca0d5b449f87d083958f438a3b291e191eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4eec2757_d71e0d77",
         "filename": "video/frame_cadence_adapter.cc",
         "patchSetId": 15

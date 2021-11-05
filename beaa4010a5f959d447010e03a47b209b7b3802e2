@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "686b4a95_4dcd9389",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-11-05T13:34:46Z",
+      "side": 1,
+      "message": "LGTM, but I\u0027m not very familiar with this test. ",
+      "revId": "beaa4010a5f959d447010e03a47b209b7b3802e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56273737_7bc43c0b",
+        "filename": "pc/test/integration_test_helpers.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-11-05T13:34:46Z",
+      "side": 1,
+      "message": "This means that up to 70% of the samples can be concealed, right? Do we know why this happens, given the comment above that \"more than 20% is unacceptable\"?",
+      "range": {
+        "startLine": 670,
+        "startChar": 55,
+        "endLine": 670,
+        "endChar": 59
+      },
+      "revId": "beaa4010a5f959d447010e03a47b209b7b3802e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

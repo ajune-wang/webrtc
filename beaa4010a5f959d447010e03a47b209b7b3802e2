@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb8f0d2f_b17cfbc3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-11-05T14:12:37Z",
+      "side": 1,
+      "message": "Thanks! Asked you to review because you reported the bug; nice that you know that it\u0027s fixed.",
+      "revId": "beaa4010a5f959d447010e03a47b209b7b3802e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "56273737_7bc43c0b",
@@ -31,6 +48,30 @@
       "writtenOn": "2021-11-05T13:34:46Z",
       "side": 1,
       "message": "This means that up to 70% of the samples can be concealed, right? Do we know why this happens, given the comment above that \"more than 20% is unacceptable\"?",
+      "range": {
+        "startLine": 670,
+        "startChar": 55,
+        "endLine": 670,
+        "endChar": 59
+      },
+      "revId": "beaa4010a5f959d447010e03a47b209b7b3802e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78c9a1d1_de4c1001",
+        "filename": "pc/test/integration_test_helpers.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-11-05T14:12:37Z",
+      "side": 1,
+      "message": "Because the bots are slow ... I suspect they are running mulitple tests at the same time, and that this makes each test slower. Slower tests -\u003e more missed samples.\nThe limits I put in were based on running the tests against the bots and seeing what the error messages said when the bots failed.\n\nThe real guard against regressions is the performance bots; these numbers are just so that if a particular CL absolutely destroys performance, it will be caught.",
+      "parentUuid": "56273737_7bc43c0b",
       "range": {
         "startLine": 670,
         "startChar": 55,

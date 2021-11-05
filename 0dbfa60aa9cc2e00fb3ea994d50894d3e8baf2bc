@@ -189,6 +189,30 @@
       },
       "revId": "0dbfa60aa9cc2e00fb3ea994d50894d3e8baf2bc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51bd7d16_3007ff32",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-05T14:49:45Z",
+      "side": 1,
+      "message": "\u003e I guess it\u0027s webrtc\u0027s \"worker thread\".\nIndeed yes. Changed to inject the tqs in PS5, and threw in removal of the network queue injection in VSE (it went unused anyhow).\n\nI think the VSE is improved with the change and didn\u0027t become more complicated: we now don\u0027t have a special undefined context calling into it, and got rid of a VSE race checker. And the threading in the FrameCadenceAdapter was simplified, and we have a single context which is able to execute delayed tasks with arbitrary precision in the FrameCadenceAdapter for the future.\n\nAs you noted to switch over to the |encoder_queue_| is beyond the attributes in OnFrame. The VideoSourceSinkController isn\u0027t thread-safe, quite the opposite, so there are at least two options where it\u0027s used on the worker context:\n1. Keep thread-compatibleness, PostTask/SetEvent/Wait. Ugly\n2. Make it thread-safe again.\n3. (Star trek solution?)\n\nI can open a CL on this and try.",
+      "parentUuid": "8a733871_e076428f",
+      "range": {
+        "startLine": 76,
+        "startChar": 6,
+        "endLine": 76,
+        "endChar": 46
+      },
+      "revId": "0dbfa60aa9cc2e00fb3ea994d50894d3e8baf2bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

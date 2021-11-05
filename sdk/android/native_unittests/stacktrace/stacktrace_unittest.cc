@@ -186,6 +186,8 @@ void TestStacktrace(std::unique_ptr<DeadlockInterface> deadlock_impl) {
   // Wait until the thread has left the deadlock.
   params.deadlock_done_event.Wait(rtc::Event::kForever);
 
+  RTC_LOG(LS_INFO) << StackTraceToString(stack_trace);
+
   // Assert that the stack trace contains the deadlock region.
   EXPECT_TRUE(StackTraceContainsRange(stack_trace,
                                       params.deadlock_region_start_address,

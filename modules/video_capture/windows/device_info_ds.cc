@@ -389,6 +389,8 @@ int32_t DeviceInfoDS::CreateCapabilityMap(const char* deviceUniqueIdUTF8)
         RTC_LOG(LS_INFO) << "Device support FORMAT_VideoInfo2";
         supportFORMAT_VideoInfo = true;
       }
+
+      DeleteMediaType(pmt);
     }
   }
   if (supportFORMAT_VideoInfo2) {
@@ -521,7 +523,7 @@ int32_t DeviceInfoDS::CreateCapabilityMap(const char* deviceUniqueIdUTF8)
                        << " type:" << static_cast<int>(capability.videoType)
                        << " fps:" << capability.maxFPS;
     }
-    FreeMediaType(pmt);
+    DeleteMediaType(pmt);
     pmt = NULL;
   }
   RELEASE_AND_CLEAR(streamConfig);

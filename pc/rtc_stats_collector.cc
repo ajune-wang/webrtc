@@ -743,6 +743,7 @@ const std::string& ProduceIceCandidateStats(int64_t timestamp_us,
     candidate_stats->candidate_type =
         CandidateTypeToRTCIceCandidateType(candidate.type());
     candidate_stats->priority = static_cast<int32_t>(candidate.priority());
+    candidate_stats->tcp_type = candidate.tcptype();
 
     stats = candidate_stats.get();
     report->AddStats(std::move(candidate_stats));

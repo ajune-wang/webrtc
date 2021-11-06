@@ -227,6 +227,7 @@ class RTC_EXPORT RTCIceCandidateStats : public RTCStats {
   RTCStatsMember<int32_t> priority;
   // TODO(hbos): Not collected by `RTCStatsCollector`. crbug.com/632723
   RTCStatsMember<std::string> url;
+  RTCStatsMember<std::string> tcp_type;
 
  protected:
   RTCIceCandidateStats(const std::string& id,

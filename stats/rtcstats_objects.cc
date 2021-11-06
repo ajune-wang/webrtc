@@ -277,7 +277,8 @@ WEBRTC_RTCSTATS_IMPL(RTCIceCandidateStats, RTCStats, "abstract-ice-candidate",
     &relay_protocol,
     &candidate_type,
     &priority,
-    &url)
+    &url,
+    &tcp_type)
 // clang-format on
 
 RTCIceCandidateStats::RTCIceCandidateStats(const std::string& id,
@@ -299,7 +300,8 @@ RTCIceCandidateStats::RTCIceCandidateStats(std::string&& id,
       relay_protocol("relayProtocol"),
       candidate_type("candidateType"),
       priority("priority"),
-      url("url") {}
+      url("url"),
+      tcp_type("tcpType") {}
 
 RTCIceCandidateStats::RTCIceCandidateStats(const RTCIceCandidateStats& other)
     : RTCStats(other.id(), other.timestamp_us()),
@@ -313,7 +315,8 @@ RTCIceCandidateStats::RTCIceCandidateStats(const RTCIceCandidateStats& other)
       relay_protocol(other.relay_protocol),
       candidate_type(other.candidate_type),
       priority(other.priority),
-      url(other.url) {}
+      url(other.url),
+      tcp_type(other.tcp_type) {}
 
 RTCIceCandidateStats::~RTCIceCandidateStats() {}
 

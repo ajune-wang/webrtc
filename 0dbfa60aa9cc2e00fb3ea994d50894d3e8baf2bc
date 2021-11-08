@@ -213,6 +213,30 @@
       },
       "revId": "0dbfa60aa9cc2e00fb3ea994d50894d3e8baf2bc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d728b42_8f014082",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-08T06:58:35Z",
+      "side": 1,
+      "message": "In case it was unclear, I think this CL should still land. Let\u0027s postpone the encoder thread thingy to another CL?",
+      "parentUuid": "51bd7d16_3007ff32",
+      "range": {
+        "startLine": 76,
+        "startChar": 6,
+        "endLine": 76,
+        "endChar": 46
+      },
+      "revId": "0dbfa60aa9cc2e00fb3ea994d50894d3e8baf2bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

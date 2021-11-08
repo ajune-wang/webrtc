@@ -56,6 +56,52 @@
       "message": "I don\u0027t have OWNERS, so I\u0027ll just \"LGTM\" and lean back on Mirko!",
       "revId": "6b1d9fc9188370ab75fc77643036116581b6614f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8bfd13c_8c15fe31",
+        "filename": "BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-11-08T19:55:27Z",
+      "side": 1,
+      "message": "If you are going to use it as a standalone library, can you add a comment with the headers that should be shipped together with the static library?\n\nI wonder if a packaging GN action should be created (e.g. to create an archive with the headers and the static library).",
+      "range": {
+        "startLine": 736,
+        "startChar": 0,
+        "endLine": 736,
+        "endChar": 18
+      },
+      "revId": "6b1d9fc9188370ab75fc77643036116581b6614f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7605fe4f_96d65089",
+        "filename": "BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 737,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-11-08T19:55:27Z",
+      "side": 1,
+      "message": "Are you planning to write a test using this?",
+      "range": {
+        "startLine": 737,
+        "startChar": 29,
+        "endLine": 737,
+        "endChar": 37
+      },
+      "revId": "6b1d9fc9188370ab75fc77643036116581b6614f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

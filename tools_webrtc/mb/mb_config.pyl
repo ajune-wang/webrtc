@@ -427,7 +427,8 @@
     },
 
     'arm64': {
-      'gn_args': 'target_cpu="arm64"',
+      # 'gn_args': 'target_cpu="arm64" enable_profiling=true symbol_level=1',
+      'gn_args': 'target_cpu="arm64" enable_profiling=true symbol_level=1',
     },
 
     'asan': {

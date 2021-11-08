@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1fe55f62_a3e33134",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-11-08T09:55:41Z",
+      "side": 1,
+      "message": "What is the value of doing this on |worker_queue_|? It does get rid of a mutex, but I don\u0027t imagine there were any high contention for it.\n\nBased on a quick look, it seems like the only thing the VideoStreamEncoder::OnFrame() does is do another PostTask() to its encoder_queue_.\n\nWondering if we\u0027re adding more context switches.",
+      "revId": "121fbdc4cfb9dd32161e98fa3fdab488540a914c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

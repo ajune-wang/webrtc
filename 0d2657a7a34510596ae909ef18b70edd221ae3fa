@@ -16,6 +16,23 @@
       "message": "Hello Kári, \ncould you please review this CL which fixes noisy error message in logs when RTCRtpSender from iOS SDK is created. Similar check exists in Chromium: https://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/modules/peerconnection/rtc_rtp_sender.cc;l\u003d640;drc\u003d0f7a88b61b2d6367ea75eb593ebe585253949768\n\nThanks a lot in advance,\nYury.",
       "revId": "0d2657a7a34510596ae909ef18b70edd221ae3fa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66cf78e6_49652cff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2021-11-08T14:13:09Z",
+      "side": 1,
+      "message": "Hi Kári,\n\nI\u0027m sorry for bother you again. Could you please review this CL or re-assign it to someone else?\n\nThanks a lot, Yury.",
+      "revId": "0d2657a7a34510596ae909ef18b70edd221ae3fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

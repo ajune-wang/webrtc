@@ -48,10 +48,7 @@ VideoSourceSinkController::VideoSourceSinkController(
     rtc::VideoSourceInterface<VideoFrame>* source)
     : sink_(sink), source_(source) {
   RTC_DCHECK(sink_);
-}
-
-VideoSourceSinkController::~VideoSourceSinkController() {
-  RTC_DCHECK_RUN_ON(&sequence_checker_);
+  sequence_checker_.Detach();
 }
 
 void VideoSourceSinkController::SetSource(

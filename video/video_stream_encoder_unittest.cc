@@ -2355,6 +2355,7 @@ TEST_F(VideoStreamEncoderTest, SwitchSourceDeregisterEncoderAsSink) {
 TEST_F(VideoStreamEncoderTest, SinkWantsRotationApplied) {
   EXPECT_FALSE(video_source_.sink_wants().rotation_applied);
   video_stream_encoder_->SetSink(&sink_, true /*rotation_applied*/);
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
   EXPECT_TRUE(video_source_.sink_wants().rotation_applied);
   video_stream_encoder_->Stop();
 }

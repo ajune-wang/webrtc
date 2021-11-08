@@ -33,8 +33,6 @@ class VideoSourceSinkController {
   VideoSourceSinkController(rtc::VideoSinkInterface<VideoFrame>* sink,
                             rtc::VideoSourceInterface<VideoFrame>* source);
 
-  ~VideoSourceSinkController();
-
   void SetSource(rtc::VideoSourceInterface<VideoFrame>* source);
   bool HasSource() const;
 

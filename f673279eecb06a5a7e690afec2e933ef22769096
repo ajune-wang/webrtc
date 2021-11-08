@@ -33,6 +33,24 @@
       "message": "handellm, it seems that you\u0027re solving the same problem at [1] with this CL.\nShould I close this? \n\nhttps://webrtc-review.googlesource.com/c/src/+/237345\n",
       "revId": "f673279eecb06a5a7e690afec2e933ef22769096",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "835b760e_a08d6385",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-08T08:19:55Z",
+      "side": 1,
+      "message": "Oh! Two people solving the same issue! Yes, you can close this CL. Thanks!",
+      "parentUuid": "f79c4e3e_b361de21",
+      "revId": "f673279eecb06a5a7e690afec2e933ef22769096",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

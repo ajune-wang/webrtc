@@ -16,6 +16,24 @@
       "message": "What is the value of doing this on |worker_queue_|? It does get rid of a mutex, but I don\u0027t imagine there were any high contention for it.\n\nBased on a quick look, it seems like the only thing the VideoStreamEncoder::OnFrame() does is do another PostTask() to its encoder_queue_.\n\nWondering if we\u0027re adding more context switches.",
       "revId": "121fbdc4cfb9dd32161e98fa3fdab488540a914c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d67fceb0_6cc86cfe",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-08T10:12:22Z",
+      "side": 1,
+      "message": "One PostTask is added, but this is typ. @30 Hz so should be no biggie.\n\nSimply put: the cadence adapter is best off on a single sequence, need to choose one, worker thread is attractive, choosing the encoder queue is blocked on VideoSourceSinkController living on the worker.\n\nPrevious CLs \u0026 the mutex highlighted the threading situation the VSE lives under (1 undef and 2 other contexts calling in), and I want to simplify that in the cadence adapter.\n\nFuture CLs will add a delayed cadence in the cadence adapter and the callbacks need protection. The simplest way to implement that is to choose the same sequence as constructs/destructs the cadence adapter (that way I can use ScopedThreadSafety) and avoids blocking waits at the dtor.\n\nI can\u0027t choose the |encoder_queue_| right now, because of VideoSourceSinkController which is operated on the worker context, and I\u0027m unsure about the timing aspects and nature of that thread (we may want to punt the worker thread to E-cores, but less than sure for encode work).",
+      "parentUuid": "1fe55f62_a3e33134",
+      "revId": "121fbdc4cfb9dd32161e98fa3fdab488540a914c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

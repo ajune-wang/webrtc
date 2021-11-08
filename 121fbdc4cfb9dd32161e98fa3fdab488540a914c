@@ -34,6 +34,24 @@
       "parentUuid": "1fe55f62_a3e33134",
       "revId": "121fbdc4cfb9dd32161e98fa3fdab488540a914c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58231d02_2ff2963b",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-11-08T10:14:53Z",
+      "side": 1,
+      "message": "Alright, thanks for the explanation.",
+      "parentUuid": "d67fceb0_6cc86cfe",
+      "revId": "121fbdc4cfb9dd32161e98fa3fdab488540a914c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

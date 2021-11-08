@@ -33,6 +33,23 @@
       "message": "Hi Kári,\n\nI\u0027m sorry for bother you again. Could you please review this CL or re-assign it to someone else?\n\nThanks a lot, Yury.",
       "revId": "0d2657a7a34510596ae909ef18b70edd221ae3fa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7f83b1c_146e2103",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2021-11-08T15:52:04Z",
+      "side": 1,
+      "message": "Great, thanks!",
+      "revId": "0d2657a7a34510596ae909ef18b70edd221ae3fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

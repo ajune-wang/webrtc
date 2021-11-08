@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba57359c_f51d67d2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-11-08T19:29:35Z",
+      "side": 1,
+      "message": "Nit: standalone",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 9
+      },
+      "revId": "6b1d9fc9188370ab75fc77643036116581b6614f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "48c5ba47_cf200c05",
@@ -14,6 +37,23 @@
       "writtenOn": "2021-11-08T17:06:11Z",
       "side": 1,
       "message": "i\u0027d like to build the library separately from the rest of webrtc. Works great but not sure if doing so in the toplevel BUILD.gn is appropriate or it could also be done in net/dcsctp",
+      "revId": "6b1d9fc9188370ab75fc77643036116581b6614f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff09207e_ad286685",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2021-11-08T19:29:35Z",
+      "side": 1,
+      "message": "I don\u0027t have OWNERS, so I\u0027ll just \"LGTM\" and lean back on Mirko!",
       "revId": "6b1d9fc9188370ab75fc77643036116581b6614f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

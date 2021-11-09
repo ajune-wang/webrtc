@@ -28,15 +28,13 @@ namespace webrtc {
 // rtc::VideoSourceInterface<VideoFrame>::AddOrUpdateSink(). It does this by
 // storing settings internally which are converted to rtc::VideoSinkWants when
 // PushSourceSinkSettings() is performed.
+// The class is thread-safe to aid simplification in clients.
 class VideoSourceSinkController {
  public:
   VideoSourceSinkController(rtc::VideoSinkInterface<VideoFrame>* sink,
                             rtc::VideoSourceInterface<VideoFrame>* source);
 
-  ~VideoSourceSinkController();
-
   void SetSource(rtc::VideoSourceInterface<VideoFrame>* source);
-  bool HasSource() const;
 
   // Must be called in order for changes to settings to have an effect. This
   // allows you to modify multiple properties in a single push to the sink.
@@ -61,29 +59,23 @@ class VideoSourceSinkController {
 
  private:
   rtc::VideoSinkWants CurrentSettingsToSinkWants() const
-      RTC_EXCLUSIVE_LOCKS_REQUIRED(sequence_checker_);
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_);
 
-  // Used to ensure that this class is called on threads/sequences that it and
-  // downstream implementations were designed for.
-  // In practice, this represent's libjingle's worker thread.
-  RTC_NO_UNIQUE_ADDRESS SequenceChecker sequence_checker_;
+  mutable Mutex mutex_;
 
   rtc::VideoSinkInterface<VideoFrame>* const sink_;
-  rtc::VideoSourceInterface<VideoFrame>* source_
-      RTC_GUARDED_BY(&sequence_checker_);
+  rtc::VideoSourceInterface<VideoFrame>* source_ RTC_GUARDED_BY(&mutex_);
   // Pixel and frame rate restrictions.
-  VideoSourceRestrictions restrictions_ RTC_GUARDED_BY(&sequence_checker_);
+  VideoSourceRestrictions restrictions_ RTC_GUARDED_BY(&mutex_);
   // Ensures that even if we are not restricted, the sink is never configured
   // above this limit. Example: We are not CPU limited (no `restrictions_`) but
   // our encoder is capped at 30 fps (= `frame_rate_upper_limit_`).
-  absl::optional<size_t> pixels_per_frame_upper_limit_
-      RTC_GUARDED_BY(&sequence_checker_);
-  absl::optional<double> frame_rate_upper_limit_
-      RTC_GUARDED_BY(&sequence_checker_);
-  bool rotation_applied_ RTC_GUARDED_BY(&sequence_checker_) = false;
-  int resolution_alignment_ RTC_GUARDED_BY(&sequence_checker_) = 1;
+  absl::optional<size_t> pixels_per_frame_upper_limit_ RTC_GUARDED_BY(&mutex_);
+  absl::optional<double> frame_rate_upper_limit_ RTC_GUARDED_BY(&mutex_);
+  bool rotation_applied_ RTC_GUARDED_BY(&mutex_) = false;
+  int resolution_alignment_ RTC_GUARDED_BY(&mutex_) = 1;
   std::vector<rtc::VideoSinkWants::FrameSize> resolutions_
-      RTC_GUARDED_BY(&sequence_checker_);
+      RTC_GUARDED_BY(&mutex_);
 };
 
 }  // namespace webrtc

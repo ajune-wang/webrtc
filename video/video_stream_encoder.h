@@ -418,9 +418,11 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   // Carries out the VideoSourceRestrictions provided by the
   // ResourceAdaptationProcessor, i.e. reconfigures the source of video frames
   // to provide us with different resolution or frame rate.
-  // This class is thread-safe.
-  VideoSourceSinkController video_source_sink_controller_
-      RTC_GUARDED_BY(worker_queue_);
+  // The class is thread-safe.
+  VideoSourceSinkController video_source_sink_controller_;
+
+  // This is false until Stop() has been called.
+  bool stop_was_called_ RTC_GUARDED_BY(worker_queue_) = false;
 
   // Default bitrate limits in EncoderInfoSettings allowed.
   const bool default_limits_allowed_;

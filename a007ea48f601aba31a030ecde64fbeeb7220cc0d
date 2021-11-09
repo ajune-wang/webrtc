@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "abc291b0_b3783c77",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2021-11-09T21:02:55Z",
+      "side": 1,
+      "message": "Jamie, since I\u0027m now removing both of you, would you mind +1\u0027ing as well to confirm you\u0027re okay with your removal?",
+      "revId": "a007ea48f601aba31a030ecde64fbeeb7220cc0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

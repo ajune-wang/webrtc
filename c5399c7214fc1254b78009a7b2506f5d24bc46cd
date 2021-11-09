@@ -16,6 +16,29 @@
       "message": "Joe PTAL\nMark FYI",
       "revId": "c5399c7214fc1254b78009a7b2506f5d24bc46cd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73a8541a_4e7abd9e",
+        "filename": "modules/desktop_capture/OWNERS",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 13849
+      },
+      "writtenOn": "2021-11-09T20:57:03Z",
+      "side": 1,
+      "message": "I didn\u0027t get a chance to respond to your email about this but I think the intention is that you and Mark should replace Joe/Jamie here.  We aren\u0027t going to be actively working in this code so our aliases should be removed (same for the other desktop_capture OWNERS files in Chromium).",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 19
+      },
+      "revId": "c5399c7214fc1254b78009a7b2506f5d24bc46cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98da4213_301b4344",
+        "filename": "video/video_source_sink_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-09T12:08:21Z",
+      "side": 1,
+      "message": "This PS resorts to using a Mutex to get around \"SetSource\" semantics in the VSE (completion should syncrhonously ensure the new Source is used and installed). I don\u0027t think it\u0027s a biggie because source_-\u003eAddOrUpdateSink et.al. are already thread safe...",
+      "range": {
+        "startLine": 64,
+        "startChar": 10,
+        "endLine": 64,
+        "endChar": 15
+      },
+      "revId": "92f89758c1838d42eb1142a3f61256e95613f83e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

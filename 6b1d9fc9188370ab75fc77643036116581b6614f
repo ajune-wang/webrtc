@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "ba85274b_5d77fba2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2021-11-09T16:00:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba57359c_f51d67d2",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 9
+      },
+      "revId": "6b1d9fc9188370ab75fc77643036116581b6614f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "48c5ba47_cf200c05",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -83,6 +107,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9a647bb0_4b2f803a",
+        "filename": "BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2021-11-09T16:00:19Z",
+      "side": 1,
+      "message": "do you have an example of such a packaging action? So far i\u0027m using a python script with a curated list of headers (and for dcsctp just reused the full webrtc ones) but I assume GN knows the list *much* better than I do.",
+      "parentUuid": "d8bfd13c_8c15fe31",
+      "range": {
+        "startLine": 736,
+        "startChar": 0,
+        "endLine": 736,
+        "endChar": 18
+      },
+      "revId": "6b1d9fc9188370ab75fc77643036116581b6614f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7605fe4f_96d65089",
         "filename": "BUILD.gn",
         "patchSetId": 1
@@ -94,6 +142,30 @@
       "writtenOn": "2021-11-08T19:55:27Z",
       "side": 1,
       "message": "Are you planning to write a test using this?",
+      "range": {
+        "startLine": 737,
+        "startChar": 29,
+        "endLine": 737,
+        "endChar": 37
+      },
+      "revId": "6b1d9fc9188370ab75fc77643036116581b6614f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ea908e6_799d2bc7",
+        "filename": "BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 737,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2021-11-09T16:00:19Z",
+      "side": 1,
+      "message": "oops, copy-paste leftover from a link test, will remove.",
+      "parentUuid": "7605fe4f_96d65089",
       "range": {
         "startLine": 737,
         "startChar": 29,

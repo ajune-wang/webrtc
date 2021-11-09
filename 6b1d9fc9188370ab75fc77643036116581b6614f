@@ -131,6 +131,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fddf72a2_0542d32e",
+        "filename": "BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-11-09T16:12:22Z",
+      "side": 1,
+      "message": "I don\u0027t thing GN has the possibility to package a shippable static library. I think the GN use case is to assume the whole build is using GN and just depend on it and use \"public_deps\" to forward header dependencies from its deps.\n\nIf you need this with GN this is fine. But if you need this from cmake, or something else then an action() calling a custom python script to perform the packaging is the best solution (maybe there are even examples in the Chromium code search).",
+      "parentUuid": "9a647bb0_4b2f803a",
+      "range": {
+        "startLine": 736,
+        "startChar": 0,
+        "endLine": 736,
+        "endChar": 18
+      },
+      "revId": "6b1d9fc9188370ab75fc77643036116581b6614f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7605fe4f_96d65089",
         "filename": "BUILD.gn",
         "patchSetId": 1

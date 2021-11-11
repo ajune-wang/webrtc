@@ -33,6 +33,24 @@
       "message": "The test is getting a little large, but I don\u0027t know that it makes sense to split apart just for this, so I\u0027m fine with it.",
       "revId": "d5ee4069842901dcac25e789af28e91cc19b7289",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ff1eb69_fc70340f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2021-11-11T21:48:30Z",
+      "side": 1,
+      "message": "(One option would be to just add relay_protocol to the existing local prflx candidate)",
+      "parentUuid": "2becc710_a8cd6301",
+      "revId": "d5ee4069842901dcac25e789af28e91cc19b7289",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

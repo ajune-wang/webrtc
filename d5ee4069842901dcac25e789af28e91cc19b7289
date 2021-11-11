@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf0880bf_e1fc4bd8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-11-11T17:25:09Z",
+      "side": 1,
+      "message": "we should probably have the meta discussion whether it makes sense what is contained in the address and port now in the bug",
+      "revId": "d5ee4069842901dcac25e789af28e91cc19b7289",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

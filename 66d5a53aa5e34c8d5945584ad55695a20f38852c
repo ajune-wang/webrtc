@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7da0342b_7a426da9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-11-12T08:44:44Z",
+      "side": 1,
+      "message": "lgtm. Thanks for fixing!",
+      "revId": "66d5a53aa5e34c8d5945584ad55695a20f38852c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74f240f8_983cb2cd",
+        "filename": "video/end_to_end_tests/stats_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 609,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-11-12T08:44:44Z",
+      "side": 1,
+      "message": "You could release this mutex before the PostTask call, to not have to worry about lock-order with the internal task queue lock.",
+      "range": {
+        "startLine": 609,
+        "startChar": 6,
+        "endLine": 609,
+        "endChar": 30
+      },
+      "revId": "66d5a53aa5e34c8d5945584ad55695a20f38852c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

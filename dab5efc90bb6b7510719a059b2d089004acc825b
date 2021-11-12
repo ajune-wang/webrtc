@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60d1e88d_10ccf021",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-11-12T10:32:45Z",
+      "side": 1,
+      "message": "Maybe reference https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d12973 in the CL description?\n",
+      "revId": "dab5efc90bb6b7510719a059b2d089004acc825b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

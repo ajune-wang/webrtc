@@ -22,6 +22,30 @@
       },
       "revId": "e00f2cd6e1bc04c8d82bb1ee0dabb8632dd12e95",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5b876a8_f44ccf9a",
+        "filename": "video/end_to_end_tests/stats_tests.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 609,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2021-11-12T10:07:29Z",
+      "side": 1,
+      "message": "Done, expanded mutex scope.",
+      "parentUuid": "536bf2e1_c99d6061",
+      "range": {
+        "startLine": 609,
+        "startChar": 10,
+        "endLine": 609,
+        "endChar": 30
+      },
+      "revId": "e00f2cd6e1bc04c8d82bb1ee0dabb8632dd12e95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

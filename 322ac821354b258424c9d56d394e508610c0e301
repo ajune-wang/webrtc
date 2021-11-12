@@ -16,6 +16,23 @@
       "message": "PTAL and land if looks good.",
       "revId": "322ac821354b258424c9d56d394e508610c0e301",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3cf55df_8a060243",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-11-12T10:00:57Z",
+      "side": 1,
+      "message": "Looks good to me, but please wait for Artem\u0027s review as I am not very familiar with these roles/bindings.",
+      "revId": "322ac821354b258424c9d56d394e508610c0e301",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

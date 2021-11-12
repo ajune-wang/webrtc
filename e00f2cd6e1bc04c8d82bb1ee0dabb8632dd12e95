@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "536bf2e1_c99d6061",
+        "filename": "video/end_to_end_tests/stats_tests.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 609,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-11-12T09:45:21Z",
+      "side": 1,
+      "message": "There\u0027s now no synchronization for this member, and it\u0027s not completely obvious that none is needed.\n\nI think it would be good to either expand mutex scope slightly, { MutexLock ...; if (...) {... } }, and add an RTC_GUARDED_BY on this member, or add a sequence checker to verify that OnSendRtp is always called on the same thread, and add a RTC_GUARDED_BY to tie sent_rtp_packets_ to that checker.",
+      "range": {
+        "startLine": 609,
+        "startChar": 10,
+        "endLine": 609,
+        "endChar": 30
+      },
+      "revId": "e00f2cd6e1bc04c8d82bb1ee0dabb8632dd12e95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

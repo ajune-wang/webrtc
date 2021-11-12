@@ -16,6 +16,23 @@
       "message": "can you help burning this? ;-)",
       "revId": "5b53ba8b1efca46e490ff3151eb16a2a40f9b2d4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1584bdf6_0fd72c10",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2021-11-12T08:47:25Z",
+      "side": 1,
+      "message": "Thanks and sorry for my poor cleanup :)",
+      "revId": "5b53ba8b1efca46e490ff3151eb16a2a40f9b2d4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

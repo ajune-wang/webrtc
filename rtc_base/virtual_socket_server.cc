@@ -588,6 +588,7 @@ uint16_t VirtualSocketServer::GetNextPort() {
 }
 
 void VirtualSocketServer::SetSendingBlocked(bool blocked) {
+  webrtc::MutexLock lock(&mutex_);
   if (blocked == sending_blocked_) {
     // Unchanged; nothing to do.
     return;
@@ -877,6 +878,7 @@ int VirtualSocketServer::SendUdp(VirtualSocket* socket,
                                  const char* data,
                                  size_t data_size,
                                  const SocketAddress& remote_addr) {
+  webrtc::MutexLock lock(&mutex_);
   ++sent_packets_;
   if (sending_blocked_) {
     socket->SetToBlocked();
@@ -953,6 +955,7 @@ int VirtualSocketServer::SendUdp(VirtualSocket* socket,
 }
 
 void VirtualSocketServer::SendTcp(VirtualSocket* socket) {
+  webrtc::MutexLock lock(&mutex_);
   ++sent_packets_;
   if (sending_blocked_) {
     // Eventually the socket's buffer will fill and VirtualSocket::SendTcp will
@@ -1032,6 +1035,7 @@ void VirtualSocketServer::AddPacketToNetwork(VirtualSocket* sender,
 }
 
 uint32_t VirtualSocketServer::SendDelay(uint32_t size) {
+  mutex_.AssertHeld();
   if (bandwidth_ == 0)
     return 0;
   else
@@ -1060,6 +1064,7 @@ void PrintFunction(std::vector<std::pair<double, double> >* f) {
 #endif  // <unused>
 
 void VirtualSocketServer::UpdateDelayDistribution() {
+  webrtc::MutexLock lock(&mutex_);
   delay_dist_ = CreateDistribution(delay_mean_, delay_stddev_, delay_samples_);
 }
 
@@ -1243,6 +1248,93 @@ void VirtualSocketServer::SetDefaultSourceAddress(const IPAddress& from_addr) {
   } else if (from_addr.family() == AF_INET6) {
     default_source_address_v6_ = from_addr;
   }
+}
+
+uint32_t VirtualSocketServer::bandwidth() const {
+  webrtc::MutexLock lock(&mutex_);
+  return bandwidth_;
+}
+void VirtualSocketServer::set_bandwidth(uint32_t bandwidth) {
+  webrtc::MutexLock lock(&mutex_);
+  bandwidth_ = bandwidth;
+}
+
+uint32_t VirtualSocketServer::network_capacity() const {
+  webrtc::MutexLock lock(&mutex_);
+  return network_capacity_;
+}
+void VirtualSocketServer::set_network_capacity(uint32_t capacity) {
+  webrtc::MutexLock lock(&mutex_);
+  network_capacity_ = capacity;
+}
+
+uint32_t VirtualSocketServer::send_buffer_capacity() const {
+  webrtc::MutexLock lock(&mutex_);
+  return send_buffer_capacity_;
+}
+void VirtualSocketServer::set_send_buffer_capacity(uint32_t capacity) {
+  webrtc::MutexLock lock(&mutex_);
+  send_buffer_capacity_ = capacity;
+}
+
+uint32_t VirtualSocketServer::recv_buffer_capacity() const {
+  webrtc::MutexLock lock(&mutex_);
+  return recv_buffer_capacity_;
+}
+void VirtualSocketServer::set_recv_buffer_capacity(uint32_t capacity) {
+  webrtc::MutexLock lock(&mutex_);
+  recv_buffer_capacity_ = capacity;
+}
+
+uint32_t VirtualSocketServer::delay_mean() const {
+  webrtc::MutexLock lock(&mutex_);
+  return delay_mean_;
+}
+uint32_t VirtualSocketServer::delay_stddev() const {
+  webrtc::MutexLock lock(&mutex_);
+  return delay_stddev_;
+}
+uint32_t VirtualSocketServer::delay_samples() const {
+  webrtc::MutexLock lock(&mutex_);
+  return delay_samples_;
+}
+void VirtualSocketServer::set_delay_mean(uint32_t delay_mean) {
+  webrtc::MutexLock lock(&mutex_);
+  delay_mean_ = delay_mean;
+}
+void VirtualSocketServer::set_delay_stddev(uint32_t delay_stddev) {
+  webrtc::MutexLock lock(&mutex_);
+  delay_stddev_ = delay_stddev;
+}
+void VirtualSocketServer::set_delay_samples(uint32_t delay_samples) {
+  webrtc::MutexLock lock(&mutex_);
+  delay_samples_ = delay_samples;
+}
+
+double VirtualSocketServer::drop_probability() const {
+  webrtc::MutexLock lock(&mutex_);
+  return drop_prob_;
+}
+void VirtualSocketServer::set_drop_probability(double drop_prob) {
+  RTC_DCHECK_GE(drop_prob, 0.0);
+  RTC_DCHECK_LE(drop_prob, 1.0);
+
+  webrtc::MutexLock lock(&mutex_);
+  drop_prob_ = drop_prob;
+}
+
+size_t VirtualSocketServer::max_udp_payload() const {
+  webrtc::MutexLock lock(&mutex_);
+  return max_udp_payload_;
+}
+void VirtualSocketServer::set_max_udp_payload(size_t payload_size) {
+  webrtc::MutexLock lock(&mutex_);
+  max_udp_payload_ = payload_size;
+}
+
+size_t VirtualSocketServer::largest_seen_udp_payload() const {
+  webrtc::MutexLock lock(&mutex_);
+  return largest_seen_udp_payload_;
 }
 
 }  // namespace rtc

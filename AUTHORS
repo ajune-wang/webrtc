@@ -114,6 +114,7 @@ Victor Costan <costan@gmail.com>
 Vladimir Beloborodov <VladimirTechMan@gmail.com>
 Xiaohong Xu <freemine@yeah.net>
 Xiaolei Yu <dreifachstein@gmail.com>
+Yahor Hryniuk <hryniuk.yahor@gmail.com>
 Yura Yaroshevich <yura.yaroshevich@gmail.com>
 Yuriy Pavlyshak <yuriy@appear.in>
 Yusuke Suzuki <utatane.tea@gmail.com>
@@ -160,3 +161,4 @@ Vonage Holdings Corp. <*@vonage.com>
 Wire Swiss GmbH <*@wire.com>
 &yet LLC <*@andyet.com>
 # END organizations section.
+client_app/android/feature/webrtc_conf/src/main/java/me/tango/webrtcconf/wrtc/WebRtcVideoIoCapturer.kt

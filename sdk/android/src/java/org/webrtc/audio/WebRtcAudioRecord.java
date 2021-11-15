@@ -73,6 +73,12 @@ class WebRtcAudioRecord {
   // Indicates AudioRecord has stopped recording audio.
   private static final int AUDIO_RECORD_STOP = 1;
 
+  // Indicates AudioRecord will be created.
+  private static final int AUDIO_RECORD_PRE_INIT = 2;
+
+  // Indicates AudioRecord has created.
+  private static final int AUDIO_RECORD_POST_INIT = 3;
+
   // Time to wait before checking recording status after start has been called. Tests have
   // shown that the result can sometimes be invalid (our own status might be missing) if we check
   // directly after start.
@@ -298,6 +304,7 @@ class WebRtcAudioRecord {
     // verified that it does not increase the actual recording latency.
     int bufferSizeInBytes = Math.max(BUFFER_SIZE_FACTOR * minBufferSize, byteBuffer.capacity());
     Logging.d(TAG, "bufferSizeInBytes: " + bufferSizeInBytes);
+    doAudioRecordStateCallback(AUDIO_RECORD_PRE_INIT);
     try {
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
         // Use the AudioRecord.Builder class on Android M (23) and above.
@@ -339,6 +346,7 @@ class WebRtcAudioRecord {
       Logging.w(
           TAG, "Potential microphone conflict. Active sessions: " + numActiveRecordingSessions);
     }
+    doAudioRecordStateCallback(AUDIO_RECORD_POST_INIT);
     return framesPerBuffer;
   }
 
@@ -538,12 +546,22 @@ class WebRtcAudioRecord {
   private void doAudioRecordStateCallback(int audioState) {
     Logging.d(TAG, "doAudioRecordStateCallback: " + audioStateToString(audioState));
     if (stateCallback != null) {
-      if (audioState == WebRtcAudioRecord.AUDIO_RECORD_START) {
-        stateCallback.onWebRtcAudioRecordStart();
-      } else if (audioState == WebRtcAudioRecord.AUDIO_RECORD_STOP) {
-        stateCallback.onWebRtcAudioRecordStop();
-      } else {
-        Logging.e(TAG, "Invalid audio state");
+      switch (audioState) {
+        case WebRtcAudioRecord.AUDIO_RECORD_START:
+          stateCallback.onWebRtcAudioRecordStart();
+          break;
+        case WebRtcAudioRecord.AUDIO_RECORD_STOP:
+          stateCallback.onWebRtcAudioRecordStop();
+          break;
+        case WebRtcAudioRecord.AUDIO_RECORD_PRE_INIT:
+          stateCallback.onAudioRecordPreInit();
+          break;
+        case WebRtcAudioRecord.AUDIO_RECORD_POST_INIT:
+          stateCallback.onAudioRecordPostInit();
+          break;
+        default:
+          Logging.e(TAG, "Invalid audio state");
+          break;
       }
     }
   }

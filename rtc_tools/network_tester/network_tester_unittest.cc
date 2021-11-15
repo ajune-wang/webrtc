@@ -13,6 +13,8 @@
 #include <string>
 
 #include "rtc_base/gunit.h"
+#include "rtc_base/physical_socket_server.h"
+#include "rtc_base/thread.h"
 #include "rtc_tools/network_tester/test_controller.h"
 #include "test/gtest.h"
 #include "test/testsupport/file_utils.h"
@@ -20,11 +22,14 @@
 namespace webrtc {
 
 TEST(NetworkTesterTest, ServerClient) {
+  rtc::PhysicalSocketServer socket_server;
+  rtc::AutoSocketServerThread main_thread(&socket_server);
   TestController client(
-      0, 0, webrtc::test::ResourcePath("network_tester/client_config", "dat"),
+      &socket_server, 0, 0,
+      webrtc::test::ResourcePath("network_tester/client_config", "dat"),
       webrtc::test::OutputPath() + "client_packet_log.dat");
   TestController server(
-      9090, 9090,
+      &socket_server, 9090, 9090,
       webrtc::test::ResourcePath("network_tester/server_config", "dat"),
       webrtc::test::OutputPath() + "server_packet_log.dat");
   client.SendConnectTo("127.0.0.1", 9090);

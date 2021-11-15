@@ -46,7 +46,7 @@ class PeerConnectionClient : public sigslot::has_slots<>,
     SIGNING_OUT,
   };
 
-  PeerConnectionClient();
+  explicit PeerConnectionClient(rtc::SocketFactory* socket_factory);
   ~PeerConnectionClient();
 
   int id() const;
@@ -115,6 +115,7 @@ class PeerConnectionClient : public sigslot::has_slots<>,
   void OnResolveResult(rtc::AsyncResolverInterface* resolver);
 
   PeerConnectionClientObserver* callback_;
+  rtc::SocketFactory* socket_factory_;
   rtc::SocketAddress server_address_;
   rtc::AsyncResolver* resolver_;
   std::unique_ptr<rtc::Socket> control_socket_;

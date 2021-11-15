@@ -22,6 +22,8 @@
 #include "api/test/time_controller.h"
 #include "api/units/time_delta.h"
 #include "api/units/timestamp.h"
+#include "p2p/base/basic_packet_socket_factory.h"
+#include "rtc_base/physical_socket_server.h"
 #include "rtc_base/synchronization/mutex.h"
 #include "rtc_base/task_queue_for_test.h"
 #include "rtc_base/thread.h"
@@ -119,6 +121,8 @@ class PeerConnectionE2EQualityTest
   std::unique_ptr<AudioQualityAnalyzerInterface> audio_quality_analyzer_;
   std::unique_ptr<TestActivitiesExecutor> executor_;
 
+  rtc::PhysicalSocketServer socket_server_;
+  rtc::BasicPacketSocketFactory socket_factory_;
   std::vector<std::unique_ptr<PeerConfigurerImpl>> peer_configurations_;
   std::vector<PeerHandleImpl> peer_handles_;
 

@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b74f12a_6a28739a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-11-16T12:05:48Z",
+      "side": 1,
+      "message": "Not too happy about seeing locks proliferate (we usually go for the style of dispatching to the One True Thread), but since this is a test class....\n\nSome nits need fixing or commenting.",
+      "revId": "8687956bce109187c7b0f869ffc2f6ee0089fc99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9592fda_7d9d4977",
+        "filename": "rtc_base/virtual_socket_server.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 999,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-11-16T12:05:48Z",
+      "side": 1,
+      "message": "This can\u0027t be right. Namespaces don\u0027t end like this.",
+      "revId": "8687956bce109187c7b0f869ffc2f6ee0089fc99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23a1f11c_cd050e2c",
+        "filename": "rtc_base/virtual_socket_server.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-11-16T12:05:48Z",
+      "side": 1,
+      "message": "Nit: backticks arond `mutex` Can\u0027t you use RTC_EXCLUSIVE_LOCKS_REQUIRED to formalize this requirement?",
+      "revId": "8687956bce109187c7b0f869ffc2f6ee0089fc99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

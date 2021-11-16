@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9515bf6d_4fd441de",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-11-16T13:13:33Z",
+      "side": 1,
+      "message": "I\u0027ve seen (and done) the \"if on wrong thread, dispatch a lambda to right thread calling myself\" dance quite a few times. It\u0027s certainly more lines than \"MutexLock lock(\u0026mutex)\", and needs to be an invoke if order guarantees are needed.\n\nBut since this is test code, let\u0027s use locks.",
+      "revId": "8f515e34eb475edfb7f4ec6fcb8a4745e0a9799c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

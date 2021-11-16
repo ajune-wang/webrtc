@@ -565,6 +565,8 @@ rtc_library("desktop_capture_generic") {
       "linux/base_capturer_pipewire.h",
       "linux/egl_dmabuf.cc",
       "linux/egl_dmabuf.h",
+      "linux/xdg_desktop_portal.cpp",
+      "linux/xdg_desktop_portal.h",
     ]
 
     configs += [

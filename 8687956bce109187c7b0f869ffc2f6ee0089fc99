@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e03a6bfa_d6764a3d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-11-16T12:30:02Z",
+      "side": 1,
+      "message": "The alternative would have been to have a proxy class probably or similar functionality added to all the getters / setters.\nKeeping the API simple seems quite important to write correct test, instead of having to PostTask / Invoke on the right thread.\nAlthough there are lots of locks in the code, there shouldn\u0027t be much contention at all on those and I hope it won\u0027t make tests much slower (but at least TSAN errors will be gone).",
+      "parentUuid": "7b74f12a_6a28739a",
+      "revId": "8687956bce109187c7b0f869ffc2f6ee0089fc99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d9592fda_7d9d4977",
@@ -35,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e227855d_f65842ad",
+        "filename": "rtc_base/virtual_socket_server.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 999,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-11-16T12:30:02Z",
+      "side": 1,
+      "message": "clang-format got a bit overzealous on broken code uneven braces and inserted this accidentally... It\u0027s gone, thanks for catching.",
+      "parentUuid": "d9592fda_7d9d4977",
+      "revId": "8687956bce109187c7b0f869ffc2f6ee0089fc99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "23a1f11c_cd050e2c",
@@ -48,6 +84,24 @@
       "writtenOn": "2021-11-16T12:05:48Z",
       "side": 1,
       "message": "Nit: backticks arond `mutex` Can\u0027t you use RTC_EXCLUSIVE_LOCKS_REQUIRED to formalize this requirement?",
+      "revId": "8687956bce109187c7b0f869ffc2f6ee0089fc99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f3a67ef_c4d7a589",
+        "filename": "rtc_base/virtual_socket_server.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2021-11-16T12:30:02Z",
+      "side": 1,
+      "message": "Requirements changed and forgot to update the comment, fixed.",
+      "parentUuid": "23a1f11c_cd050e2c",
       "revId": "8687956bce109187c7b0f869ffc2f6ee0089fc99",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

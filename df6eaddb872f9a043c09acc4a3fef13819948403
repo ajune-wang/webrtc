@@ -16,6 +16,23 @@
       "message": "Hi, Kári and Mirko. Please take a look.\n\nI also have a question for Mirko. Any idea why sdk:sdk_unittests didn\u0027t compile on https://webrtc-review.googlesource.com/c/src/+/237761?",
       "revId": "df6eaddb872f9a043c09acc4a3fef13819948403",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bcb7a633_44813a68",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-11-16T08:48:07Z",
+      "side": 1,
+      "message": "Harald, can you stamp this (it will unblock nisse@ on another CL).",
+      "revId": "df6eaddb872f9a043c09acc4a3fef13819948403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

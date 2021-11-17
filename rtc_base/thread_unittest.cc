@@ -851,8 +851,15 @@ TEST_F(DEPRECATED_AsyncInvokeTest,
   EXPECT_FALSE(reentrant_functor_run);
 }
 
+class FlushableAsyncInvoker : public DEPRECATED_AsyncInvoker {
+ public:
+  void Flush(Thread* thread, uint32_t id = MQID_ANY) {
+    DEPRECATED_AsyncInvoker::Flush(thread, id);
+  }
+};
+
 TEST_F(DEPRECATED_AsyncInvokeTest, Flush) {
-  DEPRECATED_AsyncInvoker invoker;
+  FlushableAsyncInvoker invoker;
   AtomicBool flag1;
   AtomicBool flag2;
   // Queue two async calls to the current thread.
@@ -868,7 +875,7 @@ TEST_F(DEPRECATED_AsyncInvokeTest, Flush) {
 }
 
 TEST_F(DEPRECATED_AsyncInvokeTest, FlushWithIds) {
-  DEPRECATED_AsyncInvoker invoker;
+  FlushableAsyncInvoker invoker;
   AtomicBool flag1;
   AtomicBool flag2;
   // Queue two async calls to the current thread, one with a message id.

@@ -121,6 +121,7 @@ class DEPRECATED_AsyncInvoker : public MessageHandlerAutoCleanup {
     DoInvokeDelayed(posted_from, thread, std::move(closure), delay_ms, id);
   }
 
+ protected:
   // Synchronously execute on `thread` all outstanding calls we own
   // that are pending on `thread`, and wait for calls to complete
   // before returning. Optionally filter by message id.
@@ -128,6 +129,7 @@ class DEPRECATED_AsyncInvoker : public MessageHandlerAutoCleanup {
   // behavior is desired, call Flush() before destroying this object.
   void Flush(Thread* thread, uint32_t id = MQID_ANY);
 
+ public:
   // Cancels any outstanding calls we own that are pending on any thread, and
   // which have not yet started to execute. This does not wait for any calls
   // that have already started executing to complete.

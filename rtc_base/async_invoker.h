@@ -21,6 +21,7 @@
 #include "rtc_base/constructor_magic.h"
 #include "rtc_base/event.h"
 #include "rtc_base/ref_counted_object.h"
+#include "rtc_base/task_utils/pending_task_safety_flag.h"
 #include "rtc_base/third_party/sigslot/sigslot.h"
 #include "rtc_base/thread.h"
 
@@ -146,6 +147,8 @@ class DEPRECATED_AsyncInvoker : public MessageHandlerAutoCleanup {
                        std::unique_ptr<AsyncClosure> closure,
                        uint32_t delay_ms,
                        uint32_t id);
+
+  rtc::scoped_refptr<webrtc::PendingTaskSafetyFlag> task_safety_flag_;
 
   // Used to keep track of how many invocations (AsyncClosures) are still
   // alive, so that the destructor can wait for them to finish, as described in

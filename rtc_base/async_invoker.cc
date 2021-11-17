@@ -16,7 +16,8 @@
 namespace rtc {
 
 DEPRECATED_AsyncInvoker::DEPRECATED_AsyncInvoker()
-    : pending_invocations_(0),
+    : task_safety_flag_(webrtc::PendingTaskSafetyFlag::Create()),
+      pending_invocations_(0),
       invocation_complete_(make_ref_counted<Event>()),
       destroying_(false) {}
 

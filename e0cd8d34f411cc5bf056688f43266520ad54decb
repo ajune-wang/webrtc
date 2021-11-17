@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "556b4f69_590342ae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2021-11-17T14:11:27Z",
+      "side": 1,
+      "message": "Sorry about the review delay.\nNice! As discussed, it does seem like we use no-strict-aliasing when compiling for Chrome, so this is great.",
+      "revId": "e0cd8d34f411cc5bf056688f43266520ad54decb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

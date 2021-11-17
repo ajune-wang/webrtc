@@ -22,6 +22,30 @@
       },
       "revId": "9c83ec0fa21e1a59f71466951fceb6a8b22250ea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ebcafa8_d971b0ac",
+        "filename": "modules/video_capture/windows/device_info_ds.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2021-11-17T13:56:12Z",
+      "side": 1,
+      "message": "never mind...",
+      "parentUuid": "a57e4746_067af418",
+      "range": {
+        "startLine": 393,
+        "startChar": 6,
+        "endLine": 393,
+        "endChar": 19
+      },
+      "revId": "9c83ec0fa21e1a59f71466951fceb6a8b22250ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

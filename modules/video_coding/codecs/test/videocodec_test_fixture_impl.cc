@@ -611,23 +611,29 @@ void VideoCodecTestFixtureImpl::VerifyVideoStatistic(
 }
 
 bool VideoCodecTestFixtureImpl::CreateEncoderAndDecoder() {
-  SdpVideoFormat::Parameters params;
-  if (config_.codec_settings.codecType == kVideoCodecH264) {
+  SdpVideoFormat encoder_format(config_.codec_name);
+  SdpVideoFormat decoder_format(config_.codec_name);
+
+  if (config_.encoder_format && config_.decoder_format) {
+    encoder_format = *config_.encoder_format;
+    decoder_format = *config_.decoder_format;
+  } else if (config_.codec_settings.codecType == kVideoCodecH264) {
     const char* packetization_mode =
         config_.h264_codec_settings.packetization_mode ==
                 H264PacketizationMode::NonInterleaved
             ? "1"
             : "0";
-    params = {{cricket::kH264FmtpProfileLevelId,
-               *H264ProfileLevelIdToString(H264ProfileLevelId(
-                   config_.h264_codec_settings.profile, H264Level::kLevel3_1))},
-              {cricket::kH264FmtpPacketizationMode, packetization_mode}};
-  } else {
-    params = {};
-  }
-  SdpVideoFormat format(config_.codec_name, params);
+    SdpVideoFormat::Parameters codec_params = {
+        {cricket::kH264FmtpProfileLevelId,
+         *H264ProfileLevelIdToString(H264ProfileLevelId(
+             config_.h264_codec_settings.profile, H264Level::kLevel3_1))},
+        {cricket::kH264FmtpPacketizationMode, packetization_mode}};
 
-  encoder_ = encoder_factory_->CreateVideoEncoder(format);
+    encoder_format = decoder_format =
+        SdpVideoFormat(config_.codec_name, codec_params);
+  }
+
+  encoder_ = encoder_factory_->CreateVideoEncoder(encoder_format);
   EXPECT_TRUE(encoder_) << "Encoder not successfully created.";
   if (encoder_ == nullptr) {
     return false;
@@ -636,15 +642,13 @@ bool VideoCodecTestFixtureImpl::CreateEncoderAndDecoder() {
   const size_t num_simulcast_or_spatial_layers = std::max(
       config_.NumberOfSimulcastStreams(), config_.NumberOfSpatialLayers());
   for (size_t i = 0; i < num_simulcast_or_spatial_layers; ++i) {
-    decoders_.push_back(std::unique_ptr<VideoDecoder>(
-        decoder_factory_->CreateVideoDecoder(format)));
-  }
-
-  for (const auto& decoder : decoders_) {
+    std::unique_ptr<VideoDecoder> decoder =
+        decoder_factory_->CreateVideoDecoder(decoder_format);
     EXPECT_TRUE(decoder) << "Decoder not successfully created.";
     if (decoder == nullptr) {
       return false;
     }
+    decoders_.push_back(std::move(decoder));
   }
 
   return true;

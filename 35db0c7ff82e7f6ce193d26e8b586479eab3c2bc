@@ -212,6 +212,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c5839d6c_e4a889de",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18414
+      },
+      "writtenOn": "2021-11-17T14:50:12Z",
+      "side": 1,
+      "message": "@Philipp I am looking into resolving this issue and I have a proposal that seems to me to make the most sense without doing a huge refactor of this part of the codebase.\nWe could move GetPayloadTypesAndDefaultCodecs(...) functionality to be internal to WebRtcVideoEngine as it is only used inside WebRtcVideoEngine and WebRtcVideoChannel which can take a list of all supported codecs at creation time. This would allow us to keep track of the currently assigned IDs and avoid assigning duplicate IDs for send/receive codecs that then need to be sorted out externally and could lead to further problems.\nWith this approach WebRtcVideoEngine would always have a complete and up to date list of all the supported send and receive codecs and could provide them wherever needed.\n\nI would love to hear your thoughts on this and if you maybe see a better way to do this?",
+      "parentUuid": "e3d3db69_f4eab352",
+      "revId": "35db0c7ff82e7f6ce193d26e8b586479eab3c2bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9ee7d76d_d8163b9a",
         "filename": "api/video/i444_buffer.h",
         "patchSetId": 2

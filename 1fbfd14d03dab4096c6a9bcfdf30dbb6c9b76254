@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b341f62e_eda4601d",
+        "filename": "test/peer_scenario/peer_scenario_client.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-11-17T13:37:14Z",
+      "side": 1,
+      "message": "Should probably have been part of previous cl (check used to be in QueryVideoEncoder).",
+      "range": {
+        "startLine": 177,
+        "startChar": 0,
+        "endLine": 177,
+        "endChar": 37
+      },
+      "revId": "1fbfd14d03dab4096c6a9bcfdf30dbb6c9b76254",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

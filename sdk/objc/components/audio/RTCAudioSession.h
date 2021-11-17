@@ -161,6 +161,7 @@ RTC_OBJC_EXPORT
  *  we are able to prevent the abrupt cutoff.
  */
 @property(nonatomic, assign) BOOL isAudioEnabled;
+@property(nonatomic, assign) BOOL canActivateSession;
 
 // Proxy properties.
 @property(readonly) NSString *category;

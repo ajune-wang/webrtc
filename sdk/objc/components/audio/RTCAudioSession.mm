@@ -55,6 +55,7 @@ ABSL_CONST_INIT thread_local bool mutex_locked = false;
   BOOL _isAudioEnabled;
   BOOL _canPlayOrRecord;
   BOOL _isInterrupted;
+  BOOL _canActivateSession;
 }
 
 @synthesize session = _session;
@@ -79,7 +80,7 @@ ABSL_CONST_INIT thread_local bool mutex_locked = false;
 - (instancetype)initWithAudioSession:(id)audioSession {
   if (self = [super init]) {
     _session = audioSession;
-
+    _canActivateSession = YES;
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self
                selector:@selector(handleInterruptionNotification:)
@@ -207,6 +208,18 @@ ABSL_CONST_INIT thread_local bool mutex_locked = false;
 - (BOOL)ignoresPreferredAttributeConfigurationErrors {
   @synchronized(self) {
     return _ignoresPreferredAttributeConfigurationErrors;
+  }
+}
+
+- (void)setCanActivateSession:(BOOL)canActivateSession {
+  @synchronized(self) {
+    _canActivateSession = canActivateSession;
+  }
+}
+
+- (BOOL)canActivateSession {
+  @synchronized(self) {
+    return _canActivateSession;
   }
 }
 
@@ -372,9 +385,10 @@ ABSL_CONST_INIT thread_local bool mutex_locked = false;
     // option.
     AVAudioSessionSetActiveOptions options =
         active ? 0 : AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation;
-    success = [session setActive:active
-                     withOptions:options
-                           error:&error];
+    if (self.canActivateSession) {
+      success = [session setActive:active withOptions:options error:&error];
+    }
+
     if (outError) {
       *outError = error;
     }

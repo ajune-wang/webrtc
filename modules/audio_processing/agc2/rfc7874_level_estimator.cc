@@ -1,0 +1,100 @@
+/*
+ *  Copyright (c) 2021 The WebRTC project authors. All Rights Reserved.
+ *
+ *  Use of this source code is governed by a BSD-style license
+ *  that can be found in the LICENSE file in the root of the source
+ *  tree. An additional intellectual property rights grant can be found
+ *  in the file PATENTS.  All contributing project authors may
+ *  be found in the AUTHORS file in the root of the source tree.
+ */
+
+#include "modules/audio_processing/agc2/rfc7874_level_estimator.h"
+
+#include <algorithm>
+#include <cmath>
+
+#include "modules/audio_processing/logging/apm_data_dumper.h"
+#include "rtc_base/checks.h"
+
+namespace webrtc {
+namespace {
+
+// Coefficients of high pass and low pass bi-quad filters for different sample
+// rates obtained as follows:
+//
+// import scipy.signal
+//
+// def PrintFilterConfig(sample_rate_hz, b, a, name):
+//   sample_rate_khz = sample_rate_hz // 1000
+//   print(f"constexpr BiQuadFilter::Config k{name}{sample_rate_khz}kHz{{\n ",
+//         f"{{{b[0]}f, {b[1]}f, {b[2]}f}},\n ",
+//         f"{{{a[1]}f, {a[2]}f}}}};")
+//
+//
+// f0_hz = 300
+// for sample_rate_hz in [8000, 16000, 32000, 48000]:
+//   [b, a] = signal.butter(N=2, Wn=f0_hz, btype="highpass", fs=sample_rate_hz)
+//   PrintFilterConfig(sample_rate_hz, b, a, "HighPass")
+
+constexpr BiQuadFilter::Config kHighPass8kHz{
+    {0.8464592541088377f, -1.6929185082176754f, 0.8464592541088377f},
+    {-1.6692031429311929f, 0.7166338735041575f}};
+constexpr BiQuadFilter::Config kHighPass16kHz{
+    {0.9200661584291678f, -1.8401323168583357f, 0.9200661584291678f},
+    {-1.8337326589246477f, 0.8465319747920235f}};
+constexpr BiQuadFilter::Config kHighPass32kHz{
+    {0.9592031496383375f, -1.918406299276675f, 0.9592031496383375f},
+    {-1.9167412231576226f, 0.9200713753957276f}};
+constexpr BiQuadFilter::Config kHighPass48kHz{
+    {0.9726138984998438f, -1.9452277969996876f, 0.9726138984998438f},
+    {-1.9444776577670935f, 0.9459779362322813f}};
+
+BiQuadFilter::Config GetHighPassConfig(int sample_rate_hz) {
+  switch (sample_rate_hz) {
+    case 8000:
+      return kHighPass8kHz;
+    case 16000:
+      return kHighPass16kHz;
+    case 32000:
+      return kHighPass32kHz;
+    case 48000:
+      return kHighPass48kHz;
+    default:
+      RTC_NOTREACHED();
+      return {{1.0f, 0.0f, 0.0f}, {0.0f, 0.0f}};  // All pass.
+  }
+}
+
+}  // namespace
+
+Rfc7874AudioLevelEstimator::Rfc7874AudioLevelEstimator(
+    int sample_rate_hz,
+    ApmDataDumper* apm_data_dumper)
+    : apm_data_dumper_(apm_data_dumper),
+      buffer_(rtc::CheckedDivExact(sample_rate_hz, 100)),
+      high_pass_filter_(GetHighPassConfig(sample_rate_hz)) {
+  RTC_DCHECK(apm_data_dumper);
+}
+
+void Rfc7874AudioLevelEstimator::Initialize(int sample_rate_hz) {
+  buffer_.resize(rtc::CheckedDivExact(sample_rate_hz, 100));
+  high_pass_filter_.SetConfig(GetHighPassConfig(sample_rate_hz));
+}
+
+Rfc7874AudioLevelEstimator::Levels Rfc7874AudioLevelEstimator::GetLevels(
+    rtc::ArrayView<const float> audio) {
+  RTC_DCHECK_EQ(audio.size(), buffer_.size());
+  high_pass_filter_.Process(audio, buffer_);
+  apm_data_dumper_->DumpWav("agc2_rfc7848_filtered_audio", buffer_,
+                            /*sample_rate_hz=*/buffer_.size() * 100,
+                            /*num_channels=*/1);
+  float peak = 0.0f;
+  float energy = 0.0f;
+  for (const auto& x : buffer_) {
+    peak = std::max(std::fabs(x), peak);
+    energy += x * x;
+  }
+  return {peak, energy};
+}
+
+}  // namespace webrtc

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae4697a4_6d688a8d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-11-18T18:38:39Z",
+      "side": 1,
+      "message": "so this fixes the test. But the test passes on main when you don\u0027t stop the transceiver. Now why all the codecs are added to a stopped transceiver is a different question.\n\nI think this is more correct but can you think of a better test?",
+      "revId": "b89f40aed542e189eedb8213bf29e0bc7bee6847",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

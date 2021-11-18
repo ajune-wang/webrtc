@@ -91,6 +91,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "e425b723_1315bd3d",
+        "filename": "video/video_send_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-18T13:33:54Z",
+      "side": 1,
+      "message": "Yes, I mock it out in the VSE unit tests.",
+      "parentUuid": "41d42fde_b498d386",
+      "range": {
+        "startLine": 110,
+        "startChar": 36,
+        "endLine": 110,
+        "endChar": 60
+      },
+      "revId": "2eaa3b9d2fb7ce5662dfdc4aeaebd4f5974e3e6c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "21327aa5_b239e953",
         "filename": "video/video_send_stream.cc",
         "patchSetId": 1

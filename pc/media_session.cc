@@ -2381,6 +2381,21 @@ bool MediaSessionDescriptionFactory::AddVideoContentForOffer(
                                          filtered_codecs, codec, nullptr)) {
         // Use the `found_codec` from `video_codecs` because it has the
         // correctly mapped payload type.
+        if (IsRtxCodec(codec)) {
+          // For RTX we might need to adjust the apt parameter.
+          auto referenced_codec =
+              GetAssociatedCodecForRtx(supported_video_codecs, codec);
+          // Referenced codec should be consistent.
+          RTC_DCHECK(referenced_codec);
+
+          // Find the codec we should be referencing and point to it.
+          VideoCodec changed_referenced_codec;
+          if (FindMatchingCodec<VideoCodec>(supported_video_codecs,
+                                            filtered_codecs, *referenced_codec,
+                                            &changed_referenced_codec)) {
+            found_codec.id = changed_referenced_codec.id;
+          }
+        }
         filtered_codecs.push_back(found_codec);
       }
     }

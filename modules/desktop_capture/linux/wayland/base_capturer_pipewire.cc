@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "modules/desktop_capture/linux/base_capturer_pipewire.h"
+#include "modules/desktop_capture/linux/wayland/base_capturer_pipewire.h"
 
 #include <spa/param/format-utils.h>
 #include <spa/param/props.h>
@@ -17,9 +17,9 @@
 #include <sys/syscall.h>
 #include <unistd.h>
 
-#include <memory>
 #include <string>
 #include <utility>
+#include <vector>
 
 #include "absl/memory/memory.h"
 #include "modules/desktop_capture/desktop_capture_options.h"
@@ -29,7 +29,7 @@
 #include "rtc_base/string_encode.h"
 
 #if defined(WEBRTC_DLOPEN_PIPEWIRE)
-#include "modules/desktop_capture/linux/pipewire_stubs.h"
+#include "modules/desktop_capture/linux/wayland/pipewire_stubs.h"
 using modules_desktop_capture_linux::InitializeStubs;
 using modules_desktop_capture_linux::kModuleDrm;
 using modules_desktop_capture_linux::kModulePipewire;
@@ -447,19 +447,19 @@ void BaseCapturerPipeWire::HandleBuffer(pw_buffer* buffer) {
     src = SPA_MEMBER(map.get(), spa_buffer->datas[0].mapoffset, uint8_t);
   } else if (spa_buffer->datas[0].type == SPA_DATA_DmaBuf) {
     const uint n_planes = spa_buffer->n_datas;
-    int fds[n_planes];
-    uint32_t offsets[n_planes];
-    uint32_t strides[n_planes];
+    auto fds = std::make_unique<int[]>(n_planes);
+    auto offsets = std::make_unique<uint32_t[]>(n_planes);
+    auto strides = std::make_unique<uint32_t[]>(n_planes);
 
     for (uint32_t i = 0; i < n_planes; ++i) {
-      fds[i] = spa_buffer->datas[i].fd;
-      offsets[i] = spa_buffer->datas[i].chunk->offset;
-      strides[i] = spa_buffer->datas[i].chunk->stride;
+      fds.get()[i] = spa_buffer->datas[i].fd;
+      offsets.get()[i] = spa_buffer->datas[i].chunk->offset;
+      strides.get()[i] = spa_buffer->datas[i].chunk->stride;
     }
 
     src_unique_ptr = egl_dmabuf_->ImageFromDmaBuf(
-        desktop_size_, spa_video_format_.format, n_planes, fds, strides,
-        offsets, modifier_);
+        desktop_size_, spa_video_format_.format, n_planes, fds.get(),
+        strides.get(), offsets.get(), modifier_);
     src = src_unique_ptr.get();
   } else if (spa_buffer->datas[0].type == SPA_DATA_MemPtr) {
     src = static_cast<uint8_t*>(spa_buffer->datas[0].data);

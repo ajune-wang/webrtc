@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_DESKTOP_CAPTURE_LINUX_XDG_DESKTOP_PORTAL_H_
-#define MODULES_DESKTOP_CAPTURE_LINUX_XDG_DESKTOP_PORTAL_H_
+#ifndef MODULES_DESKTOP_CAPTURE_LINUX_WAYLAND_XDG_DESKTOP_PORTAL_H_
+#define MODULES_DESKTOP_CAPTURE_LINUX_WAYLAND_XDG_DESKTOP_PORTAL_H_
 
 #include <gio/gio.h>
 #define typeof __typeof__
@@ -155,4 +155,4 @@ class XdgDesktopPortal {
 
 }  // namespace webrtc
 
-#endif  // MODULES_DESKTOP_CAPTURE_LINUX_XDG_DESKTOP_PORTAL_H_
+#endif  // MODULES_DESKTOP_CAPTURE_LINUX_WAYLAND_XDG_DESKTOP_PORTAL_H_

@@ -8,17 +8,19 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_DESKTOP_CAPTURE_LINUX_BASE_CAPTURER_PIPEWIRE_H_
-#define MODULES_DESKTOP_CAPTURE_LINUX_BASE_CAPTURER_PIPEWIRE_H_
+#ifndef MODULES_DESKTOP_CAPTURE_LINUX_WAYLAND_BASE_CAPTURER_PIPEWIRE_H_
+#define MODULES_DESKTOP_CAPTURE_LINUX_WAYLAND_BASE_CAPTURER_PIPEWIRE_H_
 
 #include <pipewire/pipewire.h>
 #include <spa/param/video/format-utils.h>
 #include <spa/utils/result.h>
 
+#include <memory>
+
 #include "modules/desktop_capture/desktop_capture_options.h"
 #include "modules/desktop_capture/desktop_capturer.h"
-#include "modules/desktop_capture/linux/egl_dmabuf.h"
-#include "modules/desktop_capture/linux/xdg_desktop_portal.h"
+#include "modules/desktop_capture/linux/wayland/egl_dmabuf.h"
+#include "modules/desktop_capture/linux/wayland/xdg_desktop_portal.h"
 #include "rtc_base/constructor_magic.h"
 #include "rtc_base/synchronization/mutex.h"
 
@@ -26,7 +28,7 @@ namespace webrtc {
 
 class BaseCapturerPipeWire : public DesktopCapturer {
  public:
-  explicit BaseCapturerPipeWire();
+  BaseCapturerPipeWire();
   ~BaseCapturerPipeWire() override;
 
   static std::unique_ptr<DesktopCapturer> CreateRawCapturer(
@@ -98,4 +100,4 @@ class BaseCapturerPipeWire : public DesktopCapturer {
 
 }  // namespace webrtc
 
-#endif  // MODULES_DESKTOP_CAPTURE_LINUX_BASE_CAPTURER_PIPEWIRE_H_
+#endif  // MODULES_DESKTOP_CAPTURE_LINUX_WAYLAND_BASE_CAPTURER_PIPEWIRE_H_

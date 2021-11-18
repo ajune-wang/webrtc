@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e12da4e_e8f3ccba",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-11-18T08:41:15Z",
+      "side": 1,
+      "message": "Maybe rephrase, we don\u0027t need that much motivation for deleting a dead method.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 41
+      },
+      "revId": "7d42fe5c94bdc76aa2e880935eb9cc245c3b22ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4143293_f43ae054",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-11-18T08:41:15Z",
+      "side": 1,
+      "message": "Nice!",
+      "revId": "7d42fe5c94bdc76aa2e880935eb9cc245c3b22ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

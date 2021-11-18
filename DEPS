@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'ca9862fcfe55fca87894ecfd82fe53ab5da4365b',
+  'chromium_revision': '6c309c5ce7ac264c7d0d91cbdeff364faa91f685',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -25,7 +25,7 @@ deps = {
   'src/base':
     'https://chromium.googlesource.com/chromium/src/base@4ed31fedf03a75c6fad85f1c3ede7b1e882172aa',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@35b3ca69be57f792ff6cb5dc87b9ec3f020be7a0',
+    'https://chromium.googlesource.com/chromium/src/build@70b834d169761a8ce0d99e42da34d9370bad97e0',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@075dd7e22837a69189003e4fa84499acf63188cf',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -38,9 +38,9 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@ea0d39ed61543a3cf07b095281c7e5bb263c54aa',
+    'https://chromium.googlesource.com/chromium/src/testing@dd1c80c66c5dcd38356820586085291e54f7943e',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@5783a5da1a7b5ebe54899ac4c33549a97f95ffa4',
+    'https://chromium.googlesource.com/chromium/src/third_party@e49a5ef8b39ffcea373a37139c07c7545444594b',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -140,7 +140,7 @@ deps = {
   'src/third_party/breakpad/breakpad':
     'https://chromium.googlesource.com/breakpad/breakpad.git@ee2ad61263ebc54396df7d7a835e1e3f8455134e',
   'src/third_party/catapult':
-    'https://chromium.googlesource.com/catapult.git@f61cb71c3cd559d3ccce35544ea626f32b9de3c6',
+    'https://chromium.googlesource.com/catapult.git@e6e1eb6895e71193452e361388240498955c51eb',
   'src/third_party/ced/src': {
     'url': 'https://chromium.googlesource.com/external/github.com/google/compact_enc_det.git@ba412eaaacd3186085babcd901679a48863c7dd5',
   },
@@ -283,7 +283,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@eedc9a77f2fcb05106af62b44b28df3a0035077f',
+    'https://chromium.googlesource.com/chromium/src/tools@1ddff7d67ec9d7d49a8f13e5aef8e92d26951c4d',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

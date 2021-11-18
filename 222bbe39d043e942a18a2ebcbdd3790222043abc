@@ -16,6 +16,29 @@
       "message": "+titovartem@ for changes in api/",
       "revId": "222bbe39d043e942a18a2ebcbdd3790222043abc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9e0fe19_14e88112",
+        "filename": "modules/video_coding/codecs/test/videocodec_test_fixture_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-11-18T22:43:20Z",
+      "side": 1,
+      "message": "Maybe check that they both are either specified or both not. Otherwise people may set one and expect that it will be used, even if documentation is saying opposite. Another option is to have a struct with decoder and encoder format in it and make a structure as optional, not encoder/decoder, then it will be impossible to set only one without setting another.",
+      "range": {
+        "startLine": 617,
+        "startChar": 2,
+        "endLine": 617,
+        "endChar": 55
+      },
+      "revId": "222bbe39d043e942a18a2ebcbdd3790222043abc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

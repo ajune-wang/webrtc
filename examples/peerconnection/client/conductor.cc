@@ -150,7 +150,7 @@ bool Conductor::InitializePeerConnection() {
     return false;
   }
 
-  if (!CreatePeerConnection()) {
+  if (!CreatePeerConnection(/*dtls=*/true)) {
     main_wnd_->MessageBox("Error", "CreatePeerConnection failed", true);
     DeletePeerConnection();
   }
@@ -165,28 +165,23 @@ bool Conductor::ReinitializePeerConnectionForLoopback() {
   std::vector<rtc::scoped_refptr<webrtc::RtpSenderInterface>> senders =
       peer_connection_->GetSenders();
   peer_connection_ = nullptr;
-  // Loopback is only possible if encryption is disabled.
-  webrtc::PeerConnectionFactoryInterface::Options options;
-  options.disable_encryption = true;
-  peer_connection_factory_->SetOptions(options);
-  if (CreatePeerConnection()) {
+  if (CreatePeerConnection(/*dtls=*/false)) {
     for (const auto& sender : senders) {
       peer_connection_->AddTrack(sender->track(), sender->stream_ids());
     }
     peer_connection_->CreateOffer(
         this, webrtc::PeerConnectionInterface::RTCOfferAnswerOptions());
   }
-  options.disable_encryption = false;
-  peer_connection_factory_->SetOptions(options);
   return peer_connection_ != nullptr;
 }
 
-bool Conductor::CreatePeerConnection() {
+bool Conductor::CreatePeerConnection(bool dtls) {
   RTC_DCHECK(peer_connection_factory_);
   RTC_DCHECK(!peer_connection_);
 
   webrtc::PeerConnectionInterface::RTCConfiguration config;
   config.sdp_semantics = webrtc::SdpSemantics::kUnifiedPlan;
+  config.enable_dtls_srtp = dtls;
   webrtc::PeerConnectionInterface::IceServer server;
   server.uri = GetPeerConnectionString();
   config.servers.push_back(server);

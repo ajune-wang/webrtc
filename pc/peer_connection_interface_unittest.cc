@@ -710,16 +710,13 @@ class PeerConnectionInterfaceBaseTest : public ::testing::Test {
     CreatePeerConnection(PeerConnectionInterface::RTCConfiguration());
   }
 
-  // DTLS does not work in a loopback call, so is disabled for many
+  // DTLS does not work in a loopback call, so is disabled for most of the
   // tests in this file.
   void CreatePeerConnectionWithoutDtls() {
     RTCConfiguration config;
-    PeerConnectionFactoryInterface::Options options;
-    options.disable_encryption = true;
-    pc_factory_->SetOptions(options);
+    config.enable_dtls_srtp = false;
+
     CreatePeerConnection(config);
-    options.disable_encryption = false;
-    pc_factory_->SetOptions(options);
   }
 
   void CreatePeerConnectionWithIceTransportsType(
@@ -754,10 +751,10 @@ class PeerConnectionInterfaceBaseTest : public ::testing::Test {
     // false.
     std::unique_ptr<rtc::RTCCertificateGeneratorInterface> cert_generator;
 
-    // These won't be used if encryption is turned off, but that's harmless.
-    fake_certificate_generator_ = new FakeRTCCertificateGenerator();
-    cert_generator.reset(fake_certificate_generator_);
-
+    if (config.enable_dtls_srtp.value_or(true)) {
+      fake_certificate_generator_ = new FakeRTCCertificateGenerator();
+      cert_generator.reset(fake_certificate_generator_);
+    }
     RTCConfiguration modified_config = config;
     modified_config.sdp_semantics = sdp_semantics_;
     pc_ = pc_factory_->CreatePeerConnection(
@@ -1906,6 +1903,7 @@ TEST_P(PeerConnectionInterfaceTest, GetRTCStatsBeforeAndAfterCalling) {
 // DataChannelInit configurations.
 TEST_P(PeerConnectionInterfaceTest, CreateSctpDataChannel) {
   RTCConfiguration rtc_config;
+  rtc_config.enable_dtls_srtp = true;
   CreatePeerConnection(rtc_config);
 
   webrtc::DataChannelInit config;
@@ -1941,6 +1939,7 @@ TEST_P(PeerConnectionInterfaceTest, CreateSctpDataChannel) {
 // and maxRetransmitTime by setting them to -1 to get what they want.
 TEST_P(PeerConnectionInterfaceTest, CreateSctpDataChannelWithMinusOne) {
   RTCConfiguration rtc_config;
+  rtc_config.enable_dtls_srtp = true;
   CreatePeerConnection(rtc_config);
 
   webrtc::DataChannelInit config;
@@ -1956,6 +1955,7 @@ TEST_P(PeerConnectionInterfaceTest, CreateSctpDataChannelWithMinusOne) {
 TEST_P(PeerConnectionInterfaceTest,
        CreateSctpDataChannelShouldFailForInvalidConfig) {
   RTCConfiguration rtc_config;
+  rtc_config.enable_dtls_srtp = true;
   CreatePeerConnection(rtc_config);
 
   std::string label = "test";
@@ -1973,6 +1973,7 @@ TEST_P(PeerConnectionInterfaceTest,
 TEST_P(PeerConnectionInterfaceTest,
        CreateSctpDataChannelWithInvalidIdShouldFail) {
   RTCConfiguration rtc_config;
+  rtc_config.enable_dtls_srtp = true;
   CreatePeerConnection(rtc_config);
 
   webrtc::DataChannelInit config;
@@ -2002,6 +2003,7 @@ TEST_P(PeerConnectionInterfaceTest,
 // Verifies that duplicated label is allowed for SCTP data channel.
 TEST_P(PeerConnectionInterfaceTest, SctpDuplicatedLabelAllowed) {
   RTCConfiguration rtc_config;
+  rtc_config.enable_dtls_srtp = true;
   CreatePeerConnection(rtc_config);
 
   std::string label = "test";
@@ -2049,6 +2051,7 @@ TEST_P(PeerConnectionInterfaceTest, DISABLED_TestRejectSctpDataChannelInAnswer)
 // the answer as a local description.
 TEST_P(PeerConnectionInterfaceTest, ReceiveFireFoxOffer) {
   RTCConfiguration rtc_config;
+  rtc_config.enable_dtls_srtp = true;
   CreatePeerConnection(rtc_config);
   AddAudioTrack("audio_label");
   AddVideoTrack("video_label");
@@ -2082,6 +2085,7 @@ TEST_P(PeerConnectionInterfaceTest, ReceiveFireFoxOffer) {
 // and because it's non-standard.
 TEST_P(PeerConnectionInterfaceTest, DtlsSdesFallbackNotSupported) {
   RTCConfiguration rtc_config;
+  rtc_config.enable_dtls_srtp = true;
   CreatePeerConnection(rtc_config);
   // Wait for fake certificate to be generated. Previously, this is what caused
   // the "a=crypto" lines to be rejected.
@@ -2125,6 +2129,7 @@ TEST_P(PeerConnectionInterfaceTest, ReceiveUpdatedAudioOfferWithBadCodecs) {
 // will have m-lines with a=recvonly.
 TEST_P(PeerConnectionInterfaceTest, CreateSubsequentRecvOnlyOffer) {
   RTCConfiguration rtc_config;
+  rtc_config.enable_dtls_srtp = true;
   CreatePeerConnection(rtc_config);
   CreateAndSetRemoteOffer(GetSdpStringWithStream1());
   CreateAnswerAsLocalDescription();
@@ -2150,6 +2155,7 @@ TEST_P(PeerConnectionInterfaceTest, CreateSubsequentRecvOnlyOffer) {
 // false, the generated m-lines will be a=inactive.
 TEST_P(PeerConnectionInterfaceTest, CreateSubsequentInactiveOffer) {
   RTCConfiguration rtc_config;
+  rtc_config.enable_dtls_srtp = true;
   CreatePeerConnection(rtc_config);
   CreateAndSetRemoteOffer(GetSdpStringWithStream1());
   CreateAnswerAsLocalDescription();
@@ -2502,6 +2508,7 @@ TEST_P(PeerConnectionInterfaceTest, CloseAndGetStats) {
 // signaled.
 TEST_P(PeerConnectionInterfaceTest, UpdateRemoteStreams) {
   RTCConfiguration config;
+  config.enable_dtls_srtp = true;
   CreatePeerConnection(config);
   CreateAndSetRemoteOffer(GetSdpStringWithStream1());
 
@@ -2527,6 +2534,7 @@ TEST_P(PeerConnectionInterfaceTest, UpdateRemoteStreams) {
 TEST_F(PeerConnectionInterfaceTestPlanB,
        AddRemoveTrackFromExistingRemoteMediaStream) {
   RTCConfiguration config;
+  config.enable_dtls_srtp = true;
   CreatePeerConnection(config);
   std::unique_ptr<SessionDescriptionInterface> desc_ms1 =
       CreateSessionDescriptionAndReference(1, 1);
@@ -2569,6 +2577,7 @@ TEST_F(PeerConnectionInterfaceTestPlanB,
 // that rejects the media content type.
 TEST_P(PeerConnectionInterfaceTest, RejectMediaContent) {
   RTCConfiguration config;
+  config.enable_dtls_srtp = true;
   CreatePeerConnection(config);
   // First create and set a remote offer, then reject its video content in our
   // answer.
@@ -2617,6 +2626,7 @@ TEST_P(PeerConnectionInterfaceTest, RejectMediaContent) {
 // Don't run under Unified Plan since the stream API is not available.
 TEST_F(PeerConnectionInterfaceTestPlanB, RemoveTrackThenRejectMediaContent) {
   RTCConfiguration config;
+  config.enable_dtls_srtp = true;
   CreatePeerConnection(config);
   CreateAndSetRemoteOffer(GetSdpStringWithStream1());
   MediaStreamInterface* remote_stream = observer_.remote_streams()->at(0);
@@ -2642,6 +2652,7 @@ TEST_F(PeerConnectionInterfaceTestPlanB, RemoveTrackThenRejectMediaContent) {
 // See: https://code.google.com/p/webrtc/issues/detail?id=5054
 TEST_P(PeerConnectionInterfaceTest, RecvonlyDescriptionDoesntCreateStream) {
   RTCConfiguration config;
+  config.enable_dtls_srtp = true;
   CreatePeerConnection(config);
 
   std::string recvonly_offer = GetSdpStringWithStream1();
@@ -2658,6 +2669,7 @@ TEST_P(PeerConnectionInterfaceTest, RecvonlyDescriptionDoesntCreateStream) {
 // Don't run under Unified Plan since this behavior is Plan B specific.
 TEST_F(PeerConnectionInterfaceTestPlanB, SdpWithoutMsidCreatesDefaultStream) {
   RTCConfiguration config;
+  config.enable_dtls_srtp = true;
   CreatePeerConnection(config);
   CreateAndSetRemoteOffer(kSdpStringWithoutStreamsAudioOnly);
 
@@ -2686,6 +2698,7 @@ TEST_F(PeerConnectionInterfaceTestPlanB, SdpWithoutMsidCreatesDefaultStream) {
 TEST_F(PeerConnectionInterfaceTestPlanB,
        SendOnlySdpWithoutMsidCreatesDefaultStream) {
   RTCConfiguration config;
+  config.enable_dtls_srtp = true;
   CreatePeerConnection(config);
   CreateAndSetRemoteOffer(kSdpStringSendOnlyWithoutStreams);
 
@@ -2702,6 +2715,7 @@ TEST_F(PeerConnectionInterfaceTestPlanB,
 // Don't run under Unified Plan since this behavior is Plan B specific.
 TEST_F(PeerConnectionInterfaceTestPlanB, RemoveAlreadyGoneRemoteStream) {
   RTCConfiguration config;
+  config.enable_dtls_srtp = true;
   CreatePeerConnection(config);
   CreateAndSetRemoteOffer(GetSdpStringWithStream1());
   MediaStreamInterface* remote_stream = observer_.remote_streams()->at(0);
@@ -2720,6 +2734,7 @@ TEST_F(PeerConnectionInterfaceTestPlanB, RemoveAlreadyGoneRemoteStream) {
 TEST_F(PeerConnectionInterfaceTestPlanB,
        SdpWithoutMsidAndStreamsCreatesDefaultStream) {
   RTCConfiguration config;
+  config.enable_dtls_srtp = true;
   CreatePeerConnection(config);
   CreateAndSetRemoteOffer(kSdpStringWithoutStreams);
 
@@ -2734,6 +2749,7 @@ TEST_F(PeerConnectionInterfaceTestPlanB,
 // Don't run under Unified Plan since this behavior is Plan B specific.
 TEST_F(PeerConnectionInterfaceTestPlanB, SdpWithMsidDontCreatesDefaultStream) {
   RTCConfiguration config;
+  config.enable_dtls_srtp = true;
   CreatePeerConnection(config);
   CreateAndSetRemoteOffer(kSdpStringWithMsidWithoutStreams);
   EXPECT_EQ(0u, observer_.remote_streams()->count());
@@ -2746,6 +2762,7 @@ TEST_F(PeerConnectionInterfaceTestPlanB, SdpWithMsidDontCreatesDefaultStream) {
 TEST_F(PeerConnectionInterfaceTestPlanB,
        DefaultTracksNotDestroyedAndRecreated) {
   RTCConfiguration config;
+  config.enable_dtls_srtp = true;
   CreatePeerConnection(config);
   CreateAndSetRemoteOffer(kSdpStringWithoutStreamsAudioOnly);
 
@@ -2766,6 +2783,7 @@ TEST_F(PeerConnectionInterfaceTestPlanB,
 // Don't run under Unified Plan since this behavior is Plan B specific.
 TEST_F(PeerConnectionInterfaceTestPlanB, VerifyDefaultStreamIsNotCreated) {
   RTCConfiguration config;
+  config.enable_dtls_srtp = true;
   CreatePeerConnection(config);
   CreateAndSetRemoteOffer(GetSdpStringWithStream1());
   rtc::scoped_refptr<StreamCollection> reference(CreateStreamCollection(1, 1));
@@ -2781,6 +2799,7 @@ TEST_F(PeerConnectionInterfaceTestPlanB, VerifyDefaultStreamIsNotCreated) {
 TEST_F(PeerConnectionInterfaceTestPlanB,
        SdpWithMsidWithoutSsrcCreatesDefaultStream) {
   RTCConfiguration config;
+  config.enable_dtls_srtp = true;
   CreatePeerConnection(config);
   std::string sdp_string = kSdpStringWithoutStreamsAudioOnly;
   // Add a=msid lines to simulate a Unified Plan endpoint that only
@@ -2803,6 +2822,7 @@ TEST_F(PeerConnectionInterfaceTestPlanB,
 TEST_F(PeerConnectionInterfaceTestPlanB,
        SdpWithEmptyMsidAndSsrcCreatesDefaultStreamId) {
   RTCConfiguration config;
+  config.enable_dtls_srtp = true;
   CreatePeerConnection(config);
   // Add a a=msid line to the SDP. This is prioritized when parsing the SDP, so
   // the sender's stream ID will be interpreted as no stream IDs.
@@ -2840,6 +2860,7 @@ TEST_F(PeerConnectionInterfaceTestPlanB,
 // Don't run under Unified Plan since this behavior is Plan B specific.
 TEST_F(PeerConnectionInterfaceTestPlanB, LocalDescriptionChanged) {
   RTCConfiguration config;
+  config.enable_dtls_srtp = true;
   CreatePeerConnection(config);
 
   // Create an offer with 1 stream with 2 tracks of each type.
@@ -2878,6 +2899,7 @@ TEST_F(PeerConnectionInterfaceTestPlanB, LocalDescriptionChanged) {
 TEST_F(PeerConnectionInterfaceTestPlanB,
        AddLocalStreamAfterLocalDescriptionChanged) {
   RTCConfiguration config;
+  config.enable_dtls_srtp = true;
   CreatePeerConnection(config);
 
   rtc::scoped_refptr<StreamCollection> stream_collection =
@@ -2906,6 +2928,7 @@ TEST_F(PeerConnectionInterfaceTestPlanB,
 TEST_P(PeerConnectionInterfaceTest,
        ChangeSsrcOnTrackInLocalSessionDescription) {
   RTCConfiguration config;
+  config.enable_dtls_srtp = true;
   CreatePeerConnection(config);
 
   AddAudioTrack(kAudioTracks[0]);
@@ -2958,6 +2981,7 @@ TEST_P(PeerConnectionInterfaceTest,
 TEST_F(PeerConnectionInterfaceTestPlanB,
        SignalSameTracksInSeparateMediaStream) {
   RTCConfiguration config;
+  config.enable_dtls_srtp = true;
   CreatePeerConnection(config);
 
   rtc::scoped_refptr<StreamCollection> stream_collection =
@@ -2994,6 +3018,7 @@ TEST_F(PeerConnectionInterfaceTestPlanB,
 // This tests that PeerConnectionObserver::OnAddTrack is correctly called.
 TEST_P(PeerConnectionInterfaceTest, OnAddTrackCallback) {
   RTCConfiguration config;
+  config.enable_dtls_srtp = true;
   CreatePeerConnection(config);
   CreateAndSetRemoteOffer(kSdpStringWithStream1AudioTrackOnly);
   EXPECT_EQ(observer_.num_added_tracks_, 1);

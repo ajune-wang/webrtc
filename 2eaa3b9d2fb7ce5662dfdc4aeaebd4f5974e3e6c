@@ -43,6 +43,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "9da41172_5ba1b623",
+        "filename": "video/video_send_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-18T11:25:50Z",
+      "side": 1,
+      "message": "Hmm unsure what you mean here?",
+      "parentUuid": "d301c61a_f4fb7950",
+      "range": {
+        "startLine": 110,
+        "startChar": 36,
+        "endLine": 110,
+        "endChar": 60
+      },
+      "revId": "2eaa3b9d2fb7ce5662dfdc4aeaebd4f5974e3e6c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "21327aa5_b239e953",
         "filename": "video/video_send_stream.cc",
         "patchSetId": 1
@@ -87,6 +111,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d80afbd_9a3d892a",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 735,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-18T11:25:50Z",
+      "side": 1,
+      "message": "Agree it would be nice.",
+      "parentUuid": "2c3d5069_eaafe2f8",
+      "range": {
+        "startLine": 735,
+        "startChar": 0,
+        "endLine": 735,
+        "endChar": 44
+      },
+      "revId": "2eaa3b9d2fb7ce5662dfdc4aeaebd4f5974e3e6c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e6014c33_4b4921c1",
@@ -100,6 +148,30 @@
       "writtenOn": "2021-11-18T11:10:14Z",
       "side": 1,
       "message": "Can we completely delete `worker_queue_`?",
+      "range": {
+        "startLine": 824,
+        "startChar": 0,
+        "endLine": 824,
+        "endChar": 35
+      },
+      "revId": "2eaa3b9d2fb7ce5662dfdc4aeaebd4f5974e3e6c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0b0ba07_b9f21387",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-18T11:25:50Z",
+      "side": 1,
+      "message": "Not in this CL, that requires some work in/related to |video_source_sink_controller_| which now expects the same sequence to be calling in. I think worker_queue_ can be removed if we revert VSSC to be thread-safe.",
+      "parentUuid": "e6014c33_4b4921c1",
       "range": {
         "startLine": 824,
         "startChar": 0,
@@ -146,6 +218,30 @@
       "writtenOn": "2021-11-18T11:10:14Z",
       "side": 1,
       "message": "Why can pointer no longer be const? If it\u0027s not const, it should probably be both RTC_GUARDED_BY and RTC_PT_GUARDED_BY.",
+      "range": {
+        "startLine": 269,
+        "startChar": 6,
+        "endLine": 269,
+        "endChar": 41
+      },
+      "revId": "2eaa3b9d2fb7ce5662dfdc4aeaebd4f5974e3e6c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "557f5abf_dcaaaa9a",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-18T11:25:50Z",
+      "side": 1,
+      "message": "\u003e If it\u0027s not const, it should probably be both RTC_GUARDED_BY and RTC_PT_GUARDED_BY.\n\nGood point! Done.\n\n\u003e Why can pointer no longer be const? \n\nI\u0027m clearing it on the encoder sequence in Stop().",
+      "parentUuid": "1c20520e_ddca16ad",
       "range": {
         "startLine": 269,
         "startChar": 6,

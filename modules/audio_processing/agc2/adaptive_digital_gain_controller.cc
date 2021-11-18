@@ -11,6 +11,7 @@
 #include "modules/audio_processing/agc2/adaptive_digital_gain_controller.h"
 
 #include <algorithm>
+#include <cmath>
 
 #include "common_audio/include/audio_util.h"
 #include "modules/audio_processing/agc2/vad_wrapper.h"
@@ -28,15 +29,23 @@ struct AudioLevels {
 };
 
 // Computes the audio levels for the first channel in `frame`.
-AudioLevels ComputeAudioLevels(AudioFrameView<float> frame) {
+AudioLevels ComputeAudioLevels(rtc::ArrayView<const float> frame) {
   float peak = 0.0f;
   float rms = 0.0f;
-  for (const auto& x : frame.channel(0)) {
+  for (const auto& x : frame) {
     peak = std::max(std::fabs(x), peak);
     rms += x * x;
   }
   return {FloatS16ToDbfs(peak),
-          FloatS16ToDbfs(std::sqrt(rms / frame.samples_per_channel()))};
+          FloatS16ToDbfs(std::sqrt(rms / static_cast<int>(frame.size())))};
+}
+
+AudioLevels ToAudioLevels(Rfc7874AudioLevelEstimator::Levels levels,
+                          int frame_size) {
+  constexpr float kMinDbfs = -90.30899869919436f;
+  const float rms = levels.energy / frame_size;
+  return {/*peak_dbfs=*/FloatS16ToDbfs(levels.peak),
+          /*rms_dbfs=*/10.0f * std::log10(rms) + kMinDbfs};
 }
 
 }  // namespace
@@ -45,8 +54,11 @@ AdaptiveDigitalGainController::AdaptiveDigitalGainController(
     ApmDataDumper* apm_data_dumper,
     const AudioProcessing::Config::GainController2::AdaptiveDigital& config,
     int sample_rate_hz,
-    int num_channels)
-    : speech_level_estimator_(apm_data_dumper, config),
+    int num_channels,
+    bool use_rfc7874_level_estimator)
+    : use_rfc7874_level_estimator_(use_rfc7874_level_estimator),
+      rfc7874_level_estimator_(sample_rate_hz, apm_data_dumper),
+      speech_level_estimator_(apm_data_dumper, config),
       gain_controller_(apm_data_dumper, config, sample_rate_hz, num_channels),
       apm_data_dumper_(apm_data_dumper),
       noise_level_estimator_(CreateNoiseFloorEstimator(apm_data_dumper)),
@@ -69,7 +81,15 @@ void AdaptiveDigitalGainController::Initialize(int sample_rate_hz,
 void AdaptiveDigitalGainController::Process(AudioFrameView<float> frame,
                                             float speech_probability,
                                             float limiter_envelope) {
-  AudioLevels levels = ComputeAudioLevels(frame);
+  AudioLevels levels;
+  if (use_rfc7874_level_estimator_) {
+    levels = ToAudioLevels(
+        /*levels=*/rfc7874_level_estimator_.GetLevels(frame.channel(0)),
+        /*frame_size=*/frame.samples_per_channel());
+  } else {
+    levels = ComputeAudioLevels(frame.channel(0));
+  }
+
   apm_data_dumper_->DumpRaw("agc2_input_rms_dbfs", levels.rms_dbfs);
   apm_data_dumper_->DumpRaw("agc2_input_peak_dbfs", levels.peak_dbfs);
 

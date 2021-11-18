@@ -56,9 +56,14 @@ std::unique_ptr<AdaptiveDigitalGainController> CreateAdaptiveDigitalController(
     int sample_rate_hz,
     int num_channels,
     ApmDataDumper* data_dumper) {
+  bool use_rfc7874_level_estimator = true;
+  if (field_trial::IsEnabled("WebRTC-Agc2Rfc7874LevelEstimatorKillSwitch")) {
+    use_rfc7874_level_estimator = false;
+  }
   if (config.enabled) {
     return std::make_unique<AdaptiveDigitalGainController>(
-        data_dumper, config, sample_rate_hz, num_channels);
+        data_dumper, config, sample_rate_hz, num_channels,
+        use_rfc7874_level_estimator);
   }
   return nullptr;
 }

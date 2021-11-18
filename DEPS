@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'ed9be3a428bbfba8d21bbad65b1cd38376959463',
+  'chromium_revision': '3b2d37582fc21d19b66c3f66c12f340f3fd162a3',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -25,7 +25,7 @@ deps = {
   'src/base':
     'https://chromium.googlesource.com/chromium/src/base@4ed31fedf03a75c6fad85f1c3ede7b1e882172aa',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@91e430766bc004e1b02ce39fa55083e7a5d0c446',
+    'https://chromium.googlesource.com/chromium/src/build@35b3ca69be57f792ff6cb5dc87b9ec3f020be7a0',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@075dd7e22837a69189003e4fa84499acf63188cf',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -38,9 +38,9 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@c204cbf41a30e65225524018aee6ead29800639a',
+    'https://chromium.googlesource.com/chromium/src/testing@17e31876d9e77e862e63acdb0bc491b364e37abd',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@8ee22ff845779f2e979971525e6910476dca7d37',
+    'https://chromium.googlesource.com/chromium/src/third_party@af004f80de956a5a59a2c1ea2df2de9084d2cc6b',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -80,7 +80,7 @@ deps = {
   'src/buildtools/third_party/libc++abi/trunk':
     'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxxabi.git@81212d29a245e262fc63fcd25e9512c1dc063d42',
   'src/buildtools/third_party/libunwind/trunk':
-    'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libunwind.git@51ffc5ed5cd9f28b064434bf2e55e1b6bb139a21',
+    'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libunwind.git@7f068e554e0405da7759c315fdc5e1ae956bb19c',
 
   'src/tools/clang/dsymutil': {
     'packages': [
@@ -283,7 +283,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@fdbb4310c289ec5348d8032d8c44c64028b44035',
+    'https://chromium.googlesource.com/chromium/src/tools@f5420e2610aec3e908e0ab5a729896a23af63a7d',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

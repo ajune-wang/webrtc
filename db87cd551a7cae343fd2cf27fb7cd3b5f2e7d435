@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0308a11f_9e499f29",
+        "filename": "rtc_base/async_invoker.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-11-18T07:55:49Z",
+      "side": 1,
+      "message": "doh, of course we can just remove it :D",
+      "parentUuid": "7e639e8e_4ef6ecaa",
+      "range": {
+        "startLine": 130,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 53
+      },
+      "revId": "db87cd551a7cae343fd2cf27fb7cd3b5f2e7d435",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b6711645_9f48df83",
         "filename": "rtc_base/thread_unittest.cc",
         "patchSetId": 4
@@ -37,6 +61,30 @@
       "writtenOn": "2021-11-18T07:40:19Z",
       "side": 1,
       "message": "Could be more concise as a using declaration.",
+      "range": {
+        "startLine": 856,
+        "startChar": 0,
+        "endLine": 858,
+        "endChar": 3
+      },
+      "revId": "db87cd551a7cae343fd2cf27fb7cd3b5f2e7d435",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9c2dae2_49ba3f98",
+        "filename": "rtc_base/thread_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 858,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-11-18T07:55:49Z",
+      "side": 1,
+      "message": "Removed now",
+      "parentUuid": "b6711645_9f48df83",
       "range": {
         "startLine": 856,
         "startChar": 0,
